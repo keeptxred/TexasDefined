@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 
 const routeTree = fs.readFileSync('src/routeTree.gen.ts', 'utf8');
+const exploreSearch = fs.readFileSync('src/routes/explore.search.tsx', 'utf8');
 const failures = [];
 
 const requiredRouteFiles = [
@@ -42,10 +43,44 @@ for (const routePath of requiredPaths) {
   }
 }
 
+for (const feature of [
+  'createFileRoute("/explore/search")',
+  'canonicalPath: "/explore/search"',
+  'robots: "noindex, follow"',
+  'category: z.string().optional().catch("")',
+  'region: z.string().optional().catch("")',
+  'season: z.string().optional().catch("")',
+  'accessible: z.string().optional().catch("")',
+  '!category || destination.category === category',
+  '!region || destination.region === region',
+  'normalized(destination.bestSeason).includes(normalized(season))',
+  'accessible !== "1" || Boolean(destination.accessibilityNotes)',
+  'new Set(catalog.map((destination) => destination.category))',
+  'new Set(catalog.map((destination) => destination.region))',
+  'name="region"',
+  'name="category"',
+  'name="season"',
+  'name="accessible"',
+  'Accessibility info available',
+  'to="/explore/trip-planner"',
+]) {
+  if (!exploreSearch.includes(feature)) failures.push(`Explore search filter contract missing: ${feature}.`);
+}
+
+if (!exploreSearch.includes('links: [canonicalLink(texasDefinedBrand, "/explore/search")]')) {
+  failures.push('Explore search must canonicalize all query/filter combinations to the curated search landing route.');
+}
+if (exploreSearch.includes('robots: "index')) {
+  failures.push('Interactive Explore search/filter combinations must remain non-indexable.');
+}
+if (exploreSearch.includes('dogFriendly') || exploreSearch.includes('kidFriendly')) {
+  failures.push('Explore search must not expose unverified pet/family filters before the destination schema supports them.');
+}
+
 if (failures.length) {
   console.error('Explore route registration validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('Explore regional, compatibility, and migrated guide routes are registered in routeTree.gen.ts.');
+console.log('Explore regional, compatibility, migrated guide and crawl-safe destination-filter routes are registered and protected by the shared search contract.');
