@@ -1,0 +1,271 @@
+name: Deploy TexasDefined production
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'wrangler.jsonc'
+      - 'vite.config.*'
+      - 'tsconfig*.json'
+      - 'scripts/ci/**'
+      - 'scripts/data/validate-public-route-governance.mjs'
+      - 'scripts/data/validate-sitemap-routes.mjs'
+      - 'scripts/data/validate-painted-church*.mjs'
+      - 'scripts/data/validate-texas-flag-authority.mjs'
+      - 'scripts/data/validate-military-history-expansion.mjs'
+      - 'scripts/data/validate-national-cemetery-authority.mjs'
+      - 'scripts/seo/submit-indexnow.mjs'
+      - '.github/workflows/deploy-production.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+concurrency:
+  group: texasdefined-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_DEPLOY_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN != '' }}
+      GH_TOKEN: ${{ github.token }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Publish pending production status
+        run: node scripts/ci/publish-github-status.mjs texasdefined-production pending "Validating, building and deploying TexasDefined"
+
+      - name: Validate retired integration traces
+        run: node scripts/ci/validate-retired-integration-traces.mjs
+
+      - name: Install dependencies
+        id: install
+        run: npm ci --no-audit --no-fund
+
+      - name: Report Cloudflare deployment credential source
+        shell: bash
+        run: |
+          if [[ "$CLOUDFLARE_DEPLOY_TOKEN_PRESENT" == 'true' ]]; then
+            echo 'Production deployment will use CLOUDFLARE_DEPLOY_API_TOKEN.'
+          else
+            echo '::warning title=Dedicated Cloudflare deploy token unavailable::Production deployment is falling back to CLOUDFLARE_API_TOKEN. If that token lacks Workers Scripts write access, deployment will fail closed.'
+          fi
+
+      - name: Publish validation pending
+        if: success()
+        run: node scripts/ci/publish-github-status.mjs texasdefined-validation pending "Running pre-deploy authority validators"
+
+      - name: Validate authority before deploy
+        id: validation
+        run: |
+          node scripts/ci/run-validation-suite.mjs predeploy
+          node scripts/data/validate-national-cemetery-authority.mjs
+
+      - name: Publish validation result
+        if: always()
+        env:
+          STAGE_OUTCOME: ${{ steps.validation.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-validation "$STAGE_OUTCOME" "Pre-deploy authority validation passed" "Pre-deploy authority validation failed"
+
+      - name: Publish build pending
+        if: success()
+        run: node scripts/ci/publish-github-status.mjs texasdefined-build pending "Building the production bundle"
+
+      - name: Build production bundle
+        id: build
+        shell: bash
+        run: |
+          npm run build
+          if ! git diff --exit-code -- src/routeTree.gen.ts; then
+            echo '::error title=Generated route tree is stale::The production build changed src/routeTree.gen.ts. Commit the TanStack-generated route tree before deployment.'
+            exit 1
+          fi
+
+      - name: Publish build result
+        if: always()
+        env:
+          STAGE_OUTCOME: ${{ steps.build.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-build "$STAGE_OUTCOME" "Production bundle build passed" "Production bundle build failed"
+
+      - name: Publish bundle budget pending
+        if: success()
+        run: node scripts/ci/publish-github-status.mjs texasdefined-bundle-budget pending "Checking client bundle size budget"
+
+      - name: Check client bundle budget
+        id: budget
+        run: npm run performance:validate
+
+      - name: Publish bundle budget result
+        if: always()
+        env:
+          STAGE_OUTCOME: ${{ steps.budget.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-bundle-budget "$STAGE_OUTCOME" "Client bundle budget passed" "Client bundle budget exceeded"
+
+      - name: Publish Cloudflare deploy pending
+        if: success()
+        run: node scripts/ci/publish-github-status.mjs texasdefined-cloudflare pending "Deploying TexasDefined Worker"
+
+      - name: Deploy TexasDefined Worker
+        id: cloudflare
+        run: npx wrangler deploy
+
+      - name: Publish Cloudflare deploy result
+        if: always()
+        env:
+          STAGE_OUTCOME: ${{ steps.cloudflare.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-cloudflare "$STAGE_OUTCOME" "Cloudflare Worker deployment passed" "Cloudflare Worker deployment failed"
+
+      - name: Publish live verification pending
+        if: success()
+        run: node scripts/ci/publish-github-status.mjs texasdefined-live pending "Verifying production surfaces"
+
+      - name: Verify direct Worker discovery
+        id: live_direct_worker
+        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        continue-on-error: true
+        env:
+          DIRECT_WORKER_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
+        run: node scripts/ci/verify-direct-worker-discovery.mjs
+
+      - name: Verify base production surfaces
+        id: live_base
+        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        continue-on-error: true
+        run: node scripts/ci/verify-production-surfaces.mjs
+
+      - name: Verify local financial production
+        id: live_local_financial
+        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        continue-on-error: true
+        run: node scripts/ci/verify-local-financial-production.mjs
+
+      - name: Verify statewide financial discovery
+        id: live_statewide_financial
+        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        continue-on-error: true
+        run: node scripts/ci/verify-statewide-financial-discovery.mjs
+
+      - name: Upload statewide financial discovery diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: statewide-financial-discovery-${{ github.run_id }}
+          path: .artifacts/statewide-financial-discovery.json
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Enforce aggregate live verification gate
+        id: live
+        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        shell: bash
+        env:
+          DIRECT_WORKER_OUTCOME: ${{ steps.live_direct_worker.outcome }}
+          BASE_OUTCOME: ${{ steps.live_base.outcome }}
+          LOCAL_FINANCIAL_OUTCOME: ${{ steps.live_local_financial.outcome }}
+          STATEWIDE_FINANCIAL_OUTCOME: ${{ steps.live_statewide_financial.outcome }}
+        run: |
+          {
+            echo '## Live production verification detail'
+            echo
+            echo '| Verification | Outcome |'
+            echo '|---|---|'
+            echo "| Direct Worker discovery | ${DIRECT_WORKER_OUTCOME:-not-run} |"
+            echo "| Base production surfaces | ${BASE_OUTCOME:-not-run} |"
+            echo "| Local financial production | ${LOCAL_FINANCIAL_OUTCOME:-not-run} |"
+            echo "| Statewide financial discovery | ${STATEWIDE_FINANCIAL_OUTCOME:-not-run} |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [[ "$DIRECT_WORKER_OUTCOME" != 'success' || "$BASE_OUTCOME" != 'success' || "$LOCAL_FINANCIAL_OUTCOME" != 'success' || "$STATEWIDE_FINANCIAL_OUTCOME" != 'success' ]]; then
+            echo "::error title=Live production verification failed::direct-worker=${DIRECT_WORKER_OUTCOME:-not-run}, base=${BASE_OUTCOME:-not-run}, local-financial=${LOCAL_FINANCIAL_OUTCOME:-not-run}, statewide-financial=${STATEWIDE_FINANCIAL_OUTCOME:-not-run}"
+            exit 1
+          fi
+
+          echo 'All production verification stages passed.'
+
+      - name: Publish live verification result
+        if: always()
+        env:
+          STAGE_OUTCOME: ${{ steps.live.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-live "$STAGE_OUTCOME" "Production surface verification passed" "Production surface verification failed"
+
+      - name: Publish IndexNow gate pending
+        if: success()
+        run: node scripts/ci/publish-github-status.mjs texasdefined-indexnow pending "Checking IndexNow approval gate"
+
+      - name: Run guarded IndexNow step
+        id: indexnow
+        run: node scripts/seo/submit-indexnow.mjs
+
+      - name: Publish IndexNow gate result
+        if: always()
+        env:
+          STAGE_OUTCOME: ${{ steps.indexnow.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-indexnow "$STAGE_OUTCOME" "IndexNow gate completed" "IndexNow gate or submission failed"
+
+      - name: Summarize production pipeline
+        if: always()
+        shell: bash
+        env:
+          INSTALL_OUTCOME: ${{ steps.install.outcome }}
+          VALIDATION_OUTCOME: ${{ steps.validation.outcome }}
+          BUILD_OUTCOME: ${{ steps.build.outcome }}
+          BUDGET_OUTCOME: ${{ steps.budget.outcome }}
+          CLOUDFLARE_OUTCOME: ${{ steps.cloudflare.outcome }}
+          LIVE_OUTCOME: ${{ steps.live.outcome }}
+          INDEXNOW_OUTCOME: ${{ steps.indexnow.outcome }}
+        run: |
+          {
+            echo '## TexasDefined production pipeline'
+            echo
+            echo '| Stage | Failure class | Outcome |'
+            echo '|---|---|---|'
+            echo "| Dependency install | DEPENDENCY / INSTALL | ${INSTALL_OUTCOME:-not-run} |"
+            echo "| Pre-deploy validation | CODE / CONTENT / SEO / DATA | ${VALIDATION_OUTCOME:-not-run} |"
+            echo "| Production build | BUILD | ${BUILD_OUTCOME:-not-run} |"
+            echo "| Client bundle budget | BUNDLE BUDGET | ${BUDGET_OUTCOME:-not-run} |"
+            echo "| Cloudflare Worker deploy | CLOUDFLARE / DEPLOYMENT | ${CLOUDFLARE_OUTCOME:-not-run} |"
+            echo "| Live production verification | LIVE PRODUCTION | ${LIVE_OUTCOME:-not-run} |"
+            echo "| IndexNow approval gate | INDEXING / EXTERNAL | ${INDEXNOW_OUTCOME:-not-run} |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [[ "$INSTALL_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: DEPENDENCY / INSTALL::npm ci failed before application validation.'
+          elif [[ "$VALIDATION_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: VALIDATION::A code/content/SEO/data validator failed; the exact check is in the validation-suite summary.'
+          elif [[ "$BUILD_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: BUILD::Validation passed; the production build failed or regenerated an uncommitted route tree.'
+          elif [[ "$BUDGET_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: BUNDLE BUDGET::Validation and build passed, but the protected client bundle budget was exceeded.'
+          elif [[ "$CLOUDFLARE_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: CLOUDFLARE / DEPLOYMENT::Code validation, build and bundle budget passed; Cloudflare deployment failed.'
+          elif [[ "$LIVE_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: LIVE PRODUCTION::Cloudflare deployment passed; a direct Worker or custom-domain production surface failed verification. The exact verification stage is listed above.'
+          elif [[ "$INDEXNOW_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: INDEXING / EXTERNAL::Production verification passed; the guarded IndexNow stage failed.'
+          fi
+
+      - name: Publish final production status
+        if: always()
+        env:
+          PIPELINE_OUTCOME: ${{ job.status }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-production "$PIPELINE_OUTCOME" "Production deploy and live verification passed" "Production pipeline failed; see the GitHub job summary"
