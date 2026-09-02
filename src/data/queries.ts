@@ -160,11 +160,15 @@ export const searchDocumentsQuery = () => queryOptions({
       base.push(document);
       knownHrefs.add(document.href);
     }
+    const { listResolvedDestinationSearchCatalog } = await import("./destination-query-runtime");
+    const destinations = await listResolvedDestinationSearchCatalog();
+    const nonDestinationDocuments = base.filter((document) => document.kind !== "destination");
+    const nonDestinationHrefs = new Set(nonDestinationDocuments.map((document) => document.href));
     const { FOOD_DESTINATIONS } = await import("./food-destinations");
     for (const destination of FOOD_DESTINATIONS) {
       const href = `/food/${destination.slug}`;
-      if (knownHrefs.has(href)) continue;
-      base.push({
+      if (nonDestinationHrefs.has(href)) continue;
+      nonDestinationDocuments.push({
         id: `food-destination:${destination.slug}`,
         brandId: "texasdefined",
         kind: "destination",
@@ -173,12 +177,8 @@ export const searchDocumentsQuery = () => queryOptions({
         keywords: [...new Set([destination.city, destination.county, destination.region, ...destination.categories, ...destination.knownFor])],
         href,
       });
-      knownHrefs.add(href);
+      nonDestinationHrefs.add(href);
     }
-    const { listResolvedDestinationSearchCatalog } = await import("./destination-query-runtime");
-    const destinations = await listResolvedDestinationSearchCatalog();
-    const nonDestinationDocuments = base.filter((document) => document.kind !== "destination" || document.href.startsWith("/food/"));
-    const nonDestinationHrefs = new Set(nonDestinationDocuments.map((document) => document.href));
     const { paintedChurchSearchDocuments } = await import("./painted-church-search");
     for (const document of paintedChurchSearchDocuments) {
       if (nonDestinationHrefs.has(document.href)) continue;
