@@ -24,6 +24,11 @@ const startingPoints = [
   { to: "/browse/counties", label: "Find Your County", copy: "Start with one of all 254 counties and continue to useful local information." },
 ] as const;
 
+const recoveryLinks = [
+  ["/explore", "Explore Texas"], ["/events", "Texas Events"], ["/browse/cities", "Cities"],
+  ["/browse/counties", "Counties"], ["/explore/trip-planner", "Trip Planner"], ["/texas-explained", "Texas Explained"],
+] as const;
+
 export const Route = createLazyFileRoute("/search")({ component: SearchPage });
 
 function SearchPage() {
@@ -57,7 +62,7 @@ function SearchPage() {
         <ul className="mt-5 grid sm:grid-cols-2 lg:grid-cols-3">{startingPoints.map((item, index) => <li key={item.to} className={`border-b border-border py-7 sm:px-6 ${index % 3 !== 0 ? "lg:border-l" : ""}`}><Link to={item.to} className="group block h-full"><h3 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">{item.label}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{item.copy}</p><span className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Open →</span></Link></li>)}</ul>
       </section>}
       {query && results.length > 0 && <div className="flex items-end justify-between gap-4 border-b border-border pb-4"><div><p className="eyebrow text-primary">Results</p><h2 className="mt-2 font-display text-3xl">For “{query}”</h2></div><p className="text-sm text-muted-foreground" role="status">{results.length} result{results.length === 1 ? "" : "s"}</p></div>}
-      {query && results.length === 0 && <div className="max-w-xl border-t border-border pt-6"><p className="eyebrow text-primary">No results</p><h2 className="mt-3 font-display text-3xl">Nothing matched “{query}.”</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Try a nearby town, a broader subject or the name of a landmark, painted church or sports venue.</p></div>}
+      {query && results.length === 0 && <section aria-labelledby="search-zero-heading" className="max-w-2xl border-t border-border pt-6"><p className="eyebrow text-primary">No results</p><h2 id="search-zero-heading" className="mt-3 font-display text-3xl">Nothing matched “{query}.”</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Try a broader term or continue through one of these discovery paths.</p><nav aria-label="Search recovery" className="mt-6 flex flex-wrap gap-x-6 gap-y-3">{recoveryLinks.map(([to, label]) => <Link key={to} to={to} className="eyebrow border-b border-primary pb-1 text-primary">{label} →</Link>)}</nav></section>}
       <ul className="mt-2 max-w-3xl divide-y divide-border">
         {results.map((result) => <li key={`${result.document.kind}-${result.document.id}`} className="py-7"><p className="eyebrow text-primary">{kindLabel(result.document.kind, result.document.id)}</p><Link to={result.document.href} className="mt-2 block font-display text-2xl leading-tight transition-colors hover:text-primary">{result.document.title}</Link><p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{result.document.summary}</p></li>)}
       </ul>
