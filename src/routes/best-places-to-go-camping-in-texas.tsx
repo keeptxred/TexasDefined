@@ -11,7 +11,7 @@ const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
 
 export const Route = createFileRoute(canonicalPath)({
   loader: async ({ context }) => {
-    // Keep the comparison dataset out of the global route bundle; it is needed only when this guide loads.
+    // Load the comparison dataset only for this guide so it stays out of the global route bundle.
     const [{ CAMPING_DISCOVERY_PROFILES }, destinations] = await Promise.all([
       import("@/data/camping/discovery"),
       context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
