@@ -26,6 +26,24 @@ const metroSeeds: TexasEntityRecord[] = [
     sourceConfidence: 'official', sourceCheckedAt: '2026-09-01', status: 'pending-source-verification',
     relationships: [{ type: 'has-core-city', targetId: 'city:san-antonio' }, { type: 'located-in-region', targetId: 'region:south-texas' }],
   },
+  {
+    id: 'metro-area:el-paso-metro', kind: 'metro-area', name: 'El Paso Metropolitan Area', slug: 'el-paso-metro',
+    aliases: ['El Paso metro', 'El Paso metropolitan area', 'EPMPO region'], region: 'west-texas', sourceId: 'texas-metro-planning',
+    sourceConfidence: 'official', sourceCheckedAt: '2026-09-02', status: 'pending-source-verification',
+    relationships: [{ type: 'has-core-city', targetId: 'city:el-paso' }, { type: 'located-in-region', targetId: 'region:west-texas' }],
+  },
+  {
+    id: 'metro-area:corpus-christi-metro', kind: 'metro-area', name: 'Corpus Christi Metropolitan Area', slug: 'corpus-christi-metro',
+    aliases: ['Corpus Christi metro', 'Corpus Christi metropolitan area', 'Corpus Christi MPO region'], region: 'gulf-coast', sourceId: 'texas-metro-planning',
+    sourceConfidence: 'official', sourceCheckedAt: '2026-09-02', status: 'pending-source-verification',
+    relationships: [{ type: 'has-core-city', targetId: 'city:corpus-christi' }, { type: 'located-in-region', targetId: 'region:gulf-coast' }],
+  },
+  {
+    id: 'metro-area:lubbock-metro', kind: 'metro-area', name: 'Lubbock Metropolitan Area', slug: 'lubbock-metro',
+    aliases: ['Lubbock metro', 'Lubbock metropolitan area', 'LMPO region'], region: 'south-plains', sourceId: 'texas-metro-planning',
+    sourceConfidence: 'official', sourceCheckedAt: '2026-09-02', status: 'pending-source-verification',
+    relationships: [{ type: 'has-core-city', targetId: 'city:lubbock' }, { type: 'located-in-region', targetId: 'region:south-plains' }],
+  },
 ];
 
 export function cityMetroAuthoritySeedEntities() {
