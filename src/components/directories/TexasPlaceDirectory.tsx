@@ -4,23 +4,11 @@ import { useMemo, useState } from "react";
 
 import { DepartmentHero } from "@/components/editorial/DepartmentHero";
 import { Container } from "@/components/layout/Container";
+import { CITY_AUTHORITY_SLUGS } from "@/data/city-authority-index";
 import { findTexasPlaces, TEXAS_COUNTIES } from "@/data/texas-places";
 
 export const countyAnchor = (slug: string) => `county-${slug}`;
 export const cityAnchor = (slug: string) => `city-${slug}`;
-
-const CITY_AUTHORITY_SLUGS = new Set([
-  "houston",
-  "dallas",
-  "fort-worth",
-  "austin",
-  "san-antonio",
-  "el-paso",
-  "arlington",
-  "corpus-christi",
-  "plano",
-  "lubbock",
-]);
 
 const countySlugForCity = (countyName: string) => {
   const county = TEXAS_COUNTIES.find((candidate) => candidate.name === `${countyName} County`);
