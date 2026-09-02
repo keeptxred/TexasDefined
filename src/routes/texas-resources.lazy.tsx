@@ -10,6 +10,7 @@ const groups: ReadonlyArray<ResourceGroup> = [
   {
     title: 'Everyday Texas services',
     links: [
+      ['Texas Services: how-to hub', '/texas-services'],
       ['Texas driver license', '/texas-drivers-license'],
       ['Track a Texas driver license or ID', '/track-texas-drivers-license'],
       ['Texas by Texas (TxT)', '/texas-by-texas-txt'],
@@ -18,6 +19,8 @@ const groups: ReadonlyArray<ResourceGroup> = [
       ['Replace a lost registration receipt', '/replace-texas-registration-receipt'],
       ['Texas toll tags: EZ TAG vs. TxTag vs. TollTag', '/texas-toll-tags'],
       ['Find your DMV or county office', '/find-my-dmv'],
+      ['Texas birth certificate', '/texas-birth-certificate'],
+      ['Texas hunting license', '/texas-hunting-license'],
       ['Texas fishing license', '/texas-fishing-license'],
       ['Find your school district', '/find-my-school-district'],
     ],
@@ -32,6 +35,7 @@ const groups: ReadonlyArray<ResourceGroup> = [
       ['Texas utility-cost calculator', '/texas-utility-cost-calculator'],
       ['Register your vehicle', '/texas-vehicle-registration'],
       ['Choose a Texas toll tag', '/texas-toll-tags'],
+      ['Check flood maps and flood risk', '/texas-flood-information'],
     ],
   },
   {
@@ -39,13 +43,16 @@ const groups: ReadonlyArray<ResourceGroup> = [
     links: [
       ['Money & Property', '/decide/financial-tools'],
       ['How to start a business in Texas', '/start-a-business-in-texas'],
+      ['Get a Texas sales tax permit', '/texas-sales-tax-permit'],
       ['How Texas sales tax works', '/texas-sales-tax-explained'],
+      ['Look up property taxes and appraisal records', '/texas-property-tax-lookup'],
       ['Understand property taxes', '/learn/property-taxes'],
       ['Property-tax guide library', '/property-tax-guides'],
       ['Property-tax calculator toolkit', '/property-tax-calculators'],
       ['County property-tax guides', '/property-tax/counties'],
       ['File a homestead exemption', '/do/homestead-exemption'],
       ['Protest your appraisal', '/do/property-tax-protest'],
+      ['Get a Texas septic permit', '/texas-septic-permit'],
       ['Texas septic system design & OSSF guide', '/article/texas-septic-systems-homeowner-guide'],
       ['First-time homebuyer help', '/texas-first-time-homebuyer-programs'],
       ['Texas mortgage calculator', '/texas-mortgage-calculator'],
