@@ -8,6 +8,7 @@ const registryPath = path.join(dataDir, "major-event-supplemental-registry.serve
 const ledgerPath = path.join(root, "ops", "editorial", "major-events-source-disposition.md");
 const collectionsPath = path.join(dataDir, "event-collections.ts");
 const temporalCollectionsPath = path.join(dataDir, "event-temporal-collections.server.ts");
+const temporalSitemapPath = path.join(dataDir, "event-temporal-sitemap.server.ts");
 const collectionLoaderPath = path.join(dataDir, "event-collection-page.server.ts");
 const directoryPath = path.join(dataDir, "major-event-directory.server.ts");
 const collectionRoutePath = path.join(root, "src", "routes", "events.$collection.tsx");
@@ -15,6 +16,7 @@ const eventsRoutePath = path.join(root, "src", "routes", "events.tsx");
 const eventsLazyRoutePath = path.join(root, "src", "routes", "events.lazy.tsx");
 const entityRoutePath = path.join(root, "src", "routes", "$kind.$slug.lazy.tsx");
 const publicRoutesPath = path.join(root, "src", "lib", "public-routes.ts");
+const sitemapPath = path.join(root, "src", "routes", "sitemap[.]xml.ts");
 
 const read = (file) => fs.readFileSync(file, "utf8");
 const fail = (message) => {
@@ -27,6 +29,7 @@ const registry = read(registryPath);
 const ledger = read(ledgerPath);
 const collections = read(collectionsPath);
 const temporalCollections = read(temporalCollectionsPath);
+const temporalSitemap = read(temporalSitemapPath);
 const collectionLoader = read(collectionLoaderPath);
 const directory = read(directoryPath);
 const collectionRoute = read(collectionRoutePath);
@@ -35,6 +38,7 @@ const eventsLazyRoute = read(eventsLazyRoutePath);
 const eventsVisibleRoute = `${eventsRoute}\n${eventsLazyRoute}`;
 const entityRoute = read(entityRoutePath);
 const publicRoutes = read(publicRoutesPath);
+const sitemap = read(sitemapPath);
 const trancheFiles = fs
   .readdirSync(dataDir)
   .filter((name) => /^major-event-expanded-authority-tranche\d+\.server\.ts$/.test(name))
@@ -111,6 +115,8 @@ const requiredTemporalPaths = [
   "/events/houston-area-events",
   "/events/dallas-fort-worth-events",
 ];
+const rollingTemporalPaths = ["/events/this-weekend", "/events/this-month"];
+const qualifiedTemporalPaths = requiredTemporalPaths.filter((routePath) => !rollingTemporalPaths.includes(routePath));
 const collectionPaths = [...collections.matchAll(/\bpath:\s*"(\/events\/[a-z0-9-]+)"/g)].map((match) => match[1]);
 const temporalPaths = [...temporalCollections.matchAll(/\bpath:\s*"(\/events\/[a-z0-9-]+)"/g)].map((match) => match[1]);
 if (collectionPaths.length !== requiredCollectionPaths.length) {
@@ -138,6 +144,37 @@ for (const marker of [
   "shouldIndex",
 ]) {
   if (!temporalCollections.includes(marker)) fail(`temporal event collection engine is missing protected marker: ${marker}`);
+}
+
+for (const marker of [
+  "loadMajorEventGuideDirectoryServer",
+  "TEMPORAL_EVENT_COLLECTIONS",
+  "resolveTemporalEventCollectionServer",
+  'definition.indexPolicy === "qualified"',
+  "collection?.shouldIndex",
+  "latestVerifiedDate",
+  "item.sourceCheckedAt",
+]) {
+  if (!temporalSitemap.includes(marker)) fail(`temporal event sitemap resolver is missing protected marker: ${marker}`);
+}
+for (const routePath of rollingTemporalPaths) {
+  if (sitemap.includes(`path: "${routePath}"`) || sitemap.includes(`{ path: "${routePath}"`)) {
+    fail(`rolling noindex temporal route must never be hard-coded into the sitemap: ${routePath}`);
+  }
+}
+if (qualifiedTemporalPaths.length !== 6) fail("expected exactly six durable qualified temporal event collections");
+for (const marker of [
+  'loadTemporalEventSitemapEntriesServer',
+  'const temporalEventSitemapEntries = loadTemporalEventSitemapEntriesServer()',
+  '...temporalEventSitemapEntries',
+]) {
+  if (!sitemap.includes(marker)) fail(`primary sitemap is missing temporal event qualification marker: ${marker}`);
+}
+if (!directory.includes('timeZone: "America/Chicago"') || !directory.includes("texasTodayIso")) {
+  fail("major-event directory must classify past/current events using the Texas calendar date");
+}
+if (directory.includes("new Date().toISOString().slice(0, 10)")) {
+  fail("major-event directory must not use UTC midnight as the Texas event freshness cutoff");
 }
 
 for (const marker of [

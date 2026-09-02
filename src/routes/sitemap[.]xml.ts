@@ -6,6 +6,7 @@ import { getTexasCountyHousingCosts } from "@/data/acs-county-housing-costs.func
 import { fetchPublishedTexasDefinedEvergreenArticlesForSitemap, fetchPublishedTexasDefinedNewsArticlesForSitemap } from "@/data/articles-remote";
 import { loadTexasCountyGrowth } from "@/data/census-county-growth";
 import { isLegacyCountySeriesArticle } from "@/data/county-series";
+import { loadTemporalEventSitemapEntriesServer } from "@/data/event-temporal-sitemap.server";
 import { isArticleDiscoveryReady, isArticleIndexReady } from "@/data/fixtures/texas-gateway-index-readiness";
 import { loadFishingGuideSitemapEntriesServer } from "@/data/fishing/guide-sitemap.server";
 import { loadFishingLocalSitemapEntriesServer } from "@/data/fishing/local-sitemap.server";
@@ -113,6 +114,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
         const entityPages = graph.filter(isIndexableEntityPage).filter(isTexasDefinedOwnedEntity);
         const supplementalMajorEventSitemapEntries = loadSupplementalMajorEventSitemapEntriesServer();
+        const temporalEventSitemapEntries = loadTemporalEventSitemapEntriesServer();
 
         const entries: SitemapEntry[] = [
           ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).filter((path) => isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
@@ -127,6 +129,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/texas-icons" },
           ...majorEventIndexRecords.map((event) => ({ path: `/event/${event.slug}`, lastmod: toDate(event.sourceCheckedAt) })),
           ...supplementalMajorEventSitemapEntries,
+          ...temporalEventSitemapEntries,
           ...TEXAS_VS_STATES.map((state) => ({ path: `/texas-vs/${texasVsStateSlug(state)}`, lastmod: PRIORITY_SEO_LASTMOD })),
           ...FISHING_SITEMAP_ENTRIES,
           ...fishingGuideSitemapEntries,
