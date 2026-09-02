@@ -80,6 +80,17 @@ const eventRegionLinks: EventDiscoveryLink[] = [
   { href: "/events/panhandle-events", title: "Panhandle", description: "Source-qualified High Plains and Panhandle event guides without padded listings." },
 ];
 
+function texasTodayIso(now = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Chicago",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(now);
+  const value = (type: "year" | "month" | "day") => parts.find((part) => part.type === type)?.value ?? "00";
+  return `${value("year")}-${value("month")}-${value("day")}`;
+}
+
 export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryItem[] {
   const coreSlugs = new Set(majorEventIndexRecords.map((event) => event.slug));
   const coreEvents = majorEventIndexRecords.map(({ slug }) => {
@@ -91,7 +102,7 @@ export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryIt
     ...coreEvents,
     ...loadSupplementalMajorEventRecordsServer().filter((event) => !coreSlugs.has(event.slug)),
   ];
-  const today = new Date().toISOString().slice(0, 10);
+  const today = texasTodayIso();
   const prioritySlugs = new Set(priorityEventGuides.map((event) => event.slug));
 
   return [
