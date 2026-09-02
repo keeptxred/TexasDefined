@@ -75,6 +75,7 @@ import { wildlifeManagementAreaWave4Destinations } from "./wildlife-management-a
 import { wildlifeManagementAreaWave5Destinations } from "./wildlife-management-area-destinations-wave5";
 import { wildlifeManagementAreaWave6Destinations } from "./wildlife-management-area-destinations-wave6";
 import { wildlifeManagementAreaWave7Destinations } from "./wildlife-management-area-destinations-wave7";
+import { wildlifeManagementAreaWave8Destinations } from "./wildlife-management-area-destinations-wave8";
 import type { Destination } from "./types";
 
 const newBraunfelsSeasonalFallback: Destination = {
@@ -127,13 +128,6 @@ function mergePreservedDestinations(...groups: Destination[][]): Destination[] {
   return [...merged.values()];
 }
 
-/**
- * Checked-in destination catalog used whenever remote Explore data is absent.
- * Keep runtime destination resolution, search and the Explore sitemap on this
- * single source so Google discovery cannot drift from pages the app can serve.
- * Top-25 expansion fallbacks are explicit here instead of relying on the
- * curation module's import-time mutation of topAttractionDestinations.
- */
 export const preservedExploreDestinations = mergePreservedDestinations(
   animalSanctuaryDestinations,
   aquariumMarineDestinations,
@@ -211,5 +205,6 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   wildlifeManagementAreaWave5Destinations,
   wildlifeManagementAreaWave6Destinations,
   wildlifeManagementAreaWave7Destinations,
+  wildlifeManagementAreaWave8Destinations,
   [newBraunfelsSeasonalFallback],
 );
