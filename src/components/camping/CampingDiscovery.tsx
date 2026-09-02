@@ -1,11 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 
-import type { CampingAmenity, CampingProfile, CampingStyle } from "@/data/camping/types";
+import type { CampingDiscoveryProfile } from "@/data/camping/discovery";
+import type { CampingAmenity, CampingStyle } from "@/data/camping/types";
 import type { Destination } from "@/data/types";
 
 export interface CampingDiscoveryEntry {
-  profile: CampingProfile;
+  profile: CampingDiscoveryProfile;
   destination?: Destination;
 }
 
@@ -86,7 +87,6 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
             {profile.siteLengthNote && <div><dt className="font-semibold">RV/site length</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.siteLengthNote}</dd></div>}
             {profile.generatorRules && <div><dt className="font-semibold">Generator rules</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.generatorRules}</dd></div>}
           </dl>
-          <ul className="mt-5 list-disc space-y-2 pl-5 text-sm leading-6 text-muted-foreground">{profile.campingNotes.map((note) => <li key={note}>{note}</li>)}</ul>
           <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
             {destination && <Link to="/destination/$slug" params={{ slug: destination.slug }} className="text-primary underline-offset-4 hover:underline">Destination guide</Link>}
             <Link to="/$kind/$slug" params={{ kind: "county", slug: countySlug }} className="text-primary underline-offset-4 hover:underline">{profile.county} County</Link>
