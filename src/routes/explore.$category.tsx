@@ -68,12 +68,22 @@ export const Route = createFileRoute("/explore/$category")({
       throw notFound();
     }
     const authorityPath = authorityCategorySlugs.has(category.slug) ? `/content/explore-category-authority/${category.slug}.html` : null;
-    const [articles, destinations, authorityHtml] = await Promise.all([
+    const [articles, destinations, authorityHtml, foodDestinations] = await Promise.all([
       context.queryClient.ensureQueryData(articlesQuery({ category: category.slug })),
       context.queryClient.ensureQueryData(destinationsQuery({ category: category.slug })),
       authorityPath ? fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath).then((response) => response.ok ? response.text() : null) : null,
+      category.slug === "food-bbq"
+        ? import("@/data/food-destinations").then(({ FOOD_DESTINATIONS }) => FOOD_DESTINATIONS.map((destination) => ({
+            slug: destination.slug,
+            name: destination.name,
+            city: destination.city,
+            region: destination.region,
+            significance: destination.significance,
+            knownFor: destination.knownFor.slice(0, 2),
+          })))
+        : Promise.resolve([]),
     ]);
-    return { category, articles, destinations, authorityHtml };
+    return { category, articles, destinations, authorityHtml, foodDestinations };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
