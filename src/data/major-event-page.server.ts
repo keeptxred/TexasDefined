@@ -164,7 +164,7 @@ export function loadMajorEventPageServer(slug: string) {
   const canonicalUrl = `${siteUrl}/event/${event.slug}`;
   const placeLine = [event.city && `${event.city}, Texas`, event.countyName].filter(Boolean).join(" · ");
   const planning = event.planningSections.map((item) => `<section class="mt-8"><h2 class="font-display text-2xl">${esc(item.title)}</h2><p class="mt-3 leading-7 text-muted-foreground">${esc(item.body)}</p></section>`).join("");
-  const countyHref = event.countySlug ? `/browse/counties#county-${event.countySlug}` : null;
+  const countyHref = event.countySlug ? `/county/${event.countySlug}` : null;
   const relatedItems = countyHref && !event.relatedLinks.some((item) => item.href === countyHref)
     ? [{ href: countyHref, label: `Explore ${event.countyName ?? "the county"}`, description: `Continue from ${event.name} into the county guide for places, communities and local resources.` }, ...event.relatedLinks]
     : event.relatedLinks;
