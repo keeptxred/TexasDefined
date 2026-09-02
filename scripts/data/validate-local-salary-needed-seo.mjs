@@ -10,6 +10,10 @@ const boundary = fs.readFileSync('src/data/local-salary-needed-page.ts', 'utf8')
 const hub = fs.readFileSync('src/routes/texas-salary-comparison-by-city.lazy.tsx', 'utf8');
 const movingHub = fs.readFileSync('src/routes/moving-to-texas.lazy.tsx', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
+const movingCost = fs.readFileSync('src/routes/texas-moving-cost-calculator.lazy.tsx', 'utf8');
+const costOfLiving = fs.readFileSync('src/routes/texas-cost-of-living-calculator.lazy.tsx', 'utf8');
+const salaryCalculator = fs.readFileSync('src/routes/texas-salary-calculator.lazy.tsx', 'utf8');
+const budgetPlanner = fs.readFileSync('src/routes/texas-budget-planner.lazy.tsx', 'utf8');
 const failures = [];
 const locations = ['houston', 'austin', 'dallas', 'fort-worth', 'san-antonio', 'frisco', 'el-paso'];
 
@@ -32,9 +36,25 @@ if (!sitemap.includes('...LOCAL_SALARY_NEEDED_PROFILES.map((profile) => ({ path:
 if (server.includes("'@type': 'FinancialProduct'") || server.includes("'@type': 'Offer'")) failures.push('Salary-needed pages must not claim FinancialProduct or Offer schema.');
 for (const unsupported of ['average salary is', 'average salary needed', 'required salary is', 'average rent is', 'average home price']) if (profiles.toLowerCase().includes(unsupported)) failures.push(`Salary-needed registry must not publish unsupported citywide assumptions: ${unsupported}.`);
 
+const statewidePlanningGraph = [
+  ['/texas-moving-cost-calculator', movingCost],
+  ['/texas-cost-of-living-calculator', costOfLiving],
+  ['/texas-salary-comparison-by-city', hub],
+  ['/texas-salary-calculator', salaryCalculator],
+  ['/texas-budget-planner', budgetPlanner],
+];
+for (const [sourcePath, source] of statewidePlanningGraph) {
+  for (const [targetPath] of statewidePlanningGraph) {
+    if (sourcePath === targetPath) continue;
+    if (!source.includes(`to="${targetPath}"`)) failures.push(`Statewide financial planning graph missing reciprocal crawl link ${sourcePath} -> ${targetPath}.`);
+  }
+}
+for (const marker of ['Connect the one-time move to the monthly Texas budget', 'Take-home pay']) if (!movingCost.includes(marker)) failures.push(`Moving-cost planner discovery contract missing ${marker}.`);
+for (const marker of ['Compare pay with Texas living costs', 'Salary comparison by city', 'Household budget', 'Moving costs']) if (!salaryCalculator.includes(marker)) failures.push(`Salary calculator discovery contract missing ${marker}.`);
+
 if (failures.length) {
   console.error('Local salary-needed SEO validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log(`Local salary-needed SEO validation passed for ${locations.length} governed city planners with user-entered household costs, editable deduction assumptions, canonical/schema coverage, reciprocal cost-of-living links, crawlable salary and relocation hub discovery, sitemap membership, local financial cross-links, and no unsupported citywide salary claims.`);
+console.log(`Local salary-needed SEO validation passed for ${locations.length} governed city planners with user-entered household costs, editable deduction assumptions, canonical/schema coverage, reciprocal cost-of-living links, crawlable salary and relocation hub discovery, sitemap membership, local financial cross-links, no unsupported citywide salary claims, and a fully reciprocal five-surface statewide relocation-finance planning graph.`);
