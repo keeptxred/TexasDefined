@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { CampingDiscovery } from "@/components/camping/CampingDiscovery";
 import { Container } from "@/components/layout/Container";
-import { CAMPING_PROFILES } from "@/data/camping/profiles";
+import { CAMPING_DISCOVERY_PROFILES } from "@/data/camping/discovery";
 import { destinationsQuery } from "@/data/queries";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
@@ -11,13 +11,13 @@ const title = "Texas Camping & RV Campground Guide";
 const description = "Find verified public camping in Texas by RV, tent, primitive, beach, full-hookup, water access and region, with official reservation sources and links to destination, county, fishing and trip-planning guides.";
 const canonicalPath = "/best-places-to-go-camping-in-texas";
 const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
-const modified = CAMPING_PROFILES.map((profile) => profile.verifiedAt).sort().at(-1) ?? "2026-09-01";
+const modified = CAMPING_DISCOVERY_PROFILES.map((profile) => profile.verifiedAt).sort().at(-1) ?? "2026-09-01";
 
 export const Route = createFileRoute(canonicalPath)({
   loader: async ({ context }) => {
     const destinations = await context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 }));
     const bySlug = new Map(destinations.map((destination) => [destination.slug, destination]));
-    return { entries: CAMPING_PROFILES.map((profile) => ({ profile, destination: bySlug.get(profile.destinationSlug) })) };
+    return { entries: CAMPING_DISCOVERY_PROFILES.map((profile) => ({ profile, destination: bySlug.get(profile.destinationSlug) })) };
   },
   head: () => ({
     meta: buildMeta(texasDefinedBrand, { canonicalPath, title: title, description }),
@@ -39,8 +39,8 @@ export const Route = createFileRoute(canonicalPath)({
           "@type": "ItemList",
           "@id": `${pageUrl}#camping-directory`,
           name: "Verified Texas public camping destinations",
-          numberOfItems: CAMPING_PROFILES.length,
-          itemListElement: CAMPING_PROFILES.map((profile, index) => ({
+          numberOfItems: CAMPING_DISCOVERY_PROFILES.length,
+          itemListElement: CAMPING_DISCOVERY_PROFILES.map((profile, index) => ({
             "@type": "ListItem",
             position: index + 1,
             item: {
