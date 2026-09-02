@@ -2,6 +2,8 @@ import fs from 'node:fs';
 
 const routeTree = fs.readFileSync('src/routeTree.gen.ts', 'utf8');
 const exploreSearch = fs.readFileSync('src/routes/explore.search.tsx', 'utf8');
+const tripPlanner = fs.readFileSync('src/routes/explore.trip-planner.tsx', 'utf8');
+const tripPlannerLazy = fs.readFileSync('src/routes/explore.trip-planner.lazy.tsx', 'utf8');
 const failures = [];
 
 const requiredRouteFiles = [
@@ -22,6 +24,7 @@ const requiredRouteFiles = [
   './routes/explore.spring-fed-swimming',
   './routes/explore.hill-country-springs',
   './routes/explore.spring-conservation-and-education',
+  './routes/explore.trip-planner',
 ];
 
 const requiredPaths = [
@@ -31,6 +34,7 @@ const requiredPaths = [
   '/explore/cavern/$slug',
   '/explore/state-park/$slug',
   '/explore/county/$county',
+  '/explore/trip-planner',
 ];
 
 for (const routeFile of requiredRouteFiles) {
@@ -90,10 +94,30 @@ if (/geocode|google\.maps|maps\.googleapis/i.test(exploreSearch)) {
   failures.push('Explore radius search must not geocode or guess origin coordinates; origins resolve only to catalog destinations.');
 }
 
+for (const feature of [
+  'createFileRoute("/explore/trip-planner")',
+  'canonicalPath: "/explore/trip-planner"',
+  'robots: "noindex, follow"',
+  'links: [canonicalLink(texasDefinedBrand, "/explore/trip-planner")]',
+]) {
+  if (!tripPlanner.includes(feature)) failures.push(`Trip Planner shell contract missing: ${feature}.`);
+}
+
+for (const feature of [
+  'createLazyFileRoute("/explore/trip-planner")',
+  'Travel month',
+  'Museums',
+  'Food',
+  'Accessibility',
+  'Max daily driving',
+]) {
+  if (!tripPlannerLazy.includes(feature)) failures.push(`Trip Planner lazy UI contract missing: ${feature}.`);
+}
+
 if (failures.length) {
   console.error('Explore route registration validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('Explore regional, compatibility, migrated guide and crawl-safe structured destination and exact-radius filter routes are registered.');
+console.log('Explore regional, compatibility, migrated guide, Trip Planner, crawl-safe structured destination and exact-radius filter routes are registered.');
