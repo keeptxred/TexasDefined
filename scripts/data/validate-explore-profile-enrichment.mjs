@@ -102,12 +102,19 @@ for (const feature of [
 if (!queries.includes('await import("./destination-query-runtime")')) errors.push('Destination resolution must remain behind the dynamic runtime boundary.');
 
 for (const feature of [
-  'destinationsQuery({ limit: 5000 })', 'scoreDestination', 'searchText',
-  'destination.county', 'destination.managingAuthority', 'destination.bestSeason',
-  '...destination.highlights', 'terms.every((term) => haystack.includes(term))',
-  'right.score - left.score', 'Search by destination, town, county, landscape, activity or the kind of day you want to plan',
-]) if (!exploreSearch.includes(feature)) errors.push(`Explore search ranking feature missing: ${feature}`);
+  'createFileRoute("/explore/search")', 'component: ExploreSearchPage', 'destinationsQuery({ limit: 5000 })', 'scoreDestination', 'searchText',
+  'destination.county', 'destination.managingAuthority', 'destination.bestSeason', '...destination.highlights',
+  'terms.every((term) => haystack.includes(term))', 'right.score - left.score',
+  'const text = z.string().optional().catch("")', 'q: text, category: text, region: text, season: text, accessible: text',
+  'const { q, category, region, season, accessible } = Route.useSearch()', 'const wantedSeason = normalized(season)',
+  '!category || destination.category === category', '!region || destination.region === region',
+  'normalized(destination.bestSeason).includes(wantedSeason)', 'accessible !== "1" || Boolean(destination.accessibilityNotes)',
+  'new Set(catalog.map((destination) => destination.category))', 'new Set(catalog.map((destination) => destination.region))',
+  'name="region"', 'name="category"', 'name="season"', 'name="accessible"',
+  'Accessibility info available', 'Search by destination, town, county, landscape, activity or the kind of day you want to plan',
+]) if (!exploreSearch.includes(feature)) errors.push(`Explore search ranking or filter feature missing: ${feature}`);
 if (exploreSearch.includes('fetchExploreDestinations({ query: q')) errors.push('Explore search bypasses the resilient destination query and core remote fallback.');
+if (exploreSearch.includes('dogFriendly') || exploreSearch.includes('kidFriendly')) errors.push('Explore search must not expose unsupported pet/family filters.');
 
 for (const feature of [
   'keywords: entity.tags', 'measurementTechnique: entity.sourceConfidence',
@@ -174,4 +181,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore enrichment, grouped planning, ranked search, AI discovery, unavailable-or-empty remote fallback with quality-gated sitemap freshness, authority, relationship discovery with Texas Explained fallback, public-view fallback, lazy destination runtime, and preserved-catalog resilience passed.');
+console.log('Explore enrichment, grouped planning, ranked structured search, AI discovery, unavailable-or-empty remote fallback with quality-gated sitemap freshness, authority, relationship discovery with Texas Explained fallback, public-view fallback, lazy destination runtime, and preserved-catalog resilience passed.');
