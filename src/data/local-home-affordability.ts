@@ -161,6 +161,20 @@ export const LOCAL_HOME_AFFORDABILITY_PROFILES: readonly LocalHomeAffordabilityP
     ],
   }),
   profile({
+    slug: 'arlington',
+    name: 'Arlington',
+    context: 'Arlington buyers are making a Tarrant County and DFW corridor decision at the same time. Property-tax jurisdictions, school boundaries, insurance, HOA obligations and the repeated commute or entertainment-district traffic pattern should be modeled for the exact address rather than inferred from the city name.',
+    propertyTaxHref: '/property-tax-calculator/tarrant-county',
+    propertyTaxLabel: 'Tarrant County property-tax calculator',
+    relocationHref: '/article/moving-to-dallas-fort-worth-guide',
+    relocationLabel: 'Dallas–Fort Worth relocation guide',
+    planningPoints: [
+      'Use the Tarrant County parcel record to verify the school district, City of Arlington status and every other taxing unit that applies.',
+      'Replace generic insurance, HOA and utility assumptions with address-specific estimates before setting a purchase-price target.',
+      'Pressure-test the housing payment alongside the commute, tolls, parking and other repeated transportation costs that come with the location.',
+    ],
+  }),
+  profile({
     slug: 'san-antonio',
     name: 'San Antonio',
     context: 'San Antonio-area affordability can change with school, municipal, utility and special-district boundaries. A useful estimate combines the home-price scenario with parcel-specific property taxes, insurance and the other recurring costs attached to the exact address.',
@@ -221,7 +235,10 @@ export const LOCAL_HOME_AFFORDABILITY_PROFILES: readonly LocalHomeAffordabilityP
     name: 'Tarrant County',
     countySlug: 'tarrant',
     context: 'Tarrant County includes Fort Worth, Arlington and a large suburban network where school-district, municipal and special-district boundaries differ across nearby addresses. Buyers should model those parcel costs together with insurance, HOA and transportation rather than relying on one countywide ownership estimate.',
-    relatedLocalCalculators: [{ name: 'Fort Worth', path: '/texas-home-affordability-calculator/fort-worth' }],
+    relatedLocalCalculators: [
+      { name: 'Fort Worth', path: '/texas-home-affordability-calculator/fort-worth' },
+      { name: 'Arlington', path: '/texas-home-affordability-calculator/arlington' },
+    ],
   }),
   countyProfile({
     slug: 'bexar-county',
