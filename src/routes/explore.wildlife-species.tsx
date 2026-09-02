@@ -102,6 +102,8 @@ function WildlifeSpeciesHub() {
         <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Species ranges are not guarantees of sightings. Pair the field guide with Texas Defined refuge, wildlife-management-area and outdoor destination pages, and always check the managing agency before travel.</p>
         <div className="mt-5 flex flex-wrap gap-4 text-sm">
           <Link to="/explore/outdoors" className="underline decoration-border underline-offset-4 hover:text-foreground">Texas outdoors & wildlife</Link>
+          <a href="/explore/national-wildlife-refuges" className="underline decoration-border underline-offset-4 hover:text-foreground">National wildlife refuges</a>
+          <a href="/explore/wildlife-management-areas" className="underline decoration-border underline-offset-4 hover:text-foreground">Wildlife management areas</a>
           <a href="/article/texas-wildlife-guide" className="underline decoration-border underline-offset-4 hover:text-foreground">Texas wildlife guide</a>
         </div>
       </section>
