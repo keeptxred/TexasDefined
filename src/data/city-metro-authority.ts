@@ -1,0 +1,172 @@
+import type { TexasEntityRecord } from './knowledge-graph/types';
+
+const checkedAt = '2026-09-01';
+
+export type CityAuthorityOverride = Pick<TexasEntityRecord,
+  'description' | 'officialUrl' | 'sourceConfidence' | 'sourceCheckedAt' | 'status' | 'relationships' | 'tags'
+>;
+
+const statewideServiceRelationships = [
+  { type: 'public-service-reference', targetId: 'agency:texas-dps' },
+  { type: 'vehicle-service-reference', targetId: 'agency:texas-dmv' },
+  { type: 'property-tax-reference', targetId: 'agency:texas-comptroller' },
+  { type: 'utility-reference', targetId: 'agency:public-utility-commission' },
+];
+
+export const TEXAS_CITY_AUTHORITY_OVERRIDES: Record<string, CityAuthorityOverride> = {
+  houston: {
+    description: 'Houston is TexasDefined’s Gulf Coast city authority hub for Houston and Harris County, connecting relocation, property and tax resources, utilities, transportation, airports, major employment sectors, health systems, schools, neighborhoods, parks, museums, food, annual events and nearby destinations. The guide keeps city, county and state responsibilities distinct so readers can move from a broad Houston reference into the correct local or statewide resource.',
+    officialUrl: 'https://www.houstontx.gov/',
+    sourceConfidence: 'official',
+    sourceCheckedAt: checkedAt,
+    status: 'active',
+    relationships: [
+      { type: 'located-in-county', targetId: 'county:harris' },
+      { type: 'located-in-region', targetId: 'region:gulf-coast' },
+      { type: 'part-of-metro', targetId: 'metro-area:greater-houston' },
+      ...statewideServiceRelationships,
+    ],
+    tags: ['major-city', 'metro-core', 'relocation', 'travel', 'property', 'utilities', 'transportation', 'airports', 'health-care', 'schools', 'parks', 'museums', 'food', 'events', 'energy', 'port-logistics', 'aerospace'],
+  },
+  dallas: {
+    description: 'Dallas is TexasDefined’s North Texas city authority hub for Dallas and Dallas County, connecting relocation, property and tax resources, utilities, transportation, airports, employment, health systems, schools, neighborhoods, parks, museums, food, annual events and nearby destinations. The page is structured as a durable local-reference node rather than a generic moving article, with clear paths into county, metro and statewide service coverage.',
+    officialUrl: 'https://dallascityhall.com/',
+    sourceConfidence: 'official',
+    sourceCheckedAt: checkedAt,
+    status: 'active',
+    relationships: [
+      { type: 'located-in-county', targetId: 'county:dallas' },
+      { type: 'located-in-region', targetId: 'region:north-texas' },
+      { type: 'part-of-metro', targetId: 'metro-area:dallas-fort-worth' },
+      ...statewideServiceRelationships,
+    ],
+    tags: ['major-city', 'metro-core', 'relocation', 'travel', 'property', 'utilities', 'transportation', 'airports', 'health-care', 'schools', 'parks', 'museums', 'food', 'events', 'finance', 'professional-services', 'technology'],
+  },
+  'fort-worth': {
+    description: 'Fort Worth is TexasDefined’s western Dallas–Fort Worth city authority hub for Fort Worth and Tarrant County, connecting relocation, property and tax resources, utilities, transportation, airports, employment, health systems, schools, neighborhoods, parks, museums, food, annual events and nearby destinations. It is designed to preserve Fort Worth’s distinct local identity while linking readers into the larger DFW metro and the correct county and state service systems.',
+    officialUrl: 'https://www.fortworthtexas.gov/',
+    sourceConfidence: 'official',
+    sourceCheckedAt: checkedAt,
+    status: 'active',
+    relationships: [
+      { type: 'located-in-county', targetId: 'county:tarrant' },
+      { type: 'located-in-region', targetId: 'region:north-texas' },
+      { type: 'part-of-metro', targetId: 'metro-area:dallas-fort-worth' },
+      ...statewideServiceRelationships,
+    ],
+    tags: ['major-city', 'metro-core', 'relocation', 'travel', 'property', 'utilities', 'transportation', 'airports', 'health-care', 'schools', 'parks', 'museums', 'food', 'events', 'aviation', 'aerospace', 'manufacturing', 'logistics'],
+  },
+  austin: {
+    description: 'Austin is TexasDefined’s Central Texas city authority hub for Austin and Travis County, connecting relocation, property and tax resources, utilities, transportation, the airport, major employment sectors, health systems, schools, neighborhoods, parks, museums, food, annual events and nearby destinations. The city node separates broad Austin reference intent from relocation-only coverage and connects readers to county, metro and statewide public-service resources.',
+    officialUrl: 'https://www.austintexas.gov/',
+    sourceConfidence: 'official',
+    sourceCheckedAt: checkedAt,
+    status: 'active',
+    relationships: [
+      { type: 'located-in-county', targetId: 'county:travis' },
+      { type: 'located-in-region', targetId: 'region:central-texas' },
+      { type: 'part-of-metro', targetId: 'metro-area:greater-austin' },
+      ...statewideServiceRelationships,
+    ],
+    tags: ['major-city', 'state-capital', 'metro-core', 'relocation', 'travel', 'property', 'utilities', 'transportation', 'airport', 'health-care', 'schools', 'parks', 'museums', 'food', 'events', 'technology', 'semiconductors', 'government', 'higher-education'],
+  },
+  'san-antonio': {
+    description: 'San Antonio is TexasDefined’s South Central Texas city authority hub for San Antonio and Bexar County, connecting relocation, property and tax resources, utilities, transportation, the airport, employment, health systems, schools, neighborhoods, parks, museums, food, annual events, history and nearby destinations. The city node connects practical local-reference needs with San Antonio’s major travel and heritage coverage while keeping county and state services clearly separated.',
+    officialUrl: 'https://www.sa.gov/',
+    sourceConfidence: 'official',
+    sourceCheckedAt: checkedAt,
+    status: 'active',
+    relationships: [
+      { type: 'located-in-county', targetId: 'county:bexar' },
+      { type: 'located-in-region', targetId: 'region:south-texas' },
+      { type: 'part-of-metro', targetId: 'metro-area:greater-san-antonio' },
+      ...statewideServiceRelationships,
+    ],
+    tags: ['major-city', 'metro-core', 'relocation', 'travel', 'property', 'utilities', 'transportation', 'airport', 'health-care', 'schools', 'parks', 'museums', 'food', 'events', 'texas-history', 'military', 'cybersecurity', 'tourism'],
+  },
+};
+
+export const TEXAS_METRO_AUTHORITY_ENTITIES: TexasEntityRecord[] = [
+  {
+    id: 'metro-area:greater-houston',
+    kind: 'metro-area',
+    name: 'Greater Houston',
+    slug: 'greater-houston',
+    aliases: ['Houston metro', 'Houston metropolitan area'],
+    description: 'Greater Houston is TexasDefined’s metro-level discovery node for the Houston region, connecting the core city with Harris County, Gulf Coast communities, regional transportation and practical relocation and travel coverage. It provides a layer above individual city guides so nearby destinations, county resources and metro-scale planning can be discovered without collapsing distinct local jurisdictions into one city page.',
+    region: 'gulf-coast',
+    officialUrl: 'https://www.h-gac.com/',
+    sourceId: 'texas-metro-planning',
+    sourceConfidence: 'official',
+    sourceCheckedAt: checkedAt,
+    status: 'active',
+    relationships: [
+      { type: 'has-core-city', targetId: 'city:houston' },
+      { type: 'located-in-region', targetId: 'region:gulf-coast' },
+      { type: 'regional-county', targetId: 'county:harris' },
+    ],
+    tags: ['metro', 'relocation', 'travel', 'gulf-coast', 'regional-discovery'],
+  },
+  {
+    id: 'metro-area:dallas-fort-worth',
+    kind: 'metro-area',
+    name: 'Dallas–Fort Worth',
+    slug: 'dallas-fort-worth',
+    aliases: ['DFW', 'Dallas Fort Worth metroplex', 'Dallas–Fort Worth metroplex'],
+    description: 'Dallas–Fort Worth is TexasDefined’s North Texas metro discovery node, connecting Dallas and Fort Worth while preserving their separate city and county identities. The metro page gives readers a regional layer for relocation, travel, transportation and nearby-place discovery across the Metroplex without treating Dallas County, Tarrant County or their surrounding communities as a single local jurisdiction.',
+    region: 'north-texas',
+    officialUrl: 'https://www.nctcog.org/',
+    sourceId: 'texas-metro-planning',
+    sourceConfidence: 'official',
+    sourceCheckedAt: checkedAt,
+    status: 'active',
+    relationships: [
+      { type: 'has-core-city', targetId: 'city:dallas' },
+      { type: 'has-core-city', targetId: 'city:fort-worth' },
+      { type: 'located-in-region', targetId: 'region:north-texas' },
+      { type: 'regional-county', targetId: 'county:dallas' },
+      { type: 'regional-county', targetId: 'county:tarrant' },
+    ],
+    tags: ['metro', 'metroplex', 'relocation', 'travel', 'north-texas', 'regional-discovery'],
+  },
+  {
+    id: 'metro-area:greater-austin',
+    kind: 'metro-area',
+    name: 'Greater Austin',
+    slug: 'greater-austin',
+    aliases: ['Austin metro', 'Austin metropolitan area'],
+    description: 'Greater Austin is TexasDefined’s Central Texas metro discovery node, connecting Austin with Travis County and the surrounding regional context used for relocation, commuting, transportation and nearby-destination discovery. It gives TexasDefined a metro-scale authority layer while keeping city services, county services and fast-growing neighboring communities attached to their own canonical local pages.',
+    region: 'central-texas',
+    officialUrl: 'https://www.campotexas.org/',
+    sourceId: 'texas-metro-planning',
+    sourceConfidence: 'official',
+    sourceCheckedAt: checkedAt,
+    status: 'active',
+    relationships: [
+      { type: 'has-core-city', targetId: 'city:austin' },
+      { type: 'located-in-region', targetId: 'region:central-texas' },
+      { type: 'regional-county', targetId: 'county:travis' },
+    ],
+    tags: ['metro', 'relocation', 'travel', 'central-texas', 'regional-discovery'],
+  },
+  {
+    id: 'metro-area:greater-san-antonio',
+    kind: 'metro-area',
+    name: 'Greater San Antonio',
+    slug: 'greater-san-antonio',
+    aliases: ['San Antonio metro', 'San Antonio metropolitan area'],
+    description: 'Greater San Antonio is TexasDefined’s metro-level discovery node for San Antonio and the surrounding South Central Texas region, linking the core city with Bexar County, regional transportation, relocation context and nearby destinations. The metro layer supports broader trip and moving decisions without confusing municipal services with county, regional or state responsibilities.',
+    region: 'south-texas',
+    officialUrl: 'https://www.alamoareampo.org/',
+    sourceId: 'texas-metro-planning',
+    sourceConfidence: 'official',
+    sourceCheckedAt: checkedAt,
+    status: 'active',
+    relationships: [
+      { type: 'has-core-city', targetId: 'city:san-antonio' },
+      { type: 'located-in-region', targetId: 'region:south-texas' },
+      { type: 'regional-county', targetId: 'county:bexar' },
+    ],
+    tags: ['metro', 'relocation', 'travel', 'south-central-texas', 'regional-discovery'],
+  },
+];
