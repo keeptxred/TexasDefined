@@ -1,6 +1,6 @@
 import type { TexasRegion } from "../types";
 
-export type CampingStyle = "tent" | "rv" | "primitive" | "beach" | "backcountry" | "group";
+export type CampingStyle = "tent" | "rv" | "primitive" | "beach" | "backcountry" | "group" | "cabin" | "glamping" | "airstream" | "bungalow";
 export type CampingAmenity =
   | "electric-hookup"
   | "electric-20"
@@ -13,6 +13,7 @@ export type CampingAmenity =
   | "restrooms"
   | "showers"
   | "ada-site"
+  | "pets"
   | "shade"
   | "swimming"
   | "lake-access"
