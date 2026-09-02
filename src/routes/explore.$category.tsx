@@ -3,6 +3,7 @@ import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-route
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
+import { foodDestinationCardsQuery } from "@/data/food-destination-cards-query";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
 import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
@@ -68,22 +69,15 @@ export const Route = createFileRoute("/explore/$category")({
       throw notFound();
     }
     const authorityPath = authorityCategorySlugs.has(category.slug) ? `/content/explore-category-authority/${category.slug}.html` : null;
-    const [articles, destinations, authorityHtml, foodDestinations] = await Promise.all([
+    const [articles, destinations, authorityHtml] = await Promise.all([
       context.queryClient.ensureQueryData(articlesQuery({ category: category.slug })),
       context.queryClient.ensureQueryData(destinationsQuery({ category: category.slug })),
       authorityPath ? fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath).then((response) => response.ok ? response.text() : null) : null,
-      category.slug === "food-bbq"
-        ? import("@/data/food-destinations").then(({ FOOD_DESTINATIONS }) => FOOD_DESTINATIONS.map((destination) => ({
-            slug: destination.slug,
-            name: destination.name,
-            city: destination.city,
-            region: destination.region,
-            significance: destination.significance,
-            knownFor: destination.knownFor.slice(0, 2),
-          })))
-        : Promise.resolve([]),
     ]);
-    return { category, articles, destinations, authorityHtml, foodDestinations };
+    if (category.slug === "food-bbq") {
+      await context.queryClient.ensureQueryData(foodDestinationCardsQuery());
+    }
+    return { category, articles, destinations, authorityHtml };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
@@ -93,7 +87,7 @@ export const Route = createFileRoute("/explore/$category")({
     const featuredCollectionItems = params.category === "food-bbq"
       ? [{ "@type": "ListItem", position: 1, item: { "@type": "CollectionPage", name: "Texas Food History", description: "The history behind barbecue, chili, chicken-fried steak, breakfast tacos, Czech and German foodways and Dr Pepper.", url: `${siteUrl}/texas-food-history` } }]
       : params.category === "outdoors" && !hasWildlifeGuide
-        ? [{ "@type": "ListItem", position: 1, item: { "@type": "Article", name: "Texas Wildlife Guide: Animals & Habitats", description: "A statewide guide to Texas wildlife and the habitats that shape where animals live, from East Texas forests and Gulf wetlands to Hill Country, prairie and desert country.", url: `${siteUrl}/article/texas-wildlife-guide` } }]
+        ? [{ "@type": "ListItem", position: 1, item: { "@type": "Article", name: "Texas Wildlife Guide: Animals & Habitats", description: "A statewide guide to Texas wildlife and the habitats that shape where animals live, from East Texas forests and Gulf wetlands to Hill Country rivers, prairie and desert country.", url: `${siteUrl}/article/texas-wildlife-guide` } }]
         : [];
     const indexReady = isExploreCategoryIndexReady(
       loaderData.category.slug,
