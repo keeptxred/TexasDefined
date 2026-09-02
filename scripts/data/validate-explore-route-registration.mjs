@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 
 const routeTree = fs.readFileSync('src/routeTree.gen.ts', 'utf8');
+const exploreSearch = fs.readFileSync('src/routes/explore.search.tsx', 'utf8');
 const failures = [];
 
 const requiredRouteFiles = [
@@ -42,10 +43,57 @@ for (const routePath of requiredPaths) {
   }
 }
 
+for (const feature of [
+  'createFileRoute("/explore/search")',
+  'component: ExploreSearchPage',
+  'canonicalPath: "/explore/search"',
+  'robots: "noindex, follow"',
+  'const text = z.string().optional().catch("")',
+  'q: text, category: text, region: text, season: text, accessible: text, origin: text, radius: text',
+  'const { q, category, region, season, accessible } = Route.useSearch()',
+  'const { origin, radius } = Route.useSearch()',
+  '!category || destination.category === category',
+  '!region || destination.region === region',
+  'normalized(destination.bestSeason).includes(wantedSeason)',
+  'accessible !== "1" || Boolean(destination.accessibilityNotes)',
+  'new Set(catalog.map((destination) => destination.category))',
+  'new Set(catalog.map((destination) => destination.region))',
+  'distanceMiles } from "@/data/destination-relationships"',
+  'const radiusOptions = [25, 50, 75, 100, 200]',
+  'function resolveOrigin(catalog: Destination[], value: string)',
+  'normalized(destination.name) === target',
+  'normalized(destination.slug) === target',
+  'originDestination ? distanceMiles(originDestination, destination) : null',
+  'item.miles <= radiusMiles',
+  'name="origin"',
+  'name="radius"',
+  'name="region"',
+  'name="category"',
+  'name="season"',
+  'name="accessible"',
+  'Accessibility info available',
+  'Radius filter not applied: enter the exact destination name or slug from the TexasDefined guide.',
+  'Radius uses straight-line distance between destination coordinates, not driving distance.',
+  'to="/explore/trip-planner"',
+]) {
+  if (!exploreSearch.includes(feature)) failures.push(`Explore search filter contract missing: ${feature}.`);
+}
+
+if (!exploreSearch.includes('links: [canonicalLink(texasDefinedBrand, "/explore/search")]')) {
+  failures.push('Explore search must canonicalize all query/filter combinations to the curated search landing route.');
+}
+if (exploreSearch.includes('robots: "index')) failures.push('Interactive Explore search/filter combinations must remain non-indexable.');
+if (exploreSearch.includes('dogFriendly') || exploreSearch.includes('kidFriendly')) {
+  failures.push('Explore search must not expose unverified pet/family filters before the destination schema supports them.');
+}
+if (/geocode|google\.maps|maps\.googleapis/i.test(exploreSearch)) {
+  failures.push('Explore radius search must not geocode or guess origin coordinates; origins resolve only to catalog destinations.');
+}
+
 if (failures.length) {
   console.error('Explore route registration validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('Explore regional, compatibility, and migrated guide routes are registered in routeTree.gen.ts.');
+console.log('Explore regional, compatibility, migrated guide and crawl-safe structured destination and exact-radius filter routes are registered.');

@@ -124,6 +124,12 @@ export const searchDocumentsQuery = () => queryOptions({
       base.push(document);
       knownHrefs.add(document.href);
     }
+    const { buildHuntingSearchDocuments } = await import("./hunting/search");
+    for (const document of buildHuntingSearchDocuments()) {
+      if (knownHrefs.has(document.href)) continue;
+      base.push(document);
+      knownHrefs.add(document.href);
+    }
     const { buildFishingSearchDocuments } = await import("./fishing/search");
     const fishingDocuments = await buildFishingSearchDocuments();
     for (const document of fishingDocuments) {
@@ -164,21 +170,6 @@ export const searchDocumentsQuery = () => queryOptions({
     const destinations = await listResolvedDestinationSearchCatalog();
     const nonDestinationDocuments = base.filter((document) => document.kind !== "destination");
     const nonDestinationHrefs = new Set(nonDestinationDocuments.map((document) => document.href));
-    const { FOOD_DESTINATIONS } = await import("./food-destinations");
-    for (const destination of FOOD_DESTINATIONS) {
-      const href = `/food/${destination.slug}`;
-      if (nonDestinationHrefs.has(href)) continue;
-      nonDestinationDocuments.push({
-        id: `food-destination:${destination.slug}`,
-        brandId: "texasdefined",
-        kind: "destination",
-        title: destination.name,
-        summary: destination.significance,
-        keywords: [...new Set([destination.city, destination.county, destination.region, ...destination.categories, ...destination.knownFor])],
-        href,
-      });
-      nonDestinationHrefs.add(href);
-    }
     const { paintedChurchSearchDocuments } = await import("./painted-church-search");
     for (const document of paintedChurchSearchDocuments) {
       if (nonDestinationHrefs.has(document.href)) continue;

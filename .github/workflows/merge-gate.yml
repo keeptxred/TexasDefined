@@ -77,6 +77,9 @@ jobs:
       - name: Validate stargazing authority
         run: node scripts/data/validate-stargazing-authority.mjs
 
+      - name: Validate hunting authority
+        run: node scripts/data/validate-hunting-authority.mjs
+
       - name: Validate national cemetery authority cluster
         run: node scripts/data/validate-national-cemetery-authority.mjs
 

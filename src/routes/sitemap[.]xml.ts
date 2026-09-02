@@ -12,7 +12,7 @@ import { loadFishingGuideSitemapEntriesServer } from "@/data/fishing/guide-sitem
 import { loadFishingLocalSitemapEntriesServer } from "@/data/fishing/local-sitemap.server";
 import { loadFishingReportSitemapEntriesServer } from "@/data/fishing/report-sitemap.server";
 import { FISHING_SITEMAP_ENTRIES } from "@/data/fishing/sitemap";
-import { FOOD_DESTINATIONS } from "@/data/food-destinations";
+import { HUNTING_SITEMAP_ENTRIES } from "@/data/hunting/sitemap";
 import { LOCAL_COST_OF_LIVING_PROFILES } from "@/data/local-cost-of-living";
 import { LOCAL_HOME_AFFORDABILITY_PROFILES } from "@/data/local-home-affordability";
 import { LOCAL_HOME_INSURANCE_PROFILES } from "@/data/local-home-insurance";
@@ -120,6 +120,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const entries: SitemapEntry[] = [
           ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).filter((path) => isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
           ...AUTHORITY_STATIC_PATHS.map((path) => ({ path, lastmod: AUTHORITY_LASTMOD })),
+          ...HUNTING_SITEMAP_ENTRIES,
           ...LOCAL_PROPERTY_TAX_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-08-30" })),
           ...LOCAL_HOME_AFFORDABILITY_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-08-30" })),
           ...LOCAL_HOMEOWNERSHIP_COST_PROFILES.map((profile) => ({ path: profile.ownershipPath, lastmod: "2026-08-30" })),
@@ -127,7 +128,6 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...LOCAL_MORTGAGE_PROFILES.map((profile) => ({ path: profile.mortgagePath, lastmod: "2026-08-30" })),
           ...LOCAL_COST_OF_LIVING_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-09-01" })),
           ...LOCAL_SALARY_NEEDED_PROFILES.map((profile) => ({ path: profile.salaryPath, lastmod: "2026-09-01" })),
-          ...FOOD_DESTINATIONS.map((destination) => ({ path: `/food/${destination.slug}`, lastmod: destination.verifiedAt })),
           { path: "/texas-icons" },
           ...majorEventIndexRecords.map((event) => ({ path: `/event/${event.slug}`, lastmod: toDate(event.sourceCheckedAt) })),
           ...supplementalMajorEventSitemapEntries,

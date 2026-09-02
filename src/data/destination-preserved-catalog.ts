@@ -66,6 +66,8 @@ import { statewideMuseumExpansionWave49Destinations } from "./museum-expansion-s
 import { statewideMuseumExpansionWave50Destinations } from "./museum-expansion-statewide-wave50";
 import { statewideMuseumExpansionWave51Destinations } from "./museum-expansion-statewide-wave51";
 import { statewideMuseumExpansionWave52Destinations } from "./museum-expansion-statewide-wave52";
+import { statewideMuseumExpansionWave53Destinations } from "./museum-expansion-statewide-wave53";
+import { statewideMuseumExpansionWave54Destinations } from "./museum-expansion-statewide-wave54";
 import { wacoMuseumDestinations } from "./museum-expansion-waco";
 import { nationalWildlifeRefugeDestinations } from "./national-wildlife-refuge-destinations";
 import { smallTownWave1Destinations } from "./small-town-destinations-wave1";
@@ -76,6 +78,13 @@ import { smallTownWave5Destinations } from "./small-town-destinations-wave5";
 import { smallTownWave6Destinations } from "./small-town-destinations-wave6";
 import { smallTownWave7Destinations } from "./small-town-destinations-wave7";
 import { smallTownWave8Destinations } from "./small-town-destinations-wave8";
+import { smallTownWave9Destinations } from "./small-town-destinations-wave9";
+import { smallTownWave10Destinations } from "./small-town-destinations-wave10";
+import { smallTownWave11Destinations } from "./small-town-destinations-wave11";
+import { smallTownWave12Destinations } from "./small-town-destinations-wave12";
+import { smallTownWave13Destinations } from "./small-town-destinations-wave13";
+import { smallTownWave14Destinations } from "./small-town-destinations-wave14";
+import { smallTownWave15Destinations } from "./small-town-destinations-wave15";
 import { wildlifeManagementAreaWave1Destinations } from "./wildlife-management-area-destinations-wave1";
 import { wildlifeManagementAreaWave2Destinations } from "./wildlife-management-area-destinations-wave2";
 import { wildlifeManagementAreaWave3Destinations } from "./wildlife-management-area-destinations-wave3";
@@ -213,6 +222,8 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   statewideMuseumExpansionWave50Destinations,
   statewideMuseumExpansionWave51Destinations,
   statewideMuseumExpansionWave52Destinations,
+  statewideMuseumExpansionWave53Destinations,
+  statewideMuseumExpansionWave54Destinations,
   nationalWildlifeRefugeDestinations,
   wildlifeManagementAreaWave1Destinations,
   wildlifeManagementAreaWave2Destinations,
@@ -231,5 +242,12 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   smallTownWave6Destinations,
   smallTownWave7Destinations,
   smallTownWave8Destinations,
+  smallTownWave9Destinations,
+  smallTownWave10Destinations,
+  smallTownWave11Destinations,
+  smallTownWave12Destinations,
+  smallTownWave13Destinations,
+  smallTownWave14Destinations,
+  smallTownWave15Destinations,
   [newBraunfelsSeasonalFallback],
 );
