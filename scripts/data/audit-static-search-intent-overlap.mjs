@@ -20,11 +20,14 @@ const records = [];
 for (const file of routeFiles) {
   const source = fs.readFileSync(file, 'utf8');
   const constants = staticStringConstants(source);
+  const ownedPaths = resolveOwnedStaticPaths(source, constants);
   for (const record of buildMetaRecords(source, constants)) {
-    if (!record.canonical || !indexablePaths.has(record.canonical)) continue;
+    const canonical = record.canonical ?? (ownedPaths.length === 1 ? ownedPaths[0] : null);
+    if (!canonical || !indexablePaths.has(canonical)) continue;
     if (!record.title && !record.description) continue;
     records.push({
       ...record,
+      canonical,
       file: path.relative(root, file).replaceAll('\\', '/'),
     });
   }
@@ -36,6 +39,7 @@ for (const record of records) {
   if (!existing || metadataRichness(record) > metadataRichness(existing)) byCanonical.set(record.canonical, record);
 }
 const pages = [...byCanonical.values()].sort((a, b) => a.canonical.localeCompare(b.canonical));
+const unresolved = [...indexablePaths].filter((routePath) => routePath !== '/' && !byCanonical.has(routePath));
 const candidates = [];
 
 for (let i = 0; i < pages.length; i += 1) {
@@ -60,7 +64,13 @@ for (let i = 0; i < pages.length; i += 1) {
 }
 
 candidates.sort((a, b) => b.score - a.score || a.a.canonical.localeCompare(b.a.canonical));
-console.log(`Static search-intent overlap audit: ${indexablePaths.size} registered indexable static paths; ${pages.length} with statically resolved metadata; ${candidates.length} high-overlap candidate pairs.`);
+console.log(`Static search-intent overlap audit: ${indexablePaths.size} registered indexable static paths; ${pages.length} with statically resolved metadata; ${unresolved.length} unresolved; ${candidates.length} high-overlap candidate pairs.`);
+
+if (unresolved.length) {
+  console.log('\nUnresolved static metadata paths (coverage review):');
+  for (const routePath of unresolved.slice(0, 80)) console.log(`- ${routePath}`);
+  if (unresolved.length > 80) console.log(`- … ${unresolved.length - 80} more`);
+}
 
 for (const candidate of candidates.slice(0, 100)) {
   console.log(`\n- ${candidate.a.canonical} <> ${candidate.b.canonical}${candidate.sameFamily ? ' [same route family]' : ''}`);
@@ -88,6 +98,18 @@ function buildMetaRecords(source, constants) {
     cursor = objectEnd + 1;
   }
   return records;
+}
+
+function resolveOwnedStaticPaths(source, constants) {
+  const owned = new Set();
+  for (const match of source.matchAll(/create(?:Lazy)?FileRoute\(\s*(["'`])([^"'`$]+)\1\s*\)/g)) {
+    if (indexablePaths.has(match[2])) owned.add(match[2]);
+  }
+  for (const match of source.matchAll(/create(?:Lazy)?FileRoute\(\s*([A-Za-z_$][\w$]*)\s*\)/g)) {
+    const resolved = constants.get(match[1]);
+    if (resolved && indexablePaths.has(resolved)) owned.add(resolved);
+  }
+  return [...owned];
 }
 
 function resolveField(block, name, constants) {
