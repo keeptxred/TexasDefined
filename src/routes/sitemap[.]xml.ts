@@ -34,6 +34,16 @@ const origin = `https://${texasDefinedBrand.identity.domain}`;
 type SitemapEntry = { path: string; lastmod?: string };
 
 const PRIORITY_SEO_LASTMOD = "2026-08-20";
+const AUTHORITY_LASTMOD = "2026-09-01";
+const AUTHORITY_STATIC_PATHS = [
+  "/track-texas-drivers-license",
+  "/texas-by-texas-txt",
+  "/replace-texas-registration-receipt",
+  "/texas-toll-tags",
+  "/start-a-business-in-texas",
+  "/everything-bigger-in-texas",
+  "/what-does-chud-mean",
+] as const;
 const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/best-places-to-go-camping-in-texas": PRIORITY_SEO_LASTMOD,
   "/texas-state-fair": PRIORITY_SEO_LASTMOD,
@@ -103,6 +113,7 @@ export const Route = createFileRoute("/sitemap.xml")({
 
         const entries: SitemapEntry[] = [
           ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).filter((path) => isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
+          ...AUTHORITY_STATIC_PATHS.map((path) => ({ path, lastmod: AUTHORITY_LASTMOD })),
           ...LOCAL_PROPERTY_TAX_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-08-30" })),
           ...LOCAL_HOME_AFFORDABILITY_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-08-30" })),
           ...LOCAL_HOMEOWNERSHIP_COST_PROFILES.map((profile) => ({ path: profile.ownershipPath, lastmod: "2026-08-30" })),
