@@ -94,6 +94,7 @@ import { wildlifeManagementAreaWave6Destinations } from "./wildlife-management-a
 import { wildlifeManagementAreaWave7Destinations } from "./wildlife-management-area-destinations-wave7";
 import { wildlifeManagementAreaWave8Destinations } from "./wildlife-management-area-destinations-wave8";
 import { wildlifeManagementAreaWave9Destinations } from "./wildlife-management-area-destinations-wave9";
+import { wildlifeManagementAreaWave10Destinations } from "./wildlife-management-area-destinations-wave10";
 import type { Destination } from "./types";
 
 const newBraunfelsSeasonalFallback: Destination = {
@@ -234,6 +235,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   wildlifeManagementAreaWave7Destinations,
   wildlifeManagementAreaWave8Destinations,
   wildlifeManagementAreaWave9Destinations,
+  wildlifeManagementAreaWave10Destinations,
   smallTownWave1Destinations,
   smallTownWave2Destinations,
   smallTownWave3Destinations,
