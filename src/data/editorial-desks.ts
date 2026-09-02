@@ -30,9 +30,9 @@ export const editorialDesks: Author[] = [
   },
   {
     id: HOMES_LAND_EDITORIAL_DESK_ID,
-    name: "Texas Defined Homes & Land Desk",
-    role: "Homes & land desk",
-    bio: "Texas Defined's Homes & Land Desk covers homeownership, property, utilities, weather resilience, maintenance and land stewardship using official agencies, extension services and other primary sources. Its service journalism is practical guidance, not a substitute for licensed legal, insurance, engineering or trade advice.",
+    name: "Texas Defined Homes & Property Desk",
+    role: "Homes & property desk",
+    bio: "Texas Defined's Homes & Property Desk covers homeownership, property, utilities, weather resilience, maintenance and land stewardship using official agencies, extension services and other primary sources. Its service journalism is practical guidance, not a substitute for licensed legal, insurance, engineering or trade advice.",
   },
   {
     id: HISTORY_HERITAGE_EDITORIAL_DESK_ID,
