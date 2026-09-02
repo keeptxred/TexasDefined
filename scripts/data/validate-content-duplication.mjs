@@ -184,7 +184,7 @@ for (const [kind, ownerMap] of [['title', titleOwners], ['description', descript
 }
 
 // Exact-match checks miss templated pages whose metadata differs by only a place name,
-// qualifier, or a few words. Conservative trigram thresholds catch those high-confidence
+// qualifier, or a few words. Intentionally conservative trigram thresholds catch those high-confidence
 // near-duplicates without treating normal shared topic vocabulary as cannibalization.
 flagNearDuplicates('title', titleOwners, { minLength: 24, threshold: 0.94 });
 flagNearDuplicates('description', descriptionOwners, { minLength: 80, threshold: 0.96 });
