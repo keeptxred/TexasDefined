@@ -11,6 +11,7 @@ import { loadSupplementalMajorEventRecordsServer } from "./major-event-supplemen
 
 export interface MajorEventGuideDirectoryItem {
   slug: string;
+  href: string;
   name: string;
   city: string;
   countyName?: string;
@@ -33,6 +34,31 @@ interface EventsPageRegion {
   name: string;
 }
 
+const priorityEventGuides: MajorEventGuideDirectoryItem[] = [
+  {
+    slug: "state-fair-of-texas",
+    href: "/texas-state-fair",
+    name: "State Fair of Texas",
+    city: "Dallas",
+    countyName: "Dallas County",
+    region: "prairies-lakes",
+    category: "seasonal",
+    detail: "Dallas · Sep 25–Oct 18, 2026 · Fair Park",
+    startDate: "2026-09-25",
+    endDate: "2026-10-18",
+    sourceCheckedAt: "2026-09-01",
+  },
+];
+
+const eventTimingLinks: EventDiscoveryLink[] = [
+  { href: "/events/this-weekend", title: "Events this weekend", description: "A live Friday-through-Sunday view built only from source-verified permanent event guides." },
+  { href: "/events/this-month", title: "Events this month", description: "The current Texas event month, with thin periods automatically withheld from indexing." },
+  { href: "/events/september-events", title: "September events", description: "Fairs, rodeos, Oktoberfests, music and fall-opening traditions across Texas." },
+  { href: "/events/fall-festivals", title: "Fall festivals", description: "Verified September-through-November food, music, heritage, fair and seasonal events." },
+  { href: "/events/christmas-events", title: "Christmas & holiday events", description: "Source-checked holiday parades, markets, lights and recurring seasonal traditions." },
+  { href: "/events/county-fairs", title: "County fairs", description: "Texas county fairs and fairground traditions with current dates and county context." },
+];
+
 const eventTopicLinks: EventDiscoveryLink[] = [
   { href: "/events/rodeos", title: "Rodeos & western events", description: "Stock shows, county fairs and rodeo weekends with permanent sourced planning guides." },
   { href: "/events/food-festivals", title: "Food festivals", description: "Barbecue, chili, Oktoberfest, harvest, beer, wine and local food traditions." },
@@ -45,6 +71,8 @@ const eventTopicLinks: EventDiscoveryLink[] = [
 const eventRegionLinks: EventDiscoveryLink[] = [
   { href: "/events/hill-country-events", title: "Hill Country", description: "Austin, New Braunfels, Fredericksburg, Kerrville and the surrounding region." },
   { href: "/events/gulf-coast-events", title: "Gulf Coast", description: "Houston, Galveston, the Coastal Bend and island event weekends." },
+  { href: "/events/houston-area-events", title: "Houston area", description: "Harris, Fort Bend, Montgomery and Brazoria County events grouped by actual venue and county." },
+  { href: "/events/dallas-fort-worth-events", title: "Dallas-Fort Worth", description: "Dallas, Fort Worth and core DFW county events with city-level planning context." },
   { href: "/events/north-texas-events", title: "North Texas", description: "Dallas-Fort Worth, Prairies & Lakes cities and nearby fair and festival towns." },
   { href: "/events/south-texas-events", title: "South Texas", description: "San Antonio, border traditions, Valley festivals and regional rodeos." },
   { href: "/events/piney-woods-events", title: "East Texas & Piney Woods", description: "Rose, forest, music and small-town traditions across East Texas." },
@@ -64,31 +92,37 @@ export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryIt
     ...loadSupplementalMajorEventRecordsServer().filter((event) => !coreSlugs.has(event.slug)),
   ];
   const today = new Date().toISOString().slice(0, 10);
+  const prioritySlugs = new Set(priorityEventGuides.map((event) => event.slug));
 
-  return events
-    .map((event) => ({
-      slug: event.slug,
-      name: event.name,
-      city: event.city,
-      countyName: event.countyName,
-      region: event.region,
-      category: event.category,
-      detail: `${event.city} · ${formatMajorEventDateLabelServer(event)}`,
-      startDate: event.startDate,
-      endDate: event.endDate,
-      sourceCheckedAt: event.sourceCheckedAt,
-    }))
-    .sort((left, right) => {
-      const leftPast = (left.endDate || left.startDate) < today;
-      const rightPast = (right.endDate || right.startDate) < today;
-      if (leftPast !== rightPast) return leftPast ? 1 : -1;
-      return left.startDate.localeCompare(right.startDate) || left.name.localeCompare(right.name);
-    });
+  return [
+    ...priorityEventGuides,
+    ...events
+      .filter((event) => !prioritySlugs.has(event.slug))
+      .map((event) => ({
+        slug: event.slug,
+        href: `/event/${event.slug}`,
+        name: event.name,
+        city: event.city,
+        countyName: event.countyName,
+        region: event.region,
+        category: event.category,
+        detail: `${event.city} · ${formatMajorEventDateLabelServer(event)}`,
+        startDate: event.startDate,
+        endDate: event.endDate,
+        sourceCheckedAt: event.sourceCheckedAt,
+      })),
+  ].sort((left, right) => {
+    const leftPast = (left.endDate || left.startDate) < today;
+    const rightPast = (right.endDate || right.startDate) < today;
+    if (leftPast !== rightPast) return leftPast ? 1 : -1;
+    return left.startDate.localeCompare(right.startDate) || left.name.localeCompare(right.name);
+  });
 }
 
 export function loadMajorEventLandingDirectoryServer() {
   return {
     majorEventGuides: loadMajorEventGuideDirectoryServer(),
+    eventTimingLinks,
     eventTopicLinks,
     eventRegionLinks,
   };
