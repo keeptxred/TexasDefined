@@ -53,6 +53,6 @@ export const wildlifeManagementAreaWave4Destinations: Destination[] = [
       "The WMA was historically associated with protection of white-winged dove nesting habitat, but its units now support a broader South Texas wildlife community and provide strategically placed public lands within one of the country's most distinctive birding regions.",
       "Public access is unit-specific. Anacua, Arroyo Colorado, Baird, Carricitos, Chapote, Ebony, Longoria, Taormina and Tucker are among the units TPWD identifies for public use, so a successful visit starts by selecting a unit, reviewing its map and checking hunt closures before departure."
     ],
-    officialUrl: "https://tpwd.texas.gov/huntwild/hunt/wma/find_a_wma/list/?id=12",
+    officialUrl: "https://tpwd.texas.gov/huntwild/hunt/wma/find_a_wma/list/?id=47",
   }),
 ];
