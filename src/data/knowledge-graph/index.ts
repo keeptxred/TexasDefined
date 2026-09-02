@@ -10,6 +10,14 @@ import type { TexasEntityKind, TexasEntityRecord } from './types';
 export type { TexasEntityKind, TexasEntityRecord, EntityRelationship, GeoPoint, KnowledgeGraphValidation } from './types';
 export { TEXAS_ENTITY_REGISTRY, findTexasEntity, relationshipsFor, validateTexasEntityRegistry, fetchExploreGraphEntities, hasRemoteExploreGraph };
 
+type CityMetroAuthorityModule = typeof import('../city-metro-authority-seeds');
+let cityMetroAuthorityPromise: Promise<CityMetroAuthorityModule> | undefined;
+
+function loadCityMetroAuthorityModule() {
+  cityMetroAuthorityPromise ??= import('../city-metro-authority-seeds');
+  return cityMetroAuthorityPromise;
+}
+
 export function entitiesByKind(kind: TexasEntityKind) {
   return TEXAS_ENTITY_REGISTRY.filter((entity) => entity.kind === kind);
 }
@@ -44,13 +52,25 @@ export function searchTexasKnowledgeGraph(query: string, limit = 25): TexasEntit
 
 export async function loadTexasKnowledgeGraph(options: { query?: string; limit?: number } = {}): Promise<TexasEntityRecord[]> {
   let remote: TexasEntityRecord[] = [];
+  let cityMetroAuthority: CityMetroAuthorityModule | undefined;
   try {
-    remote = await fetchExploreGraphEntities(options);
+    [remote, cityMetroAuthority] = await Promise.all([
+      fetchExploreGraphEntities(options).catch((error) => {
+        console.error('Explore knowledge graph unavailable; using static registry', error);
+        return [];
+      }),
+      loadCityMetroAuthorityModule().catch((error) => {
+        console.error('City/metro authority enrichment unavailable; keeping verified placeholders gated', error);
+        return undefined;
+      }),
+    ]);
   } catch (error) {
-    console.error('Explore knowledge graph unavailable; using static registry', error);
+    console.error('Knowledge graph enrichment unavailable; using static registry', error);
   }
+
   const merged = new Map<string, TexasEntityRecord>();
   for (const entity of TEXAS_ENTITY_REGISTRY) merged.set(entity.id, entity);
+  for (const entity of cityMetroAuthority?.cityMetroAuthoritySeedEntities() ?? []) merged.set(entity.id, entity);
   for (const entity of remote) {
     const existing = merged.get(entity.id);
     merged.set(entity.id, existing ? {
@@ -66,6 +86,14 @@ export async function loadTexasKnowledgeGraph(options: { query?: string; limit?:
   const countyEntries = graph.filter((entity) => entity.kind === 'county');
   const enrichedCounties = await Promise.all(countyEntries.map(enrichCountyGeographyEntity));
   const enrichedById = new Map(enrichedCounties.map((entity) => [entity.id, entity]));
+
+  if (cityMetroAuthority) {
+    for (const entity of graph) {
+      if (entity.kind !== 'city' && entity.kind !== 'metro-area') continue;
+      const enriched = cityMetroAuthority.enrichCityMetroAuthorityEntity(entity);
+      if (enriched !== entity) enrichedById.set(entity.id, enriched);
+    }
+  }
 
   // Local-office sitemap eligibility must use the same checked-in verified data
   // as the public property-tax pages. Do not make sitemap publication depend on
@@ -88,15 +116,32 @@ export async function findCompleteTexasEntity(value: string): Promise<TexasEntit
   const normalized = value.trim().toLowerCase();
   if (!normalized) return undefined;
   const staticMatch = findTexasEntity(value);
-  if (staticMatch) return enrichGovernmentEntity(staticMatch);
+  if (staticMatch) return enrichAuthoritativeEntity(staticMatch);
+
+  try {
+    const cityMetroAuthority = await loadCityMetroAuthorityModule();
+    const authorityMatch = cityMetroAuthority.findCityMetroAuthoritySeed(value);
+    if (authorityMatch) return authorityMatch;
+  } catch (error) {
+    console.error('City/metro authority lookup unavailable', error);
+  }
+
   const remote = await fetchExploreGraphEntities({ query: value, limit: 50 });
   const match = remote.find((entity) => entity.id.toLowerCase() === normalized || entity.slug.toLowerCase() === normalized || entity.name.toLowerCase() === normalized || entity.aliases.some((alias) => alias.toLowerCase() === normalized));
-  return match ? enrichGovernmentEntity(match) : undefined;
+  return match ? enrichAuthoritativeEntity(match) : undefined;
 }
 
-async function enrichGovernmentEntity(entity: TexasEntityRecord): Promise<TexasEntityRecord> {
+async function enrichAuthoritativeEntity(entity: TexasEntityRecord): Promise<TexasEntityRecord> {
   if (entity.kind === 'county') return enrichCountyEntity(entity);
   if (entity.kind === 'appraisal-district' || entity.kind === 'tax-office') return enrichLocalOfficeEntity(entity);
+  if (entity.kind === 'city' || entity.kind === 'metro-area') {
+    try {
+      const cityMetroAuthority = await loadCityMetroAuthorityModule();
+      return cityMetroAuthority.enrichCityMetroAuthorityEntity(entity);
+    } catch (error) {
+      console.error(`City/metro enrichment unavailable for ${entity.id}`, error);
+    }
+  }
   return entity;
 }
 
