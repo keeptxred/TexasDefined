@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { loadCountyProfile } from '@/data/county-profile';
 import { loadCountySeriesArticle } from '@/data/county-series';
+import { loadUpcomingEventGuidesForPlaceServer } from '@/data/event-place-links.server';
 import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
 import {
   canonicalEntityPath,
@@ -18,18 +19,25 @@ export const Route = createFileRoute('/$kind/$slug')({
     const entity = await findCompleteTexasEntity(`${params.kind}:${params.slug}`) ?? await findCompleteTexasEntity(params.slug);
     if (!entity || entity.kind !== params.kind) throw notFound();
     const related = rankRelatedEntities(entity, graph, 12);
+    const upcomingEvents = loadUpcomingEventGuidesForPlaceServer({
+      kind: entity.kind,
+      name: entity.name,
+      slug: entity.slug,
+      relationshipTargetIds: entity.relationships.map((relationship) => relationship.targetId),
+      limit: 4,
+    });
     const countySportsVenues = entity.kind === 'county'
       ? graph
         .filter((candidate) => candidate.kind === 'sports-venue' && candidate.countySlug === entity.slug && isIndexableEntityPage(candidate))
         .sort((left, right) => sportsVenuePriority(left) - sportsVenuePriority(right) || left.name.localeCompare(right.name))
       : [];
-    if (entity.kind !== 'county') return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues };
+    if (entity.kind !== 'county') return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues, upcomingEvents };
     const [countyProfile, localGovernment, countySeriesArticle] = await Promise.all([
       loadCountyProfile(entity.slug, entity.name),
       loadLocalGovernmentProfile(entity.slug, entity.name),
       loadCountySeriesArticle(entity.slug),
     ]);
-    return { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues };
+    return { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, upcomingEvents };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
