@@ -82,16 +82,19 @@ function WildlifeSpeciesHub() {
 
       <section className="mt-10 grid gap-5 md:grid-cols-2" aria-labelledby="species-directory-heading">
         <h2 id="species-directory-heading" className="sr-only">Texas wildlife species directory</h2>
-        {TEXAS_WILDLIFE_SPECIES.map((species) => (
-          <article key={species.id} className="border border-border bg-surface/40 p-6">
-            <p className="eyebrow text-primary">{species.tags?.includes('birds') ? 'Bird' : species.tags?.includes('reptiles') ? 'Reptile' : 'Mammal'}</p>
-            <h3 className="mt-2 font-display text-2xl text-foreground">
-              <Link to={canonicalEntityPath(species)} className="hover:text-primary">{species.name}</Link>
-            </h3>
-            <p className="mt-3 text-sm leading-7 text-muted-foreground">{species.description}</p>
-            <Link to={canonicalEntityPath(species)} className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Open species profile →</Link>
-          </article>
-        ))}
+        {TEXAS_WILDLIFE_SPECIES.map((species) => {
+          const path = canonicalEntityPath(species);
+          return (
+            <article key={species.id} className="border border-border bg-surface/40 p-6">
+              <p className="eyebrow text-primary">{species.tags?.includes('birds') ? 'Bird' : species.tags?.includes('reptiles') ? 'Reptile' : 'Mammal'}</p>
+              <h3 className="mt-2 font-display text-2xl text-foreground">
+                <a href={path} className="hover:text-primary">{species.name}</a>
+              </h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">{species.description}</p>
+              <a href={path} className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Open species profile →</a>
+            </article>
+          );
+        })}
       </section>
 
       <section className="mt-12 border-t border-border pt-8">
@@ -99,7 +102,7 @@ function WildlifeSpeciesHub() {
         <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Species ranges are not guarantees of sightings. Pair the field guide with Texas Defined refuge, wildlife-management-area and outdoor destination pages, and always check the managing agency before travel.</p>
         <div className="mt-5 flex flex-wrap gap-4 text-sm">
           <Link to="/explore/outdoors" className="underline decoration-border underline-offset-4 hover:text-foreground">Texas outdoors & wildlife</Link>
-          <Link to="/article/texas-wildlife-guide" className="underline decoration-border underline-offset-4 hover:text-foreground">Texas wildlife guide</Link>
+          <a href="/article/texas-wildlife-guide" className="underline decoration-border underline-offset-4 hover:text-foreground">Texas wildlife guide</a>
         </div>
       </section>
     </Container>
