@@ -104,7 +104,7 @@ function faqEntriesForArticle(article: { slug: string; body: FaqBlock[] }): FaqE
 type ArticleDepartment = { name: string; path: string; usesExploreCategory: boolean };
 
 function articleDepartment(category: string): ArticleDepartment {
-  const livingHere = new Set(["moving-to-texas", "home-garden", "real-estate", "property-taxes"]);
+  const livingHere = new Set(["moving-to-texas", "home-garden", "real-estate"]);
   if (livingHere.has(category)) return { name: "Texas Life", path: "/texas-living", usesExploreCategory: false };
   if (category === "sports") return { name: "Sports", path: "/sports", usesExploreCategory: false };
   if (category === "texas-history" || category === "history") return { name: "History", path: "/texas-history", usesExploreCategory: false };
@@ -206,6 +206,7 @@ export const Route = createFileRoute("/article/$slug")({
       description: author.bio,
       url: authorUrl,
       parentOrganization: { "@id": `${siteUrl}/#organization` },
+      publishingPrinciples: `${siteUrl}/editorial-policy`,
     } : null;
     const articleSchema = {
       "@type": "Article",
@@ -226,6 +227,7 @@ export const Route = createFileRoute("/article/$slug")({
       isAccessibleForFree: true,
       author: { "@id": authorId },
       publisher: { "@id": `${siteUrl}/#organization` },
+      publishingPrinciples: `${siteUrl}/editorial-policy`,
       ...(article.sourceUrl ? { citation: article.sourceUrl } : primarySource ? { citation: primarySource.url } : {}),
       ...((texasExplainedPillarSlugs.has(article.slug) || texasExplainedSupportSlugs.has(article.slug)) ? {
         isPartOf: {
@@ -362,6 +364,11 @@ function ArticlePage() {
     </section>
     <Container className="max-w-3xl py-10 sm:py-16">
       <Byline author={author} meta={`${formatDate(article.publishedAt)} · ${formatReadingTime(article.readingMinutes)}`} />
+      <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
+        <a href="/editorial-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Editorial policy</a>
+        <a href="/sourcing-methodology" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">How we source</a>
+        <a href="/corrections-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Corrections &amp; updates</a>
+      </nav>
       {isTexasExplainedPillar && <aside className="mt-8 border-l-2 border-primary pl-5" aria-label="Texas Explained series">
         <p className="eyebrow text-primary">Texas Explained · Guide {texasExplainedPillarPosition + 1} of {texasExplainedPillarOrder.length}</p>
         <p className="mt-2 text-sm leading-7 text-muted-foreground">Part of our 10-guide series on the systems, landscapes and people that explain how Texas works. <Link to="/texas-explained" className="border-b border-primary py-1 text-foreground transition-colors hover:text-primary">See all 10 guides →</Link></p>

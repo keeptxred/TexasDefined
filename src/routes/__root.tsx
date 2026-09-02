@@ -91,12 +91,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             sameAs: texasDefinedBrand.identity.social.map((profile) => profile.href),
             contactPoint: [{
               "@type": "ContactPoint",
-              contactType: "editorial and general inquiries",
-              url: `${siteUrl}/about#contact`,
+              contactType: "editorial, corrections and general inquiries",
+              url: `${siteUrl}/partner-with-us`,
             }],
-            publishingPrinciples: `${siteUrl}/about`,
+            publishingPrinciples: `${siteUrl}/editorial-policy`,
             areaServed: { "@type": "State", name: "Texas" },
-            knowsAbout: ["Texas travel", "Texas destinations", "Texas lifestyle", "Texas homes", "Texas property", "Texas history", "Texas events", "Texas sports", "Texas sports venues"],
+            knowsAbout: ["Texas travel", "Texas destinations", "Texas lifestyle", "Texas homes", "Texas property", "Texas history", "Texas heritage", "Texas events", "Texas sports", "Texas sports venues"],
           },
           {
             "@type": "WebSite",

@@ -52,6 +52,9 @@ export function Footer() {
             <div className="flex flex-wrap gap-x-5 gap-y-2">
               <Link to="/partner-with-us" className="transition-colors hover:text-primary">Partner With Us</Link>
               <Link to="/citation-guide" className="transition-colors hover:text-primary">Citation Guide</Link>
+              <a href="/editorial-policy" className="transition-colors hover:text-primary">Editorial Policy</a>
+              <a href="/sourcing-methodology" className="transition-colors hover:text-primary">Sourcing</a>
+              <a href="/corrections-policy" className="transition-colors hover:text-primary">Corrections</a>
               <Link to="/privacy" className="transition-colors hover:text-primary">Privacy Policy</Link>
               <a href="/about#privacy-terms" className="transition-colors hover:text-primary">Site Terms</a>
               {nonPrivacyLegalItems.map((item) => item.to.includes("#") ? <a key={item.to} href={item.to} className="transition-colors hover:text-primary">{item.label}</a> : <Link key={item.to} to={item.to} className="transition-colors hover:text-primary">{item.label}</Link>)}

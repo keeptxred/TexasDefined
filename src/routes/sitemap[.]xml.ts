@@ -56,6 +56,9 @@ const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/texas-vs-every-state": PRIORITY_SEO_LASTMOD,
   "/texas-history": "2026-08-20",
   "/texas-symbols": "2026-08-20",
+  "/editorial-policy": "2026-09-01",
+  "/corrections-policy": "2026-09-01",
+  "/sourcing-methodology": "2026-09-01",
 };
 const ARTICLE_LASTMOD_BY_SLUG: Readonly<Record<string, string>> = {
   "history-of-the-texas-flag": "2026-08-20",
