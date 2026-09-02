@@ -114,5 +114,13 @@ jobs:
       - name: Build production application
         run: npm run build
 
+      - name: Validate generated route tree is committed
+        shell: bash
+        run: |
+          if ! git diff --exit-code -- src/routeTree.gen.ts; then
+            echo '::error title=Generated route tree is stale::The production build changed src/routeTree.gen.ts. Commit the TanStack-generated route tree before merging.'
+            exit 1
+          fi
+
       - name: Validate client performance budget
         run: npm run performance:validate
