@@ -9,6 +9,19 @@ import { findTexasPlaces, TEXAS_COUNTIES } from "@/data/texas-places";
 export const countyAnchor = (slug: string) => `county-${slug}`;
 export const cityAnchor = (slug: string) => `city-${slug}`;
 
+const CITY_AUTHORITY_SLUGS = new Set([
+  "houston",
+  "dallas",
+  "fort-worth",
+  "austin",
+  "san-antonio",
+  "el-paso",
+  "arlington",
+  "corpus-christi",
+  "plano",
+  "lubbock",
+]);
+
 const countySlugForCity = (countyName: string) => {
   const county = TEXAS_COUNTIES.find((candidate) => candidate.name === `${countyName} County`);
   if (!county) throw new Error(`Texas city directory references unknown county: ${countyName}`);
@@ -22,7 +35,7 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
   const title = mode === "counties" ? "The Texas county directory" : "The Texas city directory";
   const intro = mode === "counties"
     ? "Find a county, then continue to verified local property-tax guides, official offices and public records."
-    : "Find a Texas city by county and region, then continue to its county guide, the relocation research center, salary comparisons and cost-of-living tools while local city records are independently verified.";
+    : "Find a Texas city by county and region, then open a verified city authority guide where available or continue to its county guide, relocation research center, salary comparisons and cost-of-living tools.";
   const searchLabel = mode === "counties" ? "county" : "city";
   const current = mode === "counties" ? "Counties" : "Cities";
 
@@ -60,8 +73,9 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
                   <li id={cityAnchor(city.slug)} key={city.slug} className={`border-b border-border py-7 sm:px-6 ${index % 3 === 0 ? "lg:pl-0" : ""} ${index % 3 !== 2 ? "lg:border-r" : ""}`}>
                     <p className="eyebrow text-primary">{city.region}</p>
                     <h3 className="mt-3 font-display text-3xl leading-tight">{city.name}, Texas</h3>
-                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{city.name} is in {city.county} County. City detail pages are published only after local source verification; use the county authority guide, relocation research framework and statewide planning tools in the meantime.</p>
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{CITY_AUTHORITY_SLUGS.has(city.slug) ? `${city.name} has a verified TexasDefined city authority guide with official municipal sourcing plus county, regional, relocation and nearby-place context.` : `${city.name} is in ${city.county} County. City detail pages are published only after local source verification; use the county authority guide, relocation research framework and statewide planning tools in the meantime.`}</p>
                     <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3">
+                      {CITY_AUTHORITY_SLUGS.has(city.slug) ? <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/$kind/$slug" params={{ kind: "city", slug: city.slug }}>Open city reference →</Link> : null}
                       <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/moving-to-texas">Relocation research →</Link>
                       <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/$kind/$slug" params={{ kind: "county", slug: countySlugForCity(city.county) }}>Explore {city.county} County →</Link>
                       <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/texas-salary-comparison-by-city">Compare salary →</Link>
