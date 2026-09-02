@@ -7,6 +7,7 @@ const loaderPath = path.join(dataDir, "major-event-page.server.ts");
 const registryPath = path.join(dataDir, "major-event-supplemental-registry.server.ts");
 const ledgerPath = path.join(root, "ops", "editorial", "major-events-source-disposition.md");
 const collectionsPath = path.join(dataDir, "event-collections.ts");
+const temporalCollectionsPath = path.join(dataDir, "event-temporal-collections.server.ts");
 const collectionLoaderPath = path.join(dataDir, "event-collection-page.server.ts");
 const directoryPath = path.join(dataDir, "major-event-directory.server.ts");
 const collectionRoutePath = path.join(root, "src", "routes", "events.$collection.tsx");
@@ -25,6 +26,7 @@ const loader = read(loaderPath);
 const registry = read(registryPath);
 const ledger = read(ledgerPath);
 const collections = read(collectionsPath);
+const temporalCollections = read(temporalCollectionsPath);
 const collectionLoader = read(collectionLoaderPath);
 const directory = read(directoryPath);
 const collectionRoute = read(collectionRoutePath);
@@ -55,10 +57,6 @@ const authorityFiles = [
   ...trancheFiles,
 ].map((name) => path.join(dataDir, name));
 
-// Historical tranches contain several intentionally tolerated duplicate definitions.
-// The runtime has always used first-match resolution, so this validator records those
-// duplicates for visibility without retroactively changing their precedence. New safety
-// checks focus on the failure modes that can make published event destinations disappear.
 const slugOwners = new Map();
 for (const file of authorityFiles) {
   const source = read(file);
@@ -103,7 +101,18 @@ const requiredCollectionPaths = [
   "/events/big-bend-events",
   "/events/panhandle-events",
 ];
+const requiredTemporalPaths = [
+  "/events/this-weekend",
+  "/events/this-month",
+  "/events/september-events",
+  "/events/fall-festivals",
+  "/events/christmas-events",
+  "/events/county-fairs",
+  "/events/houston-area-events",
+  "/events/dallas-fort-worth-events",
+];
 const collectionPaths = [...collections.matchAll(/\bpath:\s*"(\/events\/[a-z0-9-]+)"/g)].map((match) => match[1]);
+const temporalPaths = [...temporalCollections.matchAll(/\bpath:\s*"(\/events\/[a-z0-9-]+)"/g)].map((match) => match[1]);
 if (collectionPaths.length !== requiredCollectionPaths.length) {
   fail(`expected ${requiredCollectionPaths.length} event authority collections, found ${collectionPaths.length}`);
 }
@@ -113,25 +122,43 @@ for (const routePath of requiredCollectionPaths) {
   if (!directory.includes(`href: "${routePath}"`)) fail(`Texas Events server discovery directory does not expose ${routePath}`);
   if (!publicRoutes.includes(`"${routePath}"`)) fail(`public route governance does not classify ${routePath} as indexable`);
 }
+if (temporalPaths.length !== requiredTemporalPaths.length) {
+  fail(`expected ${requiredTemporalPaths.length} finite temporal event collections, found ${temporalPaths.length}`);
+}
+if (new Set(temporalPaths).size !== temporalPaths.length) fail("temporal event collection paths must be unique");
+for (const routePath of requiredTemporalPaths) {
+  if (!temporalPaths.includes(routePath)) fail(`temporal event collection registry is missing ${routePath}`);
+  if (!directory.includes(`href: "${routePath}"`)) fail(`Texas Events timing/region discovery does not expose ${routePath}`);
+}
+for (const marker of [
+  'indexPolicy: "always-noindex"',
+  'indexPolicy: "qualified"',
+  'timeZone: "America/Chicago"',
+  "minimumIndexableItems",
+  "shouldIndex",
+]) {
+  if (!temporalCollections.includes(marker)) fail(`temporal event collection engine is missing protected marker: ${marker}`);
+}
 
 for (const marker of [
   'createFileRoute("/events/$collection")',
   'getEventCollectionPage',
   'head: ({ loaderData }) => loaderData?.page.head ?? {}',
   'sourcePolicyTitle',
-  'href={`/event/${event.slug}`}',
+  'href={event.href}',
 ]) {
   if (!collectionRoute.includes(marker)) fail(`event collection route is missing protected marker: ${marker}`);
 }
 for (const marker of [
   'loadMajorEventGuideDirectoryServer',
-  'collection.kind === "category"',
-  'event.category === collection.value',
-  'event.region === collection.value',
+  'resolveTemporalEventCollectionServer',
+  'event.category === evergreen!.value',
+  'event.region === evergreen!.value',
   'latestSourceCheck',
   'canonicalPath',
   'buildMeta',
   'canonicalLink',
+  'robots: shouldIndex ? undefined : "noindex, follow, max-image-preview:large"',
   '"@type": "CollectionPage"',
   '"@type": "ItemList"',
   '"@type": "WebPage"',
@@ -146,8 +173,10 @@ for (const marker of [
   'category: TexasEvent["category"]',
   "sourceCheckedAt?: string",
   "loadMajorEventLandingDirectoryServer",
+  "eventTimingLinks",
   "eventTopicLinks",
   "eventRegionLinks",
+  'href: "/texas-state-fair"',
   "buildEventsPageHeadServer",
   '"@type": "CollectionPage"',
   '"@type": "ItemList"',
@@ -164,6 +193,7 @@ for (const marker of [
   if (!eventsRoute.includes(marker)) fail(`Texas Events eager route is missing server-backed discovery/head marker: ${marker}`);
 }
 for (const marker of [
+  "eventTimingLinks.map",
   "eventTopicLinks.map",
   "eventRegionLinks.map",
 ]) {
@@ -207,5 +237,5 @@ if (entityRoute.includes(`${genericEventKinds}) return 'Event'`) || !entityRoute
 
 const duplicateDefinitions = [...slugOwners.values()].filter((owners) => owners.length > 1).length;
 if (!process.exitCode) {
-  console.log(`Major-event authority validation passed (${trancheFiles.length} tranche files, ${slugOwners.size} authority slugs, ${ledgerSlugs.size} ledger event destinations, ${collectionPaths.length} crawlable event authority collections; ${duplicateDefinitions} historical duplicate definitions retained under first-match resolution).`);
+  console.log(`Major-event authority validation passed (${trancheFiles.length} tranche files, ${slugOwners.size} authority slugs, ${ledgerSlugs.size} ledger event destinations, ${collectionPaths.length} crawlable event authority collections, ${temporalPaths.length} finite temporal collections; ${duplicateDefinitions} historical duplicate definitions retained under first-match resolution).`);
 }

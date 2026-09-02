@@ -1,6 +1,7 @@
 import type { TexasEntityRecord } from './knowledge-graph/types';
 
 const checkedAt = '2026-09-01';
+const wave2CheckedAt = '2026-09-02';
 
 type AuthorityOverride = Partial<Pick<TexasEntityRecord,
   'aliases' | 'description' | 'countySlug' | 'region' | 'coordinates' | 'officialUrl' | 'sourceId' | 'sourceConfidence' | 'sourceCheckedAt' | 'status' | 'relationships' | 'tags'
@@ -28,6 +29,7 @@ const city = (
   sourceCheckedAt: checkedAt,
   status: 'active',
   relationships: [
+    { type: 'located-in-region', targetId: `region:${region}` },
     ...(metroId ? [{ type: 'part-of-metro', targetId: metroId }] : []),
     ...statewideServiceRelationships,
     ...extraRelationships,
@@ -58,7 +60,7 @@ const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
   ),
   'el-paso': city(
     'El Paso is TexasDefined’s Far West Texas city authority hub for El Paso and El Paso County, connecting relocation, property and tax resources, utilities, transportation, El Paso International Airport, schools, health systems, neighborhoods, parks, museums, food, events and border-region travel context. City services, county responsibilities and state resources remain separated so residents and visitors can verify the jurisdiction that controls a service or record.',
-    'https://www.elpasotexas.gov/', 'west-texas', undefined, ['major-city', 'border', 'international-trade', 'airport', 'military', 'desert'],
+    'https://www.elpasotexas.gov/', 'west-texas', 'metro-area:el-paso-metro', ['major-city', 'border', 'international-trade', 'airport', 'military', 'desert'],
   ),
   arlington: city(
     'Arlington is TexasDefined’s Tarrant County city authority node between Dallas and Fort Worth, connecting relocation, property and tax resources, utilities, transportation, schools, health systems, neighborhoods, parks, major sports and entertainment destinations, events and nearby DFW communities. The page gives Arlington its own local-reference identity while connecting readers to Tarrant County and broader North Texas resources instead of treating the Metroplex as one jurisdiction.',
@@ -66,7 +68,7 @@ const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
   ),
   'corpus-christi': city(
     'Corpus Christi is TexasDefined’s Coastal Bend city authority hub for Corpus Christi and Nueces County, connecting relocation, property and tax resources, utilities, transportation, schools, health systems, neighborhoods, beaches, parks, museums, food, events, port activity and nearby Gulf Coast destinations. The page links practical city information with coastal travel and outdoor discovery while keeping municipal, county and state responsibilities distinct.',
-    'https://www.corpuschristitx.gov/', 'gulf-coast', undefined, ['major-city', 'coast', 'beaches', 'port', 'energy', 'tourism', 'fishing'],
+    'https://www.corpuschristitx.gov/', 'gulf-coast', 'metro-area:corpus-christi-metro', ['major-city', 'coast', 'beaches', 'port', 'energy', 'tourism', 'fishing'],
   ),
   plano: city(
     'Plano is TexasDefined’s Collin County city authority node for one of North Texas’s largest suburban employment and residential centers, connecting relocation, property and tax resources, municipal utilities, transportation, schools, health systems, neighborhoods, parks, food, events and nearby DFW communities. The guide distinguishes Plano city services from Collin County, regional and state systems so readers can reach the correct source for each task.',
@@ -74,7 +76,7 @@ const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
   ),
   lubbock: city(
     'Lubbock is TexasDefined’s South Plains city authority hub for Lubbock and Lubbock County, connecting relocation, property and tax resources, utilities, transportation, schools, health systems, neighborhoods, parks, museums, food, events, higher education and the regional economy. The page serves both residents and travelers while connecting city-level information to county and statewide resources without padding the guide with unsourced statistics.',
-    'https://www.mylubbock.us/', 'south-plains', undefined, ['major-city', 'south-plains', 'higher-education', 'agriculture', 'health-care', 'regional-hub'],
+    'https://www.mylubbock.us/', 'south-plains', 'metro-area:lubbock-metro', ['major-city', 'south-plains', 'higher-education', 'agriculture', 'health-care', 'regional-hub'],
   ),
 };
 
@@ -103,7 +105,37 @@ const METRO_OVERRIDES: Record<string, AuthorityOverride> = {
     relationships: [{ type: 'has-core-city', targetId: 'city:san-antonio' }, { type: 'regional-county', targetId: 'county:bexar' }, { type: 'located-in-region', targetId: 'region:south-texas' }],
     tags: ['metro', 'relocation', 'travel', 'regional-discovery', 'transportation'],
   },
+  'el-paso-metro': {
+    description: 'The El Paso Metropolitan Area is TexasDefined’s regional discovery node for El Paso and the surrounding Far West Texas transportation-planning area. It connects the core city with El Paso County, border-region mobility, relocation research, travel planning and nearby-place discovery while keeping Texas municipal and county services separate from the broader cross-jurisdictional planning role of the El Paso Metropolitan Planning Organization.',
+    officialUrl: 'https://www.elpasompo.org/', sourceConfidence: 'official', sourceCheckedAt: wave2CheckedAt, status: 'active', region: 'west-texas',
+    relationships: [{ type: 'has-core-city', targetId: 'city:el-paso' }, { type: 'regional-county', targetId: 'county:el-paso' }, { type: 'located-in-region', targetId: 'region:west-texas' }],
+    tags: ['metro', 'border-region', 'relocation', 'travel', 'regional-discovery', 'transportation'],
+  },
+  'corpus-christi-metro': {
+    description: 'The Corpus Christi Metropolitan Area is TexasDefined’s metro-scale discovery node for Corpus Christi and the surrounding Coastal Bend transportation-planning area. It links the core city with Nueces County, Gulf Coast mobility, relocation context, travel planning and nearby coastal destinations while preserving the distinction between city government, county government and the federally designated regional transportation-planning role of the Corpus Christi MPO.',
+    officialUrl: 'https://www.corpuschristi-mpo.org/', sourceConfidence: 'official', sourceCheckedAt: wave2CheckedAt, status: 'active', region: 'gulf-coast',
+    relationships: [{ type: 'has-core-city', targetId: 'city:corpus-christi' }, { type: 'regional-county', targetId: 'county:nueces' }, { type: 'located-in-region', targetId: 'region:gulf-coast' }],
+    tags: ['metro', 'coastal-bend', 'relocation', 'travel', 'regional-discovery', 'transportation', 'coast'],
+  },
+  'lubbock-metro': {
+    description: 'The Lubbock Metropolitan Area is TexasDefined’s South Plains metro discovery node for Lubbock and the surrounding regional transportation system. It connects the core city with Lubbock County, commuting and mobility context, relocation research, regional travel and nearby-place discovery while keeping municipal and county responsibilities distinct from the Lubbock Metropolitan Planning Organization’s regional planning and transportation-funding role.',
+    officialUrl: 'https://www.mylubbock.us/503/Lubbock-Metropolitan-Planning-Organizati', sourceConfidence: 'official', sourceCheckedAt: wave2CheckedAt, status: 'active', region: 'south-plains',
+    relationships: [{ type: 'has-core-city', targetId: 'city:lubbock' }, { type: 'regional-county', targetId: 'county:lubbock' }, { type: 'located-in-region', targetId: 'region:south-plains' }],
+    tags: ['metro', 'south-plains', 'relocation', 'travel', 'regional-discovery', 'transportation'],
+  },
 };
+
+function relationshipsWithAuthorityRegion(entity: TexasEntityRecord, override: AuthorityOverride) {
+  const overrideRelationships = override.relationships ?? [];
+  const replacesRegionRelationship = overrideRelationships.some((relationship) => relationship.type === 'located-in-region');
+  const merged = replacesRegionRelationship
+    ? entity.relationships.filter((relationship) => relationship.type !== 'located-in-region')
+    : [...entity.relationships];
+  for (const relationship of overrideRelationships) {
+    if (!merged.some((item) => item.type === relationship.type && item.targetId === relationship.targetId)) merged.push(relationship);
+  }
+  return merged;
+}
 
 export function enrichCityMetroAuthorityEntity(entity: TexasEntityRecord): TexasEntityRecord {
   const override = entity.kind === 'city' ? CITY_OVERRIDES[entity.slug] : entity.kind === 'metro-area' ? METRO_OVERRIDES[entity.slug] : undefined;
@@ -112,7 +144,7 @@ export function enrichCityMetroAuthorityEntity(entity: TexasEntityRecord): Texas
     ...entity,
     ...override,
     aliases: [...new Set([...(entity.aliases ?? []), ...(override.aliases ?? [])])],
-    relationships: [...entity.relationships, ...(override.relationships ?? []).filter((relationship) => !entity.relationships.some((item) => item.type === relationship.type && item.targetId === relationship.targetId))],
+    relationships: relationshipsWithAuthorityRegion(entity, override),
     tags: [...new Set([...(entity.tags ?? []), ...(override.tags ?? [])])],
   };
 }

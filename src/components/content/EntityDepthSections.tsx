@@ -7,6 +7,16 @@ const outdoorKinds = new Set(['state-park', 'national-park', 'natural-area', 'at
 const historyKinds = new Set(['historic-site', 'mission', 'battlefield', 'museum']);
 const sportsKinds = new Set(['sports-venue', 'stadium', 'arena', 'ballpark', 'racetrack']);
 const fishingKinds = new Set(['fishing-species', 'fish-species', 'fishing-lake', 'fishing']);
+const CITY_RESOURCE_LINKS = [
+  { href: '/moving-to-texas', label: 'Moving to Texas', copy: 'Relocation context, statewide systems and the decisions that apply before you narrow down to one city.' },
+  { href: '/moving-to-texas-checklist', label: 'Moving checklist', copy: 'A practical checklist for licenses, vehicles, utilities, schools, records and other move-related tasks.' },
+  { href: '/property-tax-guides', label: 'Property-tax guides', copy: 'Understand Texas appraisal, exemptions, protests, taxing units and the difference between valuation and collection.' },
+  { href: '/property-tax-calculators', label: 'Property-tax calculators', copy: 'Use the TexasDefined calculator hub when comparing the property-tax side of a move or home purchase.' },
+  { href: '/find-my-school-district', label: 'Find my school district', copy: 'Check the school-district lookup instead of assuming a city name determines the district serving an address.' },
+  { href: '/texas-toll-tags', label: 'Texas toll tags', copy: 'Compare statewide toll-tag systems and understand where regional toll networks overlap.' },
+  { href: '/texas-dmv', label: 'Texas DMV guide', copy: 'Start with the statewide vehicle reference for registration, titles and related Texas motor-vehicle tasks.' },
+  { href: '/explore/trip-planner', label: 'Texas trip planner', copy: 'Turn the city into a travel base and discover destinations through the broader TexasDefined planning system.' },
+] as const;
 
 export function EntityDepthSections({ entity, related }: { entity: TexasEntityRecord; related: RankedRelatedEntity[] }) {
   if (entity.kind === 'county') return null;
@@ -45,6 +55,21 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
         </div>
       </div>
     </section>
+
+    {entity.kind === 'city' ? <section className="border-b border-border py-12" aria-labelledby="city-resource-heading">
+      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Plan, move & live</p>
+          <h2 id="city-resource-heading" className="mt-2 font-display text-4xl">Useful TexasDefined tools for {entity.name}</h2>
+        </div>
+        <div>
+          <p className="max-w-3xl text-base leading-7 text-muted-foreground">A city page should be a doorway into the practical systems readers use next. These links connect {entity.name} to TexasDefined's relocation, property, school, driving and trip-planning coverage without duplicating those statewide guides here.</p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {CITY_RESOURCE_LINKS.map((resource) => <a key={resource.href} href={resource.href} className="border border-border p-5 hover:border-primary/60"><strong className="font-display text-xl leading-tight">{resource.label}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{resource.copy}</span><span className="mt-3 block text-sm font-semibold text-primary">Open guide →</span></a>)}
+          </div>
+        </div>
+      </div>
+    </section> : null}
 
     {questions.length ? <section className="border-b border-border py-12" aria-labelledby="entity-answers-heading">
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
@@ -176,6 +201,13 @@ function practicalChecklist(entity: TexasEntityRecord) {
     { title: 'Photography and site rules', copy: 'Confirm rules for tripods, commercial photography, events, pets and restricted preservation areas.' },
   ];
 
+  if (entity.kind === 'city') return [
+    { title: 'County and property systems', copy: 'Confirm the county for the exact address before using appraisal, property-tax, court, election or records systems; city names and county boundaries do not always line up.' },
+    { title: 'Utilities and service areas', copy: 'Verify the electric, water, trash and other providers for the address itself. A city can contain multiple service territories or systems with different rules.' },
+    { title: 'Transportation and tolls', copy: 'Check the local transit network, airport access, commute routes, toll roads and construction that matter for the part of the city you are considering.' },
+    { title: 'Schools and local services', copy: 'Verify the school district, emergency-service jurisdiction and other address-based services instead of assuming they follow the municipal boundary.' },
+  ];
+
   return [
     { title: 'Official source', copy: 'Use the official link on this page when current hours, fees, rules, schedules or transaction details matter.' },
     { title: 'Exact location', copy: 'Confirm the entrance, unit, office or access point rather than relying only on a general map pin or mailing address.' },
@@ -198,6 +230,11 @@ function quickAnswers(entity: TexasEntityRecord, countyName: string | null, regi
   if (entity.officialUrl) answers.push({
     question: `Where should I verify current information for ${entity.name}?`,
     answer: `Use the official website linked on this page for current schedules, fees, forms, rules, hours or operational notices. TexasDefined is an independent guide and does not replace the responsible agency, venue, park, office or organizer.`,
+  });
+
+  if (entity.kind === 'city') answers.push({
+    question: `Where should I start if I am considering a move to ${entity.name}?`,
+    answer: `Start with the TexasDefined Moving to Texas guide and checklist linked above, then verify the exact county, school district, utility service area, property-tax jurisdictions and commute pattern for the address you are considering. The city name alone does not determine every local system that applies.`,
   });
 
   if (governmentKinds.has(entity.kind)) answers.push({
