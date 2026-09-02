@@ -20,7 +20,7 @@ export const Route = createFileRoute(canonicalPath)({
     return { entries: CAMPING_PROFILES.map((profile) => ({ profile, destination: bySlug.get(profile.destinationSlug) })) };
   },
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title, description }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: title, description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({
       "@context": "https://schema.org",
