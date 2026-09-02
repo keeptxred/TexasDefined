@@ -2,6 +2,7 @@ import { TEXAS_COUNTIES, TEXAS_CITIES } from './texas-places';
 import { TEXAS_DATA_SOURCES, type TexasDataDomain } from './texas-data-sources';
 import { CURATED_KNOWLEDGE_GRAPH_SEED } from './knowledge-graph/seed';
 import { GENERATED_KNOWLEDGE_GRAPH_ENTITIES } from './knowledge-graph/generated';
+import { TEXAS_WILDLIFE_SPECIES } from './knowledge-graph/wildlife-species';
 import type { KnowledgeGraphValidation, TexasEntityKind, TexasEntityRecord } from './knowledge-graph/types';
 
 export type { TexasEntityKind, TexasEntityRecord } from './knowledge-graph/types';
@@ -42,13 +43,14 @@ export const TEXAS_ENTITY_REGISTRY: TexasEntityRecord[] = [
   ...TEXAS_COUNTY_ENTITIES,
   ...TEXAS_CITY_ENTITIES,
   ...TEXAS_LOCAL_OFFICE_ENTITIES,
+  ...TEXAS_WILDLIFE_SPECIES,
   ...CURATED_KNOWLEDGE_GRAPH_SEED,
   ...GENERATED_KNOWLEDGE_GRAPH_ENTITIES,
 ];
 
 const kindDomain:Partial<Record<TexasEntityKind,TexasDataDomain>>={
   county:'counties',city:'places','census-place':'places','zip-code':'places',region:'regions','metro-area':'places',
-  lake:'water',river:'water','state-park':'parks','national-park':'parks','national-forest':'forests','wildlife-management-area':'parks',beach:'parks',mountain:'parks',cavern:'tourism',waterfall:'water',
+  lake:'water',river:'water','state-park':'parks','national-park':'parks','national-forest':'forests','wildlife-management-area':'parks','wildlife-species':'wildlife',beach:'parks',mountain:'parks',cavern:'tourism',waterfall:'water',
   agency:'agencies','appraisal-district':'appraisal-districts','tax-office':'tax-offices','county-clerk':'counties','dps-office':'agencies',
   museum:'tourism','historic-site':'tourism',courthouse:'tourism',mission:'tourism',battlefield:'tourism',attraction:'tourism','scenic-drive':'tourism',
   fair:'events',rodeo:'events',festival:'events','holiday-event':'events','sporting-event':'events',fairground:'events','sports-venue':'events',
