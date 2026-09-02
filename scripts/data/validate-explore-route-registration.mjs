@@ -106,10 +106,10 @@ for (const feature of [
 for (const feature of [
   'createLazyFileRoute("/explore/trip-planner")',
   'Travel month',
-  'Museums',
-  'Food',
-  'Accessibility',
-  'Max daily driving',
+  '"museums", "food"',
+  'name="accessible"',
+  'Only include places with accessibility information',
+  'Max daily driving (miles)',
 ]) {
   if (!tripPlannerLazy.includes(feature)) failures.push(`Trip Planner lazy UI contract missing: ${feature}.`);
 }
