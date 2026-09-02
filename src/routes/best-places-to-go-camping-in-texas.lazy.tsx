@@ -29,7 +29,7 @@ function CampingDatabasePage() {
       <Container>
         <div className="grid gap-6 border-b border-border pb-10 md:grid-cols-3">
           <div><p className="eyebrow text-primary">Data rule</p><h2 className="mt-2 font-display text-3xl">No invented amenities</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Hookups, showers, site-length notes, accessibility and generator rules appear only when an official camping source supports them.</p></div>
-          <div><p className="eyebrow text-primary">Public-first inventory</p><h2 className="mt-2 font-display text-3xl">State and national lands first</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">This wave prioritizes TPWD and National Park Service camping rather than scraping private campground directories.</p></div>
+          <div><p className="eyebrow text-primary">Public-first inventory</p><h2 className="mt-2 font-display text-3xl">State and federal lands first</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">The database prioritizes TPWD, National Park Service, U.S. Army Corps of Engineers and U.S. Forest Service camping rather than scraping private campground directories.</p></div>
           <div><p className="eyebrow text-primary">Freshness</p><h2 className="mt-2 font-display text-3xl">Source-checked records</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Each profile carries a verification date and direct source links. Live availability, closures, prices and rules must still be confirmed with the managing agency.</p></div>
         </div>
         <CampingDiscovery entries={entries} />

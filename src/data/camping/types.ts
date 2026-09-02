@@ -2,6 +2,7 @@ import type { TexasRegion } from "../types";
 
 export type CampingStyle = "tent" | "rv" | "primitive" | "beach" | "backcountry" | "group";
 export type CampingAmenity =
+  | "electric-hookup"
   | "electric-20"
   | "electric-30"
   | "electric-50"
@@ -28,10 +29,12 @@ export interface CampingSource {
 
 /**
  * Camping metadata extends a canonical Destination by slug. Unknown amenities
- * are deliberately omitted instead of being converted to false.
+ * are deliberately omitted instead of being converted to false. profileSlug
+ * is used when multiple distinct campgrounds roll up to one destination.
  */
 export interface CampingProfile {
   destinationSlug: string;
+  profileSlug?: string;
   name: string;
   county: string;
   region: TexasRegion;

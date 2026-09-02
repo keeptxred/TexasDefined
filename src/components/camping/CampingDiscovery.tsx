@@ -20,6 +20,7 @@ const styleLabels: Record<CampingStyle, string> = {
 };
 
 const amenityLabels: Partial<Record<CampingAmenity, string>> = {
+  "electric-hookup": "Electric hookup",
   "electric-20": "20 amp",
   "electric-30": "30 amp",
   "electric-50": "50 amp",
@@ -49,6 +50,11 @@ const regionLabels: Record<string, string> = {
   "south-texas": "South Texas",
 };
 
+function profileAnchor(profile: CampingDiscoveryProfile) {
+  const profileSlug = (profile as CampingDiscoveryProfile & { profileSlug?: unknown }).profileSlug;
+  return typeof profileSlug === "string" && profileSlug ? profileSlug : profile.destinationSlug;
+}
+
 export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[] }) {
   const [style, setStyle] = useState<CampingStyle | "all">("all");
   const [region, setRegion] = useState("all");
@@ -76,7 +82,8 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
     <div className="mt-7 grid gap-6 lg:grid-cols-2">
       {filtered.map(({ profile, destination }) => {
         const countySlug = profile.county.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-        return <article key={profile.destinationSlug} className="border border-border bg-background p-6">
+        const anchor = profileAnchor(profile);
+        return <article id={anchor} key={anchor} className="scroll-mt-28 border border-border bg-background p-6">
           <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.12em] text-muted-foreground"><span>{regionLabels[profile.region] ?? profile.region}</span><span>·</span><span>{profile.county} County</span><span>·</span><span>Verified {profile.verifiedAt}</span></div>
           <h3 className="mt-3 font-display text-3xl leading-tight">{profile.name}</h3>
           {destination?.summary && <p className="mt-3 leading-7 text-muted-foreground">{destination.summary}</p>}
@@ -88,7 +95,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
             {profile.generatorRules && <div><dt className="font-semibold">Generator rules</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.generatorRules}</dd></div>}
           </dl>
           <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
-            {destination && <Link to="/destination/$slug" params={{ slug: destination.slug }} className="text-primary underline-offset-4 hover:underline">Destination guide</Link>}
+            {destination && <Link to="/destination/$slug" params={{ slug: destination.slug }} className="text-primary underline-offset-4 hover:underline">{anchor === profile.destinationSlug ? "Destination guide" : "Parent destination guide"}</Link>}
             <Link to="/$kind/$slug" params={{ kind: "county", slug: countySlug }} className="text-primary underline-offset-4 hover:underline">{profile.county} County</Link>
             <Link to="/explore/trip-planner" search={{}} className="text-primary underline-offset-4 hover:underline">Trip Planner</Link>
             <a href={profile.reservationUrl} target="_blank" rel="noreferrer" className="text-primary underline-offset-4 hover:underline">Reservations ↗</a>
