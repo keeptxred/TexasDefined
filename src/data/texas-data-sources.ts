@@ -1,6 +1,6 @@
 export type TexasDataDomain =
   | 'places' | 'counties' | 'regions' | 'water' | 'school-districts' | 'agencies'
-  | 'parks' | 'forests' | 'utilities' | 'appraisal-districts' | 'tax-offices'
+  | 'parks' | 'forests' | 'wildlife' | 'utilities' | 'appraisal-districts' | 'tax-offices'
   | 'tourism' | 'events' | 'elections' | 'representatives';
 
 export type TexasDataSource = {
@@ -26,6 +26,7 @@ export const TEXAS_DATA_SOURCES: TexasDataSource[] = [
   { id:'tea-districts', domain:'school-districts', authority:'Texas Education Agency', title:'Texas school district directory and AskTED', url:'https://tea.texas.gov/texas-schools/general-information/askted', format:'csv', updateCadence:'monthly', canonical:true, notes:'Use TEA district identifiers, names, addresses and service regions.' },
   { id:'texas-agencies', domain:'agencies', authority:'State of Texas', title:'Texas state agency directory', url:'https://www.texas.gov/texas-agencies.html', format:'html', updateCadence:'quarterly', canonical:true, notes:'Canonical directory for state agencies and official websites.' },
   { id:'tpwd-parks', domain:'parks', authority:'Texas Parks and Wildlife Department', title:'Texas state parks directory', url:'https://tpwd.texas.gov/state-parks/parks-map', format:'html', updateCadence:'monthly', canonical:true, notes:'Use official park names, locations, reservations and closure information.' },
+  { id:'tpwd-wildlife-species', domain:'wildlife', authority:'Texas Parks and Wildlife Department', title:'Texas wildlife species profiles and management references', url:'https://tpwd.texas.gov/huntwild/wild/species/', format:'html', updateCadence:'monthly', canonical:true, notes:'Use TPWD species profiles and current regulation pages for Texas distribution, habitat, conservation status and management context. Avoid copying time-sensitive hunting rules into evergreen species copy.' },
   { id:'nps-texas', domain:'parks', authority:'National Park Service', title:'National Park Service sites in Texas', url:'https://www.nps.gov/state/tx/index.htm', format:'html', updateCadence:'monthly', canonical:true, notes:'Use official federal park, seashore, monument and historic-site records.' },
   { id:'usfs-texas', domain:'forests', authority:'U.S. Forest Service', title:'National Forests and Grasslands in Texas', url:'https://www.fs.usda.gov/texas', format:'html', updateCadence:'monthly', canonical:true, notes:'Use official national-forest names, alerts and recreation information.' },
   { id:'official-destination-sites', domain:'tourism', authority:'Official destination operators', title:'Official Texas destination websites', url:'https://www.traveltexas.com/', format:'curated', updateCadence:'monthly', canonical:true, notes:'Registry entries must link to the destination owner, managing agency or official visitor source.' },
@@ -51,7 +52,7 @@ export function validateTexasDataSources() {
     if (!source.authority.trim()) errors.push(`${source.id} requires an authority.`);
     if (!source.canonical) errors.push(`${source.id} must explicitly identify canonical ownership.`);
   }
-  const required: TexasDataDomain[] = ['places','counties','regions','water','school-districts','agencies','parks','forests','utilities','appraisal-districts','tax-offices','tourism','events','elections','representatives'];
+  const required: TexasDataDomain[] = ['places','counties','regions','water','school-districts','agencies','parks','forests','wildlife','utilities','appraisal-districts','tax-offices','tourism','events','elections','representatives'];
   for (const domain of required) if (!sourcesForDomain(domain).length) errors.push(`Missing authoritative source for ${domain}.`);
   return { valid: errors.length === 0, errors };
 }
