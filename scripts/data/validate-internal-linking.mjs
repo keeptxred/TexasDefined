@@ -9,8 +9,8 @@ const readRouteSurface = (file) => {
 };
 const required = [
   'src/platform/internal-linking.ts','src/platform/internal-link-coverage.ts','src/platform/internal-link-memory.ts','src/platform/internal-link-quality.ts','src/platform/internal-link-policies.ts','src/platform/internal-link-policy-history.ts','src/platform/internal-link-policy-diff.ts','src/platform/analytics.ts',
-  'src/components/content/AutoEntityLinks.tsx','src/components/editorial/ArticleBody.tsx','src/components/guides/PropertyTaxGuidePage.tsx','src/components/admin/InternalLinkMemoryCard.tsx','src/components/admin/InternalLinkPolicyHistory.tsx','src/components/admin/InternalLinkRollbackPreview.tsx',
-  'src/routes/api.internal-links.ts','src/routes/api.internal-link-coverage.ts','src/routes/api.internal-link-quality.ts','src/routes/api.internal-link-policies.ts','src/routes/api.internal-link-policy-rollback.ts','src/routes/article.$slug.tsx','src/routes/destination.$slug.tsx','src/routes/$kind.$slug.tsx','src/routes/admin.platform-health.tsx','src/routes/admin.platform-health.lazy.tsx','src/routes/admin.internal-link-rollback.tsx','src/routes/admin.internal-link-rollback.lazy.tsx',
+  'src/components/content/AutoEntityLinks.tsx','src/components/editorial/ArticleBody.tsx','src/components/guides/PropertyTaxGuidePage.tsx','src/components/directories/TexasPlaceDirectory.tsx','src/components/admin/InternalLinkMemoryCard.tsx','src/components/admin/InternalLinkPolicyHistory.tsx','src/components/admin/InternalLinkRollbackPreview.tsx',
+  'src/routes/api.internal-links.ts','src/routes/api.internal-link-coverage.ts','src/routes/api.internal-link-quality.ts','src/routes/api.internal-link-policies.ts','src/routes/api.internal-link-policy-rollback.ts','src/routes/article.$slug.tsx','src/routes/destination.$slug.tsx','src/routes/$kind.$slug.tsx','src/routes/county.tsx','src/routes/county.lazy.tsx','src/routes/events.tsx','src/routes/events.lazy.tsx','src/routes/guides.tsx','src/routes/admin.platform-health.tsx','src/routes/admin.platform-health.lazy.tsx','src/routes/admin.internal-link-rollback.tsx','src/routes/admin.internal-link-rollback.lazy.tsx',
 ];
 for (const file of required) if (!fs.existsSync(file)) errors.push(`Missing Phase 2 file: ${file}`);
 if (errors.length) fail();
@@ -27,6 +27,7 @@ const analytics = files['src/platform/analytics.ts'];
 const component = files['src/components/content/AutoEntityLinks.tsx'];
 const articleBody = files['src/components/editorial/ArticleBody.tsx'];
 const guide = files['src/components/guides/PropertyTaxGuidePage.tsx'];
+const cityDirectory = files['src/components/directories/TexasPlaceDirectory.tsx'];
 const memoryCard = files['src/components/admin/InternalLinkMemoryCard.tsx'];
 const historyCard = files['src/components/admin/InternalLinkPolicyHistory.tsx'];
 const rollbackCard = files['src/components/admin/InternalLinkRollbackPreview.tsx'];
@@ -38,6 +39,9 @@ const rollbackApi = files['src/routes/api.internal-link-policy-rollback.ts'];
 const article = files['src/routes/article.$slug.tsx'];
 const destination = files['src/routes/destination.$slug.tsx'];
 const entity = readRouteSurface('src/routes/$kind.$slug.tsx');
+const countyIndex = readRouteSurface('src/routes/county.tsx');
+const eventsHub = readRouteSurface('src/routes/events.tsx');
+const guidesIndex = readRouteSurface('src/routes/guides.tsx');
 const health = `${files['src/routes/admin.platform-health.tsx']}\n${files['src/routes/admin.platform-health.lazy.tsx']}`;
 const rollbackPage = `${files['src/routes/admin.internal-link-rollback.tsx']}\n${files['src/routes/admin.internal-link-rollback.lazy.tsx']}`;
 
@@ -68,8 +72,57 @@ requireSymbols(entity, ['AutoEntityLinks','relatedEntities','excludedEntityIds: 
 requireSymbols(health, ['InternalLinkPolicyHistory','Governed internal-link policies','Rollback operations','/admin/internal-link-rollback','Preview rollback'], 'Platform Health rollback governance');
 requireSymbols(rollbackPage, ["createFileRoute('/admin/internal-link-rollback')",'InternalLinkRollbackPreview','noindex,nofollow','read-only','/admin/platform-health','Return to Platform Health'], 'rollback admin page');
 
+const expectedActiveSurfaces = [
+  'articles',
+  'destinations',
+  'property-tax-guides',
+  'entity-pages',
+  'county-guides',
+  'city-directory',
+  'county-directory',
+  'event-guides',
+  'events-hub',
+  'guide-index',
+];
+const activeSurfaceIds = [...coverage.matchAll(/id:'([^']+)'[^\n]+status:'active'/g)].map((match) => match[1]);
+for (const id of expectedActiveSurfaces) {
+  if (!activeSurfaceIds.includes(id)) errors.push(`Sitewide semantic-link coverage must count active surface: ${id}`);
+}
+if (activeSurfaceIds.length < expectedActiveSurfaces.length) errors.push(`Sitewide semantic-link coverage tracks only ${activeSurfaceIds.length} active surfaces; expected at least ${expectedActiveSurfaces.length}.`);
+for (const staleRoute of ["routePattern:'/city'", "routePattern:'/category'", "routePattern:'/browse/counties/all'", "routePattern:'/browse/towns/all'"]) {
+  if (coverage.includes(staleRoute)) errors.push(`Internal-link coverage inventory references stale or nonexistent route ${staleRoute.replace('routePattern:', '')}.`);
+}
+const notApplicableIds = [...coverage.matchAll(/id:'([^']+)'[^\n]+status:'not-applicable'/g)].map((match) => match[1]);
+for (const id of notApplicableIds) {
+  if (!['shop', 'admin'].includes(id)) errors.push(`Public authority surface ${id} must not be hidden from the coverage denominator as not-applicable.`);
+}
+
+requireSymbols(cityDirectory, [
+  'countySlugForCity',
+  'TEXAS_COUNTIES.find',
+  'to="/$kind/$slug"',
+  'params={{ kind: "county", slug: countySlugForCity(city.county) }}',
+  'Explore {city.county} County →',
+], 'city → county authority linking');
+requireSymbols(countyIndex, [
+  'createLazyFileRoute("/county")',
+  'TEXAS_COUNTIES',
+  'params={{ kind: "county", slug: county.slug }}',
+  'All 254 Texas county guides',
+], 'county authority index');
+requireSymbols(eventsHub, [
+  'majorEventGuides.map',
+  'to="/event/$slug"',
+  'eventTopicLinks.map',
+  'eventRegionLinks.map',
+  'Major Texas event guides',
+], 'events authority hub');
+requireSymbols(guidesIndex, [
+  'createFileRoute("/guides")',
+], 'guide index');
+
 if (errors.length) fail();
-console.log('Phase 2 internal linking, immutable policy releases, discoverable read-only rollback previews, intelligent scoring, explicit county context, exposure balancing, analytics, and quality governance are protected.');
+console.log('Phase 2 internal linking, honest sitewide semantic-surface coverage, city-to-county authority edges, county and events hubs, immutable policy releases, discoverable read-only rollback previews, intelligent scoring, explicit county context, exposure balancing, analytics, and quality governance are protected.');
 
 function requireSymbols(source, symbols, area) { for (const symbol of symbols) if (!source.includes(symbol)) errors.push(`${area} feature missing: ${symbol}`); }
 function requireText(source, text, label) { if (!source.includes(text)) errors.push(`Missing ${label}.`); }
