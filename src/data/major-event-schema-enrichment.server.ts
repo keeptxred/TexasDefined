@@ -1,4 +1,5 @@
 import { majorEventSchemaEnrichmentBatch1 } from "./major-event-schema-enrichment-batch1.server";
+import { majorEventSchemaEnrichmentBatch2 } from "./major-event-schema-enrichment-batch2.server";
 
 export type EventSchemaEntityType = "Organization" | "Person" | "PerformingGroup";
 
@@ -41,6 +42,7 @@ export interface MajorEventSchemaEnrichment {
 // truthful current value. Do not use the site's generic Open Graph fallback as Event imagery.
 const records: MajorEventSchemaEnrichment[] = [
   ...majorEventSchemaEnrichmentBatch1,
+  ...majorEventSchemaEnrichmentBatch2,
 ];
 
 const bySlug = new Map(records.map((record) => [record.slug, record]));

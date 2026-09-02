@@ -69,11 +69,27 @@ for (const feature of [
 }
 
 const enrichedSlugs = [...enrichment.matchAll(/\n\s+slug: "([a-z0-9-]+)",/g)].map((match) => match[1]);
-if (enrichedSlugs.length < 9) errors.push(`Expected at least 9 source-verified Event enrichment records, found ${enrichedSlugs.length}.`);
+const indexedSlugs = [...eventIndex.matchAll(/\{\s*slug: "([a-z0-9-]+)"/g)].map((match) => match[1]);
+const enrichedSet = new Set(enrichedSlugs);
+const indexedSet = new Set(indexedSlugs);
+
 if (new Set(enrichedSlugs).size !== enrichedSlugs.length) errors.push('Event enrichment records must not duplicate slugs across batches.');
+if (new Set(indexedSlugs).size !== indexedSlugs.length) errors.push('Major-event index must not duplicate slugs.');
 for (const slug of enrichedSlugs) {
-  if (!eventIndex.includes(`slug: "${slug}"`)) errors.push(`Event enrichment slug is not present in the client-safe major-event index: ${slug}.`);
+  if (!indexedSet.has(slug)) errors.push(`Event enrichment slug is not present in the client-safe major-event index: ${slug}.`);
 }
+for (const slug of indexedSlugs) {
+  if (!enrichedSet.has(slug)) errors.push(`Major Event leaf has not completed the official-source optional-schema research pass: ${slug}.`);
+}
+if (enrichedSet.size !== indexedSet.size) {
+  errors.push(`Expected one reviewed Event enrichment record for each of ${indexedSet.size} major Event leaves, found ${enrichedSet.size}.`);
+}
+
+const verifiedDateCount = (enrichment.match(/verifiedAt: "\d{4}-\d{2}-\d{2}"/g) ?? []).length;
+const sourceListCount = (enrichment.match(/\n\s+sources: \[/g) ?? []).length;
+if (verifiedDateCount !== enrichedSlugs.length) errors.push(`Every Event enrichment record must carry a concrete verifiedAt date; found ${verifiedDateCount} dates for ${enrichedSlugs.length} records.`);
+if (sourceListCount !== enrichedSlugs.length) errors.push(`Every Event enrichment record must carry official source citations; found ${sourceListCount} source lists for ${enrichedSlugs.length} records.`);
+
 if (enrichment.includes('/assets/og/palo-duro-canyon.webp')) {
   errors.push('Generic site Open Graph imagery must not be used as representative Event schema imagery.');
 }
@@ -113,4 +129,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Events server-owned CollectionPage/WebPage ItemList, dedicated source-verified Event leaf enrichment, canonical metadata, and eager/lazy visible breadcrumb validation passed.');
+console.log(`Events SEO validation passed: ${indexedSet.size} major Event leaves have an official-source optional-schema research record, while the hub remains collection-only markup.`);
