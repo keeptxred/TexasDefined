@@ -6,6 +6,7 @@ import { CitationTrustPanel } from "@/components/authority/CitationTrustPanel";
 import { TexasCountyComparisonTable } from "@/components/counties/TexasCountyComparisonTable";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { Container } from "@/components/layout/Container";
+import { CITY_AUTHORITY_INDEX, cityAuthorityPath } from "@/data/city-authority-index";
 
 const RelocationAuthorityLab = lazy(() => import("@/components/relocation/RelocationAuthorityLab").then((module) => ({ default: module.RelocationAuthorityLab })));
 const description = "A clear-eyed guide to choosing a Texas city or county, understanding the cost and property context, finding a home and settling into everyday life in a very large state.";
@@ -18,18 +19,6 @@ const arrivalTasks = [
   ["Texas moving cost calculator", "/texas-moving-cost-calculator", "Build the one-time move budget around transportation, packing, travel, storage, deposits and setup costs before comparing the new monthly budget."],
   ["Texas cost-of-living calculator", "/texas-cost-of-living-calculator", "Compare household-budget assumptions before choosing a city or signing a lease."],
   ["Texas resources", "/texas-resources", "Open Texas Defined's practical guidebook for moving, driving, property, money, travel and everyday Texas life."],
-] as const;
-const cityAuthorityLinks = [
-  ["Houston", "/city/houston"],
-  ["Dallas", "/city/dallas"],
-  ["Fort Worth", "/city/fort-worth"],
-  ["Austin", "/city/austin"],
-  ["San Antonio", "/city/san-antonio"],
-  ["El Paso", "/city/el-paso"],
-  ["Arlington", "/city/arlington"],
-  ["Corpus Christi", "/city/corpus-christi"],
-  ["Plano", "/city/plano"],
-  ["Lubbock", "/city/lubbock"],
 ] as const;
 const localTaxTools = [
   ["Houston", "/property-tax-calculator/houston", "Harris, Fort Bend or Montgomery County starting points with parcel-level taxing-unit selection."],
@@ -111,7 +100,7 @@ function MovingToTexasPage() {
       <section className="mb-12 border-b border-border pb-10" aria-labelledby="moving-texas-city-guides">
         <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">City reference layer</p><h2 id="moving-texas-city-guides" className="mt-2 font-display text-3xl">Open the city guide before you narrow to an address</h2></div><Link to="/browse/cities" className="text-sm font-semibold text-primary">Browse Texas cities & suburbs →</Link></div>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The relocation guide handles statewide moving decisions. These city authority pages handle the local reference layer—county and regional context, official municipal sources, related destinations and the practical TexasDefined resources that matter after you choose a market.</p>
-        <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">{cityAuthorityLinks.map(([name, href]) => <a key={href} href={href} className="group bg-background p-5"><strong className="font-display text-xl group-hover:text-primary">{name}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">City reference guide →</span></a>)}</div>
+        <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">{CITY_AUTHORITY_INDEX.map((city) => { const href = cityAuthorityPath(city.slug); return <a key={href} href={href} className="group bg-background p-5"><strong className="font-display text-xl group-hover:text-primary">{city.name}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">City reference guide →</span></a>; })}</div>
       </section>
 
       <div className="mb-10 flex flex-wrap gap-x-7 gap-y-3 border-b border-border pb-7 text-sm font-semibold">
