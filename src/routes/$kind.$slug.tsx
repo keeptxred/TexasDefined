@@ -2,7 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { loadCountyProfile } from '@/data/county-profile';
 import { loadCountySeriesArticle } from '@/data/county-series';
-import { loadUpcomingEventGuidesForPlaceServer } from '@/data/event-place-links.server';
+import { getUpcomingEventGuidesForPlace } from '@/data/event-place-links.functions';
 import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
 import {
   canonicalEntityPath,
@@ -19,13 +19,13 @@ export const Route = createFileRoute('/$kind/$slug')({
     const entity = await findCompleteTexasEntity(`${params.kind}:${params.slug}`) ?? await findCompleteTexasEntity(params.slug);
     if (!entity || entity.kind !== params.kind) throw notFound();
     const related = rankRelatedEntities(entity, graph, 12);
-    const upcomingEvents = loadUpcomingEventGuidesForPlaceServer({
+    const upcomingEvents = await getUpcomingEventGuidesForPlace({ data: {
       kind: entity.kind,
       name: entity.name,
       slug: entity.slug,
       relationshipTargetIds: entity.relationships.map((relationship) => relationship.targetId),
       limit: 4,
-    });
+    } });
     const countySportsVenues = entity.kind === 'county'
       ? graph
         .filter((candidate) => candidate.kind === 'sports-venue' && candidate.countySlug === entity.slug && isIndexableEntityPage(candidate))
