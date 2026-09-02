@@ -1,6 +1,7 @@
 import fs from "node:fs";
 
 const serverResolver = fs.readFileSync("src/data/event-place-links.server.ts", "utf8");
+const serverFunction = fs.readFileSync("src/data/event-place-links.functions.ts", "utf8");
 const sharedContract = fs.readFileSync("src/data/event-place-links.ts", "utf8");
 const eagerRoute = fs.readFileSync("src/routes/$kind.$slug.tsx", "utf8");
 const lazyRoute = fs.readFileSync("src/routes/$kind.$slug.lazy.tsx", "utf8");
@@ -24,13 +25,20 @@ for (const marker of [
 ]) requireMarker(serverResolver, marker, "place-event server resolver");
 
 for (const marker of [
+  'createServerFn({ method: "GET" })',
+  '.inputValidator((input: PlaceEventLinkInput) => input)',
+  '.handler(async ({ data }) => loadUpcomingEventGuidesForPlaceServer(data))',
+]) requireMarker(serverFunction, marker, "place-event server-function bridge");
+
+for (const marker of [
   'export interface PlaceUpcomingEventLink',
   'href: string;',
   'sourceCheckedAt?: string;',
 ]) requireMarker(sharedContract, marker, "client-safe place-event contract");
 
 for (const marker of [
-  'loadUpcomingEventGuidesForPlaceServer',
+  'getUpcomingEventGuidesForPlace',
+  'await getUpcomingEventGuidesForPlace({ data: {',
   'relationshipTargetIds: entity.relationships.map((relationship) => relationship.targetId)',
   'limit: 4',
   'upcomingEvents',
@@ -49,8 +57,11 @@ for (const marker of [
   'Source-verified recurring events with permanent Texas Defined planning guides.',
 ]) requireMarker(component, marker, "place-event component");
 
-if (component.includes("event-place-links.server") || lazyRoute.includes("major-event-directory.server") || lazyRoute.includes("major-event-page.server")) {
-  failures.push("client event reverse-link surfaces must not import server-only event authority modules");
+if (eagerRoute.includes("event-place-links.server") || component.includes("event-place-links.server") || lazyRoute.includes("major-event-directory.server") || lazyRoute.includes("major-event-page.server")) {
+  failures.push("route/client event reverse-link surfaces must not import server-only event authority modules directly");
+}
+if (!serverFunction.includes('from "./event-place-links.server"')) {
+  failures.push("only the server-function bridge should import the server-only place-event resolver");
 }
 if (/event\.region\s*===|input\.region|entity\.region/.test(serverResolver)) {
   failures.push("place-event reverse links must not broaden matching to region-wide guesses");
@@ -65,4 +76,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Event place reverse-link validation passed: exact city/county and explicit metro-core-city matching, Texas-local freshness, canonical href dedupe, bounded payloads, and server/client isolation are intact.");
+console.log("Event place reverse-link validation passed: exact city/county and explicit metro-core-city matching, Texas-local freshness, canonical href dedupe, bounded payloads, createServerFn isolation, and client-safe rendering are intact.");
