@@ -193,6 +193,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/museums",
           "/explore/aquariums",
           "/explore/wildlife",
+          "/explore/wildlife-species",
           ...PAINTED_CHURCH_STATIC_PATHS,
           "/explore/top-attractions",
           "/explore/top-attractions/methodology",
