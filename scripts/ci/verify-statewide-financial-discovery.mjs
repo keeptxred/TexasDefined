@@ -54,6 +54,17 @@ function extractLinks(body) {
   return { rawHrefs, pathnames };
 }
 
+function formatLinkDiagnostics(body, rawHrefs, linkPathnames) {
+  const pathSample = [...linkPathnames].sort().slice(0, 24);
+  const hrefSample = rawHrefs.slice(0, 12);
+  return [
+    `bodyBytes=${Buffer.byteLength(body)}`,
+    `anchors=${rawHrefs.length}`,
+    `sameOriginPaths=${pathSample.length ? pathSample.join(';') : '(none)'}`,
+    `hrefSample=${hrefSample.length ? hrefSample.join(';') : '(none)'}`,
+  ].join(' | ');
+}
+
 function writeDiagnostics() {
   mkdirSync(dirname(reportPath), { recursive: true });
   writeFileSync(
@@ -103,6 +114,7 @@ for (const surface of surfaces) {
       .filter((path) => !linkPathnames.has(path));
     const missingPageSignals = [surface.marker, canonical].filter((needle) => !body.includes(needle));
     const hasNoindex = /<meta[^>]+(?:name=["']robots["'][^>]+content=["'][^"']*noindex|content=["'][^"']*noindex[^"']*["'][^>]+name=["']robots["'])/i.test(body);
+    const linkDiagnostics = formatLinkDiagnostics(body, rawHrefs, linkPathnames);
 
     Object.assign(diagnostic, {
       status: response.status,
@@ -116,10 +128,10 @@ for (const surface of surfaces) {
       hasNoindex,
     });
 
-    if (!response.ok) fail(surface.path, `HTTP ${response.status}`);
-    else if (hasNoindex) fail(surface.path, 'unexpected robots noindex');
-    else if (missingPageSignals.length) fail(surface.path, `missing page signals: ${missingPageSignals.join(', ')}`);
-    else if (missingPeers.length) fail(surface.path, `missing internal links to ${missingPeers.join(', ')}`);
+    if (!response.ok) fail(surface.path, `HTTP ${response.status} | ${linkDiagnostics}`);
+    else if (hasNoindex) fail(surface.path, `unexpected robots noindex | ${linkDiagnostics}`);
+    else if (missingPageSignals.length) fail(surface.path, `missing page signals: ${missingPageSignals.join(', ')} | ${linkDiagnostics}`);
+    else if (missingPeers.length) fail(surface.path, `missing internal links to ${missingPeers.join(', ')} | ${linkDiagnostics}`);
     else {
       console.log(`[${surface.path}] verified (${response.status})`);
       appendSummary(`| ✅ pass | ${surface.path} | 200, canonical, indexable, page marker, reciprocal links to all four core planning surfaces |\n`);
