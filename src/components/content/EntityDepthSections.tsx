@@ -1,3 +1,4 @@
+import { getCityAuthorityProfile } from '@/data/city-authority-profiles';
 import { canonicalEntityPath, type RankedRelatedEntity } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 
@@ -27,6 +28,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
   const practicalItems = practicalChecklist(entity);
   const questions = quickAnswers(entity, countyName, regionName);
   const relatedItems = related.slice(0, 6);
+  const cityProfile = entity.kind === 'city' ? getCityAuthorityProfile(entity.slug) : undefined;
 
   return <>
     <section className="border-b border-border py-12" aria-labelledby="entity-context-heading">
@@ -40,6 +42,36 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
         </div>
       </div>
     </section>
+
+    {cityProfile ? <section className="border-b border-border py-12" aria-labelledby="city-systems-heading">
+      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Local systems</p>
+          <h2 id="city-systems-heading" className="mt-2 font-display text-4xl">{entity.name} systems at a glance</h2>
+        </div>
+        <div>
+          <div className="border-y border-border py-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">2020 Census population</p>
+            <div className="mt-2 flex flex-wrap items-baseline justify-between gap-4">
+              <strong className="font-display text-4xl">{cityProfile.population2020.toLocaleString('en-US')}</strong>
+              <a className="text-sm font-semibold text-primary underline underline-offset-4" href={cityProfile.censusUrl} target="_blank" rel="noreferrer noopener">U.S. Census Bureau source ↗</a>
+            </div>
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">TexasDefined uses the completed 2020 Census count here as a stable reference point instead of presenting a moving population estimate as a permanent city fact.</p>
+          </div>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {cityProfile.systems.map((system) => <article key={system.title} className="border border-border p-5">
+              <h3 className="font-display text-2xl leading-tight">{system.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">{system.summary}</p>
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+                {system.links.map((link) => link.href.startsWith('/')
+                  ? <a key={link.href} className="text-sm font-semibold text-primary underline underline-offset-4" href={link.href}>{link.label} →</a>
+                  : <a key={link.href} className="text-sm font-semibold text-primary underline underline-offset-4" href={link.href} target="_blank" rel="noreferrer noopener">{link.label} ↗</a>)}
+              </div>
+            </article>)}
+          </div>
+        </div>
+      </div>
+    </section> : null}
 
     <section className="border-b border-border py-12" aria-labelledby="entity-practical-heading">
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
