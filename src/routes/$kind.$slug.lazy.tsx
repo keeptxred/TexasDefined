@@ -2,6 +2,7 @@ import { createLazyFileRoute } from '@tanstack/react-router';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
 import { CountyGuideSections } from '@/components/content/CountyGuideSections';
 import { EntityDepthSections } from '@/components/content/EntityDepthSections';
+import { PlaceUpcomingEvents } from '@/components/events/PlaceUpcomingEvents';
 import { Container } from '@/components/layout/Container';
 import { CountySportsDestinations } from '@/components/sports/CountySportsDestinations';
 import {
@@ -17,7 +18,7 @@ const referenceKinds = new Set([...localGovernmentKinds, 'agency']);
 export const Route = createLazyFileRoute('/$kind/$slug')({ component: EntityPage });
 
 function EntityPage() {
-  const { entity, related, countyProfile, localGovernment, countySportsVenues } = Route.useLoaderData();
+  const { entity, related, countyProfile, localGovernment, countySportsVenues, upcomingEvents } = Route.useLoaderData();
   const visibleRelated = relatedForDisplay(entity, related);
   const relatedEntities = visibleRelated.map((item) => item.entity);
   const description = pageDescription(entity);
@@ -106,6 +107,7 @@ function EntityPage() {
         {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
         {entity.kind !== 'county' ? <EntityDepthSections entity={entity} related={visibleRelated} /> : null}
+        <PlaceUpcomingEvents entityKind={entity.kind} entityName={entity.name} events={upcomingEvents} />
 
         {entity.kind !== 'county' && entity.tags?.length ? <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
           <div>
