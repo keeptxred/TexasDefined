@@ -75,9 +75,9 @@ for (const feature of [
 for (const feature of [
   'contactPoint: [{',
   '"@type": "ContactPoint"',
-  'contactType: "editorial and general inquiries"',
-  'url: `${siteUrl}/about#contact`',
-  'publishingPrinciples: `${siteUrl}/about`',
+  'contactType: "editorial, corrections and general inquiries"',
+  'url: `${siteUrl}/partner-with-us`',
+  'publishingPrinciples: `${siteUrl}/editorial-policy`',
   'areaServed: { "@type": "State", name: "Texas" }',
 ]) {
   if (!rootRoute.includes(feature)) errors.push(`Organization identity feature missing: ${feature}.`);
@@ -136,4 +136,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Homepage identity, answer layer, FAQ schema, public contact signals, crawler access, curated ItemList, GSC discovery links and Start Here validation passed.');
+console.log('Homepage identity, answer layer, FAQ schema, first-class editorial/contact accountability, crawler access, curated ItemList, GSC discovery links and Start Here validation passed.');
