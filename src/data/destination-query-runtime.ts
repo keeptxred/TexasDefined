@@ -29,6 +29,12 @@ function featuredFallback(destinations: Destination[], limit = 6) {
     .slice(0, limit);
 }
 
+function normalizeDestinationCounty(destination: Destination): Destination {
+  const county = destination.county?.replace(/\s+County$/i, "").trim();
+  if (!county || county === destination.county) return destination;
+  return { ...destination, county };
+}
+
 function mergeDestinations(...groups: Destination[][]): Destination[] {
   const merged = new Map<string, Destination>();
   for (const group of groups) {
@@ -64,13 +70,15 @@ function finishHistoricSiteEnrichment(destination: Destination) {
 }
 
 function applyResolvedHero(destination: Destination) {
-  return enrichAquariumMarineDestination(
-    finishHistoricSiteEnrichment(
-      improveDestinationQuality(
-        applyAllCuratedDestination(
-          applyExploreHeroAsset(
-            applyStateParkHeroAsset(
-              applyDestinationHeroOverride(destination),
+  return normalizeDestinationCounty(
+    enrichAquariumMarineDestination(
+      finishHistoricSiteEnrichment(
+        improveDestinationQuality(
+          applyAllCuratedDestination(
+            applyExploreHeroAsset(
+              applyStateParkHeroAsset(
+                applyDestinationHeroOverride(normalizeDestinationCounty(destination)),
+              ),
             ),
           ),
         ),
@@ -80,14 +88,16 @@ function applyResolvedHero(destination: Destination) {
 }
 
 function reconcileExploreCatalog(destinations: Destination[]) {
-  const curated = improveDestinationCatalog(applyAllCuratedDestinations(reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))));
+  const normalized = destinations.map(normalizeDestinationCounty);
+  const curated = improveDestinationCatalog(applyAllCuratedDestinations(reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(normalized)))));
   const improved = enrichHistoricSiteCatalog(curated)
     .map(enrichRemainingHistoricSiteAreaGuide)
     .map(enrichHistoricSiteRemoteHero)
     .map(enrichHistoricSiteEvergreenLinks)
     .map(applyHistoricSiteFactCorrections)
     .map(enrichNationalCemeteryDestination)
-    .map(enrichAquariumMarineDestination);
+    .map(enrichAquariumMarineDestination)
+    .map(normalizeDestinationCounty);
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved));
 }
 
