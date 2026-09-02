@@ -1,0 +1,318 @@
+import type { Destination } from "./types";
+
+const sourceCheckedAt = "2026-09-02";
+
+export const smallTownWave4Destinations: Destination[] = [
+  {
+    id: "small-town-glen-rose",
+    brandId: "texasdefined",
+    slug: "glen-rose",
+    name: "Glen Rose",
+    summary: "Glen Rose is a Paluxy River courthouse town southwest of Fort Worth where dinosaur tracks, limestone downtown buildings, wildlife attractions and easy river access make a compact family destination with unusually strong outdoor depth.",
+    category: "small-towns",
+    region: "prairies-lakes",
+    nearestTown: "Glen Rose",
+    county: "Somervell",
+    coordinates: { lat: 32.2346, lng: -97.7553 },
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Somervell%20County%20Courthouse%2C%20Glen%20Rose%20TX.jpg?width=1600",
+      alt: "Somervell County Courthouse in the historic center of Glen Rose, Texas",
+      width: 3488,
+      height: 2048,
+      credit: "Sandra Brooker · CC BY-SA 3.0 · Wikimedia Commons",
+    },
+    bestSeason: "Fall through spring for hiking, downtown walking and wildlife drives; warm months add Paluxy River recreation, but summer heat makes early starts especially useful",
+    entryNote: "Dinosaur Valley State Park can reach capacity and river track visibility changes with water levels. Reserve the park when required, check current Paluxy conditions, and book ticketed wildlife or family attractions directly before a busy weekend.",
+    highlights: ["Dinosaur Valley State Park", "Paluxy River", "Somervell County Courthouse", "historic square", "wildlife attractions", "family weekend"],
+    body: [
+      "Glen Rose developed along the Paluxy River and remains small enough that its courthouse square, river setting and visitor services form a coherent town center. The 1890s Somervell County Courthouse anchors a historic downtown of local restaurants, shops and gathering spaces, giving travelers a useful place to spend time before or after the better-known attractions outside the square. That matters because Glen Rose is often treated only as a gateway to dinosaur tracks, even though the town itself provides the history, food and evening pace that can turn a park visit into a full weekend.",
+      "The surrounding landscape gives Glen Rose its exceptional family-travel depth. Dinosaur Valley State Park protects famous dinosaur trackways in and along the Paluxy River, while Fossil Rim Wildlife Center adds a large wildlife-conservation experience nearby. The river also supports paddling and seasonal water recreation, and the broader area includes trails, museums and family attractions. Those choices make it possible to build two very different days from one lodging base rather than driving between distant North Texas destinations.",
+      "For a first trip, treat Dinosaur Valley as a reserved outdoor block rather than assuming it can be squeezed in at any hour. Use a separate stretch of time for the courthouse square and riverfront, then choose either Fossil Rim or another major attraction instead of attempting every family stop in one day. Water level, heat and park capacity can materially change the experience, so check conditions close to departure. Two nights are enough for a park day plus a town-and-wildlife day without making the schedule feel rushed.",
+    ],
+    officialUrl: "https://exploreglenrose.com/",
+    sourceCheckedAt,
+    directions: "Glen Rose is the Somervell County seat on US 67 southwest of Fort Worth. The courthouse square is the central orientation point, while Dinosaur Valley and other major attractions sit outside downtown.",
+    accessibilityNotes: "Downtown is relatively compact, but riverbanks, dinosaur-track locations and natural trails can be uneven or water-dependent. Check each attraction's current accessible routes and park conditions before travel.",
+    areaGuide: {
+      intro: "Build Glen Rose around one major outdoor attraction per half day, then use the courthouse square and Paluxy River corridor to connect meals, history and slower time between them.",
+      nearbyAttractions: [
+        { name: "Dinosaur Valley State Park", description: "Paluxy River dinosaur tracks, trails, camping and one of Texas' signature family geology experiences.", href: "/destination/dinosaur-valley-state-park" },
+        { name: "Fossil Rim Wildlife Center", description: "A large conservation and wildlife-drive experience outside town; reserve current admission directly with the center." },
+      ],
+      foodAndDrink: [
+        { name: "Courthouse Square and central Glen Rose", description: "Local restaurants, cafes and small businesses provide the easiest dining cluster between outdoor activities." },
+      ],
+      lodging: [
+        { name: "Central Glen Rose", description: "Best for easy access to the square, restaurants and multiple attractions in different directions." },
+        { name: "River and countryside stays", description: "A quieter choice when outdoor scenery is more important than walking to downtown businesses." },
+      ],
+      neighborhoods: [
+        { name: "Courthouse Square", description: "The historic civic and commercial center, anchored by the Somervell County Courthouse." },
+      ],
+      familyStops: [
+        { name: "Dinosaur Valley State Park", description: "The essential family stop, with the best track experience dependent on current river conditions.", href: "/destination/dinosaur-valley-state-park" },
+        { name: "Paluxy River", description: "A scenic break and seasonal recreation corridor that also explains why dinosaur tracks are exposed or submerged at different times." },
+      ],
+      sideTrips: [
+        { name: "Granbury", description: "Pair prehistoric Glen Rose with a courthouse square and Lake Granbury on a two-town weekend.", href: "/destination/granbury" },
+        { name: "Texas Trip Planner", description: "Build a North-Central Texas route around Glen Rose and nearby destinations.", href: "/explore/trip-planner?destination=glen-rose" },
+      ],
+    },
+    authorityGuide: {
+      whyItMatters: "Glen Rose combines one of Texas' most recognizable paleontology destinations with a real courthouse town, a living river system and enough wildlife and outdoor options to support more than a single attraction visit.",
+      assessment: {
+        recommendedVisit: "One full day at minimum; two nights for Dinosaur Valley, wildlife, downtown and river time.",
+        physicalEffort: "Moderate",
+        weatherExposure: "Mostly outdoors",
+        planningLevel: "High",
+        familyFit: "Excellent for families interested in dinosaurs, wildlife and outdoor exploration, with enough downtown time to balance active stops.",
+        firstTimeValue: "Very high for families because the signature attractions are genuinely distinctive and close enough to share one base.",
+      },
+      itineraries: [
+        { label: "Half day", duration: "4-5 hours", steps: ["Reserve a Dinosaur Valley State Park visit", "See the best currently accessible track area or trail", "Finish around the courthouse square for food and a short walk"] },
+        { label: "Full day", duration: "8-10 hours", steps: ["Start early at Dinosaur Valley", "Return to town for lunch", "Walk the square and river corridor", "Choose one additional museum, family attraction or outdoor stop"] },
+        { label: "Weekend", duration: "2 nights", steps: ["Give Dinosaur Valley its own half day or more", "Use a second day for Fossil Rim and downtown Glen Rose", "Keep one flexible block for river conditions, trails or a nearby side trip"] },
+      ],
+      sources: [
+        { label: "Explore Glen Rose", url: "https://exploreglenrose.com/", scope: "Official Glen Rose Convention and Visitors Bureau destination planning, downtown and major attractions" },
+        { label: "Explore Glen Rose visitor information", url: "https://exploreglenrose.com/contact/", scope: "Current visitor center and trip-planning information" },
+        { label: "Explore Glen Rose dining", url: "https://exploreglenrose.com/food-drinks/", scope: "Current central dining and visitor-service context" },
+      ],
+    },
+    featured: true,
+  },
+  {
+    id: "small-town-llano",
+    brandId: "texasdefined",
+    slug: "llano",
+    name: "Llano",
+    summary: "Llano is a Hill Country river town where a pink-granite courthouse, historic commercial district, the Llano River, barbecue and direct access to the region's granite-and-lake landscape create an easy outdoor-and-food weekend.",
+    category: "small-towns",
+    region: "hill-country",
+    nearestTown: "Llano",
+    county: "Llano",
+    coordinates: { lat: 30.7501, lng: -98.6761 },
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Llano%20courthouse%202010.jpg?width=1600",
+      alt: "Llano County Courthouse on the historic square in Llano, Texas",
+      width: 2280,
+      height: 1659,
+      credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+    },
+    bestSeason: "Fall through spring for downtown and regional hiking; late spring through early fall for river recreation when conditions are safe, with summer activities best timed for cooler hours",
+    entryNote: "River depth and flow change with weather, and nearby state-natural-area reservations can fill on popular weekends. Check current water conditions and reserve major outdoor side trips before leaving home.",
+    highlights: ["Llano County Courthouse", "Llano River", "historic district", "Texas barbecue", "granite country", "Hill Country road trip"],
+    body: [
+      "Llano sits directly on the river that shares its name, and the relationship between water, granite and downtown architecture is visible almost immediately. The Romanesque Revival Llano County Courthouse anchors the historic district, while nearby stone commercial buildings, shops, restaurants and the old rail-yard area preserve the town's late-nineteenth-century growth. Unlike Hill Country communities where the river lies outside the visitor core, Llano lets travelers move quickly between courthouse history and the river landscape.",
+      "Food and outdoor recreation give the town a second identity. Llano is well known as a barbecue stop, while the river provides fishing, paddling, swimming and bank access when conditions permit. Beyond town, the broader Llano County landscape connects to Enchanted Rock, Inks Lake, Highland Lakes communities and rugged granite country. That makes Llano useful both as a destination and as a practical base for a scenic loop rather than merely a lunch stop on the way to another park.",
+      "A first visit should give the courthouse district and river their own unhurried block before adding a longer side trip. Walk the square, cross or view the river, and plan a meal locally; then decide whether the day needs more water time or a drive into the surrounding granite hills. Spring wildflowers, festival dates and hunting season can change traffic and lodging patterns, while summer heat can make exposed midday recreation uncomfortable. An overnight stay allows the town to work at its natural pace.",
+    ],
+    officialUrl: "https://visitllanotexas.com/",
+    sourceCheckedAt,
+    directions: "Llano is the Llano County seat at the junction of State Highways 16 and 71. The courthouse square and Llano River crossing form the primary visitor cluster.",
+    accessibilityNotes: "The courthouse district is compact, but historic buildings, granite riverbanks and natural areas vary. Confirm accessible entrances and current river-access conditions for the specific stops on the itinerary.",
+    areaGuide: {
+      intro: "Use the courthouse square and river as Llano's two anchors, then add one granite-country or lake side trip rather than spending the day driving the entire county.",
+      nearbyAttractions: [
+        { name: "Enchanted Rock State Natural Area", description: "The region's signature pink-granite dome and trail system southeast of Llano; reservations are often important.", href: "/destination/enchanted-rock-state-natural-area" },
+        { name: "Llano River", description: "Fishing, paddling and seasonal swimming access directly in and near town, subject to current flow and weather conditions." },
+      ],
+      foodAndDrink: [
+        { name: "Downtown and barbecue corridor", description: "Texas barbecue is a major visitor draw, with additional local restaurants and cafes around the historic center." },
+      ],
+      lodging: [
+        { name: "Central Llano", description: "Best for walking access to the courthouse, restaurants and river." },
+        { name: "River and Hill Country stays", description: "Better for travelers prioritizing scenery, fishing or a quieter overnight base." },
+      ],
+      neighborhoods: [
+        { name: "Llano County Courthouse Historic District", description: "The central square and surrounding historic commercial buildings form the most useful walking zone." },
+      ],
+      familyStops: [
+        { name: "Llano River", description: "A flexible outdoor stop for views, picnicking or water recreation when current conditions are safe." },
+        { name: "Courthouse square", description: "An easy orientation point for architecture, shops, food and short walks without committing to a long attraction." },
+      ],
+      sideTrips: [
+        { name: "Enchanted Rock State Natural Area", description: "Pair Llano's river and courthouse with the Hill Country's best-known granite hike.", href: "/destination/enchanted-rock-state-natural-area" },
+        { name: "Hill Country region", description: "Connect Llano with nearby lakes, granite landscapes and smaller communities.", href: "/explore/region/hill-country" },
+      ],
+    },
+    authorityGuide: {
+      whyItMatters: "Llano is one of the clearest places to experience the geology, river recreation, courthouse architecture and barbecue culture that define the northern Hill Country in one compact town.",
+      assessment: {
+        recommendedVisit: "One full day; one or two nights if adding Enchanted Rock, lake country or a longer scenic loop.",
+        physicalEffort: "Low to moderate",
+        weatherExposure: "Mixed indoor/outdoor",
+        planningLevel: "Moderate",
+        familyFit: "Strong for families mixing easy downtown time, food and flexible river recreation; longer hikes should be matched to heat and ability.",
+        firstTimeValue: "High for travelers who want a less resort-oriented Hill Country town with immediate access to river and granite-country scenery.",
+      },
+      itineraries: [
+        { label: "Half day", duration: "4-5 hours", steps: ["Walk the courthouse square and historic district", "Spend time along the Llano River", "Finish with a local barbecue or downtown meal"] },
+        { label: "Full day", duration: "8-10 hours", steps: ["Begin downtown before midday heat", "Explore the river corridor", "Take a long lunch or shopping break", "Add a short county scenic drive or another river stop"] },
+        { label: "Weekend", duration: "1-2 nights", steps: ["Give Llano one dedicated town-and-river day", "Reserve a second block for Enchanted Rock or lake country", "Keep one meal and evening open for downtown food and music"] },
+      ],
+      sources: [
+        { label: "Visit Llano", url: "https://visitllanotexas.com/", scope: "Official City of Llano tourism information, downtown, dining and events" },
+        { label: "Visit Llano County — Llano", url: "https://visitllanocounty.com/llano/", scope: "County visitor context for the river, courthouse, barbecue and nearby attractions" },
+        { label: "City of Llano tourism", url: "https://www.cityofllano.com/", scope: "Municipal context and current city information" },
+      ],
+    },
+    featured: true,
+  },
+  {
+    id: "small-town-mason",
+    brandId: "texasdefined",
+    slug: "mason",
+    name: "Mason",
+    summary: "Mason is a western Hill Country courthouse town where restored civic architecture, Fort Mason history, German-Texan roots, nearby river country and wide-open dark skies create a quieter heritage-and-outdoors alternative to busier regional destinations.",
+    category: "small-towns",
+    region: "hill-country",
+    nearestTown: "Mason",
+    county: "Mason",
+    coordinates: { lat: 30.7488, lng: -99.2306 },
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mason%20County%20Courthouse%20%282018%29%2C%20Mason%2C%20TX.jpg?width=1600",
+      alt: "Mason County Courthouse on the town square in Mason, Texas",
+      width: 4608,
+      height: 3072,
+      credit: "25or6to4 · CC BY-SA 4.0 · Wikimedia Commons",
+    },
+    bestSeason: "Fall through spring for walking, scenic driving and outdoor history; summer works best with morning activities and evening stargazing rather than long exposed midday stops",
+    entryNote: "Mason is a small service center surrounded by large rural distances. Check museum, fort and business hours before arrival, keep fuel planning in mind on side trips, and verify river or outdoor access directly rather than assuming year-round conditions.",
+    highlights: ["Mason County Courthouse", "Fort Mason history", "historic square", "German-Texan heritage", "Hill Country scenery", "dark skies"],
+    body: [
+      "Mason grew from the military and settlement history of the western Hill Country. Fort Mason was established in the 1850s, and the community that developed around it became the Mason County seat and a center for ranching, trade and German immigrant life. The courthouse square remains the most useful starting point today: restored civic architecture, shops, restaurants and historic markers create a compact center, while the fort site and local museum extend the story beyond the commercial blocks.",
+      "The setting is as important as the built history. Mason lies among granite hills, ranch country and tributaries of the Llano River, with long rural roads leading toward Castell, Junction, Fredericksburg and other Hill Country communities. The relative lack of large-city development also makes night skies, scenic driving and a slower outdoor pace part of the appeal. Visitors who come only for the courthouse miss the connection between the town's frontier history and the open landscape that shaped it.",
+      "A strong first visit combines the square, one history stop and one outdoor or scenic component rather than trying to drive the entire western Hill Country in a day. Business and museum hours can be limited, particularly outside busy weekends, so confirm the stops that matter most. The town works especially well as an overnight break between larger destinations: an evening and following morning provide time for local food, dark skies and a relaxed walk without adding another long round-trip drive.",
+    ],
+    officialUrl: "https://masontx.org/",
+    sourceCheckedAt,
+    directions: "Mason is the Mason County seat at the junction of US 87 and State Highway 29 in the western Hill Country. The courthouse square is the central visitor orientation point.",
+    accessibilityNotes: "The square is relatively compact, but historic structures, fort grounds and rural outdoor stops vary. Confirm current accessible entrances and surfaces with individual venues before travel.",
+    areaGuide: {
+      intro: "Treat Mason as a courthouse-and-frontier-history base, then add one scenic rural direction rather than turning a short visit into an all-day driving loop.",
+      nearbyAttractions: [
+        { name: "Fort Mason", description: "The historic military site that explains much of the community's nineteenth-century development and frontier role." },
+        { name: "Western Hill Country", description: "Granite, ranchland and river country extend toward Castell, Junction and Fredericksburg, making scenic driving part of the destination." },
+      ],
+      foodAndDrink: [
+        { name: "Courthouse square", description: "Local restaurants, cafes and shops cluster around the town center and are the easiest places to build a meal into a historic walk." },
+      ],
+      lodging: [
+        { name: "In-town stays", description: "Best for walking to the square and minimizing driving after dinner." },
+        { name: "Ranch and countryside stays", description: "A better fit for travelers prioritizing dark skies, quiet and the surrounding landscape." },
+      ],
+      neighborhoods: [
+        { name: "Mason courthouse square", description: "The civic and commercial core, with the restored courthouse as the town's central landmark." },
+      ],
+      familyStops: [
+        { name: "Fort Mason", description: "An outdoor-oriented history stop that can help children connect the town to Texas frontier history." },
+        { name: "Courthouse square", description: "A manageable walking base with food and short stops rather than a long museum commitment." },
+      ],
+      sideTrips: [
+        { name: "Fredericksburg", description: "Pair Mason's quieter western Hill Country character with the larger German-Texan visitor hub southeast of town.", href: "/destination/fredericksburg" },
+        { name: "Hill Country region", description: "Use the regional node to connect Mason with river, granite and heritage destinations.", href: "/explore/region/hill-country" },
+      ],
+    },
+    authorityGuide: {
+      whyItMatters: "Mason preserves the relationship between frontier military history, German settlement, ranching and the open western Hill Country landscape better than a purely museum-centered stop could.",
+      assessment: {
+        recommendedVisit: "One full day or an overnight stop; two nights for deeper scenic driving and regional history.",
+        physicalEffort: "Low to moderate",
+        weatherExposure: "Mixed indoor/outdoor",
+        planningLevel: "Moderate",
+        familyFit: "Good for families interested in Texas history and slower road trips, especially when a short outdoor stop breaks up driving.",
+        firstTimeValue: "High for travelers seeking a quieter Hill Country town with genuine frontier context and fewer large-scale tourist attractions.",
+      },
+      itineraries: [
+        { label: "Half day", duration: "4-5 hours", steps: ["Walk the courthouse square", "Visit Fort Mason or a local history stop", "Finish with a meal and a short scenic drive"] },
+        { label: "Full day", duration: "8-10 hours", steps: ["Start with courthouse and downtown history", "Visit Fort Mason", "Break for lunch", "Use late afternoon for a rural drive or outdoor stop before returning to town"] },
+        { label: "Overnight", duration: "1 night", steps: ["Spend the afternoon on Mason history and the square", "Stay for dinner and dark skies", "Use the next morning for a scenic route toward the next Hill Country destination"] },
+      ],
+      sources: [
+        { label: "Mason County Chamber of Commerce", url: "https://masontx.org/", scope: "Official visitor information, downtown, events, lodging and local destination context" },
+        { label: "City of Mason visitors", url: "https://www.cityofmason.us/31/Visitors", scope: "Municipal visitor resources, parks, shopping, dining and current local information" },
+        { label: "City of Mason", url: "https://www.cityofmason.us/", scope: "Current municipal information and visitor-service context" },
+      ],
+    },
+    featured: true,
+  },
+  {
+    id: "small-town-schulenburg",
+    brandId: "texasdefined",
+    slug: "schulenburg",
+    name: "Schulenburg",
+    summary: "Schulenburg is a Fayette County railroad town whose German and Czech heritage, historic Main Street, dance-hall and polka traditions, local museums and position at the center of the Painted Churches country make it a strong cultural road-trip base.",
+    category: "small-towns",
+    region: "prairies-lakes",
+    nearestTown: "Schulenburg",
+    county: "Fayette",
+    coordinates: { lat: 29.6811, lng: -96.903 },
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Main%20street%20schulenburg%202012.jpg?width=1600",
+      alt: "Historic Main Street buildings in downtown Schulenburg, Texas",
+      width: 1800,
+      height: 1200,
+      credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+    },
+    bestSeason: "Fall through spring for church touring and town walking; spring adds wildflowers and festivals, while summer visits are most comfortable when indoor museums and early starts balance the heat",
+    entryNote: "The Painted Churches are active houses of worship with service, event and tour restrictions. Check the Schulenburg Chamber's current access rules, call ahead when a specific church is essential, and reserve guided tours directly rather than assuming all churches are open at all times.",
+    highlights: ["Painted Churches", "German and Czech heritage", "historic Main Street", "Sengelmann Hall", "polka culture", "Texas road trip"],
+    body: [
+      "Schulenburg grew rapidly after a railroad depot was established in 1873, and its location between Houston, San Antonio, Austin and Victoria still shapes the town's role as a travel crossroads. Historic commercial buildings, museums and Main Street preserve the railroad-era center, while German and Czech immigration remains visible in food, festivals, music and community institutions. The town's name itself reflects its German heritage, and the mix of cultures across Fayette County gives Schulenburg more depth than a simple interstate stop.",
+      "The surrounding Painted Churches country is the town's most distinctive visitor asset. Catholic communities at High Hill, Dubina, Ammannsville, Praha, Moravia and St. John built churches whose comparatively plain exteriors open into elaborately painted interiors. The Schulenburg Chamber coordinates current tour information, making the town the practical planning base for a multi-church route. Dance halls, polka traditions, the Stanzel Model Aircraft Museum and local historical collections add enough variety to fill time between church visits.",
+      "A first visit should respect that the Painted Churches are active religious sites rather than ordinary attractions. Check current hours and services, avoid assuming Sunday access, and use a guided tour when context or access matters. In town, give Main Street, museums and local food their own block rather than treating Schulenburg only as the place where the church tour begins. An overnight stay is especially useful if combining several churches with nearby Fayette County communities or a festival weekend.",
+    ],
+    officialUrl: "https://schulenburgchamber.org/",
+    sourceCheckedAt,
+    directions: "Schulenburg sits at I-10 and US 77 in southern Fayette County, roughly between Houston and San Antonio. Main Street and the Chamber provide the best orientation for town and Painted Churches itineraries.",
+    accessibilityNotes: "The Chamber reports accessibility at the Painted Churches on its current tour information, but individual historic buildings and grounds vary. Confirm specific needs when booking a tour or visiting museums and historic properties.",
+    areaGuide: {
+      intro: "Use Schulenburg as the logistics and cultural base for the Painted Churches, then reserve time for the town's own German-Czech food, music, museums and historic Main Street.",
+      nearbyAttractions: [
+        { name: "Painted Churches of Texas", description: "A cluster of active historic churches in communities around Schulenburg, best visited with current access guidance.", href: "/explore/painted-churches" },
+        { name: "Sengelmann Hall and historic Main Street", description: "Railroad-era architecture and dance-hall culture help connect the town's built environment to its German and Czech traditions." },
+      ],
+      foodAndDrink: [
+        { name: "Schulenburg and Fayette County food traditions", description: "Kolaches, sausage, Czech and German influences and classic Texas road-food stops are part of the cultural experience." },
+      ],
+      lodging: [
+        { name: "Schulenburg", description: "The most convenient base for an early Painted Churches tour and for keeping church-route driving manageable." },
+        { name: "Fayette County circuit", description: "Nearby communities can work for a broader heritage weekend, but check driving time between church stops and events." },
+      ],
+      neighborhoods: [
+        { name: "Historic Main Street", description: "The central commercial corridor for older buildings, local businesses and the town's railroad-era identity." },
+      ],
+      familyStops: [
+        { name: "Stanzel Model Aircraft Museum", description: "A family-friendly museum option that adds engineering and local manufacturing history to a heritage trip." },
+        { name: "Painted Churches", description: "Visually memorable for older children when paired with clear expectations about quiet behavior in active worship spaces.", href: "/explore/painted-churches" },
+      ],
+      sideTrips: [
+        { name: "Painted Churches planning hub", description: "Use TexasDefined's church authority system to understand the sites before choosing a route.", href: "/explore/painted-churches" },
+        { name: "Food & Barbecue discovery", description: "Connect the area's Czech, German and Texas food traditions to the statewide food system.", href: "/explore/food-bbq" },
+      ],
+    },
+    authorityGuide: {
+      whyItMatters: "Schulenburg is the practical gateway to one of Texas' most distinctive immigrant-heritage landscapes, where Czech and German religion, art, food, music and railroad history remain visible across both town and countryside.",
+      assessment: {
+        recommendedVisit: "One full day; one night or a weekend if touring multiple churches and nearby Fayette County communities.",
+        physicalEffort: "Low",
+        weatherExposure: "Mixed indoor/outdoor",
+        planningLevel: "High",
+        familyFit: "Good for families interested in art, architecture and local culture, provided church etiquette and tour timing suit the group.",
+        firstTimeValue: "Very high for cultural travelers because the Painted Churches and living Czech-German traditions are unusually specific to this part of Texas.",
+      },
+      itineraries: [
+        { label: "Half day", duration: "4-5 hours", steps: ["Orient at the Chamber or Main Street", "Visit one or two currently accessible Painted Churches", "Return to town for local food and a short museum or historic walk"] },
+        { label: "Full day", duration: "8-10 hours", steps: ["Begin a reserved or carefully checked church route in the morning", "Break for lunch in Schulenburg", "Continue with additional churches or museums", "Finish with Main Street, local food or live music when scheduled"] },
+        { label: "Weekend", duration: "1-2 nights", steps: ["Give the Painted Churches a dedicated day", "Use a second day for Schulenburg museums and nearby Fayette County communities", "Keep one evening open for dance-hall, polka or festival programming when available"] },
+      ],
+      sources: [
+        { label: "Schulenburg Chamber of Commerce", url: "https://schulenburgchamber.org/", scope: "Official visitor information, German-Czech heritage, events and town context" },
+        { label: "Schulenburg Chamber — Painted Churches", url: "https://schulenburgchamber.org/painted-churches/", scope: "Current church access, tour rules, reservations, hours and visitor etiquette" },
+        { label: "City of Schulenburg", url: "https://schulenburgtx.org/", scope: "Municipal history, railroad origins, festivals and current city information" },
+      ],
+    },
+    featured: true,
+  },
+];

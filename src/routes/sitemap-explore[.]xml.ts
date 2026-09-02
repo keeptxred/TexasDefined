@@ -167,6 +167,10 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations);
         const usePreservedFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0;
         const rawDestinations = usePreservedFallback ? preservedExploreDestinations : remoteDestinations;
+        if (!usePreservedFallback) {
+          const remoteSlugs = new Set(rawDestinations.map((destination) => destination.slug));
+          rawDestinations.push(...preservedExploreDestinations.filter((destination) => destination.slug && !remoteSlugs.has(destination.slug)));
+        }
         const destinations = resolveDestinationCatalog(rawDestinations);
 
         const categoryCandidates = [...new Set([...categories, ...supplementalExploreCategories]
