@@ -138,6 +138,7 @@ jobs:
         run: |
           node scripts/ci/verify-production-surfaces.mjs
           node scripts/ci/verify-local-financial-production.mjs
+          node scripts/ci/verify-statewide-financial-discovery.mjs
 
       - name: Publish live verification result
         if: always()
