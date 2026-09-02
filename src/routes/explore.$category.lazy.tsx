@@ -49,7 +49,7 @@ function FoodAuthorityCollection() {
           <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined is building a source-checked food-destination layer around durable history and cultural significance rather than volatile menu prices or copied directory listings. This first wave spans barbecue, Czech baking, Gulf seafood and cowboy steakhouse tradition.</p>
         </div>
         <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
-          <Link to="/texas-food-history" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Food history →</Link>
+          <Link to="/texas-food-history" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Explore Texas food history →</Link>
           <Link to="/texas-food-trail" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Food trail →</Link>
         </div>
       </div>
