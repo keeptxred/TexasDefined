@@ -28,6 +28,7 @@ const city = (
   sourceCheckedAt: checkedAt,
   status: 'active',
   relationships: [
+    { type: 'located-in-region', targetId: `region:${region}` },
     ...(metroId ? [{ type: 'part-of-metro', targetId: metroId }] : []),
     ...statewideServiceRelationships,
     ...extraRelationships,
@@ -105,6 +106,18 @@ const METRO_OVERRIDES: Record<string, AuthorityOverride> = {
   },
 };
 
+function relationshipsWithAuthorityRegion(entity: TexasEntityRecord, override: AuthorityOverride) {
+  const overrideRelationships = override.relationships ?? [];
+  const replacesRegionRelationship = overrideRelationships.some((relationship) => relationship.type === 'located-in-region');
+  const merged = replacesRegionRelationship
+    ? entity.relationships.filter((relationship) => relationship.type !== 'located-in-region')
+    : [...entity.relationships];
+  for (const relationship of overrideRelationships) {
+    if (!merged.some((item) => item.type === relationship.type && item.targetId === relationship.targetId)) merged.push(relationship);
+  }
+  return merged;
+}
+
 export function enrichCityMetroAuthorityEntity(entity: TexasEntityRecord): TexasEntityRecord {
   const override = entity.kind === 'city' ? CITY_OVERRIDES[entity.slug] : entity.kind === 'metro-area' ? METRO_OVERRIDES[entity.slug] : undefined;
   if (!override) return entity;
@@ -112,7 +125,7 @@ export function enrichCityMetroAuthorityEntity(entity: TexasEntityRecord): Texas
     ...entity,
     ...override,
     aliases: [...new Set([...(entity.aliases ?? []), ...(override.aliases ?? [])])],
-    relationships: [...entity.relationships, ...(override.relationships ?? []).filter((relationship) => !entity.relationships.some((item) => item.type === relationship.type && item.targetId === relationship.targetId))],
+    relationships: relationshipsWithAuthorityRegion(entity, override),
     tags: [...new Set([...(entity.tags ?? []), ...(override.tags ?? [])])],
   };
 }
