@@ -93,7 +93,13 @@ jobs:
 
       - name: Build production bundle
         id: build
-        run: npm run build
+        shell: bash
+        run: |
+          npm run build
+          if ! git diff --exit-code -- src/routeTree.gen.ts; then
+            echo '::error title=Generated route tree is stale::The production build changed src/routeTree.gen.ts. Commit the TanStack-generated route tree before deployment.'
+            exit 1
+          fi
 
       - name: Publish build result
         if: always()
@@ -135,7 +141,10 @@ jobs:
 
       - name: Verify production surfaces
         id: live
+        env:
+          DIRECT_WORKER_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
         run: |
+          node scripts/ci/verify-direct-worker-discovery.mjs
           node scripts/ci/verify-production-surfaces.mjs
           node scripts/ci/verify-local-financial-production.mjs
           node scripts/ci/verify-statewide-financial-discovery.mjs
@@ -191,13 +200,13 @@ jobs:
           elif [[ "$VALIDATION_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: VALIDATION::A code/content/SEO/data validator failed; the exact check is in the validation-suite summary.'
           elif [[ "$BUILD_OUTCOME" == 'failure' ]]; then
-            echo '::error title=Pipeline failure class: BUILD::Validation passed; the production build failed.'
+            echo '::error title=Pipeline failure class: BUILD::Validation passed; the production build failed or regenerated an uncommitted route tree.'
           elif [[ "$BUDGET_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: BUNDLE BUDGET::Validation and build passed, but the protected client bundle budget was exceeded.'
           elif [[ "$CLOUDFLARE_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: CLOUDFLARE / DEPLOYMENT::Code validation, build and bundle budget passed; Cloudflare deployment failed.'
           elif [[ "$LIVE_OUTCOME" == 'failure' ]]; then
-            echo '::error title=Pipeline failure class: LIVE PRODUCTION::Cloudflare deployment passed; a production surface failed verification. The exact URL/status is in the production verification summary.'
+            echo '::error title=Pipeline failure class: LIVE PRODUCTION::Cloudflare deployment passed; the direct Worker or a custom-domain production surface failed verification. The exact URL/status is in the verification logs.'
           elif [[ "$INDEXNOW_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: INDEXING / EXTERNAL::Production verification passed; the guarded IndexNow stage failed.'
           fi
