@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const routeTree = fs.readFileSync('src/routeTree.gen.ts', 'utf8');
 const registry = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const failures = [];
@@ -141,7 +140,7 @@ for (const contract of dynamicFinancialRouteContracts) {
   if (!sitemap.includes(sitemapMarker)) failures.push(`Primary sitemap must emit ${contract.pattern} children only from ${contract.sitemapRegistry}.`);
 }
 
-const registeredStaticPublicPaths = new Set([...routeTree.matchAll(/\bpath:\s*'([^']+)'/g)].map((match) => normalize(match[1])).filter(shouldCountPublicRoute));
+const registeredStaticPublicPaths = new Set(sourceRouteEntries.map((entry) => entry.path).filter(shouldCountPublicRoute));
 for (const entry of sourceRouteEntries) if (shouldCountPublicRoute(entry.path)) registeredStaticPublicPaths.add(entry.path);
 for (const path of ['/', '/explore', '/shop', '/shop/cart', '/shop/checkout-return']) registeredStaticPublicPaths.add(path);
 for (const routePath of registeredStaticPublicPaths) if (!classified.has(routePath)) failures.push(`Registered static public route is unclassified: ${routePath}.`);

@@ -3,7 +3,6 @@ export const INDEXABLE_STATIC_PATHS = [
   "/explore",
   "/explore/lighthouses",
   "/explore/landscapes",
-  "/explore/trip-planner",
   "/explore/attractions-comparison",
   "/explore/museums",
   "/explore/aquariums",
@@ -256,6 +255,7 @@ export const INDEXABLE_STATIC_PATHS = [
 ] as const;
 
 export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
+  "/explore/trip-planner",
   "/news",
   "/fishing/guides",
   "/fishing/reports",
