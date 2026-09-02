@@ -19,6 +19,7 @@ const groups: ReadonlyArray<ResourceGroup> = [
       ['Texas toll tags: EZ TAG vs. TxTag vs. TollTag', '/texas-toll-tags'],
       ['Find your DMV or county office', '/find-my-dmv'],
       ['Texas fishing license', '/texas-fishing-license'],
+      ['Texas hunting licenses and public hunting', '/hunting'],
       ['Find your school district', '/find-my-school-district'],
     ],
   },
@@ -72,6 +73,7 @@ const groups: ReadonlyArray<ResourceGroup> = [
     title: 'Finding your place',
     links: [
       ['Explore Texas', '/explore'],
+      ['Texas hunting and public land', '/hunting'],
       ['Best places to go camping in Texas', '/best-places-to-go-camping-in-texas'],
       ['Texas state parks', '/explore/state-parks'],
       ['Texas lakes and rivers', '/explore/lakes-rivers'],
