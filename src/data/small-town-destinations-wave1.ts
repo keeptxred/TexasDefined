@@ -1,0 +1,318 @@
+import type { Destination } from "./types";
+
+const sourceCheckedAt = "2026-09-01";
+
+export const smallTownWave1Destinations: Destination[] = [
+  {
+    id: "small-town-fredericksburg",
+    brandId: "texasdefined",
+    slug: "fredericksburg",
+    name: "Fredericksburg",
+    summary: "Fredericksburg is a German-Texan Hill Country destination built around a walkable historic core, museums, independent shops and restaurants, with Texas Wine Country and major outdoor stops close enough to turn a downtown visit into a full weekend.",
+    category: "small-towns",
+    region: "hill-country",
+    nearestTown: "Fredericksburg",
+    county: "Gillespie",
+    coordinates: { lat: 30.2752, lng: -98.8719 },
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fredericksburg%20July%202017%205%20%28Marktplatz%29.jpg?width=1600",
+      alt: "Marktplatz and the historic town center in Fredericksburg, Texas",
+      width: 1600,
+      height: 1067,
+      credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons",
+    },
+    bestSeason: "Fall through spring for walking Main Street and outdoor side trips; spring wildflower season and holiday weekends are especially popular and can be crowded",
+    entryNote: "Downtown itself does not require a reservation, but lodging, winery visits, special events and nearby Enchanted Rock can fill well ahead of busy weekends. Confirm attraction hours and park reservation requirements before making the drive.",
+    highlights: ["Fredericksburg Historic District", "National Museum of the Pacific War", "Pioneer Museum", "Texas Wine Country", "shopping", "weekend trip"],
+    body: [
+      "Fredericksburg was founded in 1846 by German settlers, and its identity is still visible in the street plan, limestone buildings, churches, food traditions and museums around the historic center. Main Street is the practical starting point for a first visit: it puts the National Museum of the Pacific War, locally owned shops, restaurants, galleries and the Marktplatz within a compact area that can be explored on foot rather than as a series of disconnected stops.",
+      "The town works because the surrounding Hill Country adds a second layer to the trip. Wineries and tasting rooms spread east and west of town, Enchanted Rock State Natural Area provides one of the region's best-known hikes, and Old Tunnel State Park offers seasonal bat viewing south of town. That mix makes Fredericksburg useful both as a day-trip destination and as a base for a two-night Hill Country itinerary rather than simply a shopping stop.",
+      "Give the historic core its own block of time instead of trying to combine every attraction in one afternoon. History-focused visitors can pair the Pacific War museum with the Pioneer Museum and a walk through the historic district; outdoor travelers can reserve a separate morning for Enchanted Rock. Spring, fall and the holiday season bring heavy demand, so weekend lodging, parking and attraction timing deserve more planning than the town's relaxed pace might suggest.",
+    ],
+    officialUrl: "https://www.visitfredericksburgtx.com/",
+    sourceCheckedAt,
+    directions: "Fredericksburg sits along US 290 and US 87 in Gillespie County, roughly between Austin and San Antonio on the eastern side of the Texas Hill Country. Main Street is the central visitor corridor.",
+    accessibilityNotes: "The historic core is generally walkable, but individual historic buildings and outdoor attractions vary. Check each museum, business or park for current accessible entrances, parking and trail conditions.",
+    areaGuide: {
+      intro: "Use Fredericksburg as a walkable historic-town base, then add one or two Hill Country side trips instead of trying to cover the whole region at once.",
+      nearbyAttractions: [
+        { name: "Enchanted Rock State Natural Area", description: "Granite-dome hiking and Hill Country views north of town; advance park reservations are often important.", proximity: "About 18 miles north", href: "/destination/enchanted-rock-state-natural-area" },
+        { name: "Old Tunnel State Park", description: "A former railroad tunnel known for seasonal Mexican free-tailed bat viewing.", proximity: "South of Fredericksburg", href: "/destination/old-tunnel-state-park" },
+      ],
+      foodAndDrink: [
+        { name: "Main Street and the historic core", description: "German-Texan dishes, bakeries, local restaurants, breweries and tasting rooms are concentrated in and around the central district." },
+        { name: "Texas Wine Country", description: "Wine tourism extends along the US 290 corridor; reservations and transportation planning can matter on busy weekends." },
+      ],
+      lodging: [
+        { name: "Historic core", description: "Best for travelers who want to walk to museums, restaurants and shops." },
+        { name: "Hill Country cabins and guesthouses", description: "A quieter choice for a weekend built around scenery, wineries and outdoor stops." },
+      ],
+      neighborhoods: [
+        { name: "Main Street and Marktplatz", description: "The most useful first-visit zone for architecture, shopping, museums and the town's German-Texan identity." },
+      ],
+      familyStops: [
+        { name: "Pioneer Museum", description: "A history stop that helps explain the German settlement story before exploring the rest of town." },
+        { name: "Marktplatz", description: "A central public space that gives families an easy break between downtown stops." },
+      ],
+      sideTrips: [
+        { name: "Texas Hill Country", description: "Connect Fredericksburg with nearby parks, scenic drives and smaller communities across the region.", href: "/explore/region/hill-country" },
+        { name: "Texas Trip Planner", description: "Build a Hill Country route around Fredericksburg and nearby destinations.", href: "/explore/trip-planner?destination=fredericksburg" },
+      ],
+    },
+    authorityGuide: {
+      whyItMatters: "Fredericksburg is one of the clearest places to see how German immigration, Hill Country geography, historic preservation and modern Texas tourism overlap in a single walkable town.",
+      assessment: {
+        recommendedVisit: "One full day for the historic core; two nights if adding wineries, Enchanted Rock or other Hill Country side trips.",
+        physicalEffort: "Low to moderate",
+        weatherExposure: "Mixed indoor/outdoor",
+        planningLevel: "Moderate",
+        familyFit: "Strong for families mixing museums, easy walking and one outdoor side trip; winery-centered itineraries are naturally more adult-oriented.",
+        firstTimeValue: "High: the downtown, museums and surrounding landscape give a first-time visitor several distinctly Texas experiences without long transfers between every stop.",
+      },
+      itineraries: [
+        { label: "Half day", duration: "4-5 hours", steps: ["Walk Main Street and Marktplatz", "Choose either the National Museum of the Pacific War or Pioneer Museum", "Finish with local food and shopping in the historic core"] },
+        { label: "Full day", duration: "8-10 hours", steps: ["Start with a museum before crowds build", "Walk the historic district and Main Street", "Break for lunch", "Spend the afternoon at a second museum, gallery cluster or nearby tasting stop"] },
+        { label: "Weekend", duration: "2 nights", steps: ["Give downtown Fredericksburg a dedicated day", "Reserve a separate morning for Enchanted Rock or another outdoor stop", "Use the remaining time for Texas Wine Country or a scenic Hill Country drive"] },
+      ],
+      sources: [
+        { label: "Visit Fredericksburg", url: "https://www.visitfredericksburgtx.com/", scope: "Official destination planning, attractions, events and visitor logistics" },
+        { label: "Visit Fredericksburg museums and history", url: "https://www.visitfredericksburgtx.com/things-to-do/museums-history/", scope: "Founding history, museums and heritage context" },
+        { label: "Texas Parks and Wildlife — Enchanted Rock", url: "https://tpwd.texas.gov/state-parks/enchanted-rock", scope: "Current park access, reservations and outdoor planning" },
+      ],
+    },
+    featured: true,
+  },
+  {
+    id: "small-town-marfa",
+    brandId: "texasdefined",
+    slug: "marfa",
+    name: "Marfa",
+    summary: "Marfa is a remote high-desert town where Presidio County history, internationally known contemporary art, adobe streetscapes, the Marfa Lights and immense West Texas skies create a destination that rewards slow travel rather than a rushed roadside stop.",
+    category: "small-towns",
+    region: "big-bend",
+    nearestTown: "Marfa",
+    county: "Presidio",
+    coordinates: { lat: 30.3095, lng: -104.0206 },
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Marfa%20courthouse.jpg?width=1299",
+      alt: "Presidio County Courthouse in the center of Marfa, Texas",
+      width: 1299,
+      height: 919,
+      credit: "Talshiarr · CC BY-SA 2.5 · Wikimedia Commons",
+    },
+    bestSeason: "Spring and fall for milder high-desert weather; winter can be crisp and quiet, while summer days are hot and seasonal storms can affect regional driving",
+    entryNote: "Marfa is small but remote, and many galleries, restaurants and shops keep limited or changing hours. Check opening days directly, keep fuel and driving distances in mind, and treat Fort Davis, Alpine and Big Bend side trips as separate blocks of time.",
+    highlights: ["contemporary art", "Presidio County Courthouse", "Central Marfa Historic District", "Blackwell School National Historic Site", "Marfa Lights", "stargazing"],
+    body: [
+      "Marfa began in 1883 as a railroad water stop and freight headquarters, but its modern identity is unusually layered for a town of its size. The Presidio County Courthouse and the Central Marfa Historic District preserve the civic and railroad-era landscape, while the Blackwell School National Historic Site tells an essential Mexican American education story. Those places matter because they keep Marfa from being reduced to its contemporary-art reputation alone.",
+      "Art is nevertheless central to why travelers cross West Texas to get here. Donald Judd's move to Marfa in the 1970s helped turn the town into an internationally recognized center for permanently installed contemporary art, with the Chinati Foundation and Judd Foundation anchoring a broader network of galleries and creative spaces. The contrast between large-scale art, spare architecture and the Chihuahuan Desert is part of the experience, so a schedule that allows time between stops works better than trying to race through a checklist.",
+      "Marfa also functions as a regional base for the Davis Mountains and Big Bend country. The Marfa Lights viewing area, dark skies, Fort Davis, Alpine and long scenic highways all make sense as extensions of a visit, but the distances are real. Plan fuel, food and operating hours before leaving town, especially on Sundays or during quieter seasons. A two-night stay makes it much easier to see both the historic and art sides of Marfa without turning the trip into continuous driving.",
+    ],
+    officialUrl: "https://visitmarfa.com/",
+    sourceCheckedAt,
+    directions: "Marfa sits at the junction of US 90 and US 67 in Presidio County. The nearest major-city drives are long, so arrive with fuel, water and a realistic West Texas distance plan.",
+    accessibilityNotes: "Downtown terrain is generally level, but historic buildings, galleries and desert side trips vary. Confirm accessibility directly with each venue, especially for older properties and outdoor sites.",
+    areaGuide: {
+      intro: "Treat Marfa as a high-desert base with three overlapping themes: town history, contemporary art and the wider Davis Mountains-Big Bend landscape.",
+      nearbyAttractions: [
+        { name: "Blackwell School National Historic Site", description: "A National Park Service site preserving the history of the school that served Marfa's Mexican and Mexican American children." },
+        { name: "Fort Davis National Historic Site", description: "A preserved frontier military post that pairs naturally with Marfa on a regional history itinerary.", proximity: "About 21 miles north", href: "/destination/fort-davis-national-historic-site" },
+      ],
+      foodAndDrink: [
+        { name: "Central Marfa", description: "Locally owned restaurants, coffee shops and bars are scattered around the compact center; hours can change by day and season." },
+      ],
+      lodging: [
+        { name: "Central Marfa", description: "Best for walking between courthouse-area architecture, restaurants and many galleries." },
+        { name: "Regional stays", description: "Fort Davis and Alpine can work for a broader West Texas circuit, but driving distances should be built into the itinerary." },
+      ],
+      neighborhoods: [
+        { name: "Central Marfa Historic District", description: "The historic core combines the courthouse, adobe construction, railroad-era buildings and properties associated with Marfa's art history." },
+      ],
+      familyStops: [
+        { name: "Presidio County Courthouse", description: "A recognizable civic landmark and useful orientation point for the historic center." },
+        { name: "Marfa Lights viewing area", description: "An evening stop east of town; bring layers, supervise children near parking areas and check current road conditions." },
+      ],
+      sideTrips: [
+        { name: "Davis Mountains State Park", description: "Mountain scenery, trails and dark skies north of Marfa.", href: "/destination/davis-mountains-state-park" },
+        { name: "Big Bend region", description: "Use the regional Explore guide to connect Marfa with Fort Davis, Alpine and the wider Big Bend country.", href: "/explore/region/big-bend" },
+      ],
+    },
+    authorityGuide: {
+      whyItMatters: "Marfa connects railroad and borderland history with one of the most influential contemporary-art communities in the United States, all inside a remote Chihuahuan Desert setting that changes how visitors experience both.",
+      assessment: {
+        recommendedVisit: "At least one full day; two nights are better if art foundations, the historic district and a regional side trip are all priorities.",
+        physicalEffort: "Low to moderate",
+        weatherExposure: "Mixed indoor/outdoor",
+        planningLevel: "High",
+        familyFit: "Best for families comfortable with long drives, museum and gallery time, and a slower high-desert itinerary.",
+        firstTimeValue: "High for art, architecture, history and West Texas landscape; less suitable as a quick detour because distance and limited operating hours shape the visit.",
+      },
+      itineraries: [
+        { label: "Half day", duration: "4-5 hours", steps: ["Orient at the Presidio County Courthouse and historic core", "Choose one major art or history stop", "Walk central Marfa and check local shops or galleries that are open"] },
+        { label: "Full day", duration: "8-10 hours", steps: ["Begin with a reserved or time-sensitive art visit", "Explore the Central Marfa Historic District", "Visit Blackwell School or the local history museum", "End with sunset and the Marfa Lights viewing area"] },
+        { label: "Weekend", duration: "2 nights", steps: ["Devote one day to Marfa's art and historic core", "Use the second day for Fort Davis, Davis Mountains State Park or Alpine", "Keep one evening open for dark skies and the Marfa Lights"] },
+      ],
+      sources: [
+        { label: "Visit Marfa", url: "https://visitmarfa.com/", scope: "Official visitor planning, art, culture, land and current local information" },
+        { label: "Visit Marfa history", url: "https://visitmarfa.com/history", scope: "Railroad origins, Central Marfa Historic District and local historic sites" },
+        { label: "National Park Service — Blackwell School", url: "https://www.nps.gov/blsc/index.htm", scope: "National historic site status, visitor access and interpretation" },
+      ],
+    },
+    featured: true,
+  },
+  {
+    id: "small-town-jefferson",
+    brandId: "texasdefined",
+    slug: "jefferson",
+    name: "Jefferson",
+    summary: "Jefferson is an East Texas riverport town whose brick streets, preserved nineteenth-century buildings, museums, historic homes and Big Cypress Bayou setting make it one of the state's strongest walkable heritage destinations and a natural gateway to Caddo Lake country.",
+    category: "small-towns",
+    region: "piney-woods",
+    nearestTown: "Jefferson",
+    county: "Marion",
+    coordinates: { lat: 32.7574, lng: -94.3452 },
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Jefferson%20Historic%20District.jpg?width=1600",
+      alt: "Historic brick buildings in the Jefferson Historic District in East Texas",
+      width: 1600,
+      height: 1200,
+      credit: "Renelibrary · CC BY-SA 3.0 · Wikimedia Commons",
+    },
+    bestSeason: "Fall through spring for comfortable walking; spring brings major heritage events, while summer is greener but hotter and more humid",
+    entryNote: "The historic district can be explored without a reservation, but house tours, special events, boat trips and some museums have limited schedules. Check the official visitor calendar before a long drive and confirm Caddo Lake or bayou activities separately.",
+    highlights: ["Jefferson Historic District", "brick streets", "Jefferson Historical Museum", "Big Cypress Bayou", "historic homes", "Caddo Lake gateway"],
+    body: [
+      "Jefferson grew into a major nineteenth-century inland riverport because steamboats could reach the community through the bayou system connected to the Red River. That commercial period left a dense collection of homes, churches, warehouses and civic buildings that still gives the center a different texture from most Texas small towns. The original brick streets and the Jefferson Historic District make walking, rather than driving from attraction to attraction, the best way to understand the town.",
+      "History is unusually visible here. The Jefferson Historical Museum, historic-house tours, Carnegie Library, Oakwood Cemetery and long list of recorded landmarks allow visitors to move between architecture and interpretation instead of treating the town itself as a backdrop. Big Cypress Bayou adds the landscape that explains why Jefferson became important in the first place, and it connects the town naturally to Caddo Lake and the cypress wetlands farther east.",
+      "A day trip is enough for the historic core and one museum, but a weekend gives Jefferson more room to work as a regional destination. Spend one block of time walking the district, another on a museum or house tour, and reserve a separate half day for bayou or Caddo Lake scenery. Event weekends can change parking and tour availability, while quieter weekdays may mean reduced hours, so checking schedules before arrival is more useful here than relying on a generic small-town itinerary.",
+    ],
+    officialUrl: "https://visitjeffersontexas.com/",
+    sourceCheckedAt,
+    directions: "Jefferson is in Marion County in northeast Texas, northeast of Marshall and west of the Louisiana line. The historic district around Austin, Lafayette, Market and Polk streets is the practical center for a first visit.",
+    accessibilityNotes: "Brick streets, older sidewalks and historic buildings can create uneven surfaces or access limitations. Contact individual museums and tours for current accessible entrances and accommodations.",
+    areaGuide: {
+      intro: "Jefferson is best explored on foot first, then used as a launch point for Big Cypress Bayou and Caddo Lake country.",
+      nearbyAttractions: [
+        { name: "Jefferson Historical Museum", description: "A central museum for local and regional history in the historic district." },
+        { name: "Caddo Lake", description: "Bald-cypress wetlands, paddling, fishing and wildlife east of Jefferson; access and conditions vary by launch and park.", proximity: "East of town" },
+      ],
+      foodAndDrink: [
+        { name: "Historic district", description: "Locally owned cafes, bakeries and restaurants fit naturally into a walking itinerary around the old commercial center." },
+      ],
+      lodging: [
+        { name: "Historic inns and bed-and-breakfasts", description: "Jefferson's preserved homes and long tourism history make historic lodging part of the town's identity." },
+        { name: "Conventional lodging", description: "Useful for travelers prioritizing a regional driving loop over a historic-property stay." },
+      ],
+      neighborhoods: [
+        { name: "Jefferson Historic District", description: "The core concentration of brick streets, nineteenth-century buildings, museums and historic homes." },
+      ],
+      familyStops: [
+        { name: "Port Jefferson History and Nature Center", description: "A useful outdoor counterpoint to indoor museums and historic-house visits." },
+        { name: "Historic walking route", description: "A flexible way to see architecture and landmarks without committing children to a long indoor tour." },
+      ],
+      sideTrips: [
+        { name: "Piney Woods", description: "Connect Jefferson with East Texas forests, lakes, historic sites and wildlife destinations.", href: "/explore/region/piney-woods" },
+        { name: "Texas Trip Planner", description: "Build a northeast Texas route around Jefferson and nearby destinations.", href: "/explore/trip-planner?destination=jefferson" },
+      ],
+    },
+    authorityGuide: {
+      whyItMatters: "Jefferson preserves one of Texas's most legible nineteenth-century riverport landscapes, allowing visitors to connect architecture, transportation history and the Big Cypress Bayou environment in the same compact trip.",
+      assessment: {
+        recommendedVisit: "One full day for the historic district and a museum; two nights if adding a bayou excursion, Caddo Lake or multiple historic-house tours.",
+        physicalEffort: "Low to moderate",
+        weatherExposure: "Mixed indoor/outdoor",
+        planningLevel: "Moderate",
+        familyFit: "Good for families that mix short museum stops, walking and an outdoor bayou or nature component.",
+        firstTimeValue: "High for travelers interested in historic Texas townscapes because the surviving district is the attraction rather than just a setting for newer businesses.",
+      },
+      itineraries: [
+        { label: "Half day", duration: "4-5 hours", steps: ["Walk the historic district and brick streets", "Visit the Jefferson Historical Museum or one historic property", "Pause at Big Cypress Bayou to connect the town with its riverport history"] },
+        { label: "Full day", duration: "8-10 hours", steps: ["Start with the historic walking route", "Tour a museum or historic home", "Have lunch in the old commercial center", "Spend the afternoon at the nature center, cemetery or another heritage stop"] },
+        { label: "Weekend", duration: "2 nights", steps: ["Give Jefferson's historic core a full day", "Reserve a second half day for Caddo Lake or a bayou activity", "Use remaining time for additional house tours, local shopping or nearby East Texas history"] },
+      ],
+      sources: [
+        { label: "Visit Jefferson Texas", url: "https://visitjeffersontexas.com/", scope: "Official visitor planning, tours, attractions and current events" },
+        { label: "Visit Jefferson history", url: "https://visitjeffersontexas.com/history", scope: "Riverport history, founding context and the town's nineteenth-century development" },
+        { label: "Visit Jefferson attractions", url: "https://visitjeffersontexas.com/attractions", scope: "Current museums, parks, walking routes and visitor attractions" },
+      ],
+    },
+    featured: true,
+  },
+  {
+    id: "small-town-wimberley",
+    brandId: "texasdefined",
+    slug: "wimberley",
+    name: "Wimberley",
+    summary: "Wimberley is a compact Hill Country town on Cypress Creek known for its shaded village center, local art and shopping, Blue Hole Regional Park and easy access to limestone-and-spring landscapes that make it work equally well as a relaxed day trip or weekend base.",
+    category: "small-towns",
+    region: "hill-country",
+    nearestTown: "Wimberley",
+    county: "Hays",
+    coordinates: { lat: 29.9974, lng: -98.0986 },
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Wimberley%20Texas%20Downtown%202.JPG?width=1600",
+      alt: "Independent shops in the walkable downtown village area of Wimberley, Texas",
+      width: 1600,
+      height: 1067,
+      credit: "Travis K. Witt · CC BY-SA 4.0 · Wikimedia Commons",
+    },
+    bestSeason: "Spring and fall for comfortable village walking; warm months are popular for swimming, but water access, reservations and drought conditions must be checked before the trip",
+    entryNote: "Downtown browsing does not require a reservation. Blue Hole swimming is seasonal and may use reservations or capacity controls, and regional water conditions can change quickly. Verify park access and any swimming plans with the City of Wimberley before departure.",
+    highlights: ["Cypress Creek", "Blue Hole Regional Park", "downtown shopping", "local art", "family friendly", "weekend trip"],
+    body: [
+      "Wimberley sits where Cypress Creek and the Blanco River landscape create a greener, more water-focused version of the Hill Country. The compact village center is lined with independent shops, galleries and small restaurants rather than a single courthouse square, so the town feels more like a creekside arts community than a traditional county-seat destination. That scale makes it easy to explore without a rigid schedule and gives Wimberley strong day-trip value from Austin or San Antonio.",
+      "Blue Hole Regional Park is the town's major public outdoor anchor, pairing cypress-shaded water with trails and park space. The wider area is also shaped by limestone, springs, scenic roads and the Blanco River watershed. Those natural systems are sensitive to drought and rainfall, so a good Wimberley guide has to treat water access as current-condition information rather than promise that every swimming hole will be open on every visit.",
+      "For a balanced trip, pair the village with one planned outdoor block instead of bouncing between every Hill Country attraction nearby. Families can browse downtown, use the park and add an easy scenic drive; couples and weekend travelers can layer in galleries, local food and nearby Hill Country communities. Market and festival weekends can bring much heavier traffic, while ordinary weekdays are quieter but may have shorter business hours, making a quick schedule check worthwhile before the drive.",
+    ],
+    officialUrl: "https://www.cityofwimberley.com/",
+    sourceCheckedAt,
+    directions: "Wimberley is in western Hays County between Austin and San Antonio, reached primarily by Ranch Road 12 and nearby Hill Country roads. The village center around the Square is compact enough to park once and explore on foot.",
+    accessibilityNotes: "Downtown and park surfaces vary, and natural water edges can be uneven. Confirm accessible parking, paths and swimming-area accommodations with the City of Wimberley for current conditions.",
+    areaGuide: {
+      intro: "Wimberley works best as a village-plus-nature trip: spend time in the compact center, then choose one water, park or scenic-road experience.",
+      nearbyAttractions: [
+        { name: "Blue Hole Regional Park", description: "A city park with trails, recreation space and seasonal swimming beneath large cypress trees; verify current swim access before visiting." },
+        { name: "Blanco River and Hill Country scenery", description: "The surrounding watershed and limestone landscape shape the town, but public access varies by site." },
+      ],
+      foodAndDrink: [
+        { name: "Wimberley village", description: "Independent cafes, restaurants and casual stops are mixed among the shops and galleries in the center." },
+      ],
+      lodging: [
+        { name: "Village-area stays", description: "Useful for travelers who want to walk to shops and restaurants." },
+        { name: "Hill Country cabins and guesthouses", description: "A better fit for quiet weekends centered on creek scenery and regional drives." },
+      ],
+      neighborhoods: [
+        { name: "Wimberley Square and village center", description: "The compact commercial and arts district is the easiest place to start a first visit." },
+      ],
+      familyStops: [
+        { name: "Blue Hole Regional Park", description: "Trails and park space make this useful even when swimming is not the focus; check current water access separately." },
+        { name: "Village center", description: "Short walking distances let families mix shops, snacks and art stops without a long formal tour." },
+      ],
+      sideTrips: [
+        { name: "Hill Country", description: "Connect Wimberley with nearby parks, river towns and scenic drives.", href: "/explore/region/hill-country" },
+        { name: "Texas Trip Planner", description: "Build a Hill Country route around Wimberley and nearby destinations.", href: "/explore/trip-planner?destination=wimberley" },
+      ],
+    },
+    authorityGuide: {
+      whyItMatters: "Wimberley shows a creek-centered, arts-oriented version of Texas small-town life and gives visitors an unusually compact way to combine local businesses with public Hill Country nature.",
+      assessment: {
+        recommendedVisit: "A half to full day for the village and one outdoor stop; two nights for a slower Hill Country weekend with nearby drives.",
+        physicalEffort: "Low to moderate",
+        weatherExposure: "Mixed indoor/outdoor",
+        planningLevel: "Moderate",
+        familyFit: "Strong when park access and weather cooperate because downtown walking distances are short and outdoor time can be adjusted to the group.",
+        firstTimeValue: "High for travelers who want a small-town stop that feels connected to the Hill Country landscape rather than centered only on a historic square.",
+      },
+      itineraries: [
+        { label: "Half day", duration: "4-5 hours", steps: ["Walk the village center and local shops", "Have lunch or coffee near the Square", "Spend a final block at Blue Hole Regional Park or on an easy scenic drive"] },
+        { label: "Full day", duration: "8-10 hours", steps: ["Explore the village before midday crowds", "Browse galleries and local shops", "Break for lunch", "Use the afternoon for Blue Hole Regional Park and a short Hill Country drive"] },
+        { label: "Weekend", duration: "2 nights", steps: ["Give Wimberley village and Blue Hole a relaxed first day", "Use the second day for another Hill Country town, park or river destination", "Leave room for local food, art and an unhurried scenic drive"] },
+      ],
+      sources: [
+        { label: "City of Wimberley", url: "https://www.cityofwimberley.com/", scope: "Official municipal information, local services and current city notices" },
+        { label: "City of Wimberley — Blue Hole Regional Park", url: "https://www.cityofwimberley.com/202/Blue-Hole-Regional-Park", scope: "Official park access, recreation and seasonal swimming information" },
+      ],
+    },
+    featured: true,
+  },
+];
