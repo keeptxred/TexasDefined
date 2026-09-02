@@ -19,6 +19,18 @@ const arrivalTasks = [
   ["Texas cost-of-living calculator", "/texas-cost-of-living-calculator", "Compare household-budget assumptions before choosing a city or signing a lease."],
   ["Texas resources", "/texas-resources", "Open Texas Defined's practical guidebook for moving, driving, property, money, travel and everyday Texas life."],
 ] as const;
+const cityAuthorityLinks = [
+  ["Houston", "/city/houston"],
+  ["Dallas", "/city/dallas"],
+  ["Fort Worth", "/city/fort-worth"],
+  ["Austin", "/city/austin"],
+  ["San Antonio", "/city/san-antonio"],
+  ["El Paso", "/city/el-paso"],
+  ["Arlington", "/city/arlington"],
+  ["Corpus Christi", "/city/corpus-christi"],
+  ["Plano", "/city/plano"],
+  ["Lubbock", "/city/lubbock"],
+] as const;
 const localTaxTools = [
   ["Houston", "/property-tax-calculator/houston", "Harris, Fort Bend or Montgomery County starting points with parcel-level taxing-unit selection."],
   ["Austin", "/property-tax-calculator/austin", "Travis, Williamson or Hays County starting points with local school, city and district rates."],
@@ -94,6 +106,12 @@ function MovingToTexasPage() {
         <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">Income target after the budget</p><h2 id="moving-texas-salary-needed" className="mt-2 font-display text-3xl">Work backward from the local budget to a salary target</h2></div><Link to="/texas-salary-comparison-by-city" className="text-sm font-semibold text-primary">Texas salary planning tools →</Link></div>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These city planners start with your own household budget and savings target, then let you edit federal, payroll and other deduction assumptions. They do not publish a made-up citywide salary requirement. Build the local cost budget first, then use the salary planner as a transparent bridge from take-home needs to a gross-income target.</p>
         <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">{localSalaryNeededTools.map(([name, href]) => <a key={href} href={href} className="group bg-background p-5"><strong className="font-display text-2xl group-hover:text-primary">{name}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Salary-needed budget planner →</span></a>)}</div>
+      </section>
+
+      <section className="mb-12 border-b border-border pb-10" aria-labelledby="moving-texas-city-guides">
+        <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">City reference layer</p><h2 id="moving-texas-city-guides" className="mt-2 font-display text-3xl">Open the city guide before you narrow to an address</h2></div><Link to="/browse/cities" className="text-sm font-semibold text-primary">Browse Texas cities & suburbs →</Link></div>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The relocation guide handles statewide moving decisions. These city authority pages handle the local reference layer—county and regional context, official municipal sources, related destinations and the practical TexasDefined resources that matter after you choose a market.</p>
+        <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">{cityAuthorityLinks.map(([name, href]) => <a key={href} href={href} className="group bg-background p-5"><strong className="font-display text-xl group-hover:text-primary">{name}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">City reference guide →</span></a>)}</div>
       </section>
 
       <div className="mb-10 flex flex-wrap gap-x-7 gap-y-3 border-b border-border pb-7 text-sm font-semibold">
