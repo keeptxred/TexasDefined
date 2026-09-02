@@ -25,7 +25,7 @@ export const Route = createLazyFileRoute("/events")({ component: EventsPage });
 function EventsPage() {
   const { data: events } = useSuspenseQuery(eventsQuery({}));
   const { data: regions } = useSuspenseQuery(regionsQuery());
-  const { majorEventGuides, eventTopicLinks, eventRegionLinks, featuredVenueGuide, featuredDateLabel } = Route.useLoaderData();
+  const { majorEventGuides, eventTimingLinks, eventTopicLinks, eventRegionLinks, featuredVenueGuide, featuredDateLabel } = Route.useLoaderData();
   const [category, setCategory] = useState<string>("all");
   const [region, setRegion] = useState<string>("all");
   const regionName = (id: string) => regions.find((item) => item.id === id)?.name;
@@ -67,6 +67,17 @@ function EventsPage() {
     <section className="border-b border-border py-10">
       <Container>
         <div className="grid gap-8 lg:grid-cols-[15rem_1fr] lg:items-start">
+          <div><p className="eyebrow text-primary">Plan by time</p><h2 className="mt-2 font-display text-3xl">What’s happening when</h2><p className="mt-4 text-sm leading-6 text-muted-foreground">Finite rolling and seasonal views use the same verified authority catalog. Thin relative-date views automatically noindex instead of inventing listings.</p></div>
+          <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+            {eventTimingLinks.map((item) => <a key={item.href} href={item.href} className="group bg-background p-5"><strong className="font-display text-xl leading-tight group-hover:text-primary">{item.title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{item.description}</span><span className="mt-4 block text-sm font-semibold text-primary">See verified events →</span></a>)}
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section className="border-b border-border py-10">
+      <Container>
+        <div className="grid gap-8 lg:grid-cols-[15rem_1fr] lg:items-start">
           <div><p className="eyebrow text-primary">Browse evergreen guides</p><h2 className="mt-2 font-display text-3xl">Texas events by type</h2><p className="mt-4 text-sm leading-6 text-muted-foreground">Crawlable planning collections connect the live calendar to permanent event guides, official-source dates and deeper Texas context.</p></div>
           <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
             {eventTopicLinks.map((item) => <a key={item.href} href={item.href} className="group bg-background p-5"><strong className="font-display text-xl leading-tight group-hover:text-primary">{item.title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{item.description}</span><span className="mt-4 block text-sm font-semibold text-primary">Browse the guides →</span></a>)}
@@ -91,7 +102,7 @@ function EventsPage() {
         <div className="grid gap-6 lg:grid-cols-[15rem_1fr] lg:items-start">
           <div><p className="eyebrow text-primary">Plan the anchor event</p><h2 className="mt-2 font-display text-3xl">Major Texas event guides</h2><p className="mt-4 text-sm leading-6 text-muted-foreground">Verified dates, official sources and practical trip-planning context for events large enough to shape a Texas weekend.</p></div>
           <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-            {majorEventGuides.map(({ slug, name, detail }) => <Link key={slug} to="/event/$slug" params={{ slug }} className="group bg-background p-5"><strong className="font-display text-xl leading-tight group-hover:text-primary">{name}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{detail}</span><span className="mt-4 block text-sm font-semibold text-primary">Plan the event →</span></Link>)}
+            {majorEventGuides.map(({ slug, href, name, detail }) => href === `/event/${slug}` ? <Link key={`${slug}:${href}`} to="/event/$slug" params={{ slug }} className="group bg-background p-5"><strong className="font-display text-xl leading-tight group-hover:text-primary">{name}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{detail}</span><span className="mt-4 block text-sm font-semibold text-primary">Plan the event →</span></Link> : <a key={`${slug}:${href}`} href={href} className="group bg-background p-5"><strong className="font-display text-xl leading-tight group-hover:text-primary">{name}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{detail}</span><span className="mt-4 block text-sm font-semibold text-primary">Plan the event →</span></a>)}
           </div>
         </div>
       </Container>
