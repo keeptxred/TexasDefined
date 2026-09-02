@@ -154,6 +154,12 @@ export const searchDocumentsQuery = () => queryOptions({
       });
       knownHrefs.add(href);
     }
+    const { buildCityMetroSearchDocuments } = await import("./city-metro-search");
+    for (const document of buildCityMetroSearchDocuments()) {
+      if (knownHrefs.has(document.href)) continue;
+      base.push(document);
+      knownHrefs.add(document.href);
+    }
     const { listResolvedDestinationSearchCatalog } = await import("./destination-query-runtime");
     const destinations = await listResolvedDestinationSearchCatalog();
     const nonDestinationDocuments = base.filter((document) => document.kind !== "destination");
