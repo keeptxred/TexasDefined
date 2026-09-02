@@ -15,7 +15,8 @@ function museumPlaceholder(name: string): ImageRef {
 /**
  * Fifty-fourth statewide museum wave. These records reconcile the audit's
  * generic Palo Pinto County museum wording to the active Old Jail Museum
- * Complex and add current Texas Forestry Museum and Sam Rayburn Museum records.
+ * Complex and add current Texas Forestry Museum, Sam Rayburn Museum and
+ * Fannin County Museum of History records.
  */
 export const statewideMuseumExpansionWave54Destinations: Destination[] = [
   {
@@ -106,6 +107,36 @@ export const statewideMuseumExpansionWave54Destinations: Destination[] = [
     officialUrl: "https://briscoecenter.org/visit/sam-rayburn-museum/",
     managingAuthority: "Dolph Briscoe Center for American History, The University of Texas at Austin",
     address: "800 W Sam Rayburn Dr, Bonham, TX 75418",
+    sourceCheckedAt: SOURCE_CHECKED_AT,
+  },
+  {
+    id: "museum-statewide-wave56-fannin-county-museum-of-history",
+    brandId: "texasdefined",
+    slug: "fannin-county-museum-of-history-bonham",
+    name: "Fannin County Museum of History",
+    summary: "Fannin County Museum of History in Bonham uses the restored Texas & Pacific Railway depot to trace the county from its pre-Revolution and pioneer years through the railroad era, the early twentieth century and both world wars.",
+    category: "historic-sites",
+    region: "prairies-lakes",
+    nearestTown: "Bonham",
+    county: "Fannin County",
+    coordinates: { lat: 33.57372, lng: -96.17942 },
+    hero: museumPlaceholder("Fannin County Museum of History"),
+    bestSeason: "Year-round indoor museum; spring and fall are especially comfortable for combining the depot with Bonham's courthouse square, Sam Rayburn sites and other Fannin County heritage stops.",
+    entryNote: "The museum currently publishes Tuesday-Saturday hours from noon to 4 p.m. Admission is $4 for adults, $3 for seniors, free for visitors age 17 and younger, and free for museum members. Confirm current hours before a dedicated trip.",
+    highlights: [
+      "Restored Texas & Pacific Railway depot",
+      "Pioneer and Republic-era Fannin County history",
+      "Railroad, Jazz Age and early twentieth-century exhibits",
+      "World War I and World War II collections",
+    ],
+    body: [
+      "Fannin County Museum of History gives Bonham a broad county-history counterpart to its Sam Rayburn sites. The museum begins its story before the Texas Revolution and follows Fannin County through the Republic of Texas, pioneer settlement, the Civil War era and the arrival of the railroad, helping visitors see how a North Texas county seat changed as transportation, migration and commerce reshaped the region.",
+      "The setting is part of the interpretation. The museum occupies Bonham's restored Texas & Pacific Railway depot, tying its collections directly to the rail network that transformed the city and county around the turn of the twentieth century. Exhibits continue into the Jazz Age and both world wars, using artifacts, photographs and local records to connect national events with the experiences of Fannin County residents.",
+      "For a TexasDefined itinerary, the museum works especially well as the local-history anchor for a Bonham day. The Sam Rayburn Museum explains one nationally prominent political life, while the Fannin County Museum of History supplies the larger community context around settlement, railroads, wartime service and everyday county life. Its location just south of the courthouse square also makes it practical to combine with downtown Bonham without treating the museum as an isolated stop.",
+    ],
+    officialUrl: "https://www.fannincountymuseum.org/",
+    managingAuthority: "Fannin County Museum of History",
+    address: "1 Main St, Bonham, TX 75418",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
 ];
