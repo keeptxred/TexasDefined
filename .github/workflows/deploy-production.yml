@@ -93,7 +93,13 @@ jobs:
 
       - name: Build production bundle
         id: build
-        run: npm run build
+        shell: bash
+        run: |
+          npm run build
+          if ! git diff --exit-code -- src/routeTree.gen.ts; then
+            echo '::error title=Generated route tree is stale::The production build changed src/routeTree.gen.ts. Commit the TanStack-generated route tree before deployment.'
+            exit 1
+          fi
 
       - name: Publish build result
         if: always()
@@ -133,6 +139,14 @@ jobs:
         if: success()
         run: node scripts/ci/publish-github-status.mjs texasdefined-live pending "Verifying production surfaces"
 
+      - name: Verify direct Worker discovery
+        id: live_direct_worker
+        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        continue-on-error: true
+        env:
+          DIRECT_WORKER_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
+        run: node scripts/ci/verify-direct-worker-discovery.mjs
+
       - name: Verify base production surfaces
         id: live_base
         if: ${{ always() && steps.cloudflare.outcome == 'success' }}
@@ -165,6 +179,7 @@ jobs:
         if: ${{ always() && steps.cloudflare.outcome == 'success' }}
         shell: bash
         env:
+          DIRECT_WORKER_OUTCOME: ${{ steps.live_direct_worker.outcome }}
           BASE_OUTCOME: ${{ steps.live_base.outcome }}
           LOCAL_FINANCIAL_OUTCOME: ${{ steps.live_local_financial.outcome }}
           STATEWIDE_FINANCIAL_OUTCOME: ${{ steps.live_statewide_financial.outcome }}
@@ -174,13 +189,14 @@ jobs:
             echo
             echo '| Verification | Outcome |'
             echo '|---|---|'
+            echo "| Direct Worker discovery | ${DIRECT_WORKER_OUTCOME:-not-run} |"
             echo "| Base production surfaces | ${BASE_OUTCOME:-not-run} |"
             echo "| Local financial production | ${LOCAL_FINANCIAL_OUTCOME:-not-run} |"
             echo "| Statewide financial discovery | ${STATEWIDE_FINANCIAL_OUTCOME:-not-run} |"
           } >> "$GITHUB_STEP_SUMMARY"
 
-          if [[ "$BASE_OUTCOME" != 'success' || "$LOCAL_FINANCIAL_OUTCOME" != 'success' || "$STATEWIDE_FINANCIAL_OUTCOME" != 'success' ]]; then
-            echo "::error title=Live production verification failed::base=${BASE_OUTCOME:-not-run}, local-financial=${LOCAL_FINANCIAL_OUTCOME:-not-run}, statewide-financial=${STATEWIDE_FINANCIAL_OUTCOME:-not-run}"
+          if [[ "$DIRECT_WORKER_OUTCOME" != 'success' || "$BASE_OUTCOME" != 'success' || "$LOCAL_FINANCIAL_OUTCOME" != 'success' || "$STATEWIDE_FINANCIAL_OUTCOME" != 'success' ]]; then
+            echo "::error title=Live production verification failed::direct-worker=${DIRECT_WORKER_OUTCOME:-not-run}, base=${BASE_OUTCOME:-not-run}, local-financial=${LOCAL_FINANCIAL_OUTCOME:-not-run}, statewide-financial=${STATEWIDE_FINANCIAL_OUTCOME:-not-run}"
             exit 1
           fi
 
@@ -237,13 +253,13 @@ jobs:
           elif [[ "$VALIDATION_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: VALIDATION::A code/content/SEO/data validator failed; the exact check is in the validation-suite summary.'
           elif [[ "$BUILD_OUTCOME" == 'failure' ]]; then
-            echo '::error title=Pipeline failure class: BUILD::Validation passed; the production build failed.'
+            echo '::error title=Pipeline failure class: BUILD::Validation passed; the production build failed or regenerated an uncommitted route tree.'
           elif [[ "$BUDGET_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: BUNDLE BUDGET::Validation and build passed, but the protected client bundle budget was exceeded.'
           elif [[ "$CLOUDFLARE_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: CLOUDFLARE / DEPLOYMENT::Code validation, build and bundle budget passed; Cloudflare deployment failed.'
           elif [[ "$LIVE_OUTCOME" == 'failure' ]]; then
-            echo '::error title=Pipeline failure class: LIVE PRODUCTION::Cloudflare deployment passed; a production surface failed verification. The exact verification stage is listed above.'
+            echo '::error title=Pipeline failure class: LIVE PRODUCTION::Cloudflare deployment passed; a direct Worker or custom-domain production surface failed verification. The exact verification stage is listed above.'
           elif [[ "$INDEXNOW_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: INDEXING / EXTERNAL::Production verification passed; the guarded IndexNow stage failed.'
           fi
