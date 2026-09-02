@@ -140,6 +140,15 @@ jobs:
           node scripts/ci/verify-local-financial-production.mjs
           node scripts/ci/verify-statewide-financial-discovery.mjs
 
+      - name: Upload statewide financial discovery diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: statewide-financial-discovery-${{ github.run_id }}
+          path: .artifacts/statewide-financial-discovery.json
+          if-no-files-found: ignore
+          retention-days: 7
+
       - name: Publish live verification result
         if: always()
         env:
