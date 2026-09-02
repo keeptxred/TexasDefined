@@ -1,0 +1,36 @@
+name: Validate hunting authority
+
+on:
+  pull_request:
+    paths:
+      - 'src/components/fishing/FishingHub.tsx'
+      - 'src/components/hunting/**'
+      - 'src/data/hunting/**'
+      - 'src/data/queries.ts'
+      - 'src/lib/public-routes.ts'
+      - 'src/routes/explore.$category.lazy.tsx'
+      - 'src/routes/explore.wildlife.lazy.tsx'
+      - 'src/routes/hunting*'
+      - 'src/routes/search.lazy.tsx'
+      - 'src/routes/sitemap[.]xml.ts'
+      - 'src/routes/texas-resources.lazy.tsx'
+      - 'scripts/data/validate-hunting-authority.mjs'
+      - '.github/workflows/validate-hunting-authority.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate hunting authority contract
+        run: node scripts/data/validate-hunting-authority.mjs
