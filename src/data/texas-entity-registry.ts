@@ -2,7 +2,6 @@ import { TEXAS_COUNTIES, TEXAS_CITIES } from './texas-places';
 import { TEXAS_DATA_SOURCES, type TexasDataDomain } from './texas-data-sources';
 import { CURATED_KNOWLEDGE_GRAPH_SEED } from './knowledge-graph/seed';
 import { GENERATED_KNOWLEDGE_GRAPH_ENTITIES } from './knowledge-graph/generated';
-import { TEXAS_WILDLIFE_SPECIES } from './knowledge-graph/wildlife-species';
 import type { KnowledgeGraphValidation, TexasEntityKind, TexasEntityRecord } from './knowledge-graph/types';
 
 export type { TexasEntityKind, TexasEntityRecord } from './knowledge-graph/types';
@@ -43,7 +42,6 @@ export const TEXAS_ENTITY_REGISTRY: TexasEntityRecord[] = [
   ...TEXAS_COUNTY_ENTITIES,
   ...TEXAS_CITY_ENTITIES,
   ...TEXAS_LOCAL_OFFICE_ENTITIES,
-  ...TEXAS_WILDLIFE_SPECIES,
   ...CURATED_KNOWLEDGE_GRAPH_SEED,
   ...GENERATED_KNOWLEDGE_GRAPH_ENTITIES,
 ];
