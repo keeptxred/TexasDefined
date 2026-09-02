@@ -7,14 +7,14 @@ import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/explore/wildlife';
-const title = 'Texas Wildlife Guide: Species, Refuges & Habitats';
+const pageTitle = 'Texas Wildlife Guide: Species, Refuges & Habitats';
 const description = 'Explore source-verified Texas wildlife profiles for mammals, birds and reptiles, then connect them to wildlife refuges, management areas and current official guidance.';
 
 export const Route = createFileRoute('/explore/wildlife')({
   head: () => {
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath, title, description }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: pageTitle, description }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [
         jsonLd({
@@ -24,7 +24,7 @@ export const Route = createFileRoute('/explore/wildlife')({
               '@type': 'CollectionPage',
               '@id': `${pageUrl}#page`,
               url: pageUrl,
-              name: title,
+              name: pageTitle,
               description,
               isPartOf: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#website` },
               publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
@@ -86,8 +86,8 @@ function WildlifeHub() {
       </header>
 
       <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" aria-label="Wildlife discovery paths">
-        <a href="/explore/national-wildlife-refuges" className="border border-border bg-surface/40 p-5 hover:border-primary"><span className="eyebrow text-primary">Public lands</span><strong className="mt-2 block font-display text-xl">National wildlife refuges</strong></a>
-        <a href="/explore/wildlife-management-areas" className="border border-border bg-surface/40 p-5 hover:border-primary"><span className="eyebrow text-primary">Public lands</span><strong className="mt-2 block font-display text-xl">Wildlife management areas</strong></a>
+        <Link to="/explore/outdoors" className="border border-border bg-surface/40 p-5 hover:border-primary"><span className="eyebrow text-primary">Public lands</span><strong className="mt-2 block font-display text-xl">National wildlife refuges</strong></Link>
+        <Link to="/explore/outdoors" className="border border-border bg-surface/40 p-5 hover:border-primary"><span className="eyebrow text-primary">Public lands</span><strong className="mt-2 block font-display text-xl">Wildlife management areas</strong></Link>
         <Link to="/explore/outdoors" className="border border-border bg-surface/40 p-5 hover:border-primary"><span className="eyebrow text-primary">Explore</span><strong className="mt-2 block font-display text-xl">Outdoors & wildlife</strong></Link>
         <a href="/article/texas-wildlife-guide" className="border border-border bg-surface/40 p-5 hover:border-primary"><span className="eyebrow text-primary">Field guide</span><strong className="mt-2 block font-display text-xl">Wildlife planning guide</strong></a>
       </section>
