@@ -2,6 +2,7 @@ import { TEXAS_COUNTIES, TEXAS_CITIES } from './texas-places';
 import { TEXAS_DATA_SOURCES, type TexasDataDomain } from './texas-data-sources';
 import { CURATED_KNOWLEDGE_GRAPH_SEED } from './knowledge-graph/seed';
 import { GENERATED_KNOWLEDGE_GRAPH_ENTITIES } from './knowledge-graph/generated';
+import { TEXAS_CITY_AUTHORITY_OVERRIDES, TEXAS_METRO_AUTHORITY_ENTITIES } from './city-metro-authority';
 import type { KnowledgeGraphValidation, TexasEntityKind, TexasEntityRecord } from './knowledge-graph/types';
 
 export type { TexasEntityKind, TexasEntityRecord } from './knowledge-graph/types';
@@ -28,9 +29,13 @@ export const TEXAS_COUNTY_ENTITIES: TexasEntityRecord[] = TEXAS_COUNTIES.map(cou
   id:`county:${county.slug}`,kind:'county',name:county.name,slug:county.slug,aliases:[county.name.replace(/ County$/,'')],officialUrl:county.officialDirectoryUrl,sourceId:'census-counties',sourceConfidence:'official',sourceCheckedAt:checkedAt,status:'active',relationships:[{type:'has-appraisal-district',targetId:`appraisal-district:${county.slug}`},{type:'has-tax-office',targetId:`tax-office:${county.slug}`}]
 }));
 
-export const TEXAS_CITY_ENTITIES: TexasEntityRecord[] = TEXAS_CITIES.map(city=>({
-  id:`city:${city.slug}`,kind:'city',name:city.name,slug:city.slug,aliases:[],countySlug:slug(city.county),region:slug(city.region),sourceId:'census-places',sourceConfidence:'high',sourceCheckedAt:checkedAt,status:'pending-source-verification',relationships:[{type:'located-in-county',targetId:`county:${slug(city.county)}`},{type:'located-in-region',targetId:`region:${slug(city.region)}`}]
-}));
+export const TEXAS_CITY_ENTITIES: TexasEntityRecord[] = TEXAS_CITIES.map(city=>{
+  const base: TexasEntityRecord = {
+    id:`city:${city.slug}`,kind:'city',name:city.name,slug:city.slug,aliases:[],countySlug:slug(city.county),region:slug(city.region),sourceId:'census-places',sourceConfidence:'high',sourceCheckedAt:checkedAt,status:'pending-source-verification',relationships:[{type:'located-in-county',targetId:`county:${slug(city.county)}`},{type:'located-in-region',targetId:`region:${slug(city.region)}`}]
+  };
+  const authority=TEXAS_CITY_AUTHORITY_OVERRIDES[city.slug];
+  return authority ? {...base,...authority} : base;
+});
 
 export const TEXAS_LOCAL_OFFICE_ENTITIES: TexasEntityRecord[] = TEXAS_COUNTIES.flatMap(county=>[
   {id:`appraisal-district:${county.slug}`,kind:'appraisal-district',name:`${county.name.replace(/ County$/,'')} Central Appraisal District`,slug:`${county.slug}-appraisal-district`,aliases:[`${county.name.replace(/ County$/,'')} CAD`],countySlug:county.slug,sourceId:'comptroller-appraisal-districts',sourceConfidence:'official',sourceCheckedAt:checkedAt,status:'pending-source-verification',relationships:[{type:'serves-county',targetId:`county:${county.slug}`}]},
@@ -41,6 +46,7 @@ export const TEXAS_ENTITY_REGISTRY: TexasEntityRecord[] = [
   ...CORE_TEXAS_AGENCIES,
   ...TEXAS_COUNTY_ENTITIES,
   ...TEXAS_CITY_ENTITIES,
+  ...TEXAS_METRO_AUTHORITY_ENTITIES,
   ...TEXAS_LOCAL_OFFICE_ENTITIES,
   ...CURATED_KNOWLEDGE_GRAPH_SEED,
   ...GENERATED_KNOWLEDGE_GRAPH_ENTITIES,
