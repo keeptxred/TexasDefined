@@ -13,6 +13,7 @@ const explore = read('src/routes/sitemap-explore[.]xml.ts');
 const robots = read('public/robots.txt');
 const cityDirectory = readRouteSurface('src/routes/browse.cities.tsx');
 const placeDirectory = read('src/components/directories/TexasPlaceDirectory.tsx');
+const cityAuthorityIndex = read('src/data/city-authority-index.ts');
 const countyDirectory = readRouteSurface('src/routes/browse.counties.tsx');
 const countyPropertyDirectory = read('src/components/directories/TexasCountyPropertyDirectory.tsx');
 const leafOnlyParents = read('src/lib/leaf-only-parent-routes.tsx');
@@ -91,15 +92,30 @@ for (const marker of [
   if (!explore.includes(marker)) failures.push(`Explore sitemap must retain substantive self-canonical landscape coverage: ${marker}`);
 }
 
-for (const forbidden of [
-  'absoluteUrl(texasDefinedBrand, `/city/${city.slug}`)',
-  'to="/$kind/$slug" params={{ kind: \'city\'',
+for (const marker of [
+  'CITY_AUTHORITY_SLUGS.has(city.slug)',
+  'absoluteUrl(texasDefinedBrand, cityAuthorityPath(city.slug))',
+  ': `${pageUrl}#${cityAnchor(city.slug)}`',
 ]) {
-  const source = forbidden.startsWith('absoluteUrl') ? cityDirectory : placeDirectory;
-  if (source.includes(forbidden)) failures.push(`Unverified city directory must not advertise city detail URL pattern: ${forbidden}`);
+  if (!cityDirectory.includes(marker)) failures.push(`City directory verification-aware crawl contract missing: ${marker}`);
 }
-if (!cityDirectory.includes('url: `${pageUrl}#${cityAnchor(city.slug)}`')) {
-  failures.push('City ItemList entries must remain anchored to the verified directory surface rather than unverified city detail URLs.');
+for (const marker of [
+  'CITY_AUTHORITY_SLUGS.has(city.slug)',
+  'params={{ kind: "city", slug: city.slug }}',
+]) {
+  if (!placeDirectory.includes(marker)) failures.push(`Visible city directory verification-aware link contract missing: ${marker}`);
+}
+for (const marker of [
+  'export const CITY_AUTHORITY_INDEX',
+  'export const CITY_AUTHORITY_SLUGS',
+]) {
+  if (!cityAuthorityIndex.includes(marker)) failures.push(`Shared verified city authority crawl registry missing: ${marker}`);
+}
+if (cityDirectory.includes('absoluteUrl(texasDefinedBrand, cityAuthorityPath(city.slug))') && !cityDirectory.includes('CITY_AUTHORITY_SLUGS.has(city.slug)')) {
+  failures.push('City ItemList canonical URLs must not be promoted without verified authority gating.');
+}
+if (placeDirectory.includes('params={{ kind: "city", slug: city.slug }}') && !placeDirectory.includes('CITY_AUTHORITY_SLUGS.has(city.slug)')) {
+  failures.push('Visible city detail links must not be promoted without verified authority gating.');
 }
 
 for (const marker of [
@@ -134,4 +150,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated preserved-catalog fallback when remote sources are unavailable or empty, landscape sitemap children are protected as leaf-only self-canonical routes, unverified city detail URLs are not promoted, county property children are verification-filtered, and robots advertises each sitemap once.');
+console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated preserved-catalog fallback when remote sources are unavailable or empty, landscape sitemap children are protected as leaf-only self-canonical routes, verified city authority URLs are promoted only through the shared readiness gate, county property children are verification-filtered, and robots advertises each sitemap once.');

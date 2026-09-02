@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { CITY_AUTHORITY_SLUGS, cityAuthorityPath } from "@/data/city-authority-index";
 import { TEXAS_CITIES } from "@/data/texas-places";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
@@ -47,7 +48,9 @@ export const Route = createFileRoute("/browse/cities")({
               itemListElement: TEXAS_CITIES.map((city, index) => ({
                 "@type": "ListItem",
                 position: index + 1,
-                url: `${pageUrl}#${cityAnchor(city.slug)}`,
+                url: CITY_AUTHORITY_SLUGS.has(city.slug)
+                  ? absoluteUrl(texasDefinedBrand, cityAuthorityPath(city.slug))
+                  : `${pageUrl}#${cityAnchor(city.slug)}`,
                 item: {
                   "@type": "City",
                   name: `${city.name}, Texas`,
