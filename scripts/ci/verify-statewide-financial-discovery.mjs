@@ -23,6 +23,30 @@ function fail(label, message) {
   process.exitCode = 1;
 }
 
+function decodeAttribute(value) {
+  return value
+    .replaceAll('&amp;', '&')
+    .replaceAll('&quot;', '"')
+    .replaceAll('&#39;', "'")
+    .replaceAll('&#x27;', "'");
+}
+
+function extractLinkPathnames(body) {
+  const pathnames = new Set();
+  const anchorPattern = /<a\b[^>]*\bhref\s*=\s*(["'])(.*?)\1/gi;
+  for (const match of body.matchAll(anchorPattern)) {
+    const href = decodeAttribute(match[2]?.trim() ?? '');
+    if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) continue;
+    try {
+      const url = new URL(href, origin);
+      if (url.origin === new URL(origin).origin) pathnames.add(url.pathname.replace(/\/$/, '') || '/');
+    } catch {
+      // Ignore malformed and non-URL href values; required internal paths still fail closed below.
+    }
+  }
+  return pathnames;
+}
+
 async function fetchProduction(path) {
   const separator = path.includes('?') ? '&' : '?';
   const url = `${origin}${path}${separator}verify=${encodeURIComponent(`${sha}-${runId}`)}`;
@@ -42,12 +66,17 @@ for (const surface of surfaces) {
   try {
     const { response, body } = await fetchProduction(surface.path);
     const canonical = `${origin}${surface.path}`;
-    const required = [surface.marker, canonical, ...surfaces.filter((item) => item.path !== surface.path).map((item) => `href="${item.path}"`)];
-    const missing = required.filter((needle) => !body.includes(needle));
+    const linkPathnames = extractLinkPathnames(body);
+    const missingPeers = surfaces
+      .filter((item) => item.path !== surface.path)
+      .map((item) => item.path)
+      .filter((path) => !linkPathnames.has(path));
+    const missingPageSignals = [surface.marker, canonical].filter((needle) => !body.includes(needle));
     const hasNoindex = /<meta[^>]+(?:name=["']robots["'][^>]+content=["'][^"']*noindex|content=["'][^"']*noindex[^"']*["'][^>]+name=["']robots["'])/i.test(body);
     if (!response.ok) fail(surface.path, `HTTP ${response.status}`);
     else if (hasNoindex) fail(surface.path, 'unexpected robots noindex');
-    else if (missing.length) fail(surface.path, `missing ${missing.join(', ')}`);
+    else if (missingPageSignals.length) fail(surface.path, `missing page signals: ${missingPageSignals.join(', ')}`);
+    else if (missingPeers.length) fail(surface.path, `missing internal links to ${missingPeers.join(', ')}`);
     else {
       console.log(`[${surface.path}] verified (${response.status})`);
       appendSummary(`| ✅ pass | ${surface.path} | 200, canonical, indexable, page marker, reciprocal links to all four core planning surfaces |\n`);
