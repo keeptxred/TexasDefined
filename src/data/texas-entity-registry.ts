@@ -48,7 +48,7 @@ export const TEXAS_ENTITY_REGISTRY: TexasEntityRecord[] = [
 
 const kindDomain:Partial<Record<TexasEntityKind,TexasDataDomain>>={
   county:'counties',city:'places','census-place':'places','zip-code':'places',region:'regions','metro-area':'places',
-  lake:'water',river:'water','state-park':'parks','national-park':'parks','national-forest':'forests','wildlife-management-area':'parks',beach:'parks',mountain:'parks',cavern:'tourism',waterfall:'water',
+  lake:'water',river:'water','state-park':'parks','national-park':'parks','national-forest':'forests','wildlife-management-area':'parks','wildlife-species':'wildlife',beach:'parks',mountain:'parks',cavern:'tourism',waterfall:'water',
   agency:'agencies','appraisal-district':'appraisal-districts','tax-office':'tax-offices','county-clerk':'counties','dps-office':'agencies',
   museum:'tourism','historic-site':'tourism',courthouse:'tourism',mission:'tourism',battlefield:'tourism',attraction:'tourism','scenic-drive':'tourism',
   fair:'events',rodeo:'events',festival:'events','holiday-event':'events','sporting-event':'events',fairground:'events','sports-venue':'events',
