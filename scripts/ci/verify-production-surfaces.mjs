@@ -1,1 +1,1 @@
-noop
+import { appendFileSync } from 'node:fs';
