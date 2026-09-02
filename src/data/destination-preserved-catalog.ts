@@ -128,6 +128,13 @@ function mergePreservedDestinations(...groups: Destination[][]): Destination[] {
   return [...merged.values()];
 }
 
+/**
+ * Checked-in destination catalog used whenever remote Explore data is absent.
+ * Keep runtime destination resolution, search and the Explore sitemap on this
+ * single source so Google discovery cannot drift from pages the app can serve.
+ * Top-25 expansion fallbacks are explicit here instead of relying on the
+ * curation module's import-time mutation of topAttractionDestinations.
+ */
 export const preservedExploreDestinations = mergePreservedDestinations(
   animalSanctuaryDestinations,
   aquariumMarineDestinations,
