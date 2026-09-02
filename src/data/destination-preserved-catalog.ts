@@ -79,6 +79,7 @@ import { smallTownWave8Destinations } from "./small-town-destinations-wave8";
 import { smallTownWave9Destinations } from "./small-town-destinations-wave9";
 import { smallTownWave10Destinations } from "./small-town-destinations-wave10";
 import { smallTownWave11Destinations } from "./small-town-destinations-wave11";
+import { smallTownWave12Destinations } from "./small-town-destinations-wave12";
 import { wildlifeManagementAreaWave1Destinations } from "./wildlife-management-area-destinations-wave1";
 import { wildlifeManagementAreaWave2Destinations } from "./wildlife-management-area-destinations-wave2";
 import { wildlifeManagementAreaWave3Destinations } from "./wildlife-management-area-destinations-wave3";
@@ -237,5 +238,6 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   smallTownWave9Destinations,
   smallTownWave10Destinations,
   smallTownWave11Destinations,
+  smallTownWave12Destinations,
   [newBraunfelsSeasonalFallback],
 );
