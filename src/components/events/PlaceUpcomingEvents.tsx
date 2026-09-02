@@ -1,4 +1,4 @@
-import type { PlaceUpcomingEventLink } from "@/data/event-place-links.server";
+import type { PlaceUpcomingEventLink } from "@/data/event-place-links";
 
 interface PlaceUpcomingEventsProps {
   entityKind: string;
