@@ -43,6 +43,13 @@ const AUTHORITY_STATIC_PATHS = [
   "/replace-texas-registration-receipt",
   "/texas-toll-tags",
   "/start-a-business-in-texas",
+  "/texas-services",
+  "/texas-birth-certificate",
+  "/texas-sales-tax-permit",
+  "/texas-property-tax-lookup",
+  "/texas-septic-permit",
+  "/texas-flood-information",
+  "/texas-hunting-license",
   "/everything-bigger-in-texas",
   "/what-does-chud-mean",
 ] as const;
