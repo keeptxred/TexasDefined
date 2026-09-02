@@ -16,6 +16,7 @@ const enrichment = [
   ...enrichmentBatchFiles.map((name) => fs.readFileSync(path.join(root, 'src/data', name), 'utf8')),
 ].join('\n');
 const eventIndex = fs.readFileSync(path.join(root, 'src/data/major-event-index.ts'), 'utf8');
+const supplementalRegistry = fs.readFileSync(path.join(root, 'src/data/major-event-supplemental-registry.server.ts'), 'utf8');
 const wrapper = fs.readFileSync(path.join(root, 'src/data/major-event-directory.ts'), 'utf8');
 const errors = [];
 
@@ -68,22 +69,41 @@ for (const feature of [
   if (!enrichment.includes(feature)) errors.push(`Verified Event enrichment registry feature missing: ${feature}.`);
 }
 
+for (const batchFile of enrichmentBatchFiles) {
+  const batchNumber = batchFile.match(/batch(\d+)\.server\.ts$/)?.[1];
+  if (!batchNumber) continue;
+  const exportName = `majorEventSchemaEnrichmentBatch${batchNumber}`;
+  if (!enrichmentRegistry.includes(`import { ${exportName} } from "./major-event-schema-enrichment-batch${batchNumber}.server";`)) {
+    errors.push(`Event enrichment registry does not import ${batchFile}.`);
+  }
+  if (!enrichmentRegistry.includes(`...${exportName},`)) {
+    errors.push(`Event enrichment registry does not register ${batchFile}.`);
+  }
+}
+
 const enrichedSlugs = [...enrichment.matchAll(/\n\s+slug: "([a-z0-9-]+)",/g)].map((match) => match[1]);
 const indexedSlugs = [...eventIndex.matchAll(/\{\s*slug: "([a-z0-9-]+)"/g)].map((match) => match[1]);
+const supplementalSlugs = [...supplementalRegistry.matchAll(/\n\s+"([a-z0-9-]+)",/g)].map((match) => match[1]);
 const enrichedSet = new Set(enrichedSlugs);
 const indexedSet = new Set(indexedSlugs);
+const supplementalSet = new Set(supplementalSlugs);
+const knownLeafSet = new Set([...indexedSet, ...supplementalSet]);
 
 if (new Set(enrichedSlugs).size !== enrichedSlugs.length) errors.push('Event enrichment records must not duplicate slugs across batches.');
 if (new Set(indexedSlugs).size !== indexedSlugs.length) errors.push('Major-event index must not duplicate slugs.');
+if (new Set(supplementalSlugs).size !== supplementalSlugs.length) errors.push('Supplemental major-event registry must not duplicate slugs.');
 for (const slug of enrichedSlugs) {
-  if (!indexedSet.has(slug)) errors.push(`Event enrichment slug is not present in the client-safe major-event index: ${slug}.`);
+  if (!knownLeafSet.has(slug)) errors.push(`Event enrichment slug does not resolve to a known dedicated Event leaf: ${slug}.`);
 }
 for (const slug of indexedSlugs) {
-  if (!enrichedSet.has(slug)) errors.push(`Major Event leaf has not completed the official-source optional-schema research pass: ${slug}.`);
+  if (!enrichedSet.has(slug)) errors.push(`Core major Event leaf has not completed the official-source optional-schema research pass: ${slug}.`);
 }
-if (enrichedSet.size !== indexedSet.size) {
-  errors.push(`Expected one reviewed Event enrichment record for each of ${indexedSet.size} major Event leaves, found ${enrichedSet.size}.`);
+const coreEnrichedCount = indexedSlugs.filter((slug) => enrichedSet.has(slug)).length;
+if (coreEnrichedCount !== indexedSet.size) {
+  errors.push(`Expected all ${indexedSet.size} core major Event leaves to retain a reviewed enrichment record, found ${coreEnrichedCount}.`);
 }
+const supplementalUniqueSlugs = supplementalSlugs.filter((slug) => !indexedSet.has(slug));
+const supplementalReviewedCount = supplementalUniqueSlugs.filter((slug) => enrichedSet.has(slug)).length;
 
 const verifiedDateCount = (enrichment.match(/verifiedAt: "\d{4}-\d{2}-\d{2}"/g) ?? []).length;
 const sourceListCount = (enrichment.match(/\n\s+sources: \[/g) ?? []).length;
@@ -129,4 +149,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Events SEO validation passed: ${indexedSet.size} major Event leaves have an official-source optional-schema research record, while the hub remains collection-only markup.`);
+console.log(`Events SEO validation passed: ${indexedSet.size} core leaves remain reviewed and ${supplementalReviewedCount}/${supplementalUniqueSlugs.length} unique supplemental Event leaves have completed the official-source optional-schema research pass; the hub remains collection-only markup.`);
