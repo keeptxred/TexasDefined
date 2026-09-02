@@ -68,6 +68,7 @@ import { statewideMuseumExpansionWave51Destinations } from "./museum-expansion-s
 import { statewideMuseumExpansionWave52Destinations } from "./museum-expansion-statewide-wave52";
 import { wacoMuseumDestinations } from "./museum-expansion-waco";
 import { nationalWildlifeRefugeDestinations } from "./national-wildlife-refuge-destinations";
+import { smallTownWave1Destinations } from "./small-town-destinations-wave1";
 import { wildlifeManagementAreaWave1Destinations } from "./wildlife-management-area-destinations-wave1";
 import { wildlifeManagementAreaWave2Destinations } from "./wildlife-management-area-destinations-wave2";
 import { wildlifeManagementAreaWave3Destinations } from "./wildlife-management-area-destinations-wave3";
@@ -88,7 +89,7 @@ const newBraunfelsSeasonalFallback: Destination = {
   category: "small-towns",
   region: "hill-country",
   nearestTown: "New Braunfels",
-  county: "Comal County",
+  county: "Comal",
   coordinates: { lat: 29.703, lng: -98.124 },
   hero: {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Comal-county-courthouse2016-2(new-braunfels).jpg?width=1600",
@@ -215,5 +216,6 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   wildlifeManagementAreaWave7Destinations,
   wildlifeManagementAreaWave8Destinations,
   wildlifeManagementAreaWave9Destinations,
+  smallTownWave1Destinations,
   [newBraunfelsSeasonalFallback],
 );
