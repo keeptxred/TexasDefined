@@ -96,11 +96,16 @@ if (/geocode|google\.maps|maps\.googleapis/i.test(exploreSearch)) {
 
 for (const feature of [
   'createFileRoute("/explore/trip-planner")',
+  'head: ({ match })',
+  'const hasQueryState = Boolean(match.search.destination || match.search.trip)',
   'canonicalPath: "/explore/trip-planner"',
-  'robots: "noindex, follow"',
+  'robots: hasQueryState ? "noindex, follow" : undefined',
   'links: [canonicalLink(texasDefinedBrand, "/explore/trip-planner")]',
 ]) {
   if (!tripPlanner.includes(feature)) failures.push(`Trip Planner shell contract missing: ${feature}.`);
+}
+if (/robots:\s*["']noindex, follow["']/.test(tripPlanner)) {
+  failures.push('Trip Planner clean route must remain indexable; only destination/trip query states may emit noindex, follow.');
 }
 
 for (const feature of [
