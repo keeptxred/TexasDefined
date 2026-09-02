@@ -124,6 +124,12 @@ export const searchDocumentsQuery = () => queryOptions({
       base.push(document);
       knownHrefs.add(document.href);
     }
+    const { buildHuntingSearchDocuments } = await import("./hunting/search");
+    for (const document of buildHuntingSearchDocuments()) {
+      if (knownHrefs.has(document.href)) continue;
+      base.push(document);
+      knownHrefs.add(document.href);
+    }
     const { buildFishingSearchDocuments } = await import("./fishing/search");
     const fishingDocuments = await buildFishingSearchDocuments();
     for (const document of fishingDocuments) {

@@ -18,9 +18,10 @@ function WildlifeHubPage() {
       <header className="py-10 sm:py-14">
         <p className="eyebrow text-primary">Texas wildlife atlas</p>
         <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">Wildlife refuges and habitat destinations across Texas</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Start with Texas&apos;s 18 current National Wildlife Refuges, then connect each stop to birding, state parks, county guides and regional trip planning. Refuge records use the U.S. Fish and Wildlife Service as the controlling visitor source and preserve current official naming.</p>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Start with Texas&apos;s 18 current National Wildlife Refuges, then connect each stop to birding, hunting, state parks, county guides and regional trip planning. Refuge records use the U.S. Fish and Wildlife Service as the controlling visitor source and preserve current official naming.</p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link to="/texas-birds-guide" className="inline-flex items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">Texas birds guide →</Link>
+          <Link to="/hunting" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary">Texas hunting guide →</Link>
           <Link to="/explore/state-parks" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary">Wildlife-rich state parks →</Link>
           <Link to="/browse/counties" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary">Browse counties →</Link>
           <Link to="/explore/trip-planner" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary">Build a trip →</Link>
@@ -43,7 +44,7 @@ function WildlifeHubPage() {
           <div><p className="eyebrow text-primary">Plan with current conditions</p><h2 className="mt-3 font-display text-4xl">Habitat first, then the county</h2></div>
           <div className="grid gap-6 sm:grid-cols-2">
             <p className="text-sm leading-7 text-muted-foreground">Bird migration, water levels, heat, storms, hunting seasons and conservation work can change what is open and what you are likely to see. Use each refuge&apos;s official federal visitor source for day-of-trip alerts and access rules.</p>
-            <p className="text-sm leading-7 text-muted-foreground">TexasDefined ties refuge records into county and regional discovery so a wildlife stop can become part of a larger trip. Destination-specific photography is added before a staged refuge guide becomes eligible for indexing.</p>
+            <p className="text-sm leading-7 text-muted-foreground">TexasDefined ties refuge records into county and regional discovery so a wildlife stop can become part of a larger trip. Hunters should also use the <Link to="/hunting" className="font-semibold text-primary underline underline-offset-4">Texas hunting hub</Link> for TPWD license, season and public-hunting verification before assuming a wildlife destination is open to hunting.</p>
           </div>
         </div>
       </Container>
