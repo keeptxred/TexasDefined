@@ -29,7 +29,7 @@ export function buildPrioritySearchHead({
       url: pageUrl,
       name: title,
       description,
-      dateModified: "2026-08-20",
+      dateModified: schemaDate(data.updated),
       isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
       about: about.map((name) => ({ "@type": "Thing", name })),
       mainEntity: { "@id": `${pageUrl}#sections` },
@@ -70,4 +70,9 @@ export function buildPrioritySearchHead({
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({ "@context": "https://schema.org", "@graph": graph })],
   };
+}
+
+function schemaDate(value: string) {
+  const timestamp = Date.parse(value);
+  return Number.isFinite(timestamp) ? new Date(timestamp).toISOString().slice(0, 10) : undefined;
 }
