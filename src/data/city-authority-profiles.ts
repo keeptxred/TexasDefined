@@ -141,6 +141,136 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
     ],
   },
+  'el-paso': {
+    population2020: 678_815,
+    censusUrl: 'https://www.census.gov/quickfacts/fact/table/elpasocitytexas/PST045225',
+    systems: [
+      {
+        title: 'Water & city utilities',
+        summary: 'El Paso Water is a municipally owned water utility serving the city. Electric and other utility arrangements still need to be verified for the exact address rather than inferred from the city name.',
+        links: [{ label: 'El Paso Water', href: 'https://www.epwater.org/' }],
+      },
+      {
+        title: 'Public transportation',
+        summary: 'Sun Metro is El Paso’s public-transit system. Use its live trip-planning, route and alert tools for current service rather than relying on static schedules in a city guide.',
+        links: [{ label: 'Sun Metro', href: 'https://sunmetro.net/' }],
+      },
+      {
+        title: 'Airport',
+        summary: 'El Paso International Airport (ELP) is the city’s primary commercial airport and a regional gateway for West Texas, southern New Mexico and northern Mexico.',
+        links: [{ label: 'El Paso International', href: 'https://www.elpasointernationalairport.com/' }],
+      },
+      {
+        title: 'Schools',
+        summary: 'El Paso ISD is a major district serving the city and Fort Bliss area, but El Paso includes multiple school-district jurisdictions. Verify the district for the exact address.',
+        links: [{ label: 'El Paso ISD', href: 'https://www.episd.org/' }, { label: 'TexasDefined district lookup', href: '/find-my-school-district' }],
+      },
+    ],
+  },
+  arlington: {
+    population2020: 394_266,
+    censusUrl: 'https://www.census.gov/quickfacts/fact/table/arlingtoncitytexas/PST045225',
+    systems: [
+      {
+        title: 'Water & city utilities',
+        summary: 'Arlington Water Utilities manages municipal water and sewer accounts. Electric service and other utility territories should be verified for the property itself, especially in the wider Metroplex.',
+        links: [{ label: 'Arlington Water Utilities', href: 'https://waterbilling.arlingtontx.gov/' }],
+      },
+      {
+        title: 'Public transportation',
+        summary: 'Arlington uses a citywide on-demand rideshare transit model rather than a traditional fixed-route city bus network. The service also connects riders with the TRE CentrePort area for regional connections.',
+        links: [{ label: 'Arlington On-Demand', href: 'https://www.arlingtontx.gov/City-Services/Transportation-Streets-Traffic/Arlington-On-Demand' }],
+      },
+      {
+        title: 'Airports & regional connections',
+        summary: 'Dallas Fort Worth International Airport is the principal commercial airport for the Mid-Cities area. Arlington’s transportation planning also connects into regional rail and transit through nearby transfer points.',
+        links: [{ label: 'DFW International', href: 'https://www.dfwairport.com/' }, { label: 'Arlington Transportation', href: 'https://www.arlingtontx.gov/Government/Departments/Department-Directory/Transportation' }],
+      },
+      {
+        title: 'Schools',
+        summary: 'Arlington ISD is the city’s major school district, but district and municipal boundaries are not identical. Verify the serving district and attendance zone for the exact address.',
+        links: [{ label: 'Arlington ISD', href: 'https://www.aisd.net/' }, { label: 'TexasDefined district lookup', href: '/find-my-school-district' }],
+      },
+    ],
+  },
+  'corpus-christi': {
+    population2020: 317_863,
+    censusUrl: 'https://www.census.gov/quickfacts/fact/table/corpuschristicitytexas/PST045225',
+    systems: [
+      {
+        title: 'Water & city utilities',
+        summary: 'Corpus Christi municipal services include water and wastewater systems. Use the city’s current service portal for account, conservation, outage and utility information, and verify other service territories for the exact address.',
+        links: [{ label: 'City of Corpus Christi', href: 'https://www.corpuschristitx.gov/' }],
+      },
+      {
+        title: 'Public transportation',
+        summary: 'Corpus Christi Regional Transportation Authority is the regional public-transit operator for Corpus Christi, Nueces County and parts of San Patricio County.',
+        links: [{ label: 'CCRTA', href: 'https://www.ccrta.org/' }],
+      },
+      {
+        title: 'Airport',
+        summary: 'Corpus Christi International Airport (CRP) is the city’s primary commercial airport. Use the airport’s live site for airline, parking and ground-transportation details.',
+        links: [{ label: 'Corpus Christi International', href: 'https://www.corpuschristiairport.com/' }],
+      },
+      {
+        title: 'Schools',
+        summary: 'Corpus Christi ISD serves much of the city, but school-district boundaries should be verified for the exact address rather than assumed from the Corpus Christi mailing label.',
+        links: [{ label: 'Corpus Christi ISD', href: 'https://www.ccisd.us/' }, { label: 'TexasDefined district lookup', href: '/find-my-school-district' }],
+      },
+    ],
+  },
+  plano: {
+    population2020: 285_494,
+    censusUrl: 'https://www.census.gov/quickfacts/fact/table/planocitytexas/PST045225',
+    systems: [
+      {
+        title: 'Water & city utilities',
+        summary: 'Plano Customer & Utility Services manages water, sewer and trash service accounts. Electric service remains address-specific and should be verified separately from the city utility account.',
+        links: [{ label: 'Plano Customer & Utility Services', href: 'https://cus.plano.gov/' }],
+      },
+      {
+        title: 'Public transportation',
+        summary: 'Plano is connected to the wider North Texas transit network through DART. Use DART’s current maps and trip-planning tools for rail, bus and other service information.',
+        links: [{ label: 'DART', href: 'https://www.dart.org/' }],
+      },
+      {
+        title: 'Airports',
+        summary: 'Plano has no large commercial airport of its own; DFW International and Dallas Love Field are the major commercial airports used across the North Texas region.',
+        links: [{ label: 'DFW International', href: 'https://www.dfwairport.com/' }, { label: 'Dallas Love Field', href: 'https://www.dallas-lovefield.com/' }],
+      },
+      {
+        title: 'Schools',
+        summary: 'Plano ISD is the primary district associated with Plano, but attendance boundaries and nearby municipal lines still require address-level verification.',
+        links: [{ label: 'Plano ISD', href: 'https://www.pisd.edu/' }, { label: 'TexasDefined district lookup', href: '/find-my-school-district' }],
+      },
+    ],
+  },
+  lubbock: {
+    population2020: 257_141,
+    censusUrl: 'https://www.census.gov/quickfacts/fact/table/lubbockcitytexas/PST045225',
+    systems: [
+      {
+        title: 'City utilities',
+        summary: 'Lubbock’s city government provides local utility and public-service information, while specific electric arrangements and service territories can change over time. Verify the exact property before comparing costs or providers.',
+        links: [{ label: 'City of Lubbock', href: 'https://www.mylubbock.us/' }],
+      },
+      {
+        title: 'Public transportation',
+        summary: 'Citibus provides public transportation in Lubbock, including fixed-route and accessible services. Use its live route and trip-planning tools for current service.',
+        links: [{ label: 'Citibus', href: 'https://citibus.com/' }],
+      },
+      {
+        title: 'Airport',
+        summary: 'Lubbock Preston Smith International Airport (LBB) is the South Plains city’s primary commercial airport. Check current airline and passenger information directly with the airport.',
+        links: [{ label: 'Lubbock airport', href: 'https://flylbb.com/' }],
+      },
+      {
+        title: 'Schools',
+        summary: 'Lubbock ISD is the largest district serving the city, but school-district boundaries still need to be checked for the specific address being considered.',
+        links: [{ label: 'Lubbock ISD', href: 'https://www.lubbockisd.org/' }, { label: 'TexasDefined district lookup', href: '/find-my-school-district' }],
+      },
+    ],
+  },
 };
 
 export function getCityAuthorityProfile(slug: string) {
