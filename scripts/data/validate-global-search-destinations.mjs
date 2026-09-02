@@ -2,6 +2,8 @@ import fs from 'node:fs';
 
 const queries = fs.readFileSync('src/data/queries.ts', 'utf8');
 const destinationRuntime = fs.readFileSync('src/data/destination-query-runtime.ts', 'utf8');
+const cityMetroSearch = fs.readFileSync('src/data/city-metro-search.ts', 'utf8');
+const types = fs.readFileSync('src/data/types.ts', 'utf8');
 const searchImplementation = `${queries}\n${destinationRuntime}`;
 const searchShell = fs.readFileSync('src/routes/search.tsx', 'utf8');
 const searchLazy = fs.readFileSync('src/routes/search.lazy.tsx', 'utf8');
@@ -55,6 +57,35 @@ if (!queries.includes('await import("./destination-query-runtime")')) {
   errors.push('Heavy destination resolution must stay behind a dynamic runtime boundary.');
 }
 
+for (const feature of [
+  'await import("./city-metro-search")',
+  'buildCityMetroSearchDocuments()',
+]) {
+  if (!queries.includes(feature)) errors.push(`Global search must lazily add city/metro authority documents: ${feature}.`);
+}
+
+for (const feature of [
+  'TEXAS_ENTITY_REGISTRY',
+  'cityMetroAuthoritySeedEntities()',
+  'enrichCityMetroAuthorityEntity(entity)',
+  "entity.kind !== 'city' && entity.kind !== 'metro-area'",
+  'isIndexableEntityPage(entity)',
+  'canonicalEntityPath(entity)',
+  "kind === 'metro-area' ? 'Texas metro' : 'Texas city'",
+  'keywords: [...new Set(keywords)]',
+]) {
+  if (!cityMetroSearch.includes(feature)) errors.push(`City/metro search authority adapter missing: ${feature}.`);
+}
+if (!types.includes('"city" | "metro-area" | "county"')) {
+  errors.push('SearchDocumentKind must model metro-area as a first-class result type.');
+}
+if (cityMetroSearch.includes('loadTexasKnowledgeGraph')) {
+  errors.push('City/metro global search must not load the complete knowledge graph; preserve the lazy authority split.');
+}
+if (cityMetroSearch.includes("status === 'active'") || cityMetroSearch.includes("sourceConfidence === 'official'")) {
+  errors.push('City/metro search must reuse isIndexableEntityPage instead of maintaining a second quality gate.');
+}
+
 if (searchImplementation.includes('href: `/explore/${destination.category}/${destination.slug}`')) {
   errors.push('Global destination search documents must link to canonical /destination/:slug routes.');
 }
@@ -75,9 +106,9 @@ if (searchRoute.includes('remoteDocuments')) {
 }
 
 if (errors.length) {
-  console.error('Global destination search validation failed:');
+  console.error('Global destination and entity search validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Global search destinations and articles are resolved through publication-readiness gates before discovery, use canonical URLs and deduplicated keywords, retain core/preserved destination fallbacks, fail closed when no destination is ready, keep heavy destination resolution behind a runtime split, use a lazy result renderer with dynamic query loading, and cannot be bypassed by raw route-level feeds.');
+console.log('Global search destinations and articles are resolved through publication-readiness gates before discovery; verified city and metro authority nodes reuse the canonical entity indexability gate and routes through a lazy adapter; search uses canonical URLs and deduplicated keywords, retains core/preserved destination fallbacks, fails closed when no destination is ready, keeps heavy discovery resolution behind runtime splits, uses a lazy result renderer with dynamic query loading, and cannot be bypassed by raw route-level feeds.');
