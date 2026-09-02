@@ -1,78 +1,70 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { Container } from "@/components/layout/Container";
+import { destinationsQuery } from "@/data/queries";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
-const title = "Best Places to Go Camping in Texas";
-const description = "A statewide guide to the best places to camp in Texas, from Big Bend and Palo Duro Canyon to Hill Country rivers, Piney Woods lakes and Gulf Coast beaches.";
+const title = "Texas Camping & RV Campground Guide";
+const description = "Find verified public camping in Texas by RV, tent, primitive, beach, full-hookup, water access and region, with official reservation sources and links to destination, county, fishing and trip-planning guides.";
 const canonicalPath = "/best-places-to-go-camping-in-texas";
 const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
 
-const picks = [
-  ["Big Bend Ranch State Park", "Far West Texas", "Best for dark skies, rugged desert scenery and remote primitive camping."],
-  ["Palo Duro Canyon State Park", "Panhandle", "Best for canyon views, hiking access and a classic Texas landscape."],
-  ["Garner State Park", "Hill Country", "Best for Frio River swimming, family camping and summer trips."],
-  ["Inks Lake State Park", "Hill Country", "Best for easy lake access, paddling and a dependable weekend getaway."],
-  ["Caddo Lake State Park", "Piney Woods", "Best for cypress swamps, paddling and a completely different side of Texas."],
-  ["Davis Mountains State Park", "Far West Texas", "Best for cooler elevation, mountain scenery and stargazing."],
-  ["Mustang Island State Park", "Gulf Coast", "Best for beach camping, salt air and sunrise over the Gulf."],
-  ["Colorado Bend State Park", "Hill Country", "Best for hiking, waterfalls, caves and a more adventurous weekend."],
-] as const;
-
-const regions = [
-  ["Far West Texas", "Big Bend Ranch · Davis Mountains", "Choose this region for desert scale, mountain air, dark skies and trips where the landscape is the main event. Spring and fall are the easiest starting points for most campers."],
-  ["Texas Panhandle", "Palo Duro Canyon · Caprock Canyons", "Canyon camping gives the Panhandle a completely different feel from the flat-road stereotype. Wind, sun and large temperature swings deserve attention."],
-  ["Hill Country", "Garner · Inks Lake · Colorado Bend", "This is one of the easiest regions for mixing camping with rivers, swimming, paddling, caves, small towns and short hikes."],
-  ["Piney Woods", "Caddo Lake · Tyler · Daingerfield", "East Texas brings shade, pine forest, cypress water and a greener camping experience than Central or West Texas."],
-  ["Gulf Coast", "Mustang Island · Galveston Island", "Beach camping trades shade for sea breeze, open horizons and saltwater access. Wind, storms and sand change the packing list."],
-  ["North Texas", "Ray Roberts Lake · Lake Mineral Wells", "Lake-focused parks make practical weekend choices for Dallas–Fort Worth campers who want water, trails and shorter travel logistics."],
-  ["South Texas", "Choke Canyon · Falcon", "South Texas camping rewards cooler-season planning, birding and reservoir-focused trips, with heat management especially important outside winter."],
-] as const;
-
-const faq = [
-  { q: "What is the best place to camp in Texas for a first trip?", a: "There is no single best park for everyone. Garner and Inks Lake are approachable for water-focused trips, Palo Duro offers dramatic scenery with developed park infrastructure, and Caddo Lake works well for campers who want shade and paddling." },
-  { q: "When is the best time to camp in Texas?", a: "Fall through spring is the broadest camping window for much of the state, especially West Texas and Central Texas. Summer trips work better when water, shade, elevation or the coast are part of the plan, but extreme heat still requires caution." },
-  { q: "Do Texas state parks require camping reservations?", a: "Texas Parks and Wildlife accepts overnight reservations online and by phone and recommends reserving popular parks early. Availability and reservation windows vary, so confirm the current rules before travel." },
-  { q: "Where can I find RV camping in Texas?", a: "Texas state parks offer a range of campsite types, including sites with water and electricity and some full-hookup options. Check the individual park's facilities before booking because hookups and site dimensions vary." },
-  { q: "Do I need a Texas fishing license while camping?", a: "Camping by a lake or river does not by itself determine fishing-license requirements. If you plan to fish, use the Texas fishing-license guide and current Texas Parks and Wildlife rules for the water and activity involved." },
-] as const;
-
 export const Route = createFileRoute(canonicalPath)({
-  head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: title, description }),
-    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-    scripts: [jsonLd({
-      "@context": "https://schema.org",
-      "@graph": [
-        { "@type": "Article", "@id": `${pageUrl}#article`, headline: title, description, mainEntityOfPage: pageUrl, dateModified: "2026-08-20", about: ["Texas camping", "Texas state parks", "campgrounds in Texas", "best camping in Texas"] },
-        { "@type": "BreadcrumbList", itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl(texasDefinedBrand, "/") },
-          { "@type": "ListItem", position: 2, name: "Explore Texas", item: absoluteUrl(texasDefinedBrand, "/explore") },
-          { "@type": "ListItem", position: 3, name: title, item: pageUrl },
-        ] },
-        { "@type": "ItemList", name: "Best places to camp in Texas", numberOfItems: picks.length, itemListElement: picks.map((pick, index) => ({ "@type": "ListItem", position: index + 1, name: pick[0] })) },
-        { "@type": "FAQPage", "@id": `${pageUrl}#faq`, mainEntity: faq.map((item) => ({ "@type": "Question", name: item.q, acceptedAnswer: { "@type": "Answer", text: item.a } })) },
-      ],
-    })],
-  }),
-  component: CampingGuidePage,
+  loader: async ({ context }) => {
+    const [{ CAMPING_DISCOVERY_PROFILES }, destinations] = await Promise.all([
+      import("@/data/camping/discovery"),
+      context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
+    ]);
+    const bySlug = new Map(destinations.map((destination) => [destination.slug, destination]));
+    return { entries: CAMPING_DISCOVERY_PROFILES.map((profile) => ({ profile, destination: bySlug.get(profile.destinationSlug) })) };
+  },
+  head: ({ loaderData }) => {
+    const profiles = loaderData?.entries.map(({ profile }) => profile) ?? [];
+    const modified = profiles.map((profile) => profile.verifiedAt).sort().at(-1) ?? "2026-09-01";
+    return {
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title, description }),
+      links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+      scripts: [jsonLd({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "CollectionPage",
+            "@id": pageUrl,
+            url: pageUrl,
+            name: title,
+            description,
+            dateModified: modified,
+            isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
+            mainEntity: { "@id": `${pageUrl}#camping-directory` },
+          },
+          {
+            "@type": "ItemList",
+            "@id": `${pageUrl}#camping-directory`,
+            name: "Verified Texas public camping destinations",
+            numberOfItems: profiles.length,
+            itemListElement: profiles.map((profile, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              item: {
+                "@type": "TouristAttraction",
+                name: profile.name,
+                url: absoluteUrl(texasDefinedBrand, `/destination/${profile.destinationSlug}`),
+                containedInPlace: { "@type": "State", name: "Texas" },
+                provider: { "@type": "Organization", name: profile.managingAgency },
+              },
+            })),
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": `${pageUrl}#breadcrumbs`,
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl(texasDefinedBrand, "/") },
+              { "@type": "ListItem", position: 2, name: "Explore Texas", item: absoluteUrl(texasDefinedBrand, "/explore") },
+              { "@type": "ListItem", position: 3, name: "Camping & RV", item: pageUrl },
+            ],
+          },
+        ],
+      })],
+    };
+  },
 });
-
-function CampingGuidePage() {
-  return <main>
-    <section className="border-b border-border bg-muted/30 py-14 md:py-20"><Container><p className="eyebrow text-primary">Texas outdoors</p><h1 className="mt-3 max-w-4xl font-display text-5xl leading-none md:text-7xl">Best Places to Go Camping in Texas</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Texas camping ranges from remote desert backcountry to spring-fed rivers, pine forests, lakeshores and Gulf beaches. This guide helps you choose the right part of the state, the right season and the right style of campsite.</p><nav aria-label="Camping guide sections" className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold"><a href="#best-camping" className="border-b border-primary/40 pb-1">Best camping</a><a href="#regions" className="border-b border-primary/40 pb-1">By region</a><a href="#style" className="border-b border-primary/40 pb-1">By camping style</a><a href="#season" className="border-b border-primary/40 pb-1">By season</a><a href="#plan" className="border-b border-primary/40 pb-1">Plan the trip</a><a href="#faq" className="border-b border-primary/40 pb-1">FAQ</a></nav></Container></section>
-
-    <section id="best-camping" className="scroll-mt-28 py-12 md:py-16"><Container><div className="max-w-3xl"><p className="eyebrow text-primary">Start here</p><h2 className="mt-2 font-display text-4xl">Eight standout places to camp in Texas</h2><p className="mt-3 leading-7 text-muted-foreground">This is not a ranking from one to eight. Each choice represents a different Texas camping experience, so the useful question is what kind of trip you want.</p></div><div className="mt-8 grid gap-5 md:grid-cols-2">{picks.map(([name, region, why], index) => <article key={name} className="border border-border p-6"><div className="flex items-baseline justify-between gap-3"><p className="eyebrow text-muted-foreground">{region}</p><span className="text-xs tabular-nums text-muted-foreground">{String(index + 1).padStart(2, "0")}</span></div><h3 className="mt-2 font-display text-2xl">{name}</h3><p className="mt-3 leading-7 text-muted-foreground">{why}</p></article>)}</div></Container></section>
-
-    <section id="regions" className="scroll-mt-28 border-y border-border bg-muted/30 py-12 md:py-16"><Container><div className="grid gap-8 lg:grid-cols-[17rem_1fr]"><div><p className="eyebrow text-primary">Choose the landscape</p><h2 className="mt-2 font-display text-4xl">Best Texas camping by region</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">Texas is too large for one camping rule. Region changes the weather, shade, water, drive time and the kind of campsite that makes sense.</p></div><div className="divide-y divide-border border-y border-border">{regions.map(([region, examples, copy]) => <article key={region} className="grid gap-3 py-6 md:grid-cols-[12rem_1fr]"><div><h3 className="font-display text-2xl">{region}</h3><p className="mt-2 text-xs uppercase tracking-[0.12em] text-primary">{examples}</p></div><p className="text-sm leading-7 text-muted-foreground">{copy}</p></article>)}</div></div></Container></section>
-
-    <section id="style" className="scroll-mt-28 py-12 md:py-16"><Container><p className="eyebrow text-primary">Match the campsite to the trip</p><h2 className="mt-2 font-display text-4xl">Tent, RV, primitive or water-focused camping</h2><div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4"><article className="border-t border-border pt-5"><h3 className="font-display text-2xl">Tent camping</h3><p className="mt-3 leading-7 text-muted-foreground">Look for shade, restrooms, water access and trails close to camp. Hill Country and Piney Woods parks are especially approachable for first-time tent trips.</p></article><article className="border-t border-border pt-5"><h3 className="font-display text-2xl">RV camping</h3><p className="mt-3 leading-7 text-muted-foreground">Hookups, pad length and generator rules vary by park and campsite. Confirm the actual site dimensions and electrical service before reserving.</p></article><article className="border-t border-border pt-5"><h3 className="font-display text-2xl">Primitive camping</h3><p className="mt-3 leading-7 text-muted-foreground">Big Bend country and remote natural areas reward self-sufficient campers. Water, navigation, weather and the distance back to services matter more here.</p></article><article className="border-t border-border pt-5"><h3 className="font-display text-2xl">Lake & river camping</h3><p className="mt-3 leading-7 text-muted-foreground">Choose this style when swimming, paddling or fishing is the center of the weekend. Use the statewide water and fishing guides to plan beyond the campsite.</p></article></div></Container></section>
-
-    <section id="season" className="scroll-mt-28 border-y border-border bg-muted/30 py-12 md:py-16"><Container><p className="eyebrow text-primary">Timing matters</p><h2 className="mt-2 font-display text-4xl">Best time to camp in Texas</h2><p className="mt-5 max-w-4xl leading-8 text-muted-foreground">There is no single Texas camping season. Fall through spring is usually strongest for the desert and much of Central Texas. Summer works better around rivers, lakes, higher elevations and the coast, but heat can still be extreme. Always check current park alerts, burn bans, flood conditions and weather before leaving.</p><div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4"><div><h3 className="font-display text-2xl">Winter</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">A strong season for South Texas, desert parks and lower-elevation hiking trips.</p></div><div><h3 className="font-display text-2xl">Spring</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Broad statewide appeal, but storms, flooding and popular-weekend demand can change plans quickly.</p></div><div><h3 className="font-display text-2xl">Summer</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Prioritize water, shade, elevation and realistic heat planning. Avoid treating a campsite reservation as proof conditions will be comfortable.</p></div><div><h3 className="font-display text-2xl">Fall</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">One of the most flexible seasons for statewide camping, especially once daytime temperatures moderate.</p></div></div></Container></section>
-
-    <section id="plan" className="scroll-mt-28 py-12 md:py-16"><Container><div className="grid gap-10 lg:grid-cols-[1fr_20rem]"><div><p className="eyebrow text-primary">Before you leave</p><h2 className="mt-2 font-display text-4xl">A practical Texas camping checklist</h2><ol className="mt-7 space-y-5"><li><strong>1. Reserve the actual campsite.</strong> <span className="text-muted-foreground">Popular Texas state parks can fill well ahead of a weekend. Texas Parks and Wildlife recommends reserving day use and overnight sites early.</span></li><li><strong>2. Check the exact facilities.</strong> <span className="text-muted-foreground">Do not assume every loop has the same hookups, shade, restrooms, water or vehicle limits.</span></li><li><strong>3. Recheck weather and park alerts.</strong> <span className="text-muted-foreground">Heat, thunderstorms, flooding, wildfire restrictions and coastal weather can turn a good plan into a bad one quickly.</span></li><li><strong>4. Plan the activities separately.</strong> <span className="text-muted-foreground">Fishing, paddling, swimming, caves and backcountry travel can carry their own permits, rules or safety considerations.</span></li><li><strong>5. Save the official park information.</strong> <span className="text-muted-foreground">Fees, gate hours, campsite rules and closures change. Verify the individual park before driving.</span></li></ol><div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm"><Link to="/explore/state-parks" className="font-semibold text-primary underline-offset-4 hover:underline">Texas State Parks Guide</Link><Link to="/explore/lakes-rivers" className="font-semibold text-primary underline-offset-4 hover:underline">Texas Lakes & Rivers</Link><Link to="/fishing" className="font-semibold text-primary underline-offset-4 hover:underline">Texas Fishing Guide</Link><Link to="/texas-fishing-license" className="font-semibold text-primary underline-offset-4 hover:underline">Texas Fishing License</Link><Link to="/explore/road-trips" className="font-semibold text-primary underline-offset-4 hover:underline">Texas Road Trips</Link><Link to="/explore/outdoors" className="font-semibold text-primary underline-offset-4 hover:underline">Texas Outdoors</Link></div></div><aside className="h-fit border border-border bg-muted/20 p-6"><p className="eyebrow text-primary">Official reservations</p><h2 className="mt-2 font-display text-3xl">Texas State Parks</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Texas Parks and Wildlife handles state-park reservations and facility information. Use the official system to check live campsite availability and current park rules.</p><a href="https://tpwd.texas.gov/state-parks/reservations/" target="_blank" rel="noreferrer" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">TPWD reservations ↗</a></aside></div></Container></section>
-
-    <section id="faq" className="scroll-mt-28 border-t border-border bg-surface py-12"><Container><div className="max-w-4xl"><p className="eyebrow text-primary">Camping questions</p><h2 className="mt-2 font-display text-4xl">Texas camping FAQ</h2><div className="mt-7 divide-y divide-border border-y border-border">{faq.map((item) => <details key={item.q} className="group py-5"><summary className="cursor-pointer list-none pr-8 font-display text-xl marker:hidden">{item.q}<span className="float-right text-primary group-open:rotate-45">+</span></summary><p className="mt-3 max-w-3xl leading-7 text-muted-foreground">{item.a}</p></details>)}</div></div><footer className="mt-10 border-t border-border pt-6 text-sm leading-7 text-muted-foreground">For current campsite availability, reservation windows, park alerts, fees and facilities, verify directly with Texas Parks and Wildlife before travel. <Link to="/guides" className="font-semibold text-primary underline-offset-4 hover:underline">Browse the full Texas Guidebook →</Link></footer></Container></section>
-  </main>;
-}
