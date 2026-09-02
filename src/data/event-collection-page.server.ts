@@ -20,12 +20,13 @@ const sourcePolicyParagraphs = [
 ] as const;
 
 type CollectionDefinition = EventCollectionDefinition | TemporalEventCollectionDefinition;
+type DirectoryItems = ReturnType<typeof loadMajorEventGuideDirectoryServer>;
 
-function buildCollectionHead(collection: CollectionDefinition, items: ReturnType<typeof loadMajorEventGuideDirectoryServer>, shouldIndex = true) {
+function buildCollectionHead(collection: CollectionDefinition, items: DirectoryItems, shouldIndex = true) {
   const canonicalPath = collection.path;
   const pageUrl = `${siteUrl}${canonicalPath}`;
   const itemListElement = items.map((event, index) => {
-    const eventUrl = `${siteUrl}/event/${event.slug}`;
+    const eventUrl = `${siteUrl}${event.href}`;
     return {
       "@type": "ListItem",
       position: index + 1,
@@ -86,8 +87,8 @@ export function loadEventCollectionPageServer(slug: string) {
   if (!temporal && !evergreen) return null;
 
   const collection: CollectionDefinition = temporal ?? evergreen!;
-  const items = temporal
-    ? temporal.items
+  const items: DirectoryItems = temporal
+    ? temporal.items as DirectoryItems
     : directory.filter((event) =>
         evergreen!.kind === "category"
           ? event.category === evergreen!.value
