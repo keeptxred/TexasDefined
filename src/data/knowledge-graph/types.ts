@@ -1,7 +1,7 @@
 export type TexasEntityKind =
   | 'county' | 'city' | 'census-place' | 'zip-code' | 'region' | 'metro-area'
   | 'lake' | 'river' | 'state-park' | 'national-park' | 'national-forest'
-  | 'wildlife-management-area' | 'beach' | 'mountain' | 'cavern' | 'waterfall'
+  | 'wildlife-management-area' | 'wildlife-species' | 'beach' | 'mountain' | 'cavern' | 'waterfall'
   | 'agency' | 'appraisal-district' | 'tax-office' | 'county-clerk' | 'dps-office'
   | 'museum' | 'historic-site' | 'courthouse' | 'mission' | 'battlefield'
   | 'attraction' | 'scenic-drive' | 'fair' | 'rodeo' | 'festival'
