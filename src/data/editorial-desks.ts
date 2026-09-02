@@ -7,6 +7,7 @@ import type { Author } from "./types";
  * record rather than generated automatically.
  */
 export const HOMES_LAND_EDITORIAL_DESK_ID = "a-homes-land";
+export const HISTORY_HERITAGE_EDITORIAL_DESK_ID = "a-history-heritage";
 
 export const editorialDesks: Author[] = [
   {
@@ -32,6 +33,12 @@ export const editorialDesks: Author[] = [
     name: "Texas Defined Homes & Land Desk",
     role: "Homes & land desk",
     bio: "Texas Defined's Homes & Land Desk covers homeownership, property, utilities, weather resilience, maintenance and land stewardship using official agencies, extension services and other primary sources. Its service journalism is practical guidance, not a substitute for licensed legal, insurance, engineering or trade advice.",
+  },
+  {
+    id: HISTORY_HERITAGE_EDITORIAL_DESK_ID,
+    name: "Texas Defined History & Heritage Desk",
+    role: "History & heritage desk",
+    bio: "Texas Defined's History & Heritage Desk covers Texas history, historic people and places, cultural heritage, preservation and archival context using primary records and accountable institutional sources whenever practical.",
   },
 ];
 

@@ -1,18 +1,22 @@
 import type { Article, CategorySlug } from "./types";
-import { DEFAULT_EDITORIAL_DESK_ID, HOMES_LAND_EDITORIAL_DESK_ID } from "./editorial-desks";
+import {
+  DEFAULT_EDITORIAL_DESK_ID,
+  HISTORY_HERITAGE_EDITORIAL_DESK_ID,
+  HOMES_LAND_EDITORIAL_DESK_ID,
+} from "./editorial-desks";
 
 const LEGACY_EDITORIAL_DESK_IDS = new Set([
   DEFAULT_EDITORIAL_DESK_ID,
   "a-marisol",
   "a-dell",
   HOMES_LAND_EDITORIAL_DESK_ID,
+  HISTORY_HERITAGE_EDITORIAL_DESK_ID,
 ]);
 
 const HOMES_LAND_CATEGORIES = new Set<CategorySlug>([
   "moving-to-texas",
   "home-garden",
   "real-estate",
-  "property-taxes",
 ]);
 const TRAVEL_OUTDOORS_CATEGORIES = new Set<CategorySlug>([
   "lakes-rivers",
@@ -30,11 +34,15 @@ const FOOD_CULTURE_CATEGORIES = new Set<CategorySlug>([
   "food-bbq",
   "events",
 ]);
+const HISTORY_HERITAGE_CATEGORIES = new Set<CategorySlug>([
+  "texas-history",
+]);
 
 export function editorialDeskIdForCategory(category: CategorySlug): string {
   if (HOMES_LAND_CATEGORIES.has(category)) return HOMES_LAND_EDITORIAL_DESK_ID;
   if (TRAVEL_OUTDOORS_CATEGORIES.has(category)) return "a-dell";
   if (FOOD_CULTURE_CATEGORIES.has(category)) return "a-marisol";
+  if (HISTORY_HERITAGE_CATEGORIES.has(category)) return HISTORY_HERITAGE_EDITORIAL_DESK_ID;
   return DEFAULT_EDITORIAL_DESK_ID;
 }
 
