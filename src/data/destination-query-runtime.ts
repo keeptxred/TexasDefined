@@ -77,7 +77,7 @@ function applyResolvedHero(destination: Destination) {
           applyAllCuratedDestination(
             applyExploreHeroAsset(
               applyStateParkHeroAsset(
-                applyDestinationHeroOverride(normalizeDestinationCounty(destination)),
+                applyDestinationHeroOverride(destination),
               ),
             ),
           ),
@@ -88,8 +88,7 @@ function applyResolvedHero(destination: Destination) {
 }
 
 function reconcileExploreCatalog(destinations: Destination[]) {
-  const normalized = destinations.map(normalizeDestinationCounty);
-  const curated = improveDestinationCatalog(applyAllCuratedDestinations(reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(normalized)))));
+  const curated = improveDestinationCatalog(applyAllCuratedDestinations(reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))));
   const improved = enrichHistoricSiteCatalog(curated)
     .map(enrichRemainingHistoricSiteAreaGuide)
     .map(enrichHistoricSiteRemoteHero)
