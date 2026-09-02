@@ -39,8 +39,9 @@ for (const record of records) {
   if (!existing || metadataRichness(record) > metadataRichness(existing)) byCanonical.set(record.canonical, record);
 }
 const pages = [...byCanonical.values()].sort((a, b) => a.canonical.localeCompare(b.canonical));
-const unresolved = [...indexablePaths].filter((routePath) => routePath !== '/' && !byCanonical.has(routePath));
-const candidates = [];
+const allPaths = [...indexablePaths].filter((routePath) => routePath !== '/').sort();
+const unresolved = allPaths.filter((routePath) => !byCanonical.has(routePath));
+const candidates = new Map();
 
 for (let i = 0; i < pages.length; i += 1) {
   for (let j = i + 1; j < pages.length; j += 1) {
@@ -48,38 +49,69 @@ for (let i = 0; i < pages.length; i += 1) {
     const b = pages[j];
     const title = similarity(a.title, b.title);
     const description = similarity(a.description, b.description);
-    const sameFamily = routeFamily(a.canonical) === routeFamily(b.canonical);
     const titleCandidate = title.shared >= 3 && (title.jaccard >= 0.62 || title.containment >= 0.78);
     const descriptionCandidate = description.shared >= 6 && (description.jaccard >= 0.55 || description.containment >= 0.72);
     if (!titleCandidate && !descriptionCandidate) continue;
-    candidates.push({
-      a,
-      b,
+    registerCandidate(candidates, {
+      aPath: a.canonical,
+      bPath: b.canonical,
+      source: 'metadata',
       title,
       description,
-      sameFamily,
+      pathIntent: similarity(leafIntent(a.canonical), leafIntent(b.canonical)),
+      aTitle: a.title,
+      bTitle: b.title,
       score: Math.max(title.jaccard, title.containment * 0.88, description.jaccard * 0.9, description.containment * 0.78),
     });
   }
 }
 
-candidates.sort((a, b) => b.score - a.score || a.a.canonical.localeCompare(b.a.canonical));
-console.log(`Static search-intent overlap audit: ${indexablePaths.size} registered indexable static paths; ${pages.length} with statically resolved metadata; ${unresolved.length} unresolved; ${candidates.length} high-overlap candidate pairs.`);
+for (let i = 0; i < allPaths.length; i += 1) {
+  for (let j = i + 1; j < allPaths.length; j += 1) {
+    const aPath = allPaths[i];
+    const bPath = allPaths[j];
+    if (isDirectParentChild(aPath, bPath)) continue;
+    const pathIntent = similarity(leafIntent(aPath), leafIntent(bPath));
+    const pathCandidate = pathIntent.shared >= 2 && pathIntent.containment >= 0.8 && pathIntent.jaccard >= 0.5;
+    if (!pathCandidate) continue;
+    registerCandidate(candidates, {
+      aPath,
+      bPath,
+      source: byCanonical.has(aPath) && byCanonical.has(bPath) ? 'metadata+path' : 'path-fallback',
+      title: similarity(byCanonical.get(aPath)?.title, byCanonical.get(bPath)?.title),
+      description: similarity(byCanonical.get(aPath)?.description, byCanonical.get(bPath)?.description),
+      pathIntent,
+      aTitle: byCanonical.get(aPath)?.title,
+      bTitle: byCanonical.get(bPath)?.title,
+      score: pathIntent.jaccard * 0.82 + pathIntent.containment * 0.18,
+    });
+  }
+}
+
+const sortedCandidates = [...candidates.values()].sort((a, b) => b.score - a.score || a.aPath.localeCompare(b.aPath));
+console.log(`Static search-intent overlap audit: ${indexablePaths.size} registered indexable static paths; ${pages.length} with statically resolved metadata; ${unresolved.length} metadata-unresolved but path-covered; ${allPaths.length}/${allPaths.length} with leaf-path intent coverage; ${sortedCandidates.length} high-overlap candidate pairs.`);
 
 if (unresolved.length) {
-  console.log('\nUnresolved static metadata paths (coverage review):');
-  for (const routePath of unresolved.slice(0, 80)) console.log(`- ${routePath}`);
-  if (unresolved.length > 80) console.log(`- … ${unresolved.length - 80} more`);
+  console.log('\nMetadata-unresolved paths using leaf-path fallback:');
+  for (const routePath of unresolved.slice(0, 40)) console.log(`- ${routePath}`);
+  if (unresolved.length > 40) console.log(`- … ${unresolved.length - 40} more`);
 }
 
-for (const candidate of candidates.slice(0, 100)) {
-  console.log(`\n- ${candidate.a.canonical} <> ${candidate.b.canonical}${candidate.sameFamily ? ' [same route family]' : ''}`);
+for (const candidate of sortedCandidates.slice(0, 100)) {
+  console.log(`\n- ${candidate.aPath} <> ${candidate.bPath} [${candidate.source}]`);
+  console.log(`  leaf path: J=${candidate.pathIntent.jaccard.toFixed(2)} C=${candidate.pathIntent.containment.toFixed(2)} shared=${candidate.pathIntent.shared}`);
   console.log(`  title: J=${candidate.title.jaccard.toFixed(2)} C=${candidate.title.containment.toFixed(2)} shared=${candidate.title.shared}`);
   console.log(`  description: J=${candidate.description.jaccard.toFixed(2)} C=${candidate.description.containment.toFixed(2)} shared=${candidate.description.shared}`);
-  if (candidate.a.title) console.log(`  A: ${candidate.a.title}`);
-  if (candidate.b.title) console.log(`  B: ${candidate.b.title}`);
+  if (candidate.aTitle) console.log(`  A: ${candidate.aTitle}`);
+  if (candidate.bTitle) console.log(`  B: ${candidate.bTitle}`);
 }
-if (candidates.length > 100) console.log(`\n… ${candidates.length - 100} additional candidate pairs omitted.`);
+if (sortedCandidates.length > 100) console.log(`\n… ${sortedCandidates.length - 100} additional candidate pairs omitted.`);
+
+function registerCandidate(map, candidate) {
+  const key = [candidate.aPath, candidate.bPath].sort().join('\u0000');
+  const existing = map.get(key);
+  if (!existing || candidate.score > existing.score || candidate.source === 'metadata') map.set(key, candidate);
+}
 
 function buildMetaRecords(source, constants) {
   const records = [];
@@ -189,8 +221,13 @@ function similarity(aValue, bValue) {
   };
 }
 
-function routeFamily(routePath) {
-  return routePath.split('/').filter(Boolean)[0] ?? '/';
+function leafIntent(routePath) {
+  const leaf = routePath.split('/').filter(Boolean).at(-1) ?? '';
+  return leaf.replaceAll('-', ' ');
+}
+
+function isDirectParentChild(aPath, bPath) {
+  return aPath.startsWith(`${bPath}/`) || bPath.startsWith(`${aPath}/`);
 }
 
 function metadataRichness(record) {
