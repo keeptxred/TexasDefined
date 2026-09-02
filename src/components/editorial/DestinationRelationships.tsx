@@ -5,6 +5,7 @@ import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplainedContextLinks";
 import { Container } from "@/components/layout/Container";
+import { CAMPING_PROFILE_BY_SLUG } from "@/data/camping/profiles";
 import { distanceMiles, type DestinationRelationshipGroup } from "@/data/destination-relationships";
 import { topTexasAttractionRank } from "@/data/top-texas-attractions";
 import type { Destination, DestinationAreaGuide, DestinationAreaItem } from "@/data/types";
@@ -64,6 +65,7 @@ function DestinationAreaGuideSection({ destination }: { destination: Destination
 
 export function DestinationRelationships({ destination, groups, regionName }: { destination: Destination; groups: DestinationRelationshipGroup[]; regionName?: string }) {
   const topAttractionRank = topTexasAttractionRank(destination.slug);
+  const campingProfile = CAMPING_PROFILE_BY_SLUG.get(destination.slug);
 
   return <>
     {topAttractionRank ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
@@ -94,12 +96,13 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     <Section tone="ink">
       <Container>
         <p className="eyebrow text-ink-foreground/60">Continue exploring</p>
-        <div className={`mt-6 grid border-t border-ink-foreground/20 sm:grid-cols-2 ${topAttractionRank ? "lg:grid-cols-6" : "lg:grid-cols-5"}`}>
-          {topAttractionRank && <Link to="/explore/top-attractions" className="border-b border-ink-foreground/20 py-6 sm:border-r sm:px-6 sm:first:pl-0 lg:border-b-0"><strong className="font-display text-2xl">Top 25 · #{topAttractionRank}</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">See all 25 Texas attractions in the ranked collection.</span></Link>}
-          <Link to="/explore/trip-planner" search={{ destination: destination.slug }} className="border-b border-ink-foreground/20 py-6 sm:border-r sm:px-6 sm:first:pl-0 lg:border-b-0"><strong className="font-display text-2xl">Build the weekend</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">Start a Texas itinerary with {destination.name} already on the route.</span></Link>
-          <Link to="/explore/$category" params={{ category: destination.category }} className="border-b border-ink-foreground/20 py-6 sm:px-6 lg:border-b-0 lg:border-r"><strong className="font-display text-2xl">More like this</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">More places across Texas with the same kind of appeal.</span></Link>
-          <Link to="/explore/region/$region" params={{ region: destination.region }} className="border-b border-ink-foreground/20 py-6 sm:border-r sm:px-6 lg:border-b-0"><strong className="font-display text-2xl">Explore the region</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">See what else belongs on the route.</span></Link>
-          <Link to="/events" className="border-b border-ink-foreground/20 py-6 sm:px-6 lg:border-b-0 lg:border-r"><strong className="font-display text-2xl">Check the calendar</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">Add festivals, fairs and seasonal events.</span></Link>
+        <div className="mt-6 grid border-t border-ink-foreground/20 sm:grid-cols-2 lg:grid-cols-3">
+          {topAttractionRank && <Link to="/explore/top-attractions" className="border-b border-ink-foreground/20 py-6 sm:border-r sm:px-6 sm:first:pl-0"><strong className="font-display text-2xl">Top 25 · #{topAttractionRank}</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">See all 25 Texas attractions in the ranked collection.</span></Link>}
+          {campingProfile && <Link to="/best-places-to-go-camping-in-texas" className="border-b border-ink-foreground/20 py-6 sm:border-r sm:px-6 sm:first:pl-0"><strong className="font-display text-2xl">Camping details</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">Compare verified campsite styles, facilities and reservation sources for {destination.name}.</span></Link>}
+          <Link to="/explore/trip-planner" search={{ destination: destination.slug }} className="border-b border-ink-foreground/20 py-6 sm:border-r sm:px-6 sm:first:pl-0"><strong className="font-display text-2xl">Build the weekend</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">Start a Texas itinerary with {destination.name} already on the route.</span></Link>
+          <Link to="/explore/$category" params={{ category: destination.category }} className="border-b border-ink-foreground/20 py-6 sm:px-6 sm:border-r"><strong className="font-display text-2xl">More like this</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">More places across Texas with the same kind of appeal.</span></Link>
+          <Link to="/explore/region/$region" params={{ region: destination.region }} className="border-b border-ink-foreground/20 py-6 sm:border-r sm:px-6"><strong className="font-display text-2xl">Explore the region</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">See what else belongs on the route.</span></Link>
+          <Link to="/events" className="border-b border-ink-foreground/20 py-6 sm:px-6 sm:border-r"><strong className="font-display text-2xl">Check the calendar</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">Add festivals, fairs and seasonal events.</span></Link>
           <Link to="/search" search={{ q: destination.nearestTown }} className="py-6 sm:px-6 sm:last:pr-0"><strong className="font-display text-2xl">Look nearby</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">Find stories and places tied to {destination.nearestTown}.</span></Link>
         </div>
       </Container>
