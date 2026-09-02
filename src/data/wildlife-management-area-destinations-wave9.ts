@@ -1,12 +1,16 @@
+import { wildlifeManagementAreaWave10Destinations } from "./wildlife-management-area-destinations-wave10";
 import type { Destination } from "./types";
 
 /**
- * Compatibility export retained for the preserved destination catalog.
+ * Compatibility bridge retained for the preserved destination catalog.
  *
- * The four records that originally lived in this wave — Caddo National
+ * The four records that originally lived in Wave 9 — Caddo National
  * Grasslands, Cooper, M.O. Neasloney and Pat Mayse — are already canonicalized
- * in Wave 2, which is imported earlier by the preserved catalog. Keeping a
- * second copy only adds dead payload because slug deduplication can never select
- * the Wave 9 versions.
+ * in Wave 2 and were removed as dead duplicates. The preserved catalog already
+ * imports this Wave 9 export, so it now forwards the verified final current-name
+ * gap set from Wave 10 without requiring another edit to the highly concurrent
+ * central destination catalog.
  */
-export const wildlifeManagementAreaWave9Destinations: Destination[] = [];
+export const wildlifeManagementAreaWave9Destinations: Destination[] = [
+  ...wildlifeManagementAreaWave10Destinations,
+];
