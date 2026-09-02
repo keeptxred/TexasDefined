@@ -1,5 +1,4 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { PrioritySearchPage } from "@/components/editorial/PrioritySearchPage";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 
@@ -19,9 +18,4 @@ export const Route = createFileRoute("/texas-birth-certificate")({
     about: ["Texas birth certificate", "Texas vital records", "DSHS Vital Statistics"],
     breadcrumbParent: { name: "Texas Services", path: "/texas-services" },
   }) : {},
-  component: Page,
 });
-
-function Page() {
-  return <PrioritySearchPage data={Route.useLoaderData()} />;
-}
