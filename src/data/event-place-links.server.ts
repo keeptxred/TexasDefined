@@ -1,9 +1,6 @@
 import type { TexasEntityKind } from "./knowledge-graph/types";
+import type { PlaceUpcomingEventLink } from "./event-place-links";
 import { loadMajorEventGuideDirectoryServer, type MajorEventGuideDirectoryItem } from "./major-event-directory.server";
-
-export interface PlaceUpcomingEventLink extends Pick<MajorEventGuideDirectoryItem,
-  "slug" | "href" | "name" | "city" | "countyName" | "region" | "category" | "detail" | "startDate" | "endDate" | "sourceCheckedAt"
-> {}
 
 interface PlaceEventLinkInput {
   kind: TexasEntityKind;
