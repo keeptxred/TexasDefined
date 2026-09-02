@@ -16,8 +16,92 @@ async function routeFiles(dir) {
   return files;
 }
 
+function findMatchingBrace(source, start) {
+  let depth = 0;
+  let quote = null;
+  let escaped = false;
+  for (let i = start; i < source.length; i += 1) {
+    const char = source[i];
+    if (quote) {
+      if (escaped) {
+        escaped = false;
+        continue;
+      }
+      if (char === '\\') {
+        escaped = true;
+        continue;
+      }
+      if (char === quote) quote = null;
+      continue;
+    }
+    if (char === '"' || char === "'" || char === '`') {
+      quote = char;
+      continue;
+    }
+    if (char === '{') depth += 1;
+    if (char === '}') {
+      depth -= 1;
+      if (depth === 0) return i;
+    }
+  }
+  return -1;
+}
+
+function staticConstants(source) {
+  const values = new Map();
+  const pattern = /const\s+([A-Za-z_$][\w$]*)\s*=\s*(["'`])((?:\\.|(?!\2)[\s\S])*?)\2\s*;/g;
+  for (const match of source.matchAll(pattern)) {
+    if (!match[3].includes('${')) values.set(match[1], match[3].replace(/\\(["'`\\])/g, '$1'));
+  }
+  return values;
+}
+
+function resolveStaticExpression(expression, constants) {
+  const value = expression.trim();
+  const quote = value[0];
+  if ((quote === '"' || quote === "'" || quote === '`') && value.endsWith(quote)) {
+    const literal = value.slice(1, -1);
+    return literal.includes('${') ? null : literal.replace(/\\(["'`\\])/g, '$1');
+  }
+  return /^[A-Za-z_$][\w$]*$/.test(value) ? (constants.get(value) ?? null) : null;
+}
+
+function buildMetaRecords(source) {
+  const constants = staticConstants(source);
+  const records = [];
+  let cursor = 0;
+  while ((cursor = source.indexOf('buildMeta(', cursor)) >= 0) {
+    const objectStart = source.indexOf('{', cursor);
+    if (objectStart < 0) break;
+    const objectEnd = findMatchingBrace(source, objectStart);
+    if (objectEnd < 0) break;
+    const block = source.slice(objectStart + 1, objectEnd);
+    const field = (name) => {
+      const match = block.match(new RegExp(`\\b${name}\\s*:\\s*([^,\\n}]+)`));
+      return match ? resolveStaticExpression(match[1], constants) : null;
+    };
+    records.push({ canonical: field('canonicalPath'), title: field('title'), description: field('description') });
+    cursor = objectEnd + 1;
+  }
+  return records;
+}
+
+function normalizeMetadata(value) {
+  return value.trim().replace(/\s+/g, ' ').toLocaleLowerCase('en-US');
+}
+
+function registerMetadata(ownerMap, value, canonical, file) {
+  if (!value || !canonical) return;
+  const key = normalizeMetadata(value);
+  const owners = ownerMap.get(key) ?? [];
+  owners.push({ value, canonical, file });
+  ownerMap.set(key, owners);
+}
+
 const files = await routeFiles(routesDir);
 const canonicalOwners = new Map();
+const titleOwners = new Map();
+const descriptionOwners = new Map();
 for (const file of files) {
   const source = await readFile(file, 'utf8');
   const name = relative(root, file).replace(/\\/g, '/');
@@ -27,11 +111,24 @@ for (const file of files) {
     owners.push(name);
     canonicalOwners.set(canonical, owners);
   }
+  for (const record of buildMetaRecords(source)) {
+    registerMetadata(titleOwners, record.title, record.canonical, name);
+    registerMetadata(descriptionOwners, record.description, record.canonical, name);
+  }
 }
 
 for (const [canonical, owners] of canonicalOwners) {
   const unique = [...new Set(owners)];
   if (unique.length > 1) errors.push(`Duplicate static canonical ${canonical}: ${unique.join(', ')}`);
+}
+
+for (const [kind, ownerMap] of [['title', titleOwners], ['description', descriptionOwners]]) {
+  for (const owners of ownerMap.values()) {
+    const canonicals = [...new Set(owners.map((owner) => owner.canonical))];
+    if (canonicals.length <= 1) continue;
+    const locations = [...new Set(owners.map((owner) => `${owner.canonical} (${owner.file})`))];
+    errors.push(`Duplicate static meta ${kind} "${owners[0].value}" across canonical pages: ${locations.join(', ')}`);
+  }
 }
 
 const publicRoutes = await readFile(join(root, 'src/lib/public-routes.ts'), 'utf8');
@@ -79,4 +176,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Broken-content and duplication validation passed across ${files.length} route files and ${canonicalOwners.size} static canonical declarations.`);
+console.log(`Broken-content and duplication validation passed across ${files.length} route files, ${canonicalOwners.size} static canonical declarations, ${titleOwners.size} resolved static meta titles, and ${descriptionOwners.size} resolved static meta descriptions.`);
