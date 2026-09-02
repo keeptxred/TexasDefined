@@ -1,0 +1,148 @@
+import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import type { Destination, ImageRef } from "./types";
+
+const SOURCE_CHECKED_AT = "2026-09-01";
+
+function wmaPlaceholder(name: string): ImageRef {
+  return {
+    src: DESTINATION_PHOTO_PLACEHOLDER,
+    alt: `${name} — destination-specific photograph not yet available`,
+    width: 1600,
+    height: 1067,
+  };
+}
+
+function wma(input: Omit<Destination, "id" | "brandId" | "category" | "hero" | "sourceCheckedAt" | "managingAuthority">): Destination {
+  return {
+    ...input,
+    id: `texas-wma-${input.slug}`,
+    brandId: "texasdefined",
+    category: "outdoors",
+    hero: wmaPlaceholder(input.name),
+    managingAuthority: "Texas Parks and Wildlife Department",
+    sourceCheckedAt: SOURCE_CHECKED_AT,
+  };
+}
+
+/**
+ * Third statewide Texas Wildlife Management Area authority wave.
+ *
+ * This wave adds current Gulf Coast WMAs whose TPWD pages clearly document
+ * public-use conditions. Records intentionally retain the shared destination
+ * photo placeholder so the existing destination-readiness audit keeps them
+ * staged until subject-specific licensed imagery is attached.
+ */
+export const wildlifeManagementAreaWave3Destinations: Destination[] = [
+  wma({
+    slug: "guadalupe-delta-wildlife-management-area",
+    name: "Guadalupe Delta Wildlife Management Area",
+    summary: "Guadalupe Delta WMA protects a four-unit coastal wetland complex near Port Lavaca where the Guadalupe and San Antonio river systems meet the bays, supporting waterfowl, shorebirds, wading birds and migrant songbirds.",
+    region: "gulf-coast",
+    nearestTown: "Port Lavaca",
+    county: "Calhoun County",
+    coordinates: { lat: 28.61, lng: -96.64 },
+    address: "13815 S Hwy 35, Port Lavaca, TX 77979",
+    bestSeason: "Fall through spring for waterfowl and cool-weather wildlife viewing; late summer and early fall can be excellent for wood storks and wading birds.",
+    entryNote: "Some portions are open daily for fishing, biking, hiking and wildlife viewing, but access varies by unit. Visitors age 17 and older generally need an Annual Public Hunting or Limited Public Use permit, and the San Antonio Unit is closed except with a WMA escort.",
+    highlights: ["Four-unit delta wetland complex", "Waterfowl and shorebird habitat", "Wildlife observation platform", "Guadalupe River and bay-system ecology"],
+    body: [
+      "Guadalupe Delta WMA was assembled to protect coastal wetlands where river, bayou and marsh habitats support one of the most productive wildlife corridors on the central Texas coast.",
+      "The Mission Lake, Hynes Bay, Guadalupe River and San Antonio units do not share identical access rules. River Road and the observation platform provide some of the most straightforward public wildlife-viewing opportunities, while other areas may be restricted or event-based.",
+      "Visitors should check the current TPWD unit rules before arrival, expect wet ground and tall grass, and treat the permit requirement as part of trip planning rather than assuming state-park-style open access.",
+    ],
+    officialUrl: "https://tpwd.texas.gov/huntwild/hunt/wma/find_a_wma/list/?id=37",
+  }),
+  wma({
+    slug: "jd-murphree-wildlife-management-area",
+    name: "J.D. Murphree Wildlife Management Area",
+    summary: "J.D. Murphree WMA protects roughly 25,852 acres of fresh, intermediate and brackish coastal marsh near Port Arthur, forming a major upper-coast wetland complex beside Sabine Lake.",
+    region: "gulf-coast",
+    nearestTown: "Port Arthur",
+    county: "Jefferson County",
+    coordinates: { lat: 29.86, lng: -94.07 },
+    address: "10 Parks & Wildlife Dr, Port Arthur, TX 77640",
+    bestSeason: "Late spring and summer for marsh birds and visible wetland wildlife; fall and winter access is more constrained by public waterfowl hunts.",
+    entryNote: "Fishing, wildlife viewing and other non-consumptive uses are seasonal and restricted during scheduled hunts. A Limited Public Use permit is available for activities such as birding and photography, while public hunting requires the appropriate hunting permit.",
+    highlights: ["25,000-plus acres of coastal marsh", "Sabine Lake and Chenier Plain wetlands", "Viewing platform and boat-access wildlife viewing", "Alligators, waterfowl and marsh birds"],
+    body: [
+      "J.D. Murphree WMA is one of the largest protected marsh systems on the upper Texas coast. Its Big Hill, Hillebrandt and Salt Bayou units span freshwater through brackish conditions and support both resident wildlife and major seasonal migrations.",
+      "Wildlife viewing can include alligators, river otters, bobcats, coyotes, marsh mammals, waterfowl and a wide variety of coastal birds. Some viewing opportunities are boat-based, and access to the observation platform may need to be arranged.",
+      "Because teal, waterfowl, hog and alligator hunts affect public-use dates, travelers should verify the current Public Hunting Lands calendar and WMA notices before making a dedicated trip.",
+    ],
+    officialUrl: "https://tpwd.texas.gov/huntwild/hunt/wma/find_a_wma/list/?id=40",
+  }),
+  wma({
+    slug: "mad-island-wildlife-management-area",
+    name: "Mad Island Wildlife Management Area",
+    summary: "Mad Island WMA protects 7,714 acres of coastal prairie and fresh-to-saline marsh east of Collegeport, managed primarily for wintering waterfowl and the broader bird community of the central Texas coast.",
+    region: "gulf-coast",
+    nearestTown: "Collegeport",
+    county: "Matagorda County",
+    coordinates: { lat: 28.68, lng: -96.15 },
+    address: "1102 CR 374, Collegeport, TX 77465",
+    bestSeason: "Fall through spring for waterfowl, cranes, shorebirds and cooler coastal conditions; scheduled conservation tours offer the most dependable non-hunting access.",
+    entryNote: "Mad Island is not open for ordinary daily walk-in access because the approach crosses private property. Public entry is tied to scheduled conservation tours and specific hunting dates, and adult visitors need the permit required for their activity.",
+    highlights: ["7,714 acres of coastal marsh and prairie", "Wintering waterfowl habitat", "Sandhill cranes and shorebirds", "Scheduled conservation tours"],
+    body: [
+      "Mad Island WMA was purchased with waterfowl-stamp funding to preserve a large coastal wetland complex of fresh, intermediate, brackish and saline marsh alongside flat prairie habitat.",
+      "The area supports ducks, geese, cranes, alligators, white-tailed deer, furbearers, wading birds, shorebirds and neotropical migrants across the year.",
+      "Its access constraint is essential trip-planning information: because the WMA is reached through private property, wildlife viewers should use scheduled TPWD conservation tours rather than assuming unrestricted daily entry.",
+    ],
+    officialUrl: "https://tpwd.texas.gov/huntwild/hunt/wma/find_a_wma/list/?id=39",
+  }),
+  wma({
+    slug: "powderhorn-wildlife-management-area",
+    name: "Powderhorn Wildlife Management Area",
+    summary: "Powderhorn WMA protects 15,093 acres near Port O'Connor, combining coastal tallgrass prairie, oak mottes, freshwater and brackish wetlands, and bayfront habitat along Powderhorn Lake and Matagorda Bay.",
+    region: "gulf-coast",
+    nearestTown: "Port O'Connor",
+    county: "Calhoun County",
+    coordinates: { lat: 28.46, lng: -96.61 },
+    address: "10769 FM 1289, Port O'Connor, TX 77982",
+    bestSeason: "Spring for scheduled birding access and migration; fall and winter public use is shaped by drawn hunts and scheduled events.",
+    entryNote: "Powderhorn is open through the year only for limited scheduled public use. Bird-watching open days and group tours do not require an entry permit, but general unscheduled walk-in access should not be assumed; hunting is by special drawn permit.",
+    highlights: ["15,093-acre conservation landscape", "Coastal tallgrass prairie", "Powderhorn Lake and Matagorda Bay shoreline", "Scheduled birding and drawn hunts"],
+    body: [
+      "Powderhorn protects one of the largest intact conservation landscapes on the central Texas coast, linking wetlands, prairie, live-oak mottes and several miles of bayfront habitat.",
+      "The property was assembled through a large multi-partner conservation effort connected to Deepwater Horizon mitigation funding, private philanthropy and state conservation organizations.",
+      "Public access remains intentionally limited. The best wildlife-viewing opportunities are scheduled birding days or arranged group tours, so visitors should confirm the current TPWD calendar before driving to the gate.",
+    ],
+    officialUrl: "https://tpwd.texas.gov/huntwild/hunt/wma/find_a_wma/list/?id=202",
+  }),
+  wma({
+    slug: "lower-neches-wildlife-management-area",
+    name: "Lower Neches Wildlife Management Area",
+    summary: "Lower Neches WMA protects marsh, bayou and Sabine Lake habitat around Bridge City on the upper Texas coast, with the Old River and Nelda Stark units supporting waterfowl, shorebirds, alligators and coastal fishing.",
+    region: "gulf-coast",
+    nearestTown: "Bridge City",
+    county: "Orange County",
+    coordinates: { lat: 30.0, lng: -93.78 },
+    bestSeason: "February through spring for broad recreational access and migration, or September and October before the winter waterfowl closure period.",
+    entryNote: "Fishing and other recreation are generally open September 1-October 31 and February 1-August 31. The WMA closes to ordinary recreation November 1-January 31 while waterfowl hunting takes priority, so verify current dates before visiting.",
+    highlights: ["Old River and Nelda Stark units", "Sabine Lake coastal habitat", "Observation platform and boardwalk", "Waterfowl, shorebirds and alligators"],
+    body: [
+      "Lower Neches WMA occupies a mix of marsh, canals, river-influenced wetlands and Sabine Lake shoreline near Bridge City. Its units provide both wildlife habitat and limited public recreation in a heavily industrialized part of the upper coast.",
+      "The Old River Unit includes a designated viewing area where migratory waterfowl, shorebirds, herons and other birds gather, while the Nelda Stark Unit includes islands and a boardwalk trail within a largely protected sanctuary setting.",
+      "The WMA follows a pronounced seasonal access calendar because winter waterfowl hunting closes ordinary recreation for several months. Check current TPWD rules before planning fishing, hiking or wildlife viewing.",
+    ],
+    officialUrl: "https://tpwd.texas.gov/huntwild/hunt/wma/find_a_wma/list/?id=58",
+  }),
+  wma({
+    slug: "matagorda-island-wildlife-management-area",
+    name: "Matagorda Island Wildlife Management Area",
+    summary: "Matagorda Island WMA is a boat-access barrier-island wildlife area off Port O'Connor with Gulf beach, bays, marshes and primitive recreation including hiking, wildlife viewing, fishing and camping.",
+    region: "gulf-coast",
+    nearestTown: "Port O'Connor",
+    county: "Calhoun County",
+    coordinates: { lat: 28.26, lng: -96.55 },
+    bestSeason: "Fall through spring for comfortable hiking, birding and fishing; summer requires heat, sun and storm preparation on an exposed barrier island.",
+    entryNote: "Access is by boat only. Day use does not require a WMA permit, while camping and duck hunting require an Annual Public Hunting or Limited Public Use permit. Visitors must be self-sufficient and plan around marine weather and transportation.",
+    highlights: ["Boat-access barrier island", "Gulf beach and bay-side marshes", "Primitive camping", "Fishing, hiking and wildlife viewing"],
+    body: [
+      "Matagorda Island WMA offers one of the most remote public-land experiences on the Texas coast because there is no road connection to the island. Bays, coves, marshes and Gulf shoreline create habitat for birds, fish, shellfish and coastal wildlife.",
+      "Day visitors can hike, bike, fish and watch wildlife without a WMA entry permit, while overnight camping is concentrated near the check-station area and requires the appropriate public-use permit.",
+      "Boat logistics are the controlling factor for every visit. Travelers should check marine weather, carry water and emergency supplies, and understand that Sunday Beach has separate public-use conditions from the managed WMA campground area.",
+    ],
+    officialUrl: "https://tpwd.texas.gov/huntwild/hunt/wma/find_a_wma/list/?id=48",
+  }),
+];
