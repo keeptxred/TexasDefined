@@ -15,6 +15,7 @@ import {
 
 const startingPoints = [
   { to: "/explore", label: "Explore Texas", copy: "Parks, water, road trips, small towns and places worth making the drive for." },
+  { to: "/hunting", label: "Texas Hunting", copy: "Public hunting, licenses, hunter education, seasons, species and current TPWD verification." },
   { to: "/explore/painted-churches", label: "Painted Churches", copy: "Historic sanctuaries, painted interiors, church-by-church guides and the Schulenburg heritage route." },
   SPORTS_SEARCH_STARTING_POINT,
   { to: "/events", label: "Texas Events", copy: "Rodeos, festivals, fairs, live music and things happening around the state." },
@@ -25,7 +26,7 @@ const startingPoints = [
 ] as const;
 
 const recoveryLinks = [
-  ["/explore", "Explore Texas"], ["/events", "Texas Events"], ["/browse/cities", "Cities"],
+  ["/explore", "Explore Texas"], ["/hunting", "Texas Hunting"], ["/events", "Texas Events"], ["/browse/cities", "Cities"],
   ["/browse/counties", "Counties"], ["/explore/trip-planner", "Trip Planner"], ["/texas-explained", "Texas Explained"],
 ] as const;
 

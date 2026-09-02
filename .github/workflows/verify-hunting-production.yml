@@ -1,0 +1,43 @@
+name: Verify hunting production
+
+on:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check hunting hub and representative guides
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://texasdefined.com'
+          hub="$(curl --fail --silent --show-error --location --retry 4 --retry-delay 5 --max-time 30 "$base/hunting")"
+          grep -Fq 'Hunting Texas: licenses, public land, species and season planning' <<<"$hub" || { echo 'Missing hunting hub H1' >&2; exit 1; }
+          grep -Fq 'Texas Parks and Wildlife' <<<"$hub" || { echo 'Missing TPWD authority signal on hunting hub' >&2; exit 1; }
+          for path in '/hunting/public-hunting' '/hunting/texas-hunting-license' '/hunting/texas-deer-hunting'; do
+            body="$(curl --fail --silent --show-error --location --retry 4 --retry-delay 5 --max-time 30 "$base$path")"
+            grep -Fq 'TPWD season source' <<<"$body" || { echo "Missing topic freshness marker on $path" >&2; exit 1; }
+            grep -Fq 'Texas Parks and Wildlife' <<<"$body" || { echo "Missing TPWD authority signal on $path" >&2; exit 1; }
+            grep -Fq 'Current official sources' <<<"$body" || { echo "Missing official-source section on $path" >&2; exit 1; }
+          done
+      - name: Check freshness, disclaimer and sitemap discovery
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://texasdefined.com'
+          hub="$(curl --fail --silent --show-error --location --retry 4 --retry-delay 5 --max-time 30 "$base/hunting")"
+          grep -Fq '2026–27' <<<"$hub" || { echo 'Missing current hunting season-year marker' >&2; exit 1; }
+          grep -Fq 'not the legal authority' <<<"$hub" || { echo 'Missing hunting independence disclaimer' >&2; exit 1; }
+          sitemap="$(curl --fail --silent --show-error --location --retry 4 --retry-delay 5 --max-time 30 "$base/sitemap.xml")"
+          for path in '/hunting' '/hunting/public-hunting' '/hunting/texas-hunting-license' '/hunting/texas-deer-hunting'; do
+            grep -Fq "$base$path" <<<"$sitemap" || { echo "Missing sitemap URL $path" >&2; exit 1; }
+          done
