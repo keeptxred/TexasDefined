@@ -1,7 +1,7 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
 import type { Destination, ImageRef } from "./types";
 
-const SOURCE_CHECKED_AT = "2026-09-01";
+const SOURCE_CHECKED_AT = "2026-09-02";
 
 function museumPlaceholder(name: string): ImageRef {
   return {
@@ -28,7 +28,7 @@ export const statewideMuseumExpansionWave52Destinations: Destination[] = [
     region: "piney-woods",
     nearestTown: "Nacogdoches",
     county: "Nacogdoches County",
-    coordinates: { lat: 31.6217, lng: -94.6491 },
+    coordinates: { lat: 31.61937, lng: -94.64879 },
     hero: museumPlaceholder("Stone Fort Museum"),
     bestSeason: "Year-round for the indoor museum; fall through spring is especially comfortable for pairing a visit with Nacogdoches historic sites and the SFA campus.",
     entryNote: "Admission is free. The museum publishes Tuesday-Saturday 9 a.m.-5 p.m. and Sunday 1-5 p.m. hours. University schedules and holidays can affect access, so confirm current visitor information before a dedicated trip.",
@@ -45,7 +45,7 @@ export const statewideMuseumExpansionWave52Destinations: Destination[] = [
     ],
     officialUrl: "https://www.sfasu.edu/stonefortmuseum",
     managingAuthority: "Stephen F. Austin State University",
-    address: "Stephen F. Austin State University, Nacogdoches, TX 75962",
+    address: "1808 Alumni Drive, Nacogdoches, TX 75962",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
 ];
