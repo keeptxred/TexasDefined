@@ -9,6 +9,8 @@ const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 const surfaces = [
   ['homepage', '/', 'Texas Defined'],
   ['sitemap', '/sitemap.xml', '<urlset'],
+  ['explore-search', '/explore/search', 'Near destination'],
+  ['trip-planner', '/explore/trip-planner', 'Travel month'],
   ['salary-calculator', '/texas-salary-calculator', 'Texas paycheck and salary calculator'],
   ['home-insurance-calculator', '/texas-home-insurance-calculator', 'Homeowners insurance calculator without personal information'],
   ['moving-pillar', '/article/moving-to-texas-what-nobody-tells-you', 'The quick answer: what should you know before moving to Texas?'],
