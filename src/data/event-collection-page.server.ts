@@ -88,13 +88,14 @@ export function loadEventCollectionPageServer(slug: string) {
 
   const collection: CollectionDefinition = temporal ?? evergreen!;
   const items: DirectoryItems = temporal
-    ? temporal.items as DirectoryItems
+    ? temporal.items
     : directory.filter((event) =>
         evergreen!.kind === "category"
           ? event.category === evergreen!.value
           : event.region === evergreen!.value,
       );
   const shouldIndex = temporal?.shouldIndex ?? true;
+  const indexabilityNote = temporal?.indexabilityNote ?? "This collection is a durable, crawlable event-discovery page backed by permanent verified event guides.";
 
   const latestSourceCheck = items
     .map((item) => item.sourceCheckedAt)
@@ -114,9 +115,7 @@ export function loadEventCollectionPageServer(slug: string) {
     latestSourceCheck,
     items,
     shouldIndex,
-    indexabilityNote: shouldIndex
-      ? "This collection currently meets the verified-guide threshold for indexing."
-      : "This collection remains available for readers but is temporarily noindex until enough verified guides qualify; Texas Defined does not pad thin date views with weak listings.",
+    indexabilityNote,
     head: buildCollectionHead(collection, items, shouldIndex),
     sourcePolicyTitle,
     sourcePolicyParagraphs,
