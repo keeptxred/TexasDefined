@@ -87,7 +87,7 @@ if (!relocationHub.includes('Compare Texas cities & suburbs →')) failures.push
 if (!relocationHub.includes('to="/browse/cities"')) failures.push('Moving hub city-comparison link must target /browse/cities.');
 if (!publicRoutes.includes('"/browse/cities"')) failures.push('/browse/cities must remain explicitly indexable and sitemap-governed.');
 
-if (!smoke.includes("['relocation-city-comparison', '/browse/cities', 'Compare places without a hidden “best city” score']")) {
+if (!smoke.includes("['relocation-city-comparison', '/browse/cities', 'The Texas city directory']")) {
   failures.push('Production smoke must permanently verify the Texas city/suburb comparison authority.');
 }
 
