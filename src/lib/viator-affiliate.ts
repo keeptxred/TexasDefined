@@ -30,9 +30,3 @@ export function buildViatorAffiliateUrl(target: string, campaign?: string) {
   if (campaign && !url.searchParams.has("campaign")) url.searchParams.set("campaign", campaign);
   return url.toString();
 }
-
-export function buildViatorSearchUrl(query: string, campaign?: string) {
-  const url = new URL("/searchResults/all", VIATOR_ORIGIN);
-  url.searchParams.set("text", query);
-  return buildViatorAffiliateUrl(url.toString(), campaign);
-}
