@@ -5,7 +5,6 @@ import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationRelationships } from "@/components/editorial/DestinationRelationships";
-import { DestinationViatorBooking } from "@/components/editorial/DestinationViatorBooking";
 import { DestinationVisitPlanner } from "@/components/editorial/DestinationVisitPlanner";
 import { MapPreview } from "@/components/editorial/MapPreview";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
@@ -155,7 +154,6 @@ function DestinationPage() {
           </dl>
           <div className="mt-7 flex flex-wrap gap-6">{validExternalUrl(destination.reservationUrl) && <a href={destination.reservationUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Reservations</a>}{validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official visitor information</a>}</div>
         </section>
-        <DestinationViatorBooking destination={destination} />
         <div className="mt-14"><DestinationVisitPlanner destination={destination} /></div>
       </div>
 
