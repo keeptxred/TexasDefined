@@ -23,10 +23,10 @@ import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { fetchExploreDestinations, hasExploreRemoteData } from "@/data/explore-remote";
 import { applyStateParkHeroAssets } from "@/data/state-park-heroes";
 import type { Destination } from "@/data/types";
-import { selectSwimmingHoleAndTubingDestinations, SWIMMING_HOLES_RIVER_TUBING_SLUG } from "@/data/water-recreation";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
 const BASE_URL = `https://${texasDefinedBrand.identity.domain}`;
+const SWIMMING_HOLES_RIVER_TUBING_SLUG = "swimming-holes-river-tubing";
 const EXPLORE_CATEGORY_SLUGS = new Set([
   "lakes-rivers", "major-springs", SWIMMING_HOLES_RIVER_TUBING_SLUG, "state-parks", "national-parks", "caverns",
   "beaches-coast", "historic-sites", "road-trips", "small-towns", "food-bbq", "outdoors",
@@ -144,6 +144,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
       GET: async () => {
         const { landscapeGuideSlugs, landscapeSlugs } = await import("@/data/texas-landscape-slugs");
         const { paintedChurchSearchGuides } = await import("@/data/painted-church-search-guides");
+        const { selectSwimmingHoleAndTubingDestinations } = await import("@/data/water-recreation");
         let enrichedDestinations: Awaited<ReturnType<typeof fetchExploreDestinations>> = [];
         let coreDestinations: Awaited<ReturnType<typeof fetchCoreExploreDestinations>> = [];
         const remoteConfigured = hasExploreRemoteData();
