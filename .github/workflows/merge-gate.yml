@@ -47,6 +47,11 @@ jobs:
       - name: Validate retired one-time certifications
         run: node scripts/ci/validate-retired-one-time-certifications.mjs
 
+      - name: Validate Event schema enrichment coverage
+        run: |
+          node scripts/data/validate-events-seo.mjs
+          node scripts/data/audit-event-schema-enrichment.mjs
+
       - name: Validate date formatting SSR regression
         run: node --experimental-strip-types --test src/domain/utils/format.test.ts
 
