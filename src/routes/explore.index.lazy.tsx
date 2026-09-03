@@ -30,14 +30,24 @@ function ExplorePage() {
         <Link to="/explore/attractions-comparison" className="group flex items-center justify-between gap-5 border-t border-border py-5 lg:border-r lg:border-t-0 lg:px-8"><div><p className="eyebrow text-primary">Structured comparison</p><h2 className="mt-1 font-display text-2xl group-hover:text-primary">Compare the Texas Defined attractions catalog</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">See destinations across categories by region, season guidance, highlights, planning notes and official source.</p></div><span className="shrink-0 font-semibold text-primary">Compare →</span></Link>
         <Link to="/explore/painted-churches" className="group flex items-center justify-between gap-5 border-t border-border py-5 lg:border-t-0 lg:pl-8"><div><p className="eyebrow text-primary">Texas heritage reference</p><h2 className="mt-1 font-display text-2xl group-hover:text-primary">Research and visit the Painted Churches of Texas</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">Use the statewide verified collection, interactive map, routes, artists, symbols, preservation records and then-and-now archive project.</p></div><span className="shrink-0 font-semibold text-primary">Churches →</span></Link>
       </div>
-      <Link to="/explore/aquariums" className="group mt-5 grid gap-5 border border-border bg-surface p-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-8">
-        <div>
-          <p className="eyebrow text-primary">Aquariums · conservation · coastal science</p>
-          <h2 className="mt-2 font-display text-3xl leading-tight group-hover:text-primary">Explore Texas aquariums & marine life</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Compare 17 aquarium, marine-center and aquatic zoo guides across Texas, with county context, current official visitor sources and practical trip-planning notes.</p>
-        </div>
-        <span className="font-semibold text-primary">Aquariums →</span>
-      </Link>
+      <div className="mt-5 grid gap-5 lg:grid-cols-2">
+        <Link to="/explore/aquariums" className="group grid gap-5 border border-border bg-surface p-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-8">
+          <div>
+            <p className="eyebrow text-primary">Aquariums · conservation · coastal science</p>
+            <h2 className="mt-2 font-display text-3xl leading-tight group-hover:text-primary">Explore Texas aquariums & marine life</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Compare 17 aquarium, marine-center and aquatic zoo guides across Texas, with county context, current official visitor sources and practical trip-planning notes.</p>
+          </div>
+          <span className="font-semibold text-primary">Aquariums →</span>
+        </Link>
+        <Link to="/explore/tours-experiences" className="group grid gap-5 border border-border bg-surface p-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-8">
+          <div>
+            <p className="eyebrow text-primary">Tours · tickets · bookable experiences</p>
+            <h2 className="mt-2 font-display text-3xl leading-tight group-hover:text-primary">Find Texas tours & experiences</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Browse statewide experience markets for sightseeing, history, barbecue, wine, water activities, Western culture, museums, family attractions and day trips.</p>
+          </div>
+          <span className="font-semibold text-primary">Experiences →</span>
+        </Link>
+      </div>
     </Container>
 
     <Section>
