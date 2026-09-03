@@ -6,6 +6,7 @@ import { getCountyPropertyRecordBySlug } from '../property/county-property-data'
 import { isCountyPropertyIndexReady } from '../property/county-property-schema';
 import { fetchExploreGraphEntities, hasRemoteExploreGraph } from './explore-adapter';
 import type { TexasEntityKind, TexasEntityRecord } from './types';
+import { enrichWildlifeRelationships } from './wildlife-species-destination-relations';
 
 export type { TexasEntityKind, TexasEntityRecord, EntityRelationship, GeoPoint, KnowledgeGraphValidation } from './types';
 export { TEXAS_ENTITY_REGISTRY, findTexasEntity, relationshipsFor, validateTexasEntityRegistry, fetchExploreGraphEntities, hasRemoteExploreGraph };
@@ -96,7 +97,7 @@ export async function loadTexasKnowledgeGraph(options: { query?: string; limit?:
     } : entity);
   }
 
-  const graph = [...merged.values()];
+  const graph = [...merged.values()].map(enrichWildlifeRelationships);
   const countyEntries = graph.filter((entity) => entity.kind === 'county');
   const enrichedCounties = await Promise.all(countyEntries.map(enrichCountyGeographyEntity));
   const enrichedById = new Map(enrichedCounties.map((entity) => [entity.id, entity]));
@@ -127,7 +128,7 @@ export async function findCompleteTexasEntity(value: string): Promise<TexasEntit
   const normalized = value.trim().toLowerCase();
   if (!normalized) return undefined;
   const staticMatch = findTexasEntity(value);
-  if (staticMatch) return enrichAuthoritativeEntity(staticMatch);
+  if (staticMatch) return enrichAuthoritativeEntity(enrichWildlifeRelationships(staticMatch));
 
   try {
     const wildlifeSpecies = await loadWildlifeSpeciesModule();
@@ -137,7 +138,7 @@ export async function findCompleteTexasEntity(value: string): Promise<TexasEntit
       || entity.name.toLowerCase() === normalized
       || entity.aliases.some((alias) => alias.toLowerCase() === normalized),
     );
-    if (wildlifeMatch) return wildlifeMatch;
+    if (wildlifeMatch) return enrichWildlifeRelationships(wildlifeMatch);
   } catch (error) {
     console.error('Wildlife species authority lookup unavailable', error);
   }
@@ -152,7 +153,7 @@ export async function findCompleteTexasEntity(value: string): Promise<TexasEntit
 
   const remote = await fetchExploreGraphEntities({ query: value, limit: 50 });
   const match = remote.find((entity) => entity.id.toLowerCase() === normalized || entity.slug.toLowerCase() === normalized || entity.name.toLowerCase() === normalized || entity.aliases.some((alias) => alias.toLowerCase() === normalized));
-  return match ? enrichAuthoritativeEntity(match) : undefined;
+  return match ? enrichAuthoritativeEntity(enrichWildlifeRelationships(match)) : undefined;
 }
 
 async function enrichAuthoritativeEntity(entity: TexasEntityRecord): Promise<TexasEntityRecord> {
