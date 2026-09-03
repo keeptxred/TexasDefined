@@ -104,6 +104,12 @@ if (coreEnrichedCount !== indexedSet.size) {
 }
 const supplementalUniqueSlugs = supplementalSlugs.filter((slug) => !indexedSet.has(slug));
 const supplementalReviewedCount = supplementalUniqueSlugs.filter((slug) => enrichedSet.has(slug)).length;
+for (const slug of supplementalUniqueSlugs) {
+  if (!enrichedSet.has(slug)) errors.push(`Supplemental Event leaf has not completed the official-source optional-schema research pass: ${slug}.`);
+}
+if (supplementalReviewedCount !== supplementalUniqueSlugs.length) {
+  errors.push(`Expected all ${supplementalUniqueSlugs.length} unique supplemental Event leaves to have reviewed enrichment records, found ${supplementalReviewedCount}.`);
+}
 
 const verifiedDateCount = (enrichment.match(/verifiedAt: "\d{4}-\d{2}-\d{2}"/g) ?? []).length;
 const sourceListCount = (enrichment.match(/\n\s+sources: \[/g) ?? []).length;
@@ -149,4 +155,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Events SEO validation passed: ${indexedSet.size} core leaves remain reviewed and ${supplementalReviewedCount}/${supplementalUniqueSlugs.length} unique supplemental Event leaves have completed the official-source optional-schema research pass; the hub remains collection-only markup.`);
+console.log(`Events SEO validation passed: all ${indexedSet.size} core leaves and all ${supplementalUniqueSlugs.length} unique supplemental Event leaves have completed the official-source optional-schema research pass; the hub remains collection-only markup.`);
