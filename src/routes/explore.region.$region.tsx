@@ -83,6 +83,16 @@ function RegionPage() {
       </Container>
     </section>
 
+    <Container className="pt-12 sm:pt-16">
+      <div className="border-y border-border py-7 sm:flex sm:items-center sm:justify-between sm:gap-10">
+        <div>
+          <p className="eyebrow text-primary">TexasDefined geography</p>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">{region.name} is one of the seven practical regions TexasDefined uses to organize statewide discovery. The boundaries are editorial and approximate, not administrative lines.</p>
+        </div>
+        <Link to="/article/$slug" params={{ slug: "texas-regions-explained" }} className="eyebrow mt-5 inline-block shrink-0 border-b border-primary pb-1 text-primary sm:mt-0">See all 7 regions defined →</Link>
+      </div>
+    </Container>
+
     <RegionalHubSections destinations={destinations} region={region} allRegions={regions} />
     <TopAttractionCollectionLinks destinations={destinations} contextLabel={region.name} />
 
