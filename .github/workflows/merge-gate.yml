@@ -51,6 +51,7 @@ jobs:
         run: |
           node scripts/data/validate-events-seo.mjs
           node scripts/data/audit-event-schema-enrichment.mjs
+          node --check scripts/ci/verify-event-structured-data-production.mjs
 
       - name: Validate date formatting SSR regression
         run: node --experimental-strip-types --test src/domain/utils/format.test.ts
