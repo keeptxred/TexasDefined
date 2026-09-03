@@ -5,10 +5,10 @@ import { Container } from "@/components/layout/Container";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
 import type { CategorySlug, Destination } from "@/data/types";
-import { selectSwimmingHoleAndTubingDestinations, SWIMMING_HOLES_RIVER_TUBING_SLUG } from "@/data/water-recreation";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const SWIMMING_HOLES_RIVER_TUBING_SLUG = "swimming-holes-river-tubing";
 const legacyExploreRedirects: Record<string, string> = {
   "scenic-rivers": "/article/texas-rivers-explained",
   "texas-dark-sky-stargazing": "/texas-stargazing-guide",
@@ -76,7 +76,10 @@ export const Route = createFileRoute("/explore/$category")({
     }
 
     if (params.category === SWIMMING_HOLES_RIVER_TUBING_SLUG) {
-      const destinationCatalog = await context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 }));
+      const [{ selectSwimmingHoleAndTubingDestinations }, destinationCatalog] = await Promise.all([
+        import("@/data/water-recreation"),
+        context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
+      ]);
       const destinations = selectSwimmingHoleAndTubingDestinations(destinationCatalog);
       context.queryClient.setQueryData(
         destinationsQuery({ category: category.slug as CategorySlug }).queryKey,
