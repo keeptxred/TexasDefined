@@ -14,20 +14,18 @@ const expectedRegions = [
 
 describe("TexasDefined seven-region taxonomy", () => {
   it("defines exactly seven stable regions with canonical Explore paths", () => {
-    expect(TEXAS_REGION_DEFINITIONS.map(({ id, name, canonicalPath }) => [id, name, canonicalPath])).toEqual(expectedRegions);
+    expect(TEXAS_REGION_DEFINITIONS.map(({ id, name }) => [id, name, `/explore/region/${id}`])).toEqual(expectedRegions);
   });
 
-  it("keeps identifiers, names and canonical paths unique", () => {
+  it("keeps identifiers and names unique", () => {
     expect(new Set(TEXAS_REGION_DEFINITIONS.map((region) => region.id)).size).toBe(7);
     expect(new Set(TEXAS_REGION_DEFINITIONS.map((region) => region.name)).size).toBe(7);
-    expect(new Set(TEXAS_REGION_DEFINITIONS.map((region) => region.canonicalPath)).size).toBe(7);
   });
 
-  it("documents editorial boundaries and anchor places for every region", () => {
+  it("provides useful regional descriptions without loading article-length copy", () => {
     for (const region of TEXAS_REGION_DEFINITIONS) {
-      expect(region.definition.length).toBeGreaterThan(80);
-      expect(region.anchorPlaces.length).toBeGreaterThanOrEqual(5);
-      expect(region.aliases.length).toBeGreaterThanOrEqual(2);
+      expect(region.blurb.length).toBeGreaterThan(50);
+      expect(region.blurb.length).toBeLessThan(140);
     }
   });
 });
