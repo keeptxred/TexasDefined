@@ -1,13 +1,18 @@
 import type { Region } from "./types";
 
 /**
- * TexasDefined's canonical editorial region taxonomy.
+ * TexasDefined's stable public travel-discovery region taxonomy.
  *
- * These are practical discovery regions, not administrative boundaries. Keep
- * the stable `id` values unchanged: destination, event and search records use
- * them as foreign-key-like identifiers. Longer boundary and travel definitions
- * live in the evergreen `texas-regions-explained` article so this core taxonomy
- * remains lightweight wherever it is loaded in the client.
+ * These are practical Explore/presentation regions, not administrative
+ * boundaries and not the canonical broad geographic backbone. Keep the stable
+ * `id` values unchanged: destination, event and search records use them as
+ * foreign-key-like identifiers and public routes use them as URL slugs. New
+ * canonical geography lives in `canonical-geography.ts`, which cross-walks
+ * these travel regions without changing existing URLs.
+ *
+ * Longer boundary and travel definitions live in the evergreen
+ * `texas-regions-explained` article so this lightweight presentation layer can
+ * remain safe to load throughout the client.
  */
 export const TEXAS_REGION_DEFINITIONS: readonly Region[] = [
   { id: "big-bend", name: "Big Bend Country", blurb: "Chihuahuan Desert, mountain ranges, dark skies and the Rio Grande across far West Texas." },
