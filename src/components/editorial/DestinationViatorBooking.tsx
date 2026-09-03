@@ -1,29 +1,29 @@
 import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl } from "@/data/viator-destination-links";
-import { marketsForPlace, type ViatorExperienceMarket } from "@/data/viator-experiences";
+import { runtimeMarketsForPlace, type ViatorExperienceRuntimeMarket } from "@/data/viator-experience-runtime";
 import type { Destination } from "@/data/types";
 import { buildViatorAffiliateUrl, isViatorAffiliateConfigured } from "@/lib/viator-affiliate";
 
-function uniqueMarkets(markets: ViatorExperienceMarket[]) {
+function uniqueMarkets(markets: ViatorExperienceRuntimeMarket[]) {
   return [...new Map(markets.map((market) => [market.slug, market])).values()];
 }
 
 function matchDestinationMarket(destination: Destination) {
   const matches = uniqueMarkets([
-    ...marketsForPlace(destination.name),
-    ...marketsForPlace(destination.nearestTown),
-    ...(destination.county ? marketsForPlace(destination.county) : []),
+    ...runtimeMarketsForPlace(destination.name),
+    ...runtimeMarketsForPlace(destination.nearestTown),
+    ...(destination.county ? runtimeMarketsForPlace(destination.county) : []),
   ]);
-  return matches.find((market) => hasVerifiedViatorMarketUrl(market.slug, market.viatorDestinationUrl)) ?? matches[0];
+  return matches.find((market) => hasVerifiedViatorMarketUrl(market.slug)) ?? matches[0];
 }
 
 export function DestinationViatorBooking({ destination }: { destination: Destination }) {
   const market = matchDestinationMarket(destination);
   if (!market) return null;
 
-  const hasDedicatedInventory = hasVerifiedViatorMarketUrl(market.slug, market.viatorDestinationUrl);
+  const hasDedicatedInventory = hasVerifiedViatorMarketUrl(market.slug);
   const affiliateConfigured = isViatorAffiliateConfigured();
   const href = buildViatorAffiliateUrl(
-    verifiedViatorMarketUrl(market.slug, market.viatorDestinationUrl),
+    verifiedViatorMarketUrl(market.slug),
     `texasdefined-destination-${destination.slug}`,
   );
 
