@@ -174,21 +174,18 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         }
         const destinations = resolveDestinationCatalog(rawDestinations);
         const swimmingHoleAndTubingCount = selectSwimmingHoleAndTubingDestinations(destinations).length;
+        const swimmingHoleAndTubingCategory = supplementalExploreCategories.find((category) => category.slug === SWIMMING_HOLES_RIVER_TUBING_SLUG);
+        const swimmingHoleAndTubingIndexReady = Boolean(swimmingHoleAndTubingCategory && isExploreCategoryIndexReady(swimmingHoleAndTubingCategory.slug, swimmingHoleAndTubingCount));
 
         const categoryCandidates = [...new Set([...categories, ...supplementalExploreCategories]
           .map((category) => category.slug)
           .filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug)))];
-        const categorySlugs = categoryCandidates.filter((slug) => {
-          const destinationCount = (slug as string) === SWIMMING_HOLES_RIVER_TUBING_SLUG
-            ? swimmingHoleAndTubingCount
-            : destinations.filter((destination) => destination.category === slug).length;
-          return isExploreCategoryIndexReady(
-            slug,
-            (EXPLORE_CATEGORY_ARTICLE_COUNTS[slug as keyof typeof EXPLORE_CATEGORY_ARTICLE_COUNTS] ?? 0)
-              + destinationCount
-              + (slug === "food-bbq" ? 1 : 0),
-          );
-        });
+        const categorySlugs = categoryCandidates.filter((slug) => isExploreCategoryIndexReady(
+          slug,
+          (EXPLORE_CATEGORY_ARTICLE_COUNTS[slug as keyof typeof EXPLORE_CATEGORY_ARTICLE_COUNTS] ?? 0)
+            + destinations.filter((destination) => destination.category === slug).length
+            + (slug === "food-bbq" ? 1 : 0),
+        ));
         const regionSlugs = [...new Set([
           ...regions.map((region) => region.id),
           ...EXPLORE_REGION_SLUGS,
@@ -208,6 +205,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/landscapes",
           ...landscapeSlugs.map((slug) => `/explore/landscapes/${slug}`),
           ...landscapeGuideSlugs.map((slug) => `/explore/landscapes/${slug}`),
+          ...(swimmingHoleAndTubingIndexReady ? [`/explore/${SWIMMING_HOLES_RIVER_TUBING_SLUG}`] : []),
           ...categorySlugs.map((slug) => `/explore/${slug}`),
           ...regionSlugs.map((regionSlug) => `/explore/region/${regionSlug}`),
         ];
@@ -241,7 +239,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           ...itineraryEntries,
           ...searchGuideEntries,
         ].join("\n");
-        const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
+        const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/sitemap/0.9">\n${entries}\n</urlset>`;
         return new Response(xml, {
           headers: {
             "Content-Type": "application/xml; charset=utf-8",
