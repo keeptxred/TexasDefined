@@ -12,15 +12,15 @@ export function TexasExperienceMarkets() {
     <Container>
       <p className="eyebrow text-primary">Tours · tickets · bookable experiences</p>
       <h2 id="texas-experiences-title" className="mt-3 max-w-5xl font-display text-4xl leading-tight sm:text-5xl">Book the Texas experience after you decide where to go</h2>
-      <p className="mt-5 max-w-3xl text-base leading-7 text-muted-foreground">TexasDefined keeps destination guidance editorial and source-driven, then adds a booking layer for tours and activities when a guide, ticket, cruise, tasting, ranch outing or other organized experience can improve the trip. The statewide directory currently maps {VIATOR_RUNTIME_MARKETS.length} Texas experience markets across {VIATOR_RUNTIME_CATEGORIES.length} booking lanes.</p>
+      <p className="mt-5 max-w-3xl text-base leading-7 text-muted-foreground">TexasDefined keeps destination guidance editorial and source-driven, then adds a booking layer for tours and activities when an organized experience can improve the trip. The statewide directory maps {VIATOR_RUNTIME_MARKETS.length} Texas experience markets across {VIATOR_RUNTIME_CATEGORIES.length} booking lanes.</p>
       <div className="mt-7 flex flex-wrap gap-3">
         <a href={buildViatorAffiliateUrl(viatorTexasUrl(), "texasdefined-statewide-explore")} target="_blank" rel="sponsored noopener noreferrer" className="inline-flex items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90">Browse current Texas experiences on Viator ↗</a>
         <a href="/explore/trip-planner" className="inline-flex items-center border border-border bg-background px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Build a Texas trip →</a>
       </div>
       <p className="mt-4 max-w-3xl text-xs leading-5 text-muted-foreground">{affiliateConfigured ? "Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings, at no additional cost to you. Availability, prices and product details are controlled by Viator and its suppliers." : "TexasDefined is completing Viator enrollment. Booking discovery is live now; affiliate attribution can be activated centrally once the approved Viator parameters are available."}</p>
 
-      <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-        {VIATOR_RUNTIME_CATEGORIES.map((category) => <article key={category.label} className="bg-background p-5"><h3 className="font-display text-2xl">{category.label}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{category.description}</p></article>)}
+      <div className="mt-10 flex flex-wrap gap-2" aria-label="Viator experience lanes">
+        {VIATOR_RUNTIME_CATEGORIES.map((category) => <span key={category} className="border border-border bg-background px-3 py-2 text-sm font-semibold">{category}</span>)}
       </div>
 
       <div className="mt-14">
@@ -34,9 +34,9 @@ export function TexasExperienceMarkets() {
       <div className="mt-14">
         <p className="eyebrow text-primary">Statewide coverage</p>
         <h3 className="mt-2 font-display text-3xl">Secondary and emerging Texas experience markets</h3>
-        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">These places matter even when supplier inventory is thinner. The market map gives TexasDefined a durable place to route booking intent as Viator adds or removes individual products.</p>
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">These places matter even when supplier inventory is thinner. The market map gives TexasDefined a durable place to route booking intent as inventory changes.</p>
         <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {additional.map((market) => <MarketCard key={market.slug} market={market} compact />)}
+          {additional.map((market) => <MarketCard key={market.slug} market={market} />)}
         </div>
       </div>
 
@@ -47,20 +47,15 @@ export function TexasExperienceMarkets() {
   </section>;
 }
 
-function MarketCard({ market, compact = false }: { market: (typeof VIATOR_RUNTIME_MARKETS)[number]; compact?: boolean }) {
+function MarketCard({ market }: { market: (typeof VIATOR_RUNTIME_MARKETS)[number] }) {
   const verifiedMarketInventory = hasVerifiedViatorMarketUrl(market.slug);
-  const viatorUrl = buildViatorAffiliateUrl(
-    verifiedViatorMarketUrl(market.slug),
-    `texasdefined-${market.slug}`,
-  );
+  const viatorUrl = buildViatorAffiliateUrl(verifiedViatorMarketUrl(market.slug), `texasdefined-${market.slug}`);
   const localSearch = `/explore/search?q=${encodeURIComponent(market.name.replace(/\s*&.*$/, ""))}`;
 
   return <article className="border border-border bg-background p-6">
     <p className="eyebrow text-primary">{market.regionLabel}</p>
     <h4 className="mt-2 font-display text-3xl leading-tight">{market.name}</h4>
-    {!compact && market.summary && <p className="mt-4 text-sm leading-6 text-muted-foreground">{market.summary}</p>}
     <p className="mt-4 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{market.experienceLaneCount} experience lanes · {market.anchorIdeaCount} anchor ideas</p>
-    {!compact && market.featuredAnchors && <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs text-muted-foreground">{market.featuredAnchors.map((anchor) => <li key={anchor}>{anchor}</li>)}</ul>}
     <div className="mt-5 flex flex-wrap gap-4 text-sm font-semibold">
       <a href={localSearch} className="border-b border-primary text-primary">TexasDefined places →</a>
       <a href={viatorUrl} target="_blank" rel="sponsored noopener noreferrer" className="border-b border-foreground/30 hover:border-primary hover:text-primary">{verifiedMarketInventory ? "Current Viator options ↗" : "Browse Viator Texas inventory ↗"}</a>
