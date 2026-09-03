@@ -4,7 +4,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
-import type { Destination } from "@/data/types";
+import type { CategorySlug, Destination } from "@/data/types";
 import { selectSwimmingHoleAndTubingDestinations, SWIMMING_HOLES_RIVER_TUBING_SLUG } from "@/data/water-recreation";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -59,10 +59,6 @@ function destinationSchema(destination: Destination) {
   };
 }
 
-function isWaterRecreationArticle(article: { title: string; dek: string; tags: string[] }) {
-  return /\b(swim|swimming|tubing|tube|float|river|spring|water)\b/i.test([article.title, article.dek, ...article.tags].join(" "));
-}
-
 export const Route = createFileRoute("/explore/$category")({
   beforeLoad: ({ params, location }) => {
     const target = legacyExploreRedirects[params.category];
@@ -80,16 +76,13 @@ export const Route = createFileRoute("/explore/$category")({
     }
 
     if (params.category === SWIMMING_HOLES_RIVER_TUBING_SLUG) {
-      const [waterArticles, destinationCatalog] = await Promise.all([
-        context.queryClient.ensureQueryData(articlesQuery({ category: "lakes-rivers" })),
-        context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
-      ]);
-      return {
-        category,
-        articles: waterArticles.filter(isWaterRecreationArticle).slice(0, 9),
-        destinations: selectSwimmingHoleAndTubingDestinations(destinationCatalog),
-        authorityHtml: null,
-      };
+      const destinationCatalog = await context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 }));
+      const destinations = selectSwimmingHoleAndTubingDestinations(destinationCatalog);
+      context.queryClient.setQueryData(
+        destinationsQuery({ category: category.slug as CategorySlug }).queryKey,
+        destinations,
+      );
+      return { category, articles: [], destinations, authorityHtml: null };
     }
 
     const authorityPath = authorityCategorySlugs.has(category.slug) ? `/content/explore-category-authority/${category.slug}.html` : null;
