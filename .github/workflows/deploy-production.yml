@@ -153,6 +153,12 @@ jobs:
         continue-on-error: true
         run: node scripts/ci/verify-production-surfaces.mjs
 
+      - name: Verify Event structured-data production
+        id: live_events
+        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        continue-on-error: true
+        run: node scripts/ci/verify-event-structured-data-production.mjs
+
       - name: Verify local financial production
         id: live_local_financial
         if: ${{ always() && steps.cloudflare.outcome == 'success' }}
@@ -181,6 +187,7 @@ jobs:
         env:
           DIRECT_WORKER_OUTCOME: ${{ steps.live_direct_worker.outcome }}
           BASE_OUTCOME: ${{ steps.live_base.outcome }}
+          EVENT_OUTCOME: ${{ steps.live_events.outcome }}
           LOCAL_FINANCIAL_OUTCOME: ${{ steps.live_local_financial.outcome }}
           STATEWIDE_FINANCIAL_OUTCOME: ${{ steps.live_statewide_financial.outcome }}
         run: |
@@ -191,12 +198,13 @@ jobs:
             echo '|---|---|'
             echo "| Direct Worker discovery | ${DIRECT_WORKER_OUTCOME:-not-run} |"
             echo "| Base production surfaces | ${BASE_OUTCOME:-not-run} |"
+            echo "| Event structured data | ${EVENT_OUTCOME:-not-run} |"
             echo "| Local financial production | ${LOCAL_FINANCIAL_OUTCOME:-not-run} |"
             echo "| Statewide financial discovery | ${STATEWIDE_FINANCIAL_OUTCOME:-not-run} |"
           } >> "$GITHUB_STEP_SUMMARY"
 
-          if [[ "$DIRECT_WORKER_OUTCOME" != 'success' || "$BASE_OUTCOME" != 'success' || "$LOCAL_FINANCIAL_OUTCOME" != 'success' || "$STATEWIDE_FINANCIAL_OUTCOME" != 'success' ]]; then
-            echo "::error title=Live production verification failed::direct-worker=${DIRECT_WORKER_OUTCOME:-not-run}, base=${BASE_OUTCOME:-not-run}, local-financial=${LOCAL_FINANCIAL_OUTCOME:-not-run}, statewide-financial=${STATEWIDE_FINANCIAL_OUTCOME:-not-run}"
+          if [[ "$DIRECT_WORKER_OUTCOME" != 'success' || "$BASE_OUTCOME" != 'success' || "$EVENT_OUTCOME" != 'success' || "$LOCAL_FINANCIAL_OUTCOME" != 'success' || "$STATEWIDE_FINANCIAL_OUTCOME" != 'success' ]]; then
+            echo "::error title=Live production verification failed::direct-worker=${DIRECT_WORKER_OUTCOME:-not-run}, base=${BASE_OUTCOME:-not-run}, events=${EVENT_OUTCOME:-not-run}, local-financial=${LOCAL_FINANCIAL_OUTCOME:-not-run}, statewide-financial=${STATEWIDE_FINANCIAL_OUTCOME:-not-run}"
             exit 1
           fi
 
