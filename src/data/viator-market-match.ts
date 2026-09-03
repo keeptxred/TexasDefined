@@ -1,36 +1,36 @@
 export interface ViatorMatchMarket {
   slug: string;
   name: string;
-  matchText: string;
+  aliases: string;
 }
 
-/** Compact destination matcher. Keep this small: it is imported by destination pages. */
+/** Compact destination matcher. Exact aliases prevent substring collisions such as Mission, Texas vs. San Antonio Missions. */
 export const VIATOR_MATCH_MARKETS: readonly ViatorMatchMarket[] = [
-  { slug: "austin", name: "Austin", matchText: "austin travis texas capitol lady bird lake barton springs congress avenue" },
-  { slug: "san-antonio", name: "San Antonio", matchText: "san antonio bexar alamo river walk missions mission san jose" },
-  { slug: "dallas", name: "Dallas", matchText: "dallas dealey plaza sixth floor reunion tower bishop arts" },
-  { slug: "fort-worth", name: "Fort Worth", matchText: "fort worth tarrant stockyards billy bobs sundance square" },
-  { slug: "arlington", name: "Arlington", matchText: "arlington at t stadium globe life six flags" },
-  { slug: "houston", name: "Houston", matchText: "houston harris space center johnson space center museum district buffalo bayou" },
-  { slug: "galveston", name: "Galveston", matchText: "galveston strand harbor bishops palace moody gardens seawall" },
-  { slug: "fredericksburg", name: "Fredericksburg & Texas Wine Country", matchText: "fredericksburg gillespie wine country enchanted rock luckenbach" },
-  { slug: "new-braunfels-gruene", name: "New Braunfels & Gruene", matchText: "new braunfels comal gruene guadalupe river natural bridge caverns" },
-  { slug: "san-marcos", name: "San Marcos", matchText: "san marcos hays spring lake meadows center" },
-  { slug: "bandera", name: "Bandera & Cowboy Country", matchText: "bandera cowboy country medina river" },
-  { slug: "marble-falls-lake-travis", name: "Marble Falls, Lake Travis & Highland Lakes", matchText: "marble falls burnet lake travis highland lakes" },
-  { slug: "waco", name: "Waco", matchText: "waco mclennan magnolia market waco mammoth dr pepper" },
-  { slug: "college-station-bryan", name: "Bryan–College Station", matchText: "bryan college station brazos texas a m kyle field" },
-  { slug: "corpus-christi", name: "Corpus Christi", matchText: "corpus christi nueces texas state aquarium uss lexington padre island" },
-  { slug: "port-aransas", name: "Port Aransas & Mustang Island", matchText: "port aransas mustang island" },
-  { slug: "south-padre-island", name: "South Padre Island", matchText: "south padre island cameron laguna madre port isabel" },
-  { slug: "rio-grande-valley", name: "Rio Grande Valley", matchText: "rio grande valley hidalgo mcallen brownsville edinburg mission" },
-  { slug: "el-paso", name: "El Paso", matchText: "el paso franklin mountains mission trail" },
-  { slug: "big-bend-terlingua", name: "Big Bend & Terlingua", matchText: "big bend brewster terlingua santa elena canyon" },
-  { slug: "marfa-alpine", name: "Marfa, Alpine & Davis Mountains", matchText: "marfa alpine presidio jeff davis davis mountains fort davis" },
-  { slug: "amarillo-palo-duro", name: "Amarillo & Palo Duro Canyon", matchText: "amarillo potter randall palo duro canyon cadillac ranch" },
-  { slug: "lubbock", name: "Lubbock", matchText: "lubbock buddy holly texas tech" },
-  { slug: "beaumont-golden-triangle", name: "Beaumont & the Golden Triangle", matchText: "beaumont jefferson orange golden triangle spindletop" },
-  { slug: "jefferson-east-texas", name: "Jefferson & East Texas", matchText: "jefferson marion east texas caddo lake" },
+  { slug: "austin", name: "Austin", aliases: "|austin|travis|texas capitol|lady bird lake|barton springs|congress avenue|" },
+  { slug: "san-antonio", name: "San Antonio", aliases: "|san antonio|bexar|the alamo|alamo|river walk|san antonio missions|mission san jose|" },
+  { slug: "dallas", name: "Dallas", aliases: "|dallas|dealey plaza|sixth floor museum|reunion tower|bishop arts|" },
+  { slug: "fort-worth", name: "Fort Worth", aliases: "|fort worth|tarrant|stockyards|fort worth stockyards|billy bobs texas|sundance square|" },
+  { slug: "arlington", name: "Arlington", aliases: "|arlington|at t stadium|globe life field|six flags over texas|" },
+  { slug: "houston", name: "Houston", aliases: "|houston|harris|space center houston|johnson space center|houston museum district|buffalo bayou|" },
+  { slug: "galveston", name: "Galveston", aliases: "|galveston|the strand historic district|galveston harbor|bishops palace|moody gardens|seawall|" },
+  { slug: "fredericksburg", name: "Fredericksburg & Texas Wine Country", aliases: "|fredericksburg|gillespie|texas wine country|enchanted rock|luckenbach|" },
+  { slug: "new-braunfels-gruene", name: "New Braunfels & Gruene", aliases: "|new braunfels|comal|gruene|guadalupe river|natural bridge caverns|" },
+  { slug: "san-marcos", name: "San Marcos", aliases: "|san marcos|hays|spring lake|the meadows center|" },
+  { slug: "bandera", name: "Bandera & Cowboy Country", aliases: "|bandera|cowboy country|medina river|" },
+  { slug: "marble-falls-lake-travis", name: "Marble Falls, Lake Travis & Highland Lakes", aliases: "|marble falls|burnet|lake travis|highland lakes|" },
+  { slug: "waco", name: "Waco", aliases: "|waco|mclennan|magnolia market|waco mammoth|dr pepper museum|" },
+  { slug: "college-station-bryan", name: "Bryan–College Station", aliases: "|bryan|college station|brazos|texas a m|kyle field|" },
+  { slug: "corpus-christi", name: "Corpus Christi", aliases: "|corpus christi|nueces|texas state aquarium|uss lexington|padre island national seashore|" },
+  { slug: "port-aransas", name: "Port Aransas & Mustang Island", aliases: "|port aransas|mustang island|" },
+  { slug: "south-padre-island", name: "South Padre Island", aliases: "|south padre island|cameron|laguna madre|port isabel|" },
+  { slug: "rio-grande-valley", name: "Rio Grande Valley", aliases: "|rio grande valley|hidalgo|mcallen|brownsville|edinburg|mission|" },
+  { slug: "el-paso", name: "El Paso", aliases: "|el paso|franklin mountains|el paso mission trail|" },
+  { slug: "big-bend-terlingua", name: "Big Bend & Terlingua", aliases: "|big bend|brewster|terlingua|big bend national park|santa elena canyon|" },
+  { slug: "marfa-alpine", name: "Marfa, Alpine & Davis Mountains", aliases: "|marfa|alpine|presidio|jeff davis|davis mountains|fort davis|" },
+  { slug: "amarillo-palo-duro", name: "Amarillo & Palo Duro Canyon", aliases: "|amarillo|potter|randall|palo duro canyon|cadillac ranch|" },
+  { slug: "lubbock", name: "Lubbock", aliases: "|lubbock|buddy holly center|texas tech|" },
+  { slug: "beaumont-golden-triangle", name: "Beaumont & the Golden Triangle", aliases: "|beaumont|jefferson|orange|golden triangle|spindletop|" },
+  { slug: "jefferson-east-texas", name: "Jefferson & East Texas", aliases: "|jefferson|marion|east texas|caddo lake|" },
 ] as const;
 
 function normalizePlace(value: string) {
@@ -46,5 +46,6 @@ function normalizePlace(value: string) {
 export function viatorMarketsForPlace(place: string) {
   const normalized = normalizePlace(place);
   if (!normalized) return [];
-  return VIATOR_MATCH_MARKETS.filter((market) => market.matchText.includes(normalized));
+  const needle = `|${normalized}|`;
+  return VIATOR_MATCH_MARKETS.filter((market) => market.aliases.includes(needle));
 }
