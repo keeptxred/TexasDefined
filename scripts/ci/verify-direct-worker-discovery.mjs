@@ -3,7 +3,7 @@ const sha = process.env.GITHUB_SHA ?? 'local';
 const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const surfaces = [
   ['explore-search', '/explore/search', 'Near destination'],
-  ['trip-planner', '/explore/trip-planner', 'Travel month'],
+  ['trip-planner', '/explore/trip-planner', 'Build your trip'],
 ];
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
