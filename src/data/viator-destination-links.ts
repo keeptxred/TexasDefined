@@ -19,6 +19,8 @@ export const VERIFIED_VIATOR_TEXAS_DESTINATION_URLS: Readonly<Record<string, str
   "port-aransas": "https://www.viator.com/Port-Aransas/d50797-ttd",
   "south-padre-island": "https://www.viator.com/South-Padre-Island/d22446-ttd",
   "el-paso": "https://www.viator.com/El-Paso/d50135",
+  "big-bend-terlingua": "https://www.viator.com/Big-Bend-National-Park/d50795",
+  "amarillo-palo-duro": "https://www.viator.com/Amarillo/d29045",
 };
 
 export function verifiedViatorMarketUrl(slug: string, declaredUrl?: string) {
