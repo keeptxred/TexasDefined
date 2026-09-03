@@ -31,11 +31,15 @@ export type CanonicalPrimaryRegionId =
 export type TexasSubregionId =
   | "dallas-fort-worth-metroplex"
   | "north-texas-prairies"
+  | "cross-timbers"
+  | "texoma"
   | "austin-area"
   | "texas-hill-country"
   | "central-texas-prairies"
+  | "brazos-valley"
   | "piney-woods"
   | "upper-east-texas"
+  | "deep-east-texas"
   | "san-antonio-area"
   | "rio-grande-valley"
   | "south-texas-brush-country"
@@ -44,6 +48,7 @@ export type TexasSubregionId =
   | "permian-basin"
   | "houston-area"
   | "upper-gulf-coast"
+  | "golden-triangle"
   | "coastal-bend"
   | "texas-panhandle"
   | "south-plains";
