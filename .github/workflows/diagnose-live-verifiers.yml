@@ -1,0 +1,57 @@
+name: Diagnose live verifier outcomes
+
+on:
+  push:
+    branches:
+      - diagnose/live-verifier-outcomes-20260902
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  direct-worker:
+    name: Diagnostic — Direct Worker discovery
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify direct Worker discovery
+        env:
+          DIRECT_WORKER_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
+        run: node scripts/ci/verify-direct-worker-discovery.mjs
+
+  base-production:
+    name: Diagnostic — Base production surfaces
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify base production surfaces
+        run: node scripts/ci/verify-production-surfaces.mjs
+
+  local-financial:
+    name: Diagnostic — Local financial production
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify local financial production
+        run: node scripts/ci/verify-local-financial-production.mjs
+
+  statewide-financial:
+    name: Diagnostic — Statewide financial discovery
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify statewide financial discovery
+        run: node scripts/ci/verify-statewide-financial-discovery.mjs
