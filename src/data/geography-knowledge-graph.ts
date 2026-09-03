@@ -1,4 +1,4 @@
-import { BOUNDARY_CITY_GEOGRAPHY, CANONICAL_PRIMARY_REGIONS, TEXAS_SUBREGIONS } from "./canonical-geography";
+import { BOUNDARY_CITY_GEOGRAPHY, CANONICAL_PRIMARY_REGIONS, TEXAS_SUBREGIONS } from "./canonical-geography.ts";
 import type {
   Article,
   CanonicalPrimaryRegionId,
@@ -57,9 +57,7 @@ const base = (
 });
 
 export const LEGACY_TRAVEL_REGION_GEOGRAPHY: Readonly<Record<TexasRegion, TexasGeographyAssignment>> = {
-  "hill-country": base("central-texas", ["texas-hill-country"], ["hill-country"], {
-    relocationPresentationLabels: ["Austin & Central Texas", "San Antonio & Hill Country"],
-  }),
+  "hill-country": base("central-texas", ["texas-hill-country"], ["hill-country"], { relocationPresentationLabels: ["Austin & Central Texas", "San Antonio & Hill Country"] }),
   "gulf-coast": base("gulf-coast", ["upper-gulf-coast"], ["gulf-coast"]),
   "big-bend": base("west-texas", ["big-bend", "trans-pecos"], ["big-bend"]),
   panhandle: base("panhandle", ["texas-panhandle"], ["panhandle"]),
@@ -94,8 +92,6 @@ const place = (
   travelRegionIds: options.travelRegionIds ?? CANONICAL_PRIMARY_REGIONS.find((region) => region.id === primaryRegionId)?.travelRegionIds ?? [],
   relocationPresentationLabels: options.relocationPresentationLabels ?? relocation[primaryRegionId],
 });
-
-const boundaryBySlug = new Map(BOUNDARY_CITY_GEOGRAPHY.map((item) => [item.citySlug, item]));
 
 export const TEXAS_PLACE_GEOGRAPHY: readonly TexasPlaceGeography[] = [
   ...BOUNDARY_CITY_GEOGRAPHY,
@@ -206,14 +202,12 @@ const countyOverrides: Record<string, TexasGeographyAssignment> = {
 for (const [countySlug, assignment] of Object.entries(countyOverrides)) TEXAS_COUNTY_GEOGRAPHY.set(countySlug, assignment);
 
 export function geographyForPlace(value: string | undefined | null): TexasPlaceGeography | undefined {
-  if (!value) return undefined;
-  return placeLookup.get(normalize(value));
+  return value ? placeLookup.get(normalize(value)) : undefined;
 }
 
 export function geographyForCounty(value: string | undefined | null): TexasGeographyAssignment | undefined {
   if (!value) return undefined;
-  const countySlug = normalize(value.replace(/\bcounty\b/gi, ""));
-  return TEXAS_COUNTY_GEOGRAPHY.get(countySlug);
+  return TEXAS_COUNTY_GEOGRAPHY.get(normalize(value.replace(/\bcounty\b/gi, "")));
 }
 
 function countySlugFromArticle(article: Pick<Article, "slug" | "title" | "tags">): string | undefined {
@@ -221,8 +215,7 @@ function countySlugFromArticle(article: Pick<Article, "slug" | "title" | "tags">
   if (tag) return normalize(tag.replace(/ county$/i, ""));
   const title = article.title.match(/^(.+?) County\b/i)?.[1];
   if (title) return normalize(title);
-  const slug = article.slug.match(/^(.+?)-county-/)?.[1];
-  return slug || undefined;
+  return article.slug.match(/^(.+?)-county-/)?.[1];
 }
 
 function placeFromArticle(article: Pick<Article, "title" | "dek" | "tags">): TexasPlaceGeography | undefined {
@@ -270,11 +263,7 @@ export function withCanonicalEventGeography<T extends TexasEvent>(event: T): T {
   return geography ? { ...event, geography } : event;
 }
 
-export function auditGeographyCoverage(input: {
-  articles?: readonly Article[];
-  destinations?: readonly Destination[];
-  events?: readonly TexasEvent[];
-}): GeographyCoverageReport {
+export function auditGeographyCoverage(input: { articles?: readonly Article[]; destinations?: readonly Destination[]; events?: readonly TexasEvent[] }): GeographyCoverageReport {
   const issues: GeographyCoverageIssue[] = [];
   let total = 0;
   let resolved = 0;
@@ -302,12 +291,12 @@ export function validateGeographyKnowledgeGraph(): readonly string[] {
   const regionIds = new Set(CANONICAL_PRIMARY_REGIONS.map((region) => region.id));
   const subregionIds = new Set(TEXAS_SUBREGIONS.map((region) => region.id));
   const citySlugs = new Set<string>();
-  for (const place of TEXAS_PLACE_GEOGRAPHY) {
-    if (citySlugs.has(place.citySlug)) errors.push(`Duplicate city geography: ${place.citySlug}`);
-    citySlugs.add(place.citySlug);
-    if (!regionIds.has(place.primaryRegionId)) errors.push(`${place.citySlug} uses unknown primary region ${place.primaryRegionId}`);
-    for (const subregionId of place.subregionIds) if (!subregionIds.has(subregionId)) errors.push(`${place.citySlug} uses unknown subregion ${subregionId}`);
-    for (const subregionId of place.gatewaySubregionIds ?? []) if (!subregionIds.has(subregionId)) errors.push(`${place.citySlug} uses unknown gateway subregion ${subregionId}`);
+  for (const item of TEXAS_PLACE_GEOGRAPHY) {
+    if (citySlugs.has(item.citySlug)) errors.push(`Duplicate city geography: ${item.citySlug}`);
+    citySlugs.add(item.citySlug);
+    if (!regionIds.has(item.primaryRegionId)) errors.push(`${item.citySlug} uses unknown primary region ${item.primaryRegionId}`);
+    for (const id of item.subregionIds) if (!subregionIds.has(id)) errors.push(`${item.citySlug} uses unknown subregion ${id}`);
+    for (const id of item.gatewaySubregionIds ?? []) if (!subregionIds.has(id)) errors.push(`${item.citySlug} uses unknown gateway subregion ${id}`);
   }
   for (const [legacyRegion, assignment] of Object.entries(LEGACY_TRAVEL_REGION_GEOGRAPHY)) {
     if (!regionIds.has(assignment.primaryRegionId)) errors.push(`${legacyRegion} fallback uses unknown primary region ${assignment.primaryRegionId}`);
