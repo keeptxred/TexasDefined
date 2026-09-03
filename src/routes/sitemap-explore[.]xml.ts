@@ -23,11 +23,12 @@ import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { fetchExploreDestinations, hasExploreRemoteData } from "@/data/explore-remote";
 import { applyStateParkHeroAssets } from "@/data/state-park-heroes";
 import type { Destination } from "@/data/types";
+import { selectSwimmingHoleAndTubingDestinations, SWIMMING_HOLES_RIVER_TUBING_SLUG } from "@/data/water-recreation";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
 const BASE_URL = `https://${texasDefinedBrand.identity.domain}`;
 const EXPLORE_CATEGORY_SLUGS = new Set([
-  "lakes-rivers", "major-springs", "state-parks", "national-parks", "caverns",
+  "lakes-rivers", "major-springs", SWIMMING_HOLES_RIVER_TUBING_SLUG, "state-parks", "national-parks", "caverns",
   "beaches-coast", "historic-sites", "road-trips", "small-towns", "food-bbq", "outdoors",
 ]);
 const EXPLORE_CATEGORY_ARTICLE_COUNTS = {
@@ -172,16 +173,22 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           rawDestinations.push(...preservedExploreDestinations.filter((destination) => destination.slug && !remoteSlugs.has(destination.slug)));
         }
         const destinations = resolveDestinationCatalog(rawDestinations);
+        const swimmingHoleAndTubingCount = selectSwimmingHoleAndTubingDestinations(destinations).length;
 
         const categoryCandidates = [...new Set([...categories, ...supplementalExploreCategories]
           .map((category) => category.slug)
           .filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug)))];
-        const categorySlugs = categoryCandidates.filter((slug) => isExploreCategoryIndexReady(
-          slug,
-          (EXPLORE_CATEGORY_ARTICLE_COUNTS[slug as keyof typeof EXPLORE_CATEGORY_ARTICLE_COUNTS] ?? 0)
-            + destinations.filter((destination) => destination.category === slug).length
-            + (slug === "food-bbq" ? 1 : 0),
-        ));
+        const categorySlugs = categoryCandidates.filter((slug) => {
+          const destinationCount = (slug as string) === SWIMMING_HOLES_RIVER_TUBING_SLUG
+            ? swimmingHoleAndTubingCount
+            : destinations.filter((destination) => destination.category === slug).length;
+          return isExploreCategoryIndexReady(
+            slug,
+            (EXPLORE_CATEGORY_ARTICLE_COUNTS[slug as keyof typeof EXPLORE_CATEGORY_ARTICLE_COUNTS] ?? 0)
+              + destinationCount
+              + (slug === "food-bbq" ? 1 : 0),
+          );
+        });
         const regionSlugs = [...new Set([
           ...regions.map((region) => region.id),
           ...EXPLORE_REGION_SLUGS,
