@@ -74,7 +74,8 @@ function SwimmingHolesRiverTubingPage({ category, destinations, articles, region
 
 function ExploreCategoryPage() {
   const { category } = Route.useParams();
-  const { destinations, articles, authorityHtml } = Route.useLoaderData();
+  const { destinations, authorityHtml } = Route.useLoaderData();
+  const { articles } = Route.useLoaderData();
   const { data: categories } = useSuspenseQuery(categoriesQuery());
   const { data: regions } = useSuspenseQuery(regionsQuery());
   const match = categories.find((item) => item.slug === category);
