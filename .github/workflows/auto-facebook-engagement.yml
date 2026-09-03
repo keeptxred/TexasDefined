@@ -51,6 +51,7 @@ jobs:
         env:
           MANUAL_SLOT: ${{ inputs.slot }}
           MANUAL_DRY_RUN: ${{ inputs.dry_run }}
+          SCHEDULE_EXPRESSION: ${{ github.event.schedule }}
         run: |
           set -euo pipefail
 
@@ -64,11 +65,31 @@ jobs:
             dry_run="$MANUAL_DRY_RUN"
             should_run=true
           else
-            central_hour=$(TZ=America/Chicago date +%H)
-            case "$central_hour" in
-              10) slot=morning; should_run=true ;;
-              18) slot=evening; should_run=true ;;
-              *) should_run=false ;;
+            # GitHub scheduled workflows can start hours after their nominal cron
+            # time. Resolve the intended slot from the cron expression plus the
+            # current Central DST offset instead of the delayed runner wall clock.
+            central_offset=$(TZ=America/Chicago date +%z)
+            case "$central_offset" in
+              -0500)
+                case "$SCHEDULE_EXPRESSION" in
+                  "30 15 * * *") slot=morning; should_run=true ;;
+                  "30 23 * * *") slot=evening; should_run=true ;;
+                  "30 16 * * *"|"30 0 * * *") should_run=false ;;
+                  *) echo "Unexpected TexasDefined Facebook schedule expression: ${SCHEDULE_EXPRESSION:-missing}" >&2; exit 1 ;;
+                esac
+                ;;
+              -0600)
+                case "$SCHEDULE_EXPRESSION" in
+                  "30 16 * * *") slot=morning; should_run=true ;;
+                  "30 0 * * *") slot=evening; should_run=true ;;
+                  "30 15 * * *"|"30 23 * * *") should_run=false ;;
+                  *) echo "Unexpected TexasDefined Facebook schedule expression: ${SCHEDULE_EXPRESSION:-missing}" >&2; exit 1 ;;
+                esac
+                ;;
+              *)
+                echo "Unexpected America/Chicago UTC offset: ${central_offset}" >&2
+                exit 1
+                ;;
             esac
           fi
 
@@ -76,7 +97,7 @@ jobs:
           echo "slot=$slot" >> "$GITHUB_OUTPUT"
           echo "dry_run=$dry_run" >> "$GITHUB_OUTPUT"
           echo "should_run=$should_run" >> "$GITHUB_OUTPUT"
-          echo "TexasDefined Facebook slot: date=$date_key slot=${slot:-none} should_run=$should_run dry_run=$dry_run"
+          echo "TexasDefined Facebook slot: date=$date_key schedule=${SCHEDULE_EXPRESSION:-manual} slot=${slot:-none} should_run=$should_run dry_run=$dry_run"
 
       - name: Select exact TexasDefined engagement post
         id: candidate
