@@ -140,6 +140,55 @@ function viatorApiKey(env: unknown): string | null {
   return typeof value === "string" && value.length > 0 ? value : null;
 }
 
+function viatorEnvironmentValue(env: unknown, name: string): string | null {
+  if (typeof env !== "object" || env === null) return null;
+  const value = Reflect.get(env, name);
+  return typeof value === "string" && value.length > 0 ? value : null;
+}
+
+function viatorAffiliateLinkResponse(request: Request, env: unknown): Response {
+  if (request.method !== "GET" && request.method !== "HEAD") {
+    return viatorError("Method not allowed", 405, "GET, HEAD");
+  }
+
+  const pid = viatorEnvironmentValue(env, "VIATOR_AFFILIATE_PID");
+  const mcid = viatorEnvironmentValue(env, "VIATOR_AFFILIATE_MCID");
+  if (!pid || !mcid) return viatorError("Viator affiliate tracking is unavailable", 503);
+
+  const requestUrl = new URL(request.url);
+  const rawTarget = requestUrl.searchParams.get("url");
+  if (!rawTarget) return viatorError("A Viator URL is required", 400);
+
+  let target: URL;
+  try {
+    target = new URL(rawTarget);
+  } catch {
+    return viatorError("Invalid Viator URL", 400);
+  }
+  const hostname = target.hostname.toLowerCase();
+  if (target.protocol !== "https:" || (hostname !== "viator.com" && !hostname.endsWith(".viator.com"))) {
+    return viatorError("Only HTTPS Viator URLs are allowed", 400);
+  }
+
+  const campaign = requestUrl.searchParams.get("campaign");
+  if (campaign && !/^[A-Za-z0-9-]{1,100}$/.test(campaign)) {
+    return viatorError("Invalid campaign code", 400);
+  }
+
+  target.searchParams.set("pid", pid);
+  target.searchParams.set("mcid", mcid);
+  target.searchParams.set("medium", "link");
+  if (campaign) target.searchParams.set("campaign", campaign);
+
+  const response = Response.json({ url: target.toString() }, {
+    headers: {
+      "Cache-Control": "public, max-age=300, s-maxage=3600",
+      "X-Content-Type-Options": "nosniff",
+    },
+  });
+  return request.method === "HEAD" ? cachedHeadResponse(response) : response;
+}
+
 function viatorError(message: string, status: number, allow?: string): Response {
   const headers = new Headers({
     "Cache-Control": "no-store",
@@ -184,6 +233,10 @@ async function viatorApiResponse(
 ): Promise<Response | null> {
   const url = new URL(request.url);
   if (!url.pathname.startsWith(VIATOR_API_PREFIX + "/")) return null;
+
+  if (url.pathname === VIATOR_API_PREFIX + "/affiliate-link") {
+    return viatorAffiliateLinkResponse(request, env);
+  }
 
   const apiKey = viatorApiKey(env);
   if (!apiKey) return viatorError("Viator integration is unavailable", 503);
