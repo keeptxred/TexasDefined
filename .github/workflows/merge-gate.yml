@@ -50,6 +50,9 @@ jobs:
       - name: Validate date formatting SSR regression
         run: node --experimental-strip-types --test src/domain/utils/format.test.ts
 
+      - name: Validate canonical Texas geography taxonomy
+        run: node --experimental-strip-types --test src/data/__tests__/canonical-geography.test.ts
+
       - name: Validate remote image upstream request policy
         run: node --experimental-strip-types --test src/lib/remote-image-fetch-policy.test.ts
 
