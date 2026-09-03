@@ -18,4 +18,10 @@ describe("Viator client runtime catalog", () => {
     expect(viatorMarketsForPlace("Space Center Houston").map((market) => market.slug)).toContain("houston");
     expect(viatorMarketsForPlace("Big Bend National Park").map((market) => market.slug)).toContain("big-bend-terlingua");
   });
+
+  it("does not confuse Mission, Texas with San Antonio Missions", () => {
+    const matches = viatorMarketsForPlace("Mission").map((market) => market.slug);
+    expect(matches).toContain("rio-grande-valley");
+    expect(matches).not.toContain("san-antonio");
+  });
 });
