@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { VIATOR_TEXAS_MARKETS } from "@/data/viator-experiences";
-import { VIATOR_RUNTIME_CATEGORIES, VIATOR_RUNTIME_MARKETS, runtimeMarketsForPlace } from "@/data/viator-experience-runtime";
+import { VIATOR_RUNTIME_CATEGORIES, VIATOR_RUNTIME_MARKETS } from "@/data/viator-experience-runtime";
+import { viatorMarketsForPlace } from "@/data/viator-market-match";
 
 describe("Viator client runtime catalog", () => {
   it("keeps the full statewide market and booking-lane coverage", () => {
@@ -12,9 +13,9 @@ describe("Viator client runtime catalog", () => {
   });
 
   it("matches destination landmarks, towns and county names without the rich research payload", () => {
-    expect(runtimeMarketsForPlace("The Alamo").map((market) => market.slug)).toContain("san-antonio");
-    expect(runtimeMarketsForPlace("Travis County").map((market) => market.slug)).toContain("austin");
-    expect(runtimeMarketsForPlace("Space Center Houston").map((market) => market.slug)).toContain("houston");
-    expect(runtimeMarketsForPlace("Big Bend National Park").map((market) => market.slug)).toContain("big-bend-terlingua");
+    expect(viatorMarketsForPlace("The Alamo").map((market) => market.slug)).toContain("san-antonio");
+    expect(viatorMarketsForPlace("Travis County").map((market) => market.slug)).toContain("austin");
+    expect(viatorMarketsForPlace("Space Center Houston").map((market) => market.slug)).toContain("houston");
+    expect(viatorMarketsForPlace("Big Bend National Park").map((market) => market.slug)).toContain("big-bend-terlingua");
   });
 });
