@@ -23,8 +23,8 @@ test("verified destination targets are secure Viator URLs", () => {
 });
 
 test("unverified market inventory safely falls back to statewide Texas instead of an invented search URL", () => {
-  assert.equal(hasVerifiedViatorMarketUrl("big-bend-terlingua"), false);
-  assert.equal(verifiedViatorMarketUrl("big-bend-terlingua"), viatorTexasUrl());
+  assert.equal(hasVerifiedViatorMarketUrl("lubbock"), false);
+  assert.equal(verifiedViatorMarketUrl("lubbock"), viatorTexasUrl());
 });
 
 test("declared verified destination URLs remain usable even before they move into the verified registry", () => {
