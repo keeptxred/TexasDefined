@@ -129,6 +129,166 @@ function cachedHeadResponse(response: Response) {
   });
 }
 
+const VIATOR_API_BASE = "https://api.viator.com/partner";
+const VIATOR_API_PREFIX = "/api/viator";
+const MAX_VIATOR_SEARCH_BODY_BYTES = 32_768;
+const VIATOR_PRODUCT_CODE_PATTERN = /^[A-Za-z0-9_-]{1,64}$/;
+
+function viatorApiKey(env: unknown): string | null {
+  if (typeof env !== "object" || env === null) return null;
+  const value = Reflect.get(env, "VIATOR_API_KEY");
+  return typeof value === "string" && value.length > 0 ? value : null;
+}
+
+function viatorEnvironmentValue(env: unknown, name: string): string | null {
+  if (typeof env !== "object" || env === null) return null;
+  const value = Reflect.get(env, name);
+  return typeof value === "string" && value.length > 0 ? value : null;
+}
+
+function viatorAffiliateLinkResponse(request: Request, env: unknown): Response {
+  if (request.method !== "GET" && request.method !== "HEAD") {
+    return viatorError("Method not allowed", 405, "GET, HEAD");
+  }
+
+  const pid = viatorEnvironmentValue(env, "VIATOR_AFFILIATE_PID");
+  const mcid = viatorEnvironmentValue(env, "VIATOR_AFFILIATE_MCID");
+  if (!pid || !mcid) return viatorError("Viator affiliate tracking is unavailable", 503);
+
+  const requestUrl = new URL(request.url);
+  const rawTarget = requestUrl.searchParams.get("url");
+  if (!rawTarget) return viatorError("A Viator URL is required", 400);
+
+  let target: URL;
+  try {
+    target = new URL(rawTarget);
+  } catch {
+    return viatorError("Invalid Viator URL", 400);
+  }
+  const hostname = target.hostname.toLowerCase();
+  if (target.protocol !== "https:" || (hostname !== "viator.com" && !hostname.endsWith(".viator.com"))) {
+    return viatorError("Only HTTPS Viator URLs are allowed", 400);
+  }
+
+  const campaign = requestUrl.searchParams.get("campaign");
+  if (campaign && !/^[A-Za-z0-9-]{1,100}$/.test(campaign)) {
+    return viatorError("Invalid campaign code", 400);
+  }
+
+  target.searchParams.set("pid", pid);
+  target.searchParams.set("mcid", mcid);
+  target.searchParams.set("medium", "link");
+  if (campaign) target.searchParams.set("campaign", campaign);
+
+  const response = Response.json({ url: target.toString() }, {
+    headers: {
+      "Cache-Control": "public, max-age=300, s-maxage=3600",
+      "X-Content-Type-Options": "nosniff",
+    },
+  });
+  return request.method === "HEAD" ? cachedHeadResponse(response) : response;
+}
+
+function viatorError(message: string, status: number, allow?: string): Response {
+  const headers = new Headers({
+    "Cache-Control": "no-store",
+    "Content-Type": "application/json; charset=utf-8",
+    "X-Content-Type-Options": "nosniff",
+  });
+  if (allow) headers.set("Allow", allow);
+  return Response.json({ error: message }, { status, headers });
+}
+
+function viatorHeaders(request: Request, apiKey: string): Headers {
+  const locale = request.headers.get("accept-language")?.split(",", 1)[0]?.trim() || "en-US";
+  const currency = request.headers.get("accept-currency")?.trim().toUpperCase() || "USD";
+  return new Headers({
+    Accept: "application/json",
+    "Accept-Currency": /^[A-Z]{3}$/.test(currency) ? currency : "USD",
+    "Accept-Language": /^[A-Za-z]{2,3}(?:-[A-Za-z]{2})?$/.test(locale) ? locale : "en-US",
+    "Content-Type": "application/json",
+    "exp-api-key": apiKey,
+  });
+}
+
+function viatorUpstreamResponse(upstream: Response, cacheControl: string): Response {
+  const headers = new Headers({
+    "Cache-Control": upstream.ok ? cacheControl : "no-store",
+    "Content-Type": upstream.headers.get("content-type") || "application/json; charset=utf-8",
+    "X-Content-Type-Options": "nosniff",
+  });
+  const retryAfter = upstream.headers.get("retry-after");
+  if (retryAfter) headers.set("Retry-After", retryAfter);
+  return new Response(upstream.body, {
+    status: upstream.status,
+    statusText: upstream.statusText,
+    headers,
+  });
+}
+
+async function viatorApiResponse(
+  request: Request,
+  env: unknown,
+  ctx: unknown,
+): Promise<Response | null> {
+  const url = new URL(request.url);
+  if (!url.pathname.startsWith(VIATOR_API_PREFIX + "/")) return null;
+
+  if (url.pathname === VIATOR_API_PREFIX + "/affiliate-link") {
+    return viatorAffiliateLinkResponse(request, env);
+  }
+
+  const apiKey = viatorApiKey(env);
+  if (!apiKey) return viatorError("Viator integration is unavailable", 503);
+
+  if (url.pathname === VIATOR_API_PREFIX + "/products/search") {
+    if (request.method !== "POST") return viatorError("Method not allowed", 405, "POST");
+    if (!request.headers.get("content-type")?.toLowerCase().startsWith("application/json")) {
+      return viatorError("Content-Type must be application/json", 415);
+    }
+    const contentLength = Number(request.headers.get("content-length") || "0");
+    if (Number.isFinite(contentLength) && contentLength > MAX_VIATOR_SEARCH_BODY_BYTES) {
+      return viatorError("Request body is too large", 413);
+    }
+
+    const upstream = await fetch(VIATOR_API_BASE + "/products/search", {
+      method: "POST",
+      headers: viatorHeaders(request, apiKey),
+      body: request.body,
+      redirect: "error",
+    });
+    return viatorUpstreamResponse(upstream, "private, max-age=60");
+  }
+
+  const match = url.pathname.match(/^\/api\/viator\/products\/([^/]+)\/?$/);
+  if (!match) return viatorError("Viator endpoint not found", 404);
+  if (request.method !== "GET" && request.method !== "HEAD") {
+    return viatorError("Method not allowed", 405, "GET, HEAD");
+  }
+
+  const productCode = decodeURIComponent(match[1]);
+  if (!VIATOR_PRODUCT_CODE_PATTERN.test(productCode)) {
+    return viatorError("Invalid Viator product code", 400);
+  }
+
+  const cache = (globalThis.caches as CloudflareCacheStorage | undefined)?.default;
+  const cacheKey = new Request(request.url, { method: "GET" });
+  const cached = cache ? await cache.match(cacheKey) : undefined;
+  if (cached) return request.method === "HEAD" ? cachedHeadResponse(cached) : cached;
+
+  const upstream = await fetch(VIATOR_API_BASE + "/products/" + encodeURIComponent(productCode), {
+    method: "GET",
+    headers: viatorHeaders(request, apiKey),
+    redirect: "error",
+  });
+  const response = viatorUpstreamResponse(upstream, "public, max-age=300, s-maxage=3600");
+  const waitUntil = (ctx as ExecutionContextLike | null | undefined)?.waitUntil;
+  if (upstream.ok && cache && typeof waitUntil === "function") {
+    waitUntil.call(ctx, cache.put(cacheKey, response.clone()));
+  }
+  return request.method === "HEAD" ? cachedHeadResponse(response) : response;
+}
+
 async function remoteImageResponse(request: Request, ctx: unknown): Promise<Response | null> {
   const requestUrl = new URL(request.url);
   if (requestUrl.pathname !== REMOTE_IMAGE_PATH) return null;
@@ -229,6 +389,8 @@ export default {
       if (adsTxt) return adsTxt;
       const image = await remoteImageResponse(request, ctx);
       if (image) return image;
+      const viator = await viatorApiResponse(request, env, ctx);
+      if (viator) return viator;
       const countyRedirect = legacyCountyRedirect(request);
       if (countyRedirect) return countyRedirect;
       const entityRedirect = canonicalEntityRedirect(request);
