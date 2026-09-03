@@ -6,6 +6,7 @@ import { DepartmentHero } from "@/components/editorial/DepartmentHero";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { ExploreIntentPaths } from "@/components/editorial/ExploreIntentPaths";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
+import { TexasExperienceMarkets } from "@/components/editorial/TexasExperienceMarkets";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 
@@ -39,14 +40,14 @@ function ExplorePage() {
           </div>
           <span className="font-semibold text-primary">Aquariums →</span>
         </Link>
-        <Link to="/explore/tours-experiences" className="group grid gap-5 border border-border bg-surface p-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-8">
+        <a href="#tours-experiences" className="group grid gap-5 border border-border bg-surface p-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-8">
           <div>
             <p className="eyebrow text-primary">Tours · tickets · bookable experiences</p>
             <h2 className="mt-2 font-display text-3xl leading-tight group-hover:text-primary">Find Texas tours & experiences</h2>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Browse statewide experience markets for sightseeing, history, barbecue, wine, water activities, Western culture, museums, family attractions and day trips.</p>
           </div>
-          <span className="font-semibold text-primary">Experiences →</span>
-        </Link>
+          <span className="font-semibold text-primary">Experiences ↓</span>
+        </a>
       </div>
     </Container>
 
@@ -56,6 +57,8 @@ function ExplorePage() {
         <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{exploreCategories.map((category) => <li key={category.slug}><Link to="/explore/$category" params={{ category: category.slug }} className="group relative block overflow-hidden bg-surface">{category.image ? <img src={category.image.src} alt={category.image.alt} width={category.image.width} height={category.image.height} loading="lazy" decoding="async" className="aspect-[5/4] w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]" /> : <div className="aspect-[5/4] w-full bg-gradient-to-br from-primary/25 via-surface to-accent/25" aria-hidden="true" />}<div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent" /><div className="absolute inset-x-0 bottom-0 p-6 text-ink-foreground"><p className="eyebrow opacity-75">{category.eyebrow}</p><h2 className="mt-2 font-display text-[2rem] leading-none">{category.name}</h2><p className="mt-3 text-sm leading-6 text-ink-foreground/82">{category.description}</p></div></Link></li>)}</ul>
       </Container>
     </Section>
+
+    <TexasExperienceMarkets />
 
     <Section tone="surface"><Container><SectionHeader eyebrow="Texas by region" title="Seven distinct sides of the state" description="From Gulf Coast marshes to High Plains horizons, each region has its own rhythm, landscape and reasons to linger." /><ul className="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">{regions.map((region) => <li key={region.id} className="border-t border-border pt-5"><Link to="/explore/region/$region" params={{ region: region.id }} className="group block"><h3 className="font-display text-[1.7rem] leading-tight transition-colors group-hover:text-primary">{region.name}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{region.blurb}</p><span className="eyebrow mt-4 inline-block text-primary">Explore the region →</span></Link></li>)}</ul></Container></Section>
 
