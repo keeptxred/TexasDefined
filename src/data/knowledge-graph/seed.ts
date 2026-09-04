@@ -1,4 +1,5 @@
 import type { TexasEntityRecord } from './types';
+import { TEXAS_GOLF_COURSE_STARTER_ENTITIES } from './golf-course-starter';
 import { MAJOR_TEXAS_SPORTS_VENUES } from './major-sports-venues';
 import { TEXAS_SPORTS_VENUE_TIER2_ENTITIES } from './sports-venues-tier2';
 
@@ -52,4 +53,5 @@ export const CURATED_KNOWLEDGE_GRAPH_SEED = [
   ...TEXAS_EVENT_ENTITIES,
   ...MAJOR_TEXAS_SPORTS_VENUES,
   ...TEXAS_SPORTS_VENUE_TIER2_ENTITIES,
+  ...TEXAS_GOLF_COURSE_STARTER_ENTITIES,
 ];
