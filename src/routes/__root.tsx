@@ -11,10 +11,10 @@ import appCss from "../styles.css?url";
 import heroHillCountry from "@/assets/hero-hill-country.jpg";
 import { BrandProvider } from "@/brand/context";
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { Header } from "@/components/layout/Header";
 import { absoluteUrl } from "@/lib/seo";
 import { ShopCartProvider } from "@/lib/shop-cart";
 
-const Header = lazy(() => import("@/components/layout/Header").then((module) => ({ default: module.Header })));
 const Footer = lazy(() => import("@/components/layout/Footer").then((module) => ({ default: module.Footer })));
 const NotFoundScreen = lazy(() => import("@/components/RouteStatusScreens").then((module) => ({ default: module.NotFoundScreen })));
 const ErrorScreen = lazy(() => import("@/components/RouteStatusScreens").then((module) => ({ default: module.ErrorScreen })));
@@ -57,9 +57,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" },
       { rel: "icon", href: `/favicon.ico?v=${iconVersion}`, sizes: "any" },
       { rel: "icon", href: `/favicon.svg?v=${iconVersion}`, type: "image/svg+xml" },
       { rel: "icon", href: `/favicon.png?v=${iconVersion}`, type: "image/png" },
@@ -132,13 +129,25 @@ function RootComponent() {
   useEffect(() => {
     let active = true;
     let cleanup: (() => void) | undefined;
+    let idleId: number | undefined;
+    let timeoutId: number | undefined;
 
-    void import("@/platform/analytics").then(({ installTexasDefinedAnalytics }) => {
-      if (active) cleanup = installTexasDefinedAnalytics();
-    });
+    const install = () => {
+      void import("@/platform/analytics").then(({ installTexasDefinedAnalytics }) => {
+        if (active) cleanup = installTexasDefinedAnalytics();
+      });
+    };
+
+    if ("requestIdleCallback" in window) {
+      idleId = window.requestIdleCallback(install, { timeout: 2500 });
+    } else {
+      timeoutId = window.setTimeout(install, 1500);
+    }
 
     return () => {
       active = false;
+      if (idleId !== undefined && "cancelIdleCallback" in window) window.cancelIdleCallback(idleId);
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
       cleanup?.();
     };
   }, []);
@@ -148,7 +157,7 @@ function RootComponent() {
       <BrandProvider brand={texasDefinedBrand}>
         <ShopCartProvider>
           <div className="flex min-h-screen flex-col bg-background">
-            <Suspense fallback={<div className="h-[4.5rem] border-b border-border bg-background lg:h-[7rem]" aria-hidden="true" />}><Header /></Suspense>
+            <Header />
             <main id="main" className="flex-1"><Outlet /></main>
             <Suspense fallback={<div className="h-40 border-t border-border bg-surface" aria-hidden="true" />}><Footer /></Suspense>
           </div>
