@@ -5,14 +5,17 @@ import { getCountyMajorEvents } from '@/data/county-major-events';
 import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { sportsVenueLandingLinksForVenue, type SportsVenueLanding } from '@/data/sports-venue-landings';
+import { tournamentCategoryLabel, tournamentsForCounty } from '@/data/texas-tournaments';
 
 const siteUrl = 'https://texasdefined.com';
 
 export function CountySportsDestinations({ county, venues }: { county: TexasEntityRecord; venues: TexasEntityRecord[] }) {
   const majorEvents = use(getCountyMajorEvents(county.slug));
   const aquariumDestinations = aquariumMarineLinksForCounty(county.slug);
-  if (!venues.length && !majorEvents.length && !aquariumDestinations.length) return null;
+  const tournaments = tournamentsForCounty(county.slug);
+  if (!venues.length && !majorEvents.length && !aquariumDestinations.length && !tournaments.length) return null;
 
+  const displayedTournaments = tournaments.slice(0, 12);
   const displayedVenues = venues.slice(0, 12);
   const collectionLinks = uniqueCollectionLinks(venues).slice(0, 6);
   const examples = displayedVenues.slice(0, 5).map((venue) => venue.name);
@@ -86,6 +89,30 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
             <span className="mt-3 block text-sm leading-6 text-muted-foreground">{event.detail}</span>
             <span className="mt-3 block text-sm font-semibold text-primary">Plan the event →</span>
           </a>)}
+        </div>
+      </div>
+    </section> : null}
+
+    {tournaments.length ? <section className="border-b border-border py-12" aria-labelledby="county-tournaments-heading">
+      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Texas tournaments</p>
+          <h2 id="county-tournaments-heading" className="mt-2 font-display text-4xl">Tournaments & competitions in {county.name}</h2>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">Tournament seeds are mapped to a county only when the supplied location is specific enough to do so confidently. Current dates, venues and entry details still require organizer verification.</p>
+        </div>
+        <div>
+          <div className="grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
+            {displayedTournaments.map((tournament) => <a key={tournament.slug} href={`/tournament/${tournament.slug}`} className="group border-t border-border py-5">
+              <span className="eyebrow text-primary">{tournamentCategoryLabel(tournament.category)} · {tournament.locationLabel}</span>
+              <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{tournament.name}</strong>
+              <span className="mt-3 block text-sm leading-6 text-muted-foreground">{tournament.summary}</span>
+              <span className="mt-3 block text-sm font-semibold text-primary">Open tournament guide →</span>
+            </a>)}
+          </div>
+          {tournaments.length > displayedTournaments.length ? <p className="mt-5 text-sm leading-6 text-muted-foreground">This county has additional tournament seeds in the statewide directory.</p> : null}
+          <div className="mt-8 border-t border-border pt-6">
+            <a href="/events/tournaments" className="text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">Browse all Texas tournaments & competitions →</a>
+          </div>
         </div>
       </div>
     </section> : null}
