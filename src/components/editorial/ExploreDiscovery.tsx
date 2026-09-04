@@ -4,7 +4,7 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import type { Category, CategorySlug, Region } from "@/data/types";
 
-const EXPLORE_DEPARTMENTS = new Set<CategorySlug>(["lakes-rivers","major-springs","state-parks","national-parks","caverns","beaches-coast","historic-sites","road-trips","small-towns","food-bbq","outdoors","swimming-holes-river-tubing" as CategorySlug]);
+const EXPLORE_DEPARTMENTS = new Set<CategorySlug>(["lakes-rivers","major-springs","state-parks","national-parks","caverns","beaches-coast","historic-sites","road-trips","small-towns","food-bbq","outdoors"]);
 
 export function ExploreDiscovery({ currentCategory, categories, regions }: { currentCategory: CategorySlug; categories: Category[]; regions: Region[] }) {
   const relatedCategories = categories.filter((item) => item.slug !== currentCategory && EXPLORE_DEPARTMENTS.has(item.slug));
