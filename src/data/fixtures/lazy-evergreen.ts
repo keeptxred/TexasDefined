@@ -45,8 +45,8 @@ const texasFarmToMarketRoadsExplainedStub: Article = {
 };
 
 const texasRiversExplainedStub: Article = {
-  id: "evergreen-texas-rivers-explained", brandId: "texasdefined", slug: "texas-rivers-explained", title: "The Rivers That Built Texas",
-  dek: "From the Rio Grande and Brazos to the spring-fed Guadalupe and the slow, forested rivers of East Texas, the state's waterways explain where Texans settled, how cities grew and why one part of Texas can feel so different from another.",
+  id: "evergreen-texas-rivers-explained", brandId: "texasdefined", slug: "texas-rivers-explained", title: "Major Rivers of Texas: Basins, Regions & Waterways Explained",
+  dek: "Major Texas rivers and 15 river basins explained, including the Rio Grande, Brazos, Colorado, Guadalupe, Trinity and Sabine.",
   category: "lakes-rivers",
   hero: { src: "/images/explore/lakes-rivers/guadalupe-river-state-park.jpg", alt: "The Guadalupe River flowing beneath bald cypress trees in the Texas Hill Country", width: 1600, height: 1115, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" },
   authorId: "a-marisol", publishedAt: "2026-08-13", readingMinutes: 12,
