@@ -22,7 +22,7 @@ export const Route = createFileRoute("/explore/")({
     const items = [
       ...categories.map((category) => ({ "@type": "WebPage" as const, name: category.name, description: category.description, url: `${siteUrl}/explore/${category.slug}`, image: category.image?.src ? absoluteUrl(texasDefinedBrand, category.image.src) : undefined })),
       { "@type": "CollectionPage" as const, name: "Texas Aquariums & Marine Life", description: "Texas aquarium, marine-life, coastal-science and aquatic zoo-exhibit guides with county context and current official visitor sources.", url: `${siteUrl}/explore/aquariums` },
-      { "@type": "CollectionPage" as const, name: "Texas Tours & Bookable Experiences", description: "Statewide Texas tour, ticket and activity discovery across 25 travel markets and 12 durable experience lanes, with editorial planning kept separate from affiliate booking inventory.", url: `${siteUrl}/explore#tours-experiences` },
+      { "@type": "CollectionPage" as const, name: "Texas Tours & Bookable Experiences", description: "Texas tours, tickets and activities across 25 travel markets and 12 experience lanes.", url: `${siteUrl}/explore#tours-experiences` },
       { "@type": "CollectionPage" as const, name: "Painted Churches of Texas", description: "Source-checked statewide reference collection with church guides, map, routes, history, artists, techniques and archival comparisons.", url: `${siteUrl}/explore/painted-churches` },
       ...regions.map((region) => ({ "@type": "WebPage" as const, name: `${region.name} Guide`, description: region.blurb, url: `${siteUrl}/explore/region/${region.id}` })),
       ...destinations.map(destinationSchema),
