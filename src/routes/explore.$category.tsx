@@ -8,9 +8,12 @@ import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const SWIMMING_HOLES_RIVER_TUBING_SLUG = "swimming-holes-river-tubing";
 const legacyExploreRedirects: Record<string, string> = {
   "scenic-rivers": "/article/texas-rivers-explained",
   "texas-dark-sky-stargazing": "/texas-stargazing-guide",
+  "river-tubing": `/explore/${SWIMMING_HOLES_RIVER_TUBING_SLUG}`,
+  "swimming-holes": `/explore/${SWIMMING_HOLES_RIVER_TUBING_SLUG}`,
 };
 const authorityCategorySlugs = new Set(["outdoors", "caverns", "lakes-rivers", "beaches-coast", "small-towns"]);
 const categorySeoOverrides: Partial<Record<string, { title: string; description: string }>> = {

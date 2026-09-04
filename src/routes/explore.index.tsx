@@ -5,7 +5,7 @@ import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from 
 import type { Article, Category, Destination, Region } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
-export const EXPLORE_CATEGORIES = ["lakes-rivers", "major-springs", "state-parks", "national-parks", "caverns", "beaches-coast", "historic-sites", "road-trips", "small-towns", "food-bbq", "outdoors"] as const;
+export const EXPLORE_CATEGORIES = ["lakes-rivers", "major-springs", "swimming-holes-river-tubing", "state-parks", "national-parks", "caverns", "beaches-coast", "historic-sites", "road-trips", "small-towns", "food-bbq", "outdoors"] as const;
 export const description = "Cold rivers, canyon trails, two-lane roads, small-town main streets and barbecue worth waiting for — a curated guide to exploring Texas well.";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}/explore`;
@@ -21,9 +21,9 @@ export const Route = createFileRoute("/explore/")({
     const articles = loaderData?.articles ?? [];
     const items = [
       ...categories.map((category) => ({ "@type": "WebPage" as const, name: category.name, description: category.description, url: `${siteUrl}/explore/${category.slug}`, image: category.image?.src ? absoluteUrl(texasDefinedBrand, category.image.src) : undefined })),
-      { "@type": "CollectionPage" as const, name: "Texas Aquariums & Marine Life", description: "Texas aquarium, marine-life, coastal-science and aquatic zoo-exhibit guides with county context and current official visitor sources.", url: `${siteUrl}/explore/aquariums` },
-      { "@type": "CollectionPage" as const, name: "Texas Tours & Bookable Experiences", description: "Statewide Texas tour, ticket and activity discovery across 25 travel markets and 12 durable experience lanes, with editorial planning kept separate from affiliate booking inventory.", url: `${siteUrl}/explore#tours-experiences` },
-      { "@type": "CollectionPage" as const, name: "Painted Churches of Texas", description: "Source-checked statewide reference collection with church guides, map, routes, history, artists, techniques and archival comparisons.", url: `${siteUrl}/explore/painted-churches` },
+      { "@type": "CollectionPage" as const, name: "Texas Aquariums & Marine Life", description: "Texas aquariums and marine-life guides.", url: `${siteUrl}/explore/aquariums` },
+      { "@type": "CollectionPage" as const, name: "Texas Tours & Bookable Experiences", description: "Texas tours, tickets and activities.", url: `${siteUrl}/explore#tours-experiences` },
+      { "@type": "CollectionPage" as const, name: "Painted Churches of Texas", description: "Texas Painted Churches guides and routes.", url: `${siteUrl}/explore/painted-churches` },
       ...regions.map((region) => ({ "@type": "WebPage" as const, name: `${region.name} Guide`, description: region.blurb, url: `${siteUrl}/explore/region/${region.id}` })),
       ...destinations.map(destinationSchema),
       ...articles.map((article) => ({ "@type": "Article" as const, name: article.title, description: article.dek, url: `${siteUrl}/article/${article.slug}`, image: absoluteUrl(texasDefinedBrand, article.hero.src) })),
