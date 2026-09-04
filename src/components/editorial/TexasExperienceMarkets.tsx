@@ -54,12 +54,6 @@ function MarketCard({ market }: { market: (typeof VIATOR_RUNTIME_MARKETS)[number
   return <article className="border border-border bg-background p-6">
     <p className="eyebrow text-primary">{market.regionLabel}</p>
     <h4 className="mt-2 font-display text-3xl leading-tight">{market.name}</h4>
-    {market.bookingHighlights?.length ? <div className="mt-5">
-      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Popular booking ideas</p>
-      <ul className="mt-3 flex flex-wrap gap-2" aria-label={`Popular ${market.name} booking ideas`}>
-        {market.bookingHighlights.map((highlight) => <li key={highlight} className="border border-border bg-surface px-3 py-1.5 text-xs font-medium text-foreground">{highlight}</li>)}
-      </ul>
-    </div> : null}
     <div className="mt-5 flex flex-wrap gap-4 text-sm font-semibold">
       <a href={localSearch} className="border-b border-primary text-primary">TexasDefined places →</a>
       <a href={viatorUrl} target="_blank" rel="sponsored noopener noreferrer" className="border-b border-foreground/30 hover:border-primary hover:text-primary">{verifiedMarketInventory ? "Current Viator options ↗" : "Browse Viator Texas inventory ↗"}</a>
