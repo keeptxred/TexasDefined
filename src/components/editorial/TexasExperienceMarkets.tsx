@@ -56,7 +56,7 @@ function MarketCard({ market }: { market: (typeof VIATOR_RUNTIME_MARKETS)[number
     <h4 className="mt-2 font-display text-3xl leading-tight">{market.name}</h4>
     <div className="mt-5 flex flex-wrap gap-4 text-sm font-semibold">
       <a href={localSearch} className="border-b border-primary text-primary">TexasDefined places →</a>
-      <a href={viatorUrl} target="_blank" rel="sponsored noopener noreferrer" className="border-b border-foreground/30 hover:border-primary hover:text-primary">{verifiedMarketInventory ? "Current Viator options ↗" : "Browse Viator Texas inventory ↗"}</a>
+      <a href={viatorUrl} target="_blank" rel="sponsored noopener noreferrer" className="border-b border-border hover:border-primary hover:text-primary">{verifiedMarketInventory ? "Current Viator options ↗" : "Browse Viator Texas inventory ↗"}</a>
     </div>
   </article>;
 }
