@@ -6,10 +6,10 @@ import { Container } from "@/components/layout/Container";
 const INTENT_GROUPS = [
   {
     title: "Water weekends",
-    body: "Build a trip around swimming holes, springs, lakes, rivers and the coast.",
+    body: "Build a trip around rivers, swimming holes and the coast.",
     links: [
       { to: "/explore/lakes-rivers", label: "Lakes & rivers" },
-      { to: "/explore/major-springs", label: "Springs & swimming" },
+      { to: "/explore/swimming-holes-river-tubing", label: "Swimming & tubing" },
       { to: "/explore/beaches-coast", label: "Beaches & coast" },
       { to: "/fishing", label: "Texas fishing" },
     ],
