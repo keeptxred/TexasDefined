@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
+import { loadDogHubData } from '@/data/texas-dogs';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const DogsHubPage = lazy(() => import('@/components/dogs/DogsHubPage'));
@@ -10,12 +11,9 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}/dogs`;
 
 export const Route = createFileRoute('/dogs')({
-  loader: async () => {
-    const { dogBreeds } = await import('@/data/texas-dogs');
-    return { dogBreeds };
-  },
+  loader: () => loadDogHubData(),
   head: ({ loaderData }) => {
-    const dogBreeds = loaderData?.dogBreeds ?? [];
+    const breeds = loaderData?.breeds ?? [];
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath: '/dogs',
@@ -42,8 +40,8 @@ export const Route = createFileRoute('/dogs')({
               '@type': 'ItemList',
               '@id': `${pageUrl}#breeds`,
               name: 'Dog breeds covered by Texas Dogs Defined',
-              numberOfItems: dogBreeds.length,
-              itemListElement: dogBreeds.map((breed, index) => ({
+              numberOfItems: breeds.length,
+              itemListElement: breeds.map((breed, index) => ({
                 '@type': 'ListItem',
                 position: index + 1,
                 item: {
