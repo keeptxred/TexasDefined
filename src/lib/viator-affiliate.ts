@@ -1,9 +1,10 @@
 const VIATOR_ORIGIN = "https://www.viator.com";
+const APPROVED_AFFILIATE_PARAMS = "pid=P00318227&mcid=42383";
 
 function affiliateParams() {
   const raw = (import.meta.env.VITE_VIATOR_AFFILIATE_PARAMS as string | undefined)?.trim();
-  if (!raw) return new URLSearchParams();
-  return new URLSearchParams(raw.replace(/^\?/, ""));
+  const params = new URLSearchParams((raw || APPROVED_AFFILIATE_PARAMS).replace(/^\?/, ""));
+  return params.get("pid") && params.get("mcid") ? params : new URLSearchParams(APPROVED_AFFILIATE_PARAMS);
 }
 
 function safeViatorUrl(value: string) {
@@ -14,11 +15,6 @@ function safeViatorUrl(value: string) {
   } catch {
     return null;
   }
-}
-
-export function isViatorAffiliateConfigured() {
-  const params = affiliateParams();
-  return params.has("pid") && params.has("mcid");
 }
 
 export function buildViatorAffiliateUrl(target: string, campaign?: string) {
