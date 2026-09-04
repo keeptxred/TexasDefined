@@ -406,15 +406,40 @@ jobs:
             +repage \
             /tmp/tdfb-stored/rendered-footer-proof.png
 
-          pixel_diff=$("${image_compare[@]}" -metric AE \
+          # ImageMagick can quantize grayscale/sRGB values slightly when the footer
+          # is composited into the generated RGB image. Normalize both sides and
+          # allow only a 2% per-channel render tolerance; missing text still differs
+          # by thousands of pixels and therefore fails closed.
+          "${image_convert[@]}" \
             /tmp/tdfb-stored/attribution-footer.png \
+            -colorspace sRGB \
+            -alpha off \
+            -depth 8 \
+            /tmp/tdfb-stored/expected-footer-normalized.png
+          "${image_convert[@]}" \
             /tmp/tdfb-stored/rendered-footer-proof.png \
+            -colorspace sRGB \
+            -alpha off \
+            -depth 8 \
+            /tmp/tdfb-stored/rendered-footer-normalized.png
+
+          pixel_diff_raw=$("${image_compare[@]}" -fuzz 2% -metric AE \
+            /tmp/tdfb-stored/expected-footer-normalized.png \
+            /tmp/tdfb-stored/rendered-footer-normalized.png \
             null: 2>&1 || true)
-          if [[ "$pixel_diff" != "0" ]]; then
-            echo "Stored Facebook image does not contain the exact rendered TexasDefined.com footer; pixel difference=${pixel_diff}; publishing is blocked." >&2
+          pixel_diff=${pixel_diff_raw%% *}
+          if [[ ! "$pixel_diff" =~ ^[0-9]+$ ]]; then
+            echo "TexasDefined footer verification returned an invalid pixel metric: ${pixel_diff_raw}; publishing is blocked." >&2
             exit 1
           fi
-          rm -f /tmp/tdfb-stored/rendered-footer-proof.png
+          if [[ "$pixel_diff" != "0" ]]; then
+            echo "Stored Facebook image does not contain the rendered TexasDefined.com footer within the allowed render tolerance; pixel difference=${pixel_diff_raw}; publishing is blocked." >&2
+            exit 1
+          fi
+          rm -f \
+            /tmp/tdfb-stored/rendered-footer-proof.png \
+            /tmp/tdfb-stored/expected-footer-normalized.png \
+            /tmp/tdfb-stored/rendered-footer-normalized.png
 
           echo "mime_type=$stored_mime_type" >> "$GITHUB_OUTPUT"
           echo "image_sha256=$stored_sha" >> "$GITHUB_OUTPUT"
@@ -503,4 +528,4 @@ jobs:
             echo 'Dry-run storage round-trip verification failed.' >&2
             exit 1
           fi
-          echo "Dry run complete: generated image was attributed, stored, reloaded, pixel-verified, and SHA-verified at ${ARTIFACT_URL}; sha256=${IMAGE_SHA256}; Facebook was not called."
+          echo "Dry run complete: generated image was attributed, stored, reloaded, tolerance-verified, and SHA-verified at ${ARTIFACT_URL}; sha256=${IMAGE_SHA256}; Facebook was not called."
