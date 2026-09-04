@@ -1,13 +1,11 @@
 import { getRouteApi, Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
-import { dogDesignCollections } from '@/data/texas-dogs';
 
 const routeApi = getRouteApi('/dogs/$breed');
 
 export default function DogBreedPage() {
-  const { breed, related } = routeApi.useLoaderData();
-  const primaryCollections = dogDesignCollections.slice(0, 6);
+  const { breed, related, collections } = routeApi.useLoaderData();
   return <>
     <article>
       <header className="border-b border-border bg-surface/40">
@@ -60,7 +58,7 @@ export default function DogBreedPage() {
               <p className="eyebrow text-primary">Collection families</p>
               <h2 className="mt-3 font-display text-4xl leading-tight">One {breed.shortName}, several completely different looks</h2>
               <div className="mt-7 grid gap-5 md:grid-cols-2">
-                {primaryCollections.map((collection) => <div key={collection.slug} className="border border-border p-5">
+                {collections.map((collection) => <div key={collection.slug} className="border border-border p-5">
                   <p className="eyebrow text-muted-foreground">{collection.tagline}</p>
                   <h3 className="mt-2 font-display text-2xl">{collection.name}</h3>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">{collection.description}</p>
