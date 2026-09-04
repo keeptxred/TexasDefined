@@ -1,11 +1,12 @@
-import { Link } from '@tanstack/react-router';
+import { getRouteApi, Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
-import { dogBreeds, dogDesignCollections } from '@/data/texas-dogs';
 
+const routeApi = getRouteApi('/dogs');
 const description = 'Texas Dogs Defined is the playful dog-life department of Texas Defined: breed personalities, Texas dog culture and breed-specific shirt ideas built for dog people.';
 
 export default function DogsHubPage() {
+  const { breeds, collections } = routeApi.useLoaderData();
   return <>
     <section className="border-b border-border bg-surface/40">
       <Container className="py-14 sm:py-20">
@@ -31,7 +32,7 @@ export default function DogsHubPage() {
           <p className="mt-4 text-base leading-7 text-muted-foreground">Each breed page is designed to become a permanent home for stories, breed humor and future Texas Dogs Defined merchandise. That keeps a funny shirt connected to something more useful than a stand-alone product listing.</p>
         </div>
         <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {dogBreeds.map((breed) => <Link key={breed.slug} to="/dogs/$breed" params={{ breed: breed.slug }} className="group bg-background p-6 sm:p-7">
+          {breeds.map((breed) => <Link key={breed.slug} to="/dogs/$breed" params={{ breed: breed.slug }} className="group bg-background p-6 sm:p-7">
             <p className="eyebrow text-muted-foreground">{breed.shortName} Defined</p>
             <h2 className="mt-3 font-display text-3xl leading-tight transition-colors group-hover:text-primary">{breed.name}</h2>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">{breed.deck}</p>
@@ -49,12 +50,12 @@ export default function DogsHubPage() {
           <p className="mt-4 text-base leading-7 text-muted-foreground">The collection structure is intentionally repeatable. A Labrador can have a retro design, a lake design, an office-title design and a Texas design without any of them feeling like copies of each other.</p>
         </div>
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {dogDesignCollections.map((collection) => <article key={collection.slug} id={collection.slug} className="border border-border bg-background p-6">
+          {collections.map((collection) => <article key={collection.slug} id={collection.slug} className="border border-border bg-background p-6">
             <p className="eyebrow text-primary">{collection.tagline}</p>
             <h2 className="mt-3 font-display text-3xl leading-tight">{collection.name}</h2>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">{collection.description}</p>
             <ul className="mt-5 space-y-2 border-t border-border pt-4 text-sm">
-              {collection.examples.slice(0, 4).map((example) => <li key={example}>— {example}</li>)}
+              {collection.examples.map((example) => <li key={example}>— {example}</li>)}
             </ul>
           </article>)}
         </div>
