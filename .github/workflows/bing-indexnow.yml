@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: texasdefined-publication
     timeout-minutes: 10
+    env:
+      PUBLIC_INDEXING_ENABLED: ${{ vars.PUBLIC_INDEXING_ENABLED }}
 
     steps:
       - name: Check out TexasDefined

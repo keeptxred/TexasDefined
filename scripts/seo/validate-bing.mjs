@@ -36,6 +36,7 @@ const robots = read('public/robots.txt');
 const server = read('src/server.ts');
 const indexNowScript = read('scripts/seo/submit-indexnow.mjs');
 const indexNowWorkflow = read('.github/workflows/bing-indexnow.yml');
+const productionWorkflow = read('.github/workflows/deploy-production.yml');
 const keyFile = read(`public/${indexNowKey}.txt`);
 
 requirePattern(
@@ -105,6 +106,18 @@ for (const expected of [
   requireText(indexNowWorkflow, expected, `Bing IndexNow workflow is missing required contract: ${expected}`);
 }
 
+const approvalVariableContract = 'PUBLIC_INDEXING_ENABLED: ${{ vars.PUBLIC_INDEXING_ENABLED }}';
+requireText(
+  indexNowWorkflow,
+  approvalVariableContract,
+  'Bing IndexNow workflow must expose vars.PUBLIC_INDEXING_ENABLED to the guarded submitter.',
+);
+requireText(
+  productionWorkflow,
+  approvalVariableContract,
+  'Production deployment workflow must expose vars.PUBLIC_INDEXING_ENABLED to the guarded IndexNow step.',
+);
+
 if (/^\s*push:\s*$/m.test(indexNowWorkflow)) {
   errors.push('Bing IndexNow workflow must remain manual-only and must not have a push trigger.');
 }
@@ -121,4 +134,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Bing Webmaster verification, Bingbot access, canonical sitemaps, IndexNow keying, manual-only execution, explicit public-indexing approval, and URL submission contracts are protected without duplicating the production deployment.');
+console.log('Bing Webmaster verification, Bingbot access, canonical sitemaps, IndexNow keying, manual-only execution, explicit public-indexing approval wiring, and URL submission contracts are protected without duplicating the production deployment.');

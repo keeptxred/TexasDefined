@@ -2,8 +2,8 @@ const origin = process.env.DIRECT_WORKER_ORIGIN ?? 'https://texasdefined-site.fr
 const sha = process.env.GITHUB_SHA ?? 'local';
 const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const surfaces = [
-  ['explore-search', '/explore/search', 'Near destination'],
-  ['trip-planner', '/explore/trip-planner', 'Build your trip'],
+  ['explore-search', '/explore/search', 'Search the Texas Travel Guide'],
+  ['trip-planner', '/explore/trip-planner', 'Texas Trip Planner'],
 ];
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
