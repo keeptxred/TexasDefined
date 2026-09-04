@@ -116,13 +116,29 @@ jobs:
       - name: Verify sitemap discovery for article and regional hubs
         shell: python
         run: |
-          import re
           import urllib.request
           import xml.etree.ElementTree as ET
 
           origin = 'https://texasdefined.com'
-          required = {
-              origin + '/article/texas-regions-explained',
+          headers = {
+              'User-Agent': 'TexasDefined-Seven-Regions-Smoke/1.0',
+              'Cache-Control': 'no-cache',
+          }
+
+          def locations(path):
+              request = urllib.request.Request(origin + path, headers=headers)
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  body = response.read()
+              root = ET.fromstring(body)
+              return {node.text.strip() for node in root.findall('.//{*}loc') if node.text}
+
+          primary_urls = locations('/sitemap.xml')
+          article_url = origin + '/article/texas-regions-explained'
+          if article_url not in primary_urls:
+              raise SystemExit('Missing from /sitemap.xml: ' + article_url)
+
+          explore_urls = locations('/sitemap-explore.xml')
+          required_regions = {
               origin + '/explore/region/big-bend',
               origin + '/explore/region/gulf-coast',
               origin + '/explore/region/hill-country',
@@ -131,31 +147,11 @@ jobs:
               origin + '/explore/region/prairies-lakes',
               origin + '/explore/region/south-texas',
           }
+          missing_regions = sorted(required_regions - explore_urls)
+          if missing_regions:
+              raise SystemExit('Missing from /sitemap-explore.xml: ' + ', '.join(missing_regions))
 
-          seen_urls = set()
-          queue = [origin + '/sitemap.xml']
-          visited = set()
-          headers = {'User-Agent': 'TexasDefined-Seven-Regions-Smoke/1.0', 'Cache-Control': 'no-cache'}
-
-          while queue and len(visited) < 50:
-              url = queue.pop(0)
-              if url in visited:
-                  continue
-              visited.add(url)
-              request = urllib.request.Request(url, headers=headers)
-              with urllib.request.urlopen(request, timeout=30) as response:
-                  body = response.read()
-              root = ET.fromstring(body)
-              locations = [node.text.strip() for node in root.findall('.//{*}loc') if node.text]
-              if root.tag.endswith('sitemapindex'):
-                  queue.extend(loc for loc in locations if loc.startswith(origin))
-              else:
-                  seen_urls.update(locations)
-
-          missing = sorted(required - seen_urls)
-          if missing:
-              raise SystemExit('Missing from sitemap discovery: ' + ', '.join(missing))
-          print(f'PASS sitemap discovery for {len(required)} seven-region URLs')
+          print('PASS sitemap ownership: article in /sitemap.xml and seven hubs in /sitemap-explore.xml')
 
       - name: Publish verification summary
         if: always()
@@ -165,5 +161,5 @@ jobs:
             echo
             echo '- Evergreen article checked for canonical title, Travel & Outdoors byline, 14-minute reading time, indexability and all seven regional links.'
             echo '- Seven regional hubs checked for canonical names, reciprocal article link, canonical URL and indexability.'
-            echo '- Sitemap discovery checked for the article plus all seven regional hubs.'
+            echo '- Sitemap ownership checked: article in /sitemap.xml; all seven regional hubs in /sitemap-explore.xml.'
           } >> "$GITHUB_STEP_SUMMARY"
