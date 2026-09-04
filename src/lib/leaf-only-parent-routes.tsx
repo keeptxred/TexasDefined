@@ -20,6 +20,7 @@ import { Route as paintedChurchRoutesRoute } from "@/routes/explore.painted-chur
 import { Route as paintedChurchSymbolsRoute } from "@/routes/explore.painted-churches.symbols";
 import { Route as paintedChurchTechniquesRoute } from "@/routes/explore.painted-churches.techniques";
 import { Route as topAttractionsRoute } from "@/routes/explore.top-attractions";
+import { Route as sportsRoute } from "@/routes/sports";
 import { Route as sportsVenuesRoute } from "@/routes/sports-venues";
 import { Route as texasDataRoute } from "@/routes/texas-data";
 
@@ -77,6 +78,7 @@ const LEAF_ONLY_PARENT_ROUTES = [
   paintedChurchGlossaryRoute,
   paintedChurchRoutesRoute,
   topAttractionsRoute,
+  sportsRoute,
   sportsVenuesRoute,
   texasDataRoute,
 ] as const;
