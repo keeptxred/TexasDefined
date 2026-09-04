@@ -2,10 +2,6 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { CANONICAL_PRIMARY_REGIONS, TEXAS_METROS, TEXAS_SUBREGIONS, canonicalPrimaryRegion, isCanonicalPrimaryRegionId } from "@/data/canonical-geography";
-import { canonicalRegionPresentation } from "@/data/canonical-region-presentation";
-import { TEXAS_PLACE_GEOGRAPHY, withCanonicalDestinationGeography } from "@/data/geography-knowledge-graph";
-import { destinationsQuery } from "@/data/queries";
 import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
@@ -23,19 +19,39 @@ function destinationSchema(destination: Destination) {
 
 export const Route = createFileRoute("/regions/$region")({
   loader: async ({ context, params }) => {
-    if (!isCanonicalPrimaryRegionId(params.region)) throw notFound();
-    const region = canonicalPrimaryRegion(params.region);
-    const presentation = canonicalRegionPresentation(region.id);
-    const subregions = TEXAS_SUBREGIONS.filter((item) => item.primaryRegionId === region.id);
-    const metros = TEXAS_METROS.filter((item) => item.primaryRegionId === region.id);
-    const places = TEXAS_PLACE_GEOGRAPHY.filter((item) => item.primaryRegionId === region.id);
+    const geography = await import("@/data/canonical-geography");
+    if (!geography.isCanonicalPrimaryRegionId(params.region)) throw notFound();
+
+    const [presentations, graph, queries] = await Promise.all([
+      import("@/data/canonical-region-presentation"),
+      import("@/data/geography-knowledge-graph"),
+      import("@/data/queries"),
+    ]);
+
+    const region = geography.canonicalPrimaryRegion(params.region);
+    const presentation = presentations.canonicalRegionPresentation(region.id);
+    const subregions = geography.TEXAS_SUBREGIONS.filter((item) => item.primaryRegionId === region.id);
+    const metros = geography.TEXAS_METROS.filter((item) => item.primaryRegionId === region.id);
+    const places = graph.TEXAS_PLACE_GEOGRAPHY.filter((item) => item.primaryRegionId === region.id);
     const countySlugs = [...new Set(places.flatMap((place) => place.countySlugs ?? []))].sort();
-    const catalog = await context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 }));
-    const destinations = catalog.map(withCanonicalDestinationGeography).filter((destination) => destination.geography?.primaryRegionId === region.id);
-    return { region, presentation, subregions, metros, places, countySlugs, destinations };
+    const catalog = await context.queryClient.ensureQueryData(queries.destinationsQuery({ limit: 5000 }));
+    const destinations = catalog.map(graph.withCanonicalDestinationGeography).filter((destination) => destination.geography?.primaryRegionId === region.id);
+    const adjacent = region.adjacentRegionIds.map((id) => geography.canonicalPrimaryRegion(id));
+
+    return {
+      region,
+      presentation,
+      subregions,
+      metros,
+      places,
+      countySlugs,
+      destinations,
+      adjacent,
+      allRegions: geography.CANONICAL_PRIMARY_REGIONS,
+    };
   },
-  head: ({ loaderData, params }) => {
-    if (!loaderData || !isCanonicalPrimaryRegionId(params.region)) return { meta: [{ title: "Texas region not found" }, { name: "robots", content: "noindex" }] };
+  head: ({ loaderData }) => {
+    if (!loaderData) return { meta: [{ title: "Texas region not found" }, { name: "robots", content: "noindex" }] };
     const canonicalPath = `/regions/${loaderData.region.id}`;
     const pageUrl = `${siteUrl}${canonicalPath}`;
     const title = `${loaderData.region.name} | Texas Region Guide`;
@@ -93,9 +109,8 @@ export const Route = createFileRoute("/regions/$region")({
 });
 
 function CanonicalRegionPage() {
-  const { region, presentation, subregions, metros, places, countySlugs, destinations } = Route.useLoaderData();
+  const { region, presentation, subregions, metros, places, countySlugs, destinations, adjacent, allRegions } = Route.useLoaderData();
   const primaryImage = destinations.find((destination) => destination.hero?.src)?.hero;
-  const adjacent = region.adjacentRegionIds.map((id) => canonicalPrimaryRegion(id));
   const categories = [...new Set(destinations.map((destination) => destination.category))].sort();
   const featured = destinations.slice(0, 9);
 
@@ -154,6 +169,6 @@ function CanonicalRegionPage() {
       <div className="grid gap-10 lg:grid-cols-2"><div><p className="eyebrow text-primary">Adjacent regions</p><h2 className="mt-3 font-display text-4xl">Where the map transitions</h2><div className="mt-6 flex flex-wrap gap-3">{adjacent.map((neighbor) => <Link key={neighbor.id} to="/regions/$region" params={{ region: neighbor.id }} className="border border-border bg-background px-4 py-3 text-sm font-semibold hover:border-primary hover:text-primary">{neighbor.name} →</Link>)}</div></div><div><p className="eyebrow text-primary">Comparison path</p><h2 className="mt-3 font-display text-4xl">Compare before you choose</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">The canonical IDs on this page are the same IDs that power the upcoming permanent region-comparison matrix and separate relocation and travel scoring models. For now, use the adjacent-region links and statewide directory without creating duplicate comparison URLs.</p><Link to="/regions" className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary">Back to all 7 regions →</Link></div></div>
     </Container></section>
 
-    <Container className="py-14 sm:py-20"><p className="eyebrow text-primary">Statewide region navigation</p><div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{CANONICAL_PRIMARY_REGIONS.map((item) => item.id === region.id ? <div key={item.id} className="border border-primary bg-primary/5 p-4 font-semibold">{item.name}</div> : <Link key={item.id} to="/regions/$region" params={{ region: item.id }} className="border border-border p-4 font-semibold hover:border-primary hover:text-primary">{item.name} →</Link>)}</div></Container>
+    <Container className="py-14 sm:py-20"><p className="eyebrow text-primary">Statewide region navigation</p><div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{allRegions.map((item) => item.id === region.id ? <div key={item.id} className="border border-primary bg-primary/5 p-4 font-semibold">{item.name}</div> : <Link key={item.id} to="/regions/$region" params={{ region: item.id }} className="border border-border p-4 font-semibold hover:border-primary hover:text-primary">{item.name} →</Link>)}</div></Container>
   </>;
 }
