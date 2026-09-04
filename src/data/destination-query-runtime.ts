@@ -105,7 +105,7 @@ function reconcileExploreCatalog(destinations: Destination[]) {
 
 export async function listResolvedDestinations(params: Omit<DestinationQuery, "brandId"> = {}) {
   if (params.category === WATER_COLLECTION) {
-    const destinations = selectSwimmingHoleAndTubingDestinations(await listResolvedDestinations({ limit: 5000 }));
+    const destinations = selectSwimmingHoleAndTubingDestinations(await listResolvedDestinations());
     if (params.featured) return featuredFallback(destinations, params.limit ?? 6);
     return params.limit ? destinations.slice(0, params.limit) : destinations;
   }
