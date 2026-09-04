@@ -14,6 +14,7 @@ const dataCenter = [
   read('src/routes/moving-to-texas_.data.lazy.tsx'),
 ].join('\n');
 const metro = read('src/components/relocation/MetroRelocationAuthority.tsx');
+const blsMetroReview = read('docs/verification/bls-metro-july-2026-review.md');
 
 const reviewWindows = [
   {
@@ -27,9 +28,9 @@ const reviewWindows = [
     reason: 'Check whether a newer ACS state-to-state migration-flow release is available.',
   },
   {
-    id: 'bls-metro-july-2026-reviewed',
+    id: 'bls-metro-july-2026',
     reviewBy: '2026-10-01',
-    reason: 'The July 2026 BLS metro release was published September 2 and reviewed September 3; the existing June snapshot remains explicitly labeled preliminary until the next scheduled relocation-data refresh after the August release on September 30.',
+    reason: 'July 2026 BLS metropolitan employment was reviewed September 3; recheck after the August 2026 release scheduled September 30.',
   },
   {
     id: 'tdi-homeowners-2025-preliminary',
@@ -46,6 +47,21 @@ const reviewWindows = [
 for (const item of reviewWindows) {
   const reviewTime = Date.parse(`${item.reviewBy}T23:59:59Z`);
   if (todayUtc > reviewTime) failures.push(`Relocation source review overdue: ${item.id} was due ${item.reviewBy}. ${item.reason}`);
+}
+
+for (const requirement of [
+  'Reviewed: 2026-09-03',
+  'USDL-26-1433',
+  'https://www.bls.gov/news.release/metro.htm',
+  'Dallas–Fort Worth–Arlington: 4,353,400',
+  'Houston–Pasadena–The Woodlands: 3,497,700',
+  'Austin–Round Rock–San Marcos: 1,421,700',
+  'San Antonio–New Braunfels: 1,192,200',
+  'El Paso: 364,300',
+  'scheduled for September 30, 2026',
+  'remain explicitly labeled as **June 2026** point-in-time figures',
+]) {
+  if (!blsMetroReview.includes(requirement)) failures.push(`BLS July 2026 metro review evidence missing: ${requirement}`);
 }
 
 for (const requirement of [
@@ -79,7 +95,6 @@ for (const requirement of [
   'https://www.census.gov/data/datasets/time-series/demo/popest/2020s-state-total.html',
   'older vintages should not be mixed with Vintage 2025',
   'Vintage 2025 state totals and components released January 27, 2026',
-  'July 2026 release scheduled September 2, 2026',
   'RELOCATION_SOURCE_VERIFIED = "August 27, 2026"',
 ]) {
   if (!sources.includes(requirement)) failures.push(`Relocation source freshness contract missing: ${requirement}`);
@@ -143,4 +158,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Relocation source freshness passed (${reviewWindows.length} release-backed review windows and ${continuousSourceContracts.length} continuously maintained source contracts; Census Vintage 2025 current, revised 2024 history retained, and the full registry remains server-only).`);
+console.log(`Relocation source freshness passed (${reviewWindows.length} release-backed review windows and ${continuousSourceContracts.length} continuously maintained source contracts; Census Vintage 2025 current, July 2026 BLS metro release reviewed, revised 2024 history retained, and the full registry remains server-only).`);
