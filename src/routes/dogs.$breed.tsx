@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
+import { loadDogBreedPage } from '@/data/texas-dogs';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const DogBreedPage = lazy(() => import('@/components/dogs/DogBreedPage'));
@@ -9,10 +10,9 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute('/dogs/$breed')({
   loader: async ({ params }) => {
-    const { findDogBreed, relatedDogBreeds } = await import('@/data/texas-dogs');
-    const breed = findDogBreed(params.breed);
-    if (!breed) throw notFound();
-    return { breed, related: relatedDogBreeds(breed.slug) };
+    const data = await loadDogBreedPage(params.breed);
+    if (!data) throw notFound();
+    return data;
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
