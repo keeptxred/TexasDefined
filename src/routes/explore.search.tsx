@@ -65,7 +65,7 @@ function ExploreSearchPage() {
   const { origin, radius } = Route.useSearch();
   const { campingSearchIndex } = Route.useLoaderData();
   const { data: catalog = [], isLoading, error } = useQuery(destinationsQuery({ limit: 5000 }));
-  const campingTermsByDestination = useMemo(() => new Map(campingSearchIndex.map((entry) => [entry.destinationSlug, entry.terms])), [campingSearchIndex]);
+  const campingTermsByDestination = useMemo(() => new Map(campingSearchIndex.map((entry) => [entry.destinationSlug, entry.terms] as const)), [campingSearchIndex]);
   const categories = useMemo(() => [...new Set(catalog.map((destination) => destination.category))].sort(), [catalog]);
   const regions = useMemo(() => [...new Set(catalog.map((destination) => destination.region))].sort(), [catalog]);
   const requestedOrigin = Boolean(origin.trim());
