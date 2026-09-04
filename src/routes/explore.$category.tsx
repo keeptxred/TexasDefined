@@ -4,13 +4,16 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
-import type { Destination } from "@/data/types";
+import type { CategorySlug, Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const SWIMMING_HOLES_RIVER_TUBING_SLUG = "swimming-holes-river-tubing";
 const legacyExploreRedirects: Record<string, string> = {
   "scenic-rivers": "/article/texas-rivers-explained",
   "texas-dark-sky-stargazing": "/texas-stargazing-guide",
+  "river-tubing": `/explore/${SWIMMING_HOLES_RIVER_TUBING_SLUG}`,
+  "swimming-holes": `/explore/${SWIMMING_HOLES_RIVER_TUBING_SLUG}`,
 };
 const authorityCategorySlugs = new Set(["outdoors", "caverns", "lakes-rivers", "beaches-coast", "small-towns"]);
 const categorySeoOverrides: Partial<Record<string, { title: string; description: string }>> = {
@@ -21,6 +24,10 @@ const categorySeoOverrides: Partial<Record<string, { title: string; description:
   "lakes-rivers": {
     title: "Texas Lakes & Rivers: Swimming, Paddling, Fishing & Water Trips",
     description: "Explore Texas lakes and rivers for swimming, paddling, fishing and camping, with river flows, reservoir conditions, public access, water quality and safety planning.",
+  },
+  [SWIMMING_HOLES_RIVER_TUBING_SLUG]: {
+    title: "Texas Swimming Holes & River Tubing: Springs, Float Trips & Swim Spots",
+    description: "Find Texas swimming holes, spring-fed pools and river-tubing destinations with public-access context, nearby camping and towns, and practical trip-planning links.",
   },
   "beaches-coast": {
     title: "Texas Beaches & Gulf Coast: Islands, Wildlife, Fishing & Beach Trips",
@@ -67,6 +74,20 @@ export const Route = createFileRoute("/explore/$category")({
       if (destination) throw redirect({ href: `/destination/${destination.slug}`, statusCode: 301 });
       throw notFound();
     }
+
+    if (params.category === SWIMMING_HOLES_RIVER_TUBING_SLUG) {
+      const [{ selectSwimmingHoleAndTubingDestinations }, destinationCatalog] = await Promise.all([
+        import("@/data/water-recreation"),
+        context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
+      ]);
+      const destinations = selectSwimmingHoleAndTubingDestinations(destinationCatalog);
+      context.queryClient.setQueryData(
+        destinationsQuery({ category: category.slug as CategorySlug }).queryKey,
+        destinations,
+      );
+      return { category, articles: [], destinations, authorityHtml: null };
+    }
+
     const authorityPath = authorityCategorySlugs.has(category.slug) ? `/content/explore-category-authority/${category.slug}.html` : null;
     const [articles, destinations, authorityHtml] = await Promise.all([
       context.queryClient.ensureQueryData(articlesQuery({ category: category.slug })),
@@ -85,10 +106,10 @@ export const Route = createFileRoute("/explore/$category")({
       : params.category === "outdoors" && !hasWildlifeGuide
         ? [{ "@type": "ListItem", position: 1, item: { "@type": "Article", name: "Texas Wildlife Guide: Animals & Habitats", description: "A statewide guide to Texas wildlife and the habitats that shape where animals live, from East Texas forests and Gulf wetlands to Hill Country, prairie and desert country.", url: `${siteUrl}/article/texas-wildlife-guide` } }]
         : [];
-    const indexReady = isExploreCategoryIndexReady(
-      loaderData.category.slug,
-      loaderData.articles.length + loaderData.destinations.length + featuredCollectionItems.length,
-    );
+    const indexItemCount = params.category === SWIMMING_HOLES_RIVER_TUBING_SLUG
+      ? loaderData.destinations.length
+      : loaderData.articles.length + loaderData.destinations.length + featuredCollectionItems.length;
+    const indexReady = isExploreCategoryIndexReady(loaderData.category.slug, indexItemCount);
     const categorySeo = categorySeoOverrides[loaderData.category.slug];
     const metaTitle = categorySeo?.title ?? loaderData.category.name;
     const metaDescription = categorySeo?.description ?? loaderData.category.description;

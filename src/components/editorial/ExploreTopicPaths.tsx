@@ -13,6 +13,7 @@ type TopicLink = { to: string; label: string; description: string };
 
 const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
   "lakes-rivers": [
+    { to: "/explore/swimming-holes-river-tubing", label: "Swimming holes & river tubing", description: "Find existing guides with swimming, tubing or float access." },
     { to: "/explore/major-springs", label: "Springs & swimming", description: "Pair rivers and lakes with clear spring-fed water and swimming holes." },
     { to: "/texas-paddling-guide", label: "Texas paddling", description: "Plan five official paddling trails around launch access, route length, water levels, wind and current conditions." },
     { to: "/fishing", label: "Texas fishing", description: "Go deeper lake by lake with target species, techniques, reports and local fishing resources." },
@@ -22,6 +23,7 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
     { to: "/explore/trip-planner", label: "Texas Trip Planner", description: "Turn water access, camping and nearby stops into a practical day-by-day route." },
   ],
   "major-springs": [
+    { to: "/explore/swimming-holes-river-tubing", label: "Swimming holes & river tubing", description: "Find spring-fed swimming, tubing and float-trip destinations." },
     { to: "/explore/lakes-rivers", label: "Lakes & rivers", description: "See the larger waterways connected to Texas springs and swimming country." },
     { to: "/explore/caverns", label: "Caverns & caves", description: "Explore the limestone geology that shapes many of Texas' spring systems." },
     { to: "/explore/state-parks", label: "State parks", description: "Find protected landscapes with swimming, trails and spring-fed water." },
@@ -33,6 +35,15 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
     { to: "/explore/lakes-rivers", label: "Lakes & rivers", description: "Find paddling, fishing and swimming destinations near Texas parks." },
     { to: "/explore/outdoors", label: "Outdoors & wildlife", description: "Plan around public-land access, wildlife, heat, hiking and seasonal conditions." },
     { to: "/explore/beaches-coast", label: "Beaches & Gulf Coast", description: "Connect coastal state parks to beaches, bays, bird migration and Gulf conditions." },
+  ],
+  ["swimming-holes-river-tubing" as CategorySlug]: [
+    { to: "/explore/lakes-rivers", label: "Lakes & rivers", description: "Broaden the trip to river and lake access." },
+    { to: "/explore/major-springs", label: "Major springs", description: "Explore spring systems and spring-fed pools." },
+    { to: "/explore/state-parks", label: "State parks", description: "Find managed swimming, camping and recreation access." },
+    { to: "/best-places-to-go-camping-in-texas", label: "Best camping in Texas", description: "Turn a swim or float into an overnight trip." },
+    { to: "/explore/small-towns", label: "Small towns", description: "Add nearby food, lodging and supplies." },
+    { to: "/texas-paddling-guide", label: "Texas paddling", description: "Compare official kayak and canoe trails." },
+    { to: "/explore/trip-planner", label: "Texas Trip Planner", description: "Build water stops into a practical itinerary." },
   ],
   "national-parks": [
     { to: "/explore/road-trips", label: "Road trips", description: "Build a longer route around Texas' largest protected landscapes." },

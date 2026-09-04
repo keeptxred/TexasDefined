@@ -28,6 +28,19 @@ export const supplementalExploreCategories: Category[] = [
     },
   },
   {
+    slug: "swimming-holes-river-tubing" as Category["slug"],
+    name: "Swimming Holes & River Tubing",
+    eyebrow: "Get in the water",
+    description: "Texas swimming holes, spring-fed pools, river tubing and float-trip destinations, organized around verified public access and practical trip planning.",
+    image: {
+      src: "/images/explore/major-springs/hamilton-pool-preserve.jpg",
+      alt: "Clear spring-fed water at Hamilton Pool Preserve in Texas",
+      width: 1600,
+      height: 1200,
+      credit: "Alex Garrido · CC BY 3.0 · Wikimedia Commons",
+    },
+  },
+  {
     slug: "caverns",
     name: "Caverns & Caves",
     eyebrow: "Below ground",

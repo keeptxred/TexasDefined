@@ -5,7 +5,7 @@ import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from 
 import type { Article, Category, Destination, Region } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
-export const EXPLORE_CATEGORIES = ["lakes-rivers", "major-springs", "state-parks", "national-parks", "caverns", "beaches-coast", "historic-sites", "road-trips", "small-towns", "food-bbq", "outdoors"] as const;
+export const EXPLORE_CATEGORIES = ["lakes-rivers", "major-springs", "swimming-holes-river-tubing", "state-parks", "national-parks", "caverns", "beaches-coast", "historic-sites", "road-trips", "small-towns", "food-bbq", "outdoors"] as const;
 export const description = "Cold rivers, canyon trails, two-lane roads, small-town main streets and barbecue worth waiting for — a curated guide to exploring Texas well.";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}/explore`;
