@@ -48,6 +48,8 @@ const GATEWAY_LINK_ALIASES: Record<string, string> = {
 
 const JACOBS_WELL_OLD = "Jacob's Well area when open for swimming";
 const JACOBS_WELL_CURRENT = "Jacob's Well Natural Area for hiking and the spring overlook; swimming is currently closed until further notice";
+const SWIMMING_HOLES_ARTICLE = "best-texas-swimming-holes-for-a-summer-trip";
+const WATER_RECREATION_LINK = { href: "/explore/swimming-holes-river-tubing", label: "Swimming holes & river tubing" };
 
 const normalizeGatewayArticle = (article: Article): Article => {
   const enrichment: Partial<Article> | undefined = texasGatewayBatch1Enrichment[article.slug]
@@ -80,7 +82,11 @@ const normalizeGatewayArticle = (article: Article): Article => {
     ?? texasGatewayBatch13StargazingEnrichment[article.slug]
     ?? texasGatewayBatch13ScenicEnrichment[article.slug]
     ?? texasGatewayBatch14To16DistinctEnrichment[article.slug];
-  const internalLinks = [...(article.internalLinks ?? []), ...(enrichment?.internalLinks ?? [])]
+  const internalLinks = [
+    ...(article.internalLinks ?? []),
+    ...(enrichment?.internalLinks ?? []),
+    ...(article.slug === SWIMMING_HOLES_ARTICLE ? [WATER_RECREATION_LINK] : []),
+  ]
     .map((link) => ({
       ...link,
       href: GATEWAY_LINK_ALIASES[link.href] ?? link.href,
