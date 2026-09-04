@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
@@ -6,11 +7,14 @@ import { DepartmentHero } from "@/components/editorial/DepartmentHero";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { ExploreIntentPaths } from "@/components/editorial/ExploreIntentPaths";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
-import { TexasExperienceMarkets } from "@/components/editorial/TexasExperienceMarkets";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 
 import { description, EXPLORE_CATEGORIES } from "./explore.index";
+
+const TexasExperienceMarkets = lazy(() =>
+  import("@/components/editorial/TexasExperienceMarkets").then((module) => ({ default: module.TexasExperienceMarkets })),
+);
 
 export const Route = createLazyFileRoute("/explore/")({ component: ExplorePage });
 
@@ -58,7 +62,9 @@ function ExplorePage() {
       </Container>
     </Section>
 
-    <TexasExperienceMarkets />
+    <Suspense fallback={<div id="tours-experiences" aria-hidden="true" />}>
+      <TexasExperienceMarkets />
+    </Suspense>
 
     <Section tone="surface"><Container><SectionHeader eyebrow="Texas by region" title="Seven distinct sides of the state" description="From Gulf Coast marshes to High Plains horizons, each region has its own rhythm, landscape and reasons to linger." /><ul className="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">{regions.map((region) => <li key={region.id} className="border-t border-border pt-5"><Link to="/explore/region/$region" params={{ region: region.id }} className="group block"><h3 className="font-display text-[1.7rem] leading-tight transition-colors group-hover:text-primary">{region.name}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{region.blurb}</p><span className="eyebrow mt-4 inline-block text-primary">Explore the region →</span></Link></li>)}</ul></Container></Section>
 
