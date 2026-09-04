@@ -10,10 +10,9 @@ import { loadMajorEventGuideDirectoryServer, type MajorEventGuideDirectoryItem }
 import {
   TOURNAMENT_COLLECTIONS,
   TOURNAMENT_COLLECTION_BY_SLUG,
-  tournamentCountyName,
-  tournamentsForCollection,
   type TournamentCollectionDefinition,
-} from "./texas-tournaments";
+} from "./texas-tournament-collections";
+import { loadTournamentCollectionItemsServer } from "./texas-tournaments.server";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 type CollectionDefinition = EventCollectionDefinition | TemporalEventCollectionDefinition | TournamentCollectionDefinition;
@@ -94,15 +93,7 @@ function buildCollectionHead(collection: CollectionDefinition, items: Collection
 }
 
 function tournamentItems(collection: TournamentCollectionDefinition): CollectionItem[] {
-  return tournamentsForCollection(collection).map((tournament) => ({
-    slug: tournament.slug,
-    href: `/tournament/${tournament.slug}`,
-    name: tournament.name,
-    city: tournament.locationLabel,
-    countyName: tournamentCountyName(tournament.countySlug),
-    detail: `${tournament.locationLabel} · ${tournament.summary}`,
-    sourceCheckedAt: undefined,
-  }));
+  return loadTournamentCollectionItemsServer(collection.value);
 }
 
 export function loadEventCollectionPageServer(slug: string) {
