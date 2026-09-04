@@ -1,7 +1,9 @@
 import fs from 'node:fs';
 
 const routeTree = fs.readFileSync('src/routeTree.gen.ts', 'utf8');
-const exploreSearch = fs.readFileSync('src/routes/explore.search.tsx', 'utf8');
+const exploreSearchShell = fs.readFileSync('src/routes/explore.search.tsx', 'utf8');
+const exploreSearchLazy = fs.readFileSync('src/routes/explore.search.lazy.tsx', 'utf8');
+const exploreSearch = `${exploreSearchShell}\n${exploreSearchLazy}`;
 const tripPlanner = fs.readFileSync('src/routes/explore.trip-planner.tsx', 'utf8');
 const tripPlannerLazy = fs.readFileSync('src/routes/explore.trip-planner.lazy.tsx', 'utf8');
 const failures = [];
@@ -49,6 +51,7 @@ for (const routePath of requiredPaths) {
 
 for (const feature of [
   'createFileRoute("/explore/search")',
+  'createLazyFileRoute("/explore/search")',
   'component: ExploreSearchPage',
   'canonicalPath: "/explore/search"',
   'robots: "noindex, follow"',
@@ -83,7 +86,7 @@ for (const feature of [
   if (!exploreSearch.includes(feature)) failures.push(`Explore search filter contract missing: ${feature}.`);
 }
 
-if (!exploreSearch.includes('links: [canonicalLink(texasDefinedBrand, "/explore/search")]')) {
+if (!exploreSearchShell.includes('links: [canonicalLink(texasDefinedBrand, "/explore/search")]')) {
   failures.push('Explore search must canonicalize all query/filter combinations to the curated search landing route.');
 }
 if (exploreSearch.includes('robots: "index')) failures.push('Interactive Explore search/filter combinations must remain non-indexable.');
@@ -125,4 +128,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Explore regional, compatibility, migrated guide, Trip Planner, crawl-safe structured destination and exact-radius filter routes are registered.');
+console.log('Explore regional, compatibility, migrated guide, lazy Search, Trip Planner, crawl-safe structured destination and exact-radius filter routes are registered.');
