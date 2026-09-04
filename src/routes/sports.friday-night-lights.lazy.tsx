@@ -1,7 +1,6 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
-import { FridayNightLightsStructuredData } from "@/components/editorial/FridayNightLightsStructuredData";
 
 export const Route = createLazyFileRoute("/sports/friday-night-lights")({ component: FridayNightLightsPage });
 
@@ -58,7 +57,6 @@ const footballWorlds = [
 
 function FridayNightLightsPage() {
   return <>
-    <FridayNightLightsStructuredData />
     <section className="border-b border-border bg-surface">
       <Container className="py-14 sm:py-20 lg:py-24">
         <nav aria-label="Breadcrumb" className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
