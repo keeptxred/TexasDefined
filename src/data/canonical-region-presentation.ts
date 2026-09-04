@@ -1,4 +1,4 @@
-import { CANONICAL_PRIMARY_REGION_IDS } from "./canonical-geography";
+import { CANONICAL_PRIMARY_REGION_IDS } from "./canonical-geography.ts";
 import type { CanonicalPrimaryRegionId } from "./types";
 
 /**
