@@ -27,6 +27,7 @@ export const Route = createFileRoute("/")({
   head: ({ loaderData }) => {
     const featured = loaderData?.featured ?? [];
     const destinations = loaderData?.destinations ?? [];
+    const heroImage = featured[0]?.hero?.src;
     const homepageDestinations = destinations.some((item) => item.featured) ? destinations.filter((item) => item.featured).slice(0, 4) : destinations.slice(0, 4);
     const curatedItems = [
       ...featured.slice(0, 4).map((article) => ({ "@type": "Article", name: article.title, url: `${siteUrl}/article/${article.slug}`, image: absoluteUrl(texasDefinedBrand, article.hero.src) })),
@@ -37,6 +38,13 @@ export const Route = createFileRoute("/")({
       { "@type": "ItemList", "@id": `${siteUrl}/#editorial-picks`, name: "Stories and places worth knowing", numberOfItems: curatedItems.length, itemListElement: curatedItems.map((item, index) => ({ "@type": "ListItem", position: index + 1, item })) },
       { "@type": "FAQPage", "@id": `${siteUrl}/#faq`, mainEntity: homepageFaqs.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) },
     ] };
-    return { meta: buildMeta(texasDefinedBrand, { title: pageTitle, description, canonicalPath: "/" }), links: [canonicalLink(texasDefinedBrand, "/")], scripts: [{ type: "application/ld+json", children: JSON.stringify(structuredData) }] };
+    return {
+      meta: buildMeta(texasDefinedBrand, { title: pageTitle, description, canonicalPath: "/" }),
+      links: [
+        canonicalLink(texasDefinedBrand, "/"),
+        ...(heroImage ? [{ rel: "preload", as: "image", href: absoluteUrl(texasDefinedBrand, heroImage), fetchPriority: "high" as const }] : []),
+      ],
+      scripts: [{ type: "application/ld+json", children: JSON.stringify(structuredData) }],
+    };
   },
 });
