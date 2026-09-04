@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 
 const root = readFileSync(new URL("../routes/__root.tsx", import.meta.url), "utf8");
 const homeRoute = readFileSync(new URL("../routes/index.tsx", import.meta.url), "utf8");
+const homeView = readFileSync(new URL("../routes/index.lazy.tsx", import.meta.url), "utf8");
 const styles = readFileSync(new URL("../styles.css", import.meta.url), "utf8");
 
 describe("mobile Lighthouse performance contract", () => {
@@ -27,5 +28,10 @@ describe("mobile Lighthouse performance contract", () => {
     expect(styles).toContain('--font-family-display: "Iowan Old Style"');
     expect(styles).toContain('--font-family-sans: "Segoe UI"');
     expect(styles).toContain("--muted-foreground: oklch(0.43 0.026 58)");
+  });
+
+  it("does not skip from the homepage h1 directly to FAQ h3 headings", () => {
+    expect(homeView).toContain('<dt><h2 className="font-display text-lg font-semibold">');
+    expect(homeView).not.toContain('<dt><h3 className="font-display text-lg font-semibold">');
   });
 });
