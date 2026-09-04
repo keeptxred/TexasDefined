@@ -25,17 +25,6 @@ export interface DogDesignCollection {
   examples: string[];
 }
 
-export interface DogHubData {
-  breeds: DogBreedSummary[];
-  collections: DogDesignCollection[];
-}
-
-export interface DogBreedPageData {
-  breed: DogBreedProfile;
-  related: DogBreedSummary[];
-  collections: DogDesignCollection[];
-}
-
 // Slugs stay tiny and public so sitemap generation never needs the rich registry in a client-reachable module.
 export const dogBreeds = [
   "labrador-retriever",
@@ -64,10 +53,10 @@ const loadDogBreedPageServerFn = createServerFn({ method: "GET" })
     return loadDogBreedPageServer(data.slug);
   });
 
-export function loadDogHubData(): Promise<DogHubData> {
+export function loadDogHubData() {
   return loadDogHubDataServerFn();
 }
 
-export function loadDogBreedPage(slug: string): Promise<DogBreedPageData | null> {
+export function loadDogBreedPage(slug: string) {
   return loadDogBreedPageServerFn({ data: { slug } });
 }
