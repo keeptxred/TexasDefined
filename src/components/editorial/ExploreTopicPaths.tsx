@@ -30,7 +30,6 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
     { to: "/explore/outdoors", label: "Outdoors & wildlife", description: "Add habitat, weather, wildlife and public-land planning to a spring-fed trip." },
   ],
   "state-parks": [
-    { to: "/explore/swimming-holes-river-tubing", label: "Swimming holes & river tubing", description: "Find Texas destinations with swimming, tubing or float access." },
     { to: "/best-places-to-go-camping-in-texas", label: "Best camping in Texas", description: "Choose standout campsites by region, season and camping style, then use the park guide for the detailed destination layer." },
     { to: "/texas-birds-guide", label: "Texas birds guide", description: "Connect park visits to birding seasons, habitats and species found across the state." },
     { to: "/explore/lakes-rivers", label: "Lakes & rivers", description: "Find paddling, fishing and swimming destinations near Texas parks." },
