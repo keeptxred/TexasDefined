@@ -1,6 +1,10 @@
 name: Verify seven Texas regions production
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-seven-regions-production.yml'
   workflow_run:
     workflows: ['Deploy TexasDefined production']
     types: [completed]
@@ -15,7 +19,7 @@ concurrency:
 
 jobs:
   smoke:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
