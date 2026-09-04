@@ -2,16 +2,31 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { CANONICAL_PRIMARY_REGIONS, TEXAS_METROS, TEXAS_SUBREGIONS } from "@/data/canonical-geography";
-import { CANONICAL_REGION_PRESENTATIONS } from "@/data/canonical-region-presentation";
-import { TEXAS_PLACE_GEOGRAPHY } from "@/data/geography-knowledge-graph";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/regions";
 const description = "Explore TexasDefined's seven canonical Texas regions: North Texas, Central Texas, East Texas, South Texas, West Texas, Gulf Coast and the Panhandle, with their subregions, metros, cities, travel identities and relocation context.";
 
 export const Route = createFileRoute("/regions")({
-  head: () => {
+  loader: async () => {
+    const [geography, presentations, graph] = await Promise.all([
+      import("@/data/canonical-geography"),
+      import("@/data/canonical-region-presentation"),
+      import("@/data/geography-knowledge-graph"),
+    ]);
+
+    return presentations.CANONICAL_REGION_PRESENTATIONS.map((presentation) => {
+      const region = geography.CANONICAL_PRIMARY_REGIONS.find((candidate) => candidate.id === presentation.id)!;
+      return {
+        region,
+        presentation,
+        subregionCount: geography.TEXAS_SUBREGIONS.filter((item) => item.primaryRegionId === region.id).length,
+        metroCount: geography.TEXAS_METROS.filter((item) => item.primaryRegionId === region.id).length,
+        placeCount: graph.TEXAS_PLACE_GEOGRAPHY.filter((item) => item.primaryRegionId === region.id).length,
+      };
+    });
+  },
+  head: ({ loaderData: regionCards }) => {
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     const siteUrl = absoluteUrl(texasDefinedBrand, "/");
     return {
@@ -40,8 +55,8 @@ export const Route = createFileRoute("/regions")({
               "@type": "ItemList",
               "@id": `${pageUrl}#regions`,
               name: "TexasDefined canonical Texas regions",
-              numberOfItems: CANONICAL_PRIMARY_REGIONS.length,
-              itemListElement: CANONICAL_PRIMARY_REGIONS.map((region, index) => ({
+              numberOfItems: regionCards?.length ?? 0,
+              itemListElement: (regionCards ?? []).map(({ region }, index) => ({
                 "@type": "ListItem",
                 position: index + 1,
                 url: absoluteUrl(texasDefinedBrand, `/regions/${region.id}`),
@@ -69,6 +84,8 @@ export const Route = createFileRoute("/regions")({
 });
 
 function TexasRegionsPage() {
+  const regionCards = Route.useLoaderData();
+
   return <>
     <Container className="pt-10 sm:pt-14">
       <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground">
@@ -90,23 +107,17 @@ function TexasRegionsPage() {
     <section className="border-y border-border bg-muted/25 py-14 sm:py-20">
       <Container>
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {CANONICAL_REGION_PRESENTATIONS.map((presentation) => {
-            const region = CANONICAL_PRIMARY_REGIONS.find((candidate) => candidate.id === presentation.id)!;
-            const subregions = TEXAS_SUBREGIONS.filter((item) => item.primaryRegionId === region.id);
-            const metros = TEXAS_METROS.filter((item) => item.primaryRegionId === region.id);
-            const places = TEXAS_PLACE_GEOGRAPHY.filter((item) => item.primaryRegionId === region.id);
-            return <Link key={region.id} to="/regions/$region" params={{ region: region.id }} className="group flex min-h-[22rem] flex-col border border-border bg-background p-7 transition hover:-translate-y-0.5 hover:border-primary/45 hover:shadow-sm">
-              <p className="eyebrow text-primary">Canonical region</p>
-              <h2 className="mt-3 font-display text-4xl leading-tight">{region.name}</h2>
-              <p className="mt-5 text-sm leading-7 text-muted-foreground">{presentation.summary}</p>
-              <dl className="mt-auto grid grid-cols-3 gap-3 border-t border-border pt-6 text-center">
-                <div><dt className="text-[0.68rem] uppercase tracking-[0.12em] text-muted-foreground">Subregions</dt><dd className="mt-1 font-display text-2xl">{subregions.length}</dd></div>
-                <div><dt className="text-[0.68rem] uppercase tracking-[0.12em] text-muted-foreground">Metros</dt><dd className="mt-1 font-display text-2xl">{metros.length}</dd></div>
-                <div><dt className="text-[0.68rem] uppercase tracking-[0.12em] text-muted-foreground">Mapped places</dt><dd className="mt-1 font-display text-2xl">{places.length}</dd></div>
-              </dl>
-              <span className="eyebrow mt-6 text-primary">Open {region.name} →</span>
-            </Link>;
-          })}
+          {regionCards.map(({ region, presentation, subregionCount, metroCount, placeCount }) => <Link key={region.id} to="/regions/$region" params={{ region: region.id }} className="group flex min-h-[22rem] flex-col border border-border bg-background p-7 transition hover:-translate-y-0.5 hover:border-primary/45 hover:shadow-sm">
+            <p className="eyebrow text-primary">Canonical region</p>
+            <h2 className="mt-3 font-display text-4xl leading-tight">{region.name}</h2>
+            <p className="mt-5 text-sm leading-7 text-muted-foreground">{presentation.summary}</p>
+            <dl className="mt-auto grid grid-cols-3 gap-3 border-t border-border pt-6 text-center">
+              <div><dt className="text-[0.68rem] uppercase tracking-[0.12em] text-muted-foreground">Subregions</dt><dd className="mt-1 font-display text-2xl">{subregionCount}</dd></div>
+              <div><dt className="text-[0.68rem] uppercase tracking-[0.12em] text-muted-foreground">Metros</dt><dd className="mt-1 font-display text-2xl">{metroCount}</dd></div>
+              <div><dt className="text-[0.68rem] uppercase tracking-[0.12em] text-muted-foreground">Mapped places</dt><dd className="mt-1 font-display text-2xl">{placeCount}</dd></div>
+            </dl>
+            <span className="eyebrow mt-6 text-primary">Open {region.name} →</span>
+          </Link>)}
         </div>
       </Container>
     </section>
