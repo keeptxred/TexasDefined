@@ -10,7 +10,7 @@ Operational facts such as public-site hours, rules, closures, reservation requir
 
 Affiliate tracking is centralized in `src/lib/viator-affiliate.ts`.
 
-Set the deployment environment variable `VITE_VIATOR_AFFILIATE_PARAMS` to the approved query-string parameters from a Viator-generated affiliate link. Preserve Viator's values exactly. The integration considers attribution configured when both `pid` and `mcid` are present.
+The approved TexasDefined attribution values are active as the centralized defaults: PID `P00318227` and MCID `42383`. Deployment may optionally set `VITE_VIATOR_AFFILIATE_PARAMS` to a valid Viator query string containing both `pid` and `mcid`; invalid or incomplete overrides fall back to the approved defaults.
 
 Do not hard-code affiliate IDs into components or content records. Do not manually replace or strip Viator tracking parameters. TexasDefined appends a market-specific `campaign` value only when the target link does not already contain one.
 
@@ -20,7 +20,7 @@ All monetized outbound links use `rel="sponsored noopener noreferrer"`.
 
 `src/data/viator-destination-links.ts` contains only destination URLs verified against live Viator inventory. A market without a verified destination page falls back to the verified statewide Texas page at `https://www.viator.com/Texas/d296` rather than constructing an unverified Viator search URL.
 
-As additional destination or product URLs are verified, add them to the governed link registry. Product-level links should be preferred for high-conversion editorial placements once the affiliate account is approved and the product has been checked for current availability and fit.
+As additional destination or product URLs are verified, add them to the governed link registry. Product-level links should be preferred for high-conversion editorial placements once the product has been checked for current availability and fit.
 
 ## Statewide experience market coverage
 
@@ -75,15 +75,14 @@ Every market is classified across one or more of 12 lanes:
 
 The first release lives inside the existing `/explore` route at the `#tours-experiences` section. This keeps the rollout compatible with TexasDefined's generated TanStack route-tree merge gate while still making the statewide market directory indexable and discoverable from Explore.
 
+Rich research records and curated product seeds stay outside the lightweight client runtime projection so statewide booking discovery does not consume the main-bundle performance headroom.
+
 Dedicated market routes can be added later when their generated `routeTree.gen.ts` changes can be produced and committed with the implementation.
 
 ## Next monetization layer
 
-After Viator approval:
-
-1. configure the approved affiliate parameters in deployment;
-2. verify attribution on outbound links;
-3. use Viator's affiliate tooling/Selector to identify current high-quality products for the highest-intent TexasDefined pages;
-4. add curated product-level CTAs to destination, city, food, wine, coastal, Western and outdoor pages where the product is genuinely relevant;
-5. keep product availability review dates and remove stale products promptly;
-6. compare conversion by market and campaign without changing TexasDefined's editorial rankings or recommendations solely because a product pays commission.
+1. verify approved attribution on production outbound links;
+2. use Viator's affiliate tooling/Selector to resolve current high-quality products for the highest-intent TexasDefined pages;
+3. add curated product-level CTAs to destination, city, food, wine, coastal, Western and outdoor pages where the product is genuinely relevant;
+4. keep product availability review dates and remove stale products promptly;
+5. compare conversion by market and campaign without changing TexasDefined's editorial rankings or recommendations solely because a product pays commission.
