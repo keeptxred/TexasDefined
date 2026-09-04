@@ -41,4 +41,9 @@ describe("Swimming Holes & River Tubing qualification", () => {
     const item = destination({ category: "historic-sites", summary: "A historic spring-fed swimming pool." });
     expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([]);
   });
+
+  it("includes New Braunfels as the canonical Comal and Guadalupe tubing gateway", () => {
+    const item = destination({ slug: "new-braunfels", category: "small-towns", summary: "A Hill Country city built around the Comal and Guadalupe rivers, with tubing." });
+    expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([item]);
+  });
 });
