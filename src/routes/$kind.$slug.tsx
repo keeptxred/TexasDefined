@@ -20,7 +20,9 @@ export const Route = createFileRoute('/$kind/$slug')({
     const related = rankRelatedEntities(entity, graph, 12);
     const countySportsVenues = entity.kind === 'county'
       ? graph
-        .filter((candidate) => candidate.kind === 'sports-venue' && candidate.countySlug === entity.slug && isIndexableEntityPage(candidate))
+        .filter((candidate) => candidate.kind === 'sports-venue'
+          && candidate.countySlug === entity.slug
+          && (isIndexableEntityPage(candidate) || candidate.tags?.includes('starter-golf-directory')))
         .sort((left, right) => sportsVenuePriority(left) - sportsVenuePriority(right) || left.name.localeCompare(right.name))
       : [];
     if (entity.kind !== 'county') return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues };
