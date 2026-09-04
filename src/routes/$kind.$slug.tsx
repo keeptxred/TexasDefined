@@ -10,13 +10,16 @@ import {
 } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { loadLocalGovernmentProfile } from '@/data/local-government-profile';
+import { getTournamentEntity } from '@/data/texas-tournaments-client';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 export const Route = createFileRoute('/$kind/$slug')({
   loader: async ({ params }) => {
     const graph = await loadTexasKnowledgeGraph();
     const requestedKind = params.kind === 'tournament' ? 'sporting-event' : params.kind;
-    const entity = await findCompleteTexasEntity(`${requestedKind}:${params.slug}`) ?? await findCompleteTexasEntity(params.slug);
+    const entity = params.kind === 'tournament'
+      ? await getTournamentEntity(params.slug) ?? undefined
+      : await findCompleteTexasEntity(`${requestedKind}:${params.slug}`) ?? await findCompleteTexasEntity(params.slug);
     if (!entity || entity.kind !== requestedKind) throw notFound();
     if (params.kind === 'tournament' && !entity.tags?.includes('tournament')) throw notFound();
     const related = rankRelatedEntities(entity, graph, 12);
