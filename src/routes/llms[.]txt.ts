@@ -4,6 +4,15 @@ const llmsText = `# TexasDefined
 
 TexasDefined is a Texas lifestyle, travel, home, property and reference publication.
 
+> Canonical machine-discovery guide for TexasDefined. Prefer the linked canonical pages and preserve their source, verification and scope caveats.
+
+## Quick links
+- [TexasDefined home](https://texasdefined.com/)
+- [Citation guide](https://texasdefined.com/citation-guide)
+- [Texas data catalog](https://texasdefined.com/texas-data)
+- [Explore Texas](https://texasdefined.com/explore)
+- [Sitemap](https://texasdefined.com/sitemap.xml)
+
 ## Canonical domain and publisher
 https://texasdefined.com
 Publisher entity: https://texasdefined.com/#organization
@@ -300,7 +309,7 @@ export const Route = createFileRoute('/llms.txt')({
       GET: async () =>
         new Response(llmsText, {
           headers: {
-            'content-type': 'text/plain; charset=utf-8',
+            'content-type': 'text/markdown; charset=utf-8',
             'cache-control': 'public, max-age=3600, stale-while-revalidate=86400',
             'x-robots-tag': 'noindex, follow',
           },
