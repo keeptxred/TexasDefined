@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { auditDestination } from "../destination-audit";
 import { applyAllCuratedDestination } from "../destination-curation-all";
 import { preservedExploreDestinations } from "../destination-preserved-catalog";
+import { listResolvedDestinations } from "../destination-query-runtime";
 import { selectSwimmingHoleAndTubingDestinations } from "../water-recreation";
 import type { Destination } from "../types";
 
@@ -74,6 +75,11 @@ describe("Swimming Holes & River Tubing qualification", () => {
     const item = applyAllCuratedDestination(base!);
     expect(auditDestination(item).readyForIndexing).toBe(true);
     expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([item]);
+  });
+
+  it("keeps San Marcos when the production water collection resolves the full catalog", async () => {
+    const items = await listResolvedDestinations({ category: "swimming-holes-river-tubing" });
+    expect(items.some((item) => item.slug === "san-marcos")).toBe(true);
   });
 
   it("includes Bandera as the canonical Medina River tubing gateway", () => {
