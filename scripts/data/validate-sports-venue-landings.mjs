@@ -80,7 +80,8 @@ for (const marker of [
   'sportsVenueLanding(params.landing)',
   'throw notFound()',
   "entitiesByKind('sports-venue')",
-  '.filter(isIndexableEntityPage)',
+  'isIndexableEntityPage(venue)',
+  "landing.slug === 'golf' && venue.tags?.includes('starter-golf-directory')",
   '.map(applyCurrentEntityCorrections)',
   'matchesSportsVenueLanding(venue, landing)',
   'canonicalPath',
@@ -100,6 +101,7 @@ for (const marker of [
   'Browse all Texas sports venues',
 ]) assert(route.includes(marker), `Sports venue landing route is missing SEO/AEO/discovery marker: ${marker}.`);
 
+assert(!route.includes("landing.slug !== 'golf'"), 'Sports landing publication gate must not be inverted to make non-golf collections bypass indexability.');
 assert(!route.includes('sports-venue-enrichment-all'), 'Sports venue landing pages must not import the full venue enrichment payload.');
 assert(!route.includes('loadTexasKnowledgeGraph'), 'Sports venue landing pages must remain on the static venue index path rather than loading the remote/full graph.');
 
