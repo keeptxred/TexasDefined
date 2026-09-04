@@ -34,13 +34,10 @@ function ErrorComponent(props: { error: Error; reset: () => void }) {
 
 function HeaderFallback() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border/80 bg-background/96" aria-hidden="true">
-      <div className="hidden lg:block">
-        <div className="h-[4.25rem] border-b border-border/70" />
-        <div className="h-[2.75rem]" />
-      </div>
-      <div className="h-[4.5rem] lg:hidden" />
-    </header>
+    <div
+      className="sticky top-0 z-50 h-[4.5rem] border-b border-border/80 bg-background/96 lg:h-[7rem]"
+      aria-hidden="true"
+    />
   );
 }
 
@@ -141,25 +138,15 @@ function RootComponent() {
   useEffect(() => {
     let active = true;
     let cleanup: (() => void) | undefined;
-    let idleId: number | undefined;
-    let timeoutId: number | undefined;
-
-    const install = () => {
+    const id = window.setTimeout(() => {
       void import("@/platform/analytics").then(({ installTexasDefinedAnalytics }) => {
         if (active) cleanup = installTexasDefinedAnalytics();
       });
-    };
-
-    if ("requestIdleCallback" in window) {
-      idleId = window.requestIdleCallback(install, { timeout: 2500 });
-    } else {
-      timeoutId = window.setTimeout(install, 1500);
-    }
+    }, 1500);
 
     return () => {
       active = false;
-      if (idleId !== undefined && "cancelIdleCallback" in window) window.cancelIdleCallback(idleId);
-      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+      window.clearTimeout(id);
       cleanup?.();
     };
   }, []);
