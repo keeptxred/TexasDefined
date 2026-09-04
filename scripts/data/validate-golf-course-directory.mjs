@@ -1,0 +1,75 @@
+import fs from 'node:fs';
+
+const read = (path) => fs.readFileSync(path, 'utf8');
+const source = read('src/data/knowledge-graph/golf-course-starter.ts');
+const seed = read('src/data/knowledge-graph/seed.ts');
+const countyRoute = read('src/routes/$kind.$slug.tsx');
+const countySports = read('src/components/sports/CountySportsDestinations.tsx');
+const landingRoute = read('src/routes/sports-venues.$landing.tsx');
+const search = read('src/data/sports-venue-search.ts');
+const relationships = read('src/data/knowledge-graph/relationships.ts');
+
+const fail = (message) => { throw new Error(`[golf-course-directory] ${message}`); };
+const rawMatch = source.match(/const raw = `([\s\S]*?)`;/);
+if (!rawMatch) fail('starter raw inventory is missing');
+const rows = rawMatch[1].trim().split('\n').filter(Boolean);
+if (rows.length !== 250) fail(`expected 250 starter rows; found ${rows.length}`);
+
+const ordinals = new Set();
+const names = new Set();
+const slugs = new Set();
+for (const row of rows) {
+  const [ordinalText, name, city] = row.split('|');
+  const ordinal = Number(ordinalText);
+  if (!Number.isInteger(ordinal) || ordinal < 1 || ordinal > 250) fail(`invalid ordinal in ${row}`);
+  if (ordinals.has(ordinal)) fail(`duplicate ordinal ${ordinal}`);
+  ordinals.add(ordinal);
+  if (!name?.trim() || !city?.trim()) fail(`invalid course row ${row}`);
+  const nameCity = `${name.trim()}|${city.trim()}`.toLowerCase();
+  if (names.has(nameCity)) fail(`duplicate course/city ${name} (${city})`);
+  names.add(nameCity);
+  const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  if (slugs.has(slug)) fail(`duplicate course slug ${slug}`);
+  slugs.add(slug);
+}
+for (let ordinal = 1; ordinal <= 250; ordinal += 1) if (!ordinals.has(ordinal)) fail(`missing ordinal ${ordinal}`);
+
+for (const marker of [
+  "const existing = new Set(['Memorial Park Golf Course', 'Colonial Country Club']);",
+  ".filter((course) => !course.existingEntity)",
+  "tags: ['sports-venue', 'golf', 'golf-course', 'starter-golf-directory'",
+  "href: `/sports-venue/${slug}`",
+]) if (!source.includes(marker)) fail(`starter inventory contract missing: ${marker}`);
+
+for (const marker of [
+  "import { TEXAS_GOLF_COURSE_STARTER_ENTITIES } from './golf-course-starter';",
+  '...TEXAS_GOLF_COURSE_STARTER_ENTITIES',
+]) if (!seed.includes(marker)) fail(`knowledge graph registration missing: ${marker}`);
+
+if (!countyRoute.includes("candidate.tags?.includes('starter-golf-directory')")) fail('county loader does not admit starter golf records');
+for (const marker of [
+  'Golf courses in {county.name}',
+  '#golf-courses',
+  'first-party address verification remains the publication gate',
+  'Browse the statewide Texas golf directory',
+]) if (!countySports.includes(marker)) fail(`county golf section missing: ${marker}`);
+
+for (const marker of [
+  "landing.slug === 'golf' && venue.tags?.includes('starter-golf-directory')",
+  'Texas Golf Courses: 250+ Courses by County & Region',
+  'TEXAS_GOLF_COURSE_STARTER_RECORDS.length',
+  'Starter course pages are crawlable for site navigation but intentionally noindex',
+]) if (!landingRoute.includes(marker)) fail(`statewide golf landing contract missing: ${marker}`);
+
+for (const marker of [
+  'TEXAS_GOLF_COURSE_STARTER_ENTITIES',
+  'golfCourseStarterRecord',
+  'Texas golf course directory',
+]) if (!search.includes(marker)) fail(`search discovery contract missing: ${marker}`);
+
+for (const marker of [
+  'if (!hasEntitySpecificOfficialUrl(entity)) return false;',
+  "if (!['active', 'seasonal'].includes(entity.status)) return false;",
+]) if (!relationships.includes(marker)) fail(`individual-page index gate weakened or missing: ${marker}`);
+
+console.log('Golf course directory validation passed: 250 unique starter courses, county/statewide discovery wired, individual verification gate preserved.');
