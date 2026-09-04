@@ -11,10 +11,10 @@ import appCss from "../styles.css?url";
 import heroHillCountry from "@/assets/hero-hill-country.jpg";
 import { BrandProvider } from "@/brand/context";
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { Header } from "@/components/layout/Header";
 import { absoluteUrl } from "@/lib/seo";
 import { ShopCartProvider } from "@/lib/shop-cart";
 
+const Header = lazy(() => import("@/components/layout/Header").then((module) => ({ default: module.Header })));
 const Footer = lazy(() => import("@/components/layout/Footer").then((module) => ({ default: module.Footer })));
 const NotFoundScreen = lazy(() => import("@/components/RouteStatusScreens").then((module) => ({ default: module.NotFoundScreen })));
 const ErrorScreen = lazy(() => import("@/components/RouteStatusScreens").then((module) => ({ default: module.ErrorScreen })));
@@ -30,6 +30,18 @@ function NotFoundComponent() {
 
 function ErrorComponent(props: { error: Error; reset: () => void }) {
   return <Suspense fallback={null}><ErrorScreen {...props} /></Suspense>;
+}
+
+function HeaderFallback() {
+  return (
+    <header className="sticky top-0 z-50 border-b border-border/80 bg-background/96" aria-hidden="true">
+      <div className="hidden lg:block">
+        <div className="h-[4.25rem] border-b border-border/70" />
+        <div className="h-[2.75rem]" />
+      </div>
+      <div className="h-[4.5rem] lg:hidden" />
+    </header>
+  );
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
@@ -157,7 +169,7 @@ function RootComponent() {
       <BrandProvider brand={texasDefinedBrand}>
         <ShopCartProvider>
           <div className="flex min-h-screen flex-col bg-background">
-            <Header />
+            <Suspense fallback={<HeaderFallback />}><Header /></Suspense>
             <main id="main" className="flex-1"><Outlet /></main>
             <Suspense fallback={<div className="h-40 border-t border-border bg-surface" aria-hidden="true" />}><Footer /></Suspense>
           </div>
