@@ -5,14 +5,14 @@ import { getCountyMajorEvents } from '@/data/county-major-events';
 import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { sportsVenueLandingLinksForVenue, type SportsVenueLanding } from '@/data/sports-venue-landings';
-import { tournamentCategoryLabel, tournamentsForCounty } from '@/data/texas-tournaments';
+import { getCountyTournamentSeeds } from '@/data/texas-tournaments-client';
 
 const siteUrl = 'https://texasdefined.com';
 
 export function CountySportsDestinations({ county, venues }: { county: TexasEntityRecord; venues: TexasEntityRecord[] }) {
   const majorEvents = use(getCountyMajorEvents(county.slug));
   const aquariumDestinations = aquariumMarineLinksForCounty(county.slug);
-  const tournaments = tournamentsForCounty(county.slug);
+  const tournaments = use(getCountyTournamentSeeds(county.slug));
   if (!venues.length && !majorEvents.length && !aquariumDestinations.length && !tournaments.length) return null;
 
   const displayedTournaments = tournaments.slice(0, 12);
@@ -103,7 +103,7 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
         <div>
           <div className="grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
             {displayedTournaments.map((tournament) => <a key={tournament.slug} href={`/tournament/${tournament.slug}`} className="group border-t border-border py-5">
-              <span className="eyebrow text-primary">{tournamentCategoryLabel(tournament.category)} · {tournament.locationLabel}</span>
+              <span className="eyebrow text-primary">{tournament.categoryLabel} · {tournament.locationLabel}</span>
               <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{tournament.name}</strong>
               <span className="mt-3 block text-sm leading-6 text-muted-foreground">{tournament.summary}</span>
               <span className="mt-3 block text-sm font-semibold text-primary">Open tournament guide →</span>
