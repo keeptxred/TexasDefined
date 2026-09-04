@@ -12,6 +12,7 @@ import type {
 import { editorialDeskById, editorialDesks } from "../editorial-desks";
 import { supplementalExploreCategories } from "../explore-categories";
 import { guideHref } from "../guide-links";
+import { listTexasDogsArticleStubs, loadTexasDogsArticle } from "../texas-dogs-articles";
 import type { Article, ArticleBlock, SearchDocument } from "../types";
 import { exploreFeatureArticleStubs, loadExploreFeatureArticle } from "./lazy-explore-feature-articles";
 import { lazyEvergreenArticleStubs, loadLazyEvergreenArticle } from "./lazy-evergreen";
@@ -72,6 +73,7 @@ const loadEditorialArticles = async () => [
   ...(await loadNewestEvergreenModule()).newestEvergreenArticles,
   ...(await loadTexasLifeSplitArticles()),
   ...(await loadCountySeriesArticleStubs()),
+  ...(await listTexasDogsArticleStubs()),
 ];
 
 const COUNTY_HERO_OVERRIDES: Partial<Record<string, Article["hero"]>> = {
@@ -186,6 +188,11 @@ export const fixtureArticles: ArticleRepository = {
     return take(rows, query.limit).map(normalizeArticle);
   },
   async getBySlug(scope, slug) {
+    if (scope.brandId === "texasdefined") {
+      const texasDogsArticle = await loadTexasDogsArticle(slug);
+      if (texasDogsArticle) return normalizeArticle(texasDogsArticle);
+    }
+
     const { loadNewestEvergreenArticle } = await loadNewestEvergreenModule();
     const newestEvergreenArticle = await loadNewestEvergreenArticle(scope.brandId, slug);
     if (newestEvergreenArticle) return normalizeArticle(newestEvergreenArticle);
