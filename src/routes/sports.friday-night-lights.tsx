@@ -58,7 +58,7 @@ const schema = {
 export const Route = createFileRoute(canonicalPath)({
   head: () => ({
     meta: [
-      { title },
+      { title: title },
       { name: "description", content: description },
     ],
     links: [{ rel: "canonical", href: canonicalUrl }],
