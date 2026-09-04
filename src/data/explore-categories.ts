@@ -1,5 +1,13 @@
 import type { Category } from "./types";
 
+const hamiltonPoolImage = {
+  src: "/images/explore/major-springs/hamilton-pool-preserve.jpg",
+  alt: "Hamilton Pool Preserve in Texas",
+  width: 1600,
+  height: 1200,
+  credit: "Alex Garrido · CC BY 3.0 · Wikimedia Commons",
+};
+
 export const supplementalExploreCategories: Category[] = [
   {
     slug: "national-parks",
@@ -19,13 +27,14 @@ export const supplementalExploreCategories: Category[] = [
     name: "Major Springs",
     eyebrow: "Clear water",
     description: "Texas springs, spring-fed pools and the waterways they sustain.",
-    image: {
-      src: "/images/explore/major-springs/hamilton-pool-preserve.jpg",
-      alt: "Hamilton Pool Preserve in Texas",
-      width: 1600,
-      height: 1200,
-      credit: "Alex Garrido · CC BY 3.0 · Wikimedia Commons",
-    },
+    image: hamiltonPoolImage,
+  },
+  {
+    slug: "swimming-holes-river-tubing" as Category["slug"],
+    name: "Swimming Holes & River Tubing",
+    eyebrow: "Swim & float",
+    description: "Texas swimming holes, spring-fed pools, tubing and float trips.",
+    image: hamiltonPoolImage,
   },
   {
     slug: "caverns",

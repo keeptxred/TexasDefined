@@ -18,6 +18,9 @@ import { platform, scope } from "./index";
 import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "./state-park-heroes";
 import type { Destination, Slug } from "./types";
 import type { DestinationQuery } from "./repositories";
+import { selectSwimmingHoleAndTubingDestinations } from "./water-recreation";
+
+const WATER_COLLECTION = "swimming-holes-river-tubing";
 
 function featuredFallback(destinations: Destination[], limit = 6) {
   return [...destinations]
@@ -101,6 +104,12 @@ function reconcileExploreCatalog(destinations: Destination[]) {
 }
 
 export async function listResolvedDestinations(params: Omit<DestinationQuery, "brandId"> = {}) {
+  if (params.category === WATER_COLLECTION) {
+    const destinations = selectSwimmingHoleAndTubingDestinations(await listResolvedDestinations({ limit: 5000 }));
+    if (params.featured) return featuredFallback(destinations, params.limit ?? 6);
+    return params.limit ? destinations.slice(0, params.limit) : destinations;
+  }
+
   const options = { featured: params.featured, category: params.category, limit: params.limit };
   let enriched: Destination[] = [];
   let core: Destination[] = [];
