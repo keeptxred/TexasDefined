@@ -16,9 +16,8 @@ describe("mobile Lighthouse performance contract", () => {
   it("keeps the primary header code split while reserving stable geometry", () => {
     expect(root).toContain('const Header = lazy(');
     expect(root).toContain('function HeaderFallback()');
-    expect(root).toContain('h-[4.25rem] border-b border-border/70');
-    expect(root).toContain('h-[2.75rem]');
-    expect(root).toContain('h-[4.5rem] lg:hidden');
+    expect(root).toContain('h-[4.5rem]');
+    expect(root).toContain('lg:h-[7rem]');
     expect(root).toContain('<Suspense fallback={<HeaderFallback />}><Header /></Suspense>');
   });
 
