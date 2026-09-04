@@ -1,11 +1,10 @@
-import { lazy, Suspense } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 
+import DogsHubPage from '@/components/dogs/DogsHubPage';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { loadDogHubData } from '@/data/texas-dogs';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
-const DogsHubPage = lazy(() => import('@/components/dogs/DogsHubPage'));
 const canonicalPath = '/dogs';
 const description = 'Texas Dogs Defined is the playful dog-life department of Texas Defined: breed personalities, Texas dog culture and breed-specific shirt ideas built for dog people.';
 
@@ -20,9 +19,5 @@ export const Route = createFileRoute('/dogs')({
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: loaderData?.head.scripts ?? [],
   }),
-  component: DogsRouteComponent,
+  component: DogsHubPage,
 });
-
-function DogsRouteComponent() {
-  return <Suspense fallback={<div className="min-h-[40vh]" aria-busy="true" />}><DogsHubPage /></Suspense>;
-}
