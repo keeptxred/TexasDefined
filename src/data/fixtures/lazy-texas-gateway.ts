@@ -47,7 +47,7 @@ const GATEWAY_LINK_ALIASES: Record<string, string> = {
 };
 
 const JACOBS_WELL_OLD = "Jacob's Well area when open for swimming";
-const JACOBS_WELL_CURRENT = "Jacob's Well Natural Area for hiking and the spring overlook; swimming is currently closed until further notice";
+const JACOBS_WELL_CURRENT = "Jacob's Well Natural Area; swimming is currently closed";
 
 const normalizeGatewayArticle = (article: Article): Article => {
   const enrichment: Partial<Article> | undefined = texasGatewayBatch1Enrichment[article.slug]
@@ -80,10 +80,11 @@ const normalizeGatewayArticle = (article: Article): Article => {
     ?? texasGatewayBatch13StargazingEnrichment[article.slug]
     ?? texasGatewayBatch13ScenicEnrichment[article.slug]
     ?? texasGatewayBatch14To16DistinctEnrichment[article.slug];
+  const swimmingGuide = article.id === "gateway-b8-swimming";
   const internalLinks = [...(article.internalLinks ?? []), ...(enrichment?.internalLinks ?? [])]
     .map((link) => ({
       ...link,
-      href: GATEWAY_LINK_ALIASES[link.href] ?? link.href,
+      href: swimmingGuide && link.href === "/explore" ? "/explore/swimming-holes-river-tubing" : GATEWAY_LINK_ALIASES[link.href] ?? link.href,
     }))
     .filter((link, index, links) => links.findIndex((candidate) => candidate.href === link.href) === index);
 
