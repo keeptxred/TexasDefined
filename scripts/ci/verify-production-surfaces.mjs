@@ -1,7 +1,6 @@
 import { appendFileSync } from 'node:fs';
 
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
-// Bind every no-store production probe to the deploying revision and workflow run.
 const sha = process.env.GITHUB_SHA ?? 'local';
 const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
@@ -9,8 +8,8 @@ const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 const surfaces = [
   ['homepage', '/', 'Texas Defined'],
   ['sitemap', '/sitemap.xml', '<urlset'],
-  ['explore-search', '/explore/search', 'Near destination'],
-  ['trip-planner', '/explore/trip-planner', 'Build your trip'],
+  ['explore-search', '/explore/search', 'Search the Texas Travel Guide'],
+  ['trip-planner', '/explore/trip-planner', 'Texas Trip Planner'],
   ['salary-calculator', '/texas-salary-calculator', 'Texas paycheck and salary calculator'],
   ['home-insurance-calculator', '/texas-home-insurance-calculator', 'Homeowners insurance calculator without personal information'],
   ['moving-pillar', '/article/moving-to-texas-what-nobody-tells-you', 'The quick answer: what should you know before moving to Texas?'],
@@ -48,10 +47,7 @@ const surfaces = [
   ['texas-history-military', '/texas-history', 'Military in Mexican Texas'],
 ];
 
-const canonicalHomepageRequiredNeedles = [
-  'Texas Defined',
-  'New from Texas Defined',
-];
+const canonicalHomepageRequiredNeedles = ['Texas Defined', 'New from Texas Defined'];
 const canonicalHomepageForbiddenNeedles = [
   'The Places We Trust for Texas Fall Color',
   'The Texas Defined Letter isn’t taking new names just yet.',
@@ -64,10 +60,7 @@ function appendSummary(text) {
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-appendSummary('## Production surface verification\n\n');
-appendSummary('| Result | Surface | HTTP | Attempts | Cloudflare challenge |\n|---|---|---:|---:|---|\n');
-
-for (const [label, path, needle] of surfaces) {
+async function verifyRevisionBoundSurface(label, path, needle) {
   let lastStatus = 'network-error';
   let lastBody = '';
   let lastError = '';
@@ -126,9 +119,13 @@ for (const [label, path, needle] of surfaces) {
   }
 }
 
-// The revision-bound probes above prove the new Worker is live. This second
-// homepage probe deliberately uses the canonical URL with no query string so
-// it also catches a stale edge response that a normal visitor could receive.
+appendSummary('## Production surface verification\n\n');
+appendSummary('| Result | Surface | HTTP | Attempts | Cloudflare challenge |\n|---|---|---:|---:|---|\n');
+
+for (const [label, path, needle] of surfaces) {
+  await verifyRevisionBoundSurface(label, path, needle);
+}
+
 let canonicalHomepagePassed = false;
 let canonicalHomepageStatus = 'network-error';
 let canonicalHomepageBody = '';
@@ -195,3 +192,5 @@ if (!canonicalHomepagePassed) {
 
 appendSummary(`\nAll ${surfaces.length} revision-bound production surfaces plus the canonical homepage passed without a Cloudflare challenge.\n`);
 console.log(`TexasDefined production verification passed (${surfaces.length} revision-bound surfaces plus canonical homepage, no cf-mitigated challenges).`);
+
+await import('./verify-viator-production.mjs');
