@@ -8,6 +8,7 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { articleInternalLinks } from "@/data/article-internal-links";
 import { shouldNoindexTexasGatewayArticle } from "@/data/fixtures/texas-gateway-index-readiness";
+import { imageRightsFor } from "@/data/image-rights";
 import { articleQuery, articlesQuery, authorsQuery, categoriesQuery, destinationsQuery } from "@/data/queries";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
@@ -155,6 +156,7 @@ export const Route = createFileRoute("/article/$slug")({
     const canonicalPath = `/article/${params.slug}`;
     const articleUrl = `${siteUrl}${canonicalPath}`;
     const imageUrl = absoluteUrl(texasDefinedBrand, article.hero.src);
+    const imageRights = imageRightsFor(article.hero.src);
     const author = authors.find((item) => item.id === article.authorId);
     const authorUrl = author ? `${siteUrl}/authors/${author.id}` : null;
     const authorId = authorUrl ? `${authorUrl}#desk` : `${siteUrl}/#organization`;
@@ -184,6 +186,7 @@ export const Route = createFileRoute("/article/$slug")({
       height: article.hero.height,
       representativeOfPage: true,
       ...(article.hero.credit ? { creditText: article.hero.credit } : {}),
+      ...(imageRights ?? {}),
     };
 
     const webPageSchema = {
