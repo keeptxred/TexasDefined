@@ -64,4 +64,9 @@ describe("Swimming Holes & River Tubing qualification", () => {
     const item = destination({ slug: "san-marcos", category: "small-towns", summary: "A Central Texas city built around the San Marcos River, with tubing and paddling." });
     expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([item]);
   });
+
+  it("includes Bandera as the canonical Medina River tubing gateway", () => {
+    const item = destination({ slug: "bandera", category: "small-towns", summary: "A Hill Country town with public Medina River swimming and tubing access." });
+    expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([item]);
+  });
 });
