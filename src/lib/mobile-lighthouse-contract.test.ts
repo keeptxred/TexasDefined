@@ -12,10 +12,13 @@ describe("mobile Lighthouse performance contract", () => {
     expect(root).not.toContain("fonts.gstatic.com");
   });
 
-  it("renders the primary header without a lazy chunk swap", () => {
-    expect(root).toContain('import { Header } from "@/components/layout/Header"');
-    expect(root).not.toContain('const Header = lazy(');
-    expect(root).toContain("<Header />");
+  it("keeps the primary header code split while reserving stable geometry", () => {
+    expect(root).toContain('const Header = lazy(');
+    expect(root).toContain('function HeaderFallback()');
+    expect(root).toContain('h-[4.25rem] border-b border-border/70');
+    expect(root).toContain('h-[2.75rem]');
+    expect(root).toContain('h-[4.5rem] lg:hidden');
+    expect(root).toContain('<Suspense fallback={<HeaderFallback />}><Header /></Suspense>');
   });
 
   it("preloads the homepage hero image used for LCP", () => {
