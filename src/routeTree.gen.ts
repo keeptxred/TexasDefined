@@ -256,6 +256,7 @@ import { Route as StateParkBalmorheaStateParkRouteImport } from './routes/state-
 import { Route as StateParkAtlantaStateParkRouteImport } from './routes/state-park.atlanta-state-park'
 import { Route as StateParkAbileneStateParkRouteImport } from './routes/state-park.abilene-state-park'
 import { Route as StateParkSlugRouteImport } from './routes/state-park.$slug'
+import { Route as SportsFridayNightLightsRouteImport } from './routes/sports.friday-night-lights'
 import { Route as SportsVenuesCompareDotcsvRouteImport } from './routes/sports-venues.compare[.]csv'
 import { Route as SportsVenuesCompareRouteImport } from './routes/sports-venues.compare'
 import { Route as SportsVenuesLandingRouteImport } from './routes/sports-venues.$landing'
@@ -2048,6 +2049,13 @@ const StateParkSlugRoute = StateParkSlugRouteImport.update({
   path: '/state-park/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SportsFridayNightLightsRoute = SportsFridayNightLightsRouteImport.update({
+  id: '/friday-night-lights',
+  path: '/friday-night-lights',
+  getParentRoute: () => SportsRoute,
+} as any).lazy(() =>
+  import('./routes/sports.friday-night-lights.lazy').then((d) => d.Route),
+)
 const SportsVenuesCompareDotcsvRoute =
   SportsVenuesCompareDotcsvRouteImport.update({
     id: '/compare.csv',
@@ -3290,7 +3298,7 @@ export interface FileRoutesByFullPath {
   '/sitemap-texas-icons.xml': typeof SitemapTexasIconsDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sourcing-methodology': typeof SourcingMethodologyRoute
-  '/sports': typeof SportsRoute
+  '/sports': typeof SportsRouteWithChildren
   '/sports-venues': typeof SportsVenuesRouteWithChildren
   '/start-a-business-in-texas': typeof StartABusinessInTexasRoute
   '/tax-calculator': typeof TaxCalculatorRoute
@@ -3541,6 +3549,7 @@ export interface FileRoutesByFullPath {
   '/sports-venues/$landing': typeof SportsVenuesLandingRoute
   '/sports-venues/compare': typeof SportsVenuesCompareRoute
   '/sports-venues/compare.csv': typeof SportsVenuesCompareDotcsvRoute
+  '/sports/friday-night-lights': typeof SportsFridayNightLightsRoute
   '/state-park/$slug': typeof StateParkSlugRoute
   '/state-park/abilene-state-park': typeof StateParkAbileneStateParkRoute
   '/state-park/atlanta-state-park': typeof StateParkAtlantaStateParkRoute
@@ -3737,7 +3746,7 @@ export interface FileRoutesByTo {
   '/sitemap-texas-icons.xml': typeof SitemapTexasIconsDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sourcing-methodology': typeof SourcingMethodologyRoute
-  '/sports': typeof SportsRoute
+  '/sports': typeof SportsRouteWithChildren
   '/sports-venues': typeof SportsVenuesRouteWithChildren
   '/start-a-business-in-texas': typeof StartABusinessInTexasRoute
   '/tax-calculator': typeof TaxCalculatorRoute
@@ -3988,6 +3997,7 @@ export interface FileRoutesByTo {
   '/sports-venues/$landing': typeof SportsVenuesLandingRoute
   '/sports-venues/compare': typeof SportsVenuesCompareRoute
   '/sports-venues/compare.csv': typeof SportsVenuesCompareDotcsvRoute
+  '/sports/friday-night-lights': typeof SportsFridayNightLightsRoute
   '/state-park/$slug': typeof StateParkSlugRoute
   '/state-park/abilene-state-park': typeof StateParkAbileneStateParkRoute
   '/state-park/atlanta-state-park': typeof StateParkAtlantaStateParkRoute
@@ -4187,7 +4197,7 @@ export interface FileRoutesById {
   '/sitemap-texas-icons.xml': typeof SitemapTexasIconsDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sourcing-methodology': typeof SourcingMethodologyRoute
-  '/sports': typeof SportsRoute
+  '/sports': typeof SportsRouteWithChildren
   '/sports-venues': typeof SportsVenuesRouteWithChildren
   '/start-a-business-in-texas': typeof StartABusinessInTexasRoute
   '/tax-calculator': typeof TaxCalculatorRoute
@@ -4438,6 +4448,7 @@ export interface FileRoutesById {
   '/sports-venues/$landing': typeof SportsVenuesLandingRoute
   '/sports-venues/compare': typeof SportsVenuesCompareRoute
   '/sports-venues/compare.csv': typeof SportsVenuesCompareDotcsvRoute
+  '/sports/friday-night-lights': typeof SportsFridayNightLightsRoute
   '/state-park/$slug': typeof StateParkSlugRoute
   '/state-park/abilene-state-park': typeof StateParkAbileneStateParkRoute
   '/state-park/atlanta-state-park': typeof StateParkAtlantaStateParkRoute
@@ -4889,6 +4900,7 @@ export interface FileRouteTypes {
     | '/sports-venues/$landing'
     | '/sports-venues/compare'
     | '/sports-venues/compare.csv'
+    | '/sports/friday-night-lights'
     | '/state-park/$slug'
     | '/state-park/abilene-state-park'
     | '/state-park/atlanta-state-park'
@@ -5336,6 +5348,7 @@ export interface FileRouteTypes {
     | '/sports-venues/$landing'
     | '/sports-venues/compare'
     | '/sports-venues/compare.csv'
+    | '/sports/friday-night-lights'
     | '/state-park/$slug'
     | '/state-park/abilene-state-park'
     | '/state-park/atlanta-state-park'
@@ -5785,6 +5798,7 @@ export interface FileRouteTypes {
     | '/sports-venues/$landing'
     | '/sports-venues/compare'
     | '/sports-venues/compare.csv'
+    | '/sports/friday-night-lights'
     | '/state-park/$slug'
     | '/state-park/abilene-state-park'
     | '/state-park/atlanta-state-park'
@@ -5984,7 +5998,7 @@ export interface RootRouteChildren {
   SitemapTexasIconsDotxmlRoute: typeof SitemapTexasIconsDotxmlRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SourcingMethodologyRoute: typeof SourcingMethodologyRoute
-  SportsRoute: typeof SportsRoute
+  SportsRoute: typeof SportsRouteWithChildren
   SportsVenuesRoute: typeof SportsVenuesRouteWithChildren
   StartABusinessInTexasRoute: typeof StartABusinessInTexasRoute
   TaxCalculatorRoute: typeof TaxCalculatorRoute
@@ -8016,6 +8030,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StateParkSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sports/friday-night-lights': {
+      id: '/sports/friday-night-lights'
+      path: '/friday-night-lights'
+      fullPath: '/sports/friday-night-lights'
+      preLoaderRoute: typeof SportsFridayNightLightsRouteImport
+      parentRoute: typeof SportsRoute
+    }
     '/sports-venues/compare.csv': {
       id: '/sports-venues/compare.csv'
       path: '/compare.csv'
@@ -9655,6 +9676,17 @@ const ShopRouteChildren: ShopRouteChildren = {
 
 const ShopRouteWithChildren = ShopRoute._addFileChildren(ShopRouteChildren)
 
+interface SportsRouteChildren {
+  SportsFridayNightLightsRoute: typeof SportsFridayNightLightsRoute
+}
+
+const SportsRouteChildren: SportsRouteChildren = {
+  SportsFridayNightLightsRoute: SportsFridayNightLightsRoute,
+}
+
+const SportsRouteWithChildren =
+  SportsRoute._addFileChildren(SportsRouteChildren)
+
 interface SportsVenuesRouteChildren {
   SportsVenuesLandingRoute: typeof SportsVenuesLandingRoute
   SportsVenuesCompareRoute: typeof SportsVenuesCompareRoute
@@ -9964,7 +9996,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapTexasIconsDotxmlRoute: SitemapTexasIconsDotxmlRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SourcingMethodologyRoute: SourcingMethodologyRoute,
-  SportsRoute: SportsRoute,
+  SportsRoute: SportsRouteWithChildren,
   SportsVenuesRoute: SportsVenuesRouteWithChildren,
   StartABusinessInTexasRoute: StartABusinessInTexasRoute,
   TaxCalculatorRoute: TaxCalculatorRoute,
