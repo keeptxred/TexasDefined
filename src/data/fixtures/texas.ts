@@ -11,6 +11,7 @@ import shopFlatlay from "@/assets/shop-flatlay.jpg";
 import smallTown from "@/assets/small-town.jpg";
 import wildlife from "@/assets/wildlife.jpg";
 
+import { TEXAS_REGION_DEFINITIONS } from "../texas-regions";
 import type {
   Article,
   Author,
@@ -52,15 +53,7 @@ export const images = {
   shopFlatlay: img(shopFlatlay, "A flatlay of Texas-made goods on a warm linen surface"),
 };
 
-export const regions: Region[] = [
-  { id: "hill-country", name: "Hill Country", blurb: "Limestone, spring-fed rivers, live oaks and wine roads." },
-  { id: "gulf-coast", name: "Gulf Coast", blurb: "Barrier islands, bay towns, shrimp boats and salt air." },
-  { id: "big-bend", name: "Big Bend", blurb: "Desert mountains, dark skies and the river that made the border." },
-  { id: "panhandle", name: "Panhandle & Plains", blurb: "Canyon country, caprock and horizon in every direction." },
-  { id: "piney-woods", name: "Piney Woods", blurb: "Cypress swamps, pine forest and East Texas quiet." },
-  { id: "prairies-lakes", name: "Prairies & Lakes", blurb: "Blackland prairie, courthouse squares and big reservoirs." },
-  { id: "south-texas", name: "South Texas", blurb: "Brush country, ranch land and the birding capital of America." },
-];
+export const regions: Region[] = [...TEXAS_REGION_DEFINITIONS];
 
 export const categories: Category[] = [
   {

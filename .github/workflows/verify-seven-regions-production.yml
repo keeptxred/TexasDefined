@@ -1,0 +1,169 @@
+name: Verify seven Texas regions production
+
+on:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-seven-texas-regions-production
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verify evergreen article and seven regional hubs
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          cache_key="${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+
+          fetch_page() {
+            local path="$1"
+            local out="$2"
+            for attempt in 1 2 3 4 5 6; do
+              if curl --fail-with-body --silent --show-error --location --max-time 30 \
+                -H 'Cache-Control: no-cache' \
+                "${origin}${path}?verify=${cache_key}-${attempt}" -o "$out"; then
+                return 0
+              fi
+              sleep 5
+            done
+            echo "FAIL ${path}: production request did not succeed" >&2
+            return 1
+          }
+
+          assert_indexable() {
+            local path="$1"
+            local body="$2"
+            if grep -Eqi "<meta[^>]+name=[\"']robots[\"'][^>]+content=[\"'][^\"']*noindex" "$body"; then
+              echo "FAIL ${path}: page is noindex" >&2
+              return 1
+            fi
+          }
+
+          assert_contains() {
+            local path="$1"
+            local body="$2"
+            local needle="$3"
+            if ! grep -Fqi "$needle" "$body"; then
+              echo "FAIL ${path}: missing '${needle}'" >&2
+              return 1
+            fi
+          }
+
+          article="$(mktemp)"
+          trap 'rm -f "$article"' EXIT
+          fetch_page '/article/texas-regions-explained' "$article"
+          assert_indexable '/article/texas-regions-explained' "$article"
+          assert_contains '/article/texas-regions-explained' "$article" 'The 7 Texas Regions, Defined'
+          assert_contains '/article/texas-regions-explained' "$article" 'Texas Defined Travel & Outdoors Desk'
+          assert_contains '/article/texas-regions-explained' "$article" 'About 14 minutes'
+          assert_contains '/article/texas-regions-explained' "$article" 'https://texasdefined.com/article/texas-regions-explained'
+
+          article_links=(
+            '/explore/region/big-bend'
+            '/explore/region/gulf-coast'
+            '/explore/region/hill-country'
+            '/explore/region/panhandle'
+            '/explore/region/piney-woods'
+            '/explore/region/prairies-lakes'
+            '/explore/region/south-texas'
+          )
+          for href in "${article_links[@]}"; do
+            assert_contains '/article/texas-regions-explained' "$article" "$href"
+          done
+          echo 'PASS /article/texas-regions-explained'
+
+          paths=(
+            '/explore/region/big-bend'
+            '/explore/region/gulf-coast'
+            '/explore/region/hill-country'
+            '/explore/region/panhandle'
+            '/explore/region/piney-woods'
+            '/explore/region/prairies-lakes'
+            '/explore/region/south-texas'
+          )
+          names=(
+            'Big Bend Country'
+            'Gulf Coast'
+            'Hill Country'
+            'Panhandle Plains'
+            'Piney Woods'
+            'Prairies & Lakes'
+            'South Texas Plains'
+          )
+
+          for i in "${!paths[@]}"; do
+            body="$(mktemp)"
+            fetch_page "${paths[$i]}" "$body"
+            assert_indexable "${paths[$i]}" "$body"
+            assert_contains "${paths[$i]}" "$body" "${names[$i]}"
+            assert_contains "${paths[$i]}" "$body" 'See all 7 regions defined'
+            assert_contains "${paths[$i]}" "$body" "https://texasdefined.com${paths[$i]}"
+            rm -f "$body"
+            echo "PASS ${paths[$i]}"
+          done
+
+      - name: Verify sitemap discovery for article and regional hubs
+        shell: python
+        run: |
+          import re
+          import urllib.request
+          import xml.etree.ElementTree as ET
+
+          origin = 'https://texasdefined.com'
+          required = {
+              origin + '/article/texas-regions-explained',
+              origin + '/explore/region/big-bend',
+              origin + '/explore/region/gulf-coast',
+              origin + '/explore/region/hill-country',
+              origin + '/explore/region/panhandle',
+              origin + '/explore/region/piney-woods',
+              origin + '/explore/region/prairies-lakes',
+              origin + '/explore/region/south-texas',
+          }
+
+          seen_urls = set()
+          queue = [origin + '/sitemap.xml']
+          visited = set()
+          headers = {'User-Agent': 'TexasDefined-Seven-Regions-Smoke/1.0', 'Cache-Control': 'no-cache'}
+
+          while queue and len(visited) < 50:
+              url = queue.pop(0)
+              if url in visited:
+                  continue
+              visited.add(url)
+              request = urllib.request.Request(url, headers=headers)
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  body = response.read()
+              root = ET.fromstring(body)
+              locations = [node.text.strip() for node in root.findall('.//{*}loc') if node.text]
+              if root.tag.endswith('sitemapindex'):
+                  queue.extend(loc for loc in locations if loc.startswith(origin))
+              else:
+                  seen_urls.update(locations)
+
+          missing = sorted(required - seen_urls)
+          if missing:
+              raise SystemExit('Missing from sitemap discovery: ' + ', '.join(missing))
+          print(f'PASS sitemap discovery for {len(required)} seven-region URLs')
+
+      - name: Publish verification summary
+        if: always()
+        run: |
+          {
+            echo '## Seven Texas regions production verification'
+            echo
+            echo '- Evergreen article checked for canonical title, Travel & Outdoors byline, 14-minute reading time, indexability and all seven regional links.'
+            echo '- Seven regional hubs checked for canonical names, reciprocal article link, canonical URL and indexability.'
+            echo '- Sitemap discovery checked for the article plus all seven regional hubs.'
+          } >> "$GITHUB_STEP_SUMMARY"
