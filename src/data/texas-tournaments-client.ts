@@ -3,21 +3,15 @@ import { createServerFn } from '@tanstack/react-start';
 const loadCountyTournamentSeeds = createServerFn({ method: 'GET' })
   .inputValidator((data: { countySlug: string }) => data)
   .handler(async ({ data }) => {
-    const { tournamentCategoryLabel, tournamentsForCounty } = await import('./texas-tournaments');
-    return tournamentsForCounty(data.countySlug).map((tournament) => ({
-      slug: tournament.slug,
-      name: tournament.name,
-      categoryLabel: tournamentCategoryLabel(tournament.category),
-      locationLabel: tournament.locationLabel,
-      summary: tournament.summary,
-    }));
+    const { loadCountyTournamentSeedsServer } = await import('./texas-tournaments.server');
+    return loadCountyTournamentSeedsServer(data.countySlug);
   });
 
 const loadTournamentEntity = createServerFn({ method: 'GET' })
   .inputValidator((data: { slug: string }) => data)
   .handler(async ({ data }) => {
-    const { TEXAS_TOURNAMENT_ENTITIES } = await import('./texas-tournaments');
-    return TEXAS_TOURNAMENT_ENTITIES.find((entity) => entity.slug === data.slug) ?? null;
+    const { loadTournamentEntityServer } = await import('./texas-tournaments.server');
+    return loadTournamentEntityServer(data.slug);
   });
 
 export function getCountyTournamentSeeds(countySlug: string) {
