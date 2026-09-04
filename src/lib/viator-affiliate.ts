@@ -2,7 +2,7 @@ const VIATOR_ORIGIN = "https://www.viator.com";
 const APPROVED_AFFILIATE_PARAMS = "pid=P00318227&mcid=42383";
 
 function affiliateParams() {
-  const raw = (import.meta.env.VITE_VIATOR_AFFILIATE_PARAMS as string | undefined)?.trim();
+  const raw = (import.meta.env?.VITE_VIATOR_AFFILIATE_PARAMS as string | undefined)?.trim();
   const params = new URLSearchParams((raw || APPROVED_AFFILIATE_PARAMS).replace(/^\?/, ""));
   return params.get("pid") && params.get("mcid") ? params : new URLSearchParams(APPROVED_AFFILIATE_PARAMS);
 }
