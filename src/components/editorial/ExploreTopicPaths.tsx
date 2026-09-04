@@ -40,7 +40,9 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
     { to: "/explore/lakes-rivers", label: "Lakes & rivers", description: "Broaden the trip to river and lake access." },
     { to: "/explore/major-springs", label: "Major springs", description: "Explore spring systems and spring-fed pools." },
     { to: "/explore/state-parks", label: "State parks", description: "Find managed swimming, camping and recreation access." },
+    { to: "/texas-paddling-guide", label: "Texas paddling", description: "Plan launch access, route length and current water conditions." },
     { to: "/best-places-to-go-camping-in-texas", label: "Best camping in Texas", description: "Turn a swim or float into an overnight trip." },
+    { to: "/explore/small-towns", label: "Small towns", description: "Pair river access with the towns that make a water weekend work." },
     { to: "/explore/trip-planner", label: "Texas Trip Planner", description: "Build water stops into a practical itinerary." },
   ],
   "national-parks": [

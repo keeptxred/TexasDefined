@@ -37,6 +37,19 @@ describe("Swimming Holes & River Tubing qualification", () => {
     expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([item]);
   });
 
+  it("does not treat wildlife uses of wading as water recreation", () => {
+    const item = destination({ highlights: ["Lake loops for alligators, wading birds and wetland views"] });
+    expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([]);
+  });
+
+  it("excludes destinations with a current all-site swimming closure", () => {
+    const item = destination({
+      summary: "A spring-fed swimming hole.",
+      entryNote: "Swimming is cancelled until further notice.",
+    });
+    expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([]);
+  });
+
   it("does not pull unrelated categories into the water collection", () => {
     const item = destination({ category: "historic-sites", summary: "A historic spring-fed swimming pool." });
     expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([]);
