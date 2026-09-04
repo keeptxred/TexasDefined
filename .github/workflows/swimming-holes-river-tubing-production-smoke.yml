@@ -1,0 +1,244 @@
+name: Swimming holes and river tubing production smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/swimming-holes-river-tubing-production-smoke.yml'
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+concurrency:
+  group: swimming-holes-river-tubing-production-smoke
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      STATUS_SHA: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+    steps:
+      - name: Publish production verification pending
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header 'Accept: application/vnd.github+json' \
+            --header 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${STATUS_SHA}" \
+            --data '{"state":"pending","context":"texasdefined-live-swimming-tubing","description":"Checking live collection, redirects, sitemap and destination membership"}' >/dev/null
+
+      - name: Verify canonical collection and exact destination membership
+        id: collection
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          path='/explore/swimming-holes-river-tubing'
+          canonical="${origin}${path}"
+          body="$(mktemp)"
+          headers="$(mktemp)"
+          result="$(mktemp)"
+          trap 'rm -f "$body" "$headers" "$result"' EXIT
+
+          ok=0
+          for attempt in 1 2 3 4 5 6; do
+            code="$(curl --silent --show-error --location --max-time 30 \
+              --user-agent 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/151 Safari/537.36' \
+              --header 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' \
+              --dump-header "$headers" --output "$body" --write-out '%{http_code}' \
+              "${canonical}?verify-swim-tubing=${GITHUB_RUN_ID}-${attempt}" || true)"
+            if ! grep -iq '^cf-mitigated: *challenge' "$headers" && [[ "$code" == "200" ]] \
+              && grep -Fqi 'Swimming Holes' "$body" \
+              && grep -Fqi 'River Tubing' "$body" \
+              && grep -Fqi "<link rel=\"canonical\" href=\"${canonical}\"" "$body" \
+              && ! grep -Fqi 'name="robots" content="noindex' "$body" \
+              && ! grep -Fqi "name='robots' content='noindex" "$body"; then
+              ok=1
+              break
+            fi
+            sleep 5
+          done
+          if [[ "$ok" -ne 1 ]]; then
+            echo 'Canonical Swimming Holes & River Tubing page did not render as an indexable canonical page.' >&2
+            sed -n '1,120p' "$body" >&2 || true
+            exit 1
+          fi
+
+          python3 - "$body" > "$result" <<'PY'
+          import html
+          import json
+          import re
+          import sys
+
+          source = open(sys.argv[1], encoding='utf-8').read()
+          scripts = re.findall(r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', source, flags=re.I | re.S)
+          nodes = []
+          for raw in scripts:
+              try:
+                  doc = json.loads(html.unescape(raw.strip()))
+              except Exception:
+                  continue
+              if isinstance(doc, dict) and isinstance(doc.get('@graph'), list):
+                  nodes.extend(doc['@graph'])
+              elif isinstance(doc, dict):
+                  nodes.append(doc)
+
+          canonical = 'https://texasdefined.com/explore/swimming-holes-river-tubing'
+          collections = [node for node in nodes if node.get('@type') == 'CollectionPage' and node.get('url') == canonical]
+          if len(collections) != 1:
+              raise SystemExit(f'Expected one canonical CollectionPage node, found {len(collections)}')
+          item_list = (collections[0].get('mainEntity') or {}).get('itemListElement') or []
+          destinations = []
+          for row in item_list:
+              item = row.get('item') if isinstance(row, dict) else None
+              if isinstance(item, dict) and item.get('@type') == 'TouristAttraction':
+                  destinations.append(item)
+          names = [str(item.get('name') or '') for item in destinations]
+          required = ['New Braunfels', 'San Marcos', 'Bandera', 'Garner State Park', 'South Llano River State Park']
+          missing = [name for name in required if name not in names]
+          forbidden = [name for name in names if 'Brazos Bend' in name or 'Jacob' in name]
+          if missing:
+              raise SystemExit('Missing expected live water destinations: ' + ', '.join(missing))
+          if forbidden:
+              raise SystemExit('False-positive water destinations still present: ' + ', '.join(forbidden))
+          if len(destinations) < 5:
+              raise SystemExit(f'Water collection unexpectedly thin: {len(destinations)} destination items')
+          print(f'COUNT={len(destinations)}')
+          print('NAMES=' + ' | '.join(names))
+          PY
+
+          cat "$result"
+          count="$(sed -n 's/^COUNT=//p' "$result")"
+          [[ "$count" =~ ^[0-9]+$ ]]
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+
+          for href in \
+            '/explore/lakes-rivers' \
+            '/explore/major-springs' \
+            '/explore/state-parks' \
+            '/texas-paddling-guide' \
+            '/explore/small-towns'; do
+            grep -Fq "href=\"${href}\"" "$body" || {
+              echo "Collection missing expected outbound discovery link ${href}." >&2
+              exit 1
+            }
+          done
+
+      - name: Verify legacy redirects
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          check_redirect() {
+            local path="$1"
+            local target="$2"
+            local headers code
+            headers="$(mktemp)"
+            code="$(curl --silent --show-error --max-time 30 --output /dev/null --dump-header "$headers" --write-out '%{http_code}' "${origin}${path}" || true)"
+            if [[ "$code" != '301' ]] || ! grep -Eiq "^location: *(${origin})?${target}([?#].*)?\r?$" "$headers"; then
+              echo "Expected 301 ${path} -> ${target}; got HTTP ${code}." >&2
+              cat "$headers" >&2 || true
+              rm -f "$headers"
+              return 1
+            fi
+            rm -f "$headers"
+          }
+          check_redirect '/explore/river-tubing' '/explore/swimming-holes-river-tubing'
+          check_redirect '/explore/swimming-holes' '/explore/swimming-holes-river-tubing'
+          check_redirect '/explore/spring-fed-swimming' '/explore/lakes-rivers'
+
+      - name: Verify sitemap ownership
+        shell: bash
+        run: |
+          set -euo pipefail
+          sitemap="$(mktemp)"
+          trap 'rm -f "$sitemap"' EXIT
+          curl --retry 5 --retry-all-errors --retry-delay 2 --max-time 45 -fsSL \
+            "https://texasdefined.com/sitemap-explore.xml?verify-swim-tubing=${GITHUB_RUN_ID}" -o "$sitemap"
+          grep -Fq '<loc>https://texasdefined.com/explore/swimming-holes-river-tubing</loc>' "$sitemap"
+          ! grep -Fq '<loc>https://texasdefined.com/explore/river-tubing</loc>' "$sitemap"
+          ! grep -Fq '<loc>https://texasdefined.com/explore/swimming-holes</loc>' "$sitemap"
+          ! grep -Fq '<loc>https://texasdefined.com/explore/spring-fed-swimming</loc>' "$sitemap"
+
+      - name: Verify reciprocal and published-article discovery
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          check_link() {
+            local path="$1"
+            local expected="$2"
+            local body
+            body="$(mktemp)"
+            if ! curl --retry 5 --retry-all-errors --retry-delay 2 --max-time 45 -fsSL \
+              "${origin}${path}?verify-swim-tubing=${GITHUB_RUN_ID}" -o "$body" \
+              || ! grep -Fq "href=\"${expected}\"" "$body"; then
+              echo "${path} did not expose expected link ${expected}." >&2
+              sed -n '1,100p' "$body" >&2 || true
+              rm -f "$body"
+              return 1
+            fi
+            rm -f "$body"
+          }
+          check_link '/destination/bandera' '/explore/swimming-holes-river-tubing'
+          check_link '/destination/garner-state-park' '/explore/swimming-holes-river-tubing'
+          check_link '/destination/san-marcos' '/explore/swimming-holes-river-tubing'
+          check_link '/article/best-texas-swimming-holes-for-a-summer-trip' '/explore/swimming-holes-river-tubing'
+
+      - name: Publish production verification success
+        if: success()
+        shell: bash
+        env:
+          DESTINATION_COUNT: ${{ steps.collection.outputs.count }}
+        run: |
+          set -euo pipefail
+          description="Live swim/tubing collection passed; ${DESTINATION_COUNT} qualifying destinations"
+          payload="$(python3 - "$description" <<'PY'
+          import json, sys
+          print(json.dumps({'state':'success','context':'texasdefined-live-swimming-tubing','description':sys.argv[1][:140]}))
+          PY
+          )"
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header 'Accept: application/vnd.github+json' \
+            --header 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${STATUS_SHA}" \
+            --data "$payload" >/dev/null
+
+      - name: Publish production verification failure
+        if: failure()
+        shell: bash
+        run: |
+          curl --fail-with-body --silent --show-error --request POST \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header 'Accept: application/vnd.github+json' \
+            --header 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${STATUS_SHA}" \
+            --data '{"state":"failure","context":"texasdefined-live-swimming-tubing","description":"Production swim/tubing verification failed"}' >/dev/null
+
+      - name: Publish smoke summary
+        if: always()
+        env:
+          DESTINATION_COUNT: ${{ steps.collection.outputs.count }}
+        run: |
+          {
+            echo '## Swimming Holes & River Tubing production smoke'
+            echo
+            echo "- Qualifying destination cards: ${DESTINATION_COUNT:-unknown}"
+            echo '- Canonical/indexable collection and CollectionPage JSON-LD verified'
+            echo '- New Braunfels, San Marcos, Bandera, Garner and South Llano required'
+            echo '- Brazos Bend and Jacob’s Well rejected from the active collection'
+            echo '- Legacy aliases must remain 301 redirects and absent from sitemap-explore.xml'
+            echo '- Reciprocal destination links and published swimming-holes article link verified'
+          } >> "$GITHUB_STEP_SUMMARY"
