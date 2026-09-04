@@ -143,11 +143,14 @@ jobs:
           check_redirect() {
             local path="$1"
             local target="$2"
-            local headers code
+            local headers code location location_without_suffix
             headers="$(mktemp)"
             code="$(curl --silent --show-error --max-time 30 --output /dev/null --dump-header "$headers" --write-out '%{http_code}' "${origin}${path}" || true)"
-            if [[ "$code" != '301' ]] || ! grep -Eiq "^location: *(${origin})?${target}([?#].*)?\r?$" "$headers"; then
-              echo "Expected 301 ${path} -> ${target}; got HTTP ${code}." >&2
+            location="$(tr -d '\r' < "$headers" | sed -n 's/^[Ll][Oo][Cc][Aa][Tt][Ii][Oo][Nn]:[[:space:]]*//p' | head -n 1)"
+            location_without_suffix="${location%%\#*}"
+            location_without_suffix="${location_without_suffix%%\?*}"
+            if [[ "$code" != '301' ]] || { [[ "$location_without_suffix" != "$target" ]] && [[ "$location_without_suffix" != "${origin}${target}" ]]; }; then
+              echo "Expected 301 ${path} -> ${target}; got HTTP ${code} with Location ${location:-<missing>}." >&2
               cat "$headers" >&2 || true
               rm -f "$headers"
               return 1
