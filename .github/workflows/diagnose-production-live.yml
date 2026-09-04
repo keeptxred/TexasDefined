@@ -1,0 +1,49 @@
+name: Diagnose production live verification
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/diagnose-production-live.yml'
+      - 'scripts/ci/verify-*-production.mjs'
+      - 'scripts/ci/verify-production-surfaces.mjs'
+      - 'scripts/ci/verify-direct-worker-discovery.mjs'
+      - 'scripts/ci/verify-statewide-financial-discovery.mjs'
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  live-verifier:
+    name: Live verifier · ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: direct-worker
+            script: scripts/ci/verify-direct-worker-discovery.mjs
+          - name: base-production
+            script: scripts/ci/verify-production-surfaces.mjs
+          - name: local-financial
+            script: scripts/ci/verify-local-financial-production.mjs
+          - name: statewide-financial
+            script: scripts/ci/verify-statewide-financial-discovery.mjs
+          - name: viator-production
+            script: scripts/ci/verify-viator-production.mjs
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run ${{ matrix.name }} verifier
+        env:
+          DIRECT_WORKER_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
+          PRODUCTION_ORIGIN: https://texasdefined.com
+          GH_TOKEN: ${{ github.token }}
+        run: node ${{ matrix.script }}
