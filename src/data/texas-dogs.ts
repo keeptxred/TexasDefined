@@ -36,6 +36,22 @@ export interface DogBreedPageData {
   collections: DogDesignCollection[];
 }
 
+// Slugs stay tiny and public so sitemap generation never needs the rich registry in a client-reachable module.
+export const dogBreeds = [
+  "labrador-retriever",
+  "golden-retriever",
+  "dachshund",
+  "french-bulldog",
+  "german-shepherd",
+  "australian-shepherd",
+  "pembroke-welsh-corgi",
+  "beagle",
+  "boxer",
+  "chihuahua",
+  "great-dane",
+  "yorkshire-terrier",
+].map((slug) => ({ slug }));
+
 const loadDogHubDataServerFn = createServerFn({ method: "GET" }).handler(async () => {
   const { loadDogHubDataServer } = await import("./texas-dogs.server");
   return loadDogHubDataServer();
