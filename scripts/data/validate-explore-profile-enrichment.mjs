@@ -14,7 +14,9 @@ const relationshipEngine = fs.readFileSync(path.join(root, 'src/data/destination
 const graph = fs.readFileSync(path.join(root, 'src/data/knowledge-graph/explore-adapter.ts'), 'utf8');
 const ai = fs.readFileSync(path.join(root, 'src/routes/api.ai.entities.ts'), 'utf8');
 const llms = fs.readFileSync(path.join(root, 'src/routes/llms[.]txt.ts'), 'utf8');
-const exploreSearch = fs.readFileSync(path.join(root, 'src/routes/explore.search.tsx'), 'utf8');
+const exploreSearchShell = fs.readFileSync(path.join(root, 'src/routes/explore.search.tsx'), 'utf8');
+const exploreSearchLazy = fs.readFileSync(path.join(root, 'src/routes/explore.search.lazy.tsx'), 'utf8');
+const exploreSearch = `${exploreSearchShell}\n${exploreSearchLazy}`;
 const sitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap-explore[.]xml.ts'), 'utf8');
 const primarySitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap[.]xml.ts'), 'utf8');
 const types = fs.readFileSync(path.join(root, 'src/data/types.ts'), 'utf8');
@@ -102,7 +104,7 @@ for (const feature of [
 if (!queries.includes('await import("./destination-query-runtime")')) errors.push('Destination resolution must remain behind the dynamic runtime boundary.');
 
 for (const feature of [
-  'createFileRoute("/explore/search")', 'component: ExploreSearchPage', 'destinationsQuery({ limit: 5000 })', 'scoreDestination', 'searchText',
+  'createFileRoute("/explore/search")', 'createLazyFileRoute("/explore/search")', 'component: ExploreSearchPage', 'destinationsQuery({ limit: 5000 })', 'scoreDestination', 'searchText',
   'destination.county', 'destination.managingAuthority', 'destination.bestSeason', '...destination.highlights',
   'terms.every((term) => haystack.includes(term))', 'right.score - left.score',
   'const text = z.string().optional().catch("")', 'q: text, category: text, region: text, season: text, accessible: text',
@@ -181,4 +183,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore enrichment, grouped planning, ranked structured search, AI discovery, unavailable-or-empty remote fallback with quality-gated sitemap freshness, authority, relationship discovery with Texas Explained fallback, public-view fallback, lazy destination runtime, and preserved-catalog resilience passed.');
+console.log('Explore enrichment, grouped planning, ranked structured lazy Search, AI discovery, unavailable-or-empty remote fallback with quality-gated sitemap freshness, authority, relationship discovery with Texas Explained fallback, public-view fallback, lazy destination runtime, and preserved-catalog resilience passed.');
