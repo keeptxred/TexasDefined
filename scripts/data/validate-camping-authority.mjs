@@ -22,6 +22,8 @@ const componentWrapper = read("src/components/camping/DestinationCampingDetails.
 const component = read("src/components/camping/DestinationCampingDetailsImpl.tsx");
 const destinationRoute = read("src/routes/destination.$slug.tsx");
 const searchRoute = read("src/routes/explore.search.tsx");
+const tripPlannerRoute = read("src/routes/explore.trip-planner.tsx");
+const tripPlannerLazy = read("src/routes/explore.trip-planner.lazy.tsx");
 const campingHub = read("src/routes/best-places-to-go-camping-in-texas.tsx");
 const legacyRedirect = read("src/routes/explore.texas-camping-guide.tsx");
 const sitemapValidator = read("scripts/data/validate-sitemap-routes.mjs");
@@ -74,6 +76,13 @@ assert(searchRoute.includes("scoreDestination(destination, q, campingTermsByDest
 assert(searchRoute.includes("Pine Springs Campground"), "Explore search must document named-campground discovery without creating campground doorway routes.");
 assert(searchRoute.includes("full hookups"), "Explore search must expose high-intent camping amenity discovery.");
 
+assert(tripPlannerRoute.includes('await import("@/data/camping/camping-profiles")'), "Trip Planner loader must dynamically load the compact camping alias facade.");
+assert(tripPlannerRoute.includes("campingSearchIndex"), "Trip Planner loader must expose verified camping aliases to the lazy planner UI.");
+assert(tripPlannerLazy.includes("campingTermsByDestination"), "Trip Planner must map verified camping aliases back to canonical destination slugs.");
+assert(tripPlannerLazy.includes('name="campingQuery"'), "Trip Planner must accept an optional campground or camping-preference query.");
+assert(tripPlannerLazy.includes("Malaquite Campground, full hookups, beach camping"), "Trip Planner must make named-campground and amenity discovery explicit.");
+assert(tripPlannerLazy.includes("campingTermsByDestination.get(destination.slug) ?? []"), "Trip Planner scoring must use verified camping aliases without generating campground routes.");
+
 for (const symbol of [
   "CAMPING_DISCOVERY_PROFILES",
   "CAMPING_DISCOVERY_PROFILES_WAVE2",
@@ -104,4 +113,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Camping authority validation passed: five verified public-camping waves feed the canonical hub, canonical destination pages, source/freshness schema and Explore search without duplicate campground routes; Padre Island National Seashore is covered and both server wiring and destination UI remain explicitly split from the global client graph.");
+console.log("Camping authority validation passed: five verified public-camping waves feed the canonical hub, canonical destination pages, source/freshness schema, Explore search and Trip Planner without duplicate campground routes; Padre Island National Seashore is covered and both server wiring and destination UI remain explicitly split from the global client graph.");
