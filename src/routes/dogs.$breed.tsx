@@ -64,7 +64,7 @@ function DogBreedPage() {
   return <>
     <article>
       <header className="border-b border-border bg-surface/40">
-        <Container className="py-12 sm:py-18">
+        <Container className="py-12 sm:py-16">
           <nav aria-label="Breadcrumb" className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
             <Link to="/" className="hover:text-foreground">Front page</Link>
             <span aria-hidden="true" className="mx-2">/</span>
@@ -74,7 +74,7 @@ function DogBreedPage() {
           </nav>
           <p className="eyebrow mt-10 text-primary">{breed.shortName} Defined</p>
           <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{breed.name}: {breed.deck}</h1>
-          <p className="mt-7 max-w-3xl text-lg leading-8 text-muted-foreground">A Texas Dogs Defined breed page built around personality first, then the kinds of jokes, settings and shirt concepts that actually make sense for the breed.</p>
+          <p className="mt-7 max-w-3xl text-lg leading-8 text-muted-foreground">Personality first, then the jokes, settings and shirt concepts that actually make sense for the breed.</p>
         </Container>
       </header>
 
@@ -117,7 +117,7 @@ function DogBreedPage() {
                   <p className="eyebrow text-muted-foreground">{collection.tagline}</p>
                   <h3 className="mt-2 font-display text-2xl">{collection.name}</h3>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">{collection.description}</p>
-                  <Link to="/dogs" hash={collection.slug} className="eyebrow mt-4 inline-block text-primary">See the collection idea →</Link>
+                  <a href={`/dogs#${collection.slug}`} className="eyebrow mt-4 inline-block text-primary">See the collection idea →</a>
                 </div>)}
               </div>
             </section>
@@ -130,8 +130,6 @@ function DogBreedPage() {
               <ul className="mt-5 space-y-3 text-sm leading-6 text-muted-foreground">
                 {breed.designHooks.map((hook) => <li key={hook}>— {hook}</li>)}
               </ul>
-              <p className="eyebrow mt-7 text-muted-foreground">Search language</p>
-              <p className="mt-3 text-xs leading-5 text-muted-foreground">{breed.keywords.join(' · ')}</p>
             </div>
           </aside>
         </div>
