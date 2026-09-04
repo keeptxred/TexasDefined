@@ -36,16 +36,38 @@ function fail(label, message) {
   process.exitCode = 1;
 }
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 async function fetchProduction(path) {
-  const separator = path.includes('?') ? '&' : '?';
-  const url = `${origin}${path}${separator}verify=${encodeURIComponent(`${sha}-${runId}`)}`;
-  const response = await fetch(url, {
-    redirect: 'follow',
-    cache: 'no-store',
-    signal: AbortSignal.timeout(30_000),
-    headers: { 'user-agent': 'TexasDefined-CI-Local-Financial-Smoke/1.0' },
-  });
-  return { response, body: await response.text() };
+  let lastError;
+
+  for (let attempt = 1; attempt <= 4; attempt += 1) {
+    const separator = path.includes('?') ? '&' : '?';
+    const url = `${origin}${path}${separator}verify=${encodeURIComponent(`${sha}-${runId}-${attempt}`)}`;
+
+    try {
+      const response = await fetch(url, {
+        redirect: 'follow',
+        cache: 'no-store',
+        signal: AbortSignal.timeout(30_000),
+        headers: { 'user-agent': 'TexasDefined-CI-Local-Financial-Smoke/1.0' },
+      });
+      const body = await response.text();
+      const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+
+      if (!challenged && response.ok) return { response, body };
+
+      lastError = new Error(challenged ? 'Cloudflare returned cf-mitigated: challenge' : `HTTP ${response.status}`);
+      console.log(`[local-financial:${path}] attempt ${attempt} failed: ${lastError.message}`);
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+      console.log(`[local-financial:${path}] attempt ${attempt} failed: ${lastError.message}`);
+    }
+
+    if (attempt < 4) await sleep(5_000);
+  }
+
+  throw lastError ?? new Error('production request failed');
 }
 
 appendSummary('\n## Local financial production verification\n\n');
