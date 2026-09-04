@@ -1,6 +1,6 @@
 ---
 backlog_id: td-list-108
-status: fact_checked
+status: draft
 publish_approved: no
 target_slug: texas-rivers-popular-for-lazy-tubing
 primary_keyword: best rivers for tubing in Texas
