@@ -11,10 +11,10 @@ secondary_keywords:
 freshness: seasonal
 editorial_risk: verify-current
 target_cluster: swimming-holes-river-tubing
-last_verified: 2026-09-03
+last_verified: 2026-09-04
 ---
 
-# 10 Texas River Floats to Research for a Laid-Back Tubing Day
+# Best Texas Rivers for Tubing: 10 Float Corridors to Plan Carefully
 
 A Texas tubing guide can go stale faster than almost any travel list on the site. River flow changes. Drought changes. Flooding changes. Local rules change. Access points close. Outfitters alter routes. A stretch that felt like a lazy float last summer can become a walk through shallow water — or a dangerous current after heavy rain.
 
@@ -24,7 +24,7 @@ So this is not a promise that all ten places are slow, open or safe today. It is
 
 The Comal is one of the best-known tubing rivers in Texas because it is short, spring-fed and runs directly through New Braunfels. The City of New Braunfels provides current river access, flow guidance, parking information and local rules.
 
-As verified September 3, 2026, the city says Comal River access parks are open daily from 6 a.m. to midnight, with temporary closure at 600 cfs and above. Personal tubes are allowed if they do not exceed five feet in diameter. The city also limits disposable containers, cooler size and the number of tubes per person, so readers should check the current rule page before packing.
+As verified September 4, 2026, the city says Comal River access parks are open daily from 6 a.m. to midnight, with temporary closure at 600 cfs and above. Personal tubes are allowed if they do not exceed five feet in diameter. The city also limits disposable containers, cooler size and the number of tubes per person, so readers should check the current rule page before packing.
 
 **Why people choose it:** compact route, clear spring-fed water and easy connection to New Braunfels.
 
@@ -32,7 +32,7 @@ As verified September 3, 2026, the city says Comal River access parks are open d
 
 The Guadalupe is the other name most visitors associate with New Braunfels tubing, but it is not one uniform experience. Flow below Canyon Lake, release rates, rainfall and the exact section you choose all matter.
 
-As verified September 3, 2026, the City of New Braunfels says all recreation is available at 100–500 cfs, caution increases above 500 cfs, life jackets are required for all ages at 750–1,000 cfs, and tubing is not allowed above 1,000 cfs. Heavy rain can trigger temporary public-access closures.
+As verified September 4, 2026, the City of New Braunfels says all recreation is available at 100–500 cfs, caution increases above 500 cfs, life jackets are required for all ages at 750–1,000 cfs, and tubing is not allowed above 1,000 cfs. Heavy rain can trigger temporary public-access closures.
 
 **Why people choose it:** classic Hill Country scenery and a long-established tubing culture.
 
@@ -40,7 +40,7 @@ As verified September 3, 2026, the City of New Braunfels says all recreation is 
 
 The Frio is the postcard version of a Hill Country float: clear water, limestone, cypress and steep hills around Concan and Garner State Park.
 
-Texas Parks and Wildlife currently identifies swimming and inner-tube floating as core Garner State Park activities. The park has 2.9 miles of Frio River frontage, but capacity, river conditions and access should still be checked before a summer trip.
+Texas Parks and Wildlife currently identifies swimming and inner-tube floating as core Garner State Park activities. The park has 2.9 miles of Frio River frontage, but capacity, river conditions and access should still be checked before a summer trip. The current park alert continues to permit river swimming at visitors' own risk while reminding visitors that no lifeguards are on duty.
 
 **Why people choose it:** scenery and the larger Garner/Concan summer tradition.
 
@@ -48,7 +48,7 @@ Texas Parks and Wildlife currently identifies swimming and inner-tube floating a
 
 The spring-fed San Marcos is one of Texas's major recreational rivers. City Park provides public river access with no reservation or admission charge, and visitors may bring tubes, kayaks, canoes or paddleboards.
 
-San Marcos also regulates what river users can bring. As verified September 3, 2026, the city requires reusable drink containers in designated river and riverbank "No Zones" and limits each person to one cooler under 30 quarts in those areas.
+San Marcos also regulates what river users can bring. As verified September 4, 2026, the city requires reusable drink containers in designated river and riverbank "No Zones" and limits each person to one cooler under 30 quarts in those areas. City Park also uses paid parking for nonresidents, so parking rules should be checked before arrival.
 
 **Why people choose it:** clear water, easy urban access and a strong public-recreation identity.
 
@@ -62,9 +62,9 @@ The park has two miles of river frontage, multiple put-in and take-out points fo
 
 ## 6. The Blanco River — Blanco State Park
 
-Blanco State Park provides direct public access to a spring-fed Hill Country river inside the city of Blanco. Texas Parks and Wildlife lists Blanco among state parks with river or creek swimming.
+Blanco State Park provides direct public access to a spring-fed Hill Country river inside the city of Blanco. Texas Parks and Wildlife currently says visitors can swim anywhere along the river inside the park and also paddle or boat there.
 
-The park is compact and can fill. Water depth and flow vary, so this is better framed as a family river day with tubing potential than as a guaranteed long downstream float.
+The park is compact and can fill. Water depth and flow vary, so this is better framed as a family river day with tubing potential than as a guaranteed long downstream float. TPWD currently requires visitors to reserve entry passes online or by phone before visiting.
 
 **Why people choose it:** easy public access and a simple Hill Country day trip.
 
@@ -78,9 +78,9 @@ Texas Parks and Wildlife currently says visitors can swim, fish, tube and canoe 
 
 ## 8. The San Marcos River — Luling stretch
 
-Downstream from San Marcos, the river becomes a different kind of float. TPWD's Luling Zedler Mill Paddling Trail has historically provided an official downstream route through a wooded river corridor.
+Downstream from San Marcos, the river becomes a different kind of float. As verified September 4, 2026, TPWD currently documents the Luling Zedler Mill Paddling Trail as a six-mile San Marcos River route from the State Highway 90 river crossing to Zedler Mill Park, with parking at both access points and a warning to use the take-out before the downstream dam.
 
-That route is aimed at paddlers rather than tubers, but it belongs in this guide as a reminder that travelers searching for a "lazy float" may actually be better served by a kayak or canoe on certain stretches. Publication should re-check the current trail page and access status before describing this as an active option.
+That route is aimed at paddlers rather than tubers, but it belongs in this guide as a reminder that travelers searching for a "lazy float" may actually be better served by a kayak or canoe on certain stretches. TPWD describes normal conditions as generally gentle but warns that snags, log jams, low water and changing flow still require judgment.
 
 **Why people choose it:** quiet water and a less urban river setting.
 
@@ -138,7 +138,7 @@ Never tie tubes together in a way that prevents people from separating around ob
 
 ## Source / verification notes
 
-Publication-day verification remains mandatory. Sources checked September 3, 2026:
+Publication-day verification remains mandatory. Sources checked September 4, 2026:
 
 - City of New Braunfels River Recreation: https://www.newbraunfels.gov/river
 - City of New Braunfels Comal River: https://www.newbraunfels.gov/comalriver
@@ -146,10 +146,12 @@ Publication-day verification remains mandatory. Sources checked September 3, 202
 - City of New Braunfels What Can I Bring?: https://www.newbraunfels.gov/4212/What-Can-I-Bring
 - City of New Braunfels Guadalupe River: https://www.newbraunfels.gov/3369/Guadalupe-River
 - TPWD Garner State Park: https://tpwd.texas.gov/state-parks/garner/
+- TPWD Garner State Park Alerts: https://tpwd.texas.gov/state-parks/garner/alert
 - TPWD South Llano River State Park: https://tpwd.texas.gov/state-parks/south-llano-river/
 - TPWD South Llano Paddling Trail: https://tpwd.texas.gov/boating/paddling-trails/hill-country/south-llano/
 - TPWD Blanco State Park: https://tpwd.texas.gov/state-parks/blanco/
 - TPWD Guadalupe River State Park: https://tpwd.texas.gov/state-parks/guadalupe-river/
+- TPWD Luling Zedler Mill Paddling Trail: https://tpwd.texas.gov/boating/paddling-trails/prairies-and-lakes/luling-zedler-mill/
 - City of San Marcos Park Rules: https://www.sanmarcostx.gov/889/Park-Rules
 - City of San Marcos City Park: https://www.sanmarcostx.gov/Facilities/Facility/Details/City-Park-35
 
