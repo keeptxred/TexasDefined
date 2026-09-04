@@ -1,10 +1,9 @@
 import { Container } from "@/components/layout/Container";
 import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl, viatorTexasUrl } from "@/data/viator-destination-links";
 import { VIATOR_RUNTIME_CATEGORIES, VIATOR_RUNTIME_MARKETS } from "@/data/viator-experience-runtime";
-import { buildViatorAffiliateUrl, isViatorAffiliateConfigured } from "@/lib/viator-affiliate";
+import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
 
 export function TexasExperienceMarkets() {
-  const affiliateConfigured = isViatorAffiliateConfigured();
   const primary = VIATOR_RUNTIME_MARKETS.filter((market) => market.priority === "primary");
   const additional = VIATOR_RUNTIME_MARKETS.filter((market) => market.priority !== "primary");
 
@@ -17,7 +16,7 @@ export function TexasExperienceMarkets() {
         <a href={buildViatorAffiliateUrl(viatorTexasUrl(), "texasdefined-statewide-explore")} target="_blank" rel="sponsored noopener noreferrer" className="inline-flex items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90">Browse current Texas experiences on Viator ↗</a>
         <a href="/explore/trip-planner" className="inline-flex items-center border border-border bg-background px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Build a Texas trip →</a>
       </div>
-      <p className="mt-4 max-w-3xl text-xs leading-5 text-muted-foreground">{affiliateConfigured ? "Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings, at no additional cost to you. Availability, prices and product details are controlled by Viator and its suppliers." : "TexasDefined is completing Viator enrollment. Booking discovery is live now; affiliate attribution can be activated centrally once the approved Viator parameters are available."}</p>
+      <p className="mt-4 max-w-3xl text-xs leading-5 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings, at no additional cost to you. Availability, prices and product details are controlled by Viator and its suppliers.</p>
 
       <div className="mt-10 flex flex-wrap gap-2" aria-label="Viator experience lanes">
         {VIATOR_RUNTIME_CATEGORIES.map((category) => <span key={category} className="border border-border bg-background px-3 py-2 text-sm font-semibold">{category}</span>)}
@@ -55,7 +54,6 @@ function MarketCard({ market }: { market: (typeof VIATOR_RUNTIME_MARKETS)[number
   return <article className="border border-border bg-background p-6">
     <p className="eyebrow text-primary">{market.regionLabel}</p>
     <h4 className="mt-2 font-display text-3xl leading-tight">{market.name}</h4>
-    <p className="mt-4 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{market.experienceLaneCount} experience lanes · {market.anchorIdeaCount} anchor ideas</p>
     <div className="mt-5 flex flex-wrap gap-4 text-sm font-semibold">
       <a href={localSearch} className="border-b border-primary text-primary">TexasDefined places →</a>
       <a href={viatorUrl} target="_blank" rel="sponsored noopener noreferrer" className="border-b border-foreground/30 hover:border-primary hover:text-primary">{verifiedMarketInventory ? "Current Viator options ↗" : "Browse Viator Texas inventory ↗"}</a>
