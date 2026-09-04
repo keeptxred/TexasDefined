@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
 
+import { auditDestination } from "../destination-audit";
+import { applyAllCuratedDestination } from "../destination-curation-all";
+import { preservedExploreDestinations } from "../destination-preserved-catalog";
 import { selectSwimmingHoleAndTubingDestinations } from "../water-recreation";
 import type { Destination } from "../types";
 
@@ -62,6 +65,14 @@ describe("Swimming Holes & River Tubing qualification", () => {
 
   it("includes San Marcos as the canonical San Marcos River tubing gateway", () => {
     const item = destination({ slug: "san-marcos", category: "small-towns", summary: "A Central Texas city built around the San Marcos River, with tubing and paddling." });
+    expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([item]);
+  });
+
+  it("keeps the real San Marcos canonical record preserved, indexable and water-qualified", () => {
+    const base = preservedExploreDestinations.find((item) => item.slug === "san-marcos");
+    expect(base).toBeDefined();
+    const item = applyAllCuratedDestination(base!);
+    expect(auditDestination(item).readyForIndexing).toBe(true);
     expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([item]);
   });
 
