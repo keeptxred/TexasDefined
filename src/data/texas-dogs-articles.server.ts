@@ -1,0 +1,123 @@
+import type { Article } from "./types";
+
+const porchDog: Article = {
+  id: "evergreen-texas-porch-dogs",
+  brandId: "texasdefined",
+  slug: "texas-porch-dogs",
+  title: "The Unofficial Job Description of a Texas Porch Dog",
+  dek: "Part greeter, part weather station, part neighborhood intelligence desk: the Texas porch dog has responsibilities nobody assigned and standards nobody can explain.",
+  category: "guides",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Exterior_view_of_house_with_picket_fence%2C_man_and_dog_seated_on_porch_and_a_dog_lying_on_the_sidewalk_LCCN99472382.jpg?width=1600",
+    alt: "Historic house porch with dogs resting near the steps",
+    width: 4096,
+    height: 3309,
+    credit: "Library of Congress · Public domain · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-09-04",
+  readingMinutes: 7,
+  tags: ["texas dogs", "porch dogs", "dog humor", "texas life", "dog owners", "texas dogs defined"],
+  featured: false,
+  body: [
+    { type: "paragraph", text: "Nobody hires a porch dog. There is no interview, no onboarding packet and certainly no agreement about working hours. One day the dog simply decides that the front step, back deck or shaded patch beside the door is now an operations center. From that moment forward, the household has a self-appointed employee with a broad portfolio and almost no respect for departmental boundaries." },
+    { type: "paragraph", text: "In Texas, the job gets even bigger. A porch is not only a place to sit. It can be a front-row seat to a thunderstorm rolling in, a command post for watching the street, a recovery zone after a walk and the exact spot where somebody is likely to appear carrying groceries, barbecue or a package that clearly requires inspection." },
+    { type: "heading", text: "Position: Director of Neighborhood Intelligence" },
+    { type: "paragraph", text: "The porch dog's first responsibility is situational awareness. A delivery truck three houses down? Logged. A squirrel crossing the fence line? Escalated. The neighbor bringing in a trash can? Suspicious enough to warrant observation. A family member returning home in the same vehicle they have driven for years? Somehow still worth announcing." },
+    { type: "paragraph", text: "The effectiveness of this intelligence operation has very little to do with accuracy. Porch dogs are not paid for correct threat assessment. They are paid, in a compensation system consisting mostly of attention and snacks, to notice things. The distinction matters." },
+    { type: "heading", text: "Position: Assistant Weather Department" },
+    { type: "paragraph", text: "Texas weather gives the porch dog a second assignment. The dog may not know the temperature, dew point or radar picture, but it usually has strong opinions about whether the current conditions are acceptable. A cool north wind can produce an employee willing to work overtime. August heat can turn the same employee into a consultant who prefers to conduct business from the air-conditioning." },
+    { type: "paragraph", text: "The best porch-dog routine follows the dog rather than the joke. Shade, water and a quick route back inside matter more than preserving the image of a dog happily supervising the yard. The porch is a personality setting, not a reason to leave a pet outside when the weather says otherwise." },
+    { type: "heading", text: "Position: Package Inspection" },
+    { type: "paragraph", text: "Every porch dog eventually develops a theory of commerce. The theory is simple: if an object arrives at the house, the dog has jurisdiction. Boxes must be sniffed. Grocery bags require screening. Takeout containers receive the most rigorous possible review. The human claim that an item is not for the dog is treated as an opening negotiating position." },
+    { type: "paragraph", text: "This is where breed personality starts turning into good humor. A Labrador does not inspect a package the same way a Dachshund does. A German Shepherd may look like the security department. A Beagle may approach the assignment as scent-based quality control. A Chihuahua can make the entire operation feel like an executive audit conducted by somebody who weighs less than the box." },
+    { type: "heading", text: "Position: Porch Furniture Compliance Officer" },
+    { type: "paragraph", text: "A human may buy a chair. A porch dog decides who owns it. Cushions are tested for structural integrity through repeated napping. Blankets are repositioned without authorization. The sunny spot migrates during the day and the dog follows it with the confidence of somebody who believes the furniture plan was designed around this exact purpose." },
+    { type: "paragraph", text: "Large dogs create their own version of the problem by occupying furniture that appears mathematically incapable of holding them. Small dogs solve the same problem by expanding emotionally until one cushion becomes an entire private estate." },
+    { type: "heading", text: "Position: Social Secretary" },
+    { type: "paragraph", text: "Porch dogs also manage introductions. Some consider every passerby a future best friend. Others prefer a strict appointment system. The funny part is not that dogs behave identically; it is how quickly owners learn the individual rules. We know which neighbor gets the happy dance, which truck produces the window sprint and which familiar visitor can walk to the door without triggering a full staff meeting." },
+    { type: "paragraph", text: "That recognition is exactly why breed-specific and personality-specific dog jokes work. The laugh is stronger when it feels observed rather than invented. 'Porch Supervisor' is a decent phrase. 'Porch Supervisor' paired with the dog whose owner has watched it supervise that porch for six years becomes personal." },
+    { type: "heading", text: "Position: Director of Doing Absolutely Nothing" },
+    { type: "paragraph", text: "This may be the most important assignment. A good porch dog can turn inactivity into a professional discipline. Head on paws. One ear moving. Eyes half closed. No visible effort. Yet somehow the dog remains aware that somebody opened a refrigerator inside." },
+    { type: "paragraph", text: "There is something very Texas about that scene without needing to cover it in lone stars and cowboy hats. The setting can do the work: shade, a worn step, the sound of cicadas, a truck coming up the street, a water bowl by the door and a dog that has decided this small patch of home is worth monitoring." },
+    { type: "heading", text: "The best Texas dog ideas start with a real dog" },
+    { type: "paragraph", text: "Texas Dogs Defined is built around that principle. We can make the setting regional, the typography retro and the job title ridiculous, but the idea has to survive one test first: would a real dog owner look at it and immediately think of their dog?" },
+    { type: "paragraph", text: "That is why the porch dog deserves its own unofficial job description. It is not one breed and it is not one behavior. It is a role dogs invent for themselves — part security, part hospitality, part comedy and part excuse to remain exactly where the family is." },
+    { type: "quote", text: "Primary responsibility: maintain visual control of the property while appearing to be asleep.", attribution: "Texas Dogs Defined, unofficial porch-dog handbook" },
+  ],
+  internalLinks: [
+    { href: "/dogs", label: "Texas Dogs Defined", description: "Meet the breed personalities, design collections and dog-life side of Texas Defined." },
+    { href: "/dogs/labrador-retriever", label: "Labrador Retriever Defined", description: "Lake dog, dock supervisor and enthusiastic household participant." },
+    { href: "/dogs/dachshund", label: "Dachshund Defined", description: "Low rider, porch patrol and professional side-eye." },
+    { href: "/dogs/german-shepherd", label: "German Shepherd Defined", description: "The household security department." },
+    { href: "/texas-living", label: "Texas Life", description: "More of the everyday culture and traditions that define living in Texas." },
+  ],
+  relatedCollections: [],
+  relatedDestinations: [],
+};
+
+const breedShirtJoke: Article = {
+  id: "evergreen-why-dog-breed-shirts-work",
+  brandId: "texasdefined",
+  slug: "why-dog-breed-shirts-work",
+  title: "Why the Best Dog Shirt Joke Feels Like Your Dog and Nobody Else’s",
+  dek: "The difference between generic dog merch and a shirt people actually want is recognition: the joke should sound like a story the owner has already told about that breed.",
+  category: "guides",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Studious_puppy.jpg?width=1600",
+    alt: "Dog wearing glasses while looking at an open book",
+    width: 2592,
+    height: 1936,
+    credit: "WaSu-Bio · CC BY 4.0 · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-09-04",
+  readingMinutes: 7,
+  tags: ["dog shirts", "breed humor", "dog gifts", "texas dogs", "dog design", "texas dogs defined"],
+  featured: false,
+  body: [
+    { type: "paragraph", text: "A dog shirt can have a beautiful illustration, expensive printing and perfect typography and still miss the thing that makes somebody reach for it. The best dog merch creates a tiny moment of recognition. The owner sees the line, sees the breed and thinks: that is my dog." },
+    { type: "paragraph", text: "That reaction is more specific than 'I like dogs.' It is the difference between a generic paw print and a joke about the Labrador who believes every body of water is an invitation, the Beagle conducting scent-based quality control or the Corgi who has promoted itself into middle management." },
+    { type: "heading", text: "Breed is a shortcut to a story" },
+    { type: "paragraph", text: "A breed name carries a visual shape, but good creative work does not stop at the silhouette. The stronger material comes from the stories owners repeat: the habit at the door, the way the dog approaches strangers, the obsession with a tennis ball, the dramatic side-eye, the refusal to accept that the couch is full." },
+    { type: "paragraph", text: "Those stories create design hooks. Labrador becomes 'Dock Supervisor.' German Shepherd becomes 'Security Department.' Beagle becomes 'Quality Control.' Corgi becomes 'Middle Management.' None of those ideas depends on a long explanation because the job title collides with a behavior people already recognize." },
+    { type: "heading", text: "Specific beats cute" },
+    { type: "paragraph", text: "Cute is useful, but cute is everywhere. A generic smiling dog can belong to anybody. Specificity gives the design a reason to exist. The Dachshund is funny because 'Low Rider' belongs to the shape. The Great Dane is funny because 'Lap Dog' contradicts the scale. The Chihuahua does not need six lines of copy when 'Forty Pounds of Opinion' makes the size-versus-confidence joke immediately." },
+    { type: "paragraph", text: "The goal is not to claim that every member of a breed behaves the same way. It is to use familiar dog-owner shorthand as an opening, then write the line tightly enough that somebody can map it onto the individual dog they know." },
+    { type: "heading", text: "A visual system should amplify the joke" },
+    { type: "paragraph", text: "Once the idea is right, the art direction can change the personality without changing the dog. Retro travel-poster colors make a lake Labrador feel nostalgic. Glasses and a tie make 'Senior Treat Analyst' feel absurdly formal. A weathered badge can turn a German Shepherd into the household security department. Clean varsity lettering can make a Boxer look like the backyard athletic program." },
+    { type: "paragraph", text: "This is why Texas Dogs Defined uses collection families instead of one design style. Retro Dogs, Distinguished Dogs, Dogs With Jobs, Dogs With Attitude, Texas Dogs and Lake Dogs can all interpret the same breed differently. A collection gives us consistency; the breed gives us personality." },
+    { type: "heading", text: "Texas should be a setting, not a sticker" },
+    { type: "paragraph", text: "The fastest way to make a dog design feel Texas-themed is to add a state outline. It is also the fastest way to run out of ideas. A better approach starts with places and routines: a porch, lake ramp, ranch gate, pickup seat, Hill Country weekend, Gulf Coast breeze or long road-trip stop." },
+    { type: "paragraph", text: "That lets the dog interact with Texas life instead of merely standing beside a symbol. A Golden Retriever can become 'Gulf Coast Golden.' A Heeler can become 'West Texas Yard Manager.' A Labrador can become a lake-day lifeguard. The regional setting earns its place because it supports the personality." },
+    { type: "heading", text: "The owner is the final editor" },
+    { type: "paragraph", text: "Before a concept becomes a product, there is a simple editorial test: would an owner tell this joke about the dog without seeing the shirt first? If the answer is no, the copy probably needs more work. If the answer is 'that is exactly what mine does,' the design has found its audience." },
+    { type: "paragraph", text: "That test also protects the line from becoming a catalog of random slogans. A joke does not belong on every breed. 'Dock Supervisor' makes sense for a water-loving Lab collection; it is less interesting when copied across forty breeds. 'Middle Management' feels especially sharp on a Corgi because the proportions make the title funnier. Good collections repeat the framework without flattening the dogs." },
+    { type: "heading", text: "Build depth before volume" },
+    { type: "paragraph", text: "The temptation in print-on-demand is to make hundreds of variations because the production system allows it. Texas Dogs Defined is taking the opposite approach. Start with fewer breeds. Give each one a real page, a voice, several creative directions and connections to dog-life stories. Then add products that deserve to live there." },
+    { type: "paragraph", text: "That structure is better for the person browsing, better for the brand and better for the joke. A shirt becomes one expression of a larger breed identity rather than a disconnected listing competing with thousands of nearly identical designs." },
+    { type: "heading", text: "The standard is recognition" },
+    { type: "paragraph", text: "The best dog shirt does not need to explain why it is funny. It needs to make the right person laugh before they finish reading it. That happens when the illustration, breed, setting and line all point to the same familiar truth." },
+    { type: "paragraph", text: "A dog owner is not buying a generic animal joke. They are buying a small tribute to the creature currently taking up too much of the couch, monitoring the front window or waiting for the sound of a treat bag. The closer the design gets to that individual relationship, the less generic it feels." },
+    { type: "quote", text: "The product is the shirt. The reason somebody wants it is recognition.", attribution: "Texas Dogs Defined design principle" },
+  ],
+  internalLinks: [
+    { href: "/dogs", label: "Texas Dogs Defined", description: "Browse the launch breeds and the collection system behind the line." },
+    { href: "/dogs/labrador-retriever", label: "Labrador Retriever Defined", description: "See how one breed can support lake, job-title and retro concepts." },
+    { href: "/dogs/pembroke-welsh-corgi", label: "Corgi Defined", description: "A breed where small stature and oversized responsibility become the creative hook." },
+    { href: "/dogs/great-dane", label: "Great Dane Defined", description: "Scale itself becomes the joke for an oversized lap dog." },
+    { href: "/shop", label: "Texas Defined Shop", description: "See the shopping side of Texas Defined as new collections arrive." },
+  ],
+  relatedCollections: [],
+  relatedDestinations: [],
+};
+
+export const texasDogsArticleStubs: Article[] = [porchDog, breedShirtJoke].map((article) => ({ ...article, body: [] }));
+
+export function loadTexasDogsArticleServer(slug: string): Article | null {
+  return [porchDog, breedShirtJoke].find((article) => article.slug === slug) ?? null;
+}
+
+export function listTexasDogsArticleStubsServer(): Article[] {
+  return texasDogsArticleStubs;
+}
