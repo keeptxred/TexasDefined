@@ -28,6 +28,7 @@ import { COUNTY_PROPERTY_RECORDS } from "@/data/property/county-property-data";
 import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
 import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
 import { TEXAS_DATASETS } from "@/data/texas-data-center";
+import { dogBreeds } from "@/data/texas-dogs";
 import { TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-states-index";
 import { isTexasDefinedOwnedEntity, isTexasDefinedOwnedStaticPath } from "@/lib/brand-route-ownership";
 import { INDEXABLE_STATIC_PATHS, isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
@@ -119,6 +120,8 @@ export const Route = createFileRoute("/sitemap.xml")({
 
         const entries: SitemapEntry[] = [
           ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).filter((path) => isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
+          { path: "/dogs", lastmod: "2026-09-03" },
+          ...dogBreeds.map((breed) => ({ path: `/dogs/${breed.slug}`, lastmod: "2026-09-03" })),
           ...AUTHORITY_STATIC_PATHS.map((path) => ({ path, lastmod: AUTHORITY_LASTMOD })),
           ...HUNTING_SITEMAP_ENTRIES,
           ...LOCAL_PROPERTY_TAX_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-08-30" })),
