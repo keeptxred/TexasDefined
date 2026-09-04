@@ -31,10 +31,10 @@ function SportsPage() {
                 <span className="mt-2 block text-sm leading-6 text-muted-foreground">How championships, continuity and a team-first culture became woven into San Antonio's modern civic identity.</span>
                 <span className="mt-3 block text-sm font-semibold text-primary">Read the Spurs culture guide →</span>
               </Link>
-              <Link to="/article/$slug" params={{ slug: "texas-high-school-football-friday-night-lights" }} className="group border-t border-border py-5">
-                <strong className="block font-display text-2xl group-hover:text-primary">Texas high school football and Friday night lights</strong>
-                <span className="mt-2 block text-sm leading-6 text-muted-foreground">Why stadiums, marching bands, rivalries and community ritual make high school football unusually important across Texas.</span>
-                <span className="mt-3 block text-sm font-semibold text-primary">Read the Friday night lights guide →</span>
+              <Link to="/sports/friday-night-lights" className="group border-t border-border py-5">
+                <strong className="block font-display text-2xl group-hover:text-primary">Friday Night Lights, Defined</strong>
+                <span className="mt-2 block text-sm leading-6 text-muted-foreground">The parent guide to Texas high school football: newcomer basics, stadiums, six-man and 11-man culture, marching bands, homecoming mums, rivalries and the season arc.</span>
+                <span className="mt-3 block text-sm font-semibold text-primary">Open the high school football hub →</span>
               </Link>
             </div>
           </div>
