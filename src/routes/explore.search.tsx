@@ -97,7 +97,7 @@ function ExploreSearchPage() {
         <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden>·</li><li aria-current="page" className="text-foreground">Search</li></ol></nav>
         <p className="eyebrow mt-8 text-primary">Search the travel guide</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Find the Texas place you have in mind.</h1>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">Search by destination, town, county, campground name, camping style, landscape, activity or the kind of day you want to plan. Narrow by region, type, season, accessibility information or straight-line distance from an exact TexasDefined destination.</p>
+        <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">Search by destination, town, county, landscape, activity or the kind of day you want to plan. Named campgrounds and camping styles are also searchable when verified. Narrow by region, type, season, accessibility information or straight-line distance from an exact TexasDefined destination.</p>
         <form action="/explore/search" className="mt-9 max-w-4xl" role="search">
           <div className="flex border-b-2 border-foreground">
             <label htmlFor="explore-query" className="sr-only">Search the Texas travel guide</label>
