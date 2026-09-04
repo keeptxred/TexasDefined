@@ -75,9 +75,9 @@ export const VIATOR_CURATED_PRODUCT_SEEDS: readonly ViatorProductSeed[] = [
   { marketSlug: "houston", title: "Museum of Fine Arts, Houston All Access Admission Ticket", category: "museums-culture", fit: "feature" },
   { marketSlug: "houston", title: "Meow Wolf's Radio Tave in Houston", category: "museums-culture", fit: "supporting" },
   { marketSlug: "houston", title: "Private Houston Brewery Tour by Cart", category: "wine-spirits", fit: "supporting" },
-  { marketSlug: "houston", title: "Juneteenth and Beyond African American Van Tours", category: "history-landmarks", fit: "feature" },
 
   // Galveston
+  { marketSlug: "galveston", title: "Juneteenth and Beyond African American Van Tours", category: "history-landmarks", fit: "feature" },
   { marketSlug: "galveston", title: "The Historic Galveston Ghost Tour", category: "ghost-nightlife", fit: "feature" },
   { marketSlug: "galveston", title: "The Galveston Cemetery Tour - Walk With The Dead!", category: "ghost-nightlife", fit: "feature" },
   { marketSlug: "galveston", title: "Haunted Harbor Tours – Galveston Ghost Boat", category: "ghost-nightlife", fit: "feature" },
