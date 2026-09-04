@@ -32,6 +32,15 @@ function ErrorComponent(props: { error: Error; reset: () => void }) {
   return <Suspense fallback={null}><ErrorScreen {...props} /></Suspense>;
 }
 
+function HeaderFallback() {
+  return (
+    <div
+      className="sticky top-0 z-50 h-[4.5rem] border-b border-border/80 bg-background/96 lg:h-[7rem]"
+      aria-hidden="true"
+    />
+  );
+}
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
@@ -57,9 +66,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" },
       { rel: "icon", href: `/favicon.ico?v=${iconVersion}`, sizes: "any" },
       { rel: "icon", href: `/favicon.svg?v=${iconVersion}`, type: "image/svg+xml" },
       { rel: "icon", href: `/favicon.png?v=${iconVersion}`, type: "image/png" },
@@ -132,13 +138,15 @@ function RootComponent() {
   useEffect(() => {
     let active = true;
     let cleanup: (() => void) | undefined;
-
-    void import("@/platform/analytics").then(({ installTexasDefinedAnalytics }) => {
-      if (active) cleanup = installTexasDefinedAnalytics();
-    });
+    const id = window.setTimeout(() => {
+      void import("@/platform/analytics").then(({ installTexasDefinedAnalytics }) => {
+        if (active) cleanup = installTexasDefinedAnalytics();
+      });
+    }, 1500);
 
     return () => {
       active = false;
+      window.clearTimeout(id);
       cleanup?.();
     };
   }, []);
@@ -148,7 +156,7 @@ function RootComponent() {
       <BrandProvider brand={texasDefinedBrand}>
         <ShopCartProvider>
           <div className="flex min-h-screen flex-col bg-background">
-            <Suspense fallback={<div className="h-[4.5rem] border-b border-border bg-background lg:h-[7rem]" aria-hidden="true" />}><Header /></Suspense>
+            <Suspense fallback={<HeaderFallback />}><Header /></Suspense>
             <main id="main" className="flex-1"><Outlet /></main>
             <Suspense fallback={<div className="h-40 border-t border-border bg-surface" aria-hidden="true" />}><Footer /></Suspense>
           </div>

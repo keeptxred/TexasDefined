@@ -58,8 +58,8 @@
 
 :root {
   --radius: 0.25rem;
-  --font-family-display: "Cormorant Garamond", "Iowan Old Style", Baskerville, Georgia, serif;
-  --font-family-sans: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  --font-family-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  --font-family-sans: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --background: oklch(0.977 0.011 85);
   --foreground: oklch(0.268 0.028 52);
   --card: oklch(0.993 0.006 90);
@@ -71,7 +71,7 @@
   --secondary: oklch(0.938 0.019 82);
   --secondary-foreground: oklch(0.318 0.03 52);
   --muted: oklch(0.944 0.014 84);
-  --muted-foreground: oklch(0.508 0.024 60);
+  --muted-foreground: oklch(0.43 0.026 58);
   --accent: oklch(0.472 0.116 265);
   --accent-foreground: oklch(0.98 0.01 85);
   --destructive: oklch(0.523 0.183 27);

@@ -44,10 +44,14 @@ for (const feature of [
   '<h1 className="mt-3',
   'The places, stories & life of Texas',
   'Texas Defined is a guide to Texas places, culture, food, history, travel and practical living',
-  '<dt><h3 className=',
+  '<dt><h2 className=',
   'homepageFaqs.map((item)',
 ]) {
   if (!lazyRoute.includes(feature)) errors.push(`Homepage answer-layer feature missing: ${feature}.`);
+}
+
+if (lazyRoute.includes('<dt><h3 className=')) {
+  errors.push('Homepage FAQ answer layer must not skip from the page H1 directly to H3 headings.');
 }
 
 for (const [title, href] of [
@@ -136,4 +140,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Homepage identity, answer layer, FAQ schema, first-class editorial/contact accountability, crawler access, curated ItemList, GSC discovery links and Start Here validation passed.');
+console.log('Homepage identity, accessible answer layer, FAQ schema, first-class editorial/contact accountability, crawler access, curated ItemList, GSC discovery links and Start Here validation passed.');
