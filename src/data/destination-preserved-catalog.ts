@@ -126,6 +126,37 @@ const newBraunfelsSeasonalFallback: Destination = {
   sourceCheckedAt: "2026-08-24",
 };
 
+const sanMarcosWaterGatewayFallback: Destination = {
+  id: "preserved-san-marcos",
+  brandId: "texasdefined",
+  slug: "san-marcos",
+  name: "San Marcos",
+  summary: "A Central Texas city built around powerful artesian springs and the clear San Marcos River, with tubing, paddling, a walkable downtown and a major university presence.",
+  category: "small-towns",
+  region: "hill-country",
+  nearestTown: "San Marcos",
+  county: "Hays",
+  coordinates: { lat: 29.8833, lng: -97.9414 },
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Hays%20County%20Courthouse%20(2018),%20San%20Marcos,%20TX.jpg?width=1600",
+    alt: "Historic Hays County Courthouse in downtown San Marcos, Texas",
+    width: 1600,
+    height: 1067,
+    credit: "Wikimedia Commons · Hays County Courthouse (2018), San Marcos, TX · CC BY-SA 4.0",
+  },
+  bestSeason: "Year-round for spring-fed water; warm months are busiest for river recreation",
+  entryNote: "High water and local rules can close or change river access. Check current City of San Marcos river guidance before tubing or paddling, and use established public access points rather than assuming every river crossing is public.",
+  highlights: ["San Marcos River tubing", "City Park public river access", "Spring Lake and The Meadows Center", "Downtown and Texas State University"],
+  body: [
+    "San Marcos begins with its springs. Clear Edwards Aquifer water emerges at Spring Lake and immediately forms the San Marcos River, creating a rare spring-fed corridor that shapes the city's ecology, parks and outdoor identity. Spring Lake itself is managed differently from downstream recreation, so visitors should treat the headwaters and public river parks as separate experiences.",
+    "Downstream, City Park provides established public access to the San Marcos River. The city says visitors may bring or rent tubes, kayaks, canoes and paddleboards, making San Marcos a genuine tubing and paddling gateway rather than merely a town near water. The spring-fed river stays central to warm-weather trips, while downtown and Texas State University make it easy to build a broader day or weekend around the float.",
+    "River conditions and local rules still matter. High water can change or close access, and visitors should check current city guidance, weather and river conditions before entering. Use designated public access and exit points, pay attention to river-exit signs, and keep Spring Lake conservation rules separate from the downstream public-recreation corridor.",
+  ],
+  managingAuthority: "City of San Marcos",
+  officialUrl: "https://www.sanmarcostx.gov/Facilities/Facility/Details/City-Park-35",
+  sourceCheckedAt: "2026-09-04",
+};
+
 function mergePreservedDestinations(...groups: Destination[][]): Destination[] {
   const merged = new Map<string, Destination>();
   for (const group of groups) {
@@ -250,4 +281,5 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   smallTownWave14Destinations,
   smallTownWave15Destinations,
   [newBraunfelsSeasonalFallback],
+  [sanMarcosWaterGatewayFallback],
 );
