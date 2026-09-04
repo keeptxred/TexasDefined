@@ -27,9 +27,9 @@ const reviewWindows = [
     reason: 'Check whether a newer ACS state-to-state migration-flow release is available.',
   },
   {
-    id: 'bls-metro-june-2026',
-    reviewBy: '2026-09-03',
-    reason: 'BLS schedules July 2026 metropolitan employment for September 2, 2026; refresh after that release.',
+    id: 'bls-metro-july-2026-reviewed',
+    reviewBy: '2026-10-01',
+    reason: 'The July 2026 BLS metro release was published September 2 and reviewed September 3; the existing June snapshot remains explicitly labeled preliminary until the next scheduled relocation-data refresh after the August release on September 30.',
   },
   {
     id: 'tdi-homeowners-2025-preliminary',
