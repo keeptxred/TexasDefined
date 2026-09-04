@@ -164,6 +164,7 @@ import { Route as EverythingBiggerInTexasRouteImport } from './routes/everything
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as EditorialPolicyRouteImport } from './routes/editorial-policy'
 import { Route as DrPepperTexasHistoryRouteImport } from './routes/dr-pepper-texas-history'
+import { Route as DogsRouteImport } from './routes/dogs'
 import { Route as DallasFortWorthMusicHistoryRouteImport } from './routes/dallas-fort-worth-music-history'
 import { Route as CountyRouteImport } from './routes/county'
 import { Route as CorrectionsPolicyRouteImport } from './routes/corrections-policy'
@@ -327,6 +328,7 @@ import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
 import { Route as EventsCollectionRouteImport } from './routes/events.$collection'
 import { Route as EventSlugRouteImport } from './routes/event.$slug'
 import { Route as DpsOfficeSlugRouteImport } from './routes/dps-office.$slug'
+import { Route as DogsBreedRouteImport } from './routes/dogs.$breed'
 import { Route as DoPropertyTaxProtestRouteImport } from './routes/do.property-tax-protest'
 import { Route as DoHomesteadExemptionRouteImport } from './routes/do.homestead-exemption'
 import { Route as DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRouteImport } from './routes/destination.world-birding-center-resaca-de-la-palma-state-park'
@@ -1461,6 +1463,11 @@ const DrPepperTexasHistoryRoute = DrPepperTexasHistoryRouteImport.update({
 } as any).lazy(() =>
   import('./routes/dr-pepper-texas-history.lazy').then((d) => d.Route),
 )
+const DogsRoute = DogsRouteImport.update({
+  id: '/dogs',
+  path: '/dogs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DallasFortWorthMusicHistoryRoute =
   DallasFortWorthMusicHistoryRouteImport.update({
     id: '/dallas-fort-worth-music-history',
@@ -2456,6 +2463,11 @@ const DpsOfficeSlugRoute = DpsOfficeSlugRouteImport.update({
   path: '/dps-office/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DogsBreedRoute = DogsBreedRouteImport.update({
+  id: '/$breed',
+  path: '/$breed',
+  getParentRoute: () => DogsRoute,
+} as any)
 const DoPropertyTaxProtestRoute = DoPropertyTaxProtestRouteImport.update({
   id: '/do/property-tax-protest',
   path: '/do/property-tax-protest',
@@ -3249,6 +3261,7 @@ export interface FileRoutesByFullPath {
   '/corrections-policy': typeof CorrectionsPolicyRoute
   '/county': typeof CountyRoute
   '/dallas-fort-worth-music-history': typeof DallasFortWorthMusicHistoryRoute
+  '/dogs': typeof DogsRouteWithChildren
   '/dr-pepper-texas-history': typeof DrPepperTexasHistoryRoute
   '/editorial-policy': typeof EditorialPolicyRoute
   '/events': typeof EventsRouteWithChildren
@@ -3470,6 +3483,7 @@ export interface FileRoutesByFullPath {
   '/destination/world-birding-center-resaca-de-la-palma-state-park': typeof DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute
   '/do/homestead-exemption': typeof DoHomesteadExemptionRoute
   '/do/property-tax-protest': typeof DoPropertyTaxProtestRoute
+  '/dogs/$breed': typeof DogsBreedRoute
   '/dps-office/$slug': typeof DpsOfficeSlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
@@ -3698,6 +3712,7 @@ export interface FileRoutesByTo {
   '/corrections-policy': typeof CorrectionsPolicyRoute
   '/county': typeof CountyRoute
   '/dallas-fort-worth-music-history': typeof DallasFortWorthMusicHistoryRoute
+  '/dogs': typeof DogsRouteWithChildren
   '/dr-pepper-texas-history': typeof DrPepperTexasHistoryRoute
   '/editorial-policy': typeof EditorialPolicyRoute
   '/events': typeof EventsRouteWithChildren
@@ -3917,6 +3932,7 @@ export interface FileRoutesByTo {
   '/destination/world-birding-center-resaca-de-la-palma-state-park': typeof DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute
   '/do/homestead-exemption': typeof DoHomesteadExemptionRoute
   '/do/property-tax-protest': typeof DoPropertyTaxProtestRoute
+  '/dogs/$breed': typeof DogsBreedRoute
   '/dps-office/$slug': typeof DpsOfficeSlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
@@ -4146,6 +4162,7 @@ export interface FileRoutesById {
   '/corrections-policy': typeof CorrectionsPolicyRoute
   '/county': typeof CountyRoute
   '/dallas-fort-worth-music-history': typeof DallasFortWorthMusicHistoryRoute
+  '/dogs': typeof DogsRouteWithChildren
   '/dr-pepper-texas-history': typeof DrPepperTexasHistoryRoute
   '/editorial-policy': typeof EditorialPolicyRoute
   '/events': typeof EventsRouteWithChildren
@@ -4367,6 +4384,7 @@ export interface FileRoutesById {
   '/destination/world-birding-center-resaca-de-la-palma-state-park': typeof DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute
   '/do/homestead-exemption': typeof DoHomesteadExemptionRoute
   '/do/property-tax-protest': typeof DoPropertyTaxProtestRoute
+  '/dogs/$breed': typeof DogsBreedRoute
   '/dps-office/$slug': typeof DpsOfficeSlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
@@ -4597,6 +4615,7 @@ export interface FileRouteTypes {
     | '/corrections-policy'
     | '/county'
     | '/dallas-fort-worth-music-history'
+    | '/dogs'
     | '/dr-pepper-texas-history'
     | '/editorial-policy'
     | '/events'
@@ -4818,6 +4837,7 @@ export interface FileRouteTypes {
     | '/destination/world-birding-center-resaca-de-la-palma-state-park'
     | '/do/homestead-exemption'
     | '/do/property-tax-protest'
+    | '/dogs/$breed'
     | '/dps-office/$slug'
     | '/event/$slug'
     | '/events/$collection'
@@ -5046,6 +5066,7 @@ export interface FileRouteTypes {
     | '/corrections-policy'
     | '/county'
     | '/dallas-fort-worth-music-history'
+    | '/dogs'
     | '/dr-pepper-texas-history'
     | '/editorial-policy'
     | '/events'
@@ -5265,6 +5286,7 @@ export interface FileRouteTypes {
     | '/destination/world-birding-center-resaca-de-la-palma-state-park'
     | '/do/homestead-exemption'
     | '/do/property-tax-protest'
+    | '/dogs/$breed'
     | '/dps-office/$slug'
     | '/event/$slug'
     | '/events/$collection'
@@ -5493,6 +5515,7 @@ export interface FileRouteTypes {
     | '/corrections-policy'
     | '/county'
     | '/dallas-fort-worth-music-history'
+    | '/dogs'
     | '/dr-pepper-texas-history'
     | '/editorial-policy'
     | '/events'
@@ -5714,6 +5737,7 @@ export interface FileRouteTypes {
     | '/destination/world-birding-center-resaca-de-la-palma-state-park'
     | '/do/homestead-exemption'
     | '/do/property-tax-protest'
+    | '/dogs/$breed'
     | '/dps-office/$slug'
     | '/event/$slug'
     | '/events/$collection'
@@ -5943,6 +5967,7 @@ export interface RootRouteChildren {
   CorrectionsPolicyRoute: typeof CorrectionsPolicyRoute
   CountyRoute: typeof CountyRoute
   DallasFortWorthMusicHistoryRoute: typeof DallasFortWorthMusicHistoryRoute
+  DogsRoute: typeof DogsRouteWithChildren
   DrPepperTexasHistoryRoute: typeof DrPepperTexasHistoryRoute
   EditorialPolicyRoute: typeof EditorialPolicyRoute
   EventsRoute: typeof EventsRouteWithChildren
@@ -7372,6 +7397,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DrPepperTexasHistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dogs': {
+      id: '/dogs'
+      path: '/dogs'
+      fullPath: '/dogs'
+      preLoaderRoute: typeof DogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dallas-fort-worth-music-history': {
       id: '/dallas-fort-worth-music-history'
       path: '/dallas-fort-worth-music-history'
@@ -8513,6 +8545,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DpsOfficeSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dogs/$breed': {
+      id: '/dogs/$breed'
+      path: '/$breed'
+      fullPath: '/dogs/$breed'
+      preLoaderRoute: typeof DogsBreedRouteImport
+      parentRoute: typeof DogsRoute
+    }
     '/do/property-tax-protest': {
       id: '/do/property-tax-protest'
       path: '/do/property-tax-protest'
@@ -9470,6 +9509,16 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
+interface DogsRouteChildren {
+  DogsBreedRoute: typeof DogsBreedRoute
+}
+
+const DogsRouteChildren: DogsRouteChildren = {
+  DogsBreedRoute: DogsBreedRoute,
+}
+
+const DogsRouteWithChildren = DogsRoute._addFileChildren(DogsRouteChildren)
+
 interface EventsRouteChildren {
   EventsCollectionRoute: typeof EventsCollectionRoute
 }
@@ -9923,6 +9972,7 @@ const rootRouteChildren: RootRouteChildren = {
   CorrectionsPolicyRoute: CorrectionsPolicyRoute,
   CountyRoute: CountyRoute,
   DallasFortWorthMusicHistoryRoute: DallasFortWorthMusicHistoryRoute,
+  DogsRoute: DogsRouteWithChildren,
   DrPepperTexasHistoryRoute: DrPepperTexasHistoryRoute,
   EditorialPolicyRoute: EditorialPolicyRoute,
   EventsRoute: EventsRouteWithChildren,
