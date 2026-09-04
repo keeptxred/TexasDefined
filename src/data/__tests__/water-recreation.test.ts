@@ -59,4 +59,9 @@ describe("Swimming Holes & River Tubing qualification", () => {
     const item = destination({ slug: "new-braunfels", category: "small-towns", summary: "A Hill Country city built around the Comal and Guadalupe rivers, with tubing." });
     expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([item]);
   });
+
+  it("includes San Marcos as the canonical San Marcos River tubing gateway", () => {
+    const item = destination({ slug: "san-marcos", category: "small-towns", summary: "A Central Texas city built around the San Marcos River, with tubing and paddling." });
+    expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([item]);
+  });
 });

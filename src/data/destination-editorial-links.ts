@@ -80,6 +80,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
   ],
   "guadalupe-river-state-park": [
     {
+      href: "/explore/swimming-holes-river-tubing",
+      label: "Compare Texas swimming and tubing destinations",
+      description: "Put the park's Guadalupe River access alongside other verified swimming holes, tubing gateways and float-friendly public destinations.",
+    },
+    {
       href: "/article/fall-in-texas-complete-guide",
       label: "Use the Texas fall-color guide",
       description: "Compare the Guadalupe River corridor with Lost Maples, the Frio and East Texas using current foliage reports before a fall trip.",
@@ -95,7 +100,24 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "See how the Guadalupe's cypress-lined riverbanks compare with other public parks that reliably deliver Texas autumn scenery.",
     },
   ],
+  "south-llano-river-state-park": [
+    {
+      href: "/explore/swimming-holes-river-tubing",
+      label: "Compare Texas swimming and tubing destinations",
+      description: "Connect South Llano's tuber put-ins, float access and swimming with the statewide water-recreation collection.",
+    },
+    {
+      href: "/texas-paddling-guide",
+      label: "Plan a Texas paddling trip",
+      description: "Use the statewide paddling guide to compare the South Llano with other spring-fed rivers, lakes and public launch corridors.",
+    },
+  ],
   "new-braunfels": [
+    {
+      href: "/explore/swimming-holes-river-tubing",
+      label: "Explore Texas swimming holes and river tubing",
+      description: "Compare New Braunfels' Comal and Guadalupe tubing access with other verified Texas swim and float destinations.",
+    },
     {
       href: "/article/christmas-in-texas-complete-guide",
       label: "Plan New Braunfels in the Texas Christmas guide",
@@ -110,6 +132,18 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/article/texas-christmas-road-trip",
       label: "Build a Hill Country Christmas road trip",
       description: "Use New Braunfels as a southern add-on to the Fredericksburg, Johnson City and Marble Falls holiday loop.",
+    },
+  ],
+  "san-marcos": [
+    {
+      href: "/explore/swimming-holes-river-tubing",
+      label: "Explore Texas swimming holes and river tubing",
+      description: "Compare San Marcos River tubing and public access with other verified Texas swim and float destinations.",
+    },
+    {
+      href: "/texas-paddling-guide",
+      label: "Plan a Texas paddling trip",
+      description: "Compare the spring-fed San Marcos River with other Texas paddling routes and public-water destinations.",
     },
   ],
   "gruene-historic-district": [
