@@ -78,6 +78,37 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "See how Caddo Lake stacks up against Lost Maples, Garner, Daingerfield, Guadalupe River and other strong public-land autumn stops.",
     },
   ],
+  "garner-state-park": [
+    {
+      href: "/explore/swimming-holes-river-tubing",
+      label: "Compare Texas swimming and tubing destinations",
+      description: "Connect Garner's verified Frio River swimming and inner-tube floating with the statewide collection of public swim and float destinations.",
+    },
+  ],
+  "leakey": [
+    {
+      href: "/explore/swimming-holes-river-tubing",
+      label: "Plan a Frio Canyon water weekend",
+      description: "Use the statewide swimming and tubing collection to compare verified Frio River access near Garner and Concan without treating every roadside crossing as public access.",
+    },
+    {
+      href: "/texas-paddling-guide",
+      label: "Compare Texas river and paddling trips",
+      description: "Place the Frio Canyon in the wider Texas river-recreation network and check current access and flow before choosing a route.",
+    },
+  ],
+  "bandera": [
+    {
+      href: "/explore/swimming-holes-river-tubing",
+      label: "Explore Medina River swimming and tubing",
+      description: "Compare Bandera's established Medina River recreation with other verified Texas swim and float destinations and check current river conditions before going.",
+    },
+    {
+      href: "/texas-paddling-guide",
+      label: "Compare Texas river and paddling trips",
+      description: "Place the Medina River in the statewide paddling and river-recreation network, with current access and conditions checked before launch.",
+    },
+  ],
   "guadalupe-river-state-park": [
     {
       href: "/explore/swimming-holes-river-tubing",
