@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 const root = readFileSync(new URL("../routes/__root.tsx", import.meta.url), "utf8");
 const homeRoute = readFileSync(new URL("../routes/index.tsx", import.meta.url), "utf8");
 const homeView = readFileSync(new URL("../routes/index.lazy.tsx", import.meta.url), "utf8");
+const llmsRoute = readFileSync(new URL("../routes/llms[.]txt.ts", import.meta.url), "utf8");
 const styles = readFileSync(new URL("../styles.css", import.meta.url), "utf8");
 
 describe("mobile Lighthouse performance contract", () => {
@@ -36,5 +37,12 @@ describe("mobile Lighthouse performance contract", () => {
   it("does not skip from the homepage h1 directly to FAQ h3 headings", () => {
     expect(homeView).toContain('<dt><h2 className="font-display text-lg font-semibold">');
     expect(homeView).not.toContain('<dt><h3 className="font-display text-lg font-semibold">');
+  });
+
+  it("serves llms.txt as explicit Markdown with a heading and useful links", () => {
+    expect(llmsRoute).toContain('const llmsText = `# TexasDefined');
+    expect(llmsRoute).toContain('[TexasDefined home](https://texasdefined.com/)');
+    expect(llmsRoute).toContain('[Citation guide](https://texasdefined.com/citation-guide)');
+    expect(llmsRoute).toContain("'content-type': 'text/markdown; charset=utf-8'");
   });
 });
