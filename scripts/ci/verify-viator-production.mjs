@@ -17,6 +17,7 @@ const required = [
 let lastError = null;
 let lastStatus = 'network-error';
 let lastBody = '';
+let passed = false;
 
 for (let attempt = 1; attempt <= 5; attempt += 1) {
   const url = `${origin}${path}?verify=${encodeURIComponent(`${sha}-${runId}-${attempt}`)}`;
@@ -46,7 +47,8 @@ for (let attempt = 1; attempt <= 5; attempt += 1) {
           lastError = new Error(`expected multiple affiliate links, found ${affiliateLinkCount}`);
         } else {
           console.log(`[viator-production] verified ${affiliateLinkCount} affiliate links with PID P00318227 / MCID 42383 and sponsored disclosure.`);
-          process.exit(0);
+          passed = true;
+          break;
         }
       } else {
         lastError = new Error(`missing ${missing.join(', ')}`);
@@ -61,6 +63,8 @@ for (let attempt = 1; attempt <= 5; attempt += 1) {
   if (attempt < 5) await sleep(5_000);
 }
 
-console.error(`::error title=VIATOR PRODUCTION failure::/explore failed — ${lastError?.message ?? `HTTP ${lastStatus}`}`);
-if (lastBody) console.error(`[viator-production] response sample: ${lastBody.slice(0, 1400).replace(/\s+/g, ' ')}`);
-process.exit(1);
+if (!passed) {
+  console.error(`::error title=VIATOR PRODUCTION failure::/explore failed — ${lastError?.message ?? `HTTP ${lastStatus}`}`);
+  if (lastBody) console.error(`[viator-production] response sample: ${lastBody.slice(0, 1400).replace(/\s+/g, ' ')}`);
+  process.exit(1);
+}
