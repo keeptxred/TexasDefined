@@ -1,3 +1,6 @@
+import { texasDefinedBrand } from '@/brand/texasdefined';
+import { buildMeta, canonicalLink } from '@/lib/seo';
+
 export interface DogBreedProfile {
   slug: string;
   name: string;
@@ -22,6 +25,9 @@ export interface DogDesignCollection {
   description: string;
   examples: string[];
 }
+
+const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const hubDescription = 'Texas Dogs Defined is the playful dog-life department of Texas Defined: breed personalities, Texas dog culture and breed-specific shirt ideas built for dog people.';
 
 const dogDesignCollections: DogDesignCollection[] = [
   { slug: "retro-dogs", name: "Retro Dogs", tagline: "Old-school color, new-school dog obsession", description: "Vintage travel-poster shapes, seventies sunsets, varsity lettering and throwback graphics built around recognizable breed personalities.", examples: ["Lake Day Labrador", "Golden Hour Golden", "Low Rider Dachshund", "Weekend Beagle"] },
@@ -50,8 +56,56 @@ const dogBreeds: DogBreedProfile[] = [
 
 const toSummary = ({ slug, name, shortName, deck }: DogBreedProfile): DogBreedSummary => ({ slug, name, shortName, deck });
 
+function buildHubHead(breeds: DogBreedSummary[]) {
+  const pageUrl = `${siteUrl}/dogs`;
+  return {
+    meta: buildMeta(texasDefinedBrand, { canonicalPath: '/dogs', title: 'Texas Dogs Defined — Breeds, Dog Life & Funny Shirt Ideas', description: hubDescription }),
+    links: [canonicalLink(texasDefinedBrand, '/dogs')],
+    scripts: [{
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          { '@type': 'CollectionPage', '@id': `${pageUrl}#page`, url: pageUrl, name: 'Texas Dogs Defined', description: hubDescription, isPartOf: { '@id': `${siteUrl}/#website` }, mainEntity: { '@id': `${pageUrl}#breeds` }, breadcrumb: { '@id': `${pageUrl}#breadcrumbs` } },
+          { '@type': 'ItemList', '@id': `${pageUrl}#breeds`, name: 'Dog breeds covered by Texas Dogs Defined', numberOfItems: breeds.length, itemListElement: breeds.map((breed, index) => ({ '@type': 'ListItem', position: index + 1, item: { '@type': 'WebPage', name: `${breed.name} Defined`, description: breed.deck, url: `${siteUrl}/dogs/${breed.slug}` } })) },
+          { '@type': 'BreadcrumbList', '@id': `${pageUrl}#breadcrumbs`, itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
+            { '@type': 'ListItem', position: 2, name: 'Texas Life', item: `${siteUrl}/texas-living` },
+            { '@type': 'ListItem', position: 3, name: 'Texas Dogs Defined', item: pageUrl },
+          ] },
+        ],
+      }),
+    }],
+  };
+}
+
+function buildBreedHead(breed: DogBreedProfile) {
+  const canonicalPath = `/dogs/${breed.slug}`;
+  const pageUrl = `${siteUrl}${canonicalPath}`;
+  const description = `${breed.name} Defined: the breed personality, Texas-life angle and funny shirt directions that fit ${breed.shortName} people without turning the page into a generic product listing.`;
+  return {
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: `${breed.name} Defined — Personality & Funny Shirt Ideas`, description }),
+    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+    scripts: [{
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          { '@type': 'WebPage', '@id': `${pageUrl}#page`, url: pageUrl, name: `${breed.name} Defined`, description, isPartOf: { '@id': `${siteUrl}/#website` }, about: { '@type': 'Thing', name: breed.name }, breadcrumb: { '@id': `${pageUrl}#breadcrumbs` } },
+          { '@type': 'BreadcrumbList', '@id': `${pageUrl}#breadcrumbs`, itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
+            { '@type': 'ListItem', position: 2, name: 'Texas Dogs Defined', item: `${siteUrl}/dogs` },
+            { '@type': 'ListItem', position: 3, name: `${breed.name} Defined`, item: pageUrl },
+          ] },
+        ],
+      }),
+    }],
+  };
+}
+
 export function loadDogHubDataServer() {
-  return { breeds: dogBreeds.map(toSummary), collections: dogDesignCollections };
+  const breeds = dogBreeds.map(toSummary);
+  return { breeds, collections: dogDesignCollections, head: buildHubHead(breeds) };
 }
 
 export function loadDogBreedPageServer(slug: string) {
@@ -59,7 +113,7 @@ export function loadDogBreedPageServer(slug: string) {
   if (!breed) return null;
   const index = dogBreeds.findIndex((candidate) => candidate.slug === slug);
   const related = [...dogBreeds.slice(index + 1), ...dogBreeds.slice(0, index)].slice(0, 4).map(toSummary);
-  return { breed, related, collections: dogDesignCollections.slice(0, 6) };
+  return { breed, related, collections: dogDesignCollections.slice(0, 6), head: buildBreedHead(breed) };
 }
 
 export function loadDogBreedSlugsServer() {
