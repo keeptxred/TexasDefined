@@ -1,6 +1,6 @@
 import { loadMajorEventGuideDirectoryServer } from "./major-event-directory.server";
 import { TEMPORAL_EVENT_COLLECTIONS, resolveTemporalEventCollectionServer } from "./event-temporal-collections.server";
-import { TOURNAMENT_COLLECTIONS } from "./texas-tournaments";
+import { TOURNAMENT_COLLECTIONS } from "./texas-tournament-collections";
 
 export interface TemporalEventSitemapEntry {
   path: string;
