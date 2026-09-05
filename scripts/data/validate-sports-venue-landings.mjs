@@ -91,7 +91,7 @@ for (const marker of [
   "'@type': 'Question'",
   "'@type': 'Answer'",
   "'@type': 'BreadcrumbList'",
-  'buildQuickAnswers(landing, venues, lastReviewed)',
+  'buildQuickAnswers(landing, venues, starterInventoryCount, lastReviewed)',
   'Quick answers',
   'What travelers ask first',
   'Short answers drawn from the same verified venue inventory used by this guide.',
