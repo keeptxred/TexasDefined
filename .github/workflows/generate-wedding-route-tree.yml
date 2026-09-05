@@ -1,0 +1,52 @@
+name: Generate wedding route tree
+
+on:
+  push:
+    branches: [feature/texas-wedding-venues]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wedding-route-tree-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feature/texas-wedding-venues
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Generate route tree with production build
+        run: npm run build
+
+      - name: Commit generated route tree and remove this workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm .github/workflows/generate-wedding-route-tree.yml
+          git add src/routeTree.gen.ts .github/workflows/generate-wedding-route-tree.yml
+          if git diff --cached --quiet; then
+            echo "No generated route-tree change to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Generate wedding venue route tree"
+          git push origin HEAD:feature/texas-wedding-venues
