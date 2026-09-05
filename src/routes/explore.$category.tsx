@@ -3,11 +3,17 @@ import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
-import type { Destination } from "@/data/types";
+import type { Category, Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const SWIMMING_HOLES_RIVER_TUBING_SLUG = "swimming-holes-river-tubing";
+const WATER_TOWERS_CATEGORY = {
+  slug: "water-towers" as Category["slug"],
+  name: "Texas Water Towers Worth Pulling Over For",
+  eyebrow: "Roadside Texas",
+  description: "A Texas road-trip guide to eight distinctive water towers, with history, photo-stop context and verified sources.",
+} satisfies Category;
 const legacyExploreRedirects: Record<string, string> = {
   "scenic-rivers": "/article/texas-rivers-explained",
   "texas-dark-sky-stargazing": "/texas-stargazing-guide",
@@ -63,8 +69,7 @@ export const Route = createFileRoute("/explore/$category")({
   },
   loader: async ({ context, params }) => {
     if (params.category === "water-towers") {
-      const { waterTowersCategory } = await import("@/data/water-towers-route");
-      return { category: waterTowersCategory, articles: [], destinations: [], authorityHtml: null };
+      return { category: WATER_TOWERS_CATEGORY, articles: [], destinations: [], authorityHtml: null };
     }
     const categories = await context.queryClient.ensureQueryData(categoriesQuery());
     const category = categories.find((item) => item.slug === params.category);
