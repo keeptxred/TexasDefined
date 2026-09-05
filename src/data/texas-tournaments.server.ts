@@ -1,9 +1,11 @@
 import {
-  TEXAS_TOURNAMENT_ENTITIES,
   TEXAS_TOURNAMENTS,
   tournamentCountyName,
-  type TexasTournamentCategory,
 } from './texas-tournaments';
+import {
+  TEXAS_TOURNAMENT_CATEGORIES,
+  type TexasTournamentCategory,
+} from './texas-tournament-collections';
 
 export interface TournamentCollectionItem {
   slug: string;
@@ -15,6 +17,10 @@ export interface TournamentCollectionItem {
   sourceCheckedAt?: string;
 }
 
+const categoryPathBySlug = new Map(
+  TEXAS_TOURNAMENT_CATEGORIES.map((category) => [category.slug, category.path]),
+);
+
 export function loadTournamentCollectionItemsServer(category?: TexasTournamentCategory): TournamentCollectionItem[] {
   const tournaments = category
     ? TEXAS_TOURNAMENTS.filter((tournament) => tournament.category === category)
@@ -22,15 +28,11 @@ export function loadTournamentCollectionItemsServer(category?: TexasTournamentCa
 
   return tournaments.map((tournament) => ({
     slug: tournament.slug,
-    href: `/tournament/${tournament.slug}`,
+    href: categoryPathBySlug.get(tournament.category) ?? '/events/tournaments',
     name: tournament.name,
     city: tournament.locationLabel,
     countyName: tournamentCountyName(tournament.countySlug),
     detail: `${tournament.locationLabel} · ${tournament.summary}`,
     sourceCheckedAt: undefined,
   }));
-}
-
-export function loadTournamentEntityServer(slug: string) {
-  return TEXAS_TOURNAMENT_ENTITIES.find((entity) => entity.slug === slug) ?? null;
 }
