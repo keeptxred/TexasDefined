@@ -1,6 +1,6 @@
 export type RawTournament = readonly [name:string, locationLabel:string, summary:string, countySlug?:string];
 export const TOURNAMENT_RAW_2: readonly RawTournament[] = [
-  ["The Frisco Bowl", "Frisco", "Postseason college bowl tournament at Toyota Stadium."],
+  ["The Frisco Bowl", "Frisco", "Postseason NCAA bowl game at Ford Center at The Star.", "collin"],
   ["UIL Football State Championships", "Arlington", "Massive four-day tournament crowning all public high school state champs at AT&T Stadium.", "tarrant"],
   ["TAPPS State Football Championships", "Varies", "Private school state tournament championship series."],
   ["The Texas Coastal Classic", "Varies", "Annual regular-season HBCU football showcase."],
