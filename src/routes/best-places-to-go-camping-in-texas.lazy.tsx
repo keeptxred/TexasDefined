@@ -7,6 +7,9 @@ export const Route = createLazyFileRoute("/best-places-to-go-camping-in-texas")(
 
 function CampingDatabasePage() {
   const { entries } = Route.useLoaderData();
+  const rvEntries = entries.filter(({ profile }) => profile.styles.includes("rv"));
+  const fullHookupCount = rvEntries.filter(({ profile }) => profile.amenities.includes("full-hookup")).length;
+
   return <main>
     <section className="border-b border-border bg-muted/30 py-14 md:py-20">
       <Container>
@@ -15,6 +18,7 @@ function CampingDatabasePage() {
         <h1 className="mt-3 max-w-5xl font-display text-5xl leading-none md:text-7xl">Texas Camping & RV Campground Guide</h1>
         <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">Use verified campsite and outdoor-lodging details to compare public stays across Texas. Filter by RV, tent, primitive, beach, cabins, glamping, Airstreams and bungalows, look specifically for verified full-hookup sites, or narrow to water-focused destinations. Every amenity shown below is tied to an official source; an unlisted amenity means we have not verified it yet.</p>
         <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+          <a href="#rv-camping" className="text-primary underline-offset-4 hover:underline">RV camping in Texas</a>
           <Link to="/explore/trip-planner" search={{}} className="text-primary underline-offset-4 hover:underline">Build a camping trip</Link>
           <Link to="/explore/state-parks" className="text-primary underline-offset-4 hover:underline">Texas state parks</Link>
           <Link to="/explore/lakes-rivers" className="text-primary underline-offset-4 hover:underline">Lakes & rivers</Link>
@@ -25,7 +29,27 @@ function CampingDatabasePage() {
       </Container>
     </section>
 
-    <section className="py-12 md:py-16">
+    <section id="rv-camping" className="border-b border-border py-12 md:py-16 scroll-mt-24">
+      <Container className="grid gap-10 lg:grid-cols-[1.1fr_.9fr]">
+        <div>
+          <p className="eyebrow text-primary">RV parks & campgrounds</p>
+          <h2 className="mt-2 font-display text-4xl md:text-5xl">RV camping in Texas, verified before it is listed</h2>
+          <p className="mt-5 max-w-3xl leading-8 text-muted-foreground">TexasDefined currently has {rvEntries.length} source-checked camping profiles where RV use is explicitly documented. {fullHookupCount} currently have full hookups explicitly verified. That count will grow as official park and campground sources are checked; private RV resorts are not added simply because they appear in a third-party directory or a seed list.</p>
+          <p className="mt-4 max-w-3xl leading-8 text-muted-foreground">Use the database below for electric service, water and sewer hookups, dump stations, documented site-length notes, reservation sources and regional planning. If an amenity is missing, treat it as unknown until a source confirms it.</p>
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+            <a href="#camping-directory" className="text-primary underline decoration-primary/40 underline-offset-4 hover:text-primary">Browse all verified campgrounds ↓</a>
+            <Link to="/explore/road-trips" className="text-primary underline decoration-primary/40 underline-offset-4 hover:text-primary">Plan an RV road trip</Link>
+            <Link to="/explore/trip-planner" search={{}} className="text-primary underline decoration-primary/40 underline-offset-4 hover:text-primary">Build a Texas itinerary</Link>
+          </div>
+        </div>
+        <dl className="grid grid-cols-2 gap-4 self-start">
+          <div className="border border-border p-5"><dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Verified RV profiles</dt><dd className="mt-2 font-display text-4xl">{rvEntries.length}</dd></div>
+          <div className="border border-border p-5"><dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Verified full hookup</dt><dd className="mt-2 font-display text-4xl">{fullHookupCount}</dd></div>
+        </dl>
+      </Container>
+    </section>
+
+    <section id="camping-directory" className="py-12 md:py-16 scroll-mt-24">
       <Container>
         <div className="grid gap-6 border-b border-border pb-10 md:grid-cols-3">
           <div><p className="eyebrow text-primary">Data rule</p><h2 className="mt-2 font-display text-3xl">No invented amenities</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Hookups, showers, site-length notes, accessibility, pet policies and generator rules appear only when an official camping source supports them.</p></div>

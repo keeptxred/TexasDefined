@@ -49,7 +49,7 @@ const delegatedValidators = [
   'validate-internal-link-policy-release.mjs', 'validate-internal-link-golden-corpus.mjs',
   'validate-knowledge-graph-behavior.mjs', 'validate-citation-magnets.mjs',
   'validate-citation-downloads.mjs', 'validate-gsc-evergreen-recovery.mjs',
-  'validate-expedia-affiliate.mjs',
+  'validate-expedia-affiliate.mjs', 'validate-rv-camping-authority.mjs',
 ];
 
 const cultureDeployValidators = [

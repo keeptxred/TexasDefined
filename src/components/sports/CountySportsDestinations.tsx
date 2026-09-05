@@ -9,7 +9,9 @@ import { sportsVenueLandingLinksForVenue, type SportsVenueLanding } from '@/data
 const siteUrl = 'https://texasdefined.com';
 
 export function CountySportsDestinations({ county, venues }: { county: TexasEntityRecord; venues: TexasEntityRecord[] }) {
-  const majorEvents = use(getCountyMajorEvents(county.slug));
+  const countyPlanning = use(getCountyMajorEvents(county.slug));
+  const majorEvents = countyPlanning.majorEvents;
+  const rvCamping = countyPlanning.rvCamping;
   const aquariumDestinations = aquariumMarineLinksForCounty(county.slug);
 
   const displayedVenues = venues.slice(0, 12);
@@ -42,6 +44,19 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
       url: `${siteUrl}/destination/${destination.slug}`,
     })),
   } : null;
+  const rvCampingJsonLd = rvCamping.length ? {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    '@id': `${siteUrl}${canonicalPath}#rv-camping`,
+    name: `Verified RV camping in ${county.name}`,
+    numberOfItems: rvCamping.length,
+    itemListElement: rvCamping.map((campground, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: campground.name,
+      url: `${siteUrl}${campground.destinationHref}`,
+    })),
+  } : null;
 
   return <>
     {aquariumDestinations.length ? <section className="border-b border-border py-12" aria-labelledby="county-aquariums-heading">
@@ -66,6 +81,38 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
           </div>
           <div className="mt-8 border-t border-border pt-6">
             <a href="/explore/aquariums" className="text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">Explore all Texas aquariums & marine life →</a>
+          </div>
+        </div>
+      </div>
+    </section> : null}
+
+    {rvCamping.length ? <section className="border-b border-border py-12" aria-labelledby="county-rv-camping-heading">
+      {rvCampingJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(rvCampingJsonLd) }} /> : null}
+      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">RV camping</p>
+          <h2 id="county-rv-camping-heading" className="mt-2 font-display text-4xl">Verified RV camping in {county.name}</h2>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">Only RV-capable campgrounds already checked against an official land-manager or reservation source appear here. Missing amenities mean not yet verified, not unavailable.</p>
+        </div>
+        <div>
+          <div className="grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
+            {rvCamping.map((campground) => <article key={`${campground.name}-${campground.destinationHref}`} className="border-t border-border py-5">
+              <span className="eyebrow text-primary">{campground.fullHookup ? 'Verified full hookup' : 'Verified RV camping'}</span>
+              <a href={campground.destinationHref} className="group mt-2 block">
+                <strong className="block font-display text-2xl leading-tight group-hover:text-primary">{campground.name}</strong>
+              </a>
+              <span className="mt-3 block text-sm leading-6 text-muted-foreground">{campground.facilitySummary}</span>
+              {campground.siteLengthNote ? <span className="mt-3 block text-sm leading-6 text-muted-foreground"><strong className="text-foreground">RV/site length:</strong> {campground.siteLengthNote}</span> : null}
+              <span className="mt-3 block text-xs uppercase tracking-[0.12em] text-muted-foreground">{campground.managingAgency} · checked {campground.verifiedAt}</span>
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+                <a href={campground.destinationHref} className="text-primary underline decoration-primary/40 underline-offset-4 hover:text-primary">Open guide</a>
+                <a href={campground.reservationUrl} target="_blank" rel="noreferrer" className="text-primary underline decoration-primary/40 underline-offset-4 hover:text-primary">Reservations ↗</a>
+                <a href={campground.sourceUrl} target="_blank" rel="noreferrer" className="text-primary underline decoration-primary/40 underline-offset-4 hover:text-primary">{campground.sourceLabel} ↗</a>
+              </div>
+            </article>)}
+          </div>
+          <div className="mt-8 border-t border-border pt-6">
+            <a href="/best-places-to-go-camping-in-texas#rv-camping" className="text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">Browse the statewide Texas RV camping guide →</a>
           </div>
         </div>
       </div>

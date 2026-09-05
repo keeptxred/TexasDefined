@@ -4,7 +4,11 @@ const loadCountyMajorEvents = createServerFn({ method: "GET" })
   .inputValidator((data: { countySlug: string }) => data)
   .handler(async ({ data }) => {
     const { loadCountyMajorEventsServer } = await import("./county-major-events.server");
-    return loadCountyMajorEventsServer(data.countySlug);
+    const { loadCountyRvCampingServer } = await import("./county-rv-camping.server");
+    return {
+      majorEvents: loadCountyMajorEventsServer(data.countySlug),
+      rvCamping: loadCountyRvCampingServer(data.countySlug),
+    };
   });
 
 export function getCountyMajorEvents(countySlug: string) {
