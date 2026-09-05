@@ -100,6 +100,16 @@
       "requiredMarkers": [
         "src/server-entry.ts"
       ]
+    },
+    {
+      "family": "Texas-vs-state sitemap redirect exclusion",
+      "file": "src/routes/sitemap[.]xml.ts",
+      "requiredMarkers": [
+        "TEXAS_VS_REDIRECT_ONLY_STATE_SLUGS",
+        "\"california\"",
+        "\"florida\"",
+        ".filter((state) => !TEXAS_VS_REDIRECT_ONLY_STATE_SLUGS.has(texasVsStateSlug(state)))"
+      ]
     }
   ],
   "gscRemediation": {
