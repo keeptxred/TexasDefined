@@ -132,8 +132,9 @@ export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryIt
 }
 
 export function loadMajorEventLandingDirectoryServer() {
+  const today = texasTodayIso();
   return {
-    majorEventGuides: loadMajorEventGuideDirectoryServer(),
+    majorEventGuides: loadMajorEventGuideDirectoryServer().filter((event) => (event.endDate || event.startDate) >= today),
     eventTimingLinks,
     eventTopicLinks,
     eventRegionLinks,
