@@ -24,6 +24,7 @@ for (const [needle, label] of [
   ['data-camref="1110lMy6E"', 'approved camref'],
   ['data-pubref="texasdefined-stays"', 'approved pubref'],
   ['TRAVEL_PATH.test(window.location.pathname)', 'central travel-route guard'],
+  ['sports-venues\\/(?!compare(?:\\.csv)?(?:\\/|$))', 'sports comparison exclusion'],
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Expedia bookings', 'affiliate disclosure'],
 ]) requireText(bootstrap, needle, label);
 
@@ -37,4 +38,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Expedia affiliate integration validation passed: the first-party bootstrap is emitted by the SSR shell but excluded from the hydrated client bundle, approved travel routes receive the disclosed stay-search surface, and Expedia vendor JavaScript is created only after a visitor click.');
+console.log('Expedia affiliate integration validation passed: the first-party bootstrap is emitted by the SSR shell but excluded from the hydrated client bundle, approved travel routes receive the disclosed stay-search surface, sports comparison reference routes are excluded, and Expedia vendor JavaScript is created only after a visitor click.');
