@@ -33,7 +33,7 @@ export const TOURNAMENT_RAW_5: readonly RawTournament[] = [
   ["Texas Amateur Athletic Federation (TAAF) Winter Games of Texas", "Varies", "Massive multi-sport Olympic style amateur tournament festival."],
   ["TAAF Summer Games of Texas", "Varies", "The massive summer edition hosting track, swimming, boxing, and team sports brackets."],
   ["State Games of Texas", "Varies", "Annual multi-sport festival open to all Texas amateur residents."],
-  ["UIL Team Tennis State Championships", "College Station", "Full school format high school tennis championship tournament.", "brazos"],
+  ["UIL Team Tennis State Championships", "TBD", "UIL has published the 2026 state tournament dates, but the championship venue remains TBD."],
   ["Texas Senior Games", "San Antonio", "Multi-sport tournament festival for athletes aged 50+.", "bexar"],
   ["Lone Star Arm Wrestling Championship", "Varies", "Competitive strength bracket tournament."],
   ["Texas State Weightlifting Championships", "USAW Texas", "Olympic lifting state tournament."],
