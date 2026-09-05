@@ -8,6 +8,7 @@ function requireText(source, needle, label) {
   if (!source.includes(needle)) errors.push(`${label} is missing required Expedia contract text: ${needle}`);
 }
 
+requireText(root, 'if (import.meta.env.SSR)', 'SSR-only bootstrap guard');
 requireText(root, '<script src="/expedia-travel.js" defer />', 'root bootstrap reference');
 
 for (const [needle, label] of [
@@ -36,4 +37,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Expedia affiliate integration validation passed: the first-party bootstrap is deferred outside the main React bundle, approved travel routes receive the disclosed stay-search surface, and Expedia vendor JavaScript is created only after a visitor click.');
+console.log('Expedia affiliate integration validation passed: the first-party bootstrap is emitted by the SSR shell but excluded from the hydrated client bundle, approved travel routes receive the disclosed stay-search surface, and Expedia vendor JavaScript is created only after a visitor click.');
