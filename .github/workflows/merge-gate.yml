@@ -62,6 +62,9 @@ jobs:
       - name: Validate populated Texas geography knowledge graph
         run: node --experimental-strip-types --test src/data/__tests__/geography-knowledge-graph.test.ts
 
+      - name: Validate canonical region landing architecture
+        run: node --experimental-strip-types --test src/data/__tests__/canonical-region-presentation.test.ts
+
       - name: Validate remote image upstream request policy
         run: node --experimental-strip-types --test src/lib/remote-image-fetch-policy.test.ts
 

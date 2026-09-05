@@ -4,6 +4,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { platform, scope } from "@/data";
 import { getTexasCountyHousingCosts } from "@/data/acs-county-housing-costs.functions";
 import { fetchPublishedTexasDefinedEvergreenArticlesForSitemap, fetchPublishedTexasDefinedNewsArticlesForSitemap } from "@/data/articles-remote";
+import { CANONICAL_REGION_PATHS } from "@/data/canonical-region-presentation";
 import { loadTexasCountyGrowth } from "@/data/census-county-growth";
 import { isLegacyCountySeriesArticle } from "@/data/county-series";
 import { loadTemporalEventSitemapEntriesServer } from "@/data/event-temporal-sitemap.server";
@@ -37,6 +38,7 @@ type SitemapEntry = { path: string; lastmod?: string };
 
 const PRIORITY_SEO_LASTMOD = "2026-08-20";
 const AUTHORITY_LASTMOD = "2026-09-01";
+const REGION_LASTMOD = "2026-09-04";
 const AUTHORITY_STATIC_PATHS = [
   "/track-texas-drivers-license",
   "/texas-by-texas-txt",
@@ -120,6 +122,8 @@ export const Route = createFileRoute("/sitemap.xml")({
         const entries: SitemapEntry[] = [
           ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).filter((path) => isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
           ...AUTHORITY_STATIC_PATHS.map((path) => ({ path, lastmod: AUTHORITY_LASTMOD })),
+          { path: "/regions", lastmod: REGION_LASTMOD },
+          ...CANONICAL_REGION_PATHS.map((path) => ({ path, lastmod: REGION_LASTMOD })),
           ...HUNTING_SITEMAP_ENTRIES,
           ...LOCAL_PROPERTY_TAX_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-08-30" })),
           ...LOCAL_HOME_AFFORDABILITY_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-08-30" })),
