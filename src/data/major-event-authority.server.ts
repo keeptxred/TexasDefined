@@ -5,10 +5,12 @@ import { verifiedTournamentBatch4BySlug } from "./tournaments/verified-profiles-
 import { verifiedTournamentBatch5BySlug } from "./tournaments/verified-profiles-batch5";
 import { verifiedTournamentBatch6BySlug } from "./tournaments/verified-profiles-batch6";
 import { verifiedTournamentBatch7BySlug } from "./tournaments/verified-profiles-batch7";
+import { verifiedTournamentBatch8BySlug } from "./tournaments/verified-profiles-batch8";
 
 export interface MajorEventSource { label: string; url: string; }
 export interface MajorEventPlanningSection { title: string; body: string; }
 export interface MajorEventRelatedLink { href: string; label: string; description: string; }
+export interface MajorEventOccurrenceWindow { label?: string; startDate: string; endDate?: string; }
 interface MajorEventAuthorityDetails {
   slug: string;
   whyItMatters: string;
@@ -16,7 +18,9 @@ interface MajorEventAuthorityDetails {
   relatedLinks: MajorEventRelatedLink[];
   sources: MajorEventSource[];
 }
-export type MajorEventAuthorityRecord = MajorEventIndexRecord & Omit<MajorEventAuthorityDetails, "slug">;
+export type MajorEventAuthorityRecord = MajorEventIndexRecord & Omit<MajorEventAuthorityDetails, "slug"> & {
+  occurrenceWindows?: MajorEventOccurrenceWindow[];
+};
 
 // Server-only guide copy. The supplied inventory is a discovery seed; official
 // organizer/host sources control verified dates stored in major-event-index.ts.
@@ -150,6 +154,8 @@ const newVerifiedTournamentRegistrations = [
   { slug: "texas-state-science-and-engineering-fair" },
   { slug: "ironman-texas" },
   { slug: "world-skeet-shooting-championships" },
+  { slug: "the-frisco-bowl" },
+  { slug: "uil-state-marching-band-championships" },
 ] as const;
 
 const newVerifiedTournamentSlugs = new Set(newVerifiedTournamentRegistrations.map(({ slug }) => slug));
@@ -174,7 +180,8 @@ function getVerifiedTournamentAuthorityServer(slug: string): MajorEventAuthority
     ?? verifiedTournamentBatch4BySlug(slug)
     ?? verifiedTournamentBatch5BySlug(slug)
     ?? verifiedTournamentBatch6BySlug(slug)
-    ?? verifiedTournamentBatch7BySlug(slug);
+    ?? verifiedTournamentBatch7BySlug(slug)
+    ?? verifiedTournamentBatch8BySlug(slug);
   if (!profile) return null;
 
   const venue = profile.slug === "the-texas-bowl" ? "NRG Stadium" : profile.venue;
@@ -221,6 +228,9 @@ function getVerifiedTournamentAuthorityServer(slug: string): MajorEventAuthority
       },
     ],
     sources: [{ label: profile.officialSourceLabel, url: profile.officialUrl }],
+    ...("occurrenceWindows" in profile && profile.occurrenceWindows?.length
+      ? { occurrenceWindows: profile.occurrenceWindows.map((window) => ({ ...window })) }
+      : {}),
   };
 }
 
