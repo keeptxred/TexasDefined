@@ -4,10 +4,10 @@
   "reviewDate": "2026-09-05",
   "reviewMethod": "Live production review plus repository quality-gate verification",
   "summary": {
-    "reviewed": 14,
+    "reviewed": 16,
     "KEEP": 11,
     "IMPROVE": 2,
-    "REMOVE_CONSOLIDATE": 1
+    "REMOVE_CONSOLIDATE": 3
   },
   "reviewed": [
     {
@@ -78,14 +78,31 @@
       "remediation": "Complete current local appraisal-district and tax-office verification, county-specific taxing-unit/rate context, source freshness, parcel-specific cautions and FAQ coverage; promote only after isCountyPropertyIndexReady passes."
     },
     {
+      "path": "/texas-vs/california",
+      "action": "REMOVE_CONSOLIDATE",
+      "reason": "TexasDefined already has a deeper index-ready editorial comparison at /article/texas-vs-california-differences, so retaining both URLs creates unnecessary duplicate intent and crawl competition.",
+      "remediation": "301 the state-template URL to the stronger editorial article and treat the article as the sole canonical search destination."
+    },
+    {
+      "path": "/texas-vs/florida",
+      "action": "REMOVE_CONSOLIDATE",
+      "reason": "TexasDefined already has a deeper index-ready editorial comparison at /article/texas-vs-florida-differences, so retaining both URLs creates unnecessary duplicate intent and crawl competition.",
+      "remediation": "301 the state-template URL to the stronger editorial article and treat the article as the sole canonical search destination."
+    },
+    {
       "path": "/article/live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp",
       "action": "REMOVE_CONSOLIDATE",
       "reason": "The article itself has editorial value and appears in the Food & Culture Desk archive, but the migrated time-stamped live slug is not an appropriate durable evergreen URL.",
       "remediation": "Retain the article content, migrate it to a clean descriptive evergreen slug, 301 the legacy URL, update internal links and migration guards, and keep only the clean canonical URL in sitemaps."
     }
   ],
+  "implementedThisWave": [
+    "Permanent 301 consolidation from /texas-vs/california to /article/texas-vs-california-differences",
+    "Permanent 301 consolidation from /texas-vs/florida to /article/texas-vs-florida-differences",
+    "Governance contract protects those redirects from regression"
+  ],
   "nextReviewCohorts": [
-    "Texas-vs-state pages",
+    "remaining Texas-vs-state pages",
     "sports-venue profiles",
     "fishing lake access/boating/guides/nearby subpages",
     "nested Painted Churches people/symbols/techniques/routes/heritage/preservation/support pages"
