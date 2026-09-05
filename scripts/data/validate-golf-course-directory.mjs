@@ -62,14 +62,15 @@ for (const marker of [
 ]) if (!landingRoute.includes(marker)) fail(`statewide golf landing contract missing: ${marker}`);
 
 for (const marker of [
-  'TEXAS_GOLF_COURSE_STARTER_ENTITIES',
-  'golfCourseStarterRecord',
+  'TEXAS_GOLF_COURSE_STARTER_RECORDS',
+  'starterGolfDocuments',
   'Texas golf course directory',
 ]) if (!search.includes(marker)) fail(`search discovery contract missing: ${marker}`);
+if (search.includes('TEXAS_GOLF_COURSE_STARTER_ENTITIES')) fail('client search must not import full starter knowledge-graph entities');
 
 for (const marker of [
   'if (!hasEntitySpecificOfficialUrl(entity)) return false;',
   "if (!['active', 'seasonal'].includes(entity.status)) return false;",
 ]) if (!relationships.includes(marker)) fail(`individual-page index gate weakened or missing: ${marker}`);
 
-console.log('Golf course directory validation passed: 250 unique starter courses, county/statewide discovery wired, individual verification gate preserved.');
+console.log('Golf course directory validation passed: 250 unique starter courses, county/statewide/search discovery wired, lightweight client search preserved, individual verification gate preserved.');
