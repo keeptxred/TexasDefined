@@ -31,7 +31,7 @@ const sourcePolicyParagraphs = [
 const tournamentSourcePolicyTitle = "Seed broadly, index carefully";
 const tournamentSourcePolicyParagraphs = [
   "The Texas Tournaments directory starts from a curated seed inventory so readers can discover the breadth of competition across the state. A seed name or location is not treated as proof of a current occurrence. Dates, host venue, organizer, eligibility, tickets and registration remain verification fields.",
-  "Statewide and category collection pages are useful as durable discovery indexes, but an individual tournament guide stays out of search indexing until it has current first-party source evidence. Ambiguous multi-city, rotating and cross-county locations are not forced into a county relationship merely to create more local pages.",
+  "Statewide and category collection pages are useful as durable discovery indexes. Individual tournament guides open to search only after current first-party evidence is checked; ambiguous multi-city, rotating and cross-county locations are not forced into a county relationship merely to create more local pages.",
 ] as const;
 
 function buildCollectionHead(collection: CollectionDefinition, items: CollectionItem[], shouldIndex = true) {
@@ -39,6 +39,20 @@ function buildCollectionHead(collection: CollectionDefinition, items: Collection
   const pageUrl = `${siteUrl}${canonicalPath}`;
   const itemListElement = items.map((event, index) => {
     if (collection.kind === "tournament") {
+      if (event.sourceCheckedAt && event.href.startsWith("/tournament/")) {
+        const eventUrl = `${siteUrl}${event.href}`;
+        return {
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "WebPage",
+            "@id": eventUrl,
+            url: eventUrl,
+            name: event.name,
+            description: event.detail,
+          },
+        };
+      }
       return {
         "@type": "ListItem",
         position: index + 1,
@@ -126,8 +140,11 @@ export function loadEventCollectionPageServer(slug: string) {
             : event.region === evergreen!.value,
         );
   const shouldIndex = tournament ? items.length >= 5 : temporal?.shouldIndex ?? true;
+  const verifiedTournamentCount = tournament
+    ? items.filter((item) => Boolean(item.sourceCheckedAt) && item.href.startsWith("/tournament/")).length
+    : 0;
   const indexabilityNote = tournament
-    ? "This collection is indexable as a substantive discovery directory. Individual tournament reference pages remain unpublished until first-party occurrence details are verified."
+    ? `This collection is indexable as a substantive discovery directory. ${verifiedTournamentCount} entries currently link to first-party-verified tournament guides; the remaining seed entries stay at the collection layer until their current occurrence details are verified.`
     : temporal?.indexabilityNote ?? "This collection is a durable, crawlable event-discovery page backed by permanent verified event guides.";
 
   const latestSourceCheck = items
@@ -150,7 +167,7 @@ export function loadEventCollectionPageServer(slug: string) {
     shouldIndex,
     indexabilityNote,
     itemCountLabel: tournament
-      ? `${items.length.toLocaleString("en-US")} tournament and competition entries · verification in progress`
+      ? `${items.length.toLocaleString("en-US")} tournament and competition entries · ${verifiedTournamentCount.toLocaleString("en-US")} verified guides`
       : `${items.length.toLocaleString("en-US")} verified event guides${latestSourceCheck ? ` · Latest source check: ${latestSourceCheck}` : ""}`,
     itemsEyebrow: tournament ? "Texas tournament directory" : "Permanent planning pages",
     itemsTitle: tournament ? (tournament.value ? tournament.title : "250 Texas tournaments & competitions") : "Verified event guides",
