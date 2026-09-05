@@ -34,6 +34,8 @@ export const supplementalMajorEventSlugs = [
   "uil-cross-country-state-championships",
   "uil-wrestling-state-championships",
   "uil-spirit-state-championships",
+  "the-texas-relays",
+  "worlds-championship-bar-b-que-contest",
   "houston-auto-show",
   "fulton-oysterfest",
   "sandhills-stock-show-rodeo",
