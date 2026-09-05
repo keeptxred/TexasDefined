@@ -49,6 +49,7 @@ const delegatedValidators = [
   'validate-internal-link-policy-release.mjs', 'validate-internal-link-golden-corpus.mjs',
   'validate-knowledge-graph-behavior.mjs', 'validate-citation-magnets.mjs',
   'validate-citation-downloads.mjs', 'validate-gsc-evergreen-recovery.mjs',
+  'validate-expedia-affiliate.mjs',
 ];
 
 const cultureDeployValidators = [
@@ -141,4 +142,4 @@ for (const validator of delegatedValidators) {
   }
 }
 
-console.log(`SEO CI contract passed with ${protectedValidators.length} protected remediation validators (${directValidators.length} direct, ${delegatedValidators.length} delegated) plus ${cultureDeployValidators.length} culture-authority predeploy gates. The workflow may use one monolithic SEO gate, stricter named direct gates, or the authoritative validation suite while preserving the 91-link Texas icon-depth floor, generated-page quality, citation discovery, GSC evergreen recovery, machine-readable citation-download protections and Texas culture deployment safety.`);
+console.log(`SEO CI contract passed with ${protectedValidators.length} protected remediation validators (${directValidators.length} direct, ${delegatedValidators.length} delegated) plus ${cultureDeployValidators.length} culture-authority predeploy gates. The workflow may use one monolithic SEO gate, stricter named direct gates, or the authoritative validation suite while preserving the 91-link Texas icon-depth floor, generated-page quality, citation discovery, GSC evergreen recovery, machine-readable citation-download protections, Expedia affiliate placement protections and Texas culture deployment safety.`);
