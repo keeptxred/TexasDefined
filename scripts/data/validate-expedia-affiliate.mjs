@@ -3,7 +3,8 @@ import fs from 'node:fs';
 const errors = [];
 const read = (path) => fs.readFileSync(path, 'utf8');
 
-const widget = read('src/components/affiliate/ExpediaStaySearch.tsx');
+const boundary = read('src/components/affiliate/ExpediaStaySearch.tsx');
+const widget = read('src/components/affiliate/ExpediaStaySearchImpl.tsx');
 const explore = read('src/routes/explore.index.lazy.tsx');
 const categories = read('src/routes/explore.$category.lazy.tsx');
 const destination = read('src/components/editorial/DestinationViatorBooking.tsx');
@@ -14,6 +15,8 @@ const eventGuide = read('src/routes/event.$slug.lazy.tsx');
 function requireText(source, needle, label) {
   if (!source.includes(needle)) errors.push(`${label} is missing required Expedia contract text: ${needle}`);
 }
+
+requireText(boundary, "lazy(() => import('./ExpediaStaySearchImpl')", 'lazy widget boundary');
 
 for (const [needle, label] of [
   ["const EXPEDIA_WIDGET_SCRIPT = 'https://creator.expediagroup.com/products/widgets/assets/eg-widgets.js'", 'widget script'],
@@ -47,4 +50,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Expedia affiliate integration validation passed: approved widget tracking is present on statewide Explore, travel categories, destination, county, sports/golf venue and major-event trip-planning surfaces with disclosure.');
+console.log('Expedia affiliate integration validation passed: approved widget tracking is lazy-loaded on statewide Explore, travel categories, destination, county, sports/golf venue and major-event trip-planning surfaces with disclosure.');
