@@ -83,6 +83,17 @@
       ]
     },
     {
+      "family": "county property local verification",
+      "file": "src/data/property/county-property-local-verification.ts",
+      "requiredMarkers": [
+        "haskell:",
+        "leon:",
+        "https://www.leoncad.org/",
+        "https://www.co.leon.tx.us/page/leon.County.Assessor.Collector",
+        "lastVerifiedAt: '2026-09-05'"
+      ]
+    },
+    {
       "family": "Texas-vs-state canonical consolidation",
       "file": "src/server-entry.ts",
       "requiredMarkers": [
@@ -128,7 +139,8 @@
       "ops/seo/gsc-remediation-wave1-2026-09-05.json",
       "ops/seo/gsc-remediation-wave2-2026-09-05.json",
       "ops/seo/gsc-remediation-wave3-2026-09-05.json",
-      "ops/seo/gsc-remediation-wave4-2026-09-05.json"
+      "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "ops/seo/gsc-remediation-wave5-2026-09-05.json"
     ],
     "maxUnreviewedAgeDays": 30,
     "manualInspectionPriority": [
