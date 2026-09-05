@@ -73,7 +73,7 @@ for (const signal of [
   assert(component.includes(signal), `Destination camping component missing protected signal: ${signal}`);
 }
 
-assert(searchRoute.includes('await import("@/data/camping/camping-profiles")'), "Explore search loader must dynamically load the compact camping alias facade.");
+assert(searchRoute.includes('import { getCampingSearchIndex } from "@/data/camping/camping-profiles"'), "Explore search must reuse the thin camping alias facade without attaching rich registry data to the client graph.");
 assert(searchRoute.includes('import("@/components/explore/ExploreSearchPage")'), "Explore search presentation must remain behind an explicit dynamic component boundary.");
 assert(!searchRoute.includes("DestinationCard"), "Explore search presentation must remain out of the global client route graph.");
 assert(searchPresentation.includes("campingTermsByDestination"), "Explore search must map camping aliases back to canonical destination slugs.");
@@ -81,7 +81,7 @@ assert(searchPresentation.includes("scoreDestination(destination, q, campingTerm
 assert(searchPresentation.includes("Pine Springs Campground"), "Explore search must document named-campground discovery without creating campground doorway routes.");
 assert(searchPresentation.includes("full hookups"), "Explore search must expose high-intent camping amenity discovery.");
 
-assert(tripPlannerRoute.includes('await import("@/data/camping/camping-profiles")'), "Trip Planner loader must dynamically load the compact camping alias facade.");
+assert(tripPlannerRoute.includes('import { getCampingSearchIndex } from "@/data/camping/camping-profiles"'), "Trip Planner must reuse the thin camping alias facade without attaching rich registry data to the client graph.");
 assert(tripPlannerRoute.includes("campingSearchIndex"), "Trip Planner loader must expose verified camping aliases to the lazy planner UI.");
 assert(tripPlannerLazy.includes("campingTermsByDestination"), "Trip Planner must map verified camping aliases back to canonical destination slugs.");
 assert(tripPlannerLazy.includes('name="campingQuery"'), "Trip Planner must accept an optional campground or camping-preference query.");
@@ -118,4 +118,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Camping authority validation passed: five verified public-camping waves feed the canonical hub, canonical destination pages, source/freshness schema, dynamically split Explore search and Trip Planner without duplicate campground routes; Padre Island National Seashore is covered and both server wiring and destination UI remain explicitly split from the global client graph.");
+console.log("Camping authority validation passed: five verified public-camping waves feed the canonical hub, canonical destination pages, source/freshness schema, split Explore search and Trip Planner without duplicate campground routes; Padre Island National Seashore is covered and both server wiring and destination UI remain explicitly split from the rich registry and global client graph.");

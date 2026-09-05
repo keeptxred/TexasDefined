@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { getCampingSearchIndex } from "@/data/camping/camping-profiles";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const ExploreSearchPage = lazy(() =>
@@ -16,10 +17,7 @@ const searchSchema = z.object({ q: text, category: text, region: text, season: t
 
 export const Route = createFileRoute("/explore/search")({
   validateSearch: searchSchema,
-  loader: async () => {
-    const { getCampingSearchIndex } = await import("@/data/camping/camping-profiles");
-    return { campingSearchIndex: await getCampingSearchIndex() };
-  },
+  loader: async () => ({ campingSearchIndex: await getCampingSearchIndex() }),
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       title: "Search the Texas Travel Guide",
