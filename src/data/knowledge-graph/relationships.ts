@@ -1,7 +1,7 @@
 import type { TexasEntityRecord } from './types';
 
 export type RankedRelatedEntity = { entity: TexasEntityRecord; score: number; reasons: string[] };
-type CanonicalEntityRef = Pick<TexasEntityRecord, 'kind' | 'slug'> & Partial<Pick<TexasEntityRecord, 'sourceId' | 'tags'>>;
+type CanonicalEntityRef = Pick<TexasEntityRecord, 'kind' | 'slug'> & Partial<Pick<TexasEntityRecord, 'sourceId'>>;
 
 const LOCAL_GOVERNMENT_KINDS = new Set([
   'county',
@@ -123,7 +123,6 @@ function proximityTieBreak(origin: TexasEntityRecord, a: TexasEntityRecord, b: T
 
 export function canonicalEntityPath(entity: CanonicalEntityRef) {
   if (isDestinationMirror(entity)) return `/destination/${entity.slug}`;
-  if (entity.kind === 'sporting-event' && entity.tags?.includes('tournament')) return `/tournament/${entity.slug}`;
   if (entity.kind === 'appraisal-district' && entity.slug.endsWith(APPRAISAL_DISTRICT_SUFFIX)) {
     const countySlug = entity.slug.slice(0, -APPRAISAL_DISTRICT_SUFFIX.length);
     if (countySlug) return `/property-tax/county/${countySlug}`;
