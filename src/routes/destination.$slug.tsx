@@ -3,13 +3,9 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { getCampingProfilesForDestination } from "@/data/camping/camping-profiles";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
 import { auditDestination } from "@/data/destination-audit";
-import { buildDestinationRelationshipGroups } from "@/data/destination-relationships";
-import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery, regionsQuery } from "@/data/queries";
-import { isTopTexasAttraction } from "@/data/top-texas-attractions";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const DestinationPageContent = lazy(() =>
@@ -38,6 +34,17 @@ function destinationSeoTitle(name: string, categoryName: string) {
 
 export const Route = createFileRoute("/destination/$slug")({
   loader: async ({ context, params }) => {
+    const [
+      { getCampingProfilesForDestination },
+      { buildDestinationRelationshipGroups },
+      { loadTexasKnowledgeGraph },
+      { isTopTexasAttraction },
+    ] = await Promise.all([
+      import("@/data/camping/camping-profiles"),
+      import("@/data/destination-relationships"),
+      import("@/data/knowledge-graph"),
+      import("@/data/top-texas-attractions"),
+    ]);
     let destination = await context.queryClient.ensureQueryData(destinationQuery(params.slug));
     if (!destination) throw notFound();
     if (isTopTexasAttraction(destination.slug)) {
