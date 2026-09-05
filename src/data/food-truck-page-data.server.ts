@@ -13,6 +13,19 @@ const statewidePath = "/texas-food-trucks";
 const statewideTitle = "Texas Food Trucks Worth Finding: 300 Trucks & Trailers";
 const statewideDescription = "Explore 300 notable Texas food trucks and trailers across Austin, Houston, San Antonio, Fort Worth, El Paso, Dallas, Waco, Corpus Christi, Amarillo and College Station, curated with visible source and freshness notes.";
 const statewideUrl = absoluteUrl(texasDefinedBrand, statewidePath);
+const foodTruckPhoto = {
+  src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Austin%20Texas%20food%20truck.jpg",
+  sourceUrl: "https://commons.wikimedia.org/wiki/File:Austin_Texas_food_truck.jpg",
+  creator: "Kurtkaiser",
+  credit: "Kurtkaiser · Wikimedia Commons",
+  license: "CC0 1.0",
+  licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
+  width: 4048,
+  height: 3036,
+  alt: "Food truck photographed in Austin, Texas",
+  caption: "Representative Texas food-truck photography from Austin. This image is not presented as a photo of every truck in the statewide collection.",
+  verifiedAt: "2026-09-05",
+} as const;
 
 const quickAnswers = [
   {
@@ -49,6 +62,22 @@ function statewideHead() {
           dateModified: FOOD_TRUCK_SOURCE_CHECKED_AT,
           isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
           mainEntity: { "@id": `${statewideUrl}#markets` },
+          primaryImageOfPage: { "@id": `${foodTruckPhoto.sourceUrl}#texasdefined-food-truck-image` },
+        },
+        {
+          "@type": "ImageObject",
+          "@id": `${foodTruckPhoto.sourceUrl}#texasdefined-food-truck-image`,
+          contentUrl: foodTruckPhoto.src,
+          url: foodTruckPhoto.sourceUrl,
+          caption: foodTruckPhoto.caption,
+          description: foodTruckPhoto.alt,
+          width: foodTruckPhoto.width,
+          height: foodTruckPhoto.height,
+          creditText: foodTruckPhoto.credit,
+          creator: { "@type": "Person", name: foodTruckPhoto.creator },
+          license: foodTruckPhoto.licenseUrl,
+          acquireLicensePage: foodTruckPhoto.sourceUrl,
+          representativeOfPage: true,
         },
         {
           "@type": "ItemList",
@@ -85,18 +114,32 @@ function statewideHead() {
   };
 }
 
+function formatList(items: string[]) {
+  if (!items.length) return "the current collection";
+  if (items.length === 1) return items[0];
+  if (items.length === 2) return `${items[0]} and ${items[1]}`;
+  return `${items.slice(0, -1).join(", ")}, and ${items.at(-1)}`;
+}
+
+function formatSourceDate(value: string) {
+  return new Date(`${value}T12:00:00Z`).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
+}
+
 export function loadFoodTruckOverviewPageDataServer() {
   return {
     total: FOOD_TRUCK_TOTAL,
     sourceCheckedAt: FOOD_TRUCK_SOURCE_CHECKED_AT,
+    sourceCheckedLabel: formatSourceDate(FOOD_TRUCK_SOURCE_CHECKED_AT),
     description: statewideDescription,
+    photo: { ...foodTruckPhoto },
     quickAnswers: quickAnswers.map((item) => ({ ...item })),
     markets: FOOD_TRUCK_MARKETS.map((market) => {
       const trucks = foodTrucksForMarket(market.slug);
+      const sampleNames = trucks.slice(0, 4).map((truck) => truck.name);
       return {
         ...market,
         count: trucks.length,
-        sampleNames: trucks.slice(0, 4).map((truck) => truck.name),
+        sampleLabel: formatList(sampleNames),
       };
     }),
     head: statewideHead(),
