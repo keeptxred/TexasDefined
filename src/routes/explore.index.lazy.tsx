@@ -75,14 +75,7 @@ function ExplorePage() {
       <TexasExperienceMarkets />
     </Suspense>
 
-    <Container>
-      <ExpediaStaySearch
-        id="expedia-texas-stays"
-        locationLabel="Texas"
-        title="Find a place to stay for the Texas trip"
-        description="Once you know which part of Texas you want to explore, compare current hotel and lodging options without leaving the trip-planning flow."
-      />
-    </Container>
+    <Container><ExpediaStaySearch /></Container>
 
     <Section tone="surface"><Container><SectionHeader eyebrow="Texas by region" title="Seven distinct sides of the state" description="From Gulf Coast marshes to High Plains horizons, each region has its own rhythm, landscape and reasons to linger." /><ul className="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">{regions.map((region) => <li key={region.id} className="border-t border-border pt-5"><Link to="/explore/region/$region" params={{ region: region.id }} className="group block"><h3 className="font-display text-[1.7rem] leading-tight transition-colors group-hover:text-primary">{region.name}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{region.blurb}</p><span className="eyebrow mt-4 inline-block text-primary">Explore the region →</span></Link></li>)}</ul></Container></Section>
 
