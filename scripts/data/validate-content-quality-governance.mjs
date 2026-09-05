@@ -93,6 +93,53 @@ if (!failures.length) {
     }
   }
 
+  const expectedReviewWaves = [
+    'ops/seo/gsc-remediation-wave1-2026-09-05.json',
+    'ops/seo/gsc-remediation-wave2-2026-09-05.json',
+  ];
+  const reviewWaves = policy?.gscRemediation?.reviewWaves ?? [];
+  for (const path of expectedReviewWaves) {
+    if (!reviewWaves.includes(path)) fail(`Permanent policy is missing required GSC remediation wave: ${path}`);
+  }
+
+  const reviewedPaths = new Map();
+  for (const wavePath of reviewWaves) {
+    if (!fs.existsSync(wavePath)) {
+      fail(`GSC remediation review wave is missing: ${wavePath}`);
+      continue;
+    }
+    const wave = readJson(wavePath);
+    if (wave.sourceSnapshot !== GSC_PATH) {
+      fail(`GSC remediation wave ${wavePath} must point to the original 2026-09-05 snapshot.`);
+    }
+    const reviewed = Array.isArray(wave.reviewed) ? wave.reviewed : [];
+    if (Number(wave?.summary?.reviewed ?? -1) !== reviewed.length) {
+      fail(`GSC remediation wave ${wavePath} summary reviewed count does not match its ${reviewed.length} reviewed rows.`);
+    }
+    const waveCounts = { KEEP: 0, IMPROVE: 0, NOINDEX: 0, REMOVE_CONSOLIDATE: 0 };
+    const wavePaths = new Set();
+    for (const [index, item] of reviewed.entries()) {
+      if (!item.path?.startsWith('/')) fail(`GSC remediation wave ${wavePath} row ${index + 1} has an invalid path.`);
+      if (!inventoryPaths.has(item.path)) fail(`GSC remediation wave ${wavePath} reviews path outside the original 452-URL inventory: ${item.path}`);
+      if (!allowedActions.has(item.action)) fail(`GSC remediation wave ${wavePath} row ${index + 1} has unsupported action ${item.action}.`);
+      if (!item.reason || item.reason.length < 25) fail(`GSC remediation wave ${wavePath} row ${index + 1} lacks a meaningful rationale.`);
+      if (item.action !== 'KEEP' && (!item.remediation || item.remediation.length < 25)) {
+        fail(`GSC remediation wave ${wavePath} row ${index + 1} requires a concrete remediation for ${item.action}.`);
+      }
+      if (wavePaths.has(item.path)) fail(`GSC remediation wave ${wavePath} repeats reviewed path ${item.path}.`);
+      wavePaths.add(item.path);
+      const previousWave = reviewedPaths.get(item.path);
+      if (previousWave) fail(`GSC remediation path ${item.path} is reviewed in both ${previousWave} and ${wavePath}.`);
+      reviewedPaths.set(item.path, wavePath);
+      if (Object.prototype.hasOwnProperty.call(waveCounts, item.action)) waveCounts[item.action] += 1;
+    }
+    for (const action of allowedActions) {
+      if (waveCounts[action] !== Number(wave?.summary?.[action] ?? 0)) {
+        fail(`GSC remediation wave ${wavePath} ${action} count ${waveCounts[action]} does not match summary ${Number(wave?.summary?.[action] ?? 0)}.`);
+      }
+    }
+  }
+
   const familyCount = Object.values(gsc.routeFamilyCounts ?? {}).reduce((sum, value) => sum + Number(value || 0), 0);
   if (familyCount !== 452) fail(`GSC route-family inventory must total 452 URLs; found ${familyCount}.`);
 
@@ -168,4 +215,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Permanent SEO/content quality governance passed: the exact 452-URL GSC backlog is tracked per URL, KEEP/IMPROVE/NOINDEX/REMOVE_CONSOLIDATE are permanent outcomes, worthwhile thin topics default to IMPROVE, new generated/entity URLs stay noindex until qualified, public route buckets remain disjoint, and dynamic article/destination/entity/county/canonical quality gates remain protected.');
+console.log('Permanent SEO/content quality governance passed: the exact 452-URL GSC backlog is tracked per URL, remediation review waves are validated against that original inventory with no duplicate reviews, KEEP/IMPROVE/NOINDEX/REMOVE_CONSOLIDATE are permanent outcomes, worthwhile thin topics default to IMPROVE, new generated/entity URLs stay noindex until qualified, public route buckets remain disjoint, and dynamic article/destination/entity/county/canonical quality gates remain protected.');
