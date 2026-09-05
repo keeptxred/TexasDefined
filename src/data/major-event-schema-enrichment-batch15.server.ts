@@ -33,4 +33,39 @@ export const majorEventSchemaEnrichmentBatch15: MajorEventSchemaEnrichment[] = [
     ],
     verifiedAt: "2026-09-05",
   },
+  {
+    slug: "hot-luck-live-food-music",
+    organizer: organization("Hot Luck Live Food & Music", "https://www.hotluckfest.com/"),
+    sources: [
+      { label: "Hot Luck official site", url: "https://www.hotluckfest.com/" },
+      { label: "Hot Luck 2026 Whole Enchilada pass", url: "https://www.hotluckfest.com/whole-enchilada" },
+      { label: "Hot Luck about and FAQ", url: "https://www.hotluckfest.com/about" },
+    ],
+    verifiedAt: "2026-09-05",
+  },
+  {
+    slug: "viva-la-vida-festival-parade",
+    organizer: organization("Mexic-Arte Museum", "https://mexic-artemuseum.org/"),
+    sources: [
+      { label: "Mexic-Arte Museum — 43rd Annual Viva La Vida Festival & Parade", url: "https://mexic-artemuseum.org/event/43rd-annual-viva-la-vida-festival-parade/" },
+      { label: "Mexic-Arte Museum Viva La Vida festival page", url: "https://mexic-artemuseum.org/viva-la-vida-fest/" },
+    ],
+    verifiedAt: "2026-09-05",
+  },
+  {
+    slug: "meca-dia-de-muertos-festival",
+    organizer: organization("Multicultural Education and Counseling through the Arts (MECA)", "https://www.meca-houston.org/"),
+    sources: [
+      { label: "MECA Día de Muertos official page", url: "https://www.meca-houston.org/dia-de-muertos.html" },
+    ],
+    verifiedAt: "2026-09-05",
+  },
+  {
+    slug: "houston-diwali-festival-of-lights",
+    organizer: organization("Houston Diwali", "https://www.houstondiwali.com/"),
+    sources: [
+      { label: "Houston Diwali official site", url: "https://www.houstondiwali.com/" },
+    ],
+    verifiedAt: "2026-09-05",
+  },
 ];
