@@ -15,8 +15,8 @@ function museumPlaceholder(name: string): ImageRef {
 /**
  * Fifty-fourth statewide museum wave. These records reconcile the audit's
  * generic Palo Pinto County museum wording to the active Old Jail Museum
- * Complex and add current Texas Forestry Museum, Sam Rayburn Museum and
- * Fannin County Museum of History records.
+ * Complex and add current Texas Forestry Museum, Sam Rayburn Museum,
+ * Fannin County Museum of History and Fort Inglish Village records.
  */
 export const statewideMuseumExpansionWave54Destinations: Destination[] = [
   {
@@ -138,5 +138,35 @@ export const statewideMuseumExpansionWave54Destinations: Destination[] = [
     managingAuthority: "Fannin County Museum of History",
     address: "1 Main St, Bonham, TX 75418",
     sourceCheckedAt: SOURCE_CHECKED_AT,
+  },
+  {
+    id: "museum-statewide-wave57-fort-inglish-village",
+    brandId: "texasdefined",
+    slug: "fort-inglish-village-bonham",
+    name: "Fort Inglish Village",
+    summary: "Fort Inglish Village in Bonham recreates the 1837 frontier refuge built by Bailey Inglish and surrounds the stockade with three original 1830s Fannin County cabins, a blacksmith shop, school/church and hands-on pioneer-life interpretation.",
+    category: "historic-sites",
+    region: "prairies-lakes",
+    nearestTown: "Bonham",
+    county: "Fannin County",
+    coordinates: { lat: 33.577633, lng: -96.188693 },
+    hero: museumPlaceholder("Fort Inglish Village"),
+    bestSeason: "March through November during the published operating season; spring and fall are especially comfortable for exploring the outdoor stockade, cabins and pioneer demonstrations.",
+    entryNote: "The City of Bonham currently publishes Tuesday-Saturday hours from noon to 4 p.m., March through November. Group tours for schools and bus groups should be arranged in advance. Confirm seasonal hours before a dedicated trip.",
+    highlights: [
+      "Replica of Bailey Inglish's 1837 frontier stockade",
+      "Three original 1830s Fannin County log cabins",
+      "Blacksmith shop, school/church and pioneer work areas",
+      "Doctor's buggy, military wagon and period-life interpretation",
+    ],
+    body: [
+      "Fort Inglish Village interprets the frontier settlement that preceded modern Bonham. Bailey Inglish brought settlers into the Red River Valley in 1837 and, as raids threatened the new community, helped organize construction of a fortified refuge. The original Fort Inglish served local families until 1843 and also figured in Republic of Texas military activity during a volatile period on the North Texas frontier.",
+      "The visitor site is a 1976 Fannin County Bicentennial reconstruction rather than the original fort location, and that distinction matters. Around the recreated stockade are three authentic 1830s cabins relocated from Fannin County and furnished to represent a frontier home, a trading or general store and the Inez Inglish cabin. The grounds also include a blacksmith shop, school/church, carriage house, well, corn-shelling and grinding area, laundry area and other features that turn the site into a compact living-history village rather than a single replica structure.",
+      "For TexasDefined, Fort Inglish Village completes an unusually strong Bonham heritage cluster. The Fannin County Museum of History explains the county's broader civic and railroad story, the Sam Rayburn Museum covers national political history, and Fort Inglish reaches back to the community's Republic-era beginnings. Its current City of Bonham operation and seasonal public hours make it a distinct destination worth planning around rather than only a passing reference inside the county article.",
+    ],
+    officialUrl: "https://www.cityofbonham.org/260/Fort-Inglish-Village",
+    managingAuthority: "City of Bonham and Fort Inglish Society",
+    address: "902 W Sam Rayburn Dr, Bonham, TX 75418",
+    sourceCheckedAt: "2026-09-04",
   },
 ];
