@@ -129,7 +129,13 @@ function inExpectedMonth(date, event) {
 }
 
 function validForEvent(date, event) {
-  return inExpectedMonth(date, event) && date >= TODAY && date <= HORIZON;
+  const recentBridgeStart = Boolean(
+    event.combineFirstTwoDates &&
+    date &&
+    date < TODAY &&
+    (TODAY - date) / 86400000 <= 14
+  );
+  return inExpectedMonth(date, event) && (date >= TODAY || recentBridgeStart) && date <= HORIZON;
 }
 
 function pushCandidate(candidates, start, end, raw, event, futureOnly) {
@@ -210,6 +216,10 @@ async function collectEvent(event) {
         const next = candidates.find((candidate) => candidate.start > chosen.start);
         if (next && (next.start - chosen.start) / 86400000 <= 14) chosen.end = next.start;
       }
+      // A recent past singleton is admitted only so separately rendered opening
+      // and closing dates can be paired. Never publish it unless that pairing
+      // produced an end date that still includes today.
+      if (chosen.start < TODAY && (!chosen.end || chosen.end < TODAY)) continue;
 
       const startDate = iso(chosen.start);
       return {
