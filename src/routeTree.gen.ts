@@ -993,7 +993,9 @@ const TexasFoodTrucksRoute = TexasFoodTrucksRouteImport.update({
   id: '/texas-food-trucks',
   path: '/texas-food-trucks',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/texas-food-trucks.lazy').then((d) => d.Route),
+)
 const TexasFoodTrailRoute = TexasFoodTrailRouteImport.update({
   id: '/texas-food-trail',
   path: '/texas-food-trail',
@@ -1683,7 +1685,9 @@ const TexasFoodTrucksMarketRoute = TexasFoodTrucksMarketRouteImport.update({
   id: '/$market',
   path: '/$market',
   getParentRoute: () => TexasFoodTrucksRoute,
-} as any)
+} as any).lazy(() =>
+  import('./routes/texas-food-trucks.$market.lazy').then((d) => d.Route),
+)
 const TexasDataCountyHousingCostsDotcsvRoute =
   TexasDataCountyHousingCostsDotcsvRouteImport.update({
     id: '/county-housing-costs.csv',
