@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 
 const server = fs.readFileSync('src/data/county-rv-camping.server.ts', 'utf8');
-const loader = fs.readFileSync('src/data/county-rv-camping.ts', 'utf8');
+const countyBridge = fs.readFileSync('src/data/county-major-events.ts', 'utf8');
 const county = fs.readFileSync('src/components/sports/CountySportsDestinations.tsx', 'utf8');
 const camping = fs.readFileSync('src/routes/best-places-to-go-camping-in-texas.lazy.tsx', 'utf8');
 const errors = [];
@@ -22,9 +22,13 @@ requireText(server, 'profile.styles.includes("rv")', 'server RV-only filter');
 requireText(server, 'profile.amenities.includes("full-hookup")', 'server full-hookup verification');
 requireText(server, 'sourceUrl:', 'server authoritative source projection');
 requireText(server, 'reservationUrl: profile.reservationUrl', 'server reservation projection');
-requireText(loader, 'createServerFn', 'county RV server boundary');
-requireText(loader, 'county-rv-camping.server', 'county RV server-only import');
-requireText(county, 'getCountyRvCamping(county.slug)', 'county RV loading');
+requireText(countyBridge, 'createServerFn', 'shared county planning server boundary');
+requireText(countyBridge, 'await import("./county-major-events.server")', 'county event server-only import');
+requireText(countyBridge, 'import("./county-rv-camping.server")', 'county RV server-only import');
+requireText(countyBridge, 'rvCamping: loadCountyRvCampingServer(data.countySlug)', 'shared county RV projection');
+requireText(county, 'getCountyMajorEvents(county.slug)', 'shared county planning loading');
+requireText(county, 'const rvCamping = countyPlanning.rvCamping;', 'county RV payload consumption');
+if (county.includes("@/data/county-rv-camping")) errors.push('County UI must not import a second RV server-function bridge into the client graph.');
 requireText(county, 'Verified RV camping in {county.name}', 'county RV heading');
 requireText(county, 'Missing amenities mean not yet verified, not unavailable.', 'unknown-not-false copy');
 requireText(county, '/best-places-to-go-camping-in-texas#rv-camping', 'statewide RV authority link');
@@ -40,4 +44,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('RV camping authority validation passed: county pages use a server-only projection of verified RV-capable camping profiles, official source and reservation links remain visible, unknown amenities are not treated as false, and the canonical statewide camping guide owns RV discovery without doorway-page multiplication.');
+console.log('RV camping authority validation passed: county pages reuse one existing server-function boundary for events and a lean verified RV projection, official source and reservation links remain visible, unknown amenities are not treated as false, and the canonical statewide camping guide owns RV discovery without doorway-page multiplication.');
