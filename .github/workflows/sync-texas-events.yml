@@ -80,7 +80,7 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --title 'Refresh authoritative Texas events catalog' \
-            --body $'Automated Texas events refresh. The branch is not merged until the authoritative TexasDefined validation workflow passes against the exact generated commit. If main advances during validation, the branch is rebased and revalidated before merge.')"
+            --body $'Automated Texas events refresh. The branch is not merged until both the authoritative TexasDefined validation workflow and the protected Required merge gate pass against the exact generated commit. If main advances during validation, the branch is rebased and both checks are rerun before merge.')"
           echo "url=$pr_url" >> "$GITHUB_OUTPUT"
           echo "Opened $pr_url"
 
@@ -95,11 +95,14 @@ jobs:
           set -euo pipefail
 
           for cycle in 1 2 3; do
-            bash scripts/ci/dispatch-validate-branch.sh "$BRANCH"
+            bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" validate.yml
+            # Pull requests opened by GITHUB_TOKEN do not emit another workflow event,
+            # so explicitly dispatch the branch-protection check on the exact head SHA.
+            bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" merge-gate.yml
 
             git fetch origin main
             if git merge-base --is-ancestor origin/main HEAD; then
-              echo "Validated branch contains current main."
+              echo "Validated branch contains current main and passed the Required merge gate."
               break
             fi
 
@@ -113,8 +116,30 @@ jobs:
             git push --force-with-lease origin "$BRANCH"
           done
 
-          gh pr merge "$PR_URL" --squash --delete-branch
-          echo "Texas events refresh merged only after exact-branch validation."
+          gh pr merge "$PR_URL" --squash --delete-branch --auto
+          echo "Policy-compliant auto-merge requested after exact-branch validation and Required merge gate success."
+
+          merged=false
+          for attempt in $(seq 1 60); do
+            state="$(gh pr view "$PR_URL" --json state --jq '.state')"
+            merged_at="$(gh pr view "$PR_URL" --json mergedAt --jq '.mergedAt // ""')"
+            if [[ -n "$merged_at" ]]; then
+              echo "Texas events refresh merged at ${merged_at}."
+              merged=true
+              break
+            fi
+            if [[ "$state" == "CLOSED" ]]; then
+              echo "::error title=Event refresh closed without merge::The pull request closed before a merge commit was recorded."
+              exit 1
+            fi
+            echo "Waiting for protected auto-merge to complete (attempt ${attempt}/60)."
+            sleep 5
+          done
+
+          if [[ "$merged" != "true" ]]; then
+            echo "::error title=Event refresh merge timed out::Protected auto-merge did not complete within five minutes after all required checks passed."
+            exit 1
+          fi
 
       - name: Dispatch production deployment for merged catalog
         if: steps.changes.outputs.changed == 'true'
