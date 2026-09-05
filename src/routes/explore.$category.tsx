@@ -1,7 +1,6 @@
-import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
+import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { Container } from "@/components/layout/Container";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
 import type { Destination } from "@/data/types";
@@ -63,6 +62,10 @@ export const Route = createFileRoute("/explore/$category")({
     }
   },
   loader: async ({ context, params }) => {
+    if (params.category === "water-towers") {
+      const { waterTowersCategory } = await import("@/data/water-towers-meta");
+      return { category: waterTowersCategory, articles: [], destinations: [], authorityHtml: null };
+    }
     const categories = await context.queryClient.ensureQueryData(categoriesQuery());
     const category = categories.find((item) => item.slug === params.category);
     if (!category) {
@@ -91,7 +94,7 @@ export const Route = createFileRoute("/explore/$category")({
     const indexReady = isExploreCategoryIndexReady(
       loaderData.category.slug,
       loaderData.articles.length + loaderData.destinations.length + featuredCollectionItems.length,
-    );
+    ) || params.category === "water-towers";
     const categorySeo = categorySeoOverrides[loaderData.category.slug];
     const metaTitle = categorySeo?.title ?? loaderData.category.name;
     const metaDescription = categorySeo?.description ?? loaderData.category.description;
@@ -117,14 +120,4 @@ export const Route = createFileRoute("/explore/$category")({
       scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [collectionSchema, breadcrumbSchema] }) }],
     };
   },
-  notFoundComponent: CategoryNotFound,
 });
-
-function CategoryNotFound() {
-  return <Container className="py-24">
-    <p className="eyebrow text-primary">A different road</p>
-    <h1 className="mt-3 font-display text-3xl">We haven't made that list yet</h1>
-    <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">The page may have moved, but there are still plenty of places worth the drive.</p>
-    <Link to="/explore" className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary">Find another road →</Link>
-  </Container>;
-}
