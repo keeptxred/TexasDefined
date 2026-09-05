@@ -91,6 +91,22 @@
         "/article/texas-vs-florida-differences",
         "statusCode: 301"
       ]
+    },
+    {
+      "family": "Texas-vs-state hub canonical structured data",
+      "file": "src/routes/texas-vs-every-state.tsx",
+      "requiredMarkers": [
+        "texasVsStateHref",
+        "absoluteUrl(texasDefinedBrand, texasVsStateHref(state))"
+      ]
+    },
+    {
+      "family": "Texas-vs-state hub canonical internal links",
+      "file": "src/routes/texas-vs-every-state.lazy.tsx",
+      "requiredMarkers": [
+        "texasVsStateHref",
+        "href={texasVsStateHref(state)}"
+      ]
     }
   ],
   "gscRemediation": {
