@@ -101,7 +101,7 @@
         "/texas-vs/california",
         "/article/texas-vs-california-differences",
         "/texas-vs/florida",
-        "/article/texas-vs/florida-differences",
+        "/article/texas-vs-florida-differences",
         "Response.redirect(url.toString(), 301)"
       ]
     },
