@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { loadCountyProfile } from '@/data/county-profile';
 import { loadCountySeriesArticle } from '@/data/county-series';
+import { getGolfCourseStarterEntitiesForCounty } from '@/data/golf-course-starter.functions';
 import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
 import {
   canonicalEntityPath,
@@ -18,12 +19,16 @@ export const Route = createFileRoute('/$kind/$slug')({
     const entity = await findCompleteTexasEntity(`${params.kind}:${params.slug}`) ?? await findCompleteTexasEntity(params.slug);
     if (!entity || entity.kind !== params.kind) throw notFound();
     const related = rankRelatedEntities(entity, graph, 12);
+    const starterGolfVenues = entity.kind === 'county'
+      ? await getGolfCourseStarterEntitiesForCounty({ data: { countySlug: entity.slug } })
+      : [];
     const countySportsVenues = entity.kind === 'county'
-      ? graph
-        .filter((candidate) => candidate.kind === 'sports-venue'
-          && candidate.countySlug === entity.slug
-          && (isIndexableEntityPage(candidate) || candidate.tags?.includes('starter-golf-directory')))
-        .sort((left, right) => sportsVenuePriority(left) - sportsVenuePriority(right) || left.name.localeCompare(right.name))
+      ? [
+          ...graph.filter((candidate) => candidate.kind === 'sports-venue'
+            && candidate.countySlug === entity.slug
+            && isIndexableEntityPage(candidate)),
+          ...starterGolfVenues,
+        ].sort((left, right) => sportsVenuePriority(left) - sportsVenuePriority(right) || left.name.localeCompare(right.name))
       : [];
     if (entity.kind !== 'county') return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues };
     const [countyProfile, localGovernment, countySeriesArticle] = await Promise.all([
