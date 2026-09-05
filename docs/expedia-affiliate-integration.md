@@ -13,7 +13,7 @@ Expedia stays are a trip-planning monetization layer, not a sitewide ad. The wid
 - PUBREF: `texasdefined-stays`
 - Script: `https://creator.expediagroup.com/products/widgets/assets/eg-widgets.js`
 
-The shared lazy boundary lives in `src/components/affiliate/ExpediaStaySearch.tsx`; the approved tracking values and widget implementation live in `src/components/affiliate/ExpediaStaySearchImpl.tsx`. Keep tracking values centralized rather than copying them into individual pages. Expedia's external script is requested only after the visitor chooses to search stays.
+The shared component lives in `src/components/affiliate/ExpediaStaySearch.tsx`, which centralizes the approved tracking values and widget markup. Expedia's external script is not loaded during the initial page load; it is created only after a visitor chooses to search Expedia stays.
 
 ## Current placement
 
@@ -34,4 +34,4 @@ Every widget placement uses the shared disclosure: `Affiliate disclosure: TexasD
 
 ## Regression protection
 
-`scripts/data/validate-expedia-affiliate.mjs` verifies the approved tracking values, deferred loading, disclosure and required travel-intent placements. It is registered as a delegated validator in `validate-seo-ci-contract.mjs`, so the normal SEO validation gate protects the integration from being silently removed.
+`scripts/data/validate-expedia-affiliate.mjs` verifies the approved tracking values, click-triggered script loading, disclosure and required travel-intent placements. It is registered as a delegated validator in `validate-seo-ci-contract.mjs`, so the normal SEO validation gate protects the integration from being silently removed.
