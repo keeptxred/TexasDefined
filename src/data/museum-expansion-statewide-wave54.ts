@@ -16,7 +16,8 @@ function museumPlaceholder(name: string): ImageRef {
  * Fifty-fourth statewide museum wave. These records reconcile the audit's
  * generic Palo Pinto County museum wording to the active Old Jail Museum
  * Complex and add current Texas Forestry Museum, Sam Rayburn Museum,
- * Fannin County Museum of History and Fort Inglish Village records.
+ * Fannin County Museum of History, Fort Inglish Village and Round Top Area
+ * Historical Society Wood Campus Museum records.
  */
 export const statewideMuseumExpansionWave54Destinations: Destination[] = [
   {
@@ -167,6 +168,42 @@ export const statewideMuseumExpansionWave54Destinations: Destination[] = [
     officialUrl: "https://www.cityofbonham.org/260/Fort-Inglish-Village",
     managingAuthority: "City of Bonham and Fort Inglish Society",
     address: "902 W Sam Rayburn Dr, Bonham, TX 75418",
+    sourceCheckedAt: "2026-09-04",
+  },
+  {
+    id: "museum-statewide-wave58-round-top-area-historical-society",
+    brandId: "texasdefined",
+    slug: "round-top-area-historical-society-museum",
+    name: "Round Top Area Historical Society Wood Campus Museum",
+    summary: "Round Top Area Historical Society's Wood Campus Museum preserves a compact group of relocated historic buildings, local artifacts and community stories that trace life in Round Top and rural Fayette County.",
+    category: "historic-sites",
+    region: "prairies-lakes",
+    geography: {
+      primaryRegionId: "central-texas",
+      subregionIds: ["central-texas-prairies"],
+      countySlugs: ["fayette"],
+      travelRegionIds: ["prairies-lakes"],
+    },
+    nearestTown: "Round Top",
+    county: "Fayette County",
+    coordinates: { lat: 30.06443, lng: -96.69312 },
+    hero: museumPlaceholder("Round Top Area Historical Society Wood Campus Museum"),
+    bestSeason: "Year-round around the society's published second-Saturday opening; spring and fall are especially comfortable for walking between the historic buildings and combining the museum with other Round Top heritage stops.",
+    entryNote: "The historical society currently publishes free public admission every second Saturday of the month from 1 to 4 p.m. Private tours are also welcomed by arrangement. Because public access is limited, confirm the schedule before making a dedicated trip.",
+    highlights: [
+      "Kraus House and Noak Farmhouse",
+      "Historic log cabin and Pumper Wagon House",
+      "Connersville Primitive Baptist Church African American Museum",
+      "Local artifacts, photographs and rural Fayette County history",
+    ],
+    body: [
+      "The Round Top Area Historical Society grew from a local effort to preserve the stories and material culture of a town whose footprint is small but whose history reaches deep into nineteenth-century Central Texas. The society traces its beginnings to conversations in 1989 about creating a place to display Round Top memorabilia. The resulting Wood Campus Museum now gives that mission a physical home at 397 East Mill Street.",
+      "The museum campus is a collection of buildings rather than a single gallery. Its Pumper Wagon House, Kraus House, log cabin, Noak Farmhouse, Connersville Museum and pavilion let visitors move through domestic, civic and religious history. The Connersville building is especially significant: the 1893 Primitive Baptist church was relocated to the campus and dedicated as an African American museum honoring Black pioneers of Fayette County. Site markers also document the origins and moves of the other structures, helping distinguish preserved historic buildings from later interpretation.",
+      "Round Top's antiques, design and music economy can easily overshadow the local community that existed before the modern visitor boom. The Wood Campus Museum fills that gap by keeping everyday household objects, tools, photographs, records and buildings in a local context. For TexasDefined, it creates a useful heritage anchor that can connect the Fayette County guide with Round Top's broader cultural attractions while remaining distinct from the Festival Institute, antiques fairs and nearby Winedale complex.",
+    ],
+    officialUrl: "https://roundtopareahistoricalsociety.weebly.com/museum-campus.html",
+    managingAuthority: "Round Top Area Historical Society, Inc.",
+    address: "397 E Mill St, Round Top, TX 78954",
     sourceCheckedAt: "2026-09-04",
   },
 ];
