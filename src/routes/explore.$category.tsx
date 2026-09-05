@@ -3,6 +3,7 @@ import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-route
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
+import { foodDestinationCardsQuery } from "@/data/food-destination-cards-query";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
 import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
@@ -76,6 +77,9 @@ export const Route = createFileRoute("/explore/$category")({
       context.queryClient.ensureQueryData(destinationsQuery({ category: category.slug })),
       authorityPath ? fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath).then((response) => response.ok ? response.text() : null) : null,
     ]);
+    if (category.slug === "food-bbq") {
+      await context.queryClient.ensureQueryData(foodDestinationCardsQuery());
+    }
     return { category, articles, destinations, authorityHtml };
   },
   head: ({ loaderData, params }) => {
