@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave63Destinations } from "./museum-expansion-statewide-wave63";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-01";
@@ -15,6 +16,8 @@ function museumPlaceholder(name: string): ImageRef {
 /**
  * Thirty-fifth statewide museum wave. This Panhandle record uses the museum's
  * current Archives and Museum branding rather than the older audit-list name.
+ * Wave 63 is registered here so the preserved catalog remains conflict-light
+ * while concurrent destination expansion continues to advance the main file.
  */
 export const statewideMuseumExpansionWave35Destinations: Destination[] = [
   {
@@ -47,4 +50,5 @@ export const statewideMuseumExpansionWave35Destinations: Destination[] = [
     address: "127 South West Second Street, Tulia, TX 79088",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave63Destinations,
 ];
