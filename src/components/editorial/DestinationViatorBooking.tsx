@@ -36,12 +36,6 @@ export function DestinationViatorBooking({ destination }: { destination: Destina
       <p className="mt-4 text-xs leading-5 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings, at no additional cost to you.</p>
     </section> : null}
 
-    <ExpediaStaySearch
-      id={`expedia-stays-${destination.slug}`}
-      compact
-      locationLabel={destination.nearestTown}
-      title={`Find a place to stay near ${destination.name}`}
-      description={`Compare current hotel and lodging options around ${destination.nearestTown} when ${destination.name} is part of an overnight Texas trip.`}
-    />
+    <ExpediaStaySearch locationLabel={destination.nearestTown} />
   </>;
 }
