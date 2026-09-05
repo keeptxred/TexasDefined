@@ -1,13 +1,12 @@
-import { lazy, Suspense } from "react";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { TopAttractionCollectionLinks } from "@/components/editorial/TopAttractionCollectionLinks";
 import { ExploreDestinationComparison, type ExploreComparisonKind } from "@/components/explore/ExploreDestinationComparison";
+import { WaterTowersPage } from "@/components/explore/WaterTowersPage";
 import { Container } from "@/components/layout/Container";
 import type { CategorySlug } from "@/data/types";
 
-const WaterTowersPage = lazy(() => import("@/components/explore/WaterTowersPage").then((module) => ({ default: module.WaterTowersPage })));
 const COMPARISON_CATEGORIES = new Set<ExploreComparisonKind>(['state-parks', 'lakes-rivers', 'small-towns', 'road-trips']);
 const PAINTED_CHURCH_CROSS_LINK_CATEGORIES = new Set(['historic-sites', 'road-trips', 'small-towns']);
 
@@ -19,7 +18,7 @@ export const Route = createLazyFileRoute("/explore/$category")({
 function ExploreCategoryPage() {
   const { destinations, authorityHtml } = Route.useLoaderData();
   const { category: match } = Route.useLoaderData();
-  if (match.slug === "water-towers") return <Suspense fallback={<Container className="py-24"><p className="eyebrow text-primary">Loading roadside guide…</p></Container>}><WaterTowersPage /></Suspense>;
+  if (match.slug === "water-towers") return <WaterTowersPage />;
 
   const comparisonKind = COMPARISON_CATEGORIES.has(match.slug as ExploreComparisonKind) ? match.slug as ExploreComparisonKind : null;
   const showPaintedChurches = PAINTED_CHURCH_CROSS_LINK_CATEGORIES.has(match.slug);
