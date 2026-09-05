@@ -1,6 +1,7 @@
 export interface VerifiedTournamentBatch5Profile {
   slug: string;
   name: string;
+  eventCategory: "sport" | "food";
   categoryLabel: string;
   categoryPath: string;
   city: string;
@@ -24,6 +25,7 @@ export const VERIFIED_TOURNAMENT_BATCH5_PROFILES: readonly VerifiedTournamentBat
   {
     slug: "the-texas-relays",
     name: "Clyde Littlefield Texas Relays",
+    eventCategory: "sport",
     categoryLabel: "Track & Endurance Competitions",
     categoryPath: "/events/tournaments-track-endurance",
     city: "Austin",
@@ -47,6 +49,7 @@ export const VERIFIED_TOURNAMENT_BATCH5_PROFILES: readonly VerifiedTournamentBat
   {
     slug: "worlds-championship-bar-b-que-contest",
     name: "World’s Championship Bar-B-Que Contest",
+    eventCategory: "food",
     categoryLabel: "Culinary & BBQ Competitions",
     categoryPath: "/events/tournaments-culinary-bbq",
     city: "Houston",
