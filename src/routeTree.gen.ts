@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WhatDoesChudMeanRouteImport } from './routes/what-does-chud-mean'
+import { Route as WeddingVenuesRouteImport } from './routes/wedding-venues'
 import { Route as TrackTexasDriversLicenseRouteImport } from './routes/track-texas-drivers-license'
 import { Route as Top25TexasAttractionsDotjsonRouteImport } from './routes/top-25-texas-attractions[.]json'
 import { Route as Top25TexasAttractionsDotcsvRouteImport } from './routes/top-25-texas-attractions[.]csv'
@@ -183,6 +184,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShopIndexRouteImport } from './routes/shop.index'
 import { Route as NewsIndexRouteImport } from './routes/news.index'
 import { Route as ExploreIndexRouteImport } from './routes/explore.index'
+import { Route as WeddingVenueSlugRouteImport } from './routes/wedding-venue.$slug'
 import { Route as ThingsUniqueToTexasMethodologyRouteImport } from './routes/things-unique-to-texas_.methodology'
 import { Route as ThingsUniqueToTexasCategoryRouteImport } from './routes/things-unique-to-texas_.$category'
 import { Route as TexasVsStateRouteImport } from './routes/texas-vs.$state'
@@ -394,6 +396,7 @@ import { Route as AdminFishingReviewRouteImport } from './routes/admin.fishing-r
 import { Route as AdminEntityMaintenanceRouteImport } from './routes/admin.entity-maintenance'
 import { Route as AdminEntityImportReviewRouteImport } from './routes/admin.entity-import-review'
 import { Route as KindSlugRouteImport } from './routes/$kind.$slug'
+import { Route as WeddingVenuesRegionRegionRouteImport } from './routes/wedding-venues.region.$region'
 import { Route as ShopProductProductIdRouteImport } from './routes/shop.product.$productId'
 import { Route as PropertyTaxTaxingUnitUnitRouteImport } from './routes/property-tax.taxing-unit.$unit'
 import { Route as PropertyTaxCountyCountyRouteImport } from './routes/property-tax.county.$county'
@@ -463,6 +466,13 @@ const WhatDoesChudMeanRoute = WhatDoesChudMeanRouteImport.update({
   path: '/what-does-chud-mean',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WeddingVenuesRoute = WeddingVenuesRouteImport.update({
+  id: '/wedding-venues',
+  path: '/wedding-venues',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/wedding-venues.lazy').then((d) => d.Route),
+)
 const TrackTexasDriversLicenseRoute =
   TrackTexasDriversLicenseRouteImport.update({
     id: '/track-texas-drivers-license',
@@ -1589,6 +1599,13 @@ const ExploreIndexRoute = ExploreIndexRouteImport.update({
   path: '/explore/',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/explore.index.lazy').then((d) => d.Route))
+const WeddingVenueSlugRoute = WeddingVenueSlugRouteImport.update({
+  id: '/wedding-venue/$slug',
+  path: '/wedding-venue/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/wedding-venue.$slug.lazy').then((d) => d.Route),
+)
 const ThingsUniqueToTexasMethodologyRoute =
   ThingsUniqueToTexasMethodologyRouteImport.update({
     id: '/things-unique-to-texas_/methodology',
@@ -2853,6 +2870,14 @@ const KindSlugRoute = KindSlugRouteImport.update({
   path: '/$kind/$slug',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/$kind.$slug.lazy').then((d) => d.Route))
+const WeddingVenuesRegionRegionRoute =
+  WeddingVenuesRegionRegionRouteImport.update({
+    id: '/region/$region',
+    path: '/region/$region',
+    getParentRoute: () => WeddingVenuesRoute,
+  } as any).lazy(() =>
+    import('./routes/wedding-venues.region.$region.lazy').then((d) => d.Route),
+  )
 const ShopProductProductIdRoute = ShopProductProductIdRouteImport.update({
   id: '/product/$productId',
   path: '/product/$productId',
@@ -3411,6 +3436,7 @@ export interface FileRoutesByFullPath {
   '/top-25-texas-attractions.csv': typeof Top25TexasAttractionsDotcsvRoute
   '/top-25-texas-attractions.json': typeof Top25TexasAttractionsDotjsonRoute
   '/track-texas-drivers-license': typeof TrackTexasDriversLicenseRoute
+  '/wedding-venues': typeof WeddingVenuesRouteWithChildren
   '/what-does-chud-mean': typeof WhatDoesChudMeanRoute
   '/$kind/$slug': typeof KindSlugRoute
   '/admin/entity-import-review': typeof AdminEntityImportReviewRoute
@@ -3623,6 +3649,7 @@ export interface FileRoutesByFullPath {
   '/texas-vs/$state': typeof TexasVsStateRoute
   '/things-unique-to-texas/$category': typeof ThingsUniqueToTexasCategoryRoute
   '/things-unique-to-texas/methodology': typeof ThingsUniqueToTexasMethodologyRoute
+  '/wedding-venue/$slug': typeof WeddingVenueSlugRoute
   '/explore/': typeof ExploreIndexRoute
   '/news/': typeof NewsIndexRoute
   '/shop/': typeof ShopIndexRoute
@@ -3680,6 +3707,7 @@ export interface FileRoutesByFullPath {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
+  '/wedding-venues/region/$region': typeof WeddingVenuesRegionRegionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
   '/explore/painted-churches/people/$slug': typeof ExplorePaintedChurchesPeopleSlugRoute
@@ -3859,6 +3887,7 @@ export interface FileRoutesByTo {
   '/top-25-texas-attractions.csv': typeof Top25TexasAttractionsDotcsvRoute
   '/top-25-texas-attractions.json': typeof Top25TexasAttractionsDotjsonRoute
   '/track-texas-drivers-license': typeof TrackTexasDriversLicenseRoute
+  '/wedding-venues': typeof WeddingVenuesRouteWithChildren
   '/what-does-chud-mean': typeof WhatDoesChudMeanRoute
   '/$kind/$slug': typeof KindSlugRoute
   '/admin/entity-import-review': typeof AdminEntityImportReviewRoute
@@ -4071,6 +4100,7 @@ export interface FileRoutesByTo {
   '/texas-vs/$state': typeof TexasVsStateRoute
   '/things-unique-to-texas/$category': typeof ThingsUniqueToTexasCategoryRoute
   '/things-unique-to-texas/methodology': typeof ThingsUniqueToTexasMethodologyRoute
+  '/wedding-venue/$slug': typeof WeddingVenueSlugRoute
   '/explore': typeof ExploreIndexRoute
   '/news': typeof NewsIndexRoute
   '/shop': typeof ShopIndexRoute
@@ -4128,6 +4158,7 @@ export interface FileRoutesByTo {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
+  '/wedding-venues/region/$region': typeof WeddingVenuesRegionRegionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
   '/explore/painted-churches/people/$slug': typeof ExplorePaintedChurchesPeopleSlugRoute
@@ -4310,6 +4341,7 @@ export interface FileRoutesById {
   '/top-25-texas-attractions.csv': typeof Top25TexasAttractionsDotcsvRoute
   '/top-25-texas-attractions.json': typeof Top25TexasAttractionsDotjsonRoute
   '/track-texas-drivers-license': typeof TrackTexasDriversLicenseRoute
+  '/wedding-venues': typeof WeddingVenuesRouteWithChildren
   '/what-does-chud-mean': typeof WhatDoesChudMeanRoute
   '/$kind/$slug': typeof KindSlugRoute
   '/admin/entity-import-review': typeof AdminEntityImportReviewRoute
@@ -4522,6 +4554,7 @@ export interface FileRoutesById {
   '/texas-vs/$state': typeof TexasVsStateRoute
   '/things-unique-to-texas_/$category': typeof ThingsUniqueToTexasCategoryRoute
   '/things-unique-to-texas_/methodology': typeof ThingsUniqueToTexasMethodologyRoute
+  '/wedding-venue/$slug': typeof WeddingVenueSlugRoute
   '/explore/': typeof ExploreIndexRoute
   '/news/': typeof NewsIndexRoute
   '/shop/': typeof ShopIndexRoute
@@ -4579,6 +4612,7 @@ export interface FileRoutesById {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
+  '/wedding-venues/region/$region': typeof WeddingVenuesRegionRegionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
   '/explore/painted-churches/people/$slug': typeof ExplorePaintedChurchesPeopleSlugRoute
@@ -4762,6 +4796,7 @@ export interface FileRouteTypes {
     | '/top-25-texas-attractions.csv'
     | '/top-25-texas-attractions.json'
     | '/track-texas-drivers-license'
+    | '/wedding-venues'
     | '/what-does-chud-mean'
     | '/$kind/$slug'
     | '/admin/entity-import-review'
@@ -4974,6 +5009,7 @@ export interface FileRouteTypes {
     | '/texas-vs/$state'
     | '/things-unique-to-texas/$category'
     | '/things-unique-to-texas/methodology'
+    | '/wedding-venue/$slug'
     | '/explore/'
     | '/news/'
     | '/shop/'
@@ -5031,6 +5067,7 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
+    | '/wedding-venues/region/$region'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
     | '/explore/painted-churches/people/$slug'
@@ -5210,6 +5247,7 @@ export interface FileRouteTypes {
     | '/top-25-texas-attractions.csv'
     | '/top-25-texas-attractions.json'
     | '/track-texas-drivers-license'
+    | '/wedding-venues'
     | '/what-does-chud-mean'
     | '/$kind/$slug'
     | '/admin/entity-import-review'
@@ -5422,6 +5460,7 @@ export interface FileRouteTypes {
     | '/texas-vs/$state'
     | '/things-unique-to-texas/$category'
     | '/things-unique-to-texas/methodology'
+    | '/wedding-venue/$slug'
     | '/explore'
     | '/news'
     | '/shop'
@@ -5479,6 +5518,7 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
+    | '/wedding-venues/region/$region'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
     | '/explore/painted-churches/people/$slug'
@@ -5660,6 +5700,7 @@ export interface FileRouteTypes {
     | '/top-25-texas-attractions.csv'
     | '/top-25-texas-attractions.json'
     | '/track-texas-drivers-license'
+    | '/wedding-venues'
     | '/what-does-chud-mean'
     | '/$kind/$slug'
     | '/admin/entity-import-review'
@@ -5872,6 +5913,7 @@ export interface FileRouteTypes {
     | '/texas-vs/$state'
     | '/things-unique-to-texas_/$category'
     | '/things-unique-to-texas_/methodology'
+    | '/wedding-venue/$slug'
     | '/explore/'
     | '/news/'
     | '/shop/'
@@ -5929,6 +5971,7 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
+    | '/wedding-venues/region/$region'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
     | '/explore/painted-churches/people/$slug'
@@ -6111,6 +6154,7 @@ export interface RootRouteChildren {
   Top25TexasAttractionsDotcsvRoute: typeof Top25TexasAttractionsDotcsvRoute
   Top25TexasAttractionsDotjsonRoute: typeof Top25TexasAttractionsDotjsonRoute
   TrackTexasDriversLicenseRoute: typeof TrackTexasDriversLicenseRoute
+  WeddingVenuesRoute: typeof WeddingVenuesRouteWithChildren
   WhatDoesChudMeanRoute: typeof WhatDoesChudMeanRoute
   KindSlugRoute: typeof KindSlugRoute
   AgencySlugRoute: typeof AgencySlugRoute
@@ -6280,6 +6324,7 @@ export interface RootRouteChildren {
   TexasVsStateRoute: typeof TexasVsStateRoute
   ThingsUniqueToTexasCategoryRoute: typeof ThingsUniqueToTexasCategoryRoute
   ThingsUniqueToTexasMethodologyRoute: typeof ThingsUniqueToTexasMethodologyRoute
+  WeddingVenueSlugRoute: typeof WeddingVenueSlugRoute
   ExploreIndexRoute: typeof ExploreIndexRoute
   ApiAdminSocialCalendarPreviewRoute: typeof ApiAdminSocialCalendarPreviewRoute
   ApiAiEntitiesRoute: typeof ApiAiEntitiesRoute
@@ -6306,6 +6351,13 @@ declare module '@tanstack/react-router' {
       path: '/what-does-chud-mean'
       fullPath: '/what-does-chud-mean'
       preLoaderRoute: typeof WhatDoesChudMeanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wedding-venues': {
+      id: '/wedding-venues'
+      path: '/wedding-venues'
+      fullPath: '/wedding-venues'
+      preLoaderRoute: typeof WeddingVenuesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/track-texas-drivers-license': {
@@ -7517,6 +7569,13 @@ declare module '@tanstack/react-router' {
       path: '/explore'
       fullPath: '/explore/'
       preLoaderRoute: typeof ExploreIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wedding-venue/$slug': {
+      id: '/wedding-venue/$slug'
+      path: '/wedding-venue/$slug'
+      fullPath: '/wedding-venue/$slug'
+      preLoaderRoute: typeof WeddingVenueSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/things-unique-to-texas_/methodology': {
@@ -8996,6 +9055,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KindSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/wedding-venues/region/$region': {
+      id: '/wedding-venues/region/$region'
+      path: '/region/$region'
+      fullPath: '/wedding-venues/region/$region'
+      preLoaderRoute: typeof WeddingVenuesRegionRegionRouteImport
+      parentRoute: typeof WeddingVenuesRoute
+    }
     '/shop/product/$productId': {
       id: '/shop/product/$productId'
       path: '/product/$productId'
@@ -9741,6 +9807,18 @@ const TexasSymbolsRouteWithChildren = TexasSymbolsRoute._addFileChildren(
   TexasSymbolsRouteChildren,
 )
 
+interface WeddingVenuesRouteChildren {
+  WeddingVenuesRegionRegionRoute: typeof WeddingVenuesRegionRegionRoute
+}
+
+const WeddingVenuesRouteChildren: WeddingVenuesRouteChildren = {
+  WeddingVenuesRegionRegionRoute: WeddingVenuesRegionRegionRoute,
+}
+
+const WeddingVenuesRouteWithChildren = WeddingVenuesRoute._addFileChildren(
+  WeddingVenuesRouteChildren,
+)
+
 interface ExploreLandscapesRouteChildren {
   ExploreLandscapesSlugRoute: typeof ExploreLandscapesSlugRoute
 }
@@ -10117,6 +10195,7 @@ const rootRouteChildren: RootRouteChildren = {
   Top25TexasAttractionsDotcsvRoute: Top25TexasAttractionsDotcsvRoute,
   Top25TexasAttractionsDotjsonRoute: Top25TexasAttractionsDotjsonRoute,
   TrackTexasDriversLicenseRoute: TrackTexasDriversLicenseRoute,
+  WeddingVenuesRoute: WeddingVenuesRouteWithChildren,
   WhatDoesChudMeanRoute: WhatDoesChudMeanRoute,
   KindSlugRoute: KindSlugRoute,
   AgencySlugRoute: AgencySlugRoute,
@@ -10344,6 +10423,7 @@ const rootRouteChildren: RootRouteChildren = {
   TexasVsStateRoute: TexasVsStateRoute,
   ThingsUniqueToTexasCategoryRoute: ThingsUniqueToTexasCategoryRoute,
   ThingsUniqueToTexasMethodologyRoute: ThingsUniqueToTexasMethodologyRoute,
+  WeddingVenueSlugRoute: WeddingVenueSlugRoute,
   ExploreIndexRoute: ExploreIndexRoute,
   ApiAdminSocialCalendarPreviewRoute: ApiAdminSocialCalendarPreviewRoute,
   ApiAiEntitiesRoute: ApiAiEntitiesRoute,
