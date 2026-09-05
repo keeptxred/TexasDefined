@@ -33,9 +33,9 @@ export function buildSportsVenueSearchDocuments(): SearchDocument[] {
       venue.countySlug,
       venue.region,
       ...(venue.tags ?? []),
-      'Texas sports venue',
-      'sports travel',
-      'game day',
+      venue.tags?.includes('golf') ? 'Texas golf course' : 'Texas sports venue',
+      venue.tags?.includes('golf') ? 'Texas golf' : 'sports travel',
+      venue.tags?.includes('golf') ? 'golf course directory' : 'game day',
     ].filter((value): value is string => Boolean(value)))],
     href: `/sports-venue/${venue.slug}`,
   }));
@@ -46,14 +46,17 @@ export function buildSportsVenueSearchDocuments(): SearchDocument[] {
     id: `sports-collection:${landing.slug}`,
     brandId: 'texasdefined',
     kind: 'sports-collection',
-    title: landing.title,
-    summary: landing.description,
+    title: landing.slug === 'golf' ? 'Texas Golf Courses: 250+ Courses by County & Region' : landing.title,
+    summary: landing.slug === 'golf'
+      ? 'Browse 250+ Texas golf course and destination-golf references across Houston, Dallas–Fort Worth, Austin, San Antonio and the Hill Country, organized by county.'
+      : landing.description,
     keywords: [...new Set([
       landing.title,
       landing.seoTitle,
       landing.eyebrow,
       landing.slug.replaceAll('-', ' '),
       landing.kind === 'market' ? 'Texas sports market' : 'Texas sports venues by sport',
+      ...(landing.slug === 'golf' ? ['Texas golf courses', 'Texas golf course directory', 'golf courses by county', 'Houston golf courses', 'Dallas golf courses', 'Austin golf courses', 'San Antonio golf courses'] : []),
       ...(landing.counties ?? []),
       ...(landing.tagsAny ?? []),
       ...(landing.tagsAll ?? []),
@@ -68,7 +71,7 @@ export function buildSportsVenueSearchDocuments(): SearchDocument[] {
       kind: 'sports-collection',
       title: 'Texas Sports Venues',
       summary: 'Statewide TexasDefined directory of verified stadiums, arenas, ballparks, racetracks, college venues, golf destinations, Western-sports grounds and tournament complexes.',
-      keywords: ['Texas sports venues', 'Texas stadiums', 'Texas arenas', 'Texas ballparks', 'Texas racetracks', 'sports travel', 'game day guides'],
+      keywords: ['Texas sports venues', 'Texas stadiums', 'Texas arenas', 'Texas ballparks', 'Texas racetracks', 'Texas golf courses', 'sports travel', 'game day guides'],
       href: '/sports-venues',
     },
     {
@@ -86,7 +89,7 @@ export function buildSportsVenueSearchDocuments(): SearchDocument[] {
       kind: 'sports-collection',
       title: 'Texas Sports',
       summary: 'TexasDefined sports guide to teams, traditions, venues, football, baseball, basketball, motorsports and sports travel across the state.',
-      keywords: ['Texas sports', 'Texas football', 'Texas baseball', 'Texas basketball', 'Texas motorsports', 'Texas sports travel'],
+      keywords: ['Texas sports', 'Texas football', 'Texas baseball', 'Texas basketball', 'Texas motorsports', 'Texas golf', 'Texas sports travel'],
       href: '/sports',
     },
   ];

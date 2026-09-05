@@ -2,6 +2,7 @@ import { use } from 'react';
 
 import { aquariumMarineLinksForCounty } from '@/data/aquarium-marine-county-links';
 import { getCountyMajorEvents } from '@/data/county-major-events';
+import { golfCourseLicensedImage } from '@/data/golf-course-images';
 import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { sportsVenueLandingLinksForVenue, type SportsVenueLanding } from '@/data/sports-venue-landings';
@@ -12,21 +13,38 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
   const majorEvents = use(getCountyMajorEvents(county.slug));
   const aquariumDestinations = aquariumMarineLinksForCounty(county.slug);
 
-  const displayedVenues = venues.slice(0, 12);
+  const golfCourses = venues.filter((venue) => venue.tags?.includes('golf'));
+  const sportsVenues = venues.filter((venue) => !venue.tags?.includes('golf'));
+  const displayedVenues = sportsVenues.slice(0, 12);
   const collectionLinks = uniqueCollectionLinks(venues).slice(0, 6);
   const examples = displayedVenues.slice(0, 5).map((venue) => venue.name);
   const canonicalPath = canonicalEntityPath(county);
-  const jsonLd = venues.length ? {
+  const starterGolfCount = golfCourses.filter((course) => course.tags?.includes('starter-golf-directory')).length;
+  const verifiedGolfCount = golfCourses.length - starterGolfCount;
+  const sportsJsonLd = sportsVenues.length ? {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     '@id': `${siteUrl}${canonicalPath}#sports-destinations`,
     name: `Sports destinations in ${county.name}`,
-    numberOfItems: venues.length,
-    itemListElement: venues.map((venue, index) => ({
+    numberOfItems: sportsVenues.length,
+    itemListElement: sportsVenues.map((venue, index) => ({
       '@type': 'ListItem',
       position: index + 1,
       name: venue.name,
       url: `${siteUrl}${canonicalEntityPath(venue)}`,
+    })),
+  } : null;
+  const golfJsonLd = golfCourses.length ? {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    '@id': `${siteUrl}${canonicalPath}#golf-courses`,
+    name: `Golf courses in ${county.name}`,
+    numberOfItems: golfCourses.length,
+    itemListElement: golfCourses.map((course, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: course.name,
+      url: `${siteUrl}${canonicalEntityPath(course)}`,
     })),
   } : null;
   const aquariumJsonLd = aquariumDestinations.length ? {
@@ -104,8 +122,44 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
       </div>
     </section>
 
-    {venues.length ? <section className="border-b border-border py-12" aria-labelledby="county-sports-heading">
-      {jsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} /> : null}
+    {golfCourses.length ? <section className="border-b border-border py-12" aria-labelledby="county-golf-heading">
+      {golfJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(golfJsonLd) }} /> : null}
+      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Golf in the county</p>
+          <h2 id="county-golf-heading" className="mt-2 font-display text-4xl">Golf courses in {county.name}</h2>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">Course references mapped to this county for statewide golf discovery. Mailing cities and county boundaries can differ, so first-party address verification remains the publication gate for individual course indexing.</p>
+        </div>
+        <div>
+          <div className="border-y border-border py-5">
+            <h3 className="font-display text-2xl">What golf courses are in {county.name}?</h3>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined currently connects {golfCourses.length} golf course guide{golfCourses.length === 1 ? '' : 's'} to {county.name}.{verifiedGolfCount ? ` ${verifiedGolfCount} already ${verifiedGolfCount === 1 ? 'has' : 'have'} a first-party source-backed venue profile.` : ''}{starterGolfCount ? ` ${starterGolfCount} ${starterGolfCount === 1 ? 'is a starter record' : 'are starter records'} being upgraded with official course sources, addresses and operating details before search indexing.` : ''}</p>
+          </div>
+          <div className="mt-7 grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
+            {golfCourses.map((course) => {
+              const image = golfCourseLicensedImage(course.slug);
+              return <a key={course.id} href={canonicalEntityPath(course)} className="group border-t border-border py-5">
+                {image ? <figure className="mb-4">
+                  <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover" />
+                  <figcaption className="mt-2 text-[0.68rem] leading-5 text-muted-foreground">{image.credit} · {image.license} · <span className="border-b border-primary/40 text-primary">rights verified {image.verifiedAt}</span></figcaption>
+                </figure> : null}
+                <span className="eyebrow text-primary">{course.tags?.includes('starter-golf-directory') ? 'Golf course reference' : 'Verified golf destination'}</span>
+                <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{course.name}</strong>
+                {course.description ? <span className="mt-3 block line-clamp-3 text-sm leading-6 text-muted-foreground">{course.description}</span> : null}
+                {image ? <span className="mt-3 block text-xs leading-5 text-muted-foreground">Photo depicts this course. <span className="text-primary">Source/license recorded.</span></span> : null}
+                <span className="mt-3 block text-sm font-semibold text-primary">Open course guide →</span>
+              </a>;
+            })}
+          </div>
+          <div className="mt-8 border-t border-border pt-6">
+            <a href="/sports-venues/golf" className="text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">Browse the statewide Texas golf directory →</a>
+          </div>
+        </div>
+      </div>
+    </section> : null}
+
+    {sportsVenues.length ? <section className="border-b border-border py-12" aria-labelledby="county-sports-heading">
+      {sportsJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(sportsJsonLd) }} /> : null}
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Sports destinations</p>
@@ -116,7 +170,7 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
         <div>
           <div className="border-y border-border py-5">
             <h3 className="font-display text-2xl">What major sports venues are in {county.name}?</h3>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined currently has {venues.length} verified sports venue guide{venues.length === 1 ? '' : 's'} in {county.name}, including {formatList(examples)}. Open a venue guide for visitor planning and official event-day sources.</p>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined currently has {sportsVenues.length} verified sports venue guide{sportsVenues.length === 1 ? '' : 's'} in {county.name}, including {formatList(examples)}. Open a venue guide for visitor planning and official event-day sources.</p>
           </div>
 
           <div className="mt-7 grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
@@ -128,7 +182,7 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
             </a>)}
           </div>
 
-          {venues.length > displayedVenues.length ? <p className="mt-5 text-sm leading-6 text-muted-foreground">This county has additional verified sports venues in the statewide directory.</p> : null}
+          {sportsVenues.length > displayedVenues.length ? <p className="mt-5 text-sm leading-6 text-muted-foreground">This county has additional verified sports venues in the statewide directory.</p> : null}
 
           <div className="mt-8 border-t border-border pt-6">
             <p className="eyebrow text-primary">Keep exploring sports</p>
