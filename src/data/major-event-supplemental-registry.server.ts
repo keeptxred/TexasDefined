@@ -1,4 +1,3 @@
-import { getExpandedMajorEventAuthorityTranche42Server } from "./major-event-extra-authority-sep5.server";
 import { getMajorEventRecordServer } from "./major-event-page.server";
 
 export const supplementalMajorEventSlugs = [
@@ -123,7 +122,7 @@ export const supplementalMajorEventSlugs = [
 
 export function loadSupplementalMajorEventRecordsServer() {
   return supplementalMajorEventSlugs.map((slug) => {
-    const event = getMajorEventRecordServer(slug) ?? getExpandedMajorEventAuthorityTranche42Server(slug);
+    const event = getMajorEventRecordServer(slug);
     if (!event) throw new Error(`Supplemental major-event registry entry does not resolve: ${slug}`);
     return event;
   });
