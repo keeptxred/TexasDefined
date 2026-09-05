@@ -1,7 +1,9 @@
 import fs from 'node:fs';
 
 const routeTree = fs.readFileSync('src/routeTree.gen.ts', 'utf8');
-const exploreSearch = fs.readFileSync('src/routes/explore.search.tsx', 'utf8');
+const exploreSearchShell = fs.readFileSync('src/routes/explore.search.tsx', 'utf8');
+const exploreSearchPresentation = fs.readFileSync('src/components/explore/ExploreSearchPage.tsx', 'utf8');
+const exploreSearch = `${exploreSearchShell}\n${exploreSearchPresentation}`;
 const tripPlanner = fs.readFileSync('src/routes/explore.trip-planner.tsx', 'utf8');
 const tripPlannerLazy = fs.readFileSync('src/routes/explore.trip-planner.lazy.tsx', 'utf8');
 const failures = [];
@@ -49,13 +51,14 @@ for (const routePath of requiredPaths) {
 
 for (const feature of [
   'createFileRoute("/explore/search")',
-  'component: ExploreSearchPage',
+  'import("@/components/explore/ExploreSearchPage")',
+  'component: ExploreSearchRoutePage',
   'canonicalPath: "/explore/search"',
   'robots: "noindex, follow"',
   'const text = z.string().optional().catch("")',
   'q: text, category: text, region: text, season: text, accessible: text, origin: text, radius: text',
-  'const { q, category, region, season, accessible } = Route.useSearch()',
-  'const { origin, radius } = Route.useSearch()',
+  'const { q, category, region, season, accessible } = ExploreSearchRoute.useSearch()',
+  'const { origin, radius } = ExploreSearchRoute.useSearch()',
   '!category || destination.category === category',
   '!region || destination.region === region',
   'normalized(destination.bestSeason).includes(wantedSeason)',
@@ -83,8 +86,11 @@ for (const feature of [
   if (!exploreSearch.includes(feature)) failures.push(`Explore search filter contract missing: ${feature}.`);
 }
 
-if (!exploreSearch.includes('links: [canonicalLink(texasDefinedBrand, "/explore/search")]')) {
+if (!exploreSearchShell.includes('links: [canonicalLink(texasDefinedBrand, "/explore/search")]')) {
   failures.push('Explore search must canonicalize all query/filter combinations to the curated search landing route.');
+}
+if (!exploreSearchShell.includes('lazy(() =>') || !exploreSearchShell.includes('import("@/components/explore/ExploreSearchPage")')) {
+  failures.push('Explore search presentation must remain dynamically split without requiring generated route-tree drift.');
 }
 if (exploreSearch.includes('robots: "index')) failures.push('Interactive Explore search/filter combinations must remain non-indexable.');
 if (exploreSearch.includes('dogFriendly') || exploreSearch.includes('kidFriendly')) {
@@ -125,4 +131,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Explore regional, compatibility, migrated guide, Trip Planner, crawl-safe structured destination and exact-radius filter routes are registered.');
+console.log('Explore regional, compatibility, migrated guide, dynamically split Search, Trip Planner, crawl-safe structured destination and exact-radius filter routes are registered.');

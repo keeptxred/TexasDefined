@@ -5,13 +5,14 @@ import { ArrowDown, ArrowUp, Printer, RefreshCw, Save, Share2, Trash2 } from "lu
 
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/Container";
+import type { CampingSearchIndexEntry } from "@/data/camping/camping-profiles";
 import { destinationsQuery, regionsQuery } from "@/data/queries";
 import type { Destination, TexasRegion } from "@/data/types";
 
 const STORAGE_KEY = "texasdefined.explore.trip.v1";
 const interests = ["hiking", "camping", "swimming", "fishing", "boating", "birding", "wildlife", "history", "museums", "food", "scenic", "family"] as const;
 type Interest = (typeof interests)[number];
-type Preferences = { title: string; region?: TexasRegion; month?: number; days: number; adults: number; children: number; accessible: boolean; interests: Interest[]; maxDrivingMiles: number; };
+type Preferences = { title: string; region?: TexasRegion; month?: number; days: number; adults: number; children: number; accessible: boolean; interests: Interest[]; maxDrivingMiles: number; campingQuery?: string; };
 type TripStop = { destination: Destination; durationMinutes: number; note: string };
 type TripDay = { day: number; stops: TripStop[] };
 type GeneratedTrip = { title: string; preferences: Preferences; days: TripDay[] };
@@ -27,19 +28,29 @@ function distanceMiles(a: Destination, b: Destination) {
   return 7917.6 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
 }
 
-function destinationText(destination: Destination) {
-  return [destination.name, destination.summary, destination.category, destination.bestSeason, destination.entryNote, ...destination.highlights, ...destination.body].join(" ").toLowerCase();
+function destinationText(destination: Destination, campingTerms: string[] = []) {
+  return [destination.name, destination.summary, destination.category, destination.bestSeason, destination.entryNote, ...destination.highlights, ...destination.body, ...campingTerms].join(" ").toLowerCase();
 }
 
-function scoreDestination(destination: Destination, preferences: Preferences, seedSlug?: string) {
-  const text = destinationText(destination);
+function scoreDestination(destination: Destination, preferences: Preferences, seedSlug?: string, campingTerms: string[] = []) {
+  const text = destinationText(destination, campingTerms);
   const aliases: Record<Interest, string> = {
-    hiking: "hike trail walking", camping: "camp cabin rv tent", swimming: "swim spring beach water", fishing: "fish angling",
+    hiking: "hike trail walking", camping: "camp cabin rv tent campground hookups primitive beach", swimming: "swim spring beach water", fishing: "fish angling",
     boating: "boat paddle kayak canoe", birding: "bird warbler migration", wildlife: "wildlife deer animal nature",
     history: "historic history mission battle heritage", museums: "museum gallery exhibit", food: "food barbecue bbq restaurant cafe bakery tex-mex",
     scenic: "scenic view canyon landscape overlook", family: "family children child kid kids",
   };
   let score = preferences.interests.reduce((total, interest) => total + (aliases[interest].split(" ").some((term) => text.includes(term)) ? 3 : 0), 0);
+  if (preferences.interests.includes("camping") && campingTerms.length) score += 5;
+  const campingQuery = preferences.campingQuery?.trim().toLowerCase();
+  if (campingQuery) {
+    const campingText = campingTerms.join(" ").toLowerCase();
+    if (campingText.includes(campingQuery)) score += 24;
+    else {
+      const tokens = campingQuery.split(/\s+/).filter((token) => token.length > 1);
+      score += tokens.reduce((total, token) => total + (campingText.includes(token) ? 5 : 0), 0);
+    }
+  }
   if (destination.featured) score += 2;
   if (seedSlug === destination.slug) score += 100;
   if (preferences.accessible && destination.accessibilityNotes) score += 5;
@@ -58,10 +69,10 @@ function visitMinutes(destination: Destination) {
   return 150;
 }
 
-function buildTrip(destinations: Destination[], preferences: Preferences, seedSlug?: string): GeneratedTrip {
+function buildTrip(destinations: Destination[], preferences: Preferences, campingTermsByDestination: Map<string, string[]>, seedSlug?: string): GeneratedTrip {
   const candidates = destinations
     .filter((destination) => (!preferences.region || destination.region === preferences.region) && (!preferences.accessible || Boolean(destination.accessibilityNotes)))
-    .map((destination) => ({ destination, score: scoreDestination(destination, preferences, seedSlug) }))
+    .map((destination) => ({ destination, score: scoreDestination(destination, preferences, seedSlug, campingTermsByDestination.get(destination.slug) ?? []) }))
     .sort((a, b) => b.score - a.score || a.destination.name.localeCompare(b.destination.name));
   const days: TripDay[] = Array.from({ length: preferences.days }, (_, index) => ({ day: index + 1, stops: [] }));
   if (!candidates.length) return { title: preferences.title, preferences, days };
@@ -109,11 +120,13 @@ function decodeTrip(value: string, destinations: Destination[]): GeneratedTrip |
 
 function TripPlanner() {
   const search = Route.useSearch();
+  const { campingSearchIndex } = Route.useLoaderData() as { campingSearchIndex: CampingSearchIndexEntry[] };
   const { data: destinations } = useSuspenseQuery(destinationsQuery({}));
   const { data: regions } = useSuspenseQuery(regionsQuery());
   const [trip, setTrip] = useState<GeneratedTrip | null>(null);
   const [saved, setSaved] = useState(false);
   const [message, setMessage] = useState("");
+  const campingTermsByDestination = useMemo(() => new Map(campingSearchIndex.map((entry) => [entry.destinationSlug, entry.terms])), [campingSearchIndex]);
   const seed = useMemo(() => destinations.find((destination) => destination.slug === search.destination), [destinations, search.destination]);
 
   useEffect(() => {
@@ -128,12 +141,13 @@ function TripPlanner() {
     const formData = new FormData(event.currentTarget);
     const region = String(formData.get("region") || "") as TexasRegion | "";
     const month = Number(formData.get("month") || 0);
+    const campingQuery = String(formData.get("campingQuery") || "").trim();
     const preferences: Preferences = {
       title: String(formData.get("title") || "My Texas trip"), region: region || undefined, month: month || undefined,
       days: Math.min(14, Math.max(1, Number(formData.get("days") || 2))), adults: Math.max(1, Number(formData.get("adults") || 2)), children: Math.max(0, Number(formData.get("children") || 0)),
-      accessible: formData.get("accessible") === "on", interests: formData.getAll("interests").map(String) as Interest[], maxDrivingMiles: Math.min(500, Math.max(25, Number(formData.get("maxDrivingMiles") || 150))),
+      accessible: formData.get("accessible") === "on", interests: formData.getAll("interests").map(String) as Interest[], maxDrivingMiles: Math.min(500, Math.max(25, Number(formData.get("maxDrivingMiles") || 150))), campingQuery: campingQuery || undefined,
     };
-    setTrip(buildTrip(destinations, preferences, seed?.slug)); setSaved(false); setMessage("");
+    setTrip(buildTrip(destinations, preferences, campingTermsByDestination, seed?.slug)); setSaved(false); setMessage("");
   }
 
   function moveStop(dayIndex: number, stopIndex: number, offset: -1 | 1) {
@@ -157,7 +171,7 @@ function TripPlanner() {
       const replacement = destinations
         .filter((destination) => !used.has(destination.slug) && (!current.preferences.region || destination.region === current.preferences.region) && (!current.preferences.accessible || Boolean(destination.accessibilityNotes)))
         .sort((a, b) => {
-          const routeScore = (destination: Destination) => scoreDestination(destination, current.preferences) * 6 - (previous ? distanceMiles(previous, destination) / 10 : 0) - (next ? distanceMiles(destination, next) / 10 : 0) - (dayStops.some((stop, index) => index !== stopIndex && stop.destination.category === destination.category) ? 8 : 0);
+          const routeScore = (destination: Destination) => scoreDestination(destination, current.preferences, undefined, campingTermsByDestination.get(destination.slug) ?? []) * 6 - (previous ? distanceMiles(previous, destination) / 10 : 0) - (next ? distanceMiles(destination, next) / 10 : 0) - (dayStops.some((stop, index) => index !== stopIndex && stop.destination.category === destination.category) ? 8 : 0);
           return routeScore(b) - routeScore(a);
         })[0];
       if (!replacement) return current;
@@ -183,7 +197,7 @@ function TripPlanner() {
     <section className="border-b border-border bg-surface"><Container className="py-16 sm:py-24"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden>·</li><li aria-current="page" className="text-foreground">Trip Planner</li></ol></nav><p className="eyebrow mt-8 text-primary">The Texas trip planner</p><h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Build the route before you fill the tank.</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Choose the part of Texas, travel month, pace and interests. The planner balances destination relevance, driving distance and route variety using real Texas Defined authority pages.</p>{seed && <p className="eyebrow mt-6 border-t border-border pt-4 text-muted-foreground">Starting point · <strong className="text-foreground">{seed.name}</strong></p>}</Container></section>
     <PaintedChurchRoutePromo />
     <Container className="py-14 sm:py-18"><div className="grid gap-12 lg:grid-cols-[330px_minmax(0,1fr)] lg:gap-16">
-      <form onSubmit={submit} className="space-y-6 border-t-2 border-foreground pt-6 print:hidden"><div><p className="eyebrow text-primary">Build your trip</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Set the basics. You can adjust the route after it is generated.</p></div><Field label="Trip title" name="title" defaultValue="My Texas trip" required /><label className="block"><span className="eyebrow text-muted-foreground">Region</span><select name="region" defaultValue={seed?.region ?? ""} className="mt-2 w-full border-0 border-b border-border bg-transparent px-0 py-3 text-sm outline-none focus:border-primary"><option value="">Anywhere in Texas</option>{regions.map((region) => <option key={region.id} value={region.id}>{region.name}</option>)}</select></label><label className="block"><span className="eyebrow text-muted-foreground">Travel month</span><select name="month" defaultValue="" className="mt-2 w-full border-0 border-b border-border bg-transparent px-0 py-3 text-sm outline-none focus:border-primary"><option value="">Any month</option>{monthOptions.map((month, index) => <option key={month} value={index + 1}>{month}</option>)}</select></label><div className="grid grid-cols-3 gap-4"><Field label="Days" name="days" type="number" defaultValue="2" min="1" max="14" required /><Field label="Adults" name="adults" type="number" defaultValue="2" min="1" max="20" required /><Field label="Children" name="children" type="number" defaultValue="0" min="0" max="20" required /></div><Field label="Max daily driving (miles)" name="maxDrivingMiles" type="number" defaultValue="150" min="25" max="500" required /><fieldset><legend className="eyebrow text-muted-foreground">Interests</legend><div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3">{interests.map((interest) => <label key={interest} className="flex items-center gap-2 text-sm capitalize"><input type="checkbox" name="interests" value={interest} defaultChecked={["scenic", "history"].includes(interest)} />{interest}</label>)}</div></fieldset><label className="flex items-start gap-2 border-t border-border pt-5 text-sm leading-6"><input type="checkbox" name="accessible" className="mt-1" /><span>Only include places with accessibility information</span></label><Button type="submit" className="w-full rounded-none bg-foreground text-background hover:bg-foreground/85">Build itinerary</Button></form>
+      <form onSubmit={submit} className="space-y-6 border-t-2 border-foreground pt-6 print:hidden"><div><p className="eyebrow text-primary">Build your trip</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Set the basics. You can adjust the route after it is generated.</p></div><Field label="Trip title" name="title" defaultValue="My Texas trip" required /><label className="block"><span className="eyebrow text-muted-foreground">Region</span><select name="region" defaultValue={seed?.region ?? ""} className="mt-2 w-full border-0 border-b border-border bg-transparent px-0 py-3 text-sm outline-none focus:border-primary"><option value="">Anywhere in Texas</option>{regions.map((region) => <option key={region.id} value={region.id}>{region.name}</option>)}</select></label><label className="block"><span className="eyebrow text-muted-foreground">Travel month</span><select name="month" defaultValue="" className="mt-2 w-full border-0 border-b border-border bg-transparent px-0 py-3 text-sm outline-none focus:border-primary"><option value="">Any month</option>{monthOptions.map((month, index) => <option key={month} value={index + 1}>{month}</option>)}</select></label><div className="grid grid-cols-3 gap-4"><Field label="Days" name="days" type="number" defaultValue="2" min="1" max="14" required /><Field label="Adults" name="adults" type="number" defaultValue="2" min="1" max="20" required /><Field label="Children" name="children" type="number" defaultValue="0" min="0" max="20" required /></div><Field label="Max daily driving (miles)" name="maxDrivingMiles" type="number" defaultValue="150" min="25" max="500" required /><fieldset><legend className="eyebrow text-muted-foreground">Interests</legend><div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3">{interests.map((interest) => <label key={interest} className="flex items-center gap-2 text-sm capitalize"><input type="checkbox" name="interests" value={interest} defaultChecked={["scenic", "history"].includes(interest)} />{interest}</label>)}</div></fieldset><div><Field label="Campground / camping preference" name="campingQuery" placeholder="Malaquite Campground, full hookups, beach camping" /><p className="mt-2 text-xs leading-5 text-muted-foreground">Optional. Verified campground names, camping styles and amenities are matched back to their canonical Texas Defined destinations.</p></div><label className="flex items-start gap-2 border-t border-border pt-5 text-sm leading-6"><input type="checkbox" name="accessible" className="mt-1" /><span>Only include places with accessibility information</span></label><Button type="submit" className="w-full rounded-none bg-foreground text-background hover:bg-foreground/85">Build itinerary</Button></form>
       <section aria-live="polite">{!trip ? <div className="border-t-2 border-foreground pt-8"><p className="eyebrow text-primary">Your route</p><h2 className="mt-3 font-display text-4xl">Start with the details on the left.</h2><p className="mt-4 max-w-xl text-sm leading-7 text-muted-foreground">The finished itinerary will appear here with daily stops, suggested time at each place and links back into the full Texas Defined guide.</p></div> : <div className="trip-print"><div className="flex flex-wrap items-start justify-between gap-6 border-b border-border pb-6"><div><p className="eyebrow text-primary">Your Texas itinerary</p><h2 className="mt-2 font-display text-5xl leading-tight">{trip.title}</h2><p className="mt-3 text-sm text-muted-foreground">{trip.preferences.days} days · {trip.preferences.adults} adults{trip.preferences.children ? ` · ${trip.preferences.children} children` : ""}{trip.preferences.month ? ` · ${monthOptions[trip.preferences.month - 1]}` : ""}</p></div><div className="flex flex-wrap gap-2 print:hidden"><Button variant="outline" className="rounded-none" onClick={saveTrip}><Save />{saved ? "Saved" : "Save"}</Button><Button variant="outline" className="rounded-none" onClick={shareTrip}><Share2 />Share</Button><Button variant="outline" className="rounded-none" onClick={reorderRoute}><RefreshCw />Reorder</Button><Button variant="outline" className="rounded-none" onClick={() => window.print()}><Printer />Print</Button><Button variant="outline" className="rounded-none" onClick={() => { setTrip(null); setSaved(false); setMessage(""); window.localStorage.removeItem(STORAGE_KEY); }}><Trash2 />Clear</Button></div></div>{message && <p className="mt-4 text-sm text-primary">{message}</p>}<p className="mt-6 border-y border-border py-4 text-sm leading-7 text-muted-foreground">Hours, fees, reservations, road conditions and seasonal closures can change. Verify time-sensitive details with the official source before leaving.</p><div className="mt-10 space-y-14">{trip.days.map((day, dayIndex) => <section key={day.day} className="break-inside-avoid"><div className="flex items-baseline gap-4 border-b border-border pb-3"><p className="eyebrow text-primary">Day {day.day}</p><h3 className="font-display text-3xl">On the route</h3></div>{day.stops.length === 0 ? <p className="mt-5 text-muted-foreground">No matching destinations fit the selected region, accessibility and driving constraints for this day.</p> : <ol className="divide-y divide-border">{day.stops.map((stop, stopIndex) => <li key={`${stop.destination.slug}-${stopIndex}`} className="py-7"><div className="grid gap-5 sm:grid-cols-[160px_1fr_auto]"><img src={stop.destination.hero.src} alt={stop.destination.hero.alt} width={stop.destination.hero.width} height={stop.destination.hero.height} className="aspect-[4/3] w-full object-cover" /><div><p className="eyebrow text-primary">{stop.destination.nearestTown} · {regions.find((region) => region.id === stop.destination.region)?.name}</p><h4 className="mt-2 font-display text-3xl leading-tight"><Link to="/destination/$slug" params={{ slug: stop.destination.slug }} className="hover:text-primary">{stop.destination.name}</Link></h4><p className="mt-3 text-sm leading-7 text-muted-foreground">{stop.destination.summary}</p><div className="mt-4 grid gap-2 text-sm sm:grid-cols-2"><p><span className="eyebrow mr-2 text-muted-foreground">Allow</span>{Math.round(stop.durationMinutes / 60 * 10) / 10} hours</p><p><span className="eyebrow mr-2 text-muted-foreground">Why here</span>{stop.note}</p></div>{stop.destination.officialUrl && <a href={stop.destination.officialUrl} target="_blank" rel="noreferrer" className="eyebrow mt-4 inline-block border-b border-primary pb-1 text-primary">Official information</a>}</div><div className="flex gap-1 print:hidden sm:flex-col"><Button size="icon" variant="ghost" onClick={() => moveStop(dayIndex, stopIndex, -1)} disabled={stopIndex === 0} aria-label="Move stop up"><ArrowUp /></Button><Button size="icon" variant="ghost" onClick={() => moveStop(dayIndex, stopIndex, 1)} disabled={stopIndex === day.stops.length - 1} aria-label="Move stop down"><ArrowDown /></Button><Button size="sm" variant="outline" className="rounded-none" onClick={() => replaceStop(dayIndex, stopIndex)}>Swap</Button></div></div></li>)}</ol>}</section>)}</div></div>}</section>
     </div></Container>
   </main>;
