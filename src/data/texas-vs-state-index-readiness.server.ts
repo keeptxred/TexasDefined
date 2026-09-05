@@ -1,10 +1,12 @@
+import { isTexasVsStateEvidenceQualified } from "./texas-vs-state-evidence.server";
+import { texasVsStateName } from "./texas-vs-states-index";
+
 const GSC_IMPROVE_STATE_SLUGS = [
   "alabama",
   "alaska",
   "colorado",
   "connecticut",
   "delaware",
-  "georgia",
   "hawaii",
   "idaho",
   "indiana",
@@ -23,7 +25,6 @@ const GSC_IMPROVE_STATE_SLUGS = [
   "new-jersey",
   "new-mexico",
   "new-york",
-  "north-carolina",
   "north-dakota",
   "ohio",
   "oregon",
@@ -31,18 +32,23 @@ const GSC_IMPROVE_STATE_SLUGS = [
   "rhode-island",
   "south-carolina",
   "south-dakota",
-  "tennessee",
   "utah",
   "virginia",
   "west-virginia",
   "wyoming",
 ] as const;
 
+const EVIDENCE_PROMOTED_STATE_SLUGS = ["georgia", "north-carolina", "tennessee"] as const;
 const REDIRECT_ONLY_STATE_SLUGS = ["california", "florida"] as const;
 
 export const TEXAS_VS_GSC_IMPROVE_STATE_SLUGS = new Set<string>(GSC_IMPROVE_STATE_SLUGS);
+export const TEXAS_VS_EVIDENCE_PROMOTED_STATE_SLUGS = new Set<string>(EVIDENCE_PROMOTED_STATE_SLUGS);
 export const TEXAS_VS_REDIRECT_ONLY_STATE_SLUGS = new Set<string>(REDIRECT_ONLY_STATE_SLUGS);
 
 export function isTexasVsStateSitemapReady(slug: string) {
-  return !TEXAS_VS_GSC_IMPROVE_STATE_SLUGS.has(slug) && !TEXAS_VS_REDIRECT_ONLY_STATE_SLUGS.has(slug);
+  if (TEXAS_VS_REDIRECT_ONLY_STATE_SLUGS.has(slug)) return false;
+  if (TEXAS_VS_GSC_IMPROVE_STATE_SLUGS.has(slug)) return false;
+  if (!TEXAS_VS_EVIDENCE_PROMOTED_STATE_SLUGS.has(slug)) return true;
+  const name = texasVsStateName(slug);
+  return Boolean(name && isTexasVsStateEvidenceQualified(name));
 }

@@ -5,7 +5,9 @@ const GSC_PATH = 'ops/seo/gsc-discovered-2026-09-05.json';
 const GSC_URL_INVENTORY_PATH = 'ops/seo/gsc-discovered-2026-09-05-urls.tsv';
 const PUBLIC_ROUTES_PATH = 'src/lib/public-routes.ts';
 const TEXAS_VS_WAVE_PATH = 'ops/seo/gsc-remediation-wave4-2026-09-05.json';
+const TEXAS_VS_PROMOTION_WAVE_PATH = 'ops/seo/gsc-remediation-wave6-2026-09-05.json';
 const TEXAS_VS_READINESS_PATH = 'src/data/texas-vs-state-index-readiness.server.ts';
+const TEXAS_VS_EVIDENCE_PATH = 'src/data/texas-vs-state-evidence.server.ts';
 const COUNTY_PROMOTION_WAVE_PATH = 'ops/seo/gsc-remediation-wave5-2026-09-05.json';
 
 const failures = [];
@@ -102,6 +104,7 @@ if (!failures.length) {
     'ops/seo/gsc-remediation-wave3-2026-09-05.json',
     TEXAS_VS_WAVE_PATH,
     COUNTY_PROMOTION_WAVE_PATH,
+    TEXAS_VS_PROMOTION_WAVE_PATH,
   ];
   const reviewWaves = policy?.gscRemediation?.reviewWaves ?? [];
   for (const path of expectedReviewWaves) {
@@ -163,31 +166,59 @@ if (!failures.length) {
   if (!fs.existsSync(TEXAS_VS_WAVE_PATH)) {
     fail(`Texas-vs remediation wave is missing: ${TEXAS_VS_WAVE_PATH}`);
   }
+  if (!fs.existsSync(TEXAS_VS_PROMOTION_WAVE_PATH)) {
+    fail(`Texas-vs promotion wave is missing: ${TEXAS_VS_PROMOTION_WAVE_PATH}`);
+  }
   if (!fs.existsSync(TEXAS_VS_READINESS_PATH)) {
     fail(`Texas-vs sitemap readiness gate is missing: ${TEXAS_VS_READINESS_PATH}`);
   }
-  if (fs.existsSync(TEXAS_VS_WAVE_PATH) && fs.existsSync(TEXAS_VS_READINESS_PATH)) {
+  if (!fs.existsSync(TEXAS_VS_EVIDENCE_PATH)) {
+    fail(`Texas-vs server evidence gate is missing: ${TEXAS_VS_EVIDENCE_PATH}`);
+  }
+  if (fs.existsSync(TEXAS_VS_WAVE_PATH) && fs.existsSync(TEXAS_VS_PROMOTION_WAVE_PATH) && fs.existsSync(TEXAS_VS_READINESS_PATH)) {
     const texasVsWave = readJson(TEXAS_VS_WAVE_PATH);
-    const improveItems = (texasVsWave.reviewed ?? []).filter((item) => item.action === 'IMPROVE');
-    if (improveItems.length !== 37 || Number(texasVsWave?.summary?.IMPROVE ?? 0) !== 37) {
-      fail(`Texas-vs wave must preserve exactly 37 reviewed IMPROVE state pages; found ${improveItems.length}.`);
+    const historicalImproveItems = (texasVsWave.reviewed ?? []).filter((item) => item.action === 'IMPROVE');
+    if (historicalImproveItems.length !== 37 || Number(texasVsWave?.summary?.IMPROVE ?? 0) !== 37) {
+      fail(`Texas-vs wave 4 must preserve exactly 37 historical IMPROVE state reviews; found ${historicalImproveItems.length}.`);
     }
     if ((texasVsWave.reviewed ?? []).some((item) => item.action !== 'IMPROVE')) {
-      fail('Texas-vs wave 4 may not promote or remove a state page until the state-specific qualification requirements are actually satisfied.');
+      fail('Texas-vs wave 4 is historical evidence and may not be rewritten when later waves promote qualified states.');
+    }
+
+    const promotionWave = readJson(TEXAS_VS_PROMOTION_WAVE_PATH);
+    const promotedItems = promotionWave.reviewed ?? [];
+    const expectedPromotedPaths = new Set(['/texas-vs/georgia', '/texas-vs/north-carolina', '/texas-vs/tennessee']);
+    if (promotedItems.length !== 3 || Number(promotionWave?.summary?.KEEP ?? 0) !== 3) {
+      fail('Texas-vs wave 6 must contain exactly three KEEP promotions.');
+    }
+    for (const item of promotedItems) {
+      if (!expectedPromotedPaths.has(item.path)) fail(`Unexpected Texas-vs wave-6 promotion path: ${item.path}`);
+      if (item.action !== 'KEEP') fail(`Texas-vs wave-6 promotion must end in KEEP: ${item.path}`);
+      if (item.supersedes !== TEXAS_VS_WAVE_PATH || item.previousAction !== 'IMPROVE') {
+        fail(`Texas-vs wave-6 promotion must explicitly supersede its wave-4 IMPROVE review: ${item.path}`);
+      }
+    }
+    for (const path of expectedPromotedPaths) {
+      if (!promotedItems.some((item) => item.path === path)) fail(`Texas-vs wave 6 is missing ${path}.`);
+    }
+
+    const currentImproveItems = historicalImproveItems.filter((item) => reviewedPaths.get(item.path)?.action === 'IMPROVE');
+    if (currentImproveItems.length !== 34) {
+      fail(`Texas-vs current IMPROVE backlog must contain 34 unresolved state pages after wave 6; found ${currentImproveItems.length}.`);
     }
 
     const readinessSource = read(TEXAS_VS_READINESS_PATH);
-    const start = readinessSource.indexOf('const GSC_IMPROVE_STATE_SLUGS = [');
-    const end = readinessSource.indexOf('] as const;', start);
-    if (start < 0 || end < 0) {
-      fail('Texas-vs readiness gate lost its explicit GSC IMPROVE state-slug registry.');
+    const improveStart = readinessSource.indexOf('const GSC_IMPROVE_STATE_SLUGS = [');
+    const improveEnd = readinessSource.indexOf('] as const;', improveStart);
+    if (improveStart < 0 || improveEnd < 0) {
+      fail('Texas-vs readiness gate lost its explicit unresolved GSC IMPROVE state-slug registry.');
     } else {
-      const readinessBlock = readinessSource.slice(start, end);
+      const readinessBlock = readinessSource.slice(improveStart, improveEnd);
       const readinessSlugs = [...readinessBlock.matchAll(/"([^"]+)"/g)].map((match) => match[1]);
-      if (readinessSlugs.length !== 37 || new Set(readinessSlugs).size !== 37) {
-        fail(`Texas-vs sitemap readiness registry must contain exactly 37 unique GSC IMPROVE state slugs; found ${readinessSlugs.length}.`);
+      if (readinessSlugs.length !== 34 || new Set(readinessSlugs).size !== 34) {
+        fail(`Texas-vs sitemap readiness registry must contain exactly 34 unique unresolved GSC IMPROVE state slugs; found ${readinessSlugs.length}.`);
       }
-      for (const item of improveItems) {
+      for (const item of currentImproveItems) {
         const prefix = '/texas-vs/';
         if (!item.path.startsWith(prefix)) {
           fail(`Texas-vs wave contains a non-state path: ${item.path}`);
@@ -195,17 +226,39 @@ if (!failures.length) {
         }
         const slug = item.path.slice(prefix.length);
         if (!readinessSlugs.includes(slug)) {
-          fail(`Texas-vs IMPROVE page is not excluded from sitemap priority: ${item.path}`);
+          fail(`Texas-vs current IMPROVE page is not excluded from sitemap priority: ${item.path}`);
         }
       }
       for (const slug of readinessSlugs) {
         const path = `/texas-vs/${slug}`;
-        if (!improveItems.some((item) => item.path === path)) {
-          fail(`Texas-vs sitemap readiness registry contains an unreviewed GSC IMPROVE slug: ${slug}`);
+        if (!currentImproveItems.some((item) => item.path === path)) {
+          fail(`Texas-vs sitemap readiness registry contains a state that is no longer currently IMPROVE: ${slug}`);
         }
       }
       if (readinessSlugs.includes('california') || readinessSlugs.includes('florida')) {
-        fail('California and Florida are redirect-only consolidations and must remain separate from the 37-state IMPROVE registry.');
+        fail('California and Florida are redirect-only consolidations and must remain separate from the unresolved IMPROVE registry.');
+      }
+    }
+
+    const promotedStart = readinessSource.indexOf('const EVIDENCE_PROMOTED_STATE_SLUGS = [');
+    const promotedEnd = readinessSource.indexOf('] as const;', promotedStart);
+    if (promotedStart < 0 || promotedEnd < 0) {
+      fail('Texas-vs readiness gate lost its explicit evidence-promoted state-slug registry.');
+    } else {
+      const promotedBlock = readinessSource.slice(promotedStart, promotedEnd);
+      const promotedSlugs = [...promotedBlock.matchAll(/"([^"]+)"/g)].map((match) => match[1]);
+      const expectedPromotedSlugs = ['georgia', 'north-carolina', 'tennessee'];
+      if (promotedSlugs.length !== 3 || new Set(promotedSlugs).size !== 3) {
+        fail(`Texas-vs evidence-promoted registry must contain exactly three unique slugs; found ${promotedSlugs.length}.`);
+      }
+      for (const slug of expectedPromotedSlugs) {
+        if (!promotedSlugs.includes(slug)) fail(`Texas-vs evidence-promoted registry is missing ${slug}.`);
+      }
+      for (const slug of promotedSlugs) {
+        if (!expectedPromotedSlugs.includes(slug)) fail(`Unexpected Texas-vs evidence-promoted slug: ${slug}`);
+      }
+      if (!readinessSource.includes('isTexasVsStateEvidenceQualified')) {
+        fail('Evidence-promoted Texas-vs states must pass the server evidence qualification function before sitemap inclusion.');
       }
     }
   }
@@ -306,4 +359,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Permanent SEO/content quality governance passed: the exact 452-URL GSC backlog is tracked per URL, remediation review waves are validated against that original inventory, later reviews may supersede earlier outcomes only with explicit audited lineage, the 37 reviewed Texas-vs IMPROVE states are excluded from sitemap priority until state-specific qualification, Haskell and Leon county-property pages are promoted only through the unchanged indexability gate, redirect-only comparisons stay separate, KEEP/IMPROVE/NOINDEX/REMOVE_CONSOLIDATE remain permanent outcomes, worthwhile thin topics default to IMPROVE, new generated/entity URLs stay noindex until qualified, public route buckets remain disjoint, and dynamic article/destination/entity/county/canonical quality gates remain protected.');
+console.log('Permanent SEO/content quality governance passed: the exact 452-URL GSC backlog is tracked per URL, remediation review waves preserve audited superseding lineage, the historical 37-state Texas-vs IMPROVE cohort now has 34 unresolved states plus three server-evidence KEEP promotions that must remain fresh to retain sitemap priority, Haskell and Leon county-property pages are promoted only through the unchanged indexability gate, redirect-only comparisons stay separate, KEEP/IMPROVE/NOINDEX/REMOVE_CONSOLIDATE remain permanent outcomes, worthwhile thin topics default to IMPROVE, new generated/entity URLs stay noindex until qualified, public route buckets remain disjoint, and dynamic article/destination/entity/county/canonical/evidence quality gates remain protected.');

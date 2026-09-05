@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+  "reviewDate": "2026-09-05",
+  "reviewMethod": "State-specific remediation against current official tax, Census housing, state labor, transportation and hazard/insurance sources, delivered through the server-only Texas-vs evidence path and protected by an expiring evidence qualification gate",
+  "summary": { "reviewed": 3, "KEEP": 3, "IMPROVE": 0, "NOINDEX": 0, "REMOVE_CONSOLIDATE": 0 },
+  "reviewed": [
+    {
+      "path": "/texas-vs/georgia",
+      "action": "KEEP",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE",
+      "reason": "Georgia now has state-specific 2026 income-tax context, 2020-2024 Census housing benchmarks, July 2026 labor evidence, Georgia freight/transportation context, hazard and insurance planning context, unique FAQs and named official sources. The evidence is server-delivered and must remain fresh to retain sitemap qualification."
+    },
+    {
+      "path": "/texas-vs/north-carolina",
+      "action": "KEEP",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE",
+      "reason": "North Carolina now has state-specific 2026 income-tax context, 2020-2024 Census housing benchmarks, July 2026 labor evidence, current statewide transportation context, coastal flood and insurance planning context, unique FAQs and named official sources. The evidence is server-delivered and must remain fresh to retain sitemap qualification."
+    },
+    {
+      "path": "/texas-vs/tennessee",
+      "action": "KEEP",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE",
+      "reason": "Tennessee now has state-specific earned-income-tax context including the repealed Hall tax, 2020-2024 Census housing benchmarks, July 2026 labor evidence, statewide transportation-system context, hazard and insurance planning context, unique FAQs and named official sources. The evidence is server-delivered and must remain fresh to retain sitemap qualification."
+    }
+  ],
+  "evidence": {
+    "serverEvidence": "src/data/texas-vs-state-evidence.server.ts",
+    "serverProfileLoader": "src/data/texas-vs-state-profile.server.ts",
+    "pageTemplate": "src/routes/texas-vs.$state.tsx",
+    "sitemapReadiness": "src/data/texas-vs-state-index-readiness.server.ts"
+  },
+  "sourceNotes": {
+    "commonTexas": [
+      "https://comptroller.texas.gov/economy/fiscal-notes/industry/2025/small-biz-info/",
+      "https://www.census.gov/quickfacts/fact/table/TX/HSG495224",
+      "https://www.txdot.gov/projects/planning/utp/multimodal-programs.html",
+      "https://www.tdi.texas.gov/news/2026/tdi05282026.html"
+    ],
+    "georgia": [
+      "https://dor.georgia.gov/taxes/important-tax-updates",
+      "https://www.census.gov/quickfacts/fact/table/GA/POP815223",
+      "https://dol.georgia.gov/press-releases/2026-08-20/georgia-sets-new-records-labor-force-and-employment-july",
+      "https://www.dot.ga.gov/GDOT/pages/freight.aspx",
+      "https://gema.georgia.gov/hazards"
+    ],
+    "northCarolina": [
+      "https://www.ncdor.gov/taxes-forms/individual-income-tax/tax-rate-schedules",
+      "https://www.census.gov/quickfacts/fact/table/NC/INC110223",
+      "https://www.commerce.nc.gov/news/press-releases/2026/08/21/north-carolinas-july-employment-figures-released",
+      "https://www.ncdot.gov/travel-maps/maps/Pages/state-transportation-map.aspx",
+      "https://www.ncdps.gov/our-organization/emergency-management/emergency-preparedness/know-your-zone/frequently-asked-questions-about-know-your-zone",
+      "https://www.ncdps.gov/news/press-releases/2026/09/04/september-national-preparedness-month-north-carolina"
+    ],
+    "tennessee": [
+      "https://revenue.support.tn.gov/hc/en-us/articles/360057595051-GEN-34-Income-Tax-Withholding",
+      "https://www.census.gov/quickfacts/fact/table/TN/HSG495223",
+      "https://www.tn.gov/workforce/general-resources/news/2026/8/20/tennessee-unemployment-rate-falls-to-two-year-low-of-3-4.html",
+      "https://www.tn.gov/tdot/about/transportation-system-overview.html",
+      "https://www.tn.gov/tema/prepare/tennessee-threats.html"
+    ]
+  },
+  "result": "The wave-4 Texas-vs IMPROVE backlog falls from 37 to 34 unresolved state pages. Georgia, North Carolina and Tennessee graduate to KEEP only while their server-side evidence remains within the qualification freshness window; the other 34 remain excluded from sitemap priority until independently remediated."
+}

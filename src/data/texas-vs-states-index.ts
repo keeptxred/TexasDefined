@@ -9,8 +9,32 @@ export const TEXAS_VS_STATES = TEXAS_VS_STATE_GROUPS.flatMap((group) => group.st
 export const texasVsStateSlug = (value: string) => value.toLowerCase().replaceAll(" ", "-");
 export const texasVsStateName = (slug: string) => TEXAS_VS_STATES.find((state) => texasVsStateSlug(state) === slug) ?? null;
 
+export type TexasVsStateSource = {
+  label: string;
+  organization: string;
+  url: string;
+  checkedAt: string;
+};
+
+export type TexasVsStateFaq = {
+  q: string;
+  a: string;
+};
+
+export type TexasVsStateEvidence = {
+  taxLens: string;
+  housingLens: string;
+  jobsLens: string;
+  transportationLens: string;
+  hazardLens: string;
+  faq: TexasVsStateFaq[];
+  sources: TexasVsStateSource[];
+  lastVerifiedAt: string;
+};
+
 export type TexasVsStateProfile = {
   comparisonFocus: string;
   placeLens: string;
   climateLens: string;
+  evidence?: TexasVsStateEvidence;
 };
