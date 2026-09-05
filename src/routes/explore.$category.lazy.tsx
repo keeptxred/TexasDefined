@@ -1,6 +1,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
+import { ExpediaStaySearch } from "@/components/affiliate/ExpediaStaySearch";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { TopAttractionCollectionLinks } from "@/components/editorial/TopAttractionCollectionLinks";
 import { ExploreDestinationComparison, type ExploreComparisonKind } from "@/components/explore/ExploreDestinationComparison";
@@ -35,5 +36,6 @@ function ExploreCategoryPage() {
     {showPaintedChurches ? <Container className="pb-10 sm:pb-14"><section className="grid gap-6 border-y border-border py-7 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"><div><p className="eyebrow text-primary">Texas heritage route</p><h2 className="mt-2 font-display text-3xl">Painted Churches of Texas</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Explore the verified statewide church collection with church-by-church history, architecture, interior paintings, preservation context, visitor guidance and Schulenburg driving routes.</p></div><Link to="/explore/painted-churches" className="eyebrow inline-block border-b border-primary pb-1 text-primary">Explore the painted churches →</Link></section></Container> : null}
     <TopAttractionCollectionLinks destinations={destinations} contextLabel={match.name} />
     {comparisonKind ? <ExploreDestinationComparison destinations={destinations} kind={comparisonKind} /> : null}
+    <Container><ExpediaStaySearch /></Container>
   </>;
 }
