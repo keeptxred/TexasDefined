@@ -33,6 +33,10 @@ const categorySeoOverrides: Partial<Record<string, { title: string; description:
     title: "Texas Small Towns: Downtown Squares, Local Shopping & Road Trips",
     description: "Explore Texas small towns through courthouse squares, Main Street districts, local shopping, antiques, markets, food, festivals and practical road-trip planning.",
   },
+  "rv-parks": {
+    title: "Texas RV Parks & Campgrounds: 250 Places by Region & County",
+    description: "Browse 250 Texas RV parks, campgrounds and public RV camping areas by region, town and county, with individual profiles staged for source verification before search indexing.",
+  },
 };
 
 function validCoordinates(destination: Destination) {
@@ -41,15 +45,17 @@ function validCoordinates(destination: Destination) {
 }
 
 function destinationSchema(destination: Destination) {
+  const isRvPark = destination.category === "rv-parks";
   return {
-    "@type": "TouristAttraction",
+    "@type": isRvPark ? "Campground" : "TouristAttraction",
     name: destination.name,
     description: destination.summary,
     url: `${siteUrl}/destination/${destination.slug}`,
-    image: absoluteUrl(texasDefinedBrand, destination.hero.src),
+    image: isRvPark ? undefined : absoluteUrl(texasDefinedBrand, destination.hero.src),
     sameAs: destination.officialUrl || undefined,
     dateModified: destination.sourceCheckedAt || undefined,
     provider: destination.managingAuthority ? { "@type": "Organization", name: destination.managingAuthority } : undefined,
+    address: isRvPark ? { "@type": "PostalAddress", addressLocality: destination.nearestTown, addressRegion: "TX", addressCountry: "US", ...(destination.address ? { streetAddress: destination.address } : {}) } : undefined,
     containedInPlace: destination.county ? { "@type": "AdministrativeArea", name: `${destination.county} County` } : destination.nearestTown ? { "@type": "City", name: destination.nearestTown } : undefined,
     geo: validCoordinates(destination) ? { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } : undefined,
   };
