@@ -9,7 +9,8 @@ import type { Destination } from "./types";
  * in Wave 2 and were removed as dead duplicates. The preserved catalog already
  * imports this Wave 9 export, so it now forwards the verified final current-name
  * gap set from Wave 10 without requiring another edit to the highly concurrent
- * central destination catalog.
+ * central destination catalog. Revalidated against current protected main on
+ * 2026-09-05.
  */
 export const wildlifeManagementAreaWave9Destinations: Destination[] = [
   ...wildlifeManagementAreaWave10Destinations,
