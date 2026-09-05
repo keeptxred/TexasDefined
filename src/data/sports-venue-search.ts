@@ -1,6 +1,6 @@
 import { MAJOR_TEXAS_SPORTS_VENUES } from './knowledge-graph/major-sports-venues';
 import { applyCurrentEntityCorrections } from './knowledge-graph/current-entity-corrections';
-import { TEXAS_GOLF_COURSE_STARTER_ENTITIES, golfCourseStarterRecord } from './knowledge-graph/golf-course-starter';
+import { TEXAS_GOLF_COURSE_STARTER_RECORDS } from './knowledge-graph/golf-course-starter';
 import { TEXAS_SPORTS_VENUE_TIER2_ENTITIES } from './knowledge-graph/sports-venues-tier2';
 import { SPORTS_VENUE_LANDINGS } from './sports-venue-landings';
 import type { SearchDocument } from './types';
@@ -17,36 +17,57 @@ const reliantDocument: SearchDocument = {
 
 export function buildSportsVenueSearchDocuments(): SearchDocument[] {
   const venueMap = new Map(
-    [...MAJOR_TEXAS_SPORTS_VENUES, ...TEXAS_SPORTS_VENUE_TIER2_ENTITIES, ...TEXAS_GOLF_COURSE_STARTER_ENTITIES]
+    [...MAJOR_TEXAS_SPORTS_VENUES, ...TEXAS_SPORTS_VENUE_TIER2_ENTITIES]
       .map(applyCurrentEntityCorrections)
       .map((venue) => [venue.slug, venue] as const),
   );
 
-  const venueDocuments: SearchDocument[] = [...venueMap.values()].map((venue) => {
-    const starterGolf = golfCourseStarterRecord(venue.slug);
-    return {
-      id: venue.id,
-      brandId: 'texasdefined',
-      kind: 'sports-venue',
-      title: venue.name,
-      summary: venue.description ?? `${venue.name} Texas sports venue guide.`,
-      keywords: [...new Set([
-        venue.name,
-        ...venue.aliases,
-        starterGolf?.city,
-        starterGolf?.market,
-        venue.countySlug,
-        venue.region,
-        ...(venue.tags ?? []),
-        starterGolf ? 'Texas golf course' : 'Texas sports venue',
-        starterGolf ? 'Texas golf' : 'sports travel',
-        starterGolf ? 'golf course directory' : 'game day',
-      ].filter((value): value is string => Boolean(value)))],
-      href: `/sports-venue/${venue.slug}`,
-    };
-  });
+  const venueDocuments: SearchDocument[] = [...venueMap.values()].map((venue) => ({
+    id: venue.id,
+    brandId: 'texasdefined',
+    kind: 'sports-venue',
+    title: venue.name,
+    summary: venue.description ?? `${venue.name} Texas sports venue guide.`,
+    keywords: [...new Set([
+      venue.name,
+      ...venue.aliases,
+      venue.countySlug,
+      venue.region,
+      ...(venue.tags ?? []),
+      venue.tags?.includes('golf') ? 'Texas golf course' : 'Texas sports venue',
+      venue.tags?.includes('golf') ? 'Texas golf' : 'sports travel',
+      venue.tags?.includes('golf') ? 'golf course directory' : 'game day',
+    ].filter((value): value is string => Boolean(value)))],
+    href: `/sports-venue/${venue.slug}`,
+  }));
 
   if (!venueMap.has('reliant-stadium')) venueDocuments.push(reliantDocument);
+
+  // Keep starter search discovery lightweight. The full starter knowledge-graph
+  // entities carry descriptions, relationships and source metadata needed by
+  // entity/county routes; duplicating those objects in the client search bundle
+  // adds no search value. Existing canonical golf entities are already covered
+  // by venueDocuments above, so only new starter rows are generated here.
+  const starterGolfDocuments: SearchDocument[] = TEXAS_GOLF_COURSE_STARTER_RECORDS
+    .filter((course) => !course.existingEntity)
+    .map((course) => ({
+      id: `sports-venue:${course.slug}`,
+      brandId: 'texasdefined',
+      kind: 'sports-venue',
+      title: course.name,
+      summary: `${course.name} in ${course.city} is included in TexasDefined's statewide Texas golf course directory for ${course.market}.`,
+      keywords: [
+        course.name,
+        course.city,
+        course.countySlug,
+        course.region,
+        course.market,
+        'Texas golf course',
+        'Texas golf',
+        'golf course directory',
+      ],
+      href: course.href,
+    }));
 
   const landingDocuments: SearchDocument[] = SPORTS_VENUE_LANDINGS.map((landing) => ({
     id: `sports-collection:${landing.slug}`,
@@ -100,5 +121,5 @@ export function buildSportsVenueSearchDocuments(): SearchDocument[] {
     },
   ];
 
-  return [...hubDocuments, ...landingDocuments, ...venueDocuments];
+  return [...hubDocuments, ...landingDocuments, ...venueDocuments, ...starterGolfDocuments];
 }
