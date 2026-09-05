@@ -1,6 +1,6 @@
 export type RawTournament = readonly [name:string, locationLabel:string, summary:string, countySlug?:string];
 export const TOURNAMENT_RAW_5: readonly RawTournament[] = [
-  ["UIL Swimming & Diving State Championships", "Austin", "Elite high school aquatics tournament at the Jamail Texas Swimming Center.", "travis"],
+  ["UIL Swimming & Diving State Championships", "San Antonio / College Station", "The 2027 state championships are split by classification between Josh Davis Natatorium in San Antonio and Texas A&M Natatorium in College Station."],
   ["Texas Senior Circuit Championships (Swimming)", "Varies", "Top tier USA Swimming club tournament."],
   ["American Swimming Coaches Association (ASCA) Texas Invite", "Varies", "Elite winter short-course tournament."],
   ["Texas Age Group Swimming Championships (TAGS)", "Varies", "The premier competitive tournament for Texas youth swimmers under 14."],
