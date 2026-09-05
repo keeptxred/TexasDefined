@@ -43,7 +43,7 @@ jobs:
       TD_IMAGE_ATTRIBUTION: Brought to you by your friends at TexasDefined.com
     steps:
       - name: Check out TexasDefined
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Resolve Central-time slot
         id: slot
@@ -294,7 +294,7 @@ jobs:
       - name: Store generated Facebook image
         id: store
         if: steps.slot.outputs.should_run == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: texasdefined-facebook-${{ steps.slot.outputs.date_key }}-${{ steps.slot.outputs.slot }}-${{ steps.candidate.outputs.source_post_id }}
           path: |
@@ -311,7 +311,7 @@ jobs:
 
       - name: Reload exact stored Facebook artifact
         if: steps.slot.outputs.should_run == 'true'
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: texasdefined-facebook-${{ steps.slot.outputs.date_key }}-${{ steps.slot.outputs.slot }}-${{ steps.candidate.outputs.source_post_id }}
           path: /tmp/tdfb-stored
