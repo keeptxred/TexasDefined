@@ -6,6 +6,14 @@ import { loadTexasVsStateProfile } from "@/data/texas-vs-state-profile";
 import { TEXAS_VS_STATE_GROUPS, texasVsStateName, texasVsStateSlug } from "@/data/texas-vs-states-index";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
+function genericFaq(name: string) {
+  return [
+    { q: `Is Texas cheaper than ${name}?`, a: `There is no reliable statewide yes-or-no answer for every household. Compare the actual Texas city or county with the actual ${name} community, including housing, insurance, utilities, transportation and taxes.` },
+    { q: `What should I compare before moving from ${name} to Texas?`, a: `Compare occupation-specific pay, housing, total taxes, insurance, utilities, commute, weather risks, schools or services you use, and the specific metro or county rather than statewide averages alone.` },
+    { q: "Does Texas have an individual state income tax?", a: "Texas does not impose an individual state income tax, but that fact alone does not determine total household cost. Sales taxes, property taxes, insurance, housing and local costs still matter." },
+  ];
+}
+
 export const Route = createFileRoute("/texas-vs/$state")({
   loader: async ({ params }) => {
     const name = texasVsStateName(params.state);
@@ -20,18 +28,14 @@ export const Route = createFileRoute("/texas-vs/$state")({
     const title = `Texas vs ${loaderData.name}: Cost, Taxes, Jobs, Climate & Living`;
     const description = `Compare Texas with ${loaderData.name} across taxes, housing, jobs, cost of living, climate, transportation and everyday life, with state-specific context and links to current official data.`;
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
-    const faq = [
-      { q: `Is Texas cheaper than ${loaderData.name}?`, a: `There is no reliable statewide yes-or-no answer for every household. Compare the actual Texas city or county with the actual ${loaderData.name} community, including housing, insurance, utilities, transportation and taxes.` },
-      { q: `What should I compare before moving from ${loaderData.name} to Texas?`, a: `Compare occupation-specific pay, housing, total taxes, insurance, utilities, commute, weather risks, schools or services you use, and the specific metro or county rather than statewide averages alone.` },
-      { q: `Does Texas have an individual state income tax?`, a: `Texas does not impose an individual state income tax, but that fact alone does not determine total household cost. Sales taxes, property taxes, insurance, housing and local costs still matter.` },
-    ];
+    const faq = loaderData.profile.evidence?.faq ?? genericFaq(loaderData.name);
     return {
       meta: buildMeta(texasDefinedBrand, { canonicalPath, title, description }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
         "@context": "https://schema.org",
         "@graph": [
-          { "@type": "WebPage", "@id": `${pageUrl}#page`, url: pageUrl, name: title, description, dateModified: "2026-08-20", isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` }, about: [{ "@type": "Place", name: "Texas" }, { "@type": "Place", name: loaderData.name }] },
+          { "@type": "WebPage", "@id": `${pageUrl}#page`, url: pageUrl, name: title, description, dateModified: loaderData.profile.evidence?.lastVerifiedAt ?? "2026-08-20", isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` }, about: [{ "@type": "Place", name: "Texas" }, { "@type": "Place", name: loaderData.name }] },
           { "@type": "BreadcrumbList", itemListElement: [
             { "@type": "ListItem", position: 1, name: "Texas Defined", item: absoluteUrl(texasDefinedBrand, "/") },
             { "@type": "ListItem", position: 2, name: "Texas vs Every State", item: absoluteUrl(texasDefinedBrand, "/texas-vs-every-state") },
@@ -47,6 +51,7 @@ export const Route = createFileRoute("/texas-vs/$state")({
 
 function TexasVsStatePage() {
   const { name, profile } = Route.useLoaderData();
+  const evidence = profile.evidence;
   const relatedGroup = TEXAS_VS_STATE_GROUPS.find((group) => group.states.some((state) => state === name));
   const relatedStates = relatedGroup?.states.filter((state) => state !== name).slice(0, 6) ?? [];
   const sections = [
@@ -60,15 +65,15 @@ function TexasVsStatePage() {
     },
     {
       heading: "Taxes",
-      body: `Texas has no individual state income tax, but that single fact does not determine whether a household pays less overall than it would in ${name}. Compare income taxes, sales taxes, property taxes and the taxes that apply to your actual household and location.`,
+      body: evidence?.taxLens ?? `Texas has no individual state income tax, but that single fact does not determine whether a household pays less overall than it would in ${name}. Compare income taxes, sales taxes, property taxes and the taxes that apply to your actual household and location.`,
     },
     {
       heading: "Housing and cost of living",
-      body: `Statewide averages can hide large local differences. Compare the Texas city or county you would actually choose with the ${name} community you would actually choose, including home prices or rent, insurance, utilities, property taxes and transportation costs.`,
+      body: evidence?.housingLens ?? `Statewide averages can hide large local differences. Compare the Texas city or county you would actually choose with the ${name} community you would actually choose, including home prices or rent, insurance, utilities, property taxes and transportation costs.`,
     },
     {
       heading: "Jobs and pay",
-      body: `A useful Texas-versus-${name} job comparison looks at occupation-specific wages, unemployment, major industries and openings in the metro areas that match your career. State averages are a starting point, not the whole decision.`,
+      body: evidence?.jobsLens ?? `A useful Texas-versus-${name} job comparison looks at occupation-specific wages, unemployment, major industries and openings in the metro areas that match your career. State averages are a starting point, not the whole decision.`,
     },
     {
       heading: "Climate and geography",
@@ -76,7 +81,11 @@ function TexasVsStatePage() {
     },
     {
       heading: "Transportation and daily life",
-      body: `Driving distances, transit, airport access and commute patterns can materially change daily costs. Texas is large, so Dallas–Fort Worth, Houston, Austin, San Antonio, El Paso and rural Texas can produce very different living experiences when compared with ${name}.`,
+      body: evidence?.transportationLens ?? `Driving distances, transit, airport access and commute patterns can materially change daily costs. Texas is large, so Dallas–Fort Worth, Houston, Austin, San Antonio, El Paso and rural Texas can produce very different living experiences when compared with ${name}.`,
+    },
+    {
+      heading: "Weather risk and insurance",
+      body: evidence?.hazardLens ?? `Insurance cost and coverage depend heavily on the exact property and hazard exposure. Compare flood, wind or hail exposure, deductibles and current quotes for the Texas address and the ${name} address rather than treating a statewide premium average as the answer.`,
     },
     {
       heading: "Culture and fit",
@@ -84,11 +93,7 @@ function TexasVsStatePage() {
     },
   ] as const;
 
-  const faq = [
-    { q: `Is Texas cheaper than ${name}?`, a: `There is no reliable statewide yes-or-no answer for every household. Compare the actual Texas city or county with the actual ${name} community, including housing, insurance, utilities, transportation and taxes.` },
-    { q: `What should I compare before moving from ${name} to Texas?`, a: `Compare occupation-specific pay, housing, total taxes, insurance, utilities, commute, weather risks, schools or services you use, and the specific metro or county rather than statewide averages alone.` },
-    { q: "Does Texas have an individual state income tax?", a: "Texas does not impose an individual state income tax, but that fact alone does not determine total household cost. Sales taxes, property taxes, insurance, housing and local costs still matter." },
-  ];
+  const faq = evidence?.faq ?? genericFaq(name);
 
   return <main>
     <section className="border-b border-border bg-muted/30 py-14 md:py-20">
@@ -96,6 +101,7 @@ function TexasVsStatePage() {
         <p className="eyebrow text-primary">Texas compared</p>
         <h1 className="mt-3 max-w-5xl font-display text-5xl leading-none md:text-7xl">Texas vs {name}</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A practical side-by-side framework for comparing Texas with {name}, with state-specific context for the places, climate and tradeoffs that make this comparison different from the other 48.</p>
+        {evidence && <p className="mt-4 text-sm font-medium text-muted-foreground">Official-source evidence last verified {evidence.lastVerifiedAt}.</p>}
       </Container>
     </section>
 
@@ -110,9 +116,16 @@ function TexasVsStatePage() {
           <section className="py-8">
             <h2 className="font-display text-3xl md:text-4xl">Check current numbers before deciding</h2>
             <p className="mt-4 leading-8 text-muted-foreground">Housing costs, wages, unemployment and tax rules change. Use current public data for the numbers, then use Texas Defined's city, county and calculator tools to translate statewide averages into the place you would actually live.</p>
-            <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+            {evidence ? <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              {evidence.sources.map((source) => <a key={`${source.organization}:${source.label}`} href={source.url} target="_blank" rel="noreferrer" className="border border-border p-4 hover:border-primary">
+                <span className="block text-xs font-semibold uppercase tracking-wide text-muted-foreground">{source.organization}</span>
+                <span className="mt-1 block font-semibold text-primary">{source.label} ↗</span>
+              </a>)}
+            </div> : <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
               <a href="https://www.census.gov/quickfacts/" target="_blank" rel="noreferrer" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">U.S. Census QuickFacts ↗</a>
               <a href="https://www.bls.gov/" target="_blank" rel="noreferrer" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">U.S. Bureau of Labor Statistics ↗</a>
+            </div>}
+            <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
               <Link to="/texas-cost-of-living-calculator" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Texas cost-of-living calculator</Link>
               <Link to="/texas-salary-comparison-by-city" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Texas salary comparison</Link>
               <Link to="/texas-home-affordability-calculator" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Texas home affordability</Link>
