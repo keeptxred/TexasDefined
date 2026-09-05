@@ -168,7 +168,8 @@ export const searchDocumentsQuery = () => queryOptions({
       knownHrefs.add(document.href);
     }
     const { buildRvParkSearchDocuments } = await import("./rv-parks");
-    for (const document of buildRvParkSearchDocuments()) {
+    const rvParkDocuments = await buildRvParkSearchDocuments();
+    for (const document of rvParkDocuments) {
       if (knownHrefs.has(document.href)) continue;
       base.push(document);
       knownHrefs.add(document.href);
