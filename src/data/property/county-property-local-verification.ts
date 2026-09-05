@@ -17,10 +17,6 @@ export type CountyPropertyLocalVerification = {
  * snapshot so the scheduled statewide sync can never overwrite or manufacture
  * a local verification. Each entry must retain at least two distinct current
  * local government/property-tax sources and is protected by CI freshness checks.
- *
- * Keep overlays sparse: values already present in the generated county record
- * should not be duplicated here. Only locally re-verified corrections, added
- * taxpayer resources, freshness, and source evidence belong in this layer.
  */
 export const COUNTY_PROPERTY_LOCAL_VERIFICATION: Record<string, CountyPropertyLocalVerification> = {
   polk: {
@@ -107,22 +103,6 @@ export const COUNTY_PROPERTY_LOCAL_VERIFICATION: Record<string, CountyPropertyLo
       'https://comptroller.texas.gov/taxes/property-tax/county-directory/haskell.php',
       'https://www.haskellcad.com',
       'https://www.haskellcountytx.gov/page/haskell.County.Assessor.Collector',
-    ],
-  },
-  leon: {
-    appraisalDistrict: {},
-    taxOffice: {},
-    links: {
-      appraisalDistrictUrl: 'https://www.leoncad.org/',
-      taxOfficeUrl: 'https://www.co.leon.tx.us/page/leon.County.Assessor.Collector',
-      propertySearchUrl: 'https://www.leoncad.org/',
-      paymentUrl: 'https://www.leoncountytax.org/Home/ThirdPartyVendor',
-    },
-    lastVerifiedAt: '2026-09-05',
-    sourceUrls: [
-      'https://www.leoncad.org/',
-      'https://www.co.leon.tx.us/page/leon.County.Assessor.Collector',
-      'https://www.leoncountytax.org/',
     ],
   },
   travis: {
