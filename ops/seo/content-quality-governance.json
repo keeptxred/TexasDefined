@@ -81,6 +81,16 @@
         "isCountyPropertyIndexReady",
         "noindex, follow"
       ]
+    },
+    {
+      "family": "Texas-vs-state canonical consolidation",
+      "file": "src/routes/texas-vs.$state.tsx",
+      "requiredMarkers": [
+        "editorialStateComparisonRedirects",
+        "/article/texas-vs-california-differences",
+        "/article/texas-vs-florida-differences",
+        "statusCode: 301"
+      ]
     }
   ],
   "gscRemediation": {
