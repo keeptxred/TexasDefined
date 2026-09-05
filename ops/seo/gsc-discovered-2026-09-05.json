@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "system": "Google Search Console",
+    "report": "Discovered - currently not indexed",
+    "snapshotDate": "2026-09-05",
+    "firstDetected": "2026-08-10",
+    "affectedUrlCount": 452,
+    "lastCrawledPattern": "N/A"
+  },
+  "interpretation": "Discovery status alone does not prove content weakness. This snapshot starts the remediation program by route family; every weak page must be improved, intentionally noindexed, or consolidated rather than silently ignored.",
+  "initialTriageSummary": {
+    "KEEP": 309,
+    "IMPROVE": 142,
+    "NOINDEX": 0,
+    "REMOVE_CONSOLIDATE": 1
+  },
+  "routeFamilyCounts": {
+    "articles": 68,
+    "authors": 4,
+    "counties": 48,
+    "destinations": 59,
+    "events": 7,
+    "explorePaintedChurches": 92,
+    "exploreLandscapes": 19,
+    "exploreRegions": 7,
+    "otherExplore": 12,
+    "fishing": 22,
+    "learn": 3,
+    "propertyTax": 2,
+    "sportsVenueProfiles": 17,
+    "sportsVenueCollections": 4,
+    "texasData": 2,
+    "texasVs": 39,
+    "thingsUniqueToTexas": 1,
+    "otherTopLevel": 46
+  },
+  "initialRules": [
+    {
+      "family": "articles",
+      "count": 67,
+      "action": "KEEP",
+      "priority": "HIGH",
+      "reason": "Evergreen article routes are already protected by the repository article-readiness gate; the immediate issue is crawl demand, not automatic thin-content removal.",
+      "remediation": "Keep indexable, reinforce relevant hub/county/destination links, and refresh sources/content when freshness checks show drift."
+    },
+    {
+      "family": "counties",
+      "count": 48,
+      "action": "KEEP",
+      "priority": "HIGH",
+      "reason": "County pages are cornerstone TexasDefined geography pages.",
+      "remediation": "Verify county-specific data completeness and strengthen discovery from statewide county, destination, event, golf, RV, wedding and food layers."
+    },
+    {
+      "family": "destinations",
+      "count": 59,
+      "action": "KEEP",
+      "priority": "HIGH",
+      "reason": "Destination pages are core Explore entities with an existing destination readiness audit.",
+      "remediation": "Keep indexable only when the destination audit passes; reinforce internal links, official-source freshness, imagery and county/nearby relationships."
+    },
+    {
+      "family": "authors",
+      "count": 4,
+      "action": "IMPROVE",
+      "priority": "MEDIUM",
+      "reason": "Author pages support trust and E-E-A-T but need substantive bios and genuine article relationships to deserve independent indexation.",
+      "remediation": "Verify profile depth, expertise, byline archive, photo/organization data and internal links; use noindex until the author page earns standalone search value if necessary."
+    },
+    {
+      "family": "events",
+      "count": 7,
+      "action": "IMPROVE",
+      "priority": "HIGH",
+      "reason": "Event pages have legitimate search intent but depend on current official dates, venue and status.",
+      "remediation": "Refresh from official sources, confirm future occurrence/date confidence, enrich location/FAQ/related-place links and retain indexability only while current."
+    },
+    {
+      "family": "texasVs",
+      "count": 39,
+      "action": "IMPROVE",
+      "priority": "MEDIUM",
+      "reason": "State-comparison pages are useful but programmatic families can become repetitive or thin.",
+      "remediation": "Add state-specific data, unique narrative comparisons, sources, decision-useful tables, FAQs and reciprocal links; consolidate pages without distinct search intent."
+    },
+    {
+      "family": "generatedPropertyTaxCounty",
+      "count": 2,
+      "action": "IMPROVE",
+      "priority": "HIGH",
+      "reason": "County-specific property-tax pages are high-value but generated pages must contain county-specific substance.",
+      "remediation": "Verify current tax/appraisal data, county-specific explanation, source freshness, calculator/context links and unique FAQs before full index promotion."
+    },
+    {
+      "family": "sportsVenueProfiles",
+      "count": 17,
+      "action": "IMPROVE",
+      "priority": "MEDIUM",
+      "reason": "Individual venue pages should rank independently only when they provide meaningful venue-specific planning information.",
+      "remediation": "Add verified official source, location, teams/events, parking/access, nearby travel context, images and county/city relationships; noindex until the entity gate passes if needed."
+    },
+    {
+      "family": "fishingLakeSubpages",
+      "count": 7,
+      "action": "IMPROVE",
+      "priority": "MEDIUM",
+      "reason": "Access, boating, guide and nearby lake subpages can become thin fragments of the parent lake guide.",
+      "remediation": "Add lake-specific details, official TPWD/agency sources, maps/relationships and enough unique content; otherwise consolidate into the parent lake page."
+    },
+    {
+      "family": "paintedChurchesNestedAuthority",
+      "count": 66,
+      "action": "IMPROVE",
+      "priority": "MEDIUM",
+      "reason": "Nested people, symbols, techniques, routes, heritage, preservation and guide pages need genuine standalone historical, architectural or planning value.",
+      "remediation": "Verify unique sourced narrative, image rights, entity relationships, reciprocal hub links and standalone intent; consolidate thin support nodes into the appropriate hub."
+    },
+    {
+      "family": "otherQualityGatedOrAuthorityPages",
+      "count": 135,
+      "action": "KEEP",
+      "priority": "MEDIUM",
+      "reason": "These pages belong to established topical, Explore, data, fishing, collection or top-level authority systems.",
+      "remediation": "Keep indexable when their existing route/template gates pass; strengthen crawl demand, freshness and internal discovery rather than noindexing by default."
+    }
+  ],
+  "explicitReviewedOverrides": [
+    {
+      "path": "/article/live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp",
+      "action": "REMOVE_CONSOLIDATE",
+      "priority": "HIGH",
+      "reason": "Time-stamped live/news-style slug does not belong in the evergreen article namespace.",
+      "remediation": "Confirm the surviving canonical article/news URL and 301 to it; if no replacement exists, remove cleanly after internal-link cleanup."
+    }
+  ],
+  "nextPhase": {
+    "scope": "sitewide",
+    "rule": "Repeat the same KEEP / IMPROVE / NOINDEX / REMOVE_CONSOLIDATE review across all public route registries and dynamic URL families, then keep the process recurring every 30 days.",
+    "doNotDo": "Do not bulk noindex or delete pages merely because GSC has not crawled them."
+  }
+}
