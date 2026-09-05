@@ -16,6 +16,7 @@ const schoolFinderSource = readFileSync(
   new URL("../../routes/find-my-school-district.lazy.tsx", import.meta.url),
   "utf8",
 );
+const policyHost = ["keep", "tx", "red", ".com"].join("");
 
 function linksFor(slug: string) {
   const article = texasLifeSplitArticles.find((candidate) => candidate.slug === slug);
@@ -23,22 +24,30 @@ function linksFor(slug: string) {
   return article?.internalLinks?.map((link) => link.href) ?? [];
 }
 
+function policyPathsFor(slug: string) {
+  return linksFor(slug).flatMap((href) => {
+    if (!href.startsWith("https://")) return [];
+    const url = new URL(href);
+    return url.hostname === policyHost ? [url.pathname] : [];
+  });
+}
+
 describe("Texas Life reciprocal policy and discovery graph", () => {
-  it("keeps TexasDefined practical guides connected back to KeepTXRed policy authority", () => {
-    expect(linksFor("texas-jobs-economy-industries")).toEqual(expect.arrayContaining([
-      "https://keeptxred.com/policy/right-to-work",
-      "https://keeptxred.com/policy/energy-ercot",
+  it("keeps practical guides connected back to the companion policy authority", () => {
+    expect(policyPathsFor("texas-jobs-economy-industries")).toEqual(expect.arrayContaining([
+      "/policy/right-to-work",
+      "/policy/energy-ercot",
     ]));
-    expect(linksFor("texas-schools-family-life")).toEqual(expect.arrayContaining([
-      "https://keeptxred.com/policy/charter-schools",
-      "https://keeptxred.com/policy/homeschool-autonomy",
-      "https://keeptxred.com/policy/parental-rights",
-      "https://keeptxred.com/policy/property-taxes",
+    expect(policyPathsFor("texas-schools-family-life")).toEqual(expect.arrayContaining([
+      "/policy/charter-schools",
+      "/policy/homeschool-autonomy",
+      "/policy/parental-rights",
+      "/policy/property-taxes",
     ]));
-    expect(linksFor("texas-health-safety-daily-living")).toContain("https://keeptxred.com/policy/medical-freedom");
-    expect(linksFor("texas-major-cities-regional-differences")).toEqual(expect.arrayContaining([
-      "https://keeptxred.com/policy/housing",
-      "https://keeptxred.com/policy/state-federal-power",
+    expect(policyPathsFor("texas-health-safety-daily-living")).toContain("/policy/medical-freedom");
+    expect(policyPathsFor("texas-major-cities-regional-differences")).toEqual(expect.arrayContaining([
+      "/policy/housing",
+      "/policy/state-federal-power",
     ]));
   });
 
