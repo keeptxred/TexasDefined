@@ -4,6 +4,8 @@ const POLICY_PATH = 'ops/seo/content-quality-governance.json';
 const GSC_PATH = 'ops/seo/gsc-discovered-2026-09-05.json';
 const GSC_URL_INVENTORY_PATH = 'ops/seo/gsc-discovered-2026-09-05-urls.tsv';
 const PUBLIC_ROUTES_PATH = 'src/lib/public-routes.ts';
+const TEXAS_VS_WAVE_PATH = 'ops/seo/gsc-remediation-wave4-2026-09-05.json';
+const TEXAS_VS_READINESS_PATH = 'src/data/texas-vs-state-index-readiness.server.ts';
 
 const failures = [];
 const fail = (message) => failures.push(message);
@@ -97,6 +99,7 @@ if (!failures.length) {
     'ops/seo/gsc-remediation-wave1-2026-09-05.json',
     'ops/seo/gsc-remediation-wave2-2026-09-05.json',
     'ops/seo/gsc-remediation-wave3-2026-09-05.json',
+    TEXAS_VS_WAVE_PATH,
   ];
   const reviewWaves = policy?.gscRemediation?.reviewWaves ?? [];
   for (const path of expectedReviewWaves) {
@@ -137,6 +140,56 @@ if (!failures.length) {
     for (const action of allowedActions) {
       if (waveCounts[action] !== Number(wave?.summary?.[action] ?? 0)) {
         fail(`GSC remediation wave ${wavePath} ${action} count ${waveCounts[action]} does not match summary ${Number(wave?.summary?.[action] ?? 0)}.`);
+      }
+    }
+  }
+
+  if (!fs.existsSync(TEXAS_VS_WAVE_PATH)) {
+    fail(`Texas-vs remediation wave is missing: ${TEXAS_VS_WAVE_PATH}`);
+  }
+  if (!fs.existsSync(TEXAS_VS_READINESS_PATH)) {
+    fail(`Texas-vs sitemap readiness gate is missing: ${TEXAS_VS_READINESS_PATH}`);
+  }
+  if (fs.existsSync(TEXAS_VS_WAVE_PATH) && fs.existsSync(TEXAS_VS_READINESS_PATH)) {
+    const texasVsWave = readJson(TEXAS_VS_WAVE_PATH);
+    const improveItems = (texasVsWave.reviewed ?? []).filter((item) => item.action === 'IMPROVE');
+    if (improveItems.length !== 37 || Number(texasVsWave?.summary?.IMPROVE ?? 0) !== 37) {
+      fail(`Texas-vs wave must preserve exactly 37 reviewed IMPROVE state pages; found ${improveItems.length}.`);
+    }
+    if ((texasVsWave.reviewed ?? []).some((item) => item.action !== 'IMPROVE')) {
+      fail('Texas-vs wave 4 may not promote or remove a state page until the state-specific qualification requirements are actually satisfied.');
+    }
+
+    const readinessSource = read(TEXAS_VS_READINESS_PATH);
+    const start = readinessSource.indexOf('const GSC_IMPROVE_STATE_SLUGS = [');
+    const end = readinessSource.indexOf('] as const;', start);
+    if (start < 0 || end < 0) {
+      fail('Texas-vs readiness gate lost its explicit GSC IMPROVE state-slug registry.');
+    } else {
+      const readinessBlock = readinessSource.slice(start, end);
+      const readinessSlugs = [...readinessBlock.matchAll(/"([^"]+)"/g)].map((match) => match[1]);
+      if (readinessSlugs.length !== 37 || new Set(readinessSlugs).size !== 37) {
+        fail(`Texas-vs sitemap readiness registry must contain exactly 37 unique GSC IMPROVE state slugs; found ${readinessSlugs.length}.`);
+      }
+      for (const item of improveItems) {
+        const prefix = '/texas-vs/';
+        if (!item.path.startsWith(prefix)) {
+          fail(`Texas-vs wave contains a non-state path: ${item.path}`);
+          continue;
+        }
+        const slug = item.path.slice(prefix.length);
+        if (!readinessSlugs.includes(slug)) {
+          fail(`Texas-vs IMPROVE page is not excluded from sitemap priority: ${item.path}`);
+        }
+      }
+      for (const slug of readinessSlugs) {
+        const path = `/texas-vs/${slug}`;
+        if (!improveItems.some((item) => item.path === path)) {
+          fail(`Texas-vs sitemap readiness registry contains an unreviewed GSC IMPROVE slug: ${slug}`);
+        }
+      }
+      if (readinessSlugs.includes('california') || readinessSlugs.includes('florida')) {
+        fail('California and Florida are redirect-only consolidations and must remain separate from the 37-state IMPROVE registry.');
       }
     }
   }
@@ -216,4 +269,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Permanent SEO/content quality governance passed: the exact 452-URL GSC backlog is tracked per URL, remediation review waves are validated against that original inventory with no duplicate reviews, KEEP/IMPROVE/NOINDEX/REMOVE_CONSOLIDATE are permanent outcomes, worthwhile thin topics default to IMPROVE, new generated/entity URLs stay noindex until qualified, public route buckets remain disjoint, and dynamic article/destination/entity/county/canonical quality gates remain protected.');
+console.log('Permanent SEO/content quality governance passed: the exact 452-URL GSC backlog is tracked per URL, remediation review waves are validated against that original inventory with no duplicate reviews, the 37 reviewed Texas-vs IMPROVE states are excluded from sitemap priority until state-specific qualification, redirect-only comparisons stay separate, KEEP/IMPROVE/NOINDEX/REMOVE_CONSOLIDATE remain permanent outcomes, worthwhile thin topics default to IMPROVE, new generated/entity URLs stay noindex until qualified, public route buckets remain disjoint, and dynamic article/destination/entity/county/canonical quality gates remain protected.');
