@@ -17,8 +17,9 @@ function museumPlaceholder(name: string): ImageRef {
  * generic Palo Pinto County museum wording to the active Old Jail Museum
  * Complex and add current Texas Forestry Museum, Sam Rayburn Museum,
  * Fannin County Museum of History, Fort Inglish Village, Round Top Area
- * Historical Society Wood Campus Museum, Museum of Hardin County and
- * Schulenburg Historical Museum records.
+ * Historical Society Wood Campus Museum, Museum of Hardin County,
+ * Schulenburg Historical Museum and Somervell County Historical Society
+ * Museum records.
  */
 export const statewideMuseumExpansionWave54Destinations: Destination[] = [
   {
@@ -271,6 +272,36 @@ export const statewideMuseumExpansionWave54Destinations: Destination[] = [
     officialUrl: "https://schulenburghistoricalmuseum.com/",
     managingAuthority: "Schulenburg Historical Museum",
     address: "631 N Main St, Schulenburg, TX 78956",
+    sourceCheckedAt: "2026-09-05",
+  },
+  {
+    id: "museum-statewide-wave61-somervell-county-historical-society",
+    brandId: "texasdefined",
+    slug: "somervell-county-historical-society-museum-glen-rose",
+    name: "Somervell County Historical Society Museum",
+    summary: "Somervell County Historical Society Museum in downtown Glen Rose preserves the county's story from prehistoric fossils and dinosaur-track history through pioneer settlement and twentieth-century community life inside a long-running local-history museum.",
+    category: "historic-sites",
+    region: "prairies-lakes",
+    nearestTown: "Glen Rose",
+    county: "Somervell County",
+    coordinates: { lat: 32.23518, lng: -97.75635 },
+    hero: museumPlaceholder("Somervell County Historical Society Museum"),
+    bestSeason: "Year-round around volunteer-staffed public hours; spring and fall are especially good for combining the museum with downtown Glen Rose, Dinosaur Valley State Park and other Paluxy River stops.",
+    entryNote: "Current Glen Rose visitor sources list Friday-Saturday hours from 11 a.m. to 4 p.m. and Sunday from 1:30 to 4 p.m., with hours subject to volunteer availability. Confirm current hours before making a dedicated trip.",
+    highlights: [
+      "Somervell County pioneer and community history",
+      "Prehistoric fossils and dinosaur-track context",
+      "Historic downtown Glen Rose museum setting",
+      "Long-running Somervell County Historical Society collections",
+    ],
+    body: [
+      "Somervell County Historical Society Museum gives downtown Glen Rose a local-history counterpart to the region's famous dinosaur attractions. The museum interprets the county's story across a much longer timeline, connecting prehistoric fossils and the Paluxy River's dinosaur-track legacy with settlement, agriculture, commerce and community life in one of Texas's smallest counties.",
+      "The historical society has maintained a museum in Glen Rose for decades. National Register documentation for the downtown historic district records the society's acquisition of the Gresham's Magic Lantern building and the museum's move there in 1971, while the current first-party site continues to identify the museum at 101 S.W. Vernon Street. Collections and displays focus on artifacts, photographs, fossils and local records that help visitors place Glen Rose's tourist landmarks inside the history of the people who lived and worked here.",
+      "For TexasDefined, the museum anchors the human story around a destination cluster often dominated by Dinosaur Valley State Park and the Paluxy River. A visit adds pioneer, civic and everyday-life context before or after the county's outdoor attractions, and its downtown location makes it easy to combine with the courthouse square and historic commercial buildings. Because staffing is volunteer dependent, checking current hours before travel is part of planning the stop.",
+    ],
+    officialUrl: "https://www.schsmuseum.com/",
+    managingAuthority: "Somervell County Historical Society",
+    address: "101 S.W. Vernon St, Glen Rose, TX 76043",
     sourceCheckedAt: "2026-09-05",
   },
 ];
