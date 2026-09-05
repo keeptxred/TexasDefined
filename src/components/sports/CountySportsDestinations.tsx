@@ -14,7 +14,6 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
   const aquariumDestinations = aquariumMarineLinksForCounty(county.slug);
   const rvParks = use(rvParksForCounty(county.slug));
   const displayedRvParks = rvParks.slice(0, 12);
-
   const displayedVenues = venues.slice(0, 12);
   const collectionLinks = uniqueCollectionLinks(venues).slice(0, 6);
   const examples = displayedVenues.slice(0, 5).map((venue) => venue.name);
@@ -48,53 +47,25 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
   const rvParkJsonLd = rvParks.length ? {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    '@id': `${siteUrl}${canonicalPath}#rv-parks-campgrounds`,
-    name: `RV parks and campgrounds connected to ${county.name}`,
+    name: `RV parks and campgrounds in ${county.name}`,
     numberOfItems: rvParks.length,
     itemListElement: rvParks.map((park, index) => ({
       '@type': 'ListItem',
       position: index + 1,
-      item: {
-        '@type': 'Campground',
-        name: park.name,
-        url: `${siteUrl}/destination/${park.slug}`,
-        address: {
-          '@type': 'PostalAddress',
-          addressLocality: park.nearestTown,
-          addressRegion: 'TX',
-          addressCountry: 'US',
-          ...(park.address ? { streetAddress: park.address } : {}),
-        },
-      },
+      item: { '@type': 'Campground', name: park.name, url: `${siteUrl}/destination/${park.slug}` },
     })),
   } : null;
 
   return <>
     {rvParks.length ? <section className="border-b border-border py-12" aria-labelledby="county-rv-parks-heading">
-      {rvParkJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(rvParkJsonLd) }} /> : null}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(rvParkJsonLd) }} />
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+        <div><p className="eyebrow text-primary">RV parks & campgrounds</p><h2 id="county-rv-parks-heading" className="mt-2 font-display text-4xl">RV camping around {county.name}</h2></div>
         <div>
-          <p className="eyebrow text-primary">RV parks & campgrounds</p>
-          <h2 id="county-rv-parks-heading" className="mt-2 font-display text-4xl">RV camping around {county.name}</h2>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">TexasDefined RV directory entries connected to this county. Park-specific hookups, rig limits, rates, pet rules and reservation details remain source-gated until verified.</p>
-        </div>
-        <div>
-          <div className="border-y border-border py-5">
-            <h3 className="font-display text-2xl">What RV parks and campgrounds are connected to {county.name}?</h3>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">The current TexasDefined RV directory has {rvParks.length} entr{rvParks.length === 1 ? 'y' : 'ies'} connected to {county.name}. Use these profiles to discover names and nearby towns, then confirm current operating details with the park operator or managing agency before travel.</p>
-          </div>
-          <div className="mt-7 grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
-            {displayedRvParks.map((park) => <a key={park.slug} href={`/destination/${park.slug}`} className="group border-t border-border py-5">
-              <span className="eyebrow text-primary">RV directory</span>
-              <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{park.name}</strong>
-              <span className="mt-2 block text-sm leading-6 text-muted-foreground">Near {park.nearestTown}, Texas</span>
-              <span className="mt-3 block text-sm font-semibold text-primary">Open park profile →</span>
-            </a>)}
-          </div>
-          {rvParks.length > displayedRvParks.length ? <p className="mt-5 text-sm leading-6 text-muted-foreground">This county has additional entries in the statewide RV directory.</p> : null}
-          <div className="mt-8 border-t border-border pt-6">
-            <a href="/explore/rv-parks" className="text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">Browse all Texas RV parks & campgrounds →</a>
-          </div>
+          <p className="max-w-3xl text-sm leading-7 text-muted-foreground">{rvParks.length} TexasDefined RV director{rvParks.length === 1 ? 'y entry is' : 'y entries are'} connected to this county. Verify hookups, rig limits, rates and reservations with the operator before travel.</p>
+          <ul className="mt-6 grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">{displayedRvParks.map((park) => <li key={park.slug} className="border-t border-border py-4"><a href={`/destination/${park.slug}`} className="group"><strong className="block font-display text-xl group-hover:text-primary">{park.name}</strong><span className="mt-1 block text-sm text-muted-foreground">{park.nearestTown}, Texas</span></a></li>)}</ul>
+          {rvParks.length > 12 ? <p className="mt-4 text-sm text-muted-foreground">More entries are available in the statewide directory.</p> : null}
+          <a href="/explore/rv-parks" className="mt-6 inline-block text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">Browse all Texas RV parks & campgrounds →</a>
         </div>
       </div>
     </section> : null}
