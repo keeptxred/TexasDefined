@@ -26,6 +26,7 @@ The centralized route guard covers:
 - `/county/*` guides.
 - `/sports-venue/*` guides, including golf and other event-driven sports trips.
 - `/event/*` guides.
+- `/best-places-to-go-camping-in-texas`, the standalone statewide camping authority page where overnight trip planning is intrinsic to the reader intent.
 
 This intentionally avoids unrelated reference, government, calculator, politics and general informational pages.
 
