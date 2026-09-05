@@ -101,7 +101,7 @@
         "/texas-vs/california",
         "/article/texas-vs-california-differences",
         "/texas-vs/florida",
-        "/article/texas-vs-florida-differences",
+        "/article/texas-vs/florida-differences",
         "Response.redirect(url.toString(), 301)"
       ]
     },
@@ -113,14 +113,49 @@
       ]
     },
     {
+      "family": "Texas-vs-state evidence qualification",
+      "file": "src/data/texas-vs-state-evidence.server.ts",
+      "requiredMarkers": [
+        "MAX_EVIDENCE_AGE_DAYS",
+        "EVIDENCE_BY_STATE",
+        "Tennessee",
+        "Georgia",
+        "North Carolina",
+        "isTexasVsStateEvidenceQualified",
+        "Texas Department of Insurance"
+      ]
+    },
+    {
+      "family": "Texas-vs-state evidence rendering",
+      "file": "src/routes/texas-vs.$state.tsx",
+      "requiredMarkers": [
+        "profile.evidence",
+        "Weather risk and insurance",
+        "Official-source evidence last verified",
+        "evidence.sources"
+      ]
+    },
+    {
       "family": "Texas-vs-state sitemap readiness",
       "file": "src/data/texas-vs-state-index-readiness.server.ts",
       "requiredMarkers": [
         "GSC_IMPROVE_STATE_SLUGS",
-        "REDIRECT_ONLY_STATE_SLUGS",
+        "EVIDENCE_PROMOTED_STATE_SLUGS",
         "TEXAS_VS_GSC_IMPROVE_STATE_SLUGS",
+        "TEXAS_VS_EVIDENCE_PROMOTED_STATE_SLUGS",
         "TEXAS_VS_REDIRECT_ONLY_STATE_SLUGS",
         "isTexasVsStateSitemapReady"
+      ]
+    },
+    {
+      "family": "Texas-vs-state promotion audit",
+      "file": "ops/seo/gsc-remediation-wave6-2026-09-05.json",
+      "requiredMarkers": [
+        "/texas-vs/georgia",
+        "/texas-vs/north-carolina",
+        "/texas-vs/tennessee",
+        "previousAction",
+        "serverEvidence"
       ]
     },
     {
@@ -140,7 +175,8 @@
       "ops/seo/gsc-remediation-wave2-2026-09-05.json",
       "ops/seo/gsc-remediation-wave3-2026-09-05.json",
       "ops/seo/gsc-remediation-wave4-2026-09-05.json",
-      "ops/seo/gsc-remediation-wave5-2026-09-05.json"
+      "ops/seo/gsc-remediation-wave5-2026-09-05.json",
+      "ops/seo/gsc-remediation-wave6-2026-09-05.json"
     ],
     "maxUnreviewedAgeDays": 30,
     "manualInspectionPriority": [
