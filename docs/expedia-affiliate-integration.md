@@ -24,7 +24,8 @@ The centralized route guard covers:
 - `/explore` and every `/explore/*` page.
 - `/destination/*` guides.
 - `/county/*` guides.
-- `/sports-venue/*` guides, including golf and other event-driven sports trips.
+- `/sports-venue/*` individual venue guides, including golf and other event-driven sports trips.
+- `/sports-venues/*` market and sport landing pages used to plan sports-travel weekends.
 - `/event/*` guides.
 - `/best-places-to-go-camping-in-texas`, the standalone statewide camping authority page where overnight trip planning is intrinsic to the reader intent.
 
