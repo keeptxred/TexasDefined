@@ -25,7 +25,7 @@ export const TOURNAMENT_RAW_3: readonly RawTournament[] = [
   ["Dallas Marathon Championship", "Dallas", "Texas' oldest marathon tournament race.", "dallas"],
   ["Austin Marathon & Half", "Austin", "Premier rolling-hill endurance tournament.", "travis"],
   ["UIL Track & Field State Championships", "Austin", "High school track tournament finals at Mike A. Myers Stadium.", "travis"],
-  ["UIL Cross Country State Championships", "Round Rock", "High school cross country state tournament at Old Settlers Park."],
+  ["UIL Cross Country State Championships", "Round Rock", "High school cross country state championships at Old Settlers Park.", "williamson"],
   ["Ironman Texas", "The Woodlands", "Full distance North American Championship triathlon tournament.", "montgomery"],
   ["Ironman 70.3 Texas", "Galveston", "Highly competitive middle-distance triathlon tournament.", "galveston"],
   ["Texas Water Safari", "San Marcos to Seadrift", "Billed as the \"World's Toughest Boat Race,\" an ultra-marathon canoe tournament."],
