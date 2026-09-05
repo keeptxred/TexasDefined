@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
 import { CountyGuideSections } from '@/components/content/CountyGuideSections';
@@ -10,6 +11,7 @@ import {
 } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 
+const CountyWeddingVenuesSection = lazy(() => import('@/components/content/CountyWeddingVenuesSection').then((module) => ({ default: module.CountyWeddingVenuesSection })));
 const siteUrl = 'https://texasdefined.com';
 const localGovernmentKinds = new Set(['county', 'appraisal-district', 'tax-office', 'county-clerk', 'dps-office']);
 const referenceKinds = new Set([...localGovernmentKinds, 'agency']);
@@ -105,6 +107,7 @@ function EntityPage() {
 
         {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
+        {entity.kind === 'county' ? <Suspense fallback={null}><CountyWeddingVenuesSection county={entity} /></Suspense> : null}
         {entity.kind !== 'county' ? <EntityDepthSections entity={entity} related={visibleRelated} /> : null}
 
         {entity.kind !== 'county' && entity.tags?.length ? <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
