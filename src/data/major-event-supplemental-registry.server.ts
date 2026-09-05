@@ -1,3 +1,4 @@
+import { getExpandedMajorEventAuthorityTranche42Server } from "./major-event-expanded-authority-tranche42.server";
 import { getMajorEventRecordServer } from "./major-event-page.server";
 
 export const supplementalMajorEventSlugs = [
@@ -112,11 +113,17 @@ export const supplementalMajorEventSlugs = [
   "texas-czech-heritage-fest",
   "floresville-peanut-festival",
   "crossroads-of-texas-country-festival",
+  "hummerbird-celebration",
+  "washington-county-fair",
+  "kendall-county-fair-rodeo",
+  "galveston-island-shrimp-festival",
+  "rockport-fulton-seafair",
+  "rockport-songwriter-festival",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
   return supplementalMajorEventSlugs.map((slug) => {
-    const event = getMajorEventRecordServer(slug);
+    const event = getMajorEventRecordServer(slug) ?? getExpandedMajorEventAuthorityTranche42Server(slug);
     if (!event) throw new Error(`Supplemental major-event registry entry does not resolve: ${slug}`);
     return event;
   });
