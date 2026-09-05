@@ -2,14 +2,17 @@ import fs from 'node:fs';
 
 const POLICY_PATH = 'ops/seo/content-quality-governance.json';
 const GSC_PATH = 'ops/seo/gsc-discovered-2026-09-05.json';
+const GSC_URL_INVENTORY_PATH = 'ops/seo/gsc-discovered-2026-09-05-urls.tsv';
 const PUBLIC_ROUTES_PATH = 'src/lib/public-routes.ts';
+const TEXAS_VS_WAVE_PATH = 'ops/seo/gsc-remediation-wave4-2026-09-05.json';
+const TEXAS_VS_READINESS_PATH = 'src/data/texas-vs-state-index-readiness.server.ts';
 
 const failures = [];
 const fail = (message) => failures.push(message);
 const readJson = (path) => JSON.parse(fs.readFileSync(path, 'utf8'));
 const read = (path) => fs.readFileSync(path, 'utf8');
 
-for (const path of [POLICY_PATH, GSC_PATH, PUBLIC_ROUTES_PATH]) {
+for (const path of [POLICY_PATH, GSC_PATH, GSC_URL_INVENTORY_PATH, PUBLIC_ROUTES_PATH]) {
   if (!fs.existsSync(path)) fail(`Permanent SEO quality governance file is missing: ${path}`);
 }
 
@@ -62,6 +65,133 @@ if (!failures.length) {
   if ((summary.IMPROVE ?? 0) === 0) fail('GSC triage must preserve an explicit IMPROVE backlog.');
   if ((summary.REMOVE_CONSOLIDATE ?? 0) === 0) {
     fail('GSC triage must identify explicit removal/consolidation candidates when present.');
+  }
+
+  const inventoryRows = read(GSC_URL_INVENTORY_PATH)
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith('#') && line !== 'action\tpath')
+    .map((line) => {
+      const [action, path, ...rest] = line.split('\t');
+      return { action, path, extra: rest };
+    });
+
+  if (inventoryRows.length !== 452) {
+    fail(`Per-URL GSC inventory must contain exactly 452 URL rows; found ${inventoryRows.length}.`);
+  }
+  const inventoryPaths = new Set();
+  const inventoryCounts = { KEEP: 0, IMPROVE: 0, NOINDEX: 0, REMOVE_CONSOLIDATE: 0 };
+  for (const [index, row] of inventoryRows.entries()) {
+    if (!allowedActions.has(row.action)) fail(`Per-URL GSC inventory row ${index + 1} has unsupported action ${row.action}.`);
+    if (!row.path?.startsWith('/')) fail(`Per-URL GSC inventory row ${index + 1} has invalid path ${row.path}.`);
+    if (row.extra.length) fail(`Per-URL GSC inventory row ${index + 1} has unexpected extra columns.`);
+    if (inventoryPaths.has(row.path)) fail(`Per-URL GSC inventory repeats path ${row.path}.`);
+    inventoryPaths.add(row.path);
+    if (Object.prototype.hasOwnProperty.call(inventoryCounts, row.action)) inventoryCounts[row.action] += 1;
+  }
+  for (const action of allowedActions) {
+    if (inventoryCounts[action] !== Number(summary[action] ?? 0)) {
+      fail(`Per-URL GSC inventory ${action} count ${inventoryCounts[action]} does not match summary ${Number(summary[action] ?? 0)}.`);
+    }
+  }
+
+  const expectedReviewWaves = [
+    'ops/seo/gsc-remediation-wave1-2026-09-05.json',
+    'ops/seo/gsc-remediation-wave2-2026-09-05.json',
+    'ops/seo/gsc-remediation-wave3-2026-09-05.json',
+    TEXAS_VS_WAVE_PATH,
+  ];
+  const reviewWaves = policy?.gscRemediation?.reviewWaves ?? [];
+  for (const path of expectedReviewWaves) {
+    if (!reviewWaves.includes(path)) fail(`Permanent policy is missing required GSC remediation wave: ${path}`);
+  }
+
+  const reviewedPaths = new Map();
+  for (const wavePath of reviewWaves) {
+    if (!fs.existsSync(wavePath)) {
+      fail(`GSC remediation review wave is missing: ${wavePath}`);
+      continue;
+    }
+    const wave = readJson(wavePath);
+    if (wave.sourceSnapshot !== GSC_PATH) {
+      fail(`GSC remediation wave ${wavePath} must point to the original 2026-09-05 snapshot.`);
+    }
+    const reviewed = Array.isArray(wave.reviewed) ? wave.reviewed : [];
+    if (Number(wave?.summary?.reviewed ?? -1) !== reviewed.length) {
+      fail(`GSC remediation wave ${wavePath} summary reviewed count does not match its ${reviewed.length} reviewed rows.`);
+    }
+    const waveCounts = { KEEP: 0, IMPROVE: 0, NOINDEX: 0, REMOVE_CONSOLIDATE: 0 };
+    const wavePaths = new Set();
+    for (const [index, item] of reviewed.entries()) {
+      if (!item.path?.startsWith('/')) fail(`GSC remediation wave ${wavePath} row ${index + 1} has an invalid path.`);
+      if (!inventoryPaths.has(item.path)) fail(`GSC remediation wave ${wavePath} reviews path outside the original 452-URL inventory: ${item.path}`);
+      if (!allowedActions.has(item.action)) fail(`GSC remediation wave ${wavePath} row ${index + 1} has unsupported action ${item.action}.`);
+      if (!item.reason || item.reason.length < 25) fail(`GSC remediation wave ${wavePath} row ${index + 1} lacks a meaningful rationale.`);
+      if (item.action !== 'KEEP' && (!item.remediation || item.remediation.length < 25)) {
+        fail(`GSC remediation wave ${wavePath} row ${index + 1} requires a concrete remediation for ${item.action}.`);
+      }
+      if (wavePaths.has(item.path)) fail(`GSC remediation wave ${wavePath} repeats reviewed path ${item.path}.`);
+      wavePaths.add(item.path);
+      const previousWave = reviewedPaths.get(item.path);
+      if (previousWave) fail(`GSC remediation path ${item.path} is reviewed in both ${previousWave} and ${wavePath}.`);
+      reviewedPaths.set(item.path, wavePath);
+      if (Object.prototype.hasOwnProperty.call(waveCounts, item.action)) waveCounts[item.action] += 1;
+    }
+    for (const action of allowedActions) {
+      if (waveCounts[action] !== Number(wave?.summary?.[action] ?? 0)) {
+        fail(`GSC remediation wave ${wavePath} ${action} count ${waveCounts[action]} does not match summary ${Number(wave?.summary?.[action] ?? 0)}.`);
+      }
+    }
+  }
+
+  if (!fs.existsSync(TEXAS_VS_WAVE_PATH)) {
+    fail(`Texas-vs remediation wave is missing: ${TEXAS_VS_WAVE_PATH}`);
+  }
+  if (!fs.existsSync(TEXAS_VS_READINESS_PATH)) {
+    fail(`Texas-vs sitemap readiness gate is missing: ${TEXAS_VS_READINESS_PATH}`);
+  }
+  if (fs.existsSync(TEXAS_VS_WAVE_PATH) && fs.existsSync(TEXAS_VS_READINESS_PATH)) {
+    const texasVsWave = readJson(TEXAS_VS_WAVE_PATH);
+    const improveItems = (texasVsWave.reviewed ?? []).filter((item) => item.action === 'IMPROVE');
+    if (improveItems.length !== 37 || Number(texasVsWave?.summary?.IMPROVE ?? 0) !== 37) {
+      fail(`Texas-vs wave must preserve exactly 37 reviewed IMPROVE state pages; found ${improveItems.length}.`);
+    }
+    if ((texasVsWave.reviewed ?? []).some((item) => item.action !== 'IMPROVE')) {
+      fail('Texas-vs wave 4 may not promote or remove a state page until the state-specific qualification requirements are actually satisfied.');
+    }
+
+    const readinessSource = read(TEXAS_VS_READINESS_PATH);
+    const start = readinessSource.indexOf('const GSC_IMPROVE_STATE_SLUGS = [');
+    const end = readinessSource.indexOf('] as const;', start);
+    if (start < 0 || end < 0) {
+      fail('Texas-vs readiness gate lost its explicit GSC IMPROVE state-slug registry.');
+    } else {
+      const readinessBlock = readinessSource.slice(start, end);
+      const readinessSlugs = [...readinessBlock.matchAll(/"([^"]+)"/g)].map((match) => match[1]);
+      if (readinessSlugs.length !== 37 || new Set(readinessSlugs).size !== 37) {
+        fail(`Texas-vs sitemap readiness registry must contain exactly 37 unique GSC IMPROVE state slugs; found ${readinessSlugs.length}.`);
+      }
+      for (const item of improveItems) {
+        const prefix = '/texas-vs/';
+        if (!item.path.startsWith(prefix)) {
+          fail(`Texas-vs wave contains a non-state path: ${item.path}`);
+          continue;
+        }
+        const slug = item.path.slice(prefix.length);
+        if (!readinessSlugs.includes(slug)) {
+          fail(`Texas-vs IMPROVE page is not excluded from sitemap priority: ${item.path}`);
+        }
+      }
+      for (const slug of readinessSlugs) {
+        const path = `/texas-vs/${slug}`;
+        if (!improveItems.some((item) => item.path === path)) {
+          fail(`Texas-vs sitemap readiness registry contains an unreviewed GSC IMPROVE slug: ${slug}`);
+        }
+      }
+      if (readinessSlugs.includes('california') || readinessSlugs.includes('florida')) {
+        fail('California and Florida are redirect-only consolidations and must remain separate from the 37-state IMPROVE registry.');
+      }
+    }
   }
 
   const familyCount = Object.values(gsc.routeFamilyCounts ?? {}).reduce((sum, value) => sum + Number(value || 0), 0);
@@ -128,6 +258,9 @@ if (!failures.length) {
   if (policy?.gscRemediation?.initialSnapshot !== GSC_PATH) {
     fail('Permanent policy must retain the 2026-09-05 GSC remediation snapshot as the initial backlog.');
   }
+  if (policy?.gscRemediation?.initialUrlInventory !== GSC_URL_INVENTORY_PATH) {
+    fail('Permanent policy must retain the exact 452-row GSC per-URL inventory.');
+  }
 }
 
 if (failures.length) {
@@ -136,4 +269,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Permanent SEO/content quality governance passed: the 452-URL GSC backlog is tracked, KEEP/IMPROVE/NOINDEX/REMOVE_CONSOLIDATE are permanent outcomes, worthwhile thin topics default to IMPROVE, new generated/entity URLs stay noindex until qualified, public route buckets remain disjoint, and dynamic article/destination/entity/county quality gates remain protected.');
+console.log('Permanent SEO/content quality governance passed: the exact 452-URL GSC backlog is tracked per URL, remediation review waves are validated against that original inventory with no duplicate reviews, the 37 reviewed Texas-vs IMPROVE states are excluded from sitemap priority until state-specific qualification, redirect-only comparisons stay separate, KEEP/IMPROVE/NOINDEX/REMOVE_CONSOLIDATE remain permanent outcomes, worthwhile thin topics default to IMPROVE, new generated/entity URLs stay noindex until qualified, public route buckets remain disjoint, and dynamic article/destination/entity/county/canonical quality gates remain protected.');
