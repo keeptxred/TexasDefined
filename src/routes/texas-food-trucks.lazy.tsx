@@ -30,7 +30,7 @@ function TexasFoodTrucksPage() {
     <section className="border-b border-border py-8 md:py-12">
       <Container>
         <figure className="mx-auto max-w-6xl">
-          <img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} decoding="async" className="aspect-[16/9] w-full object-cover" />
+          <img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} decoding="async" style={{ aspectRatio: "16 / 9" }} className="w-full object-cover" />
           <figcaption className="mt-3 text-xs leading-6 text-muted-foreground">
             <span className="text-foreground">{photo.caption}</span><br />
             {photo.credit} · {photo.license} · <a href={photo.sourceUrl} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">source and license</a>
