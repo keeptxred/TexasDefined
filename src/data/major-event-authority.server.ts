@@ -1,4 +1,5 @@
 import { majorEventIndexRecords, type MajorEventIndexRecord } from "./major-event-index";
+import { verifiedTournamentBySlug } from "./tournaments/verified-profiles";
 
 export interface MajorEventSource { label: string; url: string; }
 export interface MajorEventPlanningSection { title: string; body: string; }
@@ -114,6 +115,83 @@ const majorEventAuthorityRecords: MajorEventAuthorityRecord[] = majorEventIndexR
 });
 const bySlug = new Map(majorEventAuthorityRecords.map((event) => [event.slug, event]));
 
+// Static registrations keep these first-party-verified tournament leaves visible to
+// the major-event authority validator while the profile module remains the canonical
+// source for their verified event facts.
+const newVerifiedTournamentRegistrations = [
+  { slug: "charles-schwab-challenge" },
+  { slug: "the-cj-cup-byron-nelson" },
+  { slug: "texas-childrens-houston-open" },
+  { slug: "chevron-championship" },
+  { slug: "the-cotton-bowl-classic" },
+  { slug: "the-texas-bowl" },
+  { slug: "the-sun-bowl" },
+  { slug: "the-armed-forces-bowl" },
+  { slug: "the-first-responder-bowl" },
+] as const;
+
+const newVerifiedTournamentSlugs = new Set(newVerifiedTournamentRegistrations.map(({ slug }) => slug));
+
+const verifiedTournamentRegionByCounty: Record<string, MajorEventIndexRecord["region"]> = {
+  tarrant: "prairies-lakes",
+  collin: "prairies-lakes",
+  harris: "gulf-coast",
+  "el-paso": "big-bend",
+  dallas: "prairies-lakes",
+};
+
+function getVerifiedTournamentAuthorityServer(slug: string): MajorEventAuthorityRecord | null {
+  if (!newVerifiedTournamentSlugs.has(slug as (typeof newVerifiedTournamentRegistrations)[number]["slug"])) return null;
+  const profile = verifiedTournamentBySlug(slug);
+  if (!profile) return null;
+
+  const venue = profile.slug === "the-texas-bowl" ? "NRG Stadium" : profile.venue;
+  const planningTitles = [
+    "Start with the current organizer page",
+    "Confirm the exact day and access plan",
+    "Build the wider Texas itinerary",
+  ] as const;
+
+  return {
+    slug: profile.slug,
+    name: profile.name,
+    city: profile.city,
+    countySlug: profile.countySlug,
+    countyName: profile.countyName,
+    region: verifiedTournamentRegionByCounty[profile.countySlug] ?? "prairies-lakes",
+    category: profile.category === "rodeo-ranch" ? "rodeo" : "sport",
+    startDate: profile.startDate,
+    endDate: profile.endDate,
+    dateNote: `Texas Defined checked the current first-party event source on ${profile.sourceCheckedAt}. Reconfirm the official schedule before travel.`,
+    venue,
+    officialUrl: profile.officialUrl,
+    sourceCheckedAt: profile.sourceCheckedAt,
+    whyItMatters: profile.whyItMatters,
+    planningSections: profile.planningNotes.map((body, index) => ({
+      title: planningTitles[index] ?? "Plan from the official event source",
+      body,
+    })),
+    relatedLinks: [
+      {
+        href: profile.categoryPath,
+        label: profile.categoryLabel,
+        description: "Compare related verified guides and discovery-stage tournament listings.",
+      },
+      {
+        href: `/browse/counties#county-${profile.countySlug}`,
+        label: `Explore ${profile.countyName}`,
+        description: "Build a wider trip around the host county.",
+      },
+      {
+        href: "/events/tournaments",
+        label: "Texas tournaments",
+        description: "Return to the statewide tournament directory and all competition categories.",
+      },
+    ],
+    sources: [{ label: profile.officialSourceLabel, url: profile.officialUrl }],
+  };
+}
+
 export function getMajorEventAuthorityServer(slug: string) {
-  return bySlug.get(slug) ?? null;
+  return bySlug.get(slug) ?? getVerifiedTournamentAuthorityServer(slug);
 }
