@@ -133,9 +133,20 @@ function validForEvent(date, event) {
 }
 
 function pushCandidate(candidates, start, end, raw, event, futureOnly) {
-  const validStart = futureOnly ? validForEvent(start, event) : inExpectedMonth(start, event);
+  const validRange = Boolean(
+    end &&
+    inExpectedMonth(start, event) &&
+    inExpectedMonth(end, event) &&
+    start <= HORIZON &&
+    end >= TODAY &&
+    end <= HORIZON &&
+    end >= start
+  );
+  const validStart = futureOnly
+    ? (validRange || validForEvent(start, event))
+    : inExpectedMonth(start, event);
   if (!validStart) return;
-  const validEnd = end && (futureOnly ? validForEvent(end, event) : inExpectedMonth(end, event));
+  const validEnd = end && (futureOnly ? validRange : inExpectedMonth(end, event));
   candidates.push({ start, ...(validEnd ? { end } : {}), raw });
 }
 
