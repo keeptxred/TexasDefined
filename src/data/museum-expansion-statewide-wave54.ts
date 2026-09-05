@@ -16,8 +16,8 @@ function museumPlaceholder(name: string): ImageRef {
  * Fifty-fourth statewide museum wave. These records reconcile the audit's
  * generic Palo Pinto County museum wording to the active Old Jail Museum
  * Complex and add current Texas Forestry Museum, Sam Rayburn Museum,
- * Fannin County Museum of History, Fort Inglish Village and Round Top Area
- * Historical Society Wood Campus Museum records.
+ * Fannin County Museum of History, Fort Inglish Village, Round Top Area
+ * Historical Society Wood Campus Museum and Museum of Hardin County records.
  */
 export const statewideMuseumExpansionWave54Destinations: Destination[] = [
   {
@@ -205,5 +205,35 @@ export const statewideMuseumExpansionWave54Destinations: Destination[] = [
     managingAuthority: "Round Top Area Historical Society, Inc.",
     address: "397 E Mill St, Round Top, TX 78954",
     sourceCheckedAt: "2026-09-04",
+  },
+  {
+    id: "museum-statewide-wave59-museum-of-hardin-county",
+    brandId: "texasdefined",
+    slug: "museum-of-hardin-county-kountze",
+    name: "Museum of Hardin County",
+    summary: "Museum of Hardin County in Kountze preserves county history through artifacts, documents and local-history interpretation overseen by the Hardin County Historical Commission in the Big Thicket region of Southeast Texas.",
+    category: "historic-sites",
+    region: "piney-woods",
+    nearestTown: "Kountze",
+    county: "Hardin County",
+    coordinates: { lat: 30.37067, lng: -94.31448 },
+    hero: museumPlaceholder("Museum of Hardin County"),
+    bestSeason: "Year-round when a visit is arranged; fall through spring is especially comfortable for pairing the museum with Kountze, Big Thicket National Preserve and other Southeast Texas heritage stops.",
+    entryNote: "The Hardin County Historical Commission identifies the Museum of Hardin County at 830 S. Maple St. in Kountze, but current public hours are not consistently published in the county's online materials. Call ahead before making a dedicated trip or arrange a special showing when available.",
+    highlights: [
+      "Hardin County local-history collections",
+      "Historical Commission-operated county museum",
+      "Kountze and Southeast Texas settlement context",
+      "Big Thicket-region heritage interpretation",
+    ],
+    body: [
+      "The Museum of Hardin County is the county-history museum operated by the Hardin County Historical Commission in Kountze. Commission reporting to the Texas Historical Commission identifies the museum as a substantial part of the local commission's preservation workload, giving Hardin County a dedicated repository for artifacts and records connected to its communities, families and public history.",
+      "Hardin County's story is inseparable from the forests and transportation routes of Southeast Texas. The county seat shifted to Kountze after the Sabine and East Texas Railroad bypassed the earlier settlement of Hardin, while timber, oil, railroads and the landscapes now associated with the Big Thicket shaped the region's economy and settlement pattern. A county museum in Kountze gives those broader themes a local place to land rather than leaving them scattered across courthouse records and roadside markers.",
+      "Visitor access requires more planning than at larger institutions. Recent county historical-commission records confirm the museum's operation and address, while a Texas Historical Commission marker record places the General Braxton Bragg marker at the museum site on South Maple Street. Because current regular hours are not consistently maintained across authoritative online sources, TexasDefined treats this as a call-ahead heritage destination and avoids presenting stale hours as current fact.",
+    ],
+    officialUrl: "https://www.facebook.com/MuseumHardinCounty/",
+    managingAuthority: "Hardin County Historical Commission",
+    address: "830 S Maple St, Kountze, TX 77625",
+    sourceCheckedAt: "2026-09-05",
   },
 ];
