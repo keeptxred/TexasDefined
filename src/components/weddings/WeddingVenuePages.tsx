@@ -1,5 +1,5 @@
 import { Container } from '@/components/layout/Container';
-import type { WeddingVenue, WeddingVenueRegion } from '@/data/wedding-venues';
+import type { WeddingVenue, WeddingVenueRegion } from '@/data/wedding-venues.types';
 
 const siteUrl = 'https://texasdefined.com';
 
@@ -238,7 +238,7 @@ export function WeddingVenueProfilePage({ venue, region }: { venue: WeddingVenue
           </div>
         </section>
 
-        <aside className="mt-10 border-y border-border py-7 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Why this page is not indexed yet:</strong> TexasDefined is keeping first-pass venue profiles out of search indexes until each page has enough current, venue-specific information to be genuinely useful. The statewide and regional wedding guides are the primary indexed discovery pages during this enrichment stage.</aside>
+        <aside className="mt-10 border-y border-border py-7 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">This venue profile is still growing:</strong> TexasDefined is expanding this page with current venue details and editorially verified guidance. Confirm pricing, availability, capacity, policies and booking terms directly with the venue while we complete that verification.</aside>
       </main>
     </Container>
   </>;
