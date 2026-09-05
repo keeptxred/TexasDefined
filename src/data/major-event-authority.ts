@@ -1,22 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
 
+import { isRecurrenceDerivedMajorEventSlug } from "./major-event-date-confidence";
+
 // These authority guides expose useful organizer-backed recurrence rules for trip
 // planning, but the displayed future occurrence has not been published as a
 // dedicated year-specific schedule. Keep the evergreen guide indexable while
 // withholding scheduled Event rich-result markup until first-party confirmation.
-const recurrenceDerivedDateSlugs = new Set([
-  "dallas-holiday-parade",
-  "schulenburg-festival",
-  "westfest",
-  "luling-watermelon-thump",
-  "national-polka-festival",
-  "sweetwater-rattlesnake-roundup",
-  "granbury-founders-day-jubilee",
-  "come-and-take-it-celebration",
-  "hopkins-county-stew-contest",
-  "texas-state-championship-fiddlers-frolics",
-]);
-
 function applyEventSchemaConfidencePolicy<T extends {
   slug: string;
   name: string;
@@ -24,7 +13,7 @@ function applyEventSchemaConfidencePolicy<T extends {
   description: string;
   jsonLd: string;
 }>(page: T): T {
-  if (!recurrenceDerivedDateSlugs.has(page.slug)) return page;
+  if (!isRecurrenceDerivedMajorEventSlug(page.slug)) return page;
 
   const canonicalUrl = `https://texasdefined.com/event/${page.slug}`;
   return {
