@@ -1,7 +1,7 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
 import type { Destination, ImageRef } from "./types";
 
-const SOURCE_CHECKED_AT = "2026-09-01";
+const SOURCE_CHECKED_AT = "2026-09-04";
 
 function sanctuaryPlaceholder(name: string): ImageRef {
   return {
@@ -94,5 +94,65 @@ export const animalSanctuaryDestinations: Destination[] = [
     ],
     managingAuthority: "Texas Sealife Center",
     officialUrl: "https://www.texassealifecenter.org/visit/",
+  }),
+  sanctuary({
+    slug: "in-sync-exotics",
+    name: "In-Sync Exotics Wildlife Rescue & Educational Center",
+    summary: "In-Sync Exotics in Wylie is a nonprofit sanctuary for rescued exotic cats, with weekend public hours, self-guided visitor access and educational programs centered on lifelong care rather than breeding or animal contact.",
+    region: "prairies-lakes",
+    nearestTown: "Wylie",
+    county: "Collin County",
+    coordinates: { lat: 33.03582, lng: -96.49229 },
+    address: "3430 Skyview Drive, Wylie, TX 75098",
+    bestSeason: "Open to general visitors on weekends; spring and fall are typically most comfortable for an outdoor sanctuary walk, while special events and tour offerings vary through the year.",
+    entryNote: "Current public hours are Saturday and Sunday, and the sanctuary also offers special events and arranged tours. Confirm current hours, requested donations and visitor rules before arrival; direct animal contact is not part of the experience.",
+    highlights: ["Rescued lions, tigers and other exotic cats", "Self-guided sanctuary visits", "Educational rescue stories", "Non-breeding lifetime sanctuary model"],
+    body: [
+      "In-Sync Exotics was established to provide permanent care for exotic cats that were abused, neglected, abandoned or otherwise unable to live safely outside professional care. The organization does not buy, sell, trade or breed its animals, and its public education focuses on the consequences of irresponsible exotic-animal ownership and breeding.",
+      "Visitors walk the outdoor sanctuary at their own pace, read individual rescue stories and can speak with volunteers about species, husbandry and the circumstances that brought animals into care. The setting is intentionally simpler than a conventional zoo because resources are directed toward veterinary care, food, habitats and enrichment.",
+      "The experience depends on animal choice and weather. Cats may rest out of view, and visitors should follow sanctuary rules, remain outside all barriers and check the current schedule before making the drive to Wylie.",
+    ],
+    managingAuthority: "In-Sync Exotics Wildlife Rescue & Educational Center",
+    officialUrl: "https://www.insyncexotics.org/tours/",
+  }),
+  sanctuary({
+    slug: "austin-zoo",
+    name: "Austin Zoo",
+    summary: "Austin Zoo is a nonprofit rescue zoo on the southwest edge of Austin whose mission centers on rescue, conservation and education, with a public collection of rescued and rehabilitated animals in a rustic Hill Country setting.",
+    region: "hill-country",
+    nearestTown: "Austin",
+    county: "Travis County",
+    coordinates: { lat: 30.26175, lng: -97.93719 },
+    address: "10808 Rawhide Trail, Austin, TX 78736",
+    bestSeason: "Open year-round; cooler fall-through-spring weather is generally more comfortable for walking the outdoor grounds, while summer visits are best earlier in the day.",
+    entryNote: "Austin Zoo is open to the public with ticketed admission. Hours differ between weekdays, weekends and holidays, so confirm the current schedule and ticket guidance directly with the zoo before visiting.",
+    highlights: ["Nonprofit rescue-zoo mission", "Big cats, primates and native wildlife", "Hill Country outdoor setting", "Family-oriented animal education"],
+    body: [
+      "Austin Zoo describes itself as a rescue zoo, with a mission to assist animals in need through rescue, conservation and education. Its residents include animals that arrived from a range of circumstances and now receive long-term professional care at the nonprofit facility.",
+      "The visitor experience is an outdoor walk through a compact, rustic zoo rather than a large metropolitan campus. Families can see a broad mix of mammals, birds and reptiles while learning about the animals and the rescue mission supporting their care.",
+      "Because much of the experience is outdoors, heat and weather matter. Visitors should check the current hours and admission details, bring water during warm months and plan the visit around the animals' activity rather than expecting every resident to be visible at all times.",
+    ],
+    managingAuthority: "Austin Zoo",
+    officialUrl: "https://austinzoo.org/",
+  }),
+  sanctuary({
+    slug: "sharkarosa-zoo",
+    name: "Sharkarosa Zoo",
+    summary: "Sharkarosa Zoo in Pilot Point is a 126-acre North Texas wildlife facility with more than 180 animals, self-guided public days, educational presentations, private tours and conservation-oriented encounters with rare and exotic species.",
+    region: "prairies-lakes",
+    nearestTown: "Pilot Point",
+    county: "Denton County",
+    coordinates: { lat: 33.37749, lng: -96.97026 },
+    address: "11670 Massey Road, Pilot Point, TX 76258",
+    bestSeason: "Public days run year-round with expanded summer hours; spring and fall usually provide the most comfortable conditions for an outdoor ranch visit.",
+    entryNote: "Regular public days and summer hours vary by season and weather, while private tours and encounters require advance reservations. Check the zoo's current visitor guidance or social updates before traveling.",
+    highlights: ["126-acre wildlife ranch", "More than 180 animals", "Self-guided public days", "Educational presentations and private tours"],
+    body: [
+      "Sharkarosa is an educational wildlife ranch and zoo built around public access to rare, endangered and exotic animals in a large North Texas ranch setting. The organization says it is not formally a rescue organization, although it may assist exotic-animal rescues with expertise, supplies or housing when needed.",
+      "On public days, visitors move through the facility at their own pace with informational signs, staff support and recurring educational presentations. Private tours, animal encounters, field trips and a walk-through petting area create additional ways to experience the collection beyond a standard zoo loop.",
+      "Weather can change operations quickly, and the zoo specifically directs visitors to current updates for closures and special hours. The most reliable plan is to verify the operating calendar before departure and treat scheduled encounters or private experiences as separate reservations.",
+    ],
+    managingAuthority: "Sharkarosa Zoo",
+    officialUrl: "https://sharkarosa.com/",
   }),
 ];
