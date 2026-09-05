@@ -2,9 +2,9 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
+import { getGolfCourseStarterDirectoryData } from '@/data/golf-course-starter.functions';
 import { entitiesByKind } from '@/data/knowledge-graph';
 import { applyCurrentEntityCorrections } from '@/data/knowledge-graph/current-entity-corrections';
-import { TEXAS_GOLF_COURSE_STARTER_RECORDS, golfCourseStarterRecord } from '@/data/knowledge-graph/golf-course-starter';
 import { canonicalEntityPath, isIndexableEntityPage } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import {
@@ -22,7 +22,11 @@ export const Route = createFileRoute('/sports-venues/$landing')({
     const landing = sportsVenueLanding(params.landing);
     if (!landing) throw notFound();
 
-    const venues = entitiesByKind('sports-venue')
+    const starterDirectory = landing.slug === 'golf'
+      ? await getGolfCourseStarterDirectoryData()
+      : { count: 0, entities: [] as TexasEntityRecord[], cityBySlug: {} as Record<string, string> };
+
+    const venues = [...entitiesByKind('sports-venue'), ...starterDirectory.entities]
       .filter((venue) => isIndexableEntityPage(venue)
         || (landing.slug === 'golf' && venue.tags?.includes('starter-golf-directory')))
       .map(applyCurrentEntityCorrections)
@@ -30,7 +34,12 @@ export const Route = createFileRoute('/sports-venues/$landing')({
       .sort((a, b) => venueSortKey(a).localeCompare(venueSortKey(b)) || a.name.localeCompare(b.name));
 
     if (!venues.length) throw notFound();
-    return { landing, venues };
+    return {
+      landing,
+      venues,
+      starterInventoryCount: starterDirectory.count,
+      starterCityBySlug: starterDirectory.cityBySlug,
+    };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
@@ -48,7 +57,7 @@ export const Route = createFileRoute('/sports-venues/$landing')({
 });
 
 function SportsVenueLandingPage() {
-  const { landing, venues } = Route.useLoaderData();
+  const { landing, venues, starterInventoryCount, starterCityBySlug } = Route.useLoaderData();
   const canonicalPath = `/sports-venues/${landing.slug}`;
   const isGolfDirectory = landing.slug === 'golf';
   const marketLandings = SPORTS_VENUE_LANDINGS.filter((item) => item.kind === 'market' && item.slug !== landing.slug);
@@ -64,7 +73,7 @@ function SportsVenueLandingPage() {
     .filter((date): date is string => Boolean(date))
     .sort()
     .at(-1);
-  const quickAnswers = buildQuickAnswers(landing, venues, lastReviewed);
+  const quickAnswers = buildQuickAnswers(landing, venues, starterInventoryCount, lastReviewed);
   const title = landingTitle(landing);
   const description = landingDescription(landing);
 
@@ -137,7 +146,7 @@ function SportsVenueLandingPage() {
 
           <dl className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <Stat label={isGolfDirectory ? 'Course & venue guides' : 'Venue guides'} value={venues.length} />
-            <Stat label={isGolfDirectory ? 'Starter course list' : 'Major visitor draws'} value={isGolfDirectory ? TEXAS_GOLF_COURSE_STARTER_RECORDS.length : majorDraws} />
+            <Stat label={isGolfDirectory ? 'Starter course list' : 'Major visitor draws'} value={isGolfDirectory ? starterInventoryCount : majorDraws} />
             <Stat label={isGolfDirectory ? 'Source-backed profiles' : 'Professional venues'} value={isGolfDirectory ? sourceBacked : professional} />
             <Stat label={isGolfDirectory ? 'Counties represented' : 'College venues'} value={isGolfDirectory ? countiesCovered : college} />
           </dl>
@@ -186,7 +195,7 @@ function SportsVenueLandingPage() {
               {venues.map((venue) => <a key={venue.id} href={canonicalEntityPath(venue)} className="group border-t border-border py-5">
                 <span className="eyebrow text-primary">{venueLabel(venue)}</span>
                 <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{venue.name}</strong>
-                <span className="mt-2 block text-sm leading-6 text-muted-foreground">{venueLocation(venue)}</span>
+                <span className="mt-2 block text-sm leading-6 text-muted-foreground">{venueLocation(venue, starterCityBySlug)}</span>
                 {venue.description ? <span className="mt-3 block line-clamp-4 text-sm leading-6 text-muted-foreground">{venue.description}</span> : null}
                 <span className="mt-4 block text-sm font-semibold text-primary">{isGolfDirectory ? 'Open course guide →' : 'Open venue guide →'}</span>
               </a>)}
@@ -212,7 +221,7 @@ function SportsVenueLandingPage() {
   </>;
 }
 
-function buildQuickAnswers(landing: SportsVenueLanding, venues: TexasEntityRecord[], lastReviewed?: string) {
+function buildQuickAnswers(landing: SportsVenueLanding, venues: TexasEntityRecord[], starterInventoryCount: number, lastReviewed?: string) {
   const examples = venues.slice(0, 5).map((venue) => venue.name);
   const exampleSentence = formatList(examples);
   if (landing.slug === 'golf') {
@@ -222,7 +231,7 @@ function buildQuickAnswers(landing: SportsVenueLanding, venues: TexasEntityRecor
     return [
       {
         question: 'How many Texas golf courses are in this directory?',
-        answer: `The starter inventory contains ${TEXAS_GOLF_COURSE_STARTER_RECORDS.length} named Texas courses. The live collection currently shows ${venues.length} golf course and destination-golf records because existing TexasDefined tournament or resort venue profiles can also appear alongside the starter list.`,
+        answer: `The starter inventory contains ${starterInventoryCount} named Texas courses. The live collection currently shows ${venues.length} golf course and destination-golf records because existing TexasDefined tournament or resort venue profiles can also appear alongside the starter list.`,
       },
       {
         question: 'Can I browse Texas golf courses by county?',
@@ -334,11 +343,10 @@ function venueLabel(venue: TexasEntityRecord) {
   return 'Sports venue';
 }
 
-function venueLocation(venue: TexasEntityRecord) {
-  const starter = golfCourseStarterRecord(venue.slug);
+function venueLocation(venue: TexasEntityRecord, starterCityBySlug: Record<string, string>) {
   const county = venue.countySlug ? `${titleCase(venue.countySlug)} County` : undefined;
   const region = venue.region ? titleCase(venue.region) : undefined;
-  return [starter?.city, county, region].filter(Boolean).join(' · ');
+  return [starterCityBySlug[venue.slug], county, region].filter(Boolean).join(' · ');
 }
 
 function titleCase(value: string) {
