@@ -7,6 +7,7 @@ export const Route = createLazyFileRoute("/event/$slug")({
 });
 
 function MajorEventGuidePage() {
+  const { slug } = Route.useParams();
   const { page } = Route.useLoaderData();
   return (
     <>
@@ -14,7 +15,7 @@ function MajorEventGuidePage() {
       <main className="mx-auto max-w-4xl px-5 pb-20 pt-12 sm:px-8">
         <article dangerouslySetInnerHTML={{ __html: page.html }} />
         <ExpediaStaySearch
-          id={`expedia-event-${page.slug}-stays`}
+          id={`expedia-event-${slug}-stays`}
           compact
           locationLabel="Texas"
           title="Find a place to stay for the event"
