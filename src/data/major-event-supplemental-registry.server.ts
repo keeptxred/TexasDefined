@@ -121,6 +121,10 @@ export const supplementalMajorEventSlugs = [
   "fredericksburg-food-wine-festival",
   "korean-festival-houston",
   "a-christmas-affair",
+  "hot-luck-live-food-music",
+  "viva-la-vida-festival-parade",
+  "meca-dia-de-muertos-festival",
+  "houston-diwali-festival-of-lights",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
