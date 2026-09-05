@@ -17,7 +17,8 @@ function museumPlaceholder(name: string): ImageRef {
  * generic Palo Pinto County museum wording to the active Old Jail Museum
  * Complex and add current Texas Forestry Museum, Sam Rayburn Museum,
  * Fannin County Museum of History, Fort Inglish Village, Round Top Area
- * Historical Society Wood Campus Museum and Museum of Hardin County records.
+ * Historical Society Wood Campus Museum, Museum of Hardin County and
+ * Schulenburg Historical Museum records.
  */
 export const statewideMuseumExpansionWave54Destinations: Destination[] = [
   {
@@ -234,6 +235,42 @@ export const statewideMuseumExpansionWave54Destinations: Destination[] = [
     officialUrl: "https://www.facebook.com/MuseumHardinCounty/",
     managingAuthority: "Hardin County Historical Commission",
     address: "830 S Maple St, Kountze, TX 77625",
+    sourceCheckedAt: "2026-09-05",
+  },
+  {
+    id: "museum-statewide-wave60-schulenburg-historical-museum",
+    brandId: "texasdefined",
+    slug: "schulenburg-historical-museum",
+    name: "Schulenburg Historical Museum",
+    summary: "Schulenburg Historical Museum preserves the railroad-era, German-Czech and community history of Schulenburg inside the former Wolters Mercantile building, with artifacts and interpretation focused on everyday life in this Fayette County town.",
+    category: "historic-sites",
+    region: "prairies-lakes",
+    geography: {
+      primaryRegionId: "central-texas",
+      subregionIds: ["central-texas-prairies"],
+      countySlugs: ["fayette"],
+      travelRegionIds: ["prairies-lakes"],
+    },
+    nearestTown: "Schulenburg",
+    county: "Fayette County",
+    coordinates: { lat: 29.68005, lng: -96.907445 },
+    hero: museumPlaceholder("Schulenburg Historical Museum"),
+    bestSeason: "Year-round during published Friday and Saturday hours; spring and fall are especially good for pairing the museum with the Painted Churches, historic downtown Schulenburg and other Fayette County heritage stops.",
+    entryNote: "The museum currently publishes Friday-Saturday hours from 10 a.m. to 2 p.m., with other times available by appointment. Admission is free and donations are welcomed. Confirm hours before making a dedicated trip, especially around holidays or special events.",
+    highlights: [
+      "Historic Wolters Mercantile museum building",
+      "German-Czech community heritage",
+      "Railroad-era Schulenburg history",
+      "Local artifacts and everyday-life interpretation",
+    ],
+    body: [
+      "Schulenburg Historical Museum tells the story of a Fayette County town that grew rapidly after the Galveston, Harrisburg and San Antonio Railway reached the area in 1873. The railroad turned Schulenburg into a shipping point for cotton, cattle hides and other regional products, while German and Czech immigration gave the community a cultural identity still visible in churches, foodways, festivals and family histories.",
+      "The museum's building is part of that story. Its current exhibits occupy the former Wolters Mercantile, an early-twentieth-century commercial building tied to one of Schulenburg's prominent business families. The museum was established by John and Karen Wolters and has operated in the building since 1988; the Wolters estate later deeded the museum building and the neighboring property to the institution, securing a permanent home for the collection.",
+      "Inside, the emphasis is local rather than encyclopedic: artifacts, photographs and community records interpret how Schulenburg residents worked, traveled, traded and built a distinctive rural German-Czech community. For TexasDefined, this museum adds a practical town-history anchor to an area already strong in Painted Churches and road-trip heritage, helping visitors understand the community around those landmark churches instead of treating them as isolated architecture.",
+    ],
+    officialUrl: "https://schulenburghistoricalmuseum.com/",
+    managingAuthority: "Schulenburg Historical Museum",
+    address: "631 N Main St, Schulenburg, TX 78956",
     sourceCheckedAt: "2026-09-05",
   },
 ];
