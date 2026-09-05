@@ -83,6 +83,17 @@
       ]
     },
     {
+      "family": "county property promotion audit",
+      "file": "ops/seo/gsc-remediation-wave5-2026-09-05.json",
+      "requiredMarkers": [
+        "/property-tax/county/haskell",
+        "/property-tax/county/leon",
+        "https://www.leoncad.org/",
+        "https://www.co.leon.tx.us/page/leon.County.Assessor.Collector",
+        "previousAction"
+      ]
+    },
+    {
       "family": "Texas-vs-state canonical consolidation",
       "file": "src/server-entry.ts",
       "requiredMarkers": [
@@ -128,7 +139,8 @@
       "ops/seo/gsc-remediation-wave1-2026-09-05.json",
       "ops/seo/gsc-remediation-wave2-2026-09-05.json",
       "ops/seo/gsc-remediation-wave3-2026-09-05.json",
-      "ops/seo/gsc-remediation-wave4-2026-09-05.json"
+      "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "ops/seo/gsc-remediation-wave5-2026-09-05.json"
     ],
     "maxUnreviewedAgeDays": 30,
     "manualInspectionPriority": [
