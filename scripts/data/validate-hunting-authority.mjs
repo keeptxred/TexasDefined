@@ -20,6 +20,10 @@ const resources = read('src/routes/texas-resources.lazy.tsx');
 const fishing = read('src/components/fishing/FishingHub.tsx');
 const search = read('src/routes/search.lazy.tsx');
 const outdoors = read('src/routes/explore.$category.lazy.tsx');
+const huntingTopicRoute = read('src/routes/hunting.$slug.lazy.tsx');
+const huntingTopicPage = read('src/components/hunting/HuntingTopicPage.tsx');
+const publicLandDiscovery = read('src/components/hunting/HuntingPublicLandDiscovery.tsx');
+const destinationBooking = read('src/components/editorial/DestinationViatorBooking.tsx');
 
 const expectedTopics = [
   'texas-hunting-license', 'hunter-education', 'public-hunting', 'annual-public-hunting-permit',
@@ -46,10 +50,31 @@ for (const [source, label] of [
 ]) requireRouteLiteral(source, '/hunting', `${label} reciprocal hunting link missing`);
 requireText(search, 'Texas Hunting', 'search hunting starting-point label missing');
 
+requireText(huntingTopicRoute, 'createLazyFileRoute("/hunting/$slug")', 'hunting topic route is not lazy');
+requireText(huntingTopicPage, 'lazy(() => import("./HuntingPublicLandDiscovery"))', 'WMA finder lacks nested lazy boundary');
+for (const slug of ['public-hunting', 'annual-public-hunting-permit', 'drawn-hunts']) {
+  requireText(huntingTopicPage, `"${slug}"`, `WMA finder missing from ${slug}`);
+}
+for (let wave = 1; wave <= 10; wave += 1) {
+  requireText(publicLandDiscovery, `wildlife-management-area-destinations-wave${wave}`, `WMA finder missing inventory wave ${wave}`);
+}
+requireText(publicLandDiscovery, 'destination.id.startsWith("texas-wma-")', 'WMA finder lacks WMA identity guard');
+requireText(publicLandDiscovery, 'href={`/destination/${destination.slug}`}', 'WMA finder lacks canonical destination links');
+requireRouteLiteral(publicLandDiscovery, '/hunting/annual-public-hunting-permit', 'WMA finder lacks APH return path');
+requireRouteLiteral(publicLandDiscovery, '/hunting/public-hunting', 'WMA finder lacks public-hunting return path');
+
+requireText(destinationBooking, 'destination.id.startsWith("texas-wma-")', 'destination lazy chunk lacks WMA identity guard');
+requireText(destinationBooking, 'function WmaHuntingLinks()', 'WMA reciprocal links are not contained by the existing destination lazy chunk');
+for (const routePath of ['/hunting/public-hunting', '/hunting/annual-public-hunting-permit', '/hunting/drawn-hunts']) {
+  requireRouteLiteral(destinationBooking, routePath, `WMA destination lacks reciprocal route ${routePath}`);
+}
+
 for (const redirectOnly of ['/explore/wildlife-management-areas', '/explore/texas-state-parks-guide']) {
-  if (authority.includes(`href: "${redirectOnly}"`) || authority.includes(`to="${redirectOnly}"`)) {
-    throw new Error(`Hunting authority validation failed: redirect-only internal route ${redirectOnly} reintroduced`);
+  for (const source of [authority, publicLandDiscovery, destinationBooking]) {
+    if (source.includes(`href: "${redirectOnly}"`) || source.includes(`to="${redirectOnly}"`) || source.includes(`"${redirectOnly}"`)) {
+      throw new Error(`Hunting authority validation failed: redirect-only internal route ${redirectOnly} reintroduced`);
+    }
   }
 }
 
-console.log(`Hunting authority validation passed: hub + ${expectedTopics.length} topics, freshness, TPWD sourcing, search/sitemap governance and reciprocal discovery links.`);
+console.log(`Hunting authority validation passed: hub + ${expectedTopics.length} topics, freshness, TPWD sourcing, search/sitemap governance, reciprocal discovery links and ten-wave WMA public-land bridge.`);
