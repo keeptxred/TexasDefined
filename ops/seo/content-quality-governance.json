@@ -111,6 +111,7 @@
   ],
   "gscRemediation": {
     "initialSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+    "initialUrlInventory": "ops/seo/gsc-discovered-2026-09-05-urls.tsv",
     "maxUnreviewedAgeDays": 30,
     "manualInspectionPriority": [
       "HIGH",
