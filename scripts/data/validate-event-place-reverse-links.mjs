@@ -22,6 +22,7 @@ for (const marker of [
   'timeZone: "America/Chicago"',
   '.map((event) => [event.href, event])',
   'Math.max(1, Math.min(input.limit ?? 4, 8))',
+  'return { html, count: events.length };',
 ]) requireMarker(serverResolver, marker, "place-event server resolver");
 
 for (const marker of [
@@ -31,9 +32,9 @@ for (const marker of [
 ]) requireMarker(serverFunction, marker, "place-event server-function bridge");
 
 for (const marker of [
-  'export interface PlaceUpcomingEventLink',
-  'href: string;',
-  'sourceCheckedAt?: string;',
+  'export interface PlaceUpcomingEventPayload',
+  'html: string;',
+  'count: number;',
 ]) requireMarker(sharedContract, marker, "client-safe place-event contract");
 
 for (const marker of [
@@ -50,11 +51,9 @@ for (const marker of [
 ]) requireMarker(lazyRoute, marker, "entity route UI");
 
 for (const marker of [
-  'import type { PlaceUpcomingEventLink } from "@/data/event-place-links";',
-  'if (!events.length || !["city", "county", "metro-area"].includes(entityKind)) return null;',
-  'key={event.href}',
-  'href={event.href}',
-  'Source-verified recurring events with permanent Texas Defined planning guides.',
+  'import type { PlaceUpcomingEventPayload } from "@/data/event-place-links";',
+  'if (!events.count || !["city", "county", "metro-area"].includes(entityKind)) return null;',
+  'dangerouslySetInnerHTML={{ __html: events.html }}',
 ]) requireMarker(component, marker, "place-event component");
 
 if (eagerRoute.includes("event-place-links.server") || component.includes("event-place-links.server") || lazyRoute.includes("major-event-directory.server") || lazyRoute.includes("major-event-page.server")) {
@@ -69,6 +68,9 @@ if (/event\.region\s*===|input\.region|entity\.region/.test(serverResolver)) {
 if (serverResolver.includes("coordinates") || serverResolver.includes("distance")) {
   failures.push("place-event reverse links must not infer proximity without an explicit geographic relationship");
 }
+if (!serverResolver.includes('replace(/&/g, "&amp;")')) {
+  failures.push("server-rendered event link HTML must escape dynamic text");
+}
 
 if (failures.length) {
   console.error("Event place reverse-link validation failed:");
@@ -76,4 +78,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Event place reverse-link validation passed: exact city/county and explicit metro-core-city matching, Texas-local freshness, canonical href dedupe, bounded payloads, createServerFn isolation, and client-safe rendering are intact.");
+console.log("Event place reverse-link validation passed: exact city/county and explicit metro-core-city matching, Texas-local freshness, canonical href dedupe, bounded server-rendered payloads, createServerFn isolation, escaping, and client-safe rendering are intact.");
