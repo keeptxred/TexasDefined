@@ -1,0 +1,97 @@
+import fs from "node:fs";
+import path from "node:path";
+
+const root = process.cwd();
+const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), "utf8");
+const failures = [];
+const assert = (condition, message) => { if (!condition) failures.push(message); };
+
+const profilePaths = [
+  "src/data/camping/profiles.ts",
+  "src/data/camping/profiles-wave2.ts",
+  "src/data/camping/profiles-wave3.ts",
+  "src/data/camping/profiles-wave4.ts",
+  "src/data/camping/profiles-wave5.ts",
+];
+
+const profileSources = profilePaths.map((profilePath) => ({ profilePath, source: read(profilePath) }));
+const server = read("src/data/camping/camping-profiles.server.ts");
+const functions = read("src/data/camping/camping-profiles.ts");
+const component = read("src/components/camping/DestinationCampingDetails.tsx");
+const destinationRoute = read("src/routes/destination.$slug.tsx");
+const searchRoute = read("src/routes/explore.search.tsx");
+const campingHub = read("src/routes/best-places-to-go-camping-in-texas.tsx");
+const legacyRedirect = read("src/routes/explore.texas-camping-guide.tsx");
+const sitemapValidator = read("scripts/data/validate-sitemap-routes.mjs");
+
+for (const symbol of [
+  "CAMPING_PROFILES",
+  "CAMPING_PROFILES_WAVE2",
+  "CAMPING_PROFILES_WAVE3",
+  "CAMPING_PROFILES_WAVE4",
+  "CAMPING_PROFILES_WAVE5",
+]) {
+  assert(server.includes(symbol), `Camping aggregate server must import ${symbol}.`);
+}
+assert(server.includes("profile.profileSlug ?? profile.destinationSlug"), "Camping aggregate must preserve parent/child profile identity without inventing duplicate destinations.");
+assert(server.includes("loadCampingProfilesForDestinationServer"), "Camping aggregate must resolve profiles by canonical destination slug.");
+assert(server.includes("loadCampingSearchIndexServer"), "Camping aggregate must expose a canonical-destination search index.");
+for (const signal of ["profile.searchTerms", "profile.styles", "profile.amenities", "profile.managingAgency", "profile.reservationAuthority"]) {
+  assert(server.includes(signal), `Camping search index must include ${signal}.`);
+}
+
+assert(functions.includes('createServerFn({ method: "GET" })'), "Camping resolver must use server functions rather than bundling the rich research registry into global client code.");
+assert(functions.includes('await import("./camping-profiles.server")'), "Camping server functions must dynamically load the server-only aggregate.");
+assert(functions.includes("getCampingProfilesForDestination"), "Camping server functions must expose destination-level profile lookup.");
+assert(functions.includes("getCampingSearchIndex"), "Camping server functions must expose search aliases keyed to canonical destinations.");
+
+assert(destinationRoute.includes('getCampingProfilesForDestination(destination.slug)'), "Canonical destination loader must fetch camping profiles by destination slug.");
+assert(destinationRoute.includes("<DestinationCampingDetails"), "Canonical destination pages must render verified camping details when profiles exist.");
+assert(destinationRoute.includes("campingCitations"), "Canonical destination schema must incorporate verified camping source citations.");
+assert(destinationRoute.includes("...campingProfiles.map((profile) => profile.verifiedAt)"), "Canonical destination freshness must consider camping source verification dates.");
+assert(destinationRoute.includes('`${siteUrl}/best-places-to-go-camping-in-texas`'), "Camping destinations must point schema back to the canonical statewide camping collection.");
+
+for (const signal of [
+  'data-camping-destination={destinationSlug}',
+  "unlisted amenity means we have not verified it, not that it is unavailable",
+  "Official reservation source",
+  "profile.sources.map",
+  'to="/best-places-to-go-camping-in-texas"',
+]) {
+  assert(component.includes(signal), `Destination camping component missing protected signal: ${signal}`);
+}
+
+assert(searchRoute.includes("getCampingSearchIndex"), "Explore search must load camping aliases from the server-side index.");
+assert(searchRoute.includes("campingTermsByDestination"), "Explore search must map camping aliases back to canonical destination slugs.");
+assert(searchRoute.includes("scoreDestination(destination, q, campingTermsByDestination.get(destination.slug) ?? [])"), "Explore search must score canonical destinations with camping aliases.");
+assert(searchRoute.includes("Pine Springs Campground"), "Explore search must document named-campground discovery without creating campground doorway routes.");
+assert(searchRoute.includes("full hookups"), "Explore search must expose high-intent camping amenity discovery.");
+
+for (const symbol of [
+  "CAMPING_DISCOVERY_PROFILES",
+  "CAMPING_DISCOVERY_PROFILES_WAVE2",
+  "CAMPING_DISCOVERY_PROFILES_WAVE3",
+  "CAMPING_DISCOVERY_PROFILES_WAVE4",
+  "CAMPING_DISCOVERY_PROFILES_WAVE5",
+]) {
+  assert(campingHub.includes(symbol), `Canonical camping hub must continue loading ${symbol}.`);
+}
+assert(legacyRedirect.includes('/best-places-to-go-camping-in-texas'), "Legacy camping guide must redirect to the canonical statewide camping hub.");
+assert(sitemapValidator.includes("/explore/texas-camping-guide"), "Sitemap governance must retain the legacy camping redirect contract.");
+assert(sitemapValidator.includes("/best-places-to-go-camping-in-texas"), "Sitemap governance must retain the canonical camping route.");
+
+for (const { profilePath, source } of profileSources) {
+  assert(source.includes("verifiedAt:"), `${profilePath} must preserve source verification dates.`);
+  assert(source.includes("sources:"), `${profilePath} must preserve authoritative source provenance.`);
+  assert(source.includes("reservationUrl:"), `${profilePath} must preserve official reservation routing.`);
+  assert(!/verifiedAt:\s*["']\s*["']/.test(source), `${profilePath} contains a blank verifiedAt value.`);
+  assert(!/url:\s*["']\s*["']/.test(source), `${profilePath} contains a blank source or reservation URL.`);
+}
+
+if (failures.length) {
+  console.error(`Camping authority validation failed (${failures.length} issue${failures.length === 1 ? "" : "s"}):`);
+  for (const failure of failures) console.error(`- ${failure}`);
+  process.exit(1);
+}
+
+console.log(`Camping authority validation passed: five verified public-camping waves feed the canonical hub, canonical destination pages, source/freshness schema and Explore search without duplicate campground routes.`);
