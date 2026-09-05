@@ -171,6 +171,12 @@ export const searchDocumentsQuery = () => queryOptions({
     const destinations = await listResolvedDestinationSearchCatalog();
     const nonDestinationDocuments = base.filter((document) => document.kind !== "destination");
     const nonDestinationHrefs = new Set(nonDestinationDocuments.map((document) => document.href));
+    const { buildFoodSearchDocuments } = await import("./food-destinations");
+    for (const document of buildFoodSearchDocuments()) {
+      if (nonDestinationHrefs.has(document.href)) continue;
+      nonDestinationDocuments.push(document);
+      nonDestinationHrefs.add(document.href);
+    }
     const { paintedChurchSearchDocuments } = await import("./painted-church-search");
     for (const document of paintedChurchSearchDocuments) {
       if (nonDestinationHrefs.has(document.href)) continue;

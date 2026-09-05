@@ -116,6 +116,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const entityPages = graph.filter(isIndexableEntityPage).filter(isTexasDefinedOwnedEntity);
         const supplementalMajorEventSitemapEntries = loadSupplementalMajorEventSitemapEntriesServer();
         const temporalEventSitemapEntries = loadTemporalEventSitemapEntriesServer();
+        const { FOOD_DESTINATIONS } = await import("@/data/food-destinations");
 
         const entries: SitemapEntry[] = [
           ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).filter((path) => isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
@@ -128,6 +129,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...LOCAL_MORTGAGE_PROFILES.map((profile) => ({ path: profile.mortgagePath, lastmod: "2026-08-30" })),
           ...LOCAL_COST_OF_LIVING_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-09-01" })),
           ...LOCAL_SALARY_NEEDED_PROFILES.map((profile) => ({ path: profile.salaryPath, lastmod: "2026-09-01" })),
+          ...FOOD_DESTINATIONS.map((destination) => ({ path: `/food/${destination.slug}`, lastmod: destination.verifiedAt })),
           { path: "/texas-icons" },
           ...majorEventIndexRecords.map((event) => ({ path: `/event/${event.slug}`, lastmod: toDate(event.sourceCheckedAt) })),
           ...supplementalMajorEventSitemapEntries,
