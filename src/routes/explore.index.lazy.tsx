@@ -35,7 +35,7 @@ function ExplorePage() {
         <Link to="/explore/attractions-comparison" className="group flex items-center justify-between gap-5 border-t border-border py-5 lg:border-r lg:border-t-0 lg:px-8"><div><p className="eyebrow text-primary">Structured comparison</p><h2 className="mt-1 font-display text-2xl group-hover:text-primary">Compare the Texas Defined attractions catalog</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">See destinations across categories by region, season guidance, highlights, planning notes and official source.</p></div><span className="shrink-0 font-semibold text-primary">Compare →</span></Link>
         <Link to="/explore/painted-churches" className="group flex items-center justify-between gap-5 border-t border-border py-5 lg:border-t-0 lg:pl-8"><div><p className="eyebrow text-primary">Texas heritage reference</p><h2 className="mt-1 font-display text-2xl group-hover:text-primary">Research and visit the Painted Churches of Texas</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">Use the statewide verified collection, interactive map, routes, artists, symbols, preservation records and then-and-now archive project.</p></div><span className="shrink-0 font-semibold text-primary">Churches →</span></Link>
       </div>
-      <div className="mt-5 grid gap-5 lg:grid-cols-3">
+      <div className="mt-5 grid gap-5 lg:grid-cols-2 xl:grid-cols-4">
         <Link to="/explore/aquariums" className="group grid gap-5 border border-border bg-surface p-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-8">
           <div>
             <p className="eyebrow text-primary">Aquariums · conservation · coastal science</p>
@@ -44,6 +44,14 @@ function ExplorePage() {
           </div>
           <span className="font-semibold text-primary">Aquariums →</span>
         </Link>
+        <a href="/wedding-venues" className="group grid gap-5 border border-border bg-surface p-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-8">
+          <div>
+            <p className="eyebrow text-primary">Venues · regions · wedding weekends</p>
+            <h2 className="mt-2 font-display text-3xl leading-tight group-hover:text-primary">Explore top Texas wedding venues</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Start with 249 unique venues across five Texas regions, then use county connections and venue profiles to narrow the shortlist.</p>
+          </div>
+          <span className="font-semibold text-primary">Weddings →</span>
+        </a>
         <a href="/events/tournaments" className="group grid gap-5 border border-border bg-surface p-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-8">
           <div>
             <p className="eyebrow text-primary">Sports · competitions · championships</p>
