@@ -167,6 +167,12 @@ export const searchDocumentsQuery = () => queryOptions({
       base.push(document);
       knownHrefs.add(document.href);
     }
+    const { buildRvParkSearchDocuments } = await import("./rv-parks");
+    for (const document of buildRvParkSearchDocuments()) {
+      if (knownHrefs.has(document.href)) continue;
+      base.push(document);
+      knownHrefs.add(document.href);
+    }
     const { listResolvedDestinationSearchCatalog } = await import("./destination-query-runtime");
     const destinations = await listResolvedDestinationSearchCatalog();
     const nonDestinationDocuments = base.filter((document) => document.kind !== "destination");
