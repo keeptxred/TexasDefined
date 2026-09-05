@@ -33,16 +33,12 @@ for (const [needle, label] of [
 
 for (const [source, needle, label] of [
   [explore, '<ExpediaStaySearch', 'statewide Explore page'],
-  [categories, '<ExpediaStaySearch', 'travel-focused Explore categories'],
+  [categories, '<ExpediaStaySearch', 'Explore category template'],
   [destination, '<ExpediaStaySearch', 'destination guides'],
   [counties, '<ExpediaStaySearch', 'county guides'],
   [sportsVenues, '<ExpediaStaySearch', 'sports and golf venue guides'],
   [eventGuide, '<ExpediaStaySearch', 'major event guides'],
 ]) requireText(source, needle, label);
-
-for (const category of ['state-parks', 'lakes-rivers', 'small-towns', 'road-trips', 'historic-sites', 'food-bbq', 'outdoors']) {
-  if (!categories.includes(`'${category}'`)) errors.push(`Travel category ${category} is missing from the Expedia stay-placement allowlist.`);
-}
 
 if (errors.length) {
   console.error('Expedia affiliate integration validation failed:');
@@ -50,4 +46,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Expedia affiliate integration validation passed: approved widget tracking is lazy-loaded on statewide Explore, travel categories, destination, county, sports/golf venue and major-event trip-planning surfaces with disclosure.');
+console.log('Expedia affiliate integration validation passed: approved widget tracking is lazy-loaded on statewide Explore, every Explore category template, destination, county, sports/golf venue and major-event trip-planning surfaces with disclosure.');
