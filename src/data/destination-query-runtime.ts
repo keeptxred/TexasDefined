@@ -15,12 +15,14 @@ import { applyHistoricSiteFactCorrections } from "./historic-site-fact-correctio
 import { enrichHistoricSiteRemoteHero } from "./historic-site-remote-heroes";
 import { enrichNationalCemeteryDestination } from "./national-cemetery-enrichment";
 import { platform, scope } from "./index";
+import { getRvParkDestination, rvParkDestinations } from "./rv-parks";
 import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "./state-park-heroes";
 import type { Destination, Slug } from "./types";
 import type { DestinationQuery } from "./repositories";
 import { selectSwimmingHoleAndTubingDestinations } from "./water-recreation";
 
 const WATER_COLLECTION = "swimming-holes-river-tubing";
+const RV_COLLECTION = "rv-parks";
 
 function featuredFallback(destinations: Destination[], limit = 6) {
   return [...destinations]
@@ -110,6 +112,12 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
     return params.limit ? destinations.slice(0, params.limit) : destinations;
   }
 
+  if (params.category === RV_COLLECTION) {
+    const destinations = rvParkDestinations.map(normalizeDestinationCounty);
+    if (params.featured) return featuredFallback(destinations, params.limit ?? 6);
+    return params.limit ? destinations.slice(0, params.limit) : destinations;
+  }
+
   const options = { featured: params.featured, category: params.category, limit: params.limit };
   let enriched: Destination[] = [];
   let core: Destination[] = [];
@@ -140,6 +148,8 @@ export async function getResolvedDestination(slug: Slug) {
   catch (error) { console.error("Explore destination enrichment unavailable; retrying core remote record", error); }
   try { const core = await fetchCoreExploreDestination(slug); if (core) return applyResolvedHero(core); }
   catch (error) { console.error("Core Explore remote destination unavailable; retrying preserved catalog", error); }
+  const rvPark = getRvParkDestination(slug);
+  if (rvPark) return applyResolvedHero(rvPark);
   const preserved = preservedExploreDestinations.find((destination) => destination.slug === slug);
   if (preserved) return applyResolvedHero(preserved);
   const local = await platform.destinations.getBySlug(scope, slug);
