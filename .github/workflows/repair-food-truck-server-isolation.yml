@@ -1,4 +1,4 @@
-name: Repair food-truck server isolation
+name: Measure food-truck bundle delta
 
 on:
   push:
@@ -9,10 +9,10 @@ permissions:
   contents: write
 
 jobs:
-  repair:
+  measure:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - name: Check out feature branch
         uses: actions/checkout@v4
@@ -28,33 +28,6 @@ jobs:
           git fetch origin main
           git merge --no-edit origin/main
 
-      - name: Move heavy registry behind server-only boundary
-        shell: bash
-        run: |
-          if [ -f src/data/food-trucks.ts ]; then
-            git mv src/data/food-trucks.ts src/data/food-trucks.server.ts
-          fi
-          python - <<'PY'
-          from pathlib import Path
-          path = Path('src/data/food-trucks.functions.ts')
-          text = path.read_text()
-          text = text.replace('import("./food-trucks")', 'import("./food-trucks.server")')
-          path.write_text(text)
-          PY
-          echo "Checking for direct imports of the old heavy registry path..."
-          if grep -RIn \
-            --exclude='food-trucks.server.ts' \
-            --exclude='food-trucks.functions.ts' \
-            -e '@/data/food-trucks"' \
-            -e "@/data/food-trucks'" \
-            -e '"./food-trucks"' \
-            -e "'./food-trucks'" \
-            src; then
-            echo "::error::A client-visible source file still imports the old heavy food-truck registry."
-            exit 1
-          fi
-          grep -n 'food-trucks.server' src/data/food-trucks.functions.ts
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -62,22 +35,38 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
 
-      - name: Install dependencies
-        run: npm ci --no-audit --no-fund
-
-      - name: Production build and route generation
-        run: npm run build
-
-      - name: Verify unchanged client performance budget
-        run: npm run performance:validate
-
-      - name: Commit repair
+      - name: Measure feature bundle
+        id: feature
         shell: bash
         run: |
-          git add -A
-          if git diff --cached --quiet; then
-            echo "No repair changes to commit."
-          else
-            git commit -m "Keep food-truck registry server-only"
-          fi
+          npm ci --no-audit --no-fund
+          npm run build
+          file=$(find dist/client/assets -maxdepth 1 -type f -name 'main-*.js' -print -quit)
+          bytes=$(stat -c %s "$file")
+          echo "bytes=$bytes" >> "$GITHUB_OUTPUT"
+          echo "Feature main bundle: $bytes bytes ($file)"
+
+      - name: Measure current-main bundle
+        id: main
+        shell: bash
+        run: |
+          git worktree add /tmp/td-current-main origin/main
+          cd /tmp/td-current-main
+          npm ci --no-audit --no-fund
+          npm run build
+          file=$(find dist/client/assets -maxdepth 1 -type f -name 'main-*.js' -print -quit)
+          bytes=$(stat -c %s "$file")
+          echo "bytes=$bytes" >> "$GITHUB_OUTPUT"
+          echo "Current-main bundle: $bytes bytes ($file)"
+
+      - name: Record exact delta in commit message
+        shell: bash
+        env:
+          FEATURE_BYTES: ${{ steps.feature.outputs.bytes }}
+          MAIN_BYTES: ${{ steps.main.outputs.bytes }}
+        run: |
+          delta=$((FEATURE_BYTES - MAIN_BYTES))
+          budget=1825000
+          over=$((FEATURE_BYTES - budget))
+          git commit --allow-empty -m "Measure food-truck bundle: main=${MAIN_BYTES} feature=${FEATURE_BYTES} delta=${delta} over_budget=${over}"
           git push origin HEAD:feature/texas-food-trucks-300
