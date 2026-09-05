@@ -1,6 +1,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
+import { ExpediaStaySearch } from "@/components/affiliate/ExpediaStaySearch";
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { TopAttractionCollectionLinks } from "@/components/editorial/TopAttractionCollectionLinks";
 import { ExploreDestinationComparison, type ExploreComparisonKind } from "@/components/explore/ExploreDestinationComparison";
@@ -10,6 +11,7 @@ import type { CategorySlug } from "@/data/types";
 
 const COMPARISON_CATEGORIES = new Set<ExploreComparisonKind>(['state-parks', 'lakes-rivers', 'small-towns', 'road-trips']);
 const PAINTED_CHURCH_CROSS_LINK_CATEGORIES = new Set(['historic-sites', 'road-trips', 'small-towns']);
+const EXPEDIA_STAY_CATEGORIES = new Set(['state-parks', 'lakes-rivers', 'small-towns', 'road-trips', 'historic-sites', 'food-bbq', 'outdoors', 'landscapes', 'beaches']);
 
 export const Route = createLazyFileRoute("/explore/$category")({ component: ExploreCategoryPage });
 
@@ -25,6 +27,7 @@ function ExploreCategoryPage() {
   const showFoodHistory = match.slug === "food-bbq";
   const showWildlifeGuide = match.slug === "outdoors";
   const showLandformsGuide = match.slug === "landscapes";
+  const showExpediaStays = EXPEDIA_STAY_CATEGORIES.has(match.slug);
 
   return <>
     <CategoryPage category={match.slug as CategorySlug} eyebrow={match.eyebrow} title={match.name} intro={match.description} image={match.image} authorityHtml={authorityHtml} />
@@ -35,5 +38,13 @@ function ExploreCategoryPage() {
     {showPaintedChurches ? <Container className="pb-10 sm:pb-14"><section className="grid gap-6 border-y border-border py-7 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"><div><p className="eyebrow text-primary">Texas heritage route</p><h2 className="mt-2 font-display text-3xl">Painted Churches of Texas</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Explore the verified statewide church collection with church-by-church history, architecture, interior paintings, preservation context, visitor guidance and Schulenburg driving routes.</p></div><Link to="/explore/painted-churches" className="eyebrow inline-block border-b border-primary pb-1 text-primary">Explore the painted churches →</Link></section></Container> : null}
     <TopAttractionCollectionLinks destinations={destinations} contextLabel={match.name} />
     {comparisonKind ? <ExploreDestinationComparison destinations={destinations} kind={comparisonKind} /> : null}
+    {showExpediaStays ? <Container>
+      <ExpediaStaySearch
+        id={`expedia-${match.slug}-stays`}
+        locationLabel={match.name}
+        title="Turn the Texas day trip into an overnight stay"
+        description={`Compare current hotel and lodging options while planning a trip built around ${match.name.toLowerCase()}.`}
+      />
+    </Container> : null}
   </>;
 }
