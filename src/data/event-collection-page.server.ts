@@ -38,6 +38,18 @@ function buildCollectionHead(collection: CollectionDefinition, items: Collection
   const canonicalPath = collection.path;
   const pageUrl = `${siteUrl}${canonicalPath}`;
   const itemListElement = items.map((event, index) => {
+    if (collection.kind === "tournament") {
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "Thing",
+          name: event.name,
+          description: event.detail,
+        },
+      };
+    }
+
     const eventUrl = `${siteUrl}${event.href}`;
     return {
       "@type": "ListItem",
@@ -115,7 +127,7 @@ export function loadEventCollectionPageServer(slug: string) {
         );
   const shouldIndex = tournament ? items.length >= 5 : temporal?.shouldIndex ?? true;
   const indexabilityNote = tournament
-    ? "This collection is indexable as a substantive discovery directory. Individual tournament reference pages remain noindex until first-party occurrence details are verified."
+    ? "This collection is indexable as a substantive discovery directory. Individual tournament reference pages remain unpublished until first-party occurrence details are verified."
     : temporal?.indexabilityNote ?? "This collection is a durable, crawlable event-discovery page backed by permanent verified event guides.";
 
   const latestSourceCheck = items
