@@ -105,6 +105,34 @@ export const COUNTY_PROPERTY_LOCAL_VERIFICATION: Record<string, CountyPropertyLo
       'https://www.haskellcountytx.gov/page/haskell.County.Assessor.Collector',
     ],
   },
+  leon: {
+    appraisalDistrict: {
+      name: 'Marcus Williams',
+      websiteUrl: 'https://www.leoncad.org/',
+      phone: '903-536-2252',
+      address: "141 W. Saint Mary's St., Centerville, TX 75833-0536",
+      email: 'leoncentralappraisal@gmail.com',
+    },
+    taxOffice: {
+      name: 'Victoria Willis',
+      websiteUrl: 'https://www.co.leon.tx.us/page/leon.County.Assessor.Collector',
+      phone: '903-536-2543',
+      address: '155 N. Cass St., Centerville, TX 75833',
+      email: 'victoria.willis@co.leon.tx.us',
+    },
+    links: {
+      appraisalDistrictUrl: 'https://www.leoncad.org/',
+      taxOfficeUrl: 'https://www.co.leon.tx.us/page/leon.County.Assessor.Collector',
+      propertySearchUrl: 'https://www.leoncad.org/',
+      paymentUrl: 'https://www.leoncountytax.org/Home/ThirdPartyVendor',
+    },
+    lastVerifiedAt: '2026-09-05',
+    sourceUrls: [
+      'https://www.leoncad.org/',
+      'https://www.co.leon.tx.us/page/leon.County.Assessor.Collector',
+      'https://www.leoncountytax.org/',
+    ],
+  },
   travis: {
     appraisalDistrict: {
       websiteUrl: 'https://traviscad.org/',
