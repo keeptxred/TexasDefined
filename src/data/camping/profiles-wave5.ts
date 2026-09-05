@@ -6,7 +6,7 @@ const VERIFIED_AT = "2026-09-02";
 type CampgroundDiscoveryProfile = CampingDiscoveryProfile & { profileSlug: string };
 
 /**
- * Public river-authority and authority-operated camping wave.
+ * Public authority-operated camping wave, including river-authority and NPS additions.
  * Unknown facilities are omitted rather than interpreted as unavailable.
  */
 export const CAMPING_PROFILES_WAVE5: CampingProfile[] = [
@@ -121,6 +121,31 @@ export const CAMPING_PROFILES_WAVE5: CampingProfile[] = [
     searchTerms: ["Toledo Bend primitive camping", "Toledo Bend Tailrace camping", "Sabine River Authority primitive camping", "camping near Toledo Bend Dam"],
     verifiedAt: VERIFIED_AT,
     sources: [{ label: "SRA-TX Toledo Bend Tailrace Channel Area", url: "https://sratx.org/parks-and-recreation/tailrace-channel-area-recreation-facility/", fields: ["primitive camping", "overnight self-contained visitors", "fishing", "primitive boat ramp", "trash cans only"] }],
+  },
+  {
+    destinationSlug: "padre-island-national-seashore",
+    profileSlug: "padre-island-national-seashore",
+    name: "Padre Island National Seashore",
+    county: "Kleberg",
+    region: "gulf-coast",
+    managingAgency: "National Park Service",
+    styles: ["tent", "rv", "primitive", "beach"],
+    amenities: ["dump-station", "restrooms", "showers", "gulf-access", "fishing"],
+    reservationPolicy: "All camping is first come, first served; reservations are not accepted. Developed camping at Malaquite and Bird Island Basin uses self-registration, while designated beach camping follows current NPS access and fee rules.",
+    reservationAuthority: "National Park Service",
+    reservationUrl: "https://www.nps.gov/pais/planyourvisit/camping.htm",
+    campingNotes: [
+      "NPS lists Malaquite Campground and Bird Island Basin Campground as the two developed campgrounds, with additional dispersed beach camping on North Beach, South Beach and at Yarborough Pass.",
+      "No electric or water hookups are available in the park. A dump station and freshwater filling station are located near the entrance to Malaquite Campground for park visitors.",
+      "Primitive beach camping can close temporarily for hazardous coastal conditions; visitors should check weather, tides and current park alerts before travel.",
+    ],
+    searchTerms: ["Padre Island National Seashore camping", "Malaquite Campground", "Bird Island Basin Campground", "North Beach camping", "South Beach camping", "Texas national seashore camping", "primitive beach camping", "RV beach camping"],
+    verifiedAt: "2026-09-04",
+    sources: [
+      { label: "NPS Padre Island camping", url: "https://www.nps.gov/pais/planyourvisit/camping.htm", fields: ["year-round camping", "first come first served", "developed campgrounds", "beach camping", "no hookups", "dump station", "freshwater station", "stay limits"] },
+      { label: "NPS Padre Island permits and reservations", url: "https://www.nps.gov/pais/planyourvisit/permitsandreservations.htm", fields: ["no camping reservations", "self-registration kiosks"] },
+      { label: "NPS Malaquite Campground", url: "https://www.nps.gov/pais/planyourvisit/malaquite_campground.htm", fields: ["tent and RV camping", "48 sites", "restrooms", "cold-water showers", "beach access", "no hookups"] },
+    ],
   },
 ];
 

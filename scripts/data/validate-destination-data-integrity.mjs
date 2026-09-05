@@ -2,7 +2,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
-const destinationRoute = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
+const destinationRouteShell = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
+const destinationPresentation = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationPageContent.tsx'), 'utf8');
+const destinationRoute = `${destinationRouteShell}\n${destinationPresentation}`;
 const destinationPlanner = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationVisitPlanner.tsx'), 'utf8');
 const destinationAudit = fs.readFileSync(path.join(root, 'src/data/destination-audit.ts'), 'utf8');
 const destinationQuality = fs.readFileSync(path.join(root, 'src/data/destination-quality.ts'), 'utf8');
@@ -31,6 +33,10 @@ for (const feature of [
   'robots: indexable ? undefined : "noindex, follow"',
 ]) {
   if (!destinationRoute.includes(feature)) errors.push(`Destination integrity feature missing: ${feature}.`);
+}
+
+if (!destinationRouteShell.includes('lazy(() =>') || !destinationRouteShell.includes('import("@/components/editorial/DestinationPageContent")')) {
+  errors.push('Destination presentation must remain dynamically split while loader and metadata integrity remain eager.');
 }
 
 if (destinationRoute.includes('...(!indexable ? [{ name: "robots", content: "noindex, follow" }] : [])')) {
@@ -148,4 +154,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Article and destination data, single robots policy, indexing quality gate, lazy destination query resolution, visit-planner, relationship, breadcrumb, and entity graph integrity validation passed.');
+console.log('Article and destination data, single robots policy, indexing quality gate, lazy destination query resolution, split presentation, visit-planner, relationship, breadcrumb, and entity graph integrity validation passed.');

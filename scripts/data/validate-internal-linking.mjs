@@ -9,7 +9,7 @@ const readRouteSurface = (file) => {
 };
 const required = [
   'src/platform/internal-linking.ts','src/platform/internal-link-coverage.ts','src/platform/internal-link-memory.ts','src/platform/internal-link-quality.ts','src/platform/internal-link-policies.ts','src/platform/internal-link-policy-history.ts','src/platform/internal-link-policy-diff.ts','src/platform/analytics.ts',
-  'src/components/content/AutoEntityLinks.tsx','src/components/editorial/ArticleBody.tsx','src/components/guides/PropertyTaxGuidePage.tsx','src/components/directories/TexasPlaceDirectory.tsx','src/components/admin/InternalLinkMemoryCard.tsx','src/components/admin/InternalLinkPolicyHistory.tsx','src/components/admin/InternalLinkRollbackPreview.tsx',
+  'src/components/content/AutoEntityLinks.tsx','src/components/editorial/ArticleBody.tsx','src/components/editorial/DestinationPageContent.tsx','src/components/guides/PropertyTaxGuidePage.tsx','src/components/directories/TexasPlaceDirectory.tsx','src/components/admin/InternalLinkMemoryCard.tsx','src/components/admin/InternalLinkPolicyHistory.tsx','src/components/admin/InternalLinkRollbackPreview.tsx',
   'src/routes/api.internal-links.ts','src/routes/api.internal-link-coverage.ts','src/routes/api.internal-link-quality.ts','src/routes/api.internal-link-policies.ts','src/routes/api.internal-link-policy-rollback.ts','src/routes/article.$slug.tsx','src/routes/destination.$slug.tsx','src/routes/$kind.$slug.tsx','src/routes/county.tsx','src/routes/county.lazy.tsx','src/routes/events.tsx','src/routes/events.lazy.tsx','src/routes/guides.tsx','src/routes/admin.platform-health.tsx','src/routes/admin.platform-health.lazy.tsx','src/routes/admin.internal-link-rollback.tsx','src/routes/admin.internal-link-rollback.lazy.tsx',
 ];
 for (const file of required) if (!fs.existsSync(file)) errors.push(`Missing Phase 2 file: ${file}`);
@@ -37,7 +37,8 @@ const qualityApi = files['src/routes/api.internal-link-quality.ts'];
 const policyApi = files['src/routes/api.internal-link-policies.ts'];
 const rollbackApi = files['src/routes/api.internal-link-policy-rollback.ts'];
 const article = files['src/routes/article.$slug.tsx'];
-const destination = files['src/routes/destination.$slug.tsx'];
+const destinationShell = files['src/routes/destination.$slug.tsx'];
+const destination = `${destinationShell}\n${files['src/components/editorial/DestinationPageContent.tsx']}`;
 const entity = readRouteSurface('src/routes/$kind.$slug.tsx');
 const countyIndex = readRouteSurface('src/routes/county.tsx');
 const eventsHub = readRouteSurface('src/routes/events.tsx');
@@ -61,6 +62,7 @@ requireSymbols(rollbackCard, ['previewInternalLinkPolicyRollback','Internal-link
 requireSymbols(articleBody, ['INTERNAL_LINK_POLICIES.article',"policyForSurface('article')",'articlePolicy.pageBudget','countyLabelHasExplicitContext'], 'article integration');
 requireSymbols(guide, ["INTERNAL_LINK_POLICIES['property-tax-guide']","policyForSurface('property-tax-guide')",'surfacePolicy.pageBudget'], 'guide integration');
 requireSymbols(destination, ['INTERNAL_LINK_POLICIES.destination','policyForSurface','destinationPolicy','excludedEntityIds','surfacePolicy.pageBudget'], 'destination integration');
+if (!destinationShell.includes('lazy(() =>') || !destinationShell.includes('import("@/components/editorial/DestinationPageContent")')) errors.push('destination integration must preserve the dynamic presentation boundary.');
 requireSymbols(previewApi, ["createFileRoute('/api/internal-links')",'50000','entityExposureWeights','x-robots-tag'], 'preview API');
 requireSymbols(coverageApi, ["createFileRoute('/api/internal-link-coverage')",'no-store'], 'coverage API');
 requireSymbols(qualityApi, ["createFileRoute('/api/internal-link-quality')",'no-store'], 'quality API');
