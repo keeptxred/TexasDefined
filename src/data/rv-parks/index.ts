@@ -5,42 +5,34 @@ import type { Destination, SearchDocument } from "../types";
 export const RV_PARK_SEED_IMPORTED_AT = "2026-09-05";
 export const RV_PARK_SEED_COUNT = 250;
 
-const loadRvParkDestinations = createServerFn({ method: "GET" }).handler(async () => {
-  const { loadRvParkDestinationsServer } = await import("./registry.server");
-  return loadRvParkDestinationsServer();
-});
+type RvParkRequest =
+  | { action: "all" }
+  | { action: "one"; value: string }
+  | { action: "county"; value: string }
+  | { action: "search" };
 
-const loadRvParkDestination = createServerFn({ method: "GET" })
-  .inputValidator((data: { slug: string }) => data)
+const loadRvParks = createServerFn({ method: "GET" })
+  .inputValidator((data: RvParkRequest) => data)
   .handler(async ({ data }) => {
-    const { getRvParkDestinationServer } = await import("./registry.server");
-    return getRvParkDestinationServer(data.slug) ?? null;
+    const registry = await import("./registry.server");
+    if (data.action === "one") return registry.getRvParkDestinationServer(data.value) ?? null;
+    if (data.action === "county") return registry.loadRvParksForCountyServer(data.value);
+    if (data.action === "search") return registry.buildRvParkSearchDocumentsServer();
+    return registry.loadRvParkDestinationsServer();
   });
-
-const loadRvParksForCounty = createServerFn({ method: "GET" })
-  .inputValidator((data: { countySlug: string }) => data)
-  .handler(async ({ data }) => {
-    const { loadRvParksForCountyServer } = await import("./registry.server");
-    return loadRvParksForCountyServer(data.countySlug);
-  });
-
-const loadRvParkSearchDocuments = createServerFn({ method: "GET" }).handler(async () => {
-  const { buildRvParkSearchDocumentsServer } = await import("./registry.server");
-  return buildRvParkSearchDocumentsServer();
-});
 
 export function listRvParkDestinations(): Promise<Destination[]> {
-  return loadRvParkDestinations();
+  return loadRvParks({ data: { action: "all" } }) as Promise<Destination[]>;
 }
 
 export function getRvParkDestination(slug: string): Promise<Destination | null> {
-  return loadRvParkDestination({ data: { slug } });
+  return loadRvParks({ data: { action: "one", value: slug } }) as Promise<Destination | null>;
 }
 
 export function rvParksForCounty(countySlug: string): Promise<Destination[]> {
-  return loadRvParksForCounty({ data: { countySlug } });
+  return loadRvParks({ data: { action: "county", value: countySlug } }) as Promise<Destination[]>;
 }
 
 export function buildRvParkSearchDocuments(): Promise<SearchDocument[]> {
-  return loadRvParkSearchDocuments();
+  return loadRvParks({ data: { action: "search" } }) as Promise<SearchDocument[]>;
 }
