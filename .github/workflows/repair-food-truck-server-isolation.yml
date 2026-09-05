@@ -41,12 +41,19 @@ jobs:
           text = text.replace('import("./food-trucks")', 'import("./food-trucks.server")')
           path.write_text(text)
           PY
-          echo "Remaining food-truck imports/references:"
-          grep -RIn --exclude='food-trucks.server.ts' --exclude='repair-food-truck-server-isolation.yml' -E 'from ["'"'][^"'"']*food-trucks["'"']|import\(["'"'][^"'"']*food-trucks["'"']\)' src || true
-          if grep -RIn --exclude='food-trucks.server.ts' --exclude='food-trucks.functions.ts' -E 'from ["'"'][^"'"']*food-trucks["'"']|import\(["'"'][^"'"']*food-trucks["'"']\)' src; then
-            echo "::error::A client-visible source file still imports the heavy food-truck registry."
+          echo "Checking for direct imports of the old heavy registry path..."
+          if grep -RIn \
+            --exclude='food-trucks.server.ts' \
+            --exclude='food-trucks.functions.ts' \
+            -e '@/data/food-trucks"' \
+            -e "@/data/food-trucks'" \
+            -e '"./food-trucks"' \
+            -e "'./food-trucks'" \
+            src; then
+            echo "::error::A client-visible source file still imports the old heavy food-truck registry."
             exit 1
           fi
+          grep -n 'food-trucks.server' src/data/food-trucks.functions.ts
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
