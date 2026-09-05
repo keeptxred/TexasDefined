@@ -1,6 +1,7 @@
 import { majorEventIndexRecords, type MajorEventIndexRecord } from "./major-event-index";
 import { verifiedTournamentBySlug } from "./tournaments/verified-profiles";
 import { verifiedTournamentBatch3BySlug } from "./tournaments/verified-profiles-batch3";
+import { verifiedTournamentBatch4BySlug } from "./tournaments/verified-profiles-batch4";
 
 export interface MajorEventSource { label: string; url: string; }
 export interface MajorEventPlanningSection { title: string; body: string; }
@@ -136,6 +137,10 @@ const newVerifiedTournamentRegistrations = [
   { slug: "uil-soccer-state-championships" },
   { slug: "uil-tennis-state-tournaments" },
   { slug: "us-mens-clay-court-championships" },
+  { slug: "uil-volleyball-state-tournament" },
+  { slug: "uil-cross-country-state-championships" },
+  { slug: "uil-wrestling-state-championships" },
+  { slug: "uil-spirit-state-championships" },
 ] as const;
 
 const newVerifiedTournamentSlugs = new Set(newVerifiedTournamentRegistrations.map(({ slug }) => slug));
@@ -153,7 +158,7 @@ const verifiedTournamentRegionByCounty: Record<string, MajorEventIndexRecord["re
 
 function getVerifiedTournamentAuthorityServer(slug: string): MajorEventAuthorityRecord | null {
   if (!newVerifiedTournamentSlugs.has(slug as (typeof newVerifiedTournamentRegistrations)[number]["slug"])) return null;
-  const profile = verifiedTournamentBySlug(slug) ?? verifiedTournamentBatch3BySlug(slug);
+  const profile = verifiedTournamentBySlug(slug) ?? verifiedTournamentBatch3BySlug(slug) ?? verifiedTournamentBatch4BySlug(slug);
   if (!profile) return null;
 
   const venue = profile.slug === "the-texas-bowl" ? "NRG Stadium" : profile.venue;
