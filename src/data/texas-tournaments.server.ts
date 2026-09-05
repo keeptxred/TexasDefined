@@ -28,7 +28,7 @@ export function loadTournamentCollectionItemsServer(category?: TexasTournamentCa
 
   return tournaments.map((tournament) => ({
     slug: tournament.slug,
-    href: categoryPathBySlug.get(tournament.category) ?? '/events/tournaments',
+    href: category ? '/events/tournaments' : categoryPathBySlug.get(tournament.category) ?? '/events/tournaments',
     name: tournament.name,
     city: tournament.locationLabel,
     countyName: tournamentCountyName(tournament.countySlug),
