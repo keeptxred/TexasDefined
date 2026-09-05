@@ -1,7 +1,6 @@
 import { loadMajorEventGuideDirectoryServer } from "./major-event-directory.server";
 import { TEMPORAL_EVENT_COLLECTIONS, resolveTemporalEventCollectionServer } from "./event-temporal-collections.server";
 import { TOURNAMENT_COLLECTIONS } from "./texas-tournament-collections";
-import { VERIFIED_TOURNAMENT_PROFILES } from "./tournaments/verified-profiles";
 
 export interface TemporalEventSitemapEntry {
   path: string;
@@ -22,12 +21,8 @@ export function loadTemporalEventSitemapEntriesServer(now = new Date()): Tempora
     path: collection.path,
     lastmod: "2026-09-04",
   }));
-  const verifiedTournamentEntries = VERIFIED_TOURNAMENT_PROFILES.map((profile) => ({
-    path: `/tournament/${profile.slug}`,
-    lastmod: profile.sourceCheckedAt,
-  }));
 
-  return [...temporalEntries, ...tournamentEntries, ...verifiedTournamentEntries];
+  return [...temporalEntries, ...tournamentEntries];
 }
 
 function latestVerifiedDate(values: Array<string | undefined>) {

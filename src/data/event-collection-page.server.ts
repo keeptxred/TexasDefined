@@ -39,7 +39,7 @@ function buildCollectionHead(collection: CollectionDefinition, items: Collection
   const pageUrl = `${siteUrl}${canonicalPath}`;
   const itemListElement = items.map((event, index) => {
     if (collection.kind === "tournament") {
-      if (event.sourceCheckedAt && event.href.startsWith("/tournament/")) {
+      if (event.sourceCheckedAt && event.href.startsWith("/event/")) {
         const eventUrl = `${siteUrl}${event.href}`;
         return {
           "@type": "ListItem",
@@ -141,7 +141,7 @@ export function loadEventCollectionPageServer(slug: string) {
         );
   const shouldIndex = tournament ? items.length >= 5 : temporal?.shouldIndex ?? true;
   const verifiedTournamentCount = tournament
-    ? items.filter((item) => Boolean(item.sourceCheckedAt) && item.href.startsWith("/tournament/")).length
+    ? items.filter((item) => Boolean(item.sourceCheckedAt) && item.href.startsWith("/event/")).length
     : 0;
   const indexabilityNote = tournament
     ? `This collection is indexable as a substantive discovery directory. ${verifiedTournamentCount} entries currently link to first-party-verified tournament guides; the remaining seed entries stay at the collection layer until their current occurrence details are verified.`
