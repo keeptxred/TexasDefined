@@ -1,24 +1,25 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { TopAttractionCollectionLinks } from "@/components/editorial/TopAttractionCollectionLinks";
 import { ExploreDestinationComparison, type ExploreComparisonKind } from "@/components/explore/ExploreDestinationComparison";
+import { WaterTowersPage } from "@/components/explore/WaterTowersPage";
 import { Container } from "@/components/layout/Container";
-import { categoriesQuery } from "@/data/queries";
 import type { CategorySlug } from "@/data/types";
 
 const COMPARISON_CATEGORIES = new Set<ExploreComparisonKind>(['state-parks', 'lakes-rivers', 'small-towns', 'road-trips']);
 const PAINTED_CHURCH_CROSS_LINK_CATEGORIES = new Set(['historic-sites', 'road-trips', 'small-towns']);
 
-export const Route = createLazyFileRoute("/explore/$category")({ component: ExploreCategoryPage });
+export const Route = createLazyFileRoute("/explore/$category")({
+  component: ExploreCategoryPage,
+  notFoundComponent: CategoryNotFound,
+});
 
 function ExploreCategoryPage() {
-  const { category } = Route.useParams();
   const { destinations, authorityHtml } = Route.useLoaderData();
-  const { data: categories } = useSuspenseQuery(categoriesQuery());
-  const match = categories.find((item) => item.slug === category);
-  if (!match) return null;
+  const { category: match } = Route.useLoaderData();
+  if (match.slug === "water-towers") return <WaterTowersPage />;
+
   const comparisonKind = COMPARISON_CATEGORIES.has(match.slug as ExploreComparisonKind) ? match.slug as ExploreComparisonKind : null;
   const showPaintedChurches = PAINTED_CHURCH_CROSS_LINK_CATEGORIES.has(match.slug);
   const showMuseumCollection = match.slug === "historic-sites";
@@ -36,4 +37,13 @@ function ExploreCategoryPage() {
     <TopAttractionCollectionLinks destinations={destinations} contextLabel={match.name} />
     {comparisonKind ? <ExploreDestinationComparison destinations={destinations} kind={comparisonKind} /> : null}
   </>;
+}
+
+function CategoryNotFound() {
+  return <Container className="py-24">
+    <p className="eyebrow text-primary">A different road</p>
+    <h1 className="mt-3 font-display text-3xl">We haven't made that list yet</h1>
+    <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">The page may have moved, but there are still plenty of places worth the drive.</p>
+    <Link to="/explore" className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary">Find another road →</Link>
+  </Container>;
 }
