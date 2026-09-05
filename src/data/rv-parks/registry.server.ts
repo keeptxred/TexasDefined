@@ -3,6 +3,7 @@ import type { Destination, SearchDocument, TexasRegion } from "../types";
 import { RV_PARK_RAW_BIG_BEND_WEST_TEXAS } from "./big-bend-west-texas";
 import { RV_PARK_RAW_GULF_COAST } from "./gulf-coast";
 import { RV_PARK_RAW_HILL_COUNTRY } from "./hill-country";
+import { rvParkLicensedImage } from "./images.server";
 import { RV_PARK_RAW_PANHANDLE_NORTH_TEXAS } from "./panhandle-north-texas";
 import { RV_PARK_RAW_PINEY_WOODS_EAST_TEXAS } from "./piney-woods-east-texas";
 
@@ -67,6 +68,20 @@ const RV_PARK_SEEDS: readonly RvParkSeedRecord[] = GROUPS.flatMap((group) =>
 );
 
 function destinationFromSeed(seed: RvParkSeedRecord): Destination {
+  const licensedImage = rvParkLicensedImage(seed.slug);
+  const hero = licensedImage ? {
+    src: licensedImage.src,
+    alt: licensedImage.alt,
+    width: licensedImage.width,
+    height: licensedImage.height,
+    credit: `${licensedImage.creator} · ${licensedImage.license} · Wikimedia Commons · ${licensedImage.sourceUrl}`,
+  } : {
+    src: DESTINATION_PHOTO_PLACEHOLDER,
+    alt: `${seed.name} RV park or campground profile awaiting a destination-specific photograph`,
+    width: 1600,
+    height: 1067,
+  };
+
   return {
     id: `rv-park-${seed.slug}`,
     brandId: "texasdefined",
@@ -77,23 +92,20 @@ function destinationFromSeed(seed: RvParkSeedRecord): Destination {
     nearestTown: seed.town,
     county: seed.county,
     coordinates: { lat: 0, lng: 0 },
-    hero: {
-      src: DESTINATION_PHOTO_PLACEHOLDER,
-      alt: `${seed.name} RV park or campground profile awaiting a destination-specific photograph`,
-      width: 1600,
-      height: 1067,
-    },
+    hero,
     summary: `${seed.name} is listed in ${seed.town}, ${seed.county} County, in the Texas Defined RV parks and campgrounds directory. This seed profile supports trip discovery while park-specific operating details are being verified from the operator or managing agency.`,
     bestSeason: "Varies by location and weather; verify the current operating season before travel.",
     entryNote: "Confirm current RV-site availability, hookup types, rig-length limits, rates, check-in rules, pet policies and reservation requirements with the park operator or managing agency before travel.",
     highlights: [`RV camping near ${seed.town}`, `${seed.county} County`, seed.groupName],
     body: [
       `Texas Defined currently tracks ${seed.name} as an RV park or campground option around ${seed.town}. The record entered the statewide directory through the ${seed.groupName} expansion and is being reconciled with park-specific official sources before the individual profile is eligible for search indexing.`,
-      "Before routing a motorhome, travel trailer or fifth wheel here, verify the current site type, electrical service, water and sewer availability, maximum rig length, check-in procedures, generator rules, pet rules and any seasonal operating restrictions directly with the operator or managing agency.",
+      licensedImage?.subjectScope === "park-property"
+        ? "The published photograph depicts the named public park property itself; it is not presented as a photograph of a specific numbered RV pad or loop unless the image record explicitly says campground."
+        : "Before routing a motorhome, travel trailer or fifth wheel here, verify the current site type, electrical service, water and sewer availability, maximum rig length, check-in procedures, generator rules, pet rules and any seasonal operating restrictions directly with the operator or managing agency.",
       `Use this profile to connect the park to ${seed.county} County and the broader ${seed.groupName} travel map. Rates, availability, reservation policies and amenity claims can change, so Texas Defined does not infer those details from the directory name alone.`,
     ],
     officialUrl: seed.officialUrl,
-    sourceCheckedAt: seed.sourceCheckedAt,
+    sourceCheckedAt: seed.sourceCheckedAt ?? licensedImage?.verifiedAt,
     address: seed.address,
     managingAuthority: seed.managingAuthority,
   };
