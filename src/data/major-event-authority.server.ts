@@ -2,6 +2,7 @@ import { majorEventIndexRecords, type MajorEventIndexRecord } from "./major-even
 import { verifiedTournamentBySlug } from "./tournaments/verified-profiles";
 import { verifiedTournamentBatch3BySlug } from "./tournaments/verified-profiles-batch3";
 import { verifiedTournamentBatch4BySlug } from "./tournaments/verified-profiles-batch4";
+import { verifiedTournamentBatch5BySlug } from "./tournaments/verified-profiles-batch5";
 
 export interface MajorEventSource { label: string; url: string; }
 export interface MajorEventPlanningSection { title: string; body: string; }
@@ -141,6 +142,8 @@ const newVerifiedTournamentRegistrations = [
   { slug: "uil-cross-country-state-championships" },
   { slug: "uil-wrestling-state-championships" },
   { slug: "uil-spirit-state-championships" },
+  { slug: "the-texas-relays" },
+  { slug: "worlds-championship-bar-b-que-contest" },
 ] as const;
 
 const newVerifiedTournamentSlugs = new Set(newVerifiedTournamentRegistrations.map(({ slug }) => slug));
@@ -158,7 +161,7 @@ const verifiedTournamentRegionByCounty: Record<string, MajorEventIndexRecord["re
 
 function getVerifiedTournamentAuthorityServer(slug: string): MajorEventAuthorityRecord | null {
   if (!newVerifiedTournamentSlugs.has(slug as (typeof newVerifiedTournamentRegistrations)[number]["slug"])) return null;
-  const profile = verifiedTournamentBySlug(slug) ?? verifiedTournamentBatch3BySlug(slug) ?? verifiedTournamentBatch4BySlug(slug);
+  const profile = verifiedTournamentBySlug(slug) ?? verifiedTournamentBatch3BySlug(slug) ?? verifiedTournamentBatch4BySlug(slug) ?? verifiedTournamentBatch5BySlug(slug);
   if (!profile) return null;
 
   const venue = profile.slug === "the-texas-bowl" ? "NRG Stadium" : profile.venue;
@@ -175,7 +178,7 @@ function getVerifiedTournamentAuthorityServer(slug: string): MajorEventAuthority
     countySlug: profile.countySlug,
     countyName: profile.countyName,
     region: verifiedTournamentRegionByCounty[profile.countySlug] ?? "prairies-lakes",
-    category: "category" in profile && profile.category === "rodeo-ranch" ? "rodeo" : "sport",
+    category: "eventCategory" in profile ? profile.eventCategory : "category" in profile && profile.category === "rodeo-ranch" ? "rodeo" : "sport",
     startDate: profile.startDate,
     endDate: profile.endDate,
     dateNote: `Texas Defined checked the current first-party event source on ${profile.sourceCheckedAt}. Reconfirm the official schedule before travel.`,
