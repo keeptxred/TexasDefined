@@ -36,6 +36,11 @@ function SportsPage() {
                 <span className="mt-2 block text-sm leading-6 text-muted-foreground">The parent guide to Texas high school football: newcomer basics, stadiums, six-man and 11-man culture, marching bands, homecoming mums, rivalries and the season arc.</span>
                 <span className="mt-3 block text-sm font-semibold text-primary">Open the high school football hub →</span>
               </Link>
+              <a href="/events/tournaments" className="group border-t border-border py-5">
+                <strong className="block font-display text-2xl group-hover:text-primary">Texas tournaments & championships</strong>
+                <span className="mt-2 block text-sm leading-6 text-muted-foreground">Browse 250 competition seeds across golf, rodeo, basketball, baseball, soccer, volleyball, motorsports, fishing, combat sports and more, organized by category and county where the location is clear.</span>
+                <span className="mt-3 block text-sm font-semibold text-primary">Browse Texas tournaments →</span>
+              </a>
             </div>
           </div>
         </section>
