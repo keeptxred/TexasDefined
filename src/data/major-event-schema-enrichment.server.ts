@@ -17,6 +17,7 @@ import { majorEventSchemaEnrichmentBatch16 } from "./major-event-schema-enrichme
 import { majorEventSchemaEnrichmentBatch17 } from "./major-event-schema-enrichment-batch17.server";
 import { majorEventSchemaEnrichmentBatch18 } from "./major-event-schema-enrichment-batch18.server";
 import { majorEventSchemaEnrichmentBatch19 } from "./major-event-schema-enrichment-batch19.server";
+import { majorEventSchemaEnrichmentBatch20 } from "./major-event-schema-enrichment-batch20.server";
 
 export type EventSchemaEntityType = "Organization" | "Person" | "PerformingGroup";
 
@@ -77,6 +78,7 @@ const records: MajorEventSchemaEnrichment[] = [
   ...majorEventSchemaEnrichmentBatch17,
   ...majorEventSchemaEnrichmentBatch18,
   ...majorEventSchemaEnrichmentBatch19,
+  ...majorEventSchemaEnrichmentBatch20,
 ];
 
 const bySlug = new Map(records.map((record) => [record.slug, record]));
