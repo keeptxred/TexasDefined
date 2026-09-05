@@ -501,6 +501,7 @@ jobs:
             -F "image=@/tmp/tdfb-stored/generated-image.png;type=${MIME_TYPE}" \
             -F "image_sha256=${IMAGE_SHA256}" \
             -F "source_post_id=${SOURCE_POST_ID}" \
+            -F "attribution=</tmp/tdfb-stored/attribution.txt" \
             -F "artifact_url=${ARTIFACT_URL}" \
             -F "github_run_url=${run_url}" \
             "${PUBLISHER_ORIGIN%/}/api/public/hooks/publish-texasdefined-generated-image" || echo 000)
