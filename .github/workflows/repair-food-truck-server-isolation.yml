@@ -1,0 +1,76 @@
+name: Repair food-truck server isolation
+
+on:
+  push:
+    branches:
+      - feature/texas-food-trucks-300
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feature/texas-food-trucks-300
+          fetch-depth: 0
+
+      - name: Reconcile current main
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git merge --no-edit origin/main
+
+      - name: Move heavy registry behind server-only boundary
+        shell: bash
+        run: |
+          if [ -f src/data/food-trucks.ts ]; then
+            git mv src/data/food-trucks.ts src/data/food-trucks.server.ts
+          fi
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('src/data/food-trucks.functions.ts')
+          text = path.read_text()
+          text = text.replace('import("./food-trucks")', 'import("./food-trucks.server")')
+          path.write_text(text)
+          PY
+          echo "Remaining food-truck imports/references:"
+          grep -RIn --exclude='food-trucks.server.ts' --exclude='repair-food-truck-server-isolation.yml' -E 'from ["'"'][^"'"']*food-trucks["'"']|import\(["'"'][^"'"']*food-trucks["'"']\)' src || true
+          if grep -RIn --exclude='food-trucks.server.ts' --exclude='food-trucks.functions.ts' -E 'from ["'"'][^"'"']*food-trucks["'"']|import\(["'"'][^"'"']*food-trucks["'"']\)' src; then
+            echo "::error::A client-visible source file still imports the heavy food-truck registry."
+            exit 1
+          fi
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Production build and route generation
+        run: npm run build
+
+      - name: Verify unchanged client performance budget
+        run: npm run performance:validate
+
+      - name: Commit repair
+        shell: bash
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No repair changes to commit."
+          else
+            git commit -m "Keep food-truck registry server-only"
+          fi
+          git push origin HEAD:feature/texas-food-trucks-300
