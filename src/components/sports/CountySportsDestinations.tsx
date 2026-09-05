@@ -11,7 +11,6 @@ const siteUrl = 'https://texasdefined.com';
 export function CountySportsDestinations({ county, venues }: { county: TexasEntityRecord; venues: TexasEntityRecord[] }) {
   const majorEvents = use(getCountyMajorEvents(county.slug));
   const aquariumDestinations = aquariumMarineLinksForCounty(county.slug);
-  if (!venues.length && !majorEvents.length && !aquariumDestinations.length) return null;
 
   const golfCourses = venues.filter((venue) => venue.tags?.includes('golf'));
   const sportsVenues = venues.filter((venue) => !venue.tags?.includes('golf'));
@@ -106,6 +105,21 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
         </div>
       </div>
     </section> : null}
+
+    <section className="border-b border-border py-12" aria-labelledby="county-tournaments-heading">
+      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Texas tournaments</p>
+          <h2 id="county-tournaments-heading" className="mt-2 font-display text-4xl">Tournaments & competitions near {county.name}</h2>
+        </div>
+        <div>
+          <p className="max-w-3xl text-sm leading-7 text-muted-foreground">Browse TexasDefined’s statewide tournament directory across golf, rodeo, team sports, fishing, BBQ, chess, esports, academic competitions and more. County relationships are published only when a location can be assigned confidently; current dates, venues and entry details require organizer verification.</p>
+          <div className="mt-6 border-t border-border pt-6">
+            <a href="/events/tournaments" className="text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">Browse Texas tournaments & competitions →</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
     {golfCourses.length ? <section className="border-b border-border py-12" aria-labelledby="county-golf-heading">
       {golfJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(golfJsonLd) }} /> : null}
