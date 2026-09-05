@@ -1,3 +1,4 @@
+import { ExpediaStaySearch } from '@/components/affiliate/ExpediaStaySearch';
 import { TexasExplainedContextLinks } from '@/components/editorial/TexasExplainedContextLinks';
 import { SportsTrafficTracker } from '@/components/sports/SportsTrafficTracker';
 
@@ -92,6 +93,14 @@ export function SportsVenueQuickAnswers({
         </article>)}
       </div>
     </section>
+
+    <ExpediaStaySearch
+      id={slug ? `expedia-${slug}-stays` : 'expedia-sports-venue-stays'}
+      compact
+      locationLabel={city ?? countyName ?? venueName}
+      title={`Find a place to stay near ${venueName}`}
+      description={`Compare current hotel and lodging options when a game, tournament, golf trip or event at ${venueName} turns into an overnight visit.`}
+    />
 
     <TexasExplainedContextLinks surface="sports" />
   </>;
