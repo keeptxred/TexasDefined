@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+  "reviewDate": "2026-09-05",
+  "reviewMethod": "Live production review plus repository quality-gate verification",
+  "summary": {
+    "reviewed": 16,
+    "KEEP": 11,
+    "IMPROVE": 2,
+    "REMOVE_CONSOLIDATE": 3
+  },
+  "reviewed": [
+    {
+      "path": "/authors/a-dell",
+      "action": "KEEP",
+      "reason": "Institutional Travel & Outdoors Desk page clearly identifies the byline, explains editorial responsibility and links a substantial archive of published work."
+    },
+    {
+      "path": "/authors/a-hollis",
+      "action": "KEEP",
+      "reason": "Institutional Editorial Desk page explains responsibility and exposes a substantive archive of statewide guides and features."
+    },
+    {
+      "path": "/authors/a-homes-land",
+      "action": "KEEP",
+      "reason": "Institutional Homes & Property Desk profile is a substantive trust/byline surface with an extensive publication archive."
+    },
+    {
+      "path": "/authors/a-marisol",
+      "action": "KEEP",
+      "reason": "Institutional Food & Culture Desk page transparently identifies the desk and links its Texas food and culture archive."
+    },
+    {
+      "path": "/event/austin-film-festival",
+      "action": "KEEP",
+      "reason": "Current 2026 dates, official organizer and ticket sources, verified pricing, planning guidance, county relationship and related event links are present."
+    },
+    {
+      "path": "/event/denton-blues-festival",
+      "action": "KEEP",
+      "reason": "Current 2026 date, official sources, admission detail, announced performers, practical visit guidance and county relationships are present."
+    },
+    {
+      "path": "/event/fort-bend-county-fair-rodeo",
+      "action": "KEEP",
+      "reason": "Current fair/rodeo dates, official schedule and ticket sources, performers, visit guidance and Fort Bend County relationship are present."
+    },
+    {
+      "path": "/event/texas-sandfest",
+      "action": "KEEP",
+      "reason": "Verified 2027 dates, official sources, current admission information, Port Aransas planning guidance and county relationship are present."
+    },
+    {
+      "path": "/event/valero-texas-open",
+      "action": "KEEP",
+      "reason": "Verified 2027 tournament-week dates, official PGA-event sources, access guidance and Bexar County relationship are present."
+    },
+    {
+      "path": "/event/viva-el-paso",
+      "action": "KEEP",
+      "reason": "The page explicitly avoids inventing a future season, uses the latest confirmed 2026 schedule, cites official sources and provides evergreen venue/history planning value."
+    },
+    {
+      "path": "/event/west-texas-fair-rodeo",
+      "action": "KEEP",
+      "reason": "Current 2026 fair and PRCA dates, official ticket/schedule sources, practical planning guidance and Taylor County relationship are present."
+    },
+    {
+      "path": "/property-tax/county/haskell",
+      "action": "IMPROVE",
+      "reason": "The county topic has clear homeowner search value, but the verified local property-tax page is not currently surfacing as an index-ready result while the substantive county page directs users to local tax research.",
+      "remediation": "Complete current local appraisal-district and tax-office verification, county-specific taxing-unit/rate context, source freshness, parcel-specific cautions and FAQ coverage; promote only after isCountyPropertyIndexReady passes."
+    },
+    {
+      "path": "/property-tax/county/leon",
+      "action": "IMPROVE",
+      "reason": "The county topic has clear homeowner search value, but the verified local property-tax page is not currently surfacing as an index-ready result while the statewide county directory still routes unverified counties through substantive county references.",
+      "remediation": "Complete current local appraisal-district and tax-office verification, county-specific taxing-unit/rate context, source freshness, parcel-specific cautions and FAQ coverage; promote only after isCountyPropertyIndexReady passes."
+    },
+    {
+      "path": "/texas-vs/california",
+      "action": "REMOVE_CONSOLIDATE",
+      "reason": "TexasDefined already has a deeper index-ready editorial comparison at /article/texas-vs-california-differences, so retaining both URLs creates unnecessary duplicate intent and crawl competition.",
+      "remediation": "301 the state-template URL to the stronger editorial article and treat the article as the sole canonical search destination."
+    },
+    {
+      "path": "/texas-vs/florida",
+      "action": "REMOVE_CONSOLIDATE",
+      "reason": "TexasDefined already has a deeper index-ready editorial comparison at /article/texas-vs-florida-differences, so retaining both URLs creates unnecessary duplicate intent and crawl competition.",
+      "remediation": "301 the state-template URL to the stronger editorial article and treat the article as the sole canonical search destination."
+    },
+    {
+      "path": "/article/live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp",
+      "action": "REMOVE_CONSOLIDATE",
+      "reason": "The article itself has editorial value and appears in the Food & Culture Desk archive, but the migrated time-stamped live slug is not an appropriate durable evergreen URL.",
+      "remediation": "Retain the article content, migrate it to a clean descriptive evergreen slug, 301 the legacy URL, update internal links and migration guards, and keep only the clean canonical URL in sitemaps."
+    }
+  ],
+  "implementedThisWave": [
+    "Permanent 301 consolidation from /texas-vs/california to /article/texas-vs-california-differences",
+    "Permanent 301 consolidation from /texas-vs/florida to /article/texas-vs-florida-differences",
+    "Governance contract protects those redirects from regression"
+  ],
+  "nextReviewCohorts": [
+    "remaining Texas-vs-state pages",
+    "sports-venue profiles",
+    "fishing lake access/boating/guides/nearby subpages",
+    "nested Painted Churches people/symbols/techniques/routes/heritage/preservation/support pages"
+  ]
+}

@@ -81,10 +81,30 @@
         "isCountyPropertyIndexReady",
         "noindex, follow"
       ]
+    },
+    {
+      "family": "Texas-vs-state canonical consolidation",
+      "file": "src/server-entry.ts",
+      "requiredMarkers": [
+        "SEO_CANONICAL_REDIRECTS",
+        "/texas-vs/california",
+        "/article/texas-vs-california-differences",
+        "/texas-vs/florida",
+        "/article/texas-vs-florida-differences",
+        "Response.redirect(url.toString(), 301)"
+      ]
+    },
+    {
+      "family": "Texas-vs-state edge deployment",
+      "file": "wrangler.jsonc",
+      "requiredMarkers": [
+        "src/server-entry.ts"
+      ]
     }
   ],
   "gscRemediation": {
     "initialSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+    "initialUrlInventory": "ops/seo/gsc-discovered-2026-09-05-urls.tsv",
     "maxUnreviewedAgeDays": 30,
     "manualInspectionPriority": [
       "HIGH",
