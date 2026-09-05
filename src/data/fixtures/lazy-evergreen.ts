@@ -30,6 +30,7 @@ import {
 import { texasLakesReservoirsExplainedStub } from "./texas-lakes-reservoirs-explained-stub";
 import { texasTreesGuideStub } from "./texas-trees-guide-stub";
 import { texasWildflowersGuideStub } from "./texas-wildflowers-guide-stub";
+import { texasWildflowerSpeciesStubs } from "./texas-wildflower-species-stubs";
 import { texasWildlifeGuideStub } from "./texas-wildlife-guide-stub";
 
 const texasFarmToMarketRoadsExplainedStub: Article = {
@@ -124,7 +125,7 @@ export const lazyEvergreenArticleStubs: Article[] = [
   texasWildlifeGuideStub, texasCulturalRegionsExplainedStub, texasHomeArchitectureRegionsStub, texasHurricanePreparationStub,
   texasRoofsHailWindHeatStub, texasSchoolDistrictsExplainedStub, chooseElectricityPlanTexasStub, texasRiversExplainedStub,
   texasLakesReservoirsExplainedStub, texasHillCountryStub, texasTownCulturalRootsStub, texasCourthousesTownSquareStub,
-  texasFoundationCareStub, prepareTexasHouseFreezeStub, mudsPidsHoasSpecialDistrictsStub,
+  texasFoundationCareStub, prepareTexasHouseFreezeStub, mudsPidsHoasSpecialDistrictsStub, ...texasWildflowerSpeciesStubs,
   ...texasExplainedSupportStubs, ...texasExplainedSupportStubs2, ...texasExplainedRiverProfileStubs, ...texasExplainedReservoirProfileStubs, ...texasExplainedRoadSystemStubs,
 ];
 
@@ -199,6 +200,11 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
   if (slug === texasCourthouseArchitectureGuideStub.slug) { const { texasCourthouseArchitectureGuideArticle } = await import("./texas-explained-support-articles"); return texasCourthouseArchitectureGuideArticle; }
   if (slug === texasEcoregionsHabitatsGuideStub.slug) { const { texasEcoregionsHabitatsGuideArticle } = await import("./texas-explained-support-articles"); return texasEcoregionsHabitatsGuideArticle; }
   if (slug === texasSettlementPatternsGuideStub.slug) { const { texasSettlementPatternsGuideArticle } = await import("./texas-explained-support-articles"); return texasSettlementPatternsGuideArticle; }
+
+  if (texasWildflowerSpeciesStubs.some((article) => article.slug === slug)) {
+    const { texasWildflowerSpeciesArticles } = await import("./texas-wildflower-species");
+    return texasWildflowerSpeciesArticles.find((article) => article.slug === slug) ?? null;
+  }
 
   if (texasExplainedSupportStubs2.some((article) => article.slug === slug)) {
     const supportModule = await import("./texas-explained-support-articles-2");
