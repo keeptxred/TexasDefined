@@ -1,5 +1,8 @@
 import { HUNTING_REGULATION_FRESHNESS } from "./freshness";
 
+// Production contract: these canonical hunting routes must render the current
+// TPWD freshness and official-source signals. The post-deploy hunting verifier
+// checks representative entries so a stale Worker cannot silently own them.
 export const HUNTING_AUTHORITY_PATHS = [
   "/hunting",
   "/hunting/texas-hunting-license",

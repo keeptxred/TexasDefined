@@ -30,7 +30,11 @@ export function CountyStatewideContextSection({ countyName, countySlug }: { coun
           </div>
         ))}
       </dl>
-      <a href="/browse/counties" className="mt-4 inline-block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Compare all Texas counties →</a>
+      <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+        <a href="/browse/counties" className="text-primary underline decoration-primary/40 underline-offset-4">Compare all Texas counties →</a>
+        <a href="/article/texas-major-cities-regional-differences" className="text-primary underline decoration-primary/40 underline-offset-4">Compare Texas cities & regions →</a>
+        <a href="/article/texas-culture-social-customs-newcomers" className="text-primary underline decoration-primary/40 underline-offset-4">Texas culture for newcomers →</a>
+      </div>
     </div>
   );
 }

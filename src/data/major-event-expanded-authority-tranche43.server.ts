@@ -1,0 +1,220 @@
+import type { MajorEventAuthorityRecord } from "./major-event-authority.server";
+
+interface EventRecordWithWindows extends MajorEventAuthorityRecord {
+  occurrenceWindows?: Array<{ label?: string; startDate: string; endDate?: string }>;
+}
+
+const records: EventRecordWithWindows[] = [
+  {
+    slug: "fredericksburg-food-wine-festival",
+    name: "Fredericksburg Food & Wine Festival",
+    city: "Fredericksburg",
+    countySlug: "gillespie",
+    countyName: "Gillespie County",
+    region: "hill-country",
+    category: "food",
+    startDate: "2026-10-22",
+    endDate: "2026-10-25",
+    venue: "Fredericksburg festival venues",
+    officialUrl: "https://fbgfoodandwine.com/",
+    sourceCheckedAt: "2026-09-05",
+    whyItMatters: "Fredericksburg Food & Wine Festival is a four-day Hill Country culinary weekend that moves through distinctive Fredericksburg settings, pairing Texas wine, chefs, restaurants and local hospitality with a Thursday opening night, Friday street dinner, Saturday Grand Tasting and Sunday brunch.",
+    planningSections: [
+      { title: "Use October 22-25 as the confirmed 2026 festival weekend", body: "The organizer publishes four consecutive ticketed events from Thursday through Sunday: Opening Night on October 22, the Street Dinner on October 23, the Grand Tasting on October 24 and Waterfront Brunch on October 25. Choose the event before booking because each day uses a different venue and format." },
+      { title: "Treat Saturday as the broadest tasting day", body: "The Grand Tasting at Marktplatz is the weekend's largest tasting event, with dozens of wine, culinary, brewery and distillery partners. The more intimate dinner and brunch experiences have separate tickets and can sell out, so do not assume one ticket covers the entire weekend." },
+      { title: "Build a Gillespie County food-and-wine trip", body: "Fredericksburg's downtown, wineries and US-290 corridor make the festival useful as a trip anchor rather than a single stop. Leave room outside the ticketed events for tasting rooms, restaurants and other Gillespie County destinations." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-gillespie", label: "Explore Gillespie County", description: "Build more Fredericksburg and Hill Country stops around the festival." },
+      { href: "/food", label: "Texas food and BBQ", description: "Continue into Texas Defined's statewide food coverage." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other major Texas food and wine events." },
+    ],
+    sources: [
+      { label: "Fredericksburg Food & Wine official site", url: "https://fbgfoodandwine.com/" },
+      { label: "Fredericksburg Food & Wine 2026 event schedule", url: "https://fbgfoodandwine.com/events/" },
+      { label: "Fredericksburg Food & Wine 2026 FAQ", url: "https://fbgfoodandwine.com/faq/" },
+    ],
+  },
+  {
+    slug: "korean-festival-houston",
+    name: "Korean Festival Houston",
+    city: "Houston",
+    countySlug: "harris",
+    countyName: "Harris County",
+    region: "gulf-coast",
+    category: "culture",
+    startDate: "2026-10-10",
+    endDate: "2026-10-11",
+    venue: "Discovery Green",
+    officialUrl: "https://www.kfesthouston.com/",
+    sourceCheckedAt: "2026-09-05",
+    whyItMatters: "Korean Festival Houston is a large free cultural festival at Discovery Green that combines Korean traditional arts, contemporary music and dance, food, vendors and community programming in downtown Houston over two full days.",
+    planningSections: [
+      { title: "Use October 10-11 as the confirmed 2026 weekend", body: "The organizer publishes Saturday, October 10 from 10 a.m. to 9 p.m. and Sunday, October 11 from 11 a.m. to 8 p.m. at Discovery Green. Admission is free, while the detailed performance lineup continues to be finalized." },
+      { title: "Choose a day around performance priorities", body: "The festival uses multiple stages for traditional and contemporary programming, including cultural performances and a K-pop dance competition. Check the official schedule shortly before traveling because headliners and stage times can change after the event dates are already fixed." },
+      { title: "Plan for a downtown Houston day", body: "Discovery Green puts the festival in a walkable downtown setting near other Houston attractions. Use transit or downtown parking guidance and leave time for nearby destinations before or after the festival." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-harris", label: "Explore Harris County", description: "Build more Houston-area stops around the festival." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other major Texas cultural festivals." },
+    ],
+    sources: [
+      { label: "Korean Festival Houston official site", url: "https://www.kfesthouston.com/" },
+      { label: "Korean Festival Houston 2026 performance schedule", url: "https://www.kfesthouston.com/schedule" },
+      { label: "Korean Festival Houston history", url: "https://www.kfesthouston.com/about/history" },
+    ],
+  },
+  {
+    slug: "a-christmas-affair",
+    name: "A Christmas Affair",
+    city: "Austin",
+    countySlug: "travis",
+    countyName: "Travis County",
+    region: "hill-country",
+    category: "seasonal",
+    startDate: "2026-11-13",
+    endDate: "2026-11-22",
+    occurrenceWindows: [
+      { label: "Community Impact Center events", startDate: "2026-11-13", endDate: "2026-11-15" },
+      { label: "Palmer Events Center market", startDate: "2026-11-18", endDate: "2026-11-22" },
+    ],
+    dateNote: "A Christmas Affair is not continuous daily programming from November 13-22. The organizer schedules children's and family events at the Junior League of Austin Community Impact Center on November 13-15, then the principal market and special events at Palmer Events Center on November 18-22.",
+    venue: "Junior League of Austin Community Impact Center and Palmer Events Center",
+    officialUrl: "https://www.jlaustin.org/a-christmas-affair/",
+    sourceCheckedAt: "2026-09-05",
+    whyItMatters: "A Christmas Affair is the Junior League of Austin's signature holiday fundraiser, bringing more than 200 merchants, themed events and family programming to Austin while supporting the league's community-impact work.",
+    planningSections: [
+      { title: "Use the two official 2026 event windows", body: "The organizer separates November 13-15 family programming at its Community Impact Center from the November 18-22 market and special events at Palmer Events Center. Texas Defined models those as separate occurrence windows rather than implying activity on the intervening dates." },
+      { title: "Choose market admission or a special event", body: "General market admission covers a single shopping day at Palmer Events Center, while opening night, brunch, evening parties, children's events and other experiences use separate tickets. Review the official ticket page before purchasing because schedules, age guidance and inclusions differ." },
+      { title: "Plan around Palmer Events Center crowds", body: "The principal market draws a large audience and more than 200 merchants. Choose your shopping day in advance, review parking and transportation guidance, and use Austin stops outside the event only when the ticketed schedule leaves enough time." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-travis", label: "Explore Travis County", description: "Build more Austin-area stops around the holiday market." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other major Texas holiday events." },
+    ],
+    sources: [
+      { label: "Junior League of Austin — A Christmas Affair", url: "https://www.jlaustin.org/a-christmas-affair/" },
+      { label: "2026 A Christmas Affair tickets and events", url: "https://www.jlaustin.org/a-christmas-affair/2026-a-christmas-affair-tickets-events/" },
+      { label: "2026 A Christmas Affair about page", url: "https://www.jlaustin.org/a-christmas-affair/2026-a-christmas-affair-about/" },
+    ],
+  },
+  {
+    slug: "hot-luck-live-food-music",
+    name: "Hot Luck Live Food & Music",
+    city: "Austin",
+    countySlug: "travis",
+    countyName: "Travis County",
+    region: "hill-country",
+    category: "food",
+    startDate: "2026-10-16",
+    endDate: "2026-10-17",
+    venue: "Austin festival venues",
+    officialUrl: "https://www.hotluckfest.com/",
+    sourceCheckedAt: "2026-09-05",
+    whyItMatters: "Hot Luck combines chef-driven food events with live music across Austin, pairing a Friday live-fire gathering at Franklin Barbecue with a Saturday culinary event at Assembly Hall and music programming at city venues.",
+    planningSections: [
+      { title: "Use October 16-17 as the confirmed 2026 festival weekend", body: "The organizer states that the 2026 Austin edition runs Friday and Saturday, October 16-17. Friday centers on Giddy Up at Franklin Barbecue and live music, while Saturday's House Party is the largest culinary event of the weekend." },
+      { title: "Match the pass to the experience you want", body: "The Whole Enchilada pass covers the main food events and music programming, while some individual-event tickets may also be available. Review the current ticket page before purchasing because inclusions and remaining inventory can change." },
+      { title: "Expect to move between Austin venues", body: "Hot Luck is deliberately multi-venue rather than a single fairground festival. Build transportation time between Franklin Barbecue, music venues and Assembly Hall into the plan." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-travis", label: "Explore Travis County", description: "Connect Hot Luck to more Austin food and culture stops." },
+      { href: "/food", label: "Texas food and BBQ", description: "Continue into Texas Defined's statewide food coverage." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas food and music festivals." },
+    ],
+    sources: [
+      { label: "Hot Luck official site", url: "https://www.hotluckfest.com/" },
+      { label: "Hot Luck 2026 Whole Enchilada page", url: "https://www.hotluckfest.com/whole-enchilada" },
+      { label: "Hot Luck about and FAQ", url: "https://www.hotluckfest.com/about" },
+    ],
+  },
+  {
+    slug: "viva-la-vida-festival-parade",
+    name: "Viva La Vida Festival & Parade",
+    city: "Austin",
+    countySlug: "travis",
+    countyName: "Travis County",
+    region: "hill-country",
+    category: "culture",
+    startDate: "2026-10-24",
+    endDate: "2026-10-24",
+    venue: "Mexic-Arte Museum and downtown Austin",
+    officialUrl: "https://mexic-artemuseum.org/event/43rd-annual-viva-la-vida-festival-parade/",
+    sourceCheckedAt: "2026-09-05",
+    whyItMatters: "Mexic-Arte Museum's Viva La Vida Festival & Parade is Austin's longest-running Día de los Muertos celebration, bringing a downtown procession, art activities, food, artists, performances and community traditions to Congress Avenue.",
+    planningSections: [
+      { title: "Use October 24 as the confirmed 2026 date", body: "Mexic-Arte Museum publishes the 43rd annual festival for Saturday, October 24, 2026, from noon to 6 p.m. The Grand Procession begins at noon and culminates near 4th Street and Congress Avenue." },
+      { title: "Arrive before the procession if the parade matters most", body: "The procession is a major part of the event and moves through downtown before the festival activities continue. Downtown street activity and parking demand make an early arrival useful." },
+      { title: "Treat it as a free downtown cultural day", body: "The organizer describes the festival as free and family-friendly, with art-making, traditional foods, artists, retail booths, lowriders and live performances. Use the official page for final street and parking instructions." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-travis", label: "Explore Travis County", description: "Build more Austin cultural stops around Viva La Vida." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas cultural and seasonal events." },
+    ],
+    sources: [
+      { label: "Mexic-Arte Museum — Viva La Vida Festival & Parade", url: "https://mexic-artemuseum.org/event/43rd-annual-viva-la-vida-festival-parade/" },
+      { label: "Mexic-Arte Museum Viva La Vida festival page", url: "https://mexic-artemuseum.org/viva-la-vida-fest/" },
+    ],
+  },
+  {
+    slug: "meca-dia-de-muertos-festival",
+    name: "MECA Día de Muertos Festival",
+    city: "Houston",
+    countySlug: "harris",
+    countyName: "Harris County",
+    region: "gulf-coast",
+    category: "culture",
+    startDate: "2026-10-31",
+    endDate: "2026-11-01",
+    venue: "MECA at the Historic Dow School",
+    officialUrl: "https://www.meca-houston.org/dia-de-muertos.html",
+    sourceCheckedAt: "2026-09-05",
+    whyItMatters: "MECA's Día de Muertos Festival is a free Houston community celebration of Latin American folk-art traditions honoring family and ancestry, with ofrendas, children's art activities, artisan vendors, festival foods and multiple performance stages.",
+    planningSections: [
+      { title: "Use October 31-November 1 as the confirmed 2026 festival window", body: "MECA's official page invites visitors for a two-day 2026 celebration on October 31 and November 1 at its Historic Dow School campus in Houston's Old Sixth Ward." },
+      { title: "Plan for art, altars and performance stages", body: "The festival combines an ofrenda and altar exhibition with children's activities, artists, artisan vendors, food and three performance stages. Review MECA's updates before traveling for any final daily schedule details." },
+      { title: "Pair the festival with Houston's broader cultural calendar", body: "The Old Sixth Ward location makes the event a useful cultural anchor for a Houston weekend. Keep the festival itself central and add nearby stops only after allowing enough time for the altar exhibitions and performances." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-harris", label: "Explore Harris County", description: "Connect the festival to more Houston-area cultural stops." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas Día de los Muertos and fall events." },
+    ],
+    sources: [
+      { label: "MECA Día de Muertos official page", url: "https://www.meca-houston.org/dia-de-muertos.html" },
+      { label: "MECA official site", url: "https://www.meca-houston.org/" },
+    ],
+  },
+  {
+    slug: "houston-diwali-festival-of-lights",
+    name: "Houston Diwali Festival of Lights",
+    city: "Houston",
+    countySlug: "harris",
+    countyName: "Harris County",
+    region: "gulf-coast",
+    category: "culture",
+    startDate: "2026-11-14",
+    endDate: "2026-11-14",
+    venue: "Levy Park",
+    officialUrl: "https://www.houstondiwali.com/",
+    sourceCheckedAt: "2026-09-05",
+    whyItMatters: "Houston Diwali Festival of Lights brings Indian food, fashion, dance, music, rangoli, henna, cultural programming and a fireworks finale to Levy Park in a free public celebration aimed at Houston's broad and diverse community.",
+    planningSections: [
+      { title: "Use November 14 as the confirmed 2026 date", body: "The official Houston Diwali site lists the free 2026 event at Levy Park for Saturday, November 14, from 5 to 10 p.m." },
+      { title: "Plan for an evening festival", body: "The published format centers on an evening of bazaar stalls, street food, cultural and Bollywood performances, live entertainment and fireworks. Arrive with enough time to explore before the late-evening finale." },
+      { title: "Expect a busy Upper Kirby setting", body: "Levy Park sits in Houston's Upper Kirby area. Review the organizer and park guidance close to the event for transportation, parking and any final program changes." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-harris", label: "Explore Harris County", description: "Build more Houston-area stops around Diwali." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other major Texas cultural and holiday events." },
+    ],
+    sources: [
+      { label: "Houston Diwali official site", url: "https://www.houstondiwali.com/" },
+    ],
+  },
+];
+
+const bySlug = new Map(records.map((event) => [event.slug, event]));
+
+export function getExpandedMajorEventAuthorityTranche43Server(slug: string): EventRecordWithWindows | null {
+  return bySlug.get(slug) ?? null;
+}

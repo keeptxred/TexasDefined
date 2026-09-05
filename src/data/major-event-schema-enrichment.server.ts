@@ -10,6 +10,9 @@ import { majorEventSchemaEnrichmentBatch9 } from "./major-event-schema-enrichmen
 import { majorEventSchemaEnrichmentBatch10 } from "./major-event-schema-enrichment-batch10.server";
 import { majorEventSchemaEnrichmentBatch11 } from "./major-event-schema-enrichment-batch11.server";
 import { majorEventSchemaEnrichmentBatch12 } from "./major-event-schema-enrichment-batch12.server";
+import { majorEventSchemaEnrichmentBatch13 } from "./major-event-schema-enrichment-batch13.server";
+import { majorEventSchemaEnrichmentBatch14 } from "./major-event-schema-enrichment-batch14.server";
+import { majorEventSchemaEnrichmentBatch15 } from "./major-event-schema-enrichment-batch15.server";
 
 export type EventSchemaEntityType = "Organization" | "Person" | "PerformingGroup";
 
@@ -63,6 +66,9 @@ const records: MajorEventSchemaEnrichment[] = [
   ...majorEventSchemaEnrichmentBatch10,
   ...majorEventSchemaEnrichmentBatch11,
   ...majorEventSchemaEnrichmentBatch12,
+  ...majorEventSchemaEnrichmentBatch13,
+  ...majorEventSchemaEnrichmentBatch14,
+  ...majorEventSchemaEnrichmentBatch15,
 ];
 
 const bySlug = new Map(records.map((record) => [record.slug, record]));

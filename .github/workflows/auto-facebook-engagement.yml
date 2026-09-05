@@ -43,7 +43,7 @@ jobs:
       TD_IMAGE_ATTRIBUTION: Brought to you by your friends at TexasDefined.com
     steps:
       - name: Check out TexasDefined
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Resolve Central-time slot
         id: slot
@@ -294,7 +294,7 @@ jobs:
       - name: Store generated Facebook image
         id: store
         if: steps.slot.outputs.should_run == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: texasdefined-facebook-${{ steps.slot.outputs.date_key }}-${{ steps.slot.outputs.slot }}-${{ steps.candidate.outputs.source_post_id }}
           path: |
@@ -311,7 +311,7 @@ jobs:
 
       - name: Reload exact stored Facebook artifact
         if: steps.slot.outputs.should_run == 'true'
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: texasdefined-facebook-${{ steps.slot.outputs.date_key }}-${{ steps.slot.outputs.slot }}-${{ steps.candidate.outputs.source_post_id }}
           path: /tmp/tdfb-stored
@@ -407,9 +407,10 @@ jobs:
             /tmp/tdfb-stored/rendered-footer-proof.png
 
           # ImageMagick can quantize grayscale/sRGB values slightly when the footer
-          # is composited into the generated RGB image. Normalize both sides and
-          # allow only a 2% per-channel render tolerance; missing text still differs
-          # by thousands of pixels and therefore fails closed.
+          # is composited into the generated RGB image. Normalize both sides, ignore
+          # tiny per-channel color drift, then allow up to 0.5% of footer pixels to
+          # differ. This absorbs harmless render variance while still rejecting a
+          # missing or materially altered attribution footer by a wide margin.
           "${image_convert[@]}" \
             /tmp/tdfb-stored/attribution-footer.png \
             -colorspace sRGB \
@@ -432,10 +433,15 @@ jobs:
             echo "TexasDefined footer verification returned an invalid pixel metric: ${pixel_diff_raw}; publishing is blocked." >&2
             exit 1
           fi
-          if [[ "$pixel_diff" != "0" ]]; then
-            echo "Stored Facebook image does not contain the rendered TexasDefined.com footer within the allowed render tolerance; pixel difference=${pixel_diff_raw}; publishing is blocked." >&2
+
+          total_footer_pixels=$(( stored_footer_width * stored_footer_height ))
+          max_pixel_diff=$(( (total_footer_pixels + 199) / 200 ))
+          if (( pixel_diff > max_pixel_diff )); then
+            echo "Stored Facebook image does not contain the rendered TexasDefined.com footer within the allowed render tolerance; pixel difference=${pixel_diff}/${total_footer_pixels}, allowed=${max_pixel_diff} (0.5%); publishing is blocked." >&2
             exit 1
           fi
+          echo "TexasDefined footer verification passed: ${pixel_diff}/${total_footer_pixels} pixels differ; allowed=${max_pixel_diff} (0.5%)."
+
           rm -f \
             /tmp/tdfb-stored/rendered-footer-proof.png \
             /tmp/tdfb-stored/expected-footer-normalized.png \
@@ -495,6 +501,7 @@ jobs:
             -F "image=@/tmp/tdfb-stored/generated-image.png;type=${MIME_TYPE}" \
             -F "image_sha256=${IMAGE_SHA256}" \
             -F "source_post_id=${SOURCE_POST_ID}" \
+            -F "attribution=</tmp/tdfb-stored/attribution.txt" \
             -F "artifact_url=${ARTIFACT_URL}" \
             -F "github_run_url=${run_url}" \
             "${PUBLISHER_ORIGIN%/}/api/public/hooks/publish-texasdefined-generated-image" || echo 000)

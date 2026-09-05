@@ -5,6 +5,7 @@ import { formatDateRange } from "@/domain/utils/format";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 import type { TexasEvent, TexasRegion } from "./types";
+import { isRecurrenceDerivedMajorEventSlug } from "./major-event-date-confidence";
 import { majorEventIndexRecords } from "./major-event-index";
 import { formatMajorEventDateLabelServer, getMajorEventRecordServer } from "./major-event-page.server";
 import { loadSupplementalMajorEventRecordsServer } from "./major-event-supplemental-registry.server";
@@ -60,6 +61,7 @@ const eventTimingLinks: EventDiscoveryLink[] = [
 ];
 
 const eventTopicLinks: EventDiscoveryLink[] = [
+  { href: "/events/tournaments", title: "Texas tournaments", description: "Browse 250 competition seeds across 22 sports and activity categories, with county connections where the supplied location is clear." },
   { href: "/events/rodeos", title: "Rodeos & western events", description: "Stock shows, county fairs and rodeo weekends with permanent sourced planning guides." },
   { href: "/events/food-festivals", title: "Food festivals", description: "Barbecue, chili, Oktoberfest, harvest, beer, wine and local food traditions." },
   { href: "/events/music-festivals", title: "Music festivals", description: "Texas country, folk, jazz, blues and other major live-music gatherings." },
@@ -117,7 +119,7 @@ export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryIt
         countyName: event.countyName,
         region: event.region,
         category: event.category,
-        detail: `${event.city} · ${formatMajorEventDateLabelServer(event)}`,
+        detail: `${event.city} · ${formatMajorEventDateLabelServer(event)}${isRecurrenceDerivedMajorEventSlug(event.slug) ? " · Recurrence-derived planning window" : ""}`,
         startDate: event.startDate,
         endDate: event.endDate,
         sourceCheckedAt: event.sourceCheckedAt,
@@ -131,8 +133,9 @@ export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryIt
 }
 
 export function loadMajorEventLandingDirectoryServer() {
+  const today = texasTodayIso();
   return {
-    majorEventGuides: loadMajorEventGuideDirectoryServer(),
+    majorEventGuides: loadMajorEventGuideDirectoryServer().filter((event) => (event.endDate || event.startDate) >= today),
     eventTimingLinks,
     eventTopicLinks,
     eventRegionLinks,

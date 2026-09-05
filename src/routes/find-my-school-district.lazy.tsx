@@ -32,6 +32,17 @@ function Page() {
           </section>
 
           <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+            <div><p className="eyebrow text-primary">Understand the system</p><h2 className="mt-2 font-display text-3xl">Put the address lookup in context</h2></div>
+            <div className="border-y border-border py-6">
+              <Link to="/article/texas-schools-family-life" className="group block">
+                <span className="font-display text-2xl group-hover:text-primary">Texas Schools and Family Life</span>
+                <span className="mt-2 block max-w-3xl text-sm leading-6 text-muted-foreground">Understand ISDs, STAAR, A–F ratings, charters, homeschooling, Pre-K, UIL, school taxes and the family logistics that matter after you identify the correct district.</span>
+                <span className="mt-3 block text-sm font-semibold text-primary">Read the guide →</span>
+              </Link>
+            </div>
+          </section>
+
+          <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
             <div><p className="eyebrow text-primary">Official sources</p><h2 className="mt-2 font-display text-3xl">Start with the people who draw the lines</h2></div>
             <div className="grid sm:grid-cols-2">
               <a className="group border-t border-border py-5 sm:px-5" href="https://tea.texas.gov/texas-schools" target="_blank" rel="noreferrer noopener"><span className="font-display text-xl group-hover:text-primary">Texas Education Agency</span><span className="ml-2 text-sm">↗</span></a>

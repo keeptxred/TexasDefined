@@ -11,6 +11,8 @@ const EvergreenNextSteps = lazy(() =>
 
 const pathways = [
   { to: "/browse/cities", label: "Compare Texas cities", description: "Start with place, county and region before comparing household costs." },
+  { to: "/article/texas-major-cities-regional-differences", label: "Understand Texas cities & regions", description: "Compare the major metros and regional differences in climate, culture, jobs, driving and daily life." },
+  { to: "/article/texas-jobs-economy-industries", label: "Understand Texas jobs & industries", description: "See where energy, technology, health care, finance, manufacturing, trade and other major job clusters concentrate." },
   { to: "/texas-cost-of-living-calculator", label: "Compare cost of living", description: "Model how everyday household costs may change from one place to another." },
   { to: "/texas-salary-comparison-by-city", label: "Compare salaries by city", description: "Translate a salary into a rough cost-adjusted equivalent across Texas cities." },
   { to: "/texas-moving-cost-calculator", label: "Estimate moving costs", description: "Plan transportation, packing, setup expenses and a practical cushion." },
@@ -20,6 +22,9 @@ const pathways = [
   { to: "/texas-home-insurance-calculator", label: "Estimate home insurance", description: "Create a planning estimate before comparing actual Texas insurance quotes." },
   { to: "/browse/counties", label: "Find the county", description: "Connect a location to local appraisal, tax and public-record research paths." },
   { to: "/find-my-school-district", label: "Verify the school district", description: "Use the exact address to research district and campus assignment instead of relying on a city name." },
+  { to: "/article/texas-schools-family-life", label: "Understand schools & family life", description: "Put ISDs, STAAR, charters, Pre-K, UIL, school taxes and family logistics around the address-level lookup." },
+  { to: "/article/texas-health-safety-daily-living", label: "Plan for Texas daily living", description: "Heat, storms, allergies, generators, insects, pets and emergency preparation can change the practical fit of a place." },
+  { to: "/article/texas-culture-social-customs-newcomers", label: "Learn the everyday Texas culture", description: "Get oriented to the social customs, traditions, sports, food and habits newcomers notice first." },
   { to: "/moving-to-texas/data", label: "Open the Relocation Data Center", description: "Put migration, jobs, insurance, traffic and source-vintage methodology next to the move." },
   { to: "/texas-data", label: "Open the Texas Data Desk", description: "Use source-backed migration, insurance, jobs, housing and Texas reference datasets." },
   { to: "/moving-to-texas-checklist", label: "Use the moving checklist", description: "Keep before-and-after relocation tasks and official agency sources in one practical sequence." },
