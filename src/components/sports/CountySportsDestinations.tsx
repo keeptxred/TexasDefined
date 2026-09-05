@@ -1,5 +1,6 @@
 import { use } from 'react';
 
+import { ExpediaStaySearch } from '@/components/affiliate/ExpediaStaySearch';
 import { aquariumMarineLinksForCounty } from '@/data/aquarium-marine-county-links';
 import { getCountyMajorEvents } from '@/data/county-major-events';
 import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
@@ -140,6 +141,8 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
         </div>
       </div>
     </section> : null}
+
+    <ExpediaStaySearch />
   </>;
 }
 
