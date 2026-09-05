@@ -4,6 +4,7 @@ import { verifiedTournamentBatch3BySlug } from "./tournaments/verified-profiles-
 import { verifiedTournamentBatch4BySlug } from "./tournaments/verified-profiles-batch4";
 import { verifiedTournamentBatch5BySlug } from "./tournaments/verified-profiles-batch5";
 import { verifiedTournamentBatch6BySlug } from "./tournaments/verified-profiles-batch6";
+import { verifiedTournamentBatch7BySlug } from "./tournaments/verified-profiles-batch7";
 
 export interface MajorEventSource { label: string; url: string; }
 export interface MajorEventPlanningSection { title: string; body: string; }
@@ -147,6 +148,8 @@ const newVerifiedTournamentRegistrations = [
   { slug: "worlds-championship-bar-b-que-contest" },
   { slug: "nsca-national-sporting-clays-championship" },
   { slug: "texas-state-science-and-engineering-fair" },
+  { slug: "ironman-texas" },
+  { slug: "world-skeet-shooting-championships" },
 ] as const;
 
 const newVerifiedTournamentSlugs = new Set(newVerifiedTournamentRegistrations.map(({ slug }) => slug));
@@ -161,6 +164,7 @@ const verifiedTournamentRegionByCounty: Record<string, MajorEventIndexRecord["re
   travis: "hill-country",
   williamson: "hill-country",
   brazos: "prairies-lakes",
+  montgomery: "piney-woods",
 };
 
 function getVerifiedTournamentAuthorityServer(slug: string): MajorEventAuthorityRecord | null {
@@ -169,7 +173,8 @@ function getVerifiedTournamentAuthorityServer(slug: string): MajorEventAuthority
     ?? verifiedTournamentBatch3BySlug(slug)
     ?? verifiedTournamentBatch4BySlug(slug)
     ?? verifiedTournamentBatch5BySlug(slug)
-    ?? verifiedTournamentBatch6BySlug(slug);
+    ?? verifiedTournamentBatch6BySlug(slug)
+    ?? verifiedTournamentBatch7BySlug(slug);
   if (!profile) return null;
 
   const venue = profile.slug === "the-texas-bowl" ? "NRG Stadium" : profile.venue;
