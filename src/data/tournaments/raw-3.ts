@@ -1,7 +1,7 @@
 export type RawTournament = readonly [name:string, locationLabel:string, summary:string, countySlug?:string];
 export const TOURNAMENT_RAW_3: readonly RawTournament[] = [
   ["UIL Volleyball State Tournament", "Garland", "High school volleyball championship tournament at the Curtis Culwell Center.", "dallas"],
-  ["Lone Star Classic National Qualifier", "Dallas", "Massive club volleyball tournament and USA Volleyball national qualifier.", "dallas"],
+  ["Lone Star Classic National Qualifier", "Dallas / Oklahoma City", "The 2027 adidas Lone Star Classic National Qualifier spans April weekends in Dallas and Oklahoma City, so it is not a Dallas-only tournament footprint."],
   ["Tour de Texas Volleyball League Championship", "Varies", "Elite club volleyball multi-stop tournament finale."],
   ["AVP Titleist Texas Open", "Austin", "Professional beach volleyball tournament stop.", "travis"],
   ["Mizuno Lone Star Circle City Qualifier", "Austin", "Major youth club national qualifying tournament.", "travis"],
