@@ -5,16 +5,17 @@ import { Container } from "@/components/layout/Container";
 import {
   FOOD_TRUCK_MARKETS,
   FOOD_TRUCK_SOURCE_CHECKED_AT,
-  foodTruckMarket,
-  foodTrucksForMarket,
-} from "@/data/food-trucks";
+  foodTruckMarketMeta,
+} from "@/data/food-truck-markets";
+import { getFoodTrucksForMarket } from "@/data/food-trucks.functions";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 export const Route = createFileRoute("/texas-food-trucks/$market")({
-  loader: ({ params }) => {
-    const market = foodTruckMarket(params.market);
+  loader: async ({ params }) => {
+    const market = foodTruckMarketMeta(params.market);
     if (!market) throw notFound();
-    const trucks = foodTrucksForMarket(market.slug);
+    const trucks = await getFoodTrucksForMarket(market.slug);
+    if (!trucks) throw notFound();
     return { market, trucks };
   },
   head: ({ loaderData }) => {
