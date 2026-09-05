@@ -2,45 +2,15 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
 
-const foodTruckPhoto = {
-  src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Austin%20Texas%20food%20truck.jpg",
-  sourceUrl: "https://commons.wikimedia.org/wiki/File:Austin_Texas_food_truck.jpg",
-  creator: "Kurtkaiser",
-  credit: "Kurtkaiser · Wikimedia Commons",
-  license: "CC0 1.0",
-  licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
-  width: 4048,
-  height: 3036,
-  alt: "Food truck photographed in Austin, Texas",
-  caption: "Representative Texas food-truck photography from Austin. This image is not presented as a photo of every truck in the statewide collection.",
-  verifiedAt: "2026-09-05",
-} as const;
-
 export const Route = createLazyFileRoute("/texas-food-trucks")({
   component: TexasFoodTrucksPage,
 });
 
 function TexasFoodTrucksPage() {
   const pageData = Route.useLoaderData();
-  const imageSchema = {
-    "@context": "https://schema.org",
-    "@type": "ImageObject",
-    "@id": `${foodTruckPhoto.sourceUrl}#texasdefined-food-truck-image`,
-    contentUrl: foodTruckPhoto.src,
-    url: foodTruckPhoto.sourceUrl,
-    caption: foodTruckPhoto.caption,
-    description: foodTruckPhoto.alt,
-    width: foodTruckPhoto.width,
-    height: foodTruckPhoto.height,
-    creditText: foodTruckPhoto.credit,
-    creator: { "@type": "Person", name: foodTruckPhoto.creator },
-    license: foodTruckPhoto.licenseUrl,
-    acquireLicensePage: foodTruckPhoto.sourceUrl,
-    representativeOfPage: true,
-  };
+  const photo = pageData.photo;
 
   return <main>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(imageSchema) }} />
     <section className="border-b border-border bg-muted/30 py-14 md:py-20">
       <Container>
         <nav aria-label="Breadcrumb" className="text-xs uppercase tracking-[0.13em] text-muted-foreground">
@@ -52,7 +22,7 @@ function TexasFoodTrucksPage() {
         <dl className="mt-9 grid max-w-4xl gap-px overflow-hidden border border-border bg-border sm:grid-cols-3">
           <Stat label="Launch collection" value={String(pageData.total)} />
           <Stat label="Texas markets" value={String(pageData.markets.length)} />
-          <Stat label="Source review" value={formatDate(pageData.sourceCheckedAt)} />
+          <Stat label="Source review" value={pageData.sourceCheckedLabel} />
         </dl>
       </Container>
     </section>
@@ -60,10 +30,10 @@ function TexasFoodTrucksPage() {
     <section className="border-b border-border py-8 md:py-12">
       <Container>
         <figure className="mx-auto max-w-6xl">
-          <img src={foodTruckPhoto.src} alt={foodTruckPhoto.alt} width={foodTruckPhoto.width} height={foodTruckPhoto.height} decoding="async" className="aspect-[16/9] w-full object-cover" />
+          <img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} decoding="async" className="aspect-[16/9] w-full object-cover" />
           <figcaption className="mt-3 text-xs leading-6 text-muted-foreground">
-            <span className="text-foreground">{foodTruckPhoto.caption}</span><br />
-            {foodTruckPhoto.credit} · {foodTruckPhoto.license} · <a href={foodTruckPhoto.sourceUrl} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">source and license</a>
+            <span className="text-foreground">{photo.caption}</span><br />
+            {photo.credit} · {photo.license} · <a href={photo.sourceUrl} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">source and license</a>
           </figcaption>
         </figure>
       </Container>
@@ -94,7 +64,7 @@ function TexasFoodTrucksPage() {
               </div>
               <h3 className="mt-3 font-display text-3xl leading-tight group-hover:text-primary">{market.city}</h3>
               <p className="mt-4 text-sm leading-7 text-muted-foreground">{market.description}</p>
-              <p className="mt-5 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Sample:</strong> {formatList(market.sampleNames)}</p>
+              <p className="mt-5 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Sample:</strong> {market.sampleLabel}</p>
               <span className="mt-6 block text-sm font-semibold text-primary">Browse {market.city} food trucks →</span>
             </a>)}
           </div>
@@ -144,15 +114,4 @@ function Stat({ label, value }: { label: string; value: string }) {
 
 function Guardrail({ title, children }: { title: string; children: string }) {
   return <article className="border-t border-border pt-4"><h3 className="font-display text-2xl">{title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{children}</p></article>;
-}
-
-function formatList(items: string[]) {
-  if (!items.length) return "the current collection";
-  if (items.length === 1) return items[0];
-  if (items.length === 2) return `${items[0]} and ${items[1]}`;
-  return `${items.slice(0, -1).join(", ")}, and ${items.at(-1)}`;
-}
-
-function formatDate(value: string) {
-  return new Date(`${value}T12:00:00Z`).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
 }
