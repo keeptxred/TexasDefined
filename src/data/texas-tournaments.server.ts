@@ -1,19 +1,9 @@
 import {
   TEXAS_TOURNAMENT_ENTITIES,
   TEXAS_TOURNAMENTS,
-  tournamentCategoryLabel,
   tournamentCountyName,
-  tournamentsForCounty,
   type TexasTournamentCategory,
 } from './texas-tournaments';
-
-export interface CountyTournamentSeed {
-  slug: string;
-  name: string;
-  categoryLabel: string;
-  locationLabel: string;
-  summary: string;
-}
 
 export interface TournamentCollectionItem {
   slug: string;
@@ -23,16 +13,6 @@ export interface TournamentCollectionItem {
   countyName?: string;
   detail: string;
   sourceCheckedAt?: string;
-}
-
-export function loadCountyTournamentSeedsServer(countySlug: string): CountyTournamentSeed[] {
-  return tournamentsForCounty(countySlug).map((tournament) => ({
-    slug: tournament.slug,
-    name: tournament.name,
-    categoryLabel: tournamentCategoryLabel(tournament.category),
-    locationLabel: tournament.locationLabel,
-    summary: tournament.summary,
-  }));
 }
 
 export function loadTournamentCollectionItemsServer(category?: TexasTournamentCategory): TournamentCollectionItem[] {
