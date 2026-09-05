@@ -199,6 +199,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/attractions-comparison",
           "/explore/museums",
           "/explore/aquariums",
+          "/explore/rv-parks",
           "/explore/wildlife",
           ...PAINTED_CHURCH_STATIC_PATHS,
           "/explore/top-attractions",
