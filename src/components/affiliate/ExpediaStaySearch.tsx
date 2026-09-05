@@ -2,7 +2,7 @@ const EXPEDIA_WIDGET_SCRIPT = 'https://creator.expediagroup.com/products/widgets
 const EXPEDIA_CAMREF = '1110lMy6E';
 const EXPEDIA_PUBREF = 'texasdefined-stays';
 
-type ExpediaStaySearchProps = {
+export type ExpediaStaySearchProps = {
   locationLabel?: string;
   title?: string;
   description?: string;
