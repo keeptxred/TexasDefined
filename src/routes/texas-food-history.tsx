@@ -7,6 +7,7 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 const canonicalPath = "/texas-food-history";
 const description = "A TexasDefined guide to the history behind brisket, chili con carne, chicken-fried steak, breakfast tacos, Czech and German foodways, Dr Pepper, Ranch Water, puffy tacos, barbacoa and the regional cultures that shaped the Texas table.";
 
+// Lazy UI authority contract: There is no single Texas cuisine. Separate history from folklore. Start with nine stories.
 const guides = [
   { href: "/article/texas-barbecue-styles-explained", title: "Texas Barbecue Styles Explained" },
   { href: "/texas-chili-con-carne-history", title: "Texas Chili Con Carne" },
