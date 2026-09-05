@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
@@ -6,7 +6,16 @@ import { loadTexasVsStateProfile } from "@/data/texas-vs-state-profile";
 import { TEXAS_VS_STATE_GROUPS, texasVsStateName, texasVsStateSlug } from "@/data/texas-vs-states-index";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
+const editorialStateComparisonRedirects: Record<string, string> = {
+  california: "/article/texas-vs-california-differences",
+  florida: "/article/texas-vs-florida-differences",
+};
+
 export const Route = createFileRoute("/texas-vs/$state")({
+  beforeLoad: ({ params }) => {
+    const href = editorialStateComparisonRedirects[params.state];
+    if (href) throw redirect({ href, statusCode: 301 });
+  },
   loader: async ({ params }) => {
     const name = texasVsStateName(params.state);
     if (!name) throw notFound();
