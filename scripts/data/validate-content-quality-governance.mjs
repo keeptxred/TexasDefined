@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const POLICY_PATH = 'ops/seo/content-quality-governance.json';
 const GSC_PATH = 'ops/seo/gsc-discovered-2026-09-05.json';
+const GSC_URL_INVENTORY_PATH = 'ops/seo/gsc-discovered-2026-09-05-urls.tsv';
 const PUBLIC_ROUTES_PATH = 'src/lib/public-routes.ts';
 
 const failures = [];
@@ -9,7 +10,7 @@ const fail = (message) => failures.push(message);
 const readJson = (path) => JSON.parse(fs.readFileSync(path, 'utf8'));
 const read = (path) => fs.readFileSync(path, 'utf8');
 
-for (const path of [POLICY_PATH, GSC_PATH, PUBLIC_ROUTES_PATH]) {
+for (const path of [POLICY_PATH, GSC_PATH, GSC_URL_INVENTORY_PATH, PUBLIC_ROUTES_PATH]) {
   if (!fs.existsSync(path)) fail(`Permanent SEO quality governance file is missing: ${path}`);
 }
 
@@ -62,6 +63,34 @@ if (!failures.length) {
   if ((summary.IMPROVE ?? 0) === 0) fail('GSC triage must preserve an explicit IMPROVE backlog.');
   if ((summary.REMOVE_CONSOLIDATE ?? 0) === 0) {
     fail('GSC triage must identify explicit removal/consolidation candidates when present.');
+  }
+
+  const inventoryRows = read(GSC_URL_INVENTORY_PATH)
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith('#') && line !== 'action\tpath')
+    .map((line) => {
+      const [action, path, ...rest] = line.split('\t');
+      return { action, path, extra: rest };
+    });
+
+  if (inventoryRows.length !== 452) {
+    fail(`Per-URL GSC inventory must contain exactly 452 URL rows; found ${inventoryRows.length}.`);
+  }
+  const inventoryPaths = new Set();
+  const inventoryCounts = { KEEP: 0, IMPROVE: 0, NOINDEX: 0, REMOVE_CONSOLIDATE: 0 };
+  for (const [index, row] of inventoryRows.entries()) {
+    if (!allowedActions.has(row.action)) fail(`Per-URL GSC inventory row ${index + 1} has unsupported action ${row.action}.`);
+    if (!row.path?.startsWith('/')) fail(`Per-URL GSC inventory row ${index + 1} has invalid path ${row.path}.`);
+    if (row.extra.length) fail(`Per-URL GSC inventory row ${index + 1} has unexpected extra columns.`);
+    if (inventoryPaths.has(row.path)) fail(`Per-URL GSC inventory repeats path ${row.path}.`);
+    inventoryPaths.add(row.path);
+    if (Object.prototype.hasOwnProperty.call(inventoryCounts, row.action)) inventoryCounts[row.action] += 1;
+  }
+  for (const action of allowedActions) {
+    if (inventoryCounts[action] !== Number(summary[action] ?? 0)) {
+      fail(`Per-URL GSC inventory ${action} count ${inventoryCounts[action]} does not match summary ${Number(summary[action] ?? 0)}.`);
+    }
   }
 
   const familyCount = Object.values(gsc.routeFamilyCounts ?? {}).reduce((sum, value) => sum + Number(value || 0), 0);
@@ -128,6 +157,9 @@ if (!failures.length) {
   if (policy?.gscRemediation?.initialSnapshot !== GSC_PATH) {
     fail('Permanent policy must retain the 2026-09-05 GSC remediation snapshot as the initial backlog.');
   }
+  if (policy?.gscRemediation?.initialUrlInventory !== GSC_URL_INVENTORY_PATH) {
+    fail('Permanent policy must retain the exact 452-row GSC per-URL inventory.');
+  }
 }
 
 if (failures.length) {
@@ -136,4 +168,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Permanent SEO/content quality governance passed: the 452-URL GSC backlog is tracked, KEEP/IMPROVE/NOINDEX/REMOVE_CONSOLIDATE are permanent outcomes, worthwhile thin topics default to IMPROVE, new generated/entity URLs stay noindex until qualified, public route buckets remain disjoint, and dynamic article/destination/entity/county quality gates remain protected.');
+console.log('Permanent SEO/content quality governance passed: the exact 452-URL GSC backlog is tracked per URL, KEEP/IMPROVE/NOINDEX/REMOVE_CONSOLIDATE are permanent outcomes, worthwhile thin topics default to IMPROVE, new generated/entity URLs stay noindex until qualified, public route buckets remain disjoint, and dynamic article/destination/entity/county/canonical quality gates remain protected.');
