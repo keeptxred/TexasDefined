@@ -1,6 +1,6 @@
 # Major Texas events — post-inventory expansion
 
-Last reviewed: 2026-08-29
+Last reviewed: 2026-09-05
 
 The original 75-event PDF is now dispositioned separately in `major-events-source-disposition.md`. This ledger tracks additional high-value Texas event identities discovered from current first-party sources after that inventory was substantially closed.
 
@@ -35,6 +35,12 @@ Publication rule: add a permanent `/event/` authority guide only when a current 
 | Red Steagall Cowboy Gathering | October 23-25, 2026 | Organizer publishes exact dates and Fort Worth Stockyards location for the 2026 Gathering. | `/event/red-steagall-cowboy-gathering` |
 | Texas Rice Festival | September 30-October 3, 2026 main festival | Organizer publishes the exact Winnie-Stowell Park main-festival window and separately identifies earlier affiliated golf and BBQ dates. | `/event/texas-rice-festival` |
 
+## Current closure state
+
+The original 75-event discovery inventory is fully dispositioned. Current `main` also contains a substantially larger server-backed supplemental event registry, including Gillespie County Fair, North Texas Fair & Rodeo, Austin Chronicle Hot Sauce Festival, Luling Watermelon Thump, National Polka Festival, Parker County Peach Festival, Buc Days, Valero Texas Open, Houston Auto Show, Fulton Oysterfest, Poteet Strawberry Festival, Comicpalooza, Tejano Conjunto Festival, Great Texas Balloon Race, Marfa Lights Festival, Texas Book Festival, Houston Art Car Parade, Western Heritage Classic, Bob Wills Day, Texas Jazz Festival, Red Steagall Cowboy Gathering, Texas Rice Festival, Austin City Limits Music Festival, and additional sourced events in the supplemental registry.
+
+When an old branch or PR carries an event guide that already exists on current `main`, treat that branch as superseded rather than reapplying stale versions over newer event/schema/indexing work.
+
 ## First-party sources
 
 ### Tranche 25
@@ -60,6 +66,10 @@ Publication rule: add a permanent `/event/` authority guide only when a current 
 - Red Steagall Cowboy Gathering: https://www.redsteagallcowboygathering.com/ and https://www.redsteagallcowboygathering.com/schedule-tickets/
 - Texas Rice Festival: https://texasricefestival.com/ and https://texasricefestival.com/festivalpark-info/ticketsfees/
 
-## Known schedule-model hold
+## Multi-window schedule model
 
-**Austin City Limits Music Festival** has first-party 2026 dates for two discrete weekends, October 2-4 and October 9-11. The current major-event authority model stores one `startDate`/`endDate` pair and would imply continuous programming if represented as October 2-11. Do not publish an ACL authority record until the event model can represent multiple discrete occurrence windows or the page/schema layer has an equally accurate treatment.
+The former Austin City Limits Music Festival hold is resolved. The major-event page layer now supports `occurrenceWindows` for distinct non-contiguous dates or weekends, and `/event/austin-city-limits-music-festival` uses that model instead of implying continuous programming between its two festival weekends. Preserve this pattern for future multi-window events.
+
+## Maintenance rule
+
+When a deferred organizer publishes a future occurrence, add it through the existing server-only major-event authority pattern, add sitemap discovery, run the full validation/build/performance suite, and reconcile against current `main` before merge. Never promote a PDF projection merely because its calendar date is approaching.
