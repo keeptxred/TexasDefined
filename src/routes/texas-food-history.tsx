@@ -61,6 +61,7 @@ function TexasFoodHistoryPage() {
         <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">{description}</p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link to="/texas-food-trail" className="bg-background px-5 py-3 text-sm font-semibold text-foreground">Plan the Texas Food Trail →</Link>
+          <Link to="/texas-food-trucks" className="border border-ink-foreground/35 px-5 py-3 text-sm font-semibold">Find 300 notable food trucks →</Link>
           <Link to="/things-unique-to-texas/food-drink" className="border border-ink-foreground/35 px-5 py-3 text-sm font-semibold">Browse 35 food & drink icons →</Link>
         </div>
       </Container>
