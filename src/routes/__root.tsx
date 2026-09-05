@@ -4,6 +4,7 @@ import {
   createRootRouteWithContext,
   HeadContent,
   Scripts,
+  useLocation,
 } from "@tanstack/react-router";
 import { lazy, Suspense, useEffect, type ReactNode } from "react";
 
@@ -23,6 +24,34 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const defaultSocialImage = absoluteUrl(texasDefinedBrand, heroHillCountry);
 const defaultSocialImageAlt = "Texas Hill Country landscape at golden hour";
 const iconVersion = "20260822";
+const EXPEDIA_WIDGET_SCRIPT = "https://creator.expediagroup.com/products/widgets/assets/eg-widgets.js";
+const EXPEDIA_TRAVEL_PATH = /^\/(?:explore(?:\/|$)|destination\/|county\/|sports-venue\/|event\/)/;
+
+function ExpediaTravelSurface() {
+  const pathname = useLocation({ select: (location) => location.pathname });
+  if (!EXPEDIA_TRAVEL_PATH.test(pathname)) return null;
+
+  function loadExpediaWidget(button: HTMLButtonElement) {
+    const script = document.createElement("script");
+    script.className = "eg-widgets-script";
+    script.src = EXPEDIA_WIDGET_SCRIPT;
+    script.async = true;
+    button.hidden = true;
+    document.body.appendChild(script);
+  }
+
+  return (
+    <section className="border-y border-border py-8">
+      <div className="mx-auto max-w-7xl px-5">
+        <p className="eyebrow text-primary">Hotels & places to stay</p>
+        <h2 className="mt-2 font-display text-3xl">Find a place to stay nearby</h2>
+        <button type="button" onClick={(event) => loadExpediaWidget(event.currentTarget)} className="mt-5 inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">Search Expedia stays →</button>
+        <div className="eg-widget" data-widget="search" data-program="us-expedia" data-lobs="stays" data-network="pz" data-camref="1110lMy6E" data-pubref="texasdefined-stays" />
+        <p className="mt-3 text-xs text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying Expedia bookings, at no additional cost to you.</p>
+      </div>
+    </section>
+  );
+}
 
 function NotFoundComponent() {
   return <Suspense fallback={null}><NotFoundScreen /></Suspense>;
@@ -157,7 +186,7 @@ function RootComponent() {
         <ShopCartProvider>
           <div className="flex min-h-screen flex-col bg-background">
             <Suspense fallback={<HeaderFallback />}><Header /></Suspense>
-            <main id="main" className="flex-1"><Outlet /></main>
+            <main id="main" className="flex-1"><Outlet /><ExpediaTravelSurface /></main>
             <Suspense fallback={<div className="h-40 border-t border-border bg-surface" aria-hidden="true" />}><Footer /></Suspense>
           </div>
         </ShopCartProvider>
