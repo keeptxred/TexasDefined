@@ -96,6 +96,7 @@ if (!failures.length) {
   const expectedReviewWaves = [
     'ops/seo/gsc-remediation-wave1-2026-09-05.json',
     'ops/seo/gsc-remediation-wave2-2026-09-05.json',
+    'ops/seo/gsc-remediation-wave3-2026-09-05.json',
   ];
   const reviewWaves = policy?.gscRemediation?.reviewWaves ?? [];
   for (const path of expectedReviewWaves) {
