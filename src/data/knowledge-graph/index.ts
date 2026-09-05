@@ -1,9 +1,10 @@
-import { TEXAS_ENTITY_REGISTRY, findTexasEntity, relationshipsFor, validateTexasEntityRegistry } from '../texas-entity-registry';
 import { countyProfileDescription, loadCountyProfile } from '../county-profile';
 import { hasCountySeriesProfile } from '../county-series';
+import { getGolfCourseStarterEntity } from '../golf-course-starter.functions';
 import { loadLocalGovernmentProfile, localOfficeDescription } from '../local-government-profile';
 import { getCountyPropertyRecordBySlug } from '../property/county-property-data';
 import { isCountyPropertyIndexReady } from '../property/county-property-schema';
+import { TEXAS_ENTITY_REGISTRY, findTexasEntity, relationshipsFor, validateTexasEntityRegistry } from '../texas-entity-registry';
 import { fetchExploreGraphEntities, hasRemoteExploreGraph } from './explore-adapter';
 import type { TexasEntityKind, TexasEntityRecord } from './types';
 
@@ -128,6 +129,14 @@ export async function findCompleteTexasEntity(value: string): Promise<TexasEntit
   if (!normalized) return undefined;
   const staticMatch = findTexasEntity(value);
   if (staticMatch) return enrichAuthoritativeEntity(staticMatch);
+
+  try {
+    const starterSlug = normalized.replace(/^sports-venue:/, '');
+    const golfStarterMatch = await getGolfCourseStarterEntity({ data: { slug: starterSlug } });
+    if (golfStarterMatch) return golfStarterMatch;
+  } catch (error) {
+    console.error('Golf starter directory lookup unavailable', error);
+  }
 
   try {
     const wildlifeSpecies = await loadWildlifeSpeciesModule();
