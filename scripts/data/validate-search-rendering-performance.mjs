@@ -5,7 +5,9 @@ const queries = fs.readFileSync('src/data/queries.ts', 'utf8');
 const home = fs.readFileSync('src/routes/index.tsx', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const article = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
-const destination = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
+const destinationShell = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
+const destinationPresentation = fs.readFileSync('src/components/editorial/DestinationPageContent.tsx', 'utf8');
+const destination = `${destinationShell}\n${destinationPresentation}`;
 
 for (const feature of [
   'staleTime: 10 * 60 * 1000',
@@ -45,10 +47,14 @@ for (const [name, source] of [['article', article], ['destination', destination]
   if (!source.includes('height={')) errors.push(`${name} hero must declare height.`);
 }
 
+if (!destinationShell.includes('lazy(() =>') || !destinationShell.includes('import("@/components/editorial/DestinationPageContent")')) {
+  errors.push('Destination presentation must remain dynamically split from the global client bundle.');
+}
+
 if (errors.length) {
   console.error('Search rendering/performance validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Homepage payload bounds, destination query hydration caching, sitemap resilience, and primary hero rendering contracts passed validation.');
+console.log('Homepage payload bounds, destination query hydration caching, sitemap resilience, split destination presentation, and primary hero rendering contracts passed validation.');

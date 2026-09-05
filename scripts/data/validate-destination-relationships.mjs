@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 
-const route = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
+const routeShell = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
+const routePresentation = fs.readFileSync('src/components/editorial/DestinationPageContent.tsx', 'utf8');
+const route = `${routeShell}\n${routePresentation}`;
 const engine = fs.readFileSync('src/data/destination-relationships.ts', 'utf8');
 const component = fs.readFileSync('src/components/editorial/DestinationRelationships.tsx', 'utf8');
 const errors = [];
@@ -22,6 +24,10 @@ requireFeatures(route, [
   'relationshipGroups.flatMap',
   'url: `${siteUrl}/destination/${item.slug}`',
 ], 'Destination relationship route');
+
+if (!routeShell.includes('lazy(() =>') || !routeShell.includes('import("@/components/editorial/DestinationPageContent")')) {
+  errors.push('Destination relationship presentation must remain dynamically split while relationship data and schema stay eager.');
+}
 
 requireFeatures(engine, [
   'const earthRadiusMiles = 3958.8',
@@ -85,4 +91,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Destination proximity, trip-intent water/history/outdoors/weekend groups, Texas Explained fallback discovery, town, complementary-category, similarity, regional, deduplication, crawlable UI, planner exits, and ItemList relationships passed validation.');
+console.log('Destination proximity, trip-intent water/history/outdoors/weekend groups, Texas Explained fallback discovery, town, complementary-category, similarity, regional, deduplication, crawlable split UI, planner exits, and ItemList relationships passed validation.');
