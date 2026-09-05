@@ -13,13 +13,9 @@ export function ExpediaStaySearch() {
   }
 
   return <section className="border-b border-border py-10">
-    <p className="eyebrow text-primary">Hotels & places to stay</p>
-    <h2 className="mt-2 font-display text-3xl">Find a place to stay nearby</h2>
-    <p className="mt-3 text-sm text-muted-foreground">Compare current Expedia lodging options for your Texas trip.</p>
-    <div className="mt-5 rounded-md border border-border bg-surface p-4">
-      <button type="button" onClick={(event) => loadExpediaWidget(event.currentTarget)} className="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">Search Expedia stays →</button>
-      <div className="eg-widget" data-widget="search" data-program="us-expedia" data-lobs="stays" data-network="pz" data-camref={EXPEDIA_CAMREF} data-pubref={EXPEDIA_PUBREF} />
-    </div>
+    <h2 className="font-display text-3xl">Find a place to stay nearby</h2>
+    <button type="button" onClick={(event) => loadExpediaWidget(event.currentTarget)} className="mt-5 inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">Search Expedia stays →</button>
+    <div className="eg-widget mt-4" data-widget="search" data-program="us-expedia" data-lobs="stays" data-network="pz" data-camref={EXPEDIA_CAMREF} data-pubref={EXPEDIA_PUBREF} />
     <p className="mt-3 text-xs text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying Expedia bookings, at no additional cost to you.</p>
   </section>;
 }
