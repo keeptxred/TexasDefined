@@ -14,7 +14,6 @@ const verifiedCounties = {
   polk: '2026-08-25',
   mason: '2026-08-25',
   haskell: '2026-08-25',
-  leon: '2026-09-05',
 } as const;
 
 const august30LocalSources = {
@@ -68,7 +67,7 @@ describe('priority county property-tax verification', () => {
     expect(bell?.links.paymentUrl).toBe('https://bellcad.org/pay-property-taxes/');
   });
 
-  it('keeps locally re-verified counties behind authoritative local sources', () => {
+  it('keeps the three locally re-verified counties behind authoritative local sources', () => {
     const polk = getCountyPropertyRecordBySlug('polk');
     expect(polk?.links.appraisalDistrictUrl).toBe('https://polkcad.org');
     expect(polk?.links.propertySearchUrl).toBe('https://esearch.polkcad.org/');
@@ -82,12 +81,5 @@ describe('priority county property-tax verification', () => {
     const haskell = getCountyPropertyRecordBySlug('haskell');
     expect(haskell?.links.appraisalDistrictUrl).toBe('https://www.haskellcad.com');
     expect(haskell?.links.taxOfficeUrl).toContain('haskellcountytx.gov/page/haskell.County.Assessor.Collector');
-
-    const leon = getCountyPropertyRecordBySlug('leon');
-    expect(leon?.links.appraisalDistrictUrl).toBe('https://www.leoncad.org/');
-    expect(leon?.links.propertySearchUrl).toBe('https://www.leoncad.org/');
-    expect(leon?.links.taxOfficeUrl).toContain('co.leon.tx.us/page/leon.County.Assessor.Collector');
-    expect(leon?.links.paymentUrl).toBe('https://www.leoncountytax.org/Home/ThirdPartyVendor');
-    expect(leon?.sourceUrls).toContain('https://www.leoncountytax.org/');
   });
 });
