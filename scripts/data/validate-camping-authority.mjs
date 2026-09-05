@@ -17,7 +17,6 @@ const profilePaths = [
 const profileSources = profilePaths.map((profilePath) => ({ profilePath, source: read(profilePath) }));
 const server = read("src/data/camping/camping-profiles.server.ts");
 const facade = read("src/data/camping/camping-profiles.ts");
-const functions = read("src/data/camping/camping-profiles.functions.ts");
 const componentWrapper = read("src/components/camping/DestinationCampingDetails.tsx");
 const component = read("src/components/camping/DestinationCampingDetailsImpl.tsx");
 const destinationRoute = read("src/routes/destination.$slug.tsx");
@@ -46,14 +45,14 @@ for (const signal of ["profile.searchTerms", "profile.styles", "profile.amenitie
   assert(server.includes(signal), `Camping search index must include ${signal}.`);
 }
 
-assert(facade.includes('await import("./camping-profiles.functions")'), "Camping facade must dynamically load the server-function module rather than statically attaching it to the client graph.");
-assert(!facade.includes("createServerFn"), "Camping client facade must not statically import TanStack server-function wiring.");
+assert(facade.includes('createServerFn({ method: "GET" })'), "Camping facade must use the repository-standard server-function boundary.");
+assert(facade.includes('await import("./camping-profiles.server")'), "Camping facade must dynamically load the server-only aggregate.");
+assert(!/from\s+["']\.\/camping-profiles\.server["']/.test(facade), "Camping facade must not statically import the server-only aggregate.");
+assert(!facade.includes("profiles-wave"), "Camping facade must not import any rich camping research wave.");
+assert(!facade.includes("CAMPING_PROFILES"), "Camping facade must not attach the camping registry to the client graph.");
+assert(!/from\s+["']\.\/profiles["']/.test(facade), "Camping facade must not statically import the first camping research wave.");
 assert(facade.includes("getCampingProfilesForDestination"), "Camping facade must expose destination-level profile lookup.");
 assert(facade.includes("getCampingSearchIndex"), "Camping facade must expose search aliases keyed to canonical destinations.");
-assert(functions.includes('createServerFn({ method: "GET" })'), "Camping resolver must use server functions rather than bundling the rich research registry into global client code.");
-assert(functions.includes('await import("./camping-profiles.server")'), "Camping server functions must dynamically load the server-only aggregate.");
-assert(functions.includes("getCampingProfilesForDestinationServerFn"), "Camping server-function module must expose destination-level profile lookup.");
-assert(functions.includes("getCampingSearchIndexServerFn"), "Camping server-function module must expose canonical search aliases.");
 
 assert(componentWrapper.includes('lazy(() =>') && componentWrapper.includes('import("./DestinationCampingDetailsImpl")'), "Destination camping UI must remain behind an explicit lazy boundary so authority rendering does not inflate the global client bundle.");
 assert(destinationRoute.includes('getCampingProfilesForDestination(destination.slug)'), "Canonical destination loader must fetch camping profiles by destination slug.");
@@ -118,4 +117,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Camping authority validation passed: five verified public-camping waves feed the canonical hub, canonical destination pages, source/freshness schema, split Explore search and Trip Planner without duplicate campground routes; Padre Island National Seashore is covered and both server wiring and destination UI remain explicitly split from the rich registry and global client graph.");
+console.log("Camping authority validation passed: five verified public-camping waves feed the canonical hub, canonical destination pages, source/freshness schema, split Explore search and Trip Planner without duplicate campground routes; Padre Island National Seashore is covered and server wiring dynamically isolates the rich registry from the global client graph.");
