@@ -36,6 +36,8 @@ export const supplementalMajorEventSlugs = [
   "uil-spirit-state-championships",
   "the-texas-relays",
   "worlds-championship-bar-b-que-contest",
+  "nsca-national-sporting-clays-championship",
+  "texas-state-science-and-engineering-fair",
   "houston-auto-show",
   "fulton-oysterfest",
   "sandhills-stock-show-rodeo",
