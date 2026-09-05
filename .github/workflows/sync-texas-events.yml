@@ -116,30 +116,15 @@ jobs:
             git push --force-with-lease origin "$BRANCH"
           done
 
-          gh pr merge "$PR_URL" --squash --delete-branch --auto
-          echo "Policy-compliant auto-merge requested after exact-branch validation and Required merge gate success."
-
-          merged=false
-          for attempt in $(seq 1 60); do
-            state="$(gh pr view "$PR_URL" --json state --jq '.state')"
-            merged_at="$(gh pr view "$PR_URL" --json mergedAt --jq '.mergedAt // ""')"
-            if [[ -n "$merged_at" ]]; then
-              echo "Texas events refresh merged at ${merged_at}."
-              merged=true
-              break
-            fi
-            if [[ "$state" == "CLOSED" ]]; then
-              echo "::error title=Event refresh closed without merge::The pull request closed before a merge commit was recorded."
-              exit 1
-            fi
-            echo "Waiting for protected auto-merge to complete (attempt ${attempt}/60)."
-            sleep 5
-          done
-
-          if [[ "$merged" != "true" ]]; then
-            echo "::error title=Event refresh merge timed out::Protected auto-merge did not complete within five minutes after all required checks passed."
+          # Repository auto-merge is intentionally disabled. Once the exact head has
+          # the required protected check, a normal squash merge is policy-compliant.
+          gh pr merge "$PR_URL" --squash --delete-branch
+          merged_at="$(gh pr view "$PR_URL" --json mergedAt --jq '.mergedAt // ""')"
+          if [[ -z "$merged_at" ]]; then
+            echo "::error title=Event refresh did not merge::The protected merge command returned without a recorded merge."
             exit 1
           fi
+          echo "Texas events refresh merged at ${merged_at} after exact-branch validation and Required merge gate success."
 
       - name: Dispatch production deployment for merged catalog
         if: steps.changes.outputs.changed == 'true'
