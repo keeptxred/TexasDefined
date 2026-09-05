@@ -7,6 +7,7 @@ const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/events.lazy.tsx'),
 const visibleRoute = `${route}\n${lazyRoute}`;
 const serverHead = fs.readFileSync(path.join(root, 'src/data/major-event-directory.server.ts'), 'utf8');
 const eventLeaf = fs.readFileSync(path.join(root, 'src/data/major-event-page.server.ts'), 'utf8');
+const authorityBridge = fs.readFileSync(path.join(root, 'src/data/major-event-authority.ts'), 'utf8');
 const enrichmentRegistry = fs.readFileSync(path.join(root, 'src/data/major-event-schema-enrichment.server.ts'), 'utf8');
 const enrichmentBatchFiles = fs.readdirSync(path.join(root, 'src/data'))
   .filter((name) => /^major-event-schema-enrichment-batch\d+\.server\.ts$/.test(name))
@@ -19,6 +20,42 @@ const eventIndex = fs.readFileSync(path.join(root, 'src/data/major-event-index.t
 const supplementalRegistry = fs.readFileSync(path.join(root, 'src/data/major-event-supplemental-registry.server.ts'), 'utf8');
 const wrapper = fs.readFileSync(path.join(root, 'src/data/major-event-directory.ts'), 'utf8');
 const errors = [];
+
+const recurrenceDerivedDateSlugs = [
+  'dallas-holiday-parade',
+  'schulenburg-festival',
+  'westfest',
+  'luling-watermelon-thump',
+  'national-polka-festival',
+  'sweetwater-rattlesnake-roundup',
+  'granbury-founders-day-jubilee',
+  'come-and-take-it-celebration',
+  'hopkins-county-stew-contest',
+  'texas-state-championship-fiddlers-frolics',
+];
+
+for (const feature of [
+  'const recurrenceDerivedDateSlugs = new Set([',
+  'function applyEventSchemaConfidencePolicy',
+  '"@type": "WebPage"',
+  '"@type": "Thing"',
+  'page ? applyEventSchemaConfidencePolicy(page) : page',
+]) {
+  if (!authorityBridge.includes(feature)) errors.push(`Recurrence-derived Event schema confidence policy missing: ${feature}.`);
+}
+for (const slug of recurrenceDerivedDateSlugs) {
+  if (!authorityBridge.includes(`"${slug}"`)) errors.push(`Recurrence-derived Event slug missing from schema confidence policy: ${slug}.`);
+}
+const policyStart = authorityBridge.indexOf('function applyEventSchemaConfidencePolicy');
+const policyEnd = authorityBridge.indexOf('const loadMajorEventPage');
+if (policyStart < 0 || policyEnd <= policyStart) {
+  errors.push('Could not isolate the recurrence-derived Event schema confidence policy block.');
+} else {
+  const policyBlock = authorityBridge.slice(policyStart, policyEnd);
+  for (const forbidden of ['"@type": "Event"', 'https://schema.org/EventScheduled', 'startDate', 'endDate']) {
+    if (policyBlock.includes(forbidden)) errors.push(`Recurrence-derived Event schema confidence policy must not emit ${forbidden}.`);
+  }
+}
 
 for (const feature of [
   '"@type": "CollectionPage"',
@@ -155,4 +192,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Events SEO validation passed: all ${indexedSet.size} core leaves and all ${supplementalUniqueSlugs.length} unique supplemental Event leaves have completed the official-source optional-schema research pass; the hub remains collection-only markup.`);
+console.log(`Events SEO validation passed: all ${indexedSet.size} core leaves and all ${supplementalUniqueSlugs.length} unique supplemental Event leaves have completed the official-source optional-schema research pass; ${recurrenceDerivedDateSlugs.length} recurrence-derived guides are withheld from scheduled Event markup; the hub remains collection-only markup.`);
