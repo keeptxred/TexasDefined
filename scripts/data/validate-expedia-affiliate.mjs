@@ -25,10 +25,12 @@ for (const [needle, label] of [
   ['data-pubref="texasdefined-stays"', 'approved pubref'],
   ['TRAVEL_PATH.test(window.location.pathname)', 'central travel-route guard'],
   ['sports-venues\\/(?!compare(?:\\.csv)?(?:\\/|$))', 'sports comparison exclusion'],
+  ['texas-college-towns(?:\\/|$)', 'college-town trip route'],
+  ['texas-tailgating-guide(?:\\/|$)', 'tailgating trip route'],
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Expedia bookings', 'affiliate disclosure'],
 ]) requireText(bootstrap, needle, label);
 
-for (const family of ['explore', 'destination', 'county', 'sports-venue', 'sports-venues', 'event', 'best-places-to-go-camping-in-texas']) {
+for (const family of ['explore', 'destination', 'county', 'sports-venue', 'sports-venues', 'event', 'best-places-to-go-camping-in-texas', 'texas-college-towns', 'texas-tailgating-guide']) {
   requireText(bootstrap, family, `${family} route family`);
 }
 
