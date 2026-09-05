@@ -142,12 +142,7 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
       </div>
     </section> : null}
 
-    <ExpediaStaySearch
-      id={`expedia-${county.slug}-stays`}
-      locationLabel={county.name}
-      title={`Find a place to stay in ${county.name}`}
-      description={`Compare current hotel and lodging options when attractions, events, golf, sports or road-trip stops in ${county.name} turn into an overnight visit.`}
-    />
+    <ExpediaStaySearch locationLabel={county.name} />
   </>;
 }
 
