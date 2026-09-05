@@ -16,8 +16,10 @@ function museumPlaceholder(name: string): ImageRef {
  * Fifty-fourth statewide museum wave. These records reconcile the audit's
  * generic Palo Pinto County museum wording to the active Old Jail Museum
  * Complex and add current Texas Forestry Museum, Sam Rayburn Museum,
- * Fannin County Museum of History, Fort Inglish Village and Round Top Area
- * Historical Society Wood Campus Museum records.
+ * Fannin County Museum of History, Fort Inglish Village, Round Top Area
+ * Historical Society Wood Campus Museum, Museum of Hardin County,
+ * Schulenburg Historical Museum and Somervell County Historical Society
+ * Museum records.
  */
 export const statewideMuseumExpansionWave54Destinations: Destination[] = [
   {
@@ -205,5 +207,101 @@ export const statewideMuseumExpansionWave54Destinations: Destination[] = [
     managingAuthority: "Round Top Area Historical Society, Inc.",
     address: "397 E Mill St, Round Top, TX 78954",
     sourceCheckedAt: "2026-09-04",
+  },
+  {
+    id: "museum-statewide-wave59-museum-of-hardin-county",
+    brandId: "texasdefined",
+    slug: "museum-of-hardin-county-kountze",
+    name: "Museum of Hardin County",
+    summary: "Museum of Hardin County in Kountze preserves county history through artifacts, documents and local-history interpretation overseen by the Hardin County Historical Commission in the Big Thicket region of Southeast Texas.",
+    category: "historic-sites",
+    region: "piney-woods",
+    nearestTown: "Kountze",
+    county: "Hardin County",
+    coordinates: { lat: 30.37067, lng: -94.31448 },
+    hero: museumPlaceholder("Museum of Hardin County"),
+    bestSeason: "Year-round when a visit is arranged; fall through spring is especially comfortable for pairing the museum with Kountze, Big Thicket National Preserve and other Southeast Texas heritage stops.",
+    entryNote: "The Hardin County Historical Commission identifies the Museum of Hardin County at 830 S. Maple St. in Kountze, but current public hours are not consistently published in the county's online materials. Call ahead before making a dedicated trip or arrange a special showing when available.",
+    highlights: [
+      "Hardin County local-history collections",
+      "Historical Commission-operated county museum",
+      "Kountze and Southeast Texas settlement context",
+      "Big Thicket-region heritage interpretation",
+    ],
+    body: [
+      "The Museum of Hardin County is the county-history museum operated by the Hardin County Historical Commission in Kountze. Commission reporting to the Texas Historical Commission identifies the museum as a substantial part of the local commission's preservation workload, giving Hardin County a dedicated repository for artifacts and records connected to its communities, families and public history.",
+      "Hardin County's story is inseparable from the forests and transportation routes of Southeast Texas. The county seat shifted to Kountze after the Sabine and East Texas Railroad bypassed the earlier settlement of Hardin, while timber, oil, railroads and the landscapes now associated with the Big Thicket shaped the region's economy and settlement pattern. A county museum in Kountze gives those broader themes a local place to land rather than leaving them scattered across courthouse records and roadside markers.",
+      "Visitor access requires more planning than at larger institutions. Recent county historical-commission records confirm the museum's operation and address, while a Texas Historical Commission marker record places the General Braxton Bragg marker at the museum site on South Maple Street. Because current regular hours are not consistently maintained across authoritative online sources, TexasDefined treats this as a call-ahead heritage destination and avoids presenting stale hours as current fact.",
+    ],
+    officialUrl: "https://www.facebook.com/MuseumHardinCounty/",
+    managingAuthority: "Hardin County Historical Commission",
+    address: "830 S Maple St, Kountze, TX 77625",
+    sourceCheckedAt: "2026-09-05",
+  },
+  {
+    id: "museum-statewide-wave60-schulenburg-historical-museum",
+    brandId: "texasdefined",
+    slug: "schulenburg-historical-museum",
+    name: "Schulenburg Historical Museum",
+    summary: "Schulenburg Historical Museum preserves the railroad-era, German-Czech and community history of Schulenburg inside the former Wolters Mercantile building, with artifacts and interpretation focused on everyday life in this Fayette County town.",
+    category: "historic-sites",
+    region: "prairies-lakes",
+    geography: {
+      primaryRegionId: "central-texas",
+      subregionIds: ["central-texas-prairies"],
+      countySlugs: ["fayette"],
+      travelRegionIds: ["prairies-lakes"],
+    },
+    nearestTown: "Schulenburg",
+    county: "Fayette County",
+    coordinates: { lat: 29.68005, lng: -96.907445 },
+    hero: museumPlaceholder("Schulenburg Historical Museum"),
+    bestSeason: "Year-round during published Friday and Saturday hours; spring and fall are especially good for pairing the museum with the Painted Churches, historic downtown Schulenburg and other Fayette County heritage stops.",
+    entryNote: "The museum currently publishes Friday-Saturday hours from 10 a.m. to 2 p.m., with other times available by appointment. Admission is free and donations are welcomed. Confirm hours before making a dedicated trip, especially around holidays or special events.",
+    highlights: [
+      "Historic Wolters Mercantile museum building",
+      "German-Czech community heritage",
+      "Railroad-era Schulenburg history",
+      "Local artifacts and everyday-life interpretation",
+    ],
+    body: [
+      "Schulenburg Historical Museum tells the story of a Fayette County town that grew rapidly after the Galveston, Harrisburg and San Antonio Railway reached the area in 1873. The railroad turned Schulenburg into a shipping point for cotton, cattle hides and other regional products, while German and Czech immigration gave the community a cultural identity still visible in churches, foodways, festivals and family histories.",
+      "The museum's building is part of that story. Its current exhibits occupy the former Wolters Mercantile, an early-twentieth-century commercial building tied to one of Schulenburg's prominent business families. The museum was established by John and Karen Wolters and has operated in the building since 1988; the Wolters estate later deeded the museum building and the neighboring property to the institution, securing a permanent home for the collection.",
+      "Inside, the emphasis is local rather than encyclopedic: artifacts, photographs and community records interpret how Schulenburg residents worked, traveled, traded and built a distinctive rural German-Czech community. For TexasDefined, this museum adds a practical town-history anchor to an area already strong in Painted Churches and road-trip heritage, helping visitors understand the community around those landmark churches instead of treating them as isolated architecture.",
+    ],
+    officialUrl: "https://schulenburghistoricalmuseum.com/",
+    managingAuthority: "Schulenburg Historical Museum",
+    address: "631 N Main St, Schulenburg, TX 78956",
+    sourceCheckedAt: "2026-09-05",
+  },
+  {
+    id: "museum-statewide-wave61-somervell-county-historical-society",
+    brandId: "texasdefined",
+    slug: "somervell-county-historical-society-museum-glen-rose",
+    name: "Somervell County Historical Society Museum",
+    summary: "Somervell County Historical Society Museum in downtown Glen Rose preserves the county's story from prehistoric fossils and dinosaur-track history through pioneer settlement and twentieth-century community life inside a long-running local-history museum.",
+    category: "historic-sites",
+    region: "prairies-lakes",
+    nearestTown: "Glen Rose",
+    county: "Somervell County",
+    coordinates: { lat: 32.23518, lng: -97.75635 },
+    hero: museumPlaceholder("Somervell County Historical Society Museum"),
+    bestSeason: "Year-round around volunteer-staffed public hours; spring and fall are especially good for combining the museum with downtown Glen Rose, Dinosaur Valley State Park and other Paluxy River stops.",
+    entryNote: "Current Glen Rose visitor sources list Friday-Saturday hours from 11 a.m. to 4 p.m. and Sunday from 1:30 to 4 p.m., with hours subject to volunteer availability. Confirm current hours before making a dedicated trip.",
+    highlights: [
+      "Somervell County pioneer and community history",
+      "Prehistoric fossils and dinosaur-track context",
+      "Historic downtown Glen Rose museum setting",
+      "Long-running Somervell County Historical Society collections",
+    ],
+    body: [
+      "Somervell County Historical Society Museum gives downtown Glen Rose a local-history counterpart to the region's famous dinosaur attractions. The museum interprets the county's story across a much longer timeline, connecting prehistoric fossils and the Paluxy River's dinosaur-track legacy with settlement, agriculture, commerce and community life in one of Texas's smallest counties.",
+      "The historical society has maintained a museum in Glen Rose for decades. National Register documentation for the downtown historic district records the society's acquisition of the Gresham's Magic Lantern building and the museum's move there in 1971, while the current first-party site continues to identify the museum at 101 S.W. Vernon Street. Collections and displays focus on artifacts, photographs, fossils and local records that help visitors place Glen Rose's tourist landmarks inside the history of the people who lived and worked here.",
+      "For TexasDefined, the museum anchors the human story around a destination cluster often dominated by Dinosaur Valley State Park and the Paluxy River. A visit adds pioneer, civic and everyday-life context before or after the county's outdoor attractions, and its downtown location makes it easy to combine with the courthouse square and historic commercial buildings. Because staffing is volunteer dependent, checking current hours before travel is part of planning the stop.",
+    ],
+    officialUrl: "https://www.schsmuseum.com/",
+    managingAuthority: "Somervell County Historical Society",
+    address: "101 S.W. Vernon St, Glen Rose, TX 76043",
+    sourceCheckedAt: "2026-09-05",
   },
 ];

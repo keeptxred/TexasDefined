@@ -112,6 +112,19 @@ export const supplementalMajorEventSlugs = [
   "texas-czech-heritage-fest",
   "floresville-peanut-festival",
   "crossroads-of-texas-country-festival",
+  "hummerbird-celebration",
+  "washington-county-fair",
+  "kendall-county-fair-rodeo",
+  "galveston-island-shrimp-festival",
+  "rockport-fulton-seafair",
+  "rockport-songwriter-festival",
+  "fredericksburg-food-wine-festival",
+  "korean-festival-houston",
+  "a-christmas-affair",
+  "hot-luck-live-food-music",
+  "viva-la-vida-festival-parade",
+  "meca-dia-de-muertos-festival",
+  "houston-diwali-festival-of-lights",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
