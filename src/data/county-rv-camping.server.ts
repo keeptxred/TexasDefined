@@ -4,7 +4,19 @@ import { CAMPING_DISCOVERY_PROFILES_WAVE3 } from "./camping/profiles-wave3";
 import { CAMPING_DISCOVERY_PROFILES_WAVE4 } from "./camping/profiles-wave4";
 import { CAMPING_DISCOVERY_PROFILES_WAVE5 } from "./camping/profiles-wave5";
 import type { CampingDiscoveryProfile } from "./camping/discovery";
-import type { CountyRvCampingItem } from "./county-rv-camping";
+
+export interface CountyRvCampingItem {
+  name: string;
+  destinationHref: string;
+  managingAgency: string;
+  facilitySummary: string;
+  fullHookup: boolean;
+  siteLengthNote?: string;
+  reservationUrl: string;
+  sourceLabel: string;
+  sourceUrl: string;
+  verifiedAt: string;
+}
 
 type DiscoveryProfile = CampingDiscoveryProfile & { profileSlug?: string };
 
