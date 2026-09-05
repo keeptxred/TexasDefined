@@ -28,6 +28,11 @@ function verifiedVenue(slug: string, venue: string) {
   return venue;
 }
 
+function verifiedEventPath(slug: string) {
+  if (slug === 'houston-livestock-show-and-rodeo') return '/event/houston-livestock-show-rodeo';
+  return `/event/${slug}`;
+}
+
 export function loadTournamentCollectionItemsServer(category?: TexasTournamentCategory): TournamentCollectionItem[] {
   const tournaments = category
     ? TEXAS_TOURNAMENTS.filter((tournament) => tournament.category === category)
@@ -38,7 +43,7 @@ export function loadTournamentCollectionItemsServer(category?: TexasTournamentCa
     const venue = verified ? verifiedVenue(verified.slug, verified.venue) : null;
     return {
       slug: tournament.slug,
-      href: verified ? `/event/${tournament.slug}` : category ? '/events/tournaments' : categoryPathBySlug.get(tournament.category) ?? '/events/tournaments',
+      href: verified ? verifiedEventPath(tournament.slug) : category ? '/events/tournaments' : categoryPathBySlug.get(tournament.category) ?? '/events/tournaments',
       name: verified?.name ?? tournament.name,
       city: verified?.city ?? tournament.locationLabel,
       countyName: verified?.countyName ?? tournamentCountyName(tournament.countySlug),
