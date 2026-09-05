@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave64Destinations } from "./museum-expansion-statewide-wave64";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-05";
@@ -15,7 +16,8 @@ function museumPlaceholder(name: string): ImageRef {
 /**
  * Sixty-third statewide museum wave. This Mount Pleasant record reconciles
  * the audit's older Titus County Historical Museum wording to the current
- * Titus County Museum inside Mount Pleasant Public Library.
+ * Titus County Museum inside Mount Pleasant Public Library. Wave 64 is
+ * chained here so later museum expansion remains conflict-light.
  */
 export const statewideMuseumExpansionWave63Destinations: Destination[] = [
   {
@@ -48,4 +50,5 @@ export const statewideMuseumExpansionWave63Destinations: Destination[] = [
     address: "601 N Madison Ave, Mount Pleasant, TX 75455",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave64Destinations,
 ];
