@@ -6,9 +6,8 @@ import {
   FOOD_TRUCK_MARKETS,
   FOOD_TRUCK_SOURCE_CHECKED_AT,
   FOOD_TRUCK_TOTAL,
-  foodTruckCountForMarket,
-  foodTrucksForMarket,
-} from "@/data/food-trucks";
+} from "@/data/food-truck-markets";
+import { getFoodTruckOverview } from "@/data/food-trucks.functions";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/texas-food-trucks";
@@ -32,6 +31,7 @@ const quickAnswers = [
 ] as const;
 
 export const Route = createFileRoute(canonicalPath)({
+  loader: () => getFoodTruckOverview(),
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
@@ -89,6 +89,8 @@ export const Route = createFileRoute(canonicalPath)({
 });
 
 function TexasFoodTrucksPage() {
+  const overview = Route.useLoaderData();
+
   return <main>
     <section className="border-b border-border bg-muted/30 py-14 md:py-20">
       <Container>
@@ -99,7 +101,7 @@ function TexasFoodTrucksPage() {
         <h1 className="mt-3 max-w-5xl font-display text-5xl leading-none md:text-7xl">Texas Food Trucks Worth Finding</h1>
         <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">{description}</p>
         <dl className="mt-9 grid max-w-4xl gap-px overflow-hidden border border-border bg-border sm:grid-cols-3">
-          <Stat label="Launch collection" value={String(FOOD_TRUCK_TOTAL)} />
+          <Stat label="Launch collection" value={String(overview.total)} />
           <Stat label="Texas markets" value={String(FOOD_TRUCK_MARKETS.length)} />
           <Stat label="Source review" value={formatDate(FOOD_TRUCK_SOURCE_CHECKED_AT)} />
         </dl>
@@ -125,15 +127,15 @@ function TexasFoodTrucksPage() {
           <h2 id="market-heading" className="mt-2 max-w-4xl font-display text-4xl sm:text-5xl">Ten Texas food-truck scenes, one statewide starting point</h2>
           <div className="mt-9 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
             {FOOD_TRUCK_MARKETS.map((market) => {
-              const trucks = foodTrucksForMarket(market.slug);
+              const marketOverview = overview.markets.find((item) => item.slug === market.slug);
               return <a key={market.slug} href={market.path} className="group bg-background p-7 sm:p-8">
                 <div className="flex items-center justify-between gap-4">
                   <span className="eyebrow text-primary">{market.region}</span>
-                  <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{foodTruckCountForMarket(market.slug)} picks</span>
+                  <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{marketOverview?.count ?? 0} picks</span>
                 </div>
                 <h3 className="mt-3 font-display text-3xl leading-tight group-hover:text-primary">{market.city}</h3>
                 <p className="mt-4 text-sm leading-7 text-muted-foreground">{market.description}</p>
-                <p className="mt-5 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Sample:</strong> {formatList(trucks.slice(0, 4).map((truck) => truck.name))}</p>
+                <p className="mt-5 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Sample:</strong> {formatList(marketOverview?.sampleNames ?? [])}</p>
                 <span className="mt-6 block text-sm font-semibold text-primary">Browse {market.city} food trucks →</span>
               </a>;
             })}
