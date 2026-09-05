@@ -1,3 +1,4 @@
+import { ExpediaStaySearch } from '@/components/affiliate/ExpediaStaySearch';
 import { TexasExplainedContextLinks } from '@/components/editorial/TexasExplainedContextLinks';
 import { SportsTrafficTracker } from '@/components/sports/SportsTrafficTracker';
 
@@ -93,6 +94,7 @@ export function SportsVenueQuickAnswers({
       </div>
     </section>
 
+    <ExpediaStaySearch />
     <TexasExplainedContextLinks surface="sports" />
   </>;
 }
