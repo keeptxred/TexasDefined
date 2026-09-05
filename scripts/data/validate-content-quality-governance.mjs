@@ -6,6 +6,7 @@ const GSC_URL_INVENTORY_PATH = 'ops/seo/gsc-discovered-2026-09-05-urls.tsv';
 const PUBLIC_ROUTES_PATH = 'src/lib/public-routes.ts';
 const TEXAS_VS_WAVE_PATH = 'ops/seo/gsc-remediation-wave4-2026-09-05.json';
 const TEXAS_VS_READINESS_PATH = 'src/data/texas-vs-state-index-readiness.server.ts';
+const COUNTY_PROMOTION_WAVE_PATH = 'ops/seo/gsc-remediation-wave5-2026-09-05.json';
 
 const failures = [];
 const fail = (message) => failures.push(message);
@@ -100,6 +101,7 @@ if (!failures.length) {
     'ops/seo/gsc-remediation-wave2-2026-09-05.json',
     'ops/seo/gsc-remediation-wave3-2026-09-05.json',
     TEXAS_VS_WAVE_PATH,
+    COUNTY_PROMOTION_WAVE_PATH,
   ];
   const reviewWaves = policy?.gscRemediation?.reviewWaves ?? [];
   for (const path of expectedReviewWaves) {
@@ -132,9 +134,23 @@ if (!failures.length) {
       }
       if (wavePaths.has(item.path)) fail(`GSC remediation wave ${wavePath} repeats reviewed path ${item.path}.`);
       wavePaths.add(item.path);
-      const previousWave = reviewedPaths.get(item.path);
-      if (previousWave) fail(`GSC remediation path ${item.path} is reviewed in both ${previousWave} and ${wavePath}.`);
-      reviewedPaths.set(item.path, wavePath);
+
+      const previousReview = reviewedPaths.get(item.path);
+      if (previousReview) {
+        if (item.supersedes !== previousReview.wavePath) {
+          fail(`GSC remediation path ${item.path} was already reviewed in ${previousReview.wavePath}; ${wavePath} must explicitly supersede that exact wave.`);
+        }
+        if (item.previousAction !== previousReview.action) {
+          fail(`GSC remediation path ${item.path} declares previousAction ${item.previousAction ?? 'missing'} but prior review action is ${previousReview.action}.`);
+        }
+        if (item.action === previousReview.action) {
+          fail(`GSC remediation path ${item.path} supersedes ${previousReview.wavePath} without changing its action.`);
+        }
+      } else if (item.supersedes || item.previousAction) {
+        fail(`GSC remediation path ${item.path} declares superseding metadata but has no prior review.`);
+      }
+      reviewedPaths.set(item.path, { wavePath, action: item.action });
+
       if (Object.prototype.hasOwnProperty.call(waveCounts, item.action)) waveCounts[item.action] += 1;
     }
     for (const action of allowedActions) {
@@ -191,6 +207,27 @@ if (!failures.length) {
       if (readinessSlugs.includes('california') || readinessSlugs.includes('florida')) {
         fail('California and Florida are redirect-only consolidations and must remain separate from the 37-state IMPROVE registry.');
       }
+    }
+  }
+
+  if (!fs.existsSync(COUNTY_PROMOTION_WAVE_PATH)) {
+    fail(`County-property promotion wave is missing: ${COUNTY_PROMOTION_WAVE_PATH}`);
+  } else {
+    const countyWave = readJson(COUNTY_PROMOTION_WAVE_PATH);
+    const expectedCountyPromotionPaths = new Set(['/property-tax/county/haskell', '/property-tax/county/leon']);
+    const reviewed = countyWave.reviewed ?? [];
+    if (reviewed.length !== 2 || Number(countyWave?.summary?.KEEP ?? 0) !== 2) {
+      fail('County-property promotion wave must contain exactly two KEEP promotions.');
+    }
+    for (const item of reviewed) {
+      if (!expectedCountyPromotionPaths.has(item.path)) fail(`Unexpected county-property promotion path: ${item.path}`);
+      if (item.action !== 'KEEP') fail(`County-property promotion must end in KEEP: ${item.path}`);
+      if (item.supersedes !== 'ops/seo/gsc-remediation-wave1-2026-09-05.json' || item.previousAction !== 'IMPROVE') {
+        fail(`County-property promotion must explicitly supersede its wave-1 IMPROVE review: ${item.path}`);
+      }
+    }
+    for (const path of expectedCountyPromotionPaths) {
+      if (!reviewed.some((item) => item.path === path)) fail(`County-property promotion wave is missing ${path}.`);
     }
   }
 
@@ -269,4 +306,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Permanent SEO/content quality governance passed: the exact 452-URL GSC backlog is tracked per URL, remediation review waves are validated against that original inventory with no duplicate reviews, the 37 reviewed Texas-vs IMPROVE states are excluded from sitemap priority until state-specific qualification, redirect-only comparisons stay separate, KEEP/IMPROVE/NOINDEX/REMOVE_CONSOLIDATE remain permanent outcomes, worthwhile thin topics default to IMPROVE, new generated/entity URLs stay noindex until qualified, public route buckets remain disjoint, and dynamic article/destination/entity/county/canonical quality gates remain protected.');
+console.log('Permanent SEO/content quality governance passed: the exact 452-URL GSC backlog is tracked per URL, remediation review waves are validated against that original inventory, later reviews may supersede earlier outcomes only with explicit audited lineage, the 37 reviewed Texas-vs IMPROVE states are excluded from sitemap priority until state-specific qualification, Haskell and Leon county-property pages are promoted only through the unchanged indexability gate, redirect-only comparisons stay separate, KEEP/IMPROVE/NOINDEX/REMOVE_CONSOLIDATE remain permanent outcomes, worthwhile thin topics default to IMPROVE, new generated/entity URLs stay noindex until qualified, public route buckets remain disjoint, and dynamic article/destination/entity/county/canonical quality gates remain protected.');
