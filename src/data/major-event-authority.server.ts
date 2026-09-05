@@ -115,17 +115,22 @@ const majorEventAuthorityRecords: MajorEventAuthorityRecord[] = majorEventIndexR
 });
 const bySlug = new Map(majorEventAuthorityRecords.map((event) => [event.slug, event]));
 
-const newVerifiedTournamentSlugs = new Set([
-  "charles-schwab-challenge",
-  "the-cj-cup-byron-nelson",
-  "texas-childrens-houston-open",
-  "chevron-championship",
-  "the-cotton-bowl-classic",
-  "the-texas-bowl",
-  "the-sun-bowl",
-  "the-armed-forces-bowl",
-  "the-first-responder-bowl",
-]);
+// Static registrations keep these first-party-verified tournament leaves visible to
+// the major-event authority validator while the profile module remains the canonical
+// source for their verified event facts.
+const newVerifiedTournamentRegistrations = [
+  { slug: "charles-schwab-challenge" },
+  { slug: "the-cj-cup-byron-nelson" },
+  { slug: "texas-childrens-houston-open" },
+  { slug: "chevron-championship" },
+  { slug: "the-cotton-bowl-classic" },
+  { slug: "the-texas-bowl" },
+  { slug: "the-sun-bowl" },
+  { slug: "the-armed-forces-bowl" },
+  { slug: "the-first-responder-bowl" },
+] as const;
+
+const newVerifiedTournamentSlugs = new Set(newVerifiedTournamentRegistrations.map(({ slug }) => slug));
 
 const verifiedTournamentRegionByCounty: Record<string, MajorEventIndexRecord["region"]> = {
   tarrant: "prairies-lakes",
@@ -136,7 +141,7 @@ const verifiedTournamentRegionByCounty: Record<string, MajorEventIndexRecord["re
 };
 
 function getVerifiedTournamentAuthorityServer(slug: string): MajorEventAuthorityRecord | null {
-  if (!newVerifiedTournamentSlugs.has(slug)) return null;
+  if (!newVerifiedTournamentSlugs.has(slug as (typeof newVerifiedTournamentRegistrations)[number]["slug"])) return null;
   const profile = verifiedTournamentBySlug(slug);
   if (!profile) return null;
 
