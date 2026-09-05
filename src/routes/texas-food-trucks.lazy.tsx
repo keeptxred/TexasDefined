@@ -2,14 +2,45 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
 
+const foodTruckPhoto = {
+  src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Austin%20Texas%20food%20truck.jpg",
+  sourceUrl: "https://commons.wikimedia.org/wiki/File:Austin_Texas_food_truck.jpg",
+  creator: "Kurtkaiser",
+  credit: "Kurtkaiser · Wikimedia Commons",
+  license: "CC0 1.0",
+  licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
+  width: 4048,
+  height: 3036,
+  alt: "Food truck photographed in Austin, Texas",
+  caption: "Representative Texas food-truck photography from Austin. This image is not presented as a photo of every truck in the statewide collection.",
+  verifiedAt: "2026-09-05",
+} as const;
+
 export const Route = createLazyFileRoute("/texas-food-trucks")({
   component: TexasFoodTrucksPage,
 });
 
 function TexasFoodTrucksPage() {
   const pageData = Route.useLoaderData();
+  const imageSchema = {
+    "@context": "https://schema.org",
+    "@type": "ImageObject",
+    "@id": `${foodTruckPhoto.sourceUrl}#texasdefined-food-truck-image`,
+    contentUrl: foodTruckPhoto.src,
+    url: foodTruckPhoto.sourceUrl,
+    caption: foodTruckPhoto.caption,
+    description: foodTruckPhoto.alt,
+    width: foodTruckPhoto.width,
+    height: foodTruckPhoto.height,
+    creditText: foodTruckPhoto.credit,
+    creator: { "@type": "Person", name: foodTruckPhoto.creator },
+    license: foodTruckPhoto.licenseUrl,
+    acquireLicensePage: foodTruckPhoto.sourceUrl,
+    representativeOfPage: true,
+  };
 
   return <main>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(imageSchema) }} />
     <section className="border-b border-border bg-muted/30 py-14 md:py-20">
       <Container>
         <nav aria-label="Breadcrumb" className="text-xs uppercase tracking-[0.13em] text-muted-foreground">
@@ -23,6 +54,18 @@ function TexasFoodTrucksPage() {
           <Stat label="Texas markets" value={String(pageData.markets.length)} />
           <Stat label="Source review" value={formatDate(pageData.sourceCheckedAt)} />
         </dl>
+      </Container>
+    </section>
+
+    <section className="border-b border-border py-8 md:py-12">
+      <Container>
+        <figure className="mx-auto max-w-6xl">
+          <img src={foodTruckPhoto.src} alt={foodTruckPhoto.alt} width={foodTruckPhoto.width} height={foodTruckPhoto.height} decoding="async" className="aspect-[16/9] w-full object-cover" />
+          <figcaption className="mt-3 text-xs leading-6 text-muted-foreground">
+            <span className="text-foreground">{foodTruckPhoto.caption}</span><br />
+            {foodTruckPhoto.credit} · {foodTruckPhoto.license} · <a href={foodTruckPhoto.sourceUrl} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">source and license</a>
+          </figcaption>
+        </figure>
       </Container>
     </section>
 
