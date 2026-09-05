@@ -2,6 +2,7 @@ import { use } from 'react';
 
 import { aquariumMarineLinksForCounty } from '@/data/aquarium-marine-county-links';
 import { getCountyMajorEvents } from '@/data/county-major-events';
+import { golfCourseLicensedImage } from '@/data/golf-course-images';
 import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { sportsVenueLandingLinksForVenue, type SportsVenueLanding } from '@/data/sports-venue-landings';
@@ -135,12 +136,20 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
             <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined currently connects {golfCourses.length} golf course guide{golfCourses.length === 1 ? '' : 's'} to {county.name}.{verifiedGolfCount ? ` ${verifiedGolfCount} already ${verifiedGolfCount === 1 ? 'has' : 'have'} a first-party source-backed venue profile.` : ''}{starterGolfCount ? ` ${starterGolfCount} ${starterGolfCount === 1 ? 'is a starter record' : 'are starter records'} being upgraded with official course sources, addresses and operating details before search indexing.` : ''}</p>
           </div>
           <div className="mt-7 grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
-            {golfCourses.map((course) => <a key={course.id} href={canonicalEntityPath(course)} className="group border-t border-border py-5">
-              <span className="eyebrow text-primary">{course.tags?.includes('starter-golf-directory') ? 'Golf course reference' : 'Verified golf destination'}</span>
-              <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{course.name}</strong>
-              {course.description ? <span className="mt-3 block line-clamp-3 text-sm leading-6 text-muted-foreground">{course.description}</span> : null}
-              <span className="mt-3 block text-sm font-semibold text-primary">Open course guide →</span>
-            </a>)}
+            {golfCourses.map((course) => {
+              const image = golfCourseLicensedImage(course.slug);
+              return <a key={course.id} href={canonicalEntityPath(course)} className="group border-t border-border py-5">
+                {image ? <figure className="mb-4">
+                  <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover" />
+                  <figcaption className="mt-2 text-[0.68rem] leading-5 text-muted-foreground">{image.credit} · {image.license} · <span className="border-b border-primary/40 text-primary">rights verified {image.verifiedAt}</span></figcaption>
+                </figure> : null}
+                <span className="eyebrow text-primary">{course.tags?.includes('starter-golf-directory') ? 'Golf course reference' : 'Verified golf destination'}</span>
+                <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{course.name}</strong>
+                {course.description ? <span className="mt-3 block line-clamp-3 text-sm leading-6 text-muted-foreground">{course.description}</span> : null}
+                {image ? <span className="mt-3 block text-xs leading-5 text-muted-foreground">Photo depicts this course. <span className="text-primary">Source/license recorded.</span></span> : null}
+                <span className="mt-3 block text-sm font-semibold text-primary">Open course guide →</span>
+              </a>;
+            })}
           </div>
           <div className="mt-8 border-t border-border pt-6">
             <a href="/sports-venues/golf" className="text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">Browse the statewide Texas golf directory →</a>
