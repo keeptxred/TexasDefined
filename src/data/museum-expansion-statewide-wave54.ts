@@ -18,8 +18,8 @@ function museumPlaceholder(name: string): ImageRef {
  * Complex and add current Texas Forestry Museum, Sam Rayburn Museum,
  * Fannin County Museum of History, Fort Inglish Village, Round Top Area
  * Historical Society Wood Campus Museum, Museum of Hardin County,
- * Schulenburg Historical Museum and Somervell County Historical Society
- * Museum records.
+ * Schulenburg Historical Museum, Somervell County Historical Society Museum
+ * and Swenson Memorial Museum records.
  */
 export const statewideMuseumExpansionWave54Destinations: Destination[] = [
   {
@@ -302,6 +302,36 @@ export const statewideMuseumExpansionWave54Destinations: Destination[] = [
     officialUrl: "https://www.schsmuseum.com/",
     managingAuthority: "Somervell County Historical Society",
     address: "101 S.W. Vernon St, Glen Rose, TX 76043",
+    sourceCheckedAt: "2026-09-05",
+  },
+  {
+    id: "museum-statewide-wave62-swenson-memorial-museum",
+    brandId: "texasdefined",
+    slug: "swenson-memorial-museum-breckenridge",
+    name: "Swenson Memorial Museum",
+    summary: "Swenson Memorial Museum in downtown Breckenridge preserves Stephens County's pioneer, ranching, railroad and oil-boom history inside the 1920 former First National Bank building, with the adjacent J.D. Sandefer Oil Annex extending the story into the region's petroleum era.",
+    category: "historic-sites",
+    region: "prairies-lakes",
+    nearestTown: "Breckenridge",
+    county: "Stephens County",
+    coordinates: { lat: 32.75545, lng: -98.90318 },
+    hero: museumPlaceholder("Swenson Memorial Museum"),
+    bestSeason: "Year-round during the museum's current Thursday-Saturday schedule; fall through spring is especially comfortable for combining the museum with downtown Breckenridge murals, courthouse architecture and nearby lake-country drives.",
+    entryNote: "Current Breckenridge visitor information lists Thursday and Friday hours from 10 a.m. to 5 p.m. and Saturday from 10 a.m. to 2 p.m. Admission is free. Because the museum is volunteer-supported and schedules can change, confirm hours before making a dedicated trip.",
+    highlights: [
+      "1920 former First National Bank museum building",
+      "Stephens County pioneer and ranching collections",
+      "J.D. Sandefer Oil Annex and oil-boom interpretation",
+      "Historic photographs, local records and research collections",
+    ],
+    body: [
+      "Swenson Memorial Museum is the active Stephens County history institution behind older generic museum-directory references. The museum opened in 1976 inside Breckenridge's former First National Bank, a 1920 Beaux Arts-era building whose teller windows, vaults and downtown location preserve part of the city's own oil-boom commercial history while housing collections gathered to document the county's earlier settlement and community life.",
+      "The collections move from pioneer and ranching history into the transportation and petroleum stories that reshaped Breckenridge in the twentieth century. Local reporting documents saddles, barbed-wire collections, chuckwagon material, early-ranch maps, school history, photographs and family research resources, while the adjacent J.D. Sandefer Oil Annex focuses on the boom-town years and the oil industry that turned Breckenridge into a regional center after 1920.",
+      "For TexasDefined, the museum gives the existing Breckenridge destination a dedicated historical anchor instead of leaving local history as a passing highlight on the town page. Its location on West Walker Street makes it easy to pair with downtown murals and courthouse architecture, while the Texas Time Travel listing places it firmly in the Forts Trail heritage network. Using the current Swenson Memorial Museum identity also avoids confusing this Texas institution with the unrelated Stephens County Historical Museum in Duncan, Oklahoma.",
+    ],
+    officialUrl: "https://www.facebook.com/swensonmemorialmuseum",
+    managingAuthority: "Swenson Memorial Museum",
+    address: "116 W Walker St, Breckenridge, TX 76424",
     sourceCheckedAt: "2026-09-05",
   },
 ];
