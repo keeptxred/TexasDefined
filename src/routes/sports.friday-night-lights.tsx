@@ -1,28 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 const canonicalPath = "/sports/friday-night-lights";
-const origin = "https://texasdefined.com";
-const canonicalUrl = `${origin}${canonicalPath}`;
-const schema = JSON.stringify({
-  "@context": "https://schema.org",
-  "@graph": [
-    { "@type": "CollectionPage", name: "Friday Night Lights, Defined", url: canonicalUrl },
-    { "@type": "ItemList", itemListElement: [
-      "/article/texas-high-school-football-newcomers",
-      "/article/texas-high-school-football-friday-night-lights",
-      "/texas-homecoming-mums",
-      "/sports-venues/high-school-football",
-      "/find-my-school-district",
-      "/sports",
-      "/texas-tailgating-guide",
-    ].map((path, index) => ({ "@type": "ListItem", position: index + 1, url: `${origin}${path}` })) },
-    { "@type": "BreadcrumbList", itemListElement: [
-      ["Home", "/"],
-      ["Texas Sports", "/sports"],
-      ["Friday Night Lights, Defined", canonicalPath],
-    ].map(([name, path], index) => ({ "@type": "ListItem", position: index + 1, name, item: `${origin}${path}` })) },
-  ],
-});
+const canonicalUrl = "https://texasdefined.com/sports/friday-night-lights";
+const schema = '{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","name":"Friday Night Lights, Defined","url":"https://texasdefined.com/sports/friday-night-lights"},{"@type":"ItemList","name":"Texas high school football guides","numberOfItems":7},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://texasdefined.com/"},{"@type":"ListItem","position":2,"name":"Texas Sports","item":"https://texasdefined.com/sports"},{"@type":"ListItem","position":3,"name":"Friday Night Lights, Defined","item":"https://texasdefined.com/sports/friday-night-lights"}]}]}';
 
 export const Route = createFileRoute(canonicalPath)({
   head: () => ({
