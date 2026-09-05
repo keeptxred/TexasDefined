@@ -41,6 +41,7 @@ import { getExpandedMajorEventAuthorityTranche38Server } from "./major-event-exp
 import { getExpandedMajorEventAuthorityTranche39Server } from "./major-event-expanded-authority-tranche39.server";
 import { getExpandedMajorEventAuthorityTranche40Server } from "./major-event-expanded-authority-tranche40.server";
 import { getExpandedMajorEventAuthorityTranche41Server } from "./major-event-expanded-authority-tranche41.server";
+import { getExpandedMajorEventAuthorityTranche42Server } from "./major-event-expanded-authority-tranche42.server";
 import {
   getMajorEventSchemaEnrichmentServer,
   getMajorEventSchemaOccurrenceEnrichmentServer,
@@ -119,7 +120,8 @@ export function getMajorEventRecordServer(slug: string) {
     ?? getExpandedMajorEventAuthorityTranche38Server(slug)
     ?? getExpandedMajorEventAuthorityTranche39Server(slug)
     ?? getExpandedMajorEventAuthorityTranche40Server(slug)
-    ?? getExpandedMajorEventAuthorityTranche41Server(slug);
+    ?? getExpandedMajorEventAuthorityTranche41Server(slug)
+    ?? getExpandedMajorEventAuthorityTranche42Server(slug);
   if (!event) return event;
   if (event.slug === "texas-renaissance-festival") {
     return {
