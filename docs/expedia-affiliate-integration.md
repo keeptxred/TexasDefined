@@ -25,11 +25,11 @@ The centralized route guard covers:
 - `/destination/*` guides.
 - `/county/*` guides.
 - `/sports-venue/*` individual venue guides, including golf and other event-driven sports trips.
-- `/sports-venues/*` market and sport landing pages used to plan sports-travel weekends.
+- `/sports-venues/*` market and sport landing pages used to plan sports-travel weekends, excluding the `/sports-venues/compare` reference dataset and its CSV download.
 - `/event/*` guides.
 - `/best-places-to-go-camping-in-texas`, the standalone statewide camping authority page where overnight trip planning is intrinsic to the reader intent.
 
-This intentionally avoids unrelated reference, government, calculator, politics and general informational pages.
+This intentionally avoids unrelated reference, dataset/download, government, calculator, politics and general informational pages.
 
 ## Disclosure
 
@@ -45,4 +45,4 @@ Every rendered Expedia surface includes: `Affiliate disclosure: TexasDefined may
 
 ## Regression protection
 
-`scripts/data/validate-expedia-affiliate.mjs` verifies the SSR-only first-party bootstrap reference, approved route guard, exact tracking values, click-triggered vendor script loading and disclosure. It is registered as a delegated validator in `validate-seo-ci-contract.mjs` so the normal validation gate protects the integration from silent removal.
+`scripts/data/validate-expedia-affiliate.mjs` verifies the SSR-only first-party bootstrap reference, approved route guard, sports reference-route exclusion, exact tracking values, click-triggered vendor script loading and disclosure. It is registered as a delegated validator in `validate-seo-ci-contract.mjs` so the normal validation gate protects the integration from silent removal.

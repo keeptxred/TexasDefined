@@ -1,6 +1,6 @@
 (() => {
   const SURFACE_ID = "expedia-travel-surface";
-  const TRAVEL_PATH = /^\/(?:explore(?:\/|$)|destination\/|county\/|sports-venue\/|sports-venues\/|event\/|best-places-to-go-camping-in-texas(?:\/|$))/;
+  const TRAVEL_PATH = /^\/(?:explore(?:\/|$)|destination\/|county\/|sports-venue\/|sports-venues\/(?!compare(?:\.csv)?(?:\/|$))|event\/|best-places-to-go-camping-in-texas(?:\/|$))/;
   const VENDOR_SCRIPT = "https://creator.expediagroup.com/products/widgets/assets/eg-widgets.js";
   let observer;
 
