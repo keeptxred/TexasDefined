@@ -1,0 +1,70 @@
+name: Food truck CSS diff
+
+on:
+  push:
+    branches:
+      - feature/texas-food-trucks-300
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  diff-css:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Build feature
+        shell: bash
+        run: |
+          npm run build
+          cp dist/client/assets/styles-*.css /tmp/feature.css
+          cp dist/client/assets/main-*.js /tmp/feature.js
+      - name: Build main
+        shell: bash
+        run: |
+          git checkout origin/main
+          npm ci --no-audit --no-fund
+          npm run build
+          cp dist/client/assets/styles-*.css /tmp/main.css
+          cp dist/client/assets/main-*.js /tmp/main.js
+      - name: Report exact CSS delta
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE' > /tmp/css-report.txt
+          import { readFile, stat } from 'node:fs/promises';
+          const featureCss = await readFile('/tmp/feature.css', 'utf8');
+          const mainCss = await readFile('/tmp/main.css', 'utf8');
+          const featureSize = (await stat('/tmp/feature.css')).size;
+          const mainSize = (await stat('/tmp/main.css')).size;
+          const featureJs = (await stat('/tmp/feature.js')).size;
+          const mainJs = (await stat('/tmp/main.js')).size;
+          const rules = (css) => new Set(css.split('}').map((r) => r.trim()).filter(Boolean).map((r) => r + '}'));
+          const fRules = rules(featureCss);
+          const mRules = rules(mainCss);
+          const added = [...fRules].filter((r) => !mRules.has(r));
+          const removed = [...mRules].filter((r) => !fRules.has(r));
+          console.log(`CSS diff for ${process.env.GITHUB_SHA}`);
+          console.log(`feature CSS: ${featureSize} bytes`);
+          console.log(`main CSS: ${mainSize} bytes`);
+          console.log(`delta CSS: ${featureSize - mainSize} bytes`);
+          console.log(`feature JS: ${featureJs} bytes`);
+          console.log(`main JS: ${mainJs} bytes`);
+          console.log(`delta JS: ${featureJs - mainJs} bytes`);
+          console.log(`feature-only rules (${added.length}):`);
+          for (const rule of added.slice(0, 80)) console.log(rule.slice(0, 500));
+          console.log(`main-only rules (${removed.length}):`);
+          for (const rule of removed.slice(0, 40)) console.log(rule.slice(0, 500));
+          NODE
+          gh pr comment 1595 --repo keeptxred/TexasDefined --body-file /tmp/css-report.txt
