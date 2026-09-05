@@ -7,7 +7,9 @@ const core = fs.readFileSync(path.join(root, 'src/data/explore-core-remote.ts'),
 const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
 const destinationRuntime = fs.readFileSync(path.join(root, 'src/data/destination-query-runtime.ts'), 'utf8');
 const searchImplementation = `${queries}\n${destinationRuntime}`;
-const route = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
+const routeShell = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
+const routePresentation = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationPageContent.tsx'), 'utf8');
+const route = `${routeShell}\n${routePresentation}`;
 const planner = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationVisitPlanner.tsx'), 'utf8');
 const relationships = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationRelationships.tsx'), 'utf8');
 const relationshipEngine = fs.readFileSync(path.join(root, 'src/data/destination-relationships.ts'), 'utf8');
@@ -15,8 +17,8 @@ const graph = fs.readFileSync(path.join(root, 'src/data/knowledge-graph/explore-
 const ai = fs.readFileSync(path.join(root, 'src/routes/api.ai.entities.ts'), 'utf8');
 const llms = fs.readFileSync(path.join(root, 'src/routes/llms[.]txt.ts'), 'utf8');
 const exploreSearchShell = fs.readFileSync(path.join(root, 'src/routes/explore.search.tsx'), 'utf8');
-const exploreSearchLazy = fs.readFileSync(path.join(root, 'src/routes/explore.search.lazy.tsx'), 'utf8');
-const exploreSearch = `${exploreSearchShell}\n${exploreSearchLazy}`;
+const exploreSearchPresentation = fs.readFileSync(path.join(root, 'src/components/explore/ExploreSearchPage.tsx'), 'utf8');
+const exploreSearch = `${exploreSearchShell}\n${exploreSearchPresentation}`;
 const sitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap-explore[.]xml.ts'), 'utf8');
 const primarySitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap[.]xml.ts'), 'utf8');
 const types = fs.readFileSync(path.join(root, 'src/data/types.ts'), 'utf8');
@@ -44,6 +46,10 @@ for (const feature of [
   'destination.accessibilityNotes', 'destination.directions', 'destination.address',
   'destination.county', 'DestinationVisitPlanner',
 ]) if (!route.includes(feature)) errors.push(`Destination authority, discovery, or planning feature missing: ${feature}`);
+
+if (!routeShell.includes('lazy(() =>') || !routeShell.includes('import("@/components/editorial/DestinationPageContent")')) {
+  errors.push('Destination presentation must remain dynamically split while loader/head authority remains eager.');
+}
 
 for (const feature of [
   'const activityPattern', 'const facilityPattern', 'function unique(values: string[])',
@@ -104,17 +110,18 @@ for (const feature of [
 if (!queries.includes('await import("./destination-query-runtime")')) errors.push('Destination resolution must remain behind the dynamic runtime boundary.');
 
 for (const feature of [
-  'createFileRoute("/explore/search")', 'createLazyFileRoute("/explore/search")', 'component: ExploreSearchPage', 'destinationsQuery({ limit: 5000 })', 'scoreDestination', 'searchText',
+  'createFileRoute("/explore/search")', 'import("@/components/explore/ExploreSearchPage")', 'component: ExploreSearchRoutePage', 'destinationsQuery({ limit: 5000 })', 'scoreDestination', 'searchText',
   'destination.county', 'destination.managingAuthority', 'destination.bestSeason', '...destination.highlights',
   'terms.every((term) => haystack.includes(term))', 'right.score - left.score',
   'const text = z.string().optional().catch("")', 'q: text, category: text, region: text, season: text, accessible: text',
-  'const { q, category, region, season, accessible } = Route.useSearch()', 'const wantedSeason = normalized(season)',
+  'const { q, category, region, season, accessible } = ExploreSearchRoute.useSearch()', 'const wantedSeason = normalized(season)',
   '!category || destination.category === category', '!region || destination.region === region',
   'normalized(destination.bestSeason).includes(wantedSeason)', 'accessible !== "1" || Boolean(destination.accessibilityNotes)',
   'new Set(catalog.map((destination) => destination.category))', 'new Set(catalog.map((destination) => destination.region))',
   'name="region"', 'name="category"', 'name="season"', 'name="accessible"',
   'Accessibility info available', 'Search by destination, town, county, landscape, activity or the kind of day you want to plan',
 ]) if (!exploreSearch.includes(feature)) errors.push(`Explore search ranking or filter feature missing: ${feature}`);
+if (!exploreSearchShell.includes('lazy(() =>') || !exploreSearchShell.includes('import("@/components/explore/ExploreSearchPage")')) errors.push('Explore search presentation must remain dynamically split from the eager route shell.');
 if (exploreSearch.includes('fetchExploreDestinations({ query: q')) errors.push('Explore search bypasses the resilient destination query and core remote fallback.');
 if (exploreSearch.includes('dogFriendly') || exploreSearch.includes('kidFriendly')) errors.push('Explore search must not expose unsupported pet/family filters.');
 
@@ -183,4 +190,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore enrichment, grouped planning, ranked structured lazy Search, AI discovery, unavailable-or-empty remote fallback with quality-gated sitemap freshness, authority, relationship discovery with Texas Explained fallback, public-view fallback, lazy destination runtime, and preserved-catalog resilience passed.');
+console.log('Explore enrichment, grouped planning, ranked structured dynamically split Search, AI discovery, unavailable-or-empty remote fallback with quality-gated sitemap freshness, authority, relationship discovery with Texas Explained fallback, public-view fallback, lazy destination runtime, and preserved-catalog resilience passed.');
