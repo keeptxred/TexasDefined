@@ -17,6 +17,10 @@ export type CountyPropertyLocalVerification = {
  * snapshot so the scheduled statewide sync can never overwrite or manufacture
  * a local verification. Each entry must retain at least two distinct current
  * local government/property-tax sources and is protected by CI freshness checks.
+ *
+ * Keep overlays sparse: values already present in the generated county record
+ * should not be duplicated here. Only locally re-verified corrections, added
+ * taxpayer resources, freshness, and source evidence belong in this layer.
  */
 export const COUNTY_PROPERTY_LOCAL_VERIFICATION: Record<string, CountyPropertyLocalVerification> = {
   polk: {
@@ -106,20 +110,8 @@ export const COUNTY_PROPERTY_LOCAL_VERIFICATION: Record<string, CountyPropertyLo
     ],
   },
   leon: {
-    appraisalDistrict: {
-      name: 'Marcus Williams',
-      websiteUrl: 'https://www.leoncad.org/',
-      phone: '903-536-2252',
-      address: "141 W. Saint Mary's St., Centerville, TX 75833-0536",
-      email: 'leoncentralappraisal@gmail.com',
-    },
-    taxOffice: {
-      name: 'Victoria Willis',
-      websiteUrl: 'https://www.co.leon.tx.us/page/leon.County.Assessor.Collector',
-      phone: '903-536-2543',
-      address: '155 N. Cass St., Centerville, TX 75833',
-      email: 'victoria.willis@co.leon.tx.us',
-    },
+    appraisalDistrict: {},
+    taxOffice: {},
     links: {
       appraisalDistrictUrl: 'https://www.leoncad.org/',
       taxOfficeUrl: 'https://www.co.leon.tx.us/page/leon.County.Assessor.Collector',
