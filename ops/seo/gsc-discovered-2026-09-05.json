@@ -118,7 +118,7 @@
     },
     {
       "family": "otherQualityGatedOrAuthorityPages",
-      "count": 143,
+      "count": 135,
       "action": "KEEP",
       "priority": "MEDIUM",
       "reason": "These pages belong to established topical, Explore, data, fishing, collection or top-level authority systems.",
