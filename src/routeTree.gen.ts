@@ -1007,7 +1007,9 @@ const TexasFoodHistoryRoute = TexasFoodHistoryRouteImport.update({
   id: '/texas-food-history',
   path: '/texas-food-history',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/texas-food-history.lazy').then((d) => d.Route),
+)
 const TexasFlagRoute = TexasFlagRouteImport.update({
   id: '/texas-flag',
   path: '/texas-flag',
