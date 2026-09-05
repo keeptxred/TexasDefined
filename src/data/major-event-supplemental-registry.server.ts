@@ -1,4 +1,4 @@
-import { getExpandedMajorEventAuthorityTranche42Server } from "./major-event-expanded-authority-tranche42.server";
+import { getExpandedMajorEventAuthorityTranche42Server } from "./major-event-extra-authority-sep5.server";
 import { getMajorEventRecordServer } from "./major-event-page.server";
 
 export const supplementalMajorEventSlugs = [
