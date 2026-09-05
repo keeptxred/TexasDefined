@@ -27,7 +27,7 @@ for (const [needle, label] of [
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Expedia bookings', 'affiliate disclosure'],
 ]) requireText(bootstrap, needle, label);
 
-for (const family of ['explore', 'destination', 'county', 'sports-venue', 'event']) {
+for (const family of ['explore', 'destination', 'county', 'sports-venue', 'event', 'best-places-to-go-camping-in-texas']) {
   requireText(bootstrap, family, `${family} route family`);
 }
 
