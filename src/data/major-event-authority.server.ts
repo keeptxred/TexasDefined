@@ -1,5 +1,7 @@
 import { majorEventIndexRecords, type MajorEventIndexRecord } from "./major-event-index";
 import { verifiedTournamentBySlug } from "./tournaments/verified-profiles";
+import { verifiedTournamentBatch3BySlug } from "./tournaments/verified-profiles-batch3";
+import { verifiedTournamentBatch4BySlug } from "./tournaments/verified-profiles-batch4";
 
 export interface MajorEventSource { label: string; url: string; }
 export interface MajorEventPlanningSection { title: string; body: string; }
@@ -115,9 +117,8 @@ const majorEventAuthorityRecords: MajorEventAuthorityRecord[] = majorEventIndexR
 });
 const bySlug = new Map(majorEventAuthorityRecords.map((event) => [event.slug, event]));
 
-// Static registrations keep these first-party-verified tournament leaves visible to
-// the major-event authority validator while the profile module remains the canonical
-// source for their verified event facts.
+// Static registrations keep first-party-verified tournament leaves visible to the
+// major-event authority validator while profile modules remain the source of facts.
 const newVerifiedTournamentRegistrations = [
   { slug: "charles-schwab-challenge" },
   { slug: "the-cj-cup-byron-nelson" },
@@ -128,6 +129,18 @@ const newVerifiedTournamentRegistrations = [
   { slug: "the-sun-bowl" },
   { slug: "the-armed-forces-bowl" },
   { slug: "the-first-responder-bowl" },
+  { slug: "uil-football-state-championships" },
+  { slug: "uil-boys-basketball-state-tournament" },
+  { slug: "uil-girls-basketball-state-tournament" },
+  { slug: "uil-baseball-state-tournament" },
+  { slug: "uil-softball-state-tournament" },
+  { slug: "uil-soccer-state-championships" },
+  { slug: "uil-tennis-state-tournaments" },
+  { slug: "us-mens-clay-court-championships" },
+  { slug: "uil-volleyball-state-tournament" },
+  { slug: "uil-cross-country-state-championships" },
+  { slug: "uil-wrestling-state-championships" },
+  { slug: "uil-spirit-state-championships" },
 ] as const;
 
 const newVerifiedTournamentSlugs = new Set(newVerifiedTournamentRegistrations.map(({ slug }) => slug));
@@ -138,11 +151,14 @@ const verifiedTournamentRegionByCounty: Record<string, MajorEventIndexRecord["re
   harris: "gulf-coast",
   "el-paso": "big-bend",
   dallas: "prairies-lakes",
+  bexar: "south-texas",
+  travis: "hill-country",
+  williamson: "hill-country",
 };
 
 function getVerifiedTournamentAuthorityServer(slug: string): MajorEventAuthorityRecord | null {
   if (!newVerifiedTournamentSlugs.has(slug as (typeof newVerifiedTournamentRegistrations)[number]["slug"])) return null;
-  const profile = verifiedTournamentBySlug(slug);
+  const profile = verifiedTournamentBySlug(slug) ?? verifiedTournamentBatch3BySlug(slug) ?? verifiedTournamentBatch4BySlug(slug);
   if (!profile) return null;
 
   const venue = profile.slug === "the-texas-bowl" ? "NRG Stadium" : profile.venue;
@@ -159,7 +175,7 @@ function getVerifiedTournamentAuthorityServer(slug: string): MajorEventAuthority
     countySlug: profile.countySlug,
     countyName: profile.countyName,
     region: verifiedTournamentRegionByCounty[profile.countySlug] ?? "prairies-lakes",
-    category: profile.category === "rodeo-ranch" ? "rodeo" : "sport",
+    category: "category" in profile && profile.category === "rodeo-ranch" ? "rodeo" : "sport",
     startDate: profile.startDate,
     endDate: profile.endDate,
     dateNote: `Texas Defined checked the current first-party event source on ${profile.sourceCheckedAt}. Reconfirm the official schedule before travel.`,

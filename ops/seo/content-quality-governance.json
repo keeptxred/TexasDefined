@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "name": "TexasDefined permanent SEO/content quality governance",
+  "effectiveDate": "2026-09-05",
+  "auditCadenceDays": 30,
+  "actions": {
+    "KEEP": "Page is already worthy of search discovery. Keep indexable and maintain freshness/internal links.",
+    "IMPROVE": "Topic belongs on TexasDefined but page/template needs stronger depth, freshness, uniqueness, media, data, sourcing or internal discovery. Keep it in an explicit remediation backlog until promoted or reclassified.",
+    "NOINDEX": "Page is useful to users/site architecture but has little independent search intent. Keep crawlable with noindex, follow unless another technical reason requires otherwise.",
+    "REMOVE_CONSOLIDATE": "Page is redundant, obsolete, duplicate, superseded or unnecessary. Redirect to a clear canonical replacement when one exists; otherwise remove cleanly."
+  },
+  "principles": [
+    "Thin does not mean delete.",
+    "Judge the topic separately from the current page quality.",
+    "If the topic belongs on TexasDefined, IMPROVE is the default remediation.",
+    "Do not bulk-index newly generated entity pages before they pass their template quality gate.",
+    "Do not leave weak pages untracked.",
+    "Sitemaps contain only canonical, indexable, quality-qualified URLs TexasDefined actively wants Google to crawl.",
+    "New content expansions must ship with an indexability/quality gate and a remediation path before bulk URL release."
+  ],
+  "requiredReviewDimensions": [
+    "standaloneSearchIntent",
+    "uniqueTexasSpecificContent",
+    "sourceAuthorityAndFreshness",
+    "localOrEntitySpecificData",
+    "internalLinkDiscovery",
+    "canonicalAndRobots",
+    "structuredDataWhereAppropriate",
+    "imageOrMediaQualityWhereAppropriate",
+    "helpfulPlanningOrDecisionInformation",
+    "duplicationOrCannibalizationRisk"
+  ],
+  "newUrlReleaseGate": {
+    "defaultBeforeQualification": "NOINDEX",
+    "qualifiedState": "KEEP",
+    "remediationState": "IMPROVE",
+    "requirements": [
+      "self canonical or deliberate canonical target",
+      "indexable robots only after quality qualification",
+      "not a redirect, duplicate or stale slug",
+      "unique page-level value beyond boilerplate",
+      "meaningful internal links from at least one relevant authority surface",
+      "included in XML sitemap only after qualification"
+    ]
+  },
+  "existingRouteGovernance": {
+    "registry": "src/lib/public-routes.ts",
+    "staticIndexable": "INDEXABLE_STATIC_PATHS",
+    "conditionalIndexable": "CONDITIONAL_INDEXABLE_PUBLIC_PATHS",
+    "nonIndexable": "NON_INDEXABLE_PUBLIC_PATHS",
+    "redirectOnly": "REDIRECT_ONLY_PATHS"
+  },
+  "dynamicFamilyContracts": [
+    {
+      "family": "articles",
+      "file": "src/data/fixtures/texas-gateway-index-readiness.ts",
+      "requiredMarkers": [
+        "isArticleIndexReady",
+        "ARTICLE_INDEX_MIN_BODY_WORDS"
+      ]
+    },
+    {
+      "family": "destinations",
+      "file": "src/data/destination-audit.ts",
+      "requiredMarkers": [
+        "readyForIndexing"
+      ]
+    },
+    {
+      "family": "generic entities",
+      "file": "src/routes/$kind.$slug.tsx",
+      "requiredMarkers": [
+        "isIndexableEntityPage",
+        "noindex, follow"
+      ]
+    },
+    {
+      "family": "county property pages",
+      "file": "src/routes/property-tax.county.$county.tsx",
+      "requiredMarkers": [
+        "isCountyPropertyIndexReady",
+        "noindex, follow"
+      ]
+    }
+  ],
+  "gscRemediation": {
+    "initialSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+    "maxUnreviewedAgeDays": 30,
+    "manualInspectionPriority": [
+      "HIGH",
+      "MEDIUM",
+      "LOW"
+    ]
+  }
+}
