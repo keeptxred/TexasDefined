@@ -1,4 +1,4 @@
-import { use } from 'react';
+import { lazy, Suspense, use } from 'react';
 
 import { aquariumMarineLinksForCounty } from '@/data/aquarium-marine-county-links';
 import { getCountyMajorEvents } from '@/data/county-major-events';
@@ -6,6 +6,7 @@ import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { sportsVenueLandingLinksForVenue, type SportsVenueLanding } from '@/data/sports-venue-landings';
 
+const CountyWeddingVenuesSection = lazy(() => import('@/components/content/CountyWeddingVenuesSection').then((module) => ({ default: module.CountyWeddingVenuesSection })));
 const siteUrl = 'https://texasdefined.com';
 
 export function CountySportsDestinations({ county, venues }: { county: TexasEntityRecord; venues: TexasEntityRecord[] }) {
@@ -140,6 +141,8 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
         </div>
       </div>
     </section> : null}
+
+    <Suspense fallback={null}><CountyWeddingVenuesSection county={county} /></Suspense>
   </>;
 }
 

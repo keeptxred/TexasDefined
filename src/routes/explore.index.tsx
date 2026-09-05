@@ -22,6 +22,7 @@ export const Route = createFileRoute("/explore/")({
     const items = [
       ...categories.map((category) => ({ "@type": "WebPage" as const, name: category.name, description: category.description, url: `${siteUrl}/explore/${category.slug}`, image: category.image?.src ? absoluteUrl(texasDefinedBrand, category.image.src) : undefined })),
       { "@type": "CollectionPage" as const, name: "Texas Aquariums & Marine Life", description: "Texas aquariums and marine-life guides.", url: `${siteUrl}/explore/aquariums` },
+      { "@type": "CollectionPage" as const, name: "Texas Wedding Venues", description: "A statewide wedding venue shortlist organized by Texas region and connected to county guides where location data is curated.", url: `${siteUrl}/wedding-venues` },
       { "@type": "CollectionPage" as const, name: "Texas Tours & Bookable Experiences", description: "Texas tours, tickets and activities.", url: `${siteUrl}/explore#tours-experiences` },
       { "@type": "CollectionPage" as const, name: "Painted Churches of Texas", description: "Texas Painted Churches guides and routes.", url: `${siteUrl}/explore/painted-churches` },
       ...regions.map((region) => ({ "@type": "WebPage" as const, name: `${region.name} Guide`, description: region.blurb, url: `${siteUrl}/explore/region/${region.id}` })),
