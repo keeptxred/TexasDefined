@@ -9,13 +9,6 @@ export const TEXAS_VS_STATES = TEXAS_VS_STATE_GROUPS.flatMap((group) => group.st
 export const texasVsStateSlug = (value: string) => value.toLowerCase().replaceAll(" ", "-");
 export const texasVsStateName = (slug: string) => TEXAS_VS_STATES.find((state) => texasVsStateSlug(state) === slug) ?? null;
 
-const TEXAS_VS_STATE_CANONICAL_PATH_OVERRIDES: Record<string, string> = {
-  California: "/article/texas-vs-california-differences",
-  Florida: "/article/texas-vs-florida-differences",
-};
-
-export const texasVsStateHref = (state: string) => TEXAS_VS_STATE_CANONICAL_PATH_OVERRIDES[state] ?? `/texas-vs/${texasVsStateSlug(state)}`;
-
 export type TexasVsStateProfile = {
   comparisonFocus: string;
   placeLens: string;
