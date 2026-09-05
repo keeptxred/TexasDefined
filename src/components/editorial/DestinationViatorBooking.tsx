@@ -1,4 +1,4 @@
-import { LazyExpediaStaySearch as ExpediaStaySearch } from "@/components/affiliate/LazyExpediaStaySearch";
+import { ExpediaStaySearch } from "@/components/affiliate/ExpediaStaySearch";
 import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl } from "@/data/viator-destination-links";
 import { viatorMarketsForPlace, type ViatorMatchMarket } from "@/data/viator-market-match";
 import type { Destination } from "@/data/types";
