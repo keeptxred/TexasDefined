@@ -184,6 +184,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/buying-a-home-in-texas",
   "/guides",
   "/texas-living",
+  "/dogs",
   "/texas-resources",
   "/start-a-business-in-texas",
   "/texas-explained",

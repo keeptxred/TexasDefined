@@ -116,9 +116,12 @@ export const Route = createFileRoute("/sitemap.xml")({
         const entityPages = graph.filter(isIndexableEntityPage).filter(isTexasDefinedOwnedEntity);
         const supplementalMajorEventSitemapEntries = loadSupplementalMajorEventSitemapEntriesServer();
         const temporalEventSitemapEntries = loadTemporalEventSitemapEntriesServer();
+        const { dogBreeds } = await import("@/data/texas-dogs");
 
         const entries: SitemapEntry[] = [
           ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).filter((path) => isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
+          { path: "/dogs", lastmod: "2026-09-03" },
+          ...dogBreeds.map((breed) => ({ path: `/dogs/${breed.slug}`, lastmod: "2026-09-03" })),
           ...AUTHORITY_STATIC_PATHS.map((path) => ({ path, lastmod: AUTHORITY_LASTMOD })),
           ...HUNTING_SITEMAP_ENTRIES,
           ...LOCAL_PROPERTY_TAX_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-08-30" })),
