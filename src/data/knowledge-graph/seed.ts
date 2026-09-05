@@ -1,5 +1,4 @@
 import type { TexasEntityRecord } from './types';
-import { TEXAS_GOLF_COURSE_STARTER_ENTITIES } from './golf-course-starter';
 import { MAJOR_TEXAS_SPORTS_VENUES } from './major-sports-venues';
 import { TEXAS_SPORTS_VENUE_TIER2_ENTITIES } from './sports-venues-tier2';
 
@@ -34,7 +33,7 @@ export const TEXAS_NATURE_ENTITIES: TexasEntityRecord[] = [
 export const TEXAS_TOURISM_ENTITIES: TexasEntityRecord[] = [
   official({id:'historic-site:the-alamo',kind:'historic-site',name:'The Alamo',slug:'the-alamo',aliases:['Alamo Mission'],countySlug:'bexar',region:'south-texas',coordinates:{latitude:29.4257,longitude:-98.4861},officialUrl:'https://www.thealamo.org/',sourceId:'official-destination-sites',status:'active',relationships:[{type:'located-in-city',targetId:'city:san-antonio'},{type:'located-in-county',targetId:'county:bexar'}],tags:['history','mission','battlefield']}),
   official({id:'museum:bullock-texas-state-history-museum',kind:'museum',name:'Bullock Texas State History Museum',slug:'bullock-texas-state-history-museum',aliases:['Bullock Museum'],countySlug:'travis',region:'central-texas',coordinates:{latitude:30.2803,longitude:-97.7392},officialUrl:'https://www.thestoryoftexas.com/',sourceId:'official-destination-sites',status:'active',relationships:[{type:'located-in-city',targetId:'city:austin'}],tags:['museum','texas-history']}),
-  official({id:'mission:san-jose',kind:'mission',name:'Mission San José',slug:'mission-san-jose',aliases:['Queen of the Missions'],countySlug:'bexar',region:'south-texas',coordinates:{latitude:29.3628,longitude:-98.4794},officialUrl:'https://www.nps.gov/saan/',sourceId:'nps-texas',status:'active',relationships:[{type:'part-of',targetId:'historic-site:san-antonio-missions'}],tags:['mission','world-heritage']}),
+  official({id:'mission:san-jose',kind:'mission',name:'Mission San José',slug:'mission-san-jose',aliases:['Queen of the Missions'],countySlug:'bexar',region:'south-texas',officialUrl:'https://www.nps.gov/saan/',sourceId:'nps-texas',status:'active',relationships:[{type:'part-of',targetId:'historic-site:san-antonio-missions'}],tags:['mission','world-heritage']}),
   official({id:'scenic-drive:river-road-big-bend',kind:'scenic-drive',name:'River Road through Big Bend Ranch State Park',slug:'river-road-big-bend',aliases:['FM 170 River Road'],region:'big-bend',officialUrl:'https://tpwd.texas.gov/state-parks/big-bend-ranch',sourceId:'tpwd-parks',status:'active',relationships:[{type:'located-in-region',targetId:'region:big-bend'}],tags:['scenic-drive','road-trip']}),
 ];
 
@@ -53,5 +52,4 @@ export const CURATED_KNOWLEDGE_GRAPH_SEED = [
   ...TEXAS_EVENT_ENTITIES,
   ...MAJOR_TEXAS_SPORTS_VENUES,
   ...TEXAS_SPORTS_VENUE_TIER2_ENTITIES,
-  ...TEXAS_GOLF_COURSE_STARTER_ENTITIES,
 ];
