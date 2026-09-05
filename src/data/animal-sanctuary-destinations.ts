@@ -13,14 +13,14 @@ function sanctuaryPlaceholder(name: string): ImageRef {
 }
 
 function sanctuary(
-  input: Omit<Destination, "id" | "brandId" | "category" | "hero" | "sourceCheckedAt">,
+  input: Omit<Destination, "id" | "brandId" | "category" | "hero" | "sourceCheckedAt"> & { hero?: ImageRef },
 ): Destination {
   return {
     ...input,
     id: `animal-sanctuary-${input.slug}`,
     brandId: "texasdefined",
     category: "outdoors",
-    hero: sanctuaryPlaceholder(input.name),
+    hero: input.hero ?? sanctuaryPlaceholder(input.name),
     sourceCheckedAt: SOURCE_CHECKED_AT,
   };
 }
@@ -29,10 +29,10 @@ function sanctuary(
  * Public-facing Texas wildlife conservation, sanctuary and rehabilitation
  * destinations verified against their operators' current visitor information.
  *
- * These records intentionally retain the destination-photo placeholder until a
- * subject-specific licensed image is attached. Existing destination-quality
- * gates therefore keep them out of indexable/public Explore surfaces while the
- * researched identity, official source and visitor context remain preserved.
+ * Records without a subject-specific licensed image intentionally retain the
+ * destination-photo placeholder. Existing destination-quality gates therefore
+ * keep those records out of indexable/public Explore surfaces until suitable
+ * imagery is available.
  */
 export const animalSanctuaryDestinations: Destination[] = [
   sanctuary({
@@ -44,6 +44,13 @@ export const animalSanctuaryDestinations: Destination[] = [
     county: "Somervell County",
     coordinates: { lat: 32.17946, lng: -97.7972 },
     address: "2299 County Road 2008, Glen Rose, TX 76043",
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fossil_Rim_Wildlife_Center_(49193476352).jpg",
+      alt: "Wildlife and open habitat at Fossil Rim Wildlife Center near Glen Rose, Texas",
+      width: 1024,
+      height: 974,
+      credit: "runarut · CC BY 2.0 · Wikimedia Commons",
+    },
     bestSeason: "Open year-round except Thanksgiving Day, Christmas Eve and Christmas Day; mornings and cooler seasons generally offer more comfortable wildlife viewing.",
     entryNote: "Admission is ticketed and advance purchase is recommended. Hours, tour availability and animal visibility vary with season, weather and animal-care needs; verify current details before traveling.",
     highlights: ["7.2-mile self-drive wildlife route", "Guided safari tours", "Threatened and endangered species conservation", "Animal Discoveries and nature trails"],
