@@ -1,5 +1,5 @@
 import { formatDateRange } from "@/domain/utils/format";
-import { getExpandedMajorEventAuthorityTranche42Server } from "./major-event-expanded-authority-tranche42.server";
+import { getExpandedMajorEventAuthorityTranche42Server } from "./major-event-extra-authority-sep5.server";
 import { loadMajorEventPageServer } from "./major-event-page.server";
 
 const siteUrl = "https://texasdefined.com";
