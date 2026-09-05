@@ -118,6 +118,9 @@ export const supplementalMajorEventSlugs = [
   "galveston-island-shrimp-festival",
   "rockport-fulton-seafair",
   "rockport-songwriter-festival",
+  "fredericksburg-food-wine-festival",
+  "korean-festival-houston",
+  "a-christmas-affair",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
