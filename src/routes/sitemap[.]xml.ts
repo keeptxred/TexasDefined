@@ -37,6 +37,7 @@ type SitemapEntry = { path: string; lastmod?: string };
 
 const PRIORITY_SEO_LASTMOD = "2026-08-20";
 const AUTHORITY_LASTMOD = "2026-09-01";
+const TEXAS_VS_REDIRECT_ONLY_STATE_SLUGS = new Set(["california", "florida"]);
 const AUTHORITY_STATIC_PATHS = [
   "/track-texas-drivers-license",
   "/texas-by-texas-txt",
@@ -132,7 +133,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...majorEventIndexRecords.map((event) => ({ path: `/event/${event.slug}`, lastmod: toDate(event.sourceCheckedAt) })),
           ...supplementalMajorEventSitemapEntries,
           ...temporalEventSitemapEntries,
-          ...TEXAS_VS_STATES.map((state) => ({ path: `/texas-vs/${texasVsStateSlug(state)}`, lastmod: PRIORITY_SEO_LASTMOD })),
+          ...TEXAS_VS_STATES.filter((state) => !TEXAS_VS_REDIRECT_ONLY_STATE_SLUGS.has(texasVsStateSlug(state))).map((state) => ({ path: `/texas-vs/${texasVsStateSlug(state)}`, lastmod: PRIORITY_SEO_LASTMOD })),
           ...FISHING_SITEMAP_ENTRIES,
           ...fishingGuideSitemapEntries,
           ...fishingReportSitemapEntries,
