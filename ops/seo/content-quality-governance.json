@@ -83,14 +83,14 @@
       ]
     },
     {
-      "family": "county property local verification",
-      "file": "src/data/property/county-property-local-verification.ts",
+      "family": "county property promotion audit",
+      "file": "ops/seo/gsc-remediation-wave5-2026-09-05.json",
       "requiredMarkers": [
-        "haskell:",
-        "leon:",
+        "/property-tax/county/haskell",
+        "/property-tax/county/leon",
         "https://www.leoncad.org/",
         "https://www.co.leon.tx.us/page/leon.County.Assessor.Collector",
-        "lastVerifiedAt: '2026-09-05'"
+        "previousAction"
       ]
     },
     {
@@ -101,7 +101,7 @@
         "/texas-vs/california",
         "/article/texas-vs-california-differences",
         "/texas-vs/florida",
-        "/article/texas-vs-florida-differences",
+        "/article/texas-vs/florida-differences",
         "Response.redirect(url.toString(), 301)"
       ]
     },
