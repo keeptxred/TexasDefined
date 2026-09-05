@@ -94,13 +94,7 @@ export function SportsVenueQuickAnswers({
       </div>
     </section>
 
-    <ExpediaStaySearch
-      id={slug ? `expedia-${slug}-stays` : 'expedia-sports-venue-stays'}
-      compact
-      locationLabel={city ?? countyName ?? venueName}
-      title={`Find a place to stay near ${venueName}`}
-      description={`Compare current hotel and lodging options when a game, tournament, golf trip or event at ${venueName} turns into an overnight visit.`}
-    />
+    <ExpediaStaySearch locationLabel={city ?? countyName ?? venueName} />
 
     <TexasExplainedContextLinks surface="sports" />
   </>;
