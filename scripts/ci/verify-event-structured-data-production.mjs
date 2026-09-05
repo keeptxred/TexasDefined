@@ -138,6 +138,45 @@ async function verifyEventsHub() {
   console.log('[events-hub] collection-only structured-data scope verified');
 }
 
+async function verifyRecurrenceDerivedLeaves() {
+  const leaves = [
+    {
+      slug: 'luling-watermelon-thump',
+      name: 'Luling Watermelon Thump',
+      planningNeedle: 'Use the recurrence rule as the planning window',
+    },
+    {
+      slug: 'national-polka-festival',
+      name: 'National Polka Festival',
+      planningNeedle: 'Treat Memorial Day Weekend as the stable planning window',
+    },
+    {
+      slug: 'westfest',
+      name: 'Westfest',
+      planningNeedle: 'Use the Labor Day Weekend recurrence as the planning window',
+    },
+  ];
+
+  for (const leaf of leaves) {
+    const path = `/event/${leaf.slug}`;
+    const html = await fetchProduction(path, leaf.slug);
+    assert(canonicalHref(html) === `${origin}${path}`, `${leaf.name} canonical must be ${origin}${path}`);
+    assert(html.includes(leaf.name), `${leaf.name} page must render the event name`);
+    assert(html.includes(leaf.planningNeedle), `${leaf.name} must visibly identify its recurrence-derived date as a planning window`);
+    assert(/recheck the organizer/i.test(html), `${leaf.name} must visibly tell readers to recheck the organizer for the dedicated schedule`);
+
+    const blocks = extractJsonLd(html);
+    assert(blocks.length > 0, `${leaf.name} must expose JSON-LD`);
+    const nodes = blocks.flatMap((block) => collectTypedNodes(block));
+    assert(nodes.some((node) => hasType(node, 'WebPage')), `${leaf.name} recurrence-derived schema must expose WebPage`);
+    assert(nodes.some((node) => hasType(node, 'Thing')), `${leaf.name} recurrence-derived schema must describe the event as a Thing`);
+    assert(!nodes.some((node) => hasType(node, 'Event')), `${leaf.name} recurrence-derived schema must not expose scheduled Event markup`);
+    assert(!nodes.some((node) => hasType(node, 'EventScheduled')), `${leaf.name} recurrence-derived schema must not expose EventScheduled markup`);
+    assert(nodes.every((node) => !Object.hasOwn(node, 'startDate') && !Object.hasOwn(node, 'endDate')), `${leaf.name} recurrence-derived JSON-LD must not publish startDate or endDate`);
+    console.log(`[${leaf.slug}] recurrence-derived visible labeling and schema suppression verified`);
+  }
+}
+
 async function verifyFiestaLeaf() {
   const path = '/event/fiesta-san-antonio';
   const html = await fetchProduction(path, 'fiesta-san-antonio');
@@ -233,11 +272,12 @@ async function verifyRecurringLeaf() {
 
 try {
   await verifyEventsHub();
+  await verifyRecurrenceDerivedLeaves();
   await verifyFiestaLeaf();
   await verifyFreeOfferLeaf();
   await verifyPaidOfferAndPerformersLeaf();
   await verifyRecurringLeaf();
-  console.log('TexasDefined Event structured-data production verification passed, including optional enrichment and intentional omissions.');
+  console.log('TexasDefined Event structured-data production verification passed, including recurrence-derived schema suppression, optional enrichment and intentional omissions.');
 } catch (error) {
   const message = error instanceof Error ? error.message : String(error);
   console.error(`::error title=EVENT STRUCTURED DATA LIVE PRODUCTION failure::${message}`);
