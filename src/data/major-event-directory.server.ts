@@ -60,6 +60,7 @@ const eventTimingLinks: EventDiscoveryLink[] = [
 ];
 
 const eventTopicLinks: EventDiscoveryLink[] = [
+  { href: "/events/tournaments", title: "Texas tournaments", description: "Browse 250 competition seeds across 22 sports and activity categories, with county connections where the supplied location is clear." },
   { href: "/events/rodeos", title: "Rodeos & western events", description: "Stock shows, county fairs and rodeo weekends with permanent sourced planning guides." },
   { href: "/events/food-festivals", title: "Food festivals", description: "Barbecue, chili, Oktoberfest, harvest, beer, wine and local food traditions." },
   { href: "/events/music-festivals", title: "Music festivals", description: "Texas country, folk, jazz, blues and other major live-music gatherings." },

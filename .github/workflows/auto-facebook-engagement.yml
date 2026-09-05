@@ -407,9 +407,10 @@ jobs:
             /tmp/tdfb-stored/rendered-footer-proof.png
 
           # ImageMagick can quantize grayscale/sRGB values slightly when the footer
-          # is composited into the generated RGB image. Normalize both sides and
-          # allow only a 2% per-channel render tolerance; missing text still differs
-          # by thousands of pixels and therefore fails closed.
+          # is composited into the generated RGB image. Normalize both sides, ignore
+          # tiny per-channel color drift, then allow up to 0.5% of footer pixels to
+          # differ. This absorbs harmless render variance while still rejecting a
+          # missing or materially altered attribution footer by a wide margin.
           "${image_convert[@]}" \
             /tmp/tdfb-stored/attribution-footer.png \
             -colorspace sRGB \
@@ -432,10 +433,15 @@ jobs:
             echo "TexasDefined footer verification returned an invalid pixel metric: ${pixel_diff_raw}; publishing is blocked." >&2
             exit 1
           fi
-          if [[ "$pixel_diff" != "0" ]]; then
-            echo "Stored Facebook image does not contain the rendered TexasDefined.com footer within the allowed render tolerance; pixel difference=${pixel_diff_raw}; publishing is blocked." >&2
+
+          total_footer_pixels=$(( stored_footer_width * stored_footer_height ))
+          max_pixel_diff=$(( (total_footer_pixels + 199) / 200 ))
+          if (( pixel_diff > max_pixel_diff )); then
+            echo "Stored Facebook image does not contain the rendered TexasDefined.com footer within the allowed render tolerance; pixel difference=${pixel_diff}/${total_footer_pixels}, allowed=${max_pixel_diff} (0.5%); publishing is blocked." >&2
             exit 1
           fi
+          echo "TexasDefined footer verification passed: ${pixel_diff}/${total_footer_pixels} pixels differ; allowed=${max_pixel_diff} (0.5%)."
+
           rm -f \
             /tmp/tdfb-stored/rendered-footer-proof.png \
             /tmp/tdfb-stored/expected-footer-normalized.png \

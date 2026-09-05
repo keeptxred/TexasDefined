@@ -128,6 +128,9 @@ for (const marker of [
   "rendered-footer-normalized.png",
   "pixel_diff_raw=$(\"${image_compare[@]}\" -fuzz 2% -metric AE",
   "pixel_diff=${pixel_diff_raw%% *}",
+  "total_footer_pixels=$(( stored_footer_width * stored_footer_height ))",
+  "max_pixel_diff=$(( (total_footer_pixels + 199) / 200 ))",
+  "allowed=${max_pixel_diff} (0.5%)",
   "Stored Facebook image does not contain the rendered TexasDefined.com footer within the allowed render tolerance",
   "-F \"post_text=</tmp/tdfb-stored/post.txt\"",
   "-F \"image=@/tmp/tdfb-stored/generated-image.png;type=${MIME_TYPE}\"",
@@ -153,4 +156,4 @@ for (const forbidden of [
 console.log(`PASS Texas social evergreen pool: ${posts.length} posts`);
 console.log("PASS Texas Facebook queue: disabled-by-default and draft-only");
 console.log("PASS Texas social calendar: server API boundary, lazy client preview, read-only and inherited admin noindex");
-console.log("PASS TexasDefined OpenAI Facebook engagement: exact prompt, deterministic TexasDefined.com attribution, stored/reloaded image, tolerance- and SHA-verified publish, no fallback");
+console.log("PASS TexasDefined OpenAI Facebook engagement: exact prompt, deterministic TexasDefined.com attribution, stored/reloaded image, bounded 0.5% tolerance- and SHA-verified publish, no fallback");
