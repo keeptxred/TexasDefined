@@ -67,6 +67,7 @@ for (const feature of [
   'numberOfItems: eventItems.length',
   'buildMeta',
   'canonicalLink',
+  'majorEventGuides: loadMajorEventGuideDirectoryServer().filter((event) => (event.endDate || event.startDate) >= today)',
 ]) {
   if (!serverHead.includes(feature)) errors.push(`Server-owned Events SEO feature missing: ${feature}.`);
 }
@@ -192,4 +193,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Events SEO validation passed: all ${indexedSet.size} core leaves and all ${supplementalUniqueSlugs.length} unique supplemental Event leaves have completed the official-source optional-schema research pass; ${recurrenceDerivedDateSlugs.length} recurrence-derived guides are withheld from scheduled Event markup; the hub remains collection-only markup.`);
+console.log(`Events SEO validation passed: all ${indexedSet.size} core leaves and all ${supplementalUniqueSlugs.length} unique supplemental Event leaves have completed the official-source optional-schema research pass; ${recurrenceDerivedDateSlugs.length} recurrence-derived guides are withheld from scheduled Event markup; stale occurrences are withheld from the /events landing; the hub remains collection-only markup.`);
