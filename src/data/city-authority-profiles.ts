@@ -78,7 +78,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
         links: [{ label: 'Trinity Metro', href: 'https://ridetrinitymetro.org/' }],
       },
       {
-        title: 'Airports',
+        title: 'Airports & regional connections',
         summary: 'Dallas Fort Worth International Airport is the region’s principal international airport and is linked to Fort Worth by TEXRail. Local general-aviation airports serve additional aviation needs.',
         links: [{ label: 'DFW International', href: 'https://www.dfwairport.com/' }, { label: 'Fort Worth aviation', href: 'https://www.fortworthtexas.gov/departments/aviation' }],
       },
@@ -273,6 +273,19 @@ const profiles: Record<string, CityAuthorityProfile> = {
   },
 };
 
+const TEXAS_LIFE_CITY_CONTEXT: CityAuthoritySystem = {
+  title: 'TexasDefined city context',
+  summary: 'Use the statewide guides to compare the city with other Texas metros and regions, then put jobs, schools, family logistics and everyday living conditions around the local systems above.',
+  links: [
+    { label: 'Texas cities & regions', href: '/article/texas-major-cities-regional-differences' },
+    { label: 'Texas jobs & industries', href: '/article/texas-jobs-economy-industries' },
+    { label: 'Texas schools & family life', href: '/article/texas-schools-family-life' },
+    { label: 'Texas health & daily safety', href: '/article/texas-health-safety-daily-living' },
+  ],
+};
+
 export function getCityAuthorityProfile(slug: string) {
-  return profiles[slug];
+  const profile = profiles[slug];
+  if (!profile) return undefined;
+  return { ...profile, systems: [...profile.systems, TEXAS_LIFE_CITY_CONTEXT] };
 }
