@@ -135,6 +135,7 @@ for (const marker of [
   "Stored Facebook image does not contain the rendered TexasDefined.com footer within the allowed render tolerance",
   "-F \"post_text=</tmp/tdfb-stored/post.txt\"",
   "-F \"image=@/tmp/tdfb-stored/generated-image.png;type=${MIME_TYPE}\"",
+  "-F \"attribution=</tmp/tdfb-stored/attribution.txt\"",
   "/api/public/hooks/publish-texasdefined-generated-image",
   "failing closed",
 ]) {
@@ -157,4 +158,4 @@ for (const forbidden of [
 console.log(`PASS Texas social evergreen pool: ${posts.length} posts`);
 console.log("PASS Texas Facebook queue: disabled-by-default and draft-only");
 console.log("PASS Texas social calendar: server API boundary, lazy client preview, read-only and inherited admin noindex");
-console.log("PASS TexasDefined OpenAI Facebook engagement: exact prompt, deterministic TexasDefined.com attribution, stored/reloaded image, bounded 0.5% tolerance- and SHA-verified publish, no fallback");
+console.log("PASS TexasDefined OpenAI Facebook engagement: exact prompt, deterministic TexasDefined.com attribution, stored/reloaded image, bounded 0.5% tolerance- and SHA-verified publish, authenticated attribution field, no fallback");
