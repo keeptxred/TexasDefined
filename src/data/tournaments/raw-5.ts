@@ -1,6 +1,6 @@
 export type RawTournament = readonly [name:string, locationLabel:string, summary:string, countySlug?:string];
 export const TOURNAMENT_RAW_5: readonly RawTournament[] = [
-  ["UIL Swimming & Diving State Championships", "Austin", "Elite high school aquatics tournament at the Jamail Texas Swimming Center.", "travis"],
+  ["UIL Swimming & Diving State Championships", "San Antonio / College Station", "The 2027 state championships are split by classification between Josh Davis Natatorium in San Antonio and Texas A&M Natatorium in College Station."],
   ["Texas Senior Circuit Championships (Swimming)", "Varies", "Top tier USA Swimming club tournament."],
   ["American Swimming Coaches Association (ASCA) Texas Invite", "Varies", "Elite winter short-course tournament."],
   ["Texas Age Group Swimming Championships (TAGS)", "Varies", "The premier competitive tournament for Texas youth swimmers under 14."],
@@ -33,7 +33,7 @@ export const TOURNAMENT_RAW_5: readonly RawTournament[] = [
   ["Texas Amateur Athletic Federation (TAAF) Winter Games of Texas", "Varies", "Massive multi-sport Olympic style amateur tournament festival."],
   ["TAAF Summer Games of Texas", "Varies", "The massive summer edition hosting track, swimming, boxing, and team sports brackets."],
   ["State Games of Texas", "Varies", "Annual multi-sport festival open to all Texas amateur residents."],
-  ["UIL Team Tennis State Championships", "College Station", "Full school format high school tennis championship tournament.", "brazos"],
+  ["UIL Team Tennis State Championships", "TBD", "UIL has published the 2026 state tournament dates, but the championship venue remains TBD."],
   ["Texas Senior Games", "San Antonio", "Multi-sport tournament festival for athletes aged 50+.", "bexar"],
   ["Lone Star Arm Wrestling Championship", "Varies", "Competitive strength bracket tournament."],
   ["Texas State Weightlifting Championships", "USAW Texas", "Olympic lifting state tournament."],

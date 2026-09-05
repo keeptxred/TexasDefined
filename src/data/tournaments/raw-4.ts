@@ -4,7 +4,7 @@ export const TOURNAMENT_RAW_4: readonly RawTournament[] = [
   ["IBJJF Austin International Open", "Austin", "Elite regional BJJ tournament bracket.", "travis"],
   ["IBJJF Houston International Open", "Houston", "Massive Southeast Texas submission grappling tournament.", "harris"],
   ["Texas State Golden Gloves Tournament", "Fort Worth", "Historic amateur boxing tournament producing world champions.", "tarrant"],
-  ["UIL Wrestling State Championships", "Houston", "High school wrestling individual state tournament.", "harris"],
+  ["UIL Wrestling State Championships", "Cypress", "High school boys and girls wrestling state championships at the Berry Center.", "harris"],
   ["Texas State Taekwondo Championships", "Varies", "USA Taekwondo Olympic pathway tournament."],
   ["The Lone Star Open Grappling Championship", "Houston", "Massive independent submission wrestling tournament.", "harris"],
   ["Texas State Judo Championships", "Varies", "Sanctioned Olympic-style judo state tournament."],
