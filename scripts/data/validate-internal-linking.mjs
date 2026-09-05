@@ -123,6 +123,7 @@ requireSymbols(guidesIndex, [
 
 if (errors.length) fail();
 console.log('Phase 2 internal linking, honest sitewide semantic-surface coverage, city-to-county authority edges, county and events hubs, immutable policy releases, discoverable read-only rollback previews, intelligent scoring, explicit county context, exposure balancing, analytics, and quality governance are protected.');
+await import('./validate-wildflower-authority.mjs');
 
 function requireSymbols(source, symbols, area) { for (const symbol of symbols) if (!source.includes(symbol)) errors.push(`${area} feature missing: ${symbol}`); }
 function requireText(source, text, label) { if (!source.includes(text)) errors.push(`Missing ${label}.`); }
