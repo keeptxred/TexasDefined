@@ -1,9 +1,15 @@
 const origin = process.env.DIRECT_WORKER_ORIGIN ?? 'https://texasdefined-site.freddy-coppola.workers.dev';
+const productionOrigin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 const sha = process.env.GITHUB_SHA ?? 'local';
 const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const surfaces = [
   ['explore-search', '/explore/search', 'Search the Texas Travel Guide'],
   ['trip-planner', '/explore/trip-planner', 'Texas Trip Planner'],
+];
+const majorEventLandingRequiredNeedles = ['Recurrence-derived planning window'];
+const majorEventLandingForbiddenNeedles = [
+  'Gillespie County Fair',
+  'Austin Chronicle Hot Sauce Festival',
 ];
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -50,4 +56,65 @@ for (const [label, path, needle] of surfaces) {
   }
 }
 
-console.log(`Direct Worker discovery verification passed (${surfaces.length} surfaces).`);
+async function verifyMajorEventLanding(targetOrigin, targetLabel) {
+  let passed = false;
+  let lastStatus = 'network-error';
+  let lastBody = '';
+  let lastError = '';
+  let missingRequired = [];
+  let staleForbidden = [];
+
+  for (let attempt = 1; attempt <= 6; attempt += 1) {
+    const url = `${targetOrigin}/events?verify-major-events=${encodeURIComponent(`${sha}-${runId}-${attempt}`)}`;
+    console.log(`[${targetLabel}:major-events] attempt ${attempt}: ${url}`);
+    try {
+      const response = await fetch(url, {
+        redirect: 'follow',
+        cache: 'no-store',
+        signal: AbortSignal.timeout(30_000),
+        headers: { 'user-agent': 'TexasDefined-CI-Major-Event-Landing-Smoke/1.0' },
+      });
+      lastStatus = String(response.status);
+      lastBody = await response.text();
+      lastError = '';
+      missingRequired = majorEventLandingRequiredNeedles.filter((needle) => !lastBody.includes(needle));
+      staleForbidden = majorEventLandingForbiddenNeedles.filter((needle) => lastBody.includes(needle));
+
+      if (response.ok && missingRequired.length === 0 && staleForbidden.length === 0) {
+        console.log(`[${targetLabel}:major-events] verified (${response.status}): recurrence confidence is visible and ended authority guides are absent.`);
+        passed = true;
+        break;
+      }
+
+      if (!response.ok) {
+        console.log(`[${targetLabel}:major-events] HTTP ${response.status}; waiting for propagation.`);
+      } else if (missingRequired.length > 0) {
+        console.log(`[${targetLabel}:major-events] recurrence qualifier not live yet: ${missingRequired.join(' | ')}`);
+      } else {
+        console.log(`[${targetLabel}:major-events] ended guide cards are still live: ${staleForbidden.join(' | ')}`);
+      }
+    } catch (error) {
+      lastError = error instanceof Error ? error.message : String(error);
+      lastStatus = 'network-error';
+      console.log(`[${targetLabel}:major-events] request failed: ${lastError}`);
+    }
+
+    if (attempt < 6) await sleep(5_000);
+  }
+
+  if (!passed) {
+    const reason = lastError
+      || (lastStatus !== '200' ? `HTTP ${lastStatus}` : '')
+      || (missingRequired.length > 0 ? `missing required text: ${missingRequired.join(' | ')}` : '')
+      || (staleForbidden.length > 0 ? `ended guide cards still present: ${staleForbidden.join(' | ')}` : '')
+      || 'major-event landing payload did not match policy';
+    console.error(`::error title=MAJOR EVENT landing production failure::${targetLabel} failed — ${reason}`);
+    if (lastBody) console.error(`[${targetLabel}:major-events] response sample: ${lastBody.slice(0, 1800).replace(/\s+/g, ' ')}`);
+    process.exit(1);
+  }
+}
+
+await verifyMajorEventLanding(origin, 'direct-worker');
+await verifyMajorEventLanding(productionOrigin, 'custom-domain');
+
+console.log(`Direct Worker discovery verification passed (${surfaces.length} discovery surfaces plus direct/custom-domain major-event landing policy).`);
