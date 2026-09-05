@@ -1,0 +1,26 @@
+commit=6587ac1ec8d8b0f04a63b65d9bad738753f1020c
+node=v22.23.2
+--- validator ---
+
+> performance:validate
+> node scripts/data/validate-client-bundle-budget.mjs
+
+Main client bundle main-BUrReZQn.js is 1,827,628 bytes; budget is 1,825,000 bytes (stable baseline 1,807,457 bytes).
+--- main assets ---
+main-BUrReZQn.js 1827628 bytes
+--- wedding strings in main ---
+_section-B5-6AbN_.js","assets/fishing.lakes._slug._section-BNYdUOZp.js","assets/wedding-venues.lazy-Br2CBpYF.js","assets/WeddingVenuePages-CpY-mQoi.js","assets/wedding-venues.functions-HV-OHTow.js","assets/t
+"assets/index.lazy-DjpGVnEP.js","assets/explore.index.lazy-9BzlJBWa.js","assets/wedding-venue._slug.lazy-BkMv6W0Z.js","assets/things-unique-to-texas_._category.lazy-C4ZFCjlr.js","assets/texas-mortgage-calcul
+ug.lazy-C7ImzugC.js","assets/explore.landscapes._slug.lazy-tPq-4WHp.js","assets/wedding-venues.region._region.lazy-CHEcYsgX.js","assets/fishing.techniques._slug.lazy-QCR5Wc98.js","assets/fishing.species.larg
+re traveling and do not assume that historic-tour access applies during Masses, weddings, funerals or other parish events.",sourceUrl:"https://atlas.thc.texas.gov/Details/5185012792",secondarySourceUrl:"http
+g","Texas slang searches","2026 slang"]}):{},component:G(TG,"component")}),VC="/wedding-venues",_G="Explore a TexasDefined starting shortlist of wedding venues across Austin and the Hill Country, Dallas–Fort
+ San Antonio and South Texas, East Texas, West Texas and the Panhandle.",CG=k("/wedding-venues")({head:()=>({meta:D(g,{title:"Top Wedding Venues in Texas: 249 Places to Start",description:_G,canonicalPath:VC
+,{"@type":"CollectionPage",name:"Texas Wedding Venues",description:"A statewide wedding venue shortlist organized by Texas region and connected to county guides where location data is curated.",url:`${ri}/we
+limit:6}))]);return{categories:t,regions:a,destinations:s,articles:r}}}),BK=k("/wedding-venue/$slug")({head:({params:e})=>{const t=`/wedding-venue/${e.slug}`;return{meta:D(g,{title:"Texas Wedding Venue Profi
+le | TexasDefined",description:"TexasDefined wedding venue profile with regional context and practical planning questions to confirm directly with the venue before booking.
+t visible traditions."),L(189,"Grand marches","Formal group entrances at proms, weddings and dances survive in some Texas communities as a social tradition with European roots."),L(190,"Homecoming mums","Ove
+ Texas","east-west-panhandle":"East Texas, West Texas & the Panhandle"},mie=k("/wedding-venues/region/$region")({head:({params:e})=>{const t=pie[e.region]??"Texas",a=`/wedding-venues/region/${e.region}`,s=`B
+rowse wedding venues in ${t}, with TexasDefined county connections where location data is curated and direct links to venue profiles 
+hud-mean",path:"/what-does-chud-mean",getParentRoute:()=>A}),DI=CG.update({id:"/wedding-venues",path:"/wedding-venues",getParentRoute:()=>A}).lazy(()=>T(()=>import("./wedding-venues.lazy-Br2CBpYF.js"),__vite
+_mapDeps([315,143,113,54,55,5,56,25,26])).then(e=>e.Route)),eoe=BK.update({id:"/wedding-venue/$slug",path:"/wedding-venue/$slug",getParentRoute:()=>A}).lazy(()=>T(()=>import("./wedding-venue._slug.lazy-BkMv6
+region",path:"/region/$region",getParentRoute:()=>DI}).lazy(()=>T(()=>import("./wedding-venues.region._region.lazy-CHEcYsgX.js"),__vite__mapDeps([367,187,5,188])).then(e=>e.Route)),Kue=gie.update({id:"/produ
