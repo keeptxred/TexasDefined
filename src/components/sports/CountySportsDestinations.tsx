@@ -12,7 +12,7 @@ const siteUrl = 'https://texasdefined.com';
 export function CountySportsDestinations({ county, venues }: { county: TexasEntityRecord; venues: TexasEntityRecord[] }) {
   const majorEvents = use(getCountyMajorEvents(county.slug));
   const aquariumDestinations = aquariumMarineLinksForCounty(county.slug);
-  const rvParks = rvParksForCounty(county.slug);
+  const rvParks = use(rvParksForCounty(county.slug));
   const displayedRvParks = rvParks.slice(0, 12);
 
   const displayedVenues = venues.slice(0, 12);
