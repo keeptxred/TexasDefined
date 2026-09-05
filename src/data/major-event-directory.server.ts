@@ -5,6 +5,7 @@ import { formatDateRange } from "@/domain/utils/format";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 import type { TexasEvent, TexasRegion } from "./types";
+import { isRecurrenceDerivedMajorEventSlug } from "./major-event-date-confidence";
 import { majorEventIndexRecords } from "./major-event-index";
 import { formatMajorEventDateLabelServer, getMajorEventRecordServer } from "./major-event-page.server";
 import { loadSupplementalMajorEventRecordsServer } from "./major-event-supplemental-registry.server";
@@ -118,7 +119,7 @@ export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryIt
         countyName: event.countyName,
         region: event.region,
         category: event.category,
-        detail: `${event.city} · ${formatMajorEventDateLabelServer(event)}`,
+        detail: `${event.city} · ${formatMajorEventDateLabelServer(event)}${isRecurrenceDerivedMajorEventSlug(event.slug) ? " · Recurrence-derived planning window" : ""}`,
         startDate: event.startDate,
         endDate: event.endDate,
         sourceCheckedAt: event.sourceCheckedAt,
@@ -132,8 +133,9 @@ export function loadMajorEventGuideDirectoryServer(): MajorEventGuideDirectoryIt
 }
 
 export function loadMajorEventLandingDirectoryServer() {
+  const today = texasTodayIso();
   return {
-    majorEventGuides: loadMajorEventGuideDirectoryServer(),
+    majorEventGuides: loadMajorEventGuideDirectoryServer().filter((event) => (event.endDate || event.startDate) >= today),
     eventTimingLinks,
     eventTopicLinks,
     eventRegionLinks,
