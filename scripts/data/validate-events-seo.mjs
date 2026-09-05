@@ -8,6 +8,7 @@ const visibleRoute = `${route}\n${lazyRoute}`;
 const serverHead = fs.readFileSync(path.join(root, 'src/data/major-event-directory.server.ts'), 'utf8');
 const eventLeaf = fs.readFileSync(path.join(root, 'src/data/major-event-page.server.ts'), 'utf8');
 const authorityBridge = fs.readFileSync(path.join(root, 'src/data/major-event-authority.ts'), 'utf8');
+const dateConfidence = fs.readFileSync(path.join(root, 'src/data/major-event-date-confidence.ts'), 'utf8');
 const enrichmentRegistry = fs.readFileSync(path.join(root, 'src/data/major-event-schema-enrichment.server.ts'), 'utf8');
 const enrichmentBatchFiles = fs.readdirSync(path.join(root, 'src/data'))
   .filter((name) => /^major-event-schema-enrichment-batch\d+\.server\.ts$/.test(name))
@@ -35,16 +36,23 @@ const recurrenceDerivedDateSlugs = [
 ];
 
 for (const feature of [
-  'const recurrenceDerivedDateSlugs = new Set([',
+  'export const recurrenceDerivedMajorEventSlugs = new Set([',
+  'export function isRecurrenceDerivedMajorEventSlug',
+]) {
+  if (!dateConfidence.includes(feature)) errors.push(`Shared major-event date confidence registry missing: ${feature}.`);
+}
+for (const slug of recurrenceDerivedDateSlugs) {
+  if (!dateConfidence.includes(`"${slug}"`)) errors.push(`Recurrence-derived Event slug missing from shared date confidence registry: ${slug}.`);
+}
+
+for (const feature of [
+  'isRecurrenceDerivedMajorEventSlug',
   'function applyEventSchemaConfidencePolicy',
   '"@type": "WebPage"',
   '"@type": "Thing"',
   'page ? applyEventSchemaConfidencePolicy(page) : page',
 ]) {
   if (!authorityBridge.includes(feature)) errors.push(`Recurrence-derived Event schema confidence policy missing: ${feature}.`);
-}
-for (const slug of recurrenceDerivedDateSlugs) {
-  if (!authorityBridge.includes(`"${slug}"`)) errors.push(`Recurrence-derived Event slug missing from schema confidence policy: ${slug}.`);
 }
 const policyStart = authorityBridge.indexOf('function applyEventSchemaConfidencePolicy');
 const policyEnd = authorityBridge.indexOf('const loadMajorEventPage');
@@ -67,6 +75,8 @@ for (const feature of [
   'numberOfItems: eventItems.length',
   'buildMeta',
   'canonicalLink',
+  'isRecurrenceDerivedMajorEventSlug',
+  'Recurrence-derived planning window',
   'majorEventGuides: loadMajorEventGuideDirectoryServer().filter((event) => (event.endDate || event.startDate) >= today)',
 ]) {
   if (!serverHead.includes(feature)) errors.push(`Server-owned Events SEO feature missing: ${feature}.`);
@@ -193,4 +203,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Events SEO validation passed: all ${indexedSet.size} core leaves and all ${supplementalUniqueSlugs.length} unique supplemental Event leaves have completed the official-source optional-schema research pass; ${recurrenceDerivedDateSlugs.length} recurrence-derived guides are withheld from scheduled Event markup; stale occurrences are withheld from the /events landing; the hub remains collection-only markup.`);
+console.log(`Events SEO validation passed: all ${indexedSet.size} core leaves and all ${supplementalUniqueSlugs.length} unique supplemental Event leaves have completed the official-source optional-schema research pass; ${recurrenceDerivedDateSlugs.length} recurrence-derived guides are withheld from scheduled Event markup and visibly qualified; stale occurrences are withheld from the /events landing; the hub remains collection-only markup.`);
