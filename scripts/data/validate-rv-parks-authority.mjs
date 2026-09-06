@@ -46,7 +46,9 @@ requireText(destinationRoute, 'robots: indexable ? undefined : "noindex, follow"
 requireText(destinationRoute, '...(destination.hero.credit ? { creditText: destination.hero.credit } : {})', 'Destination image credit schema');
 requireText(countySection, "'@type': 'Campground'", 'County Campground schema');
 requireText(countySection, 'href="/explore/rv-parks"', 'County-to-statewide RV discovery');
-requireText(countyHost, "import('@/components/explore/CountyRvParks')", 'Lazy county RV boundary');
+requireText(countyHost, "import { CountyRvParks } from '@/components/explore/CountyRvParks';", 'Server-rendered county RV boundary');
+requireText(countyHost, '<CountyRvParks county={county} />', 'Server-rendered county RV section');
+if (countyHost.includes("lazy(() => import('@/components/explore/CountyRvParks'))")) errors.push('County RV section must not regress to a client-only lazy boundary.');
 requireText(sitemap, '"/explore/rv-parks"', 'RV collection sitemap entry');
 requireText(sitemap, '.filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing)', 'Destination sitemap quality gate');
 requireText(delivery, '"commons.wikimedia.org"', 'Wikimedia delivery allowlist');
@@ -58,4 +60,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), collection/county Campground discovery, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
+console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), server-rendered collection/county Campground discovery, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
