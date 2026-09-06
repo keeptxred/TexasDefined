@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+  "reviewDate": "2026-09-06",
+  "reviewMethod": "State-specific server-side evidence review against the Wave 4 remediation requirements: current tax, housing, labor, hazard/resilience and transportation sources; stronger metro/place comparison; dated review metadata; canonical/schema integrity; and sitemap qualification",
+  "summary": { "reviewed": 3, "KEEP": 3, "IMPROVE": 0, "NOINDEX": 0, "REMOVE_CONSOLIDATE": 0 },
+  "reviewed": [
+    {
+      "path": "/texas-vs/indiana",
+      "action": "KEEP",
+      "reason": "Indiana now has a current 2026 state income-tax rate, IHCDA housing-market resources, July 2026 workforce evidence, the 2024 State Multi-Hazard Mitigation Plan and INDOT transit evidence plus distinct Indianapolis, Fort Wayne, Evansville, Bloomington and South Bend comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/kansas",
+      "action": "KEEP",
+      "reason": "Kansas now has its 2026 individual estimated-tax schedule, current Census housing benchmarks, the July 2026 Kansas labor-report surface, current state/regional hazard-mitigation plans and KDOT public-transit evidence plus distinct Wichita, Kansas City-area, Topeka, Lawrence and rural-market comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/missouri",
+      "action": "KEEP",
+      "reason": "Missouri now has current individual income-tax guidance, current Census housing benchmarks, July 2026 MERIC labor-market evidence, a current state hazard-mitigation plan and MoDOT state transit evidence plus distinct Kansas City, St. Louis, Springfield, Columbia and Jefferson City comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    }
+  ]
+}
