@@ -38,7 +38,9 @@ export const Route = createFileRoute('/$kind/$slug')({
     if (!loaderData) return {};
     const canonicalPath = canonicalEntityPath(loaderData.entity);
     const countySeriesArticle = loaderData.countySeriesArticle;
-    const description = searchSnippetDescription(loaderData.entity);
+    const description = loaderData.entity.kind === 'county' && countySeriesArticle?.dek
+      ? countySeriesArticle.dek
+      : searchSnippetDescription(loaderData.entity);
     const indexable = isIndexableEntityPage(loaderData.entity);
     return {
       meta: buildMeta(texasDefinedBrand, {
