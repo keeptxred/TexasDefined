@@ -75,6 +75,35 @@ function numberField(source, field) {
   const match = source.match(new RegExp(`\\b${field}\\s*:\\s*(\\d+(?:\\.\\d+)?)`));
   return match ? Number(match[1]) : null;
 }
+
+function matchingBlock(source, field, openChar, closeChar) {
+  const marker = source.match(new RegExp(`\\b${field}\\s*:\\s*\\${openChar}`));
+  if (!marker || marker.index == null) return '';
+  const openIndex = source.indexOf(openChar, marker.index);
+  let depth = 0;
+  let quote = '';
+  let escaped = false;
+  for (let index = openIndex; index < source.length; index += 1) {
+    const character = source[index];
+    if (quote) {
+      if (escaped) escaped = false;
+      else if (character === '\\') escaped = true;
+      else if (character === quote) quote = '';
+      continue;
+    }
+    if (character === '"' || character === "'" || character === '`') {
+      quote = character;
+      continue;
+    }
+    if (character === openChar) depth += 1;
+    if (character === closeChar) {
+      depth -= 1;
+      if (depth === 0) return source.slice(openIndex + 1, index);
+    }
+  }
+  return '';
+}
+
 function heroSource(source, heroBlock) {
   const direct = stringField(heroBlock, 'src');
   if (direct) return direct;
@@ -82,22 +111,48 @@ function heroSource(source, heroBlock) {
   if (!identifier) return null;
   return source.match(new RegExp(`import\\s+${identifier}\\s+from\\s+["']([^"']+)["']`))?.[1] ?? null;
 }
-function resolveFixture(fixture, exportName) {
+
+function resolveRelativeTypeScriptPath(fromFile, importPath) {
+  return path.resolve(path.dirname(fromFile), importPath.endsWith('.ts') ? importPath : `${importPath}.ts`);
+}
+
+function resolveFixture(fixture, exportName, visited = new Set()) {
+  const key = `${fixture}:${exportName}`;
+  if (visited.has(key)) throw new Error(`Circular county fixture resolution: ${key}`);
+  visited.add(key);
+
   const direct = new RegExp(`export\\s+const\\s+${escapeRegExp(exportName)}\\b`);
   const wrapper = read(fixture);
-  if (direct.test(wrapper)) return { source: wrapper, sourcePath: fixture };
+  if (direct.test(wrapper)) {
+    const spreadIdentifier = wrapper.match(new RegExp(`export\\s+const\\s+${escapeRegExp(exportName)}[\\s\\S]*?=\\s*\\{\\s*\\.\\.\\.([A-Za-z_$][A-Za-z0-9_$]*)`))?.[1];
+    if (spreadIdentifier) {
+      const namedAliasPattern = new RegExp(`import\\s*\\{\\s*([A-Za-z_$][A-Za-z0-9_$]*)\\s+as\\s+${escapeRegExp(spreadIdentifier)}\\s*\\}\\s*from\\s*["']([^"']+)["']`);
+      const defaultPattern = new RegExp(`import\\s+${escapeRegExp(spreadIdentifier)}\\s+from\\s*["']([^"']+)["']`);
+      const namedAlias = wrapper.match(namedAliasPattern);
+      const defaultImport = wrapper.match(defaultPattern);
+      if (namedAlias || defaultImport) {
+        const importedExport = namedAlias?.[1] ?? 'default';
+        const importPath = namedAlias?.[2] ?? defaultImport?.[1];
+        const target = resolveRelativeTypeScriptPath(fixture, importPath);
+        if (!fs.existsSync(target)) throw new Error(`County wrapper base fixture is missing: ${fixture} -> ${target}`);
+        const base = importedExport === 'default'
+          ? { source: read(target), sourcePath: target }
+          : resolveFixture(target, importedExport, visited);
+        return { source: `${base.source}\n${wrapper}`, sourcePath: `${base.sourcePath} + ${fixture}` };
+      }
+    }
+    return { source: wrapper, sourcePath: fixture };
+  }
+
   const reExport = wrapper.match(new RegExp(`export\\s*\\{[^}]*\\b${escapeRegExp(exportName)}\\b[^}]*\\}\\s*from\\s*["']([^"']+)["']`));
   if (!reExport) throw new Error(`Missing expected export ${exportName} in ${fixture}`);
-  const target = path.resolve(path.dirname(fixture), reExport[1].endsWith('.ts') ? reExport[1] : `${reExport[1]}.ts`);
+  const target = resolveRelativeTypeScriptPath(fixture, reExport[1]);
   if (!fs.existsSync(target)) throw new Error(`County fixture re-export target is missing: ${fixture} -> ${target}`);
-  const source = read(target);
-  if (!direct.test(source)) throw new Error(`Missing expected export ${exportName} in ${target}`);
-  return { source, sourcePath: target };
+  return resolveFixture(target, exportName, visited);
 }
+
 function metrics(source) {
-  const start = source.indexOf('body: [');
-  const end = source.lastIndexOf('],');
-  const body = start >= 0 && end > start ? source.slice(start, end) : '';
+  const body = matchingBlock(source, 'body', '[', ']');
   return {
     words: (body.match(/[A-Za-z0-9]+(?:[’'\-][A-Za-z0-9]+)*/g) ?? []).length,
     paragraphs: (body.match(/\bp\s*\(/g) ?? []).length + (body.match(/type\s*:\s*["']paragraph["']/g) ?? []).length,
@@ -141,7 +196,7 @@ for (const county of canonical) {
   const title = stringField(source, 'title');
   const dek = stringField(source, 'dek');
   const readingMinutes = numberField(source, 'readingMinutes');
-  const heroBlock = source.match(/\bhero\s*:\s*\{([\s\S]*?)\n\s*\},/)?.[1] ?? '';
+  const heroBlock = matchingBlock(source, 'hero', '{', '}');
   const src = heroSource(source, heroBlock);
   const alt = stringField(heroBlock, 'alt');
   const body = metrics(source);
