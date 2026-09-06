@@ -1,0 +1,212 @@
+export type RvParkLicensedImage = {
+  src: string;
+  sourceUrl: string;
+  alt: string;
+  width: number;
+  height: number;
+  creator: string;
+  license: string;
+  licenseUrl: string;
+  verifiedAt: string;
+  actualLocation: true;
+  subjectScope: 'campground' | 'park-property';
+};
+
+const commons = (file: string) => `https://commons.wikimedia.org/wiki/Special:Redirect/file/${encodeURIComponent(file)}`;
+const verifiedAt = '2026-09-05';
+
+/**
+ * Exact-location images for the RV/campground expansion.
+ * A park-property image may illustrate the named public park even when the frame does not show the exact RV pad/loop.
+ * No search thumbnails, social photos or directory photos are publishable here without item-level reuse rights.
+ */
+export const RV_PARK_LICENSED_IMAGES: Readonly<Record<string, RvParkLicensedImage>> = {
+  'blanco-state-park-rv-area': {
+    src: commons('Blanco State Park 1.jpg'),
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Blanco_State_Park_1.jpg',
+    alt: 'Blanco River inside Blanco State Park in Blanco, Texas',
+    width: 1200,
+    height: 1600,
+    creator: 'Charles Willgren',
+    license: 'CC BY 2.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/2.0/',
+    verifiedAt,
+    actualLocation: true,
+    subjectScope: 'park-property',
+  },
+  'garner-state-park-rv-loops': {
+    src: commons('Garner state park.jpg'),
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Garner_state_park.jpg',
+    alt: 'Frio River and the landscape of Garner State Park in Uvalde County, Texas',
+    width: 2000,
+    height: 1500,
+    creator: 'Larry D. Moore',
+    license: 'CC BY 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+    verifiedAt,
+    actualLocation: true,
+    subjectScope: 'park-property',
+  },
+  'pedernales-falls-state-park-rv-sites': {
+    src: commons('Pedernales Falls State Park.JPG'),
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Pedernales_Falls_State_Park.JPG',
+    alt: 'Pedernales Falls State Park in the Texas Hill Country',
+    width: 2592,
+    height: 1944,
+    creator: 'Travis Witt',
+    license: 'CC BY-SA 3.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/',
+    verifiedAt,
+    actualLocation: true,
+    subjectScope: 'park-property',
+  },
+  'galveston-island-state-park-rv-area': {
+    src: commons('Gfp-texas-galveston-island-state-park-inlet-shore.jpg'),
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Gfp-texas-galveston-island-state-park-inlet-shore.jpg',
+    alt: 'Bay-side shoreline and wetlands at Galveston Island State Park in Texas',
+    width: 3371,
+    height: 2227,
+    creator: 'Yinan Chen',
+    license: 'Public domain dedication',
+    licenseUrl: 'https://creativecommons.org/publicdomain/mark/1.0/',
+    verifiedAt,
+    actualLocation: true,
+    subjectScope: 'park-property',
+  },
+  'caddo-lake-state-park-rv-area': {
+    src: commons('Big Cypress Bayou, Caddo Lake State Park, Harrison County, Texas, USA (April 2017).jpg'),
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Big_Cypress_Bayou,_Caddo_Lake_State_Park,_Harrison_County,_Texas,_USA_(April_2017).jpg',
+    alt: 'Big Cypress Bayou at Caddo Lake State Park in Harrison County, Texas',
+    width: 2100,
+    height: 1138,
+    creator: 'William L. Farr',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    verifiedAt,
+    actualLocation: true,
+    subjectScope: 'park-property',
+  },
+  'tyler-state-park-rv-loop': {
+    src: commons('Tyler state park tx.jpg'),
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Tyler_state_park_tx.jpg',
+    alt: 'Swimming area and lake inside Tyler State Park in Smith County, Texas',
+    width: 1952,
+    height: 1152,
+    creator: 'Larry D. Moore',
+    license: 'CC BY 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+    verifiedAt,
+    actualLocation: true,
+    subjectScope: 'park-property',
+  },
+  'huntsville-state-park-rv-loop': {
+    src: commons('Lake Raven at Huntsville State Park.jpg'),
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Lake_Raven_at_Huntsville_State_Park.jpg',
+    alt: 'Lake Raven inside Huntsville State Park in Walker County, Texas',
+    width: 4000,
+    height: 3000,
+    creator: 'Urban Versis 32',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    verifiedAt,
+    actualLocation: true,
+    subjectScope: 'park-property',
+  },
+  'palo-duro-canyon-state-park-rv-loop': {
+    src: commons('Campground Palo Duro Canyon State Park Texas 2024.jpg'),
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Campground_Palo_Duro_Canyon_State_Park_Texas_2024.jpg',
+    alt: 'Campground inside Palo Duro Canyon State Park in Randall County, Texas',
+    width: 3556,
+    height: 2000,
+    creator: 'Larry D. Moore',
+    license: 'CC BY 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+    verifiedAt,
+    actualLocation: true,
+    subjectScope: 'campground',
+  },
+  'copper-breaks-state-park-rv-area': {
+    src: commons('Copper Breaks State Park Camping Area.jpg'),
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Copper_Breaks_State_Park_Camping_Area.jpg',
+    alt: 'Camping area inside Copper Breaks State Park in Hardeman County, Texas',
+    width: 2396,
+    height: 1348,
+    creator: 'Larry D. Moore',
+    license: 'CC BY 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+    verifiedAt,
+    actualLocation: true,
+    subjectScope: 'campground',
+  },
+  'lake-mineral-wells-state-park-rv-loop': {
+    src: commons('Lake Mineral Wells from State Park.jpg'),
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Lake_Mineral_Wells_from_State_Park.jpg',
+    alt: 'Lake Mineral Wells viewed from Lake Mineral Wells State Park in Texas',
+    width: 3200,
+    height: 1800,
+    creator: 'Larry D. Moore',
+    license: 'CC BY 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+    verifiedAt,
+    actualLocation: true,
+    subjectScope: 'park-property',
+  },
+  'eisenhower-state-park-rv-loop': {
+    src: commons('Eisenhower State Park (Texas).jpg'),
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Eisenhower_State_Park_(Texas).jpg',
+    alt: 'Lake Texoma viewed from Eisenhower State Park in Grayson County, Texas',
+    width: 8846,
+    height: 2332,
+    creator: 'Luis Tamayo',
+    license: 'CC BY-SA 2.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/2.0/',
+    verifiedAt,
+    actualLocation: true,
+    subjectScope: 'park-property',
+  },
+  'balmorhea-state-park-rv-area': {
+    src: commons('San Solomon Springs Balmorhea State Park, Balmorhea, Texas.jpg'),
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:San_Solomon_Springs_Balmorhea_State_Park,_Balmorhea,_Texas.jpg',
+    alt: 'San Solomon Springs inside Balmorhea State Park in Reeves County, Texas',
+    width: 4730,
+    height: 2660,
+    creator: 'SHAWN VR',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    verifiedAt,
+    actualLocation: true,
+    subjectScope: 'park-property',
+  },
+  'davis-mountains-state-park-rv-loop': {
+    src: commons('Davis Mountains State Park.jpg'),
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Davis_Mountains_State_Park.jpg',
+    alt: 'Entrance to Davis Mountains State Park near Fort Davis, Texas',
+    width: 3993,
+    height: 2996,
+    creator: 'JasonReina',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    verifiedAt,
+    actualLocation: true,
+    subjectScope: 'park-property',
+  },
+  'monahans-sandhills-state-park-rv-area': {
+    src: commons('USA - Texas - Monahans Sandhills State Park.jpg'),
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:USA_-_Texas_-_Monahans_Sandhills_State_Park.jpg',
+    alt: 'Sand dunes at Monahans Sandhills State Park in West Texas',
+    width: 5344,
+    height: 3006,
+    creator: 'Alexander Hatley',
+    license: 'CC BY 2.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/2.0/',
+    verifiedAt,
+    actualLocation: true,
+    subjectScope: 'park-property',
+  },
+};
+
+export function rvParkLicensedImage(slug: string): RvParkLicensedImage | undefined {
+  return RV_PARK_LICENSED_IMAGES[slug];
+}
+
+export const RV_PARK_LICENSED_IMAGE_COUNT = Object.keys(RV_PARK_LICENSED_IMAGES).length;
