@@ -114,6 +114,15 @@ function destinationFromSeed(seed: RvParkSeedRecord): Destination {
 const rvParkDestinations: Destination[] = RV_PARK_SEEDS.map(destinationFromSeed);
 const rvParkBySlug = new Map(rvParkDestinations.map((item) => [item.slug, item]));
 
+function normalizeCountySlug(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/\s+county$/i, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 export function loadRvParkDestinationsServer(): Destination[] {
   return rvParkDestinations;
 }
@@ -123,9 +132,9 @@ export function getRvParkDestinationServer(slug: string): Destination | undefine
 }
 
 export function loadRvParksForCountyServer(countySlug: string): Destination[] {
-  const normalized = countySlug.trim().toLowerCase();
+  const normalized = normalizeCountySlug(countySlug);
   return rvParkDestinations
-    .filter((item) => item.county?.toLowerCase().replace(/[^a-z0-9]+/g, "-") === normalized)
+    .filter((item) => Boolean(item.county) && normalizeCountySlug(item.county!) === normalized)
     .sort((a, b) => a.nearestTown.localeCompare(b.nearestTown) || a.name.localeCompare(b.name));
 }
 
