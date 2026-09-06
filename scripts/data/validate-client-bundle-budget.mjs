@@ -13,6 +13,12 @@ const STABLE_MAIN_BASELINE_BYTES = 1_807_457;
 const MAX_MAIN_BYTES = 1_825_000;
 const MAX_CSS_BYTES = 140_000;
 
+function reportCiError(title, message) {
+  if (process.env.GITHUB_ACTIONS === 'true') {
+    console.error(`::error title=${title}::${message}`);
+  }
+}
+
 async function resolveAssetsDir() {
   for (const candidate of assetDirCandidates) {
     try {
@@ -47,14 +53,19 @@ async function main() {
   const mainFile = mainCandidates[0];
   const mainBytes = (await stat(path.join(assetsDir, mainFile))).size;
   if (mainBytes > MAX_MAIN_BYTES) {
-    throw new Error(`Main client bundle ${mainFile} is ${mainBytes.toLocaleString()} bytes; budget is ${MAX_MAIN_BYTES.toLocaleString()} bytes (stable baseline ${STABLE_MAIN_BASELINE_BYTES.toLocaleString()} bytes).`);
+    const overageBytes = mainBytes - MAX_MAIN_BYTES;
+    const message = `Main client bundle ${mainFile} is ${mainBytes.toLocaleString()} bytes; budget is ${MAX_MAIN_BYTES.toLocaleString()} bytes; over by ${overageBytes.toLocaleString()} bytes (stable baseline ${STABLE_MAIN_BASELINE_BYTES.toLocaleString()} bytes).`;
+    reportCiError('Client bundle budget', message);
+    throw new Error(message);
   }
 
   const cssFiles = entries.filter((name) => /^styles-.*\.css$/.test(name));
   for (const cssFile of cssFiles) {
     const cssBytes = (await stat(path.join(assetsDir, cssFile))).size;
     if (cssBytes > MAX_CSS_BYTES) {
-      throw new Error(`Primary stylesheet ${cssFile} is ${cssBytes.toLocaleString()} bytes; budget is ${MAX_CSS_BYTES.toLocaleString()} bytes.`);
+      const message = `Primary stylesheet ${cssFile} is ${cssBytes.toLocaleString()} bytes; budget is ${MAX_CSS_BYTES.toLocaleString()} bytes.`;
+      reportCiError('Client stylesheet budget', message);
+      throw new Error(message);
     }
   }
 
