@@ -85,6 +85,7 @@ import { Route as TexasHomeAffordabilityCalculatorRouteImport } from './routes/t
 import { Route as TexasHistoryRouteImport } from './routes/texas-history'
 import { Route as TexasHipHopRouteImport } from './routes/texas-hip-hop'
 import { Route as TexasGospelRnbPopRouteImport } from './routes/texas-gospel-rnb-pop'
+import { Route as TexasFoodTrucksRouteImport } from './routes/texas-food-trucks'
 import { Route as TexasFoodTrailRouteImport } from './routes/texas-food-trail'
 import { Route as TexasFoodHistoryRouteImport } from './routes/texas-food-history'
 import { Route as TexasFlagRouteImport } from './routes/texas-flag'
@@ -193,6 +194,7 @@ import { Route as TexasIconsSlugRouteImport } from './routes/texas-icons_.$slug'
 import { Route as TexasHomeownershipCostCalculatorLocationRouteImport } from './routes/texas-homeownership-cost-calculator_.$location'
 import { Route as TexasHomeInsuranceCalculatorLocationRouteImport } from './routes/texas-home-insurance-calculator_.$location'
 import { Route as TexasHomeAffordabilityCalculatorLocationRouteImport } from './routes/texas-home-affordability-calculator_.$location'
+import { Route as TexasFoodTrucksMarketRouteImport } from './routes/texas-food-trucks.$market'
 import { Route as TexasDataCountyHousingCostsDotcsvRouteImport } from './routes/texas-data.county-housing-costs[.]csv'
 import { Route as TexasDataCountyHousingCostsRouteImport } from './routes/texas-data.county-housing-costs'
 import { Route as TexasDataCountyGrowthDotcsvRouteImport } from './routes/texas-data.county-growth[.]csv'
@@ -987,6 +989,13 @@ const TexasGospelRnbPopRoute = TexasGospelRnbPopRouteImport.update({
 } as any).lazy(() =>
   import('./routes/texas-gospel-rnb-pop.lazy').then((d) => d.Route),
 )
+const TexasFoodTrucksRoute = TexasFoodTrucksRouteImport.update({
+  id: '/texas-food-trucks',
+  path: '/texas-food-trucks',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/texas-food-trucks.lazy').then((d) => d.Route),
+)
 const TexasFoodTrailRoute = TexasFoodTrailRouteImport.update({
   id: '/texas-food-trail',
   path: '/texas-food-trail',
@@ -998,7 +1007,9 @@ const TexasFoodHistoryRoute = TexasFoodHistoryRouteImport.update({
   id: '/texas-food-history',
   path: '/texas-food-history',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/texas-food-history.lazy').then((d) => d.Route),
+)
 const TexasFlagRoute = TexasFlagRouteImport.update({
   id: '/texas-flag',
   path: '/texas-flag',
@@ -1672,6 +1683,13 @@ const TexasHomeAffordabilityCalculatorLocationRoute =
       (d) => d.Route,
     ),
   )
+const TexasFoodTrucksMarketRoute = TexasFoodTrucksMarketRouteImport.update({
+  id: '/$market',
+  path: '/$market',
+  getParentRoute: () => TexasFoodTrucksRoute,
+} as any).lazy(() =>
+  import('./routes/texas-food-trucks.$market.lazy').then((d) => d.Route),
+)
 const TexasDataCountyHousingCostsDotcsvRoute =
   TexasDataCountyHousingCostsDotcsvRouteImport.update({
     id: '/county-housing-costs.csv',
@@ -3336,6 +3354,7 @@ export interface FileRoutesByFullPath {
   '/texas-flag': typeof TexasFlagRoute
   '/texas-food-history': typeof TexasFoodHistoryRoute
   '/texas-food-trail': typeof TexasFoodTrailRoute
+  '/texas-food-trucks': typeof TexasFoodTrucksRouteWithChildren
   '/texas-gospel-rnb-pop': typeof TexasGospelRnbPopRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
   '/texas-history': typeof TexasHistoryRoute
@@ -3613,6 +3632,7 @@ export interface FileRoutesByFullPath {
   '/texas-data/county-growth.csv': typeof TexasDataCountyGrowthDotcsvRoute
   '/texas-data/county-housing-costs': typeof TexasDataCountyHousingCostsRoute
   '/texas-data/county-housing-costs.csv': typeof TexasDataCountyHousingCostsDotcsvRoute
+  '/texas-food-trucks/$market': typeof TexasFoodTrucksMarketRoute
   '/texas-home-affordability-calculator/$location': typeof TexasHomeAffordabilityCalculatorLocationRoute
   '/texas-home-insurance-calculator/$location': typeof TexasHomeInsuranceCalculatorLocationRoute
   '/texas-homeownership-cost-calculator/$location': typeof TexasHomeownershipCostCalculatorLocationRoute
@@ -3784,6 +3804,7 @@ export interface FileRoutesByTo {
   '/texas-flag': typeof TexasFlagRoute
   '/texas-food-history': typeof TexasFoodHistoryRoute
   '/texas-food-trail': typeof TexasFoodTrailRoute
+  '/texas-food-trucks': typeof TexasFoodTrucksRouteWithChildren
   '/texas-gospel-rnb-pop': typeof TexasGospelRnbPopRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
   '/texas-history': typeof TexasHistoryRoute
@@ -4061,6 +4082,7 @@ export interface FileRoutesByTo {
   '/texas-data/county-growth.csv': typeof TexasDataCountyGrowthDotcsvRoute
   '/texas-data/county-housing-costs': typeof TexasDataCountyHousingCostsRoute
   '/texas-data/county-housing-costs.csv': typeof TexasDataCountyHousingCostsDotcsvRoute
+  '/texas-food-trucks/$market': typeof TexasFoodTrucksMarketRoute
   '/texas-home-affordability-calculator/$location': typeof TexasHomeAffordabilityCalculatorLocationRoute
   '/texas-home-insurance-calculator/$location': typeof TexasHomeInsuranceCalculatorLocationRoute
   '/texas-homeownership-cost-calculator/$location': typeof TexasHomeownershipCostCalculatorLocationRoute
@@ -4235,6 +4257,7 @@ export interface FileRoutesById {
   '/texas-flag': typeof TexasFlagRoute
   '/texas-food-history': typeof TexasFoodHistoryRoute
   '/texas-food-trail': typeof TexasFoodTrailRoute
+  '/texas-food-trucks': typeof TexasFoodTrucksRouteWithChildren
   '/texas-gospel-rnb-pop': typeof TexasGospelRnbPopRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
   '/texas-history': typeof TexasHistoryRoute
@@ -4512,6 +4535,7 @@ export interface FileRoutesById {
   '/texas-data/county-growth.csv': typeof TexasDataCountyGrowthDotcsvRoute
   '/texas-data/county-housing-costs': typeof TexasDataCountyHousingCostsRoute
   '/texas-data/county-housing-costs.csv': typeof TexasDataCountyHousingCostsDotcsvRoute
+  '/texas-food-trucks/$market': typeof TexasFoodTrucksMarketRoute
   '/texas-home-affordability-calculator_/$location': typeof TexasHomeAffordabilityCalculatorLocationRoute
   '/texas-home-insurance-calculator_/$location': typeof TexasHomeInsuranceCalculatorLocationRoute
   '/texas-homeownership-cost-calculator_/$location': typeof TexasHomeownershipCostCalculatorLocationRoute
@@ -4687,6 +4711,7 @@ export interface FileRouteTypes {
     | '/texas-flag'
     | '/texas-food-history'
     | '/texas-food-trail'
+    | '/texas-food-trucks'
     | '/texas-gospel-rnb-pop'
     | '/texas-hip-hop'
     | '/texas-history'
@@ -4964,6 +4989,7 @@ export interface FileRouteTypes {
     | '/texas-data/county-growth.csv'
     | '/texas-data/county-housing-costs'
     | '/texas-data/county-housing-costs.csv'
+    | '/texas-food-trucks/$market'
     | '/texas-home-affordability-calculator/$location'
     | '/texas-home-insurance-calculator/$location'
     | '/texas-homeownership-cost-calculator/$location'
@@ -5135,6 +5161,7 @@ export interface FileRouteTypes {
     | '/texas-flag'
     | '/texas-food-history'
     | '/texas-food-trail'
+    | '/texas-food-trucks'
     | '/texas-gospel-rnb-pop'
     | '/texas-hip-hop'
     | '/texas-history'
@@ -5412,6 +5439,7 @@ export interface FileRouteTypes {
     | '/texas-data/county-growth.csv'
     | '/texas-data/county-housing-costs'
     | '/texas-data/county-housing-costs.csv'
+    | '/texas-food-trucks/$market'
     | '/texas-home-affordability-calculator/$location'
     | '/texas-home-insurance-calculator/$location'
     | '/texas-homeownership-cost-calculator/$location'
@@ -5585,6 +5613,7 @@ export interface FileRouteTypes {
     | '/texas-flag'
     | '/texas-food-history'
     | '/texas-food-trail'
+    | '/texas-food-trucks'
     | '/texas-gospel-rnb-pop'
     | '/texas-hip-hop'
     | '/texas-history'
@@ -5862,6 +5891,7 @@ export interface FileRouteTypes {
     | '/texas-data/county-growth.csv'
     | '/texas-data/county-housing-costs'
     | '/texas-data/county-housing-costs.csv'
+    | '/texas-food-trucks/$market'
     | '/texas-home-affordability-calculator_/$location'
     | '/texas-home-insurance-calculator_/$location'
     | '/texas-homeownership-cost-calculator_/$location'
@@ -6036,6 +6066,7 @@ export interface RootRouteChildren {
   TexasFlagRoute: typeof TexasFlagRoute
   TexasFoodHistoryRoute: typeof TexasFoodHistoryRoute
   TexasFoodTrailRoute: typeof TexasFoodTrailRoute
+  TexasFoodTrucksRoute: typeof TexasFoodTrucksRouteWithChildren
   TexasGospelRnbPopRoute: typeof TexasGospelRnbPopRoute
   TexasHipHopRoute: typeof TexasHipHopRoute
   TexasHistoryRoute: typeof TexasHistoryRoute
@@ -6833,6 +6864,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TexasGospelRnbPopRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/texas-food-trucks': {
+      id: '/texas-food-trucks'
+      path: '/texas-food-trucks'
+      fullPath: '/texas-food-trucks'
+      preLoaderRoute: typeof TexasFoodTrucksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/texas-food-trail': {
       id: '/texas-food-trail'
       path: '/texas-food-trail'
@@ -7588,6 +7626,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/texas-home-affordability-calculator/$location'
       preLoaderRoute: typeof TexasHomeAffordabilityCalculatorLocationRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/texas-food-trucks/$market': {
+      id: '/texas-food-trucks/$market'
+      path: '/$market'
+      fullPath: '/texas-food-trucks/$market'
+      preLoaderRoute: typeof TexasFoodTrucksMarketRouteImport
+      parentRoute: typeof TexasFoodTrucksRoute
     }
     '/texas-data/county-housing-costs.csv': {
       id: '/texas-data/county-housing-costs.csv'
@@ -9729,6 +9774,18 @@ const TexasDataRouteWithChildren = TexasDataRoute._addFileChildren(
   TexasDataRouteChildren,
 )
 
+interface TexasFoodTrucksRouteChildren {
+  TexasFoodTrucksMarketRoute: typeof TexasFoodTrucksMarketRoute
+}
+
+const TexasFoodTrucksRouteChildren: TexasFoodTrucksRouteChildren = {
+  TexasFoodTrucksMarketRoute: TexasFoodTrucksMarketRoute,
+}
+
+const TexasFoodTrucksRouteWithChildren = TexasFoodTrucksRoute._addFileChildren(
+  TexasFoodTrucksRouteChildren,
+)
+
 interface TexasSymbolsRouteChildren {
   TexasSymbolsSlugRoute: typeof TexasSymbolsSlugRoute
 }
@@ -10037,6 +10094,7 @@ const rootRouteChildren: RootRouteChildren = {
   TexasFlagRoute: TexasFlagRoute,
   TexasFoodHistoryRoute: TexasFoodHistoryRoute,
   TexasFoodTrailRoute: TexasFoodTrailRoute,
+  TexasFoodTrucksRoute: TexasFoodTrucksRouteWithChildren,
   TexasGospelRnbPopRoute: TexasGospelRnbPopRoute,
   TexasHipHopRoute: TexasHipHopRoute,
   TexasHistoryRoute: TexasHistoryRoute,
