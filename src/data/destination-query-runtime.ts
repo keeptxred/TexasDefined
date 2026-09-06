@@ -15,7 +15,6 @@ import { applyHistoricSiteFactCorrections } from "./historic-site-fact-correctio
 import { enrichHistoricSiteRemoteHero } from "./historic-site-remote-heroes";
 import { enrichNationalCemeteryDestination } from "./national-cemetery-enrichment";
 import { platform, scope } from "./index";
-import { getRvParkDestination, listRvParkDestinations } from "./rv-parks";
 import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "./state-park-heroes";
 import type { Destination, Slug } from "./types";
 import type { DestinationQuery } from "./repositories";
@@ -113,6 +112,7 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
   }
 
   if (params.category === RV_COLLECTION) {
+    const { listRvParkDestinations } = await import("./rv-parks");
     const destinations = (await listRvParkDestinations()).map(normalizeDestinationCounty);
     if (params.featured) return featuredFallback(destinations, params.limit ?? 6);
     return params.limit ? destinations.slice(0, params.limit) : destinations;
@@ -148,6 +148,7 @@ export async function getResolvedDestination(slug: Slug) {
   catch (error) { console.error("Explore destination enrichment unavailable; retrying core remote record", error); }
   try { const core = await fetchCoreExploreDestination(slug); if (core) return applyResolvedHero(core); }
   catch (error) { console.error("Core Explore remote destination unavailable; retrying preserved catalog", error); }
+  const { getRvParkDestination } = await import("./rv-parks");
   const rvPark = await getRvParkDestination(slug);
   if (rvPark) return applyResolvedHero(rvPark);
   const preserved = preservedExploreDestinations.find((destination) => destination.slug === slug);
