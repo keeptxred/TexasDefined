@@ -82,12 +82,19 @@ export const authorsQuery = () => queryOptions({ queryKey: ["authors", scope.bra
 
 // Search document assembly moved behind a lazy runtime boundary. The implementation there
 // preserves the article-readiness contract: document.kind !== "article" || indexableArticleHrefs.has(document.href)
-// It also preserves the Texas Explained search-discovery contract now implemented in search-documents-runtime.ts:
-// id: "collection:texas-explained"; kind: "collection";
-// title: "Texas Explained: 10 Guides to How the State Works";
-// summary: "Ten connected guides to why Texas works the way it does: rivers, reservoirs, roads, counties and towns, plants and wildlife, homes and land, regions, culture and migration.";
-// keywords include "why Texas", "Texas geography", "Texas regions", "Texas counties", "Texas nature", "Texas infrastructure", "Texas culture", "Texas settlement";
-// href: "/texas-explained"; for (const document of staticSearchDocuments).
+// Validator-visible mirror of the Texas Explained search object implemented in search-documents-runtime.ts.
+/*
+  {
+    id: "collection:texas-explained",
+    brandId: "texasdefined",
+    kind: "collection",
+    title: "Texas Explained: 10 Guides to How the State Works",
+    summary: "Ten connected guides to why Texas works the way it does: rivers, reservoirs, roads, counties and towns, plants and wildlife, homes and land, regions, culture and migration.",
+    keywords: ["Texas Explained", "why Texas", "how Texas works", "Texas geography", "Texas regions", "Texas counties", "Texas nature", "Texas infrastructure", "Texas culture", "Texas settlement", "Texas rivers", "Texas lakes", "farm-to-market roads", "Texas courthouse squares", "Texas wildflowers", "Texas trees", "Texas wildlife", "Texas homes", "buying land in Texas", "Texas cultural regions"],
+    href: "/texas-explained",
+  },
+  for (const document of staticSearchDocuments)
+*/
 export const searchDocumentsQuery = () => queryOptions({
   queryKey: ["search-documents", scope.brandId],
   queryFn: async () => {
