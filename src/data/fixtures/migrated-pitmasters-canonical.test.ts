@@ -27,8 +27,9 @@ describe('migrated pitmasters canonical URL', () => {
 
   it('keeps permanent edge redirects for both legacy URL forms', () => {
     const serverEntry = fs.readFileSync('src/server-entry.ts', 'utf8');
-    const destination = `/article/${CANONICAL_SLUG}`;
-    expect(serverEntry).toContain(`\"/article/${LEGACY_SLUG}\": \"${destination}\"`);
-    expect(serverEntry).toContain(`\"/news/${LEGACY_SLUG}\": \"${destination}\"`);
+    expect(serverEntry).toContain(`const LEGACY_PITMASTERS_SLUG = \"${LEGACY_SLUG}\"`);
+    expect(serverEntry).toContain(`const PITMASTERS_CANONICAL_PATH = \"/article/${CANONICAL_SLUG}\"`);
+    expect(serverEntry).toContain('[`/article/${LEGACY_PITMASTERS_SLUG}`]: PITMASTERS_CANONICAL_PATH');
+    expect(serverEntry).toContain('[`/news/${LEGACY_PITMASTERS_SLUG}`]: PITMASTERS_CANONICAL_PATH');
   });
 });
