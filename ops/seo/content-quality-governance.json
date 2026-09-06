@@ -117,10 +117,26 @@
       "file": "src/data/texas-vs-state-index-readiness.server.ts",
       "requiredMarkers": [
         "GSC_IMPROVE_STATE_SLUGS",
+        "GSC_PROMOTED_STATE_SLUGS",
         "REDIRECT_ONLY_STATE_SLUGS",
         "TEXAS_VS_GSC_IMPROVE_STATE_SLUGS",
+        "TEXAS_VS_GSC_PROMOTED_STATE_SLUGS",
         "TEXAS_VS_REDIRECT_ONLY_STATE_SLUGS",
         "isTexasVsStateSitemapReady"
+      ]
+    },
+    {
+      "family": "Texas-vs-state evidence promotion",
+      "file": "src/data/texas-vs-state-evidence.server.ts",
+      "requiredMarkers": [
+        "reviewedAt",
+        "taxLens",
+        "housingLens",
+        "jobsLens",
+        "riskLens",
+        "transportationLens",
+        "metroLens",
+        "sources"
       ]
     },
     {
@@ -140,7 +156,8 @@
       "ops/seo/gsc-remediation-wave2-2026-09-05.json",
       "ops/seo/gsc-remediation-wave3-2026-09-05.json",
       "ops/seo/gsc-remediation-wave4-2026-09-05.json",
-      "ops/seo/gsc-remediation-wave5-2026-09-05.json"
+      "ops/seo/gsc-remediation-wave5-2026-09-05.json",
+      "ops/seo/gsc-remediation-wave6-2026-09-06.json"
     ],
     "maxUnreviewedAgeDays": 30,
     "manualInspectionPriority": [
