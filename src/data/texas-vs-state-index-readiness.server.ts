@@ -46,7 +46,10 @@ const GSC_PROMOTED_STATE_SLUGS = [
   "new-mexico",
   "new-york",
   "north-carolina",
+  "ohio",
+  "pennsylvania",
   "tennessee",
+  "virginia",
 ] as const;
 
 const REDIRECT_ONLY_STATE_SLUGS = ["california", "florida"] as const;
