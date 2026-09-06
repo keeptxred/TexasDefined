@@ -4,7 +4,7 @@ const read = (path) => fs.readFileSync(path, 'utf8');
 const stubs = read('src/data/fixtures/texas-explained-reservoir-profile-stubs.ts');
 const articles = read('src/data/fixtures/texas-explained-reservoir-profiles.ts');
 const lazy = read('src/data/fixtures/lazy-evergreen.ts');
-const hub = read('src/routes/texas-explained.tsx');
+const hub = `${read('src/routes/texas-explained.tsx')}\n${read('src/components/editorial/TexasExplainedPage.tsx')}`;
 const topology = read('src/data/fixtures/newest-evergreen.ts');
 const articleRoute = read('src/routes/article.$slug.tsx');
 const errors = [];
