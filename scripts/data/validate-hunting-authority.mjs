@@ -14,6 +14,8 @@ const authority = read('src/data/hunting/authority.ts');
 const freshness = read('src/data/hunting/freshness.ts');
 const sitemap = read('src/data/hunting/sitemap.ts');
 const queries = read('src/data/queries.ts');
+const searchRuntime = read('src/data/search-documents-runtime.ts');
+const searchImplementation = `${queries}\n${searchRuntime}`;
 const publicRoutes = read('src/lib/public-routes.ts');
 const wildlife = read('src/routes/explore.wildlife.lazy.tsx');
 const resources = read('src/routes/texas-resources.lazy.tsx');
@@ -34,7 +36,8 @@ requireText(freshness, 'seasonYear: "2026–27"', '2026–27 season-year marker 
 requireText(freshness, 'lastVerified: "2026-09-01"', 'last-verified marker missing');
 requireText(freshness, 'not the legal authority', 'independence/legal-authority disclaimer missing');
 requireText(sitemap, 'HUNTING_AUTHORITY_PATHS', 'hunting sitemap paths missing');
-requireText(queries, 'buildHuntingSearchDocuments', 'search document registration missing');
+requireText(searchImplementation, 'buildHuntingSearchDocuments', 'search document registration missing');
+requireText(queries, 'await import("./search-documents-runtime")', 'lazy search runtime registration missing');
 requireText(publicRoutes, '"/hunting"', 'indexable /hunting route missing');
 
 for (const [source, label] of [
