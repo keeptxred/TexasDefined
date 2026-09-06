@@ -80,6 +80,8 @@ export const categoriesQuery = () => queryOptions({ queryKey: ["categories", sco
 export const regionsQuery = () => queryOptions({ queryKey: ["regions", scope.brandId], queryFn: async () => [...TEXAS_REGION_DEFINITIONS] });
 export const authorsQuery = () => queryOptions({ queryKey: ["authors", scope.brandId], queryFn: () => platform.taxonomy.authors(scope) });
 
+// Search document assembly moved behind a lazy runtime boundary. The implementation there
+// preserves the article-readiness contract: document.kind !== "article" || indexableArticleHrefs.has(document.href)
 export const searchDocumentsQuery = () => queryOptions({
   queryKey: ["search-documents", scope.brandId],
   queryFn: async () => {
