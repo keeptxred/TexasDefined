@@ -1,0 +1,42 @@
+name: Validate coastal authority
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/coastal-places.ts'
+      - 'src/components/content/CountyCoastalPlaces.tsx'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'src/routes/explore.$category.tsx'
+      - 'src/routes/explore.$category.lazy.tsx'
+      - 'src/routes/sitemap-explore[.]xml.ts'
+      - 'public/content/explore-category-authority/beaches-coast.html'
+      - 'public/content/explore-category-authority/beaches-coast-directory.html'
+      - 'scripts/data/validate-coastal-authority.mjs'
+      - '.github/workflows/validate-coastal-authority.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/coastal-places.ts'
+      - 'src/components/content/CountyCoastalPlaces.tsx'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'src/routes/explore.$category.tsx'
+      - 'src/routes/explore.$category.lazy.tsx'
+      - 'src/routes/sitemap-explore[.]xml.ts'
+      - 'public/content/explore-category-authority/beaches-coast.html'
+      - 'public/content/explore-category-authority/beaches-coast-directory.html'
+      - 'scripts/data/validate-coastal-authority.mjs'
+      - '.github/workflows/validate-coastal-authority.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate 52-place Texas coast authority
+        run: node scripts/data/validate-coastal-authority.mjs

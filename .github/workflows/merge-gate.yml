@@ -71,6 +71,9 @@ jobs:
       - name: Validate Phase 10 housing index-suppression contract
         run: node scripts/data/validate-phase10-housing-indexing.mjs
 
+      - name: Validate Texas beaches and coast authority
+        run: node scripts/data/validate-coastal-authority.mjs
+
       - name: Run authoritative validation suite
         run: node scripts/ci/run-validation-suite.mjs full
 
