@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave65Destinations } from "./museum-expansion-statewide-wave65";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-05";
@@ -16,6 +17,7 @@ function museumPlaceholder(name: string): ImageRef {
  * Sixty-fourth statewide museum wave. This Brownfield record reconciles the
  * audit's older Terry County Historical Museum wording to the active Terry
  * County Heritage Museum and its current first-party visitor information.
+ * Wave 65 is chained here so later museum expansion remains conflict-light.
  */
 export const statewideMuseumExpansionWave64Destinations: Destination[] = [
   {
@@ -48,4 +50,5 @@ export const statewideMuseumExpansionWave64Destinations: Destination[] = [
     address: "600 E Cardwell St, Brownfield, TX 79316",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave65Destinations,
 ];
