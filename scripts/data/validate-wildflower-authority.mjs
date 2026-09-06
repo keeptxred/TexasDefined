@@ -6,6 +6,9 @@ const required = [
   'src/components/editorial/ArticleBody.tsx',
   'src/components/editorial/WildflowerSpeciesGrid.tsx',
   'src/data/fixtures/lazy-evergreen.ts',
+  'src/data/fixtures/lazy-seasonal-authority.ts',
+  'src/data/fixtures/lazy-newest-evergreen.ts',
+  'src/data/fixtures/repositories.ts',
   'src/data/fixtures/texas-wildflower-species-stubs.ts',
   'src/data/fixtures/texas-wildflower-species.ts',
   'src/data/fixtures/texas-wildflowers-guide.ts',
@@ -16,9 +19,12 @@ if (errors.length) fail();
 const articleBody = read(required[0]);
 const grid = read(required[1]);
 const lazyEvergreen = read(required[2]);
-const stubs = read(required[3]);
-const articles = read(required[4]);
-const hub = read(required[5]);
+const lazySeasonal = read(required[3]);
+const lazyNewest = read(required[4]);
+const repositories = read(required[5]);
+const stubs = read(required[6]);
+const articles = read(required[7]);
+const hub = read(required[8]);
 const speciesSlugs = [
   'texas-indian-paintbrush-guide',
   'texas-indian-blanket-guide',
@@ -41,7 +47,10 @@ if (!grid.includes('slug: "texas-bluebonnets-complete-guide"')) errors.push('Vis
 if (stubs.includes('texas-bluebonnet-guide') || articles.includes('texas-bluebonnet-guide')) errors.push('Do not create a competing bluebonnet authority slug.');
 
 for (const symbol of ['WildflowerSpeciesGrid', '/article/texas-wildflowers-guide', 'showWildflowerSpeciesGrid']) if (!articleBody.includes(symbol)) errors.push(`ArticleBody wildflower integration missing: ${symbol}`);
-for (const symbol of ['texasWildflowerSpeciesStubs', '...texasWildflowerSpeciesStubs', 'await import("./texas-wildflower-species")', 'texasWildflowerSpeciesArticles.find']) if (!lazyEvergreen.includes(symbol)) errors.push(`Lazy wildflower registry missing: ${symbol}`);
+if (lazyEvergreen.includes('texasWildflowerSpeciesStubs') || lazyEvergreen.includes('texas-wildflower-species')) errors.push('Wildflower species inventory must not enter the eager lazy-evergreen client graph.');
+for (const symbol of ['texasWildflowerSpeciesStubs', '...texasWildflowerSpeciesStubs', 'await import("./texas-wildflower-species")', 'texasWildflowerSpeciesArticles.find']) if (!lazySeasonal.includes(symbol)) errors.push(`Lazy wildflower authority boundary missing: ${symbol}`);
+if (!lazyNewest.includes('from "./lazy-seasonal-authority"')) errors.push('Wildflower authority must remain behind the lazy-newest-evergreen boundary.');
+if (!repositories.includes('import("./lazy-newest-evergreen")')) errors.push('Repository inventory must dynamically import lazy-newest-evergreen.');
 for (const symbol of ['11 Texas wildflowers to know', 'scientific', 'Bloom', 'Texas range', 'Open species guide', 'editorialImageSrc']) if (!grid.includes(symbol)) errors.push(`Wildflower visual field guide missing: ${symbol}`);
 for (const symbol of ['Lady Bird Johnson Wildflower Center', 'SOURCE_URL', 'internalLinks', '/article/texas-wildflowers-guide', 'Echinacea purpurea', 'Solidago spp.']) if (!articles.includes(symbol)) errors.push(`Wildflower guide content safeguard missing: ${symbol}`);
 if (!hub.includes('slug: "texas-wildflowers-guide"')) errors.push('Canonical Texas wildflower hub is missing.');
@@ -56,7 +65,7 @@ const remoteImageCount = (grid.match(/commons\.wikimedia\.org\/wiki\/Special:Red
 if (remoteImageCount !== 11) errors.push(`Expected 11 species-specific Wikimedia images, found ${remoteImageCount}.`);
 
 if (errors.length) fail();
-console.log('Texas wildflower visual hub, existing bluebonnet authority reuse, 10 lazy species guides, species images and crawlable article integration are protected.');
+console.log('Texas wildflower visual hub, existing bluebonnet authority reuse, 10 lazy species guides, species images and crawlable article integration are protected behind the dynamic newest-evergreen boundary.');
 
 function fail() {
   console.error('Texas wildflower authority validation failed:');
