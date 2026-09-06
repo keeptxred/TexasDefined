@@ -1,3 +1,4 @@
+import { WildflowerSpeciesGrid } from "@/components/editorial/WildflowerSpeciesGrid";
 import {
   RELOCATION_METROS,
   RELOCATION_SOURCES,
@@ -9,6 +10,8 @@ import {
   countyWindLabel,
   countyWindNote,
 } from "@/data/relocation-insurance";
+
+const WILDFLOWER_GUIDE_PATH = "/article/texas-wildflowers-guide";
 
 const DATA_DESK_LINKS = [
   {
@@ -66,6 +69,8 @@ const RESEARCH_SOURCES = [
 ] as const;
 
 export function MetroRelocationAuthority({ articlePath }: { articlePath: string }) {
+  if (articlePath === WILDFLOWER_GUIDE_PATH) return <WildflowerSpeciesGrid />;
+
   const metro = RELOCATION_METROS.find((metro) => metro.guideHref === articlePath);
   if (!metro) return null;
 
