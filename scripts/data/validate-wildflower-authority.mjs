@@ -5,7 +5,7 @@ const read = (path) => fs.readFileSync(path, 'utf8');
 const required = [
   'src/components/editorial/ArticleBody.tsx',
   'src/components/editorial/WildflowerSpeciesGrid.tsx',
-  'src/components/editorial/ArticleAuthorityEnhancement.tsx',
+  'src/components/relocation/MetroRelocationAuthority.tsx',
   'src/data/fixtures/lazy-evergreen.ts',
   'src/data/fixtures/lazy-seasonal-authority.ts',
   'src/data/fixtures/lazy-newest-evergreen.ts',
@@ -19,7 +19,7 @@ if (errors.length) fail();
 
 const articleBody = read(required[0]);
 const grid = read(required[1]);
-const authorityEnhancement = read(required[2]);
+const metroRelocationAuthority = read(required[2]);
 const lazyEvergreen = read(required[3]);
 const lazySeasonal = read(required[4]);
 const lazyNewest = read(required[5]);
@@ -48,9 +48,14 @@ for (const slug of speciesSlugs) {
 if (!grid.includes('slug: "texas-bluebonnets-complete-guide"')) errors.push('Visual field guide must reuse the existing bluebonnet authority page.');
 if (stubs.includes('texas-bluebonnet-guide') || articles.includes('texas-bluebonnet-guide')) errors.push('Do not create a competing bluebonnet authority slug.');
 
-for (const symbol of ['ArticleAuthorityEnhancement', '/article/texas-wildflowers-guide', 'showArticleAuthority']) if (!articleBody.includes(symbol)) errors.push(`ArticleBody authority integration missing: ${symbol}`);
+for (const symbol of ['MetroRelocationAuthority', '/article/texas-wildflowers-guide', 'showMetroRelocationAuthority']) if (!articleBody.includes(symbol)) errors.push(`ArticleBody authority integration missing: ${symbol}`);
 if (articleBody.includes('WildflowerSpeciesGrid')) errors.push('Wildflower grid must not introduce a second lazy import in the global ArticleBody module.');
-for (const symbol of ['MetroRelocationAuthority', 'WildflowerSpeciesGrid', '/article/texas-wildflowers-guide']) if (!authorityEnhancement.includes(symbol)) errors.push(`Shared lazy authority wrapper missing: ${symbol}`);
+const articleBodyLazyImportCount = (articleBody.match(/lazy\(\(\) => import\(/g) ?? []).length;
+if (articleBodyLazyImportCount !== 1) errors.push(`ArticleBody must retain exactly one authority lazy import, found ${articleBodyLazyImportCount}.`);
+for (const symbol of ['WildflowerSpeciesGrid', 'WILDFLOWER_GUIDE_PATH', '/article/texas-wildflowers-guide', 'if (articlePath === WILDFLOWER_GUIDE_PATH) return <WildflowerSpeciesGrid />;']) {
+  if (!metroRelocationAuthority.includes(symbol)) errors.push(`Existing lazy authority module must render the wildflower grid: ${symbol}`);
+}
+if (fs.existsSync('src/components/editorial/ArticleAuthorityEnhancement.tsx')) errors.push('Do not add a second article-authority wrapper; reuse the established lazy MetroRelocationAuthority module.');
 if (lazyEvergreen.includes('texasWildflowerSpeciesStubs') || lazyEvergreen.includes('texas-wildflower-species')) errors.push('Wildflower species inventory must not enter the eager lazy-evergreen client graph.');
 for (const symbol of ['texasWildflowerSpeciesStubs', '...texasWildflowerSpeciesStubs', 'await import("./texas-wildflower-species")', 'texasWildflowerSpeciesArticles.find']) if (!lazySeasonal.includes(symbol)) errors.push(`Lazy wildflower authority boundary missing: ${symbol}`);
 if (!lazyNewest.includes('from "./lazy-seasonal-authority"')) errors.push('Wildflower authority must remain behind the lazy-newest-evergreen boundary.');
@@ -69,7 +74,7 @@ const remoteImageCount = (grid.match(/commons\.wikimedia\.org\/wiki\/Special:Red
 if (remoteImageCount !== 11) errors.push(`Expected 11 species-specific Wikimedia images, found ${remoteImageCount}.`);
 
 if (errors.length) fail();
-console.log('Texas wildflower visual hub, existing bluebonnet authority reuse, 10 lazy species guides, species images and crawlable article integration are protected behind existing dynamic article/newest-evergreen boundaries.');
+console.log('Texas wildflower visual hub, existing bluebonnet authority reuse, 10 lazy species guides, species images and crawlable article integration are protected behind the existing article and newest-evergreen lazy boundaries.');
 
 function fail() {
   console.error('Texas wildflower authority validation failed:');
