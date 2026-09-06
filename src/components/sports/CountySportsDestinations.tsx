@@ -1,12 +1,12 @@
-import { lazy, Suspense, use } from 'react';
+import { use } from 'react';
 
+import { CountyRvParks } from '@/components/explore/CountyRvParks';
 import { aquariumMarineLinksForCounty } from '@/data/aquarium-marine-county-links';
 import { getCountyMajorEvents } from '@/data/county-major-events';
 import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { sportsVenueLandingLinksForVenue, type SportsVenueLanding } from '@/data/sports-venue-landings';
 
-const CountyRvParks = lazy(() => import('@/components/explore/CountyRvParks'));
 const siteUrl = 'https://texasdefined.com';
 
 export function CountySportsDestinations({ county, venues }: { county: TexasEntityRecord; venues: TexasEntityRecord[] }) {
@@ -45,7 +45,7 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
   } : null;
 
   return <>
-    <Suspense fallback={null}><CountyRvParks county={county} /></Suspense>
+    <CountyRvParks county={county} />
 
     {aquariumDestinations.length ? <section className="border-b border-border py-12" aria-labelledby="county-aquariums-heading">
       {aquariumJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aquariumJsonLd) }} /> : null}
