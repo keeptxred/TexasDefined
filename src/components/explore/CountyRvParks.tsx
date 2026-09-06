@@ -1,12 +1,9 @@
-import { use } from 'react';
-
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
-import { rvParksForCounty } from '@/data/rv-parks';
+import type { Destination } from '@/data/types';
 
 const siteUrl = 'https://texasdefined.com';
 
-export function CountyRvParks({ county }: { county: TexasEntityRecord }) {
-  const rvParks = use(rvParksForCounty(county.slug));
+export function CountyRvParks({ county, rvParks }: { county: TexasEntityRecord; rvParks: Destination[] }) {
   if (!rvParks.length) return null;
 
   const displayedRvParks = rvParks.slice(0, 12);
