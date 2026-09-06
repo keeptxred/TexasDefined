@@ -1,5 +1,12 @@
+import { TEXAS_VS_STATE_EVIDENCE } from "./texas-vs-state-evidence.server";
 import { texasVsStateProfile } from "./texas-vs-states";
 
 export function loadTexasVsStateProfileServer(name: string) {
-  return texasVsStateProfile(name);
+  const profile = texasVsStateProfile(name);
+  if (!profile) return null;
+
+  return {
+    ...profile,
+    evidence: TEXAS_VS_STATE_EVIDENCE[name],
+  };
 }
