@@ -30,13 +30,15 @@ if (!failures.length) {
   const legacyFishing = read("src/routes/fishing.lake.lake-conroe.tsx");
   const legacyHtml = read("src/routes/lakes.lake-conroe[.]html.tsx");
   const globalQueries = read("src/data/queries.ts");
+  const globalSearchRuntime = read("src/data/search-documents-runtime.ts");
 
   for (const name of ["FishingLake", "FishSpecies", "FishingTechnique", "BoatRamp", "Marina", "FishingAccessSite", "TackleShop", "FishingGuide", "GuideLakeRelationship", "GuideSpeciesRelationship", "FishingReport", "FishingAdvertiser", "FishingPlacement"]) {
     if (!new RegExp(`interface ${name}\\b`).test(types)) failures.push(`Fishing domain type missing: ${name}`);
   }
   for (const slug of ["lake-conroe", "lake-fork", "sam-rayburn-reservoir", "lake-livingston", "lake-texoma"]) if (!fixtures.includes(`slug: "${slug}"`)) failures.push(`Foundation lake missing: ${slug}`);
   if (!fixtures.includes("assertValidFishingCatalog")) failures.push("Fishing fixture runtime validation missing.");
-  if (!globalQueries.includes("buildFishingSearchDocuments")) failures.push("Global fishing search integration missing.");
+  if (!globalSearchRuntime.includes("buildFishingSearchDocuments")) failures.push("Global fishing search integration missing.");
+  if (!globalQueries.includes('await import("./search-documents-runtime")')) failures.push("Global fishing search must remain behind the lazy search-document runtime boundary.");
   if (!slugs.includes('lake: "/fishing/lakes"') || !slugs.includes('isCompleteFishingLakeSlug(canonicalSlug)')) failures.push("Canonical fishing-lake routing is incomplete.");
   if (!fishingRoute.includes('to="/fishing/lakes/lake-conroe"')) failures.push("/fishing does not discover Lake Conroe.");
 
