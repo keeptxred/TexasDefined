@@ -2,9 +2,10 @@ import fs from 'node:fs';
 
 const queries = fs.readFileSync('src/data/queries.ts', 'utf8');
 const destinationRuntime = fs.readFileSync('src/data/destination-query-runtime.ts', 'utf8');
+const searchRuntime = fs.readFileSync('src/data/search-documents-runtime.ts', 'utf8');
 const cityMetroSearch = fs.readFileSync('src/data/city-metro-search.ts', 'utf8');
 const types = fs.readFileSync('src/data/types.ts', 'utf8');
-const searchImplementation = `${queries}\n${destinationRuntime}`;
+const searchImplementation = `${queries}\n${destinationRuntime}\n${searchRuntime}`;
 const searchShell = fs.readFileSync('src/routes/search.tsx', 'utf8');
 const searchLazy = fs.readFileSync('src/routes/search.lazy.tsx', 'utf8');
 const searchRoute = `${searchShell}\n${searchLazy}`;
@@ -56,12 +57,15 @@ if (!searchLazy.includes('createLazyFileRoute("/search")')) {
 if (!queries.includes('await import("./destination-query-runtime")')) {
   errors.push('Heavy destination resolution must stay behind a dynamic runtime boundary.');
 }
+if (!queries.includes('await import("./search-documents-runtime")')) {
+  errors.push('Global search document assembly must stay behind its dynamic runtime boundary.');
+}
 
 for (const feature of [
   'await import("./city-metro-search")',
   'buildCityMetroSearchDocuments()',
 ]) {
-  if (!queries.includes(feature)) errors.push(`Global search must lazily add city/metro authority documents: ${feature}.`);
+  if (!searchImplementation.includes(feature)) errors.push(`Global search must lazily add city/metro authority documents: ${feature}.`);
 }
 
 for (const feature of [
@@ -95,7 +99,7 @@ if (!searchImplementation.includes('Enriched destination search index unavailabl
 if (!searchImplementation.includes('Core remote destination search index unavailable; retaining preserved destinations')) {
   errors.push('Core destination search fallback logging is missing.');
 }
-if (queries.includes('if (!destinations.length) return base')) {
+if (searchImplementation.includes('if (!destinations.length) return base')) {
   errors.push('Empty resolved destination catalogs must not fall back to raw fixture destination search documents.');
 }
 if (searchRoute.includes('fetchExploreDestinations')) {
