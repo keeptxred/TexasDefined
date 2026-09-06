@@ -39,15 +39,18 @@ const GSC_IMPROVE_STATE_SLUGS = [
 ] as const;
 
 const GSC_PROMOTED_STATE_SLUGS = [
+  "alabama",
   "colorado",
   "georgia",
   "louisiana",
   "michigan",
+  "nevada",
   "new-mexico",
   "new-york",
   "north-carolina",
   "ohio",
   "pennsylvania",
+  "south-carolina",
   "tennessee",
   "virginia",
 ] as const;
