@@ -5,6 +5,8 @@ const root = process.cwd();
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
 const images = read('src/data/rv-parks/images.server.ts');
 const registry = read('src/data/rv-parks/registry.server.ts');
+const hillCountry = read('src/data/rv-parks/hill-country.ts');
+const panhandleNorthTexas = read('src/data/rv-parks/panhandle-north-texas.ts');
 const categoryRoute = read('src/routes/explore.$category.tsx');
 const destinationRoute = read('src/routes/destination.$slug.tsx');
 const countyRoute = read('src/routes/$kind.$slug.tsx');
@@ -25,6 +27,11 @@ requireText(registry, 'licensedImage?.subjectScope === "park-property"', 'Park-p
 requireText(registry, 'licensedImage.creator', 'Visible image creator credit');
 requireText(registry, 'licensedImage.license', 'Visible image license credit');
 requireText(registry, 'licensedImage.sourceUrl', 'Visible image source credit');
+requireText(registry, 'function normalizeCountySlug(value: string): string', 'County slug normalizer');
+requireText(registry, '.replace(/\\s+county$/i, "")', 'County suffix removal');
+requireText(registry, 'normalizeCountySlug(item.county!) === normalized', 'County slug matching');
+requireText(hillCountry, '"Blanco County"', 'Blanco County RV seed coverage');
+requireText(panhandleNorthTexas, '"Randall County"', 'Randall County RV seed coverage');
 
 const imageSection = images.split('export const RV_PARK_LICENSED_IMAGES')[1]?.split('export function rvParkLicensedImage')[0] ?? '';
 const imageRecords = [...imageSection.matchAll(/^  '([^']+)': \{([\s\S]*?)^  \},/gm)];
@@ -66,4 +73,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), loader-backed server-rendered collection/county Campground discovery, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
+console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), county suffix normalization for Blanco/Randall route slugs, loader-backed server-rendered collection/county Campground discovery, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
