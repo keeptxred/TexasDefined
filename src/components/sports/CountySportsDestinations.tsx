@@ -123,7 +123,7 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
           </div>
 
           <div className="mt-7 grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
-            {displayedVenues.map((venue) => <a key={venue.id} href={canonicalEntityPath(venue)} className="group border-t border-border py-5 sm:px-5">
+            {displayedVenues.map((venue) => <a key={venue.id} href={canonicalEntityPath(venue)} className="group border-t border-border py-5">
               <span className="eyebrow text-primary">{venueLabel(venue)}</span>
               <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{venue.name}</strong>
               {venue.description ? <span className="mt-3 block line-clamp-3 text-sm leading-6 text-muted-foreground">{venue.description}</span> : null}
