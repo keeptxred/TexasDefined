@@ -14,7 +14,7 @@ const readRouteSurface = async (file) => {
   }
 };
 
-const [landings, landingPaths, route, indexComponent, quickAnswers, countySports, sportsSearch, directory, sports, genericVenue, galaxyVenue, entityRoute, searchRoute, homepage, guidebook, queries, types, llms, publicRoutes, majorVenues, tier2Venues] = await Promise.all([
+const [landings, landingPaths, route, indexComponent, quickAnswers, countySports, sportsSearch, directory, sports, genericVenue, galaxyVenue, entityRoute, searchRoute, homepage, guidebook, queries, searchRuntime, types, llms, publicRoutes, majorVenues, tier2Venues] = await Promise.all([
   read('src/data/sports-venue-landings.ts'),
   read('src/data/sports-venue-landing-paths.ts'),
   read('src/routes/sports-venues.$landing.tsx'),
@@ -31,6 +31,7 @@ const [landings, landingPaths, route, indexComponent, quickAnswers, countySports
   readRouteSurface('src/routes/index.tsx'),
   readRouteSurface('src/routes/guides.tsx'),
   read('src/data/queries.ts'),
+  read('src/data/search-documents-runtime.ts'),
   read('src/data/types.ts'),
   read('src/routes/llms[.]txt.ts'),
   read('src/lib/public-routes.ts'),
@@ -38,6 +39,7 @@ const [landings, landingPaths, route, indexComponent, quickAnswers, countySports
   read('src/data/knowledge-graph/sports-venues-tier2.ts'),
 ]);
 
+const searchImplementation = `${queries}\n${searchRuntime}`;
 const errors = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };
 
@@ -164,8 +166,9 @@ for (const marker of [
   'buildSportsVenueSearchDocuments()',
   'const sportsDocuments =',
   'base.push(document)',
-]) assert(queries.includes(marker), `Shared search query is missing lazy sports index marker: ${marker}.`);
-assert(!queries.includes('import { buildSportsVenueSearchDocuments'), 'Shared queries must not statically import the sports venue search index.');
+]) assert(searchImplementation.includes(marker), `Shared search implementation is missing lazy sports index marker: ${marker}.`);
+assert(queries.includes('await import("./search-documents-runtime")'), 'Shared search query must lazy-load the search-document runtime.');
+assert(!searchImplementation.includes('import { buildSportsVenueSearchDocuments'), 'Shared search implementation must not statically import the sports venue search index.');
 
 for (const marker of [
   '"sports-venue"',

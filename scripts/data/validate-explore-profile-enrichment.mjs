@@ -6,7 +6,8 @@ const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'u
 const core = fs.readFileSync(path.join(root, 'src/data/explore-core-remote.ts'), 'utf8');
 const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
 const destinationRuntime = fs.readFileSync(path.join(root, 'src/data/destination-query-runtime.ts'), 'utf8');
-const searchImplementation = `${queries}\n${destinationRuntime}`;
+const searchDocumentsRuntime = fs.readFileSync(path.join(root, 'src/data/search-documents-runtime.ts'), 'utf8');
+const searchImplementation = `${queries}\n${destinationRuntime}\n${searchDocumentsRuntime}`;
 const route = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
 const planner = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationVisitPlanner.tsx'), 'utf8');
 const relationships = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationRelationships.tsx'), 'utf8');
@@ -100,6 +101,7 @@ for (const feature of [
   'destination.managingAuthority', 'destination.bestSeason', '...destination.highlights',
 ]) if (!searchImplementation.includes(feature)) errors.push(`Remote destination search feature missing: ${feature}`);
 if (!queries.includes('await import("./destination-query-runtime")')) errors.push('Destination resolution must remain behind the dynamic runtime boundary.');
+if (!queries.includes('await import("./search-documents-runtime")')) errors.push('Search document assembly must remain behind the dynamic runtime boundary.');
 
 for (const feature of [
   'createFileRoute("/explore/search")', 'component: ExploreSearchPage', 'destinationsQuery({ limit: 5000 })', 'scoreDestination', 'searchText',

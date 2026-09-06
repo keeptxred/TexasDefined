@@ -23,6 +23,12 @@ export const supplementalExploreCategories: Category[] = [
     },
   },
   {
+    slug: "rv-parks",
+    name: "RV Parks & Campgrounds",
+    eyebrow: "RV travel",
+    description: "Browse 250 Texas RV parks, campgrounds and public RV camping areas by region, town and county. Park-specific hookups, rig limits, rates, pet rules and reservation details are verified before individual profiles enter search indexing.",
+  },
+  {
     slug: "major-springs",
     name: "Major Springs",
     eyebrow: "Clear water",
