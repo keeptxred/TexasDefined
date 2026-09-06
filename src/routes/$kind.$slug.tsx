@@ -23,7 +23,7 @@ export const Route = createFileRoute('/$kind/$slug')({
         .filter((candidate) => candidate.kind === 'sports-venue' && candidate.countySlug === entity.slug && isIndexableEntityPage(candidate))
         .sort((left, right) => sportsVenuePriority(left) - sportsVenuePriority(right) || left.name.localeCompare(right.name))
       : [];
-    if (entity.kind !== 'county') return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues, countyMajorEvents: [] };
+    if (entity.kind !== 'county') return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues };
     const countyRvParksPromise = import('@/data/rv-parks').then(({ rvParksForCounty }) => rvParksForCounty(entity.slug));
     const countyMajorEventsPromise = import('@/data/county-major-events').then(({ getCountyMajorEvents }) => getCountyMajorEvents(entity.slug));
     const [countyProfile, localGovernment, countySeriesArticle, countyRvParks, countyMajorEvents] = await Promise.all([
@@ -33,8 +33,8 @@ export const Route = createFileRoute('/$kind/$slug')({
       countyRvParksPromise,
       countyMajorEventsPromise,
     ]);
-    const countyEntity = { ...entity, rvParks: countyRvParks };
-    return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, countyMajorEvents };
+    const countyEntity = { ...entity, rvParks: countyRvParks, majorEvents: countyMajorEvents };
+    return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
