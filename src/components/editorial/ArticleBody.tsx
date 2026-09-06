@@ -15,6 +15,7 @@ const metroRelocationGuidePaths = new Set([
   "/article/moving-to-austin-guide",
   "/article/moving-to-san-antonio-guide",
   "/article/moving-to-el-paso-guide",
+  "/article/texas-wildflowers-guide",
 ]);
 
 export function PullQuote({ text, attribution, entities = [] }: { text: string; attribution?: string; entities?: TexasEntityRecord[] }) {

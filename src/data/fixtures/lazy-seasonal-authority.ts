@@ -5,6 +5,7 @@ import smallTown from "@/assets/small-town.jpg";
 
 import { canonicalizeSeasonalArticleLinks } from "../seasonal-article-redirects";
 import type { Article, ImageRef } from "../types";
+import { texasWildflowerSpeciesStubs } from "./texas-wildflower-species-stubs";
 
 const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
 const lighthouseHero: ImageRef = {
@@ -48,12 +49,18 @@ export const seasonalAuthorityArticleStubs: Article[] = [
   stub({ id: "sa-10", slug: "texas-christmas-road-trip", title: "A Hill Country Christmas Road Trip", dek: "A Hill Country holiday loop built around lights and town squares.", category: "road-trips", region: "hill-country", hero: heroes.roadTrip, authorId: "a-dell", readingMinutes: 9 }),
   stub({ id: "sa-11", slug: "fall-in-texas-complete-guide", title: "Where Autumn Actually Shows Up in Texas", dek: "Texas fall color, timing, parks and scenic drives.", category: "outdoors", hero: heroes.fall, authorId: "a-hollis", readingMinutes: 14, featured: true, relatedDestinations: ["caddo-lake"] }),
   stub({ id: "sa-13", slug: "texas-fall-foliage-road-trip", title: "A Texas Fall Foliage Road Trip That Works", dek: "A flexible Texas foliage route with Hill Country and East Texas options.", category: "road-trips", region: "hill-country", hero: heroes.roadTrip, authorId: "a-dell", readingMinutes: 9 }),
+  ...texasWildflowerSpeciesStubs,
 ];
 
+const wildflowerSlugs = new Set(texasWildflowerSpeciesStubs.map((article) => article.slug));
 const seasonalSlugs = new Set(seasonalAuthorityArticleStubs.map((article) => article.slug));
 
 export async function loadSeasonalAuthorityArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined" || !seasonalSlugs.has(slug)) return null;
+  if (wildflowerSlugs.has(slug)) {
+    const { texasWildflowerSpeciesArticles } = await import("./texas-wildflower-species");
+    return texasWildflowerSpeciesArticles.find((item) => item.slug === slug) ?? null;
+  }
   const { seasonalAuthorityArticles } = await import("./seasonal-authority-articles");
   const article = seasonalAuthorityArticles.find((item) => item.slug === slug);
   return article ? canonicalizeSeasonalArticleLinks(article) : null;
