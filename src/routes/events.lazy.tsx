@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { createLazyFileRoute, Link } from "@tanstack/react-router";
+import { createLazyFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { useState } from "react";
 
 import bluebonnets from "@/assets/bluebonnets.jpg";
@@ -28,6 +28,11 @@ function EventsPage() {
   const { majorEventGuides, eventTimingLinks, eventTopicLinks, eventRegionLinks, featuredVenueGuide, featuredDateLabel } = Route.useLoaderData();
   const [category, setCategory] = useState<string>("all");
   const [region, setRegion] = useState<string>("all");
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const normalizedPath = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+
+  if (normalizedPath !== "/events") return <Outlet />;
+
   const regionName = (id: string) => regions.find((item) => item.id === id)?.name;
   const categories = ["all", ...new Set(events.map((event) => event.category))];
   const featured = events[0];
