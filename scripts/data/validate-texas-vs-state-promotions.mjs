@@ -4,10 +4,12 @@ const WAVE4_PATH = "ops/seo/gsc-remediation-wave4-2026-09-05.json";
 const WAVE6_PATH = "ops/seo/gsc-remediation-wave6-2026-09-06.json";
 const WAVE7_PATH = "ops/seo/gsc-remediation-wave7-2026-09-06.json";
 const WAVE8_PATH = "ops/seo/gsc-remediation-wave8-2026-09-06.json";
+const WAVE9_PATH = "ops/seo/gsc-remediation-wave9-2026-09-06.json";
 const READINESS_PATH = "src/data/texas-vs-state-index-readiness.server.ts";
 const EVIDENCE_WAVE6_PATH = "src/data/texas-vs-state-evidence.server.ts";
 const EVIDENCE_WAVE7_PATH = "src/data/texas-vs-state-evidence-wave7.server.ts";
 const EVIDENCE_WAVE8_PATH = "src/data/texas-vs-state-evidence-wave8.server.ts";
+const EVIDENCE_WAVE9_PATH = "src/data/texas-vs-state-evidence-wave9.server.ts";
 const PROFILE_SERVER_PATH = "src/data/texas-vs-state-profile.server.ts";
 const ROUTE_PATH = "src/routes/texas-vs.$state.tsx";
 
@@ -39,6 +41,15 @@ const batches = [
       { slug: "ohio", name: "Ohio" },
       { slug: "virginia", name: "Virginia" },
       { slug: "pennsylvania", name: "Pennsylvania" },
+    ],
+  },
+  {
+    wavePath: WAVE9_PATH,
+    evidencePath: EVIDENCE_WAVE9_PATH,
+    states: [
+      { slug: "alabama", name: "Alabama" },
+      { slug: "nevada", name: "Nevada" },
+      { slug: "south-carolina", name: "South Carolina" },
     ],
   },
 ];
@@ -92,6 +103,20 @@ const allowedSourceHosts = new Set([
   "drpt.virginia.gov",
   "www.pa.gov",
   "dced.pa.gov",
+  "www.revenue.alabama.gov",
+  "www.census.gov",
+  "www2.labor.alabama.gov",
+  "ema.alabama.gov",
+  "www.dot.state.al.us",
+  "tax.nv.gov",
+  "housing.nv.gov",
+  "www.nevadaworkforce.com",
+  "dem.nv.gov",
+  "www.dot.nv.gov",
+  "dor.sc.gov",
+  "dew.sc.gov",
+  "scemd.org",
+  "www.scdot.org",
 ]);
 
 function fail(message) {
@@ -244,11 +269,12 @@ for (const marker of [
   "TEXAS_VS_STATE_EVIDENCE",
   "TEXAS_VS_STATE_EVIDENCE_WAVE7",
   "TEXAS_VS_STATE_EVIDENCE_WAVE8",
+  "TEXAS_VS_STATE_EVIDENCE_WAVE9",
 ]) {
   if (!profileServer.includes(marker)) fail(`profile server missing integration marker: ${marker}`);
 }
-const expectedFallback = "TEXAS_VS_STATE_EVIDENCE[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE7[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE8[name]";
-if (!compactProfileServer.includes(expectedFallback)) fail("profile server evidence fallback order does not match Waves 6-8");
+const expectedFallback = "TEXAS_VS_STATE_EVIDENCE[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE7[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE8[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE9[name]";
+if (!compactProfileServer.includes(expectedFallback)) fail("profile server evidence fallback order does not match Waves 6-9");
 if (route.includes("texas-vs-state-evidence")) fail("client route must not import the server-only Texas-vs evidence catalogs directly");
 
 for (const marker of [
