@@ -3,9 +3,11 @@ import fs from "node:fs";
 const WAVE4_PATH = "ops/seo/gsc-remediation-wave4-2026-09-05.json";
 const WAVE6_PATH = "ops/seo/gsc-remediation-wave6-2026-09-06.json";
 const WAVE7_PATH = "ops/seo/gsc-remediation-wave7-2026-09-06.json";
+const WAVE8_PATH = "ops/seo/gsc-remediation-wave8-2026-09-06.json";
 const READINESS_PATH = "src/data/texas-vs-state-index-readiness.server.ts";
 const EVIDENCE_WAVE6_PATH = "src/data/texas-vs-state-evidence.server.ts";
 const EVIDENCE_WAVE7_PATH = "src/data/texas-vs-state-evidence-wave7.server.ts";
+const EVIDENCE_WAVE8_PATH = "src/data/texas-vs-state-evidence-wave8.server.ts";
 const PROFILE_SERVER_PATH = "src/data/texas-vs-state-profile.server.ts";
 const ROUTE_PATH = "src/routes/texas-vs.$state.tsx";
 
@@ -28,6 +30,15 @@ const batches = [
       { slug: "louisiana", name: "Louisiana" },
       { slug: "new-mexico", name: "New Mexico" },
       { slug: "michigan", name: "Michigan" },
+    ],
+  },
+  {
+    wavePath: WAVE8_PATH,
+    evidencePath: EVIDENCE_WAVE8_PATH,
+    states: [
+      { slug: "ohio", name: "Ohio" },
+      { slug: "virginia", name: "Virginia" },
+      { slug: "pennsylvania", name: "Pennsylvania" },
     ],
   },
 ];
@@ -70,6 +81,17 @@ const allowedSourceHosts = new Set([
   "www.dhsem.nm.gov",
   "www.dot.nm.gov",
   "www.michigan.gov",
+  "codes.ohio.gov",
+  "www14e.ohiohome.org",
+  "ohiolmi.com",
+  "services.dps.ohio.gov",
+  "www.tax.virginia.gov",
+  "www.dhcd.virginia.gov",
+  "virginiaworks.gov",
+  "www.vaemergency.gov",
+  "drpt.virginia.gov",
+  "www.pa.gov",
+  "dced.pa.gov",
 ]);
 
 function fail(message) {
@@ -120,6 +142,7 @@ function stateBlock(source, states, index, path) {
 const wave4 = JSON.parse(read(WAVE4_PATH));
 const readiness = read(READINESS_PATH);
 const profileServer = read(PROFILE_SERVER_PATH);
+const compactProfileServer = profileServer.replace(/\s+/g, " ");
 const route = read(ROUTE_PATH);
 const historicalImproveSlugs = wave4.reviewed
   .filter((item) => item.action === "IMPROVE")
@@ -220,10 +243,12 @@ for (const batch of batches) {
 for (const marker of [
   "TEXAS_VS_STATE_EVIDENCE",
   "TEXAS_VS_STATE_EVIDENCE_WAVE7",
-  "TEXAS_VS_STATE_EVIDENCE[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE7[name]",
+  "TEXAS_VS_STATE_EVIDENCE_WAVE8",
 ]) {
   if (!profileServer.includes(marker)) fail(`profile server missing integration marker: ${marker}`);
 }
+const expectedFallback = "TEXAS_VS_STATE_EVIDENCE[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE7[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE8[name]";
+if (!compactProfileServer.includes(expectedFallback)) fail("profile server evidence fallback order does not match Waves 6-8");
 if (route.includes("texas-vs-state-evidence")) fail("client route must not import the server-only Texas-vs evidence catalogs directly");
 
 for (const marker of [
