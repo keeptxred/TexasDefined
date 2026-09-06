@@ -1,12 +1,12 @@
-import { lazy, Suspense, use } from 'react';
+import { use } from 'react';
 
+import { CountyRvParks } from '@/components/explore/CountyRvParks';
 import { aquariumMarineLinksForCounty } from '@/data/aquarium-marine-county-links';
 import { getCountyMajorEvents } from '@/data/county-major-events';
 import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { sportsVenueLandingLinksForVenue, type SportsVenueLanding } from '@/data/sports-venue-landings';
 
-const CountyRvParks = lazy(() => import('@/components/explore/CountyRvParks'));
 const siteUrl = 'https://texasdefined.com';
 
 export function CountySportsDestinations({ county, venues }: { county: TexasEntityRecord; venues: TexasEntityRecord[] }) {
@@ -45,7 +45,7 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
   } : null;
 
   return <>
-    <Suspense fallback={null}><CountyRvParks county={county} /></Suspense>
+    <CountyRvParks county={county} />
 
     {aquariumDestinations.length ? <section className="border-b border-border py-12" aria-labelledby="county-aquariums-heading">
       {aquariumJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aquariumJsonLd) }} /> : null}
@@ -123,7 +123,7 @@ export function CountySportsDestinations({ county, venues }: { county: TexasEnti
           </div>
 
           <div className="mt-7 grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
-            {displayedVenues.map((venue) => <a key={venue.id} href={canonicalEntityPath(venue)} className="group border-t border-border py-5">
+            {displayedVenues.map((venue) => <a key={venue.id} href={canonicalEntityPath(venue)} className="group border-t border-border py-5 sm:px-5">
               <span className="eyebrow text-primary">{venueLabel(venue)}</span>
               <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{venue.name}</strong>
               {venue.description ? <span className="mt-3 block line-clamp-3 text-sm leading-6 text-muted-foreground">{venue.description}</span> : null}
