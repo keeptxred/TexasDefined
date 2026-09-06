@@ -4,6 +4,7 @@ import { hasCountySeriesProfile } from '../county-series';
 import { loadLocalGovernmentProfile, localOfficeDescription } from '../local-government-profile';
 import { getCountyPropertyRecordBySlug } from '../property/county-property-data';
 import { isCountyPropertyIndexReady } from '../property/county-property-schema';
+import { getSportsVenueEditorialDescription } from '../sports-venue-editorial.functions';
 import { fetchExploreGraphEntities, hasRemoteExploreGraph } from './explore-adapter';
 import type { TexasEntityKind, TexasEntityRecord } from './types';
 
@@ -156,6 +157,10 @@ export async function findCompleteTexasEntity(value: string): Promise<TexasEntit
 }
 
 async function enrichAuthoritativeEntity(entity: TexasEntityRecord): Promise<TexasEntityRecord> {
+  if (entity.kind === 'sports-venue') {
+    const description = await getSportsVenueEditorialDescription({ data: { id: entity.id } });
+    return description ? { ...entity, description } : entity;
+  }
   if (entity.kind === 'county') return enrichCountyEntity(entity);
   if (entity.kind === 'appraisal-district' || entity.kind === 'tax-office') return enrichLocalOfficeEntity(entity);
   if (entity.kind === 'city' || entity.kind === 'metro-area') {
