@@ -64,6 +64,10 @@ jobs:
       - name: Validate permanent SEO content quality governance
         run: node scripts/data/validate-content-quality-governance.mjs
 
+      - name: Validate Texas-vs state promotions
+        id: texas_vs_promotion
+        run: node scripts/data/validate-texas-vs-state-promotions.mjs
+
       - name: Run authoritative validation suite
         id: validation
         run: node scripts/ci/run-validation-suite.mjs full
@@ -89,6 +93,7 @@ jobs:
           COUNTY_CERTIFIER_POLICY_OUTCOME: ${{ steps.county_certifier_policy.outcome }}
           AUTOMATION_POLICY_OUTCOME: ${{ steps.automation_policy.outcome }}
           RETIREMENT_POLICY_OUTCOME: ${{ steps.retirement_policy.outcome }}
+          TEXAS_VS_PROMOTION_OUTCOME: ${{ steps.texas_vs_promotion.outcome }}
           VALIDATION_OUTCOME: ${{ steps.validation.outcome }}
           PREDEPLOY_OUTCOME: ${{ steps.predeploy.outcome }}
           BUILD_OUTCOME: ${{ steps.build.outcome }}
@@ -104,6 +109,7 @@ jobs:
             echo "| Consolidated county certifiers | CI / COUNTY CERTIFIER SAFETY | ${COUNTY_CERTIFIER_POLICY_OUTCOME:-not-run} |"
             echo "| Automation main-write policy | CI / AUTOMATION SAFETY | ${AUTOMATION_POLICY_OUTCOME:-not-run} |"
             echo "| Retired one-time certification policy | CI / RETIREMENT SAFETY | ${RETIREMENT_POLICY_OUTCOME:-not-run} |"
+            echo "| Texas-vs state promotion gate | SEO / STATE EVIDENCE | ${TEXAS_VS_PROMOTION_OUTCOME:-not-run} |"
             echo "| Authoritative validation suite | CODE / CONTENT / SEO / DATA | ${VALIDATION_OUTCOME:-not-run} |"
             echo "| Production predeploy authority suite | PREDEPLOY AUTHORITY | ${PREDEPLOY_OUTCOME:-not-run} |"
             echo "| Production build | BUILD | ${BUILD_OUTCOME:-not-run} |"
@@ -120,6 +126,8 @@ jobs:
             echo '::error title=CI failure class: automation safety::An active automation workflow violated the protected main-write or image-review policy.'
           elif [[ "$RETIREMENT_POLICY_OUTCOME" == 'failure' ]]; then
             echo '::error title=CI failure class: retirement safety::A completed one-time county certification lost PASS evidence or regained write/deploy behavior.'
+          elif [[ "$TEXAS_VS_PROMOTION_OUTCOME" == 'failure' ]]; then
+            echo '::error title=CI failure class: Texas-vs promotion::A promoted Texas-vs state lost its evidence, source, freshness, audit-history, route-rendering, or sitemap-readiness contract.'
           elif [[ "$VALIDATION_OUTCOME" == 'failure' ]]; then
             echo '::error title=CI failure class: validation::A code/content/SEO/data validator failed. The exact validator and command are listed in the validation-suite summary above.'
           elif [[ "$PREDEPLOY_OUTCOME" == 'failure' ]]; then

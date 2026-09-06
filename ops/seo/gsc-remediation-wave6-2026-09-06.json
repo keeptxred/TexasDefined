@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+  "reviewDate": "2026-09-06",
+  "reviewMethod": "State-specific server-side evidence review against Wave 4 remediation requirements: current tax, housing, labor, hazard/resilience and transportation sources; stronger metro/place comparison; dated review metadata; canonical/schema integrity; and sitemap qualification",
+  "summary": { "reviewed": 5, "KEEP": 5, "IMPROVE": 0, "NOINDEX": 0, "REMOVE_CONSOLIDATE": 0 },
+  "reviewed": [
+    {
+      "path": "/texas-vs/colorado",
+      "action": "KEEP",
+      "reason": "Colorado now has unique tax, housing, labor, hazard/resilience, transportation and metro-comparison guidance backed by current official Colorado sources, served through the state-profile server boundary with a dated review marker.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/georgia",
+      "action": "KEEP",
+      "reason": "Georgia now has unique 2026 tax guidance plus state housing, labor, hazard/resilience, transportation and metro-comparison evidence from Georgia agencies, with dated review metadata and direct official-source links.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/new-york",
+      "action": "KEEP",
+      "reason": "New York now separates New York City from upstate market decisions and adds current state tax, housing, labor, hazard/resilience and transportation evidence with official New York sources and dated review metadata.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/north-carolina",
+      "action": "KEEP",
+      "reason": "North Carolina now has current individual-income-tax guidance plus county-level housing, official labor-market, regional hazard and statewide transit evidence, with stronger Charlotte/Triangle/Texas place matching and dated review metadata.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/tennessee",
+      "action": "KEEP",
+      "reason": "Tennessee now documents the earned-income-tax/Hall-tax distinction, 2026 housing and labor evidence, state hazard mitigation, regional transit and metro-specific comparisons using current official sources and dated review metadata.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    }
+  ]
+}

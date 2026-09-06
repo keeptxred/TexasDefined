@@ -38,11 +38,22 @@ const GSC_IMPROVE_STATE_SLUGS = [
   "wyoming",
 ] as const;
 
+const GSC_PROMOTED_STATE_SLUGS = [
+  "colorado",
+  "georgia",
+  "new-york",
+  "north-carolina",
+  "tennessee",
+] as const;
+
 const REDIRECT_ONLY_STATE_SLUGS = ["california", "florida"] as const;
 
 export const TEXAS_VS_GSC_IMPROVE_STATE_SLUGS = new Set<string>(GSC_IMPROVE_STATE_SLUGS);
+export const TEXAS_VS_GSC_PROMOTED_STATE_SLUGS = new Set<string>(GSC_PROMOTED_STATE_SLUGS);
 export const TEXAS_VS_REDIRECT_ONLY_STATE_SLUGS = new Set<string>(REDIRECT_ONLY_STATE_SLUGS);
 
 export function isTexasVsStateSitemapReady(slug: string) {
-  return !TEXAS_VS_GSC_IMPROVE_STATE_SLUGS.has(slug) && !TEXAS_VS_REDIRECT_ONLY_STATE_SLUGS.has(slug);
+  if (TEXAS_VS_REDIRECT_ONLY_STATE_SLUGS.has(slug)) return false;
+  if (TEXAS_VS_GSC_PROMOTED_STATE_SLUGS.has(slug)) return true;
+  return !TEXAS_VS_GSC_IMPROVE_STATE_SLUGS.has(slug);
 }
