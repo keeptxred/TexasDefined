@@ -1,15 +1,7 @@
 import type { TexasEntityRecord } from './types';
 
 const checkedAt = '2026-08-13';
-const genericSportsVenueSentences = [
-  'Texas Defined tracks it as a visitor-facing venue so readers can connect the event experience with the surrounding city and county.',
-  'The venue draws traveling fans for marquee games and events and is a natural anchor for nearby hotels, restaurants, attractions and event-weekend planning.',
-  'Game days draw alumni and visiting fans from across Texas, making the surrounding campus, tailgating traditions and nearby districts part of the destination.',
-  'Its smaller scale and local setting make it especially useful for family trips, regional sports weekends and pairing a game with nearby food and attractions.',
-  'It belongs in a statewide Texas motorsports itinerary and is a destination people often plan a full race weekend around.',
-  "It is one of the state's established racing destinations and can anchor a day trip or weekend built around live racing and nearby attractions.",
-  'Its calendar ties directly into Texas rodeo, livestock, equestrian and Western-sport tourism, making the venue itself part of the travel experience.',
-] as const;
+const generatedSportsVenueMarker = 'Texas Defined tracks it as a visitor-facing venue';
 
 const sportsVenueEditorialDescriptions: Record<string, string> = {
   'sports-venue:att-stadium': 'AT&T Stadium is the Dallas Cowboys’ home in Arlington and the centerpiece of one of Texas’s densest big-event districts. NFL Sundays, college football, stadium tours, concerts and special events all pull visitors into the same Arlington corridor as Globe Life Field, making parking strategy and the surrounding entertainment district part of the experience.',
@@ -29,12 +21,10 @@ const sportsVenueEditorialDescriptions: Record<string, string> = {
   'sports-venue:mclane-stadium': 'McLane Stadium opened in 2014 on the Brazos River as Baylor football’s riverfront home in Waco. The 45,140-seat stadium pairs Big 12 game weekends with riverfront tailgating, the Baylor campus and central Waco, creating a college-football setting that is closely tied to the city rather than isolated from it.',
 };
 
-function stripSportsVenueBoilerplate(description?: string) {
-  if (!description) return description;
-  return genericSportsVenueSentences
-    .reduce((value, sentence) => value.replace(sentence, ''), description)
-    .replace(/\s+/g, ' ')
-    .trim();
+function stripGeneratedSportsVenueBoilerplate(description?: string) {
+  if (!description || !description.includes(generatedSportsVenueMarker)) return description;
+  const firstSentenceEnd = description.indexOf('. ');
+  return firstSentenceEnd >= 0 ? description.slice(0, firstSentenceEnd + 1).trim() : description.trim();
 }
 
 export function applyCurrentEntityCorrections(entity: TexasEntityRecord): TexasEntityRecord {
@@ -52,7 +42,7 @@ export function applyCurrentEntityCorrections(entity: TexasEntityRecord): TexasE
 
   if (corrected.kind === 'sports-venue') {
     const description = sportsVenueEditorialDescriptions[corrected.id]
-      ?? stripSportsVenueBoilerplate(corrected.description);
+      ?? stripGeneratedSportsVenueBoilerplate(corrected.description);
 
     if (description && description !== corrected.description) {
       corrected = { ...corrected, description };
