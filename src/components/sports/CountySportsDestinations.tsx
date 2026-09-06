@@ -6,12 +6,13 @@ import { sportsVenueLandingLinksForVenue, type SportsVenueLanding } from '@/data
 import type { Destination } from '@/data/types';
 
 const siteUrl = 'https://texasdefined.com';
-type CountyWithRvParks = TexasEntityRecord & { rvParks?: Destination[] };
 type CountyMajorEvent = { slug: string; name: string; detail: string; startDate: string; endDate?: string };
+type CountyWithPreloadedDiscovery = TexasEntityRecord & { rvParks?: Destination[]; majorEvents?: CountyMajorEvent[] };
 
-export function CountySportsDestinations({ county, venues, majorEvents }: { county: CountyWithRvParks; venues: TexasEntityRecord[]; majorEvents: CountyMajorEvent[] }) {
+export function CountySportsDestinations({ county, venues }: { county: CountyWithPreloadedDiscovery; venues: TexasEntityRecord[] }) {
   const aquariumDestinations = aquariumMarineLinksForCounty(county.slug);
   const rvParks = county.rvParks ?? [];
+  const majorEvents = county.majorEvents ?? [];
 
   const displayedVenues = venues.slice(0, 12);
   const collectionLinks = uniqueCollectionLinks(venues).slice(0, 6);
