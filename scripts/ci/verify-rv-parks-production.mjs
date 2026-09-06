@@ -11,6 +11,16 @@ function decodeHtml(value) {
     .replace(/&gt;/g, '>');
 }
 
+function visibleText(html) {
+  return decodeHtml(html)
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 async function fetchText(pathname) {
   const response = await fetch(`${origin}${pathname}`, {
     headers: { 'user-agent': userAgent, accept: 'text/html,application/xml;q=0.9,*/*;q=0.8' },
@@ -58,6 +68,7 @@ async function verifyOnce() {
     fetchText(countyPath),
     fetchText(sitemapPath),
   ]);
+  const countyText = visibleText(county);
 
   if (!/Texas RV Parks & Campgrounds/i.test(collection)) throw new Error('RV collection title/content missing.');
   if (canonicalValues(collection).join('|') !== `${origin}${collectionPath}`) throw new Error(`RV collection canonical mismatch: ${canonicalValues(collection).join(', ')}`);
@@ -70,7 +81,7 @@ async function verifyOnce() {
   if (!profile.includes('CC BY 2.0') || !profile.includes('Charles Willgren')) throw new Error('Representative RV profile image attribution missing.');
   if (!profile.includes('commons.wikimedia.org')) throw new Error('Representative RV profile image source attribution missing.');
 
-  if (!/RV camping around Blanco(?: County)?/i.test(county)) throw new Error('Blanco County RV section missing.');
+  if (!/RV camping around Blanco(?: County)?/i.test(countyText)) throw new Error('Blanco County RV section missing.');
   if (!county.includes(profilePath)) throw new Error('Blanco County page missing representative RV profile link.');
   if (!county.includes(collectionPath)) throw new Error('Blanco County page missing statewide RV collection link.');
 
