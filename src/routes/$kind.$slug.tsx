@@ -25,13 +25,15 @@ export const Route = createFileRoute('/$kind/$slug')({
       : [];
     if (entity.kind !== 'county') return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues };
     const countyRvParksPromise = import('@/data/rv-parks').then(({ rvParksForCounty }) => rvParksForCounty(entity.slug));
-    const [countyProfile, localGovernment, countySeriesArticle, countyRvParks] = await Promise.all([
+    const countyMajorEventsPromise = import('@/data/county-major-events').then(({ getCountyMajorEvents }) => getCountyMajorEvents(entity.slug));
+    const [countyProfile, localGovernment, countySeriesArticle, countyRvParks, countyMajorEvents] = await Promise.all([
       loadCountyProfile(entity.slug, entity.name),
       loadLocalGovernmentProfile(entity.slug, entity.name),
       loadCountySeriesArticle(entity.slug),
       countyRvParksPromise,
+      countyMajorEventsPromise,
     ]);
-    const countyEntity = { ...entity, rvParks: countyRvParks };
+    const countyEntity = { ...entity, rvParks: countyRvParks, majorEvents: countyMajorEvents };
     return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues };
   },
   head: ({ loaderData }) => {

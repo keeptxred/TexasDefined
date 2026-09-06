@@ -1,20 +1,18 @@
-import { use } from 'react';
-
 import { CountyRvParks } from '@/components/explore/CountyRvParks';
 import { aquariumMarineLinksForCounty } from '@/data/aquarium-marine-county-links';
-import { getCountyMajorEvents } from '@/data/county-major-events';
 import { canonicalEntityPath } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { sportsVenueLandingLinksForVenue, type SportsVenueLanding } from '@/data/sports-venue-landings';
 import type { Destination } from '@/data/types';
 
 const siteUrl = 'https://texasdefined.com';
-type CountyWithRvParks = TexasEntityRecord & { rvParks?: Destination[] };
+type CountyMajorEvent = { slug: string; name: string; detail: string; startDate: string; endDate?: string };
+type CountyWithPreloadedDiscovery = TexasEntityRecord & { rvParks?: Destination[]; majorEvents?: CountyMajorEvent[] };
 
-export function CountySportsDestinations({ county, venues }: { county: CountyWithRvParks; venues: TexasEntityRecord[] }) {
-  const majorEvents = use(getCountyMajorEvents(county.slug));
+export function CountySportsDestinations({ county, venues }: { county: CountyWithPreloadedDiscovery; venues: TexasEntityRecord[] }) {
   const aquariumDestinations = aquariumMarineLinksForCounty(county.slug);
   const rvParks = county.rvParks ?? [];
+  const majorEvents = county.majorEvents ?? [];
 
   const displayedVenues = venues.slice(0, 12);
   const collectionLinks = uniqueCollectionLinks(venues).slice(0, 6);
