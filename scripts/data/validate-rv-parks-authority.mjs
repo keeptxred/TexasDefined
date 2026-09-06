@@ -32,10 +32,12 @@ requireText(registry, 'function normalizeCountySlug(value: string): string', 'Re
 requireText(registry, '.replace(/\\s+county$/i, "")', 'Registry county suffix removal');
 requireText(registry, 'normalizeCountySlug(item.county!) === normalized', 'Registry county slug matching');
 requireText(registry, 'export function loadRvParksForCountyServer(countySlug: string): Destination[]', 'Registry county server lookup');
-requireText(facade, '{ action: "county"; value: string }', 'County RV server action');
-requireText(facade, 'registry.loadRvParksForCountyServer(data.value).slice(0, 12)', 'County RV server-side filtering');
+requireText(facade, 'const loadCountyRvParks = createServerFn({ method: "GET" })', 'Dedicated county RV server function');
+requireText(facade, '.inputValidator((data: { countySlug: string }) => data)', 'Dedicated county RV input contract');
+requireText(facade, 'registry.loadRvParksForCountyServer(data.countySlug).slice(0, 12)', 'County RV server-side filtering');
 requireText(facade, 'export function rvParksForCounty(countySlug: string): Promise<Destination[]>', 'County RV facade');
-requireText(facade, 'return loadRvParks({ data: { action: "county", value: countySlug } })', 'County RV facade server lookup');
+requireText(facade, 'return loadCountyRvParks({ data: { countySlug } })', 'County RV dedicated server lookup');
+if (facade.includes('{ action: "county"; value: string }')) errors.push('County RV lookup must not share the generic action-dispatch server function.');
 if (facade.includes('const parks = await listRvParkDestinations();')) errors.push('County RV facade must not fetch and serialize the full 250-record catalog before filtering.');
 requireText(hillCountry, '["Blanco State Park RV Area", "Blanco", "Blanco",', 'Blanco County RV seed coverage');
 requireText(panhandleNorthTexas, '["Palo Duro Canyon State Park RV Loop", "Canyon", "Randall",', 'Randall County RV seed coverage');
@@ -83,4 +85,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), loader-backed synchronous county discovery, bounded server-side RV lookup, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
+console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), loader-backed synchronous county discovery, dedicated bounded server-side RV county lookup, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
