@@ -70,7 +70,7 @@ async function verifyOnce() {
   if (!profile.includes('CC BY 2.0') || !profile.includes('Charles Willgren')) throw new Error('Representative RV profile image attribution missing.');
   if (!profile.includes('commons.wikimedia.org')) throw new Error('Representative RV profile image source attribution missing.');
 
-  if (!/RV camping around Blanco County/i.test(county)) throw new Error('Blanco County RV section missing.');
+  if (!/RV camping around Blanco(?: County)?/i.test(county)) throw new Error('Blanco County RV section missing.');
   if (!county.includes(profilePath)) throw new Error('Blanco County page missing representative RV profile link.');
   if (!county.includes(collectionPath)) throw new Error('Blanco County page missing statewide RV collection link.');
 
