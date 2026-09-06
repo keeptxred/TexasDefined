@@ -7,12 +7,14 @@ const EVIDENCE_PATH = "src/data/texas-vs-state-evidence.server.ts";
 const PROFILE_SERVER_PATH = "src/data/texas-vs-state-profile.server.ts";
 const ROUTE_PATH = "src/routes/texas-vs.$state.tsx";
 
+// Keep this list in evidence-source order so each block is bounded by the next state.
+// Set comparisons below remain order-independent.
 const expected = [
   { slug: "colorado", name: "Colorado" },
+  { slug: "tennessee", name: "Tennessee" },
+  { slug: "north-carolina", name: "North Carolina" },
   { slug: "georgia", name: "Georgia" },
   { slug: "new-york", name: "New York" },
-  { slug: "north-carolina", name: "North Carolina" },
-  { slug: "tennessee", name: "Tennessee" },
 ];
 const expectedSlugs = expected.map((item) => item.slug).sort();
 const requiredTopics = ["tax", "housing", "jobs", "risk", "transport"];
