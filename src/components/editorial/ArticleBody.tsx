@@ -8,8 +8,8 @@ import { INTERNAL_LINK_POLICIES, policyForSurface } from '@/platform/internal-li
 import { countyLabelHasExplicitContext } from '@/platform/internal-linking';
 
 const articlePolicy = INTERNAL_LINK_POLICIES.article;
-const ArticleAuthorityEnhancement = lazy(() => import("@/components/editorial/ArticleAuthorityEnhancement").then((module) => ({ default: module.ArticleAuthorityEnhancement })));
-const articleAuthorityPaths = new Set([
+const MetroRelocationAuthority = lazy(() => import("@/components/relocation/MetroRelocationAuthority").then((module) => ({ default: module.MetroRelocationAuthority })));
+const metroRelocationGuidePaths = new Set([
   "/article/moving-to-dallas-fort-worth-guide",
   "/article/moving-to-houston-address-checklist",
   "/article/moving-to-austin-guide",
@@ -39,7 +39,7 @@ export function Byline({ author, meta }: { author: Author | null; meta: string }
 
 export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[]; entities?: TexasEntityRecord[] }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
-  const showArticleAuthority = articleAuthorityPaths.has(pathname);
+  const showMetroRelocationAuthority = metroRelocationGuidePaths.has(pathname);
   const linked = new Set<string>();
   let remainingLinks = articlePolicy.pageBudget;
   const available = () => entities.filter((entity) => !linked.has(entity.id));
@@ -91,6 +91,6 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
         default: return <p key={index} className="mt-6 first:mt-0">{render(block.text, 4)}</p>;
       }
     })}
-    {showArticleAuthority ? <Suspense fallback={null}><ArticleAuthorityEnhancement articlePath={pathname} /></Suspense> : null}
+    {showMetroRelocationAuthority ? <Suspense fallback={null}><MetroRelocationAuthority articlePath={pathname} /></Suspense> : null}
   </div>;
 }
