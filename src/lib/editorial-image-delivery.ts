@@ -3,6 +3,7 @@ import type { Article, Destination, ImageRef } from "@/data/types";
 
 export const REMOTE_IMAGE_PATH = "/media/remote";
 export const REMOTE_IMAGE_HOSTS = new Set([
+  "basemap.nationalmap.gov",
   "commons.wikimedia.org",
   "upload.wikimedia.org",
   "images.unsplash.com",

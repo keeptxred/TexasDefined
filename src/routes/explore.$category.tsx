@@ -9,6 +9,8 @@ import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const SWIMMING_HOLES_RIVER_TUBING_SLUG = "swimming-holes-river-tubing";
+const COASTAL_AUTHORITY_ITEM_COUNT = 52;
+const COASTAL_AUTHORITY_PATH = "/content/explore-category-authority/beaches-coast-directory.html";
 const legacyExploreRedirects: Record<string, string> = {
   "scenic-rivers": "/article/texas-rivers-explained",
   "texas-dark-sky-stargazing": "/texas-stargazing-guide",
@@ -80,7 +82,12 @@ export const Route = createFileRoute("/explore/$category")({
     const [articles, destinations, authorityHtml] = await Promise.all([
       context.queryClient.ensureQueryData(articlesQuery({ category: category.slug })),
       context.queryClient.ensureQueryData(destinationsQuery({ category: category.slug })),
-      authorityPath ? fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath).then((response) => response.ok ? response.text() : null) : null,
+      authorityPath ? Promise.all([
+        fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath).then((response) => response.ok ? response.text() : null),
+        category.slug === "beaches-coast"
+          ? fetch(import.meta.env.SSR ? `${siteUrl}${COASTAL_AUTHORITY_PATH}` : COASTAL_AUTHORITY_PATH).then((response) => response.ok ? response.text() : null)
+          : Promise.resolve(null),
+      ]).then((parts) => parts.filter(Boolean).join("\n")) : null,
     ]);
     return { category, articles, destinations, authorityHtml };
   },
@@ -96,7 +103,8 @@ export const Route = createFileRoute("/explore/$category")({
         : [];
     const indexReady = isExploreCategoryIndexReady(
       loaderData.category.slug,
-      loaderData.articles.length + loaderData.destinations.length + featuredCollectionItems.length,
+      loaderData.articles.length + loaderData.destinations.length + featuredCollectionItems.length
+        + (params.category === "beaches-coast" ? COASTAL_AUTHORITY_ITEM_COUNT : 0),
     );
     const categorySeo = categorySeoOverrides[loaderData.category.slug];
     const metaTitle = categorySeo?.title ?? loaderData.category.name;

@@ -1,5 +1,6 @@
 import { animalSanctuaryDestinations } from "./animal-sanctuary-destinations";
 import { aquariumMarineDestinations } from "./aquarium-marine-destinations";
+import { coastalDestinations } from "./coastal-destinations";
 import { topAttractionDestinations } from "./destination-curation-top-attractions";
 import { topAttractionExpansionDestinations } from "./destination-curation-top-attractions-fallbacks";
 import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
@@ -189,6 +190,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   aquariumMarineDestinations,
   topAttractionDestinations,
   topAttractionExpansionDestinations,
+  coastalDestinations,
   legacyExploreDestinations,
   legacyLakeDestinations,
   historicSiteDestinations,
