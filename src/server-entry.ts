@@ -3,6 +3,7 @@ import server from "./server";
 const SEO_CANONICAL_REDIRECTS: Record<string, string> = {
   "/texas-vs/california": "/article/texas-vs-california-differences",
   "/texas-vs/florida": "/article/texas-vs-florida-differences",
+  "/article/live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp": "/article/texas-pitmasters-food-network-competition",
 };
 
 export default {
