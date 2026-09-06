@@ -1,4 +1,4 @@
-name: County production verification
+name: All 254 county production verification
 
 on:
   pull_request:
@@ -6,9 +6,16 @@ on:
       - '.github/workflows/audit-all-editorial-production.yml'
       - 'scripts/data/inventory-county-series.mjs'
       - 'src/components/content/CountyGuideSections.tsx'
+      - 'src/components/content/CountyIdentitySection.tsx'
       - 'src/data/county-profile.ts'
       - 'src/data/county-series.ts'
-      - 'src/data/index.ts'
+      - 'src/data/county-series.server.ts'
+      - 'src/data/county-series-profiles*.ts'
+      - 'src/data/knowledge-graph/relationships.ts'
+      - 'src/data/knowledge-graph/index.ts'
+      - 'src/data/texas-places.ts'
+      - 'src/routes/$kind.$slug.tsx'
+      - 'src/routes/$kind.$slug.lazy.tsx'
       - 'src/data/fixtures/*county*.ts'
       - 'src/data/fixtures/repositories.ts'
   push:
@@ -18,9 +25,16 @@ on:
       - '.github/workflows/audit-all-editorial-production.yml'
       - 'scripts/data/inventory-county-series.mjs'
       - 'src/components/content/CountyGuideSections.tsx'
+      - 'src/components/content/CountyIdentitySection.tsx'
       - 'src/data/county-profile.ts'
       - 'src/data/county-series.ts'
-      - 'src/data/index.ts'
+      - 'src/data/county-series.server.ts'
+      - 'src/data/county-series-profiles*.ts'
+      - 'src/data/knowledge-graph/relationships.ts'
+      - 'src/data/knowledge-graph/index.ts'
+      - 'src/data/texas-places.ts'
+      - 'src/routes/$kind.$slug.tsx'
+      - 'src/routes/$kind.$slug.lazy.tsx'
       - 'src/data/fixtures/*county*.ts'
       - 'src/data/fixtures/repositories.ts'
   workflow_dispatch:
@@ -29,12 +43,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: county-production-${{ github.ref }}
+  group: all-254-county-production-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   validate-county-source:
-    name: Validate county series registry
+    name: Audit all 254 county editorial profiles
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -43,15 +57,24 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - name: Inventory registered county profiles
-        run: node scripts/data/inventory-county-series.mjs /tmp/county-profiles.tsv
+      - name: Inventory every effective county profile across every active registry
+        run: |
+          node scripts/data/inventory-county-series.mjs /tmp/county-profiles.tsv
+          test "$(wc -l < /tmp/county-profiles.tsv)" -eq 254
+      - name: Upload county quality inventory
+        uses: actions/upload-artifact@v4
+        with:
+          name: county-quality-inventory
+          path: |
+            /tmp/county-profiles.tsv
+            /tmp/county-profiles.json
+          if-no-files-found: error
 
   verify-county-production:
-    name: Verify canonical county pages on texasdefined.com
-    if: github.event_name != 'pull_request'
+    name: Crawl all 254 canonical county pages on texasdefined.com
     needs: validate-county-source
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v4
@@ -59,10 +82,13 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - name: Build canonical county production inventory
-        run: node scripts/data/inventory-county-series.mjs /tmp/county-profiles.tsv
+      - name: Build canonical 254-county production inventory
+        run: |
+          node scripts/data/inventory-county-series.mjs /tmp/county-profiles.tsv
+          test "$(wc -l < /tmp/county-profiles.tsv)" -eq 254
 
-      - name: Require every canonical county page, numeric facts, editorial layer, hero image, and legacy redirect to be live
+      - name: Audit every production county page for substantive, indexable, editorial-first rendering
+        continue-on-error: ${{ github.event_name == 'pull_request' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -76,10 +102,51 @@ jobs:
           import html
           import sys
           from pathlib import Path
-
           document = html.unescape(Path(sys.argv[1]).read_text(errors='ignore'))
           expected = sys.argv[2]
           raise SystemExit(0 if expected.casefold() in document.casefold() else 1)
+          PY
+          }
+
+          visible_word_count() {
+            local html_file="$1"
+            python3 - "$html_file" <<'PY'
+          import html
+          import re
+          import sys
+          from pathlib import Path
+          document = Path(sys.argv[1]).read_text(errors='ignore')
+          document = re.sub(r'<script\b[^>]*>[\s\S]*?</script>', ' ', document, flags=re.I)
+          document = re.sub(r'<style\b[^>]*>[\s\S]*?</style>', ' ', document, flags=re.I)
+          document = re.sub(r'<[^>]+>', ' ', document)
+          document = html.unescape(document)
+          words = re.findall(r"[A-Za-z0-9]+(?:[’'\-][A-Za-z0-9]+)*", document)
+          print(len(words))
+          PY
+          }
+
+          editorial_precedes_facts() {
+            local html_file="$1"
+            python3 - "$html_file" <<'PY'
+          import html
+          import sys
+          from pathlib import Path
+          document = html.unescape(Path(sys.argv[1]).read_text(errors='ignore')).casefold()
+          editorial = document.find('county feature')
+          facts = document.find('the county in numbers')
+          raise SystemExit(0 if editorial >= 0 and facts > editorial else 1)
+          PY
+          }
+
+          has_noindex() {
+            local html_file="$1"
+            python3 - "$html_file" <<'PY'
+          import re
+          import sys
+          from pathlib import Path
+          document = Path(sys.argv[1]).read_text(errors='ignore')
+          robots = re.findall(r'<meta\b[^>]*(?:name=["\x27]robots["\x27][^>]*|content=["\x27][^"\x27]*noindex[^"\x27]*["\x27][^>]*)>', document, flags=re.I)
+          raise SystemExit(0 if any('noindex' in tag.casefold() and 'robots' in tag.casefold() for tag in robots) else 1)
           PY
           }
 
@@ -90,16 +157,16 @@ jobs:
             local url="https://texasdefined.com/county/$county_slug"
             local legacy_url="https://texasdefined.com/article/$legacy_slug"
             local html="/tmp/county-${county_slug}.html"
-            local code image image_result image_code image_type redirect_result redirect_code redirect_url
+            local code words image image_result image_code image_type redirect_result redirect_code redirect_url
 
-            code=$(curl -L -sS -o "$html" -w '%{http_code}' --max-time 25 "$url" || echo 000)
+            code=$(curl -A 'TexasDefinedCountyQualityAudit/2.0 (+https://texasdefined.com)' -L -sS -o "$html" -w '%{http_code}' --max-time 30 "$url" || echo 000)
             if [[ "$code" != "200" ]]; then
               echo "WAIT page=$code $url"
               return 1
             fi
 
-            if grep -Eqi 'Story unavailable|This story is no longer available|page not found|404[^0-9].*not found|County unavailable' "$html"; then
-              echo "WAIT fallback-page $url"
+            if grep -Eqi 'Story unavailable|This story is no longer available|page not found|404[^0-9].*not found|County unavailable|will expand as additional local sources are verified|This county guide is being expanded|We are adding verified details before expanding this page into a full guide' "$html"; then
+              echo "WAIT placeholder-or-fallback $url"
               return 1
             fi
 
@@ -107,9 +174,16 @@ jobs:
               echo "WAIT editorial-layer title=$title $url"
               return 1
             fi
-
+            if ! grep -Fqi 'County feature' "$html"; then
+              echo "WAIT county-feature-marker $url"
+              return 1
+            fi
             if ! grep -Fqi 'The county in numbers' "$html"; then
               echo "WAIT structured-layer $url"
+              return 1
+            fi
+            if ! editorial_precedes_facts "$html"; then
+              echo "WAIT editorial-order county-feature-must-precede-fact-grid $url"
               return 1
             fi
 
@@ -120,11 +194,26 @@ jobs:
               fi
             done
 
+            words=$(visible_word_count "$html")
+            if [[ "$words" -lt 1200 ]]; then
+              echo "WAIT thin-render visible_words=$words $url"
+              return 1
+            fi
+
+            if has_noindex "$html"; then
+              echo "WAIT unexpected-noindex $url"
+              return 1
+            fi
+
+            if ! grep -Eqi "<link[^>]+rel=[\"']canonical[\"'][^>]+href=[\"']https://texasdefined\.com/county/${county_slug}[\"']|<link[^>]+href=[\"']https://texasdefined\.com/county/${county_slug}[\"'][^>]+rel=[\"']canonical[\"']" "$html"; then
+              echo "WAIT canonical-mismatch $url"
+              return 1
+            fi
+
             image=$(python3 - "$html" <<'PY'
           import re
           import sys
           from pathlib import Path
-
           html = Path(sys.argv[1]).read_text(errors='ignore')
           patterns = [
               r'<meta[^>]+property=["\x27]og:image["\x27][^>]+content=["\x27]([^"\x27]+)',
@@ -142,11 +231,9 @@ jobs:
               echo "WAIT image-metadata $url"
               return 1
             fi
-            if [[ "$image" == /* ]]; then
-              image="https://texasdefined.com$image"
-            fi
+            if [[ "$image" == /* ]]; then image="https://texasdefined.com$image"; fi
 
-            image_result=$(curl -L -sS -o /dev/null -w '%{http_code}\t%{content_type}' --max-time 25 "$image" || printf '000\t')
+            image_result=$(curl -A 'TexasDefinedCountyQualityAudit/2.0 (+https://texasdefined.com)' -L -sS -o /dev/null -w '%{http_code}\t%{content_type}' --max-time 30 "$image" || printf '000\t')
             IFS=$'\t' read -r image_code image_type <<< "$image_result"
             if [[ "$image_code" != "200" ]]; then
               echo "WAIT image=$image_code $image ($url)"
@@ -157,18 +244,18 @@ jobs:
               return 1
             fi
 
-            redirect_result=$(curl -sS -o /dev/null -w '%{http_code}\t%{redirect_url}' --max-time 25 "$legacy_url" || printf '000\t')
+            redirect_result=$(curl -A 'TexasDefinedCountyQualityAudit/2.0 (+https://texasdefined.com)' -sS -o /dev/null -w '%{http_code}\t%{redirect_url}' --max-time 30 "$legacy_url" || printf '000\t')
             IFS=$'\t' read -r redirect_code redirect_url <<< "$redirect_result"
             if [[ "$redirect_code" != "301" || "$redirect_url" != "$url" ]]; then
               echo "WAIT legacy-redirect=$redirect_code target=$redirect_url expected=$url ($legacy_url)"
               return 1
             fi
 
-            echo "PASS page=200 structured=present population=present land=present water=present editorial=present image=200 mime=$image_type redirect=301 $url" | tee -a /tmp/results.txt
+            echo "PASS page=200 words=$words editorial-first=yes structured=yes canonical=yes indexable=yes image=200 mime=$image_type redirect=301 $url" | tee -a /tmp/results.txt
             return 0
           }
 
-          for attempt in $(seq 1 12); do
+          for attempt in $(seq 1 4); do
             : > /tmp/next-pending.tsv
             while IFS=$'\t' read -r county_slug legacy_slug title; do
               [[ -z "$county_slug" ]] && continue
@@ -178,17 +265,28 @@ jobs:
             done < /tmp/pending.tsv
 
             if [[ ! -s /tmp/next-pending.tsv ]]; then
-              echo "All registered canonical county pages are live in production with county numeric facts, both data layers, raster hero MIME, and 301 legacy redirects."
+              : > /tmp/pending.tsv
+              echo "PASS: all 254 canonical county pages are live, substantive, editorial-first, indexable, canonical, illustrated, placeholder-free, and have valid legacy redirects."
               cat /tmp/results.txt
               exit 0
             fi
 
             mv /tmp/next-pending.tsv /tmp/pending.tsv
-            echo "Production is not ready for $(wc -l < /tmp/pending.tsv) county profile(s); attempt $attempt/12."
+            echo "Production quality audit still has $(wc -l < /tmp/pending.tsv) failing county page(s); attempt $attempt/4."
             cut -f1 /tmp/pending.tsv
-            if [[ "$attempt" -lt 12 ]]; then sleep 30; fi
+            if [[ "$attempt" -lt 4 ]]; then sleep 15; fi
           done
 
-          echo "County production verification failed. These canonical county pages are not live with all required publication gates:"
+          echo "County production quality audit failed. These canonical county pages did not satisfy every quality gate:"
           cut -f1 /tmp/pending.tsv
           exit 1
+
+      - name: Upload current production county crawl evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: county-production-audit
+          path: |
+            /tmp/results.txt
+            /tmp/pending.tsv
+          if-no-files-found: warn

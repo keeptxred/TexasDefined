@@ -18,10 +18,10 @@ const referenceKinds = new Set([...localGovernmentKinds, 'agency']);
 export const Route = createLazyFileRoute('/$kind/$slug')({ component: EntityPage });
 
 function EntityPage() {
-  const { entity, related, countyProfile, localGovernment, countySportsVenues } = Route.useLoaderData();
+  const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues } = Route.useLoaderData();
   const visibleRelated = relatedForDisplay(entity, related);
   const relatedEntities = visibleRelated.map((item) => item.entity);
-  const description = pageDescription(entity);
+  const description = entity.kind === 'county' && countySeriesArticle?.dek ? countySeriesArticle.dek : pageDescription(entity);
   const canonicalPath = canonicalEntityPath(entity);
   const canonicalUrl = `${siteUrl}${canonicalPath}`;
   const incomplete = !entity.description;
@@ -33,7 +33,7 @@ function EntityPage() {
         '@id': `${canonicalUrl}#entity`,
         name: entity.name,
         alternateName: entity.aliases.length ? entity.aliases : undefined,
-        description: entity.description,
+        description,
         url: canonicalUrl,
         sameAs: entity.officialUrl ? [entity.officialUrl] : undefined,
         geo: entity.coordinates ? { '@type': 'GeoCoordinates', latitude: entity.coordinates.latitude, longitude: entity.coordinates.longitude } : undefined,
