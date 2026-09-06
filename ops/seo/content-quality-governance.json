@@ -140,6 +140,20 @@
       ]
     },
     {
+      "family": "Texas-vs-state wave 7 evidence promotion",
+      "file": "src/data/texas-vs-state-evidence-wave7.server.ts",
+      "requiredMarkers": [
+        "reviewedAt",
+        "taxLens",
+        "housingLens",
+        "jobsLens",
+        "riskLens",
+        "transportationLens",
+        "metroLens",
+        "sources"
+      ]
+    },
+    {
       "family": "Texas-vs-state sitemap quality integration",
       "file": "src/routes/sitemap[.]xml.ts",
       "requiredMarkers": [
@@ -157,7 +171,8 @@
       "ops/seo/gsc-remediation-wave3-2026-09-05.json",
       "ops/seo/gsc-remediation-wave4-2026-09-05.json",
       "ops/seo/gsc-remediation-wave5-2026-09-05.json",
-      "ops/seo/gsc-remediation-wave6-2026-09-06.json"
+      "ops/seo/gsc-remediation-wave6-2026-09-06.json",
+      "ops/seo/gsc-remediation-wave7-2026-09-06.json"
     ],
     "maxUnreviewedAgeDays": 30,
     "manualInspectionPriority": [

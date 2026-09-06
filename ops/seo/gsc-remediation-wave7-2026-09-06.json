@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+  "reviewDate": "2026-09-06",
+  "reviewMethod": "State-specific server-side evidence review against the Wave 4 remediation requirements: current tax, housing, labor, hazard/resilience and transportation sources; stronger metro/place comparison; dated review metadata; canonical/schema integrity; and sitemap qualification",
+  "summary": { "reviewed": 3, "KEEP": 3, "IMPROVE": 0, "NOINDEX": 0, "REMOVE_CONSOLIDATE": 0 },
+  "reviewed": [
+    {
+      "path": "/texas-vs/louisiana",
+      "action": "KEEP",
+      "reason": "Louisiana now has current state-specific tax, 2026 housing-needs, labor-market, FEMA-approved hazard-mitigation and public-transportation evidence plus a metro-by-metro Texas comparison lens, all retained behind the existing server-only state-profile boundary.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/new-mexico",
+      "action": "KEEP",
+      "reason": "New Mexico now has state-specific tax, current housing-needs, labor-market, hazard-mitigation and transit evidence plus distinct Albuquerque, Santa Fe, Las Cruces and energy-region comparison guidance with dated official-source review metadata.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/michigan",
+      "action": "KEEP",
+      "reason": "Michigan now has a 2026 income-tax determination, current statewide housing-plan, official labor-market, 2024-2029 hazard-plan and public-transit evidence plus market-specific Detroit, Ann Arbor, Grand Rapids and Lansing comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    }
+  ]
+}

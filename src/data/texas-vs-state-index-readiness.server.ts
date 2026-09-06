@@ -41,6 +41,9 @@ const GSC_IMPROVE_STATE_SLUGS = [
 const GSC_PROMOTED_STATE_SLUGS = [
   "colorado",
   "georgia",
+  "louisiana",
+  "michigan",
+  "new-mexico",
   "new-york",
   "north-carolina",
   "tennessee",
