@@ -1,5 +1,6 @@
 import { texasDefinedBrand } from "../brand/texasdefined";
 import { buildMeta, canonicalLink } from "../lib/seo";
+import { shouldIndexEvergreenEventCollection } from "./event-collection-indexability";
 import { EVENT_COLLECTIONS, EVENT_COLLECTION_BY_SLUG, type EventCollectionDefinition } from "./event-collections";
 import {
   TEMPORAL_EVENT_COLLECTIONS,
@@ -139,13 +140,18 @@ export function loadEventCollectionPageServer(slug: string) {
             ? event.category === evergreen!.value
             : event.region === evergreen!.value,
         );
-  const shouldIndex = tournament ? items.length >= 5 : temporal?.shouldIndex ?? true;
+  const shouldIndex = tournament
+    ? items.length >= 5
+    : temporal?.shouldIndex ?? shouldIndexEvergreenEventCollection(items.length);
   const verifiedTournamentCount = tournament
     ? items.filter((item) => Boolean(item.sourceCheckedAt) && item.href.startsWith("/event/")).length
     : 0;
   const indexabilityNote = tournament
     ? `This collection is indexable as a substantive discovery directory. ${verifiedTournamentCount} entries currently link to first-party-verified tournament guides; the remaining seed entries stay at the collection layer until their current occurrence details are verified.`
-    : temporal?.indexabilityNote ?? "This collection is a durable, crawlable event-discovery page backed by permanent verified event guides.";
+    : temporal?.indexabilityNote
+      ?? (shouldIndex
+        ? "This collection is a durable, crawlable event-discovery page backed by enough permanent verified event guides to stand on its own."
+        : `This collection is temporarily noindex because it currently contains only ${items.length.toLocaleString("en-US")} verified event ${items.length === 1 ? "guide" : "guides"}. Texas Defined will open it to search after the verified inventory is substantive enough to uniquely satisfy the page promise.`);
 
   const latestSourceCheck = items
     .map((item) => item.sourceCheckedAt)
