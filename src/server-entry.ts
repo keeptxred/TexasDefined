@@ -1,10 +1,13 @@
 import server from "./server";
 
+const LEGACY_PITMASTERS_SLUG = "live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp";
+const PITMASTERS_CANONICAL_PATH = "/article/texas-pitmasters-food-network-competition";
+
 const SEO_CANONICAL_REDIRECTS: Record<string, string> = {
   "/texas-vs/california": "/article/texas-vs-california-differences",
   "/texas-vs/florida": "/article/texas-vs-florida-differences",
-  "/article/live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp": "/article/texas-pitmasters-food-network-competition",
-  "/news/live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp": "/article/texas-pitmasters-food-network-competition",
+  [`/article/${LEGACY_PITMASTERS_SLUG}`]: PITMASTERS_CANONICAL_PATH,
+  [`/news/${LEGACY_PITMASTERS_SLUG}`]: PITMASTERS_CANONICAL_PATH,
 };
 
 export default {
