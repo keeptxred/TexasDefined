@@ -8,14 +8,14 @@ import { INTERNAL_LINK_POLICIES, policyForSurface } from '@/platform/internal-li
 import { countyLabelHasExplicitContext } from '@/platform/internal-linking';
 
 const articlePolicy = INTERNAL_LINK_POLICIES.article;
-const MetroRelocationAuthority = lazy(() => import("@/components/relocation/MetroRelocationAuthority").then((module) => ({ default: module.MetroRelocationAuthority })));
-const WildflowerSpeciesGrid = lazy(() => import("@/components/editorial/WildflowerSpeciesGrid").then((module) => ({ default: module.WildflowerSpeciesGrid })));
-const metroRelocationGuidePaths = new Set([
+const ArticleAuthorityEnhancement = lazy(() => import("@/components/editorial/ArticleAuthorityEnhancement").then((module) => ({ default: module.ArticleAuthorityEnhancement })));
+const articleAuthorityPaths = new Set([
   "/article/moving-to-dallas-fort-worth-guide",
   "/article/moving-to-houston-address-checklist",
   "/article/moving-to-austin-guide",
   "/article/moving-to-san-antonio-guide",
   "/article/moving-to-el-paso-guide",
+  "/article/texas-wildflowers-guide",
 ]);
 
 export function PullQuote({ text, attribution, entities = [] }: { text: string; attribution?: string; entities?: TexasEntityRecord[] }) {
@@ -39,8 +39,7 @@ export function Byline({ author, meta }: { author: Author | null; meta: string }
 
 export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[]; entities?: TexasEntityRecord[] }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
-  const showMetroRelocationAuthority = metroRelocationGuidePaths.has(pathname);
-  const showWildflowerSpeciesGrid = pathname === "/article/texas-wildflowers-guide";
+  const showArticleAuthority = articleAuthorityPaths.has(pathname);
   const linked = new Set<string>();
   let remainingLinks = articlePolicy.pageBudget;
   const available = () => entities.filter((entity) => !linked.has(entity.id));
@@ -62,7 +61,6 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
     return <AutoEntityLinks text={text} entities={candidates} maxLinks={maxLinks} policy={policyForSurface('article')} />;
   };
   return <div className="editorial-body text-foreground/92">
-    {showWildflowerSpeciesGrid ? <Suspense fallback={null}><WildflowerSpeciesGrid /></Suspense> : null}
     {blocks.map((block, index) => {
       switch (block.type) {
         case "heading": return <h2 key={index} className="mb-4 mt-14 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
@@ -93,6 +91,6 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
         default: return <p key={index} className="mt-6 first:mt-0">{render(block.text, 4)}</p>;
       }
     })}
-    {showMetroRelocationAuthority ? <Suspense fallback={null}><MetroRelocationAuthority articlePath={pathname} /></Suspense> : null}
+    {showArticleAuthority ? <Suspense fallback={null}><ArticleAuthorityEnhancement articlePath={pathname} /></Suspense> : null}
   </div>;
 }
