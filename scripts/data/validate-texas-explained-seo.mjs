@@ -10,7 +10,7 @@ const readRouteSurface = (file) => {
   return fs.existsSync(lazyPath) ? `${eagerSource}\n${fs.readFileSync(lazyPath, 'utf8')}` : eagerSource;
 };
 
-const route = read('src/routes/texas-explained.tsx');
+const route = `${read('src/routes/texas-explained.tsx')}\n${read('src/components/editorial/TexasExplainedPage.tsx')}`;
 const articleRoute = read('src/routes/article.$slug.tsx');
 const publicRoutes = read('src/lib/public-routes.ts');
 const resources = read('src/routes/texas-resources.tsx');
