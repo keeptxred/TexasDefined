@@ -7,7 +7,7 @@ import type { BrandId } from "@/brand/types";
 
 export type Slug = string;
 
-export interface ImageRef { src: string; alt: string; width: number; height: number; credit?: string; }
+export interface ImageRef { src: string; alt: string; width: number; height: number; credit?: string; creator?: string; license?: string; licenseUrl?: string; sourceUrl?: string; copyrightNotice?: string; }
 export interface GeoPoint { lat: number; lng: number; }
 
 /**
