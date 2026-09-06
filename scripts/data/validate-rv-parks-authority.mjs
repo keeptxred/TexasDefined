@@ -7,6 +7,7 @@ const images = read('src/data/rv-parks/images.server.ts');
 const registry = read('src/data/rv-parks/registry.server.ts');
 const categoryRoute = read('src/routes/explore.$category.tsx');
 const destinationRoute = read('src/routes/destination.$slug.tsx');
+const countyRoute = read('src/routes/$kind.$slug.tsx');
 const countySection = read('src/components/explore/CountyRvParks.tsx');
 const countyHost = read('src/components/sports/CountySportsDestinations.tsx');
 const sitemap = read('src/routes/sitemap-explore[.]xml.ts');
@@ -44,10 +45,15 @@ requireText(categoryRoute, '"rv-parks": {', 'RV collection SEO override');
 requireText(categoryRoute, '"@type": isRvPark ? "Campground" : "TouristAttraction"', 'RV collection Campground schema');
 requireText(destinationRoute, 'robots: indexable ? undefined : "noindex, follow"', 'Destination noindex quality gate');
 requireText(destinationRoute, '...(destination.hero.credit ? { creditText: destination.hero.credit } : {})', 'Destination image credit schema');
+requireText(countyRoute, "import('@/data/rv-parks').then(({ rvParksForCounty }) => rvParksForCounty(entity.slug))", 'County loader RV server-function fetch');
+requireText(countyRoute, 'const countyEntity = { ...entity, rvParks: countyRvParks };', 'County loader RV serialization');
+requireText(countySection, 'rvParks: Destination[]', 'Pure county RV render input');
 requireText(countySection, "'@type': 'Campground'", 'County Campground schema');
 requireText(countySection, 'href="/explore/rv-parks"', 'County-to-statewide RV discovery');
+if (countySection.includes('use(rvParksForCounty(') || countySection.includes("from '@/data/rv-parks'")) errors.push('County RV component must render preloaded rows rather than suspend on a client-side RV lookup.');
 requireText(countyHost, "import { CountyRvParks } from '@/components/explore/CountyRvParks';", 'Server-rendered county RV boundary');
-requireText(countyHost, '<CountyRvParks county={county} />', 'Server-rendered county RV section');
+requireText(countyHost, 'const rvParks = county.rvParks ?? [];', 'County loader RV payload consumption');
+requireText(countyHost, '<CountyRvParks county={county} rvParks={rvParks} />', 'Server-rendered county RV section');
 if (countyHost.includes("lazy(() => import('@/components/explore/CountyRvParks'))")) errors.push('County RV section must not regress to a client-only lazy boundary.');
 requireText(sitemap, '"/explore/rv-parks"', 'RV collection sitemap entry');
 requireText(sitemap, '.filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing)', 'Destination sitemap quality gate');
@@ -60,4 +66,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), server-rendered collection/county Campground discovery, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
+console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), loader-backed server-rendered collection/county Campground discovery, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
