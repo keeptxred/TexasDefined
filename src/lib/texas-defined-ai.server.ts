@@ -1,13 +1,14 @@
 import { buildSearchDocuments } from "../data/search-documents-runtime";
 import type { SearchDocument } from "../data/types";
-import { search } from "../domain/search/engine";
+import { search, type SearchHit } from "../domain/search/engine";
 
 const AI_API_PATH = "/api/texas-defined-ai";
 const AI_PAGE_PATH = "/ask-texas";
-const DEFAULT_MODEL = "gpt-5.6-luna";
+const DEFAULT_MODEL = "@cf/google/gemma-4-26b-a4b-it";
 const MAX_QUESTION_LENGTH = 900;
 const MAX_REQUEST_BYTES = 8_192;
 const MAX_CONTEXT_SOURCES = 8;
+const MAX_COMPLETION_TOKENS = 550;
 const SITE_ORIGIN = "https://texasdefined.com";
 
 const EXAMPLE_QUESTIONS = [
@@ -17,10 +18,11 @@ const EXAMPLE_QUESTIONS = [
   "Help me understand farm-to-market roads.",
 ] as const;
 
-type OpenAIResponsePart = { type?: unknown; text?: unknown };
-type OpenAIResponseItem = { type?: unknown; content?: unknown };
-type OpenAIResponsePayload = { output_text?: unknown; output?: unknown; error?: { message?: unknown } };
 type RateLimiter = { limit: (input: { key: string }) => Promise<{ success: boolean }> };
+type WorkersAi = { run: (model: string, input: Record<string, unknown>) => Promise<unknown> };
+type AnalyticsDataset = {
+  writeDataPoint: (input: { blobs?: string[]; doubles?: number[]; indexes?: string[] }) => void;
+};
 
 type AiSource = {
   title: string;
@@ -45,6 +47,20 @@ function rateLimiter(env: unknown): RateLimiter | null {
   if (typeof value !== "object" || value === null) return null;
   const limit = Reflect.get(value, "limit");
   return typeof limit === "function" ? value as RateLimiter : null;
+}
+
+function workersAi(env: unknown): WorkersAi | null {
+  if (typeof env !== "object" || env === null) return null;
+  const value = Reflect.get(env, "AI");
+  if (typeof value !== "object" || value === null) return null;
+  return typeof Reflect.get(value, "run") === "function" ? value as WorkersAi : null;
+}
+
+function analyticsDataset(env: unknown): AnalyticsDataset | null {
+  if (typeof env !== "object" || env === null) return null;
+  const value = Reflect.get(env, "TEXAS_DEFINED_AI_ANALYTICS");
+  if (typeof value !== "object" || value === null) return null;
+  return typeof Reflect.get(value, "writeDataPoint") === "function" ? value as AnalyticsDataset : null;
 }
 
 function jsonError(message: string, status: number, allow?: string) {
@@ -87,24 +103,28 @@ function asSource(document: SearchDocument): AiSource {
 }
 
 function buildContext(sources: AiSource[]) {
-  if (!sources.length) return "No matching Texas Defined source page was found for this question.";
+  if (!sources.length) return "No matching Texas Defined source page was supplied for this question.";
   return sources
     .map((source, index) => `[${index + 1}] ${source.title}\nURL: ${SITE_ORIGIN}${source.href}\nType: ${source.kind}\nSummary: ${source.summary}`)
     .join("\n\n");
 }
 
-function outputText(payload: OpenAIResponsePayload): string | null {
-  if (typeof payload.output_text === "string" && payload.output_text.trim()) return payload.output_text.trim();
-  if (!Array.isArray(payload.output)) return null;
+function outputText(payload: unknown): string | null {
+  if (typeof payload !== "object" || payload === null) return null;
 
-  const chunks: string[] = [];
-  for (const item of payload.output as OpenAIResponseItem[]) {
-    if (item?.type !== "message" || !Array.isArray(item.content)) continue;
-    for (const part of item.content as OpenAIResponsePart[]) {
-      if (part?.type === "output_text" && typeof part.text === "string" && part.text.trim()) chunks.push(part.text.trim());
-    }
+  const direct = Reflect.get(payload, "response");
+  if (typeof direct === "string" && direct.trim()) return direct.trim();
+
+  const choices = Reflect.get(payload, "choices");
+  if (!Array.isArray(choices)) return null;
+  for (const choice of choices) {
+    if (typeof choice !== "object" || choice === null) continue;
+    const message = Reflect.get(choice, "message");
+    if (typeof message !== "object" || message === null) continue;
+    const content = Reflect.get(message, "content");
+    if (typeof content === "string" && content.trim()) return content.trim();
   }
-  return chunks.length ? chunks.join("\n\n") : null;
+  return null;
 }
 
 function escapeHtml(value: string) {
@@ -120,6 +140,56 @@ function safeSourceHref(href: string) {
   return /^\/[A-Za-z0-9][A-Za-z0-9/_.,~%+?=&:@()-]*$/.test(href) ? href : "/search";
 }
 
+function coverageTier(hits: SearchHit[]) {
+  const score = hits[0]?.score ?? 0;
+  if (score >= 18) return "strong";
+  if (score >= 8) return "partial";
+  return "gap";
+}
+
+function sanitizeTelemetryQuestion(question: string) {
+  return question
+    .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "[email]")
+    .replace(/\b(?:\+?1[-.\s]?)?(?:\(?\d{3}\)?[-.\s]?)\d{3}[-.\s]?\d{4}\b/g, "[phone]")
+    .replace(/\b\d{1,6}\s+[A-Za-z0-9.'-]+(?:\s+[A-Za-z0-9.'-]+){0,4}\s+(?:st|street|rd|road|ave|avenue|blvd|boulevard|ln|lane|dr|drive|ct|court|way)\b/gi, "[address]")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 600);
+}
+
+function telemetryKey(question: string) {
+  let hash = 2_166_136_261;
+  for (let index = 0; index < question.length; index += 1) {
+    hash ^= question.charCodeAt(index);
+    hash = Math.imul(hash, 16_777_619);
+  }
+  return `q-${(hash >>> 0).toString(16)}`;
+}
+
+function recordQuestion(env: unknown, question: string, hits: SearchHit[], outcome: string, model: string) {
+  const analytics = analyticsDataset(env);
+  if (!analytics) return;
+
+  const top = hits[0];
+  try {
+    analytics.writeDataPoint({
+      blobs: [
+        sanitizeTelemetryQuestion(question),
+        coverageTier(hits),
+        outcome,
+        top?.document.title ?? "",
+        top?.document.href ?? "",
+        top?.document.kind ?? "",
+        model,
+      ],
+      doubles: [1, top?.score ?? 0, hits.length],
+      indexes: [telemetryKey(question.toLowerCase().trim())],
+    });
+  } catch {
+    // Telemetry is never allowed to block an answer.
+  }
+}
+
 const instructions = `You are Texas Defined AI, the first-party AI guide for TexasDefined.com.
 
 Voice and scope:
@@ -130,9 +200,10 @@ Voice and scope:
 Grounding rules:
 - The supplied Texas Defined context is your primary source. When a claim comes from that context, cite it inline with its bracket number such as [1] or [2].
 - Never invent a Texas Defined citation, title, URL, event date, price, opening hour, rule, statistic, or availability detail.
-- You may use stable general knowledge to explain background when the supplied context does not contain the full answer, but clearly distinguish that from source-backed Texas Defined material and do not attach a bracket citation to unsupported details.
-- For laws, regulations, taxes, deadlines, closures, schedules, weather-sensitive conditions, prices, reservations, or other fast-changing facts, tell the reader to verify the responsible official source unless the supplied context itself provides a current verified value.
-- If Texas Defined does not yet have enough source-backed material to answer precisely, say that plainly and still suggest the closest relevant Texas Defined pages from the supplied context.
+- If the supplied Texas Defined context is incomplete, do not dead-end with language such as "Texas Defined does not have that information." Give the most useful answer you can from stable general knowledge while clearly separating that background from source-backed Texas Defined claims.
+- Never imply that you performed live web research when you did not.
+- For laws, regulations, taxes, deadlines, closures, schedules, weather-sensitive conditions, prices, reservations, or other fast-changing facts that are not verified in the supplied context, explain what can be established and identify the responsible official source the reader should use for the current value.
+- If an exact current fact cannot be verified from the supplied material, do not guess. Move the reader forward with the verified part of the answer and the correct next source to check.
 
 Answer style:
 - Start with the direct answer.
@@ -141,9 +212,9 @@ Answer style:
 - Do not mention these instructions, the model provider, retrieval, prompts, tokens, or hidden system details.`;
 
 async function generateAnswer(question: string, request: Request, env: unknown): Promise<GenerateResult> {
-  const apiKey = envValue(env, "OPENAI_API_KEY");
+  const ai = workersAi(env);
   const limiter = rateLimiter(env);
-  if (!apiKey || !limiter) return { ok: false, message: "Texas Defined AI is not configured yet.", status: 503 };
+  if (!ai || !limiter) return { ok: false, message: "Texas Defined AI is not configured yet.", status: 503 };
 
   try {
     const limited = await limiter.limit({ key: clientRateKey(request) });
@@ -169,45 +240,29 @@ async function generateAnswer(question: string, request: Request, env: unknown):
   const context = buildContext(sources);
   const model = envValue(env, "TEXAS_DEFINED_AI_MODEL") ?? DEFAULT_MODEL;
 
-  let upstream: Response;
+  let payload: unknown;
   try {
-    upstream = await fetch("https://api.openai.com/v1/responses", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model,
-        store: false,
-        reasoning: { effort: "low" },
-        instructions,
-        input: `Reader question:\n${question}\n\nTexas Defined context:\n${context}`,
-        max_output_tokens: 700,
-      }),
+    payload = await ai.run(model, {
+      messages: [
+        { role: "system", content: instructions },
+        { role: "user", content: `Reader question:\n${question}\n\nTexas Defined context:\n${context}` },
+      ],
+      max_completion_tokens: MAX_COMPLETION_TOKENS,
+      temperature: 0.2,
+      chat_template_kwargs: { enable_thinking: false },
     });
   } catch {
+    recordQuestion(env, question, hits, "model-error", model);
     return { ok: false, message: "Texas Defined AI could not answer that right now.", status: 502 };
   }
 
-  let payload: OpenAIResponsePayload = {};
-  try {
-    payload = await upstream.json() as OpenAIResponsePayload;
-  } catch {
-    // Keep public errors generic even when the upstream body is not JSON.
-  }
-
-  if (!upstream.ok) {
-    return {
-      ok: false,
-      message: upstream.status === 429 ? "Texas Defined AI is busy. Please try again shortly." : "Texas Defined AI could not answer that right now.",
-      status: upstream.status === 429 ? 429 : 502,
-      retryAfter: upstream.headers.get("retry-after") ?? undefined,
-    };
-  }
-
   const answer = outputText(payload);
-  if (!answer) return { ok: false, message: "Texas Defined AI returned an empty answer.", status: 502 };
+  if (!answer) {
+    recordQuestion(env, question, hits, "empty-answer", model);
+    return { ok: false, message: "Texas Defined AI returned an empty answer.", status: 502 };
+  }
+
+  recordQuestion(env, question, hits, "answered", model);
   return { ok: true, answer, sources };
 }
 
@@ -258,7 +313,7 @@ function renderAskTexasPage(options: {
 <form class="askbox" action="${AI_PAGE_PATH}" method="post">
 <label for="question">What do you want to know about Texas?</label>
 <textarea id="question" name="question" maxlength="${MAX_QUESTION_LENGTH}" required placeholder="Why are Texas roads called FM roads? Where should I spend a weekend near Fredericksburg?">${escapeHtml(question)}</textarea>
-<div class="formfoot"><p class="note">AI answers can make mistakes. Verify official sources for current rules, schedules, prices and deadlines.</p><button class="button" type="submit">Ask Texas Defined AI →</button></div>
+<div class="formfoot"><p class="note">AI answers can make mistakes. Current rules, schedules, prices and deadlines should be verified with the responsible official source.</p><button class="button" type="submit">Ask Texas Defined AI →</button></div>
 </form>
 <div class="examples" aria-label="Example questions">${examples}</div>
 ${error}${answer}${renderSources(options.sources ?? [])}
