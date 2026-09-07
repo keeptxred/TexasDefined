@@ -1,5 +1,6 @@
 import { Link, createLazyFileRoute } from "@tanstack/react-router";
 
+import { TexasBrandLocator } from "@/components/brands/TexasBrandLocator";
 import { Container } from "@/components/layout/Container";
 import { TEXAS_BRAND_DIRECTORY_COUNT, TEXAS_GROCERY_BRAND_EXPANSION } from "@/data/texas-brand-directory";
 import { texasIconCanonicalHref } from "@/data/things-unique-to-texas-links";
@@ -79,6 +80,8 @@ function TexasIconCategoryPage() {
                   <a href="/partner-with-us?type=brand-retail&source=%2Fthings-unique-to-texas%2Ftexas-brands" className="mt-4 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">Represent a Texas brand, grocer or retailer? Explore partnership options →</a>
                 </section>
               )}
+
+              {isTexasBrands && <TexasBrandLocator />}
 
               <div className="grid gap-4 sm:grid-cols-2">
                 {category.items.map((entry) => {
