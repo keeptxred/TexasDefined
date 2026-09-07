@@ -5,7 +5,8 @@ const serverSource = readFileSync(new URL("../texas-brand-locator.server.ts", im
 const typesSource = readFileSync(new URL("../texas-brand-locator.types.ts", import.meta.url), "utf8");
 const componentSource = readFileSync(new URL("../../components/brands/TexasBrandLocator.tsx", import.meta.url), "utf8");
 const brandRouteSource = readFileSync(new URL("../../routes/things-unique-to-texas_.$category.lazy.tsx", import.meta.url), "utf8");
-const apiSource = readFileSync(new URL("../../routes/api.texas-brand-locator.ts", import.meta.url), "utf8");
+const apiSource = readFileSync(new URL("../../lib/texas-brand-locator-api.server.ts", import.meta.url), "utf8");
+const serverEntrySource = readFileSync(new URL("../../server-entry.ts", import.meta.url), "utf8");
 const rootSource = readFileSync(new URL("../../routes/__root.tsx", import.meta.url), "utf8");
 const bootstrapSource = readFileSync(new URL("../../../public/texas-brand-locator.js", import.meta.url), "utf8");
 const migrationSource = readFileSync(new URL("../../../supabase/migrations/20260907143800_create_texasdefined_brand_locations.sql", import.meta.url), "utf8");
@@ -53,9 +54,10 @@ describe("Texas brand locator", () => {
 
   it("exposes a reusable server endpoint and embeds the locator in the existing Texas Brands chapter", () => {
     expect(typesSource).toContain('export type TexasBrandLocatorBrand = "heb" | "bucees"');
-    expect(apiSource).toContain('createFileRoute("/api/texas-brand-locator")');
-    expect(apiSource).toContain('await import("@/data/texas-brand-locator.server")');
+    expect(apiSource).toContain('const ENDPOINT_PATH = "/api/texas-brand-locator"');
     expect(apiSource).toContain("findTexasBrandLocationsServer");
+    expect(serverEntrySource).toContain('import { texasBrandLocatorApiResponse } from "./lib/texas-brand-locator-api.server"');
+    expect(serverEntrySource).toContain("const brandLocatorResponse = await texasBrandLocatorApiResponse(request)");
     expect(brandRouteSource).toContain('import { TexasBrandLocator } from "@/components/brands/TexasBrandLocator"');
     expect(brandRouteSource).toContain("{isTexasBrands && <TexasBrandLocator />}");
   });
