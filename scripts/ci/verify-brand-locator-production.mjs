@@ -45,6 +45,9 @@ async function verifyLocatorApi() {
         headers: {
           'content-type': 'application/json',
           accept: 'application/json',
+          origin,
+          referer: `${origin}/things-unique-to-texas/texas-brands`,
+          'sec-fetch-site': 'same-origin',
           'user-agent': userAgent,
         },
         body: JSON.stringify({ address: publicTestAddress, brands: ['bucees'] }),
@@ -58,7 +61,7 @@ async function verifyLocatorApi() {
       lastError = challenged
         ? 'Cloudflare challenge'
         : !response.ok
-          ? `HTTP ${response.status}`
+          ? `HTTP ${response.status}${typeof payload?.error === 'string' ? `: ${payload.error}` : ''}`
           : !hasMatchedAddress
             ? 'missing matchedAddress'
             : 'no Buc-ee\'s result returned';
