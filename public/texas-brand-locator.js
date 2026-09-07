@@ -18,6 +18,83 @@
     return node;
   }
 
+  function fieldLabel(labelText, control) {
+    const label = document.createElement("label");
+    label.className = "grid gap-2 text-sm font-semibold";
+    label.htmlFor = control.id;
+    label.append(document.createTextNode(labelText), control);
+    return label;
+  }
+
+  function mountLocator() {
+    const anchor = document.querySelector("[data-texas-brand-locator-anchor]");
+    if (!anchor || document.querySelector("[data-texas-brand-locator]")) return;
+
+    const section = document.createElement("section");
+    section.dataset.texasBrandLocator = "";
+    section.setAttribute("aria-labelledby", "texas-brand-locator-heading");
+    section.className = "mb-12 border-y border-border bg-muted/20 py-8 sm:px-8";
+
+    const inner = document.createElement("div");
+    inner.className = "px-6 sm:px-0";
+    inner.append(text("p", "Texas brand locator", "text-xs font-semibold uppercase tracking-[0.16em] text-primary"));
+    const heading = text("h2", "Find your H-E-B or Buc-ee's", "mt-2 font-display text-4xl");
+    heading.id = "texas-brand-locator-heading";
+    inner.append(heading);
+    inner.append(text("p", "Enter a Texas street address and choose what you want to find. TexasDefined uses the U.S. Census geocoder for the search location, H-E-B's live store locator for H-E-B results, and an editorially verified snapshot of Buc-ee's official Texas location list for Buc-ee's results.", "mt-4 max-w-3xl text-sm leading-7 text-muted-foreground"));
+
+    const form = document.createElement("form");
+    form.dataset.texasBrandLocatorForm = "";
+    form.className = "mt-6 grid gap-4 lg:grid-cols-[220px_1fr_auto] lg:items-end";
+
+    const brand = document.createElement("select");
+    brand.id = "texas-brand-choice";
+    brand.name = "brand";
+    brand.className = "min-h-11 border border-border bg-background px-3 py-2 font-normal text-foreground";
+    for (const [value, label] of [["both", "H-E-B + Buc-ee's"], ["heb", "H-E-B"], ["bucees", "Buc-ee's"]]) {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = label;
+      brand.append(option);
+    }
+
+    const address = document.createElement("input");
+    address.id = "texas-brand-address";
+    address.name = "address";
+    address.type = "text";
+    address.required = true;
+    address.minLength = 8;
+    address.maxLength = 240;
+    address.autocomplete = "street-address";
+    address.placeholder = "Example: 123 Main St, Katy, TX 77494";
+    address.className = "min-h-11 border border-border bg-background px-3 py-2 font-normal text-foreground";
+
+    const button = document.createElement("button");
+    button.type = "submit";
+    button.textContent = "Find nearby locations";
+    button.className = "min-h-11 border border-primary bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground disabled:opacity-60";
+
+    form.append(fieldLabel("Find", brand), fieldLabel("Texas street address", address), button);
+    inner.append(form);
+    inner.append(text("p", "Your address is used to perform this search and is not stored or displayed publicly. Distances are approximate; use the official brand link or directions link before traveling.", "mt-3 text-xs leading-5 text-muted-foreground"));
+
+    const status = document.createElement("div");
+    status.dataset.texasBrandLocatorStatus = "";
+    status.className = "mt-6 text-sm text-muted-foreground";
+    status.setAttribute("aria-live", "polite");
+    status.hidden = true;
+    inner.append(status);
+
+    const results = document.createElement("div");
+    results.dataset.texasBrandLocatorResults = "";
+    results.className = "mt-8";
+    results.setAttribute("aria-live", "polite");
+    inner.append(results);
+
+    section.append(inner);
+    anchor.after(section);
+  }
+
   function renderGroup(root, heading, results) {
     if (!results.length) return;
     const section = document.createElement("section");
@@ -50,10 +127,7 @@
 
   function render(root, payload) {
     root.replaceChildren();
-    if (payload.matchedAddress) {
-      const matched = text("p", `Searching from ${payload.matchedAddress}`, "mb-5 text-sm text-muted-foreground");
-      root.append(matched);
-    }
+    if (payload.matchedAddress) root.append(text("p", `Searching from ${payload.matchedAddress}`, "mb-5 text-sm text-muted-foreground"));
     if (Array.isArray(payload.notices) && payload.notices.length) {
       const notices = document.createElement("div");
       notices.className = "mb-6 space-y-2 border-y border-border py-4 text-sm leading-6 text-muted-foreground";
@@ -97,8 +171,7 @@
         headers: { "content-type": "application/json", accept: "application/json" },
         body: JSON.stringify({ address, brands }),
       });
-      const payload = await response.json();
-      render(results, payload);
+      render(results, await response.json());
       status.hidden = true;
     } catch {
       status.hidden = false;
@@ -107,4 +180,7 @@
       if (button) button.disabled = false;
     }
   });
+
+  mountLocator();
+  new MutationObserver(mountLocator).observe(document.documentElement, { childList: true, subtree: true });
 })();
