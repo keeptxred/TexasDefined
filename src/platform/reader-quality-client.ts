@@ -1,4 +1,8 @@
-import { classifyReaderReferrer, type ReaderQualitySignals } from './reader-quality';
+import {
+  READER_QUALITY_INTERNAL_BROWSER_KEY,
+  classifyReaderReferrer,
+  type ReaderQualitySignals,
+} from './reader-quality';
 
 const SESSION_KEY = 'texasdefined:analytics-session';
 const INGEST_PATH = '/api/reader-quality';
@@ -17,8 +21,15 @@ function analyticsSessionId() {
   return created;
 }
 
+function excludedBrowserOrPath(path = window.location.pathname) {
+  const hostname = window.location.hostname.toLowerCase();
+  if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1') return true;
+  if (path === '/admin' || path.startsWith('/admin/')) return true;
+  return safeStorage()?.getItem(READER_QUALITY_INTERNAL_BROWSER_KEY) === '1';
+}
+
 export function installReaderQualitySignals() {
-  if (typeof window === 'undefined') return () => undefined;
+  if (typeof window === 'undefined' || excludedBrowserOrPath()) return () => undefined;
 
   const sessionId = analyticsSessionId();
   const referrerClass = classifyReaderReferrer(document.referrer, window.location.origin);
@@ -50,7 +61,7 @@ export function installReaderQualitySignals() {
   });
 
   const send = (reason: string, preferBeacon = false) => {
-    if (disposed) return;
+    if (disposed || excludedBrowserOrPath(currentPath.split('?')[0])) return;
     const body = JSON.stringify({ ...snapshot(), reason });
     if (preferBeacon && navigator.sendBeacon) {
       const sent = navigator.sendBeacon(INGEST_PATH, new Blob([body], { type: 'application/json' }));
