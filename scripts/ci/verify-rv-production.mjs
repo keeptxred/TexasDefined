@@ -1,4 +1,11 @@
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
+const curatedProfiles = [
+  { path: '/destination/blanco-state-park-rv-area', name: 'Blanco State Park RV Area' },
+  { path: '/destination/garner-state-park-rv-loops', name: 'Garner State Park RV Loops' },
+  { path: '/destination/pedernales-falls-state-park-rv-sites', name: 'Pedernales Falls State Park RV Sites' },
+  { path: '/destination/galveston-island-state-park-rv-area', name: 'Galveston Island State Park RV Area' },
+  { path: '/destination/palo-duro-canyon-state-park-rv-loop', name: 'Palo Duro Canyon State Park RV Loop' },
+];
 const profilePath = '/destination/palo-duro-canyon-state-park-rv-loop';
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -21,6 +28,10 @@ function canonicalHref(html) {
     return tag.match(/\bhref=["']([^"']+)["']/i)?.[1] ?? '';
   }
   return '';
+}
+
+function robotsDirectives(html) {
+  return new Set(metaContent(html, 'robots').toLowerCase().split(',').map((item) => item.trim()).filter(Boolean));
 }
 
 function visibleText(html) {
@@ -93,25 +104,38 @@ if (metaContent(hub.body, 'robots').toLowerCase().includes('noindex')) {
 }
 console.log('RV hub production verification passed: indexable canonical collection with Campground ItemList coverage.');
 
-const profile = await fetchProduction(profilePath);
-requireIncludes(profile.body, [
-  'Palo Duro Canyon State Park RV Loop',
-  'Campground inside Palo Duro Canyon State Park in Randall County, Texas',
-  'Photography:',
-  'Larry D. Moore',
-  'CC BY 4.0',
-  'Wikimedia Commons',
-  '"@type":"WebPage"',
-  '"@type":"TouristAttraction"',
-], 'RV profile');
-if (canonicalHref(profile.body) !== `${origin}${profilePath}`) {
-  throw new Error(`RV profile canonical mismatch: ${canonicalHref(profile.body) || 'missing'}`);
+const sitemap = await fetchProduction('/sitemap-explore.xml');
+for (const profile of curatedProfiles) {
+  requireIncludes(sitemap.body, [`${origin}${profile.path}`], `RV sitemap ${profile.name}`);
 }
-const profileRobots = metaContent(profile.body, 'robots').toLowerCase();
-if (!profileRobots.includes('noindex') || !profileRobots.includes('follow')) {
-  throw new Error(`RV profile robots policy mismatch: ${profileRobots || 'missing'}`);
+console.log(`RV sitemap production verification passed: all ${curatedProfiles.length} curated public-park profiles are discoverable.`);
+
+for (const profileSpec of curatedProfiles) {
+  const profile = await fetchProduction(profileSpec.path);
+  requireIncludes(profile.body, [
+    profileSpec.name,
+    '"@type":"WebPage"',
+    '"@type":"TouristAttraction"',
+  ], `RV profile ${profileSpec.name}`);
+  if (canonicalHref(profile.body) !== `${origin}${profileSpec.path}`) {
+    throw new Error(`RV profile canonical mismatch for ${profileSpec.name}: ${canonicalHref(profile.body) || 'missing'}`);
+  }
+  const directives = robotsDirectives(profile.body);
+  if (directives.has('noindex') || !directives.has('index') || !directives.has('follow')) {
+    throw new Error(`RV profile robots policy mismatch for ${profileSpec.name}: ${metaContent(profile.body, 'robots') || 'missing'}`);
+  }
+
+  if (profileSpec.path === profilePath) {
+    requireIncludes(profile.body, [
+      'Campground inside Palo Duro Canyon State Park in Randall County, Texas',
+      'Photography:',
+      'Larry D. Moore',
+      'CC BY 4.0',
+      'Wikimedia Commons',
+    ], 'Palo Duro RV profile attribution');
+  }
 }
-console.log('RV profile production verification passed: canonical noindex/follow seed profile with exact campground photo attribution.');
+console.log(`RV profile production verification passed: all ${curatedProfiles.length} curated public-park profiles are canonical index/follow pages with WebPage and TouristAttraction schema; Palo Duro attribution remains intact.`);
 
 const county = await fetchProduction('/county/randall');
 requireVisibleIncludes(county.body, [
@@ -126,4 +150,4 @@ requireIncludes(county.body, [
 ], 'Randall County RV integration');
 console.log('Randall County RV production verification passed: visible RV discovery section, Campground ItemList and statewide-directory handoff.');
 
-console.log('TexasDefined RV production smoke passed for hub, seed profile, attribution, indexing policy and county integration.');
+console.log(`TexasDefined RV production smoke passed for hub, ${curatedProfiles.length} index-ready profiles, sitemap discovery, attribution and Randall County integration.`);
