@@ -82,32 +82,11 @@ function answerLines(response: TexasBrandLocatorResponse, brands: TexasBrandLoca
   return lines;
 }
 
-function officialSources(response: TexasBrandLocatorResponse): OfficialResearchSource[] {
-  const seen = new Set<string>();
-  const now = new Date().toISOString();
-  const sources: OfficialResearchSource[] = [];
-  for (const link of response.fallbackLinks) {
-    const baseUrl = link.brand === "heb" ? "https://www.heb.com/store-locations" : "https://buc-ees.com/locations/";
-    if (seen.has(baseUrl)) continue;
-    seen.add(baseUrl);
-    sources.push({
-      authority: link.brand === "heb" ? "H-E-B" : "Buc-ee's",
-      title: link.brand === "heb" ? "H-E-B official store locator" : "Buc-ee's official locations",
-      url: baseUrl,
-      retrievedAt: now,
-      snippet: link.brand === "heb"
-        ? "Official H-E-B store-location source used for this lookup."
-        : "Official Buc-ee's location source used by TexasDefined's verified Texas registry.",
-    });
-  }
-  return sources;
-}
-
 function texasBrandsSource() {
   return {
     title: "Legendary Texas Brands & Retail Institutions",
     href: "/things-unique-to-texas/texas-brands",
-    summary: "TexasDefined's Texas Brands chapter includes the Find Your H-E-B / Buc-ee's locator and editorial brand guides.",
+    summary: "TexasDefined's Texas Brands chapter includes the Find Your H-E-B / Buc-ee's locator and direct links to the brands' official location sources.",
     kind: "guide" as const,
   };
 }
@@ -121,21 +100,24 @@ function buildAnswer(
   const lines = answerLines(response, brands, placeLabel);
   const resultCount = response.results.filter((item) => brands.includes(item.brand)).length;
   if (lines.length) {
-    lines.push("Distances are approximate straight-line distances for Buc-ee's and should be verified with the official brand link before traveling.");
+    lines.push("Distances are approximate straight-line distances for Buc-ee's. For the latest hours, services, closures or location changes, use the direct official links in TexasDefined's Texas Brands locator.");
     if (response.notices.length) lines.push(response.notices.join(" "));
   } else {
     lines.push(`I could not verify a nearby ${brands.map((brand) => brand === "heb" ? "H-E-B" : "Buc-ee's").join(" or ")} result for ${placeLabel} right now.`);
-    lines.push("Use the official brand locator links below or the TexasDefined Texas Brands locator to continue without guessing.");
+    lines.push("Use the TexasDefined Texas Brands locator, which links directly to official H-E-B and Buc-ee's location sources, to continue without guessing.");
     if (response.notices.length) lines.push(response.notices.join(" "));
   }
 
   return {
     answer: lines.join("\n"),
     sources: [texasBrandsSource()],
-    officialSources: officialSources(response),
+    // H-E-B may be queried live, while Buc-ee's is served from TexasDefined's
+    // verified registry. Do not place either in the shared "live official
+    // research" renderer, which would overstate freshness for registry data.
+    officialSources: [],
     brands,
     texasPlace: signalPlace,
-    sourceCount: 1 + response.fallbackLinks.length,
+    sourceCount: 1,
     resultCount,
     answerStatus: resultCount > 0 ? "answered" : response.fallbackLinks.length > 0 ? "partial" : "unanswered",
   };
