@@ -2,6 +2,7 @@ import { use } from 'react';
 
 import { CountyIdentitySection } from '@/components/content/CountyIdentitySection';
 import { ArticleBody } from '@/components/editorial/ArticleBody';
+import { articleInternalLinks } from '@/data/article-internal-links';
 import { loadCountySeriesArticle } from '@/data/county-series';
 import type { CountyProfile } from '@/data/county-profile';
 import type { LocalGovernmentProfile } from '@/data/local-government-profile';
@@ -31,9 +32,13 @@ export function CountyGuideSections({ entity, profile, localGovernment, related 
   const hasServices = serviceLinks.length > 0 || localGovernment.appraisalDistrict.phone || localGovernment.taxOffice.phone;
   const countyName = entity.name.replace(/\s+County$/i, '').trim().toLowerCase();
   const countyChurches = expandedPaintedChurches.filter((church) => church.county.trim().toLowerCase() === countyName);
+  const countyEditorialLinks = countySeriesArticle ? mergeEditorialLinks(
+    countySeriesArticle.internalLinks ?? [],
+    articleInternalLinks[countySeriesArticle.slug] ?? [],
+  ).slice(0, 8) : [];
 
   return <>
-    {countySeriesArticle ? <section className="border-b border-border py-12" aria-labelledby="county-feature-heading"><div className="grid gap-8 lg:grid-cols-[14rem_1fr]"><div><p className="eyebrow text-primary">County feature</p><h2 id="county-feature-heading" className="mt-2 font-display text-4xl">The story of {entity.name}</h2></div><div className="min-w-0"><figure className="overflow-hidden bg-muted"><img src={countySeriesArticle.hero.src} alt={countySeriesArticle.hero.alt} width={countySeriesArticle.hero.width} height={countySeriesArticle.hero.height} loading="eager" decoding="async" className="aspect-[16/9] w-full object-cover" />{countySeriesArticle.hero.credit ? <figcaption className="border-t border-border px-4 py-3 text-xs text-muted-foreground">Photography: {countySeriesArticle.hero.credit}</figcaption> : null}</figure><div className="mt-8 max-w-3xl"><h3 className="font-display text-4xl leading-tight sm:text-5xl">{countySeriesArticle.title}</h3><p className="mt-4 text-lg leading-8 text-muted-foreground">{countySeriesArticle.dek}</p><p className="mt-3 text-xs uppercase tracking-[0.12em] text-muted-foreground">Published {formatDate(countySeriesArticle.publishedAt)} · {countySeriesArticle.readingMinutes} min read</p></div><div className="mt-10 max-w-3xl"><ArticleBody blocks={countySeriesArticle.body} entities={relatedEntities} /></div></div></div></section> : null}
+    {countySeriesArticle ? <section className="border-b border-border py-12" aria-labelledby="county-feature-heading"><div className="grid gap-8 lg:grid-cols-[14rem_1fr]"><div><p className="eyebrow text-primary">County feature</p><h2 id="county-feature-heading" className="mt-2 font-display text-4xl">The story of {entity.name}</h2></div><div className="min-w-0"><figure className="overflow-hidden bg-muted"><img src={countySeriesArticle.hero.src} alt={countySeriesArticle.hero.alt} width={countySeriesArticle.hero.width} height={countySeriesArticle.hero.height} loading="eager" decoding="async" className="aspect-[16/9] w-full object-cover" />{countySeriesArticle.hero.credit ? <figcaption className="border-t border-border px-4 py-3 text-xs text-muted-foreground">Photography: {countySeriesArticle.hero.credit}</figcaption> : null}</figure><div className="mt-8 max-w-3xl"><h3 className="font-display text-4xl leading-tight sm:text-5xl">{countySeriesArticle.title}</h3><p className="mt-4 text-lg leading-8 text-muted-foreground">{countySeriesArticle.dek}</p><p className="mt-3 text-xs uppercase tracking-[0.12em] text-muted-foreground">Published {formatDate(countySeriesArticle.publishedAt)} · {countySeriesArticle.readingMinutes} min read</p></div><div className="mt-10 max-w-3xl"><ArticleBody blocks={countySeriesArticle.body} entities={relatedEntities} /></div>{countyEditorialLinks.length ? <nav className="mt-12 max-w-3xl border-t border-border pt-7" aria-label={`More Texas Defined guides related to ${entity.name}`}><p className="eyebrow text-primary">Keep exploring {entity.name}</p><div className="mt-5 grid gap-4 sm:grid-cols-2">{countyEditorialLinks.map((link) => { const external = isExternalHref(link.href); return <a key={link.href} href={link.href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined} className="group rounded-md border border-border p-4 transition-colors hover:border-primary/50"><strong className="block font-display text-xl leading-tight group-hover:text-primary">{link.label}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{link.description}</span></a>; })}</div></nav> : null}</div></div></section> : null}
 
     <CountyIdentitySection countyName={entity.name} region={entity.region} profile={profile} />
 
@@ -53,9 +58,11 @@ export function CountyGuideSections({ entity, profile, localGovernment, related 
   </>;
 }
 
+function mergeEditorialLinks(primary: { href: string; label: string; description: string }[], supplemental: { href: string; label: string; description: string }[]) {
+  return [...new Map([...primary, ...supplemental].map((link) => [link.href, link])).values()];
+}
 function CountyAnswer({ question, answer, links = [] }: { question: string; answer: string; links?: { href: string; label: string }[] }) { return <details className="py-5"><summary className="cursor-pointer font-display text-xl">{question}</summary><p className="mt-3 text-sm leading-7 text-muted-foreground">{answer}</p>{links.length ? <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">{links.map((link) => { const external = isExternalHref(link.href); return <a key={link.href} href={link.href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{link.label}</a>; })}</div> : null}</details>; }
 function CountyFact({ label, value }: { label: string; value: string }) { return <div className="border-t border-border py-4"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">{label}</dt><dd className="mt-2 font-display text-2xl">{value}</dd></div>; }
 function isExternalHref(href: string) { return /^https?:\/\//i.test(href); }
 function title(value: string) { return value.replaceAll('-', ' ').replace(/\b\w/g, (character) => character.toUpperCase()); }
 function formatDate(value: string) { const date = new Date(`${value}T00:00:00`); return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }); }
-function formatDensity(value: number) { if (value >= 100) return Math.round(value).toLocaleString('en-US'); if (value >= 10) return value.toFixed(1); return value.toFixed(2); }
