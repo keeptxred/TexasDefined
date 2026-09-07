@@ -13,10 +13,13 @@ describe("editorial image delivery", () => {
     expect(editorialImageSrc(unsplash)).toBe(`/media/remote?url=${encodeURIComponent(unsplash)}`);
     const wikimedia = "https://upload.wikimedia.org/wikipedia/commons/a/a1/example.jpg";
     expect(editorialImageSrc(wikimedia)).toBe(`/media/remote?url=${encodeURIComponent(wikimedia)}`);
+    const wikimediaThumb = "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/example.jpg/1280px-example.jpg";
+    expect(editorialImageSrc(wikimediaThumb)).toBe(`/media/remote?url=${encodeURIComponent(wikimediaThumb)}`);
   });
 
   it("rejects non-HTTPS and unapproved hosts from the remote-image policy", () => {
     expect(allowedRemoteImageUrl("http://images.unsplash.com/photo.jpg")).toBeNull();
+    expect(allowedRemoteImageUrl("http://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/example.jpg/1280px-example.jpg")).toBeNull();
     expect(allowedRemoteImageUrl("https://evil.example/photo.jpg")).toBeNull();
     expect(allowedRemoteImageUrl("javascript:alert(1)")).toBeNull();
     expect(editorialImageSrc("https://evil.example/photo.jpg")).toBe("https://evil.example/photo.jpg");
