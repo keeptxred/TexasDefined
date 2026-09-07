@@ -5,7 +5,7 @@ import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Container } from '@/components/layout/Container';
 import { submitPartnerInquiry } from '@/data/partner-inquiry.functions';
 
-const description = 'Partner with Texas Defined on useful, clearly disclosed Texas home, moving, travel, sports-travel and local-service resources while preserving editorial independence.';
+const description = 'Partner with Texas Defined on useful, clearly disclosed Texas home, moving, travel, sports-travel, Texas-brand and local-service resources while preserving editorial independence.';
 
 export const Route = createLazyFileRoute('/partner-with-us')({ component: PartnerWithUsPage });
 
@@ -16,6 +16,7 @@ const partnershipOptions = [
   ['moving', 'Moving services'],
   ['travel', 'Travel / tourism'],
   ['sports-travel', 'Sports travel / local visitor business'],
+  ['brand-retail', 'Texas brand / grocery / retail'],
   ['sponsorship', 'Sponsorship'],
   ['other', 'Other'],
 ] as const;
@@ -81,7 +82,7 @@ function PartnerWithUsPage() {
           <p className="eyebrow text-primary">Partnership standards</p>
           <h2 id="partnership-standards-heading" className="mt-3 font-display text-4xl">A fit for the reader comes first</h2>
           <div className="mt-6 space-y-5 text-sm leading-7 text-muted-foreground">
-            <p>Texas Defined builds practical resources around Texas homes, property, moving, travel, sports destinations and local life. We are open to commercial relationships when they add a useful next step for readers.</p>
+            <p>Texas Defined builds practical resources around Texas homes, property, moving, travel, sports destinations, Texas brands and local life. We are open to commercial relationships when they add a useful next step for readers.</p>
             <p>Paid relationships do not buy editorial coverage, favorable rankings or changes to factual conclusions. Commercial links are labeled and use appropriate sponsored-link attributes.</p>
             <p>We are especially interested in partners that serve Texans directly and can support statewide or clearly defined local audiences.</p>
           </div>
@@ -93,6 +94,7 @@ function PartnerWithUsPage() {
               <li>Real estate and relocation</li>
               <li>Moving services</li>
               <li>Texas travel and tourism</li>
+              <li>Texas-founded or Texas-serving grocery, retail, food and consumer brands</li>
               <li>Hotels, restaurants, attractions, transportation and visitor services near major sports destinations</li>
               <li>Clearly disclosed sponsorships of useful evergreen resources</li>
             </ul>
@@ -121,6 +123,7 @@ function PartnerWithUsPage() {
           <p className="mt-4 text-sm leading-7 text-muted-foreground">This form is for business and sponsorship inquiries. Submissions are stored privately for Texas Defined to review.</p>
 
           {search.partnershipType === 'sports-travel' ? <p className="mt-4 border-l-2 border-primary pl-4 text-sm leading-6 text-muted-foreground">Sports-travel partnership is preselected because you arrived from a Texas Defined sports venue resource.</p> : null}
+          {search.partnershipType === 'brand-retail' ? <p className="mt-4 border-l-2 border-primary pl-4 text-sm leading-6 text-muted-foreground">Texas brand / grocery / retail is preselected because you arrived from the Texas Brands directory. Inclusion and editorial treatment are not for sale.</p> : null}
           {status === 'sent' ? <div className="mt-7 border-y border-border py-6" role="status"><p className="font-semibold">Inquiry received.</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Thank you. Texas Defined can review the details you submitted and follow up using the email address provided.</p></div> : null}
 
           <form onSubmit={submit} className="mt-8 grid gap-5" noValidate>
