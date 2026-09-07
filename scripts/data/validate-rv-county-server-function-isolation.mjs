@@ -4,6 +4,7 @@ const countyEventsBridge = fs.readFileSync('src/data/county-major-events.ts', 'u
 const countyRvIndex = fs.readFileSync('src/data/rv-parks/county-index.ts', 'utf8');
 const sharedFacade = fs.readFileSync('src/data/rv-parks/index.ts', 'utf8');
 const countyRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
+const countySection = fs.readFileSync('src/components/explore/CountyRvParks.tsx', 'utf8');
 
 const failures = [];
 const expect = (condition, message) => { if (!condition) failures.push(message); };
@@ -33,10 +34,15 @@ expect(countyRoute.includes('rvParks: countyRvParks, majorEvents: countyMajorEve
 expect(!countyRoute.includes("from '@/data/rv-parks/county.functions'"), 'county route must not restore the failed standalone RV server-function module');
 expect(!countyRoute.includes('getCountyDiscovery'), 'county route must not restore the failed unified county discovery RPC');
 
+expect(countySection.includes("import { loadCountyRvParksSnapshot } from '@/data/rv-parks/county-index';"), 'county RV renderer must own a synchronous lightweight snapshot fallback');
+expect(countySection.includes('rvParks.length ? rvParks : loadCountyRvParksSnapshot(county.name)'), 'county RV renderer must recover from an empty loader payload using verified county display identity');
+expect(countySection.includes('const resolvedRvParks ='), 'county RV renderer must use one resolved discovery set for markup and schema');
+expect(!countySection.includes('createServerFn'), 'county RV render fallback must remain synchronous and server-function free');
+
 if (failures.length) {
   console.error('County discovery boundary validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('County discovery boundary validation passed: major events keep their proven server RPC while RV cards use a bounded client-safe seed snapshot with no full registry or image payload.');
+console.log('County discovery boundary validation passed: major events keep their proven server RPC while RV cards use a bounded client-safe seed snapshot plus a synchronous SSR fallback when loader rows are empty.');

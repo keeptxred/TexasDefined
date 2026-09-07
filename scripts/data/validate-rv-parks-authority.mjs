@@ -84,9 +84,12 @@ requireText(countyRoute, 'const countyEntity = { ...entity, rvParks: countyRvPar
 if (countyRoute.includes("from '@/data/rv-parks/county.functions'")) errors.push('County loader must not import the failed standalone RV server-function module.');
 if (countyRoute.includes('getCountyDiscovery')) errors.push('County loader must not restore the failed unified county discovery server function.');
 requireText(countySection, 'rvParks: Destination[]', 'Pure county RV render input');
+requireText(countySection, "import { loadCountyRvParksSnapshot } from '@/data/rv-parks/county-index';", 'County RV synchronous snapshot fallback import');
+requireText(countySection, 'rvParks.length ? rvParks : loadCountyRvParksSnapshot(county.name)', 'County RV empty-loader SSR recovery');
+requireText(countySection, 'const resolvedRvParks =', 'County RV resolved discovery set');
 requireText(countySection, "'@type': 'Campground'", 'County Campground schema');
 requireText(countySection, 'href="/explore/rv-parks"', 'County-to-statewide RV discovery');
-if (countySection.includes('use(loadCountyRvParks(') || countySection.includes("from '@/data/rv-parks/county.functions'")) errors.push('County RV component must render preloaded rows rather than suspend on a client-side RV lookup.');
+if (countySection.includes('use(loadCountyRvParks(') || countySection.includes("from '@/data/rv-parks/county.functions'")) errors.push('County RV component must remain synchronous and must not suspend on a county RV server lookup.');
 requireText(countyHost, "import { CountyRvParks } from '@/components/explore/CountyRvParks';", 'Server-rendered county RV boundary');
 requireText(countyHost, 'const rvParks = county.rvParks ?? [];', 'County loader RV payload consumption');
 requireText(countyHost, 'const majorEvents = county.majorEvents ?? [];', 'County loader event payload consumption');
@@ -104,4 +107,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), bounded client-safe county RV discovery without a failing county RPC, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
+console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), bounded client-safe county RV discovery with synchronous SSR recovery when loader rows are empty, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
