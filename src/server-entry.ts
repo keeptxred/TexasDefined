@@ -1,4 +1,5 @@
 import server from "./server";
+import { texasBrandLocatorApiResponse } from "./lib/texas-brand-locator-api.server";
 import { texasDefinedGovernmentAiResponse } from "./lib/texas-defined-government-ai.server";
 import { texasDefinedAiResponse } from "./lib/texas-defined-ai.server";
 
@@ -14,6 +15,9 @@ const SEO_CANONICAL_REDIRECTS: Record<string, string> = {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const brandLocatorResponse = await texasBrandLocatorApiResponse(request);
+    if (brandLocatorResponse) return brandLocatorResponse;
+
     const governmentAiResponse = await texasDefinedGovernmentAiResponse(request, env);
     if (governmentAiResponse) return governmentAiResponse;
 
