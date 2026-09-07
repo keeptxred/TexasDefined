@@ -10,6 +10,7 @@ const rootSource = readFileSync(new URL("../../routes/__root.tsx", import.meta.u
 const bootstrapSource = readFileSync(new URL("../../../public/texas-brand-locator.js", import.meta.url), "utf8");
 const migrationSource = readFileSync(new URL("../../../supabase/migrations/20260907143800_create_texasdefined_brand_locations.sql", import.meta.url), "utf8");
 const geographyCacheMigration = readFileSync(new URL("../../../supabase/migrations/20260907193400_allow_brand_location_geography_cache.sql", import.meta.url), "utf8");
+const geographyCacheRestriction = readFileSync(new URL("../../../supabase/migrations/20260907194900_restrict_brand_location_geography_cache.sql", import.meta.url), "utf8");
 
 describe("Texas brand locator", () => {
   it("keeps the verified 36-location Buc-ee's Texas registry out of emitted app JavaScript", () => {
@@ -23,13 +24,15 @@ describe("Texas brand locator", () => {
     expect(bootstrapSource).not.toContain("bucees-40");
   });
 
-  it("protects the server-only location registry with RLS and explicit service-role access", () => {
+  it("protects the server-only location registry with RLS and least-privilege service-role access", () => {
     expect(migrationSource).toContain("alter table public.texasdefined_brand_locations enable row level security");
     expect(migrationSource).toContain("revoke all on table public.texasdefined_brand_locations from anon, authenticated");
     expect(migrationSource).toContain("grant select on table public.texasdefined_brand_locations to service_role");
     expect(geographyCacheMigration).toContain("grant update (latitude, longitude, updated_at)");
-    expect(geographyCacheMigration).toContain("to service_role");
-    expect(geographyCacheMigration).not.toMatch(/to\s+(?:anon|authenticated)/i);
+    expect(geographyCacheRestriction).toContain("revoke insert, delete, truncate, references, trigger, update");
+    expect(geographyCacheRestriction).toContain("grant update (latitude, longitude, updated_at)");
+    expect(geographyCacheRestriction).toContain("to service_role");
+    expect(geographyCacheRestriction).not.toMatch(/to\s+(?:anon|authenticated)/i);
     expect(migrationSource).toContain("https://buc-ees.com/locations/");
     expect(migrationSource).toContain("'2026-09-06','active'");
   });
