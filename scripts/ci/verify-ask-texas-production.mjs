@@ -49,7 +49,10 @@ async function ask(question) {
     },
     body: encoded,
   });
-  if (!response.ok) fail(`POST /ask-texas returned HTTP ${response.status}.`);
+  if (!response.ok) {
+    console.error(`[ask-texas] response sample: ${body.slice(0, 1800).replace(/\s+/g, ' ')}`);
+    fail(`POST /ask-texas returned HTTP ${response.status}.`);
+  }
   requireText('Ask Texas answer', body, '<section class="answer"');
   requireText('Ask Texas answer', body, 'Texas Defined sources');
   if (body.includes('Texas Defined AI is unavailable:')) fail('Ask Texas rendered an unavailable error after POST.');
