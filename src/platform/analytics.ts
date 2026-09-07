@@ -132,9 +132,6 @@ export function trackAIReferralVisit() {
 
 export function installTexasDefinedAnalytics() {
   if (typeof window === 'undefined') return () => undefined;
-  void import('./reader-quality-client')
-    .then(({ installReaderQualitySignals }) => installReaderQualitySignals())
-    .catch(() => undefined);
 
   const shown = new Set<string>();
   const click = (event: MouseEvent) => {
