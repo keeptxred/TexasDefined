@@ -6,9 +6,15 @@
   "compatibility_date": "2026-08-14",
   "compatibility_flags": ["nodejs_compat"],
   "workers_dev": true,
-  "secrets": {
-    "required": ["OPENAI_API_KEY"]
+  "ai": {
+    "binding": "AI"
   },
+  "analytics_engine_datasets": [
+    {
+      "binding": "TEXAS_DEFINED_AI_ANALYTICS",
+      "dataset": "texas_defined_ai_questions"
+    }
+  ],
   "ratelimits": [
     {
       "name": "TEXAS_DEFINED_AI_RATE_LIMITER",
