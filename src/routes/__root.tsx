@@ -118,7 +118,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               width: 512,
               height: 512,
             },
-            image: { "@id": `${siteUrl}/#logo" },
+            image: { "@id": `${siteUrl}/#logo` },
             sameAs: texasDefinedBrand.identity.social.map((profile) => profile.href),
             contactPoint: [{
               "@type": "ContactPoint",
@@ -137,7 +137,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             url: siteUrl,
             description: texasDefinedBrand.seo.defaultDescription,
             inLanguage: texasDefinedBrand.identity.locale,
-            publisher: { "@id": `${siteUrl}/#organization" },
+            publisher: { "@id": `${siteUrl}/#organization` },
             potentialAction: {
               "@type": "SearchAction",
               target: { "@type": "EntryPoint", urlTemplate: `${siteUrl}/search?q={search_term_string}` },
