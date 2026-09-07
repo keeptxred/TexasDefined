@@ -128,7 +128,26 @@ jobs:
 
       - name: Deploy TexasDefined Worker
         id: cloudflare
-        run: npx wrangler deploy
+        shell: bash
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ftkznprjljkhymknvhye.supabase.co' }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [[ -z "${SUPABASE_URL:-}" || -z "${SUPABASE_SERVICE_ROLE_KEY:-}" ]]; then
+            echo '::error title=Missing Supabase Worker credentials::SUPABASE_URL and a service-role repository secret are required for protected server-side intelligence writes.'
+            exit 1
+          fi
+          mkdir -p .artifacts
+          trap 'rm -f .artifacts/texasdefined-worker-secrets.json' EXIT
+          node --input-type=module <<'NODE'
+          import { writeFileSync } from 'node:fs';
+          const payload = {
+            SUPABASE_URL: process.env.SUPABASE_URL,
+            SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
+          };
+          writeFileSync('.artifacts/texasdefined-worker-secrets.json', JSON.stringify(payload), { mode: 0o600 });
+          NODE
+          npx wrangler deploy --secrets-file .artifacts/texasdefined-worker-secrets.json
 
       - name: Publish Cloudflare deploy result
         if: always()
