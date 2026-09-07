@@ -1,4 +1,5 @@
 import { articleInternalLinks } from "../article-internal-links";
+import "./supplemental-editorial-registration";
 
 const backupPowerGuideLink = {
   href: "/article/texas-backup-power-generator-guide",
