@@ -29,6 +29,7 @@ type RvParkContentOverride = Pick<Destination, "summary" | "bestSeason" | "entry
 export const RV_PARK_SEED_IMPORTED_AT = "2026-09-05";
 export const RV_PARK_SEED_COUNT = 250;
 export const RV_PARK_CURATED_PUBLIC_WAVE1_COUNT = 5;
+export const RV_PARK_CURATED_PUBLIC_WAVE2_COUNT = 5;
 
 const CONSERVATIVE_SEED = { coordinates: { lat: 0, lng: 0 } } as const;
 
@@ -75,6 +76,41 @@ const SOURCE_OVERRIDES: Record<string, Pick<RvParkSeedRecord, "officialUrl" | "s
     address: "11450 Park Road 5, Canyon, TX 79015",
     managingAuthority: "Texas Parks and Wildlife Department",
     coordinates: { lat: 34.984709, lng: -101.701867 },
+  },
+  "tyler-state-park-rv-loop": {
+    officialUrl: "https://tpwd.texas.gov/state-parks/tyler",
+    sourceCheckedAt: "2026-09-07",
+    address: "789 Park Road 16, Tyler, TX 75706-9141",
+    managingAuthority: "Texas Parks and Wildlife Department",
+    coordinates: { lat: 32.481414, lng: -95.289441 },
+  },
+  "huntsville-state-park-rv-loop": {
+    officialUrl: "https://tpwd.texas.gov/state-parks/huntsville",
+    sourceCheckedAt: "2026-09-07",
+    address: "565 Park Road 40 W, Huntsville, TX 77340",
+    managingAuthority: "Texas Parks and Wildlife Department",
+    coordinates: { lat: 30.628404, lng: -95.525921 },
+  },
+  "balmorhea-state-park-rv-area": {
+    officialUrl: "https://tpwd.texas.gov/state-parks/balmorhea",
+    sourceCheckedAt: "2026-09-07",
+    address: "9207 TX-17, Toyahvale, TX 79786",
+    managingAuthority: "Texas Parks and Wildlife Department",
+    coordinates: { lat: 30.945036, lng: -103.786663 },
+  },
+  "davis-mountains-state-park-rv-loop": {
+    officialUrl: "https://tpwd.texas.gov/state-parks/davis-mountains",
+    sourceCheckedAt: "2026-09-07",
+    address: "TX-118 N., Park Rd. 3, Fort Davis, TX 79734",
+    managingAuthority: "Texas Parks and Wildlife Department",
+    coordinates: { lat: 30.599103, lng: -103.92945 },
+  },
+  "copper-breaks-state-park-rv-area": {
+    officialUrl: "https://tpwd.texas.gov/state-parks/copper-breaks",
+    sourceCheckedAt: "2026-09-07",
+    address: "777 Park Road 62, Quanah, TX 79252-7679",
+    managingAuthority: "Texas Parks and Wildlife Department",
+    coordinates: { lat: 34.112176, lng: -99.743296 },
   },
   "caddo-lake-state-park-rv-area": {
     officialUrl: "https://tpwd.texas.gov/state-parks/caddo-lake",
@@ -144,6 +180,61 @@ const CONTENT_OVERRIDES: Readonly<Record<string, RvParkContentOverride>> = {
       "Palo Duro Canyon State Park has several developed camping areas suitable for RV travelers on the canyon floor. TPWD currently lists electric campsites in Juniper, Mesquite, Sagebrush and Hackberry areas, with water hookups and combinations of 20-, 30- and 50-amp electrical service depending on the campground. Some Mesquite, Sagebrush and Hackberry sites can accommodate RVs up to 60 feet, so the reserved site rather than the directory label should determine whether a particular rig fits.",
       "The campground is surrounded by one of Texas's most distinctive landscapes. More than 30 miles of hiking, biking and equestrian trails cross the park, including the popular Lighthouse Trail. TPWD repeatedly warns visitors to carry plenty of water and to take heat seriously; trails can also close after wet weather or during poor conditions. Summer visitors can add the TEXAS Outdoor Musical at the Pioneer Amphitheater to an overnight canyon stay.",
       "Palo Duro is about 12 miles east of Canyon, with the park road descending from the rim to the campground areas. RV travelers should reserve before arrival, confirm their assigned site's electrical service and length limits, and account for canyon driving before towing a long combination into the park. The exact-location Texas Defined campground image is rights-cleared, while operating details remain tied to the current TPWD campsite and park pages.",
+    ],
+  },
+  "tyler-state-park-rv-loop": {
+    summary: "Tyler State Park RV Loop gives Pineywoods travelers full-hookup and electric campsite options around a 64-acre spring-fed lake, with boating, fishing, swimming and more than 13 miles of park trails.",
+    bestSeason: "TPWD lists March through Thanksgiving as the busy season and says the park often reaches capacity. Reserve camping and entry ahead of time, especially for weekends and holiday periods.",
+    entryNote: "Enter at 789 Park Road 16 north of Tyler. TPWD lists 18 Lakeview and 39 Big Pine full-hookup sites plus 12 Cedar Point electric sites; confirm the exact reserved loop, utility package and current alerts before towing in.",
+    highlights: ["57 full-hookup campsites across Lakeview and Big Pine", "64-acre spring-fed lake for fishing, swimming and boating", "More than 13 miles of Pineywoods trails"],
+    body: [
+      "Tyler State Park is an unusually flexible state-park RV base because TPWD currently lists two full-hookup camping areas. Lakeview has 18 sites with water, sewer and 30/50-amp electricity, while the RV-only Big Pine area has 39 full-hookup sites with the same core utility types. Cedar Point adds 12 water-and-electric sites with 30/50-amp service. Individual reservation records should still control site fit, restrictions and current availability.",
+      "The campground surrounds a 64-acre spring-fed lake in the East Texas Pineywoods. TPWD lists boating, fishing and swimming along with more than 13 miles of hiking and mountain-biking trails. The historic Whispering Pines Nature Trail dates to Civilian Conservation Corps development, giving campers an easy way to combine lake time with the park's forest and built history.",
+      "Tyler State Park is at 789 Park Road 16, north of Tyler and Interstate 20. TPWD identifies March through Thanksgiving as the busy season and recommends advance reservations because the park can reach capacity. RV travelers should confirm the exact loop, current electrical needs, jack-pad requirements where applicable, vehicle limits and active park alerts before departure.",
+    ],
+  },
+  "huntsville-state-park-rv-loop": {
+    summary: "Huntsville State Park RV Loop combines 23 full-hookup and 77 electric campsites with 210-acre Lake Raven, 21 miles of Pineywoods trails and a convenient I-45 location north of Houston.",
+    bestSeason: "TPWD lists mid-February through Thanksgiving as the busy season and warns that the park often reaches capacity. Reserve camping and entry before travel and check current lake and park alerts.",
+    entryNote: "Enter at 565 Park Road 40 W southwest of Huntsville. Full-hookup Raven Hill sites are designed for RVs and offer 20/30/50-amp service; verify the specific site's drive length and vehicle limit before arrival.",
+    highlights: ["23 full-hookup RV sites plus 77 electric campsites", "210-acre Lake Raven for fishing, swimming and paddling", "21 miles of Pineywoods trails"],
+    body: [
+      "Huntsville State Park has substantial developed RV capacity within the East Texas Pineywoods. TPWD lists 23 full-hookup sites in Raven Hill with water, sewer and 20/30/50-amp electricity; the mostly paved area is designed for motorhomes and other recreational vehicles. Another 77 sites in Coloneh and Prairie Branch provide water and 20/30/50-amp electricity. Drive and vehicle lengths vary, so the exact reservation record matters for larger rigs.",
+      "Lake Raven anchors the park experience. TPWD describes the 210-acre lake as a place to fish, swim and paddle, with a boat ramp, fishing piers and kayak rentals. Away from the water, 21 miles of trails cross pine and hardwood habitat, including the Chinquapin Trail around the lake and shorter routes near wetlands, bird habitat and Civilian Conservation Corps features.",
+      "The park is six miles southwest of Huntsville off Interstate 45, making it practical for both Houston-area weekends and longer East Texas trips. TPWD says the park often reaches capacity and lists mid-February through Thanksgiving as the busy season. Reserve ahead, confirm the specific site's length and utility needs, and review current alerts plus alligator and water-safety guidance before arrival.",
+    ],
+  },
+  "balmorhea-state-park-rv-area": {
+    summary: "Balmorhea State Park RV Area pairs electric RV camping in Toyahvale with San Solomon Springs and the park's large spring-fed swimming pool, a distinctive West Texas stop between I-10 and the Davis Mountains.",
+    bestSeason: "TPWD lists Memorial Day through Labor Day and holidays as the busy season and says the park frequently reaches capacity. The spring-fed pool operates year-round except for scheduled maintenance, so reserve before a long drive.",
+    entryNote: "Enter at 9207 TX-17 in Toyahvale. TPWD lists 15 pull-through electric sites with 20/30/50-amp service and additional back-in electric sites; overnight check-in is 2 p.m. and early entry is not allowed.",
+    highlights: ["15 pull-through sites with 20/30/50-amp service", "San Solomon Springs spring-fed swimming pool", "West Texas base near the Davis Mountains"],
+    body: [
+      "Balmorhea State Park gives RV travelers a developed West Texas campsite beside one of the state's most unusual water attractions. TPWD lists 15 pull-through electric campsites with water and 20/30/50-amp service. The park also has back-in electric sites, though several in that category are tent-only and the RV-capable back-ins do not support 50-amp conversion. Travelers should reserve the correct site type rather than treating every numbered campsite as equivalent.",
+      "San Solomon Springs feeds the park's 1.3-acre swimming pool, where TPWD says water remains about 72 to 76 degrees year-round. The pool is open through the year aside from scheduled annual cleaning and can reach capacity during busy periods. The spring system also supports restored desert wetlands, birding and wildlife habitat, giving an overnight stay more context than a simple swim stop.",
+      "The park is at 9207 TX-17 in Toyahvale, four miles southwest of Balmorhea. TPWD does not allow early overnight entry before the reservation's 2 p.m. check-in time and strongly recommends reservations, particularly from Memorial Day through Labor Day and on holidays. Verify pool notices, campsite electrical needs, current alerts and arrival timing before crossing long West Texas distances.",
+    ],
+  },
+  "davis-mountains-state-park-rv-loop": {
+    summary: "Davis Mountains State Park RV Loop provides full-hookup and electric camping at roughly 5,000 to 6,000 feet in West Texas, with mountain trails, scenic drives, stargazing and historic CCC features near Fort Davis.",
+    bestSeason: "TPWD lists March through Labor Day as the busy season. Mountain nights can be cool even after hot days, while winter can bring freezing temperatures or snow; reserve ahead and check current weather and park alerts.",
+    entryNote: "Use the park entrance on TX-118 N. at Park Road 3 near Fort Davis. TPWD lists 26 full-hookup sites with 30/50-amp service and 34 water-and-electric sites with 20/30-amp service; confirm the exact reservation before towing in.",
+    highlights: ["26 full-hookup campsites with 30/50-amp service", "High-desert mountain hiking and biking", "Night skies, CCC history and scenic Skyline Drive"],
+    body: [
+      "Davis Mountains State Park is a high-elevation RV base in a part of Texas where distances between services and attractions matter. TPWD currently lists 26 full-hookup campsites with water, sewer and 30/50-amp electricity, plus 34 campsites with water and 20/30-amp electricity. Those developed sites let travelers stay inside the mountain landscape while using the exact reservation record to confirm current site dimensions and utility needs.",
+      "The park's appeal extends well beyond the campground. Visitors can hike, mountain bike, ride horses, take a scenic drive, watch wildlife and stay out for the night sky. Trails climb through high-desert grasslands and oak-juniper habitat, while Skyline Drive and Civilian Conservation Corps structures provide accessible viewpoints and historic context. TPWD notes that cell service is limited in the park and mountains.",
+      "Davis Mountains State Park sits on TX-118 north of Fort Davis at elevations TPWD lists between about 5,000 and 6,000 feet. March through Labor Day is the identified busy season, but temperatures can shift sharply after sunset and winter conditions can include freezing weather or snow. Reserve ahead, check weather and active alerts, and confirm the assigned campsite before towing into the mountains.",
+    ],
+  },
+  "copper-breaks-state-park-rv-area": {
+    summary: "Copper Breaks State Park RV Area offers 24 water-and-electric campsites in the Comanche Camping Area, backed by Rolling Plains trails, Lake Copper Breaks and one of Texas's designated dark-sky state parks.",
+    bestSeason: "TPWD lists spring and summer as the busy season. Hot summer days and exposed Rolling Plains terrain make weather, water and heat planning important; reserve ahead because the park can reach capacity.",
+    entryNote: "Enter at 777 Park Road 62 between Quanah and Crowell. The 24 Comanche electric campsites have water and 30/50-amp service; TPWD's water-only Kiowa sites are tent-only, so reserve the correct RV-capable area.",
+    highlights: ["24 Comanche sites with water and 30/50-amp electricity", "International Dark Sky Park stargazing", "Lake Copper Breaks and 10 miles of trails"],
+    body: [
+      "Copper Breaks State Park has a clearly defined RV-capable campground rather than uniform vehicle access across every overnight area. TPWD lists 24 sites with water and 30/50-amp electricity in the Comanche Camping Area. The park's water-only Kiowa campsites are tent-only, so RV travelers should select the Comanche inventory or another specifically compatible reservation instead of inferring access from the broader campground list.",
+      "The surrounding Rolling Plains landscape supports a varied stay. TPWD lists about 10 miles of trails for hiking and biking, fishing and swimming at park waters, and paddling or small-boat use on 60-acre Lake Copper Breaks, which is a no-wake lake. The park is also designated an International Dark Sky Park and hosts seasonal star parties, making clear-night conditions a meaningful part of trip planning.",
+      "Copper Breaks is at 777 Park Road 62 between Quanah and Crowell. TPWD lists spring and summer as the busy season and says the park often reaches capacity. Before towing in, reserve the exact RV-capable campsite, confirm current alerts and fire or weather conditions, and plan for heat and limited shade on exposed trails during warmer periods.",
     ],
   },
 };
