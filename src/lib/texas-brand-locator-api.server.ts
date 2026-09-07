@@ -2,6 +2,7 @@ import type { TexasBrandLocatorBrand, TexasBrandLocatorResponse } from "@/data/t
 import { findTexasBrandLocationsServer } from "@/data/texas-brand-locator.server";
 
 const ENDPOINT_PATH = "/api/texas-brand-locator";
+const MAX_REQUEST_BYTES = 4_096;
 const SUPPORTED_BRANDS = new Set<TexasBrandLocatorBrand>(["heb", "bucees"]);
 
 function json(body: TexasBrandLocatorResponse, status = 200) {
@@ -13,6 +14,30 @@ function json(body: TexasBrandLocatorResponse, status = 200) {
       "x-content-type-options": "nosniff",
     },
   });
+}
+
+function errorJson(message: string, status: number, allow?: string) {
+  const headers = new Headers({
+    "content-type": "application/json; charset=utf-8",
+    "cache-control": "no-store, private",
+    "x-content-type-options": "nosniff",
+  });
+  if (allow) headers.set("allow", allow);
+  return new Response(JSON.stringify({ error: message }), { status, headers });
+}
+
+function sameOriginRequest(request: Request) {
+  const origin = request.headers.get("origin");
+  if (!origin) return false;
+  const fetchSite = request.headers.get("sec-fetch-site");
+  if (fetchSite && fetchSite !== "same-origin") return false;
+  try {
+    const requestUrl = new URL(request.url);
+    const originUrl = new URL(origin);
+    return originUrl.protocol === requestUrl.protocol && originUrl.host === requestUrl.host;
+  } catch {
+    return false;
+  }
 }
 
 function fallbackLinks(brands: TexasBrandLocatorBrand[], query: string) {
@@ -29,17 +54,34 @@ export async function texasBrandLocatorApiResponse(request: Request): Promise<Re
   const url = new URL(request.url);
   if (url.pathname !== ENDPOINT_PATH) return null;
 
-  if (request.method !== "POST") {
-    return new Response("Method Not Allowed", {
-      status: 405,
-      headers: { allow: "POST", "cache-control": "no-store, private" },
-    });
+  if (request.method !== "POST") return errorJson("Method not allowed", 405, "POST");
+  if (!sameOriginRequest(request)) return errorJson("Cross-origin requests are not allowed", 403);
+  if (!request.headers.get("content-type")?.toLowerCase().startsWith("application/json")) {
+    return errorJson("Content-Type must be application/json", 415);
   }
 
-  const input = await request.json().catch(() => null) as { address?: unknown; brands?: unknown } | null;
-  const address = typeof input?.address === "string" ? input.address.trim().slice(0, 240) : "";
+  const contentLength = Number(request.headers.get("content-length") || "0");
+  if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) {
+    return errorJson("Request body is too large", 413);
+  }
+
+  const rawBody = await request.text();
+  if (new TextEncoder().encode(rawBody).byteLength > MAX_REQUEST_BYTES) {
+    return errorJson("Request body is too large", 413);
+  }
+
+  const input = (() => {
+    try {
+      return JSON.parse(rawBody) as { address?: unknown; brands?: unknown };
+    } catch {
+      return null;
+    }
+  })();
+  if (!input) return errorJson("Request body must be valid JSON", 400);
+
+  const address = typeof input.address === "string" ? input.address.trim().slice(0, 240) : "";
   const brands = Array.from(new Set(
-    (Array.isArray(input?.brands) ? input.brands : [])
+    (Array.isArray(input.brands) ? input.brands : [])
       .filter((brand): brand is TexasBrandLocatorBrand => typeof brand === "string" && SUPPORTED_BRANDS.has(brand as TexasBrandLocatorBrand)),
   ));
   const selectedBrands: TexasBrandLocatorBrand[] = brands.length ? brands : ["heb", "bucees"];
