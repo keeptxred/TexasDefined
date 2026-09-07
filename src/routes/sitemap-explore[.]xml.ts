@@ -144,6 +144,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
       GET: async () => {
         const { landscapeGuideSlugs, landscapeSlugs } = await import("@/data/texas-landscape-slugs");
         const { paintedChurchSearchGuides } = await import("@/data/painted-church-search-guides");
+        const { loadRvParkDestinationsServer } = await import("@/data/rv-parks/registry.server");
         const { selectSwimmingHoleAndTubingDestinations } = await import("@/data/water-recreation");
         let enrichedDestinations: Awaited<ReturnType<typeof fetchExploreDestinations>> = [];
         let coreDestinations: Awaited<ReturnType<typeof fetchCoreExploreDestinations>> = [];
@@ -173,7 +174,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           const remoteSlugs = new Set(rawDestinations.map((destination) => destination.slug));
           rawDestinations.push(...preservedExploreDestinations.filter((destination) => destination.slug && !remoteSlugs.has(destination.slug)));
         }
-        const destinations = resolveDestinationCatalog(rawDestinations);
+        const destinations = mergeDestinationSources(resolveDestinationCatalog(rawDestinations), loadRvParkDestinationsServer());
         const indexableDestinations = [...new Map(destinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
           .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
         const swimmingHoleAndTubingCount = selectSwimmingHoleAndTubingDestinations(indexableDestinations).length;
