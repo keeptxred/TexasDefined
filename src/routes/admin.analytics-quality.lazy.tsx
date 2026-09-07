@@ -1,19 +1,70 @@
-import type { ReactNode } from 'react';
+import type { FormEvent, ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, createLazyFileRoute } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
+import { getReaderQualityDashboard, type ReaderQualityDashboard } from '@/platform/reader-quality.functions';
+
+const SESSION_KEY = 'texasdefined:sports-partner-admin-key';
 
 export const Route = createLazyFileRoute('/admin/analytics-quality')({ component: Page });
 
 function Page() {
-  const report = Route.useLoaderData();
-  const latest = report.latest;
+  const [accessKey, setAccessKey] = useState('');
+  const [report, setReport] = useState<ReaderQualityDashboard | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
+  async function load(key: string) {
+    setLoading(true);
+    setError('');
+    try {
+      const result = await getReaderQualityDashboard({ data: { accessKey: key } });
+      setReport(result);
+      sessionStorage.setItem(SESSION_KEY, key);
+    } catch (cause) {
+      setReport(null);
+      setError(cause instanceof Error ? cause.message : 'Analytics quality could not be loaded.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    const key = sessionStorage.getItem(SESSION_KEY);
+    if (!key) return;
+    setAccessKey(key);
+    void load(key);
+  }, []);
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (accessKey.trim()) await load(accessKey.trim());
+  }
+
+  if (!report) return <Container className="py-16 sm:py-24">
+    <p className="eyebrow text-primary">TexasDefined Operations</p>
+    <h1 className="mt-3 font-display text-4xl sm:text-6xl">Analytics quality</h1>
+    <p className="mt-4 max-w-3xl text-muted-foreground">Separate GA4's raw active-user count from privacy-minimized first-party evidence of genuine reading behavior.</p>
+    <section className="mt-10 max-w-xl border-y border-border py-8">
+      <h2 className="font-display text-3xl">Unlock traffic metrics</h2>
+      <form onSubmit={submit} className="mt-6 grid gap-4">
+        <label className="grid gap-2 text-sm font-semibold">Admin access key
+          <input type="password" autoComplete="current-password" value={accessKey} onChange={(event) => setAccessKey(event.target.value)} className="min-h-11 border border-border bg-background px-3 py-2 font-normal" minLength={20} maxLength={200} required />
+        </label>
+        <button disabled={loading} className="min-h-11 justify-self-start bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground disabled:opacity-60">{loading ? 'Loading…' : 'Unlock analytics dashboard'}</button>
+      </form>
+      {error ? <p className="mt-4 text-sm font-semibold text-destructive">{error}</p> : null}
+    </section>
+  </Container>;
+
+  const latest = report.latest;
   return <Container className="py-16 sm:py-24">
     <p className="eyebrow text-primary">TexasDefined Operations</p>
     <h1 className="mt-3 font-display text-4xl sm:text-6xl">Analytics quality</h1>
     <p className="mt-4 max-w-3xl text-muted-foreground">Separate GA4's raw active-user count from privacy-minimized first-party evidence of genuine reading behavior. Quality classifications are conservative signals, not identity verification.</p>
     <div className="mt-8 flex flex-wrap gap-4 text-sm">
       <Link to="/admin/platform-health" className="font-medium text-primary hover:underline">← Platform health</Link>
+      <button type="button" onClick={() => void load(accessKey)} disabled={loading} className="font-medium text-primary hover:underline disabled:opacity-60">{loading ? 'Refreshing…' : 'Refresh'}</button>
     </div>
 
     <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
