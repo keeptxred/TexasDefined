@@ -29,6 +29,8 @@ type RvParkContentOverride = Pick<Destination, "summary" | "bestSeason" | "entry
 export const RV_PARK_SEED_IMPORTED_AT = "2026-09-05";
 export const RV_PARK_SEED_COUNT = 250;
 export const RV_PARK_CURATED_PUBLIC_WAVE1_COUNT = 5;
+export const RV_PARK_CURATED_PUBLIC_WAVE2_COUNT = 5;
+export const RV_PARK_CURATED_PUBLIC_COUNT = RV_PARK_CURATED_PUBLIC_WAVE1_COUNT + RV_PARK_CURATED_PUBLIC_WAVE2_COUNT;
 
 const CONSERVATIVE_SEED = { coordinates: { lat: 0, lng: 0 } } as const;
 
@@ -78,9 +80,38 @@ const SOURCE_OVERRIDES: Record<string, Pick<RvParkSeedRecord, "officialUrl" | "s
   },
   "caddo-lake-state-park-rv-area": {
     officialUrl: "https://tpwd.texas.gov/state-parks/caddo-lake",
-    sourceCheckedAt: "2026-09-05",
+    sourceCheckedAt: "2026-09-07",
     address: "245 Park Road 2, Karnack, TX 75661",
     managingAuthority: "Texas Parks and Wildlife Department",
+    coordinates: { lat: 32.680233, lng: -94.176361 },
+  },
+  "tyler-state-park-rv-loop": {
+    officialUrl: "https://tpwd.texas.gov/state-parks/tyler",
+    sourceCheckedAt: "2026-09-07",
+    address: "789 Park Road 16, Tyler, TX 75706-9141",
+    managingAuthority: "Texas Parks and Wildlife Department",
+    coordinates: { lat: 32.481414, lng: -95.289441 },
+  },
+  "huntsville-state-park-rv-loop": {
+    officialUrl: "https://tpwd.texas.gov/state-parks/huntsville",
+    sourceCheckedAt: "2026-09-07",
+    address: "565 Park Road 40 W, Huntsville, TX 77340",
+    managingAuthority: "Texas Parks and Wildlife Department",
+    coordinates: { lat: 30.628404, lng: -95.525921 },
+  },
+  "copper-breaks-state-park-rv-area": {
+    officialUrl: "https://tpwd.texas.gov/state-parks/copper-breaks",
+    sourceCheckedAt: "2026-09-07",
+    address: "777 Park Road 62, Quanah, TX 79252-7679",
+    managingAuthority: "Texas Parks and Wildlife Department",
+    coordinates: { lat: 34.112176, lng: -99.743296 },
+  },
+  "lake-mineral-wells-state-park-rv-loop": {
+    officialUrl: "https://tpwd.texas.gov/state-parks/lake-mineral-wells",
+    sourceCheckedAt: "2026-09-07",
+    address: "100 Park Road 71, Mineral Wells, TX 76067",
+    managingAuthority: "Texas Parks and Wildlife Department",
+    coordinates: { lat: 32.812655, lng: -98.043368 },
   },
   "powell-park-resort-and-marina": {
     officialUrl: "https://www.powellpark.com/",
@@ -144,6 +175,61 @@ const CONTENT_OVERRIDES: Readonly<Record<string, RvParkContentOverride>> = {
       "Palo Duro Canyon State Park has several developed camping areas suitable for RV travelers on the canyon floor. TPWD currently lists electric campsites in Juniper, Mesquite, Sagebrush and Hackberry areas, with water hookups and combinations of 20-, 30- and 50-amp electrical service depending on the campground. Some Mesquite, Sagebrush and Hackberry sites can accommodate RVs up to 60 feet, so the reserved site rather than the directory label should determine whether a particular rig fits.",
       "The campground is surrounded by one of Texas's most distinctive landscapes. More than 30 miles of hiking, biking and equestrian trails cross the park, including the popular Lighthouse Trail. TPWD repeatedly warns visitors to carry plenty of water and to take heat seriously; trails can also close after wet weather or during poor conditions. Summer visitors can add the TEXAS Outdoor Musical at the Pioneer Amphitheater to an overnight canyon stay.",
       "Palo Duro is about 12 miles east of Canyon, with the park road descending from the rim to the campground areas. RV travelers should reserve before arrival, confirm their assigned site's electrical service and length limits, and account for canyon driving before towing a long combination into the park. The exact-location Texas Defined campground image is rights-cleared, while operating details remain tied to the current TPWD campsite and park pages.",
+    ],
+  },
+  "caddo-lake-state-park-rv-area": {
+    summary: "Caddo Lake State Park RV Area gives East Texas campers a bald-cypress-and-bayou base near Karnack, with TPWD listing eight 50-amp full-hookup RV sites plus 18 water-and-electric sites in two additional camping areas.",
+    bestSeason: "TPWD identifies March through November as the busy season. Spring and fall are especially attractive for paddling and hiking, while every visit should account for humidity, storms, insects and current lake conditions.",
+    entryNote: "Enter at 245 Park Road 2 near Karnack. RVs should use the appropriate Woodpecker Hollow, Armadillo Run or Squirrel Haven site; the Mill Pond water-only area does not permit motor homes or trailers. Reserve ahead and check current alerts.",
+    highlights: ["Eight 50-amp full-hookup RV sites", "18 additional water-and-electric campsites", "Caddo Lake paddling beneath bald cypress and Spanish moss"],
+    body: [
+      "Caddo Lake State Park is an unusually distinctive RV base because the campground sits beside Big Cypress Bayou and the maze of wetlands associated with Caddo Lake. TPWD currently lists eight full-hookup campsites in Woodpecker Hollow with water, sewer and 50-amp electric service, plus 18 water-and-electric campsites in Armadillo Run and Squirrel Haven with 30-amp hookups. That mix gives RV travelers both full-service and simpler electric options inside the state park.",
+      "The landscape is the main reason to stay. Campers can paddle Saw Mill Pond and Big Cypress Bayou, fish, launch a boat, hike roughly 2.5 miles of park trails and explore Civilian Conservation Corps features under mature bald cypress and Spanish moss. Alligators live in the park, and Harrison County is under an emerald ash borer quarantine, so visitors should follow TPWD wildlife guidance and avoid moving firewood in ways that could spread pests.",
+      "Not every Caddo Lake campsite is suitable for an RV. TPWD specifically says motor homes and trailers are not permitted in the Mill Pond water-only camping area, while the named RV-capable areas have their own service levels and site layouts. Reserve the exact site before towing in, verify vehicle fit and hookup needs, and recheck capacity notices, weather, lake conditions and park alerts before leaving for Karnack.",
+    ],
+  },
+  "tyler-state-park-rv-loop": {
+    summary: "Tyler State Park RV Loop is a Pineywoods camping base north of Tyler with TPWD-listed full-hookup and electric RV options beside a 64-acre spring-fed lake and more than 13 miles of forest trails.",
+    bestSeason: "TPWD lists March through Thanksgiving as the busy season. Spring and fall are comfortable for trails, while summer favors lake time; reservations are strongly recommended because the park often reaches capacity.",
+    entryNote: "Enter at 789 Park Road 16 north of Tyler. Reserve the exact Lakeview, Big Pine or Cedar Point site before travel, confirm hookup needs, and note TPWD's jack-pad requirement for RV campers in Lakeview and Cedar Point.",
+    highlights: ["57 full-hookup campsites across Lakeview and Big Pine", "30/50-amp electric camping at Cedar Point", "64-acre spring-fed lake and 13-plus miles of trails"],
+    body: [
+      "Tyler State Park offers one of the broader state-park RV mixes in East Texas. TPWD lists 18 full-hookup campsites in Lakeview and 39 more in the RV-only Big Pine area, all with water, sewer and 30/50-amp electric service. Cedar Point adds 12 water-and-electric campsites with 30/50-amp hookups. RV campers in Lakeview and Cedar Point are instructed to bring and use jack pads, so the reserved loop matters before a rig ever reaches the gate.",
+      "The campground surrounds a 64-acre spring-fed lake in the Pineywoods. Visitors can swim, fish, boat, hike, mountain bike, bird and explore more than 13 miles of trails, including the historic Whispering Pines Nature Trail laid out by the Civilian Conservation Corps. The lake has a fishing pier and boat ramp, and the park's mix of water recreation and shaded forest makes it useful as more than an overnight stop between Dallas and East Texas.",
+      "Tyler State Park sits two miles north of Interstate 20 on FM 14 and Park Road 16, making it accessible while still feeling wooded once inside. TPWD says the park often reaches capacity and identifies March through Thanksgiving as the busy season. Reserve camping and entry in advance, confirm the assigned site's service and size, and recheck active alerts and seasonal operating details before towing in.",
+    ],
+  },
+  "huntsville-state-park-rv-loop": {
+    summary: "Huntsville State Park RV Loop combines full-hookup and electric RV camping near Lake Raven, with TPWD listing 23 full-hookup sites and 77 additional electric campsites six miles southwest of Huntsville.",
+    bestSeason: "The park is open year-round. Cooler months are comfortable for hiking and biking, while warmer weather supports lake recreation; weekends can be busy, so reserve ahead and check current park alerts.",
+    entryNote: "Enter at 565 Park Road 40 W off Interstate 45. Reserve the exact Raven Hill, Coloneh or Prairie Branch campsite and verify vehicle length, because TPWD lists site and drive lengths that vary substantially across the campground.",
+    highlights: ["23 full-hookup RV sites in Raven Hill", "77 water-and-electric campsites", "Lake Raven fishing, paddling and Pineywoods trails"],
+    body: [
+      "Huntsville State Park has enough developed camping inventory to work for a wide range of RV trips. TPWD lists 23 full-hookup sites in Raven Hill with water, sewer and 20/30/50-amp electrical service, including pull-through configurations. The park also lists 77 water-and-electric campsites in Coloneh and Prairie Branch with 20/30/50-amp service. Vehicle and drive lengths vary by site, so campers should use the reservation record rather than the campground name to judge fit.",
+      "Lake Raven and the surrounding Pineywoods turn the campground into a destination rather than a roadside overnight. Visitors can fish, paddle, hike, bike, swim in designated conditions, watch wildlife and connect with the broader Sam Houston National Forest landscape. The licensed Texas Defined image shows Lake Raven inside the park property; it is not presented as a photograph of a particular numbered RV site.",
+      "The park entrance is about six miles southwest of Huntsville off Interstate 45 on Park Road 40, which makes grocery, fuel and other services relatively close. TPWD requires a minimum two-night stay for overnight facilities on Friday and Saturday nights and warns that the park can reach capacity. Confirm the assigned site's length, hookups and access, then check current alerts and reservation details before departure.",
+    ],
+  },
+  "copper-breaks-state-park-rv-area": {
+    summary: "Copper Breaks State Park RV Area offers 24 TPWD-listed water-and-electric campsites in the Comanche Camping Area, pairing 30/50-amp service with dark skies, rugged trails and the Texas longhorn herd near Quanah.",
+    bestSeason: "TPWD identifies spring and summer as the busy season. Cooler fall and winter nights can be excellent for stargazing, but travelers should plan for exposed High Plains weather and check current burn bans and alerts.",
+    entryNote: "Enter at 777 Park Road 62 between Quanah and Crowell. Reserve a Comanche Camping Area site for RV electric service; the Kiowa water-only campsites are tent-only. Verify current hookups, weather and park alerts before towing in.",
+    highlights: ["24 water-and-electric campsites", "30/50-amp hookups in Comanche Camping Area", "Internationally known dark-sky setting and Texas longhorn herd"],
+    body: [
+      "Copper Breaks State Park gives RV travelers a developed campground in a much more remote-feeling North Texas landscape. TPWD lists 24 campsites with electricity in the Comanche Camping Area, each with a water hookup and 30/50-amp electrical service. The park also has water-only camping in Kiowa, but TPWD marks those sites as tent-only, so RV travelers should not treat every camping area on the property as interchangeable.",
+      "The park's draw extends well beyond the hookups. Visitors can hike, mountain bike, fish, swim when conditions allow, ride horses and spend evenings under notably dark skies. The official State of Texas Longhorn Herd also lives in the park, and overlooks along the rugged red-rock terrain make sunrise and sunset part of the experience. That combination makes Copper Breaks especially useful for travelers seeking a quieter state-park stay rather than resort amenities.",
+      "Copper Breaks sits between Quanah and Crowell off State Highway 6, with the campground reached through the park entrance at 777 Park Road 62. TPWD says the park often reaches capacity and identifies spring and summer as busy seasons. Reserve the exact Comanche site, confirm the rig's electrical needs and current park conditions, and recheck burn bans, weather and access alerts before arrival.",
+    ],
+  },
+  "lake-mineral-wells-state-park-rv-loop": {
+    summary: "Lake Mineral Wells State Park RV Loop provides 77 TPWD-listed electric campsites west of Fort Worth, split between 50-amp Live Oak sites and 30-amp Plateau sites near the lake, trails and climbing area.",
+    bestSeason: "TPWD lists mid-March through mid-November as the busy season. Spring and fall are favorable for trails and climbing, while summer adds swimming and paddling; check heat, burn bans and current park alerts.",
+    entryNote: "Enter at 100 Park Road 71 east of Mineral Wells. Choose the reserved Live Oak or Plateau site according to electrical needs, confirm current availability, and review park alerts before towing in from U.S. Highway 180.",
+    highlights: ["47 50-amp sites in Live Oak", "30 30-amp sites in Plateau", "Lake recreation, rock climbing and a 20-mile trailway"],
+    body: [
+      "Lake Mineral Wells State Park & Trailway has a large developed RV inventory close enough to Fort Worth for a weekend but far enough west to feel like a separate outdoor trip. TPWD lists 47 water-and-electric campsites with 50-amp hookups in the Live Oak Camping Area and 30 more with 30-amp hookups in Plateau. Restrooms and showers are nearby, and the two campground types let travelers choose service based on the rig rather than assuming one electrical standard across the park.",
+      "Beyond the campground, the park combines lake recreation with a unusually varied trail system. Visitors can swim, fish, boat, hike, bike, ride horses, geocache and use the park's rock-climbing area when open. The attached trailway extends roughly 20 miles through the surrounding countryside. Current conditions matter: TPWD posts operational notices for the climbing area, primitive camping, trails and burn restrictions, so those should be checked close to departure.",
+      "The park entrance is at 100 Park Road 71, about four miles east of Mineral Wells on U.S. Highway 180. TPWD recommends reservations because the park can reach capacity and identifies mid-March through mid-November as the busy season. Confirm the exact Live Oak or Plateau site, electrical service, vehicle fit and current alerts before towing in, especially during hot or high-demand weekends.",
     ],
   },
 };
