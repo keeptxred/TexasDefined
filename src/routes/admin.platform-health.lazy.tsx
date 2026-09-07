@@ -2,6 +2,7 @@ import { Link, createLazyFileRoute } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 import { InternalLinkMemoryCard } from '@/components/admin/InternalLinkMemoryCard';
 import { InternalLinkPolicyHistory } from '@/components/admin/InternalLinkPolicyHistory';
+import ReaderQualityAnalytics from '@/components/admin/ReaderQualityAnalytics';
 import { CONTENT_HEALTH_RESOURCES, validateAuthoritativeSources } from '@/data/source-governance';
 import { TEXAS_CITIES, TEXAS_COUNTIES, validateTexasPlaces } from '@/data/texas-places';
 import { validateTexasEntityRegistry } from '@/data/knowledge-graph';
@@ -62,6 +63,7 @@ function Page() {
     <section className="mt-12"><h2 className="font-display text-3xl">Entity coverage</h2><div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([kind, count]) => <article key={kind} className="rounded-md border border-border p-5"><strong className="capitalize">{kind.replaceAll('-', ' ')}</strong><p className="mt-2 text-sm text-muted-foreground">{count} records</p></article>)}</div></section>
     <section className="mt-12"><h2 className="font-display text-3xl">Graph review queue</h2><div className="mt-6 space-y-3">{audit.issues.slice(0, 100).map((issue, index) => <article key={`${issue.code}-${issue.entityId ?? index}`} className="rounded-md border border-border p-5"><strong>{issue.code.replaceAll('-', ' ')}</strong><p className="mt-1 text-sm text-muted-foreground">{issue.message}</p></article>)}</div></section>
     <section className="mt-12"><h2 className="font-display text-3xl">Content review queue</h2><div className="mt-6 space-y-3">{report.items.map((item) => <article key={item.id} className="grid gap-2 rounded-md border border-border p-5 sm:grid-cols-[1fr_auto]"><div><strong>{item.title}</strong><p className="mt-1 text-sm text-muted-foreground">{item.issues.length ? item.issues.join(' · ') : 'No structural issues found'}</p></div><div className="text-sm"><span className="font-medium capitalize">{item.status.replace('-', ' ')}</span><p className="text-muted-foreground">{Number.isFinite(item.daysSinceReview) ? `${item.daysSinceReview} days since review` : 'Invalid review date'}</p></div></article>)}</div></section>
+    <ReaderQualityAnalytics />
   </Container>;
 }
 function Metric({ value, label, detail }: { value: string; label: string; detail: string }) { return <article className="rounded-md bg-muted p-5"><strong className="font-display text-2xl">{value}</strong><span className="mt-2 block font-medium">{label}</span><small className="mt-1 block text-muted-foreground">{detail}</small></article>; }
