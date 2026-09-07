@@ -13,6 +13,22 @@ const majorEventLandingForbiddenNeedles = [
 ];
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+function visibleText(html) {
+  return html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 for (const [label, path, needle] of surfaces) {
   let passed = false;
   let lastStatus = 'network-error';
@@ -134,10 +150,11 @@ async function diagnoseRandallOrigin(targetOrigin, targetLabel) {
       headers: { 'user-agent': 'TexasDefined-CI-RV-Origin-Diagnostic/1.0' },
     });
     const body = await response.text();
-    const hasHeading = body.includes(marker);
+    const text = visibleText(body);
+    const hasHeading = text.includes(marker);
     const hasPaloDuro = body.includes('Palo Duro Canyon State Park RV Loop');
-    const hasMajorEvents = body.includes('Major annual events');
-    const hasSportsDestinations = body.includes('Sports destinations');
+    const hasMajorEvents = text.includes('Major annual events');
+    const hasSportsDestinations = text.includes('Sports destinations');
     console.log(`[rv-origin:${targetLabel}] status=${response.status} final=${response.url} bytes=${body.length} heading=${hasHeading} palo-duro=${hasPaloDuro} major-events=${hasMajorEvents} sports=${hasSportsDestinations} cf-cache=${response.headers.get('cf-cache-status') ?? 'none'}`);
   } catch (error) {
     console.log(`[rv-origin:${targetLabel}] diagnostic request failed: ${error instanceof Error ? error.message : String(error)}`);
