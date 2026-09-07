@@ -1,4 +1,5 @@
 import server from "./server";
+import { texasDefinedAiResponse } from "./lib/texas-defined-ai.server";
 
 const LEGACY_PITMASTERS_SLUG = "live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp";
 const PITMASTERS_CANONICAL_PATH = "/article/texas-pitmasters-food-network-competition";
@@ -12,6 +13,9 @@ const SEO_CANONICAL_REDIRECTS: Record<string, string> = {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const aiResponse = await texasDefinedAiResponse(request, env);
+    if (aiResponse) return aiResponse;
+
     if (request.method === "GET" || request.method === "HEAD") {
       const url = new URL(request.url);
       const path = url.pathname.length > 1 ? url.pathname.replace(/\/+$/, "").toLowerCase() : url.pathname;

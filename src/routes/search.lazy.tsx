@@ -54,7 +54,14 @@ function SearchPage() {
     </section>
 
     <Container className="min-h-[42vh] py-12 sm:py-16">
-      {!query && <section aria-labelledby="search-start-heading">
+      <section className="border-y border-border bg-surface px-5 py-8 sm:px-8 sm:py-10">
+        <p className="eyebrow text-primary">Texas Defined AI</p>
+        <h2 className="mt-2 font-display text-4xl sm:text-5xl">Ask Texas anything.</h2>
+        <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">Powered by Texas Defined’s guides, data, places and verified sources.</p>
+        <a href="/ask-texas" className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Ask Texas Defined AI →</a>
+      </section>
+
+      {!query && <section aria-labelledby="search-start-heading" className="mt-14 sm:mt-16">
         <div className="border-b border-border pb-5"><p className="eyebrow text-primary">Start here</p><h2 id="search-start-heading" className="mt-2 font-display text-3xl sm:text-4xl">A few useful ways into Texas Defined</h2></div>
         <Link to="/texas-explained" className="group mt-7 grid gap-4 border-l-2 border-primary bg-surface px-6 py-7 transition-colors hover:bg-muted/40 sm:grid-cols-[1fr_auto] sm:items-end sm:px-8">
           <div className="max-w-3xl"><p className="eyebrow text-primary">Texas Explained</p><h3 className="mt-2 font-display text-3xl leading-tight transition-colors group-hover:text-primary">Want the why behind Texas?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{TEXAS_EXPLAINED_SEARCH_COPY}</p></div>
@@ -62,8 +69,8 @@ function SearchPage() {
         </Link>
         <ul className="mt-5 grid sm:grid-cols-2 lg:grid-cols-3">{startingPoints.map((item, index) => <li key={item.to} className={`border-b border-border py-7 sm:px-6 ${index % 3 !== 0 ? "lg:border-l" : ""}`}><Link to={item.to} className="group block h-full"><h3 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">{item.label}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{item.copy}</p><span className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Open →</span></Link></li>)}</ul>
       </section>}
-      {query && results.length > 0 && <div className="flex items-end justify-between gap-4 border-b border-border pb-4"><div><p className="eyebrow text-primary">Results</p><h2 className="mt-2 font-display text-3xl">For “{query}”</h2></div><p className="text-sm text-muted-foreground" role="status">{results.length} result{results.length === 1 ? "" : "s"}</p></div>}
-      {query && results.length === 0 && <section aria-labelledby="search-zero-heading" className="max-w-2xl border-t border-border pt-6"><p className="eyebrow text-primary">No results</p><h2 id="search-zero-heading" className="mt-3 font-display text-3xl">Nothing matched “{query}.”</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Try a broader term or continue through one of these discovery paths.</p><nav aria-label="Search recovery" className="mt-6 flex flex-wrap gap-x-6 gap-y-3">{recoveryLinks.map(([to, label]) => <Link key={to} to={to} className="eyebrow border-b border-primary pb-1 text-primary">{label} →</Link>)}</nav></section>}
+      {query && results.length > 0 && <div className="mt-14 flex items-end justify-between gap-4 border-b border-border pb-4 sm:mt-16"><div><p className="eyebrow text-primary">Search results</p><h2 className="mt-2 font-display text-3xl">For “{query}”</h2></div><p className="text-sm text-muted-foreground" role="status">{results.length} result{results.length === 1 ? "" : "s"}</p></div>}
+      {query && results.length === 0 && <section aria-labelledby="search-zero-heading" className="mt-14 max-w-2xl border-t border-border pt-6 sm:mt-16"><p className="eyebrow text-primary">No search results</p><h2 id="search-zero-heading" className="mt-3 font-display text-3xl">Nothing matched “{query}.”</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Try a broader term or continue through one of these discovery paths.</p><nav aria-label="Search recovery" className="mt-6 flex flex-wrap gap-x-6 gap-y-3">{recoveryLinks.map(([to, label]) => <Link key={to} to={to} className="eyebrow border-b border-primary pb-1 text-primary">{label} →</Link>)}</nav></section>}
       <ul className="mt-2 max-w-3xl divide-y divide-border">
         {results.map((result) => <li key={`${result.document.kind}-${result.document.id}`} className="py-7"><p className="eyebrow text-primary">{kindLabel(result.document.kind, result.document.id)}</p><Link to={result.document.href} className="mt-2 block font-display text-2xl leading-tight transition-colors hover:text-primary">{result.document.title}</Link><p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{result.document.summary}</p></li>)}
       </ul>
