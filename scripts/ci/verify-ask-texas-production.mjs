@@ -74,7 +74,7 @@ await ask('Why does Texas have 254 counties?');
 summary('- ✅ POST `/ask-texas`: Workers AI answer and Texas Defined source rendering verified.');
 
 if (requireOfficial) {
-  const officialBody = await ask('Where can I check current Texas highway road conditions with TxDOT?');
+  const officialBody = await ask('Is SH 130 closed right now near Seguin?');
   requireText('Ask Texas official research answer', officialBody, 'Official sources checked');
   requireText('Ask Texas official research answer', officialBody, 'Live verification');
   requireText('Ask Texas official research answer', officialBody, '[O1]');
