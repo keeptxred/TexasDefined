@@ -5,7 +5,7 @@ export type PartnerInquiryInsert = {
   email: string;
   company: string;
   website: string | null;
-  partnership_type: 'insurance' | 'mortgage' | 'real-estate' | 'moving' | 'travel' | 'sports-travel' | 'sponsorship' | 'other';
+  partnership_type: 'insurance' | 'mortgage' | 'real-estate' | 'moving' | 'travel' | 'sports-travel' | 'brand-retail' | 'sponsorship' | 'other';
   message: string;
   source_path: string;
 };
