@@ -2,11 +2,13 @@ import { Link, createLazyFileRoute } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
 import {
-  TEXAS_BRAND_DIRECTORY,
   TEXAS_BRAND_DIRECTORY_CATEGORIES,
+  TEXAS_BRAND_DIRECTORY_COUNT,
+  TEXAS_GROCERY_BRAND_EXPANSION,
   getTexasBrandCommercialPlacement,
-  getTexasBrandDirectoryByCategory,
+  texasBrandCategory,
 } from "@/data/texas-brand-directory";
+import type { TexasIconItem } from "@/data/things-unique-to-texas";
 import { texasIconCanonicalHref } from "@/data/things-unique-to-texas-links";
 
 const FEATURED_GUIDES: Record<string, { href: string; label: string; description: string }[]> = {
@@ -71,7 +73,7 @@ function TexasIconCategoryPage() {
           <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">{category.title}</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{category.description}</p>
           <p className="mt-8 text-sm font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-            {isTexasBrands ? `${TEXAS_BRAND_DIRECTORY.length} brands in this directory` : `${category.items.length} entries in this chapter`}
+            {isTexasBrands ? `${TEXAS_BRAND_DIRECTORY_COUNT} brands and Texas retail institutions` : `${category.items.length} entries in this chapter`}
           </p>
         </Container>
       </section>
@@ -80,7 +82,7 @@ function TexasIconCategoryPage() {
         <Container>
           <div className="grid gap-6 lg:grid-cols-[1fr_320px] lg:items-start">
             {isTexasBrands ? (
-              <TexasBrandDirectory />
+              <TexasBrandDirectory entries={category.items} />
             ) : (
               <div className="grid gap-4 sm:grid-cols-2">
                 {category.items.map((entry) => {
@@ -140,70 +142,65 @@ function TexasIconCategoryPage() {
   );
 }
 
-function TexasBrandDirectory() {
+function TexasBrandDirectory({ entries }: { entries: readonly TexasIconItem[] }) {
   return (
     <div className="space-y-12">
       <section className="border border-border bg-muted/20 p-6 sm:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">How this directory works</p>
         <h2 className="mt-3 font-display text-3xl">Texas roots first, commercial relationships second</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
-          Brands are included because their verified origin, growth or cultural footprint helps explain Texas. A commercial relationship is never required for inclusion. If TexasDefined later adds an affiliate, sponsor or direct-partner link, that placement must be explicitly labeled and disclosed.
+          Brands are included because their Texas origin, growth or cultural footprint helps explain the state. Commercial relationships are never required for inclusion, and any future affiliate or sponsored link must be labeled and disclosed.
         </p>
-        <a
-          href="/partner-with-us?type=brand-retail&source=%2Fthings-unique-to-texas%2Ftexas-brands"
-          className="mt-5 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline"
-        >
+        <a href="/partner-with-us?type=brand-retail&source=%2Fthings-unique-to-texas%2Ftexas-brands" className="mt-5 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">
           Represent a Texas brand, grocery chain or retailer? Explore partnership options →
         </a>
         <p className="mt-2 text-xs leading-5 text-muted-foreground">Partnerships do not buy inclusion, rankings, favorable coverage or changes to factual conclusions.</p>
       </section>
 
-      {TEXAS_BRAND_DIRECTORY_CATEGORIES.map((category) => {
-        const entries = getTexasBrandDirectoryByCategory(category.slug);
+      {TEXAS_BRAND_DIRECTORY_CATEGORIES.map(([slug, label, description]) => {
+        const legacy = entries.filter((entry) => texasBrandCategory(entry) === slug);
+        const additions = TEXAS_GROCERY_BRAND_EXPANSION.filter((entry) => entry.category === slug);
         return (
-          <section key={category.slug} id={category.slug}>
+          <section key={slug} id={slug}>
             <div className="border-b border-border pb-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">{entries.length} brands</p>
-              <h2 className="mt-2 font-display text-4xl">{category.label}</h2>
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{category.description}</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">{legacy.length + additions.length} entries</p>
+              <h2 className="mt-2 font-display text-4xl">{label}</h2>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{description}</p>
             </div>
-
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              {entries.map((entry) => {
-                const commercial = getTexasBrandCommercialPlacement(entry);
-                return (
-                  <article key={entry.slug} className="border border-border bg-card p-6">
-                    <h3 className="font-display text-2xl leading-tight">
-                      {entry.href ? (
-                        <Link to={entry.href} className="hover:text-primary">{entry.name}</Link>
-                      ) : entry.name}
-                    </h3>
-                    <p className="mt-3 text-sm leading-6 text-muted-foreground">{entry.texasConnection}</p>
-                    {entry.href && (
-                      <Link to={entry.href} className="mt-4 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">
-                        Read the TexasDefined guide →
-                      </Link>
-                    )}
-                    {commercial && (
-                      <div className="mt-5 border-t border-border pt-4">
-                        <p className="text-xs leading-5 text-muted-foreground">{commercial.disclosure}</p>
-                        <a
-                          href={commercial.href}
-                          target="_blank"
-                          rel="sponsored nofollow noopener noreferrer"
-                          className="mt-3 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline"
-                        >
-                          {commercial.cta} →
-                        </a>
-                      </div>
-                    )}
-                  </article>
-                );
-              })}
+              {legacy.map((entry) => (
+                <BrandCard
+                  key={entry.id}
+                  commercialKey={`icon:${entry.id}`}
+                  name={entry.name}
+                  note={entry.note}
+                  href={entry.id === 38 ? "/article/heb-texas-grocery-history-culture" : entry.id === 36 ? "/article/bucees-texas-road-trip-history" : texasIconCanonicalHref(entry)}
+                />
+              ))}
+              {additions.map((entry) => (
+                <BrandCard key={entry.slug} commercialKey={`brand:${entry.slug}`} name={entry.name} note={entry.note} href={entry.href} />
+              ))}
             </div>
           </section>
         );
       })}
     </div>
+  );
+}
+
+function BrandCard({ name, note, href, commercialKey }: { name: string; note: string; href?: string; commercialKey: string }) {
+  const commercial = getTexasBrandCommercialPlacement(commercialKey);
+  return (
+    <article className="border border-border bg-card p-6">
+      <h3 className="font-display text-2xl leading-tight">{href ? <Link to={href} className="hover:text-primary">{name}</Link> : name}</h3>
+      <p className="mt-3 text-sm leading-6 text-muted-foreground">{note}</p>
+      {href && <Link to={href} className="mt-4 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">Read the TexasDefined guide →</Link>}
+      {commercial && (
+        <div className="mt-5 border-t border-border pt-4">
+          <p className="text-xs leading-5 text-muted-foreground">{commercial.disclosure}</p>
+          <a href={commercial.href} target="_blank" rel="sponsored nofollow noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">{commercial.cta} →</a>
+        </div>
+      )}
+    </article>
   );
 }
