@@ -1,5 +1,6 @@
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
-const profilePath = '/destination/palo-duro-canyon-state-park-rv-loop';
+const curatedProfilePath = '/destination/palo-duro-canyon-state-park-rv-loop';
+const guardedProfilePath = '/destination/caddo-lake-state-park-rv-area';
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -83,7 +84,7 @@ requireIncludes(hub.body, [
   '250 Places by Region',
   '"@type":"CollectionPage"',
   '"@type":"Campground"',
-  profilePath,
+  curatedProfilePath,
 ], 'RV hub');
 if (canonicalHref(hub.body) !== `${origin}/explore/rv-parks`) {
   throw new Error(`RV hub canonical mismatch: ${canonicalHref(hub.body) || 'missing'}`);
@@ -93,25 +94,40 @@ if (metaContent(hub.body, 'robots').toLowerCase().includes('noindex')) {
 }
 console.log('RV hub production verification passed: indexable canonical collection with Campground ItemList coverage.');
 
-const profile = await fetchProduction(profilePath);
-requireIncludes(profile.body, [
+const curatedProfile = await fetchProduction(curatedProfilePath);
+requireIncludes(curatedProfile.body, [
   'Palo Duro Canyon State Park RV Loop',
   'Campground inside Palo Duro Canyon State Park in Randall County, Texas',
   'Photography:',
   'Larry D. Moore',
   'CC BY 4.0',
   'Wikimedia Commons',
+  'Texas Parks and Wildlife Department',
   '"@type":"WebPage"',
   '"@type":"TouristAttraction"',
-], 'RV profile');
-if (canonicalHref(profile.body) !== `${origin}${profilePath}`) {
-  throw new Error(`RV profile canonical mismatch: ${canonicalHref(profile.body) || 'missing'}`);
+], 'Curated RV profile');
+if (canonicalHref(curatedProfile.body) !== `${origin}${curatedProfilePath}`) {
+  throw new Error(`Curated RV profile canonical mismatch: ${canonicalHref(curatedProfile.body) || 'missing'}`);
 }
-const profileRobots = metaContent(profile.body, 'robots').toLowerCase();
-if (!profileRobots.includes('noindex') || !profileRobots.includes('follow')) {
-  throw new Error(`RV profile robots policy mismatch: ${profileRobots || 'missing'}`);
+const curatedRobots = metaContent(curatedProfile.body, 'robots').toLowerCase();
+if (curatedRobots.includes('noindex') || !curatedRobots.includes('index') || !curatedRobots.includes('follow')) {
+  throw new Error(`Curated RV profile robots policy mismatch: ${curatedRobots || 'missing'}`);
 }
-console.log('RV profile production verification passed: canonical noindex/follow seed profile with exact campground photo attribution.');
+console.log('Curated RV profile production verification passed: canonical index/follow profile with official source and exact-location photo attribution.');
+
+const guardedProfile = await fetchProduction(guardedProfilePath);
+requireIncludes(guardedProfile.body, [
+  'Caddo Lake State Park RV Area',
+  '"@type":"WebPage"',
+], 'Guarded RV profile');
+if (canonicalHref(guardedProfile.body) !== `${origin}${guardedProfilePath}`) {
+  throw new Error(`Guarded RV profile canonical mismatch: ${canonicalHref(guardedProfile.body) || 'missing'}`);
+}
+const guardedRobots = metaContent(guardedProfile.body, 'robots').toLowerCase();
+if (!guardedRobots.includes('noindex') || !guardedRobots.includes('follow')) {
+  throw new Error(`Guarded RV profile robots policy mismatch: ${guardedRobots || 'missing'}`);
+}
+console.log('Guarded RV profile production verification passed: canonical noindex/follow remains enforced for an uncurated seed.');
 
 const county = await fetchProduction('/county/randall');
 requireVisibleIncludes(county.body, [
@@ -119,11 +135,11 @@ requireVisibleIncludes(county.body, [
 ], 'Randall County RV integration');
 requireIncludes(county.body, [
   'Palo Duro Canyon State Park RV Loop',
-  profilePath,
+  curatedProfilePath,
   `${origin}/county/randall#rv-parks`,
   '"@type":"Campground"',
   '/explore/rv-parks',
 ], 'Randall County RV integration');
 console.log('Randall County RV production verification passed: visible RV discovery section, Campground ItemList and statewide-directory handoff.');
 
-console.log('TexasDefined RV production smoke passed for hub, seed profile, attribution, indexing policy and county integration.');
+console.log('TexasDefined RV production smoke passed for hub, curated indexable profile, guarded noindex profile, attribution, indexing policy and county integration.');
