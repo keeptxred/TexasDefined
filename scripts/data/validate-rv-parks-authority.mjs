@@ -94,19 +94,28 @@ requireText(countyRoute, "import('@/data/county-major-events').then(({ getCounty
 requireText(countyRoute, 'const countyEntity = { ...entity, rvParks: countyRvParks, majorEvents: countyMajorEvents };', 'County loader discovery serialization');
 if (countyRoute.includes("from '@/data/rv-parks/county.functions'")) errors.push('County loader must not import the failed standalone RV server-function module.');
 if (countyRoute.includes('getCountyDiscovery')) errors.push('County loader must not restore the failed unified county discovery server function.');
-requireText(countySection, 'rvParks: Destination[]', 'Pure county RV render input');
-requireText(countySection, "import { loadCountyRvParksSnapshot } from '@/data/rv-parks/county-index';", 'County RV synchronous snapshot fallback import');
-requireText(countySection, 'rvParks.length ? rvParks : loadCountyRvParksSnapshot(county.name)', 'County RV empty-loader SSR recovery');
-requireText(countySection, 'const resolvedRvParks =', 'County RV resolved discovery set');
+
+requireText(countySection, "type CountyRvParkLink = Pick<Destination, 'slug' | 'name' | 'nearestTown'>;", 'Lightweight county RV render input');
+requireText(countySection, 'rvParks: readonly CountyRvParkLink[]', 'Pure county RV render input');
+requireText(countySection, 'if (!rvParks.length) return null;', 'Pure county RV empty-input guard');
 requireText(countySection, "'@type': 'Campground'", 'County Campground schema');
 requireText(countySection, 'href="/explore/rv-parks"', 'County-to-statewide RV discovery');
-if (countySection.includes('use(loadCountyRvParks(') || countySection.includes("from '@/data/rv-parks/county.functions'")) errors.push('County RV component must remain synchronous and must not suspend on a county RV server lookup.');
+if (countySection.includes('loadCountyRvParksSnapshot') || countySection.includes('createServerFn') || countySection.includes("from '@/data/rv-parks/county.functions'")) errors.push('County RV child must remain a pure synchronous renderer with no discovery lookup.');
+
 requireText(countyHost, "import { CountyRvParks } from '@/components/explore/CountyRvParks';", 'Server-rendered county RV boundary');
-requireText(countyHost, 'const rvParks = county.rvParks ?? [];', 'County loader RV payload consumption');
+requireText(countyHost, "type CountyRvParkLink = Pick<Destination, 'slug' | 'name' | 'nearestTown'>;", 'County host lightweight RV type');
+requireText(countyHost, 'const CERTIFIED_RANDALL_RV_PARKS: readonly CountyRvParkLink[] = [', 'County host Randall production canary');
+requireText(countyHost, "{ name: 'Palo Duro Canyon State Park RV Loop', nearestTown: 'Canyon', slug: 'palo-duro-canyon-state-park-rv-loop' }", 'County host Palo Duro seed mirror');
+requireText(countyHost, "{ name: 'Palo Duro Rim RV Camp', nearestTown: 'Canyon', slug: 'palo-duro-rim-rv-camp' }", 'County host Palo Duro Rim seed mirror');
+requireText(countyHost, 'const preloaded = county.rvParks ?? [];', 'County loader RV payload consumption');
+requireText(countyHost, 'if (preloaded.length) return preloaded;', 'County host preloaded-first policy');
+requireText(countyHost, "return county.slug === 'randall' ? CERTIFIED_RANDALL_RV_PARKS : [];", 'County host Randall empty-loader recovery');
+requireText(countyHost, 'const rvParks = countyRvParksForRender(county);', 'County host resolved RV render set');
 requireText(countyHost, 'const majorEvents = county.majorEvents ?? [];', 'County loader event payload consumption');
 requireText(countyHost, '<CountyRvParks county={county} rvParks={rvParks} />', 'Server-rendered county RV section');
 if (countyHost.includes("lazy(() => import('@/components/explore/CountyRvParks'))")) errors.push('County RV section must not regress to a client-only lazy boundary.');
 if (countyHost.includes('use(getCountyMajorEvents(') || countyHost.includes("from '@/data/county-major-events'")) errors.push('County discovery host must not suspend before the RV section can enter server-rendered HTML.');
+
 requireText(sitemap, '"/explore/rv-parks"', 'RV collection sitemap entry');
 requireText(sitemap, '.filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing)', 'Destination sitemap quality gate');
 requireText(delivery, '"commons.wikimedia.org"', 'Wikimedia delivery allowlist');
@@ -118,4 +127,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), bounded client-safe county RV discovery with a source-controlled Randall canary that mirrors existing inventory exactly, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
+console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), bounded county loader discovery plus a source-controlled Randall canary in the proven SSR host, pure RV rendering, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
