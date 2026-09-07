@@ -1,6 +1,5 @@
 import { classifyAIReferral } from './ai-referral';
 import { recordInternalLinkExposure } from './internal-link-memory';
-import { installReaderQualitySignals } from './reader-quality-client';
 
 export type TexasDefinedOutcomeEvent =
   | 'resource_found'
@@ -133,7 +132,15 @@ export function trackAIReferralVisit() {
 
 export function installTexasDefinedAnalytics() {
   if (typeof window === 'undefined') return () => undefined;
-  const cleanupReaderQuality = installReaderQualitySignals();
+  let disposed = false;
+  let cleanupReaderQuality: () => void = () => undefined;
+  void import('./reader-quality-client')
+    .then(({ installReaderQualitySignals }) => {
+      if (disposed) return;
+      cleanupReaderQuality = installReaderQualitySignals();
+    })
+    .catch(() => undefined);
+
   const shown = new Set<string>();
   const click = (event: MouseEvent) => {
     const anchor = (event.target as Element | null)?.closest('a[href]') as HTMLAnchorElement | null;
@@ -204,6 +211,7 @@ export function installTexasDefinedAnalytics() {
   window.addEventListener('online', flushTexasDefinedAnalytics);
 
   return () => {
+    disposed = true;
     document.removeEventListener('click', click);
     window.removeEventListener('online', flushTexasDefinedAnalytics);
     mutation?.disconnect();
