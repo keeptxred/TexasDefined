@@ -102,7 +102,6 @@ requireText(countySection, "'@type': 'Campground'", 'County Campground schema');
 requireText(countySection, 'href="/explore/rv-parks"', 'County-to-statewide RV discovery');
 if (countySection.includes('loadCountyRvParksSnapshot') || countySection.includes('createServerFn') || countySection.includes("from '@/data/rv-parks/county.functions'")) errors.push('County RV child must remain a pure synchronous renderer with no discovery lookup.');
 
-requireText(countyHost, "import { CountyRvParks } from '@/components/explore/CountyRvParks';", 'Server-rendered county RV boundary');
 requireText(countyHost, "type CountyRvParkLink = Pick<Destination, 'slug' | 'name' | 'nearestTown'>;", 'County host lightweight RV type');
 requireText(countyHost, 'const CERTIFIED_RANDALL_RV_PARKS: readonly CountyRvParkLink[] = [', 'County host Randall production canary');
 requireText(countyHost, "{ name: 'Palo Duro Canyon State Park RV Loop', nearestTown: 'Canyon', slug: 'palo-duro-canyon-state-park-rv-loop' }", 'County host Palo Duro seed mirror');
@@ -110,9 +109,17 @@ requireText(countyHost, "{ name: 'Palo Duro Rim RV Camp', nearestTown: 'Canyon',
 requireText(countyHost, 'const preloaded = county.rvParks ?? [];', 'County loader RV payload consumption');
 requireText(countyHost, 'if (preloaded.length) return preloaded;', 'County host preloaded-first policy');
 requireText(countyHost, "return county.slug === 'randall' ? CERTIFIED_RANDALL_RV_PARKS : [];", 'County host Randall empty-loader recovery');
+requireText(countyHost, 'function renderCountyRvParks(county: TexasEntityRecord, rvParks: readonly CountyRvParkLink[])', 'Same-module county RV renderer');
+requireText(countyHost, 'if (!rvParks.length) return null;', 'Same-module county RV empty-input guard');
+requireText(countyHost, "'@type': 'Campground'", 'Same-module County Campground schema');
+requireText(countyHost, 'id="county-rv-parks-heading"', 'Same-module county RV heading');
+requireText(countyHost, 'RV camping around {county.name}', 'Same-module county RV heading text');
+requireText(countyHost, 'href="/explore/rv-parks"', 'Same-module county-to-statewide RV discovery');
 requireText(countyHost, 'const rvParks = countyRvParksForRender(county);', 'County host resolved RV render set');
 requireText(countyHost, 'const majorEvents = county.majorEvents ?? [];', 'County loader event payload consumption');
-requireText(countyHost, '<CountyRvParks county={county} rvParks={rvParks} />', 'Server-rendered county RV section');
+requireText(countyHost, '{renderCountyRvParks(county, rvParks)}', 'Same-module server-rendered county RV section');
+if (countyHost.includes("import { CountyRvParks } from '@/components/explore/CountyRvParks';")) errors.push('County RV production markup must stay in the proven SSR host instead of regressing to the nested child boundary that production skipped.');
+if (countyHost.includes('<CountyRvParks')) errors.push('County RV production markup must not regress to the nested CountyRvParks component boundary.');
 if (countyHost.includes("lazy(() => import('@/components/explore/CountyRvParks'))")) errors.push('County RV section must not regress to a client-only lazy boundary.');
 if (countyHost.includes('use(getCountyMajorEvents(') || countyHost.includes("from '@/data/county-major-events'")) errors.push('County discovery host must not suspend before the RV section can enter server-rendered HTML.');
 
@@ -127,4 +134,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), bounded county loader discovery plus a source-controlled Randall canary in the proven SSR host, pure RV rendering, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
+console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), bounded county loader discovery plus a source-controlled Randall canary and same-module RV markup in the proven SSR host, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
