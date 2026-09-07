@@ -1,4 +1,5 @@
 import server from "./server";
+import { texasDefinedGovernmentAiResponse } from "./lib/texas-defined-government-ai.server";
 import { texasDefinedAiResponse } from "./lib/texas-defined-ai.server";
 
 const LEGACY_PITMASTERS_SLUG = "live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp";
@@ -13,6 +14,9 @@ const SEO_CANONICAL_REDIRECTS: Record<string, string> = {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const governmentAiResponse = await texasDefinedGovernmentAiResponse(request, env);
+    if (governmentAiResponse) return governmentAiResponse;
+
     const aiResponse = await texasDefinedAiResponse(request, env);
     if (aiResponse) return aiResponse;
 
