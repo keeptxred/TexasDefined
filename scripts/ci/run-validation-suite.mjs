@@ -3,6 +3,7 @@ import { spawnSync } from 'node:child_process';
 
 const checks = [
   ['generated-page-quality', 'CODE/CONTENT', 'Validate generated page quality', 'node', ['scripts/data/validate-generated-page-quality.mjs']],
+  ['county-editorial-discovery', 'INTERNAL-LINKING', 'Validate county editorial discovery', 'node', ['scripts/data/validate-county-editorial-discovery.mjs']],
   ['county-property-enrichment', 'CODE/CONTENT', 'Validate county property enrichment', 'node', ['scripts/data/validate-county-property-enrichment.mjs']],
   ['destination-indexing-policy', 'SEO/INDEXING', 'Validate destination indexing policy', 'node', ['scripts/data/validate-destination-indexing-policy.mjs']],
   ['public-route-governance', 'ROUTING/GOVERNANCE', 'Validate public route governance', 'node', ['scripts/data/validate-public-route-governance.mjs']],
@@ -83,6 +84,7 @@ const checks = [
 ];
 
 const predeployIds = new Set([
+  'county-editorial-discovery',
   'machine-indexing', 'things-unique-to-texas', 'texas-icon-link-depth', 'texas-weather-authority',
   'texas-food-history', 'texas-culture-citation-index', 'texas-flag-authority', 'painted-churches-seo',
   'painted-church-search-intents', 'painted-church-map', 'painted-church-completion', 'military-history-expansion',
