@@ -8,9 +8,12 @@ const partnerInquirySchema = z.object({
   email: z.string().trim().email().max(320),
   company: z.string().trim().min(2).max(180),
   website: z.string().trim().max(500),
-  partnershipType: z.enum(['insurance', 'mortgage', 'real-estate', 'moving', 'travel', 'sports-travel', 'sponsorship', 'other']),
+  partnershipType: z.enum(['insurance', 'mortgage', 'real-estate', 'moving', 'travel', 'sports-travel', 'brand-retail', 'sponsorship', 'other']),
   message: z.string().trim().min(20).max(5000),
-  sourcePath: z.string().trim().max(500).regex(/^\/(?:partner-with-us|sports-venues|sports-venue\/[a-z0-9-]+)$/).default('/partner-with-us'),
+  sourcePath: z.union([
+    z.string().trim().max(500).regex(/^\/(?:partner-with-us|sports-venues|sports-venue\/[a-z0-9-]+)$/),
+    z.literal('/things-unique-to-texas/texas-brands'),
+  ]).default('/partner-with-us'),
   addressLine2: z.string().max(200).default(''),
 });
 
