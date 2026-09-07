@@ -1,0 +1,36 @@
+name: Verify Ask Texas production
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 13 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'src/lib/texas-defined-ai.server.ts'
+      - 'src/lib/texas-defined-official-research.server.ts'
+      - 'scripts/ci/verify-ask-texas-production.mjs'
+      - '.github/workflows/verify-ask-texas-production.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-ask-texas-production
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      ASK_TEXAS_REQUIRE_OFFICIAL: 'true'
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify Ask Texas end to end
+        run: node scripts/ci/verify-ask-texas-production.mjs
