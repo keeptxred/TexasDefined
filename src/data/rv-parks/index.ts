@@ -19,23 +19,12 @@ const loadRvParks = createServerFn({ method: "GET" })
     return registry.loadRvParkDestinationsServer();
   });
 
-const loadCountyRvParks = createServerFn({ method: "GET" })
-  .inputValidator((data: { countySlug: string }) => data)
-  .handler(async ({ data }) => {
-    const registry = await import("./registry.server");
-    return registry.loadRvParksForCountyServer(data.countySlug).slice(0, 12);
-  });
-
 export function listRvParkDestinations(): Promise<Destination[]> {
   return loadRvParks({ data: { action: "all" } }) as Promise<Destination[]>;
 }
 
 export function getRvParkDestination(slug: string): Promise<Destination | null> {
   return loadRvParks({ data: { action: "one", value: slug } }) as Promise<Destination | null>;
-}
-
-export function rvParksForCounty(countySlug: string): Promise<Destination[]> {
-  return loadCountyRvParks({ data: { countySlug } }) as Promise<Destination[]>;
 }
 
 export function buildRvParkSearchDocuments(): Promise<SearchDocument[]> {
