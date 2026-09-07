@@ -132,13 +132,9 @@ export function trackAIReferralVisit() {
 
 export function installTexasDefinedAnalytics() {
   if (typeof window === 'undefined') return () => undefined;
-  let disposed = false;
-  let cleanupReaderQuality: () => void = () => undefined;
+  let cleanupReaderQuality: (() => void) | undefined;
   void import('./reader-quality-client')
-    .then(({ installReaderQualitySignals }) => {
-      if (disposed) return;
-      cleanupReaderQuality = installReaderQualitySignals();
-    })
+    .then((module) => { cleanupReaderQuality = module.installReaderQualitySignals(); })
     .catch(() => undefined);
 
   const shown = new Set<string>();
@@ -211,12 +207,11 @@ export function installTexasDefinedAnalytics() {
   window.addEventListener('online', flushTexasDefinedAnalytics);
 
   return () => {
-    disposed = true;
     document.removeEventListener('click', click);
     window.removeEventListener('online', flushTexasDefinedAnalytics);
     mutation?.disconnect();
     observer?.disconnect();
-    cleanupReaderQuality();
+    cleanupReaderQuality?.();
   };
 }
 
