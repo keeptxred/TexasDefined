@@ -65,8 +65,8 @@ const gscIntentTargets = [
   ],
   [
     '/article/texas-lakes-reservoirs-explained',
-    'Texas Lakes & Reservoirs: Major Water Systems Explained',
-    'Learn why most Texas lakes are reservoirs, how dams reshape rivers, and how Lake Travis, Texoma, Canyon Lake and other systems store water.',
+    'Are Texas Lakes Man-Made? Why Most Are Reservoirs',
+    'Most familiar inland Texas lakes are reservoirs. See why Texas built dams for water supply and flood control, with Lake Travis, Texoma and Canyon Lake.',
   ],
   [
     '/article/texas-national-parks-big-bend-guadalupe-guide',

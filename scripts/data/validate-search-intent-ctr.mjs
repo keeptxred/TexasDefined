@@ -25,6 +25,7 @@ const localGovernment = fs.readFileSync('src/data/local-government-profile.ts', 
 const serverRoute = fs.readFileSync('src/server.ts', 'utf8');
 const countySeries = fs.readFileSync('src/data/county-series-profiles.ts', 'utf8');
 const queriesSource = fs.readFileSync('src/data/queries.ts', 'utf8');
+const seoSource = fs.readFileSync('src/lib/seo.ts', 'utf8');
 const failures = [];
 
 for (const required of [
@@ -205,6 +206,26 @@ if (!countySeries.includes('profile("brewster", "brewster-county-big-bend-texas"
   failures.push('Brewster legacy article must remain mapped to the canonical /county/brewster guide.');
 }
 
+for (const required of [
+  '"/article/texas-rivers-explained": {',
+  'title: "Major Rivers in Texas: Boundary Rivers, Basins & Regions"',
+  'See Texas boundary rivers, major river basins and regional waterways',
+  '"/article/texas-river-basins-guide": {',
+  'title: "Texas River Basins: 15 Major Basins & Watersheds"',
+  "Explore Texas's 15 major river basins and eight coastal basins",
+  '"/article/texas-lakes-reservoirs-explained": {',
+  'title: "Are Texas Lakes Man-Made? Why Most Are Reservoirs"',
+  'Most familiar inland Texas lakes are reservoirs.',
+  '"/article/texas-highway-designations-explained": {',
+  'title: "Texas Road Names: What FM, RM, SH, Loop & Spur Mean"',
+  'Decode Texas road designations: FM and RM roads',
+  '"/article/texas-school-districts-explained": {',
+  'title: "What Does ISD Stand For in Texas? School District Guide"',
+  'ISD means Independent School District.',
+]) {
+  if (!seoSource.includes(required)) failures.push(`GSC page-one CTR metadata contract missing: ${required}`);
+}
+
 const texasExplainedBlock = queriesSource.match(/id: "collection:texas-explained",[\s\S]*?href: "\/texas-explained",\n  },/)?.[0] ?? '';
 const texasExplainedTitle = texasExplainedBlock.match(/title: "([^"]+)"/)?.[1] ?? '';
 const texasExplainedSummary = texasExplainedBlock.match(/summary: "([^"]+)"/)?.[1] ?? '';
@@ -243,4 +264,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Search-intent and SERP CTR validation passed: impression-bearing calculators, home-insurance no-personal-information intent, Phase 3 finance ranking depth, disabled-veteran guidance, city discovery, county property-tax pages, legacy county redirects, appraisal-district queries, agency snippets, Texas Explained behavioral search scoring, independent framing, and publication-quality gates are protected.');
+console.log('Search-intent and SERP CTR validation passed: impression-bearing calculators, home-insurance no-personal-information intent, Phase 3 finance ranking depth, disabled-veteran guidance, city discovery, county property-tax pages, legacy county redirects, appraisal-district queries, agency snippets, GSC page-one CTR metadata, Texas Explained behavioral search scoring, independent framing, and publication-quality gates are protected.');
