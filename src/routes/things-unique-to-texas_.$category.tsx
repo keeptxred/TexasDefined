@@ -1,7 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { TEXAS_BRAND_DIRECTORY } from "@/data/texas-brand-directory";
+import { TEXAS_GROCERY_BRAND_EXPANSION } from "@/data/texas-brand-directory";
 import { getTexasIconCategory } from "@/data/things-unique-to-texas";
 import { texasIconCanonicalHref } from "@/data/things-unique-to-texas-links";
 import { buildMeta, canonicalLink } from "@/lib/seo";
@@ -24,22 +24,23 @@ export const Route = createFileRoute("/things-unique-to-texas/$category")({
     const title = isTexasBrands
       ? "Texas Brands: H-E-B, Buc-ee's, Whataburger, Grocery Chains & More"
       : category ? `${category.title} — Things That Define Texas` : "Things That Define Texas";
+    const iconItems = category?.items.map((entry, index) => {
+      const href = texasIconCanonicalHref(entry);
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        name: entry.name,
+        ...(href ? { url: `${origin}${href}` } : {}),
+      };
+    }) ?? [];
     const itemList = isTexasBrands
-      ? TEXAS_BRAND_DIRECTORY.map((entry, index) => ({
-          "@type": "ListItem",
-          position: index + 1,
+      ? iconItems.concat(TEXAS_GROCERY_BRAND_EXPANSION.map((entry, index) => ({
+          "@type": "ListItem" as const,
+          position: iconItems.length + index + 1,
           name: entry.name,
           ...(entry.href ? { url: `${origin}${entry.href}` } : {}),
-        }))
-      : category?.items.map((entry, index) => {
-          const href = texasIconCanonicalHref(entry);
-          return {
-            "@type": "ListItem",
-            position: index + 1,
-            name: entry.name,
-            ...(href ? { url: `${origin}${href}` } : {}),
-          };
-        }) ?? [];
+        })))
+      : iconItems;
 
     return {
       meta: buildMeta(texasDefinedBrand, { title, description, canonicalPath: path }),
