@@ -23,6 +23,22 @@ function canonicalHref(html) {
   return '';
 }
 
+function visibleText(html) {
+  return html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 async function fetchProduction(path) {
   let lastError;
   for (let attempt = 1; attempt <= 6; attempt += 1) {
@@ -51,6 +67,15 @@ function requireIncludes(body, needles, label) {
   const missing = needles.filter((needle) => !body.includes(needle));
   if (missing.length) throw new Error(`${label} missing expected production content: ${missing.join(' | ')}`);
 }
+
+function requireVisibleIncludes(body, needles, label) {
+  const text = visibleText(body);
+  const missing = needles.filter((needle) => !text.includes(needle));
+  if (missing.length) throw new Error(`${label} missing expected visible production text: ${missing.join(' | ')}`);
+}
+
+const hydrationBoundaryFixture = '<h2>RV camping around <!-- -->Randall County</h2>';
+requireVisibleIncludes(hydrationBoundaryFixture, ['RV camping around Randall County'], 'RV smoke hydration-boundary regression');
 
 const hub = await fetchProduction('/explore/rv-parks');
 requireIncludes(hub.body, [
@@ -89,8 +114,10 @@ if (!profileRobots.includes('noindex') || !profileRobots.includes('follow')) {
 console.log('RV profile production verification passed: canonical noindex/follow seed profile with exact campground photo attribution.');
 
 const county = await fetchProduction('/county/randall');
-requireIncludes(county.body, [
+requireVisibleIncludes(county.body, [
   'RV camping around Randall County',
+], 'Randall County RV integration');
+requireIncludes(county.body, [
   'Palo Duro Canyon State Park RV Loop',
   profilePath,
   `${origin}/county/randall#rv-parks`,
