@@ -1,5 +1,4 @@
 import { useState, type FormEvent } from "react";
-import { Link } from "@tanstack/react-router";
 
 const aiExamples = [
   "Why does Texas have so many counties?",
@@ -74,7 +73,7 @@ export function AskTexasDefined({ initialQuestion }: { initialQuestion: string }
         {sources.length > 0 && <div className="mt-7 max-w-3xl border-t border-border pt-5">
           <p className="eyebrow text-primary">Texas Defined sources</p>
           <ol className="mt-3 divide-y divide-border">{sources.map((source, index) => <li key={`${source.href}-${index}`} className="py-4">
-            <div className="flex gap-3"><span className="font-display text-xl text-primary">[{index + 1}]</span><div><Link to={source.href} className="font-display text-xl leading-tight transition-colors hover:text-primary">{source.title}</Link><p className="mt-1 text-sm leading-6 text-muted-foreground">{source.summary}</p></div></div>
+            <div className="flex gap-3"><span className="font-display text-xl text-primary">[{index + 1}]</span><div><a href={source.href} className="font-display text-xl leading-tight transition-colors hover:text-primary">{source.title}</a><p className="mt-1 text-sm leading-6 text-muted-foreground">{source.summary}</p></div></div>
           </li>)}</ol>
         </div>}
       </article>}
