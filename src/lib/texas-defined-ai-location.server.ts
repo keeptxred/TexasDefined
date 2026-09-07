@@ -10,18 +10,26 @@ import type {
 } from "../data/texas-brand-locator.types";
 import type { SearchDocument } from "../data/types";
 import type { OfficialResearchSource } from "./texas-defined-official-research.server";
+import {
+  scopeTexasBrandLocationsToPlace,
+  type TexasBrandLocationPlaceScope,
+} from "./texas-defined-ai-location-place.server";
 
 const BRAND_LOCATION_INTENT_PATTERN = /\b(?:nearest|closest|nearby|near|find|where|location|locations|store|stores|around|by|in)\b/i;
+const WITHIN_PLACE_PATTERN = /\b(?:in|inside|within)\b/i;
 const HEB_PATTERN = /\b(?:h\s*[-.]?\s*e\s*[-.]?\s*b|heb)\b/i;
 const BUCEES_PATTERN = /\bbuc[-’']?ee['’]?s\b/i;
 const STREET_ADDRESS_PATTERN = /\b\d{1,6}\s+[A-Za-z0-9.'#-]+(?:\s+[A-Za-z0-9.'#-]+){0,7}\s+(?:st|street|rd|road|ave|avenue|blvd|boulevard|ln|lane|dr|drive|ct|court|way|pkwy|parkway|hwy|highway|fm|rm)\b[^?\n]{0,100}/i;
 const PLACE_KINDS = new Set(["city", "county", "metro-area"]);
 const MAX_RESULTS_PER_BRAND = 3;
 
+type TexasBrandLocationAnswerMode = "address" | TexasBrandLocationPlaceScope["mode"];
+
 export type TexasBrandLocationIntent = {
   brands: TexasBrandLocatorBrand[];
   isLocationQuestion: boolean;
   address: string | null;
+  placeScope: "within" | "nearest";
 };
 
 export type TexasBrandLocationAiAnswer = {
@@ -35,6 +43,7 @@ export type TexasBrandLocationAiAnswer = {
   officialSources: OfficialResearchSource[];
   brands: TexasBrandLocatorBrand[];
   texasPlace: string | null;
+  locationMode: TexasBrandLocationAnswerMode;
   sourceCount: number;
   resultCount: number;
   answerStatus: "answered" | "partial" | "unanswered";
@@ -49,6 +58,7 @@ export function classifyTexasBrandLocationQuestion(question: string): TexasBrand
     brands,
     isLocationQuestion: brands.length > 0 && (BRAND_LOCATION_INTENT_PATTERN.test(question) || Boolean(address)),
     address,
+    placeScope: WITHIN_PLACE_PATTERN.test(question) ? "within" : "nearest",
   };
 }
 
@@ -68,13 +78,21 @@ function formatDistance(value?: number) {
   return typeof value === "number" && Number.isFinite(value) ? `${value.toFixed(1)} miles` : "distance unavailable";
 }
 
-function answerLines(response: TexasBrandLocatorResponse, brands: TexasBrandLocatorBrand[], placeLabel: string) {
+function answerLines(
+  response: TexasBrandLocatorResponse,
+  brands: TexasBrandLocatorBrand[],
+  placeLabel: string,
+  mode: TexasBrandLocationAnswerMode,
+) {
   const lines: string[] = [];
   for (const brand of brands) {
     const locations = response.results.filter((location) => location.brand === brand).slice(0, MAX_RESULTS_PER_BRAND);
     const label = brand === "heb" ? "H-E-B" : "Buc-ee's";
     if (!locations.length) continue;
-    lines.push(`Nearest ${label} locations to ${placeLabel}:`);
+    const heading = mode === "within-city" || mode === "within-county"
+      ? `${label} locations I could verify in ${placeLabel}:`
+      : `Nearest ${label} locations to ${placeLabel}:`;
+    lines.push(heading);
     locations.forEach((location, index) => {
       lines.push(`${index + 1}. ${location.name} — ${location.address} — ${formatDistance(location.distanceMiles)}.`);
     });
@@ -96,14 +114,18 @@ function buildAnswer(
   brands: TexasBrandLocatorBrand[],
   placeLabel: string,
   signalPlace: string | null,
+  locationMode: TexasBrandLocationAnswerMode,
 ): TexasBrandLocationAiAnswer {
-  const lines = answerLines(response, brands, placeLabel);
+  const lines = answerLines(response, brands, placeLabel, locationMode);
   const resultCount = response.results.filter((item) => brands.includes(item.brand)).length;
   if (lines.length) {
     lines.push("Distances are approximate straight-line distances for Buc-ee's. For the latest hours, services, closures or location changes, use the direct official links in TexasDefined's Texas Brands locator.");
     if (response.notices.length) lines.push(response.notices.join(" "));
   } else {
-    lines.push(`I could not verify a nearby ${brands.map((brand) => brand === "heb" ? "H-E-B" : "Buc-ee's").join(" or ")} result for ${placeLabel} right now.`);
+    const scopeLanguage = locationMode === "within-city" || locationMode === "within-county"
+      ? `inside ${placeLabel}`
+      : `near ${placeLabel}`;
+    lines.push(`I could not verify a ${brands.map((brand) => brand === "heb" ? "H-E-B" : "Buc-ee's").join(" or ")} result ${scopeLanguage} right now.`);
     lines.push("Use the TexasDefined Texas Brands locator, which links directly to official H-E-B and Buc-ee's location sources, to continue without guessing.");
     if (response.notices.length) lines.push(response.notices.join(" "));
   }
@@ -117,6 +139,7 @@ function buildAnswer(
     officialSources: [],
     brands,
     texasPlace: signalPlace,
+    locationMode,
     sourceCount: 1,
     resultCount,
     answerStatus: resultCount > 0 ? "answered" : response.fallbackLinks.length > 0 ? "partial" : "unanswered",
@@ -129,7 +152,7 @@ export async function answerTexasBrandLocationQuestion(question: string): Promis
 
   if (intent.address) {
     const response = await findTexasBrandLocationsServer({ address: intent.address, brands: intent.brands });
-    return buildAnswer(response, intent.brands, response.matchedAddress || "that Texas address", null);
+    return buildAnswer(response, intent.brands, response.matchedAddress || "that Texas address", null, "address");
   }
 
   const place = await resolveTexasPlace(question);
@@ -140,6 +163,7 @@ export async function answerTexasBrandLocationQuestion(question: string): Promis
       officialSources: [],
       brands: intent.brands,
       texasPlace: null,
+      locationMode: "nearest",
       sourceCount: 1,
       resultCount: 0,
       answerStatus: "partial",
@@ -153,7 +177,23 @@ export async function answerTexasBrandLocationQuestion(question: string): Promis
     matchedAddress: place.name,
     brands: intent.brands,
   });
-  return buildAnswer(response, intent.brands, place.name, place.name);
+
+  if (intent.placeScope !== "within") {
+    return buildAnswer(response, intent.brands, place.name, place.name, "nearest");
+  }
+
+  const scoped = await scopeTexasBrandLocationsToPlace(response.results, place);
+  const scopedResponse: TexasBrandLocatorResponse = {
+    ...response,
+    results: scoped.results,
+    notices: scoped.exact || scoped.mode === "nearest"
+      ? response.notices
+      : [
+          ...response.notices,
+          `TexasDefined did not relabel nearby results as being inside ${place.name}; no in-place match was verified from the grounded locator results.`,
+        ],
+  };
+  return buildAnswer(scopedResponse, intent.brands, place.name, place.name, scoped.mode);
 }
 
 export function locationResultCities(results: TexasBrandLocatorLocation[]) {
