@@ -1,14 +1,7 @@
 import { Link, createLazyFileRoute } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
-import {
-  TEXAS_BRAND_DIRECTORY_CATEGORIES,
-  TEXAS_BRAND_DIRECTORY_COUNT,
-  TEXAS_GROCERY_BRAND_EXPANSION,
-  getTexasBrandCommercialPlacement,
-  texasBrandCategory,
-} from "@/data/texas-brand-directory";
-import type { TexasIconItem } from "@/data/things-unique-to-texas";
+import { TEXAS_BRAND_DIRECTORY_COUNT, TEXAS_GROCERY_BRAND_EXPANSION } from "@/data/texas-brand-directory";
 import { texasIconCanonicalHref } from "@/data/things-unique-to-texas-links";
 
 const FEATURED_GUIDES: Record<string, { href: string; label: string; description: string }[]> = {
@@ -27,7 +20,6 @@ const FEATURED_GUIDES: Record<string, { href: string; label: string; description
     { href: "/texas-brand-origin-stories", label: "Texas Brand Origin Stories", description: "Trace H-E-B, Whataburger, Blue Bell, Shiner, Dickies and Buc-ee's back to the Texas places and routines that shaped them." },
     { href: "/article/heb-texas-grocery-history-culture", label: "H-E-B & Texas Grocery Culture", description: "Go deeper on H-E-B's Kerrville roots, grocery growth and role in everyday Texas community life." },
     { href: "/article/bucees-texas-road-trip-history", label: "Buc-ee's & the Texas Road Trip", description: "See how a Lake Jackson-area convenience store grew into a recognizable Texas highway ritual." },
-    { href: "/dr-pepper-texas-history", label: "Dr Pepper in Texas", description: "Follow the documented 1885 Waco origin from soda fountain to bottling, national recognition and hometown identity." },
   ],
   "natural-wonders": [
     { href: "/texas-natural-wonders-bucket-list", label: "Texas Natural Wonders Bucket List", description: "Twelve landscapes that show the state's full range, from desert mountains to cypress swamp and barrier island." },
@@ -50,9 +42,7 @@ const FEATURED_GUIDES: Record<string, { href: string; label: string; description
   ],
 };
 
-export const Route = createLazyFileRoute("/things-unique-to-texas/$category")({
-  component: TexasIconCategoryPage,
-});
+export const Route = createLazyFileRoute("/things-unique-to-texas/$category")({ component: TexasIconCategoryPage });
 
 function TexasIconCategoryPage() {
   const category = Route.useLoaderData();
@@ -81,12 +71,22 @@ function TexasIconCategoryPage() {
       <section className="py-16 sm:py-20">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[1fr_320px] lg:items-start">
-            {isTexasBrands ? (
-              <TexasBrandDirectory entries={category.items} />
-            ) : (
+            <div>
+              {isTexasBrands && (
+                <section className="mb-8 border border-border bg-muted/20 p-6">
+                  <h2 className="font-display text-3xl">Texas roots first, commercial relationships second</h2>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground">Brand inclusion is editorial. Any affiliate or sponsored relationship must be separately labeled and does not buy rankings, favorable coverage or factual changes.</p>
+                  <a href="/partner-with-us?type=brand-retail&source=%2Fthings-unique-to-texas%2Ftexas-brands" className="mt-4 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">Represent a Texas brand, grocer or retailer? Explore partnership options →</a>
+                </section>
+              )}
+
               <div className="grid gap-4 sm:grid-cols-2">
                 {category.items.map((entry) => {
-                  const href = texasIconCanonicalHref(entry);
+                  const href = isTexasBrands && entry.id === 38
+                    ? "/article/heb-texas-grocery-history-culture"
+                    : isTexasBrands && entry.id === 36
+                      ? "/article/bucees-texas-road-trip-history"
+                      : texasIconCanonicalHref(entry);
                   const content = (
                     <div className="flex items-start gap-4">
                       <span className="mt-1 min-w-9 text-sm font-semibold tabular-nums text-primary">{entry.id}</span>
@@ -104,7 +104,23 @@ function TexasIconCategoryPage() {
                   );
                 })}
               </div>
-            )}
+
+              {isTexasBrands && (
+                <section className="mt-12">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Grocery & Markets</p>
+                  <h2 className="mt-2 font-display text-4xl">Texas grocery and market chains</h2>
+                  <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">H-E-B appears above; these additional Texas-rooted or Texas-significant grocery formats expand the brand guide without creating thin store-location pages.</p>
+                  <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                    {TEXAS_GROCERY_BRAND_EXPANSION.map(([name, note, href]) => (
+                      <article key={name} className="border border-border bg-card p-6">
+                        <h3 className="font-display text-2xl leading-tight">{href ? <Link to={href} className="hover:text-primary">{name}</Link> : name}</h3>
+                        <p className="mt-3 text-sm leading-6 text-muted-foreground">{note}</p>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+              )}
+            </div>
 
             <aside className="border border-border bg-muted/25 p-6 lg:sticky lg:top-24">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Related reading</p>
@@ -139,68 +155,5 @@ function TexasIconCategoryPage() {
         </Container>
       </section>
     </main>
-  );
-}
-
-function TexasBrandDirectory({ entries }: { entries: readonly TexasIconItem[] }) {
-  return (
-    <div className="space-y-12">
-      <section className="border border-border bg-muted/20 p-6 sm:p-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">How this directory works</p>
-        <h2 className="mt-3 font-display text-3xl">Texas roots first, commercial relationships second</h2>
-        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
-          Brands are included because their Texas origin, growth or cultural footprint helps explain the state. Commercial relationships are never required for inclusion, and any future affiliate or sponsored link must be labeled and disclosed.
-        </p>
-        <a href="/partner-with-us?type=brand-retail&source=%2Fthings-unique-to-texas%2Ftexas-brands" className="mt-5 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">
-          Represent a Texas brand, grocery chain or retailer? Explore partnership options →
-        </a>
-        <p className="mt-2 text-xs leading-5 text-muted-foreground">Partnerships do not buy inclusion, rankings, favorable coverage or changes to factual conclusions.</p>
-      </section>
-
-      {TEXAS_BRAND_DIRECTORY_CATEGORIES.map(([slug, label, description]) => {
-        const legacy = entries.filter((entry) => texasBrandCategory(entry) === slug);
-        const additions = TEXAS_GROCERY_BRAND_EXPANSION.filter((entry) => entry.category === slug);
-        return (
-          <section key={slug} id={slug}>
-            <div className="border-b border-border pb-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">{legacy.length + additions.length} entries</p>
-              <h2 className="mt-2 font-display text-4xl">{label}</h2>
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{description}</p>
-            </div>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              {legacy.map((entry) => (
-                <BrandCard
-                  key={entry.id}
-                  commercialKey={`icon:${entry.id}`}
-                  name={entry.name}
-                  note={entry.note}
-                  href={entry.id === 38 ? "/article/heb-texas-grocery-history-culture" : entry.id === 36 ? "/article/bucees-texas-road-trip-history" : texasIconCanonicalHref(entry)}
-                />
-              ))}
-              {additions.map((entry) => (
-                <BrandCard key={entry.slug} commercialKey={`brand:${entry.slug}`} name={entry.name} note={entry.note} href={entry.href} />
-              ))}
-            </div>
-          </section>
-        );
-      })}
-    </div>
-  );
-}
-
-function BrandCard({ name, note, href, commercialKey }: { name: string; note: string; href?: string; commercialKey: string }) {
-  const commercial = getTexasBrandCommercialPlacement(commercialKey);
-  return (
-    <article className="border border-border bg-card p-6">
-      <h3 className="font-display text-2xl leading-tight">{href ? <Link to={href} className="hover:text-primary">{name}</Link> : name}</h3>
-      <p className="mt-3 text-sm leading-6 text-muted-foreground">{note}</p>
-      {href && <Link to={href} className="mt-4 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">Read the TexasDefined guide →</Link>}
-      {commercial && (
-        <div className="mt-5 border-t border-border pt-4">
-          <p className="text-xs leading-5 text-muted-foreground">{commercial.disclosure}</p>
-          <a href={commercial.href} target="_blank" rel="sponsored nofollow noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">{commercial.cta} →</a>
-        </div>
-      )}
-    </article>
   );
 }
