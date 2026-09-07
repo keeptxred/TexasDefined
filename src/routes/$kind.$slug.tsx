@@ -10,7 +10,6 @@ import {
 } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { loadLocalGovernmentProfile } from '@/data/local-government-profile';
-import { loadCountyRvParks } from '@/data/rv-parks/county.functions';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 export const Route = createFileRoute('/$kind/$slug')({
@@ -25,16 +24,14 @@ export const Route = createFileRoute('/$kind/$slug')({
         .sort((left, right) => sportsVenuePriority(left) - sportsVenuePriority(right) || left.name.localeCompare(right.name))
       : [];
     if (entity.kind !== 'county') return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues };
-    const countyRvParksPromise = loadCountyRvParks({ data: { countySlug: entity.slug } });
-    const countyMajorEventsPromise = import('@/data/county-major-events').then(({ getCountyMajorEvents }) => getCountyMajorEvents(entity.slug));
-    const [countyProfile, localGovernment, countySeriesArticle, countyRvParks, countyMajorEvents] = await Promise.all([
+    const countyDiscoveryPromise = import('@/data/county-major-events').then(({ getCountyDiscovery }) => getCountyDiscovery(entity.slug));
+    const [countyProfile, localGovernment, countySeriesArticle, countyDiscovery] = await Promise.all([
       loadCountyProfile(entity.slug, entity.name),
       loadLocalGovernmentProfile(entity.slug, entity.name),
       loadCountySeriesArticle(entity.slug),
-      countyRvParksPromise,
-      countyMajorEventsPromise,
+      countyDiscoveryPromise,
     ]);
-    const countyEntity = { ...entity, rvParks: countyRvParks, majorEvents: countyMajorEvents };
+    const countyEntity = { ...entity, rvParks: countyDiscovery.rvParks, majorEvents: countyDiscovery.majorEvents };
     return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues };
   },
   head: ({ loaderData }) => {
