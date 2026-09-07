@@ -1,10 +1,7 @@
-import {
-  READER_QUALITY_INTERNAL_BROWSER_KEY,
-  classifyReaderReferrer,
-  type ReaderQualitySignals,
-} from './reader-quality';
+import type { ReaderQualityReferrerClass, ReaderQualitySignals } from './reader-quality';
 
 const SESSION_KEY = 'texasdefined:analytics-session';
+const INTERNAL_BROWSER_KEY = 'texasdefined:reader-quality-internal';
 const INGEST_PATH = '/api/reader-quality';
 const MAX_INTERACTIONS = 500;
 
@@ -21,18 +18,33 @@ function analyticsSessionId() {
   return created;
 }
 
+function classifyReferrer(referrer: string, origin: string): ReaderQualityReferrerClass {
+  if (!referrer) return 'direct';
+  try {
+    const referrerUrl = new URL(referrer);
+    if (referrerUrl.origin === origin) return 'internal';
+    const host = referrerUrl.hostname.toLowerCase().replace(/^www\./, '');
+    if (/(^|\.)(google|bing|duckduckgo|yahoo)\./.test(host)) return 'search';
+    if (/(^|\.)(chatgpt\.com|perplexity\.ai|claude\.ai|copilot\.microsoft\.com)$/.test(host)) return 'ai';
+    if (/(^|\.)(facebook\.com|instagram\.com|x\.com|twitter\.com|tiktok\.com|reddit\.com)$/.test(host)) return 'social';
+    return 'other';
+  } catch {
+    return 'unknown';
+  }
+}
+
 function excludedBrowserOrPath(path = window.location.pathname) {
   const hostname = window.location.hostname.toLowerCase();
   if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1') return true;
   if (path === '/admin' || path.startsWith('/admin/')) return true;
-  return safeStorage()?.getItem(READER_QUALITY_INTERNAL_BROWSER_KEY) === '1';
+  return safeStorage()?.getItem(INTERNAL_BROWSER_KEY) === '1';
 }
 
 export function installReaderQualitySignals() {
   if (typeof window === 'undefined' || excludedBrowserOrPath()) return () => undefined;
 
   const sessionId = analyticsSessionId();
-  const referrerClass = classifyReaderReferrer(document.referrer, window.location.origin);
+  const referrerClass = classifyReferrer(document.referrer, window.location.origin);
   let currentPath = window.location.pathname + window.location.search;
   let visibleMs = 0;
   let visibleSince = document.visibilityState === 'visible' ? performance.now() : undefined;
