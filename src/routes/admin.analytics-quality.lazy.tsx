@@ -2,6 +2,7 @@ import type { FormEvent, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import { Link, createLazyFileRoute } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
+import { READER_QUALITY_INTERNAL_BROWSER_KEY } from '@/platform/reader-quality';
 import { getReaderQualityDashboard, type ReaderQualityDashboard } from '@/platform/reader-quality.functions';
 
 const SESSION_KEY = 'texasdefined:sports-partner-admin-key';
@@ -21,6 +22,7 @@ function Page() {
       const result = await getReaderQualityDashboard({ data: { accessKey: key } });
       setReport(result);
       sessionStorage.setItem(SESSION_KEY, key);
+      localStorage.setItem(READER_QUALITY_INTERNAL_BROWSER_KEY, '1');
     } catch (cause) {
       setReport(null);
       setError(cause instanceof Error ? cause.message : 'Analytics quality could not be loaded.');
