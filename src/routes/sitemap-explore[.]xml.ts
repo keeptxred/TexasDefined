@@ -174,8 +174,9 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           const remoteSlugs = new Set(rawDestinations.map((destination) => destination.slug));
           rawDestinations.push(...preservedExploreDestinations.filter((destination) => destination.slug && !remoteSlugs.has(destination.slug)));
         }
-        const destinations = mergeDestinationSources(resolveDestinationCatalog(rawDestinations), loadRvParkDestinationsServer());
-        const indexableDestinations = [...new Map(destinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
+        const destinations = resolveDestinationCatalog(rawDestinations);
+        const sitemapDestinations = mergeDestinationSources(destinations, loadRvParkDestinationsServer());
+        const indexableDestinations = [...new Map(sitemapDestinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
           .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
         const swimmingHoleAndTubingCount = selectSwimmingHoleAndTubingDestinations(indexableDestinations).length;
         const swimmingHoleAndTubingCategory = supplementalExploreCategories.find((category) => category.slug === SWIMMING_HOLES_RIVER_TUBING_SLUG);
