@@ -25,26 +25,36 @@ function reportOptionalSearchFailure(label: string) {
 }
 
 export async function buildSearchDocuments(): Promise<SearchDocument[]> {
-  const rawBase = await platform.search.documents(scope);
+  let rawBase: SearchDocument[] = [];
+  try {
+    rawBase = await platform.search.documents(scope);
+  } catch {
+    // The core fixture catalog is useful context, but Ask Texas must still be
+    // able to answer from protected static authority documents when a lazy
+    // editorial module or repository adapter is unavailable in the Worker.
+    reportOptionalSearchFailure("core");
+  }
   const base = rawBase.filter((document) => document.kind !== "article");
 
-  try {
-    const articleCatalog = await platform.articles.list(scope);
-    const indexableArticleHrefs = new Set(
-      articleCatalog
-        .map(prepareArticleForDelivery)
-        .filter(isArticleDiscoveryReady)
-        .map((article) => `/article/${article.slug}`),
-    );
-    for (const document of rawBase) {
-      if (document.kind !== "article" || !indexableArticleHrefs.has(document.href)) continue;
-      base.push(document);
+  if (rawBase.some((document) => document.kind === "article")) {
+    try {
+      const articleCatalog = await platform.articles.list(scope);
+      const indexableArticleHrefs = new Set(
+        articleCatalog
+          .map(prepareArticleForDelivery)
+          .filter(isArticleDiscoveryReady)
+          .map((article) => `/article/${article.slug}`),
+      );
+      for (const document of rawBase) {
+        if (document.kind !== "article" || !indexableArticleHrefs.has(document.href)) continue;
+        base.push(document);
+      }
+    } catch {
+      // Fail closed for article discovery. If publication-readiness cannot be
+      // verified, keep non-article discovery working rather than exposing an
+      // unverified article or throwing the entire search/Ask Texas request.
+      reportOptionalSearchFailure("publication-ready article");
     }
-  } catch {
-    // Fail closed for article discovery. If publication-readiness cannot be
-    // verified, keep non-article discovery working rather than exposing an
-    // unverified article or throwing the entire search/Ask Texas request.
-    reportOptionalSearchFailure("publication-ready article");
   }
 
   const knownHrefs = new Set(base.map((document) => document.href));
