@@ -1,5 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { getReaderQualityDashboard } from '@/platform/reader-quality.functions';
 
 export const Route = createFileRoute('/admin/analytics-quality')({
   head: () => ({
@@ -8,5 +7,4 @@ export const Route = createFileRoute('/admin/analytics-quality')({
       { name: 'robots', content: 'noindex,nofollow,noarchive' },
     ],
   }),
-  loader: async () => getReaderQualityDashboard(),
 });
