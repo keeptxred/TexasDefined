@@ -23,9 +23,15 @@ describe("Ask Texas brand-location intelligence", () => {
     expect(locationSource).toContain('new Set(["city", "county", "metro-area"])');
     expect(locationSource).toContain("findTexasBrandLocationsServer({ address: intent.address");
     expect(locationSource).toContain("findTexasBrandLocationsNearPointServer({");
-    expect(locationSource).toContain("officialSources(response)");
     expect(locationSource).toContain("I could not verify a nearby");
-    expect(locationSource).toContain("official brand locator links below");
+    expect(locationSource).toContain("links directly to official H-E-B and Buc-ee's location sources");
+  });
+
+  it("does not mislabel the verified Buc-ee's registry as request-time live official research", () => {
+    expect(locationSource).toContain("officialSources: []");
+    expect(locationSource).toContain('Do not place either in the shared "live official');
+    expect(locationSource).toContain("latest hours, services, closures or location changes");
+    expect(locationSource).not.toContain("function officialSources(");
   });
 
   it("activates the existing privacy-minimized Ask Texas signal tables instead of creating a parallel analytics store", () => {
