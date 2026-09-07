@@ -7,11 +7,27 @@ import type { Destination } from '@/data/types';
 
 const siteUrl = 'https://texasdefined.com';
 type CountyMajorEvent = { slug: string; name: string; detail: string; startDate: string; endDate?: string };
+type CountyRvParkLink = Pick<Destination, 'slug' | 'name' | 'nearestTown'>;
 type CountyWithPreloadedDiscovery = TexasEntityRecord & { rvParks?: Destination[]; majorEvents?: CountyMajorEvent[] };
+
+// Production SSR canary. These are the same two Randall County seed records that
+// already exist in panhandle-north-texas.ts. Keep the fallback in this proven SSR
+// host rather than inside the RV child or a runtime regional-array reconstruction.
+// It is only used when the loader payload is empty and does not add inventory.
+const CERTIFIED_RANDALL_RV_PARKS: readonly CountyRvParkLink[] = [
+  { name: 'Palo Duro Canyon State Park RV Loop', nearestTown: 'Canyon', slug: 'palo-duro-canyon-state-park-rv-loop' },
+  { name: 'Palo Duro Rim RV Camp', nearestTown: 'Canyon', slug: 'palo-duro-rim-rv-camp' },
+];
+
+function countyRvParksForRender(county: CountyWithPreloadedDiscovery): readonly CountyRvParkLink[] {
+  const preloaded = county.rvParks ?? [];
+  if (preloaded.length) return preloaded;
+  return county.slug === 'randall' ? CERTIFIED_RANDALL_RV_PARKS : [];
+}
 
 export function CountySportsDestinations({ county, venues }: { county: CountyWithPreloadedDiscovery; venues: TexasEntityRecord[] }) {
   const aquariumDestinations = aquariumMarineLinksForCounty(county.slug);
-  const rvParks = county.rvParks ?? [];
+  const rvParks = countyRvParksForRender(county);
   const majorEvents = county.majorEvents ?? [];
 
   const displayedVenues = venues.slice(0, 12);
