@@ -161,6 +161,12 @@ function coverageTier(hits: SearchHit[]) {
   return "gap";
 }
 
+const LIVE_OFFICIAL_RESEARCH_PATTERN = /\b(?:right\s+now|currently|current|today|tonight|this\s+(?:morning|afternoon|evening|weekend)|closed|closure|closures|open\s+now|conditions?|traffic|construction|weather|forecast|warning|watch|deadline|schedule|hours?|prices?|availability|available|reservations?|delays?|delayed|cancelled|canceled)\b/i;
+
+function requiresLiveOfficialResearch(question: string) {
+  return LIVE_OFFICIAL_RESEARCH_PATTERN.test(question);
+}
+
 function sanitizeTelemetryQuestion(question: string) {
   return question
     .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "[email]")
@@ -255,7 +261,7 @@ async function generateAnswer(question: string, request: Request, env: unknown):
   const sources = hits.map((hit) => asSource(hit.document));
   const context = buildContext(sources);
   const tier = coverageTier(hits);
-  const officialSources = tier === "strong" ? [] : await researchOfficialQuestion(question);
+  const officialSources = tier === "strong" && !requiresLiveOfficialResearch(question) ? [] : await researchOfficialQuestion(question);
   const officialContext = buildOfficialResearchContext(officialSources);
   const model = envValue(env, "TEXAS_DEFINED_AI_MODEL") ?? DEFAULT_MODEL;
 
