@@ -68,3 +68,5 @@ if (!passed) {
   if (lastBody) console.error(`[viator-production] response sample: ${lastBody.slice(0, 1400).replace(/\s+/g, ' ')}`);
   process.exit(1);
 }
+
+await import('./verify-ask-texas-government-production.mjs');
