@@ -1,0 +1,150 @@
+name: Remote evergreen production audit
+
+on:
+  push:
+    branches:
+      - ops/remote-evergreen-production-audit
+    paths:
+      - '.github/workflows/remote-evergreen-production-audit.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Audit current production cohort
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+
+          const ORIGIN = 'https://texasdefined.com';
+          const UA = 'Mozilla/5.0 TexasDefinedEvergreenAudit/2.0';
+          const slugs = [
+            'sam-houston-texas-life-legacy',
+            'davy-crockett-texas-alamo-legend',
+            'william-barret-travis-alamo-commander',
+            'james-bowie-texas-alamo-life-legend',
+            'stephen-f-austin-father-of-texas',
+            'mirabeau-b-lamar-president-republic-texas',
+            'juan-seguin-tejano-texas-revolution',
+            'audie-murphy-texas-war-hero-actor',
+            'chester-nimitz-texas-fleet-admiral',
+            'chris-kyle-texas-navy-seal-life-legacy',
+            'heb-texas-grocery-history-culture',
+            'bucees-texas-road-trip-history',
+            'king-ranch-texas-history-cattle-legacy',
+            'san-antonio-spurs-texas-basketball-culture',
+            'texas-high-school-football-friday-night-lights',
+            'san-antonio-stock-show-rodeo-history-guide',
+            'fort-worth-stockyards-history-cattle-culture',
+            'blue-bell-ice-cream-brenham-texas-history',
+            'texas-oil-boom-wichita-falls-west-texas-rigs',
+          ];
+
+          const decode = (value = '') => value
+            .replaceAll('&amp;', '&')
+            .replaceAll('&quot;', '"')
+            .replaceAll('&#39;', "'")
+            .replaceAll('&apos;', "'");
+
+          const attr = (html, attribute, value, target) => {
+            const esc = value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const first = new RegExp(`<[^>]+${attribute}=["']${esc}["'][^>]+${target}=["']([^"']+)["']`, 'i');
+            const second = new RegExp(`<[^>]+${target}=["']([^"']+)["'][^>]+${attribute}=["']${esc}["']`, 'i');
+            return first.exec(html)?.[1] ?? second.exec(html)?.[1] ?? '';
+          };
+
+          const robots = (html) => (html.match(/<meta[^>]+>/gi) ?? [])
+            .filter((tag) => /name=["']robots["']/i.test(tag))
+            .map((tag) => /content=["']([^"']+)["']/i.exec(tag)?.[1]?.toLowerCase() ?? '')
+            .filter(Boolean);
+
+          const primarySource = (html) => {
+            const index = html.indexOf('Primary source:');
+            if (index < 0) return '';
+            const block = html.slice(index, index + 1500);
+            return decode(/<a\b[^>]*href=["']([^"']+)["'][^>]*>/i.exec(block)?.[1] ?? '');
+          };
+
+          const fetchText = async (url) => {
+            try {
+              const response = await fetch(url, {
+                headers: { 'user-agent': UA, 'cache-control': 'no-cache', pragma: 'no-cache' },
+                redirect: 'follow',
+                signal: AbortSignal.timeout(30000),
+              });
+              return { status: response.status, text: await response.text(), headers: response.headers };
+            } catch (error) {
+              return { status: 0, text: '', headers: new Headers(), error: error instanceof Error ? error.message : String(error) };
+            }
+          };
+
+          const sitemapResponse = await fetchText(`${ORIGIN}/sitemap.xml`);
+          const results = [];
+          for (const slug of slugs) {
+            const url = `${ORIGIN}/article/${slug}`;
+            const page = await fetchText(url);
+            const html = page.text;
+            const canonical = decode(attr(html, 'rel', 'canonical', 'href'));
+            const robotValues = robots(html);
+            const source = primarySource(decode(html));
+            const heroRaw = attr(html, 'property', 'og:image', 'content');
+            let heroStatus = 0;
+            let heroMime = '';
+            let hero = '';
+            if (heroRaw) {
+              try {
+                hero = new URL(decode(heroRaw), ORIGIN).href;
+                const image = await fetchText(hero);
+                heroStatus = image.status;
+                heroMime = image.headers.get('content-type') ?? '';
+              } catch {}
+            }
+            const checks = {
+              page200: page.status === 200,
+              sitemap: sitemapResponse.status === 200 && sitemapResponse.text.includes(url),
+              canonical: canonical === url,
+              robots: robotValues.some((v) => v.includes('index') && v.includes('follow')) && !robotValues.some((v) => v.includes('noindex') || v.includes('nofollow')),
+              articleSchema: /"@type"\s*:\s*"Article"/.test(decode(html)),
+              source: /^https:\/\//.test(source) && !source.startsWith(ORIGIN),
+              sourceSection: decode(html).includes('Sources and further reading'),
+              heroMeta: Boolean(hero),
+              hero200: heroStatus === 200 && heroMime.toLowerCase().startsWith('image/'),
+            };
+            const failures = Object.entries(checks).filter(([, ok]) => !ok).map(([key]) => key);
+            results.push({ slug, status: page.status, failures, canonical, robots: robotValues.join(' | '), source, hero, heroStatus, heroMime });
+          }
+
+          const failing = results.filter((r) => r.failures.length > 0);
+          const lines = [
+            `audit_base_sha=af6433e1b7c669fc4240d3fc51f27c6e339b17b8`,
+            `audit_utc=${new Date().toISOString()}`,
+            `sitemap_status=${sitemapResponse.status}`,
+            `pages_total=${results.length}`,
+            `pages_passing=${results.length - failing.length}`,
+            `pages_failing=${failing.length}`,
+            '',
+          ];
+          for (const r of results) {
+            lines.push(`${r.failures.length ? 'FAIL' : 'PASS'} ${r.slug} status=${r.status} failures=${r.failures.join(',') || 'none'} robots=${JSON.stringify(r.robots)} hero=${r.heroStatus}:${r.heroMime || '-'} source=${r.source || '-'}`);
+          }
+          fs.writeFileSync('remote-evergreen-audit.txt', lines.join('\n') + '\n');
+          console.log(lines.join('\n'));
+          NODE
+      - name: Record audit result on temporary branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add remote-evergreen-audit.txt
+          git commit -m 'Record remote evergreen production audit'
+          git push origin HEAD:${GITHUB_REF_NAME}
