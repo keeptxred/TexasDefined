@@ -5,6 +5,11 @@ const curatedProfiles = [
   { path: '/destination/pedernales-falls-state-park-rv-sites', name: 'Pedernales Falls State Park RV Sites' },
   { path: '/destination/galveston-island-state-park-rv-area', name: 'Galveston Island State Park RV Area' },
   { path: '/destination/palo-duro-canyon-state-park-rv-loop', name: 'Palo Duro Canyon State Park RV Loop' },
+  { path: '/destination/tyler-state-park-rv-loop', name: 'Tyler State Park RV Loop' },
+  { path: '/destination/huntsville-state-park-rv-loop', name: 'Huntsville State Park RV Loop' },
+  { path: '/destination/balmorhea-state-park-rv-area', name: 'Balmorhea State Park RV Area' },
+  { path: '/destination/davis-mountains-state-park-rv-loop', name: 'Davis Mountains State Park RV Loop' },
+  { path: '/destination/copper-breaks-state-park-rv-area', name: 'Copper Breaks State Park RV Area' },
 ];
 const guardedProfile = { path: '/destination/caddo-lake-state-park-rv-area', name: 'Caddo Lake State Park RV Area' };
 const profilePath = '/destination/palo-duro-canyon-state-park-rv-loop';
