@@ -1,0 +1,82 @@
+name: Remote evergreen image candidates
+
+on:
+  push:
+    branches:
+      - ops/remote-evergreen-production-audit
+    paths:
+      - '.github/workflows/remote-evergreen-image-candidates.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  resolve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Resolve Commons thumbnails and test delivery
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+
+          const files = {
+            'james-bowie-texas-alamo-life-legend': 'File:Bowie knife, blade marked G. Wostenholm & Son, Washington Work, I-XL, the real IXL knife, The Hunters Companion - Lorenzo de Zavala State Archives and Library Building - Austin, Texas - DSC08363.jpg',
+            'texas-high-school-football-friday-night-lights': 'File:Touchdown -- Texas High School vs Highland Park High School first-round playoffs.jpg',
+            'san-antonio-stock-show-rodeo-history-guide': 'File:Carnival scene outside the San Antonio Stock Show and Rodeo on the grounds of the Freeman Coliseum, San Antonio, Texas LCCN2014631343.tif',
+          };
+          const UA = 'TexasDefinedImageCandidateAudit/1.0 (https://texasdefined.com/about)';
+          const rows = [];
+
+          async function probe(url) {
+            try {
+              const r = await fetch(url, { headers: { 'user-agent': UA, accept: 'image/*,*/*;q=0.8' }, redirect: 'follow', signal: AbortSignal.timeout(30000) });
+              return `${r.status}:${r.headers.get('content-type') ?? '-'}`;
+            } catch (error) {
+              return `0:${error instanceof Error ? error.message : String(error)}`;
+            }
+          }
+
+          for (const [slug, title] of Object.entries(files)) {
+            const params = new URLSearchParams({
+              action: 'query', format: 'json', formatversion: '2', prop: 'imageinfo',
+              iiprop: 'url|mime|extmetadata', iiurlwidth: '1600', titles: title,
+            });
+            const api = `https://commons.wikimedia.org/w/api.php?${params}`;
+            const response = await fetch(api, { headers: { 'user-agent': UA }, signal: AbortSignal.timeout(30000) });
+            const json = await response.json();
+            const info = json?.query?.pages?.[0]?.imageinfo?.[0] ?? {};
+            const thumb = info.thumburl ?? '';
+            const original = info.url ?? '';
+            const license = info.extmetadata?.LicenseShortName?.value ?? '';
+            const artist = String(info.extmetadata?.Artist?.value ?? '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+            const direct = thumb ? await probe(thumb) : '-';
+            const proxied = thumb ? await probe(`https://texasdefined.com/media/remote?url=${encodeURIComponent(thumb)}`) : '-';
+            rows.push(`slug=${slug}`);
+            rows.push(`title=${title}`);
+            rows.push(`original=${original}`);
+            rows.push(`thumb=${thumb}`);
+            rows.push(`mime=${info.mime ?? ''}`);
+            rows.push(`license=${license}`);
+            rows.push(`artist=${artist}`);
+            rows.push(`direct_thumb=${direct}`);
+            rows.push(`current_proxy_thumb=${proxied}`);
+            rows.push('');
+          }
+          fs.writeFileSync('remote-evergreen-image-candidates.txt', rows.join('\n'));
+          console.log(rows.join('\n'));
+          NODE
+      - name: Record candidate audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add remote-evergreen-image-candidates.txt
+          git commit -m 'Record remote evergreen image candidates'
+          git push origin HEAD:${GITHUB_REF_NAME}
