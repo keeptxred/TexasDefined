@@ -6,6 +6,7 @@ const curatedProfiles = [
   { path: '/destination/galveston-island-state-park-rv-area', name: 'Galveston Island State Park RV Area' },
   { path: '/destination/palo-duro-canyon-state-park-rv-loop', name: 'Palo Duro Canyon State Park RV Loop' },
 ];
+const guardedProfile = { path: '/destination/caddo-lake-state-park-rv-area', name: 'Caddo Lake State Park RV Area' };
 const profilePath = '/destination/palo-duro-canyon-state-park-rv-loop';
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -108,7 +109,10 @@ const sitemap = await fetchProduction('/sitemap-explore.xml');
 for (const profile of curatedProfiles) {
   requireIncludes(sitemap.body, [`${origin}${profile.path}`], `RV sitemap ${profile.name}`);
 }
-console.log(`RV sitemap production verification passed: all ${curatedProfiles.length} curated public-park profiles are discoverable.`);
+if (sitemap.body.includes(`${origin}${guardedProfile.path}`)) {
+  throw new Error(`Guarded RV profile unexpectedly entered the Explore sitemap: ${guardedProfile.path}`);
+}
+console.log(`RV sitemap production verification passed: all ${curatedProfiles.length} curated public-park profiles are discoverable and the guarded seed remains excluded.`);
 
 for (const profileSpec of curatedProfiles) {
   const profile = await fetchProduction(profileSpec.path);
@@ -137,6 +141,20 @@ for (const profileSpec of curatedProfiles) {
 }
 console.log(`RV profile production verification passed: all ${curatedProfiles.length} curated public-park profiles are canonical index/follow pages with WebPage and TouristAttraction schema; Palo Duro attribution remains intact.`);
 
+const guarded = await fetchProduction(guardedProfile.path);
+requireIncludes(guarded.body, [
+  guardedProfile.name,
+  '"@type":"WebPage"',
+], `Guarded RV profile ${guardedProfile.name}`);
+if (canonicalHref(guarded.body) !== `${origin}${guardedProfile.path}`) {
+  throw new Error(`Guarded RV profile canonical mismatch for ${guardedProfile.name}: ${canonicalHref(guarded.body) || 'missing'}`);
+}
+const guardedDirectives = robotsDirectives(guarded.body);
+if (!guardedDirectives.has('noindex') || !guardedDirectives.has('follow') || guardedDirectives.has('index')) {
+  throw new Error(`Guarded RV profile robots policy mismatch for ${guardedProfile.name}: ${metaContent(guarded.body, 'robots') || 'missing'}`);
+}
+console.log('Guarded RV production verification passed: Caddo Lake remains canonical noindex/follow and excluded from sitemap discovery until it clears the indexing audit.');
+
 const county = await fetchProduction('/county/randall');
 requireVisibleIncludes(county.body, [
   'RV camping around Randall County',
@@ -150,4 +168,4 @@ requireIncludes(county.body, [
 ], 'Randall County RV integration');
 console.log('Randall County RV production verification passed: visible RV discovery section, Campground ItemList and statewide-directory handoff.');
 
-console.log(`TexasDefined RV production smoke passed for hub, ${curatedProfiles.length} index-ready profiles, sitemap discovery, attribution and Randall County integration.`);
+console.log(`TexasDefined RV production smoke passed for hub, ${curatedProfiles.length} index-ready profiles, guarded noindex control, sitemap discovery, attribution and Randall County integration.`);
