@@ -1,4 +1,3 @@
-import { lazy, Suspense } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createLazyFileRoute, Link, useNavigate } from "@tanstack/react-router";
 
@@ -13,8 +12,6 @@ import {
   SPORTS_SEARCH_STARTING_POINT,
   TEXAS_EXPLAINED_SEARCH_COPY,
 } from "./search";
-
-const AskTexasDefined = lazy(() => import("@/components/ai/AskTexasDefined").then((module) => ({ default: module.AskTexasDefined })));
 
 const startingPoints = [
   { to: "/explore", label: "Explore Texas", copy: "Parks, water, road trips, small towns and places worth making the drive for." },
@@ -57,9 +54,12 @@ function SearchPage() {
     </section>
 
     <Container className="min-h-[42vh] py-12 sm:py-16">
-      <Suspense fallback={<div className="border-y border-border bg-surface px-5 py-8 sm:px-8 sm:py-10"><p className="eyebrow text-primary">Texas Defined AI</p><p className="mt-2 text-sm text-muted-foreground">Loading Ask Texas anything…</p></div>}>
-        <AskTexasDefined initialQuestion={query} />
-      </Suspense>
+      <section className="border-y border-border bg-surface px-5 py-8 sm:px-8 sm:py-10">
+        <p className="eyebrow text-primary">Texas Defined AI</p>
+        <h2 className="mt-2 font-display text-4xl sm:text-5xl">Ask Texas anything.</h2>
+        <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">Powered by Texas Defined’s guides, data, places and verified sources.</p>
+        <a href="/ask-texas" className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Ask Texas Defined AI →</a>
+      </section>
 
       {!query && <section aria-labelledby="search-start-heading" className="mt-14 sm:mt-16">
         <div className="border-b border-border pb-5"><p className="eyebrow text-primary">Start here</p><h2 id="search-start-heading" className="mt-2 font-display text-3xl sm:text-4xl">A few useful ways into Texas Defined</h2></div>
