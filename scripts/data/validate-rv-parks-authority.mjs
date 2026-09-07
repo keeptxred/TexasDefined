@@ -6,7 +6,8 @@ const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
 const images = read('src/data/rv-parks/images.server.ts');
 const registry = read('src/data/rv-parks/registry.server.ts');
 const facade = read('src/data/rv-parks/index.ts');
-const countyDiscoveryBridge = read('src/data/county-major-events.ts');
+const countyEventsBridge = read('src/data/county-major-events.ts');
+const countyRvIndex = read('src/data/rv-parks/county-index.ts');
 const hillCountry = read('src/data/rv-parks/hill-country.ts');
 const panhandleNorthTexas = read('src/data/rv-parks/panhandle-north-texas.ts');
 const categoryRoute = read('src/routes/explore.$category.tsx');
@@ -33,16 +34,28 @@ requireText(registry, 'function normalizeCountySlug(value: string): string', 'Re
 requireText(registry, '.replace(/\\s+county$/i, "")', 'Registry county suffix removal');
 requireText(registry, 'normalizeCountySlug(item.county!) === normalized', 'Registry county slug matching');
 requireText(registry, 'export function loadRvParksForCountyServer(countySlug: string): Destination[]', 'Registry county server lookup');
-requireText(countyDiscoveryBridge, 'const loadCountyDiscovery = createServerFn({ method: "GET" })', 'Single county discovery server function');
-requireText(countyDiscoveryBridge, 'import("./county-major-events.server")', 'County event server registry boundary');
-requireText(countyDiscoveryBridge, 'import("./rv-parks/registry.server")', 'County RV server registry boundary');
-requireText(countyDiscoveryBridge, 'majorEvents: loadCountyMajorEventsServer(data.countySlug)', 'County discovery event payload');
-requireText(countyDiscoveryBridge, 'rvParks: rvRegistry.loadRvParksForCountyServer(data.countySlug).slice(0, 12)', 'County discovery bounded RV payload');
-requireText(countyDiscoveryBridge, 'export function getCountyDiscovery(countySlug: string)', 'County discovery facade');
+
+requireText(countyEventsBridge, 'const loadCountyMajorEvents = createServerFn({ method: "GET" })', 'County event server function');
+requireText(countyEventsBridge, 'import("./county-major-events.server")', 'County event server registry boundary');
+if (countyEventsBridge.includes('rv-parks/registry.server')) errors.push('County event server function must not own RV discovery.');
+
+for (const marker of [
+  'RV_PARK_RAW_HILL_COUNTRY',
+  'RV_PARK_RAW_GULF_COAST',
+  'RV_PARK_RAW_PINEY_WOODS_EAST_TEXAS',
+  'RV_PARK_RAW_PANHANDLE_NORTH_TEXAS',
+  'RV_PARK_RAW_BIG_BEND_WEST_TEXAS',
+  'export function loadCountyRvParksSnapshot(countySlug: string): Destination[]',
+  'normalizeCountySlug(park.county!) === normalized',
+  '.slice(0, 12)',
+]) requireText(countyRvIndex, marker, 'Client-safe county RV snapshot');
+if (countyRvIndex.includes('createServerFn')) errors.push('County RV snapshot must not add another TanStack server-function boundary.');
+if (countyRvIndex.includes('registry.server')) errors.push('County RV snapshot must not import the full server-only RV registry.');
+if (countyRvIndex.includes('images.server')) errors.push('County RV snapshot must not import licensed image metadata.');
 if (facade.includes('loadCountyRvParks') || facade.includes('rvParksForCounty')) errors.push('Shared RV facade must not own a county-specific server function.');
-if (facade.includes('{ action: "county"; value: string }')) errors.push('County RV lookup must not return to the generic RV action dispatcher that already failed production SSR.');
-if (countyDiscoveryBridge.includes('const loadCountyRvParks = createServerFn')) errors.push('County RV lookup must not return to a second standalone server function.');
-if (facade.includes('const parks = await listRvParkDestinations();')) errors.push('County RV lookup must not fetch and serialize the full 250-record catalog before filtering.');
+if (facade.includes('{ action: "county"; value: string }')) errors.push('County RV lookup must not return to the generic RV action dispatcher that failed production SSR.');
+if (facade.includes('const parks = await listRvParkDestinations();')) errors.push('County RV lookup must not fetch and serialize the full 250-record catalog through a server function before filtering.');
+
 requireText(hillCountry, '["Blanco State Park RV Area", "Blanco", "Blanco",', 'Blanco County RV seed coverage');
 requireText(panhandleNorthTexas, '["Palo Duro Canyon State Park RV Loop", "Canyon", "Randall",', 'Randall County RV seed coverage');
 
@@ -65,10 +78,11 @@ requireText(categoryRoute, '"rv-parks": {', 'RV collection SEO override');
 requireText(categoryRoute, '"@type": isRvPark ? "Campground" : "TouristAttraction"', 'RV collection Campground schema');
 requireText(destinationRoute, 'robots: indexable ? undefined : "noindex, follow"', 'Destination noindex quality gate');
 requireText(destinationRoute, '...(destination.hero.credit ? { creditText: destination.hero.credit } : {})', 'Destination image credit schema');
-requireText(countyRoute, "import('@/data/county-major-events').then(({ getCountyDiscovery }) => getCountyDiscovery(entity.slug))", 'County loader single discovery fetch');
-requireText(countyRoute, 'const countyEntity = { ...entity, rvParks: countyDiscovery.rvParks, majorEvents: countyDiscovery.majorEvents };', 'County loader combined discovery serialization');
+requireText(countyRoute, "import('@/data/rv-parks/county-index').then(({ loadCountyRvParksSnapshot }) => loadCountyRvParksSnapshot(entity.slug))", 'County loader bounded RV snapshot');
+requireText(countyRoute, "import('@/data/county-major-events').then(({ getCountyMajorEvents }) => getCountyMajorEvents(entity.slug))", 'County loader major-event server-function fetch');
+requireText(countyRoute, 'const countyEntity = { ...entity, rvParks: countyRvParks, majorEvents: countyMajorEvents };', 'County loader discovery serialization');
 if (countyRoute.includes("from '@/data/rv-parks/county.functions'")) errors.push('County loader must not import the failed standalone RV server-function module.');
-if (countyRoute.includes("import('@/data/rv-parks').then(({ rvParksForCounty })")) errors.push('County loader must not return to the failed dynamic RV server-function path.');
+if (countyRoute.includes('getCountyDiscovery')) errors.push('County loader must not restore the failed unified county discovery server function.');
 requireText(countySection, 'rvParks: Destination[]', 'Pure county RV render input');
 requireText(countySection, "'@type': 'Campground'", 'County Campground schema');
 requireText(countySection, 'href="/explore/rv-parks"', 'County-to-statewide RV discovery');
@@ -90,4 +104,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), one loader-backed county discovery server boundary, bounded server-side RV lookup, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
+console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), bounded client-safe county RV discovery without a failing county RPC, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
