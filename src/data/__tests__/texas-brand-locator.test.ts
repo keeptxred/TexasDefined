@@ -3,7 +3,6 @@ import { describe, expect, it } from "vitest";
 
 const serverSource = readFileSync(new URL("../texas-brand-locator.server.ts", import.meta.url), "utf8");
 const typesSource = readFileSync(new URL("../texas-brand-locator.types.ts", import.meta.url), "utf8");
-const componentSource = readFileSync(new URL("../../components/brands/TexasBrandLocator.tsx", import.meta.url), "utf8");
 const brandRouteSource = readFileSync(new URL("../../routes/things-unique-to-texas_.$category.lazy.tsx", import.meta.url), "utf8");
 const apiSource = readFileSync(new URL("../../lib/texas-brand-locator-api.server.ts", import.meta.url), "utf8");
 const serverEntrySource = readFileSync(new URL("../../server-entry.ts", import.meta.url), "utf8");
@@ -20,7 +19,6 @@ describe("Texas brand locator", () => {
     expect(migrationSource).toContain("'bucees-75','bucees','Buc-ee''s','Buc-ee''s','75','Buc-ee''s #75 — San Marcos'");
     expect(serverSource).toContain('from("texasdefined_brand_locations")');
     expect(serverSource).not.toContain("BUCEES_TEXAS_LOCATIONS");
-    expect(componentSource).not.toContain("bucees-40");
     expect(bootstrapSource).not.toContain("bucees-40");
   });
 
@@ -49,33 +47,34 @@ describe("Texas brand locator", () => {
     expect(serverSource).toContain("Buc-ee's official Texas location registry is available");
     expect(apiSource).toContain("The TexasDefined locator is temporarily unavailable");
     expect(bootstrapSource).toContain("Verify with ${location.brandLabel}");
-    expect(componentSource).toContain("Distances are approximate");
+    expect(bootstrapSource).toContain("Distances are approximate");
   });
 
-  it("exposes a reusable server endpoint and embeds the locator in the existing Texas Brands chapter", () => {
+  it("exposes a reusable server endpoint and mounts only on the existing Texas Brands chapter", () => {
     expect(typesSource).toContain('export type TexasBrandLocatorBrand = "heb" | "bucees"');
     expect(apiSource).toContain('const ENDPOINT_PATH = "/api/texas-brand-locator"');
     expect(apiSource).toContain("findTexasBrandLocationsServer");
     expect(serverEntrySource).toContain('import { texasBrandLocatorApiResponse } from "./lib/texas-brand-locator-api.server"');
     expect(serverEntrySource).toContain("const brandLocatorResponse = await texasBrandLocatorApiResponse(request)");
-    expect(brandRouteSource).toContain('import { TexasBrandLocator } from "@/components/brands/TexasBrandLocator"');
-    expect(brandRouteSource).toContain("{isTexasBrands && <TexasBrandLocator />}");
+    expect(brandRouteSource).toContain("data-texas-brand-locator-anchor");
+    expect(brandRouteSource).not.toContain("TexasBrandLocator");
+    expect(bootstrapSource).toContain('document.querySelector("[data-texas-brand-locator-anchor]")');
   });
 
-  it("keeps interaction out of the protected React main bundle", () => {
-    expect(componentSource).toContain("data-texas-brand-locator-form");
-    expect(componentSource).not.toContain("useState");
-    expect(componentSource).not.toContain("lazy(");
+  it("keeps all locator UI and interaction out of the protected React main bundle", () => {
     expect(rootSource).toContain("if (import.meta.env.SSR)");
     expect(rootSource).toContain('<script src="/texas-brand-locator.js" defer />');
     expect(bootstrapSource).toContain('const endpoint = "/api/texas-brand-locator"');
+    expect(bootstrapSource).toContain("Find your H-E-B or Buc-ee's");
+    expect(bootstrapSource).toContain("data-texas-brand-locator-form");
     expect(bootstrapSource).toContain("document.addEventListener(\"submit\"");
     expect(bootstrapSource).toContain("fetch(endpoint");
+    expect(bootstrapSource).toContain("new MutationObserver(mountLocator)");
   });
 
   it("uses typed address lookup without browser geolocation or address persistence", () => {
-    expect(componentSource).toContain('autoComplete="street-address"');
-    expect(componentSource).toContain("Your address is used to perform this search and is not stored or displayed publicly.");
+    expect(bootstrapSource).toContain('address.autocomplete = "street-address"');
+    expect(bootstrapSource).toContain("Your address is used to perform this search and is not stored or displayed publicly.");
     expect(bootstrapSource).not.toContain("navigator.geolocation");
     expect(bootstrapSource).not.toContain("getCurrentPosition");
     expect(bootstrapSource).not.toMatch(/localStorage|sessionStorage|document\.cookie/);
