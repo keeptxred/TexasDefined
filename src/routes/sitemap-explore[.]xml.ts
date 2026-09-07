@@ -175,9 +175,11 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           rawDestinations.push(...preservedExploreDestinations.filter((destination) => destination.slug && !remoteSlugs.has(destination.slug)));
         }
         const destinations = resolveDestinationCatalog(rawDestinations);
-        const sitemapDestinations = mergeDestinationSources(destinations, loadRvParkDestinationsServer());
-        const indexableDestinations = [...new Map(sitemapDestinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
+        const indexableDestinations = [...new Map(destinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
           .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
+        const indexableRvParkDestinations = [...new Map(loadRvParkDestinationsServer().filter((item) => item.slug).map((item) => [item.slug, item])).values()]
+          .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
+        const sitemapIndexableDestinations = mergeDestinationSources(indexableDestinations, indexableRvParkDestinations);
         const swimmingHoleAndTubingCount = selectSwimmingHoleAndTubingDestinations(indexableDestinations).length;
         const swimmingHoleAndTubingCategory = supplementalExploreCategories.find((category) => category.slug === SWIMMING_HOLES_RIVER_TUBING_SLUG);
         const swimmingHoleAndTubingIndexReady = Boolean(swimmingHoleAndTubingCategory && isExploreCategoryIndexReady(swimmingHoleAndTubingCategory.slug, swimmingHoleAndTubingCount));
@@ -216,7 +218,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           ...categorySlugs.map((slug) => `/explore/${slug}`),
           ...regionSlugs.map((regionSlug) => `/explore/region/${regionSlug}`),
         ];
-        const destinationEntries = indexableDestinations
+        const destinationEntries = sitemapIndexableDestinations
           .map((item) => entry(`/destination/${item.slug}`, item.sourceCheckedAt))
           .filter((item): item is string => Boolean(item));
         const paintedChurchEntries = expandedPaintedChurches
