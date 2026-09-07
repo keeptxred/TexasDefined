@@ -1,23 +1,32 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  TEXAS_BRAND_DIRECTORY,
   TEXAS_BRAND_DIRECTORY_CATEGORIES,
-  getTexasBrandDirectoryByCategory,
+  TEXAS_BRAND_DIRECTORY_COUNT,
+  TEXAS_GROCERY_BRAND_EXPANSION,
+  getTexasBrandCommercialPlacement,
+  texasBrandCategory,
 } from "../texas-brand-directory";
+import { getTexasIconCategory } from "../things-unique-to-texas";
 
 describe("Texas Brands directory", () => {
-  it("keeps a substantive multi-category Texas brand inventory", () => {
-    expect(TEXAS_BRAND_DIRECTORY.length).toBeGreaterThanOrEqual(25);
-    expect(TEXAS_BRAND_DIRECTORY_CATEGORIES.length).toBeGreaterThanOrEqual(5);
+  const legacy = getTexasIconCategory("texas-brands")?.items ?? [];
 
-    for (const category of TEXAS_BRAND_DIRECTORY_CATEGORIES) {
-      expect(getTexasBrandDirectoryByCategory(category.slug).length).toBeGreaterThan(0);
+  it("preserves the existing chapter while adding a substantive grocery expansion", () => {
+    expect(legacy).toHaveLength(20);
+    expect(TEXAS_GROCERY_BRAND_EXPANSION).toHaveLength(12);
+    expect(TEXAS_BRAND_DIRECTORY_COUNT).toBe(32);
+    expect(TEXAS_BRAND_DIRECTORY_CATEGORIES).toHaveLength(5);
+
+    for (const [slug] of TEXAS_BRAND_DIRECTORY_CATEGORIES) {
+      const count = legacy.filter((entry) => texasBrandCategory(entry) === slug).length
+        + TEXAS_GROCERY_BRAND_EXPANSION.filter((entry) => entry.category === slug).length;
+      expect(count).toBeGreaterThan(0);
     }
   });
 
   it("includes the priority Texas grocery and roadside institutions", () => {
-    const names = TEXAS_BRAND_DIRECTORY.map((entry) => entry.name);
+    const names = [...legacy.map((entry) => entry.name), ...TEXAS_GROCERY_BRAND_EXPANSION.map((entry) => entry.name)];
     expect(names).toEqual(expect.arrayContaining([
       "H-E-B",
       "Central Market",
@@ -30,17 +39,10 @@ describe("Texas Brands directory", () => {
     ]));
   });
 
-  it("keeps slugs unique and commercial placements explicitly disclosed", () => {
-    const slugs = TEXAS_BRAND_DIRECTORY.map((entry) => entry.slug);
+  it("keeps grocery expansion slugs unique and commercial placement fail-closed", () => {
+    const slugs = TEXAS_GROCERY_BRAND_EXPANSION.map((entry) => entry.slug);
     expect(new Set(slugs).size).toBe(slugs.length);
-
-    for (const entry of TEXAS_BRAND_DIRECTORY) {
-      expect(entry.texasConnection.length).toBeGreaterThan(60);
-      if (entry.commercial) {
-        expect(entry.commercial.href).toMatch(/^https:\/\//);
-        expect(entry.commercial.cta.trim().length).toBeGreaterThan(0);
-        expect(entry.commercial.disclosure.trim().length).toBeGreaterThan(15);
-      }
-    }
+    expect(getTexasBrandCommercialPlacement("icon:38")).toBeUndefined();
+    expect(getTexasBrandCommercialPlacement("brand:central-market")).toBeUndefined();
   });
 });
