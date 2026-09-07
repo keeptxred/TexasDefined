@@ -11,7 +11,7 @@ const migration = readFileSync(new URL("../../../supabase/migrations/20260907021
 describe("Texas Brands partnership funnel", () => {
   it("routes brand and retail inquiries from the directory into the existing partner form", () => {
     expect(brandRoute).toContain("type=brand-retail&source=%2Fthings-unique-to-texas%2Ftexas-brands");
-    expect(brandRoute).toContain("Commercial relationships are never required for inclusion");
+    expect(brandRoute).toContain("Brand inclusion is editorial.");
     expect(brandRoute).toContain("does not buy rankings, favorable coverage or factual changes");
     expect(partnerRoute).toContain("'/things-unique-to-texas/texas-brands'");
     expect(partnerForm).toContain("['brand-retail', 'Texas brand / grocery / retail']");
