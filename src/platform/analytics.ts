@@ -132,9 +132,8 @@ export function trackAIReferralVisit() {
 
 export function installTexasDefinedAnalytics() {
   if (typeof window === 'undefined') return () => undefined;
-  let cleanupReaderQuality: (() => void) | undefined;
   void import('./reader-quality-client')
-    .then((module) => { cleanupReaderQuality = module.installReaderQualitySignals(); })
+    .then(({ installReaderQualitySignals }) => installReaderQualitySignals())
     .catch(() => undefined);
 
   const shown = new Set<string>();
@@ -211,7 +210,6 @@ export function installTexasDefinedAnalytics() {
     window.removeEventListener('online', flushTexasDefinedAnalytics);
     mutation?.disconnect();
     observer?.disconnect();
-    cleanupReaderQuality?.();
   };
 }
 
