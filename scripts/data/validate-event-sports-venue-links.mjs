@@ -4,8 +4,8 @@ const read = (path) => fs.readFile(path, 'utf8');
 const [resolver, eventCard, eventsRoute, eventsLazyRoute, eventServerHead, corrections, generatedEvents, countyEventsServer, countyEventsBridge, countyDestinations, countyRoute, eventPage, dateFormatting, eventDisposition, supplementalRegistry, majorEventIndex] = await Promise.all([
   read('src/data/sports-venue-event-links.ts'),
   read('src/components/editorial/EventCard.tsx'),
-  read('src/routes/events.tsx'),
-  read('src/routes/events.lazy.tsx'),
+  read('src/routes/events.index.tsx'),
+  read('src/routes/events.index.lazy.tsx'),
   read('src/data/major-event-directory.server.ts'),
   read('src/data/knowledge-graph/current-entity-corrections.ts'),
   read('src/data/events-generated.ts'),
