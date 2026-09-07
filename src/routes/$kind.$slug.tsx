@@ -10,6 +10,7 @@ import {
 } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { loadLocalGovernmentProfile } from '@/data/local-government-profile';
+import { loadCountyRvParks } from '@/data/rv-parks/county.functions';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 export const Route = createFileRoute('/$kind/$slug')({
@@ -24,7 +25,7 @@ export const Route = createFileRoute('/$kind/$slug')({
         .sort((left, right) => sportsVenuePriority(left) - sportsVenuePriority(right) || left.name.localeCompare(right.name))
       : [];
     if (entity.kind !== 'county') return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues };
-    const countyRvParksPromise = import('@/data/rv-parks').then(({ rvParksForCounty }) => rvParksForCounty(entity.slug));
+    const countyRvParksPromise = loadCountyRvParks({ data: { countySlug: entity.slug } });
     const countyMajorEventsPromise = import('@/data/county-major-events').then(({ getCountyMajorEvents }) => getCountyMajorEvents(entity.slug));
     const [countyProfile, localGovernment, countySeriesArticle, countyRvParks, countyMajorEvents] = await Promise.all([
       loadCountyProfile(entity.slug, entity.name),
