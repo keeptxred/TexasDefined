@@ -20,94 +20,159 @@ const staticSearchDocuments: SearchDocument[] = [
   },
 ];
 
+function reportOptionalSearchFailure(label: string) {
+  console.warn(`[search-documents-runtime] optional ${label} search enrichment unavailable`);
+}
+
 export async function buildSearchDocuments(): Promise<SearchDocument[]> {
-  const [rawBase, articleCatalog] = await Promise.all([
-    platform.search.documents(scope),
-    platform.articles.list(scope),
-  ]);
-  const indexableArticleHrefs = new Set(
-    articleCatalog
-      .map(prepareArticleForDelivery)
-      .filter(isArticleDiscoveryReady)
-      .map((article) => `/article/${article.slug}`),
-  );
-  const base = rawBase.filter(
-    (document) => document.kind !== "article" || indexableArticleHrefs.has(document.href),
-  );
+  const rawBase = await platform.search.documents(scope);
+  const base = rawBase.filter((document) => document.kind !== "article");
+
+  try {
+    const articleCatalog = await platform.articles.list(scope);
+    const indexableArticleHrefs = new Set(
+      articleCatalog
+        .map(prepareArticleForDelivery)
+        .filter(isArticleDiscoveryReady)
+        .map((article) => `/article/${article.slug}`),
+    );
+    for (const document of rawBase) {
+      if (document.kind !== "article" || !indexableArticleHrefs.has(document.href)) continue;
+      base.push(document);
+    }
+  } catch {
+    // Fail closed for article discovery. If publication-readiness cannot be
+    // verified, keep non-article discovery working rather than exposing an
+    // unverified article or throwing the entire search/Ask Texas request.
+    reportOptionalSearchFailure("publication-ready article");
+  }
+
   const knownHrefs = new Set(base.map((document) => document.href));
   for (const document of staticSearchDocuments) {
     if (knownHrefs.has(document.href)) continue;
     base.push(document);
     knownHrefs.add(document.href);
   }
-  const { buildPrioritySearchDocuments } = await import("./priority-search-documents");
-  for (const document of buildPrioritySearchDocuments()) {
-    if (knownHrefs.has(document.href)) continue;
-    base.push(document);
-    knownHrefs.add(document.href);
+
+  try {
+    const { buildPrioritySearchDocuments } = await import("./priority-search-documents");
+    for (const document of buildPrioritySearchDocuments()) {
+      if (knownHrefs.has(document.href)) continue;
+      base.push(document);
+      knownHrefs.add(document.href);
+    }
+  } catch {
+    reportOptionalSearchFailure("priority");
   }
-  const { buildHuntingSearchDocuments } = await import("./hunting/search");
-  for (const document of buildHuntingSearchDocuments()) {
-    if (knownHrefs.has(document.href)) continue;
-    base.push(document);
-    knownHrefs.add(document.href);
+
+  try {
+    const { buildHuntingSearchDocuments } = await import("./hunting/search");
+    for (const document of buildHuntingSearchDocuments()) {
+      if (knownHrefs.has(document.href)) continue;
+      base.push(document);
+      knownHrefs.add(document.href);
+    }
+  } catch {
+    reportOptionalSearchFailure("hunting");
   }
-  const { buildFishingSearchDocuments } = await import("./fishing/search");
-  const fishingDocuments = await buildFishingSearchDocuments();
-  for (const document of fishingDocuments) {
-    if (knownHrefs.has(document.href)) continue;
-    base.push(document);
-    knownHrefs.add(document.href);
+
+  try {
+    const { buildFishingSearchDocuments } = await import("./fishing/search");
+    const fishingDocuments = await buildFishingSearchDocuments();
+    for (const document of fishingDocuments) {
+      if (knownHrefs.has(document.href)) continue;
+      base.push(document);
+      knownHrefs.add(document.href);
+    }
+  } catch {
+    reportOptionalSearchFailure("fishing");
   }
-  const { buildSportsVenueSearchDocuments } = await import("./sports-venue-search");
-  const sportsDocuments = buildSportsVenueSearchDocuments();
-  for (const document of sportsDocuments) {
-    if (knownHrefs.has(document.href)) continue;
-    base.push(document);
-    knownHrefs.add(document.href);
+
+  try {
+    const { buildSportsVenueSearchDocuments } = await import("./sports-venue-search");
+    const sportsDocuments = buildSportsVenueSearchDocuments();
+    for (const document of sportsDocuments) {
+      if (knownHrefs.has(document.href)) continue;
+      base.push(document);
+      knownHrefs.add(document.href);
+    }
+  } catch {
+    reportOptionalSearchFailure("sports venue");
   }
-  const { getMajorEventGuideDirectory } = await import("./major-event-directory");
-  const majorEventGuides = await getMajorEventGuideDirectory();
-  for (const event of majorEventGuides) {
-    const href = `/event/${event.slug}`;
-    if (knownHrefs.has(href)) continue;
-    base.push({
-      id: `event-guide:${event.slug}`,
-      brandId: "texasdefined",
-      kind: "event",
-      title: event.name,
-      summary: `Permanent Texas Defined event guide · ${event.detail}`,
-      keywords: [event.name, event.detail, "Texas events", "Texas festival guide"],
-      href,
-    });
-    knownHrefs.add(href);
+
+  try {
+    const { getMajorEventGuideDirectory } = await import("./major-event-directory");
+    const majorEventGuides = await getMajorEventGuideDirectory();
+    for (const event of majorEventGuides) {
+      const href = `/event/${event.slug}`;
+      if (knownHrefs.has(href)) continue;
+      base.push({
+        id: `event-guide:${event.slug}`,
+        brandId: "texasdefined",
+        kind: "event",
+        title: event.name,
+        summary: `Permanent Texas Defined event guide · ${event.detail}`,
+        keywords: [event.name, event.detail, "Texas events", "Texas festival guide"],
+        href,
+      });
+      knownHrefs.add(href);
+    }
+  } catch {
+    reportOptionalSearchFailure("major event");
   }
-  const { buildCityMetroSearchDocuments } = await import("./city-metro-search");
-  for (const document of buildCityMetroSearchDocuments()) {
-    if (knownHrefs.has(document.href)) continue;
-    base.push(document);
-    knownHrefs.add(document.href);
+
+  try {
+    const { buildCityMetroSearchDocuments } = await import("./city-metro-search");
+    for (const document of buildCityMetroSearchDocuments()) {
+      if (knownHrefs.has(document.href)) continue;
+      base.push(document);
+      knownHrefs.add(document.href);
+    }
+  } catch {
+    reportOptionalSearchFailure("city and metro");
   }
-  const { buildRvParkSearchDocuments } = await import("./rv-parks");
-  const rvParkDocuments = await buildRvParkSearchDocuments();
-  for (const document of rvParkDocuments) {
-    if (knownHrefs.has(document.href)) continue;
-    base.push(document);
-    knownHrefs.add(document.href);
+
+  try {
+    const { buildRvParkSearchDocuments } = await import("./rv-parks");
+    const rvParkDocuments = await buildRvParkSearchDocuments();
+    for (const document of rvParkDocuments) {
+      if (knownHrefs.has(document.href)) continue;
+      base.push(document);
+      knownHrefs.add(document.href);
+    }
+  } catch {
+    // The global search runtime can also be called from the custom Worker
+    // entry used by Ask Texas, where TanStack createServerFn wrappers do not
+    // have the route request context they have inside the app router. RV
+    // discovery is optional here; never let that boundary crash all search.
+    reportOptionalSearchFailure("RV park");
   }
-  const { listResolvedDestinationSearchCatalog } = await import("./destination-query-runtime");
-  const destinations = await listResolvedDestinationSearchCatalog();
+
+  let destinations: Destination[];
+  try {
+    const { listResolvedDestinationSearchCatalog } = await import("./destination-query-runtime");
+    destinations = await listResolvedDestinationSearchCatalog();
+  } catch {
+    reportOptionalSearchFailure("resolved destination");
+    return [...new Map(base.map((document) => [document.href, document])).values()];
+  }
+
   const nonDestinationDocuments = base.filter((document) => document.kind !== "destination");
   const nonDestinationHrefs = new Set(nonDestinationDocuments.map((document) => document.href));
-  const { paintedChurchSearchDocuments } = await import("./painted-church-search");
-  for (const document of paintedChurchSearchDocuments) {
-    if (nonDestinationHrefs.has(document.href)) continue;
-    const normalizedDocument: SearchDocument = document.id.startsWith("painted-church:")
-      ? { ...document, kind: "guide" }
-      : document;
-    nonDestinationDocuments.push(normalizedDocument);
-    nonDestinationHrefs.add(normalizedDocument.href);
+  try {
+    const { paintedChurchSearchDocuments } = await import("./painted-church-search");
+    for (const document of paintedChurchSearchDocuments) {
+      if (nonDestinationHrefs.has(document.href)) continue;
+      const normalizedDocument: SearchDocument = document.id.startsWith("painted-church:")
+        ? { ...document, kind: "guide" }
+        : document;
+      nonDestinationDocuments.push(normalizedDocument);
+      nonDestinationHrefs.add(normalizedDocument.href);
+    }
+  } catch {
+    reportOptionalSearchFailure("painted church");
   }
+
   if (!destinations.length) return nonDestinationDocuments;
   const documents = [
     ...nonDestinationDocuments,
