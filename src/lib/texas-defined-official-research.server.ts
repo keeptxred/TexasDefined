@@ -14,6 +14,7 @@ const FETCH_TIMEOUT_MS = 3_500;
 const MAX_RAW_CHARS = 120_000;
 const MAX_SNIPPET_CHARS = 5_500;
 const MAX_RESEARCH_SOURCES = 2;
+const TEXAS_ROUTE_PATTERN = /\b(?:i\s*-?\s*\d{1,3}|us\s*-?\s*\d{1,3}|sh\s*-?\s*\d{1,4}|fm\s*-?\s*\d{1,4}|rm\s*-?\s*\d{1,4}|loop\s+\d{1,4}|spur\s+\d{1,4})\b/i;
 
 const DOMAIN_KEYWORDS: Partial<Record<TexasDataDomain, string[]>> = {
   places: ["city", "town", "place", "population", "located"],
@@ -91,8 +92,10 @@ function phraseMatches(question: string, phrases: string[]) {
 
 function seedScore(question: string, seed: ResearchSeed, extraKeywords: string[] = []) {
   const domainKeywords = DOMAIN_KEYWORDS[seed.domain] ?? [];
-  return phraseMatches(question, [...domainKeywords, ...extraKeywords])
+  let score = phraseMatches(question, [...domainKeywords, ...extraKeywords])
     + phraseMatches(question, seed.title.toLowerCase().split(/[,;:]/).map((value) => value.trim()).filter(Boolean));
+  if (seed.authority === "Texas Department of Transportation" && TEXAS_ROUTE_PATTERN.test(question)) score += 4;
+  return score;
 }
 
 function selectSeeds(question: string) {
