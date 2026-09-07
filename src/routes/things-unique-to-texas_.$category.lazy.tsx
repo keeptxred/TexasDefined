@@ -149,6 +149,13 @@ function TexasBrandDirectory() {
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
           Brands are included because their verified origin, growth or cultural footprint helps explain Texas. A commercial relationship is never required for inclusion. If TexasDefined later adds an affiliate, sponsor or direct-partner link, that placement must be explicitly labeled and disclosed.
         </p>
+        <a
+          href="/partner-with-us?type=brand-retail&source=%2Fthings-unique-to-texas%2Ftexas-brands"
+          className="mt-5 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline"
+        >
+          Represent a Texas brand, grocery chain or retailer? Explore partnership options →
+        </a>
+        <p className="mt-2 text-xs leading-5 text-muted-foreground">Partnerships do not buy inclusion, rankings, favorable coverage or changes to factual conclusions.</p>
       </section>
 
       {TEXAS_BRAND_DIRECTORY_CATEGORIES.map((category) => {
