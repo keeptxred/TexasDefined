@@ -1,7 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { TEXAS_GROCERY_BRAND_EXPANSION } from "@/data/texas-brand-directory";
 import { getTexasIconCategory } from "@/data/things-unique-to-texas";
 import { texasIconCanonicalHref } from "@/data/things-unique-to-texas-links";
 import { buildMeta, canonicalLink } from "@/lib/seo";
@@ -19,12 +18,12 @@ export const Route = createFileRoute("/things-unique-to-texas/$category")({
     const methodologyUrl = `${origin}/things-unique-to-texas/methodology`;
     const isTexasBrands = category?.slug === "texas-brands";
     const description = isTexasBrands
-      ? "Explore Texas brands and chains including H-E-B, Buc-ee's, Whataburger, Central Market, Brookshire's, Blue Bell, Shiner, Dickies and more, organized by grocery, food, retail, Western wear and technology."
+      ? "Explore Texas brands and chains including H-E-B, Buc-ee's, Whataburger, Central Market, Brookshire's, Blue Bell, Shiner, Dickies and more."
       : category?.description ?? "Explore the people, places, foods, traditions and symbols that help define Texas.";
     const title = isTexasBrands
       ? "Texas Brands: H-E-B, Buc-ee's, Whataburger, Grocery Chains & More"
       : category ? `${category.title} — Things That Define Texas` : "Things That Define Texas";
-    const iconItems = category?.items.map((entry, index) => {
+    const itemList = category?.items.map((entry, index) => {
       const href = texasIconCanonicalHref(entry);
       return {
         "@type": "ListItem",
@@ -33,14 +32,6 @@ export const Route = createFileRoute("/things-unique-to-texas/$category")({
         ...(href ? { url: `${origin}${href}` } : {}),
       };
     }) ?? [];
-    const itemList = isTexasBrands
-      ? iconItems.concat(TEXAS_GROCERY_BRAND_EXPANSION.map((entry, index) => ({
-          "@type": "ListItem" as const,
-          position: iconItems.length + index + 1,
-          name: entry.name,
-          ...(entry.href ? { url: `${origin}${entry.href}` } : {}),
-        })))
-      : iconItems;
 
     return {
       meta: buildMeta(texasDefinedBrand, { title, description, canonicalPath: path }),
