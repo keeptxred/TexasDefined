@@ -158,8 +158,10 @@ for (const marker of [
   'canonicalLink(texasDefinedBrand, canonicalPath)',
 ]) if (!articleRoute.includes(marker)) failures.push(`Shared evergreen recovery metadata contract missing ${marker}.`);
 if (!sitemap.includes('platform.articles.list(scope)')) failures.push('Primary sitemap must continue sourcing recovery-candidate articles from platform.articles.list(scope).');
-const articleCatalogPattern = /\.\.\.articles\s*\.filter\(\(article\)\s*=>\s*!isLegacyCountySeriesArticle\(article\.slug\)\s*&&\s*isArticleIndexReady\(article\)\)\s*\.map\(\(article\)\s*=>\s*\(\{\s*path:\s*`\/article\/\$\{article\.slug\}`/s;
-if (!articleCatalogPattern.test(sitemap)) failures.push('Primary sitemap must continue publishing recovery-candidate articles through the strict quality-gated canonical article catalog.');
+for (const marker of [
+  'const indexableLocalArticles = articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article));',
+  '...indexableLocalArticles.map((article) => ({ path: `/article/${article.slug}`',
+]) if (!sitemap.includes(marker)) failures.push(`Primary sitemap must continue publishing recovery-candidate articles through the strict quality-gated canonical article cohort: ${marker}`);
 
 if (failures.length) {
   console.error('GSC evergreen recovery validation failed:');
