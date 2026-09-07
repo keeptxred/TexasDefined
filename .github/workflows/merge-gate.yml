@@ -47,6 +47,9 @@ jobs:
       - name: Validate retired one-time certifications
         run: node scripts/ci/validate-retired-one-time-certifications.mjs
 
+      - name: Validate Ask Texas AI readiness
+        run: node scripts/data/validate-texas-defined-ai-readiness.mjs
+
       - name: Validate Event schema enrichment coverage
         run: |
           node scripts/data/validate-events-seo.mjs
