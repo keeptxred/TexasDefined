@@ -1,12 +1,23 @@
 import { buildSearchDocuments } from "../data/search-documents-runtime";
 import type { SearchDocument } from "../data/types";
+import { canonicalEntityPath } from "../data/knowledge-graph/relationships";
 import { search } from "../domain/search/engine";
+import {
+  buildTexasEntityContext,
+  classifyCoverage,
+  classifyTexasQuestion,
+  recordTexasAiQuestionSignal,
+  withResolvedPlace,
+  type TexasAiClassification,
+} from "./texas-defined-ai-intelligence.server";
 
 const AI_API_PATH = "/api/texas-defined-ai";
 const DEFAULT_MODEL = "gpt-5.6-luna";
 const MAX_QUESTION_LENGTH = 900;
 const MAX_REQUEST_BYTES = 8_192;
 const MAX_CONTEXT_SOURCES = 8;
+const MAX_SEARCH_SOURCES = 6;
+const MAX_ENTITY_SOURCES = 4;
 const SITE_ORIGIN = "https://texasdefined.com";
 
 type OpenAIResponsePart = { type?: unknown; text?: unknown };
@@ -18,7 +29,7 @@ type AiSource = {
   title: string;
   href: string;
   summary: string;
-  kind: SearchDocument["kind"];
+  kind: string;
 };
 
 function envValue(env: unknown, name: string): string | null {
@@ -74,11 +85,30 @@ function asSource(document: SearchDocument): AiSource {
   };
 }
 
+function dedupeSources(sources: AiSource[]) {
+  const seen = new Set<string>();
+  return sources.filter((source) => {
+    if (!source.href || seen.has(source.href)) return false;
+    seen.add(source.href);
+    return true;
+  }).slice(0, MAX_CONTEXT_SOURCES);
+}
+
 function buildContext(sources: AiSource[]) {
   if (!sources.length) return "No matching Texas Defined source page was found for this question.";
   return sources
     .map((source, index) => `[${index + 1}] ${source.title}\nURL: ${SITE_ORIGIN}${source.href}\nType: ${source.kind}\nSummary: ${source.summary}`)
     .join("\n\n");
+}
+
+function buildQuestionContext(classification: TexasAiClassification) {
+  return [
+    `Intent: ${classification.intent}`,
+    `Topics: ${classification.topics.join(", ")}`,
+    `Freshness: ${classification.freshnessClass}`,
+    classification.texasPlace ? `Texas place: ${classification.texasPlace}` : "Texas place: statewide or unresolved",
+    `Current verification needed: ${classification.needsCurrentVerification ? "yes" : "no"}`,
+  ].join("\n");
 }
 
 function outputText(payload: OpenAIResponsePayload): string | null {
@@ -103,10 +133,13 @@ Voice and scope:
 - Texas Defined is a non-political lifestyle and reference publication. Do not produce partisan persuasion or campaign advocacy.
 
 Grounding rules:
-- The supplied Texas Defined context is your primary source. When a claim comes from that context, cite it inline with its bracket number such as [1] or [2].
-- Never invent a Texas Defined citation, title, URL, event date, price, opening hour, rule, statistic, or availability detail.
+- The supplied Texas Defined page context and structured Texas knowledge context are your primary sources.
+- Cite public Texas Defined page context inline with its bracket number such as [1] or [2].
+- Structured entity context may support stable facts and relationships, but do not invent a bracket citation for it unless the same Texas Defined page appears in the numbered page context.
+- Treat source confidence, source-checked dates, review-due dates, and explicit relationship verification as evidence-quality signals. Prefer official/high-confidence records over weaker records.
+- Never invent a Texas Defined citation, title, URL, event date, price, opening hour, rule, statistic, relationship, or availability detail.
 - You may use stable general knowledge to explain background when the supplied context does not contain the full answer, but clearly distinguish that from source-backed Texas Defined material and do not attach a bracket citation to unsupported details.
-- For laws, regulations, taxes, deadlines, closures, schedules, weather-sensitive conditions, prices, reservations, or other fast-changing facts, tell the reader to verify the responsible official source unless the supplied context itself provides a current verified value.
+- For laws, regulations, taxes, deadlines, closures, schedules, weather-sensitive conditions, prices, reservations, availability, operating hours, seasonal conditions, or other changing facts: if the question context says current verification is needed and the structured context does not contain a recently checked record, say current verification is needed rather than guessing.
 - If Texas Defined does not yet have enough source-backed material to answer precisely, say that plainly and still suggest the closest relevant Texas Defined pages from the supplied context.
 
 Answer style:
@@ -155,14 +188,30 @@ export async function texasDefinedAiResponse(request: Request, env: unknown): Pr
     return jsonError("Texas Defined AI is temporarily unavailable", 503);
   }
 
-  const documents = await buildSearchDocuments();
+  const startedAt = Date.now();
+  const [documents, entityContext] = await Promise.all([
+    buildSearchDocuments(),
+    buildTexasEntityContext(normalizedQuestion),
+  ]);
   const hits = search(documents, {
     term: normalizedQuestion,
     brandId: "texasdefined",
-    limit: MAX_CONTEXT_SOURCES,
+    limit: MAX_SEARCH_SOURCES,
   });
-  const sources = hits.map((hit) => asSource(hit.document));
+  const searchSources = hits.map((hit) => asSource(hit.document));
+  const entitySources = entityContext.entities
+    .filter((entity) => Boolean(entity.description?.trim()) && ["active", "seasonal"].includes(entity.status))
+    .slice(0, MAX_ENTITY_SOURCES)
+    .map((entity): AiSource => ({
+      title: entity.name,
+      href: canonicalEntityPath(entity),
+      summary: entity.description!.trim(),
+      kind: entity.kind,
+    }));
+  const sources = dedupeSources([...searchSources, ...entitySources]);
   const context = buildContext(sources);
+  const classification = withResolvedPlace(classifyTexasQuestion(normalizedQuestion), entityContext);
+  const coverageStatus = classifyCoverage(searchSources.length, entityContext.entities.length);
   const model = envValue(env, "TEXAS_DEFINED_AI_MODEL") ?? DEFAULT_MODEL;
 
   let upstream: Response;
@@ -178,11 +227,22 @@ export async function texasDefinedAiResponse(request: Request, env: unknown): Pr
         store: false,
         reasoning: { effort: "low" },
         instructions,
-        input: `Reader question:\n${normalizedQuestion}\n\nTexas Defined context:\n${context}`,
+        input: `Reader question:\n${normalizedQuestion}\n\nQuestion classification:\n${buildQuestionContext(classification)}\n\nCoverage assessment: ${coverageStatus}\n\nTexas Defined page context:\n${context}\n\nStructured Texas knowledge context:\n${entityContext.text}`,
         max_output_tokens: 700,
       }),
     });
   } catch {
+    await recordTexasAiQuestionSignal({
+      env,
+      question: normalizedQuestion,
+      classification,
+      entityContext,
+      sourceCount: searchSources.length,
+      coverageStatus,
+      answerStatus: "error",
+      model,
+      latencyMs: Date.now() - startedAt,
+    });
     return jsonError("Texas Defined AI could not answer that right now.", 502);
   }
 
@@ -194,6 +254,17 @@ export async function texasDefinedAiResponse(request: Request, env: unknown): Pr
   }
 
   if (!upstream.ok) {
+    await recordTexasAiQuestionSignal({
+      env,
+      question: normalizedQuestion,
+      classification,
+      entityContext,
+      sourceCount: searchSources.length,
+      coverageStatus,
+      answerStatus: "error",
+      model,
+      latencyMs: Date.now() - startedAt,
+    });
     const retryAfter = upstream.headers.get("retry-after");
     const response = jsonError(upstream.status === 429 ? "Texas Defined AI is busy. Please try again shortly." : "Texas Defined AI could not answer that right now.", upstream.status === 429 ? 429 : 502);
     if (retryAfter) response.headers.set("Retry-After", retryAfter);
@@ -201,7 +272,32 @@ export async function texasDefinedAiResponse(request: Request, env: unknown): Pr
   }
 
   const answer = outputText(payload);
-  if (!answer) return jsonError("Texas Defined AI returned an empty answer", 502);
+  if (!answer) {
+    await recordTexasAiQuestionSignal({
+      env,
+      question: normalizedQuestion,
+      classification,
+      entityContext,
+      sourceCount: searchSources.length,
+      coverageStatus,
+      answerStatus: "error",
+      model,
+      latencyMs: Date.now() - startedAt,
+    });
+    return jsonError("Texas Defined AI returned an empty answer", 502);
+  }
+
+  await recordTexasAiQuestionSignal({
+    env,
+    question: normalizedQuestion,
+    classification,
+    entityContext,
+    sourceCount: searchSources.length,
+    coverageStatus,
+    answerStatus: coverageStatus === "none" ? "unanswered" : coverageStatus === "weak" ? "partial" : "answered",
+    model,
+    latencyMs: Date.now() - startedAt,
+  });
 
   return Response.json({ answer, sources }, {
     headers: {
