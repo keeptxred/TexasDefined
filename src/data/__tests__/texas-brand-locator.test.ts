@@ -9,6 +9,8 @@ const serverEntrySource = readFileSync(new URL("../../server-entry.ts", import.m
 const rootSource = readFileSync(new URL("../../routes/__root.tsx", import.meta.url), "utf8");
 const bootstrapSource = readFileSync(new URL("../../../public/texas-brand-locator.js", import.meta.url), "utf8");
 const migrationSource = readFileSync(new URL("../../../supabase/migrations/20260907143800_create_texasdefined_brand_locations.sql", import.meta.url), "utf8");
+const geographyCacheMigration = readFileSync(new URL("../../../supabase/migrations/20260907193400_allow_brand_location_geography_cache.sql", import.meta.url), "utf8");
+const geographyCacheRestriction = readFileSync(new URL("../../../supabase/migrations/20260907194900_restrict_brand_location_geography_cache.sql", import.meta.url), "utf8");
 
 describe("Texas brand locator", () => {
   it("keeps the verified 36-location Buc-ee's Texas registry out of emitted app JavaScript", () => {
@@ -22,10 +24,15 @@ describe("Texas brand locator", () => {
     expect(bootstrapSource).not.toContain("bucees-40");
   });
 
-  it("protects the server-only location registry with RLS and explicit service-role access", () => {
+  it("protects the server-only location registry with RLS and least-privilege service-role access", () => {
     expect(migrationSource).toContain("alter table public.texasdefined_brand_locations enable row level security");
     expect(migrationSource).toContain("revoke all on table public.texasdefined_brand_locations from anon, authenticated");
     expect(migrationSource).toContain("grant select on table public.texasdefined_brand_locations to service_role");
+    expect(geographyCacheMigration).toContain("grant update (latitude, longitude, updated_at)");
+    expect(geographyCacheRestriction).toContain("revoke insert, delete, truncate, references, trigger, update");
+    expect(geographyCacheRestriction).toContain("grant update (latitude, longitude, updated_at)");
+    expect(geographyCacheRestriction).toContain("to service_role");
+    expect(geographyCacheRestriction).not.toMatch(/to\s+(?:anon|authenticated)/i);
     expect(migrationSource).toContain("https://buc-ees.com/locations/");
     expect(migrationSource).toContain("'2026-09-06','active'");
   });
@@ -40,6 +47,17 @@ describe("Texas brand locator", () => {
     expect(serverSource).not.toMatch(/GOOGLE_(?:MAPS|PLACES)_API_KEY|MAPBOX_TOKEN|GEOCODIO|HERE_API/i);
   });
 
+  it("reuses verified Buc-ee's coordinates before geocoding and persists only missing geography", () => {
+    expect(serverSource).toContain('select("id,brand_slug,name,street,city,state,postal_code,latitude,longitude,source_url")');
+    expect(serverSource).toContain("function storedBuceesCoordinates");
+    expect(serverSource).toContain("const missing = locations.filter((location) => !coordinates.has(location.id))");
+    expect(serverSource).toContain("if (!missing.length) return coordinates");
+    expect(serverSource).toContain("async function persistBuceesCoordinates");
+    expect(serverSource).toContain("update({ latitude: point.latitude, longitude: point.longitude, updated_at: updatedAt })");
+    expect(serverSource).toContain("Brand location geography cache persistence failed");
+    expect(serverSource).not.toContain("county_slug:");
+  });
+
   it("fails closed to official locator links instead of fabricating store results", () => {
     expect(serverSource).toContain("Open H-E-B's official store locator");
     expect(serverSource).toContain("Open Buc-ee's official locations");
@@ -48,6 +66,15 @@ describe("Texas brand locator", () => {
     expect(apiSource).toContain("The TexasDefined locator is temporarily unavailable");
     expect(bootstrapSource).toContain("Verify with ${location.brandLabel}");
     expect(bootstrapSource).toContain("Distances are approximate");
+  });
+
+  it("hardens the public locator endpoint against cross-origin and oversized requests", () => {
+    expect(apiSource).toContain("const MAX_REQUEST_BYTES = 4_096");
+    expect(apiSource).toContain("function sameOriginRequest");
+    expect(apiSource).toContain("Cross-origin requests are not allowed");
+    expect(apiSource).toContain("Content-Type must be application/json");
+    expect(apiSource).toContain("Request body is too large");
+    expect(apiSource).toContain("new TextEncoder().encode(rawBody).byteLength");
   });
 
   it("exposes a reusable server endpoint and mounts only on the existing Texas Brands chapter", () => {

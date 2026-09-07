@@ -15,6 +15,8 @@ type VerifiedBrandLocation = {
   city: string;
   state: "TX";
   postalCode: string;
+  latitude: number | null;
+  longitude: number | null;
   sourceUrl: string;
 };
 type BrandLocationRow = {
@@ -25,6 +27,8 @@ type BrandLocationRow = {
   city: string;
   state: string;
   postal_code: string;
+  latitude: number | null;
+  longitude: number | null;
   source_url: string;
 };
 type BrandLocationQueryResult = { data: BrandLocationRow[] | null; error: { message: string } | null };
@@ -32,9 +36,14 @@ type BrandLocationQuery = PromiseLike<BrandLocationQueryResult> & {
   eq: (column: string, value: string) => BrandLocationQuery;
   order: (column: string, options?: { ascending?: boolean }) => BrandLocationQuery;
 };
+type BrandLocationUpdateResult = { error: { message: string } | null };
+type BrandLocationUpdateQuery = PromiseLike<BrandLocationUpdateResult> & {
+  eq: (column: string, value: string) => BrandLocationUpdateQuery;
+};
 type BrandLocationsAdminClient = {
   from: (table: string) => {
     select: (columns: string) => BrandLocationQuery;
+    update: (values: { latitude: number; longitude: number; updated_at: string }) => BrandLocationUpdateQuery;
   };
 };
 
@@ -127,6 +136,16 @@ function quotedCsv(value: string) {
   return `"${value.replaceAll('"', '""')}"`;
 }
 
+function storedBuceesCoordinates(locations: VerifiedBrandLocation[]) {
+  const coordinates = new Map<string, Point>();
+  for (const location of locations) {
+    if (typeof location.latitude !== "number" || !Number.isFinite(location.latitude)) continue;
+    if (typeof location.longitude !== "number" || !Number.isFinite(location.longitude)) continue;
+    coordinates.set(location.id, { latitude: location.latitude, longitude: location.longitude });
+  }
+  return coordinates;
+}
+
 async function loadBuceesLocationsFromSupabase() {
   if (!buceesLocationsPromise) {
     buceesLocationsPromise = (async () => {
@@ -134,7 +153,7 @@ async function loadBuceesLocationsFromSupabase() {
       const client = supabaseAdmin as unknown as BrandLocationsAdminClient;
       const { data, error } = await client
         .from("texasdefined_brand_locations")
-        .select("id,brand_slug,name,street,city,state,postal_code,source_url")
+        .select("id,brand_slug,name,street,city,state,postal_code,latitude,longitude,source_url")
         .eq("brand_slug", "bucees")
         .eq("status", "active")
         .order("id", { ascending: true });
@@ -150,6 +169,8 @@ async function loadBuceesLocationsFromSupabase() {
           city: row.city,
           state: "TX",
           postalCode: row.postal_code,
+          latitude: row.latitude,
+          longitude: row.longitude,
           sourceUrl: row.source_url,
         }));
       if (!locations.length) throw new Error("Buc-ee's location registry returned no active Texas locations");
@@ -215,14 +236,56 @@ async function loadBuceesCoordinatesFallback(locations: VerifiedBrandLocation[])
   return coordinates;
 }
 
+async function persistBuceesCoordinates(coordinates: Map<string, Point>) {
+  if (!coordinates.size) return;
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const client = supabaseAdmin as unknown as BrandLocationsAdminClient;
+  const updatedAt = new Date().toISOString();
+  const updates = await Promise.allSettled([...coordinates].map(async ([id, point]) => {
+    const { error } = await client
+      .from("texasdefined_brand_locations")
+      .update({ latitude: point.latitude, longitude: point.longitude, updated_at: updatedAt })
+      .eq("id", id);
+    if (error) throw new Error(`Brand location geography cache update failed for ${id}: ${error.message}`);
+  }));
+  const rejected = updates.find((result) => result.status === "rejected");
+  if (rejected?.status === "rejected") console.error(rejected.reason);
+}
+
 async function buceesCoordinates(locations: VerifiedBrandLocation[]) {
   if (!buceesCoordinatesPromise) {
-    buceesCoordinatesPromise = loadBuceesCoordinatesFromCensus(locations)
-      .catch(() => loadBuceesCoordinatesFallback(locations))
-      .catch((error) => {
-        buceesCoordinatesPromise = null;
-        throw error;
+    buceesCoordinatesPromise = (async () => {
+      const coordinates = storedBuceesCoordinates(locations);
+      const missing = locations.filter((location) => !coordinates.has(location.id));
+      if (!missing.length) return coordinates;
+
+      let resolved = new Map<string, Point>();
+      try {
+        resolved = await loadBuceesCoordinatesFromCensus(missing);
+      } catch {
+        resolved = await loadBuceesCoordinatesFallback(missing);
+      }
+
+      const unresolved = missing.filter((location) => !resolved.has(location.id));
+      if (unresolved.length) {
+        try {
+          const fallback = await loadBuceesCoordinatesFallback(unresolved);
+          for (const [id, point] of fallback) resolved.set(id, point);
+        } catch {
+          // Partial batch results remain usable; unresolved stores simply do not rank.
+        }
+      }
+
+      for (const [id, point] of resolved) coordinates.set(id, point);
+      await persistBuceesCoordinates(resolved).catch((error) => {
+        const message = error instanceof Error ? error.message : "unknown error";
+        console.error(`Brand location geography cache persistence failed: ${message}`);
       });
+      return coordinates;
+    })().catch((error) => {
+      buceesCoordinatesPromise = null;
+      throw error;
+    });
   }
   return buceesCoordinatesPromise;
 }
