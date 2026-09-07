@@ -2,11 +2,12 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 const serverSource = readFileSync(new URL("../texas-brand-locator.server.ts", import.meta.url), "utf8");
-const clientSource = readFileSync(new URL("../texas-brand-locator.ts", import.meta.url), "utf8");
 const typesSource = readFileSync(new URL("../texas-brand-locator.types.ts", import.meta.url), "utf8");
 const componentSource = readFileSync(new URL("../../components/brands/TexasBrandLocator.tsx", import.meta.url), "utf8");
-const interactiveSource = readFileSync(new URL("../../components/brands/TexasBrandLocatorInteractive.tsx", import.meta.url), "utf8");
 const brandRouteSource = readFileSync(new URL("../../routes/things-unique-to-texas_.$category.lazy.tsx", import.meta.url), "utf8");
+const apiSource = readFileSync(new URL("../../routes/api.texas-brand-locator.ts", import.meta.url), "utf8");
+const rootSource = readFileSync(new URL("../../routes/__root.tsx", import.meta.url), "utf8");
+const bootstrapSource = readFileSync(new URL("../../../public/texas-brand-locator.js", import.meta.url), "utf8");
 const migrationSource = readFileSync(new URL("../../../supabase/migrations/20260907143800_create_texasdefined_brand_locations.sql", import.meta.url), "utf8");
 
 describe("Texas brand locator", () => {
@@ -18,6 +19,8 @@ describe("Texas brand locator", () => {
     expect(migrationSource).toContain("'bucees-75','bucees','Buc-ee''s','Buc-ee''s','75','Buc-ee''s #75 — San Marcos'");
     expect(serverSource).toContain('from("texasdefined_brand_locations")');
     expect(serverSource).not.toContain("BUCEES_TEXAS_LOCATIONS");
+    expect(componentSource).not.toContain("bucees-40");
+    expect(bootstrapSource).not.toContain("bucees-40");
   });
 
   it("protects the server-only location registry with RLS and explicit service-role access", () => {
@@ -43,30 +46,40 @@ describe("Texas brand locator", () => {
     expect(serverSource).toContain("Open Buc-ee's official locations");
     expect(serverSource).toContain("H-E-B's live locator could not be reached from TexasDefined");
     expect(serverSource).toContain("Buc-ee's official Texas location registry is available");
-    expect(interactiveSource).toContain("Verify with {location.brandLabel}");
-    expect(interactiveSource).toContain("Distances are approximate");
+    expect(apiSource).toContain("The TexasDefined locator is temporarily unavailable");
+    expect(bootstrapSource).toContain("Verify with ${location.brandLabel}");
+    expect(componentSource).toContain("Distances are approximate");
   });
 
-  it("exposes one reusable server boundary and embeds it in the existing Texas Brands chapter", () => {
+  it("exposes a reusable server endpoint and embeds the locator in the existing Texas Brands chapter", () => {
     expect(typesSource).toContain('export type TexasBrandLocatorBrand = "heb" | "bucees"');
-    expect(clientSource).toContain('createServerFn({ method: "POST" })');
-    expect(clientSource).toContain('await import("./texas-brand-locator.server")');
-    expect(clientSource).toContain("findTexasBrandLocations");
+    expect(apiSource).toContain('createFileRoute("/api/texas-brand-locator")');
+    expect(apiSource).toContain('await import("@/data/texas-brand-locator.server")');
+    expect(apiSource).toContain("findTexasBrandLocationsServer");
     expect(brandRouteSource).toContain('import { TexasBrandLocator } from "@/components/brands/TexasBrandLocator"');
     expect(brandRouteSource).toContain("{isTexasBrands && <TexasBrandLocator />}");
   });
 
-  it("keeps the interactive locator behind a lazy client boundary", () => {
-    expect(componentSource).toContain('lazy(() => import("./TexasBrandLocatorInteractive"))');
-    expect(componentSource).not.toContain("@/data/texas-brand-locator");
-    expect(interactiveSource).toContain("@/data/texas-brand-locator");
+  it("keeps interaction out of the protected React main bundle", () => {
+    expect(componentSource).toContain("data-texas-brand-locator-form");
+    expect(componentSource).not.toContain("useState");
+    expect(componentSource).not.toContain("lazy(");
+    expect(rootSource).toContain("if (import.meta.env.SSR)");
+    expect(rootSource).toContain('<script src="/texas-brand-locator.js" defer />');
+    expect(bootstrapSource).toContain('const endpoint = "/api/texas-brand-locator"');
+    expect(bootstrapSource).toContain("document.addEventListener(\"submit\"");
+    expect(bootstrapSource).toContain("fetch(endpoint");
   });
 
   it("uses typed address lookup without browser geolocation or address persistence", () => {
-    expect(interactiveSource).toContain('autoComplete="street-address"');
-    expect(interactiveSource).toContain("Your address is used to perform this search and is not stored or displayed publicly.");
-    expect(interactiveSource).not.toContain("navigator.geolocation");
-    expect(interactiveSource).not.toContain("getCurrentPosition");
+    expect(componentSource).toContain('autoComplete="street-address"');
+    expect(componentSource).toContain("Your address is used to perform this search and is not stored or displayed publicly.");
+    expect(bootstrapSource).not.toContain("navigator.geolocation");
+    expect(bootstrapSource).not.toContain("getCurrentPosition");
+    expect(bootstrapSource).not.toMatch(/localStorage|sessionStorage|document\.cookie/);
+    expect(apiSource).toContain('"cache-control": "no-store, private"');
+    expect(apiSource).not.toContain("insert(");
+    expect(apiSource).not.toContain("upsert(");
     expect(serverSource).not.toContain("insert(");
     expect(serverSource).not.toContain("upsert(");
   });
