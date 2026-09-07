@@ -70,7 +70,7 @@ jobs:
           node-version: 22
       - name: Validate RV camping authority contract
         run: node scripts/data/validate-rv-parks-authority.mjs
-      - name: Validate unified county discovery boundary
+      - name: Validate deterministic static county RV discovery
         run: node scripts/data/validate-rv-county-server-function-isolation.mjs
 
   production:

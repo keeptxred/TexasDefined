@@ -92,12 +92,11 @@ assert(eventDisposition.includes('Canonical guide remains `/texas-state-fair`; d
 assert(countyEventsServer.includes('loadSupplementalMajorEventRecordsServer'), 'County event lookup must include supplemental server-only event authority records.');
 assert(countyEventsServer.includes('event?.countySlug === normalizedCountySlug'), 'County event lookup must filter by the verified county slug.');
 assert(countyEventsServer.includes('.slice(0, 8)'), 'County event cards must stay bounded to a focused discovery set.');
-assert(countyEventsBridge.includes('const loadCountyDiscovery = createServerFn'), 'County event lookup must share one county-discovery server-function boundary.');
-assert(countyEventsBridge.includes('import("./county-major-events.server")'), 'County event authority records must remain dynamically imported server-side.');
-assert(countyEventsBridge.includes('majorEvents: loadCountyMajorEventsServer(data.countySlug)'), 'County discovery payload must include the bounded verified major-event set.');
-assert(countyEventsBridge.includes('rvParks: rvRegistry.loadRvParksForCountyServer(data.countySlug).slice(0, 12)'), 'County discovery payload must keep RV discovery server-side and bounded.');
-assert(countyRoute.includes("import('@/data/county-major-events').then(({ getCountyDiscovery }) => getCountyDiscovery(entity.slug))"), 'County route loader must load the single county-discovery payload by county identity.');
-assert(countyRoute.includes('majorEvents: countyDiscovery.majorEvents'), 'County route loader must serialize major-event discovery for synchronous rendering.');
+assert(countyEventsBridge.includes('const loadCountyMajorEvents = createServerFn'), 'County major-event lookup must cross its proven event-only server-function boundary.');
+assert(countyEventsBridge.includes('await import("./county-major-events.server")'), 'County event authority records must remain dynamically imported server-side.');
+assert(!countyEventsBridge.includes('rvParks'), 'County event bridge must not carry RV discovery data.');
+assert(countyRoute.includes("import('@/data/county-major-events').then(({ getCountyMajorEvents }) => getCountyMajorEvents(entity.slug))"), 'County route loader must load major-event links by county identity.');
+assert(countyRoute.includes('majorEvents: countyMajorEvents'), 'County route loader must serialize major-event discovery for synchronous rendering.');
 assert(countyDestinations.includes('const majorEvents = county.majorEvents ?? [];'), 'County UI must consume loader-backed major-event links synchronously.');
 assert(countyDestinations.includes('href={`/event/${event.slug}`}'), 'County major-event cards must link to permanent event authority URLs.');
 assert(!countyDestinations.includes('getCountyMajorEvents(county.slug)'), 'County UI must not suspend on the major-event server function before county discovery sections render.');
