@@ -26,9 +26,11 @@ requireAll('Jasper destination Blue Hole discovery', destinationLinks, [
 ]);
 
 requireAll('Jasper county reciprocal Blue Hole registration', supplementalRegistration, [
-  'href: "/article/blue-hole-jasper-county-east-texas"',
-  'jasper-county-jasper-kirbyville-sam-rayburn-piney-woods-texas',
-  'articleInternalLinks[slug]',
+  'import { blueHoleJasperCountyStoryArticle }',
+  'href: `/article/${blueHoleJasperCountyStoryArticle.slug}`',
+  '"jasper-county-jasper-kirbyville-sam-rayburn-piney-woods-texas"',
+  'articleInternalLinks[slug] = existing.some((link) => link.href === blueHoleLink.href)',
+  ': [...existing, blueHoleLink]',
 ]);
 
 if (failures.length) {
