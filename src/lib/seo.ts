@@ -70,11 +70,11 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, { title: string; desc
   },
   "/article/texas-rivers-explained": {
     title: "Major Rivers in Texas: Boundary Rivers, Basins & Regions",
-    description: "See Texas boundary rivers, major river basins and regional waterways, including the Rio Grande, Red, Sabine, Brazos, Colorado, Guadalupe and Trinity.",
+    description: "See Texas boundary rivers, major river basins and regional waterways.",
   },
   "/article/texas-river-basins-guide": {
     title: "Texas River Basins: 15 Major Basins & Watersheds",
-    description: "Explore Texas's 15 major river basins and eight coastal basins, how watersheds divide the state, and where rivers drain toward bays and the Gulf.",
+    description: "Explore Texas's 15 major river basins and eight coastal basins.",
   },
   "/article/texas-lakes-reservoirs-explained": {
     title: "Are Texas Lakes Man-Made? Why Most Are Reservoirs",
@@ -82,11 +82,11 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, { title: string; desc
   },
   "/article/texas-highway-designations-explained": {
     title: "Texas Road Names: What FM, RM, SH, Loop & Spur Mean",
-    description: "Decode Texas road designations: FM and RM roads, State Highways, Loops, Spurs, Park Roads and business routes, with the TxDOT meaning behind each.",
+    description: "Decode Texas road designations: FM and RM roads, State Highways, Loops and Spurs.",
   },
   "/article/texas-school-districts-explained": {
     title: "What Does ISD Stand For in Texas? School District Guide",
-    description: "ISD means Independent School District. Learn why Texas school district boundaries differ from city limits and how to verify the district for an address.",
+    description: "ISD means Independent School District. Learn why district boundaries differ from city limits.",
   },
   "/article/texas-farm-to-market-roads-explained": { title: "Texas Farm-to-Market Roads Explained" },
   "/article/beginners-guide-ordering-texas-barbecue": { title: "How to Order Texas Barbecue" },
