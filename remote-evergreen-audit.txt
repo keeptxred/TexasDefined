@@ -1,0 +1,26 @@
+audit_base_sha=af6433e1b7c669fc4240d3fc51f27c6e339b17b8
+audit_utc=2026-09-07T02:16:52.631Z
+sitemap_status=200
+pages_total=19
+pages_passing=16
+pages_failing=3
+
+PASS sam-houston-texas-life-legacy status=200 failures=none robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=200:image/jpeg source=https://www.tshaonline.org/handbook/entries/houston-sam
+PASS davy-crockett-texas-alamo-legend status=200 failures=none robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=200:image/jpeg source=https://www.thealamo.org/remember/battle-and-revolution/defenders/david-davy-crockett
+PASS william-barret-travis-alamo-commander status=200 failures=none robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=200:image/jpeg source=https://www.tsl.texas.gov/travis-letter
+FAIL james-bowie-texas-alamo-life-legend status=200 failures=hero200 robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=403:text/plain;charset=UTF-8 source=https://www.tshaonline.org/handbook/entries/bowie-james
+PASS stephen-f-austin-father-of-texas status=200 failures=none robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=200:image/jpeg source=https://www.tsl.texas.gov/lobbyexhibits/homefortexashistory/stephenfaustin
+PASS mirabeau-b-lamar-president-republic-texas status=200 failures=none robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=200:image/png source=https://www.tshaonline.org/handbook/entries/lamar-mirabeau-buonaparte
+PASS juan-seguin-tejano-texas-revolution status=200 failures=none robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=200:image/jpeg source=https://www.tshaonline.org/handbook/entries/seguin-juan-nepomuceno
+PASS audie-murphy-texas-war-hero-actor status=200 failures=none robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=200:image/jpeg source=https://www.tshaonline.org/handbook/entries/murphy-audie-leon
+PASS chester-nimitz-texas-fleet-admiral status=200 failures=none robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=200:image/jpeg source=https://www.history.navy.mil/browse-by-topic/people/chiefs-of-naval-operations/fleet-admiral-chester-w--nimitz.html
+PASS chris-kyle-texas-navy-seal-life-legacy status=200 failures=none robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=200:image/jpeg source=https://www.navy.mil/Resources/Photo-Gallery/igphoto/2002439330/
+PASS heb-texas-grocery-history-culture status=200 failures=none robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=200:image/jpeg source=https://careers.heb.com/about-us
+PASS bucees-texas-road-trip-history status=200 failures=none robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=200:image/jpeg source=https://buc-ees.com/about/
+PASS king-ranch-texas-history-cattle-legacy status=200 failures=none robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=200:image/jpeg source=https://king-ranch.com/about-us/history/
+PASS san-antonio-spurs-texas-basketball-culture status=200 failures=none robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=200:image/jpeg source=https://www.nba.com/news/history-nba-champions
+FAIL texas-high-school-football-friday-night-lights status=200 failures=hero200 robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=403:text/plain;charset=UTF-8 source=https://www.uiltexas.org/100/football
+FAIL san-antonio-stock-show-rodeo-history-guide status=200 failures=hero200 robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=403:text/plain;charset=UTF-8 source=https://www.sarodeo.com/p/about/about1
+PASS fort-worth-stockyards-history-cattle-culture status=200 failures=none robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=200:image/jpeg source=https://www.tshaonline.org/handbook/entries/fort-worth-stockyards
+PASS blue-bell-ice-cream-brenham-texas-history status=200 failures=none robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=200:image/jpeg source=https://www.bluebell.com/about-us/
+PASS texas-oil-boom-wichita-falls-west-texas-rigs status=200 failures=none robots="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" hero=200:image/jpeg source=https://www.tshaonline.org/handbook/entries/oil-and-gas-industry
