@@ -122,6 +122,6 @@ function chicagoDate(date: Date) {
     month: '2-digit',
     day: '2-digit',
   }).formatToParts(date);
-  const part = (type: Intl.DateTimeFormatPartTypes) => parts.find((entry) => entry.type === type)?.value ?? '';
+  const part = (type: 'year' | 'month' | 'day') => parts.find((entry) => entry.type === type)?.value ?? '';
   return `${part('year')}-${part('month')}-${part('day')}`;
 }
