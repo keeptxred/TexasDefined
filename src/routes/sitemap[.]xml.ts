@@ -8,7 +8,7 @@ import { loadTexasCountyGrowth } from "@/data/census-county-growth";
 import { isLegacyCountySeriesArticle } from "@/data/county-series";
 import { isEvergreenEventCollectionPath, loadEvergreenEventSitemapEntriesServer } from "@/data/event-evergreen-sitemap.server";
 import { loadTemporalEventSitemapEntriesServer } from "@/data/event-temporal-sitemap.server";
-import { isArticleIndexReady } from "@/data/fixtures/texas-gateway-index-readiness";
+import { isArticleDiscoveryReady, isArticleIndexReady } from "@/data/fixtures/texas-gateway-index-readiness";
 import { loadFishingGuideSitemapEntriesServer } from "@/data/fishing/guide-sitemap.server";
 import { loadFishingLocalSitemapEntriesServer } from "@/data/fishing/local-sitemap.server";
 import { loadFishingReportSitemapEntriesServer } from "@/data/fishing/report-sitemap.server";
@@ -108,6 +108,15 @@ export const Route = createFileRoute("/sitemap.xml")({
         const indexableRemoteNews = remoteNews.filter(isArticleIndexReady);
         const indexableRemoteEvergreen = remoteEvergreen.filter(isArticleIndexReady);
         const indexableLocalArticles = articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article));
+        const indexableLocalArticlePaths = new Set(indexableLocalArticles.map((article) => `/article/${article.slug}`));
+        const discoveryOnlyLocalArticlePaths = [
+          ...articles
+            .filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleDiscoveryReady(article))
+            .map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
+        ].filter((entry) => !indexableLocalArticlePaths.has(entry.path));
+        if (discoveryOnlyLocalArticlePaths.length > 0) {
+          console.info(`Primary sitemap omitted ${discoveryOnlyLocalArticlePaths.length} discovery-only article URLs that are not fully index-ready.`);
+        }
         const countyHousingCosts = countyHousingResult.status === "fulfilled" ? countyHousingResult.value : null;
         const fishingGuideSitemapEntries = fishingGuideSitemapResult.status === "fulfilled" ? fishingGuideSitemapResult.value : [];
         const fishingReportSitemapEntries = fishingReportSitemapResult.status === "fulfilled" ? fishingReportSitemapResult.value : [];
