@@ -33,6 +33,7 @@ export type TexasAiEntityContext = {
 };
 
 const SITE_ORIGIN = "https://texasdefined.com";
+const DEFAULT_SUPABASE_URL = "https://ftkznprjljkhymknvhye.supabase.co";
 const MAX_ENTITY_CONTEXT = 6;
 const RELATED_PER_ENTITY = 4;
 const CURRENT_MAX_AGE_DAYS = 45;
@@ -59,6 +60,11 @@ const TOPIC_PATTERNS: Array<[string, RegExp]> = [
   ["hunting-fishing", /\b(hunt|hunting|fish|fishing|license|bag limit|season)\b/i],
 ];
 
+const EVENT_TIME_PATTERNS = [/\bthis weekend\b/, /\bthis week\b/, /\bthis month\b/, /\btonight\b/, /\btoday\b/, /\btomorrow\b/, /\bwhen is\b/, /\bwhat date\b/, /\bcoming up\b/];
+const RULE_PATTERNS = [/\bdeadline\b/, /\brule\b/, /\brules\b/, /\blegal\b/, /\blaw\b/, /\blicense\b/, /\bpermit\b/, /\bbag limit\b/, /\bcan i drive\b/, /\bcan i have a campfire\b/];
+const LIVE_PATTERNS = [/\bright now\b/, /\btoday\b/, /\btonight\b/, /\btomorrow\b/, /\bopen now\b/, /\bopen today\b/, /\bclosed\b/, /\bclosure\b/, /\bcurrent\b/, /\bstatus\b/, /\bavailable\b/, /\bavailability\b/, /\bburn ban\b/, /\bconditions?\b/, /\bcancel(?:ed|led)?\b/];
+const NEARBY_PATTERNS = [/\bnear me\b/, /\bclosest\b/, /\bwithin \d+\s*(?:mi|mile|miles)\b/, /\bnear (?:austin|houston|dallas|san antonio|fort worth|el paso|corpus christi|lubbock|amarillo|waco|katy)\b/];
+
 function hasAny(value: string, patterns: RegExp[]) {
   return patterns.some((pattern) => pattern.test(value));
 }
@@ -67,22 +73,26 @@ export function classifyTexasQuestion(question: string): TexasAiClassification {
   const normalized = question.trim();
   const lower = normalized.toLowerCase();
   const topics = TOPIC_PATTERNS.filter(([, pattern]) => pattern.test(lower)).map(([topic]) => topic);
+  const eventWithTime = topics.includes("events") && hasAny(lower, EVENT_TIME_PATTERNS);
+  const ruleQuestion = hasAny(lower, RULE_PATTERNS);
+  const liveQuestion = hasAny(lower, LIVE_PATTERNS)
+    || (/\breservation\b/.test(lower) && hasAny(lower, [/\bthis weekend\b/, /\btoday\b/, /\btomorrow\b/, /\btonight\b/]));
 
   let intent: TexasAiIntent = "general";
-  if (hasAny(lower, [/\bnear me\b/, /\bclosest\b/, /\bwithin \d+\s*(?:mi|mile|miles)\b/, /\bnear (?:austin|houston|dallas|san antonio|fort worth|el paso|corpus christi|lubbock|amarillo|waco|katy)\b/])) intent = "nearby";
-  else if (hasAny(lower, [/\bcompare\b/, /\bversus\b/, /\bvs\.?\b/, /\bdifference between\b/, /\bbetter than\b/])) intent = "compare";
-  else if (hasAny(lower, [/\bthis weekend\b/, /\btonight\b/, /\btoday\b/, /\btomorrow\b/, /\bwhen is\b/, /\bwhat date\b/]) && topics.includes("events")) intent = "event-time";
-  else if (hasAny(lower, [/\bdeadline\b/, /\brule\b/, /\brules\b/, /\blegal\b/, /\blaw\b/, /\blicense\b/, /\bpermit\b/, /\bbag limit\b/])) intent = "rules-deadlines";
-  else if (hasAny(lower, [/\bopen now\b/, /\bclosed\b/, /\bclosure\b/, /\bcurrent\b/, /\bright now\b/, /\bstatus\b/, /\bavailable\b/])) intent = "current-status";
+  if (hasAny(lower, [/\bcompare\b/, /\bversus\b/, /\bvs\.?\b/, /\bdifference between\b/, /\bbetter than\b/])) intent = "compare";
+  else if (eventWithTime) intent = "event-time";
+  else if (ruleQuestion) intent = "rules-deadlines";
+  else if (liveQuestion) intent = "current-status";
   else if (hasAny(lower, [/\bitinerary\b/, /\broad trip\b/, /\bon the way\b/, /\bplan (?:a|my|our)\b/, /\broute\b/])) intent = "plan";
+  else if (hasAny(lower, NEARBY_PATTERNS)) intent = "nearby";
   else if (hasAny(lower, [/^how\b/, /\bhow do\b/, /\bhow can\b/])) intent = "how-to";
   else if (hasAny(lower, [/^why\b/, /^what (?:is|are|does|makes)\b/, /\bexplained?\b/, /\bwhat makes\b/])) intent = "explain";
   else if (hasAny(lower, [/\bbest\b/, /\bthings to do\b/, /\bwhere (?:can|should|do)\b/, /\bfind\b/, /\bvisit\b/])) intent = "discover";
 
   let freshnessClass: TexasAiFreshness = "static";
-  if (hasAny(lower, [/\bright now\b/, /\btoday\b/, /\btonight\b/, /\btomorrow\b/, /\bopen now\b/, /\bcurrent\b/, /\bclosure\b/, /\bclosed\b/, /\bweather\b/, /\bburn ban\b/, /\bavailability\b/])) freshnessClass = "live";
-  else if (hasAny(lower, [/\bthis weekend\b/, /\bthis week\b/, /\bthis month\b/, /\bbluebonnet\b/, /\bwildflower\b/, /\bhunting season\b/, /\bfishing season\b/, /\brodeo\b/, /\bfestival\b/])) freshnessClass = "seasonal";
-  else if (hasAny(lower, [/\bdeadline\b/, /\btax\b/, /\brule\b/, /\blaw\b/, /\blicense\b/, /\bhours\b/, /\bprice\b/, /\breservation\b/, /\bschedule\b/])) freshnessClass = "periodic";
+  if (liveQuestion || (eventWithTime && hasAny(lower, [/\btoday\b/, /\btonight\b/, /\btomorrow\b/, /\bthis weekend\b/, /\bthis week\b/, /\bthis month\b/]))) freshnessClass = "live";
+  else if (hasAny(lower, [/\bbluebonnet\b/, /\bwildflower\b/, /\bhunting season\b/, /\bfishing season\b/, /\brodeo\b/, /\bfestival\b/, /\bstate fair\b/])) freshnessClass = "seasonal";
+  else if (ruleQuestion || hasAny(lower, [/\bdeadline\b/, /\btax\b/, /\bhours\b/, /\bprice\b/, /\breservation\b/, /\bschedule\b/, /\bstores?\b/, /\bthis year\b/])) freshnessClass = "periodic";
 
   return {
     intent,
@@ -223,9 +233,9 @@ export async function recordTexasAiQuestionSignal(input: {
   model: string;
   latencyMs?: number;
 }) {
-  const supabaseUrl = envValue(input.env, ["KEEP_TX_RED_SUPABASE_URL", "SUPABASE_URL"]);
+  const supabaseUrl = envValue(input.env, ["KEEP_TX_RED_SUPABASE_URL", "SUPABASE_URL"]) ?? DEFAULT_SUPABASE_URL;
   const serviceRoleKey = envValue(input.env, ["KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY", "SUPABASE_SERVICE_ROLE_KEY"]);
-  if (!supabaseUrl || !serviceRoleKey) return;
+  if (!serviceRoleKey) return;
 
   try {
     const fingerprint = await sha256(input.question);
