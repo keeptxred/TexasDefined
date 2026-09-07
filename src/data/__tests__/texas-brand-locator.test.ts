@@ -6,9 +6,11 @@ const rpcFallbackSource = readFileSync(new URL("../texas-brand-locator-rpc.serve
 const typesSource = readFileSync(new URL("../texas-brand-locator.types.ts", import.meta.url), "utf8");
 const brandRouteSource = readFileSync(new URL("../../routes/things-unique-to-texas_.$category.lazy.tsx", import.meta.url), "utf8");
 const apiSource = readFileSync(new URL("../../lib/texas-brand-locator-api.server.ts", import.meta.url), "utf8");
+const signalsSource = readFileSync(new URL("../../lib/texas-defined-ai-signals.server.ts", import.meta.url), "utf8");
 const serverEntrySource = readFileSync(new URL("../../server-entry.ts", import.meta.url), "utf8");
 const rootSource = readFileSync(new URL("../../routes/__root.tsx", import.meta.url), "utf8");
 const bootstrapSource = readFileSync(new URL("../../../public/texas-brand-locator.js", import.meta.url), "utf8");
+const deployWorkflowSource = readFileSync(new URL("../../../.github/workflows/deploy-production.yml", import.meta.url), "utf8");
 const migrationSource = readFileSync(new URL("../../../supabase/migrations/20260907143800_create_texasdefined_brand_locations.sql", import.meta.url), "utf8");
 const geographyCacheMigration = readFileSync(new URL("../../../supabase/migrations/20260907193400_allow_brand_location_geography_cache.sql", import.meta.url), "utf8");
 const geographyCacheRestriction = readFileSync(new URL("../../../supabase/migrations/20260907194900_restrict_brand_location_geography_cache.sql", import.meta.url), "utf8");
@@ -98,6 +100,27 @@ describe("Texas brand locator", () => {
     expect(apiSource).toContain("Content-Type must be application/json");
     expect(apiSource).toContain("Request body is too large");
     expect(apiSource).toContain("new TextEncoder().encode(rawBody).byteLength");
+  });
+
+  it("records public locator demand without persisting the typed street address", () => {
+    expect(apiSource).toContain("recordAskTexasQuestionSignal");
+    expect(apiSource).toContain("const place = coarseTexasPlace(response.matchedAddress)");
+    expect(apiSource).toContain('question: `brand locator ${brandKey} ${place ?? "texas"}`');
+    expect(apiSource).toContain('clusterKey: `brand-locator-form:${brandKey}:${safeClusterPlace(place)}`');
+    expect(apiSource).toContain('surface: "texas-brands"');
+    expect(apiSource).toContain('model: "deterministic-brand-locator-form"');
+    expect(apiSource).not.toContain("question: address");
+    expect(apiSource).not.toContain("question: response.matchedAddress");
+    expect(signalsSource).not.toContain("raw_question");
+    expect(signalsSource).not.toMatch(/street_address|matched_address|postal_address/i);
+  });
+
+  it("binds Supabase service credentials as Worker secrets instead of plaintext vars", () => {
+    expect(deployWorkflowSource).toContain("SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}");
+    expect(deployWorkflowSource).toContain("writeFileSync('.artifacts/texasdefined-worker-secrets.json'");
+    expect(deployWorkflowSource).toContain("npx wrangler deploy --secrets-file .artifacts/texasdefined-worker-secrets.json");
+    expect(deployWorkflowSource).toContain("trap 'rm -f .artifacts/texasdefined-worker-secrets.json' EXIT");
+    expect(deployWorkflowSource).not.toContain("--var SUPABASE_SERVICE_ROLE_KEY");
   });
 
   it("exposes a reusable server endpoint and mounts only on the existing Texas Brands chapter", () => {
