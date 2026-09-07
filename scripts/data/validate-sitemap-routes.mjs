@@ -141,7 +141,7 @@ for (const feature of [
   '.filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug))',
   'const categorySlugs = categoryCandidates.filter((slug) => isExploreCategoryIndexReady(',
   '(EXPLORE_CATEGORY_ARTICLE_COUNTS[slug as keyof typeof EXPLORE_CATEGORY_ARTICLE_COUNTS] ?? 0)',
-  '+ destinations.filter((destination) => destination.category === slug).length',
+  '+ indexableDestinations.filter((destination) => destination.category === slug).length',
   '+ (slug === "food-bbq" ? 1 : 0)',
   'categorySlugs.map((slug)',
   '`/explore/${slug}`',
