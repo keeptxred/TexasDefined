@@ -6,6 +6,19 @@
   "compatibility_date": "2026-08-14",
   "compatibility_flags": ["nodejs_compat"],
   "workers_dev": true,
+  "secrets": {
+    "required": ["OPENAI_API_KEY"]
+  },
+  "ratelimits": [
+    {
+      "name": "TEXAS_DEFINED_AI_RATE_LIMITER",
+      "namespace_id": "1651001",
+      "simple": {
+        "limit": 10,
+        "period": 60
+      }
+    }
+  ],
   "observability": {
     "enabled": true
   }
