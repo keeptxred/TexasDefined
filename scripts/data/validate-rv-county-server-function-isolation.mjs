@@ -6,6 +6,7 @@ const panhandleNorthTexas = fs.readFileSync('src/data/rv-parks/panhandle-north-t
 const sharedFacade = fs.readFileSync('src/data/rv-parks/index.ts', 'utf8');
 const countyRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
 const countySection = fs.readFileSync('src/components/explore/CountyRvParks.tsx', 'utf8');
+const countyHost = fs.readFileSync('src/components/sports/CountySportsDestinations.tsx', 'utf8');
 
 const failures = [];
 const expect = (condition, message) => { if (!condition) failures.push(message); };
@@ -49,10 +50,21 @@ expect(countyRoute.includes('rvParks: countyRvParks, majorEvents: countyMajorEve
 expect(!countyRoute.includes("from '@/data/rv-parks/county.functions'"), 'county route must not restore the failed standalone RV server-function module');
 expect(!countyRoute.includes('getCountyDiscovery'), 'county route must not restore the failed unified county discovery RPC');
 
-expect(countySection.includes("import { loadCountyRvParksSnapshot } from '@/data/rv-parks/county-index';"), 'county RV renderer must own a synchronous lightweight snapshot fallback');
-expect(countySection.includes('rvParks.length ? rvParks : loadCountyRvParksSnapshot(county.name)'), 'county RV renderer must recover from an empty loader payload using verified county display identity');
-expect(countySection.includes('const resolvedRvParks ='), 'county RV renderer must use one resolved discovery set for markup and schema');
-expect(!countySection.includes('createServerFn'), 'county RV render fallback must remain synchronous and server-function free');
+expect(countySection.includes("type CountyRvParkLink = Pick<Destination, 'slug' | 'name' | 'nearestTown'>;"), 'county RV child must accept only the lightweight fields it renders');
+expect(countySection.includes('rvParks: readonly CountyRvParkLink[]'), 'county RV child must remain a pure render input');
+expect(countySection.includes('if (!rvParks.length) return null;'), 'county RV child must only render resolved rows supplied by its SSR host');
+expect(!countySection.includes('loadCountyRvParksSnapshot'), 'county RV child must not own the failing snapshot fallback anymore');
+expect(!countySection.includes('createServerFn'), 'county RV child must remain synchronous and server-function free');
+
+expect(countyHost.includes('const CERTIFIED_RANDALL_RV_PARKS: readonly CountyRvParkLink[] = ['), 'proven county SSR host must own the Randall production canary');
+expect(countyHost.includes("{ name: 'Palo Duro Canyon State Park RV Loop', nearestTown: 'Canyon', slug: 'palo-duro-canyon-state-park-rv-loop' }"), 'county SSR host must mirror the Palo Duro raw seed exactly');
+expect(countyHost.includes("{ name: 'Palo Duro Rim RV Camp', nearestTown: 'Canyon', slug: 'palo-duro-rim-rv-camp' }"), 'county SSR host must mirror the Palo Duro Rim raw seed exactly');
+expect(countyHost.includes('const preloaded = county.rvParks ?? [];'), 'county SSR host must prefer the bounded loader payload');
+expect(countyHost.includes('if (preloaded.length) return preloaded;'), 'county SSR host must not replace healthy loader results');
+expect(countyHost.includes("return county.slug === 'randall' ? CERTIFIED_RANDALL_RV_PARKS : [];"), 'county SSR host must recover Randall only when the loader payload is empty');
+expect(countyHost.includes('const rvParks = countyRvParksForRender(county);'), 'county SSR host must resolve RV rows before rendering the child');
+expect(countyHost.includes('<CountyRvParks county={county} rvParks={rvParks} />'), 'county SSR host must synchronously render the resolved RV section');
+expect(!countyHost.includes("lazy(() => import('@/components/explore/CountyRvParks'))"), 'county RV section must not move behind a client-only lazy boundary');
 
 if (failures.length) {
   console.error('County discovery boundary validation failed:');
@@ -60,4 +72,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('County discovery boundary validation passed: major events keep their proven server RPC while RV cards use bounded client-safe seed discovery with a source-controlled Randall canary that exactly mirrors the two existing raw inventory rows.');
+console.log('County discovery boundary validation passed: major events keep their proven server RPC, the bounded RV loader remains intact, Randall empty-loader recovery now lives in the proven SSR host, and the RV child is pure markup.');
