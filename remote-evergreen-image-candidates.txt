@@ -1,0 +1,29 @@
+slug=james-bowie-texas-alamo-life-legend
+title=File:Bowie knife, blade marked G. Wostenholm & Son, Washington Work, I-XL, the real IXL knife, The Hunters Companion - Lorenzo de Zavala State Archives and Library Building - Austin, Texas - DSC08363.jpg
+original=https://upload.wikimedia.org/wikipedia/commons/f/f7/Bowie_knife%2C_blade_marked_G._Wostenholm_%26_Son%2C_Washington_Work%2C_I-XL%2C_the_real_IXL_knife%2C_The_Hunters_Companion_-_Lorenzo_de_Zavala_State_Archives_and_Library_Building_-_Austin%2C_Texas_-_DSC08363.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
+thumb=https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/Bowie_knife%2C_blade_marked_G._Wostenholm_%26_Son%2C_Washington_Work%2C_I-XL%2C_the_real_IXL_knife%2C_The_Hunters_Companion_-_Lorenzo_de_Zavala_State_Archives_and_Library_Building_-_Austin%2C_Texas_-_DSC08363.jpg/1920px-thumbnail.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+mime=image/jpeg
+license=Public domain
+artist=Daderot
+direct_thumb=200:image/jpeg
+current_proxy_thumb=400:text/plain;charset=UTF-8
+
+slug=texas-high-school-football-friday-night-lights
+title=File:Touchdown -- Texas High School vs Highland Park High School first-round playoffs.jpg
+original=https://upload.wikimedia.org/wikipedia/commons/5/5d/Touchdown_--_Texas_High_School_vs_Highland_Park_High_School_first-round_playoffs.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
+thumb=https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/Touchdown_--_Texas_High_School_vs_Highland_Park_High_School_first-round_playoffs.jpg/1920px-Touchdown_--_Texas_High_School_vs_Highland_Park_High_School_first-round_playoffs.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+mime=image/jpeg
+license=CC BY-SA 4.0
+artist=WClarke
+direct_thumb=200:image/jpeg
+current_proxy_thumb=400:text/plain;charset=UTF-8
+
+slug=san-antonio-stock-show-rodeo-history-guide
+title=File:Carnival scene outside the San Antonio Stock Show and Rodeo on the grounds of the Freeman Coliseum, San Antonio, Texas LCCN2014631343.tif
+original=https://upload.wikimedia.org/wikipedia/commons/3/37/Carnival_scene_outside_the_San_Antonio_Stock_Show_and_Rodeo_on_the_grounds_of_the_Freeman_Coliseum%2C_San_Antonio%2C_Texas_LCCN2014631343.tif?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original
+thumb=https://thumb.wikimedia.org/wikipedia/commons/thumb/3/37/Carnival_scene_outside_the_San_Antonio_Stock_Show_and_Rodeo_on_the_grounds_of_the_Freeman_Coliseum%2C_San_Antonio%2C_Texas_LCCN2014631343.tif/lossy-page1-1920px-Carnival_scene_outside_the_San_Antonio_Stock_Show_and_Rodeo_on_the_grounds_of_the_Freeman_Coliseum%2C_San_Antonio%2C_Texas_LCCN2014631343.tif.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+mime=image/tiff
+license=Public domain
+artist=Carol M. Highsmith
+direct_thumb=200:image/jpeg
+current_proxy_thumb=400:text/plain;charset=UTF-8
