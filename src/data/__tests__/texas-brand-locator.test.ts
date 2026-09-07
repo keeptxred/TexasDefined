@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 const serverSource = readFileSync(new URL("../texas-brand-locator.server.ts", import.meta.url), "utf8");
+const rpcFallbackSource = readFileSync(new URL("../texas-brand-locator-rpc.server.ts", import.meta.url), "utf8");
 const typesSource = readFileSync(new URL("../texas-brand-locator.types.ts", import.meta.url), "utf8");
 const brandRouteSource = readFileSync(new URL("../../routes/things-unique-to-texas_.$category.lazy.tsx", import.meta.url), "utf8");
 const apiSource = readFileSync(new URL("../../lib/texas-brand-locator-api.server.ts", import.meta.url), "utf8");
@@ -11,6 +12,7 @@ const bootstrapSource = readFileSync(new URL("../../../public/texas-brand-locato
 const migrationSource = readFileSync(new URL("../../../supabase/migrations/20260907143800_create_texasdefined_brand_locations.sql", import.meta.url), "utf8");
 const geographyCacheMigration = readFileSync(new URL("../../../supabase/migrations/20260907193400_allow_brand_location_geography_cache.sql", import.meta.url), "utf8");
 const geographyCacheRestriction = readFileSync(new URL("../../../supabase/migrations/20260907194900_restrict_brand_location_geography_cache.sql", import.meta.url), "utf8");
+const nearestRpcMigration = readFileSync(new URL("../../../supabase/migrations/20260907231900_add_nearest_bucees_public_rpc.sql", import.meta.url), "utf8");
 
 describe("Texas brand locator", () => {
   it("keeps the verified 36-location Buc-ee's Texas registry out of emitted app JavaScript", () => {
@@ -24,7 +26,7 @@ describe("Texas brand locator", () => {
     expect(bootstrapSource).not.toContain("bucees-40");
   });
 
-  it("protects the server-only location registry with RLS and least-privilege service-role access", () => {
+  it("keeps the registry private while exposing only a constrained nearest-location read RPC", () => {
     expect(migrationSource).toContain("alter table public.texasdefined_brand_locations enable row level security");
     expect(migrationSource).toContain("revoke all on table public.texasdefined_brand_locations from anon, authenticated");
     expect(migrationSource).toContain("grant select on table public.texasdefined_brand_locations to service_role");
@@ -33,6 +35,15 @@ describe("Texas brand locator", () => {
     expect(geographyCacheRestriction).toContain("grant update (latitude, longitude, updated_at)");
     expect(geographyCacheRestriction).toContain("to service_role");
     expect(geographyCacheRestriction).not.toMatch(/to\s+(?:anon|authenticated)/i);
+    expect(nearestRpcMigration.toLowerCase()).toContain("security definer");
+    expect(nearestRpcMigration).toContain("set search_path = pg_catalog, public");
+    expect(nearestRpcMigration).toContain("l.brand_slug = 'bucees'");
+    expect(nearestRpcMigration).toContain("l.status = 'active'");
+    expect(nearestRpcMigration).toContain("l.state = 'TX'");
+    expect(nearestRpcMigration).toContain("limit 5");
+    expect(nearestRpcMigration).toContain("revoke all on function public.texasdefined_nearest_bucees(double precision, double precision) from public");
+    expect(nearestRpcMigration).toContain("grant execute on function public.texasdefined_nearest_bucees(double precision, double precision) to anon, authenticated");
+    expect(nearestRpcMigration).not.toMatch(/\b(insert|update|delete|truncate)\s+public\.texasdefined_brand_locations\b/i);
     expect(migrationSource).toContain("https://buc-ees.com/locations/");
     expect(migrationSource).toContain("'2026-09-06','active'");
   });
@@ -45,6 +56,7 @@ describe("Texas brand locator", () => {
     expect(serverSource).toContain("radius: 100");
     expect(serverSource).toContain("resolveRelocationAddressServer");
     expect(serverSource).not.toMatch(/GOOGLE_(?:MAPS|PLACES)_API_KEY|MAPBOX_TOKEN|GEOCODIO|HERE_API/i);
+    expect(rpcFallbackSource).not.toMatch(/GOOGLE_(?:MAPS|PLACES)_API_KEY|MAPBOX_TOKEN|GEOCODIO|HERE_API/i);
   });
 
   it("reuses verified Buc-ee's coordinates before geocoding and persists only missing geography", () => {
@@ -56,6 +68,17 @@ describe("Texas brand locator", () => {
     expect(serverSource).toContain("update({ latitude: point.latitude, longitude: point.longitude, updated_at: updatedAt })");
     expect(serverSource).toContain("Brand location geography cache persistence failed");
     expect(serverSource).not.toContain("county_slug:");
+  });
+
+  it("falls back to the constrained public nearest-location RPC if the Worker admin read path is unavailable", () => {
+    expect(serverSource).toContain('await import("./texas-brand-locator-rpc.server")');
+    expect(serverSource).toContain("findBuceesLocationsViaPublicRpcServer(origin)");
+    expect(rpcFallbackSource).toContain('client.rpc("texasdefined_nearest_bucees"');
+    expect(rpcFallbackSource).toContain("p_latitude: origin.latitude");
+    expect(rpcFallbackSource).toContain("p_longitude: origin.longitude");
+    expect(rpcFallbackSource).toContain(".slice(0, 5)");
+    expect(rpcFallbackSource).not.toContain('.from("texasdefined_brand_locations")');
+    expect(rpcFallbackSource).not.toMatch(/\.(?:insert|upsert|update|delete)\(/);
   });
 
   it("fails closed to official locator links instead of fabricating store results", () => {
@@ -110,5 +133,7 @@ describe("Texas brand locator", () => {
     expect(apiSource).not.toContain("upsert(");
     expect(serverSource).not.toContain("insert(");
     expect(serverSource).not.toContain("upsert(");
+    expect(rpcFallbackSource).not.toContain("insert(");
+    expect(rpcFallbackSource).not.toContain("upsert(");
   });
 });

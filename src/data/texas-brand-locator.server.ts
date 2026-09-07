@@ -363,16 +363,27 @@ function normalizeBuceesLocation(location: VerifiedBrandLocation, point: Point, 
 }
 
 async function findBuceesLocations(origin: Point) {
-  const locations = await loadBuceesLocationsFromSupabase();
-  const coordinateMap = await buceesCoordinates(locations);
-  return locations
-    .map((location) => {
-      const point = coordinateMap.get(location.id);
-      return point ? normalizeBuceesLocation(location, point, origin) : null;
-    })
-    .filter((location): location is TexasBrandLocatorLocation => Boolean(location))
-    .sort((a, b) => (a.distanceMiles ?? Number.POSITIVE_INFINITY) - (b.distanceMiles ?? Number.POSITIVE_INFINITY))
-    .slice(0, RESULTS_PER_BRAND);
+  try {
+    const locations = await loadBuceesLocationsFromSupabase();
+    const coordinateMap = await buceesCoordinates(locations);
+    return locations
+      .map((location) => {
+        const point = coordinateMap.get(location.id);
+        return point ? normalizeBuceesLocation(location, point, origin) : null;
+      })
+      .filter((location): location is TexasBrandLocatorLocation => Boolean(location))
+      .sort((a, b) => (a.distanceMiles ?? Number.POSITIVE_INFINITY) - (b.distanceMiles ?? Number.POSITIVE_INFINITY))
+      .slice(0, RESULTS_PER_BRAND);
+  } catch (primaryError) {
+    try {
+      const { findBuceesLocationsViaPublicRpcServer } = await import("./texas-brand-locator-rpc.server");
+      return await findBuceesLocationsViaPublicRpcServer(origin);
+    } catch (rpcError) {
+      const primaryMessage = primaryError instanceof Error ? primaryError.message : String(primaryError);
+      const rpcMessage = rpcError instanceof Error ? rpcError.message : String(rpcError);
+      throw new Error(`Buc-ee's location registry unavailable through both server paths: ${primaryMessage}; fallback: ${rpcMessage}`);
+    }
+  }
 }
 
 export async function findTexasBrandLocationsNearPointServer(input: {
