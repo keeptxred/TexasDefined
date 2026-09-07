@@ -1,6 +1,5 @@
 import { Link, createLazyFileRoute } from "@tanstack/react-router";
 
-import { TexasBrandLocator } from "@/components/brands/TexasBrandLocator";
 import { Container } from "@/components/layout/Container";
 import { TEXAS_BRAND_DIRECTORY_COUNT, TEXAS_GROCERY_BRAND_EXPANSION } from "@/data/texas-brand-directory";
 import { texasIconCanonicalHref } from "@/data/things-unique-to-texas-links";
@@ -74,14 +73,12 @@ function TexasIconCategoryPage() {
           <div className="grid gap-6 lg:grid-cols-[1fr_320px] lg:items-start">
             <div>
               {isTexasBrands && (
-                <section className="mb-8 border border-border bg-muted/20 p-6">
+                <section data-texas-brand-locator-anchor className="mb-8 border border-border bg-muted/20 p-6">
                   <h2 className="font-display text-3xl">Texas roots first, commercial relationships second</h2>
                   <p className="mt-3 text-sm leading-7 text-muted-foreground">Brand inclusion is editorial. Any affiliate or sponsored relationship must be separately labeled and does not buy rankings, favorable coverage or factual changes.</p>
                   <a href="/partner-with-us?type=brand-retail&source=%2Fthings-unique-to-texas%2Ftexas-brands" className="mt-4 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">Represent a Texas brand, grocer or retailer? Explore partnership options →</a>
                 </section>
               )}
-
-              {isTexasBrands && <TexasBrandLocator />}
 
               <div className="grid gap-4 sm:grid-cols-2">
                 {category.items.map((entry) => {
