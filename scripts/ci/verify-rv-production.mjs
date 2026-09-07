@@ -5,8 +5,13 @@ const curatedProfiles = [
   { path: '/destination/pedernales-falls-state-park-rv-sites', name: 'Pedernales Falls State Park RV Sites' },
   { path: '/destination/galveston-island-state-park-rv-area', name: 'Galveston Island State Park RV Area' },
   { path: '/destination/palo-duro-canyon-state-park-rv-loop', name: 'Palo Duro Canyon State Park RV Loop' },
+  { path: '/destination/caddo-lake-state-park-rv-area', name: 'Caddo Lake State Park RV Area' },
+  { path: '/destination/tyler-state-park-rv-loop', name: 'Tyler State Park RV Loop' },
+  { path: '/destination/huntsville-state-park-rv-loop', name: 'Huntsville State Park RV Loop' },
+  { path: '/destination/copper-breaks-state-park-rv-area', name: 'Copper Breaks State Park RV Area' },
+  { path: '/destination/lake-mineral-wells-state-park-rv-loop', name: 'Lake Mineral Wells State Park RV Loop' },
 ];
-const guardedProfile = { path: '/destination/caddo-lake-state-park-rv-area', name: 'Caddo Lake State Park RV Area' };
+const guardedProfile = { path: '/destination/eisenhower-state-park-rv-loop', name: 'Eisenhower State Park RV Loop' };
 const profilePath = '/destination/palo-duro-canyon-state-park-rv-loop';
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -153,7 +158,7 @@ const guardedDirectives = robotsDirectives(guarded.body);
 if (!guardedDirectives.has('noindex') || !guardedDirectives.has('follow') || guardedDirectives.has('index')) {
   throw new Error(`Guarded RV profile robots policy mismatch for ${guardedProfile.name}: ${metaContent(guarded.body, 'robots') || 'missing'}`);
 }
-console.log('Guarded RV production verification passed: Caddo Lake remains canonical noindex/follow and excluded from sitemap discovery until it clears the indexing audit.');
+console.log('Guarded RV production verification passed: Eisenhower remains canonical noindex/follow and excluded from sitemap discovery until it clears the indexing audit.');
 
 const county = await fetchProduction('/county/randall');
 requireVisibleIncludes(county.body, [
