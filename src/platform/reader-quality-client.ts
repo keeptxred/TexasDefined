@@ -41,7 +41,7 @@ function excludedBrowserOrPath(path = window.location.pathname) {
 }
 
 export function installReaderQualitySignals() {
-  if (typeof window === 'undefined' || excludedBrowserOrPath()) return () => undefined;
+  if (typeof window === 'undefined' || excludedBrowserOrPath()) return;
 
   const sessionId = analyticsSessionId();
   const referrerClass = classifyReferrer(document.referrer, window.location.origin);
@@ -51,29 +51,31 @@ export function installReaderQualitySignals() {
   let interactionCount = 0;
   let maxScrollPercent = 0;
   let signals: ReaderQualitySignals = {};
-  let disposed = false;
   let lastMilestone = '';
 
   const totalVisibleMs = () => visibleMs + (visibleSince == null ? 0 : Math.max(0, performance.now() - visibleSince));
-  const snapshot = () => ({
-    sessionId,
-    path: currentPath,
-    occurredAt: new Date().toISOString(),
-    visibleMs: Math.round(totalVisibleMs()),
-    interactionCount,
-    maxScrollPercent,
-    referrerClass,
-    signals: {
-      ...signals,
-      visible10s: totalVisibleMs() >= 10_000,
-      visible30s: totalVisibleMs() >= 30_000,
-      scroll50: maxScrollPercent >= 50,
-      scroll90: maxScrollPercent >= 90,
-    },
-  });
+  const snapshot = () => {
+    const total = totalVisibleMs();
+    return {
+      sessionId,
+      path: currentPath,
+      occurredAt: new Date().toISOString(),
+      visibleMs: Math.round(total),
+      interactionCount,
+      maxScrollPercent,
+      referrerClass,
+      signals: {
+        ...signals,
+        visible10s: total >= 10_000,
+        visible30s: total >= 30_000,
+        scroll50: maxScrollPercent >= 50,
+        scroll90: maxScrollPercent >= 90,
+      },
+    };
+  };
 
   const send = (reason: string, preferBeacon = false) => {
-    if (disposed || excludedBrowserOrPath(currentPath.split('?')[0])) return;
+    if (excludedBrowserOrPath(currentPath.split('?')[0])) return;
     const body = JSON.stringify({ ...snapshot(), reason });
     if (preferBeacon && navigator.sendBeacon) {
       const sent = navigator.sendBeacon(INGEST_PATH, new Blob([body], { type: 'application/json' }));
@@ -99,17 +101,15 @@ export function installReaderQualitySignals() {
     lastMilestone = '';
   };
 
-  const syncPath = () => resetForPath(window.location.pathname + window.location.search);
-  const afterNavigation = () => window.setTimeout(syncPath, 75);
+  const afterNavigation = () => window.setTimeout(() => resetForPath(window.location.pathname + window.location.search), 75);
 
-  const markInteraction = (kind: keyof Pick<ReaderQualitySignals, 'pointer' | 'touch' | 'keyboard'>, event: Event) => {
+  const markInteraction = (kind: 'pointer' | 'keyboard', event: Event) => {
     if (!event.isTrusted) return;
     interactionCount = Math.min(MAX_INTERACTIONS, interactionCount + 1);
     signals[kind] = true;
   };
 
   const onPointer = (event: PointerEvent) => markInteraction('pointer', event);
-  const onTouch = (event: TouchEvent) => markInteraction('touch', event);
   const onKeyboard = (event: KeyboardEvent) => {
     if (event.metaKey || event.ctrlKey || event.altKey) return;
     markInteraction('keyboard', event);
@@ -151,19 +151,15 @@ export function installReaderQualitySignals() {
       if (visibleMs >= 10_000 || interactionCount > 0 || maxScrollPercent >= 50) send('visibility_hidden', true);
       return;
     }
-    if (visibleSince == null) {
-      visibleSince = performance.now();
-      signals.focusReturn = true;
-    }
+    if (visibleSince == null) visibleSince = performance.now();
   };
 
-  const onPageHide = () => send('pagehide', true);
   const onPopState = () => {
     send('history_navigation', true);
     afterNavigation();
   };
 
-  const milestoneTimer = window.setInterval(() => {
+  window.setInterval(() => {
     const seconds = Math.floor(totalVisibleMs() / 1000);
     const milestone = seconds >= 120 ? '120s' : seconds >= 30 ? '30s' : seconds >= 10 ? '10s' : '';
     if (milestone && milestone !== lastMilestone) {
@@ -173,26 +169,10 @@ export function installReaderQualitySignals() {
   }, 2_000);
 
   document.addEventListener('pointerdown', onPointer, { passive: true });
-  document.addEventListener('touchstart', onTouch, { passive: true });
   document.addEventListener('keydown', onKeyboard);
   document.addEventListener('scroll', onScroll, { passive: true });
   document.addEventListener('click', onClick, true);
   document.addEventListener('visibilitychange', onVisibility);
-  window.addEventListener('pagehide', onPageHide);
+  window.addEventListener('pagehide', () => send('pagehide', true));
   window.addEventListener('popstate', onPopState);
-
-  return () => {
-    send('tracker_dispose', true);
-    disposed = true;
-    window.clearInterval(milestoneTimer);
-    if (scrollFrame) window.cancelAnimationFrame(scrollFrame);
-    document.removeEventListener('pointerdown', onPointer);
-    document.removeEventListener('touchstart', onTouch);
-    document.removeEventListener('keydown', onKeyboard);
-    document.removeEventListener('scroll', onScroll);
-    document.removeEventListener('click', onClick, true);
-    document.removeEventListener('visibilitychange', onVisibility);
-    window.removeEventListener('pagehide', onPageHide);
-    window.removeEventListener('popstate', onPopState);
-  };
 }
