@@ -123,9 +123,32 @@ async function verifyMajorEventLanding(targetOrigin, targetLabel, mode) {
   }
 }
 
+async function diagnoseRandallOrigin(targetOrigin, targetLabel) {
+  const marker = 'RV camping around Randall County';
+  const url = `${targetOrigin}/county/randall?verify-rv-origin=${encodeURIComponent(`${sha}-${runId}-${targetLabel}`)}`;
+  try {
+    const response = await fetch(url, {
+      redirect: 'follow',
+      cache: 'no-store',
+      signal: AbortSignal.timeout(30_000),
+      headers: { 'user-agent': 'TexasDefined-CI-RV-Origin-Diagnostic/1.0' },
+    });
+    const body = await response.text();
+    const hasHeading = body.includes(marker);
+    const hasPaloDuro = body.includes('Palo Duro Canyon State Park RV Loop');
+    const hasMajorEvents = body.includes('Major annual events');
+    const hasSportsDestinations = body.includes('Sports destinations');
+    console.log(`[rv-origin:${targetLabel}] status=${response.status} final=${response.url} bytes=${body.length} heading=${hasHeading} palo-duro=${hasPaloDuro} major-events=${hasMajorEvents} sports=${hasSportsDestinations} cf-cache=${response.headers.get('cf-cache-status') ?? 'none'}`);
+  } catch (error) {
+    console.log(`[rv-origin:${targetLabel}] diagnostic request failed: ${error instanceof Error ? error.message : String(error)}`);
+  }
+}
+
 await verifyMajorEventLanding(origin, 'direct-worker', 'canonical');
 await verifyMajorEventLanding(productionOrigin, 'custom-domain', 'canonical');
 await verifyMajorEventLanding(origin, 'direct-worker', 'revision');
 await verifyMajorEventLanding(productionOrigin, 'custom-domain', 'revision');
+await diagnoseRandallOrigin(origin, 'direct-worker');
+await diagnoseRandallOrigin(productionOrigin, 'custom-domain');
 
-console.log(`Direct Worker discovery verification passed (${surfaces.length} discovery surfaces plus canonical and revision-bound direct/custom-domain major-event landing policy).`);
+console.log(`Direct Worker discovery verification passed (${surfaces.length} discovery surfaces plus canonical and revision-bound direct/custom-domain major-event landing policy; Randall origin comparison logged diagnostically).`);

@@ -186,7 +186,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const categorySlugs = categoryCandidates.filter((slug) => isExploreCategoryIndexReady(
           slug,
           (EXPLORE_CATEGORY_ARTICLE_COUNTS[slug as keyof typeof EXPLORE_CATEGORY_ARTICLE_COUNTS] ?? 0)
-            + destinations.filter((destination) => destination.category === slug).length
+            + indexableDestinations.filter((destination) => destination.category === slug).length
             + (slug === "food-bbq" ? 1 : 0),
         ));
         const regionSlugs = [...new Set([

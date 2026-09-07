@@ -2,8 +2,9 @@ import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import type { Destination } from '@/data/types';
 
 const siteUrl = 'https://texasdefined.com';
+type CountyRvParkLink = Pick<Destination, 'slug' | 'name' | 'nearestTown'>;
 
-export function CountyRvParks({ county, rvParks }: { county: TexasEntityRecord; rvParks: Destination[] }) {
+export function CountyRvParks({ county, rvParks }: { county: TexasEntityRecord; rvParks: readonly CountyRvParkLink[] }) {
   if (!rvParks.length) return null;
 
   const displayedRvParks = rvParks.slice(0, 12);
