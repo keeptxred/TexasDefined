@@ -18,6 +18,8 @@ for (const contract of [
   'TEXAS_DATA_SOURCES',
   'const MAX_RESEARCH_SOURCES = 2',
   'const FETCH_TIMEOUT_MS = 3_500',
+  'const TEXAS_ROUTE_PATTERN =',
+  'seed.authority === "Texas Department of Transportation" && TEXAS_ROUTE_PATTERN.test(question)',
   'function isAllowedOfficialUrl',
   'candidate.protocol !== "https:"',
   'redirect: "follow"',
@@ -48,4 +50,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Texas Defined AI official research contract passed: weak internal coverage can research governed HTTPS official sources without a paid general-search API, source text is treated as untrusted evidence, and live research is surfaced with explicit official citations.');
+console.log('Texas Defined AI official research contract passed: weak internal coverage can research governed HTTPS official sources without a paid general-search API, Texas route notation can select TxDOT, source text is treated as untrusted evidence, and live research is surfaced with explicit official citations.');
