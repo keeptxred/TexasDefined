@@ -1,0 +1,68 @@
+name: Events origin probe
+
+on:
+  push:
+    branches:
+      - ops/events-origin-probe-20260907
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe live Events routes
+        env:
+          PROBE_SHA: ${{ github.sha }}
+          PROBE_RUN: ${{ github.run_id }}
+        run: |
+          node <<'NODE'
+          const origin = 'https://texasdefined.com';
+          const nonce = `${process.env.PROBE_SHA}-${process.env.PROBE_RUN}-${Date.now()}`;
+          const paths = ['/events', '/events/tournaments', '/events/panhandle-events', '/sitemap.xml'];
+          const results = {};
+          for (const path of paths) {
+            const join = path.includes('?') ? '&' : '?';
+            const response = await fetch(`${origin}${path}${join}probe=${encodeURIComponent(nonce)}`, {
+              headers: {
+                'cache-control': 'no-cache',
+                'pragma': 'no-cache',
+                'user-agent': 'TexasDefined-GitHub-Origin-Probe/1.0',
+              },
+              redirect: 'follow',
+            });
+            const text = await response.text();
+            results[path] = { status: response.status, headers: Object.fromEntries(response.headers), text };
+          }
+
+          const count = (text, needle) => text.split(needle).length - 1;
+          const marker = (text, needle) => count(text, needle) > 0 ? 1 : 0;
+          const events = results['/events'];
+          const tournaments = results['/events/tournaments'];
+          const panhandle = results['/events/panhandle-events'];
+          const sitemap = results['/sitemap.xml'];
+
+          console.log(`probe_sha=${process.env.PROBE_SHA}`);
+          console.log(`probe_run=${process.env.PROBE_RUN}`);
+          console.log(`probe_nonce=${nonce}`);
+          console.log(`events_status=${events.status}`);
+          console.log(`events_statewide_h1=${marker(events.text, 'What’s happening across Texas') || marker(events.text, "What&#x27;s happening across Texas") || marker(events.text, "What’s happening across Texas")}`);
+          console.log(`tournaments_status=${tournaments.status}`);
+          console.log(`tournaments_how_to_plan=${marker(tournaments.text, 'How to plan it')}`);
+          console.log(`tournaments_source_policy=${marker(tournaments.text, 'Source policy')}`);
+          console.log(`tournaments_browse_category=${marker(tournaments.text, 'Browse category')}`);
+          console.log(`tournaments_statewide_h1=${marker(tournaments.text, 'What’s happening across Texas') || marker(tournaments.text, "What&#x27;s happening across Texas")}`);
+          console.log(`tournaments_cache=${tournaments.headers['cf-cache-status'] ?? ''}`);
+          console.log(`tournaments_age=${tournaments.headers['age'] ?? ''}`);
+          console.log(`panhandle_status=${panhandle.status}`);
+          console.log(`panhandle_how_to_plan=${marker(panhandle.text, 'How to plan it')}`);
+          console.log(`panhandle_source_policy=${marker(panhandle.text, 'Source policy')}`);
+          console.log(`panhandle_statewide_h1=${marker(panhandle.text, 'What’s happening across Texas') || marker(panhandle.text, "What&#x27;s happening across Texas")}`);
+          console.log(`panhandle_noindex=${/name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(panhandle.text) || /content=["'][^"']*noindex[^"']*["'][^>]+name=["']robots["']/i.test(panhandle.text) ? 1 : 0}`);
+          console.log(`panhandle_cache=${panhandle.headers['cf-cache-status'] ?? ''}`);
+          console.log(`panhandle_age=${panhandle.headers['age'] ?? ''}`);
+          console.log(`sitemap_status=${sitemap.status}`);
+          console.log(`sitemap_has_panhandle=${marker(sitemap.text, '<loc>https://texasdefined.com/events/panhandle-events</loc>')}`);
+          console.log(`sitemap_has_tournaments=${marker(sitemap.text, '<loc>https://texasdefined.com/events/tournaments</loc>')}`);
+          NODE
