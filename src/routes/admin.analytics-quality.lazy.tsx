@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { Link, createLazyFileRoute } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 
@@ -54,7 +55,7 @@ function Page() {
     <section className="mt-12 rounded-md border border-border p-6">
       <h2 className="font-display text-3xl">Privacy controls</h2>
       <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <Fact label="IP addresses stored" value={report.privacy.storesIpAddresses ? 'Yes' : 'No'} />
+        <Fact label="IP addresses stored in quality dataset" value={report.privacy.storesIpAddresses ? 'Yes' : 'No'} />
         <Fact label="Names or emails stored" value={report.privacy.storesNamesOrEmails ? 'Yes' : 'No'} />
         <Fact label="Raw user-agent stored" value={report.privacy.storesRawUserAgent ? 'Yes' : 'No'} />
         <Fact label="Session identifier" value={report.privacy.hashesSessionIdentifiers ? 'SHA-256 hashed' : 'Raw'} />
@@ -64,8 +65,8 @@ function Page() {
 }
 
 function Metric({ label, value, detail }: { label: string; value: string; detail: string }) { return <article className="rounded-md bg-muted p-5"><strong className="font-display text-2xl">{value}</strong><span className="mt-2 block font-medium">{label}</span><small className="mt-1 block leading-5 text-muted-foreground">{detail}</small></article>; }
-function Header({ children }: { children: React.ReactNode }) { return <th className="px-4 py-3 font-medium">{children}</th>; }
-function Cell({ children }: { children: React.ReactNode }) { return <td className="px-4 py-3">{children}</td>; }
+function Header({ children }: { children: ReactNode }) { return <th className="px-4 py-3 font-medium">{children}</th>; }
+function Cell({ children }: { children: ReactNode }) { return <td className="px-4 py-3">{children}</td>; }
 function Breakdown({ title, empty, rows }: { title: string; empty: string; rows: Array<{ label: string; count: number }> }) { return <div><h2 className="font-display text-3xl">{title}</h2><div className="mt-5 space-y-3">{rows.length ? rows.map((row) => <article key={row.label} className="flex items-center justify-between gap-4 rounded-md border border-border p-4"><span className="min-w-0 truncate text-sm">{row.label}</span><strong>{row.count}</strong></article>) : <p className="text-sm text-muted-foreground">{empty}</p>}</div></div>; }
 function Fact({ label, value }: { label: string; value: string }) { return <div className="rounded-md bg-muted p-4"><span className="text-sm text-muted-foreground">{label}</span><strong className="mt-1 block">{value}</strong></div>; }
 function value(input: number | null) { return input == null ? '—' : input; }
