@@ -6,8 +6,14 @@
   "compatibility_date": "2026-08-14",
   "compatibility_flags": ["nodejs_compat"],
   "workers_dev": true,
+  "vars": {
+    "KEEP_TX_RED_SUPABASE_URL": "https://ftkznprjljkhymknvhye.supabase.co"
+  },
   "secrets": {
-    "required": ["OPENAI_API_KEY"]
+    "required": [
+      "OPENAI_API_KEY",
+      "KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY"
+    ]
   },
   "ratelimits": [
     {
