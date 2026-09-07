@@ -62,8 +62,16 @@ expect(countyHost.includes("{ name: 'Palo Duro Rim RV Camp', nearestTown: 'Canyo
 expect(countyHost.includes('const preloaded = county.rvParks ?? [];'), 'county SSR host must prefer the bounded loader payload');
 expect(countyHost.includes('if (preloaded.length) return preloaded;'), 'county SSR host must not replace healthy loader results');
 expect(countyHost.includes("return county.slug === 'randall' ? CERTIFIED_RANDALL_RV_PARKS : [];"), 'county SSR host must recover Randall only when the loader payload is empty');
-expect(countyHost.includes('const rvParks = countyRvParksForRender(county);'), 'county SSR host must resolve RV rows before rendering the child');
-expect(countyHost.includes('<CountyRvParks county={county} rvParks={rvParks} />'), 'county SSR host must synchronously render the resolved RV section');
+expect(countyHost.includes('function renderCountyRvParks(county: TexasEntityRecord, rvParks: readonly CountyRvParkLink[])'), 'county SSR host must own the production RV markup in the same module');
+expect(countyHost.includes('if (!rvParks.length) return null;'), 'same-module RV renderer must stay empty for counties without resolved inventory');
+expect(countyHost.includes("'@type': 'Campground'"), 'same-module RV renderer must emit Campground schema');
+expect(countyHost.includes('id="county-rv-parks-heading"'), 'same-module RV renderer must emit the county RV heading');
+expect(countyHost.includes('RV camping around {county.name}'), 'same-module RV renderer must retain the required heading text');
+expect(countyHost.includes('href="/explore/rv-parks"'), 'same-module RV renderer must retain the statewide RV handoff');
+expect(countyHost.includes('const rvParks = countyRvParksForRender(county);'), 'county SSR host must resolve RV rows before rendering');
+expect(countyHost.includes('{renderCountyRvParks(county, rvParks)}'), 'county SSR host must render the resolved RV section without a nested component boundary');
+expect(!countyHost.includes("import { CountyRvParks } from '@/components/explore/CountyRvParks';"), 'county SSR host must not restore the nested CountyRvParks production boundary that live SSR skipped');
+expect(!countyHost.includes('<CountyRvParks'), 'county SSR host must not restore nested CountyRvParks markup');
 expect(!countyHost.includes("lazy(() => import('@/components/explore/CountyRvParks'))"), 'county RV section must not move behind a client-only lazy boundary');
 
 if (failures.length) {
@@ -72,4 +80,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('County discovery boundary validation passed: major events keep their proven server RPC, the bounded RV loader remains intact, Randall empty-loader recovery now lives in the proven SSR host, and the RV child is pure markup.');
+console.log('County discovery boundary validation passed: major events keep their proven server RPC, the bounded RV loader remains intact, Randall empty-loader recovery stays in the proven SSR host, and production RV markup now renders in that same module without the skipped nested boundary.');
