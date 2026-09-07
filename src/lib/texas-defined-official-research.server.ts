@@ -16,7 +16,7 @@ const MAX_SNIPPET_CHARS = 5_500;
 const MAX_RESEARCH_SOURCES = 2;
 
 const DOMAIN_KEYWORDS: Partial<Record<TexasDataDomain, string[]>> = {
-  places: ["city", "town", "place", "population", "where", "located"],
+  places: ["city", "town", "place", "population", "located"],
   counties: ["county", "counties", "county seat"],
   water: ["water", "lake", "river", "reservoir", "aquifer", "drought"],
   "school-districts": ["school", "schools", "district", "isd", "education", "student"],
@@ -116,8 +116,7 @@ function selectSeeds(question: string) {
 }
 
 function registeredRootHostname(url: string) {
-  const host = new URL(url).hostname.toLowerCase().replace(/^www\./, "");
-  return host;
+  return new URL(url).hostname.toLowerCase().replace(/^www\./, "");
 }
 
 function isAllowedOfficialUrl(candidate: URL, seed: ResearchSeed) {
@@ -188,7 +187,7 @@ function linkCandidates(html: string, pageUrl: string, seed: ResearchSeed, token
     }
     if (!isAllowedOfficialUrl(resolved, seed)) continue;
     const label = stripHtml(match[2]).slice(0, 240);
-    const haystack = `${label} ${decodeURIComponent(resolved.pathname)}`.toLowerCase();
+    const haystack = `${label} ${resolved.pathname.replace(/%[0-9a-f]{2}/gi, " ")}`.toLowerCase();
     let score = 0;
     for (const token of tokens) {
       if (haystack.includes(token)) score += token.length >= 6 ? 2 : 1;
