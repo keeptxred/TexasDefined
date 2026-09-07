@@ -1,4 +1,4 @@
-name: Temporary Buc-ee's Census coordinate audit
+name: Temporary Buc-ee's coordinate audit
 
 on:
   push:
@@ -15,85 +15,79 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Resolve missing Buc-ee's coordinates
+      - name: Resolve unresolved Buc-ee's coordinates with OSM Nominatim
         shell: bash
         run: |
           node <<'NODE'
           const rows = [
             ['bucees-14','780 Hwy-35 N Byp','Alvin','77511'],
-            ['bucees-66','9900 East Interstate 40','Amarillo','79118'],
-            ['bucees-13','2299 E Mulberry St','Angleton','77515'],
             ['bucees-21','931 Loop 274','Angleton','77515'],
             ['bucees-28','1700 Highway 71 East','Bastrop','78602'],
             ['bucees-3','801 N Brooks','Brazoria','77422'],
             ['bucees-32','27106 US-290','Cypress','77433'],
-            ['bucees-24','505 E Main St','Eagle Lake','77434'],
             ['bucees-48','1402 South IH-45','Ennis','75119'],
-            ['bucees-7','4231 E. Hwy 332','Freeport','77541'],
-            ['bucees-8','1002 N Brazosport Blvd.','Freeport','77541'],
             ['bucees-16','2375 E Austin St','Giddings','78942'],
             ['bucees-59','165 State Highway 77','Hillsboro','76645'],
             ['bucees-1','899 Oyster Creek Drive','Lake Jackson','77566'],
-            ['bucees-2','101 N Hwy 2004','Lake Jackson','77566'],
-            ['bucees-29','598 Hwy 332','Lake Jackson','77566'],
-            ['bucees-23','1702 League City Pkwy','League City','77573'],
-            ['bucees-17','10070 West IH 10','Luling','78648'],
             ['bucees-26','205 IH-45 South','Madisonville','77864'],
             ['bucees-44','1550 Central Texas Expressway','Melissa','75454'],
-            ['bucees-19','2541 S Main St','Pearland','77584'],
-            ['bucees-20','11151 Shadow Creek Pky','Pearland','77584'],
-            ['bucees-31','1243 Crabb River Rd','Richmond','77469'],
-            ['bucees-38','5005 E Interstate 30','Royse City','75189'],
             ['bucees-75','3245 N IH 35','San Marcos','78666'],
             ['bucees-36','506 W. IH 20','Terrell','75160'],
             ['bucees-18','40900 US Hwy 290 Bypass','Waller','77484'],
           ];
 
-          const normalizeStreet = (street) => street
-            .replace(/\bIH[- ]?(\d+)\b/gi, 'Interstate $1')
-            .replace(/\bUS[- ]?Hwy\s*(\d+)\b/gi, 'US Highway $1')
-            .replace(/\bUS-(\d+)\b/gi, 'US Highway $1')
-            .replace(/\bHwy-?(\d+)\b/gi, 'Highway $1')
-            .replace(/\bPky\b/gi, 'Parkway')
-            .replace(/\bByp\b/gi, 'Bypass')
-            .replace(/\s+/g, ' ')
-            .trim();
-
-          async function lookup(oneLine) {
-            const url = new URL('https://geocoding.geo.census.gov/geocoder/locations/onelineaddress');
-            url.searchParams.set('address', oneLine);
-            url.searchParams.set('benchmark', 'Public_AR_Current');
-            url.searchParams.set('format', 'json');
-            const response = await fetch(url, { headers: { accept: 'application/json', 'user-agent': 'TexasDefined-CI-Geocode-Audit/1.0' }, signal: AbortSignal.timeout(20000) });
+          async function lookup(query) {
+            const url = new URL('https://nominatim.openstreetmap.org/search');
+            url.searchParams.set('q', query);
+            url.searchParams.set('format', 'jsonv2');
+            url.searchParams.set('limit', '3');
+            url.searchParams.set('countrycodes', 'us');
+            url.searchParams.set('addressdetails', '1');
+            const response = await fetch(url, {
+              headers: {
+                accept: 'application/json',
+                'user-agent': 'TexasDefined-Coordinate-Audit/1.0 (https://texasdefined.com)',
+              },
+              signal: AbortSignal.timeout(20000),
+            });
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            const payload = await response.json();
-            const match = payload?.result?.addressMatches?.[0];
-            if (!match?.coordinates) return null;
-            return {
-              latitude: Number(match.coordinates.y),
-              longitude: Number(match.coordinates.x),
-              matchedAddress: match.matchedAddress ?? null,
-            };
+            return response.json();
           }
 
           const output = [];
           for (const [id, street, city, zip] of rows) {
-            const variants = [...new Set([street, normalizeStreet(street)])];
-            let resolved = null;
+            const queries = [
+              `Buc-ee's, ${street}, ${city}, TX ${zip}`,
+              `${street}, ${city}, TX ${zip}`,
+              `Buc-ee's, ${city}, TX ${zip}`,
+            ];
+            let match = null;
             let used = null;
             let error = null;
-            for (const candidateStreet of variants) {
-              const query = `${candidateStreet}, ${city}, TX ${zip}`;
+            for (const query of queries) {
               try {
-                resolved = await lookup(query);
-                if (resolved) { used = query; break; }
+                const results = await lookup(query);
+                match = results.find((candidate) => {
+                  const display = String(candidate.display_name ?? '').toLowerCase();
+                  return display.includes('texas') && (display.includes(city.toLowerCase()) || display.includes(zip));
+                }) ?? results[0] ?? null;
+                if (match) { used = query; break; }
               } catch (err) {
                 error = err instanceof Error ? err.message : String(err);
               }
+              await new Promise((resolve) => setTimeout(resolve, 1100));
             }
-            output.push({ id, street, city, zip, used, ...resolved, error: resolved ? null : error });
-            await new Promise((resolve) => setTimeout(resolve, 150));
+            output.push({
+              id, street, city, zip, used,
+              latitude: match ? Number(match.lat) : null,
+              longitude: match ? Number(match.lon) : null,
+              displayName: match?.display_name ?? null,
+              osmType: match?.osm_type ?? null,
+              osmId: match?.osm_id ?? null,
+              error: match ? null : error,
+            });
+            await new Promise((resolve) => setTimeout(resolve, 1100));
           }
-          console.log('BUCEES_CENSUS_RESULTS=' + JSON.stringify(output));
+          console.log('BUCEES_NOMINATIM_RESULTS=' + JSON.stringify(output));
           console.log(`Resolved ${output.filter((row) => Number.isFinite(row.latitude)).length}/${output.length}`);
           NODE
