@@ -50,6 +50,9 @@ jobs:
       - name: Validate Texas AI intelligence foundation
         run: node scripts/data/validate-texas-defined-ai-readiness.mjs
 
+      - name: Validate Texas Defined AI official research
+        run: node scripts/ai/validate-ai-official-research.mjs
+
       - name: Validate Event schema enrichment coverage
         run: |
           node scripts/data/validate-events-seo.mjs
