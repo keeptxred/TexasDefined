@@ -183,6 +183,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShopIndexRouteImport } from './routes/shop.index'
 import { Route as NewsIndexRouteImport } from './routes/news.index'
 import { Route as ExploreIndexRouteImport } from './routes/explore.index'
+import { Route as EventsIndexRouteImport } from './routes/events.index'
 import { Route as ThingsUniqueToTexasMethodologyRouteImport } from './routes/things-unique-to-texas_.methodology'
 import { Route as ThingsUniqueToTexasCategoryRouteImport } from './routes/things-unique-to-texas_.$category'
 import { Route as TexasVsStateRouteImport } from './routes/texas-vs.$state'
@@ -1589,6 +1590,11 @@ const ExploreIndexRoute = ExploreIndexRouteImport.update({
   path: '/explore/',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/explore.index.lazy').then((d) => d.Route))
+const EventsIndexRoute = EventsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => EventsRoute,
+} as any).lazy(() => import('./routes/events.index.lazy').then((d) => d.Route))
 const ThingsUniqueToTexasMethodologyRoute =
   ThingsUniqueToTexasMethodologyRouteImport.update({
     id: '/things-unique-to-texas_/methodology',
@@ -3623,6 +3629,7 @@ export interface FileRoutesByFullPath {
   '/texas-vs/$state': typeof TexasVsStateRoute
   '/things-unique-to-texas/$category': typeof ThingsUniqueToTexasCategoryRoute
   '/things-unique-to-texas/methodology': typeof ThingsUniqueToTexasMethodologyRoute
+  '/events/': typeof EventsIndexRoute
   '/explore/': typeof ExploreIndexRoute
   '/news/': typeof NewsIndexRoute
   '/shop/': typeof ShopIndexRoute
@@ -3709,7 +3716,6 @@ export interface FileRoutesByTo {
   '/dallas-fort-worth-music-history': typeof DallasFortWorthMusicHistoryRoute
   '/dr-pepper-texas-history': typeof DrPepperTexasHistoryRoute
   '/editorial-policy': typeof EditorialPolicyRoute
-  '/events': typeof EventsRouteWithChildren
   '/everything-bigger-in-texas': typeof EverythingBiggerInTexasRoute
   '/find-my-dmv': typeof FindMyDmvRoute
   '/find-my-school-district': typeof FindMySchoolDistrictRoute
@@ -4071,6 +4077,7 @@ export interface FileRoutesByTo {
   '/texas-vs/$state': typeof TexasVsStateRoute
   '/things-unique-to-texas/$category': typeof ThingsUniqueToTexasCategoryRoute
   '/things-unique-to-texas/methodology': typeof ThingsUniqueToTexasMethodologyRoute
+  '/events': typeof EventsIndexRoute
   '/explore': typeof ExploreIndexRoute
   '/news': typeof NewsIndexRoute
   '/shop': typeof ShopIndexRoute
@@ -4522,6 +4529,7 @@ export interface FileRoutesById {
   '/texas-vs/$state': typeof TexasVsStateRoute
   '/things-unique-to-texas_/$category': typeof ThingsUniqueToTexasCategoryRoute
   '/things-unique-to-texas_/methodology': typeof ThingsUniqueToTexasMethodologyRoute
+  '/events/': typeof EventsIndexRoute
   '/explore/': typeof ExploreIndexRoute
   '/news/': typeof NewsIndexRoute
   '/shop/': typeof ShopIndexRoute
@@ -4974,6 +4982,7 @@ export interface FileRouteTypes {
     | '/texas-vs/$state'
     | '/things-unique-to-texas/$category'
     | '/things-unique-to-texas/methodology'
+    | '/events/'
     | '/explore/'
     | '/news/'
     | '/shop/'
@@ -5060,7 +5069,6 @@ export interface FileRouteTypes {
     | '/dallas-fort-worth-music-history'
     | '/dr-pepper-texas-history'
     | '/editorial-policy'
-    | '/events'
     | '/everything-bigger-in-texas'
     | '/find-my-dmv'
     | '/find-my-school-district'
@@ -5422,6 +5430,7 @@ export interface FileRouteTypes {
     | '/texas-vs/$state'
     | '/things-unique-to-texas/$category'
     | '/things-unique-to-texas/methodology'
+    | '/events'
     | '/explore'
     | '/news'
     | '/shop'
@@ -5872,6 +5881,7 @@ export interface FileRouteTypes {
     | '/texas-vs/$state'
     | '/things-unique-to-texas_/$category'
     | '/things-unique-to-texas_/methodology'
+    | '/events/'
     | '/explore/'
     | '/news/'
     | '/shop/'
@@ -7518,6 +7528,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/explore/'
       preLoaderRoute: typeof ExploreIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/events/': {
+      id: '/events/'
+      path: '/'
+      fullPath: '/events/'
+      preLoaderRoute: typeof EventsIndexRouteImport
+      parentRoute: typeof EventsRoute
     }
     '/things-unique-to-texas_/methodology': {
       id: '/things-unique-to-texas_/methodology'
@@ -9493,10 +9510,12 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface EventsRouteChildren {
   EventsCollectionRoute: typeof EventsCollectionRoute
+  EventsIndexRoute: typeof EventsIndexRoute
 }
 
 const EventsRouteChildren: EventsRouteChildren = {
   EventsCollectionRoute: EventsCollectionRoute,
+  EventsIndexRoute: EventsIndexRoute,
 }
 
 const EventsRouteWithChildren =
