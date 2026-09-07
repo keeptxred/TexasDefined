@@ -1,6 +1,10 @@
 import { texasDefinedBrand } from "../brand/texasdefined";
 import { buildMeta, canonicalLink } from "../lib/seo";
-import { shouldIndexEvergreenEventCollection } from "./event-collection-indexability";
+import {
+  buildTournamentCollectionIndexabilityNote,
+  shouldIndexEvergreenEventCollection,
+  shouldIndexTournamentCollection,
+} from "./event-collection-indexability";
 import { EVENT_COLLECTIONS, EVENT_COLLECTION_BY_SLUG, type EventCollectionDefinition } from "./event-collections";
 import {
   TEMPORAL_EVENT_COLLECTIONS,
@@ -141,13 +145,13 @@ export function loadEventCollectionPageServer(slug: string) {
             : event.region === evergreen!.value,
         );
   const shouldIndex = tournament
-    ? items.length >= 5
+    ? shouldIndexTournamentCollection(items.length)
     : temporal?.shouldIndex ?? shouldIndexEvergreenEventCollection(items.length);
   const verifiedTournamentCount = tournament
     ? items.filter((item) => Boolean(item.sourceCheckedAt) && item.href.startsWith("/event/")).length
     : 0;
   const indexabilityNote = tournament
-    ? `This collection is indexable as a substantive discovery directory. ${verifiedTournamentCount} entries currently link to first-party-verified tournament guides; the remaining seed entries stay at the collection layer until their current occurrence details are verified.`
+    ? buildTournamentCollectionIndexabilityNote(items.length, verifiedTournamentCount, shouldIndex)
     : temporal?.indexabilityNote
       ?? (shouldIndex
         ? "This collection is a durable, crawlable event-discovery page backed by enough permanent verified event guides to stand on its own."
