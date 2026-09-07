@@ -72,6 +72,14 @@ function officialLocatorUrl(brand: TexasBrandLocatorBrand, query: string) {
   return TEXAS_BRAND_LOCATION_SOURCES.bucees.url;
 }
 
+function fallbackLinks(brands: TexasBrandLocatorBrand[], query: string) {
+  return brands.map((brand) => ({
+    brand,
+    label: brand === "heb" ? "Open H-E-B's official store locator" : "Open Buc-ee's official locations",
+    url: officialLocatorUrl(brand, query),
+  }));
+}
+
 function directionsUrl(address: string) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 }
@@ -304,16 +312,49 @@ async function findBuceesLocations(origin: Point) {
     .slice(0, RESULTS_PER_BRAND);
 }
 
+export async function findTexasBrandLocationsNearPointServer(input: {
+  query: string;
+  origin: Point;
+  matchedAddress?: string | null;
+  brands: TexasBrandLocatorBrand[];
+}): Promise<TexasBrandLocatorResponse> {
+  const query = input.query.trim();
+  const selectedBrands = input.brands.length ? input.brands : ["heb", "bucees"];
+  const notices: string[] = [];
+  const results: TexasBrandLocatorLocation[] = [];
+
+  if (selectedBrands.includes("heb")) {
+    try {
+      const heb = await findHebLocations(query);
+      if (heb.length) results.push(...heb);
+      else notices.push("H-E-B's live locator did not return a nearby store for this search. The official H-E-B locator link below carries your location into H-E-B's current results.");
+    } catch {
+      notices.push("H-E-B's live locator could not be reached from TexasDefined. The official H-E-B locator link below carries your location into H-E-B's current results.");
+    }
+  }
+
+  if (selectedBrands.includes("bucees")) {
+    try {
+      results.push(...await findBuceesLocations(input.origin));
+    } catch {
+      notices.push("Buc-ee's official Texas location registry is available, but distance ranking could not be completed. Use the official Buc-ee's locations link below for the current list.");
+    }
+  }
+
+  return {
+    query,
+    matchedAddress: input.matchedAddress ?? null,
+    results,
+    notices,
+    fallbackLinks: fallbackLinks(selectedBrands, query),
+  };
+}
+
 export async function findTexasBrandLocationsServer(input: { address: string; brands: TexasBrandLocatorBrand[] }): Promise<TexasBrandLocatorResponse> {
   const query = input.address.trim();
   const selectedBrands = input.brands.length ? input.brands : ["heb", "bucees"];
   const notices: string[] = [];
   const results: TexasBrandLocatorLocation[] = [];
-  const fallbackLinks = selectedBrands.map((brand) => ({
-    brand,
-    label: brand === "heb" ? "Open H-E-B's official store locator" : "Open Buc-ee's official locations",
-    url: officialLocatorUrl(brand, query),
-  }));
 
   const needsOrigin = selectedBrands.includes("bucees");
   let resolvedAddress = null as Awaited<ReturnType<typeof resolveRelocationAddressServer>>;
@@ -349,6 +390,6 @@ export async function findTexasBrandLocationsServer(input: { address: string; br
     matchedAddress: resolvedAddress?.matchedAddress ?? null,
     results,
     notices,
-    fallbackLinks,
+    fallbackLinks: fallbackLinks(selectedBrands, query),
   };
 }
