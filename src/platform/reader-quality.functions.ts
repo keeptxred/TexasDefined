@@ -132,8 +132,8 @@ export const getReaderQualityDashboard = createServerFn({ method: 'GET' }).handl
     windowDays: WINDOW_DAYS,
     daily,
     latest,
-    topSuspiciousPaths: ranked(suspiciousPaths, 'path').slice(0, 10),
-    likelyHumanReferrers: ranked(likelyReferrers, 'referrerClass').slice(0, 10),
+    topSuspiciousPaths: rankPaths(suspiciousPaths).slice(0, 10),
+    likelyHumanReferrers: rankReferrers(likelyReferrers).slice(0, 10),
     privacy: {
       storesIpAddresses: false,
       storesNamesOrEmails: false,
@@ -170,7 +170,7 @@ function centralDate(date: Date) {
   const parts = new Intl.DateTimeFormat('en-US', {
     timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit',
   }).formatToParts(date);
-  const read = (type: Intl.DateTimeFormatPartTypes) => parts.find((part) => part.type === type)?.value ?? '';
+  const read = (type: 'year' | 'month' | 'day') => parts.find((part) => part.type === type)?.value ?? '';
   return `${read('year')}-${read('month')}-${read('day')}`;
 }
 
@@ -179,8 +179,5 @@ function whole(value: unknown) { const parsed = Number(value); return Number.isF
 function nullableWhole(value: unknown) { if (value == null) return null; const parsed = Number(value); return Number.isFinite(parsed) ? Math.max(0, Math.round(parsed)) : null; }
 function nullableNumber(value: unknown) { if (value == null) return null; const parsed = Number(value); return Number.isFinite(parsed) ? parsed : null; }
 function cleanPath(value: unknown) { const path = String(value ?? ''); return path.startsWith('/') && path.length <= 500 ? path : ''; }
-function ranked(map: Map<string, number>, key: 'path' | 'referrerClass') {
-  return [...map.entries()]
-    .map(([label, sessions]) => ({ [key]: label, sessions }))
-    .sort((left, right) => right.sessions - left.sessions || String(left[key]).localeCompare(String(right[key]))) as Array<{ path: string; sessions: number } & { referrerClass: string }>;
-}
+function rankPaths(map: Map<string, number>) { return [...map.entries()].map(([path, sessions]) => ({ path, sessions })).sort((left, right) => right.sessions - left.sessions || left.path.localeCompare(right.path)); }
+function rankReferrers(map: Map<string, number>) { return [...map.entries()].map(([referrerClass, sessions]) => ({ referrerClass, sessions })).sort((left, right) => right.sessions - left.sessions || left.referrerClass.localeCompare(right.referrerClass)); }
