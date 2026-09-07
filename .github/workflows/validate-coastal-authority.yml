@@ -66,6 +66,7 @@ jobs:
           const t = results['/events/tournaments'];
           const p = results['/events/panhandle-events'];
           const s = results['/sitemap.xml'];
+          const panhandleCountMatch = p.text.match(/([0-9,]+)\s+verified event guides/i);
           console.log(`probe_nonce=${nonce}`);
           console.log(`events_status=${e.status}`);
           console.log(`events_statewide_h1=${statewide(e.text)}`);
@@ -74,15 +75,12 @@ jobs:
           console.log(`tournaments_source_policy=${marker(t.text, 'Source policy')}`);
           console.log(`tournaments_browse_category=${marker(t.text, 'Browse category')}`);
           console.log(`tournaments_statewide_h1=${statewide(t.text)}`);
-          console.log(`tournaments_cf_cache_status=${t.headers['cf-cache-status'] ?? ''}`);
-          console.log(`tournaments_age=${t.headers.age ?? ''}`);
           console.log(`panhandle_status=${p.status}`);
           console.log(`panhandle_how_to_plan=${marker(p.text, 'How to plan it')}`);
           console.log(`panhandle_source_policy=${marker(p.text, 'Source policy')}`);
           console.log(`panhandle_statewide_h1=${statewide(p.text)}`);
           console.log(`panhandle_noindex=${noindex(p.text) ? 1 : 0}`);
-          console.log(`panhandle_cf_cache_status=${p.headers['cf-cache-status'] ?? ''}`);
-          console.log(`panhandle_age=${p.headers.age ?? ''}`);
+          console.log(`panhandle_verified_guides=${panhandleCountMatch?.[1] ?? 'unknown'}`);
           console.log(`sitemap_status=${s.status}`);
           console.log(`sitemap_has_panhandle=${marker(s.text, '<loc>https://texasdefined.com/events/panhandle-events</loc>')}`);
           console.log(`sitemap_has_tournaments=${marker(s.text, '<loc>https://texasdefined.com/events/tournaments</loc>')}`);
