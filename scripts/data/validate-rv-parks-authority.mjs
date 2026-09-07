@@ -45,8 +45,16 @@ for (const marker of [
   'RV_PARK_RAW_PINEY_WOODS_EAST_TEXAS',
   'RV_PARK_RAW_PANHANDLE_NORTH_TEXAS',
   'RV_PARK_RAW_BIG_BEND_WEST_TEXAS',
+  'type CountyRvSeed = readonly',
+  'function snapshotDestination(',
+  'const CERTIFIED_COUNTY_FALLBACKS',
+  'randall: [',
+  "['Palo Duro Canyon State Park RV Loop', 'Canyon', 'Randall', 'palo-duro-canyon-state-park-rv-loop', 'panhandle', 'Panhandle Plains & North Texas']",
+  "['Palo Duro Rim RV Camp', 'Canyon', 'Randall', 'palo-duro-rim-rv-camp', 'panhandle', 'Panhandle Plains & North Texas']",
   'export function loadCountyRvParksSnapshot(countySlug: string): Destination[]',
   'normalizeCountySlug(park.county!) === normalized',
+  'if (matches.length) return matches;',
+  'CERTIFIED_COUNTY_FALLBACKS[normalized] ?? []',
   '.slice(0, 12)',
 ]) requireText(countyRvIndex, marker, 'Client-safe county RV snapshot');
 if (countyRvIndex.includes('createServerFn')) errors.push('County RV snapshot must not add another TanStack server-function boundary.');
@@ -57,7 +65,10 @@ if (facade.includes('{ action: "county"; value: string }')) errors.push('County 
 if (facade.includes('const parks = await listRvParkDestinations();')) errors.push('County RV lookup must not fetch and serialize the full 250-record catalog through a server function before filtering.');
 
 requireText(hillCountry, '["Blanco State Park RV Area", "Blanco", "Blanco",', 'Blanco County RV seed coverage');
-requireText(panhandleNorthTexas, '["Palo Duro Canyon State Park RV Loop", "Canyon", "Randall",', 'Randall County RV seed coverage');
+for (const rawSeed of [
+  '["Palo Duro Canyon State Park RV Loop", "Canyon", "Randall", "palo-duro-canyon-state-park-rv-loop", "panhandle"]',
+  '["Palo Duro Rim RV Camp", "Canyon", "Randall", "palo-duro-rim-rv-camp", "panhandle"]',
+]) requireText(panhandleNorthTexas, rawSeed, 'Certified Randall fallback raw-seed mirror');
 
 const imageSection = images.split('export const RV_PARK_LICENSED_IMAGES')[1]?.split('export function rvParkLicensedImage')[0] ?? '';
 const imageRecords = [...imageSection.matchAll(/^  '([^']+)': \{([\s\S]*?)^  \},/gm)];
@@ -107,4 +118,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), bounded client-safe county RV discovery with synchronous SSR recovery when loader rows are empty, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
+console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), bounded client-safe county RV discovery with a source-controlled Randall canary that mirrors existing inventory exactly, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
