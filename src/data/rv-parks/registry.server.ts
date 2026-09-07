@@ -30,6 +30,8 @@ export const RV_PARK_SEED_IMPORTED_AT = "2026-09-05";
 export const RV_PARK_SEED_COUNT = 250;
 export const RV_PARK_CURATED_PUBLIC_WAVE1_COUNT = 5;
 
+const CONSERVATIVE_SEED = { coordinates: { lat: 0, lng: 0 } } as const;
+
 const GROUPS = [
   { id: "hill-country", name: "Texas Hill Country", region: "hill-country", parks: RV_PARK_RAW_HILL_COUNTRY },
   { id: "gulf-coast", name: "Gulf Coast", region: "gulf-coast", parks: RV_PARK_RAW_GULF_COAST },
@@ -189,7 +191,7 @@ function destinationFromSeed(seed: RvParkSeedRecord): Destination {
     region: seed.region,
     nearestTown: seed.town,
     county: seed.county,
-    coordinates: seed.coordinates ?? { lat: 0, lng: 0 },
+    coordinates: seed.coordinates ?? CONSERVATIVE_SEED.coordinates,
     hero,
     summary: content?.summary ?? `${seed.name} is listed in ${seed.town}, ${seed.county} County, in the Texas Defined RV parks and campgrounds directory. This seed profile supports trip discovery while park-specific operating details are being verified from the operator or managing agency.`,
     bestSeason: content?.bestSeason ?? "Varies by location and weather; verify the current operating season before travel.",
