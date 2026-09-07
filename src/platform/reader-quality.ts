@@ -25,6 +25,8 @@ export type ReaderQualityResult = {
   classification: ReaderQualityClassification;
 };
 
+export const READER_QUALITY_INTERNAL_BROWSER_KEY = 'texasdefined:reader-quality-internal';
+
 export const READER_QUALITY_THRESHOLDS = Object.freeze({
   suspiciousVisibleMs: 2_000,
   likelyHumanScore: 60,
