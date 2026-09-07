@@ -1,7 +1,7 @@
 (() => {
   const SESSION_KEY = 'texasdefined:analytics-session';
   const INTERNAL_BROWSER_KEY = 'texasdefined:reader-quality-internal';
-  const INGEST_PATH = '/api/reader-quality';
+  const INGEST_PATH = '/api/internal-links?mode=reader-quality';
   const MAX_INTERACTIONS = 500;
 
   const storage = () => {
