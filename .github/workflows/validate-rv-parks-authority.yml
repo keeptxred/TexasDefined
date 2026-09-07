@@ -6,8 +6,11 @@ on:
     paths:
       - '.github/workflows/validate-rv-parks-authority.yml'
       - 'scripts/data/validate-rv-parks-authority.mjs'
+      - 'scripts/data/validate-rv-county-server-function-isolation.mjs'
       - 'scripts/ci/verify-rv-parks-production.mjs'
       - 'src/data/rv-parks/**'
+      - 'src/data/county-major-events.ts'
+      - 'src/data/county-major-events.server.ts'
       - 'src/data/destination-audit.ts'
       - 'src/data/destination-availability.ts'
       - 'src/data/destination-query-runtime.ts'
@@ -19,6 +22,7 @@ on:
       - 'src/lib/editorial-image-delivery.ts'
       - 'src/components/explore/CountyRvParks.tsx'
       - 'src/components/sports/CountySportsDestinations.tsx'
+      - 'src/routes/$kind.$slug.tsx'
       - 'src/routes/explore.index.tsx'
       - 'src/routes/explore.$category.tsx'
       - 'src/routes/destination.$slug.tsx'
@@ -28,8 +32,11 @@ on:
     paths:
       - '.github/workflows/validate-rv-parks-authority.yml'
       - 'scripts/data/validate-rv-parks-authority.mjs'
+      - 'scripts/data/validate-rv-county-server-function-isolation.mjs'
       - 'scripts/ci/verify-rv-parks-production.mjs'
       - 'src/data/rv-parks/**'
+      - 'src/data/county-major-events.ts'
+      - 'src/data/county-major-events.server.ts'
       - 'src/data/destination-audit.ts'
       - 'src/data/destination-availability.ts'
       - 'src/data/destination-query-runtime.ts'
@@ -41,6 +48,7 @@ on:
       - 'src/lib/editorial-image-delivery.ts'
       - 'src/components/explore/CountyRvParks.tsx'
       - 'src/components/sports/CountySportsDestinations.tsx'
+      - 'src/routes/$kind.$slug.tsx'
       - 'src/routes/explore.index.tsx'
       - 'src/routes/explore.$category.tsx'
       - 'src/routes/destination.$slug.tsx'
@@ -62,9 +70,11 @@ jobs:
           node-version: 22
       - name: Validate RV camping authority contract
         run: node scripts/data/validate-rv-parks-authority.mjs
+      - name: Validate unified county discovery boundary
+        run: node scripts/data/validate-rv-county-server-function-isolation.mjs
 
   production:
-    if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 10
