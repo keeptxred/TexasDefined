@@ -28,7 +28,7 @@ export const TEXAS_BRAND_DIRECTORY_CATEGORIES = [
   ["western-outdoors", "Western, Workwear & Outdoors", "Boots, hats, workwear and outdoor retail tied to Texas life."],
   ["travel-retail", "Travel, Retail & Everyday Texas", "Road-trip and retail institutions Texans recognize."],
   ["technology", "Technology & Modern Texas Business", "Texas-rooted technology and modern business names."],
-] as const satisfies readonly [TexasBrandDirectoryCategorySlug, string, string][];
+] as const satisfies readonly (readonly [TexasBrandDirectoryCategorySlug, string, string])[];
 
 const CATEGORY_BY_ICON_ID: Readonly<Record<number, TexasBrandDirectoryCategorySlug>> = {
   36: "travel-retail", 37: "food-drink", 38: "grocery-markets", 39: "western-outdoors",
