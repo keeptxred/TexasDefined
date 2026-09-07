@@ -4,6 +4,13 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '41 13 * * *'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/lib/texas-defined-ai.server.ts'
+      - 'src/lib/texas-defined-official-research.server.ts'
+      - 'scripts/ci/verify-ask-texas-production.mjs'
+      - '.github/workflows/verify-ask-texas-production.yml'
   push:
     branches: [main]
     paths:
@@ -16,7 +23,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: verify-ask-texas-production
+  group: verify-ask-texas-production-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
