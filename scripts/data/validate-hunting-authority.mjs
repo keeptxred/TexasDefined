@@ -16,6 +16,7 @@ const allAuthority = `${authority}\n${authorityV2}`;
 const freshness = read('src/data/hunting/freshness.ts');
 const sitemap = read('src/data/hunting/sitemap.ts');
 const huntingRoute = read('src/routes/hunting.$slug.tsx');
+const huntingLazyRoute = read('src/routes/hunting.lazy.tsx');
 const huntingTopicRoute = read('src/routes/hunting.$slug.lazy.tsx');
 const huntingTopicPage = read('src/components/hunting/HuntingTopicPage.tsx');
 const huntingHub = read('src/components/hunting/HuntingAuthority.tsx');
@@ -70,6 +71,9 @@ requireText(queries, 'await import("./search-documents-runtime")', 'lazy search 
 requireText(publicRoutes, '"/hunting"', 'indexable /hunting route missing');
 requireText(leafOnlyParentRoutes, 'import { Route as huntingRoute } from "@/routes/hunting";', 'hunting leaf-only parent route import missing');
 requireText(leafOnlyParentRoutes, '  huntingRoute,', 'hunting parent route is not registered for child Outlet rendering');
+requireText(huntingLazyRoute, 'useChildMatches', 'hunting lazy parent must inspect child matches after lazy route loading');
+requireText(huntingLazyRoute, 'if (childMatches.length > 0) return <Outlet />;', 'hunting lazy parent must yield child routes at runtime');
+requireText(huntingLazyRoute, 'return <HuntingHubPage />;', 'hunting lazy parent must preserve the hub on the leaf /hunting route');
 
 for (const [source, label] of [
   [wildlife, 'wildlife'],
@@ -116,4 +120,4 @@ for (const redirectOnly of ['/explore/wildlife-management-areas', '/explore/texa
   }
 }
 
-console.log(`Hunting authority validation passed: hub + ${expectedTopics.length} topics, v2 coverage, freshness, TPWD sourcing, search/sitemap governance, child-route rendering, reciprocal discovery links, bundle-safe WMA discovery and decoded v2 production smoke governance.`);
+console.log(`Hunting authority validation passed: hub + ${expectedTopics.length} topics, v2 coverage, freshness, TPWD sourcing, search/sitemap governance, lazy child-route rendering, reciprocal discovery links, bundle-safe WMA discovery and decoded v2 production smoke governance.`);
