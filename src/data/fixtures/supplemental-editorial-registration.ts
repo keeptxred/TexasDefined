@@ -1,13 +1,12 @@
 import { articleInternalLinks } from "../article-internal-links";
 import { blueHoleJasperCountyStoryArticle } from "./blue-hole-jasper-county-story";
-import { seasonalIntentStubs } from "./lazy-seasonal-intents";
+import { registerSupplementalIntentArticle } from "./lazy-seasonal-intents";
 
 // Keep small, opportunistic editorial additions discoverable without expanding
-// the already-large lazy evergreen registry. The article repository falls back
-// to the combined editorial list when a dedicated lazy loader does not claim it.
-if (!seasonalIntentStubs.some((article) => article.slug === blueHoleJasperCountyStoryArticle.slug)) {
-  seasonalIntentStubs.push(blueHoleJasperCountyStoryArticle);
-}
+// the already-large lazy evergreen registry. Registration updates both the
+// combined editorial list and direct slug lookup so a listed article cannot
+// silently resolve to a production 404.
+registerSupplementalIntentArticle(blueHoleJasperCountyStoryArticle);
 
 const blueHoleLink = {
   href: `/article/${blueHoleJasperCountyStoryArticle.slug}`,
