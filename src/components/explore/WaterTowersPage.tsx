@@ -27,7 +27,7 @@ export function WaterTowersPage() {
       </section>
 
       <Container className="py-14 sm:py-20">
-        <section className="grid gap-8 border-b-2 border-foreground pb-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(280px,.75fr)]">
+        <section className="grid gap-8 border-b-2 border-foreground pb-12 lg:grid-cols-2">
           <div>
             <p className="eyebrow text-primary">The rule for making the list</p>
             <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">A tower needs a reason to stop the car.</h2>
