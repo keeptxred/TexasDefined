@@ -12,7 +12,7 @@ Affiliate tracking is centralized in `src/lib/viator-affiliate.ts`.
 
 The approved TexasDefined attribution values are active as the centralized defaults: PID `P00318227` and MCID `42383`. Deployment may optionally set `VITE_VIATOR_AFFILIATE_PARAMS` to a valid Viator query string containing both `pid` and `mcid`; invalid or incomplete overrides fall back to the approved defaults.
 
-Do not hard-code affiliate IDs into components or content records. Do not manually replace or strip Viator tracking parameters. TexasDefined appends a market-specific `campaign` value only when the target link does not already contain one.
+Do not hard-code affiliate IDs into components or content records. Do not manually replace or strip Viator tracking parameters. TexasDefined appends a market- or placement-specific `campaign` value only when the target link does not already contain one.
 
 All monetized outbound links use `rel="sponsored noopener noreferrer"`.
 
@@ -20,11 +20,13 @@ All monetized outbound links use `rel="sponsored noopener noreferrer"`.
 
 `src/data/viator-destination-links.ts` contains only destination URLs verified against live Viator inventory. A market without a verified destination page falls back to the verified statewide Texas page at `https://www.viator.com/Texas/d296` rather than constructing an unverified Viator search URL.
 
-As additional destination or product URLs are verified, add them to the governed link registry. Product-level links should be preferred for high-conversion editorial placements once the product has been checked for current availability and fit.
+The verified market registry is intentionally conservative. A current Viator product inside a Texas place does not by itself prove that Viator maintains a durable destination landing page for that place.
+
+Product-level URLs are not stored in the checked-in curated-seed layer. Product availability, price, ratings, review counts and supplier details are volatile and must be resolved from current Viator inventory before any future product-level booking card is rendered.
 
 ## Statewide experience market coverage
 
-The first statewide catalog models 25 markets:
+TexasDefined models 25 durable experience markets:
 
 - Austin
 - San Antonio
@@ -52,11 +54,11 @@ The first statewide catalog models 25 markets:
 - Beaumont & the Golden Triangle
 - Jefferson & East Texas
 
-The catalog is intentionally broader than today's directly verified Viator destination pages. This preserves a durable TexasDefined discovery model as supplier inventory changes.
+The market model is intentionally broader than the directly verified Viator destination-page registry. This preserves a durable TexasDefined discovery structure as supplier inventory changes.
 
 ## Experience lanes
 
-Every market is classified across one or more of 12 lanes:
+The booking layer uses 12 category-level lanes:
 
 - city sightseeing
 - history and landmarks
@@ -71,18 +73,60 @@ Every market is classified across one or more of 12 lanes:
 - sports and stadiums
 - day trips
 
+`src/data/viator-experience-runtime.ts` contains the compact client-facing market projection. Markets may expose up to three `signalLanes` when those lanes are backed by reviewed curated inventory. These are category-level discovery signals, not promises that a particular product is currently bookable.
+
+The current signal review date is kept in `VIATOR_RUNTIME_SIGNAL_REVIEWED_AT` and must move forward only after a real inventory reconciliation.
+
+## Curated inventory research
+
+`src/data/viator-curated-product-seeds*.ts` stores editorial discovery signals gathered from reviewed Viator Texas inventory batches. The seed layer exists to answer questions such as:
+
+- which Texas markets show meaningful supplier depth;
+- which booking lanes belong on a market card;
+- which durable places deserve stronger TexasDefined canonical coverage;
+- which product types should be excluded as thin, generic, duplicative or non-Texas inventory.
+
+Curated seeds are not a static product catalog. Do not render seed titles as live offers without separately resolving current product data.
+
+Transfers, generic scavenger hunts, commodity rentals, thin workshops, duplicate low-signal variants and accidental non-Texas inventory remain intentionally excluded under `VIATOR_PRODUCT_EXCLUSION_RULES`.
+
+## Canonical destination expansion
+
+When reviewed Viator inventory reveals a durable Texas place or attraction that belongs in the editorial guide, TexasDefined may create or improve the canonical destination page instead of creating an affiliate-product URL.
+
+Recent Viator-driven destination expansion has added or strengthened places such as Barton Creek Greenbelt, San Antonio Botanical Garden, Southfork Ranch, Buffalo Bayou Park Cistern, Houston Downtown Tunnels, Deep Ellum, Galveston historic districts, Galveston Seawall and Galveston Bay.
+
+Every destination remains subject to the normal TexasDefined source-depth, image-rights, indexability and sitemap gates. Viator inventory does not bypass those gates.
+
 ## Current UI placement
 
-The first release lives inside the existing `/explore` route at the `#tours-experiences` section. This keeps the rollout compatible with TexasDefined's generated TanStack route-tree merge gate while still making the statewide market directory indexable and discoverable from Explore.
+The booking layer now appears in two primary places:
 
-Rich research records and curated product seeds stay outside the lightweight client runtime projection so statewide booking discovery does not consume the main-bundle performance headroom.
+1. `/explore#tours-experiences` — the statewide experience-market directory, including compact reviewed inventory signals;
+2. canonical `/destination/:slug` pages — a market-matched booking card that can surface the same category-level signals while sending the visitor to current Viator inventory.
 
-Dedicated market routes can be added later when their generated `routeTree.gen.ts` changes can be produced and committed with the implementation.
+Both surfaces keep prices, ratings, review counts and current availability on Viator rather than hard-coding volatile values into TexasDefined.
 
-## Next monetization layer
+Rich research records and curated product seeds stay outside the lightweight client runtime projection so statewide booking discovery does not consume the protected main-bundle performance headroom.
 
-1. verify approved attribution on production outbound links;
-2. use Viator's affiliate tooling/Selector to resolve current high-quality products for the highest-intent TexasDefined pages;
-3. add curated product-level CTAs to destination, city, food, wine, coastal, Western and outdoor pages where the product is genuinely relevant;
-4. keep product availability review dates and remove stale products promptly;
-5. compare conversion by market and campaign without changing TexasDefined's editorial rankings or recommendations solely because a product pays commission.
+## Production safeguards
+
+`scripts/ci/verify-viator-production.mjs` protects the live integration after deployment. It verifies the Explore experience directory plus a representative canonical destination booking card, including:
+
+- required booking copy and inventory-signal text;
+- approved PID and MCID attribution;
+- placement-specific campaign values;
+- sponsored-link relationship attributes;
+- affiliate disclosure;
+- successful live rendering without a Cloudflare challenge.
+
+The production smoke is part of the existing production verification chain and must not be weakened to accommodate a broken booking surface.
+
+## Ongoing monetization work
+
+1. continue reviewing supplied Viator Texas inventory in batches;
+2. promote only durable Texas place/activity topics into canonical editorial coverage;
+3. use curated product inventory as a research and conversion signal without turning TexasDefined into a thin tour catalog;
+4. add or refresh verified market destination URLs only after checking the current Viator destination page;
+5. resolve any future product-level cards against current Viator data rather than checked-in price/rating snapshots;
+6. compare conversion by market and campaign without changing TexasDefined editorial rankings or recommendations solely because a product pays commission.
