@@ -1,0 +1,1 @@
+Affiliate integrations should use approved tracking, clear disclosure, `rel="sponsored"`, and only contextually relevant placement surfaces.
