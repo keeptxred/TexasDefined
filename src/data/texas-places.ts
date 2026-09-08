@@ -5,8 +5,11 @@ const COUNTY_NAMES = `Anderson|Andrews|Angelina|Aransas|Archer|Armstrong|Atascos
 
 const slugify = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
+// Texas county INCITS/FIPS codes are the odd three-digit sequence 001–507
+// in alphabetical county order. The state FIPS prefix is 48, so Anderson is
+// GEOID 48001 and Zavala is GEOID 48507.
 export const TEXAS_COUNTIES: TexasCounty[] = COUNTY_NAMES.map((name, index) => ({
-  code: String(index + 1).padStart(3, '0'),
+  code: String(index * 2 + 1).padStart(3, '0'),
   name: `${name} County`,
   slug: slugify(name),
   officialDirectoryUrl: 'https://www.texas.gov/texas-county-websites.html',
@@ -29,6 +32,12 @@ export function validateTexasPlaces() {
   const errors: string[] = [];
   if (TEXAS_COUNTIES.length !== 254) errors.push(`Expected 254 counties; found ${TEXAS_COUNTIES.length}.`);
   if (new Set(TEXAS_COUNTIES.map((county) => county.code)).size !== 254) errors.push('County codes must be unique.');
+  if (TEXAS_COUNTIES.some((county) => !/^\d{3}$/.test(county.code) || Number(county.code) % 2 !== 1)) {
+    errors.push('Texas county FIPS codes must be unique three-digit odd numbers.');
+  }
+  if (TEXAS_COUNTIES[0]?.code !== '001' || TEXAS_COUNTIES.at(-1)?.code !== '507') {
+    errors.push('Texas county FIPS codes must run from Anderson 001 through Zavala 507.');
+  }
   if (new Set(TEXAS_COUNTIES.map((county) => county.slug)).size !== 254) errors.push('County slugs must be unique.');
   if (!TEXAS_CITIES.length) errors.push('City directory cannot be empty.');
   return { valid: errors.length === 0, errors };
