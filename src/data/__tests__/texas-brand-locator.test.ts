@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 const serverSource = readFileSync(new URL("../texas-brand-locator.server.ts", import.meta.url), "utf8");
+const hebFormatsSource = readFileSync(new URL("../texas-brand-locator-heb-formats.server.ts", import.meta.url), "utf8");
 const rpcFallbackSource = readFileSync(new URL("../texas-brand-locator-rpc.server.ts", import.meta.url), "utf8");
 const typesSource = readFileSync(new URL("../texas-brand-locator.types.ts", import.meta.url), "utf8");
 const brandRouteSource = readFileSync(new URL("../../routes/things-unique-to-texas_.$category.lazy.tsx", import.meta.url), "utf8");
@@ -57,8 +58,24 @@ describe("Texas brand locator", () => {
     expect(serverSource).toContain("commerce-api/v1/store/locator/address");
     expect(serverSource).toContain("radius: 100");
     expect(serverSource).toContain("resolveRelocationAddressServer");
+    expect(hebFormatsSource).toContain('const HEB_LOCATOR_URL = "https://www.heb.com/store-locations"');
+    expect(hebFormatsSource).toContain('"central-market": { label: "Central Market"');
+    expect(hebFormatsSource).toContain('"joe-vs": { label: "Joe V\'s Smart Shop"');
+    expect(hebFormatsSource).toContain('"mi-tienda": { label: "Mi Tienda"');
+    expect(hebFormatsSource).toContain("commerce-api/v1/store/locator/address");
+    expect(hebFormatsSource).toContain("radius: 100");
     expect(serverSource).not.toMatch(/GOOGLE_(?:MAPS|PLACES)_API_KEY|MAPBOX_TOKEN|GEOCODIO|HERE_API/i);
+    expect(hebFormatsSource).not.toMatch(/GOOGLE_(?:MAPS|PLACES)_API_KEY|MAPBOX_TOKEN|GEOCODIO|HERE_API/i);
     expect(rpcFallbackSource).not.toMatch(/GOOGLE_(?:MAPS|PLACES)_API_KEY|MAPBOX_TOKEN|GEOCODIO|HERE_API/i);
+  });
+
+  it("filters H-E-B family formats from one live upstream result set instead of storing duplicate location inventories", () => {
+    expect(hebFormatsSource).toContain("async function findHebFormatLocations(query: string, brands: HebFormatBrand[])");
+    expect(hebFormatsSource).toContain("return brands.flatMap((brand) => stores");
+    expect(hebFormatsSource).toContain("config.pattern.test(name)");
+    expect(hebFormatsSource).toContain(".slice(0, RESULTS_PER_BRAND)");
+    expect(hebFormatsSource).not.toContain("texasdefined_brand_locations");
+    expect(hebFormatsSource).not.toMatch(/Central Market.*street|Joe V.*street|Mi Tienda.*street/i);
   });
 
   it("reuses verified Buc-ee's coordinates before geocoding and persists only missing geography", () => {
@@ -88,6 +105,8 @@ describe("Texas brand locator", () => {
     expect(serverSource).toContain("Open Buc-ee's official locations");
     expect(serverSource).toContain("H-E-B's live locator could not be reached from TexasDefined");
     expect(serverSource).toContain("Buc-ee's official Texas location registry is available");
+    expect(hebFormatsSource).toContain("did not appear in H-E-B's live results for this search");
+    expect(hebFormatsSource).toContain("Use the official H-E-B locator link below");
     expect(apiSource).toContain("The TexasDefined locator is temporarily unavailable");
     expect(bootstrapSource).toContain("Verify with ${location.brandLabel}");
     expect(bootstrapSource).toContain("Distances are approximate");
@@ -102,9 +121,20 @@ describe("Texas brand locator", () => {
     expect(apiSource).toContain("new TextEncoder().encode(rawBody).byteLength");
   });
 
+  it("accepts the H-E-B family formats without changing the default H-E-B plus Buc-ee's search", () => {
+    expect(typesSource).toContain('"central-market"');
+    expect(typesSource).toContain('"joe-vs"');
+    expect(typesSource).toContain('"mi-tienda"');
+    expect(apiSource).toContain('"central-market"');
+    expect(apiSource).toContain('"joe-vs"');
+    expect(apiSource).toContain('"mi-tienda"');
+    expect(apiSource).toContain('brands.length ? brands : ["heb", "bucees"]');
+    expect(apiSource).toContain("findExpandedTexasBrandLocationsServer");
+  });
+
   it("records public locator demand without persisting the typed street address", () => {
     expect(apiSource).toContain("recordAskTexasQuestionSignal");
-    expect(apiSource).toContain("const place = coarseTexasPlace(response.matchedAddress)");
+    expect(apiSource).toContain("const place = coarseTexasPlace(response.matchedAddress) ?? resultCity");
     expect(apiSource).toContain('question: `brand locator ${brandKey} ${place ?? "texas"}`');
     expect(apiSource).toContain('clusterKey: `brand-locator-form:${brandKey}:${safeClusterPlace(place)}`');
     expect(apiSource).toContain('surface: "texas-brands"');
@@ -126,7 +156,8 @@ describe("Texas brand locator", () => {
   it("exposes a reusable server endpoint and mounts only on the existing Texas Brands chapter", () => {
     expect(typesSource).toContain('export type TexasBrandLocatorBrand = "heb" | "bucees"');
     expect(apiSource).toContain('const ENDPOINT_PATH = "/api/texas-brand-locator"');
-    expect(apiSource).toContain("findTexasBrandLocationsServer");
+    expect(apiSource).toContain("findExpandedTexasBrandLocationsServer");
+    expect(hebFormatsSource).toContain("findExpandedTexasBrandLocationsNearPointServer");
     expect(serverEntrySource).toContain('import { texasBrandLocatorApiResponse } from "./lib/texas-brand-locator-api.server"');
     expect(serverEntrySource).toContain("const brandLocatorResponse = await texasBrandLocatorApiResponse(request)");
     expect(brandRouteSource).toContain("data-texas-brand-locator-anchor");
@@ -138,7 +169,10 @@ describe("Texas brand locator", () => {
     expect(rootSource).toContain("if (import.meta.env.SSR)");
     expect(rootSource).toContain('<script src="/texas-brand-locator.js" defer />');
     expect(bootstrapSource).toContain('const endpoint = "/api/texas-brand-locator"');
-    expect(bootstrapSource).toContain("Find your H-E-B or Buc-ee's");
+    expect(bootstrapSource).toContain("Find your H-E-B, Central Market, Joe V's, Mi Tienda or Buc-ee's");
+    expect(bootstrapSource).toContain('["central-market", "Central Market"]');
+    expect(bootstrapSource).toContain('["joe-vs", "Joe V\'s Smart Shop"]');
+    expect(bootstrapSource).toContain('["mi-tienda", "Mi Tienda"]');
     expect(bootstrapSource).toContain("data-texas-brand-locator-form");
     expect(bootstrapSource).toContain("document.addEventListener(\"submit\"");
     expect(bootstrapSource).toContain("fetch(endpoint");
@@ -156,6 +190,8 @@ describe("Texas brand locator", () => {
     expect(apiSource).not.toContain("upsert(");
     expect(serverSource).not.toContain("insert(");
     expect(serverSource).not.toContain("upsert(");
+    expect(hebFormatsSource).not.toContain("insert(");
+    expect(hebFormatsSource).not.toContain("upsert(");
     expect(rpcFallbackSource).not.toContain("insert(");
     expect(rpcFallbackSource).not.toContain("upsert(");
   });
