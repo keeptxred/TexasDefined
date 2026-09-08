@@ -8,6 +8,7 @@ const WAVE9_PATH = "ops/seo/gsc-remediation-wave9-2026-09-06.json";
 const WAVE10_PATH = "ops/seo/gsc-remediation-wave10-2026-09-07.json";
 const WAVE11_PATH = "ops/seo/gsc-remediation-wave11-2026-09-07.json";
 const WAVE12_PATH = "ops/seo/gsc-remediation-wave12-2026-09-08.json";
+const WAVE13_PATH = "ops/seo/gsc-remediation-wave13-2026-09-08.json";
 const READINESS_PATH = "src/data/texas-vs-state-index-readiness.server.ts";
 const EVIDENCE_WAVE6_PATH = "src/data/texas-vs-state-evidence.server.ts";
 const EVIDENCE_WAVE7_PATH = "src/data/texas-vs-state-evidence-wave7.server.ts";
@@ -16,6 +17,7 @@ const EVIDENCE_WAVE9_PATH = "src/data/texas-vs-state-evidence-wave9.server.ts";
 const EVIDENCE_WAVE10_PATH = "src/data/texas-vs-state-evidence-wave10.server.ts";
 const EVIDENCE_WAVE11_PATH = "src/data/texas-vs-state-evidence-wave11.server.ts";
 const EVIDENCE_WAVE12_PATH = "src/data/texas-vs-state-evidence-wave12.server.ts";
+const EVIDENCE_WAVE13_PATH = "src/data/texas-vs-state-evidence-wave13.server.ts";
 const PROFILE_SERVER_PATH = "src/data/texas-vs-state-profile.server.ts";
 const ROUTE_PATH = "src/routes/texas-vs.$state.tsx";
 
@@ -83,6 +85,15 @@ const batches = [
       { slug: "connecticut", name: "Connecticut" },
       { slug: "delaware", name: "Delaware" },
       { slug: "hawaii", name: "Hawaii" },
+    ],
+  },
+  {
+    wavePath: WAVE13_PATH,
+    evidencePath: EVIDENCE_WAVE13_PATH,
+    states: [
+      { slug: "kansas", name: "Kansas" },
+      { slug: "kentucky", name: "Kentucky" },
+      { slug: "missouri", name: "Missouri" },
     ],
   },
 ];
@@ -178,6 +189,18 @@ const allowedSourceHosts = new Set([
   "dbedt.hawaii.gov",
   "dod.hawaii.gov",
   "hidot.hawaii.gov",
+  "www.ksrevenue.gov",
+  "www.dol.ks.gov",
+  "www.kansastag.gov",
+  "www.ksdot.gov",
+  "revenue.ky.gov",
+  "kystats.ky.gov",
+  "www.kyem.ky.gov",
+  "transportation.ky.gov",
+  "dor.mo.gov",
+  "meric.mo.gov",
+  "sema.dps.mo.gov",
+  "www.modot.org",
 ]);
 
 function fail(message) {
@@ -237,8 +260,8 @@ const historicalImproveSlugs = wave4.reviewed
 if (historicalImproveSlugs.length !== 37 || new Set(historicalImproveSlugs).size !== 37) {
   fail("Wave 4 must preserve exactly 37 unique historical IMPROVE states");
 }
-if (expected.length !== 23 || historicalImproveSlugs.length - expected.length !== 14) {
-  fail("Waves 6-12 must represent exactly 23 promoted states and 14 unresolved Wave 4 states");
+if (expected.length !== 26 || historicalImproveSlugs.length - expected.length !== 11) {
+  fail("Waves 6-13 must represent exactly 26 promoted states and 11 unresolved Wave 4 states");
 }
 
 const promotedByWave = new Map();
@@ -342,11 +365,12 @@ for (const marker of [
   "TEXAS_VS_STATE_EVIDENCE_WAVE10",
   "TEXAS_VS_STATE_EVIDENCE_WAVE11",
   "TEXAS_VS_STATE_EVIDENCE_WAVE12",
+  "TEXAS_VS_STATE_EVIDENCE_WAVE13",
 ]) {
   if (!profileServer.includes(marker)) fail(`profile server missing integration marker: ${marker}`);
 }
-const expectedFallback = "TEXAS_VS_STATE_EVIDENCE[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE7[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE8[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE9[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE10[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE11[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE12[name]";
-if (!compactProfileServer.includes(expectedFallback)) fail("profile server evidence fallback order does not match Waves 6-12");
+const expectedFallback = "TEXAS_VS_STATE_EVIDENCE[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE7[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE8[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE9[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE10[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE11[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE12[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE13[name]";
+if (!compactProfileServer.includes(expectedFallback)) fail("profile server evidence fallback order does not match Waves 6-13");
 if (route.includes("texas-vs-state-evidence")) fail("client route must not import the server-only Texas-vs evidence catalogs directly");
 
 for (const marker of [
