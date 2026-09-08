@@ -25,6 +25,7 @@ const queries = read('src/data/queries.ts');
 const searchRuntime = read('src/data/search-documents-runtime.ts');
 const searchImplementation = `${queries}\n${searchRuntime}`;
 const publicRoutes = read('src/lib/public-routes.ts');
+const leafOnlyParentRoutes = read('src/lib/leaf-only-parent-routes.tsx');
 const wildlife = read('src/routes/explore.wildlife.lazy.tsx');
 const resources = read('src/routes/texas-resources.lazy.tsx');
 const fishing = read('src/components/fishing/FishingHub.tsx');
@@ -67,6 +68,8 @@ requireText(huntingSearch, 'HUNTING_AUTHORITY_TOPICS_V2', 'v2 search registratio
 requireText(searchImplementation, 'buildHuntingSearchDocuments', 'search document registration missing');
 requireText(queries, 'await import("./search-documents-runtime")', 'lazy search runtime registration missing');
 requireText(publicRoutes, '"/hunting"', 'indexable /hunting route missing');
+requireText(leafOnlyParentRoutes, 'import { Route as huntingRoute } from "@/routes/hunting";', 'hunting leaf-only parent route import missing');
+requireText(leafOnlyParentRoutes, '  huntingRoute,', 'hunting parent route is not registered for child Outlet rendering');
 
 for (const [source, label] of [
   [wildlife, 'wildlife'],
@@ -113,4 +116,4 @@ for (const redirectOnly of ['/explore/wildlife-management-areas', '/explore/texa
   }
 }
 
-console.log(`Hunting authority validation passed: hub + ${expectedTopics.length} topics, v2 coverage, freshness, TPWD sourcing, search/sitemap governance, reciprocal discovery links, bundle-safe WMA discovery and decoded v2 production smoke governance.`);
+console.log(`Hunting authority validation passed: hub + ${expectedTopics.length} topics, v2 coverage, freshness, TPWD sourcing, search/sitemap governance, child-route rendering, reciprocal discovery links, bundle-safe WMA discovery and decoded v2 production smoke governance.`);
