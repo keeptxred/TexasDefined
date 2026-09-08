@@ -1,5 +1,12 @@
 (() => {
   const endpoint = "/api/texas-brand-locator";
+  const resultGroups = [
+    ["heb", "Nearest H-E-B locations"],
+    ["central-market", "Nearest Central Market locations"],
+    ["joe-vs", "Nearest Joe V's Smart Shop locations"],
+    ["mi-tienda", "Nearest Mi Tienda locations"],
+    ["bucees", "Nearest Buc-ee's locations"],
+  ];
 
   function text(tag, value, className) {
     const node = document.createElement(tag);
@@ -38,10 +45,10 @@
     const inner = document.createElement("div");
     inner.className = "px-6 sm:px-0";
     inner.append(text("p", "Texas brand locator", "text-xs font-semibold uppercase tracking-[0.16em] text-primary"));
-    const heading = text("h2", "Find your H-E-B or Buc-ee's", "mt-2 font-display text-4xl");
+    const heading = text("h2", "Find your H-E-B, Central Market, Joe V's, Mi Tienda or Buc-ee's", "mt-2 font-display text-4xl");
     heading.id = "texas-brand-locator-heading";
     inner.append(heading);
-    inner.append(text("p", "Enter a Texas street address and choose what you want to find. TexasDefined uses the U.S. Census geocoder for the search location, H-E-B's live store locator for H-E-B results, and an editorially verified snapshot of Buc-ee's official Texas location list for Buc-ee's results.", "mt-4 max-w-3xl text-sm leading-7 text-muted-foreground"));
+    inner.append(text("p", "Enter a Texas street address and choose what you want to find. TexasDefined uses H-E-B's live store locator for H-E-B, Central Market, Joe V's Smart Shop and Mi Tienda results, and an editorially verified snapshot of Buc-ee's official Texas location list for Buc-ee's results. Buc-ee's distance ranking uses the U.S. Census geocoder.", "mt-4 max-w-3xl text-sm leading-7 text-muted-foreground"));
 
     const form = document.createElement("form");
     form.dataset.texasBrandLocatorForm = "";
@@ -51,7 +58,14 @@
     brand.id = "texas-brand-choice";
     brand.name = "brand";
     brand.className = "min-h-11 border border-border bg-background px-3 py-2 font-normal text-foreground";
-    for (const [value, label] of [["both", "H-E-B + Buc-ee's"], ["heb", "H-E-B"], ["bucees", "Buc-ee's"]]) {
+    for (const [value, label] of [
+      ["both", "H-E-B + Buc-ee's"],
+      ["heb", "H-E-B"],
+      ["central-market", "Central Market"],
+      ["joe-vs", "Joe V's Smart Shop"],
+      ["mi-tienda", "Mi Tienda"],
+      ["bucees", "Buc-ee's"],
+    ]) {
       const option = document.createElement("option");
       option.value = value;
       option.textContent = label;
@@ -135,8 +149,9 @@
       root.append(notices);
     }
     const results = Array.isArray(payload.results) ? payload.results : [];
-    renderGroup(root, "Nearest H-E-B locations", results.filter((item) => item.brand === "heb"));
-    renderGroup(root, "Nearest Buc-ee's locations", results.filter((item) => item.brand === "bucees"));
+    for (const [brand, heading] of resultGroups) {
+      renderGroup(root, heading, results.filter((item) => item.brand === brand));
+    }
     if (Array.isArray(payload.fallbackLinks) && payload.fallbackLinks.length) {
       const fallbacks = document.createElement("div");
       fallbacks.className = "mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold";
@@ -175,7 +190,7 @@
       status.hidden = true;
     } catch {
       status.hidden = false;
-      status.textContent = "The locator could not complete this search. Use the official H-E-B or Buc-ee's links in the Texas brand guides below and try again later.";
+      status.textContent = "The locator could not complete this search. Use the official H-E-B-family or Buc-ee's links in the Texas brand guides below and try again later.";
     } finally {
       if (button) button.disabled = false;
     }
