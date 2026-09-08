@@ -1,0 +1,1 @@
+Run `node scripts/data/validate-discount-school-supply-affiliate.mjs` to verify the Discount School Supply CJ creative and intended article placements.
