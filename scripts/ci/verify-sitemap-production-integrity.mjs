@@ -1,6 +1,12 @@
 const ORIGIN = 'https://texasdefined.com';
 const SITEMAPS = ['/sitemap.xml', '/sitemap-explore.xml'];
 const MAX_URLS_PER_SITEMAP = 50_000;
+const VERIFY_ATTEMPTS = 8;
+const RETRY_DELAY_MS = 15_000;
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 function decodeXml(value) {
   return value
@@ -102,17 +108,34 @@ function validateSitemap(path, xml, cache) {
   return new Set(locations);
 }
 
-const inventories = new Map();
-for (const path of SITEMAPS) {
-  const { xml, cache } = await fetchSitemap(path);
-  inventories.set(path, validateSitemap(path, xml, cache));
+async function verifyProductionSitemaps() {
+  const inventories = new Map();
+  for (const path of SITEMAPS) {
+    const { xml, cache } = await fetchSitemap(path);
+    inventories.set(path, validateSitemap(path, xml, cache));
+  }
+
+  const primary = inventories.get('/sitemap.xml');
+  const explore = inventories.get('/sitemap-explore.xml');
+  const overlap = [...primary].filter((url) => explore.has(url));
+  if (overlap.length) {
+    throw new Error(`Primary and Explore sitemaps overlap on ${overlap.length} URL(s): ${overlap.slice(0, 10).join(', ')}`);
+  }
+
+  return { primary: primary.size, explore: explore.size };
 }
 
-const primary = inventories.get('/sitemap.xml');
-const explore = inventories.get('/sitemap-explore.xml');
-const overlap = [...primary].filter((url) => explore.has(url));
-if (overlap.length) {
-  throw new Error(`Primary and Explore sitemaps overlap on ${overlap.length} URL(s): ${overlap.slice(0, 10).join(', ')}`);
+let lastError;
+for (let attempt = 1; attempt <= VERIFY_ATTEMPTS; attempt += 1) {
+  try {
+    const counts = await verifyProductionSitemaps();
+    console.log(`Production sitemap integrity passed on attempt ${attempt}: ${counts.primary + counts.explore} unique URLs across partitioned primary and Explore inventories (${counts.primary} primary, ${counts.explore} Explore).`);
+    process.exit(0);
+  } catch (error) {
+    lastError = error;
+    console.warn(`Production sitemap integrity attempt ${attempt}/${VERIFY_ATTEMPTS} failed: ${error instanceof Error ? error.message : String(error)}`);
+    if (attempt < VERIFY_ATTEMPTS) await sleep(RETRY_DELAY_MS);
+  }
 }
 
-console.log(`Production sitemap integrity passed: ${primary.size + explore.size} unique URLs across partitioned primary and Explore inventories.`);
+throw lastError;
