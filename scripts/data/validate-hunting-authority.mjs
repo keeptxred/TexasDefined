@@ -30,6 +30,8 @@ const resources = read('src/routes/texas-resources.lazy.tsx');
 const fishing = read('src/components/fishing/FishingHub.tsx');
 const search = read('src/routes/search.lazy.tsx');
 const outdoors = read('src/routes/explore.$category.lazy.tsx');
+const productionSmokeWorkflow = read('.github/workflows/verify-hunting-production.yml');
+const productionSmoke = read('scripts/data/verify-hunting-production.mjs');
 
 const expectedTopics = [
   'texas-hunting-license', 'hunter-education', 'public-hunting', 'annual-public-hunting-permit',
@@ -92,6 +94,17 @@ for (const routePath of ['/hunting/public-hunting', '/hunting/annual-public-hunt
   requireRouteLiteral(destinationBooking, routePath, `WMA destination lacks reciprocal route ${routePath}`);
 }
 
+requireText(productionSmokeWorkflow, "workflows: ['Deploy TexasDefined production']", 'production smoke must follow successful production deploys');
+requireText(productionSmokeWorkflow, "'scripts/data/verify-hunting-production.mjs'", 'production smoke script changes must self-test on main');
+requireText(productionSmokeWorkflow, 'node scripts/data/verify-hunting-production.mjs', 'production workflow must execute decoded Node verifier');
+requireText(productionSmoke, 'await fetch(', 'production smoke must use decoded Node fetch');
+requireText(productionSmoke, 'response.text()', 'production smoke must decode response bodies as text');
+requireText(productionSmoke, "text.includes('\\0')", 'production smoke must fail closed on residual NUL bytes');
+requireText(productionSmoke, 'More Texas game & small-game coverage', 'production smoke must verify v2 small-game hub group');
+requireText(productionSmoke, 'Migratory game bird depth', 'production smoke must verify v2 migratory hub group');
+requireText(productionSmoke, 'Fur-bearing animals & trapping', 'production smoke must verify v2 fur-bearer hub group');
+for (const slug of v2Topics) requireRouteLiteral(productionSmoke, `/hunting/${slug}`, `production smoke missing v2 route ${slug}`);
+
 for (const redirectOnly of ['/explore/wildlife-management-areas', '/explore/texas-state-parks-guide']) {
   for (const source of [allAuthority, huntingTopicPage, destinationBooking]) {
     if (source.includes(`href: "${redirectOnly}"`) || source.includes(`to="${redirectOnly}"`) || source.includes(`"${redirectOnly}"`)) {
@@ -100,4 +113,4 @@ for (const redirectOnly of ['/explore/wildlife-management-areas', '/explore/texa
   }
 }
 
-console.log(`Hunting authority validation passed: hub + ${expectedTopics.length} topics, v2 coverage, freshness, TPWD sourcing, search/sitemap governance, reciprocal discovery links and bundle-safe WMA discovery.`);
+console.log(`Hunting authority validation passed: hub + ${expectedTopics.length} topics, v2 coverage, freshness, TPWD sourcing, search/sitemap governance, reciprocal discovery links, bundle-safe WMA discovery and decoded v2 production smoke governance.`);
