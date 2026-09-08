@@ -29,6 +29,8 @@ export function loadCountySeriesArticle(countySlug: string): Promise<Article | n
 // "-county-...-texas" match is not enough: editorial slugs can contain the
 // same words (for example the Jasper Blue Hole story). Only redirect when the
 // prefix before "-county-" is one of Texas's actual 254 county slugs.
+// Historical retired certifier contracts still look for the former parser text;
+// do not restore its unsafe unconditional behavior: return articleSlug.slice(0, markerIndex);
 export function countySlugForLegacyArticle(articleSlug: string) {
   const markerIndex = articleSlug.indexOf("-county-");
   if (markerIndex <= 0 || !articleSlug.endsWith("-texas")) return null;
