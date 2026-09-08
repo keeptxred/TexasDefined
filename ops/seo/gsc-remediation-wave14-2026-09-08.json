@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+  "reviewDate": "2026-09-08",
+  "reviewMethod": "GSC-prioritized state-specific server-side evidence review against the Wave 4 remediation requirements: current tax, housing, labor, hazard/resilience and transportation sources; stronger metro/place comparison; dated review metadata; canonical/schema integrity; and sitemap qualification",
+  "summary": { "reviewed": 3, "KEEP": 3, "IMPROVE": 0, "NOINDEX": 0, "REMOVE_CONSOLIDATE": 0 },
+  "reviewed": [
+    {
+      "path": "/texas-vs/maine",
+      "action": "KEEP",
+      "reason": "Maine now has 2026 Revenue Services tax schedules, current Census housing benchmarks, July 2026 Department of Labor evidence, the FEMA-approved 2023 state hazard-mitigation plan and MaineDOT regional transit evidence plus distinct Greater Portland, Bangor, Lewiston-Auburn, central, coastal and rural/northern comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/maryland",
+      "action": "KEEP",
+      "reason": "Maryland now has current 2026 Comptroller state and local income-tax guidance, current Census housing benchmarks, July 2026 Department of Labor evidence, Maryland Emergency Management hazard-mitigation authority and MTA multimodal transit evidence plus distinct Washington-suburb, Baltimore, Frederick, Eastern Shore and Western Maryland comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/massachusetts",
+      "action": "KEEP",
+      "reason": "Massachusetts now has current 2026 Department of Revenue tax guidance, current Census housing benchmarks, July 2026 EOLWD labor evidence, the current 2023 ResilientMass hazard framework and statewide MBTA/RTA transit evidence plus distinct Greater Boston, Worcester, Pioneer Valley, South Coast, Cape/Islands and Berkshires comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    }
+  ]
+}
