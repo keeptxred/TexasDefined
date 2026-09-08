@@ -42,8 +42,9 @@ if (serverFn.includes('client.server')) errors.push('Partner inquiry function wr
 for (const token of [
   "createFileRoute('/partner-with-us')",
   "title: 'Partner With Texas Defined'",
-  "validateSearch:",
-  "sourcePath: sanitizePartnerSource(search.source)",
+  'sourcePath?: string;',
+  'validateSearch:',
+  "sourcePath: typeof search.source === 'string' ? sanitizePartnerSource(search.source) : undefined",
 ]) {
   if (!route.includes(token)) errors.push(`Partner With Us route shell missing ${token}`);
 }
@@ -73,4 +74,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Partner inquiry validation passed: lazy public form, TanStack input validation, route/search boundary, editorial-independence copy, private RLS storage and service-role-only database access are protected.');
+console.log('Partner inquiry validation passed: lazy public form, TanStack input validation, optional sanitized route/search boundary, editorial-independence copy, private RLS storage and service-role-only database access are protected.');
