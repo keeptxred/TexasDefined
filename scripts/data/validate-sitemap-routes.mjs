@@ -114,7 +114,8 @@ for (const lowValueDependency of ['fetchExploreDestinations', 'fetchCoreExploreD
   if (sitemap.includes(lowValueDependency)) failures.push(`Primary sitemap must not load Explore-only dependency: ${lowValueDependency}.`);
 }
 if (!sitemap.includes('stale-while-revalidate=86400')) failures.push('Primary sitemap cache policy must preserve a stale response while revalidating.');
-if (!exploreSitemap.includes('stale-while-revalidate=86400')) failures.push('Explore sitemap cache policy must preserve a stale response while revalidating.');
+if (!exploreSitemap.includes('"Cache-Control": "no-store"')) failures.push('Explore sitemap cache policy must disable edge storage while crawl consistency is protected.');
+if (exploreSitemap.includes('stale-while-revalidate=')) failures.push('Explore sitemap must not permit stale-while-revalidate while regional stale variants are a GSC risk.');
 
 for (const [filename, legacyPrefix, targetPrefix] of legacyExploreRedirects) {
   const source = fs.readFileSync(filename, 'utf8');

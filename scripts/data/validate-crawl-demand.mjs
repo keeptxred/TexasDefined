@@ -142,7 +142,8 @@ if (countyPropertyDirectory.includes('counties.map((county, index) => (') && cou
 }
 
 if (!primary.includes('stale-while-revalidate=86400')) failures.push('Primary sitemap must retain stale-while-revalidate protection.');
-if (!explore.includes('stale-while-revalidate=86400')) failures.push('Explore sitemap must retain stale-while-revalidate protection.');
+if (!explore.includes('"Cache-Control": "no-store"')) failures.push('Explore sitemap must disable edge storage while GSC crawl consistency is protected.');
+if (explore.includes('stale-while-revalidate=')) failures.push('Explore sitemap must not allow stale-while-revalidate because regional stale variants can reach crawlers.');
 
 if (failures.length) {
   console.error('Crawl-demand validation failed:');
@@ -150,4 +151,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated preserved-catalog fallback when remote sources are unavailable or empty, landscape sitemap children are protected as leaf-only self-canonical routes, verified city authority URLs are promoted only through the shared readiness gate, county property children are verification-filtered, and robots advertises each sitemap once.');
+console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated preserved-catalog fallback when remote sources are unavailable or empty, Explore sitemap responses cannot persist stale edge variants, landscape sitemap children are protected as leaf-only self-canonical routes, verified city authority URLs are promoted only through the shared readiness gate, county property children are verification-filtered, and robots advertises each sitemap once.');
