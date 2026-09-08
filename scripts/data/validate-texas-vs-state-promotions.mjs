@@ -10,6 +10,7 @@ const WAVE11_PATH = "ops/seo/gsc-remediation-wave11-2026-09-07.json";
 const WAVE12_PATH = "ops/seo/gsc-remediation-wave12-2026-09-08.json";
 const WAVE13_PATH = "ops/seo/gsc-remediation-wave13-2026-09-08.json";
 const WAVE14_PATH = "ops/seo/gsc-remediation-wave14-2026-09-08.json";
+const WAVE15_PATH = "ops/seo/gsc-remediation-wave15-2026-09-08.json";
 const READINESS_PATH = "src/data/texas-vs-state-index-readiness.server.ts";
 const EVIDENCE_WAVE6_PATH = "src/data/texas-vs-state-evidence.server.ts";
 const EVIDENCE_WAVE7_PATH = "src/data/texas-vs-state-evidence-wave7.server.ts";
@@ -20,6 +21,7 @@ const EVIDENCE_WAVE11_PATH = "src/data/texas-vs-state-evidence-wave11.server.ts"
 const EVIDENCE_WAVE12_PATH = "src/data/texas-vs-state-evidence-wave12.server.ts";
 const EVIDENCE_WAVE13_PATH = "src/data/texas-vs-state-evidence-wave13.server.ts";
 const EVIDENCE_WAVE14_PATH = "src/data/texas-vs-state-evidence-wave14.server.ts";
+const EVIDENCE_WAVE15_PATH = "src/data/texas-vs-state-evidence-wave15.server.ts";
 const PROFILE_SERVER_PATH = "src/data/texas-vs-state-profile.server.ts";
 const ROUTE_PATH = "src/routes/texas-vs.$state.tsx";
 
@@ -105,6 +107,15 @@ const batches = [
       { slug: "maine", name: "Maine" },
       { slug: "maryland", name: "Maryland" },
       { slug: "massachusetts", name: "Massachusetts" },
+    ],
+  },
+  {
+    wavePath: WAVE15_PATH,
+    evidencePath: EVIDENCE_WAVE15_PATH,
+    states: [
+      { slug: "minnesota", name: "Minnesota" },
+      { slug: "montana", name: "Montana" },
+      { slug: "new-hampshire", name: "New Hampshire" },
     ],
   },
 ];
@@ -218,6 +229,18 @@ const allowedSourceHosts = new Set([
   "mdem.maryland.gov",
   "www.mta.maryland.gov",
   "www.mass.gov",
+  "www.revenue.state.mn.us",
+  "mn.gov",
+  "dps.mn.gov",
+  "www.dot.state.mn.us",
+  "revenue.mt.gov",
+  "news.mt.gov",
+  "des.mt.gov",
+  "www.mdt.mt.gov",
+  "www.revenue.nh.gov",
+  "www.bls.gov",
+  "prd.blogs.nh.gov",
+  "maps.dot.nh.gov",
 ]);
 
 function fail(message) {
@@ -277,8 +300,8 @@ const historicalImproveSlugs = wave4.reviewed
 if (historicalImproveSlugs.length !== 37 || new Set(historicalImproveSlugs).size !== 37) {
   fail("Wave 4 must preserve exactly 37 unique historical IMPROVE states");
 }
-if (expected.length !== 29 || historicalImproveSlugs.length - expected.length !== 8) {
-  fail("Waves 6-14 must represent exactly 29 promoted states and 8 unresolved Wave 4 states");
+if (expected.length !== 32 || historicalImproveSlugs.length - expected.length !== 5) {
+  fail("Waves 6-15 must represent exactly 32 promoted states and 5 unresolved Wave 4 states");
 }
 
 const promotedByWave = new Map();
@@ -384,11 +407,12 @@ for (const marker of [
   "TEXAS_VS_STATE_EVIDENCE_WAVE12",
   "TEXAS_VS_STATE_EVIDENCE_WAVE13",
   "TEXAS_VS_STATE_EVIDENCE_WAVE14",
+  "TEXAS_VS_STATE_EVIDENCE_WAVE15",
 ]) {
   if (!profileServer.includes(marker)) fail(`profile server missing integration marker: ${marker}`);
 }
-const expectedFallback = "TEXAS_VS_STATE_EVIDENCE[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE7[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE8[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE9[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE10[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE11[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE12[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE13[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE14[name]";
-if (!compactProfileServer.includes(expectedFallback)) fail("profile server evidence fallback order does not match Waves 6-14");
+const expectedFallback = "TEXAS_VS_STATE_EVIDENCE[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE7[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE8[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE9[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE10[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE11[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE12[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE13[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE14[name] ?? TEXAS_VS_STATE_EVIDENCE_WAVE15[name]";
+if (!compactProfileServer.includes(expectedFallback)) fail("profile server evidence fallback order does not match Waves 6-15");
 if (route.includes("texas-vs-state-evidence")) fail("client route must not import the server-only Texas-vs evidence catalogs directly");
 
 for (const marker of [
