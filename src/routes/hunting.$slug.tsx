@@ -5,8 +5,11 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/hunting/$slug")({
   loader: async ({ params }) => {
-    const { getHuntingAuthorityTopic } = await import("@/data/hunting/authority");
-    const topic = getHuntingAuthorityTopic(params.slug);
+    const [{ getHuntingAuthorityTopic }, { getHuntingAuthorityTopicV2 }] = await Promise.all([
+      import("@/data/hunting/authority"),
+      import("@/data/hunting/authority-v2"),
+    ]);
+    const topic = getHuntingAuthorityTopicV2(params.slug) ?? getHuntingAuthorityTopic(params.slug);
     if (!topic) throw notFound();
     return topic;
   },
