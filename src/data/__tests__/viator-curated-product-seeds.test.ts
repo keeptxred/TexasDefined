@@ -1,8 +1,29 @@
 import { describe, expect, it } from "vitest";
 
 import { VIATOR_CURATED_PRODUCT_SEEDS, viatorSeedsForMarket } from "@/data/viator-curated-product-seeds";
-import { VIATOR_RUNTIME_CATEGORIES, VIATOR_RUNTIME_MARKETS, VIATOR_RUNTIME_SIGNAL_REVIEWED_AT } from "@/data/viator-experience-runtime";
-import { VIATOR_TEXAS_MARKETS } from "@/data/viator-experiences";
+import {
+  VIATOR_RUNTIME_CATEGORIES,
+  VIATOR_RUNTIME_MARKETS,
+  VIATOR_RUNTIME_SIGNAL_REVIEWED_AT,
+  viatorRuntimeMarketForSlug,
+  type ViatorRuntimeCategory,
+} from "@/data/viator-experience-runtime";
+import { VIATOR_TEXAS_MARKETS, type ViatorExperienceCategory } from "@/data/viator-experiences";
+
+const runtimeLaneToSeedCategory: Record<ViatorRuntimeCategory, ViatorExperienceCategory> = {
+  "City sightseeing": "city-sightseeing",
+  "History & landmarks": "history-landmarks",
+  "Food & barbecue": "food-bbq",
+  "Wine, beer & spirits": "wine-spirits",
+  "Outdoor adventure": "outdoors",
+  "On the water": "water",
+  "Ghost tours & nightlife": "ghost-nightlife",
+  "Western & ranch": "western",
+  "Museums & culture": "museums-culture",
+  "Family attractions": "family",
+  "Sports & stadiums": "sports",
+  "Day trips": "day-trips",
+};
 
 describe("curated Viator product seeds", () => {
   it("keeps every curated product attached to a real Texas experience market", () => {
@@ -49,7 +70,7 @@ describe("curated Viator product seeds", () => {
     }
   });
 
-  it("keeps client-facing inventory signals compact and category-level", () => {
+  it("keeps client-facing inventory signals compact, supported and category-level", () => {
     const runtimeCategories = new Set<string>(VIATOR_RUNTIME_CATEGORIES);
     const signaledMarkets = VIATOR_RUNTIME_MARKETS.filter((market) => market.signalLanes?.length);
 
@@ -57,9 +78,15 @@ describe("curated Viator product seeds", () => {
     expect(signaledMarkets.length).toBeGreaterThanOrEqual(12);
 
     for (const market of signaledMarkets) {
+      expect(viatorRuntimeMarketForSlug(market.slug)?.slug).toBe(market.slug);
       expect(market.signalLanes!.length).toBeLessThanOrEqual(3);
+      const seedCategories = new Set(viatorSeedsForMarket(market.slug).map((seed) => seed.category));
       for (const lane of market.signalLanes!) {
         expect(runtimeCategories.has(lane), `${market.slug} has unsupported runtime lane ${lane}`).toBe(true);
+        expect(
+          seedCategories.has(runtimeLaneToSeedCategory[lane]),
+          `${market.slug} runtime lane ${lane} lacks a curated seed signal`,
+        ).toBe(true);
       }
     }
   });
