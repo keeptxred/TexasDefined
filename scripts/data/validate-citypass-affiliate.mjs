@@ -7,6 +7,8 @@ const calloutContent = read('src/components/monetization/CityPassCalloutContent.
 const component = [cityPassData, calloutWrapper, calloutContent].join('\n');
 const expansion = read('src/data/citypass-destination-expansion.ts');
 const preserved = read('src/data/destination-preserved-catalog.ts');
+const destinationRuntime = read('src/data/destination-query-runtime.ts');
+const exploreSitemap = read('src/routes/sitemap-explore[.]xml.ts');
 const guideRoute = read('src/routes/guides.citypass-texas.tsx');
 const guidePage = read('src/routes/guides.citypass-texas.lazy.tsx');
 const guidesHub = read('src/routes/guides.tsx');
@@ -78,8 +80,11 @@ const publishedDestinationRows = (expansion.match(/\bdestination\((?:KEMAH|SAN_A
 if (publishedDestinationRows !== newlyPublishedSlugs.length) {
   errors.push(`New CityPASS destination expansion must contain exactly ${newlyPublishedSlugs.length} registered destination rows; found ${publishedDestinationRows}`);
 }
-requireText(preserved, 'import { cityPassDestinationExpansion } from "./citypass-destination-expansion";', 'Preserved catalog import');
-requireText(preserved, 'cityPassDestinationExpansion,', 'Preserved catalog registration');
+if (preserved.includes('citypass-destination-expansion')) errors.push('CityPASS destination expansion must not be statically imported by the global preserved catalog.');
+requireText(destinationRuntime, 'await import("./citypass-destination-expansion")', 'Async CityPASS destination runtime load');
+requireText(destinationRuntime, 'await loadPreservedExploreDestinations()', 'Async CityPASS preserved catalog merge');
+requireText(exploreSitemap, 'await import("@/data/citypass-destination-expansion")', 'Async CityPASS sitemap load');
+requireText(exploreSitemap, 'mergeDestinationSources(preservedExploreDestinations, cityPassDestinationExpansion)', 'CityPASS sitemap preserved merge');
 
 for (const market of ['dallas', 'houston', 'san-antonio']) requireText(component, market === 'san-antonio' ? '"san-antonio": "San Antonio"' : `${market}: "${market[0].toUpperCase()}${market.slice(1)}"`, `City page mapping ${market}`);
 requireText(entityRoute, 'cityPassMarketForCitySlug', 'City guide integration');
@@ -103,4 +108,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('CityPASS affiliate validation passed: Dallas, Houston and San Antonio are covered; all 21 current Texas CityPASS attractions/tours map to TexasDefined pages; eight previously missing destination guides are published through the preserved catalog; contextual city, destination and AT&T Stadium placements retain the disclosed CJ affiliate link and lazy CTA split.');
+console.log('CityPASS affiliate validation passed: Dallas, Houston and San Antonio are covered; all 21 current Texas CityPASS attractions/tours map to TexasDefined pages; eight previously missing destination guides are published through the async preserved runtime; contextual city, destination and AT&T Stadium placements retain the disclosed CJ affiliate link and lazy CTA split.');

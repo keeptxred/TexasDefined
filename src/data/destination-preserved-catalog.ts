@@ -1,6 +1,5 @@
 import { animalSanctuaryDestinations } from "./animal-sanctuary-destinations";
 import { aquariumMarineDestinations } from "./aquarium-marine-destinations";
-import { cityPassDestinationExpansion } from "./citypass-destination-expansion";
 import { coastalDestinations } from "./coastal-destinations";
 import { topAttractionDestinations } from "./destination-curation-top-attractions";
 import { topAttractionExpansionDestinations } from "./destination-curation-top-attractions-fallbacks";
@@ -192,7 +191,6 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   aquariumMarineDestinations,
   topAttractionDestinations,
   topAttractionExpansionDestinations,
-  cityPassDestinationExpansion,
   coastalDestinations,
   viatorDestinationExpansion,
   legacyExploreDestinations,

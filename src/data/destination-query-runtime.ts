@@ -54,8 +54,13 @@ function mergeDestinations(...groups: Destination[][]): Destination[] {
   return [...merged.values()];
 }
 
-function preservedFor(query: Omit<DestinationQuery, "brandId">): Destination[] {
-  let rows = preservedExploreDestinations;
+async function loadPreservedExploreDestinations(): Promise<Destination[]> {
+  const { cityPassDestinationExpansion } = await import("./citypass-destination-expansion");
+  return mergeDestinations(preservedExploreDestinations, cityPassDestinationExpansion);
+}
+
+async function preservedFor(query: Omit<DestinationQuery, "brandId">): Promise<Destination[]> {
+  let rows = await loadPreservedExploreDestinations();
   if (query.category) rows = rows.filter((destination) => destination.category === query.category);
   if (query.featured !== undefined) rows = rows.filter((destination) => Boolean(destination.featured) === query.featured);
   return query.limit ? rows.slice(0, query.limit) : rows;
@@ -136,7 +141,7 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
     }
   } catch (error) { console.error("Core Explore remote catalog unavailable; merging preserved catalog", error); }
   const local = await platform.destinations.list({ ...scope, ...params });
-  const preserved = preservedFor(params);
+  const preserved = await preservedFor(params);
   const merged = reconcileExploreCatalog(mergeDestinations(enriched, core, preserved, local));
   const scoped = params.category ? merged.filter((destination) => destination.category === params.category) : merged;
   if (params.featured) return featuredFallback(scoped, params.limit ?? 6);
@@ -153,6 +158,8 @@ export async function getResolvedDestination(slug: Slug) {
   if (rvPark) return applyResolvedHero(rvPark);
   const preserved = preservedExploreDestinations.find((destination) => destination.slug === slug);
   if (preserved) return applyResolvedHero(preserved);
+  const cityPassPreserved = (await loadPreservedExploreDestinations()).find((destination) => destination.slug === slug);
+  if (cityPassPreserved) return applyResolvedHero(cityPassPreserved);
   const local = await platform.destinations.getBySlug(scope, slug);
   return local ? applyResolvedHero(local) : local;
 }
@@ -164,5 +171,5 @@ export async function listResolvedDestinationSearchCatalog() {
   catch (error) { console.error("Enriched destination search index unavailable; merging core and preserved catalogs", error); }
   try { core = await fetchCoreExploreDestinations({ limit: 5000 }); }
   catch (coreError) { console.error("Core remote destination search index unavailable; retaining preserved destinations", coreError); }
-  return reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations));
+  return reconcileExploreCatalog(mergeDestinations(enriched, core, await loadPreservedExploreDestinations()));
 }

@@ -143,6 +143,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
     handlers: {
       GET: async () => {
         const { landscapeGuideSlugs, landscapeSlugs } = await import("@/data/texas-landscape-slugs");
+        const { cityPassDestinationExpansion } = await import("@/data/citypass-destination-expansion");
         const { paintedChurchSearchGuides } = await import("@/data/painted-church-search-guides");
         const { loadRvParkDestinationsServer } = await import("@/data/rv-parks/registry.server");
         const { selectSwimmingHoleAndTubingDestinations } = await import("@/data/water-recreation");
@@ -168,11 +169,12 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         }
 
         const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations);
+        const preservedDestinations = mergeDestinationSources(preservedExploreDestinations, cityPassDestinationExpansion);
         const usePreservedFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0;
-        const rawDestinations = usePreservedFallback ? preservedExploreDestinations : remoteDestinations;
+        const rawDestinations = usePreservedFallback ? preservedDestinations : remoteDestinations;
         if (!usePreservedFallback) {
           const remoteSlugs = new Set(rawDestinations.map((destination) => destination.slug));
-          rawDestinations.push(...preservedExploreDestinations.filter((destination) => destination.slug && !remoteSlugs.has(destination.slug)));
+          rawDestinations.push(...preservedDestinations.filter((destination) => destination.slug && !remoteSlugs.has(destination.slug)));
         }
         const destinations = resolveDestinationCatalog(rawDestinations);
         const indexableDestinations = [...new Map(destinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
