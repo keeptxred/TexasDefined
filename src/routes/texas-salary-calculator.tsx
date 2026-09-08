@@ -1,11 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import {
-  buildCalculatorHead,
   salaryDescription,
   salaryFaqs,
   salarySeoTitle,
-} from '@/lib/calculator-seo';
+} from '@/data/calculator-query-alignment';
+import { buildCalculatorHead } from '@/lib/calculator-seo';
 
 export const Route = createFileRoute('/texas-salary-calculator')({
   head: () => buildCalculatorHead(texasDefinedBrand, {
