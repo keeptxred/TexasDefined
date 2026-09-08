@@ -61,3 +61,7 @@ export const VIATOR_RUNTIME_MARKETS: readonly ViatorExperienceRuntimeMarket[] = 
   { slug: "beaumont-golden-triangle", name: "Beaumont & the Golden Triangle", regionLabel: "Upper Gulf Coast", priority: "emerging" },
   { slug: "jefferson-east-texas", name: "Jefferson & East Texas", regionLabel: "East Texas & Piney Woods", priority: "secondary", signalLanes: ["On the water", "Ghost tours & nightlife"] },
 ] as const;
+
+export function viatorRuntimeMarketForSlug(slug: string) {
+  return VIATOR_RUNTIME_MARKETS.find((market) => market.slug === slug);
+}
