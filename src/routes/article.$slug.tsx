@@ -371,7 +371,7 @@ function ArticlePage() {
     </section>
     <Container className="relative max-w-3xl py-10 sm:py-16">
       <Byline author={author} meta={`${formatDate(article.publishedAt)} · ${formatReadingTime(article.readingMinutes)}`} />
-      {hasSchoolSupplyRail ? <aside className="absolute hidden 2xl:block" style={{ left: "calc(100% + 2rem)", top: "2.5rem", width: "18rem" }}><div className="sticky top-8"><SchoolSupplyPartners placement="rail" /></div></aside> : null}
+      {hasSchoolSupplyRail ? <><style>{`.school-supply-rail{display:none}@media (min-width:1536px){.school-supply-rail{display:block}.school-supply-bottom{display:none}}`}</style><aside className="school-supply-rail" style={{ left: "calc(100% + 2rem)", position: "absolute", top: "2.5rem", width: "18rem" }}><div style={{ position: "sticky", top: "2rem" }}><SchoolSupplyPartners placement="rail" /></div></aside></> : null}
       <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
         <a href="/editorial-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Editorial policy</a>
         <a href="/sourcing-methodology" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">How we source</a>
@@ -397,7 +397,7 @@ function ArticlePage() {
         <a href="#guide-body" className="mt-4 inline-block py-1 text-sm font-semibold text-primary underline-offset-4 hover:underline">Read the full guide ↓</a>
       </section>}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28"><ArticleBody blocks={article.body} entities={graph} /></div>
-      {hasSchoolSupplyRail ? <SchoolSupplyPartners className="2xl:hidden" /> : null}
+      {hasSchoolSupplyRail ? <SchoolSupplyPartners className="school-supply-bottom" /> : null}
       {article.hero.credit && <p className="mt-10 text-xs text-muted-foreground">Image credit: {article.hero.credit}</p>}
       {primarySource && <p className="mt-4 text-xs leading-6 text-muted-foreground">Primary source: <a href={primarySource.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{primarySource.label} ↗</a></p>}
       {!hasAuthoritySourceSection && authoritySources.length > 0 && <section className="mt-10 border-t border-border pt-6" aria-labelledby="authority-sources-heading">
