@@ -1,0 +1,95 @@
+name: CityPASS performance probe
+
+on:
+  push:
+    branches: [feature/citypass-perf-fix-temp]
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - name: Move CityPASS market resolution behind lazy boundary
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          def replace(path, old, new):
+              p = Path(path)
+              text = p.read_text()
+              if old not in text:
+                  raise SystemExit(f"missing expected text in {path}: {old[:120]!r}")
+              p.write_text(text.replace(old, new))
+
+          Path('src/components/monetization/CityPassCallout.tsx').write_text('''import { lazy, Suspense } from "react";\n\nexport type CityPassMarket = "Dallas" | "Houston" | "San Antonio";\nexport type CityPassSurface = "destination" | "city" | "sports-venue";\n\ntype CityPassCalloutProps = {\n  market?: CityPassMarket;\n  surface?: CityPassSurface;\n  slug?: string;\n  placement?: "inline" | "rail";\n};\n\nconst CityPassCalloutContent = lazy(() =>\n  import("./CityPassCalloutContent").then((module) => ({ default: module.CityPassCalloutContent })),\n);\n\nexport function CityPassCallout(props: CityPassCalloutProps) {\n  return <Suspense fallback={null}><CityPassCalloutContent {...props} /></Suspense>;\n}\n''')
+
+          Path('src/components/monetization/CityPassCalloutContent.tsx').write_text('''import {\n  CITYPASS_AFFILIATE_URL,\n  CITYPASS_GUIDE_PATH,\n  cityPassMarketForCitySlug,\n  cityPassMarketForDestinationSlug,\n  cityPassMarketForSportsVenueSlug,\n  type CityPassMarket,\n} from "@/data/citypass";\nimport type { CityPassSurface } from "./CityPassCallout";\n\nconst COPY: Record<CityPassMarket, { heading: string; body: string }> = {\n  Dallas: {\n    heading: "Planning several Dallas attractions?",\n    body: "Dallas CityPASS® can bundle admission to four attractions from the current Dallas lineup. If several participating stops are already on your itinerary, compare the pass with the individual tickets you would otherwise buy and check reservation rules before purchase.",\n  },\n  Houston: {\n    heading: "Seeing several Houston attractions?",\n    body: "Houston CityPASS® can bundle admission to five attractions from the current Houston lineup. If several participating stops are already on your itinerary, compare the pass with buying each admission separately before you book.",\n  },\n  "San Antonio": {\n    heading: "Building a San Antonio attraction weekend?",\n    body: "San Antonio CityPASS® can bundle admission to four attractions from the current San Antonio lineup. It can be useful when your trip already includes several participating stops, but compare the pass with individual admission prices before you buy.",\n  },\n};\n\nfunction marketFor(surface?: CityPassSurface, slug?: string) {\n  if (!surface || !slug) return null;\n  if (surface === "destination") return cityPassMarketForDestinationSlug(slug);\n  if (surface === "city") return cityPassMarketForCitySlug(slug);\n  return cityPassMarketForSportsVenueSlug(slug);\n}\n\nexport function CityPassCalloutContent({ market, surface, slug, placement = "inline" }: { market?: CityPassMarket; surface?: CityPassSurface; slug?: string; placement?: "inline" | "rail" }) {\n  const resolvedMarket = market ?? marketFor(surface, slug);\n  if (!resolvedMarket) return null;\n  const isRail = placement === "rail";\n  const copy = COPY[resolvedMarket];\n\n  return (\n    <aside className={`${isRail ? "border border-border bg-surface p-5" : "mt-12 border-y border-border bg-surface/55 py-8 sm:px-7 sm:py-9"}`} aria-label={`${resolvedMarket} CityPASS trip-planning option`}>\n      <p className="eyebrow text-primary">Multi-attraction trip planning</p>\n      <h2 className={`${isRail ? "mt-2 text-2xl" : "mt-3 text-3xl"} font-display leading-tight`}>{copy.heading}</h2>\n      <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy.body}</p>\n      <div className={`${isRail ? "mt-5 grid gap-3" : "mt-6 flex flex-wrap gap-x-6 gap-y-3"} text-sm font-semibold`}>\n        <a href={CITYPASS_GUIDE_PATH} className="border-b border-primary pb-1 text-primary">Read our Texas CityPASS® guide →</a>\n        <a href={CITYPASS_AFFILIATE_URL} target="_blank" rel="sponsored nofollow noopener noreferrer" className="border-b border-primary pb-1 text-primary">Check current CityPASS® options ↗</a>\n      </div>\n      <p className="mt-5 text-xs leading-6 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying CityPASS® purchases, at no additional cost to you. Attraction lineups, reservation rules, prices and savings can change.</p>\n    </aside>\n  );\n}\n''')
+
+          replace('src/routes/destination.$slug.tsx',
+            'import { CityPassCallout, cityPassMarketForDestinationSlug } from "@/components/monetization/CityPassCallout";',
+            'import { CityPassCallout } from "@/components/monetization/CityPassCallout";')
+          replace('src/routes/destination.$slug.tsx',
+            '  const cityPassMarket = cityPassMarketForDestinationSlug(destination.slug);\n', '')
+          replace('src/routes/destination.$slug.tsx',
+            '{cityPassMarket ? <CityPassCallout market={cityPassMarket} placement="rail" /> : null}',
+            '<CityPassCallout surface="destination" slug={destination.slug} placement="rail" />')
+
+          replace('src/routes/$kind.$slug.lazy.tsx',
+            "import { CityPassCallout, cityPassMarketForCitySlug } from '@/components/monetization/CityPassCallout';",
+            "import { CityPassCallout } from '@/components/monetization/CityPassCallout';")
+          replace('src/routes/$kind.$slug.lazy.tsx',
+            "  const cityPassMarket = entity.kind === 'city' ? cityPassMarketForCitySlug(entity.slug) : null;\n", '')
+          replace('src/routes/$kind.$slug.lazy.tsx',
+            '{cityPassMarket ? <CityPassCallout market={cityPassMarket} /> : null}',
+            "{entity.kind === 'city' ? <CityPassCallout surface=\"city\" slug={entity.slug} /> : null}")
+
+          replace('src/components/sports/SportsVenueQuickAnswers.tsx',
+            "import { CityPassCallout, cityPassMarketForSportsVenueSlug } from '@/components/monetization/CityPassCallout';",
+            "import { CityPassCallout } from '@/components/monetization/CityPassCallout';")
+          replace('src/components/sports/SportsVenueQuickAnswers.tsx',
+            '  const cityPassMarket = slug ? cityPassMarketForSportsVenueSlug(slug) : null;\n', '')
+          replace('src/components/sports/SportsVenueQuickAnswers.tsx',
+            '{cityPassMarket ? <CityPassCallout market={cityPassMarket} /> : null}',
+            '{slug ? <CityPassCallout surface="sports-venue" slug={slug} /> : null}')
+
+          p = Path('scripts/data/validate-citypass-affiliate.mjs')
+          text = p.read_text()
+          text = text.replace("requireText(calloutWrapper, 'import(\"./CityPassCalloutContent\")', 'Lazy CityPASS CTA performance split');",
+            "requireText(calloutWrapper, 'import(\"./CityPassCalloutContent\")', 'Lazy CityPASS CTA performance split');\nif (calloutWrapper.includes('@/data/citypass')) errors.push('CityPASS market maps must stay behind the lazy CTA boundary.');\nfor (const resolver of ['cityPassMarketForCitySlug', 'cityPassMarketForDestinationSlug', 'cityPassMarketForSportsVenueSlug']) requireText(calloutContent, resolver, `Lazy CityPASS market resolver ${resolver}`);")
+          text = text.replace("requireText(sportsQuickAnswers, 'cityPassMarketForSportsVenueSlug', 'AT&T Stadium sports template integration');\nrequireText(sportsQuickAnswers, '<CityPassCallout market={cityPassMarket} />', 'AT&T Stadium contextual callout');",
+            "if (sportsQuickAnswers.includes('cityPassMarketForSportsVenueSlug')) errors.push('Sports venue template must not synchronously import the CityPASS market resolver.');\nrequireText(sportsQuickAnswers, '<CityPassCallout surface=\"sports-venue\" slug={slug} />', 'AT&T Stadium contextual lazy callout');")
+          text = text.replace("requireText(entityRoute, 'cityPassMarketForCitySlug', 'City guide integration');\nrequireText(entityRoute, '<CityPassCallout market={cityPassMarket} />', 'City guide callout');\nrequireText(destinationRoute, 'cityPassMarketForDestinationSlug', 'Destination guide integration');\nrequireText(destinationRoute, '<CityPassCallout market={cityPassMarket} placement=\"rail\" />', 'Destination guide callout');",
+            "if (entityRoute.includes('cityPassMarketForCitySlug')) errors.push('City entity template must not synchronously import the CityPASS market resolver.');\nrequireText(entityRoute, '<CityPassCallout surface=\"city\" slug={entity.slug} />', 'City guide lazy callout');\nif (destinationRoute.includes('cityPassMarketForDestinationSlug')) errors.push('Destination template must not synchronously import the CityPASS market resolver.');\nrequireText(destinationRoute, '<CityPassCallout surface=\"destination\" slug={destination.slug} placement=\"rail\" />', 'Destination guide lazy callout');")
+          text = text.replace('contextual city, destination and AT&T Stadium placements retain the disclosed CJ affiliate link and lazy CTA split.', 'contextual city, destination and AT&T Stadium placements retain the disclosed CJ affiliate link while market resolution stays behind the lazy CTA split.')
+          p.write_text(text)
+          PY
+      - name: Validate CityPASS contract
+        run: node scripts/data/validate-citypass-affiliate.mjs
+      - name: Build
+        run: npm run build
+      - name: Validate unchanged bundle budget
+        run: npm run performance:validate
+      - name: Commit probe result
+        if: success()
+        shell: bash
+        run: |
+          rm -f .citypass-validation-diagnostic.txt
+          rm -f .github/workflows/citypass-perf-probe.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "perf: lazy-load CityPASS market resolution"
+          git push
