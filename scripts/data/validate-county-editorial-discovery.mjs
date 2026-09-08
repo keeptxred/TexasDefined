@@ -7,6 +7,7 @@ const requireAll = (label, text, needles) => {
 };
 
 const countyGuide = read('src/components/content/CountyGuideSections.tsx');
+const countySeries = read('src/data/county-series.ts');
 const destinationLinks = read('src/data/destination-editorial-links.ts');
 const supplementalRegistration = read('src/data/fixtures/supplemental-editorial-registration.ts');
 
@@ -17,6 +18,13 @@ requireAll('canonical county editorial discovery', countyGuide, [
   'countyEditorialLinks.map',
   'Keep exploring {entity.name}',
   'More Texas Defined guides related to ${entity.name}',
+]);
+
+requireAll('legacy county redirect scope', countySeries, [
+  'import { TEXAS_COUNTIES } from "@/data/texas-places"',
+  'const TEXAS_COUNTY_SLUGS = new Set(TEXAS_COUNTIES.map((county) => county.slug))',
+  'const countySlug = articleSlug.slice(0, markerIndex)',
+  'return TEXAS_COUNTY_SLUGS.has(countySlug) ? countySlug : null',
 ]);
 
 requireAll('Jasper destination Blue Hole discovery', destinationLinks, [
@@ -39,4 +47,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('County editorial discovery validator passed: canonical county guides surface curated article links and Jasper retains reciprocal Blue Hole discovery from both county and destination surfaces.');
+console.log('County editorial discovery validator passed: canonical county guides surface curated article links, legacy county redirects are limited to real Texas county slugs, and Jasper retains reciprocal Blue Hole discovery from both county and destination surfaces.');
