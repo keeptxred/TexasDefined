@@ -1,5 +1,5 @@
 const origin = (process.env.TEXASDEFINED_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
-const userAgent = 'TexasDefined-Hunting-Production-Smoke/3.0';
+const userAgent = 'TexasDefined-Hunting-Production-Smoke/3.1';
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const representativeTopics = [
@@ -103,6 +103,8 @@ async function fetchDocument(pathname) {
         headers: {
           'user-agent': userAgent,
           accept: pathname.endsWith('.xml') ? 'application/xml,text/xml;q=0.9,*/*;q=0.8' : 'text/html,*/*;q=0.8',
+          'cache-control': 'no-cache',
+          pragma: 'no-cache',
         },
         redirect: 'follow',
         signal: AbortSignal.timeout(30_000),
@@ -132,8 +134,18 @@ async function fetchDocument(pathname) {
   throw lastError instanceof Error ? lastError : new Error(`Failed to fetch ${pathname}`);
 }
 
+function visibleExcerpt(body) {
+  const hints = ['TPWD', 'Texas Parks', 'Quick answer', 'Public-land discovery', 'Verify with TPWD', 'Current official'];
+  const found = hints.map((hint) => body.indexOf(hint)).filter((index) => index >= 0).sort((a, b) => a - b)[0] ?? 0;
+  const start = Math.max(0, found - 220);
+  const end = Math.min(body.length, found + 1400);
+  return body.slice(start, end);
+}
+
 function requireText(body, needle, label) {
-  if (!body.includes(needle)) throw new Error(`${label} missing expected rendered text: ${needle}`);
+  if (!body.includes(needle)) {
+    throw new Error(`${label} missing expected rendered text: ${needle}\nVisible excerpt: ${visibleExcerpt(body)}`);
+  }
 }
 
 async function verify() {
