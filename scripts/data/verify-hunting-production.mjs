@@ -1,5 +1,5 @@
 const origin = (process.env.TEXASDEFINED_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
-const userAgent = 'TexasDefined-Hunting-Production-Smoke/2.0';
+const userAgent = 'TexasDefined-Hunting-Production-Smoke/2.1';
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const representativeTopics = [
@@ -50,6 +50,36 @@ const sitemapPaths = [
   '/hunting/other-migratory-game-birds',
 ];
 
+function nulDiagnostics(bytes, text, response, pathname) {
+  const positions = [];
+  let even = 0;
+  let odd = 0;
+  for (let index = 0; index < bytes.length; index += 1) {
+    if (bytes[index] !== 0) continue;
+    if (positions.length < 12) positions.push(index);
+    if (index % 2 === 0) even += 1;
+    else odd += 1;
+  }
+  if (!positions.length && !text.includes('\0')) return null;
+
+  const first = positions[0] ?? text.indexOf('\0');
+  const windowStart = Math.max(0, first - 32);
+  const windowEnd = Math.min(bytes.length, first + 64);
+  return [
+    `${pathname} decoded response still contains NUL bytes`,
+    `content-type=${response.headers.get('content-type') ?? '(missing)'}`,
+    `content-encoding=${response.headers.get('content-encoding') ?? '(missing)'}`,
+    `content-length=${response.headers.get('content-length') ?? '(missing)'}`,
+    `decoded-bytes=${bytes.length}`,
+    `nul-count=${even + odd}`,
+    `even-nuls=${even}`,
+    `odd-nuls=${odd}`,
+    `first-nul-positions=${positions.join(',') || '(text-only)'}`,
+    `first-32-bytes=${bytes.subarray(0, 32).toString('hex')}`,
+    `around-first-nul=${bytes.subarray(windowStart, windowEnd).toString('hex')}`,
+  ].join('; ');
+}
+
 async function fetchText(pathname) {
   let lastError;
   for (let attempt = 1; attempt <= 4; attempt += 1) {
@@ -63,8 +93,10 @@ async function fetchText(pathname) {
         signal: AbortSignal.timeout(30_000),
       });
       if (!response.ok) throw new Error(`${pathname} returned ${response.status}`);
-      const text = await response.text();
-      if (text.includes('\0')) throw new Error(`${pathname} decoded response still contains NUL bytes`);
+      const bytes = Buffer.from(await response.arrayBuffer());
+      const text = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+      const diagnostic = nulDiagnostics(bytes, text, response, pathname);
+      if (diagnostic) throw new Error(diagnostic);
       return text;
     } catch (error) {
       lastError = error;
