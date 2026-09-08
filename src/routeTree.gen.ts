@@ -56,6 +56,7 @@ import { Route as TexasPropertyTaxEscrowCalculatorRouteImport } from './routes/t
 import { Route as TexasPropertyTaxCountyComparisonCalculatorRouteImport } from './routes/texas-property-tax-county-comparison-calculator'
 import { Route as TexasPropertyTaxBillBreakdownRouteImport } from './routes/texas-property-tax-bill-breakdown'
 import { Route as TexasPoolGuideRouteImport } from './routes/texas-pool-guide'
+import { Route as TexasPledgeRouteImport } from './routes/texas-pledge'
 import { Route as TexasPestsGuideRouteImport } from './routes/texas-pests-guide'
 import { Route as TexasPaddlingGuideRouteImport } from './routes/texas-paddling-guide'
 import { Route as TexasOver65PropertyTaxCalculatorRouteImport } from './routes/texas-over-65-property-tax-calculator'
@@ -778,6 +779,11 @@ const TexasPoolGuideRoute = TexasPoolGuideRouteImport.update({
 } as any).lazy(() =>
   import('./routes/texas-pool-guide.lazy').then((d) => d.Route),
 )
+const TexasPledgeRoute = TexasPledgeRouteImport.update({
+  id: '/texas-pledge',
+  path: '/texas-pledge',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/texas-pledge.lazy').then((d) => d.Route))
 const TexasPestsGuideRoute = TexasPestsGuideRouteImport.update({
   id: '/texas-pests-guide',
   path: '/texas-pests-guide',
@@ -3371,6 +3377,7 @@ export interface FileRoutesByFullPath {
   '/texas-over-65-property-tax-calculator': typeof TexasOver65PropertyTaxCalculatorRoute
   '/texas-paddling-guide': typeof TexasPaddlingGuideRoute
   '/texas-pests-guide': typeof TexasPestsGuideRoute
+  '/texas-pledge': typeof TexasPledgeRoute
   '/texas-pool-guide': typeof TexasPoolGuideRoute
   '/texas-property-tax-bill-breakdown': typeof TexasPropertyTaxBillBreakdownRoute
   '/texas-property-tax-county-comparison-calculator': typeof TexasPropertyTaxCountyComparisonCalculatorRoute
@@ -3819,6 +3826,7 @@ export interface FileRoutesByTo {
   '/texas-over-65-property-tax-calculator': typeof TexasOver65PropertyTaxCalculatorRoute
   '/texas-paddling-guide': typeof TexasPaddlingGuideRoute
   '/texas-pests-guide': typeof TexasPestsGuideRoute
+  '/texas-pledge': typeof TexasPledgeRoute
   '/texas-pool-guide': typeof TexasPoolGuideRoute
   '/texas-property-tax-bill-breakdown': typeof TexasPropertyTaxBillBreakdownRoute
   '/texas-property-tax-county-comparison-calculator': typeof TexasPropertyTaxCountyComparisonCalculatorRoute
@@ -4271,6 +4279,7 @@ export interface FileRoutesById {
   '/texas-over-65-property-tax-calculator': typeof TexasOver65PropertyTaxCalculatorRoute
   '/texas-paddling-guide': typeof TexasPaddlingGuideRoute
   '/texas-pests-guide': typeof TexasPestsGuideRoute
+  '/texas-pledge': typeof TexasPledgeRoute
   '/texas-pool-guide': typeof TexasPoolGuideRoute
   '/texas-property-tax-bill-breakdown': typeof TexasPropertyTaxBillBreakdownRoute
   '/texas-property-tax-county-comparison-calculator': typeof TexasPropertyTaxCountyComparisonCalculatorRoute
@@ -4724,6 +4733,7 @@ export interface FileRouteTypes {
     | '/texas-over-65-property-tax-calculator'
     | '/texas-paddling-guide'
     | '/texas-pests-guide'
+    | '/texas-pledge'
     | '/texas-pool-guide'
     | '/texas-property-tax-bill-breakdown'
     | '/texas-property-tax-county-comparison-calculator'
@@ -5172,6 +5182,7 @@ export interface FileRouteTypes {
     | '/texas-over-65-property-tax-calculator'
     | '/texas-paddling-guide'
     | '/texas-pests-guide'
+    | '/texas-pledge'
     | '/texas-pool-guide'
     | '/texas-property-tax-bill-breakdown'
     | '/texas-property-tax-county-comparison-calculator'
@@ -5623,6 +5634,7 @@ export interface FileRouteTypes {
     | '/texas-over-65-property-tax-calculator'
     | '/texas-paddling-guide'
     | '/texas-pests-guide'
+    | '/texas-pledge'
     | '/texas-pool-guide'
     | '/texas-property-tax-bill-breakdown'
     | '/texas-property-tax-county-comparison-calculator'
@@ -6075,6 +6087,7 @@ export interface RootRouteChildren {
   TexasOver65PropertyTaxCalculatorRoute: typeof TexasOver65PropertyTaxCalculatorRoute
   TexasPaddlingGuideRoute: typeof TexasPaddlingGuideRoute
   TexasPestsGuideRoute: typeof TexasPestsGuideRoute
+  TexasPledgeRoute: typeof TexasPledgeRoute
   TexasPoolGuideRoute: typeof TexasPoolGuideRoute
   TexasPropertyTaxBillBreakdownRoute: typeof TexasPropertyTaxBillBreakdownRoute
   TexasPropertyTaxCountyComparisonCalculatorRoute: typeof TexasPropertyTaxCountyComparisonCalculatorRoute
@@ -6638,6 +6651,13 @@ declare module '@tanstack/react-router' {
       path: '/texas-pool-guide'
       fullPath: '/texas-pool-guide'
       preLoaderRoute: typeof TexasPoolGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-pledge': {
+      id: '/texas-pledge'
+      path: '/texas-pledge'
+      fullPath: '/texas-pledge'
+      preLoaderRoute: typeof TexasPledgeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/texas-pests-guide': {
@@ -10085,6 +10105,7 @@ const rootRouteChildren: RootRouteChildren = {
   TexasOver65PropertyTaxCalculatorRoute: TexasOver65PropertyTaxCalculatorRoute,
   TexasPaddlingGuideRoute: TexasPaddlingGuideRoute,
   TexasPestsGuideRoute: TexasPestsGuideRoute,
+  TexasPledgeRoute: TexasPledgeRoute,
   TexasPoolGuideRoute: TexasPoolGuideRoute,
   TexasPropertyTaxBillBreakdownRoute: TexasPropertyTaxBillBreakdownRoute,
   TexasPropertyTaxCountyComparisonCalculatorRoute:

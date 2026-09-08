@@ -61,6 +61,16 @@ const symbolContext: Record<string, { eyebrow: string; heading: string; paragrap
     ],
     facts: [["Formal designation", "2015"], ["Earlier use", "Generations before formal recognition"], ["Closely connected symbol", "The single star on the Texas flag and seal"]],
   },
+  song: {
+    eyebrow: "Texas's official song",
+    heading: "From a 1929 contest to a statewide ceremony",
+    paragraphs: [
+      "\u201cTexas, Our Texas\u201d became the official state song in 1929 after the Texas Legislature adopted Senate Concurrent Resolution No. 6. The words were written by Gladys Yoakum Wright and the music by William J. Marsh. It is a state song, not a replacement for the national anthem: at a public program, it is normally a Texas-specific moment alongside, rather than in place of, national observances.",
+      "The song is heard in school assemblies, civic programs, state ceremonies, heritage events and other occasions where organizers choose to recognize Texas. There is no single statewide rule requiring it at every public event; the setting, organizer and program determine whether it is included.",
+      "Its familiar opening invokes the state as a shared home and its closing celebrates Texas as a place of freedom. That republic-era language is part of the song's historical character. A good modern reading recognizes both the 1929 civic tradition and the fact that Texas is a U.S. state today.",
+    ],
+    facts: [["Official since", "1929"], ["Words", "Gladys Yoakum Wright"], ["Music", "William J. Marsh"]],
+  },
 };
 
 function TexasSymbolProfile() {
@@ -115,6 +125,13 @@ function TexasSymbolProfile() {
                   {context.facts.map(([term, value]) => <Fact key={term} term={term} value={value} />)}
                 </dl>
               </section>
+
+              {symbol.slug === "song" && <section className="mt-12 border-y border-border py-10">
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">What it is not</p>
+                <h2 className="mt-3 font-display text-4xl">The state song and the Texas pledge serve different purposes</h2>
+                <p className="mt-5 leading-7 text-muted-foreground">Texas has both an official state song and a pledge to the Texas flag. The song is music used by choice in programs and ceremonies. The pledge is a spoken civic recitation prescribed in Texas law for school use. Knowing the difference keeps a Texas tradition page from blurring music, law and classroom practice together.</p>
+                <Link to="/texas-pledge" className="mt-5 inline-block font-semibold text-primary">Read the Texas pledge guide →</Link>
+              </section>}
 
               <section className="mt-12">
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Texas context</p>
