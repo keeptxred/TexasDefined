@@ -79,8 +79,11 @@ await fetchText('/things-unique-to-texas/texas-brands', [
 ]);
 await fetchText('/texas-brand-locator.js', [
   '/api/texas-brand-locator',
-  "Find your H-E-B or Buc-ee's",
+  "Find your H-E-B, Central Market, Joe V's, Mi Tienda or Buc-ee's",
+  'central-market',
+  'joe-vs',
+  'mi-tienda',
 ]);
 await verifyLocatorApi();
 
-console.log('Texas brand locator production smoke passed (page mount, deferred script, and Buc-ee\'s lookup).');
+console.log('Texas brand locator production smoke passed (page mount, H-E-B-family choices, deferred script, and Buc-ee\'s lookup).');
