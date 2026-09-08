@@ -1,11 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import {
+  buildCalculatorHead,
   homeInsuranceDescription,
   homeInsuranceFaqs,
   homeInsuranceSeoTitle,
-} from '@/data/calculator-query-alignment';
-import { buildCalculatorHead } from '@/lib/calculator-seo';
+} from '@/lib/calculator-seo';
 
 export const Route = createFileRoute('/texas-home-insurance-calculator')({
   head: () =>
