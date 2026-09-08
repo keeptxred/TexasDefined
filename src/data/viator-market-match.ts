@@ -19,7 +19,7 @@ export const VIATOR_MATCH_MARKETS: readonly ViatorMatchMarket[] = [
   { slug: "marble-falls-lake-travis", aliases: "|marble falls|burnet|lake travis|highland lakes|" },
   { slug: "waco", aliases: "|waco|mclennan|magnolia market|waco mammoth|dr pepper museum|" },
   { slug: "college-station-bryan", aliases: "|bryan|college station|brazos|texas a m|kyle field|" },
-  { slug: "corpus-christi", aliases: "|corpus christi|nueces|texas state aquarium|uss lexington|padre island national seashore|" },
+  { slug: "corpus-christi", aliases: "|corpus christi|nueces|rockport|aransas|little bay|texas state aquarium|uss lexington|padre island national seashore|" },
   { slug: "port-aransas", aliases: "|port aransas|mustang island|" },
   { slug: "south-padre-island", aliases: "|south padre island|cameron|laguna madre|port isabel|" },
   { slug: "rio-grande-valley", aliases: "|rio grande valley|hidalgo|mcallen|brownsville|edinburg|mission|" },
