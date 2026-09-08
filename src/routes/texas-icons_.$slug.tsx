@@ -9,7 +9,7 @@ import {
 } from "@/data/texas-icons-types";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
-export const Route = createFileRoute("/texas-icons/$slug")({
+export const Route = createFileRoute("/texas-icons_/$slug")({
   loader: async ({ params }) => {
     const result = await getTexasIconProfile({ data: { slug: params.slug } });
     if (!result) throw notFound();

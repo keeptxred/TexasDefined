@@ -13,7 +13,7 @@ const quickStats = [
   ['DFW nonfarm payrolls', 'texas-metro-payrolls-june-2026', 'Dallas–Fort Worth–Arlington'],
 ] as const;
 
-export const Route = createLazyFileRoute('/moving-to-texas/data')({ component: RelocationDataCenterPage });
+export const Route = createLazyFileRoute('/moving-to-texas_/data')({ component: RelocationDataCenterPage });
 
 function RelocationDataCenterPage() {
   const { relocationDatasets, relocationMetros, relocationSources, relocationSourceVerified } = Route.useLoaderData();

@@ -2,7 +2,7 @@ import { createLazyFileRoute } from '@tanstack/react-router';
 
 import { LocalHomeAffordabilityPage } from '@/components/calculators/LocalHomeAffordabilityPage';
 
-export const Route = createLazyFileRoute('/texas-home-affordability-calculator/$location')({
+export const Route = createLazyFileRoute('/texas-home-affordability-calculator_/$location')({
   component: Page,
 });
 

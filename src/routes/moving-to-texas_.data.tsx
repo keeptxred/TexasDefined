@@ -15,7 +15,7 @@ const relocationDatasetSlugs = [
   'texas-traffic-monitoring-coverage',
 ] as const;
 
-export const Route = createFileRoute('/moving-to-texas/data')({
+export const Route = createFileRoute('/moving-to-texas_/data')({
   loader: async () => {
     const [{ RELOCATION_METROS, RELOCATION_SOURCES, RELOCATION_SOURCE_VERIFIED }, texasDatasets] = await Promise.all([
       import('@/data/relocation-authority'),

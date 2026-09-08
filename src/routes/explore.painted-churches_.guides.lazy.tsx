@@ -11,7 +11,7 @@ const groupLabels = {
 
 const groupOrder = ["specific-churches", "towns-locations", "tours-trip-planning", "history-architecture-culture"] as const;
 
-export const Route = createLazyFileRoute("/explore/painted-churches/guides")({
+export const Route = createLazyFileRoute("/explore/painted-churches_/guides")({
   component: PaintedChurchSearchGuideHub,
 });
 

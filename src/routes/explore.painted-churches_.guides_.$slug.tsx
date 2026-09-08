@@ -6,7 +6,7 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
-export const Route = createFileRoute("/explore/painted-churches/guides/$slug")({
+export const Route = createFileRoute("/explore/painted-churches_/guides_/$slug")({
   loader: async ({ params }) => {
     const { paintedChurchSearchGuideBySlug } = await import("@/data/painted-church-search-guides");
     const guide = paintedChurchSearchGuideBySlug.get(params.slug);
