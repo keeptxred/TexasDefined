@@ -8,6 +8,8 @@ const requireAll = (label, text, needles) => {
 
 const countyGuide = read('src/components/content/CountyGuideSections.tsx');
 const countySeries = read('src/data/county-series.ts');
+const eastTexasProfiles = read('src/data/county-series-profiles-east-texas.ts');
+const jasperCanonicalProfile = read('src/data/fixtures/jasper-county-canonical-profile.ts');
 const destinationLinks = read('src/data/destination-editorial-links.ts');
 const supplementalRegistration = read('src/data/fixtures/supplemental-editorial-registration.ts');
 const seasonalIntentRegistry = read('src/data/fixtures/lazy-seasonal-intents.ts');
@@ -26,6 +28,19 @@ requireAll('legacy county redirect scope', countySeries, [
   'const TEXAS_COUNTY_SLUGS = new Set(TEXAS_COUNTIES.map((county) => county.slug))',
   'const countySlug = articleSlug.slice(0, markerIndex)',
   'return TEXAS_COUNTY_SLUGS.has(countySlug) ? countySlug : null',
+]);
+
+requireAll('Jasper canonical county profile loader', eastTexasProfiles, [
+  'countySlug: "jasper"',
+  'import("@/data/fixtures/jasper-county-canonical-profile")',
+  'module.jasperCountyCanonicalProfileArticle',
+]);
+
+requireAll('Jasper canonical county Blue Hole link', jasperCanonicalProfile, [
+  'const BLUE_HOLE_PATH = "/article/blue-hole-jasper-county-east-texas"',
+  'jasperCountyJasperKirbyvilleSamRayburnPineyWoodsTexasArticle.internalLinks ?? []',
+  'existingLinks.some((link) => link.href === BLUE_HOLE_PATH)',
+  ': [...existingLinks, blueHoleLink]',
 ]);
 
 requireAll('Jasper destination Blue Hole discovery', destinationLinks, [
@@ -67,4 +82,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('County editorial discovery validator passed: canonical county guides surface curated article links, legacy county redirects are limited to real Texas county slugs, the Blue Hole full article is in the primary seasonal registry for both listing and direct slug lookup, supplemental editorial registration remains deterministic, and Jasper retains reciprocal Blue Hole discovery from both county and destination surfaces.');
+console.log('County editorial discovery validator passed: canonical county guides surface curated article links, Jasper loads a canonical county profile with a direct Blue Hole link, legacy county redirects are limited to real Texas county slugs, the Blue Hole full article is in the primary registry for both listing and direct lookup, and destination plus supplemental reciprocal discovery remain protected.');
