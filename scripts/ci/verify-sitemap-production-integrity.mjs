@@ -11,7 +11,7 @@ function decodeXml(value) {
     .replace(/&apos;/g, "'");
 }
 
-async function fetchText(path) {
+async function fetchSitemap(path) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 15_000);
   try {
@@ -25,16 +25,25 @@ async function fetchText(path) {
     if (!/application\/(?:xml|[a-z0-9.+-]+\+xml)|text\/xml/i.test(contentType)) {
       throw new Error(`${path} returned unexpected Content-Type ${JSON.stringify(contentType)}`);
     }
-    return await response.text();
+    const cache = {
+      age: response.headers.get('age'),
+      cacheControl: response.headers.get('cache-control'),
+      cfCacheStatus: response.headers.get('cf-cache-status'),
+      etag: response.headers.get('etag'),
+      lastModified: response.headers.get('last-modified'),
+    };
+    return { xml: await response.text(), cache };
   } finally {
     clearTimeout(timer);
   }
 }
 
-function validateSitemap(path, xml) {
+function validateSitemap(path, xml, cache) {
   if (!xml.startsWith('<?xml')) throw new Error(`${path} is missing the XML declaration`);
+  const openingUrlset = xml.match(/<urlset\b[^>]*>/i)?.[0] ?? '(missing <urlset>)';
+  console.log(`${path} response diagnostics: ${JSON.stringify({ openingUrlset, ...cache })}`);
   if (!/<urlset\b[^>]*xmlns=["']http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9["'][^>]*>/i.test(xml)) {
-    throw new Error(`${path} is missing the standard sitemap urlset namespace`);
+    throw new Error(`${path} is missing the standard sitemap urlset namespace; received ${openingUrlset}`);
   }
   if (!/<\/urlset>\s*$/i.test(xml)) throw new Error(`${path} does not close urlset cleanly`);
 
@@ -95,8 +104,8 @@ function validateSitemap(path, xml) {
 
 const inventories = new Map();
 for (const path of SITEMAPS) {
-  const xml = await fetchText(path);
-  inventories.set(path, validateSitemap(path, xml));
+  const { xml, cache } = await fetchSitemap(path);
+  inventories.set(path, validateSitemap(path, xml, cache));
 }
 
 const primary = inventories.get('/sitemap.xml');
