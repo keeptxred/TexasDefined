@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { VIATOR_CURATED_PRODUCT_SEEDS, viatorSeedsForMarket } from "@/data/viator-curated-product-seeds";
+import { VIATOR_RUNTIME_CATEGORIES, VIATOR_RUNTIME_MARKETS, VIATOR_RUNTIME_SIGNAL_REVIEWED_AT } from "@/data/viator-experience-runtime";
 import { VIATOR_TEXAS_MARKETS } from "@/data/viator-experiences";
 
 describe("curated Viator product seeds", () => {
@@ -45,6 +46,21 @@ describe("curated Viator product seeds", () => {
       "Dallas Deep Ellum Food & Street Art Tour by Food Tours of America",
     ]) {
       expect(titles.has(title), `missing curated pages 21-23 signal: ${title}`).toBe(true);
+    }
+  });
+
+  it("keeps client-facing inventory signals compact and category-level", () => {
+    const runtimeCategories = new Set<string>(VIATOR_RUNTIME_CATEGORIES);
+    const signaledMarkets = VIATOR_RUNTIME_MARKETS.filter((market) => market.signalLanes?.length);
+
+    expect(VIATOR_RUNTIME_SIGNAL_REVIEWED_AT).toBe("2026-09-08");
+    expect(signaledMarkets.length).toBeGreaterThanOrEqual(12);
+
+    for (const market of signaledMarkets) {
+      expect(market.signalLanes!.length).toBeLessThanOrEqual(3);
+      for (const lane of market.signalLanes!) {
+        expect(runtimeCategories.has(lane), `${market.slug} has unsupported runtime lane ${lane}`).toBe(true);
+      }
     }
   });
 });
