@@ -19,6 +19,30 @@ jobs:
         with:
           node-version: 22
 
+      - name: Inspect known failing production routes
+        shell: bash
+        run: |
+          set -u
+          for url in \
+            https://texasdefined.com/do/homestead-exemption \
+            https://texasdefined.com/partner-with-us \
+            https://texasdefined.com/texas-icons
+          do
+            echo "===== $url ====="
+            body="$(mktemp)"
+            headers="$(mktemp)"
+            curl -sS --max-time 20 -D "$headers" -o "$body" "$url" || true
+            echo "--- response headers ---"
+            grep -Ei '^(HTTP/|location:|content-type:|cache-control:|x-robots-tag:)' "$headers" || true
+            echo "--- canonical tags ---"
+            grep -Eio '<link[^>]+rel=["'"']canonical["'"'][^>]*>|<link[^>]+href=["'"'][^"'"']+["'"'][^>]+rel=["'"']canonical["'"'][^>]*>' "$body" || true
+            echo "--- robots meta ---"
+            grep -Eio '<meta[^>]+name=["'"'](robots|googlebot)["'"'][^>]*>|<meta[^>]+content=["'"'][^"'"']+["'"'][^>]+name=["'"'](robots|googlebot)["'"'][^>]*>' "$body" || true
+            echo "--- title ---"
+            grep -Eio '<title[^>]*>[^<]*</title>' "$body" | head -n 1 || true
+            rm -f "$body" "$headers"
+          done
+
       - name: Audit every submitted sitemap page
         env:
           AUDIT_CONCURRENCY: "12"
