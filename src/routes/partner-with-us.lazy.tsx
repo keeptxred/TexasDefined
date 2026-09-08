@@ -5,7 +5,6 @@ import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Container } from '@/components/layout/Container';
 import { submitPartnerInquiry } from '@/data/partner-inquiry.functions';
 
-const canonicalPath = '/partner-with-us';
 const description = 'Partner with Texas Defined on useful, clearly disclosed Texas home, moving, travel, sports-travel, Texas-brand and local-service resources while preserving editorial independence.';
 
 export const Route = createLazyFileRoute('/partner-with-us')({ component: PartnerWithUsPage });
@@ -36,7 +35,7 @@ const sportsLaunchPackages = [
   {
     name: 'Texas Sports Network',
     price: '$299/month',
-    detail: 'The statewide sports directory plus up to ten venue guides in one metro or market. Best for hotels, restaurant groups, attractions and transportation companies.',
+    detail: 'The statewide sports directory plus up to ten venue guides for a Texas business serving multiple sports markets.',
   },
   {
     name: 'Founding Statewide Partner',
@@ -63,7 +62,7 @@ function PartnerWithUsPage() {
         website: String(form.get('website') || ''),
         partnershipType: String(form.get('partnershipType') || 'other') as typeof partnershipOptions[number][0],
         message: String(form.get('message') || ''),
-        sourcePath: search.sourcePath ?? canonicalPath,
+        sourcePath: search.sourcePath,
         addressLine2: String(form.get('addressLine2') || ''),
       } });
       event.currentTarget.reset();
