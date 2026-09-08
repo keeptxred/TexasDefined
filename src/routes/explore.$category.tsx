@@ -71,7 +71,7 @@ export const Route = createFileRoute("/explore/$category")({
   },
   loader: async ({ context, params }) => {
     if (params.category === "water-towers") {
-      const { waterTowersCategory } = await import("@/data/water-towers-meta");
+      const { waterTowersCategory } = await import("@/data/water-towers");
       return { category: waterTowersCategory, articles: [], destinations: [], authorityHtml: null };
     }
 
