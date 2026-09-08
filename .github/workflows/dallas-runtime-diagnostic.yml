@@ -46,15 +46,7 @@ jobs:
           for county in dallas harris travis; do
             html="/tmp/${county}.html"
             status=$(curl --silent --show-error --output "$html" --write-out '%{http_code}' "http://127.0.0.1:4173/county/${county}" || true)
-            words=$(python3 - "$html" <<'PY'
-import re, sys
-from pathlib import Path
-p=Path(sys.argv[1])
-text=p.read_text(errors='ignore') if p.exists() else ''
-text=re.sub(r'<script\b[^>]*>[\s\S]*?</script>|<style\b[^>]*>[\s\S]*?</style>|<[^>]+>', ' ', text, flags=re.I)
-print(len(re.findall(r"[A-Za-z0-9]+(?:[’'\-][A-Za-z0-9]+)*", text)))
-PY
-)
+            words=$(python3 -c 'import re,sys,pathlib; p=pathlib.Path(sys.argv[1]); text=p.read_text(errors="ignore") if p.exists() else ""; text=re.sub(r"<script\\b[^>]*>[\\s\\S]*?</script>|<style\\b[^>]*>[\\s\\S]*?</style>|<[^>]+>", " ", text, flags=re.I); print(len(re.findall(r"[A-Za-z0-9]+(?:[’\x27-][A-Za-z0-9]+)*", text)))' "$html")
             feature=no; facts=no; heading=no
             grep -Fqi "The story of" "$html" && feature=yes
             grep -Fqi "The county in numbers" "$html" && facts=yes
