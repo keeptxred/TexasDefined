@@ -82,9 +82,11 @@ if (publishedDestinationRows !== newlyPublishedSlugs.length) {
 }
 if (preserved.includes('citypass-destination-expansion')) errors.push('CityPASS destination expansion must not be statically imported by the global preserved catalog.');
 requireText(destinationRuntime, 'await import("./citypass-destination-expansion")', 'Async CityPASS destination runtime load');
-requireText(destinationRuntime, 'await loadPreservedExploreDestinations()', 'Async CityPASS preserved catalog merge');
+requireText(destinationRuntime, 'const preserved = preservedFor(params)', 'Preserved fallback contract');
+requireText(destinationRuntime, 'const cityPassPreserved = await cityPassPreservedFor(params)', 'Async CityPASS list merge');
+requireText(destinationRuntime, 'await loadCityPassDestinationExpansion()', 'Async CityPASS detail/search merge');
 requireText(exploreSitemap, 'await import("@/data/citypass-destination-expansion")', 'Async CityPASS sitemap load');
-requireText(exploreSitemap, 'mergeDestinationSources(preservedExploreDestinations, cityPassDestinationExpansion)', 'CityPASS sitemap preserved merge');
+requireText(exploreSitemap, 'rawDestinations.push(...cityPassDestinationExpansion.filter', 'CityPASS sitemap preserved merge');
 
 for (const market of ['dallas', 'houston', 'san-antonio']) requireText(component, market === 'san-antonio' ? '"san-antonio": "San Antonio"' : `${market}: "${market[0].toUpperCase()}${market.slice(1)}"`, `City page mapping ${market}`);
 requireText(entityRoute, 'cityPassMarketForCitySlug', 'City guide integration');
