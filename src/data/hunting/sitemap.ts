@@ -23,6 +23,18 @@ export const HUNTING_AUTHORITY_PATHS = [
   "/hunting/javelina-hunting",
   "/hunting/feral-hogs",
   "/hunting/exotic-game",
+  "/hunting/squirrel-hunting",
+  "/hunting/rabbit-hare-hunting",
+  "/hunting/pheasant-hunting",
+  "/hunting/chachalaca-hunting",
+  "/hunting/pronghorn-hunting",
+  "/hunting/alligator-hunting",
+  "/hunting/migratory-game-birds",
+  "/hunting/goose-hunting",
+  "/hunting/teal-hunting",
+  "/hunting/sandhill-crane-hunting",
+  "/hunting/other-migratory-game-birds",
+  "/hunting/trapping-furbearers",
 ] as const;
 
 export const HUNTING_SITEMAP_ENTRIES = HUNTING_AUTHORITY_PATHS.map((path) => ({
