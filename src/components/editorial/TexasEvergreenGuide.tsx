@@ -4,6 +4,7 @@ import bbqBrisket from "@/assets/bbq-brisket.jpg";
 import bigBend from "@/assets/big-bend.jpg";
 import kolacheKlobasnek from "@/assets/kolache-klobasnek-hero-photo.jpg";
 import { Container } from "@/components/layout/Container";
+import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPartners";
 import type { TexasEvergreenGuide as TexasEvergreenGuideData } from "@/data/texas-evergreen-guides";
 
 const siteUrl = "https://texasdefined.com";
@@ -196,6 +197,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
   const destinationLink = guideDestinationLinks[guide.slug];
   const isFoodHistoryChild = foodHistoryGuideSlugs.has(guide.slug);
   const isMusicChild = musicGuideSlugs.has(guide.slug);
+  const hasHomecomingMumSupplies = guide.slug === "texas-homecoming-mums";
   const imageUrl = image
     ? image.src.startsWith("http://") || image.src.startsWith("https://")
       ? image.src
@@ -262,7 +264,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     <Container className="pb-16 pt-10 sm:pb-24 sm:pt-14">
-      <article className="mx-auto max-w-5xl">
+      <article className="relative mx-auto max-w-5xl">
         <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
           <Link to="/" className="hover:text-foreground">Front page</Link>
           <span aria-hidden="true" className="mx-2">/</span>
@@ -297,6 +299,8 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           </figcaption>
         </figure> : null}
 
+        <div className="relative">
+          {hasHomecomingMumSupplies ? <><style>{`.homecoming-supply-rail{display:none}@media (min-width:1536px){.homecoming-supply-rail{display:block}.homecoming-supply-bottom{display:none}}`}</style><aside className="homecoming-supply-rail" style={{ left: "calc(100% + 2rem)", position: "absolute", top: "2rem", width: "18rem" }}><div style={{ position: "sticky", top: "2rem" }}><SchoolSupplyPartners placement="rail" context="homecoming" /></div></aside></> : null}
         <section className="border-b border-border py-8" aria-labelledby="quick-answer">
           <p className="eyebrow text-primary">Quick answer</p>
           <h2 id="quick-answer" className="mt-2 font-display text-3xl">The short version</h2>
@@ -320,6 +324,8 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
             </div>
           </section>)}
         </div>
+        </div>
+        {hasHomecomingMumSupplies ? <SchoolSupplyPartners className="homecoming-supply-bottom" context="homecoming" /> : null}
 
         {sources.length ? <section className="border-b border-border py-10" aria-labelledby="source-notes">
           <p className="eyebrow text-primary">Source notes</p>
