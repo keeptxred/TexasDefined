@@ -4,6 +4,7 @@ import { TEXAS_VS_STATE_EVIDENCE_WAVE8 } from "./texas-vs-state-evidence-wave8.s
 import { TEXAS_VS_STATE_EVIDENCE_WAVE9 } from "./texas-vs-state-evidence-wave9.server";
 import { TEXAS_VS_STATE_EVIDENCE_WAVE10 } from "./texas-vs-state-evidence-wave10.server";
 import { TEXAS_VS_STATE_EVIDENCE_WAVE11 } from "./texas-vs-state-evidence-wave11.server";
+import { TEXAS_VS_STATE_EVIDENCE_WAVE12 } from "./texas-vs-state-evidence-wave12.server";
 import { texasVsStateProfile } from "./texas-vs-states";
 
 export function loadTexasVsStateProfileServer(name: string) {
@@ -18,6 +19,7 @@ export function loadTexasVsStateProfileServer(name: string) {
       TEXAS_VS_STATE_EVIDENCE_WAVE8[name] ??
       TEXAS_VS_STATE_EVIDENCE_WAVE9[name] ??
       TEXAS_VS_STATE_EVIDENCE_WAVE10[name] ??
-      TEXAS_VS_STATE_EVIDENCE_WAVE11[name],
+      TEXAS_VS_STATE_EVIDENCE_WAVE11[name] ??
+      TEXAS_VS_STATE_EVIDENCE_WAVE12[name],
   };
 }
