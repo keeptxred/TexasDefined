@@ -34,6 +34,14 @@ requireAll('Jasper destination Blue Hole discovery', destinationLinks, [
   'Read the history of Jasper County\'s Blue Hole',
 ]);
 
+requireAll('Blue Hole primary article registry', seasonalIntentRegistry, [
+  'import { blueHoleJasperCountyStoryArticle } from "./blue-hole-jasper-county-story"',
+  'blueHoleJasperCountyStoryArticle,',
+  'const slugs = new Set(seasonalIntentStubs.map((article) => article.slug))',
+  'const localFullArticle = seasonalIntentStubs.find((item) => item.slug === slug && item.body.length > 0)',
+  'if (localFullArticle) return localFullArticle',
+]);
+
 requireAll('supplemental editorial lookup registry', seasonalIntentRegistry, [
   'const supplementalIntentArticles = new Map<string, Article>()',
   'export function registerSupplementalIntentArticle(article: Article)',
@@ -59,4 +67,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('County editorial discovery validator passed: canonical county guides surface curated article links, legacy county redirects are limited to real Texas county slugs, supplemental editorial registration supports deterministic slug lookup, and Jasper retains reciprocal Blue Hole discovery from both county and destination surfaces.');
+console.log('County editorial discovery validator passed: canonical county guides surface curated article links, legacy county redirects are limited to real Texas county slugs, the Blue Hole full article is in the primary seasonal registry for both listing and direct slug lookup, supplemental editorial registration remains deterministic, and Jasper retains reciprocal Blue Hole discovery from both county and destination surfaces.');
