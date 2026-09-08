@@ -11,7 +11,6 @@ const canonicalPath = '/do/homestead-exemption';
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}${canonicalPath}`;
 const officialUrl = 'https://comptroller.texas.gov/taxes/property-tax/exemptions/';
-const historyDataset = getTexasDataset('homestead-exemption-history');
 const steps = [
   'Go to the official county appraisal district website.',
   'Open the residence homestead application.',
@@ -21,7 +20,8 @@ const steps = [
 ];
 
 export const Route = createFileRoute('/do/homestead-exemption')({
-  head: () => ({
+  loader: () => getTexasDataset('homestead-exemption-history'),
+  head: ({ loaderData: historyDataset }) => ({
     meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Texas Homestead Exemption Guide & History', description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({
@@ -52,6 +52,8 @@ export const Route = createFileRoute('/do/homestead-exemption')({
 });
 
 function HomesteadExemptionPage() {
+  const historyDataset = Route.useLoaderData();
+
   return <>
     <PropertyTaxGuidePage
       eyebrow="Homeowner basics"

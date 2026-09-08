@@ -8,7 +8,7 @@ const description = 'Partner with Texas Defined on useful, clearly disclosed Tex
 
 type PartnerSearch = {
   partnershipType?: 'sports-travel' | 'brand-retail';
-  sourcePath: string;
+  sourcePath?: string;
 };
 
 function sanitizePartnerSource(value: unknown) {
@@ -25,7 +25,7 @@ export const Route = createFileRoute('/partner-with-us')({
       : search.type === 'brand-retail'
         ? 'brand-retail'
         : undefined,
-    sourcePath: sanitizePartnerSource(search.source),
+    sourcePath: typeof search.source === 'string' ? sanitizePartnerSource(search.source) : undefined,
   }),
   head: () => ({
     meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Partner With Texas Defined', description }),
