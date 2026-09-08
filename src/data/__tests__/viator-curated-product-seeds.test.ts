@@ -34,4 +34,17 @@ describe("curated Viator product seeds", () => {
     expect(viatorSeedsForMarket("waco").some((seed) => seed.title.includes("Brazos River"))).toBe(true);
     expect(viatorSeedsForMarket("big-bend-terlingua").some((seed) => seed.title.includes("Rio Grande"))).toBe(true);
   });
+
+  it("keeps representative pages 21-23 discovery signals", () => {
+    const titles = new Set(VIATOR_CURATED_PRODUCT_SEEDS.map((seed) => seed.title));
+    for (const title of [
+      "The Buckhorn Saloon & Museum and Texas Ranger Museum Admission",
+      "Giant Glow Paddleboarding the Downtown Skyline with Bats",
+      "Waco AdvenTOUR: Explore Waco & Magnolia Market from Dallas",
+      "Private Sailing Experience on Galveston Bay",
+      "Dallas Deep Ellum Food & Street Art Tour by Food Tours of America",
+    ]) {
+      expect(titles.has(title), `missing curated pages 21-23 signal: ${title}`).toBe(true);
+    }
+  });
 });
