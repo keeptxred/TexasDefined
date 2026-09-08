@@ -371,7 +371,7 @@ function ArticlePage() {
     </section>
     <Container className="relative max-w-3xl py-10 sm:py-16">
       <Byline author={author} meta={`${formatDate(article.publishedAt)} · ${formatReadingTime(article.readingMinutes)}`} />
-      {hasSchoolSupplyRail ? <aside className="absolute left-[calc(100%+2rem)] top-10 hidden w-72 2xl:block"><div className="sticky top-8"><SchoolSupplyPartners placement="rail" /></div></aside> : null}
+      {hasSchoolSupplyRail ? <aside className="absolute hidden 2xl:block" style={{ left: "calc(100% + 2rem)", top: "2.5rem", width: "18rem" }}><div className="sticky top-8"><SchoolSupplyPartners placement="rail" /></div></aside> : null}
       <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
         <a href="/editorial-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Editorial policy</a>
         <a href="/sourcing-methodology" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">How we source</a>
