@@ -95,11 +95,15 @@ for (const routePath of ['/hunting/public-hunting', '/hunting/annual-public-hunt
 }
 
 requireText(productionSmokeWorkflow, "workflows: ['Deploy TexasDefined production']", 'production smoke must follow successful production deploys');
+requireText(productionSmokeWorkflow, 'pull_request:', 'verifier-only PR changes must test against production before merge');
 requireText(productionSmokeWorkflow, "'scripts/data/verify-hunting-production.mjs'", 'production smoke script changes must self-test on main');
 requireText(productionSmokeWorkflow, 'node scripts/data/verify-hunting-production.mjs', 'production workflow must execute decoded Node verifier');
 requireText(productionSmoke, 'await fetch(', 'production smoke must use decoded Node fetch');
 requireText(productionSmoke, 'response.text()', 'production smoke must decode response bodies as text');
-requireText(productionSmoke, "text.includes('\\0')", 'production smoke must fail closed on residual NUL bytes');
+requireText(productionSmoke, "function assertNulsOnlyInsideScripts", 'production smoke must distinguish framework script delimiters from document corruption');
+requireText(productionSmoke, "text.replaceAll('\\0', '')", 'production smoke must normalize only validated framework NUL delimiters before text assertions');
+requireText(productionSmoke, "startsWith('<!DOCTYPE html>')", 'production smoke must require an HTML document envelope');
+requireText(productionSmoke, "includes('text/html')", 'production smoke must require HTML content type for page checks');
 requireText(productionSmoke, 'More Texas game & small-game coverage', 'production smoke must verify v2 small-game hub group');
 requireText(productionSmoke, 'Migratory game bird depth', 'production smoke must verify v2 migratory hub group');
 requireText(productionSmoke, 'Fur-bearing animals & trapping', 'production smoke must verify v2 fur-bearer hub group');
@@ -113,4 +117,4 @@ for (const redirectOnly of ['/explore/wildlife-management-areas', '/explore/texa
   }
 }
 
-console.log(`Hunting authority validation passed: hub + ${expectedTopics.length} topics, v2 coverage, freshness, TPWD sourcing, search/sitemap governance, reciprocal discovery links, bundle-safe WMA discovery and decoded v2 production smoke governance.`);
+console.log(`Hunting authority validation passed: hub + ${expectedTopics.length} topics, v2 coverage, freshness, TPWD sourcing, search/sitemap governance, reciprocal discovery links, bundle-safe WMA discovery and framework-aware v2 production smoke governance.`);
