@@ -1,6 +1,6 @@
 import { Container } from "@/components/layout/Container";
 import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl, viatorTexasUrl } from "@/data/viator-destination-links";
-import { VIATOR_RUNTIME_CATEGORIES, VIATOR_RUNTIME_MARKETS } from "@/data/viator-experience-runtime";
+import { VIATOR_RUNTIME_CATEGORIES, VIATOR_RUNTIME_MARKETS, VIATOR_RUNTIME_SIGNAL_REVIEWED_AT } from "@/data/viator-experience-runtime";
 import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
 
 export function TexasExperienceMarkets() {
@@ -25,6 +25,7 @@ export function TexasExperienceMarkets() {
       <div className="mt-14">
         <p className="eyebrow text-primary">Highest-priority markets</p>
         <h3 className="mt-2 font-display text-3xl">Start where Texas travel intent is deepest</h3>
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Market cards use category-level signals from reviewed Viator Texas inventory, not hard-coded products. Signals were last reconciled <time dateTime={VIATOR_RUNTIME_SIGNAL_REVIEWED_AT}>September 8, 2026</time>; current inventory is always resolved on Viator.</p>
         <div className="mt-7 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {primary.map((market) => <MarketCard key={market.slug} market={market} />)}
         </div>
@@ -54,6 +55,7 @@ function MarketCard({ market }: { market: (typeof VIATOR_RUNTIME_MARKETS)[number
   return <article className="border border-border bg-background p-6">
     <p className="eyebrow text-primary">{market.regionLabel}</p>
     <h4 className="mt-2 font-display text-3xl leading-tight">{market.name}</h4>
+    {market.signalLanes?.length ? <p className="mt-3 text-sm leading-6 text-muted-foreground"><strong className="font-semibold text-foreground">Recent inventory signals:</strong> {market.signalLanes.join(" · ")}</p> : null}
     <div className="mt-5 flex flex-wrap gap-4 text-sm font-semibold">
       <a href={localSearch} className="border-b border-primary text-primary">TexasDefined places →</a>
       <a href={viatorUrl} target="_blank" rel="sponsored noopener noreferrer" className="border-b border-border hover:border-primary hover:text-primary">{verifiedMarketInventory ? "Current Viator options ↗" : "Browse Viator Texas inventory ↗"}</a>
