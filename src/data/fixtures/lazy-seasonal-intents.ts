@@ -40,9 +40,23 @@ export const seasonalIntentStubs: Article[] = [
 ];
 
 const slugs = new Set(seasonalIntentStubs.map((article) => article.slug));
+const supplementalIntentArticles = new Map<string, Article>();
+
+// A few small editorial additions are registered through the newest-evergreen
+// module's existing import graph. Keep registration explicit and update both
+// discovery and direct lookup state so those additions cannot become list-only
+// entries that 404 when fetched by slug.
+export function registerSupplementalIntentArticle(article: Article) {
+  if (article.brandId !== "texasdefined") return;
+  if (!seasonalIntentStubs.some((item) => item.slug === article.slug)) seasonalIntentStubs.push(article);
+  slugs.add(article.slug);
+  supplementalIntentArticles.set(article.slug, article);
+}
 
 export async function loadSeasonalIntentArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined" || !slugs.has(slug)) return null;
+  const supplementalArticle = supplementalIntentArticles.get(slug);
+  if (supplementalArticle) return supplementalArticle;
   const { seasonalIntentArticles } = await import("./seasonal-intent-articles");
   const article = seasonalIntentArticles.find((item) => item.slug === slug);
   return article ? canonicalizeSeasonalArticleLinks(article) : null;
