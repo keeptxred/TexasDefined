@@ -35,6 +35,23 @@ function isBaseBrand(brand: TexasBrandLocatorBrand): brand is "heb" | "bucees" {
   return brand === "heb" || brand === "bucees";
 }
 
+function isHebSpecialtyName(name: string) {
+  return Object.values(HEB_FORMAT_CONFIG).some(({ pattern }) => pattern.test(name));
+}
+
+function keepOrdinaryHebResults(
+  response: TexasBrandLocatorResponse,
+  selectedBrands: TexasBrandLocatorBrand[],
+) {
+  if (!selectedBrands.includes("heb")) return response;
+  const hadHebResult = response.results.some((location) => location.brand === "heb");
+  response.results = response.results.filter((location) => location.brand !== "heb" || !isHebSpecialtyName(location.name));
+  if (hadHebResult && !response.results.some((location) => location.brand === "heb")) {
+    response.notices.push("H-E-B's live locator returned only specialty-format stores for this search. Use the official H-E-B locator link below for the current ordinary H-E-B store list.");
+  }
+  return response;
+}
+
 function timeoutSignal() {
   const controller = new AbortController();
   setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
@@ -175,6 +192,7 @@ export async function findExpandedTexasBrandLocationsNearPointServer(input: {
   const response = baseBrands.length
     ? await findBaseTexasBrandLocationsNearPointServer({ ...input, query, brands: baseBrands })
     : emptyResponse(query, input.matchedAddress ?? null);
+  keepOrdinaryHebResults(response, selectedBrands);
   return appendHebFormats(response, query, formatBrands);
 }
 
@@ -189,5 +207,6 @@ export async function findExpandedTexasBrandLocationsServer(input: {
   const response = baseBrands.length
     ? await findBaseTexasBrandLocationsServer({ address: query, brands: baseBrands })
     : emptyResponse(query, null);
+  keepOrdinaryHebResults(response, selectedBrands);
   return appendHebFormats(response, query, formatBrands);
 }
