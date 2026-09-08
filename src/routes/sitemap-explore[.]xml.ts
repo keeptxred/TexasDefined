@@ -206,6 +206,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/aquariums",
           "/explore/rv-parks",
           "/explore/wildlife",
+          "/explore/water-towers",
           ...PAINTED_CHURCH_STATIC_PATHS,
           "/explore/top-attractions",
           "/explore/top-attractions/methodology",
@@ -246,7 +247,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           ...itineraryEntries,
           ...searchGuideEntries,
         ].join("\n");
-        const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
+        const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/sitemap/0.9">\n${entries}\n</urlset>`;
         return new Response(xml, {
           headers: {
             "Content-Type": "application/xml; charset=utf-8",
