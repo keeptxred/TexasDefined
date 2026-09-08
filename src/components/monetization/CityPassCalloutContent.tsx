@@ -1,4 +1,5 @@
-import { CITYPASS_AFFILIATE_URL, CITYPASS_GUIDE_PATH, type CityPassMarket } from "@/data/citypass";
+import { CITYPASS_AFFILIATE_URL, CITYPASS_GUIDE_PATH, cityPassMarketForCitySlug, cityPassMarketForDestinationSlug, cityPassMarketForSportsVenueSlug, type CityPassMarket } from "@/data/citypass";
+import type { CityPassSurface } from "./CityPassCallout";
 
 const COPY: Record<CityPassMarket, { heading: string; body: string }> = {
   Dallas: {
@@ -15,12 +16,21 @@ const COPY: Record<CityPassMarket, { heading: string; body: string }> = {
   },
 };
 
-export function CityPassCalloutContent({ market, placement = "inline" }: { market: CityPassMarket; placement?: "inline" | "rail" }) {
+function marketFor(surface?: CityPassSurface, slug?: string) {
+  if (!surface || !slug) return null;
+  if (surface === "destination") return cityPassMarketForDestinationSlug(slug);
+  if (surface === "city") return cityPassMarketForCitySlug(slug);
+  return cityPassMarketForSportsVenueSlug(slug);
+}
+
+export function CityPassCalloutContent({ market, surface, slug, placement = "inline" }: { market?: CityPassMarket; surface?: CityPassSurface; slug?: string; placement?: "inline" | "rail" }) {
+  const resolvedMarket = market ?? marketFor(surface, slug);
+  if (!resolvedMarket) return null;
   const isRail = placement === "rail";
-  const copy = COPY[market];
+  const copy = COPY[resolvedMarket];
 
   return (
-    <aside className={`${isRail ? "border border-border bg-surface p-5" : "mt-12 border-y border-border bg-surface/55 py-8 sm:px-7 sm:py-9"}`} aria-label={`${market} CityPASS trip-planning option`}>
+    <aside className={`${isRail ? "border border-border bg-surface p-5" : "mt-12 border-y border-border bg-surface/55 py-8 sm:px-7 sm:py-9"}`} aria-label={`${resolvedMarket} CityPASS trip-planning option`}>
       <p className="eyebrow text-primary">Multi-attraction trip planning</p>
       <h2 className={`${isRail ? "mt-2 text-2xl" : "mt-3 text-3xl"} font-display leading-tight`}>{copy.heading}</h2>
       <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy.body}</p>

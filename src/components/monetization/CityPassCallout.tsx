@@ -1,18 +1,12 @@
 import { lazy, Suspense } from "react";
 
-import type { CityPassMarket } from "@/data/citypass";
+export type CityPassMarket = "Dallas" | "Houston" | "San Antonio";
+export type CityPassSurface = "destination" | "city" | "sports-venue";
 
-export {
-  cityPassMarketForCitySlug,
-  cityPassMarketForDestinationSlug,
-  cityPassMarketForSportsVenueSlug,
-} from "@/data/citypass";
-export type { CityPassMarket } from "@/data/citypass";
+type CityPassCalloutProps = { market?: CityPassMarket; surface?: CityPassSurface; slug?: string; placement?: "inline" | "rail" };
 
-const CityPassCalloutContent = lazy(() =>
-  import("./CityPassCalloutContent").then((module) => ({ default: module.CityPassCalloutContent })),
-);
+const CityPassCalloutContent = lazy(() => import("./CityPassCalloutContent").then((module) => ({ default: module.CityPassCalloutContent })));
 
-export function CityPassCallout(props: { market: CityPassMarket; placement?: "inline" | "rail" }) {
+export function CityPassCallout(props: CityPassCalloutProps) {
   return <Suspense fallback={null}><CityPassCalloutContent {...props} /></Suspense>;
 }

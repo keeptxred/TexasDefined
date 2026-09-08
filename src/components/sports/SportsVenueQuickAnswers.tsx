@@ -1,5 +1,5 @@
 import { TexasExplainedContextLinks } from '@/components/editorial/TexasExplainedContextLinks';
-import { CityPassCallout, cityPassMarketForSportsVenueSlug } from '@/components/monetization/CityPassCallout';
+import { CityPassCallout } from '@/components/monetization/CityPassCallout';
 import { SportsTrafficTracker } from '@/components/sports/SportsTrafficTracker';
 
 type SportsVenueQuickAnswersProps = {
@@ -35,7 +35,6 @@ export function SportsVenueQuickAnswers({
   const surfacePath = slug ? `/sports-venue/${slug}` : undefined;
   const heroSrc = slug ? `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}` : undefined;
   const absoluteHeroUrl = heroSrc ? new URL(heroSrc, canonicalUrl).toString() : undefined;
-  const cityPassMarket = slug ? cityPassMarketForSportsVenueSlug(slug) : null;
   if (!answers.length) return null;
 
   const faqJsonLd = {
@@ -95,7 +94,7 @@ export function SportsVenueQuickAnswers({
       </div>
     </section>
 
-    {cityPassMarket ? <CityPassCallout market={cityPassMarket} /> : null}
+    {slug ? <CityPassCallout surface="sports-venue" slug={slug} /> : null}
     <TexasExplainedContextLinks surface="sports" />
   </>;
 }

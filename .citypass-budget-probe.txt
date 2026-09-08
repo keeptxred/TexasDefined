@@ -1,0 +1,6 @@
+
+> performance:validate
+> node scripts/data/validate-client-bundle-budget.mjs
+
+::error title=Client bundle budget::Main client bundle main-kQuDVBf5.js is 1,826,825 bytes; budget is 1,825,000 bytes; over by 1,825 bytes (stable baseline 1,807,457 bytes).
+Main client bundle main-kQuDVBf5.js is 1,826,825 bytes; budget is 1,825,000 bytes; over by 1,825 bytes (stable baseline 1,807,457 bytes).

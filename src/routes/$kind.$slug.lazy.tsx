@@ -4,7 +4,7 @@ import { CountyCoastalPlaces } from '@/components/content/CountyCoastalPlaces';
 import { CountyGuideSections } from '@/components/content/CountyGuideSections';
 import { EntityDepthSections } from '@/components/content/EntityDepthSections';
 import { Container } from '@/components/layout/Container';
-import { CityPassCallout, cityPassMarketForCitySlug } from '@/components/monetization/CityPassCallout';
+import { CityPassCallout } from '@/components/monetization/CityPassCallout';
 import { CountySportsDestinations } from '@/components/sports/CountySportsDestinations';
 import {
   canonicalEntityPath,
@@ -26,7 +26,6 @@ function EntityPage() {
   const canonicalPath = canonicalEntityPath(entity);
   const canonicalUrl = `${siteUrl}${canonicalPath}`;
   const incomplete = !entity.description;
-  const cityPassMarket = entity.kind === 'city' ? cityPassMarketForCitySlug(entity.slug) : null;
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -106,7 +105,7 @@ function EntityPage() {
           {entity.coordinates && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={`https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`} target="_blank" rel="noreferrer">Open in maps ↗</a>}
         </div>
 
-        {cityPassMarket ? <CityPassCallout market={cityPassMarket} /> : null}
+        {entity.kind === 'city' ? <CityPassCallout surface="city" slug={entity.slug} /> : null}
         {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} /> : null}
         {entity.kind === 'county' ? <CountyCoastalPlaces county={entity} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
