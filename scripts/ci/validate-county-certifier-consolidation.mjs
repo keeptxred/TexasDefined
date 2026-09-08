@@ -90,7 +90,9 @@ const countySeries = read('src/data/county-series.ts');
 for (const needle of [
   'articleSlug.indexOf("-county-")',
   'articleSlug.endsWith("-texas")',
-  'return articleSlug.slice(0, markerIndex);',
+  'const TEXAS_COUNTY_SLUGS = new Set(TEXAS_COUNTIES.map((county) => county.slug))',
+  'const countySlug = articleSlug.slice(0, markerIndex);',
+  'return TEXAS_COUNTY_SLUGS.has(countySlug) ? countySlug : null;',
 ]) if (!countySeries.includes(needle)) errors.push(`Generic legacy county-slug parser regressed: missing ${needle}`);
 
 const server = read('src/server.ts');
@@ -175,4 +177,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`County certifier retirement safety passed: ${counties.length} completed one-time wrappers are removed, PASS evidence is retained, county-specific source/editorial/redirect contracts remain protected, the dormant reusable path is not directly dispatchable, and the former active entry point fails closed.`);
+console.log(`County certifier retirement safety passed: ${counties.length} completed one-time wrappers are removed, PASS evidence is retained, county-specific source/editorial/redirect contracts remain protected, the generic redirect is scoped to real Texas county slugs, the dormant reusable path is not directly dispatchable, and the former active entry point fails closed.`);
