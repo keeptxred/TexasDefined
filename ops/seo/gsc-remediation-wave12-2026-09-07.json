@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+  "reviewDate": "2026-09-07",
+  "reviewMethod": "GSC-prioritized state-specific server-side evidence review against the Wave 4 remediation requirements: current tax, housing, labor, hazard/resilience and transportation sources; stronger metro/place comparison; dated review metadata; canonical/schema integrity; and sitemap qualification",
+  "summary": { "reviewed": 3, "KEEP": 3, "IMPROVE": 0, "NOINDEX": 0, "REMOVE_CONSOLIDATE": 0 },
+  "reviewed": [
+    {
+      "path": "/texas-vs/new-jersey",
+      "action": "KEEP",
+      "reason": "New Jersey now has current state income-tax guidance, current Census housing benchmarks, July 2026 NJDOL labor evidence, the 2024 State Hazard Mitigation Plan, NJ TRANSIT system evidence and distinct New York-facing, central, shore and Philadelphia-facing market guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/maryland",
+      "action": "KEEP",
+      "reason": "Maryland now has current published state and 2026 local income-tax guidance, current Census housing benchmarks, July 2026 labor evidence, the active 2026 state hazard-plan update framework, multimodal MTA evidence and distinct Washington-suburban, Baltimore, Frederick, Eastern Shore and Western Maryland market guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/kentucky",
+      "action": "KEEP",
+      "reason": "Kentucky now has official evidence for the 3.5% 2026 individual income-tax rate, current Census housing benchmarks, July 2026 KYSTATS labor evidence, Kentucky Emergency Management hazard guidance, statewide KYTC transit-provider evidence and distinct Louisville, Lexington, Northern Kentucky, Bowling Green and regional-market guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    }
+  ]
+}
