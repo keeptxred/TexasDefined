@@ -40,9 +40,11 @@ const GSC_IMPROVE_STATE_SLUGS = [
 
 const GSC_PROMOTED_STATE_SLUGS = [
   "alabama",
+  "alaska",
   "colorado",
   "georgia",
   "idaho",
+  "indiana",
   "louisiana",
   "michigan",
   "nevada",
@@ -56,6 +58,7 @@ const GSC_PROMOTED_STATE_SLUGS = [
   "tennessee",
   "utah",
   "virginia",
+  "west-virginia",
 ] as const;
 
 const REDIRECT_ONLY_STATE_SLUGS = ["california", "florida"] as const;
