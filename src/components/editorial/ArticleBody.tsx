@@ -3,6 +3,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import type { ArticleBlock, Author } from "@/data/types";
 import type { TexasEntityRecord } from "@/data/knowledge-graph";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
+import { DiscountSchoolSupplyAffiliate, DISCOUNT_SCHOOL_SUPPLY_ARTICLE_SLUGS } from "@/components/commerce/DiscountSchoolSupplyAffiliate";
 import { ShopTheStory } from "@/components/commerce/ShopTheStory";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from '@/platform/internal-link-policies';
 import { countyLabelHasExplicitContext } from '@/platform/internal-linking';
@@ -39,6 +40,8 @@ export function Byline({ author, meta }: { author: Author | null; meta: string }
 export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[]; entities?: TexasEntityRecord[] }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const showMetroRelocationAuthority = metroRelocationGuidePaths.has(pathname);
+  const articleSlug = pathname.startsWith("/article/") ? pathname.slice("/article/".length) : "";
+  const showDiscountSchoolSupplyAffiliate = DISCOUNT_SCHOOL_SUPPLY_ARTICLE_SLUGS.has(articleSlug);
   const linked = new Set<string>();
   let remainingLinks = articlePolicy.pageBudget;
   const available = () => entities.filter((entity) => !linked.has(entity.id));
@@ -90,6 +93,7 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
         default: return <p key={index} className="mt-6 first:mt-0">{render(block.text, 4)}</p>;
       }
     })}
+    {showDiscountSchoolSupplyAffiliate ? <DiscountSchoolSupplyAffiliate /> : null}
     {showMetroRelocationAuthority ? <Suspense fallback={null}><MetroRelocationAuthority articlePath={pathname} /></Suspense> : null}
   </div>;
 }
