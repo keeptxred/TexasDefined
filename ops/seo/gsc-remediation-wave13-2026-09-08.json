@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+  "reviewDate": "2026-09-08",
+  "reviewMethod": "GSC-prioritized state-specific server-side evidence review against the Wave 4 remediation requirements: current tax, housing, labor, hazard/resilience and transportation sources; stronger metro/place comparison; dated review metadata; canonical/schema integrity; and sitemap qualification",
+  "summary": { "reviewed": 3, "KEEP": 3, "IMPROVE": 0, "NOINDEX": 0, "REMOVE_CONSOLIDATE": 0 },
+  "reviewed": [
+    {
+      "path": "/texas-vs/kansas",
+      "action": "KEEP",
+      "reason": "Kansas now has current Department of Revenue tax guidance, Census housing benchmarks, current Department of Labor labor-market reporting, current KDEM hazard-mitigation planning and KDOT public-transportation evidence plus distinct Kansas City-side, Wichita, Topeka, Lawrence, Manhattan and rural-market comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/kentucky",
+      "action": "KEEP",
+      "reason": "Kentucky now has 2026 Department of Revenue withholding guidance, Census housing benchmarks, July 2026 KYSTATS labor evidence, current Kentucky Emergency Management hazard-mitigation authority and KYTC public-transportation evidence plus distinct Louisville, Lexington, Northern Kentucky, Bowling Green and eastern-Kentucky comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/missouri",
+      "action": "KEEP",
+      "reason": "Missouri now has current Department of Revenue tax guidance, Census housing benchmarks, July 2026 MERIC labor evidence, current SEMA hazard-mitigation authority and MoDOT transit evidence plus distinct St. Louis, Kansas City, Springfield, Columbia and rural/Ozarks comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    }
+  ]
+}
