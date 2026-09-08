@@ -1,7 +1,10 @@
 import fs from 'node:fs';
 
 const read = (path) => fs.readFileSync(path, 'utf8');
-const component = read('src/components/monetization/CityPassCallout.tsx');
+const cityPassData = read('src/data/citypass.ts');
+const calloutWrapper = read('src/components/monetization/CityPassCallout.tsx');
+const calloutContent = read('src/components/monetization/CityPassCalloutContent.tsx');
+const component = [cityPassData, calloutWrapper, calloutContent].join('\n');
 const expansion = read('src/data/citypass-destination-expansion.ts');
 const preserved = read('src/data/destination-preserved-catalog.ts');
 const guideRoute = read('src/routes/guides.citypass-texas.tsx');
@@ -25,6 +28,7 @@ for (const [needle, label] of [
   ['export type CityPassMarket = "Dallas" | "Houston" | "San Antonio"', 'Three-market type'],
   ['cityPassMarketForSportsVenueSlug', 'Sports venue market resolver'],
 ]) requireText(component, needle, label);
+requireText(calloutWrapper, 'import("./CityPassCalloutContent")', 'Lazy CityPASS CTA performance split');
 
 const destinationCoverage = [
   ['Dallas', 'perot-museum-of-nature-and-science', '/destination/perot-museum-of-nature-and-science'],
@@ -95,4 +99,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('CityPASS affiliate validation passed: Dallas, Houston and San Antonio are covered; all 21 current Texas CityPASS attractions/tours map to TexasDefined pages; eight previously missing destination guides are published through the preserved catalog; contextual city, destination and AT&T Stadium placements retain the disclosed CJ affiliate link.');
+console.log('CityPASS affiliate validation passed: Dallas, Houston and San Antonio are covered; all 21 current Texas CityPASS attractions/tours map to TexasDefined pages; eight previously missing destination guides are published through the preserved catalog; contextual city, destination and AT&T Stadium placements retain the disclosed CJ affiliate link and lazy CTA split.');
