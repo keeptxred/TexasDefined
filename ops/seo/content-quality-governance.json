@@ -54,22 +54,33 @@
     {
       "family": "articles",
       "file": "src/data/fixtures/texas-gateway-index-readiness.ts",
-      "requiredMarkers": ["isArticleIndexReady", "ARTICLE_INDEX_MIN_BODY_WORDS"]
+      "requiredMarkers": [
+        "isArticleIndexReady",
+        "ARTICLE_INDEX_MIN_BODY_WORDS"
+      ]
     },
     {
       "family": "destinations",
       "file": "src/data/destination-audit.ts",
-      "requiredMarkers": ["readyForIndexing"]
+      "requiredMarkers": [
+        "readyForIndexing"
+      ]
     },
     {
       "family": "generic entities",
       "file": "src/routes/$kind.$slug.tsx",
-      "requiredMarkers": ["isIndexableEntityPage", "noindex, follow"]
+      "requiredMarkers": [
+        "isIndexableEntityPage",
+        "noindex, follow"
+      ]
     },
     {
       "family": "county property pages",
       "file": "src/routes/property-tax.county.$county.tsx",
-      "requiredMarkers": ["isCountyPropertyIndexReady", "noindex, follow"]
+      "requiredMarkers": [
+        "isCountyPropertyIndexReady",
+        "noindex, follow"
+      ]
     },
     {
       "family": "county property promotion audit",
@@ -97,7 +108,9 @@
     {
       "family": "Texas-vs-state edge deployment",
       "file": "wrangler.jsonc",
-      "requiredMarkers": ["src/server-entry.ts"]
+      "requiredMarkers": [
+        "src/server-entry.ts"
+      ]
     },
     {
       "family": "Texas-vs-state sitemap readiness",
@@ -115,37 +128,100 @@
     {
       "family": "Texas-vs-state evidence promotion",
       "file": "src/data/texas-vs-state-evidence.server.ts",
-      "requiredMarkers": ["reviewedAt", "taxLens", "housingLens", "jobsLens", "riskLens", "transportationLens", "metroLens", "sources"]
+      "requiredMarkers": [
+        "reviewedAt",
+        "taxLens",
+        "housingLens",
+        "jobsLens",
+        "riskLens",
+        "transportationLens",
+        "metroLens",
+        "sources"
+      ]
     },
     {
       "family": "Texas-vs-state wave 7 evidence promotion",
       "file": "src/data/texas-vs-state-evidence-wave7.server.ts",
-      "requiredMarkers": ["reviewedAt", "taxLens", "housingLens", "jobsLens", "riskLens", "transportationLens", "metroLens", "sources"]
+      "requiredMarkers": [
+        "reviewedAt",
+        "taxLens",
+        "housingLens",
+        "jobsLens",
+        "riskLens",
+        "transportationLens",
+        "metroLens",
+        "sources"
+      ]
     },
     {
       "family": "Texas-vs-state wave 8 evidence promotion",
       "file": "src/data/texas-vs-state-evidence-wave8.server.ts",
-      "requiredMarkers": ["reviewedAt", "taxLens", "housingLens", "jobsLens", "riskLens", "transportationLens", "metroLens", "sources"]
+      "requiredMarkers": [
+        "reviewedAt",
+        "taxLens",
+        "housingLens",
+        "jobsLens",
+        "riskLens",
+        "transportationLens",
+        "metroLens",
+        "sources"
+      ]
     },
     {
       "family": "Texas-vs-state wave 9 evidence promotion",
       "file": "src/data/texas-vs-state-evidence-wave9.server.ts",
-      "requiredMarkers": ["reviewedAt", "taxLens", "housingLens", "jobsLens", "riskLens", "transportationLens", "metroLens", "sources"]
+      "requiredMarkers": [
+        "reviewedAt",
+        "taxLens",
+        "housingLens",
+        "jobsLens",
+        "riskLens",
+        "transportationLens",
+        "metroLens",
+        "sources"
+      ]
     },
     {
       "family": "Texas-vs-state wave 10 evidence promotion",
       "file": "src/data/texas-vs-state-evidence-wave10.server.ts",
-      "requiredMarkers": ["reviewedAt", "taxLens", "housingLens", "jobsLens", "riskLens", "transportationLens", "metroLens", "sources"]
+      "requiredMarkers": [
+        "reviewedAt",
+        "taxLens",
+        "housingLens",
+        "jobsLens",
+        "riskLens",
+        "transportationLens",
+        "metroLens",
+        "sources"
+      ]
     },
     {
       "family": "Texas-vs-state wave 11 evidence promotion",
       "file": "src/data/texas-vs-state-evidence-wave11.server.ts",
-      "requiredMarkers": ["reviewedAt", "taxLens", "housingLens", "jobsLens", "riskLens", "transportationLens", "metroLens", "sources"]
+      "requiredMarkers": [
+        "reviewedAt",
+        "taxLens",
+        "housingLens",
+        "jobsLens",
+        "riskLens",
+        "transportationLens",
+        "metroLens",
+        "sources"
+      ]
     },
     {
       "family": "Texas-vs-state wave 12 evidence promotion",
       "file": "src/data/texas-vs-state-evidence-wave12.server.ts",
-      "requiredMarkers": ["reviewedAt", "taxLens", "housingLens", "jobsLens", "riskLens", "transportationLens", "metroLens", "sources"]
+      "requiredMarkers": [
+        "reviewedAt",
+        "taxLens",
+        "housingLens",
+        "jobsLens",
+        "riskLens",
+        "transportationLens",
+        "metroLens",
+        "sources"
+      ]
     },
     {
       "family": "Texas-vs-state sitemap quality integration",
@@ -174,6 +250,10 @@
       "ops/seo/gsc-remediation-wave12-2026-09-07.json"
     ],
     "maxUnreviewedAgeDays": 30,
-    "manualInspectionPriority": ["HIGH", "MEDIUM", "LOW"]
+    "manualInspectionPriority": [
+      "HIGH",
+      "MEDIUM",
+      "LOW"
+    ]
   }
 }
