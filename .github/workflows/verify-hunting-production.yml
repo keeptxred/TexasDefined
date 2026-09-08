@@ -4,6 +4,11 @@ on:
   workflow_run:
     workflows: ['Deploy TexasDefined production']
     types: [completed]
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/verify-hunting-production.yml'
   workflow_dispatch:
 
 permissions:
@@ -11,7 +16,7 @@ permissions:
 
 jobs:
   verify:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
