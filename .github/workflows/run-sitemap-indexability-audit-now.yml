@@ -66,3 +66,5 @@ jobs:
           path: tmp/sitemap-page-indexability-audit.json
           if-no-files-found: warn
           retention-days: 3
+
+# One-time rerun after the 2026-09-08 production indexability fixes; this PR will be closed after verification.
