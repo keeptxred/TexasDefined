@@ -254,7 +254,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         return new Response(xml, {
           headers: {
             "Content-Type": "application/xml; charset=utf-8",
-            "Cache-Control": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400",
+            "Cache-Control": "no-store",
           },
         });
       },
