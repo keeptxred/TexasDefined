@@ -78,6 +78,14 @@ describe("Texas brand locator", () => {
     expect(hebFormatsSource).not.toMatch(/Central Market.*street|Joe V.*street|Mi Tienda.*street/i);
   });
 
+  it("does not mislabel specialty-format H-E-B results as ordinary H-E-B stores", () => {
+    expect(hebFormatsSource).toContain("function isHebSpecialtyName(name: string)");
+    expect(hebFormatsSource).toContain("function keepOrdinaryHebResults(");
+    expect(hebFormatsSource).toContain('location.brand !== "heb" || !isHebSpecialtyName(location.name)');
+    expect(hebFormatsSource).toContain("returned only specialty-format stores for this search");
+    expect(hebFormatsSource).toContain("keepOrdinaryHebResults(response, selectedBrands)");
+  });
+
   it("reuses verified Buc-ee's coordinates before geocoding and persists only missing geography", () => {
     expect(serverSource).toContain('select("id,brand_slug,name,street,city,state,postal_code,latitude,longitude,source_url")');
     expect(serverSource).toContain("function storedBuceesCoordinates");
