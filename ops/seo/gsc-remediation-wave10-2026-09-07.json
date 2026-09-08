@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+  "reviewDate": "2026-09-07",
+  "reviewMethod": "State-specific server-side evidence review against the Wave 4 remediation requirements: current tax, housing, labor, hazard/resilience and transportation sources; stronger metro/place comparison; dated review metadata; canonical/schema integrity; and sitemap qualification",
+  "summary": { "reviewed": 3, "KEEP": 3, "IMPROVE": 0, "NOINDEX": 0, "REMOVE_CONSOLIDATE": 0 },
+  "reviewed": [
+    {
+      "path": "/texas-vs/idaho",
+      "action": "KEEP",
+      "reason": "Idaho now has current 5.3% individual-income-tax evidence, current Census housing benchmarks, July 2026 official labor-force evidence, current state mitigation authority and ITD transit evidence plus distinct Boise, Coeur d'Alene, Idaho Falls and Pocatello comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/oregon",
+      "action": "KEEP",
+      "reason": "Oregon now has current Department of Revenue personal-income-tax evidence, current OHCS housing-supply and affordability evidence, a July 2026 Oregon Employment Department labor-market checkpoint, the effective 2025-2030 state hazard plan and ODOT public-transportation evidence plus distinct Portland, Salem, Eugene, Bend and Medford comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/utah",
+      "action": "KEEP",
+      "reason": "Utah now has current 4.5% individual-income-tax evidence, current Census housing benchmarks, July 2026 Department of Workforce Services employment evidence, state hazard-mitigation authority and UDOT transit evidence plus distinct Wasatch Front, Provo-Orem and St. George comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    }
+  ]
+}
