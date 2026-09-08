@@ -9,6 +9,7 @@ on:
       - main
     paths:
       - '.github/workflows/verify-hunting-production.yml'
+      - 'scripts/data/verify-hunting-production.mjs'
   workflow_dispatch:
 
 permissions:
@@ -20,31 +21,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Check hunting hub and representative guides
-        shell: bash
-        run: |
-          set -euo pipefail
-          base='https://texasdefined.com'
-          curl_html=(curl --fail --silent --show-error --location --retry 4 --retry-delay 5 --max-time 30 --header 'Accept-Encoding: identity')
-          hub="$("${curl_html[@]}" "$base/hunting")"
-          grep -Fq 'Hunting Texas: licenses, public land, species and season planning' <<<"$hub" || { echo 'Missing hunting hub H1' >&2; exit 1; }
-          grep -Fq 'Texas Parks and Wildlife' <<<"$hub" || { echo 'Missing TPWD authority signal on hunting hub' >&2; exit 1; }
-          for path in '/hunting/public-hunting' '/hunting/texas-hunting-license' '/hunting/texas-deer-hunting'; do
-            body="$("${curl_html[@]}" "$base$path")"
-            grep -Fq 'TPWD season source' <<<"$body" || { echo "Missing topic freshness marker on $path" >&2; exit 1; }
-            grep -Fq 'Texas Parks and Wildlife' <<<"$body" || { echo "Missing TPWD authority signal on $path" >&2; exit 1; }
-            grep -Fq 'Current official sources' <<<"$body" || { echo "Missing official-source section on $path" >&2; exit 1; }
-          done
-      - name: Check freshness, disclaimer and sitemap discovery
-        shell: bash
-        run: |
-          set -euo pipefail
-          base='https://texasdefined.com'
-          curl_html=(curl --fail --silent --show-error --location --retry 4 --retry-delay 5 --max-time 30 --header 'Accept-Encoding: identity')
-          hub="$("${curl_html[@]}" "$base/hunting")"
-          grep -Fq '2026–27' <<<"$hub" || { echo 'Missing current hunting season-year marker' >&2; exit 1; }
-          grep -Fq 'not the legal authority' <<<"$hub" || { echo 'Missing hunting independence disclaimer' >&2; exit 1; }
-          sitemap="$("${curl_html[@]}" "$base/sitemap.xml")"
-          for path in '/hunting' '/hunting/public-hunting' '/hunting/texas-hunting-license' '/hunting/texas-deer-hunting'; do
-            grep -Fq "$base$path" <<<"$sitemap" || { echo "Missing sitemap URL $path" >&2; exit 1; }
-          done
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify hunting production
+        run: node scripts/data/verify-hunting-production.mjs
