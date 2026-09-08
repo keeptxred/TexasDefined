@@ -1,5 +1,5 @@
 const origin = (process.env.TEXASDEFINED_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
-const userAgent = 'TexasDefined-Hunting-Production-Smoke/2.4';
+const userAgent = 'TexasDefined-Hunting-Production-Smoke/3.0';
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const representativeTopics = [
@@ -66,16 +66,36 @@ function assertNulsOnlyInsideScripts(text, pathname) {
   return count;
 }
 
-function normalizeHtmlForAssertions(text) {
-  return text
-    .replaceAll('\0', '')
-    .replaceAll('<!-- -->', '')
-    .replaceAll('&amp;', '&')
-    .replaceAll('&#x26;', '&')
-    .replaceAll('&#38;', '&');
+function decodeHtmlEntities(text) {
+  return text.replace(/&(#(?:x[0-9a-f]+|\d+)|amp|lt|gt|quot|apos);/gi, (match, entity) => {
+    const normalized = entity.toLowerCase();
+    if (normalized === 'amp') return '&';
+    if (normalized === 'lt') return '<';
+    if (normalized === 'gt') return '>';
+    if (normalized === 'quot') return '"';
+    if (normalized === 'apos') return "'";
+    const codePoint = normalized.startsWith('#x')
+      ? Number.parseInt(normalized.slice(2), 16)
+      : Number.parseInt(normalized.slice(1), 10);
+    if (!Number.isFinite(codePoint) || codePoint < 0 || codePoint > 0x10ffff) return match;
+    try {
+      return String.fromCodePoint(codePoint);
+    } catch {
+      return match;
+    }
+  });
 }
 
-async function fetchText(pathname) {
+function extractVisibleText(html) {
+  const withoutNonVisibleContent = html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/<[^>]+>/g, ' ');
+  return decodeHtmlEntities(withoutNonVisibleContent).replace(/\s+/g, ' ').trim();
+}
+
+async function fetchDocument(pathname) {
   let lastError;
   for (let attempt = 1; attempt <= 4; attempt += 1) {
     try {
@@ -93,7 +113,7 @@ async function fetchText(pathname) {
       const text = await response.text();
 
       if (pathname.endsWith('.xml')) {
-        if (!contentType.includes('xml')) throw new Error(`${pathname} returned unexpected content type ${contentType || '(missing)'}`);
+        if (!contentType.toLowerCase().includes('xml')) throw new Error(`${pathname} returned unexpected content type ${contentType || '(missing)'}`);
         if (!text.includes('<?xml') && !text.includes('<urlset')) throw new Error(`${pathname} did not decode as XML`);
         return text;
       }
@@ -102,8 +122,8 @@ async function fetchText(pathname) {
       if (!text.trimStart().startsWith('<!DOCTYPE html>')) throw new Error(`${pathname} did not decode as an HTML document`);
 
       const nulCount = assertNulsOnlyInsideScripts(text, pathname);
-      if (nulCount) console.log(`${pathname}: normalized ${nulCount} framework serialization NUL delimiter(s) contained inside script blocks.`);
-      return normalizeHtmlForAssertions(text);
+      if (nulCount) console.log(`${pathname}: accepted ${nulCount} framework serialization NUL delimiter(s), all confined to script blocks.`);
+      return extractVisibleText(text);
     } catch (error) {
       lastError = error;
       if (attempt < 4) await sleep(5_000);
@@ -113,14 +133,14 @@ async function fetchText(pathname) {
 }
 
 function requireText(body, needle, label) {
-  if (!body.includes(needle)) throw new Error(`${label} missing expected content: ${needle}`);
+  if (!body.includes(needle)) throw new Error(`${label} missing expected rendered text: ${needle}`);
 }
 
 async function verify() {
   const [hub, sitemap, ...topicBodies] = await Promise.all([
-    fetchText('/hunting'),
-    fetchText('/sitemap.xml'),
-    ...representativeTopics.map(({ path }) => fetchText(path)),
+    fetchDocument('/hunting'),
+    fetchDocument('/sitemap.xml'),
+    ...representativeTopics.map(({ path }) => fetchDocument(path)),
   ]);
 
   requireText(hub, 'Hunting Texas: licenses, public land, species and season planning', 'Hunting hub');
@@ -134,13 +154,13 @@ async function verify() {
   requireText(hub, 'Texas Trapping & Fur-Bearer Guide', 'Hunting v2 hub');
 
   representativeTopics.forEach((topic, index) => {
-    const body = topicBodies[index];
-    for (const needle of topic.needles) requireText(body, needle, topic.path);
+    const visibleText = topicBodies[index];
+    for (const needle of topic.needles) requireText(visibleText, needle, topic.path);
   });
 
   for (const path of sitemapPaths) requireText(sitemap, `${origin}${path}`, 'Production sitemap');
 
-  console.log(`Hunting production verified: live UTF-8 HTML, framework NUL delimiters confined to script serialization, React hydration comments and HTML ampersand entities normalized for source-text assertions, TPWD 2026–27 freshness, ${representativeTopics.length} representative topic pages including v2 coverage, and ${sitemapPaths.length} hunting sitemap URLs are present.`);
+  console.log(`Hunting production verified: live HTML document envelopes, framework NUL delimiters confined to script serialization, exact rendered visible text for the hub and ${representativeTopics.length} representative topic pages including v2 coverage, TPWD 2026–27 freshness, and ${sitemapPaths.length} hunting sitemap URLs.`);
 }
 
 try {
