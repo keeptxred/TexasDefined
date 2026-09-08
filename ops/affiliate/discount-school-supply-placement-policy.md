@@ -1,1 +1,0 @@
-This placement is intentionally limited to school/family education articles. Do not infer eligibility from incidental mentions of teachers or schools.
