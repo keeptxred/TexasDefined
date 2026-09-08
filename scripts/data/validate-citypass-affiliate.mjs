@@ -73,7 +73,11 @@ const newlyPublishedSlugs = [
   'reunion-tower-dallas',
   'dallas-zoo',
 ];
-for (const slug of newlyPublishedSlugs) requireText(expansion, `slug: "${slug}"`, `New CityPASS destination ${slug}`);
+for (const slug of newlyPublishedSlugs) requireText(expansion, `"${slug}"`, `New CityPASS destination ${slug}`);
+const publishedDestinationRows = (expansion.match(/\bdestination\((?:KEMAH|SAN_ANTONIO|DALLAS),\s*\[/g) || []).length;
+if (publishedDestinationRows !== newlyPublishedSlugs.length) {
+  errors.push(`New CityPASS destination expansion must contain exactly ${newlyPublishedSlugs.length} registered destination rows; found ${publishedDestinationRows}`);
+}
 requireText(preserved, 'import { cityPassDestinationExpansion } from "./citypass-destination-expansion";', 'Preserved catalog import');
 requireText(preserved, 'cityPassDestinationExpansion,', 'Preserved catalog registration');
 
