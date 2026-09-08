@@ -1,5 +1,5 @@
 const origin = (process.env.TEXASDEFINED_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
-const userAgent = 'TexasDefined-Hunting-Production-Smoke/2.2';
+const userAgent = 'TexasDefined-Hunting-Production-Smoke/2.3';
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const representativeTopics = [
@@ -66,6 +66,10 @@ function assertNulsOnlyInsideScripts(text, pathname) {
   return count;
 }
 
+function normalizeHtmlForAssertions(text) {
+  return text.replaceAll('\0', '').replaceAll('<!-- -->', '');
+}
+
 async function fetchText(pathname) {
   let lastError;
   for (let attempt = 1; attempt <= 4; attempt += 1) {
@@ -94,7 +98,7 @@ async function fetchText(pathname) {
 
       const nulCount = assertNulsOnlyInsideScripts(text, pathname);
       if (nulCount) console.log(`${pathname}: normalized ${nulCount} framework serialization NUL delimiter(s) contained inside script blocks.`);
-      return text.replaceAll('\0', '');
+      return normalizeHtmlForAssertions(text);
     } catch (error) {
       lastError = error;
       if (attempt < 4) await sleep(5_000);
@@ -131,7 +135,7 @@ async function verify() {
 
   for (const path of sitemapPaths) requireText(sitemap, `${origin}${path}`, 'Production sitemap');
 
-  console.log(`Hunting production verified: live UTF-8 HTML, framework NUL delimiters confined to script serialization, TPWD 2026–27 freshness, ${representativeTopics.length} representative topic pages including v2 coverage, and ${sitemapPaths.length} hunting sitemap URLs are present.`);
+  console.log(`Hunting production verified: live UTF-8 HTML, framework NUL delimiters confined to script serialization, React hydration comments normalized for source-text assertions, TPWD 2026–27 freshness, ${representativeTopics.length} representative topic pages including v2 coverage, and ${sitemapPaths.length} hunting sitemap URLs are present.`);
 }
 
 try {
