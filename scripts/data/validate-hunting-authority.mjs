@@ -15,8 +15,10 @@ const authorityV2 = read('src/data/hunting/authority-v2.ts');
 const allAuthority = `${authority}\n${authorityV2}`;
 const freshness = read('src/data/hunting/freshness.ts');
 const sitemap = read('src/data/hunting/sitemap.ts');
+const huntingParentRoute = read('src/routes/hunting.tsx');
+const huntingIndexRoute = read('src/routes/hunting.index.tsx');
+const huntingIndexLazyRoute = read('src/routes/hunting.index.lazy.tsx');
 const huntingRoute = read('src/routes/hunting.$slug.tsx');
-const huntingLazyRoute = read('src/routes/hunting.lazy.tsx');
 const huntingTopicRoute = read('src/routes/hunting.$slug.lazy.tsx');
 const huntingTopicPage = read('src/components/hunting/HuntingTopicPage.tsx');
 const huntingHub = read('src/components/hunting/HuntingAuthority.tsx');
@@ -69,11 +71,22 @@ requireText(huntingSearch, 'HUNTING_AUTHORITY_TOPICS_V2', 'v2 search registratio
 requireText(searchImplementation, 'buildHuntingSearchDocuments', 'search document registration missing');
 requireText(queries, 'await import("./search-documents-runtime")', 'lazy search runtime registration missing');
 requireText(publicRoutes, '"/hunting"', 'indexable /hunting route missing');
-requireText(leafOnlyParentRoutes, 'import { Route as huntingRoute } from "@/routes/hunting";', 'hunting leaf-only parent route import missing');
-requireText(leafOnlyParentRoutes, '  huntingRoute,', 'hunting parent route is not registered for child Outlet rendering');
-requireText(huntingLazyRoute, 'useChildMatches', 'hunting lazy parent must inspect child matches after lazy route loading');
-requireText(huntingLazyRoute, 'if (childMatches.length > 0) return <Outlet />;', 'hunting lazy parent must yield child routes at runtime');
-requireText(huntingLazyRoute, 'return <HuntingHubPage />;', 'hunting lazy parent must preserve the hub on the leaf /hunting route');
+
+requireText(huntingParentRoute, 'createFileRoute("/hunting")({ component: Outlet })', 'hunting parent must unconditionally render its child outlet');
+requireText(huntingParentRoute, 'import { Outlet, createFileRoute }', 'hunting parent outlet must remain eager and chunk-free');
+requireText(huntingIndexRoute, 'createFileRoute("/hunting/")', 'explicit hunting index route missing');
+requireText(huntingIndexRoute, 'canonicalPath = "/hunting"', 'hunting index canonical metadata missing');
+requireText(huntingIndexLazyRoute, 'createLazyFileRoute("/hunting/")', 'hunting hub lazy index route missing');
+requireText(huntingIndexLazyRoute, 'HuntingHubPage', 'hunting hub must render only from the index route');
+if (huntingParentRoute.includes('useChildMatches') || huntingParentRoute.includes('HuntingHubPage')) {
+  throw new Error('Hunting authority validation failed: hunting parent reintroduced child-match guessing instead of explicit index routing');
+}
+if (fs.existsSync('src/routes/hunting.lazy.tsx')) {
+  throw new Error('Hunting authority validation failed: hunting parent lazy route reintroduced an unnecessary client chunk');
+}
+if (leafOnlyParentRoutes.includes('huntingRoute') || leafOnlyParentRoutes.includes('@/routes/hunting')) {
+  throw new Error('Hunting authority validation failed: hunting route must not use the legacy leaf-only parent patch');
+}
 
 for (const [source, label] of [
   [wildlife, 'wildlife'],
@@ -106,7 +119,8 @@ requireText(productionSmokeWorkflow, "'scripts/data/verify-hunting-production.mj
 requireText(productionSmokeWorkflow, 'node scripts/data/verify-hunting-production.mjs', 'production workflow must execute decoded Node verifier');
 requireText(productionSmoke, 'await fetch(', 'production smoke must use decoded Node fetch');
 requireText(productionSmoke, 'response.text()', 'production smoke must decode response bodies as text');
-requireText(productionSmoke, "text.includes('\\0')", 'production smoke must fail closed on residual NUL bytes');
+requireText(productionSmoke, 'assertNulsOnlyInsideScripts', 'production smoke must constrain framework NUL delimiters to script serialization');
+requireText(productionSmoke, 'extractVisibleText', 'production smoke must verify rendered visible text instead of hydration state');
 requireText(productionSmoke, 'More Texas game & small-game coverage', 'production smoke must verify v2 small-game hub group');
 requireText(productionSmoke, 'Migratory game bird depth', 'production smoke must verify v2 migratory hub group');
 requireText(productionSmoke, 'Fur-bearing animals & trapping', 'production smoke must verify v2 fur-bearer hub group');
@@ -120,4 +134,4 @@ for (const redirectOnly of ['/explore/wildlife-management-areas', '/explore/texa
   }
 }
 
-console.log(`Hunting authority validation passed: hub + ${expectedTopics.length} topics, v2 coverage, freshness, TPWD sourcing, search/sitemap governance, lazy child-route rendering, reciprocal discovery links, bundle-safe WMA discovery and decoded v2 production smoke governance.`);
+console.log(`Hunting authority validation passed: explicit hub index ownership + ${expectedTopics.length} topic children, v2 coverage, freshness, TPWD sourcing, search/sitemap governance, reciprocal discovery links, bundle-safe route ownership, WMA discovery and rendered-text production smoke governance.`);

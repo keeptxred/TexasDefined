@@ -10,7 +10,6 @@ import { Route as fishingReportsRoute } from "@/routes/fishing.reports";
 import { Route as fishingServicesRoute } from "@/routes/fishing.services";
 import { Route as fishingSpeciesRoute } from "@/routes/fishing.species";
 import { Route as fishingTechniquesRoute } from "@/routes/fishing.techniques";
-import { Route as huntingRoute } from "@/routes/hunting";
 import { Route as landscapesRoute } from "@/routes/explore.landscapes";
 import { Route as paintedChurchesRoute } from "@/routes/explore.painted-churches";
 import { Route as paintedChurchGlossaryRoute } from "@/routes/explore.painted-churches.glossary";
@@ -69,7 +68,6 @@ const LEAF_ONLY_PARENT_ROUTES = [
   fishingSpeciesRoute,
   fishingAccessRoute,
   fishingServicesRoute,
-  huntingRoute,
   landscapesRoute,
   paintedChurchesRoute,
   paintedChurchTechniquesRoute,
