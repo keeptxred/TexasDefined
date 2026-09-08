@@ -5,15 +5,23 @@ const aiSource = readFileSync(new URL("./texas-defined-ai.server.ts", import.met
 const locationSource = readFileSync(new URL("./texas-defined-ai-location.server.ts", import.meta.url), "utf8");
 const signalsSource = readFileSync(new URL("./texas-defined-ai-signals.server.ts", import.meta.url), "utf8");
 const locatorSource = readFileSync(new URL("../data/texas-brand-locator.server.ts", import.meta.url), "utf8");
+const hebFormatsSource = readFileSync(new URL("../data/texas-brand-locator-heb-formats.server.ts", import.meta.url), "utf8");
 const foundationMigration = readFileSync(new URL("../../supabase/migrations/20260907021751_texasdefined_ai_intelligence_foundation.sql", import.meta.url), "utf8");
 const feedbackMigration = readFileSync(new URL("../../supabase/migrations/20260907031500_texasdefined_ai_signal_feedback_loop.sql", import.meta.url), "utf8");
 
 describe("Ask Texas brand-location intelligence", () => {
-  it("routes H-E-B and Buc-ee's location questions through the deterministic locator before the language model", () => {
+  it("routes H-E-B family and Buc-ee's location questions through the deterministic locator before the language model", () => {
     expect(locationSource).toContain("classifyTexasBrandLocationQuestion");
-    expect(locationSource).toContain('TexasBrandLocatorBrand[]');
-    expect(locationSource).toContain("searchCompleteTexasKnowledgeGraph");
+    expect(locationSource).toContain("CENTRAL_MARKET_PATTERN");
+    expect(locationSource).toContain("JOE_VS_PATTERN");
+    expect(locationSource).toContain("MI_TIENDA_PATTERN");
+    expect(locationSource).toContain('brands.push("central-market")');
+    expect(locationSource).toContain('brands.push("joe-vs")');
+    expect(locationSource).toContain('brands.push("mi-tienda")');
+    expect(locationSource).toContain("findExpandedTexasBrandLocationsNearPointServer");
+    expect(locationSource).toContain("findExpandedTexasBrandLocationsServer");
     expect(locatorSource).toContain("export async function findTexasBrandLocationsNearPointServer");
+    expect(hebFormatsSource).toContain("export async function findExpandedTexasBrandLocationsNearPointServer");
     expect(aiSource).toContain("answerTexasBrandLocationQuestion(question)");
     expect(aiSource.indexOf("answerTexasBrandLocationQuestion(question)")).toBeLessThan(aiSource.indexOf("const ai = workersAi(env)"));
     expect(aiSource).toContain('model: "deterministic-brand-locator"');
@@ -21,15 +29,17 @@ describe("Ask Texas brand-location intelligence", () => {
 
   it("supports Texas city/county anchors and exact-address lookup without fabricating locations", () => {
     expect(locationSource).toContain('new Set(["city", "county", "metro-area"])');
-    expect(locationSource).toContain("findTexasBrandLocationsServer({ address: intent.address");
-    expect(locationSource).toContain("findTexasBrandLocationsNearPointServer({");
-    expect(locationSource).toContain("I could not verify a nearby");
-    expect(locationSource).toContain("links directly to official H-E-B and Buc-ee's location sources");
+    expect(locationSource).toContain("findExpandedTexasBrandLocationsServer({ address: intent.address");
+    expect(locationSource).toContain("findExpandedTexasBrandLocationsNearPointServer({");
+    expect(locationSource).toContain("I could not verify a ${brands.map(brandLabel).join(\" or \")} result");
+    expect(locationSource).toContain("links directly to official H-E-B-family and Buc-ee's location sources");
+    expect(locationSource).toContain("TexasDefined did not relabel nearby results as being inside");
   });
 
   it("does not mislabel the verified Buc-ee's registry as request-time live official research", () => {
     expect(locationSource).toContain("officialSources: []");
-    expect(locationSource).toContain('Do not place either in the shared "live official');
+    expect(locationSource).toContain("H-E-B-family formats may be queried live");
+    expect(locationSource).toContain('"live official research" renderer');
     expect(locationSource).toContain("latest hours, services, closures or location changes");
     expect(locationSource).not.toContain("function officialSources(");
   });
@@ -45,7 +55,7 @@ describe("Ask Texas brand-location intelligence", () => {
   });
 
   it("never stores a typed street address in structured AI telemetry", () => {
-    expect(locationSource).toContain('buildAnswer(response, intent.brands, response.matchedAddress || "that Texas address", null)');
+    expect(locationSource).toContain('buildAnswer(response, intent.brands, response.matchedAddress || "that Texas address", null, "address")');
     expect(aiSource).toContain('safeClusterPlace(locationAnswer.texasPlace)');
     expect(signalsSource).toContain("question_fingerprint");
     expect(signalsSource).toContain("cluster_key");
@@ -66,6 +76,9 @@ describe("Ask Texas brand-location intelligence", () => {
     expect(locatorSource).toContain("commerce-api/v1/store/locator/address");
     expect(locatorSource).toContain("geocoding.geo.census.gov/geocoder/locations/addressbatch");
     expect(locatorSource).toContain('from("texasdefined_brand_locations")');
+    expect(hebFormatsSource).toContain("commerce-api/v1/store/locator/address");
+    expect(hebFormatsSource).not.toContain("texasdefined_brand_locations");
     expect(locatorSource).not.toMatch(/GOOGLE_(?:MAPS|PLACES)_API_KEY|MAPBOX_TOKEN|GEOCODIO|HERE_API/i);
+    expect(hebFormatsSource).not.toMatch(/GOOGLE_(?:MAPS|PLACES)_API_KEY|MAPBOX_TOKEN|GEOCODIO|HERE_API/i);
   });
 });

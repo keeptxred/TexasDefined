@@ -1,10 +1,29 @@
 import type { TexasBrandLocatorBrand, TexasBrandLocatorResponse } from "@/data/texas-brand-locator.types";
-import { findTexasBrandLocationsServer } from "@/data/texas-brand-locator.server";
+import { findExpandedTexasBrandLocationsServer } from "@/data/texas-brand-locator-heb-formats.server";
 import { recordAskTexasQuestionSignal } from "./texas-defined-ai-signals.server";
 
 const ENDPOINT_PATH = "/api/texas-brand-locator";
 const MAX_REQUEST_BYTES = 4_096;
-const SUPPORTED_BRANDS = new Set<TexasBrandLocatorBrand>(["heb", "bucees"]);
+const SUPPORTED_BRANDS = new Set<TexasBrandLocatorBrand>([
+  "heb",
+  "central-market",
+  "joe-vs",
+  "mi-tienda",
+  "bucees",
+]);
+const HEB_LIVE_BRANDS = new Set<TexasBrandLocatorBrand>([
+  "heb",
+  "central-market",
+  "joe-vs",
+  "mi-tienda",
+]);
+const BRAND_LABELS: Record<TexasBrandLocatorBrand, string> = {
+  heb: "H-E-B",
+  "central-market": "Central Market",
+  "joe-vs": "Joe V's Smart Shop",
+  "mi-tienda": "Mi Tienda",
+  bucees: "Buc-ee's",
+};
 
 function json(body: TexasBrandLocatorResponse, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -42,13 +61,22 @@ function sameOriginRequest(request: Request) {
 }
 
 function fallbackLinks(brands: TexasBrandLocatorBrand[], query: string) {
-  return brands.map((brand) => ({
-    brand,
-    label: brand === "heb" ? "Open H-E-B's official store locator" : "Open Buc-ee's official locations",
-    url: brand === "heb"
-      ? `https://www.heb.com/store-locations?address=${encodeURIComponent(query)}`
-      : "https://buc-ees.com/locations/",
-  }));
+  return brands.map((brand) => {
+    if (brand === "bucees") {
+      return {
+        brand,
+        label: "Open Buc-ee's official locations",
+        url: "https://buc-ees.com/locations/",
+      };
+    }
+    return {
+      brand,
+      label: brand === "heb"
+        ? "Open H-E-B's official store locator"
+        : `Open H-E-B's official store locator for ${BRAND_LABELS[brand]}`,
+      url: `https://www.heb.com/store-locations?address=${encodeURIComponent(query)}`,
+    };
+  });
 }
 
 function coarseTexasPlace(matchedAddress: string | null) {
@@ -71,12 +99,15 @@ async function recordPublicLocatorSignal(
   selectedBrands: TexasBrandLocatorBrand[],
   startedAt: number,
 ) {
-  const place = coarseTexasPlace(response.matchedAddress);
+  const resultCity = response.results
+    .find((result) => selectedBrands.includes(result.brand) && result.city)
+    ?.city?.slice(0, 80) ?? null;
+  const place = coarseTexasPlace(response.matchedAddress) ?? resultCity;
   const brandKey = selectedBrands.join("+");
   const brandsWithResults = new Set(response.results.map((result) => result.brand));
   const resultCount = response.results.filter((result) => selectedBrands.includes(result.brand)).length;
   const fullCoverage = selectedBrands.every((brand) => brandsWithResults.has(brand));
-  const liveHebSourceCount = brandsWithResults.has("heb") ? 1 : 0;
+  const liveHebSourceCount = [...brandsWithResults].some((brand) => HEB_LIVE_BRANDS.has(brand)) ? 1 : 0;
 
   await recordAskTexasQuestionSignal({
     // Deliberately synthetic: never fingerprint or persist the visitor's typed street address.
@@ -151,7 +182,7 @@ export async function texasBrandLocatorApiResponse(request: Request): Promise<Re
 
   const startedAt = Date.now();
   try {
-    const response = await findTexasBrandLocationsServer({ address, brands: selectedBrands });
+    const response = await findExpandedTexasBrandLocationsServer({ address, brands: selectedBrands });
     await recordPublicLocatorSignal(response, selectedBrands, startedAt);
     return json(response);
   } catch {

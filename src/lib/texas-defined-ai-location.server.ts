@@ -1,8 +1,8 @@
 import { searchCompleteTexasKnowledgeGraph } from "../data/knowledge-graph";
 import {
-  findTexasBrandLocationsNearPointServer,
-  findTexasBrandLocationsServer,
-} from "../data/texas-brand-locator.server";
+  findExpandedTexasBrandLocationsNearPointServer,
+  findExpandedTexasBrandLocationsServer,
+} from "../data/texas-brand-locator-heb-formats.server";
 import type {
   TexasBrandLocatorBrand,
   TexasBrandLocatorLocation,
@@ -18,10 +18,21 @@ import {
 const BRAND_LOCATION_INTENT_PATTERN = /\b(?:nearest|closest|nearby|near|find|where|location|locations|store|stores|around|by|in)\b/i;
 const WITHIN_PLACE_PATTERN = /\b(?:in|inside|within)\b/i;
 const HEB_PATTERN = /\b(?:h\s*[-.]?\s*e\s*[-.]?\s*b|heb)\b/i;
+const CENTRAL_MARKET_PATTERN = /\bcentral\s+market\b/i;
+const JOE_VS_PATTERN = /\bjoe\s+v(?:['’]s|s)?(?:\s+smart\s+shop)?\b/i;
+const MI_TIENDA_PATTERN = /\bmi\s+tienda\b/i;
 const BUCEES_PATTERN = /\bbuc[-’']?ee['’]?s\b/i;
 const STREET_ADDRESS_PATTERN = /\b\d{1,6}\s+[A-Za-z0-9.'#-]+(?:\s+[A-Za-z0-9.'#-]+){0,7}\s+(?:st|street|rd|road|ave|avenue|blvd|boulevard|ln|lane|dr|drive|ct|court|way|pkwy|parkway|hwy|highway|fm|rm)\b[^?\n]{0,100}/i;
 const PLACE_KINDS = new Set(["city", "county", "metro-area"]);
 const MAX_RESULTS_PER_BRAND = 3;
+
+const BRAND_LABELS: Record<TexasBrandLocatorBrand, string> = {
+  heb: "H-E-B",
+  "central-market": "Central Market",
+  "joe-vs": "Joe V's Smart Shop",
+  "mi-tienda": "Mi Tienda",
+  bucees: "Buc-ee's",
+};
 
 type TexasBrandLocationAnswerMode = "address" | TexasBrandLocationPlaceScope["mode"];
 
@@ -52,6 +63,9 @@ export type TexasBrandLocationAiAnswer = {
 export function classifyTexasBrandLocationQuestion(question: string): TexasBrandLocationIntent {
   const brands: TexasBrandLocatorBrand[] = [];
   if (HEB_PATTERN.test(question)) brands.push("heb");
+  if (CENTRAL_MARKET_PATTERN.test(question)) brands.push("central-market");
+  if (JOE_VS_PATTERN.test(question)) brands.push("joe-vs");
+  if (MI_TIENDA_PATTERN.test(question)) brands.push("mi-tienda");
   if (BUCEES_PATTERN.test(question)) brands.push("bucees");
   const address = question.match(STREET_ADDRESS_PATTERN)?.[0]?.trim().replace(/[?.!,;:]+$/, "") ?? null;
   return {
@@ -60,6 +74,10 @@ export function classifyTexasBrandLocationQuestion(question: string): TexasBrand
     address,
     placeScope: WITHIN_PLACE_PATTERN.test(question) ? "within" : "nearest",
   };
+}
+
+function brandLabel(brand: TexasBrandLocatorBrand) {
+  return BRAND_LABELS[brand];
 }
 
 function placeQuery(name: string, kind: string) {
@@ -87,7 +105,7 @@ function answerLines(
   const lines: string[] = [];
   for (const brand of brands) {
     const locations = response.results.filter((location) => location.brand === brand).slice(0, MAX_RESULTS_PER_BRAND);
-    const label = brand === "heb" ? "H-E-B" : "Buc-ee's";
+    const label = brandLabel(brand);
     if (!locations.length) continue;
     const heading = mode === "within-city" || mode === "within-county"
       ? `${label} locations I could verify in ${placeLabel}:`
@@ -104,7 +122,7 @@ function texasBrandsSource() {
   return {
     title: "Legendary Texas Brands & Retail Institutions",
     href: "/things-unique-to-texas/texas-brands",
-    summary: "TexasDefined's Texas Brands chapter includes the Find Your H-E-B / Buc-ee's locator and direct links to the brands' official location sources.",
+    summary: "TexasDefined's Texas Brands chapter includes the H-E-B, Central Market, Joe V's Smart Shop, Mi Tienda and Buc-ee's locator with direct links to official location sources.",
     kind: "guide" as const,
   };
 }
@@ -119,23 +137,23 @@ function buildAnswer(
   const lines = answerLines(response, brands, placeLabel, locationMode);
   const resultCount = response.results.filter((item) => brands.includes(item.brand)).length;
   if (lines.length) {
-    lines.push("Distances are approximate straight-line distances for Buc-ee's. For the latest hours, services, closures or location changes, use the direct official links in TexasDefined's Texas Brands locator.");
+    lines.push("Buc-ee's distances are approximate straight-line distances; H-E-B-family results come from H-E-B's live locator when available. For the latest hours, services, closures or location changes, use the direct official links in TexasDefined's Texas Brands locator.");
     if (response.notices.length) lines.push(response.notices.join(" "));
   } else {
     const scopeLanguage = locationMode === "within-city" || locationMode === "within-county"
       ? `inside ${placeLabel}`
       : `near ${placeLabel}`;
-    lines.push(`I could not verify a ${brands.map((brand) => brand === "heb" ? "H-E-B" : "Buc-ee's").join(" or ")} result ${scopeLanguage} right now.`);
-    lines.push("Use the TexasDefined Texas Brands locator, which links directly to official H-E-B and Buc-ee's location sources, to continue without guessing.");
+    lines.push(`I could not verify a ${brands.map(brandLabel).join(" or ")} result ${scopeLanguage} right now.`);
+    lines.push("Use the TexasDefined Texas Brands locator, which links directly to official H-E-B-family and Buc-ee's location sources, to continue without guessing.");
     if (response.notices.length) lines.push(response.notices.join(" "));
   }
 
   return {
     answer: lines.join("\n"),
     sources: [texasBrandsSource()],
-    // H-E-B may be queried live, while Buc-ee's is served from TexasDefined's
-    // verified registry. Do not place either in the shared "live official
-    // research" renderer, which would overstate freshness for registry data.
+    // H-E-B-family formats may be queried live, while Buc-ee's is served from
+    // TexasDefined's verified registry. Do not place either in the shared
+    // "live official research" renderer, which would overstate freshness for registry data.
     officialSources: [],
     brands,
     texasPlace: signalPlace,
@@ -151,14 +169,14 @@ export async function answerTexasBrandLocationQuestion(question: string): Promis
   if (!intent.isLocationQuestion) return null;
 
   if (intent.address) {
-    const response = await findTexasBrandLocationsServer({ address: intent.address, brands: intent.brands });
+    const response = await findExpandedTexasBrandLocationsServer({ address: intent.address, brands: intent.brands });
     return buildAnswer(response, intent.brands, response.matchedAddress || "that Texas address", null, "address");
   }
 
   const place = await resolveTexasPlace(question);
   if (!place?.coordinates) {
     return {
-      answer: `I can look up nearby ${intent.brands.map((brand) => brand === "heb" ? "H-E-B" : "Buc-ee's").join(" and ")}, but include a Texas city, county, or street address so I can anchor the search. The Texas Brands locator also accepts a full Texas street address.`,
+      answer: `I can look up nearby ${intent.brands.map(brandLabel).join(" and ")}, but include a Texas city, county, or street address so I can anchor the search. The Texas Brands locator also accepts a full Texas street address.`,
       sources: [texasBrandsSource()],
       officialSources: [],
       brands: intent.brands,
@@ -171,7 +189,7 @@ export async function answerTexasBrandLocationQuestion(question: string): Promis
   }
 
   const query = placeQuery(place.name, place.kind);
-  const response = await findTexasBrandLocationsNearPointServer({
+  const response = await findExpandedTexasBrandLocationsNearPointServer({
     query,
     origin: place.coordinates,
     matchedAddress: place.name,
