@@ -293,6 +293,7 @@ import { Route as HistoricSiteFortRichardsonStateParkStateHistoricSiteRouteImpor
 import { Route as HistoricSiteFortLeatonStateHistoricSiteRouteImport } from './routes/historic-site.fort-leaton-state-historic-site'
 import { Route as HistoricSiteFanthorpInnStateHistoricSiteRouteImport } from './routes/historic-site.fanthorp-inn-state-historic-site'
 import { Route as HistoricSiteSlugRouteImport } from './routes/historic-site.$slug'
+import { Route as GuidesCitypassTexasRouteImport } from './routes/guides.citypass-texas'
 import { Route as FishingTechniquesRouteImport } from './routes/fishing.techniques'
 import { Route as FishingSpeciesRouteImport } from './routes/fishing.species'
 import { Route as FishingServicesRouteImport } from './routes/fishing.services'
@@ -2265,6 +2266,13 @@ const HistoricSiteSlugRoute = HistoricSiteSlugRouteImport.update({
   path: '/historic-site/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuidesCitypassTexasRoute = GuidesCitypassTexasRouteImport.update({
+  id: '/citypass-texas',
+  path: '/citypass-texas',
+  getParentRoute: () => GuidesRoute,
+} as any).lazy(() =>
+  import('./routes/guides.citypass-texas.lazy').then((d) => d.Route),
+)
 const FishingTechniquesRoute = FishingTechniquesRouteImport.update({
   id: '/techniques',
   path: '/techniques',
@@ -3273,7 +3281,7 @@ export interface FileRoutesByFullPath {
   '/german-czech-texas-towns': typeof GermanCzechTexasTownsRoute
   '/google-merchant-feed.xml': typeof GoogleMerchantFeedDotxmlRoute
   '/gruene-hall-history': typeof GrueneHallHistoryRoute
-  '/guides': typeof GuidesRoute
+  '/guides': typeof GuidesRouteWithChildren
   '/home-garden': typeof HomeGardenRoute
   '/houston-music-history': typeof HoustonMusicHistoryRoute
   '/hunting': typeof HuntingRouteWithChildren
@@ -3520,6 +3528,7 @@ export interface FileRoutesByFullPath {
   '/fishing/services': typeof FishingServicesRouteWithChildren
   '/fishing/species': typeof FishingSpeciesRouteWithChildren
   '/fishing/techniques': typeof FishingTechniquesRouteWithChildren
+  '/guides/citypass-texas': typeof GuidesCitypassTexasRoute
   '/historic-site/$slug': typeof HistoricSiteSlugRoute
   '/historic-site/fanthorp-inn-state-historic-site': typeof HistoricSiteFanthorpInnStateHistoricSiteRoute
   '/historic-site/fort-leaton-state-historic-site': typeof HistoricSiteFortLeatonStateHistoricSiteRoute
@@ -3723,7 +3732,7 @@ export interface FileRoutesByTo {
   '/german-czech-texas-towns': typeof GermanCzechTexasTownsRoute
   '/google-merchant-feed.xml': typeof GoogleMerchantFeedDotxmlRoute
   '/gruene-hall-history': typeof GrueneHallHistoryRoute
-  '/guides': typeof GuidesRoute
+  '/guides': typeof GuidesRouteWithChildren
   '/home-garden': typeof HomeGardenRoute
   '/houston-music-history': typeof HoustonMusicHistoryRoute
   '/hunting': typeof HuntingRouteWithChildren
@@ -3968,6 +3977,7 @@ export interface FileRoutesByTo {
   '/fishing/services': typeof FishingServicesRouteWithChildren
   '/fishing/species': typeof FishingSpeciesRouteWithChildren
   '/fishing/techniques': typeof FishingTechniquesRouteWithChildren
+  '/guides/citypass-texas': typeof GuidesCitypassTexasRoute
   '/historic-site/$slug': typeof HistoricSiteSlugRoute
   '/historic-site/fanthorp-inn-state-historic-site': typeof HistoricSiteFanthorpInnStateHistoricSiteRoute
   '/historic-site/fort-leaton-state-historic-site': typeof HistoricSiteFortLeatonStateHistoricSiteRoute
@@ -4173,7 +4183,7 @@ export interface FileRoutesById {
   '/german-czech-texas-towns': typeof GermanCzechTexasTownsRoute
   '/google-merchant-feed.xml': typeof GoogleMerchantFeedDotxmlRoute
   '/gruene-hall-history': typeof GrueneHallHistoryRoute
-  '/guides': typeof GuidesRoute
+  '/guides': typeof GuidesRouteWithChildren
   '/home-garden': typeof HomeGardenRoute
   '/houston-music-history': typeof HoustonMusicHistoryRoute
   '/hunting': typeof HuntingRouteWithChildren
@@ -4420,6 +4430,7 @@ export interface FileRoutesById {
   '/fishing/services': typeof FishingServicesRouteWithChildren
   '/fishing/species': typeof FishingSpeciesRouteWithChildren
   '/fishing/techniques': typeof FishingTechniquesRouteWithChildren
+  '/guides/citypass-texas': typeof GuidesCitypassTexasRoute
   '/historic-site/$slug': typeof HistoricSiteSlugRoute
   '/historic-site/fanthorp-inn-state-historic-site': typeof HistoricSiteFanthorpInnStateHistoricSiteRoute
   '/historic-site/fort-leaton-state-historic-site': typeof HistoricSiteFortLeatonStateHistoricSiteRoute
@@ -4873,6 +4884,7 @@ export interface FileRouteTypes {
     | '/fishing/services'
     | '/fishing/species'
     | '/fishing/techniques'
+    | '/guides/citypass-texas'
     | '/historic-site/$slug'
     | '/historic-site/fanthorp-inn-state-historic-site'
     | '/historic-site/fort-leaton-state-historic-site'
@@ -5321,6 +5333,7 @@ export interface FileRouteTypes {
     | '/fishing/services'
     | '/fishing/species'
     | '/fishing/techniques'
+    | '/guides/citypass-texas'
     | '/historic-site/$slug'
     | '/historic-site/fanthorp-inn-state-historic-site'
     | '/historic-site/fort-leaton-state-historic-site'
@@ -5772,6 +5785,7 @@ export interface FileRouteTypes {
     | '/fishing/services'
     | '/fishing/species'
     | '/fishing/techniques'
+    | '/guides/citypass-texas'
     | '/historic-site/$slug'
     | '/historic-site/fanthorp-inn-state-historic-site'
     | '/historic-site/fort-leaton-state-historic-site'
@@ -5977,7 +5991,7 @@ export interface RootRouteChildren {
   GermanCzechTexasTownsRoute: typeof GermanCzechTexasTownsRoute
   GoogleMerchantFeedDotxmlRoute: typeof GoogleMerchantFeedDotxmlRoute
   GrueneHallHistoryRoute: typeof GrueneHallHistoryRoute
-  GuidesRoute: typeof GuidesRoute
+  GuidesRoute: typeof GuidesRouteWithChildren
   HomeGardenRoute: typeof HomeGardenRoute
   HoustonMusicHistoryRoute: typeof HoustonMusicHistoryRoute
   HuntingRoute: typeof HuntingRouteWithChildren
@@ -8299,6 +8313,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HistoricSiteSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guides/citypass-texas': {
+      id: '/guides/citypass-texas'
+      path: '/citypass-texas'
+      fullPath: '/guides/citypass-texas'
+      preLoaderRoute: typeof GuidesCitypassTexasRouteImport
+      parentRoute: typeof GuidesRoute
+    }
     '/fishing/techniques': {
       id: '/fishing/techniques'
       path: '/techniques'
@@ -9654,6 +9675,17 @@ const FishingRouteChildren: FishingRouteChildren = {
 const FishingRouteWithChildren =
   FishingRoute._addFileChildren(FishingRouteChildren)
 
+interface GuidesRouteChildren {
+  GuidesCitypassTexasRoute: typeof GuidesCitypassTexasRoute
+}
+
+const GuidesRouteChildren: GuidesRouteChildren = {
+  GuidesCitypassTexasRoute: GuidesCitypassTexasRoute,
+}
+
+const GuidesRouteWithChildren =
+  GuidesRoute._addFileChildren(GuidesRouteChildren)
+
 interface HuntingRouteChildren {
   HuntingSlugRoute: typeof HuntingSlugRoute
 }
@@ -9984,7 +10016,7 @@ const rootRouteChildren: RootRouteChildren = {
   GermanCzechTexasTownsRoute: GermanCzechTexasTownsRoute,
   GoogleMerchantFeedDotxmlRoute: GoogleMerchantFeedDotxmlRoute,
   GrueneHallHistoryRoute: GrueneHallHistoryRoute,
-  GuidesRoute: GuidesRoute,
+  GuidesRoute: GuidesRouteWithChildren,
   HomeGardenRoute: HomeGardenRoute,
   HoustonMusicHistoryRoute: HoustonMusicHistoryRoute,
   HuntingRoute: HuntingRouteWithChildren,
