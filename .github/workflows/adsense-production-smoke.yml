@@ -28,36 +28,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
-      - name: Diagnose Explore sitemap edge response
-        env:
-          PRODUCTION_ORIGIN: https://texasdefined.com
-        shell: bash
-        run: |
-          python3 <<'PY'
-          import os
-          import re
-          import urllib.request
-
-          origin = os.environ.get('PRODUCTION_ORIGIN', 'https://texasdefined.com').rstrip('/')
-          run_id = os.environ.get('GITHUB_RUN_ID', 'local')
-          for label, suffix in [
-              ('canonical', '/sitemap-explore.xml'),
-              ('cache-busted', f'/sitemap-explore.xml?edge_diag={run_id}'),
-          ]:
-              request = urllib.request.Request(
-                  origin + suffix,
-                  headers={
-                      'User-Agent': 'TexasDefined-Sitemap-Diagnostic/1.0',
-                      'Cache-Control': 'no-cache',
-                      'Pragma': 'no-cache',
-                  },
-              )
-              with urllib.request.urlopen(request, timeout=30) as response:
-                  body = response.read().decode('utf-8', errors='replace')
-                  opening = re.search(r'<urlset\b[^>]*>', body, flags=re.I)
-                  print(f'SITEMAP_DIAG {label}: status={response.status}; opening={opening.group(0) if opening else "MISSING"!r}; cf-cache-status={response.headers.get("cf-cache-status")!r}; age={response.headers.get("age")!r}; cache-control={response.headers.get("cache-control")!r}; content-type={response.headers.get("content-type")!r}')
-          PY
-
       - name: Verify AdSense-critical production surfaces
         env:
           PRODUCTION_ORIGIN: https://texasdefined.com
