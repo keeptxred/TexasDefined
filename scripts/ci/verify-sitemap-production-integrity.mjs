@@ -1,6 +1,12 @@
 const ORIGIN = 'https://texasdefined.com';
 const SITEMAPS = ['/sitemap.xml', '/sitemap-explore.xml'];
 const MAX_URLS_PER_SITEMAP = 50_000;
+const VERIFY_ATTEMPTS = 8;
+const RETRY_DELAY_MS = 15_000;
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 function decodeXml(value) {
   return value
@@ -11,30 +17,43 @@ function decodeXml(value) {
     .replace(/&apos;/g, "'");
 }
 
-async function fetchText(path) {
+async function fetchSitemap(path) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 15_000);
   try {
     const response = await fetch(`${ORIGIN}${path}`, {
       redirect: 'error',
       signal: controller.signal,
-      headers: { 'user-agent': 'TexasDefined-Sitemap-Integrity/1.0' },
+      headers: {
+        'user-agent': 'TexasDefined-Sitemap-Integrity/1.0',
+        'cache-control': 'no-cache',
+        pragma: 'no-cache',
+      },
     });
     if (response.status !== 200) throw new Error(`${path} returned HTTP ${response.status}`);
     const contentType = response.headers.get('content-type') ?? '';
     if (!/application\/(?:xml|[a-z0-9.+-]+\+xml)|text\/xml/i.test(contentType)) {
       throw new Error(`${path} returned unexpected Content-Type ${JSON.stringify(contentType)}`);
     }
-    return await response.text();
+    const cache = {
+      age: response.headers.get('age'),
+      cacheControl: response.headers.get('cache-control'),
+      cfCacheStatus: response.headers.get('cf-cache-status'),
+      etag: response.headers.get('etag'),
+      lastModified: response.headers.get('last-modified'),
+    };
+    return { xml: await response.text(), cache };
   } finally {
     clearTimeout(timer);
   }
 }
 
-function validateSitemap(path, xml) {
+function validateSitemap(path, xml, cache) {
   if (!xml.startsWith('<?xml')) throw new Error(`${path} is missing the XML declaration`);
+  const openingUrlset = xml.match(/<urlset\b[^>]*>/i)?.[0] ?? '(missing <urlset>)';
+  console.log(`${path} response diagnostics: ${JSON.stringify({ openingUrlset, ...cache })}`);
   if (!/<urlset\b[^>]*xmlns=["']http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9["'][^>]*>/i.test(xml)) {
-    throw new Error(`${path} is missing the standard sitemap urlset namespace`);
+    throw new Error(`${path} is missing the standard sitemap urlset namespace; received ${openingUrlset}`);
   }
   if (!/<\/urlset>\s*$/i.test(xml)) throw new Error(`${path} does not close urlset cleanly`);
 
@@ -93,17 +112,34 @@ function validateSitemap(path, xml) {
   return new Set(locations);
 }
 
-const inventories = new Map();
-for (const path of SITEMAPS) {
-  const xml = await fetchText(path);
-  inventories.set(path, validateSitemap(path, xml));
+async function verifyProductionSitemaps() {
+  const inventories = new Map();
+  for (const path of SITEMAPS) {
+    const { xml, cache } = await fetchSitemap(path);
+    inventories.set(path, validateSitemap(path, xml, cache));
+  }
+
+  const primary = inventories.get('/sitemap.xml');
+  const explore = inventories.get('/sitemap-explore.xml');
+  const overlap = [...primary].filter((url) => explore.has(url));
+  if (overlap.length) {
+    throw new Error(`Primary and Explore sitemaps overlap on ${overlap.length} URL(s): ${overlap.slice(0, 10).join(', ')}`);
+  }
+
+  return { primary: primary.size, explore: explore.size };
 }
 
-const primary = inventories.get('/sitemap.xml');
-const explore = inventories.get('/sitemap-explore.xml');
-const overlap = [...primary].filter((url) => explore.has(url));
-if (overlap.length) {
-  throw new Error(`Primary and Explore sitemaps overlap on ${overlap.length} URL(s): ${overlap.slice(0, 10).join(', ')}`);
+let lastError;
+for (let attempt = 1; attempt <= VERIFY_ATTEMPTS; attempt += 1) {
+  try {
+    const counts = await verifyProductionSitemaps();
+    console.log(`Production sitemap integrity passed on attempt ${attempt}: ${counts.primary + counts.explore} unique URLs across partitioned primary and Explore inventories (${counts.primary} primary, ${counts.explore} Explore).`);
+    process.exit(0);
+  } catch (error) {
+    lastError = error;
+    console.warn(`Production sitemap integrity attempt ${attempt}/${VERIFY_ATTEMPTS} failed: ${error instanceof Error ? error.message : String(error)}`);
+    if (attempt < VERIFY_ATTEMPTS) await sleep(RETRY_DELAY_MS);
+  }
 }
 
-console.log(`Production sitemap integrity passed: ${primary.size + explore.size} unique URLs across partitioned primary and Explore inventories.`);
+throw lastError;
