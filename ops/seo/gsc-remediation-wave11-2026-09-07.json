@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+  "reviewDate": "2026-09-07",
+  "reviewMethod": "GSC-prioritized state-specific server-side evidence review against the Wave 4 remediation requirements: current tax, housing, labor, hazard/resilience and transportation sources; stronger metro/place comparison; dated review metadata; canonical/schema integrity; and sitemap qualification",
+  "summary": { "reviewed": 3, "KEEP": 3, "IMPROVE": 0, "NOINDEX": 0, "REMOVE_CONSOLIDATE": 0 },
+  "reviewed": [
+    {
+      "path": "/texas-vs/indiana",
+      "action": "KEEP",
+      "reason": "Indiana now has the current 2.95% 2026 state income-tax rate and county-tax caveat, current Census housing benchmarks, July 2026 DWD labor-market evidence, the 2024 state multi-hazard mitigation authority, INDOT transit-system evidence and distinct Indianapolis, Fort Wayne, South Bend, Bloomington and northwest-Indiana comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/west-virginia",
+      "action": "KEEP",
+      "reason": "West Virginia now has current graduated individual-income-tax evidence, current Census housing benchmarks, July 2026 WorkForce West Virginia labor statistics, current state hazard-mitigation program evidence, WVDOT public-transit evidence and distinct Morgantown, Charleston-Huntington, eastern-panhandle and rural-market comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/alaska",
+      "action": "KEEP",
+      "reason": "Alaska now has official confirmation that it has no individual state income tax, current Census housing benchmarks, July 2026 DOLWD employment evidence, the current FEMA-approved state hazard-mitigation framework, Alaska Community Transit evidence and distinct Anchorage, Mat-Su, Fairbanks, Juneau and remote-community comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    }
+  ]
+}
