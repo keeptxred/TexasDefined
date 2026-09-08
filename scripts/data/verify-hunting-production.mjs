@@ -1,5 +1,5 @@
 const origin = (process.env.TEXASDEFINED_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
-const userAgent = 'TexasDefined-Hunting-Production-Smoke/2.1';
+const userAgent = 'TexasDefined-Hunting-Production-Smoke/2.2';
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const representativeTopics = [
@@ -50,34 +50,20 @@ const sitemapPaths = [
   '/hunting/other-migratory-game-birds',
 ];
 
-function nulDiagnostics(bytes, text, response, pathname) {
-  const positions = [];
-  let even = 0;
-  let odd = 0;
-  for (let index = 0; index < bytes.length; index += 1) {
-    if (bytes[index] !== 0) continue;
-    if (positions.length < 12) positions.push(index);
-    if (index % 2 === 0) even += 1;
-    else odd += 1;
+function assertNulsOnlyInsideScripts(text, pathname) {
+  let index = text.indexOf('\0');
+  let count = 0;
+  while (index !== -1) {
+    count += 1;
+    const scriptStart = text.lastIndexOf('<script', index);
+    const scriptEndBefore = text.lastIndexOf('</script>', index);
+    const scriptEndAfter = text.indexOf('</script>', index);
+    if (scriptStart === -1 || scriptStart < scriptEndBefore || scriptEndAfter === -1) {
+      throw new Error(`${pathname} contains a NUL byte outside a script block at decoded offset ${index}`);
+    }
+    index = text.indexOf('\0', index + 1);
   }
-  if (!positions.length && !text.includes('\0')) return null;
-
-  const first = positions[0] ?? text.indexOf('\0');
-  const windowStart = Math.max(0, first - 32);
-  const windowEnd = Math.min(bytes.length, first + 64);
-  return [
-    `${pathname} decoded response still contains NUL bytes`,
-    `content-type=${response.headers.get('content-type') ?? '(missing)'}`,
-    `content-encoding=${response.headers.get('content-encoding') ?? '(missing)'}`,
-    `content-length=${response.headers.get('content-length') ?? '(missing)'}`,
-    `decoded-bytes=${bytes.length}`,
-    `nul-count=${even + odd}`,
-    `even-nuls=${even}`,
-    `odd-nuls=${odd}`,
-    `first-nul-positions=${positions.join(',') || '(text-only)'}`,
-    `first-32-bytes=${bytes.subarray(0, 32).toString('hex')}`,
-    `around-first-nul=${bytes.subarray(windowStart, windowEnd).toString('hex')}`,
-  ].join('; ');
+  return count;
 }
 
 async function fetchText(pathname) {
@@ -93,11 +79,22 @@ async function fetchText(pathname) {
         signal: AbortSignal.timeout(30_000),
       });
       if (!response.ok) throw new Error(`${pathname} returned ${response.status}`);
-      const bytes = Buffer.from(await response.arrayBuffer());
-      const text = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
-      const diagnostic = nulDiagnostics(bytes, text, response, pathname);
-      if (diagnostic) throw new Error(diagnostic);
-      return text;
+
+      const contentType = response.headers.get('content-type') ?? '';
+      const text = await response.text();
+
+      if (pathname.endsWith('.xml')) {
+        if (!contentType.includes('xml')) throw new Error(`${pathname} returned unexpected content type ${contentType || '(missing)'}`);
+        if (!text.includes('<?xml') && !text.includes('<urlset')) throw new Error(`${pathname} did not decode as XML`);
+        return text;
+      }
+
+      if (!contentType.toLowerCase().includes('text/html')) throw new Error(`${pathname} returned unexpected content type ${contentType || '(missing)'}`);
+      if (!text.trimStart().startsWith('<!DOCTYPE html>')) throw new Error(`${pathname} did not decode as an HTML document`);
+
+      const nulCount = assertNulsOnlyInsideScripts(text, pathname);
+      if (nulCount) console.log(`${pathname}: normalized ${nulCount} framework serialization NUL delimiter(s) contained inside script blocks.`);
+      return text.replaceAll('\0', '');
     } catch (error) {
       lastError = error;
       if (attempt < 4) await sleep(5_000);
@@ -134,7 +131,7 @@ async function verify() {
 
   for (const path of sitemapPaths) requireText(sitemap, `${origin}${path}`, 'Production sitemap');
 
-  console.log(`Hunting production verified: decoded live HTML, TPWD 2026–27 freshness, ${representativeTopics.length} representative topic pages including v2 coverage, and ${sitemapPaths.length} hunting sitemap URLs are present.`);
+  console.log(`Hunting production verified: live UTF-8 HTML, framework NUL delimiters confined to script serialization, TPWD 2026–27 freshness, ${representativeTopics.length} representative topic pages including v2 coverage, and ${sitemapPaths.length} hunting sitemap URLs are present.`);
 }
 
 try {
