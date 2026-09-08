@@ -17,7 +17,7 @@ export const practicalGuides = [
 ] as const;
 export const travelGuides = [
   { to: "/texas-explained", label: "Texas Explained", body: "Understand the systems behind the scenery: rivers, reservoirs, roads, courthouse towns, wildlife, homes, land and cultural regions.", note: "Ten connected evergreen guides to why Texas works the way it does." },
-  { to: "/guides/citypass-texas", label: "CityPASS® in Texas", body: "Compare Houston CityPASS® and San Antonio CityPASS®, the current attraction choices, the nine-day use window and the math to do before buying.", note: "A practical bundle-versus-individual-ticket guide for two of Texas's biggest visitor markets." },
+  { to: "/guides/citypass-texas", label: "CityPASS® in Texas", body: "Compare Dallas CityPASS®, Houston CityPASS® and San Antonio CityPASS®, all 21 current attraction choices, the nine-day use window and the math to do before buying.", note: "A practical bundle-versus-individual-ticket guide for all three current Texas CityPASS® markets." },
   { to: "/explore/painted-churches", label: "Painted Churches of Texas", body: "Explore the verified statewide collection, church-by-church history, artists, techniques, symbols, archival evidence, map and road-trip routes.", note: "A source-backed heritage reference and travel-planning system for 27 verified churches." },
   { to: "/explore/state-parks", label: "Texas State Parks Guide", body: "Choose parks by region, season, activity, camping style and drive time.", note: "A statewide guide covering all seven regions." },
   { to: "/explore/lakes-rivers", label: "Texas Lakes & Rivers Guide", body: "Plan swimming, fishing, paddling, boating and lakeside weekends with the practical details in one place.", note: "Lakes, rivers and swimming holes across the state." },
@@ -28,7 +28,7 @@ export const travelGuides = [
   { to: "/explore/historic-sites", label: "Texas Historic Places", body: "Browse forts, missions, battlefields, museums, historic districts and cultural landmarks.", note: "Where the past still shapes the present." },
   { to: "/sports-venues", label: "Texas Sports Venue Guide", body: "Browse stadiums, arenas, ballparks, racetracks, college venues and other sports destinations by market and sport.", note: "Verified venue guides for planning game days and sports weekends." },
 ] as const;
-export const travelIntro = "Start with Texas Explained for the why behind the state, compare CityPASS® when Houston or San Antonio attractions are on the itinerary, then move into Painted Churches, parks, water, camping, roads, caverns, small towns, historic places and sports destinations.";
+export const travelIntro = "Start with Texas Explained for the why behind the state, compare CityPASS® when Dallas, Houston or San Antonio attractions are on the itinerary, then move into Painted Churches, parks, water, camping, roads, caverns, small towns, historic places and sports destinations.";
 const allFeaturedGuides = [...travelGuides, ...practicalGuides];
 export const guideAnchor = (index: number) => `guide-${index + 1}`;
 const guidesUrl = absoluteUrl(texasDefinedBrand, "/guides");
