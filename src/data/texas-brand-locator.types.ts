@@ -1,4 +1,9 @@
-export type TexasBrandLocatorBrand = "heb" | "bucees";
+export type TexasBrandLocatorBrand =
+  | "heb"
+  | "central-market"
+  | "joe-vs"
+  | "mi-tienda"
+  | "bucees";
 
 export type TexasBrandLocatorLocation = {
   id: string;
