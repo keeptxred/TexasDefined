@@ -264,7 +264,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     <Container className="pb-16 pt-10 sm:pb-24 sm:pt-14">
-      <article className="relative mx-auto max-w-5xl">
+      <article className={`relative mx-auto ${hasHomecomingMumSupplies ? "max-w-3xl" : "max-w-5xl"}`}>
         <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
           <Link to="/" className="hover:text-foreground">Front page</Link>
           <span aria-hidden="true" className="mx-2">/</span>
@@ -300,7 +300,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         </figure> : null}
 
         <div className="relative">
-          {hasHomecomingMumSupplies ? <><style>{`.homecoming-supply-rail{display:none}@media (min-width:1536px){.homecoming-supply-rail{display:block}.homecoming-supply-bottom{display:none}}`}</style><aside className="homecoming-supply-rail" style={{ left: "calc(100% + 2rem)", position: "absolute", top: "2rem", width: "18rem" }}><div style={{ position: "sticky", top: "2rem" }}><SchoolSupplyPartners placement="rail" context="homecoming" /></div></aside></> : null}
+          {hasHomecomingMumSupplies ? <><style>{`.homecoming-supply-rail{display:none}@media (min-width:1360px){.homecoming-supply-rail{display:block}.homecoming-supply-bottom{display:none}}`}</style><aside className="homecoming-supply-rail" style={{ left: "calc(100% + 1rem)", position: "absolute", top: "2rem", width: "17rem" }}><div style={{ position: "sticky", top: "2rem" }}><SchoolSupplyPartners placement="rail" context="homecoming" /></div></aside></> : null}
         <section className="border-b border-border py-8" aria-labelledby="quick-answer">
           <p className="eyebrow text-primary">Quick answer</p>
           <h2 id="quick-answer" className="mt-2 font-display text-3xl">The short version</h2>
