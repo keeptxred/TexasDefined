@@ -343,6 +343,8 @@ function ArticlePage() {
     .filter((destination): destination is NonNullable<typeof destination> => Boolean(destination))
     .slice(0, 6);
 
+  const hasSchoolSupplyRail = schoolSupplyArticleSlugs.has(article.slug);
+
   return <article>
     <Container className="pt-8 sm:pt-12">
       <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground">
@@ -367,8 +369,9 @@ function ArticlePage() {
         {!isTexasExplainedPillar && <p className="mt-5 max-w-2xl text-base leading-7 text-ink-foreground/86 sm:mt-6 sm:text-lg sm:leading-8">{article.dek}</p>}
       </Container>
     </section>
-    <Container className="max-w-3xl py-10 sm:py-16">
+    <Container className="relative max-w-3xl py-10 sm:py-16">
       <Byline author={author} meta={`${formatDate(article.publishedAt)} · ${formatReadingTime(article.readingMinutes)}`} />
+      {hasSchoolSupplyRail ? <aside className="absolute left-[calc(100%+2rem)] top-10 hidden w-72 2xl:block"><div className="sticky top-8"><SchoolSupplyPartners placement="rail" /></div></aside> : null}
       <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
         <a href="/editorial-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Editorial policy</a>
         <a href="/sourcing-methodology" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">How we source</a>
@@ -394,7 +397,7 @@ function ArticlePage() {
         <a href="#guide-body" className="mt-4 inline-block py-1 text-sm font-semibold text-primary underline-offset-4 hover:underline">Read the full guide ↓</a>
       </section>}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28"><ArticleBody blocks={article.body} entities={graph} /></div>
-      {schoolSupplyArticleSlugs.has(article.slug) ? <SchoolSupplyPartners /> : null}
+      {hasSchoolSupplyRail ? <SchoolSupplyPartners className="2xl:hidden" /> : null}
       {article.hero.credit && <p className="mt-10 text-xs text-muted-foreground">Image credit: {article.hero.credit}</p>}
       {primarySource && <p className="mt-4 text-xs leading-6 text-muted-foreground">Primary source: <a href={primarySource.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{primarySource.label} ↗</a></p>}
       {!hasAuthoritySourceSection && authoritySources.length > 0 && <section className="mt-10 border-t border-border pt-6" aria-labelledby="authority-sources-heading">
