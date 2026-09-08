@@ -1,0 +1,19 @@
+::group::[CODE/CONTENT] Validate generated page quality
+$ node scripts/data/validate-generated-page-quality.mjs
+Generated-page quality validator passed: inventory, source authority, county-seat place semantics, editorial-first county richness, brand ownership, indexability, sitemap qualification, snapshot-backed local-office data, property-page gating, county crawl-demand filtering, and related-content relevance are protected.
+::endgroup::
+::group::[INTERNAL-LINKING] Validate county editorial discovery
+$ node scripts/data/validate-county-editorial-discovery.mjs
+County editorial discovery validator passed: canonical county guides surface curated article links, Jasper loads a canonical county profile with a direct Blue Hole link, legacy county redirects are limited to real Texas county slugs, the Blue Hole full article is in the primary registry for both listing and direct lookup, and destination plus supplemental reciprocal discovery remain protected.
+::endgroup::
+::group::[CODE/CONTENT] Validate county property enrichment
+$ node scripts/data/validate-county-property-enrichment.mjs
+County property enrichment validation passed: 17 generated county records remain upstream-freshness-gated; current local verification overlays are independently freshness/source-count protected; catastrophic-shrink, stale-source withdrawal, crawl-demand filtering, indexability gating, CI protection and reviewable refresh PR behavior remain intact.
+::endgroup::
+::group::[SEO/INDEXING] Validate destination indexing policy
+$ node scripts/data/validate-destination-indexing-policy.mjs
+Destination indexing policy validation failed:
+- Destination runtime publication/resolution contract missing: reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))
+::endgroup::
+::error title=SEO/INDEXING failure::Validate destination indexing policy failed (exit code 1). Command: node scripts/data/validate-destination-indexing-policy.mjs
+exit_status=1
