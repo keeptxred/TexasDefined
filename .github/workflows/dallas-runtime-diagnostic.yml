@@ -1,0 +1,51 @@
+name: Dallas county runtime diagnostic
+
+on:
+  push:
+    branches:
+      - fix/dallas-county-production-render
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Start local TexasDefined runtime
+        run: |
+          npm run dev -- --host 127.0.0.1 --port 4173 > /tmp/texasdefined-vite.log 2>&1 &
+          echo $! > /tmp/texasdefined-vite.pid
+      - name: Wait for runtime
+        run: |
+          for attempt in $(seq 1 60); do
+            if curl --fail --silent --show-error http://127.0.0.1:4173/ >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/texasdefined-vite.log
+          exit 1
+      - name: Verify Dallas county server render
+        run: |
+          status=$(curl --silent --show-error --output /tmp/dallas.html --write-out '%{http_code}' http://127.0.0.1:4173/county/dallas || true)
+          echo "Dallas HTTP status: $status"
+          if [ "$status" != "200" ] || ! grep -Fq 'The story of Dallas County' /tmp/dallas.html || ! grep -Fq 'The county in numbers' /tmp/dallas.html; then
+            echo '--- Dallas HTML (first 120 lines) ---'
+            sed -n '1,120p' /tmp/dallas.html || true
+            echo '--- Runtime log ---'
+            cat /tmp/texasdefined-vite.log || true
+            exit 1
+          fi
+      - name: Stop runtime
+        if: always()
+        run: |
+          if [ -f /tmp/texasdefined-vite.pid ]; then kill "$(cat /tmp/texasdefined-vite.pid)" || true; fi
