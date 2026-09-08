@@ -102,11 +102,20 @@ for (const routePath of ['/hunting/public-hunting', '/hunting/annual-public-hunt
 }
 
 requireText(productionSmokeWorkflow, "workflows: ['Deploy TexasDefined production']", 'production smoke must follow successful production deploys');
+requireText(productionSmokeWorkflow, 'pull_request:', 'verifier-only PR changes must test against production before merge');
 requireText(productionSmokeWorkflow, "'scripts/data/verify-hunting-production.mjs'", 'production smoke script changes must self-test on main');
 requireText(productionSmokeWorkflow, 'node scripts/data/verify-hunting-production.mjs', 'production workflow must execute decoded Node verifier');
 requireText(productionSmoke, 'await fetch(', 'production smoke must use decoded Node fetch');
 requireText(productionSmoke, 'response.text()', 'production smoke must decode response bodies as text');
-requireText(productionSmoke, "text.includes('\\0')", 'production smoke must fail closed on residual NUL bytes');
+requireText(productionSmoke, 'function assertNulsOnlyInsideScripts', 'production smoke must distinguish framework script delimiters from document corruption');
+requireText(productionSmoke, 'function extractVisibleText', 'production smoke must assert rendered visible text rather than raw SSR source');
+requireText(productionSmoke, ".replace(/<script\\b[^>]*>[\\s\\S]*?<\\/script>/gi, ' ')", 'production smoke must exclude hydration/router script state from visible-text assertions');
+requireText(productionSmoke, ".replace(/<style\\b[^>]*>[\\s\\S]*?<\\/style>/gi, ' ')", 'production smoke must exclude style blocks from visible-text assertions');
+requireText(productionSmoke, ".replace(/<!--[\\s\\S]*?-->/g, ' ')", 'production smoke must remove hydration comments before visible-text assertions');
+requireText(productionSmoke, 'function decodeHtmlEntities', 'production smoke must decode HTML entities before visible-text assertions');
+requireText(productionSmoke, "startsWith('<!DOCTYPE html>')", 'production smoke must require an HTML document envelope');
+requireText(productionSmoke, "includes('text/html')", 'production smoke must require HTML content type for page checks');
+requireText(productionSmoke, 'missing expected rendered text', 'production smoke must fail on absent rendered content');
 requireText(productionSmoke, 'More Texas game & small-game coverage', 'production smoke must verify v2 small-game hub group');
 requireText(productionSmoke, 'Migratory game bird depth', 'production smoke must verify v2 migratory hub group');
 requireText(productionSmoke, 'Fur-bearing animals & trapping', 'production smoke must verify v2 fur-bearer hub group');
@@ -120,4 +129,4 @@ for (const redirectOnly of ['/explore/wildlife-management-areas', '/explore/texa
   }
 }
 
-console.log(`Hunting authority validation passed: hub + ${expectedTopics.length} topics, v2 coverage, freshness, TPWD sourcing, search/sitemap governance, lazy child-route rendering, reciprocal discovery links, bundle-safe WMA discovery and decoded v2 production smoke governance.`);
+console.log(`Hunting authority validation passed: hub + ${expectedTopics.length} topics, v2 coverage, freshness, TPWD sourcing, search/sitemap governance, lazy child-route rendering, reciprocal discovery links, bundle-safe WMA discovery and rendered-text v2 production smoke governance.`);

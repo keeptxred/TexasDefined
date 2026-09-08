@@ -4,6 +4,10 @@ on:
   workflow_run:
     workflows: ['Deploy TexasDefined production']
     types: [completed]
+  pull_request:
+    paths:
+      - '.github/workflows/verify-hunting-production.yml'
+      - 'scripts/data/verify-hunting-production.mjs'
   push:
     branches:
       - main
@@ -17,7 +21,7 @@ permissions:
 
 jobs:
   verify:
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
