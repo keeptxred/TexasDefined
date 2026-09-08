@@ -10,6 +10,7 @@ import { DestinationVisitPlanner } from "@/components/editorial/DestinationVisit
 import { MapPreview } from "@/components/editorial/MapPreview";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
+import { CityPassCallout, cityPassMarketForDestinationSlug } from "@/components/monetization/CityPassCallout";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
 import { auditDestination } from "@/data/destination-audit";
 import { buildDestinationRelationshipGroups } from "@/data/destination-relationships";
@@ -114,6 +115,7 @@ function DestinationPage() {
   const spend = (requested: number) => { const value = limit(requested); remainingLinks -= value; return value; };
   const verifiedLabel = checkedDate(destination.sourceCheckedAt);
   const countySlug = destination.county?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const cityPassMarket = cityPassMarketForDestinationSlug(destination.slug);
 
   return <>
     <Container className="pt-10 sm:pt-14"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden>·</li><li><Link to="/explore/$category" params={{ category: destination.category }} className="hover:text-foreground">{categoryName}</Link></li></ol></nav></Container>
@@ -167,6 +169,7 @@ function DestinationPage() {
 
       <aside className="space-y-8 lg:sticky lg:top-28 lg:self-start">
         <div className="border-t-2 border-foreground pt-5"><p className="eyebrow text-primary">At a glance</p><dl className="mt-5 divide-y divide-border text-sm"><div className="pb-4"><dt className="text-muted-foreground">Nearest town</dt><dd className="mt-1 font-medium"><AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} /></dd></div><div className="py-4"><dt className="text-muted-foreground">Best season</dt><dd className="mt-1 font-medium">{destination.bestSeason}</dd></div><div className="py-4"><dt className="text-muted-foreground">Before arrival</dt><dd className="mt-1 leading-6">{destination.entryNote}</dd></div>{destination.managingAuthority && <div className="pt-4"><dt className="text-muted-foreground">Managed by</dt><dd className="mt-1 font-medium">{destination.managingAuthority}</dd></div>}</dl></div>
+        {cityPassMarket ? <CityPassCallout market={cityPassMarket} placement="rail" /> : null}
         {(validExternalUrl(destination.officialUrl) || verifiedLabel) && <div className="border-t border-border pt-5 text-sm"><p className="eyebrow text-muted-foreground">Source notes</p>{verifiedLabel && <p className="mt-3 leading-6 text-muted-foreground">Visitor information checked {verifiedLabel}.</p>}{validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-4 inline-block border-b border-primary pb-1 text-primary">Official source</a>}</div>}
         <MapPreview markers={[{ id: destination.id, label: destination.name, point: destination.coordinates }]} directionsLabel={`${destination.name}, Texas`} />
       </aside>
