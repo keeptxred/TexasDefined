@@ -12,10 +12,7 @@ export const Route = createFileRoute('/texas-salary-calculator')({
       'Estimate Texas take-home pay',
       'Account for federal income tax',
       'Include Social Security and Medicare',
-      'Add benefits, retirement contributions and other deductions',
-      'Compare annual, monthly and per-paycheck cash flow',
+      'Add benefits and other deductions',
     ],
-    breadcrumbParent: { name: 'Financial Tools', path: '/decide/financial-tools' },
-    applicationCategory: 'FinanceApplication',
   }),
 });
