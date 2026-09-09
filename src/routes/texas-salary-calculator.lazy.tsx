@@ -13,11 +13,22 @@ const grossPayExamples = [
   ['150,000', '12,500.00', '6,250.00', '5,769.23', '2,884.62'],
 ];
 
+const salaryFaqJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: salaryFaqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+});
+
 export const Route = createLazyFileRoute('/texas-salary-calculator')({ component: TexasSalaryCalculatorPage });
 
 function TexasSalaryCalculatorPage() {
   return (
     <CalculatorPage eyebrow="Texas take-home pay calculator" title="Texas paycheck and take-home pay calculator" description={salaryDescription}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: salaryFaqJsonLd }} />
       <SalaryCalculator />
       <section className="mt-14 border-t border-border pt-10" aria-labelledby="salary-estimate-heading">
         <p className="eyebrow text-primary">From salary to paycheck</p>
