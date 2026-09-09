@@ -1,0 +1,84 @@
+name: Diagnose production live verifiers
+
+on:
+  push:
+    branches:
+      - diagnostic/prod-live-verifiers-20260909
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    name: Diagnose production live verifiers
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out diagnostic branch
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run production verifiers independently
+        id: verify
+        shell: bash
+        env:
+          DIRECT_WORKER_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
+        run: |
+          mkdir -p .artifacts/live-verifiers
+          summary=.artifacts/live-verifiers/summary.txt
+          : > "$summary"
+          failures=0
+
+          run_check() {
+            name="$1"
+            shift
+            echo "===== ${name} ====="
+            set +e
+            "$@" 2>&1 | tee ".artifacts/live-verifiers/${name}.log"
+            code=${PIPESTATUS[0]}
+            set -e
+            echo "${name}=${code}" | tee -a "$summary"
+            if [[ "$code" -ne 0 ]]; then
+              failures=$((failures + 1))
+            fi
+          }
+
+          run_check direct-worker node scripts/ci/verify-direct-worker-discovery.mjs
+          run_check base node scripts/ci/verify-production-surfaces.mjs
+          run_check event node scripts/ci/verify-event-structured-data-production.mjs
+          run_check local-financial node scripts/ci/verify-local-financial-production.mjs
+          run_check statewide-financial node scripts/ci/verify-statewide-financial-discovery.mjs
+
+          echo
+          echo '===== verifier exit summary ====='
+          cat "$summary"
+          echo "failures=${failures}" | tee -a "$summary"
+
+          {
+            echo '## Production live-verifier diagnostic'
+            echo
+            echo '```text'
+            cat "$summary"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [[ "$failures" -gt 0 ]]; then
+            exit 1
+          fi
+
+      - name: Upload verifier diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-live-verifier-diagnostics-${{ github.run_id }}
+          path: .artifacts/live-verifiers
+          if-no-files-found: error
+          retention-days: 7
