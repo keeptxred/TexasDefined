@@ -92,19 +92,19 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
 
 // These high-impression snippet experiments matter to server-rendered search output but are
 // deliberately excluded from the browser bundle. Client navigation falls back to each page's
-// existing article metadata; canonical SSR output carries the GSC-aligned title/description.
+// existing metadata; canonical SSR output carries the GSC-aligned title/description.
 const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = import.meta.env.SSR ? {
   "/article/texas-rivers-explained": {
-    title: "Major Rivers in Texas: Boundary Rivers, Basins & Regions",
-    description: "See Texas boundary rivers, major river basins and regional waterways.",
+    title: "Major Rivers in Texas: Boundary Rivers, Regions & Basins",
+    description: "Find Texas's major and boundary rivers by region, from the Rio Grande and Red to the Brazos, Colorado, Guadalupe, Trinity, Sabine and Neches.",
   },
   "/article/texas-river-basins-guide": {
-    title: "Texas River Basins: 15 Major Basins & Watersheds",
-    description: "Explore Texas's 15 major river basins and eight coastal basins.",
+    title: "Texas River Basins: 15 Major & 8 Coastal Basins",
+    description: "Learn how Texas's 15 major and eight coastal basins divide the state by watershed, and how rivers, reservoirs, cities and the Gulf connect.",
   },
   "/article/texas-lakes-reservoirs-explained": {
-    title: "Are Texas Lakes Man-Made? Why Most Are Reservoirs",
-    description: "Most familiar inland Texas lakes are reservoirs. See why Texas built dams for water supply and flood control, with Lake Travis, Texoma and Canyon Lake.",
+    title: "Texas Lakes & Reservoirs: Why Most Are Man-Made",
+    description: "See why most familiar inland Texas lakes are reservoirs built for water supply and flood control, including Lake Travis, Texoma and Canyon Lake.",
   },
   "/article/texas-highway-designations-explained": {
     title: "Texas Road Names: What FM, RM, SH, Loop & Spur Mean",
@@ -112,7 +112,23 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
   },
   "/article/texas-school-districts-explained": {
     title: "What Does ISD Stand For in Texas? School District Guide",
-    description: "ISD means Independent School District. Learn why district boundaries differ from city limits.",
+    description: "ISD means Independent School District. Learn why city limits and ZIP codes do not determine school districts, campus zones or local school taxes.",
+  },
+  "/article/why-texas-has-254-counties": {
+    title: "Why Does Texas Have 254 Counties? History & County Seats",
+    description: "Texas has more counties than any other state. See how distance, settlement, county seats and 19th-century travel created the 254-county map.",
+  },
+  "/sports-venue/legacy-stadium-katy": {
+    title: "Legacy Stadium Katy: Parking, Events & Visitor Guide",
+    description: "Plan a Legacy Stadium visit in Katy with verified parking, arrival, event, official venue and map links for Katy ISD football and UIL playoff games.",
+  },
+  "/sports-venue/mesquite-memorial-stadium": {
+    title: "Mesquite Memorial Stadium: Parking, Tickets & Events",
+    description: "Plan Mesquite Memorial Stadium with verified parking, directions, ticket and event links for Mesquite ISD football, soccer and UIL games.",
+  },
+  "/sports-venue/mckinney-isd-stadium": {
+    title: "McKinney ISD Stadium: Parking, Events & Visitor Guide",
+    description: "Plan a McKinney ISD Stadium visit with verified parking, arrival, event-day and official venue links for football and community events.",
   },
 } : {};
 
