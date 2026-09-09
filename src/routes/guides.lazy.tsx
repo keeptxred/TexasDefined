@@ -9,15 +9,7 @@ import { Container } from "@/components/layout/Container";
 import { guidesQuery } from "@/data/queries";
 import { absoluteUrl } from "@/lib/seo";
 
-import { description } from "./guides";
-
-const texasExplainedGuide = {
-  to: "/texas-explained",
-  label: "Texas Explained",
-  body: "Understand the systems behind the scenery: rivers, reservoirs, roads, courthouse towns, wildlife, homes, land and cultural regions.",
-  note: "Ten connected evergreen guides to why Texas works the way it does.",
-} as const;
-const travelIntro = "Start with Texas Explained for the why behind the state, compare CityPASS® and all 21 current attraction choices when Dallas, Houston or San Antonio are on the itinerary, then move into Painted Churches, parks, water, camping, roads, caverns, small towns, historic places and sports destinations.";
+import { description, texasExplainedGuide, travelIntro } from "./guides";
 
 const practicalGuides = [
   { to: "/learn/property-taxes", label: "Property Taxes Without the Guesswork", body: "A plain-English look at appraisals, exemptions, protests, rates and the yearly tax cycle.", action: "Read the guide" },

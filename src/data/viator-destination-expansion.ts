@@ -7,6 +7,7 @@ import { viatorDestinationExpansionWave8 } from "./viator-destination-expansion-
 import { viatorDestinationExpansionWave9 } from "./viator-destination-expansion-wave9";
 import { viatorDestinationExpansionWave10 } from "./viator-destination-expansion-wave10";
 import { viatorDestinationExpansionWave11 } from "./viator-destination-expansion-wave11";
+import { viatorDestinationExpansionWave12 } from "./viator-destination-expansion-wave12";
 
 /**
  * Durable TexasDefined destination pages discovered through Viator inventory
@@ -22,4 +23,5 @@ export const viatorDestinationExpansion: Destination[] = [
   ...viatorDestinationExpansionWave9,
   ...viatorDestinationExpansionWave10,
   ...viatorDestinationExpansionWave11,
+  ...viatorDestinationExpansionWave12,
 ];
