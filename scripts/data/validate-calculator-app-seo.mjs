@@ -48,6 +48,8 @@ for (const feature of [
   "'@type': 'BreadcrumbList'",
   'featureList: options.featureList',
   "isPartOf: { '@id': `${siteUrl}/#website` }",
+  "name: 'Financial Tools'",
+  "path: '/decide/financial-tools'",
 ]) {
   if (!helper.includes(feature)) failures.push(`Calculator SEO helper missing ${feature}.`);
 }
@@ -96,7 +98,10 @@ for (const [label, eagerFilename, lazyFilename, faqConst, titleMarker, descripti
   const eager = fs.readFileSync(eagerFilename, 'utf8');
   const lazy = fs.readFileSync(lazyFilename, 'utf8');
   if (eager.includes('query-alignment')) failures.push(`${label} calculator must keep long-form query-alignment data out of the eager route bundle.`);
-  for (const marker of [titleMarker, descriptionMarker, "breadcrumbParent: { name: 'Financial Tools', path: '/decide/financial-tools' }"]) {
+  for (const redundant of ['breadcrumbParent:', 'applicationCategory:']) {
+    if (eager.includes(redundant)) failures.push(`${label} calculator must rely on buildCalculatorHead defaults instead of repeating ${redundant} in the eager route.`);
+  }
+  for (const marker of [titleMarker, descriptionMarker]) {
     if (!eager.includes(marker)) failures.push(`${label} eager calculator metadata missing ${marker}.`);
   }
   for (const marker of ["'@type': 'FAQPage'", 'type="application/ld+json"', `${faqConst}.map`]) {
