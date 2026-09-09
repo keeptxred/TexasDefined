@@ -1,0 +1,55 @@
+name: Diagnose PR 1773 bundle once
+
+on:
+  push:
+    branches:
+      - fix/gsc-calculator-query-alignment-2026-09-08
+
+permissions:
+  contents: read
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Build production bundle
+        run: npm run build
+      - name: Measure protected client assets
+        shell: bash
+        run: |
+          node --input-type=module <<'EOF'
+          import { readdir, stat, writeFile } from 'node:fs/promises';
+          import path from 'node:path';
+          const dirs = ['dist/client/assets', '.output/public/assets'];
+          let assetsDir;
+          for (const candidate of dirs) {
+            try {
+              if ((await stat(candidate)).isDirectory()) { assetsDir = candidate; break; }
+            } catch {}
+          }
+          if (!assetsDir) throw new Error('Client assets directory not found');
+          const entries = await readdir(assetsDir);
+          const mainFiles = entries.filter((name) => /^main-.*\.js$/.test(name));
+          const cssFiles = entries.filter((name) => /^styles-.*\.css$/.test(name));
+          const measurement = {
+            assetsDir,
+            main: await Promise.all(mainFiles.map(async (name) => ({ name, bytes: (await stat(path.join(assetsDir, name))).size }))),
+            css: await Promise.all(cssFiles.map(async (name) => ({ name, bytes: (await stat(path.join(assetsDir, name))).size }))),
+            maxMainBytes: 1825000,
+            stableMainBaselineBytes: 1807457,
+          };
+          await writeFile('pr1773-bundle-measurement.json', JSON.stringify(measurement, null, 2));
+          console.log(JSON.stringify(measurement));
+          EOF
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pr1773-bundle-measurement
+          path: pr1773-bundle-measurement.json
+          retention-days: 1
