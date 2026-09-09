@@ -81,12 +81,13 @@ if (!sitemap.includes('status: 503') || !sitemap.includes('"retry-after": "300"'
 
 for (const feature of [
   'const ARTICLE_LASTMOD_BY_SLUG',
-  'directlyIndexableLocalArticleSlugs',
+  'const indexableLocalArticles = articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article));',
+  'indexableLocalArticleSlugs',
   'Object.keys(ARTICLE_LASTMOD_BY_SLUG)',
   'isArticleDiscoveryReady(catalogArticle)',
   'platform.articles.getBySlug(scope, slug)',
   'fullArticle && isArticleIndexReady(fullArticle)',
-  'const indexableLocalArticles = [...directlyIndexableLocalArticles, ...protectedLocalArticles]',
+  'indexableLocalArticles.push(...protectedLocalArticles)',
 ]) {
   if (!sitemap.includes(feature)) failures.push(`Protected sitemap article readiness contract missing: ${feature}`);
 }
