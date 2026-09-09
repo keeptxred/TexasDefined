@@ -1,4 +1,5 @@
 import { getCityAuthorityProfile } from '@/data/city-authority-profiles';
+import { getRgvCityAuthorityProfile } from '@/data/city-authority-profiles-rgv';
 import { canonicalEntityPath, type RankedRelatedEntity } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 
@@ -19,6 +20,29 @@ const CITY_RESOURCE_LINKS = [
   { href: '/explore/trip-planner', label: 'Texas trip planner', copy: 'Turn the city into a travel base and discover destinations through the broader TexasDefined planning system.' },
 ] as const;
 
+const CITY_LOCATION_ANSWERS: Record<string, { where: string; county: string; region: string }> = {
+  austin: {
+    where: 'Austin is in Central Texas and is primarily in Travis County. Some Austin addresses and city election jurisdictions also involve Hays or Williamson County, so use the exact address for county-specific property, court and election systems.',
+    county: 'Austin is primarily in Travis County. Some Austin addresses and city election jurisdictions also involve Hays or Williamson County, so verify the exact address before using county-specific property, court, appraisal or election systems.',
+    region: 'Austin is in Central Texas and is the core city of the Greater Austin metropolitan area.',
+  },
+  'fort-worth': {
+    where: 'Fort Worth is in North Texas and is primarily in Tarrant County. Its city limits also extend into Denton, Parker, Johnson and Wise counties.',
+    county: 'Fort Worth is primarily in Tarrant County, with city limits extending into Denton, Parker, Johnson and Wise counties. Verify the exact address before using county-specific services.',
+    region: 'Fort Worth is in North Texas and is one of the two core cities of the Dallas–Fort Worth Metroplex.',
+  },
+  mcallen: {
+    where: 'McAllen is in Hidalgo County in South Texas, in the Lower Rio Grande Valley near the U.S.–Mexico border.',
+    county: 'McAllen is in Hidalgo County, Texas.',
+    region: 'McAllen is in South Texas in the Lower Rio Grande Valley, commonly called the Rio Grande Valley or RGV.',
+  },
+  edinburg: {
+    where: 'Edinburg is in Hidalgo County in South Texas, in the Lower Rio Grande Valley. It is the Hidalgo County seat.',
+    county: 'Edinburg is in Hidalgo County, Texas, and serves as the county seat.',
+    region: 'Edinburg is in South Texas in the Lower Rio Grande Valley, part of the McAllen–Edinburg–Mission metropolitan area.',
+  },
+};
+
 export function EntityDepthSections({ entity, related }: { entity: TexasEntityRecord; related: RankedRelatedEntity[] }) {
   if (entity.kind === 'county') return null;
 
@@ -28,9 +52,23 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
   const practicalItems = practicalChecklist(entity);
   const questions = quickAnswers(entity, countyName, regionName);
   const relatedItems = related.slice(0, 6);
-  const cityProfile = entity.kind === 'city' ? getCityAuthorityProfile(entity.slug) : undefined;
+  const cityProfile = entity.kind === 'city'
+    ? getCityAuthorityProfile(entity.slug) ?? getRgvCityAuthorityProfile(entity.slug)
+    : undefined;
+  const cityFaqJsonLd = entity.kind === 'city' && questions.length
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: questions.map(({ question, answer }) => ({
+          '@type': 'Question',
+          name: question,
+          acceptedAnswer: { '@type': 'Answer', text: answer },
+        })),
+      }
+    : null;
 
   return <>
+    {cityFaqJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(cityFaqJsonLd) }} /> : null}
     <section className="border-b border-border py-12" aria-labelledby="entity-context-heading">
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
         <div>
@@ -190,9 +228,10 @@ function buildContextItems(entity: TexasEntityRecord, countyName: string | null,
   }
 
   if (entity.kind === 'city') {
+    const override = CITY_LOCATION_ANSWERS[entity.slug];
     return [
       `${entity.name} is a TexasDefined city reference built to connect the city with its county, region, nearby destinations and practical Texas-living guides. It is not intended to be a generic encyclopedia entry.`,
-      countyName ? `${entity.name} is associated with ${countyName}. County boundaries matter for property records, courts, elections, appraisal districts and other local-government services even when a mailing address uses the city name.` : `City and county boundaries do not always align with mailing addresses, so verify the county when property, elections or local-government services are involved.`,
+      override?.where ?? (countyName ? `${entity.name} is primarily associated with ${countyName}${regionName ? ` in ${regionName} Texas` : ''}. County boundaries matter for property records, courts, elections, appraisal districts and other local-government services, so verify the exact address when those systems matter.` : `City and county boundaries do not always align with mailing addresses, so verify the county when property, elections or local-government services are involved.`),
       `Use the related guides to move from the city overview into nearby places, property information, outdoor destinations and other TexasDefined coverage that is specific to the area.`,
     ];
   }
@@ -249,15 +288,31 @@ function practicalChecklist(entity: TexasEntityRecord) {
 }
 
 function quickAnswers(entity: TexasEntityRecord, countyName: string | null, regionName: string | null) {
-  const locationAnswer = countyName
+  const cityOverride = entity.kind === 'city' ? CITY_LOCATION_ANSWERS[entity.slug] : undefined;
+  const locationAnswer = cityOverride?.where ?? (countyName
     ? `${entity.name} is associated with ${countyName}${regionName ? ` in the ${regionName} region` : ''}. Use the map link and official source for the exact entrance, office or service location when that matters.`
     : regionName
       ? `${entity.name} is associated with the ${regionName} region of Texas. Use the map link and official source for exact location details.`
-      : `Use the map link or official source on this page for the exact location or service area.`;
+      : `Use the map link or official source on this page for the exact location or service area.`);
 
   const answers = [
     { question: `Where is ${entity.name}?`, answer: locationAnswer },
   ];
+
+  if (entity.kind === 'city') {
+    answers.push({
+      question: `What county is ${entity.name} in?`,
+      answer: cityOverride?.county ?? (countyName
+        ? `${entity.name} is primarily associated with ${countyName}. Some Texas city limits cross county lines, so verify the exact address before using county-specific property, court, appraisal or election systems.`
+        : `Verify the exact address to determine the county for ${entity.name}; Texas city and county boundaries do not always align.`),
+    });
+    answers.push({
+      question: `What region of Texas is ${entity.name} in?`,
+      answer: cityOverride?.region ?? (regionName
+        ? `${entity.name} is in the ${regionName} region of Texas.`
+        : `${entity.name} is in Texas; use the county and related-place references on this page for more precise regional context.`),
+    });
+  }
 
   if (entity.officialUrl) answers.push({
     question: `Where should I verify current information for ${entity.name}?`,

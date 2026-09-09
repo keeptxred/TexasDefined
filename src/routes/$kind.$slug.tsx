@@ -76,6 +76,7 @@ function searchIntentTitle(entity: TexasEntityRecord) {
   if (entity.kind === 'appraisal-district' && entity.countySlug) return `${title(entity.countySlug)} County Appraisal District`;
   if (entity.kind === 'tax-office' && entity.countySlug) return `${title(entity.countySlug)} County Tax Office`;
   if (entity.kind === 'agency') return `${entity.name}: Services`;
+  if (entity.kind === 'city') return `${entity.name}, Texas City Guide | County & Region`;
   return entity.name;
 }
 
@@ -91,6 +92,11 @@ function searchSnippetDescription(entity: TexasEntityRecord) {
     const officialCopy = entity.officialUrl ? ', plus a verified link to the official district website' : '';
     if (entity.description) return `Find ${countyName} Appraisal District information for property search, appraisal records, exemptions and protests, with verified office details${officialCopy}. Independent Texas Defined reference.`;
     return `${countyName} Appraisal District reference from Texas Defined. Office and property-appraisal details are published as authoritative sources are verified.`;
+  }
+  if (entity.kind === 'city') {
+    const county = entity.countySlug ? `${title(entity.countySlug)} County` : 'local county context';
+    const region = entity.region ? `${title(entity.region)} Texas` : 'Texas';
+    return `Explore ${entity.name}, Texas: ${county}, ${region}, Census population, utilities, transit, schools, property systems and practical local resources.`;
   }
   return pageDescription(entity);
 }

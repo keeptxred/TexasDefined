@@ -23,6 +23,8 @@ const helocRankingArticle = fs.readFileSync('src/data/fixtures/finance-heloc-dep
 const migratedEditorialLoader = fs.readFileSync('src/data/fixtures/lazy-migrated-editorial.ts', 'utf8');
 const calculators = fs.readFileSync('src/components/calculators/TexasPlanningCalculators.tsx', 'utf8');
 const entityRoute = readRouteSurface('src/routes/$kind.$slug.tsx');
+const entityDepth = fs.readFileSync('src/components/content/EntityDepthSections.tsx', 'utf8');
+const rgvCityProfiles = fs.readFileSync('src/data/city-authority-profiles-rgv.ts', 'utf8');
 const entityRegistry = fs.readFileSync('src/data/texas-entity-registry.ts', 'utf8');
 const knowledgeGraph = fs.readFileSync('src/data/knowledge-graph/index.ts', 'utf8');
 const localGovernment = fs.readFileSync('src/data/local-government-profile.ts', 'utf8');
@@ -118,7 +120,7 @@ for (const required of [
 }
 
 for (const required of [
-  "title: 'Texas Cost of Living Calculator | Compare Household Budgets'",
+  'title: \'Texas Cost of Living Calculator | Compare Household Budgets\'',
   'title="Texas cost of living calculator"',
   'Compare a current household budget with a possible Texas destination',
   'move or job decision',
@@ -168,7 +170,9 @@ for (const required of [
   'description = searchSnippetDescription(loaderData.entity)',
   "if (entity.kind === 'appraisal-district' && entity.countySlug) return `${title(entity.countySlug)} County Appraisal District`;",
   "if (entity.kind === 'agency') return `${entity.name}: Services`;",
-  "if (entity.kind === 'agency') {",
+  "if (entity.kind === 'city') return `${entity.name}, Texas City Guide | County & Region`;",
+  "if (entity.kind === 'city') {",
+  'Census population, utilities, transit, schools, property systems and practical local resources.',
   "const officialCopy = entity.officialUrl ? ' and a verified link to its official Texas website' : '';",
   'Independent Texas Defined reference.',
   'property search, appraisal records, exemptions and protests',
@@ -182,6 +186,41 @@ for (const required of [
 
 if (!entityRoute.includes("robots: indexable ? undefined : 'noindex, follow, max-image-preview:large'")) {
   failures.push('Search-intent changes must preserve the generated entity indexability gate.');
+}
+
+for (const required of [
+  "import { getRgvCityAuthorityProfile } from '@/data/city-authority-profiles-rgv';",
+  "getCityAuthorityProfile(entity.slug) ?? getRgvCityAuthorityProfile(entity.slug)",
+  "const CITY_LOCATION_ANSWERS: Record<string, { where: string; county: string; region: string }>",
+  'What county is ${entity.name} in?',
+  'What region of Texas is ${entity.name} in?',
+  "'@type': 'FAQPage'",
+  "'@type': 'Question'",
+  "acceptedAnswer: { '@type': 'Answer', text: answer }",
+  'Fort Worth is primarily in Tarrant County, with city limits extending into Denton, Parker, Johnson and Wise counties.',
+  'Austin is primarily in Travis County. Some Austin addresses and city election jurisdictions also involve Hays or Williamson County',
+  'McAllen is in Hidalgo County, Texas.',
+  'Edinburg is in Hidalgo County, Texas, and serves as the county seat.',
+]) {
+  if (!entityDepth.includes(required)) failures.push(`City location-answer contract missing: ${required}`);
+}
+
+for (const required of [
+  'mcallen: {',
+  'population2020: 142_210',
+  'https://www.census.gov/quickfacts/fact/table/mcallencitytexas/PST045225',
+  'Metro McAllen',
+  'McAllen International Airport',
+  'McAllen ISD',
+  'edinburg: {',
+  'population2020: 100_243',
+  'https://www.census.gov/quickfacts/fact/table/edinburgcitytexas/PST045225',
+  'Edinburg Utilities',
+  'South Texas International Airport at Edinburg',
+  'Edinburg CISD',
+  'getRgvCityAuthorityProfile',
+]) {
+  if (!rgvCityProfiles.includes(required)) failures.push(`Rio Grande Valley city authority contract missing: ${required}`);
 }
 
 for (const agency of [
@@ -259,4 +298,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Search-intent and SERP CTR validation passed: GSC-aligned calculator metadata, home-insurance no-personal-information intent, Texas paycheck/take-home-pay intent, Phase 3 finance ranking depth, disabled-veteran guidance, city discovery, county property-tax pages, legacy county redirects, appraisal-district queries, agency snippets, Texas Explained behavioral search scoring, independent framing, and publication-quality gates are protected.');
+console.log('Search-intent and SERP CTR validation passed: GSC-aligned calculator metadata, home-insurance no-personal-information intent, Texas paycheck/take-home-pay intent, Phase 3 finance ranking depth, disabled-veteran guidance, city directory and city location intent, county property-tax pages, legacy county redirects, appraisal-district queries, agency snippets, Texas Explained behavioral search scoring, independent framing, and publication-quality gates are protected.');
