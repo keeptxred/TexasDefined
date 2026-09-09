@@ -1,4 +1,3 @@
-import { lazy, Suspense } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
@@ -6,6 +5,7 @@ import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationRelationships } from "@/components/editorial/DestinationRelationships";
+import { DestinationViatorBooking } from "@/components/editorial/DestinationViatorBooking";
 import { DestinationVisitPlanner } from "@/components/editorial/DestinationVisitPlanner";
 import { MapPreview } from "@/components/editorial/MapPreview";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
@@ -18,12 +18,6 @@ import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery, re
 import { isTopTexasAttraction } from "@/data/top-texas-attractions";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from "@/platform/internal-link-policies";
-
-const DestinationViatorBooking = lazy(() =>
-  import("@/components/editorial/DestinationViatorBooking").then((module) => ({
-    default: module.DestinationViatorBooking,
-  })),
-);
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
@@ -161,7 +155,7 @@ function DestinationPage() {
           </dl>
           <div className="mt-7 flex flex-wrap gap-6">{validExternalUrl(destination.reservationUrl) && <a href={destination.reservationUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Reservations</a>}{validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official visitor information</a>}</div>
         </section>
-        <Suspense fallback={null}><DestinationViatorBooking destination={destination} /></Suspense>
+        <DestinationViatorBooking destination={destination} />
         <div className="mt-14"><DestinationVisitPlanner destination={destination} /></div>
       </div>
 
