@@ -1,31 +1,10 @@
 import { createLazyFileRoute, Link } from '@tanstack/react-router';
 import { CalculatorPage } from '@/components/calculators/CalculatorPage';
 import { SalaryCalculator } from '@/components/calculators/TexasPlanningCalculators';
-
-const description = 'Estimate a Texas paycheck and take-home pay after federal income tax, Social Security, Medicare, benefits and other deductions. Texas has no individual state income tax.';
-
-const faqs = [
-  {
-    question: 'Does Texas have a state income tax on wages?',
-    answer: 'Texas does not impose an individual state income tax, so a Texas paycheck estimate usually focuses on federal income tax, Social Security, Medicare, benefits, retirement contributions and other payroll deductions.',
-  },
-  {
-    question: 'How do I estimate after-tax income in Texas?',
-    answer: 'Start with gross pay, subtract estimated federal income tax and payroll taxes, then include benefits, retirement contributions and any other deductions that apply to your paycheck.',
-  },
-  {
-    question: 'Should I use salary or paycheck amount when comparing jobs?',
-    answer: 'Use both. Annual salary is useful for comparing offers, but monthly and per-paycheck take-home amounts are better for budgeting. Compare benefits, retirement contributions, health-insurance deductions and any bonus or commission structure as well as base salary.',
-  },
-  {
-    question: 'Why can my actual Texas paycheck differ from this estimate?',
-    answer: 'Actual withholding depends on filing status, Form W-4 elections, pre-tax benefits, retirement contributions, bonuses, employer payroll settings and other personal tax details. This calculator is designed for scenario planning rather than payroll preparation.',
-  },
-  {
-    question: 'Where can I verify federal withholding?',
-    answer: 'Use current IRS withholding guidance or the IRS Tax Withholding Estimator, especially after a job change, marriage, major income change or another event that affects your tax situation.',
-  },
-];
+import {
+  salaryDescription,
+  salaryFaqs,
+} from '@/data/salary-query-alignment';
 
 const grossPayExamples = [
   ['50,000', '4,166.67', '2,083.33', '1,923.08', '961.54'],
@@ -34,11 +13,22 @@ const grossPayExamples = [
   ['150,000', '12,500.00', '6,250.00', '5,769.23', '2,884.62'],
 ];
 
+const salaryFaqJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: salaryFaqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+});
+
 export const Route = createLazyFileRoute('/texas-salary-calculator')({ component: TexasSalaryCalculatorPage });
 
 function TexasSalaryCalculatorPage() {
   return (
-    <CalculatorPage eyebrow="Texas take-home pay calculator" title="Texas paycheck and salary calculator" description={description}>
+    <CalculatorPage eyebrow="Texas take-home pay calculator" title="Texas paycheck and take-home pay calculator" description={salaryDescription}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: salaryFaqJsonLd }} />
       <SalaryCalculator />
       <section className="mt-14 border-t border-border pt-10" aria-labelledby="salary-estimate-heading">
         <p className="eyebrow text-primary">From salary to paycheck</p>
@@ -119,7 +109,7 @@ function TexasSalaryCalculatorPage() {
       <section className="mt-12 border-t border-border pt-10" aria-labelledby="salary-faq-heading">
         <p className="eyebrow text-primary">Common questions</p>
         <h2 id="salary-faq-heading" className="mt-3 font-display text-3xl">Texas paycheck and salary calculator FAQ</h2>
-        <div className="mt-6 divide-y divide-border border-y border-border">{faqs.map((faq) => <div key={faq.question} className="py-6"><h3 className="font-display text-2xl">{faq.question}</h3><p className="mt-3 max-w-3xl text-base leading-7 text-muted-foreground">{faq.answer}</p></div>)}</div>
+        <div className="mt-6 divide-y divide-border border-y border-border">{salaryFaqs.map((faq) => <div key={faq.question} className="py-6"><h3 className="font-display text-2xl">{faq.question}</h3><p className="mt-3 max-w-3xl text-base leading-7 text-muted-foreground">{faq.answer}</p></div>)}</div>
       </section>
     </CalculatorPage>
   );

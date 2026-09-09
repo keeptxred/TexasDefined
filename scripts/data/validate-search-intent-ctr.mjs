@@ -9,6 +9,10 @@ const readRouteSurface = (file) => {
 
 const insuranceRoute = readRouteSurface('src/routes/texas-home-insurance-calculator.tsx');
 const salaryRoute = readRouteSurface('src/routes/texas-salary-calculator.tsx');
+const calculatorQueryAlignment = [
+  fs.readFileSync('src/data/home-insurance-query-alignment.ts', 'utf8'),
+  fs.readFileSync('src/data/salary-query-alignment.ts', 'utf8'),
+].join('\n');
 const mortgageRoute = readRouteSurface('src/routes/texas-mortgage-calculator.tsx');
 const costOfLivingRoute = readRouteSurface('src/routes/texas-cost-of-living-calculator.tsx');
 const citiesRoute = readRouteSurface('src/routes/browse.cities.tsx');
@@ -28,10 +32,15 @@ const queriesSource = fs.readFileSync('src/data/queries.ts', 'utf8');
 const failures = [];
 
 for (const required of [
-  "title: 'Texas Home Insurance Cost Calculator'",
-  'title="Texas home insurance cost calculator"',
-  'Estimate Texas homeowners insurance cost from replacement cost',
-  'does not require your name, email address, phone number, or street address',
+  "homeInsuranceSeoTitle = 'Texas Homeowners Insurance Calculator | No Personal Info'",
+  'Estimate Texas homeowners insurance from replacement cost, rate assumptions, wind or flood coverage, and deductibles',
+  'without entering your name, email, phone number, or street address',
+]) {
+  if (!calculatorQueryAlignment.includes(required)) failures.push(`Home-insurance search metadata contract missing: ${required}`);
+}
+
+for (const required of [
+  'title="Texas homeowners insurance calculator — no personal information required"',
   'No quote form required',
   'Homeowners insurance calculator without personal information',
   'does not ask for your name, email address, phone number, street address, date of birth, or other contact details',
@@ -59,8 +68,15 @@ for (const required of ['Replacement cost', 'Estimated base rate', 'Wind/flood a
 }
 
 for (const required of [
-  "title: 'Texas Paycheck Calculator | Take-Home Pay'",
-  'title="Texas paycheck and salary calculator"',
+  "salarySeoTitle = 'Texas Paycheck Calculator | Take-Home Pay After Taxes'",
+  'Estimate Texas take-home pay after federal income tax, Social Security, Medicare, benefits, retirement contributions, and other deductions.',
+  'Texas has no individual state income tax.',
+]) {
+  if (!calculatorQueryAlignment.includes(required)) failures.push(`Texas paycheck search metadata contract missing: ${required}`);
+}
+
+for (const required of [
+  'title="Texas paycheck and take-home pay calculator"',
   'Estimate after-tax income and take-home pay in Texas',
   'Texas does not have an individual state income tax',
   'Gross-pay examples before taxes, benefits or other deductions.',
@@ -243,4 +259,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Search-intent and SERP CTR validation passed: impression-bearing calculators, home-insurance no-personal-information intent, Phase 3 finance ranking depth, disabled-veteran guidance, city discovery, county property-tax pages, legacy county redirects, appraisal-district queries, agency snippets, Texas Explained behavioral search scoring, independent framing, and publication-quality gates are protected.');
+console.log('Search-intent and SERP CTR validation passed: GSC-aligned calculator metadata, home-insurance no-personal-information intent, Texas paycheck/take-home-pay intent, Phase 3 finance ranking depth, disabled-veteran guidance, city discovery, county property-tax pages, legacy county redirects, appraisal-district queries, agency snippets, Texas Explained behavioral search scoring, independent framing, and publication-quality gates are protected.');

@@ -9,6 +9,10 @@ const readRouteSurface = (file) => {
 
 const helper = fs.readFileSync('src/lib/calculator-seo.ts', 'utf8');
 const component = fs.readFileSync('src/components/calculators/CalculatorPage.tsx', 'utf8');
+const queryAlignment = [
+  fs.readFileSync('src/data/home-insurance-query-alignment.ts', 'utf8'),
+  fs.readFileSync('src/data/salary-query-alignment.ts', 'utf8'),
+].join('\n');
 const routes = [
   ['Mortgage', 'src/routes/texas-mortgage-calculator.tsx'],
   ['Affordability', 'src/routes/texas-home-affordability-calculator.tsx'],
@@ -60,6 +64,46 @@ for (const [label, filename] of routes) {
   if (route.includes('aggregateRating:') || route.includes('offers:')) failures.push(`${label} calculator must not invent ratings or offers.`);
 }
 
+for (const marker of [
+  "homeInsuranceSeoTitle = 'Texas Homeowners Insurance Calculator | No Personal Info'",
+  "salarySeoTitle = 'Texas Paycheck Calculator | Take-Home Pay After Taxes'",
+  'homeInsuranceFaqs = [',
+  'salaryFaqs = [',
+  'without entering your name, email, phone number, or street address',
+  'Texas has no individual state income tax',
+]) {
+  if (!queryAlignment.includes(marker)) failures.push(`High-intent calculator query-alignment data missing ${marker}.`);
+}
+
+for (const [label, eagerFilename, lazyFilename, faqConst, titleMarker, descriptionMarker] of [
+  [
+    'Home insurance',
+    'src/routes/texas-home-insurance-calculator.tsx',
+    'src/routes/texas-home-insurance-calculator.lazy.tsx',
+    'homeInsuranceFaqs',
+    "title: 'Texas Homeowners Insurance Calculator | No Personal Info'",
+    'without entering your name, email, phone number, or street address',
+  ],
+  [
+    'Salary',
+    'src/routes/texas-salary-calculator.tsx',
+    'src/routes/texas-salary-calculator.lazy.tsx',
+    'salaryFaqs',
+    "title: 'Texas Paycheck Calculator | Take-Home Pay After Taxes'",
+    'Texas has no individual state income tax',
+  ],
+]) {
+  const eager = fs.readFileSync(eagerFilename, 'utf8');
+  const lazy = fs.readFileSync(lazyFilename, 'utf8');
+  if (eager.includes('query-alignment')) failures.push(`${label} calculator must keep long-form query-alignment data out of the eager route bundle.`);
+  for (const marker of [titleMarker, descriptionMarker, "breadcrumbParent: { name: 'Financial Tools', path: '/decide/financial-tools' }"]) {
+    if (!eager.includes(marker)) failures.push(`${label} eager calculator metadata missing ${marker}.`);
+  }
+  for (const marker of ["'@type': 'FAQPage'", 'type="application/ld+json"', `${faqConst}.map`]) {
+    if (!lazy.includes(marker)) failures.push(`${label} lazy calculator must expose its visible FAQ set through rendered FAQPage JSON-LD (${marker}).`);
+  }
+}
+
 const deepCalculatorContracts = [
   ['Mortgage payoff', 'src/routes/texas-mortgage-payoff-calculator.tsx', [
     'Texas Mortgage Payoff Calculator | Extra Payment Scenarios', 'Extra principal changes the balance that future interest uses', 'Texas mortgage payoff calculator FAQ',
@@ -85,6 +129,14 @@ const deepCalculatorContracts = [
   ['Moving cost', 'src/routes/texas-moving-cost-calculator.tsx', [
     'Texas Moving Cost Calculator | Plan the Full Move Budget', 'The move costs more than transportation', 'Texas moving cost calculator FAQ',
     'to="/moving-to-texas"', 'to="/moving-to-texas-checklist"', 'to="/texas-cost-of-living-calculator"',
+  ]],
+  ['Home insurance', 'src/routes/texas-home-insurance-calculator.tsx', [
+    'Texas homeowners insurance calculator — no personal information required', 'Homeowners insurance calculator without personal information', 'Home insurance estimate FAQ',
+    'to="/article/$slug"', "slug: 'texas-homeowners-insurance-guide'", 'to="/texas-homeownership-cost-calculator"',
+  ]],
+  ['Salary', 'src/routes/texas-salary-calculator.tsx', [
+    'Texas paycheck and take-home pay calculator', 'Estimate after-tax income and take-home pay in Texas', 'Texas paycheck and salary calculator FAQ',
+    'https://www.irs.gov/individuals/tax-withholding-estimator', 'https://www.ssa.gov/oact/progdata/taxRates.html', 'to="/texas-cost-of-living-calculator"',
   ]],
   ['Rent versus buy', 'src/routes/texas-rent-vs-buy-calculator.tsx', [
     'Texas Rent vs Buy Calculator | Compare the Longer-Term Cost', 'Rent and mortgage are not the only two numbers', 'Texas rent vs buy calculator FAQ',
@@ -134,4 +186,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Calculator WebPage, WebApplication, canonical relationship, breadcrumb, and priority calculator indexing-depth validation passed, including server-owned homeownership depth.');
+console.log('Calculator WebPage, WebApplication, canonical relationship, breadcrumb, priority query alignment, lazy FAQ JSON-LD, and calculator indexing-depth validation passed, including server-owned homeownership depth and eager-bundle isolation.');
