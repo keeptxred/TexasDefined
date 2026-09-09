@@ -5,7 +5,7 @@ import { ArticleBody } from '@/components/editorial/ArticleBody';
 import { articleInternalLinks } from '@/data/article-internal-links';
 import type { ArticleInternalLink } from '@/data/types';
 import { loadCountySeriesArticle } from '@/data/county-series';
-import type { CountyProfile } from '@/data/county-profile';
+import { formatDensity, type CountyProfile } from '@/data/county-profile';
 import type { LocalGovernmentProfile } from '@/data/local-government-profile';
 import { canonicalEntityPath, type RankedRelatedEntity } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
