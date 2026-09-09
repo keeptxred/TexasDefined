@@ -4,7 +4,7 @@ import {
   homeInsuranceDescription,
   homeInsuranceFaqs,
   homeInsuranceSeoTitle,
-} from '@/data/calculator-query-alignment';
+} from '@/data/home-insurance-query-alignment';
 import { buildCalculatorHead } from '@/lib/calculator-seo';
 
 export const Route = createFileRoute('/texas-home-insurance-calculator')({

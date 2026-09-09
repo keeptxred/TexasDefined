@@ -4,7 +4,7 @@ import {
   salaryDescription,
   salaryFaqs,
   salarySeoTitle,
-} from '@/data/calculator-query-alignment';
+} from '@/data/salary-query-alignment';
 import { buildCalculatorHead } from '@/lib/calculator-seo';
 
 export const Route = createFileRoute('/texas-salary-calculator')({

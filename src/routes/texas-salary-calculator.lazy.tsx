@@ -4,7 +4,7 @@ import { SalaryCalculator } from '@/components/calculators/TexasPlanningCalculat
 import {
   salaryDescription,
   salaryFaqs,
-} from '@/data/calculator-query-alignment';
+} from '@/data/salary-query-alignment';
 
 const grossPayExamples = [
   ['50,000', '4,166.67', '2,083.33', '1,923.08', '961.54'],

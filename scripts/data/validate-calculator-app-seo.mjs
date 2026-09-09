@@ -9,7 +9,10 @@ const readRouteSurface = (file) => {
 
 const helper = fs.readFileSync('src/lib/calculator-seo.ts', 'utf8');
 const component = fs.readFileSync('src/components/calculators/CalculatorPage.tsx', 'utf8');
-const queryAlignment = fs.readFileSync('src/data/calculator-query-alignment.ts', 'utf8');
+const queryAlignment = [
+  fs.readFileSync('src/data/home-insurance-query-alignment.ts', 'utf8'),
+  fs.readFileSync('src/data/salary-query-alignment.ts', 'utf8'),
+].join('\n');
 const routes = [
   ['Mortgage', 'src/routes/texas-mortgage-calculator.tsx'],
   ['Affordability', 'src/routes/texas-home-affordability-calculator.tsx'],

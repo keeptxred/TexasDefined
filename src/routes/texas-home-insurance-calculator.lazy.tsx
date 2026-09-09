@@ -4,7 +4,7 @@ import { HomeInsuranceCalculator } from '@/components/calculators/TexasPlanningC
 import {
   homeInsuranceDescription,
   homeInsuranceFaqs,
-} from '@/data/calculator-query-alignment';
+} from '@/data/home-insurance-query-alignment';
 
 const localInsurancePages = [
   ['Houston', '/texas-home-insurance-calculator/houston'],

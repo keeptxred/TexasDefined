@@ -9,7 +9,10 @@ const readRouteSurface = (file) => {
 
 const insuranceRoute = readRouteSurface('src/routes/texas-home-insurance-calculator.tsx');
 const salaryRoute = readRouteSurface('src/routes/texas-salary-calculator.tsx');
-const calculatorQueryAlignment = fs.readFileSync('src/data/calculator-query-alignment.ts', 'utf8');
+const calculatorQueryAlignment = [
+  fs.readFileSync('src/data/home-insurance-query-alignment.ts', 'utf8'),
+  fs.readFileSync('src/data/salary-query-alignment.ts', 'utf8'),
+].join('\n');
 const mortgageRoute = readRouteSurface('src/routes/texas-mortgage-calculator.tsx');
 const costOfLivingRoute = readRouteSurface('src/routes/texas-cost-of-living-calculator.tsx');
 const citiesRoute = readRouteSurface('src/routes/browse.cities.tsx');
