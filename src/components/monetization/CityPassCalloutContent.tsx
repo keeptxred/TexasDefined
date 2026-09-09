@@ -1,4 +1,4 @@
-import { CITYPASS_AFFILIATE_URL, CITYPASS_GUIDE_PATH, type CityPassMarket } from "@/data/citypass";
+import { CITYPASS_AFFILIATE_URLS, CITYPASS_GUIDE_PATH, type CityPassMarket } from "@/data/citypass";
 
 const COPY: Record<CityPassMarket, { heading: string; body: string }> = {
   Dallas: {
@@ -26,7 +26,7 @@ export function CityPassCalloutContent({ market, placement = "inline" }: { marke
       <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy.body}</p>
       <div className={`${isRail ? "mt-5 grid gap-3" : "mt-6 flex flex-wrap gap-x-6 gap-y-3"} text-sm font-semibold`}>
         <a href={CITYPASS_GUIDE_PATH} className="border-b border-primary pb-1 text-primary">Read our Texas CityPASS® guide →</a>
-        <a href={CITYPASS_AFFILIATE_URL} target="_blank" rel="sponsored nofollow noopener noreferrer" className="border-b border-primary pb-1 text-primary">Check current CityPASS® options ↗</a>
+        <a href={CITYPASS_AFFILIATE_URLS[market]} target="_blank" rel="sponsored nofollow noopener noreferrer" className="border-b border-primary pb-1 text-primary">Check current CityPASS® options ↗</a>
       </div>
       <p className="mt-5 text-xs leading-6 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying CityPASS® purchases, at no additional cost to you. Attraction lineups, reservation rules, prices and savings can change.</p>
     </aside>
