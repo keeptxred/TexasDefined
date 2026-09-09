@@ -108,6 +108,18 @@ export const Route = createFileRoute("/sitemap.xml")({
         const indexableRemoteNews = remoteNews.filter(isArticleIndexReady);
         const indexableRemoteEvergreen = remoteEvergreen.filter(isArticleIndexReady);
         const indexableLocalArticles = articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article));
+        const indexableLocalArticleSlugs = new Set(indexableLocalArticles.map((article) => article.slug));
+        const protectedLocalArticles = (await Promise.all(
+          Object.keys(ARTICLE_LASTMOD_BY_SLUG)
+            .filter((slug) => !indexableLocalArticleSlugs.has(slug))
+            .map(async (slug) => {
+              const catalogArticle = articles.find((article) => article.slug === slug);
+              if (!catalogArticle || !isArticleDiscoveryReady(catalogArticle)) return null;
+              const fullArticle = await platform.articles.getBySlug(scope, slug);
+              return fullArticle && isArticleIndexReady(fullArticle) ? fullArticle : null;
+            }),
+        )).flatMap((article) => article ? [article] : []);
+        indexableLocalArticles.push(...protectedLocalArticles);
         const indexableLocalArticlePaths = new Set(indexableLocalArticles.map((article) => `/article/${article.slug}`));
         const discoveryOnlyLocalArticlePaths = [
           ...articles

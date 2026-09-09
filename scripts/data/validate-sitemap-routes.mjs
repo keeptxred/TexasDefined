@@ -80,6 +80,22 @@ if (!sitemap.includes('Promise.allSettled')) failures.push('Primary sitemap must
 if (!sitemap.includes('status: 503') || !sitemap.includes('"retry-after": "300"')) failures.push('Primary sitemap must return retryable 503 semantics on core data failure.');
 
 for (const feature of [
+  'const ARTICLE_LASTMOD_BY_SLUG',
+  'const indexableLocalArticles = articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article));',
+  'indexableLocalArticleSlugs',
+  'Object.keys(ARTICLE_LASTMOD_BY_SLUG)',
+  'isArticleDiscoveryReady(catalogArticle)',
+  'platform.articles.getBySlug(scope, slug)',
+  'fullArticle && isArticleIndexReady(fullArticle)',
+  'indexableLocalArticles.push(...protectedLocalArticles)',
+]) {
+  if (!sitemap.includes(feature)) failures.push(`Protected sitemap article readiness contract missing: ${feature}`);
+}
+if (sitemap.includes('...articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleDiscoveryReady(article)).map')) {
+  failures.push('Discovery-only article catalog entries must not be submitted directly to the sitemap.');
+}
+
+for (const feature of [
   'const SITEMAP_PAGE_SIZE = 200',
   'const SITEMAP_MAX_ROWS = 10_000',
   'requestAllForSitemap',
@@ -192,4 +208,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Sitemap ownership, complete paginated remote-article coverage, crawl-demand partitioning, preserved-catalog remote fallback, resolved quality gates, runtime-isolated sparse-category sitemap gating, malformed-path rejection, all ${redirects.length} governed redirects, all ${nonIndexableRoutes.length} governed noindex routes, migrated aliases and regional quality passed validation.`);
+console.log(`Sitemap ownership, complete paginated remote-article coverage, strict protected lazy-article resolution, crawl-demand partitioning, preserved-catalog remote fallback, resolved quality gates, runtime-isolated sparse-category sitemap gating, malformed-path rejection, all ${redirects.length} governed redirects, all ${nonIndexableRoutes.length} governed noindex routes, migrated aliases and regional quality passed validation.`);
