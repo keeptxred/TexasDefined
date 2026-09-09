@@ -1,0 +1,63 @@
+name: Apply county inventory wrapper fix
+
+on:
+  push:
+    branches:
+      - fix/county-density-runtime-v3
+    paths:
+      - '.github/workflows/apply-county-inventory-wrapper-fix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: fix/county-density-runtime-v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Resolve direct named imports in county wrappers
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('scripts/data/inventory-county-series.mjs')
+          text = path.read_text()
+          old = '''      const namedAliasPattern = new RegExp(`import\\\\s*\\\\{\\\\s*([A-Za-z_$][A-Za-z0-9_$]*)\\\\s+as\\\\s+${escapeRegExp(spreadIdentifier)}\\\\s*\\\\}\\\\s*from\\\\s*["']([^"']+)["']`);
+      const defaultPattern = new RegExp(`import\\\\s+${escapeRegExp(spreadIdentifier)}\\\\s+from\\\\s*["']([^"']+)["']`);
+      const namedAlias = wrapper.match(namedAliasPattern);
+      const defaultImport = wrapper.match(defaultPattern);
+      if (namedAlias || defaultImport) {
+        const importedExport = namedAlias?.[1] ?? 'default';
+        const importPath = namedAlias?.[2] ?? defaultImport?.[1];'''
+          new = '''      const namedAliasPattern = new RegExp(`import\\\\s*\\\\{\\\\s*([A-Za-z_$][A-Za-z0-9_$]*)\\\\s+as\\\\s+${escapeRegExp(spreadIdentifier)}\\\\s*\\\\}\\\\s*from\\\\s*["']([^"']+)["']`);
+      const namedDirectPattern = new RegExp(`import\\\\s*\\\\{[^}]*\\\\b(${escapeRegExp(spreadIdentifier)})\\\\b[^}]*\\\\}\\\\s*from\\\\s*["']([^"']+)["']`);
+      const defaultPattern = new RegExp(`import\\\\s+${escapeRegExp(spreadIdentifier)}\\\\s+from\\\\s*["']([^"']+)["']`);
+      const namedAlias = wrapper.match(namedAliasPattern);
+      const namedDirect = wrapper.match(namedDirectPattern);
+      const defaultImport = wrapper.match(defaultPattern);
+      if (namedAlias || namedDirect || defaultImport) {
+        const importedExport = namedAlias?.[1] ?? namedDirect?.[1] ?? 'default';
+        const importPath = namedAlias?.[2] ?? namedDirect?.[2] ?? defaultImport?.[1];'''
+          if text.count(old) != 1:
+              raise SystemExit(f'Expected exactly one wrapper import resolver block, found {text.count(old)}')
+          path.write_text(text.replace(old, new, 1))
+          Path('.github/workflows/apply-county-inventory-wrapper-fix.yml').unlink()
+          PY
+      - name: Validate all 254 county profiles
+        run: |
+          npm ci --no-audit --no-fund
+          node scripts/data/inventory-county-series.mjs /tmp/county-profiles.tsv
+          test "$(wc -l < /tmp/county-profiles.tsv)" -eq 254
+      - name: Commit bounded audit fix
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/data/inventory-county-series.mjs .github/workflows/apply-county-inventory-wrapper-fix.yml
+          git commit -m 'Resolve named county wrapper fixtures in audit'
+          git push origin HEAD:fix/county-density-runtime-v3
