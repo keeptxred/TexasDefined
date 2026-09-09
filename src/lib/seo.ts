@@ -36,7 +36,9 @@ interface EditorialCollectionSeo extends PageSeo {
 const DEFAULT_INDEX_ROBOTS = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 const META_DESCRIPTION_MAX_LENGTH = 160;
 
-const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, { title: string; description?: string }> = {
+type TechnicalSeoOverride = { title: string; description?: string };
+
+const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride> = {
   "/county/bexar": { title: "Bexar County, Texas Guide" },
   "/explore": { title: "Explore Texas: Places, Road Trips & Outdoors" },
   "/explore/top-attractions": { title: "Top 25 Texas Attractions" },
@@ -68,6 +70,30 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, { title: string; desc
     title: "Texas Landforms & Regions: Mountains, Plains, Coast & More",
     description: "Explore Texas landforms and regions, from the Hill Country and Piney Woods to the Gulf Coast, High Plains, Big Bend mountains, basins and South Texas.",
   },
+  "/article/texas-farm-to-market-roads-explained": { title: "Texas Farm-to-Market Roads Explained" },
+  "/article/beginners-guide-ordering-texas-barbecue": { title: "How to Order Texas Barbecue" },
+  "/article/texas-septic-systems-homeowner-guide": {
+    title: "Texas Septic System Design & OSSF Guide",
+    description: "Texas septic system design guide covering OSSF site evaluation, permits, conventional and aerobic systems, drainfields, approved plans and homeowner maintenance.",
+  },
+  "/article/texas-rio-grande-river-guide": {
+    title: "Rio Grande in Texas: Basin, Border, Reservoirs & River Guide",
+    description: "Guide to the Rio Grande in Texas, from desert canyons and the border to Amistad, Falcon, water treaties, irrigation and the river's Gulf outlet.",
+  },
+  "/article/texas-major-cities-regional-differences": {
+    title: "Major Texas Cities Compared: Houston, DFW, Austin & San Antonio",
+    description: "Compare Houston, Dallas-Fort Worth, Austin, San Antonio and Texas regions on climate, culture, jobs, driving and daily life before choosing where to live.",
+  },
+  "/article/texas-national-parks-big-bend-guadalupe-guide": {
+    title: "Big Bend & Guadalupe Mountains National Parks: Texas Guide",
+    description: "Compare Big Bend National Park and Guadalupe Mountains National Park in Texas, including landscapes, hiking, access, seasons and which park fits your trip.",
+  },
+};
+
+// These high-impression snippet experiments matter to server-rendered search output but are
+// deliberately excluded from the browser bundle. Client navigation falls back to each page's
+// existing article metadata; canonical SSR output carries the GSC-aligned title/description.
+const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = import.meta.env.SSR ? {
   "/article/texas-rivers-explained": {
     title: "Major Rivers in Texas: Boundary Rivers, Basins & Regions",
     description: "See Texas boundary rivers, major river basins and regional waterways.",
@@ -88,25 +114,7 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, { title: string; desc
     title: "What Does ISD Stand For in Texas? School District Guide",
     description: "ISD means Independent School District. Learn why district boundaries differ from city limits.",
   },
-  "/article/texas-farm-to-market-roads-explained": { title: "Texas Farm-to-Market Roads Explained" },
-  "/article/beginners-guide-ordering-texas-barbecue": { title: "How to Order Texas Barbecue" },
-  "/article/texas-septic-systems-homeowner-guide": {
-    title: "Texas Septic System Design & OSSF Guide",
-    description: "Texas septic system design guide covering OSSF site evaluation, permits, conventional and aerobic systems, drainfields, approved plans and homeowner maintenance.",
-  },
-  "/article/texas-rio-grande-river-guide": {
-    title: "Rio Grande in Texas: Basin, Border, Reservoirs & River Guide",
-    description: "Guide to the Rio Grande in Texas, from desert canyons and the border to Amistad, Falcon, water treaties, irrigation and the river's Gulf outlet.",
-  },
-  "/article/texas-major-cities-regional-differences": {
-    title: "Major Texas Cities Compared: Houston, DFW, Austin & San Antonio",
-    description: "Compare Houston, Dallas-Fort Worth, Austin, San Antonio and Texas regions on climate, culture, jobs, driving and daily life before choosing where to live.",
-  },
-  "/article/texas-national-parks-big-bend-guadalupe-guide": {
-    title: "Big Bend & Guadalupe Mountains National Parks: Texas Guide",
-    description: "Compare Big Bend National Park and Guadalupe Mountains National Park in Texas, including landscapes, hiking, access, seasons and which park fits your trip.",
-  },
-};
+} : {};
 
 const SOCIAL_IMAGE_FALLBACKS: Partial<Record<BrandConfig["identity"]["id"], { src: string; alt: string; type: string }>> = {
   texasdefined: {
@@ -137,7 +145,7 @@ export function absoluteUrl(brand: BrandConfig, value: string) {
 
 export function buildMeta(brand: BrandConfig, page: PageSeo) {
   const technicalOverride = brand.identity.id === "texasdefined" && page.canonicalPath
-    ? TEXASDEFINED_TECHNICAL_SEO_OVERRIDES[page.canonicalPath]
+    ? TEXASDEFINED_GSC_SSR_OVERRIDES[page.canonicalPath] ?? TEXASDEFINED_TECHNICAL_SEO_OVERRIDES[page.canonicalPath]
     : undefined;
   const pageTitle = cleanMetaText(technicalOverride?.title ?? page.title);
   const description = cleanMetaDescription(technicalOverride?.description ?? page.description);
