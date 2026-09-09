@@ -1,5 +1,6 @@
 import { createFileRoute, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
+import { enrichCitySearchAuthority, citySearchIntentTitle, citySearchSnippetDescription } from '@/data/city-search-authority';
 import { loadCountyProfile } from '@/data/county-profile';
 import { loadCountySeriesArticle } from '@/data/county-series';
 import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
@@ -15,8 +16,9 @@ import { buildMeta, canonicalLink } from '@/lib/seo';
 export const Route = createFileRoute('/$kind/$slug')({
   loader: async ({ params }) => {
     const graph = await loadTexasKnowledgeGraph();
-    const entity = await findCompleteTexasEntity(`${params.kind}:${params.slug}`) ?? await findCompleteTexasEntity(params.slug);
-    if (!entity || entity.kind !== params.kind) throw notFound();
+    const matchedEntity = await findCompleteTexasEntity(`${params.kind}:${params.slug}`) ?? await findCompleteTexasEntity(params.slug);
+    if (!matchedEntity || matchedEntity.kind !== params.kind) throw notFound();
+    const entity = enrichCitySearchAuthority(matchedEntity);
     const related = rankRelatedEntities(entity, graph, 12);
     const countySportsVenues = entity.kind === 'county'
       ? graph
@@ -73,6 +75,7 @@ function sportsVenuePriority(entity: TexasEntityRecord) {
 }
 
 function searchIntentTitle(entity: TexasEntityRecord) {
+  if (entity.kind === 'city') return citySearchIntentTitle(entity);
   if (entity.kind === 'appraisal-district' && entity.countySlug) return `${title(entity.countySlug)} County Appraisal District`;
   if (entity.kind === 'tax-office' && entity.countySlug) return `${title(entity.countySlug)} County Tax Office`;
   if (entity.kind === 'agency') return `${entity.name}: Services`;
@@ -80,6 +83,7 @@ function searchIntentTitle(entity: TexasEntityRecord) {
 }
 
 function searchSnippetDescription(entity: TexasEntityRecord) {
+  if (entity.kind === 'city') return citySearchSnippetDescription(entity);
   if (entity.kind === 'agency') {
     const topics = entity.tags?.slice(0, 3).join(', ');
     const topicCopy = topics ? `Find information on ${topics}` : 'See what the agency handles';
