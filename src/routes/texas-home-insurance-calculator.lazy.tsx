@@ -22,11 +22,22 @@ const deductibleExamples = [
   ['600,000', '6,000', '12,000', '18,000'],
 ];
 
+const homeInsuranceFaqJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: homeInsuranceFaqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+});
+
 export const Route = createLazyFileRoute('/texas-home-insurance-calculator')({ component: HomeInsuranceCalculatorPage });
 
 function HomeInsuranceCalculatorPage() {
   return (
     <CalculatorPage eyebrow="Texas homeowners insurance estimator" title="Texas homeowners insurance calculator — no personal information required" description={homeInsuranceDescription}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: homeInsuranceFaqJsonLd }} />
       <HomeInsuranceCalculator />
       <section className="mt-8 border border-border p-6" aria-labelledby="insurance-private-estimate-heading">
         <p className="eyebrow text-primary">No quote form required</p>
