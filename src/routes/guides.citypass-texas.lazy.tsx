@@ -78,7 +78,7 @@ function CityPassTexasGuide() {
 
     <Section>
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.55fr)]">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
           <div>
             <SectionHeader eyebrow="Dallas CityPASS®" title="A useful Dallas museum-and-landmark bundle" description="As reviewed September 2026, Dallas CityPASS® lets travelers choose four attractions from the current participating lineup and use the pass across a nine-day window. Some Dallas choices require reservations, so build the timed stops first." />
             <AttractionList items={DALLAS_ATTRACTIONS} />
@@ -94,7 +94,7 @@ function CityPassTexasGuide() {
 
     <Section tone="surface">
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.55fr)]">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
           <div>
             <SectionHeader eyebrow="Houston CityPASS®" title="A strong fit for museum-and-family itineraries" description="As reviewed September 2026, Houston CityPASS® lets travelers choose five attractions from the current participating lineup and use the pass across a nine-day window." />
             <AttractionList items={HOUSTON_ATTRACTIONS} />
@@ -110,7 +110,7 @@ function CityPassTexasGuide() {
 
     <Section>
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,.55fr)]">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
           <div>
             <SectionHeader eyebrow="San Antonio CityPASS®" title="Useful when several city attractions are already the plan" description="As reviewed September 2026, San Antonio CityPASS® lets travelers choose four attractions from the current participating lineup and use the pass across a nine-day window." />
             <AttractionList items={SAN_ANTONIO_ATTRACTIONS} />
@@ -133,7 +133,7 @@ function CityPassTexasGuide() {
     <Section>
       <Container>
         <SectionHeader eyebrow="Worth checking first" title="When buying individual tickets may be smarter" />
-        <div className="mt-10 grid gap-x-10 gap-y-8 md:grid-cols-2">
+        <div className="mt-10 grid gap-x-10 gap-y-6 md:grid-cols-2">
           <Check title="Your trip is intentionally light" body="If one marquee attraction and a lot of free time is the plan, a multi-attraction bundle can create pressure to add stops you did not actually want." />
           <Check title="You already have another discount" body="Memberships, resident offers, military or student pricing, employer benefits and special promotions can change the comparison. Use the price you would really pay, not only the standard gate price." />
           <Check title="Your group has different priorities" body="A family or group does not always want the same attractions. Compare the pass against the mix of tickets each traveler would actually use." />
