@@ -1,0 +1,27 @@
+name: CityPASS sync main
+
+on:
+  push:
+    branches:
+      - feature/citypass-texas-evergreen
+    paths:
+      - .github/workflows/citypass-sync-main.yml
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/citypass-texas-evergreen
+          fetch-depth: 0
+      - name: Merge current main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git merge --no-edit origin/main
+          git push origin HEAD:feature/citypass-texas-evergreen
