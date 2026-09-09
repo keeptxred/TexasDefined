@@ -15,6 +15,7 @@ describe("Viator client runtime catalog", () => {
   it("matches destination landmarks, towns and county names without the rich research payload", () => {
     expect(viatorMarketsForPlace("The Alamo").map((market) => market.slug)).toContain("san-antonio");
     expect(viatorMarketsForPlace("Travis County").map((market) => market.slug)).toContain("austin");
+    expect(viatorMarketsForPlace("Dripping Springs").map((market) => market.slug)).toContain("austin");
     expect(viatorMarketsForPlace("Space Center Houston").map((market) => market.slug)).toContain("houston");
     expect(viatorMarketsForPlace("Big Bend National Park").map((market) => market.slug)).toContain("big-bend-terlingua");
   });
