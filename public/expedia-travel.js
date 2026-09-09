@@ -1,8 +1,31 @@
 (() => {
   const SURFACE_ID = "expedia-travel-surface";
   const TRAVEL_PATH = /^\/(?:explore(?:\/|$)|destination\/|county\/|sports-venue\/|sports-venues\/(?!compare(?:\.csv)?(?:\/|$))|sports-venues$|event\/|events(?:\/|$)|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
+  const TRAVEL_ARTICLE_SECTION = /\b(?:travel|lodging|road trips?|weekend getaways?|events?)\b/i;
   const VENDOR_SCRIPT = "https://creator.expediagroup.com/products/widgets/assets/eg-widgets.js";
   let observer;
+
+  function hasTravelArticleSection(value) {
+    if (!value || typeof value !== "object") return false;
+    const section = value.articleSection;
+    const sections = Array.isArray(section) ? section : [section];
+    if (sections.some((item) => typeof item === "string" && TRAVEL_ARTICLE_SECTION.test(item))) return true;
+    return Object.values(value).some(hasTravelArticleSection);
+  }
+
+  function hasTravelBookingMetadata() {
+    return Array.from(document.querySelectorAll('script[type="application/ld+json"]')).some((script) => {
+      try {
+        return hasTravelArticleSection(JSON.parse(script.textContent || ""));
+      } catch {
+        return false;
+      }
+    });
+  }
+
+  function isTravelBookingSurface() {
+    return TRAVEL_PATH.test(window.location.pathname) || hasTravelBookingMetadata();
+  }
 
   function buildSurface() {
     const section = document.createElement("section");
@@ -30,7 +53,7 @@
 
   function syncSurface() {
     const current = document.getElementById(SURFACE_ID);
-    if (!TRAVEL_PATH.test(window.location.pathname)) {
+    if (!isTravelBookingSurface()) {
       current?.remove();
       return;
     }
