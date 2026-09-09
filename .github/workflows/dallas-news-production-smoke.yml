@@ -28,9 +28,11 @@ jobs:
           fetch() {
             local path="$1"
             local output="$2"
+            local separator='?'
+            [[ "$path" == *'?'* ]] && separator='&'
             echo "Checking https://texasdefined.com${path}"
             curl --retry 3 --retry-connrefused --retry-delay 2 --max-time 45 -fsSL \
-              "https://texasdefined.com${path}" -o "$output"
+              "https://texasdefined.com${path}${separator}verify=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" -o "$output"
             test -s "$output" || { echo "Empty response for $path" >&2; exit 1; }
           }
 
@@ -41,6 +43,18 @@ jobs:
           }
           grep -Fq 'https://texasdefined.com/county/dallas' /tmp/dallas.html || {
             echo 'Dallas County production route is missing its canonical URL.' >&2
+            exit 1
+          }
+          grep -Fq 'The story of Dallas County' /tmp/dallas.html || {
+            echo 'Dallas County production route is missing the county feature section.' >&2
+            exit 1
+          }
+          grep -Fq 'Old Red Courthouse' /tmp/dallas.html || {
+            echo 'Dallas County production route is missing Dallas-specific editorial depth.' >&2
+            exit 1
+          }
+          grep -Fq 'The county in numbers' /tmp/dallas.html || {
+            echo 'Dallas County production route is missing the county data section.' >&2
             exit 1
           }
 
