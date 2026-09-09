@@ -5,7 +5,7 @@ export interface ViatorMatchMarket {
 
 /** Compact destination matcher. Exact aliases prevent substring collisions such as Mission, Texas vs. San Antonio Missions. */
 export const VIATOR_MATCH_MARKETS: readonly ViatorMatchMarket[] = [
-  { slug: "austin", aliases: "|austin|travis|texas capitol|lady bird lake|barton springs|congress avenue|" },
+  { slug: "austin", aliases: "|austin|travis|dripping springs|texas capitol|lady bird lake|barton springs|congress avenue|" },
   { slug: "san-antonio", aliases: "|san antonio|bexar|the alamo|alamo|river walk|san antonio missions|mission san jose|" },
   { slug: "dallas", aliases: "|dallas|parker|collin|southfork ranch|dealey plaza|sixth floor museum|reunion tower|bishop arts|" },
   { slug: "fort-worth", aliases: "|fort worth|tarrant|stockyards|fort worth stockyards|billy bobs texas|sundance square|" },
