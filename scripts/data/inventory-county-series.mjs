@@ -127,12 +127,14 @@ function resolveFixture(fixture, exportName, visited = new Set()) {
     const spreadIdentifier = wrapper.match(new RegExp(`export\\s+const\\s+${escapeRegExp(exportName)}[\\s\\S]*?=\\s*\\{\\s*\\.\\.\\.([A-Za-z_$][A-Za-z0-9_$]*)`))?.[1];
     if (spreadIdentifier) {
       const namedAliasPattern = new RegExp(`import\\s*\\{\\s*([A-Za-z_$][A-Za-z0-9_$]*)\\s+as\\s+${escapeRegExp(spreadIdentifier)}\\s*\\}\\s*from\\s*["']([^"']+)["']`);
+      const namedDirectPattern = new RegExp(`import\\s*\\{\\s*${escapeRegExp(spreadIdentifier)}\\s*\\}\\s*from\\s*["']([^"']+)["']`);
       const defaultPattern = new RegExp(`import\\s+${escapeRegExp(spreadIdentifier)}\\s+from\\s*["']([^"']+)["']`);
       const namedAlias = wrapper.match(namedAliasPattern);
+      const namedDirect = wrapper.match(namedDirectPattern);
       const defaultImport = wrapper.match(defaultPattern);
-      if (namedAlias || defaultImport) {
-        const importedExport = namedAlias?.[1] ?? 'default';
-        const importPath = namedAlias?.[2] ?? defaultImport?.[1];
+      if (namedAlias || namedDirect || defaultImport) {
+        const importedExport = namedAlias?.[1] ?? (namedDirect ? spreadIdentifier : 'default');
+        const importPath = namedAlias?.[2] ?? namedDirect?.[1] ?? defaultImport?.[1];
         const target = resolveRelativeTypeScriptPath(fixture, importPath);
         if (!fs.existsSync(target)) throw new Error(`County wrapper base fixture is missing: ${fixture} -> ${target}`);
         const base = importedExport === 'default'
