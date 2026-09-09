@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - diagnostic/prod-live-verifiers-20260909
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -12,7 +15,7 @@ jobs:
   diagnose:
     name: Diagnose production live verifiers
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - name: Check out diagnostic branch
         uses: actions/checkout@v4
@@ -26,59 +29,57 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run production verifiers independently
-        id: verify
-        shell: bash
+      - name: Verify direct Worker discovery
+        id: direct_worker
+        if: always()
         env:
           DIRECT_WORKER_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
+        run: node scripts/ci/verify-direct-worker-discovery.mjs
+
+      - name: Verify base production surfaces
+        id: base
+        if: always()
+        env:
+          DIRECT_WORKER_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
+        run: node scripts/ci/verify-production-surfaces.mjs
+
+      - name: Verify Event structured-data production
+        id: event
+        if: always()
+        run: node scripts/ci/verify-event-structured-data-production.mjs
+
+      - name: Verify local financial production
+        id: local_financial
+        if: always()
+        run: node scripts/ci/verify-local-financial-production.mjs
+
+      - name: Verify statewide financial discovery
+        id: statewide_financial
+        if: always()
+        run: node scripts/ci/verify-statewide-financial-discovery.mjs
+
+      - name: Summarize verifier outcomes
+        if: always()
+        shell: bash
+        env:
+          DIRECT_WORKER_OUTCOME: ${{ steps.direct_worker.outcome }}
+          BASE_OUTCOME: ${{ steps.base.outcome }}
+          EVENT_OUTCOME: ${{ steps.event.outcome }}
+          LOCAL_FINANCIAL_OUTCOME: ${{ steps.local_financial.outcome }}
+          STATEWIDE_FINANCIAL_OUTCOME: ${{ steps.statewide_financial.outcome }}
         run: |
-          mkdir -p .artifacts/live-verifiers
-          summary=.artifacts/live-verifiers/summary.txt
-          : > "$summary"
-          failures=0
-
-          run_check() {
-            name="$1"
-            shift
-            echo "===== ${name} ====="
-            set +e
-            "$@" 2>&1 | tee ".artifacts/live-verifiers/${name}.log"
-            code=${PIPESTATUS[0]}
-            set -e
-            echo "${name}=${code}" | tee -a "$summary"
-            if [[ "$code" -ne 0 ]]; then
-              failures=$((failures + 1))
-            fi
-          }
-
-          run_check direct-worker node scripts/ci/verify-direct-worker-discovery.mjs
-          run_check base node scripts/ci/verify-production-surfaces.mjs
-          run_check event node scripts/ci/verify-event-structured-data-production.mjs
-          run_check local-financial node scripts/ci/verify-local-financial-production.mjs
-          run_check statewide-financial node scripts/ci/verify-statewide-financial-discovery.mjs
-
-          echo
-          echo '===== verifier exit summary ====='
-          cat "$summary"
-          echo "failures=${failures}" | tee -a "$summary"
-
           {
             echo '## Production live-verifier diagnostic'
             echo
-            echo '```text'
-            cat "$summary"
-            echo '```'
+            echo '| Verifier | Raw outcome |'
+            echo '|---|---|'
+            echo "| Direct Worker | ${DIRECT_WORKER_OUTCOME:-not-run} |"
+            echo "| Base production | ${BASE_OUTCOME:-not-run} |"
+            echo "| Event structured data | ${EVENT_OUTCOME:-not-run} |"
+            echo "| Local financial | ${LOCAL_FINANCIAL_OUTCOME:-not-run} |"
+            echo "| Statewide financial | ${STATEWIDE_FINANCIAL_OUTCOME:-not-run} |"
           } >> "$GITHUB_STEP_SUMMARY"
 
-          if [[ "$failures" -gt 0 ]]; then
+          if [[ "$DIRECT_WORKER_OUTCOME" != success || "$BASE_OUTCOME" != success || "$EVENT_OUTCOME" != success || "$LOCAL_FINANCIAL_OUTCOME" != success || "$STATEWIDE_FINANCIAL_OUTCOME" != success ]]; then
             exit 1
           fi
-
-      - name: Upload verifier diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: production-live-verifier-diagnostics-${{ github.run_id }}
-          path: .artifacts/live-verifiers
-          if-no-files-found: error
-          retention-days: 7
