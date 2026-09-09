@@ -14,9 +14,6 @@ export const Route = createFileRoute('/texas-home-insurance-calculator')({
         'Start with the home replacement cost',
         'Adjust the estimated base insurance rate',
         'Add possible wind or flood coverage',
-        'Convert percentage deductibles into dollar amounts',
       ],
-      breadcrumbParent: { name: 'Financial Tools', path: '/decide/financial-tools' },
-      applicationCategory: 'FinanceApplication',
     }),
 });
