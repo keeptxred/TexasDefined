@@ -110,14 +110,17 @@ export const Route = createFileRoute("/sitemap.xml")({
         const indexableRemoteEvergreen = remoteEvergreen.filter(isArticleIndexReady);
         const indexableLocalArticles = articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article));
 
-        // Local list/search repositories intentionally expose lightweight lazy stubs. A stub can be
-        // discovery-ready while carrying no body blocks, so hydrate only that diagnostic cohort on
-        // the server and re-apply the strict full-page gate before publishing it in the sitemap.
-        const lazyDiscoveryCandidates = articles.filter(
-          (article) => !isLegacyCountySeriesArticle(article.slug)
-            && !isArticleIndexReady(article)
-            && isArticleDiscoveryReady(article),
-        );
+        // Preserve the lazy-safe catalog cohort as a diagnostic input, but do not publish that
+        // cohort directly. Hydrate only catalog rows that are not already full-page ready, then
+        // re-apply the strict 600-word/full-body gate before adding them to sitemap entries.
+        const discoveryCandidateLocalArticleEntries = [
+          ...articles
+            .filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleDiscoveryReady(article))
+            .map((article) => ({ path: `/article/${article.slug}`, article })),
+        ];
+        const lazyDiscoveryCandidates = discoveryCandidateLocalArticleEntries
+          .map((entry) => entry.article)
+          .filter((article) => !isArticleIndexReady(article));
         const resolvedLazyCandidates = (await Promise.all(
           lazyDiscoveryCandidates.map((article) => platform.articles.getBySlug(scope, article.slug)),
         )).filter((article): article is Article => Boolean(article));
