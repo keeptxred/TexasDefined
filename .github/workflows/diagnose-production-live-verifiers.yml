@@ -29,6 +29,44 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Compare Barton Springs SSR on custom domain and direct Worker
+        if: always()
+        shell: bash
+        run: |
+          node <<'NODE'
+          const origins = [
+            'https://texasdefined.com',
+            'https://texasdefined-site.freddy-coppola.workers.dev',
+          ];
+          const required = [
+            'Add an experience around Barton Springs Pool',
+            'Recent Austin inventory signals:',
+            'TexasDefined handles the destination planning',
+            'campaign=texasdefined-destination-barton-springs-pool',
+            'rel="sponsored noopener noreferrer"',
+          ];
+          for (const origin of origins) {
+            const url = `${origin}/destination/barton-springs-pool?diagnostic=${Date.now()}-${Math.random().toString(16).slice(2)}`;
+            const response = await fetch(url, {
+              cache: 'no-store',
+              headers: { 'user-agent': 'TexasDefined-CI-Diagnostic/1.1' },
+              signal: AbortSignal.timeout(30000),
+            });
+            const body = await response.text();
+            console.log(`DIAG origin=${origin}`);
+            console.log(`DIAG status=${response.status} bytes=${body.length} final=${response.url}`);
+            for (const name of ['cf-cache-status','age','cache-control','etag','x-worker-revision','x-texasdefined-revision','server','cf-ray']) {
+              console.log(`DIAG header ${name}=${response.headers.get(name) ?? '<none>'}`);
+            }
+            for (const needle of required) console.log(`DIAG contains ${JSON.stringify(needle)}=${body.includes(needle)}`);
+            for (const marker of ['Entry & reservations','Official visitor information','Build a better day','</body>']) {
+              const i = body.indexOf(marker);
+              console.log(`DIAG marker ${JSON.stringify(marker)} index=${i}`);
+              if (i >= 0) console.log(`DIAG sample ${marker}: ${body.slice(Math.max(0, i - 300), Math.min(body.length, i + 900)).replace(/\s+/g, ' ')}`);
+            }
+          }
+          NODE
+
       - name: Verify direct Worker discovery
         id: direct_worker
         if: always()
