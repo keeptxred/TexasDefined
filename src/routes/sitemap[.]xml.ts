@@ -107,11 +107,11 @@ export const Route = createFileRoute("/sitemap.xml")({
         const remoteEvergreen = remoteEvergreenResult.status === "fulfilled" ? remoteEvergreenResult.value : [];
         const indexableRemoteNews = remoteNews.filter(isArticleIndexReady);
         const indexableRemoteEvergreen = remoteEvergreen.filter(isArticleIndexReady);
-        const directlyIndexableLocalArticles = articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article));
-        const directlyIndexableLocalArticleSlugs = new Set(directlyIndexableLocalArticles.map((article) => article.slug));
+        const indexableLocalArticles = articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article));
+        const indexableLocalArticleSlugs = new Set(indexableLocalArticles.map((article) => article.slug));
         const protectedLocalArticles = (await Promise.all(
           Object.keys(ARTICLE_LASTMOD_BY_SLUG)
-            .filter((slug) => !directlyIndexableLocalArticleSlugs.has(slug))
+            .filter((slug) => !indexableLocalArticleSlugs.has(slug))
             .map(async (slug) => {
               const catalogArticle = articles.find((article) => article.slug === slug);
               if (!catalogArticle || !isArticleDiscoveryReady(catalogArticle)) return null;
@@ -119,7 +119,7 @@ export const Route = createFileRoute("/sitemap.xml")({
               return fullArticle && isArticleIndexReady(fullArticle) ? fullArticle : null;
             }),
         )).flatMap((article) => article ? [article] : []);
-        const indexableLocalArticles = [...directlyIndexableLocalArticles, ...protectedLocalArticles];
+        indexableLocalArticles.push(...protectedLocalArticles);
         const indexableLocalArticlePaths = new Set(indexableLocalArticles.map((article) => `/article/${article.slug}`));
         const discoveryOnlyLocalArticlePaths = [
           ...articles
