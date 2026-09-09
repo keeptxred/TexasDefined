@@ -42,11 +42,9 @@ if (!loader.includes("return articles.filter(isTexasGatewayIndexReadyArticle);")
 if (!articleRoute.includes('shouldNoindexTexasGatewayArticle(article) ? "noindex, follow, max-image-preview:large" : undefined')) {
   fail("article metadata must noindex staged gateway drafts while preserving followed links");
 }
-if (!sitemap.includes("const discoverableLocalArticles = articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleDiscoveryReady(article));")) {
-  fail("primary sitemap local article selection must use lazy-safe discovery readiness rather than requiring catalog stubs to carry the full article body");
-}
-if (!sitemap.includes("...discoverableLocalArticles.map((article) => ({ path: `/article/${article.slug}`")) {
-  fail("primary sitemap must emit local articles that pass the lazy-safe discovery boundary");
+const sitemapLocalArticlePattern = /\.\.\.articles\s*\.filter\(\(article\)\s*=>\s*!isLegacyCountySeriesArticle\(article\.slug\)\s*&&\s*isArticleDiscoveryReady\(article\)\)\s*\.map\(\(article\)\s*=>\s*\(\{\s*path:\s*`\/article\/\$\{article\.slug\}`/s;
+if (!sitemapLocalArticlePattern.test(sitemap)) {
+  fail("primary sitemap must select and emit local catalog articles through the lazy-safe discovery boundary");
 }
 
 const gatewayFixtureDir = path.join(root, "src/data/fixtures");
