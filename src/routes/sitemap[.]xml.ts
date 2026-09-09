@@ -31,6 +31,7 @@ import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
 import { TEXAS_DATASETS } from "@/data/texas-data-center";
 import { isTexasVsStateSitemapReady } from "@/data/texas-vs-state-index-readiness.server";
 import { TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-states-index";
+import type { Article } from "@/data/types";
 import { isTexasDefinedOwnedEntity, isTexasDefinedOwnedStaticPath } from "@/lib/brand-route-ownership";
 import { INDEXABLE_STATIC_PATHS, isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
@@ -108,15 +109,35 @@ export const Route = createFileRoute("/sitemap.xml")({
         const indexableRemoteNews = remoteNews.filter(isArticleIndexReady);
         const indexableRemoteEvergreen = remoteEvergreen.filter(isArticleIndexReady);
         const indexableLocalArticles = articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article));
-        const indexableLocalArticlePaths = new Set(indexableLocalArticles.map((article) => `/article/${article.slug}`));
-        const discoveryOnlyLocalArticlePaths = [
+
+        // Preserve the lazy-safe catalog cohort as a diagnostic input, but do not publish that
+        // cohort directly. Hydrate only catalog rows that are not already full-page ready, then
+        // re-apply the strict 600-word/full-body gate before adding them to sitemap entries.
+        const discoveryCandidateLocalArticleEntries = [
           ...articles
             .filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleDiscoveryReady(article))
-            .map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
-        ].filter((entry) => !indexableLocalArticlePaths.has(entry.path));
+            .map((article) => ({ path: `/article/${article.slug}`, article })),
+        ];
+        const lazyDiscoveryCandidates = discoveryCandidateLocalArticleEntries
+          .map((entry) => entry.article)
+          .filter((article) => !isArticleIndexReady(article));
+        const resolvedLazyCandidates = (await Promise.all(
+          lazyDiscoveryCandidates.map((article) => platform.articles.getBySlug(scope, article.slug)),
+        )).filter((article): article is Article => Boolean(article));
+        const hydratedIndexableLocalArticles = resolvedLazyCandidates.filter(isArticleIndexReady);
+        const hydratedIndexableSlugs = new Set(hydratedIndexableLocalArticles.map((article) => article.slug));
+        const discoveryOnlyLocalArticlePaths = [
+          ...lazyDiscoveryCandidates
+            .filter((article) => !hydratedIndexableSlugs.has(article.slug))
+            .map((article) => `/article/${article.slug}`),
+        ];
         if (discoveryOnlyLocalArticlePaths.length > 0) {
-          console.info(`Primary sitemap omitted ${discoveryOnlyLocalArticlePaths.length} discovery-only article URLs that are not fully index-ready.`);
+          console.warn(
+            `Primary sitemap omitted ${discoveryOnlyLocalArticlePaths.length} discovery-only article URLs that are not fully index-ready.`,
+            discoveryOnlyLocalArticlePaths,
+          );
         }
+
         const countyHousingCosts = countyHousingResult.status === "fulfilled" ? countyHousingResult.value : null;
         const fishingGuideSitemapEntries = fishingGuideSitemapResult.status === "fulfilled" ? fishingGuideSitemapResult.value : [];
         const fishingReportSitemapEntries = fishingReportSitemapResult.status === "fulfilled" ? fishingReportSitemapResult.value : [];
@@ -158,6 +179,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...collections.filter((collection) => activeCollectionSlugs.has(collection.slug)).map((collection) => ({ path: `/shop/${collection.slug}` })),
           ...authors.map((author) => ({ path: `/authors/${author.id}` })),
           ...indexableLocalArticles.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
+          ...hydratedIndexableLocalArticles.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
           ...countyPages.map((county) => ({ path: `/property-tax/county/${county.slug}`, lastmod: toDate(county.lastVerifiedAt ?? undefined) })),
           ...entityPages.map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
           ...TEXAS_DATASETS.map((dataset) => ({ path: `/texas-data/${dataset.slug}`, lastmod: toDate(dataset.updated) })),
