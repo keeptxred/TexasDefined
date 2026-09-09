@@ -11,6 +11,7 @@ const schema = read('src/data/property/county-property-schema.ts');
 const countyRoute = read('src/routes/property-tax.county.$county.tsx');
 const entityRelationships = read('src/data/knowledge-graph/relationships.ts');
 const entityRoute = readRouteSurface('src/routes/$kind.$slug.tsx');
+const citySearchAuthority = read('src/data/city-search-authority.ts');
 const countyGuide = read('src/components/content/CountyGuideSections.tsx');
 const countyIdentity = read('src/components/content/CountyIdentitySection.tsx');
 const countyStatewide = read('src/components/content/CountyStatewideContextSection.tsx');
@@ -47,6 +48,27 @@ for (const forbiddenRanking of ['if (entity.kind === candidate.kind) score += 3'
 }
 for (const feature of ['isIndexableEntityPage(loaderData.entity)',"robots: indexable ? undefined : 'noindex, follow, max-image-preview:large'",'loadCountyProfile(entity.slug, entity.name)','loadLocalGovernmentProfile(entity.slug, entity.name)','loadCountySeriesArticle(entity.slug)','<CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} />',"entity.kind !== 'county' && entity.tags?.length","entity.kind !== 'county' && visibleRelated.length",'2020 Census population','Official county website',"loaderData.entity.kind === 'county' && countySeriesArticle?.dek","entity.kind === 'county' && countySeriesArticle?.dek ? countySeriesArticle.dek : pageDescription(entity)"]) {
   if (!entityRoute.includes(feature)) errors.push(`Rich county route contract missing: ${feature}`);
+}
+for (const feature of [
+  "import { enrichCitySearchAuthority, citySearchIntentTitle, citySearchSnippetDescription } from '@/data/city-search-authority';",
+  'const entity = enrichCitySearchAuthority(matchedEntity);',
+  "if (entity.kind === 'city') return citySearchIntentTitle(entity);",
+  "if (entity.kind === 'city') return citySearchSnippetDescription(entity);",
+]) {
+  if (!entityRoute.includes(feature)) errors.push(`City search-intent route contract missing: ${feature}`);
+}
+for (const feature of [
+  "edinburg: {",
+  "mcallen: {",
+  "officialUrl: 'https://cityofedinburg.com/'",
+  "officialUrl: 'https://www.mcallen.net/'",
+  "sourceConfidence: 'official'",
+  "sourceCheckedAt: checkedAt",
+  "status: 'active'",
+  "return `${entity.name}, Texas${context ? `: ${context} Guide` : ' City Guide'}`;",
+  'county and region context, official resources, relocation tools, property guidance, schools, transportation planning and nearby places',
+]) {
+  if (!citySearchAuthority.includes(feature)) errors.push(`GSC city authority/search metadata contract missing: ${feature}`);
 }
 for (const feature of ['County feature','The story of {entity.name}','countySeriesArticle.title','countySeriesArticle.dek','<ArticleBody blocks={countySeriesArticle.body} entities={relatedEntities} />','At a glance','The county in numbers','County seat & communities','Places on the map','Property & county services','Official local resources','Nearby places','Keep exploring','profile.population2020','profile.landAreaSquareMiles','profile.majorCommunities','localGovernment.appraisalDistrict','localGovernment.taxOffice','localGovernment.countyWebsiteUrl','CountyIdentitySection','profile.populationDensityPerSquareMile','profile.waterSharePercent','How densely populated is','propertyGuideReady','propertyGuideHref','propertyGuideLabel','getCountyPropertyRecordBySlug','isCountyPropertyIndexReady']) {
   if (!countyGuide.includes(feature)) errors.push(`County guide section missing: ${feature}`);
@@ -136,4 +158,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('County, destination and generated entity quality gates, fail-closed related-entity publication, statewide batch remediation, county uniqueness signals and ranks, snapshot-backed office promotion, authoritative enrichment, geographic/semantic ranking, editorial-first county-guide sections, source specificity, noindex behavior, and partitioned qualified sitemap publication passed validation.');
+console.log('County, city, destination and generated entity quality gates, GSC-aligned city search intent, RGV city authority enrichment, fail-closed related-entity publication, statewide batch remediation, county uniqueness signals and ranks, snapshot-backed office promotion, authoritative enrichment, geographic/semantic ranking, editorial-first county-guide sections, source specificity, noindex behavior, and partitioned qualified sitemap publication passed validation.');
