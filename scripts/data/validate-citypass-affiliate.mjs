@@ -24,14 +24,25 @@ function requireText(source, needle, label) {
 }
 
 for (const [needle, label] of [
-  ['https://www.anrdoezrs.net/click-101876465-11436795', 'Affiliate URL'],
   ['sponsored nofollow noopener noreferrer', 'Affiliate rel attributes'],
   ['Affiliate disclosure: TexasDefined may earn a commission', 'Affiliate disclosure'],
   ['/guides/citypass-texas', 'Evergreen guide link'],
   ['export type CityPassMarket = "Dallas" | "Houston" | "San Antonio"', 'Three-market type'],
+  ['CITYPASS_AFFILIATE_URLS', 'Market-specific affiliate URL map'],
   ['cityPassMarketForSportsVenueSlug', 'Sports venue market resolver'],
 ]) requireText(component, needle, label);
 requireText(calloutWrapper, 'import("./CityPassCalloutContent")', 'Lazy CityPASS CTA performance split');
+requireText(calloutContent, 'CITYPASS_AFFILIATE_URLS[market]', 'Market-specific CityPASS CTA target');
+
+const affiliateTargets = [
+  ['Dallas', 'https://citypass.7eer.net/c/7236213/305537/3331'],
+  ['Houston', 'https://citypass.7eer.net/c/7236213/305542/3331'],
+  ['San Antonio', 'https://citypass.7eer.net/c/7236213/305547/3331'],
+];
+for (const [market, url] of affiliateTargets) requireText(cityPassData, `"${market}": "${url}"`, `${market} affiliate URL`);
+if (cityPassData.includes('https://www.anrdoezrs.net/click-101876465-11436795')) {
+  errors.push('CityPASS affiliate data must not regress to the generic CJ link; preserve the three market-specific CityPASS destinations.');
+}
 
 const destinationCoverage = [
   ['Dallas', 'perot-museum-of-nature-and-science', '/destination/perot-museum-of-nature-and-science'],
@@ -125,4 +136,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('CityPASS affiliate validation passed: Dallas, Houston and San Antonio are covered; all 21 current Texas CityPASS attractions/tours map to TexasDefined pages; eight previously missing destination guides are published through the async preserved runtime; contextual city, destination and AT&T Stadium placements retain the disclosed CJ affiliate link and lazy CTA split.');
+console.log('CityPASS affiliate validation passed: Dallas, Houston and San Antonio are covered; all 21 current Texas CityPASS attractions/tours map to TexasDefined pages; eight previously missing destination guides are published through the async preserved runtime; contextual city, destination and AT&T Stadium placements retain the disclosed market-specific CJ affiliate links and lazy CTA split.');
