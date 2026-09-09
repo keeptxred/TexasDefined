@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
@@ -18,6 +19,12 @@ import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery, re
 import { isTopTexasAttraction } from "@/data/top-texas-attractions";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from "@/platform/internal-link-policies";
+
+const CityPassContextualCallout = lazy(() =>
+  import("@/components/monetization/CityPassContextualCallout").then((module) => ({
+    default: module.CityPassContextualCallout,
+  })),
+);
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
@@ -161,6 +168,7 @@ function DestinationPage() {
 
       <aside className="space-y-8 lg:sticky lg:top-28 lg:self-start">
         <div className="border-t-2 border-foreground pt-5"><p className="eyebrow text-primary">At a glance</p><dl className="mt-5 divide-y divide-border text-sm"><div className="pb-4"><dt className="text-muted-foreground">Nearest town</dt><dd className="mt-1 font-medium"><AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} /></dd></div><div className="py-4"><dt className="text-muted-foreground">Best season</dt><dd className="mt-1 font-medium">{destination.bestSeason}</dd></div><div className="py-4"><dt className="text-muted-foreground">Before arrival</dt><dd className="mt-1 leading-6">{destination.entryNote}</dd></div>{destination.managingAuthority && <div className="pt-4"><dt className="text-muted-foreground">Managed by</dt><dd className="mt-1 font-medium">{destination.managingAuthority}</dd></div>}</dl></div>
+        <Suspense fallback={null}><CityPassContextualCallout surface="destination" slug={destination.slug} placement="rail" /></Suspense>
         {(validExternalUrl(destination.officialUrl) || verifiedLabel) && <div className="border-t border-border pt-5 text-sm"><p className="eyebrow text-muted-foreground">Source notes</p>{verifiedLabel && <p className="mt-3 leading-6 text-muted-foreground">Visitor information checked {verifiedLabel}.</p>}{validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-4 inline-block border-b border-primary pb-1 text-primary">Official source</a>}</div>}
         <MapPreview markers={[{ id: destination.id, label: destination.name, point: destination.coordinates }]} directionsLabel={`${destination.name}, Texas`} />
       </aside>

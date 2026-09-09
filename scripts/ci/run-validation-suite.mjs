@@ -62,6 +62,7 @@ const checks = [
   ['phase7-technical-seo', 'SEO/TECHNICAL', 'Validate Phase 7 technical SEO batch', 'node', ['scripts/data/validate-phase7-technical-seo.mjs']],
   ['citation-magnets', 'SEO/CITATIONS', 'Validate citation magnets', 'node', ['scripts/data/validate-citation-magnets.mjs']],
   ['citation-downloads', 'SEO/CITATIONS', 'Validate citation downloads', 'node', ['scripts/data/validate-citation-downloads.mjs']],
+  ['citypass-affiliate', 'MONETIZATION/AFFILIATE', 'Validate Texas CityPASS affiliate coverage', 'node', ['scripts/data/validate-citypass-affiliate.mjs']],
   ['seo-ci-contract', 'CI/CONTRACT', 'Validate SEO CI contract', 'node', ['scripts/data/validate-seo-ci-contract.mjs']],
   ['data-validate', 'DATA/QUALITY', 'Validate production data and migrated features', 'npm', ['run', 'data:validate']],
   ['trip-planner-destinations', 'DATA/COVERAGE', 'Validate complete Trip Planner mapped coverage', 'node', ['scripts/data/audit-trip-planner-destinations.mjs', '--strict']],
@@ -93,6 +94,7 @@ const predeployIds = new Set([
   'texas-talent-content-depth', 'texas-talent-launch-metadata', 'texas-talent-reverse-links',
   'texas-talent-public-preview', 'texas-talent-music-authority',
   'relocation-insurance-authority', 'relocation-city-comparison', 'relocation-freshness',
+  'citypass-affiliate',
 ]);
 
 const fullExcludedIds = new Set(['texas-flag-authority', 'painted-churches-seo', 'painted-church-map', 'painted-church-completion']);
