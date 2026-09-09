@@ -1,7 +1,12 @@
-export const CITYPASS_AFFILIATE_URL = "https://www.anrdoezrs.net/click-101876465-11436795";
 export const CITYPASS_GUIDE_PATH = "/guides/citypass-texas";
 
 export type CityPassMarket = "Dallas" | "Houston" | "San Antonio";
+
+export const CITYPASS_AFFILIATE_URLS: Readonly<Record<CityPassMarket, string>> = {
+  "Dallas": "https://citypass.7eer.net/c/7236213/305537/3331",
+  "Houston": "https://citypass.7eer.net/c/7236213/305542/3331",
+  "San Antonio": "https://citypass.7eer.net/c/7236213/305547/3331",
+};
 
 const DESTINATION_MARKETS: Readonly<Record<string, CityPassMarket>> = {
   "perot-museum-of-nature-and-science": "Dallas",
