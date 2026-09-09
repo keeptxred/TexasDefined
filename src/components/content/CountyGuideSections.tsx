@@ -1,10 +1,9 @@
-import { use } from 'react';
+import { getRouteApi } from '@tanstack/react-router';
 
 import { CountyIdentitySection } from '@/components/content/CountyIdentitySection';
 import { ArticleBody } from '@/components/editorial/ArticleBody';
 import { articleInternalLinks } from '@/data/article-internal-links';
 import type { ArticleInternalLink } from '@/data/types';
-import { loadCountySeriesArticle } from '@/data/county-series';
 import { formatDensity, type CountyProfile } from '@/data/county-profile';
 import type { LocalGovernmentProfile } from '@/data/local-government-profile';
 import { canonicalEntityPath, type RankedRelatedEntity } from '@/data/knowledge-graph/relationships';
@@ -13,8 +12,10 @@ import { expandedPaintedChurches } from '@/data/painted-churches-expanded';
 import { getCountyPropertyRecordBySlug } from '@/data/property/county-property-data';
 import { isCountyPropertyIndexReady } from '@/data/property/county-property-schema';
 
+const entityRouteApi = getRouteApi('/$kind/$slug');
+
 export function CountyGuideSections({ entity, profile, localGovernment, related }: { entity: TexasEntityRecord; profile: CountyProfile; localGovernment: LocalGovernmentProfile; related: RankedRelatedEntity[] }) {
-  const countySeriesArticle = use(loadCountySeriesArticle(entity.slug));
+  const { countySeriesArticle } = entityRouteApi.useLoaderData();
   const nearby = related.filter(({ entity: candidate }) => !['appraisal-district', 'tax-office', 'county-clerk', 'dps-office'].includes(candidate.kind)).slice(0, 6);
   const relatedEntities = related.map(({ entity: candidate }) => candidate);
   const appraisalDistrictEntity = relatedEntities.find((candidate) => candidate.kind === 'appraisal-district' && candidate.countySlug === entity.slug);
