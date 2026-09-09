@@ -18,7 +18,7 @@ concurrency:
 jobs:
   smoke:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     steps:
       - name: Verify Dallas, fishing guides and routed news in production
         shell: bash
@@ -36,25 +36,36 @@ jobs:
             test -s "$output" || { echo "Empty response for $path" >&2; exit 1; }
           }
 
-          fetch /county/dallas /tmp/dallas.html
-          grep -Fq 'Dallas County' /tmp/dallas.html || {
-            echo 'Dallas County production route does not render Dallas County content.' >&2
-            exit 1
-          }
-          grep -Fq 'https://texasdefined.com/county/dallas' /tmp/dallas.html || {
-            echo 'Dallas County production route is missing its canonical URL.' >&2
-            exit 1
-          }
-          grep -Fq 'The story of Dallas County' /tmp/dallas.html || {
-            echo 'Dallas County production route is missing the county feature section.' >&2
-            exit 1
-          }
-          grep -Fq 'Old Red Courthouse' /tmp/dallas.html || {
-            echo 'Dallas County production route is missing Dallas-specific editorial depth.' >&2
-            exit 1
-          }
-          grep -Fq 'The county in numbers' /tmp/dallas.html || {
-            echo 'Dallas County production route is missing the county data section.' >&2
+          dallas_ready=false
+          for attempt in $(seq 1 30); do
+            dallas_url="https://texasdefined.com/county/dallas?verify=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${attempt}"
+            echo "Checking ${dallas_url}"
+            dallas_status="$(curl --retry 2 --retry-connrefused --retry-delay 2 --max-time 45 -sS -o /tmp/dallas.html -w '%{http_code}' "$dallas_url" || true)"
+
+            if [ "$dallas_status" = "200" ] && test -s /tmp/dallas.html; then
+              missing=()
+              grep -Fq 'Dallas County' /tmp/dallas.html || missing+=('Dallas County content')
+              grep -Fq 'https://texasdefined.com/county/dallas' /tmp/dallas.html || missing+=('canonical URL')
+              grep -Fq 'The story of Dallas County' /tmp/dallas.html || missing+=('county feature section')
+              grep -Fq 'Old Red Courthouse' /tmp/dallas.html || missing+=('Dallas-specific editorial depth')
+              grep -Fq 'The county in numbers' /tmp/dallas.html || missing+=('county data section')
+
+              if [ "${#missing[@]}" -eq 0 ]; then
+                dallas_ready=true
+                break
+              fi
+
+              echo "Dallas County deployment incomplete: missing ${missing[*]}"
+            else
+              echo "Dallas County route not ready: status=${dallas_status:-curl-failed}"
+            fi
+
+            echo "Dallas County deployment has not fully caught up yet (attempt $attempt/30); retrying."
+            sleep 10
+          done
+
+          test "$dallas_ready" = true || {
+            echo 'Dallas County production route did not expose the required county feature, canonical, editorial depth and data section within the deployment-aware retry window.' >&2
             exit 1
           }
 
