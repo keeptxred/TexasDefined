@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
 import { CountyCoastalPlaces } from '@/components/content/CountyCoastalPlaces';
@@ -10,6 +11,12 @@ import {
   type RankedRelatedEntity,
 } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
+
+const CityPassContextualCallout = lazy(() =>
+  import('@/components/monetization/CityPassContextualCallout').then((module) => ({
+    default: module.CityPassContextualCallout,
+  })),
+);
 
 const siteUrl = 'https://texasdefined.com';
 const localGovernmentKinds = new Set(['county', 'appraisal-district', 'tax-office', 'county-clerk', 'dps-office']);
@@ -104,6 +111,7 @@ function EntityPage() {
           {entity.coordinates && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={`https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`} target="_blank" rel="noreferrer">Open in maps ↗</a>}
         </div>
 
+        {entity.kind === 'city' ? <Suspense fallback={null}><CityPassContextualCallout surface="city" slug={entity.slug} /></Suspense> : null}
         {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} /> : null}
         {entity.kind === 'county' ? <CountyCoastalPlaces county={entity} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}

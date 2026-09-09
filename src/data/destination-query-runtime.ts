@@ -54,11 +54,23 @@ function mergeDestinations(...groups: Destination[][]): Destination[] {
   return [...merged.values()];
 }
 
-function preservedFor(query: Omit<DestinationQuery, "brandId">): Destination[] {
-  let rows = preservedExploreDestinations;
+function filterPreservedDestinations(rows: Destination[], query: Omit<DestinationQuery, "brandId">): Destination[] {
   if (query.category) rows = rows.filter((destination) => destination.category === query.category);
   if (query.featured !== undefined) rows = rows.filter((destination) => Boolean(destination.featured) === query.featured);
   return query.limit ? rows.slice(0, query.limit) : rows;
+}
+
+function preservedFor(query: Omit<DestinationQuery, "brandId">): Destination[] {
+  return filterPreservedDestinations(preservedExploreDestinations, query);
+}
+
+async function loadCityPassDestinationExpansion(): Promise<Destination[]> {
+  const { cityPassDestinationExpansion } = await import("./citypass-destination-expansion");
+  return cityPassDestinationExpansion;
+}
+
+async function cityPassPreservedFor(query: Omit<DestinationQuery, "brandId">): Promise<Destination[]> {
+  return filterPreservedDestinations(await loadCityPassDestinationExpansion(), query);
 }
 
 function finishHistoricSiteEnrichment(destination: Destination) {
@@ -137,7 +149,9 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
   } catch (error) { console.error("Core Explore remote catalog unavailable; merging preserved catalog", error); }
   const local = await platform.destinations.list({ ...scope, ...params });
   const preserved = preservedFor(params);
-  const merged = reconcileExploreCatalog(mergeDestinations(enriched, core, preserved, local));
+  const baseMerged = mergeDestinations(enriched, core, preserved, local);
+  const cityPassPreserved = await cityPassPreservedFor(params);
+  const merged = reconcileExploreCatalog(mergeDestinations(baseMerged, cityPassPreserved));
   const scoped = params.category ? merged.filter((destination) => destination.category === params.category) : merged;
   if (params.featured) return featuredFallback(scoped, params.limit ?? 6);
   return params.limit ? scoped.slice(0, params.limit) : scoped;
@@ -153,6 +167,8 @@ export async function getResolvedDestination(slug: Slug) {
   if (rvPark) return applyResolvedHero(rvPark);
   const preserved = preservedExploreDestinations.find((destination) => destination.slug === slug);
   if (preserved) return applyResolvedHero(preserved);
+  const cityPassPreserved = (await loadCityPassDestinationExpansion()).find((destination) => destination.slug === slug);
+  if (cityPassPreserved) return applyResolvedHero(cityPassPreserved);
   const local = await platform.destinations.getBySlug(scope, slug);
   return local ? applyResolvedHero(local) : local;
 }
@@ -164,5 +180,6 @@ export async function listResolvedDestinationSearchCatalog() {
   catch (error) { console.error("Enriched destination search index unavailable; merging core and preserved catalogs", error); }
   try { core = await fetchCoreExploreDestinations({ limit: 5000 }); }
   catch (coreError) { console.error("Core remote destination search index unavailable; retaining preserved destinations", coreError); }
-  return reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations));
+  const preservedSearchCatalog = reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations));
+  return reconcileExploreCatalog(mergeDestinations(preservedSearchCatalog, await loadCityPassDestinationExpansion()));
 }

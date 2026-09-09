@@ -1,5 +1,12 @@
+import { lazy, Suspense } from 'react';
 import { TexasExplainedContextLinks } from '@/components/editorial/TexasExplainedContextLinks';
 import { SportsTrafficTracker } from '@/components/sports/SportsTrafficTracker';
+
+const CityPassContextualCallout = lazy(() =>
+  import('@/components/monetization/CityPassContextualCallout').then((module) => ({
+    default: module.CityPassContextualCallout,
+  })),
+);
 
 type SportsVenueQuickAnswersProps = {
   venueName: string;
@@ -93,6 +100,7 @@ export function SportsVenueQuickAnswers({
       </div>
     </section>
 
+    {slug ? <Suspense fallback={null}><CityPassContextualCallout surface="sports-venue" slug={slug} /></Suspense> : null}
     <TexasExplainedContextLinks surface="sports" />
   </>;
 }
