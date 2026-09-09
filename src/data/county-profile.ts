@@ -226,7 +226,7 @@ export function countyProfileDescription(countyName: string, profile: CountyProf
   return sentences.join(' ');
 }
 
-function formatDensity(value: number) {
+export function formatDensity(value: number) {
   if (value >= 100) return Math.round(value).toLocaleString('en-US');
   if (value >= 10) return value.toFixed(1);
   return value.toFixed(2);
