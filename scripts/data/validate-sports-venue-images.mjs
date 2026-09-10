@@ -41,6 +41,11 @@ const licensedPhotoSlugs = [
   'ford-center-at-the-star',
   'college-park-center',
   'comerica-center',
+  'texas-motor-speedway',
+  'cowtown-coliseum',
+  'credit-union-of-texas-event-center',
+  'moody-coliseum-smu',
+  'unt-coliseum',
 ];
 for (const slug of licensedPhotoSlugs) {
   assert(photoSource.includes(`'${slug}': {`), `Licensed venue photo registry is missing ${slug}.`);
