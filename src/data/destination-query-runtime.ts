@@ -198,7 +198,7 @@ export async function listResolvedDestinationSearchCatalog() {
   catch (error) { console.error("Enriched destination search index unavailable; merging core and preserved catalogs", error); }
   try { core = await fetchCoreExploreDestinations({ limit: 5000 }); }
   catch (coreError) { console.error("Core remote destination search index unavailable; retaining preserved destinations", coreError); }
-  const cavernPreserved = await loadPublicCavernDestinationFallbacks();
-  const preservedSearchCatalog = reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations, cavernPreserved));
-  return reconcileExploreCatalog(mergeDestinations(preservedSearchCatalog, await loadCityPassDestinationExpansion()));
+  const preservedSearchCatalog = reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations));
+  const cavernSearchCatalog = reconcileExploreCatalog(mergeDestinations(preservedSearchCatalog, await loadPublicCavernDestinationFallbacks()));
+  return reconcileExploreCatalog(mergeDestinations(cavernSearchCatalog, await loadCityPassDestinationExpansion()));
 }
