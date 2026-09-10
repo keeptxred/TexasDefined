@@ -3,9 +3,7 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
 import { PropertyTaxGuidePage } from '@/components/guides/PropertyTaxGuidePage';
 import { Container } from '@/components/layout/Container';
-import { COUNTY_PROPERTY_RECORDS } from '@/data/property/county-property-data';
 import { isCountyPropertyIndexReady } from '@/data/property/county-property-schema';
-import { TEXAS_COUNTIES } from '@/data/texas-places';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const description =
@@ -20,56 +18,70 @@ const steps = [
   'Save the latest appraisal notice and value history.',
   'Contact the district promptly if something is wrong.',
 ];
-const verifiedPropertyCounties = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
-const verifiedPropertySlugs = new Set(verifiedPropertyCounties.map((county) => county.slug));
 const priorityCountySlugs = ['leon', 'terrell', 'lubbock', 'hidalgo', 'sabine'];
-const priorityCounties = priorityCountySlugs
-  .map((slug) => TEXAS_COUNTIES.find((county) => county.slug === slug))
-  .filter((county): county is (typeof TEXAS_COUNTIES)[number] => Boolean(county && verifiedPropertySlugs.has(county.slug)));
 
 export const Route = createFileRoute('/learn/appraisal-districts')({
-  head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Texas Appraisal District Directory & Property Record Guide', description }),
-    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-    scripts: [jsonLd({
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'HowTo',
-          '@id': `${pageUrl}#howto`,
-          url: pageUrl,
-          name: 'How to check a Texas appraisal district property record',
-          description,
-          isPartOf: { '@id': `${siteUrl}/#website` },
-          step: steps.map((text, index) => ({
-            '@type': 'HowToStep', position: index + 1, name: text, text, url: `${pageUrl}#appraisal-step-${index + 1}`,
-          })),
-        },
-        {
-          '@type': 'ItemList',
-          '@id': `${pageUrl}#county-directory`,
-          name: 'Verified Texas county appraisal-district guides',
-          numberOfItems: verifiedPropertyCounties.length,
-          itemListElement: verifiedPropertyCounties.map((county, index) => ({
-            '@type': 'ListItem', position: index + 1, name: `${county.name} appraisal district guide`, url: `${siteUrl}/property-tax/county/${county.slug}`,
-          })),
-        },
-        {
-          '@type': 'BreadcrumbList',
-          '@id': `${pageUrl}#breadcrumbs`,
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
-            { '@type': 'ListItem', position: 2, name: 'Property Taxes', item: `${siteUrl}/decide/property-taxes` },
-            { '@type': 'ListItem', position: 3, name: 'Appraisal District Directory', item: pageUrl },
-          ],
-        },
-      ],
-    })],
-  }),
+  loader: async () => {
+    const [{ COUNTY_PROPERTY_RECORDS }, { TEXAS_COUNTIES }] = await Promise.all([
+      import('@/data/property/county-property-data'),
+      import('@/data/texas-places'),
+    ]);
+    const verifiedPropertyCounties = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
+    const verifiedPropertySlugs = new Set(verifiedPropertyCounties.map((county) => county.slug));
+    const priorityCounties = priorityCountySlugs
+      .map((slug) => TEXAS_COUNTIES.find((county) => county.slug === slug))
+      .filter((county) => county !== undefined && verifiedPropertySlugs.has(county.slug));
+
+    return { verifiedPropertyCounties, verifiedPropertySlugList: [...verifiedPropertySlugs], priorityCounties, TEXAS_COUNTIES };
+  },
+  head: ({ loaderData }) => {
+    const { verifiedPropertyCounties } = loaderData;
+    return {
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Texas Appraisal District Directory & Property Record Guide', description }),
+      links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+      scripts: [jsonLd({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'HowTo',
+            '@id': `${pageUrl}#howto`,
+            url: pageUrl,
+            name: 'How to check a Texas appraisal district property record',
+            description,
+            isPartOf: { '@id': `${siteUrl}/#website` },
+            step: steps.map((text, index) => ({
+              '@type': 'HowToStep', position: index + 1, name: text, text, url: `${pageUrl}#appraisal-step-${index + 1}`,
+            })),
+          },
+          {
+            '@type': 'ItemList',
+            '@id': `${pageUrl}#county-directory`,
+            name: 'Verified Texas county appraisal-district guides',
+            numberOfItems: verifiedPropertyCounties.length,
+            itemListElement: verifiedPropertyCounties.map((county, index) => ({
+              '@type': 'ListItem', position: index + 1, name: `${county.name} appraisal district guide`, url: `${siteUrl}/property-tax/county/${county.slug}`,
+            })),
+          },
+          {
+            '@type': 'BreadcrumbList',
+            '@id': `${pageUrl}#breadcrumbs`,
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
+              { '@type': 'ListItem', position: 2, name: 'Property Taxes', item: `${siteUrl}/decide/property-taxes` },
+              { '@type': 'ListItem', position: 3, name: 'Appraisal District Directory', item: pageUrl },
+            ],
+          },
+        ],
+      })],
+    };
+  },
   component: AppraisalDistrictPage,
 });
 
 function AppraisalDistrictPage() {
+  const { verifiedPropertySlugList, priorityCounties, TEXAS_COUNTIES } = Route.useLoaderData();
+  const verifiedPropertySlugs = new Set(verifiedPropertySlugList);
+
   return <>
     <PropertyTaxGuidePage
       eyebrow="Know your local office"
