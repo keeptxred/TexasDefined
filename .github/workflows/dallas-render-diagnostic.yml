@@ -34,19 +34,29 @@ jobs:
           done
           cat /tmp/td.log
           exit 1
-      - name: Compare county SSR
+      - name: Compare local and live Dallas response
         run: |
-          set +e
-          for slug in dallas harris travis kaufman; do
-            status=$(curl -sS -o "/tmp/${slug}.html" -w '%{http_code}' "http://127.0.0.1:4173/county/${slug}?diag=${GITHUB_RUN_ID}")
-            echo "=== ${slug}: HTTP ${status}, bytes $(wc -c < /tmp/${slug}.html) ==="
-            for marker in 'The story of' 'The county in numbers' 'Old Red Courthouse'; do
-              if grep -Fq "$marker" "/tmp/${slug}.html"; then echo "marker yes: $marker"; else echo "marker no: $marker"; fi
+          set -euo pipefail
+          curl -sS -D /tmp/local.headers -o /tmp/local.html "http://127.0.0.1:4173/county/dallas?diag=${GITHUB_RUN_ID}"
+          curl --retry 3 --retry-delay 2 --max-time 45 -sS -D /tmp/live.headers -o /tmp/live.html "https://texasdefined.com/county/dallas?diag=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+
+          for source in local live; do
+            echo "=== ${source} Dallas: bytes $(wc -c < /tmp/${source}.html) ==="
+            sed -n '1,80p' "/tmp/${source}.headers"
+            for marker in 'Dallas County' 'The story of' 'The story of Dallas County' 'Old Red Courthouse' 'The county in numbers' 'Official local-government cross-check'; do
+              if grep -Fq "$marker" "/tmp/${source}.html"; then echo "marker yes: $marker"; else echo "marker no: $marker"; fi
             done
+            echo "county feature heading fragments:"
+            grep -o -E '.{0,80}The story of.{0,140}' "/tmp/${source}.html" | head -5 || true
+            echo "Old Red fragments:"
+            grep -o -E '.{0,80}Old Red Courthouse.{0,140}' "/tmp/${source}.html" | head -5 || true
           done
-          echo '=== runtime log ==='
+
+          echo '=== local runtime log ==='
           cat /tmp/td.log
-          if ! grep -Fq 'The story of Dallas County' /tmp/dallas.html; then exit 1; fi
+
+          grep -Fq 'Old Red Courthouse' /tmp/local.html
+          grep -Fq 'The county in numbers' /tmp/local.html
       - name: Stop runtime
         if: always()
         run: test ! -f /tmp/td.pid || kill "$(cat /tmp/td.pid)" || true
