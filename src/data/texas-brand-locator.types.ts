@@ -1,7 +1,6 @@
-export type TexasBrandLocatorBrand = "heb" | "bucees"
-  | "central-market"
-  | "joe-vs"
-  | "mi-tienda";
+import type { TexasBrandLocatorBrand } from "./texas-brand-locator-registry";
+
+export type { TexasBrandLocatorBrand } from "./texas-brand-locator-registry";
 
 export type TexasBrandLocatorLocation = {
   id: string;

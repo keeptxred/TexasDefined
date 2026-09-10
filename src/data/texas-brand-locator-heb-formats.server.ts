@@ -1,4 +1,12 @@
 import {
+  TEXAS_BRAND_LOCATOR_HEB_FORMAT_BRANDS,
+  texasBrandLocatorFallbackLabel,
+  texasBrandLocatorLabel,
+  texasBrandLocatorOfficialUrl,
+  texasBrandLocatorStoreNamePattern,
+  type TexasBrandLocatorHebFormatBrand,
+} from "./texas-brand-locator-registry";
+import {
   findTexasBrandLocationsNearPointServer as findBaseTexasBrandLocationsNearPointServer,
   findTexasBrandLocationsServer as findBaseTexasBrandLocationsServer,
 } from "./texas-brand-locator.server";
@@ -10,25 +18,17 @@ import type {
 
 type Point = { latitude: number; longitude: number };
 type UnknownRecord = Record<string, unknown>;
-type HebFormatBrand = "central-market" | "joe-vs" | "mi-tienda";
 
 const HEB_LOCATOR_ENDPOINT = "https://www.heb.com/commerce-api/v1/store/locator/address";
-const HEB_LOCATOR_URL = "https://www.heb.com/store-locations";
 const REQUEST_TIMEOUT_MS = 8_000;
 const RESULTS_PER_BRAND = 5;
-
-const HEB_FORMAT_CONFIG: Record<HebFormatBrand, { label: string; pattern: RegExp }> = {
-  "central-market": { label: "Central Market", pattern: /\bcentral\s+market\b/i },
-  "joe-vs": { label: "Joe V's Smart Shop", pattern: /\bjoe\s+v(?:['’]s|s)?(?:\s+smart\s+shop)?\b/i },
-  "mi-tienda": { label: "Mi Tienda", pattern: /\bmi\s+tienda\b/i },
-};
 
 const asRecord = (value: unknown): UnknownRecord => value && typeof value === "object" ? value as UnknownRecord : {};
 const stringValue = (...values: unknown[]) => values.find((value) => typeof value === "string" && value.trim()) as string | undefined;
 const numberValue = (...values: unknown[]) => values.find((value) => typeof value === "number" && Number.isFinite(value)) as number | undefined;
 
-function isHebFormatBrand(brand: TexasBrandLocatorBrand): brand is HebFormatBrand {
-  return brand === "central-market" || brand === "joe-vs" || brand === "mi-tienda";
+function isHebFormatBrand(brand: TexasBrandLocatorBrand): brand is TexasBrandLocatorHebFormatBrand {
+  return texasBrandLocatorStoreNamePattern(brand) instanceof RegExp;
 }
 
 function isBaseBrand(brand: TexasBrandLocatorBrand): brand is "heb" | "bucees" {
@@ -36,7 +36,7 @@ function isBaseBrand(brand: TexasBrandLocatorBrand): brand is "heb" | "bucees" {
 }
 
 function isHebSpecialtyName(name: string) {
-  return Object.values(HEB_FORMAT_CONFIG).some(({ pattern }) => pattern.test(name));
+  return TEXAS_BRAND_LOCATOR_HEB_FORMAT_BRANDS.some((brand) => texasBrandLocatorStoreNamePattern(brand)?.test(name));
 }
 
 function keepOrdinaryHebResults(
@@ -59,14 +59,13 @@ function timeoutSignal() {
 }
 
 function officialHebLocatorUrl(query: string) {
-  return `${HEB_LOCATOR_URL}?address=${encodeURIComponent(query)}`;
+  return `${texasBrandLocatorOfficialUrl("heb")}?address=${encodeURIComponent(query)}`;
 }
 
-function formatFallbackLink(brand: HebFormatBrand, query: string) {
-  const label = HEB_FORMAT_CONFIG[brand].label;
+function formatFallbackLink(brand: TexasBrandLocatorHebFormatBrand, query: string) {
   return {
     brand,
-    label: `Open H-E-B's official store locator for ${label}`,
+    label: texasBrandLocatorFallbackLabel(brand),
     url: officialHebLocatorUrl(query),
   };
 }
@@ -89,14 +88,15 @@ function normalizeHebFormatLocation(
   wrapper: unknown,
   query: string,
   index: number,
-  brand: HebFormatBrand,
+  brand: TexasBrandLocatorHebFormatBrand,
 ): TexasBrandLocatorLocation | null {
   const { row, store } = storeRecord(wrapper);
   const addressObject = asRecord(store.address);
   const coordinateObject = asRecord(store.coordinates ?? store.coordinate ?? store.location);
-  const config = HEB_FORMAT_CONFIG[brand];
-  const name = storeName(wrapper) || config.label;
-  if (!config.pattern.test(name)) return null;
+  const label = texasBrandLocatorLabel(brand);
+  const pattern = texasBrandLocatorStoreNamePattern(brand);
+  const name = storeName(wrapper) || label;
+  if (!pattern?.test(name)) return null;
 
   const id = stringValue(store.id, store.storeId, store.storeNumber, store.corporateNumber) ?? `${brand}-result-${index + 1}`;
   const street = stringValue(store.streetAddress, store.address1, store.addressLine1, addressObject.streetAddress, addressObject.address1, addressObject.addressLine1);
@@ -111,7 +111,7 @@ function normalizeHebFormatLocation(
   return {
     id: `${brand}-${id}`,
     brand,
-    brandLabel: config.label,
+    brandLabel: label,
     name,
     address,
     city,
@@ -120,12 +120,12 @@ function normalizeHebFormatLocation(
     latitude,
     longitude,
     directionsUrl: directionsUrl(address),
-    sourceLabel: `${config.label} via H-E-B official store locator`,
+    sourceLabel: `${label} via H-E-B official store locator`,
     sourceUrl: officialHebLocatorUrl(query),
   };
 }
 
-async function findHebFormatLocations(query: string, brands: HebFormatBrand[]) {
+async function findHebFormatLocations(query: string, brands: TexasBrandLocatorHebFormatBrand[]) {
   if (!brands.length) return [];
   const response = await fetch(HEB_LOCATOR_ENDPOINT, {
     method: "POST",
@@ -160,7 +160,7 @@ function emptyResponse(query: string, matchedAddress: string | null): TexasBrand
 async function appendHebFormats(
   response: TexasBrandLocatorResponse,
   query: string,
-  formatBrands: HebFormatBrand[],
+  formatBrands: TexasBrandLocatorHebFormatBrand[],
 ) {
   if (!formatBrands.length) return response;
   try {
@@ -168,11 +168,11 @@ async function appendHebFormats(
     response.results.push(...locations);
     for (const brand of formatBrands) {
       if (!locations.some((location) => location.brand === brand)) {
-        response.notices.push(`${HEB_FORMAT_CONFIG[brand].label} did not appear in H-E-B's live results for this search. Use the official H-E-B locator link below for the current store list.`);
+        response.notices.push(`${texasBrandLocatorLabel(brand)} did not appear in H-E-B's live results for this search. Use the official H-E-B locator link below for the current store list.`);
       }
     }
   } catch {
-    const labels = formatBrands.map((brand) => HEB_FORMAT_CONFIG[brand].label).join(", ");
+    const labels = formatBrands.map(texasBrandLocatorLabel).join(", ");
     response.notices.push(`H-E-B's live locator could not be reached for ${labels}. Use the official H-E-B locator link below while the upstream service recovers.`);
   }
   response.fallbackLinks.push(...formatBrands.map((brand) => formatFallbackLink(brand, query)));
