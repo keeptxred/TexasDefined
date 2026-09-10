@@ -16,6 +16,19 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Normalize directory bases for Academy relative links
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const path = 'scripts/data/generate-academy-location-seed.mjs';
+          const source = fs.readFileSync(path, 'utf8');
+          const updated = source.replace(
+            "const url = new URL(decodeHtml(href), base);",
+            "const url = new URL(decodeHtml(href), base.endsWith('/') ? base : `${base}/`);",
+          );
+          if (updated === source) throw new Error('Expected URL normalization source token was not found');
+          fs.writeFileSync(path, updated);
+          NODE
       - name: Self-test Academy first-party crawler
         run: node scripts/data/generate-academy-location-seed.mjs --self-test
       - name: Generate Academy Texas seed from official directory
