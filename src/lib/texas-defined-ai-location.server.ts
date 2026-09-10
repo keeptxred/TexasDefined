@@ -131,23 +131,24 @@ function buildAnswer(
   const lines = answerLines(response, brands, placeLabel, locationMode);
   const resultCount = response.results.filter((item) => brands.includes(item.brand)).length;
   if (lines.length) {
-    lines.push("Buc-ee's distances are approximate straight-line distances; H-E-B-family results come from H-E-B's live locator when available. For the latest hours, services, closures or location changes, use the direct official links in TexasDefined's Texas Brands locator.");
+    lines.push("Distances are approximate. H-E-B-family results come from H-E-B's live locator when available, Whataburger results come from Whataburger's official Texas directory, and Buc-ee's results use TexasDefined's verified registry sourced from Buc-ee's official locations list. For the latest hours, services, closures or location changes, use the direct official links in TexasDefined's Texas Brands locator.");
     if (response.notices.length) lines.push(response.notices.join(" "));
   } else {
     const scopeLanguage = locationMode === "within-city" || locationMode === "within-county"
       ? `inside ${placeLabel}`
       : `near ${placeLabel}`;
     lines.push(`I could not verify a ${brands.map(brandLabel).join(" or ")} result ${scopeLanguage} right now.`);
-    lines.push("Use the TexasDefined Texas Brands locator, which links directly to official H-E-B-family and Buc-ee's location sources, to continue without guessing.");
+    lines.push("Use the TexasDefined Texas Brands locator, which links directly to the official H-E-B-family, Buc-ee's and Whataburger location sources, to continue without guessing.");
     if (response.notices.length) lines.push(response.notices.join(" "));
   }
 
   return {
     answer: lines.join("\n"),
     sources: [texasBrandsSource()],
-    // H-E-B-family formats may be queried live, while Buc-ee's is served from
-    // TexasDefined's verified registry. Do not place either in the shared
-    // "live official research" renderer, which would overstate freshness for registry data.
+    // H-E-B-family and Whataburger may be queried live from their first-party
+    // sources, while Buc-ee's is served from TexasDefined's verified registry.
+    // Keep these out of the shared "live official research" renderer so the
+    // mixed freshness models are described precisely in the answer text.
     officialSources: [],
     brands,
     texasPlace: signalPlace,
