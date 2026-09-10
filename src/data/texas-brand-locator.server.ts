@@ -1,13 +1,16 @@
 import { resolveRelocationAddressServer } from "./relocation-address.server";
 import {
   DEFAULT_TEXAS_BRAND_LOCATOR_BRANDS,
+  isTexasBrandLocatorOfficialDirectoryBrand,
   isTexasBrandLocatorVerifiedRegistryBrand,
   texasBrandLocatorFallbackLabel,
   texasBrandLocatorLabel,
   texasBrandLocatorOfficialUrl,
   type TexasBrandLocatorBrand,
+  type TexasBrandLocatorOfficialDirectoryBrand,
   type TexasBrandLocatorVerifiedRegistryBrand,
 } from "./texas-brand-locator-registry";
+import { findOfficialDirectoryLocationsServer } from "./texas-brand-locator-official-directory.server";
 import { findVerifiedRegistryLocationsServer } from "./texas-brand-locator-verified-registry.server";
 import type {
   TexasBrandLocatorLocation,
@@ -33,7 +36,9 @@ function timeoutSignal() {
 
 function officialLocatorUrl(brand: TexasBrandLocatorBrand, query: string) {
   const baseUrl = texasBrandLocatorOfficialUrl(brand);
-  return brand === "heb" ? `${baseUrl}?address=${encodeURIComponent(query)}` : baseUrl;
+  if (brand === "heb") return `${baseUrl}?address=${encodeURIComponent(query)}`;
+  if (brand === "whataburger") return `${baseUrl}index.html?q=${encodeURIComponent(query)}&qp=${encodeURIComponent(query)}`;
+  return baseUrl;
 }
 
 function fallbackLinks(brands: TexasBrandLocatorBrand[], query: string) {
@@ -105,7 +110,11 @@ function verifiedRegistryBrands(brands: TexasBrandLocatorBrand[]) {
   return brands.filter(isTexasBrandLocatorVerifiedRegistryBrand);
 }
 
-function verifiedBrandLabels(brands: TexasBrandLocatorVerifiedRegistryBrand[]) {
+function officialDirectoryBrands(brands: TexasBrandLocatorBrand[]) {
+  return brands.filter(isTexasBrandLocatorOfficialDirectoryBrand);
+}
+
+function coordinateBrandLabels(brands: TexasBrandLocatorBrand[]) {
   return brands.map(texasBrandLocatorLabel).join(brands.length > 1 ? " and " : "");
 }
 
@@ -135,6 +144,24 @@ async function appendVerifiedRegistryResults(
   }
 }
 
+async function appendOfficialDirectoryResults(
+  results: TexasBrandLocatorLocation[],
+  notices: string[],
+  brands: TexasBrandLocatorOfficialDirectoryBrand[],
+  origin: Point,
+) {
+  for (const brand of brands) {
+    const label = texasBrandLocatorLabel(brand);
+    try {
+      const locations = await findOfficialDirectoryLocationsServer(brand, origin);
+      if (locations.length) results.push(...locations);
+      else notices.push(`${label}'s official Texas directory did not return a nearby location. Use the official ${label} location finder below for current results.`);
+    } catch {
+      notices.push(`${label}'s official Texas directory could not be parsed or reached from TexasDefined. Use the official ${label} location finder below while the upstream source recovers.`);
+    }
+  }
+}
+
 export async function findTexasBrandLocationsNearPointServer(input: {
   query: string;
   origin: Point;
@@ -148,9 +175,11 @@ export async function findTexasBrandLocationsNearPointServer(input: {
   const notices: string[] = [];
   const results: TexasBrandLocatorLocation[] = [];
   const registryBrands = verifiedRegistryBrands(selectedBrands);
+  const directoryBrands = officialDirectoryBrands(selectedBrands);
 
   if (selectedBrands.includes("heb")) await appendHebResults(results, notices, query);
   if (registryBrands.length) await appendVerifiedRegistryResults(results, notices, registryBrands, input.origin);
+  if (directoryBrands.length) await appendOfficialDirectoryResults(results, notices, directoryBrands, input.origin);
 
   return {
     query,
@@ -172,10 +201,12 @@ export async function findTexasBrandLocationsServer(input: {
   const notices: string[] = [];
   const results: TexasBrandLocatorLocation[] = [];
   const registryBrands = verifiedRegistryBrands(selectedBrands);
+  const directoryBrands = officialDirectoryBrands(selectedBrands);
+  const coordinateBrands: TexasBrandLocatorBrand[] = [...registryBrands, ...directoryBrands];
 
   let resolvedAddress = null as Awaited<ReturnType<typeof resolveRelocationAddressServer>>;
-  if (registryBrands.length) {
-    const labels = verifiedBrandLabels(registryBrands);
+  if (coordinateBrands.length) {
+    const labels = coordinateBrandLabels(coordinateBrands);
     try {
       resolvedAddress = await resolveRelocationAddressServer(query);
       if (!resolvedAddress) notices.push(`Use a complete Texas street address to rank ${labels} locations by distance. The official brand location links are still available below.`);
@@ -190,6 +221,14 @@ export async function findTexasBrandLocationsServer(input: {
       results,
       notices,
       registryBrands,
+      { latitude: resolvedAddress.latitude, longitude: resolvedAddress.longitude },
+    );
+  }
+  if (directoryBrands.length && resolvedAddress) {
+    await appendOfficialDirectoryResults(
+      results,
+      notices,
+      directoryBrands,
       { latitude: resolvedAddress.latitude, longitude: resolvedAddress.longitude },
     );
   }
