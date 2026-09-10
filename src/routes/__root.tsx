@@ -69,6 +69,8 @@ function HeaderFallback() {
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
+      // Impact requires its supplied `value` attribute, rather than `content`.
+      { name: "impact-site-verification", value: "d1f89af4-8caa-4bd5-a24f-52a8aa74022b" },
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "google-adsense-account", content: "ca-pub-1891256141359926" },
