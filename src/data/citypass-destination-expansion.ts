@@ -1,6 +1,6 @@
 import type { Destination } from "./types";
 
-const SOURCE_CHECKED_AT = "2026-09-08";
+const SOURCE_CHECKED_AT = "2026-09-09";
 type Base = Pick<Destination, "region" | "nearestTown" | "county">;
 type Row = [
   id: string, slug: string, name: string, summary: string, category: Destination["category"],
@@ -105,7 +105,7 @@ export const cityPassDestinationExpansion: Destination[] = [
     "citypass-the-doseum", "the-doseum", "The DoSeum",
     "The DoSeum is San Antonio's hands-on children's museum on Broadway, centered on learning through interactive science, engineering, creative, literacy and outdoor experiences.",
     "historic-sites", 29.4526, -98.47216,
-    ["https://media.citypass.com/_gallery/get_file/?file_ext=.jpg&file_id=64249b012cfac2614a23f6e8&page_id=5deee4512cfac228a505f39e", "Entrance to The DoSeum children's museum on Broadway in San Antonio, Texas", 2000, 1333, "Courtesy of The DoSeum · CityPASS media library · authorized CityPASS partner-promotion asset"],
+    ["https://iprsoftwaremedia.com/372/files/20232/64249b012cfac2614a23f6e8_DoSeum%20Exterior-5/DoSeum%20Exterior-5_d3458c24-9e0a-410c-a121-03d28241cec7-prv.jpg", "Entrance to The DoSeum children's museum on Broadway in San Antonio, Texas", 2000, 1333, "Courtesy of The DoSeum · CityPASS media library · authorized CityPASS partner-promotion asset"],
     "Year-round; large indoor galleries help during summer heat or wet weather, while mild seasons favor outdoor play.",
     "Hours can vary by weekday and member periods. San Antonio CityPASS® currently includes general admission to galleries and temporary exhibits.",
     ["Hands-on children's museum galleries", "Science and engineering play", "Creative and literacy experiences", "Outdoor play areas"],

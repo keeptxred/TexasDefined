@@ -51,6 +51,12 @@ for (const feature of ['isIndexableEntityPage(loaderData.entity)',"robots: index
 for (const feature of ['County feature','The story of {entity.name}','countySeriesArticle.title','countySeriesArticle.dek','<ArticleBody blocks={countySeriesArticle.body} entities={relatedEntities} />','At a glance','The county in numbers','County seat & communities','Places on the map','Property & county services','Official local resources','Nearby places','Keep exploring','profile.population2020','profile.landAreaSquareMiles','profile.majorCommunities','localGovernment.appraisalDistrict','localGovernment.taxOffice','localGovernment.countyWebsiteUrl','CountyIdentitySection','profile.populationDensityPerSquareMile','profile.waterSharePercent','How densely populated is','propertyGuideReady','propertyGuideHref','propertyGuideLabel','getCountyPropertyRecordBySlug','isCountyPropertyIndexReady']) {
   if (!countyGuide.includes(feature)) errors.push(`County guide section missing: ${feature}`);
 }
+for (const feature of ["getRouteApi('/$kind/$slug')",'const { countySeriesArticle } = entityRouteApi.useLoaderData()']) {
+  if (!countyGuide.includes(feature)) errors.push(`County loader-resolved feature handoff missing: ${feature}`);
+}
+for (const forbiddenFeatureRefetch of ['use(loadCountySeriesArticle(entity.slug))',"from '@/data/county-series'"]) {
+  if (countyGuide.includes(forbiddenFeatureRefetch)) errors.push(`County render-time feature refetch must not return: ${forbiddenFeatureRefetch}`);
+}
 for (const forbiddenTemplateCopy of ['Where it is','A sense of place','How to use this guide','The county reference point is near']) {
   if (countyGuide.includes(forbiddenTemplateCopy)) errors.push(`County template-heavy section must not return: ${forbiddenTemplateCopy}`);
 }

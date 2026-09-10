@@ -103,6 +103,14 @@ requireAll('county editorial-first richness', countyGuide, [
   'Nearby places',
   'Keep exploring',
 ]);
+requireAll('county loader-resolved feature handoff', countyGuide, [
+  "getRouteApi('/$kind/$slug')",
+  'const { countySeriesArticle } = entityRouteApi.useLoaderData()',
+]);
+forbidAll('county render-time feature refetch', countyGuide, [
+  'use(loadCountySeriesArticle(entity.slug))',
+  "from '@/data/county-series'",
+]);
 forbidAll('county template-heavy regressions', countyGuide, [
   'The county reference point is near',
   'How to use this guide',
