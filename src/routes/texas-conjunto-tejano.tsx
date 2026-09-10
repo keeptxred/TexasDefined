@@ -1,22 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { texasDefinedBrand } from "@/brand/texasdefined";
-import { buildMeta, canonicalLink } from "@/lib/seo";
+const routeSeo = {
+  canonicalPath: "/texas-conjunto-tejano",
+  title: "Texas Conjunto & Tejano: History, San Antonio & Border Sound",
+  description: "Conjunto and Tejano music grew from South Texas and border communities where Mexican traditions met accordion technology, dance-hall culture, radio, country, polka and later popular styles.",
+} as const;
 
-const canonicalPath = "/texas-conjunto-tejano";
-
-export const Route = createFileRoute(canonicalPath)({
+export const Route = createFileRoute("/texas-conjunto-tejano")({
   loader: async () => {
-    const { getTexasMusicGuideBatch1 } = await import("@/data/texas-music-guides-batch1");
-    return getTexasMusicGuideBatch1("texas-conjunto-tejano");
+    const { loadTexasMusicGuideBatch1Route } = await import("@/data/texas-music-route-head");
+    return loadTexasMusicGuideBatch1Route("texas-conjunto-tejano", routeSeo);
   },
-  head: ({ loaderData: guide }) => ({
-    meta: buildMeta(texasDefinedBrand, {
-      canonicalPath,
-      title: "Texas Conjunto & Tejano: History, Sound & Artists",
-      description: guide.dek,
-      type: "article",
-    }),
-    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-  }),
+  head: ({ loaderData }) => loaderData.head,
 });

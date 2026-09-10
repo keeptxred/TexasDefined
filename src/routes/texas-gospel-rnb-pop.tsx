@@ -1,22 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { texasDefinedBrand } from "@/brand/texasdefined";
-import { buildMeta, canonicalLink } from "@/lib/seo";
+const routeSeo = {
+  canonicalPath: "/texas-gospel-rnb-pop",
+  title: "Texas Gospel, R&B & Pop: Church Roots, Houston Soul & Global Stars",
+  description: "Texas gospel, R&B and pop connect church training, Houston soul, Fort Worth gospel, San Antonio crossover music and globally influential artists such as Beyoncé and Selena Gomez.",
+} as const;
 
-const canonicalPath = "/texas-gospel-rnb-pop";
-
-export const Route = createFileRoute(canonicalPath)({
+export const Route = createFileRoute("/texas-gospel-rnb-pop")({
   loader: async () => {
-    const { getTexasMusicGuideBatch3 } = await import("@/data/texas-music-guides-batch3");
-    return getTexasMusicGuideBatch3("texas-gospel-rnb-pop");
+    const { loadTexasMusicGuideBatch3Route } = await import("@/data/texas-music-route-head");
+    return loadTexasMusicGuideBatch3Route("texas-gospel-rnb-pop", routeSeo);
   },
-  head: ({ loaderData: guide }) => ({
-    meta: buildMeta(texasDefinedBrand, {
-      canonicalPath,
-      title: "Texas Gospel, R&B & Pop: History, Houston, Dallas & Fort Worth",
-      description: guide.dek,
-      type: "article",
-    }),
-    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-  }),
+  head: ({ loaderData }) => loaderData.head,
 });

@@ -1,22 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { texasDefinedBrand } from "@/brand/texasdefined";
-import { buildMeta, canonicalLink } from "@/lib/seo";
+const routeSeo = {
+  canonicalPath: "/texas-blues",
+  title: "Texas Blues: History, East Texas Roots & Houston Sound",
+  description: "Texas blues grew from overlapping Black folk, work-song, church and string traditions and developed distinctive regional lineages that later shaped electric blues, rhythm and blues and rock-and-roll.",
+} as const;
 
-const canonicalPath = "/texas-blues";
-
-export const Route = createFileRoute(canonicalPath)({
+export const Route = createFileRoute("/texas-blues")({
   loader: async () => {
-    const { getTexasMusicGuideBatch1 } = await import("@/data/texas-music-guides-batch1");
-    return getTexasMusicGuideBatch1("texas-blues");
+    const { loadTexasMusicGuideBatch1Route } = await import("@/data/texas-music-route-head");
+    return loadTexasMusicGuideBatch1Route("texas-blues", routeSeo);
   },
-  head: ({ loaderData: guide }) => ({
-    meta: buildMeta(texasDefinedBrand, {
-      canonicalPath,
-      title: "Texas Blues: History, Sound, Cities & Musicians",
-      description: guide.dek,
-      type: "article",
-    }),
-    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-  }),
+  head: ({ loaderData }) => loaderData.head,
 });
