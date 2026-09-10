@@ -1,8 +1,11 @@
+import { resolveRelocationAddressServer } from "./relocation-address.server";
 import {
+  DEFAULT_TEXAS_BRAND_LOCATOR_BRANDS,
   TEXAS_BRAND_LOCATOR_HEB_FORMAT_BRANDS,
   texasBrandLocatorFallbackLabel,
   texasBrandLocatorLabel,
   texasBrandLocatorOfficialUrl,
+  texasBrandLocatorProvider,
   texasBrandLocatorStoreNamePattern,
   type TexasBrandLocatorHebFormatBrand,
 } from "./texas-brand-locator-registry";
@@ -10,6 +13,7 @@ import {
   findTexasBrandLocationsNearPointServer as findBaseTexasBrandLocationsNearPointServer,
   findTexasBrandLocationsServer as findBaseTexasBrandLocationsServer,
 } from "./texas-brand-locator.server";
+import { findVerifiedBrandLocationsNearPointServer } from "./texas-brand-locator-verified-registry.server";
 import type {
   TexasBrandLocatorBrand,
   TexasBrandLocatorLocation,
@@ -31,8 +35,12 @@ function isHebFormatBrand(brand: TexasBrandLocatorBrand): brand is TexasBrandLoc
   return texasBrandLocatorStoreNamePattern(brand) instanceof RegExp;
 }
 
-function isBaseBrand(brand: TexasBrandLocatorBrand): brand is "heb" | "bucees" {
-  return brand === "heb" || brand === "bucees";
+function isBaseHebBrand(brand: TexasBrandLocatorBrand): brand is "heb" {
+  return brand === "heb";
+}
+
+function isVerifiedRegistryBrand(brand: TexasBrandLocatorBrand) {
+  return texasBrandLocatorProvider(brand) === "verified-registry";
 }
 
 function isHebSpecialtyName(name: string) {
@@ -67,6 +75,14 @@ function formatFallbackLink(brand: TexasBrandLocatorHebFormatBrand, query: strin
     brand,
     label: texasBrandLocatorFallbackLabel(brand),
     url: officialHebLocatorUrl(query),
+  };
+}
+
+function verifiedFallbackLink(brand: TexasBrandLocatorBrand) {
+  return {
+    brand,
+    label: texasBrandLocatorFallbackLabel(brand),
+    url: texasBrandLocatorOfficialUrl(brand),
   };
 }
 
@@ -179,6 +195,31 @@ async function appendHebFormats(
   return response;
 }
 
+async function appendVerifiedRegistryBrands(
+  response: TexasBrandLocatorResponse,
+  origin: Point | null,
+  brands: TexasBrandLocatorBrand[],
+) {
+  if (!brands.length) return response;
+  for (const brand of brands) {
+    const label = texasBrandLocatorLabel(brand);
+    if (!origin) {
+      response.notices.push(`Use a complete Texas street address to rank ${label} locations by distance. The official ${label} locations link is still available below.`);
+      response.fallbackLinks.push(verifiedFallbackLink(brand));
+      continue;
+    }
+    try {
+      const locations = await findVerifiedBrandLocationsNearPointServer(brand, origin);
+      if (locations.length) response.results.push(...locations);
+      else response.notices.push(`${label}'s verified Texas location registry did not return a rankable location. Use the official ${label} locations link below for the current list.`);
+    } catch {
+      response.notices.push(`${label}'s verified Texas location registry is available, but distance ranking could not be completed. Use the official ${label} locations link below for the current list.`);
+    }
+    response.fallbackLinks.push(verifiedFallbackLink(brand));
+  }
+  return response;
+}
+
 export async function findExpandedTexasBrandLocationsNearPointServer(input: {
   query: string;
   origin: Point;
@@ -186,13 +227,15 @@ export async function findExpandedTexasBrandLocationsNearPointServer(input: {
   brands: TexasBrandLocatorBrand[];
 }): Promise<TexasBrandLocatorResponse> {
   const query = input.query.trim();
-  const selectedBrands: TexasBrandLocatorBrand[] = input.brands.length ? input.brands : ["heb", "bucees"];
-  const baseBrands = selectedBrands.filter(isBaseBrand);
+  const selectedBrands: TexasBrandLocatorBrand[] = input.brands.length ? input.brands : [...DEFAULT_TEXAS_BRAND_LOCATOR_BRANDS];
+  const baseBrands = selectedBrands.filter(isBaseHebBrand);
   const formatBrands = selectedBrands.filter(isHebFormatBrand);
+  const verifiedBrands = selectedBrands.filter(isVerifiedRegistryBrand);
   const response = baseBrands.length
     ? await findBaseTexasBrandLocationsNearPointServer({ ...input, query, brands: baseBrands })
     : emptyResponse(query, input.matchedAddress ?? null);
   keepOrdinaryHebResults(response, selectedBrands);
+  await appendVerifiedRegistryBrands(response, input.origin, verifiedBrands);
   return appendHebFormats(response, query, formatBrands);
 }
 
@@ -201,12 +244,28 @@ export async function findExpandedTexasBrandLocationsServer(input: {
   brands: TexasBrandLocatorBrand[];
 }): Promise<TexasBrandLocatorResponse> {
   const query = input.address.trim();
-  const selectedBrands: TexasBrandLocatorBrand[] = input.brands.length ? input.brands : ["heb", "bucees"];
-  const baseBrands = selectedBrands.filter(isBaseBrand);
+  const selectedBrands: TexasBrandLocatorBrand[] = input.brands.length ? input.brands : [...DEFAULT_TEXAS_BRAND_LOCATOR_BRANDS];
+  const baseBrands = selectedBrands.filter(isBaseHebBrand);
   const formatBrands = selectedBrands.filter(isHebFormatBrand);
+  const verifiedBrands = selectedBrands.filter(isVerifiedRegistryBrand);
   const response = baseBrands.length
     ? await findBaseTexasBrandLocationsServer({ address: query, brands: baseBrands })
     : emptyResponse(query, null);
   keepOrdinaryHebResults(response, selectedBrands);
+
+  let origin: Point | null = null;
+  if (verifiedBrands.length) {
+    try {
+      const resolvedAddress = await resolveRelocationAddressServer(query);
+      if (resolvedAddress) {
+        origin = { latitude: resolvedAddress.latitude, longitude: resolvedAddress.longitude };
+        response.matchedAddress = resolvedAddress.matchedAddress;
+      }
+    } catch {
+      // The generic registry helper below emits a user-facing fallback notice per selected brand.
+    }
+  }
+
+  await appendVerifiedRegistryBrands(response, origin, verifiedBrands);
   return appendHebFormats(response, query, formatBrands);
 }
