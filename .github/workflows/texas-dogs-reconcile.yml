@@ -1,0 +1,124 @@
+name: Texas Dogs branch reconciliation helper
+
+on:
+  push:
+    branches:
+      - feature/texas-dogs-defined-current-main-20260910
+    paths:
+      - .github/workflows/texas-dogs-reconcile.yml
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out current-main Dogs branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: feature/texas-dogs-defined-current-main-20260910
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Copy only Dogs-owned files from cleaned source branch
+        shell: bash
+        run: |
+          git fetch origin feature/texas-dogs-defined-replay-2026-09-08
+          git checkout origin/feature/texas-dogs-defined-replay-2026-09-08 -- \
+            docs/texas-dogs-defined.md \
+            src/components/dogs/DogBreedPage.tsx \
+            src/components/dogs/DogsHubPage.tsx \
+            src/data/texas-dogs-editorial-plan.ts \
+            src/data/texas-dogs-sitemap.server.ts \
+            src/data/texas-dogs.functions.ts \
+            src/data/texas-dogs.server.ts \
+            src/data/texas-dogs.ts \
+            'src/routes/dogs.{-$breed}.lazy.tsx' \
+            'src/routes/dogs.{-$breed}.tsx'
+
+      - name: Apply Dogs deltas to current shared files
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+
+          function replaceOnce(path, before, after) {
+            const source = fs.readFileSync(path, 'utf8');
+            const count = source.split(before).length - 1;
+            if (count !== 1) throw new Error(`${path}: expected one patch anchor, found ${count}`);
+            fs.writeFileSync(path, source.replace(before, after));
+          }
+
+          replaceOnce(
+            'scripts/data/validate-public-route-governance.mjs',
+            `const routePatternMatches = (concretePath, routePattern) => {\n  const concreteSegments = normalize(concretePath).split('/').filter(Boolean);\n  const patternSegments = normalize(routePattern).split('/').filter(Boolean);\n  if (concreteSegments.length !== patternSegments.length) return false;\n  return patternSegments.every((segment, index) => segment.startsWith('$') ? concreteSegments[index].length > 0 : segment === concreteSegments[index]);\n};`,
+            `const optionalParamSegment = /^\\{\\-\\$[^}]+\\}$/;\nconst routePatternMatches = (concretePath, routePattern) => {\n  const concreteSegments = normalize(concretePath).split('/').filter(Boolean);\n  const patternSegments = normalize(routePattern).split('/').filter(Boolean);\n  const matchesFrom = (concreteIndex, patternIndex) => {\n    if (patternIndex === patternSegments.length) return concreteIndex === concreteSegments.length;\n    const segment = patternSegments[patternIndex];\n    if (optionalParamSegment.test(segment)) {\n      return matchesFrom(concreteIndex, patternIndex + 1)\n        || (concreteIndex < concreteSegments.length && matchesFrom(concreteIndex + 1, patternIndex + 1));\n    }\n    if (concreteIndex >= concreteSegments.length) return false;\n    if (segment.startsWith('$')) return matchesFrom(concreteIndex + 1, patternIndex + 1);\n    return segment === concreteSegments[concreteIndex] && matchesFrom(concreteIndex + 1, patternIndex + 1);\n  };\n  return matchesFrom(0, 0);\n};`,
+          );
+
+          replaceOnce(
+            'src/lib/public-routes.ts',
+            `  "/hunting",\n  "/sports",`,
+            `  "/hunting",\n  "/dogs",\n  "/sports",`,
+          );
+
+          replaceOnce(
+            'src/routes/sitemap[.]xml.ts',
+            `import { TEXAS_DATASETS } from "@/data/texas-data-center";\nimport { isTexasVsStateSitemapReady } from "@/data/texas-vs-state-index-readiness.server";`,
+            `import { TEXAS_DATASETS } from "@/data/texas-data-center";\nimport { loadTexasDogSitemapEntriesServer } from "@/data/texas-dogs-sitemap.server";\nimport { isTexasVsStateSitemapReady } from "@/data/texas-vs-state-index-readiness.server";`,
+          );
+          replaceOnce(
+            'src/routes/sitemap[.]xml.ts',
+            `        const temporalEventSitemapEntries = loadTemporalEventSitemapEntriesServer();\n\n        const entries: SitemapEntry[] = [`,
+            `        const temporalEventSitemapEntries = loadTemporalEventSitemapEntriesServer();\n        const texasDogSitemapEntries = loadTexasDogSitemapEntriesServer();\n\n        const entries: SitemapEntry[] = [`,
+          );
+          replaceOnce(
+            'src/routes/sitemap[.]xml.ts',
+            `          ...AUTHORITY_STATIC_PATHS.map((path) => ({ path, lastmod: AUTHORITY_LASTMOD })),\n          ...HUNTING_SITEMAP_ENTRIES,`,
+            `          ...AUTHORITY_STATIC_PATHS.map((path) => ({ path, lastmod: AUTHORITY_LASTMOD })),\n          ...texasDogSitemapEntries,\n          ...HUNTING_SITEMAP_ENTRIES,`,
+          );
+          NODE
+
+      - name: Generate route tree with production build
+        run: npm run build
+
+      - name: Measure client bundle without changing the protected budget
+        shell: bash
+        run: |
+          set +e
+          npm run performance:validate
+          status=$?
+          echo "Diagnostic performance validator exit code: $status"
+          exit 0
+
+      - name: Commit reconciled Dogs implementation
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            docs/texas-dogs-defined.md \
+            scripts/data/validate-public-route-governance.mjs \
+            src/components/dogs/DogBreedPage.tsx \
+            src/components/dogs/DogsHubPage.tsx \
+            src/data/texas-dogs-editorial-plan.ts \
+            src/data/texas-dogs-sitemap.server.ts \
+            src/data/texas-dogs.functions.ts \
+            src/data/texas-dogs.server.ts \
+            src/data/texas-dogs.ts \
+            src/lib/public-routes.ts \
+            src/routeTree.gen.ts \
+            'src/routes/dogs.{-$breed}.lazy.tsx' \
+            'src/routes/dogs.{-$breed}.tsx' \
+            'src/routes/sitemap[.]xml.ts'
+          git diff --cached --stat
+          git commit -m "Reconcile Texas Dogs Defined on current main"
+          git push origin HEAD:feature/texas-dogs-defined-current-main-20260910
