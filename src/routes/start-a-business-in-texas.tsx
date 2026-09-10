@@ -1,8 +1,8 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { PrioritySearchPage } from "@/components/editorial/PrioritySearchPage";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 
+// PrioritySearchPage UI is intentionally delivered from start-a-business-in-texas.lazy.tsx.
 const canonicalPath = "/start-a-business-in-texas";
 
 export const Route = createFileRoute("/start-a-business-in-texas")({
@@ -18,9 +18,4 @@ export const Route = createFileRoute("/start-a-business-in-texas")({
     data: loaderData,
     about: ["start a business in Texas", "Texas business registration", "Texas business license", "Texas Secretary of State", "Texas Comptroller"],
   }) : {},
-  component: Page,
 });
-
-function Page() {
-  return <PrioritySearchPage data={Route.useLoaderData()} />;
-}
