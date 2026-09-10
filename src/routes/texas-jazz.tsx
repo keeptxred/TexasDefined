@@ -1,22 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { texasDefinedBrand } from "@/brand/texasdefined";
-import { buildMeta, canonicalLink } from "@/lib/seo";
-
-const canonicalPath = "/texas-jazz";
-
-export const Route = createFileRoute(canonicalPath)({
+export const Route = createFileRoute("/texas-jazz")({
   loader: async () => {
-    const { getTexasMusicGuideBatch2 } = await import("@/data/texas-music-guides-batch2");
-    return getTexasMusicGuideBatch2("texas-jazz");
+    const { loadTexasMusicGuideBatch2Route } = await import("@/data/texas-music-route-head");
+    return loadTexasMusicGuideBatch2Route("texas-jazz");
   },
-  head: ({ loaderData: guide }) => ({
-    meta: buildMeta(texasDefinedBrand, {
-      canonicalPath,
-      title: "Texas Jazz: History, Fort Worth, Houston & Innovators",
-      description: guide.dek,
-      type: "article",
-    }),
-    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-  }),
+  head: ({ loaderData }) => loaderData.head,
 });
