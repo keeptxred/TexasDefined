@@ -1,4 +1,5 @@
 import { enrichAquariumMarineDestination } from "./aquarium-marine-destinations";
+import { enrichCavernAreaGuide } from "./cavern-area-guides";
 import { filterCurrentlyVisitableDestinations } from "./destination-availability";
 import { filterSeoReadyDestinations } from "./destination-audit";
 import { applyAllCuratedDestination, applyAllCuratedDestinations } from "./destination-curation-all";
@@ -87,13 +88,15 @@ function finishHistoricSiteEnrichment(destination: Destination) {
 
 function applyResolvedHero(destination: Destination) {
   return normalizeDestinationCounty(
-    enrichAquariumMarineDestination(
-      finishHistoricSiteEnrichment(
-        improveDestinationQuality(
-          applyAllCuratedDestination(
-            applyExploreHeroAsset(
-              applyStateParkHeroAsset(
-                applyDestinationHeroOverride(destination),
+    enrichCavernAreaGuide(
+      enrichAquariumMarineDestination(
+        finishHistoricSiteEnrichment(
+          improveDestinationQuality(
+            applyAllCuratedDestination(
+              applyExploreHeroAsset(
+                applyStateParkHeroAsset(
+                  applyDestinationHeroOverride(destination),
+                ),
               ),
             ),
           ),
@@ -112,6 +115,7 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(applyHistoricSiteFactCorrections)
     .map(enrichNationalCemeteryDestination)
     .map(enrichAquariumMarineDestination)
+    .map(enrichCavernAreaGuide)
     .map(normalizeDestinationCounty);
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved));
 }
