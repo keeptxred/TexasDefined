@@ -46,6 +46,11 @@ const licensedPhotoSlugs = [
   'credit-union-of-texas-event-center',
   'moody-coliseum-smu',
   'unt-coliseum',
+  'amon-g-carter-stadium',
+  'gerald-j-ford-stadium',
+  'datcu-stadium',
+  'riders-field',
+  'lone-star-park',
 ];
 for (const slug of licensedPhotoSlugs) {
   assert(photoSource.includes(`'${slug}': {`), `Licensed venue photo registry is missing ${slug}.`);
