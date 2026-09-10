@@ -1,4 +1,4 @@
-import { createFileRoute, lazyRouteComponent } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { buildMeta, canonicalLink } from "@/lib/seo";
@@ -14,5 +14,4 @@ export const Route = createFileRoute("/return-refund-policy")({
     }),
     links: [canonicalLink(texasDefinedBrand, "/return-refund-policy")],
   }),
-  component: lazyRouteComponent(() => import("@/components/ReturnRefundPolicyPage")),
 });
