@@ -1,0 +1,29 @@
+name: Generate Academy Texas location seed
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/data/generate-academy-location-seed.mjs'
+      - '.github/workflows/generate-academy-location-seed.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Self-test Academy first-party crawler
+        run: node scripts/data/generate-academy-location-seed.mjs --self-test
+      - name: Generate Academy Texas seed from official directory
+        run: node scripts/data/generate-academy-location-seed.mjs --live-output academy-texas-locations.json
+      - name: Upload generated seed
+        uses: actions/upload-artifact@v4
+        with:
+          name: academy-texas-locations
+          path: academy-texas-locations.json
+          if-no-files-found: error
+          retention-days: 1
