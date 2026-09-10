@@ -8,6 +8,7 @@ on:
       - 'scripts/data/validate-rv-parks-authority.mjs'
       - 'scripts/data/validate-rv-county-server-function-isolation.mjs'
       - 'scripts/data/validate-rv-curated-public-wave2.mjs'
+      - 'scripts/data/audit-rv-inventory-classification.mjs'
       - 'scripts/ci/verify-rv-parks-production.mjs'
       - 'src/data/rv-parks/**'
       - 'src/data/county-major-events.ts'
@@ -35,6 +36,7 @@ on:
       - 'scripts/data/validate-rv-parks-authority.mjs'
       - 'scripts/data/validate-rv-county-server-function-isolation.mjs'
       - 'scripts/data/validate-rv-curated-public-wave2.mjs'
+      - 'scripts/data/audit-rv-inventory-classification.mjs'
       - 'scripts/ci/verify-rv-parks-production.mjs'
       - 'src/data/rv-parks/**'
       - 'src/data/county-major-events.ts'
@@ -72,6 +74,8 @@ jobs:
           node-version: 22
       - name: Validate RV camping authority contract
         run: node scripts/data/validate-rv-parks-authority.mjs
+      - name: Classify complete RV seed inventory
+        run: node scripts/data/audit-rv-inventory-classification.mjs
       - name: Validate unified county discovery boundary
         run: node scripts/data/validate-rv-county-server-function-isolation.mjs
       - name: Validate curated public RV wave two
