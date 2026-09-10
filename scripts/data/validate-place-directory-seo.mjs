@@ -7,6 +7,7 @@ const readRouteSurface = (file) => {
   return fs.existsSync(lazyFile) ? `${eagerSource}\n${read(lazyFile)}` : eagerSource;
 };
 
+const cityEager = read('src/routes/browse.cities.tsx');
 const cities = readRouteSurface('src/routes/browse.cities.tsx');
 const counties = readRouteSurface('src/routes/browse.counties.tsx');
 const countyLazy = read('src/routes/browse.counties.lazy.tsx');
@@ -16,7 +17,8 @@ const countyDirectory = read('src/components/directories/TexasCountyPropertyDire
 
 const checks = [
   [cities, '"@type": "City"', 'City directory must declare City entities'],
-  [cities, 'numberOfItems: TEXAS_CITIES.length', 'City directory must expose its complete item count'],
+  [cities, 'numberOfItems: cities.length', 'City directory must expose its complete loader-resolved item count'],
+  [cityEager, 'await import("@/data/texas-places")', 'City directory must resolve the city registry behind its loader boundary'],
   [cities, 'cityAnchor(city.slug)', 'City schema must use stable page anchors'],
   [cities, 'CITY_AUTHORITY_SLUGS.has(city.slug)', 'City schema must gate canonical detail URLs on verified authority readiness'],
   [cities, 'absoluteUrl(texasDefinedBrand, cityAuthorityPath(city.slug))', 'Verified city schema entries must use canonical city URLs'],
@@ -51,6 +53,9 @@ if (cityDirectory.includes('params={{ kind: "city", slug: city.slug }}') && !cit
 if (cities.includes('absoluteUrl(texasDefinedBrand, cityAuthorityPath(city.slug))') && !cities.includes('CITY_AUTHORITY_SLUGS.has(city.slug)')) {
   failures.push('City schema must not advertise canonical /city detail pages without verified authority gating.');
 }
+if (cityEager.includes('import { TEXAS_CITIES } from "@/data/texas-places"') || cityEager.includes("import { TEXAS_CITIES } from '@/data/texas-places'")) {
+  failures.push('City directory route must not reintroduce the full city registry as an eager route import.');
+}
 if (counties.includes('numberOfItems: TEXAS_COUNTIES.length')) {
   failures.push('County property ItemList must not advertise all 254 property-tax child pages.');
 }
@@ -64,4 +69,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Place directory SEO validation passed: all cities/counties remain discoverable on directory surfaces while verified city authority and county property child URLs are promoted only through shared publication-readiness gates, with the 254-county completeness statement preserved without an eager registry import in the lazy county UI.');
+console.log('Place directory SEO validation passed: all cities/counties remain discoverable on directory surfaces while verified city authority and county property child URLs are promoted only through shared publication-readiness gates, with city registry resolution behind the route loader and the 254-county completeness statement preserved without an eager county-registry import in the lazy county UI.');
