@@ -50,14 +50,29 @@ export type TexasBrandLocatorHebFormatBrand = {
     : never;
 }[TexasBrandLocatorBrand];
 
+export type TexasBrandLocatorVerifiedRegistryBrand = {
+  [Brand in TexasBrandLocatorBrand]: (typeof TEXAS_BRAND_LOCATOR_REGISTRY)[Brand]["provider"] extends "verified-registry"
+    ? Brand
+    : never;
+}[TexasBrandLocatorBrand];
+
 export const TEXAS_BRAND_LOCATOR_BRANDS = Object.keys(TEXAS_BRAND_LOCATOR_REGISTRY) as TexasBrandLocatorBrand[];
 export const DEFAULT_TEXAS_BRAND_LOCATOR_BRANDS = ["heb", "bucees"] as const satisfies readonly TexasBrandLocatorBrand[];
 export const TEXAS_BRAND_LOCATOR_HEB_FORMAT_BRANDS = TEXAS_BRAND_LOCATOR_BRANDS.filter(
   (brand): brand is TexasBrandLocatorHebFormatBrand => TEXAS_BRAND_LOCATOR_REGISTRY[brand].storeNamePattern instanceof RegExp,
 );
+export const TEXAS_BRAND_LOCATOR_VERIFIED_REGISTRY_BRANDS = TEXAS_BRAND_LOCATOR_BRANDS.filter(
+  (brand): brand is TexasBrandLocatorVerifiedRegistryBrand => TEXAS_BRAND_LOCATOR_REGISTRY[brand].provider === "verified-registry",
+);
 
 export function isTexasBrandLocatorBrand(value: string): value is TexasBrandLocatorBrand {
   return Object.prototype.hasOwnProperty.call(TEXAS_BRAND_LOCATOR_REGISTRY, value);
+}
+
+export function isTexasBrandLocatorVerifiedRegistryBrand(
+  brand: TexasBrandLocatorBrand,
+): brand is TexasBrandLocatorVerifiedRegistryBrand {
+  return TEXAS_BRAND_LOCATOR_REGISTRY[brand].provider === "verified-registry";
 }
 
 export function texasBrandLocatorLabel(brand: TexasBrandLocatorBrand) {
