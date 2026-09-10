@@ -1,0 +1,55 @@
+name: Dallas county runtime diagnostic v2
+
+on:
+  push:
+    branches:
+      - diag/dallas-runtime-20260910-v2
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Start local runtime
+        run: |
+          npm run dev -- --host 127.0.0.1 --port 4173 > /tmp/td-vite.log 2>&1 &
+          echo $! > /tmp/td-vite.pid
+      - name: Wait for runtime
+        run: |
+          for attempt in $(seq 1 60); do
+            if curl --fail --silent --show-error http://127.0.0.1:4173/ >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/td-vite.log
+          exit 1
+      - name: Inspect Dallas SSR
+        run: |
+          status=$(curl --silent --show-error --output /tmp/dallas.html --write-out '%{http_code}' http://127.0.0.1:4173/county/dallas || true)
+          echo "Dallas status=$status bytes=$(wc -c < /tmp/dallas.html 2>/dev/null || echo 0)"
+          for marker in 'The story of Dallas County' 'Old Red Courthouse' 'The county in numbers' 'county-feature-heading'; do
+            if grep -Fq "$marker" /tmp/dallas.html; then echo "FOUND: $marker"; else echo "MISSING: $marker"; fi
+          done
+          echo '--- HTML context around Dallas County / Old Red ---'
+          grep -o -E '.{0,160}(The story of Dallas County|Old Red Courthouse|The county in numbers|county-feature-heading).{0,240}' /tmp/dallas.html | head -30 || true
+          echo '--- Runtime log ---'
+          cat /tmp/td-vite.log || true
+          test "$status" = 200
+          grep -Fq 'The story of Dallas County' /tmp/dallas.html
+      - name: Stop runtime
+        if: always()
+        run: |
+          if [ -f /tmp/td-vite.pid ]; then kill "$(cat /tmp/td-vite.pid)" || true; fi
