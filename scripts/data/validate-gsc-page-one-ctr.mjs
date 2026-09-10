@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 
 const seo = fs.readFileSync('src/lib/seo.ts', 'utf8');
+const westfest = fs.readFileSync('src/data/major-event-expanded-authority-tranche11.server.ts', 'utf8');
 const failures = [];
 
 for (const required of [
@@ -59,6 +60,20 @@ for (const experiment of experiments) {
   }
 }
 
+for (const required of [
+  'slug: "westfest"',
+  'sourceCheckedAt: "2026-09-09"',
+  'Westfest 2027 dates: use September 3-5 as the planning window',
+  'Westfest parade: plan for Labor Day Saturday, then confirm the 2027 time',
+  'Westfest schedule and hours: check the official pages before you go',
+  'https://westfest.com/parade',
+  'https://westfest.com/schedule-of-events',
+  'https://westfest.com/admission-1',
+  'The dedicated 2027 schedule and operating hours are not yet published',
+]) {
+  if (!westfest.includes(required)) failures.push(`Westfest page-one CTR contract missing: ${required}`);
+}
+
 if (!seo.includes('const META_DESCRIPTION_MAX_LENGTH = 160;') || !seo.includes('cleanMetaDescription')) {
   failures.push('Page-one CTR experiments must retain the shared meta-description length guard.');
 }
@@ -69,4 +84,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('GSC page-one CTR validation passed: high-impression article and sports-venue snippet experiments remain server-only, query-aligned, and length-guarded.');
+console.log('GSC page-one CTR validation passed: high-impression article and sports-venue snippet experiments remain server-only and length-guarded, and Westfest date, parade, schedule and hours intent remains current-source aligned without presenting the unconfirmed 2027 program as final.');
