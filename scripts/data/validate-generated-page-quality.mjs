@@ -104,10 +104,11 @@ requireAll('county editorial-first richness', countyGuide, [
   'Keep exploring',
 ]);
 requireAll('county loader-resolved feature handoff', countyGuide, [
-  "getRouteApi('/$kind/$slug')",
-  'const { countySeriesArticle } = entityRouteApi.useLoaderData()',
+  'countySeriesArticle: Article | null',
 ]);
-forbidAll('county render-time feature refetch', countyGuide, [
+forbidAll('county render-time feature resolution', countyGuide, [
+  "getRouteApi('/$kind/$slug')",
+  'entityRouteApi.useLoaderData()',
   'use(loadCountySeriesArticle(entity.slug))',
   "from '@/data/county-series'",
 ]);
@@ -128,7 +129,7 @@ requireAll('county property link gate', countyGuide, [
 requireAll('entity route index control', entityRoute, [
   'isIndexableEntityPage(loaderData.entity)',
   "robots: indexable ? undefined : 'noindex, follow, max-image-preview:large'",
-  '<CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} />',
+  '<CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} countySeriesArticle={countySeriesArticle} />',
 ]);
 forbidAll('generic placeholder copy', entityRoute, [
   'A closer look at ${entity.name}, where to find it, and what else is worth seeing nearby.',
