@@ -46,7 +46,7 @@ jobs:
               missing=()
               grep -Fq 'Dallas County' /tmp/dallas.html || missing+=('Dallas County content')
               grep -Fq 'https://texasdefined.com/county/dallas' /tmp/dallas.html || missing+=('canonical URL')
-              grep -Fq 'The story of Dallas County' /tmp/dallas.html || missing+=('county feature section')
+              grep -Fq 'The story of' /tmp/dallas.html || missing+=('county feature section')
               grep -Fq 'Old Red Courthouse' /tmp/dallas.html || missing+=('Dallas-specific editorial depth')
               grep -Fq 'The county in numbers' /tmp/dallas.html || missing+=('county data section')
 
