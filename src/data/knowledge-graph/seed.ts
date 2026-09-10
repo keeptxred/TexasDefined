@@ -1,5 +1,6 @@
 import type { TexasEntityRecord } from './types';
 import { MAJOR_TEXAS_SPORTS_VENUES } from './major-sports-venues';
+import { PUBLIC_CAVERN_ENTITIES } from './public-caverns';
 import { TEXAS_SPORTS_VENUE_TIER2_ENTITIES } from './sports-venues-tier2';
 
 const checkedAt = '2026-08-04';
@@ -28,6 +29,7 @@ export const TEXAS_NATURE_ENTITIES: TexasEntityRecord[] = [
   official({id:'national-forest:sam-houston-national-forest',kind:'national-forest',name:'Sam Houston National Forest',slug:'sam-houston-national-forest',aliases:[],region:'east-texas',officialUrl:'https://www.fs.usda.gov/texas',sourceId:'usfs-texas',status:'active',relationships:[{type:'located-in-region',targetId:'region:east-texas'}],tags:['forest','hiking','camping']}),
   official({id:'cavern:natural-bridge-caverns',kind:'cavern',name:'Natural Bridge Caverns',slug:'natural-bridge-caverns',aliases:[],countySlug:'comal',region:'hill-country',coordinates:{latitude:29.6926,longitude:-98.3427},officialUrl:'https://naturalbridgecaverns.com/',sourceId:'official-destination-sites',status:'active',relationships:[{type:'located-in-county',targetId:'county:comal'}],tags:['cavern','attraction']}),
   official({id:'beach:padre-island-national-seashore',kind:'beach',name:'Padre Island National Seashore',slug:'padre-island-national-seashore',aliases:['PINS'],countySlug:'nueces',region:'gulf-coast',coordinates:{latitude:27.107,longitude:-97.354},officialUrl:'https://www.nps.gov/pais/',sourceId:'nps-texas',status:'active',relationships:[{type:'located-in-region',targetId:'region:gulf-coast'}],tags:['beach','national-seashore','wildlife']}),
+  ...PUBLIC_CAVERN_ENTITIES,
 ];
 
 export const TEXAS_TOURISM_ENTITIES: TexasEntityRecord[] = [
