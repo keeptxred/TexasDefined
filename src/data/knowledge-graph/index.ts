@@ -17,6 +17,9 @@ let cityMetroAuthorityPromise: Promise<CityMetroAuthorityModule> | undefined;
 type WildlifeSpeciesModule = typeof import('./wildlife-species');
 let wildlifeSpeciesPromise: Promise<WildlifeSpeciesModule> | undefined;
 
+type PublicCavernsModule = typeof import('./public-caverns');
+let publicCavernsPromise: Promise<PublicCavernsModule> | undefined;
+
 function loadCityMetroAuthorityModule() {
   cityMetroAuthorityPromise ??= import('../city-metro-authority-seeds');
   return cityMetroAuthorityPromise;
@@ -25,6 +28,11 @@ function loadCityMetroAuthorityModule() {
 function loadWildlifeSpeciesModule() {
   wildlifeSpeciesPromise ??= import('./wildlife-species');
   return wildlifeSpeciesPromise;
+}
+
+function loadPublicCavernsModule() {
+  publicCavernsPromise ??= import('./public-caverns');
+  return publicCavernsPromise;
 }
 
 export function entitiesByKind(kind: TexasEntityKind) {
@@ -63,8 +71,9 @@ export async function loadTexasKnowledgeGraph(options: { query?: string; limit?:
   let remote: TexasEntityRecord[] = [];
   let cityMetroAuthority: CityMetroAuthorityModule | undefined;
   let wildlifeSpecies: WildlifeSpeciesModule | undefined;
+  let publicCaverns: PublicCavernsModule | undefined;
   try {
-    [remote, cityMetroAuthority, wildlifeSpecies] = await Promise.all([
+    [remote, cityMetroAuthority, wildlifeSpecies, publicCaverns] = await Promise.all([
       fetchExploreGraphEntities(options).catch((error) => {
         console.error('Explore knowledge graph unavailable; using static registry', error);
         return [];
@@ -77,6 +86,10 @@ export async function loadTexasKnowledgeGraph(options: { query?: string; limit?:
         console.error('Wildlife species authority unavailable; keeping core graph available', error);
         return undefined;
       }),
+      loadPublicCavernsModule().catch((error) => {
+        console.error('Public cavern authority unavailable; keeping core graph available', error);
+        return undefined;
+      }),
     ]);
   } catch (error) {
     console.error('Knowledge graph enrichment unavailable; using static registry', error);
@@ -85,6 +98,7 @@ export async function loadTexasKnowledgeGraph(options: { query?: string; limit?:
   const merged = new Map<string, TexasEntityRecord>();
   for (const entity of TEXAS_ENTITY_REGISTRY) merged.set(entity.id, entity);
   for (const entity of wildlifeSpecies?.TEXAS_WILDLIFE_SPECIES ?? []) merged.set(entity.id, entity);
+  for (const entity of publicCaverns?.PUBLIC_CAVERN_ENTITIES ?? []) merged.set(entity.id, entity);
   for (const entity of cityMetroAuthority?.cityMetroAuthoritySeedEntities() ?? []) merged.set(entity.id, entity);
   for (const entity of remote) {
     const existing = merged.get(entity.id);
@@ -129,6 +143,19 @@ export async function findCompleteTexasEntity(value: string): Promise<TexasEntit
   if (!normalized) return undefined;
   const staticMatch = findTexasEntity(value);
   if (staticMatch) return enrichAuthoritativeEntity(staticMatch);
+
+  try {
+    const publicCaverns = await loadPublicCavernsModule();
+    const cavernMatch = publicCaverns.PUBLIC_CAVERN_ENTITIES.find((entity) =>
+      entity.id.toLowerCase() === normalized
+      || entity.slug.toLowerCase() === normalized
+      || entity.name.toLowerCase() === normalized
+      || entity.aliases.some((alias) => alias.toLowerCase() === normalized),
+    );
+    if (cavernMatch) return cavernMatch;
+  } catch (error) {
+    console.error('Public cavern authority lookup unavailable', error);
+  }
 
   try {
     const wildlifeSpecies = await loadWildlifeSpeciesModule();
