@@ -1,0 +1,33 @@
+name: Temporary appraisal canonical priority patch
+
+on:
+  push:
+    branches:
+      - agent/appraisal-canonical-priority-20260910
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/appraisal-canonical-priority-20260910
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Apply guarded patch
+        run: python scripts/data/apply-appraisal-canonical-priority-temp.py
+      - name: Validate internal-link discovery
+        run: node scripts/data/validate-internal-link-discovery.mjs
+      - name: Commit patch
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add src/routes/learn.appraisal-districts.tsx scripts/data/validate-internal-link-discovery.mjs
+          git diff --cached --quiet && exit 0
+          git commit -m "Prioritize legacy appraisal canonical targets"
+          git push
