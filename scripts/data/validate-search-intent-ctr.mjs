@@ -29,6 +29,8 @@ const localGovernment = fs.readFileSync('src/data/local-government-profile.ts', 
 const serverRoute = fs.readFileSync('src/server.ts', 'utf8');
 const countySeries = fs.readFileSync('src/data/county-series-profiles.ts', 'utf8');
 const queriesSource = fs.readFileSync('src/data/queries.ts', 'utf8');
+const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
+const texasWaterResource = fs.readFileSync('src/components/content/TexasWaterSearchResource.tsx', 'utf8');
 const failures = [];
 
 for (const required of [
@@ -118,7 +120,7 @@ for (const required of [
 }
 
 for (const required of [
-  "title: 'Texas Cost of Living Calculator | Compare Household Budgets'",
+  'title: \'Texas Cost of Living Calculator | Compare Household Budgets\'',
   'title="Texas cost of living calculator"',
   'Compare a current household budget with a possible Texas destination',
   'move or job decision',
@@ -221,6 +223,49 @@ if (!countySeries.includes('profile("brewster", "brewster-county-big-bend-texas"
   failures.push('Brewster legacy article must remain mapped to the canonical /county/brewster guide.');
 }
 
+for (const required of [
+  'import { TexasWaterSearchResource } from "@/components/content/TexasWaterSearchResource";',
+  'article.slug === "texas-rivers-explained"',
+  'article.slug === "texas-river-basins-guide"',
+  'article.slug === "texas-lakes-reservoirs-explained"',
+  '<TexasWaterSearchResource active={waterResourceTopic} />',
+]) {
+  if (!articleRoute.includes(required)) failures.push(`Texas water intent-routing contract missing: ${required}`);
+}
+
+for (const required of [
+  'Pick the water guide you actually need',
+  '/article/texas-rivers-explained',
+  '/article/texas-river-basins-guide',
+  '/article/texas-lakes-reservoirs-explained',
+  'Individual rivers, boundary rivers, regions and where the water flows.',
+  'Watersheds, drainage divides and the systems that connect tributaries to the Gulf.',
+  'Why most familiar inland Texas lakes are reservoirs and how managed water works.',
+  'Texas Water Development Board data',
+  'https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp',
+  "Texas's 15 major river basins",
+  'Area in Texas (sq. mi.)',
+  'River miles in Texas',
+  'Avg. flow (acre-ft/yr)',
+]) {
+  if (!texasWaterResource.includes(required)) failures.push(`Texas water search-resource contract missing: ${required}`);
+}
+
+for (const basin of [
+  'Brazos', 'Canadian', 'Colorado', 'Cypress', 'Guadalupe', 'Lavaca', 'Neches', 'Nueces', 'Red', 'Rio Grande',
+  'Sabine', 'San Antonio', 'San Jacinto', 'Sulphur', 'Trinity',
+]) {
+  if (!texasWaterResource.includes(`["${basin}"`)) failures.push(`TWDB major-basin reference missing: ${basin}`);
+}
+for (const basin of [
+  'Neches-Trinity', 'Trinity-San Jacinto', 'San Jacinto-Brazos', 'Brazos-Colorado',
+  'Colorado-Lavaca', 'Lavaca-Guadalupe', 'San Antonio-Nueces', 'Nueces-Rio Grande',
+]) {
+  if (!texasWaterResource.includes(`"${basin}"`)) failures.push(`TWDB coastal-basin reference missing: ${basin}`);
+}
+if (!texasWaterResource.includes('<caption className="sr-only">')) failures.push('Texas basin comparison table must retain an accessible caption.');
+if (!texasWaterResource.includes('overflow-x-auto')) failures.push('Texas basin comparison table must retain mobile horizontal overflow protection.');
+
 const texasExplainedBlock = queriesSource.match(/id: "collection:texas-explained",[\s\S]*?href: "\/texas-explained",\n  },/)?.[0] ?? '';
 const texasExplainedTitle = texasExplainedBlock.match(/title: "([^"]+)"/)?.[1] ?? '';
 const texasExplainedSummary = texasExplainedBlock.match(/summary: "([^"]+)"/)?.[1] ?? '';
@@ -259,4 +304,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Search-intent and SERP CTR validation passed: GSC-aligned calculator metadata, home-insurance no-personal-information intent, Texas paycheck/take-home-pay intent, Phase 3 finance ranking depth, disabled-veteran guidance, city discovery, county property-tax pages, legacy county redirects, appraisal-district queries, agency snippets, Texas Explained behavioral search scoring, independent framing, and publication-quality gates are protected.');
+console.log('Search-intent and SERP CTR validation passed: GSC-aligned calculator metadata, home-insurance no-personal-information intent, Texas paycheck/take-home-pay intent, Phase 3 finance ranking depth, disabled-veteran guidance, city discovery, county property-tax pages, legacy county redirects, appraisal-district queries, agency snippets, Texas water intent separation and TWDB basin reference, Texas Explained behavioral search scoring, independent framing, and publication-quality gates are protected.');
