@@ -277,8 +277,8 @@ export const texasSettlementPatternsGuideArticle: Article = {
   id: "evergreen-texas-settlement-patterns-guide",
   brandId: "texasdefined",
   slug: "texas-settlement-patterns-explained",
-  title: "Texas Settlement Patterns Explained: Why Towns, Farms and Ranch Country Ended Up Where They Did",
-  dek: "Texas communities did not appear randomly. Water, trails, missions, rivers, farming soils, ranching country, county seats, railroads and highways layered one settlement map on top of another.",
+  title: "Why Texas Towns Are Where They Are: Rivers, Railroads, Ranches & County Seats",
+  dek: "Why Texas towns grew where they did: rivers, railroads, county seats, ranching country, farming soils and the routes that still shape Texas.",
   category: "texas-history",
   hero: {
     src: "https://images.unsplash.com/photo-1531218150217-54595bc2b934?auto=format&fit=crop&w=1600&q=82",
