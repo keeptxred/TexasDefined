@@ -18,6 +18,10 @@ export const Route = createFileRoute('/api/sports-venue-hero')({
         if (!slug || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return new Response('Not found', { status: 404 });
 
         const lookupSlug = slug === 'galaxy-stadium' ? 'jones-att-stadium' : slug;
+        if (lookupSlug === 'xtreme-raceway-park') {
+          return Response.redirect(new URL('/images/sports-venues/xtreme-raceway-park-ferris.webp', request.url), 307);
+        }
+
         const entity = await findCompleteTexasEntity(lookupSlug);
         const enrichment = getSportsVenueEnrichmentAll(lookupSlug);
         if (!entity || entity.kind !== 'sports-venue' || !enrichment) return new Response('Not found', { status: 404 });
