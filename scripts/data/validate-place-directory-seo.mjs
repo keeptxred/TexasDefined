@@ -9,6 +9,7 @@ const readRouteSurface = (file) => {
 
 const cities = readRouteSurface('src/routes/browse.cities.tsx');
 const counties = readRouteSurface('src/routes/browse.counties.tsx');
+const countyLazy = read('src/routes/browse.counties.lazy.tsx');
 const cityDirectory = read('src/components/directories/TexasPlaceDirectory.tsx');
 const cityAuthorityIndex = read('src/data/city-authority-index.ts');
 const countyDirectory = read('src/components/directories/TexasCountyPropertyDirectory.tsx');
@@ -25,7 +26,7 @@ const checks = [
   [counties, 'verifiedPropertyCounties.map((county, index)', 'County property schema must publish only verified child guides'],
   [counties, 'absoluteUrl(texasDefinedBrand, `/property-tax/county/${county.slug}`)', 'Verified county property children must use canonical URLs'],
   [counties, 'sameAs: county.officialDirectoryUrl', 'Verified county guide schema must retain official county references'],
-  [counties, 'TEXAS_COUNTIES.length.toLocaleString("en-US")', 'Visible county directory must still describe all Texas counties'],
+  [counties, 'All 254 Texas counties are represented in the comparison and directory.', 'Visible county directory must explicitly describe all 254 Texas counties'],
   [countyDirectory, 'id={countyPropertyAnchor(county.slug)}', 'County guide anchors must exist in the DOM'],
   [countyDirectory, 'const hasVerifiedPropertyGuide = verified.has(county.slug)', 'County directory links must branch on verification readiness'],
   [countyDirectory, 'Open verified property guide', 'Verified county property links must remain available'],
@@ -53,6 +54,9 @@ if (cities.includes('absoluteUrl(texasDefinedBrand, cityAuthorityPath(city.slug)
 if (counties.includes('numberOfItems: TEXAS_COUNTIES.length')) {
   failures.push('County property ItemList must not advertise all 254 property-tax child pages.');
 }
+if (countyLazy.includes('from "@/data/texas-places"') || countyLazy.includes("from '@/data/texas-places'")) {
+  failures.push('Visible county directory must not reintroduce the Texas county registry into its lazy client surface just to describe statewide completeness.');
+}
 
 if (failures.length) {
   console.error('Place directory SEO validation failed:');
@@ -60,4 +64,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Place directory SEO validation passed: all cities/counties remain discoverable on directory surfaces while verified city authority and county property child URLs are promoted only through shared publication-readiness gates.');
+console.log('Place directory SEO validation passed: all cities/counties remain discoverable on directory surfaces while verified city authority and county property child URLs are promoted only through shared publication-readiness gates, with the 254-county completeness statement preserved without an eager registry import in the lazy county UI.');
