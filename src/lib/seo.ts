@@ -122,6 +122,10 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     title: "Legacy Stadium Katy: Parking, Events & Visitor Guide",
     description: "Plan a Legacy Stadium visit in Katy with verified parking, arrival, event, official venue and map links for Katy ISD football and UIL playoff games.",
   },
+  "/sports-venue/eagle-stadium-allen": {
+    title: "Eagle Stadium Allen: Parking & Football Guide",
+    description: "Plan Eagle Stadium in Allen with verified parking, arrival and official venue links for Allen Eagles football, UIL playoffs and game nights.",
+  },
   "/sports-venue/mesquite-memorial-stadium": {
     title: "Mesquite Memorial Stadium: Parking, Tickets & Events",
     description: "Plan Mesquite Memorial Stadium with verified parking, directions, ticket and event links for Mesquite ISD football, soccer and UIL games.",
