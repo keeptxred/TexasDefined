@@ -23,6 +23,7 @@ import { selectSwimmingHoleAndTubingDestinations } from "./water-recreation";
 
 const WATER_COLLECTION = "swimming-holes-river-tubing";
 const RV_COLLECTION = "rv-parks";
+const CAVERN_COLLECTION = "caverns";
 
 function featuredFallback(destinations: Destination[], limit = 6) {
   return [...destinations]
@@ -72,6 +73,16 @@ async function loadCityPassDestinationExpansion(): Promise<Destination[]> {
 
 async function cityPassPreservedFor(query: Omit<DestinationQuery, "brandId">): Promise<Destination[]> {
   return filterPreservedDestinations(await loadCityPassDestinationExpansion(), query);
+}
+
+async function loadPublicCavernDestinationFallbacks(): Promise<Destination[]> {
+  const { publicCavernDestinationFallbacks } = await import("./public-cavern-destinations");
+  return publicCavernDestinationFallbacks;
+}
+
+async function cavernPreservedFor(query: Omit<DestinationQuery, "brandId">): Promise<Destination[]> {
+  if (query.category && query.category !== CAVERN_COLLECTION) return [];
+  return filterPreservedDestinations(await loadPublicCavernDestinationFallbacks(), query);
 }
 
 function finishHistoricSiteEnrichment(destination: Destination) {
@@ -153,7 +164,8 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
   } catch (error) { console.error("Core Explore remote catalog unavailable; merging preserved catalog", error); }
   const local = await platform.destinations.list({ ...scope, ...params });
   const preserved = preservedFor(params);
-  const baseMerged = mergeDestinations(enriched, core, preserved, local);
+  const cavernPreserved = await cavernPreservedFor(params);
+  const baseMerged = mergeDestinations(enriched, core, preserved, cavernPreserved, local);
   const cityPassPreserved = await cityPassPreservedFor(params);
   const merged = reconcileExploreCatalog(mergeDestinations(baseMerged, cityPassPreserved));
   const scoped = params.category ? merged.filter((destination) => destination.category === params.category) : merged;
@@ -171,6 +183,8 @@ export async function getResolvedDestination(slug: Slug) {
   if (rvPark) return applyResolvedHero(rvPark);
   const preserved = preservedExploreDestinations.find((destination) => destination.slug === slug);
   if (preserved) return applyResolvedHero(preserved);
+  const cavernPreserved = (await loadPublicCavernDestinationFallbacks()).find((destination) => destination.slug === slug);
+  if (cavernPreserved) return applyResolvedHero(cavernPreserved);
   const cityPassPreserved = (await loadCityPassDestinationExpansion()).find((destination) => destination.slug === slug);
   if (cityPassPreserved) return applyResolvedHero(cityPassPreserved);
   const local = await platform.destinations.getBySlug(scope, slug);
@@ -184,6 +198,7 @@ export async function listResolvedDestinationSearchCatalog() {
   catch (error) { console.error("Enriched destination search index unavailable; merging core and preserved catalogs", error); }
   try { core = await fetchCoreExploreDestinations({ limit: 5000 }); }
   catch (coreError) { console.error("Core remote destination search index unavailable; retaining preserved destinations", coreError); }
-  const preservedSearchCatalog = reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations));
+  const cavernPreserved = await loadPublicCavernDestinationFallbacks();
+  const preservedSearchCatalog = reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations, cavernPreserved));
   return reconcileExploreCatalog(mergeDestinations(preservedSearchCatalog, await loadCityPassDestinationExpansion()));
 }
