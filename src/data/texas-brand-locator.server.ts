@@ -1,70 +1,25 @@
 import { resolveRelocationAddressServer } from "./relocation-address.server";
+import {
+  DEFAULT_TEXAS_BRAND_LOCATOR_BRANDS,
+  isTexasBrandLocatorVerifiedRegistryBrand,
+  texasBrandLocatorFallbackLabel,
+  texasBrandLocatorLabel,
+  texasBrandLocatorOfficialUrl,
+  type TexasBrandLocatorBrand,
+  type TexasBrandLocatorVerifiedRegistryBrand,
+} from "./texas-brand-locator-registry";
+import { findVerifiedRegistryLocationsServer } from "./texas-brand-locator-verified-registry.server";
 import type {
-  TexasBrandLocatorBrand,
   TexasBrandLocatorLocation,
   TexasBrandLocatorResponse,
 } from "./texas-brand-locator.types";
 
 type Point = { latitude: number; longitude: number };
 type UnknownRecord = Record<string, unknown>;
-type VerifiedBrandLocation = {
-  id: string;
-  brand: "bucees";
-  name: string;
-  street: string;
-  city: string;
-  state: "TX";
-  postalCode: string;
-  latitude: number | null;
-  longitude: number | null;
-  sourceUrl: string;
-};
-type BrandLocationRow = {
-  id: string;
-  brand_slug: string;
-  name: string;
-  street: string;
-  city: string;
-  state: string;
-  postal_code: string;
-  latitude: number | null;
-  longitude: number | null;
-  source_url: string;
-};
-type BrandLocationQueryResult = { data: BrandLocationRow[] | null; error: { message: string } | null };
-type BrandLocationQuery = PromiseLike<BrandLocationQueryResult> & {
-  eq: (column: string, value: string) => BrandLocationQuery;
-  order: (column: string, options?: { ascending?: boolean }) => BrandLocationQuery;
-};
-type BrandLocationUpdateResult = { error: { message: string } | null };
-type BrandLocationUpdateQuery = PromiseLike<BrandLocationUpdateResult> & {
-  eq: (column: string, value: string) => BrandLocationUpdateQuery;
-};
-type BrandLocationsAdminClient = {
-  from: (table: string) => {
-    select: (columns: string) => BrandLocationQuery;
-    update: (values: { latitude: number; longitude: number; updated_at: string }) => BrandLocationUpdateQuery;
-  };
-};
-
-const TEXAS_BRAND_LOCATION_SOURCES = {
-  heb: {
-    label: "H-E-B official store locator",
-    url: "https://www.heb.com/store-locations",
-  },
-  bucees: {
-    label: "Buc-ee's official locations",
-    url: "https://buc-ees.com/locations/",
-  },
-} as const;
 
 const HEB_LOCATOR_ENDPOINT = "https://www.heb.com/commerce-api/v1/store/locator/address";
-const CENSUS_BATCH_ENDPOINT = "https://geocoding.geo.census.gov/geocoder/locations/addressbatch";
-const REQUEST_TIMEOUT_MS = 8000;
+const REQUEST_TIMEOUT_MS = 8_000;
 const RESULTS_PER_BRAND = 5;
-
-let buceesLocationsPromise: Promise<VerifiedBrandLocation[]> | null = null;
-let buceesCoordinatesPromise: Promise<Map<string, Point>> | null = null;
 
 const asRecord = (value: unknown): UnknownRecord => value && typeof value === "object" ? value as UnknownRecord : {};
 const stringValue = (...values: unknown[]) => values.find((value) => typeof value === "string" && value.trim()) as string | undefined;
@@ -77,217 +32,20 @@ function timeoutSignal() {
 }
 
 function officialLocatorUrl(brand: TexasBrandLocatorBrand, query: string) {
-  if (brand === "heb") return `https://www.heb.com/store-locations?address=${encodeURIComponent(query)}`;
-  return TEXAS_BRAND_LOCATION_SOURCES.bucees.url;
+  const baseUrl = texasBrandLocatorOfficialUrl(brand);
+  return brand === "heb" ? `${baseUrl}?address=${encodeURIComponent(query)}` : baseUrl;
 }
 
 function fallbackLinks(brands: TexasBrandLocatorBrand[], query: string) {
   return brands.map((brand) => ({
     brand,
-    label: brand === "heb" ? "Open H-E-B's official store locator" : "Open Buc-ee's official locations",
+    label: texasBrandLocatorFallbackLabel(brand),
     url: officialLocatorUrl(brand, query),
   }));
 }
 
 function directionsUrl(address: string) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
-}
-
-function brandLocationAddress(location: VerifiedBrandLocation) {
-  return `${location.street}, ${location.city}, ${location.state} ${location.postalCode}`;
-}
-
-function milesBetween(a: Point, b: Point) {
-  const toRadians = (degrees: number) => degrees * Math.PI / 180;
-  const earthRadiusMiles = 3958.7613;
-  const lat1 = toRadians(a.latitude);
-  const lat2 = toRadians(b.latitude);
-  const deltaLat = toRadians(b.latitude - a.latitude);
-  const deltaLon = toRadians(b.longitude - a.longitude);
-  const h = Math.sin(deltaLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(deltaLon / 2) ** 2;
-  return 2 * earthRadiusMiles * Math.asin(Math.sqrt(h));
-}
-
-function parseCsvLine(line: string) {
-  const values: string[] = [];
-  let current = "";
-  let quoted = false;
-  for (let index = 0; index < line.length; index += 1) {
-    const char = line[index];
-    if (char === '"') {
-      if (quoted && line[index + 1] === '"') {
-        current += '"';
-        index += 1;
-      } else {
-        quoted = !quoted;
-      }
-    } else if (char === "," && !quoted) {
-      values.push(current);
-      current = "";
-    } else {
-      current += char;
-    }
-  }
-  values.push(current);
-  return values;
-}
-
-function quotedCsv(value: string) {
-  return `"${value.replaceAll('"', '""')}"`;
-}
-
-function storedBuceesCoordinates(locations: VerifiedBrandLocation[]) {
-  const coordinates = new Map<string, Point>();
-  for (const location of locations) {
-    if (typeof location.latitude !== "number" || !Number.isFinite(location.latitude)) continue;
-    if (typeof location.longitude !== "number" || !Number.isFinite(location.longitude)) continue;
-    coordinates.set(location.id, { latitude: location.latitude, longitude: location.longitude });
-  }
-  return coordinates;
-}
-
-async function loadBuceesLocationsFromSupabase() {
-  if (!buceesLocationsPromise) {
-    buceesLocationsPromise = (async () => {
-      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-      const client = supabaseAdmin as unknown as BrandLocationsAdminClient;
-      const { data, error } = await client
-        .from("texasdefined_brand_locations")
-        .select("id,brand_slug,name,street,city,state,postal_code,latitude,longitude,source_url")
-        .eq("brand_slug", "bucees")
-        .eq("status", "active")
-        .order("id", { ascending: true });
-      if (error) throw new Error(`Brand location registry query failed: ${error.message}`);
-
-      const locations = (data ?? [])
-        .filter((row) => row.brand_slug === "bucees" && row.state === "TX")
-        .map((row): VerifiedBrandLocation => ({
-          id: row.id,
-          brand: "bucees",
-          name: row.name,
-          street: row.street,
-          city: row.city,
-          state: "TX",
-          postalCode: row.postal_code,
-          latitude: row.latitude,
-          longitude: row.longitude,
-          sourceUrl: row.source_url,
-        }));
-      if (!locations.length) throw new Error("Buc-ee's location registry returned no active Texas locations");
-      return locations;
-    })().catch((error) => {
-      buceesLocationsPromise = null;
-      throw error;
-    });
-  }
-  return buceesLocationsPromise;
-}
-
-async function loadBuceesCoordinatesFromCensus(locations: VerifiedBrandLocation[]) {
-  const rows = locations.map((location) => [
-    location.id,
-    location.street,
-    location.city,
-    location.state,
-    location.postalCode,
-  ].map(quotedCsv).join(",")).join("\n");
-
-  const form = new FormData();
-  form.set("benchmark", "Public_AR_Current");
-  form.set("addressFile", new Blob([rows], { type: "text/csv" }), "texasdefined-bucees.csv");
-
-  const response = await fetch(CENSUS_BATCH_ENDPOINT, {
-    method: "POST",
-    body: form,
-    headers: { accept: "text/csv" },
-    signal: timeoutSignal(),
-  });
-  if (!response.ok) throw new Error(`Census batch geocoder returned ${response.status}`);
-
-  const coordinates = new Map<string, Point>();
-  const text = await response.text();
-  for (const line of text.split(/\r?\n/).filter(Boolean)) {
-    const parts = parseCsvLine(line);
-    const id = parts[0]?.trim();
-    const coordinateField = parts.find((value) => /^-?\d+(?:\.\d+)?,-?\d+(?:\.\d+)?$/.test(value.trim()));
-    if (!id || !coordinateField) continue;
-    const [longitude, latitude] = coordinateField.split(",").map(Number);
-    if (Number.isFinite(latitude) && Number.isFinite(longitude)) coordinates.set(id, { latitude, longitude });
-  }
-  if (!coordinates.size) throw new Error("Census batch geocoder returned no Buc-ee's coordinates");
-  return coordinates;
-}
-
-async function loadBuceesCoordinatesFallback(locations: VerifiedBrandLocation[]) {
-  const coordinates = new Map<string, Point>();
-  const batchSize = 6;
-  for (let index = 0; index < locations.length; index += batchSize) {
-    const batch = locations.slice(index, index + batchSize);
-    const settled = await Promise.allSettled(batch.map(async (location) => {
-      const result = await resolveRelocationAddressServer(brandLocationAddress(location));
-      return result ? { id: location.id, latitude: result.latitude, longitude: result.longitude } : null;
-    }));
-    for (const result of settled) {
-      if (result.status !== "fulfilled" || !result.value) continue;
-      coordinates.set(result.value.id, { latitude: result.value.latitude, longitude: result.value.longitude });
-    }
-  }
-  if (!coordinates.size) throw new Error("Census geocoder could not resolve Buc-ee's locations");
-  return coordinates;
-}
-
-async function persistBuceesCoordinates(coordinates: Map<string, Point>) {
-  if (!coordinates.size) return;
-  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-  const client = supabaseAdmin as unknown as BrandLocationsAdminClient;
-  const updatedAt = new Date().toISOString();
-  const updates = await Promise.allSettled([...coordinates].map(async ([id, point]) => {
-    const { error } = await client
-      .from("texasdefined_brand_locations")
-      .update({ latitude: point.latitude, longitude: point.longitude, updated_at: updatedAt })
-      .eq("id", id);
-    if (error) throw new Error(`Brand location geography cache update failed for ${id}: ${error.message}`);
-  }));
-  const rejected = updates.find((result) => result.status === "rejected");
-  if (rejected?.status === "rejected") console.error(rejected.reason);
-}
-
-async function buceesCoordinates(locations: VerifiedBrandLocation[]) {
-  if (!buceesCoordinatesPromise) {
-    buceesCoordinatesPromise = (async () => {
-      const coordinates = storedBuceesCoordinates(locations);
-      const missing = locations.filter((location) => !coordinates.has(location.id));
-      if (!missing.length) return coordinates;
-
-      let resolved = new Map<string, Point>();
-      try {
-        resolved = await loadBuceesCoordinatesFromCensus(missing);
-      } catch {
-        resolved = await loadBuceesCoordinatesFallback(missing);
-      }
-
-      const unresolved = missing.filter((location) => !resolved.has(location.id));
-      if (unresolved.length) {
-        try {
-          const fallback = await loadBuceesCoordinatesFallback(unresolved);
-          for (const [id, point] of fallback) resolved.set(id, point);
-        } catch {
-          // Partial batch results remain usable; unresolved stores simply do not rank.
-        }
-      }
-
-      for (const [id, point] of resolved) coordinates.set(id, point);
-      await persistBuceesCoordinates(resolved).catch((error) => {
-        const message = error instanceof Error ? error.message : "unknown error";
-        console.error(`Brand location geography cache persistence failed: ${message}`);
-      });
-      return coordinates;
-    })().catch((error) => {
-      buceesCoordinatesPromise = null;
-      throw error;
-    });
-  }
-  return buceesCoordinatesPromise;
 }
 
 function normalizeHebLocation(wrapper: unknown, query: string, index: number): TexasBrandLocatorLocation | null {
@@ -309,7 +67,7 @@ function normalizeHebLocation(wrapper: unknown, query: string, index: number): T
   return {
     id: `heb-${id}`,
     brand: "heb",
-    brandLabel: "H-E-B",
+    brandLabel: texasBrandLocatorLabel("heb"),
     name,
     address,
     city,
@@ -318,7 +76,7 @@ function normalizeHebLocation(wrapper: unknown, query: string, index: number): T
     latitude,
     longitude,
     directionsUrl: directionsUrl(address),
-    sourceLabel: TEXAS_BRAND_LOCATION_SOURCES.heb.label,
+    sourceLabel: "H-E-B official store locator",
     sourceUrl: officialLocatorUrl("heb", query),
   };
 }
@@ -343,45 +101,36 @@ async function findHebLocations(query: string) {
     .slice(0, RESULTS_PER_BRAND);
 }
 
-function normalizeBuceesLocation(location: VerifiedBrandLocation, point: Point, origin: Point): TexasBrandLocatorLocation {
-  const address = brandLocationAddress(location);
-  return {
-    id: location.id,
-    brand: "bucees",
-    brandLabel: "Buc-ee's",
-    name: location.name,
-    address,
-    city: location.city,
-    postalCode: location.postalCode,
-    distanceMiles: milesBetween(origin, point),
-    latitude: point.latitude,
-    longitude: point.longitude,
-    directionsUrl: directionsUrl(address),
-    sourceLabel: TEXAS_BRAND_LOCATION_SOURCES.bucees.label,
-    sourceUrl: location.sourceUrl || TEXAS_BRAND_LOCATION_SOURCES.bucees.url,
-  };
+function verifiedRegistryBrands(brands: TexasBrandLocatorBrand[]) {
+  return brands.filter(isTexasBrandLocatorVerifiedRegistryBrand);
 }
 
-async function findBuceesLocations(origin: Point) {
+function verifiedBrandLabels(brands: TexasBrandLocatorVerifiedRegistryBrand[]) {
+  return brands.map(texasBrandLocatorLabel).join(brands.length > 1 ? " and " : "");
+}
+
+async function appendHebResults(results: TexasBrandLocatorLocation[], notices: string[], query: string) {
   try {
-    const locations = await loadBuceesLocationsFromSupabase();
-    const coordinateMap = await buceesCoordinates(locations);
-    return locations
-      .map((location) => {
-        const point = coordinateMap.get(location.id);
-        return point ? normalizeBuceesLocation(location, point, origin) : null;
-      })
-      .filter((location): location is TexasBrandLocatorLocation => Boolean(location))
-      .sort((a, b) => (a.distanceMiles ?? Number.POSITIVE_INFINITY) - (b.distanceMiles ?? Number.POSITIVE_INFINITY))
-      .slice(0, RESULTS_PER_BRAND);
-  } catch (primaryError) {
+    const heb = await findHebLocations(query);
+    if (heb.length) results.push(...heb);
+    else notices.push("H-E-B's live locator did not return a nearby store for this search. The official H-E-B locator link below carries your location into H-E-B's current results.");
+  } catch {
+    notices.push("H-E-B's live locator could not be reached from TexasDefined. The official H-E-B locator link below carries your location into H-E-B's current results.");
+  }
+}
+
+async function appendVerifiedRegistryResults(
+  results: TexasBrandLocatorLocation[],
+  notices: string[],
+  brands: TexasBrandLocatorVerifiedRegistryBrand[],
+  origin: Point,
+) {
+  for (const brand of brands) {
+    const label = texasBrandLocatorLabel(brand);
     try {
-      const { findBuceesLocationsViaPublicRpcServer } = await import("./texas-brand-locator-rpc.server");
-      return await findBuceesLocationsViaPublicRpcServer(origin);
-    } catch (rpcError) {
-      const primaryMessage = primaryError instanceof Error ? primaryError.message : String(primaryError);
-      const rpcMessage = rpcError instanceof Error ? rpcError.message : String(rpcError);
-      throw new Error(`Buc-ee's location registry unavailable through both server paths: ${primaryMessage}; fallback: ${rpcMessage}`);
+      results.push(...await findVerifiedRegistryLocationsServer(brand, origin));
+    } catch {
+      notices.push(`${label} official Texas location registry is available, but distance ranking could not be completed. Use the official ${label} locations link below for the current list.`);
     }
   }
 }
@@ -393,27 +142,15 @@ export async function findTexasBrandLocationsNearPointServer(input: {
   brands: TexasBrandLocatorBrand[];
 }): Promise<TexasBrandLocatorResponse> {
   const query = input.query.trim();
-  const selectedBrands = input.brands.length ? input.brands : ["heb", "bucees"];
+  const selectedBrands: TexasBrandLocatorBrand[] = input.brands.length
+    ? input.brands
+    : [...DEFAULT_TEXAS_BRAND_LOCATOR_BRANDS];
   const notices: string[] = [];
   const results: TexasBrandLocatorLocation[] = [];
+  const registryBrands = verifiedRegistryBrands(selectedBrands);
 
-  if (selectedBrands.includes("heb")) {
-    try {
-      const heb = await findHebLocations(query);
-      if (heb.length) results.push(...heb);
-      else notices.push("H-E-B's live locator did not return a nearby store for this search. The official H-E-B locator link below carries your location into H-E-B's current results.");
-    } catch {
-      notices.push("H-E-B's live locator could not be reached from TexasDefined. The official H-E-B locator link below carries your location into H-E-B's current results.");
-    }
-  }
-
-  if (selectedBrands.includes("bucees")) {
-    try {
-      results.push(...await findBuceesLocations(input.origin));
-    } catch {
-      notices.push("Buc-ee's official Texas location registry is available, but distance ranking could not be completed. Use the official Buc-ee's locations link below for the current list.");
-    }
-  }
+  if (selectedBrands.includes("heb")) await appendHebResults(results, notices, query);
+  if (registryBrands.length) await appendVerifiedRegistryResults(results, notices, registryBrands, input.origin);
 
   return {
     query,
@@ -424,39 +161,37 @@ export async function findTexasBrandLocationsNearPointServer(input: {
   };
 }
 
-export async function findTexasBrandLocationsServer(input: { address: string; brands: TexasBrandLocatorBrand[] }): Promise<TexasBrandLocatorResponse> {
+export async function findTexasBrandLocationsServer(input: {
+  address: string;
+  brands: TexasBrandLocatorBrand[];
+}): Promise<TexasBrandLocatorResponse> {
   const query = input.address.trim();
-  const selectedBrands = input.brands.length ? input.brands : ["heb", "bucees"];
+  const selectedBrands: TexasBrandLocatorBrand[] = input.brands.length
+    ? input.brands
+    : [...DEFAULT_TEXAS_BRAND_LOCATOR_BRANDS];
   const notices: string[] = [];
   const results: TexasBrandLocatorLocation[] = [];
+  const registryBrands = verifiedRegistryBrands(selectedBrands);
 
-  const needsOrigin = selectedBrands.includes("bucees");
   let resolvedAddress = null as Awaited<ReturnType<typeof resolveRelocationAddressServer>>;
-  if (needsOrigin) {
+  if (registryBrands.length) {
+    const labels = verifiedBrandLabels(registryBrands);
     try {
       resolvedAddress = await resolveRelocationAddressServer(query);
-      if (!resolvedAddress) notices.push("Use a complete Texas street address to rank Buc-ee's locations by distance. The official Buc-ee's locations link is still available below.");
+      if (!resolvedAddress) notices.push(`Use a complete Texas street address to rank ${labels} locations by distance. The official brand location links are still available below.`);
     } catch {
-      notices.push("Texas address matching is temporarily unavailable. Use the official Buc-ee's locations link below while the locator retries on a later search.");
+      notices.push(`Texas address matching is temporarily unavailable. Use the official ${labels} location links below while the locator retries on a later search.`);
     }
   }
 
-  if (selectedBrands.includes("heb")) {
-    try {
-      const heb = await findHebLocations(query);
-      if (heb.length) results.push(...heb);
-      else notices.push("H-E-B's live locator did not return a nearby store for this search. The official H-E-B locator link below carries your address into H-E-B's current results.");
-    } catch {
-      notices.push("H-E-B's live locator could not be reached from TexasDefined. The official H-E-B locator link below carries your address into H-E-B's current results.");
-    }
-  }
-
-  if (selectedBrands.includes("bucees") && resolvedAddress) {
-    try {
-      results.push(...await findBuceesLocations({ latitude: resolvedAddress.latitude, longitude: resolvedAddress.longitude }));
-    } catch {
-      notices.push("Buc-ee's official Texas location registry is available, but distance ranking could not be completed. Use the official Buc-ee's locations link below for the current list.");
-    }
+  if (selectedBrands.includes("heb")) await appendHebResults(results, notices, query);
+  if (registryBrands.length && resolvedAddress) {
+    await appendVerifiedRegistryResults(
+      results,
+      notices,
+      registryBrands,
+      { latitude: resolvedAddress.latitude, longitude: resolvedAddress.longitude },
+    );
   }
 
   return {
