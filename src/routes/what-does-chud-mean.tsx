@@ -1,5 +1,4 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { PrioritySearchPage } from "@/components/editorial/PrioritySearchPage";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 
@@ -18,9 +17,4 @@ export const Route = createFileRoute("/what-does-chud-mean")({
     data: loaderData,
     about: ["chud meaning", "internet slang", "Texas slang searches", "2026 slang"],
   }) : {},
-  component: Page,
 });
-
-function Page() {
-  return <PrioritySearchPage data={Route.useLoaderData()} />;
-}
