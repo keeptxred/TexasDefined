@@ -219,8 +219,11 @@ export function countyProfileDescription(countyName: string, profile: CountyProf
     sentences.push(`The structured place directory also connects this county reference to ${communityNames[0]} and ${communityNames[1]}.`);
   } else if (communityNames.length === 1) {
     sentences.push(`The structured place directory also connects this county reference to ${communityNames[0]}.`);
+  } else {
+    sentences.push('Broader community coverage is added only when a place-to-county relationship is present in the structured Texas Defined directory.');
   }
 
+  sentences.push('County-seat information is checked against the Texas State Library; population and geography figures come from the U.S. Census Bureau.');
   return sentences.join(' ');
 }
 
