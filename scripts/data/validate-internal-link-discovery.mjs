@@ -113,7 +113,9 @@ for (const marker of [
   'statusCode: 301',
 ]) if (!appraisalRedirect.includes(marker)) failures.push(`Legacy appraisal-district redirect contract is missing ${marker}.`);
 for (const marker of [
-  "import { COUNTY_PROPERTY_RECORDS } from '@/data/property/county-property-data'",
+  "import('@/data/property/county-property-data')",
+  "import('@/data/texas-places')",
+  'loader: async () =>',
   "import { isCountyPropertyIndexReady } from '@/data/property/county-property-schema'",
   'const verifiedPropertyCounties = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)',
   'const verifiedPropertySlugs = new Set(verifiedPropertyCounties.map((county) => county.slug))',
@@ -125,6 +127,8 @@ for (const marker of [
   'to="/county/$slug"',
   'instead of a noindex tax page',
 ]) if (!appraisalHub.includes(marker)) failures.push(`Appraisal hub authority-flow contract is missing ${marker}.`);
+if (appraisalHub.includes("import { COUNTY_PROPERTY_RECORDS } from '@/data/property/county-property-data'")) failures.push('Appraisal hub must keep county property records behind its loader boundary instead of eagerly importing the catalog.');
+if (appraisalHub.includes("import { TEXAS_COUNTIES } from '@/data/texas-places'")) failures.push('Appraisal hub must keep the Texas county registry behind its loader boundary instead of eagerly importing the catalog.');
 if (appraisalHub.includes('numberOfItems: TEXAS_COUNTIES.length')) failures.push('Appraisal hub ItemList must not advertise all 254 county-tax URLs when some remain noindex.');
 for (const marker of [
   'to="/learn/appraisal-districts"',
