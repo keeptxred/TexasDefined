@@ -79,11 +79,13 @@ await fetchText('/things-unique-to-texas/texas-brands', [
 ]);
 await fetchText('/texas-brand-locator.js', [
   '/api/texas-brand-locator',
-  "Find your H-E-B, Central Market, Joe V's, Mi Tienda or Buc-ee's",
+  "Find H-E-B, Buc-ee's, Whataburger and H-E-B family stores",
   'central-market',
   'joe-vs',
   'mi-tienda',
+  'whataburger',
+  "Whataburger's official Texas location directory",
 ]);
 await verifyLocatorApi();
 
-console.log('Texas brand locator production smoke passed (page mount, H-E-B-family choices, deferred script, and Buc-ee\'s lookup).');
+console.log('Texas brand locator production smoke passed (page mount, H-E-B-family, Buc-ee\'s and Whataburger choices, deferred script, and Buc-ee\'s lookup).');
