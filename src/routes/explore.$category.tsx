@@ -1,7 +1,7 @@
 import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { cavernAuthorityHtml } from "@/data/cavern-authority.server";
+import { getCavernAuthorityHtml } from "@/data/cavern-authority.functions";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
 import type { Destination } from "@/data/types";
@@ -89,7 +89,7 @@ export const Route = createFileRoute("/explore/$category")({
       context.queryClient.ensureQueryData(destinationsQuery({ category: category.slug })),
       authorityPath ? Promise.all([
         category.slug === "caverns"
-          ? Promise.resolve(cavernAuthorityHtml)
+          ? getCavernAuthorityHtml()
           : fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath).then((response) => response.ok ? response.text() : null),
         category.slug === "beaches-coast"
           ? fetch(import.meta.env.SSR ? `${siteUrl}${COASTAL_AUTHORITY_PATH}` : COASTAL_AUTHORITY_PATH).then((response) => response.ok ? response.text() : null)
