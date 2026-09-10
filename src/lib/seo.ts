@@ -134,6 +134,54 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     title: "McKinney ISD Stadium: Parking, Events & Visitor Guide",
     description: "Plan a McKinney ISD Stadium visit with verified parking, arrival, event-day and official venue links for football and community events.",
   },
+  "/event/westfest": {
+    title: "Westfest Texas: Dates, Parade, Schedule & Hours",
+    description: "Plan Westfest in West, Texas with the current date guidance, parade information, schedule and hours sources, admission details and trip-planning links.",
+  },
+  "/event/heart-o-texas-fair-rodeo": {
+    title: "Heart O' Texas Fair & Rodeo 2026: Dates & Schedule",
+    description: "The 2026 Heart O' Texas Fair & Rodeo runs Oct. 8-18 in Waco. Check fair hours, One HOT Rodeo dates, ticket rules and official planning links.",
+  },
+  "/event/sweetwater-rattlesnake-roundup": {
+    title: "Sweetwater Rattlesnake Roundup: Dates & Visitor Guide",
+    description: "Plan the Sweetwater Jaycees Rattlesnake Roundup with date guidance, official sources, event details and practical Nolan County trip planning.",
+  },
+  "/texas-symbols": {
+    title: "Texas State Symbols: Official List, Meanings & State Icons",
+    description: "Explore Texas state symbols and official designations, from the flag, flower and bird to foods, animals, plants and other Lone Star State icons.",
+  },
+  "/article/republic-of-texas-navy-history": {
+    title: "Republic of Texas Navy: Ships, Battles & History",
+    description: "Explore the Republic of Texas Navy, its ships, commanders, Gulf operations, battles and role in defending the independent republic from 1836 to 1846.",
+  },
+  "/event/charro-days-fiesta": {
+    title: "Charro Days Fiesta: Dates, Parade & Brownsville Guide",
+    description: "Plan Charro Days Fiesta in Brownsville with current date guidance, parade and event information, official sources and Rio Grande Valley trip planning.",
+  },
+  "/event/hidalgo-borderfest": {
+    title: "BorderFest Hidalgo: Dates, Schedule & Visitor Guide",
+    description: "Plan BorderFest in Hidalgo, Texas with current dates, schedule guidance, official event sources and practical Rio Grande Valley visitor information.",
+  },
+  "/texas-rock-rockabilly": {
+    title: "Texas Rock & Rockabilly: Artists, History & Sound",
+    description: "Explore Texas rock and rockabilly through the artists, scenes, venues and sounds that helped shape the state's place in American music history.",
+  },
+  "/article/battleship-texas-bb-35-history-restoration": {
+    title: "Battleship Texas (BB-35): History & Restoration",
+    description: "Follow Battleship Texas BB-35 from World War I and World War II service through preservation, dry-dock work, restoration and its Texas legacy.",
+  },
+  "/event/floresville-peanut-festival": {
+    title: "Floresville Peanut Festival 2026: Dates, Schedule & Tickets",
+    description: "Plan the 2026 Floresville Peanut Festival with verified dates, parade and schedule information, ticket details, official sources and Wilson County context.",
+  },
+  "/sports-venue/childrens-health-stadium-prosper": {
+    title: "Children's Health Stadium Prosper: Parking & Events",
+    description: "Plan a Children's Health Stadium visit in Prosper with parking, arrival, event-day and official venue links for football, soccer and community events.",
+  },
+  "/county/palo-pinto": {
+    title: "Palo Pinto County, Texas: Population, Acres & County Guide",
+    description: "Explore Palo Pinto County with population, land area, county seat, communities, geography, official links and practical local-reference information.",
+  },
 } : {};
 
 const SOCIAL_IMAGE_FALLBACKS: Partial<Record<BrandConfig["identity"]["id"], { src: string; alt: string; type: string }>> = {
