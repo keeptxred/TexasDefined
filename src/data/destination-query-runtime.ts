@@ -164,10 +164,11 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
   } catch (error) { console.error("Core Explore remote catalog unavailable; merging preserved catalog", error); }
   const local = await platform.destinations.list({ ...scope, ...params });
   const preserved = preservedFor(params);
+  const baseMerged = mergeDestinations(enriched, core, preserved, local);
   const cavernPreserved = await cavernPreservedFor(params);
-  const baseMerged = mergeDestinations(enriched, core, preserved, cavernPreserved, local);
+  const cavernMerged = mergeDestinations(baseMerged, cavernPreserved);
   const cityPassPreserved = await cityPassPreservedFor(params);
-  const merged = reconcileExploreCatalog(mergeDestinations(baseMerged, cityPassPreserved));
+  const merged = reconcileExploreCatalog(mergeDestinations(cavernMerged, cityPassPreserved));
   const scoped = params.category ? merged.filter((destination) => destination.category === params.category) : merged;
   if (params.featured) return featuredFallback(scoped, params.limit ?? 6);
   return params.limit ? scoped.slice(0, params.limit) : scoped;
