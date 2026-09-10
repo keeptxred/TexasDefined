@@ -36,17 +36,24 @@ async function canonicalCityCountySlug(city: string) {
 
 async function locationsWithinCounty(results: TexasBrandLocatorLocation[], countySlug: string) {
   const expectedCounty = normalizeCountySlug(countySlug);
-  const uniqueCities = [...new Set(results.map((result) => result.city).filter((city): city is string => Boolean(city)))];
+  const exactMatches = results.filter((result) =>
+    result.countySlug && normalizeCountySlug(result.countySlug) === expectedCounty,
+  );
+  const unresolved = results.filter((result) => !result.countySlug);
+  if (!unresolved.length) return exactMatches;
+
+  const uniqueCities = [...new Set(unresolved.map((result) => result.city).filter((city): city is string => Boolean(city)))];
   const countyByCity = new Map<string, string | null>();
 
   await Promise.all(uniqueCities.map(async (city) => {
     countyByCity.set(normalizePlaceName(city), await canonicalCityCountySlug(city));
   }));
 
-  return results.filter((result) => {
+  const inferredMatches = unresolved.filter((result) => {
     if (!result.city) return false;
     return countyByCity.get(normalizePlaceName(result.city)) === expectedCounty;
   });
+  return [...exactMatches, ...inferredMatches];
 }
 
 /**
