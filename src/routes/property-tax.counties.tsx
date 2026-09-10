@@ -20,12 +20,12 @@ export const Route = createFileRoute('/property-tax/counties')({
       getTexasDataset('county-property-tax-rates'),
     ]);
     const verifiedPropertyCounties = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
-    const verifiedPropertySlugs = verifiedPropertyCounties.map((county) => county.slug);
+    const verifiedPropertySlugs = new Set(verifiedPropertyCounties.map((county) => county.slug));
     const popularCounties = popularCountySlugs
       .map((slug) => TEXAS_COUNTIES.find((county) => county.slug === slug))
       .filter((county) => county !== undefined);
 
-    return { countyRateDataset, verifiedPropertyCounties, verifiedPropertySlugs, popularCounties, TEXAS_COUNTIES };
+    return { countyRateDataset, verifiedPropertyCounties, verifiedPropertySlugList: [...verifiedPropertySlugs], popularCounties, TEXAS_COUNTIES };
   },
   head: ({ loaderData }) => {
     const { countyRateDataset, verifiedPropertyCounties } = loaderData;
@@ -69,7 +69,7 @@ export const Route = createFileRoute('/property-tax/counties')({
 });
 
 function CountyPropertyTaxDirectory() {
-  const { countyRateDataset, verifiedPropertyCounties, verifiedPropertySlugs: verifiedPropertySlugList, popularCounties, TEXAS_COUNTIES } = Route.useLoaderData();
+  const { countyRateDataset, verifiedPropertyCounties, verifiedPropertySlugList, popularCounties, TEXAS_COUNTIES } = Route.useLoaderData();
   const verifiedPropertySlugs = new Set(verifiedPropertySlugList);
 
   return (
