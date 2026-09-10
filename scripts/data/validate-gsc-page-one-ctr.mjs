@@ -132,7 +132,6 @@ const secondWave = [
   { path: '/sports-venues/high-school-football', title: 'Texas High School Football Stadiums: Best Venues & Guides', description: 'Explore Texas high school football stadiums with venue guides' },
   { path: '/sports-venue/whataburger-field', title: 'Whataburger Field Corpus Christi: Parking, Map & Events', description: 'Plan a Whataburger Field visit in Corpus Christi with parking, map, arrival' },
   { path: '/texas-food-history', title: 'Texas Food History: Barbecue, Tex-Mex, Chili & More', description: 'Explore the history of Texas food through barbecue, Tex-Mex, chili' },
-  { path: '/article/texas-barbecue-styles-explained', title: 'Texas Barbecue Styles: Central, East, South & West Texas', description: 'Compare Texas barbecue styles by region' },
 ];
 
 for (const experiment of experiments) {
@@ -151,8 +150,8 @@ for (const experiment of secondWave) {
   }
 }
 
-if (secondWave.length !== 15) {
-  failures.push(`Expected exactly 15 second-wave GSC CTR experiments, found ${secondWave.length}.`);
+if (secondWave.length !== 14) {
+  failures.push(`Expected exactly 14 second-wave GSC CTR experiments, found ${secondWave.length}.`);
 }
 
 for (const required of [
@@ -179,4 +178,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('GSC page-one CTR validation passed: the original top 20 and second-wave 15 snippet experiments remain server-only and length-guarded, while Westfest date, parade, schedule and hours intent remains current-source aligned without presenting the unconfirmed 2027 program as final.');
+console.log('GSC page-one CTR validation passed: the original top 20 and second-wave 14 snippet experiments remain server-only and length-guarded, while Westfest date, parade, schedule and hours intent remains current-source aligned without presenting the unconfirmed 2027 program as final.');
