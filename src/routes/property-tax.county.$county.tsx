@@ -6,12 +6,12 @@ import { Container } from '@/components/layout/Container';
 import { CountyPropertyTaxTemplate } from '@/components/property/CountyPropertyTaxTemplate';
 import { CountyTaxRateSection } from '@/components/property/CountyTaxRateSection';
 import { countyPropertyTaxCalculatorTarget } from '@/data/property/county-calculator-targets';
-import { getCountyPropertyRecordBySlug } from '@/data/property/county-property-data';
 import { isCountyPropertyIndexReady } from '@/data/property/county-property-schema';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/property-tax/county/$county')({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
+    const { getCountyPropertyRecordBySlug } = await import('@/data/property/county-property-data');
     const normalizedSlug = params.county.trim().toLowerCase();
     const county = getCountyPropertyRecordBySlug(normalizedSlug);
     if (!county) throw notFound();
