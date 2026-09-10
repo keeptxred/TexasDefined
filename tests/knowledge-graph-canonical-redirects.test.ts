@@ -33,7 +33,7 @@ describe("knowledge-graph canonical redirects", () => {
       .toBe("/state-park/not-a-known-owner");
   });
 
-  it("protects the request-time redirects for every exact mirror plus the NRG alias", () => {
+  it("protects the request-time redirects for every exact mirror plus legacy aliases", () => {
     const redirects = [
       ["/lake/caddo-lake", "/destination/caddo-lake"],
       ["/state-park/palo-duro-canyon-state-park", "/destination/palo-duro-canyon-state-park"],
@@ -42,6 +42,7 @@ describe("knowledge-graph canonical redirects", () => {
       ["/cavern/natural-bridge-caverns", "/destination/natural-bridge-caverns"],
       ["/beach/padre-island-national-seashore", "/destination/padre-island-national-seashore"],
       ["/historic-site/the-alamo", "/destination/the-alamo"],
+      ["/destination/devil-s-sinkhole-state-natural-area", "/destination/devils-sinkhole-state-natural-area"],
       ["/sports-venue/nrg-stadium", "/sports-venue/reliant-stadium"],
     ];
 
