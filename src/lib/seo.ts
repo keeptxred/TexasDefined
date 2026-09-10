@@ -234,6 +234,22 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     title: "Texas Food History: Barbecue, Tex-Mex, Chili & More",
     description: "Explore the history of Texas food through barbecue, Tex-Mex, chili, Czech and German traditions, Gulf seafood and regional dishes across the state.",
   },
+  "/event/burnet-bluebonnet-festival": {
+    title: "Burnet Bluebonnet Festival 2027: Dates, Schedule & Guide",
+    description: "Burnet's Bluebonnet Festival runs April 9-11, 2027. See official date guidance, schedule planning, downtown Burnet details and Hill Country trip tips.",
+  },
+  "/event/chappell-hill-bluebonnet-festival": {
+    title: "Chappell Hill Bluebonnet Festival 2027: Dates & Guide",
+    description: "The Official State of Texas Bluebonnet Festival returns to Chappell Hill April 10-11, 2027. See dates, parking, schedule and Washington County planning.",
+  },
+  "/event/buc-days": {
+    title: "Buc Days 2027: Corpus Christi Dates, Rodeo & Carnival",
+    description: "Buc Days runs April 29-May 9, 2027 in Corpus Christi. Plan around Rodeo Corpus Christi, parades, carnival attractions, concerts and official schedules.",
+  },
+  "/event/poteet-strawberry-festival": {
+    title: "Poteet Strawberry Festival 2027: Date Status & Visitor Guide",
+    description: "Planning Poteet Strawberry Festival 2027? The organizer says the 80th annual dates are coming soon. Check the latest official date status and visitor guide.",
+  },
   "/county/palo-pinto": {
     title: "Palo Pinto County, Texas: Population, Acres & County Guide",
     description: "Explore Palo Pinto County with population, land area, county seat, communities, geography, official links and practical local-reference information.",

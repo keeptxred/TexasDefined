@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const seo = fs.readFileSync('src/lib/seo.ts', 'utf8');
 const westfest = fs.readFileSync('src/data/major-event-expanded-authority-tranche11.server.ts', 'utf8');
+const poteet = fs.readFileSync('src/data/major-event-expanded-authority-tranche21.server.ts', 'utf8');
 const failures = [];
 
 for (const required of [
@@ -134,6 +135,13 @@ const secondWave = [
   { path: '/texas-food-history', title: 'Texas Food History: Barbecue, Tex-Mex, Chili & More', description: 'Explore the history of Texas food through barbecue, Tex-Mex, chili' },
 ];
 
+const thirdWave = [
+  { path: '/event/burnet-bluebonnet-festival', title: 'Burnet Bluebonnet Festival 2027: Dates, Schedule & Guide', description: "Burnet's Bluebonnet Festival runs April 9-11, 2027" },
+  { path: '/event/chappell-hill-bluebonnet-festival', title: 'Chappell Hill Bluebonnet Festival 2027: Dates & Guide', description: 'The Official State of Texas Bluebonnet Festival returns to Chappell Hill April 10-11, 2027' },
+  { path: '/event/buc-days', title: 'Buc Days 2027: Corpus Christi Dates, Rodeo & Carnival', description: 'Buc Days runs April 29-May 9, 2027 in Corpus Christi' },
+  { path: '/event/poteet-strawberry-festival', title: 'Poteet Strawberry Festival 2027: Date Status & Visitor Guide', description: 'The organizer says the 80th annual dates are coming soon' },
+];
+
 for (const experiment of experiments) {
   for (const required of [`\"${experiment.path}\"`, experiment.title, experiment.description]) {
     if (!seo.includes(required)) failures.push(`Page-one CTR contract missing for ${experiment.path}: ${required}`);
@@ -154,6 +162,16 @@ if (secondWave.length !== 14) {
   failures.push(`Expected exactly 14 second-wave GSC CTR experiments, found ${secondWave.length}.`);
 }
 
+for (const experiment of thirdWave) {
+  for (const required of [`\"${experiment.path}\"`, experiment.title, experiment.description]) {
+    if (!seo.includes(required)) failures.push(`Third-wave CTR contract missing for ${experiment.path}: ${required}`);
+  }
+}
+
+if (thirdWave.length !== 4) {
+  failures.push(`Expected exactly 4 third-wave GSC CTR experiments, found ${thirdWave.length}.`);
+}
+
 for (const required of [
   'slug: "westfest"',
   'sourceCheckedAt: "2026-09-09"',
@@ -168,6 +186,19 @@ for (const required of [
   if (!westfest.includes(required)) failures.push(`Westfest page-one CTR contract missing: ${required}`);
 }
 
+for (const required of [
+  'slug: "poteet-strawberry-festival"',
+  'the organizer currently says the 80th annual festival dates are coming soon',
+  'Texas Defined does not present the 2027 projection as verified',
+  'Its current site has not yet published the 2027 dates',
+]) {
+  if (!poteet.includes(required)) failures.push(`Poteet date-safety contract missing: ${required}`);
+}
+
+if (seo.includes('Poteet Strawberry Festival runs April 9-11, 2027') || seo.includes('Poteet Strawberry Festival 2027: April 9-11')) {
+  failures.push('Poteet CTR metadata must not present the unverified April 9-11, 2027 projection as confirmed.');
+}
+
 if (!seo.includes('const META_DESCRIPTION_MAX_LENGTH = 160;') || !seo.includes('cleanMetaDescription')) {
   failures.push('Page-one CTR experiments must retain the shared meta-description length guard.');
 }
@@ -178,4 +209,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('GSC page-one CTR validation passed: the original top 20 and second-wave 14 snippet experiments remain server-only and length-guarded, while Westfest date, parade, schedule and hours intent remains current-source aligned without presenting the unconfirmed 2027 program as final.');
+console.log('GSC page-one CTR validation passed: the original top 20, second-wave 14 and third-wave 4 snippet experiments remain server-only and length-guarded; Poteet 2027 metadata remains explicitly unconfirmed until the organizer publishes dates.');
