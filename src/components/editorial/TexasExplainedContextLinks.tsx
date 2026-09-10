@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
-type TexasExplainedSurface = "destination" | "fishing" | "sports";
+type TexasExplainedSurface = "destination" | "fishing";
 
 type ContextLink = {
   to: string;
@@ -18,11 +18,6 @@ const SURFACE_LINKS: Record<TexasExplainedSurface, ContextLink[]> = {
     { to: "/article/texas-lakes-reservoirs-explained", label: "Texas Lakes & Reservoirs", description: "Why most Texas lakes are man-made and how reservoirs fit into the state's water system." },
     { to: "/article/texas-rivers-explained", label: "Texas Rivers", description: "Follow the river systems that feed reservoirs, habitats and fishing waters across Texas." },
     { to: "/article/texas-wildlife-guide", label: "Texas Wildlife", description: "A field guide to the animals and habitats anglers encounter around Texas water." },
-  ],
-  sports: [
-    { to: "/article/texas-cultural-regions-explained", label: "Cultural Regions", description: "See how migration, local identity and regional traditions shaped the Texas around the venue." },
-    { to: "/article/texas-farm-to-market-roads-explained", label: "Farm-to-Market Roads", description: "Understand the Texas road network behind many game-day and weekend drives." },
-    { to: "/article/texas-courthouses-town-square", label: "Courthouse Squares", description: "Learn why so many Texas communities developed around a county-seat core." },
   ],
 };
 
