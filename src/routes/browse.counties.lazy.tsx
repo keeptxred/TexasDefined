@@ -15,7 +15,7 @@ function CountyDirectoryPage() {
       eyebrow="Texas counties"
       title="How to use the county property-tax directory"
       items={[
-        { question: "How many counties are covered?", answer: `All ${counties.length.toLocaleString("en-US")} Texas counties are represented in the comparison and directory.` },
+        { question: "How many counties are covered?", answer: "All 254 Texas counties are represented in the comparison and directory." },
         { question: "What can I compare?", answer: "Use county seat, 2020 Census population, land area and referenced communities for statewide orientation. Verified local property-tax guides open directly; other counties continue to the substantive county reference until local sources are current." },
         { question: "Does a county average determine property taxes?", answer: "No. Property taxes depend on the exact property, taxable value and every taxing unit serving that address. Use a verified county property-tax guide as a starting point, then verify the parcel locally." },
         { question: "Are Texas Defined tax figures official?", answer: "No. Texas Defined organizes Texas State Library and U.S. Census Bureau data and explains public tax information, but official local records remain the source of truth for current county services, property accounts, appraisal values, tax bills and deadlines." },
