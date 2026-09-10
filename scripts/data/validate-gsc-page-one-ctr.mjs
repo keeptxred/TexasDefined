@@ -150,6 +150,39 @@ const fourthWaveCorrections = [
   { path: '/event/charro-days-fiesta', title: 'Charro Days Fiesta 2027: Dates, Parade & Brownsville Guide', description: 'Charro Days Fiesta 2027 core dates are Feb. 25-27 in Brownsville' },
 ];
 
+const fifthWave = [
+  { path: "/article/lake-whitney-water-system-guide", title: "Lake Whitney Texas: Brazos River Reservoir & Water Guide", description: "Understand Lake Whitney as a Brazos River reservoir, including flood control, water supp" },
+  { path: "/article/texas-jobs-economy-industries", title: "Texas Economy & Jobs: Major Industries, Regions & Growth", description: "Explore the Texas economy by major industries, jobs and regions, from energy and manufac" },
+  { path: "/county/lamb", title: "Lamb County, Texas: Population, County Seat & Local Guide", description: "Explore Lamb County, Texas with population, county seat, communities, land area, geograp" },
+  { path: "/event/great-american-scrapbook-convention", title: "Great American Scrapbook Convention: Mesquite Visitor Guide", description: "Plan the Great American Scrapbook Convention in Mesquite with event information, venue g" },
+  { path: "/events/big-bend-events", title: "Big Bend Events & Festivals: Far West Texas Calendar Guide", description: "Find Big Bend and Far West Texas events with festival, community, arts and outdoor plann" },
+  { path: "/sports-venue/constellation-field", title: "Constellation Field Sugar Land: Parking, Map & Events", description: "Plan a Constellation Field visit in Sugar Land with parking, map, arrival, ticket and ev" },
+  { path: "/sports-venue/ford-center-at-the-star", title: "Ford Center at The Star: Parking, Map & Events", description: "Plan a Ford Center at The Star visit in Frisco with parking, map, arrival and event info" },
+  { path: "/sports-venue/houston-motorsports-park", title: "Houston Motorsports Park: Racing, Schedule & Visitor Guide", description: "Plan a Houston Motorsports Park visit with racing, event, arrival, map and official-sour" },
+  { path: "/sports-venue/texas-motorplex", title: "Texas Motorplex Ennis: Drag Racing, Events & Visitor Guide", description: "Plan a Texas Motorplex visit in Ennis with drag-racing event, parking, map, arrival and " },
+  { path: "/sports-venue/ufcu-stadium", title: "UFCU Stadium San Marcos: Parking, Map & Events", description: "Plan a UFCU Stadium visit in San Marcos with parking, map, arrival and event information" },
+  { path: "/sports-venues/baseball", title: "Texas Baseball Stadiums & Ballparks: Venue Guides", description: "Explore Texas baseball stadiums and ballparks with venue guides, locations, parking and " },
+  { path: "/texas-symbols/fruit", title: "Texas State Fruit: Texas Red Grapefruit Facts & History", description: "Texas Red Grapefruit is the official state fruit. Learn when Texas adopted it, why the R" },
+  { path: "/texas-symbols/pepper", title: "Texas State Pepper: Jalapeño Facts & State Symbol History", description: "The jalapeño is the official Texas state pepper. Learn when it was designated, its place" },
+  { path: "/texas-symbols/shell", title: "Texas State Shell: Lightning Whelk Facts & Gulf Coast Guide", description: "The lightning whelk is the official Texas state shell. Learn its designation, distinctiv" },
+  { path: "/texas-vs/georgia", title: "Texas vs Georgia: Cost of Living, Taxes, Climate & Lifestyle", description: "Compare Texas and Georgia on cost of living, taxes, housing, climate, jobs, geography an" },
+  { path: "/texas-vs/ohio", title: "Texas vs Ohio: Cost of Living, Taxes, Climate & Lifestyle", description: "Compare Texas and Ohio on cost of living, taxes, housing, climate, jobs, geography and d" },
+  { path: "/texas-vs/tennessee", title: "Texas vs Tennessee: Cost of Living, Taxes & Lifestyle", description: "Compare Texas and Tennessee on cost of living, taxes, housing, climate, jobs, geography " },
+  { path: "/events/rodeos", title: "Texas Rodeos: Major Events, Calendar & Visitor Guides", description: "Explore Texas rodeos with major event guides, locations, seasonal planning and links to " },
+  { path: "/sports-venue/rice-stadium", title: "Rice Stadium Houston: Parking, Map & Events", description: "Plan a Rice Stadium visit in Houston with parking, map, arrival and event information fo" },
+  { path: "/sports-venue/tdecu-stadium", title: "TDECU Stadium Houston: Parking, Map & Events", description: "Plan a TDECU Stadium visit in Houston with parking, map, arrival and event information f" },
+];
+
+for (const experiment of fifthWave) {
+  for (const required of ['"' + experiment.path + '"', experiment.title, experiment.description]) {
+    if (!seo.includes(required)) failures.push('Fifth-wave CTR contract missing for ' + experiment.path + ': ' + required);
+  }
+}
+
+if (fifthWave.length !== 20) {
+  failures.push('Expected exactly 20 fifth-wave GSC CTR experiments, found ' + fifthWave.length + '.');
+}
+
 const settlementLandingSelection = {
   path: '/article/texas-settlement-patterns-explained',
   title: 'Texas Settlement Patterns: How Geography Shaped Towns',
