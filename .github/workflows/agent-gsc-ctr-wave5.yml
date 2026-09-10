@@ -130,28 +130,44 @@ jobs:
             },
           ];
 
-          if (wave.length !== 20) throw new Error(`Expected 20 fifth-wave entries, got ${wave.length}`);
+          if (wave.length !== 20) throw new Error('Expected exactly 20 fifth-wave entries, got ' + wave.length);
           for (const item of wave) {
-            if (seo.includes(`\"${item.path}\"`)) throw new Error(`SEO override already exists for ${item.path}`);
+            if (seo.includes('"' + item.path + '"')) throw new Error('SEO override already exists for ' + item.path);
           }
 
           const seoAnchor = '\n} : {};\n\nconst SOCIAL_IMAGE_FALLBACKS';
           if (seo.split(seoAnchor).length !== 2) throw new Error('Could not uniquely locate GSC SSR override terminator');
           const seoBlock = wave.map((item) => [
-            `  \"${item.path}\": {`,
-            `    title: ${JSON.stringify(item.title)},`,
-            `    description: ${JSON.stringify(item.description)},`,
+            '  "' + item.path + '": {',
+            '    title: ' + JSON.stringify(item.title) + ',',
+            '    description: ' + JSON.stringify(item.description) + ',',
             '  },',
           ].join('\n')).join('\n');
-          seo = seo.replace(seoAnchor, `\n${seoBlock}\n} : {};\n\nconst SOCIAL_IMAGE_FALLBACKS`);
+          seo = seo.replace(seoAnchor, '\n' + seoBlock + '\n} : {};\n\nconst SOCIAL_IMAGE_FALLBACKS');
 
           const validatorAnchor = 'const settlementLandingSelection = {';
           if (!validator.includes(validatorAnchor)) throw new Error('Could not locate validator insertion anchor');
           if (validator.includes('const fifthWave = [')) throw new Error('fifthWave validator already exists');
           const validatorItems = wave.map((item) =>
-            `  { path: ${JSON.stringify(item.path)}, title: ${JSON.stringify(item.title)}, description: ${JSON.stringify(item.description.slice(0, Math.min(item.description.length, 88)))} },`
+            '  { path: ' + JSON.stringify(item.path) + ', title: ' + JSON.stringify(item.title) + ', description: ' + JSON.stringify(item.description.slice(0, 88)) + ' },'
           ).join('\n');
-          const validatorBlock = `const fifthWave = [\n${validatorItems}\n];\n\nfor (const experiment of fifthWave) {\n  for (const required of [\\`\\\"\\${experiment.path}\\\"\\`, experiment.title, experiment.description]) {\n    if (!seo.includes(required)) failures.push(\\`Fifth-wave CTR contract missing for \\${experiment.path}: \\${required}\\`);\n  }\n}\n\nif (fifthWave.length !== 20) {\n  failures.push(\\`Expected exactly 20 fifth-wave GSC CTR experiments, found \\${fifthWave.length}.\\`);\n}\n\n`;
+          const validatorBlock = [
+            'const fifthWave = [',
+            validatorItems,
+            '];',
+            '',
+            'for (const experiment of fifthWave) {',
+            '  for (const required of [\'"\' + experiment.path + \'"\', experiment.title, experiment.description]) {',
+            '    if (!seo.includes(required)) failures.push(\'Fifth-wave CTR contract missing for \' + experiment.path + \': \' + required);',
+            '  }',
+            '}',
+            '',
+            'if (fifthWave.length !== 20) {',
+            '  failures.push(\'Expected exactly 20 fifth-wave GSC CTR experiments, found \' + fifthWave.length + \'.\');',
+            '}',
+            '',
+            '',
+          ].join('\n');
           validator = validator.replace(validatorAnchor, validatorBlock + validatorAnchor);
 
           fs.writeFileSync(seoPath, seo);
