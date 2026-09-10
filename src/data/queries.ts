@@ -44,8 +44,10 @@ export const articleQuery = (slug: Slug) => queryOptions({
   },
 });
 
+const PUBLIC_CAVERN_QUERY_REVISION = "public-caverns-11-v1";
+
 export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}) => queryOptions({
-  queryKey: ["destinations", scope.brandId, params],
+  queryKey: ["destinations", scope.brandId, params, params.category === "caverns" ? PUBLIC_CAVERN_QUERY_REVISION : "default"],
   // Cavern inventory includes checked-in public fallbacks that can change with a deploy;
   // never let an older worker/query cache keep the category collection pinned to a stale subset.
   staleTime: params.category === "caverns" ? 0 : 10 * 60 * 1000,
