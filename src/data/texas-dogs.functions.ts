@@ -1,28 +1,15 @@
 import { notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 
-const loadDogHubDataServerFn = createServerFn({ method: "GET" }).handler(async () => {
-  const { loadDogHubDataServer } = await import("./texas-dogs.server");
-  return loadDogHubDataServer();
-});
-
-const loadDogBreedPageServerFn = createServerFn({ method: "GET" })
-  .inputValidator((data: { slug: string }) => data)
+const loadDogsPageServerFn = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug?: string }) => data)
   .handler(async ({ data }) => {
-    const { loadDogBreedPageServer } = await import("./texas-dogs.server");
-    return loadDogBreedPageServer(data.slug);
+    const { loadDogBreedPageServer, loadDogHubDataServer } = await import("./texas-dogs.server");
+    return data.slug ? loadDogBreedPageServer(data.slug) : loadDogHubDataServer();
   });
 
-export function loadDogHubData() {
-  return loadDogHubDataServerFn();
-}
-
-export async function loadDogBreedPage(slug: string) {
-  const data = await loadDogBreedPageServerFn({ data: { slug } });
-  if (!data) throw notFound();
+export async function loadDogsPage(slug?: string) {
+  const data = await loadDogsPageServerFn({ data: { slug } });
+  if (slug && !data) throw notFound();
   return data;
-}
-
-export function loadDogsPage(slug?: string) {
-  return slug ? loadDogBreedPage(slug) : loadDogHubData();
 }
