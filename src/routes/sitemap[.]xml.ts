@@ -121,6 +121,21 @@ export const Route = createFileRoute("/sitemap.xml")({
             }),
         )).flatMap((article) => article ? [article] : []);
         indexableLocalArticles.push(...protectedLocalArticles);
+
+        // Listing/search repositories intentionally expose lightweight lazy article stubs. Keep
+        // discovery readiness as a candidate boundary only: resolve the full article server-side
+        // and require the unchanged strict full-page gate before adding any candidate to the sitemap.
+        const hydratedLocalArticleSlugs = new Set(indexableLocalArticles.map((article) => article.slug));
+        const unresolvedDiscoveryLocalArticles = articles.filter(
+          (article) => !isLegacyCountySeriesArticle(article.slug)
+            && isArticleDiscoveryReady(article)
+            && !hydratedLocalArticleSlugs.has(article.slug),
+        );
+        const hydratedDiscoveryLocalArticles = (await Promise.all(
+          unresolvedDiscoveryLocalArticles.map((article) => platform.articles.getBySlug(scope, article.slug)),
+        )).flatMap((article) => article && isArticleIndexReady(article) ? [article] : []);
+        indexableLocalArticles.push(...hydratedDiscoveryLocalArticles);
+
         const indexableLocalArticlePaths = new Set(indexableLocalArticles.map((article) => `/article/${article.slug}`));
         const discoveryOnlyLocalArticlePaths = [
           ...articles
