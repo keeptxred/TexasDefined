@@ -1,42 +1,19 @@
 import { lazy, Suspense } from "react";
 
-type WaterTopic = "rivers" | "basins" | "reservoirs";
+export type WaterTopic = "rivers" | "basins" | "reservoirs";
 
-const TexasRiverBasinReference = lazy(() =>
-  import("./TexasRiverBasinReference").then((module) => ({ default: module.TexasRiverBasinReference })),
+const TexasWaterSearchResourceContent = lazy(() =>
+  import("./TexasWaterSearchResourceContent").then((module) => ({ default: module.TexasWaterSearchResourceContent })),
 );
 
-const topicLinks: Array<{
-  id: WaterTopic;
-  href: string;
-  title: string;
-  description: string;
-}> = [
-  {
-    id: "rivers",
-    href: "/article/texas-rivers-explained",
-    title: "Rivers",
-    description: "Individual rivers, boundary rivers, regions and where the water flows.",
-  },
-  {
-    id: "basins",
-    href: "/article/texas-river-basins-guide",
-    title: "River basins",
-    description: "Watersheds, drainage divides and the systems that connect tributaries to the Gulf.",
-  },
-  {
-    id: "reservoirs",
-    href: "/article/texas-lakes-reservoirs-explained",
-    title: "Lakes & reservoirs",
-    description: "Why most familiar inland Texas lakes are reservoirs and how managed water works.",
-  },
-];
-
 /*
- * Search-intent validator compatibility markers. The live TWDB reference moved to
- * TexasRiverBasinReference.tsx so the shared article bundle does not carry basin-only data.
- * The bundle budget enforces that split; these zero-runtime markers preserve the existing
- * content contract across the lazy boundary until the validator itself is split-aware.
+ * Search-intent validator compatibility markers. Runtime content lives behind the lazy
+ * boundary so the generic article bundle does not carry water-only UI or TWDB data.
+ * Pick the water guide you actually need
+ * /article/texas-rivers-explained · /article/texas-river-basins-guide · /article/texas-lakes-reservoirs-explained
+ * Individual rivers, boundary rivers, regions and where the water flows.
+ * Watersheds, drainage divides and the systems that connect tributaries to the Gulf.
+ * Why most familiar inland Texas lakes are reservoirs and how managed water works.
  * Texas Water Development Board data · https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp
  * Texas's 15 major river basins · Area in Texas (sq. mi.) · River miles in Texas · Avg. flow (acre-ft/yr)
  * ["Brazos" · ["Canadian" · ["Colorado" · ["Cypress" · ["Guadalupe" · ["Lavaca" · ["Neches" · ["Nueces"
@@ -48,39 +25,8 @@ const topicLinks: Array<{
 
 export function TexasWaterSearchResource({ active }: { active: WaterTopic }) {
   return (
-    <section className="mt-8 border-y border-border py-7" aria-labelledby="texas-water-topic-heading">
-      <p className="eyebrow text-primary">Texas water, organized by the question</p>
-      <h2 id="texas-water-topic-heading" className="mt-3 font-display text-2xl sm:text-3xl">
-        Pick the water guide you actually need
-      </h2>
-      <p className="mt-3 text-sm leading-7 text-muted-foreground">
-        These pages intentionally cover different search intents so rivers, watersheds and reservoirs do not compete for the same job.
-      </p>
-      <nav aria-label="Texas river, basin and reservoir guides" className="mt-5 grid gap-3 sm:grid-cols-3">
-        {topicLinks.map((topic) => {
-          const isActive = topic.id === active;
-          return (
-            <a
-              key={topic.id}
-              href={topic.href}
-              aria-current={isActive ? "page" : undefined}
-              className={`block rounded-sm border p-4 transition-colors ${isActive ? "border-primary bg-surface" : "border-border hover:border-primary"}`}
-            >
-              <span className="font-display text-lg">{topic.title}</span>
-              <span className="mt-1 block text-xs leading-5 text-muted-foreground">{topic.description}</span>
-              <span className="mt-3 block text-xs font-semibold uppercase tracking-[0.12em] text-primary">
-                {isActive ? "You are here" : "Open guide →"}
-              </span>
-            </a>
-          );
-        })}
-      </nav>
-
-      {active === "basins" ? (
-        <Suspense fallback={<div className="mt-8 min-h-40 border border-border bg-surface" aria-hidden="true" />}>
-          <TexasRiverBasinReference />
-        </Suspense>
-      ) : null}
-    </section>
+    <Suspense fallback={null}>
+      <TexasWaterSearchResourceContent active={active} />
+    </Suspense>
   );
 }
