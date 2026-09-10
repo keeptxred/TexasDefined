@@ -1,6 +1,3 @@
-import { TEXAS_CITIES } from '@/data/texas-places';
-import { getCountyPropertyRecordBySlug } from '@/data/property/county-property-data';
-
 const TSL_COUNTY_SEATS_URL = 'https://www.tsl.texas.gov/ref/abouttx/countyseats.html';
 const CENSUS_TIGERWEB_COUNTIES_URL = 'https://tigerweb.geo.census.gov/arcgis/rest/services/Census2020/State_County/MapServer/1/query';
 const CENSUS_TIGERWEB_SOURCE_URL = 'https://tigerweb.geo.census.gov/arcgis/rest/services/Census2020/State_County/MapServer/1';
@@ -60,6 +57,10 @@ export function loadCountyProfile(slug: string, countyName: string) {
 }
 
 async function fetchCountyProfile(slug: string, countyName: string): Promise<CountyProfile> {
+  const [{ getCountyPropertyRecordBySlug }, { TEXAS_CITIES }] = await Promise.all([
+    import('@/data/property/county-property-data'),
+    import('@/data/texas-places'),
+  ]);
   const propertyRecord = getCountyPropertyRecordBySlug(slug);
   const fips = propertyRecord?.fips;
   const countyCode = fips?.slice(2);
@@ -218,11 +219,8 @@ export function countyProfileDescription(countyName: string, profile: CountyProf
     sentences.push(`The structured place directory also connects this county reference to ${communityNames[0]} and ${communityNames[1]}.`);
   } else if (communityNames.length === 1) {
     sentences.push(`The structured place directory also connects this county reference to ${communityNames[0]}.`);
-  } else {
-    sentences.push('Broader community coverage is added only when a place-to-county relationship is present in the structured Texas Defined directory.');
   }
 
-  sentences.push('County-seat information is checked against the Texas State Library; population and geography figures come from the U.S. Census Bureau.');
   return sentences.join(' ');
 }
 
