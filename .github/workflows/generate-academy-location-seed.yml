@@ -24,17 +24,16 @@ jobs:
             'https://www.academy.com/storelocator/texas' \
             --output academy-texas-state.html
           wc -c academy-texas-state.html
-      - name: Normalize directory bases for Academy relative links
+      - name: Adapt crawler to Academy mixed state-directory links
         run: |
           node - <<'NODE'
           const fs = require('node:fs');
           const path = 'scripts/data/generate-academy-location-seed.mjs';
           const source = fs.readFileSync(path, 'utf8');
-          const updated = source.replace(
-            "const url = new URL(decodeHtml(href), base);",
-            "const url = new URL(decodeHtml(href), base.endsWith('/') ? base : `${base}/`);",
-          );
-          if (updated === source) throw new Error('Expected URL normalization source token was not found');
+          const before = `  const cityUrls = parseAcademyTexasCityUrls(stateHtml);\n  if (cityUrls.length < 80) throw new Error(\`Academy Texas directory exposed only \${cityUrls.length} city pages; refusing an incomplete crawl.\`);\n\n  const cityPages = await mapLimit(cityUrls, CONCURRENCY, async (url) => ({ url, html: await requestWithRetry(url) }));\n  const storeUrls = [...new Set(cityPages.flatMap(({ url, html }) => parseAcademyTexasStoreUrls(html, url)))].sort();`;
+          const after = `  const directStoreUrls = parseAcademyTexasStoreUrls(stateHtml);\n  const cityUrls = parseAcademyTexasCityUrls(stateHtml);\n  if (directStoreUrls.length < 70 || cityUrls.length < 5) {\n    throw new Error(\`Academy Texas directory exposed only \${directStoreUrls.length} direct stores and \${cityUrls.length} multi-store city pages; refusing an incomplete crawl.\`);\n  }\n\n  const cityPages = await mapLimit(cityUrls, CONCURRENCY, async (url) => ({ url, html: await requestWithRetry(url) }));\n  const storeUrls = [...new Set([\n    ...directStoreUrls,\n    ...cityPages.flatMap(({ url, html }) => parseAcademyTexasStoreUrls(html, url)),\n  ])].sort();`;
+          const updated = source.replace(before, after);
+          if (updated === source) throw new Error('Expected Academy crawl block was not found');
           fs.writeFileSync(path, updated);
           NODE
       - name: Self-test Academy first-party crawler
