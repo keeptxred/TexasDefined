@@ -1,12 +1,18 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
-import { auditKnowledgeGraphBehavior, GRAPH_BEHAVIOR_THRESHOLDS } from '@/platform/knowledge-graph-behavior';
-import { auditKnowledgeGraphRegression, GRAPH_REGRESSION_THRESHOLDS } from '@/platform/knowledge-graph-regression';
 
 export const Route = createFileRoute('/api/knowledge-graph-behavior')({
   server: {
     handlers: {
       GET: async () => {
+        const [
+          { loadTexasKnowledgeGraph },
+          { auditKnowledgeGraphBehavior, GRAPH_BEHAVIOR_THRESHOLDS },
+          { auditKnowledgeGraphRegression, GRAPH_REGRESSION_THRESHOLDS },
+        ] = await Promise.all([
+          import('@/data/knowledge-graph'),
+          import('@/platform/knowledge-graph-behavior'),
+          import('@/platform/knowledge-graph-regression'),
+        ]);
         const graph = await loadTexasKnowledgeGraph();
         const report = auditKnowledgeGraphBehavior(graph);
         const regression = auditKnowledgeGraphRegression(graph);
