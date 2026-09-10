@@ -258,6 +258,86 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     title: "Palo Pinto County, Texas: Population, Acres & County Guide",
     description: "Explore Palo Pinto County with population, land area, county seat, communities, geography, official links and practical local-reference information.",
   },
+  "/article/lake-whitney-water-system-guide": {
+    title: "Lake Whitney Texas: Brazos River Reservoir & Water Guide",
+    description: "Understand Lake Whitney as a Brazos River reservoir, including flood control, water supply, recreation, dam context and how the lake fits the larger basin.",
+  },
+  "/article/texas-jobs-economy-industries": {
+    title: "Texas Economy & Jobs: Major Industries, Regions & Growth",
+    description: "Explore the Texas economy by major industries, jobs and regions, from energy and manufacturing to technology, health care, trade and agriculture.",
+  },
+  "/county/lamb": {
+    title: "Lamb County, Texas: Population, County Seat & Local Guide",
+    description: "Explore Lamb County, Texas with population, county seat, communities, land area, geography, official links and practical local-reference information.",
+  },
+  "/event/great-american-scrapbook-convention": {
+    title: "Great American Scrapbook Convention: Mesquite Visitor Guide",
+    description: "Plan the Great American Scrapbook Convention in Mesquite with event information, venue guidance, official sources and practical Dallas-area trip planning.",
+  },
+  "/events/big-bend-events": {
+    title: "Big Bend Events & Festivals: Far West Texas Calendar Guide",
+    description: "Find Big Bend and Far West Texas events with festival, community, arts and outdoor planning guidance for Alpine, Marfa, Terlingua and nearby towns.",
+  },
+  "/sports-venue/constellation-field": {
+    title: "Constellation Field Sugar Land: Parking, Map & Events",
+    description: "Plan a Constellation Field visit in Sugar Land with parking, map, arrival, ticket and event information for Space Cowboys baseball and other stadium events.",
+  },
+  "/sports-venue/ford-center-at-the-star": {
+    title: "Ford Center at The Star: Parking, Map & Events",
+    description: "Plan a Ford Center at The Star visit in Frisco with parking, map, arrival and event information for football, practices, tournaments and special events.",
+  },
+  "/sports-venue/houston-motorsports-park": {
+    title: "Houston Motorsports Park: Racing, Schedule & Visitor Guide",
+    description: "Plan a Houston Motorsports Park visit with racing, event, arrival, map and official-source guidance for the motorsports venue in the Houston area.",
+  },
+  "/sports-venue/texas-motorplex": {
+    title: "Texas Motorplex Ennis: Drag Racing, Events & Visitor Guide",
+    description: "Plan a Texas Motorplex visit in Ennis with drag-racing event, parking, map, arrival and official-source guidance for race weekends and special events.",
+  },
+  "/sports-venue/ufcu-stadium": {
+    title: "UFCU Stadium San Marcos: Parking, Map & Events",
+    description: "Plan a UFCU Stadium visit in San Marcos with parking, map, arrival and event information for Texas State football and other stadium events.",
+  },
+  "/sports-venues/baseball": {
+    title: "Texas Baseball Stadiums & Ballparks: Venue Guides",
+    description: "Explore Texas baseball stadiums and ballparks with venue guides, locations, parking and game-day planning for professional, college and other notable fields.",
+  },
+  "/texas-symbols/fruit": {
+    title: "Texas State Fruit: Texas Red Grapefruit Facts & History",
+    description: "Texas Red Grapefruit is the official state fruit. Learn when Texas adopted it, why the Rio Grande Valley matters and how grapefruit became a state symbol.",
+  },
+  "/texas-symbols/pepper": {
+    title: "Texas State Pepper: Jalapeño Facts & State Symbol History",
+    description: "The jalapeño is the official Texas state pepper. Learn when it was designated, its place in Texas food culture and how it differs from the native pepper.",
+  },
+  "/texas-symbols/shell": {
+    title: "Texas State Shell: Lightning Whelk Facts & Gulf Coast Guide",
+    description: "The lightning whelk is the official Texas state shell. Learn its designation, distinctive left-opening shell and connection to the Texas Gulf Coast.",
+  },
+  "/texas-vs/georgia": {
+    title: "Texas vs Georgia: Cost of Living, Taxes, Climate & Lifestyle",
+    description: "Compare Texas and Georgia on cost of living, taxes, housing, climate, jobs, geography and daily life using a practical side-by-side state guide.",
+  },
+  "/texas-vs/ohio": {
+    title: "Texas vs Ohio: Cost of Living, Taxes, Climate & Lifestyle",
+    description: "Compare Texas and Ohio on cost of living, taxes, housing, climate, jobs, geography and daily life with a practical side-by-side state guide.",
+  },
+  "/texas-vs/tennessee": {
+    title: "Texas vs Tennessee: Cost of Living, Taxes & Lifestyle",
+    description: "Compare Texas and Tennessee on cost of living, taxes, housing, climate, jobs, geography and daily life with a practical side-by-side state guide.",
+  },
+  "/events/rodeos": {
+    title: "Texas Rodeos: Major Events, Calendar & Visitor Guides",
+    description: "Explore Texas rodeos with major event guides, locations, seasonal planning and links to individual rodeo pages across the state.",
+  },
+  "/sports-venue/rice-stadium": {
+    title: "Rice Stadium Houston: Parking, Map & Events",
+    description: "Plan a Rice Stadium visit in Houston with parking, map, arrival and event information for Rice football and other stadium events.",
+  },
+  "/sports-venue/tdecu-stadium": {
+    title: "TDECU Stadium Houston: Parking, Map & Events",
+    description: "Plan a TDECU Stadium visit in Houston with parking, map, arrival and event information for Houston Cougars football and other stadium events.",
+  },
 } : {};
 
 const SOCIAL_IMAGE_FALLBACKS: Partial<Record<BrandConfig["identity"]["id"], { src: string; alt: string; type: string }>> = {
