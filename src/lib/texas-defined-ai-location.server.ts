@@ -1,5 +1,10 @@
 import { searchCompleteTexasKnowledgeGraph } from "../data/knowledge-graph";
 import {
+  TEXAS_BRAND_LOCATOR_BRANDS,
+  texasBrandLocatorLabel,
+  texasBrandLocatorQueryPattern,
+} from "../data/texas-brand-locator-registry";
+import {
   findExpandedTexasBrandLocationsNearPointServer,
   findExpandedTexasBrandLocationsServer,
 } from "../data/texas-brand-locator-heb-formats.server";
@@ -17,22 +22,9 @@ import {
 
 const BRAND_LOCATION_INTENT_PATTERN = /\b(?:nearest|closest|nearby|near|find|where|location|locations|store|stores|around|by|in)\b/i;
 const WITHIN_PLACE_PATTERN = /\b(?:in|inside|within)\b/i;
-const HEB_PATTERN = /\b(?:h\s*[-.]?\s*e\s*[-.]?\s*b|heb)\b/i;
-const CENTRAL_MARKET_PATTERN = /\bcentral\s+market\b/i;
-const JOE_VS_PATTERN = /\bjoe\s+v(?:['’]s|s)?(?:\s+smart\s+shop)?\b/i;
-const MI_TIENDA_PATTERN = /\bmi\s+tienda\b/i;
-const BUCEES_PATTERN = /\bbuc[-’']?ee['’]?s\b/i;
 const STREET_ADDRESS_PATTERN = /\b\d{1,6}\s+[A-Za-z0-9.'#-]+(?:\s+[A-Za-z0-9.'#-]+){0,7}\s+(?:st|street|rd|road|ave|avenue|blvd|boulevard|ln|lane|dr|drive|ct|court|way|pkwy|parkway|hwy|highway|fm|rm)\b[^?\n]{0,100}/i;
 const PLACE_KINDS = new Set(["city", "county", "metro-area"]);
 const MAX_RESULTS_PER_BRAND = 3;
-
-const BRAND_LABELS: Record<TexasBrandLocatorBrand, string> = {
-  heb: "H-E-B",
-  "central-market": "Central Market",
-  "joe-vs": "Joe V's Smart Shop",
-  "mi-tienda": "Mi Tienda",
-  bucees: "Buc-ee's",
-};
 
 type TexasBrandLocationAnswerMode = "address" | TexasBrandLocationPlaceScope["mode"];
 
@@ -61,12 +53,7 @@ export type TexasBrandLocationAiAnswer = {
 };
 
 export function classifyTexasBrandLocationQuestion(question: string): TexasBrandLocationIntent {
-  const brands: TexasBrandLocatorBrand[] = [];
-  if (HEB_PATTERN.test(question)) brands.push("heb");
-  if (CENTRAL_MARKET_PATTERN.test(question)) brands.push("central-market");
-  if (JOE_VS_PATTERN.test(question)) brands.push("joe-vs");
-  if (MI_TIENDA_PATTERN.test(question)) brands.push("mi-tienda");
-  if (BUCEES_PATTERN.test(question)) brands.push("bucees");
+  const brands = TEXAS_BRAND_LOCATOR_BRANDS.filter((brand) => texasBrandLocatorQueryPattern(brand).test(question));
   const address = question.match(STREET_ADDRESS_PATTERN)?.[0]?.trim().replace(/[?.!,;:]+$/, "") ?? null;
   return {
     brands,
@@ -77,7 +64,7 @@ export function classifyTexasBrandLocationQuestion(question: string): TexasBrand
 }
 
 function brandLabel(brand: TexasBrandLocatorBrand) {
-  return BRAND_LABELS[brand];
+  return texasBrandLocatorLabel(brand);
 }
 
 function placeQuery(name: string, kind: string) {
@@ -119,10 +106,17 @@ function answerLines(
 }
 
 function texasBrandsSource() {
+  const supportedBrands = TEXAS_BRAND_LOCATOR_BRANDS.map(texasBrandLocatorLabel);
+  const finalLabel = supportedBrands.pop();
+  const brandList = finalLabel
+    ? supportedBrands.length
+      ? `${supportedBrands.join(", ")} and ${finalLabel}`
+      : finalLabel
+    : "Texas brands";
   return {
     title: "Legendary Texas Brands & Retail Institutions",
     href: "/things-unique-to-texas/texas-brands",
-    summary: "TexasDefined's Texas Brands chapter includes the H-E-B, Central Market, Joe V's Smart Shop, Mi Tienda and Buc-ee's locator with direct links to official location sources.",
+    summary: `TexasDefined's Texas Brands chapter includes the ${brandList} locator with direct links to official location sources.`,
     kind: "guide" as const,
   };
 }
