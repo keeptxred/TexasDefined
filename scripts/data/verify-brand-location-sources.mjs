@@ -33,6 +33,18 @@ function htmlToLines(html) {
     .filter(Boolean);
 }
 
+function asRecord(value) {
+  return value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+}
+
+function stringValue(...values) {
+  return values.find((value) => typeof value === 'string' && value.trim());
+}
+
+function numberValue(...values) {
+  return values.find((value) => typeof value === 'number' && Number.isFinite(value));
+}
+
 export function parseBuceesOfficialTexasLocations(html) {
   const lines = htmlToLines(html);
   const locations = [];
@@ -72,19 +84,69 @@ export function parseBuceesOfficialTexasLocations(html) {
   return locations;
 }
 
+function whataburgerMapDataJson(html) {
+  const script = html.match(/<script[^>]*class=["'][^"']*\bjs-map-data\b[^"']*["'][^>]*>([\s\S]*?)<\/script>/i);
+  if (!script?.[1]) throw new Error("Whataburger official directory map data was not found.");
+  return JSON.parse(script[1].trim());
+}
+
+export function parseWhataburgerOfficialTexasLocations(html) {
+  const payload = asRecord(whataburgerMapDataJson(html));
+  const response = asRecord(payload.response);
+  const entities = Array.isArray(response.entities) ? response.entities : [];
+
+  return entities.flatMap((entityValue, index) => {
+    const entity = asRecord(entityValue);
+    const profile = asRecord(entity.profile);
+    const address = asRecord(profile.address);
+    const meta = asRecord(profile.meta);
+    const coordinate = asRecord(profile.yextDisplayCoordinate ?? profile.displayCoordinate ?? profile.geo);
+    const latitude = numberValue(coordinate.lat, coordinate.latitude, profile.latitude);
+    const longitude = numberValue(coordinate.long, coordinate.lng, coordinate.longitude, profile.longitude);
+    const region = stringValue(address.region, address.state, profile.region, profile.state);
+    if (region && !/^(?:TX|Texas)$/i.test(region)) return [];
+    if (latitude === undefined || longitude === undefined) return [];
+
+    const id = String(stringValue(meta.id, profile.id, entity.id) ?? '').trim();
+    const street = stringValue(address.line1, address.address1, address.streetAddress, profile.address1, profile.streetAddress);
+    const city = stringValue(address.city, address.locality, profile.city);
+    const postalCode = stringValue(address.postalCode, address.zip, profile.postalCode, profile.zip);
+    if (!id || !street || !city || !postalCode) return [];
+
+    return [{
+      id,
+      name: stringValue(profile.name, profile.locationName, meta.name) ?? `Whataburger ${index + 1}`,
+      street,
+      city,
+      postalCode,
+      latitude,
+      longitude,
+    }];
+  });
+}
+
 export const SOURCE_ADAPTERS = Object.freeze({
   bucees: Object.freeze({
     brandSlug: 'bucees',
     label: "Buc-ee's",
     sourceUrl: 'https://buc-ees.com/locations/',
     minExpectedTexasLocations: 30,
+    requiresRegistry: true,
     parseOfficialLocations: parseBuceesOfficialTexasLocations,
+  }),
+  whataburger: Object.freeze({
+    brandSlug: 'whataburger',
+    label: 'Whataburger',
+    sourceUrl: 'https://locations.whataburger.com/tx.html',
+    minExpectedTexasLocations: 100,
+    requiresRegistry: false,
+    parseOfficialLocations: parseWhataburgerOfficialTexasLocations,
   }),
 });
 
 function adapterFor(brandSlug) {
   const adapter = SOURCE_ADAPTERS[brandSlug];
-  if (!adapter) throw new Error(`Unknown verified-registry brand: ${brandSlug}`);
+  if (!adapter) throw new Error(`Unknown brand location source: ${brandSlug}`);
   return adapter;
 }
 
@@ -103,18 +165,31 @@ function normalizeStreet(value) {
   return normalizeText(value).replace(/\s+/g, '');
 }
 
+function stableOfficialLocationId(location) {
+  return String(location.locationNumber ?? location.id ?? '').trim();
+}
+
 function validateOfficialLocations(adapter, locations) {
   const seen = new Set();
   for (const location of locations) {
-    const locationNumber = String(location.locationNumber ?? '').trim();
-    if (!locationNumber) throw new Error(`${adapter.label} official source returned a location without a stable location number.`);
-    if (seen.has(locationNumber)) throw new Error(`${adapter.label} official source returned duplicate location #${locationNumber}.`);
-    seen.add(locationNumber);
+    const stableId = stableOfficialLocationId(location);
+    if (!stableId) throw new Error(`${adapter.label} official source returned a location without a stable identifier.`);
+    if (seen.has(stableId)) throw new Error(`${adapter.label} official source returned duplicate location identifier ${stableId}.`);
+    seen.add(stableId);
+
+    if (adapter.requiresRegistry === false) {
+      if (!location.street || !location.city || !location.postalCode) {
+        throw new Error(`${adapter.label} official directory returned location ${stableId} without a complete Texas address.`);
+      }
+      if (!Number.isFinite(location.latitude) || !Number.isFinite(location.longitude)) {
+        throw new Error(`${adapter.label} official directory returned location ${stableId} without valid coordinates.`);
+      }
+    }
   }
 
   if (locations.length < adapter.minExpectedTexasLocations) {
     throw new Error(
-      `${adapter.label} official source parser found only ${locations.length} Texas locations; expected at least ${adapter.minExpectedTexasLocations}. Treating this as a source/parser failure rather than registry drift.`,
+      `${adapter.label} official source parser found only ${locations.length} Texas locations; expected at least ${adapter.minExpectedTexasLocations}. Treating this as a source/parser failure rather than accepting partial data.`,
     );
   }
 
@@ -264,9 +339,7 @@ async function markRegistryChecked(supabaseUrl, serviceRoleKey, adapter, checked
   return touched;
 }
 
-function selfTestAdapter(adapter) {
-  if (adapter.brandSlug !== 'bucees') throw new Error(`No self-test fixture is configured for ${adapter.brandSlug}.`);
-
+function buceesSelfTest(adapter) {
   const padded = Array.from({ length: 30 }, (_unused, index) => {
     const number = 100 + index;
     return `<h4>#${number} – Test ${index}, TX</h4><p>${index} Main St<br>Test ${index}, Texas 75000</p>`;
@@ -289,34 +362,83 @@ function selfTestAdapter(adapter) {
   assert.equal(compareOfficialToRegistryForAdapter(adapter, twoOfficial, twoRegistry).matches, false);
 }
 
+function whataburgerSelfTest(adapter) {
+  const entities = Array.from({ length: 100 }, (_unused, index) => ({
+    url: `/tx/test-${index}/${index}-main-st.html`,
+    profile: {
+      name: `Whataburger # ${1000 + index}`,
+      address: { line1: `${index} Main St`, city: `Test ${index}`, region: 'TX', postalCode: '75000' },
+      yextDisplayCoordinate: { lat: 30 + index / 1000, long: -97 - index / 1000 },
+      meta: { id: String(1000 + index) },
+    },
+  }));
+  entities.push({
+    profile: {
+      name: 'Out of state',
+      address: { line1: '1 Main St', city: 'Example', region: 'OK', postalCode: '73000' },
+      yextDisplayCoordinate: { lat: 35, long: -97 },
+      meta: { id: '9999' },
+    },
+  });
+  const fixture = `<script type="text/data" class="js-map-data">${JSON.stringify({ response: { entities } })}</script>`;
+  const parsed = validateOfficialLocations(adapter, adapter.parseOfficialLocations(fixture));
+  assert.equal(parsed.length, 100);
+  assert.equal(parsed[0].id, '1000');
+  assert.equal(parsed[99].city, 'Test 99');
+  assert.equal(parsed.some((row) => row.id === '9999'), false);
+}
+
+function selfTestAdapter(adapter) {
+  if (adapter.brandSlug === 'bucees') return buceesSelfTest(adapter);
+  if (adapter.brandSlug === 'whataburger') return whataburgerSelfTest(adapter);
+  throw new Error(`No self-test fixture is configured for ${adapter.brandSlug}.`);
+}
+
 export function runSelfTests(brandSlug = null) {
   const adapters = brandSlug ? [adapterFor(brandSlug)] : Object.values(SOURCE_ADAPTERS);
   for (const adapter of adapters) selfTestAdapter(adapter);
   console.log(`Brand location source verifier self-test passed for ${adapters.map((adapter) => adapter.label).join(', ')}.`);
 }
 
-export async function verifyAdapterLive(adapter, { supabaseUrl, serviceRoleKey }) {
-  const [officialHtml, registryRows] = await Promise.all([
-    requestWithRetry(
-      adapter.sourceUrl,
-      {
-        headers: {
-          'user-agent': 'TexasDefined location freshness verifier (+https://texasdefined.com/)',
-          accept: 'text/html,application/xhtml+xml',
-        },
+async function fetchOfficialLocations(adapter) {
+  const officialHtml = await requestWithRetry(
+    adapter.sourceUrl,
+    {
+      headers: {
+        'user-agent': 'TexasDefined location freshness verifier (+https://texasdefined.com/)',
+        accept: 'text/html,application/xhtml+xml',
       },
-      `${adapter.label} official locations source`,
-    ),
-    loadRegistryRows(supabaseUrl, serviceRoleKey, adapter),
-  ]);
+    },
+    `${adapter.label} official locations source`,
+  );
+  return validateOfficialLocations(adapter, adapter.parseOfficialLocations(officialHtml));
+}
 
-  const officialLocations = validateOfficialLocations(adapter, adapter.parseOfficialLocations(officialHtml));
+export async function verifyAdapterLive(adapter, environment = {}) {
+  const officialLocations = await fetchOfficialLocations(adapter);
+  const checkedAt = new Date().toISOString().slice(0, 10);
+
+  if (adapter.requiresRegistry === false) {
+    const result = {
+      status: 'verified',
+      brandSlug: adapter.brandSlug,
+      source: adapter.sourceUrl,
+      officialCount: officialLocations.length,
+      checkedAt,
+      mode: 'source-only',
+    };
+    console.log(JSON.stringify(result, null, 2));
+    return result;
+  }
+
+  const { supabaseUrl, serviceRoleKey } = environment;
+  if (!supabaseUrl || !serviceRoleKey) throw new Error(`${adapter.label} registry verification requires the protected Supabase environment.`);
+  const registryRows = await loadRegistryRows(supabaseUrl, serviceRoleKey, adapter);
   const comparison = compareOfficialToRegistryForAdapter(adapter, officialLocations, registryRows);
   if (!comparison.matches) {
     throw new Error(`${adapter.label} Texas location registry drift detected.\n${JSON.stringify(comparison, null, 2)}`);
   }
 
-  const checkedAt = new Date().toISOString().slice(0, 10);
   const touched = await markRegistryChecked(supabaseUrl, serviceRoleKey, adapter, checkedAt);
   const result = {
     status: 'verified',
@@ -326,16 +448,31 @@ export async function verifyAdapterLive(adapter, { supabaseUrl, serviceRoleKey }
     registryCount: comparison.registryCount,
     checkedAt,
     touched,
+    mode: 'registry',
   };
   console.log(JSON.stringify(result, null, 2));
   return result;
 }
 
-async function liveEnvironment() {
+function liveEnvironment(adapters) {
+  const needsRegistry = adapters.some((adapter) => adapter.requiresRegistry !== false);
   return {
     supabaseUrl: process.env.SUPABASE_URL?.trim() || 'https://ftkznprjljkhymknvhye.supabase.co',
-    serviceRoleKey: requireEnvironment('SUPABASE_SERVICE_ROLE_KEY'),
+    serviceRoleKey: needsRegistry ? requireEnvironment('SUPABASE_SERVICE_ROLE_KEY') : null,
   };
+}
+
+async function verifyMany(adapters) {
+  const environment = liveEnvironment(adapters);
+  const failures = [];
+  for (const adapter of adapters) {
+    try {
+      await verifyAdapterLive(adapter, environment);
+    } catch (error) {
+      failures.push(`${adapter.label}: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
+  if (failures.length) throw new Error(`Brand location source verification failed:\n${failures.join('\n\n')}`);
 }
 
 export async function runCli(args = process.argv.slice(2), options = {}) {
@@ -347,33 +484,31 @@ export async function runCli(args = process.argv.slice(2), options = {}) {
     return;
   }
 
-  const environment = await liveEnvironment();
   if (mode === '--live') {
     const brandSlug = forcedBrand ?? args[1];
     if (!brandSlug) throw new Error('A brand slug is required with --live.');
-    await verifyAdapterLive(adapterFor(brandSlug), environment);
+    const adapter = adapterFor(brandSlug);
+    await verifyMany([adapter]);
+    return;
+  }
+
+  if (mode === '--live-source-only') {
+    const adapters = Object.values(SOURCE_ADAPTERS).filter((adapter) => adapter.requiresRegistry === false);
+    if (!adapters.length) throw new Error('No source-only brand location adapters are configured.');
+    await verifyMany(adapters);
     return;
   }
 
   if (mode === '--live-all') {
     if (forcedBrand) {
-      await verifyAdapterLive(adapterFor(forcedBrand), environment);
+      await verifyMany([adapterFor(forcedBrand)]);
       return;
     }
-
-    const failures = [];
-    for (const adapter of Object.values(SOURCE_ADAPTERS)) {
-      try {
-        await verifyAdapterLive(adapter, environment);
-      } catch (error) {
-        failures.push(`${adapter.label}: ${error instanceof Error ? error.message : String(error)}`);
-      }
-    }
-    if (failures.length) throw new Error(`Brand location source verification failed:\n${failures.join('\n\n')}`);
+    await verifyMany(Object.values(SOURCE_ADAPTERS));
     return;
   }
 
-  throw new Error(`Unknown mode: ${mode}. Use --self-test, --live <brand-slug>, or --live-all.`);
+  throw new Error(`Unknown mode: ${mode}. Use --self-test, --live <brand-slug>, --live-source-only, or --live-all.`);
 }
 
 const invokedDirectly = Boolean(process.argv[1]) && import.meta.url === pathToFileURL(process.argv[1]).href;
