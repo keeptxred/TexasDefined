@@ -12,6 +12,10 @@ const required = [
   'src/components/content/AutoEntityLinks.tsx',
   'src/routes/$kind.$slug.tsx',
   'src/routes/api.ai.entities.ts',
+  'src/routes/api.knowledge-graph.ts',
+  'src/routes/api.internal-links.ts',
+  'src/routes/api.internal-link-quality.ts',
+  'src/routes/api.knowledge-graph-behavior.ts',
   'src/routes/llms[.]txt.ts',
   'scripts/data/import-authoritative-entities.mjs',
   'scripts/data/prepare-entity-promotion.mjs',
@@ -41,9 +45,26 @@ for (const feature of ['AutoEntityLinks','linked = new Set']) if (!articleBody.i
 for (const feature of ['loadTexasKnowledgeGraph','canonicalEntityPath']) if (!sitemap.includes(feature)) errors.push(`Entity sitemap feature missing: ${feature}.`);
 for (const feature of ['auditTexasKnowledgeGraph','missingOfficialUrls','duplicateAliases','Graph review queue']) if (!health.includes(feature)) errors.push(`Graph health feature missing: ${feature}.`);
 
+const requestScopedGraphApis = [
+  ['src/routes/api.ai.entities.ts', ["await import('@/data/knowledge-graph')"]],
+  ['src/routes/api.knowledge-graph.ts', ["await import('@/data/knowledge-graph')"]],
+  ['src/routes/api.internal-links.ts', ["import('@/data/knowledge-graph')", "import('@/platform/internal-linking')"]],
+  ['src/routes/api.internal-link-quality.ts', ["import('@/data/knowledge-graph')", "import('@/platform/internal-link-quality')"]],
+  ['src/routes/api.knowledge-graph-behavior.ts', ["import('@/data/knowledge-graph')", "import('@/platform/knowledge-graph-behavior')", "import('@/platform/knowledge-graph-regression')"]],
+];
+for (const [file, requiredImports] of requestScopedGraphApis) {
+  const source = read(file);
+  for (const dynamicImport of requiredImports) {
+    if (!source.includes(dynamicImport)) errors.push(`${file} must keep heavy graph/runtime loading behind its request handler: missing ${dynamicImport}`);
+  }
+  if (/import\s*\{[^}]*\b(?:loadTexasKnowledgeGraph|findCompleteTexasEntity|graphNeighbors|searchCompleteTexasKnowledgeGraph)\b[^}]*\}\s*from\s*['"]@\/data\/knowledge-graph['"]/.test(source)) {
+    errors.push(`${file} must not statically import knowledge-graph runtime functions into the eager route graph.`);
+  }
+}
+
 if (errors.length) {
   console.error('TexasDefined knowledge-graph platform validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('TexasDefined knowledge-graph phases 1.1–1.6 validated.');
+console.log('TexasDefined knowledge-graph phases 1.1–1.6 validated, including request-scoped graph/runtime loading for server API routes.');
