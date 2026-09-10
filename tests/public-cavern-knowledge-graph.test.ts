@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { canonicalEntityPath, isIndexableEntityPage } from '../src/data/knowledge-graph/relationships';
 import { PUBLIC_CAVERN_ENTITIES } from '../src/data/knowledge-graph/public-caverns';
+import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '../src/data/knowledge-graph';
 import { TEXAS_ENTITY_REGISTRY, validateTexasEntityRegistry } from '../src/data/texas-entity-registry';
 
 const EXPECTED_PUBLIC_CAVERNS = [
@@ -19,11 +20,11 @@ const EXPECTED_PUBLIC_CAVERNS = [
 ] as const;
 
 describe('public cavern knowledge graph', () => {
-  it('contains all 11 public cavern destinations in the static registry', () => {
-    const cavernSlugs = new Set(
-      TEXAS_ENTITY_REGISTRY.filter((entity) => entity.kind === 'cavern').map((entity) => entity.slug),
-    );
-    for (const slug of EXPECTED_PUBLIC_CAVERNS) expect(cavernSlugs.has(slug), slug).toBe(true);
+  it('keeps cavern mirrors out of the static client registry', () => {
+    const cavernSlugs = TEXAS_ENTITY_REGISTRY
+      .filter((entity) => entity.kind === 'cavern')
+      .map((entity) => entity.slug);
+    expect(cavernSlugs).toEqual(['natural-bridge-caverns']);
   });
 
   it('adds exactly the ten cavern mirrors that were missing from the original seed', () => {
@@ -31,16 +32,32 @@ describe('public cavern knowledge graph', () => {
     expect(PUBLIC_CAVERN_ENTITIES.some((entity) => entity.slug === 'natural-bridge-caverns')).toBe(false);
   });
 
-  it('canonicalizes every cavern entity to its Explore destination page and suppresses duplicate entity indexing', () => {
+  it('loads all 11 public cavern destinations through the complete knowledge graph', async () => {
+    const graph = await loadTexasKnowledgeGraph();
+    const cavernSlugs = new Set(
+      graph.filter((entity) => entity.kind === 'cavern').map((entity) => entity.slug),
+    );
+    for (const slug of EXPECTED_PUBLIC_CAVERNS) expect(cavernSlugs.has(slug), slug).toBe(true);
+  });
+
+  it('finds lazy cavern mirrors through direct complete entity lookup', async () => {
     for (const slug of EXPECTED_PUBLIC_CAVERNS) {
-      const entity = TEXAS_ENTITY_REGISTRY.find((candidate) => candidate.kind === 'cavern' && candidate.slug === slug);
+      const entity = await findCompleteTexasEntity(slug);
+      expect(entity?.kind, slug).toBe('cavern');
+      expect(entity?.slug, slug).toBe(slug);
+    }
+  });
+
+  it('canonicalizes every cavern entity to its Explore destination page and suppresses duplicate entity indexing', async () => {
+    for (const slug of EXPECTED_PUBLIC_CAVERNS) {
+      const entity = await findCompleteTexasEntity(slug);
       expect(entity, slug).toBeDefined();
       expect(canonicalEntityPath(entity!), slug).toBe(`/destination/${slug}`);
       expect(isIndexableEntityPage(entity!), slug).toBe(false);
     }
   });
 
-  it('keeps the full static registry structurally valid', () => {
+  it('keeps the static registry structurally valid', () => {
     const validation = validateTexasEntityRegistry();
     expect(validation.errors).toEqual([]);
     expect(validation.valid).toBe(true);
