@@ -12,7 +12,7 @@ export const goliadCountyGoliadLaBahiaSanAntonioRiverArticle: Article = {
   category: "texas-history",
   region: "gulf-coast",
   hero: {
-    src: "https://upload.wikimedia.org/wikipedia/commons/5/55/Goliad_courthouse.jpg",
+    src: "https://upload.wikimedia.org/wikipedia/commons/2/29/Goliad_courthouse.jpg",
     alt: "Goliad County Courthouse in Goliad, Texas",
     width: 1685,
     height: 1571,
