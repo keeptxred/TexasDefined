@@ -2,7 +2,6 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
-import { entitiesByKind } from '@/data/knowledge-graph';
 import { applyCurrentEntityCorrections } from '@/data/knowledge-graph/current-entity-corrections';
 import { canonicalEntityPath, isIndexableEntityPage } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
@@ -21,6 +20,7 @@ export const Route = createFileRoute('/sports-venues/$landing')({
     const landing = sportsVenueLanding(params.landing);
     if (!landing) throw notFound();
 
+    const { entitiesByKind } = await import('@/data/knowledge-graph');
     const venues = entitiesByKind('sports-venue')
       .filter(isIndexableEntityPage)
       .map(applyCurrentEntityCorrections)
