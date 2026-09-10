@@ -1,0 +1,98 @@
+name: Verify Texas brand location sources
+
+on:
+  schedule:
+    - cron: '17 13 * * 1'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/data/verify-brand-location-sources.mjs'
+      - 'scripts/data/verify-bucees-location-source.mjs'
+      - '.github/workflows/verify-brand-location-sources.yml'
+      - 'supabase/migrations/*brand*location*source*freshness*.sql'
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: brand-location-source-${{ github.event_name }}
+  cancel-in-progress: false
+
+jobs:
+  self-test:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Exercise source adapters and drift comparison
+        run: node scripts/data/verify-brand-location-sources.mjs --self-test
+
+  verify-live-sources:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: texasdefined-publication
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ftkznprjljkhymknvhye.supabase.co' }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+      DRIFT_ISSUE_TITLE: "Texas brand location source drift detected"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Require protected Supabase credential
+        shell: bash
+        run: |
+          if [[ -z "${SUPABASE_SERVICE_ROLE_KEY:-}" ]]; then
+            echo '::error title=Missing Supabase service-role credential::The location freshness guard cannot compare the protected registry without the existing production service-role secret.'
+            exit 1
+          fi
+
+      - name: Compare all configured official sources with protected registry
+        id: verify
+        continue-on-error: true
+        run: node scripts/data/verify-brand-location-sources.mjs --live-all
+
+      - name: Open or update drift issue
+        if: steps.verify.outcome == 'failure'
+        shell: bash
+        run: |
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "${DRIFT_ISSUE_TITLE} in:title" --json number,title --jq '.[] | select(.title == env.DRIFT_ISSUE_TITLE) | .number' | head -n 1)"
+          body="The scheduled TexasDefined brand-location source guard could not verify one or more configured protected registries against their official first-party source. Review the failed workflow run before changing location data. The guard never auto-adds, removes, relabels, or rewrites location inventory; it only advances source_checked_at after an exact verified match.\n\nRun: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          if [[ -n "$existing" ]]; then
+            gh issue comment "$existing" --repo "$GITHUB_REPOSITORY" --body "$body"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$DRIFT_ISSUE_TITLE" --body "$body"
+          fi
+
+      - name: Close recovered drift issue
+        if: steps.verify.outcome == 'success'
+        shell: bash
+        run: |
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "${DRIFT_ISSUE_TITLE} in:title" --json number,title --jq '.[] | select(.title == env.DRIFT_ISSUE_TITLE) | .number' | head -n 1)"
+          if [[ -n "$existing" ]]; then
+            gh issue comment "$existing" --repo "$GITHUB_REPOSITORY" --body "All configured official brand-location sources and protected TexasDefined registries match again. Closing this drift alert after successful verification in run ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}."
+            gh issue close "$existing" --repo "$GITHUB_REPOSITORY" --reason completed
+          fi
+
+      - name: Enforce source freshness result
+        if: steps.verify.outcome == 'failure'
+        run: |
+          echo '::error title=Texas brand location source verification failed::See the verifier output and drift issue before editing the protected registry.'
+          exit 1
