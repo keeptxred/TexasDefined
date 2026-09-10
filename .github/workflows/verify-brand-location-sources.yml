@@ -36,6 +36,9 @@ jobs:
       - name: Exercise source adapters and drift comparison
         run: node scripts/data/verify-brand-location-sources.mjs --self-test
 
+      - name: Verify source-only official directories live
+        run: node scripts/data/verify-brand-location-sources.mjs --live-source-only
+
   verify-live-sources:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
@@ -60,11 +63,11 @@ jobs:
         shell: bash
         run: |
           if [[ -z "${SUPABASE_SERVICE_ROLE_KEY:-}" ]]; then
-            echo '::error title=Missing Supabase service-role credential::The location freshness guard cannot compare the protected registry without the existing production service-role secret.'
+            echo '::error title=Missing Supabase service-role credential::The location freshness guard cannot compare registry-backed sources without the existing production service-role secret.'
             exit 1
           fi
 
-      - name: Compare all configured official sources with protected registry
+      - name: Verify all configured official brand location sources
         id: verify
         continue-on-error: true
         run: node scripts/data/verify-brand-location-sources.mjs --live-all
@@ -74,7 +77,7 @@ jobs:
         shell: bash
         run: |
           existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "${DRIFT_ISSUE_TITLE} in:title" --json number,title --jq '.[] | select(.title == env.DRIFT_ISSUE_TITLE) | .number' | head -n 1)"
-          body="The scheduled TexasDefined brand-location source guard could not verify one or more configured protected registries against their official first-party source. Review the failed workflow run before changing location data. The guard never auto-adds, removes, relabels, or rewrites location inventory; it only advances source_checked_at after an exact verified match.\n\nRun: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          body="The scheduled TexasDefined brand-location source guard could not verify one or more configured official first-party sources. Registry-backed adapters are compared exactly with the protected TexasDefined registry; source-only adapters must still expose a complete, parseable Texas directory with stable identifiers, addresses and coordinates. Review the failed workflow run before changing location behavior. The guard never auto-adds, removes, relabels or rewrites location inventory; it only advances source_checked_at for an exact verified registry match.\n\nRun: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
           if [[ -n "$existing" ]]; then
             gh issue comment "$existing" --repo "$GITHUB_REPOSITORY" --body "$body"
           else
@@ -87,12 +90,12 @@ jobs:
         run: |
           existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "${DRIFT_ISSUE_TITLE} in:title" --json number,title --jq '.[] | select(.title == env.DRIFT_ISSUE_TITLE) | .number' | head -n 1)"
           if [[ -n "$existing" ]]; then
-            gh issue comment "$existing" --repo "$GITHUB_REPOSITORY" --body "All configured official brand-location sources and protected TexasDefined registries match again. Closing this drift alert after successful verification in run ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}."
+            gh issue comment "$existing" --repo "$GITHUB_REPOSITORY" --body "All configured official brand-location sources are healthy again, and every registry-backed source matches the protected TexasDefined registry. Closing this alert after successful verification in run ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}."
             gh issue close "$existing" --repo "$GITHUB_REPOSITORY" --reason completed
           fi
 
       - name: Enforce source freshness result
         if: steps.verify.outcome == 'failure'
         run: |
-          echo '::error title=Texas brand location source verification failed::See the verifier output and drift issue before editing the protected registry.'
+          echo '::error title=Texas brand location source verification failed::See the verifier output and drift issue before changing locator data or parser behavior.'
           exit 1
