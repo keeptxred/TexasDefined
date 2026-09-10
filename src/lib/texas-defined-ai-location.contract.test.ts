@@ -5,13 +5,14 @@ const aiSource = readFileSync(new URL("./texas-defined-ai.server.ts", import.met
 const locationSource = readFileSync(new URL("./texas-defined-ai-location.server.ts", import.meta.url), "utf8");
 const signalsSource = readFileSync(new URL("./texas-defined-ai-signals.server.ts", import.meta.url), "utf8");
 const locatorSource = readFileSync(new URL("../data/texas-brand-locator.server.ts", import.meta.url), "utf8");
+const verifiedRegistrySource = readFileSync(new URL("../data/texas-brand-locator-verified-registry.server.ts", import.meta.url), "utf8");
 const hebFormatsSource = readFileSync(new URL("../data/texas-brand-locator-heb-formats.server.ts", import.meta.url), "utf8");
 const registrySource = readFileSync(new URL("../data/texas-brand-locator-registry.ts", import.meta.url), "utf8");
 const foundationMigration = readFileSync(new URL("../../supabase/migrations/20260907021751_texasdefined_ai_intelligence_foundation.sql", import.meta.url), "utf8");
 const feedbackMigration = readFileSync(new URL("../../supabase/migrations/20260907031500_texasdefined_ai_signal_feedback_loop.sql", import.meta.url), "utf8");
 
 describe("Ask Texas brand-location intelligence", () => {
-  it("routes registered H-E-B family and Buc-ee's location questions through the deterministic locator before the language model", () => {
+  it("routes registered H-E-B family and verified-registry location questions through the deterministic locator before the language model", () => {
     expect(locationSource).toContain("classifyTexasBrandLocationQuestion");
     expect(locationSource).toContain("TEXAS_BRAND_LOCATOR_BRANDS.filter");
     expect(locationSource).toContain("texasBrandLocatorQueryPattern(brand).test(question)");
@@ -24,6 +25,7 @@ describe("Ask Texas brand-location intelligence", () => {
     expect(locationSource).toContain("findExpandedTexasBrandLocationsNearPointServer");
     expect(locationSource).toContain("findExpandedTexasBrandLocationsServer");
     expect(locatorSource).toContain("export async function findTexasBrandLocationsNearPointServer");
+    expect(locatorSource).toContain("findVerifiedRegistryLocationsServer(brand, origin)");
     expect(hebFormatsSource).toContain("export async function findExpandedTexasBrandLocationsNearPointServer");
     expect(aiSource).toContain("answerTexasBrandLocationQuestion(question)");
     expect(aiSource.indexOf("answerTexasBrandLocationQuestion(question)")).toBeLessThan(aiSource.indexOf("const ai = workersAi(env)"));
@@ -77,19 +79,23 @@ describe("Ask Texas brand-location intelligence", () => {
 
   it("keeps the public locator zero-added-cost and server-grounded", () => {
     expect(locatorSource).toContain("commerce-api/v1/store/locator/address");
-    expect(locatorSource).toContain("geocoding.geo.census.gov/geocoder/locations/addressbatch");
-    expect(locatorSource).toContain('from("texasdefined_brand_locations")');
+    expect(verifiedRegistrySource).toContain("geocoding.geo.census.gov/geocoder/locations/addressbatch");
+    expect(verifiedRegistrySource).toContain('from("texasdefined_brand_locations")');
+    expect(verifiedRegistrySource).toContain('.eq("public_locator_enabled", true)');
     expect(hebFormatsSource).toContain("commerce-api/v1/store/locator/address");
     expect(hebFormatsSource).not.toContain("texasdefined_brand_locations");
     expect(locatorSource).not.toMatch(/GOOGLE_(?:MAPS|PLACES)_API_KEY|MAPBOX_TOKEN|GEOCODIO|HERE_API/i);
+    expect(verifiedRegistrySource).not.toMatch(/GOOGLE_(?:MAPS|PLACES)_API_KEY|MAPBOX_TOKEN|GEOCODIO|HERE_API/i);
     expect(hebFormatsSource).not.toMatch(/GOOGLE_(?:MAPS|PLACES)_API_KEY|MAPBOX_TOKEN|GEOCODIO|HERE_API/i);
   });
 
-  it("uses one server registry for supported-brand identity, labels and query recognition", () => {
+  it("uses one server registry for supported-brand identity, labels, provider routing and query recognition", () => {
     expect(registrySource).toContain("export const TEXAS_BRAND_LOCATOR_REGISTRY");
     expect(registrySource).toContain("export type TexasBrandLocatorBrand = keyof typeof TEXAS_BRAND_LOCATOR_REGISTRY");
+    expect(registrySource).toContain("export type TexasBrandLocatorVerifiedRegistryBrand");
     expect(locationSource).toContain("texasBrandLocatorLabel");
     expect(locationSource).toContain("texasBrandLocatorQueryPattern");
+    expect(locatorSource).toContain("isTexasBrandLocatorVerifiedRegistryBrand");
     expect(locationSource).not.toContain("const BRAND_LABELS");
   });
 });

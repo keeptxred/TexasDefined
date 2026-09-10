@@ -4,9 +4,13 @@ import {
   DEFAULT_TEXAS_BRAND_LOCATOR_BRANDS,
   TEXAS_BRAND_LOCATOR_BRANDS,
   TEXAS_BRAND_LOCATOR_REGISTRY,
+  TEXAS_BRAND_LOCATOR_VERIFIED_REGISTRY_BRANDS,
 } from "../texas-brand-locator-registry";
 
 const bootstrapSource = readFileSync(new URL("../../../public/texas-brand-locator.js", import.meta.url), "utf8");
+const baseServerSource = readFileSync(new URL("../texas-brand-locator.server.ts", import.meta.url), "utf8");
+const verifiedProviderSource = readFileSync(new URL("../texas-brand-locator-verified-registry.server.ts", import.meta.url), "utf8");
+const rpcSource = readFileSync(new URL("../texas-brand-locator-rpc.server.ts", import.meta.url), "utf8");
 
 describe("Texas brand locator registry parity", () => {
   it("keeps every registered brand selectable in the deferred public locator UI", () => {
@@ -29,11 +33,15 @@ describe("Texas brand locator registry parity", () => {
     }
   });
 
-  it("does not silently add a verified-registry brand before the server provider supports it", () => {
-    const verifiedRegistryBrands = TEXAS_BRAND_LOCATOR_BRANDS.filter(
-      (brand) => TEXAS_BRAND_LOCATOR_REGISTRY[brand].provider === "verified-registry",
-    );
-    expect(verifiedRegistryBrands).toEqual(["bucees"]);
+  it("routes every verified-registry brand through the generic server and bounded RPC providers", () => {
+    expect(TEXAS_BRAND_LOCATOR_VERIFIED_REGISTRY_BRANDS).toEqual(["bucees"]);
+    expect(baseServerSource).toContain("isTexasBrandLocatorVerifiedRegistryBrand");
+    expect(baseServerSource).toContain("findVerifiedRegistryLocationsServer(brand, origin)");
+    expect(verifiedProviderSource).toContain("TexasBrandLocatorVerifiedRegistryBrand");
+    expect(verifiedProviderSource).toContain('.eq("brand_slug", brand)');
+    expect(verifiedProviderSource).not.toContain('brand: "bucees"');
+    expect(rpcSource).toContain('client.rpc("texasdefined_nearest_brand_locations"');
+    expect(rpcSource).toContain("p_brand_slug: brand");
   });
 
   it("requires unique labels, official HTTPS locators and query patterns for every brand", () => {

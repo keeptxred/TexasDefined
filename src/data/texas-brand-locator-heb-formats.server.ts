@@ -31,8 +31,8 @@ function isHebFormatBrand(brand: TexasBrandLocatorBrand): brand is TexasBrandLoc
   return texasBrandLocatorStoreNamePattern(brand) instanceof RegExp;
 }
 
-function isBaseBrand(brand: TexasBrandLocatorBrand): brand is "heb" | "bucees" {
-  return brand === "heb" || brand === "bucees";
+function isBaseBrand(brand: TexasBrandLocatorBrand) {
+  return !isHebFormatBrand(brand);
 }
 
 function isHebSpecialtyName(name: string) {
