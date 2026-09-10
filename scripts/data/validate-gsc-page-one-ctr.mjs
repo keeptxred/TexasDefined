@@ -216,6 +216,39 @@ if (sixthWave.length !== 20) {
   failures.push('Expected exactly 20 sixth-wave GSC CTR experiments, found ' + sixthWave.length + '.');
 }
 
+const seventhWave = [
+  { path: "/event/addison-oktoberfest", title: "Addison Oktoberfest 2026: Dates, Hours, Tickets & Parking", description: "Addison Oktoberfest runs Sept. 17-20, 2026" },
+  { path: "/texas-state-fair", title: "State Fair of Texas 2026: Dates, Hours, Tickets & Fair Park", description: "The State Fair of Texas runs Sept. 25-Oct. 18, 2026" },
+  { path: "/article/el-paso-county-missions-rio-grande-texas", title: "El Paso County Missions & Rio Grande: Borderlands History Guide", description: "Explore El Paso County through the Rio Grande, Ysleta Mission" },
+  { path: "/article/texas-barbecue-styles-explained", title: "Texas Barbecue Styles: Central, East, South & West Texas BBQ", description: "Compare Texas barbecue styles by region" },
+  { path: "/article/texas-business-routes-explained", title: "What Is a Business Highway? Texas Business Routes Explained", description: "Learn what a business highway or business route is" },
+  { path: "/article/texas-culture-social-customs-newcomers", title: "Texas Culture & Traditions: Newcomer Guide to Social Customs", description: "Understand Texas culture, traditions and everyday social customs" },
+  { path: "/things-unique-to-texas", title: "What Is Texas Known For? Iconic Foods, Places & Traditions", description: "Explore things strongly associated with Texas" },
+  { path: "/article/texas-guadalupe-river-guide", title: "Guadalupe River Texas: Canyon Lake, Tubing, Basin & River Guide", description: "Follow the Guadalupe River through the Hill Country" },
+  { path: "/destination/natural-bridge-wildlife-ranch", title: "Natural Bridge Wildlife Ranch: Tickets, Hours & Visitor Guide", description: "Plan a Natural Bridge Wildlife Ranch visit near San Antonio" },
+  { path: "/event/lone-star-cowboy-poetry-gathering-bastrop", title: "Lone Star Cowboy Poetry Gathering 2027: Bastrop Dates & Guide", description: "returns to Bastrop Sept. 3-4, 2027" },
+  { path: "/event/schulenburg-festival", title: "Schulenburg Festival 2027: Dates, Schedule & Visitor Guide", description: "Schulenburg Festival runs Aug. 5-8, 2027" },
+  { path: "/event/terlingua-international-chili-championship", title: "Terlingua International Chili Championship: Dates & Visitor Guide", description: "Plan the Terlingua International Chili Championship" },
+  { path: "/sports-venue/cotton-bowl-stadium", title: "Cotton Bowl Stadium Dallas: Parking, Map & Events", description: "Plan a Cotton Bowl Stadium visit at Fair Park in Dallas" },
+  { path: "/sports-venue/datcu-stadium", title: "DATCU Stadium Denton: Parking, Map & North Texas Football", description: "Plan a DATCU Stadium visit in Denton" },
+  { path: "/sports-venue/jamail-texas-swimming-center", title: "Lee & Joe Jamail Texas Swimming Center: Parking & Events", description: "Plan a Jamail Texas Swimming Center visit in Austin" },
+  { path: "/sports-venue/tpc-san-antonio", title: "TPC San Antonio: Golf Courses, Tournaments & Visitor Guide", description: "Explore TPC San Antonio with course, tournament" },
+  { path: "/texas-country-outlaw", title: "Texas Outlaw Country: Artists, History & Texas Country Sound", description: "Explore Texas outlaw country and Texas country music" },
+  { path: "/texas-vs/louisiana", title: "Texas vs Louisiana: Cost of Living, Taxes, Climate & Lifestyle", description: "Compare Texas and Louisiana on cost of living" },
+  { path: "/texas-symbols/tree", title: "Texas State Tree: Pecan Tree Facts & State Symbol History", description: "The pecan is the official Texas state tree" },
+  { path: "/destination/mckinney-falls-state-park", title: "McKinney Falls State Park: Trails, Camping & Austin Visitor Guide", description: "Plan McKinney Falls State Park near Austin" },
+];
+
+for (const experiment of seventhWave) {
+  for (const required of ['"' + experiment.path + '"', experiment.title, experiment.description]) {
+    if (!seo.includes(required)) failures.push('Seventh-wave CTR contract missing for ' + experiment.path + ': ' + required);
+  }
+}
+
+if (seventhWave.length !== 20) {
+  failures.push('Expected exactly 20 seventh-wave GSC CTR experiments, found ' + seventhWave.length + '.');
+}
+
 const settlementLandingSelection = {
   path: '/article/texas-settlement-patterns-explained',
   title: 'Texas Settlement Patterns: How Geography Shaped Towns',
