@@ -1,6 +1,3 @@
-import { TEXAS_CITIES } from '@/data/texas-places';
-import { getCountyPropertyRecordBySlug } from '@/data/property/county-property-data';
-
 const TSL_COUNTY_SEATS_URL = 'https://www.tsl.texas.gov/ref/abouttx/countyseats.html';
 const CENSUS_TIGERWEB_COUNTIES_URL = 'https://tigerweb.geo.census.gov/arcgis/rest/services/Census2020/State_County/MapServer/1/query';
 const CENSUS_TIGERWEB_SOURCE_URL = 'https://tigerweb.geo.census.gov/arcgis/rest/services/Census2020/State_County/MapServer/1';
@@ -60,6 +57,10 @@ export function loadCountyProfile(slug: string, countyName: string) {
 }
 
 async function fetchCountyProfile(slug: string, countyName: string): Promise<CountyProfile> {
+  const [{ getCountyPropertyRecordBySlug }, { TEXAS_CITIES }] = await Promise.all([
+    import('@/data/property/county-property-data'),
+    import('@/data/texas-places'),
+  ]);
   const propertyRecord = getCountyPropertyRecordBySlug(slug);
   const fips = propertyRecord?.fips;
   const countyCode = fips?.slice(2);
