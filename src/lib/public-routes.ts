@@ -299,7 +299,7 @@ export const REDIRECT_ONLY_PATHS = [
   "/destination/devils-river-del-norte-unit-state-natural-area",
   "/destination/devils-river-big-satan-unit-state-natural-area",
   "/destination/world-birding-center-bentsen-rio-grande-valley-state-park",
-  "/destination/world-birding-center-estero-llano-grande-valley-state-park",
+  "/destination/world-birding-center-estero-llano-grande-state-park",
   "/destination/world-birding-center-resaca-de-la-palma-state-park",
   "/historic-site/fanthorp-inn-state-historic-site",
   "/historic-site/lipantitlan-state-historic-site",
