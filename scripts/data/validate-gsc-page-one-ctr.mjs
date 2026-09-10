@@ -183,6 +183,39 @@ if (fifthWave.length !== 20) {
   failures.push('Expected exactly 20 fifth-wave GSC CTR experiments, found ' + fifthWave.length + '.');
 }
 
+const sixthWave = [
+  { path: "/county/bowie", title: "Bowie County, Texas: Population, County Seat & Local Guide", description: "Explore Bowie County, Texas with population, county seat, communities" },
+  { path: "/county/burnet", title: "Burnet County, Texas: Population, County Seat & Local Guide", description: "Explore Burnet County, Texas with population, county seat, communities" },
+  { path: "/county/erath", title: "Erath County, Texas: Population, County Seat & Local Guide", description: "Explore Erath County, Texas with population, county seat, communities" },
+  { path: "/county/henderson", title: "Henderson County, Texas: Population, County Seat & Local Guide", description: "Explore Henderson County, Texas with population, county seat, communities" },
+  { path: "/county/jasper", title: "Jasper County, Texas: Population, County Seat & Local Guide", description: "Explore Jasper County, Texas with population, county seat, communities" },
+  { path: "/county/orange", title: "Orange County, Texas: Population, County Seat & Local Guide", description: "Explore Orange County, Texas with population, county seat, communities" },
+  { path: "/county/panola", title: "Panola County, Texas: Population, County Seat & Local Guide", description: "Explore Panola County, Texas with population, county seat, communities" },
+  { path: "/county/refugio", title: "Refugio County, Texas: Population, County Seat & Local Guide", description: "Explore Refugio County, Texas with population, county seat, communities" },
+  { path: "/explore/painted-churches/guides/painted-churches-weekend-hours", title: "Painted Churches of Texas: Weekend Hours & Tour Planning", description: "Plan a weekend visit to Texas Painted Churches with opening-hour guidance" },
+  { path: "/fishing/lakes/sam-rayburn-reservoir/fish", title: "Sam Rayburn Reservoir Fish Species: Bass, Crappie & More", description: "See common fish species in Sam Rayburn Reservoir" },
+  { path: "/sports-venue/momentum-bank-ballpark", title: "Momentum Bank Ballpark: Midland RockHounds Stadium Guide", description: "Plan a Momentum Bank Ballpark visit in Midland with RockHounds baseball" },
+  { path: "/sports-venue/lone-star-park", title: "Lone Star Park Grand Prairie: Racing, Tickets & Visitor Guide", description: "Plan a Lone Star Park visit in Grand Prairie with horse-racing" },
+  { path: "/sports-venue/sun-bowl-stadium", title: "Sun Bowl Stadium El Paso: Parking, Map & Events", description: "Plan a Sun Bowl Stadium visit in El Paso with parking" },
+  { path: "/sports-venue/college-park-center", title: "College Park Center Arlington: Parking, Map & Events", description: "Plan a College Park Center visit in Arlington with parking" },
+  { path: "/sports-venue/unt-coliseum", title: "UNT Coliseum (Super Pit): Parking, Map & Events", description: "Plan a UNT Coliseum visit in Denton with parking" },
+  { path: "/texas-symbols/amphibian", title: "Texas State Amphibian: Texas Toad Facts & History", description: "The Texas toad is the official state amphibian" },
+  { path: "/texas-symbols/cobbler", title: "Texas State Cobbler: Peach Cobbler Facts & History", description: "Peach cobbler is the official Texas state cobbler" },
+  { path: "/texas-symbols/dinosaur", title: "Texas State Dinosaur: Paluxysaurus Facts & History", description: "Learn about the official Texas state dinosaur, Paluxysaurus" },
+  { path: "/texas-vs/utah", title: "Texas vs Utah: Cost of Living, Climate, Taxes & Lifestyle", description: "Compare Texas and Utah on cost of living, taxes, housing, climate" },
+  { path: "/texas-vs/south-carolina", title: "Texas vs South Carolina: Cost, Taxes, Climate & Lifestyle", description: "Compare Texas and South Carolina on cost of living, taxes, housing, climate" },
+];
+
+for (const experiment of sixthWave) {
+  for (const required of ['"' + experiment.path + '"', experiment.title, experiment.description]) {
+    if (!seo.includes(required)) failures.push('Sixth-wave CTR contract missing for ' + experiment.path + ': ' + required);
+  }
+}
+
+if (sixthWave.length !== 20) {
+  failures.push('Expected exactly 20 sixth-wave GSC CTR experiments, found ' + sixthWave.length + '.');
+}
+
 const settlementLandingSelection = {
   path: '/article/texas-settlement-patterns-explained',
   title: 'Texas Settlement Patterns: How Geography Shaped Towns',
