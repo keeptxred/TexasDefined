@@ -30,6 +30,7 @@ const ENTITY_REDIRECTS: Record<string, string> = {
   "/beach/padre-island-national-seashore": "/destination/padre-island-national-seashore",
   "/historic-site/the-alamo": "/destination/the-alamo",
   "/destination/courthouse-on-the-square-museum-denton": "/destination/denton-county-courthouse-on-the-square-museum",
+  "/destination/devil-s-sinkhole-state-natural-area": "/destination/devils-sinkhole-state-natural-area",
   "/sports-venue/nrg-stadium": "/sports-venue/reliant-stadium",
   "/article/best-places-for-fall-colors-in-texas": "/article/best-texas-state-parks-for-fall-colors",
 };
@@ -354,57 +355,33 @@ async function addBingVerificationMeta(request: Request, response: Response): Pr
   });
 }
 
-// h3 swallows in-handler throws into a normal 500 Response with body
-// {"unhandled":true,"message":"HTTPError"} — try/catch alone never fires for those.
-async function normalizeCatastrophicSsrResponse(response: Response): Promise<Response> {
-  if (response.status < 500) return response;
-  const contentType = response.headers.get("content-type") ?? "";
-  if (!contentType.includes("application/json")) return response;
-
-  const body = await response.clone().text();
-  if (!isH3SwallowedErrorBody(body)) return response;
-
-  console.error(consumeLastCapturedError() ?? new Error(`h3 swallowed SSR error: ${body}`));
-  return new Response(renderErrorPage(), {
-    status: 500,
-    headers: { "content-type": "text/html; charset=utf-8" },
-  });
-}
-
-function isH3SwallowedErrorBody(body: string): boolean {
-  try {
-    const payload = JSON.parse(body) as { unhandled?: unknown; message?: unknown };
-    return payload.unhandled === true && payload.message === "HTTPError";
-  } catch {
-    return false;
-  }
-}
-
 export default {
-  async fetch(request: Request, env: unknown, ctx: unknown) {
+  async fetch(request: Request, env: unknown, ctx: unknown): Promise<Response> {
+    const hostRedirect = canonicalHostRedirect(request);
+    if (hostRedirect) return hostRedirect;
+
+    const entityRedirect = canonicalEntityRedirect(request);
+    if (entityRedirect) return entityRedirect;
+
+    const countyRedirect = legacyCountyRedirect(request);
+    if (countyRedirect) return countyRedirect;
+
+    const adsResponse = adsTxtResponse(request);
+    if (adsResponse) return adsResponse;
+
+    const viatorResponse = await viatorApiResponse(request, env, ctx);
+    if (viatorResponse) return viatorResponse;
+
+    const imageResponse = await remoteImageResponse(request, ctx);
+    if (imageResponse) return imageResponse;
+
     try {
-      const canonicalRedirect = canonicalHostRedirect(request);
-      if (canonicalRedirect) return canonicalRedirect;
-      const adsTxt = adsTxtResponse(request);
-      if (adsTxt) return adsTxt;
-      const image = await remoteImageResponse(request, ctx);
-      if (image) return image;
-      const viator = await viatorApiResponse(request, env, ctx);
-      if (viator) return viator;
-      const countyRedirect = legacyCountyRedirect(request);
-      if (countyRedirect) return countyRedirect;
-      const entityRedirect = canonicalEntityRedirect(request);
-      if (entityRedirect) return entityRedirect;
-      const handler = await getServerEntry();
-      const response = await handler.fetch(request, env, ctx);
-      const normalizedResponse = await normalizeCatastrophicSsrResponse(response);
-      return await addBingVerificationMeta(request, normalizedResponse);
+      const server = await getServerEntry();
+      const response = await server.fetch(request, env, ctx);
+      return addBingVerificationMeta(request, response);
     } catch (error) {
-      console.error(error);
-      return new Response(renderErrorPage(), {
-        status: 500,
-        headers: { "content-type": "text/html; charset=utf-8" },
-      });
+      const captured = consumeLastCapturedError();
+      return renderErrorPage(captured?.error ?? error, request);
     }
   },
 };
