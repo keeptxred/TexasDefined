@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: 22
       - name: Apply guarded patch
-        run: python scripts/data/apply-appraisal-canonical-priority-temp.py
+        run: python3 scripts/data/apply-appraisal-canonical-priority-temp.py
       - name: Validate internal-link discovery
         run: node scripts/data/validate-internal-link-discovery.mjs
       - name: Commit patch
