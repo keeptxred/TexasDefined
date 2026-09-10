@@ -1,5 +1,4 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { PrioritySearchPage } from "@/components/editorial/PrioritySearchPage";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 
@@ -18,9 +17,4 @@ export const Route = createFileRoute("/everything-bigger-in-texas")({
     data: loaderData,
     about: ["everything is bigger in Texas", "Texas facts", "King Ranch", "Bracken Cave", "Texas superlatives"],
   }) : {},
-  component: Page,
 });
-
-function Page() {
-  return <PrioritySearchPage data={Route.useLoaderData()} />;
-}
