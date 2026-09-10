@@ -152,7 +152,7 @@ function SportsVenuePage() {
           <span aria-current="page" className="text-foreground">{entity.name}</span>
         </nav>
 
-        <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
+        <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
           <div>
             <p className="eyebrow text-primary">{profile.eyebrow}</p>
             <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{entity.name}</h1>
