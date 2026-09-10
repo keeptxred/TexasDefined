@@ -114,6 +114,10 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     title: "What Does ISD Stand For in Texas? School District Guide",
     description: "ISD means Independent School District. Learn why city limits and ZIP codes do not determine school districts, campus zones or local school taxes.",
   },
+  "/article/texas-settlement-patterns-explained": {
+    title: "Texas Settlement Patterns: How Geography Shaped Towns",
+    description: "See how rivers and reliable water drew early Texas settlement, while rainfall and fertile soils supported denser farm communities than drier ranch country.",
+  },
   "/article/why-texas-has-254-counties": {
     title: "Why Does Texas Have 254 Counties? History & County Seats",
     description: "Texas has more counties than any other state. See how distance, settlement, county seats and 19th-century travel created the 254-county map.",

@@ -5,6 +5,7 @@ const westfest = fs.readFileSync('src/data/major-event-expanded-authority-tranch
 const poteet = fs.readFileSync('src/data/major-event-expanded-authority-tranche21.server.ts', 'utf8');
 const sweetwater = fs.readFileSync('src/data/major-event-expanded-authority-tranche16.server.ts', 'utf8');
 const charro = fs.readFileSync('src/data/major-event-expanded-authority-tranche5.server.ts', 'utf8');
+const settlementStub = fs.readFileSync('src/data/fixtures/texas-explained-support-stubs.ts', 'utf8');
 const failures = [];
 
 for (const required of [
@@ -149,6 +150,12 @@ const fourthWaveCorrections = [
   { path: '/event/charro-days-fiesta', title: 'Charro Days Fiesta 2027: Dates, Parade & Brownsville Guide', description: 'Charro Days Fiesta 2027 core dates are Feb. 25-27 in Brownsville' },
 ];
 
+const settlementLandingSelection = {
+  path: '/article/texas-settlement-patterns-explained',
+  title: 'Texas Settlement Patterns: How Geography Shaped Towns',
+  description: 'See how rivers and reliable water drew early Texas settlement, while rainfall and fertile soils supported denser farm communities than drier ranch country',
+};
+
 for (const experiment of experiments) {
   for (const required of [`\"${experiment.path}\"`, experiment.title, experiment.description]) {
     if (!seo.includes(required)) failures.push(`Page-one CTR contract missing for ${experiment.path}: ${required}`);
@@ -187,6 +194,28 @@ for (const experiment of fourthWaveCorrections) {
 
 if (fourthWaveCorrections.length !== 2) {
   failures.push(`Expected exactly 2 fourth-wave GSC CTR corrections, found ${fourthWaveCorrections.length}.`);
+}
+
+for (const required of [
+  `\"${settlementLandingSelection.path}\"`,
+  settlementLandingSelection.title,
+  settlementLandingSelection.description,
+]) {
+  if (!seo.includes(required)) failures.push(`Settlement landing-selection SSR signal missing: ${required}`);
+}
+
+for (const required of [
+  'slug: "texas-settlement-patterns-explained"',
+  `title: "${settlementLandingSelection.title}"`,
+  `dek: "${settlementLandingSelection.description}."`,
+  '"texas settlement patterns"',
+  '"texas geography"',
+]) {
+  if (!settlementStub.includes(required)) failures.push(`Settlement landing-selection catalog signal missing: ${required}`);
+}
+
+if (settlementStub.includes('title: "Why Texas Towns Are Where They Are: Rivers, Railroads, Ranches & County Seats"')) {
+  failures.push('Settlement catalog title must not keep the weaker town-location framing that Google bypassed for the broader hub.');
 }
 
 for (const required of [
@@ -255,4 +284,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('GSC page-one CTR validation passed: the original top 20, second-wave 14, third-wave 4 and fourth-wave 2 corrections remain server-only and length-guarded; Sweetwater remains a recurrence-derived 2027 planning window while Charro Days uses organizer-confirmed 2027 schedule data.');
+console.log('GSC page-one CTR validation passed: the original top 20, second-wave 14, third-wave 4 and fourth-wave 2 corrections remain server-only and length-guarded; Sweetwater remains a recurrence-derived 2027 planning window, Charro Days uses organizer-confirmed 2027 schedule data, and the dedicated Texas settlement-patterns child page now carries the stronger geography/settlement search signal instead of relying on the broader Texas Explained hub.');
