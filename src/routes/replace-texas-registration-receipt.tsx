@@ -1,8 +1,8 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { PrioritySearchPage } from "@/components/editorial/PrioritySearchPage";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 
+// PrioritySearchPage UI is intentionally delivered from replace-texas-registration-receipt.lazy.tsx.
 const canonicalPath = "/replace-texas-registration-receipt";
 
 export const Route = createFileRoute("/replace-texas-registration-receipt")({
@@ -18,9 +18,4 @@ export const Route = createFileRoute("/replace-texas-registration-receipt")({
     data: loaderData,
     about: ["Texas registration receipt", "Form VTR-275", "TxDMV", "vehicle registration"],
   }) : {},
-  component: Page,
 });
-
-function Page() {
-  return <PrioritySearchPage data={Route.useLoaderData()} />;
-}
