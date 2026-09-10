@@ -13,6 +13,30 @@ const curatedProfiles = [
 ];
 const guardedProfile = { path: '/destination/caddo-lake-state-park-rv-area', name: 'Caddo Lake State Park RV Area' };
 const profilePath = '/destination/palo-duro-canyon-state-park-rv-loop';
+const countySurfaces = [
+  {
+    slug: 'randall',
+    name: 'Randall County',
+    parks: [
+      { name: 'Palo Duro Canyon State Park RV Loop', path: '/destination/palo-duro-canyon-state-park-rv-loop' },
+      { name: 'Palo Duro Rim RV Camp', path: '/destination/palo-duro-rim-rv-camp' },
+    ],
+  },
+  {
+    slug: 'blanco',
+    name: 'Blanco County',
+    parks: [
+      { name: 'Blanco State Park RV Area', path: '/destination/blanco-state-park-rv-area' },
+    ],
+  },
+  {
+    slug: 'galveston',
+    name: 'Galveston County',
+    parks: [
+      { name: 'Galveston Island State Park RV Area', path: '/destination/galveston-island-state-park-rv-area' },
+    ],
+  },
+];
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -160,17 +184,19 @@ if (!guardedDirectives.has('noindex') || !guardedDirectives.has('follow') || gua
 }
 console.log('Guarded RV production verification passed: Caddo Lake remains canonical noindex/follow and excluded from sitemap discovery until it clears the indexing audit.');
 
-const county = await fetchProduction('/county/randall');
-requireVisibleIncludes(county.body, [
-  'RV camping around Randall County',
-], 'Randall County RV integration');
-requireIncludes(county.body, [
-  'Palo Duro Canyon State Park RV Loop',
-  profilePath,
-  `${origin}/county/randall#rv-parks`,
-  '"@type":"Campground"',
-  '/explore/rv-parks',
-], 'Randall County RV integration');
-console.log('Randall County RV production verification passed: visible RV discovery section, Campground ItemList and statewide-directory handoff.');
+for (const countySpec of countySurfaces) {
+  const county = await fetchProduction(`/county/${countySpec.slug}`);
+  requireVisibleIncludes(county.body, [
+    `RV camping around ${countySpec.name}`,
+  ], `${countySpec.name} RV integration`);
+  requireIncludes(county.body, [
+    ...countySpec.parks.flatMap((park) => [park.name, park.path]),
+    `${origin}/county/${countySpec.slug}#rv-parks`,
+    '"@type":"ItemList"',
+    '"@type":"Campground"',
+    '/explore/rv-parks',
+  ], `${countySpec.name} RV integration`);
+  console.log(`${countySpec.name} RV production verification passed: generic county lookup, visible RV discovery, ItemList/Campground schema and statewide-directory handoff.`);
+}
 
-console.log(`TexasDefined RV production smoke passed for hub, ${curatedProfiles.length} index-ready profiles, guarded noindex control, sitemap discovery, attribution and Randall County integration.`);
+console.log(`TexasDefined RV production smoke passed for hub, ${curatedProfiles.length} index-ready profiles, guarded noindex control, sitemap discovery, attribution and ${countySurfaces.length} county integrations.`);

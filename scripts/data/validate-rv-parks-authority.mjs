@@ -47,16 +47,14 @@ for (const marker of [
   'RV_PARK_RAW_BIG_BEND_WEST_TEXAS',
   'type CountyRvSeed = readonly',
   'function snapshotDestination(',
-  'const CERTIFIED_COUNTY_FALLBACKS',
-  'randall: [',
-  "['Palo Duro Canyon State Park RV Loop', 'Canyon', 'Randall', 'palo-duro-canyon-state-park-rv-loop', 'panhandle', 'Panhandle Plains & North Texas']",
-  "['Palo Duro Rim RV Camp', 'Canyon', 'Randall', 'palo-duro-rim-rv-camp', 'panhandle', 'Panhandle Plains & North Texas']",
+  'const COUNTY_RV_PARKS: readonly Destination[] = GROUPS.flatMap',
   'export function loadCountyRvParksSnapshot(countySlug: string): Destination[]',
   'normalizeCountySlug(park.county!) === normalized',
-  'if (matches.length) return matches;',
-  'CERTIFIED_COUNTY_FALLBACKS[normalized] ?? []',
+  '.sort((left, right) => left.nearestTown.localeCompare(right.nearestTown) || left.name.localeCompare(right.name))',
   '.slice(0, 12)',
 ]) requireText(countyRvIndex, marker, 'Client-safe county RV snapshot');
+if (countyRvIndex.includes('CERTIFIED_COUNTY_FALLBACKS')) errors.push('County RV snapshot must not retain county-specific fallback inventory.');
+if (countyRvIndex.includes('randall: [')) errors.push('County RV snapshot must not hardcode Randall production rows.');
 if (countyRvIndex.includes('createServerFn')) errors.push('County RV snapshot must not add another TanStack server-function boundary.');
 if (countyRvIndex.includes('registry.server')) errors.push('County RV snapshot must not import the full server-only RV registry.');
 if (countyRvIndex.includes('images.server')) errors.push('County RV snapshot must not import licensed image metadata.');
@@ -64,11 +62,11 @@ if (facade.includes('loadCountyRvParks') || facade.includes('rvParksForCounty'))
 if (facade.includes('{ action: "county"; value: string }')) errors.push('County RV lookup must not return to the generic RV action dispatcher that failed production SSR.');
 if (facade.includes('const parks = await listRvParkDestinations();')) errors.push('County RV lookup must not fetch and serialize the full 250-record catalog through a server function before filtering.');
 
-requireText(hillCountry, '["Blanco State Park RV Area", "Blanco", "Blanco",', 'Blanco County RV seed coverage');
+requireText(hillCountry, '["Blanco State Park RV Area", "Blanco", "Blanco",', 'Blanco County generic RV seed coverage');
 for (const rawSeed of [
   '["Palo Duro Canyon State Park RV Loop", "Canyon", "Randall", "palo-duro-canyon-state-park-rv-loop", "panhandle"]',
   '["Palo Duro Rim RV Camp", "Canyon", "Randall", "palo-duro-rim-rv-camp", "panhandle"]',
-]) requireText(panhandleNorthTexas, rawSeed, 'Certified Randall fallback raw-seed mirror');
+]) requireText(panhandleNorthTexas, rawSeed, 'Randall County generic RV seed coverage');
 
 const imageSection = images.split('export const RV_PARK_LICENSED_IMAGES')[1]?.split('export function rvParkLicensedImage')[0] ?? '';
 const imageRecords = [...imageSection.matchAll(/^  '([^']+)': \{([\s\S]*?)^  \},/gm)];
@@ -103,19 +101,16 @@ requireText(countySection, 'href="/explore/rv-parks"', 'County-to-statewide RV d
 if (countySection.includes('loadCountyRvParksSnapshot') || countySection.includes('createServerFn') || countySection.includes("from '@/data/rv-parks/county.functions'")) errors.push('County RV child must remain a pure synchronous renderer with no discovery lookup.');
 
 requireText(countyHost, "type CountyRvParkLink = Pick<Destination, 'slug' | 'name' | 'nearestTown'>;", 'County host lightweight RV type');
-requireText(countyHost, 'const CERTIFIED_RANDALL_RV_PARKS: readonly CountyRvParkLink[] = [', 'County host Randall production canary');
-requireText(countyHost, "{ name: 'Palo Duro Canyon State Park RV Loop', nearestTown: 'Canyon', slug: 'palo-duro-canyon-state-park-rv-loop' }", 'County host Palo Duro seed mirror');
-requireText(countyHost, "{ name: 'Palo Duro Rim RV Camp', nearestTown: 'Canyon', slug: 'palo-duro-rim-rv-camp' }", 'County host Palo Duro Rim seed mirror');
-requireText(countyHost, 'const preloaded = county.rvParks ?? [];', 'County loader RV payload consumption');
-requireText(countyHost, 'if (preloaded.length) return preloaded;', 'County host preloaded-first policy');
-requireText(countyHost, "return county.slug === 'randall' ? CERTIFIED_RANDALL_RV_PARKS : [];", 'County host Randall empty-loader recovery');
+requireText(countyHost, 'const rvParks = county.rvParks ?? [];', 'County loader RV payload consumption');
+if (countyHost.includes('CERTIFIED_RANDALL_RV_PARKS')) errors.push('County SSR host must not retain a Randall-only production canary.');
+if (countyHost.includes("county.slug === 'randall'")) errors.push('County SSR host must not special-case Randall RV discovery.');
 requireText(countyHost, 'function renderCountyRvParks(county: TexasEntityRecord, rvParks: readonly CountyRvParkLink[])', 'Same-module county RV renderer');
 requireText(countyHost, 'if (!rvParks.length) return null;', 'Same-module county RV empty-input guard');
 requireText(countyHost, "'@type': 'Campground'", 'Same-module County Campground schema');
+requireText(countyHost, "'@type': 'ItemList'", 'Same-module County ItemList schema');
 requireText(countyHost, 'id="county-rv-parks-heading"', 'Same-module county RV heading');
 requireText(countyHost, 'RV camping around {county.name}', 'Same-module county RV heading text');
 requireText(countyHost, 'href="/explore/rv-parks"', 'Same-module county-to-statewide RV discovery');
-requireText(countyHost, 'const rvParks = countyRvParksForRender(county);', 'County host resolved RV render set');
 requireText(countyHost, 'const majorEvents = county.majorEvents ?? [];', 'County loader event payload consumption');
 requireText(countyHost, '{renderCountyRvParks(county, rvParks)}', 'Same-module server-rendered county RV section');
 if (countyHost.includes("import { CountyRvParks } from '@/components/explore/CountyRvParks';")) errors.push('County RV production markup must stay in the proven SSR host instead of regressing to the nested child boundary that production skipped.');
@@ -134,4 +129,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), bounded county loader discovery plus a source-controlled Randall canary and same-module RV markup in the proven SSR host, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);
+console.log(`RV parks authority validation passed: 250 seed records, ${imageRecords.length} rights-cleared exact-location images (${campgroundCount} exact campground frames), one bounded generic county loader across all five regional seed arrays with county-specific fallbacks forbidden, same-module RV markup in the proven SSR host, conservative destination noindex gating, sitemap quality control and remote image delivery are protected.`);

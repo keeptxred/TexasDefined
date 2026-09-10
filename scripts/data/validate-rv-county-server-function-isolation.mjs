@@ -2,7 +2,6 @@ import fs from 'node:fs';
 
 const countyEventsBridge = fs.readFileSync('src/data/county-major-events.ts', 'utf8');
 const countyRvIndex = fs.readFileSync('src/data/rv-parks/county-index.ts', 'utf8');
-const panhandleNorthTexas = fs.readFileSync('src/data/rv-parks/panhandle-north-texas.ts', 'utf8');
 const sharedFacade = fs.readFileSync('src/data/rv-parks/index.ts', 'utf8');
 const countyRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
 const countySection = fs.readFileSync('src/components/explore/CountyRvParks.tsx', 'utf8');
@@ -23,22 +22,15 @@ for (const marker of [
   "RV_PARK_RAW_BIG_BEND_WEST_TEXAS",
   "type CountyRvSeed = readonly",
   "function snapshotDestination(",
-  "const CERTIFIED_COUNTY_FALLBACKS",
-  "randall: [",
-  "['Palo Duro Canyon State Park RV Loop', 'Canyon', 'Randall', 'palo-duro-canyon-state-park-rv-loop', 'panhandle', 'Panhandle Plains & North Texas']",
-  "['Palo Duro Rim RV Camp', 'Canyon', 'Randall', 'palo-duro-rim-rv-camp', 'panhandle', 'Panhandle Plains & North Texas']",
+  "const COUNTY_RV_PARKS: readonly Destination[] = GROUPS.flatMap",
   "export function loadCountyRvParksSnapshot(countySlug: string): Destination[]",
   "normalizeCountySlug(park.county!) === normalized",
-  "if (matches.length) return matches;",
-  "CERTIFIED_COUNTY_FALLBACKS[normalized] ?? []",
+  ".sort((left, right) => left.nearestTown.localeCompare(right.nearestTown) || left.name.localeCompare(right.name))",
   ".slice(0, 12)",
-]) expect(countyRvIndex.includes(marker), `county RV snapshot missing protected marker: ${marker}`);
+]) expect(countyRvIndex.includes(marker), `county RV snapshot missing protected generic marker: ${marker}`);
 
-for (const rawSeed of [
-  '["Palo Duro Canyon State Park RV Loop", "Canyon", "Randall", "palo-duro-canyon-state-park-rv-loop", "panhandle"]',
-  '["Palo Duro Rim RV Camp", "Canyon", "Randall", "palo-duro-rim-rv-camp", "panhandle"]',
-]) expect(panhandleNorthTexas.includes(rawSeed), `certified Randall fallback must continue to mirror an existing raw RV seed: ${rawSeed}`);
-
+expect(!countyRvIndex.includes('CERTIFIED_COUNTY_FALLBACKS'), 'county RV snapshot must not retain county-specific fallback inventory');
+expect(!countyRvIndex.includes('randall: ['), 'county RV snapshot must not hardcode Randall production rows');
 expect(!countyRvIndex.includes('createServerFn'), 'county RV snapshot must not add another failing TanStack server-function boundary');
 expect(!countyRvIndex.includes('registry.server'), 'county RV snapshot must not pull the full server-only RV registry into the county route');
 expect(!countyRvIndex.includes('images.server'), 'county RV snapshot must not pull licensed image metadata into the county route');
@@ -53,22 +45,19 @@ expect(!countyRoute.includes('getCountyDiscovery'), 'county route must not resto
 expect(countySection.includes("type CountyRvParkLink = Pick<Destination, 'slug' | 'name' | 'nearestTown'>;"), 'county RV child must accept only the lightweight fields it renders');
 expect(countySection.includes('rvParks: readonly CountyRvParkLink[]'), 'county RV child must remain a pure render input');
 expect(countySection.includes('if (!rvParks.length) return null;'), 'county RV child must only render resolved rows supplied by its SSR host');
-expect(!countySection.includes('loadCountyRvParksSnapshot'), 'county RV child must not own the failing snapshot fallback anymore');
+expect(!countySection.includes('loadCountyRvParksSnapshot'), 'county RV child must not own discovery lookup');
 expect(!countySection.includes('createServerFn'), 'county RV child must remain synchronous and server-function free');
 
-expect(countyHost.includes('const CERTIFIED_RANDALL_RV_PARKS: readonly CountyRvParkLink[] = ['), 'proven county SSR host must own the Randall production canary');
-expect(countyHost.includes("{ name: 'Palo Duro Canyon State Park RV Loop', nearestTown: 'Canyon', slug: 'palo-duro-canyon-state-park-rv-loop' }"), 'county SSR host must mirror the Palo Duro raw seed exactly');
-expect(countyHost.includes("{ name: 'Palo Duro Rim RV Camp', nearestTown: 'Canyon', slug: 'palo-duro-rim-rv-camp' }"), 'county SSR host must mirror the Palo Duro Rim raw seed exactly');
-expect(countyHost.includes('const preloaded = county.rvParks ?? [];'), 'county SSR host must prefer the bounded loader payload');
-expect(countyHost.includes('if (preloaded.length) return preloaded;'), 'county SSR host must not replace healthy loader results');
-expect(countyHost.includes("return county.slug === 'randall' ? CERTIFIED_RANDALL_RV_PARKS : [];"), 'county SSR host must recover Randall only when the loader payload is empty');
+expect(countyHost.includes('const rvParks = county.rvParks ?? [];'), 'county SSR host must render only the generic bounded loader payload');
+expect(!countyHost.includes('CERTIFIED_RANDALL_RV_PARKS'), 'county SSR host must not retain a Randall-only production canary');
+expect(!countyHost.includes("county.slug === 'randall'"), 'county SSR host must not special-case Randall RV discovery');
 expect(countyHost.includes('function renderCountyRvParks(county: TexasEntityRecord, rvParks: readonly CountyRvParkLink[])'), 'county SSR host must own the production RV markup in the same module');
 expect(countyHost.includes('if (!rvParks.length) return null;'), 'same-module RV renderer must stay empty for counties without resolved inventory');
 expect(countyHost.includes("'@type': 'Campground'"), 'same-module RV renderer must emit Campground schema');
+expect(countyHost.includes("'@type': 'ItemList'"), 'same-module RV renderer must emit ItemList schema');
 expect(countyHost.includes('id="county-rv-parks-heading"'), 'same-module RV renderer must emit the county RV heading');
 expect(countyHost.includes('RV camping around {county.name}'), 'same-module RV renderer must retain the required heading text');
 expect(countyHost.includes('href="/explore/rv-parks"'), 'same-module RV renderer must retain the statewide RV handoff');
-expect(countyHost.includes('const rvParks = countyRvParksForRender(county);'), 'county SSR host must resolve RV rows before rendering');
 expect(countyHost.includes('{renderCountyRvParks(county, rvParks)}'), 'county SSR host must render the resolved RV section without a nested component boundary');
 expect(!countyHost.includes("import { CountyRvParks } from '@/components/explore/CountyRvParks';"), 'county SSR host must not restore the nested CountyRvParks production boundary that live SSR skipped');
 expect(!countyHost.includes('<CountyRvParks'), 'county SSR host must not restore nested CountyRvParks markup');
@@ -80,4 +69,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('County discovery boundary validation passed: major events keep their proven server RPC, the bounded RV loader remains intact, Randall empty-loader recovery stays in the proven SSR host, and production RV markup now renders in that same module without the skipped nested boundary.');
+console.log('County discovery boundary validation passed: all five regional RV seed arrays feed one bounded generic county snapshot, county-specific production fallbacks are forbidden, major events retain their proven server RPC, and RV markup renders synchronously in the established county SSR host.');
