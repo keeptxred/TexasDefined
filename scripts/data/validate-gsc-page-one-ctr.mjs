@@ -117,6 +117,23 @@ const experiments = [
   },
 ];
 
+const secondWave = [
+  { path: '/event/dallas-holiday-parade', title: 'Dallas Holiday Parade 2026: Date, Route & Planning Guide', description: 'Dallas Holiday Parade 2026 planning date: Dec. 5' },
+  { path: '/event/houston-thanksgiving-day-parade', title: 'Houston Thanksgiving Parade 2026: Date, Time & Route', description: "Houston's H-E-B Thanksgiving Day Parade is Nov. 26, 2026 at 9 a.m. downtown" },
+  { path: '/event/texas-rose-festival', title: 'Texas Rose Festival 2026: Tyler Dates, Parade & Schedule', description: 'Plan the 2026 Texas Rose Festival in Tyler with official dates' },
+  { path: '/event/larry-joe-taylor-texas-music-festival', title: 'Larry Joe Taylor Festival 2027: Dates, Tickets & Camping', description: 'LJT Fest returns to Stephenville April 19-24, 2027' },
+  { path: '/event/fulton-oysterfest', title: 'Fulton Oysterfest 2027: Dates, Tickets & Visitor Guide', description: 'Fulton Oysterfest runs March 4-7, 2027 at Fulton Harbor Park' },
+  { path: '/article/texas-colorado-river-guide', title: 'Colorado River in Texas: Lakes, Basin & Hill Country Guide', description: 'Follow the Texas Colorado River through the Highland Lakes and Austin to the Gulf' },
+  { path: '/article/texas-ecoregions-habitats-guide', title: 'Texas Ecoregions: Habitats, Landscapes & Wildlife Guide', description: 'Explore Texas ecoregions from Piney Woods and prairies to Edwards Plateau' },
+  { path: '/article/texas-home-architecture-regions', title: 'Texas Home Styles: Ranch, Hill Country, Craftsman & More', description: 'Compare Texas home styles and regional architecture' },
+  { path: '/article/texas-prairies-grasslands-guide', title: 'Texas Prairies & Grasslands: Regions, Plants & Wildlife', description: 'Explore Texas prairies and grasslands' },
+  { path: '/article/texas-ranch-to-market-roads-explained', title: 'What Does RM Mean on Texas Roads? Ranch-to-Market Roads', description: 'RM means Ranch-to-Market Road in Texas' },
+  { path: '/things-unique-to-texas/texas-brands', title: "Famous Texas Brands: H-E-B, Buc-ee's, Whataburger & More", description: 'Explore famous and iconic Texas brands' },
+  { path: '/sports-venues/high-school-football', title: 'Texas High School Football Stadiums: Best Venues & Guides', description: 'Explore Texas high school football stadiums with venue guides' },
+  { path: '/sports-venue/whataburger-field', title: 'Whataburger Field Corpus Christi: Parking, Map & Events', description: 'Plan a Whataburger Field visit in Corpus Christi with parking, map, arrival' },
+  { path: '/texas-food-history', title: 'Texas Food History: Barbecue, Tex-Mex, Chili & More', description: 'Explore the history of Texas food through barbecue, Tex-Mex, chili' },
+];
+
 for (const experiment of experiments) {
   for (const required of [`\"${experiment.path}\"`, experiment.title, experiment.description]) {
     if (!seo.includes(required)) failures.push(`Page-one CTR contract missing for ${experiment.path}: ${required}`);
@@ -125,6 +142,16 @@ for (const experiment of experiments) {
 
 if (experiments.length !== 20) {
   failures.push(`Expected exactly 20 priority GSC CTR experiments, found ${experiments.length}.`);
+}
+
+for (const experiment of secondWave) {
+  for (const required of [`\"${experiment.path}\"`, experiment.title, experiment.description]) {
+    if (!seo.includes(required)) failures.push(`Second-wave CTR contract missing for ${experiment.path}: ${required}`);
+  }
+}
+
+if (secondWave.length !== 14) {
+  failures.push(`Expected exactly 14 second-wave GSC CTR experiments, found ${secondWave.length}.`);
 }
 
 for (const required of [
@@ -151,4 +178,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('GSC page-one CTR validation passed: the top 20 high-impression snippet experiments remain server-only and length-guarded, while Westfest date, parade, schedule and hours intent remains current-source aligned without presenting the unconfirmed 2027 program as final.');
+console.log('GSC page-one CTR validation passed: the original top 20 and second-wave 14 snippet experiments remain server-only and length-guarded, while Westfest date, parade, schedule and hours intent remains current-source aligned without presenting the unconfirmed 2027 program as final.');
