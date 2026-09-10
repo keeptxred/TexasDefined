@@ -561,6 +561,54 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     title: "Texas Courthouse Architecture: Styles, History & Buildings Guide",
     description: "Explore Texas courthouse architecture by style and era, from Romanesque and Classical designs to regional materials, historic squares and preservation.",
   },
+  "/article/texas-railroads-town-growth-explained": {
+    title: "Texas Railroad Towns: How Rail Lines Shaped City Growth",
+    description: "See how railroads shaped Texas town growth, depot districts, commerce and settlement patterns as rail lines redirected travel and trade across the state.",
+  },
+  "/event/great-texas-balloon-race": {
+    title: "Great Texas Balloon Race: Dates, Tickets & Longview Guide",
+    description: "Plan the Great Texas Balloon Race in Longview with the latest organizer date status, ticket information, balloon events and official planning links.",
+  },
+  "/sports-venue/freeman-coliseum": {
+    title: "Freeman Coliseum San Antonio: Parking, Events & Visitor Guide",
+    description: "Plan a Freeman Coliseum visit in San Antonio with parking, directions, event and official venue information for arena shows and community events.",
+  },
+  "/sports-venue/hodgetown": {
+    title: "HODGETOWN Amarillo: Parking, Tickets & Sod Poodles Games",
+    description: "Plan a HODGETOWN visit in Amarillo with parking, tickets, directions and event information for Amarillo Sod Poodles baseball and ballpark events.",
+  },
+  "/sports-venue/reckling-park": {
+    title: "Reckling Park Houston: Parking, Tickets & Rice Baseball",
+    description: "Plan a Reckling Park visit in Houston with parking, tickets, directions and official Rice baseball venue information.",
+  },
+  "/sports-venue/southwest-university-park": {
+    title: "Southwest University Park El Paso: Parking, Tickets & Baseball",
+    description: "Plan a Southwest University Park visit in El Paso with parking, tickets, directions and event information for El Paso Chihuahuas baseball.",
+  },
+  "/sports-venue/ufcu-disch-falk-field": {
+    title: "UFCU Disch-Falk Field Austin: Parking, Tickets & Texas Baseball",
+    description: "Plan a UFCU Disch-Falk Field visit in Austin with parking, tickets, directions and official Texas Longhorns baseball venue information.",
+  },
+  "/sports-venue/don-haskins-center": {
+    title: "Don Haskins Center El Paso: Parking, Events & UTEP Basketball",
+    description: "Plan a Don Haskins Center visit in El Paso with parking, directions, event and official venue information for UTEP basketball and arena events.",
+  },
+  "/texas-symbols/nickname": {
+    title: "Texas State Nickname: Why Texas Is the Lone Star State",
+    description: "Learn why Texas is called the Lone Star State, how the nickname connects to the state flag and independence, and its place among Texas symbols.",
+  },
+  "/texas-symbols/grass": {
+    title: "Texas State Grass: Sideoats Grama Facts & History",
+    description: "Learn about sideoats grama, the official Texas state grass, including its designation, range, habitat and role in Texas prairie landscapes.",
+  },
+  "/texas-symbols/sea-turtle": {
+    title: "Texas State Sea Turtle: Kemp's Ridley Facts & History",
+    description: "Learn about Kemp's ridley, the official Texas state sea turtle, including its designation, Gulf Coast habitat, nesting and conservation context.",
+  },
+  "/texas-vs/nebraska": {
+    title: "Texas vs Nebraska: Cost of Living, Taxes, Climate & Lifestyle",
+    description: "Compare Texas and Nebraska on cost of living, taxes, housing, climate, jobs, geography and daily life in a practical side-by-side state guide.",
+  },
 } : {};
 
 const SOCIAL_IMAGE_FALLBACKS: Partial<Record<BrandConfig["identity"]["id"], { src: string; alt: string; type: string }>> = {
