@@ -87,13 +87,19 @@ for (const county of counties) {
 }
 
 const countySeries = read('src/data/county-series.ts');
+const countySlugGuard = read('src/data/texas-county-slugs.ts');
 for (const needle of [
   'articleSlug.indexOf("-county-")',
   'articleSlug.endsWith("-texas")',
-  'const TEXAS_COUNTY_SLUGS = new Set(TEXAS_COUNTIES.map((county) => county.slug))',
+  'import { TEXAS_COUNTY_SLUGS } from "@/data/texas-county-slugs"',
   'const countySlug = articleSlug.slice(0, markerIndex);',
   'return TEXAS_COUNTY_SLUGS.has(countySlug) ? countySlug : null;',
 ]) if (!countySeries.includes(needle)) errors.push(`Generic legacy county-slug parser regressed: missing ${needle}`);
+for (const needle of [
+  'export const TEXAS_COUNTY_SLUGS = new Set(COUNTY_NAMES.map(slugify))',
+  'Zapata|Zavala',
+]) if (!countySlugGuard.includes(needle)) errors.push(`Lightweight Texas county-slug guard regressed: missing ${needle}`);
+if (countySeries.includes('@/data/texas-places')) errors.push('Generic legacy county-slug parser must not eagerly import the full Texas places registry.');
 
 const server = read('src/server.ts');
 for (const needle of [
@@ -177,4 +183,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`County certifier retirement safety passed: ${counties.length} completed one-time wrappers are removed, PASS evidence is retained, county-specific source/editorial/redirect contracts remain protected, the generic redirect is scoped to real Texas county slugs, the dormant reusable path is not directly dispatchable, and the former active entry point fails closed.`);
+console.log(`County certifier retirement safety passed: ${counties.length} completed one-time wrappers are removed, PASS evidence is retained, county-specific source/editorial/redirect contracts remain protected, the generic redirect is scoped to real Texas county slugs without importing the full places registry, the dormant reusable path is not directly dispatchable, and the former active entry point fails closed.`);
