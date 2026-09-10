@@ -1,8 +1,8 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { PrioritySearchPage } from "@/components/editorial/PrioritySearchPage";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 
+// PrioritySearchPage UI is intentionally delivered from everything-bigger-in-texas.lazy.tsx.
 const canonicalPath = "/everything-bigger-in-texas";
 
 export const Route = createFileRoute("/everything-bigger-in-texas")({
@@ -18,9 +18,4 @@ export const Route = createFileRoute("/everything-bigger-in-texas")({
     data: loaderData,
     about: ["everything is bigger in Texas", "Texas facts", "King Ranch", "Bracken Cave", "Texas superlatives"],
   }) : {},
-  component: Page,
 });
-
-function Page() {
-  return <PrioritySearchPage data={Route.useLoaderData()} />;
-}
