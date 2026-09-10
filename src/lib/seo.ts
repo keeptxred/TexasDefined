@@ -338,6 +338,87 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     title: "TDECU Stadium Houston: Parking, Map & Events",
     description: "Plan a TDECU Stadium visit in Houston with parking, map, arrival and event information for Houston Cougars football and other stadium events.",
   },
+
+  "/county/bowie": {
+    title: "Bowie County, Texas: Population, County Seat & Local Guide",
+    description: "Explore Bowie County, Texas with population, county seat, communities, land area, geography, maps, official links and practical local-reference information.",
+  },
+  "/county/burnet": {
+    title: "Burnet County, Texas: Population, County Seat & Local Guide",
+    description: "Explore Burnet County, Texas with population, county seat, communities, land area, geography, maps, official links and practical local-reference information.",
+  },
+  "/county/erath": {
+    title: "Erath County, Texas: Population, County Seat & Local Guide",
+    description: "Explore Erath County, Texas with population, county seat, communities, land area, geography, maps, official links and practical local-reference information.",
+  },
+  "/county/henderson": {
+    title: "Henderson County, Texas: Population, County Seat & Local Guide",
+    description: "Explore Henderson County, Texas with population, county seat, communities, land area, geography, maps, official links and practical local-reference information.",
+  },
+  "/county/jasper": {
+    title: "Jasper County, Texas: Population, County Seat & Local Guide",
+    description: "Explore Jasper County, Texas with population, county seat, communities, land area, geography, maps, official links and practical local-reference information.",
+  },
+  "/county/orange": {
+    title: "Orange County, Texas: Population, County Seat & Local Guide",
+    description: "Explore Orange County, Texas with population, county seat, communities, land area, geography, maps, official links and practical local-reference information.",
+  },
+  "/county/panola": {
+    title: "Panola County, Texas: Population, County Seat & Local Guide",
+    description: "Explore Panola County, Texas with population, county seat, communities, land area, geography, maps, official links and practical local-reference information.",
+  },
+  "/county/refugio": {
+    title: "Refugio County, Texas: Population, County Seat & Local Guide",
+    description: "Explore Refugio County, Texas with population, county seat, communities, land area, geography, maps, official links and practical local-reference information.",
+  },
+  "/explore/painted-churches/guides/painted-churches-weekend-hours": {
+    title: "Painted Churches of Texas: Weekend Hours & Tour Planning",
+    description: "Plan a weekend visit to Texas Painted Churches with opening-hour guidance, church-by-church stops, etiquette and official sources to check before you drive.",
+  },
+  "/fishing/lakes/sam-rayburn-reservoir/fish": {
+    title: "Sam Rayburn Reservoir Fish Species: Bass, Crappie & More",
+    description: "See common fish species in Sam Rayburn Reservoir, including largemouth bass, crappie and catfish, with practical Texas fishing and lake context.",
+  },
+  "/sports-venue/momentum-bank-ballpark": {
+    title: "Momentum Bank Ballpark: Midland RockHounds Stadium Guide",
+    description: "Plan a Momentum Bank Ballpark visit in Midland with RockHounds baseball, parking, map, arrival, ticket and event information from official sources.",
+  },
+  "/sports-venue/lone-star-park": {
+    title: "Lone Star Park Grand Prairie: Racing, Tickets & Visitor Guide",
+    description: "Plan a Lone Star Park visit in Grand Prairie with horse-racing, ticket, parking, map, arrival and event information from official venue sources.",
+  },
+  "/sports-venue/sun-bowl-stadium": {
+    title: "Sun Bowl Stadium El Paso: Parking, Map & Events",
+    description: "Plan a Sun Bowl Stadium visit in El Paso with parking, map, arrival and event information for UTEP football, the Sun Bowl and other stadium events.",
+  },
+  "/sports-venue/college-park-center": {
+    title: "College Park Center Arlington: Parking, Map & Events",
+    description: "Plan a College Park Center visit in Arlington with parking, map, arrival, ticket and event information for UT Arlington basketball and arena events.",
+  },
+  "/sports-venue/unt-coliseum": {
+    title: "UNT Coliseum (Super Pit): Parking, Map & Events",
+    description: "Plan a UNT Coliseum visit in Denton with parking, map, arrival and event information for North Texas basketball and other Super Pit events.",
+  },
+  "/texas-symbols/amphibian": {
+    title: "Texas State Amphibian: Texas Toad Facts & History",
+    description: "The Texas toad is the official state amphibian. Learn about its designation, habitat, range, identifying traits and place among Texas state symbols.",
+  },
+  "/texas-symbols/cobbler": {
+    title: "Texas State Cobbler: Peach Cobbler Facts & History",
+    description: "Peach cobbler is the official Texas state cobbler. Learn about its designation, Texas peach traditions and how the dessert became a state symbol.",
+  },
+  "/texas-symbols/dinosaur": {
+    title: "Texas State Dinosaur: Paluxysaurus Facts & History",
+    description: "Learn about the official Texas state dinosaur, Paluxysaurus, its designation, fossil history, Texas connections and place among state symbols.",
+  },
+  "/texas-vs/utah": {
+    title: "Texas vs Utah: Cost of Living, Climate, Taxes & Lifestyle",
+    description: "Compare Texas and Utah on cost of living, taxes, housing, climate, jobs, geography and daily life with a practical side-by-side state guide.",
+  },
+  "/texas-vs/south-carolina": {
+    title: "Texas vs South Carolina: Cost, Taxes, Climate & Lifestyle",
+    description: "Compare Texas and South Carolina on cost of living, taxes, housing, climate, jobs, geography and daily life with a practical side-by-side state guide.",
+  },
 } : {};
 
 const SOCIAL_IMAGE_FALLBACKS: Partial<Record<BrandConfig["identity"]["id"], { src: string; alt: string; type: string }>> = {
