@@ -144,10 +144,12 @@ for (const marker of [
   'When should I arrive at ${venueName}?',
   'firstSentence(parking)',
   'firstSentence(arrival)',
-  'answers.slice(0, 6)',
+  'answers.slice(0, 5)',
 ]) {
   assert(quickAnswers.includes(marker), `Sports venue quick-answer layer is missing venue-specific parking/arrival quality marker: ${marker}.`);
 }
+assert(!quickAnswers.includes('How current is this ${venueName} visitor guide?'), 'Sports venue quick answers must keep source-review metadata out of consumer FAQ copy.');
+assert(!quickAnswers.includes('formatDate(verifiedAt)'), 'Sports venue quick answers must not transform verification metadata into a consumer FAQ answer.');
 
 for (const getter of [
   'getSportsVenueEnrichment(lookupSlug)',
@@ -211,4 +213,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, core Reliant record, lightweight static directory, statewide category anchors, concise localized search titles, source-backed event-day essentials and FAQ answers, richer venue structured data, dedicated visitor template, county-level editorial trip ideas, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
+console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, core Reliant record, lightweight static directory, statewide category anchors, concise localized search titles, source-backed event-day essentials and FAQ answers with source-review metadata kept separate, richer venue structured data, dedicated visitor template, county-level editorial trip ideas, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
