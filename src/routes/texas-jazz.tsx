@@ -6,7 +6,7 @@ const routeSeo = {
   description: "Texas jazz history runs through territory bands, school music programs, dance orchestras and urban scenes that produced innovators such as Teddy Wilson, Arnett Cobb, Charlie Christian and Ornette Coleman.",
 } as const;
 
-export const Route = createFileRoute(routeSeo.canonicalPath)({
+export const Route = createFileRoute("/texas-jazz")({
   loader: async () => {
     const { loadTexasMusicGuideBatch2Route } = await import("@/data/texas-music-route-head");
     return loadTexasMusicGuideBatch2Route("texas-jazz", routeSeo);

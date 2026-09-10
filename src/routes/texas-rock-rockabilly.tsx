@@ -6,7 +6,7 @@ const routeSeo = {
   description: "Texas helped shape rock through blues, western swing, R&B and rockabilly, then produced artists and scenes from Lubbock to Port Arthur and Austin whose influence reached far beyond the state.",
 } as const;
 
-export const Route = createFileRoute(routeSeo.canonicalPath)({
+export const Route = createFileRoute("/texas-rock-rockabilly")({
   loader: async () => {
     const { loadTexasMusicGuideBatch2Route } = await import("@/data/texas-music-route-head");
     return loadTexasMusicGuideBatch2Route("texas-rock-rockabilly", routeSeo);
