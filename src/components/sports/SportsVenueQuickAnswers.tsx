@@ -1,5 +1,4 @@
 import { lazy, Suspense } from 'react';
-import { TexasExplainedContextLinks } from '@/components/editorial/TexasExplainedContextLinks';
 import { SportsTrafficTracker } from '@/components/sports/SportsTrafficTracker';
 import { getSportsVenuePhoto } from '@/data/sports-venue-images';
 
@@ -26,6 +25,8 @@ type QuickAnswer = {
   answer: string;
 };
 
+type QuickAnswerInput = Omit<SportsVenueQuickAnswersProps, 'canonicalUrl' | 'verifiedAt'>;
+
 export function SportsVenueQuickAnswers({
   venueName,
   canonicalUrl,
@@ -37,7 +38,7 @@ export function SportsVenueQuickAnswers({
   arrival,
   verifiedAt,
 }: SportsVenueQuickAnswersProps) {
-  const answers = buildAnswers({ venueName, city, countyName, capacity, primaryEvents, parking, arrival, verifiedAt });
+  const answers = buildAnswers({ venueName, city, countyName, capacity, primaryEvents, parking, arrival });
   const slug = canonicalUrl.split('/sports-venue/')[1]?.split(/[?#]/)[0];
   const surfacePath = slug ? `/sports-venue/${slug}` : undefined;
   const heroSrc = slug ? `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}` : undefined;
@@ -46,6 +47,9 @@ export function SportsVenueQuickAnswers({
   const heroAlt = photo?.alt ?? `${venueName} — original TexasDefined sports venue illustration`;
   const heroWidth = photo?.width ?? 1600;
   const heroHeight = photo?.height ?? 900;
+  const freshnessNote = verifiedAt
+    ? `How current is this ${venueName} visitor guide? Core venue facts were last reviewed ${verifiedAt}. Event-day policies can change, so use the official links farther down the guide for current rules.`
+    : `Event-day policies can change, so use the official links farther down the guide for current rules.`;
   if (!answers.length) return null;
 
   const faqJsonLd = {
@@ -98,6 +102,7 @@ export function SportsVenueQuickAnswers({
         <p className="eyebrow text-primary">Quick answers</p>
         <h2 id="venue-quick-answers-heading" className="mt-2 font-display text-3xl leading-tight">Planning a visit to {venueName}</h2>
         <p className="mt-3 text-sm leading-6 text-muted-foreground">Answer-first trip details from the verified venue record. Use the official links farther down the guide for information that can change by event.</p>
+        <p className="mt-3 text-xs leading-5 text-muted-foreground">{freshnessNote}</p>
       </div>
       <div className="grid gap-x-8 md:grid-cols-2">
         {answers.map((item) => <article key={item.question} className="border-t border-border py-5">
@@ -108,11 +113,10 @@ export function SportsVenueQuickAnswers({
     </section>
 
     {slug ? <Suspense fallback={null}><CityPassContextualCallout surface="sports-venue" slug={slug} /></Suspense> : null}
-    <TexasExplainedContextLinks surface="sports" />
   </>;
 }
 
-function buildAnswers({ venueName, city, countyName, capacity, primaryEvents = [], parking, arrival, verifiedAt }: Omit<SportsVenueQuickAnswersProps, 'canonicalUrl'>): QuickAnswer[] {
+function buildAnswers({ venueName, city, countyName, capacity, primaryEvents = [], parking, arrival }: QuickAnswerInput): QuickAnswer[] {
   const answers: QuickAnswer[] = [];
   const location = [city, countyName].filter(Boolean).join(', ');
 
@@ -156,14 +160,7 @@ function buildAnswers({ venueName, city, countyName, capacity, primaryEvents = [
     });
   }
 
-  if (verifiedAt) {
-    answers.push({
-      question: `How current is this ${venueName} visitor guide?`,
-      answer: `TexasDefined reviewed the venue-specific source record on ${formatDate(verifiedAt)}. Because schedules and event-day rules can change after review, the guide points travelers back to official sources for final confirmation.`,
-    });
-  }
-
-  return answers.slice(0, 6);
+  return answers.slice(0, 5);
 }
 
 function firstSentence(value: string) {
@@ -176,10 +173,4 @@ function formatList(items: readonly string[]) {
   if (items.length === 1) return items[0];
   if (items.length === 2) return `${items[0]} and ${items[1]}`;
   return `${items.slice(0, -1).join(', ')}, and ${items.at(-1)}`;
-}
-
-function formatDate(value: string) {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return value;
-  return new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(date);
 }
