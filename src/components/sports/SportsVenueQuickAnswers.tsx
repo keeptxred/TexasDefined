@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { TexasExplainedContextLinks } from '@/components/editorial/TexasExplainedContextLinks';
 import { SportsTrafficTracker } from '@/components/sports/SportsTrafficTracker';
+import { getSportsVenuePhoto } from '@/data/sports-venue-images';
 
 const CityPassContextualCallout = lazy(() =>
   import('@/components/monetization/CityPassContextualCallout').then((module) => ({
@@ -41,6 +42,10 @@ export function SportsVenueQuickAnswers({
   const surfacePath = slug ? `/sports-venue/${slug}` : undefined;
   const heroSrc = slug ? `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}` : undefined;
   const absoluteHeroUrl = heroSrc ? new URL(heroSrc, canonicalUrl).toString() : undefined;
+  const photo = slug ? getSportsVenuePhoto(slug) : undefined;
+  const heroAlt = photo?.alt ?? `${venueName} — original TexasDefined sports venue illustration`;
+  const heroWidth = photo?.width ?? 1600;
+  const heroHeight = photo?.height ?? 900;
   if (!answers.length) return null;
 
   const faqJsonLd = {
@@ -59,9 +64,9 @@ export function SportsVenueQuickAnswers({
     '@id': `${canonicalUrl}#venue-hero`,
     contentUrl: absoluteHeroUrl,
     url: absoluteHeroUrl,
-    caption: `${venueName} — original TexasDefined sports venue illustration`,
-    width: 1600,
-    height: 900,
+    caption: photo ? `${venueName} — photo by ${photo.author}, ${photo.licenseName}` : `${venueName} — original TexasDefined sports venue illustration`,
+    width: heroWidth,
+    height: heroHeight,
     representativeOfPage: true,
     isPartOf: { '@id': canonicalUrl },
   } : undefined;
@@ -73,16 +78,18 @@ export function SportsVenueQuickAnswers({
       <div className="overflow-hidden border border-border bg-muted/30">
         <img
           src={heroSrc}
-          alt={`${venueName} — original TexasDefined sports venue illustration`}
-          width={1600}
-          height={900}
+          alt={heroAlt}
+          width={heroWidth}
+          height={heroHeight}
           loading="eager"
           decoding="async"
           fetchPriority="high"
           className="aspect-[16/9] w-full object-cover"
         />
       </div>
-      <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">Original TexasDefined editorial illustration. Venue logos, sponsor marks and third-party photography are intentionally not reproduced.</figcaption>
+      {photo ? <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
+        Photo by <a className="underline underline-offset-2 hover:text-foreground" href={photo.sourcePage} target="_blank" rel="noreferrer">{photo.author}</a> via {photo.sourceName}, licensed under <a className="underline underline-offset-2 hover:text-foreground" href={photo.licenseUrl} target="_blank" rel="noreferrer">{photo.licenseName}</a>. Original source file is served unchanged and may be visually cropped by the page layout.
+      </figcaption> : <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">Original TexasDefined editorial illustration. Venue logos, sponsor marks and third-party photography are intentionally not reproduced.</figcaption>}
     </figure> : null}
 
     <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]" aria-labelledby="venue-quick-answers-heading">
