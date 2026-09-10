@@ -40,6 +40,7 @@ import { applyCuratedDestinationBatch48 } from "./destination-curation-batch48";
 import { applyCuratedDestinationBatch49 } from "./destination-curation-batch49";
 import { applyCuratedDestinationBatch52 } from "./destination-curation-batch52";
 import { applyCuratedDestinationBatch53 } from "./destination-curation-batch53";
+import { cavernExpansionDestinations } from "./cavern-destination-expansion";
 import { topAttractionExpansionDestinations } from "./destination-curation-top-attractions-fallbacks";
 import { applyCuratedTopAttractions, topAttractionDestinations } from "./destination-curation-top-attractions";
 import { applyCuratedTopAttractionsBatch2 } from "./destination-curation-top-attractions-batch2";
@@ -167,8 +168,9 @@ export function applyAllCuratedDestination(destination: Destination): Destinatio
 export function applyAllCuratedDestinations(destinations: Destination[]): Destination[] {
   const curated = destinations.map(applyAllCuratedDestination);
   const seen = new Set(curated.map((destination) => destination.slug));
+  const additions = [...topAttractionExpansionDestinations, ...cavernExpansionDestinations];
   return [
     ...curated,
-    ...topAttractionExpansionDestinations.filter((destination) => !seen.has(destination.slug)),
+    ...additions.filter((destination) => !seen.has(destination.slug)),
   ];
 }
