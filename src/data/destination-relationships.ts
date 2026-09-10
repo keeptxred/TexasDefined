@@ -1,3 +1,4 @@
+import { curatedDestinationPairings } from "./destination-curated-pairings";
 import type { CategorySlug, Destination } from "./types";
 
 export type DestinationRelationshipGroup = {
@@ -72,6 +73,12 @@ export function buildDestinationRelationshipGroups(
       return item;
     });
 
+  // Editorially verified relationships come first and are symmetric. This makes
+  // links such as Gorman Cave <-> Colorado Bend State Park and Westcave <->
+  // Hamilton Pool visible in both directions, while still requiring the related
+  // destination to exist in the live, SEO-ready catalog supplied to this function.
+  const curatedPairings = take(curatedDestinationPairings(destination, others));
+
   const nearby = take(nearest(destination, others, 8).filter((item) => {
     const miles = distanceMiles(destination, item);
     return miles !== null && miles <= 75;
@@ -101,6 +108,13 @@ export function buildDestinationRelationshipGroups(
   const regional = take(others.filter((item) => item.region === destination.region));
 
   return [
+    {
+      id: "curated-pairings",
+      eyebrow: "Texas Defined pairing",
+      title: "Places that belong on the same route",
+      description: "Verified park, cavern, spring and attraction connections that make practical sense as part of the same trip.",
+      destinations: curatedPairings,
+    },
     {
       id: "nearby",
       eyebrow: "Close enough for the same trip",
