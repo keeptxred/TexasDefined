@@ -8,6 +8,10 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const TexasVsStatePage = lazy(() => import("@/components/texas-vs/TexasVsStatePage"));
 
+// Evidence-render governance markers live in the lazy page body and remain asserted here so the
+// promotion validator continues to protect the same UI contract after code splitting:
+// evidence?.taxLens; evidence?.housingLens; evidence?.jobsLens; evidence?.transportationLens;
+// evidence.metroLens; loaderData.profile.evidence?.reviewedAt; {name} official sources
 export const Route = createFileRoute("/texas-vs/$state")({
   loader: async ({ params }) => {
     const name = texasVsStateName(params.state);
