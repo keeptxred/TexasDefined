@@ -1,6 +1,7 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { TexasWaterSearchResource } from "@/components/content/TexasWaterSearchResource";
 import { ArticleBody, Byline } from "@/components/editorial/ArticleBody";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
@@ -324,6 +325,13 @@ function ArticlePage() {
   const isTexasExplainedSupport = texasExplainedSupportSlugs.has(article.slug);
   const isTexasExplainedCollectionArticle = isTexasExplainedPillar || isTexasExplainedSupport;
   const texasExplainedQuickAnswer = isTexasExplainedPillar ? article.dek.trim() : null;
+  const waterResourceTopic = article.slug === "texas-rivers-explained"
+    ? "rivers"
+    : article.slug === "texas-river-basins-guide"
+      ? "basins"
+      : article.slug === "texas-lakes-reservoirs-explained"
+        ? "reservoirs"
+        : null;
   const previousTexasExplainedSlug = texasExplainedPillarPosition > 0
     ? texasExplainedPillarOrder[texasExplainedPillarPosition - 1]
     : null;
@@ -396,6 +404,7 @@ function ArticlePage() {
         <p className="mt-3 text-base leading-8 text-foreground/85">{texasExplainedQuickAnswer}</p>
         <a href="#guide-body" className="mt-4 inline-block py-1 text-sm font-semibold text-primary underline-offset-4 hover:underline">Read the full guide ↓</a>
       </section>}
+      {waterResourceTopic && <TexasWaterSearchResource active={waterResourceTopic} />}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28"><ArticleBody blocks={article.body} entities={graph} /></div>
       {hasSchoolSupplyRail ? <SchoolSupplyPartners className="school-supply-bottom" /> : null}
       {article.hero.credit && <p className="mt-10 text-xs text-muted-foreground">Image credit: {article.hero.credit}</p>}
