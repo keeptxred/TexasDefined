@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { TexasExplainedContextLinks } from '@/components/editorial/TexasExplainedContextLinks';
 import { SportsTrafficTracker } from '@/components/sports/SportsTrafficTracker';
+import { getSportsVenueLicensedImage } from '@/data/sports-venue-licensed-images';
 
 const CityPassContextualCallout = lazy(() =>
   import('@/components/monetization/CityPassContextualCallout').then((module) => ({
@@ -41,6 +42,15 @@ export function SportsVenueQuickAnswers({
   const surfacePath = slug ? `/sports-venue/${slug}` : undefined;
   const heroSrc = slug ? `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}` : undefined;
   const absoluteHeroUrl = heroSrc ? new URL(heroSrc, canonicalUrl).toString() : undefined;
+  const licensedImage = slug ? getSportsVenueLicensedImage(slug) : undefined;
+  const heroWidth = licensedImage ? Math.min(1600, licensedImage.originalWidth) : 1600;
+  const heroHeight = licensedImage
+    ? Math.round(heroWidth * licensedImage.originalHeight / licensedImage.originalWidth)
+    : 900;
+  const heroAlt = licensedImage?.alt ?? `${venueName} — original TexasDefined sports venue illustration`;
+  const heroCaption = licensedImage
+    ? `${venueName} — photo by ${licensedImage.creator}, ${licensedImage.licenseName}, via ${licensedImage.sourceName}`
+    : `${venueName} — original TexasDefined sports venue illustration`;
   if (!answers.length) return null;
 
   const faqJsonLd = {
@@ -59,11 +69,14 @@ export function SportsVenueQuickAnswers({
     '@id': `${canonicalUrl}#venue-hero`,
     contentUrl: absoluteHeroUrl,
     url: absoluteHeroUrl,
-    caption: `${venueName} — original TexasDefined sports venue illustration`,
-    width: 1600,
-    height: 900,
+    caption: heroCaption,
+    width: heroWidth,
+    height: heroHeight,
     representativeOfPage: true,
     isPartOf: { '@id': canonicalUrl },
+    license: licensedImage?.licenseUrl,
+    creditText: licensedImage ? `${licensedImage.creator} · ${licensedImage.licenseName} · ${licensedImage.sourceName}` : undefined,
+    creator: licensedImage ? { '@type': 'Person', name: licensedImage.creator } : undefined,
   } : undefined;
 
   return <>
@@ -73,16 +86,18 @@ export function SportsVenueQuickAnswers({
       <div className="overflow-hidden border border-border bg-muted/30">
         <img
           src={heroSrc}
-          alt={`${venueName} — original TexasDefined sports venue illustration`}
-          width={1600}
-          height={900}
+          alt={heroAlt}
+          width={heroWidth}
+          height={heroHeight}
           loading="eager"
           decoding="async"
           fetchPriority="high"
           className="aspect-[16/9] w-full object-cover"
         />
       </div>
-      <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">Original TexasDefined editorial illustration. Venue logos, sponsor marks and third-party photography are intentionally not reproduced.</figcaption>
+      {licensedImage ? <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
+        Photo by {licensedImage.creator} · <a className="underline decoration-primary/50 underline-offset-2 hover:text-primary" href={licensedImage.licenseUrl} target="_blank" rel="noreferrer">{licensedImage.licenseName}</a> · <a className="underline decoration-primary/50 underline-offset-2 hover:text-primary" href={licensedImage.sourcePage} target="_blank" rel="noreferrer">Wikimedia Commons source ↗</a>. Displayed in a cropped 16:9 frame; see the source for the original. {licensedImage.contextNote ?? ''}
+      </figcaption> : <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">Original TexasDefined editorial illustration. Venue logos, sponsor marks and third-party photography are intentionally not reproduced.</figcaption>}
     </figure> : null}
 
     <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]" aria-labelledby="venue-quick-answers-heading">
