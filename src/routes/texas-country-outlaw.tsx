@@ -1,22 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { texasDefinedBrand } from "@/brand/texasdefined";
-import { buildMeta, canonicalLink } from "@/lib/seo";
-
-const canonicalPath = "/texas-country-outlaw";
-
-export const Route = createFileRoute(canonicalPath)({
+export const Route = createFileRoute("/texas-country-outlaw")({
   loader: async () => {
-    const { getTexasMusicGuideBatch2 } = await import("@/data/texas-music-guides-batch2");
-    return getTexasMusicGuideBatch2("texas-country-outlaw");
+    const { loadTexasMusicGuideBatch2Route } = await import("@/data/texas-music-route-head");
+    return loadTexasMusicGuideBatch2Route("texas-country-outlaw");
   },
-  head: ({ loaderData: guide }) => ({
-    meta: buildMeta(texasDefinedBrand, {
-      canonicalPath,
-      title: "Texas Country & Outlaw Country: History & Austin Roots",
-      description: guide.dek,
-      type: "article",
-    }),
-    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-  }),
+  head: ({ loaderData }) => loaderData.head,
 });
