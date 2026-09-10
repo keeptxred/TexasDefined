@@ -1,38 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { platform, scope } from "@/data";
-import { getTexasCountyHousingCosts } from "@/data/acs-county-housing-costs.functions";
-import { fetchPublishedTexasDefinedEvergreenArticlesForSitemap, fetchPublishedTexasDefinedNewsArticlesForSitemap } from "@/data/articles-remote";
-import { loadTexasCountyGrowth } from "@/data/census-county-growth";
-import { isLegacyCountySeriesArticle } from "@/data/county-series";
-import { isEvergreenEventCollectionPath, loadEvergreenEventSitemapEntriesServer } from "@/data/event-evergreen-sitemap.server";
-import { loadTemporalEventSitemapEntriesServer } from "@/data/event-temporal-sitemap.server";
-import { isArticleDiscoveryReady, isArticleIndexReady } from "@/data/fixtures/texas-gateway-index-readiness";
-import { loadFishingGuideSitemapEntriesServer } from "@/data/fishing/guide-sitemap.server";
-import { loadFishingLocalSitemapEntriesServer } from "@/data/fishing/local-sitemap.server";
-import { loadFishingReportSitemapEntriesServer } from "@/data/fishing/report-sitemap.server";
-import { FISHING_SITEMAP_ENTRIES } from "@/data/fishing/sitemap";
-import { HUNTING_SITEMAP_ENTRIES } from "@/data/hunting/sitemap";
-import { LOCAL_COST_OF_LIVING_PROFILES } from "@/data/local-cost-of-living";
-import { LOCAL_HOME_AFFORDABILITY_PROFILES } from "@/data/local-home-affordability";
-import { LOCAL_HOME_INSURANCE_PROFILES } from "@/data/local-home-insurance";
-import { LOCAL_HOMEOWNERSHIP_COST_PROFILES } from "@/data/local-homeownership-cost";
-import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
-import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
-import { LOCAL_MORTGAGE_PROFILES } from "@/data/local-mortgage";
-import { LOCAL_PROPERTY_TAX_PROFILES } from "@/data/local-property-tax-calculators";
-import { LOCAL_SALARY_NEEDED_PROFILES } from "@/data/local-salary-needed";
-import { majorEventIndexRecords } from "@/data/major-event-index";
-import { loadSupplementalMajorEventSitemapEntriesServer } from "@/data/major-event-supplemental-registry.server";
-import { COUNTY_PROPERTY_RECORDS } from "@/data/property/county-property-data";
-import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
-import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
-import { TEXAS_DATASETS } from "@/data/texas-data-center";
-import { isTexasVsStateSitemapReady } from "@/data/texas-vs-state-index-readiness.server";
-import { TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-states-index";
-import { isTexasDefinedOwnedEntity, isTexasDefinedOwnedStaticPath } from "@/lib/brand-route-ownership";
-import { INDEXABLE_STATIC_PATHS, isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
 const origin = `https://${texasDefinedBrand.identity.domain}`;
 type SitemapEntry = { path: string; lastmod?: string };
@@ -73,6 +41,51 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
+        const {
+          COUNTY_PROPERTY_RECORDS,
+          FISHING_SITEMAP_ENTRIES,
+          HUNTING_SITEMAP_ENTRIES,
+          INDEXABLE_STATIC_PATHS,
+          LOCAL_COST_OF_LIVING_PROFILES,
+          LOCAL_HOME_AFFORDABILITY_PROFILES,
+          LOCAL_HOME_INSURANCE_PROFILES,
+          LOCAL_HOMEOWNERSHIP_COST_PROFILES,
+          LOCAL_MORTGAGE_PROFILES,
+          LOCAL_PROPERTY_TAX_PROFILES,
+          LOCAL_SALARY_NEEDED_PROFILES,
+          TEXAS_DATASETS,
+          TEXAS_VS_STATES,
+          canonicalEntityPath,
+          fetchAssignedShopProducts,
+          fetchPublishedTexasDefinedEvergreenArticlesForSitemap,
+          fetchPublishedTexasDefinedNewsArticlesForSitemap,
+          getTexasCountyHousingCosts,
+          isArticleDiscoveryReady,
+          isArticleIndexReady,
+          isCountyPropertyIndexReady,
+          isEvergreenEventCollectionPath,
+          isExploreSitemapOwnedPath,
+          isIndexableEntityPage,
+          isIndexablePublicPath,
+          isLegacyCountySeriesArticle,
+          isTexasDefinedOwnedEntity,
+          isTexasDefinedOwnedStaticPath,
+          isTexasVsStateSitemapReady,
+          loadEvergreenEventSitemapEntriesServer,
+          loadFishingGuideSitemapEntriesServer,
+          loadFishingLocalSitemapEntriesServer,
+          loadFishingReportSitemapEntriesServer,
+          loadSupplementalMajorEventSitemapEntriesServer,
+          loadTemporalEventSitemapEntriesServer,
+          loadTexasCountyGrowth,
+          loadTexasKnowledgeGraph,
+          majorEventIndexRecords,
+          normalizePublicPath,
+          platform,
+          scope,
+          texasVsStateSlug,
+        } = await import("@/data/sitemap-dependencies.server");
+
         const coreResults = await Promise.allSettled([
           platform.articles.list(scope),
           platform.collections.list(scope),
@@ -209,5 +222,5 @@ function toDate(value?: string) {
 }
 
 function escapeXml(value: string) {
-  return value.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '\"': "&quot;", "'": "&apos;" })[character] ?? character);
+  return value.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&apos;" })[character] ?? character);
 }
