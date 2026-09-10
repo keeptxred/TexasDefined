@@ -2,12 +2,25 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { findCompleteTexasEntity } from '@/data/knowledge-graph';
 import { getSportsVenueEnrichmentAll } from '@/data/sports-venue-enrichment-all';
+import {
+  getSportsVenueLicensedImage,
+  sportsVenueLicensedImageSource,
+  type SportsVenueLicensedImage,
+} from '@/data/sports-venue-licensed-images';
 
-const publicHeaders = {
+const svgHeaders = {
   'content-type': 'image/svg+xml; charset=utf-8',
   'cache-control': 'public, max-age=86400, stale-while-revalidate=604800',
   'x-robots-tag': 'noindex, follow',
 };
+
+const photoCacheHeaders = {
+  'cache-control': 'public, max-age=604800, stale-while-revalidate=2592000',
+  'x-robots-tag': 'noindex, follow',
+  'x-texasdefined-image-source': 'wikimedia-commons',
+};
+
+const allowedPhotoTypes = new Set(['image/jpeg', 'image/png', 'image/webp']);
 
 export const Route = createFileRoute('/api/sports-venue-hero')({
   server: {
@@ -22,6 +35,12 @@ export const Route = createFileRoute('/api/sports-venue-hero')({
         const enrichment = getSportsVenueEnrichmentAll(lookupSlug);
         if (!entity || entity.kind !== 'sports-venue' || !enrichment) return new Response('Not found', { status: 404 });
 
+        const licensedImage = getSportsVenueLicensedImage(lookupSlug);
+        if (licensedImage) {
+          const photoResponse = await fetchLicensedPhoto(licensedImage);
+          if (photoResponse) return photoResponse;
+        }
+
         const tags = new Set(entity.tags ?? []);
         const kind = venueVisualKind(tags, enrichment.primaryEvents);
         const currentName = lookupSlug === 'jones-att-stadium' ? 'Galaxy Stadium' : entity.name;
@@ -30,11 +49,34 @@ export const Route = createFileRoute('/api/sports-venue-hero')({
           city: enrichment.city,
           kind,
           imageBrief: enrichment.imageBrief,
-        }), { headers: publicHeaders });
+        }), { headers: svgHeaders });
       },
     },
   },
 });
+
+async function fetchLicensedPhoto(image: SportsVenueLicensedImage) {
+  try {
+    const response = await fetch(sportsVenueLicensedImageSource(image), {
+      headers: { accept: 'image/avif,image/webp,image/*,*/*;q=0.8' },
+      redirect: 'follow',
+    });
+    if (!response.ok || !response.body) return undefined;
+
+    const contentType = response.headers.get('content-type')?.split(';')[0]?.trim().toLowerCase();
+    if (!contentType || !allowedPhotoTypes.has(contentType)) return undefined;
+
+    return new Response(response.body, {
+      status: 200,
+      headers: {
+        ...photoCacheHeaders,
+        'content-type': contentType,
+      },
+    });
+  } catch {
+    return undefined;
+  }
+}
 
 type VenueVisualKind = 'stadium' | 'ballpark' | 'arena' | 'motorsports' | 'golf' | 'western' | 'surf';
 
