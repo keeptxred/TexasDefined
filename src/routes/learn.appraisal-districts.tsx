@@ -18,7 +18,7 @@ const steps = [
   'Save the latest appraisal notice and value history.',
   'Contact the district promptly if something is wrong.',
 ];
-const priorityCountySlugs = ['leon', 'terrell', 'lubbock', 'hidalgo', 'sabine'];
+const priorityCountySlugs = ['polk', 'leon', 'mason', 'terrell', 'lubbock', 'hidalgo', 'sabine'];
 
 export const Route = createFileRoute('/learn/appraisal-districts')({
   loader: async () => {
@@ -103,7 +103,7 @@ function AppraisalDistrictPage() {
         <p className="eyebrow text-primary">Verified local guides</p>
         <h2 id="appraisal-priority-guides" className="mt-2 font-display text-4xl">Direct appraisal-district starting points</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These county guides have passed TexasDefined’s local-source readiness gate and link to verified appraisal-district and tax-office resources. They are surfaced here directly instead of sending readers through retired appraisal-district URLs.</p>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {priorityCounties.map((county) => <Link key={county.slug} to="/property-tax/county/$county" params={{ county: county.slug }} className="group border-t border-border pt-4"><span className="eyebrow text-primary">Verified county guide</span><strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{county.name}</strong><span className="mt-3 block text-sm font-semibold">Appraisal & property tax →</span></Link>)}
         </div>
       </section> : null}
