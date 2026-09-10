@@ -8,16 +8,24 @@ const migration = readFileSync(new URL("../../../supabase/migrations/20260910043
 const retiredWorkflowUrl = new URL("../../../.github/workflows/verify-bucees-location-source.yml", import.meta.url);
 
 describe("Texas brand location source freshness guard", () => {
-  it("uses an adapter registry with the existing Buc-ee's official source as the first verified brand", () => {
+  it("uses one adapter registry for registry-backed and source-only official brand sources", () => {
     expect(genericVerifier).toContain("export const SOURCE_ADAPTERS");
     expect(genericVerifier).toContain("brandSlug: 'bucees'");
     expect(genericVerifier).toContain("label: \"Buc-ee's\"");
     expect(genericVerifier).toContain("sourceUrl: 'https://buc-ees.com/locations/'");
     expect(genericVerifier).toContain("minExpectedTexasLocations: 30");
+    expect(genericVerifier).toContain("requiresRegistry: true");
     expect(genericVerifier).toContain("parseOfficialLocations: parseBuceesOfficialTexasLocations");
+
+    expect(genericVerifier).toContain("brandSlug: 'whataburger'");
+    expect(genericVerifier).toContain("label: 'Whataburger'");
+    expect(genericVerifier).toContain("sourceUrl: 'https://locations.whataburger.com/tx.html'");
+    expect(genericVerifier).toContain("minExpectedTexasLocations: 100");
+    expect(genericVerifier).toContain("requiresRegistry: false");
+    expect(genericVerifier).toContain("parseOfficialLocations: parseWhataburgerOfficialTexasLocations");
   });
 
-  it("requires the protected registry row to be explicitly public-locator enabled before freshness can advance", () => {
+  it("requires the protected registry row to be explicitly public-locator enabled before registry freshness can advance", () => {
     expect(genericVerifier).toContain("endpoint.searchParams.set('public_locator_enabled', 'eq.true')");
     expect(genericVerifier).toContain("public_locator_enabled");
     expect(genericVerifier).toContain("registry.public_locator_enabled !== true");
@@ -26,7 +34,7 @@ describe("Texas brand location source freshness guard", () => {
     expect(migration).toContain("and status = 'active'");
   });
 
-  it("marks freshness only through the generic service-role RPC after an exact source comparison", () => {
+  it("marks registry freshness only through the generic service-role RPC after an exact source comparison", () => {
     expect(genericVerifier).toContain("if (!comparison.matches)");
     expect(genericVerifier.indexOf("if (!comparison.matches)")).toBeLessThan(genericVerifier.indexOf("await markRegistryChecked"));
     expect(genericVerifier).toContain("/rest/v1/rpc/touch_brand_location_source_checked");
@@ -36,6 +44,17 @@ describe("Texas brand location source freshness guard", () => {
     expect(migration).toContain("set search_path = pg_catalog, public");
     expect(migration).toContain("revoke all on function public.touch_brand_location_source_checked(text, date) from public, anon, authenticated");
     expect(migration).toContain("grant execute on function public.touch_brand_location_source_checked(text, date) to service_role");
+  });
+
+  it("monitors Whataburger as a source-only first-party directory without writing it into Supabase", () => {
+    expect(genericVerifier).toContain("parseWhataburgerOfficialTexasLocations");
+    expect(genericVerifier).toContain("js-map-data");
+    expect(genericVerifier).toContain("adapter.requiresRegistry === false");
+    expect(genericVerifier).toContain("mode: 'source-only'");
+    expect(genericVerifier).toContain("--live-source-only");
+    expect(genericVerifier).not.toContain("touch_brand_location_source_checked('whataburger'");
+    expect(workflow).toContain("Verify source-only official directories live");
+    expect(workflow).toContain("node scripts/data/verify-brand-location-sources.mjs --live-source-only");
   });
 
   it("preserves the Buc-ee's freshness RPC and command as compatibility wrappers", () => {
@@ -53,7 +72,7 @@ describe("Texas brand location source freshness guard", () => {
     expect(migration).not.toMatch(/\bdelete\s+from\s+public\.texasdefined_brand_locations\b/i);
     expect(migration).not.toMatch(/\btruncate\s+(?:table\s+)?public\.texasdefined_brand_locations\b/i);
     expect(migration).not.toMatch(/\bset\s+(?:name|street|city|postal_code|location_number|source_url)\s*=/i);
-    expect(workflow).toContain("never auto-adds, removes, relabels, or rewrites location inventory");
+    expect(workflow).toContain("never auto-adds, removes, relabels or rewrites location inventory");
   });
 
   it("runs one generic scheduled guard for all configured adapters and opens one actionable drift issue", () => {
@@ -67,11 +86,13 @@ describe("Texas brand location source freshness guard", () => {
     expect(existsSync(retiredWorkflowUrl)).toBe(false);
   });
 
-  it("supports one-brand diagnostics without weakening all-brand scheduled verification", () => {
+  it("supports one-brand and source-only diagnostics without weakening all-brand scheduled verification", () => {
     expect(genericVerifier).toContain("--live <brand-slug>");
     expect(genericVerifier).toContain("if (mode === '--live')");
+    expect(genericVerifier).toContain("if (mode === '--live-source-only')");
     expect(genericVerifier).toContain("if (mode === '--live-all')");
-    expect(genericVerifier).toContain("for (const adapter of Object.values(SOURCE_ADAPTERS))");
+    expect(genericVerifier).toContain("Object.values(SOURCE_ADAPTERS).filter((adapter) => adapter.requiresRegistry === false)");
+    expect(genericVerifier).toContain("await verifyMany(Object.values(SOURCE_ADAPTERS))");
     expect(genericVerifier).toContain("failures.push");
   });
 });
