@@ -178,6 +178,62 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     title: "Children's Health Stadium Prosper: Parking & Events",
     description: "Plan a Children's Health Stadium visit in Prosper with parking, arrival, event-day and official venue links for football, soccer and community events.",
   },
+  "/event/dallas-holiday-parade": {
+    title: "Dallas Holiday Parade 2026: Date, Route & Planning Guide",
+    description: "Dallas Holiday Parade 2026 planning date: Dec. 5, based on the organizer's first-Saturday rule. See route, 9 a.m. start, viewing and DART guidance.",
+  },
+  "/event/houston-thanksgiving-day-parade": {
+    title: "Houston Thanksgiving Parade 2026: Date, Time & Route",
+    description: "Houston's H-E-B Thanksgiving Day Parade is Nov. 26, 2026 at 9 a.m. downtown. See official route, viewing, closures and arrival-planning guidance.",
+  },
+  "/event/texas-rose-festival": {
+    title: "Texas Rose Festival 2026: Tyler Dates, Parade & Schedule",
+    description: "Plan the 2026 Texas Rose Festival in Tyler with official dates, parade and schedule information, venue details and practical Smith County trip planning.",
+  },
+  "/event/larry-joe-taylor-texas-music-festival": {
+    title: "Larry Joe Taylor Festival 2027: Dates, Tickets & Camping",
+    description: "LJT Fest returns to Stephenville April 19-24, 2027. Find official ticket and camping links plus Melody Mountain Ranch and Erath County planning details.",
+  },
+  "/event/fulton-oysterfest": {
+    title: "Fulton Oysterfest 2027: Dates, Tickets & Visitor Guide",
+    description: "Fulton Oysterfest runs March 4-7, 2027 at Fulton Harbor Park. Find official event information, coastal trip planning and Rockport-Fulton context.",
+  },
+  "/article/texas-colorado-river-guide": {
+    title: "Colorado River in Texas: Lakes, Basin & Hill Country Guide",
+    description: "Follow the Texas Colorado River through the Highland Lakes and Austin to the Gulf, with basin geography, reservoirs, Hill Country context and key places.",
+  },
+  "/article/texas-ecoregions-habitats-guide": {
+    title: "Texas Ecoregions: Habitats, Landscapes & Wildlife Guide",
+    description: "Explore Texas ecoregions from Piney Woods and prairies to Edwards Plateau, South Texas brush, desert and mountains, with habitats and wildlife by region.",
+  },
+  "/article/texas-home-architecture-regions": {
+    title: "Texas Home Styles: Ranch, Hill Country, Craftsman & More",
+    description: "Compare Texas home styles and regional architecture, including ranch, Hill Country, Craftsman, Spanish-influenced and Gulf Coast designs.",
+  },
+  "/article/texas-prairies-grasslands-guide": {
+    title: "Texas Prairies & Grasslands: Regions, Plants & Wildlife",
+    description: "Explore Texas prairies and grasslands, including Blackland Prairie, coastal prairie and High Plains habitats, with plants, wildlife and landscape context.",
+  },
+  "/article/texas-ranch-to-market-roads-explained": {
+    title: "What Does RM Mean on Texas Roads? Ranch-to-Market Roads",
+    description: "RM means Ranch-to-Market Road in Texas. Learn how RM roads differ from FM roads, where they are used and how TxDOT designates them.",
+  },
+  "/things-unique-to-texas/texas-brands": {
+    title: "Famous Texas Brands: H-E-B, Buc-ee's, Whataburger & More",
+    description: "Explore famous and iconic Texas brands, from H-E-B, Buc-ee's and Whataburger to retailers, food companies and businesses closely identified with Texas.",
+  },
+  "/sports-venues/high-school-football": {
+    title: "Texas High School Football Stadiums: Best Venues & Guides",
+    description: "Explore Texas high school football stadiums with venue guides, locations, parking and game-day context for notable stadiums across the state.",
+  },
+  "/sports-venue/whataburger-field": {
+    title: "Whataburger Field Corpus Christi: Parking, Map & Events",
+    description: "Plan a Whataburger Field visit in Corpus Christi with parking, map, arrival, ticket and event information for Corpus Christi Hooks baseball games.",
+  },
+  "/texas-food-history": {
+    title: "Texas Food History: Barbecue, Tex-Mex, Chili & More",
+    description: "Explore the history of Texas food through barbecue, Tex-Mex, chili, Czech and German traditions, Gulf seafood and regional dishes across the state.",
+  },
   "/county/palo-pinto": {
     title: "Palo Pinto County, Texas: Population, Acres & County Guide",
     description: "Explore Palo Pinto County with population, land area, county seat, communities, geography, official links and practical local-reference information.",
