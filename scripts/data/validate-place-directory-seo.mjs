@@ -14,6 +14,11 @@ const countyLazy = read('src/routes/browse.counties.lazy.tsx');
 const cityDirectory = read('src/components/directories/TexasPlaceDirectory.tsx');
 const cityAuthorityIndex = read('src/data/city-authority-index.ts');
 const countyDirectory = read('src/components/directories/TexasCountyPropertyDirectory.tsx');
+const propertyHub = read('src/routes/property.tsx');
+const calculatorFramework = read('src/components/property/PropertyCalculatorFramework.tsx');
+const countySelectorField = read('src/components/property/CountySelectorField.tsx');
+const cityCountyRoute = read('src/routes/texas-data.city-county-relationships.tsx');
+const cityCountyCsv = read('src/routes/texas-data.city-county-relationships[.]csv.ts');
 
 const checks = [
   [cities, '"@type": "City"', 'City directory must declare City entities'],
@@ -41,6 +46,13 @@ const checks = [
   [cityAuthorityIndex, 'export const CITY_AUTHORITY_SLUGS', 'Shared city authority slug set must derive from the authority index'],
   [cities, '"@type": "BreadcrumbList"', 'City directory must declare breadcrumbs'],
   [counties, '"@type": "BreadcrumbList"', 'County directory must declare breadcrumbs'],
+  [propertyHub, 'Texas Defined connects all 254 counties to local property-tax research.', 'Property hub must retain the statewide county completeness statement'],
+  [calculatorFramework, "lazy(() => import('@/components/property/CountySelectorField')", 'Calculator framework must lazy-load county options'],
+  [countySelectorField, "import { TEXAS_COUNTIES } from '@/data/texas-places'", 'Lazy county selector field must retain the canonical county registry'],
+  [countySelectorField, 'TEXAS_COUNTIES.map((county)', 'Lazy county selector field must render every county option'],
+  [cityCountyRoute, "await import('@/data/texas-places')", 'City-county dataset must load registries behind its route loader'],
+  [cityCountyRoute, 'const { relationships } = Route.useLoaderData()', 'City-county dataset UI must consume loader-resolved relationships'],
+  [cityCountyCsv, "await import('@/data/texas-places')", 'City-county CSV must load registries only inside its request handler'],
 ];
 
 const failures = checks
@@ -62,6 +74,17 @@ if (counties.includes('numberOfItems: TEXAS_COUNTIES.length')) {
 if (countyLazy.includes('from "@/data/texas-places"') || countyLazy.includes("from '@/data/texas-places'")) {
   failures.push('Visible county directory must not reintroduce the Texas county registry into its lazy client surface just to describe statewide completeness.');
 }
+if (propertyHub.includes('@/data/texas-places')) {
+  failures.push('Property hub must not import the full Texas places registry just to render the known 254-county completeness statement.');
+}
+if (calculatorFramework.includes('@/data/texas-places')) {
+  failures.push('Shared calculator framework must not eagerly import the Texas places registry; county options belong in the lazy selector field.');
+}
+for (const [label, source] of [['city directory route', cityEager], ['city-county dataset route', cityCountyRoute], ['city-county CSV route', cityCountyCsv]]) {
+  if (source.includes("import { TEXAS_CITIES") || source.includes('import { TEXAS_COUNTIES')) {
+    failures.push(`${label} must not statically import the Texas places registry.`);
+  }
+}
 
 if (failures.length) {
   console.error('Place directory SEO validation failed:');
@@ -69,4 +92,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Place directory SEO validation passed: all cities/counties remain discoverable on directory surfaces while verified city authority and county property child URLs are promoted only through shared publication-readiness gates, with city registry resolution behind the route loader and the 254-county completeness statement preserved without an eager county-registry import in the lazy county UI.');
+console.log('Place directory SEO validation passed: all cities/counties remain discoverable while verified child URLs stay readiness-gated, and the shared Texas places registry is kept behind route, request, or lazy-component boundaries instead of the eager main client graph.');
