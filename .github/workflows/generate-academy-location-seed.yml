@@ -39,19 +39,25 @@ jobs:
             '      results[index] = await mapper(values[index], index);',
             '      results[index] = await mapper(values[index], index);\n      await new Promise((resolve) => setTimeout(resolve, 300));',
           );
+          source = source.replace(
+            '  const crawled = await crawlAcademyTexasStorePages();\n  const geocoded = validateAcademySeed(await geocodeMissingCoordinates(crawled));',
+            '  const crawled = await crawlAcademyTexasStorePages();\n  const attempted = await geocodeMissingCoordinates(crawled);\n  await writeFile("academy-texas-locations-debug.json", `${JSON.stringify({ source: ACADEMY_TEXAS_DIRECTORY, count: attempted.length, stores: attempted }, null, 2)}\\n`, "utf8");\n  const geocoded = validateAcademySeed(attempted);',
+          );
           fs.writeFileSync(path, source);
           NODE
       - name: Self-test Academy first-party crawler
         run: node scripts/data/generate-academy-location-seed.mjs --self-test
       - name: Generate Academy Texas seed from official directory
         run: node scripts/data/generate-academy-location-seed.mjs --live-output academy-texas-locations.json
-      - name: Upload Academy directory diagnostics
+      - name: Upload Academy crawl diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: academy-texas-directory-diagnostics
-          path: academy-texas-state.html
-          if-no-files-found: error
+          path: |
+            academy-texas-state.html
+            academy-texas-locations-debug.json
+          if-no-files-found: warn
           retention-days: 1
       - name: Upload generated seed
         if: success()
