@@ -143,8 +143,8 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "The 2026 Heart O' Texas Fair & Rodeo runs Oct. 8-18 in Waco. Check fair hours, One HOT Rodeo dates, ticket rules and official planning links.",
   },
   "/event/sweetwater-rattlesnake-roundup": {
-    title: "Sweetwater Rattlesnake Roundup: Dates & Visitor Guide",
-    description: "Plan the Sweetwater Jaycees Rattlesnake Roundup with date guidance, official sources, event details and practical Nolan County trip planning.",
+    title: "Sweetwater Rattlesnake Roundup 2027: Dates & Visitor Guide",
+    description: "Sweetwater Rattlesnake Roundup 2027 planning window: March 12-14. The dedicated 2027 schedule is not yet published; confirm dates and hours before travel.",
   },
   "/texas-symbols": {
     title: "Texas State Symbols: Official List, Meanings & State Icons",
@@ -155,8 +155,8 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "Explore the Republic of Texas Navy, its ships, commanders, Gulf operations, battles and role in defending the independent republic from 1836 to 1846.",
   },
   "/event/charro-days-fiesta": {
-    title: "Charro Days Fiesta: Dates, Parade & Brownsville Guide",
-    description: "Plan Charro Days Fiesta in Brownsville with current date guidance, parade and event information, official sources and Rio Grande Valley trip planning.",
+    title: "Charro Days Fiesta 2027: Dates, Parade & Brownsville Guide",
+    description: "Charro Days Fiesta 2027 core dates are Feb. 25-27 in Brownsville. See parade and festival guidance, official sources and Rio Grande Valley trip planning.",
   },
   "/event/hidalgo-borderfest": {
     title: "BorderFest Hidalgo: Dates, Schedule & Visitor Guide",
