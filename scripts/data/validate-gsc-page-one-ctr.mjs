@@ -277,6 +277,31 @@ if (eighthWave.length !== 15) {
   failures.push('Expected exactly 15 eighth-wave GSC CTR experiments, found ' + eighthWave.length + '.');
 }
 
+const ninthWave = [
+  { path: "/article/texas-railroads-town-growth-explained", title: "Texas Railroad Towns: How Rail Lines Shaped City Growth", description: "See how railroads shaped Texas town growth, depot districts, commerce and settlement pattern" },
+  { path: "/event/great-texas-balloon-race", title: "Great Texas Balloon Race: Dates, Tickets & Longview Guide", description: "Plan the Great Texas Balloon Race in Longview with the latest organizer date status, ticket" },
+  { path: "/sports-venue/freeman-coliseum", title: "Freeman Coliseum San Antonio: Parking, Events & Visitor Guide", description: "Plan a Freeman Coliseum visit in San Antonio with parking, directions, event and official ve" },
+  { path: "/sports-venue/hodgetown", title: "HODGETOWN Amarillo: Parking, Tickets & Sod Poodles Games", description: "Plan a HODGETOWN visit in Amarillo with parking, tickets, directions and event information f" },
+  { path: "/sports-venue/reckling-park", title: "Reckling Park Houston: Parking, Tickets & Rice Baseball", description: "Plan a Reckling Park visit in Houston with parking, tickets, directions and official Rice ba" },
+  { path: "/sports-venue/southwest-university-park", title: "Southwest University Park El Paso: Parking, Tickets & Baseball", description: "Plan a Southwest University Park visit in El Paso with parking, tickets, directions and even" },
+  { path: "/sports-venue/ufcu-disch-falk-field", title: "UFCU Disch-Falk Field Austin: Parking, Tickets & Texas Baseball", description: "Plan a UFCU Disch-Falk Field visit in Austin with parking, tickets, directions and official" },
+  { path: "/sports-venue/don-haskins-center", title: "Don Haskins Center El Paso: Parking, Events & UTEP Basketball", description: "Plan a Don Haskins Center visit in El Paso with parking, directions, event and official venu" },
+  { path: "/texas-symbols/nickname", title: "Texas State Nickname: Why Texas Is the Lone Star State", description: "Learn why Texas is called the Lone Star State, how the nickname connects to the state flag a" },
+  { path: "/texas-symbols/grass", title: "Texas State Grass: Sideoats Grama Facts & History", description: "Learn about sideoats grama, the official Texas state grass, including its designation, range" },
+  { path: "/texas-symbols/sea-turtle", title: "Texas State Sea Turtle: Kemp's Ridley Facts & History", description: "Learn about Kemp's ridley, the official Texas state sea turtle, including its designation, G" },
+  { path: "/texas-vs/nebraska", title: "Texas vs Nebraska: Cost of Living, Taxes, Climate & Lifestyle", description: "Compare Texas and Nebraska on cost of living, taxes, housing, climate, jobs, geography and d" },
+];
+
+for (const experiment of ninthWave) {
+  for (const required of ['"' + experiment.path + '"', experiment.title, experiment.description]) {
+    if (!seo.includes(required)) failures.push('Ninth-wave CTR contract missing for ' + experiment.path + ': ' + required);
+  }
+}
+
+if (ninthWave.length !== 12) {
+  failures.push('Expected exactly 12 ninth-wave GSC CTR experiments, found ' + ninthWave.length + '.');
+}
+
 const settlementLandingSelection = {
   path: '/article/texas-settlement-patterns-explained',
   title: 'Texas Settlement Patterns: How Geography Shaped Towns',
