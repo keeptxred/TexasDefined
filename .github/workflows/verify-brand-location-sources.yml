@@ -1,4 +1,4 @@
-name: Verify Buc-ee's Texas location source
+name: Verify Texas brand location sources
 
 on:
   schedule:
@@ -6,16 +6,17 @@ on:
   workflow_dispatch:
   pull_request:
     paths:
+      - 'scripts/data/verify-brand-location-sources.mjs'
       - 'scripts/data/verify-bucees-location-source.mjs'
-      - '.github/workflows/verify-bucees-location-source.yml'
-      - 'supabase/migrations/*bucees*source*freshness*.sql'
+      - '.github/workflows/verify-brand-location-sources.yml'
+      - 'supabase/migrations/*brand*location*source*freshness*.sql'
 
 permissions:
   contents: read
   issues: write
 
 concurrency:
-  group: bucees-location-source-${{ github.event_name }}
+  group: brand-location-source-${{ github.event_name }}
   cancel-in-progress: false
 
 jobs:
@@ -32,10 +33,10 @@ jobs:
         with:
           node-version: 22
 
-      - name: Exercise source parser and drift comparison
-        run: node scripts/data/verify-bucees-location-source.mjs --self-test
+      - name: Exercise source adapters and drift comparison
+        run: node scripts/data/verify-brand-location-sources.mjs --self-test
 
-  verify-live-source:
+  verify-live-sources:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -44,7 +45,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ftkznprjljkhymknvhye.supabase.co' }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
-      DRIFT_ISSUE_TITLE: "Buc-ee's Texas location source drift detected"
+      DRIFT_ISSUE_TITLE: "Texas brand location source drift detected"
 
     steps:
       - name: Check out repository
@@ -63,17 +64,17 @@ jobs:
             exit 1
           fi
 
-      - name: Compare official source with protected registry
+      - name: Compare all configured official sources with protected registry
         id: verify
         continue-on-error: true
-        run: node scripts/data/verify-bucees-location-source.mjs --live
+        run: node scripts/data/verify-brand-location-sources.mjs --live-all
 
       - name: Open or update drift issue
         if: steps.verify.outcome == 'failure'
         shell: bash
         run: |
           existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "${DRIFT_ISSUE_TITLE} in:title" --json number,title --jq '.[] | select(.title == env.DRIFT_ISSUE_TITLE) | .number' | head -n 1)"
-          body="The scheduled TexasDefined location-source guard could not verify the protected Buc-ee's Texas registry against Buc-ee's official Locations page. Review the failed workflow run before changing location data. The guard does not auto-add, remove, or relabel stores.\n\nRun: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          body="The scheduled TexasDefined brand-location source guard could not verify one or more configured protected registries against their official first-party source. Review the failed workflow run before changing location data. The guard never auto-adds, removes, relabels, or rewrites location inventory; it only advances source_checked_at after an exact verified match.\n\nRun: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
           if [[ -n "$existing" ]]; then
             gh issue comment "$existing" --repo "$GITHUB_REPOSITORY" --body "$body"
           else
@@ -86,12 +87,12 @@ jobs:
         run: |
           existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "${DRIFT_ISSUE_TITLE} in:title" --json number,title --jq '.[] | select(.title == env.DRIFT_ISSUE_TITLE) | .number' | head -n 1)"
           if [[ -n "$existing" ]]; then
-            gh issue comment "$existing" --repo "$GITHUB_REPOSITORY" --body "The official Buc-ee's Texas location list and protected TexasDefined registry match again. Closing this drift alert after successful verification in run ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}."
+            gh issue comment "$existing" --repo "$GITHUB_REPOSITORY" --body "All configured official brand-location sources and protected TexasDefined registries match again. Closing this drift alert after successful verification in run ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}."
             gh issue close "$existing" --repo "$GITHUB_REPOSITORY" --reason completed
           fi
 
       - name: Enforce source freshness result
         if: steps.verify.outcome == 'failure'
         run: |
-          echo "::error title=Buc-ee's location source verification failed::See the verifier output and drift issue before editing the protected registry."
+          echo '::error title=Texas brand location source verification failed::See the verifier output and drift issue before editing the protected registry.'
           exit 1
