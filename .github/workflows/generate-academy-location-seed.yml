@@ -16,6 +16,14 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Capture official Academy Texas directory response
+        run: |
+          curl --fail --location --retry 2 --max-time 30 \
+            --user-agent 'TexasDefined Academy location seed generator (+https://texasdefined.com/)' \
+            --header 'accept: text/html,application/xhtml+xml' \
+            'https://www.academy.com/storelocator/texas' \
+            --output academy-texas-state.html
+          wc -c academy-texas-state.html
       - name: Normalize directory bases for Academy relative links
         run: |
           node - <<'NODE'
@@ -33,7 +41,16 @@ jobs:
         run: node scripts/data/generate-academy-location-seed.mjs --self-test
       - name: Generate Academy Texas seed from official directory
         run: node scripts/data/generate-academy-location-seed.mjs --live-output academy-texas-locations.json
+      - name: Upload Academy directory diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: academy-texas-directory-diagnostics
+          path: academy-texas-state.html
+          if-no-files-found: error
+          retention-days: 1
       - name: Upload generated seed
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: academy-texas-locations
