@@ -1,14 +1,12 @@
 import { createServerFn } from "@tanstack/react-start";
 import type { Article } from "@/data/types";
-import { TEXAS_COUNTIES } from "@/data/texas-places";
+import { TEXAS_COUNTY_SLUGS } from "@/data/texas-county-slugs";
 
 export type CountySeriesProfile = {
   countySlug: string;
   articleSlug: string;
   loadArticle: () => Promise<Article>;
 };
-
-const TEXAS_COUNTY_SLUGS = new Set(TEXAS_COUNTIES.map((county) => county.slug));
 
 const loadCountySeriesArticleServerFn = createServerFn({ method: "GET" })
   .inputValidator((data: { countySlug: string }) => data)
