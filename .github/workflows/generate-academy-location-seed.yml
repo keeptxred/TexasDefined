@@ -24,17 +24,22 @@ jobs:
             'https://www.academy.com/storelocator/texas' \
             --output academy-texas-state.html
           wc -c academy-texas-state.html
-      - name: Adapt crawler to Academy mixed state-directory links
+      - name: Adapt crawler to Academy mixed directory links and respectful request rate
         run: |
           node - <<'NODE'
           const fs = require('node:fs');
           const path = 'scripts/data/generate-academy-location-seed.mjs';
-          const source = fs.readFileSync(path, 'utf8');
+          let source = fs.readFileSync(path, 'utf8');
           const before = `  const cityUrls = parseAcademyTexasCityUrls(stateHtml);\n  if (cityUrls.length < 80) throw new Error(\`Academy Texas directory exposed only \${cityUrls.length} city pages; refusing an incomplete crawl.\`);\n\n  const cityPages = await mapLimit(cityUrls, CONCURRENCY, async (url) => ({ url, html: await requestWithRetry(url) }));\n  const storeUrls = [...new Set(cityPages.flatMap(({ url, html }) => parseAcademyTexasStoreUrls(html, url)))].sort();`;
           const after = `  const directStoreUrls = parseAcademyTexasStoreUrls(stateHtml);\n  const cityUrls = parseAcademyTexasCityUrls(stateHtml);\n  if (directStoreUrls.length < 70 || cityUrls.length < 5) {\n    throw new Error(\`Academy Texas directory exposed only \${directStoreUrls.length} direct stores and \${cityUrls.length} multi-store city pages; refusing an incomplete crawl.\`);\n  }\n\n  const cityPages = await mapLimit(cityUrls, CONCURRENCY, async (url) => ({ url, html: await requestWithRetry(url) }));\n  const storeUrls = [...new Set([\n    ...directStoreUrls,\n    ...cityPages.flatMap(({ url, html }) => parseAcademyTexasStoreUrls(html, url)),\n  ])].sort();`;
-          const updated = source.replace(before, after);
-          if (updated === source) throw new Error('Expected Academy crawl block was not found');
-          fs.writeFileSync(path, updated);
+          source = source.replace(before, after);
+          if (!source.includes('const directStoreUrls = parseAcademyTexasStoreUrls(stateHtml);')) throw new Error('Expected Academy crawl block was not found');
+          source = source.replace('const CONCURRENCY = 8;', 'const CONCURRENCY = 2;');
+          source = source.replace(
+            '      results[index] = await mapper(values[index], index);',
+            '      results[index] = await mapper(values[index], index);\n      await new Promise((resolve) => setTimeout(resolve, 300));',
+          );
+          fs.writeFileSync(path, source);
           NODE
       - name: Self-test Academy first-party crawler
         run: node scripts/data/generate-academy-location-seed.mjs --self-test
