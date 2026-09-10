@@ -249,6 +249,34 @@ if (seventhWave.length !== 20) {
   failures.push('Expected exactly 20 seventh-wave GSC CTR experiments, found ' + seventhWave.length + '.');
 }
 
+const eighthWave = [
+  { path: "/event/kerrville-folk-festival", title: "Kerrville Folk Festival 2027: Schedule, Tickets & Visitor Guide", description: "Plan the 2027 Kerrville Folk Festival at Quiet Valley Ranch" },
+  { path: "/article/texas-caverns-caves-first-timers-guide", title: "Caverns in Texas: Public Caves, Tours & First-Timer Guide", description: "Find Texas caverns and caves open to the public" },
+  { path: "/explore/painted-churches-plan", title: "Painted Churches of Texas Map: Schulenburg Route & Trip Planner", description: "Plan a Schulenburg-area Painted Churches road trip" },
+  { path: "/texas-disabled-veteran-property-tax-calculator", title: "Texas Disabled Veteran Property Tax Calculator & Exemption Guide", description: "Estimate the tax effect of a verified Texas disabled-veteran property-tax exemption amount" },
+  { path: "/article/texas-highway-designations-explained", title: "Texas Road Names Explained: FM, RM, SH, Loops & Spurs", description: "Learn what FM, RM, SH, loops, spurs and other Texas highway designations mean" },
+  { path: "/article/possum-kingdom-water-system-guide", title: "Possum Kingdom Lake: Water Level, Brazos River Authority & Guide", description: "Understand Possum Kingdom Lake water management" },
+  { path: "/texas-data/school-district-tax-rates", title: "Texas School District Property Tax Rates: Comptroller Data", description: "Compare selected Texas school-district adopted property-tax rates" },
+  { path: "/sports-venue/amarillo-national-center", title: "Amarillo National Center: Events, Parking & Visitor Guide", description: "Plan an Amarillo National Center visit" },
+  { path: "/sports-venue/eagles-canyon-raceway", title: "Eagles Canyon Raceway: Track Map, Events & Visitor Guide", description: "Plan an Eagles Canyon Raceway visit" },
+  { path: "/sports-venue/expo-center-taylor-county", title: "Taylor County Expo Center: Events, Parking & Abilene Guide", description: "Plan a Taylor County Expo Center visit in Abilene" },
+  { path: "/texas-symbols/motto", title: "Texas State Motto: Friendship Meaning, History & Facts", description: "Learn the official Texas state motto" },
+  { path: "/texas-symbols/horse", title: "Texas State Horse: American Quarter Horse Facts & History", description: "Learn about the American Quarter Horse as an official Texas state symbol" },
+  { path: "/texas-vs/kentucky", title: "Texas vs Kentucky: Cost of Living, Taxes, Climate & Lifestyle", description: "Compare Texas and Kentucky on cost of living" },
+  { path: "/texas-vs/west-virginia", title: "Texas vs West Virginia: Cost of Living, Taxes & Lifestyle", description: "Compare Texas and West Virginia on cost of living" },
+  { path: "/article/texas-courthouse-architecture-guide", title: "Texas Courthouse Architecture: Styles, History & Buildings Guide", description: "Explore Texas courthouse architecture by style and era" },
+];
+
+for (const experiment of eighthWave) {
+  for (const required of ['"' + experiment.path + '"', experiment.title, experiment.description]) {
+    if (!seo.includes(required)) failures.push('Eighth-wave CTR contract missing for ' + experiment.path + ': ' + required);
+  }
+}
+
+if (eighthWave.length !== 15) {
+  failures.push('Expected exactly 15 eighth-wave GSC CTR experiments, found ' + eighthWave.length + '.');
+}
+
 const settlementLandingSelection = {
   path: '/article/texas-settlement-patterns-explained',
   title: 'Texas Settlement Patterns: How Geography Shaped Towns',
