@@ -8,14 +8,8 @@ new = "const priorityCountySlugs = ['polk', 'leon', 'mason', 'terrell', 'lubbock
 
 route = route_path.read_text()
 validator = validator_path.read_text()
-if route.count(old) != 1:
-    raise SystemExit(f'Expected exactly one old priority list in route; found {route.count(old)}')
+if new not in route:
+    raise SystemExit('Updated priority list is missing from appraisal route')
 if validator.count(old) != 1:
     raise SystemExit(f'Expected exactly one old priority list in validator; found {validator.count(old)}')
-
-route = route.replace(old, new, 1)
-route = route.replace('className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5"', 'className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"', 1)
-validator = validator.replace(old, new, 1)
-
-route_path.write_text(route)
-validator_path.write_text(validator)
+validator_path.write_text(validator.replace(old, new, 1))
