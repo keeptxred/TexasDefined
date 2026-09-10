@@ -12,7 +12,7 @@ const venueName = 'Xtreme Raceway Park';
 const heroPath = '/images/sports-venues/xtreme-raceway-park-ferris.webp';
 const heroUrl = `https://texasdefined.com${heroPath}`;
 const officialUrl = 'https://www.xtremeracewaypark.com/';
-const scheduleUrl = 'https://www.xtremeracewaypark.com/xrp-schedule/';
+const scheduleUrl = 'https://www.myracepass.com/tracks/3701/schedule';
 const trackInfoUrl = 'https://www.xtremeracewaypark.com/track-info/';
 const rulesUrl = 'https://www.xtremeracewaypark.com/track-rules/';
 const nhraUrl = 'https://www.nhradiv4.com/membertrackinfo?trackID=885';
@@ -188,13 +188,13 @@ function XtremeRacewayParkPage() {
 
         <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[16rem_1fr]" aria-labelledby="links-heading">
           <div>
-            <p className="eyebrow text-primary">Official sources</p>
+            <p className="eyebrow text-primary">Planning sources</p>
             <h2 id="links-heading" className="mt-2 font-display text-3xl leading-tight">Check before you go</h2>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">Schedules, gate times, ticket details and rules can change by event.</p>
           </div>
           <div className="grid gap-x-8 sm:grid-cols-2">
             <OfficialLink href={officialUrl} title="Xtreme Raceway Park website" detail="Track home, announcements and visitor information" />
-            <OfficialLink href={scheduleUrl} title="Race schedule" detail="Current event listings and race dates" />
+            <OfficialLink href={scheduleUrl} title="Current race schedule" detail="MyRacePass track schedule and event dates" />
             <OfficialLink href={trackInfoUrl} title="Track information" detail="Facility features, address, phone and directions" />
             <OfficialLink href={rulesUrl} title="Track rules" detail="Current spectator and facility policies" />
             <OfficialLink href={nhraUrl} title="NHRA Division 4 listing" detail="Current NHRA member-track information" />
