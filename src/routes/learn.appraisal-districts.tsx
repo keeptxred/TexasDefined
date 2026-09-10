@@ -19,6 +19,7 @@ const steps = [
   'Contact the district promptly if something is wrong.',
 ];
 const priorityCountySlugs = ['leon', 'terrell', 'lubbock', 'hidalgo', 'sabine'];
+const migrationPriorityCountySlugs = ['polk', 'mason'];
 
 export const Route = createFileRoute('/learn/appraisal-districts')({
   loader: async () => {
@@ -31,8 +32,11 @@ export const Route = createFileRoute('/learn/appraisal-districts')({
     const priorityCounties = priorityCountySlugs
       .map((slug) => TEXAS_COUNTIES.find((county) => county.slug === slug))
       .filter((county) => county !== undefined && verifiedPropertySlugs.has(county.slug));
+    const migrationPriorityCounties = migrationPriorityCountySlugs
+      .map((slug) => TEXAS_COUNTIES.find((county) => county.slug === slug))
+      .filter((county) => county !== undefined && verifiedPropertySlugs.has(county.slug));
 
-    return { verifiedPropertyCounties, verifiedPropertySlugList: [...verifiedPropertySlugs], priorityCounties, TEXAS_COUNTIES };
+    return { verifiedPropertyCounties, verifiedPropertySlugList: [...verifiedPropertySlugs], priorityCounties, migrationPriorityCounties, TEXAS_COUNTIES };
   },
   head: ({ loaderData }) => {
     const { verifiedPropertyCounties } = loaderData;
@@ -79,7 +83,7 @@ export const Route = createFileRoute('/learn/appraisal-districts')({
 });
 
 function AppraisalDistrictPage() {
-  const { verifiedPropertySlugList, priorityCounties, TEXAS_COUNTIES } = Route.useLoaderData();
+  const { verifiedPropertySlugList, priorityCounties, migrationPriorityCounties, TEXAS_COUNTIES } = Route.useLoaderData();
   const verifiedPropertySlugs = new Set(verifiedPropertySlugList);
 
   return <>
@@ -99,7 +103,16 @@ function AppraisalDistrictPage() {
       ]}
     />
     <Container className="pb-16 sm:pb-24">
-      {priorityCounties.length ? <section aria-labelledby="appraisal-priority-guides" className="border-t-2 border-foreground pt-8">
+      {migrationPriorityCounties.length ? <section aria-labelledby="appraisal-migration-guides" className="border-t-2 border-foreground pt-8">
+        <p className="eyebrow text-primary">Canonical county guides</p>
+        <h2 id="appraisal-migration-guides" className="mt-2 font-display text-4xl">Use the current county property-tax pages</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These verified county guides replace older appraisal-district URLs that now redirect here. Use the current county page for appraisal records, exemptions, protests, tax-office resources and official local links.</p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          {migrationPriorityCounties.map((county) => <Link key={county.slug} to="/property-tax/county/$county" params={{ county: county.slug }} className="group border-t border-border pt-4"><span className="eyebrow text-primary">Current verified guide</span><strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{county.name} appraisal & property tax</strong><span className="mt-3 block text-sm font-semibold">Open canonical county guide →</span></Link>)}
+        </div>
+      </section> : null}
+
+      {priorityCounties.length ? <section aria-labelledby="appraisal-priority-guides" className="mt-12 border-t-2 border-foreground pt-8">
         <p className="eyebrow text-primary">Verified local guides</p>
         <h2 id="appraisal-priority-guides" className="mt-2 font-display text-4xl">Direct appraisal-district starting points</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These county guides have passed TexasDefined’s local-source readiness gate and link to verified appraisal-district and tax-office resources. They are surfaced here directly instead of sending readers through retired appraisal-district URLs.</p>
