@@ -1,0 +1,52 @@
+name: Dallas render diagnostic
+
+on:
+  push:
+    branches: [diag/dallas-live-render-20260910]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Start SSR runtime
+        run: |
+          npm run dev -- --host 127.0.0.1 --port 4173 > /tmp/td.log 2>&1 &
+          echo $! > /tmp/td.pid
+      - name: Wait for runtime
+        run: |
+          for i in $(seq 1 60); do
+            curl -fsS http://127.0.0.1:4173/ >/dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/td.log
+          exit 1
+      - name: Compare county SSR
+        run: |
+          set +e
+          for slug in dallas harris travis kaufman; do
+            status=$(curl -sS -o "/tmp/${slug}.html" -w '%{http_code}' "http://127.0.0.1:4173/county/${slug}?diag=${GITHUB_RUN_ID}")
+            echo "=== ${slug}: HTTP ${status}, bytes $(wc -c < /tmp/${slug}.html) ==="
+            for marker in 'The story of' 'The county in numbers' 'Old Red Courthouse'; do
+              if grep -Fq "$marker" "/tmp/${slug}.html"; then echo "marker yes: $marker"; else echo "marker no: $marker"; fi
+            done
+          done
+          echo '=== runtime log ==='
+          cat /tmp/td.log
+          if ! grep -Fq 'The story of Dallas County' /tmp/dallas.html; then exit 1; fi
+      - name: Stop runtime
+        if: always()
+        run: test ! -f /tmp/td.pid || kill "$(cat /tmp/td.pid)" || true
