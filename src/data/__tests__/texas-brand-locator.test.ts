@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 
 const serverSource = readFileSync(new URL("../texas-brand-locator.server.ts", import.meta.url), "utf8");
 const hebFormatsSource = readFileSync(new URL("../texas-brand-locator-heb-formats.server.ts", import.meta.url), "utf8");
+const registrySource = readFileSync(new URL("../texas-brand-locator-registry.ts", import.meta.url), "utf8");
 const rpcFallbackSource = readFileSync(new URL("../texas-brand-locator-rpc.server.ts", import.meta.url), "utf8");
 const typesSource = readFileSync(new URL("../texas-brand-locator.types.ts", import.meta.url), "utf8");
 const brandRouteSource = readFileSync(new URL("../../routes/things-unique-to-texas_.$category.lazy.tsx", import.meta.url), "utf8");
@@ -58,10 +59,14 @@ describe("Texas brand locator", () => {
     expect(serverSource).toContain("commerce-api/v1/store/locator/address");
     expect(serverSource).toContain("radius: 100");
     expect(serverSource).toContain("resolveRelocationAddressServer");
-    expect(hebFormatsSource).toContain('const HEB_LOCATOR_URL = "https://www.heb.com/store-locations"');
-    expect(hebFormatsSource).toContain('"central-market": { label: "Central Market"');
-    expect(hebFormatsSource).toContain('"joe-vs": { label: "Joe V\'s Smart Shop"');
-    expect(hebFormatsSource).toContain('"mi-tienda": { label: "Mi Tienda"');
+    expect(registrySource).toContain('officialLocatorUrl: "https://www.heb.com/store-locations"');
+    expect(registrySource).toContain('officialLocatorUrl: "https://buc-ees.com/locations/"');
+    expect(registrySource).toContain('"central-market": {');
+    expect(registrySource).toContain('label: "Central Market"');
+    expect(registrySource).toContain('"joe-vs": {');
+    expect(registrySource).toContain('label: "Joe V\'s Smart Shop"');
+    expect(registrySource).toContain('"mi-tienda": {');
+    expect(registrySource).toContain('label: "Mi Tienda"');
     expect(hebFormatsSource).toContain("commerce-api/v1/store/locator/address");
     expect(hebFormatsSource).toContain("radius: 100");
     expect(serverSource).not.toMatch(/GOOGLE_(?:MAPS|PLACES)_API_KEY|MAPBOX_TOKEN|GEOCODIO|HERE_API/i);
@@ -70,9 +75,10 @@ describe("Texas brand locator", () => {
   });
 
   it("filters H-E-B family formats from one live upstream result set instead of storing duplicate location inventories", () => {
-    expect(hebFormatsSource).toContain("async function findHebFormatLocations(query: string, brands: HebFormatBrand[])");
+    expect(hebFormatsSource).toContain("async function findHebFormatLocations(query: string, brands: TexasBrandLocatorHebFormatBrand[])");
     expect(hebFormatsSource).toContain("return brands.flatMap((brand) => stores");
-    expect(hebFormatsSource).toContain("config.pattern.test(name)");
+    expect(hebFormatsSource).toContain("texasBrandLocatorStoreNamePattern(brand)");
+    expect(hebFormatsSource).toContain("pattern?.test(name)");
     expect(hebFormatsSource).toContain(".slice(0, RESULTS_PER_BRAND)");
     expect(hebFormatsSource).not.toContain("texasdefined_brand_locations");
     expect(hebFormatsSource).not.toMatch(/Central Market.*street|Joe V.*street|Mi Tienda.*street/i);
@@ -80,6 +86,7 @@ describe("Texas brand locator", () => {
 
   it("does not mislabel specialty-format H-E-B results as ordinary H-E-B stores", () => {
     expect(hebFormatsSource).toContain("function isHebSpecialtyName(name: string)");
+    expect(hebFormatsSource).toContain("TEXAS_BRAND_LOCATOR_HEB_FORMAT_BRANDS.some");
     expect(hebFormatsSource).toContain("function keepOrdinaryHebResults(");
     expect(hebFormatsSource).toContain('location.brand !== "heb" || !isHebSpecialtyName(location.name)');
     expect(hebFormatsSource).toContain("returned only specialty-format stores for this search");
@@ -129,15 +136,27 @@ describe("Texas brand locator", () => {
     expect(apiSource).toContain("new TextEncoder().encode(rawBody).byteLength");
   });
 
-  it("accepts the H-E-B family formats without changing the default H-E-B plus Buc-ee's search", () => {
-    expect(typesSource).toContain('"central-market"');
-    expect(typesSource).toContain('"joe-vs"');
-    expect(typesSource).toContain('"mi-tienda"');
-    expect(apiSource).toContain('"central-market"');
-    expect(apiSource).toContain('"joe-vs"');
-    expect(apiSource).toContain('"mi-tienda"');
-    expect(apiSource).toContain('brands.length ? brands : ["heb", "bucees"]');
+  it("accepts the registered H-E-B family formats without changing the default H-E-B plus Buc-ee's search", () => {
+    expect(registrySource).toContain('"central-market"');
+    expect(registrySource).toContain('"joe-vs"');
+    expect(registrySource).toContain('"mi-tienda"');
+    expect(registrySource).toContain('DEFAULT_TEXAS_BRAND_LOCATOR_BRANDS = ["heb", "bucees"]');
+    expect(apiSource).toContain("isTexasBrandLocatorBrand(brand)");
+    expect(apiSource).toContain("[...DEFAULT_TEXAS_BRAND_LOCATOR_BRANDS]");
     expect(apiSource).toContain("findExpandedTexasBrandLocationsServer");
+  });
+
+  it("centralizes server-side brand identity, labels, providers and recognition patterns", () => {
+    expect(registrySource).toContain("export const TEXAS_BRAND_LOCATOR_REGISTRY");
+    expect(registrySource).toContain("export type TexasBrandLocatorBrand = keyof typeof TEXAS_BRAND_LOCATOR_REGISTRY");
+    expect(registrySource).toContain('provider: "heb-live"');
+    expect(registrySource).toContain('provider: "verified-registry"');
+    expect(registrySource).toContain("queryPattern:");
+    expect(typesSource).toContain('export type { TexasBrandLocatorBrand } from "./texas-brand-locator-registry"');
+    expect(apiSource).not.toContain("const SUPPORTED_BRANDS");
+    expect(apiSource).not.toContain("const HEB_LIVE_BRANDS");
+    expect(apiSource).not.toContain("const BRAND_LABELS");
+    expect(hebFormatsSource).not.toContain("const HEB_FORMAT_CONFIG");
   });
 
   it("records public locator demand without persisting the typed street address", () => {
@@ -162,7 +181,7 @@ describe("Texas brand locator", () => {
   });
 
   it("exposes a reusable server endpoint and mounts only on the existing Texas Brands chapter", () => {
-    expect(typesSource).toContain('export type TexasBrandLocatorBrand = "heb" | "bucees"');
+    expect(typesSource).toContain('export type { TexasBrandLocatorBrand } from "./texas-brand-locator-registry"');
     expect(apiSource).toContain('const ENDPOINT_PATH = "/api/texas-brand-locator"');
     expect(apiSource).toContain("findExpandedTexasBrandLocationsServer");
     expect(hebFormatsSource).toContain("findExpandedTexasBrandLocationsNearPointServer");
