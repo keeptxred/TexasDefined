@@ -408,7 +408,7 @@ function ArticlePage() {
       </section>}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28"><ArticleBody blocks={article.body} entities={graph} /></div>
       {waterTopic ? (
-        <Suspense fallback={<section className="mt-8 min-h-40 border-y border-border bg-surface" aria-label="Loading Texas water reference" />}>
+        <Suspense fallback={<section className="mt-8 border-y border-border bg-surface" style={{ minHeight: "10rem" }} aria-label="Loading Texas water reference" />}>
           <TexasWaterSearchResource active={waterTopic} />
         </Suspense>
       ) : null}
