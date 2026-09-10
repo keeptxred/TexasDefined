@@ -48,9 +48,9 @@ export function TexasRiverBasinReference() {
         Texas also has eight designated coastal basins. The table below uses TWDB's statewide basin-area, river-length and average-flow figures so you can compare the major systems at a glance.
       </p>
       <div className="mt-5 overflow-x-auto border border-border">
-        <table className="w-full min-w-[42rem] border-collapse text-left text-sm">
+        <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "42rem" }}>
           <caption className="sr-only">Texas Water Development Board statistics for the 15 major river basins</caption>
-          <thead className="bg-surface text-xs uppercase tracking-[0.1em] text-muted-foreground">
+          <thead className="bg-surface text-xs uppercase text-muted-foreground" style={{ letterSpacing: "0.1em" }}>
             <tr>
               <th scope="col" className="px-4 py-3 font-semibold">Major basin</th>
               <th scope="col" className="px-4 py-3 text-right font-semibold">Area in Texas (sq. mi.)</th>
@@ -62,9 +62,9 @@ export function TexasRiverBasinReference() {
             {majorBasins.map(([name, area, miles, flow]) => (
               <tr key={name}>
                 <th scope="row" className="px-4 py-3 font-semibold text-foreground">{name}</th>
-                <td className="px-4 py-3 text-right tabular-nums text-muted-foreground">{area}</td>
-                <td className="px-4 py-3 text-right tabular-nums text-muted-foreground">{miles}</td>
-                <td className="px-4 py-3 text-right tabular-nums text-muted-foreground">{flow}</td>
+                <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{area}</td>
+                <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{miles}</td>
+                <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{flow}</td>
               </tr>
             ))}
           </tbody>
@@ -74,7 +74,7 @@ export function TexasRiverBasinReference() {
         <h3 className="font-display text-xl">The eight coastal basins</h3>
         <ul className="mt-3 flex flex-wrap gap-2" aria-label="Eight designated Texas coastal basins">
           {coastalBasins.map((basin) => (
-            <li key={basin} className="rounded-sm border border-border bg-surface px-3 py-2 text-xs font-semibold text-foreground/80">
+            <li key={basin} className="rounded-sm border border-border bg-surface px-3 py-2 text-xs font-semibold" style={{ color: "color-mix(in oklab, var(--foreground) 80%, transparent)" }}>
               {basin}
             </li>
           ))}
