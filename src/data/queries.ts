@@ -46,7 +46,9 @@ export const articleQuery = (slug: Slug) => queryOptions({
 
 export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}) => queryOptions({
   queryKey: ["destinations", scope.brandId, params],
-  staleTime: 10 * 60 * 1000,
+  // Cavern inventory includes checked-in public fallbacks that can change with a deploy;
+  // never let an older worker/query cache keep the category collection pinned to a stale subset.
+  staleTime: params.category === "caverns" ? 0 : 10 * 60 * 1000,
   gcTime: 30 * 60 * 1000,
   refetchOnWindowFocus: false,
   refetchOnMount: false,
