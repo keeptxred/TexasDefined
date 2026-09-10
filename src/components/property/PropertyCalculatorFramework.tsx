@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link } from '@tanstack/react-router';
 
-import { TEXAS_COUNTIES } from '@/data/texas-places';
+import type { CountySelectorFieldProps } from '@/components/property/CountySelectorField';
+
+const LazyCountySelectorField = lazy(() => import('@/components/property/CountySelectorField').then((module) => ({ default: module.CountySelectorField })));
 
 export type CalculatorStateValue = string | number | boolean;
 export type CalculatorState = Record<string, CalculatorStateValue>;
@@ -103,27 +105,24 @@ export function CalculatorSlider({
   );
 }
 
-export function CountySelector({
-  label = 'Texas county',
-  value,
-  onChange,
-}: {
-  label?: string;
-  value: string;
-  onChange: (slug: string) => void;
-}) {
+export function CountySelector(props: CountySelectorFieldProps) {
   return (
-    <label className="block border-t border-border pt-4 text-sm font-semibold">
-      <span>{label}</span>
-      <select
-        className="mt-2 w-full border-0 border-b border-border bg-background px-0 py-3 text-base outline-none focus:border-primary"
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-      >
-        <option value="">Choose a county</option>
-        {TEXAS_COUNTIES.map((county) => <option key={county.slug} value={county.slug}>{county.name}</option>)}
-      </select>
-    </label>
+    <Suspense fallback={
+      <label className="block border-t border-border pt-4 text-sm font-semibold">
+        <span>{props.label ?? 'Texas county'}</span>
+        <select
+          aria-label={`${props.label ?? 'Texas county'} loading`}
+          className="mt-2 w-full border-0 border-b border-border bg-background px-0 py-3 text-base outline-none"
+          disabled
+          value=""
+          onChange={() => undefined}
+        >
+          <option value="">Loading counties…</option>
+        </select>
+      </label>
+    }>
+      <LazyCountySelectorField {...props} />
+    </Suspense>
   );
 }
 
