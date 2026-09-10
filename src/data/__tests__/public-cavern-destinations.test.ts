@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { listResolvedDestinations, getResolvedDestination } from "../destination-query-runtime";
+import {
+  getResolvedDestination,
+  listResolvedDestinationSearchCatalog,
+  listResolvedDestinations,
+} from "../destination-query-runtime";
 
 const EXPECTED_PUBLIC_CAVERNS = [
   "natural-bridge-caverns",
@@ -23,6 +27,14 @@ describe("public cavern destination resolution", () => {
 
     for (const slug of EXPECTED_PUBLIC_CAVERNS) {
       expect(slugs.has(slug), slug).toBe(true);
+    }
+  });
+
+  it("keeps all 11 public cavern experiences in the resolved global search catalog exactly once", async () => {
+    const destinations = await listResolvedDestinationSearchCatalog();
+
+    for (const slug of EXPECTED_PUBLIC_CAVERNS) {
+      expect(destinations.filter((destination) => destination.slug === slug), slug).toHaveLength(1);
     }
   });
 
