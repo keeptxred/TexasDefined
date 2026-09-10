@@ -52,7 +52,7 @@ export function TexasWaterSearchResource({ active }: { active: WaterTopic }) {
             >
               <span className="font-display text-lg">{topic.title}</span>
               <span className="mt-1 block text-xs leading-5 text-muted-foreground">{topic.description}</span>
-              <span className="mt-3 block text-xs font-semibold uppercase tracking-[0.12em] text-primary">
+              <span className="mt-3 block text-xs font-semibold uppercase text-primary" style={{ letterSpacing: "0.12em" }}>
                 {isActive ? "You are here" : "Open guide →"}
               </span>
             </a>
