@@ -3,6 +3,8 @@ import fs from 'node:fs';
 const seo = fs.readFileSync('src/lib/seo.ts', 'utf8');
 const westfest = fs.readFileSync('src/data/major-event-expanded-authority-tranche11.server.ts', 'utf8');
 const poteet = fs.readFileSync('src/data/major-event-expanded-authority-tranche21.server.ts', 'utf8');
+const sweetwater = fs.readFileSync('src/data/major-event-expanded-authority-tranche16.server.ts', 'utf8');
+const charro = fs.readFileSync('src/data/major-event-expanded-authority-tranche5.server.ts', 'utf8');
 const failures = [];
 
 for (const required of [
@@ -58,8 +60,8 @@ const experiments = [
   },
   {
     path: '/event/sweetwater-rattlesnake-roundup',
-    title: 'Sweetwater Rattlesnake Roundup: Dates & Visitor Guide',
-    description: 'Plan the Sweetwater Jaycees Rattlesnake Roundup with date guidance',
+    title: 'Sweetwater Rattlesnake Roundup 2027: Dates & Visitor Guide',
+    description: 'Sweetwater Rattlesnake Roundup 2027 planning window: March 12-14',
   },
   {
     path: '/article/texas-school-districts-explained',
@@ -78,8 +80,8 @@ const experiments = [
   },
   {
     path: '/event/charro-days-fiesta',
-    title: 'Charro Days Fiesta: Dates, Parade & Brownsville Guide',
-    description: 'Plan Charro Days Fiesta in Brownsville with current date guidance',
+    title: 'Charro Days Fiesta 2027: Dates, Parade & Brownsville Guide',
+    description: 'Charro Days Fiesta 2027 core dates are Feb. 25-27 in Brownsville',
   },
   {
     path: '/event/hidalgo-borderfest',
@@ -142,6 +144,11 @@ const thirdWave = [
   { path: '/event/poteet-strawberry-festival', title: 'Poteet Strawberry Festival 2027: Date Status & Visitor Guide', description: 'The organizer says the 80th annual dates are coming soon' },
 ];
 
+const fourthWaveCorrections = [
+  { path: '/event/sweetwater-rattlesnake-roundup', title: 'Sweetwater Rattlesnake Roundup 2027: Dates & Visitor Guide', description: 'Sweetwater Rattlesnake Roundup 2027 planning window: March 12-14' },
+  { path: '/event/charro-days-fiesta', title: 'Charro Days Fiesta 2027: Dates, Parade & Brownsville Guide', description: 'Charro Days Fiesta 2027 core dates are Feb. 25-27 in Brownsville' },
+];
+
 for (const experiment of experiments) {
   for (const required of [`\"${experiment.path}\"`, experiment.title, experiment.description]) {
     if (!seo.includes(required)) failures.push(`Page-one CTR contract missing for ${experiment.path}: ${required}`);
@@ -172,6 +179,16 @@ if (thirdWave.length !== 4) {
   failures.push(`Expected exactly 4 third-wave GSC CTR experiments, found ${thirdWave.length}.`);
 }
 
+for (const experiment of fourthWaveCorrections) {
+  for (const required of [`\"${experiment.path}\"`, experiment.title, experiment.description]) {
+    if (!seo.includes(required)) failures.push(`Fourth-wave CTR correction missing for ${experiment.path}: ${required}`);
+  }
+}
+
+if (fourthWaveCorrections.length !== 2) {
+  failures.push(`Expected exactly 2 fourth-wave GSC CTR corrections, found ${fourthWaveCorrections.length}.`);
+}
+
 for (const required of [
   'slug: "westfest"',
   'sourceCheckedAt: "2026-09-09"',
@@ -199,6 +216,35 @@ if (seo.includes('Poteet Strawberry Festival runs April 9-11, 2027') || seo.incl
   failures.push('Poteet CTR metadata must not present the unverified April 9-11, 2027 projection as confirmed.');
 }
 
+for (const required of [
+  'slug: "sweetwater-rattlesnake-roundup"',
+  'startDate: "2027-03-12"',
+  'endDate: "2027-03-14"',
+  'recurrence-derived planning window',
+  'A dedicated 2027 program, daily hours and ticket details are not yet published',
+]) {
+  if (!sweetwater.includes(required)) failures.push(`Sweetwater date-safety contract missing: ${required}`);
+}
+
+if (seo.includes('title: "Sweetwater Rattlesnake Roundup: Dates & Visitor Guide"')) {
+  failures.push('Sweetwater CTR metadata must retain the 2027 planning-window intent surfaced by Search Console.');
+}
+
+for (const required of [
+  'slug: "charro-days-fiesta"',
+  'The 2027 schedule includes Noche Mexicana',
+  "Children's Parade on February 25",
+  'Illuminated Parade on February 26',
+  'Grand International parades on February 27',
+  'Charro Days official 2027 events schedule',
+]) {
+  if (!charro.includes(required)) failures.push(`Charro Days 2027 source contract missing: ${required}`);
+}
+
+if (seo.includes('title: "Charro Days Fiesta: Dates, Parade & Brownsville Guide"')) {
+  failures.push('Charro Days CTR metadata must retain the organizer-confirmed 2027 year in the search title.');
+}
+
 if (!seo.includes('const META_DESCRIPTION_MAX_LENGTH = 160;') || !seo.includes('cleanMetaDescription')) {
   failures.push('Page-one CTR experiments must retain the shared meta-description length guard.');
 }
@@ -209,4 +255,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('GSC page-one CTR validation passed: the original top 20, second-wave 14 and third-wave 4 snippet experiments remain server-only and length-guarded; Poteet 2027 metadata remains explicitly unconfirmed until the organizer publishes dates.');
+console.log('GSC page-one CTR validation passed: the original top 20, second-wave 14, third-wave 4 and fourth-wave 2 corrections remain server-only and length-guarded; Sweetwater remains a recurrence-derived 2027 planning window while Charro Days uses organizer-confirmed 2027 schedule data.');
