@@ -1,4 +1,5 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { ArticleBody, Byline } from "@/components/editorial/ArticleBody";
@@ -16,6 +17,10 @@ import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import { remoteEvergreenAuthoritySources } from "@/data/remote-evergreen-authority-sources";
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
 import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "@/lib/seo";
+
+const TexasWaterSearchResource = lazy(() =>
+  import("@/components/content/TexasWaterSearchResource").then((module) => ({ default: module.TexasWaterSearchResource })),
+);
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const DISCOVER_MIN_IMAGE_WIDTH = 1200;
@@ -344,6 +349,11 @@ function ArticlePage() {
     .slice(0, 6);
 
   const hasSchoolSupplyRail = schoolSupplyArticleSlugs.has(article.slug);
+  const waterTopic = article.slug === "texas-river-basins-guide"
+    ? "basins"
+    : article.slug === "texas-rivers-explained"
+      ? "rivers"
+      : null;
 
   return <article>
     <Container className="pt-8 sm:pt-12">
@@ -397,6 +407,11 @@ function ArticlePage() {
         <a href="#guide-body" className="mt-4 inline-block py-1 text-sm font-semibold text-primary underline-offset-4 hover:underline">Read the full guide ↓</a>
       </section>}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28"><ArticleBody blocks={article.body} entities={graph} /></div>
+      {waterTopic ? (
+        <Suspense fallback={<section className="mt-8 min-h-40 border-y border-border bg-surface" aria-label="Loading Texas water reference" />}>
+          <TexasWaterSearchResource active={waterTopic} />
+        </Suspense>
+      ) : null}
       {hasSchoolSupplyRail ? <SchoolSupplyPartners className="school-supply-bottom" /> : null}
       {article.hero.credit && <p className="mt-10 text-xs text-muted-foreground">Image credit: {article.hero.credit}</p>}
       {primarySource && <p className="mt-4 text-xs leading-6 text-muted-foreground">Primary source: <a href={primarySource.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{primarySource.label} ↗</a></p>}
