@@ -34,7 +34,7 @@ const coreSportsVenueSlugs = [...seed.matchAll(/^\s*\{id:'sports-venue:[^']+',ki
 const seededSlugs = [...new Set([...rowSlugs(major), ...rowSlugs(tier2), ...coreSportsVenueSlugs])].sort();
 
 const profileOccurrences = new Map();
-const requiredMarkers = ['primaryEvents:', 'parking:', 'arrival:', 'stayAndEat:', 'nearby:', 'planningLinks:', 'imageBrief:', 'verifiedAt,'];
+const requiredMarkers = ['primaryEvents:', 'parking:', 'arrival:', 'planningLinks:', 'imageBrief:', 'verifiedAt,'];
 
 for (let i = 0; i < enrichmentSources.length; i += 1) {
   const source = enrichmentSources[i];
@@ -50,6 +50,10 @@ for (let i = 0; i < enrichmentSources.length; i += 1) {
     }
   }
 }
+
+const baseEnrichmentSource = enrichmentSources[0] ?? '';
+assert(baseEnrichmentSource.includes('stayAndEat?: string;'), 'Sports venue stayAndEat context must remain optional so weak filler can be omitted.');
+assert(baseEnrichmentSource.includes('nearby?: string;'), 'Sports venue nearby context must remain optional so weak filler can be omitted.');
 
 const profileSlugs = [...profileOccurrences.keys()].sort();
 const seededSet = new Set(seededSlugs);
@@ -81,4 +85,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue deep completeness validated: ${seededSlugs.length} unique seeded sports venues, ${profileSlugs.length} deep profiles, no gaps, duplicates or orphan profiles.`);
+console.log(`Sports venue deep completeness validated: ${seededSlugs.length} unique seeded sports venues, ${profileSlugs.length} deep profiles, no gaps, duplicates or orphan profiles; optional stay/nearby context is not required filler.`);
