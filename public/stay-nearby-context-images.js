@@ -139,9 +139,13 @@
     const surface = document.getElementById("expedia-travel-surface");
     if (!surface || surface.dataset.surfaceType !== "curated") return;
 
-    const visual = VISUALS[normalizedPath()];
     const existing = surface.querySelector(`[${VISUAL_ATTRIBUTE}]`);
+    if (document.querySelector("[data-stay-nearby-slot]")) {
+      existing?.remove();
+      return;
+    }
 
+    const visual = VISUALS[normalizedPath()];
     if (!visual) {
       existing?.remove();
       return;
