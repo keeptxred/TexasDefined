@@ -114,8 +114,8 @@ function GalaxyStadiumPage() {
               {enrichment.history && <GuideCard title="Venue story" body={enrichment.history} />}
               <GuideCard title="Parking and access" body={enrichment.parking} />
               <GuideCard title="Arrival strategy" body={enrichment.arrival} />
-              <GuideCard title="Stay and eat" body={enrichment.stayAndEat} />
-              <GuideCard title="Build the weekend" body={enrichment.nearby} />
+              {enrichment.stayAndEat && <GuideCard title="Stay and eat" body={enrichment.stayAndEat} />}
+              {enrichment.nearby && <GuideCard title="Build the weekend" body={enrichment.nearby} />}
               <div className="border-t border-border pt-4">
                 <h3 className="font-display text-2xl">Primary sports and events</h3>
                 <ul className="mt-3 space-y-2 text-sm leading-6 text-muted-foreground">
