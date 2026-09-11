@@ -77,7 +77,7 @@ Recommended activation sequence:
 2. Resolve or generate the provider deep link server-side.
 3. Preserve the official ticket URL as fallback when available.
 4. Set the provider identifier, source, sale status, last verified timestamp, priority, and expiry values.
-5. Run `npm run event-ticketing:validate`, the normal validation suite, production build, and bundle budget before merge.
+5. Run `node scripts/data/validate-event-ticketing-architecture.mjs`, the normal validation suite, production build, and bundle budget before merge.
 6. Verify the rendered CTA text changes from `Official Tickets →` to `Find Tickets →` only when the affiliate URL is valid.
 
 ## No checkout
