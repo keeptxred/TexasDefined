@@ -6,7 +6,7 @@ Scope: all 84 currently verified TexasDefined sports-venue guides. Phase 1D reme
 
 - The Phase 1D baseline found the generic venue route carrying a shared `Plan the trip` block with the identical heading **“Make the venue part of the weekend”** and the identical card labels **“Why people travel,” “Best trip pattern,” and “Before you go.”** Its body copy came from only 12 tag-based `venueProfile()` templates. The follow-up global cleanup removes that block and the dead `whyTravel`, `tripPattern`, and `beforeYouGo` template fields instead of replacing them with different filler. `validate-sports-venue-coverage.mjs` now fails if those template markers return.
 - **84/84 venue records** are shaped by `SportsVenueEnrichment`. The original schema required `stayAndEat` and `nearby` strings, which encouraged lodging/weekend copy even when there was no venue-specific guidance worth publishing. The follow-up schema cleanup makes both fields optional and both generic/legacy renderers omit their cards when no supported copy exists. Core deep-profile requirements remain mandatory.
-- The two knowledge-graph seed files (`major-sports-venues.ts` and `sports-venues-tier2.ts`) synthesize every base venue description from a small set of category templates plus a common wrapper sentence. Before Phase 1D, only **15 of 84** venue descriptions had venue-specific server editorial overrides. The initial batch raised explicit editorial coverage to **18 of 84**, wave 2 to **21**, wave 3 to **26**, wave 4 to **31**, wave 5 to **41**, the current-main editorial wave to **47**, Phase 1D wave 6 to **54**, and Phase 1D wave 7 to **64 of 84**. **20** venues remain in the broader record-by-record editorial backlog.
+- The two knowledge-graph seed files (`major-sports-venues.ts` and `sports-venues-tier2.ts`) synthesize every base venue description from a small set of category templates plus a common wrapper sentence. Before Phase 1D, only **15 of 84** venue descriptions had venue-specific server editorial overrides. The initial batch raised explicit editorial coverage to **18 of 84**, wave 2 to **21**, wave 3 to **26**, wave 4 to **31**, wave 5 to **41**, the current-main editorial wave to **47**, Phase 1D wave 6 to **54**, Phase 1D wave 7 to **64**, and Phase 1D wave 8 to **74 of 84**. **10** venues remain in the broader record-by-record editorial backlog.
 - **84/84 venue quick-answer components** formerly included `TexasExplainedContextLinks surface="sports"`, regardless of whether those links were meaningfully related to the venue. Phase 1D removed that forced link injection.
 - Because `verifiedAt` is mandatory in the enrichment schema, the quick-answer surface had framed source-review metadata as **“How current is this [venue] visitor guide?”** The review date is now displayed as source metadata, not as a consumer FAQ or FAQ-schema question.
 - The September 5 GSC triage contains **17** `/sports-venue/*` URLs marked `IMPROVE`. Phase 1D gives all 17 a separated remediation profile, and CI derives that list directly from `ops/seo/gsc-discovered-2026-09-05-urls.tsv` so future regressions fail closed.
@@ -261,13 +261,55 @@ Reliant Stadium, Rice Stadium and Constellation Field overlap the current-main e
 - Records the **1978** Olsen Field opening and **February 2012** reopening after the $24 million Blue Bell Park redevelopment.
 - Uses current Texas A&M digital parking/ticketing, clear-bag and 90-minute gate guidance while avoiding stale parking prices and older capacity assumptions.
 
+## Phase 1D eighth remediation wave — conventional venue backlog
+
+### Nelson W. Wolff Municipal Stadium
+- Records **5757 US Hwy 90 West, San Antonio, TX 78227**, **April 18, 1994** opening, **6,200 fixed seats plus a roughly 3,000-person berm**, and the Missions’ current Double-A Padres affiliation.
+- Uses the current May 2026 clear-bag rule and west-side U.S. 90 arrival pattern while keeping parking prices event-controlled.
+
+### Retama Park
+- Records the **1995** opening and current Selma horse-racing identity with live racing plus year-round simulcast wagering.
+- Preserves the current clear-bag policy and treats parking/admission terms as current operations rather than permanent evergreen promises.
+
+### Momentum Bank Ballpark
+- Records **5514 Champions Drive, Midland, TX 79706**, **2002** opening, **4,709 seats / 6,669 total with berms**, and the RockHounds’ current Double-A Athletics affiliation.
+- Uses the live cashless, clear-bag, re-entry and day-dependent gate rules without freezing ticket prices.
+
+### Bowers Stadium
+- Records **620 Bowers Blvd., Huntsville, TX 77340**, **14,000** capacity and the first game on **September 13, 1986**.
+- Centers Sam Houston football and current modernization-sensitive arrival guidance without claiming transitional construction work is complete before the official source does.
+
+### McKinney ISD Stadium
+- Records **4201 S. Hardin Blvd., McKinney, TX 75070** and its McKinney ISD / NCAA Division II championship role.
+- Deliberately omits an unsupported capacity figure and instead protects current e-ticket, clear-bag, home/visitor parking and approved-tailgate guidance.
+
+### Children’s Health Stadium — Prosper
+- Records **2000 Stadium Drive, Prosper, TX 75078** and the district’s official **12,000-seat** figure.
+- Uses current clear-bag, cashless, ADA-entry and event-map guidance across multi-school football and district events.
+
+### Ratliff Stadium
+- Preserves the Ector County ISD / Permian / Odessa High football identity without copying a secondary capacity or venue address that the current public ECISD stadium page does not verify.
+- Uses current district traffic, ticket and stadium-policy sources as the operational authority.
+
+### Mesquite Memorial Stadium
+- Records **2411 W. Scyene Rd., Mesquite, TX 75149** and the district football/soccer role.
+- Deliberately avoids an unsupported seat count while protecting Mesquite ISD’s current clear-bag and security rules.
+
+### Lupton Stadium
+- Records **3700 Berry Street, Fort Worth, TX 76109**, **4,500** capacity, **2003** opening and natural-grass TCU baseball identity.
+- Centers the TCU campus and NCAA-postseason history rather than generic Fort Worth sports language.
+
+### Reckling Park
+- Records the **2000** opening and current Rice baseball capacity of **6,193**.
+- Centers the former Cameron Field site, Rice campus and Texas Medical Center geography rather than generic Houston baseball copy.
+
 ## GSC sports remediation milestone
 
 The September 5 GSC triage lists **17** sports-venue URLs as `IMPROVE`. All **17/17** are represented in the Phase 1D remediation layers. `validate-sports-venue-coverage.mjs` reads the GSC triage file directly and fails if any current sports `IMPROVE` target lacks a Phase 1D remediation profile.
 
 ## Source standard used in this remediation
 
-The **51** venues with separated Phase 1D quality/remediation profiles use venue/team/university/city/district-operated sources for durable facts and official visitor guidance. The current-main editorial wave and Phase 1D waves 6–7 use the same source discipline rather than introducing unsourced generic prose. Frequently changing policies are summarized conservatively and linked back to the current official page rather than being treated as permanent facts. Venue identity, geography and nearby relationships are included only when the source record or physical context supports them.
+The **61** venues with separated Phase 1D quality/remediation profiles use venue/team/university/city/district-operated sources for durable facts and official visitor guidance. The current-main editorial wave and Phase 1D waves 6–8 use the same source discipline rather than introducing unsourced generic prose. Frequently changing policies are summarized conservatively and linked back to the current official page rather than being treated as permanent facts. Venue identity, geography and nearby relationships are included only when the source record or physical context supports them.
 
 ## Global trip-template and schema cleanup
 
@@ -277,4 +319,4 @@ The shared `Plan the trip` / `Make the venue part of the weekend` block is remov
 
 ## Remaining remediation queue
 
-The September 5 GSC sports `IMPROVE` queue is complete. Explicit venue-specific server editorial coverage is now **64 of 84**, leaving **20** broader editorial-quality records. Continue those venue by venue based on current search demand and destination importance, using the same standard: authoritative durable facts first, event-specific rules via official links, no required weekend filler, and no nearby/internal link unless geography or editorial relevance justifies it. Existing `stayAndEat` / `nearby` copy should be retained only where it adds specific, defensible visitor value; weak instances can be deleted without fabricating replacements.
+The September 5 GSC sports `IMPROVE` queue is complete. Explicit venue-specific server editorial coverage is now **74 of 84**, leaving **10** broader editorial-quality records. Continue those venue by venue based on current search demand and destination importance, using the same standard: authoritative durable facts first, event-specific rules via official links, no required weekend filler, and no nearby/internal link unless geography or editorial relevance justifies it. Existing `stayAndEat` / `nearby` copy should be retained only where it adds specific, defensible visitor value; weak instances can be deleted without fabricating replacements.

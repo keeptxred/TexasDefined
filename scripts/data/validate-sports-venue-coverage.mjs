@@ -16,6 +16,7 @@ const [
   editorialDescriptions,
   editorialDescriptionsWave6,
   editorialDescriptionsWave7,
+  editorialDescriptionsWave8,
   remediationInitial,
   remediationWave2,
   remediationWave3,
@@ -23,6 +24,7 @@ const [
   remediationWave5,
   remediationWave6,
   remediationWave7,
+  remediationWave8,
   gscTriage,
   currentCorrections,
   partnerRouteEager,
@@ -42,6 +44,7 @@ const [
   read('src/data/sports-venue-editorial.server.ts'),
   read('src/data/sports-venue-editorial-wave6.server.ts'),
   read('src/data/sports-venue-editorial-wave7.server.ts'),
+  read('src/data/sports-venue-editorial-wave8.server.ts'),
   read('src/data/sports-venue-content-remediation.ts'),
   read('src/data/sports-venue-content-remediation-wave2.ts'),
   read('src/data/sports-venue-content-remediation-wave3.ts'),
@@ -49,6 +52,7 @@ const [
   read('src/data/sports-venue-content-remediation-wave5.ts'),
   read('src/data/sports-venue-content-remediation-wave6.ts'),
   read('src/data/sports-venue-content-remediation-wave7.ts'),
+  read('src/data/sports-venue-content-remediation-wave8.ts'),
   read('ops/seo/gsc-discovered-2026-09-05-urls.tsv'),
   read('src/data/knowledge-graph/current-entity-corrections.ts'),
   read('src/routes/partner-with-us.tsx'),
@@ -193,6 +197,7 @@ for (const getter of [
   'getSportsVenueContentRemediationWave5(lookupSlug)',
   'getSportsVenueContentRemediationWave6(lookupSlug)',
   'getSportsVenueContentRemediationWave7(lookupSlug)',
+  'getSportsVenueContentRemediationWave8(lookupSlug)',
   'getSportsVenueEnrichment(lookupSlug)',
   'getSportsVenueEnrichmentBatch2(lookupSlug)',
   'getSportsVenueEnrichmentBatch3(lookupSlug)',
@@ -209,7 +214,7 @@ for (const getter of [
 const gscSportsImproveSlugs = [...gscTriage.matchAll(/^IMPROVE\t\/sports-venue\/([a-z0-9-]+)$/gm)].map((match) => match[1]);
 assert(gscSportsImproveSlugs.length === 17, `Expected 17 sports-venue IMPROVE targets in the 2026-09-05 GSC triage; found ${gscSportsImproveSlugs.length}.`);
 assert(new Set(gscSportsImproveSlugs).size === gscSportsImproveSlugs.length, 'GSC sports-venue IMPROVE targets must be unique.');
-const phase1dRemediationSources = `${remediationInitial}\n${remediationWave2}\n${remediationWave3}\n${remediationWave4}\n${remediationWave5}\n${remediationWave6}\n${remediationWave7}`;
+const phase1dRemediationSources = `${remediationInitial}\n${remediationWave2}\n${remediationWave3}\n${remediationWave4}\n${remediationWave5}\n${remediationWave6}\n${remediationWave7}\n${remediationWave8}`;
 for (const slug of gscSportsImproveSlugs) {
   assert(phase1dRemediationSources.includes(`'${slug}': {`), `GSC sports IMPROVE target ${slug} is missing a Phase 1D remediation profile.`);
 }
@@ -256,7 +261,7 @@ const phase1dWave6Slugs = [
   'southwest-university-park',
   'hodgetown',
 ];
-const combinedEditorialDescriptions = `${editorialDescriptions}\n${editorialDescriptionsWave6}\n${editorialDescriptionsWave7}`;
+const combinedEditorialDescriptions = `${editorialDescriptions}\n${editorialDescriptionsWave6}\n${editorialDescriptionsWave7}\n${editorialDescriptionsWave8}`;
 for (const slug of phase1dWave6Slugs) {
   const occurrences = [...remediationWave6.matchAll(new RegExp(`'${slug}': \\{`, 'g'))].length;
   assert(occurrences >= 2, `Phase 1D wave 6 must keep both quality and runtime remediation records for ${slug}.`);
@@ -288,13 +293,34 @@ for (const slug of phase1dWave7Slugs) {
 assert(editorialDescriptionsWave6.includes("getSportsVenueEditorialDescriptionWave7Server"), 'Wave 6 editorial fallback must delegate misses to the Wave 7 editorial registry.');
 assert(editorialDescriptionsWave6.includes("sportsVenueEditorialDescriptionsWave6[id] ?? getSportsVenueEditorialDescriptionWave7Server(id)"), 'Wave 7 editorial fallback is not wired after the Wave 6 registry.');
 
+const phase1dWave8Slugs = [
+  'nelson-wolff-stadium',
+  'retama-park',
+  'momentum-bank-ballpark',
+  'bowers-stadium',
+  'mckinney-isd-stadium',
+  'childrens-health-stadium-prosper',
+  'ratliff-stadium',
+  'mesquite-memorial-stadium',
+  'lupton-stadium',
+  'reckling-park',
+];
+for (const slug of phase1dWave8Slugs) {
+  const occurrences = [...remediationWave8.matchAll(new RegExp(`'${slug}': \\{`, 'g'))].length;
+  assert(occurrences >= 2, `Phase 1D wave 8 must keep both quality and runtime remediation records for ${slug}.`);
+  assert(editorialDescriptionsWave8.includes(`'sports-venue:${slug}':`), `Phase 1D wave 8 venue ${slug} is missing its explicit server editorial description.`);
+}
+assert(editorialDescriptionsWave7.includes("getSportsVenueEditorialDescriptionWave8Server"), 'Wave 7 editorial fallback must delegate misses to the Wave 8 editorial registry.');
+assert(editorialDescriptionsWave7.includes("sportsVenueEditorialDescriptionsWave7[id] ?? getSportsVenueEditorialDescriptionWave8Server(id)"), 'Wave 8 editorial fallback is not wired after the Wave 7 registry.');
+
 const editorialDescriptionIds = new Set([
   ...[...editorialDescriptions.matchAll(/^\s{2}'(sports-venue:[^']+)':/gm)].map((match) => match[1]),
   ...[...editorialDescriptionsWave6.matchAll(/^\s{2}'(sports-venue:[^']+)':/gm)].map((match) => match[1]),
   ...[...editorialDescriptionsWave7.matchAll(/^\s{2}'(sports-venue:[^']+)':/gm)].map((match) => match[1]),
+  ...[...editorialDescriptionsWave8.matchAll(/^\s{2}'(sports-venue:[^']+)':/gm)].map((match) => match[1]),
 ]);
 const editorialDescriptionCount = editorialDescriptionIds.size;
-assert(editorialDescriptionCount >= 64, `Expected at least 64 unique sports-venue editorial descriptions after Phase 1D wave 7; found ${editorialDescriptionCount}.`);
+assert(editorialDescriptionCount >= 74, `Expected at least 74 unique sports-venue editorial descriptions after Phase 1D wave 8; found ${editorialDescriptionCount}.`);
 
 for (const [sourceName, source] of [
   ['partner page', partnerRoute],
@@ -344,4 +370,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, all ${gscSportsImproveSlugs.length} GSC sports IMPROVE targets have Phase 1D remediation profiles, ${wave5Slugs.length} wave 5 venues, ${phase1dWave6Slugs.length} Phase 1D wave 6 venues and ${phase1dWave7Slugs.length} Phase 1D wave 7 venues retain quality/runtime/editorial coverage, ${editorialWave6Slugs.length} current-main editorial-wave-6 venues are preserved without duplicate shadow descriptions, ${editorialDescriptionCount} unique explicit venue descriptions are protected, core Reliant record, lightweight static directory, statewide category anchors, concise localized search titles, source-backed event-day essentials and FAQ answers with source-review metadata kept separate, richer venue structured data, venue-specific visitor planning without generic trip-template filler, county-level editorial trip ideas, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment/remediation batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
+console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, all ${gscSportsImproveSlugs.length} GSC sports IMPROVE targets have Phase 1D remediation profiles, ${wave5Slugs.length} wave 5 venues, ${phase1dWave6Slugs.length} Phase 1D wave 6 venues, ${phase1dWave7Slugs.length} Phase 1D wave 7 venues and ${phase1dWave8Slugs.length} Phase 1D wave 8 venues retain quality/runtime/editorial coverage, ${editorialWave6Slugs.length} current-main editorial-wave-6 venues are preserved without duplicate shadow descriptions, ${editorialDescriptionCount} unique explicit venue descriptions are protected, core Reliant record, lightweight static directory, statewide category anchors, concise localized search titles, source-backed event-day essentials and FAQ answers with source-review metadata kept separate, richer venue structured data, venue-specific visitor planning without generic trip-template filler, county-level editorial trip ideas, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment/remediation batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);

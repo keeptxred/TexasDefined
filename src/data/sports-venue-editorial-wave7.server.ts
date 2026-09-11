@@ -1,3 +1,5 @@
+import { getSportsVenueEditorialDescriptionWave8Server } from './sports-venue-editorial-wave8.server';
+
 const sportsVenueEditorialDescriptionsWave7: Record<string, string> = {
   'sports-venue:cowtown-coliseum': 'Cowtown Coliseum was completed in 1908 in the Fort Worth Stockyards and later became the site of what the venue identifies as the world’s first indoor rodeo in 1918. Its year-round rodeo schedule and historic Stockyards setting make the arena itself part of the Western-sports destination rather than a generic Fort Worth event hall.',
   'sports-venue:ufcu-stadium': 'UFCU Stadium has been Texas State football’s San Marcos home since 1981. The current athletics facility page lists 28,388 seats and FieldTurf; the 2012 renovation removed the track and reinforced the stadium’s football focus, while campus shuttles and current entry rules make Texas State’s game-day plan more useful than generic San Marcos travel copy.',
@@ -12,5 +14,5 @@ const sportsVenueEditorialDescriptionsWave7: Record<string, string> = {
 };
 
 export function getSportsVenueEditorialDescriptionWave7Server(id: string) {
-  return sportsVenueEditorialDescriptionsWave7[id];
+  return sportsVenueEditorialDescriptionsWave7[id] ?? getSportsVenueEditorialDescriptionWave8Server(id);
 }
