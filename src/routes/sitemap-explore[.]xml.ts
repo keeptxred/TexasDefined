@@ -6,13 +6,6 @@ import { auditDestination } from "@/data/destination-audit";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
 import { categories, regions } from "@/data/fixtures/texas";
-import { paintedChurchHeritage } from "@/data/painted-church-heritage";
-import { paintedChurchItineraries } from "@/data/painted-church-itineraries";
-import { paintedChurchPeople } from "@/data/painted-church-people";
-import { paintedChurchPreservationTopics } from "@/data/painted-church-preservation";
-import { paintedChurchSymbols } from "@/data/painted-church-symbols";
-import { paintedChurchTechniques } from "@/data/painted-church-techniques";
-import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import type { Destination } from "@/data/types";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
@@ -153,9 +146,23 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const { loadRvParkDestinationsServer } = await import("@/data/rv-parks/registry.server");
         const { selectSwimmingHoleAndTubingDestinations } = await import("@/data/water-recreation");
         const [
+          { paintedChurchHeritage },
+          { paintedChurchItineraries },
+          { paintedChurchPeople },
+          { paintedChurchPreservationTopics },
+          { paintedChurchSymbols },
+          { paintedChurchTechniques },
+          { expandedPaintedChurches },
           { fetchCoreExploreDestinations },
           { fetchExploreDestinations, hasExploreRemoteData },
         ] = await Promise.all([
+          import("@/data/painted-church-heritage"),
+          import("@/data/painted-church-itineraries"),
+          import("@/data/painted-church-people"),
+          import("@/data/painted-church-preservation"),
+          import("@/data/painted-church-symbols"),
+          import("@/data/painted-church-techniques"),
+          import("@/data/painted-churches-expanded"),
           import("@/data/explore-core-remote"),
           import("@/data/explore-remote"),
         ]);
