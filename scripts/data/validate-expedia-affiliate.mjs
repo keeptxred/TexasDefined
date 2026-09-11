@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const root = fs.readFileSync('src/routes/__root.tsx', 'utf8');
 const bootstrap = fs.readFileSync('public/expedia-travel.js', 'utf8');
+const contextImages = fs.readFileSync('public/stay-nearby-context-images.js', 'utf8');
 const registry = JSON.parse(fs.readFileSync('public/stay-nearby-hotels.json', 'utf8'));
 const errors = [];
 
@@ -11,6 +12,7 @@ function requireText(source, needle, label) {
 
 requireText(root, 'if (import.meta.env.SSR)', 'SSR-only bootstrap guard');
 requireText(root, '<script src="/expedia-travel.js" defer />', 'root bootstrap reference');
+requireText(root, '<script src="/stay-nearby-context-images.js" defer />', 'Stay Nearby context-image bootstrap reference');
 
 for (const [needle, label] of [
   ['https://creator.expediagroup.com/products/widgets/assets/eg-widgets.js', 'widget script'],
@@ -46,6 +48,53 @@ for (const family of ['explore', 'destination', 'city', 'county', 'sports-venue'
   requireText(bootstrap, family, `${family} route family`);
 }
 
+const requiredContextVisuals = [
+  {
+    route: '/sports-venue/amon-g-carter-stadium',
+    venue: 'Amon G. Carter Stadium',
+    file: 'Texas_Christian_University_June_2017_85_%28Amon_G._Carter_Stadium%29.jpg',
+    credit: 'Michael Barera',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+  },
+  {
+    route: '/sports-venue/gerald-j-ford-stadium',
+    venue: 'Gerald J. Ford Stadium',
+    file: 'View_of_Gerald_J_Ford_Stadium_after_renovations%2C_20224.jpg',
+    credit: 'HavanaHeat',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+  },
+  {
+    route: '/sports-venue/globe-life-field',
+    venue: 'Globe Life Field',
+    file: 'Globe_Life_Field_exterior_2025.jpg',
+    credit: 'BullDawg2021',
+    license: 'CC BY 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
+  },
+];
+
+for (const [needle, label] of [
+  ['data-stay-context-visual', 'context image identity marker'],
+  ['Venue context —', 'venue-context disclosure'],
+  ['Wikimedia Commons', 'context image source disclosure'],
+  ['Displayed without editorial crop; browser scaling only.', 'no-crop disclosure'],
+  ['thumb.wikimedia.org', 'Wikimedia thumbnail host'],
+  ['upload.wikimedia.org', 'Wikimedia upload host'],
+  ['commons.wikimedia.org/wiki/File:', 'Wikimedia source-page links'],
+]) requireText(contextImages, needle, label);
+
+for (const visual of requiredContextVisuals) {
+  for (const [needle, label] of [
+    [visual.route, `${visual.venue} route`],
+    [visual.file, `${visual.venue} image file`],
+    [visual.credit, `${visual.venue} photographer credit`],
+    [visual.license, `${visual.venue} license label`],
+    [visual.licenseUrl, `${visual.venue} license URL`],
+  ]) requireText(contextImages, needle, label);
+}
+
 if (!registry || registry.version !== 1 || !Array.isArray(registry.properties)) {
   errors.push('Stay Nearby registry must be version 1 with a properties array.');
 } else {
@@ -57,6 +106,10 @@ if (!registry || registry.version !== 1 || !Array.isArray(registry.properties)) 
     if (!property?.id || ids.has(property.id)) errors.push(`Invalid or duplicate Stay Nearby property id: ${property?.id ?? '<missing>'}`);
     ids.add(property?.id);
     if (!property?.name || !property?.city || property.status !== 'active') errors.push(`${property?.id ?? '<missing>'} is missing active property identity fields.`);
+
+    if (contextImages.includes(property.name)) {
+      errors.push(`${property.id} hotel name leaked into venue-context imagery; contextual venue photos must never be represented as hotel property photos.`);
+    }
 
     for (const target of property.bookingTargets ?? []) {
       if (!target.provider) errors.push(`${property.id} has a booking target without a provider.`);
@@ -115,4 +168,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Expedia / Stay Nearby validation passed: approved tracking remains click-loaded, curated hotel selection is capped and evidence-backed, three-card venue pilots are complete, property deep links require explicit verification, and property imagery is gated to approved first-party-hosted Creator Toolbox media with a matching referral.');
+console.log('Expedia / Stay Nearby validation passed: approved tracking remains click-loaded, curated hotel selection is capped and evidence-backed, three-card venue pilots are complete, venue-context imagery is open-license and clearly separated from property photography, property deep links require explicit verification, and property imagery is gated to approved first-party-hosted Creator Toolbox media with a matching referral.');
