@@ -6,9 +6,10 @@ const assetDirCandidates = [
   path.resolve('.output/public/assets'),
 ];
 const viteConfigPath = path.resolve('vite.config.ts');
+const primarySitemapPath = path.resolve('src/routes/sitemap[.]xml.ts');
 const feedRoutePaths = [
   path.resolve('src/routes/rss[.]xml.ts'),
-  path.resolve('src/routes/sitemap[.]xml.ts'),
+  primarySitemapPath,
 ];
 // CI measured the stable, non-route-split client bundle at 1,807,457 bytes.
 // Keep less than 1% headroom so meaningful growth fails without making the
@@ -56,6 +57,14 @@ async function main() {
     if (!source.includes('const { platform, scope } = await import("@/data");')) {
       throw new Error(`${path.relative(process.cwd(), feedRoutePath)} must load platform/scope inside its server handler.`);
     }
+  }
+
+  const primarySitemap = await readFile(primarySitemapPath, 'utf8');
+  if (/import\s*{\s*COUNTY_PROPERTY_RECORDS\s*}\s*from\s*["']@\/data\/property\/county-property-data["']/.test(primarySitemap)) {
+    throw new Error('Primary sitemap must not eagerly import the full county property catalog into the route tree.');
+  }
+  if (!primarySitemap.includes('const { COUNTY_PROPERTY_RECORDS } = await import("@/data/property/county-property-data");')) {
+    throw new Error('Primary sitemap must load the county property catalog inside its server handler.');
   }
 
   const assetsDir = await resolveAssetsDir();
