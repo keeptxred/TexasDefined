@@ -13,6 +13,12 @@ const LEGACY_DIR = path.join(ROOT, 'public/images/stay-nearby/ai');
 const HOTEL_REGISTRY_PATH = path.join(ROOT, 'public/stay-nearby-hotels.json');
 const VENUE_ROUTE_PATH = path.join(ROOT, 'src/routes/sports-venue.$slug.tsx');
 const DISCLOSURE = 'AI-generated depiction of this property — not an official hotel photograph';
+const BROWSER_HEADERS = Object.freeze({
+  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36',
+  accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+  'accept-language': 'en-US,en;q=0.9',
+  'cache-control': 'no-cache',
+});
 
 const ADDRESS_BY_ID = Object.freeze({
   'courtyard-fort-worth-university-drive': '3150 Riverfront Drive, Fort Worth, Texas 76107',
@@ -78,7 +84,7 @@ function parseMetaImage(html, pageUrl) {
       const key = (attrs.property || attrs.name || '').toLowerCase();
       if (key !== wanted || !attrs.content) continue;
       try {
-        return new URL(attrs.content, pageUrl).toString();
+        return new URL(attrs.content.replaceAll('&amp;', '&'), pageUrl).toString();
       } catch {
         // try the next candidate
       }
@@ -87,23 +93,51 @@ function parseMetaImage(html, pageUrl) {
   return null;
 }
 
-async function fetchOfficialReference(sourceUrl) {
-  const page = await fetch(sourceUrl, {
+function referencePageCandidates(sourceUrl) {
+  const source = new URL(sourceUrl);
+  const candidates = [];
+  if (source.hostname.endsWith('marriott.com')) {
+    const marker = source.pathname.match(/^(\/en-us\/hotels\/[^/]+-[^/]+\/)/);
+    if (marker) candidates.push(new URL(`${marker[1]}photos/`, source.origin).toString());
+  }
+  if (source.hostname.endsWith('hilton.com')) {
+    const basePath = source.pathname.replace(/\/(?:hotel-location|hotel-info|rooms|dining|events|gallery)\/?$/, '/');
+    candidates.push(new URL(`${basePath.replace(/\/?$/, '/')}gallery/`, source.origin).toString());
+  }
+  candidates.push(source.toString());
+  return [...new Set(candidates)];
+}
+
+async function fetchPageImageUrl(pageUrl) {
+  const page = await fetch(pageUrl, {
     redirect: 'follow',
-    headers: {
-      'user-agent': 'TexasDefined-Property-Image-Generator/1.0',
-      accept: 'text/html,application/xhtml+xml',
-    },
+    headers: BROWSER_HEADERS,
     signal: AbortSignal.timeout(30_000),
   });
-  if (!page.ok) throw new Error(`Official property page returned HTTP ${page.status}: ${sourceUrl}`);
+  if (!page.ok) throw new Error(`HTTP ${page.status}`);
   const html = await page.text();
   const imageUrl = parseMetaImage(html, page.url);
-  if (!imageUrl) throw new Error(`Official property page has no usable social/reference image: ${sourceUrl}`);
+  if (!imageUrl) throw new Error('no usable social/reference image metadata');
+  return imageUrl;
+}
+
+async function fetchOfficialReference(sourceUrl) {
+  const failures = [];
+  let imageUrl = '';
+  for (const pageUrl of referencePageCandidates(sourceUrl)) {
+    try {
+      imageUrl = await fetchPageImageUrl(pageUrl);
+      console.log(`Using official visual-reference page: ${pageUrl}`);
+      break;
+    } catch (error) {
+      failures.push(`${pageUrl} (${error instanceof Error ? error.message : String(error)})`);
+    }
+  }
+  if (!imageUrl) throw new Error(`Official property pages did not expose a usable reference image: ${failures.join('; ')}`);
 
   const image = await fetch(imageUrl, {
     redirect: 'follow',
-    headers: { 'user-agent': 'TexasDefined-Property-Image-Generator/1.0', accept: 'image/*' },
+    headers: { ...BROWSER_HEADERS, accept: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', referer: sourceUrl },
     signal: AbortSignal.timeout(30_000),
   });
   if (!image.ok) throw new Error(`Official reference image returned HTTP ${image.status}: ${imageUrl}`);
@@ -117,7 +151,7 @@ async function fetchOfficialReference(sourceUrl) {
 function generationPrompt(property, address, sourceUrl) {
   return [
     `Create a photorealistic exterior editorial depiction of the exact hotel property named “${property.name}” located at ${address}.`,
-    'The supplied image is an official-property-page visual reference. Preserve the recognizable massing, facade, roofline, window pattern, entrance placement, setbacks, landscaping, and immediate streetscape cues that identify this specific property.',
+    'The supplied image comes from the property’s official web presence and is only a visual grounding reference. Preserve the recognizable massing, facade, roofline, window pattern, entrance placement, setbacks, landscaping, and immediate streetscape cues that identify this specific property.',
     'Do not substitute a different hotel, a generic hotel, a generic version of the brand, or a made-up building.',
     'Keep the scene physically plausible for this exact address and property. If the reference is not an exterior image, use it only for property identity and styling and remain conservative rather than inventing unusual architecture.',
     'Use natural daylight and a realistic street-level or parking-lot three-quarter exterior camera view. No dramatic fantasy lighting, illustration style, poster treatment, collage, or text overlay.',
