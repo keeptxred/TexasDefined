@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "reviewedAt": "2026-09-10",
+  "reviewedAt": "2026-09-11",
   "policy": {
     "maxCards": 3,
     "displayComputedDistance": false,
@@ -187,6 +187,126 @@
         "proximity": "Drury places the hotel in the Entertainment District near Globe Life Field.",
         "differentiator": "Includes hot breakfast and the evening 5:30 Kickback as standard hotel amenities.",
         "source": {"url": "https://www.druryhotels.com/locations/dallas-tx/drury-plaza-hotel-dallas-arlington", "verifiedAt": "2026-09-10"}
+      }]
+    },
+    {
+      "id": "homewood-suites-dallas-downtown",
+      "name": "Homewood Suites by Hilton Dallas Downtown, TX",
+      "city": "Dallas",
+      "area": "Downtown Dallas / West End",
+      "neighborhoods": ["downtown-dallas", "west-end", "victory-park-access"],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [{"provider": "expedia", "affiliateUrl": null, "verified": false}],
+      "contexts": [{
+        "kind": "venue",
+        "key": "american-airlines-center",
+        "rank": 1,
+        "geographicContext": "Downtown Dallas / West End",
+        "proximity": "Hilton describes the hotel as under a mile from American Airlines Center.",
+        "differentiator": "An all-suite downtown option with free hot breakfast for multi-night event stays.",
+        "source": {"url": "https://www.hilton.com/en/hotels/dalelhw-homewood-suites-dallas-downtown-tx/", "verifiedAt": "2026-09-11"}
+      }]
+    },
+    {
+      "id": "hilton-garden-inn-downtown-dallas",
+      "name": "Hilton Garden Inn Downtown Dallas",
+      "city": "Dallas",
+      "area": "Downtown Dallas",
+      "neighborhoods": ["downtown-dallas", "victory-park-access"],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [{"provider": "expedia", "affiliateUrl": null, "verified": false}],
+      "contexts": [{
+        "kind": "venue",
+        "key": "american-airlines-center",
+        "rank": 2,
+        "geographicContext": "Downtown Dallas",
+        "proximity": "Hilton's current American Airlines Center hotel search lists the property 0.88 miles from the arena.",
+        "differentiator": "A downtown option with an outdoor pool and on-site restaurant.",
+        "source": {"url": "https://www.hilton.com/en/locations/usa/texas/dallas/american-airlines-center/", "verifiedAt": "2026-09-11"}
+      }]
+    },
+    {
+      "id": "doubletree-dallas-market-center",
+      "name": "DoubleTree by Hilton Hotel Dallas - Market Center",
+      "city": "Dallas",
+      "area": "Market Center / Victory Park access",
+      "neighborhoods": ["market-center", "victory-park-access"],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [{"provider": "expedia", "affiliateUrl": null, "verified": false}],
+      "contexts": [{
+        "kind": "venue",
+        "key": "american-airlines-center",
+        "rank": 3,
+        "geographicContext": "Market Center / Victory Park access",
+        "proximity": "Hilton lists American Airlines Center within two miles and Victory Park 1.5 miles from the hotel.",
+        "differentiator": "A Market Center option with on-site dining and an outdoor pool.",
+        "source": {"url": "https://www.hilton.com/en/hotels/dalmkdt-doubletree-dallas-market-center/", "verifiedAt": "2026-09-11"}
+      }]
+    },
+    {
+      "id": "home2-suites-fort-worth-northlake",
+      "name": "Home2 Suites by Hilton Fort Worth Northlake",
+      "city": "Northlake",
+      "area": "Raceway Drive / Texas Motor Speedway",
+      "neighborhoods": ["texas-motor-speedway", "northlake"],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [{"provider": "expedia", "affiliateUrl": null, "verified": false}],
+      "contexts": [{
+        "kind": "venue",
+        "key": "texas-motor-speedway",
+        "rank": 1,
+        "geographicContext": "Raceway Drive / Texas Motor Speedway",
+        "proximity": "Hilton describes Texas Motor Speedway as across the street and lists it one mile from the hotel.",
+        "differentiator": "Extended-stay suites with in-room kitchens, free hot breakfast and free parking.",
+        "source": {"url": "https://www.hilton.com/en/hotels/dfwnlht-home2-suites-fort-worth-northlake/", "verifiedAt": "2026-09-11"}
+      }]
+    },
+    {
+      "id": "hilton-garden-inn-fort-worth-alliance-airport",
+      "name": "Hilton Garden Inn Fort Worth Alliance Airport",
+      "city": "Fort Worth",
+      "area": "Alliance Airport / North Fort Worth",
+      "neighborhoods": ["alliance-airport", "north-fort-worth"],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [{"provider": "expedia", "affiliateUrl": null, "verified": false}],
+      "contexts": [{
+        "kind": "venue",
+        "key": "texas-motor-speedway",
+        "rank": 2,
+        "geographicContext": "Alliance Airport / North Fort Worth",
+        "proximity": "Hilton states Texas Motor Speedway is five miles north of the hotel.",
+        "differentiator": "Free parking, an outdoor pool and on-site breakfast and dinner service near the Alliance corridor.",
+        "source": {"url": "https://www.hilton.com/en/hotels/ftwaagi-hilton-garden-inn-fort-worth-alliance-airport/", "verifiedAt": "2026-09-11"}
+      }]
+    },
+    {
+      "id": "courtyard-fort-worth-alliance-town-center",
+      "name": "Courtyard by Marriott Fort Worth at Alliance Town Center",
+      "city": "Fort Worth",
+      "area": "Alliance Town Center / North Fort Worth",
+      "neighborhoods": ["alliance-town-center", "north-fort-worth"],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [{"provider": "expedia", "affiliateUrl": null, "verified": false}],
+      "contexts": [{
+        "kind": "venue",
+        "key": "texas-motor-speedway",
+        "rank": 3,
+        "geographicContext": "Alliance Town Center / North Fort Worth",
+        "proximity": "Marriott markets the property as a North Fort Worth hotel near Texas Motor Speedway with convenient race-event access.",
+        "differentiator": "Walkable access to Alliance Town Center shopping and dining plus on-site Bistro service.",
+        "source": {"url": "https://www.marriott.com/en-us/hotels/dfwat-courtyard-fort-worth-at-alliance-town-center/overview/", "verifiedAt": "2026-09-11"}
       }]
     }
   ]
