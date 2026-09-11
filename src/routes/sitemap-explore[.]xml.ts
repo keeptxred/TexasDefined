@@ -5,7 +5,6 @@ import { isPrimaryTripPlannerDestination } from "@/data/destination-availability
 import { auditDestination } from "@/data/destination-audit";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
-import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
 import { categories, regions } from "@/data/fixtures/texas";
 import { paintedChurchGlossary } from "@/data/painted-church-glossary";
 import { paintedChurchHeritage } from "@/data/painted-church-heritage";
@@ -15,7 +14,6 @@ import { paintedChurchPreservationTopics } from "@/data/painted-church-preservat
 import { paintedChurchSymbols } from "@/data/painted-church-symbols";
 import { paintedChurchTechniques } from "@/data/painted-church-techniques";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
-import { fetchExploreDestinations, hasExploreRemoteData } from "@/data/explore-remote";
 import type { Destination } from "@/data/types";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
@@ -154,6 +152,13 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const { paintedChurchSearchGuides } = await import("@/data/painted-church-search-guides");
         const { loadRvParkDestinationsServer } = await import("@/data/rv-parks/registry.server");
         const { selectSwimmingHoleAndTubingDestinations } = await import("@/data/water-recreation");
+        const [
+          { fetchCoreExploreDestinations },
+          { fetchExploreDestinations, hasExploreRemoteData },
+        ] = await Promise.all([
+          import("@/data/explore-core-remote"),
+          import("@/data/explore-remote"),
+        ]);
         let enrichedDestinations: Awaited<ReturnType<typeof fetchExploreDestinations>> = [];
         let coreDestinations: Awaited<ReturnType<typeof fetchCoreExploreDestinations>> = [];
         const remoteConfigured = hasExploreRemoteData();
