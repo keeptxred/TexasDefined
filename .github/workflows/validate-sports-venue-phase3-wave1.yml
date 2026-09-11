@@ -1,0 +1,40 @@
+name: Validate sports venue Phase 3 wave 1
+
+on:
+  pull_request:
+    paths:
+      - 'src/routes/sports-venue.cotton-bowl-stadium.tsx'
+      - 'src/routes/sports-venue.choctaw-stadium.tsx'
+      - 'src/routes/sports-venue.ford-center-at-the-star.tsx'
+      - 'src/routes/sports-venue.datcu-stadium.tsx'
+      - 'src/routes/sports-venue.riders-field.tsx'
+      - 'src/routes/sports-venue.lone-star-park.tsx'
+      - 'src/data/sports-venue-guide-pilots.ts'
+      - 'src/data/sports-venue-guide-route.ts'
+      - 'src/data/sports-venue-images.ts'
+      - 'src/data/sports-venue-content-remediation-wave5.ts'
+      - 'src/data/sports-venue-events.functions.ts'
+      - 'src/components/sports/SportsVenueGuidePilotContent.tsx'
+      - 'src/components/sports/SportsVenueGuidePage.tsx'
+      - 'src/components/editorial/TexasEventCarousel.tsx'
+      - 'public/stay-nearby-hotels.json'
+      - 'scripts/data/validate-sports-venue-phase3-wave1.mjs'
+      - '.github/workflows/validate-sports-venue-phase3-wave1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/data/validate-sports-venue-phase3-wave1.mjs
+      - run: npm run build
+      - run: npm run performance:validate
