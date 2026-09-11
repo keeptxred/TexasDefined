@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { ParkingMapPanel } from '@/components/parking/ParkingMapPanel';
+import { useVenueParkingMap } from '@/components/parking/useVenueParkingMap';
 import { SportsTrafficTracker } from '@/components/sports/SportsTrafficTracker';
-import { getParkingMapForVenueSlug } from '@/data/parking-maps';
 import { getSportsVenuePhoto } from '@/data/sports-venue-images';
 
 const CityPassContextualCallout = lazy(() =>
@@ -43,7 +43,7 @@ export function SportsVenueQuickAnswers({
   const answers = buildAnswers({ venueName, city, countyName, capacity, primaryEvents, parking, arrival });
   const slug = canonicalUrl.split('/sports-venue/')[1]?.split(/[?#]/)[0];
   const surfacePath = slug ? `/sports-venue/${slug}` : undefined;
-  const parkingMap = getParkingMapForVenueSlug(slug);
+  const parkingMap = useVenueParkingMap(slug);
   const heroSrc = slug ? `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}` : undefined;
   const absoluteHeroUrl = heroSrc ? new URL(heroSrc, canonicalUrl).toString() : undefined;
   const photo = slug ? getSportsVenuePhoto(slug) : undefined;
