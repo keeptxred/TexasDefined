@@ -1,0 +1,43 @@
+name: Production verifier parallel isolation
+
+on:
+  push:
+    branches:
+      - diag/venue-phase2-production-20260911
+
+jobs:
+  direct-worker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: DIRECT_WORKER_ORIGIN=https://texasdefined-site.freddy-coppola.workers.dev node scripts/ci/verify-direct-worker-discovery.mjs
+  base:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/ci/verify-production-surfaces.mjs
+  events:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/ci/verify-event-structured-data-production.mjs
+  local-financial:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/ci/verify-local-financial-production.mjs
+  statewide-financial:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/ci/verify-statewide-financial-discovery.mjs
