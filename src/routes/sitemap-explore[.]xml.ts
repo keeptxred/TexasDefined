@@ -6,7 +6,6 @@ import { auditDestination } from "@/data/destination-audit";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
 import { categories, regions } from "@/data/fixtures/texas";
-import { paintedChurchGlossary } from "@/data/painted-church-glossary";
 import { paintedChurchHeritage } from "@/data/painted-church-heritage";
 import { paintedChurchItineraries } from "@/data/painted-church-itineraries";
 import { paintedChurchPeople } from "@/data/painted-church-people";
@@ -149,6 +148,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const { landscapeGuideSlugs, landscapeSlugs } = await import("@/data/texas-landscape-slugs");
         const { cityPassDestinationExpansion } = await import("@/data/citypass-destination-expansion");
         const { preservedExploreDestinations } = await import("@/data/destination-preserved-catalog");
+        const { paintedChurchGlossary } = await import("@/data/painted-church-glossary");
         const { paintedChurchSearchGuides } = await import("@/data/painted-church-search-guides");
         const { loadRvParkDestinationsServer } = await import("@/data/rv-parks/registry.server");
         const { selectSwimmingHoleAndTubingDestinations } = await import("@/data/water-recreation");
