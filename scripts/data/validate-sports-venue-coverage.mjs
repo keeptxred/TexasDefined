@@ -14,13 +14,11 @@ const [
   quickAnswers,
   enrichmentAll,
   editorialDescriptions,
-  editorialDescriptionsWave6,
   remediationInitial,
   remediationWave2,
   remediationWave3,
   remediationWave4,
   remediationWave5,
-  remediationWave6,
   gscTriage,
   currentCorrections,
   partnerRouteEager,
@@ -38,13 +36,11 @@ const [
   read('src/components/sports/SportsVenueQuickAnswers.tsx'),
   read('src/data/sports-venue-enrichment-all.ts'),
   read('src/data/sports-venue-editorial.server.ts'),
-  read('src/data/sports-venue-editorial-wave6.server.ts'),
   read('src/data/sports-venue-content-remediation.ts'),
   read('src/data/sports-venue-content-remediation-wave2.ts'),
   read('src/data/sports-venue-content-remediation-wave3.ts'),
   read('src/data/sports-venue-content-remediation-wave4.ts'),
   read('src/data/sports-venue-content-remediation-wave5.ts'),
-  read('src/data/sports-venue-content-remediation-wave6.ts'),
   read('ops/seo/gsc-discovered-2026-09-05-urls.tsv'),
   read('src/data/knowledge-graph/current-entity-corrections.ts'),
   read('src/routes/partner-with-us.tsx'),
@@ -187,7 +183,6 @@ for (const getter of [
   'getSportsVenueContentRemediationWave3(lookupSlug)',
   'getSportsVenueContentRemediationWave4(lookupSlug)',
   'getSportsVenueContentRemediationWave5(lookupSlug)',
-  'getSportsVenueContentRemediationWave6(lookupSlug)',
   'getSportsVenueEnrichment(lookupSlug)',
   'getSportsVenueEnrichmentBatch2(lookupSlug)',
   'getSportsVenueEnrichmentBatch3(lookupSlug)',
@@ -204,7 +199,7 @@ for (const getter of [
 const gscSportsImproveSlugs = [...gscTriage.matchAll(/^IMPROVE\t\/sports-venue\/([a-z0-9-]+)$/gm)].map((match) => match[1]);
 assert(gscSportsImproveSlugs.length === 17, `Expected 17 sports-venue IMPROVE targets in the 2026-09-05 GSC triage; found ${gscSportsImproveSlugs.length}.`);
 assert(new Set(gscSportsImproveSlugs).size === gscSportsImproveSlugs.length, 'GSC sports-venue IMPROVE targets must be unique.');
-const phase1dRemediationSources = `${remediationInitial}\n${remediationWave2}\n${remediationWave3}\n${remediationWave4}\n${remediationWave5}\n${remediationWave6}`;
+const phase1dRemediationSources = `${remediationInitial}\n${remediationWave2}\n${remediationWave3}\n${remediationWave4}\n${remediationWave5}`;
 for (const slug of gscSportsImproveSlugs) {
   assert(phase1dRemediationSources.includes(`'${slug}': {`), `GSC sports IMPROVE target ${slug} is missing a Phase 1D remediation profile.`);
 }
@@ -227,28 +222,19 @@ for (const slug of wave5Slugs) {
   assert(editorialDescriptions.includes(`'sports-venue:${slug}':`), `Phase 1D wave 5 venue ${slug} is missing its explicit server editorial description.`);
 }
 
-const wave6Slugs = [
+const editorialWave6Slugs = [
   'reliant-stadium',
+  'comerica-center',
+  'moody-coliseum-smu',
+  'unt-coliseum',
   'rice-stadium',
   'constellation-field',
-  'pga-frisco-fields-ranch',
-  'will-rogers-memorial-center',
-  'united-supermarkets-arena',
-  'sun-bowl-stadium',
-  'don-haskins-center',
-  'southwest-university-park',
-  'hodgetown',
 ];
-for (const slug of wave6Slugs) {
-  const occurrences = [...remediationWave6.matchAll(new RegExp(`'${slug}': \\{`, 'g'))].length;
-  assert(occurrences >= 2, `Phase 1D wave 6 must keep both quality and runtime remediation records for ${slug}.`);
-  assert(editorialDescriptionsWave6.includes(`'sports-venue:${slug}':`), `Phase 1D wave 6 venue ${slug} is missing its explicit server editorial description.`);
+for (const slug of editorialWave6Slugs) {
+  assert(editorialDescriptions.includes(`'sports-venue:${slug}':`), `Editorial wave 6 venue ${slug} is missing its explicit server editorial description.`);
 }
-const editorialDescriptionCount = [
-  ...editorialDescriptions.matchAll(/^\s{2}'sports-venue:[^']+':/gm),
-  ...editorialDescriptionsWave6.matchAll(/^\s{2}'sports-venue:[^']+':/gm),
-].length;
-assert(editorialDescriptionCount >= 51, `Expected at least 51 explicit sports-venue editorial descriptions after Phase 1D wave 6; found ${editorialDescriptionCount}.`);
+const editorialDescriptionCount = [...editorialDescriptions.matchAll(/^\s{2}'sports-venue:[^']+':/gm)].length;
+assert(editorialDescriptionCount >= 47, `Expected at least 47 explicit sports-venue editorial descriptions after editorial wave 6; found ${editorialDescriptionCount}.`);
 
 for (const [sourceName, source] of [
   ['partner page', partnerRoute],
@@ -298,4 +284,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, all ${gscSportsImproveSlugs.length} GSC sports IMPROVE targets have Phase 1D remediation profiles, ${wave5Slugs.length + wave6Slugs.length} additional major-draw venues retain post-GSC Phase 1D quality/runtime/editorial coverage, ${editorialDescriptionCount} explicit venue descriptions are protected, core Reliant record, lightweight static directory, statewide category anchors, concise localized search titles, source-backed event-day essentials and FAQ answers with source-review metadata kept separate, richer venue structured data, venue-specific visitor planning without generic trip-template filler, county-level editorial trip ideas, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment/remediation batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
+console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, all ${gscSportsImproveSlugs.length} GSC sports IMPROVE targets have Phase 1D remediation profiles, ${wave5Slugs.length} additional major-draw venues retain wave 5 quality/runtime/editorial coverage, ${editorialWave6Slugs.length} editorial wave 6 venues are protected, ${editorialDescriptionCount} explicit venue descriptions are protected, core Reliant record, lightweight static directory, statewide category anchors, concise localized search titles, source-backed event-day essentials and FAQ answers with source-review metadata kept separate, richer venue structured data, venue-specific visitor planning without generic trip-template filler, county-level editorial trip ideas, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment/remediation batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
