@@ -1,6 +1,7 @@
 export type ParkingMapOrigin = 'reusable-source' | 'ai-generated';
 export type ParkingMapRightsStatus = 'verified-reusable' | 'generated-owned' | 'unknown';
 export type ParkingMapVerificationStatus = 'verified' | 'pending' | 'rejected';
+export type ParkingMapReuseSearchStatus = 'reusable-found' | 'no-suitable-reusable-map-found';
 
 export type ParkingMapVerificationSource = {
   label: string;
@@ -24,6 +25,8 @@ export type ParkingMapAsset = {
   author?: string;
   licenseName?: string;
   licenseUrl?: string;
+  reuseSearchStatus: ParkingMapReuseSearchStatus;
+  reuseSearchNotes: readonly string[];
   verificationStatus: ParkingMapVerificationStatus;
   verifiedAgainstRealMap: boolean;
   verifiedAt?: string;
@@ -42,6 +45,11 @@ const venueParkingMaps: Record<string, ParkingMapAsset> = {
     origin: 'ai-generated',
     rightsStatus: 'generated-owned',
     displayAllowed: true,
+    reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: [
+      'The current official stadium parking map was found and used for factual verification, but no reusable publication license was documented on the official parking material reviewed.',
+      'Open-license source checks found reusable venue/parking photography but no suitable current parking-lot map that could replace the official map.',
+    ],
     verificationStatus: 'verified',
     verifiedAgainstRealMap: true,
     verifiedAt: '2026-09-11',
@@ -69,6 +77,11 @@ const venueParkingMaps: Record<string, ParkingMapAsset> = {
     origin: 'ai-generated',
     rightsStatus: 'generated-owned',
     displayAllowed: true,
+    reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: [
+      'The speedway publishes useful parking/directions material, but the current official parking artwork reviewed did not document a reusable publication license.',
+      'A CC0 Wikimedia Commons track map was found and used as an independent geometry cross-check, but it does not contain the parking detail needed for a visitor parking map.',
+    ],
     verificationStatus: 'verified',
     verifiedAgainstRealMap: true,
     verifiedAt: '2026-09-11',
@@ -100,13 +113,15 @@ const eventParkingMaps: Record<string, ParkingMapAsset> = {};
 export function isPublishableParkingMap(map: ParkingMapAsset | undefined): map is ParkingMapAsset {
   if (!map || !map.displayAllowed || map.verificationStatus !== 'verified') return false;
   if (!map.verifiedAgainstRealMap || !map.verifiedAt || map.verificationSources.length === 0) return false;
-  if (map.accuracyNotes.length === 0) return false;
+  if (map.accuracyNotes.length === 0 || map.reuseSearchNotes.length === 0) return false;
 
   if (map.origin === 'ai-generated') {
-    return map.rightsStatus === 'generated-owned';
+    return map.rightsStatus === 'generated-owned'
+      && map.reuseSearchStatus === 'no-suitable-reusable-map-found';
   }
 
   return map.rightsStatus === 'verified-reusable'
+    && map.reuseSearchStatus === 'reusable-found'
     && Boolean(map.sourcePage && map.sourceName && map.licenseName && map.licenseUrl);
 }
 
