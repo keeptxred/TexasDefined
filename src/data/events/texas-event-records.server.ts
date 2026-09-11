@@ -43,15 +43,16 @@ function eventIdentity(name: string, city: string) {
 
 function buildTicketing(offers: EventSchemaOffer[] | undefined, lastVerifiedAt: string, sourceName?: string): TexasEventTicketingMetadata | undefined {
   if (!offers?.length) return undefined;
+  const uniqueTicketUrls = [...new Set(offers.map((offer) => offer.url))];
   return {
-    links: offers.map((offer, index) => ({
+    links: uniqueTicketUrls.map((url, index) => ({
       provider: "official",
-      officialTicketUrl: offer.url,
+      officialTicketUrl: url,
       saleStatus: "unknown",
       source: {
         kind: "official-event",
         name: sourceName ?? "Official event ticket source",
-        url: offer.url,
+        url,
       },
       lastVerifiedAt,
       priority: index,
