@@ -1,6 +1,7 @@
 import { getSportsVenueContentRemediation } from './sports-venue-content-remediation';
 import { getSportsVenueContentRemediationWave2 } from './sports-venue-content-remediation-wave2';
 import { getSportsVenueContentRemediationWave3 } from './sports-venue-content-remediation-wave3';
+import { getSportsVenueContentRemediationWave4 } from './sports-venue-content-remediation-wave4';
 import { getSportsVenueEnrichment, sportsVenueMapUrl } from './sports-venue-enrichment';
 import { getSportsVenueEnrichmentBatch2 } from './sports-venue-enrichment-batch2';
 import { getSportsVenueEnrichmentBatch3 } from './sports-venue-enrichment-batch3';
@@ -18,6 +19,7 @@ export function getSportsVenueEnrichmentAll(slug: string) {
   return getSportsVenueContentRemediation(lookupSlug)
     ?? getSportsVenueContentRemediationWave2(lookupSlug)
     ?? getSportsVenueContentRemediationWave3(lookupSlug)
+    ?? getSportsVenueContentRemediationWave4(lookupSlug)
     ?? getSportsVenueEnrichment(lookupSlug)
     ?? getSportsVenueEnrichmentBatch2(lookupSlug)
     ?? getSportsVenueEnrichmentBatch3(lookupSlug)
