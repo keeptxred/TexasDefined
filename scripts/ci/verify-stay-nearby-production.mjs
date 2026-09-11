@@ -2,6 +2,7 @@ const origin = process.env.STAY_NEARBY_PRODUCTION_ORIGIN || 'https://texasdefine
 const revision = process.env.GITHUB_SHA || 'local';
 const runId = process.env.GITHUB_RUN_ID || Date.now().toString();
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const fallbackDisclosure = 'AI-generated area illustration — not the hotel property';
 
 const pilots = [
   {
@@ -94,6 +95,12 @@ requireCondition(registry?.policy?.displayComputedDistance === false, 'Stay Near
 requireCondition(registry?.policy?.broadVenueFallback === false, 'Stay Nearby production registry allows broad venue fallback.');
 requireCondition(Array.isArray(registry?.properties), 'Stay Nearby production registry properties are missing.');
 
+const fallbackRegistry = await fetchLive('/stay-nearby-ai-fallbacks.json', 'json');
+requireCondition(fallbackRegistry?.version === 1, 'Stay Nearby production AI fallback registry version is not 1.');
+requireCondition(fallbackRegistry?.disclosure === fallbackDisclosure, 'Stay Nearby production AI fallback disclosure drifted.');
+requireCondition(Array.isArray(fallbackRegistry?.items) && fallbackRegistry.items.length === 9, 'Stay Nearby production AI fallback registry must expose exactly 9 pilot records.');
+const fallbackById = new Map(fallbackRegistry.items.map((item) => [item.propertyId, item]));
+
 for (const pilot of pilots) {
   const entries = registry.properties
     .filter((property) => property?.status === 'active')
@@ -125,6 +132,22 @@ for (const pilot of pilots) {
       requireCondition(typeof property.image.url === 'string' && property.image.url.startsWith('/'), `${property.name} production image is not first-party hosted.`);
       requireCondition(Boolean(matchingTarget), `${property.name} production image is not paired with a verified matching booking referral.`);
     }
+
+    const fallback = fallbackById.get(property.id);
+    requireCondition(Boolean(fallback), `${property.name} is missing its production AI area-illustration fallback.`);
+    requireCondition(fallback?.name === property.name, `${property.name} AI fallback record does not match the canonical property name.`);
+    requireCondition(fallback?.kind === 'ai-area-illustration', `${property.name} AI fallback kind drifted.`);
+    requireCondition(fallback?.depictsProperty === false, `${property.name} AI fallback must declare depictsProperty=false.`);
+    requireCondition(fallback?.label === fallbackDisclosure, `${property.name} AI fallback disclosure drifted.`);
+    requireCondition(/^\/images\/stay-nearby\/ai\/[a-z0-9-]+\.svg$/.test(fallback?.url || ''), `${property.name} AI fallback is not a first-party SVG path.`);
+    requireCondition(String(fallback?.alt || '').startsWith('AI-generated illustration'), `${property.name} AI fallback alt text does not disclose AI generation.`);
+    requireCondition(!String(fallback?.alt || '').toLowerCase().includes(property.name.toLowerCase()), `${property.name} AI fallback alt text implies an exact property depiction.`);
+
+    const svg = await fetchLive(fallback.url);
+    requireCondition(svg.trimStart().startsWith('<svg'), `${property.name} AI fallback asset is not an SVG document.`);
+    requireCondition(svg.includes('AI-generated area illustration, not a depiction of the hotel property.'), `${property.name} AI fallback SVG lacks its non-property description.`);
+    requireCondition(!svg.toLowerCase().includes(property.name.toLowerCase()), `${property.name} AI fallback SVG contains the hotel name.`);
+    requireCondition(!/<script\b/i.test(svg) && !/<foreignObject\b/i.test(svg) && !/<image\b/i.test(svg) && !/\bhref\s*=/i.test(svg), `${property.name} AI fallback SVG contains disallowed markup.`);
   }
 }
 
@@ -145,10 +168,23 @@ for (const marker of [
   requireCondition(bootstrap.includes(marker), `Live Expedia/Stay Nearby bootstrap is missing marker: ${marker}`);
 }
 
+const contextBootstrap = await fetchLive('/stay-nearby-context-images.js');
+for (const marker of [
+  'const FALLBACK_DATA_URL = "/stay-nearby-ai-fallbacks.json"',
+  'data-stay-ai-fallback',
+  'ai-area-illustration',
+  fallbackDisclosure,
+  'textFallback.replaceWith(buildFallbackMedia(item))',
+  'const propertyImage = card.querySelector(":scope > .td-stay-image")',
+]) {
+  requireCondition(contextBootstrap.includes(marker), `Live Stay Nearby context/AI fallback bootstrap is missing marker: ${marker}`);
+}
+
 for (const pilot of pilots) {
   const page = await fetchLive(pilot.route);
   requireCondition(page.includes(pilot.pageMarker), `${pilot.route} did not render the expected venue marker.`);
   requireCondition(page.includes('/expedia-travel.js'), `${pilot.route} is missing the deferred Expedia/Stay Nearby bootstrap reference.`);
+  requireCondition(page.includes('/stay-nearby-context-images.js'), `${pilot.route} is missing the deferred context/AI fallback bootstrap reference.`);
 
   if (pilot.guideIntegrated) {
     requireCondition(page.includes('Texas venue guide'), `${pilot.route} did not render the redesigned venue-guide marker.`);
@@ -159,4 +195,4 @@ for (const pilot of pilots) {
 }
 
 const integratedGuidePilots = pilots.filter((pilot) => pilot.guideIntegrated).length;
-console.log(`Stay Nearby production verification passed for ${pilots.length} pilot venue pages, including ${integratedGuidePilots} integrated venue guides, the live hotel registry, and the deferred affiliate bootstrap.`);
+console.log(`Stay Nearby production verification passed for ${pilots.length} pilot venue pages, including ${integratedGuidePilots} integrated venue guides, 9 visibly disclosed first-party AI area-illustration fallbacks, the live hotel registry, and the deferred affiliate bootstrap.`);

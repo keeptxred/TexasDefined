@@ -4,7 +4,9 @@ const root = fs.readFileSync('src/routes/__root.tsx', 'utf8');
 const bootstrap = fs.readFileSync('public/expedia-travel.js', 'utf8');
 const contextImages = fs.readFileSync('public/stay-nearby-context-images.js', 'utf8');
 const registry = JSON.parse(fs.readFileSync('public/stay-nearby-hotels.json', 'utf8'));
+const fallbackRegistry = JSON.parse(fs.readFileSync('public/stay-nearby-ai-fallbacks.json', 'utf8'));
 const errors = [];
+const fallbackDisclosure = 'AI-generated area illustration — not the hotel property';
 
 function requireText(source, needle, label) {
   if (!source.includes(needle)) errors.push(`${label} is missing required Expedia contract text: ${needle}`);
@@ -83,6 +85,12 @@ for (const [needle, label] of [
   ['thumb.wikimedia.org', 'Wikimedia thumbnail host'],
   ['upload.wikimedia.org', 'Wikimedia upload host'],
   ['commons.wikimedia.org/wiki/File:', 'Wikimedia source-page links'],
+  ['const FALLBACK_DATA_URL = "/stay-nearby-ai-fallbacks.json"', 'AI fallback registry reference'],
+  ['data-stay-ai-fallback', 'AI fallback identity marker'],
+  ['ai-area-illustration', 'AI fallback kind gate'],
+  [fallbackDisclosure, 'AI fallback visible disclosure'],
+  ['textFallback.replaceWith(buildFallbackMedia(item))', 'AI card fallback replacement'],
+  ['const propertyImage = card.querySelector(":scope > .td-stay-image")', 'real property image precedence'],
 ]) requireText(contextImages, needle, label);
 
 for (const visual of requiredContextVisuals) {
@@ -157,6 +165,54 @@ if (!registry || registry.version !== 1 || !Array.isArray(registry.properties)) 
   }
 }
 
+const expectedFallbackIds = new Set([
+  'courtyard-fort-worth-university-drive',
+  'hilton-garden-inn-fort-worth-medical-center',
+  'homewood-suites-fort-worth-medical-center',
+  'graduate-dallas',
+  'the-highland-dallas',
+  'hotel-mockingbird-dallas',
+  'live-by-loews-arlington',
+  'loews-arlington-hotel',
+  'drury-plaza-dallas-arlington',
+]);
+
+if (!fallbackRegistry || fallbackRegistry.version !== 1 || fallbackRegistry.disclosure !== fallbackDisclosure || !Array.isArray(fallbackRegistry.items)) {
+  errors.push('Stay Nearby AI fallback registry must be version 1 with the approved disclosure and an items array.');
+} else {
+  if (fallbackRegistry.items.length !== expectedFallbackIds.size) errors.push(`Stay Nearby AI fallback registry must contain exactly ${expectedFallbackIds.size} pilot records.`);
+  const seenFallbackIds = new Set();
+  for (const item of fallbackRegistry.items) {
+    if (!expectedFallbackIds.has(item.propertyId)) errors.push(`Unexpected Stay Nearby AI fallback property id: ${item.propertyId}`);
+    if (seenFallbackIds.has(item.propertyId)) errors.push(`Duplicate Stay Nearby AI fallback property id: ${item.propertyId}`);
+    seenFallbackIds.add(item.propertyId);
+
+    const property = registry.properties.find((candidate) => candidate.id === item.propertyId);
+    if (!property || property.name !== item.name) errors.push(`${item.propertyId} AI fallback record does not match the canonical hotel record.`);
+    if (item.kind !== 'ai-area-illustration') errors.push(`${item.propertyId} AI fallback kind must be ai-area-illustration.`);
+    if (item.depictsProperty !== false) errors.push(`${item.propertyId} AI fallback must explicitly declare depictsProperty=false.`);
+    if (item.label !== fallbackDisclosure) errors.push(`${item.propertyId} AI fallback must use the exact visible disclosure.`);
+    if (!/^\/images\/stay-nearby\/ai\/[a-z0-9-]+\.svg$/.test(item.url || '')) errors.push(`${item.propertyId} AI fallback must be a first-party SVG under /images/stay-nearby/ai/.`);
+    if (!String(item.alt || '').startsWith('AI-generated illustration')) errors.push(`${item.propertyId} AI fallback alt text must identify the image as an AI-generated illustration.`);
+    if (property && String(item.alt || '').toLowerCase().includes(property.name.toLowerCase())) errors.push(`${item.propertyId} AI fallback alt text must not imply the illustration depicts the named property.`);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(item.generatedAt || '')) errors.push(`${item.propertyId} AI fallback lacks a generation date.`);
+
+    const assetPath = `public${item.url}`;
+    if (!fs.existsSync(assetPath)) {
+      errors.push(`${item.propertyId} AI fallback asset is missing: ${assetPath}`);
+      continue;
+    }
+    const svg = fs.readFileSync(assetPath, 'utf8');
+    if (!svg.trimStart().startsWith('<svg')) errors.push(`${item.propertyId} AI fallback asset is not an SVG document.`);
+    if (/<script\b/i.test(svg) || /<foreignObject\b/i.test(svg) || /<image\b/i.test(svg) || /\bhref\s*=/i.test(svg)) errors.push(`${item.propertyId} AI fallback SVG contains disallowed executable or external-resource markup.`);
+    if (property && svg.toLowerCase().includes(property.name.toLowerCase())) errors.push(`${item.propertyId} AI fallback SVG must not contain the hotel name.`);
+    if (!svg.includes('AI-generated area illustration, not a depiction of the hotel property.')) errors.push(`${item.propertyId} AI fallback SVG lacks its non-property description.`);
+  }
+  for (const id of expectedFallbackIds) {
+    if (!seenFallbackIds.has(id)) errors.push(`${id} is missing its required AI fallback record.`);
+  }
+}
+
 const registryText = JSON.stringify(registry).toLowerCase();
 for (const forbidden of ['nightlyprice', 'nightly_price', 'estimateddistance', 'estimated_distance']) {
   if (registryText.includes(forbidden)) errors.push(`Stay Nearby registry contains forbidden synthetic commerce field: ${forbidden}.`);
@@ -168,4 +224,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Expedia / Stay Nearby validation passed: approved tracking remains click-loaded, curated hotel selection is capped and evidence-backed, three-card venue pilots are complete, venue-context imagery is open-license and clearly separated from property photography, property deep links require explicit verification, and property imagery is gated to approved first-party-hosted Creator Toolbox media with a matching referral.');
+console.log('Expedia / Stay Nearby validation passed: approved tracking remains click-loaded, curated hotel selection is capped and evidence-backed, three-card venue pilots are complete, open-license venue context remains separated from property photography, nine first-party AI area-illustration fallbacks are visibly disclosed and explicitly non-property, property deep links require explicit verification, and real property imagery remains gated to approved first-party-hosted Creator Toolbox media with a matching referral.');

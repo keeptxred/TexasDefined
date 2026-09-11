@@ -1,5 +1,8 @@
 (() => {
   const VISUAL_ATTRIBUTE = "data-stay-context-visual";
+  const FALLBACK_ATTRIBUTE = "data-stay-ai-fallback";
+  const FALLBACK_DATA_URL = "/stay-nearby-ai-fallbacks.json";
+  const FALLBACK_LABEL = "AI-generated area illustration — not the hotel property";
   const VISUALS = Object.freeze({
     "/sports-venue/amon-g-carter-stadium": Object.freeze({
       venue: "Amon G. Carter Stadium",
@@ -32,6 +35,7 @@
       verifiedAt: "2026-09-11",
     }),
   });
+  let fallbackDataPromise;
 
   function normalizedPath() {
     const value = window.location.pathname.replace(/\/+$/, "");
@@ -81,6 +85,56 @@
     return figure;
   }
 
+  function loadFallbackData() {
+    if (!fallbackDataPromise) {
+      fallbackDataPromise = fetch(FALLBACK_DATA_URL, { credentials: "same-origin" })
+        .then((response) => {
+          if (!response.ok) throw new Error(`Stay Nearby AI fallback request failed: ${response.status}`);
+          return response.json();
+        })
+        .catch(() => null);
+    }
+    return fallbackDataPromise;
+  }
+
+  function validFallback(item) {
+    return item
+      && item.kind === "ai-area-illustration"
+      && item.depictsProperty === false
+      && item.label === FALLBACK_LABEL
+      && typeof item.url === "string"
+      && item.url.startsWith("/images/stay-nearby/ai/")
+      && item.url.endsWith(".svg")
+      && typeof item.alt === "string"
+      && item.alt.startsWith("AI-generated illustration");
+  }
+
+  function buildFallbackMedia(item) {
+    const figure = document.createElement("figure");
+    figure.setAttribute(FALLBACK_ATTRIBUTE, item.propertyId);
+    figure.style.margin = "0";
+    figure.style.background = "var(--muted)";
+
+    const image = document.createElement("img");
+    image.className = "td-stay-image";
+    image.src = item.url;
+    image.alt = item.alt;
+    image.loading = "lazy";
+    image.decoding = "async";
+
+    const caption = document.createElement("figcaption");
+    caption.textContent = FALLBACK_LABEL;
+    caption.style.padding = ".45rem .75rem";
+    caption.style.borderTop = "1px solid var(--border)";
+    caption.style.fontSize = ".6875rem";
+    caption.style.lineHeight = "1rem";
+    caption.style.color = "var(--muted-foreground)";
+    caption.style.background = "var(--muted)";
+
+    figure.append(image, caption);
+    return figure;
+  }
+
   function syncVisual() {
     const surface = document.getElementById("expedia-travel-surface");
     if (!surface || surface.dataset.surfaceType !== "curated") return;
@@ -100,8 +154,35 @@
     track.before(buildVisual(visual));
   }
 
+  async function syncFallbackCards() {
+    const surface = document.getElementById("expedia-travel-surface");
+    if (!surface || surface.dataset.surfaceType !== "curated") return;
+
+    const data = await loadFallbackData();
+    if (!data || !Array.isArray(data.items) || data.disclosure !== FALLBACK_LABEL) return;
+    const byName = new Map(data.items.filter(validFallback).map((item) => [item.name, item]));
+
+    for (const card of surface.querySelectorAll(".td-stay-card")) {
+      if (card.querySelector(`[${FALLBACK_ATTRIBUTE}]`)) continue;
+      const heading = card.querySelector("h3");
+      const propertyName = heading?.textContent?.trim();
+      const item = byName.get(propertyName);
+      if (!item) continue;
+
+      const propertyImage = card.querySelector(":scope > .td-stay-image");
+      if (propertyImage) continue;
+
+      const textFallback = card.querySelector(":scope > .td-stay-media");
+      if (!textFallback) continue;
+      textFallback.replaceWith(buildFallbackMedia(item));
+    }
+  }
+
   function scheduleSync() {
-    window.requestAnimationFrame(syncVisual);
+    window.requestAnimationFrame(() => {
+      syncVisual();
+      void syncFallbackCards();
+    });
   }
 
   function start() {
