@@ -27,4 +27,17 @@ export const VENUE_PARKING_MAPS_BATCH_13: Record<string, ParkingMapAsset> = {
     ],
     accuracyNotes: ['Golf Course, Golf Clubhouse and Golf Education Center placement was checked against the January 2026 park map.', 'Current Conservancy and municipal-golf guidance both identify the Golf Course parking lot as paid parking.', 'Memorial Loop Drive, East Memorial Loop Drive and Memorial Drive orientation was compared against the current 2026 map.', 'The schematic keeps adjacent park parking generalized because park closures, construction and event operations can temporarily change availability.'],
   },
+  'amarillo-national-center': {
+    id: 'parking-map:amarillo-national-center:2026-09', venueSlug: 'amarillo-national-center', venueName: 'Amarillo National Center', imageUrl: '/images/parking-maps/amarillo-national-center.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Amarillo National Center showing surrounding Tri-State Fairgrounds parking, gates and adjacent arenas',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['Tri-State Fairgrounds publishes a current facility-map page and grounds diagram, but its site expressly carries an all-rights-reserved copyright notice and no reusable commercial map license was documented.', 'Open-license source checks did not surface a current reusable Tri-State Fairgrounds parking map with Amarillo National Center detail.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [
+      { label: 'Tri-State Fairgrounds — current facility map', url: 'https://www.tristatefair.com/p/rentals/facility-map1', checkedAt: '2026-09-11', role: 'accuracy' },
+      { label: 'Tri-State Fair & Rodeo — 2026 livestock parking / Gate 3', url: 'https://www.tristatefair.com/p/fair/compete-at-fair/livestock-shows', checkedAt: '2026-09-11', role: 'accuracy' },
+      { label: 'Tri-State Fairgrounds — current directions', url: 'https://www.tristatefair.com/directions.aspx', checkedAt: '2026-09-11', role: 'accuracy' },
+    ],
+    accuracyNotes: ['Amarillo National Center placement and surrounding parking rows were compared directly with the current official fairgrounds facility-map image.', 'SE 10th Avenue/Gate 2, N 3rd Street/Gate 3, Marrs Street and E Grand Street orientation were checked against the official grounds map.', 'Tommy Grant Arena, livestock facilities and Bill Cody Arena were retained as orientation landmarks because they materially affect the surrounding parking pattern.', 'The official diagram marks several no-trailer-parking areas; the schematic warns about those restrictions rather than reproducing every stall or RV number.'],
+  },
 };
