@@ -1,3 +1,4 @@
+import path from "node:path";
 import process from "node:process";
 import { createServer } from "vite";
 
@@ -5,6 +6,7 @@ const server = await createServer({
   configFile: false,
   appType: "custom",
   logLevel: "error",
+  resolve: { alias: { "@": path.resolve(process.cwd(), "src") } },
   server: { middlewareMode: true },
 });
 
