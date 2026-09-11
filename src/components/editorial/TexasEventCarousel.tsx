@@ -30,7 +30,7 @@ export function TexasEventCarousel({ events, title = "Upcoming events", eyebrow 
   const calendarHref = viewAllHref.includes("#calendar")
     ? viewAllHref
     : `${viewAllHref.replace(/#.*$/, "")}#calendar`;
-  const allEventsHref = calendarHref.replace(/#calendar$/, "");
+  const allEventsHref = viewAllHref.replace(/#calendar$/, "");
   const scroll = (direction: -1 | 1) => viewportRef.current?.scrollBy({ left: direction * Math.max(280, viewportRef.current.clientWidth * 0.9), behavior: "smooth" });
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     const viewport = viewportRef.current;
