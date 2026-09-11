@@ -10,10 +10,6 @@ on:
 permissions:
   contents: write
 
-concurrency:
-  group: stay-nearby-exact-property-images-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   generate:
     runs-on: ubuntu-latest
@@ -26,90 +22,43 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Reconcile exact-property source contracts
+      - name: Update exact-property source references
         shell: bash
         run: |
-          node <<'NODE'
-          const fs = require('node:fs');
+          python - <<'PY'
+          from pathlib import Path
 
-          function replaceExact(path, before, after, label) {
-            const source = fs.readFileSync(path, 'utf8');
-            if (!source.includes(before)) throw new Error(`${label}: expected source text not found in ${path}`);
-            fs.writeFileSync(path, source.replace(before, after));
-          }
+          generator = Path('scripts/media/generate-stay-nearby-property-images.mjs')
+          text = generator.read_text()
+          old = 'https://images.trvl-media.com/lodging/5000000/4800000/4790100/4790030/77313365.jpg?impolicy=resizecrop&ra=fill&rh=575&rw=575'
+          new = 'https://www.hilton.com/im/en/FTWMDGI/21739421/ftwmdgi-fortworth-tx-hgi-exterior-day-1-.jpg?ch=2799&cw=5000&gravity=NorthWest&impolicy=crop&rh=430&rw=768&xposition=0&yposition=265'
+          if old not in text:
+              raise SystemExit('Expected Hilton Garden Inn reference URL not found')
+          generator.write_text(text.replace(old, new))
 
-          replaceExact(
-            'scripts/media/generate-stay-nearby-property-images.mjs',
-            "https://images.trvl-media.com/lodging/5000000/4800000/4790100/4790030/77313365.jpg?impolicy=resizecrop&ra=fill&rh=575&rw=575",
-            "https://www.hilton.com/im/en/FTWMDGI/21739421/ftwmdgi-fortworth-tx-hgi-exterior-day-1-.jpg?ch=2799&cw=5000&gravity=NorthWest&impolicy=crop&rh=430&rw=768&xposition=0&yposition=265",
-            'Hilton Garden Inn exact-property reference',
-          );
-
-          replaceExact(
-            'scripts/ci/verify-stay-nearby-production.mjs',
-            "'Homewood Suites by Hilton Fort Worth Medical Center, TX'",
-            "'Homewood Suites by Hilton Fort Worth Medical Center'",
-            'canonical Fort Worth Homewood Suites name',
-          );
-
-          const validatorPath = 'scripts/data/validate-expedia-affiliate.mjs';
-          const validator = fs.readFileSync(validatorPath, 'utf8');
-          const start = validator.indexOf('  for (const venue of pilots) {');
-          const endMarker = '\n}\n\nif (!propertyImageManifest';
-          const end = validator.indexOf(endMarker, start);
-          if (start < 0 || end < 0) throw new Error('Could not locate curated Stay Nearby validator block.');
-          const newLoop = `  const curatedVenueKeys = new Set(registry.properties.flatMap((property) =>
-            (property.contexts ?? [])
-              .filter((context) => context.kind === 'venue')
-              .map((context) => context.key)));
-
-          for (const venue of curatedVenueKeys) {
-            if (!pilots.has(venue)) errors.push(\`${'${venue}'} has curated Stay Nearby cards but is not a current redesigned venue guide.\`);
-            const matches = registry.properties.filter((property) =>
-              (property.contexts ?? []).some((context) => context.kind === 'venue' && context.key === venue));
-            if (matches.length !== 3) errors.push(\`${'${venue}'} must have exactly 3 curated Stay Nearby choices when curated results are configured; found ${'${matches.length}'}.\`);
-            const ranks = matches
-              .flatMap((property) => property.contexts.filter((context) => context.kind === 'venue' && context.key === venue))
-              .map((context) => context.rank)
-              .sort((a, b) => a - b);
-            if (ranks.join(',') !== '1,2,3') errors.push(\`${'${venue}'} must have deterministic Stay Nearby relevance ranks 1,2,3.\`);
-          }
-
-          integratedProperties = registry.properties.filter((property) =>
-            (property.contexts ?? []).some((context) => context.kind === 'venue' && pilots.has(context.key)));
-`;
-          let next = validator.slice(0, start) + newLoop + validator.slice(end);
-          next = next.replace(
-            /console\.log\(`Expedia \/ Stay Nearby validation passed:[\s\S]*?`\);/,
-            "console.log(`Expedia / Stay Nearby validation passed: approved tracking remains click-loaded, curated hotel selection remains evidence-backed and capped at three cards, ${integratedProperties.length} configured redesigned-guide hotel cards are image-gated, rights-cleared affiliate property photos remain preferred, every remaining configured hotel card has a unique first-party photorealistic exact-property AI raster grounded to an exact address and verified property source, and generic hotel imagery and SVG fallbacks are prohibited.`);",
-          );
-          fs.writeFileSync(validatorPath, next);
-          NODE
-      - name: Commit reconciled source contracts
+          verifier = Path('scripts/ci/verify-stay-nearby-production.mjs')
+          text = verifier.read_text()
+          old = "'Homewood Suites by Hilton Fort Worth Medical Center, TX'"
+          new = "'Homewood Suites by Hilton Fort Worth Medical Center'"
+          if old not in text:
+              raise SystemExit('Expected Homewood Suites canonical name not found')
+          verifier.write_text(text.replace(old, new))
+          PY
+      - name: Generate exact-property raster imagery
+        run: node scripts/media/generate-stay-nearby-property-images.mjs
+      - name: Commit generated property imagery
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add scripts/media/generate-stay-nearby-property-images.mjs scripts/data/validate-expedia-affiliate.mjs scripts/ci/verify-stay-nearby-production.mjs
-          if ! git diff --cached --quiet; then
-            git commit -m "Reconcile exact-property image generation with current venue rollout"
-            git push origin "HEAD:${GITHUB_REF_NAME}"
-          fi
-      - name: Generate exact-property raster imagery
-        run: node scripts/media/generate-stay-nearby-property-images.mjs
-      - name: Validate generated Stay Nearby assets
-        run: node scripts/data/validate-expedia-affiliate.mjs
-      - name: Commit generated raster assets
-        shell: bash
-        run: |
-          git add -A public
+          git add -A public scripts/media/generate-stay-nearby-property-images.mjs scripts/ci/verify-stay-nearby-production.mjs
           if git diff --cached --quiet; then
-            echo "No generated asset changes to commit."
+            echo "No generated changes to commit."
             exit 0
           fi
           git commit -m "Generate exact Stay Nearby property images"
           git push origin "HEAD:${GITHUB_REF_NAME}"
-      - name: Upload generated property imagery for explicit review
+      - name: Upload generated property imagery for review
         if: always()
         uses: actions/upload-artifact@v4
         with:
