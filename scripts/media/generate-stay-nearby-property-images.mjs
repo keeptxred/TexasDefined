@@ -38,6 +38,20 @@ const ADDRESS_BY_ID = Object.freeze({
   'holiday-inn-express-fort-worth-north-northlake': '13261 Raceway Drive, Northlake, Texas 76262',
 });
 
+// These are visual-grounding references for properties whose official web front end
+// blocks automated retrieval. They are never published or copied to TexasDefined.
+// Each URL was manually matched to the exact named property/address before inclusion.
+const RESEARCHED_REFERENCE_IMAGE_BY_ID = Object.freeze({
+  'hilton-garden-inn-fort-worth-medical-center': 'https://images.trvl-media.com/lodging/5000000/4800000/4790100/4790030/77313365.jpg?impolicy=resizecrop&ra=fill&rh=575&rw=575',
+  'homewood-suites-fort-worth-medical-center': 'https://images.trvl-media.com/lodging/7000000/6190000/6180300/6180205/0c207564.jpg?impolicy=resizecrop&ra=fill&rh=575&rw=575',
+  'graduate-dallas': 'https://qtxasset.com/quartz/qcloud1/media/image/Graduate-by-Hilton-Dallas-Exterior.jpg?VersionId=nu.dRgEhVx1WYSPLr80vBUFePfdXYE0q',
+  'the-highland-dallas': 'https://media.cntraveler.com/photos/57d1b029b77fe35639ae19c0/master/w_1200%2Cc_limit/Exterior-HighlandDallas-Dallas-CRHotel.jpg',
+  'homewood-suites-dallas-downtown': 'https://hotelmedia.s3.amazonaws.com/720/480/6e4593c2eef2a3a49a867f781914f83a9a915e24',
+  'hilton-anatole': 'https://dallasnews.imgix.net/1548885550-hiltonanatole.jpg',
+  'tru-northlake-fort-worth': 'https://www.hilton.com/im/en/DFWGNRU/14652734/dx3a6892-3-4.jpg?ch=3830&cw=5760&gravity=NorthWest&impolicy=crop&rh=511&rw=768&xposition=0&yposition=4',
+  'home2-suites-fort-worth-northlake': 'https://www.hilton.com/im/en/DFWNLHT/25253430/dfwnl-exterior-1.jpg?ch=2799&cw=5000&gravity=NorthWest&impolicy=crop&rh=430&rw=768&xposition=0&yposition=267',
+});
+
 function requireValue(name, value) {
   if (!value) throw new Error(`${name} is required.`);
 }
@@ -121,26 +135,13 @@ async function fetchPageImageUrl(pageUrl) {
   return imageUrl;
 }
 
-async function fetchOfficialReference(sourceUrl) {
-  const failures = [];
-  let imageUrl = '';
-  for (const pageUrl of referencePageCandidates(sourceUrl)) {
-    try {
-      imageUrl = await fetchPageImageUrl(pageUrl);
-      console.log(`Using official visual-reference page: ${pageUrl}`);
-      break;
-    } catch (error) {
-      failures.push(`${pageUrl} (${error instanceof Error ? error.message : String(error)})`);
-    }
-  }
-  if (!imageUrl) throw new Error(`Official property pages did not expose a usable reference image: ${failures.join('; ')}`);
-
+async function downloadReferenceImage(imageUrl, sourceUrl) {
   const image = await fetch(imageUrl, {
     redirect: 'follow',
-    headers: { ...BROWSER_HEADERS, accept: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8', referer: sourceUrl },
+    headers: { ...BROWSER_HEADERS, accept: 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8', referer: sourceUrl },
     signal: AbortSignal.timeout(30_000),
   });
-  if (!image.ok) throw new Error(`Official reference image returned HTTP ${image.status}: ${imageUrl}`);
+  if (!image.ok) throw new Error(`Reference image returned HTTP ${image.status}: ${imageUrl}`);
   const contentType = (image.headers.get('content-type') || '').split(';')[0].trim().toLowerCase();
   if (!/^image\/(?:png|jpeg|webp)$/.test(contentType)) throw new Error(`Reference image is not PNG/JPEG/WebP (${contentType || 'unknown'}): ${imageUrl}`);
   const bytes = new Uint8Array(await image.arrayBuffer());
@@ -148,10 +149,37 @@ async function fetchOfficialReference(sourceUrl) {
   return { bytes, contentType, imageUrl };
 }
 
+async function fetchOfficialReference(sourceUrl, propertyId) {
+  const failures = [];
+  for (const pageUrl of referencePageCandidates(sourceUrl)) {
+    try {
+      const imageUrl = await fetchPageImageUrl(pageUrl);
+      const reference = await downloadReferenceImage(imageUrl, sourceUrl);
+      console.log(`Using official visual-reference page: ${pageUrl}`);
+      return { ...reference, referenceSource: 'official-property-page' };
+    } catch (error) {
+      failures.push(`${pageUrl} (${error instanceof Error ? error.message : String(error)})`);
+    }
+  }
+
+  const researchedImageUrl = RESEARCHED_REFERENCE_IMAGE_BY_ID[propertyId];
+  if (researchedImageUrl) {
+    try {
+      const reference = await downloadReferenceImage(researchedImageUrl, sourceUrl);
+      console.log(`Official page blocked; using manually verified exact-property visual reference for ${propertyId}.`);
+      return { ...reference, referenceSource: 'manually-verified-exact-property-reference' };
+    } catch (error) {
+      failures.push(`researched ${researchedImageUrl} (${error instanceof Error ? error.message : String(error)})`);
+    }
+  }
+
+  throw new Error(`No usable exact-property reference image: ${failures.join('; ')}`);
+}
+
 function generationPrompt(property, address, sourceUrl) {
   return [
     `Create a photorealistic exterior editorial depiction of the exact hotel property named “${property.name}” located at ${address}.`,
-    'The supplied image comes from the property’s official web presence and is only a visual grounding reference. Preserve the recognizable massing, facade, roofline, window pattern, entrance placement, setbacks, landscaping, and immediate streetscape cues that identify this specific property.',
+    'The supplied image is a manually verified visual reference of this exact property. Preserve the recognizable massing, facade, roofline, window pattern, entrance placement, setbacks, landscaping, and immediate streetscape cues that identify this specific property.',
     'Do not substitute a different hotel, a generic hotel, a generic version of the brand, or a made-up building.',
     'Keep the scene physically plausible for this exact address and property. If the reference is not an exterior image, use it only for property identity and styling and remain conservative rather than inventing unusual architecture.',
     'Use natural daylight and a realistic street-level or parking-lot three-quarter exterior camera view. No dramatic fantasy lighting, illustration style, poster treatment, collage, or text overlay.',
@@ -196,11 +224,11 @@ function imageFormat(bytes) {
 async function generatePropertyImage(property) {
   const address = ADDRESS_BY_ID[property.id];
   const sourceUrl = officialSource(property);
-  const reference = await fetchOfficialReference(sourceUrl);
+  const reference = await fetchOfficialReference(sourceUrl, property.id);
   const bytes = await openAiEdit(property, address, sourceUrl, reference);
   if (bytes.length < 25_000) throw new Error(`Generated image for ${property.id} is unexpectedly small (${bytes.length} bytes).`);
   const format = imageFormat(bytes);
-  return { address, sourceUrl, referenceImageUrl: reference.imageUrl, bytes, format };
+  return { address, sourceUrl, referenceImageUrl: reference.imageUrl, referenceSource: reference.referenceSource, bytes, format };
 }
 
 requireValue('OPENAI_API_KEY', OPENAI_KEY);
@@ -229,11 +257,11 @@ for (const property of selected) {
     depictsProperty: true,
     generatedFromPropertyIdentity: true,
     groundingSourceUrl: generated.sourceUrl,
-    referenceImageSource: 'official-property-page',
+    referenceImageSource: generated.referenceSource,
     provider: 'OpenAI',
     model: IMAGE_MODEL,
   });
-  console.log(JSON.stringify({ propertyId: property.id, output: outputPath, bytes: generated.bytes.length, referenceImageUrl: generated.referenceImageUrl }));
+  console.log(JSON.stringify({ propertyId: property.id, output: outputPath, bytes: generated.bytes.length, referenceImageUrl: generated.referenceImageUrl, referenceSource: generated.referenceSource }));
 }
 
 const manifest = {
@@ -245,7 +273,7 @@ const manifest = {
     genericHotelImagesAllowed: false,
     svgAllowed: false,
     approvedRasterFormats: ['png', 'jpg', 'webp'],
-    groundingRequirement: 'official-property-page reference plus exact verified street address',
+    groundingRequirement: 'exact verified street address plus a manually verified visual reference of the exact property',
   },
   items,
 };
