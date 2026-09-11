@@ -27,8 +27,10 @@ interface TexasEventCarouselProps {
 export function TexasEventCarousel({ events, title = "Upcoming events", eyebrow = "On the calendar", viewAllHref = "/events", emptyMessage = "No source-verified upcoming events are available for this view yet." }: TexasEventCarouselProps) {
   const headingId = useId();
   const viewportRef = useRef<HTMLDivElement>(null);
-  const calendarHref = viewAllHref.includes("#calendar") ? viewAllHref : undefined;
-  const allEventsHref = calendarHref ? viewAllHref.replace(/#calendar$/, "") : viewAllHref;
+  const calendarHref = viewAllHref.includes("#calendar")
+    ? viewAllHref
+    : `${viewAllHref.replace(/#.*$/, "")}#calendar`;
+  const allEventsHref = calendarHref.replace(/#calendar$/, "");
   const scroll = (direction: -1 | 1) => viewportRef.current?.scrollBy({ left: direction * Math.max(280, viewportRef.current.clientWidth * 0.9), behavior: "smooth" });
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     const viewport = viewportRef.current;
@@ -45,7 +47,7 @@ export function TexasEventCarousel({ events, title = "Upcoming events", eyebrow 
   };
 
   return <section className="ec" aria-labelledby={headingId}>
-    <div className="ec-h"><div><p className="eyebrow ec-e">{eyebrow}</p><h2 id={headingId} className="ec-t">{title}</h2></div><div className="ec-a"><a href={allEventsHref} className="ec-l">View all events</a>{calendarHref && <a href={calendarHref} className="ec-l">View Calendar</a>}{events.length > 1 && <div className="ec-c" aria-label="Event carousel controls"><button type="button" onClick={() => scroll(-1)} className="ec-b" aria-label="Previous events">←</button><button type="button" onClick={() => scroll(1)} className="ec-b" aria-label="Next events">→</button></div>}</div></div>
+    <div className="ec-h"><div><p className="eyebrow ec-e">{eyebrow}</p><h2 id={headingId} className="ec-t">{title}</h2></div><div className="ec-a"><a href={allEventsHref} className="ec-l">View all events</a><a href={calendarHref} className="ec-l">View Calendar</a>{events.length > 1 && <div className="ec-c" aria-label="Event carousel controls"><button type="button" onClick={() => scroll(-1)} className="ec-b" aria-label="Previous events">←</button><button type="button" onClick={() => scroll(1)} className="ec-b" aria-label="Next events">→</button></div>}</div></div>
     {events.length ? <div ref={viewportRef} className="ec-v" tabIndex={0} role="region" aria-roledescription="carousel" aria-label={`${title} carousel`} onKeyDown={onKeyDown}>
       {events.map((event, index) => <article key={event.id} className="ec-card" role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${events.length}: ${event.title}`}>
         {event.image?.displayAllowed && <><img src={event.image.url} alt={event.image.alt} className="ec-img" loading="lazy" decoding="async" /><p className="ec-cr">Photo: {event.image.credit ?? "licensed source"} · <a href={event.image.sourceUrl} target="_blank" rel="noreferrer noopener">source ↗</a>{event.image.licenseName && <> · {event.image.licenseUrl ? <a href={event.image.licenseUrl} target="_blank" rel="noreferrer noopener">{event.image.licenseName}</a> : event.image.licenseName}</>}</p></>}
