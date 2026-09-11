@@ -48,7 +48,7 @@ export function SportsVenueQuickAnswers({
   const heroWidth = photo?.width ?? 1600;
   const heroHeight = photo?.height ?? 900;
   const freshnessNote = verifiedAt
-    ? `How current is this ${venueName} visitor guide? Core venue facts were last reviewed ${verifiedAt}. Event-day policies can change, so use the official links farther down the guide for current rules.`
+    ? `Source review: core venue facts were last reviewed ${verifiedAt}. Event-day policies can change, so use the official links farther down the guide for current rules.`
     : `Event-day policies can change, so use the official links farther down the guide for current rules.`;
   if (!answers.length) return null;
 
