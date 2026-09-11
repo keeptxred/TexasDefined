@@ -16,8 +16,13 @@ import { getActiveSportsSponsorPlacement } from '@/data/sports-sponsorship.funct
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const siteUrl = 'https://texasdefined.com';
+const sportsVenueGuidePilotSlugs = new Set(['amon-g-carter-stadium', 'gerald-j-ford-stadium']);
 
 type SportsVenueEnrichment = SportsVenueEnrichmentRecord | undefined;
+
+function isSportsVenueGuidePilot(slug: string) {
+  return sportsVenueGuidePilotSlugs.has(slug);
+}
 
 const visitorKindPriority: Partial<Record<TexasEntityKind, number>> = {
   attraction: 0,
@@ -68,6 +73,10 @@ export const Route = createFileRoute('/sports-venue/$slug')({
     const mapUrl = entity.coordinates
       ? `https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`
       : sportsVenueMapUrl(entity.name, entity.countySlug);
+    const guideEvents = isSportsVenueGuidePilot(params.slug)
+      ? await import('@/data/sports-venue-events.functions').then(({ getSportsVenueUpcomingEvents }) =>
+        getSportsVenueUpcomingEvents({ data: { slug: params.slug } }))
+      : null;
     return {
       entity,
       related: rankRelatedEntities(entity, graph, 16),
@@ -76,6 +85,8 @@ export const Route = createFileRoute('/sports-venue/$slug')({
       enrichment,
       landingLinks: sportsVenueLandingLinksForVenue(entity),
       mapUrl,
+      upcomingEvents: guideEvents?.events ?? [],
+      eventCalendarHref: guideEvents?.calendarHref ?? '/events',
     };
   },
   head: ({ loaderData }) => {
@@ -102,15 +113,16 @@ const SportsVenueGuidePilotContent = lazy(
 
 function SportsVenuePage() {
   const { slug } = Route.useParams();
-  const { entity, visitorPlaces } = Route.useLoaderData();
-  const isGuidePilot = slug === 'amon-g-carter-stadium' || slug === 'gerald-j-ford-stadium';
+  const { entity, visitorPlaces, upcomingEvents, eventCalendarHref } = Route.useLoaderData();
 
-  if (isGuidePilot) {
+  if (isSportsVenueGuidePilot(slug)) {
     return <Suspense fallback={null}>
       <SportsVenueGuidePilotContent
         slug={slug}
         entity={entity}
         nearbyAttractions={visitorPlaces}
+        upcomingEvents={upcomingEvents}
+        eventCalendarHref={eventCalendarHref}
       />
     </Suspense>;
   }

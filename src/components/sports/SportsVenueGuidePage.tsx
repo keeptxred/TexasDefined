@@ -1,5 +1,9 @@
 import type { ReactNode } from "react";
 
+import {
+  TexasEventCarousel,
+  type TexasEventCarouselItem,
+} from "@/components/editorial/TexasEventCarousel";
 import { Container } from "@/components/layout/Container";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
@@ -15,48 +19,14 @@ export type SportsVenueGuideLink = {
   external?: boolean;
 };
 
-export type SportsVenueEventItem = {
-  id: string;
-  title: string;
-  dateLabel: string;
-  href: string;
-  timeLabel?: string;
-  categoryLabel?: string;
-  external?: boolean;
-};
-
-export type SportsVenueEventsIntegration = {
-  items: readonly SportsVenueEventItem[];
-  viewAll?: SportsVenueGuideLink;
-  calendar?: SportsVenueGuideLink;
-};
-
-export type SportsVenueHotelItem = {
-  id: string;
-  name: string;
-  href: string;
-  imageUrl?: string;
-  imageAlt?: string;
-  distanceLabel?: string;
-  priceLabel?: string;
-  providerLabel?: string;
-  external?: boolean;
-};
-
-export type SportsVenueStayNearbyIntegration = {
-  items: readonly SportsVenueHotelItem[];
-  viewAll?: SportsVenueGuideLink;
-  disclosure?: string;
-};
-
 export type SportsVenueGuidePageProps = {
   entity: TexasEntityRecord;
   guide: SportsVenueGuidePilot;
   enrichment?: SportsVenueEnrichment;
   photo?: SportsVenuePhoto;
   nearbyAttractions?: readonly TexasEntityRecord[];
-  events?: SportsVenueEventsIntegration;
-  stayNearby?: SportsVenueStayNearbyIntegration;
+  upcomingEvents?: readonly TexasEventCarouselItem[];
+  eventCalendarHref?: string;
 };
 
 export function SportsVenueGuidePage({
@@ -65,8 +35,8 @@ export function SportsVenueGuidePage({
   enrichment,
   photo,
   nearbyAttractions = [],
-  events,
-  stayNearby,
+  upcomingEvents = [],
+  eventCalendarHref = "/events",
 }: SportsVenueGuidePageProps) {
   const canonicalUrl = `${siteUrl}${guide.canonicalPath}`;
   const officialUrl = guide.officialUrl ?? entity.officialUrl;
@@ -145,7 +115,13 @@ export function SportsVenueGuidePage({
             <QuickFacts guide={guide} directionsUrl={directionsUrl} officialUrl={officialUrl} />
           </div>
 
-          {events ? <SportsVenueUpcomingEventsSection integration={events} /> : null}
+          <TexasEventCarousel
+            events={upcomingEvents}
+            eyebrow="Upcoming events"
+            title={`What’s happening at ${entity.name}`}
+            viewAllHref={eventCalendarHref}
+            emptyMessage={`No source-verified upcoming events are currently listed for ${entity.name}. Use the statewide calendar to explore other Texas events.`}
+          />
 
           {enrichment ? (
             <KnowBeforeYouGo
@@ -155,7 +131,7 @@ export function SportsVenueGuidePage({
             />
           ) : null}
 
-          {stayNearby ? <SportsVenueStayNearbySection integration={stayNearby} /> : null}
+          <div data-stay-nearby-slot />
 
           {enrichment?.history ? (
             <EditorialSection eyebrow="Venue story" title={`The story of ${entity.name}`}>
@@ -177,101 +153,6 @@ export function SportsVenueGuidePage({
         </article>
       </Container>
     </>
-  );
-}
-
-export function SportsVenueUpcomingEventsSection({
-  integration,
-}: {
-  integration: SportsVenueEventsIntegration;
-}) {
-  if (!integration.items.length && !integration.viewAll && !integration.calendar) return null;
-
-  return (
-    <EditorialSection
-      eyebrow="Upcoming events"
-      title="What’s happening here"
-      actions={<SectionActions links={[integration.viewAll, integration.calendar]} />}
-    >
-      {integration.items.length ? (
-        <div className="grid gap-x-7 border-t border-border sm:grid-cols-2 lg:grid-cols-3">
-          {integration.items.map((event) => (
-            <a
-              key={event.id}
-              href={event.href}
-              target={event.external ? "_blank" : undefined}
-              rel={event.external ? "noreferrer" : undefined}
-              className="group border-b border-border py-5 sm:pr-6"
-            >
-              <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-                {event.dateLabel}
-                {event.timeLabel ? ` · ${event.timeLabel}` : ""}
-              </span>
-              <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">
-                {event.title}
-              </strong>
-              {event.categoryLabel ? (
-                <span className="mt-2 block text-sm text-muted-foreground">
-                  {event.categoryLabel}
-                </span>
-              ) : null}
-            </a>
-          ))}
-        </div>
-      ) : null}
-    </EditorialSection>
-  );
-}
-
-export function SportsVenueStayNearbySection({
-  integration,
-}: {
-  integration: SportsVenueStayNearbyIntegration;
-}) {
-  if (!integration.items.length && !integration.viewAll) return null;
-
-  return (
-    <EditorialSection
-      eyebrow="Stay nearby"
-      title="Hotels for the venue trip"
-      actions={<SectionActions links={[integration.viewAll]} />}
-    >
-      {integration.items.length ? (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {integration.items.map((hotel) => (
-            <a
-              key={hotel.id}
-              href={hotel.href}
-              target={hotel.external ? "_blank" : undefined}
-              rel={hotel.external ? "sponsored noreferrer" : undefined}
-              className="group border-t border-border pt-4"
-            >
-              {hotel.imageUrl ? (
-                <img
-                  src={hotel.imageUrl}
-                  alt={hotel.imageAlt ?? ""}
-                  loading="lazy"
-                  className="aspect-[4/3] w-full object-cover"
-                />
-              ) : null}
-              <strong className="mt-3 block font-display text-2xl leading-tight group-hover:text-primary">
-                {hotel.name}
-              </strong>
-              <span className="mt-2 block text-sm leading-6 text-muted-foreground">
-                {[hotel.distanceLabel, hotel.priceLabel, hotel.providerLabel]
-                  .filter(Boolean)
-                  .join(" · ")}
-              </span>
-            </a>
-          ))}
-        </div>
-      ) : null}
-      {integration.disclosure ? (
-        <p className="mt-5 max-w-3xl text-xs leading-5 text-muted-foreground">
-          {integration.disclosure}
-        </p>
-      ) : null}
-    </EditorialSection>
   );
 }
 
@@ -518,12 +399,10 @@ function SourcesSection({
 function EditorialSection({
   eyebrow,
   title,
-  actions,
   children,
 }: {
   eyebrow: string;
   title: string;
-  actions?: ReactNode;
   children: ReactNode;
 }) {
   return (
@@ -533,31 +412,9 @@ function EditorialSection({
           <p className="eyebrow text-primary">{eyebrow}</p>
           <h2 className="mt-2 font-display text-3xl leading-tight sm:text-4xl">{title}</h2>
         </div>
-        {actions}
       </div>
       {children}
     </section>
-  );
-}
-
-function SectionActions({ links }: { links: Array<SportsVenueGuideLink | undefined> }) {
-  const present = links.filter((link): link is SportsVenueGuideLink => Boolean(link));
-  if (!present.length) return null;
-
-  return (
-    <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
-      {present.map((link) => (
-        <a
-          key={link.href}
-          href={link.href}
-          target={link.external ? "_blank" : undefined}
-          rel={link.external ? "noreferrer" : undefined}
-          className="underline decoration-primary/40 underline-offset-4 hover:text-primary"
-        >
-          {link.label} {link.external ? "↗" : "→"}
-        </a>
-      ))}
-    </div>
   );
 }
 

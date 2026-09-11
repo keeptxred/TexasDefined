@@ -1,0 +1,25 @@
+/* Shared route-split carousel styles. Imported by the reusable carousel component, never globally. */
+.ec { border-bottom: 1px solid var(--border); padding: 2.5rem 0; }
+.ec-h { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1.25rem; }
+.ec-e { color: var(--primary); }
+.ec-t { margin-top: .5rem; font-family: var(--font-family-display); font-size: 1.875rem; line-height: 2.25rem; }
+.ec-a { display: flex; align-items: center; gap: 1rem; font-size: .875rem; font-weight: 600; }
+.ec-l { color: var(--primary); text-decoration: underline; text-underline-offset: 4px; }
+.ec-c { display: flex; gap: .5rem; }
+.ec-b { display: inline-flex; width: 2.5rem; height: 2.5rem; align-items: center; justify-content: center; border: 1px solid var(--border); font-size: 1.125rem; }
+.ec-b:hover { border-color: var(--primary); color: var(--primary); }
+.ec-v { margin-top: 1.75rem; display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; scrollbar-width: thin; scroll-snap-type: x mandatory; }
+.ec-card { min-width: 84%; scroll-snap-align: start; border: 1px solid var(--border); background: var(--background); }
+.ec-img { aspect-ratio: 16/9; width: 100%; object-fit: cover; }
+.ec-cr { border-bottom: 1px solid var(--border); padding: .5rem 1.25rem; color: var(--muted-foreground); font-size: .68rem; line-height: 1rem; }
+.ec-cr a { text-decoration: underline; text-underline-offset: 2px; }
+.ec-body { padding: 1.25rem; }
+.ec-name { margin-top: .75rem; font-family: var(--font-family-display); font-size: 1.5rem; line-height: 1.25; }
+.ec-name a:hover { color: var(--primary); }
+.ec-loc { margin-top: .75rem; color: var(--muted-foreground); font-size: .875rem; line-height: 1.5rem; }
+.ec-status { margin-top: .75rem; font-size: .875rem; font-weight: 600; letter-spacing: .025em; text-transform: uppercase; }
+.ec-links { margin-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 1rem; font-size: .875rem; font-weight: 600; }
+.ec-note { margin-top: 1.25rem; color: var(--muted-foreground); font-size: .75rem; line-height: 1.25rem; }
+.ec-empty { margin-top: 1.75rem; border-top: 1px solid var(--border); padding: 2rem 0; color: var(--muted-foreground); font-size: .875rem; }
+@media (min-width: 640px) { .ec-t { font-size: 2.25rem; line-height: 2.5rem; } .ec-card { min-width: calc(50% - .5rem); } }
+@media (min-width: 1024px) { .ec-card { min-width: calc(33.333% - .7rem); } }

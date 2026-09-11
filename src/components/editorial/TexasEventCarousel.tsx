@@ -2,7 +2,9 @@ import { useId, useRef, type KeyboardEvent } from "react";
 
 import type { TexasEventRecord } from "@/data/events/texas-event-record";
 
-type TexasEventCarouselItem = TexasEventRecord & {
+import "./texas-event-carousel.css";
+
+export type TexasEventCarouselItem = TexasEventRecord & {
   categoryLabel: string;
   dateLabel: string;
   locationLabel: string;
@@ -24,7 +26,17 @@ export function TexasEventCarousel({ events, title = "Upcoming events", eyebrow 
   const viewportRef = useRef<HTMLDivElement>(null);
   const scroll = (direction: -1 | 1) => viewportRef.current?.scrollBy({ left: direction * Math.max(280, viewportRef.current.clientWidth * 0.9), behavior: "smooth" });
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "ArrowLeft" || event.key === "ArrowRight") { event.preventDefault(); scroll(event.key === "ArrowLeft" ? -1 : 1); }
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      event.preventDefault();
+      scroll(event.key === "ArrowLeft" ? -1 : 1);
+      return;
+    }
+    if (event.key === "Home" || event.key === "End") {
+      event.preventDefault();
+      viewport.scrollTo({ left: event.key === "Home" ? 0 : viewport.scrollWidth, behavior: "smooth" });
+    }
   };
 
   return <section className="ec" aria-labelledby={headingId}>
