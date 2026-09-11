@@ -4,6 +4,7 @@ import type { TexasEventCarouselItem } from "@/components/editorial/TexasEventCa
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
 import { getSportsVenueEnrichmentAll } from "@/data/sports-venue-enrichment-all";
 import { getSportsVenueGuidePilot } from "@/data/sports-venue-guide-pilots";
+import { getSportsVenueGuideWave4 } from "@/data/sports-venue-guide-wave4";
 import { getSportsVenuePhoto } from "@/data/sports-venue-images";
 
 import { SportsVenueGuidePage } from "./SportsVenueGuidePage";
@@ -27,7 +28,7 @@ export default function SportsVenueGuidePilotContent({
   upcomingEvents: readonly TexasEventCarouselItem[];
   eventCalendarHref: string;
 }) {
-  const guide = getSportsVenueGuidePilot(slug);
+  const guide = getSportsVenueGuideWave4(slug) ?? getSportsVenueGuidePilot(slug);
 
   useEffect(() => {
     const slot = document.querySelector("[data-stay-nearby-slot]");
