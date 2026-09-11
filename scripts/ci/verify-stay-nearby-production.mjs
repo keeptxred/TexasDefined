@@ -13,7 +13,7 @@ const pilots = [
     hotels: [
       'Courtyard Fort Worth University Drive',
       'Hilton Garden Inn Fort Worth Medical Center',
-      'Homewood Suites by Hilton Fort Worth Medical Center, TX',
+      'Homewood Suites by Hilton Fort Worth Medical Center',
     ],
   },
   {
