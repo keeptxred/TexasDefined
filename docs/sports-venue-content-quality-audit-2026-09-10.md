@@ -4,11 +4,11 @@ Scope: all 84 currently verified TexasDefined sports-venue guides, with Phase 1D
 
 ## Measured duplication and structural causes
 
-- **84/84 venue pages** render the shared `Plan the trip` block from `src/routes/sports-venue.$slug.tsx`, including the identical heading **“Make the venue part of the weekend”** and the identical card labels **“Why people travel,” “Best trip pattern,” and “Before you go.”** The body copy comes from only 12 tag-based `venueProfile()` templates. This block is intentionally not changed in Phase 1D because the parallel Phase 1A layout work owns the global venue-page composition.
-- **84/84 venue records** are shaped by `SportsVenueEnrichment`, which currently requires `stayAndEat` and `nearby` strings. That schema encourages every record to produce lodging/weekend copy even when there is no venue-specific guidance worth publishing. Phase 1D does not break that shared schema; the new quality-profile layer separates durable visitor facts, editorial history and source-review metadata so the layout/schema work can migrate away from mandatory filler safely.
-- The two knowledge-graph seed files (`major-sports-venues.ts` and `sports-venues-tier2.ts`) synthesize every base venue description from a small set of category templates plus a common wrapper sentence. Before this batch, only **15 of 84** venue descriptions had venue-specific server editorial overrides, leaving **69 of 84** exposed to the helper-generated description pattern. This batch adds specific overrides for Gerald J. Ford Stadium, Globe Life Field and Texas Motor Speedway and improves the existing Amon G. Carter Stadium and American Airlines Center overrides. After this batch, **18 of 84** have explicit editorial descriptions and **66** remain candidates for record-by-record remediation.
-- **84/84 venue quick-answer components** included `TexasExplainedContextLinks surface="sports"`, regardless of whether those links were meaningfully related to the venue. Phase 1D removes that forced link injection from the venue quick-answer component.
-- Because `verifiedAt` is mandatory in the enrichment schema and was passed into `SportsVenueQuickAnswers`, the component could turn source-review metadata into a consumer FAQ question: **“How current is this [venue] visitor guide?”** Phase 1D removes that FAQ/FAQ-schema item. The existing page-level Reviewed/Source metadata can remain metadata rather than masquerading as a user question.
+- **84/84 venue pages** still expose the shared `Plan the trip` block from `src/routes/sports-venue.$slug.tsx`, including the identical heading **“Make the venue part of the weekend”** and the identical card labels **“Why people travel,” “Best trip pattern,” and “Before you go.”** The body copy comes from only 12 tag-based `venueProfile()` templates. This block remains a global layout concern and is intentionally not redesigned in Phase 1D.
+- **84/84 venue records** are shaped by `SportsVenueEnrichment`, which currently requires `stayAndEat` and `nearby` strings. That schema encourages every record to produce lodging/weekend copy even when there is no venue-specific guidance worth publishing. Phase 1D does not break that shared schema; the quality-profile layers separate durable visitor facts, editorial history and source-review metadata so a later schema/layout migration can remove mandatory filler safely.
+- The two knowledge-graph seed files (`major-sports-venues.ts` and `sports-venues-tier2.ts`) synthesize every base venue description from a small set of category templates plus a common wrapper sentence. Before Phase 1D, only **15 of 84** venue descriptions had venue-specific server editorial overrides, leaving **69 of 84** exposed to the helper-generated description pattern. The initial batch raised explicit editorial coverage to **18 of 84**. The second wave adds DKR–Texas Memorial Stadium, Dell Diamond and Foster Pavilion, bringing the total to **21 of 84** and leaving **63** candidates for record-by-record remediation.
+- **84/84 venue quick-answer components** formerly included `TexasExplainedContextLinks surface="sports"`, regardless of whether those links were meaningfully related to the venue. Phase 1D removed that forced link injection.
+- Because `verifiedAt` is mandatory in the enrichment schema, the quick-answer surface had framed source-review metadata as **“How current is this [venue] visitor guide?”** The review date is now displayed as source metadata, not as a consumer FAQ or FAQ-schema question.
 
 ## Initial batch remediated
 
@@ -44,14 +44,36 @@ Scope: all 84 currently verified TexasDefined sports-venue guides, with Phase 1D
 - Replaced generic “race weekend” filler with the operationally relevant scale of the 1.5-mile oval / 1,500-acre property, route-specific parking, camping and current race-day arrival guidance.
 - Explicitly avoids presenting central Fort Worth attractions as if they are adjacent to the speedway.
 
-## Source standard used in this batch
+## Second remediation wave
 
-The five remediated records use venue/team/university-operated sources only for durable facts and official visitor guidance. Frequently changing policies are summarized conservatively and linked back to the official current page instead of being treated as permanent facts.
+### DKR–Texas Memorial Stadium
 
-## Deferred to the parallel layout/schema work
+- Replaced the approximate “more than 100,000” capacity with Texas Athletics' official **100,119** figure and records the **2139 San Jacinto Blvd., Austin, TX 78712** physical address.
+- Records the current FieldTurf surface, Texas football/SEC context, current clear-bag policy, ADA guidance and the 2026 two-hours-before-kickoff general gate guidance as changeable event-day policy.
+- Corrects the planning source to the canonical Texas Athletics DKR facility page instead of relying on the misleading `/facilities/bobcat-stadium/1` CMS alias.
+- Replaces generic Austin weekend copy with campus-specific parking, gate assignment and central-Austin geography.
 
-Phase 1D intentionally does **not** remove or redesign the global `Plan the trip` section, county visitor grid, related-venue grid or other page-composition blocks in `sports-venue.$slug.tsx`. Those are global layout decisions already in scope for the parallel Phase 1A branch. The audit above identifies them so the layout branch can remove or conditionally render them rather than preserving generic content for SEO.
+### Dell Diamond
+
+- Records **8,631 permanent seats plus roughly 3,000 outfield-lawn capacity**, opened **2000**, the official **3400 E. Palm Valley Blvd., Round Rock, TX 78665** address, TifTuf Bermuda grass, Round Rock Express and Pacific Coast League/Texas Rangers affiliate context.
+- Adds current official accessible-parking/ADA-entry and clear-bag guidance.
+- Treats the approximately one-hour standard game gate opening as a changeable Express policy and avoids freezing event-specific parking prices into evergreen copy.
+- Replaces generic Austin-area sports-weekend language with the actual east-Round-Rock/US 79 visitor context.
+
+### Foster Pavilion
+
+- Records the **January 2024** opening, **7,000+** capacity including roughly 500 standing-room spaces, Baylor men's and women's basketball and Big 12 context.
+- Separates current public/BBF parking, accessible shuttle, clear-bag, no-re-entry and 60-minute gate guidance from durable venue history.
+- Replaces generic Waco weekend language with the pavilion's actual Brazos River / Baylor campus / downtown-edge geography.
+
+## Source standard used in this remediation
+
+The eight remediated records use venue/team/university-operated sources for durable facts and official visitor guidance. Frequently changing policies are summarized conservatively and linked back to the official current page instead of being treated as permanent facts.
+
+## Deferred global layout/schema work
+
+Phase 1D intentionally does **not** redesign the global `Plan the trip` section or other shared venue-page composition. Those are global layout/schema decisions. The audit above keeps the remaining template problem visible so the layout work can remove or conditionally render weak sections rather than preserving generic content for SEO.
 
 ## Remaining remediation queue
 
-The remaining **66** venues without explicit editorial-description overrides should be handled venue by venue, prioritizing pages with search impressions and major tourist draw tags. The same standard should be applied: authoritative durable facts first, event-specific rules via official links, no required weekend filler, and no nearby/internal link unless geography or editorial relevance justifies it.
+The remaining **63** venues without explicit editorial-description overrides should be handled venue by venue, prioritizing pages with search impressions and major-tourist-draw tags. The same standard should apply: authoritative durable facts first, event-specific rules via official links, no required weekend filler, and no nearby/internal link unless geography or editorial relevance justifies it.
