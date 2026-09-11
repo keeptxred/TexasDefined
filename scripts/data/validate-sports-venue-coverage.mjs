@@ -221,8 +221,20 @@ for (const slug of wave5Slugs) {
   assert(occurrences >= 2, `Phase 1D wave 5 must keep both quality and runtime remediation records for ${slug}.`);
   assert(editorialDescriptions.includes(`'sports-venue:${slug}':`), `Phase 1D wave 5 venue ${slug} is missing its explicit server editorial description.`);
 }
+
+const editorialWave6Slugs = [
+  'reliant-stadium',
+  'comerica-center',
+  'moody-coliseum-smu',
+  'unt-coliseum',
+  'rice-stadium',
+  'constellation-field',
+];
+for (const slug of editorialWave6Slugs) {
+  assert(editorialDescriptions.includes(`'sports-venue:${slug}':`), `Editorial wave 6 venue ${slug} is missing its explicit server editorial description.`);
+}
 const editorialDescriptionCount = [...editorialDescriptions.matchAll(/^\s{2}'sports-venue:[^']+':/gm)].length;
-assert(editorialDescriptionCount >= 41, `Expected at least 41 explicit sports-venue editorial descriptions after Phase 1D wave 5; found ${editorialDescriptionCount}.`);
+assert(editorialDescriptionCount >= 47, `Expected at least 47 explicit sports-venue editorial descriptions after editorial wave 6; found ${editorialDescriptionCount}.`);
 
 for (const [sourceName, source] of [
   ['partner page', partnerRoute],
@@ -272,4 +284,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, all ${gscSportsImproveSlugs.length} GSC sports IMPROVE targets have Phase 1D remediation profiles, ${wave5Slugs.length} additional major-draw venues retain wave 5 quality/runtime/editorial coverage, ${editorialDescriptionCount} explicit venue descriptions are protected, core Reliant record, lightweight static directory, statewide category anchors, concise localized search titles, source-backed event-day essentials and FAQ answers with source-review metadata kept separate, richer venue structured data, venue-specific visitor planning without generic trip-template filler, county-level editorial trip ideas, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment/remediation batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
+console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, all ${gscSportsImproveSlugs.length} GSC sports IMPROVE targets have Phase 1D remediation profiles, ${wave5Slugs.length} additional major-draw venues retain wave 5 quality/runtime/editorial coverage, ${editorialWave6Slugs.length} editorial wave 6 venues are protected, ${editorialDescriptionCount} explicit venue descriptions are protected, core Reliant record, lightweight static directory, statewide category anchors, concise localized search titles, source-backed event-day essentials and FAQ answers with source-review metadata kept separate, richer venue structured data, venue-specific visitor planning without generic trip-template filler, county-level editorial trip ideas, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment/remediation batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
