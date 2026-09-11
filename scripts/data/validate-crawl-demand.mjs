@@ -61,9 +61,16 @@ for (const feature of [
   'const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations)',
   'const usePreservedFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
   'const rawDestinations = usePreservedFallback ? preservedExploreDestinations : remoteDestinations',
-  'const destinations = resolveDestinationCatalog(rawDestinations)',
+  'const destinations = await resolveDestinationCatalog(rawDestinations)',
 ]) {
   if (!explore.includes(feature)) failures.push(`Explore sitemap crawl-quality contract missing: ${feature}`);
+}
+const curationDynamicImport = 'const { applyAllCuratedDestinations } = await import("@/data/destination-curation-all")';
+if (!explore.includes(curationDynamicImport)) {
+  failures.push('Explore sitemap crawl-quality contract must lazy-load the destination curation stack inside the resolver.');
+}
+if (explore.includes('import { applyAllCuratedDestinations } from "@/data/destination-curation-all"')) {
+  failures.push('Explore sitemap crawl-quality contract must not eagerly load the destination curation stack in the route module.');
 }
 if (explore.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations')) {
   failures.push('Explore sitemap must not use the obsolete single-source outage fallback.');
