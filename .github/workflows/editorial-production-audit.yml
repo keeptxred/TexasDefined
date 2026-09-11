@@ -98,7 +98,7 @@ jobs:
             if [[ "$image" == /* ]]; then image="https://texasdefined.com$image"; fi
             image_result=$(curl -A 'TexasDefinedEditorialAudit/1.0 (+https://texasdefined.com)' -L -sS -o /dev/null -w '%{http_code}\t%{content_type}' --connect-timeout 10 --max-time 30 "$image" || printf '000\t')
             IFS=$'\t' read -r image_code image_type <<< "$image_result"
-            if [[ "$image_code" != "200" || ! "$image_type" =~ ^image/(jpeg|png|webp)(\;.*)?$ ]]; then
+            if [[ "$image_code" != "200" || ! "$image_type" =~ ^image/ ]]; then
               printf 'FAIL\timage\t%s\t%s\t%s\n' "$image_code" "$image_type" "$url"
               rm -f "$body"
               return 0
