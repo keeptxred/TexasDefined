@@ -6,12 +6,14 @@ on:
       - 'src/data/parking-map-model.ts'
       - 'src/data/parking-maps.ts'
       - 'src/data/parking-maps-batch*.ts'
+      - 'src/data/parking-maps-event-batch*.ts'
       - 'src/data/parking-maps.functions.ts'
       - 'src/components/parking/**'
       - 'src/components/sports/**'
       - 'src/routes/event.$slug*'
       - 'public/images/parking-maps/**'
       - 'scripts/data/audit-parking-map-coverage.mjs'
+      - 'scripts/data/audit-event-parking-map-overrides.mjs'
       - '.github/workflows/parking-map-audit.yml'
   workflow_dispatch:
 
@@ -31,5 +33,7 @@ jobs:
       - run: npm ci
       - name: Audit parking map coverage
         run: node scripts/data/audit-parking-map-coverage.mjs
+      - name: Audit event parking overrides
+        run: node scripts/data/audit-event-parking-map-overrides.mjs
       - name: Production build
         run: npm run build
