@@ -15,7 +15,6 @@ import { FISHING_SITEMAP_ENTRIES } from "@/data/fishing/sitemap";
 import { HUNTING_SITEMAP_ENTRIES } from "@/data/hunting/sitemap";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
-import { majorEventIndexRecords } from "@/data/major-event-index";
 import { loadSupplementalMajorEventSitemapEntriesServer } from "@/data/major-event-supplemental-registry.server";
 import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
 import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
@@ -64,7 +63,10 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const { platform, scope } = await import("@/data");
+        const [{ platform, scope }, { majorEventIndexRecords }] = await Promise.all([
+          import("@/data"),
+          import("@/data/major-event-index"),
+        ]);
         const coreResults = await Promise.allSettled([
           platform.articles.list(scope),
           platform.collections.list(scope),
