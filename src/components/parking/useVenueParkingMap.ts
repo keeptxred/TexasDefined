@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import type { ParkingMapAsset } from '@/data/parking-map-model';
-import { getSportsVenueParkingMap } from '@/data/parking-maps.server';
+import { getSportsVenueParkingMap } from '@/data/parking-maps.functions';
 
 export function useVenueParkingMap(slug: string | undefined) {
   const [map, setMap] = useState<ParkingMapAsset | undefined>();
