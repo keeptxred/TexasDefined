@@ -6,7 +6,7 @@ Scope: all 84 currently verified TexasDefined sports-venue guides. Phase 1D reme
 
 - The Phase 1D baseline found the generic venue route carrying a shared `Plan the trip` block with the identical heading **“Make the venue part of the weekend”** and the identical card labels **“Why people travel,” “Best trip pattern,” and “Before you go.”** Its body copy came from only 12 tag-based `venueProfile()` templates. The follow-up global cleanup removes that block and the dead `whyTravel`, `tripPattern`, and `beforeYouGo` template fields instead of replacing them with different filler. `validate-sports-venue-coverage.mjs` now fails if those template markers return.
 - **84/84 venue records** are shaped by `SportsVenueEnrichment`. The original schema required `stayAndEat` and `nearby` strings, which encouraged lodging/weekend copy even when there was no venue-specific guidance worth publishing. The follow-up schema cleanup makes both fields optional and both generic/legacy renderers omit their cards when no supported copy exists. Core deep-profile requirements remain mandatory.
-- The two knowledge-graph seed files (`major-sports-venues.ts` and `sports-venues-tier2.ts`) synthesize every base venue description from a small set of category templates plus a common wrapper sentence. Before Phase 1D, only **15 of 84** venue descriptions had venue-specific server editorial overrides. The initial batch raised explicit editorial coverage to **18 of 84**, wave 2 to **21**, wave 3 to **26**, wave 4 to **31**, wave 5 to **41**, and editorial wave 6 to **47 of 84**. **37** venues remain in the broader record-by-record editorial backlog.
+- The two knowledge-graph seed files (`major-sports-venues.ts` and `sports-venues-tier2.ts`) synthesize every base venue description from a small set of category templates plus a common wrapper sentence. Before Phase 1D, only **15 of 84** venue descriptions had venue-specific server editorial overrides. The initial batch raised explicit editorial coverage to **18 of 84**, wave 2 to **21**, wave 3 to **26**, wave 4 to **31**, wave 5 to **41**, editorial wave 6 to **47**, and editorial wave 7 to **54 of 84**. **30** venues remain in the broader record-by-record editorial backlog.
 - **84/84 venue quick-answer components** formerly included `TexasExplainedContextLinks surface="sports"`, regardless of whether those links were meaningfully related to the venue. Phase 1D removed that forced link injection.
 - Because `verifiedAt` is mandatory in the enrichment schema, the quick-answer surface had framed source-review metadata as **“How current is this [venue] visitor guide?”** The review date is now displayed as source metadata, not as a consumer FAQ or FAQ-schema question.
 - The September 5 GSC triage contains **17** `/sports-venue/*` URLs marked `IMPROVE`. Phase 1D now gives all 17 a separated remediation profile, and CI derives that list directly from `ops/seo/gsc-discovered-2026-09-05-urls.tsv` so future regressions fail closed.
@@ -175,13 +175,43 @@ Scope: all 84 currently verified TexasDefined sports-venue guides. Phase 1D reme
 - Adds a Sugar Land-specific description centered on the Space Cowboys’ Triple-A Astros affiliation, more than 2,000 parking spaces and the Fort Bend County setting.
 - Separates the ballpark from generic downtown-Houston major-league framing.
 
+## Editorial wave 7 — verified completion-batch descriptions
+
+### Nelson W. Wolff Municipal Stadium
+- Adds the active San Antonio Missions Double-A context and 1994 opening while acknowledging the planned future downtown ballpark without treating the current venue as closed.
+- Keeps cashless, gate, bag and parking details event-sensitive.
+
+### Momentum Bank Ballpark
+- Adds Midland RockHounds context with the verified **4,709-seat / 6,669 total-capacity** configuration and more than 3,500 free general-parking spaces.
+- Uses the ballpark’s family amenities and Midland setting rather than generic West Texas travel copy.
+
+### Bowers Stadium
+- Adds a Sam Houston campus-specific football description for Huntsville.
+- Keeps game-day parking tied to the university’s current event map and avoids detached entertainment-district language that does not fit the venue.
+
+### Lupton Stadium
+- Adds TCU baseball, Big 12 and NCAA postseason context inside the university athletics district.
+- Treats current parking and ticket allocation as event-sensitive rather than permanent facts.
+
+### Reckling Park
+- Adds Rice baseball context plus verified advance/game-day parking and the practical Dryden/TMC METRORail option.
+- Distinguishes the Rice/Medical Center/Museum District setting from downtown Houston professional-sports venues.
+
+### Xtreme Raceway Park
+- Adds Ferris-specific drag-racing context, including the facility’s racer-led development after Texas Raceway closed, covered starting-line viewing and shaded pavilion.
+- Uses I-45 access and long race-day operations instead of generic Dallas-area sports language.
+
+### Lee and Joe Jamail Texas Swimming Center
+- Adds the **1977** opening, 1993 Jamail naming, 1972 Munich Olympic-pool design influence, 50-meter competition pool and diving complex.
+- Explicitly distinguishes elite/Longhorn competition from a generic public recreational-swimming destination.
+
 ## GSC sports remediation milestone
 
 The September 5 GSC triage lists **17** sports-venue URLs as `IMPROVE`. All **17/17** are represented in the Phase 1D remediation layers. `validate-sports-venue-coverage.mjs` reads the GSC triage file directly and fails if any current sports `IMPROVE` target lacks a Phase 1D remediation profile.
 
 ## Source standard used in this remediation
 
-The **31** venues with separated Phase 1D quality/remediation profiles use venue/team/university/city/district-operated sources for durable facts and official visitor guidance. Editorial wave 6 uses the same already-verified enrichment records and official planning sources rather than introducing unsourced generic prose. Frequently changing policies are summarized conservatively and linked back to the current official page rather than being treated as permanent facts. Venue identity, geography and nearby relationships are included only when the source record or physical context supports them.
+The **31** venues with separated Phase 1D quality/remediation profiles use venue/team/university/city/district-operated sources for durable facts and official visitor guidance. Editorial waves 6 and 7 use the same already-verified enrichment records and official planning sources rather than introducing unsourced generic prose. Frequently changing policies are summarized conservatively and linked back to the current official page rather than being treated as permanent facts. Venue identity, geography and nearby relationships are included only when the source record or physical context supports them.
 
 ## Global trip-template and schema cleanup
 
@@ -191,4 +221,4 @@ The shared `Plan the trip` / `Make the venue part of the weekend` block is remov
 
 ## Remaining remediation queue
 
-The September 5 GSC sports `IMPROVE` queue is complete. Explicit venue-specific server editorial coverage is now **47 of 84**, leaving **37** broader editorial-quality records. Continue those venue by venue based on current search demand and destination importance, using the same standard: authoritative durable facts first, event-specific rules via official links, no required weekend filler, and no nearby/internal link unless geography or editorial relevance justifies it. Existing `stayAndEat` / `nearby` copy should now be retained only where it adds specific, defensible visitor value; weak instances can be deleted without fabricating replacements.
+The September 5 GSC sports `IMPROVE` queue is complete. Explicit venue-specific server editorial coverage is now **54 of 84**, leaving **30** broader editorial-quality records. Continue those venue by venue based on current search demand and destination importance, using the same standard: authoritative durable facts first, event-specific rules via official links, no required weekend filler, and no nearby/internal link unless geography or editorial relevance justifies it. Existing `stayAndEat` / `nearby` copy should be retained only where it adds specific, defensible visitor value; weak instances can be deleted without fabricating replacements.
