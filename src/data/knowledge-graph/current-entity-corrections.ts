@@ -1,6 +1,7 @@
 import type { TexasEntityRecord } from './types';
 
 const checkedAt = '2026-08-13';
+const maintenanceCheckedAt = '2026-09-11';
 const generatedSportsVenueMarker = 'Texas Defined tracks it as a visitor-facing venue';
 
 function stripGeneratedSportsVenueBoilerplate(description?: string) {
@@ -19,6 +20,14 @@ export function applyCurrentEntityCorrections(entity: TexasEntityRecord): TexasE
       aliases: [...new Set([...corrected.aliases, 'Jones AT&T Stadium', 'Jones ATT Stadium', 'Jones Stadium', 'Galaxy Stadium'])],
       description: 'Galaxy Stadium in Lubbock is the home of Texas Tech Red Raiders football and one of West Texas’s major college-sports destinations. The venue adopted the Galaxy Stadium name beginning with the 2026 football season under a 15-year naming-rights agreement, while its long history at the heart of the Texas Tech campus continues to make game weekends a regional travel draw.',
       sourceCheckedAt: checkedAt,
+    };
+  }
+
+  if (corrected.id === 'sports-venue:college-park-center') {
+    corrected = {
+      ...corrected,
+      description: 'College Park Center in Arlington is UT Arlington basketball and volleyball’s 7,000-seat downtown-campus home and a multipurpose arena for tournaments, concerts and community events. The building has also hosted Dallas Wings basketball, while the team’s announced 2027 move to American Airlines Center keeps the venue’s durable identity centered on UTA and its broader event calendar.',
+      sourceCheckedAt: maintenanceCheckedAt,
     };
   }
 

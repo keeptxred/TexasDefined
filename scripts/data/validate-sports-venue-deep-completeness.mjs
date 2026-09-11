@@ -21,6 +21,8 @@ const [
   tier2,
   seed,
   enrichmentAll,
+  maintenanceCorrections,
+  entityCorrections,
   editorialDescriptions,
   editorialDescriptionsWave6,
   editorialDescriptionsWave7,
@@ -33,6 +35,8 @@ const [
   read('src/data/knowledge-graph/sports-venues-tier2.ts'),
   read('src/data/knowledge-graph/seed.ts'),
   read('src/data/sports-venue-enrichment-all.ts'),
+  read('src/data/sports-venue-maintenance.ts'),
+  read('src/data/knowledge-graph/current-entity-corrections.ts'),
   read('src/data/sports-venue-editorial.server.ts'),
   read('src/data/sports-venue-editorial-wave6.server.ts'),
   read('src/data/sports-venue-editorial-wave7.server.ts'),
@@ -97,6 +101,16 @@ assert(profileSet.has('childrens-health-stadium-prosper'), 'Double-quoted seed r
 assert(enrichmentAll.includes('getSportsVenueEnrichmentBatch8ACompletion(lookupSlug)'), 'Combined enrichment lookup does not include batch 8A completion profiles.');
 assert(enrichmentAll.includes('getSportsVenueEnrichmentBatch8BCompletion(lookupSlug)'), 'Combined enrichment lookup does not include batch 8B completion profiles.');
 assert(enrichmentAll.includes('getSportsVenueContentRemediationWave9(lookupSlug)'), 'Combined enrichment lookup does not include Phase 1D wave 9 remediation profiles.');
+assert(enrichmentAll.includes('applySportsVenueMaintenance(lookupSlug, profile)'), 'Combined enrichment lookup must apply post-Phase 1D maintenance corrections after resolving the canonical profile.');
+
+for (const slug of ['toyota-stadium-frisco', 'daikin-park', 'college-park-center']) {
+  assert(maintenanceCorrections.includes(`slug === '${slug}'`), `Post-Phase 1D maintenance correction is missing for ${slug}.`);
+}
+assert(!maintenanceCorrections.includes('including east-side access during part of 2026'), 'Toyota Stadium maintenance must not restore the obsolete east-side-access construction wording.');
+assert(maintenanceCorrections.includes('const { capacity: _unstableCapacity, ...rest } = profile;'), 'Daikin Park maintenance must omit the disputed fixed capacity until official sources converge.');
+assert(maintenanceCorrections.includes('2027 home schedule will move to American Airlines Center'), 'College Park Center maintenance must preserve the announced 2027 Dallas Wings venue transition.');
+assert(entityCorrections.includes("corrected.id === 'sports-venue:college-park-center'"), 'College Park Center must have a durable current-entity description correction.');
+assert(entityCorrections.includes('announced 2027 move to American Airlines Center'), 'College Park Center entity correction must not present Dallas Wings tenancy as a permanent venue identity.');
 
 const phase1dWave9Slugs = [
   'amarillo-national-center',
@@ -137,4 +151,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue deep completeness validated: ${seededSlugs.length} unique seeded sports venues, ${profileSlugs.length} deep profiles, ${editorialDescriptionIds.size}/84 explicit server editorial descriptions, all ${phase1dWave9Slugs.length} Wave 9 venues retain separated quality/runtime/editorial coverage, no gaps, duplicates or orphan profiles; optional stay/nearby context is not required filler.`);
+console.log(`Sports venue deep completeness validated: ${seededSlugs.length} unique seeded sports venues, ${profileSlugs.length} deep profiles, ${editorialDescriptionIds.size}/84 explicit server editorial descriptions, all ${phase1dWave9Slugs.length} Wave 9 venues retain separated quality/runtime/editorial coverage, targeted Toyota Stadium/Daikin Park/College Park Center maintenance corrections are protected, no gaps, duplicates or orphan profiles; optional stay/nearby context is not required filler.`);
