@@ -6,7 +6,8 @@ const layoutRoute = fs.readFileSync(path.join(root, 'src/routes/events.tsx'), 'u
 const layoutLazyRoute = fs.readFileSync(path.join(root, 'src/routes/events.lazy.tsx'), 'utf8');
 const route = fs.readFileSync(path.join(root, 'src/routes/events.index.tsx'), 'utf8');
 const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/events.index.lazy.tsx'), 'utf8');
-const visibleRoute = `${route}\n${lazyRoute}`;
+const eventsLandingPage = fs.readFileSync(path.join(root, 'src/components/events/EventsLandingPage.tsx'), 'utf8');
+const visibleRoute = `${route}\n${lazyRoute}\n${eventsLandingPage}`;
 const serverHead = fs.readFileSync(path.join(root, 'src/data/major-event-directory.server.ts'), 'utf8');
 const eventLeaf = fs.readFileSync(path.join(root, 'src/data/major-event-page.server.ts'), 'utf8');
 const authorityBridge = fs.readFileSync(path.join(root, 'src/data/major-event-authority.ts'), 'utf8');
@@ -181,7 +182,7 @@ for (const feature of [
   'aria-label="Breadcrumb"',
   'aria-current="page"',
 ]) {
-  if (!visibleRoute.includes(feature)) errors.push(`Visible Events SEO feature missing across eager/lazy route surfaces: ${feature}.`);
+  if (!visibleRoute.includes(feature)) errors.push(`Visible Events SEO feature missing across eager/lazy/presentation route surfaces: ${feature}.`);
 }
 
 for (const feature of [
