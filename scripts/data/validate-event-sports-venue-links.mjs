@@ -1,11 +1,12 @@
 import fs from 'node:fs/promises';
 
 const read = (path) => fs.readFile(path, 'utf8');
-const [resolver, eventCard, eventsRoute, eventsLazyRoute, eventServerHead, corrections, generatedEvents, countyEventsServer, countyEventsBridge, countyDestinations, countyRoute, eventPage, dateFormatting, eventDisposition, supplementalRegistry, majorEventIndex] = await Promise.all([
+const [resolver, eventCard, eventsRoute, eventsLazyRoute, eventsLandingPage, eventServerHead, corrections, generatedEvents, countyEventsServer, countyEventsBridge, countyDestinations, countyRoute, eventPage, dateFormatting, eventDisposition, supplementalRegistry, majorEventIndex] = await Promise.all([
   read('src/data/sports-venue-event-links.ts'),
   read('src/components/editorial/EventCard.tsx'),
   read('src/routes/events.index.tsx'),
   read('src/routes/events.index.lazy.tsx'),
+  read('src/components/events/EventsLandingPage.tsx'),
   read('src/data/major-event-directory.server.ts'),
   read('src/data/knowledge-graph/current-entity-corrections.ts'),
   read('src/data/events-generated.ts'),
@@ -19,7 +20,7 @@ const [resolver, eventCard, eventsRoute, eventsLazyRoute, eventServerHead, corre
   read('src/data/major-event-supplemental-registry.server.ts'),
   read('src/data/major-event-index.ts'),
 ]);
-const eventsVisibleRoute = `${eventsRoute}\n${eventsLazyRoute}`;
+const eventsVisibleRoute = `${eventsRoute}\n${eventsLazyRoute}\n${eventsLandingPage}`;
 
 const errors = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };
