@@ -16,12 +16,13 @@ import { getSportsVenueEnrichmentBatch6 } from './sports-venue-enrichment-batch6
 import { getSportsVenueEnrichmentBatch7MajorCompletion } from './sports-venue-enrichment-batch7-major-completion';
 import { getSportsVenueEnrichmentBatch8ACompletion } from './sports-venue-enrichment-batch8a-completion';
 import { getSportsVenueEnrichmentBatch8BCompletion } from './sports-venue-enrichment-batch8b-completion';
+import { applySportsVenueMaintenance } from './sports-venue-maintenance';
 
 export { sportsVenueMapUrl };
 
 export function getSportsVenueEnrichmentAll(slug: string) {
   const lookupSlug = slug === 'galaxy-stadium' ? 'jones-att-stadium' : slug;
-  return getSportsVenueContentRemediation(lookupSlug)
+  const profile = getSportsVenueContentRemediation(lookupSlug)
     ?? getSportsVenueContentRemediationWave2(lookupSlug)
     ?? getSportsVenueContentRemediationWave3(lookupSlug)
     ?? getSportsVenueContentRemediationWave4(lookupSlug)
@@ -39,4 +40,6 @@ export function getSportsVenueEnrichmentAll(slug: string) {
     ?? getSportsVenueEnrichmentBatch7MajorCompletion(lookupSlug)
     ?? getSportsVenueEnrichmentBatch8ACompletion(lookupSlug)
     ?? getSportsVenueEnrichmentBatch8BCompletion(lookupSlug);
+
+  return applySportsVenueMaintenance(lookupSlug, profile);
 }
