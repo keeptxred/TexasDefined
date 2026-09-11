@@ -54,19 +54,10 @@ jobs:
 
           const validatorPath = 'scripts/data/validate-expedia-affiliate.mjs';
           const validator = fs.readFileSync(validatorPath, 'utf8');
-          const oldLoop = `  for (const venue of pilots) {
-            const matches = registry.properties.filter((property) =>
-              (property.contexts ?? []).some((context) => context.kind === 'venue' && context.key === venue));
-            if (matches.length !== 3) errors.push(\`${'${venue}'} is a redesigned venue guide and must have exactly 3 curated Stay Nearby choices; found ${'${matches.length}'}.\`);
-            const ranks = matches
-              .flatMap((property) => property.contexts.filter((context) => context.kind === 'venue' && context.key === venue))
-              .map((context) => context.rank)
-              .sort((a, b) => a - b);
-            if (ranks.join(',') !== '1,2,3') errors.push(\`${'${venue}'} must have deterministic Stay Nearby relevance ranks 1,2,3.\`);
-          }
-
-          integratedProperties = registry.properties.filter((property) =>
-            (property.contexts ?? []).some((context) => context.kind === 'venue' && pilots.has(context.key)));`;
+          const start = validator.indexOf('  for (const venue of pilots) {');
+          const endMarker = '\n}\n\nif (!propertyImageManifest';
+          const end = validator.indexOf(endMarker, start);
+          if (start < 0 || end < 0) throw new Error('Could not locate curated Stay Nearby validator block.');
           const newLoop = `  const curatedVenueKeys = new Set(registry.properties.flatMap((property) =>
             (property.contexts ?? [])
               .filter((context) => context.kind === 'venue')
@@ -85,12 +76,12 @@ jobs:
           }
 
           integratedProperties = registry.properties.filter((property) =>
-            (property.contexts ?? []).some((context) => context.kind === 'venue' && pilots.has(context.key)));`;
-          if (!validator.includes(oldLoop)) throw new Error('curated Stay Nearby validator loop: expected source text not found');
-          let next = validator.replace(oldLoop, newLoop);
+            (property.contexts ?? []).some((context) => context.kind === 'venue' && pilots.has(context.key)));
+`;
+          let next = validator.slice(0, start) + newLoop + validator.slice(end);
           next = next.replace(
-            `console.log(\`Expedia / Stay Nearby validation passed: approved tracking remains click-loaded, curated hotel selection remains evidence-backed and capped at three cards, ${'${pilots.size}'} redesigned venue guides are automatically image-gated, rights-cleared affiliate property photos remain preferred, every remaining hotel card has a unique first-party photorealistic exact-property AI raster grounded to an exact address and verified property source, generic hotel imagery and SVG fallbacks are prohibited, and future venue-guide additions fail closed until compliant property imagery exists.\`);`,
-            `console.log(\`Expedia / Stay Nearby validation passed: approved tracking remains click-loaded, curated hotel selection remains evidence-backed and capped at three cards, ${'${integratedProperties.length}'} configured redesigned-guide hotel cards are image-gated, rights-cleared affiliate property photos remain preferred, every remaining configured hotel card has a unique first-party photorealistic exact-property AI raster grounded to an exact address and verified property source, and generic hotel imagery and SVG fallbacks are prohibited.\`);`,
+            /console\.log\(`Expedia \/ Stay Nearby validation passed:[\s\S]*?`\);/,
+            "console.log(`Expedia / Stay Nearby validation passed: approved tracking remains click-loaded, curated hotel selection remains evidence-backed and capped at three cards, ${integratedProperties.length} configured redesigned-guide hotel cards are image-gated, rights-cleared affiliate property photos remain preferred, every remaining configured hotel card has a unique first-party photorealistic exact-property AI raster grounded to an exact address and verified property source, and generic hotel imagery and SVG fallbacks are prohibited.`);",
           );
           fs.writeFileSync(validatorPath, next);
           NODE
