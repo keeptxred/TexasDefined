@@ -47,6 +47,17 @@ const sportsVenueGuidePilotSlugs = new Set([
   'frost-bank-center',
   'alamodome',
   'olsen-field-blue-bell-park',
+  'mclane-stadium',
+  'foster-pavilion',
+  'heb-center-at-cedar-park',
+  'dell-diamond',
+  'reed-arena',
+  'kyle-field',
+  'rice-stadium',
+  'constellation-field',
+  'ufcu-stadium',
+  'nelson-wolff-stadium',
+  'freeman-coliseum',
 ]);
 
 type SportsVenueEnrichment = SportsVenueEnrichmentRecord | undefined;
