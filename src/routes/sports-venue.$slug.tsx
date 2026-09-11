@@ -37,6 +37,16 @@ const sportsVenueGuidePilotSlugs = new Set([
   'credit-union-of-texas-event-center',
   'moody-coliseum-smu',
   'unt-coliseum',
+  'daikin-park',
+  'toyota-center-houston',
+  'shell-energy-stadium',
+  'tdecu-stadium',
+  'fertitta-center',
+  'q2-stadium',
+  'moody-center',
+  'frost-bank-center',
+  'alamodome',
+  'olsen-field-blue-bell-park',
 ]);
 
 type SportsVenueEnrichment = SportsVenueEnrichmentRecord | undefined;
