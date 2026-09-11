@@ -3,12 +3,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
 import { auditDestination } from "@/data/destination-audit";
-import { improveDestinationCatalog } from "@/data/destination-quality";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
 import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
-import { reconcileDestinationHeroes } from "@/data/explore-hero-reconciliation";
-import { applyExploreHeroAssets } from "@/data/explore-heroes";
 import { categories, regions } from "@/data/fixtures/texas";
 import { paintedChurchGlossary } from "@/data/painted-church-glossary";
 import { paintedChurchHeritage } from "@/data/painted-church-heritage";
@@ -19,7 +16,6 @@ import { paintedChurchSymbols } from "@/data/painted-church-symbols";
 import { paintedChurchTechniques } from "@/data/painted-church-techniques";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { fetchExploreDestinations, hasExploreRemoteData } from "@/data/explore-remote";
-import { applyStateParkHeroAssets } from "@/data/state-park-heroes";
 import type { Destination } from "@/data/types";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
@@ -126,6 +122,17 @@ function mergeDestinationSources(...groups: Destination[][]): Destination[] {
 
 async function resolveDestinationCatalog(destinations: Destination[]) {
   const { applyAllCuratedDestinations } = await import("@/data/destination-curation-all");
+  const [
+    { improveDestinationCatalog },
+    { reconcileDestinationHeroes },
+    { applyExploreHeroAssets },
+    { applyStateParkHeroAssets },
+  ] = await Promise.all([
+    import("@/data/destination-quality"),
+    import("@/data/explore-hero-reconciliation"),
+    import("@/data/explore-heroes"),
+    import("@/data/state-park-heroes"),
+  ]);
   return improveDestinationCatalog(
     applyAllCuratedDestinations(
       reconcileDestinationHeroes(
