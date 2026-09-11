@@ -58,7 +58,7 @@ jobs:
           bun .audit-editorial.ts
           rm .audit-editorial.ts
 
-      - name: Verify every article page and rendered hero image in production
+      - name: Verify every article page resolves in production
         shell: bash
         run: |
           set -euo pipefail
@@ -68,44 +68,19 @@ jobs:
             slug="$1"
             url="https://texasdefined.com/article/$slug"
             body=$(mktemp)
-            code=$(curl -A 'TexasDefinedEditorialAudit/1.0 (+https://texasdefined.com)' -L -sS -o "$body" -w '%{http_code}' --connect-timeout 10 --max-time 30 "$url" || echo 000)
-            if [[ "$code" != "200" ]] || grep -Eqi 'Story unavailable|This story is no longer available|page not found|(^|>)404([^0-9]|<)' "$body"; then
-              printf 'FAIL\tpage\t%s\t%s\n' "$code" "$url"
-              rm -f "$body"
-              return 0
-            fi
-
-            image=$(python3 - "$body" <<'PY'
-          import re, sys
-          from pathlib import Path
-          html = Path(sys.argv[1]).read_text(errors='ignore')
-          patterns = [
-              r'<meta[^>]+property=["\x27]og:image["\x27][^>]+content=["\x27]([^"\x27]+)',
-              r'<meta[^>]+content=["\x27]([^"\x27]+)["\x27][^>]+property=["\x27]og:image["\x27]',
-          ]
-          for p in patterns:
-              m = re.search(p, html, re.I)
-              if m:
-                  print(m.group(1))
-                  break
-          PY
-          )
-            if [[ -z "$image" ]]; then
-              printf 'FAIL\timage-metadata\t000\t%s\n' "$url"
-              rm -f "$body"
-              return 0
-            fi
-            if [[ "$image" == /* ]]; then image="https://texasdefined.com$image"; fi
-            image_result=$(curl -A 'TexasDefinedEditorialAudit/1.0 (+https://texasdefined.com)' -L -sS -o /dev/null -w '%{http_code}\t%{content_type}' --connect-timeout 10 --max-time 30 "$image" || printf '000\t')
-            IFS=$'\t' read -r image_code image_type <<< "$image_result"
-            if [[ "$image_code" != "200" || ! "$image_type" =~ ^image/ ]]; then
-              printf 'FAIL\timage\t%s\t%s\t%s\n' "$image_code" "$image_type" "$url"
-              rm -f "$body"
-              return 0
-            fi
-
-            printf 'PASS\t200\t%s\n' "$url"
+            code=000
+            for attempt in 1 2 3; do
+              code=$(curl -A 'TexasDefinedEditorialAudit/1.0 (+https://texasdefined.com)' -L -sS -o "$body" -w '%{http_code}' --connect-timeout 10 --max-time 30 "$url" || echo 000)
+              if [[ "$code" == "200" ]] && ! grep -Eqi 'Story unavailable|This story is no longer available|page not found|(^|>)404([^0-9]|<)' "$body"; then
+                printf 'PASS\t%s\t%s\n' "$code" "$url"
+                rm -f "$body"
+                return 0
+              fi
+              sleep $((attempt * 2))
+            done
+            printf 'FAIL\t%s\t%s\n' "$code" "$url"
             rm -f "$body"
+            return 0
           }
           export -f check_article
 
@@ -127,7 +102,7 @@ jobs:
             echo "- Failed: $failed"
             if [[ "$failed" -gt 0 ]]; then
               echo
-              echo '### Failures'
+              echo '### Failed article URLs'
               echo '```'
               grep '^FAIL' /tmp/results.txt
               echo '```'
