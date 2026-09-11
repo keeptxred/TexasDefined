@@ -57,9 +57,7 @@ requireText(route, 'canonicalLink(texasDefinedBrand, canonicalPath)', 'venue can
 requireText(guidePage, 'canonicalEntityPath(item)', 'nearby internal links');
 
 if (guides.includes('homeTeam: "N/A"') || guides.includes('homeTeam: "None"')) failures.push('Guide facts must omit nonexistent home teams instead of adding filler.');
-const tmsBlock = guides.split('"texas-motor-speedway": {')[1]?.split('
-  },
-};')[0] ?? '';
+const tmsBlock = guides.split('"texas-motor-speedway": {')[1]?.split('\n  },\n};')[0] ?? '';
 if (tmsBlock.includes('homeTeam:')) failures.push('Texas Motor Speedway must not invent a home team.');
 
 if (failures.length) {
