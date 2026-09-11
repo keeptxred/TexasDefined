@@ -5,7 +5,6 @@ import { isPrimaryTripPlannerDestination } from "@/data/destination-availability
 import { auditDestination } from "@/data/destination-audit";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
-import { categories, regions } from "@/data/fixtures/texas";
 import type { Destination } from "@/data/types";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
@@ -138,6 +137,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
   server: {
     handlers: {
       GET: async () => {
+        const { categories, regions } = await import("@/data/fixtures/texas");
         const { landscapeGuideSlugs, landscapeSlugs } = await import("@/data/texas-landscape-slugs");
         const { cityPassDestinationExpansion } = await import("@/data/citypass-destination-expansion");
         const { preservedExploreDestinations } = await import("@/data/destination-preserved-catalog");
