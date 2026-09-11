@@ -26,7 +26,7 @@ export type SportsVenueQualityProfileWave2 = {
 
 const sources = {
   dkr: [
-    { label: 'DKR-Texas Memorial Stadium facility page', url: 'https://texaslonghorns.com/facilities/dkr-texas-memorial-stadium/1' },
+    { label: 'DKR-Texas Memorial Stadium facility page', url: 'https://texaslonghorns.com/facilities/memorial-stadium/1' },
     { label: '2026 Texas football fan guide', url: 'https://texaslonghorns.com/sports/2026/2/10/football-fan-guide' },
     { label: '2026 Texas gameday parking', url: 'https://texaslonghorns.com/sports/2026/1/27/parking-information' },
   ],
