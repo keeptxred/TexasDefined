@@ -1,3 +1,5 @@
+import { getSportsVenueEditorialDescriptionWave7Server } from './sports-venue-editorial-wave7.server';
+
 const sportsVenueEditorialDescriptionsWave6: Record<string, string> = {
   'sports-venue:pga-frisco-fields-ranch': 'PGA Frisco is a 660-acre public-private golf campus built around Fields Ranch East and West, the PGA of America headquarters, PGA District and Omni resort. Fields Ranch East was designed by Gil Hanse and hosts the 2027 PGA Championship, while Beau Welling designed Fields Ranch West; championship golf and public play define the destination more clearly than generic Frisco sports copy.',
   'sports-venue:will-rogers-memorial-center': 'Will Rogers Memorial Center was built in 1936 and has grown into a 120-acre City of Fort Worth sports, livestock and exhibition campus. Its historic 5,652-seat coliseum, multiple performance arenas, extensive livestock facilities and Cultural District location make building-level event information essential rather than one generic arena description.',
@@ -9,5 +11,5 @@ const sportsVenueEditorialDescriptionsWave6: Record<string, string> = {
 };
 
 export function getSportsVenueEditorialDescriptionWave6Server(id: string) {
-  return sportsVenueEditorialDescriptionsWave6[id];
+  return sportsVenueEditorialDescriptionsWave6[id] ?? getSportsVenueEditorialDescriptionWave7Server(id);
 }
