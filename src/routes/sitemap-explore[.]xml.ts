@@ -3,8 +3,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
 import { auditDestination } from "@/data/destination-audit";
-import { applyAllCuratedDestinations } from "@/data/destination-curation-all";
-import { preservedExploreDestinations } from "@/data/destination-preserved-catalog";
 import { improveDestinationCatalog } from "@/data/destination-quality";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
@@ -126,7 +124,8 @@ function mergeDestinationSources(...groups: Destination[][]): Destination[] {
   return [...merged.values()];
 }
 
-function resolveDestinationCatalog(destinations: Destination[]) {
+async function resolveDestinationCatalog(destinations: Destination[]) {
+  const { applyAllCuratedDestinations } = await import("@/data/destination-curation-all");
   return improveDestinationCatalog(
     applyAllCuratedDestinations(
       reconcileDestinationHeroes(
@@ -144,6 +143,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
       GET: async () => {
         const { landscapeGuideSlugs, landscapeSlugs } = await import("@/data/texas-landscape-slugs");
         const { cityPassDestinationExpansion } = await import("@/data/citypass-destination-expansion");
+        const { preservedExploreDestinations } = await import("@/data/destination-preserved-catalog");
         const { paintedChurchSearchGuides } = await import("@/data/painted-church-search-guides");
         const { loadRvParkDestinationsServer } = await import("@/data/rv-parks/registry.server");
         const { selectSwimmingHoleAndTubingDestinations } = await import("@/data/water-recreation");
@@ -177,7 +177,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         }
         const resolvedSlugs = new Set(rawDestinations.map((destination) => destination.slug));
         rawDestinations.push(...cityPassDestinationExpansion.filter((destination) => destination.slug && !resolvedSlugs.has(destination.slug)));
-        const destinations = resolveDestinationCatalog(rawDestinations);
+        const destinations = await resolveDestinationCatalog(rawDestinations);
         const indexableDestinations = [...new Map(destinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
           .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
         const indexableRvParkDestinations = [...new Map(loadRvParkDestinationsServer().filter((item) => item.slug).map((item) => [item.slug, item])).values()]
