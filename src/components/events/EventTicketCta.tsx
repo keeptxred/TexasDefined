@@ -15,6 +15,6 @@ export function EventTicketCta({ cta, linkClassName, wrapperClassName, disclosur
 
   return <span className={wrapperClassName}>
     <a href={cta.href} target="_blank" rel={cta.rel} className={linkClassName}>{cta.label}</a>
-    {cta.disclosure && <small className={disclosureClassName}>{cta.disclosure}</small>}
+    {cta.disclosure && <> <small className={disclosureClassName}>{cta.disclosure}</small></>}
   </span>;
 }
