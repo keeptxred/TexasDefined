@@ -1,4 +1,4 @@
-import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
+import { isDestinationPhotoPlaceholder } from "./destination-hero-placeholder";
 import type { Destination } from "./types";
 
 export type DestinationAuditIssue = {
