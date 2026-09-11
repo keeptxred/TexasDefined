@@ -248,8 +248,8 @@ function LegacySportsVenuePage() {
             <div>
               <div className="grid gap-8 md:grid-cols-2">
                 {enrichment.history && <GuideCard title="Venue story" body={enrichment.history} />}
-                <GuideCard title="Stay and eat" body={enrichment.stayAndEat} />
-                <GuideCard title="Build the weekend" body={enrichment.nearby} />
+                {enrichment.stayAndEat && <GuideCard title="Stay and eat" body={enrichment.stayAndEat} />}
+                {enrichment.nearby && <GuideCard title="Build the weekend" body={enrichment.nearby} />}
               </div>
 
               <div className="mt-10 border-t border-border pt-4">
