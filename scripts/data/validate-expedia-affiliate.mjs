@@ -1,20 +1,66 @@
 import fs from 'node:fs';
+import path from 'node:path';
 
 const root = fs.readFileSync('src/routes/__root.tsx', 'utf8');
 const bootstrap = fs.readFileSync('public/expedia-travel.js', 'utf8');
 const contextImages = fs.readFileSync('public/stay-nearby-context-images.js', 'utf8');
+const venueRoute = fs.readFileSync('src/routes/sports-venue.$slug.tsx', 'utf8');
 const registry = JSON.parse(fs.readFileSync('public/stay-nearby-hotels.json', 'utf8'));
-const fallbackRegistry = JSON.parse(fs.readFileSync('public/stay-nearby-ai-fallbacks.json', 'utf8'));
+const propertyImageManifestPath = 'public/stay-nearby-ai-property-images.json';
+const propertyImageManifest = fs.existsSync(propertyImageManifestPath)
+  ? JSON.parse(fs.readFileSync(propertyImageManifestPath, 'utf8'))
+  : null;
 const errors = [];
-const fallbackDisclosure = 'AI-generated area illustration — not the hotel property';
+const aiDisclosure = 'AI-generated depiction of this property — not an official hotel photograph';
 
 function requireText(source, needle, label) {
   if (!source.includes(needle)) errors.push(`${label} is missing required Expedia contract text: ${needle}`);
 }
 
+function forbiddenText(source, needle, label) {
+  if (source.includes(needle)) errors.push(`${label} contains forbidden legacy Stay Nearby image text: ${needle}`);
+}
+
+function guidePilotSlugs() {
+  const match = venueRoute.match(/const sportsVenueGuidePilotSlugs = new Set\(\[([\s\S]*?)\]\);/);
+  if (!match) {
+    errors.push('Could not resolve sportsVenueGuidePilotSlugs from the sports venue route.');
+    return new Set();
+  }
+  return new Set([...match[1].matchAll(/'([^']+)'/g)].map((entry) => entry[1]));
+}
+
+function validRealPropertyImage(property) {
+  if (!property?.image) return false;
+  if (property.image.rightsSource !== 'expedia-creator-toolbox') return false;
+  if (!String(property.image.url ?? '').startsWith('/')) return false;
+  if (/\.svg(?:$|\?)/i.test(property.image.url)) return false;
+  return (property.bookingTargets ?? []).some((target) =>
+    target.provider === property.image.bookingProvider
+    && target.verified === true
+    && typeof target.affiliateUrl === 'string'
+    && target.affiliateUrl.startsWith('https://'));
+}
+
+function rasterMagicOkay(buffer) {
+  if (buffer.length >= 8 && buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4e && buffer[3] === 0x47) return true;
+  if (buffer.length >= 3 && buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff) return true;
+  return buffer.length >= 12
+    && buffer.subarray(0, 4).toString('ascii') === 'RIFF'
+    && buffer.subarray(8, 12).toString('ascii') === 'WEBP';
+}
+
+function walkFiles(directory) {
+  if (!fs.existsSync(directory)) return [];
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const full = path.join(directory, entry.name);
+    return entry.isDirectory() ? walkFiles(full) : [full];
+  });
+}
+
 requireText(root, 'if (import.meta.env.SSR)', 'SSR-only bootstrap guard');
 requireText(root, '<script src="/expedia-travel.js" defer />', 'root bootstrap reference');
-requireText(root, '<script src="/stay-nearby-context-images.js" defer />', 'Stay Nearby context-image bootstrap reference');
+requireText(root, '<script src="/stay-nearby-context-images.js" defer />', 'Stay Nearby image bootstrap reference');
 
 for (const [needle, label] of [
   ['https://creator.expediagroup.com/products/widgets/assets/eg-widgets.js', 'widget script'],
@@ -82,16 +128,24 @@ for (const [needle, label] of [
   ['Venue context —', 'venue-context disclosure'],
   ['Wikimedia Commons', 'context image source disclosure'],
   ['Displayed without editorial crop; browser scaling only.', 'no-crop disclosure'],
-  ['thumb.wikimedia.org', 'Wikimedia thumbnail host'],
-  ['upload.wikimedia.org', 'Wikimedia upload host'],
-  ['commons.wikimedia.org/wiki/File:', 'Wikimedia source-page links'],
-  ['const FALLBACK_DATA_URL = "/stay-nearby-ai-fallbacks.json"', 'AI fallback registry reference'],
-  ['data-stay-ai-fallback', 'AI fallback identity marker'],
-  ['ai-area-illustration', 'AI fallback kind gate'],
-  [fallbackDisclosure, 'AI fallback visible disclosure'],
-  ['textFallback.replaceWith(buildFallbackMedia(item))', 'AI card fallback replacement'],
-  ['const propertyImage = card.querySelector(":scope > .td-stay-image")', 'real property image precedence'],
+  ['const AI_PROPERTY_DATA_URL = "/stay-nearby-ai-property-images.json"', 'exact-property AI registry reference'],
+  ['data-stay-ai-property', 'exact-property AI identity marker'],
+  ['ai-property-depiction', 'exact-property AI kind gate'],
+  ['generatedFromPropertyIdentity === true', 'exact-property identity gate'],
+  ['item.depictsProperty === true', 'exact-property depiction gate'],
+  [aiDisclosure, 'AI property disclosure'],
+  ['/images/stay-nearby/properties/', 'first-party AI property asset path'],
+  ['textFallback.replaceWith(buildAiPropertyMedia(item))', 'AI property card replacement'],
+  ['const propertyImage = card.querySelector(":scope > .td-stay-image")', 'rights-cleared real property image precedence'],
 ]) requireText(contextImages, needle, label);
+
+for (const stale of [
+  'data-stay-ai-fallback',
+  'stay-nearby-ai-fallbacks.json',
+  'ai-area-illustration',
+  'AI-generated area illustration — not the hotel property',
+  '/images/stay-nearby/ai/',
+]) forbiddenText(contextImages, stale, 'Stay Nearby client image bootstrap');
 
 for (const visual of requiredContextVisuals) {
   for (const [needle, label] of [
@@ -102,6 +156,15 @@ for (const visual of requiredContextVisuals) {
     [visual.licenseUrl, `${visual.venue} license URL`],
   ]) requireText(contextImages, needle, label);
 }
+
+if (fs.existsSync('public/stay-nearby-ai-fallbacks.json')) errors.push('Legacy Stay Nearby AI SVG fallback manifest must be removed.');
+if (fs.existsSync('public/images/stay-nearby/ai')) errors.push('Legacy Stay Nearby AI SVG fallback directory must be removed.');
+for (const file of walkFiles('public/images/stay-nearby')) {
+  if (/\.svg$/i.test(file) && file.includes(`${path.sep}properties${path.sep}`)) errors.push(`Stay Nearby property imagery must never use SVG: ${file}`);
+}
+
+const pilots = guidePilotSlugs();
+let integratedProperties = [];
 
 if (!registry || registry.version !== 1 || !Array.isArray(registry.properties)) {
   errors.push('Stay Nearby registry must be version 1 with a properties array.');
@@ -115,10 +178,6 @@ if (!registry || registry.version !== 1 || !Array.isArray(registry.properties)) 
     ids.add(property?.id);
     if (!property?.name || !property?.city || property.status !== 'active') errors.push(`${property?.id ?? '<missing>'} is missing active property identity fields.`);
 
-    if (contextImages.includes(property.name)) {
-      errors.push(`${property.id} hotel name leaked into venue-context imagery; contextual venue photos must never be represented as hotel property photos.`);
-    }
-
     for (const target of property.bookingTargets ?? []) {
       if (!target.provider) errors.push(`${property.id} has a booking target without a provider.`);
       if (target.affiliateUrl) {
@@ -128,90 +187,82 @@ if (!registry || registry.version !== 1 || !Array.isArray(registry.properties)) 
     }
 
     if (property.image) {
-      if (property.image.rightsSource !== 'expedia-creator-toolbox') errors.push(`${property.id} image is not marked as Expedia Creator Toolbox media.`);
-      if (!String(property.image.url ?? '').startsWith('/')) errors.push(`${property.id} property image must be stored as a first-party asset.`);
-      const matchingTarget = (property.bookingTargets ?? []).find((target) =>
-        target.provider === property.image.bookingProvider
-        && target.verified === true
-        && typeof target.affiliateUrl === 'string'
-        && target.affiliateUrl.length > 0);
-      if (!matchingTarget) errors.push(`${property.id} image cannot render without a verified matching affiliate property referral.`);
+      if (property.image.rightsSource !== 'expedia-creator-toolbox') errors.push(`${property.id} real property image is not marked as Expedia Creator Toolbox media.`);
+      if (!String(property.image.url ?? '').startsWith('/')) errors.push(`${property.id} real property image must be stored as a first-party asset.`);
+      if (/\.svg(?:$|\?)/i.test(property.image.url ?? '')) errors.push(`${property.id} real property image must not be SVG.`);
+      if (!validRealPropertyImage(property)) errors.push(`${property.id} real property image cannot render without a verified matching affiliate property referral.`);
     }
 
     for (const context of property.contexts ?? []) {
       if (!['venue', 'event', 'destination', 'city'].includes(context.kind)) errors.push(`${property.id} has unsupported context kind ${context.kind}.`);
       if (!context.key || !Number.isFinite(context.rank)) errors.push(`${property.id} has a context without a stable key/rank.`);
       if (!context.geographicContext) errors.push(`${property.id} context ${context.key} lacks geographic context.`);
-      if (!context.source?.url || !/^https:\/\//.test(context.source.url) || !context.source?.verifiedAt) {
-        errors.push(`${property.id} context ${context.key} lacks source evidence and verification date.`);
-      }
+      if (!context.source?.url || !/^https:\/\//.test(context.source.url) || !context.source?.verifiedAt) errors.push(`${property.id} context ${context.key} lacks source evidence and verification date.`);
     }
   }
 
-  const expectedVenueCounts = new Map([
-    ['amon-g-carter-stadium', 3],
-    ['gerald-j-ford-stadium', 3],
-    ['globe-life-field', 3],
-    ['american-airlines-center', 3],
-    ['texas-motor-speedway', 3],
-  ]);
-  for (const [venue, expected] of expectedVenueCounts) {
+  for (const venue of pilots) {
     const matches = registry.properties.filter((property) =>
       (property.contexts ?? []).some((context) => context.kind === 'venue' && context.key === venue));
-    if (matches.length !== expected) errors.push(`${venue} must have exactly ${expected} curated Stay Nearby choices; found ${matches.length}.`);
+    if (matches.length !== 3) errors.push(`${venue} is a redesigned venue guide and must have exactly 3 curated Stay Nearby choices; found ${matches.length}.`);
     const ranks = matches
       .flatMap((property) => property.contexts.filter((context) => context.kind === 'venue' && context.key === venue))
       .map((context) => context.rank)
       .sort((a, b) => a - b);
-    if (ranks.join(',') !== '1,2,3') errors.push(`${venue} must have deterministic relevance ranks 1,2,3.`);
+    if (ranks.join(',') !== '1,2,3') errors.push(`${venue} must have deterministic Stay Nearby relevance ranks 1,2,3.`);
   }
+
+  integratedProperties = registry.properties.filter((property) =>
+    (property.contexts ?? []).some((context) => context.kind === 'venue' && pilots.has(context.key)));
 }
 
-const expectedFallbackIds = new Set([
-  'courtyard-fort-worth-university-drive',
-  'hilton-garden-inn-fort-worth-medical-center',
-  'homewood-suites-fort-worth-medical-center',
-  'graduate-dallas',
-  'the-highland-dallas',
-  'hotel-mockingbird-dallas',
-  'live-by-loews-arlington',
-  'loews-arlington-hotel',
-  'drury-plaza-dallas-arlington',
-]);
-
-if (!fallbackRegistry || fallbackRegistry.version !== 1 || fallbackRegistry.disclosure !== fallbackDisclosure || !Array.isArray(fallbackRegistry.items)) {
-  errors.push('Stay Nearby AI fallback registry must be version 1 with the approved disclosure and an items array.');
+if (!propertyImageManifest || propertyImageManifest.version !== 2 || propertyImageManifest.disclosure !== aiDisclosure || !Array.isArray(propertyImageManifest.items)) {
+  errors.push('Stay Nearby exact-property AI image registry must be version 2 with the approved disclosure and an items array.');
 } else {
-  if (fallbackRegistry.items.length !== expectedFallbackIds.size) errors.push(`Stay Nearby AI fallback registry must contain exactly ${expectedFallbackIds.size} pilot records.`);
-  const seenFallbackIds = new Set();
-  for (const item of fallbackRegistry.items) {
-    if (!expectedFallbackIds.has(item.propertyId)) errors.push(`Unexpected Stay Nearby AI fallback property id: ${item.propertyId}`);
-    if (seenFallbackIds.has(item.propertyId)) errors.push(`Duplicate Stay Nearby AI fallback property id: ${item.propertyId}`);
-    seenFallbackIds.add(item.propertyId);
+  if (propertyImageManifest.policy?.exactPropertyOnly !== true) errors.push('Stay Nearby AI property-image policy must require exact-property generation.');
+  if (propertyImageManifest.policy?.genericHotelImagesAllowed !== false) errors.push('Stay Nearby AI property-image policy must forbid generic hotel imagery.');
+  if (propertyImageManifest.policy?.svgAllowed !== false) errors.push('Stay Nearby AI property-image policy must forbid SVG.');
 
-    const property = registry.properties.find((candidate) => candidate.id === item.propertyId);
-    if (!property || property.name !== item.name) errors.push(`${item.propertyId} AI fallback record does not match the canonical hotel record.`);
-    if (item.kind !== 'ai-area-illustration') errors.push(`${item.propertyId} AI fallback kind must be ai-area-illustration.`);
-    if (item.depictsProperty !== false) errors.push(`${item.propertyId} AI fallback must explicitly declare depictsProperty=false.`);
-    if (item.label !== fallbackDisclosure) errors.push(`${item.propertyId} AI fallback must use the exact visible disclosure.`);
-    if (!/^\/images\/stay-nearby\/ai\/[a-z0-9-]+\.svg$/.test(item.url || '')) errors.push(`${item.propertyId} AI fallback must be a first-party SVG under /images/stay-nearby/ai/.`);
-    if (!String(item.alt || '').startsWith('AI-generated illustration')) errors.push(`${item.propertyId} AI fallback alt text must identify the image as an AI-generated illustration.`);
-    if (property && String(item.alt || '').toLowerCase().includes(property.name.toLowerCase())) errors.push(`${item.propertyId} AI fallback alt text must not imply the illustration depicts the named property.`);
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(item.generatedAt || '')) errors.push(`${item.propertyId} AI fallback lacks a generation date.`);
+  const byPropertyId = new Map();
+  const seenUrls = new Set();
+  for (const item of propertyImageManifest.items) {
+    if (!item?.propertyId || byPropertyId.has(item.propertyId)) errors.push(`Invalid or duplicate AI property-image record: ${item?.propertyId ?? '<missing>'}`);
+    byPropertyId.set(item.propertyId, item);
+    const property = registry?.properties?.find((candidate) => candidate.id === item.propertyId);
+    if (!property || property.name !== item.name) errors.push(`${item.propertyId} AI image record does not match the canonical hotel record.`);
+    if (item.kind !== 'ai-property-depiction') errors.push(`${item.propertyId} AI image kind must be ai-property-depiction.`);
+    if (item.depictsProperty !== true || item.generatedFromPropertyIdentity !== true) errors.push(`${item.propertyId} AI image must explicitly represent and be generated from the exact property identity.`);
+    if (item.label !== aiDisclosure) errors.push(`${item.propertyId} AI image must use the exact visible disclosure.`);
+    if (!String(item.propertyAddress ?? '').match(/^\d+\s+.+,\s*.+,\s*Texas\s+\d{5}$/i)) errors.push(`${item.propertyId} AI image lacks an exact Texas street address.`);
+    if (property?.city && !String(item.propertyAddress ?? '').toLowerCase().includes(property.city.toLowerCase())) errors.push(`${item.propertyId} AI image address does not match the canonical property city.`);
+    if (!/^\/images\/stay-nearby\/properties\/[a-z0-9-]+\.(?:png|jpe?g|webp)$/i.test(item.url || '')) errors.push(`${item.propertyId} AI image must be a first-party PNG/JPEG/WebP property asset.`);
+    if (/\.svg(?:$|\?)/i.test(item.url || '')) errors.push(`${item.propertyId} AI image must never use SVG.`);
+    if (seenUrls.has(item.url)) errors.push(`${item.propertyId} reuses an AI image URL already assigned to another property.`);
+    seenUrls.add(item.url);
+    if (!String(item.alt ?? '').startsWith(`AI-generated photorealistic depiction of ${item.name}`)) errors.push(`${item.propertyId} AI image alt text must identify the exact property and AI depiction.`);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(item.generatedAt || '')) errors.push(`${item.propertyId} AI image lacks a generation date.`);
+    if (!/^https:\/\//.test(item.groundingSourceUrl || '')) errors.push(`${item.propertyId} AI image lacks an HTTPS grounding source.`);
+    if (property && !(property.contexts ?? []).some((context) => context.source?.url === item.groundingSourceUrl)) errors.push(`${item.propertyId} AI image grounding source is not one of the property’s verified context sources.`);
+    if (!['official-property-page', 'manually-verified-exact-property-reference'].includes(item.referenceImageSource)) errors.push(`${item.propertyId} AI image lacks an approved exact-property reference provenance.`);
 
     const assetPath = `public${item.url}`;
     if (!fs.existsSync(assetPath)) {
-      errors.push(`${item.propertyId} AI fallback asset is missing: ${assetPath}`);
+      errors.push(`${item.propertyId} AI property asset is missing: ${assetPath}`);
       continue;
     }
-    const svg = fs.readFileSync(assetPath, 'utf8');
-    if (!svg.trimStart().startsWith('<svg')) errors.push(`${item.propertyId} AI fallback asset is not an SVG document.`);
-    if (/<script\b/i.test(svg) || /<foreignObject\b/i.test(svg) || /<image\b/i.test(svg) || /\bhref\s*=/i.test(svg)) errors.push(`${item.propertyId} AI fallback SVG contains disallowed executable or external-resource markup.`);
-    if (property && svg.toLowerCase().includes(property.name.toLowerCase())) errors.push(`${item.propertyId} AI fallback SVG must not contain the hotel name.`);
-    if (!svg.includes('AI-generated area illustration, not a depiction of the hotel property.')) errors.push(`${item.propertyId} AI fallback SVG lacks its non-property description.`);
+    const asset = fs.readFileSync(assetPath);
+    if (asset.length < 25_000) errors.push(`${item.propertyId} AI property asset is unexpectedly small (${asset.length} bytes).`);
+    if (!rasterMagicOkay(asset)) errors.push(`${item.propertyId} AI property asset is not a valid PNG/JPEG/WebP raster image.`);
   }
-  for (const id of expectedFallbackIds) {
-    if (!seenFallbackIds.has(id)) errors.push(`${id} is missing its required AI fallback record.`);
+
+  for (const property of integratedProperties) {
+    if (validRealPropertyImage(property)) continue;
+    const item = byPropertyId.get(property.id);
+    if (!item) errors.push(`${property.id} appears on a redesigned venue guide but has neither an approved affiliate property photo nor an exact-property AI raster image.`);
+  }
+
+  for (const item of propertyImageManifest.items) {
+    if (!integratedProperties.some((property) => property.id === item.propertyId)) errors.push(`${item.propertyId} AI property image is not attached to a current redesigned venue-guide Stay Nearby card.`);
   }
 }
 
@@ -226,4 +277,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Expedia / Stay Nearby validation passed: approved tracking remains click-loaded, curated hotel selection is capped and evidence-backed, five three-card venue pilots are complete, open-license venue context remains separated from property photography, nine first-party AI area-illustration fallbacks are visibly disclosed and explicitly non-property, property deep links require explicit verification, and real property imagery remains gated to approved first-party-hosted Creator Toolbox media with a matching referral.');
+console.log(`Expedia / Stay Nearby validation passed: approved tracking remains click-loaded, curated hotel selection remains evidence-backed and capped at three cards, ${pilots.size} redesigned venue guides are automatically image-gated, rights-cleared affiliate property photos remain preferred, every remaining hotel card has a unique first-party photorealistic exact-property AI raster grounded to an exact address and verified property source, generic hotel imagery and SVG fallbacks are prohibited, and future venue-guide additions fail closed until compliant property imagery exists.`);
