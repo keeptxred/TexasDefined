@@ -51,15 +51,23 @@ export default function SportsVenueGuidePilotContent({
     guide.officialUrl && entity.officialUrl !== guide.officialUrl
       ? { ...entity, officialUrl: guide.officialUrl }
       : entity;
+  const photo = getSportsVenuePhoto(slug);
+  const venueEvents: readonly TexasEventCarouselItem[] = photo
+    ? upcomingEvents.map((event) => {
+        if (event.image?.url !== photo.imageUrl) return event;
+        const { image: _duplicateVenueImage, ...eventWithoutDuplicateVenueImage } = event;
+        return eventWithoutDuplicateVenueImage;
+      })
+    : upcomingEvents;
 
   return (
     <SportsVenueGuidePage
       entity={verifiedEntity}
       guide={guide}
       enrichment={enrichment}
-      photo={getSportsVenuePhoto(slug)}
+      photo={photo}
       nearbyAttractions={nearbyAttractions}
-      upcomingEvents={upcomingEvents}
+      upcomingEvents={venueEvents}
       eventCalendarHref={eventCalendarHref}
     />
   );
