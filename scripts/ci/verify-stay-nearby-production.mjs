@@ -2,63 +2,38 @@ const origin = process.env.STAY_NEARBY_PRODUCTION_ORIGIN || 'https://texasdefine
 const revision = process.env.GITHUB_SHA || 'local';
 const runId = process.env.GITHUB_RUN_ID || Date.now().toString();
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const fallbackDisclosure = 'AI-generated area illustration — not the hotel property';
+const aiDisclosure = 'AI-generated depiction of this property — not an official hotel photograph';
 
 const pilots = [
   {
     key: 'amon-g-carter-stadium',
     route: '/sports-venue/amon-g-carter-stadium',
     pageMarker: 'Amon G. Carter Stadium',
-    guideIntegrated: true,
-    hotels: [
-      'Courtyard Fort Worth University Drive',
-      'Hilton Garden Inn Fort Worth Medical Center',
-      'Homewood Suites by Hilton Fort Worth Medical Center, TX',
-    ],
+    hotels: ['Courtyard Fort Worth University Drive', 'Hilton Garden Inn Fort Worth Medical Center', 'Homewood Suites by Hilton Fort Worth Medical Center, TX'],
   },
   {
     key: 'gerald-j-ford-stadium',
     route: '/sports-venue/gerald-j-ford-stadium',
     pageMarker: 'Gerald J. Ford Stadium',
-    guideIntegrated: true,
-    hotels: [
-      'Graduate by Hilton Dallas',
-      'The Highland Dallas, Curio Collection by Hilton',
-      'Hotel Mockingbird, Dallas, a Tribute Portfolio Hotel',
-    ],
+    hotels: ['Graduate by Hilton Dallas', 'The Highland Dallas, Curio Collection by Hilton', 'Hotel Mockingbird, Dallas, a Tribute Portfolio Hotel'],
   },
   {
     key: 'globe-life-field',
     route: '/sports-venue/globe-life-field',
     pageMarker: 'Globe Life Field',
-    guideIntegrated: true,
-    hotels: [
-      'Live! by Loews – Arlington, TX',
-      'Loews Arlington Hotel',
-      'Drury Plaza Hotel Dallas Arlington',
-    ],
+    hotels: ['Live! by Loews – Arlington, TX', 'Loews Arlington Hotel', 'Drury Plaza Hotel Dallas Arlington'],
   },
   {
     key: 'american-airlines-center',
     route: '/sports-venue/american-airlines-center',
     pageMarker: 'American Airlines Center',
-    guideIntegrated: true,
-    hotels: [
-      'W Dallas',
-      'Homewood Suites by Hilton Dallas Downtown, TX',
-      'Hilton Anatole',
-    ],
+    hotels: ['W Dallas', 'Homewood Suites by Hilton Dallas Downtown, TX', 'Hilton Anatole'],
   },
   {
     key: 'texas-motor-speedway',
     route: '/sports-venue/texas-motor-speedway',
     pageMarker: 'Texas Motor Speedway',
-    guideIntegrated: true,
-    hotels: [
-      'Tru by Hilton Northlake Fort Worth',
-      'Home2 Suites by Hilton Fort Worth Northlake',
-      'Holiday Inn Express & Suites Fort Worth North - Northlake',
-    ],
+    hotels: ['Tru by Hilton Northlake Fort Worth', 'Home2 Suites by Hilton Fort Worth Northlake', 'Holiday Inn Express & Suites Fort Worth North - Northlake'],
   },
 ];
 
@@ -66,49 +41,75 @@ function requireCondition(condition, message) {
   if (!condition) throw new Error(message);
 }
 
+function liveUrl(path, attempt) {
+  const url = new URL(path, origin);
+  url.searchParams.set('td_verify', `${revision}-${runId}-${attempt}`);
+  return url;
+}
+
 async function fetchLive(path, kind = 'text') {
   let lastError;
-
   for (let attempt = 1; attempt <= 6; attempt += 1) {
-    const url = new URL(path, origin);
-    url.searchParams.set('td_verify', `${revision}-${runId}-${attempt}`);
-
+    const url = liveUrl(path, attempt);
     try {
       const response = await fetch(url, {
-        redirect: 'follow',
-        cache: 'no-store',
-        signal: AbortSignal.timeout(30_000),
-        headers: {
-          'cache-control': 'no-cache',
-          'user-agent': 'TexasDefined-CI-Stay-Nearby/1.0',
-        },
+        redirect: 'follow', cache: 'no-store', signal: AbortSignal.timeout(30_000),
+        headers: { 'cache-control': 'no-cache', 'user-agent': 'TexasDefined-CI-Stay-Nearby/2.0' },
       });
       const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
       const body = await response.text();
-
       if (!challenged && response.ok) {
         if (kind === 'json') {
-          try {
-            return JSON.parse(body);
-          } catch (error) {
-            lastError = new Error(`${url.pathname} returned invalid JSON: ${error instanceof Error ? error.message : String(error)}`);
-          }
-        } else {
-          return body;
-        }
+          try { return JSON.parse(body); }
+          catch (error) { lastError = new Error(`${url.pathname} returned invalid JSON: ${error instanceof Error ? error.message : String(error)}`); }
+        } else return body;
       } else {
-        lastError = new Error(challenged
-          ? `${url.pathname} returned a Cloudflare challenge.`
-          : `${url.pathname} returned HTTP ${response.status}.`);
+        lastError = new Error(challenged ? `${url.pathname} returned a Cloudflare challenge.` : `${url.pathname} returned HTTP ${response.status}.`);
       }
     } catch (error) {
       lastError = error instanceof Error ? error : new Error(String(error));
     }
-
     if (attempt < 6) await sleep(5_000);
   }
-
   throw lastError || new Error(`${path} failed production verification.`);
+}
+
+async function fetchLiveRaster(path) {
+  let lastError;
+  for (let attempt = 1; attempt <= 6; attempt += 1) {
+    const url = liveUrl(path, attempt);
+    try {
+      const response = await fetch(url, {
+        redirect: 'follow', cache: 'no-store', signal: AbortSignal.timeout(30_000),
+        headers: { 'cache-control': 'no-cache', 'user-agent': 'TexasDefined-CI-Stay-Nearby/2.0', accept: 'image/png,image/jpeg,image/webp' },
+      });
+      const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+      if (!challenged && response.ok) {
+        const contentType = (response.headers.get('content-type') || '').split(';')[0].toLowerCase();
+        const bytes = new Uint8Array(await response.arrayBuffer());
+        return { contentType, bytes };
+      }
+      lastError = new Error(challenged ? `${url.pathname} returned a Cloudflare challenge.` : `${url.pathname} returned HTTP ${response.status}.`);
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+    }
+    if (attempt < 6) await sleep(5_000);
+  }
+  throw lastError || new Error(`${path} failed raster production verification.`);
+}
+
+function rasterMagicOkay(bytes) {
+  if (bytes.length >= 8 && bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4e && bytes[3] === 0x47) return true;
+  if (bytes.length >= 3 && bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) return true;
+  return bytes.length >= 12
+    && String.fromCharCode(...bytes.slice(0, 4)) === 'RIFF'
+    && String.fromCharCode(...bytes.slice(8, 12)) === 'WEBP';
+}
+
+function validRealPropertyImage(property) {
+  if (!property?.image || property.image.rightsSource !== 'expedia-creator-toolbox') return false;
+  if (!String(property.image.url || '').startsWith('/') || /\.svg(?:$|\?)/i.test(property.image.url || '')) return false;
+  return (property.bookingTargets || []).some((target) => target.provider === property.image.bookingProvider && target.verified === true && /^https:\/\//.test(target.affiliateUrl || ''));
 }
 
 const registry = await fetchLive('/stay-nearby-hotels.json', 'json');
@@ -118,19 +119,21 @@ requireCondition(registry?.policy?.displayComputedDistance === false, 'Stay Near
 requireCondition(registry?.policy?.broadVenueFallback === false, 'Stay Nearby production registry allows broad venue fallback.');
 requireCondition(Array.isArray(registry?.properties), 'Stay Nearby production registry properties are missing.');
 
-const fallbackRegistry = await fetchLive('/stay-nearby-ai-fallbacks.json', 'json');
-requireCondition(fallbackRegistry?.version === 1, 'Stay Nearby production AI fallback registry version is not 1.');
-requireCondition(fallbackRegistry?.disclosure === fallbackDisclosure, 'Stay Nearby production AI fallback disclosure drifted.');
-requireCondition(Array.isArray(fallbackRegistry?.items) && fallbackRegistry.items.length === 9, 'Stay Nearby production AI fallback registry must expose exactly 9 pilot records.');
-const fallbackById = new Map(fallbackRegistry.items.map((item) => [item.propertyId, item]));
+const aiRegistry = await fetchLive('/stay-nearby-ai-property-images.json', 'json');
+requireCondition(aiRegistry?.version === 2, 'Stay Nearby exact-property AI production registry version is not 2.');
+requireCondition(aiRegistry?.disclosure === aiDisclosure, 'Stay Nearby exact-property AI disclosure drifted.');
+requireCondition(aiRegistry?.policy?.exactPropertyOnly === true, 'Production AI image policy no longer requires exact-property depictions.');
+requireCondition(aiRegistry?.policy?.genericHotelImagesAllowed === false, 'Production AI image policy allows generic hotel imagery.');
+requireCondition(aiRegistry?.policy?.svgAllowed === false, 'Production AI image policy allows SVG.');
+requireCondition(Array.isArray(aiRegistry?.items), 'Production exact-property AI image records are missing.');
+const aiById = new Map(aiRegistry.items.map((item) => [item.propertyId, item]));
+const seenAiUrls = new Set();
+let verifiedAiAssets = 0;
 
 for (const pilot of pilots) {
   const entries = registry.properties
     .filter((property) => property?.status === 'active')
-    .map((property) => ({
-      property,
-      context: (property.contexts || []).find((context) => context?.kind === 'venue' && context?.key === pilot.key),
-    }))
+    .map((property) => ({ property, context: (property.contexts || []).find((context) => context?.kind === 'venue' && context?.key === pilot.key) }))
     .filter((entry) => entry.context)
     .sort((left, right) => left.context.rank - right.context.rank);
 
@@ -144,83 +147,61 @@ for (const pilot of pilots) {
     requireCondition(/^https:\/\//.test(context.source?.url || ''), `${property.name} lacks an HTTPS verification source.`);
     requireCondition(/^\d{4}-\d{2}-\d{2}$/.test(context.source?.verifiedAt || ''), `${property.name} lacks a verification date.`);
 
-    const verifiedTargets = (property.bookingTargets || []).filter((target) => target?.verified === true);
-    for (const target of verifiedTargets) {
-      requireCondition(/^https:\/\//.test(target.affiliateUrl || ''), `${property.name} has a verified affiliate target without an HTTPS URL.`);
-    }
+    if (validRealPropertyImage(property)) continue;
 
-    if (property.image) {
-      const matchingTarget = verifiedTargets.find((target) => target.provider === property.image.bookingProvider);
-      requireCondition(property.image.rightsSource === 'expedia-creator-toolbox', `${property.name} production image lacks approved Expedia Creator Toolbox rights metadata.`);
-      requireCondition(typeof property.image.url === 'string' && property.image.url.startsWith('/'), `${property.name} production image is not first-party hosted.`);
-      requireCondition(Boolean(matchingTarget), `${property.name} production image is not paired with a verified matching booking referral.`);
-    }
+    const item = aiById.get(property.id);
+    requireCondition(Boolean(item), `${property.name} has neither an approved affiliate property photo nor an exact-property AI image in production.`);
+    requireCondition(item?.name === property.name, `${property.name} exact-property AI record does not match the canonical property name.`);
+    requireCondition(item?.kind === 'ai-property-depiction', `${property.name} AI image kind drifted.`);
+    requireCondition(item?.depictsProperty === true && item?.generatedFromPropertyIdentity === true, `${property.name} AI image is not declared as an exact-property depiction.`);
+    requireCondition(item?.label === aiDisclosure, `${property.name} AI image disclosure drifted.`);
+    requireCondition(/^\d+\s+.+,\s*.+,\s*Texas\s+\d{5}$/i.test(item?.propertyAddress || ''), `${property.name} AI image lacks its exact Texas street address.`);
+    requireCondition(item?.groundingSourceUrl === context.source.url, `${property.name} AI image is not grounded to its verified property source.`);
+    requireCondition(['official-property-page', 'manually-verified-exact-property-reference'].includes(item?.referenceImageSource), `${property.name} AI reference provenance is not approved.`);
+    requireCondition(/^\/images\/stay-nearby\/properties\/[a-z0-9-]+\.(?:png|jpe?g|webp)$/i.test(item?.url || ''), `${property.name} AI image is not a first-party PNG/JPEG/WebP property asset.`);
+    requireCondition(!/\.svg(?:$|\?)/i.test(item?.url || ''), `${property.name} production image regressed to SVG.`);
+    requireCondition(!seenAiUrls.has(item?.url), `${property.name} reuses another hotel's AI image.`);
+    seenAiUrls.add(item.url);
+    requireCondition(String(item?.alt || '').startsWith(`AI-generated photorealistic depiction of ${property.name}`), `${property.name} AI alt text is not exact-property-specific.`);
 
-    const fallback = fallbackById.get(property.id);
-    if (fallback) {
-      requireCondition(fallback.name === property.name, `${property.name} AI fallback record does not match the canonical property name.`);
-      requireCondition(fallback.kind === 'ai-area-illustration', `${property.name} AI fallback kind drifted.`);
-      requireCondition(fallback.depictsProperty === false, `${property.name} AI fallback must declare depictsProperty=false.`);
-      requireCondition(fallback.label === fallbackDisclosure, `${property.name} AI fallback disclosure drifted.`);
-      requireCondition(/^\/images\/stay-nearby\/ai\/[a-z0-9-]+\.svg$/.test(fallback.url || ''), `${property.name} AI fallback is not a first-party SVG path.`);
-      requireCondition(String(fallback.alt || '').startsWith('AI-generated illustration'), `${property.name} AI fallback alt text does not disclose AI generation.`);
-      requireCondition(!String(fallback.alt || '').toLowerCase().includes(property.name.toLowerCase()), `${property.name} AI fallback alt text implies an exact property depiction.`);
-
-      const svg = await fetchLive(fallback.url);
-      requireCondition(svg.trimStart().startsWith('<svg'), `${property.name} AI fallback asset is not an SVG document.`);
-      requireCondition(svg.includes('AI-generated area illustration, not a depiction of the hotel property.'), `${property.name} AI fallback SVG lacks its non-property description.`);
-      requireCondition(!svg.toLowerCase().includes(property.name.toLowerCase()), `${property.name} AI fallback SVG contains the hotel name.`);
-      requireCondition(!/<script\b/i.test(svg) && !/<foreignObject\b/i.test(svg) && !/<image\b/i.test(svg) && !/\bhref\s*=/i.test(svg), `${property.name} AI fallback SVG contains disallowed markup.`);
-    } else {
-      requireCondition(!property.image, `${property.name} has neither the approved AI fallback nor a safe text-only fallback path.`);
-    }
+    const raster = await fetchLiveRaster(item.url);
+    requireCondition(['image/png', 'image/jpeg', 'image/webp'].includes(raster.contentType), `${property.name} AI asset has unsupported production content type ${raster.contentType || '<missing>'}.`);
+    requireCondition(raster.bytes.length >= 25_000, `${property.name} AI asset is unexpectedly small in production (${raster.bytes.length} bytes).`);
+    requireCondition(rasterMagicOkay(raster.bytes), `${property.name} AI asset is not a valid raster image in production.`);
+    verifiedAiAssets += 1;
   }
 }
 
 const bootstrap = await fetchLive('/expedia-travel.js');
 for (const marker of [
-  'const STAY_DATA_URL = "/stay-nearby-hotels.json"',
-  'window.TexasDefinedStayNearby',
-  '[data-stay-nearby-slot]',
-  'flex:0 0 calc((100% - 2rem)/3)',
-  'flex-basis:84%',
-  'data-camref',
-  '1110lMy6E',
-  'data-pubref',
-  'texasdefined-stays',
+  'const STAY_DATA_URL = "/stay-nearby-hotels.json"', 'window.TexasDefinedStayNearby', '[data-stay-nearby-slot]',
+  'flex:0 0 calc((100% - 2rem)/3)', 'flex-basis:84%', 'data-camref', '1110lMy6E', 'data-pubref', 'texasdefined-stays',
   'TexasDefined does not cache or display nightly prices.',
   'Affiliate disclosure: TexasDefined may earn a commission from qualifying Expedia bookings',
-]) {
-  requireCondition(bootstrap.includes(marker), `Live Expedia/Stay Nearby bootstrap is missing marker: ${marker}`);
-}
+]) requireCondition(bootstrap.includes(marker), `Live Expedia/Stay Nearby bootstrap is missing marker: ${marker}`);
 
 const contextBootstrap = await fetchLive('/stay-nearby-context-images.js');
 for (const marker of [
-  'const FALLBACK_DATA_URL = "/stay-nearby-ai-fallbacks.json"',
-  'data-stay-ai-fallback',
-  'ai-area-illustration',
-  fallbackDisclosure,
-  'textFallback.replaceWith(buildFallbackMedia(item))',
+  'const AI_PROPERTY_DATA_URL = "/stay-nearby-ai-property-images.json"',
+  'data-stay-ai-property', 'ai-property-depiction', 'generatedFromPropertyIdentity === true', 'item.depictsProperty === true',
+  aiDisclosure, '/images/stay-nearby/properties/', 'textFallback.replaceWith(buildAiPropertyMedia(item))',
   'const propertyImage = card.querySelector(":scope > .td-stay-image")',
-]) {
-  requireCondition(contextBootstrap.includes(marker), `Live Stay Nearby context/AI fallback bootstrap is missing marker: ${marker}`);
+]) requireCondition(contextBootstrap.includes(marker), `Live Stay Nearby exact-property image bootstrap is missing marker: ${marker}`);
+for (const stale of ['data-stay-ai-fallback', 'stay-nearby-ai-fallbacks.json', 'ai-area-illustration', 'AI-generated area illustration — not the hotel property', '/images/stay-nearby/ai/']) {
+  requireCondition(!contextBootstrap.includes(stale), `Live Stay Nearby bootstrap still contains legacy generic/SVG fallback marker: ${stale}`);
 }
 
 for (const pilot of pilots) {
   const page = await fetchLive(pilot.route);
   requireCondition(page.includes(pilot.pageMarker), `${pilot.route} did not render the expected venue marker.`);
   requireCondition(page.includes('/expedia-travel.js'), `${pilot.route} is missing the deferred Expedia/Stay Nearby bootstrap reference.`);
-  requireCondition(page.includes('/stay-nearby-context-images.js'), `${pilot.route} is missing the deferred context/AI fallback bootstrap reference.`);
-
-  if (pilot.guideIntegrated) {
-    requireCondition(page.includes('Texas venue guide'), `${pilot.route} did not render the redesigned venue-guide marker.`);
-    requireCondition(page.includes(`What’s happening at ${pilot.pageMarker}`), `${pilot.route} did not render the venue event integration heading.`);
-    requireCondition(page.includes('View all events'), `${pilot.route} did not render the venue-scoped all-events action.`);
-    requireCondition(page.includes('View Calendar'), `${pilot.route} did not render the venue-scoped calendar action.`);
-    requireCondition(page.includes(`/events?venue=sports-venue%3A${pilot.key}`), `${pilot.route} did not expose its venue-prefiltered calendar deep link.`);
-    requireCondition(page.includes('data-stay-nearby-slot'), `${pilot.route} did not render the Stay Nearby integration slot.`);
-  }
+  requireCondition(page.includes('/stay-nearby-context-images.js'), `${pilot.route} is missing the deferred exact-property image bootstrap reference.`);
+  requireCondition(page.includes('Texas venue guide'), `${pilot.route} did not render the redesigned venue-guide marker.`);
+  requireCondition(page.includes(`What’s happening at ${pilot.pageMarker}`), `${pilot.route} did not render the venue event integration heading.`);
+  requireCondition(page.includes('View all events'), `${pilot.route} did not render the venue-scoped all-events action.`);
+  requireCondition(page.includes('View Calendar'), `${pilot.route} did not render the venue-scoped calendar action.`);
+  requireCondition(page.includes(`/events?venue=sports-venue%3A${pilot.key}`), `${pilot.route} did not expose its venue-prefiltered calendar deep link.`);
+  requireCondition(page.includes('data-stay-nearby-slot'), `${pilot.route} did not render the Stay Nearby integration slot.`);
 }
 
-const integratedGuidePilots = pilots.filter((pilot) => pilot.guideIntegrated).length;
-console.log(`Stay Nearby production verification passed for ${pilots.length} Phase 2 venue pages, including ${integratedGuidePilots} integrated venue guides, 9 optional visibly disclosed first-party AI area-illustration fallbacks, safe text-only fallback support for additional curated hotels, the live hotel registry, and the deferred affiliate bootstrap.`);
+console.log(`Stay Nearby production verification passed for ${pilots.length} redesigned venue guides: curated three-card hotel sets remain source-backed, approved affiliate property photos retain precedence, ${verifiedAiAssets} exact-property photorealistic AI raster assets were verified live with property-specific address/source provenance, SVG and generic hotel fallbacks are prohibited, and the shared production bootstrap enforces the same policy.`);
