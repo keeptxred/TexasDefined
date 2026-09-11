@@ -1,0 +1,201 @@
+import type { ParkingMapAsset } from './parking-map-model';
+import { isPublishableParkingMap } from './parking-map-model';
+
+export type {
+  ParkingMapAsset,
+  ParkingMapOrigin,
+  ParkingMapReuseSearchStatus,
+  ParkingMapRightsStatus,
+  ParkingMapVerificationSource,
+  ParkingMapVerificationStatus,
+} from './parking-map-model';
+export { isPublishableParkingMap } from './parking-map-model';
+
+const venueParkingMaps: Record<string, ParkingMapAsset> = {
+  'att-stadium': {
+    id: 'parking-map:att-stadium:2026-09',
+    venueSlug: 'att-stadium',
+    venueName: 'AT&T Stadium',
+    imageUrl: '/images/parking-maps/att-stadium.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for AT&T Stadium showing the stadium, major surrounding roads and principal parking zones',
+    origin: 'ai-generated',
+    rightsStatus: 'generated-owned',
+    displayAllowed: true,
+    reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: [
+      'The current official stadium parking map was found and used for factual verification, but no reusable publication license was documented on the official parking material reviewed.',
+      'Open-license source checks found reusable venue/parking photography but no suitable current parking-lot map that could replace the official map.',
+    ],
+    verificationStatus: 'verified',
+    verifiedAgainstRealMap: true,
+    verifiedAt: '2026-09-11',
+    verificationSources: [{
+      label: 'AT&T Stadium — official parking information and parking map',
+      url: 'https://attstadium.com/stadium-info/parking/',
+      checkedAt: '2026-09-11',
+      role: 'accuracy',
+    }],
+    accuracyNotes: [
+      'Stadium position and north/south/east/west orientation checked against the current official parking map.',
+      'I-30, Copeland Road, Randol Mill Road, Collins Street, Cowboys Way and Division Street were checked against the official map.',
+      'The diagram groups numbered Cowboys parking lots by side of the stadium instead of reproducing the official map artwork.',
+      'The diagram is intentionally schematic and not to scale; event-specific lot assignments can change.',
+    ],
+  },
+  'globe-life-field': {
+    id: 'parking-map:globe-life-field:2026-09',
+    venueSlug: 'globe-life-field',
+    venueName: 'Globe Life Field',
+    imageUrl: '/images/parking-maps/globe-life-field.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Globe Life Field showing major Arlington roads and principal Texas Rangers parking zones',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true,
+    reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: [
+      'The Texas Rangers publish a current parking map, but no reusable publication license was documented for the official map artwork reviewed.',
+      'Wikimedia Commons checks found reusable Globe Life Field diagrams and photography, but no current open-license parking map with the needed lot detail.',
+    ],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{
+      label: 'Texas Rangers — Where to Park at Globe Life Field',
+      url: 'https://www.mlb.com/rangers/ballpark/parking-and-rideshare', checkedAt: '2026-09-11', role: 'accuracy',
+    }],
+    accuracyNotes: [
+      'I-30, East Copeland Road, East Randol Mill Road, Nolan Ryan Expressway, Ballpark Way and AT&T Way were checked against the current official parking map.',
+      'Globe Life Field and Choctaw Stadium orientation was checked against the official Arlington entertainment-district map.',
+      'Principal Rangers lot letters and the general/season/reserved groupings were checked against the current Rangers parking guide.',
+      'The diagram is schematic and intentionally omits changing prices, exact entrances and event-specific inventory.',
+    ],
+  },
+  'american-airlines-center': {
+    id: 'parking-map:american-airlines-center:2026-09',
+    venueSlug: 'american-airlines-center', venueName: 'American Airlines Center',
+    imageUrl: '/images/parking-maps/american-airlines-center.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for American Airlines Center showing Victory Park roads, arena lots and garages',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true,
+    reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: [
+      'American Airlines Center publishes an official parking map and lot addresses, but the reviewed map does not document a reusable publication license.',
+      'Open-license map/image searches did not surface a current reusable AAC parking map suitable for publication.',
+    ],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{
+      label: 'American Airlines Center — official parking map and lot locations',
+      url: 'https://www.americanairlinescenter.com/parking', checkedAt: '2026-09-11', role: 'accuracy',
+    }],
+    accuracyNotes: [
+      'Arena orientation relative to I-35E, Victory Avenue, North Houston Street, All Star Way and Nowitzki Way was checked against the official parking map.',
+      'Lexus Garage, Commons Garage, Comerica Garage and the arena-managed lettered lots were checked against the official parking guide.',
+      'ADA parking placement at Lot F was checked against the current official guide.',
+      'The diagram is not to scale and deliberately omits rates and availability that vary by event.',
+    ],
+  },
+  'toyota-stadium-frisco': {
+    id: 'parking-map:toyota-stadium-frisco:2026-09',
+    venueSlug: 'toyota-stadium-frisco', venueName: 'Toyota Stadium',
+    imageUrl: '/images/parking-maps/toyota-stadium-frisco.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Toyota Stadium in Frisco showing surrounding roads and current FC Dallas parking areas',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true,
+    reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: [
+      'FC Dallas publishes a current matchday parking map, but no reusable publication license was documented for the official artwork reviewed.',
+      'Open-license source checks did not surface a current reusable parking map reflecting the 2026 stadium/complex configuration.',
+    ],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [
+      { label: 'FC Dallas — Toyota Stadium information and current parking-map reference', url: 'https://www.fcdallas.com/stadium/policies', checkedAt: '2026-09-11', role: 'accuracy' },
+      { label: 'FC Dallas — season-ticket member parking lot categories', url: 'https://www.fcdallas.com/tickets/stm/parking', checkedAt: '2026-09-11', role: 'accuracy' },
+    ],
+    accuracyNotes: [
+      'Eldorado Parkway, Dallas North Tollway, Frisco Street and Technology Drive orientation was checked against the 2026 matchday map.',
+      'Corolla Red, Highlander Green, RAV4 White, Camry Gold and Tundra Platinum parking areas were checked against current FC Dallas guidance.',
+      'The stadium position inside the surrounding soccer-center fields was compared directly with the current official map.',
+      'The diagram is not to scale and does not attempt to reproduce field-by-field sponsor artwork or changing event controls.',
+    ],
+  },
+  'dickies-arena': {
+    id: 'parking-map:dickies-arena:2026-09',
+    venueSlug: 'dickies-arena', venueName: 'Dickies Arena',
+    imageUrl: '/images/parking-maps/dickies-arena.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Dickies Arena showing the Chevrolet Garage, Yellow Lots and surrounding streets',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true,
+    reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: [
+      'Dickies Arena publishes parking maps and event-specific parking plans, but the reviewed official artwork does not document a reusable publication license.',
+      'Open-license source checks did not surface a current reusable parking map with the arena-managed Yellow Lots and garage detail.',
+    ],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [
+      { label: 'Dickies Arena — official directions and parking', url: 'https://dickiesarena.com/Directions%20and%20Parking/', checkedAt: '2026-09-11', role: 'accuracy' },
+      { label: 'Dickies Arena — 2026 FWSSR parking map', url: 'https://dickiesarena.com/wp-content/uploads/2025/08/2026_FWSSR_ParkingMaps_v1.pdf', checkedAt: '2026-09-11', role: 'accuracy' },
+    ],
+    accuracyNotes: [
+      'Montgomery Street, Harley Avenue, Bryce Avenue, Trail Drive and University Drive were checked against current official arena maps.',
+      'Chevrolet Garage and the Yellow Lots were checked against the venue parking page and 2026 event map.',
+      'Montgomery Lot and the arena/Will Rogers complex relationship were checked against official box-office and parking maps.',
+      'The diagram is schematic; police traffic routing, lot designation and ADA overflow can change for individual events.',
+    ],
+  },
+  'cotton-bowl-stadium': {
+    id: 'parking-map:cotton-bowl-stadium:2026-09',
+    venueSlug: 'cotton-bowl-stadium', venueName: 'Cotton Bowl Stadium',
+    imageUrl: '/images/parking-maps/cotton-bowl-stadium.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Cotton Bowl Stadium within Fair Park showing principal lots and entrance roads',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true,
+    reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: [
+      'Fair Park publishes a parking map for Cotton Bowl and other park events, but no reusable publication license was documented for the current official map artwork reviewed.',
+      'Open-license source checks found reusable Cotton Bowl imagery but no current parking-lot map suitable for publication.',
+    ],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [
+      { label: 'Fair Park — official parking information and map', url: 'https://www.fairparkdallas.com/parking', checkedAt: '2026-09-11', role: 'accuracy' },
+      { label: 'Fair Park — official map downloads', url: 'https://www.fairparkdallas.com/visit/map', checkedAt: '2026-09-11', role: 'accuracy' },
+    ],
+    accuracyNotes: [
+      'Cotton Bowl placement within the Fair Park grounds was checked against the current official parking map.',
+      'Robert B. Cullum Boulevard, Fitzhugh Avenue, South Haskell Avenue and Martin Luther King Jr. Boulevard were checked against official Fair Park material.',
+      'Principal Fair Park parking-lot groupings around the stadium were checked against the current map and Fair Park master-plan parking diagram.',
+      'The diagram is not to scale; Fair Park specifically directs visitors to event pages because parking fees and assignments can change by event.',
+    ],
+  },
+  'texas-motor-speedway': {
+    id: 'parking-map:texas-motor-speedway:2026-09', venueSlug: 'texas-motor-speedway', venueName: 'Texas Motor Speedway',
+    imageUrl: '/images/parking-maps/texas-motor-speedway.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Texas Motor Speedway showing the speedway, major approach roads and primary parking areas',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true,
+    reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: [
+      'The speedway publishes useful parking/directions material, but the current official parking artwork reviewed did not document a reusable publication license.',
+      'A CC0 Wikimedia Commons track map was found and used as an independent geometry cross-check, but it does not contain the parking detail needed for a visitor parking map.',
+    ],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [
+      { label: 'Texas Motor Speedway — official directions and parking map', url: 'https://www.texasmotorspeedway.com/fans/directions-parking/', checkedAt: '2026-09-11', role: 'accuracy' },
+      { label: 'Wikimedia Commons — Texas Motor Speedway track map', url: 'https://commons.wikimedia.org/wiki/File:TexasMotorSpeedway.svg', checkedAt: '2026-09-11', role: 'accuracy' },
+    ],
+    accuracyNotes: [
+      'Track footprint, I-35W/Hwy 114 relationship and the western parking field orientation were checked against current official directions and parking material.',
+      'Victory Circle and the primary general/preferred parking zones were checked against the official inbound parking map.',
+      'The track outline was cross-checked against an independently reusable CC0 Wikimedia Commons track map.',
+      'The diagram is intentionally schematic and not to scale; race-weekend traffic patterns and lot assignments can change.',
+    ],
+  },
+};
+
+const eventParkingMaps: Record<string, ParkingMapAsset> = {};
+
+export function getParkingMapForVenueSlug(slug: string | undefined) {
+  if (!slug) return undefined;
+  const map = venueParkingMaps[slug];
+  return isPublishableParkingMap(map) ? map : undefined;
+}
+
+export function getParkingMapForEvent(eventSlug: string | undefined, venueSlug?: string) {
+  const eventMap = eventSlug ? eventParkingMaps[eventSlug] : undefined;
+  if (isPublishableParkingMap(eventMap)) return eventMap;
+  return getParkingMapForVenueSlug(venueSlug);
+}
+
+export function parkingMapCoverage() {
+  return { venueMaps: Object.values(venueParkingMaps), eventOverrides: Object.values(eventParkingMaps) } as const;
+}
