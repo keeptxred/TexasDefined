@@ -43,8 +43,20 @@ function readVenueSeeds(file) {
     const slug = literal(row.elements[1]);
     const aliasesNode = row.elements[5];
     if (!name || !slug || !ts.isArrayLiteralExpression(aliasesNode)) return [];
-    return [{ name, slug, aliases: aliasesNode.elements.map(literal).filter(Boolean) }];
+    return [{ name, slug, aliases: aliasesNode.elements.map(literal).filter(Boolean), source: path.relative(root, file) }];
   });
+}
+
+function duplicatesBy(items, keyFn) {
+  const groups = new Map();
+  for (const item of items) {
+    const key = keyFn(item);
+    if (!key) continue;
+    const list = groups.get(key) ?? [];
+    list.push(item);
+    groups.set(key, list);
+  }
+  return [...groups.entries()].filter(([, list]) => list.length > 1);
 }
 
 function walk(dir) {
@@ -55,9 +67,10 @@ function walk(dir) {
 }
 
 function readParkingMapRecords() {
-  const records = new Map();
+  const records = [];
   const batchFiles = fs.readdirSync(dataDir)
     .filter((name) => /^parking-maps-batch\d+\.ts$/i.test(name))
+    .sort()
     .map((name) => path.join(dataDir, name));
 
   for (const file of batchFiles) {
@@ -73,13 +86,15 @@ function readParkingMapRecords() {
           if (!slug || !ts.isObjectLiteralExpression(property.initializer)) continue;
           let imageUrl;
           let venueSlug;
+          let id;
           for (const field of property.initializer.properties) {
             if (!ts.isPropertyAssignment(field)) continue;
             const key = ts.isIdentifier(field.name) || ts.isStringLiteral(field.name) ? field.name.text : undefined;
             if (key === 'imageUrl') imageUrl = literal(field.initializer);
             if (key === 'venueSlug') venueSlug = literal(field.initializer);
+            if (key === 'id') id = literal(field.initializer);
           }
-          records.set(slug, { slug, venueSlug, imageUrl, file });
+          records.push({ slug, venueSlug, imageUrl, id, file: path.relative(root, file) });
         }
       }
     }
@@ -116,14 +131,20 @@ function isAreaOrRouteVenue(name) {
     || /^(Austin|Marfa|Turkey), Texas$/i.test(name);
 }
 
-const venues = [
+const rawVenues = [
   ...readVenueSeeds(majorVenueFile),
   ...readVenueSeeds(tier2VenueFile),
-  { name: 'Reliant Stadium', slug: 'reliant-stadium', aliases: ['NRG Stadium'] },
-].filter((venue, index, all) => all.findIndex((candidate) => candidate.slug === venue.slug) === index);
+  { name: 'Reliant Stadium', slug: 'reliant-stadium', aliases: ['NRG Stadium'], source: 'audit supplemental canonical venue' },
+];
+const duplicateVenueSlugs = duplicatesBy(rawVenues, (venue) => venue.slug);
+const venues = rawVenues.filter((venue, index, all) => all.findIndex((candidate) => candidate.slug === venue.slug) === index);
 
-const parkingMapRecords = readParkingMapRecords();
+const parkingMapRecordList = readParkingMapRecords();
+const duplicateParkingMapSlugs = duplicatesBy(parkingMapRecordList, (record) => record.slug);
+const duplicateParkingMapIds = duplicatesBy(parkingMapRecordList, (record) => record.id);
+const parkingMapRecords = new Map(parkingMapRecordList.map((record) => [record.slug, record]));
 const parkingMapSlugs = new Set(parkingMapRecords.keys());
+const canonicalSlugs = new Set(venues.map((venue) => venue.slug));
 const exactVenueIndex = new Map();
 for (const venue of venues) {
   for (const label of [venue.name, ...venue.aliases]) {
@@ -134,11 +155,12 @@ for (const venue of venues) {
   }
 }
 
-const malformedRecords = [...parkingMapRecords.values()].filter((record) => record.venueSlug !== record.slug || !record.imageUrl);
-const missingAssets = [...parkingMapRecords.values()].filter((record) => {
+const malformedRecords = parkingMapRecordList.filter((record) => record.venueSlug !== record.slug || !record.imageUrl || !record.id);
+const missingAssets = parkingMapRecordList.filter((record) => {
   if (!record.imageUrl?.startsWith('/')) return true;
   return !fs.existsSync(path.join(root, 'public', record.imageUrl.slice(1)));
 });
+const unknownVenueMapRecords = parkingMapRecordList.filter((record) => !canonicalSlugs.has(record.slug));
 const missingVenueMaps = venues.filter((venue) => !parkingMapSlugs.has(venue.slug));
 const mappedVenueMaps = venues.filter((venue) => parkingMapSlugs.has(venue.slug));
 const events = readEventVenuePairs();
@@ -168,6 +190,10 @@ console.log(`Events inheriting a registered venue map: ${inheritedEvents.length}
 console.log(`Events mapped to a canonical venue whose map is still missing: ${eventsMissingMappedVenueMap.length}`);
 console.log(`Event-only fixed venue names requiring parking-map review: ${fixedEventOnlyVenues.length}`);
 console.log(`Event-only area/route/multi-site patterns requiring event-specific parking treatment: ${areaOrRouteEvents.length}`);
+console.log(`Duplicate canonical venue slugs: ${duplicateVenueSlugs.length}`);
+console.log(`Duplicate parking-map slugs: ${duplicateParkingMapSlugs.length}`);
+console.log(`Duplicate parking-map IDs: ${duplicateParkingMapIds.length}`);
+console.log(`Unknown/non-canonical venue map records: ${unknownVenueMapRecords.length}`);
 console.log(`Malformed parking-map records: ${malformedRecords.length}`);
 console.log(`Parking-map records with missing assets: ${missingAssets.length}`);
 
@@ -183,8 +209,25 @@ if (areaOrRouteEvents.length) {
   console.log('\nArea/route/multi-site events requiring event-specific parking treatment:');
   for (const [venueName, eventSlugs] of areaOrRouteEvents.sort(([a], [b]) => a.localeCompare(b))) console.log(`- ${venueName}: ${eventSlugs.join(', ')}`);
 }
+
+function printDuplicateGroups(label, groups) {
+  if (!groups.length) return;
+  console.error(`\n${label}:`);
+  for (const [key, items] of groups) console.error(`- ${key}: ${items.map((item) => item.file ?? item.source ?? item.name).join(', ')}`);
+}
+
+printDuplicateGroups('Duplicate canonical venue slugs', duplicateVenueSlugs);
+printDuplicateGroups('Duplicate parking-map slugs', duplicateParkingMapSlugs);
+printDuplicateGroups('Duplicate parking-map IDs', duplicateParkingMapIds);
+if (unknownVenueMapRecords.length) console.error('\nUnknown/non-canonical venue map records:', unknownVenueMapRecords);
 if (malformedRecords.length) console.error('\nMalformed records:', malformedRecords);
 if (missingAssets.length) console.error('\nMissing parking-map assets:', missingAssets);
 
-if (malformedRecords.length || missingAssets.length) process.exitCode = 1;
+const registryFailures = duplicateVenueSlugs.length
+  || duplicateParkingMapSlugs.length
+  || duplicateParkingMapIds.length
+  || unknownVenueMapRecords.length
+  || malformedRecords.length
+  || missingAssets.length;
+if (registryFailures) process.exitCode = 1;
 if (process.argv.includes('--strict') && (missingVenueMaps.length || eventsMissingMappedVenueMap.length || eventOnlyVenues.size)) process.exitCode = 1;
