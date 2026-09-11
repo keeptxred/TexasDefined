@@ -1,0 +1,39 @@
+name: Validate sports venue Phase 3 wave 5
+
+on:
+  pull_request:
+    paths:
+      - 'src/routes/sports-venue.$slug.tsx'
+      - 'src/routes/sports-venue.jones-att-stadium.tsx'
+      - 'src/data/knowledge-graph/current-entity-corrections.ts'
+      - 'src/data/sports-venue-guide-pilots.ts'
+      - 'src/data/sports-venue-guide-wave4.ts'
+      - 'src/data/sports-venue-guide-wave5.ts'
+      - 'src/data/sports-venue-images.ts'
+      - 'src/data/sports-venue-enrichment*.ts'
+      - 'src/data/sports-venue-content-remediation*.ts'
+      - 'src/data/sports-venue-events.functions.ts'
+      - 'src/components/sports/SportsVenueGuidePilotContent.tsx'
+      - 'src/components/sports/SportsVenueGuidePage.tsx'
+      - 'src/components/editorial/TexasEventCarousel.tsx'
+      - 'public/stay-nearby-hotels.json'
+      - 'scripts/data/validate-sports-venue-phase3-wave5.mjs'
+      - '.github/workflows/validate-sports-venue-phase3-wave5.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/data/validate-sports-venue-phase3-wave5.mjs
+      - run: npm run build
+      - run: npm run performance:validate
