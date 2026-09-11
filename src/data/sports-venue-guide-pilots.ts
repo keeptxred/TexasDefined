@@ -8,7 +8,7 @@ export type SportsVenueGuidePilot = {
   city: string;
   subtitle: string;
   venueType: string;
-  homeTeam: string;
+  homeTeam?: string;
   capacity?: string;
   playingSurface?: string;
   opened?: string;
@@ -59,6 +59,57 @@ const SPORTS_VENUE_GUIDE_PILOTS: Record<string, SportsVenueGuidePilot> = {
         label: "SMU Facilities venue page",
         href: "https://www.smu.edu/businessfinance/facilities/events/for-external/venues/fordstadium",
       },
+    ],
+  },
+  "globe-life-field": {
+    canonicalPath: "/sports-venue/globe-life-field",
+    city: "Arlington",
+    subtitle: "Arlington · Home of the Texas Rangers",
+    venueType: "Retractable-roof Major League Baseball ballpark",
+    homeTeam: "Texas Rangers",
+    capacity: "Approximately 40,300",
+    playingSurface: "Shaw Sports Turf B1K synthetic surface",
+    opened: "2020",
+    address: "734 Stadium Drive, Arlington, TX 76011",
+    officialUrl: "https://globelifefield.com/",
+    reviewedAt: "2026-09-10",
+    sources: [
+      { label: "Globe Life Field official site", href: "https://globelifefield.com/" },
+      { label: "Globe Life Field parking", href: "https://globelifefield.com/parking/" },
+      { label: "Globe Life Field A–Z guide", href: "https://globelifefield.com/a-to-z-guide/" },
+    ],
+  },
+  "american-airlines-center": {
+    canonicalPath: "/sports-venue/american-airlines-center",
+    city: "Dallas",
+    subtitle: "Victory Park · Home of the Dallas Mavericks and Dallas Stars",
+    venueType: "Multipurpose NBA and NHL arena",
+    homeTeam: "Dallas Mavericks · Dallas Stars",
+    capacity: "20,000 basketball / 18,532 hockey",
+    opened: "2001",
+    address: "2500 Victory Avenue, Dallas, TX 75219",
+    officialUrl: "https://www.americanairlinescenter.com/",
+    reviewedAt: "2026-09-11",
+    sources: [
+      { label: "American Airlines Center official site", href: "https://www.americanairlinescenter.com/" },
+      { label: "American Airlines Center directions", href: "https://www.americanairlinescenter.com/directions" },
+      { label: "American Airlines Center arena FAQ", href: "https://www.americanairlinescenter.com/arena-faq" },
+    ],
+  },
+  "texas-motor-speedway": {
+    canonicalPath: "/sports-venue/texas-motor-speedway",
+    city: "Fort Worth",
+    subtitle: "North Fort Worth · Major NASCAR and motorsports venue",
+    venueType: "1.5-mile motorsports speedway",
+    playingSurface: "Asphalt oval · 1.5 miles · 58-foot minimum width",
+    opened: "1997",
+    address: "3545 Lone Star Circle, Fort Worth, TX 76177",
+    officialUrl: "https://www.texasmotorspeedway.com/",
+    reviewedAt: "2026-09-11",
+    sources: [
+      { label: "Texas Motor Speedway official site", href: "https://www.texasmotorspeedway.com/" },
+      { label: "Texas Motor Speedway track facts", href: "https://www.texasmotorspeedway.com/media/track-facts/track-facts.html" },
+      { label: "Texas Motor Speedway history", href: "https://www.texasmotorspeedway.com/media/news/texas-motor-speedway-history-racing-excellence-since-1997.html" },
     ],
   },
 };

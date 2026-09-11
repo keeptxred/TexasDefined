@@ -13,7 +13,7 @@ const pilots = [
     hotels: [
       'Courtyard Fort Worth University Drive',
       'Hilton Garden Inn Fort Worth Medical Center',
-      'Homewood Suites by Hilton Fort Worth Medical Center',
+      'Homewood Suites by Hilton Fort Worth Medical Center, TX',
     ],
   },
   {
@@ -31,10 +31,33 @@ const pilots = [
     key: 'globe-life-field',
     route: '/sports-venue/globe-life-field',
     pageMarker: 'Globe Life Field',
+    guideIntegrated: true,
     hotels: [
       'Live! by Loews – Arlington, TX',
       'Loews Arlington Hotel',
       'Drury Plaza Hotel Dallas Arlington',
+    ],
+  },
+  {
+    key: 'american-airlines-center',
+    route: '/sports-venue/american-airlines-center',
+    pageMarker: 'American Airlines Center',
+    guideIntegrated: true,
+    hotels: [
+      'W Dallas',
+      'Homewood Suites by Hilton Dallas Downtown, TX',
+      'Hilton Anatole',
+    ],
+  },
+  {
+    key: 'texas-motor-speedway',
+    route: '/sports-venue/texas-motor-speedway',
+    pageMarker: 'Texas Motor Speedway',
+    guideIntegrated: true,
+    hotels: [
+      'Tru by Hilton Northlake Fort Worth',
+      'Home2 Suites by Hilton Fort Worth Northlake',
+      'Holiday Inn Express & Suites Fort Worth North - Northlake',
     ],
   },
 ];
@@ -134,20 +157,23 @@ for (const pilot of pilots) {
     }
 
     const fallback = fallbackById.get(property.id);
-    requireCondition(Boolean(fallback), `${property.name} is missing its production AI area-illustration fallback.`);
-    requireCondition(fallback?.name === property.name, `${property.name} AI fallback record does not match the canonical property name.`);
-    requireCondition(fallback?.kind === 'ai-area-illustration', `${property.name} AI fallback kind drifted.`);
-    requireCondition(fallback?.depictsProperty === false, `${property.name} AI fallback must declare depictsProperty=false.`);
-    requireCondition(fallback?.label === fallbackDisclosure, `${property.name} AI fallback disclosure drifted.`);
-    requireCondition(/^\/images\/stay-nearby\/ai\/[a-z0-9-]+\.svg$/.test(fallback?.url || ''), `${property.name} AI fallback is not a first-party SVG path.`);
-    requireCondition(String(fallback?.alt || '').startsWith('AI-generated illustration'), `${property.name} AI fallback alt text does not disclose AI generation.`);
-    requireCondition(!String(fallback?.alt || '').toLowerCase().includes(property.name.toLowerCase()), `${property.name} AI fallback alt text implies an exact property depiction.`);
+    if (fallback) {
+      requireCondition(fallback.name === property.name, `${property.name} AI fallback record does not match the canonical property name.`);
+      requireCondition(fallback.kind === 'ai-area-illustration', `${property.name} AI fallback kind drifted.`);
+      requireCondition(fallback.depictsProperty === false, `${property.name} AI fallback must declare depictsProperty=false.`);
+      requireCondition(fallback.label === fallbackDisclosure, `${property.name} AI fallback disclosure drifted.`);
+      requireCondition(/^\/images\/stay-nearby\/ai\/[a-z0-9-]+\.svg$/.test(fallback.url || ''), `${property.name} AI fallback is not a first-party SVG path.`);
+      requireCondition(String(fallback.alt || '').startsWith('AI-generated illustration'), `${property.name} AI fallback alt text does not disclose AI generation.`);
+      requireCondition(!String(fallback.alt || '').toLowerCase().includes(property.name.toLowerCase()), `${property.name} AI fallback alt text implies an exact property depiction.`);
 
-    const svg = await fetchLive(fallback.url);
-    requireCondition(svg.trimStart().startsWith('<svg'), `${property.name} AI fallback asset is not an SVG document.`);
-    requireCondition(svg.includes('AI-generated area illustration, not a depiction of the hotel property.'), `${property.name} AI fallback SVG lacks its non-property description.`);
-    requireCondition(!svg.toLowerCase().includes(property.name.toLowerCase()), `${property.name} AI fallback SVG contains the hotel name.`);
-    requireCondition(!/<script\b/i.test(svg) && !/<foreignObject\b/i.test(svg) && !/<image\b/i.test(svg) && !/\bhref\s*=/i.test(svg), `${property.name} AI fallback SVG contains disallowed markup.`);
+      const svg = await fetchLive(fallback.url);
+      requireCondition(svg.trimStart().startsWith('<svg'), `${property.name} AI fallback asset is not an SVG document.`);
+      requireCondition(svg.includes('AI-generated area illustration, not a depiction of the hotel property.'), `${property.name} AI fallback SVG lacks its non-property description.`);
+      requireCondition(!svg.toLowerCase().includes(property.name.toLowerCase()), `${property.name} AI fallback SVG contains the hotel name.`);
+      requireCondition(!/<script\b/i.test(svg) && !/<foreignObject\b/i.test(svg) && !/<image\b/i.test(svg) && !/\bhref\s*=/i.test(svg), `${property.name} AI fallback SVG contains disallowed markup.`);
+    } else {
+      requireCondition(!property.image, `${property.name} has neither the approved AI fallback nor a safe text-only fallback path.`);
+    }
   }
 }
 
@@ -189,10 +215,12 @@ for (const pilot of pilots) {
   if (pilot.guideIntegrated) {
     requireCondition(page.includes('Texas venue guide'), `${pilot.route} did not render the redesigned venue-guide marker.`);
     requireCondition(page.includes(`What’s happening at ${pilot.pageMarker}`), `${pilot.route} did not render the venue event integration heading.`);
-    requireCondition(page.includes('href="/events"'), `${pilot.route} did not expose the statewide event calendar link.`);
+    requireCondition(page.includes('View all events'), `${pilot.route} did not render the venue-scoped all-events action.`);
+    requireCondition(page.includes('View Calendar'), `${pilot.route} did not render the venue-scoped calendar action.`);
+    requireCondition(page.includes(`/events?venue=sports-venue%3A${pilot.key}`), `${pilot.route} did not expose its venue-prefiltered calendar deep link.`);
     requireCondition(page.includes('data-stay-nearby-slot'), `${pilot.route} did not render the Stay Nearby integration slot.`);
   }
 }
 
 const integratedGuidePilots = pilots.filter((pilot) => pilot.guideIntegrated).length;
-console.log(`Stay Nearby production verification passed for ${pilots.length} pilot venue pages, including ${integratedGuidePilots} integrated venue guides, 9 visibly disclosed first-party AI area-illustration fallbacks, the live hotel registry, and the deferred affiliate bootstrap.`);
+console.log(`Stay Nearby production verification passed for ${pilots.length} Phase 2 venue pages, including ${integratedGuidePilots} integrated venue guides, 9 optional visibly disclosed first-party AI area-illustration fallbacks, safe text-only fallback support for additional curated hotels, the live hotel registry, and the deferred affiliate bootstrap.`);
