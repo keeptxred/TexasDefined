@@ -2,7 +2,9 @@ import type { TexasEvent, TexasRegion } from "../types";
 
 export type TexasEventLifecycleStatus = "scheduled" | "cancelled" | "postponed";
 export type TexasEventImageRightsStatus = "verified-reusable" | "official-source-only" | "unknown";
-export type TexasEventTicketStatus = "available" | "registration" | "sold-out" | "unknown";
+export type TexasEventTicketProvider = "official" | "ticketmaster" | "seatgeek" | "vivid-seats" | "other";
+export type TexasEventTicketSaleStatus = "on-sale" | "presale" | "registration" | "not-on-sale-yet" | "sold-out" | "off-sale" | "cancelled" | "unknown";
+export type TexasEventTicketSourceKind = "official-event" | "official-venue" | "provider" | "manual-verified";
 
 export interface TexasEventTicketOffer {
   name: string;
@@ -11,10 +13,30 @@ export interface TexasEventTicketOffer {
   priceCurrency?: "USD";
 }
 
+export interface TexasEventTicketSource {
+  kind: TexasEventTicketSourceKind;
+  name: string;
+  url?: string;
+}
+
+/**
+ * Provider-neutral outbound ticket metadata. TexasDefined never stores checkout
+ * credentials here and never assumes that a provider partnership is active.
+ */
+export interface TexasEventTicketLink {
+  provider: TexasEventTicketProvider;
+  officialTicketUrl?: string;
+  affiliateUrl?: string;
+  saleStatus: TexasEventTicketSaleStatus;
+  source: TexasEventTicketSource;
+  lastVerifiedAt: string;
+  priority?: number;
+  officialExpiresAt?: string;
+  affiliateExpiresAt?: string;
+}
+
 export interface TexasEventTicketingMetadata {
-  primaryUrl?: string;
-  provider?: string;
-  status: TexasEventTicketStatus;
+  links: TexasEventTicketLink[];
   offers: TexasEventTicketOffer[];
 }
 
