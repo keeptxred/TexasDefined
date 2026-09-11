@@ -6,6 +6,7 @@ import { VENUE_PARKING_MAPS_BATCH_3 } from './parking-maps-batch3';
 import { VENUE_PARKING_MAPS_BATCH_4 } from './parking-maps-batch4';
 import { VENUE_PARKING_MAPS_BATCH_5 } from './parking-maps-batch5';
 import { VENUE_PARKING_MAPS_BATCH_6 } from './parking-maps-batch6';
+import { VENUE_PARKING_MAPS_BATCH_7 } from './parking-maps-batch7';
 
 export type {
   ParkingMapAsset,
@@ -24,6 +25,7 @@ const venueParkingMaps: Record<string, ParkingMapAsset> = {
   ...VENUE_PARKING_MAPS_BATCH_4,
   ...VENUE_PARKING_MAPS_BATCH_5,
   ...VENUE_PARKING_MAPS_BATCH_6,
+  ...VENUE_PARKING_MAPS_BATCH_7,
 };
 
 const eventParkingMaps: Record<string, ParkingMapAsset> = {};
