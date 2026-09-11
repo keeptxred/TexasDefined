@@ -2,9 +2,9 @@ import fs from 'node:fs';
 
 const read = (path) => fs.readFileSync(path, 'utf8');
 const guides = read('src/data/sports-venue-guide-pilots.ts');
+const dynamicRoute = read('src/routes/sports-venue.$slug.tsx');
 const guideContent = read('src/components/sports/SportsVenueGuidePilotContent.tsx');
 const guidePage = read('src/components/sports/SportsVenueGuidePage.tsx');
-const routeHelper = read('src/data/sports-venue-guide-route.ts');
 const images = read('src/data/sports-venue-images.ts');
 const remediation = read('src/data/sports-venue-content-remediation-wave5.ts');
 const eventFn = read('src/data/sports-venue-events.functions.ts');
@@ -25,22 +25,18 @@ const venues = [
 ];
 
 for (const [slug, name] of venues) {
-  const routePath = `src/routes/sports-venue.${slug}.tsx`;
-  if (!fs.existsSync(routePath)) {
-    failures.push(`${name}: missing static rollout route ${routePath}`);
-    continue;
-  }
-  const route = read(routePath);
-  requireText(route, `createFileRoute('/sports-venue/${slug}')`, `${name} route`);
-  requireText(route, 'loadSportsVenueGuideRoute(slug)', `${name} canonical guide loader`);
-  requireText(route, 'SportsVenueGuidePilotContent', `${name} shared guide shell`);
-  requireText(route, 'eventCalendarHref={eventCalendarHref}', `${name} calendar wiring`);
-
+  requireText(dynamicRoute, `'${slug}'`, `${name} dynamic guide rollout allowlist`);
   requireText(guides, `"${slug}": {`, `${name} verified guide facts`);
   requireText(guides, `canonicalPath: "/sports-venue/${slug}"`, `${name} canonical path`);
-  requireText(guides, 'reviewedAt: "2026-09-10"', `${name} review metadata`);
   requireText(images, `'${slug}': {`, `${name} licensed venue image`);
   requireText(remediation, `'${slug}': {`, `${name} venue-specific editorial remediation`);
+
+  const guideStart = guides.indexOf(`"${slug}": {`);
+  const nextGuide = guides.indexOf('\n  "', guideStart + 1);
+  const guideBlock = guides.slice(guideStart, nextGuide === -1 ? undefined : nextGuide);
+  requireText(guideBlock, 'reviewedAt:', `${name} review metadata`);
+  requireText(guideBlock, 'officialUrl:', `${name} official venue URL`);
+  requireText(guideBlock, 'sources: [', `${name} source list`);
 
   const hotelContexts = registry.properties.flatMap((property) =>
     (property.contexts || [])
@@ -60,13 +56,18 @@ for (const [slug, name] of venues) {
 }
 
 for (const marker of [
+  "createFileRoute('/sports-venue/$slug')",
+  'isSportsVenueGuidePilot(params.slug)',
   'getSportsVenueUpcomingEvents',
-  'guideEvents.events',
-  'guideEvents.calendarHref',
+  'guideEvents?.events ?? []',
+  "guideEvents?.calendarHref ?? '/events'",
+  'isSportsVenueGuidePilot(slug)',
+  'SportsVenueGuidePilotContent',
+  'eventCalendarHref={eventCalendarHref}',
   'countyVisitorPlaces',
   'isIndexableEntityPage',
   'canonicalLink(texasDefinedBrand, canonicalPath)',
-]) requireText(routeHelper, marker, 'Phase 3 shared route helper');
+]) requireText(dynamicRoute, marker, 'governed dynamic sports venue route');
 
 for (const marker of [
   'getSportsVenuePhoto(slug)',
@@ -96,10 +97,16 @@ for (const filler of ['homeTeam: "N/A"', 'homeTeam: "None"', 'Make the venue par
   if (guides.includes(filler)) failures.push(`Guide registry contains prohibited filler: ${filler}`);
 }
 
+for (const [slug, name] of venues) {
+  const staticPath = `src/routes/sports-venue.${slug}.tsx`;
+  if (fs.existsSync(staticPath)) failures.push(`${name}: redundant static route must not bypass the governed /sports-venue/$slug route.`);
+}
+if (fs.existsSync('src/data/sports-venue-guide-route.ts')) failures.push('Superseded sports-venue-guide-route.ts helper must remain removed.');
+
 if (failures.length) {
   console.error('Sports venue Phase 3 wave-one validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log(`Sports venue Phase 3 wave-one validation passed for ${venues.length} migrations: verified facts/editorial, licensed venue imagery, canonical upcoming events and calendar filters, provider-neutral ticket fallbacks, safe optional Stay Nearby behavior, sources/review metadata and shared guide rendering are wired without generic filler.`);
+console.log(`Sports venue Phase 3 wave-one validation passed for ${venues.length} migrations: the governed dynamic venue route selects the approved guide renderer, with verified facts/editorial, licensed venue imagery, canonical upcoming events and calendar filters, provider-neutral ticket fallbacks, safe optional Stay Nearby behavior and source/review metadata without generic filler.`);
