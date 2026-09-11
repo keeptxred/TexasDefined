@@ -57,7 +57,7 @@ for (const marker of [
   'reconcileDestinationHeroes(',
   'applyAllCuratedDestinations(',
   'improveDestinationCatalog(',
-  'const destinations = resolveDestinationCatalog(rawDestinations)',
+  'const destinations = await resolveDestinationCatalog(rawDestinations)',
   '.filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing)',
   'entry(`/destination/${item.slug}`',
 ]) {
@@ -69,6 +69,13 @@ if (!sitemap.includes(preservedCatalogDynamicImport)) {
 }
 if (sitemap.includes('import { preservedExploreDestinations } from "@/data/destination-preserved-catalog"')) {
   failures.push('Explore sitemap must not eagerly import the heavy preserved destination catalog into the route module.');
+}
+const curationDynamicImport = 'const { applyAllCuratedDestinations } = await import("@/data/destination-curation-all")';
+if (!sitemap.includes(curationDynamicImport)) {
+  failures.push('Explore sitemap must lazy-load the full destination curation stack before resolving sitemap destinations.');
+}
+if (sitemap.includes('import { applyAllCuratedDestinations } from "@/data/destination-curation-all"')) {
+  failures.push('Explore sitemap must not eagerly import the heavy destination curation stack into the route module.');
 }
 for (const obsolete of [
   'preservedDestinationFallback()',
