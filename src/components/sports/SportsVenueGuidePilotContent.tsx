@@ -1,6 +1,6 @@
 import { StandaloneParkingMapPanel } from "@/components/parking/ParkingMapPanel";
+import { useVenueParkingMap } from "@/components/parking/useVenueParkingMap";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
-import { getParkingMapForVenueSlug } from "@/data/parking-maps";
 import { getSportsVenueEnrichmentAll } from "@/data/sports-venue-enrichment-all";
 import { getSportsVenueGuidePilot } from "@/data/sports-venue-guide-pilots";
 import { getSportsVenuePhoto } from "@/data/sports-venue-images";
@@ -17,6 +17,7 @@ export default function SportsVenueGuidePilotContent({
   nearbyAttractions: readonly TexasEntityRecord[];
 }) {
   const guide = getSportsVenueGuidePilot(slug);
+  const parkingMap = useVenueParkingMap(slug);
   if (!guide) return null;
 
   const rawEnrichment = getSportsVenueEnrichmentAll(slug);
@@ -32,7 +33,6 @@ export default function SportsVenueGuidePilotContent({
     guide.officialUrl && entity.officialUrl !== guide.officialUrl
       ? { ...entity, officialUrl: guide.officialUrl }
       : entity;
-  const parkingMap = getParkingMapForVenueSlug(slug);
 
   return (
     <>
