@@ -12,7 +12,7 @@ function MajorEventGuidePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: page.jsonLd }} />
       <main className="mx-auto max-w-4xl px-5 pb-20 pt-12 sm:px-8">
         <article dangerouslySetInnerHTML={{ __html: page.html }} />
-        <ParkingMapPanel map={parkingMap} contextName={page.venue ?? page.title} />
+        <ParkingMapPanel map={parkingMap} contextName={page.name ?? page.title} />
       </main>
     </>
   );
