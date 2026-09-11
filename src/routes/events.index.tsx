@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { getEventsPageHead, getMajorEventLandingDirectory } from "@/data/major-event-directory";
+import { getEventsPageHead } from "@/data/major-event-directory";
 import { eventsQuery, regionsQuery } from "@/data/queries";
 
 export const EVENTS_ROUTE_SEO = {
@@ -33,7 +33,9 @@ export const Route = createFileRoute("/events/")({
     const [events, regions, landingDirectory] = await Promise.all([
       context.queryClient.ensureQueryData(eventsQuery({})),
       context.queryClient.ensureQueryData(regionsQuery()),
-      getMajorEventLandingDirectory({ data: deps.search }),
+      import("@/data/major-event-calendar").then(({ getMajorEventLandingDirectory }) =>
+        getMajorEventLandingDirectory({ data: deps.search }),
+      ),
     ]);
     const serverPresentation = await getEventsPageHead({
       data: {
