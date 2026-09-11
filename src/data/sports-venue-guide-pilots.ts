@@ -47,12 +47,17 @@ const SPORTS_VENUE_GUIDE_PILOTS: Record<string, SportsVenueGuidePilot> = {
     capacity: "33,200",
     playingSurface: "Natural grass",
     opened: "2000",
+    address: "5801 Bush Avenue, Dallas, TX",
     officialUrl: "https://smumustangs.com/facilities/gerald-j-ford-stadium/2",
-    reviewedAt: "2026-09-10",
+    reviewedAt: "2026-09-11",
     sources: [
       {
         label: "SMU Athletics facility facts",
         href: "https://smumustangs.com/facilities/gerald-j-ford-stadium/2",
+      },
+      {
+        label: "SMU Facilities venue page",
+        href: "https://www.smu.edu/businessfinance/facilities/events/for-external/venues/fordstadium",
       },
     ],
   },

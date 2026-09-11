@@ -38,7 +38,7 @@ for (const token of ["createServerFn", "getMajorEventLandingDirectory", "loadUpc
 if (eventDirectoryFacade.includes("loadUpcomingTexasEventRecordsServer") || eventDirectoryFacade.includes("buildGlobalEventCalendarServer")) failures.push("eager event directory facade must not own global calendar normalization");
 
 for (const accessibility of ['aria-roledescription="carousel"', 'aria-label="Previous events"', 'aria-label="Next events"', 'event.key === "ArrowLeft"', 'event.key === "ArrowRight"', 'event.key === "Home"', 'event.key === "End"', 'className="ec-v"', 'className="ec-card"']) requireText(carousel, accessibility, "event carousel");
-for (const token of ["event.image?.displayAllowed", "event.image.sourceUrl", "event.image.licenseUrl", "event.categoryLabel", "event.dateLabel", "event.locationLabel", "event.lastVerifiedLabel", "Official event site", "Last verified", "View all events", 'import "./texas-event-carousel.css";', "export type TexasEventCarouselItem"]) requireText(carousel, token, "event carousel");
+for (const token of ["event.image?.displayAllowed", "event.image.sourceUrl", "event.image.licenseUrl", "event.categoryLabel", "event.dateLabel", "event.locationLabel", "event.lastVerifiedLabel", "Official event site", "Last verified", "View all events", "View Calendar", 'viewAllHref.includes("#calendar")', 'viewAllHref.replace(/#calendar$/, "")', 'import "./texas-event-carousel.css";', "export type TexasEventCarouselItem"]) requireText(carousel, token, "event carousel");
 for (const token of [".ec-v {", "overflow-x: auto", "scroll-snap-type: x mandatory", ".ec-card { min-width: 84%", "min-width: calc(33.333% - .7rem)", ".ec-b:hover", "@media (min-width: 640px)", "@media (min-width: 1024px)"]) requireText(carouselStyles, token, "shared route-split carousel styles");
 for (const token of [".ev-cal {", ".ev-days {"]) requireText(eventStyles, token, "route-scoped event calendar styles");
 requireText(lazyRoute, 'import "@/components/events/events-landing.css";', "lazy event stylesheet boundary");
@@ -63,4 +63,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("PASS: one source-qualified Texas event contract powers statewide and venue-scoped calendars/carousels with rights-safe imagery, freshness disclosure, accessible controls, a server-bounded venue payload, the existing Stay Nearby slot, a lazy-mount refresh guard, and route-split styling that protects the main client bundle.");
+console.log("PASS: one source-qualified Texas event contract powers statewide and venue-scoped calendars/carousels with rights-safe imagery, freshness disclosure, accessible controls, distinct venue event/calendar actions, a server-bounded venue payload, the existing Stay Nearby slot, a lazy-mount refresh guard, and route-split styling that protects the main client bundle.");
