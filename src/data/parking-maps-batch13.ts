@@ -14,4 +14,17 @@ export const VENUE_PARKING_MAPS_BATCH_13: Record<string, ParkingMapAsset> = {
     ],
     accuracyNotes: ['Reliant Stadium, Reliant Center, Reliant Arena and the Astrodome placement was compared directly with the current official one-page site map.', 'Red, Yellow, Purple, Teal, Green, Blue, Orange, Maroon and Tan/Dock 1 parking zones were all checked against the official map.', 'Kirby Drive, Fannin Street, Main/McNee, Westridge and South Loop 610 orientation was checked against the current map and directions page.', 'ADA sections in Orange, Maroon, Red and Blue are documented by the venue, but the schematic avoids event-specific stall assignments because those can change.'],
   },
+  'memorial-park-golf-course': {
+    id: 'parking-map:memorial-park-golf-course:2026-09', venueSlug: 'memorial-park-golf-course', venueName: 'Memorial Park Golf Course', imageUrl: '/images/parking-maps/memorial-park-golf-course.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Memorial Park Golf Course showing the Golf Clubhouse, Golf Education Center and current park parking areas',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['Memorial Park Conservancy publishes a January 2026 park map and an interactive map, but no reusable commercial publication license was documented for the official map artwork reviewed.', 'Open-license source checks did not surface a current reusable parking map showing the 2026 Memorial Park configuration and golf-course parking detail.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [
+      { label: 'Memorial Park Conservancy — January 2026 park map', url: 'https://www.memorialparkconservancy.org/wp-content/uploads/2026/01/MPC-11x17-Map-Jan-2026.pdf', checkedAt: '2026-09-11', role: 'accuracy' },
+      { label: 'Memorial Park Conservancy — current parking guidance', url: 'https://www.memorialparkconservancy.org/visit/maps-parking/parking/', checkedAt: '2026-09-11', role: 'accuracy' },
+      { label: 'Memorial Park Golf Course — current parking information', url: 'https://www.memorialparkgolf.com/memorial-park-golf-course', checkedAt: '2026-09-11', role: 'accuracy' },
+    ],
+    accuracyNotes: ['Golf Course, Golf Clubhouse and Golf Education Center placement was checked against the January 2026 park map.', 'Current Conservancy and municipal-golf guidance both identify the Golf Course parking lot as paid parking.', 'Memorial Loop Drive, East Memorial Loop Drive and Memorial Drive orientation was compared against the current 2026 map.', 'The schematic keeps adjacent park parking generalized because park closures, construction and event operations can temporarily change availability.'],
+  },
 };
