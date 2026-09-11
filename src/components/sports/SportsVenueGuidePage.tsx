@@ -47,7 +47,7 @@ export function SportsVenueGuidePage({
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "StadiumOrArena",
+        "@type": guide.schemaType ?? "StadiumOrArena",
         "@id": `${canonicalUrl}#venue`,
         name: entity.name,
         alternateName: entity.aliases.length ? entity.aliases : undefined,
@@ -137,6 +137,14 @@ export function SportsVenueGuidePage({
             <EditorialSection eyebrow="Venue story" title={`The story of ${entity.name}`}>
               <p className="max-w-3xl text-base leading-8 text-muted-foreground sm:text-lg">
                 {enrichment.history}
+              </p>
+            </EditorialSection>
+          ) : null}
+
+          {enrichment?.nearby ? (
+            <EditorialSection eyebrow="Nearby discovery" title={`What’s genuinely useful around ${entity.name}`}>
+              <p className="max-w-3xl text-base leading-8 text-muted-foreground sm:text-lg">
+                {enrichment.nearby}
               </p>
             </EditorialSection>
           ) : null}
@@ -239,7 +247,7 @@ function QuickFacts({
       <dl className="mt-5 text-sm">
         <Fact label="Capacity" value={guide.capacity} />
         <Fact label="Venue type" value={guide.venueType} />
-        <Fact label="Home team" value={guide.homeTeam} />
+        <Fact label={guide.homeTeamLabel ?? "Home team"} value={guide.homeTeam} />
         <Fact label="Playing surface" value={guide.playingSurface} />
         <Fact label="Opened" value={guide.opened} />
         <Fact label="Address" value={guide.address} />
