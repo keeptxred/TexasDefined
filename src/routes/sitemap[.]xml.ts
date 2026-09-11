@@ -13,15 +13,8 @@ import { loadFishingLocalSitemapEntriesServer } from "@/data/fishing/local-sitem
 import { loadFishingReportSitemapEntriesServer } from "@/data/fishing/report-sitemap.server";
 import { FISHING_SITEMAP_ENTRIES } from "@/data/fishing/sitemap";
 import { HUNTING_SITEMAP_ENTRIES } from "@/data/hunting/sitemap";
-import { LOCAL_COST_OF_LIVING_PROFILES } from "@/data/local-cost-of-living";
-import { LOCAL_HOME_AFFORDABILITY_PROFILES } from "@/data/local-home-affordability";
-import { LOCAL_HOME_INSURANCE_PROFILES } from "@/data/local-home-insurance";
-import { LOCAL_HOMEOWNERSHIP_COST_PROFILES } from "@/data/local-homeownership-cost";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
-import { LOCAL_MORTGAGE_PROFILES } from "@/data/local-mortgage";
-import { LOCAL_PROPERTY_TAX_PROFILES } from "@/data/local-property-tax-calculators";
-import { LOCAL_SALARY_NEEDED_PROFILES } from "@/data/local-salary-needed";
 import { majorEventIndexRecords } from "@/data/major-event-index";
 import { loadSupplementalMajorEventSitemapEntriesServer } from "@/data/major-event-supplemental-registry.server";
 import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
@@ -156,6 +149,23 @@ export const Route = createFileRoute("/sitemap.xml")({
         const supplementalMajorEventSitemapEntries = loadSupplementalMajorEventSitemapEntriesServer();
         const evergreenEventSitemapEntries = loadEvergreenEventSitemapEntriesServer();
         const temporalEventSitemapEntries = loadTemporalEventSitemapEntriesServer();
+        const [
+          { LOCAL_PROPERTY_TAX_PROFILES },
+          { LOCAL_HOME_AFFORDABILITY_PROFILES },
+          { LOCAL_HOMEOWNERSHIP_COST_PROFILES },
+          { LOCAL_HOME_INSURANCE_PROFILES },
+          { LOCAL_MORTGAGE_PROFILES },
+          { LOCAL_COST_OF_LIVING_PROFILES },
+          { LOCAL_SALARY_NEEDED_PROFILES },
+        ] = await Promise.all([
+          import("@/data/local-property-tax-calculators"),
+          import("@/data/local-home-affordability"),
+          import("@/data/local-homeownership-cost"),
+          import("@/data/local-home-insurance"),
+          import("@/data/local-mortgage"),
+          import("@/data/local-cost-of-living"),
+          import("@/data/local-salary-needed"),
+        ]);
 
         const entries: SitemapEntry[] = [
           ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).filter((path) => !isEvergreenEventCollectionPath(path)).filter((path) => isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
