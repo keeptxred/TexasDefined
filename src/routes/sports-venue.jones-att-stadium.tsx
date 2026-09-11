@@ -5,7 +5,6 @@ import { Container } from '@/components/layout/Container';
 import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
 import { SportsVenueQuickAnswers } from '@/components/sports/SportsVenueQuickAnswers';
 import { getActiveSportsSponsorPlacement } from '@/data/sports-sponsorship.functions';
-import { getSportsVenueEnrichmentAll, sportsVenueMapUrl } from '@/data/sports-venue-enrichment-all';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const canonicalPath = '/sports-venue/jones-att-stadium';
@@ -13,9 +12,17 @@ const venueName = 'Galaxy Stadium';
 const description = 'Galaxy Stadium in Lubbock is the home of Texas Tech Red Raiders football and one of West Texas’s major college-sports destinations. The stadium adopted the Galaxy name beginning with the 2026 football season while retaining the history and game-day traditions generations of Red Raider fans know from Jones AT&T Stadium.';
 
 export const Route = createFileRoute('/sports-venue/jones-att-stadium')({
-  loader: async () => ({
-    sponsorPlacement: await getActiveSportsSponsorPlacement({ data: { surfacePath: canonicalPath } }),
-  }),
+  loader: async () => {
+    const [{ getSportsVenueEnrichmentAll, sportsVenueMapUrl }, sponsorPlacement] = await Promise.all([
+      import('@/data/sports-venue-enrichment-all'),
+      getActiveSportsSponsorPlacement({ data: { surfacePath: canonicalPath } }),
+    ]);
+    return {
+      sponsorPlacement,
+      enrichment: getSportsVenueEnrichmentAll('jones-att-stadium'),
+      mapUrl: sportsVenueMapUrl(venueName, 'lubbock'),
+    };
+  },
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
@@ -28,9 +35,7 @@ export const Route = createFileRoute('/sports-venue/jones-att-stadium')({
 });
 
 function GalaxyStadiumPage() {
-  const { sponsorPlacement } = Route.useLoaderData();
-  const enrichment = getSportsVenueEnrichmentAll('jones-att-stadium');
-  const mapUrl = sportsVenueMapUrl(venueName, 'lubbock');
+  const { sponsorPlacement, enrichment, mapUrl } = Route.useLoaderData();
   const canonicalUrl = `https://texasdefined.com${canonicalPath}`;
   const heroUrl = 'https://texasdefined.com/api/sports-venue-hero?slug=jones-att-stadium';
   const jsonLd = {
