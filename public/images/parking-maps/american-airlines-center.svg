@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">American Airlines Center parking orientation diagram</title>
+  <desc id="desc">TexasDefined schematic of American Airlines Center and principal arena-managed parking lots and garages. Not to scale.</desc>
+  <rect width="1200" height="800" fill="#f7f4ed"/>
+  <g fill="none" stroke="#34312d" stroke-width="13" stroke-linecap="round">
+    <path d="M245 70 V730"/><path d="M470 80 V730"/><path d="M725 80 V730"/><path d="M95 560 H1080"/><path d="M95 655 H1080"/><path d="M360 190 H980"/>
+  </g>
+  <g font-family="Arial,sans-serif" fill="#34312d" font-size="21" font-weight="700">
+    <text x="205" y="410" transform="rotate(-90 205 410)">I-35E</text><text x="440" y="430" transform="rotate(-90 440 430)">VICTORY AVENUE</text><text x="755" y="430" transform="rotate(-90 755 430)">N HOUSTON STREET</text>
+    <text x="505" y="175">ALL STAR WAY</text><text x="485" y="545">NOWITZKI WAY</text><text x="500" y="640">MUSEUM WAY / HIGH MARKET STREET</text>
+  </g>
+  <g fill="#d8d2c4" stroke="#34312d" stroke-width="5"><ellipse cx="610" cy="390" rx="145" ry="115"/></g>
+  <g font-family="Arial,sans-serif" text-anchor="middle" fill="#24211e"><text x="610" y="375" font-size="30" font-weight="700">AMERICAN AIRLINES</text><text x="610" y="412" font-size="30" font-weight="700">CENTER</text><text x="610" y="447" font-size="19" font-weight="700">NOT TO SCALE</text></g>
+  <g stroke="#725b3b" stroke-width="4" fill="#e8dcc6">
+    <rect x="290" y="110" width="150" height="120" rx="12"/><rect x="480" y="110" width="105" height="100" rx="12"/><rect x="620" y="110" width="105" height="100" rx="12"/><rect x="765" y="110" width="135" height="110" rx="12"/>
+    <rect x="300" y="275" width="120" height="120" rx="12"/><rect x="790" y="275" width="115" height="120" rx="12"/><rect x="300" y="420" width="120" height="115" rx="12"/><rect x="790" y="430" width="115" height="100" rx="12"/>
+    <rect x="485" y="585" width="120" height="55" rx="12"/><rect x="630" y="585" width="120" height="55" rx="12"/>
+  </g>
+  <g font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#34312d" text-anchor="middle">
+    <text x="365" y="155">INSPIRATION</text><text x="365" y="178">BUS LOT</text><text x="532" y="150">LOT E</text><text x="532" y="176">BLUE</text><text x="672" y="150">LOT F</text><text x="672" y="176">ADA</text><text x="832" y="150">LEXUS GARAGE</text>
+    <text x="360" y="330">COMMONS</text><text x="360" y="353">GARAGE</text><text x="847" y="330">LOT A / G</text><text x="847" y="353">ORANGE / GOLD</text><text x="360" y="472">COMERICA</text><text x="360" y="495">GARAGE</text><text x="847" y="475">LOT D / K</text><text x="847" y="498">PURPLE / GREEN</text><text x="545" y="618">LOT M</text><text x="690" y="618">PUBLIC LOTS</text>
+  </g>
+  <text x="70" y="780" font-family="Arial,sans-serif" font-size="16" fill="#5b544b">TexasDefined original orientation diagram · verified 2026-09-11 against American Airlines Center official parking map and lot addresses · event availability can change</text>
+  <g transform="translate(1070 120)" font-family="Arial,sans-serif" text-anchor="middle" fill="#34312d"><path d="M0 52V0L-13 21M0 0L13 21" fill="none" stroke="#34312d" stroke-width="6"/><text y="78" font-size="20" font-weight="700">N</text></g>
+</svg>
