@@ -5,7 +5,7 @@ on:
     paths:
       - 'src/data/parking-map-model.ts'
       - 'src/data/parking-maps.ts'
-      - 'src/data/parking-maps.server.ts'
+      - 'src/data/parking-maps.functions.ts'
       - 'src/components/parking/**'
       - 'src/components/sports/**'
       - 'src/routes/event.$slug*'
