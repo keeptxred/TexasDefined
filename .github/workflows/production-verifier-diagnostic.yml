@@ -1,0 +1,52 @@
+name: Production verifier diagnostic
+
+on:
+  push:
+    branches:
+      - diag/venue-phase2-production-20260911
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    if: ${{ github.event.head_commit.message != 'Capture production verifier diagnostics' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: diag/venue-phase2-production-20260911
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Run production verifiers independently
+        shell: bash
+        run: |
+          set +e
+          : > .production-verifier-diagnostics.txt
+          run_check() {
+            label="$1"
+            command="$2"
+            echo "### ${label}" >> .production-verifier-diagnostics.txt
+            echo "command=${command}" >> .production-verifier-diagnostics.txt
+            bash -lc "$command" >> .production-verifier-diagnostics.txt 2>&1
+            status=$?
+            echo "exit=${status}" >> .production-verifier-diagnostics.txt
+            echo >> .production-verifier-diagnostics.txt
+          }
+          run_check "Direct Worker discovery" "DIRECT_WORKER_ORIGIN=https://texasdefined-site.freddy-coppola.workers.dev node scripts/ci/verify-direct-worker-discovery.mjs"
+          run_check "Base production surfaces" "node scripts/ci/verify-production-surfaces.mjs"
+          run_check "Event structured data" "node scripts/ci/verify-event-structured-data-production.mjs"
+          run_check "Local financial production" "node scripts/ci/verify-local-financial-production.mjs"
+          run_check "Statewide financial discovery" "node scripts/ci/verify-statewide-financial-discovery.mjs"
+      - name: Commit diagnostics
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .production-verifier-diagnostics.txt
+          git commit -m "Capture production verifier diagnostics"
+          git push origin HEAD:diag/venue-phase2-production-20260911
