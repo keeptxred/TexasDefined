@@ -4,7 +4,6 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
 import { auditDestination } from "@/data/destination-audit";
 import { applyAllCuratedDestinations } from "@/data/destination-curation-all";
-import { preservedExploreDestinations } from "@/data/destination-preserved-catalog";
 import { improveDestinationCatalog } from "@/data/destination-quality";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
@@ -144,6 +143,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
       GET: async () => {
         const { landscapeGuideSlugs, landscapeSlugs } = await import("@/data/texas-landscape-slugs");
         const { cityPassDestinationExpansion } = await import("@/data/citypass-destination-expansion");
+        const { preservedExploreDestinations } = await import("@/data/destination-preserved-catalog");
         const { paintedChurchSearchGuides } = await import("@/data/painted-church-search-guides");
         const { loadRvParkDestinationsServer } = await import("@/data/rv-parks/registry.server");
         const { selectSwimmingHoleAndTubingDestinations } = await import("@/data/water-recreation");
