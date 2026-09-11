@@ -1,8 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { getEventsPageHead } from "@/data/major-event-directory";
-import { eventsQuery, regionsQuery } from "@/data/queries";
-
 export const EVENTS_ROUTE_SEO = {
   title: "Texas Events",
   description: "Rodeos, wildflower weekends, barbecue throwdowns, dance halls and county fairs — a curated calendar of what’s worth showing up for across Texas.",
@@ -24,12 +21,18 @@ const validateEventSearch = (search: Record<string, unknown>) => ({
   category: cleanSearchValue(search.category, 32),
   venue: cleanSearchValue(search.venue),
 });
-function hasEventSearch(search: ReturnType<typeof validateEventSearch>) { return Object.values(search).some(Boolean); }
+function hasEventSearch(search: ReturnType<typeof validateEventSearch>) {
+  return Object.values(search).some(Boolean);
+}
 
 export const Route = createFileRoute("/events/")({
   validateSearch: validateEventSearch,
   loaderDeps: ({ search }) => ({ search, filtered: hasEventSearch(search) }),
   loader: async ({ context, deps }) => {
+    const [{ eventsQuery, regionsQuery }, { getEventsPageHead }] = await Promise.all([
+      import("@/data/queries"),
+      import("@/data/major-event-directory"),
+    ]);
     const [events, regions, landingDirectory] = await Promise.all([
       context.queryClient.ensureQueryData(eventsQuery({})),
       context.queryClient.ensureQueryData(regionsQuery()),
