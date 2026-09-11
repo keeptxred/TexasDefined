@@ -2,18 +2,18 @@ import { createServerFn } from "@tanstack/react-start";
 
 import { isRecurrenceDerivedMajorEventSlug } from "./major-event-date-confidence";
 
-// These authority guides expose useful organizer-backed recurrence rules for trip
-// planning, but the displayed future occurrence has not been published as a
-// dedicated year-specific schedule. Keep the evergreen guide indexable while
-// withholding scheduled Event rich-result markup until first-party confirmation.
+// Keep useful event guides indexable while withholding scheduled Event rich-result
+// markup when a future date is recurrence-derived or the last verified occurrence
+// has already ended. A newly verified occurrence restores scheduled Event markup.
 function applyEventSchemaConfidencePolicy<T extends {
   slug: string;
   name: string;
   title: string;
   description: string;
   jsonLd: string;
+  occurrenceHasEnded: boolean;
 }>(page: T): T {
-  if (!isRecurrenceDerivedMajorEventSlug(page.slug)) return page;
+  if (!isRecurrenceDerivedMajorEventSlug(page.slug) && !page.occurrenceHasEnded) return page;
 
   const canonicalUrl = `https://texasdefined.com/event/${page.slug}`;
   return {

@@ -51,6 +51,17 @@ import {
 const siteUrl = "https://texasdefined.com";
 const esc = (value: string | undefined) => (value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
 
+function currentTexasDateIso() {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Chicago",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date());
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  return `${values.year}-${values.month}-${values.day}`;
+}
+
 export interface MajorEventOccurrenceWindow {
   label?: string;
   startDate: string;
@@ -163,6 +174,11 @@ export function loadMajorEventPageServer(slug: string) {
   const event = getMajorEventRecordServer(slug);
   if (!event) return null;
   const occurrenceWindows = getMajorEventOccurrenceWindowsServer(event);
+  const latestOccurrenceDate = occurrenceWindows.reduce((latest, window) => {
+    const candidate = window.endDate ?? window.startDate;
+    return candidate > latest ? candidate : latest;
+  }, event.endDate ?? event.startDate);
+  const occurrenceHasEnded = latestOccurrenceDate < currentTexasDateIso();
   const dateLabel = formatMajorEventDateLabelServer(event);
   const eventYear = new Date(occurrenceWindows[0]?.startDate ?? event.startDate).getUTCFullYear();
   const canonicalUrl = `${siteUrl}/event/${event.slug}`;
@@ -174,11 +190,11 @@ export function loadMajorEventPageServer(slug: string) {
     : event.relatedLinks;
   const related = relatedItems.map((item) => `<li><a class="font-semibold text-primary underline" href="${esc(item.href)}">${esc(item.label)}</a><span class="text-muted-foreground"> — ${esc(item.description)}</span></li>`).join("");
   const schemaEnrichment = getMajorEventSchemaEnrichmentServer(event.slug);
-  const displayOffers = [
+  const displayOffers = occurrenceHasEnded ? [] : [
     ...(schemaEnrichment?.offers ?? []),
     ...Object.values(schemaEnrichment?.occurrences ?? {}).flatMap((item) => item.offers ?? []),
   ].filter((offer, index, offers) => offers.findIndex((candidate) => `${candidate.name}|${candidate.url}|${candidate.price}` === `${offer.name}|${offer.url}|${offer.price}`) === index);
-  const displayPerformers = [
+  const displayPerformers = occurrenceHasEnded ? [] : [
     ...(schemaEnrichment?.performers ?? []),
     ...Object.values(schemaEnrichment?.occurrences ?? {}).flatMap((item) => item.performers ?? []),
   ].filter((item, index, performers) => performers.findIndex((candidate) => `${candidate.type}|${candidate.name}|${candidate.url ?? ""}` === `${item.type}|${item.name}|${item.url ?? ""}`) === index);
@@ -260,6 +276,7 @@ export function loadMajorEventPageServer(slug: string) {
     slug: event.slug,
     name: event.name,
     city: event.city,
+    occurrenceHasEnded,
     title: `${event.name} ${eventYear}: Dates & Texas Travel Guide`,
     description: `${event.name} ${eventYear} in ${event.city}, Texas: dates, official sources and practical trip planning.`,
     html,

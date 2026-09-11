@@ -274,16 +274,17 @@ async function verifyFreeOfferLeaf() {
   const html = await fetchProduction(path, 'bandera-round-up-cattle-drive');
   assert(canonicalHref(html) === `${origin}${path}`, `Bandera Round-Up canonical must be ${origin}${path}`);
   assert(html.includes('Organizer:'), 'Bandera Round-Up visible page must expose the verified organizer');
-  assert(html.includes('Verified admission options'), 'Bandera Round-Up visible page must expose verified free admission');
+  assert(!html.includes('Verified admission options'), 'Expired Bandera Round-Up occurrence must not keep advertising its prior occurrence admission');
+  assert(!html.includes('Announced performers'), 'Expired Bandera Round-Up occurrence must not keep advertising a prior occurrence lineup');
 
-  const event = eventNodes(html)[0];
-  assert(event, 'Bandera Round-Up leaf must expose Event schema');
-  assert(hasType(event.organizer, 'Organization'), 'Bandera Round-Up must expose its verified organizer');
-  const offers = asArray(event.offers);
-  assert(offers.length >= 1, 'Bandera Round-Up must expose a verified free Offer');
-  assert(offers.some((offer) => Number(offer?.price) === 0), 'Bandera Round-Up must include a zero-price Offer');
-  verifyOfferShape(offers.find((offer) => Number(offer?.price) === 0), 'Bandera Round-Up free admission', true);
-  console.log('[bandera-round-up-cattle-drive] organizer and free Offer verified');
+  const blocks = extractJsonLd(html);
+  assert(blocks.length > 0, 'Expired Bandera Round-Up guide must expose JSON-LD');
+  const nodes = blocks.flatMap((block) => collectTypedNodes(block));
+  assert(nodes.some((node) => hasType(node, 'WebPage')), 'Expired Bandera Round-Up guide must expose WebPage schema');
+  assert(nodes.some((node) => hasType(node, 'Thing')), 'Expired Bandera Round-Up guide must describe the event as a Thing');
+  assert(!nodes.some((node) => hasType(node, 'Event')), 'Expired Bandera Round-Up occurrence must not expose scheduled Event markup');
+  assert(nodes.every((node) => !Object.hasOwn(node, 'startDate') && !Object.hasOwn(node, 'endDate')), 'Expired Bandera Round-Up JSON-LD must not publish stale occurrence dates');
+  console.log('[bandera-round-up-cattle-drive] expired-occurrence evergreen schema policy verified');
 }
 
 async function verifyPaidOfferAndPerformersLeaf() {
