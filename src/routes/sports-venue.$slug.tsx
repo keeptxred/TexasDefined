@@ -16,7 +16,13 @@ import { getActiveSportsSponsorPlacement } from '@/data/sports-sponsorship.funct
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const siteUrl = 'https://texasdefined.com';
-const sportsVenueGuidePilotSlugs = new Set(['amon-g-carter-stadium', 'gerald-j-ford-stadium']);
+const sportsVenueGuidePilotSlugs = new Set([
+  'amon-g-carter-stadium',
+  'gerald-j-ford-stadium',
+  'globe-life-field',
+  'american-airlines-center',
+  'texas-motor-speedway',
+]);
 
 type SportsVenueEnrichment = SportsVenueEnrichmentRecord | undefined;
 
