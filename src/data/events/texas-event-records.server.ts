@@ -41,11 +41,21 @@ function eventIdentity(name: string, city: string) {
   return `${name.trim().toLowerCase()}:${city.trim().toLowerCase()}`;
 }
 
-function buildTicketing(officialEventUrl: string, offers: EventSchemaOffer[] | undefined): TexasEventTicketingMetadata | undefined {
+function buildTicketing(offers: EventSchemaOffer[] | undefined, lastVerifiedAt: string, sourceName?: string): TexasEventTicketingMetadata | undefined {
   if (!offers?.length) return undefined;
   return {
-    primaryUrl: offers[0]?.url ?? officialEventUrl,
-    status: "unknown",
+    links: offers.map((offer, index) => ({
+      provider: "official",
+      officialTicketUrl: offer.url,
+      saleStatus: "unknown",
+      source: {
+        kind: "official-event",
+        name: sourceName ?? "Official event ticket source",
+        url: offer.url,
+      },
+      lastVerifiedAt,
+      priority: index,
+    })),
     offers: offers.map((offer) => ({ name: offer.name, url: offer.url, price: offer.price, priceCurrency: offer.priceCurrency })),
   };
 }
@@ -111,7 +121,7 @@ function normalizeEvent(event: TexasEvent, guide?: MajorEventGuideDirectoryItem)
     region: guide?.region ?? authority?.region ?? event.region,
     category: guide?.category ?? authority?.category ?? event.category,
     officialEventUrl,
-    ticketing: buildTicketing(officialEventUrl, enrichment?.offers),
+    ticketing: buildTicketing(enrichment?.offers, enrichment?.verifiedAt ?? lastVerifiedAt, event.sourceName ?? authority?.sources[0]?.label),
     image: buildDisplayImage(enrichment, venueSlug),
     status: "scheduled",
     lastVerifiedAt,

@@ -1,6 +1,8 @@
 import { useId, useRef, type KeyboardEvent } from "react";
 
+import { EventTicketCta } from "@/components/events/EventTicketCta";
 import type { TexasEventRecord } from "@/data/events/texas-event-record";
+import type { ResolvedEventTicketCta } from "@/data/events/ticketing";
 
 import "./texas-event-carousel.css";
 
@@ -11,6 +13,7 @@ export type TexasEventCarouselItem = TexasEventRecord & {
   guideLabel: string;
   statusLabel: string;
   lastVerifiedLabel: string;
+  ticketCta: ResolvedEventTicketCta | null;
 };
 
 interface TexasEventCarouselProps {
@@ -46,7 +49,7 @@ export function TexasEventCarousel({ events, title = "Upcoming events", eyebrow 
     {events.length ? <div ref={viewportRef} className="ec-v" tabIndex={0} role="region" aria-roledescription="carousel" aria-label={`${title} carousel`} onKeyDown={onKeyDown}>
       {events.map((event, index) => <article key={event.id} className="ec-card" role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${events.length}: ${event.title}`}>
         {event.image?.displayAllowed && <><img src={event.image.url} alt={event.image.alt} className="ec-img" loading="lazy" decoding="async" /><p className="ec-cr">Photo: {event.image.credit ?? "licensed source"} · <a href={event.image.sourceUrl} target="_blank" rel="noreferrer noopener">source ↗</a>{event.image.licenseName && <> · {event.image.licenseUrl ? <a href={event.image.licenseUrl} target="_blank" rel="noreferrer noopener">{event.image.licenseName}</a> : event.image.licenseName}</>}</p></>}
-        <div className="ec-body"><p className="eyebrow ec-e">{event.categoryLabel} · {event.dateLabel}</p><h3 className="ec-name"><a href={event.guidePath}>{event.title}</a></h3><p className="ec-loc">{event.locationLabel}</p>{event.statusLabel && <p className="ec-status">{event.statusLabel}</p>}<div className="ec-links"><a href={event.guidePath} className="ec-l">{event.guideLabel}</a><a href={event.officialEventUrl} target="_blank" rel="noreferrer noopener" className="ec-l">Official event site ↗</a>{event.venuePath && <a href={event.venuePath} className="ec-l">Venue guide</a>}</div><p className="ec-note">Last verified {event.lastVerifiedLabel}. Confirm event-day details with the official source before traveling.</p></div>
+        <div className="ec-body"><p className="eyebrow ec-e">{event.categoryLabel} · {event.dateLabel}</p><h3 className="ec-name"><a href={event.guidePath}>{event.title}</a></h3><p className="ec-loc">{event.locationLabel}</p>{event.statusLabel && <p className="ec-status">{event.statusLabel}</p>}<div className="ec-links"><a href={event.guidePath} className="ec-l">{event.guideLabel}</a><EventTicketCta cta={event.ticketCta} linkClassName="ec-l" wrapperClassName="ec-ticket" disclosureClassName="ec-ticket-disclosure" /><a href={event.officialEventUrl} target="_blank" rel="noreferrer noopener" className="ec-l">Official event site ↗</a>{event.venuePath && <a href={event.venuePath} className="ec-l">Venue guide</a>}</div><p className="ec-note">Last verified {event.lastVerifiedLabel}. Confirm event-day details with the official source before traveling.</p></div>
       </article>)}
     </div> : <p className="ec-empty">{emptyMessage}</p>}
   </section>;
