@@ -13,6 +13,11 @@ const [
   galaxyGuide,
   quickAnswers,
   enrichmentAll,
+  remediationInitial,
+  remediationWave2,
+  remediationWave3,
+  remediationWave4,
+  gscTriage,
   currentCorrections,
   partnerRouteEager,
   partnerRouteLazy,
@@ -28,6 +33,11 @@ const [
   read('src/routes/sports-venue.jones-att-stadium.tsx'),
   read('src/components/sports/SportsVenueQuickAnswers.tsx'),
   read('src/data/sports-venue-enrichment-all.ts'),
+  read('src/data/sports-venue-content-remediation.ts'),
+  read('src/data/sports-venue-content-remediation-wave2.ts'),
+  read('src/data/sports-venue-content-remediation-wave3.ts'),
+  read('src/data/sports-venue-content-remediation-wave4.ts'),
+  read('ops/seo/gsc-discovered-2026-09-05-urls.tsv'),
   read('src/data/knowledge-graph/current-entity-corrections.ts'),
   read('src/routes/partner-with-us.tsx'),
   read('src/routes/partner-with-us.lazy.tsx'),
@@ -159,6 +169,7 @@ for (const getter of [
   'getSportsVenueContentRemediation(lookupSlug)',
   'getSportsVenueContentRemediationWave2(lookupSlug)',
   'getSportsVenueContentRemediationWave3(lookupSlug)',
+  'getSportsVenueContentRemediationWave4(lookupSlug)',
   'getSportsVenueEnrichment(lookupSlug)',
   'getSportsVenueEnrichmentBatch2(lookupSlug)',
   'getSportsVenueEnrichmentBatch3(lookupSlug)',
@@ -170,6 +181,14 @@ for (const getter of [
   'getSportsVenueEnrichmentBatch8BCompletion(lookupSlug)',
 ]) {
   assert(enrichmentAll.includes(getter), `Combined sports venue enrichment lookup is missing ${getter}.`);
+}
+
+const gscSportsImproveSlugs = [...gscTriage.matchAll(/^IMPROVE\t\/sports-venue\/([a-z0-9-]+)$/gm)].map((match) => match[1]);
+assert(gscSportsImproveSlugs.length === 17, `Expected 17 sports-venue IMPROVE targets in the 2026-09-05 GSC triage; found ${gscSportsImproveSlugs.length}.`);
+assert(new Set(gscSportsImproveSlugs).size === gscSportsImproveSlugs.length, 'GSC sports-venue IMPROVE targets must be unique.');
+const phase1dRemediationSources = `${remediationInitial}\n${remediationWave2}\n${remediationWave3}\n${remediationWave4}`;
+for (const slug of gscSportsImproveSlugs) {
+  assert(phase1dRemediationSources.includes(`'${slug}': {`), `GSC sports IMPROVE target ${slug} is missing a Phase 1D remediation profile.`);
 }
 
 for (const [sourceName, source] of [
@@ -220,4 +239,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, core Reliant record, lightweight static directory, statewide category anchors, concise localized search titles, source-backed event-day essentials and FAQ answers with source-review metadata kept separate, richer venue structured data, dedicated visitor template, county-level editorial trip ideas, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment/remediation batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
+console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, all ${gscSportsImproveSlugs.length} GSC sports IMPROVE targets have Phase 1D remediation profiles, core Reliant record, lightweight static directory, statewide category anchors, concise localized search titles, source-backed event-day essentials and FAQ answers with source-review metadata kept separate, richer venue structured data, dedicated visitor template, county-level editorial trip ideas, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment/remediation batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
