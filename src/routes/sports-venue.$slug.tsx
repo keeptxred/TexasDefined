@@ -22,6 +22,12 @@ const sportsVenueGuidePilotSlugs = new Set([
   'globe-life-field',
   'american-airlines-center',
   'texas-motor-speedway',
+  'cotton-bowl-stadium',
+  'choctaw-stadium',
+  'ford-center-at-the-star',
+  'datcu-stadium',
+  'riders-field',
+  'lone-star-park',
 ]);
 
 type SportsVenueEnrichment = SportsVenueEnrichmentRecord | undefined;
