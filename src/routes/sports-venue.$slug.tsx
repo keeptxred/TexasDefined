@@ -28,6 +28,15 @@ const sportsVenueGuidePilotSlugs = new Set([
   'datcu-stadium',
   'riders-field',
   'lone-star-park',
+  'att-stadium',
+  'toyota-stadium-frisco',
+  'dickies-arena',
+  'college-park-center',
+  'comerica-center',
+  'cowtown-coliseum',
+  'credit-union-of-texas-event-center',
+  'moody-coliseum-smu',
+  'unt-coliseum',
 ]);
 
 type SportsVenueEnrichment = SportsVenueEnrichmentRecord | undefined;
