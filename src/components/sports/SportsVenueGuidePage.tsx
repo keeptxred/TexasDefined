@@ -43,11 +43,12 @@ export function SportsVenueGuidePage({
   const directionsUrl = buildDirectionsUrl(entity, guide);
   const reviewedAt = guide.reviewedAt ?? enrichment?.verifiedAt ?? entity.sourceCheckedAt;
   const attractions = nearbyAttractions.slice(0, 4);
+  const schemaType = sportsVenueSchemaType(entity);
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "StadiumOrArena",
+        "@type": schemaType,
         "@id": `${canonicalUrl}#venue`,
         name: entity.name,
         alternateName: entity.aliases.length ? entity.aliases : undefined,
@@ -463,6 +464,22 @@ function dedupeLinks(links: readonly SportsVenueGuideLink[]) {
     seen.add(link.href);
     return true;
   });
+}
+
+function sportsVenueSchemaType(entity: TexasEntityRecord) {
+  const tags = new Set(entity.tags ?? []);
+  if (tags.has("golf")) return "GolfCourse";
+  if (
+    tags.has("motorsports") ||
+    tags.has("horse-racing") ||
+    tags.has("shooting-sports") ||
+    tags.has("action-sports") ||
+    tags.has("tournament-complex") ||
+    tags.has("aquatics")
+  ) {
+    return "SportsActivityLocation";
+  }
+  return "StadiumOrArena";
 }
 
 function formatDate(value: string) {
