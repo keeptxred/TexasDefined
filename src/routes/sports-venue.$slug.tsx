@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
@@ -82,7 +83,29 @@ export const Route = createFileRoute('/sports-venue/$slug')({
   component: SportsVenuePage,
 });
 
+const SportsVenueGuidePilotContent = lazy(
+  () => import('@/components/sports/SportsVenueGuidePilotContent'),
+);
+
 function SportsVenuePage() {
+  const { slug } = Route.useParams();
+  const { entity, visitorPlaces } = Route.useLoaderData();
+  const isGuidePilot = slug === 'amon-g-carter-stadium' || slug === 'gerald-j-ford-stadium';
+
+  if (isGuidePilot) {
+    return <Suspense fallback={null}>
+      <SportsVenueGuidePilotContent
+        slug={slug}
+        entity={entity}
+        nearbyAttractions={visitorPlaces}
+      />
+    </Suspense>;
+  }
+
+  return <LegacySportsVenuePage />;
+}
+
+function LegacySportsVenuePage() {
   const { entity, related, visitorPlaces, sponsorPlacement } = Route.useLoaderData();
   const tags = new Set(entity.tags ?? []);
   const profile = venueProfile(tags);
