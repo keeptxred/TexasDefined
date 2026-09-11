@@ -66,6 +66,19 @@ const sportsVenueGuidePilotSlugs = new Set([
   'momentum-bank-ballpark',
   'whataburger-field',
   'bowers-stadium',
+  'reliant-stadium',
+  'darrell-k-royal-texas-memorial-stadium',
+  'eagle-stadium-allen',
+  'mckinney-isd-stadium',
+  'childrens-health-stadium-prosper',
+  'legacy-stadium-katy',
+  'ratliff-stadium',
+  'cy-fair-fcu-stadium',
+  'mesquite-memorial-stadium',
+  'ufcu-disch-falk-field',
+  'lupton-stadium',
+  'baylor-ballpark',
+  'reckling-park',
 ]);
 
 type SportsVenueEnrichment = SportsVenueEnrichmentRecord | undefined;
