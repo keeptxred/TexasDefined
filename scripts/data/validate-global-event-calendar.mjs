@@ -35,7 +35,9 @@ for (const accessibility of ['aria-roledescription="carousel"', 'aria-label="Pre
 for (const token of ["event.image?.displayAllowed", "event.image.sourceUrl", "event.image.licenseUrl", "event.categoryLabel", "event.dateLabel", "event.locationLabel", "event.lastVerifiedLabel", "Official event site", "Last verified", "View all events"]) requireText(carousel, token, "event carousel");
 for (const token of [".ec-v {", "overflow-x: auto", "scroll-snap-type: x mandatory", ".ec-card { min-width: 84%", "min-width: calc(33.333% - .7rem)", ".ec-b:hover", "@media (min-width: 640px)", "@media (min-width: 1024px)"]) requireText(styles, token, "event carousel responsive styles");
 
-for (const token of ["validateSearch", "location:", "start:", "end:", "category:", "venue:", "getMajorEventLandingDirectory", 'import("@/data/major-event-calendar")', "data: deps.search", "filtered: deps.filtered", "head: ({ loaderData }) => loaderData?.head ?? {}"] ) requireText(route, token, "events route search/SEO contract");
+for (const token of ["validateSearch", "location:", "start:", "end:", "category:", "venue:", "getMajorEventLandingDirectory", 'import("@/data/major-event-calendar")', 'import("@/data/major-event-directory")', 'import("@/data/queries")', "data: deps.search", "filtered: deps.filtered", "head: ({ loaderData }) => loaderData?.head ?? {}"] ) requireText(route, token, "events route search/SEO contract");
+if (route.includes('import { getEventsPageHead } from "@/data/major-event-directory"')) failures.push("events route must keep the event-head server-function facade behind the loader boundary");
+if (route.includes('import { eventsQuery, regionsQuery } from "@/data/queries"')) failures.push("events route must keep query helpers behind the loader boundary");
 for (const token of ["TexasEventCarousel", "GlobalEventCalendar", "calendarView.calendarDays", "calendarView.previousHref", "calendarView.todayHref", "calendarView.nextHref", "Previous", "Today", "Next", "Jump to next event", 'name="location"', 'name="category"', 'name="venue"', "aria-current", "Official event site", "Last verified", "calendarView.results.length", "calendarView.totalCount"]) requireText(routeSurface, token, "global calendar UX");
 
 if (failures.length) {
@@ -43,4 +45,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("PASS: one source-qualified Texas event contract powers a server-bounded statewide calendar and contextual carousel with shareable filters, rights-safe venue photo fallback, freshness disclosure, accessible controls and a lazy calendar RPC boundary that protects the main client bundle.");
+console.log("PASS: one source-qualified Texas event contract powers a server-bounded statewide calendar and contextual carousel with shareable filters, rights-safe venue photo fallback, freshness disclosure, accessible controls and fully deferred event loader dependencies that protect the main client bundle.");
