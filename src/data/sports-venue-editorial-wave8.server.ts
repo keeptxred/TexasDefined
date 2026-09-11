@@ -1,3 +1,5 @@
+import { getSportsVenueEditorialDescriptionWave9Server } from './sports-venue-editorial-wave9.server';
+
 const sportsVenueEditorialDescriptionsWave8: Record<string, string> = {
   'sports-venue:nelson-wolff-stadium': 'Nelson W. Wolff Municipal Stadium opened in 1994 and remains the San Antonio Missions’ west-side home. The ballpark combines 6,200 fixed seats with a left-field grass berm for roughly 3,000 more fans, while its U.S. 90 setting, current entry rules and Double-A Padres affiliation provide a more useful visitor frame than generic San Antonio baseball copy.',
   'sports-venue:retama-park': 'Retama Park opened in 1995 in Selma and remains a San Antonio-area horse-racing destination built around live racing and year-round simulcast wagering. Its current racing calendar, clear-bag policy and Retama Parkway arrival pattern are more useful to visitors than generic San Antonio entertainment copy.',
@@ -12,5 +14,5 @@ const sportsVenueEditorialDescriptionsWave8: Record<string, string> = {
 };
 
 export function getSportsVenueEditorialDescriptionWave8Server(id: string) {
-  return sportsVenueEditorialDescriptionsWave8[id];
+  return sportsVenueEditorialDescriptionsWave8[id] ?? getSportsVenueEditorialDescriptionWave9Server(id);
 }

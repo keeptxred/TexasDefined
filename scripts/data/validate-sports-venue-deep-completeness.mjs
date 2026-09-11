@@ -16,11 +16,29 @@ const enrichmentFiles = [
   'src/data/sports-venue-enrichment-batch8b-completion.ts',
 ];
 
-const [major, tier2, seed, enrichmentAll, ...enrichmentSources] = await Promise.all([
+const [
+  major,
+  tier2,
+  seed,
+  enrichmentAll,
+  editorialDescriptions,
+  editorialDescriptionsWave6,
+  editorialDescriptionsWave7,
+  editorialDescriptionsWave8,
+  editorialDescriptionsWave9,
+  remediationWave9,
+  ...enrichmentSources
+] = await Promise.all([
   read('src/data/knowledge-graph/major-sports-venues.ts'),
   read('src/data/knowledge-graph/sports-venues-tier2.ts'),
   read('src/data/knowledge-graph/seed.ts'),
   read('src/data/sports-venue-enrichment-all.ts'),
+  read('src/data/sports-venue-editorial.server.ts'),
+  read('src/data/sports-venue-editorial-wave6.server.ts'),
+  read('src/data/sports-venue-editorial-wave7.server.ts'),
+  read('src/data/sports-venue-editorial-wave8.server.ts'),
+  read('src/data/sports-venue-editorial-wave9.server.ts'),
+  read('src/data/sports-venue-content-remediation-wave9.ts'),
   ...enrichmentFiles.map(read),
 ]);
 
@@ -78,6 +96,40 @@ assert(profileSet.has('jamail-texas-swimming-center'), 'Tier-2 major tourist dra
 assert(profileSet.has('childrens-health-stadium-prosper'), 'Double-quoted seed rows must remain covered by deep-completeness governance.');
 assert(enrichmentAll.includes('getSportsVenueEnrichmentBatch8ACompletion(lookupSlug)'), 'Combined enrichment lookup does not include batch 8A completion profiles.');
 assert(enrichmentAll.includes('getSportsVenueEnrichmentBatch8BCompletion(lookupSlug)'), 'Combined enrichment lookup does not include batch 8B completion profiles.');
+assert(enrichmentAll.includes('getSportsVenueContentRemediationWave9(lookupSlug)'), 'Combined enrichment lookup does not include Phase 1D wave 9 remediation profiles.');
+
+const phase1dWave9Slugs = [
+  'amarillo-national-center',
+  'extraco-events-center',
+  'expo-center-taylor-county',
+  'msr-houston',
+  'eagles-canyon-raceway',
+  'xtreme-raceway-park',
+  'houston-motorsports-park',
+  'national-shooting-complex',
+  'waco-surf',
+  'jamail-texas-swimming-center',
+];
+for (const slug of phase1dWave9Slugs) {
+  const occurrences = [...remediationWave9.matchAll(new RegExp(`'${slug}': \\{`, 'g'))].length;
+  assert(occurrences >= 2, `Phase 1D wave 9 must keep both quality and runtime remediation records for ${slug}.`);
+  assert(editorialDescriptionsWave9.includes(`'sports-venue:${slug}':`), `Phase 1D wave 9 venue ${slug} is missing its explicit server editorial description.`);
+}
+assert(editorialDescriptionsWave8.includes("getSportsVenueEditorialDescriptionWave9Server"), 'Wave 8 editorial fallback must delegate misses to the Wave 9 editorial registry.');
+assert(editorialDescriptionsWave8.includes("sportsVenueEditorialDescriptionsWave8[id] ?? getSportsVenueEditorialDescriptionWave9Server(id)"), 'Wave 9 editorial fallback is not wired after the Wave 8 registry.');
+
+const editorialDescriptionIds = new Set([
+  ...[...editorialDescriptions.matchAll(/^\s{2}'(sports-venue:[^']+)':/gm)].map((match) => match[1]),
+  ...[...editorialDescriptionsWave6.matchAll(/^\s{2}'(sports-venue:[^']+)':/gm)].map((match) => match[1]),
+  ...[...editorialDescriptionsWave7.matchAll(/^\s{2}'(sports-venue:[^']+)':/gm)].map((match) => match[1]),
+  ...[...editorialDescriptionsWave8.matchAll(/^\s{2}'(sports-venue:[^']+)':/gm)].map((match) => match[1]),
+  ...[...editorialDescriptionsWave9.matchAll(/^\s{2}'(sports-venue:[^']+)':/gm)].map((match) => match[1]),
+]);
+assert(seededSlugs.length === 84, `Expected exactly 84 seeded sports venues; found ${seededSlugs.length}.`);
+assert(editorialDescriptionIds.size === 84, `Expected explicit server editorial coverage for all 84 sports venues after Phase 1D wave 9; found ${editorialDescriptionIds.size}.`);
+for (const slug of seededSlugs) {
+  assert(editorialDescriptionIds.has(`sports-venue:${slug}`), `Seeded sports venue lacks an explicit server editorial description: ${slug}.`);
+}
 
 if (errors.length) {
   console.error('Sports venue deep-completeness validation failed:');
@@ -85,4 +137,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue deep completeness validated: ${seededSlugs.length} unique seeded sports venues, ${profileSlugs.length} deep profiles, no gaps, duplicates or orphan profiles; optional stay/nearby context is not required filler.`);
+console.log(`Sports venue deep completeness validated: ${seededSlugs.length} unique seeded sports venues, ${profileSlugs.length} deep profiles, ${editorialDescriptionIds.size}/84 explicit server editorial descriptions, all ${phase1dWave9Slugs.length} Wave 9 venues retain separated quality/runtime/editorial coverage, no gaps, duplicates or orphan profiles; optional stay/nearby context is not required filler.`);
