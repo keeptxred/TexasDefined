@@ -1,7 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { getMajorEventAuthority } from "@/data/major-event-authority";
-import { getMajorEventParkingMap } from "@/data/parking-maps.server";
+import { getMajorEventParkingMap } from "@/data/parking-maps.functions";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/event/$slug")({
