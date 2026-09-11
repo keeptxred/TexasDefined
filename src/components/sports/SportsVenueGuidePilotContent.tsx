@@ -17,7 +17,6 @@ type StayNearbyWindow = Window & {
 export default function SportsVenueGuidePilotContent({
   slug,
   entity,
-  nearbyAttractions,
   upcomingEvents,
   eventCalendarHref,
 }: {
@@ -66,7 +65,7 @@ export default function SportsVenueGuidePilotContent({
       guide={guide}
       enrichment={enrichment}
       photo={photo}
-      nearbyAttractions={nearbyAttractions}
+      nearbyAttractions={[]}
       upcomingEvents={venueEvents}
       eventCalendarHref={eventCalendarHref}
     />
