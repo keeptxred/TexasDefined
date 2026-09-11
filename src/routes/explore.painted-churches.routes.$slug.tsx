@@ -2,14 +2,14 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { paintedChurchItineraryBySlug } from "@/data/painted-church-itineraries";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/explore/painted-churches/routes/$slug")({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
+    const { paintedChurchItineraryBySlug } = await import("@/data/painted-church-itineraries");
     const itinerary = paintedChurchItineraryBySlug.get(params.slug);
     if (!itinerary) throw notFound();
     return { itinerary };
