@@ -1,11 +1,12 @@
 import fs from 'node:fs/promises';
 
 const read = (path) => fs.readFile(path, 'utf8');
-const [resolver, eventCard, eventsRoute, eventsLazyRoute, eventServerHead, corrections, generatedEvents, countyEventsServer, countyEventsBridge, countyDestinations, countyRoute, eventPage, dateFormatting, eventDisposition, supplementalRegistry, majorEventIndex] = await Promise.all([
+const [resolver, eventCard, eventsRoute, eventsLazyRoute, eventsLandingPage, eventServerHead, corrections, generatedEvents, countyEventsServer, countyEventsBridge, countyDestinations, countyRoute, eventPage, dateFormatting, eventDisposition, supplementalRegistry, majorEventIndex] = await Promise.all([
   read('src/data/sports-venue-event-links.ts'),
   read('src/components/editorial/EventCard.tsx'),
   read('src/routes/events.index.tsx'),
   read('src/routes/events.index.lazy.tsx'),
+  read('src/components/events/EventsLandingPage.tsx'),
   read('src/data/major-event-directory.server.ts'),
   read('src/data/knowledge-graph/current-entity-corrections.ts'),
   read('src/data/events-generated.ts'),
@@ -19,7 +20,7 @@ const [resolver, eventCard, eventsRoute, eventsLazyRoute, eventServerHead, corre
   read('src/data/major-event-supplemental-registry.server.ts'),
   read('src/data/major-event-index.ts'),
 ]);
-const eventsVisibleRoute = `${eventsRoute}\n${eventsLazyRoute}`;
+const eventsVisibleRoute = `${eventsRoute}\n${eventsLazyRoute}\n${eventsLandingPage}`;
 
 const errors = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };
@@ -60,9 +61,6 @@ assert(eventServerHead.includes('resolveSportsVenueEventLink(featured?.venue)'),
 assert(eventsVisibleRoute.includes('featuredVenueGuide &&'), 'Featured unmatched events must remain unlinked.');
 assert(eventsVisibleRoute.includes('featuredVenueGuide, featuredDateLabel'), 'Featured venue/date presentation must be consumed from server-owned route data.');
 
-// Recurring event identity must not be keyed by occurrence date. Source-controlled sync rows
-// own a matching name+city identity even when a row becomes unpublished/canceled; otherwise
-// an older fixture occurrence could be resurrected after the authoritative row is withdrawn.
 assert(generatedEvents.includes('function eventIdentityKey(event: Pick<TexasEvent, "name" | "city">)'), 'Generated event merge must retain an explicit recurring-event identity key.');
 assert(generatedEvents.includes('event.name.trim().toLowerCase()'), 'Recurring-event identity must include normalized event name.');
 assert(generatedEvents.includes('event.city.trim().toLowerCase()'), 'Recurring-event identity must include normalized event city.');
