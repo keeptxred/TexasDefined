@@ -1,5 +1,12 @@
 import { createServerFn } from '@tanstack/react-start';
 
+const loadSportsVenueParkingMap = createServerFn({ method: 'GET' })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { getParkingMapForVenueSlug } = await import('./parking-maps');
+    return getParkingMapForVenueSlug(data.slug);
+  });
+
 const loadMajorEventParkingMap = createServerFn({ method: 'GET' })
   .inputValidator((data: { slug: string }) => data)
   .handler(async ({ data }) => {
@@ -20,6 +27,10 @@ const loadMajorEventParkingMap = createServerFn({ method: 'GET' })
     const venueSlug = venueLink?.href.split('/sports-venue/')[1]?.split(/[?#]/)[0];
     return getParkingMapForEvent(event.slug, venueSlug);
   });
+
+export function getSportsVenueParkingMap(slug: string) {
+  return loadSportsVenueParkingMap({ data: { slug } });
+}
 
 export function getMajorEventParkingMap(slug: string) {
   return loadMajorEventParkingMap({ data: { slug } });
