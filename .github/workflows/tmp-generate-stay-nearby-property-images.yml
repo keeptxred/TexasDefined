@@ -27,10 +27,11 @@ jobs:
       - name: Generate exact-property raster imagery
         run: node scripts/media/generate-stay-nearby-property-images.mjs
       - name: Upload generated property imagery for explicit review
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: stay-nearby-exact-property-images
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 2
           path: |
             public/stay-nearby-ai-property-images.json
