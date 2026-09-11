@@ -1,4 +1,5 @@
 import type { TexasEventRecord } from "./texas-event-record";
+import { resolveEventTicketCta } from "./ticketing";
 
 export interface GlobalEventCalendarSearch {
   featured: string;
@@ -130,6 +131,7 @@ export function buildTexasEventCarouselItemsServer(records: readonly TexasEventR
     guideLabel: event.guidePath.startsWith("/events?") ? "View in calendar" : "Event guide",
     statusLabel: event.status === "scheduled" ? "" : event.status,
     lastVerifiedLabel: formatShortDay(event.lastVerifiedAt.slice(0, 10)),
+    ticketCta: resolveEventTicketCta(event.ticketing),
   }));
 }
 
@@ -195,6 +197,7 @@ export function buildGlobalEventCalendarServer(
       ...event,
       dateLabel: formatRange(event),
       lastVerifiedLabel: formatDay(event.lastVerifiedAt.slice(0, 10)),
+      ticketCta: resolveEventTicketCta(event.ticketing),
     })),
   };
 }
