@@ -1,4 +1,6 @@
+import { StandaloneParkingMapPanel } from "@/components/parking/ParkingMapPanel";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
+import { getParkingMapForVenueSlug } from "@/data/parking-maps";
 import { getSportsVenueEnrichmentAll } from "@/data/sports-venue-enrichment-all";
 import { getSportsVenueGuidePilot } from "@/data/sports-venue-guide-pilots";
 import { getSportsVenuePhoto } from "@/data/sports-venue-images";
@@ -30,14 +32,18 @@ export default function SportsVenueGuidePilotContent({
     guide.officialUrl && entity.officialUrl !== guide.officialUrl
       ? { ...entity, officialUrl: guide.officialUrl }
       : entity;
+  const parkingMap = getParkingMapForVenueSlug(slug);
 
   return (
-    <SportsVenueGuidePage
-      entity={verifiedEntity}
-      guide={guide}
-      enrichment={enrichment}
-      photo={getSportsVenuePhoto(slug)}
-      nearbyAttractions={nearbyAttractions}
-    />
+    <>
+      <SportsVenueGuidePage
+        entity={verifiedEntity}
+        guide={guide}
+        enrichment={enrichment}
+        photo={getSportsVenuePhoto(slug)}
+        nearbyAttractions={nearbyAttractions}
+      />
+      <StandaloneParkingMapPanel map={parkingMap} contextName={entity.name} />
+    </>
   );
 }
