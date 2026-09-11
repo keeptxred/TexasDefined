@@ -57,9 +57,11 @@ function parseEventOverrideRecords() {
       const raw = extractBalancedObject(rootObject, objectStart);
       const imageUrl = raw.match(/imageUrl:\s*'([^']+)'/)?.[1];
       const id = raw.match(/id:\s*'([^']+)'/)?.[1];
+      const eventYearText = raw.match(/eventYear:\s*(\d{4})/)?.[1];
+      const eventYear = eventYearText ? Number(eventYearText) : undefined;
       const eventSlugsRaw = raw.match(/eventSlugs:\s*\[([^\]]*)\]/)?.[1] ?? '';
       const eventSlugs = [...eventSlugsRaw.matchAll(/'([^']+)'/g)].map((item) => item[1]);
-      records.push({ key: match[1], file, raw, id, imageUrl, eventSlugs });
+      records.push({ key: match[1], file, raw, id, imageUrl, eventSlugs, eventYear });
       entryRegex.lastIndex = objectStart + raw.length;
     }
   }
@@ -88,6 +90,7 @@ for (const record of records) {
   if (!record.id) failures.push(`${record.key}: missing id`);
   if (!record.eventSlugs.includes(record.key)) failures.push(`${record.key}: eventSlugs must include its registry key`);
   if (!record.raw.includes('eventSpecific: true')) failures.push(`${record.key}: eventSpecific must be true`);
+  if (!Number.isInteger(record.eventYear) || record.eventYear < 2000 || record.eventYear > 2100) failures.push(`${record.key}: event-specific override requires eventYear`);
   if (!record.raw.includes("verificationStatus: 'verified'")) failures.push(`${record.key}: override must be verified before registration`);
   if (!record.raw.includes('verifiedAgainstRealMap: true')) failures.push(`${record.key}: verifiedAgainstRealMap must be true`);
   if (!record.raw.includes('displayAllowed: true')) failures.push(`${record.key}: displayAllowed must be true`);
@@ -99,7 +102,7 @@ for (const record of records) {
 console.log('\nEvent parking-map override audit');
 console.log('================================');
 console.log(`Override records: ${records.length}`);
-for (const record of records) console.log(`  - ${record.key} (${record.file})`);
+for (const record of records) console.log(`  - ${record.key} (${record.eventYear ?? 'missing year'}, ${record.file})`);
 
 if (failures.length > 0) {
   console.error('\nFailures:');

@@ -25,7 +25,7 @@ const loadMajorEventParkingMap = createServerFn({ method: 'GET' })
 
     const venueLink = resolveSportsVenueEventLink(event.venue);
     const venueSlug = venueLink?.href.split('/sports-venue/')[1]?.split(/[?#]/)[0];
-    return getParkingMapForEvent(event.slug, venueSlug);
+    return getParkingMapForEvent(event.slug, venueSlug, event.startDate);
   });
 
 export function getSportsVenueParkingMap(slug: string) {

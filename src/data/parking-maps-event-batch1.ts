@@ -4,6 +4,7 @@ export const EVENT_PARKING_MAPS_BATCH_1: Record<string, ParkingMapAsset> = {
   'valero-texas-open': {
     id: 'parking-map:event:valero-texas-open:2026',
     eventSlugs: ['valero-texas-open'],
+    eventYear: 2026,
     imageUrl: '/images/parking-maps/valero-texas-open-2026.svg',
     alt: 'Verified TexasDefined 2026 Valero Texas Open parking diagram showing the River City Community Church and UTSA East Campus spectator lots, complimentary shuttle connection, and JW Marriott rideshare location',
     origin: 'ai-generated',

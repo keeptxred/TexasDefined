@@ -1,5 +1,5 @@
 import type { ParkingMapAsset } from './parking-map-model';
-import { isPublishableParkingMap } from './parking-map-model';
+import { isParkingMapApplicableToEvent, isPublishableParkingMap } from './parking-map-model';
 import { VENUE_PARKING_MAPS_BATCH_1 } from './parking-maps-batch1';
 import { VENUE_PARKING_MAPS_BATCH_2 } from './parking-maps-batch2';
 import { VENUE_PARKING_MAPS_BATCH_3 } from './parking-maps-batch3';
@@ -27,7 +27,7 @@ export type {
   ParkingMapVerificationSource,
   ParkingMapVerificationStatus,
 } from './parking-map-model';
-export { isPublishableParkingMap } from './parking-map-model';
+export { isParkingMapApplicableToEvent, isPublishableParkingMap } from './parking-map-model';
 
 const venueParkingMaps: Record<string, ParkingMapAsset> = {
   ...VENUE_PARKING_MAPS_BATCH_1,
@@ -59,9 +59,13 @@ export function getParkingMapForVenueSlug(slug: string | undefined) {
   return isPublishableParkingMap(map) ? map : undefined;
 }
 
-export function getParkingMapForEvent(eventSlug: string | undefined, venueSlug?: string) {
+export function getParkingMapForEvent(
+  eventSlug: string | undefined,
+  venueSlug?: string,
+  eventStartDate?: string,
+) {
   const eventMap = eventSlug ? eventParkingMaps[eventSlug] : undefined;
-  if (isPublishableParkingMap(eventMap)) return eventMap;
+  if (isParkingMapApplicableToEvent(eventMap, eventStartDate)) return eventMap;
   return getParkingMapForVenueSlug(venueSlug);
 }
 

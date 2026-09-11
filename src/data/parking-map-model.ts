@@ -15,6 +15,8 @@ export type ParkingMapAsset = {
   venueSlug?: string;
   venueName?: string;
   eventSlugs?: readonly string[];
+  /** Required for occurrence-specific event maps so annual event slugs cannot reuse stale parking instructions. */
+  eventYear?: number;
   imageUrl: string;
   alt: string;
   origin: ParkingMapOrigin;
@@ -48,4 +50,15 @@ export function isPublishableParkingMap(map: ParkingMapAsset | undefined): map i
   return map.rightsStatus === 'verified-reusable'
     && map.reuseSearchStatus === 'reusable-found'
     && Boolean(map.sourcePage && map.sourceName && map.licenseName && map.licenseUrl);
+}
+
+export function isParkingMapApplicableToEvent(
+  map: ParkingMapAsset | undefined,
+  eventStartDate: string | undefined,
+): map is ParkingMapAsset {
+  if (!isPublishableParkingMap(map)) return false;
+  if (!map.eventSpecific) return true;
+  if (!map.eventYear || !eventStartDate) return false;
+  const yearMatch = eventStartDate.match(/^(\d{4})-/);
+  return Boolean(yearMatch && Number(yearMatch[1]) === map.eventYear);
 }
