@@ -1,5 +1,7 @@
 const origin = process.env.STAY_NEARBY_PRODUCTION_ORIGIN || 'https://texasdefined.com';
-const cacheBuster = `td-stay-verify=${Date.now()}`;
+const revision = process.env.GITHUB_SHA || 'local';
+const runId = process.env.GITHUB_RUN_ID || Date.now().toString();
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const pilots = [
   {
@@ -34,30 +36,53 @@ const pilots = [
   },
 ];
 
-function fail(message) {
-  throw new Error(message);
-}
-
 function requireCondition(condition, message) {
-  if (!condition) fail(message);
-}
-
-function verifiedTarget(property) {
-  return (property.bookingTargets || []).find((target) => target?.verified === true);
+  if (!condition) throw new Error(message);
 }
 
 async function fetchLive(path, kind = 'text') {
-  const url = new URL(path, origin);
-  url.searchParams.set('td_verify', cacheBuster);
-  const response = await fetch(url, {
-    redirect: 'follow',
-    headers: {
-      'cache-control': 'no-cache',
-      'user-agent': 'TexasDefined-Production-Verification/1.0',
-    },
-  });
-  requireCondition(response.ok, `${url.pathname} returned HTTP ${response.status}`);
-  return kind === 'json' ? response.json() : response.text();
+  let lastError;
+
+  for (let attempt = 1; attempt <= 6; attempt += 1) {
+    const url = new URL(path, origin);
+    url.searchParams.set('td_verify', `${revision}-${runId}-${attempt}`);
+
+    try {
+      const response = await fetch(url, {
+        redirect: 'follow',
+        cache: 'no-store',
+        signal: AbortSignal.timeout(30_000),
+        headers: {
+          'cache-control': 'no-cache',
+          'user-agent': 'TexasDefined-CI-Stay-Nearby/1.0',
+        },
+      });
+      const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+      const body = await response.text();
+
+      if (!challenged && response.ok) {
+        if (kind === 'json') {
+          try {
+            return JSON.parse(body);
+          } catch (error) {
+            lastError = new Error(`${url.pathname} returned invalid JSON: ${error instanceof Error ? error.message : String(error)}`);
+          }
+        } else {
+          return body;
+        }
+      } else {
+        lastError = new Error(challenged
+          ? `${url.pathname} returned a Cloudflare challenge.`
+          : `${url.pathname} returned HTTP ${response.status}.`);
+      }
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+    }
+
+    if (attempt < 6) await sleep(5_000);
+  }
+
+  throw lastError || new Error(`${path} failed production verification.`);
 }
 
 const registry = await fetchLive('/stay-nearby-hotels.json', 'json');
@@ -87,14 +112,16 @@ for (const pilot of pilots) {
     requireCondition(/^https:\/\//.test(context.source?.url || ''), `${property.name} lacks an HTTPS verification source.`);
     requireCondition(/^\d{4}-\d{2}-\d{2}$/.test(context.source?.verifiedAt || ''), `${property.name} lacks a verification date.`);
 
-    const target = verifiedTarget(property);
-    if (target) {
+    const verifiedTargets = (property.bookingTargets || []).filter((target) => target?.verified === true);
+    for (const target of verifiedTargets) {
       requireCondition(/^https:\/\//.test(target.affiliateUrl || ''), `${property.name} has a verified affiliate target without an HTTPS URL.`);
     }
+
     if (property.image) {
+      const matchingTarget = verifiedTargets.find((target) => target.provider === property.image.bookingProvider);
       requireCondition(property.image.rightsSource === 'expedia-creator-toolbox', `${property.name} production image lacks approved Expedia Creator Toolbox rights metadata.`);
       requireCondition(typeof property.image.url === 'string' && property.image.url.startsWith('/'), `${property.name} production image is not first-party hosted.`);
-      requireCondition(target && property.image.bookingProvider === target.provider, `${property.name} production image is not paired with a verified matching booking referral.`);
+      requireCondition(Boolean(matchingTarget), `${property.name} production image is not paired with a verified matching booking referral.`);
     }
   }
 }
