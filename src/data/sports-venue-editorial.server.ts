@@ -1,3 +1,5 @@
+import { getSportsVenueEditorialDescriptionWave6Server } from './sports-venue-editorial-wave6.server';
+
 const sportsVenueEditorialDescriptions: Record<string, string> = {
   'sports-venue:att-stadium': 'AT&T Stadium is the Dallas Cowboys’ home in Arlington and the centerpiece of one of Texas’s densest big-event districts. NFL Sundays, college football, stadium tours, concerts and special events all pull visitors into the same Arlington corridor as Globe Life Field, making parking strategy and the surrounding entertainment district part of the experience.',
   'sports-venue:daikin-park': 'Daikin Park has anchored Houston Astros baseball in downtown Houston since 2000, combining a retractable-roof ballpark with the preserved Union Station setting. The venue took the Daikin Park name for the 2025 season, while its downtown location keeps games closely tied to Houston hotels, restaurants, Discovery Green and the convention district.',
@@ -43,5 +45,5 @@ const sportsVenueEditorialDescriptions: Record<string, string> = {
 };
 
 export function getSportsVenueEditorialDescriptionServer(id: string) {
-  return sportsVenueEditorialDescriptions[id];
+  return sportsVenueEditorialDescriptions[id] ?? getSportsVenueEditorialDescriptionWave6Server(id);
 }
