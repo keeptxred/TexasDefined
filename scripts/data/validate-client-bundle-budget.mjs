@@ -6,6 +6,10 @@ const assetDirCandidates = [
   path.resolve('.output/public/assets'),
 ];
 const viteConfigPath = path.resolve('vite.config.ts');
+const feedRoutePaths = [
+  path.resolve('src/routes/rss[.]xml.ts'),
+  path.resolve('src/routes/sitemap[.]xml.ts'),
+];
 // CI measured the stable, non-route-split client bundle at 1,807,457 bytes.
 // Keep less than 1% headroom so meaningful growth fails without making the
 // budget smaller than the known-good production build.
@@ -41,6 +45,17 @@ async function main() {
   const viteConfig = await readFile(viteConfigPath, 'utf8');
   if (!/autoCodeSplitting\s*:\s*false/.test(viteConfig)) {
     throw new Error('TanStack autoCodeSplitting must remain disabled: the measured route-splitting experiment increased the main client bundle.');
+  }
+
+  const eagerPlatformImport = /import\s*{\s*platform\s*,\s*scope\s*}\s*from\s*["']@\/data["']/;
+  for (const feedRoutePath of feedRoutePaths) {
+    const source = await readFile(feedRoutePath, 'utf8');
+    if (eagerPlatformImport.test(source)) {
+      throw new Error(`${path.relative(process.cwd(), feedRoutePath)} must not eagerly import the fixture-backed platform into the route tree.`);
+    }
+    if (!source.includes('const { platform, scope } = await import("@/data");')) {
+      throw new Error(`${path.relative(process.cwd(), feedRoutePath)} must load platform/scope inside its server handler.`);
+    }
   }
 
   const assetsDir = await resolveAssetsDir();
