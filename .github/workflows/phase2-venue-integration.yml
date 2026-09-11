@@ -1,0 +1,53 @@
+name: Phase 2 venue integration
+
+on:
+  pull_request:
+    paths:
+      - 'src/routes/sports-venue.$slug.tsx'
+      - 'src/components/sports/**'
+      - 'src/components/editorial/TexasEventCarousel.tsx'
+      - 'src/components/editorial/texas-event-carousel.css'
+      - 'src/data/sports-venue-guide-pilots.ts'
+      - 'src/data/sports-venue-events.functions.ts'
+      - 'src/data/sports-venue-images.ts'
+      - 'src/data/sports-venue-content-remediation.ts'
+      - 'src/data/events/**'
+      - 'public/stay-nearby-hotels.json'
+      - 'public/expedia-travel.js'
+      - 'public/stay-nearby-context-images.js'
+      - 'scripts/data/validate-phase2-venue-integration.mjs'
+      - 'scripts/data/validate-expedia-affiliate.mjs'
+      - 'scripts/data/validate-global-event-calendar.mjs'
+      - 'scripts/data/validate-event-ticketing-architecture.mjs'
+      - 'scripts/data/validate-sports-venue-images.mjs'
+      - '.github/workflows/phase2-venue-integration.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  integration-and-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Validate Phase 2 venue contract
+        run: node scripts/data/validate-phase2-venue-integration.mjs
+      - name: Validate Stay Nearby affiliate contract
+        run: node scripts/data/validate-expedia-affiliate.mjs
+      - name: Validate venue images
+        run: node scripts/data/validate-sports-venue-images.mjs
+      - name: Validate canonical event/calendar integration
+        run: node scripts/data/validate-global-event-calendar.mjs
+      - name: Validate ticket abstraction
+        run: node scripts/data/validate-event-ticketing-architecture.mjs
+      - name: Production build
+        run: npm run build
+      - name: Bundle budget
+        run: npm run performance:validate
