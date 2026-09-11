@@ -1,6 +1,6 @@
 import { Container } from '@/components/layout/Container';
-import type { ParkingMapAsset } from '@/data/parking-maps';
-import { isPublishableParkingMap } from '@/data/parking-maps';
+import type { ParkingMapAsset } from '@/data/parking-map-model';
+import { isPublishableParkingMap } from '@/data/parking-map-model';
 
 export function ParkingMapPanel({
   map,
