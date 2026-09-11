@@ -6,9 +6,10 @@ Scope: all 84 currently verified TexasDefined sports-venue guides, with Phase 1D
 
 - **84/84 venue pages** still expose the shared `Plan the trip` block from `src/routes/sports-venue.$slug.tsx`, including the identical heading **“Make the venue part of the weekend”** and the identical card labels **“Why people travel,” “Best trip pattern,” and “Before you go.”** The body copy comes from only 12 tag-based `venueProfile()` templates. This block remains a global layout concern and is intentionally not redesigned in Phase 1D.
 - **84/84 venue records** are shaped by `SportsVenueEnrichment`, which currently requires `stayAndEat` and `nearby` strings. That schema encourages every record to produce lodging/weekend copy even when there is no venue-specific guidance worth publishing. Phase 1D does not break that shared schema; the quality-profile layers separate durable visitor facts, editorial history and source-review metadata so a later schema/layout migration can remove mandatory filler safely.
-- The two knowledge-graph seed files (`major-sports-venues.ts` and `sports-venues-tier2.ts`) synthesize every base venue description from a small set of category templates plus a common wrapper sentence. Before Phase 1D, only **15 of 84** venue descriptions had venue-specific server editorial overrides, leaving **69 of 84** exposed to the helper-generated description pattern. The initial batch raised explicit editorial coverage to **18 of 84**; wave 2 raised it to **21 of 84**; wave 3 adds Baylor Ballpark, Credit Union of Texas Event Center, Reed Arena, Whataburger Field and Memorial Park Golf Course, bringing the total to **26 of 84** and leaving **58** candidates for record-by-record remediation.
+- The two knowledge-graph seed files (`major-sports-venues.ts` and `sports-venues-tier2.ts`) synthesize every base venue description from a small set of category templates plus a common wrapper sentence. Before Phase 1D, only **15 of 84** venue descriptions had venue-specific server editorial overrides. The initial batch raised explicit editorial coverage to **18 of 84**, wave 2 to **21 of 84**, wave 3 to **26 of 84**, and wave 4 adds five previously missing descriptions while retaining the existing COTA, Moody Center and Q2 Stadium descriptions. Explicit editorial coverage is now **31 of 84**, leaving **53** candidates for future record-by-record remediation.
 - **84/84 venue quick-answer components** formerly included `TexasExplainedContextLinks surface="sports"`, regardless of whether those links were meaningfully related to the venue. Phase 1D removed that forced link injection.
 - Because `verifiedAt` is mandatory in the enrichment schema, the quick-answer surface had framed source-review metadata as **“How current is this [venue] visitor guide?”** The review date is now displayed as source metadata, not as a consumer FAQ or FAQ-schema question.
+- The September 5 GSC triage contains **17** `/sports-venue/*` URLs marked `IMPROVE`. Phase 1D now gives all 17 a separated remediation profile, and CI derives that list directly from `ops/seo/gsc-discovered-2026-09-05-urls.tsv` so future regressions fail closed.
 
 ## Initial batch remediated
 
@@ -49,7 +50,7 @@ Scope: all 84 currently verified TexasDefined sports-venue guides, with Phase 1D
 ### DKR–Texas Memorial Stadium
 
 - Replaced the approximate “more than 100,000” capacity with Texas Athletics' official **100,119** figure and records the **2139 San Jacinto Blvd., Austin, TX 78712** physical address.
-- Records the current FieldTurf surface, Texas football/SEC context, current clear-bag policy, ADA guidance and the 2026 two-hours-before-kickoff general gate guidance as changeable event-day policy.
+- Records the current FieldTurf surface, Texas football/SEC context, current clear-bag policy, ADA guidance and the two-hours-before-kickoff general gate guidance as changeable event-day policy.
 - Corrects the planning source to the canonical Texas Athletics DKR facility page instead of relying on the misleading `/facilities/bobcat-stadium/1` CMS alias.
 - Replaces generic Austin weekend copy with campus-specific parking, gate assignment and central-Austin geography.
 
@@ -103,9 +104,64 @@ Scope: all 84 currently verified TexasDefined sports-venue guides, with Phase 1D
 - Keeps public tee-time planning, paid Memorial Park parking and the Tuesday maintenance closure separate from tournament-week transportation logistics.
 - Avoids resort-style framing for a City of Houston public course inside Memorial Park.
 
+## Fourth remediation wave — GSC sports `IMPROVE` completion
+
+### Circuit of The Americas
+
+- Records the official **9201 Circuit of The Americas Blvd., Austin, TX 78617** address, **2012** opening era and the **3.41-mile, 20-turn** purpose-built circuit.
+- Keeps pre-purchased parking and lot-specific approach routes event-controlled and separates the southeast-Austin circuit from downtown trip assumptions.
+- Retains the already-specific COTA editorial description rather than duplicating it solely to increase the override count.
+
+### Cy-Fair Federal Credit Union Stadium
+
+- Records the **11,000** capacity and **8877 Barker Cypress Rd., Cypress, TX 77433** address from CFISD.
+- Adds the current one-hour gate opening, metal-detector screening, clear-bag policy, no-tailgating rule and no-re-entry rule as changeable district policies.
+- Adds a specific editorial description centered on the Berry Center/CFISD operating context rather than generic Houston content.
+
+### Galaxy Stadium / stable Jones AT&T Stadium route
+
+- Adds a separated quality profile for Texas Tech's current **Galaxy Stadium** identity while preserving `/sports-venue/jones-att-stadium` as the established canonical route.
+- Records the current clear-bag dimensions, no-re-entry rule, security screening, 90-minute general-gate opening, two-hour selected premium/student gate opening and current shuttle context as event-day policy.
+- Adds a venue-specific editorial description that explains the 2026 naming transition without breaking historical links.
+
+### Moody Center
+
+- Records the official **2001 Robert Dedman Dr., Austin, TX 78712** address, **April 2022** opening, **15,000+ concert / 10,000+ basketball** configurations and Texas men's/women's basketball role.
+- Adds current accessibility and bag-policy context and replaces generic arena-trip copy with UT campus-edge access guidance.
+- Retains the existing venue-specific editorial description.
+
+### Q2 Stadium
+
+- Records the **10414 McKalla Place, Austin, TX 78758** address, **2021** opening era, Austin FC/MLS role and current **20,500+** seating description.
+- Adds current accessible services and the stadium's current no-bag policy, with limited clutch/medical/childcare/cultural exceptions and no re-entry.
+- Keeps transit, bicycle, rideshare and prepaid parking as first-class arrival modes rather than defaulting to driving.
+- Retains the existing venue-specific editorial description.
+
+### Round Rock Multipurpose Complex
+
+- Records the official **2001 N. Kenney Fort Blvd., Round Rock, TX 78665** address and **spring 2017** opening.
+- Captures the 60-acre layout, **five grass + five synthetic fields**, **938 parking spaces** and shaded 250-person championship-field seating.
+- Reframes the page around field assignment, tournament waves and Old Settlers Park instead of generic Austin-area tourism.
+
+### Round Rock Sports Center
+
+- Records the official **2400 Chisholm Trail, Round Rock, TX 78681** address, **118,750** total square feet, **63,995** playable square feet, **6,500+** total capacity and **2,200+** spectator seating.
+- Preserves the useful eight-basketball / sixteen-volleyball / four-NCAA-court configuration facts and centers arrival on court assignment and tournament timing.
+- Adds a venue-specific editorial description rather than relying on a generic indoor-sports template.
+
+### Sam Houston Race Park
+
+- Records the official **7575 N. Sam Houston Parkway W., Houston, TX 77064** address, **1994** opening and the dedicated **3,500-space** parking lot with **125 accessible spaces**.
+- Separates durable Thoroughbred/Quarter Horse/simulcast identity from season-specific live-racing dates, first-post times and special-event parking.
+- Adds current bag/search guidance conservatively and adds a venue-specific northwest-Houston editorial description.
+
+## GSC sports remediation milestone
+
+The September 5 GSC triage lists **17** sports-venue URLs as `IMPROVE`. Those 17 are now all represented in the Phase 1D remediation layers: Texas Motor Speedway from the initial batch; DKR, Dell Diamond and Foster Pavilion from wave 2; Baylor Ballpark, Credit Union of Texas Event Center, Reed Arena, Whataburger Field and Memorial Park Golf Course from wave 3; and the final eight venues above from wave 4. `validate-sports-venue-coverage.mjs` reads the GSC triage file directly and fails if any current sports `IMPROVE` target lacks a Phase 1D remediation profile.
+
 ## Source standard used in this remediation
 
-The thirteen remediated records use venue/team/university/city-operated sources for durable facts and official visitor guidance. Frequently changing policies are summarized conservatively and linked back to the official current page instead of being treated as permanent facts. Venue identity, geography and nearby relationships are included only when the source record or physical context supports them.
+The **21** Phase 1D remediated records use venue/team/university/city/district-operated sources for durable facts and official visitor guidance. Frequently changing policies are summarized conservatively and linked back to the official current page instead of being treated as permanent facts. Venue identity, geography and nearby relationships are included only when the source record or physical context supports them.
 
 ## Deferred global layout/schema work
 
@@ -113,4 +169,4 @@ Phase 1D intentionally does **not** redesign the global `Plan the trip` section 
 
 ## Remaining remediation queue
 
-The remaining **58** venues without explicit editorial-description overrides should be handled venue by venue, prioritizing pages with search impressions and major-tourist-draw tags. The same standard should apply: authoritative durable facts first, event-specific rules via official links, no required weekend filler, and no nearby/internal link unless geography or editorial relevance justifies it.
+The September 5 GSC sports `IMPROVE` queue is complete. The broader editorial-quality backlog is now **53** of 84 venues without explicit venue-specific server editorial-description overrides. Those should continue venue by venue based on current search demand and destination importance, using the same standard: authoritative durable facts first, event-specific rules via official links, no required weekend filler, and no nearby/internal link unless geography or editorial relevance justifies it.
