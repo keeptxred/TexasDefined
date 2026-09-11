@@ -11,17 +11,11 @@ import { isArticleDiscoveryReady, isArticleIndexReady } from "@/data/fixtures/te
 import { loadFishingGuideSitemapEntriesServer } from "@/data/fishing/guide-sitemap.server";
 import { loadFishingLocalSitemapEntriesServer } from "@/data/fishing/local-sitemap.server";
 import { loadFishingReportSitemapEntriesServer } from "@/data/fishing/report-sitemap.server";
-import { FISHING_SITEMAP_ENTRIES } from "@/data/fishing/sitemap";
-import { HUNTING_SITEMAP_ENTRIES } from "@/data/hunting/sitemap";
-import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
-import { majorEventIndexRecords } from "@/data/major-event-index";
 import { loadSupplementalMajorEventSitemapEntriesServer } from "@/data/major-event-supplemental-registry.server";
 import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
 import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
-import { TEXAS_DATASETS } from "@/data/texas-data-center";
 import { isTexasVsStateSitemapReady } from "@/data/texas-vs-state-index-readiness.server";
-import { TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-states-index";
 import { isTexasDefinedOwnedEntity, isTexasDefinedOwnedStaticPath } from "@/lib/brand-route-ownership";
 import { INDEXABLE_STATIC_PATHS, isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
@@ -64,7 +58,23 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const { platform, scope } = await import("@/data");
+        const [
+          { platform, scope },
+          { FISHING_SITEMAP_ENTRIES },
+          { HUNTING_SITEMAP_ENTRIES },
+          { loadTexasKnowledgeGraph },
+          { majorEventIndexRecords },
+          { TEXAS_DATASETS },
+          { TEXAS_VS_STATES, texasVsStateSlug },
+        ] = await Promise.all([
+          import("@/data"),
+          import("@/data/fishing/sitemap"),
+          import("@/data/hunting/sitemap"),
+          import("@/data/knowledge-graph"),
+          import("@/data/major-event-index"),
+          import("@/data/texas-data-center"),
+          import("@/data/texas-vs-states-index"),
+        ]);
         const coreResults = await Promise.allSettled([
           platform.articles.list(scope),
           platform.collections.list(scope),
