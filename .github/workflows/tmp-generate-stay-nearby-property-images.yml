@@ -1,15 +1,19 @@
 name: TEMP Generate exact Stay Nearby property images
 
 on:
-  pull_request:
+  push:
     branches:
-      - main
+      - fix/stay-nearby-exact-property-images
+    paths:
+      - '.github/workflows/tmp-generate-stay-nearby-property-images.yml'
+      - 'scripts/media/generate-stay-nearby-property-images.mjs'
+  workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
-  group: stay-nearby-exact-property-images-${{ github.event.pull_request.number || github.run_id }}
+  group: stay-nearby-exact-property-images-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -26,6 +30,20 @@ jobs:
           node-version: 24
       - name: Generate exact-property raster imagery
         run: node scripts/media/generate-stay-nearby-property-images.mjs
+      - name: Validate generated Stay Nearby assets
+        run: node scripts/data/validate-expedia-affiliate.mjs
+      - name: Commit generated raster assets
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A public
+          if git diff --cached --quiet; then
+            echo "No generated asset changes to commit."
+            exit 0
+          fi
+          git commit -m "Generate exact Stay Nearby property images"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
       - name: Upload generated property imagery for explicit review
         if: always()
         uses: actions/upload-artifact@v4
