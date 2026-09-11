@@ -1,3 +1,4 @@
+import { Container } from '@/components/layout/Container';
 import type { ParkingMapAsset } from '@/data/parking-maps';
 import { isPublishableParkingMap } from '@/data/parking-maps';
 
@@ -10,7 +11,6 @@ export function ParkingMapPanel({
 }) {
   if (!isPublishableParkingMap(map)) return null;
 
-  const primarySource = map.verificationSources[0];
   const sourceLabel = map.origin === 'ai-generated'
     ? 'TexasDefined-created parking orientation diagram'
     : `Reusable parking map${map.sourceName ? ` via ${map.sourceName}` : ''}`;
@@ -68,12 +68,23 @@ export function ParkingMapPanel({
                   </li>
                 ))}
               </ul>
-              {primarySource ? <p className="mt-3 text-xs leading-5 text-muted-foreground">Always use the linked current venue/event source for final lot assignments before travel.</p> : null}
+              <p className="mt-3 text-xs leading-5 text-muted-foreground">Always use the linked current venue/event source for final lot assignments before travel.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+export function StandaloneParkingMapPanel(props: { map?: ParkingMapAsset; contextName: string }) {
+  if (!isPublishableParkingMap(props.map)) return null;
+  return (
+    <Container className="pb-8">
+      <div className="mx-auto max-w-7xl">
+        <ParkingMapPanel {...props} />
+      </div>
+    </Container>
   );
 }
 
