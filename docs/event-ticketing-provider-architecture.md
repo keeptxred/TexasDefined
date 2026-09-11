@@ -36,7 +36,7 @@ This guarantees no duplicate competing ticket buttons by default even if several
 
 ## Existing official ticket data
 
-`src/data/events/texas-event-records.server.ts` currently maps source-qualified schema `Offer` URLs into provider `official` ticket links. It does **not** convert the generic official event homepage into a ticket CTA, and it does **not** fabricate an affiliate URL.
+`src/data/events/texas-event-records.server.ts` currently maps source-qualified schema `Offer` URLs into provider `official` ticket links. Identical official ticket links are deduplicated by destination URL before CTA resolution, while the underlying `Offer` rows remain intact so distinct prices and admission tiers are not discarded. It does **not** convert the generic official event homepage into a ticket CTA, and it does **not** fabricate an affiliate URL.
 
 When a future affiliate integration becomes valid, enrich the canonical `ticketing.links` record server-side. Do not modify the carousel or calendar to special-case the provider.
 
@@ -67,6 +67,16 @@ Exact integration rules:
 5. Do not duplicate ticket priority/fallback logic inside `SportsVenueGuidePage` or its pilot content.
 6. If venue-specific ticket metadata becomes available, attach it to the canonical event record before the shared builder runs.
 
+## Validation and production verification
+
+Three layers guard the ticketing architecture:
+
+1. `scripts/data/validate-event-ticketing-architecture.mjs` verifies the provider-neutral contract, resolver behavior, external-link safety, disclosure semantics, presentation boundaries, and official-link deduplication policy.
+2. `scripts/data/validate-event-ticket-positive-path.mjs` loads the real canonical event normalizer and shared carousel projection, using GrapeFest's reviewed official ticket source to prove that multiple price offers deduplicate to one outbound link and resolve as `Official Tickets →` without affiliate semantics.
+3. `scripts/ci/verify-event-ticketing-production.mjs` uses a cache-busted valid `/events` request after production deployment and verifies that the live page contains the source-qualified GrapeFest event, the `Official Tickets` CTA, and its reviewed official purchase URL without marking that URL as sponsored.
+
+`.github/workflows/validate-event-ticketing.yml` runs the architecture and canonical positive-path checks on relevant pull requests. `.github/workflows/verify-event-ticketing-production.yml` runs the live positive-path smoke check after a successful `Deploy TexasDefined production` workflow.
+
 ## Affiliate activation
 
 A future provider adapter should only populate `affiliateUrl` after the applicable affiliate/partner capability has actually been approved and the resulting deep link has been verified. Ticketmaster/Impact approval is not assumed by this architecture.
@@ -77,8 +87,9 @@ Recommended activation sequence:
 2. Resolve or generate the provider deep link server-side.
 3. Preserve the official ticket URL as fallback when available.
 4. Set the provider identifier, source, sale status, last verified timestamp, priority, and expiry values.
-5. Run `node scripts/data/validate-event-ticketing-architecture.mjs`, the normal validation suite, production build, and bundle budget before merge.
+5. Run `node scripts/data/validate-event-ticketing-architecture.mjs`, `node scripts/data/validate-event-ticket-positive-path.mjs`, the normal validation suite, production build, and bundle budget before merge.
 6. Verify the rendered CTA text changes from `Official Tickets →` to `Find Tickets →` only when the affiliate URL is valid.
+7. After deployment, require `node scripts/ci/verify-event-ticketing-production.mjs` to pass against the live site.
 
 ## No checkout
 
