@@ -238,18 +238,6 @@ function LegacySportsVenuePage() {
           </div>
         </section> : null}
 
-        <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[15rem_1fr]">
-          <div>
-            <p className="eyebrow text-primary">Plan the trip</p>
-            <h2 className="mt-2 font-display text-3xl leading-tight">Make the venue part of the weekend</h2>
-          </div>
-          <div className="grid gap-8 md:grid-cols-3">
-            <GuideCard title="Why people travel" body={profile.whyTravel} />
-            <GuideCard title="Best trip pattern" body={profile.tripPattern} />
-            <GuideCard title="Before you go" body={profile.beforeYouGo} />
-          </div>
-        </section>
-
         {enrichment ? <section className="border-b border-border py-12">
           <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
             <div>
@@ -377,75 +365,39 @@ function formatList(items: readonly string[]) {
 function venueProfile(tags: Set<string>) {
   if (tags.has('motorsports')) return {
     label: 'Motorsports destination', eyebrow: 'Texas Motorsports', schemaType: 'https://schema.org/SportsActivityLocation',
-    whyTravel: 'Race weekends, track events and driving experiences can pull fans and participants from across Texas. Treat the circuit itself as the anchor and build the rest of the trip around the event schedule.',
-    tripPattern: 'Plan for an event-day or full race-weekend stay. Extra arrival time matters at large circuits, and enthusiast events can start early and run across multiple sessions.',
-    beforeYouGo: 'Use the official venue site for the current race calendar, admission rules, parking instructions, gate times and any track-specific restrictions before leaving home.',
   };
   if (tags.has('horse-racing')) return {
     label: 'Horse-racing destination', eyebrow: 'Texas Racing', schemaType: 'https://schema.org/SportsActivityLocation',
-    whyTravel: 'Live race days combine sport, entertainment and a distinctive Texas outing, with larger cards and special events drawing visitors beyond the immediate metro area.',
-    tripPattern: 'A race-day visit pairs naturally with nearby dining and attractions. Check first-post time and whether the calendar is live racing or simulcast-focused.',
-    beforeYouGo: 'Confirm the live-racing calendar, admission policy, seating options and event-day schedule with the official track before making the drive.',
   };
   if (tags.has('golf')) return {
     label: 'Golf destination', eyebrow: 'Texas Golf', schemaType: 'https://schema.org/GolfCourse',
-    whyTravel: 'Championship events, resort golf and nationally recognized courses can justify a dedicated golf trip, while tournament weeks create a separate spectator-travel experience.',
-    tripPattern: 'For tournament travel, plan around parking, shuttle and gate information. For a golf getaway, treat tee times, resort access and course availability as the fixed points of the itinerary.',
-    beforeYouGo: 'Check the official course or event site for public access, tee-time rules, tournament schedules, spectator policies and parking before finalizing the trip.',
   };
   if (tags.has('high-school')) return {
     label: 'High-school football landmark', eyebrow: 'Friday Night Lights', schemaType: 'https://schema.org/StadiumOrArena',
-    whyTravel: 'Big Texas district stadiums can feel like destination venues on rivalry nights and during the UIL playoffs, drawing visiting families, bands and fans from well outside the home district.',
-    tripPattern: 'Friday-night games work well as a one-night local trip; playoff games can turn into longer weekends depending on kickoff time and travel distance.',
-    beforeYouGo: 'Use the school district or athletics site for the current schedule, ticketing, clear-bag rules, parking and stadium policies because procedures can vary by event.',
   };
   if (tags.has('rodeo') || tags.has('equestrian') || tags.has('western-sports')) return {
     label: 'Rodeo and Western-sports venue', eyebrow: 'Western Sports', schemaType: 'https://schema.org/StadiumOrArena',
-    whyTravel: 'Rodeos, livestock shows and major equestrian competitions bring competitors and spectators together for events that are as much Texas culture as sport.',
-    tripPattern: 'Many Western-sports events run over several days, so check whether the competition, expo, livestock show and evening performances use different schedules or tickets.',
-    beforeYouGo: 'Confirm the current event calendar, grounds map, parking, entry rules and ticket requirements with the venue or event organizer before traveling.',
   };
   if (tags.has('college-baseball')) return {
     label: 'College baseball ballpark', eyebrow: 'Texas College Baseball', schemaType: 'https://schema.org/StadiumOrArena',
-    whyTravel: 'Conference series, rivalry weekends and NCAA postseason games draw alumni and visiting fans who build a campus weekend around the ballpark.',
-    tripPattern: 'A three-game series is ideal for a weekend trip. Leave room for campus traditions, nearby dining and schedule changes caused by weather or postseason television windows.',
-    beforeYouGo: 'Check the university athletics site for the current series schedule, tickets, parking, gate policies and any weather-related updates.',
   };
   if (tags.has('college')) return {
     label: 'College sports venue', eyebrow: 'Texas College Sports', schemaType: 'https://schema.org/StadiumOrArena',
-    whyTravel: 'Game days bring alumni, students and visiting fans into town, turning the campus atmosphere and surrounding districts into part of the sports-trip experience.',
-    tripPattern: 'Build around kickoff, tipoff or first pitch, then add campus landmarks, local food and pregame traditions. Major rivalry weekends can require lodging well in advance.',
-    beforeYouGo: 'Use the university athletics site for the latest schedule, parking, tailgating, ticketing and venue-entry rules.',
   };
   if (tags.has('professional')) return {
     label: 'Professional sports venue', eyebrow: 'Big League Texas', schemaType: 'https://schema.org/StadiumOrArena',
-    whyTravel: 'Major-league games and marquee events draw traveling fans and make the venue a natural anchor for a city weekend built around sports, dining and nearby attractions.',
-    tripPattern: 'Plan a full event-day window rather than just game time. Downtown and entertainment-district venues are especially easy to combine with restaurants and attractions before or after the event.',
-    beforeYouGo: 'Check the official venue or team site for the current schedule, tickets, parking or transit, bag rules, gate times and event-specific policies.',
   };
   if (tags.has('shooting-sports')) return {
     label: 'Shooting-sports destination', eyebrow: 'Championship Sports', schemaType: 'https://schema.org/SportsActivityLocation',
-    whyTravel: 'Large championship facilities attract competitors and spectators for multi-day events, making the venue itself the reason for specialized sports travel.',
-    tripPattern: 'Competition trips may span practice and event days, so lodging and equipment logistics matter more than they do for a typical spectator event.',
-    beforeYouGo: 'Review the official match calendar, registration or spectator requirements, range rules and equipment policies before traveling.',
   };
   if (tags.has('action-sports')) return {
     label: 'Action-sports destination', eyebrow: 'Texas Action Sports', schemaType: 'https://schema.org/SportsActivityLocation',
-    whyTravel: 'Purpose-built action-sports experiences can justify a trip even without a spectator event, especially when instruction, resort amenities and repeat sessions are available.',
-    tripPattern: 'Treat reservation times and activity windows as the fixed point of the day, then build meals and nearby attractions around them.',
-    beforeYouGo: 'Confirm reservations, skill requirements, waivers, equipment rules, weather policies and operating hours with the venue.',
   };
   if (tags.has('tournament-complex')) return {
     label: 'Tournament sports complex', eyebrow: 'Texas Tournament Travel', schemaType: 'https://schema.org/SportsActivityLocation',
-    whyTravel: 'Multi-field and multi-court complexes bring teams and families into a city for entire tournament weekends, creating meaningful sports tourism beyond the local market.',
-    tripPattern: 'Expect early starts, multiple games and schedule changes. Lodging near the complex and flexible meal plans usually matter more than sightseeing on competition days.',
-    beforeYouGo: 'Check the tournament organizer and venue for schedules, parking, admission, prohibited items and field or court assignments.',
   };
   return {
     label: 'Texas sports venue', eyebrow: 'Texas Sports', schemaType: 'https://schema.org/SportsActivityLocation',
-    whyTravel: 'The venue hosts sports and event experiences that can anchor a day trip or weekend and connect naturally with the surrounding Texas community.',
-    tripPattern: 'Use the event schedule as the fixed point, then pair the visit with nearby food, attractions and an overnight stay when travel distance makes it worthwhile.',
-    beforeYouGo: 'Confirm the current event schedule, ticketing, parking and venue policies with the official source before traveling.',
   };
 }
 

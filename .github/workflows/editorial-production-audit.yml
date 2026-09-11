@@ -1,0 +1,112 @@
+name: Editorial production audit
+
+on:
+  schedule:
+    - cron: '23 11 * * 1'
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/editorial-production-audit.yml'
+      - 'src/data/articles*.ts'
+      - 'src/data/fixtures/**'
+      - 'src/routes/article.$slug.tsx'
+      - 'src/routes/article.$slug.lazy.tsx'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/articles*.ts'
+      - 'src/data/fixtures/**'
+      - 'src/routes/article.$slug.tsx'
+      - 'src/routes/article.$slug.lazy.tsx'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: editorial-production-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit-editorial-production:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+
+      - name: Inventory every current editorial article
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > .audit-editorial.ts <<'EOF'
+          import fs from 'node:fs';
+          import { platform, scope } from './src/data/index.ts';
+          const rows = await platform.articles.list(scope);
+          const unique = [...new Map(rows.map((row) => [row.slug, row])).values()]
+            .filter((row) => row?.slug)
+            .sort((a, b) => a.slug.localeCompare(b.slug));
+          if (!unique.length) throw new Error('Editorial repository returned zero articles');
+          fs.writeFileSync('/tmp/article-slugs.txt', unique.map((row) => row.slug).join('\n') + '\n');
+          console.log(`Editorial inventory: ${unique.length} unique articles`);
+          EOF
+          bun .audit-editorial.ts
+          rm .audit-editorial.ts
+
+      - name: Verify every article page resolves in production
+        shell: bash
+        run: |
+          set -euo pipefail
+          : > /tmp/results.txt
+
+          check_article() {
+            slug="$1"
+            url="https://texasdefined.com/article/$slug"
+            body=$(mktemp)
+            code=000
+            for attempt in 1 2 3; do
+              code=$(curl -A 'TexasDefinedEditorialAudit/1.0 (+https://texasdefined.com)' -L -sS -o "$body" -w '%{http_code}' --connect-timeout 10 --max-time 30 "$url" || echo 000)
+              if [[ "$code" == "200" ]] && ! grep -Eqi 'Story unavailable|This story is no longer available|page not found|(^|>)404([^0-9]|<)' "$body"; then
+                printf 'PASS\t%s\t%s\n' "$code" "$url"
+                rm -f "$body"
+                return 0
+              fi
+              sleep $((attempt * 2))
+            done
+            printf 'FAIL\t%s\t%s\n' "$code" "$url"
+            rm -f "$body"
+            return 0
+          }
+          export -f check_article
+
+          xargs -r -n1 -P8 bash -c 'check_article "$1"' _ < /tmp/article-slugs.txt | sort > /tmp/results.txt
+          total=$(wc -l < /tmp/results.txt | tr -d ' ')
+          passed=$(grep -c '^PASS' /tmp/results.txt || true)
+          failed=$(grep -c '^FAIL' /tmp/results.txt || true)
+
+          echo "Total checked: $total"
+          echo "Passed: $passed"
+          echo "Failed: $failed"
+          grep '^FAIL' /tmp/results.txt || true
+
+          {
+            echo '## TexasDefined editorial production audit'
+            echo
+            echo "- Total checked: $total"
+            echo "- Passed: $passed"
+            echo "- Failed: $failed"
+            if [[ "$failed" -gt 0 ]]; then
+              echo
+              echo '### Failed article URLs'
+              echo '```'
+              grep '^FAIL' /tmp/results.txt
+              echo '```'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          test "$failed" -eq 0
