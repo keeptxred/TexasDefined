@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { platform, scope } from "@/data";
 import { isLegacyCountySeriesArticle } from "@/data/county-series";
 import { isArticleDiscoveryReady } from "@/data/fixtures/texas-gateway-index-readiness";
 
@@ -18,6 +17,7 @@ export const Route = createFileRoute("/rss.xml")({
   server: {
     handlers: {
       GET: async () => {
+        const { platform, scope } = await import("@/data");
         const eligibleArticles = (await platform.articles.list(scope))
           .filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleDiscoveryReady(article));
         const pinnedArticles = eligibleArticles.filter((article) => PINNED_DISCOVERY_SLUGS.has(article.slug));
