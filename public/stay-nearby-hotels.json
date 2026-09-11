@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "reviewedAt": "2026-09-10",
+  "reviewedAt": "2026-09-11",
   "policy": {
     "maxCards": 3,
     "displayComputedDistance": false,
@@ -14,180 +14,506 @@
       "name": "Courtyard Fort Worth University Drive",
       "city": "Fort Worth",
       "area": "University Drive / TCU area",
-      "neighborhoods": ["tcu", "university-drive"],
+      "neighborhoods": [
+        "tcu",
+        "university-drive"
+      ],
       "status": "active",
       "coordinates": null,
       "image": null,
-      "bookingTargets": [{"provider": "expedia", "affiliateUrl": null, "verified": false}],
-      "contexts": [{
-        "kind": "venue",
-        "key": "amon-g-carter-stadium",
-        "rank": 1,
-        "geographicContext": "University Drive / TCU area",
-        "proximity": "Marriott describes the hotel as about a mile from TCU.",
-        "differentiator": "Useful for University Drive, University Park Village and the TCU side of Fort Worth.",
-        "source": {"url": "https://www.marriott.com/en-us/hotels/dfwch-courtyard-fort-worth-university-drive/overview/", "verifiedAt": "2026-09-10"}
-      }]
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "venue",
+          "key": "amon-g-carter-stadium",
+          "rank": 1,
+          "geographicContext": "University Drive / TCU area",
+          "proximity": "Marriott describes the hotel as about a mile from TCU.",
+          "differentiator": "Useful for University Drive, University Park Village and the TCU side of Fort Worth.",
+          "source": {
+            "url": "https://www.marriott.com/en-us/hotels/dfwch-courtyard-fort-worth-university-drive/overview/",
+            "verifiedAt": "2026-09-10"
+          }
+        }
+      ]
     },
     {
       "id": "hilton-garden-inn-fort-worth-medical-center",
       "name": "Hilton Garden Inn Fort Worth Medical Center",
       "city": "Fort Worth",
       "area": "Medical District / TCU access",
-      "neighborhoods": ["medical-district", "tcu"],
+      "neighborhoods": [
+        "medical-district",
+        "tcu"
+      ],
       "status": "active",
       "coordinates": null,
       "image": null,
-      "bookingTargets": [{"provider": "expedia", "affiliateUrl": null, "verified": false}],
-      "contexts": [{
-        "kind": "venue",
-        "key": "amon-g-carter-stadium",
-        "rank": 2,
-        "geographicContext": "Medical District / TCU access",
-        "proximity": "Hilton positions this Medical District hotel close to TCU.",
-        "differentiator": "A practical Fort Worth base with on-site dining and an indoor pool.",
-        "source": {"url": "https://www.hilton.com/en/hotels/ftwmdgi-hilton-garden-inn-fort-worth-medical-center/", "verifiedAt": "2026-09-10"}
-      }]
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "venue",
+          "key": "amon-g-carter-stadium",
+          "rank": 2,
+          "geographicContext": "Medical District / TCU access",
+          "proximity": "Hilton positions this Medical District hotel close to TCU.",
+          "differentiator": "A practical Fort Worth base with on-site dining and an indoor pool.",
+          "source": {
+            "url": "https://www.hilton.com/en/hotels/ftwmdgi-hilton-garden-inn-fort-worth-medical-center/",
+            "verifiedAt": "2026-09-10"
+          }
+        }
+      ]
     },
     {
       "id": "homewood-suites-fort-worth-medical-center",
       "name": "Homewood Suites by Hilton Fort Worth Medical Center",
       "city": "Fort Worth",
       "area": "Medical District / TCU access",
-      "neighborhoods": ["medical-district", "tcu"],
+      "neighborhoods": [
+        "medical-district",
+        "tcu"
+      ],
       "status": "active",
       "coordinates": null,
       "image": null,
-      "bookingTargets": [{"provider": "expedia", "affiliateUrl": null, "verified": false}],
-      "contexts": [{
-        "kind": "venue",
-        "key": "amon-g-carter-stadium",
-        "rank": 3,
-        "geographicContext": "Medical District / TCU access",
-        "proximity": "Hilton specifically includes Amon G. Carter Stadium among the hotel's nearby TCU destinations.",
-        "differentiator": "All-suite layout with in-room kitchens for longer game-weekend stays.",
-        "source": {"url": "https://www.hilton.com/en/hotels/ftwmchw-homewood-suites-fort-worth-medical-center-tx/", "verifiedAt": "2026-09-10"}
-      }]
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "venue",
+          "key": "amon-g-carter-stadium",
+          "rank": 3,
+          "geographicContext": "Medical District / TCU access",
+          "proximity": "Hilton specifically includes Amon G. Carter Stadium among the hotel's nearby TCU destinations.",
+          "differentiator": "All-suite layout with in-room kitchens for longer game-weekend stays.",
+          "source": {
+            "url": "https://www.hilton.com/en/hotels/ftwmchw-homewood-suites-fort-worth-medical-center-tx/",
+            "verifiedAt": "2026-09-10"
+          }
+        }
+      ]
     },
     {
       "id": "graduate-dallas",
       "name": "Graduate by Hilton Dallas",
       "city": "Dallas",
       "area": "SMU / University Park",
-      "neighborhoods": ["smu", "university-park"],
+      "neighborhoods": [
+        "smu",
+        "university-park"
+      ],
       "status": "active",
       "coordinates": null,
       "image": null,
-      "bookingTargets": [{"provider": "expedia", "affiliateUrl": null, "verified": false}],
-      "contexts": [{
-        "kind": "venue",
-        "key": "gerald-j-ford-stadium",
-        "rank": 1,
-        "geographicContext": "SMU / University Park",
-        "proximity": "Hilton lists Gerald J. Ford Stadium 0.5 miles from the hotel.",
-        "differentiator": "An SMU-focused boutique stay directly in the campus area.",
-        "source": {"url": "https://www.hilton.com/en/hotels/dalgdgu-graduate-dallas/", "verifiedAt": "2026-09-10"}
-      }]
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "venue",
+          "key": "gerald-j-ford-stadium",
+          "rank": 1,
+          "geographicContext": "SMU / University Park",
+          "proximity": "Hilton lists Gerald J. Ford Stadium 0.5 miles from the hotel.",
+          "differentiator": "An SMU-focused boutique stay directly in the campus area.",
+          "source": {
+            "url": "https://www.hilton.com/en/hotels/dalgdgu-graduate-dallas/",
+            "verifiedAt": "2026-09-10"
+          }
+        }
+      ]
     },
     {
       "id": "the-highland-dallas",
       "name": "The Highland Dallas, Curio Collection by Hilton",
       "city": "Dallas",
       "area": "Mockingbird / Park Cities",
-      "neighborhoods": ["smu", "mockingbird", "park-cities"],
+      "neighborhoods": [
+        "smu",
+        "mockingbird",
+        "park-cities"
+      ],
       "status": "active",
       "coordinates": null,
       "image": null,
-      "bookingTargets": [{"provider": "expedia", "affiliateUrl": null, "verified": false}],
-      "contexts": [{
-        "kind": "venue",
-        "key": "gerald-j-ford-stadium",
-        "rank": 2,
-        "geographicContext": "Mockingbird / Park Cities",
-        "proximity": "Hilton lists SMU 0.5 miles from the hotel.",
-        "differentiator": "Convenient to Mockingbird Station and the Park Cities side of the SMU campus.",
-        "source": {"url": "https://www.hilton.com/en/hotels/dalcuqq-the-highland-dallas/hotel-location/", "verifiedAt": "2026-09-10"}
-      }]
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "venue",
+          "key": "gerald-j-ford-stadium",
+          "rank": 2,
+          "geographicContext": "Mockingbird / Park Cities",
+          "proximity": "Hilton lists SMU 0.5 miles from the hotel.",
+          "differentiator": "Convenient to Mockingbird Station and the Park Cities side of the SMU campus.",
+          "source": {
+            "url": "https://www.hilton.com/en/hotels/dalcuqq-the-highland-dallas/hotel-location/",
+            "verifiedAt": "2026-09-10"
+          }
+        }
+      ]
     },
     {
       "id": "hotel-mockingbird-dallas",
       "name": "Hotel Mockingbird, Dallas, a Tribute Portfolio Hotel",
       "city": "Dallas",
       "area": "Mockingbird Station / SMU",
-      "neighborhoods": ["smu", "mockingbird", "park-cities"],
+      "neighborhoods": [
+        "smu",
+        "mockingbird",
+        "park-cities"
+      ],
       "status": "active",
       "coordinates": null,
       "image": null,
-      "bookingTargets": [{"provider": "expedia", "affiliateUrl": null, "verified": false}],
-      "contexts": [{
-        "kind": "venue",
-        "key": "gerald-j-ford-stadium",
-        "rank": 3,
-        "geographicContext": "Mockingbird Station / SMU",
-        "proximity": "Marriott describes the hotel as steps from SMU and Mockingbird Station.",
-        "differentiator": "On-site dining and a pool lounge near the campus corridor.",
-        "source": {"url": "https://www.marriott.com/en-us/hotels/dalnb-hotel-mockingbird-dallas-a-tribute-portfolio-hotel/overview/", "verifiedAt": "2026-09-10"}
-      }]
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "venue",
+          "key": "gerald-j-ford-stadium",
+          "rank": 3,
+          "geographicContext": "Mockingbird Station / SMU",
+          "proximity": "Marriott describes the hotel as steps from SMU and Mockingbird Station.",
+          "differentiator": "On-site dining and a pool lounge near the campus corridor.",
+          "source": {
+            "url": "https://www.marriott.com/en-us/hotels/dalnb-hotel-mockingbird-dallas-a-tribute-portfolio-hotel/overview/",
+            "verifiedAt": "2026-09-10"
+          }
+        }
+      ]
     },
     {
       "id": "live-by-loews-arlington",
       "name": "Live! by Loews – Arlington, TX",
       "city": "Arlington",
       "area": "Arlington Entertainment District",
-      "neighborhoods": ["arlington-entertainment-district"],
+      "neighborhoods": [
+        "arlington-entertainment-district"
+      ],
       "status": "active",
       "coordinates": null,
       "image": null,
-      "bookingTargets": [{"provider": "expedia", "affiliateUrl": null, "verified": false}],
-      "contexts": [{
-        "kind": "venue",
-        "key": "globe-life-field",
-        "rank": 1,
-        "geographicContext": "Arlington Entertainment District",
-        "proximity": "Loews places the hotel in the Entertainment District with convenient access to Globe Life Field and Texas Live!",
-        "differentiator": "A sports-focused full-service stay in the core stadium district.",
-        "source": {"url": "https://www.loewshotels.com/arlington-hotels", "verifiedAt": "2026-09-10"}
-      }]
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "venue",
+          "key": "globe-life-field",
+          "rank": 1,
+          "geographicContext": "Arlington Entertainment District",
+          "proximity": "Loews places the hotel in the Entertainment District with convenient access to Globe Life Field and Texas Live!",
+          "differentiator": "A sports-focused full-service stay in the core stadium district.",
+          "source": {
+            "url": "https://www.loewshotels.com/arlington-hotels",
+            "verifiedAt": "2026-09-10"
+          }
+        }
+      ]
     },
     {
       "id": "loews-arlington-hotel",
       "name": "Loews Arlington Hotel",
       "city": "Arlington",
       "area": "Arlington Entertainment District",
-      "neighborhoods": ["arlington-entertainment-district"],
+      "neighborhoods": [
+        "arlington-entertainment-district"
+      ],
       "status": "active",
       "coordinates": null,
       "image": null,
-      "bookingTargets": [{"provider": "expedia", "affiliateUrl": null, "verified": false}],
-      "contexts": [{
-        "kind": "venue",
-        "key": "globe-life-field",
-        "rank": 2,
-        "geographicContext": "Arlington Entertainment District",
-        "proximity": "Loews describes the hotel as situated between Globe Life Field and AT&T Stadium.",
-        "differentiator": "Resort-style pools and a full-service spa for a longer event weekend.",
-        "source": {"url": "https://www.loewshotels.com/arlington-hotel", "verifiedAt": "2026-09-10"}
-      }]
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "venue",
+          "key": "globe-life-field",
+          "rank": 2,
+          "geographicContext": "Arlington Entertainment District",
+          "proximity": "Loews describes the hotel as situated between Globe Life Field and AT&T Stadium.",
+          "differentiator": "Resort-style pools and a full-service spa for a longer event weekend.",
+          "source": {
+            "url": "https://www.loewshotels.com/arlington-hotel",
+            "verifiedAt": "2026-09-10"
+          }
+        }
+      ]
     },
     {
       "id": "drury-plaza-dallas-arlington",
       "name": "Drury Plaza Hotel Dallas Arlington",
       "city": "Arlington",
       "area": "Arlington Entertainment District",
-      "neighborhoods": ["arlington-entertainment-district"],
+      "neighborhoods": [
+        "arlington-entertainment-district"
+      ],
       "status": "active",
       "coordinates": null,
       "image": null,
-      "bookingTargets": [{"provider": "expedia", "affiliateUrl": null, "verified": false}],
-      "contexts": [{
-        "kind": "venue",
-        "key": "globe-life-field",
-        "rank": 3,
-        "geographicContext": "Arlington Entertainment District",
-        "proximity": "Drury places the hotel in the Entertainment District near Globe Life Field.",
-        "differentiator": "Includes hot breakfast and the evening 5:30 Kickback as standard hotel amenities.",
-        "source": {"url": "https://www.druryhotels.com/locations/dallas-tx/drury-plaza-hotel-dallas-arlington", "verifiedAt": "2026-09-10"}
-      }]
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "venue",
+          "key": "globe-life-field",
+          "rank": 3,
+          "geographicContext": "Arlington Entertainment District",
+          "proximity": "Drury places the hotel in the Entertainment District near Globe Life Field.",
+          "differentiator": "Includes hot breakfast and the evening 5:30 Kickback as standard hotel amenities.",
+          "source": {
+            "url": "https://www.druryhotels.com/locations/dallas-tx/drury-plaza-hotel-dallas-arlington",
+            "verifiedAt": "2026-09-10"
+          }
+        }
+      ]
+    },
+    {
+      "id": "w-dallas",
+      "name": "W Dallas",
+      "city": "Dallas",
+      "area": "Victory Park",
+      "neighborhoods": [
+        "victory-park"
+      ],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "venue",
+          "key": "american-airlines-center",
+          "rank": 1,
+          "geographicContext": "Victory Park",
+          "proximity": "Marriott says American Airlines Center is across the street from the hotel’s front door.",
+          "differentiator": "A full-service Victory Park stay immediately beside the arena and its dining and entertainment district.",
+          "source": {
+            "url": "https://www.marriott.com/en-us/hotels/dalwh-w-dallas/experiences/",
+            "verifiedAt": "2026-09-11"
+          }
+        }
+      ]
+    },
+    {
+      "id": "homewood-suites-dallas-downtown",
+      "name": "Homewood Suites by Hilton Dallas Downtown, TX",
+      "city": "Dallas",
+      "area": "Downtown Dallas",
+      "neighborhoods": [
+        "downtown-dallas"
+      ],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "venue",
+          "key": "american-airlines-center",
+          "rank": 2,
+          "geographicContext": "Downtown Dallas",
+          "proximity": "Hilton describes the hotel as under a mile from American Airlines Center.",
+          "differentiator": "An all-suite downtown option with in-room kitchens and free breakfast for longer event stays.",
+          "source": {
+            "url": "https://www.hilton.com/en/hotels/dalelhw-homewood-suites-dallas-downtown-tx/",
+            "verifiedAt": "2026-09-11"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hilton-anatole",
+      "name": "Hilton Anatole",
+      "city": "Dallas",
+      "area": "Market Center",
+      "neighborhoods": [
+        "market-center"
+      ],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "venue",
+          "key": "american-airlines-center",
+          "rank": 3,
+          "geographicContext": "Market Center / Stemmons Corridor",
+          "proximity": "Hilton’s location page lists American Airlines Center one mile from the hotel.",
+          "differentiator": "A larger resort-style Dallas base with indoor and outdoor pools north of the arena district.",
+          "source": {
+            "url": "https://www.hilton.com/en/hotels/dfwanhh-hilton-anatole/hotel-location/",
+            "verifiedAt": "2026-09-11"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tru-northlake-fort-worth",
+      "name": "Tru by Hilton Northlake Fort Worth",
+      "city": "Northlake",
+      "area": "Speedway / Northlake",
+      "neighborhoods": [
+        "northlake",
+        "speedway"
+      ],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "venue",
+          "key": "texas-motor-speedway",
+          "rank": 1,
+          "geographicContext": "Northlake / Speedway corridor",
+          "proximity": "Hilton says the hotel is across I-35W from Texas Motor Speedway and within a mile drive.",
+          "differentiator": "A race-weekend-focused option with free hot breakfast and free parking near the track.",
+          "source": {
+            "url": "https://www.hilton.com/en/hotels/ftwnlru-tru-northlake-fort-worth/",
+            "verifiedAt": "2026-09-11"
+          }
+        }
+      ]
+    },
+    {
+      "id": "home2-suites-fort-worth-northlake",
+      "name": "Home2 Suites by Hilton Fort Worth Northlake",
+      "city": "Northlake",
+      "area": "Speedway / Northlake",
+      "neighborhoods": [
+        "northlake",
+        "speedway"
+      ],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "venue",
+          "key": "texas-motor-speedway",
+          "rank": 2,
+          "geographicContext": "Northlake / Raceway Drive",
+          "proximity": "Hilton describes Texas Motor Speedway as across the street and lists it one mile away.",
+          "differentiator": "An extended-stay option with in-room kitchens, free breakfast and free parking.",
+          "source": {
+            "url": "https://www.hilton.com/en/hotels/dfwnlht-home2-suites-fort-worth-northlake/hotel-location/",
+            "verifiedAt": "2026-09-11"
+          }
+        }
+      ]
+    },
+    {
+      "id": "holiday-inn-express-fort-worth-north-northlake",
+      "name": "Holiday Inn Express & Suites Fort Worth North - Northlake",
+      "city": "Northlake",
+      "area": "Speedway / Northlake",
+      "neighborhoods": [
+        "northlake",
+        "speedway"
+      ],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "venue",
+          "key": "texas-motor-speedway",
+          "rank": 3,
+          "geographicContext": "Northlake / Raceway Drive",
+          "proximity": "IHG says Texas Motor Speedway is about one mile from the hotel.",
+          "differentiator": "A practical race-weekend stay with complimentary hot breakfast, free parking and an outdoor pool.",
+          "source": {
+            "url": "https://www.ihg.com/holidayinnexpress/hotels/us/en/northlake/dfwnl/hoteldetail",
+            "verifiedAt": "2026-09-11"
+          }
+        }
+      ]
     }
   ]
 }

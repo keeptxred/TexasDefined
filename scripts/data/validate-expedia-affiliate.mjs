@@ -152,6 +152,8 @@ if (!registry || registry.version !== 1 || !Array.isArray(registry.properties)) 
     ['amon-g-carter-stadium', 3],
     ['gerald-j-ford-stadium', 3],
     ['globe-life-field', 3],
+    ['american-airlines-center', 3],
+    ['texas-motor-speedway', 3],
   ]);
   for (const [venue, expected] of expectedVenueCounts) {
     const matches = registry.properties.filter((property) =>
@@ -224,4 +226,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Expedia / Stay Nearby validation passed: approved tracking remains click-loaded, curated hotel selection is capped and evidence-backed, three-card venue pilots are complete, open-license venue context remains separated from property photography, nine first-party AI area-illustration fallbacks are visibly disclosed and explicitly non-property, property deep links require explicit verification, and real property imagery remains gated to approved first-party-hosted Creator Toolbox media with a matching referral.');
+console.log('Expedia / Stay Nearby validation passed: approved tracking remains click-loaded, curated hotel selection is capped and evidence-backed, five three-card venue pilots are complete, open-license venue context remains separated from property photography, nine first-party AI area-illustration fallbacks are visibly disclosed and explicitly non-property, property deep links require explicit verification, and real property imagery remains gated to approved first-party-hosted Creator Toolbox media with a matching referral.');
