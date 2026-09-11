@@ -33,35 +33,26 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: npm
-      - run: npm ci
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
 
       - name: Inventory every current editorial article
         shell: bash
         run: |
           set -euo pipefail
-          cat > .audit-editorial.mjs <<'EOF'
-          import { createServer } from 'vite';
+          cat > .audit-editorial.ts <<'EOF'
           import fs from 'node:fs';
-          const vite = await createServer({ server: { middlewareMode: true }, appType: 'custom', logLevel: 'error' });
-          try {
-            const mod = await vite.ssrLoadModule('/src/data/index.ts');
-            const rows = await mod.platform.articles.list(mod.scope);
-            const unique = [...new Map(rows.map((row) => [row.slug, row])).values()]
-              .filter((row) => row?.slug)
-              .sort((a, b) => a.slug.localeCompare(b.slug));
-            if (!unique.length) throw new Error('Editorial repository returned zero articles');
-            fs.writeFileSync('/tmp/article-slugs.txt', unique.map((row) => row.slug).join('\n') + '\n');
-            console.log(`Editorial inventory: ${unique.length} unique articles`);
-          } finally {
-            await vite.close();
-          }
+          import { platform, scope } from './src/data/index.ts';
+          const rows = await platform.articles.list(scope);
+          const unique = [...new Map(rows.map((row) => [row.slug, row])).values()]
+            .filter((row) => row?.slug)
+            .sort((a, b) => a.slug.localeCompare(b.slug));
+          if (!unique.length) throw new Error('Editorial repository returned zero articles');
+          fs.writeFileSync('/tmp/article-slugs.txt', unique.map((row) => row.slug).join('\n') + '\n');
+          console.log(`Editorial inventory: ${unique.length} unique articles`);
           EOF
-          node .audit-editorial.mjs
-          rm .audit-editorial.mjs
+          bun .audit-editorial.ts
+          rm .audit-editorial.ts
 
       - name: Verify every article page and rendered hero image in production
         shell: bash
