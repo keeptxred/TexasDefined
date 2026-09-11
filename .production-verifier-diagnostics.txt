@@ -1,0 +1,205 @@
+### Direct Worker discovery
+command=DIRECT_WORKER_ORIGIN=https://texasdefined-site.freddy-coppola.workers.dev node scripts/ci/verify-direct-worker-discovery.mjs
+[direct-worker:explore-search] attempt 1: https://texasdefined-site.freddy-coppola.workers.dev/explore/search?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[direct-worker:explore-search] verified (200): Search the Texas Travel Guide
+[direct-worker:trip-planner] attempt 1: https://texasdefined-site.freddy-coppola.workers.dev/explore/trip-planner?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[direct-worker:trip-planner] verified (200): Texas Trip Planner
+[direct-worker:major-events:canonical] attempt 1: https://texasdefined-site.freddy-coppola.workers.dev/events
+[direct-worker:major-events:canonical] verified (200): recurrence confidence is visible and ended authority guides are absent.
+[custom-domain:major-events:canonical] attempt 1: https://texasdefined.com/events
+[custom-domain:major-events:canonical] verified (200): recurrence confidence is visible and ended authority guides are absent.
+[direct-worker:major-events:revision] attempt 1: https://texasdefined-site.freddy-coppola.workers.dev/events?verify-major-events=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[direct-worker:major-events:revision] verified (200): recurrence confidence is visible and ended authority guides are absent.
+[custom-domain:major-events:revision] attempt 1: https://texasdefined.com/events?verify-major-events=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[custom-domain:major-events:revision] verified (200): recurrence confidence is visible and ended authority guides are absent.
+[rv-origin:direct-worker] status=200 final=https://texasdefined-site.freddy-coppola.workers.dev/county/randall?verify-rv-origin=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-direct-worker bytes=89347 heading=true palo-duro=true major-events=false sports=false cf-cache=none
+[rv-origin:custom-domain] status=200 final=https://texasdefined.com/county/randall?verify-rv-origin=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-custom-domain bytes=90285 heading=true palo-duro=true major-events=false sports=false cf-cache=none
+Direct Worker discovery verification passed (2 discovery surfaces plus canonical and revision-bound direct/custom-domain major-event landing policy; Randall origin comparison logged diagnostically).
+exit=0
+
+### Base production surfaces
+command=node scripts/ci/verify-production-surfaces.mjs
+[homepage] attempt 1: https://texasdefined.com/?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[homepage] verified (200): Texas Defined
+[sitemap] attempt 1: https://texasdefined.com/sitemap.xml?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[sitemap] verified (200): <urlset
+[explore-search] attempt 1: https://texasdefined.com/explore/search?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[explore-search] verified (200): Search the Texas Travel Guide
+[trip-planner] attempt 1: https://texasdefined.com/explore/trip-planner?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[trip-planner] verified (200): Texas Trip Planner
+[caverns-count] attempt 1: https://texasdefined.com/explore/caverns?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[caverns-count] verified (200): 11 places are currently mapped
+[caverns-sonora] attempt 1: https://texasdefined.com/explore/caverns?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[caverns-sonora] verified (200): Caverns of Sonora
+[caverns-cascade] attempt 1: https://texasdefined.com/explore/caverns?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[caverns-cascade] verified (200): Cascade Caverns
+[caverns-no-name] attempt 1: https://texasdefined.com/explore/caverns?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[caverns-no-name] verified (200): Cave Without a Name
+[caverns-devils-sinkhole] attempt 1: https://texasdefined.com/explore/caverns?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[caverns-devils-sinkhole] verified (200): Devil's Sinkhole State Natural Area
+[salary-calculator] attempt 1: https://texasdefined.com/texas-salary-calculator?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[salary-calculator] verified (200): Texas paycheck and salary calculator
+[home-insurance-calculator] attempt 1: https://texasdefined.com/texas-home-insurance-calculator?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[home-insurance-calculator] verified (200): Homeowners insurance calculator without personal information
+[moving-pillar] attempt 1: https://texasdefined.com/article/moving-to-texas-what-nobody-tells-you?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[moving-pillar] verified (200): The quick answer: what should you know before moving to Texas?
+[relocation-data-center] attempt 1: https://texasdefined.com/moving-to-texas/data?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[relocation-data-center] verified (200): The data behind a move to Texas
+[relocation-city-comparison] attempt 1: https://texasdefined.com/browse/cities?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[relocation-city-comparison] verified (200): The Texas city directory
+[flag-history] attempt 1: https://texasdefined.com/article/history-of-the-texas-flag?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[flag-history] verified (200): The Texas Flag: A History of the Lone Star
+[flag-etiquette] attempt 1: https://texasdefined.com/article/texas-flag-etiquette-display-guide?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[flag-etiquette] verified (200): Texas Flag Etiquette: How to Display the Lone Star Flag Correctly
+[texas-symbols] attempt 1: https://texasdefined.com/texas-symbols?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[texas-symbols] verified (200): Official Texas Symbols
+[bluebonnet-authority] attempt 1: https://texasdefined.com/article/texas-bluebonnets-complete-guide?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[bluebonnet-authority] verified (200): Bluebonnet Season, Explained
+[christmas-authority] attempt 1: https://texasdefined.com/article/christmas-in-texas-complete-guide?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[christmas-authority] verified (200): Christmas in Texas, From River Lights to Courthouse Squares
+[fall-authority] attempt 1: https://texasdefined.com/article/fall-in-texas-complete-guide?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[fall-authority] verified (200): Where Autumn Actually Shows Up in Texas
+[wildfire-homes-property-byline] attempt 1: https://texasdefined.com/article/texas-wildfire-home-protection-guide?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[wildfire-homes-property-byline] verified (200): Texas Defined Homes & Property Desk
+[wildfire-homes-property-schema] attempt 1: https://texasdefined.com/article/texas-wildfire-home-protection-guide?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[wildfire-homes-property-schema] verified (200): https://texasdefined.com/authors/a-homes-land#desk
+[homes-property-desk-profile] attempt 1: https://texasdefined.com/authors/a-homes-land?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[homes-property-desk-profile] verified (200): not a substitute for licensed legal, insurance, engineering or trade advice
+[painted-churches] attempt 1: https://texasdefined.com/explore/painted-churches?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[painted-churches] verified (200): Painted Churches of Texas
+[then-and-now] attempt 1: https://texasdefined.com/explore/painted-churches/then-and-now?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[then-and-now] verified (200): Texas Painted Churches visual history
+[media] attempt 1: https://texasdefined.com/explore/painted-churches/media?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[media] verified (200): Texas Painted Churches multimedia research library
+[guidebook] attempt 1: https://texasdefined.com/guides?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[guidebook] verified (200): Painted Churches of Texas
+[historic-sites] attempt 1: https://texasdefined.com/explore/historic-sites?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[historic-sites] verified (200): Painted Churches of Texas
+[road-trips] attempt 1: https://texasdefined.com/explore/road-trips?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[road-trips] verified (200): Painted Churches routes
+[small-towns] attempt 1: https://texasdefined.com/explore/small-towns?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[small-towns] verified (200): Painted Churches
+[spanish-texas] attempt 1: https://texasdefined.com/article/spanish-texas-military-battle-medina?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[spanish-texas] verified (200): Military Texas Before the Republic
+[mexican-texas] attempt 1: https://texasdefined.com/article/mexican-texas-military-history?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[mexican-texas] verified (200): Military in Mexican Texas
+[buffalo-soldiers] attempt 1: https://texasdefined.com/article/buffalo-soldiers-texas-frontier-guide?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[buffalo-soldiers] verified (200): Buffalo Soldiers in Texas
+[red-river-war] attempt 1: https://texasdefined.com/article/texas-red-river-war-guide?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[red-river-war] verified (200): The Red River War in Texas
+[spanish-american-war] attempt 1: https://texasdefined.com/article/texas-spanish-american-war-guide?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[spanish-american-war] verified (200): Texas and the Spanish-American War
+[world-war-i] attempt 1: https://texasdefined.com/article/texas-world-war-i-history-guide?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[world-war-i] verified (200): Texas in World War I
+[republic-navy] attempt 1: https://texasdefined.com/article/republic-of-texas-navy-history?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[republic-navy] verified (200): The Republic of Texas Navy
+[cold-war] attempt 1: https://texasdefined.com/article/texas-cold-war-military-history?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[cold-war] verified (200): Cold War Texas
+[recent-wars] attempt 1: https://texasdefined.com/article/texas-recent-wars-military-history?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[recent-wars] verified (200): Texas in Recent Wars
+[national-cemeteries-guide] attempt 1: https://texasdefined.com/article/texas-national-cemeteries-guide?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[national-cemeteries-guide] verified (200): Texas National Cemeteries
+[fort-sam-houston-national-cemetery] attempt 1: https://texasdefined.com/destination/fort-sam-houston-national-cemetery?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[fort-sam-houston-national-cemetery] verified (200): Fort Sam Houston National Cemetery
+[houston-national-cemetery] attempt 1: https://texasdefined.com/destination/houston-national-cemetery?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[houston-national-cemetery] verified (200): Houston National Cemetery
+[dallas-fort-worth-national-cemetery] attempt 1: https://texasdefined.com/destination/dallas-fort-worth-national-cemetery?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[dallas-fort-worth-national-cemetery] verified (200): Dallas-Fort Worth National Cemetery
+[texas-history-military] attempt 1: https://texasdefined.com/texas-history?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[texas-history-military] verified (200): Military in Mexican Texas
+[homepage-canonical] attempt 1: https://texasdefined.com/
+[homepage-canonical] canonical homepage is current and contains no retired/dead-end content.
+TexasDefined production verification passed (44 revision-bound surfaces plus canonical homepage, no cf-mitigated challenges).
+[viator-production] explore-directory attempt 1: https://texasdefined.com/explore?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-explore-directory-1
+[viator-production] explore-directory verified 26 affiliate link(s) with PID P00318227 / MCID 42383 and sponsored disclosure.
+[viator-production] destination-booking-card attempt 1: https://texasdefined.com/destination/barton-springs-pool?verify=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-destination-booking-card-1
+[viator-production] destination-booking-card verified 1 affiliate link(s) with PID P00318227 / MCID 42383 and sponsored disclosure.
+[viator-production] Explore directory and representative destination booking card passed live verification.
+[custom-domain:ask-texas] attempt 1: https://texasdefined.com/ask-texas?q=Who+represents+me+in+the+Texas+Legislature%3F&verify-ask-texas=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[custom-domain:ask-texas] Ask Texas page verified (200) with government examples, noindex and hardened headers.
+[direct-worker:ask-texas] attempt 1: https://texasdefined-site.freddy-coppola.workers.dev/ask-texas?q=Who+represents+me+in+the+Texas+Legislature%3F&verify-ask-texas=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[direct-worker:ask-texas] Ask Texas page verified (200) with government examples, noindex and hardened headers.
+[keep-tx-red-contract] attempt 1: https://keeptxred.com/api/public/texasdefined-government-search?q=HB+1056&limit=3&verify-ask-texas=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[keep-tx-red-contract] verified (200): 3 bounded public government result(s).
+[cross-origin-rejection] verified: government AI endpoint rejects cross-site POST before inference.
+Ask Texas government production verification passed without generating an AI answer.
+file:///home/runner/work/TexasDefined/TexasDefined/scripts/ci/verify-stay-nearby-production.mjs:66
+  if (!condition) throw new Error(message);
+                        ^
+
+Error: amon-g-carter-stadium production hotel set or order drifted.
+    at requireCondition (file:///home/runner/work/TexasDefined/TexasDefined/scripts/ci/verify-stay-nearby-production.mjs:66:25)
+    at file:///home/runner/work/TexasDefined/TexasDefined/scripts/ci/verify-stay-nearby-production.mjs:139:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+
+Node.js v22.23.2
+exit=1
+
+### Event structured data
+command=node scripts/ci/verify-event-structured-data-production.mjs
+[events-hub] attempt 1: https://texasdefined.com/events?verify-event-schema=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[events-hub] statewide body and collection-only structured-data scope verified
+[events-sitemap] attempt 1: https://texasdefined.com/sitemap.xml?verify-event-schema=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[events-tournaments] attempt 1: https://texasdefined.com/events/tournaments?verify-event-schema=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[events-tournaments] child-only body, canonical, indexing and sitemap contract verified
+[events-panhandle] attempt 1: https://texasdefined.com/events/panhandle-events?verify-event-schema=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[events-panhandle] child-only body, canonical and dynamic 3-guide indexing/sitemap contract verified
+[luling-watermelon-thump] attempt 1: https://texasdefined.com/event/luling-watermelon-thump?verify-event-schema=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[luling-watermelon-thump] recurrence-derived visible labeling and schema suppression verified
+[national-polka-festival] attempt 1: https://texasdefined.com/event/national-polka-festival?verify-event-schema=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[national-polka-festival] recurrence-derived visible labeling and schema suppression verified
+[westfest] attempt 1: https://texasdefined.com/event/westfest?verify-event-schema=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[westfest] recurrence-derived visible labeling and schema suppression verified
+[fiesta-san-antonio] attempt 1: https://texasdefined.com/event/fiesta-san-antonio?verify-event-schema=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[fiesta-san-antonio] organizer plus future-year omission policy verified
+[bandera-round-up-cattle-drive] attempt 1: https://texasdefined.com/event/bandera-round-up-cattle-drive?verify-event-schema=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[bandera-round-up-cattle-drive] organizer and free Offer verified
+[fort-bend-county-fair-rodeo] attempt 1: https://texasdefined.com/event/fort-bend-county-fair-rodeo?verify-event-schema=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[fort-bend-county-fair-rodeo] organizer, paid Offer and performer set verified
+[texas-renaissance-festival] attempt 1: https://texasdefined.com/event/texas-renaissance-festival?verify-event-schema=543c272381cd0310f32906fb0bde4d53f1ef991e-34653264837-1
+[texas-renaissance-festival] recurring Event and occurrence enrichment verified
+TexasDefined Event production verification passed, including collection SSR isolation, dynamic collection indexing/sitemap policy, recurrence-derived schema suppression, optional enrichment and intentional omissions.
+exit=0
+
+### Local financial production
+command=node scripts/ci/verify-local-financial-production.mjs
+[affordability:houston] verified (200)
+[affordability:austin] verified (200)
+[affordability:dallas] verified (200)
+[affordability:fort-worth] verified (200)
+[affordability:san-antonio] verified (200)
+[affordability:frisco] verified (200)
+[affordability:el-paso] verified (200)
+[cost-of-living:houston] verified (200)
+[cost-of-living:austin] verified (200)
+[cost-of-living:dallas] verified (200)
+[cost-of-living:fort-worth] verified (200)
+[cost-of-living:san-antonio] verified (200)
+[cost-of-living:frisco] verified (200)
+[cost-of-living:el-paso] verified (200)
+[salary-needed:houston] verified (200)
+[salary-needed:austin] verified (200)
+[salary-needed:dallas] verified (200)
+[salary-needed:fort-worth] verified (200)
+[salary-needed:san-antonio] verified (200)
+[salary-needed:frisco] verified (200)
+[salary-needed:el-paso] verified (200)
+[property-tax:dallas-county] verified (200)
+[property-tax:tarrant-county] verified (200)
+[property-tax:bexar-county] verified (200)
+[property-tax:el-paso-county] verified (200)
+[sitemap] verified 25 local financial URLs
+Local financial production verification passed (7 affordability pages, 7 cost-of-living pages, 7 salary-needed pages, 4 property-tax samples, sitemap membership).
+exit=0
+
+### Statewide financial discovery
+command=node scripts/ci/verify-statewide-financial-discovery.mjs
+[/texas-moving-cost-calculator] verified (200)
+[/texas-cost-of-living-calculator] verified (200)
+[/texas-salary-comparison-by-city] verified (200)
+[/texas-salary-calculator] verified (200)
+[/texas-budget-planner] verified (200)
+Statewide financial discovery diagnostics written to .artifacts/statewide-financial-discovery.json.
+Statewide financial discovery verification passed for 5 mutually linked planning surfaces.
+exit=0
+
