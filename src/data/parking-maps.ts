@@ -2,6 +2,7 @@ import type { ParkingMapAsset } from './parking-map-model';
 import { isPublishableParkingMap } from './parking-map-model';
 import { VENUE_PARKING_MAPS_BATCH_1 } from './parking-maps-batch1';
 import { VENUE_PARKING_MAPS_BATCH_2 } from './parking-maps-batch2';
+import { VENUE_PARKING_MAPS_BATCH_3 } from './parking-maps-batch3';
 
 export type {
   ParkingMapAsset,
@@ -16,6 +17,7 @@ export { isPublishableParkingMap } from './parking-map-model';
 const venueParkingMaps: Record<string, ParkingMapAsset> = {
   ...VENUE_PARKING_MAPS_BATCH_1,
   ...VENUE_PARKING_MAPS_BATCH_2,
+  ...VENUE_PARKING_MAPS_BATCH_3,
 };
 
 const eventParkingMaps: Record<string, ParkingMapAsset> = {};
