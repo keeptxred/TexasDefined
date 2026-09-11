@@ -1,0 +1,66 @@
+name: Phase 1E branch validation
+
+on:
+  push:
+    branches: [phase1e-ticketing-provider-architecture]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: phase1e-ticketing-provider-architecture
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Validate ticketing architecture
+        run: node scripts/data/validate-event-ticketing-architecture.mjs
+
+      - name: Validate retired integration traces
+        run: node scripts/ci/validate-retired-integration-traces.mjs
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Validate direct-main writer inventory
+        run: node scripts/ci/validate-direct-main-writer-inventory.mjs
+
+      - name: Validate consolidated county certifiers
+        run: node scripts/ci/validate-county-certifier-consolidation.mjs
+
+      - name: Validate automation main-write policy
+        run: node scripts/ci/validate-automation-main-write-policy.mjs
+
+      - name: Validate retired one-time certifications
+        run: node scripts/ci/validate-retired-one-time-certifications.mjs
+
+      - name: Validate permanent SEO content quality governance
+        run: node scripts/data/validate-content-quality-governance.mjs
+
+      - name: Validate Texas-vs state promotions
+        run: node scripts/data/validate-texas-vs-state-promotions.mjs
+
+      - name: Run authoritative validation suite
+        run: node scripts/ci/run-validation-suite.mjs full
+
+      - name: Validate production predeploy gates
+        run: node scripts/ci/run-validation-suite.mjs predeploy
+
+      - name: Build production application
+        run: npm run build
+
+      - name: Validate client performance budget
+        run: npm run performance:validate
