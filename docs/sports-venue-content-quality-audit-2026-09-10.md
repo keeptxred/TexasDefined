@@ -6,7 +6,7 @@ Scope: all 84 currently verified TexasDefined sports-venue guides, with Phase 1D
 
 - **84/84 venue pages** still expose the shared `Plan the trip` block from `src/routes/sports-venue.$slug.tsx`, including the identical heading **“Make the venue part of the weekend”** and the identical card labels **“Why people travel,” “Best trip pattern,” and “Before you go.”** The body copy comes from only 12 tag-based `venueProfile()` templates. This block remains a global layout concern and is intentionally not redesigned in Phase 1D.
 - **84/84 venue records** are shaped by `SportsVenueEnrichment`, which currently requires `stayAndEat` and `nearby` strings. That schema encourages every record to produce lodging/weekend copy even when there is no venue-specific guidance worth publishing. Phase 1D does not break that shared schema; the quality-profile layers separate durable visitor facts, editorial history and source-review metadata so a later schema/layout migration can remove mandatory filler safely.
-- The two knowledge-graph seed files (`major-sports-venues.ts` and `sports-venues-tier2.ts`) synthesize every base venue description from a small set of category templates plus a common wrapper sentence. Before Phase 1D, only **15 of 84** venue descriptions had venue-specific server editorial overrides, leaving **69 of 84** exposed to the helper-generated description pattern. The initial batch raised explicit editorial coverage to **18 of 84**. The second wave adds DKR–Texas Memorial Stadium, Dell Diamond and Foster Pavilion, bringing the total to **21 of 84** and leaving **63** candidates for record-by-record remediation.
+- The two knowledge-graph seed files (`major-sports-venues.ts` and `sports-venues-tier2.ts`) synthesize every base venue description from a small set of category templates plus a common wrapper sentence. Before Phase 1D, only **15 of 84** venue descriptions had venue-specific server editorial overrides, leaving **69 of 84** exposed to the helper-generated description pattern. The initial batch raised explicit editorial coverage to **18 of 84**; wave 2 raised it to **21 of 84**; wave 3 adds Baylor Ballpark, Credit Union of Texas Event Center, Reed Arena, Whataburger Field and Memorial Park Golf Course, bringing the total to **26 of 84** and leaving **58** candidates for record-by-record remediation.
 - **84/84 venue quick-answer components** formerly included `TexasExplainedContextLinks surface="sports"`, regardless of whether those links were meaningfully related to the venue. Phase 1D removed that forced link injection.
 - Because `verifiedAt` is mandatory in the enrichment schema, the quick-answer surface had framed source-review metadata as **“How current is this [venue] visitor guide?”** The review date is now displayed as source metadata, not as a consumer FAQ or FAQ-schema question.
 
@@ -66,9 +66,46 @@ Scope: all 84 currently verified TexasDefined sports-venue guides, with Phase 1D
 - Separates current public/BBF parking, accessible shuttle, clear-bag, no-re-entry and 60-minute gate guidance from durable venue history.
 - Replaces generic Waco weekend language with the pavilion's actual Brazos River / Baylor campus / downtown-edge geography.
 
+## Third remediation wave
+
+### Baylor Ballpark / Magnolia Field
+
+- Replaces season-count filler with the durable construction timeline: first Baylor games in **1999**, completion for the **2000** season and dedication in **2001**.
+- Records the official **5,000** capacity, Baylor baseball/Big 12 role, four main-grandstand entrances and an additional accessibility ramp.
+- Incorporates the **January 2026 Magnolia Field** naming as a current venue-identity fact while keeping the canonical TexasDefined route stable.
+- Re-centers visitor context on the Turner Riverfront Athletic Complex and Brazos River rather than generic Waco-weekend copy, and avoids turning ticket-office hours into an invented gate-opening claim.
+
+### Credit Union of Texas Event Center
+
+- Records the official **200 E. Stacy Road #1350, Allen, TX 75002** address and **7,000+** capacity.
+- Separates the City of Allen-owned arena's durable identity and Allen Americans/ECHL role from changeable event policies.
+- Adds current South Parking Garage instructions, the explicit prohibition on using surrounding uncovered retail lots for event parking, assistive-listening availability, event drop-off context and the typical one-hour doors-open pattern.
+- Treats the clear-bag rule as event-sensitive because concerts and other promoters can impose stricter rules.
+
+### Reed Arena
+
+- Records the official **730 Olsen Blvd., College Station, TX 77843** address, **12,989** capacity and **fall 1998** opening.
+- Captures the arena's three home programs—Texas A&M men's basketball, women's basketball and volleyball—plus its SEC context and commencement/concert role.
+- Adds the current 12-1-1 clear-bag requirement and Lot 102 ADA parking context while deliberately avoiding stale parking prices or assuming ordinary campus permit rules apply to every event.
+- Replaces generic Aggieland-weekend language with west-campus access and same-campus sports relationships.
+
+### Whataburger Field
+
+- Records the official **734 E. Port Avenue, Corpus Christi, TX 78401** address, **2005** opening, Hooks/Texas League/Houston Astros affiliation and the venue's distinct capacity configurations: **5,391 stadium seats**, **288 suite-level seats**, and up to **10,400** for field-and-concourse events.
+- Replaces generic Gulf Coast copy with the ballpark's actual Port of Corpus Christi cotton-warehouse history, industrial design cues and harbor-channel setting.
+- Adds current accessible seating and ADA parking guidance, current bag rules and Hooks-game gate timing while keeping special-event timing explicitly event-controlled.
+- Avoids freezing current parking prices into evergreen content.
+
+### Memorial Park Golf Course
+
+- Records the official **1001 E Memorial Loop Drive, Houston, TX 77007** address and the course's public municipal identity.
+- Replaces generic championship-golf language with the durable progression from the Camp Logan-era nine-hole course to John Bredemus' **1936** redesign, historic Houston Open hosting and the major renovation preceding the tournament's **2020** return.
+- Keeps public tee-time planning, paid Memorial Park parking and the Tuesday maintenance closure separate from tournament-week transportation logistics.
+- Avoids resort-style framing for a City of Houston public course inside Memorial Park.
+
 ## Source standard used in this remediation
 
-The eight remediated records use venue/team/university-operated sources for durable facts and official visitor guidance. Frequently changing policies are summarized conservatively and linked back to the official current page instead of being treated as permanent facts.
+The thirteen remediated records use venue/team/university/city-operated sources for durable facts and official visitor guidance. Frequently changing policies are summarized conservatively and linked back to the official current page instead of being treated as permanent facts. Venue identity, geography and nearby relationships are included only when the source record or physical context supports them.
 
 ## Deferred global layout/schema work
 
@@ -76,4 +113,4 @@ Phase 1D intentionally does **not** redesign the global `Plan the trip` section 
 
 ## Remaining remediation queue
 
-The remaining **63** venues without explicit editorial-description overrides should be handled venue by venue, prioritizing pages with search impressions and major-tourist-draw tags. The same standard should apply: authoritative durable facts first, event-specific rules via official links, no required weekend filler, and no nearby/internal link unless geography or editorial relevance justifies it.
+The remaining **58** venues without explicit editorial-description overrides should be handled venue by venue, prioritizing pages with search impressions and major-tourist-draw tags. The same standard should apply: authoritative durable facts first, event-specific rules via official links, no required weekend filler, and no nearby/internal link unless geography or editorial relevance justifies it.
