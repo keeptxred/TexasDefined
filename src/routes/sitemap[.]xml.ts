@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { platform, scope } from "@/data";
 import { getTexasCountyHousingCosts } from "@/data/acs-county-housing-costs.functions";
 import { fetchPublishedTexasDefinedEvergreenArticlesForSitemap, fetchPublishedTexasDefinedNewsArticlesForSitemap } from "@/data/articles-remote";
 import { loadTexasCountyGrowth } from "@/data/census-county-growth";
@@ -73,6 +72,7 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
+        const { platform, scope } = await import("@/data");
         const coreResults = await Promise.allSettled([
           platform.articles.list(scope),
           platform.collections.list(scope),
