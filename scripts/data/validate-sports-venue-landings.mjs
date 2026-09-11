@@ -125,9 +125,10 @@ for (const marker of [
   'When should I arrive at ${venueName}?',
   'firstSentence(parking)',
   'firstSentence(arrival)',
-  'How current is this ${venueName} visitor guide?',
+  'Source review: core venue facts were last reviewed ${verifiedAt}.',
   'official links farther down the guide',
 ]) assert(quickAnswers.includes(marker), `Sports venue quick-answer component is missing AEO/source-safety marker: ${marker}.`);
+assert(!quickAnswers.includes('How current is this ${venueName} visitor guide?'), 'Sports venue source-review metadata must not be framed as a consumer FAQ question.');
 
 for (const marker of [
   'CountySportsDestinations',
