@@ -8,6 +8,7 @@ const pilots = [
     key: 'amon-g-carter-stadium',
     route: '/sports-venue/amon-g-carter-stadium',
     pageMarker: 'Amon G. Carter Stadium',
+    guideIntegrated: true,
     hotels: [
       'Courtyard Fort Worth University Drive',
       'Hilton Garden Inn Fort Worth Medical Center',
@@ -18,6 +19,7 @@ const pilots = [
     key: 'gerald-j-ford-stadium',
     route: '/sports-venue/gerald-j-ford-stadium',
     pageMarker: 'Gerald J. Ford Stadium',
+    guideIntegrated: true,
     hotels: [
       'Graduate by Hilton Dallas',
       'The Highland Dallas, Curio Collection by Hilton',
@@ -147,6 +149,14 @@ for (const pilot of pilots) {
   const page = await fetchLive(pilot.route);
   requireCondition(page.includes(pilot.pageMarker), `${pilot.route} did not render the expected venue marker.`);
   requireCondition(page.includes('/expedia-travel.js'), `${pilot.route} is missing the deferred Expedia/Stay Nearby bootstrap reference.`);
+
+  if (pilot.guideIntegrated) {
+    requireCondition(page.includes('Texas venue guide'), `${pilot.route} did not render the redesigned venue-guide marker.`);
+    requireCondition(page.includes(`What’s happening at ${pilot.pageMarker}`), `${pilot.route} did not render the venue event integration heading.`);
+    requireCondition(page.includes('href="/events"'), `${pilot.route} did not expose the statewide event calendar link.`);
+    requireCondition(page.includes('data-stay-nearby-slot'), `${pilot.route} did not render the Stay Nearby integration slot.`);
+  }
 }
 
-console.log(`Stay Nearby production verification passed for ${pilots.length} pilot venue pages, the live hotel registry, and the deferred affiliate bootstrap.`);
+const integratedGuidePilots = pilots.filter((pilot) => pilot.guideIntegrated).length;
+console.log(`Stay Nearby production verification passed for ${pilots.length} pilot venue pages, including ${integratedGuidePilots} integrated venue guides, the live hotel registry, and the deferred affiliate bootstrap.`);
