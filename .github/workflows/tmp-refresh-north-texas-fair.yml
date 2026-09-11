@@ -1,0 +1,96 @@
+name: Temporary North Texas Fair refresh
+
+on:
+  push:
+    branches:
+      - agent/north-texas-fair-2027-20260911
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/north-texas-fair-2027-20260911
+          fetch-depth: 0
+      - name: Refresh 2027 event data
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          index_path = Path('src/data/major-event-index.ts')
+          text = index_path.read_text()
+          pattern = r'\{ slug: "north-texas-fair-rodeo", name: "North Texas Fair & Rodeo"[^\n]+\}'
+          matches = re.findall(pattern, text)
+          if len(matches) != 1:
+              raise SystemExit(f'Expected one North Texas Fair index record, found {len(matches)}')
+          replacement = '{ slug: "north-texas-fair-rodeo", name: "North Texas Fair & Rodeo", city: "Denton", countySlug: "denton", countyName: "Denton County", region: "prairies-lakes", category: "rodeo", startDate: "2027-08-20", endDate: "2027-08-29", dateNote: "The organizer has published the 99th annual North Texas Fair & Rodeo for August 20-29, 2027. Recheck the official schedule before traveling because nightly rodeo, concert and attraction details can change.", venue: "North Texas Fair & Rodeo grounds", officialUrl: "https://ntfair.com/", sourceCheckedAt: "2026-09-11" }'
+          index_path.write_text(re.sub(pattern, replacement, text, count=1))
+
+          authority_path = Path('src/data/major-event-expanded-authority-tranche13.server.ts')
+          text = authority_path.read_text()
+          start = text.index('  {\n    slug: "north-texas-fair-rodeo",')
+          end = text.index('  {\n    slug: "austin-chronicle-hot-sauce-festival",', start)
+          replacement = '''  {
+    slug: "north-texas-fair-rodeo",
+    name: "North Texas Fair & Rodeo",
+    city: "Denton",
+    countySlug: "denton",
+    countyName: "Denton County",
+    region: "prairies-lakes",
+    category: "rodeo",
+    startDate: "2027-08-20",
+    endDate: "2027-08-29",
+    dateNote: "The organizer has published the 99th annual North Texas Fair & Rodeo for August 20-29, 2027. Recheck the official schedule before traveling because nightly rodeo, concert and attraction details can change.",
+    venue: "North Texas Fair & Rodeo grounds",
+    officialUrl: "https://ntfair.com/",
+    sourceCheckedAt: "2026-09-11",
+    whyItMatters: "The North Texas Fair & Rodeo gives Denton a ten-night late-summer destination built around rodeo competition, country music, livestock shows, family attractions and a community-supported fair tradition.",
+    planningSections: [
+      { title: "Start with the confirmed 2027 dates", body: "The organizer lists the 99th annual fair for August 20-29, 2027. Use that ten-day window for lodging and trip planning, then check the official schedule before choosing a specific night because the rodeo and entertainment lineup changes across the run." },
+      { title: "Wait for the 2027 nightly program before choosing tickets", body: "The organizer has published the 2027 fair dates, but year-specific concert, rodeo-night and attraction details can change. Do not rely on the completed 2026 lineup or prices when planning the 2027 trip." },
+      { title: "Use Denton as the trip base", body: "The fair works naturally with a Denton visit. Build dining, downtown and other Denton County stops around the fixed event time instead of making separate cross-region trips." },
+    ],
+    relatedLinks: [
+      { href: "/browse/counties#county-denton", label: "Explore Denton County", description: "Build a broader North Texas itinerary around the fair." },
+      { href: "/events", label: "Texas events calendar", description: "Compare other Texas rodeos and county fairs." },
+    ],
+    sources: [
+      { label: "North Texas Fair & Rodeo official 2027 event page", url: "https://ntfair.com/" },
+    ],
+  },
+'''
+          authority_path.write_text(text[:start] + replacement + text[end:])
+
+          schema_path = Path('src/data/major-event-schema-enrichment-batch3.server.ts')
+          text = schema_path.read_text()
+          start = text.index('  {\n    slug: "north-texas-fair-rodeo",')
+          end = text.index('  {\n    slug: "austin-chronicle-hot-sauce-festival",', start)
+          replacement = '''  {
+    slug: "north-texas-fair-rodeo",
+    organizer: organization("North Texas State Fair Association, Inc.", "https://ntfair.com/"),
+    sources: [
+      { label: "North Texas Fair & Rodeo official 2027 event page", url: "https://ntfair.com/" },
+    ],
+    verifiedAt: "2026-09-11",
+  },
+'''
+          schema_path.write_text(text[:start] + replacement + text[end:])
+          PY
+      - name: Validate event contracts
+        run: |
+          node scripts/data/validate-events-seo.mjs
+          npm run build
+      - name: Commit refresh
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add src/data/major-event-index.ts src/data/major-event-expanded-authority-tranche13.server.ts src/data/major-event-schema-enrichment-batch3.server.ts
+          git diff --cached --check
+          git commit -m "Refresh North Texas Fair for 2027"
+          git push origin HEAD:agent/north-texas-fair-2027-20260911
