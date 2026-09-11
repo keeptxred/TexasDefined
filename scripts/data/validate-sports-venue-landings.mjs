@@ -239,8 +239,10 @@ for (const marker of [
 
 for (const marker of [
   "import { SportsVenueQuickAnswers } from '@/components/sports/SportsVenueQuickAnswers'",
-  "import { sportsVenueLandingLinksForVenue } from '@/data/sports-venue-landings'",
-  'const landingLinks = sportsVenueLandingLinksForVenue(entity);',
+  "import('@/data/knowledge-graph')",
+  "import('@/data/sports-venue-enrichment-all')",
+  "import('@/data/sports-venue-landings')",
+  'landingLinks: sportsVenueLandingLinksForVenue(entity)',
   '<SportsVenueQuickAnswers',
   'primaryEvents={enrichment?.primaryEvents}',
   'parking={enrichment?.parking}',
@@ -250,7 +252,10 @@ for (const marker of [
   'More venues like {entity.name}',
   'href={`/sports-venues/${landing.slug}`}',
   'Browse collection →',
-]) assert(genericVenue.includes(marker), `Generic sports venue guide is missing answer-first or bidirectional discovery marker: ${marker}.`);
+]) assert(genericVenue.includes(marker), `Generic sports venue guide is missing answer-first, bidirectional discovery or lazy-data marker: ${marker}.`);
+assert(!genericVenue.includes("import { sportsVenueLandingLinksForVenue } from '@/data/sports-venue-landings'"), 'Generic sports venue guide must not eagerly import the sports venue landing taxonomy.');
+assert(!genericVenue.includes("import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph'"), 'Generic sports venue guide must not eagerly import the full knowledge graph.');
+assert(!genericVenue.includes("import { getSportsVenueEnrichmentAll, sportsVenueMapUrl } from '@/data/sports-venue-enrichment-all'"), 'Generic sports venue guide must not eagerly import the full venue enrichment payload.');
 
 for (const marker of [
   "import { SportsVenueQuickAnswers } from '@/components/sports/SportsVenueQuickAnswers'",

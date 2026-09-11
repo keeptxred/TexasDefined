@@ -5,21 +5,19 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
 import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
 import { SportsVenueQuickAnswers } from '@/components/sports/SportsVenueQuickAnswers';
-import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
 import {
   canonicalEntityPath,
   isIndexableEntityPage,
   rankRelatedEntities,
 } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityKind, TexasEntityRecord } from '@/data/knowledge-graph/types';
-import { sportsVenueLandingLinksForVenue } from '@/data/sports-venue-landings';
+import type { SportsVenueEnrichment as SportsVenueEnrichmentRecord } from '@/data/sports-venue-enrichment';
 import { getActiveSportsSponsorPlacement } from '@/data/sports-sponsorship.functions';
-import { getSportsVenueEnrichmentAll, sportsVenueMapUrl } from '@/data/sports-venue-enrichment-all';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const siteUrl = 'https://texasdefined.com';
 
-type SportsVenueEnrichment = ReturnType<typeof getSportsVenueEnrichmentAll>;
+type SportsVenueEnrichment = SportsVenueEnrichmentRecord | undefined;
 
 const visitorKindPriority: Partial<Record<TexasEntityKind, number>> = {
   attraction: 0,
@@ -53,23 +51,38 @@ function countyVisitorPlaces(venue: TexasEntityRecord, graph: TexasEntityRecord[
 
 export const Route = createFileRoute('/sports-venue/$slug')({
   loader: async ({ params }) => {
+    const [
+      { findCompleteTexasEntity, loadTexasKnowledgeGraph },
+      { getSportsVenueEnrichmentAll, sportsVenueMapUrl },
+      { sportsVenueLandingLinksForVenue },
+    ] = await Promise.all([
+      import('@/data/knowledge-graph'),
+      import('@/data/sports-venue-enrichment-all'),
+      import('@/data/sports-venue-landings'),
+    ]);
     const graph = await loadTexasKnowledgeGraph();
     const entity = await findCompleteTexasEntity(params.slug);
     if (!entity || entity.kind !== 'sports-venue') throw notFound();
     const canonicalPath = canonicalEntityPath(entity);
+    const enrichment = getSportsVenueEnrichmentAll(entity.slug);
+    const mapUrl = entity.coordinates
+      ? `https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`
+      : sportsVenueMapUrl(entity.name, entity.countySlug);
     return {
       entity,
       related: rankRelatedEntities(entity, graph, 16),
       visitorPlaces: countyVisitorPlaces(entity, graph),
       sponsorPlacement: await getActiveSportsSponsorPlacement({ data: { surfacePath: canonicalPath } }),
+      enrichment,
+      landingLinks: sportsVenueLandingLinksForVenue(entity),
+      mapUrl,
     };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
-    const { entity } = loaderData;
+    const { entity, enrichment } = loaderData;
     const canonicalPath = canonicalEntityPath(entity);
     const indexable = isIndexableEntityPage(entity);
-    const enrichment = getSportsVenueEnrichmentAll(entity.slug);
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
@@ -106,20 +119,15 @@ function SportsVenuePage() {
 }
 
 function LegacySportsVenuePage() {
-  const { entity, related, visitorPlaces, sponsorPlacement } = Route.useLoaderData();
+  const { entity, related, visitorPlaces, sponsorPlacement, enrichment, landingLinks, mapUrl } = Route.useLoaderData();
   const tags = new Set(entity.tags ?? []);
   const profile = venueProfile(tags);
-  const enrichment = getSportsVenueEnrichmentAll(entity.slug);
   const canonicalPath = canonicalEntityPath(entity);
   const canonicalUrl = `${siteUrl}${canonicalPath}`;
   const venueHeroUrl = `${siteUrl}/api/sports-venue-hero?slug=${encodeURIComponent(entity.slug)}`;
   const relatedVenues = related.filter(({ entity: candidate }) => candidate.kind === 'sports-venue').slice(0, 6);
-  const landingLinks = sportsVenueLandingLinksForVenue(entity);
   const countyName = entity.countySlug ? `${title(entity.countySlug)} County` : undefined;
   const regionName = entity.region ? title(entity.region) : undefined;
-  const mapUrl = entity.coordinates
-    ? `https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`
-    : sportsVenueMapUrl(entity.name, entity.countySlug);
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
