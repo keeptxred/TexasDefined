@@ -156,6 +156,9 @@ assert(!faqBuilder.includes('How current is this ${venueName} visitor guide?'), 
 assert(!faqBuilder.includes('formatDate(verifiedAt)'), 'Sports venue quick answers must not transform verification metadata into a consumer FAQ answer.');
 
 for (const getter of [
+  'getSportsVenueContentRemediation(lookupSlug)',
+  'getSportsVenueContentRemediationWave2(lookupSlug)',
+  'getSportsVenueContentRemediationWave3(lookupSlug)',
   'getSportsVenueEnrichment(lookupSlug)',
   'getSportsVenueEnrichmentBatch2(lookupSlug)',
   'getSportsVenueEnrichmentBatch3(lookupSlug)',
@@ -217,4 +220,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, core Reliant record, lightweight static directory, statewide category anchors, concise localized search titles, source-backed event-day essentials and FAQ answers with source-review metadata kept separate, richer venue structured data, dedicated visitor template, county-level editorial trip ideas, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
+console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, core Reliant record, lightweight static directory, statewide category anchors, concise localized search titles, source-backed event-day essentials and FAQ answers with source-review metadata kept separate, richer venue structured data, dedicated visitor template, county-level editorial trip ideas, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment/remediation batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
