@@ -1,20 +1,19 @@
 name: TEMP Generate exact Stay Nearby property images
 
 on:
-  push:
+  pull_request:
     branches:
-      - fix/stay-nearby-exact-property-images
+      - main
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: stay-nearby-exact-property-images-${{ github.ref }}
-  cancel-in-progress: false
+  group: stay-nearby-exact-property-images-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
   generate:
-    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     environment: texasdefined-publication
@@ -22,24 +21,17 @@ jobs:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref_name }}
-          fetch-depth: 2
       - uses: actions/setup-node@v4
         with:
           node-version: 24
       - name: Generate exact-property raster imagery
         run: node scripts/media/generate-stay-nearby-property-images.mjs
-      - name: Commit generated property imagery to this review branch only
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/stay-nearby-ai-property-images.json public/images/stay-nearby/properties public/stay-nearby-ai-fallbacks.json public/images/stay-nearby/ai || true
-          if git diff --cached --quiet; then
-            echo "No generated image changes to commit."
-            exit 0
-          fi
-          git commit -m "Generate exact Stay Nearby property images [stay-nearby-ai-assets]"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Upload generated property imagery for explicit review
+        uses: actions/upload-artifact@v4
+        with:
+          name: stay-nearby-exact-property-images
+          if-no-files-found: error
+          retention-days: 2
+          path: |
+            public/stay-nearby-ai-property-images.json
+            public/images/stay-nearby/properties/**
