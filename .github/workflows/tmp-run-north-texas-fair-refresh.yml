@@ -1,0 +1,26 @@
+name: Temporary North Texas Fair runner
+on:
+  push:
+    branches:
+      - agent/north-texas-fair-2027-20260911
+permissions:
+  contents: write
+jobs:
+  refresh:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/north-texas-fair-2027-20260911
+          fetch-depth: 0
+      - run: node scripts/tmp-refresh-north-texas-fair.mjs
+      - run: node scripts/data/validate-events-seo.mjs
+      - run: npm run build
+      - run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add src/data/major-event-index.ts src/data/major-event-expanded-authority-tranche13.server.ts src/data/major-event-schema-enrichment-batch3.server.ts
+          git diff --cached --check
+          git commit -m "Refresh North Texas Fair for 2027"
+          git push origin HEAD:agent/north-texas-fair-2027-20260911
