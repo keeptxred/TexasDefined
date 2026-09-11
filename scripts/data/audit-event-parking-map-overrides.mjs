@@ -79,15 +79,33 @@ function readKnownMajorEventSlugs() {
   return slugs;
 }
 
+function duplicateGroups(items, keyFn) {
+  const groups = new Map();
+  for (const item of items) {
+    const key = keyFn(item);
+    if (!key) continue;
+    const group = groups.get(key) ?? [];
+    group.push(item);
+    groups.set(key, group);
+  }
+  return [...groups.entries()].filter(([, group]) => group.length > 1);
+}
+
 const records = parseEventOverrideRecords();
 const knownEventSlugs = readKnownMajorEventSlugs();
 const failures = [];
-const seen = new Set();
+const duplicateKeys = duplicateGroups(records, (record) => record.key);
+const duplicateIds = duplicateGroups(records, (record) => record.id);
+const claimedSlugs = records.flatMap((record) => record.eventSlugs.map((slug) => ({ slug, key: record.key, file: record.file })));
+const duplicateClaimedSlugs = duplicateGroups(claimedSlugs, (claim) => claim.slug);
+
+for (const [key, group] of duplicateKeys) failures.push(`${key}: duplicate event override key in ${group.map((record) => record.file).join(', ')}`);
+for (const [id, group] of duplicateIds) failures.push(`${id}: duplicate event override id in ${group.map((record) => record.file).join(', ')}`);
+for (const [slug, group] of duplicateClaimedSlugs) failures.push(`${slug}: claimed by multiple event override records (${group.map((claim) => `${claim.key} in ${claim.file}`).join(', ')})`);
 
 for (const record of records) {
-  if (seen.has(record.key)) failures.push(`${record.key}: duplicate event override key`);
-  seen.add(record.key);
   if (!record.id) failures.push(`${record.key}: missing id`);
+  if (new Set(record.eventSlugs).size !== record.eventSlugs.length) failures.push(`${record.key}: eventSlugs contains duplicates`);
   if (!record.eventSlugs.includes(record.key)) failures.push(`${record.key}: eventSlugs must include its registry key`);
   if (!record.raw.includes('eventSpecific: true')) failures.push(`${record.key}: eventSpecific must be true`);
   if (!Number.isInteger(record.eventYear) || record.eventYear < 2000 || record.eventYear > 2100) failures.push(`${record.key}: event-specific override requires eventYear`);
@@ -96,12 +114,17 @@ for (const record of records) {
   if (!record.raw.includes('displayAllowed: true')) failures.push(`${record.key}: displayAllowed must be true`);
   if (!record.imageUrl?.startsWith('/')) failures.push(`${record.key}: imageUrl must be a root-relative public asset`);
   else if (!fs.existsSync(path.join(PUBLIC_DIR, record.imageUrl.slice(1)))) failures.push(`${record.key}: missing asset ${record.imageUrl}`);
-  if (!knownEventSlugs.has(record.key)) failures.push(`${record.key}: no matching slug found in major-event data`);
+  for (const eventSlug of record.eventSlugs) {
+    if (!knownEventSlugs.has(eventSlug)) failures.push(`${record.key}: eventSlugs contains unknown major-event slug ${eventSlug}`);
+  }
 }
 
 console.log('\nEvent parking-map override audit');
 console.log('================================');
 console.log(`Override records: ${records.length}`);
+console.log(`Duplicate override keys: ${duplicateKeys.length}`);
+console.log(`Duplicate override IDs: ${duplicateIds.length}`);
+console.log(`Event slugs claimed by multiple overrides: ${duplicateClaimedSlugs.length}`);
 for (const record of records) console.log(`  - ${record.key} (${record.eventYear ?? 'missing year'}, ${record.file})`);
 
 if (failures.length > 0) {
