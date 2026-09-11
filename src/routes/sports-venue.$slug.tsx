@@ -58,6 +58,14 @@ const sportsVenueGuidePilotSlugs = new Set([
   'ufcu-stadium',
   'nelson-wolff-stadium',
   'freeman-coliseum',
+  'united-supermarkets-arena',
+  'sun-bowl-stadium',
+  'don-haskins-center',
+  'southwest-university-park',
+  'hodgetown',
+  'momentum-bank-ballpark',
+  'whataburger-field',
+  'bowers-stadium',
 ]);
 
 type SportsVenueEnrichment = SportsVenueEnrichmentRecord | undefined;
