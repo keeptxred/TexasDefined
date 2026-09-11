@@ -24,7 +24,6 @@ import { LOCAL_PROPERTY_TAX_PROFILES } from "@/data/local-property-tax-calculato
 import { LOCAL_SALARY_NEEDED_PROFILES } from "@/data/local-salary-needed";
 import { majorEventIndexRecords } from "@/data/major-event-index";
 import { loadSupplementalMajorEventSitemapEntriesServer } from "@/data/major-event-supplemental-registry.server";
-import { COUNTY_PROPERTY_RECORDS } from "@/data/property/county-property-data";
 import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
 import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
 import { TEXAS_DATASETS } from "@/data/texas-data-center";
@@ -151,6 +150,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const countyGrowth = await loadTexasCountyGrowth();
         const liveShopProducts = await fetchAssignedShopProducts();
         const activeCollectionSlugs = new Set(liveShopProducts.flatMap((product) => product.collectionSlugs));
+        const { COUNTY_PROPERTY_RECORDS } = await import("@/data/property/county-property-data");
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
         const entityPages = graph.filter(isIndexableEntityPage).filter(isTexasDefinedOwnedEntity);
         const supplementalMajorEventSitemapEntries = loadSupplementalMajorEventSitemapEntriesServer();
