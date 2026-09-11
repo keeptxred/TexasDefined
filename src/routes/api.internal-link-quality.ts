@@ -1,11 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
 import { auditInternalLinkQuality, INTERNAL_LINK_QUALITY_THRESHOLDS, internalLinkSurfaceStatus } from '@/platform/internal-link-quality';
 
 export const Route = createFileRoute('/api/internal-link-quality')({
   server: {
     handlers: {
       GET: async () => {
+        const { loadTexasKnowledgeGraph } = await import('@/data/knowledge-graph');
         const graph = await loadTexasKnowledgeGraph();
         const report = auditInternalLinkQuality(graph);
         return Response.json(
