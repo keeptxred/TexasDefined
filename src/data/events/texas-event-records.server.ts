@@ -6,7 +6,7 @@ import {
   type EventSchemaOffer,
   type MajorEventSchemaEnrichment,
 } from "../major-event-schema-enrichment.server";
-import { getSportsVenuePhoto } from "../sports-venue-images";
+import { getSportsVenuePhoto } from "../sports-venue-images-all";
 import { resolveSportsVenueEventLink } from "../sports-venue-event-links";
 import type { TexasEvent } from "../types";
 import {
