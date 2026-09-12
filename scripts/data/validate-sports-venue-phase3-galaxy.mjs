@@ -6,6 +6,7 @@ const dynamicRoute = read('src/routes/sports-venue.$slug.tsx');
 const guide = read('src/data/sports-venue-guide-galaxy.ts');
 const guideContent = read('src/components/sports/SportsVenueGuidePilotContent.tsx');
 const guidePage = read('src/components/sports/SportsVenueGuidePage.tsx');
+const sponsoredPlacement = read('src/components/sports/SponsoredSportsPlacement.tsx');
 const remediation = read('src/data/sports-venue-content-remediation-wave4.ts');
 const corrections = read('src/data/knowledge-graph/current-entity-corrections.ts');
 const images = read('src/data/sports-venue-images.ts');
@@ -106,7 +107,13 @@ for (const marker of ['`sports-venue:${data.slug}`', 'encodeURIComponent(venueId
 }
 
 requireText(dynamicRoute, 'sponsorPlacement={sponsorPlacement}', 'dynamic redesigned venue sponsor delivery');
-requireText(guidePage, 'rel="sponsored nofollow noopener noreferrer"', 'shared guide sponsorship disclosure is delegated to governed component');
+for (const marker of [
+  'Sponsored',
+  'Paid placement by',
+  'rel="sponsored nofollow noopener noreferrer"',
+  "event: 'impression'",
+  "event: 'click'",
+]) requireText(sponsoredPlacement, marker, 'governed shared sponsorship disclosure/tracking');
 
 const rowSlugs = (source) => [...source.matchAll(/^\s{2}\[(?:'[^']*'|"[^"]*"), '([^']+)'/gm)].map((match) => match[1]);
 const coreSlugs = [...seed.matchAll(/^\s*\{id:'sports-venue:[^']+',kind:'sports-venue',name:'[^']+',slug:'([^']+)'/gm)].map((match) => match[1]);
