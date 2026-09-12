@@ -330,6 +330,7 @@ import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
 import { Route as EventsCollectionRouteImport } from './routes/events.$collection'
 import { Route as EventSlugRouteImport } from './routes/event.$slug'
 import { Route as DpsOfficeSlugRouteImport } from './routes/dps-office.$slug'
+import { Route as DogsChar123BreedChar125RouteImport } from './routes/dogs.{-$breed}'
 import { Route as DoPropertyTaxProtestRouteImport } from './routes/do.property-tax-protest'
 import { Route as DoHomesteadExemptionRouteImport } from './routes/do.homestead-exemption'
 import { Route as DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRouteImport } from './routes/destination.world-birding-center-resaca-de-la-palma-state-park'
@@ -2479,6 +2480,13 @@ const DpsOfficeSlugRoute = DpsOfficeSlugRouteImport.update({
   path: '/dps-office/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DogsChar123BreedChar125Route = DogsChar123BreedChar125RouteImport.update({
+  id: '/dogs/{-$breed}',
+  path: '/dogs/{-$breed}',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/dogs.{-$breed}.lazy').then((d) => d.Route),
+)
 const DoPropertyTaxProtestRoute = DoPropertyTaxProtestRouteImport.update({
   id: '/do/property-tax-protest',
   path: '/do/property-tax-protest',
@@ -3500,6 +3508,7 @@ export interface FileRoutesByFullPath {
   '/destination/world-birding-center-resaca-de-la-palma-state-park': typeof DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute
   '/do/homestead-exemption': typeof DoHomesteadExemptionRoute
   '/do/property-tax-protest': typeof DoPropertyTaxProtestRoute
+  '/dogs/{-$breed}': typeof DogsChar123BreedChar125Route
   '/dps-office/$slug': typeof DpsOfficeSlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
@@ -3950,6 +3959,7 @@ export interface FileRoutesByTo {
   '/destination/world-birding-center-resaca-de-la-palma-state-park': typeof DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute
   '/do/homestead-exemption': typeof DoHomesteadExemptionRoute
   '/do/property-tax-protest': typeof DoPropertyTaxProtestRoute
+  '/dogs/{-$breed}': typeof DogsChar123BreedChar125Route
   '/dps-office/$slug': typeof DpsOfficeSlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
@@ -4404,6 +4414,7 @@ export interface FileRoutesById {
   '/destination/world-birding-center-resaca-de-la-palma-state-park': typeof DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute
   '/do/homestead-exemption': typeof DoHomesteadExemptionRoute
   '/do/property-tax-protest': typeof DoPropertyTaxProtestRoute
+  '/dogs/{-$breed}': typeof DogsChar123BreedChar125Route
   '/dps-office/$slug': typeof DpsOfficeSlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
@@ -4859,6 +4870,7 @@ export interface FileRouteTypes {
     | '/destination/world-birding-center-resaca-de-la-palma-state-park'
     | '/do/homestead-exemption'
     | '/do/property-tax-protest'
+    | '/dogs/{-$breed}'
     | '/dps-office/$slug'
     | '/event/$slug'
     | '/events/$collection'
@@ -5309,6 +5321,7 @@ export interface FileRouteTypes {
     | '/destination/world-birding-center-resaca-de-la-palma-state-park'
     | '/do/homestead-exemption'
     | '/do/property-tax-protest'
+    | '/dogs/{-$breed}'
     | '/dps-office/$slug'
     | '/event/$slug'
     | '/events/$collection'
@@ -5762,6 +5775,7 @@ export interface FileRouteTypes {
     | '/destination/world-birding-center-resaca-de-la-palma-state-park'
     | '/do/homestead-exemption'
     | '/do/property-tax-protest'
+    | '/dogs/{-$breed}'
     | '/dps-office/$slug'
     | '/event/$slug'
     | '/events/$collection'
@@ -6202,6 +6216,7 @@ export interface RootRouteChildren {
   DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute: typeof DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute
   DoHomesteadExemptionRoute: typeof DoHomesteadExemptionRoute
   DoPropertyTaxProtestRoute: typeof DoPropertyTaxProtestRoute
+  DogsChar123BreedChar125Route: typeof DogsChar123BreedChar125Route
   DpsOfficeSlugRoute: typeof DpsOfficeSlugRoute
   EventSlugRoute: typeof EventSlugRoute
   ExploreCategoryRoute: typeof ExploreCategoryRoute
@@ -8586,6 +8601,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DpsOfficeSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dogs/{-$breed}': {
+      id: '/dogs/{-$breed}'
+      path: '/dogs/{-$breed}'
+      fullPath: '/dogs/{-$breed}'
+      preLoaderRoute: typeof DogsChar123BreedChar125RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/do/property-tax-protest': {
       id: '/do/property-tax-protest'
       path: '/do/property-tax-protest'
@@ -10261,6 +10283,7 @@ const rootRouteChildren: RootRouteChildren = {
     DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute,
   DoHomesteadExemptionRoute: DoHomesteadExemptionRoute,
   DoPropertyTaxProtestRoute: DoPropertyTaxProtestRoute,
+  DogsChar123BreedChar125Route: DogsChar123BreedChar125Route,
   DpsOfficeSlugRoute: DpsOfficeSlugRoute,
   EventSlugRoute: EventSlugRoute,
   ExploreCategoryRoute: ExploreCategoryRoute,
