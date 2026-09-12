@@ -1,0 +1,29 @@
+name: Validate Sports Venue Visible Editorial
+
+on:
+  pull_request:
+    paths:
+      - 'src/routes/sports-venue.$slug.tsx'
+      - 'src/components/sports/SportsVenueGuidePage.tsx'
+      - 'src/data/sports-venue-editorial.server.ts'
+      - 'src/data/sports-venue-editorial-wave6.server.ts'
+      - 'src/data/sports-venue-editorial-wave7.server.ts'
+      - 'src/data/sports-venue-editorial-wave8.server.ts'
+      - 'src/data/sports-venue-editorial-wave9.server.ts'
+      - 'scripts/data/validate-sports-venue-visible-editorial.mjs'
+      - '.github/workflows/validate-sports-venue-visible-editorial.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-visible-editorial:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate visible venue-specific editorial copy
+        run: node scripts/data/validate-sports-venue-visible-editorial.mjs
