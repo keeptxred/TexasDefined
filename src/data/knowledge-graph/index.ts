@@ -4,7 +4,8 @@ import { hasCountySeriesProfile } from '../county-series';
 import { loadLocalGovernmentProfile, localOfficeDescription } from '../local-government-profile';
 import { getCountyPropertyRecordBySlug } from '../property/county-property-data';
 import { isCountyPropertyIndexReady } from '../property/county-property-schema';
-import { getSportsVenueEditorialDescription } from '../sports-venue-editorial.functions';
+import { getSportsVenueEditorialDescription, getSportsVenueEditorialDescriptions } from '../sports-venue-editorial.functions';
+import { applyCurrentEntityCorrections } from './current-entity-corrections';
 import { fetchExploreGraphEntities, hasRemoteExploreGraph } from './explore-adapter';
 import type { TexasEntityKind, TexasEntityRecord } from './types';
 
@@ -35,16 +36,24 @@ function loadPublicCavernsModule() {
   return publicCavernsPromise;
 }
 
+function currentStaticEntity(entity: TexasEntityRecord) {
+  return entity.kind === 'sports-venue' ? applyCurrentEntityCorrections(entity) : entity;
+}
+
 export function entitiesByKind(kind: TexasEntityKind) {
-  return TEXAS_ENTITY_REGISTRY.filter((entity) => entity.kind === kind);
+  return TEXAS_ENTITY_REGISTRY.filter((entity) => entity.kind === kind).map(currentStaticEntity);
 }
 
 export function entitiesInCounty(countySlug: string) {
-  return TEXAS_ENTITY_REGISTRY.filter((entity) => entity.countySlug === countySlug || entity.relationships.some((relationship) => relationship.targetId === `county:${countySlug}`));
+  return TEXAS_ENTITY_REGISTRY
+    .filter((entity) => entity.countySlug === countySlug || entity.relationships.some((relationship) => relationship.targetId === `county:${countySlug}`))
+    .map(currentStaticEntity);
 }
 
 export function entitiesInRegion(regionSlug: string) {
-  return TEXAS_ENTITY_REGISTRY.filter((entity) => entity.region === regionSlug || entity.relationships.some((relationship) => relationship.targetId === `region:${regionSlug}`));
+  return TEXAS_ENTITY_REGISTRY
+    .filter((entity) => entity.region === regionSlug || entity.relationships.some((relationship) => relationship.targetId === `region:${regionSlug}`))
+    .map(currentStaticEntity);
 }
 
 function scoreEntities(entities: TexasEntityRecord[], query: string, limit: number) {
@@ -64,7 +73,7 @@ function scoreEntities(entities: TexasEntityRecord[], query: string, limit: numb
 }
 
 export function searchTexasKnowledgeGraph(query: string, limit = 25): TexasEntityRecord[] {
-  return scoreEntities(TEXAS_ENTITY_REGISTRY, query, limit);
+  return scoreEntities(TEXAS_ENTITY_REGISTRY, query, limit).map(currentStaticEntity);
 }
 
 export async function loadTexasKnowledgeGraph(options: { query?: string; limit?: number } = {}): Promise<TexasEntityRecord[]> {
@@ -96,7 +105,7 @@ export async function loadTexasKnowledgeGraph(options: { query?: string; limit?:
   }
 
   const merged = new Map<string, TexasEntityRecord>();
-  for (const entity of TEXAS_ENTITY_REGISTRY) merged.set(entity.id, entity);
+  for (const entity of TEXAS_ENTITY_REGISTRY) merged.set(entity.id, currentStaticEntity(entity));
   for (const entity of wildlifeSpecies?.TEXAS_WILDLIFE_SPECIES ?? []) merged.set(entity.id, entity);
   for (const entity of publicCaverns?.PUBLIC_CAVERN_ENTITIES ?? []) merged.set(entity.id, entity);
   for (const entity of cityMetroAuthority?.cityMetroAuthoritySeedEntities() ?? []) merged.set(entity.id, entity);
@@ -112,9 +121,25 @@ export async function loadTexasKnowledgeGraph(options: { query?: string; limit?:
   }
 
   const graph = [...merged.values()];
+  const sportsVenueIds = graph.filter((entity) => entity.kind === 'sports-venue').map((entity) => entity.id);
+  let sportsVenueEditorialDescriptions: Record<string, string> = {};
+  if (sportsVenueIds.length) {
+    try {
+      sportsVenueEditorialDescriptions = await getSportsVenueEditorialDescriptions({ data: { ids: sportsVenueIds } });
+    } catch (error) {
+      console.error('Sports venue editorial enrichment unavailable; keeping generated seed prose suppressed', error);
+    }
+  }
+
   const countyEntries = graph.filter((entity) => entity.kind === 'county');
   const enrichedCounties = await Promise.all(countyEntries.map(enrichCountyGeographyEntity));
   const enrichedById = new Map(enrichedCounties.map((entity) => [entity.id, entity]));
+
+  for (const entity of graph) {
+    if (entity.kind !== 'sports-venue') continue;
+    const description = sportsVenueEditorialDescriptions[entity.id];
+    if (description) enrichedById.set(entity.id, { ...entity, description });
+  }
 
   if (cityMetroAuthority) {
     for (const entity of graph) {
@@ -185,8 +210,9 @@ export async function findCompleteTexasEntity(value: string): Promise<TexasEntit
 
 async function enrichAuthoritativeEntity(entity: TexasEntityRecord): Promise<TexasEntityRecord> {
   if (entity.kind === 'sports-venue') {
-    const description = await getSportsVenueEditorialDescription({ data: { id: entity.id } });
-    return description ? { ...entity, description } : entity;
+    const corrected = applyCurrentEntityCorrections(entity);
+    const description = await getSportsVenueEditorialDescription({ data: { id: corrected.id } });
+    return description ? { ...corrected, description } : corrected;
   }
   if (entity.kind === 'county') return enrichCountyEntity(entity);
   if (entity.kind === 'appraisal-district' || entity.kind === 'tax-office') return enrichLocalOfficeEntity(entity);
@@ -313,9 +339,10 @@ function titleSlug(value: string) {
 }
 
 export function graphNeighbors(entityId: string) {
-  const entity = TEXAS_ENTITY_REGISTRY.find((candidate) => candidate.id === entityId);
-  if (!entity) return [];
-  const outgoing = entity.relationships.map((relationship) => ({ direction: 'outgoing' as const, relationship, entity: TEXAS_ENTITY_REGISTRY.find((candidate) => candidate.id === relationship.targetId) }));
-  const incoming = TEXAS_ENTITY_REGISTRY.flatMap((candidate) => candidate.relationships.filter((relationship) => relationship.targetId === entityId).map((relationship) => ({ direction: 'incoming' as const, relationship, entity: candidate })));
-  return [...outgoing, ...incoming];
+  const rawEntity = TEXAS_ENTITY_REGISTRY.find((candidate) => candidate.id === entityId);
+  if (!rawEntity) return [];
+  const entity = currentStaticEntity(rawEntity);
+  const outgoing = rawEntity.relationships.map((relationship) => ({ direction: 'outgoing' as const, relationship, entity: TEXAS_ENTITY_REGISTRY.find((candidate) => candidate.id === relationship.targetId) })).map((item) => ({ ...item, entity: item.entity ? currentStaticEntity(item.entity) : undefined }));
+  const incoming = TEXAS_ENTITY_REGISTRY.flatMap((candidate) => candidate.relationships.filter((relationship) => relationship.targetId === entityId).map((relationship) => ({ direction: 'incoming' as const, relationship, entity: currentStaticEntity(candidate) })));
+  return [{ direction: 'self' as const, relationship: { type: 'self', targetId: entity.id }, entity }, ...outgoing, ...incoming].slice(1);
 }
