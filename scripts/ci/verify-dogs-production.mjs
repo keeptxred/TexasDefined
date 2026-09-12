@@ -99,7 +99,7 @@ async function fetchProduction(path, label, { expectedStatus = 200, verify = () 
 await fetchProduction('/dogs', 'dogs hub', {
   verify: (body) => {
     verifyHead(body, {
-      title: 'Texas Dogs Defined — Breeds, Dog Life & Funny Shirt Ideas',
+      title: 'Texas Dogs Defined — Breeds, Dog Life & Funny Shirt Ideas | Texas Defined',
       description: 'Texas Dogs Defined is the playful dog-life department of Texas Defined: breed personalities, Texas dog culture and breed-specific shirt ideas built for dog people.',
       canonical: `${origin}/dogs`,
     }, 'dogs hub');
@@ -113,7 +113,7 @@ await fetchProduction('/dogs', 'dogs hub', {
 await fetchProduction('/dogs/labrador-retriever', 'labrador breed', {
   verify: (body) => {
     verifyHead(body, {
-      title: 'Labrador Retriever Defined — Personality & Funny Shirt Ideas',
+      title: 'Labrador Retriever Defined — Personality & Funny Shirt Ideas | Texas Defined',
       description: 'Labrador Retriever Defined: breed personality, the Texas-life angle and funny shirt directions that fit Lab people without turning the page into a generic product listing.',
       canonical: `${origin}/dogs/labrador-retriever`,
     }, 'labrador breed');
