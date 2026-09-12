@@ -1,0 +1,34 @@
+name: Validate Sports Venue Graph Editorial
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/knowledge-graph/current-entity-corrections.ts'
+      - 'src/data/knowledge-graph/index.ts'
+      - 'src/data/knowledge-graph/major-sports-venues.ts'
+      - 'src/data/knowledge-graph/sports-venues-tier2.ts'
+      - 'src/data/sports-venue-editorial.functions.ts'
+      - 'src/data/sports-venue-editorial.server.ts'
+      - 'src/data/sports-venue-editorial-wave6.server.ts'
+      - 'src/data/sports-venue-editorial-wave7.server.ts'
+      - 'src/data/sports-venue-editorial-wave8.server.ts'
+      - 'src/data/sports-venue-editorial-wave9.server.ts'
+      - 'src/components/sports/CountySportsDestinations.tsx'
+      - 'src/routes/$kind.$slug.tsx'
+      - 'scripts/data/validate-sports-venue-graph-editorial.mjs'
+      - '.github/workflows/validate-sports-venue-graph-editorial.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-graph-editorial:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate sports venue graph editorial propagation
+        run: node scripts/data/validate-sports-venue-graph-editorial.mjs
