@@ -302,6 +302,22 @@ if (ninthWave.length !== 12) {
   failures.push('Expected exactly 12 ninth-wave GSC CTR experiments, found ' + ninthWave.length + '.');
 }
 
+const tenthWave = [
+  { path: "/article/texas-brazos-river-guide", title: "Brazos River Texas: Basin, Tributaries, Lakes & Gulf Guide", description: "Follow the Brazos River across Texas from its upper forks to the Gulf" },
+  { path: "/article/texas-guadalupe-river-guide", title: "Guadalupe River Texas: Canyon Lake, Springs & Basin Guide", description: "Follow the Guadalupe River from the Hill Country to San Antonio Bay" },
+  { path: "/article/texas-trinity-river-guide", title: "Trinity River Texas: Dallas-Fort Worth, Basin & Gulf Guide", description: "Follow the Trinity River through North Texas toward Trinity Bay" },
+];
+
+for (const experiment of tenthWave) {
+  for (const required of ['"' + experiment.path + '"', experiment.title, experiment.description]) {
+    if (!seo.includes(required)) failures.push('Tenth-wave CTR contract missing for ' + experiment.path + ': ' + required);
+  }
+}
+
+if (tenthWave.length !== 3) {
+  failures.push('Expected exactly 3 tenth-wave GSC CTR experiments, found ' + tenthWave.length + '.');
+}
+
 const settlementLandingSelection = {
   path: '/article/texas-settlement-patterns-explained',
   title: 'Texas Settlement Patterns: How Geography Shaped Towns',
