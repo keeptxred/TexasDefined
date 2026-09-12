@@ -1,21 +1,36 @@
-# Stay Nearby AI card fallbacks
+# Stay Nearby hotel image fallback policy
 
-When a curated Stay Nearby hotel does not have rights-qualified real property photography, TexasDefined may show a first-party AI-generated **area illustration** on the hotel card.
+Stay Nearby hotel cards use a fail-closed image hierarchy. TexasDefined never uses a generic hotel illustration or SVG placeholder as a hotel-card fallback.
 
-These illustrations are visual fallbacks only. They do not depict, reconstruct, or claim to represent the named hotel property. Every AI fallback card displays the visible disclosure:
+## Image precedence
 
-> AI-generated area illustration — not the hotel property
+1. A verified real property image from an approved affiliate/partner workflow may render when the image has explicit usage rights, is stored as a first-party asset, and is paired with a verified matching property referral.
+2. If no approved real property image exists, TexasDefined may render a first-party **photorealistic AI depiction of the exact listed property**. The depiction must be grounded to the verified property identity, exact street address, and a manually verified exact-property visual reference.
+3. If neither image source passes its gate, the card remains text-only. The system must not substitute a generic building, neighborhood illustration, vector placeholder, or unverified third-party hotel image.
 
-## Precedence
+The real-property image gate in `public/expedia-travel.js` retains precedence over AI imagery.
 
-1. A verified real property image from the approved Expedia Creator Toolbox workflow, paired with a verified matching property affiliate referral, takes precedence.
-2. If no permitted real property image exists, the approved AI area illustration may render.
-3. If neither is available, the existing text/geographic fallback remains.
+## AI property-image requirements
 
-The real-property image gate in `public/expedia-travel.js` remains unchanged.
+Approved AI property imagery is registered in `public/stay-nearby-ai-property-images.json` and stored under `public/images/stay-nearby/properties/`.
 
-## Safety and integrity
+Every AI property image must:
 
-AI fallback SVGs are first-party files under `public/images/stay-nearby/ai/`. They contain no hotel names, logos, external image references, executable scripts, or `foreignObject` content. The canonical fallback records live in `public/stay-nearby-ai-fallbacks.json` and explicitly set `depictsProperty` to `false`.
+- use PNG, JPEG, or WebP raster media;
+- never use SVG or an SVG data URI;
+- be unique to one canonical hotel record;
+- identify the exact property and exact Texas street address in its provenance record;
+- be grounded to an approved exact-property source;
+- set `depictsProperty` and `generatedFromPropertyIdentity` to `true`;
+- use property-specific alt text; and
+- display the disclosure **“AI-generated depiction of this property — not an official hotel photograph.”**
 
-`validate-expedia-affiliate.mjs` and the production Stay Nearby verifier enforce the exact disclosure, approved paths, record count, SVG safety rules, property-name separation, and real-property-image precedence.
+Generic hotel artwork and the retired area-illustration system are prohibited. The old `public/stay-nearby-ai-fallbacks.json` manifest and `public/images/stay-nearby/ai/` SVG directory must not exist.
+
+## Regression protection
+
+`scripts/data/validate-expedia-affiliate.mjs` enforces the repository contract. It rejects legacy fallback paths and markers, SVG property imagery, unapproved formats, duplicate image URLs, missing exact-property provenance, invalid raster bytes, and configured redesigned-guide hotel cards that lack either an approved real property photo or an exact-property AI raster.
+
+`scripts/ci/verify-stay-nearby-production.mjs` enforces the same policy against production. It verifies the curated three-card hotel sets, fetches the live raster assets, validates their MIME types and file signatures, checks exact-property provenance, and rejects legacy generic/SVG fallback markers in the shared production bootstrap.
+
+The production verifier currently covers the curated Stay Nearby integrations for Amon G. Carter Stadium, Gerald J. Ford Stadium, Globe Life Field, American Airlines Center, and Texas Motor Speedway. Any newly curated redesigned venue guide must be added to the governed hotel registry and production verification rather than relying on an ungated visual fallback.
