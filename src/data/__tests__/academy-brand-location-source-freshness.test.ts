@@ -39,7 +39,7 @@ describe("Academy Texas brand-location source freshness guard", () => {
 
   it("advances freshness only after an exact match through the existing service-role-only generic RPC", () => {
     expect(verifier).toContain("if (!comparison.matches)");
-    expect(verifier.indexOf("if (!comparison.matches)")).toBeLessThan(verifier.indexOf("markAcademyRegistryChecked"));
+    expect(verifier.indexOf("if (!comparison.matches)")).toBeLessThan(verifier.indexOf("await markAcademyRegistryChecked"));
     expect(verifier).toContain("/rest/v1/rpc/touch_brand_location_source_checked");
     expect(verifier).toContain("p_brand_slug: 'academy'");
     expect(freshnessMigration).toContain("create or replace function public.touch_brand_location_source_checked(");
