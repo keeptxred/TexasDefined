@@ -55,16 +55,21 @@ function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
-const sitemapResponse = await fetchWithRetry('cavern-sitemap', '/sitemap.xml');
-assert(sitemapResponse.ok, `Sitemap returned HTTP ${sitemapResponse.status}`);
-const sitemap = await sitemapResponse.text();
+const primarySitemapResponse = await fetchWithRetry('primary-sitemap', '/sitemap.xml');
+assert(primarySitemapResponse.ok, `Primary sitemap returned HTTP ${primarySitemapResponse.status}`);
+const primarySitemap = await primarySitemapResponse.text();
+assert(primarySitemap.includes(`${origin}/sitemap-explore.xml`) || primarySitemap.includes('/sitemap-explore.xml'), 'Primary sitemap does not reference the Explore sitemap');
+
+const exploreSitemapResponse = await fetchWithRetry('explore-sitemap', '/sitemap-explore.xml');
+assert(exploreSitemapResponse.ok, `Explore sitemap returned HTTP ${exploreSitemapResponse.status}`);
+const exploreSitemap = await exploreSitemapResponse.text();
 
 for (const slug of allCavernSlugs) {
   const canonicalUrl = `${origin}/destination/${slug}`;
-  assert(sitemap.includes(canonicalUrl), `Sitemap missing canonical cavern URL: ${canonicalUrl}`);
+  assert(exploreSitemap.includes(canonicalUrl), `Explore sitemap missing canonical cavern URL: ${canonicalUrl}`);
 }
-assert(!sitemap.includes(`${origin}/destination/${legacyDevilsSinkholeSlug}`), 'Sitemap exposes legacy Devil\'s Sinkhole URL');
-console.log(`[cavern-sitemap] verified ${allCavernSlugs.length} canonical cavern URLs and excluded legacy Devil's Sinkhole slug.`);
+assert(!exploreSitemap.includes(`${origin}/destination/${legacyDevilsSinkholeSlug}`), 'Explore sitemap exposes legacy Devil\'s Sinkhole URL');
+console.log(`[explore-sitemap] verified ${allCavernSlugs.length} canonical cavern URLs and excluded legacy Devil's Sinkhole slug.`);
 
 for (const [slug, name] of restoredCaverns) {
   const path = `/destination/${slug}`;
@@ -87,4 +92,4 @@ for (const [slug, name] of restoredCaverns) {
   console.log(`[${slug}] verified HTTP 200, canonical, indexability, official-source metadata, review date, and image attribution.`);
 }
 
-console.log(`TexasDefined cavern production integrity passed: ${allCavernSlugs.length} sitemap canonicals + ${restoredCaverns.length} restored destination pages.`);
+console.log(`TexasDefined cavern production integrity passed: primary sitemap linkage + ${allCavernSlugs.length} Explore sitemap canonicals + ${restoredCaverns.length} restored destination pages.`);
