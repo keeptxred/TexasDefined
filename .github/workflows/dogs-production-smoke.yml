@@ -1,0 +1,37 @@
+name: Texas Dogs production smoke
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-dogs-production.mjs'
+      - '.github/workflows/dogs-production-smoke.yml'
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texas-dogs-production-smoke
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify Texas Dogs production surfaces
+        run: node scripts/ci/verify-dogs-production.mjs
