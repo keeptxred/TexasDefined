@@ -1,4 +1,4 @@
-name: TEMP Generate exact Stay Nearby property images
+name: TEMP Finalize exact Stay Nearby property images
 
 on:
   push:
@@ -13,9 +13,9 @@ permissions:
   actions: read
 
 jobs:
-  generate:
+  finalize:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 30
     environment: texasdefined-publication
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -24,19 +24,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Restore reviewed partial exact-property images
+      - name: Restore complete reviewed generation batch
         uses: actions/download-artifact@v4
         with:
           github-token: ${{ github.token }}
           repository: keeptxred/TexasDefined
-          run-id: 34660424666
+          run-id: 34660491097
           name: stay-nearby-exact-property-images
           path: public
-      - name: Reconcile generator references and resume support
+      - name: Harden exact-property sources and statewide validator
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
+          import re
+
           generator = Path('scripts/media/generate-stay-nearby-property-images.mjs')
           text = generator.read_text()
           replacements = {
@@ -46,43 +48,87 @@ jobs:
           }
           for old, new in replacements.items():
             text = text.replace(old, new)
-          reference_map_marker = "const RESEARCHED_REFERENCE_IMAGE_BY_ID = Object.freeze({\n"
-          if "RESEARCHED_REFERENCE_IMAGE_BY_ID = Object.freeze({\n  'hotel-mockingbird-dallas':" not in text:
-            insert = "  'hotel-mockingbird-dallas': 'https://cache.marriott.com/is/image/marriotts7prod/tx-dalnb-hotel-exterior-30022%3AWide-Hor?fit=constrain&wid=1336',\n  'drury-plaza-dallas-arlington': 'https://cms.druryhotels.com/media/469312/188_exterior_03.jpg?anchor=center&height=844&mode=crop&rnd=133667410030000000&width=1318',\n"
-            text = text.replace(reference_map_marker, reference_map_marker + insert, 1)
+
+          marker = "const RESEARCHED_REFERENCE_IMAGE_BY_ID = Object.freeze({\n"
+          refs = {
+            'hotel-mockingbird-dallas': 'https://cache.marriott.com/is/image/marriotts7prod/tx-dalnb-hotel-exterior-30022%3AWide-Hor?fit=constrain&wid=1336',
+            'drury-plaza-dallas-arlington': 'https://cms.druryhotels.com/media/469312/188_exterior_03.jpg?anchor=center&height=844&mode=crop&rnd=133667410030000000&width=1318',
+            'w-dallas': 'https://cache.marriott.com/is/image/marriotts7prod/wh-dalwh-hotel-exterior-28850-10982%3AWide-Hor?fit=constrain&wid=1336',
+          }
+          additions = ''.join(f"  '{key}': '{url}',\n" for key, url in refs.items() if f"'{key}':" not in text)
+          if additions:
+            if marker not in text:
+              raise SystemExit('Exact-property reference map marker missing')
+            text = text.replace(marker, marker + additions, 1)
+
           fetch_marker = "async function fetchOfficialReference(sourceUrl, propertyId) {\n  const failures = [];\n"
           if 'Prefer manually verified exact-property references when available.' not in text:
-            researched_first = "  // Prefer manually verified exact-property references when available.\n  const preferredResearchedImageUrl = RESEARCHED_REFERENCE_IMAGE_BY_ID[propertyId];\n  if (preferredResearchedImageUrl) {\n    try {\n      const reference = await downloadReferenceImage(preferredResearchedImageUrl, sourceUrl);\n      console.log(`Using manually verified exact-property visual reference for ${propertyId}.`);\n      return { ...reference, referenceSource: 'manually-verified-exact-property-reference' };\n    } catch (error) {\n      failures.push(`preferred researched ${preferredResearchedImageUrl} (${error instanceof Error ? error.message : String(error)})`);\n    }\n  }\n"
-            text = text.replace(fetch_marker, fetch_marker + researched_first, 1)
+            preferred = "  // Prefer manually verified exact-property references when available.\n  const preferredResearchedImageUrl = RESEARCHED_REFERENCE_IMAGE_BY_ID[propertyId];\n  if (preferredResearchedImageUrl) {\n    try {\n      const reference = await downloadReferenceImage(preferredResearchedImageUrl, sourceUrl);\n      console.log(`Using manually verified exact-property visual reference for ${propertyId}.`);\n      return { ...reference, referenceSource: 'manually-verified-exact-property-reference' };\n    } catch (error) {\n      failures.push(`preferred researched ${preferredResearchedImageUrl} (${error instanceof Error ? error.message : String(error)})`);\n    }\n  }\n"
+            if fetch_marker not in text:
+              raise SystemExit('Reference fetch function marker missing')
+            text = text.replace(fetch_marker, fetch_marker + preferred, 1)
+
           generate_marker = "async function generatePropertyImage(property) {\n  const address = ADDRESS_BY_ID[property.id];\n  const sourceUrl = officialSource(property);\n"
           if 'Reusing reviewed exact-property raster' not in text:
-            reuse = "  const reuseSources = Object.freeze({ 'courtyard-fort-worth-university-drive': 'official-property-page', 'hilton-garden-inn-fort-worth-medical-center': 'manually-verified-exact-property-reference', 'homewood-suites-fort-worth-medical-center': 'manually-verified-exact-property-reference', 'graduate-dallas': 'manually-verified-exact-property-reference', 'the-highland-dallas': 'manually-verified-exact-property-reference', 'live-by-loews-arlington': 'official-property-page', 'loews-arlington-hotel': 'official-property-page' });\n  let priorItem = null;\n  if (fs.existsSync(MANIFEST_PATH)) {\n    try { priorItem = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8'))?.items?.find((item) => item.propertyId === property.id) || null; } catch {}\n  }\n  for (const extension of ['png', 'jpg', 'jpeg', 'webp']) {\n    const existingPath = path.join(OUTPUT_DIR, `${property.id}.${extension}`);\n    if (!fs.existsSync(existingPath)) continue;\n    const bytes = fs.readFileSync(existingPath);\n    if (bytes.length < 25_000) throw new Error(`Existing image for ${property.id} is unexpectedly small (${bytes.length} bytes).`);\n    const referenceSource = priorItem?.referenceImageSource || reuseSources[property.id];\n    if (!referenceSource) throw new Error(`Existing image for ${property.id} lacks preserved exact-property reference provenance.`);\n    console.log(`Reusing reviewed exact-property raster for ${property.id}.`);\n    return { address, sourceUrl, referenceImageUrl: 'reused-reviewed-raster', referenceSource, bytes, format: imageFormat(bytes) };\n  }\n"
+            reuse = "  let priorItem = null;\n  if (fs.existsSync(MANIFEST_PATH)) {\n    try { priorItem = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8'))?.items?.find((item) => item.propertyId === property.id) || null; } catch {}\n  }\n  for (const extension of ['png', 'jpg', 'jpeg', 'webp']) {\n    const existingPath = path.join(OUTPUT_DIR, `${property.id}.${extension}`);\n    if (!fs.existsSync(existingPath)) continue;\n    const bytes = fs.readFileSync(existingPath);\n    if (bytes.length < 25_000) throw new Error(`Existing image for ${property.id} is unexpectedly small (${bytes.length} bytes).`);\n    const referenceSource = priorItem?.referenceImageSource;\n    if (!referenceSource) throw new Error(`Existing image for ${property.id} lacks preserved exact-property reference provenance.`);\n    console.log(`Reusing reviewed exact-property raster for ${property.id}.`);\n    return { address, sourceUrl, referenceImageUrl: 'reused-reviewed-raster', referenceSource, bytes, format: imageFormat(bytes) };\n  }\n"
+            if generate_marker not in text:
+              raise SystemExit('Property generation function marker missing')
             text = text.replace(generate_marker, generate_marker + reuse, 1)
           generator.write_text(text)
+
           verifier = Path('scripts/ci/verify-stay-nearby-production.mjs')
-          vtext = verifier.read_text().replace("'Homewood Suites by Hilton Fort Worth Medical Center, TX'", "'Homewood Suites by Hilton Fort Worth Medical Center'")
-          verifier.write_text(vtext)
+          verifier.write_text(verifier.read_text().replace("'Homewood Suites by Hilton Fort Worth Medical Center, TX'", "'Homewood Suites by Hilton Fort Worth Medical Center'"))
+
+          validator = Path('scripts/data/validate-expedia-affiliate.mjs')
+          v = validator.read_text()
+          start = v.index('  for (const venue of pilots) {')
+          end = v.index('\n}\n\nif (!propertyImageManifest', start)
+          replacement = '''  const curatedVenueKeys = new Set(registry.properties.flatMap((property) =>
+            (property.contexts ?? [])
+              .filter((context) => context.kind === 'venue')
+              .map((context) => context.key)));
+
+          for (const venue of curatedVenueKeys) {
+            if (!pilots.has(venue)) errors.push(`${venue} has curated Stay Nearby cards but is not a current redesigned venue guide.`);
+            const matches = registry.properties.filter((property) =>
+              (property.contexts ?? []).some((context) => context.kind === 'venue' && context.key === venue));
+            if (matches.length !== 3) errors.push(`${venue} must have exactly 3 curated Stay Nearby choices when curated results are configured; found ${matches.length}.`);
+            const ranks = matches
+              .flatMap((property) => property.contexts.filter((context) => context.kind === 'venue' && context.key === venue))
+              .map((context) => context.rank)
+              .sort((a, b) => a - b);
+            if (ranks.join(',') !== '1,2,3') errors.push(`${venue} must have deterministic Stay Nearby relevance ranks 1,2,3.`);
+          }
+
+          integratedProperties = registry.properties.filter((property) =>
+            (property.contexts ?? []).some((context) => context.kind === 'venue' && pilots.has(context.key)));
+'''
+          v = v[:start] + replacement + v[end:]
+          v = re.sub(
+            r"console\.log\(`Expedia / Stay Nearby validation passed:[\s\S]*?`\);",
+            "console.log(`Expedia / Stay Nearby validation passed: approved tracking remains click-loaded, curated hotel selection remains evidence-backed and capped at three cards, ${integratedProperties.length} configured redesigned-guide hotel cards are image-gated, rights-cleared affiliate property photos remain preferred, every remaining configured hotel card has a unique first-party photorealistic exact-property AI raster grounded to an exact address and verified property source, and generic hotel imagery and SVG fallbacks are prohibited.`);",
+            v,
+          )
+          validator.write_text(v)
           PY
-          rm -f public/images/stay-nearby/properties/hotel-mockingbird-dallas.png
-      - name: Generate remaining exact-property raster imagery
+          rm -f public/images/stay-nearby/properties/w-dallas.png
+      - name: Regenerate W Dallas from verified exterior and rebuild manifest
         run: node scripts/media/generate-stay-nearby-property-images.mjs
-      - name: Commit generated property imagery
+      - name: Validate exact-property policy
+        run: node scripts/data/validate-expedia-affiliate.mjs
+      - name: Commit final exact-property assets and guards
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A public scripts/media/generate-stay-nearby-property-images.mjs scripts/ci/verify-stay-nearby-production.mjs
-          if git diff --cached --quiet; then
-            echo "No generated changes to commit."
-            exit 0
-          fi
-          git commit -m "Generate exact Stay Nearby property images"
+          git add -A public scripts/media/generate-stay-nearby-property-images.mjs scripts/ci/verify-stay-nearby-production.mjs scripts/data/validate-expedia-affiliate.mjs
+          git commit -m "Finalize exact Stay Nearby property imagery"
           git push origin "HEAD:${GITHUB_REF_NAME}"
-      - name: Upload generated property imagery for review
+      - name: Upload finalized property imagery for review
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: stay-nearby-exact-property-images
+          name: stay-nearby-exact-property-images-final
           if-no-files-found: warn
           retention-days: 2
           path: |
