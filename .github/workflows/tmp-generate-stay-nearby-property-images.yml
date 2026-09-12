@@ -6,6 +6,7 @@ on:
       - fix/stay-nearby-exact-property-images
     paths:
       - '.github/workflows/tmp-generate-stay-nearby-property-images.yml'
+  workflow_dispatch:
 
 permissions:
   contents: write
