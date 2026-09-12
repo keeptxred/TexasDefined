@@ -372,6 +372,18 @@ const sportsVenuePhotos: Record<string, SportsVenuePhoto> = {
     width: 8000,
     height: 5221,
   },
+  'xtreme-raceway-park': {
+    slug: 'xtreme-raceway-park',
+    alt: 'Xtreme Raceway Park entrance in Ferris, Texas at dusk',
+    imageUrl: '/images/sports-venues/xtreme-raceway-park.jpg',
+    sourcePage: 'https://texasdefined.com/sports-venue/xtreme-raceway-park',
+    sourceName: 'site-owner supplied media',
+    author: 'Microsoft Copilot AI image',
+    licenseName: 'AI-generated image supplied for TexasDefined use',
+    licenseUrl: 'https://texasdefined.com/sports-venue/xtreme-raceway-park',
+    width: 600,
+    height: 400,
+  },
 };
 
 export function getSportsVenuePhoto(slug: string) {
