@@ -1,0 +1,58 @@
+import type { ParkingMapAsset } from './parking-map-model';
+
+export const VENUE_PARKING_MAPS_BATCH_3: Record<string, ParkingMapAsset> = {
+  'riders-field': {
+    id: 'parking-map:riders-field:2026-09', venueSlug: 'riders-field', venueName: 'Riders Field', imageUrl: '/images/parking-maps/riders-field.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Riders Field showing Lot B, garages E and F and major Frisco access roads',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['The Frisco RoughRiders publish a current parking PDF, but no reusable publication license was documented for the official parking artwork.', 'Wikimedia Commons has reusable Riders Field photography but no current parking map.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Frisco RoughRiders — official parking and directions', url: 'https://www.milb.com/frisco/ballpark/parking', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Frisco RoughRiders — official parking PDF', url: 'https://img.mlbstatic.com/milb-images/image/upload/milb/pkheap2cngmp9ricgfas.pdf', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Wikimedia Commons — Riders Field category', url: 'https://commons.wikimedia.org/wiki/Category:Riders_Field', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Lot B placement at the Home Plate side and accessible parking designation were checked against the official parking PDF and current venue guidance.', 'Garages E and F near the Left Field side were checked against the official parking PDF.', 'Gaylord Parkway, Avenue of the Stars, Parkwood Boulevard, Diamond Drive and Dallas Parkway/Tollway relationships were checked against the official map.', 'The schematic does not reproduce changing parking prices or event inventory.'],
+  },
+  'credit-union-of-texas-event-center': {
+    id: 'parking-map:credit-union-of-texas-event-center:2026-09', venueSlug: 'credit-union-of-texas-event-center', venueName: 'Credit Union of Texas Event Center', imageUrl: '/images/parking-maps/credit-union-of-texas-event-center.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Credit Union of Texas Event Center showing the South Parking Garage and approach roads',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['The arena publishes current directions and parking instructions but no reusable parking-map license was documented.', 'Wikimedia Commons contains reusable arena imagery in the Allen Event Center category, but no current parking map.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Credit Union of Texas Event Center — Directions & Parking', url: 'https://www.cutxeventcenter.com/92/Directions-Parking', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Credit Union of Texas Event Center — A-Z Guide', url: 'https://www.cutxeventcenter.com/plan-your-visit/a-z-guide', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Wikimedia Commons — Allen Event Center category', url: 'https://commons.wikimedia.org/wiki/Category:Allen_Event_Center', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['The South Parking Garage was verified as the designated event-day parking location.', 'Stacy Road, Andrews Parkway and Event Center Drive approach sequence was checked against current official directions.', 'The official venue specifically prohibits event-day parking in surrounding uncovered retail spaces, which is called out on the schematic.', 'Visitors should follow temporary event signage for final garage access.'],
+  },
+  'college-park-center': {
+    id: 'parking-map:college-park-center:2026-09', venueSlug: 'college-park-center', venueName: 'College Park Center', imageUrl: '/images/parking-maps/college-park-center.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for College Park Center showing nearby UT Arlington visitor parking garages and campus streets',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['UT Arlington publishes detailed current visitor parking maps, but no reusable publication license was documented for those official map files.', 'Wikimedia Commons contains reusable College Park Center photography but no current visitor parking map.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'UT Arlington — current parking maps', url: 'https://www.uta.edu/campus-ops/pats/parking/parking-maps', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'UT Arlington — parking lot and garage addresses', url: 'https://www.uta.edu/campus-ops/pats/parking/parking-lot-addresses', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'UT Arlington — 2025-26 visitor parking map', url: 'https://www.uta.edu/pats/maps/Visitor-Parking-Map---20252.pdf', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['College Park Center and nearby College Park and Park South garages were checked against the official visitor parking map.', 'College Park C Garage at 500 S Center St and Park South at 550 S Center St were checked against current UTA garage addresses.', 'The schematic is an orientation layer rather than a permit-zone map because UTA parking rules vary by time and user category.', 'Visitors are directed to the current UTA map for final permit and short-term parking eligibility.'],
+  },
+  'moody-coliseum-smu': {
+    id: 'parking-map:moody-coliseum-smu:2026-09', venueSlug: 'moody-coliseum-smu', venueName: 'Moody Coliseum', imageUrl: '/images/parking-maps/moody-coliseum-smu.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Moody Coliseum showing current SMU basketball parking garages',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['SMU Athletics publishes current 2026-27 basketball parking maps, but the reviewed official map artwork does not document reusable publication rights.', 'Open-license searches surfaced SMU/venue photography but no current reusable basketball parking map.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'SMU Athletics — 2026-27 parking guidance', url: 'https://smumustangs.com/sports/2016/6/8/parking', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'SMU Athletics — 2026-27 Moody Coliseum parking links', url: 'https://app.smumustangs.com/SeatPricing', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Binkley and Meadows Parking Centers were verified as general parking for 2026-27 men’s basketball.', 'Moody Garage was verified for women’s basketball general parking and also appears in credential parking guidance.', 'SMU Boulevard, Airline Road and Binkley Avenue relationships were checked against current campus parking guidance.', 'The diagram explicitly treats parking assignments as event-dependent because men’s, women’s and volleyball plans differ.'],
+  },
+  'unt-coliseum': {
+    id: 'parking-map:unt-coliseum:2026-09', venueSlug: 'unt-coliseum', venueName: 'UNT Coliseum', imageUrl: '/images/parking-maps/unt-coliseum.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for UNT Coliseum showing Lot 20, Highland Street reserved parking and Avenue D accessible parking',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['UNT publishes basketball parking maps and current guidance, but those official materials do not document reusable publication rights.', 'A reusable Wikimedia Commons athletic-facilities map exists but dates to 2012 and is too old to serve as the current parking map.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'UNT Athletics — Super Pit Parking', url: 'https://meangreensports.com/sports/2018/8/28/gamedayparking', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'UNT Athletics — 2026 parking reallocation announcement', url: 'https://meangreensports.com/news/2026/3/26/general-unt-athletics-announces-super-pit-re-seating-and-parking-changes', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'UNT Athletics — current donor guide basketball map', url: 'https://meangreensports.com/documents/download/2025/10/21/UNT25_2425DonorGuide_DIGITAL.pdf', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Wikimedia Commons — historic UNT athletic facilities map', url: 'https://commons.wikimedia.org/wiki/File:Map_of_UNT_athletic_facilities.svg', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Lot 20 west of the Super Pit across North Texas Boulevard was checked against current UNT guidance.', 'Highland Street reserved parking and Avenue D accessible parking were checked against current official material.', 'The venue’s North Texas Boulevard and Highland Street corner location was checked against official directions.', 'The schematic notes that donor parking is periodically reallocated, including a 2026 reallocation announcement.'],
+  },
+  'ford-center-at-the-star': {
+    id: 'parking-map:ford-center-at-the-star:2026-09', venueSlug: 'ford-center-at-the-star', venueName: 'Ford Center at The Star', imageUrl: '/images/parking-maps/ford-center-at-the-star.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Ford Center at The Star showing principal on-site garages and lots',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['The Star publishes campus and parking maps, but the reviewed official map artwork does not document a reusable publication license.', 'Wikimedia Commons contains reusable Ford Center photographs but no current parking map.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'The Star — tour parking guidance', url: 'https://www.thestarinfrisco.com/tours/tours-faqs/', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'The Star District — current campus directory and parking', url: 'https://thestardistrict.com/visit/directory/', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'The Star District — campus map', url: 'https://thestardistrict.com/wp-content/uploads/2019/05/StarDistrict.pdf', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Wikimedia Commons — Ford Center photograph', url: 'https://commons.wikimedia.org/wiki/File:Ford_Center_at_the_Star.jpg', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Blue and Silver garages plus the Gridiron Lot were verified as Ford Center tour parking options.', 'Current Star District guidance also lists Gaylord Parking Lot as an on-site parking option.', 'Ford Center, Cowboys Way, Gaylord Parkway and the Gridiron/Gaylord lot relationships were compared with the official campus map.', 'The schematic warns that parking controls can change for major Ford Center events.'],
+  },
+};
