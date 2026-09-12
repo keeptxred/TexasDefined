@@ -9,7 +9,9 @@ on:
       - 'src/data/destination-availability.ts'
       - 'src/routes/destination.$slug.tsx'
       - 'src/routes/destination.*.tsx'
+      - 'src/routes/sitemap-explore[.]xml.ts'
       - 'src/lib/public-routes.ts'
+      - 'scripts/ci/validate-cavern-production-integrity-contract.mjs'
       - 'scripts/ci/verify-cavern-production-integrity.mjs'
       - '.github/workflows/verify-cavern-production-integrity.yml'
   push:
@@ -22,7 +24,9 @@ on:
       - 'src/data/destination-availability.ts'
       - 'src/routes/destination.$slug.tsx'
       - 'src/routes/destination.*.tsx'
+      - 'src/routes/sitemap-explore[.]xml.ts'
       - 'src/lib/public-routes.ts'
+      - 'scripts/ci/validate-cavern-production-integrity-contract.mjs'
       - 'scripts/ci/verify-cavern-production-integrity.mjs'
       - '.github/workflows/verify-cavern-production-integrity.yml'
   workflow_dispatch:
@@ -35,7 +39,18 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  verify:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate cavern sitemap and production-check contract
+        run: node scripts/ci/validate-cavern-production-integrity-contract.mjs
+
+  production:
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
