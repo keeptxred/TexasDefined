@@ -5,6 +5,8 @@ on:
     paths:
       - 'src/routes/sports-venue.$slug.tsx'
       - 'src/components/sports/SportsVenueGuidePage.tsx'
+      - 'src/data/sports-venue-enrichment-all.ts'
+      - 'src/data/sports-venue-history-completion.ts'
       - 'src/data/sports-venue-editorial.server.ts'
       - 'src/data/sports-venue-editorial-wave6.server.ts'
       - 'src/data/sports-venue-editorial-wave7.server.ts'
