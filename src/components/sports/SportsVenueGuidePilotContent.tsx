@@ -65,7 +65,10 @@ export default function SportsVenueGuidePilotContent({
   const photo = getSportsVenuePhoto(slug);
   const venueEvents: readonly TexasEventCarouselItem[] = photo
     ? upcomingEvents.map((event) => {
-        if (event.image?.url !== photo.imageUrl) return event;
+        if (
+          event.image?.url !== photo.imageUrl
+          && event.image?.sourceUrl !== photo.sourcePage
+        ) return event;
         const { image: _duplicateVenueImage, ...eventWithoutDuplicateVenueImage } = event;
         return eventWithoutDuplicateVenueImage;
       })
