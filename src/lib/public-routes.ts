@@ -289,6 +289,7 @@ export const REDIRECT_ONLY_PATHS = [
   "/lakes/lake-conroe.html",
   "/destination/enchanted-rock",
   "/destination/palo-duro-canyon",
+  "/destination/devil-s-sinkhole-state-natural-area",
   "/destination/cooper-lake-doctors-creek-unit-state-park",
   "/destination/cooper-lake-johns-creek-unit-state-park",
   "/destination/cooper-lake-south-sulphur-unit-state-park",
