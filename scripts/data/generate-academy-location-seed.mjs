@@ -132,13 +132,27 @@ function storeNumberFromUrl(sourceUrl) {
   return String(Number.parseInt(match[1], 10));
 }
 
+function parseAcademyStoreStatus(html) {
+  const lines = stripTags(html).slice(0, 120);
+  if (lines.some((line) => /^COMING SOON!?/i.test(line))) return 'planned';
+  if (lines.some((line) => /^PERMANENTLY CLOSED\b/i.test(line))) return 'closed';
+  return 'active';
+}
+
+function unitOnlyLine(value) {
+  const line = String(value ?? '').trim();
+  return /^(?:(?:suite|ste|unit|bldg|building)\b\s*#?\s*[a-z0-9-]+|#\s*[a-z0-9-]+|\d{1,4})$/i.test(line);
+}
+
 function fallbackAddress(html, sourceUrl) {
   const lines = stripTags(html);
   for (let index = 1; index < Math.min(lines.length, 180); index += 1) {
     const cityLine = lines[index].match(/^(.+?),\s*TX(?:\s*\(Texas\))?\s+(\d{5})(?:-\d{4})?$/i);
     if (!cityLine) continue;
-    const street = lines[index - 1];
-    if (!street || /^(?:Academy Sports(?: \+ Outdoors)?|Open|Closed|Main Number|Call Now)$/i.test(street)) continue;
+    let streetIndex = index - 1;
+    if (unitOnlyLine(lines[streetIndex]) && streetIndex > 0) streetIndex -= 1;
+    const street = lines[streetIndex];
+    if (!street || unitOnlyLine(street) || /^(?:Academy Sports(?: \+ Outdoors)?|Open|Closed|Main Number|Call Now)$/i.test(street)) continue;
     return {
       street,
       city: cityLine[1].trim(),
@@ -158,6 +172,7 @@ export function parseAcademyStorePage(html, sourceUrl) {
   }
 
   const embeddedPoint = parseEmbeddedCoordinates(html);
+  const status = parseAcademyStoreStatus(html);
   for (const object of jsonLdObjects(html)) {
     const address = object.address && typeof object.address === 'object' ? object.address : null;
     if (!address) continue;
@@ -181,6 +196,7 @@ export function parseAcademyStorePage(html, sourceUrl) {
       longitude: point?.longitude,
       sourceUrl: stableSourceUrl,
       locationNumber: storeNumberFromUrl(stableSourceUrl),
+      status,
     };
   }
 
@@ -191,6 +207,7 @@ export function parseAcademyStorePage(html, sourceUrl) {
     latitude: embeddedPoint?.latitude,
     longitude: embeddedPoint?.longitude,
     locationNumber: storeNumberFromUrl(stableSourceUrl),
+    status,
   };
 }
 
@@ -357,6 +374,7 @@ export function validateAcademySeed(stores) {
   for (const store of stores) {
     assert.match(store.locationNumber, /^\d+$/);
     assert.equal(store.state, 'TX');
+    assert.match(store.status, /^(?:active|planned|closed)$/);
     assert.match(store.postalCode, /^\d{5}$/);
     assert.match(store.sourceUrl, /^https:\/\/www\.academy\.com\/storelocator\/texas\/[a-z0-9-]+\/store-\d+$/i);
     if (ids.has(store.locationNumber)) throw new Error(`Duplicate Academy store number ${store.locationNumber}.`);
@@ -381,7 +399,12 @@ export function runSelfTest() {
   assert.equal(parsed.street, '23155 Katy Freeway');
   assert.equal(parsed.city, 'Katy');
   assert.equal(parsed.postalCode, '77450');
+  assert.equal(parsed.status, 'active');
   assert.deepEqual(parseEmbeddedCoordinates(storeFixture), { latitude: 29.785, longitude: -95.77 });
+  const plannedFixture = '5755 Kyle Pkwy\nSuite 200\nKyle, TX (Texas) 78640\nCOMING SOON!';
+  const planned = parseAcademyStorePage(plannedFixture, 'https://www.academy.com/storelocator/texas/kyle/store-0341');
+  assert.equal(planned.street, '5755 Kyle Pkwy');
+  assert.equal(planned.status, 'planned');
   console.log('Academy Texas location seed generator self-test passed.');
 }
 
