@@ -1,8 +1,8 @@
 (() => {
   const VISUAL_ATTRIBUTE = "data-stay-context-visual";
-  const FALLBACK_ATTRIBUTE = "data-stay-ai-fallback";
-  const FALLBACK_DATA_URL = "/stay-nearby-ai-fallbacks.json";
-  const FALLBACK_LABEL = "AI-generated area illustration — not the hotel property";
+  const AI_PROPERTY_ATTRIBUTE = "data-stay-ai-property";
+  const AI_PROPERTY_DATA_URL = "/stay-nearby-ai-property-images.json";
+  const AI_PROPERTY_LABEL = "AI-generated depiction of this property — not an official hotel photograph";
   const VISUALS = Object.freeze({
     "/sports-venue/amon-g-carter-stadium": Object.freeze({
       venue: "Amon G. Carter Stadium",
@@ -35,7 +35,7 @@
       verifiedAt: "2026-09-11",
     }),
   });
-  let fallbackDataPromise;
+  let aiPropertyDataPromise;
 
   function normalizedPath() {
     const value = window.location.pathname.replace(/\/+$/, "");
@@ -85,33 +85,39 @@
     return figure;
   }
 
-  function loadFallbackData() {
-    if (!fallbackDataPromise) {
-      fallbackDataPromise = fetch(FALLBACK_DATA_URL, { credentials: "same-origin" })
+  function loadAiPropertyData() {
+    if (!aiPropertyDataPromise) {
+      aiPropertyDataPromise = fetch(AI_PROPERTY_DATA_URL, { credentials: "same-origin" })
         .then((response) => {
-          if (!response.ok) throw new Error(`Stay Nearby AI fallback request failed: ${response.status}`);
+          if (!response.ok) throw new Error(`Stay Nearby exact-property AI image request failed: ${response.status}`);
           return response.json();
         })
         .catch(() => null);
     }
-    return fallbackDataPromise;
+    return aiPropertyDataPromise;
   }
 
-  function validFallback(item) {
+  function validAiProperty(item) {
     return item
-      && item.kind === "ai-area-illustration"
-      && item.depictsProperty === false
-      && item.label === FALLBACK_LABEL
+      && item.kind === "ai-property-depiction"
+      && item.depictsProperty === true
+      && item.generatedFromPropertyIdentity === true
+      && item.label === AI_PROPERTY_LABEL
+      && typeof item.propertyAddress === "string"
+      && /\d/.test(item.propertyAddress)
+      && typeof item.groundingSourceUrl === "string"
+      && item.groundingSourceUrl.startsWith("https://")
       && typeof item.url === "string"
-      && item.url.startsWith("/images/stay-nearby/ai/")
-      && item.url.endsWith(".svg")
+      && item.url.startsWith("/images/stay-nearby/properties/")
+      && /\.(?:png|jpe?g|webp)$/i.test(item.url)
+      && !/\.svg(?:$|\?)/i.test(item.url)
       && typeof item.alt === "string"
-      && item.alt.startsWith("AI-generated illustration");
+      && item.alt.startsWith("AI-generated photorealistic depiction of ");
   }
 
-  function buildFallbackMedia(item) {
+  function buildAiPropertyMedia(item) {
     const figure = document.createElement("figure");
-    figure.setAttribute(FALLBACK_ATTRIBUTE, item.propertyId);
+    figure.setAttribute(AI_PROPERTY_ATTRIBUTE, item.propertyId);
     figure.style.margin = "0";
     figure.style.background = "var(--muted)";
 
@@ -123,7 +129,7 @@
     image.decoding = "async";
 
     const caption = document.createElement("figcaption");
-    caption.textContent = FALLBACK_LABEL;
+    caption.textContent = item.label;
     caption.style.padding = ".45rem .75rem";
     caption.style.borderTop = "1px solid var(--border)";
     caption.style.fontSize = ".6875rem";
@@ -158,16 +164,16 @@
     track.before(buildVisual(visual));
   }
 
-  async function syncFallbackCards() {
+  async function syncAiPropertyCards() {
     const surface = document.getElementById("expedia-travel-surface");
     if (!surface || surface.dataset.surfaceType !== "curated") return;
 
-    const data = await loadFallbackData();
-    if (!data || !Array.isArray(data.items) || data.disclosure !== FALLBACK_LABEL) return;
-    const byName = new Map(data.items.filter(validFallback).map((item) => [item.name, item]));
+    const data = await loadAiPropertyData();
+    if (!data || data.version !== 2 || !Array.isArray(data.items) || data.disclosure !== AI_PROPERTY_LABEL) return;
+    const byName = new Map(data.items.filter(validAiProperty).map((item) => [item.name, item]));
 
     for (const card of surface.querySelectorAll(".td-stay-card")) {
-      if (card.querySelector(`[${FALLBACK_ATTRIBUTE}]`)) continue;
+      if (card.querySelector(`[${AI_PROPERTY_ATTRIBUTE}]`)) continue;
       const heading = card.querySelector("h3");
       const propertyName = heading?.textContent?.trim();
       const item = byName.get(propertyName);
@@ -178,14 +184,14 @@
 
       const textFallback = card.querySelector(":scope > .td-stay-media");
       if (!textFallback) continue;
-      textFallback.replaceWith(buildFallbackMedia(item));
+      textFallback.replaceWith(buildAiPropertyMedia(item));
     }
   }
 
   function scheduleSync() {
     window.requestAnimationFrame(() => {
       syncVisual();
-      void syncFallbackCards();
+      void syncAiPropertyCards();
     });
   }
 
