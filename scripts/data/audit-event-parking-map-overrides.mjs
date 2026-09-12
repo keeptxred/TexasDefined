@@ -79,6 +79,24 @@ function readKnownMajorEventSlugs() {
   return slugs;
 }
 
+function readCanonicalMajorEventOccurrences() {
+  const source = fs.readFileSync(path.join(DATA_DIR, 'major-event-index.ts'), 'utf8');
+  const occurrences = new Map();
+  for (const match of source.matchAll(/\{\s*slug:\s*["']([^"']+)["'][\s\S]*?startDate:\s*["'](\d{4}-\d{2}-\d{2})["'][\s\S]*?venue:\s*["']([^"']+)["'][\s\S]*?\}/g)) {
+    occurrences.set(match[1], { slug: match[1], startDate: match[2], venue: match[3] });
+  }
+  return occurrences;
+}
+
+function readVenueParkingMapKeys() {
+  const keys = new Set();
+  for (const file of fs.readdirSync(DATA_DIR).filter((name) => /^parking-maps-batch\d+\.ts$/.test(name))) {
+    const source = fs.readFileSync(path.join(DATA_DIR, file), 'utf8');
+    for (const match of source.matchAll(/^\s*'([^']+)'\s*:\s*{/gm)) keys.add(match[1]);
+  }
+  return keys;
+}
+
 function duplicateGroups(items, keyFn) {
   const groups = new Map();
   for (const item of items) {
@@ -91,9 +109,23 @@ function duplicateGroups(items, keyFn) {
   return [...groups.entries()].filter(([, group]) => group.length > 1);
 }
 
+function occurrenceYear(startDate) {
+  const match = startDate?.match(/^(\d{4})-/);
+  return match ? Number(match[1]) : undefined;
+}
+
+function eventOverrideApplies(eventYear, startDate) {
+  return Number.isInteger(eventYear) && occurrenceYear(startDate) === eventYear;
+}
+
 const records = parseEventOverrideRecords();
 const knownEventSlugs = readKnownMajorEventSlugs();
+const canonicalOccurrences = readCanonicalMajorEventOccurrences();
+const venueParkingMapKeys = readVenueParkingMapKeys();
+const resolverSource = fs.readFileSync(path.join(DATA_DIR, 'parking-maps.ts'), 'utf8');
+const serverResolverSource = fs.readFileSync(path.join(DATA_DIR, 'parking-maps.functions.ts'), 'utf8');
 const failures = [];
+const warnings = [];
 const duplicateKeys = duplicateGroups(records, (record) => record.key);
 const duplicateIds = duplicateGroups(records, (record) => record.id);
 const claimedSlugs = records.flatMap((record) => record.eventSlugs.map((slug) => ({ slug, key: record.key, file: record.file })));
@@ -116,8 +148,36 @@ for (const record of records) {
   else if (!fs.existsSync(path.join(PUBLIC_DIR, record.imageUrl.slice(1)))) failures.push(`${record.key}: missing asset ${record.imageUrl}`);
   for (const eventSlug of record.eventSlugs) {
     if (!knownEventSlugs.has(eventSlug)) failures.push(`${record.key}: eventSlugs contains unknown major-event slug ${eventSlug}`);
+    const occurrence = canonicalOccurrences.get(eventSlug);
+    if (!occurrence) failures.push(`${record.key}: no canonical occurrence metadata found for ${eventSlug}`);
+    else if (!eventOverrideApplies(record.eventYear, occurrence.startDate)) {
+      warnings.push(`${record.key}: ${record.eventYear} override is historical relative to canonical ${occurrence.startDate}; resolver must fall back to venue parking`);
+    }
   }
 }
+
+if (!resolverSource.includes('isParkingMapApplicableToEvent(eventMap, eventStartDate)')) {
+  failures.push('parking-maps.ts must gate event overrides with the canonical event start date');
+}
+if (!resolverSource.includes('return getParkingMapForVenueSlug(venueSlug)')) {
+  failures.push('parking-maps.ts must fall back to the canonical venue map when an event override is not applicable');
+}
+if (!serverResolverSource.includes('getParkingMapForEvent(event.slug, venueSlug, event.startDate)')) {
+  failures.push('parking-maps.functions.ts must pass the canonical event start date into parking resolution');
+}
+
+// Regression guard: the canonical Valero occurrence is now 2027, while the retained overlay is explicitly 2026-only.
+const valero = canonicalOccurrences.get('valero-texas-open');
+const valeroOverride = records.find((record) => record.key === 'valero-texas-open');
+if (!valero) failures.push('valero-texas-open: canonical occurrence is missing');
+else if (valero.startDate !== '2027-03-29') failures.push(`valero-texas-open: expected canonical 2027-03-29 start, found ${valero.startDate}`);
+if (!valeroOverride) failures.push('valero-texas-open: 2026 historical override is missing');
+else {
+  if (valeroOverride.eventYear !== 2026) failures.push(`valero-texas-open: expected historical override year 2026, found ${valeroOverride.eventYear}`);
+  if (valero && eventOverrideApplies(valeroOverride.eventYear, valero.startDate)) failures.push('valero-texas-open: stale 2026 override incorrectly applies to canonical 2027 occurrence');
+  if (!eventOverrideApplies(valeroOverride.eventYear, '2026-04-02')) failures.push('valero-texas-open: historical 2026 occurrence should still match its 2026 override');
+}
+if (!venueParkingMapKeys.has('tpc-san-antonio')) failures.push('valero-texas-open: canonical fallback parking map for tpc-san-antonio is missing');
 
 console.log('\nEvent parking-map override audit');
 console.log('================================');
@@ -125,7 +185,12 @@ console.log(`Override records: ${records.length}`);
 console.log(`Duplicate override keys: ${duplicateKeys.length}`);
 console.log(`Duplicate override IDs: ${duplicateIds.length}`);
 console.log(`Event slugs claimed by multiple overrides: ${duplicateClaimedSlugs.length}`);
-for (const record of records) console.log(`  - ${record.key} (${record.eventYear ?? 'missing year'}, ${record.file})`);
+console.log(`Occurrence-scoped historical overrides: ${warnings.length}`);
+for (const record of records) {
+  const occurrence = canonicalOccurrences.get(record.key);
+  console.log(`  - ${record.key} (override ${record.eventYear ?? 'missing year'}; canonical ${occurrence?.startDate ?? 'missing'})`);
+}
+for (const warning of warnings) console.log(`  scoped: ${warning}`);
 
 if (failures.length > 0) {
   console.error('\nFailures:');
