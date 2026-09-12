@@ -1,0 +1,63 @@
+{
+  "generatedAt": "2026-09-12T21:47:15.078Z",
+  "total": 16,
+  "freePhotos": [
+    {
+      "slug": "colonial-country-club",
+      "sourceTitle": "File:Gregor Ziemer and F. R. Buckley.jpg"
+    },
+    {
+      "slug": "legacy-stadium-katy",
+      "sourceTitle": "File:Cherry Creek Schools Legacy Stadium.jpg"
+    },
+    {
+      "slug": "retama-park",
+      "sourceTitle": "File:Schatzell Street - August 1978 (6457073233).jpg"
+    },
+    {
+      "slug": "round-rock-sports-center",
+      "sourceTitle": "File:Round Rock Sports Center, Texas (47603155501).jpg"
+    },
+    {
+      "slug": "texas-motorplex",
+      "sourceTitle": "File:Ennis September 2017 30 (Texas Motorplex).jpg"
+    }
+  ],
+  "aiGenerated": [
+    {
+      "slug": "amarillo-national-center"
+    },
+    {
+      "slug": "childrens-health-stadium-prosper"
+    },
+    {
+      "slug": "cy-fair-fcu-stadium"
+    },
+    {
+      "slug": "expo-center-taylor-county"
+    },
+    {
+      "slug": "hodgetown"
+    },
+    {
+      "slug": "houston-motorsports-park"
+    },
+    {
+      "slug": "memorial-park-golf-course"
+    },
+    {
+      "slug": "national-shooting-complex"
+    },
+    {
+      "slug": "pga-frisco-fields-ranch"
+    },
+    {
+      "slug": "tpc-san-antonio"
+    },
+    {
+      "slug": "waco-surf"
+    }
+  ],
+  "unresolved": [],
+  "aiAvailable": true
+}
