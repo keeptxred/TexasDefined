@@ -13,7 +13,6 @@ import { loadFishingLocalSitemapEntriesServer } from "@/data/fishing/local-sitem
 import { loadFishingReportSitemapEntriesServer } from "@/data/fishing/report-sitemap.server";
 import { FISHING_SITEMAP_ENTRIES } from "@/data/fishing/sitemap";
 import { HUNTING_SITEMAP_ENTRIES } from "@/data/hunting/sitemap";
-import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
 import { majorEventIndexRecords } from "@/data/major-event-index";
 import { loadSupplementalMajorEventSitemapEntriesServer } from "@/data/major-event-supplemental-registry.server";
@@ -65,6 +64,7 @@ export const Route = createFileRoute("/sitemap.xml")({
     handlers: {
       GET: async () => {
         const { platform, scope } = await import("@/data");
+        const { loadTexasKnowledgeGraph } = await import("@/data/knowledge-graph");
         const coreResults = await Promise.allSettled([
           platform.articles.list(scope),
           platform.collections.list(scope),
@@ -219,5 +219,5 @@ function toDate(value?: string) {
 }
 
 function escapeXml(value: string) {
-  return value.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '\"': "&quot;", "'": "&apos;" })[character] ?? character);
+  return value.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&apos;" })[character] ?? character);
 }
