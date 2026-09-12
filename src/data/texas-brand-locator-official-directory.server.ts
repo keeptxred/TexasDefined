@@ -24,6 +24,7 @@ type DirectoryAdapter = {
   sourceUrl: string;
   sourceLabel: string;
   sourceUrlForOrigin?: (origin: Point) => string;
+  upstreamRanked?: boolean;
   parser: (html: string, sourceUrl: string) => ParsedDirectoryLocation[];
 };
 
@@ -93,7 +94,7 @@ function parseYextTexasDirectory(
     const meta = asRecord(profile.meta);
     const coordinate = asRecord(profile.yextDisplayCoordinate ?? profile.displayCoordinate ?? profile.geo);
     const latitude = numberValue(coordinate.lat, coordinate.latitude, profile.latitude);
-    const longitude = numberValue(coordinate.long, coordinate.lng, coordinate.longitude, profile.longitude);
+    const longitude = numberValue(coordinate.long, coordinate.lng, profile.longitude);
     if (latitude === undefined || longitude === undefined) return [];
 
     const region = stringValue(addressObject.region, addressObject.state, profile.region, profile.state);
@@ -233,6 +234,64 @@ export function parseShipleyNearbyDirectory(html: string, sourceUrl = "https://s
   return locations;
 }
 
+function hpbNoise(value: string) {
+  return /^(?:image:\s*store-image|select store|store details?|store detail|open\b|closed\b|store hours|pickup in store|buying from the public|find a store|enter location|use my current location)/i.test(value)
+    || /^\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/.test(value)
+    || /^\d+$/.test(value);
+}
+
+export function parseHalfPriceBooksNearbyDirectory(html: string, sourceUrl = "https://www.hpb.com/stores") {
+  const lines = visibleTextLines(html);
+  const locations: ParsedDirectoryLocation[] = [];
+  const seenAddresses = new Set<string>();
+
+  const addLocation = (name: string, street: string, city: string, postalCode: string) => {
+    const cleanName = name.trim();
+    const cleanStreet = street.trim();
+    const cleanCity = city.trim();
+    if (!cleanName || !cleanStreet || !cleanCity || !postalCode) return;
+    const address = `${cleanStreet}, ${cleanCity}, TX ${postalCode}`;
+    const key = address.toLowerCase();
+    if (seenAddresses.has(key)) return;
+    seenAddresses.add(key);
+    locations.push({
+      id: stableDirectoryId(`${cleanName}-${cleanStreet}`) || `half-price-books-directory-${locations.length + 1}`,
+      name: cleanName,
+      address,
+      city: cleanCity,
+      postalCode,
+      sourceUrl,
+    });
+  };
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index] ?? "";
+    const combined = line.match(/^(HPB\s+.+?)\s+(\d.+?)\s+([A-Za-z][A-Za-z .'-]+),\s*TX\s+(\d{5}(?:-\d{4})?)$/i);
+    if (combined) {
+      addLocation(combined[1], combined[2], combined[3], combined[4]);
+      continue;
+    }
+
+    if (!/^HPB\s+\S/i.test(line) || /,\s*TX\s+\d{5}/i.test(line) || line.length > 100) continue;
+    for (let cursor = index + 1; cursor <= Math.min(lines.length - 1, index + 10); cursor += 1) {
+      const cityMatch = lines[cursor]?.match(/^(.+?),\s*TX\s+(\d{5}(?:-\d{4})?)$/i);
+      if (!cityMatch) continue;
+      let street = "";
+      for (let streetCursor = cursor - 1; streetCursor > index; streetCursor -= 1) {
+        const candidate = lines[streetCursor] ?? "";
+        if (!candidate || hpbNoise(candidate) || !/^\d/.test(candidate)) continue;
+        street = candidate;
+        break;
+      }
+      if (street) addLocation(line, street, cityMatch[1], cityMatch[2]);
+      break;
+    }
+  }
+
+  if (!locations.length) throw new Error("Half Price Books official store finder returned no parseable nearby locations");
+  return locations;
+}
+
 const DIRECTORY_ADAPTERS: Record<TexasBrandLocatorOfficialDirectoryBrand, DirectoryAdapter> = {
   whataburger: {
     sourceUrl: "https://locations.whataburger.com/tx.html",
@@ -253,6 +312,17 @@ const DIRECTORY_ADAPTERS: Record<TexasBrandLocatorOfficialDirectoryBrand, Direct
     sourceUrl: "https://locations.kolachefactory.com/tx",
     sourceLabel: "Kolache Factory official Texas location directory",
     parser: parseKolacheFactoryTexasDirectory,
+  },
+  "half-price-books": {
+    sourceUrl: "https://www.hpb.com/stores",
+    sourceLabel: "Half Price Books official store finder",
+    sourceUrlForOrigin: (origin) => {
+      const lat = origin.latitude.toFixed(5);
+      const lng = origin.longitude.toFixed(5);
+      return `https://www.hpb.com/stores?horizontalView=true&isForm=true&lat=${encodeURIComponent(lat)}&long=${encodeURIComponent(lng)}&showMap=true`;
+    },
+    upstreamRanked: true,
+    parser: parseHalfPriceBooksNearbyDirectory,
   },
 };
 
@@ -287,19 +357,24 @@ export async function findOfficialDirectoryLocationsServer(
   const adapter = DIRECTORY_ADAPTERS[brand];
   const label = texasBrandLocatorLabel(brand);
   const locations = await loadOfficialDirectory(brand, origin);
+  const entries = locations.map((location, index) => {
+    const calculatedDistance = location.latitude !== undefined && location.longitude !== undefined
+      ? distanceMiles(origin, { latitude: location.latitude, longitude: location.longitude })
+      : undefined;
+    return {
+      location,
+      index,
+      distanceMiles: location.distanceMiles ?? calculatedDistance,
+    };
+  });
 
-  return locations
-    .map((location) => {
-      const calculatedDistance = location.latitude !== undefined && location.longitude !== undefined
-        ? distanceMiles(origin, { latitude: location.latitude, longitude: location.longitude })
-        : undefined;
-      return {
-        location,
-        distanceMiles: location.distanceMiles ?? calculatedDistance,
-      };
-    })
-    .filter((entry): entry is { location: ParsedDirectoryLocation; distanceMiles: number } => typeof entry.distanceMiles === "number" && Number.isFinite(entry.distanceMiles))
-    .sort((left, right) => left.distanceMiles - right.distanceMiles)
+  const ordered = adapter.upstreamRanked
+    ? entries
+    : entries
+      .filter((entry) => typeof entry.distanceMiles === "number" && Number.isFinite(entry.distanceMiles))
+      .sort((left, right) => (left.distanceMiles ?? Number.POSITIVE_INFINITY) - (right.distanceMiles ?? Number.POSITIVE_INFINITY));
+
+  return ordered
     .slice(0, RESULTS_PER_BRAND)
     .map(({ location, distanceMiles: distance }) => ({
       id: `${brand}-${location.id}`,
@@ -309,7 +384,7 @@ export async function findOfficialDirectoryLocationsServer(
       address: location.address,
       city: location.city,
       postalCode: location.postalCode,
-      distanceMiles: distance,
+      distanceMiles: typeof distance === "number" && Number.isFinite(distance) ? distance : undefined,
       latitude: location.latitude,
       longitude: location.longitude,
       directionsUrl: directionsUrl(location.address),
