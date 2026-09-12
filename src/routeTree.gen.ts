@@ -134,6 +134,7 @@ import { Route as SanAntonioMusicHistoryRouteImport } from './routes/san-antonio
 import { Route as RssDotxmlRouteImport } from './routes/rss[.]xml'
 import { Route as ReturnRefundPolicyRouteImport } from './routes/return-refund-policy'
 import { Route as ReplaceTexasRegistrationReceiptRouteImport } from './routes/replace-texas-registration-receipt'
+import { Route as RegionsRouteImport } from './routes/regions'
 import { Route as RealEstateRouteImport } from './routes/real-estate'
 import { Route as PropertyTaxGuidesRouteImport } from './routes/property-tax-guides'
 import { Route as PropertyTaxCalculatorsRouteImport } from './routes/property-tax-calculators'
@@ -266,6 +267,7 @@ import { Route as SportsVenueSlugRouteImport } from './routes/sports-venue.$slug
 import { Route as ShopCheckoutReturnRouteImport } from './routes/shop.checkout-return'
 import { Route as ShopCartRouteImport } from './routes/shop.cart'
 import { Route as ShopCollectionRouteImport } from './routes/shop.$collection'
+import { Route as RegionsRegionRouteImport } from './routes/regions.$region'
 import { Route as PropertyTaxCountiesRouteImport } from './routes/property-tax.counties'
 import { Route as PropertyTaxCalculatorLocationRouteImport } from './routes/property-tax-calculator.$location'
 import { Route as NewsSlugRouteImport } from './routes/news.$slug'
@@ -1296,6 +1298,11 @@ const ReplaceTexasRegistrationReceiptRoute =
     path: '/replace-texas-registration-receipt',
     getParentRoute: () => rootRouteImport,
   } as any)
+const RegionsRoute = RegionsRouteImport.update({
+  id: '/regions',
+  path: '/regions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RealEstateRoute = RealEstateRouteImport.update({
   id: '/real-estate',
   path: '/real-estate',
@@ -2106,6 +2113,11 @@ const ShopCollectionRoute = ShopCollectionRouteImport.update({
   id: '/$collection',
   path: '/$collection',
   getParentRoute: () => ShopRoute,
+} as any)
+const RegionsRegionRoute = RegionsRegionRouteImport.update({
+  id: '/$region',
+  path: '/$region',
+  getParentRoute: () => RegionsRoute,
 } as any)
 const PropertyTaxCountiesRoute = PropertyTaxCountiesRouteImport.update({
   id: '/property-tax/counties',
@@ -3301,6 +3313,7 @@ export interface FileRoutesByFullPath {
   '/property-tax-calculators': typeof PropertyTaxCalculatorsRoute
   '/property-tax-guides': typeof PropertyTaxGuidesRoute
   '/real-estate': typeof RealEstateRoute
+  '/regions': typeof RegionsRouteWithChildren
   '/replace-texas-registration-receipt': typeof ReplaceTexasRegistrationReceiptRoute
   '/return-refund-policy': typeof ReturnRefundPolicyRoute
   '/rss.xml': typeof RssDotxmlRoute
@@ -3556,6 +3569,7 @@ export interface FileRoutesByFullPath {
   '/news/$slug': typeof NewsSlugRoute
   '/property-tax-calculator/$location': typeof PropertyTaxCalculatorLocationRoute
   '/property-tax/counties': typeof PropertyTaxCountiesRoute
+  '/regions/$region': typeof RegionsRegionRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/shop/cart': typeof ShopCartRoute
   '/shop/checkout-return': typeof ShopCheckoutReturnRoute
@@ -3751,6 +3765,7 @@ export interface FileRoutesByTo {
   '/property-tax-calculators': typeof PropertyTaxCalculatorsRoute
   '/property-tax-guides': typeof PropertyTaxGuidesRoute
   '/real-estate': typeof RealEstateRoute
+  '/regions': typeof RegionsRouteWithChildren
   '/replace-texas-registration-receipt': typeof ReplaceTexasRegistrationReceiptRoute
   '/return-refund-policy': typeof ReturnRefundPolicyRoute
   '/rss.xml': typeof RssDotxmlRoute
@@ -4005,6 +4020,7 @@ export interface FileRoutesByTo {
   '/news/$slug': typeof NewsSlugRoute
   '/property-tax-calculator/$location': typeof PropertyTaxCalculatorLocationRoute
   '/property-tax/counties': typeof PropertyTaxCountiesRoute
+  '/regions/$region': typeof RegionsRegionRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/shop/cart': typeof ShopCartRoute
   '/shop/checkout-return': typeof ShopCheckoutReturnRoute
@@ -4203,6 +4219,7 @@ export interface FileRoutesById {
   '/property-tax-calculators': typeof PropertyTaxCalculatorsRoute
   '/property-tax-guides': typeof PropertyTaxGuidesRoute
   '/real-estate': typeof RealEstateRoute
+  '/regions': typeof RegionsRouteWithChildren
   '/replace-texas-registration-receipt': typeof ReplaceTexasRegistrationReceiptRoute
   '/return-refund-policy': typeof ReturnRefundPolicyRoute
   '/rss.xml': typeof RssDotxmlRoute
@@ -4458,6 +4475,7 @@ export interface FileRoutesById {
   '/news/$slug': typeof NewsSlugRoute
   '/property-tax-calculator/$location': typeof PropertyTaxCalculatorLocationRoute
   '/property-tax/counties': typeof PropertyTaxCountiesRoute
+  '/regions/$region': typeof RegionsRegionRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/shop/cart': typeof ShopCartRoute
   '/shop/checkout-return': typeof ShopCheckoutReturnRoute
@@ -4657,6 +4675,7 @@ export interface FileRouteTypes {
     | '/property-tax-calculators'
     | '/property-tax-guides'
     | '/real-estate'
+    | '/regions'
     | '/replace-texas-registration-receipt'
     | '/return-refund-policy'
     | '/rss.xml'
@@ -4912,6 +4931,7 @@ export interface FileRouteTypes {
     | '/news/$slug'
     | '/property-tax-calculator/$location'
     | '/property-tax/counties'
+    | '/regions/$region'
     | '/shop/$collection'
     | '/shop/cart'
     | '/shop/checkout-return'
@@ -5107,6 +5127,7 @@ export interface FileRouteTypes {
     | '/property-tax-calculators'
     | '/property-tax-guides'
     | '/real-estate'
+    | '/regions'
     | '/replace-texas-registration-receipt'
     | '/return-refund-policy'
     | '/rss.xml'
@@ -5361,6 +5382,7 @@ export interface FileRouteTypes {
     | '/news/$slug'
     | '/property-tax-calculator/$location'
     | '/property-tax/counties'
+    | '/regions/$region'
     | '/shop/$collection'
     | '/shop/cart'
     | '/shop/checkout-return'
@@ -5558,6 +5580,7 @@ export interface FileRouteTypes {
     | '/property-tax-calculators'
     | '/property-tax-guides'
     | '/real-estate'
+    | '/regions'
     | '/replace-texas-registration-receipt'
     | '/return-refund-policy'
     | '/rss.xml'
@@ -5813,6 +5836,7 @@ export interface FileRouteTypes {
     | '/news/$slug'
     | '/property-tax-calculator/$location'
     | '/property-tax/counties'
+    | '/regions/$region'
     | '/shop/$collection'
     | '/shop/cart'
     | '/shop/checkout-return'
@@ -6011,6 +6035,7 @@ export interface RootRouteChildren {
   PropertyTaxCalculatorsRoute: typeof PropertyTaxCalculatorsRoute
   PropertyTaxGuidesRoute: typeof PropertyTaxGuidesRoute
   RealEstateRoute: typeof RealEstateRoute
+  RegionsRoute: typeof RegionsRouteWithChildren
   ReplaceTexasRegistrationReceiptRoute: typeof ReplaceTexasRegistrationReceiptRoute
   ReturnRefundPolicyRoute: typeof ReturnRefundPolicyRoute
   RssDotxmlRoute: typeof RssDotxmlRoute
@@ -7200,6 +7225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReplaceTexasRegistrationReceiptRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/regions': {
+      id: '/regions'
+      path: '/regions'
+      fullPath: '/regions'
+      preLoaderRoute: typeof RegionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/real-estate': {
       id: '/real-estate'
       path: '/real-estate'
@@ -8123,6 +8155,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/shop/$collection'
       preLoaderRoute: typeof ShopCollectionRouteImport
       parentRoute: typeof ShopRoute
+    }
+    '/regions/$region': {
+      id: '/regions/$region'
+      path: '/$region'
+      fullPath: '/regions/$region'
+      preLoaderRoute: typeof RegionsRegionRouteImport
+      parentRoute: typeof RegionsRoute
     }
     '/property-tax/counties': {
       id: '/property-tax/counties'
@@ -9709,6 +9748,17 @@ const NewsRouteChildren: NewsRouteChildren = {
 
 const NewsRouteWithChildren = NewsRoute._addFileChildren(NewsRouteChildren)
 
+interface RegionsRouteChildren {
+  RegionsRegionRoute: typeof RegionsRegionRoute
+}
+
+const RegionsRouteChildren: RegionsRouteChildren = {
+  RegionsRegionRoute: RegionsRegionRoute,
+}
+
+const RegionsRouteWithChildren =
+  RegionsRoute._addFileChildren(RegionsRouteChildren)
+
 interface ShopRouteChildren {
   ShopCollectionRoute: typeof ShopCollectionRoute
   ShopCartRoute: typeof ShopCartRoute
@@ -10036,6 +10086,7 @@ const rootRouteChildren: RootRouteChildren = {
   PropertyTaxCalculatorsRoute: PropertyTaxCalculatorsRoute,
   PropertyTaxGuidesRoute: PropertyTaxGuidesRoute,
   RealEstateRoute: RealEstateRoute,
+  RegionsRoute: RegionsRouteWithChildren,
   ReplaceTexasRegistrationReceiptRoute: ReplaceTexasRegistrationReceiptRoute,
   ReturnRefundPolicyRoute: ReturnRefundPolicyRoute,
   RssDotxmlRoute: RssDotxmlRoute,
