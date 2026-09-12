@@ -94,6 +94,8 @@ async function main() {
   }
 
   const headroomBytes = MAX_MAIN_BYTES - mainBytes;
+  const usagePercent = (mainBytes / MAX_MAIN_BYTES) * 100;
+  console.log(`Client main bundle measurement: file=${mainFile}; bytes=${mainBytes}; cap_bytes=${MAX_MAIN_BYTES}; headroom_bytes=${headroomBytes}; usage_percent=${usagePercent.toFixed(2)}.`);
   console.log(`Client performance budget passed using ${path.relative(process.cwd(), assetsDir)}: ${mainFile} ${(mainBytes / 1024).toFixed(1)} KiB <= ${(MAX_MAIN_BYTES / 1024).toFixed(1)} KiB (${headroomBytes.toLocaleString()} bytes headroom); ${cssFiles.length || 0} primary stylesheet(s) within budget; failed route-splitting experiment remains disabled.`);
 }
 
