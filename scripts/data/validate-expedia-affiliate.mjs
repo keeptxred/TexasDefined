@@ -201,10 +201,16 @@ if (!registry || registry.version !== 1 || !Array.isArray(registry.properties)) 
     }
   }
 
-  for (const venue of pilots) {
+  const curatedVenueKeys = new Set(registry.properties.flatMap((property) =>
+    (property.contexts ?? [])
+      .filter((context) => context.kind === 'venue')
+      .map((context) => context.key)));
+
+  for (const venue of curatedVenueKeys) {
+    if (!pilots.has(venue)) errors.push(`${venue} has curated Stay Nearby cards but is not a current redesigned venue guide.`);
     const matches = registry.properties.filter((property) =>
       (property.contexts ?? []).some((context) => context.kind === 'venue' && context.key === venue));
-    if (matches.length !== 3) errors.push(`${venue} is a redesigned venue guide and must have exactly 3 curated Stay Nearby choices; found ${matches.length}.`);
+    if (matches.length !== 3) errors.push(`${venue} must have exactly 3 curated Stay Nearby choices when curated results are configured; found ${matches.length}.`);
     const ranks = matches
       .flatMap((property) => property.contexts.filter((context) => context.kind === 'venue' && context.key === venue))
       .map((context) => context.rank)
@@ -214,6 +220,7 @@ if (!registry || registry.version !== 1 || !Array.isArray(registry.properties)) 
 
   integratedProperties = registry.properties.filter((property) =>
     (property.contexts ?? []).some((context) => context.kind === 'venue' && pilots.has(context.key)));
+
 }
 
 if (!propertyImageManifest || propertyImageManifest.version !== 2 || propertyImageManifest.disclosure !== aiDisclosure || !Array.isArray(propertyImageManifest.items)) {
@@ -277,4 +284,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Expedia / Stay Nearby validation passed: approved tracking remains click-loaded, curated hotel selection remains evidence-backed and capped at three cards, ${pilots.size} redesigned venue guides are automatically image-gated, rights-cleared affiliate property photos remain preferred, every remaining hotel card has a unique first-party photorealistic exact-property AI raster grounded to an exact address and verified property source, generic hotel imagery and SVG fallbacks are prohibited, and future venue-guide additions fail closed until compliant property imagery exists.`);
+console.log(`Expedia / Stay Nearby validation passed: approved tracking remains click-loaded, curated hotel selection remains evidence-backed and capped at three cards, ${integratedProperties.length} configured redesigned-guide hotel cards are image-gated, rights-cleared affiliate property photos remain preferred, every remaining configured hotel card has a unique first-party photorealistic exact-property AI raster grounded to an exact address and verified property source, and generic hotel imagery and SVG fallbacks are prohibited.`);

@@ -42,12 +42,12 @@ const ADDRESS_BY_ID = Object.freeze({
 // blocks automated retrieval. They are never published or copied to TexasDefined.
 // Each URL was manually matched to the exact named property/address before inclusion.
 const RESEARCHED_REFERENCE_IMAGE_BY_ID = Object.freeze({
-  'hilton-garden-inn-fort-worth-medical-center': 'https://images.trvl-media.com/lodging/5000000/4800000/4790100/4790030/77313365.jpg?impolicy=resizecrop&ra=fill&rh=575&rw=575',
-  'homewood-suites-fort-worth-medical-center': 'https://images.trvl-media.com/lodging/7000000/6190000/6180300/6180205/0c207564.jpg?impolicy=resizecrop&ra=fill&rh=575&rw=575',
+  'hilton-garden-inn-fort-worth-medical-center': 'https://www.hilton.com/im/en/FTWMDGI/21739421/ftwmdgi-fortworth-tx-hgi-exterior-day-1-.jpg?ch=2799&cw=5000&gravity=NorthWest&impolicy=crop&rh=430&rw=768&xposition=0&yposition=265',
+  'homewood-suites-fort-worth-medical-center': 'https://www.hilton.com/im/en/FTWMCHW/7582292/homewood-fwmc-003-exterior-at-dusk.jpg?ch=2203&cw=5250&gravity=NorthWest&impolicy=crop&rh=806&rw=1920&xposition=0&yposition=648',
   'graduate-dallas': 'https://qtxasset.com/quartz/qcloud1/media/image/Graduate-by-Hilton-Dallas-Exterior.jpg?VersionId=nu.dRgEhVx1WYSPLr80vBUFePfdXYE0q',
   'the-highland-dallas': 'https://media.cntraveler.com/photos/57d1b029b77fe35639ae19c0/master/w_1200%2Cc_limit/Exterior-HighlandDallas-Dallas-CRHotel.jpg',
   'homewood-suites-dallas-downtown': 'https://hotelmedia.s3.amazonaws.com/720/480/6e4593c2eef2a3a49a867f781914f83a9a915e24',
-  'hilton-anatole': 'https://dallasnews.imgix.net/1548885550-hiltonanatole.jpg',
+  'hilton-anatole': 'https://assets.hiltonstatic.com/hilton-asset-cache/image/upload/c_fill%2Cw_1920%2Ch_1080%2Cq_70%2Cf_auto%2Cg_auto/Imagery/Property%20Photography/Hilton%20Full%20Service/D/DFWANHH/DFWAN_Anatole_Exterior%20NS_C2_10000x6500_SW%C2%A92015.jpg',
   'tru-northlake-fort-worth': 'https://www.hilton.com/im/en/DFWGNRU/14652734/dx3a6892-3-4.jpg?ch=3830&cw=5760&gravity=NorthWest&impolicy=crop&rh=511&rw=768&xposition=0&yposition=4',
   'home2-suites-fort-worth-northlake': 'https://www.hilton.com/im/en/DFWNLHT/25253430/dfwnl-exterior-1.jpg?ch=2799&cw=5000&gravity=NorthWest&impolicy=crop&rh=430&rw=768&xposition=0&yposition=267',
 });
@@ -151,6 +151,17 @@ async function downloadReferenceImage(imageUrl, sourceUrl) {
 
 async function fetchOfficialReference(sourceUrl, propertyId) {
   const failures = [];
+  // Prefer manually verified exact-property references when available.
+  const preferredResearchedImageUrl = RESEARCHED_REFERENCE_IMAGE_BY_ID[propertyId];
+  if (preferredResearchedImageUrl) {
+    try {
+      const reference = await downloadReferenceImage(preferredResearchedImageUrl, sourceUrl);
+      console.log(`Using manually verified exact-property visual reference for ${propertyId}.`);
+      return { ...reference, referenceSource: 'manually-verified-exact-property-reference' };
+    } catch (error) {
+      failures.push(`preferred researched ${preferredResearchedImageUrl} (${error instanceof Error ? error.message : String(error)})`);
+    }
+  }
   for (const pageUrl of referencePageCandidates(sourceUrl)) {
     try {
       const imageUrl = await fetchPageImageUrl(pageUrl);
@@ -224,6 +235,20 @@ function imageFormat(bytes) {
 async function generatePropertyImage(property) {
   const address = ADDRESS_BY_ID[property.id];
   const sourceUrl = officialSource(property);
+  let priorItem = null;
+  if (fs.existsSync(MANIFEST_PATH)) {
+    try { priorItem = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8'))?.items?.find((item) => item.propertyId === property.id) || null; } catch {}
+  }
+  for (const extension of ['png', 'jpg', 'jpeg', 'webp']) {
+    const existingPath = path.join(OUTPUT_DIR, `${property.id}.${extension}`);
+    if (!fs.existsSync(existingPath)) continue;
+    const bytes = fs.readFileSync(existingPath);
+    if (bytes.length < 25_000) throw new Error(`Existing image for ${property.id} is unexpectedly small (${bytes.length} bytes).`);
+    const referenceSource = priorItem?.referenceImageSource;
+    if (!referenceSource) throw new Error(`Existing image for ${property.id} lacks preserved exact-property reference provenance.`);
+    console.log(`Reusing reviewed exact-property raster for ${property.id}.`);
+    return { address, sourceUrl, referenceImageUrl: 'reused-reviewed-raster', referenceSource, bytes, format: imageFormat(bytes) };
+  }
   const reference = await fetchOfficialReference(sourceUrl, property.id);
   const bytes = await openAiEdit(property, address, sourceUrl, reference);
   if (bytes.length < 25_000) throw new Error(`Generated image for ${property.id} is unexpectedly small (${bytes.length} bytes).`);

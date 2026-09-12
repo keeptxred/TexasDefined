@@ -9,7 +9,7 @@ const pilots = [
     key: 'amon-g-carter-stadium',
     route: '/sports-venue/amon-g-carter-stadium',
     pageMarker: 'Amon G. Carter Stadium',
-    hotels: ['Courtyard Fort Worth University Drive', 'Hilton Garden Inn Fort Worth Medical Center', 'Homewood Suites by Hilton Fort Worth Medical Center, TX'],
+    hotels: ['Courtyard Fort Worth University Drive', 'Hilton Garden Inn Fort Worth Medical Center', 'Homewood Suites by Hilton Fort Worth Medical Center'],
   },
   {
     key: 'gerald-j-ford-stadium',
