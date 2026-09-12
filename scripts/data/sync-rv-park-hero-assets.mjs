@@ -28,7 +28,6 @@ const REGION_LABELS = {
   "big-bend-west-texas": "Big Bend and West Texas",
 };
 
-const LICENSE_OK = ["public domain", "cc0", "cc by", "cc-by", "cc by-sa", "cc-by-sa"];
 const USER_AGENT = "TexasDefined/1.0 (RV image reconciliation; https://texasdefined.com)";
 const CLOUDFLARE_MODEL = "@cf/black-forest-labs/flux-1-schnell";
 const API_GAP_MS = 450;
@@ -221,8 +220,15 @@ async function apiJson(base, params) {
 }
 
 function licenseAllowed(metadata) {
-  const text = cleanHtml(metadata?.LicenseShortName?.value || metadata?.UsageTerms?.value).toLowerCase();
-  return LICENSE_OK.some((allowed) => text.includes(allowed));
+  const text = normalize(cleanHtml(metadata?.LicenseShortName?.value || metadata?.UsageTerms?.value));
+  if (!text) return false;
+  if (/\b(?:nc|noncommercial|non commercial|nd|no derivatives|non derivative)\b/.test(text)) return false;
+  return [
+    /^public domain(?: mark)?(?: \d+ \d+)?$/,
+    /^cc0(?: \d+ \d+)?$/,
+    /^cc by(?: \d+ \d+)?$/,
+    /^cc by sa(?: \d+ \d+)?$/,
+  ].some((pattern) => pattern.test(text));
 }
 
 function distinctiveTokens(record) {
@@ -237,6 +243,26 @@ function candidateEvidence(page) {
   return [page.title, meta.ObjectName?.value, meta.ImageDescription?.value, meta.Categories?.value]
     .map(cleanHtml)
     .join(" ");
+}
+
+function hasStrongPropertyLocationEvidence(page, record) {
+  const evidence = normalize(candidateEvidence(page));
+  const title = normalize(page.title || "");
+  const fullName = normalize(record.name);
+  const identity = normalize(baseIdentityName(record.name));
+  const town = normalize(record.town);
+  const county = normalize(record.county);
+  const localityMatched = Boolean(
+    (town && evidence.includes(town))
+    || (county && evidence.includes(county))
+    || /\btexas\b/.test(evidence)
+  );
+  if (!localityMatched) return false;
+
+  if (fullName && (evidence.includes(fullName) || title.includes(fullName))) return true;
+
+  const isPublicLand = /\b(?:state park|state natural area|national park|national recreation area)\b/i.test(record.name);
+  return Boolean(isPublicLand && identity && (evidence.includes(identity) || title.includes(identity)));
 }
 
 function specificityScore(page, record) {
@@ -272,6 +298,7 @@ function validCandidates(pages, record, usedTitles) {
     if (!page?.title || usedTitles.has(page.title)) continue;
     const info = page.imageinfo?.[0];
     if (!info || info.mime !== "image/jpeg" || !licenseAllowed(info.extmetadata)) continue;
+    if (!hasStrongPropertyLocationEvidence(page, record)) continue;
     const score = specificityScore(page, record);
     if (score < 55) continue;
     rows.push({ page, score });
@@ -297,17 +324,65 @@ async function commonsSearch(query, limit = 35) {
 }
 
 async function chooseCommonsImage(record, usedTitles) {
+  const fullName = record.name;
   const identity = baseIdentityName(record.name);
   const queries = [
-    `intitle:\"${identity}\"`,
-    `\"${identity}\" ${record.town} Texas`,
-    `${identity} ${record.county} Texas`,
+    `\"${fullName}\" \"${record.town}\" Texas`,
+    `intitle:\"${fullName}\"`,
+    `\"${identity}\" \"${record.town}\" Texas`,
+    `\"${identity}\" ${record.county} Texas`,
   ];
   for (const query of queries) {
     const rows = validCandidates(await commonsSearch(query), record, usedTitles);
     if (rows[0]) return rows[0].page;
   }
   return null;
+}
+
+function syntheticCandidate(title, description = "") {
+  return {
+    title,
+    imageinfo: [{
+      mime: "image/jpeg",
+      width: 1600,
+      extmetadata: {
+        LicenseShortName: { value: "CC BY 4.0" },
+        ImageDescription: { value: description },
+      },
+    }],
+  };
+}
+
+function assertResolverRegressionGuards() {
+  const roadrunner = { name: "Roadrunner RV Park", town: "Johnson City", county: "Blanco" };
+  const fredericksburg = { name: "Fredericksburg RV Park", town: "Fredericksburg", county: "Gillespie" };
+  const mckinney = { name: "McKinney Falls State Park RV Loop", town: "Austin", county: "Travis" };
+
+  const falsePositives = [
+    [syntheticCandidate("File:Greater Roadrunner - Flickr - GregTheBusker (3).jpg"), roadrunner],
+    [syntheticCandidate("File:Fredericksburg-Spotsylvania National Military Park LOC 93681942.jpg", "Virginia battlefield"), fredericksburg],
+    [syntheticCandidate("File:Singapore Marina-Bay-at-night-01.jpg", "Marina Bay Singapore"), { name: "Marina Bay RV Resort", town: "Kemah", county: "Galveston" }],
+  ];
+  for (const [page, record] of falsePositives) {
+    if (hasStrongPropertyLocationEvidence(page, record)) {
+      throw new Error(`RV Commons specificity regression: false positive accepted for ${record.name}: ${page.title}`);
+    }
+  }
+
+  const expectedMatches = [
+    [syntheticCandidate("File:Roadrunner RV Park Johnson City Texas.jpg"), roadrunner],
+    [syntheticCandidate("File:McKinney Falls State Park Texas 2022.jpg"), mckinney],
+  ];
+  for (const [page, record] of expectedMatches) {
+    if (!hasStrongPropertyLocationEvidence(page, record)) {
+      throw new Error(`RV Commons specificity regression: strong location evidence rejected for ${record.name}: ${page.title}`);
+    }
+  }
+
+  const allowed = [{ LicenseShortName: { value: "CC BY 4.0" } }, { LicenseShortName: { value: "CC BY-SA 4.0" } }, { LicenseShortName: { value: "CC0" } }, { LicenseShortName: { value: "Public domain" } }];
+  const blocked = [{ LicenseShortName: { value: "CC BY-NC 4.0" } }, { LicenseShortName: { value: "CC BY-ND 4.0" } }, { LicenseShortName: { value: "CC BY-NC-SA 4.0" } }];
+  if (allowed.some((metadata) => !licenseAllowed(metadata))) throw new Error("RV Commons license regression: commercial-use license rejected");
+  if (blocked.some((metadata) => licenseAllowed(metadata))) throw new Error("RV Commons license regression: NC/ND license accepted");
 }
 
 async function normalizeToJpeg(bytes, destinationPath) {
@@ -480,6 +555,7 @@ function patchAuditSource(source) {
 }
 
 async function main() {
+  assertResolverRegressionGuards();
   await fs.mkdir(OUT_DIR, { recursive: true });
   const seeds = await loadSeeds();
   if (seeds.length !== 250) throw new Error(`RV seed integrity check failed: expected 250, found ${seeds.length}`);
@@ -526,7 +602,14 @@ async function main() {
         usedTitles.add(page.title);
         const image = commonsRecord(page, record, relativeSrc);
         resolved.push({ record, image });
-        report.commonsLicensed.push({ slug: record.slug, name: record.name, sourceTitle: page.title, sourceUrl: image.sourceUrl });
+        report.commonsLicensed.push({
+          slug: record.slug,
+          name: record.name,
+          sourceTitle: page.title,
+          sourceUrl: image.sourceUrl,
+          license: image.license,
+          evidence: candidateEvidence(page).slice(0, 600),
+        });
         console.log(`  free exact-location candidate: ${page.title}`);
         done = true;
       }
