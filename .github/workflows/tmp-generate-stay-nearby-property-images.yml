@@ -28,7 +28,7 @@ jobs:
         with:
           github-token: ${{ github.token }}
           repository: keeptxred/TexasDefined
-          run-id: 34659894575
+          run-id: 34660424666
           name: stay-nearby-exact-property-images
           path: public
       - name: Reconcile generator references and resume support
@@ -45,10 +45,10 @@ jobs:
           }
           for old, new in replacements.items():
             text = text.replace(old, new)
-          marker = "  'hilton-garden-inn-fort-worth-medical-center':"
-          if "'drury-plaza-dallas-arlington':" not in text:
+          reference_map_marker = "const RESEARCHED_REFERENCE_IMAGE_BY_ID = Object.freeze({\n"
+          if "RESEARCHED_REFERENCE_IMAGE_BY_ID = Object.freeze({\n  'hotel-mockingbird-dallas':" not in text:
             insert = "  'hotel-mockingbird-dallas': 'https://cache.marriott.com/is/image/marriotts7prod/tx-dalnb-hotel-exterior-30022%3AWide-Hor?fit=constrain&wid=1336',\n  'drury-plaza-dallas-arlington': 'https://cms.druryhotels.com/media/469312/188_exterior_03.jpg?anchor=center&height=844&mode=crop&rnd=133667410030000000&width=1318',\n"
-            text = text.replace(marker, insert + marker, 1)
+            text = text.replace(reference_map_marker, reference_map_marker + insert, 1)
           fetch_marker = "async function fetchOfficialReference(sourceUrl, propertyId) {\n  const failures = [];\n"
           if 'Prefer manually verified exact-property references when available.' not in text:
             researched_first = "  // Prefer manually verified exact-property references when available.\n  const preferredResearchedImageUrl = RESEARCHED_REFERENCE_IMAGE_BY_ID[propertyId];\n  if (preferredResearchedImageUrl) {\n    try {\n      const reference = await downloadReferenceImage(preferredResearchedImageUrl, sourceUrl);\n      console.log(`Using manually verified exact-property visual reference for ${propertyId}.`);\n      return { ...reference, referenceSource: 'manually-verified-exact-property-reference' };\n    } catch (error) {\n      failures.push(`preferred researched ${preferredResearchedImageUrl} (${error instanceof Error ? error.message : String(error)})`);\n    }\n  }\n"
