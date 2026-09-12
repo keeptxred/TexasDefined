@@ -28,7 +28,7 @@ async function fetchText(pathname) {
     redirect: 'follow',
   });
   if (!response.ok) throw new Error(`${pathname} returned HTTP ${response.status}`);
-  return { url, text: decodeHtml(await response.text()) };
+  return { url, text: await response.text() };
 }
 
 function assertAbsent(text, marker, label) {
@@ -64,8 +64,9 @@ const countyChecks = [
 
 for (const check of countyChecks) {
   const { url, text } = await fetchText(check.path);
-  for (const marker of banned) assertAbsent(text, marker, check.label);
-  for (const marker of check.expected) assertIncludes(text, marker, check.label);
+  const html = decodeHtml(text);
+  for (const marker of banned) assertAbsent(html, marker, check.label);
+  for (const marker of check.expected) assertIncludes(html, marker, check.label);
   console.log(`PASS ${check.label}: ${url}`);
 }
 
