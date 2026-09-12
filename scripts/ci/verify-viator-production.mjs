@@ -105,3 +105,4 @@ console.log('[viator-production] Explore directory and representative destinatio
 
 await import('./verify-ask-texas-government-production.mjs');
 await import('./verify-stay-nearby-production.mjs');
+await import('./verify-critical-static-assets-production.mjs');
