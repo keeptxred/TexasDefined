@@ -197,7 +197,7 @@ const SportsVenueGuidePilotContent = lazy(
 
 function SportsVenuePage() {
   const { slug } = Route.useParams();
-  const { entity, visitorPlaces, upcomingEvents, eventCalendarHref } = Route.useLoaderData();
+  const { entity, visitorPlaces, upcomingEvents, eventCalendarHref, landingLinks, sponsorPlacement } = Route.useLoaderData();
 
   if (isSportsVenueGuidePilot(slug)) {
     return <Suspense fallback={null}>
@@ -207,6 +207,8 @@ function SportsVenuePage() {
         nearbyAttractions={visitorPlaces}
         upcomingEvents={upcomingEvents}
         eventCalendarHref={eventCalendarHref}
+        landingLinks={landingLinks}
+        sponsorPlacement={sponsorPlacement}
       />
     </Suspense>;
   }
@@ -459,42 +461,18 @@ function formatList(items: readonly string[]) {
 }
 
 function venueProfile(tags: Set<string>) {
-  if (tags.has('motorsports')) return {
-    label: 'Motorsports destination', eyebrow: 'Texas Motorsports', schemaType: 'https://schema.org/SportsActivityLocation',
-  };
-  if (tags.has('horse-racing')) return {
-    label: 'Horse-racing destination', eyebrow: 'Texas Racing', schemaType: 'https://schema.org/SportsActivityLocation',
-  };
-  if (tags.has('golf')) return {
-    label: 'Golf destination', eyebrow: 'Texas Golf', schemaType: 'https://schema.org/GolfCourse',
-  };
-  if (tags.has('high-school')) return {
-    label: 'High-school football landmark', eyebrow: 'Friday Night Lights', schemaType: 'https://schema.org/StadiumOrArena',
-  };
-  if (tags.has('rodeo') || tags.has('equestrian') || tags.has('western-sports')) return {
-    label: 'Rodeo and Western-sports venue', eyebrow: 'Western Sports', schemaType: 'https://schema.org/StadiumOrArena',
-  };
-  if (tags.has('college-baseball')) return {
-    label: 'College baseball ballpark', eyebrow: 'Texas College Baseball', schemaType: 'https://schema.org/StadiumOrArena',
-  };
-  if (tags.has('college')) return {
-    label: 'College sports venue', eyebrow: 'Texas College Sports', schemaType: 'https://schema.org/StadiumOrArena',
-  };
-  if (tags.has('professional')) return {
-    label: 'Professional sports venue', eyebrow: 'Big League Texas', schemaType: 'https://schema.org/StadiumOrArena',
-  };
-  if (tags.has('shooting-sports')) return {
-    label: 'Shooting-sports destination', eyebrow: 'Championship Sports', schemaType: 'https://schema.org/SportsActivityLocation',
-  };
-  if (tags.has('action-sports')) return {
-    label: 'Action-sports destination', eyebrow: 'Texas Action Sports', schemaType: 'https://schema.org/SportsActivityLocation',
-  };
-  if (tags.has('tournament-complex')) return {
-    label: 'Tournament sports complex', eyebrow: 'Texas Tournament Travel', schemaType: 'https://schema.org/SportsActivityLocation',
-  };
-  return {
-    label: 'Texas sports venue', eyebrow: 'Texas Sports', schemaType: 'https://schema.org/SportsActivityLocation',
-  };
+  if (tags.has('motorsports')) return { label: 'Motorsports destination', eyebrow: 'Texas Motorsports', schemaType: 'https://schema.org/SportsActivityLocation' };
+  if (tags.has('horse-racing')) return { label: 'Horse-racing destination', eyebrow: 'Texas Racing', schemaType: 'https://schema.org/SportsActivityLocation' };
+  if (tags.has('golf')) return { label: 'Golf destination', eyebrow: 'Texas Golf', schemaType: 'https://schema.org/GolfCourse' };
+  if (tags.has('high-school')) return { label: 'High-school football landmark', eyebrow: 'Friday Night Lights', schemaType: 'https://schema.org/StadiumOrArena' };
+  if (tags.has('rodeo') || tags.has('equestrian') || tags.has('western-sports')) return { label: 'Rodeo and Western-sports venue', eyebrow: 'Western Sports', schemaType: 'https://schema.org/StadiumOrArena' };
+  if (tags.has('college-baseball')) return { label: 'College baseball ballpark', eyebrow: 'Texas College Baseball', schemaType: 'https://schema.org/StadiumOrArena' };
+  if (tags.has('college')) return { label: 'College sports venue', eyebrow: 'Texas College Sports', schemaType: 'https://schema.org/StadiumOrArena' };
+  if (tags.has('professional')) return { label: 'Professional sports venue', eyebrow: 'Big League Texas', schemaType: 'https://schema.org/StadiumOrArena' };
+  if (tags.has('shooting-sports')) return { label: 'Shooting-sports destination', eyebrow: 'Championship Sports', schemaType: 'https://schema.org/SportsActivityLocation' };
+  if (tags.has('action-sports')) return { label: 'Action-sports destination', eyebrow: 'Texas Action Sports', schemaType: 'https://schema.org/SportsActivityLocation' };
+  if (tags.has('tournament-complex')) return { label: 'Tournament sports complex', eyebrow: 'Texas Tournament Travel', schemaType: 'https://schema.org/SportsActivityLocation' };
+  return { label: 'Texas sports venue', eyebrow: 'Texas Sports', schemaType: 'https://schema.org/SportsActivityLocation' };
 }
 
 function title(value: string) {

@@ -11,6 +11,9 @@ const [
   directory,
   guide,
   galaxyGuide,
+  galaxySharedGuide,
+  sharedGuideContent,
+  sharedGuidePage,
   quickAnswers,
   enrichmentAll,
   editorialDescriptions,
@@ -39,6 +42,9 @@ const [
   read('src/routes/sports-venues.tsx'),
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/routes/sports-venue.jones-att-stadium.tsx'),
+  read('src/data/sports-venue-guide-galaxy.ts'),
+  read('src/components/sports/SportsVenueGuidePilotContent.tsx'),
+  read('src/components/sports/SportsVenueGuidePage.tsx'),
   read('src/components/sports/SportsVenueQuickAnswers.tsx'),
   read('src/data/sports-venue-enrichment-all.ts'),
   read('src/data/sports-venue-editorial.server.ts'),
@@ -353,11 +359,19 @@ assert(currentCorrections.includes("'Galaxy Stadium'"), 'Galaxy Stadium correcti
 assert(!currentCorrections.includes("slug: 'galaxy-stadium'"), 'Galaxy Stadium correction must keep the established route stable until a repository-wide redirect migration is implemented.');
 assert(galaxyGuide.includes("createFileRoute('/sports-venue/jones-att-stadium')"), 'Galaxy Stadium must have a static route override at the established Texas Tech venue URL.');
 assert(galaxyGuide.includes("venueName = 'Galaxy Stadium'"), 'Galaxy Stadium static route must display the current venue name.');
-assert(galaxyGuide.includes('Former name'), 'Galaxy Stadium guide must explain its former venue name.');
 assert(galaxyGuide.includes("title: 'Galaxy Stadium | Lubbock, TX'"), 'Galaxy Stadium must use the concise localized sports-venue title pattern.');
-assert(galaxyGuide.includes('parking={enrichment?.parking}'), 'Galaxy Stadium quick answers must receive verified parking context.');
-assert(galaxyGuide.includes('arrival={enrichment?.arrival}'), 'Galaxy Stadium quick answers must receive verified arrival context.');
-assert(galaxyGuide.includes('mainEntityOfPage: canonicalUrl'), 'Galaxy Stadium structured data must identify its canonical main entity page.');
+assert(galaxyGuide.includes('SportsVenueGuidePilotContent'), 'Galaxy Stadium static route must render through the statewide shared guide architecture.');
+assert(galaxyGuide.includes("getSportsVenueUpcomingEvents({ data: { slug: stableSlug } })"), 'Galaxy Stadium must use venue-scoped upcoming events and calendar integration.');
+assert(galaxyGuide.includes('sponsorPlacement={sponsorPlacement}'), 'Galaxy Stadium must pass its governed sponsor placement into the shared guide.');
+assert(galaxySharedGuide.includes("canonicalPath: '/sports-venue/jones-att-stadium'"), 'Galaxy shared guide must preserve the established canonical path.');
+assert(galaxySharedGuide.includes('formerly Jones AT&T Stadium'), 'Galaxy shared guide must explain the former venue name.');
+assert(galaxySharedGuide.includes("officialUrl: 'https://texastech.com/facilities/jones-at-t-stadium/2'"), 'Galaxy shared guide must use the current Texas Tech facility source.');
+assert(sharedGuideContent.includes('getSportsVenueGuideGalaxy(slug) ?? getSportsVenueGuideWave7(slug)'), 'Shared guide resolver must recognize Galaxy before statewide wave registries.');
+assert(sharedGuideContent.includes('getSportsVenueEnrichmentAll(slug)'), 'Galaxy shared guide must retain verified enrichment-backed parking and arrival context.');
+assert(sharedGuidePage.includes('mainEntityOfPage: canonicalUrl'), 'Shared venue structured data must identify the canonical main entity page for Galaxy and other redesigned venues.');
+assert(sharedGuidePage.includes('image: photo?.imageUrl'), 'Shared venue structured data must fail closed when Galaxy has no licensed photo.');
+assert(sharedGuidePage.includes('<TexasEventCarousel'), 'Shared venue guide must render source-verified upcoming events.');
+assert(sharedGuidePage.includes('data-stay-nearby-slot'), 'Shared venue guide must retain the Stay Nearby surface.');
 
 assert(tier2.includes("sourceConfidence: 'official'"), 'Second-tier venue seeds must remain official-source records.');
 assert(tier2.includes("sourceCheckedAt: checkedAt"), 'Second-tier venue seeds must retain source review dates.');
@@ -370,4 +384,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, all ${gscSportsImproveSlugs.length} GSC sports IMPROVE targets have Phase 1D remediation profiles, ${wave5Slugs.length} wave 5 venues, ${phase1dWave6Slugs.length} Phase 1D wave 6 venues, ${phase1dWave7Slugs.length} Phase 1D wave 7 venues and ${phase1dWave8Slugs.length} Phase 1D wave 8 venues retain quality/runtime/editorial coverage, ${editorialWave6Slugs.length} current-main editorial-wave-6 venues are preserved without duplicate shadow descriptions, ${editorialDescriptionCount} unique explicit venue descriptions are protected, core Reliant record, lightweight static directory, statewide category anchors, concise localized search titles, source-backed event-day essentials and FAQ answers with source-review metadata kept separate, richer venue structured data, venue-specific visitor planning without generic trip-template filler, county-level editorial trip ideas, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment/remediation batches are wired. Exact seeded-to-deep-profile completeness is enforced separately.`);
+console.log(`Sports venue coverage contracts validated: ${majorCount} major seeds + ${tier2Count} second-tier rows, all ${gscSportsImproveSlugs.length} GSC sports IMPROVE targets have Phase 1D remediation profiles, ${wave5Slugs.length} wave 5 venues, ${phase1dWave6Slugs.length} Phase 1D wave 6 venues, ${phase1dWave7Slugs.length} Phase 1D wave 7 venues and ${phase1dWave8Slugs.length} Phase 1D wave 8 venues retain quality/runtime/editorial coverage, ${editorialWave6Slugs.length} current-main editorial-wave-6 venues are preserved without duplicate shadow descriptions, ${editorialDescriptionCount} unique explicit venue descriptions are protected, core Reliant record, lightweight static directory, statewide category anchors, concise localized search titles, source-backed event-day essentials and FAQ answers with source-review metadata kept separate, richer venue structured data, venue-specific visitor planning without generic trip-template filler, county-level editorial trip ideas, venue-level sports-travel partnership funnel with safe source attribution, current-name correction and all enrichment/remediation batches are wired. Galaxy retains its stable static canonical route while using the statewide shared guide architecture. Exact seeded-to-deep-profile completeness is enforced separately.`);

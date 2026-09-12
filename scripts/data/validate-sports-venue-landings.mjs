@@ -14,7 +14,7 @@ const readRouteSurface = async (file) => {
   }
 };
 
-const [landings, landingPaths, route, indexComponent, quickAnswers, countySports, sportsSearch, directory, sports, genericVenue, galaxyVenue, entityRoute, searchRoute, homepage, guidebook, queries, searchRuntime, types, llms, publicRoutes, majorVenues, tier2Venues] = await Promise.all([
+const [landings, landingPaths, route, indexComponent, quickAnswers, countySports, sportsSearch, directory, sports, genericVenue, galaxyVenue, galaxySharedGuide, sharedGuideContent, sharedGuidePage, entityRoute, searchRoute, homepage, guidebook, queries, searchRuntime, types, llms, publicRoutes, majorVenues, tier2Venues] = await Promise.all([
   read('src/data/sports-venue-landings.ts'),
   read('src/data/sports-venue-landing-paths.ts'),
   read('src/routes/sports-venues.$landing.tsx'),
@@ -26,6 +26,9 @@ const [landings, landingPaths, route, indexComponent, quickAnswers, countySports
   readRouteSurface('src/routes/sports.tsx'),
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/routes/sports-venue.jones-att-stadium.tsx'),
+  read('src/data/sports-venue-guide-galaxy.ts'),
+  read('src/components/sports/SportsVenueGuidePilotContent.tsx'),
+  read('src/components/sports/SportsVenueGuidePage.tsx'),
   readRouteSurface('src/routes/$kind.$slug.tsx'),
   read('src/routes/search.tsx'),
   readRouteSurface('src/routes/index.tsx'),
@@ -259,18 +262,24 @@ assert(!genericVenue.includes("import { findCompleteTexasEntity, loadTexasKnowle
 assert(!genericVenue.includes("import { getSportsVenueEnrichmentAll, sportsVenueMapUrl } from '@/data/sports-venue-enrichment-all'"), 'Generic sports venue guide must not eagerly import the full venue enrichment payload.');
 
 for (const marker of [
-  "import { SportsVenueQuickAnswers } from '@/components/sports/SportsVenueQuickAnswers'",
-  '<SportsVenueQuickAnswers',
-  'venueName={venueName}',
-  'parking={enrichment?.parking}',
-  'arrival={enrichment?.arrival}',
-  'verifiedAt={enrichment?.verifiedAt}',
+  "createFileRoute('/sports-venue/jones-att-stadium')",
+  'SportsVenueGuidePilotContent',
+  "import('@/data/sports-venue-landings')",
+  'landingLinks: sportsVenueLandingLinksForVenue(entity)',
+  'landingLinks={landingLinks}',
+]) assert(galaxyVenue.includes(marker), `Galaxy Stadium static wrapper is missing shared sports collection discovery marker: ${marker}.`);
+for (const marker of [
+  'landingLinks?: readonly SportsVenueLanding[];',
+  'landingLinks={landingLinks}',
+]) assert(sharedGuideContent.includes(marker), `Shared sports venue resolver is missing collection-link propagation marker: ${marker}.`);
+for (const marker of [
+  'SportsCollectionSection',
   'Explore the collection',
-  '/sports-venues/lubbock',
-  '/sports-venues/football',
-  '/sports-venues/college-sports',
+  'More venues like ${venueName}',
+  'href={`/sports-venues/${landing.slug}`}',
   'Browse collection →',
-]) assert(galaxyVenue.includes(marker), `Galaxy Stadium exception is missing answer-first or sports collection discovery marker: ${marker}.`);
+]) assert(sharedGuidePage.includes(marker), `Shared sports venue guide is missing bidirectional collection discovery marker: ${marker}.`);
+assert(galaxySharedGuide.includes("canonicalPath: '/sports-venue/jones-att-stadium'"), 'Galaxy shared guide must preserve its stable canonical path while using shared collection discovery.');
 
 const venueSources = `${majorVenues}\n${tier2Venues}`;
 const representativeVenueByLanding = {
@@ -303,4 +312,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue landings validated: ${expectedLandings.length} indexable market/theme pages, venue guides, county guides, site-wide discovery surfaces and lazy site search are answer-first, bidirectionally linked, structured, source-safe, and validated across eager and lazy route surfaces.`);
+console.log(`Sports venue landings validated: ${expectedLandings.length} indexable market/theme pages, venue guides, county guides, site-wide discovery surfaces and lazy site search are answer-first, bidirectionally linked, structured, source-safe, and validated across eager and lazy route surfaces. Galaxy now uses the same governed shared collection discovery as the statewide redesigned venue renderer.`);
