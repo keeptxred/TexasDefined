@@ -55,6 +55,14 @@ export const TEXAS_BRAND_LOCATOR_REGISTRY = {
     fallbackLabel: "Open Shipley Do-Nuts' official location finder",
     storeNamePattern: null,
   },
+  "kolache-factory": {
+    label: "Kolache Factory",
+    provider: "official-directory",
+    queryPattern: /\bkolache\s+factory\b/i,
+    officialLocatorUrl: "https://locations.kolachefactory.com/tx",
+    fallbackLabel: "Open Kolache Factory's official Texas locations",
+    storeNamePattern: null,
+  },
 } as const;
 
 export type TexasBrandLocatorBrand = keyof typeof TEXAS_BRAND_LOCATOR_REGISTRY;
