@@ -10,6 +10,15 @@ on:
       - 'src/data/sports-venue-editorial-wave7.server.ts'
       - 'src/data/sports-venue-editorial-wave8.server.ts'
       - 'src/data/sports-venue-editorial-wave9.server.ts'
+      - 'src/data/sports-venue-content-remediation.ts'
+      - 'src/data/sports-venue-content-remediation-wave2.ts'
+      - 'src/data/sports-venue-content-remediation-wave3.ts'
+      - 'src/data/sports-venue-content-remediation-wave4.ts'
+      - 'src/data/sports-venue-content-remediation-wave5.ts'
+      - 'src/data/sports-venue-content-remediation-wave6.ts'
+      - 'src/data/sports-venue-content-remediation-wave7.ts'
+      - 'src/data/sports-venue-content-remediation-wave8.ts'
+      - 'src/data/sports-venue-content-remediation-wave9.ts'
       - 'scripts/data/validate-sports-venue-visible-editorial.mjs'
       - '.github/workflows/validate-sports-venue-visible-editorial.yml'
   workflow_dispatch:
@@ -25,5 +34,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate visible venue-specific editorial copy
+      - name: Validate venue-specific editorial and planning copy
         run: node scripts/data/validate-sports-venue-visible-editorial.mjs
