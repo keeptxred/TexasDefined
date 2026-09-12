@@ -9,6 +9,7 @@ import { countyLabelHasExplicitContext } from '@/platform/internal-linking';
 
 const articlePolicy = INTERNAL_LINK_POLICIES.article;
 const MetroRelocationAuthority = lazy(() => import("@/components/relocation/MetroRelocationAuthority").then((module) => ({ default: module.MetroRelocationAuthority })));
+const WildflowerSpeciesGrid = lazy(() => import("@/components/editorial/WildflowerSpeciesGrid").then((module) => ({ default: module.WildflowerSpeciesGrid })));
 const metroRelocationGuidePaths = new Set([
   "/article/moving-to-dallas-fort-worth-guide",
   "/article/moving-to-houston-address-checklist",
@@ -60,6 +61,7 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
     return <AutoEntityLinks text={text} entities={candidates} maxLinks={maxLinks} policy={policyForSurface('article')} />;
   };
   return <div className="editorial-body text-foreground/92">
+    {pathname === "/article/texas-wildflowers-guide" ? <Suspense fallback={null}><WildflowerSpeciesGrid /></Suspense> : null}
     {blocks.map((block, index) => {
       switch (block.type) {
         case "heading": return <h2 key={index} className="mb-4 mt-14 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
