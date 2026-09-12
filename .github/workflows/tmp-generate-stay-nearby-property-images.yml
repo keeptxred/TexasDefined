@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: write
+  actions: read
 
 jobs:
   generate:
@@ -22,7 +23,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Update exact-property source references
+      - name: Restore reviewed partial exact-property images
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          repository: keeptxred/TexasDefined
+          run-id: 34659894575
+          name: stay-nearby-exact-property-images
+          path: public
+      - name: Reconcile generator references and resume support
         shell: bash
         run: |
           python - <<'PY'
@@ -30,21 +39,108 @@ jobs:
 
           generator = Path('scripts/media/generate-stay-nearby-property-images.mjs')
           text = generator.read_text()
-          old = 'https://images.trvl-media.com/lodging/5000000/4800000/4790100/4790030/77313365.jpg?impolicy=resizecrop&ra=fill&rh=575&rw=575'
-          new = 'https://www.hilton.com/im/en/FTWMDGI/21739421/ftwmdgi-fortworth-tx-hgi-exterior-day-1-.jpg?ch=2799&cw=5000&gravity=NorthWest&impolicy=crop&rh=430&rw=768&xposition=0&yposition=265'
-          if old not in text:
-              raise SystemExit('Expected Hilton Garden Inn reference URL not found')
-          generator.write_text(text.replace(old, new))
+
+          replacements = {
+            'https://images.trvl-media.com/lodging/5000000/4800000/4790100/4790030/77313365.jpg?impolicy=resizecrop&ra=fill&rh=575&rw=575': 'https://www.hilton.com/im/en/FTWMDGI/21739421/ftwmdgi-fortworth-tx-hgi-exterior-day-1-.jpg?ch=2799&cw=5000&gravity=NorthWest&impolicy=crop&rh=430&rw=768&xposition=0&yposition=265',
+            'https://images.trvl-media.com/lodging/7000000/6190000/6180300/6180205/0c207564.jpg?impolicy=resizecrop&ra=fill&rh=575&rw=575': 'https://www.hilton.com/im/en/FTWMCHW/7582292/homewood-fwmc-003-exterior-at-dusk.jpg?ch=2203&cw=5250&gravity=NorthWest&impolicy=crop&rh=806&rw=1920&xposition=0&yposition=648',
+            'https://dallasnews.imgix.net/1548885550-hiltonanatole.jpg': 'https://assets.hiltonstatic.com/hilton-asset-cache/image/upload/c_fill%2Cw_1920%2Ch_1080%2Cq_70%2Cf_auto%2Cg_auto/Imagery/Property%20Photography/Hilton%20Full%20Service/D/DFWANHH/DFWAN_Anatole_Exterior%20NS_C2_10000x6500_SW%C2%A92015.jpg',
+          }
+          for old, new in replacements.items():
+            if old in text:
+              text = text.replace(old, new)
+
+          insertion = "  'hotel-mockingbird-dallas': 'https://cache.marriott.com/is/image/marriotts7prod/tx-dalnb-hotel-exterior-30022%3AWide-Hor?fit=constrain&wid=1336',\n  'drury-plaza-dallas-arlington': 'https://cms.druryhotels.com/media/469312/188_exterior_03.jpg?anchor=center&height=844&mode=crop&rnd=133667410030000000&width=1318',\n"
+          marker = "  'hilton-garden-inn-fort-worth-medical-center':"
+          if "'drury-plaza-dallas-arlington':" not in text:
+            idx = text.index(marker)
+            text = text[:idx] + insertion + text[idx:]
+
+          start = text.index('async function fetchOfficialReference(sourceUrl, propertyId) {')
+          end = text.index('\nfunction generationPrompt', start)
+          replacement_function = '''async function fetchOfficialReference(sourceUrl, propertyId) {
+  const failures = [];
+  const researchedImageUrl = RESEARCHED_REFERENCE_IMAGE_BY_ID[propertyId];
+  if (researchedImageUrl) {
+    try {
+      const reference = await downloadReferenceImage(researchedImageUrl, sourceUrl);
+      console.log(`Using manually verified exact-property visual reference for ${propertyId}.`);
+      return { ...reference, referenceSource: 'manually-verified-exact-property-reference' };
+    } catch (error) {
+      failures.push(`researched ${researchedImageUrl} (${error instanceof Error ? error.message : String(error)})`);
+    }
+  }
+
+  for (const pageUrl of referencePageCandidates(sourceUrl)) {
+    try {
+      const imageUrl = await fetchPageImageUrl(pageUrl);
+      const reference = await downloadReferenceImage(imageUrl, sourceUrl);
+      console.log(`Using official visual-reference page: ${pageUrl}`);
+      return { ...reference, referenceSource: 'official-property-page' };
+    } catch (error) {
+      failures.push(`${pageUrl} (${error instanceof Error ? error.message : String(error)})`);
+    }
+  }
+
+  throw new Error(`No usable exact-property reference image: ${failures.join('; ')}`);
+}
+'''
+          text = text[:start] + replacement_function + text[end:]
+
+          old_generate = '''async function generatePropertyImage(property) {
+  const address = ADDRESS_BY_ID[property.id];
+  const sourceUrl = officialSource(property);
+  const reference = await fetchOfficialReference(sourceUrl, property.id);
+  const bytes = await openAiEdit(property, address, sourceUrl, reference);
+  if (bytes.length < 25_000) throw new Error(`Generated image for ${property.id} is unexpectedly small (${bytes.length} bytes).`);
+  const format = imageFormat(bytes);
+  return { address, sourceUrl, referenceImageUrl: reference.imageUrl, referenceSource: reference.referenceSource, bytes, format };
+}'''
+          new_generate = '''async function generatePropertyImage(property) {
+  const address = ADDRESS_BY_ID[property.id];
+  const sourceUrl = officialSource(property);
+  const previousReferenceSource = Object.freeze({
+    'courtyard-fort-worth-university-drive': 'official-property-page',
+    'hilton-garden-inn-fort-worth-medical-center': 'manually-verified-exact-property-reference',
+    'homewood-suites-fort-worth-medical-center': 'manually-verified-exact-property-reference',
+    'graduate-dallas': 'manually-verified-exact-property-reference',
+    'the-highland-dallas': 'manually-verified-exact-property-reference',
+    'live-by-loews-arlington': 'official-property-page',
+    'loews-arlington-hotel': 'official-property-page',
+  });
+  const priorManifest = fs.existsSync(MANIFEST_PATH)
+    ? JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8'))
+    : null;
+  const priorItem = priorManifest?.items?.find((item) => item.propertyId === property.id);
+  for (const extension of ['png', 'jpg', 'jpeg', 'webp']) {
+    const existingPath = path.join(OUTPUT_DIR, `${property.id}.${extension}`);
+    if (!fs.existsSync(existingPath)) continue;
+    const bytes = fs.readFileSync(existingPath);
+    if (bytes.length < 25_000) throw new Error(`Existing image for ${property.id} is unexpectedly small (${bytes.length} bytes).`);
+    const format = imageFormat(bytes);
+    const referenceSource = priorItem?.referenceImageSource || previousReferenceSource[property.id];
+    if (!referenceSource) throw new Error(`Existing image for ${property.id} lacks preserved exact-property reference provenance.`);
+    console.log(`Reusing reviewed exact-property raster for ${property.id}.`);
+    return { address, sourceUrl, referenceImageUrl: 'reused-reviewed-raster', referenceSource, bytes, format };
+  }
+
+  const reference = await fetchOfficialReference(sourceUrl, property.id);
+  const bytes = await openAiEdit(property, address, sourceUrl, reference);
+  if (bytes.length < 25_000) throw new Error(`Generated image for ${property.id} is unexpectedly small (${bytes.length} bytes).`);
+  const format = imageFormat(bytes);
+  return { address, sourceUrl, referenceImageUrl: reference.imageUrl, referenceSource: reference.referenceSource, bytes, format };
+}'''
+          if old_generate not in text:
+            raise SystemExit('Expected generator function not found')
+          text = text.replace(old_generate, new_generate)
+          generator.write_text(text)
 
           verifier = Path('scripts/ci/verify-stay-nearby-production.mjs')
-          text = verifier.read_text()
-          old = "'Homewood Suites by Hilton Fort Worth Medical Center, TX'"
-          new = "'Homewood Suites by Hilton Fort Worth Medical Center'"
-          if old not in text:
-              raise SystemExit('Expected Homewood Suites canonical name not found')
-          verifier.write_text(text.replace(old, new))
+          vtext = verifier.read_text()
+          vtext = vtext.replace("'Homewood Suites by Hilton Fort Worth Medical Center, TX'", "'Homewood Suites by Hilton Fort Worth Medical Center'")
+          verifier.write_text(vtext)
           PY
-      - name: Generate exact-property raster imagery
+          rm -f public/images/stay-nearby/properties/hotel-mockingbird-dallas.png
+      - name: Generate remaining exact-property raster imagery
         run: node scripts/media/generate-stay-nearby-property-images.mjs
       - name: Commit generated property imagery
         shell: bash
