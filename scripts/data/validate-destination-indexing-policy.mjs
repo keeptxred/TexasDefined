@@ -57,14 +57,25 @@ for (const marker of [
   'reconcileDestinationHeroes(',
   'applyAllCuratedDestinations(',
   'improveDestinationCatalog(',
-  'const destinations = resolveDestinationCatalog(rawDestinations)',
+  'const destinations = await resolveDestinationCatalog(rawDestinations)',
   '.filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing)',
   'entry(`/destination/${item.slug}`',
 ]) {
   if (!sitemap.includes(marker)) failures.push(`Explore sitemap resolved-catalog/indexing contract missing: ${marker}`);
 }
-if (!sitemap.includes('import { preservedExploreDestinations } from "@/data/destination-preserved-catalog"')) {
-  failures.push('Explore sitemap must import the shared preserved destination catalog rather than rebuilding a narrower fallback locally.');
+const preservedCatalogDynamicImport = 'const { preservedExploreDestinations } = await import("@/data/destination-preserved-catalog")';
+if (!sitemap.includes(preservedCatalogDynamicImport)) {
+  failures.push('Explore sitemap must lazy-load the shared preserved destination catalog rather than rebuilding a narrower fallback locally.');
+}
+if (sitemap.includes('import { preservedExploreDestinations } from "@/data/destination-preserved-catalog"')) {
+  failures.push('Explore sitemap must not eagerly import the heavy preserved destination catalog into the route module.');
+}
+const curationDynamicImport = 'const { applyAllCuratedDestinations } = await import("@/data/destination-curation-all")';
+if (!sitemap.includes(curationDynamicImport)) {
+  failures.push('Explore sitemap must lazy-load the full destination curation stack before resolving sitemap destinations.');
+}
+if (sitemap.includes('import { applyAllCuratedDestinations } from "@/data/destination-curation-all"')) {
+  failures.push('Explore sitemap must not eagerly import the heavy destination curation stack into the route module.');
 }
 for (const obsolete of [
   'preservedDestinationFallback()',
@@ -162,7 +173,7 @@ const coreFallbackSlugs = [
   'gruene-historic-district',
 ];
 for (const slug of coreFallbackSlugs) {
-  if (!coreFallbacks.includes(`"${slug}"`)) failures.push(`Verified core fallback curation missing destination: ${slug}`);
+  if (!coreFallbacks.includes(`"${slug}"`)) failures.push(`Verified core fallback curation missing destination: ${slug}.`);
   if (!coreFallbacks.includes('const CHECKED')) failures.push(`Verified core fallback curation is missing an explicit review-date constant for ${slug}.`);
 }
 

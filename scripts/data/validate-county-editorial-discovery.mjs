@@ -8,6 +8,7 @@ const requireAll = (label, text, needles) => {
 
 const countyGuide = read('src/components/content/CountyGuideSections.tsx');
 const countySeries = read('src/data/county-series.ts');
+const countySlugGuard = read('src/data/texas-county-slugs.ts');
 const eastTexasProfiles = read('src/data/county-series-profiles-east-texas.ts');
 const jasperCanonicalProfile = read('src/data/fixtures/jasper-county-canonical-profile.ts');
 const destinationLinks = read('src/data/destination-editorial-links.ts');
@@ -24,11 +25,17 @@ requireAll('canonical county editorial discovery', countyGuide, [
 ]);
 
 requireAll('legacy county redirect scope', countySeries, [
-  'import { TEXAS_COUNTIES } from "@/data/texas-places"',
-  'const TEXAS_COUNTY_SLUGS = new Set(TEXAS_COUNTIES.map((county) => county.slug))',
+  'import { TEXAS_COUNTY_SLUGS } from "@/data/texas-county-slugs"',
   'const countySlug = articleSlug.slice(0, markerIndex)',
   'return TEXAS_COUNTY_SLUGS.has(countySlug) ? countySlug : null',
 ]);
+requireAll('lightweight county slug guard', countySlugGuard, [
+  'export const TEXAS_COUNTY_SLUGS = new Set(COUNTY_NAMES.map(slugify))',
+  'Zapata|Zavala',
+]);
+if (countySeries.includes('@/data/texas-places')) {
+  failures.push('legacy county redirect scope: county-series must not pull the full Texas places registry into the eager client graph');
+}
 
 requireAll('Jasper canonical county profile loader', eastTexasProfiles, [
   'countySlug: "jasper"',
@@ -82,4 +89,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('County editorial discovery validator passed: canonical county guides surface curated article links, Jasper loads a canonical county profile with a direct Blue Hole link, legacy county redirects are limited to real Texas county slugs, the Blue Hole full article is in the primary registry for both listing and direct lookup, and destination plus supplemental reciprocal discovery remain protected.');
+console.log('County editorial discovery validator passed: canonical county guides surface curated article links, Jasper loads a canonical county profile with a direct Blue Hole link, legacy county redirects are limited to real Texas county slugs without importing the full places registry, the Blue Hole full article is in the primary registry for both listing and direct lookup, and destination plus supplemental reciprocal discovery remain protected.');

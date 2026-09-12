@@ -1,24 +1,112 @@
+import { lazy, Suspense } from 'react';
 import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
 import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
 import { SportsVenueQuickAnswers } from '@/components/sports/SportsVenueQuickAnswers';
-import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
 import {
   canonicalEntityPath,
   isIndexableEntityPage,
   rankRelatedEntities,
 } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityKind, TexasEntityRecord } from '@/data/knowledge-graph/types';
-import { sportsVenueLandingLinksForVenue } from '@/data/sports-venue-landings';
+import type { SportsVenueEnrichment as SportsVenueEnrichmentRecord } from '@/data/sports-venue-enrichment';
 import { getActiveSportsSponsorPlacement } from '@/data/sports-sponsorship.functions';
-import { getSportsVenueEnrichmentAll, sportsVenueMapUrl } from '@/data/sports-venue-enrichment-all';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const siteUrl = 'https://texasdefined.com';
+const sportsVenueGuidePilotSlugs = new Set([
+  'amon-g-carter-stadium',
+  'gerald-j-ford-stadium',
+  'globe-life-field',
+  'american-airlines-center',
+  'texas-motor-speedway',
+  'cotton-bowl-stadium',
+  'choctaw-stadium',
+  'ford-center-at-the-star',
+  'datcu-stadium',
+  'riders-field',
+  'lone-star-park',
+  'att-stadium',
+  'toyota-stadium-frisco',
+  'dickies-arena',
+  'college-park-center',
+  'comerica-center',
+  'cowtown-coliseum',
+  'credit-union-of-texas-event-center',
+  'moody-coliseum-smu',
+  'unt-coliseum',
+  'daikin-park',
+  'toyota-center-houston',
+  'shell-energy-stadium',
+  'tdecu-stadium',
+  'fertitta-center',
+  'q2-stadium',
+  'moody-center',
+  'frost-bank-center',
+  'alamodome',
+  'olsen-field-blue-bell-park',
+  'mclane-stadium',
+  'foster-pavilion',
+  'heb-center-at-cedar-park',
+  'dell-diamond',
+  'reed-arena',
+  'kyle-field',
+  'rice-stadium',
+  'constellation-field',
+  'ufcu-stadium',
+  'nelson-wolff-stadium',
+  'freeman-coliseum',
+  'united-supermarkets-arena',
+  'sun-bowl-stadium',
+  'don-haskins-center',
+  'southwest-university-park',
+  'hodgetown',
+  'momentum-bank-ballpark',
+  'whataburger-field',
+  'bowers-stadium',
+  'reliant-stadium',
+  'darrell-k-royal-texas-memorial-stadium',
+  'eagle-stadium-allen',
+  'mckinney-isd-stadium',
+  'childrens-health-stadium-prosper',
+  'legacy-stadium-katy',
+  'ratliff-stadium',
+  'cy-fair-fcu-stadium',
+  'mesquite-memorial-stadium',
+  'ufcu-disch-falk-field',
+  'lupton-stadium',
+  'baylor-ballpark',
+  'reckling-park',
+  'sam-houston-race-park',
+  'circuit-of-the-americas',
+  'retama-park',
+  'texas-motorplex',
+  'will-rogers-memorial-center',
+  'pga-frisco-fields-ranch',
+  'colonial-country-club',
+  'memorial-park-golf-course',
+  'tpc-san-antonio',
+  'amarillo-national-center',
+  'extraco-events-center',
+  'expo-center-taylor-county',
+  'msr-houston',
+  'eagles-canyon-raceway',
+  'xtreme-raceway-park',
+  'houston-motorsports-park',
+  'national-shooting-complex',
+  'waco-surf',
+  'jamail-texas-swimming-center',
+  'round-rock-sports-center',
+  'round-rock-multipurpose-complex',
+]);
 
-type SportsVenueEnrichment = ReturnType<typeof getSportsVenueEnrichmentAll>;
+type SportsVenueEnrichment = SportsVenueEnrichmentRecord | undefined;
+
+function isSportsVenueGuidePilot(slug: string) {
+  return sportsVenueGuidePilotSlugs.has(slug);
+}
 
 const visitorKindPriority: Partial<Record<TexasEntityKind, number>> = {
   attraction: 0,
@@ -52,23 +140,44 @@ function countyVisitorPlaces(venue: TexasEntityRecord, graph: TexasEntityRecord[
 
 export const Route = createFileRoute('/sports-venue/$slug')({
   loader: async ({ params }) => {
+    const [
+      { findCompleteTexasEntity, loadTexasKnowledgeGraph },
+      { getSportsVenueEnrichmentAll, sportsVenueMapUrl },
+      { sportsVenueLandingLinksForVenue },
+    ] = await Promise.all([
+      import('@/data/knowledge-graph'),
+      import('@/data/sports-venue-enrichment-all'),
+      import('@/data/sports-venue-landings'),
+    ]);
     const graph = await loadTexasKnowledgeGraph();
     const entity = await findCompleteTexasEntity(params.slug);
     if (!entity || entity.kind !== 'sports-venue') throw notFound();
     const canonicalPath = canonicalEntityPath(entity);
+    const enrichment = getSportsVenueEnrichmentAll(entity.slug);
+    const mapUrl = entity.coordinates
+      ? `https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`
+      : sportsVenueMapUrl(entity.name, entity.countySlug);
+    const guideEvents = isSportsVenueGuidePilot(params.slug)
+      ? await import('@/data/sports-venue-events.functions').then(({ getSportsVenueUpcomingEvents }) =>
+        getSportsVenueUpcomingEvents({ data: { slug: params.slug } }))
+      : null;
     return {
       entity,
       related: rankRelatedEntities(entity, graph, 16),
       visitorPlaces: countyVisitorPlaces(entity, graph),
       sponsorPlacement: await getActiveSportsSponsorPlacement({ data: { surfacePath: canonicalPath } }),
+      enrichment,
+      landingLinks: sportsVenueLandingLinksForVenue(entity),
+      mapUrl,
+      upcomingEvents: guideEvents?.events ?? [],
+      eventCalendarHref: guideEvents?.calendarHref ?? '/events',
     };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
-    const { entity } = loaderData;
+    const { entity, enrichment } = loaderData;
     const canonicalPath = canonicalEntityPath(entity);
     const indexable = isIndexableEntityPage(entity);
-    const enrichment = getSportsVenueEnrichmentAll(entity.slug);
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
@@ -82,21 +191,41 @@ export const Route = createFileRoute('/sports-venue/$slug')({
   component: SportsVenuePage,
 });
 
+const SportsVenueGuidePilotContent = lazy(
+  () => import('@/components/sports/SportsVenueGuidePilotContent'),
+);
+
 function SportsVenuePage() {
-  const { entity, related, visitorPlaces, sponsorPlacement } = Route.useLoaderData();
+  const { slug } = Route.useParams();
+  const { entity, visitorPlaces, upcomingEvents, eventCalendarHref, landingLinks, sponsorPlacement } = Route.useLoaderData();
+
+  if (isSportsVenueGuidePilot(slug)) {
+    return <Suspense fallback={null}>
+      <SportsVenueGuidePilotContent
+        slug={slug}
+        entity={entity}
+        nearbyAttractions={visitorPlaces}
+        upcomingEvents={upcomingEvents}
+        eventCalendarHref={eventCalendarHref}
+        landingLinks={landingLinks}
+        sponsorPlacement={sponsorPlacement}
+      />
+    </Suspense>;
+  }
+
+  return <LegacySportsVenuePage />;
+}
+
+function LegacySportsVenuePage() {
+  const { entity, related, visitorPlaces, sponsorPlacement, enrichment, landingLinks, mapUrl } = Route.useLoaderData();
   const tags = new Set(entity.tags ?? []);
   const profile = venueProfile(tags);
-  const enrichment = getSportsVenueEnrichmentAll(entity.slug);
   const canonicalPath = canonicalEntityPath(entity);
   const canonicalUrl = `${siteUrl}${canonicalPath}`;
   const venueHeroUrl = `${siteUrl}/api/sports-venue-hero?slug=${encodeURIComponent(entity.slug)}`;
   const relatedVenues = related.filter(({ entity: candidate }) => candidate.kind === 'sports-venue').slice(0, 6);
-  const landingLinks = sportsVenueLandingLinksForVenue(entity);
   const countyName = entity.countySlug ? `${title(entity.countySlug)} County` : undefined;
   const regionName = entity.region ? title(entity.region) : undefined;
-  const mapUrl = entity.coordinates
-    ? `https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`
-    : sportsVenueMapUrl(entity.name, entity.countySlug);
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -152,7 +281,7 @@ function SportsVenuePage() {
           <span aria-current="page" className="text-foreground">{entity.name}</span>
         </nav>
 
-        <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
+        <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
           <div>
             <p className="eyebrow text-primary">{profile.eyebrow}</p>
             <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{entity.name}</h1>
@@ -207,18 +336,6 @@ function SportsVenuePage() {
           </div>
         </section> : null}
 
-        <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[15rem_1fr]">
-          <div>
-            <p className="eyebrow text-primary">Plan the trip</p>
-            <h2 className="mt-2 font-display text-3xl leading-tight">Make the venue part of the weekend</h2>
-          </div>
-          <div className="grid gap-8 md:grid-cols-3">
-            <GuideCard title="Why people travel" body={profile.whyTravel} />
-            <GuideCard title="Best trip pattern" body={profile.tripPattern} />
-            <GuideCard title="Before you go" body={profile.beforeYouGo} />
-          </div>
-        </section>
-
         {enrichment ? <section className="border-b border-border py-12">
           <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
             <div>
@@ -229,8 +346,8 @@ function SportsVenuePage() {
             <div>
               <div className="grid gap-8 md:grid-cols-2">
                 {enrichment.history && <GuideCard title="Venue story" body={enrichment.history} />}
-                <GuideCard title="Stay and eat" body={enrichment.stayAndEat} />
-                <GuideCard title="Build the weekend" body={enrichment.nearby} />
+                {enrichment.stayAndEat && <GuideCard title="Stay and eat" body={enrichment.stayAndEat} />}
+                {enrichment.nearby && <GuideCard title="Build the weekend" body={enrichment.nearby} />}
               </div>
 
               <div className="mt-10 border-t border-border pt-4">
@@ -344,78 +461,18 @@ function formatList(items: readonly string[]) {
 }
 
 function venueProfile(tags: Set<string>) {
-  if (tags.has('motorsports')) return {
-    label: 'Motorsports destination', eyebrow: 'Texas Motorsports', schemaType: 'https://schema.org/SportsActivityLocation',
-    whyTravel: 'Race weekends, track events and driving experiences can pull fans and participants from across Texas. Treat the circuit itself as the anchor and build the rest of the trip around the event schedule.',
-    tripPattern: 'Plan for an event-day or full race-weekend stay. Extra arrival time matters at large circuits, and enthusiast events can start early and run across multiple sessions.',
-    beforeYouGo: 'Use the official venue site for the current race calendar, admission rules, parking instructions, gate times and any track-specific restrictions before leaving home.',
-  };
-  if (tags.has('horse-racing')) return {
-    label: 'Horse-racing destination', eyebrow: 'Texas Racing', schemaType: 'https://schema.org/SportsActivityLocation',
-    whyTravel: 'Live race days combine sport, entertainment and a distinctive Texas outing, with larger cards and special events drawing visitors beyond the immediate metro area.',
-    tripPattern: 'A race-day visit pairs naturally with nearby dining and attractions. Check first-post time and whether the calendar is live racing or simulcast-focused.',
-    beforeYouGo: 'Confirm the live-racing calendar, admission policy, seating options and event-day schedule with the official track before making the drive.',
-  };
-  if (tags.has('golf')) return {
-    label: 'Golf destination', eyebrow: 'Texas Golf', schemaType: 'https://schema.org/GolfCourse',
-    whyTravel: 'Championship events, resort golf and nationally recognized courses can justify a dedicated golf trip, while tournament weeks create a separate spectator-travel experience.',
-    tripPattern: 'For tournament travel, plan around parking, shuttle and gate information. For a golf getaway, treat tee times, resort access and course availability as the fixed points of the itinerary.',
-    beforeYouGo: 'Check the official course or event site for public access, tee-time rules, tournament schedules, spectator policies and parking before finalizing the trip.',
-  };
-  if (tags.has('high-school')) return {
-    label: 'High-school football landmark', eyebrow: 'Friday Night Lights', schemaType: 'https://schema.org/StadiumOrArena',
-    whyTravel: 'Big Texas district stadiums can feel like destination venues on rivalry nights and during the UIL playoffs, drawing visiting families, bands and fans from well outside the home district.',
-    tripPattern: 'Friday-night games work well as a one-night local trip; playoff games can turn into longer weekends depending on kickoff time and travel distance.',
-    beforeYouGo: 'Use the school district or athletics site for the current schedule, ticketing, clear-bag rules, parking and stadium policies because procedures can vary by event.',
-  };
-  if (tags.has('rodeo') || tags.has('equestrian') || tags.has('western-sports')) return {
-    label: 'Rodeo and Western-sports venue', eyebrow: 'Western Sports', schemaType: 'https://schema.org/StadiumOrArena',
-    whyTravel: 'Rodeos, livestock shows and major equestrian competitions bring competitors and spectators together for events that are as much Texas culture as sport.',
-    tripPattern: 'Many Western-sports events run over several days, so check whether the competition, expo, livestock show and evening performances use different schedules or tickets.',
-    beforeYouGo: 'Confirm the current event calendar, grounds map, parking, entry rules and ticket requirements with the venue or event organizer before traveling.',
-  };
-  if (tags.has('college-baseball')) return {
-    label: 'College baseball ballpark', eyebrow: 'Texas College Baseball', schemaType: 'https://schema.org/StadiumOrArena',
-    whyTravel: 'Conference series, rivalry weekends and NCAA postseason games draw alumni and visiting fans who build a campus weekend around the ballpark.',
-    tripPattern: 'A three-game series is ideal for a weekend trip. Leave room for campus traditions, nearby dining and schedule changes caused by weather or postseason television windows.',
-    beforeYouGo: 'Check the university athletics site for the current series schedule, tickets, parking, gate policies and any weather-related updates.',
-  };
-  if (tags.has('college')) return {
-    label: 'College sports venue', eyebrow: 'Texas College Sports', schemaType: 'https://schema.org/StadiumOrArena',
-    whyTravel: 'Game days bring alumni, students and visiting fans into town, turning the campus atmosphere and surrounding districts into part of the sports-trip experience.',
-    tripPattern: 'Build around kickoff, tipoff or first pitch, then add campus landmarks, local food and pregame traditions. Major rivalry weekends can require lodging well in advance.',
-    beforeYouGo: 'Use the university athletics site for the latest schedule, parking, tailgating, ticketing and venue-entry rules.',
-  };
-  if (tags.has('professional')) return {
-    label: 'Professional sports venue', eyebrow: 'Big League Texas', schemaType: 'https://schema.org/StadiumOrArena',
-    whyTravel: 'Major-league games and marquee events draw traveling fans and make the venue a natural anchor for a city weekend built around sports, dining and nearby attractions.',
-    tripPattern: 'Plan a full event-day window rather than just game time. Downtown and entertainment-district venues are especially easy to combine with restaurants and attractions before or after the event.',
-    beforeYouGo: 'Check the official venue or team site for the current schedule, tickets, parking or transit, bag rules, gate times and event-specific policies.',
-  };
-  if (tags.has('shooting-sports')) return {
-    label: 'Shooting-sports destination', eyebrow: 'Championship Sports', schemaType: 'https://schema.org/SportsActivityLocation',
-    whyTravel: 'Large championship facilities attract competitors and spectators for multi-day events, making the venue itself the reason for specialized sports travel.',
-    tripPattern: 'Competition trips may span practice and event days, so lodging and equipment logistics matter more than they do for a typical spectator event.',
-    beforeYouGo: 'Review the official match calendar, registration or spectator requirements, range rules and equipment policies before traveling.',
-  };
-  if (tags.has('action-sports')) return {
-    label: 'Action-sports destination', eyebrow: 'Texas Action Sports', schemaType: 'https://schema.org/SportsActivityLocation',
-    whyTravel: 'Purpose-built action-sports experiences can justify a trip even without a spectator event, especially when instruction, resort amenities and repeat sessions are available.',
-    tripPattern: 'Treat reservation times and activity windows as the fixed point of the day, then build meals and nearby attractions around them.',
-    beforeYouGo: 'Confirm reservations, skill requirements, waivers, equipment rules, weather policies and operating hours with the venue.',
-  };
-  if (tags.has('tournament-complex')) return {
-    label: 'Tournament sports complex', eyebrow: 'Texas Tournament Travel', schemaType: 'https://schema.org/SportsActivityLocation',
-    whyTravel: 'Multi-field and multi-court complexes bring teams and families into a city for entire tournament weekends, creating meaningful sports tourism beyond the local market.',
-    tripPattern: 'Expect early starts, multiple games and schedule changes. Lodging near the complex and flexible meal plans usually matter more than sightseeing on competition days.',
-    beforeYouGo: 'Check the tournament organizer and venue for schedules, parking, admission, prohibited items and field or court assignments.',
-  };
-  return {
-    label: 'Texas sports venue', eyebrow: 'Texas Sports', schemaType: 'https://schema.org/SportsActivityLocation',
-    whyTravel: 'The venue hosts sports and event experiences that can anchor a day trip or weekend and connect naturally with the surrounding Texas community.',
-    tripPattern: 'Use the event schedule as the fixed point, then pair the visit with nearby food, attractions and an overnight stay when travel distance makes it worthwhile.',
-    beforeYouGo: 'Confirm the current event schedule, ticketing, parking and venue policies with the official source before traveling.',
-  };
+  if (tags.has('motorsports')) return { label: 'Motorsports destination', eyebrow: 'Texas Motorsports', schemaType: 'https://schema.org/SportsActivityLocation' };
+  if (tags.has('horse-racing')) return { label: 'Horse-racing destination', eyebrow: 'Texas Racing', schemaType: 'https://schema.org/SportsActivityLocation' };
+  if (tags.has('golf')) return { label: 'Golf destination', eyebrow: 'Texas Golf', schemaType: 'https://schema.org/GolfCourse' };
+  if (tags.has('high-school')) return { label: 'High-school football landmark', eyebrow: 'Friday Night Lights', schemaType: 'https://schema.org/StadiumOrArena' };
+  if (tags.has('rodeo') || tags.has('equestrian') || tags.has('western-sports')) return { label: 'Rodeo and Western-sports venue', eyebrow: 'Western Sports', schemaType: 'https://schema.org/StadiumOrArena' };
+  if (tags.has('college-baseball')) return { label: 'College baseball ballpark', eyebrow: 'Texas College Baseball', schemaType: 'https://schema.org/StadiumOrArena' };
+  if (tags.has('college')) return { label: 'College sports venue', eyebrow: 'Texas College Sports', schemaType: 'https://schema.org/StadiumOrArena' };
+  if (tags.has('professional')) return { label: 'Professional sports venue', eyebrow: 'Big League Texas', schemaType: 'https://schema.org/StadiumOrArena' };
+  if (tags.has('shooting-sports')) return { label: 'Shooting-sports destination', eyebrow: 'Championship Sports', schemaType: 'https://schema.org/SportsActivityLocation' };
+  if (tags.has('action-sports')) return { label: 'Action-sports destination', eyebrow: 'Texas Action Sports', schemaType: 'https://schema.org/SportsActivityLocation' };
+  if (tags.has('tournament-complex')) return { label: 'Tournament sports complex', eyebrow: 'Texas Tournament Travel', schemaType: 'https://schema.org/SportsActivityLocation' };
+  return { label: 'Texas sports venue', eyebrow: 'Texas Sports', schemaType: 'https://schema.org/SportsActivityLocation' };
 }
 
 function title(value: string) {

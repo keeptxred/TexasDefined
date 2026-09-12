@@ -59,29 +59,10 @@ const COUNTY_RV_PARKS: readonly Destination[] = GROUPS.flatMap((group) => group.
   group.name,
 ])));
 
-// Production certification canary. These are not extra inventory rows: they are
-// the same two Randall County seeds already present in panhandle-north-texas.ts.
-// Keep this source-controlled fallback until the regional-array bundling path is
-// proven reliable in Cloudflare SSR for county pages. It prevents a verified
-// county relationship from disappearing simply because the aggregate snapshot
-// evaluates empty in the deployed worker.
-const CERTIFIED_COUNTY_FALLBACKS: Readonly<Record<string, readonly CountyRvSeed[]>> = {
-  randall: [
-    ['Palo Duro Canyon State Park RV Loop', 'Canyon', 'Randall', 'palo-duro-canyon-state-park-rv-loop', 'panhandle', 'Panhandle Plains & North Texas'],
-    ['Palo Duro Rim RV Camp', 'Canyon', 'Randall', 'palo-duro-rim-rv-camp', 'panhandle', 'Panhandle Plains & North Texas'],
-  ],
-};
-
 export function loadCountyRvParksSnapshot(countySlug: string): Destination[] {
   const normalized = normalizeCountySlug(countySlug);
-  const matches = COUNTY_RV_PARKS
+  return COUNTY_RV_PARKS
     .filter((park) => Boolean(park.county) && normalizeCountySlug(park.county!) === normalized)
-    .sort((left, right) => left.nearestTown.localeCompare(right.nearestTown) || left.name.localeCompare(right.name))
-    .slice(0, 12);
-  if (matches.length) return matches;
-
-  return (CERTIFIED_COUNTY_FALLBACKS[normalized] ?? [])
-    .map(snapshotDestination)
     .sort((left, right) => left.nearestTown.localeCompare(right.nearestTown) || left.name.localeCompare(right.name))
     .slice(0, 12);
 }

@@ -1,6 +1,5 @@
 import type { Article, ArticleBlock, CategorySlug, TexasRegion } from "./types";
 import { DEFAULT_EDITORIAL_DESK_ID } from "./editorial-desks";
-import { remoteEvergreenInternalLinks } from "./remote-evergreen-internal-links";
 
 const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
 const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
@@ -9,6 +8,12 @@ const SITEMAP_PAGE_SIZE = 200;
 const SITEMAP_MAX_ROWS = 10_000;
 
 type RemoteArticleKind = "all" | "evergreen" | "news";
+
+async function loadRemoteEvergreenInternalLinks() {
+  return (await import("./remote-evergreen-internal-links")).remoteEvergreenInternalLinks;
+}
+
+type RemoteEvergreenInternalLinks = Awaited<ReturnType<typeof loadRemoteEvergreenInternalLinks>>;
 
 function headers(): HeadersInit {
   return { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, Accept: "application/json" };
@@ -61,14 +66,14 @@ function body(value: unknown): ArticleBlock[] {
   });
 }
 
-function mapRow(row: Record<string, unknown>): Article | null {
+function mapRow(row: Record<string, unknown>, evergreenInternalLinks: RemoteEvergreenInternalLinks): Article | null {
   const slug = text(row.slug);
   const title = text(row.title);
   const heroUrl = text(row.hero_url);
   const blocks = body(row.body_json);
   if (!slug || !title || !heroUrl || blocks.length === 0) return null;
   const mappedRegion = region(row.region);
-  const internalLinks = remoteEvergreenInternalLinks[slug];
+  const internalLinks = evergreenInternalLinks[slug];
   return {
     id: `remote-${String(row.id || slug)}`,
     brandId: "texasdefined",
@@ -100,22 +105,27 @@ async function requestRows(params: URLSearchParams): Promise<Record<string, unkn
   return value.filter((row): row is Record<string, unknown> => Boolean(row) && typeof row === "object");
 }
 
-function mapRows(rows: Record<string, unknown>[]): Article[] {
-  return rows.map((row) => mapRow(row)).filter((row): row is Article => Boolean(row));
+function mapRows(rows: Record<string, unknown>[], evergreenInternalLinks: RemoteEvergreenInternalLinks): Article[] {
+  return rows.map((row) => mapRow(row, evergreenInternalLinks)).filter((row): row is Article => Boolean(row));
 }
 
 async function request(params: URLSearchParams): Promise<Article[]> {
-  return mapRows(await requestRows(params));
+  const [rows, evergreenInternalLinks] = await Promise.all([
+    requestRows(params),
+    loadRemoteEvergreenInternalLinks(),
+  ]);
+  return mapRows(rows, evergreenInternalLinks);
 }
 
 async function requestAllForSitemap(params: URLSearchParams): Promise<Article[]> {
   const articles: Article[] = [];
+  const evergreenInternalLinks = await loadRemoteEvergreenInternalLinks();
   for (let offset = 0; offset < SITEMAP_MAX_ROWS; offset += SITEMAP_PAGE_SIZE) {
     const pageParams = new URLSearchParams(params);
     pageParams.set("limit", String(SITEMAP_PAGE_SIZE));
     pageParams.set("offset", String(offset));
     const rows = await requestRows(pageParams);
-    articles.push(...mapRows(rows));
+    articles.push(...mapRows(rows, evergreenInternalLinks));
     if (rows.length < SITEMAP_PAGE_SIZE) return articles;
   }
   throw new Error(`TexasDefined sitemap article inventory exceeded guarded ${SITEMAP_MAX_ROWS}-row limit`);

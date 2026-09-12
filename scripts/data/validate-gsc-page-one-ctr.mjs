@@ -150,6 +150,174 @@ const fourthWaveCorrections = [
   { path: '/event/charro-days-fiesta', title: 'Charro Days Fiesta 2027: Dates, Parade & Brownsville Guide', description: 'Charro Days Fiesta 2027 core dates are Feb. 25-27 in Brownsville' },
 ];
 
+const fifthWave = [
+  { path: "/article/lake-whitney-water-system-guide", title: "Lake Whitney Texas: Brazos River Reservoir & Water Guide", description: "Understand Lake Whitney as a Brazos River reservoir, including flood control, water supp" },
+  { path: "/article/texas-jobs-economy-industries", title: "Texas Economy & Jobs: Major Industries, Regions & Growth", description: "Explore the Texas economy by major industries, jobs and regions, from energy and manufac" },
+  { path: "/county/lamb", title: "Lamb County, Texas: Population, County Seat & Local Guide", description: "Explore Lamb County, Texas with population, county seat, communities, land area, geograp" },
+  { path: "/event/great-american-scrapbook-convention", title: "Great American Scrapbook Convention: Mesquite Visitor Guide", description: "Plan the Great American Scrapbook Convention in Mesquite with event information, venue g" },
+  { path: "/events/big-bend-events", title: "Big Bend Events & Festivals: Far West Texas Calendar Guide", description: "Find Big Bend and Far West Texas events with festival, community, arts and outdoor plann" },
+  { path: "/sports-venue/constellation-field", title: "Constellation Field Sugar Land: Parking, Map & Events", description: "Plan a Constellation Field visit in Sugar Land with parking, map, arrival, ticket and ev" },
+  { path: "/sports-venue/ford-center-at-the-star", title: "Ford Center at The Star: Parking, Map & Events", description: "Plan a Ford Center at The Star visit in Frisco with parking, map, arrival and event info" },
+  { path: "/sports-venue/houston-motorsports-park", title: "Houston Motorsports Park: Racing, Schedule & Visitor Guide", description: "Plan a Houston Motorsports Park visit with racing, event, arrival, map and official-sour" },
+  { path: "/sports-venue/texas-motorplex", title: "Texas Motorplex Ennis: Drag Racing, Events & Visitor Guide", description: "Plan a Texas Motorplex visit in Ennis with drag-racing event, parking, map, arrival and " },
+  { path: "/sports-venue/ufcu-stadium", title: "UFCU Stadium San Marcos: Parking, Map & Events", description: "Plan a UFCU Stadium visit in San Marcos with parking, map, arrival and event information" },
+  { path: "/sports-venues/baseball", title: "Texas Baseball Stadiums & Ballparks: Venue Guides", description: "Explore Texas baseball stadiums and ballparks with venue guides, locations, parking and " },
+  { path: "/texas-symbols/fruit", title: "Texas State Fruit: Texas Red Grapefruit Facts & History", description: "Texas Red Grapefruit is the official state fruit. Learn when Texas adopted it, why the R" },
+  { path: "/texas-symbols/pepper", title: "Texas State Pepper: Jalapeño Facts & State Symbol History", description: "The jalapeño is the official Texas state pepper. Learn when it was designated, its place" },
+  { path: "/texas-symbols/shell", title: "Texas State Shell: Lightning Whelk Facts & Gulf Coast Guide", description: "The lightning whelk is the official Texas state shell. Learn its designation, distinctiv" },
+  { path: "/texas-vs/georgia", title: "Texas vs Georgia: Cost of Living, Taxes, Climate & Lifestyle", description: "Compare Texas and Georgia on cost of living, taxes, housing, climate, jobs, geography an" },
+  { path: "/texas-vs/ohio", title: "Texas vs Ohio: Cost of Living, Taxes, Climate & Lifestyle", description: "Compare Texas and Ohio on cost of living, taxes, housing, climate, jobs, geography and d" },
+  { path: "/texas-vs/tennessee", title: "Texas vs Tennessee: Cost of Living, Taxes & Lifestyle", description: "Compare Texas and Tennessee on cost of living, taxes, housing, climate, jobs, geography " },
+  { path: "/events/rodeos", title: "Texas Rodeos: Major Events, Calendar & Visitor Guides", description: "Explore Texas rodeos with major event guides, locations, seasonal planning and links to " },
+  { path: "/sports-venue/rice-stadium", title: "Rice Stadium Houston: Parking, Map & Events", description: "Plan a Rice Stadium visit in Houston with parking, map, arrival and event information fo" },
+  { path: "/sports-venue/tdecu-stadium", title: "TDECU Stadium Houston: Parking, Map & Events", description: "Plan a TDECU Stadium visit in Houston with parking, map, arrival and event information f" },
+];
+
+for (const experiment of fifthWave) {
+  for (const required of ['"' + experiment.path + '"', experiment.title, experiment.description]) {
+    if (!seo.includes(required)) failures.push('Fifth-wave CTR contract missing for ' + experiment.path + ': ' + required);
+  }
+}
+
+if (fifthWave.length !== 20) {
+  failures.push('Expected exactly 20 fifth-wave GSC CTR experiments, found ' + fifthWave.length + '.');
+}
+
+const sixthWave = [
+  { path: "/county/bowie", title: "Bowie County, Texas: Population, County Seat & Local Guide", description: "Explore Bowie County, Texas with population, county seat, communities" },
+  { path: "/county/burnet", title: "Burnet County, Texas: Population, County Seat & Local Guide", description: "Explore Burnet County, Texas with population, county seat, communities" },
+  { path: "/county/erath", title: "Erath County, Texas: Population, County Seat & Local Guide", description: "Explore Erath County, Texas with population, county seat, communities" },
+  { path: "/county/henderson", title: "Henderson County, Texas: Population, County Seat & Local Guide", description: "Explore Henderson County, Texas with population, county seat, communities" },
+  { path: "/county/jasper", title: "Jasper County, Texas: Population, County Seat & Local Guide", description: "Explore Jasper County, Texas with population, county seat, communities" },
+  { path: "/county/orange", title: "Orange County, Texas: Population, County Seat & Local Guide", description: "Explore Orange County, Texas with population, county seat, communities" },
+  { path: "/county/panola", title: "Panola County, Texas: Population, County Seat & Local Guide", description: "Explore Panola County, Texas with population, county seat, communities" },
+  { path: "/county/refugio", title: "Refugio County, Texas: Population, County Seat & Local Guide", description: "Explore Refugio County, Texas with population, county seat, communities" },
+  { path: "/explore/painted-churches/guides/painted-churches-weekend-hours", title: "Painted Churches of Texas: Weekend Hours & Tour Planning", description: "Plan a weekend visit to Texas Painted Churches with opening-hour guidance" },
+  { path: "/fishing/lakes/sam-rayburn-reservoir/fish", title: "Sam Rayburn Reservoir Fish Species: Bass, Crappie & More", description: "See common fish species in Sam Rayburn Reservoir" },
+  { path: "/sports-venue/momentum-bank-ballpark", title: "Momentum Bank Ballpark: Midland RockHounds Stadium Guide", description: "Plan a Momentum Bank Ballpark visit in Midland with RockHounds baseball" },
+  { path: "/sports-venue/lone-star-park", title: "Lone Star Park Grand Prairie: Racing, Tickets & Visitor Guide", description: "Plan a Lone Star Park visit in Grand Prairie with horse-racing" },
+  { path: "/sports-venue/sun-bowl-stadium", title: "Sun Bowl Stadium El Paso: Parking, Map & Events", description: "Plan a Sun Bowl Stadium visit in El Paso with parking" },
+  { path: "/sports-venue/college-park-center", title: "College Park Center Arlington: Parking, Map & Events", description: "Plan a College Park Center visit in Arlington with parking" },
+  { path: "/sports-venue/unt-coliseum", title: "UNT Coliseum (Super Pit): Parking, Map & Events", description: "Plan a UNT Coliseum visit in Denton with parking" },
+  { path: "/texas-symbols/amphibian", title: "Texas State Amphibian: Texas Toad Facts & History", description: "The Texas toad is the official state amphibian" },
+  { path: "/texas-symbols/cobbler", title: "Texas State Cobbler: Peach Cobbler Facts & History", description: "Peach cobbler is the official Texas state cobbler" },
+  { path: "/texas-symbols/dinosaur", title: "Texas State Dinosaur: Paluxysaurus Facts & History", description: "Learn about the official Texas state dinosaur, Paluxysaurus" },
+  { path: "/texas-vs/utah", title: "Texas vs Utah: Cost of Living, Climate, Taxes & Lifestyle", description: "Compare Texas and Utah on cost of living, taxes, housing, climate" },
+  { path: "/texas-vs/south-carolina", title: "Texas vs South Carolina: Cost, Taxes, Climate & Lifestyle", description: "Compare Texas and South Carolina on cost of living, taxes, housing, climate" },
+];
+
+for (const experiment of sixthWave) {
+  for (const required of ['"' + experiment.path + '"', experiment.title, experiment.description]) {
+    if (!seo.includes(required)) failures.push('Sixth-wave CTR contract missing for ' + experiment.path + ': ' + required);
+  }
+}
+
+if (sixthWave.length !== 20) {
+  failures.push('Expected exactly 20 sixth-wave GSC CTR experiments, found ' + sixthWave.length + '.');
+}
+
+const seventhWave = [
+  { path: "/event/addison-oktoberfest", title: "Addison Oktoberfest 2026: Dates, Hours, Tickets & Parking", description: "Addison Oktoberfest runs Sept. 17-20, 2026" },
+  { path: "/texas-state-fair", title: "State Fair of Texas 2026: Dates, Hours, Tickets & Fair Park", description: "The State Fair of Texas runs Sept. 25-Oct. 18, 2026" },
+  { path: "/article/el-paso-county-missions-rio-grande-texas", title: "El Paso County Missions & Rio Grande: Borderlands History Guide", description: "Explore El Paso County through the Rio Grande, Ysleta Mission" },
+  { path: "/article/texas-barbecue-styles-explained", title: "Texas Barbecue Styles: Central, East, South & West Texas BBQ", description: "Compare Texas barbecue styles by region" },
+  { path: "/article/texas-business-routes-explained", title: "What Is a Business Highway? Texas Business Routes Explained", description: "Learn what a business highway or business route is" },
+  { path: "/article/texas-culture-social-customs-newcomers", title: "Texas Culture & Traditions: Newcomer Guide to Social Customs", description: "Understand Texas culture, traditions and everyday social customs" },
+  { path: "/things-unique-to-texas", title: "What Is Texas Known For? Iconic Foods, Places & Traditions", description: "Explore things strongly associated with Texas" },
+  { path: "/article/texas-guadalupe-river-guide", title: "Guadalupe River Texas: Canyon Lake, Tubing, Basin & River Guide", description: "Follow the Guadalupe River through the Hill Country" },
+  { path: "/destination/natural-bridge-wildlife-ranch", title: "Natural Bridge Wildlife Ranch: Tickets, Hours & Visitor Guide", description: "Plan a Natural Bridge Wildlife Ranch visit near San Antonio" },
+  { path: "/event/lone-star-cowboy-poetry-gathering-bastrop", title: "Lone Star Cowboy Poetry Gathering 2027: Bastrop Dates & Guide", description: "returns to Bastrop Sept. 3-4, 2027" },
+  { path: "/event/schulenburg-festival", title: "Schulenburg Festival 2027: Dates, Schedule & Visitor Guide", description: "Schulenburg Festival runs Aug. 5-8, 2027" },
+  { path: "/event/terlingua-international-chili-championship", title: "Terlingua International Chili Championship: Dates & Visitor Guide", description: "Plan the Terlingua International Chili Championship" },
+  { path: "/sports-venue/cotton-bowl-stadium", title: "Cotton Bowl Stadium Dallas: Parking, Map & Events", description: "Plan a Cotton Bowl Stadium visit at Fair Park in Dallas" },
+  { path: "/sports-venue/datcu-stadium", title: "DATCU Stadium Denton: Parking, Map & North Texas Football", description: "Plan a DATCU Stadium visit in Denton" },
+  { path: "/sports-venue/jamail-texas-swimming-center", title: "Lee & Joe Jamail Texas Swimming Center: Parking & Events", description: "Plan a Jamail Texas Swimming Center visit in Austin" },
+  { path: "/sports-venue/tpc-san-antonio", title: "TPC San Antonio: Golf Courses, Tournaments & Visitor Guide", description: "Explore TPC San Antonio with course, tournament" },
+  { path: "/texas-country-outlaw", title: "Texas Outlaw Country: Artists, History & Texas Country Sound", description: "Explore Texas outlaw country and Texas country music" },
+  { path: "/texas-vs/louisiana", title: "Texas vs Louisiana: Cost of Living, Taxes, Climate & Lifestyle", description: "Compare Texas and Louisiana on cost of living" },
+  { path: "/texas-symbols/tree", title: "Texas State Tree: Pecan Tree Facts & State Symbol History", description: "The pecan is the official Texas state tree" },
+  { path: "/destination/mckinney-falls-state-park", title: "McKinney Falls State Park: Trails, Camping & Austin Visitor Guide", description: "Plan McKinney Falls State Park near Austin" },
+];
+
+for (const experiment of seventhWave) {
+  for (const required of ['"' + experiment.path + '"', experiment.title, experiment.description]) {
+    if (!seo.includes(required)) failures.push('Seventh-wave CTR contract missing for ' + experiment.path + ': ' + required);
+  }
+}
+
+if (seventhWave.length !== 20) {
+  failures.push('Expected exactly 20 seventh-wave GSC CTR experiments, found ' + seventhWave.length + '.');
+}
+
+const eighthWave = [
+  { path: "/event/kerrville-folk-festival", title: "Kerrville Folk Festival 2027: Schedule, Tickets & Visitor Guide", description: "Plan the 2027 Kerrville Folk Festival at Quiet Valley Ranch" },
+  { path: "/article/texas-caverns-caves-first-timers-guide", title: "Caverns in Texas: Public Caves, Tours & First-Timer Guide", description: "Find Texas caverns and caves open to the public" },
+  { path: "/explore/painted-churches-plan", title: "Painted Churches of Texas Map: Schulenburg Route & Trip Planner", description: "Plan a Schulenburg-area Painted Churches road trip" },
+  { path: "/texas-disabled-veteran-property-tax-calculator", title: "Texas Disabled Veteran Property Tax Calculator & Exemption Guide", description: "Estimate the tax effect of a verified Texas disabled-veteran property-tax exemption amount" },
+  { path: "/article/texas-highway-designations-explained", title: "Texas Road Names Explained: FM, RM, SH, Loops & Spurs", description: "Learn what FM, RM, SH, loops, spurs and other Texas highway designations mean" },
+  { path: "/article/possum-kingdom-water-system-guide", title: "Possum Kingdom Lake: Water Level, Brazos River Authority & Guide", description: "Understand Possum Kingdom Lake water management" },
+  { path: "/texas-data/school-district-tax-rates", title: "Texas School District Property Tax Rates: Comptroller Data", description: "Compare selected Texas school-district adopted property-tax rates" },
+  { path: "/sports-venue/amarillo-national-center", title: "Amarillo National Center: Events, Parking & Visitor Guide", description: "Plan an Amarillo National Center visit" },
+  { path: "/sports-venue/eagles-canyon-raceway", title: "Eagles Canyon Raceway: Track Map, Events & Visitor Guide", description: "Plan an Eagles Canyon Raceway visit" },
+  { path: "/sports-venue/expo-center-taylor-county", title: "Taylor County Expo Center: Events, Parking & Abilene Guide", description: "Plan a Taylor County Expo Center visit in Abilene" },
+  { path: "/texas-symbols/motto", title: "Texas State Motto: Friendship Meaning, History & Facts", description: "Learn the official Texas state motto" },
+  { path: "/texas-symbols/horse", title: "Texas State Horse: American Quarter Horse Facts & History", description: "Learn about the American Quarter Horse as an official Texas state symbol" },
+  { path: "/texas-vs/kentucky", title: "Texas vs Kentucky: Cost of Living, Taxes, Climate & Lifestyle", description: "Compare Texas and Kentucky on cost of living" },
+  { path: "/texas-vs/west-virginia", title: "Texas vs West Virginia: Cost of Living, Taxes & Lifestyle", description: "Compare Texas and West Virginia on cost of living" },
+  { path: "/article/texas-courthouse-architecture-guide", title: "Texas Courthouse Architecture: Styles, History & Buildings Guide", description: "Explore Texas courthouse architecture by style and era" },
+];
+
+for (const experiment of eighthWave) {
+  for (const required of ['"' + experiment.path + '"', experiment.title, experiment.description]) {
+    if (!seo.includes(required)) failures.push('Eighth-wave CTR contract missing for ' + experiment.path + ': ' + required);
+  }
+}
+
+if (eighthWave.length !== 15) {
+  failures.push('Expected exactly 15 eighth-wave GSC CTR experiments, found ' + eighthWave.length + '.');
+}
+
+const ninthWave = [
+  { path: "/article/texas-railroads-town-growth-explained", title: "Texas Railroad Towns: How Rail Lines Shaped City Growth", description: "See how railroads shaped Texas town growth, depot districts, commerce and settlement pattern" },
+  { path: "/event/great-texas-balloon-race", title: "Great Texas Balloon Race: Dates, Tickets & Longview Guide", description: "Plan the Great Texas Balloon Race in Longview with the latest organizer date status, ticket" },
+  { path: "/sports-venue/freeman-coliseum", title: "Freeman Coliseum San Antonio: Parking, Events & Visitor Guide", description: "Plan a Freeman Coliseum visit in San Antonio with parking, directions, event and official ve" },
+  { path: "/sports-venue/hodgetown", title: "HODGETOWN Amarillo: Parking, Tickets & Sod Poodles Games", description: "Plan a HODGETOWN visit in Amarillo with parking, tickets, directions and event information f" },
+  { path: "/sports-venue/reckling-park", title: "Reckling Park Houston: Parking, Tickets & Rice Baseball", description: "Plan a Reckling Park visit in Houston with parking, tickets, directions and official Rice ba" },
+  { path: "/sports-venue/southwest-university-park", title: "Southwest University Park El Paso: Parking, Tickets & Baseball", description: "Plan a Southwest University Park visit in El Paso with parking, tickets, directions and even" },
+  { path: "/sports-venue/ufcu-disch-falk-field", title: "UFCU Disch-Falk Field Austin: Parking, Tickets & Texas Baseball", description: "Plan a UFCU Disch-Falk Field visit in Austin with parking, tickets, directions and official" },
+  { path: "/sports-venue/don-haskins-center", title: "Don Haskins Center El Paso: Parking, Events & UTEP Basketball", description: "Plan a Don Haskins Center visit in El Paso with parking, directions, event and official venu" },
+  { path: "/texas-symbols/nickname", title: "Texas State Nickname: Why Texas Is the Lone Star State", description: "Learn why Texas is called the Lone Star State, how the nickname connects to the state flag a" },
+  { path: "/texas-symbols/grass", title: "Texas State Grass: Sideoats Grama Facts & History", description: "Learn about sideoats grama, the official Texas state grass, including its designation, range" },
+  { path: "/texas-symbols/sea-turtle", title: "Texas State Sea Turtle: Kemp's Ridley Facts & History", description: "Learn about Kemp's ridley, the official Texas state sea turtle, including its designation, G" },
+  { path: "/texas-vs/nebraska", title: "Texas vs Nebraska: Cost of Living, Taxes, Climate & Lifestyle", description: "Compare Texas and Nebraska on cost of living, taxes, housing, climate, jobs, geography and d" },
+];
+
+for (const experiment of ninthWave) {
+  for (const required of ['"' + experiment.path + '"', experiment.title, experiment.description]) {
+    if (!seo.includes(required)) failures.push('Ninth-wave CTR contract missing for ' + experiment.path + ': ' + required);
+  }
+}
+
+if (ninthWave.length !== 12) {
+  failures.push('Expected exactly 12 ninth-wave GSC CTR experiments, found ' + ninthWave.length + '.');
+}
+
+const tenthWave = [
+  { path: "/article/texas-brazos-river-guide", title: "Brazos River Texas: Basin, Tributaries, Lakes & Gulf Guide", description: "Follow the Brazos River across Texas from its upper forks to the Gulf" },
+  { path: "/article/texas-guadalupe-river-guide", title: "Guadalupe River Texas: Canyon Lake, Springs & Basin Guide", description: "Follow the Guadalupe River from the Hill Country to San Antonio Bay" },
+  { path: "/article/texas-trinity-river-guide", title: "Trinity River Texas: Dallas-Fort Worth, Basin & Gulf Guide", description: "Follow the Trinity River through North Texas toward Trinity Bay" },
+];
+
+for (const experiment of tenthWave) {
+  for (const required of ['"' + experiment.path + '"', experiment.title, experiment.description]) {
+    if (!seo.includes(required)) failures.push('Tenth-wave CTR contract missing for ' + experiment.path + ': ' + required);
+  }
+}
+
+if (tenthWave.length !== 3) {
+  failures.push('Expected exactly 3 tenth-wave GSC CTR experiments, found ' + tenthWave.length + '.');
+}
+
 const settlementLandingSelection = {
   path: '/article/texas-settlement-patterns-explained',
   title: 'Texas Settlement Patterns: How Geography Shaped Towns',

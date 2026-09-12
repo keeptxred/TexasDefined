@@ -6,12 +6,14 @@ import { fetchPublishedTexasEvents } from "./events-remote";
 import { supplementalExploreCategories } from "./explore-categories";
 import { isArticleDiscoveryReady } from "./fixtures/texas-gateway-index-readiness";
 import { guideIsAvailable } from "./guide-links";
-import { platform, scope } from "./index";
 import { ensureRemoteEvergreenSourceFallback } from "./remote-evergreen-source-fallbacks";
 import type { ArticleQuery, DestinationQuery } from "./repositories";
 import { fetchAssignedShopProducts } from "./shop-products-remote";
 import { TEXAS_REGION_DEFINITIONS } from "./texas-regions";
 import type { Article, Slug } from "./types";
+
+const scope = { brandId: "texasdefined" } as const;
+const loadPlatform = async () => (await import("./index")).platform;
 
 function prepareArticleDetail(article: Article): Article {
   return prepareArticleForDelivery(ensureRemoteEvergreenSourceFallback(article));
@@ -19,13 +21,17 @@ function prepareArticleDetail(article: Article): Article {
 
 export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => queryOptions({
   queryKey: ["articles", scope.brandId, params],
-  queryFn: async () => (await platform.articles.list({ ...scope, ...params }))
-    .map(prepareArticleForDelivery)
-    .filter(isArticleDiscoveryReady),
+  queryFn: async () => {
+    const platform = await loadPlatform();
+    return (await platform.articles.list({ ...scope, ...params }))
+      .map(prepareArticleForDelivery)
+    .filter(isArticleDiscoveryReady);
+  },
 });
 export const articleQuery = (slug: Slug) => queryOptions({
   queryKey: ["article", scope.brandId, slug],
   queryFn: async () => {
+    const platform = await loadPlatform();
     const localArticle = await platform.articles.getBySlug(scope, slug);
     if (localArticle) {
       if (localArticle.sourceName && localArticle.sourceUrl) return prepareArticleDetail(localArticle);
@@ -48,8 +54,6 @@ const PUBLIC_CAVERN_QUERY_REVISION = "public-caverns-11-v1";
 
 export const destinationsQuery = (params: Omit<DestinationQuery, "brandId"> = {}) => queryOptions({
   queryKey: ["destinations", scope.brandId, params, params.category === "caverns" ? PUBLIC_CAVERN_QUERY_REVISION : "default"],
-  // Cavern inventory includes checked-in public fallbacks that can change with a deploy;
-  // never let an older worker/query cache keep the category collection pinned to a stale subset.
   staleTime: params.category === "caverns" ? 0 : 10 * 60 * 1000,
   gcTime: 30 * 60 * 1000,
   refetchOnWindowFocus: false,
@@ -75,14 +79,70 @@ export const destinationQuery = (slug: Slug) => queryOptions({
   },
 });
 
-export const productsQuery = (params: { collection?: Slug; limit?: number } = {}) => queryOptions({ queryKey: ["products", scope.brandId, params], staleTime: 5 * 60 * 1000, gcTime: 30 * 60 * 1000, refetchOnWindowFocus: false, refetchOnMount: false, refetchOnReconnect: false, queryFn: async () => { let lastError: unknown; for (let attempt = 0; attempt < 3; attempt += 1) { try { return await fetchAssignedShopProducts(params); } catch (error) { lastError = error; if (attempt < 2) await new Promise((resolve) => setTimeout(resolve, 400 * (attempt + 1))); } } console.error("Assigned commerce catalog unavailable; using local catalog fallback", lastError); return platform.products.list({ ...scope, ...params }); } });
-export const collectionsQuery = () => queryOptions({ queryKey: ["collections", scope.brandId], queryFn: () => platform.collections.list(scope) });
-export const collectionQuery = (slug: Slug) => queryOptions({ queryKey: ["collection", scope.brandId, slug], queryFn: () => platform.collections.getBySlug(scope, slug) });
-export const guidesQuery = () => queryOptions({ queryKey: ["guides", scope.brandId], queryFn: async () => (await platform.guides.list(scope)).filter(guideIsAvailable) });
-export const eventsQuery = (params: { limit?: number } = {}) => queryOptions({ queryKey: ["events", scope.brandId, params], staleTime: 15 * 60 * 1000, queryFn: async () => { try { const remote = await fetchPublishedTexasEvents(params.limit ?? 24); if (remote.length) return remote; } catch (error) { console.error("Live Texas events catalog unavailable; using curated fixture fallback", error); } return platform.events.list({ ...scope, ...params }); } });
-export const categoriesQuery = () => queryOptions({ queryKey: ["categories", scope.brandId], queryFn: async () => { const categories = await platform.taxonomy.categories(scope); const merged = new Map(categories.map((category) => [category.slug, category])); for (const category of supplementalExploreCategories) { const existing = merged.get(category.slug); merged.set(category.slug, existing ? { ...existing, ...category } : category); } return [...merged.values()]; } });
+export const productsQuery = (params: { collection?: Slug; limit?: number } = {}) => queryOptions({
+  queryKey: ["products", scope.brandId, params],
+  staleTime: 5 * 60 * 1000,
+  gcTime: 30 * 60 * 1000,
+  refetchOnWindowFocus: false,
+  refetchOnMount: false,
+  refetchOnReconnect: false,
+  queryFn: async () => {
+    let lastError: unknown;
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      try {
+        return await fetchAssignedShopProducts(params);
+      } catch (error) {
+        lastError = error;
+        if (attempt < 2) await new Promise((resolve) => setTimeout(resolve, 400 * (attempt + 1)));
+      }
+    }
+    console.error("Assigned commerce catalog unavailable; using local catalog fallback", lastError);
+    const platform = await loadPlatform();
+    return platform.products.list({ ...scope, ...params });
+  },
+});
+export const collectionsQuery = () => queryOptions({
+  queryKey: ["collections", scope.brandId],
+  queryFn: async () => (await loadPlatform()).collections.list(scope),
+});
+export const collectionQuery = (slug: Slug) => queryOptions({
+  queryKey: ["collection", scope.brandId, slug],
+  queryFn: async () => (await loadPlatform()).collections.getBySlug(scope, slug),
+});
+export const guidesQuery = () => queryOptions({
+  queryKey: ["guides", scope.brandId],
+  queryFn: async () => (await (await loadPlatform()).guides.list(scope)).filter(guideIsAvailable),
+});
+export const eventsQuery = (params: { limit?: number } = {}) => queryOptions({
+  queryKey: ["events", scope.brandId, params],
+  staleTime: 15 * 60 * 1000,
+  queryFn: async () => {
+    try {
+      const remote = await fetchPublishedTexasEvents(params.limit ?? 24);
+      if (remote.length) return remote;
+    } catch (error) {
+      console.error("Live Texas events catalog unavailable; using curated fixture fallback", error);
+    }
+    return (await loadPlatform()).events.list({ ...scope, ...params });
+  },
+});
+export const categoriesQuery = () => queryOptions({
+  queryKey: ["categories", scope.brandId],
+  queryFn: async () => {
+    const categories = await (await loadPlatform()).taxonomy.categories(scope);
+    const merged = new Map(categories.map((category) => [category.slug, category]));
+    for (const category of supplementalExploreCategories) {
+      const existing = merged.get(category.slug);
+      merged.set(category.slug, existing ? { ...existing, ...category } : category);
+    }
+    return [...merged.values()];
+  },
+});
 export const regionsQuery = () => queryOptions({ queryKey: ["regions", scope.brandId], queryFn: async () => [...TEXAS_REGION_DEFINITIONS] });
-export const authorsQuery = () => queryOptions({ queryKey: ["authors", scope.brandId], queryFn: () => platform.taxonomy.authors(scope) });
+export const authorsQuery = () => queryOptions({
+  queryKey: ["authors", scope.brandId],
+  queryFn: async () => (await loadPlatform()).taxonomy.authors(scope),
+});
 
 // Search document assembly moved behind a lazy runtime boundary. The implementation there
 // preserves the article-readiness contract: document.kind !== "article" || indexableArticleHrefs.has(document.href)

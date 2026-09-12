@@ -2,17 +2,23 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { paintedChurchHeritageBySlug } from "@/data/painted-church-heritage";
-import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/explore/painted-churches/heritage/$slug")({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
+    const [
+      { paintedChurchHeritageBySlug },
+      { expandedPaintedChurches },
+    ] = await Promise.all([
+      import("@/data/painted-church-heritage"),
+      import("@/data/painted-churches-expanded"),
+    ]);
     const heritage = paintedChurchHeritageBySlug.get(params.slug);
     if (!heritage) throw notFound();
-    return { heritage };
+    const churches = expandedPaintedChurches.filter((church) => heritage.churchSlugs.includes(church.slug));
+    return { heritage, churches };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Painted Church heritage unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
@@ -38,8 +44,7 @@ export const Route = createFileRoute("/explore/painted-churches/heritage/$slug")
 });
 
 function HeritagePage() {
-  const { heritage } = Route.useLoaderData();
-  const churches = expandedPaintedChurches.filter((church) => heritage.churchSlugs.includes(church.slug));
+  const { heritage, churches } = Route.useLoaderData();
   return (
     <main>
       <section className="border-b border-border bg-surface">

@@ -3,12 +3,6 @@ import { createFileRoute } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { SportsVenueLandingIndex } from '@/components/sports/SportsVenueLandingIndex';
 import { Container } from '@/components/layout/Container';
-import {
-  SPORTS_VENUE_COMPARISON_LATEST_REVIEW,
-  SPORTS_VENUE_COMPARISON_ROWS,
-  SPORTS_VENUE_COMPARISON_WITH_CAPACITY,
-  SPORTS_VENUE_COMPARISON_WITH_OPENED,
-} from '@/data/sports-venue-comparison';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const siteUrl = 'https://texasdefined.com';
@@ -16,12 +10,22 @@ const canonicalPath = '/sports-venues/compare';
 const canonicalUrl = `${siteUrl}${canonicalPath}`;
 const csvUrl = `${siteUrl}/sports-venues/compare.csv`;
 const description = 'Compare 84 verified Texas sports venues by location, venue type, capacity and opening date where those details are available, then open the full visitor guide for each stadium, arena, ballpark, racetrack or sports destination.';
-const rows = SPORTS_VENUE_COMPARISON_ROWS;
-const withCapacity = SPORTS_VENUE_COMPARISON_WITH_CAPACITY;
-const withOpened = SPORTS_VENUE_COMPARISON_WITH_OPENED;
-const latestReview = SPORTS_VENUE_COMPARISON_LATEST_REVIEW;
 
 export const Route = createFileRoute('/sports-venues/compare')({
+  loader: async () => {
+    const {
+      SPORTS_VENUE_COMPARISON_LATEST_REVIEW,
+      SPORTS_VENUE_COMPARISON_ROWS,
+      SPORTS_VENUE_COMPARISON_WITH_CAPACITY,
+      SPORTS_VENUE_COMPARISON_WITH_OPENED,
+    } = await import('@/data/sports-venue-comparison');
+    return {
+      rows: SPORTS_VENUE_COMPARISON_ROWS,
+      withCapacity: SPORTS_VENUE_COMPARISON_WITH_CAPACITY,
+      withOpened: SPORTS_VENUE_COMPARISON_WITH_OPENED,
+      latestReview: SPORTS_VENUE_COMPARISON_LATEST_REVIEW,
+    };
+  },
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
@@ -34,6 +38,7 @@ export const Route = createFileRoute('/sports-venues/compare')({
 });
 
 function SportsVenueComparisonPage() {
+  const { rows, withCapacity, withOpened, latestReview } = Route.useLoaderData();
   const quickAnswers = [
     {
       question: 'How many Texas sports venues are in this comparison?',

@@ -2,22 +2,23 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
-import { entitiesByKind } from '@/data/knowledge-graph';
 import { applyCurrentEntityCorrections } from '@/data/knowledge-graph/current-entity-corrections';
 import { canonicalEntityPath, isIndexableEntityPage } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
-import {
-  matchesSportsVenueLanding,
-  SPORTS_VENUE_LANDINGS,
-  sportsVenueLanding,
-  type SportsVenueLanding,
-} from '@/data/sports-venue-landings';
+import type { SportsVenueLanding } from '@/data/sports-venue-landings';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const siteUrl = 'https://texasdefined.com';
 
 export const Route = createFileRoute('/sports-venues/$landing')({
   loader: async ({ params }) => {
+    const [
+      { matchesSportsVenueLanding, SPORTS_VENUE_LANDINGS, sportsVenueLanding },
+      { entitiesByKind },
+    ] = await Promise.all([
+      import('@/data/sports-venue-landings'),
+      import('@/data/knowledge-graph'),
+    ]);
     const landing = sportsVenueLanding(params.landing);
     if (!landing) throw notFound();
 
@@ -28,7 +29,12 @@ export const Route = createFileRoute('/sports-venues/$landing')({
       .sort((a, b) => venueSortKey(a).localeCompare(venueSortKey(b)) || a.name.localeCompare(b.name));
 
     if (!venues.length) throw notFound();
-    return { landing, venues };
+    return {
+      landing,
+      venues,
+      marketLandings: SPORTS_VENUE_LANDINGS.filter((item) => item.kind === 'market' && item.slug !== landing.slug),
+      themeLandings: SPORTS_VENUE_LANDINGS.filter((item) => item.kind === 'theme' && item.slug !== landing.slug),
+    };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
@@ -46,10 +52,8 @@ export const Route = createFileRoute('/sports-venues/$landing')({
 });
 
 function SportsVenueLandingPage() {
-  const { landing, venues } = Route.useLoaderData();
+  const { landing, venues, marketLandings, themeLandings } = Route.useLoaderData();
   const canonicalPath = `/sports-venues/${landing.slug}`;
-  const marketLandings = SPORTS_VENUE_LANDINGS.filter((item) => item.kind === 'market' && item.slug !== landing.slug);
-  const themeLandings = SPORTS_VENUE_LANDINGS.filter((item) => item.kind === 'theme' && item.slug !== landing.slug);
   const professional = venues.filter((venue) => venue.tags?.includes('professional')).length;
   const college = venues.filter((venue) => venue.tags?.includes('college')).length;
   const majorDraws = venues.filter((venue) => venue.tags?.includes('major-tourist-draw')).length;
