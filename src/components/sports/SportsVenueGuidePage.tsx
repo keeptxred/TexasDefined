@@ -116,6 +116,11 @@ export function SportsVenueGuidePage({
             <p className="mt-4 max-w-3xl text-lg leading-7 text-muted-foreground sm:text-xl">
               {guide.subtitle}
             </p>
+            {entity.description ? (
+              <p className="mt-5 max-w-4xl text-base leading-8 text-foreground/85 sm:text-lg">
+                {entity.description}
+              </p>
+            ) : null}
           </header>
 
           <div className="grid gap-6 border-b border-border pb-12 lg:grid-cols-[minmax(0,1fr)_22rem]">
