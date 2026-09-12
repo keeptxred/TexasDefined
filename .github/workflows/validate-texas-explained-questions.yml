@@ -1,0 +1,45 @@
+name: Validate Texas Explained Questions
+
+on:
+  pull_request:
+    paths:
+      - "src/data/texas-explained-questions.ts"
+      - "src/components/editorial/TexasExplainedQuestionsPage.tsx"
+      - "src/components/editorial/TexasExplainedPage.tsx"
+      - "src/routes/texas-explained_.questions.tsx"
+      - "src/routes/texas-explained.tsx"
+      - "src/lib/public-routes.ts"
+      - "scripts/data/validate-texas-explained-questions.mjs"
+      - "scripts/data/validate-texas-explained-seo.mjs"
+      - "scripts/data/validate-texas-explained-depth.mjs"
+      - "scripts/data/validate-texas-explained-river-profiles.mjs"
+      - "scripts/data/validate-texas-explained-reservoir-profiles.mjs"
+      - "scripts/data/validate-texas-explained-road-systems.mjs"
+      - ".github/workflows/validate-texas-explained-questions.yml"
+  push:
+    branches: [main]
+    paths:
+      - "src/data/texas-explained-questions.ts"
+      - "src/components/editorial/TexasExplainedQuestionsPage.tsx"
+      - "src/components/editorial/TexasExplainedPage.tsx"
+      - "src/routes/texas-explained_.questions.tsx"
+      - "src/routes/texas-explained.tsx"
+      - "src/lib/public-routes.ts"
+      - "scripts/data/validate-texas-explained-questions.mjs"
+      - "scripts/data/validate-texas-explained-seo.mjs"
+      - "scripts/data/validate-texas-explained-depth.mjs"
+      - "scripts/data/validate-texas-explained-river-profiles.mjs"
+      - "scripts/data/validate-texas-explained-reservoir-profiles.mjs"
+      - "scripts/data/validate-texas-explained-road-systems.mjs"
+      - ".github/workflows/validate-texas-explained-questions.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate question authority coverage
+        run: node scripts/data/validate-texas-explained-questions.mjs
