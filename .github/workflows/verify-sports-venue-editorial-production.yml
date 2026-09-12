@@ -1,0 +1,46 @@
+name: Verify sports venue editorial production
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/production/verify-sports-venue-editorial-production.mjs'
+      - '.github/workflows/verify-sports-venue-editorial-production.yml'
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-smoke-contract:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate production smoke syntax
+        run: node --check scripts/production/verify-sports-venue-editorial-production.mjs
+
+  verify-production:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify live county and AI sports venue editorial copy
+        env:
+          GITHUB_SHA: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+          TEXASDEFINED_BASE_URL: https://texasdefined.com
+        run: node scripts/production/verify-sports-venue-editorial-production.mjs
