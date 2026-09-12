@@ -76,7 +76,12 @@ function mapDataJson(html: string) {
   return JSON.parse(script[1].trim()) as unknown;
 }
 
-export function parseWhataburgerTexasDirectory(html: string, sourceUrl = "https://locations.whataburger.com/tx.html") {
+function parseYextTexasDirectory(
+  html: string,
+  sourceUrl: string,
+  fallbackName: string,
+  fallbackIdPrefix: string,
+) {
   const payload = asRecord(mapDataJson(html));
   const response = asRecord(payload.response);
   const entities = Array.isArray(response.entities) ? response.entities : [];
@@ -104,14 +109,14 @@ export function parseWhataburgerTexasDirectory(html: string, sourceUrl = "https:
     const city = stringValue(addressObject.city, addressObject.locality, profile.city);
     const postalCode = stringValue(addressObject.postalCode, addressObject.zip, profile.postalCode, profile.zip);
     const state = region || "TX";
-    const name = stringValue(profile.name, profile.locationName, meta.name) ?? "Whataburger";
+    const name = stringValue(profile.name, profile.locationName, meta.name) ?? fallbackName;
     const address = [street, city, state && postalCode ? `${state} ${postalCode}` : state || postalCode]
       .filter(Boolean)
       .join(", ");
     if (!address) return [];
 
     const entityUrl = stringValue(entity.url, profile.websiteUrl, profile.website);
-    const id = stringValue(meta.id, profile.id, entity.id) ?? `whataburger-directory-${index + 1}`;
+    const id = stringValue(meta.id, profile.id, entity.id) ?? `${fallbackIdPrefix}-directory-${index + 1}`;
     return [{
       id,
       name,
@@ -123,6 +128,14 @@ export function parseWhataburgerTexasDirectory(html: string, sourceUrl = "https:
       sourceUrl: absoluteSourceUrl(entityUrl, sourceUrl),
     }];
   });
+}
+
+export function parseWhataburgerTexasDirectory(html: string, sourceUrl = "https://locations.whataburger.com/tx.html") {
+  return parseYextTexasDirectory(html, sourceUrl, "Whataburger", "whataburger");
+}
+
+export function parseKolacheFactoryTexasDirectory(html: string, sourceUrl = "https://locations.kolachefactory.com/tx") {
+  return parseYextTexasDirectory(html, sourceUrl, "Kolache Factory", "kolache-factory");
 }
 
 function decodeHtmlText(value: string) {
@@ -235,6 +248,11 @@ const DIRECTORY_ADAPTERS: Record<TexasBrandLocatorOfficialDirectoryBrand, Direct
       return `https://shipleydonuts.com/locations?lat=${encodeURIComponent(lat)}&lng=${encodeURIComponent(lng)}`;
     },
     parser: parseShipleyNearbyDirectory,
+  },
+  "kolache-factory": {
+    sourceUrl: "https://locations.kolachefactory.com/tx",
+    sourceLabel: "Kolache Factory official Texas location directory",
+    parser: parseKolacheFactoryTexasDirectory,
   },
 };
 
