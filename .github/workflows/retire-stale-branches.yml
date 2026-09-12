@@ -37,6 +37,7 @@ jobs:
             "cleanup/retire-completed-county-certifiers-20260822-v2"
             "retire-live-lake-diagnostic"
             "cleanup/final-housekeeping-deploy-proof-20260825"
+            "agent/rv-wave3-state-park-delivery"
           )
 
           main_sha="$(gh api "repos/$REPOSITORY/git/ref/heads/main" --jq '.object.sha')"
