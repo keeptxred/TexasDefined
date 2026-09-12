@@ -3,8 +3,9 @@ import { test } from "node:test";
 
 import { VIATOR_EXPERIENCE_CATEGORIES, VIATOR_TEXAS_MARKETS, getViatorMarket } from "../viator-experiences.ts";
 
-test("Viator Texas catalog covers the major statewide travel markets", () => {
-  assert.ok(VIATOR_TEXAS_MARKETS.length >= 20);
+test("Viator Texas catalog keeps the approved statewide market and experience-lane coverage", () => {
+  assert.equal(VIATOR_TEXAS_MARKETS.length, 25);
+  assert.equal(VIATOR_EXPERIENCE_CATEGORIES.length, 12);
   for (const slug of ["austin", "san-antonio", "dallas", "fort-worth", "houston", "galveston", "fredericksburg", "corpus-christi", "south-padre-island", "big-bend-terlingua", "el-paso", "amarillo-palo-duro"]) {
     assert.ok(getViatorMarket(slug), `Missing statewide experience market: ${slug}`);
   }
