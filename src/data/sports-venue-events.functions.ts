@@ -15,10 +15,12 @@ export const getSportsVenueUpcomingEvents = createServerFn({ method: "POST" })
       { loadUpcomingTexasEventRecordsServer },
       { buildTexasEventCarouselItemsServer },
       { getSportsVenuePhoto },
+      { imageReferencesMatch },
     ] = await Promise.all([
       import("./events/texas-event-records.server"),
       import("./events/texas-event-calendar.server"),
-      import("./sports-venue-images"),
+      import("./sports-venue-images-all"),
+      import("./image-reference-identity"),
     ]);
     const venueId = `sports-venue:${data.slug}`;
     const records = loadUpcomingTexasEventRecordsServer({ venueId, limit: 9 });
@@ -26,7 +28,11 @@ export const getSportsVenueUpcomingEvents = createServerFn({ method: "POST" })
     const events = buildTexasEventCarouselItemsServer(records).map((event) => {
       if (!photo || !event.image) return event;
       const repeatsVenueHero = event.image.url === photo.imageUrl
-        || event.image.sourceUrl === photo.sourcePage;
+        || event.image.sourceUrl === photo.sourcePage
+        || imageReferencesMatch(
+          [event.image.url, event.image.sourceUrl],
+          [photo.imageUrl, photo.sourcePage],
+        );
       if (!repeatsVenueHero) return event;
       const { image: _venueHeroFallback, ...eventWithoutVenueHeroFallback } = event;
       return eventWithoutVenueHeroFallback;

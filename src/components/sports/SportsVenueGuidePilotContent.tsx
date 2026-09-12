@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 
 import type { TexasEventCarouselItem } from "@/components/editorial/TexasEventCarousel";
+import { imageReferencesMatch } from "@/data/image-reference-identity";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
 import { getSportsVenueEnrichmentAll } from "@/data/sports-venue-enrichment-all";
 import { getSportsVenueGuideGalaxy } from "@/data/sports-venue-guide-galaxy";
@@ -68,6 +69,10 @@ export default function SportsVenueGuidePilotContent({
         if (
           event.image?.url !== photo.imageUrl
           && event.image?.sourceUrl !== photo.sourcePage
+          && !imageReferencesMatch(
+            [event.image?.url, event.image?.sourceUrl],
+            [photo.imageUrl, photo.sourcePage],
+          )
         ) return event;
         const { image: _duplicateVenueImage, ...eventWithoutDuplicateVenueImage } = event;
         return eventWithoutDuplicateVenueImage;
