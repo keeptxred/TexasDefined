@@ -47,6 +47,14 @@ export const TEXAS_BRAND_LOCATOR_REGISTRY = {
     fallbackLabel: "Open Whataburger's official location finder",
     storeNamePattern: null,
   },
+  academy: {
+    label: "Academy Sports + Outdoors",
+    provider: "verified-registry",
+    queryPattern: /\bacademy(?:\s+sports(?:\s*\+\s*outdoors|\s+and\s+outdoors)?)?\b/i,
+    officialLocatorUrl: "https://www.academy.com/storelocator/texas",
+    fallbackLabel: "Open Academy Sports + Outdoors' official Texas store directory",
+    storeNamePattern: null,
+  },
   shipley: {
     label: "Shipley Do-Nuts",
     provider: "official-directory",

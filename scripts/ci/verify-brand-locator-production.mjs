@@ -79,17 +79,19 @@ await fetchText('/things-unique-to-texas/texas-brands', [
 ]);
 await fetchText('/texas-brand-locator.js', [
   '/api/texas-brand-locator',
-  "Find H-E-B, Buc-ee's, Whataburger, Shipley, Kolache Factory and H-E-B family stores",
+  "Find H-E-B, Buc-ee's, Whataburger, Academy, Shipley, Kolache Factory and H-E-B family stores",
   'central-market',
   'joe-vs',
   'mi-tienda',
   'whataburger',
+  'academy',
   'shipley',
   'kolache-factory',
   "Whataburger's official Texas location directory",
+  'official Buc-ee\'s and Academy Texas directories',
   "Shipley Do-Nuts' official nearby-location finder",
   "Kolache Factory's official Texas location directory",
 ]);
 await verifyLocatorApi();
 
-console.log('Texas brand locator production smoke passed (page mount, H-E-B-family, Buc-ee\'s, Whataburger, Shipley and Kolache Factory choices, deferred script, and Buc-ee\'s lookup).');
+console.log('Texas brand locator production smoke passed (page mount, H-E-B-family, Buc-ee\'s, Whataburger, Academy, Shipley and Kolache Factory choices, deferred script, and Buc-ee\'s lookup).');
