@@ -9,6 +9,7 @@ on:
       - 'src/data/sports-venue-images-additions-wave3.ts'
       - 'src/data/sports-venue-images-additions-wave4.ts'
       - 'src/data/sports-venue-images-additions-wave5.ts'
+      - 'src/data/sports-venue-images-additions-wave6.ts'
       - 'src/data/sports-venue-images-all.ts'
       - 'src/components/sports/SportsVenueGuidePilotContent.tsx'
       - 'src/components/sports/SportsVenueGuidePage.tsx'
