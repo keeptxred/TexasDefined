@@ -1,0 +1,63 @@
+name: Verify cavern production integrity
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/public-cavern-destinations.ts'
+      - 'src/data/destination-query-runtime.ts'
+      - 'src/data/destination-curation-*.ts'
+      - 'src/data/destination-availability.ts'
+      - 'src/routes/destination.$slug.tsx'
+      - 'src/routes/destination.*.tsx'
+      - 'src/routes/sitemap-explore[.]xml.ts'
+      - 'src/lib/public-routes.ts'
+      - 'scripts/ci/validate-cavern-production-integrity-contract.mjs'
+      - 'scripts/ci/verify-cavern-production-integrity.mjs'
+      - '.github/workflows/verify-cavern-production-integrity.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/data/public-cavern-destinations.ts'
+      - 'src/data/destination-query-runtime.ts'
+      - 'src/data/destination-curation-*.ts'
+      - 'src/data/destination-availability.ts'
+      - 'src/routes/destination.$slug.tsx'
+      - 'src/routes/destination.*.tsx'
+      - 'src/routes/sitemap-explore[.]xml.ts'
+      - 'src/lib/public-routes.ts'
+      - 'scripts/ci/validate-cavern-production-integrity-contract.mjs'
+      - 'scripts/ci/verify-cavern-production-integrity.mjs'
+      - '.github/workflows/verify-cavern-production-integrity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cavern-production-integrity-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate cavern sitemap and production-check contract
+        run: node scripts/ci/validate-cavern-production-integrity-contract.mjs
+
+  production:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify cavern sitemap and restored destination pages
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-cavern-production-integrity.mjs
