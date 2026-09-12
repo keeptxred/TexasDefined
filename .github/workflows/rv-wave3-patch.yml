@@ -46,6 +46,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          : > rv-wave3-blobs.txt
           for path in \
             src/data/rv-parks/registry.server.ts \
             scripts/ci/verify-rv-production.mjs \
@@ -53,5 +54,16 @@ jobs:
             .github/workflows/validate-rv-parks-authority.yml
           do
             sha=$(jq -Rs '{content: ., encoding: "utf-8"}' "$path" | gh api --method POST "repos/${GITHUB_REPOSITORY}/git/blobs" --input - --jq '.sha')
-            echo "BLOB $path $sha"
+            echo "BLOB $path $sha" | tee -a rv-wave3-blobs.txt
           done
+      - name: Upload exact validated RV wave 3 files
+        uses: actions/upload-artifact@v4
+        with:
+          name: rv-wave3-validated-files
+          retention-days: 1
+          path: |
+            rv-wave3-blobs.txt
+            src/data/rv-parks/registry.server.ts
+            scripts/ci/verify-rv-production.mjs
+            scripts/data/validate-rv-curated-public-wave3.mjs
+            .github/workflows/validate-rv-parks-authority.yml
