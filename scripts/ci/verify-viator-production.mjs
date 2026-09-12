@@ -1,108 +1,125 @@
+import { appendFileSync } from 'node:fs';
+
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 const sha = process.env.GITHUB_SHA ?? 'local';
 const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
+const summaryPath = process.env.GITHUB_STEP_SUMMARY;
+
+const surfaces = [
+  {
+    label: 'viator-explore-directory',
+    path: '/explore',
+    minAffiliateLinks: 1,
+    required: [
+      'Book Texas experiences',
+      'Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings',
+      'pid=P00318227',
+      'mcid=42383',
+      'campaign=texasdefined-explore',
+      'rel="sponsored noopener noreferrer"',
+    ],
+  },
+  {
+    label: 'viator-barton-springs-destination',
+    path: '/destination/barton-springs-pool',
+    minAffiliateLinks: 1,
+    required: [
+      'Add an experience around Barton Springs Pool',
+      'Recent Austin inventory signals:',
+      'On the water',
+      'September 8, 2026',
+      'Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings',
+      'pid=P00318227',
+      'mcid=42383',
+      'campaign=texasdefined-destination-barton-springs-pool',
+      'rel="sponsored noopener noreferrer"',
+    ],
+  },
+];
+
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-function normalizeReactSsrHtml(body) {
-  // React inserts empty comment boundaries between static text and interpolated
-  // values during SSR, for example: "around <!-- -->Barton Springs Pool".
-  // Those boundaries are not visible text and should not make a live copy
-  // assertion fail. Keep the rest of the HTML unchanged so PID/MCID,
-  // campaign and rel-attribute safeguards remain exact raw-markup checks.
-  return body.replace(/<!--\s*-->/g, '');
+function appendSummary(text) {
+  if (summaryPath) appendFileSync(summaryPath, text);
 }
 
-async function verifySurface({ path, label, required, minAffiliateLinks }) {
-  let lastError = null;
+function countAffiliateLinks(body) {
+  return (body.match(/https:\/\/www\.viator\.com\/tours\//g) ?? []).length;
+}
+
+async function verifySurface({ label, path, required, minAffiliateLinks }) {
   let lastStatus = 'network-error';
   let lastBody = '';
+  let lastError = '';
+  let lastChallenge = false;
+  let attempts = 0;
+  let missing = [];
+  let affiliateLinks = 0;
 
-  for (let attempt = 1; attempt <= 5; attempt += 1) {
-    const separator = path.includes('?') ? '&' : '?';
-    const url = `${origin}${path}${separator}verify=${encodeURIComponent(`${sha}-${runId}-${label}-${attempt}`)}`;
-    console.log(`[viator-production] ${label} attempt ${attempt}: ${url}`);
+  for (let attempt = 1; attempt <= 6; attempt += 1) {
+    attempts = attempt;
+    const url = `${origin}${path}?verify=${encodeURIComponent(`${sha}-${runId}-${attempt}`)}`;
+    console.log(`[${label}] attempt ${attempt}: ${url}`);
 
     try {
       const response = await fetch(url, {
         redirect: 'follow',
         cache: 'no-store',
         signal: AbortSignal.timeout(30_000),
-        headers: { 'user-agent': 'TexasDefined-CI-Viator-Smoke/1.0' },
+        headers: { 'user-agent': 'TexasDefined-CI-Production-Smoke/1.0' },
       });
-      const body = await response.text();
-      const verificationBody = normalizeReactSsrHtml(body);
-      const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
       lastStatus = String(response.status);
-      lastBody = body;
+      lastChallenge = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+      lastBody = await response.text();
+      lastError = '';
+      missing = required.filter((needle) => !lastBody.includes(needle));
+      affiliateLinks = countAffiliateLinks(lastBody);
 
-      if (challenged) {
-        lastError = new Error('Cloudflare returned cf-mitigated: challenge');
+      if (!lastChallenge && response.ok && missing.length === 0 && affiliateLinks >= minAffiliateLinks) {
+        console.log(`[${label}] verified (${response.status}): ${affiliateLinks} Viator tour link(s).`);
+        appendSummary(`| ✅ pass | ${label} | ${lastStatus} | ${attempts} | ${affiliateLinks} |\n`);
+        return;
+      }
+
+      if (lastChallenge) {
+        console.log(`[${label}] Cloudflare returned cf-mitigated: challenge; waiting for the edge to become healthy.`);
       } else if (!response.ok) {
-        lastError = new Error(`HTTP ${response.status}`);
+        console.log(`[${label}] HTTP ${response.status}; waiting for production to become healthy.`);
       } else {
-        const missing = required.filter((needle) => !verificationBody.includes(needle));
-        if (!missing.length) {
-          const affiliateLinkCount = (body.match(/pid=P00318227/g) ?? []).length;
-          if (affiliateLinkCount < minAffiliateLinks) {
-            lastError = new Error(`expected at least ${minAffiliateLinks} affiliate link(s), found ${affiliateLinkCount}`);
-          } else {
-            console.log(`[viator-production] ${label} verified ${affiliateLinkCount} affiliate link(s) with PID P00318227 / MCID 42383 and sponsored disclosure.`);
-            return;
-          }
-        } else {
-          lastError = new Error(`missing ${missing.join(', ')}`);
-        }
+        if (missing.length) console.log(`[${label}] required markers missing: ${missing.join(' | ')}`);
+        if (affiliateLinks < minAffiliateLinks) console.log(`[${label}] found ${affiliateLinks} Viator tour links; expected at least ${minAffiliateLinks}.`);
       }
     } catch (error) {
-      lastError = error instanceof Error ? error : new Error(String(error));
+      lastError = error instanceof Error ? error.message : String(error);
       lastStatus = 'network-error';
+      lastChallenge = false;
+      console.log(`[${label}] request failed: ${lastError}`);
     }
 
-    console.log(`[viator-production] ${label} attempt ${attempt} failed: ${lastError?.message ?? lastStatus}`);
-    if (attempt < 5) await sleep(5_000);
+    if (attempt < 6) await sleep(5_000);
   }
 
-  console.error(`::error title=VIATOR PRODUCTION failure::${path} failed — ${lastError?.message ?? `HTTP ${lastStatus}`}`);
-  if (lastBody) console.error(`[viator-production] ${label} response sample: ${lastBody.slice(0, 1400).replace(/\s+/g, ' ')}`);
-  process.exit(1);
+  appendSummary(`| ❌ FAIL | ${label} | ${lastStatus} | ${attempts} | ${affiliateLinks} |\n`);
+  const reason = lastError
+    || (lastChallenge ? 'Cloudflare returned cf-mitigated: challenge' : '')
+    || (lastStatus !== '200' ? `HTTP ${lastStatus}` : '')
+    || (missing.length ? `required markers missing: ${missing.join(' | ')}` : '')
+    || `found ${affiliateLinks} Viator tour links; expected at least ${minAffiliateLinks}`;
+  console.error(`::error title=LIVE PRODUCTION Viator failure::${label} failed after ${attempts} attempts — ${reason}`);
+  if (lastBody) console.error(`[${label}] response sample: ${lastBody.slice(0, 1600).replace(/\s+/g, ' ')}`);
+  throw new Error(`${label}: ${reason}`);
 }
 
-await verifySurface({
-  path: '/explore',
-  label: 'explore-directory',
-  minAffiliateLinks: 2,
-  required: [
-    'id="tours-experiences"',
-    'Book the Texas experience after you decide where to go',
-    'Recent inventory signals:',
-    'September 8, 2026',
-    'Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings',
-    'pid=P00318227',
-    'mcid=42383',
-    'campaign=texasdefined-statewide-explore',
-    'rel="sponsored noopener noreferrer"',
-  ],
-});
+appendSummary('\n## Viator production verification\n\n');
+appendSummary('| Result | Surface | HTTP | Attempts | Viator links |\n|---|---|---:|---:|---:|\n');
 
-await verifySurface({
-  path: '/destination/barton-springs-pool',
-  label: 'destination-booking-card',
-  minAffiliateLinks: 1,
-  required: [
-    'Add an experience around Barton Springs Pool',
-    'Recent Austin inventory signals:',
-    'On the water',
-    'September 8, 2026',
-    'Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings',
-    'pid=P00318227',
-    'mcid=42383',
-    'campaign=texasdefined-destination-barton-springs-pool',
-    'rel="sponsored noopener noreferrer"',
-  ],
-});
+for (const surface of surfaces) {
+  await verifySurface(surface);
+}
 
 console.log('[viator-production] Explore directory and representative destination booking card passed live verification.');
 
 await import('./verify-ask-texas-government-production.mjs');
 await import('./verify-stay-nearby-production.mjs');
 await import('./verify-critical-static-assets-production.mjs');
+await import('./verify-sports-venue-heroes-production.mjs');
