@@ -31,6 +31,7 @@ const texasFlagRouteSource = fs.readFileSync(path.join(root, 'src/routes/texas-f
 const prioritySearchSeoSource = fs.readFileSync(path.join(root, 'src/lib/priority-search-seo.ts'), 'utf8');
 const prioritySearchPagesSource = fs.readFileSync(path.join(root, 'src/data/priority-search-pages.ts'), 'utf8');
 const texasExplainedRouteSource = fs.readFileSync(path.join(root, 'src/routes/texas-explained.tsx'), 'utf8');
+const texasExplainedPageSource = fs.readFileSync(path.join(root, 'src/components/editorial/TexasExplainedPage.tsx'), 'utf8');
 const texasExplainedSeoValidatorSource = fs.readFileSync(path.join(root, 'scripts/data/validate-texas-explained-seo.mjs'), 'utf8');
 const requiredDiscoveryTargets = [
   '/api/knowledge-graph',
@@ -327,9 +328,11 @@ for (const feature of [
   'createFileRoute("/texas-explained")',
   'buildEditorialCollectionHead',
   'collectionName: "Texas Explained"',
-  'const pillarSlugs = [',
 ]) {
   if (!texasExplainedRouteSource.includes(feature)) errors.push(`Texas Explained collection contract missing: ${feature}`);
+}
+if (!texasExplainedPageSource.includes('const pillarSlugs = [')) {
+  errors.push('Texas Explained lazy-page collection registry missing: const pillarSlugs = [');
 }
 for (const feature of [
   'sourceName: "Texas Water Development Board"',

@@ -5,7 +5,7 @@ const stubs = read('src/data/fixtures/texas-explained-river-profile-stubs.ts');
 const articles = read('src/data/fixtures/texas-explained-river-profiles.ts');
 const pillar = read('src/data/fixtures/texas-rivers-explained.ts');
 const lazy = read('src/data/fixtures/lazy-evergreen.ts');
-const hub = read('src/routes/texas-explained.tsx');
+const hub = `${read('src/routes/texas-explained.tsx')}\n${read('src/components/editorial/TexasExplainedPage.tsx')}`;
 const topology = read('src/data/fixtures/newest-evergreen.ts');
 const errors = [];
 
