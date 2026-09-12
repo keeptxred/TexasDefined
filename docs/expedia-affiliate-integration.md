@@ -27,13 +27,15 @@ The Expedia vendor script itself is never loaded during the initial page load. I
 - city / visitor-area context
 - optional **verified** coordinates for future geographic ranking
 - provider-agnostic `bookingTargets`
-- optional rights-qualified property imagery
+- optional rights-qualified real property imagery
 - one or more contextual relationships for `venue`, `event`, `destination` or `city`
 - deterministic relevance rank
 - user-facing geographic context
 - a proximity statement only when backed by the attached source
 - a short supported differentiator
 - source URL and verification date
+
+`public/stay-nearby-ai-property-images.json` is the governed fallback registry for exact-property AI raster imagery. It is separate from the relevance registry so visual provenance and image policy can be validated independently.
 
 The bootstrap exposes:
 
@@ -78,15 +80,17 @@ The curated surface uses native horizontal scrolling with scroll snap:
 
 The card remains intentionally spare: hotel name, useful geographic context, sourced proximity where available, one supported differentiator, and either a verified property affiliate CTA or the Expedia-search fallback. TexasDefined does not cache or display nightly pricing.
 
-## Initial venue pilots
+## Current curated venue contexts
 
-The first registry version contains exactly three curated choices for each of:
+The governed registry currently contains exactly three curated hotel choices for each of:
 
 - `/sports-venue/amon-g-carter-stadium`
 - `/sports-venue/gerald-j-ford-stadium`
 - `/sports-venue/globe-life-field`
+- `/sports-venue/american-airlines-center`
+- `/sports-venue/texas-motor-speedway`
 
-The ranking is explicit and source-backed. These pilot entries intentionally do not contain fabricated venue coordinates or inferred walking/driving distances.
+The ranking is explicit and source-backed. These entries do not fabricate venue coordinates or inferred walking/driving distances. Broad venue fallback remains disabled, so a venue without an explicit curated relationship does not inherit a generic city hotel list.
 
 ## Property affiliate deep links
 
@@ -106,14 +110,19 @@ Until a verified account-generated property link is placed in the registry, the 
 
 Do not scrape or hotlink Google Images, hotel sites, Expedia pages, Tripadvisor, Booking.com, social media or other third-party pages.
 
-For the current Expedia program, property imagery may be used only under the provider's property-referral terms. The integration therefore requires all of the following before a property image can render:
+Stay Nearby uses a fail-closed image hierarchy:
 
-1. the asset was obtained through the approved Expedia Creator Toolbox workflow
-2. the image is stored as a first-party TexasDefined asset rather than a remote scrape/hotlink
-3. registry metadata marks `rightsSource: "expedia-creator-toolbox"`
-4. `bookingProvider` matches a verified property-specific affiliate target for that hotel
+1. **Approved real property image.** For the current Expedia program, a real hotel photograph may render only when it was obtained through the approved Expedia Creator Toolbox workflow, is stored as a first-party TexasDefined asset, carries `rightsSource: "expedia-creator-toolbox"`, and its `bookingProvider` matches a verified property-specific affiliate target for that same hotel.
+2. **Exact-property AI raster.** When an approved real property image is unavailable, TexasDefined may render a first-party AI-generated depiction of the exact listed hotel. The record must identify the exact property and street address, be grounded to a manually verified exact-property visual reference, set `depictsProperty` and `generatedFromPropertyIdentity` to `true`, use a first-party path under `/images/stay-nearby/properties/`, and use PNG, JPEG or WebP media.
+3. **Text-only fallback.** If neither image source passes its gate, the card remains text-only.
 
-If any requirement is missing, the carousel renders an intentional text-based geographic fallback panel. The initial nine pilot cards use that fallback because no account-generated property links or approved downloaded property images are currently stored in the repository.
+SVG, SVG data URIs, generic hotel art, neighborhood-only illustrations and the retired area-illustration fallback are prohibited. AI property depictions display the disclosure:
+
+`AI-generated depiction of this property — not an official hotel photograph.`
+
+AI alt text must identify the image as AI-generated and must be property-specific. A rights-cleared real property image always takes precedence over an AI depiction when both are valid.
+
+The current governed set has 15 distinct first-party exact-property AI raster assets covering the five curated venue contexts. Future properties must pass the same real-image or exact-property-AI gate rather than introducing a generic visual fallback.
 
 ## Current placement
 
@@ -138,10 +147,10 @@ Every rendered Expedia / Stay Nearby surface includes:
 
 ## Performance behavior
 
-- `/expedia-travel.js` and `/stay-nearby-hotels.json` are static public assets, outside the protected React main-bundle byte count.
+- `/expedia-travel.js`, `/stay-nearby-hotels.json`, `/stay-nearby-context-images.js` and `/stay-nearby-ai-property-images.json` are static public assets, outside the protected React main-bundle byte count.
 - The hotel registry is fetched only for recognized contextual page types.
 - Expedia's third-party JavaScript remains user-intent loaded.
-- No hotel image is fetched when the rights gate fails because the fallback contains no image URL.
+- Property imagery is selected only after its rights/provenance gate passes; invalid or missing image records fail closed to text.
 - SPA route changes remain centrally handled.
 
 ## Regression protection
@@ -151,14 +160,19 @@ Every rendered Expedia / Stay Nearby surface includes:
 - SSR-only first-party bootstrap loading
 - exact approved Expedia widget tracking values
 - click-triggered third-party loading
-- required disclosure
+- required affiliate disclosure
 - route and comparison-page guards
 - the reusable Stay Nearby interface
 - three-card desktop carousel behavior and keyboard/touch accessibility hooks
-- three deterministic pilot choices per requested venue
+- three deterministic choices for each governed venue context
 - source evidence for every contextual hotel relationship
 - no unverified property affiliate URLs
-- no remote/uncleared property images
+- no remote or uncleared real property images
+- exact-property AI provenance and property-address requirements
+- PNG/JPEG/WebP-only AI property media, including file-signature checks
+- no SVG or legacy generic area-illustration fallback paths
 - no synthetic nightly-price or estimated-distance fields
 
-The validator remains delegated through `validate-seo-ci-contract.mjs`, so normal repository validation exercises the integration.
+`scripts/ci/verify-stay-nearby-production.mjs` applies the corresponding live-production checks to the five curated venue integrations, including the expected hotel sets, image MIME types/signatures, exact-property provenance and rejection of legacy generic/SVG markers.
+
+The static validator remains delegated through `validate-seo-ci-contract.mjs`, so normal repository validation exercises the integration.
