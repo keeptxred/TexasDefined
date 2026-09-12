@@ -1,32 +1,32 @@
-import { LOCAL_PROPERTY_TAX_PROFILES } from '@/data/local-property-tax-calculators';
-
 export type CountyCalculatorTarget = {
   href: string;
   kind: 'local' | 'statewide';
   follow: boolean;
 };
 
-const localCountyProfiles = LOCAL_PROPERTY_TAX_PROFILES.filter((profile) =>
-  profile.defaultCountySlug
-  && profile.counties.length === 1
-  && profile.counties[0]?.slug === profile.defaultCountySlug
-  && profile.name.endsWith(' County'),
-);
+export const MAJOR_COUNTY_PROPERTY_TAX_CALCULATORS = [
+  { countySlug: 'harris', countyName: 'Harris County', calculatorPath: '/property-tax-calculator/harris-county' },
+  { countySlug: 'dallas', countyName: 'Dallas County', calculatorPath: '/property-tax-calculator/dallas-county' },
+  { countySlug: 'tarrant', countyName: 'Tarrant County', calculatorPath: '/property-tax-calculator/tarrant-county' },
+  { countySlug: 'bexar', countyName: 'Bexar County', calculatorPath: '/property-tax-calculator/bexar-county' },
+  { countySlug: 'travis', countyName: 'Travis County', calculatorPath: '/property-tax-calculator/travis-county' },
+  { countySlug: 'collin', countyName: 'Collin County', calculatorPath: '/property-tax-calculator/collin-county' },
+  { countySlug: 'denton', countyName: 'Denton County', calculatorPath: '/property-tax-calculator/denton-county' },
+  { countySlug: 'fort-bend', countyName: 'Fort Bend County', calculatorPath: '/property-tax-calculator/fort-bend-county' },
+  { countySlug: 'montgomery', countyName: 'Montgomery County', calculatorPath: '/property-tax-calculator/montgomery-county' },
+  { countySlug: 'williamson', countyName: 'Williamson County', calculatorPath: '/property-tax-calculator/williamson-county' },
+  { countySlug: 'el-paso', countyName: 'El Paso County', calculatorPath: '/property-tax-calculator/el-paso-county' },
+  { countySlug: 'hidalgo', countyName: 'Hidalgo County', calculatorPath: '/property-tax-calculator/hidalgo-county' },
+] as const;
 
 const localCountyCalculatorBySlug = new Map(
-  localCountyProfiles.map((profile) => [profile.defaultCountySlug, profile] as const),
+  MAJOR_COUNTY_PROPERTY_TAX_CALCULATORS.map((profile) => [profile.countySlug, profile] as const),
 );
-
-export const MAJOR_COUNTY_PROPERTY_TAX_CALCULATORS = localCountyProfiles.map((profile) => ({
-  countySlug: profile.defaultCountySlug,
-  countyName: profile.name,
-  calculatorPath: profile.path,
-}));
 
 export function countyPropertyTaxCalculatorTarget(countySlug: string): CountyCalculatorTarget {
   const normalized = countySlug.trim().toLowerCase();
   const local = localCountyCalculatorBySlug.get(normalized);
-  if (local) return { href: local.path, kind: 'local', follow: true };
+  if (local) return { href: local.calculatorPath, kind: 'local', follow: true };
 
   return {
     href: `/texas-property-tax-estimator?county=${encodeURIComponent(normalized)}`,
