@@ -6,10 +6,12 @@ import { dirname } from 'node:path';
 
 const ACADEMY_TEXAS_DIRECTORY = 'https://www.academy.com/storelocator/texas';
 const CENSUS_BATCH_ENDPOINT = 'https://geocoding.geo.census.gov/geocoder/locations/addressbatch';
+const CENSUS_SINGLE_ENDPOINT = 'https://geocoding.geo.census.gov/geocoder/locations/onelineaddress';
 const USER_AGENT = 'TexasDefined Academy location seed generator (+https://texasdefined.com/)';
 const REQUEST_TIMEOUT_MS = 20_000;
 const REQUEST_ATTEMPTS = 3;
-const CONCURRENCY = 8;
+const CONCURRENCY = 2;
+const REQUEST_DELAY_MS = 300;
 const MIN_EXPECTED_TEXAS_STORES = 110;
 
 function decodeHtml(value) {
@@ -80,7 +82,7 @@ function jsonLdObjects(html) {
         if (Array.isArray(value['@graph'])) queue.push(...value['@graph']);
       }
     } catch {
-      // A malformed unrelated JSON-LD block should not block the fallback parser.
+      // Ignore malformed unrelated JSON-LD and keep parsing the first-party page.
     }
   }
   return objects;
@@ -98,6 +100,32 @@ function numberValue(...values) {
   return undefined;
 }
 
+function validTexasPoint(latitude, longitude) {
+  return Number.isFinite(latitude) && Number.isFinite(longitude)
+    && latitude >= 25.5 && latitude <= 36.6
+    && longitude >= -106.7 && longitude <= -93.4;
+}
+
+export function parseEmbeddedCoordinates(html) {
+  const decoded = decodeHtml(html);
+  const patterns = [
+    /["']latitude["']\s*:\s*(-?\d+(?:\.\d+)?)[\s\S]{0,240}?["']longitude["']\s*:\s*(-?\d+(?:\.\d+)?)/gi,
+    /["']longitude["']\s*:\s*(-?\d+(?:\.\d+)?)[\s\S]{0,240}?["']latitude["']\s*:\s*(-?\d+(?:\.\d+)?)/gi,
+    /["']lat["']\s*:\s*(-?\d+(?:\.\d+)?)[\s\S]{0,160}?["'](?:lng|lon|long)["']\s*:\s*(-?\d+(?:\.\d+)?)/gi,
+    /["'](?:lng|lon|long)["']\s*:\s*(-?\d+(?:\.\d+)?)[\s\S]{0,160}?["']lat["']\s*:\s*(-?\d+(?:\.\d+)?)/gi,
+  ];
+  for (let index = 0; index < patterns.length; index += 1) {
+    for (const match of decoded.matchAll(patterns[index])) {
+      const first = Number(match[1]);
+      const second = Number(match[2]);
+      const latitude = index % 2 === 0 ? first : second;
+      const longitude = index % 2 === 0 ? second : first;
+      if (validTexasPoint(latitude, longitude)) return { latitude, longitude };
+    }
+  }
+  return null;
+}
+
 function storeNumberFromUrl(sourceUrl) {
   const match = sourceUrl.match(/\/store-(\d+)$/i);
   if (!match) throw new Error(`Academy store URL has no stable store number: ${sourceUrl}`);
@@ -106,19 +134,17 @@ function storeNumberFromUrl(sourceUrl) {
 
 function fallbackAddress(html, sourceUrl) {
   const lines = stripTags(html);
-  for (let index = 1; index < Math.min(lines.length, 160); index += 1) {
+  for (let index = 1; index < Math.min(lines.length, 180); index += 1) {
     const cityLine = lines[index].match(/^(.+?),\s*TX(?:\s*\(Texas\))?\s+(\d{5})(?:-\d{4})?$/i);
     if (!cityLine) continue;
     const street = lines[index - 1];
-    if (!street || /^(?:Academy Sports|Open|Closed|Main Number|Call Now)$/i.test(street)) continue;
+    if (!street || /^(?:Academy Sports(?: \+ Outdoors)?|Open|Closed|Main Number|Call Now)$/i.test(street)) continue;
     return {
       street,
       city: cityLine[1].trim(),
       state: 'TX',
       postalCode: cityLine[2],
       name: `Academy Sports + Outdoors — ${cityLine[1].trim()}`,
-      latitude: undefined,
-      longitude: undefined,
       sourceUrl,
     };
   }
@@ -131,6 +157,7 @@ export function parseAcademyStorePage(html, sourceUrl) {
     throw new Error(`Refusing non-Academy Texas store URL: ${sourceUrl}`);
   }
 
+  const embeddedPoint = parseEmbeddedCoordinates(html);
   for (const object of jsonLdObjects(html)) {
     const address = object.address && typeof object.address === 'object' ? object.address : null;
     if (!address) continue;
@@ -141,14 +168,17 @@ export function parseAcademyStorePage(html, sourceUrl) {
     const postalCode = stringValue(address.postalCode, address.zip);
     if (!street || !city || !postalCode) continue;
     const geo = object.geo && typeof object.geo === 'object' ? object.geo : {};
+    const latitude = numberValue(geo.latitude, geo.lat);
+    const longitude = numberValue(geo.longitude, geo.lng, geo.long);
+    const point = validTexasPoint(latitude, longitude) ? { latitude, longitude } : embeddedPoint;
     return {
       street,
       city,
       state: 'TX',
       postalCode: postalCode.slice(0, 5),
       name: stringValue(object.name) || `Academy Sports + Outdoors — ${city}`,
-      latitude: numberValue(geo.latitude, geo.lat),
-      longitude: numberValue(geo.longitude, geo.lng, geo.long),
+      latitude: point?.latitude,
+      longitude: point?.longitude,
       sourceUrl: stableSourceUrl,
       locationNumber: storeNumberFromUrl(stableSourceUrl),
     };
@@ -156,7 +186,12 @@ export function parseAcademyStorePage(html, sourceUrl) {
 
   const fallback = fallbackAddress(html, stableSourceUrl);
   if (!fallback) throw new Error(`Could not parse Academy store address from ${stableSourceUrl}`);
-  return { ...fallback, locationNumber: storeNumberFromUrl(stableSourceUrl) };
+  return {
+    ...fallback,
+    latitude: embeddedPoint?.latitude,
+    longitude: embeddedPoint?.longitude,
+    locationNumber: storeNumberFromUrl(stableSourceUrl),
+  };
 }
 
 async function requestWithRetry(url, init = {}) {
@@ -186,6 +221,7 @@ async function mapLimit(values, limit, mapper) {
       const index = cursor++;
       if (index >= values.length) return;
       results[index] = await mapper(values[index], index);
+      await new Promise((resolve) => setTimeout(resolve, REQUEST_DELAY_MS));
     }
   }
   await Promise.all(Array.from({ length: Math.min(limit, values.length) }, worker));
@@ -194,13 +230,19 @@ async function mapLimit(values, limit, mapper) {
 
 export async function crawlAcademyTexasStorePages() {
   const stateHtml = await requestWithRetry(ACADEMY_TEXAS_DIRECTORY);
+  const directStoreUrls = parseAcademyTexasStoreUrls(stateHtml);
   const cityUrls = parseAcademyTexasCityUrls(stateHtml);
-  if (cityUrls.length < 80) throw new Error(`Academy Texas directory exposed only ${cityUrls.length} city pages; refusing an incomplete crawl.`);
+  if (directStoreUrls.length < 70 || cityUrls.length < 5) {
+    throw new Error(`Academy Texas directory exposed only ${directStoreUrls.length} direct stores and ${cityUrls.length} multi-store city pages; refusing an incomplete crawl.`);
+  }
 
   const cityPages = await mapLimit(cityUrls, CONCURRENCY, async (url) => ({ url, html: await requestWithRetry(url) }));
-  const storeUrls = [...new Set(cityPages.flatMap(({ url, html }) => parseAcademyTexasStoreUrls(html, url)))].sort();
+  const storeUrls = [...new Set([
+    ...directStoreUrls,
+    ...cityPages.flatMap(({ url, html }) => parseAcademyTexasStoreUrls(html, url)),
+  ])].sort();
   if (storeUrls.length < MIN_EXPECTED_TEXAS_STORES) {
-    throw new Error(`Academy official city pages exposed only ${storeUrls.length} Texas stores; expected at least ${MIN_EXPECTED_TEXAS_STORES}.`);
+    throw new Error(`Academy official directory exposed only ${storeUrls.length} Texas stores; expected at least ${MIN_EXPECTED_TEXAS_STORES}.`);
   }
 
   const stores = await mapLimit(storeUrls, CONCURRENCY, async (url) => parseAcademyStorePage(await requestWithRetry(url), url));
@@ -236,8 +278,42 @@ function parseCsvLine(line) {
   return values;
 }
 
+function censusAddressVariants(store) {
+  const original = `${store.street}, ${store.city}, TX ${store.postalCode}`;
+  const normalizedStreet = store.street
+    .replace(/\bState Highway\b/gi, 'TX')
+    .replace(/\bUS Highway\b/gi, 'US')
+    .replace(/\bInterstate Highway\b/gi, 'I')
+    .replace(/\bInterstate\b/gi, 'I')
+    .replace(/\bHighway\b/gi, 'Hwy')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return [...new Set([original, `${normalizedStreet}, ${store.city}, TX ${store.postalCode}`])];
+}
+
+async function geocodeSingle(store) {
+  for (const address of censusAddressVariants(store)) {
+    const url = new URL(CENSUS_SINGLE_ENDPOINT);
+    url.searchParams.set('address', address);
+    url.searchParams.set('benchmark', 'Public_AR_Current');
+    url.searchParams.set('format', 'json');
+    try {
+      const text = await requestWithRetry(url.toString(), { headers: { accept: 'application/json' } });
+      const parsed = JSON.parse(text);
+      const match = parsed?.result?.addressMatches?.[0];
+      const latitude = Number(match?.coordinates?.y);
+      const longitude = Number(match?.coordinates?.x);
+      if (validTexasPoint(latitude, longitude)) return { latitude, longitude };
+    } catch {
+      // Try the next deterministic address normalization before failing closed.
+    }
+    await new Promise((resolve) => setTimeout(resolve, 150));
+  }
+  return null;
+}
+
 async function geocodeMissingCoordinates(stores) {
-  const missing = stores.filter((store) => !Number.isFinite(store.latitude) || !Number.isFinite(store.longitude));
+  const missing = stores.filter((store) => !validTexasPoint(store.latitude, store.longitude));
   if (!missing.length) return stores;
 
   const csv = missing.map((store) => [store.locationNumber, store.street, store.city, 'TX', store.postalCode].map(csvQuote).join(',')).join('\n');
@@ -253,20 +329,31 @@ async function geocodeMissingCoordinates(stores) {
     const coordinate = values.find((value) => /^-?\d+(?:\.\d+)?,-?\d+(?:\.\d+)?$/.test(value.trim()));
     if (!id || !coordinate) continue;
     const [longitude, latitude] = coordinate.split(',').map(Number);
-    if (Number.isFinite(latitude) && Number.isFinite(longitude)) coordinates.set(String(Number(id)), { latitude, longitude });
+    if (validTexasPoint(latitude, longitude)) coordinates.set(String(Number(id)), { latitude, longitude });
   }
 
-  return stores.map((store) => {
-    if (Number.isFinite(store.latitude) && Number.isFinite(store.longitude)) return store;
+  const batchResolved = stores.map((store) => {
+    if (validTexasPoint(store.latitude, store.longitude)) return store;
     const point = coordinates.get(store.locationNumber);
     return point ? { ...store, ...point } : store;
   });
+
+  const unresolved = batchResolved.filter((store) => !validTexasPoint(store.latitude, store.longitude));
+  if (!unresolved.length) return batchResolved;
+  const singleResolved = new Map();
+  for (const store of unresolved) {
+    const point = await geocodeSingle(store);
+    if (point) singleResolved.set(store.locationNumber, point);
+  }
+  return batchResolved.map((store) => singleResolved.has(store.locationNumber)
+    ? { ...store, ...singleResolved.get(store.locationNumber) }
+    : store);
 }
 
 export function validateAcademySeed(stores) {
   if (stores.length < MIN_EXPECTED_TEXAS_STORES) throw new Error(`Only ${stores.length} Academy Texas stores were parsed.`);
   const ids = new Set();
-  let missingCoordinates = 0;
+  const missing = [];
   for (const store of stores) {
     assert.match(store.locationNumber, /^\d+$/);
     assert.equal(store.state, 'TX');
@@ -274,35 +361,27 @@ export function validateAcademySeed(stores) {
     assert.match(store.sourceUrl, /^https:\/\/www\.academy\.com\/storelocator\/texas\/[a-z0-9-]+\/store-\d+$/i);
     if (ids.has(store.locationNumber)) throw new Error(`Duplicate Academy store number ${store.locationNumber}.`);
     ids.add(store.locationNumber);
-    if (!Number.isFinite(store.latitude) || !Number.isFinite(store.longitude)) missingCoordinates += 1;
+    if (!validTexasPoint(store.latitude, store.longitude)) missing.push(store.locationNumber);
   }
-  if (missingCoordinates > Math.max(5, Math.floor(stores.length * 0.08))) {
-    throw new Error(`${missingCoordinates} Academy stores are missing coordinates; refusing a low-quality seed.`);
-  }
+  if (missing.length) throw new Error(`${missing.length} Academy stores are missing verified coordinates (${missing.join(', ')}); refusing an incomplete seed.`);
   return stores;
 }
 
 export function runSelfTest() {
-  const stateFixture = '<a href="/storelocator/texas/katy">Katy</a><a href="https://www.academy.com/storelocator/texas/houston">Houston</a>';
-  assert.deepEqual(parseAcademyTexasCityUrls(stateFixture), [
-    'https://www.academy.com/storelocator/texas/houston',
-    'https://www.academy.com/storelocator/texas/katy',
-  ]);
-  const cityFixture = '<a href="/storelocator/texas/katy/store-0033?cid=loc_033">Grand Parkway</a>';
-  assert.deepEqual(parseAcademyTexasStoreUrls(cityFixture, 'https://www.academy.com/storelocator/texas/katy'), [
-    'https://www.academy.com/storelocator/texas/katy/store-0033',
-  ]);
+  const stateFixture = '<a href="/storelocator/texas/katy/store-0033">Katy store</a><a href="/storelocator/texas/katy">Katy</a>';
+  assert.deepEqual(parseAcademyTexasStoreUrls(stateFixture), ['https://www.academy.com/storelocator/texas/katy/store-0033']);
+  assert.deepEqual(parseAcademyTexasCityUrls(stateFixture), ['https://www.academy.com/storelocator/texas/katy']);
   const storeFixture = `<script type="application/ld+json">${JSON.stringify({
     '@type': 'SportingGoodsStore',
     name: 'Academy Sports + Outdoors Grand Parkway',
     address: { streetAddress: '23155 Katy Freeway', addressLocality: 'Katy', addressRegion: 'TX', postalCode: '77450' },
-    geo: { latitude: 29.785, longitude: -95.77 },
-  })}</script>`;
+  })}</script><script>window.store={"latitude":29.785,"longitude":-95.77}</script>`;
   const parsed = parseAcademyStorePage(storeFixture, 'https://www.academy.com/storelocator/texas/katy/store-0033');
   assert.equal(parsed.locationNumber, '33');
   assert.equal(parsed.street, '23155 Katy Freeway');
   assert.equal(parsed.city, 'Katy');
   assert.equal(parsed.postalCode, '77450');
+  assert.deepEqual(parseEmbeddedCoordinates(storeFixture), { latitude: 29.785, longitude: -95.77 });
   console.log('Academy Texas location seed generator self-test passed.');
 }
 
@@ -312,13 +391,17 @@ async function run() {
   if (mode !== '--live-output') throw new Error(`Unknown mode: ${mode}`);
 
   const crawled = await crawlAcademyTexasStorePages();
-  const geocoded = validateAcademySeed(await geocodeMissingCoordinates(crawled));
-  const payload = {
+  const attempted = await geocodeMissingCoordinates(crawled);
+  const debugPayload = {
     source: ACADEMY_TEXAS_DIRECTORY,
     sourceCheckedAt: new Date().toISOString().slice(0, 10),
-    count: geocoded.length,
-    stores: geocoded,
+    count: attempted.length,
+    missingCoordinateStoreNumbers: attempted.filter((store) => !validTexasPoint(store.latitude, store.longitude)).map((store) => store.locationNumber),
+    stores: attempted,
   };
+  await writeFile('academy-texas-locations-debug.json', `${JSON.stringify(debugPayload, null, 2)}\n`, 'utf8');
+  const geocoded = validateAcademySeed(attempted);
+  const payload = { ...debugPayload, missingCoordinateStoreNumbers: [], stores: geocoded };
   await mkdir(dirname(outputPath), { recursive: true });
   await writeFile(outputPath, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
   console.log(`Generated ${geocoded.length} verified Academy Texas store rows at ${outputPath}.`);
