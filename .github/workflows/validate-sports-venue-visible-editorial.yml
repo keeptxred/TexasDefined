@@ -19,6 +19,7 @@ on:
       - 'src/data/sports-venue-content-remediation-wave7.ts'
       - 'src/data/sports-venue-content-remediation-wave8.ts'
       - 'src/data/sports-venue-content-remediation-wave9.ts'
+      - 'scripts/data/debug-missing-sports-venue-history.mjs'
       - 'scripts/data/validate-sports-venue-visible-editorial.mjs'
       - '.github/workflows/validate-sports-venue-visible-editorial.yml'
   workflow_dispatch:
@@ -34,5 +35,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Identify base profiles missing venue history
+        run: node scripts/data/debug-missing-sports-venue-history.mjs
       - name: Validate venue-specific editorial and planning copy
         run: node scripts/data/validate-sports-venue-visible-editorial.mjs
