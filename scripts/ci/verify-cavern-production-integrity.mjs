@@ -55,10 +55,15 @@ function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
-const primarySitemapResponse = await fetchWithRetry('primary-sitemap', '/sitemap.xml');
-assert(primarySitemapResponse.ok, `Primary sitemap returned HTTP ${primarySitemapResponse.status}`);
-const primarySitemap = await primarySitemapResponse.text();
-assert(primarySitemap.includes(`${origin}/sitemap-explore.xml`) || primarySitemap.includes('/sitemap-explore.xml'), 'Primary sitemap does not reference the Explore sitemap');
+const robotsResponse = await fetchWithRetry('robots', '/robots.txt');
+assert(robotsResponse.ok, `robots.txt returned HTTP ${robotsResponse.status}`);
+const robots = await robotsResponse.text();
+for (const sitemapUrl of [`${origin}/sitemap.xml`, `${origin}/sitemap-explore.xml`]) {
+  const marker = `Sitemap: ${sitemapUrl}`;
+  const count = robots.split(marker).length - 1;
+  assert(count === 1, `robots.txt must advertise ${sitemapUrl} exactly once; found ${count}`);
+}
+console.log('[robots] verified primary and Explore sitemap discovery.');
 
 const exploreSitemapResponse = await fetchWithRetry('explore-sitemap', '/sitemap-explore.xml');
 assert(exploreSitemapResponse.ok, `Explore sitemap returned HTTP ${exploreSitemapResponse.status}`);
@@ -79,7 +84,9 @@ for (const [slug, name] of restoredCaverns) {
   const body = await response.text();
 
   assert(body.includes(name), `${name} page is missing its destination name`);
-  assert(!/<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(body), `${name} page is marked noindex`);
+  const noindexPatternA = /<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i;
+  const noindexPatternB = /<meta[^>]+content=["'][^"']*noindex[^"']*["'][^>]+name=["']robots["']/i;
+  assert(!noindexPatternA.test(body) && !noindexPatternB.test(body), `${name} page is marked noindex`);
 
   const canonicalPatternA = new RegExp(`<link[^>]+rel=["']canonical["'][^>]+href=["']${escapeRegex(canonicalUrl)}["']`, 'i');
   const canonicalPatternB = new RegExp(`<link[^>]+href=["']${escapeRegex(canonicalUrl)}["'][^>]+rel=["']canonical["']`, 'i');
@@ -92,4 +99,4 @@ for (const [slug, name] of restoredCaverns) {
   console.log(`[${slug}] verified HTTP 200, canonical, indexability, official-source metadata, review date, and image attribution.`);
 }
 
-console.log(`TexasDefined cavern production integrity passed: primary sitemap linkage + ${allCavernSlugs.length} Explore sitemap canonicals + ${restoredCaverns.length} restored destination pages.`);
+console.log(`TexasDefined cavern production integrity passed: robots sitemap discovery + ${allCavernSlugs.length} Explore sitemap canonicals + ${restoredCaverns.length} restored destination pages.`);
