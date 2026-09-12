@@ -1,0 +1,58 @@
+import type { ParkingMapAsset } from './parking-map-model';
+
+export const VENUE_PARKING_MAPS_BATCH_7: Record<string, ParkingMapAsset> = {
+  'mclane-stadium': {
+    id: 'parking-map:mclane-stadium:2026-09', venueSlug: 'mclane-stadium', venueName: 'McLane Stadium', imageUrl: '/images/parking-maps/mclane-stadium.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for McLane Stadium showing principal football parking areas, the river, downtown shuttle context and major approaches',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['Baylor publishes current football parking and stadium-access material, but the reviewed maps do not document a reusable publication license.', 'Open-license searches did not surface a current reusable McLane Stadium parking map reflecting the 2026 football operation.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Baylor Athletics — McLane Stadium directions and parking', url: 'https://baylorbears.com/facilities/mclane-stadium/30', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Baylor Athletics — football directions and parking', url: 'https://baylorbears.com/sports/2019/8/23/football-directions-parking', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['McLane Stadium placement east of I-35 beside the Brazos River and University Parks Drive was checked against Baylor venue material.', 'Baylor’s current guidance identifies Lots 1 and 2 as a major Gate B approach and continues to use downtown/public transit context for game-day access.', 'South Plaza and Touchdown Alley relationships were represented as orientation context rather than reserved-space entitlements.', 'The schematic warns about event traffic because Baylor specifically flags I-35 construction, reduced lanes and closures for 2026.'],
+  },
+  'foster-pavilion': {
+    id: 'parking-map:foster-pavilion:2026-09', venueSlug: 'foster-pavilion', venueName: 'Foster Pavilion', imageUrl: '/images/parking-maps/foster-pavilion.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Foster Pavilion showing the Pavilion Garage, River Front Garage, Robinson Tower surface parking, downtown public parking and Ferrell Center shuttle context',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['Baylor publishes Foster Pavilion parking and arena map material, but no reusable publication license was documented for the reviewed artwork.', 'Open-license source checks did not surface a current reusable Foster Pavilion parking map with the 2025-26 parking and shuttle program.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Baylor Athletics — Foster Pavilion visitor and parking guide', url: 'https://baylorbears.com/facilities/foster-pavilion/1358', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Baylor Athletics — Foster Pavilion map', url: 'https://baylorbears.com/documents/2024/10/31/20241028_ATH_Foster_pavilion_Map.pdf', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['The Foster Pavilion Garage, River Front Garage and Robinson Tower surface parking were verified as the three named Bear Foundation parking areas.', 'Baylor’s current guide identifies free public parking in downtown Waco lots and the Ferrell Center, with free accessible shuttles from the Ferrell Center for 2025-26.', 'University Parks Drive, Clay Avenue and the downtown/riverfront relationship were checked against Baylor maps and directions.', 'Construction-related River Front Garage timing and game-day assignments are not hard-coded into the schematic.'],
+  },
+  'kyle-field': {
+    id: 'parking-map:kyle-field:2026-09', venueSlug: 'kyle-field', venueName: 'Kyle Field', imageUrl: '/images/parking-maps/kyle-field.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Kyle Field showing current 2026 football parking categories, nearby garages and rideshare context',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['Texas A&M publishes current interactive football parking maps and a 2026 Kyle Field fan guide, but the reviewed map interfaces do not provide a reusable publication license.', 'Open-license searches did not surface a current reusable 2026 Kyle Field football parking map with the active lot designations.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Texas A&M Transportation — 2026 football parking and shuttles', url: 'https://transport.tamu.edu/parking/events/football.aspx', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Texas A&M Transportation — 2026 football parking announcements', url: 'https://transport.tamu.edu/parking/events/gamedayannc.aspx', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Texas A&M Athletics — 2026 Kyle Field fan guide launch', url: 'https://12thman.com/news/2026/08/28/introducing-the-new-kyle-field-fan-guide', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['The current 2026 program distinguishes 12th Man reserved lots, any-valid-permit lots and limited pay-upon-arrival parking.', 'University Center Garage, West Campus Garage and Stallings Boulevard Garage remain named football parking resources in current Texas A&M guidance.', 'Lot 30e is verified as the current football rideshare/taxi pickup and drop-off area.', 'The schematic intentionally does not assign every numbered lot spatially; Texas A&M now provides an interactive map for lot-specific navigation and availability.'],
+  },
+  'reed-arena': {
+    id: 'parking-map:reed-arena:2026-09', venueSlug: 'reed-arena', venueName: 'Reed Arena', imageUrl: '/images/parking-maps/reed-arena.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Reed Arena showing primary Lot 100 groups, ADA Lot 102 and nearby overflow and garage parking',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['Texas A&M publishes Reed Arena athletics parking maps and lot guidance, but no reusable publication license was documented for the official map artwork.', 'Open-license searches did not surface a current reusable Reed Arena parking map reflecting the active basketball lot program.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Texas A&M Athletics — Reed Arena A-to-Z parking guide', url: 'https://12thman.com/facilities/a-to-z/reed-arena', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Texas A&M Transportation — athletics event parking', url: 'https://transport.tamu.edu/parking/events/sports.aspx', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Lots 100a-c, 100e-g and nearby 100-series parking were checked against current basketball guidance.', 'Lot 102 is verified as Reed Arena’s designated ADA parking lot.', 'Lots 74 and 97 and West Campus Garage are current additional parking resources identified in Texas A&M guidance.', 'Availability and pricing differ by sport and concurrent campus events, so the map is an orientation diagram rather than a guarantee that each lot is open.'],
+  },
+  'ufcu-stadium': {
+    id: 'parking-map:ufcu-stadium:2026-09', venueSlug: 'ufcu-stadium', venueName: 'UFCU Stadium', imageUrl: '/images/parking-maps/ufcu-stadium.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Texas State UFCU Stadium showing reserved and general parking context, Lot 5 rideshare and shuttle access',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['Texas State Athletics publishes current football parking maps and parking-purchase guidance, but no reusable publication license was documented for the map artwork.', 'Open-license searches did not surface a current reusable UFCU Stadium parking map with the 2026 football controls.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Texas State Athletics — 2026 football parking and arrival guidance', url: 'https://txst.com/news/2026/9/7/football-a-letter-from-director-of-athletics-don-coryell.aspx', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Texas State Athletics — football visiting team guide and parking map rules', url: 'https://txst.com/sports/2025/8/9/football-visiting-team-guide.aspx', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Texas State currently directs guests to purchase and review parking before game day and distinguishes reserved lots from general first-come parking.', 'Lot 5 is verified as the 2026 rideshare pickup/drop-off area.', 'The current 2026 guidance also identifies shuttle drop-off on the feeder road near Gate 6.', 'Exact reserved-lot boundaries are omitted from the schematic because the current official event map is the authoritative source for those boundaries.'],
+  },
+  'constellation-field': {
+    id: 'parking-map:constellation-field:2026-09', venueSlug: 'constellation-field', venueName: 'Constellation Field', imageUrl: '/images/parking-maps/constellation-field.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Constellation Field showing Lots A and B, Oyster Creek footbridge and major Sugar Land approaches',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['The Sugar Land Space Cowboys publish current parking and stadium maps, but the reviewed official artwork does not document a reusable publication license.', 'Open-license searches surfaced reusable Constellation Field photography and general Sugar Land maps but no current reusable visitor parking map with Lots A and B.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Sugar Land Space Cowboys — Directions & Parking', url: 'https://www.milb.com/sugar-land/ballpark/directions', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Sugar Land Space Cowboys — Constellation Field stadium map', url: 'https://www.milb.com/sugar-land/ballpark/stadium-map', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Constellation Field currently has two principal parking areas, Lots A and B, with more than 2,000 combined spaces.', 'Lot A is verified as the location of accessible spaces and designated bus parking; Lot B sits across Oyster Creek and is linked by a pedestrian footbridge.', 'State Highway 6, Imperial Boulevard, Stadium Drive and US-90 approach relationships were checked against current official directions.', 'Parking prices are omitted because the club publishes game-day pricing separately and it can change.'],
+  },
+};

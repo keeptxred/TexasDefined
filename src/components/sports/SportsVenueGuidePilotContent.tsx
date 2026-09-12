@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 
 import type { TexasEventCarouselItem } from "@/components/editorial/TexasEventCarousel";
+import { StandaloneParkingMapPanel } from "@/components/parking/ParkingMapPanel";
+import { useVenueParkingMap } from "@/components/parking/useVenueParkingMap";
 import { imageReferencesMatch } from "@/data/image-reference-identity";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
 import { getSportsVenueEnrichmentAll } from "@/data/sports-venue-enrichment-all";
@@ -40,6 +42,7 @@ export default function SportsVenueGuidePilotContent({
   sponsorPlacement?: PublicSportsSponsorPlacement | null;
 }) {
   const guide = getSportsVenueGuideGalaxy(slug) ?? getSportsVenueGuideWave7(slug) ?? getSportsVenueGuideWave6(slug) ?? getSportsVenueGuideWave5(slug) ?? getSportsVenueGuideWave4(slug) ?? getSportsVenueGuidePilot(slug);
+  const parkingMap = useVenueParkingMap(slug);
 
   useEffect(() => {
     const slot = document.querySelector("[data-stay-nearby-slot]");
@@ -80,16 +83,19 @@ export default function SportsVenueGuidePilotContent({
     : upcomingEvents;
 
   return (
-    <SportsVenueGuidePage
-      entity={verifiedEntity}
-      guide={guide}
-      enrichment={enrichment}
-      photo={photo}
-      nearbyAttractions={nearbyAttractions}
-      upcomingEvents={venueEvents}
-      eventCalendarHref={eventCalendarHref}
-      landingLinks={landingLinks}
-      sponsorPlacement={sponsorPlacement}
-    />
+    <>
+      <SportsVenueGuidePage
+        entity={verifiedEntity}
+        guide={guide}
+        enrichment={enrichment}
+        photo={photo}
+        nearbyAttractions={nearbyAttractions}
+        upcomingEvents={venueEvents}
+        eventCalendarHref={eventCalendarHref}
+        landingLinks={landingLinks}
+        sponsorPlacement={sponsorPlacement}
+      />
+      <StandaloneParkingMapPanel map={parkingMap} contextName={entity.name} />
+    </>
   );
 }

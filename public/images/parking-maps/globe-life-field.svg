@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Globe Life Field parking orientation diagram</title>
+  <desc id="desc">TexasDefined schematic of Globe Life Field, major roads and principal current Texas Rangers parking zones. Not to scale.</desc>
+  <rect width="1200" height="800" fill="#f7f4ed"/>
+  <g fill="none" stroke="#34312d" stroke-width="13" stroke-linecap="round">
+    <path d="M80 95 H1120"/><path d="M85 160 H1115"/><path d="M90 585 H1110"/><path d="M90 700 H1110"/>
+    <path d="M235 150 V725"/><path d="M850 150 V725"/><path d="M980 150 V725"/>
+  </g>
+  <g font-family="Arial,sans-serif" fill="#34312d" font-size="21" font-weight="700">
+    <text x="530" y="80">I-30</text><text x="465" y="145">E COPELAND ROAD</text><text x="455" y="570">E RANDOL MILL ROAD</text><text x="470" y="685">COWBOYS WAY</text>
+    <text x="205" y="440" transform="rotate(-90 205 440)">NOLAN RYAN EXPRESSWAY</text><text x="880" y="440" transform="rotate(-90 880 440)">BALLPARK WAY</text><text x="1010" y="440" transform="rotate(-90 1010 440)">AT&amp;T WAY</text>
+  </g>
+  <g fill="#d8d2c4" stroke="#34312d" stroke-width="5">
+    <path d="M445 350 Q600 270 755 350 V505 Q600 565 445 505 Z"/>
+    <rect x="280" y="400" width="120" height="155" rx="16"/>
+  </g>
+  <g font-family="Arial,sans-serif" text-anchor="middle" fill="#24211e">
+    <text x="600" y="407" font-size="38" font-weight="700">GLOBE LIFE FIELD</text><text x="600" y="445" font-size="22">Arlington, Texas</text><text x="600" y="480" font-size="20" font-weight="700">NOT TO SCALE</text>
+    <text x="340" y="465" font-size="20" font-weight="700">CHOCTAW</text><text x="340" y="493" font-size="20" font-weight="700">STADIUM</text>
+  </g>
+  <g stroke="#725b3b" stroke-width="4" fill="#e8dcc6" font-family="Arial,sans-serif">
+    <rect x="305" y="205" width="155" height="82" rx="12"/><rect x="475" y="205" width="145" height="82" rx="12"/><rect x="640" y="205" width="145" height="82" rx="12"/>
+    <rect x="300" y="300" width="125" height="80" rx="12"/><rect x="790" y="300" width="145" height="80" rx="12"/><rect x="800" y="400" width="135" height="80" rx="12"/>
+    <rect x="290" y="590" width="150" height="75" rx="12"/><rect x="460" y="590" width="140" height="75" rx="12"/><rect x="620" y="590" width="140" height="75" rx="12"/><rect x="780" y="590" width="140" height="75" rx="12"/>
+  </g>
+  <g font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#34312d" text-anchor="middle">
+    <text x="382" y="240">LOT M / N</text><text x="382" y="264">GENERAL</text><text x="548" y="240">LOT T / R</text><text x="548" y="264">RESERVED</text><text x="712" y="240">LOT Q</text><text x="712" y="264">SEASON</text>
+    <text x="362" y="345">LOT B</text><text x="862" y="345">LOT L / E</text><text x="867" y="445">LOT D / V</text><text x="365" y="633">LOT A</text><text x="530" y="633">LOT C</text><text x="690" y="633">LOT W</text><text x="850" y="633">LOT V / D</text>
+  </g>
+  <text x="70" y="780" font-family="Arial,sans-serif" font-size="16" fill="#5b544b">TexasDefined original orientation diagram · verified 2026-09-11 against current Texas Rangers parking information · event assignments can change</text>
+  <g transform="translate(1080 190)" font-family="Arial,sans-serif" text-anchor="middle" fill="#34312d"><path d="M0 52V0L-13 21M0 0L13 21" fill="none" stroke="#34312d" stroke-width="6"/><text y="78" font-size="20" font-weight="700">N</text></g>
+</svg>
