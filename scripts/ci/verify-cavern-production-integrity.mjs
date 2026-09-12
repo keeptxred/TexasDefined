@@ -27,75 +27,99 @@ const legacyDevilsSinkholeSlug = 'devil-s-sinkhole-state-natural-area';
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-async function fetchWithRetry(label, path, { redirect = 'follow' } = {}) {
-  let lastError = null;
-  for (let attempt = 1; attempt <= 6; attempt += 1) {
+async function fetchTextUntil(label, path, predicate, failureDescription, { attempts = 18, delayMs = 10_000 } = {}) {
+  let lastStatus = 'network-error';
+  let lastBody = '';
+  let lastError = '';
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
     const separator = path.includes('?') ? '&' : '?';
     const url = `${origin}${path}${separator}verify=${encodeURIComponent(`${sha}-${runId}-${attempt}`)}`;
     console.log(`[${label}] attempt ${attempt}: ${url}`);
     try {
       const response = await fetch(url, {
-        redirect,
+        redirect: 'follow',
         cache: 'no-store',
         signal: AbortSignal.timeout(30_000),
         headers: { 'user-agent': 'TexasDefined-Cavern-Production-Integrity/1.0' },
       });
+      lastStatus = String(response.status);
       const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
-      if (!challenged && response.status < 500) return response;
-      lastError = new Error(challenged ? 'Cloudflare challenge' : `HTTP ${response.status}`);
+      lastBody = await response.text();
+      lastError = '';
+      if (!challenged && response.ok && predicate(lastBody, response)) return { body: lastBody, response };
+      console.log(challenged
+        ? `[${label}] Cloudflare challenge; waiting for production.`
+        : `[${label}] HTTP ${response.status}; ${failureDescription}; waiting for production.`);
     } catch (error) {
-      lastError = error;
+      lastError = error instanceof Error ? error.message : String(error);
+      console.log(`[${label}] request failed: ${lastError}`);
     }
-    if (attempt < 6) await sleep(5_000);
+    if (attempt < attempts) await sleep(delayMs);
   }
-  throw lastError ?? new Error(`${label} failed after retries`);
+  throw new Error(`${label} failed after ${attempts} attempts: ${lastError || `HTTP ${lastStatus}; ${failureDescription}`} ${lastBody.slice(0, 300)}`);
 }
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
-const robotsResponse = await fetchWithRetry('robots', '/robots.txt');
-assert(robotsResponse.ok, `robots.txt returned HTTP ${robotsResponse.status}`);
-const robots = await robotsResponse.text();
-for (const sitemapUrl of [`${origin}/sitemap.xml`, `${origin}/sitemap-explore.xml`]) {
-  const marker = `Sitemap: ${sitemapUrl}`;
-  const count = robots.split(marker).length - 1;
+const expectedRobotsSitemaps = [`${origin}/sitemap.xml`, `${origin}/sitemap-explore.xml`];
+const { body: robots } = await fetchTextUntil(
+  'robots',
+  '/robots.txt',
+  (body) => expectedRobotsSitemaps.every((sitemapUrl) => body.split(`Sitemap: ${sitemapUrl}`).length - 1 === 1),
+  'required sitemap discovery lines are not live yet',
+  { attempts: 6, delayMs: 5_000 },
+);
+for (const sitemapUrl of expectedRobotsSitemaps) {
+  const count = robots.split(`Sitemap: ${sitemapUrl}`).length - 1;
   assert(count === 1, `robots.txt must advertise ${sitemapUrl} exactly once; found ${count}`);
 }
 console.log('[robots] verified primary and Explore sitemap discovery.');
 
-const exploreSitemapResponse = await fetchWithRetry('explore-sitemap', '/sitemap-explore.xml');
-assert(exploreSitemapResponse.ok, `Explore sitemap returned HTTP ${exploreSitemapResponse.status}`);
-const exploreSitemap = await exploreSitemapResponse.text();
-
-for (const slug of allCavernSlugs) {
-  const canonicalUrl = `${origin}/destination/${slug}`;
+const expectedCavernUrls = allCavernSlugs.map((slug) => `${origin}/destination/${slug}`);
+const legacyCavernUrl = `${origin}/destination/${legacyDevilsSinkholeSlug}`;
+const { body: exploreSitemap } = await fetchTextUntil(
+  'explore-sitemap',
+  '/sitemap-explore.xml',
+  (body) => expectedCavernUrls.every((url) => body.includes(url)) && !body.includes(legacyCavernUrl),
+  'all 11 canonical cavern URLs are not live in the Explore sitemap yet or the legacy Devil\'s Sinkhole URL is still present',
+);
+for (const canonicalUrl of expectedCavernUrls) {
   assert(exploreSitemap.includes(canonicalUrl), `Explore sitemap missing canonical cavern URL: ${canonicalUrl}`);
 }
-assert(!exploreSitemap.includes(`${origin}/destination/${legacyDevilsSinkholeSlug}`), 'Explore sitemap exposes legacy Devil\'s Sinkhole URL');
+assert(!exploreSitemap.includes(legacyCavernUrl), 'Explore sitemap exposes legacy Devil\'s Sinkhole URL');
 console.log(`[explore-sitemap] verified ${allCavernSlugs.length} canonical cavern URLs and excluded legacy Devil's Sinkhole slug.`);
 
 for (const [slug, name] of restoredCaverns) {
   const path = `/destination/${slug}`;
   const canonicalUrl = `${origin}${path}`;
-  const response = await fetchWithRetry(slug, path);
-  assert(response.status === 200, `${name} returned HTTP ${response.status}`);
-  const body = await response.text();
-
-  assert(body.includes(name), `${name} page is missing its destination name`);
-  const noindexPatternA = /<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i;
-  const noindexPatternB = /<meta[^>]+content=["'][^"']*noindex[^"']*["'][^>]+name=["']robots["']/i;
-  assert(!noindexPatternA.test(body) && !noindexPatternB.test(body), `${name} page is marked noindex`);
-
   const canonicalPatternA = new RegExp(`<link[^>]+rel=["']canonical["'][^>]+href=["']${escapeRegex(canonicalUrl)}["']`, 'i');
   const canonicalPatternB = new RegExp(`<link[^>]+href=["']${escapeRegex(canonicalUrl)}["'][^>]+rel=["']canonical["']`, 'i');
-  assert(canonicalPatternA.test(body) || canonicalPatternB.test(body), `${name} is missing the expected canonical link: ${canonicalUrl}`);
+  const noindexPatternA = /<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i;
+  const noindexPatternB = /<meta[^>]+content=["'][^"']*noindex[^"']*["'][^>]+name=["']robots["']/i;
 
+  const { body, response } = await fetchTextUntil(
+    slug,
+    path,
+    (html, res) => res.status === 200
+      && html.includes(name)
+      && !noindexPatternA.test(html)
+      && !noindexPatternB.test(html)
+      && (canonicalPatternA.test(html) || canonicalPatternB.test(html))
+      && (html.includes('Official source') || html.includes('Official visitor information'))
+      && html.includes('Visitor information checked')
+      && html.includes('Photography:'),
+    `${name} has not reached the complete canonical/indexable/source-attributed state yet`,
+  );
+
+  assert(response.status === 200, `${name} returned HTTP ${response.status}`);
+  assert(body.includes(name), `${name} page is missing its destination name`);
+  assert(!noindexPatternA.test(body) && !noindexPatternB.test(body), `${name} page is marked noindex`);
+  assert(canonicalPatternA.test(body) || canonicalPatternB.test(body), `${name} is missing the expected canonical link: ${canonicalUrl}`);
   assert(body.includes('Official source') || body.includes('Official visitor information'), `${name} is missing official-source metadata`);
   assert(body.includes('Visitor information checked'), `${name} is missing source review metadata`);
   assert(body.includes('Photography:'), `${name} is missing image attribution`);
-
   console.log(`[${slug}] verified HTTP 200, canonical, indexability, official-source metadata, review date, and image attribution.`);
 }
 
