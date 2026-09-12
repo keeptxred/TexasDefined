@@ -39,6 +39,49 @@ assert(
   `Expected 84 explicit sports-venue editorial descriptions; found ${editorialIds.size}.`,
 );
 
+const editorialEntries = editorialSources.flatMap((source) =>
+  [...source.matchAll(/^\s{2}'(sports-venue:[^']+)':\s*'((?:\\'|[^'])*)',?\s*$/gm)].map((match) => ({
+    id: match[1],
+    description: match[2].replaceAll("\\'", "'").replace(/\s+/g, ' ').trim(),
+  })),
+);
+
+assert(
+  editorialEntries.length === 84,
+  `Expected to parse all 84 sports-venue editorial descriptions for anti-boilerplate checks; parsed ${editorialEntries.length}.`,
+);
+
+const bannedBoilerplateFragments = [
+  'texas defined tracks it as a visitor-facing venue',
+  'texasdefined tracks it as a visitor-facing venue',
+  'connect the event experience with the surrounding city and county',
+];
+
+for (const { id, description } of editorialEntries) {
+  const normalized = description.toLowerCase();
+  for (const fragment of bannedBoilerplateFragments) {
+    assert(
+      !normalized.includes(fragment),
+      `${id} reintroduced banned sports-venue boilerplate: “${fragment}”.`,
+    );
+  }
+}
+
+const descriptionsByNormalizedText = new Map();
+for (const { id, description } of editorialEntries) {
+  const normalized = description.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const ids = descriptionsByNormalizedText.get(normalized) ?? [];
+  ids.push(id);
+  descriptionsByNormalizedText.set(normalized, ids);
+}
+
+for (const ids of descriptionsByNormalizedText.values()) {
+  assert(
+    ids.length === 1,
+    `Sports-venue editorial descriptions must be unique; identical copy is shared by ${ids.join(', ')}.`,
+  );
+}
+
 const subtitleIndex = sharedGuide.indexOf('{guide.subtitle}');
 const visibleDescriptionIndex = sharedGuide.indexOf('{entity.description}');
 assert(subtitleIndex >= 0, 'Shared sports venue guide no longer renders its venue subtitle.');
@@ -85,4 +128,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue visible editorial validation passed: ${editorialIds.size}/84 explicit editorial descriptions remain covered, shared venue guides render the unique lead visibly after the subtitle, and search metadata prefers that lead before generic fallbacks.`);
+console.log(`Sports venue visible editorial validation passed: ${editorialIds.size}/84 explicit editorial descriptions remain covered, all parsed descriptions are unique and free of the retired boilerplate, shared venue guides render the unique lead visibly after the subtitle, and search metadata prefers that lead before generic fallbacks.`);
