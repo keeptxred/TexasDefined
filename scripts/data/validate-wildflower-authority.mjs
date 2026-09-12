@@ -5,6 +5,7 @@ const read = (path) => fs.readFileSync(path, 'utf8');
 const required = [
   'src/components/editorial/ArticleBody.tsx',
   'src/components/editorial/WildflowerSpeciesGrid.tsx',
+  'src/components/relocation/MetroRelocationAuthority.tsx',
   'src/data/fixtures/lazy-evergreen.ts',
   'src/data/fixtures/lazy-seasonal-authority.ts',
   'src/data/fixtures/lazy-newest-evergreen.ts',
@@ -18,13 +19,14 @@ if (errors.length) fail();
 
 const articleBody = read(required[0]);
 const grid = read(required[1]);
-const lazyEvergreen = read(required[2]);
-const lazySeasonal = read(required[3]);
-const lazyNewest = read(required[4]);
-const repositories = read(required[5]);
-const stubs = read(required[6]);
-const articles = read(required[7]);
-const hub = read(required[8]);
+const authority = read(required[2]);
+const lazyEvergreen = read(required[3]);
+const lazySeasonal = read(required[4]);
+const lazyNewest = read(required[5]);
+const repositories = read(required[6]);
+const stubs = read(required[7]);
+const articles = read(required[8]);
+const hub = read(required[9]);
 const speciesSlugs = [
   'texas-indian-paintbrush-guide',
   'texas-indian-blanket-guide',
@@ -46,13 +48,19 @@ for (const slug of speciesSlugs) {
 if (!grid.includes('slug: "texas-bluebonnets-complete-guide"')) errors.push('Visual field guide must reuse the existing bluebonnet authority page.');
 if (stubs.includes('texas-bluebonnet-guide') || articles.includes('texas-bluebonnet-guide')) errors.push('Do not create a competing bluebonnet authority slug.');
 
-for (const symbol of ['WildflowerSpeciesGrid', '/article/texas-wildflowers-guide', '<WildflowerSpeciesGrid />']) {
+for (const symbol of ['/article/texas-wildflowers-guide', '<MetroRelocationAuthority articlePath={pathname} />']) {
   if (!articleBody.includes(symbol)) errors.push(`ArticleBody wildflower integration missing: ${symbol}`);
 }
-const gridRenderIndex = articleBody.indexOf('<WildflowerSpeciesGrid />');
+if (articleBody.includes('WildflowerSpeciesGrid')) errors.push('ArticleBody must not create a second wildflower lazy-import boundary.');
+const lazyImportCount = (articleBody.match(/lazy\(\(\) => import\(/g) ?? []).length;
+if (lazyImportCount !== 1) errors.push(`ArticleBody must retain exactly one lazy authority import; found ${lazyImportCount}.`);
+const authorityRenderIndex = articleBody.indexOf('<MetroRelocationAuthority articlePath={pathname} />');
 const bodyRenderIndex = articleBody.indexOf('blocks.map');
-if (gridRenderIndex < 0 || bodyRenderIndex < 0 || gridRenderIndex > bodyRenderIndex) errors.push('Wildflower field guide must render before the article body blocks.');
-if (!articleBody.includes('lazy(() => import("@/components/editorial/WildflowerSpeciesGrid")')) errors.push('Wildflower field guide must remain lazy-loaded from ArticleBody.');
+if (authorityRenderIndex < 0 || bodyRenderIndex < 0 || authorityRenderIndex > bodyRenderIndex) errors.push('Wildflower field guide must render before the article body blocks.');
+for (const symbol of ['WildflowerSpeciesGrid', 'WILDFLOWER_GUIDE_PATH', '/article/texas-wildflowers-guide', 'if (articlePath === WILDFLOWER_GUIDE_PATH) return <WildflowerSpeciesGrid />;']) {
+  if (!authority.includes(symbol)) errors.push(`Lazy article authority wildflower dispatch missing: ${symbol}`);
+}
+
 if (lazyEvergreen.includes('texasWildflowerSpeciesStubs') || lazyEvergreen.includes('texas-wildflower-species')) errors.push('Wildflower species inventory must not enter lazy-evergreen; keep it behind lazy-seasonal-authority.');
 for (const symbol of ['texasWildflowerSpeciesStubs', '...texasWildflowerSpeciesStubs', 'await import("./texas-wildflower-species")', 'texasWildflowerSpeciesArticles.find']) {
   if (!lazySeasonal.includes(symbol)) errors.push(`Lazy wildflower authority boundary missing: ${symbol}`);
@@ -77,7 +85,7 @@ const remoteImageCount = (grid.match(/commons\.wikimedia\.org\/wiki\/Special:Red
 if (remoteImageCount !== 11) errors.push(`Expected 11 species-specific Wikimedia images, found ${remoteImageCount}.`);
 
 if (errors.length) fail();
-console.log('Texas wildflower visual hub, existing bluebonnet authority reuse, 10 lazy species guides, species images and crawlable article integration are protected.');
+console.log('Texas wildflower visual hub, existing bluebonnet authority reuse, one lazy article boundary, 10 lazy species guides, species images and crawlable article integration are protected.');
 
 function fail() {
   console.error('Texas wildflower authority validation failed:');
