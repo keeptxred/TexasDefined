@@ -40,6 +40,8 @@ export const supplementalMajorEventSlugs = [
   "texas-state-science-and-engineering-fair",
   "ironman-texas",
   "world-skeet-shooting-championships",
+  "the-frisco-bowl",
+  "uil-state-marching-band-championships",
   "houston-auto-show",
   "fulton-oysterfest",
   "sandhills-stock-show-rodeo",

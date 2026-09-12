@@ -43,7 +43,7 @@ export const TOURNAMENT_RAW_4: readonly RawTournament[] = [
   ["NDA/NCA All-Star National Cheerleading Championship", "Dallas", "Massive international elite competitive cheer tournament.", "dallas"],
   ["UIL Spirit State Championships", "Fort Worth", "High school competitive cheer tournament finals.", "tarrant"],
   ["Van Cliburn International Piano Competition", "Fort Worth", "World-renowned, elite global classical piano tournament (held quadrennially with annual festivals).", "tarrant"],
-  ["Texas State Marching Band Championships", "San Antonio", "The ultimate competitive tournament for Texas high school marching bands at the Alamodome.", "bexar"],
+  ["UIL State Marching Band Championships", "San Antonio", "UIL high school marching-band state championships at the Alamodome, held in separate classification windows.", "bexar"],
   ["Showstoppers National Dance Tournament - Texas Regional", "Varies", "Highly competitive youth dance studio tournament."],
   ["MA Dance National Championship", "Arlington", "Major high school drill team and dance group tournament.", "tarrant"],
   ["Texas State Fiddlers Championship", "Hallettsville", "Traditional competitive acoustic tournament crowning Texas’ top fiddler.", "lavaca"],
