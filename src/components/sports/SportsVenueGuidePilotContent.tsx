@@ -9,7 +9,7 @@ import { getSportsVenueGuideWave4 } from "@/data/sports-venue-guide-wave4";
 import { getSportsVenueGuideWave5 } from "@/data/sports-venue-guide-wave5";
 import { getSportsVenueGuideWave6 } from "@/data/sports-venue-guide-wave6";
 import { getSportsVenueGuideWave7 } from "@/data/sports-venue-guide-wave7";
-import { getSportsVenuePhoto } from "@/data/sports-venue-images";
+import { getSportsVenuePhoto } from "@/data/sports-venue-images-all";
 import type { SportsVenueLanding } from "@/data/sports-venue-landings";
 import type { PublicSportsSponsorPlacement } from "@/data/sports-sponsorship.types";
 
