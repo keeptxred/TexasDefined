@@ -11,6 +11,7 @@ import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
 import type { SportsVenueEnrichment } from "@/data/sports-venue-enrichment";
 import type { SportsVenueGuidePilot } from "@/data/sports-venue-guide-pilots";
 import type { SportsVenuePhoto } from "@/data/sports-venue-images";
+import type { SportsVenueLanding } from "@/data/sports-venue-landings";
 import type { PublicSportsSponsorPlacement } from "@/data/sports-sponsorship.types";
 
 const siteUrl = "https://texasdefined.com";
@@ -29,6 +30,7 @@ export type SportsVenueGuidePageProps = {
   nearbyAttractions?: readonly TexasEntityRecord[];
   upcomingEvents?: readonly TexasEventCarouselItem[];
   eventCalendarHref?: string;
+  landingLinks?: readonly SportsVenueLanding[];
   sponsorPlacement?: PublicSportsSponsorPlacement | null;
 };
 
@@ -40,6 +42,7 @@ export function SportsVenueGuidePage({
   nearbyAttractions = [],
   upcomingEvents = [],
   eventCalendarHref = "/events",
+  landingLinks = [],
   sponsorPlacement,
 }: SportsVenueGuidePageProps) {
   const canonicalUrl = `${siteUrl}${guide.canonicalPath}`;
@@ -152,6 +155,8 @@ export function SportsVenueGuidePage({
             </EditorialSection>
           ) : null}
 
+          {landingLinks.length ? <SportsCollectionSection venueName={entity.name} items={landingLinks} /> : null}
+
           {attractions.length >= 2 ? <NearbyAttractionsSection items={attractions} /> : null}
 
           <SourcesSection
@@ -176,24 +181,12 @@ function VenueBreadcrumb({ venueName }: { venueName: string }) {
       <a href="/" className="hover:text-foreground">
         Front page
       </a>
-      <span aria-hidden="true" className="mx-2">
-        /
-      </span>
-      <a href="/sports" className="hover:text-foreground">
-        Texas Sports
-      </a>
-      <span aria-hidden="true" className="mx-2">
-        /
-      </span>
-      <a href="/sports-venues" className="hover:text-foreground">
-        Sports Venues
-      </a>
-      <span aria-hidden="true" className="mx-2">
-        /
-      </span>
-      <span aria-current="page" className="text-foreground">
-        {venueName}
-      </span>
+      <span aria-hidden="true" className="mx-2">/</span>
+      <a href="/sports" className="hover:text-foreground">Texas Sports</a>
+      <span aria-hidden="true" className="mx-2">/</span>
+      <a href="/sports-venues" className="hover:text-foreground">Sports Venues</a>
+      <span aria-hidden="true" className="mx-2">/</span>
+      <span aria-current="page" className="text-foreground">{venueName}</span>
     </nav>
   );
 }
@@ -227,25 +220,12 @@ function VenuePhoto({ photo, venueName }: { photo?: SportsVenuePhoto; venueName:
   );
 }
 
-function QuickFacts({
-  guide,
-  directionsUrl,
-  officialUrl,
-}: {
-  guide: SportsVenueGuidePilot;
-  directionsUrl: string;
-  officialUrl?: string;
-}) {
+function QuickFacts({ guide, directionsUrl, officialUrl }: { guide: SportsVenueGuidePilot; directionsUrl: string; officialUrl?: string }) {
   return (
-    <aside
-      className="flex h-full flex-col border border-border px-5 py-5 sm:px-6"
-      aria-labelledby="venue-quick-facts-heading"
-    >
+    <aside className="flex h-full flex-col border border-border px-5 py-5 sm:px-6" aria-labelledby="venue-quick-facts-heading">
       <div>
         <p className="eyebrow text-primary">Quick facts</p>
-        <h2 id="venue-quick-facts-heading" className="mt-2 font-display text-3xl">
-          At the venue
-        </h2>
+        <h2 id="venue-quick-facts-heading" className="mt-2 font-display text-3xl">At the venue</h2>
       </div>
       <dl className="mt-5 text-sm">
         <Fact label="Capacity" value={guide.capacity} />
@@ -256,38 +236,16 @@ function QuickFacts({
         <Fact label="Address" value={guide.address} />
       </dl>
       <div className="mt-auto grid gap-3 pt-6">
-        <a
-          href={directionsUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex min-h-11 items-center justify-center bg-primary px-4 py-3 text-center text-sm font-semibold text-primary-foreground hover:opacity-90"
-        >
-          Get Directions
-        </a>
+        <a href={directionsUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center justify-center bg-primary px-4 py-3 text-center text-sm font-semibold text-primary-foreground hover:opacity-90">Get Directions</a>
         {officialUrl ? (
-          <a
-            href={officialUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-3 text-center text-sm font-semibold hover:border-primary hover:text-primary"
-          >
-            Official Venue Site
-          </a>
+          <a href={officialUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-3 text-center text-sm font-semibold hover:border-primary hover:text-primary">Official Venue Site</a>
         ) : null}
       </div>
     </aside>
   );
 }
 
-function KnowBeforeYouGo({
-  venueName,
-  parking,
-  arrival,
-}: {
-  venueName: string;
-  parking: string;
-  arrival: string;
-}) {
+function KnowBeforeYouGo({ venueName, parking, arrival }: { venueName: string; parking: string; arrival: string }) {
   return (
     <EditorialSection eyebrow="Know before you go" title={`Planning for ${venueName}`}>
       <div className="grid gap-x-10 gap-y-7 md:grid-cols-2">
@@ -298,27 +256,15 @@ function KnowBeforeYouGo({
   );
 }
 
-function NearbyAttractionsSection({ items }: { items: readonly TexasEntityRecord[] }) {
+function SportsCollectionSection({ venueName, items }: { venueName: string; items: readonly SportsVenueLanding[] }) {
   return (
-    <EditorialSection eyebrow="Nearby attractions" title="More to do around the venue">
-      <div className="grid gap-x-8 border-t border-border sm:grid-cols-2">
-        {items.map((item) => (
-          <a
-            key={item.id}
-            href={canonicalEntityPath(item)}
-            className="group border-b border-border py-5"
-          >
-            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-              {humanize(item.kind)}
-            </span>
-            <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">
-              {item.name}
-            </strong>
-            {item.description ? (
-              <span className="mt-2 block line-clamp-2 text-sm leading-6 text-muted-foreground">
-                {item.description}
-              </span>
-            ) : null}
+    <EditorialSection eyebrow="Explore the collection" title={`More venues like ${venueName}`}>
+      <div className="grid gap-x-7 border-t border-border sm:grid-cols-2 lg:grid-cols-3">
+        {items.map((landing) => (
+          <a key={landing.slug} href={`/sports-venues/${landing.slug}`} className="group border-b border-border py-5">
+            <span className="eyebrow text-primary">{landing.kind === "market" ? "Sports market" : "Sports collection"}</span>
+            <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{landing.title}</strong>
+            <span className="mt-3 block text-sm font-semibold text-primary">Browse collection →</span>
           </a>
         ))}
       </div>
@@ -326,25 +272,27 @@ function NearbyAttractionsSection({ items }: { items: readonly TexasEntityRecord
   );
 }
 
-function SourcesSection({
-  entity,
-  guide,
-  enrichment,
-  photo,
-  reviewedAt,
-}: {
-  entity: TexasEntityRecord;
-  guide: SportsVenueGuidePilot;
-  enrichment?: SportsVenueEnrichment;
-  photo?: SportsVenuePhoto;
-  reviewedAt?: string;
-}) {
+function NearbyAttractionsSection({ items }: { items: readonly TexasEntityRecord[] }) {
+  return (
+    <EditorialSection eyebrow="Nearby attractions" title="More to do around the venue">
+      <div className="grid gap-x-8 border-t border-border sm:grid-cols-2">
+        {items.map((item) => (
+          <a key={item.id} href={canonicalEntityPath(item)} className="group border-b border-border py-5">
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{humanize(item.kind)}</span>
+            <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{item.name}</strong>
+            {item.description ? <span className="mt-2 block line-clamp-2 text-sm leading-6 text-muted-foreground">{item.description}</span> : null}
+          </a>
+        ))}
+      </div>
+    </EditorialSection>
+  );
+}
+
+function SourcesSection({ entity, guide, enrichment, photo, reviewedAt }: { entity: TexasEntityRecord; guide: SportsVenueGuidePilot; enrichment?: SportsVenueEnrichment; photo?: SportsVenuePhoto; reviewedAt?: string }) {
   const sourceLinks = dedupeLinks([
     ...guide.sources,
     ...(enrichment?.planningLinks ?? []).map((link) => ({ label: link.label, href: link.url })),
-    ...(entity.officialUrl
-      ? [{ label: "Knowledge-graph official venue source", href: entity.officialUrl }]
-      : []),
+    ...(entity.officialUrl ? [{ label: "Knowledge-graph official venue source", href: entity.officialUrl }] : []),
   ]);
 
   return (
@@ -352,53 +300,22 @@ function SourcesSection({
       <div className="grid gap-7 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Sources</p>
-          <h2 id="venue-sources-heading" className="mt-2 font-display text-3xl">
-            Verification & review
-          </h2>
-          {reviewedAt ? (
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">
-              Last reviewed {formatDate(reviewedAt)}.
-            </p>
-          ) : null}
+          <h2 id="venue-sources-heading" className="mt-2 font-display text-3xl">Verification & review</h2>
+          {reviewedAt ? <p className="mt-3 text-sm leading-6 text-muted-foreground">Last reviewed {formatDate(reviewedAt)}.</p> : null}
         </div>
         <div className="min-w-0">
           {sourceLinks.length ? (
             <ul className="grid gap-x-8 sm:grid-cols-2">
               {sourceLinks.map((link) => (
                 <li key={link.href} className="border-t border-border py-4 text-sm font-semibold">
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline decoration-primary/40 underline-offset-4 hover:text-primary"
-                  >
-                    {link.label} ↗
-                  </a>
+                  <a href={link.href} target="_blank" rel="noreferrer" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{link.label} ↗</a>
                 </li>
               ))}
             </ul>
           ) : null}
           {photo ? (
             <p className="border-t border-border pt-4 text-xs leading-6 text-muted-foreground">
-              Photo:{" "}
-              <a
-                href={photo.sourcePage}
-                target="_blank"
-                rel="noreferrer"
-                className="underline underline-offset-4"
-              >
-                {photo.sourceName}
-              </a>
-              , {photo.author}.{" "}
-              <a
-                href={photo.licenseUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="underline underline-offset-4"
-              >
-                {photo.licenseName}
-              </a>
-              .
+              Photo: <a href={photo.sourcePage} target="_blank" rel="noreferrer" className="underline underline-offset-4">{photo.sourceName}</a>, {photo.author}. <a href={photo.licenseUrl} target="_blank" rel="noreferrer" className="underline underline-offset-4">{photo.licenseName}</a>.
             </p>
           ) : null}
         </div>
@@ -407,15 +324,7 @@ function SourcesSection({
   );
 }
 
-function EditorialSection({
-  eyebrow,
-  title,
-  children,
-}: {
-  eyebrow: string;
-  title: string;
-  children: ReactNode;
-}) {
+function EditorialSection({ eyebrow, title, children }: { eyebrow: string; title: string; children: ReactNode }) {
   return (
     <section className="border-b border-border py-10 sm:py-12">
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -430,41 +339,22 @@ function EditorialSection({
 }
 
 function GuideItem({ title, body }: { title: string; body: string }) {
-  return (
-    <div className="border-t border-border pt-4">
-      <h3 className="font-display text-2xl">{title}</h3>
-      <p className="mt-3 text-sm leading-7 text-muted-foreground">{body}</p>
-    </div>
-  );
+  return <div className="border-t border-border pt-4"><h3 className="font-display text-2xl">{title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{body}</p></div>;
 }
 
 function Fact({ label, value }: { label: string; value?: string }) {
-  return value ? (
-    <div className="border-b border-border py-3 first:pt-0 last:border-b-0 last:pb-0">
-      <dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">{label}</dt>
-      <dd className="mt-1 font-medium leading-5">{value}</dd>
-    </div>
-  ) : null;
+  return value ? <div className="border-b border-border py-3 first:pt-0 last:border-b-0 last:pb-0"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">{label}</dt><dd className="mt-1 font-medium leading-5">{value}</dd></div> : null;
 }
 
 function buildDirectionsUrl(entity: TexasEntityRecord, guide: SportsVenueGuidePilot) {
-  const query = entity.coordinates
-    ? `${entity.coordinates.latitude},${entity.coordinates.longitude}`
-    : (guide.address ?? `${entity.name}, ${guide.city}, Texas`);
+  const query = entity.coordinates ? `${entity.coordinates.latitude},${entity.coordinates.longitude}` : (guide.address ?? `${entity.name}, ${guide.city}, Texas`);
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
 
 function postalAddress(address: string) {
   const [streetAddress, cityPart, statePart] = address.split(",").map((part) => part.trim());
   const [addressRegion, postalCode] = (statePart ?? "").split(/\s+/, 2);
-  return {
-    "@type": "PostalAddress",
-    streetAddress,
-    addressLocality: cityPart,
-    addressRegion: addressRegion || "TX",
-    postalCode,
-    addressCountry: "US",
-  };
+  return { "@type": "PostalAddress", streetAddress, addressLocality: cityPart, addressRegion: addressRegion || "TX", postalCode, addressCountry: "US" };
 }
 
 function dedupeLinks(links: readonly SportsVenueGuideLink[]) {
@@ -479,29 +369,15 @@ function dedupeLinks(links: readonly SportsVenueGuideLink[]) {
 function sportsVenueSchemaType(entity: TexasEntityRecord) {
   const tags = new Set(entity.tags ?? []);
   if (tags.has("golf")) return "GolfCourse";
-  if (
-    tags.has("motorsports") ||
-    tags.has("horse-racing") ||
-    tags.has("shooting-sports") ||
-    tags.has("action-sports") ||
-    tags.has("tournament-complex") ||
-    tags.has("aquatics")
-  ) {
-    return "SportsActivityLocation";
-  }
+  if (tags.has("motorsports") || tags.has("horse-racing") || tags.has("shooting-sports") || tags.has("action-sports") || tags.has("tournament-complex") || tags.has("aquatics")) return "SportsActivityLocation";
   return "StadiumOrArena";
 }
 
 function formatDate(value: string) {
   const date = new Date(`${value}T12:00:00Z`);
-  return Number.isNaN(date.getTime())
-    ? value
-    : new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeZone: "UTC" }).format(date);
+  return Number.isNaN(date.getTime()) ? value : new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeZone: "UTC" }).format(date);
 }
 
 function humanize(value: string) {
-  return value
-    .split("-")
-    .map((part) => `${part.charAt(0).toUpperCase()}${part.slice(1)}`)
-    .join(" ");
+  return value.split("-").map((part) => `${part.charAt(0).toUpperCase()}${part.slice(1)}`).join(" ");
 }
