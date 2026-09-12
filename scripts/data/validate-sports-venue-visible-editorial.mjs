@@ -4,6 +4,18 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
+const remediationFiles = [
+  'src/data/sports-venue-content-remediation.ts',
+  'src/data/sports-venue-content-remediation-wave2.ts',
+  'src/data/sports-venue-content-remediation-wave3.ts',
+  'src/data/sports-venue-content-remediation-wave4.ts',
+  'src/data/sports-venue-content-remediation-wave5.ts',
+  'src/data/sports-venue-content-remediation-wave6.ts',
+  'src/data/sports-venue-content-remediation-wave7.ts',
+  'src/data/sports-venue-content-remediation-wave8.ts',
+  'src/data/sports-venue-content-remediation-wave9.ts',
+];
+
 const [
   route,
   sharedGuide,
@@ -12,6 +24,7 @@ const [
   wave7,
   wave8,
   wave9,
+  ...remediationSources
 ] = await Promise.all([
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/components/sports/SportsVenueGuidePage.tsx'),
@@ -20,12 +33,23 @@ const [
   read('src/data/sports-venue-editorial-wave7.server.ts'),
   read('src/data/sports-venue-editorial-wave8.server.ts'),
   read('src/data/sports-venue-editorial-wave9.server.ts'),
+  ...remediationFiles.map(read),
 ]);
 
 const errors = [];
 const assert = (condition, message) => {
   if (!condition) errors.push(message);
 };
+
+const normalizeCopy = (value) => value
+  .replaceAll("\\'", "'")
+  .replace(/\s+/g, ' ')
+  .trim();
+
+const normalizeForDuplicateCheck = (value) => normalizeCopy(value)
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, ' ')
+  .trim();
 
 const editorialSources = [editorial, wave6, wave7, wave8, wave9];
 const editorialIds = new Set(
@@ -42,7 +66,7 @@ assert(
 const editorialEntries = editorialSources.flatMap((source) =>
   [...source.matchAll(/^\s{2}'(sports-venue:[^']+)':\s*'((?:\\'|[^'])*)',?\s*$/gm)].map((match) => ({
     id: match[1],
-    description: match[2].replaceAll("\\'", "'").replace(/\s+/g, ' ').trim(),
+    description: normalizeCopy(match[2]),
   })),
 );
 
@@ -69,7 +93,7 @@ for (const { id, description } of editorialEntries) {
 
 const descriptionsByNormalizedText = new Map();
 for (const { id, description } of editorialEntries) {
-  const normalized = description.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const normalized = normalizeForDuplicateCheck(description);
   const ids = descriptionsByNormalizedText.get(normalized) ?? [];
   ids.push(id);
   descriptionsByNormalizedText.set(normalized, ids);
@@ -81,6 +105,79 @@ for (const ids of descriptionsByNormalizedText.values()) {
     `Sports-venue editorial descriptions must be unique; identical copy is shared by ${ids.join(', ')}.`,
   );
 }
+
+const runtimeSections = [];
+const historyStories = [];
+
+for (let index = 0; index < remediationSources.length; index += 1) {
+  const source = remediationSources[index];
+  const file = remediationFiles[index];
+  const runtimeMarker = source.indexOf('export const SPORTS_VENUE_CONTENT_REMEDIATION');
+  assert(runtimeMarker >= 0, `Sports venue remediation runtime export is missing in ${file}.`);
+  if (runtimeMarker < 0) continue;
+
+  const runtimeSource = source.slice(runtimeMarker);
+  const entries = [...runtimeSource.matchAll(/^\s{2}'([^']+)': \{([\s\S]*?)(?=^\s{2}'[^']+': \{|^\};)/gm)];
+  assert(entries.length > 0, `No sports venue runtime remediation entries found in ${file}.`);
+
+  for (const [, slug, body] of entries) {
+    const parking = body.match(/^\s{4}parking:\s*'((?:\\'|[^'])*)',?$/m)?.[1];
+    const arrival = body.match(/^\s{4}arrival:\s*'((?:\\'|[^'])*)',?$/m)?.[1];
+    assert(Boolean(parking), `Sports venue runtime remediation ${slug} in ${file} is missing a literal parking section.`);
+    assert(Boolean(arrival), `Sports venue runtime remediation ${slug} in ${file} is missing a literal arrival section.`);
+    if (parking && arrival) {
+      runtimeSections.push({ slug, file, parking: normalizeCopy(parking), arrival: normalizeCopy(arrival) });
+    }
+  }
+
+  for (const match of source.matchAll(/^\s{4}editorialStory:\s*'((?:\\'|[^'])*)',?$/gm)) {
+    historyStories.push({ file, story: normalizeCopy(match[1]) });
+  }
+}
+
+assert(
+  runtimeSections.length === 84,
+  `Expected source-reviewed runtime parking/arrival remediation for all 84 sports venues; found ${runtimeSections.length}.`,
+);
+assert(
+  historyStories.length === 84,
+  `Expected source-reviewed editorial history stories for all 84 sports venues; found ${historyStories.length}.`,
+);
+
+const assertUniqueSectionCopy = (items, field, label) => {
+  const groups = new Map();
+  for (const item of items) {
+    const normalized = normalizeForDuplicateCheck(item[field]);
+    const records = groups.get(normalized) ?? [];
+    records.push(item.slug ?? item.file);
+    groups.set(normalized, records);
+
+    const lower = item[field].toLowerCase();
+    for (const fragment of bannedBoilerplateFragments) {
+      assert(!lower.includes(fragment), `${label} copy reintroduced retired boilerplate in ${item.slug ?? item.file}: “${fragment}”.`);
+    }
+  }
+  for (const records of groups.values()) {
+    assert(records.length === 1, `${label} copy must be venue-specific; identical text is shared by ${records.join(', ')}.`);
+  }
+};
+
+assertUniqueSectionCopy(runtimeSections, 'parking', 'Parking');
+assertUniqueSectionCopy(runtimeSections, 'arrival', 'Arrival');
+assertUniqueSectionCopy(historyStories, 'story', 'Venue history');
+
+assert(
+  sharedGuide.includes('parking={enrichment.parking}'),
+  'Shared sports venue guide must keep rendering the venue-specific parking field.',
+);
+assert(
+  sharedGuide.includes('arrival={enrichment.arrival}'),
+  'Shared sports venue guide must keep rendering the venue-specific arrival field.',
+);
+assert(
+  sharedGuide.includes('{enrichment.history}'),
+  'Shared sports venue guide must keep rendering the venue-specific history field.',
+);
 
 const subtitleIndex = sharedGuide.indexOf('{guide.subtitle}');
 const visibleDescriptionIndex = sharedGuide.indexOf('{entity.description}');
@@ -128,4 +225,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue visible editorial validation passed: ${editorialIds.size}/84 explicit editorial descriptions remain covered, all parsed descriptions are unique and free of the retired boilerplate, shared venue guides render the unique lead visibly after the subtitle, and search metadata prefers that lead before generic fallbacks.`);
+console.log(`Sports venue visible editorial validation passed: ${editorialIds.size}/84 explicit editorial descriptions remain covered; all ${runtimeSections.length} source-reviewed parking and arrival sections and all ${historyStories.length} venue-history stories are present, unique, and free of retired boilerplate; shared venue guides visibly render the unique lead and planning sections; search metadata remains editorial-first.`);
