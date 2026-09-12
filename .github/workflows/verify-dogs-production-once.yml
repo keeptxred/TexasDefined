@@ -1,0 +1,69 @@
+name: Verify Texas Dogs production once
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-dogs-production-once.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-dogs-production:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verify Dogs hub, breed, 404 and sitemap
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          cache_key="${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          fetch() {
+            local url="$1"
+            local out="$2"
+            curl --silent --show-error --location --retry 5 --retry-delay 2 \
+              --connect-timeout 10 --max-time 45 \
+              --user-agent 'Mozilla/5.0 (compatible; TexasDefinedDogsVerification/1.0)' \
+              --output "$out" --write-out '%{http_code}' "$url"
+          }
+
+          hub_code="$(fetch "$origin/dogs?verify=$cache_key" "$workdir/hub.html")"
+          breed_code="$(fetch "$origin/dogs/labrador-retriever?verify=$cache_key" "$workdir/breed.html")"
+          missing_code="$(fetch "$origin/dogs/not-a-real-breed?verify=$cache_key" "$workdir/missing.html")"
+          sitemap_code="$(fetch "$origin/sitemap.xml?verify=$cache_key" "$workdir/sitemap.xml")"
+
+          echo "Dogs hub HTTP: $hub_code"
+          echo "Labrador breed HTTP: $breed_code"
+          echo "Invalid breed HTTP: $missing_code"
+          echo "Sitemap HTTP: $sitemap_code"
+
+          test "$hub_code" = '200'
+          test "$breed_code" = '200'
+          test "$missing_code" = '404'
+          test "$sitemap_code" = '200'
+
+          grep -Fq 'Texas Dogs Defined' "$workdir/hub.html"
+          grep -Fq 'https://texasdefined.com/dogs' "$workdir/hub.html"
+          grep -Fq 'CollectionPage' "$workdir/hub.html"
+          grep -Fq 'ItemList' "$workdir/hub.html"
+
+          grep -Fq 'Labrador Retriever Defined' "$workdir/breed.html"
+          grep -Fq 'https://texasdefined.com/dogs/labrador-retriever' "$workdir/breed.html"
+          grep -Fq 'BreadcrumbList' "$workdir/breed.html"
+
+          grep -Fq '<loc>https://texasdefined.com/dogs</loc>' "$workdir/sitemap.xml"
+          grep -Fq '<loc>https://texasdefined.com/dogs/labrador-retriever</loc>' "$workdir/sitemap.xml"
+
+          {
+            echo '## Texas Dogs production verification'
+            echo
+            echo "- /dogs: HTTP $hub_code; title/canonical/CollectionPage/ItemList markers verified"
+            echo "- /dogs/labrador-retriever: HTTP $breed_code; title/canonical/BreadcrumbList markers verified"
+            echo "- invalid breed: HTTP $missing_code"
+            echo "- /sitemap.xml: HTTP $sitemap_code; hub and Labrador URLs verified"
+          } >> "$GITHUB_STEP_SUMMARY"
