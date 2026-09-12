@@ -197,7 +197,7 @@ const SportsVenueGuidePilotContent = lazy(
 
 function SportsVenuePage() {
   const { slug } = Route.useParams();
-  const { entity, visitorPlaces, upcomingEvents, eventCalendarHref } = Route.useLoaderData();
+  const { entity, visitorPlaces, upcomingEvents, eventCalendarHref, sponsorPlacement } = Route.useLoaderData();
 
   if (isSportsVenueGuidePilot(slug)) {
     return <Suspense fallback={null}>
@@ -207,6 +207,7 @@ function SportsVenuePage() {
         nearbyAttractions={visitorPlaces}
         upcomingEvents={upcomingEvents}
         eventCalendarHref={eventCalendarHref}
+        sponsorPlacement={sponsorPlacement}
       />
     </Suspense>;
   }
