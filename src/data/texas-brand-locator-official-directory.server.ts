@@ -94,7 +94,7 @@ function parseYextTexasDirectory(
     const meta = asRecord(profile.meta);
     const coordinate = asRecord(profile.yextDisplayCoordinate ?? profile.displayCoordinate ?? profile.geo);
     const latitude = numberValue(coordinate.lat, coordinate.latitude, profile.latitude);
-    const longitude = numberValue(coordinate.long, coordinate.lng, profile.longitude);
+    const longitude = numberValue(coordinate.long, coordinate.lng, coordinate.longitude, profile.longitude);
     if (latitude === undefined || longitude === undefined) return [];
 
     const region = stringValue(addressObject.region, addressObject.state, profile.region, profile.state);
@@ -357,13 +357,12 @@ export async function findOfficialDirectoryLocationsServer(
   const adapter = DIRECTORY_ADAPTERS[brand];
   const label = texasBrandLocatorLabel(brand);
   const locations = await loadOfficialDirectory(brand, origin);
-  const entries = locations.map((location, index) => {
+  const entries = locations.map((location) => {
     const calculatedDistance = location.latitude !== undefined && location.longitude !== undefined
       ? distanceMiles(origin, { latitude: location.latitude, longitude: location.longitude })
       : undefined;
     return {
       location,
-      index,
       distanceMiles: location.distanceMiles ?? calculatedDistance,
     };
   });
