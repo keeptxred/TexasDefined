@@ -47,6 +47,14 @@ export const TEXAS_BRAND_LOCATOR_REGISTRY = {
     fallbackLabel: "Open Whataburger's official location finder",
     storeNamePattern: null,
   },
+  shipley: {
+    label: "Shipley Do-Nuts",
+    provider: "official-directory",
+    queryPattern: /\bshipley(?:\s+do[- ]?nuts?|\s+donuts?)?\b/i,
+    officialLocatorUrl: "https://shipleydonuts.com/locations",
+    fallbackLabel: "Open Shipley Do-Nuts' official location finder",
+    storeNamePattern: null,
+  },
 } as const;
 
 export type TexasBrandLocatorBrand = keyof typeof TEXAS_BRAND_LOCATOR_REGISTRY;
