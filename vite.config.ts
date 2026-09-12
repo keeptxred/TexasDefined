@@ -4,6 +4,7 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
+import "./scripts/assets/materialize-generated-images.mjs";
 
 // Cloudflare Builds production smoke marker: safe no-op source change.
 export default defineConfig({
