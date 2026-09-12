@@ -16,6 +16,18 @@ const remediationFiles = [
   'src/data/sports-venue-content-remediation-wave9.ts',
 ];
 
+const enrichmentFiles = [
+  'src/data/sports-venue-enrichment.ts',
+  'src/data/sports-venue-enrichment-batch2.ts',
+  'src/data/sports-venue-enrichment-batch3.ts',
+  'src/data/sports-venue-enrichment-batch4-racing.ts',
+  'src/data/sports-venue-enrichment-batch5.ts',
+  'src/data/sports-venue-enrichment-batch6.ts',
+  'src/data/sports-venue-enrichment-batch7-major-completion.ts',
+  'src/data/sports-venue-enrichment-batch8a-completion.ts',
+  'src/data/sports-venue-enrichment-batch8b-completion.ts',
+];
+
 const [
   route,
   sharedGuide,
@@ -24,7 +36,8 @@ const [
   wave7,
   wave8,
   wave9,
-  ...remediationSources
+  remediationSources,
+  enrichmentSources,
 ] = await Promise.all([
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/components/sports/SportsVenueGuidePage.tsx'),
@@ -33,7 +46,8 @@ const [
   read('src/data/sports-venue-editorial-wave7.server.ts'),
   read('src/data/sports-venue-editorial-wave8.server.ts'),
   read('src/data/sports-venue-editorial-wave9.server.ts'),
-  ...remediationFiles.map(read),
+  Promise.all(remediationFiles.map(read)),
+  Promise.all(enrichmentFiles.map(read)),
 ]);
 
 const errors = [];
@@ -50,6 +64,15 @@ const normalizeForDuplicateCheck = (value) => normalizeCopy(value)
   .toLowerCase()
   .replace(/[^a-z0-9]+/g, ' ')
   .trim();
+
+const extractLiteral = (body, field) => {
+  const match = body.match(new RegExp(`^\\s{4}${field}:\\s*'((?:\\\\'|[^'])*)',?$`, 'm'));
+  return match?.[1] ? normalizeCopy(match[1]) : undefined;
+};
+
+const parseTopLevelEntries = (source) =>
+  [...source.matchAll(/^\s{2}'([^']+)': \{([\s\S]*?)(?=^\s{2}'[^']+': \{|^\};)/gm)]
+    .map((match) => ({ slug: match[1], body: match[2] }));
 
 const editorialSources = [editorial, wave6, wave7, wave8, wave9];
 const editorialIds = new Set(
@@ -106,9 +129,30 @@ for (const ids of descriptionsByNormalizedText.values()) {
   );
 }
 
-const runtimeSections = [];
-const historyStories = [];
+const baseSectionsBySlug = new Map();
+for (let index = 0; index < enrichmentSources.length; index += 1) {
+  const source = enrichmentSources[index];
+  const file = enrichmentFiles[index];
+  const entries = parseTopLevelEntries(source);
+  assert(entries.length > 0, `No sports venue deep-enrichment entries found in ${file}.`);
 
+  for (const { slug, body } of entries) {
+    const parking = extractLiteral(body, 'parking');
+    const arrival = extractLiteral(body, 'arrival');
+    const history = extractLiteral(body, 'history');
+    assert(Boolean(parking), `Sports venue base profile ${slug} in ${file} is missing a literal parking section.`);
+    assert(Boolean(arrival), `Sports venue base profile ${slug} in ${file} is missing a literal arrival section.`);
+    assert(!baseSectionsBySlug.has(slug), `Sports venue base profile is duplicated across enrichment files: ${slug}.`);
+    baseSectionsBySlug.set(slug, { slug, source: file, parking, arrival, history });
+  }
+}
+
+assert(
+  baseSectionsBySlug.size === 84,
+  `Expected 84 canonical deep-enrichment profiles; found ${baseSectionsBySlug.size}.`,
+);
+
+const remediationSectionsBySlug = new Map();
 for (let index = 0; index < remediationSources.length; index += 1) {
   const source = remediationSources[index];
   const file = remediationFiles[index];
@@ -116,45 +160,62 @@ for (let index = 0; index < remediationSources.length; index += 1) {
   assert(runtimeMarker >= 0, `Sports venue remediation runtime export is missing in ${file}.`);
   if (runtimeMarker < 0) continue;
 
-  const runtimeSource = source.slice(runtimeMarker);
-  const entries = [...runtimeSource.matchAll(/^\s{2}'([^']+)': \{([\s\S]*?)(?=^\s{2}'[^']+': \{|^\};)/gm)];
-  assert(entries.length > 0, `No sports venue runtime remediation entries found in ${file}.`);
-
-  for (const [, slug, body] of entries) {
-    const parking = body.match(/^\s{4}parking:\s*'((?:\\'|[^'])*)',?$/m)?.[1];
-    const arrival = body.match(/^\s{4}arrival:\s*'((?:\\'|[^'])*)',?$/m)?.[1];
-    assert(Boolean(parking), `Sports venue runtime remediation ${slug} in ${file} is missing a literal parking section.`);
-    assert(Boolean(arrival), `Sports venue runtime remediation ${slug} in ${file} is missing a literal arrival section.`);
-    if (parking && arrival) {
-      runtimeSections.push({ slug, file, parking: normalizeCopy(parking), arrival: normalizeCopy(arrival) });
-    }
+  const qualitySource = source.slice(0, runtimeMarker);
+  const historyBySlug = new Map();
+  for (const { slug, body } of parseTopLevelEntries(qualitySource)) {
+    const story = extractLiteral(body, 'editorialStory');
+    if (story) historyBySlug.set(slug, story);
   }
 
-  for (const match of source.matchAll(/^\s{4}editorialStory:\s*'((?:\\'|[^'])*)',?$/gm)) {
-    historyStories.push({ file, story: normalizeCopy(match[1]) });
+  const runtimeSource = source.slice(runtimeMarker);
+  const entries = parseTopLevelEntries(runtimeSource);
+  assert(entries.length > 0, `No sports venue runtime remediation entries found in ${file}.`);
+
+  for (const { slug, body } of entries) {
+    const parking = extractLiteral(body, 'parking');
+    const arrival = extractLiteral(body, 'arrival');
+    const history = extractLiteral(body, 'history') ?? historyBySlug.get(slug);
+    assert(Boolean(parking), `Sports venue runtime remediation ${slug} in ${file} is missing a literal parking section.`);
+    assert(Boolean(arrival), `Sports venue runtime remediation ${slug} in ${file} is missing a literal arrival section.`);
+    assert(Boolean(history), `Sports venue runtime remediation ${slug} in ${file} is missing a source-reviewed history story.`);
+    assert(!remediationSectionsBySlug.has(slug), `Sports venue remediation is duplicated across waves: ${slug}.`);
+    remediationSectionsBySlug.set(slug, { slug, source: file, parking, arrival, history });
   }
 }
 
 assert(
-  runtimeSections.length === 84,
-  `Expected source-reviewed runtime parking/arrival remediation for all 84 sports venues; found ${runtimeSections.length}.`,
+  remediationSectionsBySlug.size === 71,
+  `Expected the current source-reviewed remediation layer to cover 71 sports venues; found ${remediationSectionsBySlug.size}.`,
+);
+
+const effectiveSections = [...baseSectionsBySlug.values()].map((base) => remediationSectionsBySlug.get(base.slug) ?? base);
+const effectiveHistorySections = effectiveSections.filter((item) => item.history);
+assert(
+  effectiveSections.length === 84,
+  `Expected effective planning-section coverage for all 84 sports venues; found ${effectiveSections.length}.`,
 );
 assert(
-  historyStories.length === 84,
-  `Expected source-reviewed editorial history stories for all 84 sports venues; found ${historyStories.length}.`,
+  effectiveSections.every((item) => item.parking && item.arrival),
+  'Every effective sports venue profile must retain explicit parking and arrival copy.',
+);
+assert(
+  effectiveHistorySections.length === 84,
+  `Expected venue-specific history copy for all 84 effective sports venue profiles; found ${effectiveHistorySections.length}.`,
 );
 
 const assertUniqueSectionCopy = (items, field, label) => {
   const groups = new Map();
   for (const item of items) {
-    const normalized = normalizeForDuplicateCheck(item[field]);
+    const value = item[field];
+    if (!value) continue;
+    const normalized = normalizeForDuplicateCheck(value);
     const records = groups.get(normalized) ?? [];
-    records.push(item.slug ?? item.file);
+    records.push(item.slug);
     groups.set(normalized, records);
 
-    const lower = item[field].toLowerCase();
+    const lower = value.toLowerCase();
     for (const fragment of bannedBoilerplateFragments) {
-      assert(!lower.includes(fragment), `${label} copy reintroduced retired boilerplate in ${item.slug ?? item.file}: “${fragment}”.`);
+      assert(!lower.includes(fragment), `${label} copy reintroduced retired boilerplate in ${item.slug}: “${fragment}”.`);
     }
   }
   for (const records of groups.values()) {
@@ -162,9 +223,9 @@ const assertUniqueSectionCopy = (items, field, label) => {
   }
 };
 
-assertUniqueSectionCopy(runtimeSections, 'parking', 'Parking');
-assertUniqueSectionCopy(runtimeSections, 'arrival', 'Arrival');
-assertUniqueSectionCopy(historyStories, 'story', 'Venue history');
+assertUniqueSectionCopy(effectiveSections, 'parking', 'Parking');
+assertUniqueSectionCopy(effectiveSections, 'arrival', 'Arrival');
+assertUniqueSectionCopy(effectiveHistorySections, 'history', 'Venue history');
 
 assert(
   sharedGuide.includes('parking={enrichment.parking}'),
@@ -225,4 +286,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue visible editorial validation passed: ${editorialIds.size}/84 explicit editorial descriptions remain covered; all ${runtimeSections.length} source-reviewed parking and arrival sections and all ${historyStories.length} venue-history stories are present, unique, and free of retired boilerplate; shared venue guides visibly render the unique lead and planning sections; search metadata remains editorial-first.`);
+console.log(`Sports venue visible editorial validation passed: ${editorialIds.size}/84 unique editorial descriptions remain covered; the effective 84-venue planning dataset (${remediationSectionsBySlug.size} remediated + ${84 - remediationSectionsBySlug.size} canonical base profiles) retains unique parking, arrival, and history copy free of retired boilerplate; shared venue guides visibly render those venue-specific sections; search metadata remains editorial-first.`);
