@@ -1,0 +1,39 @@
+name: Apply GSC CTR Wave 10
+
+on:
+  push:
+    branches:
+      - agent/gsc-ctr-wave10-20260911
+    paths:
+      - scripts/data/apply-gsc-ctr-wave10.mjs
+      - .github/workflows/apply-gsc-ctr-wave10.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/gsc-ctr-wave10-20260911
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Apply patch
+        run: node scripts/data/apply-gsc-ctr-wave10.mjs
+      - name: Validate CTR contract
+        run: node scripts/data/validate-gsc-page-one-ctr.mjs
+      - name: Commit generated changes
+        run: |
+          if git diff --quiet; then
+            echo "No generated changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/lib/seo.ts scripts/data/validate-gsc-page-one-ctr.mjs
+          git commit -m "Apply GSC CTR wave 10"
+          git push origin HEAD:agent/gsc-ctr-wave10-20260911
