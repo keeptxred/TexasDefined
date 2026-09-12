@@ -1,0 +1,36 @@
+name: Validate sports venue licensed photo additions
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/sports-venue-images.ts'
+      - 'src/data/sports-venue-images-additions.ts'
+      - 'src/data/sports-venue-images-all.ts'
+      - 'src/components/sports/SportsVenueGuidePilotContent.tsx'
+      - 'src/components/sports/SportsVenueGuidePage.tsx'
+      - 'src/routes/sports-venue.$slug.tsx'
+      - 'src/routes/sports-venue.jones-att-stadium.tsx'
+      - 'scripts/data/validate-sports-venue-images.mjs'
+      - 'scripts/data/validate-sports-venue-photo-additions.mjs'
+      - '.github/workflows/validate-sports-venue-photo-additions.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/data/validate-sports-venue-images.mjs
+      - run: node scripts/data/validate-sports-venue-photo-additions.mjs
+      - run: node scripts/data/validate-sports-venue-phase3-galaxy.mjs
+      - run: node scripts/data/validate-sports-venue-deep-completeness.mjs
+      - run: npm run build
+      - run: npm run performance:validate
