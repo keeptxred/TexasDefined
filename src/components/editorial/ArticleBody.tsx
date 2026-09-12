@@ -8,14 +8,8 @@ import { INTERNAL_LINK_POLICIES, policyForSurface } from '@/platform/internal-li
 import { countyLabelHasExplicitContext } from '@/platform/internal-linking';
 
 const articlePolicy = INTERNAL_LINK_POLICIES.article;
-const MetroRelocationAuthority = lazy(() => import("@/components/relocation/MetroRelocationAuthority").then((module) => ({ default: module.MetroRelocationAuthority })));
-const metroRelocationGuidePaths = new Set([
-  "/article/moving-to-dallas-fort-worth-guide",
-  "/article/moving-to-houston-address-checklist",
-  "/article/moving-to-austin-guide",
-  "/article/moving-to-san-antonio-guide",
-  "/article/moving-to-el-paso-guide",
-]);
+const MetroRelocationAuthority = lazy(() => import("@/components/relocation/MetroRelocationAuthority").then(({ MetroRelocationAuthority }) => ({ default: MetroRelocationAuthority })));
+const metroRelocationGuidePath = /^\/article\/moving-to-(?:dallas-fort-worth-guide|houston-address-checklist|(?:austin|san-antonio|el-paso)-guide)$/;
 
 export function PullQuote({ text, attribution, entities = [] }: { text: string; attribution?: string; entities?: TexasEntityRecord[] }) {
   return (
@@ -38,7 +32,7 @@ export function Byline({ author, meta }: { author: Author | null; meta: string }
 
 export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[]; entities?: TexasEntityRecord[] }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
-  const showMetroRelocationAuthority = metroRelocationGuidePaths.has(pathname);
+  const showMetroRelocationAuthority = metroRelocationGuidePath.test(pathname);
   const linked = new Set<string>();
   let remainingLinks = articlePolicy.pageBudget;
   const available = () => entities.filter((entity) => !linked.has(entity.id));
@@ -60,6 +54,7 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
     return <AutoEntityLinks text={text} entities={candidates} maxLinks={maxLinks} policy={policyForSurface('article')} />;
   };
   return <div className="editorial-body text-foreground/92">
+    {pathname === "/article/texas-wildflowers-guide" ? <Suspense fallback={null}><MetroRelocationAuthority articlePath={pathname} /></Suspense> : null}
     {blocks.map((block, index) => {
       switch (block.type) {
         case "heading": return <h2 key={index} className="mb-4 mt-14 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
