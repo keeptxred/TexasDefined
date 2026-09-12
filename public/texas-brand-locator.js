@@ -7,6 +7,7 @@
     ["mi-tienda", "Nearest Mi Tienda locations"],
     ["bucees", "Nearest Buc-ee's locations"],
     ["whataburger", "Nearest Whataburger locations"],
+    ["academy", "Nearest Academy Sports + Outdoors locations"],
     ["shipley", "Nearest Shipley Do-Nuts locations"],
     ["kolache-factory", "Nearest Kolache Factory locations"],
   ];
@@ -48,10 +49,10 @@
     const inner = document.createElement("div");
     inner.className = "px-6 sm:px-0";
     inner.append(text("p", "Texas brand locator", "text-xs font-semibold uppercase tracking-[0.16em] text-primary"));
-    const heading = text("h2", "Find H-E-B, Buc-ee's, Whataburger, Shipley, Kolache Factory and H-E-B family stores", "mt-2 font-display text-4xl");
+    const heading = text("h2", "Find H-E-B, Buc-ee's, Whataburger, Academy, Shipley, Kolache Factory and H-E-B family stores", "mt-2 font-display text-4xl");
     heading.id = "texas-brand-locator-heading";
     inner.append(heading);
-    inner.append(text("p", "Enter a Texas street address and choose what you want to find. TexasDefined uses H-E-B's live store locator for H-E-B, Central Market, Joe V's Smart Shop and Mi Tienda, an editorially verified snapshot of Buc-ee's official Texas location list for Buc-ee's, Whataburger's official Texas location directory for Whataburger, Shipley Do-Nuts' official nearby-location finder for Shipley, and Kolache Factory's official Texas location directory. Distance ranking uses the U.S. Census geocoder where a coordinate anchor is needed.", "mt-4 max-w-3xl text-sm leading-7 text-muted-foreground"));
+    inner.append(text("p", "Enter a Texas street address and choose what you want to find. TexasDefined uses H-E-B's live store locator for H-E-B, Central Market, Joe V's Smart Shop and Mi Tienda, editorially verified registries sourced from the official Buc-ee's and Academy Texas directories, Whataburger's official Texas location directory, Shipley Do-Nuts' official nearby-location finder, and Kolache Factory's official Texas location directory. Distance ranking uses the U.S. Census geocoder where a coordinate anchor is needed.", "mt-4 max-w-3xl text-sm leading-7 text-muted-foreground"));
 
     const form = document.createElement("form");
     form.dataset.texasBrandLocatorForm = "";
@@ -69,6 +70,7 @@
       ["mi-tienda", "Mi Tienda"],
       ["bucees", "Buc-ee's"],
       ["whataburger", "Whataburger"],
+      ["academy", "Academy Sports + Outdoors"],
       ["shipley", "Shipley Do-Nuts"],
       ["kolache-factory", "Kolache Factory"],
     ]) {
