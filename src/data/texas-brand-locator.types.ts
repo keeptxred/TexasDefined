@@ -9,6 +9,7 @@ export type TexasBrandLocatorLocation = {
   name: string;
   address: string;
   city?: string;
+  countySlug?: string;
   postalCode?: string;
   distanceMiles?: number;
   latitude?: number;

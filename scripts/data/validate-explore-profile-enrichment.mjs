@@ -144,11 +144,14 @@ for (const feature of [
   'const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations)',
   'const usePreservedFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
   'const rawDestinations = usePreservedFallback ? preservedExploreDestinations : remoteDestinations',
-  'const destinations = resolveDestinationCatalog(rawDestinations)',
+  'const destinations = await resolveDestinationCatalog(rawDestinations)',
   'validLastModified', '<lastmod>', 'item.sourceCheckedAt',
   'isPrimaryTripPlannerDestination(destination)',
   'auditDestination(destination).readyForIndexing',
 ]) if (!sitemap.includes(feature)) errors.push(`Explore sitemap enrichment or quality feature missing: ${feature}`);
+const curationDynamicImport = 'const { applyAllCuratedDestinations } = await import("@/data/destination-curation-all")';
+if (!sitemap.includes(curationDynamicImport)) errors.push('Explore sitemap must lazy-load the full destination curation stack inside its resolver.');
+if (sitemap.includes('import { applyAllCuratedDestinations } from "@/data/destination-curation-all"')) errors.push('Explore sitemap must not eagerly import the destination curation stack at route-module evaluation time.');
 if (sitemap.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations')) {
   errors.push('Explore sitemap still uses the obsolete single-source outage fallback.');
 }

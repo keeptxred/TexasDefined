@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
-import { TexasExplainedContextLinks } from '@/components/editorial/TexasExplainedContextLinks';
 import { SportsTrafficTracker } from '@/components/sports/SportsTrafficTracker';
+import { getSportsVenuePhoto } from '@/data/sports-venue-images';
 
 const CityPassContextualCallout = lazy(() =>
   import('@/components/monetization/CityPassContextualCallout').then((module) => ({
@@ -25,6 +25,8 @@ type QuickAnswer = {
   answer: string;
 };
 
+type QuickAnswerInput = Omit<SportsVenueQuickAnswersProps, 'canonicalUrl' | 'verifiedAt'>;
+
 export function SportsVenueQuickAnswers({
   venueName,
   canonicalUrl,
@@ -36,11 +38,18 @@ export function SportsVenueQuickAnswers({
   arrival,
   verifiedAt,
 }: SportsVenueQuickAnswersProps) {
-  const answers = buildAnswers({ venueName, city, countyName, capacity, primaryEvents, parking, arrival, verifiedAt });
+  const answers = buildAnswers({ venueName, city, countyName, capacity, primaryEvents, parking, arrival });
   const slug = canonicalUrl.split('/sports-venue/')[1]?.split(/[?#]/)[0];
   const surfacePath = slug ? `/sports-venue/${slug}` : undefined;
   const heroSrc = slug ? `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}` : undefined;
   const absoluteHeroUrl = heroSrc ? new URL(heroSrc, canonicalUrl).toString() : undefined;
+  const photo = slug ? getSportsVenuePhoto(slug) : undefined;
+  const heroAlt = photo?.alt ?? `${venueName} — original TexasDefined sports venue illustration`;
+  const heroWidth = photo?.width ?? 1600;
+  const heroHeight = photo?.height ?? 900;
+  const freshnessNote = verifiedAt
+    ? `Source review: core venue facts were last reviewed ${verifiedAt}. Event-day policies can change, so use the official links farther down the guide for current rules.`
+    : `Event-day policies can change, so use the official links farther down the guide for current rules.`;
   if (!answers.length) return null;
 
   const faqJsonLd = {
@@ -59,9 +68,9 @@ export function SportsVenueQuickAnswers({
     '@id': `${canonicalUrl}#venue-hero`,
     contentUrl: absoluteHeroUrl,
     url: absoluteHeroUrl,
-    caption: `${venueName} — original TexasDefined sports venue illustration`,
-    width: 1600,
-    height: 900,
+    caption: photo ? `${venueName} — photo by ${photo.author}, ${photo.licenseName}` : `${venueName} — original TexasDefined sports venue illustration`,
+    width: heroWidth,
+    height: heroHeight,
     representativeOfPage: true,
     isPartOf: { '@id': canonicalUrl },
   } : undefined;
@@ -73,16 +82,18 @@ export function SportsVenueQuickAnswers({
       <div className="overflow-hidden border border-border bg-muted/30">
         <img
           src={heroSrc}
-          alt={`${venueName} — original TexasDefined sports venue illustration`}
-          width={1600}
-          height={900}
+          alt={heroAlt}
+          width={heroWidth}
+          height={heroHeight}
           loading="eager"
           decoding="async"
           fetchPriority="high"
           className="aspect-[16/9] w-full object-cover"
         />
       </div>
-      <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">Original TexasDefined editorial illustration. Venue logos, sponsor marks and third-party photography are intentionally not reproduced.</figcaption>
+      {photo ? <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
+        Photo by <a className="underline underline-offset-2 hover:text-foreground" href={photo.sourcePage} target="_blank" rel="noreferrer">{photo.author}</a> via {photo.sourceName}, licensed under <a className="underline underline-offset-2 hover:text-foreground" href={photo.licenseUrl} target="_blank" rel="noreferrer">{photo.licenseName}</a>. Original source file is served unchanged and may be visually cropped by the page layout.
+      </figcaption> : <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">Original TexasDefined editorial illustration. Venue logos, sponsor marks and third-party photography are intentionally not reproduced.</figcaption>}
     </figure> : null}
 
     <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]" aria-labelledby="venue-quick-answers-heading">
@@ -91,6 +102,7 @@ export function SportsVenueQuickAnswers({
         <p className="eyebrow text-primary">Quick answers</p>
         <h2 id="venue-quick-answers-heading" className="mt-2 font-display text-3xl leading-tight">Planning a visit to {venueName}</h2>
         <p className="mt-3 text-sm leading-6 text-muted-foreground">Answer-first trip details from the verified venue record. Use the official links farther down the guide for information that can change by event.</p>
+        <p className="mt-3 text-xs leading-5 text-muted-foreground">{freshnessNote}</p>
       </div>
       <div className="grid gap-x-8 md:grid-cols-2">
         {answers.map((item) => <article key={item.question} className="border-t border-border py-5">
@@ -101,11 +113,10 @@ export function SportsVenueQuickAnswers({
     </section>
 
     {slug ? <Suspense fallback={null}><CityPassContextualCallout surface="sports-venue" slug={slug} /></Suspense> : null}
-    <TexasExplainedContextLinks surface="sports" />
   </>;
 }
 
-function buildAnswers({ venueName, city, countyName, capacity, primaryEvents = [], parking, arrival, verifiedAt }: Omit<SportsVenueQuickAnswersProps, 'canonicalUrl'>): QuickAnswer[] {
+function buildAnswers({ venueName, city, countyName, capacity, primaryEvents = [], parking, arrival }: QuickAnswerInput): QuickAnswer[] {
   const answers: QuickAnswer[] = [];
   const location = [city, countyName].filter(Boolean).join(', ');
 
@@ -149,14 +160,7 @@ function buildAnswers({ venueName, city, countyName, capacity, primaryEvents = [
     });
   }
 
-  if (verifiedAt) {
-    answers.push({
-      question: `How current is this ${venueName} visitor guide?`,
-      answer: `TexasDefined reviewed the venue-specific source record on ${formatDate(verifiedAt)}. Because schedules and event-day rules can change after review, the guide points travelers back to official sources for final confirmation.`,
-    });
-  }
-
-  return answers.slice(0, 6);
+  return answers.slice(0, 5);
 }
 
 function firstSentence(value: string) {
@@ -169,10 +173,4 @@ function formatList(items: readonly string[]) {
   if (items.length === 1) return items[0];
   if (items.length === 2) return `${items[0]} and ${items[1]}`;
   return `${items.slice(0, -1).join(', ')}, and ${items.at(-1)}`;
-}
-
-function formatDate(value: string) {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return value;
-  return new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(date);
 }

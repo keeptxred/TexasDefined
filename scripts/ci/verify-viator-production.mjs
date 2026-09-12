@@ -104,3 +104,4 @@ await verifySurface({
 console.log('[viator-production] Explore directory and representative destination booking card passed live verification.');
 
 await import('./verify-ask-texas-government-production.mjs');
+await import('./verify-stay-nearby-production.mjs');

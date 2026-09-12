@@ -1,0 +1,43 @@
+name: Validate sports venue Phase 3 Galaxy reconciliation
+
+on:
+  pull_request:
+    paths:
+      - 'src/routes/sports-venue.jones-att-stadium.tsx'
+      - 'src/routes/sports-venue.$slug.tsx'
+      - 'src/components/sports/SportsVenueGuidePilotContent.tsx'
+      - 'src/components/sports/SportsVenueGuidePage.tsx'
+      - 'src/components/sports/SponsoredSportsPlacement.tsx'
+      - 'src/data/sports-venue-guide-galaxy.ts'
+      - 'src/data/sports-venue-content-remediation-wave4.ts'
+      - 'src/data/knowledge-graph/current-entity-corrections.ts'
+      - 'src/data/sports-venue-images.ts'
+      - 'src/data/sports-venue-events.functions.ts'
+      - 'src/data/sports-sponsorship.functions.ts'
+      - 'scripts/data/validate-sports-venue-phase3-galaxy.mjs'
+      - 'scripts/data/validate-sports-venue-coverage.mjs'
+      - 'scripts/data/validate-sports-venue-landings.mjs'
+      - 'scripts/data/validate-sports-sponsorship.mjs'
+      - '.github/workflows/validate-sports-venue-phase3-galaxy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/data/validate-sports-venue-phase3-galaxy.mjs
+      - run: node scripts/data/validate-sports-venue-deep-completeness.mjs
+      - run: node scripts/data/validate-sports-venue-coverage.mjs
+      - run: node scripts/data/validate-sports-venue-landings.mjs
+      - run: node scripts/data/validate-sports-sponsorship.mjs
+      - run: npm run build
+      - run: npm run performance:validate

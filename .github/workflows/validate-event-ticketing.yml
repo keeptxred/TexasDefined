@@ -1,0 +1,46 @@
+name: Validate event ticketing architecture
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/data/events/texas-event-record.ts'
+      - 'src/data/events/ticketing.ts'
+      - 'src/data/events/texas-event-records.server.ts'
+      - 'src/data/events/texas-event-calendar.server.ts'
+      - 'src/data/major-event-schema-enrichment*.server.ts'
+      - 'src/components/events/EventTicketCta.tsx'
+      - 'src/components/events/EventsLandingPage.tsx'
+      - 'src/components/editorial/TexasEventCarousel.tsx'
+      - 'scripts/data/validate-event-ticketing-architecture.mjs'
+      - 'scripts/data/validate-event-ticket-positive-path.mjs'
+      - 'docs/event-ticketing-provider-architecture.md'
+      - '.github/workflows/validate-event-ticketing.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Validate provider-neutral ticket architecture
+        run: node scripts/data/validate-event-ticketing-architecture.mjs
+
+      - name: Install dependencies for canonical event validation
+        run: npm ci --no-audit --no-fund
+
+      - name: Validate canonical official-ticket positive path
+        run: node scripts/data/validate-event-ticket-positive-path.mjs

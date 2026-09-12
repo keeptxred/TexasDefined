@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/validate-rv-parks-authority.yml'
       - 'scripts/data/validate-rv-parks-authority.mjs'
+      - 'scripts/data/audit-rv-inventory-classification.mjs'
       - 'scripts/data/validate-rv-county-server-function-isolation.mjs'
       - 'scripts/data/validate-rv-curated-public-wave2.mjs'
       - 'scripts/ci/verify-rv-parks-production.mjs'
@@ -33,6 +34,7 @@ on:
     paths:
       - '.github/workflows/validate-rv-parks-authority.yml'
       - 'scripts/data/validate-rv-parks-authority.mjs'
+      - 'scripts/data/audit-rv-inventory-classification.mjs'
       - 'scripts/data/validate-rv-county-server-function-isolation.mjs'
       - 'scripts/data/validate-rv-curated-public-wave2.mjs'
       - 'scripts/ci/verify-rv-parks-production.mjs'
@@ -72,6 +74,8 @@ jobs:
           node-version: 22
       - name: Validate RV camping authority contract
         run: node scripts/data/validate-rv-parks-authority.mjs
+      - name: Audit RV inventory classification
+        run: node scripts/data/audit-rv-inventory-classification.mjs --summary
       - name: Validate unified county discovery boundary
         run: node scripts/data/validate-rv-county-server-function-isolation.mjs
       - name: Validate curated public RV wave two

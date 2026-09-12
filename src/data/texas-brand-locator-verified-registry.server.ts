@@ -14,6 +14,7 @@ type VerifiedBrandLocation = {
   name: string;
   street: string;
   city: string;
+  countySlug: string | null;
   state: "TX";
   postalCode: string;
   latitude: number | null;
@@ -26,6 +27,7 @@ type BrandLocationRow = {
   name: string;
   street: string;
   city: string;
+  countySlug: string | null;
   state: string;
   postal_code: string;
   latitude: number | null;
@@ -131,7 +133,7 @@ async function loadLocationsFromSupabase(brand: TexasBrandLocatorVerifiedRegistr
     const client = supabaseAdmin as unknown as BrandLocationsAdminClient;
     const { data, error } = await client
       .from("texasdefined_brand_locations")
-      .select("id,brand_slug,name,street,city,state,postal_code,latitude,longitude,source_url")
+      .select("id,brand_slug,name,street,city,countySlug:county_slug,state,postal_code,latitude,longitude,source_url")
       .eq("brand_slug", brand)
       .eq("public_locator_enabled", true)
       .eq("status", "active")
@@ -146,6 +148,7 @@ async function loadLocationsFromSupabase(brand: TexasBrandLocatorVerifiedRegistr
         name: row.name,
         street: row.street,
         city: row.city,
+        countySlug: row.countySlug,
         state: "TX",
         postalCode: row.postal_code,
         latitude: row.latitude,
@@ -295,6 +298,7 @@ function normalizeLocation(
     name: location.name,
     address,
     city: location.city,
+    countySlug: location.countySlug || undefined,
     postalCode: location.postalCode,
     distanceMiles: milesBetween(origin, point),
     latitude: point.latitude,

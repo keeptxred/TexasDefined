@@ -1,11 +1,12 @@
 import fs from 'node:fs/promises';
 
 const read = (path) => fs.readFile(path, 'utf8');
-const [resolver, eventCard, eventsRoute, eventsLazyRoute, eventServerHead, corrections, generatedEvents, countyEventsServer, countyEventsBridge, countyDestinations, countyRoute, eventPage, dateFormatting, eventDisposition, supplementalRegistry, majorEventIndex] = await Promise.all([
+const [resolver, eventCard, eventsRoute, eventsLazyRoute, eventsLandingPage, eventServerHead, corrections, generatedEvents, countyEventsServer, countyEventsBridge, countyDestinations, countyRoute, eventPage, dateFormatting, eventDisposition, supplementalRegistry, majorEventIndex] = await Promise.all([
   read('src/data/sports-venue-event-links.ts'),
   read('src/components/editorial/EventCard.tsx'),
   read('src/routes/events.index.tsx'),
   read('src/routes/events.index.lazy.tsx'),
+  read('src/components/events/EventsLandingPage.tsx'),
   read('src/data/major-event-directory.server.ts'),
   read('src/data/knowledge-graph/current-entity-corrections.ts'),
   read('src/data/events-generated.ts'),
@@ -19,7 +20,7 @@ const [resolver, eventCard, eventsRoute, eventsLazyRoute, eventServerHead, corre
   read('src/data/major-event-supplemental-registry.server.ts'),
   read('src/data/major-event-index.ts'),
 ]);
-const eventsVisibleRoute = `${eventsRoute}\n${eventsLazyRoute}`;
+const eventsVisibleRoute = `${eventsRoute}\n${eventsLazyRoute}\n${eventsLandingPage}`;
 
 const errors = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };
@@ -60,9 +61,6 @@ assert(eventServerHead.includes('resolveSportsVenueEventLink(featured?.venue)'),
 assert(eventsVisibleRoute.includes('featuredVenueGuide &&'), 'Featured unmatched events must remain unlinked.');
 assert(eventsVisibleRoute.includes('featuredVenueGuide, featuredDateLabel'), 'Featured venue/date presentation must be consumed from server-owned route data.');
 
-// Recurring event identity must not be keyed by occurrence date. Source-controlled sync rows
-// own a matching name+city identity even when a row becomes unpublished/canceled; otherwise
-// an older fixture occurrence could be resurrected after the authoritative row is withdrawn.
 assert(generatedEvents.includes('function eventIdentityKey(event: Pick<TexasEvent, "name" | "city">)'), 'Generated event merge must retain an explicit recurring-event identity key.');
 assert(generatedEvents.includes('event.name.trim().toLowerCase()'), 'Recurring-event identity must include normalized event name.');
 assert(generatedEvents.includes('event.city.trim().toLowerCase()'), 'Recurring-event identity must include normalized event city.');
@@ -89,9 +87,13 @@ for (const row of dispositionRows) {
 }
 assert(eventDisposition.includes('Canonical guide remains `/texas-state-fair`; do not create a competing event authority page.'), 'State Fair discovery seed must remain assigned to the canonical /texas-state-fair guide instead of a duplicate event authority page.');
 
-assert(countyEventsServer.includes('loadSupplementalMajorEventRecordsServer'), 'County event lookup must include supplemental server-only event authority records.');
-assert(countyEventsServer.includes('event?.countySlug === normalizedCountySlug'), 'County event lookup must filter by the verified county slug.');
+assert(countyEventsServer.includes('loadUpcomingTexasEventRecordsServer'), 'County event lookup must consume the canonical source-qualified upcoming event registry.');
+assert(countyEventsServer.includes('countySlug: normalizedCountySlug'), 'County event lookup must filter the canonical event registry by verified county slug.');
+assert(countyEventsServer.includes('event.guidePath.startsWith("/event/")'), 'County major-event cards must stay limited to permanent event authority guides.');
+assert(countyEventsServer.includes('buildTexasEventCarouselItemsServer(records)'), 'County event presentation must reuse the canonical calendar presentation model.');
 assert(countyEventsServer.includes('.slice(0, 8)'), 'County event cards must stay bounded to a focused discovery set.');
+assert(!countyEventsServer.includes('loadSupplementalMajorEventRecordsServer'), 'County event lookup must not rebuild a parallel supplemental authority registry.');
+assert(!countyEventsServer.includes('majorEventIndexRecords'), 'County event lookup must not rebuild a parallel core authority registry.');
 assert(countyEventsBridge.includes('const loadCountyMajorEvents = createServerFn'), 'County major-event lookup must retain its dedicated proven server-function boundary.');
 assert(countyEventsBridge.includes('await import("./county-major-events.server")'), 'County event authority records must remain dynamically imported server-side.');
 assert(!countyEventsBridge.includes('rv-parks/registry.server'), 'County event authority RPC must not absorb RV discovery.');
@@ -115,4 +117,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Event integrity validated: exact sports-venue links on dedicated Event leaf schema, server-owned event presentation, lazy-safe featured presentation, source-controlled recurring-event precedence, accurate date claims, single-day date formatting, 75-seed source disposition, and bidirectional loader-backed county event discovery are protected.');
+console.log('Event integrity validated: exact sports-venue links on dedicated Event leaf schema, server-owned event presentation, lazy-safe featured presentation, source-controlled recurring-event precedence, accurate date claims, single-day date formatting, 75-seed source disposition, and canonical loader-backed county event discovery are protected.');

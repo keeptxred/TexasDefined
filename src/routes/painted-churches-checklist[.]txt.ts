@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { paintedChurchItineraries } from "@/data/painted-church-itineraries";
 import { resolvePaintedChurchVisitorStatus } from "@/data/painted-church-visitor-status";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 
 const BASE_URL = "https://texasdefined.com";
 
-function buildChecklist() {
+async function buildChecklist() {
+  const { paintedChurchItineraries } = await import("@/data/painted-church-itineraries");
   const lines = [
     "TEXAS PAINTED CHURCHES FIELD CHECKLIST",
     "Texas Defined · reviewed August 18, 2026",
@@ -55,7 +55,7 @@ function buildChecklist() {
 export const Route = createFileRoute("/painted-churches-checklist.txt")({
   server: {
     handlers: {
-      GET: async () => new Response(buildChecklist(), {
+      GET: async () => new Response(await buildChecklist(), {
         headers: {
           "Content-Type": "text/plain; charset=utf-8",
           "Content-Disposition": "attachment; filename=texas-painted-churches-checklist.txt",

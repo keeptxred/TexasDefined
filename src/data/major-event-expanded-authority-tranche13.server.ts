@@ -37,15 +37,16 @@ const records: MajorEventAuthorityRecord[] = [
     countyName: "Denton County",
     region: "prairies-lakes",
     category: "rodeo",
-    startDate: "2026-08-21",
-    endDate: "2026-08-30",
+    startDate: "2027-08-20",
+    endDate: "2027-08-29",
+    dateNote: "The organizer has published the 99th annual North Texas Fair & Rodeo for August 20-29, 2027. Recheck the official schedule before traveling because nightly rodeo, concert and attraction details can change.",
     venue: "North Texas Fair & Rodeo grounds",
     officialUrl: "https://ntfair.com/",
-    sourceCheckedAt: "2026-08-27",
+    sourceCheckedAt: "2026-09-11",
     whyItMatters: "The North Texas Fair & Rodeo gives Denton a ten-night late-summer destination built around rodeo competition, country music, livestock shows, family attractions and a community-supported fair tradition.",
     planningSections: [
-      { title: "Start with the exact night", body: "The organizer confirms the 98th annual fair for August 21-30, 2026 and describes ten nights of rodeo, music, livestock and attractions. Pick the performance or rodeo night first because the lineup changes across the run." },
-      { title: "Budget time beyond the headline show", body: "The grounds include livestock shows, kid and family zones and other fair attractions. Arrive earlier than the main performance if those are part of the trip rather than treating admission as a single-show ticket." },
+      { title: "Start with the confirmed 2027 dates", body: "The organizer lists the 99th annual fair for August 20-29, 2027. Use that ten-day window for lodging and trip planning, then check the official schedule before choosing a specific night because the rodeo and entertainment lineup changes across the run." },
+      { title: "Wait for the 2027 nightly program before choosing tickets", body: "The organizer has published the 2027 fair dates, but year-specific concert, rodeo-night and attraction details can change. Do not rely on the completed 2026 lineup or prices when planning the 2027 trip." },
       { title: "Use Denton as the trip base", body: "The fair works naturally with a Denton visit. Build dining, downtown and other Denton County stops around the fixed event time instead of making separate cross-region trips." },
     ],
     relatedLinks: [
@@ -53,7 +54,7 @@ const records: MajorEventAuthorityRecord[] = [
       { href: "/events", label: "Texas events calendar", description: "Compare other Texas rodeos and county fairs." },
     ],
     sources: [
-      { label: "North Texas Fair & Rodeo official site", url: "https://ntfair.com/" },
+      { label: "North Texas Fair & Rodeo official 2027 event page", url: "https://ntfair.com/" },
     ],
   },
   {

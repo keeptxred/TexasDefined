@@ -1,10 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { findCompleteTexasEntity } from '@/data/knowledge-graph';
-import { getSportsVenueEnrichmentAll } from '@/data/sports-venue-enrichment-all';
-
-const publicHeaders = {
+const svgHeaders = {
   'content-type': 'image/svg+xml; charset=utf-8',
+  'cache-control': 'public, max-age=86400, stale-while-revalidate=604800',
+  'x-robots-tag': 'noindex, follow',
+};
+
+const photoRedirectHeaders = {
   'cache-control': 'public, max-age=86400, stale-while-revalidate=604800',
   'x-robots-tag': 'noindex, follow',
 };
@@ -18,9 +20,26 @@ export const Route = createFileRoute('/api/sports-venue-hero')({
         if (!slug || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return new Response('Not found', { status: 404 });
 
         const lookupSlug = slug === 'galaxy-stadium' ? 'jones-att-stadium' : slug;
+        const [
+          { findCompleteTexasEntity },
+          { getSportsVenueEnrichmentAll },
+          { getSportsVenuePhoto },
+        ] = await Promise.all([
+          import('@/data/knowledge-graph'),
+          import('@/data/sports-venue-enrichment-all'),
+          import('@/data/sports-venue-images'),
+        ]);
         const entity = await findCompleteTexasEntity(lookupSlug);
         const enrichment = getSportsVenueEnrichmentAll(lookupSlug);
         if (!entity || entity.kind !== 'sports-venue' || !enrichment) return new Response('Not found', { status: 404 });
+
+        const photo = getSportsVenuePhoto(lookupSlug);
+        if (photo) {
+          return new Response(null, {
+            status: 302,
+            headers: { ...photoRedirectHeaders, location: photo.imageUrl },
+          });
+        }
 
         const tags = new Set(entity.tags ?? []);
         const kind = venueVisualKind(tags, enrichment.primaryEvents);
@@ -30,7 +49,7 @@ export const Route = createFileRoute('/api/sports-venue-hero')({
           city: enrichment.city,
           kind,
           imageBrief: enrichment.imageBrief,
-        }), { headers: publicHeaders });
+        }), { headers: svgHeaders });
       },
     },
   },
