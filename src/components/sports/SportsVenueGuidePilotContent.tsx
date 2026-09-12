@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 
 import type { TexasEventCarouselItem } from "@/components/editorial/TexasEventCarousel";
+import { StandaloneParkingMapPanel } from "@/components/parking/ParkingMapPanel";
+import { useVenueParkingMap } from "@/components/parking/useVenueParkingMap";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
 import { getSportsVenueEnrichmentAll } from "@/data/sports-venue-enrichment-all";
 import { getSportsVenueGuidePilot } from "@/data/sports-venue-guide-pilots";
@@ -28,6 +30,7 @@ export default function SportsVenueGuidePilotContent({
   eventCalendarHref: string;
 }) {
   const guide = getSportsVenueGuidePilot(slug);
+  const parkingMap = useVenueParkingMap(slug);
 
   useEffect(() => {
     const slot = document.querySelector("[data-stay-nearby-slot]");
@@ -61,14 +64,17 @@ export default function SportsVenueGuidePilotContent({
     : upcomingEvents;
 
   return (
-    <SportsVenueGuidePage
-      entity={verifiedEntity}
-      guide={guide}
-      enrichment={enrichment}
-      photo={photo}
-      nearbyAttractions={nearbyAttractions}
-      upcomingEvents={venueEvents}
-      eventCalendarHref={eventCalendarHref}
-    />
+    <>
+      <SportsVenueGuidePage
+        entity={verifiedEntity}
+        guide={guide}
+        enrichment={enrichment}
+        photo={photo}
+        nearbyAttractions={nearbyAttractions}
+        upcomingEvents={venueEvents}
+        eventCalendarHref={eventCalendarHref}
+      />
+      <StandaloneParkingMapPanel map={parkingMap} contextName={entity.name} />
+    </>
   );
 }
