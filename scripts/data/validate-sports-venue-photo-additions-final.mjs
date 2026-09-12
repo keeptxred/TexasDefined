@@ -6,6 +6,7 @@ const wave1 = read('src/data/sports-venue-images-additions.ts');
 const wave2 = read('src/data/sports-venue-images-additions-wave2.ts');
 const wave3 = read('src/data/sports-venue-images-additions-wave3.ts');
 const wave4 = read('src/data/sports-venue-images-additions-wave4.ts');
+const wave5 = read('src/data/sports-venue-images-additions-wave5.ts');
 const combined = read('src/data/sports-venue-images-all.ts');
 const dynamicRoute = read('src/routes/sports-venue.$slug.tsx');
 
@@ -38,8 +39,9 @@ const validateSingleWave = (source, expectedSlug, label) => {
 
 validateSingleWave(wave3, 'ufcu-stadium', 'wave 3 UFCU Stadium photo');
 validateSingleWave(wave4, 'round-rock-multipurpose-complex', 'wave 4 Round Rock Multipurpose Complex photo');
+validateSingleWave(wave5, 'msr-houston', 'wave 5 MSR Houston photo');
 
-for (const source of [wave3, wave4]) {
+for (const source of [wave3, wave4, wave5]) {
   for (const forbidden of ['gettyimages', 'tripadvisor', 'yelp', 'facebook.com', 'images.unsplash.com', 'googleusercontent']) {
     if (source.toLowerCase().includes(forbidden)) failures.push(`Final photo additions contain disallowed source ${forbidden}.`);
   }
@@ -49,7 +51,8 @@ for (const source of [wave3, wave4]) {
 for (const marker of [
   "import { getSportsVenuePhotoAdditionWave3 } from './sports-venue-images-additions-wave3';",
   "import { getSportsVenuePhotoAdditionWave4 } from './sports-venue-images-additions-wave4';",
-  'getSportsVenuePhotoBase(slug) ?? getSportsVenuePhotoAddition(slug) ?? getSportsVenuePhotoAdditionWave2(slug) ?? getSportsVenuePhotoAdditionWave3(slug) ?? getSportsVenuePhotoAdditionWave4(slug)',
+  "import { getSportsVenuePhotoAdditionWave5 } from './sports-venue-images-additions-wave5';",
+  'getSportsVenuePhotoBase(slug) ?? getSportsVenuePhotoAddition(slug) ?? getSportsVenuePhotoAdditionWave2(slug) ?? getSportsVenuePhotoAdditionWave3(slug) ?? getSportsVenuePhotoAdditionWave4(slug) ?? getSportsVenuePhotoAdditionWave5(slug)',
 ]) requireText(combined, marker, 'combined final photo registry');
 
 const unique = new Set([
@@ -58,8 +61,9 @@ const unique = new Set([
   ...recordSlugs(wave2),
   ...recordSlugs(wave3),
   ...recordSlugs(wave4),
+  ...recordSlugs(wave5),
 ]);
-if (unique.size < 65) failures.push(`Expected at least 65 unique licensed venue heroes after final wave; found ${unique.size}.`);
+if (unique.size < 67) failures.push(`Expected at least 67 unique licensed venue heroes after final wave; found ${unique.size}.`);
 if (unique.size > 84) failures.push('Licensed photo union exceeds the 84-venue seeded inventory.');
 
 if (failures.length) {
