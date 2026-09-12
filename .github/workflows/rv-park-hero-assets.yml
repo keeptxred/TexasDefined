@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - "scripts/data/sync-rv-park-hero-assets.mjs"
+      - "scripts/data/enforce-rv-park-hero-location-policy.mjs"
       - ".github/workflows/rv-park-hero-assets.yml"
 
 permissions:
@@ -52,16 +53,30 @@ jobs:
           code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           if [[ "$code" != "0" ]]; then
-            echo "::warning::RV image reconciliation completed with unresolved records (exit $code); preserving reviewable progress."
+            echo "::warning::RV image reconciliation completed with unresolved records (exit $code); strict publication gates will decide whether any output can advance."
           fi
           exit 0
 
+      - name: Enforce strict exact-property location policy
+        run: node scripts/data/enforce-rv-park-hero-location-policy.mjs
+
+      - name: Require zero RV image backlog
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const report = JSON.parse(fs.readFileSync('scripts/data/rv-park-hero-report.json', 'utf8'));
+          const backlog = Number(report.backlogAfter ?? report.unresolved?.length ?? 0);
+          if (backlog !== 0) {
+            console.error(`RV image backlog remains ${backlog}; refusing to create a publishable assets PR.`);
+            process.exit(1);
+          }
+          console.log('RV image backlog is zero after strict location policy.');
+          NODE
+
       - name: Run RV inventory classification audit
-        if: always()
         run: node scripts/data/audit-rv-inventory-classification.mjs --summary
 
       - name: Detect generated RV image changes
-        if: always()
         id: changes
         shell: bash
         run: |
@@ -74,7 +89,7 @@ jobs:
           fi
 
       - name: Create RV image review branch
-        if: ${{ always() && steps.changes.outputs.changed == 'true' }}
+        if: ${{ steps.changes.outputs.changed == 'true' }}
         id: branch
         shell: bash
         run: |
@@ -89,7 +104,7 @@ jobs:
           echo "name=$branch" >> "$GITHUB_OUTPUT"
 
       - name: Open reviewable RV image pull request
-        if: ${{ always() && steps.changes.outputs.changed == 'true' }}
+        if: ${{ steps.changes.outputs.changed == 'true' }}
         id: pr
         env:
           GH_TOKEN: ${{ github.token }}
@@ -102,12 +117,12 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --title 'Backfill governed RV park hero images' \
-            --body $'Automated RV image backlog reconciliation. Resolution order: reuse an already-governed matching state-park hero when safe; otherwise use an item-level rights-checked Wikimedia Commons exact-location image; otherwise create a clearly labeled AI-generated representative editorial image. Generated representatives are explicitly marked actualLocation=false and never presented as documentary photos. Existing source/content/indexing gates remain in force. Review scripts/data/rv-park-hero-report.json plus item-level visual relevance before merge. Resolver exit code: '"$RESOLVE_EXIT"$'.')"
+            --body $'Automated RV image backlog reconciliation with strict location verification. Wikimedia Commons candidates survive only when the file title contains the exact named private property, or exact public-land identity, plus Texas/town/county evidence. Ambiguous name matches are rejected and replaced by clearly labeled AI-generated representative editorial images with actualLocation=false. The workflow requires backlogAfter=0 before it can create this PR. Existing source/content/indexing gates remain in force. Review scripts/data/rv-park-hero-report.json and the strictLocationPolicy section before merge. Resolver exit code: '"$RESOLVE_EXIT"$'.')"
           echo "url=$pr_url" >> "$GITHUB_OUTPUT"
           echo "Opened $pr_url"
 
       - name: Run official validation on generated branch
-        if: ${{ always() && steps.changes.outputs.changed == 'true' }}
+        if: ${{ steps.changes.outputs.changed == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
           BRANCH: ${{ steps.branch.outputs.name }}
