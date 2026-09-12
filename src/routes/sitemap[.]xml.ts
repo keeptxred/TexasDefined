@@ -20,6 +20,7 @@ import { loadSupplementalMajorEventSitemapEntriesServer } from "@/data/major-eve
 import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
 import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
 import { TEXAS_DATASETS } from "@/data/texas-data-center";
+import { loadTexasDogSitemapEntriesServer } from "@/data/texas-dogs-sitemap.server";
 import { isTexasVsStateSitemapReady } from "@/data/texas-vs-state-index-readiness.server";
 import { TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-states-index";
 import { isTexasDefinedOwnedEntity, isTexasDefinedOwnedStaticPath } from "@/lib/brand-route-ownership";
@@ -149,6 +150,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const supplementalMajorEventSitemapEntries = loadSupplementalMajorEventSitemapEntriesServer();
         const evergreenEventSitemapEntries = loadEvergreenEventSitemapEntriesServer();
         const temporalEventSitemapEntries = loadTemporalEventSitemapEntriesServer();
+        const texasDogSitemapEntries = loadTexasDogSitemapEntriesServer();
         const [
           { LOCAL_PROPERTY_TAX_PROFILES },
           { LOCAL_HOME_AFFORDABILITY_PROFILES },
@@ -170,6 +172,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const entries: SitemapEntry[] = [
           ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).filter((path) => !isEvergreenEventCollectionPath(path)).filter((path) => isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
           ...AUTHORITY_STATIC_PATHS.map((path) => ({ path, lastmod: AUTHORITY_LASTMOD })),
+          ...texasDogSitemapEntries,
           ...HUNTING_SITEMAP_ENTRIES,
           ...LOCAL_PROPERTY_TAX_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-08-30" })),
           ...LOCAL_HOME_AFFORDABILITY_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-08-30" })),
