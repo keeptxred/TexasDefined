@@ -130,7 +130,7 @@ function contentComplete(block) {
 }
 
 function imageComplete(block) {
-  return hasAll(block, [
+  const common = hasAll(block, [
     'src:',
     'sourceUrl:',
     'alt:',
@@ -140,9 +140,16 @@ function imageComplete(block) {
     'license:',
     'licenseUrl:',
     'verifiedAt',
-    'actualLocation: true',
     'subjectScope:',
   ]);
+  if (!common) return false;
+  const licensedLocation = block.includes('actualLocation: true');
+  const generatedRepresentative = hasAll(block, [
+    'actualLocation: false',
+    "subjectScope: 'representative'",
+    "sourceKind: 'generated-representative'",
+  ]);
+  return licensedLocation || generatedRepresentative;
 }
 
 function priorityFor(record, sourceBlock, imageBlock) {
@@ -194,7 +201,7 @@ const classifications = seeds.map((record) => {
     robots = 'NOINDEX';
     if (!sourceReady) blockers.push('authoritative source/address/coordinates incomplete');
     if (!contentReady) blockers.push('unique RV planning copy incomplete');
-    if (!imageReady) blockers.push('rights-cleared exact-location image incomplete');
+    if (!imageReady) blockers.push('governed destination image incomplete');
   }
 
   return {
