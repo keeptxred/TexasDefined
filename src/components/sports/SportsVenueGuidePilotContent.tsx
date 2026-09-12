@@ -3,12 +3,14 @@ import { useEffect } from "react";
 import type { TexasEventCarouselItem } from "@/components/editorial/TexasEventCarousel";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
 import { getSportsVenueEnrichmentAll } from "@/data/sports-venue-enrichment-all";
+import { getSportsVenueGuideGalaxy } from "@/data/sports-venue-guide-galaxy";
 import { getSportsVenueGuidePilot } from "@/data/sports-venue-guide-pilots";
 import { getSportsVenueGuideWave4 } from "@/data/sports-venue-guide-wave4";
 import { getSportsVenueGuideWave5 } from "@/data/sports-venue-guide-wave5";
 import { getSportsVenueGuideWave6 } from "@/data/sports-venue-guide-wave6";
 import { getSportsVenueGuideWave7 } from "@/data/sports-venue-guide-wave7";
 import { getSportsVenuePhoto } from "@/data/sports-venue-images";
+import type { PublicSportsSponsorPlacement } from "@/data/sports-sponsorship.types";
 
 import { SportsVenueGuidePage } from "./SportsVenueGuidePage";
 
@@ -24,14 +26,16 @@ export default function SportsVenueGuidePilotContent({
   nearbyAttractions,
   upcomingEvents,
   eventCalendarHref,
+  sponsorPlacement,
 }: {
   slug: string;
   entity: TexasEntityRecord;
   nearbyAttractions: readonly TexasEntityRecord[];
   upcomingEvents: readonly TexasEventCarouselItem[];
   eventCalendarHref: string;
+  sponsorPlacement?: PublicSportsSponsorPlacement | null;
 }) {
-  const guide = getSportsVenueGuideWave7(slug) ?? getSportsVenueGuideWave6(slug) ?? getSportsVenueGuideWave5(slug) ?? getSportsVenueGuideWave4(slug) ?? getSportsVenueGuidePilot(slug);
+  const guide = getSportsVenueGuideGalaxy(slug) ?? getSportsVenueGuideWave7(slug) ?? getSportsVenueGuideWave6(slug) ?? getSportsVenueGuideWave5(slug) ?? getSportsVenueGuideWave4(slug) ?? getSportsVenueGuidePilot(slug);
 
   useEffect(() => {
     const slot = document.querySelector("[data-stay-nearby-slot]");
@@ -73,6 +77,7 @@ export default function SportsVenueGuidePilotContent({
       nearbyAttractions={nearbyAttractions}
       upcomingEvents={venueEvents}
       eventCalendarHref={eventCalendarHref}
+      sponsorPlacement={sponsorPlacement}
     />
   );
 }
