@@ -343,6 +343,7 @@ import { Route as DestinationLakeSomervilleBirchCreekUnitStateParkRouteImport } 
 import { Route as DestinationEnchantedRockRouteImport } from './routes/destination.enchanted-rock'
 import { Route as DestinationDevilsRiverDelNorteUnitStateNaturalAreaRouteImport } from './routes/destination.devils-river-del-norte-unit-state-natural-area'
 import { Route as DestinationDevilsRiverBigSatanUnitStateNaturalAreaRouteImport } from './routes/destination.devils-river-big-satan-unit-state-natural-area'
+import { Route as DestinationDevilSSinkholeStateNaturalAreaRouteImport } from './routes/destination.devil-s-sinkhole-state-natural-area'
 import { Route as DestinationCooperLakeSouthSulphurUnitStateParkRouteImport } from './routes/destination.cooper-lake-south-sulphur-unit-state-park'
 import { Route as DestinationCooperLakeJohnsCreekUnitStateParkRouteImport } from './routes/destination.cooper-lake-johns-creek-unit-state-park'
 import { Route as DestinationCooperLakeDoctorsCreekUnitStateParkRouteImport } from './routes/destination.cooper-lake-doctors-creek-unit-state-park'
@@ -2556,6 +2557,12 @@ const DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute =
     path: '/destination/devils-river-big-satan-unit-state-natural-area',
     getParentRoute: () => rootRouteImport,
   } as any)
+const DestinationDevilSSinkholeStateNaturalAreaRoute =
+  DestinationDevilSSinkholeStateNaturalAreaRouteImport.update({
+    id: '/destination/devil-s-sinkhole-state-natural-area',
+    path: '/destination/devil-s-sinkhole-state-natural-area',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const DestinationCooperLakeSouthSulphurUnitStateParkRoute =
   DestinationCooperLakeSouthSulphurUnitStateParkRouteImport.update({
     id: '/destination/cooper-lake-south-sulphur-unit-state-park',
@@ -3479,6 +3486,7 @@ export interface FileRoutesByFullPath {
   '/destination/cooper-lake-doctors-creek-unit-state-park': typeof DestinationCooperLakeDoctorsCreekUnitStateParkRoute
   '/destination/cooper-lake-johns-creek-unit-state-park': typeof DestinationCooperLakeJohnsCreekUnitStateParkRoute
   '/destination/cooper-lake-south-sulphur-unit-state-park': typeof DestinationCooperLakeSouthSulphurUnitStateParkRoute
+  '/destination/devil-s-sinkhole-state-natural-area': typeof DestinationDevilSSinkholeStateNaturalAreaRoute
   '/destination/devils-river-big-satan-unit-state-natural-area': typeof DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute
   '/destination/devils-river-del-norte-unit-state-natural-area': typeof DestinationDevilsRiverDelNorteUnitStateNaturalAreaRoute
   '/destination/enchanted-rock': typeof DestinationEnchantedRockRoute
@@ -3928,6 +3936,7 @@ export interface FileRoutesByTo {
   '/destination/cooper-lake-doctors-creek-unit-state-park': typeof DestinationCooperLakeDoctorsCreekUnitStateParkRoute
   '/destination/cooper-lake-johns-creek-unit-state-park': typeof DestinationCooperLakeJohnsCreekUnitStateParkRoute
   '/destination/cooper-lake-south-sulphur-unit-state-park': typeof DestinationCooperLakeSouthSulphurUnitStateParkRoute
+  '/destination/devil-s-sinkhole-state-natural-area': typeof DestinationDevilSSinkholeStateNaturalAreaRoute
   '/destination/devils-river-big-satan-unit-state-natural-area': typeof DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute
   '/destination/devils-river-del-norte-unit-state-natural-area': typeof DestinationDevilsRiverDelNorteUnitStateNaturalAreaRoute
   '/destination/enchanted-rock': typeof DestinationEnchantedRockRoute
@@ -4381,6 +4390,7 @@ export interface FileRoutesById {
   '/destination/cooper-lake-doctors-creek-unit-state-park': typeof DestinationCooperLakeDoctorsCreekUnitStateParkRoute
   '/destination/cooper-lake-johns-creek-unit-state-park': typeof DestinationCooperLakeJohnsCreekUnitStateParkRoute
   '/destination/cooper-lake-south-sulphur-unit-state-park': typeof DestinationCooperLakeSouthSulphurUnitStateParkRoute
+  '/destination/devil-s-sinkhole-state-natural-area': typeof DestinationDevilSSinkholeStateNaturalAreaRoute
   '/destination/devils-river-big-satan-unit-state-natural-area': typeof DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute
   '/destination/devils-river-del-norte-unit-state-natural-area': typeof DestinationDevilsRiverDelNorteUnitStateNaturalAreaRoute
   '/destination/enchanted-rock': typeof DestinationEnchantedRockRoute
@@ -4835,6 +4845,7 @@ export interface FileRouteTypes {
     | '/destination/cooper-lake-doctors-creek-unit-state-park'
     | '/destination/cooper-lake-johns-creek-unit-state-park'
     | '/destination/cooper-lake-south-sulphur-unit-state-park'
+    | '/destination/devil-s-sinkhole-state-natural-area'
     | '/destination/devils-river-big-satan-unit-state-natural-area'
     | '/destination/devils-river-del-norte-unit-state-natural-area'
     | '/destination/enchanted-rock'
@@ -5284,6 +5295,7 @@ export interface FileRouteTypes {
     | '/destination/cooper-lake-doctors-creek-unit-state-park'
     | '/destination/cooper-lake-johns-creek-unit-state-park'
     | '/destination/cooper-lake-south-sulphur-unit-state-park'
+    | '/destination/devil-s-sinkhole-state-natural-area'
     | '/destination/devils-river-big-satan-unit-state-natural-area'
     | '/destination/devils-river-del-norte-unit-state-natural-area'
     | '/destination/enchanted-rock'
@@ -5736,6 +5748,7 @@ export interface FileRouteTypes {
     | '/destination/cooper-lake-doctors-creek-unit-state-park'
     | '/destination/cooper-lake-johns-creek-unit-state-park'
     | '/destination/cooper-lake-south-sulphur-unit-state-park'
+    | '/destination/devil-s-sinkhole-state-natural-area'
     | '/destination/devils-river-big-satan-unit-state-natural-area'
     | '/destination/devils-river-del-norte-unit-state-natural-area'
     | '/destination/enchanted-rock'
@@ -6175,6 +6188,7 @@ export interface RootRouteChildren {
   DestinationCooperLakeDoctorsCreekUnitStateParkRoute: typeof DestinationCooperLakeDoctorsCreekUnitStateParkRoute
   DestinationCooperLakeJohnsCreekUnitStateParkRoute: typeof DestinationCooperLakeJohnsCreekUnitStateParkRoute
   DestinationCooperLakeSouthSulphurUnitStateParkRoute: typeof DestinationCooperLakeSouthSulphurUnitStateParkRoute
+  DestinationDevilSSinkholeStateNaturalAreaRoute: typeof DestinationDevilSSinkholeStateNaturalAreaRoute
   DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute: typeof DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute
   DestinationDevilsRiverDelNorteUnitStateNaturalAreaRoute: typeof DestinationDevilsRiverDelNorteUnitStateNaturalAreaRoute
   DestinationEnchantedRockRoute: typeof DestinationEnchantedRockRoute
@@ -8663,6 +8677,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DestinationDevilsRiverBigSatanUnitStateNaturalAreaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/destination/devil-s-sinkhole-state-natural-area': {
+      id: '/destination/devil-s-sinkhole-state-natural-area'
+      path: '/destination/devil-s-sinkhole-state-natural-area'
+      fullPath: '/destination/devil-s-sinkhole-state-natural-area'
+      preLoaderRoute: typeof DestinationDevilSSinkholeStateNaturalAreaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/destination/cooper-lake-south-sulphur-unit-state-park': {
       id: '/destination/cooper-lake-south-sulphur-unit-state-park'
       path: '/destination/cooper-lake-south-sulphur-unit-state-park'
@@ -10216,6 +10237,8 @@ const rootRouteChildren: RootRouteChildren = {
     DestinationCooperLakeJohnsCreekUnitStateParkRoute,
   DestinationCooperLakeSouthSulphurUnitStateParkRoute:
     DestinationCooperLakeSouthSulphurUnitStateParkRoute,
+  DestinationDevilSSinkholeStateNaturalAreaRoute:
+    DestinationDevilSSinkholeStateNaturalAreaRoute,
   DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute:
     DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute,
   DestinationDevilsRiverDelNorteUnitStateNaturalAreaRoute:
