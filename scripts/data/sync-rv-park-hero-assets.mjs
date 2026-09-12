@@ -28,7 +28,6 @@ const REGION_LABELS = {
   "big-bend-west-texas": "Big Bend and West Texas",
 };
 
-const LICENSE_OK = ["public domain", "cc0", "cc by", "cc-by", "cc by-sa", "cc-by-sa"];
 const USER_AGENT = "TexasDefined/1.0 (RV image reconciliation; https://texasdefined.com)";
 const CLOUDFLARE_MODEL = "@cf/black-forest-labs/flux-1-schnell";
 const API_GAP_MS = 450;
@@ -221,8 +220,15 @@ async function apiJson(base, params) {
 }
 
 function licenseAllowed(metadata) {
-  const text = cleanHtml(metadata?.LicenseShortName?.value || metadata?.UsageTerms?.value).toLowerCase();
-  return LICENSE_OK.some((allowed) => text.includes(allowed));
+  const text = normalize(cleanHtml(metadata?.LicenseShortName?.value || metadata?.UsageTerms?.value));
+  if (!text) return false;
+  if (/\b(?:nc|noncommercial|non commercial|nd|no derivatives|non derivative)\b/.test(text)) return false;
+  return [
+    /^public domain(?: mark)?(?: \d+ \d+)?$/,
+    /^cc0(?: \d+ \d+)?$/,
+    /^cc by(?: \d+ \d+)?$/,
+    /^cc by sa(?: \d+ \d+)?$/,
+  ].some((pattern) => pattern.test(text));
 }
 
 function distinctiveTokens(record) {
