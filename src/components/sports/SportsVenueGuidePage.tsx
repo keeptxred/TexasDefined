@@ -5,11 +5,13 @@ import {
   type TexasEventCarouselItem,
 } from "@/components/editorial/TexasEventCarousel";
 import { Container } from "@/components/layout/Container";
+import { SponsoredSportsPlacement } from "@/components/sports/SponsoredSportsPlacement";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
 import type { SportsVenueEnrichment } from "@/data/sports-venue-enrichment";
 import type { SportsVenueGuidePilot } from "@/data/sports-venue-guide-pilots";
 import type { SportsVenuePhoto } from "@/data/sports-venue-images";
+import type { PublicSportsSponsorPlacement } from "@/data/sports-sponsorship.types";
 
 const siteUrl = "https://texasdefined.com";
 
@@ -27,6 +29,7 @@ export type SportsVenueGuidePageProps = {
   nearbyAttractions?: readonly TexasEntityRecord[];
   upcomingEvents?: readonly TexasEventCarouselItem[];
   eventCalendarHref?: string;
+  sponsorPlacement?: PublicSportsSponsorPlacement | null;
 };
 
 export function SportsVenueGuidePage({
@@ -37,6 +40,7 @@ export function SportsVenueGuidePage({
   nearbyAttractions = [],
   upcomingEvents = [],
   eventCalendarHref = "/events",
+  sponsorPlacement,
 }: SportsVenueGuidePageProps) {
   const canonicalUrl = `${siteUrl}${guide.canonicalPath}`;
   const officialUrl = guide.officialUrl ?? entity.officialUrl;
@@ -115,6 +119,12 @@ export function SportsVenueGuidePage({
             <VenuePhoto photo={photo} venueName={entity.name} />
             <QuickFacts guide={guide} directionsUrl={directionsUrl} officialUrl={officialUrl} />
           </div>
+
+          {sponsorPlacement ? (
+            <div className="border-b border-border py-8">
+              <SponsoredSportsPlacement placement={sponsorPlacement} />
+            </div>
+          ) : null}
 
           <TexasEventCarousel
             events={upcomingEvents}
