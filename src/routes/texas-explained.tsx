@@ -8,8 +8,20 @@ import { buildEditorialCollectionHead, buildMeta, canonicalLink } from "@/lib/se
 
 const TexasExplainedPage = lazy(() => import("@/components/editorial/TexasExplainedPage"));
 const canonicalPath = "/texas-explained";
+const pillarSlugs = [
+  "texas-rivers-explained",
+  "texas-lakes-reservoirs-explained",
+  "texas-farm-to-market-roads-explained",
+  "texas-courthouses-town-square",
+  "texas-wildflowers-guide",
+  "texas-trees-guide",
+  "texas-home-architecture-regions",
+  "buying-land-in-texas-guide",
+  "texas-wildlife-guide",
+  "texas-cultural-regions-explained",
+] as const;
 const questionCount = 124;
-const description = `Ten deeply reported Texas Defined guides, twenty-five focused supporting explainers and ${questionCount} plain-English answers connecting the roads, water, government, food, traditions, landscapes, homes and local systems that make Texas work the way it does.`;
+const description = `${pillarSlugs.length} deeply reported Texas Defined guides, twenty-five focused supporting explainers and ${questionCount} plain-English answers connecting the roads, water, government, food, traditions, landscapes, homes and local systems that make Texas work the way it does.`;
 
 export const Route = createFileRoute("/texas-explained")({
   head: ({ loaderData }: { loaderData?: TexasExplainedLoaderData }) => {
