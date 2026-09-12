@@ -5,6 +5,12 @@ on:
     paths:
       - 'scripts/production/verify-sports-venue-editorial-production.mjs'
       - '.github/workflows/verify-sports-venue-editorial-production.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/production/verify-sports-venue-editorial-production.mjs'
+      - '.github/workflows/verify-sports-venue-editorial-production.yml'
   workflow_run:
     workflows:
       - Deploy TexasDefined production
@@ -30,6 +36,7 @@ jobs:
   verify-production:
     if: >-
       github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'push' ||
       (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
     steps:
