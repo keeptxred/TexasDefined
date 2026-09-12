@@ -5,6 +5,9 @@ on:
   pull_request:
     paths:
       - '.github/workflows/validate-rv-parks-authority.yml'
+      - '.github/workflows/rv-park-hero-assets.yml'
+      - 'scripts/data/sync-rv-park-hero-assets.mjs'
+      - 'scripts/data/validate-rv-hero-resolver-safety.mjs'
       - 'scripts/data/validate-rv-parks-authority.mjs'
       - 'scripts/data/audit-rv-inventory-classification.mjs'
       - 'scripts/data/validate-rv-county-server-function-isolation.mjs'
@@ -34,6 +37,9 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/validate-rv-parks-authority.yml'
+      - '.github/workflows/rv-park-hero-assets.yml'
+      - 'scripts/data/sync-rv-park-hero-assets.mjs'
+      - 'scripts/data/validate-rv-hero-resolver-safety.mjs'
       - 'scripts/data/validate-rv-parks-authority.mjs'
       - 'scripts/data/audit-rv-inventory-classification.mjs'
       - 'scripts/data/validate-rv-county-server-function-isolation.mjs'
@@ -74,6 +80,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Check RV hero resolver syntax
+        run: node --check scripts/data/sync-rv-park-hero-assets.mjs
+      - name: Validate RV hero resolver safety contract
+        run: node scripts/data/validate-rv-hero-resolver-safety.mjs
       - name: Validate RV camping authority contract
         run: node scripts/data/validate-rv-parks-authority.mjs
       - name: Audit RV inventory classification
