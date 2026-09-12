@@ -1,0 +1,1396 @@
+{
+  "generatedAt": "2026-09-12T21:44:04.794Z",
+  "totalSeeds": 250,
+  "governedBefore": 20,
+  "backlogBefore": 230,
+  "reusedStatePark": [],
+  "commonsLicensed": [
+    {
+      "slug": "by-the-river-rv-park",
+      "name": "By the River RV Park",
+      "sourceTitle": "File:Ducks by the River Wharfe, Wetherby (6th February 2013) 001.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ducks%20by%20the%20River%20Wharfe%2C%20Wetherby%20(6th%20February%202013)%20001.jpg"
+    },
+    {
+      "slug": "guadalupe-river-rv-resort",
+      "name": "Guadalupe River RV Resort",
+      "sourceTitle": "File:Bluffs on the Guadalupe River, 17 Miles above Kerrville, Texas.JPG",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bluffs%20on%20the%20Guadalupe%20River%2C%2017%20Miles%20above%20Kerrville%2C%20Texas.JPG"
+    },
+    {
+      "slug": "roadrunner-rv-park",
+      "name": "Roadrunner RV Park",
+      "sourceTitle": "File:Greater Roadrunner - Flickr - GregTheBusker (3).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Greater%20Roadrunner%20-%20Flickr%20-%20GregTheBusker%20(3).jpg"
+    },
+    {
+      "slug": "pecan-park-rv-resort",
+      "name": "Pecan Park RV Resort",
+      "sourceTitle": "File:Pecan Park south of Readhimer, LA IMG 2101.JPG",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pecan%20Park%20south%20of%20Readhimer%2C%20LA%20IMG%202101.JPG"
+    },
+    {
+      "slug": "inks-lake-state-park-rv-loop",
+      "name": "Inks Lake State Park RV Loop",
+      "sourceTitle": "File:Devils Waterhole Inks Lake State Park Texas 2023.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Devils%20Waterhole%20Inks%20Lake%20State%20Park%20Texas%202023.jpg"
+    },
+    {
+      "slug": "big-chief-rv-resort",
+      "name": "Big Chief RV Resort",
+      "sourceTitle": "File:Indian Big Chief 1200cc 1928 - 1.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Indian%20Big%20Chief%201200cc%201928%20-%201.jpg"
+    },
+    {
+      "slug": "fredericksburg-rv-park",
+      "name": "Fredericksburg RV Park",
+      "sourceTitle": "File:Fredericksburg-Spotsylvania National Military Park LOC 93681942.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fredericksburg-Spotsylvania%20National%20Military%20Park%20LOC%2093681942.jpg"
+    },
+    {
+      "slug": "oakwood-rv-resort",
+      "name": "Oakwood RV Resort",
+      "sourceTitle": "File:Flowerbed, Oakwood Park, Prince George Avenue, London N14 - geograph.org.uk - 773559.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Flowerbed%2C%20Oakwood%20Park%2C%20Prince%20George%20Avenue%2C%20London%20N14%20-%20geograph.org.uk%20-%20773559.jpg"
+    },
+    {
+      "slug": "vineyards-rv-park",
+      "name": "Vineyards RV Park",
+      "sourceTitle": "File:ERO Grapeliner SF200 in vineyards 140924 1.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:ERO%20Grapeliner%20SF200%20in%20vineyards%20140924%201.jpg"
+    },
+    {
+      "slug": "canyon-lake-rv-resort",
+      "name": "Canyon Lake RV Resort",
+      "sourceTitle": "File:Canyon Lake Gorge March 2017 IMG1729.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Canyon%20Lake%20Gorge%20March%202017%20IMG1729.jpg"
+    },
+    {
+      "slug": "summit-resort",
+      "name": "Summit Resort",
+      "sourceTitle": "File:Lake Winnipesaukee View from Summit Resort Mentor avenue Laconia New Hampshire.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lake%20Winnipesaukee%20View%20from%20Summit%20Resort%20Mentor%20avenue%20Laconia%20New%20Hampshire.jpg"
+    },
+    {
+      "slug": "landa-rv-park-and-campground",
+      "name": "Landa RV Park & Campground",
+      "sourceTitle": "File:Klaudio Landa Luis Herrero.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Klaudio%20Landa%20Luis%20Herrero.jpg"
+    },
+    {
+      "slug": "river-ranch-rv-resort",
+      "name": "River Ranch RV Resort",
+      "sourceTitle": "File:Rogue River Ranch National Historic Site.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rogue%20River%20Ranch%20National%20Historic%20Site.jpg"
+    },
+    {
+      "slug": "gruene-rv-park",
+      "name": "Gruene RV Park",
+      "sourceTitle": "File:H.D. Gruene Building, Gruene, Texas Historical Marker (8092683211).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:H.D.%20Gruene%20Building%2C%20Gruene%2C%20Texas%20Historical%20Marker%20(8092683211).jpg"
+    },
+    {
+      "slug": "lost-maples-state-natural-area-rv-campground",
+      "name": "Lost Maples State Natural Area RV Campground",
+      "sourceTitle": "File:Lost Maples State Natural Area, Edwards Plateau, Texas, United States.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lost%20Maples%20State%20Natural%20Area%2C%20Edwards%20Plateau%2C%20Texas%2C%20United%20States.jpg"
+    },
+    {
+      "slug": "chalk-bluff-river-resort",
+      "name": "Chalk Bluff River Resort",
+      "sourceTitle": "File:Del Rio Sector Border Patrol Agents Help Rescue Families Stranded by Flood Waters (42222290690).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Del%20Rio%20Sector%20Border%20Patrol%20Agents%20Help%20Rescue%20Families%20Stranded%20by%20Flood%20Waters%20(42222290690).jpg"
+    },
+    {
+      "slug": "quail-springs-rv-park",
+      "name": "Quail Springs RV Park",
+      "sourceTitle": "File:TEMBLORS FROM QUAIL SPRINGS AREA -008 (1225609579).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:TEMBLORS%20FROM%20QUAIL%20SPRINGS%20AREA%20-008%20(1225609579).jpg"
+    },
+    {
+      "slug": "top-of-the-hill-rv-resort",
+      "name": "Top of the Hill RV Resort",
+      "sourceTitle": "File:2013-05-08 15 13 06 View west from the top of the hill north of the Stone House at Manassas National Battlefield Park.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:2013-05-08%2015%2013%2006%20View%20west%20from%20the%20top%20of%20the%20hill%20north%20of%20the%20Stone%20House%20at%20Manassas%20National%20Battlefield%20Park.jpg"
+    },
+    {
+      "slug": "travelers-world-rv-resort",
+      "name": "Travelers World RV Resort",
+      "sourceTitle": "File:Commerce Street Bridge, San Antonio, Texas Historical Marker (50194277572).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Commerce%20Street%20Bridge%2C%20San%20Antonio%2C%20Texas%20Historical%20Marker%20(50194277572).jpg"
+    },
+    {
+      "slug": "san-antonio-este-rv-park",
+      "name": "San Antonio ESTE RV Park",
+      "sourceTitle": "File:San antonio este.JPG",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:San%20antonio%20este.JPG"
+    },
+    {
+      "slug": "hidden-valley-rv-park",
+      "name": "Hidden Valley RV Park",
+      "sourceTitle": "File:Hidden Valley Trail 01.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hidden%20Valley%20Trail%2001.jpg"
+    },
+    {
+      "slug": "greenlake-rv-resort",
+      "name": "Greenlake RV Resort",
+      "sourceTitle": "File:Greenlake 1907.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Greenlake%201907.jpg"
+    },
+    {
+      "slug": "admiralty-rv-resort",
+      "name": "Admiralty RV Resort",
+      "sourceTitle": "File:Admiralty Chart No 2718b Mediterranean Sea (Italy, Corsica, Greece, Tunisia) - Geographicus - MediterraneanSea-admiralty-1868, Published 1860.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Admiralty%20Chart%20No%202718b%20Mediterranean%20Sea%20(Italy%2C%20Corsica%2C%20Greece%2C%20Tunisia)%20-%20Geographicus%20-%20MediterraneanSea-admiralty-1868%2C%20Published%201860.jpg"
+    },
+    {
+      "slug": "blazing-star-rv-resort",
+      "name": "Blazing Star RV Resort",
+      "sourceTitle": "File:Prairie Blazing Star (Liatris pycnostachya) - Flickr - wackybadger (2).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Prairie%20Blazing%20Star%20(Liatris%20pycnostachya)%20-%20Flickr%20-%20wackybadger%20(2).jpg"
+    },
+    {
+      "slug": "lake-medina-rv-resort",
+      "name": "Lake Medina RV Resort",
+      "sourceTitle": "File:Herd of horses on road from Lake Medina to Jerez (37708402306).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Herd%20of%20horses%20on%20road%20from%20Lake%20Medina%20to%20Jerez%20(37708402306).jpg"
+    },
+    {
+      "slug": "mckinney-falls-state-park-rv-loop",
+      "name": "McKinney Falls State Park RV Loop",
+      "sourceTitle": "File:Snowy Egret McKinney Falls State Park 2022.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Snowy%20Egret%20McKinney%20Falls%20State%20Park%202022.jpg"
+    },
+    {
+      "slug": "la-hacienda-rv-resort",
+      "name": "La Hacienda RV Resort",
+      "sourceTitle": "File:Interior de la Hacienda Galindo.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Interior%20de%20la%20Hacienda%20Galindo.jpg"
+    },
+    {
+      "slug": "evergreen-rv-park",
+      "name": "Evergreen RV Park",
+      "sourceTitle": "File:Evergreen Point Floating Bridge.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Evergreen%20Point%20Floating%20Bridge.jpg"
+    },
+    {
+      "slug": "midtown-rv-park",
+      "name": "Midtown RV Park",
+      "sourceTitle": "File:Midtown Manhattan from Queens May 2015 001.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Midtown%20Manhattan%20from%20Queens%20May%202015%20001.jpg"
+    },
+    {
+      "slug": "jamaica-beach-rv-resort",
+      "name": "Jamaica Beach RV Resort",
+      "sourceTitle": "File:FEMA - 39024 - Jamaica Beach debris pile in Texas.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:FEMA%20-%2039024%20-%20Jamaica%20Beach%20debris%20pile%20in%20Texas.jpg"
+    },
+    {
+      "slug": "sandpiper-rv-resort",
+      "name": "Sandpiper RV Resort",
+      "sourceTitle": "File:Broad billed sandpiper by Sreedev Puthur.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Broad%20billed%20sandpiper%20by%20Sreedev%20Puthur.jpg"
+    },
+    {
+      "slug": "galveston-rv-resort-and-marina",
+      "name": "Galveston RV Resort and Marina",
+      "sourceTitle": "File:Galveston-Garten-Verein.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Galveston-Garten-Verein.jpg"
+    },
+    {
+      "slug": "bayou-rv-resort",
+      "name": "Bayou RV Resort",
+      "sourceTitle": "File:Armand Bayou Nature Center -- Entrance Sculpture.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Armand%20Bayou%20Nature%20Center%20--%20Entrance%20Sculpture.jpg"
+    },
+    {
+      "slug": "marina-bay-rv-resort",
+      "name": "Marina Bay RV Resort",
+      "sourceTitle": "File:Singapore Marina-Bay-at-night-01.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Singapore%20Marina-Bay-at-night-01.jpg"
+    },
+    {
+      "slug": "usa-rv-resorts-san-leon",
+      "name": "USA RV Resorts San Leon",
+      "sourceTitle": "File:USA Lassen NP Kings Creek CA.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:USA%20Lassen%20NP%20Kings%20Creek%20CA.jpg"
+    },
+    {
+      "slug": "bayshore-rv-park",
+      "name": "Bayshore RV Park",
+      "sourceTitle": "File:TE29 Bayshore Construction site entrance.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:TE29%20Bayshore%20Construction%20site%20entrance.jpg"
+    },
+    {
+      "slug": "blue-water-rv-resort",
+      "name": "Blue Water RV Resort",
+      "sourceTitle": "File:Blue water lillys from pookote lake wayanad.JPG",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Blue%20water%20lillys%20from%20pookote%20lake%20wayanad.JPG"
+    },
+    {
+      "slug": "beachfront-rv-park",
+      "name": "Beachfront RV Park",
+      "sourceTitle": "File:Libreville beachfront 2.JPG",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Libreville%20beachfront%202.JPG"
+    },
+    {
+      "slug": "jetty-park-rv-area",
+      "name": "Jetty Park RV Area",
+      "sourceTitle": "File:Bandon South Jetty Park Plaque.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bandon%20South%20Jetty%20Park%20Plaque.jpg"
+    },
+    {
+      "slug": "matagorda-bay-nature-park-rv-resort",
+      "name": "Matagorda Bay Nature Park RV Resort",
+      "sourceTitle": "File:Matagorda science center 2008.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Matagorda%20science%20center%202008.jpg"
+    },
+    {
+      "slug": "lighthouse-rv-park",
+      "name": "Lighthouse RV Park",
+      "sourceTitle": "File:Wind Point Lighthouse 071104.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Wind%20Point%20Lighthouse%20071104.jpg"
+    },
+    {
+      "slug": "sea-rim-state-park-rv-sites",
+      "name": "Sea Rim State Park RV Sites",
+      "sourceTitle": "File:Sea Rim State Park, Gambusia Nature Trail Boardwalk, Texas.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sea%20Rim%20State%20Park%2C%20Gambusia%20Nature%20Trail%20Boardwalk%2C%20Texas.jpg"
+    },
+    {
+      "slug": "pleasure-island-rv-park",
+      "name": "Pleasure Island RV Park",
+      "sourceTitle": "File:Boomerang (Pleasure Island).JPG",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Boomerang%20(Pleasure%20Island).JPG"
+    },
+    {
+      "slug": "palacios-rv-park",
+      "name": "Palacios RV Park",
+      "sourceTitle": "File:Vitoria - Campo de los Palacios 02.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vitoria%20-%20Campo%20de%20los%20Palacios%2002.jpg"
+    },
+    {
+      "slug": "goose-island-state-park-rv-loop",
+      "name": "Goose Island State Park RV Loop",
+      "sourceTitle": "File:Goose Island State Park - panoramio.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Goose%20Island%20State%20Park%20-%20panoramio.jpg"
+    },
+    {
+      "slug": "laguna-shore-rv-park-rockport",
+      "name": "Laguna Shore RV Park",
+      "sourceTitle": "File:Joseph Kleitsch - Laguna Shore Line.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Joseph%20Kleitsch%20-%20Laguna%20Shore%20Line.jpg"
+    },
+    {
+      "slug": "ranch-rv-park",
+      "name": "Ranch RV Park",
+      "sourceTitle": "File:Walters Ranch Hop Kiln in 2019, 4×5.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Walters%20Ranch%20Hop%20Kiln%20in%202019%2C%204%C3%975.jpg"
+    },
+    {
+      "slug": "sea-breeze-rv-park",
+      "name": "Sea Breeze RV Park",
+      "sourceTitle": "File:Sea Breeze 2021 (6722516).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sea%20Breeze%202021%20(6722516).jpg"
+    },
+    {
+      "slug": "pioneer-rv-resort",
+      "name": "Pioneer RV Resort",
+      "sourceTitle": "File:Pioneer Belenois aurota Rollapadu GIB Sanctuary 26 October 2014 AJT Johnsingh.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pioneer%20Belenois%20aurota%20Rollapadu%20GIB%20Sanctuary%2026%20October%202014%20AJT%20Johnsingh.jpg"
+    },
+    {
+      "slug": "surfside-rv-resort",
+      "name": "Surfside RV Resort",
+      "sourceTitle": "File:Daytona Beach Surfside HD CMC plaque01.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Daytona%20Beach%20Surfside%20HD%20CMC%20plaque01.jpg"
+    },
+    {
+      "slug": "mustang-island-state-park-rv-loops",
+      "name": "Mustang Island State Park RV Loops",
+      "sourceTitle": "File:Mustang Island State Park, interior grasslands, Nueces Co. TX; 22 Apr 2025.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mustang%20Island%20State%20Park%2C%20interior%20grasslands%2C%20Nueces%20Co.%20TX%3B%2022%20Apr%202025.jpg"
+    },
+    {
+      "slug": "south-texas-rv-park",
+      "name": "South Texas RV Park",
+      "sourceTitle": "File:Altamira Oriole icterus gularis Bentsen State Park, South Texas.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Altamira%20Oriole%20icterus%20gularis%20Bentsen%20State%20Park%2C%20South%20Texas.jpg"
+    },
+    {
+      "slug": "loyola-beach-rv-park",
+      "name": "Loyola Beach RV Park",
+      "sourceTitle": "File:Loyola Park Chicago.JPG",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Loyola%20Park%20Chicago.JPG"
+    },
+    {
+      "slug": "baffin-bay-rv-park",
+      "name": "Baffin Bay RV Park",
+      "sourceTitle": "File:Scenic view of Greenland icebergs in Baffin Bay in Disko Bay 03.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Scenic%20view%20of%20Greenland%20icebergs%20in%20Baffin%20Bay%20in%20Disko%20Bay%2003.jpg"
+    },
+    {
+      "slug": "sea-wind-rv-resort",
+      "name": "Sea Wind RV Resort",
+      "sourceTitle": "File:Sea Wind arriving at Tallinn 12 June 2015.JPG",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sea%20Wind%20arriving%20at%20Tallinn%2012%20June%202015.JPG"
+    },
+    {
+      "slug": "island-rv-resort",
+      "name": "Island RV Resort",
+      "sourceTitle": "File:Lower Manhattan from Staten Island Ferry Jan 2006.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lower%20Manhattan%20from%20Staten%20Island%20Ferry%20Jan%202006.jpg"
+    },
+    {
+      "slug": "gateway-rv-park",
+      "name": "Gateway RV Park",
+      "sourceTitle": "File:Dlr emu at tower gateway.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dlr%20emu%20at%20tower%20gateway.jpg"
+    },
+    {
+      "slug": "aransas-pass-rv-resort",
+      "name": "Aransas Pass RV Resort",
+      "sourceTitle": "File:Aransas Pass Progress (Aransas Pass, Tex.), Vol. 6, No. 2, Ed. 1 Friday, April 17, 1914 - DPLA - d31d9e37ccfd260daf21cb1d45d75d96 (page 6).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aransas%20Pass%20Progress%20(Aransas%20Pass%2C%20Tex.)%2C%20Vol.%206%2C%20No.%202%2C%20Ed.%201%20Friday%2C%20April%2017%2C%201914%20-%20DPLA%20-%20d31d9e37ccfd260daf21cb1d45d75d96%20(page%206).jpg"
+    },
+    {
+      "slug": "southern-comfort-rv-resort",
+      "name": "Southern Comfort RV Resort",
+      "sourceTitle": "File:The Southern Comfort - geograph.org.uk - 904139.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:The%20Southern%20Comfort%20-%20geograph.org.uk%20-%20904139.jpg"
+    },
+    {
+      "slug": "bentsen-rio-grande-valley-state-park-rv-loop",
+      "name": "Bentsen-Rio Grande Valley State Park RV Loop",
+      "sourceTitle": "File:Common Ground Dove, Bentsen - Rio Grande Valley State Park, Texas 1.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Common%20Ground%20Dove%2C%20Bentsen%20-%20Rio%20Grande%20Valley%20State%20Park%2C%20Texas%201.jpg"
+    },
+    {
+      "slug": "seven-oaks-rv-park",
+      "name": "Seven Oaks RV Park",
+      "sourceTitle": "File:Placard adjacent to Seven Oaks Museum.JPG",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Placard%20adjacent%20to%20Seven%20Oaks%20Museum.JPG"
+    },
+    {
+      "slug": "split-rail-rv-park",
+      "name": "Split Rail RV Park",
+      "sourceTitle": "File:Split rail fencing.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Split%20rail%20fencing.jpg"
+    },
+    {
+      "slug": "mission-bell-rv-resort",
+      "name": "Mission Bell RV Resort",
+      "sourceTitle": "File:Genadendal Mission bell.JPG",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Genadendal%20Mission%20bell.JPG"
+    },
+    {
+      "slug": "trade-winds-rv-resort",
+      "name": "Trade Winds RV Resort",
+      "sourceTitle": "File:Edmond Halley, A view of ye general and coasting trade winds, monsoons or ye shifting trade winds through the world, variations & c (FL157437595 2726320).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Edmond%20Halley%2C%20A%20view%20of%20ye%20general%20and%20coasting%20trade%20winds%2C%20monsoons%20or%20ye%20shifting%20trade%20winds%20through%20the%20world%2C%20variations%20%26%20c%20(FL157437595%202726320).jpg"
+    },
+    {
+      "slug": "victoria-rv-park",
+      "name": "Victoria RV Park",
+      "sourceTitle": "File:Service dessert Victoria Franz-Joseph Vienna inv 191.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Service%20dessert%20Victoria%20Franz-Joseph%20Vienna%20inv%20191.jpg"
+    },
+    {
+      "slug": "the-villages-resort-rv-area",
+      "name": "The Villages Resort RV Area",
+      "sourceTitle": "File:The Villages Resort, Lake Palestine.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:The%20Villages%20Resort%2C%20Lake%20Palestine.jpg"
+    },
+    {
+      "slug": "whispering-pines-rv-resort",
+      "name": "Whispering Pines RV Resort",
+      "sourceTitle": "File:Trail of the Whispering Pines 8175.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Trail%20of%20the%20Whispering%20Pines%208175.jpg"
+    },
+    {
+      "slug": "lake-fork-rv-park",
+      "name": "Lake Fork RV Park",
+      "sourceTitle": "File:Colorado Route 149 Along Lake Fork River, Near Lake City, Colorado (14203628664).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Colorado%20Route%20149%20Along%20Lake%20Fork%20River%2C%20Near%20Lake%20City%2C%20Colorado%20(14203628664).jpg"
+    },
+    {
+      "slug": "martin-creek-lake-state-park-rv-area",
+      "name": "Martin Creek Lake State Park RV Area",
+      "sourceTitle": "File:Fishing Pier Martin Creek Lake State Park 2019.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fishing%20Pier%20Martin%20Creek%20Lake%20State%20Park%202019.jpg"
+    },
+    {
+      "slug": "lake-cherokee-rv-park",
+      "name": "Lake Cherokee RV Park",
+      "sourceTitle": "File:Lake Cherokee Dam.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lake%20Cherokee%20Dam.jpg"
+    },
+    {
+      "slug": "texarkana-rv-park",
+      "name": "Texarkana RV Park",
+      "sourceTitle": "File:Location of the burning of Hullen Owens Texarkana, Bowie County, Texas 1922.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Location%20of%20the%20burning%20of%20Hullen%20Owens%20Texarkana%2C%20Bowie%20County%2C%20Texas%201922.jpg"
+    },
+    {
+      "slug": "atlanta-state-park-rv-loop",
+      "name": "Atlanta State Park RV Loop",
+      "sourceTitle": "File:Boat Ramp Atlanta State Park Texas 2023.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Boat%20Ramp%20Atlanta%20State%20Park%20Texas%202023.jpg"
+    },
+    {
+      "slug": "pine-island-rv-park",
+      "name": "Pine Island RV Park",
+      "sourceTitle": "File:Pine Island Park Boardwalk.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pine%20Island%20Park%20Boardwalk.jpg"
+    },
+    {
+      "slug": "linger-longer-rv-park",
+      "name": "Linger Longer RV Park",
+      "sourceTitle": "File:Linger Longer Rest Area P6071026.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Linger%20Longer%20Rest%20Area%20P6071026.jpg"
+    },
+    {
+      "slug": "jefferson-rv-park",
+      "name": "Jefferson RV Park",
+      "sourceTitle": "File:Mural in Northeast Pavilion, Thomas Jefferson Building, Washington D.C., by Elmer E. Garnsey 11670u edit.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mural%20in%20Northeast%20Pavilion%2C%20Thomas%20Jefferson%20Building%2C%20Washington%20D.C.%2C%20by%20Elmer%20E.%20Garnsey%2011670u%20edit.jpg"
+    },
+    {
+      "slug": "bear-creek-rv-park",
+      "name": "Bear Creek RV Park",
+      "sourceTitle": "File:Bear Creek Trail, Mt Carbon & Bear Creek Dam South Embankment.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bear%20Creek%20Trail%2C%20Mt%20Carbon%20%26%20Bear%20Creek%20Dam%20South%20Embankment.jpg"
+    },
+    {
+      "slug": "sam-rayburn-reservoir-rv-park",
+      "name": "Sam Rayburn Reservoir RV Park",
+      "sourceTitle": "File:Sam Rayburn Reservoir.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sam%20Rayburn%20Reservoir.jpg"
+    },
+    {
+      "slug": "mill-creek-park-rv-loop",
+      "name": "Mill Creek Park RV Loop",
+      "sourceTitle": "File:Lanterman's Mill - Mill Creek Park.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lanterman's%20Mill%20-%20Mill%20Creek%20Park.jpg"
+    },
+    {
+      "slug": "toledo-bend-rv-resort",
+      "name": "Toledo Bend RV Resort",
+      "sourceTitle": "File:Image of South Toledo Bend.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Image%20of%20South%20Toledo%20Bend.jpg"
+    },
+    {
+      "slug": "mission-tejas-state-park-rv-loop",
+      "name": "Mission Tejas State Park RV Loop",
+      "sourceTitle": "File:Headquarters Mission Tejas State Park 2026.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Headquarters%20Mission%20Tejas%20State%20Park%202026.jpg"
+    },
+    {
+      "slug": "davy-crockett-national-forest-rv-loops",
+      "name": "Davy Crockett National Forest RV Loops",
+      "sourceTitle": "File:Davy Crockett National Forest, Houston County, Texas, USA (May 2019).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Davy%20Crockett%20National%20Forest%2C%20Houston%20County%2C%20Texas%2C%20USA%20(May%202019).jpg"
+    },
+    {
+      "slug": "ratcliff-lake-recreation-area-rv-sites",
+      "name": "Ratcliff Lake Recreation Area RV Sites",
+      "sourceTitle": "File:Ratcliff Lake Recreation Area entrance portal.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ratcliff%20Lake%20Recreation%20Area%20entrance%20portal.jpg"
+    },
+    {
+      "slug": "northshore-rv-resort",
+      "name": "Northshore RV Resort",
+      "sourceTitle": "File:Northshore Hamilton, Queensland 06.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Northshore%20Hamilton%2C%20Queensland%2006.jpg"
+    },
+    {
+      "slug": "wolf-creek-park-rv-loop",
+      "name": "Wolf Creek Park RV Loop",
+      "sourceTitle": "File:London Peak (34502075926).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:London%20Peak%20(34502075926).jpg"
+    },
+    {
+      "slug": "sam-houston-national-forest-rv-area",
+      "name": "Sam Houston National Forest RV Area",
+      "sourceTitle": "File:Longleaf pine (Pinus palustris), Sam Houston National Forest, Walker County, Texas, USA (September 2020).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Longleaf%20pine%20(Pinus%20palustris)%2C%20Sam%20Houston%20National%20Forest%2C%20Walker%20County%2C%20Texas%2C%20USA%20(September%202020).jpg"
+    },
+    {
+      "slug": "cooper-lake-state-park-rv-loops",
+      "name": "Cooper Lake State Park RV Loops",
+      "sourceTitle": "File:Cooper Lake State Park Texas swimming hole.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cooper%20Lake%20State%20Park%20Texas%20swimming%20hole.jpg"
+    },
+    {
+      "slug": "daingerfield-state-park-rv-loop",
+      "name": "Daingerfield State Park RV Loop",
+      "sourceTitle": "File:Barn Swallow Daingerfield State Park Texas 2023.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Barn%20Swallow%20Daingerfield%20State%20Park%20Texas%202023.jpg"
+    },
+    {
+      "slug": "bob-sandlin-state-park-rv-loop",
+      "name": "Bob Sandlin State Park RV Loop",
+      "sourceTitle": "File:Cemetery in Lake Bob Sandlin State Park Texas 2023.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cemetery%20in%20Lake%20Bob%20Sandlin%20State%20Park%20Texas%202023.jpg"
+    },
+    {
+      "slug": "oasis-rv-resort",
+      "name": "Oasis RV Resort",
+      "sourceTitle": "File:Fortynine Palms Oasis 02.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fortynine%20Palms%20Oasis%2002.jpg"
+    },
+    {
+      "slug": "route-66-rv-resort",
+      "name": "Route 66 RV Resort",
+      "sourceTitle": "File:Route 66 car petrified forest.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Route%2066%20car%20petrified%20forest.jpg"
+    },
+    {
+      "slug": "caprock-canyons-state-park-rv-loop",
+      "name": "Caprock Canyons State Park RV Loop",
+      "sourceTitle": "File:Bison in Campground Caprock Canyons State Park Texas.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bison%20in%20Campground%20Caprock%20Canyons%20State%20Park%20Texas.jpg"
+    },
+    {
+      "slug": "wichita-falls-rv-park",
+      "name": "Wichita Falls RV Park",
+      "sourceTitle": "File:City Park off Southwest Parkway in Wichita Falls, TX IMG 6979.JPG",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:City%20Park%20off%20Southwest%20Parkway%20in%20Wichita%20Falls%2C%20TX%20IMG%206979.JPG"
+    },
+    {
+      "slug": "treetops-rv-resort",
+      "name": "Treetops RV Resort",
+      "sourceTitle": "File:Кроны деревьев над Цветочным прудом. Treetops over Flowery pond.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:%D0%9A%D1%80%D0%BE%D0%BD%D1%8B%20%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D1%8C%D0%B5%D0%B2%20%D0%BD%D0%B0%D0%B4%20%D0%A6%D0%B2%D0%B5%D1%82%D0%BE%D1%87%D0%BD%D1%8B%D0%BC%20%D0%BF%D1%80%D1%83%D0%B4%D0%BE%D0%BC.%20Treetops%20over%20Flowery%20pond.jpg"
+    },
+    {
+      "slug": "arlington-rv-park",
+      "name": "Arlington RV Park",
+      "sourceTitle": "File:Civil War Unknowns Memorial - looking E - Arlington National Cemetery - 2011.JPG",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Civil%20War%20Unknowns%20Memorial%20-%20looking%20E%20-%20Arlington%20National%20Cemetery%20-%202011.JPG"
+    },
+    {
+      "slug": "loyd-park-rv-campground",
+      "name": "Loyd Park RV Campground",
+      "sourceTitle": "File:Loyd Park Bridge.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Loyd%20Park%20Bridge.jpg"
+    },
+    {
+      "slug": "lynn-creek-park-rv-area",
+      "name": "Lynn Creek Park RV Area",
+      "sourceTitle": "File:Joe pool lake lynn creek park 1.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Joe%20pool%20lake%20lynn%20creek%20park%201.jpg"
+    },
+    {
+      "slug": "lake-lewisville-rv-park",
+      "name": "Lake Lewisville RV Park",
+      "sourceTitle": "File:Highland Lake-Lewisville Village station.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Highland%20Lake-Lewisville%20Village%20station.jpg"
+    },
+    {
+      "slug": "willow-beach-rv-park",
+      "name": "Willow Beach RV Park",
+      "sourceTitle": "File:Willow Beach Gaging Station.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Willow%20Beach%20Gaging%20Station.jpg"
+    },
+    {
+      "slug": "lone-oak-rv-park",
+      "name": "Lone Oak RV Park",
+      "sourceTitle": "File:A lone oak tree. - geograph.org.uk - 114404.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:A%20lone%20oak%20tree.%20-%20geograph.org.uk%20-%20114404.jpg"
+    },
+    {
+      "slug": "shady-creek-rv-resort",
+      "name": "Shady Creek RV Resort",
+      "sourceTitle": "File:Shady Creek - Florence Falls area - panoramio.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Shady%20Creek%20-%20Florence%20Falls%20area%20-%20panoramio.jpg"
+    },
+    {
+      "slug": "lake-lavon-rv-park",
+      "name": "Lake Lavon RV Park",
+      "sourceTitle": "File:Lake Lavon Vista.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lake%20Lavon%20Vista.jpg"
+    },
+    {
+      "slug": "clear-lake-park-rv-loop",
+      "name": "Clear Lake Park RV Loop",
+      "sourceTitle": "File:Snowy Egret at Clear Lake Park (6921352585).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Snowy%20Egret%20at%20Clear%20Lake%20Park%20(6921352585).jpg"
+    },
+    {
+      "slug": "lake-texoma-rv-resort",
+      "name": "Lake Texoma RV Resort",
+      "sourceTitle": "File:Lake Texoma Marker Vicinity (7604844464).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lake%20Texoma%20Marker%20Vicinity%20(7604844464).jpg"
+    },
+    {
+      "slug": "sunset-resort-rv-park",
+      "name": "Sunset Resort RV Park",
+      "sourceTitle": "File:Golden Sunset Resort 0001.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Golden%20Sunset%20Resort%200001.jpg"
+    },
+    {
+      "slug": "purtis-creek-state-park-rv-loop",
+      "name": "Purtis Creek State Park RV Loop",
+      "sourceTitle": "File:Dam Purtis Creek State Park Texas 2025.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dam%20Purtis%20Creek%20State%20Park%20Texas%202025.jpg"
+    },
+    {
+      "slug": "cedar-creek-lake-rv-park",
+      "name": "Cedar Creek Lake RV Park",
+      "sourceTitle": "File:Cedar Creek Lake.JPG",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cedar%20Creek%20Lake.JPG"
+    },
+    {
+      "slug": "big-cloud-rv-park",
+      "name": "Big Cloud RV Park",
+      "sourceTitle": "File:Gorleston, big cloud over the beach - geograph.org.uk - 1605165.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gorleston%2C%20big%20cloud%20over%20the%20beach%20-%20geograph.org.uk%20-%201605165.jpg"
+    },
+    {
+      "slug": "maverick-ranch-rv-park",
+      "name": "Maverick Ranch RV Park",
+      "sourceTitle": "File:Clay Henry Mayor Cage Lajitas Texas.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Clay%20Henry%20Mayor%20Cage%20Lajitas%20Texas.jpg"
+    },
+    {
+      "slug": "big-bend-national-park-rio-grande-village-rv-park",
+      "name": "Big Bend National Park Rio Grande Village RV Park",
+      "sourceTitle": "File:Boquillas, Mexico view from Big Bend National Park April 26 2014.JPG",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Boquillas%2C%20Mexico%20view%20from%20Big%20Bend%20National%20Park%20April%2026%202014.JPG"
+    },
+    {
+      "slug": "chisos-basin-campground-rv-sites",
+      "name": "Chisos Basin Campground RV Sites",
+      "sourceTitle": "File:A view of the Chisos Basin campground in Big Bend National Park. Here, ramadas with tables and charcoal broilers, sanitary (e0d3396d5d3f4f1aab1e77f428c348a9).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:A%20view%20of%20the%20Chisos%20Basin%20campground%20in%20Big%20Bend%20National%20Park.%20Here%2C%20ramadas%20with%20tables%20and%20charcoal%20broilers%2C%20sanitary%20(e0d3396d5d3f4f1aab1e77f428c348a9).jpg"
+    },
+    {
+      "slug": "terlingua-ghost-town-rv-park",
+      "name": "Terlingua Ghost Town RV Park",
+      "sourceTitle": "File:Terlingua ghost town home 01.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Terlingua%20ghost%20town%20home%2001.jpg"
+    },
+    {
+      "slug": "bjs-rv-park",
+      "name": "BJ's RV Park",
+      "sourceTitle": "File:BJ's Bar New Orleans Dec 2018 05.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:BJ's%20Bar%20New%20Orleans%20Dec%202018%2005.jpg"
+    },
+    {
+      "slug": "big-bend-ranch-state-park-rv-areas",
+      "name": "Big Bend Ranch State Park RV Areas",
+      "sourceTitle": "File:Harvest moon in Big Bend Ranch State Park.JPG",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Harvest%20moon%20in%20Big%20Bend%20Ranch%20State%20Park.JPG"
+    },
+    {
+      "slug": "loma-alta-rv-park",
+      "name": "Loma Alta RV Park",
+      "sourceTitle": "File:Forestal de Loma Alta Corrientes.JPG",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Forestal%20de%20Loma%20Alta%20Corrientes.JPG"
+    },
+    {
+      "slug": "overland-trail-rv-park",
+      "name": "Overland Trail RV Park",
+      "sourceTitle": "File:Overland Trail horse team.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Overland%20Trail%20horse%20team.jpg"
+    },
+    {
+      "slug": "saddleback-mountain-rv-park",
+      "name": "Saddleback Mountain RV Park",
+      "sourceTitle": "File:Saddleback Mountain seen From Maine State Route 16.JPG",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Saddleback%20Mountain%20seen%20From%20Maine%20State%20Route%2016.JPG"
+    },
+    {
+      "slug": "mitre-peak-rv-park",
+      "name": "Mitre Peak RV Park",
+      "sourceTitle": "File:Mitre Peak, Karakoram Range, Pakistan.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mitre%20Peak%2C%20Karakoram%20Range%2C%20Pakistan.jpg"
+    },
+    {
+      "slug": "alpine-rv-park",
+      "name": "Alpine RV Park",
+      "sourceTitle": "File:Alpine-panorama-247335.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Alpine-panorama-247335.jpg"
+    },
+    {
+      "slug": "marfa-lights-rv-park",
+      "name": "Marfa Lights RV Park",
+      "sourceTitle": "File:Roswell - Marfa Lights (6080154805).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Roswell%20-%20Marfa%20Lights%20(6080154805).jpg"
+    },
+    {
+      "slug": "tumbleweed-rv-park",
+      "name": "Tumbleweed RV Park",
+      "sourceTitle": "File:Tumbleweed Fence Project 2014 (38179050631).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tumbleweed%20Fence%20Project%202014%20(38179050631).jpg"
+    },
+    {
+      "slug": "midland-rv-park",
+      "name": "Midland RV Park",
+      "sourceTitle": "File:Nottingham MMB A8 Midland Main Line 158906 43048.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nottingham%20MMB%20A8%20Midland%20Main%20Line%20158906%2043048.jpg"
+    },
+    {
+      "slug": "permian-basin-rv-park",
+      "name": "Permian Basin RV Park",
+      "sourceTitle": "File:University of Texas of the Permian Basin in Odessa, TX, building Picture 1856.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:University%20of%20Texas%20of%20the%20Permian%20Basin%20in%20Odessa%2C%20TX%2C%20building%20Picture%201856.jpg"
+    },
+    {
+      "slug": "big-spring-state-park-rv-area",
+      "name": "Big Spring State Park RV Area",
+      "sourceTitle": "File:Big Spring State Park Pavilion 2009.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Big%20Spring%20State%20Park%20Pavilion%202009.jpg"
+    },
+    {
+      "slug": "lake-colorado-city-state-park-rv-loop",
+      "name": "Lake Colorado City State Park RV Loop",
+      "sourceTitle": "File:View Lake Colorado City State Park 2023.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:View%20Lake%20Colorado%20City%20State%20Park%202023.jpg"
+    },
+    {
+      "slug": "san-angelo-state-park-rv-loop",
+      "name": "San Angelo State Park RV Loop",
+      "sourceTitle": "File:Bison San Angelo State Park Texas.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bison%20San%20Angelo%20State%20Park%20Texas.jpg"
+    },
+    {
+      "slug": "concho-valley-rv-park",
+      "name": "Concho Valley RV Park",
+      "sourceTitle": "File:Concho Lake- Concho Valley.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Concho%20Lake-%20Concho%20Valley.jpg"
+    },
+    {
+      "slug": "abilene-state-park-rv-loop",
+      "name": "Abilene State Park RV Loop",
+      "sourceTitle": "File:Abilene State Park 1.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Abilene%20State%20Park%201.jpg"
+    },
+    {
+      "slug": "lake-fort-phantom-rv-park",
+      "name": "Lake Fort Phantom RV Park",
+      "sourceTitle": "File:AS09-22-3336 (22034859615).jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:AS09-22-3336%20(22034859615).jpg"
+    },
+    {
+      "slug": "fort-griffin-state-historic-site-rv-loop",
+      "name": "Fort Griffin State Historic Site RV Loop",
+      "sourceTitle": "File:Fort Griffin State Historic Site in 2009.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fort%20Griffin%20State%20Historic%20Site%20in%202009.jpg"
+    },
+    {
+      "slug": "hueco-tanks-state-park-rv-sites",
+      "name": "Hueco Tanks State Park RV Sites",
+      "sourceTitle": "File:Hueco Tanks State Park, A journey into the past 141206-A-FJ979-008.jpg",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hueco%20Tanks%20State%20Park%2C%20A%20journey%20into%20the%20past%20141206-A-FJ979-008.jpg"
+    }
+  ],
+  "aiGenerated": [
+    {
+      "slug": "buckhorn-lake-resort",
+      "name": "Buckhorn Lake Resort",
+      "town": "Kerrville",
+      "county": "Kerr"
+    },
+    {
+      "slug": "kerrville-koa-journey",
+      "name": "Kerrville KOA Journey",
+      "town": "Kerrville",
+      "county": "Kerr"
+    },
+    {
+      "slug": "johnson-city-koa-journey",
+      "name": "Johnson City KOA Journey",
+      "town": "Johnson City",
+      "county": "Blanco"
+    },
+    {
+      "slug": "rio-vista-resort",
+      "name": "Rio Vista Resort",
+      "town": "Kingsland",
+      "county": "Llano"
+    },
+    {
+      "slug": "log-country-cove",
+      "name": "Log Country Cove",
+      "town": "Burnet",
+      "county": "Burnet"
+    },
+    {
+      "slug": "lady-bird-johnson-municipal-park",
+      "name": "Lady Bird Johnson Municipal Park",
+      "town": "Fredericksburg",
+      "county": "Gillespie"
+    },
+    {
+      "slug": "fredericksburg-koa-holiday",
+      "name": "Fredericksburg KOA Holiday",
+      "town": "Fredericksburg",
+      "county": "Gillespie"
+    },
+    {
+      "slug": "texas-wine-country-rv-resort",
+      "name": "Texas Wine Country RV Resort",
+      "town": "Fredericksburg",
+      "county": "Gillespie"
+    },
+    {
+      "slug": "jellystone-park-camp-resort-hill-country",
+      "name": "Jellystone Park Camp-Resort: Hill Country",
+      "town": "Canyon Lake",
+      "county": "Comal"
+    },
+    {
+      "slug": "rio-raft-and-resort",
+      "name": "Rio Raft & Resort",
+      "town": "Canyon Lake",
+      "county": "Comal"
+    },
+    {
+      "slug": "lazy-l-and-l-campground",
+      "name": "Lazy L&L Campground",
+      "town": "New Braunfels",
+      "county": "Comal"
+    },
+    {
+      "slug": "camp-huaco-springs",
+      "name": "Camp Huaco Springs",
+      "town": "New Braunfels",
+      "county": "Comal"
+    },
+    {
+      "slug": "hill-country-cottage-and-rv-resort",
+      "name": "Hill Country Cottage and RV Resort",
+      "town": "New Braunfels",
+      "county": "Comal"
+    },
+    {
+      "slug": "medina-highpoint-resort",
+      "name": "Medina Highpoint Resort",
+      "town": "Medina",
+      "county": "Bandera"
+    },
+    {
+      "slug": "bandera-speedway-rv-park",
+      "name": "Bandera Speedway RV Park",
+      "town": "Bandera",
+      "county": "Bandera"
+    },
+    {
+      "slug": "skyline-ranch-rv-park",
+      "name": "Skyline Ranch RV Park",
+      "town": "Bandera",
+      "county": "Bandera"
+    },
+    {
+      "slug": "pioneer-river-resort",
+      "name": "Pioneer River Resort",
+      "town": "Bandera",
+      "county": "Bandera"
+    },
+    {
+      "slug": "twin-elm-guest-ranch-rv-sites",
+      "name": "Twin Elm Guest Ranch RV Sites",
+      "town": "Bandera",
+      "county": "Bandera"
+    },
+    {
+      "slug": "dixie-dude-ranch-rv-camp",
+      "name": "Dixie Dude Ranch RV Camp",
+      "town": "Bandera",
+      "county": "Bandera"
+    },
+    {
+      "slug": "parkview-riverside-rv-park",
+      "name": "Parkview Riverside RV Park",
+      "town": "Concan",
+      "county": "Uvalde"
+    },
+    {
+      "slug": "frio-river-landing",
+      "name": "Frio River Landing",
+      "town": "Concan",
+      "county": "Uvalde"
+    },
+    {
+      "slug": "andys-on-the-frio-rv-park",
+      "name": "Andy's on the Frio RV Park",
+      "town": "Concan",
+      "county": "Uvalde"
+    },
+    {
+      "slug": "fort-avalon-rv-park",
+      "name": "Fort Avalon RV Park",
+      "town": "Lampasas",
+      "county": "Lampasas"
+    },
+    {
+      "slug": "boerne-stage-rv-park",
+      "name": "Boerne Stage RV Park",
+      "town": "Boerne",
+      "county": "Kendall"
+    },
+    {
+      "slug": "alamo-koa-holiday",
+      "name": "Alamo KOA Holiday",
+      "town": "San Antonio",
+      "county": "Bexar"
+    },
+    {
+      "slug": "austonia-rv-resort",
+      "name": "Austonia RV Resort",
+      "town": "Austin",
+      "county": "Travis"
+    },
+    {
+      "slug": "austin-lone-star-rv-resort",
+      "name": "Austin Lone Star RV Resort",
+      "town": "Austin",
+      "county": "Travis"
+    },
+    {
+      "slug": "open-air-resort",
+      "name": "Open Air Resort",
+      "town": "Spicewood",
+      "county": "Burnet"
+    },
+    {
+      "slug": "stella-mare-rv-resort",
+      "name": "Stella Mare RV Resort",
+      "town": "Galveston",
+      "county": "Galveston"
+    },
+    {
+      "slug": "dellanera-rv-park",
+      "name": "Dellanera RV Park",
+      "town": "Galveston",
+      "county": "Galveston"
+    },
+    {
+      "slug": "quintana-beach-county-park-rv-sites",
+      "name": "Quintana Beach County Park RV Sites",
+      "town": "Quintana",
+      "county": "Brazoria"
+    },
+    {
+      "slug": "serenity-oaks-rv-park",
+      "name": "Serenity Oaks RV Park",
+      "town": "Palacios",
+      "county": "Matagorda"
+    },
+    {
+      "slug": "rockport-35-rv-resort",
+      "name": "Rockport 35 RV Resort",
+      "town": "Rockport",
+      "county": "Aransas"
+    },
+    {
+      "slug": "beacon-44-rv-park",
+      "name": "Beacon 44 RV Park",
+      "town": "Rockport",
+      "county": "Aransas"
+    },
+    {
+      "slug": "coastal-breeze-rv-resort",
+      "name": "Coastal Breeze RV Resort",
+      "town": "Rockport",
+      "county": "Aransas"
+    },
+    {
+      "slug": "drifters-resort",
+      "name": "Drifter's Resort",
+      "town": "Rockport",
+      "county": "Aransas"
+    },
+    {
+      "slug": "gulf-waters-beach-front-rv-resort",
+      "name": "Gulf Waters Beach Front RV Resort",
+      "town": "Port Aransas",
+      "county": "Nueces"
+    },
+    {
+      "slug": "ib-magee-beach-park-rv-sites",
+      "name": "IB Magee Beach Park RV Sites",
+      "town": "Port Aransas",
+      "county": "Nueces"
+    },
+    {
+      "slug": "colonia-del-rey-rv-park",
+      "name": "Colonia Del Rey RV Park",
+      "town": "Corpus Christi",
+      "county": "Nueces"
+    },
+    {
+      "slug": "laguna-shore-rv-park-corpus-christi",
+      "name": "Laguna Shore RV Park",
+      "town": "Corpus Christi",
+      "county": "Nueces"
+    },
+    {
+      "slug": "padre-balli-park-rv-area",
+      "name": "Padre Balli Park RV Area",
+      "town": "Corpus Christi",
+      "county": "Nueces"
+    },
+    {
+      "slug": "padre-island-national-seashore-malaquite-campground",
+      "name": "Padre Island National Seashore Malaquite Campground",
+      "town": "Corpus Christi",
+      "county": "Nueces"
+    },
+    {
+      "slug": "kaufer-hubert-memorial-park-rv-area",
+      "name": "Kaufer-Hubert Memorial Park RV Area",
+      "town": "Riviera",
+      "county": "Kleberg"
+    },
+    {
+      "slug": "port-isabel-park-center",
+      "name": "Port Isabel Park Center",
+      "town": "Port Isabel",
+      "county": "Cameron"
+    },
+    {
+      "slug": "south-padre-island-koa-holiday",
+      "name": "South Padre Island KOA Holiday",
+      "town": "South Padre Island",
+      "county": "Cameron"
+    },
+    {
+      "slug": "andy-bowie-county-park-rv-area",
+      "name": "Andy Bowie County Park RV Area",
+      "town": "South Padre Island",
+      "county": "Cameron"
+    },
+    {
+      "slug": "adolph-thomae-jr-county-park-rv-loop",
+      "name": "Adolph Thomae Jr. County Park RV Loop",
+      "town": "San Benito",
+      "county": "Cameron"
+    },
+    {
+      "slug": "leisure-valley-ranch",
+      "name": "Leisure Valley Ranch",
+      "town": "Mission",
+      "county": "Hidalgo"
+    },
+    {
+      "slug": "alamo-rec-veh-park",
+      "name": "Alamo Rec-Veh Park",
+      "town": "Alamo",
+      "county": "Hidalgo"
+    },
+    {
+      "slug": "winter-ranch-rv-resort",
+      "name": "Winter Ranch RV Resort",
+      "town": "Alamo",
+      "county": "Hidalgo"
+    },
+    {
+      "slug": "coleto-creek-regional-park-rv-area",
+      "name": "Coleto Creek Regional Park RV Area",
+      "town": "Victoria",
+      "county": "Victoria"
+    },
+    {
+      "slug": "mill-creek-ranch-resort",
+      "name": "Mill Creek Ranch Resort",
+      "town": "Canton",
+      "county": "Van Zandt"
+    },
+    {
+      "slug": "canton-koa-holiday",
+      "name": "Canton KOA Holiday",
+      "town": "Canton",
+      "county": "Van Zandt"
+    },
+    {
+      "slug": "silver-spur-resort",
+      "name": "Silver Spur Resort",
+      "town": "Canton",
+      "county": "Van Zandt"
+    },
+    {
+      "slug": "texas-junction-rv-park",
+      "name": "Texas Junction RV Park",
+      "town": "Canton",
+      "county": "Van Zandt"
+    },
+    {
+      "slug": "lake-palestine-resort",
+      "name": "Lake Palestine Resort",
+      "town": "Frankston",
+      "county": "Anderson"
+    },
+    {
+      "slug": "flat-creek-marina-and-rv-park",
+      "name": "Flat Creek Marina & RV Park",
+      "town": "Chandler",
+      "county": "Henderson"
+    },
+    {
+      "slug": "jellystone-park-camp-resort-whispering-pines",
+      "name": "Jellystone Park Camp-Resort: Whispering Pines",
+      "town": "Tyler",
+      "county": "Smith"
+    },
+    {
+      "slug": "mineola-civic-center-rv-park",
+      "name": "Mineola Civic Center RV Park",
+      "town": "Mineola",
+      "county": "Wood"
+    },
+    {
+      "slug": "lake-fork-resort",
+      "name": "Lake Fork Resort",
+      "town": "Alba",
+      "county": "Wood"
+    },
+    {
+      "slug": "mustang-resort",
+      "name": "Mustang Resort",
+      "town": "Alba",
+      "county": "Wood"
+    },
+    {
+      "slug": "shady-pines-rv-park",
+      "name": "Shady Pines RV Park",
+      "town": "Texarkana",
+      "county": "Bowie"
+    },
+    {
+      "slug": "marshall-koa-journey",
+      "name": "Marshall KOA Journey",
+      "town": "Marshall",
+      "county": "Harrison"
+    },
+    {
+      "slug": "twin-dikes-park-rv-area",
+      "name": "Twin Dikes Park RV Area",
+      "town": "Jasper",
+      "county": "Jasper"
+    },
+    {
+      "slug": "powell-park-resort-and-marina",
+      "name": "Powell Park Resort & Marina",
+      "town": "Broaddus",
+      "county": "San Augustine"
+    },
+    {
+      "slug": "san-augustine-park-rv-loop",
+      "name": "San Augustine Park RV Loop",
+      "town": "Shelbyville",
+      "county": "Shelby"
+    },
+    {
+      "slug": "salmon-lake-park",
+      "name": "Salmon Lake Park",
+      "town": "Grapeland",
+      "county": "Houston"
+    },
+    {
+      "slug": "rocky-creek-park-rv-area",
+      "name": "Rocky Creek Park RV Area",
+      "town": "Crowell",
+      "county": "Foard"
+    },
+    {
+      "slug": "cagle-recreation-area-rv-loop",
+      "name": "Cagle Recreation Area RV Loop",
+      "town": "New Waverly",
+      "county": "Walker"
+    },
+    {
+      "slug": "stubblefield-lake-recreation-area-rv-sites",
+      "name": "Stubblefield Lake Recreation Area RV Sites",
+      "town": "New Waverly",
+      "county": "Walker"
+    },
+    {
+      "slug": "lake-conroe-koa-holiday",
+      "name": "Lake Conroe KOA Holiday",
+      "town": "Montgomery",
+      "county": "Montgomery"
+    },
+    {
+      "slug": "omega-farms-rv-park",
+      "name": "Omega Farms RV Park",
+      "town": "Montgomery",
+      "county": "Montgomery"
+    },
+    {
+      "slug": "stouts-creek-rv-park",
+      "name": "Stout's Creek RV Park",
+      "town": "Saltillo",
+      "county": "Hopkins"
+    },
+    {
+      "slug": "amarillo-koa-journey",
+      "name": "Amarillo KOA Journey",
+      "town": "Amarillo",
+      "county": "Potter"
+    },
+    {
+      "slug": "big-texan-rv-ranch",
+      "name": "Big Texan RV Ranch",
+      "town": "Amarillo",
+      "county": "Potter"
+    },
+    {
+      "slug": "palo-duro-rim-rv-camp",
+      "name": "Palo Duro Rim RV Camp",
+      "town": "Canyon",
+      "county": "Randall"
+    },
+    {
+      "slug": "coyote-ranch-resort",
+      "name": "Coyote Ranch Resort",
+      "town": "Wichita Falls",
+      "county": "Wichita"
+    },
+    {
+      "slug": "mineral-wells-trails-rv-park",
+      "name": "Mineral Wells Trails RV Park",
+      "town": "Mineral Wells",
+      "county": "Palo Pinto"
+    },
+    {
+      "slug": "dallas-fort-worth-koa-journey",
+      "name": "Dallas / Fort Worth KOA Journey",
+      "town": "Arlington",
+      "county": "Tarrant"
+    },
+    {
+      "slug": "joe-pool-lake-rv-marina",
+      "name": "Joe Pool Lake RV Marina",
+      "town": "Grand Prairie",
+      "county": "Dallas"
+    },
+    {
+      "slug": "vineyards-campground-and-cabins",
+      "name": "Vineyards Campground & Cabins",
+      "town": "Grapevine",
+      "county": "Tarrant"
+    },
+    {
+      "slug": "hidden-cove-park-and-marina-rv-loop",
+      "name": "Hidden Cove Park and Marina RV Loop",
+      "town": "The Colony",
+      "county": "Denton"
+    },
+    {
+      "slug": "stewart-creek-park-rv-sites",
+      "name": "Stewart Creek Park RV Sites",
+      "town": "The Colony",
+      "county": "Denton"
+    },
+    {
+      "slug": "ray-roberts-lake-state-park-rv-loops",
+      "name": "Ray Roberts Lake State Park RV Loops",
+      "town": "Pilot Point",
+      "county": "Denton"
+    },
+    {
+      "slug": "east-fork-park-rv-area",
+      "name": "East Fork Park RV Area",
+      "town": "Wylie",
+      "county": "Collin"
+    },
+    {
+      "slug": "grandpappy-point-resort-rv-marina",
+      "name": "Grandpappy Point Resort RV Marina",
+      "town": "Denison",
+      "county": "Grayson"
+    },
+    {
+      "slug": "lighthouse-resort-and-marina-rv-park",
+      "name": "Lighthouse Resort & Marina RV Park",
+      "town": "Pottsboro",
+      "county": "Grayson"
+    },
+    {
+      "slug": "flowing-wells-resort-rv-park",
+      "name": "Flowing Wells Resort RV Park",
+      "town": "Pottsboro",
+      "county": "Grayson"
+    },
+    {
+      "slug": "texas-lakes-rv-resort",
+      "name": "Texas Lakes RV Resort",
+      "town": "Athens",
+      "county": "Henderson"
+    },
+    {
+      "slug": "whitney-koa-community",
+      "name": "Whitney KOA Community",
+      "town": "Whitney",
+      "county": "Hill"
+    },
+    {
+      "slug": "bosque-resort-rv-park",
+      "name": "Bosque Resort RV Park",
+      "town": "Clifton",
+      "county": "Bosque"
+    },
+    {
+      "slug": "big-bend-national-park-cottonwood-campground",
+      "name": "Big Bend National Park Cottonwood Campground",
+      "town": "Big Bend",
+      "county": "Brewster"
+    },
+    {
+      "slug": "roadrunner-travelers-rv-park",
+      "name": "Roadrunner Travelers RV Park",
+      "town": "Terlingua",
+      "county": "Brewster"
+    },
+    {
+      "slug": "fort-davis-koa-journey",
+      "name": "Fort Davis KOA Journey",
+      "town": "Fort Davis",
+      "county": "Jeff Davis"
+    },
+    {
+      "slug": "lost-alaskan-rv-park",
+      "name": "Lost Alaskan RV Park",
+      "town": "Alpine",
+      "county": "Brewster"
+    },
+    {
+      "slug": "apache-village-rv-park",
+      "name": "Apache Village RV Park",
+      "town": "Marfa",
+      "county": "Presidio"
+    },
+    {
+      "slug": "mesquite-oasis-rv-park",
+      "name": "Mesquite Oasis RV Park",
+      "town": "Odessa",
+      "county": "Ector"
+    },
+    {
+      "slug": "midland-west-koa-journey",
+      "name": "Midland West KOA Journey",
+      "town": "Midland",
+      "county": "Midland"
+    },
+    {
+      "slug": "spring-creek-marina-and-rv-park",
+      "name": "Spring Creek Marina & RV Park",
+      "town": "San Angelo",
+      "county": "Tom Green"
+    },
+    {
+      "slug": "abilene-koa-journey",
+      "name": "Abilene KOA Journey",
+      "town": "Abilene",
+      "county": "Taylor"
+    }
+  ],
+  "unresolved": [],
+  "aiAvailable": true,
+  "resolvedThisRun": 230,
+  "governedAfter": 250,
+  "backlogAfter": 0
+}
