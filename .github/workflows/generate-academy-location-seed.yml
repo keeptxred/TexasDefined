@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'scripts/data/generate-academy-location-seed.mjs'
+      - 'scripts/data/ground-academy-counties.mjs'
       - '.github/workflows/generate-academy-location-seed.yml'
   workflow_dispatch:
 
@@ -20,6 +21,10 @@ jobs:
         run: node scripts/data/generate-academy-location-seed.mjs --self-test
       - name: Generate Academy Texas seed from official directory
         run: node scripts/data/generate-academy-location-seed.mjs --live-output academy-texas-locations.json
+      - name: Self-test exact Census county grounding
+        run: node scripts/data/ground-academy-counties.mjs --self-test
+      - name: Ground every Academy store to its exact Census county
+        run: node scripts/data/ground-academy-counties.mjs --live academy-texas-locations.json
       - name: Upload Academy crawl diagnostics
         if: always()
         uses: actions/upload-artifact@v4
