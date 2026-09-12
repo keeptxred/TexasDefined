@@ -47,7 +47,7 @@ const countyChecks = [
       'AT&T Stadium is the Dallas Cowboys’ home in Arlington',
       'Globe Life Field opened in 2020 as the Texas Rangers’ third Arlington home',
       'Amon G. Carter Stadium has been TCU football’s home since 1930',
-      'Colonial Country Club traces its tournament identity to Fort Worth’s long-running PGA TOUR tradition',
+      'Colonial Country Club opened in 1936 from Marvin Leonard’s championship-golf vision',
     ],
   },
   {
@@ -57,7 +57,7 @@ const countyChecks = [
       'Daikin Park has anchored Houston Astros baseball in downtown Houston since 2000',
       'Shell Energy Stadium is Houston’s soccer-focused home for Dynamo FC and the Dash',
       'Toyota Center is the Houston Rockets’ downtown arena and a major stop for concerts and touring sports events',
-      'Legacy Stadium is Katy ISD’s large-scale high-school football venue',
+      'Legacy Stadium is Katy ISD’s 2017 district stadium',
     ],
   },
 ];
@@ -76,7 +76,7 @@ const entityChecks = [
   },
   {
     id: 'sports-venue:legacy-stadium-katy',
-    expected: 'Legacy Stadium is Katy ISD’s large-scale high-school football venue',
+    expected: 'Legacy Stadium is Katy ISD’s 2017 district stadium',
   },
 ];
 
