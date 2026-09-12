@@ -63,6 +63,14 @@ export const TEXAS_BRAND_LOCATOR_REGISTRY = {
     fallbackLabel: "Open Kolache Factory's official Texas locations",
     storeNamePattern: null,
   },
+  "half-price-books": {
+    label: "Half Price Books",
+    provider: "official-directory",
+    queryPattern: /\b(?:half\s+price\s+books|hpb)\b/i,
+    officialLocatorUrl: "https://www.hpb.com/stores",
+    fallbackLabel: "Open Half Price Books' official store finder",
+    storeNamePattern: null,
+  },
 } as const;
 
 export type TexasBrandLocatorBrand = keyof typeof TEXAS_BRAND_LOCATOR_REGISTRY;
