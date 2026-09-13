@@ -15,7 +15,7 @@ export const getSportsVenueUpcomingEvents = createServerFn({ method: "POST" })
       { loadUpcomingTexasEventRecordsServer },
       { buildTexasEventCarouselItemsServer },
       { getSportsVenuePhoto },
-      { imageReferencesMatch },
+      { canonicalImageReference, imageReferencesMatch },
     ] = await Promise.all([
       import("./events/texas-event-records.server"),
       import("./events/texas-event-calendar.server"),
@@ -25,17 +25,28 @@ export const getSportsVenueUpcomingEvents = createServerFn({ method: "POST" })
     const venueId = `sports-venue:${data.slug}`;
     const records = loadUpcomingTexasEventRecordsServer({ venueId, limit: 9 });
     const photo = getSportsVenuePhoto(data.slug);
+    const seenEventImageKeys = new Set<string>();
     const events = buildTexasEventCarouselItemsServer(records).map((event) => {
-      if (!photo || !event.image) return event;
-      const repeatsVenueHero = event.image.url === photo.imageUrl
+      if (!event.image) return event;
+
+      const repeatsVenueHero = Boolean(photo && (
+        event.image.url === photo.imageUrl
         || event.image.sourceUrl === photo.sourcePage
         || imageReferencesMatch(
           [event.image.url, event.image.sourceUrl],
           [photo.imageUrl, photo.sourcePage],
-        );
-      if (!repeatsVenueHero) return event;
-      const { image: _venueHeroFallback, ...eventWithoutVenueHeroFallback } = event;
-      return eventWithoutVenueHeroFallback;
+        )
+      ));
+      const imageKey = canonicalImageReference(event.image.url);
+      const repeatsEventImage = Boolean(imageKey && seenEventImageKeys.has(imageKey));
+
+      if (!repeatsVenueHero && !repeatsEventImage) {
+        if (imageKey) seenEventImageKeys.add(imageKey);
+        return event;
+      }
+
+      const { image: _repeatedImage, ...eventWithoutRepeatedImage } = event;
+      return eventWithoutRepeatedImage;
     });
 
     return {
