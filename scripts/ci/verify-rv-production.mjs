@@ -19,6 +19,12 @@ const curatedProfiles = [
   { path: '/destination/lake-livingston-state-park-rv-loops', name: 'Lake Livingston State Park RV Loops' },
   { path: '/destination/lake-arrowhead-state-park-rv-loop', name: 'Lake Arrowhead State Park RV Loop' },
   { path: '/destination/lake-tawakoni-state-park-rv-area', name: 'Lake Tawakoni State Park RV Area' },
+  { path: '/destination/inks-lake-state-park-rv-loop', name: 'Inks Lake State Park RV Loop' },
+  { path: '/destination/sea-rim-state-park-rv-sites', name: 'Sea Rim State Park RV Sites' },
+  { path: '/destination/goose-island-state-park-rv-loop', name: 'Goose Island State Park RV Loop' },
+  { path: '/destination/mustang-island-state-park-rv-loops', name: 'Mustang Island State Park RV Loops' },
+  { path: '/destination/martin-creek-lake-state-park-rv-area', name: 'Martin Creek Lake State Park RV Area' },
+  { path: '/destination/atlanta-state-park-rv-loop', name: 'Atlanta State Park RV Loop' },
 ];
 const guardedProfile = { path: '/destination/caddo-lake-state-park-rv-area', name: 'Caddo Lake State Park RV Area' };
 const profilePath = '/destination/palo-duro-canyon-state-park-rv-loop';
