@@ -144,16 +144,19 @@ export const Route = createFileRoute('/sports-venue/$slug')({
       { findCompleteTexasEntity, loadTexasKnowledgeGraph },
       { getSportsVenueEnrichmentAll, sportsVenueMapUrl },
       { sportsVenueLandingLinksForVenue },
+      { getSportsVenuePhoto },
     ] = await Promise.all([
       import('@/data/knowledge-graph'),
       import('@/data/sports-venue-enrichment-all'),
       import('@/data/sports-venue-landings'),
+      import('@/data/sports-venue-images-all'),
     ]);
     const graph = await loadTexasKnowledgeGraph();
     const entity = await findCompleteTexasEntity(params.slug);
     if (!entity || entity.kind !== 'sports-venue') throw notFound();
     const canonicalPath = canonicalEntityPath(entity);
     const enrichment = getSportsVenueEnrichmentAll(entity.slug);
+    const photo = getSportsVenuePhoto(entity.slug);
     const mapUrl = entity.coordinates
       ? `https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`
       : sportsVenueMapUrl(entity.name, entity.countySlug);
@@ -167,6 +170,7 @@ export const Route = createFileRoute('/sports-venue/$slug')({
       visitorPlaces: countyVisitorPlaces(entity, graph),
       sponsorPlacement: await getActiveSportsSponsorPlacement({ data: { surfacePath: canonicalPath } }),
       enrichment,
+      photo,
       landingLinks: sportsVenueLandingLinksForVenue(entity),
       mapUrl,
       upcomingEvents: guideEvents?.events ?? [],
@@ -175,7 +179,7 @@ export const Route = createFileRoute('/sports-venue/$slug')({
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
-    const { entity, enrichment } = loaderData;
+    const { entity, enrichment, photo } = loaderData;
     const canonicalPath = canonicalEntityPath(entity);
     const indexable = isIndexableEntityPage(entity);
     return {
@@ -183,7 +187,11 @@ export const Route = createFileRoute('/sports-venue/$slug')({
         canonicalPath,
         title: sportsVenueSearchTitle(entity.name, enrichment?.city),
         description: sportsVenueSearchDescription(entity, enrichment),
-        robots: indexable ? undefined : 'noindex, follow, max-image-preview:large',
+        image: photo?.imageUrl,
+        imageAlt: photo?.alt,
+        imageWidth: photo?.width,
+        imageHeight: photo?.height,
+        robots: indexable && photo ? undefined : 'noindex, follow, max-image-preview:large',
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     };
