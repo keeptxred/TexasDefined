@@ -1,5 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { LazyRelocationServiceFinder } from '@/components/relocation/LazyRelocationServiceFinder';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
@@ -14,5 +13,4 @@ export const Route = createFileRoute(canonicalPath)({
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({ '@context': 'https://schema.org', '@type': 'WebApplication', name: title, description, url: `${siteUrl}${canonicalPath}`, applicationCategory: 'FinanceApplication', operatingSystem: 'Web' })],
   }),
-  component: () => <LazyRelocationServiceFinder kind="homestead" />,
 });
