@@ -116,6 +116,7 @@ const sections = [
     'Emergency-service arrangements can differ in unincorporated areas and special districts.',
     'Hunting and fishing generally require the appropriate Texas licenses unless an exception applies.',
     'Texas state parks are useful not only for recreation but also for understanding the state’s very different natural regions.',
+    'Local emergency-alert systems are often separate from statewide warnings, so sign up for the city, county or regional alerts that serve your new address.',
     'Keep lease, closing, insurance and utility records because they can help establish residency for official transactions.',
     'The smoothest move is sequenced: research first, housing and utilities next, then vehicles, licensing, schools, voting and property-tax follow-up.'
   ]],
