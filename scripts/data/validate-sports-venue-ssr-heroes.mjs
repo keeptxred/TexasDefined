@@ -51,16 +51,22 @@ requireText(
   "import { getSportsVenuePhoto } from \"@/data/sports-venue-images-all\";",
   'shared sports venue guide must use the aggregate photo registry',
 );
+requireText(
+  guideContent,
+  'export function SportsVenueGuidePilotContent(',
+  'shared sports venue guide must expose a synchronous named export for the dynamic route',
+);
 
 for (const marker of [
-  "'amarillo-national-center': {",
+  '"amarillo-national-center": {',
   'AI-generated photorealistic editorial depiction of Amarillo National Center in Amarillo, Texas',
 ]) requireText(wave7Photos, marker, 'Amarillo Wave 7 governed hero record');
 
 for (const marker of [
   "['amarillo-national-center', 'AI-generated photorealistic editorial depiction of Amarillo National Center in Amarillo, Texas']",
-  "const html = await fetchText(`${pageUrl}?td_verify=${cacheBust}`, { accept: 'text/html' });",
-]) requireText(productionVerifier, marker, 'live SSR hero production contract');
+  'lastBody = await response.text();',
+  "headers: { 'user-agent': 'TexasDefined-CI-Production-Smoke/1.0' }",
+]) requireText(productionVerifier, marker, 'live raw-HTML hero production contract');
 
 if (failures.length) {
   console.error('Sports venue SSR hero validation failed:');
