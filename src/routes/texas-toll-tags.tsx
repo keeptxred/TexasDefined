@@ -1,6 +1,11 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
+
+const PrioritySearchPage = lazy(() =>
+  import("@/components/editorial/PrioritySearchPage").then((module) => ({ default: module.PrioritySearchPage })),
+);
 
 const canonicalPath = "/texas-toll-tags";
 
@@ -17,4 +22,13 @@ export const Route = createFileRoute("/texas-toll-tags")({
     data: loaderData,
     about: ["EZ TAG", "TxTag", "TollTag", "Texas toll roads", "toll tag interoperability"],
   }) : {},
+  component: Page,
 });
+
+function Page() {
+  return (
+    <Suspense fallback={null}>
+      <PrioritySearchPage data={Route.useLoaderData()} />
+    </Suspense>
+  );
+}
