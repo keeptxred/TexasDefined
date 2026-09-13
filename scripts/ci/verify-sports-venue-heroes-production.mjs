@@ -38,6 +38,7 @@ const repairedWave7 = [
     label: `${slug}-hero`,
     path: `/sports-venue/${slug}`,
     assetPath: `/images/sports-venues/${slug}.jpg`,
+    heroEndpointPath: `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}`,
     required: [
       `/images/sports-venues/${slug}.jpg`,
       `content=\"${origin}/images/sports-venues/${slug}.jpg\"`,
@@ -129,6 +130,47 @@ async function inspectLocalAsset(assetPath, token) {
   }
 }
 
+async function inspectHeroEndpoint(heroEndpointPath, assetPath, token) {
+  if (!heroEndpointPath || !assetPath) return { ok: true, status: 'n/a', bytes: 0, contentType: 'n/a', finalPath: 'n/a', challenge: false, error: '' };
+  try {
+    const separator = heroEndpointPath.includes('?') ? '&' : '?';
+    const response = await fetch(`${origin}${heroEndpointPath}${separator}verify=${encodeURIComponent(token)}`, {
+      redirect: 'follow',
+      cache: 'no-store',
+      signal: AbortSignal.timeout(30_000),
+      headers: { 'user-agent': 'TexasDefined-CI-Production-Smoke/1.0' },
+    });
+    const challenge = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+    const contentType = response.headers.get('content-type') ?? '';
+    const bytes = (await response.arrayBuffer()).byteLength;
+    const finalPath = new URL(response.url).pathname;
+    return {
+      ok: !challenge
+        && response.ok
+        && finalPath === assetPath
+        && contentType.toLowerCase().startsWith('image/')
+        && !contentType.toLowerCase().includes('svg')
+        && bytes >= 10_000,
+      status: String(response.status),
+      bytes,
+      contentType,
+      finalPath,
+      challenge,
+      error: '',
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      status: 'network-error',
+      bytes: 0,
+      contentType: '',
+      finalPath: '',
+      challenge: false,
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
 function decodeHtmlText(value) {
   return value
     .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCodePoint(Number.parseInt(hex, 16)))
@@ -140,7 +182,7 @@ function decodeHtmlText(value) {
     .replace(/&gt;/g, '>');
 }
 
-async function verifyVenue({ label, path, required, assetPath }) {
+async function verifyVenue({ label, path, required, assetPath, heroEndpointPath }) {
   let lastStatus = 'network-error';
   let lastBody = '';
   let lastError = '';
@@ -149,6 +191,7 @@ async function verifyVenue({ label, path, required, assetPath }) {
   let missing = [];
   let fallbackPresent = false;
   let lastAsset = { ok: !assetPath, status: assetPath ? 'not-run' : 'n/a', bytes: 0, contentType: '', challenge: false, error: '' };
+  let lastEndpoint = { ok: !heroEndpointPath, status: heroEndpointPath ? 'not-run' : 'n/a', bytes: 0, contentType: '', finalPath: '', challenge: false, error: '' };
 
   for (let attempt = 1; attempt <= 6; attempt += 1) {
     attempts = attempt;
@@ -171,10 +214,11 @@ async function verifyVenue({ label, path, required, assetPath }) {
       missing = required.filter((needle) => !lastBody.includes(needle) && !decodedBody.includes(needle));
       fallbackPresent = lastBody.includes(fallbackText);
       lastAsset = await inspectLocalAsset(assetPath, token);
+      lastEndpoint = await inspectHeroEndpoint(heroEndpointPath, assetPath, token);
 
-      if (!lastChallenge && response.ok && missing.length === 0 && !fallbackPresent && lastAsset.ok) {
-        console.log(`[${label}] verified (${response.status}): registered hero and attribution are present, fallback is absent, and local asset is healthy.`);
-        appendSummary(`| ✅ pass | ${label} | ${lastStatus} | ${attempts} | no | ${lastAsset.status} | ${lastAsset.bytes || 'n/a'} | 0 |\n`);
+      if (!lastChallenge && response.ok && missing.length === 0 && !fallbackPresent && lastAsset.ok && lastEndpoint.ok) {
+        console.log(`[${label}] verified (${response.status}): registered hero and attribution are present, fallback is absent, local asset is healthy, and the same-origin hero endpoint resolves to the governed asset.`);
+        appendSummary(`| ✅ pass | ${label} | ${lastStatus} | ${attempts} | no | ${lastAsset.status} | ${lastEndpoint.status} | ${lastEndpoint.finalPath || 'n/a'} | 0 |\n`);
         return;
       }
 
@@ -186,6 +230,7 @@ async function verifyVenue({ label, path, required, assetPath }) {
         if (missing.length) console.log(`[${label}] registered hero/attribution markers missing: ${missing.join(' | ')}`);
         if (fallbackPresent) console.log(`[${label}] fail-closed photo fallback is still being rendered.`);
         if (!lastAsset.ok) console.log(`[${label}] local hero asset unhealthy: status=${lastAsset.status} bytes=${lastAsset.bytes} type=${lastAsset.contentType || 'unknown'} error=${lastAsset.error || 'none'}`);
+        if (!lastEndpoint.ok) console.log(`[${label}] same-origin hero endpoint mismatch: status=${lastEndpoint.status} finalPath=${lastEndpoint.finalPath || 'unknown'} expected=${assetPath || 'n/a'} bytes=${lastEndpoint.bytes} type=${lastEndpoint.contentType || 'unknown'} error=${lastEndpoint.error || 'none'}`);
       }
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
@@ -199,12 +244,13 @@ async function verifyVenue({ label, path, required, assetPath }) {
     if (attempt < 6) await sleep(5_000);
   }
 
-  appendSummary(`| ❌ FAIL | ${label} | ${lastStatus} | ${attempts} | ${fallbackPresent ? 'yes' : 'no'} | ${lastAsset.status} | ${lastAsset.bytes} | ${missing.length} |\n`);
+  appendSummary(`| ❌ FAIL | ${label} | ${lastStatus} | ${attempts} | ${fallbackPresent ? 'yes' : 'no'} | ${lastAsset.status} | ${lastEndpoint.status} | ${lastEndpoint.finalPath || 'n/a'} | ${missing.length} |\n`);
   const reason = lastError
     || (lastChallenge ? 'Cloudflare returned cf-mitigated: challenge' : '')
     || (lastStatus !== '200' ? `HTTP ${lastStatus}` : '')
     || (fallbackPresent ? 'photo fallback is still rendered despite a registered venue hero' : '')
     || (!lastAsset.ok ? `local hero asset unhealthy: status=${lastAsset.status}, bytes=${lastAsset.bytes}, type=${lastAsset.contentType || 'unknown'}, error=${lastAsset.error || 'none'}` : '')
+    || (!lastEndpoint.ok ? `same-origin hero endpoint failed to resolve governed asset: status=${lastEndpoint.status}, finalPath=${lastEndpoint.finalPath || 'unknown'}, expected=${assetPath || 'n/a'}, bytes=${lastEndpoint.bytes}, type=${lastEndpoint.contentType || 'unknown'}, error=${lastEndpoint.error || 'none'}` : '')
     || `required hero/attribution markers missing: ${missing.join(' | ')}`;
   console.error(`::error title=LIVE PRODUCTION sports venue hero failure::${label} failed after ${attempts} attempts — ${reason}`);
   if (lastBody) console.error(`[${label}] response sample: ${lastBody.slice(0, 1800).replace(/\s+/g, ' ')}`);
@@ -212,10 +258,10 @@ async function verifyVenue({ label, path, required, assetPath }) {
 }
 
 appendSummary('\n## Sports venue hero production verification\n\n');
-appendSummary('| Result | Venue hero | Page HTTP | Attempts | Fallback present | Asset HTTP | Asset bytes | Missing markers |\n|---|---|---:|---:|---|---:|---:|---:|\n');
+appendSummary('| Result | Venue hero | Page HTTP | Attempts | Fallback present | Asset HTTP | Hero endpoint HTTP | Hero endpoint final path | Missing markers |\n|---|---|---:|---:|---|---:|---:|---|---:|\n');
 
 for (const venue of venues) {
   await verifyVenue(venue);
 }
 
-console.log(`TexasDefined sports venue hero production verification passed (${venues.length} protected venues; ${repairedWave7.length} repaired Wave 7 pages include live local-asset and attribution checks).`);
+console.log(`TexasDefined sports venue hero production verification passed (${venues.length} protected venues; ${repairedWave7.length} repaired Wave 7 pages include live local-asset, same-origin hero endpoint and attribution checks).`);
