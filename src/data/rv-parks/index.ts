@@ -14,9 +14,11 @@ const loadRvParks = createServerFn({ method: "GET" })
   .inputValidator((data: RvParkRequest) => data)
   .handler(async ({ data }) => {
     const registry = await import("./registry.server");
-    if (data.action === "one") return registry.getRvParkDestinationServer(data.value) ?? null;
-    if (data.action === "search") return registry.buildRvParkSearchDocumentsServer();
-    return registry.loadRvParkDestinationsServer();
+    const wave4 = await import("./curated-public-wave4");
+    const destinations = wave4.applyRvParkCuratedPublicWave4List(registry.loadRvParkDestinationsServer());
+    if (data.action === "one") return destinations.find((item) => item.slug === data.value) ?? null;
+    if (data.action === "search") return wave4.buildRvParkSearchDocumentsFromCuratedDestinations(destinations);
+    return destinations;
   });
 
 export function listRvParkDestinations(): Promise<Destination[]> {
