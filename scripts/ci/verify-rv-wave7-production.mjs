@@ -1,11 +1,11 @@
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 
 const profiles = [
-  { path: '/destination/big-bend-national-park-cottonwood-campground', name: 'Big Bend National Park Cottonwood Campground' },
-  { path: '/destination/big-bend-national-park-rio-grande-village-rv-park', name: 'Big Bend National Park Rio Grande Village RV Park' },
-  { path: '/destination/hueco-tanks-state-park-rv-sites', name: 'Hueco Tanks State Park RV Sites' },
-  { path: '/destination/fort-griffin-state-historic-site-rv-loop', name: 'Fort Griffin State Historic Site RV Loop' },
-  { path: '/destination/davis-mountains-state-park-rv-loop', name: 'Davis Mountains State Park RV Loop' },
+  { path: '/destination/big-bend-national-park-cottonwood-campground', name: 'Big Bend National Park Cottonwood Campground', temporaryImage: true },
+  { path: '/destination/big-bend-national-park-rio-grande-village-rv-park', name: 'Big Bend National Park Rio Grande Village RV Park', temporaryImage: true },
+  { path: '/destination/hueco-tanks-state-park-rv-sites', name: 'Hueco Tanks State Park RV Sites', temporaryImage: true },
+  { path: '/destination/fort-griffin-state-historic-site-rv-loop', name: 'Fort Griffin State Historic Site RV Loop', temporaryImage: true },
+  { path: '/destination/davis-mountains-state-park-rv-loop', name: 'Davis Mountains State Park RV Loop', temporaryImage: false },
 ];
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -61,7 +61,13 @@ async function fetchProduction(path) {
 const sitemap = await fetchProduction('/sitemap-explore.xml');
 for (const profile of profiles) {
   const expectedUrl = `${origin}${profile.path}`;
-  if (!sitemap.includes(expectedUrl)) throw new Error(`Wave 7 sitemap missing ${profile.name}: ${expectedUrl}`);
+  const inSitemap = sitemap.includes(expectedUrl);
+  if (profile.temporaryImage && inSitemap) {
+    throw new Error(`Wave 7 temporary-image profile must stay out of sitemap: ${expectedUrl}`);
+  }
+  if (!profile.temporaryImage && !inSitemap) {
+    throw new Error(`Wave 7 final-image profile missing from sitemap: ${expectedUrl}`);
+  }
 
   const html = await fetchProduction(profile.path);
   if (!html.includes(profile.name)) throw new Error(`Wave 7 profile missing visible identity: ${profile.name}`);
@@ -71,10 +77,17 @@ for (const profile of profiles) {
   if (canonicalHref(html) !== expectedUrl) {
     throw new Error(`Wave 7 canonical mismatch for ${profile.name}: ${canonicalHref(html) || 'missing'}`);
   }
+
   const directives = robotsDirectives(html);
-  if (directives.has('noindex') || !directives.has('index') || !directives.has('follow')) {
-    throw new Error(`Wave 7 robots policy mismatch for ${profile.name}: ${metaContent(html, 'robots') || 'missing'}`);
+  if (profile.temporaryImage) {
+    if (!directives.has('noindex') || !directives.has('follow')) {
+      throw new Error(`Wave 7 temporary-image robots policy mismatch for ${profile.name}: ${metaContent(html, 'robots') || 'missing'}`);
+    }
+  } else if (directives.has('noindex') || !directives.has('index') || !directives.has('follow')) {
+    throw new Error(`Wave 7 final-image robots policy mismatch for ${profile.name}: ${metaContent(html, 'robots') || 'missing'}`);
   }
 }
 
-console.log(`RV Wave 7 production verification passed: ${profiles.length} profiles are sitemap-discoverable, canonical index/follow destinations with WebPage and TouristAttraction schema.`);
+const temporaryCount = profiles.filter((profile) => profile.temporaryImage).length;
+const finalCount = profiles.length - temporaryCount;
+console.log(`RV Wave 7 production verification passed: ${temporaryCount} temporary representative-image profiles remain live/canonical but noindex/follow and out of the sitemap, while ${finalCount} exact-location-image profile remains index/follow and sitemap-discoverable.`);
