@@ -31,6 +31,7 @@ export const RV_PARK_SEED_COUNT = 250;
 export const RV_PARK_CURATED_PUBLIC_WAVE1_COUNT = 5;
 export const RV_PARK_CURATED_PUBLIC_WAVE2_COUNT = 5;
 export const RV_PARK_CURATED_PUBLIC_WAVE3_COUNT = 9;
+export const RV_PARK_CURATED_PUBLIC_WAVE4_COUNT = 5;
 
 const CONSERVATIVE_SEED = { coordinates: { lat: 0, lng: 0 } } as const;
 
@@ -175,6 +176,41 @@ const SOURCE_OVERRIDES: Record<string, Pick<RvParkSeedRecord, "officialUrl" | "s
     address: "10822 FM 2475, Wills Point, TX 75169",
     managingAuthority: "Texas Parks and Wildlife Department",
     coordinates: { lat: 32.841871, lng: -95.993667 },
+  },
+  "inks-lake-state-park-rv-loop": {
+    officialUrl: "https://tpwd.texas.gov/state-parks/inks-lake",
+    sourceCheckedAt: "2026-09-12",
+    address: "3480 Park Road 4 West, Burnet, TX 78611",
+    managingAuthority: "Texas Parks and Wildlife Department",
+    coordinates: { lat: 30.740432, lng: -98.365439 },
+  },
+  "mckinney-falls-state-park-rv-loop": {
+    officialUrl: "https://tpwd.texas.gov/state-parks/mckinney-falls",
+    sourceCheckedAt: "2026-09-12",
+    address: "5808 McKinney Falls Parkway, Austin, TX 78744",
+    managingAuthority: "Texas Parks and Wildlife Department",
+    coordinates: { lat: 30.180752, lng: -97.722007 },
+  },
+  "sea-rim-state-park-rv-sites": {
+    officialUrl: "https://tpwd.texas.gov/state-parks/sea-rim",
+    sourceCheckedAt: "2026-09-12",
+    address: "19335 S. Gulfway Drive, Sabine Pass, TX 77655",
+    managingAuthority: "Texas Parks and Wildlife Department",
+    coordinates: { lat: 29.676156, lng: -94.044008 },
+  },
+  "goose-island-state-park-rv-loop": {
+    officialUrl: "https://tpwd.texas.gov/state-parks/goose-island",
+    sourceCheckedAt: "2026-09-12",
+    address: "202 S. Palmetto St., Rockport, TX 78382-7965",
+    managingAuthority: "Texas Parks and Wildlife Department",
+    coordinates: { lat: 28.133503, lng: -96.98428 },
+  },
+  "mustang-island-state-park-rv-loops": {
+    officialUrl: "https://tpwd.texas.gov/state-parks/mustang-island",
+    sourceCheckedAt: "2026-09-12",
+    address: "9394 State Highway 361, Corpus Christi, TX 78418",
+    managingAuthority: "Texas Parks and Wildlife Department",
+    coordinates: { lat: 27.672162, lng: -97.175309 },
   },
   "caddo-lake-state-park-rv-area": {
     officialUrl: "https://tpwd.texas.gov/state-parks/caddo-lake",
@@ -398,6 +434,61 @@ const CONTENT_OVERRIDES: Readonly<Record<string, RvParkContentOverride>> = {
       "Lake Tawakoni State Park gives RV travelers a range of developed campsite service levels on a reservoir east of Dallas. TPWD currently lists 16 full-hookup sites in the Spring Point Camping Loop with 30/50-amp electricity, plus 16 additional Spring Point sites with water and 30/50-amp electricity and 44 electric sites in White Deer Reach. That mix makes it important to reserve the exact category rather than infer hookups from the park name.",
       "Lake Tawakoni covers 37,879 acres, and TPWD highlights boating, fishing, swimming and paddling from the park. On land, nearly five miles of trails support hiking and mountain biking through oak forest and lakeshore habitat. The combination works well for travelers who want a water-focused campground within roughly 50 miles of Dallas without giving up a state-park setting.",
       "TPWD identifies spring and summer as busy seasons and recommends reservations because the park can reach capacity. Before towing in, confirm the exact loop, electrical service, sewer availability where needed, vehicle limits and current lake or weather alerts. Texas Defined uses an exact-location Lake Tawakoni State Park image with reusable-license attribution rather than generic campground photography.",
+    ],
+  },
+  "inks-lake-state-park-rv-loop": {
+    summary: "Inks Lake State Park RV Loop is a Hill Country camping base west of Burnet with 114 water-and-electric campsites plus additional water-only RV sites beside Inks Lake.",
+    bestSeason: "TPWD lists spring, summer and fall as the busy seasons and says the park often reaches capacity. Reserve ahead for warm-weather weekends and check current park, lake and weather alerts before towing in.",
+    entryNote: "Enter at 3480 Park Road 4 West in Burnet. TPWD lists 114 sites with water and 30/50-amp electricity; water-only sites #300-349 allow one RV under 26 feet, have no electricity and do not allow generators.",
+    highlights: ["114 water-and-electric campsites", "Devil's Waterhole and Inks Lake recreation", "Hill Country base west of Burnet"],
+    body: [
+      "Inks Lake State Park has a large developed campground with clearly documented RV utility levels. TPWD currently lists 114 campsites with water and 30/50-amp electrical hookups. It also lists 42 water-only sites numbered 300 through 349; those sites allow one RV under 26 feet, provide no electricity and prohibit generators. RV travelers should reserve the exact category that matches their rig and power needs rather than assuming every site is equivalent.",
+      "The campground is part of a lake-focused Hill Country park rather than a standalone RV resort. Visitors can swim or hike at Devil's Waterhole, spend time on Inks Lake and use the park as a base for outdoor days west of Burnet. The park's current alerts and lake conditions matter because water recreation, heat and seasonal crowding can change the practical experience of a stay.",
+      "TPWD lists spring, summer and fall as busy seasons and says Inks Lake often reaches capacity. Before towing in, reserve both the campsite and any required entry access, confirm the assigned site's length and electrical service, and review current park alerts. The Texas Defined hero depicts Inks Lake State Park property and retains its reusable-license source metadata.",
+    ],
+  },
+  "mckinney-falls-state-park-rv-loop": {
+    summary: "McKinney Falls State Park RV Loop gives Austin-area campers 81 water-and-electric campsites, including 12 sites with 50/30/20-amp service, inside a state park on Onion Creek.",
+    bestSeason: "TPWD lists March through November as the busy season and says the park often reaches capacity. Reserve ahead and check current creek, flood, heat and park alerts before arrival.",
+    entryNote: "Enter at 5808 McKinney Falls Parkway in Austin. TPWD lists 12 water-and-electric sites with 50/30/20-amp service and 69 additional sites with 30/20-amp service; confirm the exact reserved site before towing in.",
+    highlights: ["81 water-and-electric campsites", "50-amp service available on 12 sites", "Onion Creek falls and nearly nine miles of trails inside Austin"],
+    body: [
+      "McKinney Falls State Park provides an unusually close-to-city RV base while still operating as a full state-park campground. TPWD lists 81 campsites with water and electricity: 12 sites provide 50/30/20-amp hookups and 69 provide 30/20-amp hookups. Restrooms with showers are nearby, but the exact reservation should control electrical service, site fit and current restrictions for a particular rig.",
+      "The park sits on Onion Creek within Austin city limits. TPWD highlights the Upper and Lower Falls, fishing and swimming in Onion Creek, and nearly nine miles of hiking and biking trails. The agency also warns that Onion Creek can flood after rainfall, so current creek flow and weather conditions should be checked before treating the water as a fixed part of the itinerary.",
+      "TPWD identifies March through November as the busy season and recommends advance reservations because the park often reaches capacity. Confirm the assigned campsite, electrical needs, entry access and active alerts before arrival. Texas Defined uses an explicitly labeled AI-generated representative editorial hero for this profile rather than presenting generated imagery as an exact photograph of McKinney Falls State Park.",
+    ],
+  },
+  "sea-rim-state-park-rv-sites": {
+    summary: "Sea Rim State Park RV Sites place 15 water-and-electric campsites beside Gulf beach and coastal marsh near Sabine Pass, with primitive drive-up beach camping available when tides and weather permit.",
+    bestSeason: "TPWD lists April through July as the busy season. Coastal weather, extreme tides, mosquitoes and alligator safety can materially affect a stay, so check current park and beach conditions before travel.",
+    entryNote: "Enter at 19335 S. Gulfway Drive in Sabine Pass. The Piping Plover loop has 15 sites with water and 50/30-amp electricity; West Beach primitive sites are non-reservable and can close because of extreme tides or other weather events.",
+    highlights: ["15 water-and-50/30-amp campsites", "Gulf beach and 4,000 acres of coastal marsh", "Primitive West Beach camping when conditions permit"],
+    body: [
+      "Sea Rim State Park has a small developed RV loop in a setting where beach and marsh conditions matter as much as campsite utilities. TPWD lists 15 electric campsites in the Piping Plover loop next to beach access and the dune boardwalk, with water and 50/30-amp hookups. The park also offers 75 primitive drive-up West Beach sites, but those sites are non-reservable and may close during extreme high tides or other weather events.",
+      "Sea Rim protects nearly two miles of Gulf shoreline and about 4,000 acres of marshland. TPWD lists birding, beachcombing, paddling, fishing, swimming and the Gambusia Nature Trail boardwalk among the park experiences. The same coastal environment brings practical cautions: alligators live in the park, mosquitoes can be significant year-round, and beach conditions vary with weather and tides.",
+      "TPWD lists April through July as the busy season and recommends reservations for developed camping because the park can reach capacity. Before towing south of Port Arthur, confirm the reserved campsite, electrical needs, road and beach conditions, active alerts and late-arrival instructions. The profile hero depicts Sea Rim State Park property and retains its open-license attribution metadata.",
+    ],
+  },
+  "goose-island-state-park-rv-loop": {
+    summary: "Goose Island State Park RV Loop offers 40 bayfront electric campsites and 53 wooded electric campsites near Rockport, plus limited full-hookup inventory that is handled directly through the park.",
+    bestSeason: "TPWD lists Memorial Day through Labor Day, October through Thanksgiving, and January through April as busy periods. The park often reaches capacity, so reserve ahead and check current coastal alerts.",
+    entryNote: "Enter at 202 S. Palmetto St. in Rockport. TPWD lists 40 bayfront sites with water and 20/30/50-amp service plus 53 wooded sites with water and electricity; confirm the exact campground area and utilities before arrival.",
+    highlights: ["40 bayfront electric campsites", "53 wooded electric campsites under live oaks", "Fishing, birding and the centuries-old Big Tree"],
+    body: [
+      "Goose Island State Park gives RV travelers two distinct developed camping environments. TPWD lists 40 Bayfront campsites with water and 20/30/50-amp electricity, while 53 additional electric campsites sit in the wooded area among large oak trees. The park also lists a very small number of premium full-hookup sites that are not reservable in advance, so the standard reservation inventory should not be described as uniformly full-hookup.",
+      "The park sits along St. Charles and Aransas bays north of Corpus Christi. TPWD highlights camping, fishing and birding, as well as the Big Tree, a centuries-old coastal live oak. Swimming is not recommended because the shoreline includes concrete bulkheads, oyster shells, mud flats and marsh grass, which makes this a better fishing, wildlife and coastal-camping base than a conventional swimming-beach campground.",
+      "TPWD says Goose Island often reaches capacity and identifies several busy periods across summer, fall and winter-spring. Reserve the exact campsite, confirm the assigned area's electrical service and current coastal conditions, and review active park alerts before towing in. Texas Defined retains governed actual-location imagery for the named park rather than substituting generic RV-resort photography.",
+    ],
+  },
+  "mustang-island-state-park-rv-loops": {
+    summary: "Mustang Island State Park RV Loops provide 48 water-and-50-amp campsites behind Gulf dunes plus primitive drive-up beach camping when beach and weather conditions allow.",
+    bestSeason: "TPWD lists spring and summer as the busy seasons and says the park often reaches capacity. Check Gulf weather, beach access and current park alerts before towing onto the island.",
+    entryNote: "Enter at 9394 State Highway 361 in Corpus Christi. The 48 electric sites have water and 50-amp service about 400 yards behind the beach; primitive beach sites are non-reservable and may close because of weather conditions.",
+    highlights: ["48 water-and-50-amp campsites", "More than five miles of Gulf coastline", "Beach camping and a 20-mile state-park paddling trail system"],
+    body: [
+      "Mustang Island State Park has 48 developed electric campsites set behind the dunes rather than directly on the beach. TPWD lists water hookups and 50-amp electrical service, with restrooms and showers nearby. The sites are roughly 400 yards from the water and do not have fire rings; cooking in the site grills is allowed, while campfires are handled under the park's current beach rules.",
+      "The park also has 50 primitive drive-up sites along a 1.5-mile stretch of beach. Those sites are non-reservable and can close because of weather conditions, so they should not be treated as guaranteed overflow for a developed-site reservation. Beyond camping, TPWD describes more than five miles of coastline and a 20-mile paddling-trail system along the western side of Mustang Island, with fishing, kayaking, swimming and birding among the common activities.",
+      "TPWD lists spring and summer as the busy seasons and recommends reservations because the park often reaches capacity. Before towing onto the barrier island, confirm the developed campsite, vehicle and electrical needs, Gulf weather, beach access and any active park alerts. The Texas Defined hero is governed actual-location imagery from Mustang Island State Park with reusable-license attribution.",
     ],
   },
 };

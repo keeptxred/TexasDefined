@@ -15,6 +15,7 @@ on:
       - 'scripts/data/validate-rv-county-server-function-isolation.mjs'
       - 'scripts/data/validate-rv-curated-public-wave2.mjs'
       - 'scripts/data/validate-rv-curated-public-wave3.mjs'
+      - 'scripts/data/validate-rv-curated-public-wave4.mjs'
       - 'scripts/ci/verify-rv-parks-production.mjs'
       - 'src/data/rv-parks/**'
       - 'src/data/county-major-events.ts'
@@ -49,6 +50,7 @@ on:
       - 'scripts/data/validate-rv-county-server-function-isolation.mjs'
       - 'scripts/data/validate-rv-curated-public-wave2.mjs'
       - 'scripts/data/validate-rv-curated-public-wave3.mjs'
+      - 'scripts/data/validate-rv-curated-public-wave4.mjs'
       - 'scripts/ci/verify-rv-parks-production.mjs'
       - 'src/data/rv-parks/**'
       - 'src/data/county-major-events.ts'
@@ -102,6 +104,8 @@ jobs:
         run: node scripts/data/validate-rv-curated-public-wave2.mjs
       - name: Validate curated public RV wave three
         run: node scripts/data/validate-rv-curated-public-wave3.mjs
+      - name: Validate curated public RV wave four
+        run: node scripts/data/validate-rv-curated-public-wave4.mjs
 
   production:
     if: ${{ github.event_name == 'workflow_dispatch' }}
