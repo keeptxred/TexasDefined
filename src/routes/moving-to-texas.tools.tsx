@@ -9,7 +9,7 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute(canonicalPath)({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title, description }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Texas Relocation Tools', description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({ '@context': 'https://schema.org', '@type': 'CollectionPage', name: title, description, url: `${siteUrl}${canonicalPath}` })],
   }),
