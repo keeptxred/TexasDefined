@@ -33,3 +33,6 @@ jobs:
 
       - name: Verify RV hub, profile and county production
         run: node scripts/ci/verify-rv-production.mjs
+
+      - name: Verify RV Wave 5 production publication
+        run: node scripts/ci/verify-rv-wave5-production.mjs
