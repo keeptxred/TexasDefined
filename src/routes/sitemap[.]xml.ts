@@ -1,30 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { getTexasCountyHousingCosts } from "@/data/acs-county-housing-costs.functions";
-import { fetchPublishedTexasDefinedEvergreenArticlesForSitemap, fetchPublishedTexasDefinedNewsArticlesForSitemap } from "@/data/articles-remote";
-import { loadTexasCountyGrowth } from "@/data/census-county-growth";
-import { isLegacyCountySeriesArticle } from "@/data/county-series";
-import { isEvergreenEventCollectionPath, loadEvergreenEventSitemapEntriesServer } from "@/data/event-evergreen-sitemap.server";
-import { loadTemporalEventSitemapEntriesServer } from "@/data/event-temporal-sitemap.server";
-import { isArticleDiscoveryReady, isArticleIndexReady } from "@/data/fixtures/texas-gateway-index-readiness";
-import { loadFishingGuideSitemapEntriesServer } from "@/data/fishing/guide-sitemap.server";
-import { loadFishingLocalSitemapEntriesServer } from "@/data/fishing/local-sitemap.server";
-import { loadFishingReportSitemapEntriesServer } from "@/data/fishing/report-sitemap.server";
-import { FISHING_SITEMAP_ENTRIES } from "@/data/fishing/sitemap";
-import { HUNTING_SITEMAP_ENTRIES } from "@/data/hunting/sitemap";
-import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
-import { majorEventIndexRecords } from "@/data/major-event-index";
-import { hasCompliantMajorEventImageServer } from "@/data/major-event-schema-enrichment.server";
-import { loadSupplementalMajorEventSitemapEntriesServer } from "@/data/major-event-supplemental-registry.server";
-import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
-import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
-import { TEXAS_DATASETS } from "@/data/texas-data-center";
-import { loadTexasDogSitemapEntriesServer } from "@/data/texas-dogs-sitemap.server";
-import { isTexasVsStateSitemapReady } from "@/data/texas-vs-state-index-readiness.server";
-import { TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-states-index";
-import { isTexasDefinedOwnedEntity, isTexasDefinedOwnedStaticPath } from "@/lib/brand-route-ownership";
-import { INDEXABLE_STATIC_PATHS, isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
 const origin = `https://${texasDefinedBrand.identity.domain}`;
 type SitemapEntry = { path: string; lastmod?: string };
@@ -65,6 +41,41 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
+        const {
+          getTexasCountyHousingCosts,
+          fetchPublishedTexasDefinedEvergreenArticlesForSitemap,
+          fetchPublishedTexasDefinedNewsArticlesForSitemap,
+          loadTexasCountyGrowth,
+          isLegacyCountySeriesArticle,
+          isEvergreenEventCollectionPath,
+          loadEvergreenEventSitemapEntriesServer,
+          loadTemporalEventSitemapEntriesServer,
+          isArticleDiscoveryReady,
+          isArticleIndexReady,
+          loadFishingGuideSitemapEntriesServer,
+          loadFishingLocalSitemapEntriesServer,
+          loadFishingReportSitemapEntriesServer,
+          FISHING_SITEMAP_ENTRIES,
+          HUNTING_SITEMAP_ENTRIES,
+          canonicalEntityPath,
+          isIndexableEntityPage,
+          majorEventIndexRecords,
+          hasCompliantMajorEventImageServer,
+          loadSupplementalMajorEventSitemapEntriesServer,
+          isCountyPropertyIndexReady,
+          fetchAssignedShopProducts,
+          TEXAS_DATASETS,
+          loadTexasDogSitemapEntriesServer,
+          isTexasVsStateSitemapReady,
+          TEXAS_VS_STATES,
+          texasVsStateSlug,
+          isTexasDefinedOwnedEntity,
+          isTexasDefinedOwnedStaticPath,
+          INDEXABLE_STATIC_PATHS,
+          isExploreSitemapOwnedPath,
+          isIndexablePublicPath,
+          normalizePublicPath,
+        } = await import("@/data/sitemap-dependencies.server");
         const { platform, scope } = await import("@/data");
         const { loadTexasKnowledgeGraph } = await import("@/data/knowledge-graph");
         const coreResults = await Promise.allSettled([
