@@ -269,21 +269,43 @@ async function verifyFiestaLeaf() {
   console.log('[fiesta-san-antonio] organizer plus future-year omission policy verified');
 }
 
-async function verifyFreeOfferLeaf() {
+async function verifyExpiredConfirmedLeaf() {
   const path = '/event/bandera-round-up-cattle-drive';
   const html = await fetchProduction(path, 'bandera-round-up-cattle-drive');
   assert(canonicalHref(html) === `${origin}${path}`, `Bandera Round-Up canonical must be ${origin}${path}`);
   assert(html.includes('Organizer:'), 'Bandera Round-Up visible page must expose the verified organizer');
-  assert(html.includes('Verified admission options'), 'Bandera Round-Up visible page must expose verified free admission');
+  assert(html.includes('Verified admission options'), 'Bandera Round-Up visible page must retain its reviewed admission evidence');
 
-  const event = eventNodes(html)[0];
-  assert(event, 'Bandera Round-Up leaf must expose Event schema');
-  assert(hasType(event.organizer, 'Organization'), 'Bandera Round-Up must expose its verified organizer');
+  const blocks = extractJsonLd(html);
+  assert(blocks.length > 0, 'Bandera Round-Up expired leaf must expose JSON-LD');
+  const nodes = blocks.flatMap((block) => collectTypedNodes(block));
+  assert(nodes.some((node) => hasType(node, 'WebPage')), 'Bandera Round-Up expired leaf must expose WebPage schema');
+  assert(nodes.some((node) => hasType(node, 'Thing')), 'Bandera Round-Up expired leaf must remain described as a Thing');
+  assert(!nodes.some((node) => hasType(node, 'Event')), 'Bandera Round-Up expired leaf must suppress stale scheduled Event markup');
+  assert(!nodes.some((node) => hasType(node, 'EventScheduled')), 'Bandera Round-Up expired leaf must suppress EventScheduled markup');
+  assert(nodes.every((node) => !Object.hasOwn(node, 'startDate') && !Object.hasOwn(node, 'endDate')), 'Bandera Round-Up expired JSON-LD must not publish stale occurrence dates');
+  console.log('[bandera-round-up-cattle-drive] expired confirmed occurrence schema suppression verified');
+}
+
+async function verifyFreeOfferLeaf() {
+  const path = '/event/mckinney-oktoberfest';
+  const html = await fetchProduction(path, 'mckinney-oktoberfest');
+  assert(canonicalHref(html) === `${origin}${path}`, `McKinney Oktoberfest canonical must be ${origin}${path}`);
+  assert(html.includes('Organizer:'), 'McKinney Oktoberfest visible page must expose the verified organizer');
+  assert(html.includes('Verified admission options'), 'McKinney Oktoberfest visible page must expose verified free admission');
+
+  const events = eventNodes(html);
+  assert(events.length >= 1, 'McKinney Oktoberfest leaf must expose Event schema while its confirmed occurrence is upcoming');
+  const event = events.find((node) => node.name === 'McKinney Oktoberfest') ?? events[0];
+  assert(event.startDate === '2026-09-25', 'McKinney Oktoberfest Event schema startDate must be 2026-09-25');
+  assert(event.endDate === '2026-09-27', 'McKinney Oktoberfest Event schema endDate must be 2026-09-27');
+  assert(hasType(event.organizer, 'Organization'), 'McKinney Oktoberfest must expose its verified organizer');
   const offers = asArray(event.offers);
-  assert(offers.length >= 1, 'Bandera Round-Up must expose a verified free Offer');
-  assert(offers.some((offer) => Number(offer?.price) === 0), 'Bandera Round-Up must include a zero-price Offer');
-  verifyOfferShape(offers.find((offer) => Number(offer?.price) === 0), 'Bandera Round-Up free admission', true);
-  console.log('[bandera-round-up-cattle-drive] organizer and free Offer verified');
+  assert(offers.length >= 1, 'McKinney Oktoberfest must expose a verified free Offer');
+  const freeOffer = offers.find((offer) => Number(offer?.price) === 0);
+  assert(freeOffer, 'McKinney Oktoberfest must include a zero-price Offer');
+  verifyOfferShape(freeOffer, 'McKinney Oktoberfest free admission', true);
+  console.log('[mckinney-oktoberfest] upcoming organizer and free Offer verified');
 }
 
 async function verifyPaidOfferAndPerformersLeaf() {
@@ -337,10 +359,11 @@ try {
   await verifyEventCollections();
   await verifyRecurrenceDerivedLeaves();
   await verifyFiestaLeaf();
+  await verifyExpiredConfirmedLeaf();
   await verifyFreeOfferLeaf();
   await verifyPaidOfferAndPerformersLeaf();
   await verifyRecurringLeaf();
-  console.log('TexasDefined Event production verification passed, including collection SSR isolation, dynamic collection indexing/sitemap policy, recurrence-derived schema suppression, optional enrichment and intentional omissions.');
+  console.log('TexasDefined Event production verification passed, including collection SSR isolation, dynamic collection indexing/sitemap policy, recurrence-derived and expired-confirmed schema suppression, optional enrichment and intentional omissions.');
 } catch (error) {
   const message = error instanceof Error ? error.message : String(error);
   console.error(`::error title=EVENT STRUCTURED DATA LIVE PRODUCTION failure::${message}`);
