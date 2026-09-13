@@ -45,8 +45,8 @@ export const getSportsVenueUpcomingEvents = createServerFn({ method: "POST" })
         return event;
       }
 
-      const { image: _repeatedImage, ...eventWithoutRepeatedImage } = event;
-      return eventWithoutRepeatedImage;
+      const { image: _venueHeroFallback, ...eventWithoutVenueHeroFallback } = event;
+      return eventWithoutVenueHeroFallback;
     });
 
     return {
