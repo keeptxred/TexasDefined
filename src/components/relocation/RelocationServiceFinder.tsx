@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 import { TEXAS_CITIES, TEXAS_COUNTIES } from '@/data/texas-places';
-import { COUNTY_PROPERTY_RECORDS } from '@/data/property/county-property-data';
 
 export type RelocationFinderKind =
   | 'county'
@@ -122,7 +121,10 @@ export function RelocationServiceFinder({ kind }: { kind: RelocationFinderKind }
     return values;
   }, [matches]);
 
-  const countyRecords = useMemo(() => COUNTY_PROPERTY_RECORDS.filter((record) => matchedCountyNames.has(normalizeCountyName(record.name))).slice(0, 8), [matchedCountyNames]);
+  const countyMatches = useMemo(
+    () => TEXAS_COUNTIES.filter((county) => matchedCountyNames.has(normalizeCountyName(county.name))).slice(0, 8),
+    [matchedCountyNames],
+  );
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <article className="mx-auto max-w-6xl">
@@ -146,7 +148,7 @@ export function RelocationServiceFinder({ kind }: { kind: RelocationFinderKind }
 
           {matches.cities.length > 0 && <div className="mt-6"><h3 className="font-display text-2xl">City matches</h3><div className="mt-3 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">{matches.cities.map((city) => <div key={city.slug} className="bg-background p-4"><strong>{city.name}</strong><span className="mt-1 block text-sm text-muted-foreground">{city.county} County · {city.region}</span></div>)}</div></div>}
 
-          {countyRecords.length > 0 && <div className="mt-8"><h3 className="font-display text-2xl">County research paths</h3><div className="mt-3 divide-y divide-border border-y border-border">{countyRecords.map((record) => <CountyResult key={record.slug} kind={kind} record={record} />)}</div></div>}
+          {countyMatches.length > 0 && <div className="mt-8"><h3 className="font-display text-2xl">County research paths</h3><div className="mt-3 divide-y divide-border border-y border-border">{countyMatches.map((county) => <CountyResult key={county.slug} kind={kind} county={county} />)}</div></div>}
         </div>
       </section>
 
@@ -165,25 +167,15 @@ export function RelocationServiceFinder({ kind }: { kind: RelocationFinderKind }
   </Container>;
 }
 
-function CountyResult({ kind, record }: { kind: RelocationFinderKind; record: (typeof COUNTY_PROPERTY_RECORDS)[number] }) {
-  const localLinks: Array<[string, string]> = [];
-  if (kind === 'county') localLinks.push(['Open county guide', `/county/${record.slug}`]);
-  if (kind === 'homestead') {
-    localLinks.push(['TexasDefined homestead guide', '/do/homestead-exemption']);
-    if (record.links.exemptionUrl) localLinks.push(['County exemption page', record.links.exemptionUrl]);
-    else if (record.appraisalDistrict.websiteUrl) localLinks.push(['Appraisal district website', record.appraisalDistrict.websiteUrl]);
-  }
-  if (kind === 'property-tax') {
-    localLinks.push(['County property-tax guide', `/property-tax/county/${record.slug}`]);
-    if (record.links.propertySearchUrl) localLinks.push(['Property search', record.links.propertySearchUrl]);
-    if (record.appraisalDistrict.websiteUrl) localLinks.push(['Appraisal district', record.appraisalDistrict.websiteUrl]);
-    if (record.taxOffice.websiteUrl) localLinks.push(['County tax office', record.taxOffice.websiteUrl]);
-  }
-  if (kind === 'voter' || kind === 'emergency' || kind === 'utilities' || kind === 'school') localLinks.push(['Open county guide', `/county/${record.slug}`]);
+function CountyResult({ kind, county }: { kind: RelocationFinderKind; county: (typeof TEXAS_COUNTIES)[number] }) {
+  const localLinks: Array<[string, string]> = [['Open county guide', `/county/${county.slug}`]];
+  if (kind === 'homestead') localLinks.unshift(['TexasDefined homestead guide', '/do/homestead-exemption']);
+  if (kind === 'property-tax') localLinks.unshift(['County property-tax guide', `/property-tax/county/${county.slug}`]);
 
   return <div className="py-5">
-    <div className="flex flex-wrap items-start justify-between gap-4"><div><h4 className="font-display text-2xl">{record.name}</h4><p className="mt-1 text-sm text-muted-foreground">FIPS {record.fips ?? '—'}{record.majorCities.length ? ` · ${record.majorCities.slice(0, 4).join(', ')}` : ''}</p></div>{record.lastVerifiedAt && <span className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Local property sources checked {record.lastVerifiedAt}</span>}</div>
-    <div className="mt-4 flex flex-wrap gap-2">{localLinks.map(([label, href]) => href.startsWith('http') ? <a key={`${label}-${href}`} href={href} target="_blank" rel="noreferrer noopener" className="border border-border px-3 py-2 text-sm font-semibold hover:border-primary">{label} ↗</a> : <a key={`${label}-${href}`} href={href} className="border border-border px-3 py-2 text-sm font-semibold hover:border-primary">{label} →</a>)}</div>
+    <h4 className="font-display text-2xl">{county.name}</h4>
+    <p className="mt-1 text-sm text-muted-foreground">Use the county guide for local context, then confirm address-level details with the official source below.</p>
+    <div className="mt-4 flex flex-wrap gap-2">{localLinks.map(([label, href]) => <a key={`${label}-${href}`} href={href} className="border border-border px-3 py-2 text-sm font-semibold hover:border-primary">{label} →</a>)}</div>
   </div>;
 }
 
