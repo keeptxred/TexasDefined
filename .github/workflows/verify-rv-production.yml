@@ -36,3 +36,6 @@ jobs:
 
       - name: Verify RV Wave 5 production publication
         run: node scripts/ci/verify-rv-wave5-production.mjs
+
+      - name: Verify RV Wave 6 production publication
+        run: node scripts/ci/verify-rv-wave6-production.mjs
