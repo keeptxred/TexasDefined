@@ -49,6 +49,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           isLegacyCountySeriesArticle,
           isEvergreenEventCollectionPath,
           loadEvergreenEventSitemapEntriesServer,
+          hasCurrentOrFutureConfirmedEventOccurrence,
           loadTemporalEventSitemapEntriesServer,
           isArticleDiscoveryReady,
           isArticleIndexReady,
@@ -160,6 +161,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
         const entityPages = graph.filter(isIndexableEntityPage).filter(isTexasDefinedOwnedEntity);
         const majorEventSitemapEntries = majorEventIndexRecords
+          .filter((event) => hasCurrentOrFutureConfirmedEventOccurrence(event))
           .filter((event) => hasCompliantMajorEventImageServer(event.slug))
           .map((event) => ({ path: `/event/${event.slug}`, lastmod: toDate(event.sourceCheckedAt) }));
         const supplementalMajorEventSitemapEntries = loadSupplementalMajorEventSitemapEntriesServer().filter((entry) => {
