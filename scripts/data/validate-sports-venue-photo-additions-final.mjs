@@ -17,12 +17,19 @@ const failures = [];
 const recordSlugs = (source) => [...source.matchAll(/^  ["']([^"']+)["']: \{/gm)].map((match) => match[1]);
 const recordEntries = (source) => [...source.matchAll(/^  ["']([^"']+)["']: \{\n([\s\S]*?)^  \},$/gm)].map((match) => {
   const body = match[2];
-  const field = (name) => body.match(new RegExp(`\\b${name}:\\s*["']([^"']+)["']`))?.[1] ?? '';
+  const stringField = (name) => body.match(new RegExp(`\\b${name}:\\s*(["'])(.*?)\\1`))?.[2] ?? '';
+  const numberField = (name) => Number(body.match(new RegExp(`\\b${name}:\\s*(\\d+)`))?.[1] ?? 0);
   return {
     slug: match[1],
-    imageUrl: field('imageUrl'),
-    sourcePage: field('sourcePage'),
-    sourceName: field('sourceName'),
+    alt: stringField('alt'),
+    imageUrl: stringField('imageUrl'),
+    sourcePage: stringField('sourcePage'),
+    sourceName: stringField('sourceName'),
+    author: stringField('author'),
+    licenseName: stringField('licenseName'),
+    licenseUrl: stringField('licenseUrl'),
+    width: numberField('width'),
+    height: numberField('height'),
   };
 });
 const requireText = (source, needle, label) => {
@@ -141,11 +148,63 @@ for (const source of sources) {
 if (effective.size !== 84) failures.push(`Expected 84 effective base-first venue image records; found ${effective.size}.`);
 
 const placeholderMarkers = ['placeholder', 'data:image/svg+xml', 'texasdefined-destination-placeholder', 'texasdefined-placeholder'];
+const disallowedSourceMarkers = ['gettyimages', 'tripadvisor', 'yelp', 'facebook.com', 'images.unsplash.com', 'googleusercontent'];
+const exactLegacyDimensionExceptions = new Map([
+  ['xtreme-raceway-park', { width: 600, height: 400 }],
+]);
 for (const [slug, entry] of effective) {
+  if (!entry.alt.trim()) failures.push(`Effective venue hero is missing alt text: ${slug}.`);
   if (!entry.imageUrl) failures.push(`Effective venue hero is missing imageUrl: ${slug}.`);
   const normalizedUrl = entry.imageUrl.toLowerCase();
   if (placeholderMarkers.some((marker) => normalizedUrl.includes(marker))) {
     failures.push(`Effective venue hero still points to a placeholder: ${slug} -> ${entry.imageUrl}.`);
+  }
+  if (entry.imageUrl.startsWith('/')) {
+    const assetPath = path.join('public', entry.imageUrl.replace(/^\//, ''));
+    if (!fs.existsSync(assetPath)) {
+      failures.push(`Effective venue hero local asset is missing: ${slug} -> ${assetPath}.`);
+    } else if (fs.statSync(assetPath).size < 10_000) {
+      failures.push(`Effective venue hero local asset is suspiciously small: ${slug} -> ${assetPath}.`);
+    }
+  } else if (!entry.imageUrl.startsWith('https://')) {
+    failures.push(`Effective venue hero image URL must be HTTPS or a local asset: ${slug} -> ${entry.imageUrl || '(missing)'}.`);
+  }
+
+  if (!entry.sourcePage.startsWith('https://')) failures.push(`Effective venue hero sourcePage must use HTTPS: ${slug} -> ${entry.sourcePage || '(missing)'}.`);
+  if (!entry.sourceName.trim()) failures.push(`Effective venue hero is missing sourceName: ${slug}.`);
+  if (!entry.author.trim()) failures.push(`Effective venue hero is missing author: ${slug}.`);
+  if (!entry.licenseName.trim()) failures.push(`Effective venue hero is missing licenseName: ${slug}.`);
+  if (!entry.licenseUrl.startsWith('https://')) failures.push(`Effective venue hero licenseUrl must use HTTPS: ${slug} -> ${entry.licenseUrl || '(missing)'}.`);
+
+  if (entry.width < 480 || entry.height < 480) {
+    const exception = exactLegacyDimensionExceptions.get(slug);
+    if (!exception || entry.width !== exception.width || entry.height !== exception.height) {
+      failures.push(`Effective venue hero dimensions are missing or too small: ${slug} -> ${entry.width}x${entry.height}.`);
+    }
+  }
+
+  const provenance = `${entry.imageUrl} ${entry.sourcePage}`.toLowerCase();
+  for (const forbidden of disallowedSourceMarkers) {
+    if (provenance.includes(forbidden)) failures.push(`Effective venue hero uses disallowed source ${forbidden}: ${slug}.`);
+  }
+
+  const generated = entry.sourceName === 'Texas Defined generated media' || /^AI-generated\b/i.test(entry.licenseName);
+  if (generated) {
+    if (!entry.author.toLowerCase().includes('ai')) failures.push(`Generated venue hero author must identify AI generation: ${slug}.`);
+    if (!/^AI-generated\b/i.test(entry.licenseName)) failures.push(`Generated venue hero licenseName must disclose AI generation: ${slug}.`);
+    if (!entry.imageUrl.startsWith('/images/sports-venues/')) failures.push(`Generated venue hero must resolve to a governed local venue asset: ${slug} -> ${entry.imageUrl}.`);
+    if (entry.sourceName === 'Texas Defined generated media' && !entry.alt.includes('AI-generated')) {
+      failures.push(`Texas Defined generated venue hero alt text must disclose AI generation: ${slug}.`);
+    }
+  }
+
+  if (entry.sourceName === 'Wikimedia Commons') {
+    if (!entry.sourcePage.startsWith('https://commons.wikimedia.org/wiki/File:')) failures.push(`Wikimedia venue hero must link to its Commons file page: ${slug} -> ${entry.sourcePage}.`);
+    if (!/^(CC|Public domain)/.test(entry.licenseName)) failures.push(`Wikimedia venue hero must carry an explicitly reusable license: ${slug} -> ${entry.licenseName}.`);
+    if (!entry.licenseUrl.startsWith('https://creativecommons.org/')
+        && entry.licenseUrl !== 'https://commons.wikimedia.org/wiki/Commons:Public_domain') {
+      failures.push(`Wikimedia venue hero has unsupported license URL: ${slug} -> ${entry.licenseUrl}.`);
+    }
   }
 }
 
@@ -173,4 +232,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Final sports venue image validation passed: ${unique.size}/84 governed venue heroes, 84/84 effective non-placeholder heroes, no cross-venue hero/source reuse, 16 reviewed Wave 7 assets (2 reusable Commons photos + 14 generated venue-specific fallbacks), and ${allowedBaseShadowDuplicates.size} intentional base-first shadows.`);
+console.log(`Final sports venue image validation passed: ${unique.size}/84 governed venue heroes, 84/84 effective non-placeholder heroes, complete alt/provenance/license metadata, minimum 480px dimensions except the exact approved 600x400 Xtreme legacy asset, no cross-venue hero/source reuse, 16 reviewed Wave 7 assets (2 reusable Commons photos + 14 generated venue-specific fallbacks), and ${allowedBaseShadowDuplicates.size} intentional base-first shadows.`);
