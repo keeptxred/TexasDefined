@@ -1,4 +1,5 @@
 name: One-time TexasDefined weird-town Facebook publish
+# Retry nonce: verified-image-2026-09-13b
 
 on:
   push:
