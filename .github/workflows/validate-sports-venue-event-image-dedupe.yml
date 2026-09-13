@@ -1,0 +1,20 @@
+name: Validate sports venue event image dedupe
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/sports-venue-events.functions.ts'
+      - 'src/components/sports/SportsVenueGuidePilotContent.tsx'
+      - 'scripts/data/validate-sports-venue-event-image-dedupe.mjs'
+      - '.github/workflows/validate-sports-venue-event-image-dedupe.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node scripts/data/validate-sports-venue-event-image-dedupe.mjs
