@@ -1,5 +1,4 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { PrioritySearchPage } from "@/components/editorial/PrioritySearchPage";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 
@@ -18,9 +17,4 @@ export const Route = createFileRoute("/start-a-business-in-texas")({
     data: loaderData,
     about: ["start a business in Texas", "Texas business registration", "Texas business license", "Texas Secretary of State", "Texas Comptroller"],
   }) : {},
-  component: Page,
 });
-
-function Page() {
-  return <PrioritySearchPage data={Route.useLoaderData()} />;
-}
