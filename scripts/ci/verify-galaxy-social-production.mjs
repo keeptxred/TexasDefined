@@ -21,6 +21,7 @@ function decodeHtml(value) {
 let lastStatus = 'network-error';
 let lastBody = '';
 let lastReason = 'not attempted';
+let verified = false;
 
 for (let attempt = 1; attempt <= 6; attempt += 1) {
   const token = `${sha}-${runId}-galaxy-social-${attempt}`;
@@ -57,8 +58,8 @@ for (let attempt = 1; attempt <= 6; attempt += 1) {
       const incorrectlyNoindexed = decoded.includes('name="robots" content="noindex');
 
       if (!missing.length && !incorrectlyNoindexed) {
-        console.log('[galaxy-social-production] Galaxy Stadium governed social metadata verified in production.');
-        process.exit(0);
+        verified = true;
+        break;
       }
 
       lastReason = incorrectlyNoindexed
@@ -74,6 +75,10 @@ for (let attempt = 1; attempt <= 6; attempt += 1) {
   if (attempt < 6) await sleep(5_000);
 }
 
-console.error(`::error title=GALAXY SOCIAL PRODUCTION failure::${path} failed after 6 attempts — ${lastReason} (status=${lastStatus})`);
-if (lastBody) console.error(`[galaxy-social-production] response sample: ${lastBody.slice(0, 1800).replace(/\s+/g, ' ')}`);
-process.exit(1);
+if (!verified) {
+  console.error(`::error title=GALAXY SOCIAL PRODUCTION failure::${path} failed after 6 attempts — ${lastReason} (status=${lastStatus})`);
+  if (lastBody) console.error(`[galaxy-social-production] response sample: ${lastBody.slice(0, 1800).replace(/\s+/g, ' ')}`);
+  process.exit(1);
+}
+
+console.log('[galaxy-social-production] Galaxy Stadium governed social metadata verified in production.');
