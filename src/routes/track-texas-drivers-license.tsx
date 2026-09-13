@@ -1,5 +1,4 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { PrioritySearchPage } from "@/components/editorial/PrioritySearchPage";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 
@@ -18,9 +17,4 @@ export const Route = createFileRoute("/track-texas-drivers-license")({
     data: loaderData,
     about: ["Texas driver license status", "Texas DPS", "driver license mailing status", "Texas identification card"],
   }) : {},
-  component: Page,
 });
-
-function Page() {
-  return <PrioritySearchPage data={Route.useLoaderData()} />;
-}
