@@ -24,7 +24,7 @@ type StayNearbyWindow = Window & {
   };
 };
 
-export default function SportsVenueGuidePilotContent({
+export function SportsVenueGuidePilotContent({
   slug,
   entity,
   nearbyAttractions,
@@ -99,3 +99,5 @@ export default function SportsVenueGuidePilotContent({
     </>
   );
 }
+
+export default SportsVenueGuidePilotContent;

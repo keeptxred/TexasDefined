@@ -15,14 +15,19 @@ on:
       - 'src/data/sports-venue-guide-wave6.ts'
       - 'src/data/sports-venue-guide-wave7.ts'
       - 'src/data/sports-venue-images.ts'
+      - 'src/data/sports-venue-images-all.ts'
+      - 'src/data/sports-venue-images-additions*.ts'
       - 'src/data/sports-venue-enrichment*.ts'
       - 'src/data/sports-venue-content-remediation*.ts'
       - 'src/data/sports-venue-events.functions.ts'
+      - 'src/components/sports/SportsVenueQuickAnswers.tsx'
       - 'src/components/sports/SportsVenueGuidePilotContent.tsx'
       - 'src/components/sports/SportsVenueGuidePage.tsx'
       - 'src/components/editorial/TexasEventCarousel.tsx'
       - 'public/stay-nearby-hotels.json'
       - 'scripts/data/validate-sports-venue-phase3-wave7.mjs'
+      - 'scripts/data/validate-sports-venue-ssr-heroes.mjs'
+      - 'scripts/ci/verify-sports-venue-heroes-production.mjs'
       - '.github/workflows/validate-sports-venue-phase3-wave7.yml'
   workflow_dispatch:
 
@@ -41,5 +46,6 @@ jobs:
       - run: npm ci
       - run: node scripts/data/validate-sports-venue-phase3-wave7.mjs
       - run: node scripts/data/validate-sports-venue-deep-completeness.mjs
+      - run: node scripts/data/validate-sports-venue-ssr-heroes.mjs
       - run: npm run build
       - run: npm run performance:validate
