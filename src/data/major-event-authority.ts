@@ -36,9 +36,17 @@ function applyEventSchemaConfidencePolicy<T extends {
 const loadMajorEventPage = createServerFn({ method: "GET" })
   .inputValidator((data: { slug: string }) => data)
   .handler(async ({ data }) => {
-    const { loadMajorEventPageServer } = await import("./major-event-page.server");
+    const [{ loadMajorEventPageServer }, { hasCompliantMajorEventImageServer }] = await Promise.all([
+      import("./major-event-page.server"),
+      import("./major-event-schema-enrichment.server"),
+    ]);
     const page = loadMajorEventPageServer(data.slug);
-    return page ? applyEventSchemaConfidencePolicy(page) : page;
+    const governedPage = page ? applyEventSchemaConfidencePolicy(page) : page;
+    if (!governedPage) return governedPage;
+    return {
+      ...governedPage,
+      imageCompliant: hasCompliantMajorEventImageServer(data.slug),
+    };
   });
 
 export function getMajorEventAuthority(slug: string) {

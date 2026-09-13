@@ -21,6 +21,7 @@ import { majorEventSchemaEnrichmentBatch20 } from "./major-event-schema-enrichme
 import { majorEventSchemaEnrichmentOverrides } from "./major-event-schema-enrichment-overrides.server";
 
 export type EventSchemaEntityType = "Organization" | "Person" | "PerformingGroup";
+export type EventImageSourceType = "licensed-real" | "owner-provided" | "government-open" | "wikimedia" | "flickr-cc" | "ai-generated";
 
 export interface EventSchemaEntity {
   type: EventSchemaEntityType;
@@ -39,6 +40,13 @@ export interface EventSchemaImage {
   url: string;
   alt: string;
   sourceUrl: string;
+  sourceType?: EventImageSourceType;
+  licenseName?: string;
+  licenseUrl?: string;
+  rightsNote?: string;
+  exactLocation?: boolean;
+  approvedForCommercialUse?: boolean;
+  aiGenerated?: boolean;
 }
 
 export interface EventSchemaOccurrenceEnrichment {
@@ -55,6 +63,44 @@ export interface MajorEventSchemaEnrichment {
   occurrences?: Record<string, EventSchemaOccurrenceEnrichment>;
   sources: Array<{ label: string; url: string }>;
   verifiedAt: string;
+}
+
+const PROHIBITED_IMAGE_SOURCE_HOSTS = [
+  "facebook.com",
+  "instagram.com",
+  "tripadvisor.com",
+  "yelp.com",
+  "googleusercontent.com",
+  "google.com",
+];
+
+function validHttpsUrl(value: string) {
+  try {
+    return new URL(value).protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
+export function isCompliantMajorEventImage(image: EventSchemaImage | undefined): image is EventSchemaImage {
+  if (!image?.url?.trim() || !image.alt?.trim() || !image.sourceUrl?.trim()) return false;
+  if (!validHttpsUrl(image.url) || !validHttpsUrl(image.sourceUrl)) return false;
+
+  const sourceHost = new URL(image.sourceUrl).hostname.toLowerCase();
+  if (PROHIBITED_IMAGE_SOURCE_HOSTS.some((host) => sourceHost === host || sourceHost.endsWith(`.${host}`))) return false;
+
+  // Wikimedia Commons is a free-media repository and remains the preferred external source.
+  if (sourceHost === "commons.wikimedia.org") return true;
+
+  // Existing internally generated event assets are accepted only when they are explicitly
+  // described as AI-generated editorial imagery. This preserves the current Chappell Hill
+  // pattern while rejecting generic placeholders and unlabeled generated graphics.
+  if (sourceHost === "texasdefined.com" && /\bAI[- ]generated\b/i.test(image.alt)) return true;
+
+  // Other owner/government/licensed sources must carry explicit commercial-use review metadata.
+  return image.approvedForCommercialUse === true
+    && Boolean(image.sourceType)
+    && Boolean(image.licenseName?.trim() || image.rightsNote?.trim());
 }
 
 // Optional Google Event properties are only emitted when an official source supports a
@@ -87,6 +133,10 @@ const bySlug = new Map(records.map((record) => [record.slug, record]));
 
 export function getMajorEventSchemaEnrichmentServer(slug: string): MajorEventSchemaEnrichment | null {
   return bySlug.get(slug) ?? null;
+}
+
+export function hasCompliantMajorEventImageServer(slug: string) {
+  return isCompliantMajorEventImage(getMajorEventSchemaEnrichmentServer(slug)?.image);
 }
 
 export function getMajorEventSchemaOccurrenceEnrichmentServer(slug: string, label?: string) {

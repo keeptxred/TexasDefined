@@ -15,6 +15,7 @@ import { FISHING_SITEMAP_ENTRIES } from "@/data/fishing/sitemap";
 import { HUNTING_SITEMAP_ENTRIES } from "@/data/hunting/sitemap";
 import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
 import { majorEventIndexRecords } from "@/data/major-event-index";
+import { hasCompliantMajorEventImageServer } from "@/data/major-event-schema-enrichment.server";
 import { loadSupplementalMajorEventSitemapEntriesServer } from "@/data/major-event-supplemental-registry.server";
 import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
 import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
@@ -147,7 +148,13 @@ export const Route = createFileRoute("/sitemap.xml")({
         const { COUNTY_PROPERTY_RECORDS } = await import("@/data/property/county-property-data");
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
         const entityPages = graph.filter(isIndexableEntityPage).filter(isTexasDefinedOwnedEntity);
-        const supplementalMajorEventSitemapEntries = loadSupplementalMajorEventSitemapEntriesServer();
+        const majorEventSitemapEntries = majorEventIndexRecords
+          .filter((event) => hasCompliantMajorEventImageServer(event.slug))
+          .map((event) => ({ path: `/event/${event.slug}`, lastmod: toDate(event.sourceCheckedAt) }));
+        const supplementalMajorEventSitemapEntries = loadSupplementalMajorEventSitemapEntriesServer().filter((entry) => {
+          const slug = entry.path.match(/^\/event\/([^/?#]+)/)?.[1];
+          return slug ? hasCompliantMajorEventImageServer(slug) : true;
+        });
         const evergreenEventSitemapEntries = loadEvergreenEventSitemapEntriesServer();
         const temporalEventSitemapEntries = loadTemporalEventSitemapEntriesServer();
         const texasDogSitemapEntries = loadTexasDogSitemapEntriesServer();
@@ -181,7 +188,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...LOCAL_MORTGAGE_PROFILES.map((profile) => ({ path: profile.mortgagePath, lastmod: "2026-08-30" })),
           ...LOCAL_COST_OF_LIVING_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-09-01" })),
           ...LOCAL_SALARY_NEEDED_PROFILES.map((profile) => ({ path: profile.salaryPath, lastmod: "2026-09-01" })),
-          ...majorEventIndexRecords.map((event) => ({ path: `/event/${event.slug}`, lastmod: toDate(event.sourceCheckedAt) })),
+          ...majorEventSitemapEntries,
           ...supplementalMajorEventSitemapEntries,
           ...evergreenEventSitemapEntries,
           ...temporalEventSitemapEntries,

@@ -18,6 +18,14 @@ const styles = read('src/styles.css');
 const productCard = read('src/components/commerce/ProductCard.tsx');
 const shopTheStory = read('src/components/commerce/ShopTheStory.tsx');
 const collectionStrip = read('src/components/commerce/CollectionStrip.tsx');
+const governance = read('docs/site-image-governance.md');
+const imageReconciler = read('scripts/data/populate-missing-site-images.mjs');
+const imageWorkflow = read('.github/workflows/populate-missing-site-images.yml');
+const eventImagePolicy = read('src/data/major-event-schema-enrichment.server.ts');
+const eventAuthority = read('src/data/major-event-authority.ts');
+const eventRoute = read('src/routes/event.$slug.tsx');
+const sitemap = read('src/routes/sitemap[.]xml.ts');
+const venueImageValidator = read('scripts/data/validate-sports-venue-photo-additions-final.mjs');
 
 for (const field of ['src: string', 'alt: string', 'width: number', 'height: number']) {
   if (!types.includes(field)) errors.push(`ImageRef must require ${field}.`);
@@ -62,10 +70,66 @@ if (!styles.includes(':focus-visible')) errors.push('Global focus-visible stylin
 if (!styles.includes('@media (prefers-reduced-motion: reduce)')) errors.push('Reduced-motion support must remain enabled.');
 if (!productCard.includes('min-h-11 min-w-11')) errors.push('Product save control must preserve a 44px touch target.');
 
+for (const marker of [
+  'Every public, indexable TexasDefined directory/detail page',
+  'Exact-subject reusable real image',
+  'Photorealistic AI fallback',
+  'must emit `noindex, follow, max-image-preview:large`',
+  'must not be emitted in an indexable sitemap',
+]) {
+  if (!governance.includes(marker)) errors.push(`Site image governance documentation missing: ${marker}`);
+}
+
+for (const marker of [
+  '@cf/black-forest-labs/flux-1-schnell',
+  'async function generateAiJpeg',
+  'source: "ai-generated"',
+  'source: "free-use"',
+  'unresolved; preserving placeholder and failing closed',
+]) {
+  if (!imageReconciler.includes(marker)) errors.push(`Missing governed image-reconciliation behavior: ${marker}`);
+}
+for (const forbidden of ['generatedRepresentative(', 'gradient:${h1}-${h2}', 'Generated representative image · Texas Defined']) {
+  if (imageReconciler.includes(forbidden)) errors.push(`Procedural placeholder fallback must not be accepted: ${forbidden}`);
+}
+for (const marker of ['CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}', 'CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}']) {
+  if (!imageWorkflow.includes(marker)) errors.push(`Missing image-generation workflow credential binding: ${marker}`);
+}
+
+for (const marker of [
+  'export function isCompliantMajorEventImage',
+  'export function hasCompliantMajorEventImageServer',
+  'approvedForCommercialUse === true',
+  'commons.wikimedia.org',
+  'AI[- ]generated',
+]) {
+  if (!eventImagePolicy.includes(marker)) errors.push(`Major-event image compliance policy missing: ${marker}`);
+}
+if (!eventAuthority.includes('imageCompliant: hasCompliantMajorEventImageServer(data.slug)')) errors.push('Major-event authority must expose hero-image compliance.');
+if (!eventRoute.includes('robots: page.imageCompliant ? undefined : "noindex, follow, max-image-preview:large"')) errors.push('Major-event route must noindex image-incomplete guides.');
+for (const marker of [
+  'hasCompliantMajorEventImageServer',
+  '.filter((event) => hasCompliantMajorEventImageServer(event.slug))',
+  'slug ? hasCompliantMajorEventImageServer(slug) : true',
+]) {
+  if (!sitemap.includes(marker)) errors.push(`Event sitemap must exclude image-incomplete guides: ${marker}`);
+}
+
+for (const marker of [
+  'Expected governed hero coverage for all 84 seeded sports venues after wave 7',
+  'AI-generated photorealistic editorial depiction of',
+  'Expected 84 effective base-first venue image records',
+  'Effective venue hero still points to a placeholder',
+  'Multiple sports venues resolve to the same hero image URL',
+  'Multiple sports venues resolve to the same hero source page',
+]) {
+  if (!venueImageValidator.includes(marker)) errors.push(`Sports venue image coverage guard missing: ${marker}`);
+}
+
 if (errors.length) {
-  console.error('TexasDefined image performance and accessibility validation failed:');
+  console.error('TexasDefined image performance, accessibility, and governance validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Image SEO, responsive sizing, touch targets, focus handling, reduced motion, and hero uniqueness are protected.');
+console.log('Image SEO, responsive sizing, rights-safe fallback, fail-closed indexing, accessibility, and hero coverage governance are protected.');
