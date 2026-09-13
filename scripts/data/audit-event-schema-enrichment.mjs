@@ -109,16 +109,51 @@ const missingResearchMetadata = records
   .filter((record) => !/\bverifiedAt\s*:\s*["']\d{4}-\d{2}-\d{2}["']/.test(record.source) || !/\bsources\s*:/.test(record.source))
   .map((record) => record.slug);
 const genericFallbackImages = records
-  .filter((record) => /\bimage(?:Url)?\s*:/.test(record.source) && /palo[-_ ]?duro|generic|fallback/i.test(record.source))
+  .filter((record) => /\bimage\s*:\s*\{/.test(record.source) && /palo[-_ ]?duro|generic|fallback/i.test(record.source))
   .map((record) => record.slug);
 
-if (batchDuplicates.length || overrideDuplicates.length || missingResearchMetadata.length || genericFallbackImages.length || records.length === 0) {
+const imageRecords = records.filter((record) => /\bimage\s*:\s*\{/.test(record.source));
+const imageMetadataIncomplete = [];
+for (const record of imageRecords) {
+  const source = record.source;
+  const missing = [];
+  const sourceType = source.match(/\bsourceType\s*:\s*["']([^"']+)["']/)?.[1];
+  const isAi = sourceType === 'ai-generated';
+
+  if (!sourceType) missing.push('sourceType');
+  if (!/\bapprovedForCommercialUse\s*:\s*true\b/.test(source)) missing.push('approvedForCommercialUse:true');
+  if (!/\bexactLocation\s*:\s*(?:true|false)\b/.test(source)) missing.push('exactLocation:boolean');
+  if (!(/\blicenseName\s*:\s*["'][^"']+["']/.test(source) || /\brightsNote\s*:\s*["'][^"']+["']/.test(source))) missing.push('rights documentation');
+
+  if (isAi) {
+    if (!/\baiGenerated\s*:\s*true\b/.test(source)) missing.push('aiGenerated:true');
+    if (!/\brightsNote\s*:\s*["'][^"']+["']/.test(source)) missing.push('AI rightsNote');
+    if (!/\balt\s*:\s*["'][^"']*AI[- ]generated/i.test(source)) missing.push('AI disclosure in alt');
+    if (!/\bsourceUrl\s*:\s*["']https:\/\/(?:[^"']+\.)?texasdefined\.com\//i.test(source)) missing.push('TexasDefined AI sourceUrl');
+  } else if (sourceType) {
+    if (!/\bexactLocation\s*:\s*true\b/.test(source)) missing.push('exactLocation:true for real image');
+    if (sourceType === 'wikimedia') {
+      if (!/\bsourceUrl\s*:\s*["']https:\/\/commons\.wikimedia\.org\//i.test(source)) missing.push('Commons sourceUrl');
+      if (!/\blicenseName\s*:\s*["'][^"']+["']/.test(source)) missing.push('Wikimedia licenseName');
+      if (!/\blicenseUrl\s*:\s*["']https:\/\/[^"']+["']/.test(source)) missing.push('Wikimedia licenseUrl');
+    }
+    if (sourceType === 'flickr-cc') {
+      if (!/\blicenseName\s*:\s*["'][^"']+["']/.test(source)) missing.push('Flickr licenseName');
+      if (!/\blicenseUrl\s*:\s*["']https:\/\/[^"']+["']/.test(source)) missing.push('Flickr licenseUrl');
+    }
+  }
+
+  if (missing.length) imageMetadataIncomplete.push(`${record.slug} (${missing.join(', ')})`);
+}
+
+if (batchDuplicates.length || overrideDuplicates.length || missingResearchMetadata.length || genericFallbackImages.length || imageMetadataIncomplete.length || records.length === 0) {
   console.error('Event schema enrichment audit failed:');
   if (records.length === 0) console.error('- no enrichment records were discovered');
   if (batchDuplicates.length) console.error(`- duplicate batch enrichment slugs: ${batchDuplicates.join(', ')}`);
   if (overrideDuplicates.length) console.error(`- duplicate override enrichment slugs: ${overrideDuplicates.join(', ')}`);
   if (missingResearchMetadata.length) console.error(`- missing verifiedAt/sources metadata: ${missingResearchMetadata.sort().join(', ')}`);
   if (genericFallbackImages.length) console.error(`- generic/fallback Event imagery detected: ${genericFallbackImages.sort().join(', ')}`);
+  if (imageMetadataIncomplete.length) console.error(`- image provenance metadata incomplete: ${imageMetadataIncomplete.sort().join('; ')}`);
   process.exit(1);
 }
 
@@ -129,7 +164,7 @@ function countWith(pattern) {
 const organizer = countWith(/\borganizer\s*:/);
 const offers = countWith(/\boffers\s*:/);
 const performers = countWith(/\bperformers\s*:/);
-const images = countWith(/\bimage(?:Url)?\s*:/);
+const images = imageRecords.length;
 const total = records.length;
 const imageRemediationPending = total - images;
 
@@ -145,6 +180,7 @@ const summary = {
   offers,
   performers,
   images,
+  provenanceCompleteImages: images,
   intentionallyWithoutOrganizer: total - organizer,
   intentionallyWithoutOffers: total - offers,
   intentionallyWithoutPerformers: total - performers,
@@ -155,7 +191,7 @@ const summary = {
 console.log(`Event schema enrichment metrics audit passed across ${summary.batches} batch files, ${summary.overrideFiles} override registry, and ${summary.reviewedLeaves} effective reviewed leaves.`);
 console.log(`Override reconciliation: records=${summary.overrides}, replacements=${summary.overrideReplacements}, overrideOnly=${summary.overrideOnlyRecords}`);
 console.log(`Optional enrichment coverage: organizer=${summary.organizer}, offers=${summary.offers}, performers=${summary.performers}`);
-console.log(`Required image coverage: images=${summary.images}, remediationPending=${summary.imageRemediationPending}, complete=${summary.imageCoverageComplete}`);
+console.log(`Required image coverage: images=${summary.images}, provenanceComplete=${summary.provenanceCompleteImages}, remediationPending=${summary.imageRemediationPending}, complete=${summary.imageCoverageComplete}`);
 console.log(`Intentional non-image omissions: organizer=${summary.intentionallyWithoutOrganizer}, offers=${summary.intentionallyWithoutOffers}, performers=${summary.intentionallyWithoutPerformers}`);
 if (summary.imageRemediationPending > 0) {
   console.warn(`${summary.imageRemediationPending} reviewed Event guides still require a compliant hero; the route/sitemap image governance gate must keep them fail-closed until remediation completes.`);
