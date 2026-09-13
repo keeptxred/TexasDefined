@@ -70,43 +70,58 @@ jobs:
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
           const report = JSON.parse(fs.readFileSync('scripts/data/rv-park-hero-report.json', 'utf8'));
+          const imagesSource = fs.readFileSync('src/data/rv-parks/images.server.ts', 'utf8');
           const unresolved = Array.isArray(report.unresolved) ? report.unresolved : [];
-          const strictPresent = Boolean(report.strictLocationPolicy);
           const strict = report.strictLocationPolicy || {};
+          const quality = report.heroSubjectQuality || {};
+          const currentCommons = (imagesSource.match(/sourceUrl:\s*["']https:\/\/commons\.wikimedia\.org\/wiki\/File:/g) || []).length;
+          const strictReviewed = Number(strict.commonsReviewed ?? -1);
+          const strictAccepted = Number(strict.commonsAccepted ?? -1);
+          const strictRejected = Number(strict.commonsRejected ?? -1);
+          const qualityReviewed = Number(quality.reviewedCommons ?? -1);
+          const qualityRejected = Number(quality.rejectedToRepresentative ?? -1);
+          const qualityRetained = Number(quality.retainedCommons ?? -1);
           const ok = report.totalSeeds === 250
             && report.governedAfter === 250
             && report.backlogAfter === 0
             && unresolved.length === 0
-            && strictPresent
-            && Number(strict.commonsReviewed ?? 0) >= Number(strict.commonsAccepted ?? 0)
-            && Number(strict.commonsReviewed ?? 0) === Number(strict.commonsAccepted ?? 0) + Number(strict.commonsRejected ?? 0);
+            && strict.registryAudit === true
+            && strictReviewed >= 0
+            && strictAccepted >= 0
+            && strictRejected >= 0
+            && strictReviewed === strictAccepted + strictRejected
+            && qualityReviewed === strictAccepted
+            && qualityReviewed === qualityRetained + qualityRejected
+            && currentCommons === qualityRetained;
           if (!ok) {
             console.error('RV image publication gate failed', {
               totalSeeds: report.totalSeeds,
               governedAfter: report.governedAfter,
               backlogAfter: report.backlogAfter,
               unresolved: unresolved.length,
+              currentCommons,
               strictLocationPolicy: report.strictLocationPolicy,
+              heroSubjectQuality: report.heroSubjectQuality,
             });
             process.exit(1);
           }
-          console.log('RV image publication gate passed: 250/250 governed, backlog 0, unresolved 0, strict location review complete.');
+          console.log(`RV image publication gate passed: 250/250 governed, backlog 0, unresolved 0, ${strictReviewed} existing Commons entries location-audited, ${currentCommons} retained after hero-quality review.`);
           NODE
 
       - name: Run RV inventory classification audit
         id: audit
         run: node scripts/data/audit-rv-inventory-classification.mjs --summary
 
-      - name: Detect generated RV image changes
+      - name: Detect material generated RV image changes
         id: changes
         shell: bash
         run: |
-          if [[ -z "$(git status --porcelain -- public/images/rv-parks src/data/rv-parks/images.server.ts src/data/rv-parks/registry.server.ts scripts/data/audit-rv-inventory-classification.mjs scripts/data/rv-park-hero-report.json)" ]]; then
+          if [[ -z "$(git status --porcelain -- public/images/rv-parks src/data/rv-parks/images.server.ts src/data/rv-parks/registry.server.ts scripts/data/audit-rv-inventory-classification.mjs)" ]]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No RV image changes to preserve."
+            echo "No material RV image or registry changes to preserve."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
-            echo "RV image changes detected."
+            echo "Material RV image or registry changes detected."
           fi
 
       - name: Create RV image review branch
@@ -138,7 +153,7 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --title 'Backfill governed RV park hero images' \
-            --body $'Automated RV image backlog reconciliation with strict location and hero-subject verification. Wikimedia Commons imagery survives only when the file title contains the exact named private property, or exact public-land identity, plus Texas/town/county evidence, and the subject is suitable as a destination hero. Ambiguous/context-only matches, weak wildlife/flora close-ups, emergency-response scenes, and novelty subjects are replaced by clearly labeled AI-generated representative editorial images with actualLocation=false. This PR is created only after the hard publication gate confirms 250/250 governed records, backlogAfter=0, unresolved=0, and a complete strict-location review. Existing source/content/indexing gates remain in force. Review scripts/data/rv-park-hero-report.json, strictLocationPolicy, heroSubjectQuality, and item-level visual relevance before merge. Resolver exit code: '"$RESOLVE_EXIT"$'.')"
+            --body $'Automated RV image backlog reconciliation with retroactive strict location and hero-subject verification. Every existing Wikimedia-backed RV registry entry is re-audited on each run. Commons imagery survives only when the file title contains the exact named private property, or exact public-land identity, plus Texas/town/county evidence, and the subject is suitable as a destination hero. Ambiguous/context-only matches, weak wildlife/flora close-ups, emergency-response scenes, and novelty subjects are replaced by clearly labeled AI-generated representative editorial images with actualLocation=false. This PR is created only after the hard publication gate confirms 250/250 governed records, backlogAfter=0, unresolved=0, strict registry-wide Commons coverage, and final Commons-count consistency. Existing source/content/indexing gates remain in force. Review scripts/data/rv-park-hero-report.json, strictLocationPolicy, heroSubjectQuality, and item-level visual relevance before merge. Resolver exit code: '"$RESOLVE_EXIT"$'.')"
           echo "url=$pr_url" >> "$GITHUB_OUTPUT"
           echo "Opened $pr_url"
 
