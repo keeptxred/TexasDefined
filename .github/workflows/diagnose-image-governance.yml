@@ -1,0 +1,51 @@
+name: Diagnose image governance
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  image-seo:
+    name: Diagnose image SEO governance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node scripts/data/validate-image-seo.mjs
+
+  indexation-quality:
+    name: Diagnose indexation quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node scripts/data/validate-indexation-quality.mjs
+
+  sitemap-routes:
+    name: Diagnose sitemap routes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node scripts/data/validate-sitemap-routes.mjs
+
+  machine-indexing:
+    name: Diagnose machine indexing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node scripts/data/validate-machine-indexing.mjs
+
+  public-route-governance:
+    name: Diagnose public route governance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node scripts/data/validate-public-route-governance.mjs
+
+  major-events:
+    name: Diagnose major event authority
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node scripts/data/validate-major-event-authority.mjs
