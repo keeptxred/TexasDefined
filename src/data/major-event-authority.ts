@@ -41,9 +41,10 @@ const loadMajorEventPage = createServerFn({ method: "GET" })
       import("./major-event-schema-enrichment.server"),
     ]);
     const page = loadMajorEventPageServer(data.slug);
-    if (!page) return page;
+    const governedPage = page ? applyEventSchemaConfidencePolicy(page) : page;
+    if (!governedPage) return governedPage;
     return {
-      ...applyEventSchemaConfidencePolicy(page),
+      ...governedPage,
       imageCompliant: hasCompliantMajorEventImageServer(data.slug),
     };
   });
