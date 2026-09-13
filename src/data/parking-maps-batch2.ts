@@ -1,0 +1,58 @@
+import type { ParkingMapAsset } from './parking-map-model';
+
+export const VENUE_PARKING_MAPS_BATCH_2: Record<string, ParkingMapAsset> = {
+  'choctaw-stadium': {
+    id: 'parking-map:choctaw-stadium:2026-09', venueSlug: 'choctaw-stadium', venueName: 'Choctaw Stadium', imageUrl: '/images/parking-maps/choctaw-stadium.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Choctaw Stadium showing primary Lots E and L, Toyota Lot D and major east-side access roads',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['Choctaw Stadium publishes current parking guidance and map imagery, but no reusable publication license was documented for the official artwork reviewed.', 'Open-license searches surfaced Arlington-area and stadium photography but no current reusable Choctaw Stadium parking map with the required lot detail.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Choctaw Stadium — official parking guidance', url: 'https://www.choctawstadium.com/parking/', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Choctaw Stadium — A-to-Z parking guidance', url: 'https://www.choctawstadium.com/a-to-z-guide/', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Primary Lots E and L were verified as east-side parking accessed from Road to Six Flags.', 'Toyota Lot D and entrance D7 off Arlington Downs were verified for RV and bus parking.', 'Accessible parking in Lot E was verified against current venue guidance.', 'The schematic omits changing prices and event-specific overflow assignments.'],
+  },
+  'comerica-center': {
+    id: 'parking-map:comerica-center:2026-09', venueSlug: 'comerica-center', venueName: 'Comerica Center', imageUrl: '/images/parking-maps/comerica-center.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Comerica Center showing Garage E, Garage F and Avenue of the Stars',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['Comerica Center provides a current parking map and garage guidance, but no reusable publication license was documented for the map artwork.', 'Open-license source searches did not surface a current reusable parking map for the Comerica Center garage arrangement.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Comerica Center — Directions & Parking', url: 'https://www.comericacenter.com/directions-parking', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Comerica Center — venue policies and garage location', url: 'https://www.comericacenter.com/plan-your-visit/comerica-center-policies', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Garage E was verified as the primary general-parking garage and Garage F as event-dependent.', 'Both parking garages were verified as west of Comerica Center.', 'Accessible parking on each garage level and the front-building drop-off/pickup location were verified against current venue guidance.', 'The schematic does not imply Garage F is available for every event.'],
+  },
+  'datcu-stadium': {
+    id: 'parking-map:datcu-stadium:2026-09', venueSlug: 'datcu-stadium', venueName: 'DATCU Stadium', imageUrl: '/images/parking-maps/datcu-stadium.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for DATCU Stadium showing current color-coded football parking areas and major access corridors',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['UNT Athletics publishes an updated current gameday parking map, but the reviewed official artwork does not document reusable publication rights.', 'Wikimedia Commons has an older reusable map of UNT athletic facilities, but it predates the current parking configuration and nearby road construction and is not suitable as the current visitor parking map.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'UNT Athletics — DATCU Stadium parking and traffic updates', url: 'https://meangreensports.com/news/2025/8/20/football-unt-athletics-announces-website-for-datcu-stadium-parking-traffic-updates', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Wikimedia Commons — historic UNT athletic facilities map', url: 'https://commons.wikimedia.org/wiki/File:Map_of_UNT_athletic_facilities.png', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Blue, Orange, Red and Brown were verified as paid/sale lots while Green, White, Black and Purple were verified as pass-only in current UNT guidance.', 'The general relationship of Green west/northwest, Black north, Blue east/south and White south was checked against current official parking material.', 'I-35 frontage-road and Bonnie Brae construction effects were verified against the current UNT traffic update.', 'The schematic intentionally avoids promising a fixed ingress/egress route because current construction can alter traffic control.'],
+  },
+  'lone-star-park': {
+    id: 'parking-map:lone-star-park:2026-09', venueSlug: 'lone-star-park', venueName: 'Lone Star Park', imageUrl: '/images/parking-maps/lone-star-park.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Lone Star Park showing general, preferred and valet parking access gates',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['Lone Star Park publishes current access guidance and park maps, but no reusable license was documented for the official parking-oriented material reviewed.', 'Wikimedia Commons contains reusable Lone Star Park photography but no current visitor parking map suitable for publication.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Lone Star Park — Getting Here', url: 'https://www.lonestarpark.com/getting-here/', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Lone Star Park — Parking FAQ', url: 'https://www.lonestarpark.com/faqs/', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Wikimedia Commons — Lone Star Park photograph', url: 'https://commons.wikimedia.org/wiki/File:Lone_Star_Park.jpg', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['General access through Gates 1, 2 and 3, preferred/accessible parking through Gate 4 and valet through Gate 5 were checked against current venue guidance.', 'Belt Line Road and Lone Star Parkway access relationships were checked against official directions.', 'The venue location roughly one-half mile north of I-30 was verified against current official directions.', 'The schematic warns that special-event parking controls can override normal race-day patterns.'],
+  },
+  'cowtown-coliseum': {
+    id: 'parking-map:cowtown-coliseum:2026-09', venueSlug: 'cowtown-coliseum', venueName: 'Cowtown Coliseum', imageUrl: '/images/parking-maps/cowtown-coliseum.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Cowtown Coliseum showing Fort Worth Stockyards lots along East Exchange Avenue',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['The Fort Worth Stockyards publishes a current district/parking map, but no reusable publication license was documented for the official artwork reviewed.', 'Wikimedia Commons contains reusable Cowtown Coliseum photography but no current Stockyards parking map with the needed lot information.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Cowtown Coliseum — official parking page', url: 'https://www.cowtowncoliseum.com/venue-info/parking/', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Fort Worth Stockyards — current parking lots and addresses', url: 'https://fortworthstockyards.com/parking/', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Fort Worth Stockyards — 2025 district map', url: 'https://fortworthstockyards.com/app/uploads/2025/09/FWS-24754-SY-DISTRICT-MAP-2025-BROCHURE_V2.pdf', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Cowtown Coliseum at 121 E Exchange Ave and the Stockyards parking corridor were checked against the current district map.', 'Lots 2/3, 4, 5, 6, Reserve and Horseshoe were checked against current Stockyards parking addresses.', 'Current valet location at East Exchange Avenue and Mule Alley was checked against official parking guidance.', 'The schematic is an orientation aid and does not reproduce current rates or temporary event closures.'],
+  },
+  'amon-g-carter-stadium': {
+    id: 'parking-map:amon-g-carter-stadium:2026-09', venueSlug: 'amon-g-carter-stadium', venueName: 'Amon G. Carter Stadium', imageUrl: '/images/parking-maps/amon-g-carter-stadium.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Amon G. Carter Stadium showing adjacent named football lots and major TCU campus streets',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['TCU Athletics publishes current football parking and visitor maps, but no reusable publication license was documented for that official map artwork.', 'Wikimedia Commons has reusable Amon G. Carter Stadium photography, including public-domain imagery, but no current parking map that can replace the official gameday plan.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'TCU Athletics — Football A-Z parking and postgame lot guidance', url: 'https://gofrogs.com/sports/2020/6/1/football-a-z-guide', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'TCU Athletics — 2025 visitor parking map', url: 'https://gofrogs.com/documents/download/2025/8/28/TCU_Spirit_Visitor_s_Guide_-_2025.pdf', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'TCU Athletics — current football parking information', url: 'https://gofrogs.com/sports/2018/7/6/football-tickets', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Founders Lot 1, Davey O’Brien Lot 2, Bob Lilly Lot 3, Lot 4, Lot 5/LT Garage, Jim Swink Lot 6, Sam Baugh Lot 7 and Lot 8 were checked against current TCU visitor material.', 'West Cantey Street, Stadium Drive, West Berry Street and west-campus/Bellaire relationships were checked against official maps.', 'Accessible game-day parking in the LaDainian Tomlinson Garage/Lot 5 was checked against current TCU football guidance.', 'The schematic omits donor eligibility and directional police controls that can change by game.'],
+  },
+};

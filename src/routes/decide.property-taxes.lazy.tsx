@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { createLazyFileRoute, Link } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
-import { description } from './decide.property-taxes';
+import { description, propertyTaxFaqs } from './decide.property-taxes';
 
 export const Route = createLazyFileRoute('/decide/property-taxes')({
   component: Page,
@@ -26,7 +26,7 @@ function Page() {
         <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
           <div>
             <p className="eyebrow text-primary">Quick estimate</p>
-            <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Estimate your property taxes</h1>
+            <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas property tax calculator</h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{description}</p>
           </div>
           <p className="border-l border-border pl-6 text-sm leading-6 text-muted-foreground">Use the taxable value shown for the scenario you are estimating. Do not subtract one exemption from a combined rate when different taxing units use different exemptions.</p>
@@ -54,6 +54,22 @@ function Page() {
           <strong className="font-display text-2xl">Need exemptions modeled?</strong>
           <div className="text-sm leading-6 text-muted-foreground"><p>Texas taxing units can use different taxable values and exemptions. Use the production calculator toolkit when exemptions, ceilings or special appraisal matter.</p><Link to="/property-tax-calculators" className="mt-3 inline-block font-semibold text-primary underline underline-offset-4">Open the property-tax calculators →</Link></div>
         </aside>
+
+        <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+          <div><p className="eyebrow text-primary">Property-tax relief</p><h2 className="mt-2 font-display text-3xl">How Texas property tax relief works</h2></div>
+          <div className="max-w-3xl space-y-5 text-base leading-7 text-muted-foreground">
+            <p>Texas property-tax relief generally works by reducing taxable value, limiting certain school-tax increases, or applying special exemptions or protections to eligible homeowners.</p>
+            <p>Homestead exemptions, age-65 relief and disabled-veteran benefits can affect different taxing units in different ways, so one combined-rate estimate should be treated as a starting point rather than a final bill.</p>
+            <div className="flex flex-wrap gap-x-6 gap-y-3 pt-2 text-sm font-semibold text-foreground"><Link to="/texas-homestead-savings-calculator" className="underline underline-offset-4">Homestead savings calculator</Link><Link to="/learn/over-65-property-tax-guide" className="underline underline-offset-4">Age-65 property-tax relief</Link><Link to="/learn/disabled-veteran-property-tax-benefits" className="underline underline-offset-4">Disabled-veteran benefits</Link></div>
+          </div>
+        </section>
+
+        <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+          <div><p className="eyebrow text-primary">FAQ</p><h2 className="mt-2 font-display text-3xl">Texas property tax calculator FAQ</h2></div>
+          <div className="max-w-3xl divide-y divide-border">
+            {propertyTaxFaqs.map((faq) => <div key={faq.question} className="py-5 first:pt-0"><h3 className="font-display text-2xl">{faq.question}</h3><p className="mt-2 text-base leading-7 text-muted-foreground">{faq.answer}</p></div>)}
+          </div>
+        </section>
 
         <section className="grid gap-8 py-10 lg:grid-cols-[15rem_1fr]">
           <div><p className="eyebrow text-primary">Field notes</p><h2 className="mt-2 font-display text-3xl">Make the estimate more useful</h2></div>

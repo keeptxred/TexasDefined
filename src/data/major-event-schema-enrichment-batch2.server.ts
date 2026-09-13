@@ -252,10 +252,16 @@ export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
   {
     slug: "chappell-hill-bluebonnet-festival",
     organizer: organization("Chappell Hill Historical Society", "https://chappellhillhistoricalsociety.com/"),
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Texas%20Bluebonnets%20%2825085818956%29.jpg",
+      alt: "Texas bluebonnets blooming in spring, shown as a representative wildflower image for the Chappell Hill Bluebonnet Festival guide",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Texas_Bluebonnets_(25085818956).jpg",
+    },
     sources: [
       { label: "Chappell Hill Historical Society official 2027 Bluebonnet Festival page", url: "https://chappellhillhistoricalsociety.com/bluebonnet-festival/" },
+      { label: "Wikimedia Commons — USDA public-domain Texas bluebonnets photograph", url: "https://commons.wikimedia.org/wiki/File:Texas_Bluebonnets_(25085818956).jpg" },
     ],
-    verifiedAt: "2026-09-01",
+    verifiedAt: "2026-09-12",
   },
   {
     slug: "burnet-bluebonnet-festival",

@@ -16,6 +16,7 @@ import { getSportsVenueEnrichmentBatch6 } from './sports-venue-enrichment-batch6
 import { getSportsVenueEnrichmentBatch7MajorCompletion } from './sports-venue-enrichment-batch7-major-completion';
 import { getSportsVenueEnrichmentBatch8ACompletion } from './sports-venue-enrichment-batch8a-completion';
 import { getSportsVenueEnrichmentBatch8BCompletion } from './sports-venue-enrichment-batch8b-completion';
+import { getSportsVenueHistoryCompletion } from './sports-venue-history-completion';
 import { applySportsVenueMaintenance } from './sports-venue-maintenance';
 
 export { sportsVenueMapUrl };
@@ -41,5 +42,15 @@ export function getSportsVenueEnrichmentAll(slug: string) {
     ?? getSportsVenueEnrichmentBatch8ACompletion(lookupSlug)
     ?? getSportsVenueEnrichmentBatch8BCompletion(lookupSlug);
 
-  return applySportsVenueMaintenance(lookupSlug, profile);
+  const maintained = applySportsVenueMaintenance(lookupSlug, profile);
+  const completion = getSportsVenueHistoryCompletion(lookupSlug);
+  if (!maintained || !completion || maintained.history) return maintained;
+
+  return {
+    ...maintained,
+    history: completion.history,
+    planningLinks: maintained.planningLinks.some((link) => link.url === completion.source.url)
+      ? maintained.planningLinks
+      : [...maintained.planningLinks, completion.source],
+  };
 }

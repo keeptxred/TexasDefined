@@ -8,6 +8,7 @@ on:
     paths:
       - 'scripts/data/verify-brand-location-sources.mjs'
       - 'scripts/data/verify-bucees-location-source.mjs'
+      - 'scripts/data/verify-academy-location-source.mjs'
       - '.github/workflows/verify-brand-location-sources.yml'
       - 'supabase/migrations/*brand*location*source*freshness*.sql'
 
@@ -34,7 +35,9 @@ jobs:
           node-version: 22
 
       - name: Exercise source adapters and drift comparison
-        run: node scripts/data/verify-brand-location-sources.mjs --self-test
+        run: |
+          node scripts/data/verify-brand-location-sources.mjs --self-test
+          node scripts/data/verify-academy-location-source.mjs --self-test
 
   verify-live-sources:
     if: github.event_name != 'pull_request'
@@ -67,7 +70,9 @@ jobs:
       - name: Compare all configured official sources with protected registry
         id: verify
         continue-on-error: true
-        run: node scripts/data/verify-brand-location-sources.mjs --live-all
+        run: |
+          node scripts/data/verify-brand-location-sources.mjs --live-all
+          node scripts/data/verify-academy-location-source.mjs --live
 
       - name: Open or update drift issue
         if: steps.verify.outcome == 'failure'

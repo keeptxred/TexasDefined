@@ -10,6 +10,15 @@ const curatedProfiles = [
   { path: '/destination/balmorhea-state-park-rv-area', name: 'Balmorhea State Park RV Area' },
   { path: '/destination/davis-mountains-state-park-rv-loop', name: 'Davis Mountains State Park RV Loop' },
   { path: '/destination/copper-breaks-state-park-rv-area', name: 'Copper Breaks State Park RV Area' },
+  { path: '/destination/lake-mineral-wells-state-park-rv-loop', name: 'Lake Mineral Wells State Park RV Loop' },
+  { path: '/destination/eisenhower-state-park-rv-loop', name: 'Eisenhower State Park RV Loop' },
+  { path: '/destination/monahans-sandhills-state-park-rv-area', name: 'Monahans Sandhills State Park RV Area' },
+  { path: '/destination/bonham-state-park-rv-loop', name: 'Bonham State Park RV Loop' },
+  { path: '/destination/lake-whitney-state-park-rv-loop', name: 'Lake Whitney State Park RV Loop' },
+  { path: '/destination/martin-dies-jr-state-park-rv-loop', name: 'Martin Dies Jr. State Park RV Loop' },
+  { path: '/destination/lake-livingston-state-park-rv-loops', name: 'Lake Livingston State Park RV Loops' },
+  { path: '/destination/lake-arrowhead-state-park-rv-loop', name: 'Lake Arrowhead State Park RV Loop' },
+  { path: '/destination/lake-tawakoni-state-park-rv-area', name: 'Lake Tawakoni State Park RV Area' },
 ];
 const guardedProfile = { path: '/destination/caddo-lake-state-park-rv-area', name: 'Caddo Lake State Park RV Area' };
 const profilePath = '/destination/palo-duro-canyon-state-park-rv-loop';

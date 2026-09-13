@@ -56,6 +56,11 @@ const licensedPhotoSlugs = [
   'mclane-stadium',
   'moody-center',
   'toyota-center-houston',
+  'reliant-stadium',
+  'kyle-field',
+  'tdecu-stadium',
+  'q2-stadium',
+  'rice-stadium',
 ];
 for (const slug of licensedPhotoSlugs) {
   assert(photoSource.includes(`'${slug}': {`), `Licensed venue photo registry is missing ${slug}.`);

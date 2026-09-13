@@ -1,0 +1,151 @@
+name: Reconcile RV park hero assets
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/data/sync-rv-park-hero-assets.mjs"
+      - "scripts/data/enforce-rv-park-hero-location-policy.mjs"
+      - "scripts/data/enforce-rv-hero-subject-quality.mjs"
+      - ".github/workflows/rv-park-hero-assets.yml"
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: rv-park-hero-assets
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Ensure JPEG conversion support
+        run: |
+          if ! command -v convert >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq imagemagick
+          fi
+
+      - name: Resolve exact free images and generated fallbacks
+        id: resolve
+        shell: bash
+        run: |
+          set +e
+          node scripts/data/sync-rv-park-hero-assets.mjs
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          if [[ "$code" != "0" ]]; then
+            echo "::warning::RV image reconciliation completed with unresolved records (exit $code); the publication gate will fail closed."
+          fi
+          exit 0
+
+      - name: Enforce strict exact-property location policy
+        run: node scripts/data/enforce-rv-park-hero-location-policy.mjs
+
+      - name: Enforce RV hero subject quality
+        run: node scripts/data/enforce-rv-hero-subject-quality.mjs
+
+      - name: Require complete governed RV image coverage
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const report = JSON.parse(fs.readFileSync('scripts/data/rv-park-hero-report.json', 'utf8'));
+          const unresolved = Array.isArray(report.unresolved) ? report.unresolved : [];
+          const strictPresent = Boolean(report.strictLocationPolicy);
+          const strict = report.strictLocationPolicy || {};
+          const ok = report.totalSeeds === 250
+            && report.governedAfter === 250
+            && report.backlogAfter === 0
+            && unresolved.length === 0
+            && strictPresent
+            && Number(strict.commonsReviewed ?? 0) >= Number(strict.commonsAccepted ?? 0)
+            && Number(strict.commonsReviewed ?? 0) === Number(strict.commonsAccepted ?? 0) + Number(strict.commonsRejected ?? 0);
+          if (!ok) {
+            console.error('RV image publication gate failed', {
+              totalSeeds: report.totalSeeds,
+              governedAfter: report.governedAfter,
+              backlogAfter: report.backlogAfter,
+              unresolved: unresolved.length,
+              strictLocationPolicy: report.strictLocationPolicy,
+            });
+            process.exit(1);
+          }
+          console.log('RV image publication gate passed: 250/250 governed, backlog 0, unresolved 0, strict location review complete.');
+          NODE
+
+      - name: Run RV inventory classification audit
+        id: audit
+        run: node scripts/data/audit-rv-inventory-classification.mjs --summary
+
+      - name: Detect generated RV image changes
+        id: changes
+        shell: bash
+        run: |
+          if [[ -z "$(git status --porcelain -- public/images/rv-parks src/data/rv-parks/images.server.ts src/data/rv-parks/registry.server.ts scripts/data/audit-rv-inventory-classification.mjs scripts/data/rv-park-hero-report.json)" ]]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No RV image changes to preserve."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "RV image changes detected."
+          fi
+
+      - name: Create RV image review branch
+        if: ${{ steps.audit.outcome == 'success' && steps.changes.outputs.changed == 'true' }}
+        id: branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/rv-park-hero-assets-${GITHUB_RUN_ID}"
+          git config user.name "Texas Defined Data Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add public/images/rv-parks src/data/rv-parks/images.server.ts src/data/rv-parks/registry.server.ts scripts/data/audit-rv-inventory-classification.mjs scripts/data/rv-park-hero-report.json
+          git commit -m "chore: backfill governed RV park hero images"
+          git push origin "$branch"
+          echo "name=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Open reviewable RV image pull request
+        if: ${{ steps.audit.outcome == 'success' && steps.changes.outputs.changed == 'true' }}
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+          RESOLVE_EXIT: ${{ steps.resolve.outputs.exit_code }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          pr_url="$(gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title 'Backfill governed RV park hero images' \
+            --body $'Automated RV image backlog reconciliation with strict location and hero-subject verification. Wikimedia Commons imagery survives only when the file title contains the exact named private property, or exact public-land identity, plus Texas/town/county evidence, and the subject is suitable as a destination hero. Ambiguous/context-only matches, weak wildlife/flora close-ups, emergency-response scenes, and novelty subjects are replaced by clearly labeled AI-generated representative editorial images with actualLocation=false. This PR is created only after the hard publication gate confirms 250/250 governed records, backlogAfter=0, unresolved=0, and a complete strict-location review. Existing source/content/indexing gates remain in force. Review scripts/data/rv-park-hero-report.json, strictLocationPolicy, heroSubjectQuality, and item-level visual relevance before merge. Resolver exit code: '"$RESOLVE_EXIT"$'.')"
+          echo "url=$pr_url" >> "$GITHUB_OUTPUT"
+          echo "Opened $pr_url"
+
+      - name: Run official validation on generated branch
+        if: ${{ steps.audit.outcome == 'success' && steps.changes.outputs.changed == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        shell: bash
+        run: bash scripts/ci/dispatch-validate-branch.sh "$BRANCH"

@@ -10,7 +10,7 @@ const countyGuide = read('src/components/content/CountyGuideSections.tsx');
 const countySeries = read('src/data/county-series.ts');
 const countySlugGuard = read('src/data/texas-county-slugs.ts');
 const eastTexasProfiles = read('src/data/county-series-profiles-east-texas.ts');
-const jasperCanonicalProfile = read('src/data/fixtures/jasper-county-canonical-profile.ts');
+const jasperDiscovery = read('src/data/fixtures/jasper-county-blue-hole-discovery.ts');
 const destinationLinks = read('src/data/destination-editorial-links.ts');
 const supplementalRegistration = read('src/data/fixtures/supplemental-editorial-registration.ts');
 const seasonalIntentRegistry = read('src/data/fixtures/lazy-seasonal-intents.ts');
@@ -37,17 +37,21 @@ if (countySeries.includes('@/data/texas-places')) {
   failures.push('legacy county redirect scope: county-series must not pull the full Texas places registry into the eager client graph');
 }
 
-requireAll('Jasper canonical county profile loader', eastTexasProfiles, [
+requireAll('Jasper inventory-compatible canonical loader', eastTexasProfiles, [
   'countySlug: "jasper"',
-  'import("@/data/fixtures/jasper-county-canonical-profile")',
-  'module.jasperCountyCanonicalProfileArticle',
+  'articleSlug: "jasper-county-jasper-kirbyville-sam-rayburn-piney-woods-texas"',
+  'import("@/data/fixtures/jasper-county-blue-hole-discovery")',
+  'module.jasperCountyBlueHoleDiscoveryArticle',
 ]);
 
-requireAll('Jasper canonical county Blue Hole link', jasperCanonicalProfile, [
-  'const BLUE_HOLE_PATH = "/article/blue-hole-jasper-county-east-texas"',
-  'jasperCountyJasperKirbyvilleSamRayburnPineyWoodsTexasArticle.internalLinks ?? []',
-  'existingLinks.some((link) => link.href === BLUE_HOLE_PATH)',
-  ': [...existingLinks, blueHoleLink]',
+requireAll('Jasper deterministic Blue Hole wrapper', jasperDiscovery, [
+  'jasperCountyJasperKirbyvilleSamRayburnPineyWoodsTexasArticle as baseArticle',
+  'href: "/article/blue-hole-jasper-county-east-texas"',
+  'Jasper County\'s Blue Hole quarry lake',
+  'export const jasperCountyBlueHoleDiscoveryArticle = {',
+  '...baseArticle,',
+  'internalLinks: baseArticle.internalLinks?.some((link) => link.href === blueHoleLink.href)',
+  ': [...(baseArticle.internalLinks ?? []), blueHoleLink]',
 ]);
 
 requireAll('Jasper destination Blue Hole discovery', destinationLinks, [
@@ -73,15 +77,19 @@ requireAll('supplemental editorial lookup registry', seasonalIntentRegistry, [
   'if (supplementalArticle) return supplementalArticle',
 ]);
 
-requireAll('Jasper county reciprocal Blue Hole registration', supplementalRegistration, [
+requireAll('supplemental Blue Hole registration', supplementalRegistration, [
   'import { blueHoleJasperCountyStoryArticle }',
   'import { registerSupplementalIntentArticle }',
   'registerSupplementalIntentArticle(blueHoleJasperCountyStoryArticle)',
   'href: `/article/${blueHoleJasperCountyStoryArticle.slug}`',
-  '"jasper-county-jasper-kirbyville-sam-rayburn-piney-woods-texas"',
+  '"texas-lakes-reservoirs-explained"',
+  '"texas-rivers-explained"',
   'articleInternalLinks[slug] = existing.some((link) => link.href === blueHoleLink.href)',
   ': [...existing, blueHoleLink]',
 ]);
+if (supplementalRegistration.includes('"jasper-county-jasper-kirbyville-sam-rayburn-piney-woods-texas"')) {
+  failures.push('Jasper county discovery must be owned by the canonical Jasper wrapper, not supplemental import-order mutation');
+}
 
 if (failures.length) {
   console.error('County editorial discovery validation failed:');
@@ -89,4 +97,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('County editorial discovery validator passed: canonical county guides surface curated article links, Jasper loads a canonical county profile with a direct Blue Hole link, legacy county redirects are limited to real Texas county slugs without importing the full places registry, the Blue Hole full article is in the primary registry for both listing and direct lookup, and destination plus supplemental reciprocal discovery remain protected.');
+console.log('County editorial discovery validator passed: canonical county guides surface curated article links, Jasper keeps the standard inventory-compatible loader contract while a dedicated wrapper deterministically adds Blue Hole discovery, the destination and statewide water guides retain their reciprocal links, legacy county redirects are limited to real Texas county slugs without importing the full places registry, and the Blue Hole full article is in the primary registry for both listing and direct lookup.');

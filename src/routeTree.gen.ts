@@ -330,6 +330,7 @@ import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
 import { Route as EventsCollectionRouteImport } from './routes/events.$collection'
 import { Route as EventSlugRouteImport } from './routes/event.$slug'
 import { Route as DpsOfficeSlugRouteImport } from './routes/dps-office.$slug'
+import { Route as DogsChar123BreedChar125RouteImport } from './routes/dogs.{-$breed}'
 import { Route as DoPropertyTaxProtestRouteImport } from './routes/do.property-tax-protest'
 import { Route as DoHomesteadExemptionRouteImport } from './routes/do.homestead-exemption'
 import { Route as DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRouteImport } from './routes/destination.world-birding-center-resaca-de-la-palma-state-park'
@@ -343,6 +344,7 @@ import { Route as DestinationLakeSomervilleBirchCreekUnitStateParkRouteImport } 
 import { Route as DestinationEnchantedRockRouteImport } from './routes/destination.enchanted-rock'
 import { Route as DestinationDevilsRiverDelNorteUnitStateNaturalAreaRouteImport } from './routes/destination.devils-river-del-norte-unit-state-natural-area'
 import { Route as DestinationDevilsRiverBigSatanUnitStateNaturalAreaRouteImport } from './routes/destination.devils-river-big-satan-unit-state-natural-area'
+import { Route as DestinationDevilSSinkholeStateNaturalAreaRouteImport } from './routes/destination.devil-s-sinkhole-state-natural-area'
 import { Route as DestinationCooperLakeSouthSulphurUnitStateParkRouteImport } from './routes/destination.cooper-lake-south-sulphur-unit-state-park'
 import { Route as DestinationCooperLakeJohnsCreekUnitStateParkRouteImport } from './routes/destination.cooper-lake-johns-creek-unit-state-park'
 import { Route as DestinationCooperLakeDoctorsCreekUnitStateParkRouteImport } from './routes/destination.cooper-lake-doctors-creek-unit-state-park'
@@ -2478,6 +2480,13 @@ const DpsOfficeSlugRoute = DpsOfficeSlugRouteImport.update({
   path: '/dps-office/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DogsChar123BreedChar125Route = DogsChar123BreedChar125RouteImport.update({
+  id: '/dogs/{-$breed}',
+  path: '/dogs/{-$breed}',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/dogs.{-$breed}.lazy').then((d) => d.Route),
+)
 const DoPropertyTaxProtestRoute = DoPropertyTaxProtestRouteImport.update({
   id: '/do/property-tax-protest',
   path: '/do/property-tax-protest',
@@ -2554,6 +2563,12 @@ const DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute =
   DestinationDevilsRiverBigSatanUnitStateNaturalAreaRouteImport.update({
     id: '/destination/devils-river-big-satan-unit-state-natural-area',
     path: '/destination/devils-river-big-satan-unit-state-natural-area',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DestinationDevilSSinkholeStateNaturalAreaRoute =
+  DestinationDevilSSinkholeStateNaturalAreaRouteImport.update({
+    id: '/destination/devil-s-sinkhole-state-natural-area',
+    path: '/destination/devil-s-sinkhole-state-natural-area',
     getParentRoute: () => rootRouteImport,
   } as any)
 const DestinationCooperLakeSouthSulphurUnitStateParkRoute =
@@ -3479,6 +3494,7 @@ export interface FileRoutesByFullPath {
   '/destination/cooper-lake-doctors-creek-unit-state-park': typeof DestinationCooperLakeDoctorsCreekUnitStateParkRoute
   '/destination/cooper-lake-johns-creek-unit-state-park': typeof DestinationCooperLakeJohnsCreekUnitStateParkRoute
   '/destination/cooper-lake-south-sulphur-unit-state-park': typeof DestinationCooperLakeSouthSulphurUnitStateParkRoute
+  '/destination/devil-s-sinkhole-state-natural-area': typeof DestinationDevilSSinkholeStateNaturalAreaRoute
   '/destination/devils-river-big-satan-unit-state-natural-area': typeof DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute
   '/destination/devils-river-del-norte-unit-state-natural-area': typeof DestinationDevilsRiverDelNorteUnitStateNaturalAreaRoute
   '/destination/enchanted-rock': typeof DestinationEnchantedRockRoute
@@ -3492,6 +3508,7 @@ export interface FileRoutesByFullPath {
   '/destination/world-birding-center-resaca-de-la-palma-state-park': typeof DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute
   '/do/homestead-exemption': typeof DoHomesteadExemptionRoute
   '/do/property-tax-protest': typeof DoPropertyTaxProtestRoute
+  '/dogs/{-$breed}': typeof DogsChar123BreedChar125Route
   '/dps-office/$slug': typeof DpsOfficeSlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
@@ -3928,6 +3945,7 @@ export interface FileRoutesByTo {
   '/destination/cooper-lake-doctors-creek-unit-state-park': typeof DestinationCooperLakeDoctorsCreekUnitStateParkRoute
   '/destination/cooper-lake-johns-creek-unit-state-park': typeof DestinationCooperLakeJohnsCreekUnitStateParkRoute
   '/destination/cooper-lake-south-sulphur-unit-state-park': typeof DestinationCooperLakeSouthSulphurUnitStateParkRoute
+  '/destination/devil-s-sinkhole-state-natural-area': typeof DestinationDevilSSinkholeStateNaturalAreaRoute
   '/destination/devils-river-big-satan-unit-state-natural-area': typeof DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute
   '/destination/devils-river-del-norte-unit-state-natural-area': typeof DestinationDevilsRiverDelNorteUnitStateNaturalAreaRoute
   '/destination/enchanted-rock': typeof DestinationEnchantedRockRoute
@@ -3941,6 +3959,7 @@ export interface FileRoutesByTo {
   '/destination/world-birding-center-resaca-de-la-palma-state-park': typeof DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute
   '/do/homestead-exemption': typeof DoHomesteadExemptionRoute
   '/do/property-tax-protest': typeof DoPropertyTaxProtestRoute
+  '/dogs/{-$breed}': typeof DogsChar123BreedChar125Route
   '/dps-office/$slug': typeof DpsOfficeSlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
@@ -4381,6 +4400,7 @@ export interface FileRoutesById {
   '/destination/cooper-lake-doctors-creek-unit-state-park': typeof DestinationCooperLakeDoctorsCreekUnitStateParkRoute
   '/destination/cooper-lake-johns-creek-unit-state-park': typeof DestinationCooperLakeJohnsCreekUnitStateParkRoute
   '/destination/cooper-lake-south-sulphur-unit-state-park': typeof DestinationCooperLakeSouthSulphurUnitStateParkRoute
+  '/destination/devil-s-sinkhole-state-natural-area': typeof DestinationDevilSSinkholeStateNaturalAreaRoute
   '/destination/devils-river-big-satan-unit-state-natural-area': typeof DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute
   '/destination/devils-river-del-norte-unit-state-natural-area': typeof DestinationDevilsRiverDelNorteUnitStateNaturalAreaRoute
   '/destination/enchanted-rock': typeof DestinationEnchantedRockRoute
@@ -4394,6 +4414,7 @@ export interface FileRoutesById {
   '/destination/world-birding-center-resaca-de-la-palma-state-park': typeof DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute
   '/do/homestead-exemption': typeof DoHomesteadExemptionRoute
   '/do/property-tax-protest': typeof DoPropertyTaxProtestRoute
+  '/dogs/{-$breed}': typeof DogsChar123BreedChar125Route
   '/dps-office/$slug': typeof DpsOfficeSlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
@@ -4835,6 +4856,7 @@ export interface FileRouteTypes {
     | '/destination/cooper-lake-doctors-creek-unit-state-park'
     | '/destination/cooper-lake-johns-creek-unit-state-park'
     | '/destination/cooper-lake-south-sulphur-unit-state-park'
+    | '/destination/devil-s-sinkhole-state-natural-area'
     | '/destination/devils-river-big-satan-unit-state-natural-area'
     | '/destination/devils-river-del-norte-unit-state-natural-area'
     | '/destination/enchanted-rock'
@@ -4848,6 +4870,7 @@ export interface FileRouteTypes {
     | '/destination/world-birding-center-resaca-de-la-palma-state-park'
     | '/do/homestead-exemption'
     | '/do/property-tax-protest'
+    | '/dogs/{-$breed}'
     | '/dps-office/$slug'
     | '/event/$slug'
     | '/events/$collection'
@@ -5284,6 +5307,7 @@ export interface FileRouteTypes {
     | '/destination/cooper-lake-doctors-creek-unit-state-park'
     | '/destination/cooper-lake-johns-creek-unit-state-park'
     | '/destination/cooper-lake-south-sulphur-unit-state-park'
+    | '/destination/devil-s-sinkhole-state-natural-area'
     | '/destination/devils-river-big-satan-unit-state-natural-area'
     | '/destination/devils-river-del-norte-unit-state-natural-area'
     | '/destination/enchanted-rock'
@@ -5297,6 +5321,7 @@ export interface FileRouteTypes {
     | '/destination/world-birding-center-resaca-de-la-palma-state-park'
     | '/do/homestead-exemption'
     | '/do/property-tax-protest'
+    | '/dogs/{-$breed}'
     | '/dps-office/$slug'
     | '/event/$slug'
     | '/events/$collection'
@@ -5736,6 +5761,7 @@ export interface FileRouteTypes {
     | '/destination/cooper-lake-doctors-creek-unit-state-park'
     | '/destination/cooper-lake-johns-creek-unit-state-park'
     | '/destination/cooper-lake-south-sulphur-unit-state-park'
+    | '/destination/devil-s-sinkhole-state-natural-area'
     | '/destination/devils-river-big-satan-unit-state-natural-area'
     | '/destination/devils-river-del-norte-unit-state-natural-area'
     | '/destination/enchanted-rock'
@@ -5749,6 +5775,7 @@ export interface FileRouteTypes {
     | '/destination/world-birding-center-resaca-de-la-palma-state-park'
     | '/do/homestead-exemption'
     | '/do/property-tax-protest'
+    | '/dogs/{-$breed}'
     | '/dps-office/$slug'
     | '/event/$slug'
     | '/events/$collection'
@@ -6175,6 +6202,7 @@ export interface RootRouteChildren {
   DestinationCooperLakeDoctorsCreekUnitStateParkRoute: typeof DestinationCooperLakeDoctorsCreekUnitStateParkRoute
   DestinationCooperLakeJohnsCreekUnitStateParkRoute: typeof DestinationCooperLakeJohnsCreekUnitStateParkRoute
   DestinationCooperLakeSouthSulphurUnitStateParkRoute: typeof DestinationCooperLakeSouthSulphurUnitStateParkRoute
+  DestinationDevilSSinkholeStateNaturalAreaRoute: typeof DestinationDevilSSinkholeStateNaturalAreaRoute
   DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute: typeof DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute
   DestinationDevilsRiverDelNorteUnitStateNaturalAreaRoute: typeof DestinationDevilsRiverDelNorteUnitStateNaturalAreaRoute
   DestinationEnchantedRockRoute: typeof DestinationEnchantedRockRoute
@@ -6188,6 +6216,7 @@ export interface RootRouteChildren {
   DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute: typeof DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute
   DoHomesteadExemptionRoute: typeof DoHomesteadExemptionRoute
   DoPropertyTaxProtestRoute: typeof DoPropertyTaxProtestRoute
+  DogsChar123BreedChar125Route: typeof DogsChar123BreedChar125Route
   DpsOfficeSlugRoute: typeof DpsOfficeSlugRoute
   EventSlugRoute: typeof EventSlugRoute
   ExploreCategoryRoute: typeof ExploreCategoryRoute
@@ -8572,6 +8601,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DpsOfficeSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dogs/{-$breed}': {
+      id: '/dogs/{-$breed}'
+      path: '/dogs/{-$breed}'
+      fullPath: '/dogs/{-$breed}'
+      preLoaderRoute: typeof DogsChar123BreedChar125RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/do/property-tax-protest': {
       id: '/do/property-tax-protest'
       path: '/do/property-tax-protest'
@@ -8661,6 +8697,13 @@ declare module '@tanstack/react-router' {
       path: '/destination/devils-river-big-satan-unit-state-natural-area'
       fullPath: '/destination/devils-river-big-satan-unit-state-natural-area'
       preLoaderRoute: typeof DestinationDevilsRiverBigSatanUnitStateNaturalAreaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/destination/devil-s-sinkhole-state-natural-area': {
+      id: '/destination/devil-s-sinkhole-state-natural-area'
+      path: '/destination/devil-s-sinkhole-state-natural-area'
+      fullPath: '/destination/devil-s-sinkhole-state-natural-area'
+      preLoaderRoute: typeof DestinationDevilSSinkholeStateNaturalAreaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/destination/cooper-lake-south-sulphur-unit-state-park': {
@@ -10216,6 +10259,8 @@ const rootRouteChildren: RootRouteChildren = {
     DestinationCooperLakeJohnsCreekUnitStateParkRoute,
   DestinationCooperLakeSouthSulphurUnitStateParkRoute:
     DestinationCooperLakeSouthSulphurUnitStateParkRoute,
+  DestinationDevilSSinkholeStateNaturalAreaRoute:
+    DestinationDevilSSinkholeStateNaturalAreaRoute,
   DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute:
     DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute,
   DestinationDevilsRiverDelNorteUnitStateNaturalAreaRoute:
@@ -10238,6 +10283,7 @@ const rootRouteChildren: RootRouteChildren = {
     DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute,
   DoHomesteadExemptionRoute: DoHomesteadExemptionRoute,
   DoPropertyTaxProtestRoute: DoPropertyTaxProtestRoute,
+  DogsChar123BreedChar125Route: DogsChar123BreedChar125Route,
   DpsOfficeSlugRoute: DpsOfficeSlugRoute,
   EventSlugRoute: EventSlugRoute,
   ExploreCategoryRoute: ExploreCategoryRoute,

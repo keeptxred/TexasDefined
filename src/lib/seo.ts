@@ -609,6 +609,18 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     title: "Texas vs Nebraska: Cost of Living, Taxes, Climate & Lifestyle",
     description: "Compare Texas and Nebraska on cost of living, taxes, housing, climate, jobs, geography and daily life in a practical side-by-side state guide.",
   },
+  "/article/texas-brazos-river-guide": {
+    title: "Brazos River Texas: Basin, Tributaries, Lakes & Gulf Guide",
+    description: "Follow the Brazos River across Texas from its upper forks to the Gulf, with major tributaries, reservoirs, basin geography and water-planning context.",
+  },
+  "/article/texas-guadalupe-river-guide": {
+    title: "Guadalupe River Texas: Canyon Lake, Springs & Basin Guide",
+    description: "Follow the Guadalupe River from the Hill Country to San Antonio Bay, including Canyon Lake, spring-fed tributaries, aquifers, access and basin geography.",
+  },
+  "/article/texas-trinity-river-guide": {
+    title: "Trinity River Texas: Dallas-Fort Worth, Basin & Gulf Guide",
+    description: "Follow the Trinity River through North Texas toward Trinity Bay, with its forks, Dallas-Fort Worth watershed, reservoirs and basin geography explained.",
+  },
 } : {};
 
 const SOCIAL_IMAGE_FALLBACKS: Partial<Record<BrandConfig["identity"]["id"], { src: string; alt: string; type: string }>> = {

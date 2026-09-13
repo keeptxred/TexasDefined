@@ -5,10 +5,16 @@ on:
   pull_request:
     paths:
       - '.github/workflows/validate-rv-parks-authority.yml'
+      - '.github/workflows/rv-park-hero-assets.yml'
+      - 'scripts/data/sync-rv-park-hero-assets.mjs'
+      - 'scripts/data/enforce-rv-park-hero-location-policy.mjs'
+      - 'scripts/data/enforce-rv-hero-subject-quality.mjs'
+      - 'scripts/data/validate-rv-hero-resolver-safety.mjs'
       - 'scripts/data/validate-rv-parks-authority.mjs'
       - 'scripts/data/audit-rv-inventory-classification.mjs'
       - 'scripts/data/validate-rv-county-server-function-isolation.mjs'
       - 'scripts/data/validate-rv-curated-public-wave2.mjs'
+      - 'scripts/data/validate-rv-curated-public-wave3.mjs'
       - 'scripts/ci/verify-rv-parks-production.mjs'
       - 'src/data/rv-parks/**'
       - 'src/data/county-major-events.ts'
@@ -33,10 +39,16 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/validate-rv-parks-authority.yml'
+      - '.github/workflows/rv-park-hero-assets.yml'
+      - 'scripts/data/sync-rv-park-hero-assets.mjs'
+      - 'scripts/data/enforce-rv-park-hero-location-policy.mjs'
+      - 'scripts/data/enforce-rv-hero-subject-quality.mjs'
+      - 'scripts/data/validate-rv-hero-resolver-safety.mjs'
       - 'scripts/data/validate-rv-parks-authority.mjs'
       - 'scripts/data/audit-rv-inventory-classification.mjs'
       - 'scripts/data/validate-rv-county-server-function-isolation.mjs'
       - 'scripts/data/validate-rv-curated-public-wave2.mjs'
+      - 'scripts/data/validate-rv-curated-public-wave3.mjs'
       - 'scripts/ci/verify-rv-parks-production.mjs'
       - 'src/data/rv-parks/**'
       - 'src/data/county-major-events.ts'
@@ -72,6 +84,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Check RV hero resolver syntax
+        run: node --check scripts/data/sync-rv-park-hero-assets.mjs
+      - name: Check strict RV hero location enforcement syntax
+        run: node --check scripts/data/enforce-rv-park-hero-location-policy.mjs
+      - name: Check RV hero subject-quality enforcement syntax
+        run: node --check scripts/data/enforce-rv-hero-subject-quality.mjs
+      - name: Validate RV hero resolver safety contract
+        run: node scripts/data/validate-rv-hero-resolver-safety.mjs
       - name: Validate RV camping authority contract
         run: node scripts/data/validate-rv-parks-authority.mjs
       - name: Audit RV inventory classification
@@ -80,6 +100,8 @@ jobs:
         run: node scripts/data/validate-rv-county-server-function-isolation.mjs
       - name: Validate curated public RV wave two
         run: node scripts/data/validate-rv-curated-public-wave2.mjs
+      - name: Validate curated public RV wave three
+        run: node scripts/data/validate-rv-curated-public-wave3.mjs
 
   production:
     if: ${{ github.event_name == 'workflow_dispatch' }}

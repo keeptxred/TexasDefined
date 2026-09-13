@@ -47,6 +47,30 @@ export const TEXAS_BRAND_LOCATOR_REGISTRY = {
     fallbackLabel: "Open Whataburger's official location finder",
     storeNamePattern: null,
   },
+  academy: {
+    label: "Academy Sports + Outdoors",
+    provider: "verified-registry",
+    queryPattern: /\bacademy(?:\s+sports(?:\s*\+\s*outdoors|\s+and\s+outdoors)?)?\b/i,
+    officialLocatorUrl: "https://www.academy.com/storelocator/texas",
+    fallbackLabel: "Open Academy Sports + Outdoors' official Texas store directory",
+    storeNamePattern: null,
+  },
+  shipley: {
+    label: "Shipley Do-Nuts",
+    provider: "official-directory",
+    queryPattern: /\bshipley(?:\s+do[- ]?nuts?|\s+donuts?)?\b/i,
+    officialLocatorUrl: "https://shipleydonuts.com/locations",
+    fallbackLabel: "Open Shipley Do-Nuts' official location finder",
+    storeNamePattern: null,
+  },
+  "kolache-factory": {
+    label: "Kolache Factory",
+    provider: "official-directory",
+    queryPattern: /\bkolache\s+factory\b/i,
+    officialLocatorUrl: "https://locations.kolachefactory.com/tx",
+    fallbackLabel: "Open Kolache Factory's official Texas locations",
+    storeNamePattern: null,
+  },
 } as const;
 
 export type TexasBrandLocatorBrand = keyof typeof TEXAS_BRAND_LOCATOR_REGISTRY;

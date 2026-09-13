@@ -1,0 +1,95 @@
+name: Sync reviewed sports venue hero assets wave 7
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/data/sync-sports-venue-hero-assets-wave7-reviewed.mjs"
+      - ".github/workflows/sports-venue-hero-assets-wave7-reviewed.yml"
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: sports-venue-hero-assets-wave7-reviewed
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Ensure JPEG conversion support
+        run: |
+          if ! command -v convert >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq imagemagick
+          fi
+
+      - name: Resolve reviewed sports venue JPEGs
+        run: node scripts/data/sync-sports-venue-hero-assets-wave7-reviewed.mjs
+
+      - name: Detect generated sports venue changes
+        if: always()
+        id: changes
+        shell: bash
+        run: |
+          if [[ -z "$(git status --porcelain -- public/images/sports-venues src/data/sports-venue-images-additions-wave7.ts scripts/data/sports-venue-hero-wave7-report.json)" ]]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create reviewed sports venue hero branch
+        if: ${{ always() && steps.changes.outputs.changed == 'true' }}
+        id: branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/sports-venue-hero-assets-wave7-reviewed-${GITHUB_RUN_ID}"
+          git config user.name "Texas Defined Data Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add public/images/sports-venues src/data/sports-venue-images-additions-wave7.ts scripts/data/sports-venue-hero-wave7-report.json
+          git commit -m "chore: attach reviewed missing sports venue hero JPEGs"
+          git push origin "$branch"
+          echo "name=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Open reviewed sports venue hero pull request
+        if: ${{ always() && steps.changes.outputs.changed == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title 'Attach reviewed missing sports venue hero images' \
+            --body $'Reviewed reconciliation for 16 sports venue pages without hero imagery. Only two manually verified exact venue-specific Commons files are allowed: Round Rock Sports Center and Texas Motorplex. The other 14 receive venue-specific photorealistic AI editorial fallbacks with explicit generated-media attribution. The earlier ambiguous Commons matches are intentionally rejected.'
+
+      - name: Run official validation on reviewed branch
+        if: ${{ always() && steps.changes.outputs.changed == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        shell: bash
+        run: bash scripts/ci/dispatch-validate-branch.sh "$BRANCH"

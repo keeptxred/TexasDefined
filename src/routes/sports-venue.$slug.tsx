@@ -182,7 +182,7 @@ export const Route = createFileRoute('/sports-venue/$slug')({
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
         title: sportsVenueSearchTitle(entity.name, enrichment?.city),
-        description: sportsVenueSearchDescription(entity.name, enrichment),
+        description: sportsVenueSearchDescription(entity, enrichment),
         robots: indexable ? undefined : 'noindex, follow, max-image-preview:large',
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -442,15 +442,26 @@ function sportsVenueSearchTitle(name: string, city?: string) {
   return localized.length <= 42 ? localized : name;
 }
 
-function sportsVenueSearchDescription(name: string, enrichment: SportsVenueEnrichment) {
+function sportsVenueSearchDescription(entity: TexasEntityRecord, enrichment: SportsVenueEnrichment) {
+  const editorial = entity.description?.replace(/\s+/g, ' ').trim();
+  if (editorial) return truncateMetaDescription(editorial);
+
   const city = enrichment?.city ? `${enrichment.city}, Texas` : 'Texas';
   const capacity = enrichment?.capacity && enrichment.capacity.length <= 24 ? `, capacity ${enrichment.capacity}` : '';
   const event = enrichment?.primaryEvents?.[0] ? `, ${enrichment.primaryEvents[0]}` : '';
-  const detailed = `${name} in ${city}${capacity}: parking, arrival${event}, official planning links and nearby visitor ideas.`;
+  const detailed = `${entity.name} in ${city}${capacity}: parking, arrival${event}, official planning links and nearby visitor ideas.`;
   if (detailed.length <= 160) return detailed;
-  const fallback = `${name} in ${city}: parking, arrival, events, official planning links and nearby visitor ideas.`;
+  const fallback = `${entity.name} in ${city}: parking, arrival, events, official planning links and nearby visitor ideas.`;
   if (fallback.length <= 160) return fallback;
-  return `${name}: parking, arrival, events and official planning links for a Texas sports visit.`;
+  return `${entity.name}: parking, arrival, events and official planning links for a Texas sports visit.`;
+}
+
+function truncateMetaDescription(value: string, maxLength = 160) {
+  if (value.length <= maxLength) return value;
+  const candidate = value.slice(0, maxLength - 1);
+  const lastSpace = candidate.lastIndexOf(' ');
+  const trimmed = lastSpace >= 120 ? candidate.slice(0, lastSpace) : candidate;
+  return `${trimmed.replace(/[,:;\s]+$/g, '')}…`;
 }
 
 function formatList(items: readonly string[]) {

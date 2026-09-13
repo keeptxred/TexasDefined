@@ -34,7 +34,7 @@ describe("Texas brand locator registry parity", () => {
   });
 
   it("routes every verified-registry brand through the generic server and bounded RPC providers", () => {
-    expect(TEXAS_BRAND_LOCATOR_VERIFIED_REGISTRY_BRANDS).toEqual(["bucees"]);
+    expect(TEXAS_BRAND_LOCATOR_VERIFIED_REGISTRY_BRANDS).toEqual(["bucees", "academy"]);
     expect(baseServerSource).toContain("isTexasBrandLocatorVerifiedRegistryBrand");
     expect(baseServerSource).toContain("findVerifiedRegistryLocationsServer(brand, origin)");
     expect(verifiedProviderSource).toContain("TexasBrandLocatorVerifiedRegistryBrand");

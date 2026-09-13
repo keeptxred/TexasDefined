@@ -21,6 +21,11 @@ export function buildViatorAffiliateUrl(target: string, campaign?: string) {
   const url = safeViatorUrl(target) ?? new URL(VIATOR_ORIGIN);
   const params = affiliateParams();
   params.forEach((value, key) => {
+    if (key === "pid" || key === "mcid") {
+      url.searchParams.delete(key);
+      url.searchParams.set(key, value);
+      return;
+    }
     if (!url.searchParams.has(key)) url.searchParams.set(key, value);
   });
   if (campaign && !url.searchParams.has("campaign")) url.searchParams.set("campaign", campaign);

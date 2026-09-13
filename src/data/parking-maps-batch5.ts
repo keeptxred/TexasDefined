@@ -1,0 +1,58 @@
+import type { ParkingMapAsset } from './parking-map-model';
+
+export const VENUE_PARKING_MAPS_BATCH_5: Record<string, ParkingMapAsset> = {
+  'moody-center': {
+    id: 'parking-map:moody-center:2026-09', venueSlug: 'moody-center', venueName: 'Moody Center', imageUrl: '/images/parking-maps/moody-center.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Moody Center showing Manor, Trinity and nearby event garages',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['Moody Center publishes current parking and accessibility maps, but the reviewed map artwork does not document a reusable publication license.', 'Open-license source checks did not surface a current reusable Moody Center event parking map with the active construction restrictions.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Moody Center — current parking guidance', url: 'https://moodycenteratx.com/parking/', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Moody Center — accessibility guide and parking map', url: 'https://moodycenteratx.com/accessibility-guide/', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Manor Garage was verified as the closest ADA parking garage, with Trinity Garage another named event option.', 'Parking Garage B and State Garages G and R were checked against current venue guidance.', 'Dean Keeton, San Jacinto, Robert Dedman and I-35 relationships were compared with the current official map.', 'The schematic avoids hard-coding road closures because I-35/MLK construction and event barriers are actively changing traffic patterns.'],
+  },
+  'q2-stadium': {
+    id: 'parking-map:q2-stadium:2026-09', venueSlug: 'q2-stadium', venueName: 'Q2 Stadium', imageUrl: '/images/parking-maps/q2-stadium.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Q2 Stadium showing 2026 on-site and nearby parking inventory',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['Austin FC publishes a current 2026 parking inventory map, but no reusable publication license was documented for the official artwork.', 'Open-license searches did not surface a current reusable Q2 parking map with the 2026 inventory.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Austin FC — Q2 Stadium parking', url: 'https://www.austinfc.com/stadium/parking', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['The 2026 inventory identifies Q2 Stadium Red plus Dillard’s Green, Former BBVA Light Blue, Verde Square Orange, JOP Teal and D3 Loop Pink.', 'Ford East, North and Southwest lot access descriptions were checked against the current official parking page.', 'Braker Lane, McKalla Place and Rutland-area relationships were compared with the current official map.', 'The schematic states availability is event-specific because Austin FC directs users to check current inventory before each event.'],
+  },
+  'circuit-of-the-americas': {
+    id: 'parking-map:circuit-of-the-americas:2026-09', venueSlug: 'circuit-of-the-americas', venueName: 'Circuit of The Americas', imageUrl: '/images/parking-maps/circuit-of-the-americas.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Circuit of The Americas showing major current event lots around the circuit',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['COTA publishes event-specific facility and parking maps, but no reusable publication license was documented for the current official map artwork.', 'Open-license searches surfaced track layouts but not a current event parking map with the 2026 lot program.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'COTA — 2026 Formula 1 parking', url: 'https://circuitoftheamericas.com/ticket/f1-parking/', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'COTA — getting to the circuit', url: 'https://circuitoftheamericas.com/getting-to-cota/', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'COTA — venue parking policy', url: 'https://circuitoftheamericas.com/venue-policies/', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Current 2026 F1 parking offerings include Lots C, F, K, L, R and T, while COTA states motorsports events may use lots D through T.', 'Lot-group driving approaches via Elroy Road, COTA Boulevard and FM 812 were checked against current official directions.', 'The diagram intentionally treats lot placement schematically because event-specific configurations differ across F1, WEC, concerts and other races.', 'Users are directed to the event-specific COTA map for final lot assignment.'],
+  },
+  'darrell-k-royal-texas-memorial-stadium': {
+    id: 'parking-map:darrell-k-royal-texas-memorial-stadium:2026-09', venueSlug: 'darrell-k-royal-texas-memorial-stadium', venueName: 'Darrell K Royal–Texas Memorial Stadium', imageUrl: '/images/parking-maps/darrell-k-royal-texas-memorial-stadium.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for DKR Texas Memorial Stadium showing major 2026 football garages and surface parking areas',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['Texas Athletics and UT Parking publish current 2026 football maps, but no reusable publication license was documented for the official map artwork.', 'Open-license searches did not surface a current reusable 2026 DKR football parking map.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Texas Athletics — 2026 football fan guide and parking maps', url: 'https://texaslonghorns.com/sports/2026/2/10/football-fan-guide', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Texas Athletics — 2026 Gameday Parking Central', url: 'https://texaslonghorns.com/sports/2026/1/27/parking-information', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'UT Parking & Transportation — 2026 football parking', url: 'https://parking.utexas.edu/parking/events/football2026', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Brazos, East Campus, Football Training, Manor, San Jacinto and Trinity garages plus LBJ surface lots and State Garages R/Q were verified as current 2026 permit locations.', 'Public 2026 options at Health Center Garage and Lots 15 and 18/92 were verified against UT Parking.', 'San Jacinto, Dean Keeton, Robert Dedman, Red River and MLK traffic-control corridors were checked against current 2026 guidance.', 'The diagram avoids fixed traffic arrows because UT publishes separate pregame and postgame traffic patterns.'],
+  },
+  'heb-center-at-cedar-park': {
+    id: 'parking-map:heb-center-at-cedar-park:2026-09', venueSlug: 'heb-center-at-cedar-park', venueName: 'H-E-B Center at Cedar Park', imageUrl: '/images/parking-maps/heb-center-at-cedar-park.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for H-E-B Center at Cedar Park showing lots A through I, Premium Lot B and Premium Circle',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['H-E-B Center publishes a current official parking map, but no reusable publication license was documented for the artwork.', 'Open-license source checks did not surface a current reusable H-E-B Center parking map.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'H-E-B Center — Directions & Parking', url: 'https://www.hebcenter.com/plan-your-visit/directions-parking', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Lots A through I, Premium Lot B and Premium Circle were compared with the current official parking map.', 'ADA parking in Lots B, F and G was verified against current venue guidance.', 'New Hope Road, Avenue of the Stars and 183A frontage-road access were checked against the official directions/map.', 'Rates are omitted because H-E-B Center states parking pricing varies by event.'],
+  },
+  'dell-diamond': {
+    id: 'parking-map:dell-diamond:2026-09', venueSlug: 'dell-diamond', venueName: 'Dell Diamond', imageUrl: '/images/parking-maps/dell-diamond.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Dell Diamond showing Northwest, West, East, Southwest and suite parking areas',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['The Round Rock Express publish a current Dell Diamond parking/site map, but no reusable publication license was documented for the official artwork.', 'Open-license searches did not surface a current reusable Dell Diamond parking map with the surrounding lot layout.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Round Rock Express — Directions & Parking', url: 'https://www.milb.com/round-rock/ballpark/directions-and-parking', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Round Rock Express — Dell Diamond FAQ', url: 'https://www.milb.com/round-rock/ballpark/faqs', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Northwest, West, East and Southwest parking areas were compared with the current official Dell Diamond site plan.', 'Suite hang-tag parking and the bus-parking area near the Home Plate Gate were checked against current Express information.', 'Highway 79/Palm Valley Boulevard and the eastern access relationship were checked against official directions.', 'Accessible spaces are represented generally because the Express states ADA parking is available in all surrounding lots.'],
+  },
+};
