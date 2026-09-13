@@ -18,6 +18,7 @@ import { VENUE_PARKING_MAPS_BATCH_15 } from './parking-maps-batch15';
 import { VENUE_PARKING_MAPS_BATCH_16 } from './parking-maps-batch16';
 import { VENUE_PARKING_MAPS_BATCH_17 } from './parking-maps-batch17';
 import { VENUE_PARKING_MAPS_BATCH_18 } from './parking-maps-batch18';
+import { VENUE_PARKING_MAPS_BATCH_19 } from './parking-maps-batch19';
 import { EVENT_PARKING_MAPS_BATCH_1 } from './parking-maps-event-batch1';
 
 export type {
@@ -49,6 +50,7 @@ const venueParkingMaps: Record<string, ParkingMapAsset> = {
   ...VENUE_PARKING_MAPS_BATCH_16,
   ...VENUE_PARKING_MAPS_BATCH_17,
   ...VENUE_PARKING_MAPS_BATCH_18,
+  ...VENUE_PARKING_MAPS_BATCH_19,
 };
 
 const eventParkingMaps: Record<string, ParkingMapAsset> = {
