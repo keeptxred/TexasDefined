@@ -137,7 +137,7 @@ function sourceComplete(block) {
 
 function contentComplete(block) {
   if (!hasAll(block, ['summary:', 'bestSeason:', 'entryNote:', 'highlights:', 'body:'])) return false;
-  const body = block.match(/body:\s*\[([\s\S]*?)\]\s*,?\s*}/)?.[1] ?? '';
+  const body = block.match(/body:\s*\[([\s\S]*?)\]\s*,?/)?.[1] ?? '';
   const paragraphs = [...body.matchAll(/"((?:\\.|[^"\\])*)"/g)].map((match) => match[1]);
   return paragraphs.length >= 3;
 }
