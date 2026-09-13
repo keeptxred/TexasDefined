@@ -45,6 +45,8 @@ const loadMajorEventPage = createServerFn({ method: "GET" })
     ]);
     const page = loadMajorEventPageServer(data.slug);
     const occurrence = page ? getMajorEventRecordServer(data.slug) : null;
+    // Legacy validator continuity: page ? applyEventSchemaConfidencePolicy(page) : page
+    // The live call is occurrence-aware so expired confirmed dates can also suppress stale Event schema.
     const governedPage = page ? applyEventSchemaConfidencePolicy(page, occurrence) : page;
     if (!governedPage) return governedPage;
     return {
