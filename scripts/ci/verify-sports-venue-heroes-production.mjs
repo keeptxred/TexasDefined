@@ -89,6 +89,18 @@ const venues = [
       'HavanaHeat',
     ],
   },
+  {
+    label: 'galaxy-stadium-hero',
+    path: '/sports-venue/jones-att-stadium',
+    required: [
+      'Galaxy Stadium',
+      'https://commons.wikimedia.org/wiki/Special:Redirect/file/Jones_AT%26T_Stadium_wide_shot.jpg?width=1600',
+      'content=\"https://commons.wikimedia.org/wiki/Special:Redirect/file/Jones_AT%26T_Stadium_wide_shot.jpg?width=1600\"',
+      'Galaxy Stadium in Lubbock, photographed while it was known as Jones AT&T Stadium',
+      'John McStravick',
+      'CC BY 2.0',
+    ],
+  },
   ...repairedWave7,
 ];
 
@@ -217,7 +229,7 @@ async function verifyVenue({ label, path, required, assetPath, heroEndpointPath 
       lastEndpoint = await inspectHeroEndpoint(heroEndpointPath, assetPath, token);
 
       if (!lastChallenge && response.ok && missing.length === 0 && !fallbackPresent && lastAsset.ok && lastEndpoint.ok) {
-        console.log(`[${label}] verified (${response.status}): registered hero and attribution are present, fallback is absent, local asset is healthy, and the same-origin hero endpoint resolves to the governed asset.`);
+        console.log(`[${label}] verified (${response.status}): registered hero and attribution are present, fallback is absent, local asset is healthy, and the same-origin hero endpoint resolves to the governed asset when required.`);
         appendSummary(`| ✅ pass | ${label} | ${lastStatus} | ${attempts} | no | ${lastAsset.status} | ${lastEndpoint.status} | ${lastEndpoint.finalPath || 'n/a'} | 0 |\n`);
         return;
       }
@@ -264,4 +276,4 @@ for (const venue of venues) {
   await verifyVenue(venue);
 }
 
-console.log(`TexasDefined sports venue hero production verification passed (${venues.length} protected venues; ${repairedWave7.length} repaired Wave 7 pages include live local-asset, same-origin hero endpoint and attribution checks).`);
+console.log(`TexasDefined sports venue hero production verification passed (${venues.length} protected venues; Galaxy Stadium has governed social-image verification and ${repairedWave7.length} repaired Wave 7 pages include live local-asset, same-origin hero endpoint and attribution checks).`);
