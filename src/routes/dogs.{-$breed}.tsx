@@ -1,8 +1,4 @@
-import { lazy, Suspense } from "react";
 import { createFileRoute, notFound } from "@tanstack/react-router";
-
-const DogsHubPage = lazy(() => import("@/components/dogs/DogsHubPage"));
-const DogBreedPage = lazy(() => import("@/components/dogs/DogBreedPage"));
 
 // Static governance marker for the loader-built head: canonicalPath, title: and description are returned in loaderData.head for both the hub and breed pages.
 export const Route = createFileRoute("/dogs/{-$breed}")({
@@ -13,15 +9,4 @@ export const Route = createFileRoute("/dogs/{-$breed}")({
     return data;
   },
   head: ({ loaderData }) => loaderData?.head ?? {},
-  component: DogsRouteComponent,
 });
-
-function DogsRouteComponent() {
-  const { breed } = Route.useParams();
-
-  return (
-    <Suspense fallback={<div className="min-h-[40vh]" aria-busy="true" />}>
-      {breed ? <DogBreedPage /> : <DogsHubPage />}
-    </Suspense>
-  );
-}
