@@ -1452,12 +1452,16 @@ const FindMyVoterRegistrationRoute = FindMyVoterRegistrationRouteImport.update({
   id: '/find-my-voter-registration',
   path: '/find-my-voter-registration',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/find-my-voter-registration.lazy').then((d) => d.Route),
+)
 const FindMyUtilitiesRoute = FindMyUtilitiesRouteImport.update({
   id: '/find-my-utilities',
   path: '/find-my-utilities',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/find-my-utilities.lazy').then((d) => d.Route),
+)
 const FindMySchoolDistrictRoute = FindMySchoolDistrictRouteImport.update({
   id: '/find-my-school-district',
   path: '/find-my-school-district',
@@ -1469,18 +1473,24 @@ const FindMyPropertyTaxRoute = FindMyPropertyTaxRouteImport.update({
   id: '/find-my-property-tax',
   path: '/find-my-property-tax',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/find-my-property-tax.lazy').then((d) => d.Route),
+)
 const FindMyHomesteadExemptionRoute =
   FindMyHomesteadExemptionRouteImport.update({
     id: '/find-my-homestead-exemption',
     path: '/find-my-homestead-exemption',
     getParentRoute: () => rootRouteImport,
-  } as any)
+  } as any).lazy(() =>
+    import('./routes/find-my-homestead-exemption.lazy').then((d) => d.Route),
+  )
 const FindMyEmergencyServicesRoute = FindMyEmergencyServicesRouteImport.update({
   id: '/find-my-emergency-services',
   path: '/find-my-emergency-services',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/find-my-emergency-services.lazy').then((d) => d.Route),
+)
 const FindMyDmvRoute = FindMyDmvRouteImport.update({
   id: '/find-my-dmv',
   path: '/find-my-dmv',
@@ -1490,7 +1500,9 @@ const FindMyCountyRoute = FindMyCountyRouteImport.update({
   id: '/find-my-county',
   path: '/find-my-county',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/find-my-county.lazy').then((d) => d.Route),
+)
 const EverythingBiggerInTexasRoute = EverythingBiggerInTexasRouteImport.update({
   id: '/everything-bigger-in-texas',
   path: '/everything-bigger-in-texas',
