@@ -42,3 +42,6 @@ jobs:
 
       - name: Verify RV Wave 7 production publication
         run: node scripts/ci/verify-rv-wave7-production.mjs
+
+      - name: Verify RV Wave 8 production publication
+        run: node scripts/ci/verify-rv-wave8-production.mjs
