@@ -21,6 +21,9 @@ jobs:
   populate:
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
       - name: Check out current main
         uses: actions/checkout@v4
@@ -83,7 +86,7 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --title 'Review populated TexasDefined editorial images' \
-            --body $'Automated missing-image population. This PR is intentionally not auto-merged. Review item-level image rights, source/credit metadata, subject relevance, and visual quality before merge. The official TexasDefined validation workflow is dispatched explicitly against this exact branch commit.')"
+            --body $'Automated missing-image population. Reusable real images are preferred; unresolved targets use the governed photorealistic AI fallback. This PR is intentionally not auto-merged. Review item-level image rights, source/credit metadata, subject relevance, and visual quality before merge. The official TexasDefined validation workflow is dispatched explicitly against this exact branch commit.')"
           echo "url=$pr_url" >> "$GITHUB_OUTPUT"
           echo "Opened $pr_url"
 
