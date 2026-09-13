@@ -8,6 +8,7 @@ const destinationCard = read('src/components/editorial/DestinationCard.tsx');
 const featureHero = read('src/components/editorial/FeatureHero.tsx');
 const articleRoute = read('src/routes/article.$slug.tsx');
 const destinationRoute = read('src/routes/destination.$slug.tsx');
+const destinationAudit = read('src/data/destination-audit.ts');
 const duplicateGuard = read('scripts/data/validate-editorial-image-duplicates.mjs');
 const header = read('src/components/layout/Header.tsx');
 const rootRoute = read('src/routes/__root.tsx');
@@ -96,6 +97,18 @@ for (const forbidden of ['generatedRepresentative(', 'gradient:${h1}-${h2}', 'Ge
 }
 for (const marker of ['CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}', 'CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}']) {
   if (!imageWorkflow.includes(marker)) errors.push(`Missing image-generation workflow credential binding: ${marker}`);
+}
+
+for (const marker of [
+  'function rvHeroGovernanceIssue',
+  'PROHIBITED_IMAGE_SOURCE_HOSTS',
+  'AI-generated representative editorial image',
+  'AI-generated place-specific editorial image',
+  'code: "hero-provenance"',
+  'RV hero is missing an approved item-level source URL',
+  'machine-readable commercial-use rights or license note',
+]) {
+  if (!destinationAudit.includes(marker)) errors.push(`RV destination image provenance gate missing: ${marker}`);
 }
 
 for (const marker of [
