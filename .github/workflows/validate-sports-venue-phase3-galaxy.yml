@@ -18,6 +18,8 @@ on:
       - 'scripts/data/validate-sports-venue-coverage.mjs'
       - 'scripts/data/validate-sports-venue-landings.mjs'
       - 'scripts/data/validate-sports-sponsorship.mjs'
+      - 'scripts/ci/verify-galaxy-social-production.mjs'
+      - 'scripts/ci/verify-viator-production.mjs'
       - '.github/workflows/validate-sports-venue-phase3-galaxy.yml'
   workflow_dispatch:
 
