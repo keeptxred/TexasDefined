@@ -7,13 +7,19 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}/texas-resources`;
 
 const discoveryLinks = [
+  ['Texas services: everyday government tasks', '/texas-services'],
   ['Texas driver license', '/texas-drivers-license'],
   ['Texas DMV', '/texas-dmv'],
   ['Texas vehicle registration', '/texas-vehicle-registration'],
   ['Texas fishing license', '/texas-fishing-license'],
+  ['Texas hunting license', '/texas-hunting-license'],
+  ['Texas birth certificate', '/texas-birth-certificate'],
+  ['Texas sales tax permit', '/texas-sales-tax-permit'],
+  ['Texas property-tax lookup', '/texas-property-tax-lookup'],
   ['Moving to Texas', '/moving-to-texas'],
   ['Money & Property', '/decide/financial-tools'],
-  ['Texas septic system design & OSSF guide', '/article/texas-septic-systems-homeowner-guide'],
+  ['Texas septic permit', '/texas-septic-permit'],
+  ['Texas flood information', '/texas-flood-information'],
   ['Texas Explained', '/texas-explained'],
   ['Best places to go camping in Texas', '/best-places-to-go-camping-in-texas'],
   ['Texas vs every other state', '/texas-vs-every-state'],
