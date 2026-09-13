@@ -53,23 +53,6 @@ const PAINTED_CHURCH_STATIC_PATHS = [
   "/explore/painted-churches/then-and-now",
 ] as const;
 
-const TEXAS_ROUTE_66_STATIC_PATHS = [
-  "/explore/route-66/texas-road-trip",
-  "/explore/route-66/shamrock",
-  "/explore/route-66/lela",
-  "/explore/route-66/mclean",
-  "/explore/route-66/alanreed",
-  "/explore/route-66/groom",
-  "/explore/route-66/conway",
-  "/explore/route-66/washburn",
-  "/explore/route-66/amarillo",
-  "/explore/route-66/bushland",
-  "/explore/route-66/wildorado",
-  "/explore/route-66/vega",
-  "/explore/route-66/adrian",
-  "/explore/route-66/glenrio",
-] as const;
-
 function escapeXml(value: string): string {
   return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&apos;");
 }
@@ -138,7 +121,9 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
     handlers: {
       GET: async () => {
         const { categories, regions } = await import("@/data/fixtures/texas");
-        const { landscapeGuideSlugs, landscapeSlugs } = await import("@/data/texas-landscape-slugs");
+        const { isRoute66StopIndexReady, isTexasLandscapeIndexReady } = await import("@/data/explore-leaf-quality");
+        const { texasLandscapeGuides, texasLandscapes } = await import("@/data/texas-landscapes");
+        const { TEXAS_ROUTE_66_STOPS } = await import("@/data/texas-route-66");
         const { cityPassDestinationExpansion } = await import("@/data/citypass-destination-expansion");
         const { preservedExploreDestinations } = await import("@/data/destination-preserved-catalog");
         const { publicCavernDestinationFallbacks } = await import("@/data/public-cavern-destinations");
@@ -222,6 +207,15 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           ...regions.map((region) => region.id),
           ...EXPLORE_REGION_SLUGS,
         ])];
+        const route66Paths = [
+          "/explore/route-66/texas-road-trip",
+          ...TEXAS_ROUTE_66_STOPS
+            .filter(isRoute66StopIndexReady)
+            .map((stop) => `/explore/route-66/${stop.slug}`),
+        ];
+        const landscapePaths = [...texasLandscapes, ...texasLandscapeGuides]
+          .filter(isTexasLandscapeIndexReady)
+          .map((item) => `/explore/landscapes/${item.slug}`);
         const staticPaths = [
           "/explore",
           "/explore/beaches-coast",
@@ -236,10 +230,9 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/top-attractions",
           "/explore/top-attractions/methodology",
           "/explore/top-attractions/road-trips",
-          ...TEXAS_ROUTE_66_STATIC_PATHS,
+          ...route66Paths,
           "/explore/landscapes",
-          ...landscapeSlugs.map((slug) => `/explore/landscapes/${slug}`),
-          ...landscapeGuideSlugs.map((slug) => `/explore/landscapes/${slug}`),
+          ...landscapePaths,
           ...(swimmingHoleAndTubingIndexReady ? [`/explore/${SWIMMING_HOLES_RIVER_TUBING_SLUG}`] : []),
           ...categorySlugs.map((slug) => `/explore/${slug}`),
           ...regionSlugs.map((regionSlug) => `/explore/region/${regionSlug}`),
