@@ -15,6 +15,16 @@ const dynamicRoute = read('src/routes/sports-venue.$slug.tsx');
 
 const failures = [];
 const recordSlugs = (source) => [...source.matchAll(/^  ["']([^"']+)["']: \{/gm)].map((match) => match[1]);
+const recordEntries = (source) => [...source.matchAll(/^  ["']([^"']+)["']: \{\n([\s\S]*?)^  \},$/gm)].map((match) => {
+  const body = match[2];
+  const field = (name) => body.match(new RegExp(`\\b${name}:\\s*["']([^"']+)["']`))?.[1] ?? '';
+  return {
+    slug: match[1],
+    imageUrl: field('imageUrl'),
+    sourcePage: field('sourcePage'),
+    sourceName: field('sourceName'),
+  };
+});
 const requireText = (source, needle, label) => {
   if (!source.includes(needle)) failures.push(`${label}: missing ${needle}`);
 };
@@ -122,10 +132,45 @@ if (missingExpectedShadows.length) failures.push(`Expected base-first shadow dup
 if (duplicateSlugs.length !== allowedBaseShadowDuplicates.size) failures.push(`Expected exactly ${allowedBaseShadowDuplicates.size} safe base-first shadow duplicates; found ${duplicateSlugs.length}.`);
 if (unique.size !== 84) failures.push(`Expected governed hero coverage for all 84 seeded sports venues after wave 7; found ${unique.size}.`);
 
+const effective = new Map();
+for (const source of sources) {
+  for (const entry of recordEntries(source)) {
+    if (!effective.has(entry.slug)) effective.set(entry.slug, entry);
+  }
+}
+if (effective.size !== 84) failures.push(`Expected 84 effective base-first venue image records; found ${effective.size}.`);
+
+const placeholderMarkers = ['placeholder', 'data:image/svg+xml', 'texasdefined-destination-placeholder', 'texasdefined-placeholder'];
+for (const [slug, entry] of effective) {
+  if (!entry.imageUrl) failures.push(`Effective venue hero is missing imageUrl: ${slug}.`);
+  const normalizedUrl = entry.imageUrl.toLowerCase();
+  if (placeholderMarkers.some((marker) => normalizedUrl.includes(marker))) {
+    failures.push(`Effective venue hero still points to a placeholder: ${slug} -> ${entry.imageUrl}.`);
+  }
+}
+
+const repeatedValues = (field) => {
+  const grouped = new Map();
+  for (const [slug, entry] of effective) {
+    const value = entry[field];
+    if (!value) continue;
+    const slugs = grouped.get(value) ?? [];
+    slugs.push(slug);
+    grouped.set(value, slugs);
+  }
+  return [...grouped.entries()].filter(([, slugs]) => slugs.length > 1);
+};
+for (const [imageUrl, slugs] of repeatedValues('imageUrl')) {
+  failures.push(`Multiple sports venues resolve to the same hero image URL (${slugs.join(', ')}): ${imageUrl}.`);
+}
+for (const [sourcePage, slugs] of repeatedValues('sourcePage')) {
+  failures.push(`Multiple sports venues resolve to the same hero source page (${slugs.join(', ')}): ${sourcePage}.`);
+}
+
 if (failures.length) {
   console.error('Final sports venue image validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log(`Final sports venue image validation passed: ${unique.size}/84 governed venue heroes, including 16 reviewed Wave 7 assets (2 reusable Commons photos + 14 generated venue-specific fallbacks) and ${allowedBaseShadowDuplicates.size} intentional base-first shadows. No sports venue remains on the generic image fallback.`);
+console.log(`Final sports venue image validation passed: ${unique.size}/84 governed venue heroes, 84/84 effective non-placeholder heroes, no cross-venue hero/source reuse, 16 reviewed Wave 7 assets (2 reusable Commons photos + 14 generated venue-specific fallbacks), and ${allowedBaseShadowDuplicates.size} intentional base-first shadows.`);
