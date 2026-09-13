@@ -59,6 +59,9 @@ jobs:
           node scripts/data/audit-event-schema-enrichment.mjs
           node --check scripts/ci/verify-event-structured-data-production.mjs
 
+      - name: Validate RV image provenance
+        run: node scripts/data/validate-rv-image-provenance.mjs
+
       - name: Validate date formatting SSR regression
         run: node --experimental-strip-types --test src/domain/utils/format.test.ts
 
