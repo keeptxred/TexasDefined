@@ -22,6 +22,7 @@ const landscapeGuideEnrichment = read('src/data/texas-landscape-guide-enrichment
 const landscapeProfileEnrichment = read('src/data/texas-landscape-profile-enrichment.ts');
 const landscapeDetail = read('src/components/editorial/TexasLandscapeDetailPage.tsx');
 const route66Page = read('src/data/texas-route-66-page.ts');
+const route66Enrichment = read('src/data/texas-route-66-enrichment.ts');
 const exploreLeafQuality = read('src/data/explore-leaf-quality.ts');
 const failures = [];
 
@@ -145,6 +146,22 @@ for (const marker of [
 ]) {
   if (!landscapeDetail.includes(marker)) failures.push(`Landscape profile visible authority depth missing: ${marker}`);
 }
+
+const route66PromotedStops = ['lela', 'alanreed', 'washburn', 'bushland', 'wildorado'];
+for (const slug of route66PromotedStops) {
+  if (!route66Enrichment.includes(`  ${slug}: {`)) failures.push(`Route 66 context-stop authority enrichment missing: ${slug}`);
+}
+for (const marker of [
+  'ROUTE_66_CONTEXT_STOP_SLUGS',
+  'enrichTexasRoute66Stop',
+  'enrichTexasRoute66Stops',
+  'TEXAS_ROUTE_66_PRIMARY_SOURCE',
+]) {
+  if (!route66Enrichment.includes(marker)) failures.push(`Route 66 authority enrichment contract missing: ${marker}`);
+}
+const route66HandbookLinks = (route66Enrichment.match(/https:\/\/www\.tshaonline\.org\/handbook\/entries\/[a-z0-9-]+/g) ?? []).length;
+if (route66HandbookLinks < route66PromotedStops.length) failures.push(`Route 66 context-stop enrichment exposes ${route66HandbookLinks} Handbook of Texas authority links; expected at least ${route66PromotedStops.length}.`);
+
 for (const marker of [
   'auditTexasLandscapeItem',
   'auditRoute66Stop',
@@ -152,11 +169,13 @@ for (const marker of [
   'item.fieldNotes.length < 2',
   'item.sourceLinks.length < 2',
   'words < 220',
-  'stop.sourceLinks.length < 2',
+  'enrichTexasRoute66Stop(stop)',
+  'candidate.sourceLinks.length < 2',
 ]) {
   if (!exploreLeafQuality.includes(marker)) failures.push(`Explore leaf quality auditor missing: ${marker}`);
 }
 for (const marker of [
+  'TEXAS_ROUTE_66_PAGE_STOPS = enrichTexasRoute66Stops(TEXAS_ROUTE_66_STOPS)',
   'isRoute66StopIndexReady(stop)',
   'robots: readyForIndexing ? undefined : "noindex, follow"',
 ]) {
@@ -222,4 +241,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated preserved-catalog fallback when remote sources are unavailable or empty, Explore sitemap responses cannot persist stale edge variants, all 24 landscape profiles and Route 66 leaf pages are promoted only after substantive quality checks, landscape guides and profiles carry visible authority sources, verified city authority URLs are promoted only through the shared readiness gate, county property children are verification-filtered, and robots advertises each sitemap once.');
+console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated preserved-catalog fallback when remote sources are unavailable or empty, Explore sitemap responses cannot persist stale edge variants, all 24 landscape profiles and all 13 Route 66 stop pages are promoted only after substantive quality checks, landscape and Route 66 guides carry visible authority sources, verified city authority URLs are promoted only through the shared readiness gate, county property children are verification-filtered, and robots advertises each sitemap once.');

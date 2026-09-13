@@ -1,5 +1,6 @@
 import type { EnrichedLandscapeRecord } from "@/data/texas-landscape-profile-enrichment";
 import type { LandscapeGuide } from "@/data/texas-landscapes";
+import { enrichTexasRoute66Stop } from "@/data/texas-route-66-enrichment";
 import type { TexasRoute66Stop } from "@/data/texas-route-66";
 
 export type ExploreLeafQualityAudit = {
@@ -61,18 +62,19 @@ export function isTexasLandscapeIndexReady(item: EnrichedLandscapeRecord | Lands
 }
 
 export function auditRoute66Stop(stop: TexasRoute66Stop): ExploreLeafQualityAudit {
+  const candidate = enrichTexasRoute66Stop(stop);
   const words = wordCount([
-    stop.summary,
-    stop.routeContext,
-    ...stop.highlights,
-    ...stop.planning,
+    candidate.summary,
+    candidate.routeContext,
+    ...candidate.highlights,
+    ...candidate.planning,
   ]);
   const reasons: string[] = [];
 
   if (words < 110) reasons.push(`stop-specific copy has only ${words} words; expected at least 110`);
-  if (stop.sourceLinks.length < 2) reasons.push(`only ${stop.sourceLinks.length} authority source; expected at least 2`);
-  if (stop.highlights.length < 3) reasons.push(`only ${stop.highlights.length} stop-specific highlights; expected at least 3`);
-  if (stop.planning.length < 3) reasons.push(`only ${stop.planning.length} planning notes; expected at least 3`);
+  if (candidate.sourceLinks.length < 2) reasons.push(`only ${candidate.sourceLinks.length} authority source; expected at least 2`);
+  if (candidate.highlights.length < 3) reasons.push(`only ${candidate.highlights.length} stop-specific highlights; expected at least 3`);
+  if (candidate.planning.length < 3) reasons.push(`only ${candidate.planning.length} planning notes; expected at least 3`);
 
   return { readyForIndexing: reasons.length === 0, wordCount: words, reasons };
 }
