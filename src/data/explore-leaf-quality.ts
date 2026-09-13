@@ -1,4 +1,5 @@
-import type { LandscapeGuide, LandscapeRecord } from "@/data/texas-landscapes";
+import type { EnrichedLandscapeRecord } from "@/data/texas-landscape-profile-enrichment";
+import type { LandscapeGuide } from "@/data/texas-landscapes";
 import type { TexasRoute66Stop } from "@/data/texas-route-66";
 
 export type ExploreLeafQualityAudit = {
@@ -16,7 +17,7 @@ function wordCount(parts: Array<string | undefined>) {
     .filter(Boolean).length;
 }
 
-function auditLandscapeRecord(item: LandscapeRecord): ExploreLeafQualityAudit {
+function auditLandscapeRecord(item: EnrichedLandscapeRecord): ExploreLeafQualityAudit {
   const words = wordCount([
     item.intro,
     item.where,
@@ -26,10 +27,13 @@ function auditLandscapeRecord(item: LandscapeRecord): ExploreLeafQualityAudit {
     item.water,
     ...item.signature,
     ...item.bestFor,
+    ...item.fieldNotes.map((note) => `${note.heading} ${note.body}`),
   ]);
   const reasons: string[] = [];
 
-  if (words < 90) reasons.push(`field-guide copy has only ${words} words; expected at least 90`);
+  if (words < 180) reasons.push(`field-guide copy has only ${words} words; expected at least 180`);
+  if (item.fieldNotes.length < 2) reasons.push(`only ${item.fieldNotes.length} field notes; expected at least 2`);
+  if (item.sourceLinks.length < 2) reasons.push(`only ${item.sourceLinks.length} authority sources; expected at least 2`);
   if (item.signature.length < 5) reasons.push(`only ${item.signature.length} signature features; expected at least 5`);
   if (item.bestFor.length < 5) reasons.push(`only ${item.bestFor.length} trip-use signals; expected at least 5`);
   if (item.related.length < 1) reasons.push("missing a related TexasDefined path");
@@ -48,11 +52,11 @@ function auditLandscapeGuide(item: LandscapeGuide): ExploreLeafQualityAudit {
   return { readyForIndexing: reasons.length === 0, wordCount: words, reasons };
 }
 
-export function auditTexasLandscapeItem(item: LandscapeRecord | LandscapeGuide): ExploreLeafQualityAudit {
+export function auditTexasLandscapeItem(item: EnrichedLandscapeRecord | LandscapeGuide): ExploreLeafQualityAudit {
   return "name" in item ? auditLandscapeRecord(item) : auditLandscapeGuide(item);
 }
 
-export function isTexasLandscapeIndexReady(item: LandscapeRecord | LandscapeGuide) {
+export function isTexasLandscapeIndexReady(item: EnrichedLandscapeRecord | LandscapeGuide) {
   return auditTexasLandscapeItem(item).readyForIndexing;
 }
 
