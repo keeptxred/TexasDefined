@@ -8,6 +8,7 @@ import { TEXAS_PLACE_GEOGRAPHY } from "../geography-knowledge-graph.ts";
 
 const hubRoute = readFileSync(new URL("../../routes/regions.tsx", import.meta.url), "utf8");
 const detailRoute = readFileSync(new URL("../../routes/regions.$region.tsx", import.meta.url), "utf8");
+const detailPage = readFileSync(new URL("../../components/regions/CanonicalRegionPage.tsx", import.meta.url), "utf8");
 const exploreRoute = readFileSync(new URL("../../routes/explore.index.lazy.tsx", import.meta.url), "utf8");
 const sitemapRoute = readFileSync(new URL("../../routes/sitemap[.]xml.ts", import.meta.url), "utf8");
 const publicRoutes = readFileSync(new URL("../../lib/public-routes.ts", import.meta.url), "utf8");
@@ -36,8 +37,9 @@ test("canonical landing routes reuse the graph instead of creating a second geog
   assert.match(detailRoute, /TEXAS_PLACE_GEOGRAPHY/);
   assert.match(detailRoute, /canonicalPrimaryRegion/);
   assert.match(detailRoute, /canonicalRegionPresentation/);
-  assert.match(detailRoute, /region\.travelRegionIds/);
+  assert.match(detailPage, /region\.travelRegionIds/);
   assert.match(detailRoute, /region\.adjacentRegionIds/);
+  assert.match(detailPage, /Statewide region navigation/);
   assert.doesNotMatch(presentationSource, /export const CANONICAL_PRIMARY_REGIONS\s*=/);
 });
 
