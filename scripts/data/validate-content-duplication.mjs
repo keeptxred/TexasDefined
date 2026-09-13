@@ -98,6 +98,58 @@ function registerMetadata(ownerMap, value, canonical, file) {
   ownerMap.set(key, owners);
 }
 
+function ngrams(value, width = 3) {
+  const normalized = normalizeMetadata(value)
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+  const compact = ` ${normalized} `;
+  const grams = new Set();
+  for (let i = 0; i <= compact.length - width; i += 1) grams.add(compact.slice(i, i + width));
+  return grams;
+}
+
+function diceSimilarity(left, right) {
+  const a = ngrams(left);
+  const b = ngrams(right);
+  if (!a.size || !b.size) return 0;
+  let overlap = 0;
+  for (const gram of a) if (b.has(gram)) overlap += 1;
+  return (2 * overlap) / (a.size + b.size);
+}
+
+function distinctStaticOwners(ownerMap) {
+  const owners = [];
+  for (const group of ownerMap.values()) {
+    for (const owner of group) owners.push(owner);
+  }
+  return owners;
+}
+
+function flagNearDuplicates(kind, ownerMap, { minLength, threshold }) {
+  const owners = distinctStaticOwners(ownerMap);
+  const seen = new Set();
+  for (let i = 0; i < owners.length; i += 1) {
+    const left = owners[i];
+    if (left.value.length < minLength) continue;
+    for (let j = i + 1; j < owners.length; j += 1) {
+      const right = owners[j];
+      if (right.value.length < minLength || left.canonical === right.canonical) continue;
+      if (normalizeMetadata(left.value) === normalizeMetadata(right.value)) continue;
+      const pairKey = [left.canonical, right.canonical].sort().join('|');
+      if (seen.has(pairKey)) continue;
+      const similarity = diceSimilarity(left.value, right.value);
+      if (similarity < threshold) continue;
+      seen.add(pairKey);
+      errors.push(
+        `Near-duplicate static meta ${kind} (${(similarity * 100).toFixed(1)}% similarity) across canonical pages: `
+        + `${left.canonical} (${left.file}) ↔ ${right.canonical} (${right.file})`,
+      );
+    }
+  }
+}
+
 const files = await routeFiles(routesDir);
 const canonicalOwners = new Map();
 const titleOwners = new Map();
@@ -130,6 +182,12 @@ for (const [kind, ownerMap] of [['title', titleOwners], ['description', descript
     errors.push(`Duplicate static meta ${kind} "${owners[0].value}" across canonical pages: ${locations.join(', ')}`);
   }
 }
+
+// Exact-match checks miss templated pages whose metadata differs by only a place name,
+// qualifier, or a few words. Intentionally conservative trigram thresholds catch those high-confidence
+// near-duplicates without treating normal shared topic vocabulary as cannibalization.
+flagNearDuplicates('title', titleOwners, { minLength: 24, threshold: 0.94 });
+flagNearDuplicates('description', descriptionOwners, { minLength: 80, threshold: 0.96 });
 
 const publicRoutes = await readFile(join(root, 'src/lib/public-routes.ts'), 'utf8');
 const redirectPaths = [...publicRoutes.matchAll(/\s+"(\/[^"\n]+)",/g)]
@@ -176,4 +234,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Broken-content and duplication validation passed across ${files.length} route files, ${canonicalOwners.size} static canonical declarations, ${titleOwners.size} resolved static meta titles, and ${descriptionOwners.size} resolved static meta descriptions.`);
+console.log(`Broken-content and duplication validation passed across ${files.length} route files, ${canonicalOwners.size} static canonical declarations, ${titleOwners.size} resolved static meta titles, and ${descriptionOwners.size} resolved static meta descriptions, including conservative near-duplicate metadata checks.`);
