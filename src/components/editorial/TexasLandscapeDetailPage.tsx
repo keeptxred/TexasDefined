@@ -4,10 +4,11 @@ import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Section, SectionHeader } from '@/components/editorial/SectionHeader';
 import { Container } from '@/components/layout/Container';
 import type { LandscapeCatalogItem } from '@/data/texas-landscape-catalog';
-import type { LandscapeGuide, LandscapeRecord } from '@/data/texas-landscapes';
+import type { EnrichedLandscapeGuide } from '@/data/texas-landscape-guide-enrichment';
+import type { LandscapeRecord } from '@/data/texas-landscapes';
 
 type TexasLandscapeDetailPageProps = {
-  item: LandscapeRecord | LandscapeGuide;
+  item: LandscapeRecord | EnrichedLandscapeGuide;
   nearby: Pick<LandscapeCatalogItem, 'slug' | 'name' | 'dek'>[];
 };
 
@@ -27,6 +28,12 @@ export function TexasLandscapeDetailPage({ item, nearby }: TexasLandscapeDetailP
                 <p className="mt-4 text-base leading-8 text-muted-foreground">{section.body}</p>
               </section>)}
             </div>
+            <section className="mt-14 border-t-2 border-foreground pt-7">
+              <p className="eyebrow text-primary">Source desk</p>
+              <h2 className="mt-3 font-display text-3xl">Authority sources used for this guide</h2>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">Landscape boundaries are gradual, and travel conditions can change. These public-agency sources support the physical-geography claims in this guide; current park access, road conditions and closures should still be checked before travel.</p>
+              <ul className="mt-6 space-y-3">{item.sourceLinks.map((source) => <li key={source.href}><a href={source.href} target="_blank" rel="noreferrer" className="border-b border-primary pb-1 text-sm font-semibold text-primary">{source.label} →</a></li>)}</ul>
+            </section>
           </div>
         </Container>
       </Section>
