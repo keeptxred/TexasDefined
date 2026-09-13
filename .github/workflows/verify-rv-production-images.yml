@@ -1,0 +1,44 @@
+name: Verify RV production images
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-rv-production-images
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out deployed revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Certify all RV destination heroes on production
+        run: node scripts/ci/verify-rv-production-images.mjs
+
+      - name: Upload RV production certification diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rv-production-images-${{ github.run_id }}
+          path: .artifacts/rv-production-images.json
+          if-no-files-found: warn
+          retention-days: 7

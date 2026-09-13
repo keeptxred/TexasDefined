@@ -428,7 +428,9 @@ function destinationFromSeed(seed: RvParkSeedRecord): Destination {
     alt: licensedImage.alt,
     width: licensedImage.width,
     height: licensedImage.height,
-    credit: `${licensedImage.creator} · ${licensedImage.license} · Wikimedia Commons · ${licensedImage.sourceUrl}`,
+    credit: licensedImage.sourceKind === "generated-representative"
+      ? `${licensedImage.creator} · ${licensedImage.license}`
+      : `${licensedImage.creator} · ${licensedImage.license} · Wikimedia Commons · ${licensedImage.sourceUrl}`,
   } : {
     src: DESTINATION_PHOTO_PLACEHOLDER,
     alt: `${seed.name} RV park or campground profile awaiting a destination-specific photograph`,
