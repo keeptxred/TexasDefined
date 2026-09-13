@@ -6,6 +6,15 @@ const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 const fallbackText = 'A verified venue photograph is not available yet.';
 
+const wave7RealPhotoAttribution = {
+  'round-rock-sports-center': ['Wikimedia Commons', 'Tony Webster', 'CC BY 2.0'],
+  'texas-motorplex': ['Wikimedia Commons', 'Michael Barera', 'CC BY-SA 4.0'],
+};
+const wave7GeneratedAttribution = [
+  'AI-generated representative editorial image',
+  'not documentary photography',
+];
+
 const repairedWave7 = [
   ['amarillo-national-center', 'AI-generated photorealistic editorial depiction of Amarillo National Center in Amarillo, Texas'],
   ['childrens-health-stadium-prosper', "AI-generated photorealistic editorial depiction of Children's Health Stadium in Prosper, Texas"],
@@ -23,12 +32,20 @@ const repairedWave7 = [
   ['texas-motorplex', 'Texas Motorplex in Ennis, Texas'],
   ['tpc-san-antonio', 'AI-generated photorealistic editorial depiction of TPC San Antonio in San Antonio, Texas'],
   ['waco-surf', 'AI-generated photorealistic editorial depiction of Waco Surf in Waco, Texas'],
-].map(([slug, alt]) => ({
-  label: `${slug}-hero`,
-  path: `/sports-venue/${slug}`,
-  assetPath: `/images/sports-venues/${slug}.jpg`,
-  required: [`/images/sports-venues/${slug}.jpg`, `content=\"${origin}/images/sports-venues/${slug}.jpg\"`, alt],
-}));
+].map(([slug, alt]) => {
+  const attributionMarkers = wave7RealPhotoAttribution[slug] ?? wave7GeneratedAttribution;
+  return {
+    label: `${slug}-hero`,
+    path: `/sports-venue/${slug}`,
+    assetPath: `/images/sports-venues/${slug}.jpg`,
+    required: [
+      `/images/sports-venues/${slug}.jpg`,
+      `content=\"${origin}/images/sports-venues/${slug}.jpg\"`,
+      alt,
+      ...attributionMarkers,
+    ],
+  };
+});
 
 const venues = [
   {
@@ -156,7 +173,7 @@ async function verifyVenue({ label, path, required, assetPath }) {
       lastAsset = await inspectLocalAsset(assetPath, token);
 
       if (!lastChallenge && response.ok && missing.length === 0 && !fallbackPresent && lastAsset.ok) {
-        console.log(`[${label}] verified (${response.status}): registered hero is present, fallback is absent, and local asset is healthy.`);
+        console.log(`[${label}] verified (${response.status}): registered hero and attribution are present, fallback is absent, and local asset is healthy.`);
         appendSummary(`| ✅ pass | ${label} | ${lastStatus} | ${attempts} | no | ${lastAsset.status} | ${lastAsset.bytes || 'n/a'} | 0 |\n`);
         return;
       }
@@ -166,7 +183,7 @@ async function verifyVenue({ label, path, required, assetPath }) {
       } else if (!response.ok) {
         console.log(`[${label}] HTTP ${response.status}; waiting for production to become healthy.`);
       } else {
-        if (missing.length) console.log(`[${label}] registered hero markers missing: ${missing.join(' | ')}`);
+        if (missing.length) console.log(`[${label}] registered hero/attribution markers missing: ${missing.join(' | ')}`);
         if (fallbackPresent) console.log(`[${label}] fail-closed photo fallback is still being rendered.`);
         if (!lastAsset.ok) console.log(`[${label}] local hero asset unhealthy: status=${lastAsset.status} bytes=${lastAsset.bytes} type=${lastAsset.contentType || 'unknown'} error=${lastAsset.error || 'none'}`);
       }
@@ -188,7 +205,7 @@ async function verifyVenue({ label, path, required, assetPath }) {
     || (lastStatus !== '200' ? `HTTP ${lastStatus}` : '')
     || (fallbackPresent ? 'photo fallback is still rendered despite a registered venue hero' : '')
     || (!lastAsset.ok ? `local hero asset unhealthy: status=${lastAsset.status}, bytes=${lastAsset.bytes}, type=${lastAsset.contentType || 'unknown'}, error=${lastAsset.error || 'none'}` : '')
-    || `required hero markers missing: ${missing.join(' | ')}`;
+    || `required hero/attribution markers missing: ${missing.join(' | ')}`;
   console.error(`::error title=LIVE PRODUCTION sports venue hero failure::${label} failed after ${attempts} attempts — ${reason}`);
   if (lastBody) console.error(`[${label}] response sample: ${lastBody.slice(0, 1800).replace(/\s+/g, ' ')}`);
   throw new Error(`${label}: ${reason}`);
@@ -201,4 +218,4 @@ for (const venue of venues) {
   await verifyVenue(venue);
 }
 
-console.log(`TexasDefined sports venue hero production verification passed (${venues.length} protected venues; ${repairedWave7.length} repaired Wave 7 pages include live local-asset checks).`);
+console.log(`TexasDefined sports venue hero production verification passed (${venues.length} protected venues; ${repairedWave7.length} repaired Wave 7 pages include live local-asset and attribution checks).`);
