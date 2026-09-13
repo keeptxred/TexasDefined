@@ -10,7 +10,7 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute(canonicalPath)({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title, description }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Find Your Texas Property Tax and Appraisal Offices', description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({ '@context': 'https://schema.org', '@type': 'WebApplication', name: title, description, url: `${siteUrl}${canonicalPath}`, applicationCategory: 'FinanceApplication', operatingSystem: 'Web' })],
   }),
