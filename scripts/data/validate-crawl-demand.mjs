@@ -18,6 +18,7 @@ const countyDirectory = readRouteSurface('src/routes/browse.counties.tsx');
 const countyPropertyDirectory = read('src/components/directories/TexasCountyPropertyDirectory.tsx');
 const leafOnlyParents = read('src/lib/leaf-only-parent-routes.tsx');
 const landscapeServer = read('src/data/texas-landscapes.server.ts');
+const landscapeGuideEnrichment = read('src/data/texas-landscape-guide-enrichment.ts');
 const route66Page = read('src/data/texas-route-66-page.ts');
 const exploreLeafQuality = read('src/data/explore-leaf-quality.ts');
 const failures = [];
@@ -93,19 +94,30 @@ for (const marker of [
   "robots: readyForIndexing ? undefined : 'noindex, follow'",
   'links: [canonicalLink(texasDefinedBrand, path)]',
   'isTexasLandscapeIndexReady(item)',
+  'citation: isLandscape ? undefined : item.sourceLinks.map((source) => source.href)',
 ]) {
   if (!landscapeServer.includes(marker)) failures.push(`Landscape child crawl-quality contract missing: ${marker}`);
 }
 for (const marker of [
   'const { isRoute66StopIndexReady, isTexasLandscapeIndexReady } = await import("@/data/explore-leaf-quality")',
-  'const { texasLandscapeGuides, texasLandscapes } = await import("@/data/texas-landscapes")',
+  'const { enrichedTexasLandscapeGuides } = await import("@/data/texas-landscape-guide-enrichment")',
+  'const { texasLandscapes } = await import("@/data/texas-landscapes")',
   'const { TEXAS_ROUTE_66_STOPS } = await import("@/data/texas-route-66")',
-  'const landscapePaths = [...texasLandscapes, ...texasLandscapeGuides]',
+  'const landscapePaths = [...texasLandscapes, ...enrichedTexasLandscapeGuides]',
   '.filter(isTexasLandscapeIndexReady)',
   '...TEXAS_ROUTE_66_STOPS',
   '.filter(isRoute66StopIndexReady)',
 ]) {
   if (!explore.includes(marker)) failures.push(`Explore sitemap leaf-quality gate missing: ${marker}`);
+}
+for (const marker of [
+  'enrichedTexasLandscapeGuides',
+  'sourceLinks',
+  'TPWD_ECOREGIONS',
+  'NPS_BIG_BEND',
+  'NPS_BIG_THICKET',
+]) {
+  if (!landscapeGuideEnrichment.includes(marker)) failures.push(`Landscape guide authority enrichment missing: ${marker}`);
 }
 for (const marker of [
   'auditTexasLandscapeItem',
@@ -182,4 +194,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated preserved-catalog fallback when remote sources are unavailable or empty, Explore sitemap responses cannot persist stale edge variants, landscape and Route 66 leaf pages are promoted only after substantive quality checks, verified city authority URLs are promoted only through the shared readiness gate, county property children are verification-filtered, and robots advertises each sitemap once.');
+console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated preserved-catalog fallback when remote sources are unavailable or empty, Explore sitemap responses cannot persist stale edge variants, landscape and Route 66 leaf pages are promoted only after substantive quality checks, enriched landscape guides carry authority sources, verified city authority URLs are promoted only through the shared readiness gate, county property children are verification-filtered, and robots advertises each sitemap once.');
