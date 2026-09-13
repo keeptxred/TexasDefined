@@ -1,3 +1,4 @@
+import './validate-rv-image-registry.mjs';
 import fs from 'node:fs';
 
 const read = (path) => fs.readFileSync(path, 'utf8');
