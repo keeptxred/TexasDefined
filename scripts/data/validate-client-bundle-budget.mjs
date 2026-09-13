@@ -11,11 +11,11 @@ const feedRoutePaths = [
   path.resolve('src/routes/rss[.]xml.ts'),
   primarySitemapPath,
 ];
-// CI measured the stable, non-route-split client bundle at 1,807,457 bytes.
-// Keep less than 1% headroom so meaningful growth fails without making the
-// budget smaller than the known-good production build.
-const STABLE_MAIN_BASELINE_BYTES = 1_807_457;
-const MAX_MAIN_BYTES = 1_825_000;
+// CI measured the post-relocation-tool client bundle at 1,834,711 bytes.
+// Keep the guardrail below the project's 1.85 MB ceiling while allowing the
+// intentional route expansion to ship without masking future bundle growth.
+const STABLE_MAIN_BASELINE_BYTES = 1_834_711;
+const MAX_MAIN_BYTES = 1_840_000;
 const MAX_CSS_BYTES = 140_000;
 
 function reportCiError(title, message) {
