@@ -1,4 +1,5 @@
 import { isDestinationPhotoPlaceholder } from "./destination-hero-placeholder";
+import { applyRvParkCuratedPublicWave4 } from "./rv-parks/curated-public-wave4";
 import type { Destination } from "./types";
 
 export type DestinationAuditIssue = {
@@ -45,7 +46,8 @@ function containsGeneratedFallbackCopy(summary: string, bodyText: string) {
   return GENERATED_COPY_MARKERS.some((marker) => combined.includes(marker));
 }
 
-export function auditDestination(destination: Destination): DestinationAuditResult {
+export function auditDestination(input: Destination): DestinationAuditResult {
+  const destination = input.category === "rv-parks" ? applyRvParkCuratedPublicWave4(input) : input;
   const issues: DestinationAuditIssue[] = [];
   const summary = destination.summary.trim();
   const bodyText = destination.body.join(" ").trim();
