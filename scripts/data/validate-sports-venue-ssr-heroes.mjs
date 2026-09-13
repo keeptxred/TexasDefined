@@ -64,9 +64,15 @@ for (const marker of [
 
 for (const marker of [
   "['amarillo-national-center', 'AI-generated photorealistic editorial depiction of Amarillo National Center in Amarillo, Texas']",
+  'const wave7RealPhotoAttribution = {',
+  "'round-rock-sports-center': ['Wikimedia Commons', 'Tony Webster', 'CC BY 2.0']",
+  "'texas-motorplex': ['Wikimedia Commons', 'Michael Barera', 'CC BY-SA 4.0']",
+  "'AI-generated representative editorial image'",
+  "'not documentary photography'",
+  '...attributionMarkers',
   'lastBody = await response.text();',
   "headers: { 'user-agent': 'TexasDefined-CI-Production-Smoke/1.0' }",
-]) requireText(productionVerifier, marker, 'live raw-HTML hero production contract');
+]) requireText(productionVerifier, marker, 'live raw-HTML hero and attribution production contract');
 
 if (failures.length) {
   console.error('Sports venue SSR hero validation failed:');
@@ -74,4 +80,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Sports venue SSR hero validation passed: guide content is server-visible and all runtime hero metadata uses the aggregate photo registry.');
+console.log('Sports venue SSR hero validation passed: guide content is server-visible, runtime hero metadata uses the aggregate photo registry, and live production verification protects generated-vs-real attribution semantics.');
