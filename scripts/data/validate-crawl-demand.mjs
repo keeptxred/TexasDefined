@@ -4,7 +4,7 @@ const read = (file) => fs.readFileSync(file, 'utf8');
 const readRouteSurface = (file) => {
   const eagerSource = read(file);
   const lazyFile = file.replace(/\.tsx$/, '.lazy.tsx');
-  return fs.existsSync(lazyFile) ? `${eagerSource}\n${read(lazyFile)}` : eagerSource;
+  return fs.existsSync(lazyFile) ? `${eagerSource}\n${fs.readFileSync(lazyFile, 'utf8')}` : eagerSource;
 };
 
 const registry = read('src/lib/public-routes.ts');
@@ -18,6 +18,8 @@ const countyDirectory = readRouteSurface('src/routes/browse.counties.tsx');
 const countyPropertyDirectory = read('src/components/directories/TexasCountyPropertyDirectory.tsx');
 const leafOnlyParents = read('src/lib/leaf-only-parent-routes.tsx');
 const landscapeServer = read('src/data/texas-landscapes.server.ts');
+const route66Page = read('src/data/texas-route-66-page.ts');
+const exploreLeafQuality = read('src/data/explore-leaf-quality.ts');
 const failures = [];
 
 for (const sitemap of [
@@ -87,16 +89,38 @@ for (const marker of [
 }
 for (const marker of [
   'const path = `/explore/landscapes/${item.slug}`;',
-  'buildMeta(texasDefinedBrand, { canonicalPath: path, title, description })',
+  'buildMeta(texasDefinedBrand, {',
+  "robots: readyForIndexing ? undefined : 'noindex, follow'",
   'links: [canonicalLink(texasDefinedBrand, path)]',
+  'isTexasLandscapeIndexReady(item)',
 ]) {
-  if (!landscapeServer.includes(marker)) failures.push(`Landscape child self-canonical contract missing: ${marker}`);
+  if (!landscapeServer.includes(marker)) failures.push(`Landscape child crawl-quality contract missing: ${marker}`);
 }
 for (const marker of [
-  'landscapeSlugs.map((slug) => `/explore/landscapes/${slug}`)',
-  'landscapeGuideSlugs.map((slug) => `/explore/landscapes/${slug}`)',
+  'const { isRoute66StopIndexReady, isTexasLandscapeIndexReady } = await import("@/data/explore-leaf-quality")',
+  'const { texasLandscapeGuides, texasLandscapes } = await import("@/data/texas-landscapes")',
+  'const { TEXAS_ROUTE_66_STOPS } = await import("@/data/texas-route-66")',
+  'const landscapePaths = [...texasLandscapes, ...texasLandscapeGuides]',
+  '.filter(isTexasLandscapeIndexReady)',
+  '...TEXAS_ROUTE_66_STOPS',
+  '.filter(isRoute66StopIndexReady)',
 ]) {
-  if (!explore.includes(marker)) failures.push(`Explore sitemap must retain substantive self-canonical landscape coverage: ${marker}`);
+  if (!explore.includes(marker)) failures.push(`Explore sitemap leaf-quality gate missing: ${marker}`);
+}
+for (const marker of [
+  'auditTexasLandscapeItem',
+  'auditRoute66Stop',
+  'words < 90',
+  'words < 220',
+  'stop.sourceLinks.length < 2',
+]) {
+  if (!exploreLeafQuality.includes(marker)) failures.push(`Explore leaf quality auditor missing: ${marker}`);
+}
+for (const marker of [
+  'isRoute66StopIndexReady(stop)',
+  'robots: readyForIndexing ? undefined : "noindex, follow"',
+]) {
+  if (!route66Page.includes(marker)) failures.push(`Route 66 child crawl-quality contract missing: ${marker}`);
 }
 
 for (const marker of [
@@ -158,4 +182,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated preserved-catalog fallback when remote sources are unavailable or empty, Explore sitemap responses cannot persist stale edge variants, landscape sitemap children are protected as leaf-only self-canonical routes, verified city authority URLs are promoted only through the shared readiness gate, county property children are verification-filtered, and robots advertises each sitemap once.');
+console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated preserved-catalog fallback when remote sources are unavailable or empty, Explore sitemap responses cannot persist stale edge variants, landscape and Route 66 leaf pages are promoted only after substantive quality checks, verified city authority URLs are promoted only through the shared readiness gate, county property children are verification-filtered, and robots advertises each sitemap once.');
