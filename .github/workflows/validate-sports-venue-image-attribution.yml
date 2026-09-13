@@ -1,0 +1,22 @@
+name: Validate sports venue image attribution
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/sports-venue-image-attribution.ts'
+      - 'src/components/sports/SportsVenueQuickAnswers.tsx'
+      - 'src/components/sports/SportsVenueGuidePage.tsx'
+      - 'src/data/sports-venue-images-additions-wave7.ts'
+      - 'scripts/data/validate-sports-venue-image-attribution.mjs'
+      - '.github/workflows/validate-sports-venue-image-attribution.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node scripts/data/validate-sports-venue-image-attribution.mjs

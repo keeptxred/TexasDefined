@@ -10,6 +10,7 @@ import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
 import type { SportsVenueEnrichment } from "@/data/sports-venue-enrichment";
 import type { SportsVenueGuidePilot } from "@/data/sports-venue-guide-pilots";
+import { isGeneratedSportsVenueImage } from "@/data/sports-venue-image-attribution";
 import type { SportsVenuePhoto } from "@/data/sports-venue-images";
 import type { SportsVenueLanding } from "@/data/sports-venue-landings";
 import type { PublicSportsSponsorPlacement } from "@/data/sports-sponsorship.types";
@@ -299,6 +300,7 @@ function SourcesSection({ entity, guide, enrichment, photo, reviewedAt }: { enti
     ...(enrichment?.planningLinks ?? []).map((link) => ({ label: link.label, href: link.url })),
     ...(entity.officialUrl ? [{ label: "Knowledge-graph official venue source", href: entity.officialUrl }] : []),
   ]);
+  const generatedImage = isGeneratedSportsVenueImage(photo);
 
   return (
     <section className="py-10 sm:py-12" aria-labelledby="venue-sources-heading">
@@ -318,7 +320,11 @@ function SourcesSection({ entity, guide, enrichment, photo, reviewedAt }: { enti
               ))}
             </ul>
           ) : null}
-          {photo ? (
+          {photo && generatedImage ? (
+            <p className="border-t border-border pt-4 text-xs leading-6 text-muted-foreground">
+              AI-generated representative editorial image by {photo.author} for TexasDefined; not documentary photography. <a href={photo.sourcePage} target="_blank" rel="noreferrer" className="underline underline-offset-4">Media record</a> · <a href={photo.licenseUrl} target="_blank" rel="noreferrer" className="underline underline-offset-4">{photo.licenseName}</a>.
+            </p>
+          ) : photo ? (
             <p className="border-t border-border pt-4 text-xs leading-6 text-muted-foreground">
               Photo: <a href={photo.sourcePage} target="_blank" rel="noreferrer" className="underline underline-offset-4">{photo.sourceName}</a>, {photo.author}. <a href={photo.licenseUrl} target="_blank" rel="noreferrer" className="underline underline-offset-4">{photo.licenseName}</a>.
             </p>
