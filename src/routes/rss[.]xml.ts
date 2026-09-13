@@ -15,12 +15,11 @@ export const Route = createFileRoute("/rss.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const [dataModule, countySeriesModule, indexReadinessModule] = await Promise.all([
-          import("@/data"),
+        const { platform, scope } = await import("@/data");
+        const [countySeriesModule, indexReadinessModule] = await Promise.all([
           import("@/data/county-series"),
           import("@/data/fixtures/texas-gateway-index-readiness"),
         ]);
-        const { platform, scope } = dataModule;
         const { isLegacyCountySeriesArticle } = countySeriesModule;
         const { isArticleDiscoveryReady } = indexReadinessModule;
 
