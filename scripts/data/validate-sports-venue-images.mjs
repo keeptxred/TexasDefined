@@ -80,33 +80,37 @@ for (const forbidden of ['gettyimages', 'tripadvisor', 'yelp', 'facebook.com', '
 
 for (const marker of [
   "createFileRoute('/api/sports-venue-hero')",
-  "'content-type': 'image/svg+xml; charset=utf-8'",
+  "const missingHeroHeaders = {",
+  "'cache-control': 'no-store'",
+  "'x-robots-tag': 'noindex, nofollow'",
   "findCompleteTexasEntity(lookupSlug)",
   "entity.kind !== 'sports-venue'",
   'getSportsVenueEnrichmentAll(lookupSlug)',
   "import('@/data/sports-venue-images-all')",
   'getSportsVenuePhoto(lookupSlug)',
+  'if (!photo)',
+  "return new Response('Not found', { status: 404, headers: missingHeroHeaders });",
   'location: photo.imageUrl',
   'status: 302',
-  'enrichment.imageBrief',
-  "Original TexasDefined editorial illustration · no venue logos or sponsor marks",
-  "type VenueVisualKind = 'stadium' | 'ballpark' | 'arena' | 'motorsports' | 'golf' | 'western' | 'surf'",
-  "lookupSlug === 'jones-att-stadium' ? 'Galaxy Stadium' : entity.name",
-]) assert(heroRoute.includes(marker), `Sports venue hero route is missing protected marker: ${marker}`);
+]) assert(heroRoute.includes(marker), `Sports venue hero route is missing protected fail-closed marker: ${marker}`);
 assert(!heroRoute.includes("import('@/data/sports-venue-images')"), 'Sports venue hero route must not use the base-only image registry; it must resolve the aggregate Wave 1–7 registry.');
-
 for (const forbidden of [
   'fetch(',
   'images.unsplash.com',
   'cloudinary',
   'gettyimages',
-]) assert(!heroRoute.toLowerCase().includes(forbidden.toLowerCase()), `Sports venue hero route must not fetch or directly embed ungoverned imagery: ${forbidden}`);
+  'image/svg+xml',
+  'renderVenueHero',
+  'VenueVisualKind',
+  'Original TexasDefined editorial illustration',
+]) assert(!heroRoute.toLowerCase().includes(forbidden.toLowerCase()), `Sports venue hero route must fail closed instead of fetching or rendering fallback imagery: ${forbidden}`);
 assert(!heroRoute.includes('commons.wikimedia.org/wiki/Special:Redirect/file/'), 'Wikimedia delivery URLs must remain centralized in the licensed photo registry, not hardcoded in the route.');
 
 for (const marker of [
   "canonicalUrl.split('/sports-venue/')",
-  '/api/sports-venue-hero?slug=',
   'getSportsVenuePhoto(slug)',
+  'const heroSrc = slug && photo ?',
+  '/api/sports-venue-hero?slug=',
   'const heroAlt = photo?.alt',
   'const heroWidth = photo?.width ?? 1600',
   'const heroHeight = photo?.height ?? 900',
@@ -120,9 +124,9 @@ for (const marker of [
   'photo.sourcePage',
   'photo.licenseUrl',
   'photo.licenseName',
-  'Original TexasDefined editorial illustration.',
-]) assert(sharedComponent.includes(marker), `Shared sports venue component is missing image marker: ${marker}`);
+]) assert(sharedComponent.includes(marker), `Shared sports venue component is missing governed-image marker: ${marker}`);
 
+assert(!sharedComponent.includes('Original TexasDefined editorial illustration.'), 'Shared sports venue component must not render a generic illustration when a governed hero is missing.');
 assert(!sharedComponent.includes('http://') && !sharedComponent.includes('commons.wikimedia.org/wiki/Special:Redirect/file/'), 'Shared venue component must use the governed same-origin hero endpoint instead of direct third-party delivery URLs.');
 
 if (errors.length) {
@@ -131,4 +135,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue imagery validated: ${imageBriefCount} venue briefs, ${licensedPhotoSlugs.length} licensed photo overrides with attribution metadata, aggregate Wave 1–7 same-origin delivery, owned SVG fallback rendering and structured ImageObject metadata.`);
+console.log(`Sports venue imagery validated: ${imageBriefCount} venue briefs, ${licensedPhotoSlugs.length} licensed photo overrides with attribution metadata, aggregate Wave 1–7 same-origin delivery, fail-closed missing-hero behavior, and governed structured ImageObject metadata.`);
