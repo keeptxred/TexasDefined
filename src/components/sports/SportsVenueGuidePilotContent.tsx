@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import type { TexasEventCarouselItem } from "@/components/editorial/TexasEventCarousel";
 import { StandaloneParkingMapPanel } from "@/components/parking/ParkingMapPanel";
 import { useVenueParkingMap } from "@/components/parking/useVenueParkingMap";
-import { imageReferencesMatch } from "@/data/image-reference-identity";
+import { canonicalImageReference, imageReferencesMatch } from "@/data/image-reference-identity";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
 import { getSportsVenueEnrichmentAll } from "@/data/sports-venue-enrichment-all";
 import { getSportsVenueGuideGalaxy } from "@/data/sports-venue-guide-galaxy";
@@ -67,20 +67,30 @@ export function SportsVenueGuidePilotContent({
       ? { ...entity, officialUrl: guide.officialUrl }
       : entity;
   const photo = getSportsVenuePhoto(slug);
-  const venueEvents: readonly TexasEventCarouselItem[] = photo
-    ? upcomingEvents.map((event) => {
-        if (
-          event.image?.url !== photo.imageUrl
-          && event.image?.sourceUrl !== photo.sourcePage
-          && !imageReferencesMatch(
-            [event.image?.url, event.image?.sourceUrl],
-            [photo.imageUrl, photo.sourcePage],
-          )
-        ) return event;
-        const { image: _duplicateVenueImage, ...eventWithoutDuplicateVenueImage } = event;
-        return eventWithoutDuplicateVenueImage;
-      })
-    : upcomingEvents;
+  const seenEventImageKeys = new Set<string>();
+  const venueEvents: readonly TexasEventCarouselItem[] = upcomingEvents.map((event) => {
+    if (!event.image) return event;
+
+    const isDistinctFromVenueHero = !photo || (
+      event.image?.url !== photo.imageUrl
+      && event.image?.sourceUrl !== photo.sourcePage
+      && !imageReferencesMatch(
+        [event.image?.url, event.image?.sourceUrl],
+        [photo.imageUrl, photo.sourcePage],
+      )
+    );
+    const repeatsVenueHero = !isDistinctFromVenueHero;
+    const imageKey = canonicalImageReference(event.image.url);
+    const repeatsEventImage = Boolean(imageKey && seenEventImageKeys.has(imageKey));
+
+    if (!repeatsVenueHero && !repeatsEventImage) {
+      if (imageKey) seenEventImageKeys.add(imageKey);
+      return event;
+    }
+
+    const { image: _duplicateVenueImage, ...eventWithoutDuplicateVenueImage } = event;
+    return eventWithoutDuplicateVenueImage;
+  });
 
   return (
     <>
