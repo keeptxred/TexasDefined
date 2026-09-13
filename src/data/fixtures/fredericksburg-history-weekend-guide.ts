@@ -26,6 +26,7 @@ export const fredericksburgHistoryWeekendGuideArticle: Article = {
   sourceName: "National Museum of the Pacific War",
   sourceUrl: "https://www.pacificwarmuseum.org/visit",
   internalLinks: [
+    { href: "/destination/fredericksburg", label: "Fredericksburg travel guide", description: "Use the main destination guide for a broader Hill Country trip, including practical planning beyond this history-first itinerary." },
     { href: "/destination/national-museum-pacific-war", label: "National Museum of the Pacific War", description: "Give the museum the largest time block of the weekend rather than trying to squeeze it between shopping stops." },
     { href: "/destination/fort-martin-scott", label: "Fort Martin Scott", description: "Connect U.S. Army frontier expansion with the young German settlement of Fredericksburg." },
     { href: "/german-czech-texas-towns", label: "German & Czech Texas towns", description: "Place Fredericksburg inside the larger Central Texas immigration and cultural landscape." },
@@ -33,7 +34,7 @@ export const fredericksburgHistoryWeekendGuideArticle: Article = {
     { href: "/article/texas-world-war-ii-historic-sites-guide", label: "Texas and World War II", description: "Connect Fredericksburg's Pacific War story with Eisenhower, Iwo Jima memory and wartime mobility elsewhere in Texas." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["national-museum-pacific-war", "fort-martin-scott"],
+  relatedDestinations: ["fredericksburg", "national-museum-pacific-war", "fort-martin-scott"],
   body: [
     p("Fredericksburg is easy to visit without learning much about why the town exists. Main Street, restaurants, tasting rooms and shops can fill a weekend by themselves. A history-first trip reverses the order: start with the German settlement and frontier context, reserve a serious block of time for the National Museum of the Pacific War, and let food and shopping fit around the story rather than replace it."),
     p("That approach works because Fredericksburg holds two unusually different historical scales. Fort Martin Scott explains the local frontier of the late 1840s and 1850s. The National Museum of the Pacific War expands from the life of Fredericksburg native Chester Nimitz into a global conflict. The town between them supplies the immigration, architecture and community history that connects local identity to both."),
