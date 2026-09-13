@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - "scripts/data/sync-rv-park-hero-assets.mjs"
+      - "scripts/data/enforce-rv-park-hero-location-policy.mjs"
       - "scripts/data/enforce-rv-hero-subject-quality.mjs"
       - ".github/workflows/rv-park-hero-assets.yml"
 
@@ -57,6 +58,9 @@ jobs:
           fi
           exit 0
 
+      - name: Enforce strict exact-property location policy
+        run: node scripts/data/enforce-rv-park-hero-location-policy.mjs
+
       - name: Enforce RV hero subject quality
         run: node scripts/data/enforce-rv-hero-subject-quality.mjs
 
@@ -67,20 +71,26 @@ jobs:
           import fs from 'node:fs';
           const report = JSON.parse(fs.readFileSync('scripts/data/rv-park-hero-report.json', 'utf8'));
           const unresolved = Array.isArray(report.unresolved) ? report.unresolved : [];
+          const strictPresent = Boolean(report.strictLocationPolicy);
+          const strict = report.strictLocationPolicy || {};
           const ok = report.totalSeeds === 250
             && report.governedAfter === 250
             && report.backlogAfter === 0
-            && unresolved.length === 0;
+            && unresolved.length === 0
+            && strictPresent
+            && Number(strict.commonsReviewed ?? 0) >= Number(strict.commonsAccepted ?? 0)
+            && Number(strict.commonsReviewed ?? 0) === Number(strict.commonsAccepted ?? 0) + Number(strict.commonsRejected ?? 0);
           if (!ok) {
             console.error('RV image publication gate failed', {
               totalSeeds: report.totalSeeds,
               governedAfter: report.governedAfter,
               backlogAfter: report.backlogAfter,
               unresolved: unresolved.length,
+              strictLocationPolicy: report.strictLocationPolicy,
             });
             process.exit(1);
           }
-          console.log('RV image publication gate passed: 250/250 governed, backlog 0, unresolved 0.');
+          console.log('RV image publication gate passed: 250/250 governed, backlog 0, unresolved 0, strict location review complete.');
           NODE
 
       - name: Run RV inventory classification audit
@@ -128,7 +138,7 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --title 'Backfill governed RV park hero images' \
-            --body $'Automated RV image backlog reconciliation. Resolution order: use only commercially reusable, strongly location-matched Wikimedia Commons imagery when the subject is also suitable as a destination hero; otherwise create a clearly labeled AI-generated representative editorial image. Weak wildlife/flora close-ups, emergency-response scenes, and novelty subjects are rejected by the hero-quality guard. Generated representatives are explicitly marked actualLocation=false and never presented as documentary photos. This PR is created only after the hard publication gate confirms 250/250 governed records, backlogAfter=0, and unresolved=0. Existing source/content/indexing gates remain in force. Review scripts/data/rv-park-hero-report.json plus item-level visual relevance before merge. Resolver exit code: '"$RESOLVE_EXIT"$'.')"
+            --body $'Automated RV image backlog reconciliation with strict location and hero-subject verification. Wikimedia Commons imagery survives only when the file title contains the exact named private property, or exact public-land identity, plus Texas/town/county evidence, and the subject is suitable as a destination hero. Ambiguous/context-only matches, weak wildlife/flora close-ups, emergency-response scenes, and novelty subjects are replaced by clearly labeled AI-generated representative editorial images with actualLocation=false. This PR is created only after the hard publication gate confirms 250/250 governed records, backlogAfter=0, unresolved=0, and a complete strict-location review. Existing source/content/indexing gates remain in force. Review scripts/data/rv-park-hero-report.json, strictLocationPolicy, heroSubjectQuality, and item-level visual relevance before merge. Resolver exit code: '"$RESOLVE_EXIT"$'.')"
           echo "url=$pr_url" >> "$GITHUB_OUTPUT"
           echo "Opened $pr_url"
 
