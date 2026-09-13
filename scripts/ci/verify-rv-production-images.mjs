@@ -9,6 +9,7 @@ const ARTIFACT_PATH = path.join(ROOT, '.artifacts/rv-production-images.json');
 const EXPECTED_SEED_COUNT = 250;
 const PAGE_CONCURRENCY = 10;
 const ASSET_CONCURRENCY = 12;
+const REMOTE_IMAGE_PATH = '/media/remote';
 
 function parseImageEntries(source) {
   const lines = source.split(/\r?\n/);
@@ -44,6 +45,19 @@ function parseImageEntries(source) {
   }
 
   return entries;
+}
+
+function commonsSource(commonsFile) {
+  return `https://commons.wikimedia.org/wiki/Special:Redirect/file/${encodeURIComponent(commonsFile)}`;
+}
+
+function deliveredHeroSrc(entry) {
+  if (entry.localSrc) return entry.localSrc;
+  if (entry.commonsFile) {
+    const source = commonsSource(entry.commonsFile);
+    return `${REMOTE_IMAGE_PATH}?url=${encodeURIComponent(source)}`;
+  }
+  throw new Error(`RV hero entry ${entry.slug} has no deliverable source.`);
 }
 
 function parseAuditClassifications() {
@@ -154,32 +168,28 @@ const pageResults = await mapLimit(entries, PAGE_CONCURRENCY, async (entry) => {
     const response = await fetchWithRetry(pageUrl);
     const html = await response.text();
     const classification = audit.get(entry.slug);
+    const deliverySrc = deliveredHeroSrc(entry);
     const result = {
       slug: entry.slug,
       status: response.status,
       localSrc: entry.localSrc,
       commonsFile: entry.commonsFile,
+      deliveredHeroSrc: deliverySrc,
       generatedRepresentative: entry.generatedRepresentative,
       robotsExpected: classification?.robots ?? null,
       noindexObserved: pageHasNoindex(html),
       placeholderObserved: html.includes('destination-photo.jpg'),
-      expectedHeroObserved: false,
+      expectedHeroObserved: html.includes(deliverySrc),
       representativeLabelObserved: !entry.generatedRepresentative,
     };
 
-    if (entry.localSrc) {
-      result.expectedHeroObserved = html.includes(entry.localSrc);
-    } else if (entry.commonsFile) {
-      const expectedCommonsSrc = `https://commons.wikimedia.org/wiki/Special:Redirect/file/${encodeURIComponent(entry.commonsFile)}`;
-      result.expectedHeroObserved = html.includes(expectedCommonsSrc) || html.includes('commons.wikimedia.org/wiki/Special:Redirect/file/');
-    }
     if (entry.generatedRepresentative) {
       result.representativeLabelObserved = html.includes('AI-generated representative editorial image');
     }
 
     if (response.status !== 200) failures.push(`${entry.slug}: destination returned HTTP ${response.status}`);
     if (result.placeholderObserved) failures.push(`${entry.slug}: live page still contains destination-photo.jpg`);
-    if (!result.expectedHeroObserved) failures.push(`${entry.slug}: governed hero source is not present in live HTML`);
+    if (!result.expectedHeroObserved) failures.push(`${entry.slug}: governed delivered hero source is not present in live HTML`);
     if (!result.representativeLabelObserved) failures.push(`${entry.slug}: generated representative image is not labeled as representative AI imagery`);
     if (classification?.robots === 'NOINDEX' && !result.noindexObserved) {
       failures.push(`${entry.slug}: audit requires NOINDEX but live page lacks a robots noindex directive`);
@@ -192,9 +202,9 @@ const pageResults = await mapLimit(entries, PAGE_CONCURRENCY, async (entry) => {
   }
 });
 
-const localEntries = entries.filter((entry) => entry.localSrc);
-const assetResults = await mapLimit(localEntries, ASSET_CONCURRENCY, async (entry) => {
-  const assetUrl = new URL(entry.localSrc, ORIGIN);
+const assetResults = await mapLimit(entries, ASSET_CONCURRENCY, async (entry) => {
+  const deliverySrc = deliveredHeroSrc(entry);
+  const assetUrl = new URL(deliverySrc, ORIGIN);
   assetUrl.searchParams.set('rv-image-smoke', Date.now().toString());
   try {
     let response = await fetchWithRetry(assetUrl, { method: 'HEAD' });
@@ -203,15 +213,28 @@ const assetResults = await mapLimit(localEntries, ASSET_CONCURRENCY, async (entr
       await response.arrayBuffer();
     }
     const contentType = response.headers.get('content-type') || '';
-    if (!response.ok) failures.push(`${entry.slug}: image asset returned HTTP ${response.status}`);
-    if (!contentType.toLowerCase().startsWith('image/')) failures.push(`${entry.slug}: image asset returned content-type ${contentType || 'missing'}`);
-    return { slug: entry.slug, status: response.status, contentType };
+    if (!response.ok) failures.push(`${entry.slug}: delivered hero asset returned HTTP ${response.status}`);
+    if (!contentType.toLowerCase().startsWith('image/')) failures.push(`${entry.slug}: delivered hero asset returned content-type ${contentType || 'missing'}`);
+    return {
+      slug: entry.slug,
+      deliveryKind: entry.localSrc ? 'local' : 'remote-proxy',
+      deliveredHeroSrc: deliverySrc,
+      status: response.status,
+      contentType,
+    };
   } catch (error) {
-    failures.push(`${entry.slug}: image asset fetch failed: ${error instanceof Error ? error.message : String(error)}`);
-    return { slug: entry.slug, fetchError: error instanceof Error ? error.message : String(error) };
+    failures.push(`${entry.slug}: delivered hero asset fetch failed: ${error instanceof Error ? error.message : String(error)}`);
+    return {
+      slug: entry.slug,
+      deliveryKind: entry.localSrc ? 'local' : 'remote-proxy',
+      deliveredHeroSrc: deliverySrc,
+      fetchError: error instanceof Error ? error.message : String(error),
+    };
   }
 });
 
+const localEntries = entries.filter((entry) => entry.localSrc);
+const remoteEntries = entries.filter((entry) => entry.commonsFile);
 const generatedCount = entries.filter((entry) => entry.generatedRepresentative).length;
 const noindexRequired = [...audit.values()].filter((record) => record.robots === 'NOINDEX').length;
 const artifact = {
@@ -219,7 +242,7 @@ const artifact = {
   origin: ORIGIN,
   governedEntries: entries.length,
   localImageEntries: localEntries.length,
-  remoteCommonsEntries: entries.length - localEntries.length,
+  remoteCommonsEntries: remoteEntries.length,
   generatedRepresentativeEntries: generatedCount,
   noindexRequired,
   pageChecks: pageResults.length,
@@ -230,7 +253,7 @@ const artifact = {
 };
 fs.writeFileSync(ARTIFACT_PATH, `${JSON.stringify(artifact, null, 2)}\n`);
 
-console.log(`RV production image certification: ${entries.length} pages, ${localEntries.length} local assets, ${generatedCount} representative AI heroes, ${noindexRequired} NOINDEX-required records.`);
+console.log(`RV production image certification: ${entries.length} pages, ${localEntries.length} local assets, ${remoteEntries.length} proxied Commons assets, ${generatedCount} representative AI heroes, ${noindexRequired} NOINDEX-required records.`);
 if (failures.length) {
   console.error(`RV production image certification failed with ${failures.length} issue(s):`);
   for (const failure of failures.slice(0, 100)) console.error(`- ${failure}`);
@@ -238,4 +261,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('RV production image certification passed: all governed pages are live without the destination placeholder, all local hero assets resolve as images, generated representatives are labeled, and NOINDEX requirements remain enforced.');
+console.log('RV production image certification passed: all governed pages are live without the destination placeholder, all delivered hero assets (local or proxied Commons) resolve as images, generated representatives are labeled, and NOINDEX requirements remain enforced.');
