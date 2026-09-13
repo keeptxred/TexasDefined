@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 import { ParkingMapPanel } from '@/components/parking/ParkingMapPanel';
 import { useVenueParkingMap } from '@/components/parking/useVenueParkingMap';
 import { SportsTrafficTracker } from '@/components/sports/SportsTrafficTracker';
-import { getSportsVenuePhoto } from '@/data/sports-venue-images';
+import { getSportsVenuePhoto } from '@/data/sports-venue-images-all';
 
 const CityPassContextualCallout = lazy(() =>
   import('@/components/monetization/CityPassContextualCallout').then((module) => ({

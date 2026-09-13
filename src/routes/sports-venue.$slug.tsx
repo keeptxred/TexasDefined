@@ -1,9 +1,9 @@
-import { lazy, Suspense } from 'react';
 import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
 import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
+import { SportsVenueGuidePilotContent } from '@/components/sports/SportsVenueGuidePilotContent';
 import { SportsVenueQuickAnswers } from '@/components/sports/SportsVenueQuickAnswers';
 import {
   canonicalEntityPath,
@@ -191,26 +191,20 @@ export const Route = createFileRoute('/sports-venue/$slug')({
   component: SportsVenuePage,
 });
 
-const SportsVenueGuidePilotContent = lazy(
-  () => import('@/components/sports/SportsVenueGuidePilotContent'),
-);
-
 function SportsVenuePage() {
   const { slug } = Route.useParams();
   const { entity, visitorPlaces, upcomingEvents, eventCalendarHref, landingLinks, sponsorPlacement } = Route.useLoaderData();
 
   if (isSportsVenueGuidePilot(slug)) {
-    return <Suspense fallback={null}>
-      <SportsVenueGuidePilotContent
-        slug={slug}
-        entity={entity}
-        nearbyAttractions={visitorPlaces}
-        upcomingEvents={upcomingEvents}
-        eventCalendarHref={eventCalendarHref}
-        landingLinks={landingLinks}
-        sponsorPlacement={sponsorPlacement}
-      />
-    </Suspense>;
+    return <SportsVenueGuidePilotContent
+      slug={slug}
+      entity={entity}
+      nearbyAttractions={visitorPlaces}
+      upcomingEvents={upcomingEvents}
+      eventCalendarHref={eventCalendarHref}
+      landingLinks={landingLinks}
+      sponsorPlacement={sponsorPlacement}
+    />;
   }
 
   return <LegacySportsVenuePage />;
