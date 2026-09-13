@@ -111,6 +111,7 @@ const offers = countWith(/\boffers\s*:/);
 const performers = countWith(/\bperformers\s*:/);
 const images = countWith(/\bimage(?:Url)?\s*:/);
 const total = records.length;
+const imageRemediationPending = total - images;
 
 const summary = {
   batches: batchFiles.length,
@@ -122,10 +123,15 @@ const summary = {
   intentionallyWithoutOrganizer: total - organizer,
   intentionallyWithoutOffers: total - offers,
   intentionallyWithoutPerformers: total - performers,
-  intentionallyWithoutImages: total - images,
+  imageRemediationPending,
+  imageCoverageComplete: imageRemediationPending === 0,
 };
 
 console.log(`Event schema enrichment metrics audit passed across ${summary.batches} batch files and ${summary.reviewedLeaves} reviewed leaves.`);
-console.log(`Optional enrichment coverage: organizer=${summary.organizer}, offers=${summary.offers}, performers=${summary.performers}, images=${summary.images}`);
-console.log(`Intentional omissions: organizer=${summary.intentionallyWithoutOrganizer}, offers=${summary.intentionallyWithoutOffers}, performers=${summary.intentionallyWithoutPerformers}, images=${summary.intentionallyWithoutImages}`);
+console.log(`Optional enrichment coverage: organizer=${summary.organizer}, offers=${summary.offers}, performers=${summary.performers}`);
+console.log(`Required image coverage: images=${summary.images}, remediationPending=${summary.imageRemediationPending}, complete=${summary.imageCoverageComplete}`);
+console.log(`Intentional non-image omissions: organizer=${summary.intentionallyWithoutOrganizer}, offers=${summary.intentionallyWithoutOffers}, performers=${summary.intentionallyWithoutPerformers}`);
+if (summary.imageRemediationPending > 0) {
+  console.warn(`${summary.imageRemediationPending} reviewed Event guides still require a compliant hero; the route/sitemap image governance gate must keep them fail-closed until remediation completes.`);
+}
 console.log(`EVENT_SCHEMA_ENRICHMENT_AUDIT=${JSON.stringify(summary)}`);
