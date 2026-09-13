@@ -1,19 +1,22 @@
 import { createServerFn } from "@tanstack/react-start";
 
+import { hasExpiredConfirmedEventOccurrence, type EventOccurrenceDateShape } from "./event-occurrence-lifecycle";
 import { isRecurrenceDerivedMajorEventSlug } from "./major-event-date-confidence";
 
-// These authority guides expose useful organizer-backed recurrence rules for trip
-// planning, but the displayed future occurrence has not been published as a
-// dedicated year-specific schedule. Keep the evergreen guide indexable while
-// withholding scheduled Event rich-result markup until first-party confirmation.
+// These authority guides remain useful evergreen trip-planning pages even when a
+// future occurrence is recurrence-derived or the last confirmed occurrence has
+// already ended. In either case, withhold scheduled Event rich-result markup until
+// a first-party source confirms a current or future occurrence.
 function applyEventSchemaConfidencePolicy<T extends {
   slug: string;
   name: string;
   title: string;
   description: string;
   jsonLd: string;
-}>(page: T): T {
-  if (!isRecurrenceDerivedMajorEventSlug(page.slug)) return page;
+}>(page: T, occurrence: EventOccurrenceDateShape | null): T {
+  const shouldWithholdScheduledEventSchema = isRecurrenceDerivedMajorEventSlug(page.slug)
+    || Boolean(occurrence && hasExpiredConfirmedEventOccurrence(occurrence));
+  if (!shouldWithholdScheduledEventSchema) return page;
 
   const canonicalUrl = `https://texasdefined.com/event/${page.slug}`;
   return {
@@ -36,12 +39,13 @@ function applyEventSchemaConfidencePolicy<T extends {
 const loadMajorEventPage = createServerFn({ method: "GET" })
   .inputValidator((data: { slug: string }) => data)
   .handler(async ({ data }) => {
-    const [{ loadMajorEventPageServer }, { hasCompliantMajorEventImageServer }] = await Promise.all([
+    const [{ loadMajorEventPageServer, getMajorEventRecordServer }, { hasCompliantMajorEventImageServer }] = await Promise.all([
       import("./major-event-page.server"),
       import("./major-event-schema-enrichment.server"),
     ]);
     const page = loadMajorEventPageServer(data.slug);
-    const governedPage = page ? applyEventSchemaConfidencePolicy(page) : page;
+    const occurrence = page ? getMajorEventRecordServer(data.slug) : null;
+    const governedPage = page ? applyEventSchemaConfidencePolicy(page, occurrence) : page;
     if (!governedPage) return governedPage;
     return {
       ...governedPage,
