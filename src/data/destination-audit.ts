@@ -1,6 +1,7 @@
 import { isDestinationPhotoPlaceholder } from "./destination-hero-placeholder";
 import { applyRvParkCuratedPublicWave4 } from "./rv-parks/curated-public-wave4";
 import { applyRvParkCuratedPublicWave5 } from "./rv-parks/curated-public-wave5";
+import { applyRvParkCuratedPublicWave6 } from "./rv-parks/curated-public-wave6";
 import type { Destination } from "./types";
 
 export type DestinationAuditIssue = {
@@ -49,7 +50,7 @@ function containsGeneratedFallbackCopy(summary: string, bodyText: string) {
 
 export function auditDestination(input: Destination): DestinationAuditResult {
   const destination = input.category === "rv-parks"
-    ? applyRvParkCuratedPublicWave5(applyRvParkCuratedPublicWave4(input))
+    ? applyRvParkCuratedPublicWave6(applyRvParkCuratedPublicWave5(applyRvParkCuratedPublicWave4(input)))
     : input;
   const issues: DestinationAuditIssue[] = [];
   const summary = destination.summary.trim();
