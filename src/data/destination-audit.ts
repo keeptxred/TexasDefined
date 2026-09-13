@@ -25,6 +25,14 @@ const GENERATED_COPY_MARKERS = [
   "works best as part of a trip built around the surrounding region",
   "use the official visitor-information link on this page for the latest details",
 ];
+const PROHIBITED_IMAGE_SOURCE_HOSTS = [
+  "google.com",
+  "googleusercontent.com",
+  "yelp.com",
+  "tripadvisor.com",
+  "facebook.com",
+  "instagram.com",
+];
 
 function validCoordinates(destination: Destination) {
   const { lat, lng } = destination.coordinates;
@@ -45,6 +53,51 @@ function sourceReviewIsFresh(value: string) {
 function containsGeneratedFallbackCopy(summary: string, bodyText: string) {
   const combined = `${summary} ${bodyText}`.toLowerCase();
   return GENERATED_COPY_MARKERS.some((marker) => combined.includes(marker));
+}
+
+function firstHttpsUrl(value: string) {
+  return value.match(/https:\/\/[^\s·]+/i)?.[0] ?? null;
+}
+
+function sourceHostAllowed(value: string) {
+  try {
+    const host = new URL(value).hostname.toLowerCase().replace(/^www\./, "");
+    return !PROHIBITED_IMAGE_SOURCE_HOSTS.some((forbidden) => host === forbidden || host.endsWith(`.${forbidden}`));
+  } catch {
+    return false;
+  }
+}
+
+function rvHeroGovernanceIssue(destination: Destination): string | null {
+  if (destination.category !== "rv-parks" || isDestinationPhotoPlaceholder(destination.hero.src)) return null;
+
+  const alt = destination.hero.alt?.trim() ?? "";
+  const credit = destination.hero.credit?.trim() ?? "";
+  const combined = `${alt} ${credit}`;
+
+  if (/\bAI-generated representative editorial image\b/i.test(combined)) {
+    return "RV hero is only a generic AI representative image; replace it with an exact-location reusable image or a governed place-specific photorealistic AI depiction before indexing.";
+  }
+
+  if (/\bAI-generated place-specific editorial image\b/i.test(combined)) {
+    if (!destination.hero.src.startsWith("/images/rv-parks/")) {
+      return "Place-specific AI RV hero must be a TexasDefined-hosted RV asset.";
+    }
+    if (!/\bAI-generated place-specific editorial image\b/i.test(credit)) {
+      return "Place-specific AI RV hero is missing explicit generation/provenance credit.";
+    }
+    return null;
+  }
+
+  const sourceUrl = firstHttpsUrl(credit);
+  if (!sourceUrl || !sourceHostAllowed(sourceUrl)) {
+    return "RV hero is missing an approved item-level source URL or points to a prohibited image source.";
+  }
+  if (!/\b(?:CC\s*(?:BY|0)|public domain|government open|owner-provided|licensed)\b/i.test(credit)) {
+    return "RV hero is missing a machine-readable commercial-use rights or license note.";
+  }
+
+  return null;
 }
 
 export function auditDestination(input: Destination): DestinationAuditResult {
@@ -75,6 +128,10 @@ export function auditDestination(input: Destination): DestinationAuditResult {
   }
   if (isDestinationPhotoPlaceholder(destination.hero.src)) {
     issues.push({ code: "hero-placeholder", severity: "error", message: "Destination still uses a placeholder hero image." });
+  }
+  const heroGovernanceIssue = rvHeroGovernanceIssue(destination);
+  if (heroGovernanceIssue) {
+    issues.push({ code: "hero-provenance", severity: "error", message: heroGovernanceIssue });
   }
   if (!destination.hero.alt || destination.hero.alt.trim().length < 20) {
     issues.push({ code: "hero-alt", severity: "warning", message: "Hero image needs descriptive alt text." });
