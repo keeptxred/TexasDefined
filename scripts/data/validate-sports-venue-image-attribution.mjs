@@ -33,19 +33,21 @@ for (const marker of [
   'sportsVenueImageCaption(venueName, photo)',
   'const isGeneratedHero = isGeneratedSportsVenueImage(photo);',
   'AI-generated representative editorial image by {photo.author} for TexasDefined.',
-  'This is not documentary photography of the venue.',
+  'This is not documentary photography of the venue. {photo.licenseName}.',
   'Photo by <a',
   'Original source file is served unchanged',
 ]) requireText(quickAnswers, marker, 'quick-answer hero attribution');
 forbidText(quickAnswers, 'caption: photo ? `${venueName} — photo by', 'structured image metadata must branch on generated media');
+forbidText(quickAnswers, '>Media record</a>', 'generated quick-answer disclosure must not render a self-referential media link');
 
 for (const marker of [
   'isGeneratedSportsVenueImage',
   'const generatedImage = isGeneratedSportsVenueImage(photo);',
   'photo && generatedImage ?',
-  'AI-generated representative editorial image by {photo.author} for TexasDefined; not documentary photography.',
+  'AI-generated representative editorial image by {photo.author} for TexasDefined; not documentary photography. {photo.licenseName}.',
   'Photo: <a href={photo.sourcePage}',
 ]) requireText(guidePage, marker, 'shared guide source attribution');
+forbidText(guidePage, '>Media record</a>', 'generated guide disclosure must not render a self-referential media link');
 
 if (failures.length) {
   console.error('Sports venue image attribution validation failed:');
@@ -53,4 +55,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('PASS: sports venue imagery distinguishes generated representative media from documentary photography in visible credits and structured image captions while preserving real-photo attribution.');
+console.log('PASS: sports venue imagery distinguishes generated representative media from documentary photography in visible credits and structured image captions, avoids generated-media self-links, and preserves real-photo attribution.');
