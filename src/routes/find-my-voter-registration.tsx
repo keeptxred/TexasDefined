@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { RelocationServiceFinder } from '@/components/relocation/RelocationServiceFinder';
+import { LazyRelocationServiceFinder } from '@/components/relocation/LazyRelocationServiceFinder';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
@@ -14,5 +14,5 @@ export const Route = createFileRoute(canonicalPath)({
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({ '@context': 'https://schema.org', '@type': 'WebApplication', name: title, description, url: `${siteUrl}${canonicalPath}`, applicationCategory: 'GovernmentService', operatingSystem: 'Web' })],
   }),
-  component: () => <RelocationServiceFinder kind="voter" />,
+  component: () => <LazyRelocationServiceFinder kind="voter" />,
 });
