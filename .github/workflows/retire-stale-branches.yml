@@ -39,6 +39,8 @@ jobs:
             "cleanup/final-housekeeping-deploy-proof-20260825"
             "agent/rv-wave3-state-park-delivery"
             "cleanup/retire-rv-wave3-delivery-20260912"
+            "cleanup/remove-one-time-stale-ref-workflow-20260913"
+            "maintenance/retire-final-weird-town-cleanup-20260913"
           )
 
           main_sha="$(gh api "repos/$REPOSITORY/git/ref/heads/main" --jq '.object.sha')"
