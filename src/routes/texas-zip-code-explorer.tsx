@@ -1,9 +1,6 @@
-import { lazy, Suspense } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
-
-const TexasZipCodeExplorerPage = lazy(() => import('@/components/relocation/TexasZipCodeExplorerPage'));
 
 const canonicalPath = '/texas-zip-code-explorer';
 const title = 'Texas ZIP Code Explorer and Address Research Tool';
@@ -16,5 +13,4 @@ export const Route = createFileRoute(canonicalPath)({
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({ '@context': 'https://schema.org', '@type': 'WebApplication', name: title, description, url: `${siteUrl}${canonicalPath}`, applicationCategory: 'ReferenceApplication', operatingSystem: 'Web' })],
   }),
-  component: () => <Suspense fallback={<div className="mx-auto max-w-6xl px-4 py-16 text-sm text-muted-foreground">Loading Texas ZIP explorer…</div>}><TexasZipCodeExplorerPage /></Suspense>,
 });
