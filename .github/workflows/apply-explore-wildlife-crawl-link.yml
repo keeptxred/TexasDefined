@@ -1,0 +1,54 @@
+name: Apply Explore wildlife crawl link
+
+on:
+  push:
+    branches:
+      - agent/explore-wildlife-crawl-link-20260913
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/explore-wildlife-crawl-link-20260913
+          fetch-depth: 0
+      - name: Add direct wildlife hub link and validation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          intent = Path('src/components/editorial/ExploreIntentPaths.tsx')
+          text = intent.read_text()
+          anchor = '      { to: "/texas-birds-guide", label: "Texas birds guide" },\n      { to: "/explore/outdoors", label: "Wildlife & outdoors" },'
+          replacement = '      { to: "/texas-birds-guide", label: "Texas birds guide" },\n      { to: "/explore/wildlife", label: "Wildlife refuges & destinations" },\n      { to: "/explore/outdoors", label: "Wildlife & outdoors" },'
+          if '/explore/wildlife", label: "Wildlife refuges & destinations"' not in text:
+              if anchor not in text:
+                  raise SystemExit('wildlife intent anchor missing')
+              text = text.replace(anchor, replacement)
+          intent.write_text(text)
+
+          validator = Path('scripts/data/validate-explore-topical-authority.mjs')
+          v = validator.read_text()
+          target_anchor = "  '/explore/outdoors',\n  '/explore/historic-sites',"
+          target_replacement = "  '/explore/outdoors',\n  '/explore/wildlife',\n  '/explore/historic-sites',"
+          if "  '/explore/wildlife',\n" not in v:
+              if target_anchor not in v:
+                  raise SystemExit('requiredIntentTargets anchor missing')
+              v = v.replace(target_anchor, target_replacement, 1)
+          validator.write_text(v)
+          PY
+      - name: Run Explore topical authority validation
+        run: node scripts/data/validate-explore-topical-authority.mjs
+      - name: Remove temporary workflow and commit patch
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git rm .github/workflows/apply-explore-wildlife-crawl-link.yml
+          git add src/components/editorial/ExploreIntentPaths.tsx scripts/data/validate-explore-topical-authority.mjs
+          git commit -m "Link Explore hub directly to wildlife"
+          git push origin HEAD:agent/explore-wildlife-crawl-link-20260913
