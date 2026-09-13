@@ -1,8 +1,9 @@
 import { notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
+import { isRoute66StopIndexReady } from "@/data/explore-leaf-quality";
 import { getTexasRoute66Stop, TEXAS_ROUTE_66_STOPS } from "@/data/texas-route-66";
+import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const HUB_SLUG = "texas-road-trip";
 const hubDescription = "Drive the complete Texas stretch of Historic Route 66 from the Oklahoma line to Glenrio with 13 linked stop guides, landmark planning, 1–3 day itineraries and official historic-road sources.";
@@ -26,7 +27,7 @@ function buildHubHead(canonicalPath: string, pageUrl: string) {
           description: hubDescription,
           isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
           mainEntity: { "@id": `${pageUrl}#itinerary` },
-          dateModified: "2026-08-31",
+          dateModified: "2026-09-13",
         },
         {
           "@type": "TouristTrip",
@@ -61,11 +62,13 @@ function buildHubHead(canonicalPath: string, pageUrl: string) {
 
 function buildStopHead(canonicalPath: string, pageUrl: string, stop: (typeof TEXAS_ROUTE_66_STOPS)[number], index: number) {
   const description = `${stop.name} on Texas Route 66: what to see, why the stop matters, planning notes and authoritative sources for a complete Texas Mother Road itinerary.`;
+  const readyForIndexing = isRoute66StopIndexReady(stop);
   return {
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
       title: `${stop.name} Route 66 Guide | Texas Defined`,
       description,
+      robots: readyForIndexing ? undefined : "noindex, follow",
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({
@@ -80,7 +83,7 @@ function buildStopHead(canonicalPath: string, pageUrl: string, stop: (typeof TEX
           isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
           about: { "@id": `${pageUrl}#place` },
           citation: stop.sourceLinks.map((source) => source.href),
-          dateModified: "2026-08-31",
+          dateModified: "2026-09-13",
         },
         {
           "@type": "Place",

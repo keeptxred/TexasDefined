@@ -24,6 +24,8 @@ const imageWorkflow = read('.github/workflows/populate-missing-site-images.yml')
 const eventImagePolicy = read('src/data/major-event-schema-enrichment.server.ts');
 const eventAuthority = read('src/data/major-event-authority.ts');
 const eventRoute = read('src/routes/event.$slug.tsx');
+const eventImageAudit = read('scripts/data/audit-event-schema-enrichment.mjs');
+const mergeGate = read('.github/workflows/merge-gate.yml');
 const sitemap = read('src/routes/sitemap[.]xml.ts');
 const venueImageValidator = read('scripts/data/validate-sports-venue-photo-additions-final.mjs');
 
@@ -100,10 +102,21 @@ for (const marker of [
   'export function isCompliantMajorEventImage',
   'export function hasCompliantMajorEventImageServer',
   'approvedForCommercialUse === true',
-  'commons.wikimedia.org',
-  'AI[- ]generated',
+  'typeof image.exactLocation === "boolean"',
+  'image.sourceType === "ai-generated"',
+  'image.aiGenerated === true',
+  'image.exactLocation !== true',
+  'image.sourceType === "wikimedia"',
+  'image.sourceType === "flickr-cc"',
+  'validHttpsUrl(image.licenseUrl)',
 ]) {
   if (!eventImagePolicy.includes(marker)) errors.push(`Major-event image compliance policy missing: ${marker}`);
+}
+for (const forbidden of [
+  'if (sourceHost === "commons.wikimedia.org") return true;',
+  'if (sourceHost === "texasdefined.com" && /\\bAI[- ]generated\\b/i.test(image.alt)) return true;',
+]) {
+  if (eventImagePolicy.includes(forbidden)) errors.push(`Major-event image compliance must not trust source host or alt text without structured provenance: ${forbidden}`);
 }
 if (!eventAuthority.includes('imageCompliant: hasCompliantMajorEventImageServer(data.slug)')) errors.push('Major-event authority must expose hero-image compliance.');
 if (!eventRoute.includes('robots: page.imageCompliant ? undefined : "noindex, follow, max-image-preview:large"')) errors.push('Major-event route must noindex image-incomplete guides.');
@@ -114,6 +127,21 @@ for (const marker of [
 ]) {
   if (!sitemap.includes(marker)) errors.push(`Event sitemap must exclude image-incomplete guides: ${marker}`);
 }
+for (const marker of [
+  'major-event-schema-enrichment-overrides.server.ts',
+  'const effectiveBySlug = new Map(batchBySlug)',
+  'duplicate batch enrichment slugs',
+  'duplicate override enrichment slugs',
+  'imageMetadataIncomplete',
+  'approvedForCommercialUse:true',
+  'exactLocation:true for real image',
+  'provenanceCompleteImages',
+  'imageRemediationPending',
+  'imageCoverageComplete',
+]) {
+  if (!eventImageAudit.includes(marker)) errors.push(`Major-event effective image audit guard missing: ${marker}`);
+}
+if (!mergeGate.includes('node scripts/data/audit-event-schema-enrichment.mjs')) errors.push('Required merge gate must run the event image coverage audit.');
 
 for (const marker of [
   'Expected governed hero coverage for all 84 seeded sports venues after wave 7',
@@ -132,4 +160,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Image SEO, responsive sizing, rights-safe fallback, fail-closed indexing, accessibility, and hero coverage governance are protected.');
+console.log('Image SEO, responsive sizing, rights-safe fallback, fail-closed indexing, accessibility, provenance, and hero coverage governance are protected.');
