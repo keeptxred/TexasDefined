@@ -122,7 +122,8 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
       GET: async () => {
         const { categories, regions } = await import("@/data/fixtures/texas");
         const { isRoute66StopIndexReady, isTexasLandscapeIndexReady } = await import("@/data/explore-leaf-quality");
-        const { texasLandscapeGuides, texasLandscapes } = await import("@/data/texas-landscapes");
+        const { enrichedTexasLandscapeGuides } = await import("@/data/texas-landscape-guide-enrichment");
+        const { texasLandscapes } = await import("@/data/texas-landscapes");
         const { TEXAS_ROUTE_66_STOPS } = await import("@/data/texas-route-66");
         const { cityPassDestinationExpansion } = await import("@/data/citypass-destination-expansion");
         const { preservedExploreDestinations } = await import("@/data/destination-preserved-catalog");
@@ -213,7 +214,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
             .filter(isRoute66StopIndexReady)
             .map((stop) => `/explore/route-66/${stop.slug}`),
         ];
-        const landscapePaths = [...texasLandscapes, ...texasLandscapeGuides]
+        const landscapePaths = [...texasLandscapes, ...enrichedTexasLandscapeGuides]
           .filter(isTexasLandscapeIndexReady)
           .map((item) => `/explore/landscapes/${item.slug}`);
         const staticPaths = [
