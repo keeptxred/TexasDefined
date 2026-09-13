@@ -22,8 +22,6 @@ const stops = [
   ['Glenrio', 'glenrio'],
 ];
 
-const contextualOnlyStops = new Set(['lela', 'alanreed', 'washburn', 'bushland', 'wildorado']);
-
 const routePages = [
   {
     label: 'route66-hub',
@@ -41,7 +39,7 @@ const routePages = [
       ...(index > 0 ? [`/explore/route-66/${stops[index - 1][1]}`] : []),
       ...(index < stops.length - 1 ? [`/explore/route-66/${stops[index + 1][1]}`] : []),
     ],
-    expectedIndexable: !contextualOnlyStops.has(slug),
+    expectedIndexable: true,
   })),
 ];
 
@@ -113,7 +111,6 @@ for (const page of routePages) {
       if (!html.includes(canonical)) return { ok: false, reason: `missing canonical URL: ${canonical}` };
       const noindex = hasNoindex(html);
       if (page.expectedIndexable && noindex) return { ok: false, reason: 'indexable page is marked noindex' };
-      if (!page.expectedIndexable && !noindex) return { ok: false, reason: 'context-only page must be noindex, follow' };
       const missingLink = page.requiredLinks.find((link) => !html.includes(link));
       if (missingLink) return { ok: false, reason: `missing required internal link: ${missingLink}` };
       return { ok: true };
@@ -131,16 +128,10 @@ const sitemapPath = '/sitemap-explore.xml';
 try {
   await fetchWithRetries('route66-explore-sitemap', sitemapPath, (xml) => {
     if (!xml.includes('<urlset')) return { ok: false, reason: 'Explore sitemap is not a URL set' };
-    const indexablePages = routePages.filter((page) => page.expectedIndexable);
-    const missing = indexablePages
+    const missing = routePages
       .map((page) => `${origin}${page.path}`)
       .filter((url) => !xml.includes(url));
     if (missing.length > 0) return { ok: false, reason: `missing indexable Route 66 sitemap URLs: ${missing.join(', ')}` };
-    const leaked = routePages
-      .filter((page) => !page.expectedIndexable)
-      .map((page) => `${origin}${page.path}`)
-      .filter((url) => xml.includes(url));
-    if (leaked.length > 0) return { ok: false, reason: `context-only Route 66 URLs leaked into sitemap: ${leaked.join(', ')}` };
     return { ok: true };
   });
   appendSummary('| sitemap-explore-route66-inventory | ✅ pass |\n');
@@ -151,5 +142,5 @@ try {
   process.exit(1);
 }
 
-appendSummary(`\nAll ${routePages.length} Route 66 pages are live and canonical. Strong stops remain indexable; five context-only waypoints are noindex/follow and excluded from the Explore sitemap.\n`);
+appendSummary(`\nAll ${routePages.length} Route 66 pages are live, canonical and indexable after authority-depth qualification.\n`);
 console.log(`Texas Route 66 production verification passed (${routePages.length} pages + quality-gated Explore sitemap inventory).`);

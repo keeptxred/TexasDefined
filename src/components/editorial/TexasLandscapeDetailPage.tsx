@@ -5,12 +5,21 @@ import { Section, SectionHeader } from '@/components/editorial/SectionHeader';
 import { Container } from '@/components/layout/Container';
 import type { LandscapeCatalogItem } from '@/data/texas-landscape-catalog';
 import type { EnrichedLandscapeGuide } from '@/data/texas-landscape-guide-enrichment';
-import type { LandscapeRecord } from '@/data/texas-landscapes';
+import type { EnrichedLandscapeRecord } from '@/data/texas-landscape-profile-enrichment';
 
 type TexasLandscapeDetailPageProps = {
-  item: LandscapeRecord | EnrichedLandscapeGuide;
+  item: EnrichedLandscapeRecord | EnrichedLandscapeGuide;
   nearby: Pick<LandscapeCatalogItem, 'slug' | 'name' | 'dek'>[];
 };
+
+function SourceDesk({ sources, noun }: { sources: Array<{ label: string; href: string }>; noun: string }) {
+  return <section className="mt-14 border-t-2 border-foreground pt-7">
+    <p className="eyebrow text-primary">Source desk</p>
+    <h2 className="mt-3 font-display text-3xl">Authority sources used for this {noun}</h2>
+    <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Landscape boundaries are gradual, and travel conditions can change. These public-agency and institutional sources support the physical-geography claims here; current park access, road conditions, water levels and closures should still be checked before travel.</p>
+    <ul className="mt-6 space-y-3">{sources.map((source) => <li key={source.href}><a href={source.href} target="_blank" rel="noreferrer" className="border-b border-primary pb-1 text-sm font-semibold text-primary">{source.label} →</a></li>)}</ul>
+  </section>;
+}
 
 export function TexasLandscapeDetailPage({ item, nearby }: TexasLandscapeDetailPageProps) {
   const isLandscape = 'name' in item;
@@ -28,12 +37,7 @@ export function TexasLandscapeDetailPage({ item, nearby }: TexasLandscapeDetailP
                 <p className="mt-4 text-base leading-8 text-muted-foreground">{section.body}</p>
               </section>)}
             </div>
-            <section className="mt-14 border-t-2 border-foreground pt-7">
-              <p className="eyebrow text-primary">Source desk</p>
-              <h2 className="mt-3 font-display text-3xl">Authority sources used for this guide</h2>
-              <p className="mt-4 text-sm leading-7 text-muted-foreground">Landscape boundaries are gradual, and travel conditions can change. These public-agency sources support the physical-geography claims in this guide; current park access, road conditions and closures should still be checked before travel.</p>
-              <ul className="mt-6 space-y-3">{item.sourceLinks.map((source) => <li key={source.href}><a href={source.href} target="_blank" rel="noreferrer" className="border-b border-primary pb-1 text-sm font-semibold text-primary">{source.label} →</a></li>)}</ul>
-            </section>
+            <SourceDesk sources={item.sourceLinks} noun="guide" />
           </div>
         </Container>
       </Section>
@@ -64,10 +68,12 @@ export function TexasLandscapeDetailPage({ item, nearby }: TexasLandscapeDetailP
       <section className="border-t border-border pt-5"><p className="eyebrow text-primary">Water</p><p className="mt-3 text-sm leading-7 text-muted-foreground">{item.water}</p></section>
       <section className="border-t border-border pt-5"><p className="eyebrow text-primary">Vegetation</p><p className="mt-3 text-sm leading-7 text-muted-foreground">{item.vegetation}</p></section>
     </div></Container></Section>
-    <Section><Container><div className="grid gap-10 lg:grid-cols-2">
+    <Section><Container><SectionHeader eyebrow="Read it in the field" title={`How to recognize ${item.name}`} description="These are the relationships that turn a list of landforms and plants into a landscape you can actually read from the road or trail." /><div className="mt-10 grid gap-8 lg:grid-cols-2">{item.fieldNotes.map((note) => <section key={note.heading} className="border-t-2 border-foreground pt-5"><h2 className="font-display text-3xl leading-tight">{note.heading}</h2><p className="mt-4 text-base leading-8 text-muted-foreground">{note.body}</p></section>)}</div></Container></Section>
+    <Section tone="surface"><Container><div className="grid gap-10 lg:grid-cols-2">
       <section><p className="eyebrow text-primary">Signature features</p><h2 className="mt-3 font-display text-3xl">What to look for</h2><ul className="mt-6 grid gap-3 sm:grid-cols-2">{item.signature.map((feature) => <li key={feature} className="border-t border-border pt-3 text-sm leading-6">{feature}</li>)}</ul></section>
       <section><p className="eyebrow text-primary">Best for</p><h2 className="mt-3 font-display text-3xl">Why people go</h2><ul className="mt-6 grid gap-3 sm:grid-cols-2">{item.bestFor.map((feature) => <li key={feature} className="border-t border-border pt-3 text-sm leading-6">{feature}</li>)}</ul></section>
     </div></Container></Section>
+    <Section><Container><SourceDesk sources={item.sourceLinks} noun="landscape profile" /></Container></Section>
     <Section tone="surface"><Container><SectionHeader eyebrow="Plan from here" title={`Explore ${item.name}`} description="Use the landscape as a starting point, then move into parks, rivers, road trips and destination guides." /><div className="mt-8 flex flex-wrap gap-3">{item.related.map((link) => <Link key={link.href} to={link.href} className="border border-border bg-background px-4 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">{link.label} →</Link>)}</div></Container></Section>
     <Section><Container><SectionHeader eyebrow="Keep exploring" title="Other Texas landscapes" /><ul className="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">{nearby.map((landscape) => <li key={landscape.slug} className="border-t border-border pt-4"><Link to="/explore/landscapes/$slug" params={{ slug: landscape.slug }} className="group block"><h3 className="font-display text-2xl group-hover:text-primary">{landscape.name}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{landscape.dek}</p></Link></li>)}</ul><Link to="/explore/landscapes" className="eyebrow mt-10 inline-block text-primary">See all Texas landscapes →</Link></Container></Section>
   </>;

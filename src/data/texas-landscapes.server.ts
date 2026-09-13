@@ -4,14 +4,14 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 import { isTexasLandscapeIndexReady } from './explore-leaf-quality';
 import { texasLandscapeCatalog, texasLandscapeGuideCatalog } from './texas-landscape-catalog';
 import { enrichedTexasLandscapeGuides } from './texas-landscape-guide-enrichment';
-import { texasLandscapes } from './texas-landscapes';
+import { enrichedTexasLandscapeProfiles } from './texas-landscape-profile-enrichment';
 
 const hubDescription = 'A field guide to the landscapes that define Texas: Hill Country limestone, Piney Woods forest, Gulf marshes, prairie, canyon, desert, mountain, river and more.';
 const hubPath = '/explore/landscapes';
 
 function buildHubHead() {
   const indexableLandscapes = texasLandscapeCatalog.filter((catalogItem) => {
-    const item = texasLandscapes.find((entry) => entry.slug === catalogItem.slug);
+    const item = enrichedTexasLandscapeProfiles.find((entry) => entry.slug === catalogItem.slug);
     return Boolean(item && isTexasLandscapeIndexReady(item));
   });
 
@@ -64,7 +64,7 @@ function buildHubHead() {
   };
 }
 
-function buildLandscapePageHead(item: (typeof texasLandscapes)[number] | (typeof enrichedTexasLandscapeGuides)[number]) {
+function buildLandscapePageHead(item: (typeof enrichedTexasLandscapeProfiles)[number] | (typeof enrichedTexasLandscapeGuides)[number]) {
   const path = `/explore/landscapes/${item.slug}`;
   const isLandscape = 'name' in item;
   const title = isLandscape ? `${item.name}: Texas Landscape Guide` : item.title;
@@ -92,7 +92,7 @@ function buildLandscapePageHead(item: (typeof texasLandscapes)[number] | (typeof
           about: isLandscape
             ? [item.terrain, item.geology, item.vegetation, item.water]
             : item.sections.map((section) => section.heading),
-          citation: isLandscape ? undefined : item.sourceLinks.map((source) => source.href),
+          citation: item.sourceLinks.map((source) => source.href),
           mainEntityOfPage: absoluteUrl(texasDefinedBrand, path),
         },
         {
@@ -119,7 +119,7 @@ export function loadTexasLandscapeHubServer() {
 }
 
 export function loadTexasLandscapePageServer(slug: string) {
-  const item = texasLandscapes.find((entry) => entry.slug === slug)
+  const item = enrichedTexasLandscapeProfiles.find((entry) => entry.slug === slug)
     ?? enrichedTexasLandscapeGuides.find((entry) => entry.slug === slug)
     ?? null;
 
