@@ -9,7 +9,7 @@ const guidePage = read('src/components/sports/SportsVenueGuidePage.tsx');
 const sponsoredPlacement = read('src/components/sports/SponsoredSportsPlacement.tsx');
 const remediation = read('src/data/sports-venue-content-remediation-wave4.ts');
 const corrections = read('src/data/knowledge-graph/current-entity-corrections.ts');
-const images = read('src/data/sports-venue-images.ts');
+const images = read('src/data/sports-venue-images-additions.ts');
 const eventFn = read('src/data/sports-venue-events.functions.ts');
 const major = read('src/data/knowledge-graph/major-sports-venues.ts');
 const tier2 = read('src/data/knowledge-graph/sports-venues-tier2.ts');
@@ -28,6 +28,14 @@ for (const marker of [
   'SportsVenueGuidePilotContent',
   "getActiveSportsSponsorPlacement({ data: { surfacePath: canonicalPath } })",
   "getSportsVenueUpcomingEvents({ data: { slug: stableSlug } })",
+  "import('@/data/sports-venue-images-all')",
+  'photo: getSportsVenuePhoto(stableSlug)',
+  'head: ({ loaderData }) =>',
+  'image: photo?.imageUrl',
+  'imageAlt: photo?.alt',
+  'imageWidth: photo?.width',
+  'imageHeight: photo?.height',
+  "robots: isIndexableEntityPage(entity) && photo ? undefined : 'noindex, follow, max-image-preview:large'",
   'nearbyAttractions={nearbyAttractions}',
   'upcomingEvents={upcomingEvents}',
   'eventCalendarHref={eventCalendarHref}',
@@ -90,16 +98,21 @@ for (const marker of [
   'SourcesSection',
 ]) requireText(guidePage, marker, 'shared venue guide page');
 
-// Galaxy currently has no dedicated licensed photo record; the shared renderer must fail closed to the intentional no-photo surface.
-if (images.includes("'jones-att-stadium': {")) {
-  const start = images.indexOf("'jones-att-stadium': {");
-  const end = images.indexOf("\n  '", start + 1);
-  const block = images.slice(start, end === -1 ? undefined : end);
-  for (const marker of ['sourcePage:', 'author:', 'licenseName:', 'licenseUrl:']) {
-    requireText(block, marker, 'Galaxy dedicated photo rights metadata');
-  }
+const galaxyImageStart = images.indexOf("'jones-att-stadium': {");
+if (galaxyImageStart === -1) {
+  failures.push('Galaxy governed photo registry is missing jones-att-stadium.');
 } else {
-  requireText(guidePage, 'A verified venue photograph is not available yet.', 'Galaxy intentional no-photo fallback');
+  const end = images.indexOf("\n  '", galaxyImageStart + 1);
+  const block = images.slice(galaxyImageStart, end === -1 ? undefined : end);
+  for (const marker of [
+    "alt: 'Galaxy Stadium in Lubbock, photographed while it was known as Jones AT&T Stadium'",
+    "imageUrl: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Jones_AT%26T_Stadium_wide_shot.jpg?width=1600'",
+    "sourcePage: 'https://commons.wikimedia.org/wiki/File:Jones_AT%26T_Stadium_wide_shot.jpg'",
+    "sourceName: 'Wikimedia Commons'",
+    "author: 'John McStravick'",
+    "licenseName: 'CC BY 2.0'",
+    "licenseUrl: 'https://creativecommons.org/licenses/by/2.0/'",
+  ]) requireText(block, marker, 'Galaxy governed photo rights metadata');
 }
 
 for (const marker of ['`sports-venue:${data.slug}`', 'encodeURIComponent(venueId)', '#calendar']) {
@@ -136,4 +149,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Galaxy Stadium shared-guide reconciliation passed: stable canonical route and aliases, current Texas Tech sources, modern shared events/photo-fallback/Stay Nearby/source architecture, governed sponsor delivery, and the complete 83-dynamic + 1-static = 84 venue coverage contract are intact.');
+console.log('Galaxy Stadium shared-guide reconciliation passed: stable canonical route and aliases, current Texas Tech sources, governed Commons hero and social metadata, modern shared events/Stay Nearby/source architecture, governed sponsor delivery, and the complete 83-dynamic + 1-static = 84 venue coverage contract are intact.');
