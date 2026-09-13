@@ -41,3 +41,4 @@ jobs:
           git add src/routeTree.gen.ts
           git commit -m 'Regenerate route tree for lazy relocation finders'
           git push origin HEAD:phase4-relocation-tools
+          echo 'Generated route tree committed.'
