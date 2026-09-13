@@ -15,6 +15,7 @@ const seedFiles = [
 const curatedWaveFiles = [
   ['src/data/rv-parks/curated-public-wave4.ts', 'WAVE4'],
   ['src/data/rv-parks/curated-public-wave5.ts', 'WAVE5'],
+  ['src/data/rv-parks/curated-public-wave6.ts', 'WAVE6'],
 ];
 
 const registry = read('src/data/rv-parks/registry.server.ts');
@@ -156,12 +157,11 @@ function imageComplete(block) {
     'subjectScope:',
   ]);
   if (!common) return false;
-  const licensedLocation = block.includes('actualLocation: true');
-  const generatedRepresentative = hasAll(block, [
-    'actualLocation: false',
-    "subjectScope: 'representative'",
-    "sourceKind: 'generated-representative'",
-  ]);
+  const licensedLocation = /actualLocation:\s*true/.test(block);
+  const generatedRepresentative =
+    /actualLocation:\s*false/.test(block) &&
+    /subjectScope:\s*['"]representative['"]/.test(block) &&
+    /sourceKind:\s*['"]generated-representative['"]/.test(block);
   return licensedLocation || generatedRepresentative;
 }
 
@@ -295,4 +295,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`\nRV inventory classification passed: ${classifications.length} records classified; ${keep.length} KEEP candidates remain subject to the existing destination quality audit, ${improve.length} are IMPROVE + NOINDEX until ready, and ${remove.length} exact-identity duplicates are REMOVE / CONSOLIDATE candidates. Curated public overlays are included in the source/content classification so production robots checks stay aligned with the actual runtime destination data. Priority waves use only defensible repository signals (public-land naming, authoritative-source work already present, and rights-cleared exact-location imagery); no demand, amenity, price or distance claims are inferred.`);
+console.log(`\nRV inventory classification passed: ${classifications.length} records classified; ${keep.length} KEEP candidates remain subject to the existing destination quality audit, ${improve.length} are IMPROVE + NOINDEX until ready, and ${remove.length} exact-identity duplicates are REMOVE / CONSOLIDATE candidates. Curated public overlays are included in the source/content classification so production robots checks stay aligned with the actual runtime destination data. Generated representative images count as governed only when they retain explicit non-documentary metadata. Priority waves use only defensible repository signals (public-land naming, authoritative-source work already present, and governed imagery); no demand, amenity, price or distance claims are inferred.`);
