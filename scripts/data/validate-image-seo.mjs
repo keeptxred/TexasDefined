@@ -118,7 +118,10 @@ for (const marker of [
 for (const marker of [
   'Expected governed hero coverage for all 84 seeded sports venues after wave 7',
   'AI-generated photorealistic editorial depiction of',
-  'No sports venue remains on the generic image fallback',
+  'Expected 84 effective base-first venue image records',
+  'Effective venue hero still points to a placeholder',
+  'Multiple sports venues resolve to the same hero image URL',
+  'Multiple sports venues resolve to the same hero source page',
 ]) {
   if (!venueImageValidator.includes(marker)) errors.push(`Sports venue image coverage guard missing: ${marker}`);
 }
