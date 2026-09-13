@@ -12,6 +12,8 @@ on:
       - 'src/data/sports-venue-content-remediation-wave4.ts'
       - 'src/data/knowledge-graph/current-entity-corrections.ts'
       - 'src/data/sports-venue-images.ts'
+      - 'src/data/sports-venue-images-additions.ts'
+      - 'src/data/sports-venue-images-all.ts'
       - 'src/data/sports-venue-events.functions.ts'
       - 'src/data/sports-sponsorship.functions.ts'
       - 'scripts/data/validate-sports-venue-phase3-galaxy.mjs'
