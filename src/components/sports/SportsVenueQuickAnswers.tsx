@@ -45,11 +45,11 @@ export function SportsVenueQuickAnswers({
   const slug = canonicalUrl.split('/sports-venue/')[1]?.split(/[?#]/)[0];
   const surfacePath = slug ? `/sports-venue/${slug}` : undefined;
   const parkingMap = useVenueParkingMap(slug);
-  const heroSrc = slug ? `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}` : undefined;
-  const absoluteHeroUrl = heroSrc ? new URL(heroSrc, canonicalUrl).toString() : undefined;
   const photo = slug ? getSportsVenuePhoto(slug) : undefined;
+  const heroSrc = slug && photo ? `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}` : undefined;
+  const absoluteHeroUrl = heroSrc ? new URL(heroSrc, canonicalUrl).toString() : undefined;
   const isGeneratedHero = isGeneratedSportsVenueImage(photo);
-  const heroAlt = photo?.alt ?? `${venueName} — original TexasDefined sports venue illustration`;
+  const heroAlt = photo?.alt ?? venueName;
   const heroWidth = photo?.width ?? 1600;
   const heroHeight = photo?.height ?? 900;
   const freshnessNote = verifiedAt
@@ -97,10 +97,10 @@ export function SportsVenueQuickAnswers({
         />
       </div>
       {photo && isGeneratedHero ? <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
-        AI-generated representative editorial image by {photo.author} for TexasDefined. This is not documentary photography of the venue. <a className="underline underline-offset-2 hover:text-foreground" href={photo.sourcePage} target="_blank" rel="noreferrer">Media record</a> · <a className="underline underline-offset-2 hover:text-foreground" href={photo.licenseUrl} target="_blank" rel="noreferrer">{photo.licenseName}</a>.
+        AI-generated representative editorial image by {photo.author} for TexasDefined. This is not documentary photography of the venue. {photo.licenseName}.
       </figcaption> : photo ? <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
         Photo by <a className="underline underline-offset-2 hover:text-foreground" href={photo.sourcePage} target="_blank" rel="noreferrer">{photo.author}</a> via {photo.sourceName}, licensed under <a className="underline underline-offset-2 hover:text-foreground" href={photo.licenseUrl} target="_blank" rel="noreferrer">{photo.licenseName}</a>. Original source file is served unchanged and may be visually cropped by the page layout.
-      </figcaption> : <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">Original TexasDefined editorial illustration. Venue logos, sponsor marks and third-party photography are intentionally not reproduced.</figcaption>}
+      </figcaption> : null}
     </figure> : null}
 
     <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]" aria-labelledby="venue-quick-answers-heading">

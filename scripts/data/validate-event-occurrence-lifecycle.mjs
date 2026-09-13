@@ -5,6 +5,8 @@ const lifecycle = read('src/data/event-occurrence-lifecycle.ts');
 const supplemental = read('src/data/major-event-supplemental-registry.server.ts');
 const authority = read('src/data/major-event-authority.ts');
 const route = read('src/routes/event.$slug.tsx');
+const sitemap = read('src/routes/sitemap[.]xml.ts');
+const sitemapDeps = read('src/data/sitemap-dependencies.server.ts');
 const failures = [];
 
 for (const marker of [
@@ -36,6 +38,18 @@ for (const marker of [
 
 if (!route.includes('robots: page.imageCompliant ? undefined : "noindex, follow, max-image-preview:large"')) {
   failures.push('Expired occurrence policy must not noindex the evergreen event guide itself.');
+}
+
+if (!sitemapDeps.includes('export { hasCurrentOrFutureConfirmedEventOccurrence } from "@/data/event-occurrence-lifecycle";')) {
+  failures.push('Sitemap dependency barrel must export the event occurrence lifecycle gate.');
+}
+
+for (const marker of [
+  'hasCurrentOrFutureConfirmedEventOccurrence',
+  '.filter((event) => hasCurrentOrFutureConfirmedEventOccurrence(event))',
+  '.filter((event) => hasCompliantMajorEventImageServer(event.slug))',
+]) {
+  if (!sitemap.includes(marker)) failures.push(`Base major-event sitemap lifecycle missing ${marker}.`);
 }
 
 // Behavioral guard for the calendar comparison used by the lifecycle helper.
