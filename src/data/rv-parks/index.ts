@@ -19,11 +19,13 @@ const loadRvParks = createServerFn({ method: "GET" })
     const wave6 = await import("./curated-public-wave6");
     const wave7 = await import("./curated-public-wave7");
     const wave8 = await import("./curated-public-wave8");
+    const wave9 = await import("./curated-public-wave9");
     const wave4Destinations = wave4.applyRvParkCuratedPublicWave4List(registry.loadRvParkDestinationsServer());
     const wave5Destinations = wave5.applyRvParkCuratedPublicWave5List(wave4Destinations);
     const wave6Destinations = wave6.applyRvParkCuratedPublicWave6List(wave5Destinations);
     const wave7Destinations = wave7.applyRvParkCuratedPublicWave7List(wave6Destinations);
-    const destinations = wave8.applyRvParkCuratedPublicWave8List(wave7Destinations);
+    const wave8Destinations = wave8.applyRvParkCuratedPublicWave8List(wave7Destinations);
+    const destinations = wave9.applyRvParkCuratedPublicWave9List(wave8Destinations);
     if (data.action === "one") return destinations.find((item) => item.slug === data.value) ?? null;
     if (data.action === "search") return wave4.buildRvParkSearchDocumentsFromCuratedDestinations(destinations);
     return destinations;
