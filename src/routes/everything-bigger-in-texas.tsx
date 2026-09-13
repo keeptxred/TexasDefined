@@ -1,6 +1,11 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
+
+const PrioritySearchPage = lazy(() =>
+  import("@/components/editorial/PrioritySearchPage").then((module) => ({ default: module.PrioritySearchPage })),
+);
 
 const canonicalPath = "/everything-bigger-in-texas";
 
@@ -17,4 +22,13 @@ export const Route = createFileRoute("/everything-bigger-in-texas")({
     data: loaderData,
     about: ["everything is bigger in Texas", "Texas facts", "King Ranch", "Bracken Cave", "Texas superlatives"],
   }) : {},
+  component: Page,
 });
+
+function Page() {
+  return (
+    <Suspense fallback={null}>
+      <PrioritySearchPage data={Route.useLoaderData()} />
+    </Suspense>
+  );
+}
