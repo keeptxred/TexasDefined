@@ -528,7 +528,9 @@ const TexasZipCodeExplorerRoute = TexasZipCodeExplorerRouteImport.update({
   id: '/texas-zip-code-explorer',
   path: '/texas-zip-code-explorer',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/texas-zip-code-explorer.lazy').then((d) => d.Route),
+)
 const TexasWesternSwingRoute = TexasWesternSwingRouteImport.update({
   id: '/texas-western-swing',
   path: '/texas-western-swing',
@@ -1553,7 +1555,9 @@ const CompareTexasCitiesRoute = CompareTexasCitiesRouteImport.update({
   id: '/compare-texas-cities',
   path: '/compare-texas-cities',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/compare-texas-cities.lazy').then((d) => d.Route),
+)
 const CitationGuideRoute = CitationGuideRouteImport.update({
   id: '/citation-guide',
   path: '/citation-guide',
@@ -2190,7 +2194,9 @@ const MovingToTexasToolsRoute = MovingToTexasToolsRouteImport.update({
   id: '/tools',
   path: '/tools',
   getParentRoute: () => MovingToTexasRoute,
-} as any)
+} as any).lazy(() =>
+  import('./routes/moving-to-texas.tools.lazy').then((d) => d.Route),
+)
 const LearnWildlifeManagementValuationRoute =
   LearnWildlifeManagementValuationRouteImport.update({
     id: '/learn/wildlife-management-valuation',
