@@ -4,6 +4,7 @@ import { applyRvParkCuratedPublicWave5 } from "./rv-parks/curated-public-wave5";
 import { applyRvParkCuratedPublicWave6 } from "./rv-parks/curated-public-wave6";
 import { applyRvParkCuratedPublicWave7 } from "./rv-parks/curated-public-wave7";
 import { applyRvParkCuratedPublicWave8 } from "./rv-parks/curated-public-wave8";
+import { applyRvParkCuratedPublicWave9 } from "./rv-parks/curated-public-wave9";
 import type { Destination } from "./types";
 
 export type DestinationAuditIssue = {
@@ -57,7 +58,7 @@ function usesTemporaryRepresentativeAiHero(destination: Destination) {
 
 export function auditDestination(input: Destination): DestinationAuditResult {
   const destination = input.category === "rv-parks"
-    ? applyRvParkCuratedPublicWave8(applyRvParkCuratedPublicWave7(applyRvParkCuratedPublicWave6(applyRvParkCuratedPublicWave5(applyRvParkCuratedPublicWave4(input)))))
+    ? applyRvParkCuratedPublicWave9(applyRvParkCuratedPublicWave8(applyRvParkCuratedPublicWave7(applyRvParkCuratedPublicWave6(applyRvParkCuratedPublicWave5(applyRvParkCuratedPublicWave4(input))))))
     : input;
   const issues: DestinationAuditIssue[] = [];
   const summary = destination.summary.trim();
