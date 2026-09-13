@@ -1,0 +1,30 @@
+name: GSC priority cohort
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 13 * * *'
+  push:
+    branches:
+      - main
+    paths:
+      - 'ops/seo/gsc-discovered-2026-09-13.json'
+      - 'scripts/seo/check-gsc-priority-cohort.mjs'
+      - '.github/workflows/gsc-priority-cohort.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-production:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify GSC priority cohort on production
+        run: node scripts/seo/check-gsc-priority-cohort.mjs
