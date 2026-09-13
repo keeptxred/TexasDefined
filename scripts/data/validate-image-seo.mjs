@@ -24,6 +24,8 @@ const imageWorkflow = read('.github/workflows/populate-missing-site-images.yml')
 const eventImagePolicy = read('src/data/major-event-schema-enrichment.server.ts');
 const eventAuthority = read('src/data/major-event-authority.ts');
 const eventRoute = read('src/routes/event.$slug.tsx');
+const eventImageAudit = read('scripts/data/audit-event-schema-enrichment.mjs');
+const mergeGate = read('.github/workflows/merge-gate.yml');
 const sitemap = read('src/routes/sitemap[.]xml.ts');
 const venueImageValidator = read('scripts/data/validate-sports-venue-photo-additions-final.mjs');
 
@@ -114,6 +116,17 @@ for (const marker of [
 ]) {
   if (!sitemap.includes(marker)) errors.push(`Event sitemap must exclude image-incomplete guides: ${marker}`);
 }
+for (const marker of [
+  'major-event-schema-enrichment-overrides.server.ts',
+  'const effectiveBySlug = new Map(batchBySlug)',
+  'duplicate batch enrichment slugs',
+  'duplicate override enrichment slugs',
+  'imageRemediationPending',
+  'imageCoverageComplete',
+]) {
+  if (!eventImageAudit.includes(marker)) errors.push(`Major-event effective image audit guard missing: ${marker}`);
+}
+if (!mergeGate.includes('node scripts/data/audit-event-schema-enrichment.mjs')) errors.push('Required merge gate must run the event image coverage audit.');
 
 for (const marker of [
   'Expected governed hero coverage for all 84 seeded sports venues after wave 7',
