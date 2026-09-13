@@ -7,6 +7,7 @@ import './validate-texas-254-counties-authority.mjs';
 import './validate-texas-courthouse-square-authority.mjs';
 import './validate-texas-railroad-town-growth-authority.mjs';
 import './validate-texas-aquifers-springs-authority.mjs';
+import './validate-texas-prairies-grasslands-authority.mjs';
 
 const seoSource = fs.readFileSync('src/lib/seo.ts', 'utf8');
 const fredericksburgChurchRoute = fs.readFileSync('src/routes/explore.painted-churches.$slug.tsx', 'utf8');
