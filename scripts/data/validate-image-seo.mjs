@@ -102,10 +102,21 @@ for (const marker of [
   'export function isCompliantMajorEventImage',
   'export function hasCompliantMajorEventImageServer',
   'approvedForCommercialUse === true',
-  'commons.wikimedia.org',
-  'AI[- ]generated',
+  'typeof image.exactLocation === "boolean"',
+  'image.sourceType === "ai-generated"',
+  'image.aiGenerated === true',
+  'image.exactLocation !== true',
+  'image.sourceType === "wikimedia"',
+  'image.sourceType === "flickr-cc"',
+  'validHttpsUrl(image.licenseUrl)',
 ]) {
   if (!eventImagePolicy.includes(marker)) errors.push(`Major-event image compliance policy missing: ${marker}`);
+}
+for (const forbidden of [
+  'if (sourceHost === "commons.wikimedia.org") return true;',
+  'if (sourceHost === "texasdefined.com" && /\\bAI[- ]generated\\b/i.test(image.alt)) return true;',
+]) {
+  if (eventImagePolicy.includes(forbidden)) errors.push(`Major-event image compliance must not trust source host or alt text without structured provenance: ${forbidden}`);
 }
 if (!eventAuthority.includes('imageCompliant: hasCompliantMajorEventImageServer(data.slug)')) errors.push('Major-event authority must expose hero-image compliance.');
 if (!eventRoute.includes('robots: page.imageCompliant ? undefined : "noindex, follow, max-image-preview:large"')) errors.push('Major-event route must noindex image-incomplete guides.');
@@ -121,6 +132,10 @@ for (const marker of [
   'const effectiveBySlug = new Map(batchBySlug)',
   'duplicate batch enrichment slugs',
   'duplicate override enrichment slugs',
+  'imageMetadataIncomplete',
+  'approvedForCommercialUse:true',
+  'exactLocation:true for real image',
+  'provenanceCompleteImages',
   'imageRemediationPending',
   'imageCoverageComplete',
 ]) {
@@ -145,4 +160,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Image SEO, responsive sizing, rights-safe fallback, fail-closed indexing, accessibility, and hero coverage governance are protected.');
+console.log('Image SEO, responsive sizing, rights-safe fallback, fail-closed indexing, accessibility, provenance, and hero coverage governance are protected.');
