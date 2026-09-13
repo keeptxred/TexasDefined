@@ -1,6 +1,7 @@
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
+import { isTexasLandscapeIndexReady } from './explore-leaf-quality';
 import { texasLandscapeCatalog, texasLandscapeGuideCatalog } from './texas-landscape-catalog';
 import { texasLandscapeGuides, texasLandscapes } from './texas-landscapes';
 
@@ -8,6 +9,11 @@ const hubDescription = 'A field guide to the landscapes that define Texas: Hill 
 const hubPath = '/explore/landscapes';
 
 function buildHubHead() {
+  const indexableLandscapes = texasLandscapeCatalog.filter((catalogItem) => {
+    const item = texasLandscapes.find((entry) => entry.slug === catalogItem.slug);
+    return Boolean(item && isTexasLandscapeIndexReady(item));
+  });
+
   return {
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath: hubPath,
@@ -31,8 +37,8 @@ function buildHubHead() {
           '@type': 'ItemList',
           '@id': `${absoluteUrl(texasDefinedBrand, hubPath)}#landscapes`,
           name: 'Landscapes of Texas',
-          numberOfItems: texasLandscapeCatalog.length,
-          itemListElement: texasLandscapeCatalog.map((item, index) => ({
+          numberOfItems: indexableLandscapes.length,
+          itemListElement: indexableLandscapes.map((item, index) => ({
             '@type': 'ListItem',
             position: index + 1,
             item: {
@@ -62,9 +68,15 @@ function buildLandscapePageHead(item: (typeof texasLandscapes)[number] | (typeof
   const isLandscape = 'name' in item;
   const title = isLandscape ? `${item.name}: Texas Landscape Guide` : item.title;
   const description = item.dek;
+  const readyForIndexing = isTexasLandscapeIndexReady(item);
 
   return {
-    meta: buildMeta(texasDefinedBrand, { canonicalPath: path, title, description }),
+    meta: buildMeta(texasDefinedBrand, {
+      canonicalPath: path,
+      title,
+      description,
+      robots: readyForIndexing ? undefined : 'noindex, follow',
+    }),
     links: [canonicalLink(texasDefinedBrand, path)],
     scripts: [jsonLd({
       '@context': 'https://schema.org',
