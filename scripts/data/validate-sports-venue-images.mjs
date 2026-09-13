@@ -15,10 +15,11 @@ const enrichmentFiles = [
   'src/data/sports-venue-enrichment-batch8b-completion.ts',
 ];
 
-const [heroRoute, sharedComponent, photoSource, allLookup, ...enrichmentSources] = await Promise.all([
+const [heroRoute, sharedComponent, photoSource, aggregatePhotoSource, allLookup, ...enrichmentSources] = await Promise.all([
   read('src/routes/api.sports-venue-hero.ts'),
   read('src/components/sports/SportsVenueQuickAnswers.tsx'),
   read('src/data/sports-venue-images.ts'),
+  read('src/data/sports-venue-images-all.ts'),
   read('src/data/sports-venue-enrichment-all.ts'),
   ...enrichmentFiles.map(read),
 ]);
@@ -29,6 +30,7 @@ const assert = (condition, message) => { if (!condition) errors.push(message); }
 const imageBriefCount = enrichmentSources.reduce((sum, source) => sum + (source.match(/\bimageBrief\s*:\s*['"`]/g)?.length ?? 0), 0);
 assert(imageBriefCount === 84, `Expected 84 venue-specific image briefs; found ${imageBriefCount}.`);
 assert(allLookup.includes("lookupSlug = slug === 'galaxy-stadium' ? 'jones-att-stadium' : slug"), 'Galaxy/Jones image lookup alias must remain governed.');
+assert(aggregatePhotoSource.includes("getSportsVenuePhotoAdditionWave7(slug)"), 'Aggregate sports venue image registry must include Wave 7.');
 
 const licensedPhotoSlugs = [
   'att-stadium',
@@ -82,6 +84,7 @@ for (const marker of [
   "findCompleteTexasEntity(lookupSlug)",
   "entity.kind !== 'sports-venue'",
   'getSportsVenueEnrichmentAll(lookupSlug)',
+  "import('@/data/sports-venue-images-all')",
   'getSportsVenuePhoto(lookupSlug)',
   'location: photo.imageUrl',
   'status: 302',
@@ -90,6 +93,7 @@ for (const marker of [
   "type VenueVisualKind = 'stadium' | 'ballpark' | 'arena' | 'motorsports' | 'golf' | 'western' | 'surf'",
   "lookupSlug === 'jones-att-stadium' ? 'Galaxy Stadium' : entity.name",
 ]) assert(heroRoute.includes(marker), `Sports venue hero route is missing protected marker: ${marker}`);
+assert(!heroRoute.includes("import('@/data/sports-venue-images')"), 'Sports venue hero route must not use the base-only image registry; it must resolve the aggregate Wave 1–7 registry.');
 
 for (const forbidden of [
   'fetch(',
@@ -127,4 +131,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue imagery validated: ${imageBriefCount} venue briefs, ${licensedPhotoSlugs.length} licensed photo overrides with attribution metadata, owned SVG fallback rendering, structured ImageObject metadata and governed same-origin delivery.`);
+console.log(`Sports venue imagery validated: ${imageBriefCount} venue briefs, ${licensedPhotoSlugs.length} licensed photo overrides with attribution metadata, aggregate Wave 1–7 same-origin delivery, owned SVG fallback rendering and structured ImageObject metadata.`);
