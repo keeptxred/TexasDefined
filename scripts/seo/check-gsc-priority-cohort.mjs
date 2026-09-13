@@ -3,7 +3,7 @@ import fs from 'node:fs';
 const ORIGIN = 'https://texasdefined.com';
 const SNAPSHOT = 'ops/seo/gsc-discovered-2026-09-13.json';
 const snapshot = JSON.parse(fs.readFileSync(SNAPSHOT, 'utf8'));
-const submitted = snapshot?.manualSubmission?.submittedOn2026-09-13 ?? [];
+const submitted = snapshot?.manualSubmission?.['submittedOn2026-09-13'] ?? [];
 const nextBatch = snapshot?.manualSubmission?.nextBatch ?? [];
 const cohort = [...new Set([...submitted, ...nextBatch])];
 
