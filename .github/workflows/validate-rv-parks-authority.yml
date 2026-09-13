@@ -17,8 +17,10 @@ on:
       - 'scripts/data/validate-rv-curated-public-wave3.mjs'
       - 'scripts/data/validate-rv-curated-public-wave4.mjs'
       - 'scripts/data/validate-rv-curated-public-wave5.mjs'
+      - 'scripts/data/validate-rv-curated-public-wave6.mjs'
       - 'scripts/ci/verify-rv-parks-production.mjs'
       - 'scripts/ci/verify-rv-wave5-production.mjs'
+      - 'scripts/ci/verify-rv-wave6-production.mjs'
       - 'src/data/rv-parks/**'
       - 'src/data/county-major-events.ts'
       - 'src/data/county-major-events.server.ts'
@@ -54,8 +56,10 @@ on:
       - 'scripts/data/validate-rv-curated-public-wave3.mjs'
       - 'scripts/data/validate-rv-curated-public-wave4.mjs'
       - 'scripts/data/validate-rv-curated-public-wave5.mjs'
+      - 'scripts/data/validate-rv-curated-public-wave6.mjs'
       - 'scripts/ci/verify-rv-parks-production.mjs'
       - 'scripts/ci/verify-rv-wave5-production.mjs'
+      - 'scripts/ci/verify-rv-wave6-production.mjs'
       - 'src/data/rv-parks/**'
       - 'src/data/county-major-events.ts'
       - 'src/data/county-major-events.server.ts'
@@ -112,6 +116,8 @@ jobs:
         run: node scripts/data/validate-rv-curated-public-wave4.mjs
       - name: Validate curated public RV wave five
         run: node scripts/data/validate-rv-curated-public-wave5.mjs
+      - name: Validate curated public RV wave six
+        run: node scripts/data/validate-rv-curated-public-wave6.mjs
 
   production:
     if: ${{ github.event_name == 'workflow_dispatch' }}
@@ -129,3 +135,5 @@ jobs:
         run: node scripts/ci/verify-rv-parks-production.mjs
       - name: Verify RV Wave 5 production publication
         run: node scripts/ci/verify-rv-wave5-production.mjs
+      - name: Verify RV Wave 6 production publication
+        run: node scripts/ci/verify-rv-wave6-production.mjs
