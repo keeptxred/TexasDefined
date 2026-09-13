@@ -19,6 +19,8 @@ const countyPropertyDirectory = read('src/components/directories/TexasCountyProp
 const leafOnlyParents = read('src/lib/leaf-only-parent-routes.tsx');
 const landscapeServer = read('src/data/texas-landscapes.server.ts');
 const landscapeGuideEnrichment = read('src/data/texas-landscape-guide-enrichment.ts');
+const landscapeProfileEnrichment = read('src/data/texas-landscape-profile-enrichment.ts');
+const landscapeDetail = read('src/components/editorial/TexasLandscapeDetailPage.tsx');
 const route66Page = read('src/data/texas-route-66-page.ts');
 const exploreLeafQuality = read('src/data/explore-leaf-quality.ts');
 const failures = [];
@@ -94,16 +96,17 @@ for (const marker of [
   "robots: readyForIndexing ? undefined : 'noindex, follow'",
   'links: [canonicalLink(texasDefinedBrand, path)]',
   'isTexasLandscapeIndexReady(item)',
-  'citation: isLandscape ? undefined : item.sourceLinks.map((source) => source.href)',
+  'citation: item.sourceLinks.map((source) => source.href)',
+  'enrichedTexasLandscapeProfiles.find',
 ]) {
   if (!landscapeServer.includes(marker)) failures.push(`Landscape child crawl-quality contract missing: ${marker}`);
 }
 for (const marker of [
   'const { isRoute66StopIndexReady, isTexasLandscapeIndexReady } = await import("@/data/explore-leaf-quality")',
   'const { enrichedTexasLandscapeGuides } = await import("@/data/texas-landscape-guide-enrichment")',
-  'const { texasLandscapes } = await import("@/data/texas-landscapes")',
+  'const { enrichedTexasLandscapeProfiles } = await import("@/data/texas-landscape-profile-enrichment")',
   'const { TEXAS_ROUTE_66_STOPS } = await import("@/data/texas-route-66")',
-  'const landscapePaths = [...texasLandscapes, ...enrichedTexasLandscapeGuides]',
+  'const landscapePaths = [...enrichedTexasLandscapeProfiles, ...enrichedTexasLandscapeGuides]',
   '.filter(isTexasLandscapeIndexReady)',
   '...TEXAS_ROUTE_66_STOPS',
   '.filter(isRoute66StopIndexReady)',
@@ -120,9 +123,29 @@ for (const marker of [
   if (!landscapeGuideEnrichment.includes(marker)) failures.push(`Landscape guide authority enrichment missing: ${marker}`);
 }
 for (const marker of [
+  'enrichedTexasLandscapeProfiles',
+  'fieldNotes',
+  'sourceLinks',
+  'TPWD_ECOREGIONS',
+  'TWDB_RIVERS_RESERVOIRS',
+  'NPS_CHIHUAHUAN',
+  'TXDOT_WILDFLOWERS',
+]) {
+  if (!landscapeProfileEnrichment.includes(marker)) failures.push(`Landscape profile authority enrichment missing: ${marker}`);
+}
+for (const marker of [
+  'Read it in the field',
+  'item.fieldNotes.map',
+  '<SourceDesk sources={item.sourceLinks} noun="landscape profile" />',
+]) {
+  if (!landscapeDetail.includes(marker)) failures.push(`Landscape profile visible authority depth missing: ${marker}`);
+}
+for (const marker of [
   'auditTexasLandscapeItem',
   'auditRoute66Stop',
-  'words < 90',
+  'words < 180',
+  'item.fieldNotes.length < 2',
+  'item.sourceLinks.length < 2',
   'words < 220',
   'stop.sourceLinks.length < 2',
 ]) {
@@ -194,4 +217,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated preserved-catalog fallback when remote sources are unavailable or empty, Explore sitemap responses cannot persist stale edge variants, landscape and Route 66 leaf pages are promoted only after substantive quality checks, enriched landscape guides carry authority sources, verified city authority URLs are promoted only through the shared readiness gate, county property children are verification-filtered, and robots advertises each sitemap once.');
+console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated preserved-catalog fallback when remote sources are unavailable or empty, Explore sitemap responses cannot persist stale edge variants, landscape and Route 66 leaf pages are promoted only after substantive quality checks, landscape guides and profiles carry visible authority sources, verified city authority URLs are promoted only through the shared readiness gate, county property children are verification-filtered, and robots advertises each sitemap once.');
