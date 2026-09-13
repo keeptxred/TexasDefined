@@ -1,11 +1,11 @@
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 
 const profiles = [
-  { path: '/destination/lost-maples-state-natural-area-rv-campground', name: 'Lost Maples State Natural Area RV Campground' },
-  { path: '/destination/mckinney-falls-state-park-rv-loop', name: 'McKinney Falls State Park RV Loop' },
-  { path: '/destination/padre-island-national-seashore-malaquite-campground', name: 'Padre Island National Seashore Malaquite Campground' },
-  { path: '/destination/ratcliff-lake-recreation-area-rv-sites', name: 'Ratcliff Lake Recreation Area RV Sites' },
-  { path: '/destination/cagle-recreation-area-rv-loop', name: 'Cagle Recreation Area RV Loop' },
+  { path: '/destination/lady-bird-johnson-municipal-park', name: 'Lady Bird Johnson Municipal Park' },
+  { path: '/destination/quintana-beach-county-park-rv-sites', name: 'Quintana Beach County Park RV Sites' },
+  { path: '/destination/ib-magee-beach-park-rv-sites', name: 'IB Magee Beach Park RV Sites' },
+  { path: '/destination/east-fork-park-rv-area', name: 'East Fork Park RV Area' },
+  { path: '/destination/clear-lake-park-rv-loop', name: 'Clear Lake Park RV Loop' },
 ];
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -38,13 +38,13 @@ async function fetchProduction(path) {
   let lastError;
   for (let attempt = 1; attempt <= 6; attempt += 1) {
     const separator = path.includes('?') ? '&' : '?';
-    const url = `${origin}${path}${separator}verify=rv-wave8-${Date.now()}-${attempt}`;
+    const url = `${origin}${path}${separator}verify=rv-wave9-${Date.now()}-${attempt}`;
     try {
       const response = await fetch(url, {
         redirect: 'follow',
         cache: 'no-store',
         signal: AbortSignal.timeout(30_000),
-        headers: { 'user-agent': 'TexasDefined-CI-RV-Wave8-Production/1.0' },
+        headers: { 'user-agent': 'TexasDefined-CI-RV-Wave9-Production/1.0' },
       });
       const body = await response.text();
       const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
@@ -61,20 +61,20 @@ async function fetchProduction(path) {
 const sitemap = await fetchProduction('/sitemap-explore.xml');
 for (const profile of profiles) {
   const expectedUrl = `${origin}${profile.path}`;
-  if (sitemap.includes(expectedUrl)) throw new Error(`Wave 8 temporary-image profile must stay out of sitemap: ${expectedUrl}`);
+  if (sitemap.includes(expectedUrl)) throw new Error(`Wave 9 temporary-image profile must stay out of sitemap: ${expectedUrl}`);
 
   const html = await fetchProduction(profile.path);
-  if (!html.includes(profile.name)) throw new Error(`Wave 8 profile missing visible identity: ${profile.name}`);
+  if (!html.toLowerCase().includes(profile.name.toLowerCase())) throw new Error(`Wave 9 profile missing visible identity: ${profile.name}`);
   if (!html.includes('"@type":"WebPage"') || !html.includes('"@type":"TouristAttraction"')) {
-    throw new Error(`Wave 8 profile missing destination structured data: ${profile.name}`);
+    throw new Error(`Wave 9 profile missing destination structured data: ${profile.name}`);
   }
   if (canonicalHref(html) !== expectedUrl) {
-    throw new Error(`Wave 8 canonical mismatch for ${profile.name}: ${canonicalHref(html) || 'missing'}`);
+    throw new Error(`Wave 9 canonical mismatch for ${profile.name}: ${canonicalHref(html) || 'missing'}`);
   }
   const directives = robotsDirectives(html);
   if (!directives.has('noindex') || !directives.has('follow')) {
-    throw new Error(`Wave 8 temporary-image robots policy mismatch for ${profile.name}: ${metaContent(html, 'robots') || 'missing'}`);
+    throw new Error(`Wave 9 temporary-image robots policy mismatch for ${profile.name}: ${metaContent(html, 'robots') || 'missing'}`);
   }
 }
 
-console.log(`RV Wave 8 production verification passed: ${profiles.length} source-complete profiles remain live and canonical with destination schema while temporary representative AI heroes correctly keep them noindex/follow and out of the sitemap.`);
+console.log(`RV Wave 9 production verification passed: ${profiles.length} source-complete profiles are live and canonical with destination schema while temporary representative AI heroes correctly keep them noindex/follow and out of the sitemap.`);
