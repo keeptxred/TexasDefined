@@ -27,7 +27,7 @@ const repairedWave7 = [
   label: `${slug}-hero`,
   path: `/sports-venue/${slug}`,
   assetPath: `/images/sports-venues/${slug}.jpg`,
-  required: [`/images/sports-venues/${slug}.jpg`, alt],
+  required: [`/images/sports-venues/${slug}.jpg`, `content=\"${origin}/images/sports-venues/${slug}.jpg\"`, alt],
 }));
 
 const venues = [
@@ -112,6 +112,17 @@ async function inspectLocalAsset(assetPath, token) {
   }
 }
 
+function decodeHtmlText(value) {
+  return value
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCodePoint(Number.parseInt(hex, 16)))
+    .replace(/&#([0-9]+);/g, (_, decimal) => String.fromCodePoint(Number.parseInt(decimal, 10)))
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+}
+
 async function verifyVenue({ label, path, required, assetPath }) {
   let lastStatus = 'network-error';
   let lastBody = '';
@@ -139,7 +150,8 @@ async function verifyVenue({ label, path, required, assetPath }) {
       lastChallenge = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
       lastBody = await response.text();
       lastError = '';
-      missing = required.filter((needle) => !lastBody.includes(needle));
+      const decodedBody = decodeHtmlText(lastBody);
+      missing = required.filter((needle) => !lastBody.includes(needle) && !decodedBody.includes(needle));
       fallbackPresent = lastBody.includes(fallbackText);
       lastAsset = await inspectLocalAsset(assetPath, token);
 
