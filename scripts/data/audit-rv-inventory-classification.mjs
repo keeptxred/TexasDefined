@@ -16,6 +16,7 @@ const curatedWaveFiles = [
   ['src/data/rv-parks/curated-public-wave4.ts', 'WAVE4'],
   ['src/data/rv-parks/curated-public-wave5.ts', 'WAVE5'],
   ['src/data/rv-parks/curated-public-wave6.ts', 'WAVE6'],
+  ['src/data/rv-parks/curated-public-wave7.ts', 'WAVE7'],
 ];
 
 const registry = read('src/data/rv-parks/registry.server.ts');
