@@ -1,0 +1,54 @@
+name: Patch Texas Explained machine indexing validator
+
+on:
+  push:
+    branches:
+      - feat/texas-explained-authority-v2
+    paths:
+      - ".github/workflows/patch-texas-explained-machine-indexing.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/texas-explained-authority-v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Make machine-indexing guard lazy-route aware
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('scripts/data/validate-machine-indexing.mjs')
+          s = p.read_text()
+          old = "const texasExplainedRouteSource = fs.readFileSync(path.join(root, 'src/routes/texas-explained.tsx'), 'utf8');\nconst texasExplainedSeoValidatorSource"
+          new = "const texasExplainedRouteSource = fs.readFileSync(path.join(root, 'src/routes/texas-explained.tsx'), 'utf8');\nconst texasExplainedPageSource = fs.readFileSync(path.join(root, 'src/components/editorial/TexasExplainedPage.tsx'), 'utf8');\nconst texasExplainedCollectionSource = `${texasExplainedRouteSource}\\n${texasExplainedPageSource}`;\nconst texasExplainedSeoValidatorSource"
+          if old not in s:
+              raise SystemExit('Texas Explained route source anchor not found')
+          s = s.replace(old, new, 1)
+          old_check = "if (!texasExplainedRouteSource.includes(feature)) errors.push(`Texas Explained collection contract missing: ${feature}`);"
+          new_check = "if (!texasExplainedCollectionSource.includes(feature)) errors.push(`Texas Explained collection contract missing: ${feature}`);"
+          if old_check not in s:
+              raise SystemExit('Texas Explained collection check anchor not found')
+          s = s.replace(old_check, new_check, 1)
+          p.write_text(s)
+          PY
+          node --check scripts/data/validate-machine-indexing.mjs
+          node scripts/data/validate-machine-indexing.mjs
+      - name: Commit validator patch and remove helper
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/patch-texas-explained-machine-indexing.yml
+          git add scripts/data/validate-machine-indexing.mjs
+          git diff --cached --check
+          git commit -m "Make machine indexing aware of Texas Explained lazy route"
+          git push origin HEAD:feat/texas-explained-authority-v2
