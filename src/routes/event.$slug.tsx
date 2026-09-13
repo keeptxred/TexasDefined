@@ -22,6 +22,7 @@ export const Route = createFileRoute("/event/$slug")({
         canonicalPath,
         title: page.title,
         description: page.description,
+        robots: page.imageCompliant ? undefined : "noindex, follow, max-image-preview:large",
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     };
