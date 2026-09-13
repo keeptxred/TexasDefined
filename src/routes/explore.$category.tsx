@@ -18,10 +18,23 @@ const legacyExploreRedirects: Record<string, string> = {
   "swimming-holes": `/explore/${SWIMMING_HOLES_RIVER_TUBING_SLUG}`,
 };
 const authorityCategorySlugs = new Set(["outdoors", "caverns", "lakes-rivers", "beaches-coast", "small-towns"]);
+for (const slug of ["major-springs", "state-parks", "national-parks", "historic-sites", "road-trips", "food-bbq"]) authorityCategorySlugs.add(slug);
 const categorySeoOverrides: Partial<Record<string, { title: string; description: string }>> = {
   outdoors: {
     title: "Texas Outdoors & Wildlife: Parks, Trails, Birding & Wild Places",
     description: "Explore Texas outdoors by region, from state parks and hiking trails to wildlife, birding, dark skies, rivers and public lands, with seasonal access and safety guidance.",
+  },
+  "major-springs": {
+    title: "Texas Springs: Spring-Fed Pools, Rivers & Trip Planning",
+    description: "Explore major Texas springs and spring-fed destinations with aquifer context, current-flow planning, public-access guidance, swimming considerations and regional trip ideas.",
+  },
+  "state-parks": {
+    title: "Texas State Parks: Camping, Hiking, Reservations & Trip Planning",
+    description: "Explore Texas state parks by region and activity, with reservation strategy, current-alert checks, camping guidance, seasonal conditions and practical trip planning.",
+  },
+  "national-parks": {
+    title: "Texas National Parks & NPS Sites: Complete Trip Planning Guide",
+    description: "Explore Big Bend, Guadalupe Mountains and other National Park Service sites in Texas with designation, conditions, access, driving and itinerary guidance.",
   },
   "lakes-rivers": {
     title: "Texas Lakes & Rivers: Swimming, Paddling, Fishing & Water Trips",
@@ -31,9 +44,21 @@ const categorySeoOverrides: Partial<Record<string, { title: string; description:
     title: "Texas Beaches & Gulf Coast: Islands, Wildlife, Fishing & Beach Trips",
     description: "Explore the Texas Gulf Coast by beaches, barrier islands, bays and marshes, with public access, water quality, rip-current safety, birding, fishing and trip-planning guidance.",
   },
+  "historic-sites": {
+    title: "Texas Historic Sites & Museums: Heritage Trip Planning Guide",
+    description: "Explore Texas historic sites, missions, battlefields, museums, markers and heritage districts with source-backed context, visitor etiquette and regional trip planning.",
+  },
+  "road-trips": {
+    title: "Texas Road Trips: Scenic Routes, Small Towns & Itineraries",
+    description: "Plan Texas road trips with realistic drive times, official road conditions, regional route themes, fuel and overnight strategy, scenic stops and practical backup plans.",
+  },
   "small-towns": {
     title: "Texas Small Towns: Downtown Squares, Local Shopping & Road Trips",
     description: "Explore Texas small towns through courthouse squares, Main Street districts, local shopping, antiques, markets, food, festivals and practical road-trip planning.",
+  },
+  "food-bbq": {
+    title: "Texas Food & BBQ: Barbecue, Regional Foodways & Road Trips",
+    description: "Explore Texas barbecue and regional food traditions with brisket and smoking context, producer discovery, sellout-aware timing, food safety and practical road-trip planning.",
   },
   "rv-parks": {
     title: "Texas RV Parks & Campgrounds: 250 Places by Region & County",
