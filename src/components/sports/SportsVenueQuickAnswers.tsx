@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { ParkingMapPanel } from '@/components/parking/ParkingMapPanel';
 import { useVenueParkingMap } from '@/components/parking/useVenueParkingMap';
 import { SportsTrafficTracker } from '@/components/sports/SportsTrafficTracker';
+import { isGeneratedSportsVenueImage, sportsVenueImageCaption } from '@/data/sports-venue-image-attribution';
 import { getSportsVenuePhoto } from '@/data/sports-venue-images-all';
 
 const CityPassContextualCallout = lazy(() =>
@@ -47,6 +48,7 @@ export function SportsVenueQuickAnswers({
   const heroSrc = slug ? `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}` : undefined;
   const absoluteHeroUrl = heroSrc ? new URL(heroSrc, canonicalUrl).toString() : undefined;
   const photo = slug ? getSportsVenuePhoto(slug) : undefined;
+  const isGeneratedHero = isGeneratedSportsVenueImage(photo);
   const heroAlt = photo?.alt ?? `${venueName} — original TexasDefined sports venue illustration`;
   const heroWidth = photo?.width ?? 1600;
   const heroHeight = photo?.height ?? 900;
@@ -71,7 +73,7 @@ export function SportsVenueQuickAnswers({
     '@id': `${canonicalUrl}#venue-hero`,
     contentUrl: absoluteHeroUrl,
     url: absoluteHeroUrl,
-    caption: photo ? `${venueName} — photo by ${photo.author}, ${photo.licenseName}` : `${venueName} — original TexasDefined sports venue illustration`,
+    caption: sportsVenueImageCaption(venueName, photo),
     width: heroWidth,
     height: heroHeight,
     representativeOfPage: true,
@@ -94,7 +96,9 @@ export function SportsVenueQuickAnswers({
           className="aspect-[16/9] w-full object-cover"
         />
       </div>
-      {photo ? <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
+      {photo && isGeneratedHero ? <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
+        AI-generated representative editorial image by {photo.author} for TexasDefined. This is not documentary photography of the venue. <a className="underline underline-offset-2 hover:text-foreground" href={photo.sourcePage} target="_blank" rel="noreferrer">Media record</a> · <a className="underline underline-offset-2 hover:text-foreground" href={photo.licenseUrl} target="_blank" rel="noreferrer">{photo.licenseName}</a>.
+      </figcaption> : photo ? <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
         Photo by <a className="underline underline-offset-2 hover:text-foreground" href={photo.sourcePage} target="_blank" rel="noreferrer">{photo.author}</a> via {photo.sourceName}, licensed under <a className="underline underline-offset-2 hover:text-foreground" href={photo.licenseUrl} target="_blank" rel="noreferrer">{photo.licenseName}</a>. Original source file is served unchanged and may be visually cropped by the page layout.
       </figcaption> : <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">Original TexasDefined editorial illustration. Venue logos, sponsor marks and third-party photography are intentionally not reproduced.</figcaption>}
     </figure> : null}
