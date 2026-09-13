@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
+import { RelocationToolkitAnd100 } from '@/components/relocation/RelocationToolkitAnd100';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
@@ -45,7 +46,7 @@ export const Route = createFileRoute('/moving-to-texas-checklist')({
     meta: buildMeta(texasDefinedBrand, { canonicalPath: '/moving-to-texas-checklist', title: 'Moving to Texas Checklist: Your First Month', description }),
     links: [canonicalLink(texasDefinedBrand, '/moving-to-texas-checklist')],
     scripts: [jsonLd({ '@context': 'https://schema.org', '@graph': [
-      { '@type': 'WebPage', '@id': `${pageUrl}#page`, url: pageUrl, name: 'Moving to Texas Checklist: Your First Month', description, isPartOf: { '@id': `${siteUrl}/#website` }, mainEntity: { '@id': `${pageUrl}#howto` }, breadcrumb: { '@id': `${pageUrl}#breadcrumbs` }, dateModified: '2026-08-26' },
+      { '@type': 'WebPage', '@id': `${pageUrl}#page`, url: pageUrl, name: 'Moving to Texas Checklist: Your First Month', description, isPartOf: { '@id': `${siteUrl}/#website` }, mainEntity: { '@id': `${pageUrl}#howto` }, breadcrumb: { '@id': `${pageUrl}#breadcrumbs` }, dateModified: '2026-09-12' },
       { '@type': 'HowTo', '@id': `${pageUrl}#howto`, name: 'A moving checklist for your first month in Texas', description, step: howToSections },
       { '@type': 'BreadcrumbList', '@id': `${pageUrl}#breadcrumbs`, itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` }, { '@type': 'ListItem', position: 2, name: 'Moving Here', item: `${siteUrl}/moving-to-texas` }, { '@type': 'ListItem', position: 3, name: 'First Month Checklist', item: pageUrl }] },
     ] })],
@@ -66,7 +67,7 @@ function Page() {
     </section>
 
     <Container className="py-14 sm:py-20">
-      <article className="mx-auto max-w-4xl">
+      <article className="mx-auto max-w-5xl">
         <p className="max-w-2xl text-base leading-8 text-muted-foreground">Work through the list in order, or jump to the part that matches where you are in the move. Where a statewide agency owns the rule or lookup, the checklist links directly to that official source.</p>
         <aside className="mt-8 border-y border-border py-6" aria-labelledby="checklist-budget-heading">
           <p className="eyebrow text-primary">Before move day</p>
@@ -95,6 +96,7 @@ function Page() {
             </section>
           ))}
         </div>
+        <RelocationToolkitAnd100 />
         <aside className="mt-10 border-t border-border pt-6 text-sm leading-7 text-muted-foreground"><p className="eyebrow text-primary">Before you rely on it</p><p className="mt-3">Rules, deadlines, service territories and address assignments can change. The official links above were checked on August 26, 2026; confirm the current requirement with the responsible state or local office before acting.</p></aside>
         <footer className="mt-8 flex flex-wrap gap-x-7 gap-y-3 border-t border-border pt-6 text-sm font-semibold"><Link to="/texas-moving-cost-calculator" className="text-primary underline underline-offset-4">Estimate moving costs</Link><Link to="/moving-to-texas" className="text-primary underline underline-offset-4">Back to the Texas relocation hub</Link><Link to="/texas-resources" className="underline underline-offset-4">Texas resources</Link><Link to="/find-my-dmv" className="underline underline-offset-4">Find DMV / county office</Link><Link to="/find-my-school-district" className="underline underline-offset-4">Find school district</Link></footer>
       </article>
