@@ -14,8 +14,10 @@ const blueHoleLink = {
   description: "Read the history of the private blue-green quarry lake, its railroad past, geology, access limits and lost-train legend.",
 };
 
+// Jasper County's canonical county loader now owns its reciprocal Blue Hole
+// discovery link so SSR does not depend on this opportunistic registration
+// module being imported before the county page renders.
 for (const slug of [
-  "jasper-county-jasper-kirbyville-sam-rayburn-piney-woods-texas",
   "texas-lakes-reservoirs-explained",
   "texas-rivers-explained",
 ]) {
