@@ -71,14 +71,15 @@ export function SportsVenueGuidePilotContent({
   const venueEvents: readonly TexasEventCarouselItem[] = upcomingEvents.map((event) => {
     if (!event.image) return event;
 
-    const repeatsVenueHero = Boolean(photo && (
-      event.image.url === photo.imageUrl
-      || event.image.sourceUrl === photo.sourcePage
-      || imageReferencesMatch(
-        [event.image.url, event.image.sourceUrl],
+    const isDistinctFromVenueHero = !photo || (
+      event.image?.url !== photo.imageUrl
+      && event.image?.sourceUrl !== photo.sourcePage
+      && !imageReferencesMatch(
+        [event.image?.url, event.image?.sourceUrl],
         [photo.imageUrl, photo.sourcePage],
       )
-    ));
+    );
+    const repeatsVenueHero = !isDistinctFromVenueHero;
     const imageKey = canonicalImageReference(event.image.url);
     const repeatsEventImage = Boolean(imageKey && seenEventImageKeys.has(imageKey));
 
@@ -87,8 +88,8 @@ export function SportsVenueGuidePilotContent({
       return event;
     }
 
-    const { image: _repeatedImage, ...eventWithoutRepeatedImage } = event;
-    return eventWithoutRepeatedImage;
+    const { image: _duplicateVenueImage, ...eventWithoutDuplicateVenueImage } = event;
+    return eventWithoutDuplicateVenueImage;
   });
 
   return (
