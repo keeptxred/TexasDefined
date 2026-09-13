@@ -1,0 +1,26 @@
+name: Validate sports venue image uniqueness
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/sports-venue-images.ts'
+      - 'src/data/sports-venue-images-additions.ts'
+      - 'src/data/sports-venue-images-additions-wave2.ts'
+      - 'src/data/sports-venue-images-additions-wave3.ts'
+      - 'src/data/sports-venue-images-additions-wave4.ts'
+      - 'src/data/sports-venue-images-additions-wave5.ts'
+      - 'src/data/sports-venue-images-additions-wave6.ts'
+      - 'src/data/sports-venue-images-additions-wave7.ts'
+      - 'scripts/data/validate-sports-venue-image-uniqueness.mjs'
+      - '.github/workflows/validate-sports-venue-image-uniqueness.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node scripts/data/validate-sports-venue-image-uniqueness.mjs
