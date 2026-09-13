@@ -2,11 +2,13 @@ import { notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { isRoute66StopIndexReady } from "@/data/explore-leaf-quality";
-import { getTexasRoute66Stop, TEXAS_ROUTE_66_STOPS } from "@/data/texas-route-66";
+import { enrichTexasRoute66Stops } from "@/data/texas-route-66-enrichment";
+import { TEXAS_ROUTE_66_STOPS, type TexasRoute66Stop } from "@/data/texas-route-66";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const HUB_SLUG = "texas-road-trip";
 const hubDescription = "Drive the complete Texas stretch of Historic Route 66 from the Oklahoma line to Glenrio with 13 linked stop guides, landmark planning, 1–3 day itineraries and official historic-road sources.";
+const TEXAS_ROUTE_66_PAGE_STOPS = enrichTexasRoute66Stops(TEXAS_ROUTE_66_STOPS);
 
 function buildHubHead(canonicalPath: string, pageUrl: string) {
   return {
@@ -37,9 +39,9 @@ function buildHubHead(canonicalPath: string, pageUrl: string) {
           touristType: ["Road trip travelers", "Route 66 travelers", "Texas history travelers"],
           itinerary: {
             "@type": "ItemList",
-            numberOfItems: TEXAS_ROUTE_66_STOPS.length,
+            numberOfItems: TEXAS_ROUTE_66_PAGE_STOPS.length,
             itemListOrder: "https://schema.org/ItemListOrderAscending",
-            itemListElement: TEXAS_ROUTE_66_STOPS.map((stop, index) => ({
+            itemListElement: TEXAS_ROUTE_66_PAGE_STOPS.map((stop, index) => ({
               "@type": "ListItem",
               position: index + 1,
               name: stop.name,
@@ -60,7 +62,7 @@ function buildHubHead(canonicalPath: string, pageUrl: string) {
   };
 }
 
-function buildStopHead(canonicalPath: string, pageUrl: string, stop: (typeof TEXAS_ROUTE_66_STOPS)[number], index: number) {
+function buildStopHead(canonicalPath: string, pageUrl: string, stop: TexasRoute66Stop, index: number) {
   const description = `${stop.name} on Texas Route 66: what to see, why the stop matters, planning notes and authoritative sources for a complete Texas Mother Road itinerary.`;
   const readyForIndexing = isRoute66StopIndexReady(stop);
   return {
@@ -114,22 +116,22 @@ export async function loadTexasRoute66Page(slug: string) {
 
   if (slug === HUB_SLUG) {
     return {
-      pageData: { kind: "hub" as const, stops: TEXAS_ROUTE_66_STOPS },
+      pageData: { kind: "hub" as const, stops: TEXAS_ROUTE_66_PAGE_STOPS },
       head: buildHubHead(canonicalPath, pageUrl),
     };
   }
 
-  const stop = getTexasRoute66Stop(slug);
+  const stop = TEXAS_ROUTE_66_PAGE_STOPS.find((item) => item.slug === slug);
   if (!stop) throw notFound();
-  const index = TEXAS_ROUTE_66_STOPS.findIndex((item) => item.slug === stop.slug);
+  const index = TEXAS_ROUTE_66_PAGE_STOPS.findIndex((item) => item.slug === stop.slug);
   return {
     pageData: {
       kind: "stop" as const,
       stop,
       index,
-      previous: index > 0 ? TEXAS_ROUTE_66_STOPS[index - 1] : undefined,
-      next: index < TEXAS_ROUTE_66_STOPS.length - 1 ? TEXAS_ROUTE_66_STOPS[index + 1] : undefined,
-      total: TEXAS_ROUTE_66_STOPS.length,
+      previous: index > 0 ? TEXAS_ROUTE_66_PAGE_STOPS[index - 1] : undefined,
+      next: index < TEXAS_ROUTE_66_PAGE_STOPS.length - 1 ? TEXAS_ROUTE_66_PAGE_STOPS[index + 1] : undefined,
+      total: TEXAS_ROUTE_66_PAGE_STOPS.length,
     },
     head: buildStopHead(canonicalPath, pageUrl, stop, index),
   };
