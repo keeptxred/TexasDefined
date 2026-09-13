@@ -1035,7 +1035,9 @@ const TexasExplainedRoute = TexasExplainedRouteImport.update({
   id: '/texas-explained',
   path: '/texas-explained',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/texas-explained.lazy').then((d) => d.Route),
+)
 const TexasDriversLicenseRoute = TexasDriversLicenseRouteImport.update({
   id: '/texas-drivers-license',
   path: '/texas-drivers-license',
