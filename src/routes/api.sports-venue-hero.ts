@@ -27,7 +27,7 @@ export const Route = createFileRoute('/api/sports-venue-hero')({
         ] = await Promise.all([
           import('@/data/knowledge-graph'),
           import('@/data/sports-venue-enrichment-all'),
-          import('@/data/sports-venue-images'),
+          import('@/data/sports-venue-images-all'),
         ]);
         const entity = await findCompleteTexasEntity(lookupSlug);
         const enrichment = getSportsVenueEnrichmentAll(lookupSlug);
