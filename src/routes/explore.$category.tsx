@@ -18,7 +18,7 @@ const legacyExploreRedirects: Record<string, string> = {
   "swimming-holes": `/explore/${SWIMMING_HOLES_RIVER_TUBING_SLUG}`,
 };
 const authorityCategorySlugs = new Set(["outdoors", "caverns", "lakes-rivers", "beaches-coast", "small-towns"]);
-for (const slug of ["major-springs", "state-parks", "national-parks", "historic-sites", "road-trips", "food-bbq"]) authorityCategorySlugs.add(slug);
+for (const slug of ["major-springs", "swimming-holes-river-tubing", "state-parks", "national-parks", "historic-sites", "road-trips", "food-bbq"]) authorityCategorySlugs.add(slug);
 const categorySeoOverrides: Partial<Record<string, { title: string; description: string }>> = {
   outdoors: {
     title: "Texas Outdoors & Wildlife: Parks, Trails, Birding & Wild Places",
@@ -27,6 +27,10 @@ const categorySeoOverrides: Partial<Record<string, { title: string; description:
   "major-springs": {
     title: "Texas Springs: Spring-Fed Pools, Rivers & Trip Planning",
     description: "Explore major Texas springs and spring-fed destinations with aquifer context, current-flow planning, public-access guidance, swimming considerations and regional trip ideas.",
+  },
+  "swimming-holes-river-tubing": {
+    title: "Texas Swimming Holes & River Tubing: Access, Flow & Safety Guide",
+    description: "Plan Texas swimming-hole and river-tubing trips with current-flow checks, public-access guidance, water-quality considerations, heat safety, shuttle logistics and regional trip ideas.",
   },
   "state-parks": {
     title: "Texas State Parks: Camping, Hiking, Reservations & Trip Planning",

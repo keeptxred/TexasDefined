@@ -4,7 +4,7 @@ import path from 'node:path';
 const root = process.cwd();
 const route = fs.readFileSync(path.join(root, 'src/routes/explore.$category.tsx'), 'utf8');
 const errors = [];
-const slugs = ['major-springs', 'state-parks', 'national-parks', 'historic-sites', 'road-trips', 'food-bbq'];
+const slugs = ['major-springs', 'swimming-holes-river-tubing', 'state-parks', 'national-parks', 'historic-sites', 'road-trips', 'food-bbq'];
 
 const htmlWordCount = (html) => (html.replace(/<[^>]+>/g, ' ').match(/[A-Za-z0-9]+(?:['’][A-Za-z0-9]+)*/g) ?? []).length;
 
@@ -38,6 +38,7 @@ for (const slug of slugs) {
 
 for (const marker of [
   'title: "Texas Springs: Spring-Fed Pools, Rivers & Trip Planning"',
+  'title: "Texas Swimming Holes & River Tubing: Access, Flow & Safety Guide"',
   'title: "Texas State Parks: Camping, Hiking, Reservations & Trip Planning"',
   'title: "Texas National Parks & NPS Sites: Complete Trip Planning Guide"',
   'title: "Texas Historic Sites & Museums: Heritage Trip Planning Guide"',
@@ -54,6 +55,16 @@ const protectedMarkers = {
     'TCEQ — Clean Rivers Program',
     '/explore/lakes-rivers',
     '/explore/state-parks',
+  ],
+  'swimming-holes-river-tubing': [
+    'Texas Parks &amp; Wildlife — Texas River Guide',
+    'Texas Parks &amp; Wildlife — Public Boater Access',
+    'Texas Commission on Environmental Quality — Surface Water Quality',
+    'National Weather Service — Heat Safety',
+    '/explore/major-springs',
+    '/explore/lakes-rivers',
+    '/explore/trip-planner',
+    'Source review: September 13, 2026.',
   ],
   'state-parks': [
     'Texas Parks &amp; Wildlife — Texas State Parks',
