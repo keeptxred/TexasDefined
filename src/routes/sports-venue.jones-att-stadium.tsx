@@ -40,11 +40,13 @@ export const Route = createFileRoute('/sports-venue/jones-att-stadium')({
       { findCompleteTexasEntity, loadTexasKnowledgeGraph },
       { getSportsVenueUpcomingEvents },
       { sportsVenueLandingLinksForVenue },
+      { getSportsVenuePhoto },
       sponsorPlacement,
     ] = await Promise.all([
       import('@/data/knowledge-graph'),
       import('@/data/sports-venue-events.functions'),
       import('@/data/sports-venue-landings'),
+      import('@/data/sports-venue-images-all'),
       getActiveSportsSponsorPlacement({ data: { surfacePath: canonicalPath } }),
     ]);
     const [graph, entity, guideEvents] = await Promise.all([
@@ -56,6 +58,7 @@ export const Route = createFileRoute('/sports-venue/jones-att-stadium')({
 
     return {
       entity,
+      photo: getSportsVenuePhoto(stableSlug),
       nearbyAttractions: countyVisitorPlaces(entity, graph),
       upcomingEvents: guideEvents.events,
       eventCalendarHref: guideEvents.calendarHref,
@@ -63,14 +66,23 @@ export const Route = createFileRoute('/sports-venue/jones-att-stadium')({
       sponsorPlacement,
     };
   },
-  head: () => ({
-    meta: buildMeta(texasDefinedBrand, {
-      canonicalPath,
-      title: 'Galaxy Stadium | Lubbock, TX',
-      description: 'Galaxy Stadium in Lubbock: Texas Tech football, parking, arrival guidance, upcoming events, official planning links and the former Jones AT&T Stadium name.',
-    }),
-    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-  }),
+  head: ({ loaderData }) => {
+    if (!loaderData) return {};
+    const { entity, photo } = loaderData;
+    return {
+      meta: buildMeta(texasDefinedBrand, {
+        canonicalPath,
+        title: 'Galaxy Stadium | Lubbock, TX',
+        description: 'Galaxy Stadium in Lubbock: Texas Tech football, parking, arrival guidance, upcoming events, official planning links and the former Jones AT&T Stadium name.',
+        image: photo?.imageUrl,
+        imageAlt: photo?.alt,
+        imageWidth: photo?.width,
+        imageHeight: photo?.height,
+        robots: isIndexableEntityPage(entity) && photo ? undefined : 'noindex, follow, max-image-preview:large',
+      }),
+      links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+    };
+  },
   component: GalaxyStadiumPage,
 });
 
