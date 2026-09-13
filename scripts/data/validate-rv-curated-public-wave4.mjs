@@ -6,6 +6,7 @@ const images = read('src/data/rv-parks/images.server.ts');
 const indexFacade = read('src/data/rv-parks/index.ts');
 const audit = read('src/data/destination-audit.ts');
 const sitemap = read('src/routes/sitemap-explore[.]xml.ts');
+const productionSmoke = read('scripts/ci/verify-rv-production.mjs');
 const rawInventory = [
   'src/data/rv-parks/hill-country.ts',
   'src/data/rv-parks/gulf-coast.ts',
@@ -66,9 +67,12 @@ for (const [slug, name, officialUrl] of wave4) {
     requireText(imageBlock, 'licenseUrl:', `${name} image must retain explicit reuse-license metadata.`);
     requireText(imageBlock, 'sourceUrl:', `${name} image must retain source attribution metadata.`);
   }
+
+  requireText(productionSmoke, `{ path: '/destination/${slug}', name: '${name}' }`, `${name} must remain in deployment-coupled RV production smoke.`);
 }
 
 if (wave.includes('"caddo-lake-state-park-rv-area": {')) errors.push('Caddo Lake must remain outside Wave 4 as the explicit noindex negative control.');
+requireText(productionSmoke, "const guardedProfile = { path: '/destination/caddo-lake-state-park-rv-area'", 'Caddo Lake must remain the explicit noindex production control.');
 
 if (errors.length) {
   console.error('RV curated public wave 4 validation failed:');
@@ -76,4 +80,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('RV curated public wave 4 validation passed: six additional official-source profiles have substantive content, fresh source metadata, verified Texas coordinates and exact-location reusable imagery; Caddo Lake remains the noindex control.');
+console.log('RV curated public wave 4 validation passed: six additional official-source profiles have substantive content, fresh source metadata, verified Texas coordinates, exact-location reusable imagery and production smoke coverage; Caddo Lake remains the noindex control.');
