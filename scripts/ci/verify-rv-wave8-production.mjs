@@ -61,7 +61,7 @@ async function fetchProduction(path) {
 const sitemap = await fetchProduction('/sitemap-explore.xml');
 for (const profile of profiles) {
   const expectedUrl = `${origin}${profile.path}`;
-  if (!sitemap.includes(expectedUrl)) throw new Error(`Wave 8 sitemap missing ${profile.name}: ${expectedUrl}`);
+  if (sitemap.includes(expectedUrl)) throw new Error(`Wave 8 temporary-image profile must stay out of sitemap: ${expectedUrl}`);
 
   const html = await fetchProduction(profile.path);
   if (!html.includes(profile.name)) throw new Error(`Wave 8 profile missing visible identity: ${profile.name}`);
@@ -72,9 +72,9 @@ for (const profile of profiles) {
     throw new Error(`Wave 8 canonical mismatch for ${profile.name}: ${canonicalHref(html) || 'missing'}`);
   }
   const directives = robotsDirectives(html);
-  if (directives.has('noindex') || !directives.has('index') || !directives.has('follow')) {
-    throw new Error(`Wave 8 robots policy mismatch for ${profile.name}: ${metaContent(html, 'robots') || 'missing'}`);
+  if (!directives.has('noindex') || !directives.has('follow')) {
+    throw new Error(`Wave 8 temporary-image robots policy mismatch for ${profile.name}: ${metaContent(html, 'robots') || 'missing'}`);
   }
 }
 
-console.log(`RV Wave 8 production verification passed: ${profiles.length} profiles are sitemap-discoverable, canonical index/follow destinations with WebPage and TouristAttraction schema.`);
+console.log(`RV Wave 8 production verification passed: ${profiles.length} source-complete profiles remain live and canonical with destination schema while temporary representative AI heroes correctly keep them noindex/follow and out of the sitemap.`);
