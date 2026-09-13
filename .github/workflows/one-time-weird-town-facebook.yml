@@ -74,3 +74,5 @@ jobs:
             echo 'Publisher returned success without a post or duplicate confirmation; failing closed.' >&2
             exit 1
           fi
+
+# Retry trigger: corrected image is live as of 2026-09-13.
