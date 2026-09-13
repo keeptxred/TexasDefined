@@ -1,3 +1,4 @@
+import { hasCurrentOrFutureConfirmedEventOccurrence } from "./event-occurrence-lifecycle";
 import { getMajorEventRecordServer } from "./major-event-page.server";
 
 export const supplementalMajorEventSlugs = [
@@ -153,9 +154,11 @@ export function loadSupplementalMajorEventRecordsServer() {
   });
 }
 
-export function loadSupplementalMajorEventSitemapEntriesServer() {
-  return loadSupplementalMajorEventRecordsServer().map((event) => ({
-    path: `/event/${event.slug}`,
-    lastmod: event.sourceCheckedAt?.slice(0, 10),
-  }));
+export function loadSupplementalMajorEventSitemapEntriesServer(now = new Date()) {
+  return loadSupplementalMajorEventRecordsServer()
+    .filter((event) => hasCurrentOrFutureConfirmedEventOccurrence(event, now))
+    .map((event) => ({
+      path: `/event/${event.slug}`,
+      lastmod: event.sourceCheckedAt?.slice(0, 10),
+    }));
 }
