@@ -14,11 +14,13 @@ A page is not image-compliant when its hero is missing, blank, broken, a generic
 2. **Approved exact-subject internal media.** Reuse an existing TexasDefined asset only when it actually depicts the same subject and its provenance is already governed.
 3. **Photorealistic AI fallback.** When a reasonable reusable-image search produces no compliant result, generate a photorealistic editorial image specific to the place/event and attach it as the hero.
 
-A missing image is not an acceptable final fallback. A procedural gradient, generic stock substitute, or decorative SVG does not satisfy this rule.
+A missing image is not an acceptable final fallback. A procedural gradient, generic stock substitute, generic regional AI scene, or decorative SVG does not satisfy this rule.
 
 ## AI fallback requirements
 
-AI fallback must be photorealistic, relevant to the named subject and known setting, and suitable for editorial hero use. It must avoid fake documentary claims about an exact camera view, fabricated logos or sponsor marks, copyrighted poster/key art, embedded text, watermarks, and recognizable private individuals.
+AI fallback must be photorealistic, relevant to the named subject and known setting, and suitable for editorial hero use. It must be grounded in verified visual facts about the named place/event as reasonably available from official or otherwise reliable sources. It must avoid fake documentary claims about an exact camera view, fabricated logos or sponsor marks, copyrighted poster/key art, embedded text, watermarks, and recognizable private individuals.
+
+A generic or merely regional representative AI image is remediation-only. It may remain temporarily on a fail-closed page while a compliant hero is being sourced, but it does not satisfy final image readiness and must not make the page indexable or sitemap-eligible.
 
 AI-generated media must be identified in the relevant registry as TexasDefined generated media (or the equivalent governed source type) and must carry an attribution/rights note identifying the generation system and editorial-use status.
 
@@ -39,7 +41,7 @@ Once a compliant hero is attached and the relevant image validator passes, norma
 
 ## Automation rule
 
-Image-reconciliation automation must search reusable sources first. If no compliant result is found, it must use the configured photorealistic image-generation service. If neither path succeeds, the job must leave the page unresolved and fail/report it; automation must never manufacture a procedural placeholder and count that as success.
+Image-reconciliation automation must search reusable sources first. If no compliant result is found, it must use the configured photorealistic image-generation service with subject-specific, verified grounding. If neither path succeeds, the job must leave the page unresolved and fail/report it; automation must never manufacture a procedural placeholder or generic representative scene and count that as final success.
 
 ## Duplicate-image rule
 

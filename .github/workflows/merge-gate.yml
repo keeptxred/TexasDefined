@@ -62,6 +62,9 @@ jobs:
       - name: Validate RV image provenance
         run: node scripts/data/validate-rv-image-provenance.mjs
 
+      - name: Validate destination final image readiness
+        run: node scripts/data/validate-destination-image-final-readiness.mjs
+
       - name: Validate date formatting SSR regression
         run: node --experimental-strip-types --test src/domain/utils/format.test.ts
 
