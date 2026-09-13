@@ -109,6 +109,76 @@ function assertStrictMatcher() {
   }
 }
 
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function registryEntryBlock(source, slug) {
+  const pattern = new RegExp(`^\\s*["']${escapeRegExp(slug)}["']\\s*:\\s*\\{[\\s\\S]*?^\\s*\\},`, "m");
+  return source.match(pattern)?.[0] || null;
+}
+
+function stringField(block, field) {
+  const fieldPattern = escapeRegExp(field);
+  const doubleQuoted = block.match(new RegExp(`\\b${fieldPattern}\\s*:\\s*"([^"]*)"`));
+  if (doubleQuoted) return doubleQuoted[1];
+  const singleQuoted = block.match(new RegExp(`\\b${fieldPattern}\\s*:\\s*'([^']*)'`));
+  return singleQuoted?.[1] || null;
+}
+
+function commonsTitleFromSourceUrl(sourceUrl) {
+  try {
+    const url = new URL(sourceUrl);
+    if (url.hostname.toLowerCase() !== "commons.wikimedia.org") return null;
+    const marker = "/wiki/File:";
+    const index = url.pathname.indexOf(marker);
+    if (index < 0) return null;
+    return `File:${decodeURIComponent(url.pathname.slice(index + marker.length))}`;
+  } catch {
+    return null;
+  }
+}
+
+function registryCommonsCandidates(imagesSource, seedMap, report) {
+  const priorRows = [
+    ...(Array.isArray(report.commonsLicensed) ? report.commonsLicensed : []),
+    ...(Array.isArray(report.commonsRejected) ? report.commonsRejected : []),
+    ...(Array.isArray(report.heroSubjectRejected) ? report.heroSubjectRejected : []),
+  ];
+  const priorBySlug = new Map(priorRows.filter((row) => row?.slug).map((row) => [row.slug, row]));
+  const candidates = [];
+
+  for (const record of seedMap.values()) {
+    const block = registryEntryBlock(imagesSource, record.slug);
+    if (!block) throw new Error(`RV image registry entry missing for ${record.slug}`);
+    const sourceUrl = stringField(block, "sourceUrl");
+    const sourceTitle = commonsTitleFromSourceUrl(sourceUrl);
+    if (!sourceTitle) continue;
+    const prior = priorBySlug.get(record.slug) || {};
+    candidates.push({
+      slug: record.slug,
+      name: record.name,
+      sourceTitle,
+      sourceUrl,
+      license: prior.license || stringField(block, "license") || null,
+      evidence: prior.evidence || "",
+    });
+  }
+
+  return candidates;
+}
+
+function assertRegistryAuditRegression() {
+  const seedMap = new Map([
+    ["example-rv-resort", { name: "Example RV Resort", town: "Austin", county: "Travis", slug: "example-rv-resort" }],
+  ]);
+  const source = `export const RV_PARK_HERO_IMAGES = {\n  "example-rv-resort": {\n    sourceUrl: "https://commons.wikimedia.org/wiki/File:Example%20RV%20Resort%20Austin%20Texas.jpg",\n    license: "CC BY 4.0",\n  },\n};\n`;
+  const candidates = registryCommonsCandidates(source, seedMap, { commonsLicensed: [] });
+  if (candidates.length !== 1 || candidates[0].sourceTitle !== "File:Example RV Resort Austin Texas.jpg") {
+    throw new Error("strict Commons registry audit regression: existing Wikimedia entry was not discovered");
+  }
+}
+
 function aiPrompt(record) {
   const region = REGION_LABELS[record.groupId] || "Texas";
   return [
@@ -204,13 +274,9 @@ function renderGeneratedEntry(record) {
 }
 
 function replaceImageEntry(source, record) {
-  const marker = `  ${JSON.stringify(record.slug)}: {`;
-  const start = source.indexOf(marker);
-  if (start < 0) throw new Error(`Generated RV image entry not found for ${record.slug}`);
-  const endMarker = "\n  },";
-  const end = source.indexOf(endMarker, start);
-  if (end < 0) throw new Error(`Generated RV image entry closing marker not found for ${record.slug}`);
-  return `${source.slice(0, start)}${renderGeneratedEntry(record)}${source.slice(end + endMarker.length)}`;
+  const pattern = new RegExp(`^\\s*["']${escapeRegExp(record.slug)}["']\\s*:\\s*\\{[\\s\\S]*?^\\s*\\},`, "m");
+  if (!pattern.test(source)) throw new Error(`Generated RV image entry not found for ${record.slug}`);
+  return source.replace(pattern, renderGeneratedEntry(record));
 }
 
 async function runPool(items, worker, concurrency = CONCURRENCY) {
@@ -234,20 +300,22 @@ async function runPool(items, worker, concurrency = CONCURRENCY) {
 
 async function main() {
   assertStrictMatcher();
+  assertRegistryAuditRegression();
   const seedMap = await loadSeedMap();
   const report = JSON.parse(await fs.readFile(REPORT_PATH, "utf8"));
-  const commons = Array.isArray(report.commonsLicensed) ? report.commonsLicensed : [];
+  let imagesSource = await fs.readFile(IMAGES_PATH, "utf8");
+  const commons = registryCommonsCandidates(imagesSource, seedMap, report);
   const accepted = [];
   const rejected = [];
 
   for (const candidate of commons) {
     const record = seedMap.get(candidate.slug);
-    if (!record) throw new Error(`Report references unknown RV seed ${candidate.slug}`);
+    if (!record) throw new Error(`Registry references unknown RV seed ${candidate.slug}`);
     if (strictCommonsMatch(record, candidate.sourceTitle)) accepted.push(candidate);
     else rejected.push({ candidate, record });
   }
 
-  console.log(`Strict Commons policy: ${accepted.length} accepted, ${rejected.length} rejected from ${commons.length} candidates.`);
+  console.log(`Strict Commons registry policy: ${accepted.length} accepted, ${rejected.length} rejected from ${commons.length} existing Wikimedia-backed entries.`);
   for (const { candidate, record } of rejected.slice(0, 20)) {
     console.log(`  reject ${record.slug}: ${candidate.sourceTitle}`);
   }
@@ -262,9 +330,21 @@ async function main() {
     throw new Error(`Strict-policy AI fallback failed for ${failures.length} RV destinations: ${details}`);
   }
 
-  let imagesSource = await fs.readFile(IMAGES_PATH, "utf8");
   for (const { record } of rejected) imagesSource = replaceImageEntry(imagesSource, record);
-  await fs.writeFile(IMAGES_PATH, imagesSource, "utf8");
+  if (rejected.length) await fs.writeFile(IMAGES_PATH, imagesSource, "utf8");
+
+  const generated = Array.isArray(report.aiGenerated) ? report.aiGenerated : [];
+  for (const { record } of rejected) {
+    if (!generated.some((item) => item.slug === record.slug)) {
+      generated.push({
+        slug: record.slug,
+        name: record.name,
+        town: record.town,
+        county: record.county,
+        reason: "strict Commons location-policy fallback",
+      });
+    }
+  }
 
   report.commonsLicensed = accepted;
   report.commonsRejected = rejected.map(({ candidate, record }) => ({
@@ -274,22 +354,14 @@ async function main() {
     sourceUrl: candidate.sourceUrl,
     reason: "failed strict exact-property plus Texas/town/county title verification",
   }));
-  report.aiGenerated = [
-    ...(Array.isArray(report.aiGenerated) ? report.aiGenerated : []),
-    ...rejected.map(({ record }) => ({
-      slug: record.slug,
-      name: record.name,
-      town: record.town,
-      county: record.county,
-      reason: "strict Commons location-policy fallback",
-    })),
-  ];
+  report.aiGenerated = generated;
   report.strictLocationPolicy = {
+    registryAudit: true,
     commonsReviewed: commons.length,
     commonsAccepted: accepted.length,
     commonsRejected: rejected.length,
     generatedFallbacks: rejected.length,
-    matcher: "exact named property/public-land identity plus Texas/town/county evidence in Wikimedia file title",
+    matcher: "every existing Wikimedia-backed RV registry entry; exact named property/public-land identity plus Texas/town/county evidence in Wikimedia file title",
   };
 
   await fs.writeFile(REPORT_PATH, `${JSON.stringify(report, null, 2)}\n`, "utf8");
