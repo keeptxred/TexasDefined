@@ -12,6 +12,11 @@ const seedFiles = [
   ['big-bend-west-texas', 'src/data/rv-parks/big-bend-west-texas.ts'],
 ];
 
+const curatedWaveFiles = [
+  ['src/data/rv-parks/curated-public-wave4.ts', 'WAVE4'],
+  ['src/data/rv-parks/curated-public-wave5.ts', 'WAVE5'],
+];
+
 const registry = read('src/data/rv-parks/registry.server.ts');
 const images = read('src/data/rv-parks/images.server.ts');
 
@@ -105,6 +110,14 @@ function keyedBlocks(objectBody) {
   return blocks;
 }
 
+function mergeBlocks(...maps) {
+  const merged = new Map();
+  for (const map of maps) {
+    for (const [slug, block] of map) merged.set(slug, block);
+  }
+  return merged;
+}
+
 function normalizeIdentity(value) {
   return value.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, ' ').trim().replace(/\s+/g, ' ');
 }
@@ -163,8 +176,12 @@ function priorityFor(record, sourceBlock, imageBlock) {
 }
 
 const seeds = seedFiles.flatMap(([groupId, file]) => parseSeeds(groupId, read(file)));
-const sourceBlocks = keyedBlocks(objectLiteralBody(registry, 'SOURCE_OVERRIDES'));
-const contentBlocks = keyedBlocks(objectLiteralBody(registry, 'CONTENT_OVERRIDES'));
+const registrySourceBlocks = keyedBlocks(objectLiteralBody(registry, 'SOURCE_OVERRIDES'));
+const registryContentBlocks = keyedBlocks(objectLiteralBody(registry, 'CONTENT_OVERRIDES'));
+const curatedWaveBlocks = curatedWaveFiles.map(([file, constantName]) => keyedBlocks(objectLiteralBody(read(file), constantName)));
+const curatedBlocks = mergeBlocks(...curatedWaveBlocks);
+const sourceBlocks = mergeBlocks(registrySourceBlocks, curatedBlocks);
+const contentBlocks = mergeBlocks(registryContentBlocks, curatedBlocks);
 const imageBlocks = keyedBlocks(objectLiteralBody(images, 'RV_PARK_LICENSED_IMAGES'));
 
 const expectedSeedCount = constantNumber(registry, 'RV_PARK_SEED_COUNT');
@@ -220,6 +237,7 @@ const classifications = seeds.map((record) => {
   };
 });
 
+const classificationBySlug = new Map(classifications.map((record) => [record.slug, record]));
 const summary = classifications.reduce((acc, record) => {
   const key = `${record.disposition}${record.robots === 'NOINDEX' && record.disposition === 'IMPROVE' ? ' + NOINDEX' : ''}`;
   acc[key] = (acc[key] ?? 0) + 1;
@@ -230,15 +248,20 @@ const keep = classifications.filter((record) => record.disposition === 'KEEP');
 const improve = classifications.filter((record) => record.disposition === 'IMPROVE');
 const remove = classifications.filter((record) => record.disposition === 'REMOVE / CONSOLIDATE');
 const missingSeedSlugs = [...sourceBlocks.keys(), ...contentBlocks.keys(), ...imageBlocks.keys()].filter((slug, index, all) => all.indexOf(slug) === index && !slugOwners.has(slug));
+const curatedOverlayFailures = [...curatedBlocks.keys()].filter((slug) => classificationBySlug.get(slug)?.disposition !== 'KEEP');
 
 console.log(JSON.stringify({
   seedCount: seeds.length,
   expectedSeedCount,
   summary,
-  sourceOverrideCount: sourceBlocks.size,
-  contentOverrideCount: contentBlocks.size,
+  registrySourceOverrideCount: registrySourceBlocks.size,
+  registryContentOverrideCount: registryContentBlocks.size,
+  curatedOverlayCount: curatedBlocks.size,
+  effectiveSourceOverrideCount: sourceBlocks.size,
+  effectiveContentOverrideCount: contentBlocks.size,
   licensedImageCount: imageBlocks.size,
   missingSeedSlugs,
+  curatedOverlayFailures,
 }, null, 2));
 
 if (!process.argv.includes('--summary')) {
@@ -261,6 +284,7 @@ if (expectedSeedCount === null) failures.push('RV_PARK_SEED_COUNT constant is mi
 else if (seeds.length !== expectedSeedCount) failures.push(`Parsed ${seeds.length} RV seeds but RV_PARK_SEED_COUNT is ${expectedSeedCount}.`);
 if (missingSeedSlugs.length) failures.push(`Curation/image records reference missing seed slugs: ${missingSeedSlugs.join(', ')}`);
 if (!keep.length) failures.push('No RV records satisfy the source-level KEEP contract.');
+if (curatedOverlayFailures.length) failures.push(`Curated overlay records failed to classify KEEP: ${curatedOverlayFailures.join(', ')}`);
 if (keep.some((record) => record.robots === 'NOINDEX')) failures.push('A KEEP record was incorrectly classified NOINDEX.');
 if (improve.some((record) => record.robots !== 'NOINDEX')) failures.push('Every thin-but-valid IMPROVE record must remain NOINDEX until independently ready.');
 if (remove.some((record) => record.robots !== 'NOINDEX')) failures.push('REMOVE / CONSOLIDATE candidates must remain NOINDEX.');
@@ -271,4 +295,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`\nRV inventory classification passed: ${classifications.length} records classified; ${keep.length} KEEP candidates remain subject to the existing destination quality audit, ${improve.length} are IMPROVE + NOINDEX until ready, and ${remove.length} exact-identity duplicates are REMOVE / CONSOLIDATE candidates. Priority waves use only defensible repository signals (public-land naming, authoritative-source work already present, and rights-cleared exact-location imagery); no demand, amenity, price or distance claims are inferred.`);
+console.log(`\nRV inventory classification passed: ${classifications.length} records classified; ${keep.length} KEEP candidates remain subject to the existing destination quality audit, ${improve.length} are IMPROVE + NOINDEX until ready, and ${remove.length} exact-identity duplicates are REMOVE / CONSOLIDATE candidates. Curated public overlays are included in the source/content classification so production robots checks stay aligned with the actual runtime destination data. Priority waves use only defensible repository signals (public-land naming, authoritative-source work already present, and rights-cleared exact-location imagery); no demand, amenity, price or distance claims are inferred.`);
