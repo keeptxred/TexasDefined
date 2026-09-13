@@ -74,12 +74,17 @@ const PROHIBITED_IMAGE_SOURCE_HOSTS = [
   "google.com",
 ];
 
-function validHttpsUrl(value: string) {
+function validHttpsUrl(value: string | undefined) {
+  if (!value) return false;
   try {
     return new URL(value).protocol === "https:";
   } catch {
     return false;
   }
+}
+
+function isTexasDefinedHost(host: string) {
+  return host === "texasdefined.com" || host.endsWith(".texasdefined.com");
 }
 
 export function isCompliantMajorEventImage(image: EventSchemaImage | undefined): image is EventSchemaImage {
@@ -89,18 +94,40 @@ export function isCompliantMajorEventImage(image: EventSchemaImage | undefined):
   const sourceHost = new URL(image.sourceUrl).hostname.toLowerCase();
   if (PROHIBITED_IMAGE_SOURCE_HOSTS.some((host) => sourceHost === host || sourceHost.endsWith(`.${host}`))) return false;
 
-  // Wikimedia Commons is a free-media repository and remains the preferred external source.
-  if (sourceHost === "commons.wikimedia.org") return true;
-
-  // Existing internally generated event assets are accepted only when they are explicitly
-  // described as AI-generated editorial imagery. This preserves the current Chappell Hill
-  // pattern while rejecting generic placeholders and unlabeled generated graphics.
-  if (sourceHost === "texasdefined.com" && /\bAI[- ]generated\b/i.test(image.alt)) return true;
-
-  // Other owner/government/licensed sources must carry explicit commercial-use review metadata.
-  return image.approvedForCommercialUse === true
+  const rightsDocumented = Boolean(image.licenseName?.trim() || image.rightsNote?.trim());
+  const commercialReviewComplete = image.approvedForCommercialUse === true
     && Boolean(image.sourceType)
-    && Boolean(image.licenseName?.trim() || image.rightsNote?.trim());
+    && typeof image.exactLocation === "boolean"
+    && rightsDocumented;
+  if (!commercialReviewComplete) return false;
+
+  if (image.sourceType === "ai-generated") {
+    return isTexasDefinedHost(sourceHost)
+      && image.aiGenerated === true
+      && Boolean(image.rightsNote?.trim())
+      && /\bAI[- ]generated\b/i.test(image.alt);
+  }
+
+  // A real-source hero must depict the actual event location rather than act as a
+  // permanent representative or generic substitute. If no such reusable image exists,
+  // the governed fallback is a documented photorealistic AI image instead.
+  if (image.aiGenerated === true || image.exactLocation !== true) return false;
+
+  if (image.sourceType === "wikimedia") {
+    return sourceHost === "commons.wikimedia.org"
+      && Boolean(image.licenseName?.trim())
+      && validHttpsUrl(image.licenseUrl);
+  }
+
+  if (image.sourceType === "flickr-cc") {
+    return Boolean(image.licenseName?.trim()) && validHttpsUrl(image.licenseUrl);
+  }
+
+  // Owner-provided, government-open and other licensed-real sources are accepted only
+  // after the shared commercial-use, exact-location and rights-documentation checks above.
+  return image.sourceType === "owner-provided"
+    || image.sourceType === "government-open"
+    || image.sourceType === "licensed-real";
 }
 
 // Optional Google Event properties are only emitted when an official source supports a
