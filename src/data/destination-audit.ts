@@ -28,6 +28,7 @@ const GENERATED_COPY_MARKERS = [
   "works best as part of a trip built around the surrounding region",
   "use the official visitor-information link on this page for the latest details",
 ];
+const TEMPORARY_REPRESENTATIVE_AI_MARKER = /AI-generated representative editorial image/i;
 
 function validCoordinates(destination: Destination) {
   const { lat, lng } = destination.coordinates;
@@ -48,6 +49,10 @@ function sourceReviewIsFresh(value: string) {
 function containsGeneratedFallbackCopy(summary: string, bodyText: string) {
   const combined = `${summary} ${bodyText}`.toLowerCase();
   return GENERATED_COPY_MARKERS.some((marker) => combined.includes(marker));
+}
+
+function usesTemporaryRepresentativeAiHero(destination: Destination) {
+  return TEMPORARY_REPRESENTATIVE_AI_MARKER.test(`${destination.hero.alt} ${destination.hero.credit ?? ""}`);
 }
 
 export function auditDestination(input: Destination): DestinationAuditResult {
@@ -78,6 +83,9 @@ export function auditDestination(input: Destination): DestinationAuditResult {
   }
   if (isDestinationPhotoPlaceholder(destination.hero.src)) {
     issues.push({ code: "hero-placeholder", severity: "error", message: "Destination still uses a placeholder hero image." });
+  }
+  if (usesTemporaryRepresentativeAiHero(destination)) {
+    issues.push({ code: "hero-representative-ai", severity: "error", message: "Destination still uses a generic representative AI hero. Replace it with a rights-cleared exact-location image or a photorealistic AI depiction grounded in verified facts about the named place before indexing." });
   }
   if (!destination.hero.alt || destination.hero.alt.trim().length < 20) {
     issues.push({ code: "hero-alt", severity: "warning", message: "Hero image needs descriptive alt text." });
