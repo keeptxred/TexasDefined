@@ -133,6 +133,11 @@ for (const marker of [
 ]) {
   if (!landscapeProfileEnrichment.includes(marker)) failures.push(`Landscape profile authority enrichment missing: ${marker}`);
 }
+const profileEnhancementKeys = [...landscapeProfileEnrichment.matchAll(/^\s{2}"([a-z0-9-]+)": \{/gm)].map((match) => match[1]);
+if (profileEnhancementKeys.length !== 24) failures.push(`Landscape profile enrichment covers ${profileEnhancementKeys.length} profiles; expected 24.`);
+if (new Set(profileEnhancementKeys).size !== 24) failures.push('Landscape profile enrichment keys must be unique.');
+const profileSourceLinks = (landscapeProfileEnrichment.match(/\{ label: ".+?", href: [A-Z0-9_]+ \}/g) ?? []).length;
+if (profileSourceLinks < 48) failures.push(`Landscape profile enrichment exposes ${profileSourceLinks} authority links; expected at least 48.`);
 for (const marker of [
   'Read it in the field',
   'item.fieldNotes.map',
@@ -217,4 +222,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated preserved-catalog fallback when remote sources are unavailable or empty, Explore sitemap responses cannot persist stale edge variants, landscape and Route 66 leaf pages are promoted only after substantive quality checks, landscape guides and profiles carry visible authority sources, verified city authority URLs are promoted only through the shared readiness gate, county property children are verification-filtered, and robots advertises each sitemap once.');
+console.log('Crawl-demand validation passed: sitemap namespaces are partitioned, Explore destinations use quality-gated preserved-catalog fallback when remote sources are unavailable or empty, Explore sitemap responses cannot persist stale edge variants, all 24 landscape profiles and Route 66 leaf pages are promoted only after substantive quality checks, landscape guides and profiles carry visible authority sources, verified city authority URLs are promoted only through the shared readiness gate, county property children are verification-filtered, and robots advertises each sitemap once.');
