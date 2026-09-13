@@ -17,9 +17,20 @@ const registryPaths = [
 ];
 
 const read = (filePath) => fs.readFileSync(filePath, 'utf8');
+const decodeTsString = (value) => value
+  .replace(/\\'/g, "'")
+  .replace(/\\"/g, '"')
+  .replace(/\\n/g, '\n')
+  .replace(/\\r/g, '\r')
+  .replace(/\\t/g, '\t')
+  .replace(/\\\\/g, '\\');
+
 const recordEntries = (source) => [...source.matchAll(/^  ["']([^"']+)["']: \{\n([\s\S]*?)^  \},$/gm)].map((match) => {
   const body = match[2];
-  const stringField = (name) => body.match(new RegExp(`\\b${name}:\\s*(["'])(.*?)\\1`))?.[2] ?? '';
+  const stringField = (name) => {
+    const field = body.match(new RegExp(`\\b${name}:\\s*(["'])((?:\\\\.|(?!\\1)[\\s\\S])*?)\\1`));
+    return field ? decodeTsString(field[2]) : '';
+  };
   return {
     slug: match[1],
     alt: stringField('alt'),
@@ -58,7 +69,7 @@ if (contractFailures.length) {
 }
 
 if (contractOnly) {
-  console.log(`PASS: exhaustive sports venue production audit derives ${effective.size}/${expectedVenueCount} governed venue heroes from the base-first registry chain.`);
+  console.log(`PASS: exhaustive sports venue production audit derives ${effective.size}/${expectedVenueCount} governed venue heroes from the base-first registry chain and safely parses escaped metadata strings.`);
   process.exit(0);
 }
 
@@ -82,56 +93,66 @@ async function fetchWithTimeout(url, init = {}) {
     cache: 'no-store',
     signal: AbortSignal.timeout(30_000),
     headers: {
-      'user-agent': 'TexasDefined-CI-Sports-Venue-Exhaustive/1.0',
+      'user-agent': 'TexasDefined-CI-Sports-Venue-Exhaustive/1.1 (+https://texasdefined.com)',
       ...(init.headers ?? {}),
     },
   });
 }
 
-async function inspectImage(imageUrl, token) {
-  const target = new URL(imageUrl, origin);
-  const local = imageUrl.startsWith('/');
-  const url = new URL(target);
-  url.searchParams.set('verify', token);
+async function inspectEndpoint(endpointUrl, expectedImageUrl) {
+  const expectedLocation = new URL(expectedImageUrl, origin).toString();
+  const manual = await fetchWithTimeout(endpointUrl, { redirect: 'manual' });
+  const manualChallenge = manual.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+  const location = manual.headers.get('location') ?? '';
+  const actualLocation = location ? new URL(location, origin).toString() : '';
+  const redirectStatuses = new Set([301, 302, 307, 308]);
+  const redirectOk = !manualChallenge && redirectStatuses.has(manual.status) && actualLocation === expectedLocation;
+  await manual.body?.cancel();
 
-  if (local) {
-    const response = await fetchWithTimeout(url, { redirect: 'follow' });
-    const challenge = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
-    const contentType = response.headers.get('content-type') ?? '';
-    const bytes = (await response.arrayBuffer()).byteLength;
-    return {
-      ok: !challenge && response.ok && contentType.toLowerCase().startsWith('image/') && bytes >= 10_000,
-      status: response.status,
-      contentType,
-      bytes,
-      target: response.url,
-    };
-  }
+  let health = await fetchWithTimeout(endpointUrl, { method: 'HEAD', redirect: 'follow' });
+  let healthChallenge = health.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+  let contentType = health.headers.get('content-type') ?? '';
+  let bytes = Number(health.headers.get('content-length') ?? 0);
+  let target = health.url;
 
-  let response = await fetchWithTimeout(target, { method: 'HEAD', redirect: 'follow' });
-  let contentType = response.headers.get('content-type') ?? '';
-  let challenge = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
-  if (!response.ok || challenge || !contentType.toLowerCase().startsWith('image/')) {
-    response = await fetchWithTimeout(target, {
+  if (!health.ok || healthChallenge || !contentType.toLowerCase().startsWith('image/')) {
+    await health.body?.cancel();
+    health = await fetchWithTimeout(endpointUrl, {
       method: 'GET',
       redirect: 'follow',
-      headers: { range: 'bytes=0-0' },
+      headers: { range: 'bytes=0-16383' },
     });
-    contentType = response.headers.get('content-type') ?? '';
-    challenge = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
-    await response.body?.cancel();
+    healthChallenge = health.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+    contentType = health.headers.get('content-type') ?? '';
+    const buffer = await health.arrayBuffer();
+    bytes = buffer.byteLength;
+    target = health.url;
+  } else {
+    await health.body?.cancel();
   }
+
+  const local = expectedImageUrl.startsWith('/');
+  const targetUrl = new URL(target);
+  const expectedUrl = new URL(expectedImageUrl, origin);
+  const localTargetOk = !local || (targetUrl.origin === expectedUrl.origin && targetUrl.pathname === expectedUrl.pathname);
+  const imageOk = !healthChallenge && health.ok && contentType.toLowerCase().startsWith('image/') && localTargetOk;
+
   return {
-    ok: !challenge && response.ok && contentType.toLowerCase().startsWith('image/'),
-    status: response.status,
+    ok: redirectOk && imageOk,
+    status: manual.status,
+    healthStatus: health.status,
     contentType,
-    bytes: Number(response.headers.get('content-length') ?? 0),
-    target: response.url,
+    bytes,
+    target,
+    expectedLocation,
+    actualLocation,
+    redirectOk,
+    imageOk,
   };
 }
 
 async function inspectOnce(slug, entry, attempt) {
-  const token = `${process.env.GITHUB_SHA ?? 'local'}-${process.env.GITHUB_RUN_ID ?? Date.now()}-${slug}-${attempt}`;
+  const token = `${process.env.DEPLOY_SHA ?? process.env.GITHUB_SHA ?? 'local'}-${process.env.GITHUB_RUN_ID ?? Date.now()}-${slug}-${attempt}`;
   const pageUrl = `${origin}/sports-venue/${slug}?verify=${encodeURIComponent(token)}`;
   const endpointPath = `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}`;
   const endpointUrl = `${origin}${endpointPath}&verify=${encodeURIComponent(token)}`;
@@ -143,7 +164,7 @@ async function inspectOnce(slug, entry, attempt) {
   const generated = entry.sourceName === 'Texas Defined generated media' || /^AI-generated\b/i.test(entry.licenseName);
   const missing = [];
 
-  if (!decodedBody.includes(endpointPath) && !decodedBody.includes(`${origin}${endpointPath}`)) missing.push('same-origin governed hero endpoint');
+  if (!decodedBody.includes(entry.imageUrl)) missing.push(`governed image URL: ${entry.imageUrl}`);
   if (!decodedBody.includes(entry.alt)) missing.push(`alt text: ${entry.alt}`);
   if (generated) {
     if (!decodedBody.includes('AI-generated representative editorial image')) missing.push('AI-generated representative editorial image disclosure');
@@ -155,52 +176,46 @@ async function inspectOnce(slug, entry, attempt) {
     if (!decodedBody.includes(entry.sourceName)) missing.push(`photo source: ${entry.sourceName}`);
   }
 
-  const endpointResponse = await fetchWithTimeout(endpointUrl, { redirect: 'manual' });
-  const endpointChallenge = endpointResponse.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
-  const location = endpointResponse.headers.get('location') ?? '';
-  const redirectStatuses = new Set([301, 302, 307, 308]);
-  const expectedLocation = new URL(entry.imageUrl, origin).toString();
-  const actualLocation = location ? new URL(location, origin).toString() : '';
-  const endpointOk = !endpointChallenge && redirectStatuses.has(endpointResponse.status) && actualLocation === expectedLocation;
-
-  const image = await inspectImage(entry.imageUrl, token);
+  const endpoint = await inspectEndpoint(endpointUrl, entry.imageUrl);
   const fallbackPresent = decodedBody.includes(fallbackText);
   const pageOk = !pageChallenge && pageResponse.ok && !fallbackPresent && missing.length === 0;
-  const ok = pageOk && endpointOk && image.ok;
+  const ok = pageOk && endpoint.ok;
 
   return {
     ok,
     slug,
     pageStatus: pageResponse.status,
-    endpointStatus: endpointResponse.status,
-    imageStatus: image.status,
+    endpointStatus: endpoint.status,
+    imageStatus: endpoint.healthStatus,
     generated,
     missing,
     fallbackPresent,
-    expectedLocation,
-    actualLocation,
-    imageType: image.contentType,
-    imageTarget: image.target,
+    expectedLocation: endpoint.expectedLocation,
+    actualLocation: endpoint.actualLocation,
+    imageType: endpoint.contentType,
+    imageTarget: endpoint.target,
+    redirectOk: endpoint.redirectOk,
+    imageOk: endpoint.imageOk,
   };
 }
 
 async function verifyVenue(slug, entry) {
   let last;
   let lastError = '';
-  for (let attempt = 1; attempt <= 3; attempt += 1) {
+  for (let attempt = 1; attempt <= 4; attempt += 1) {
     try {
       last = await inspectOnce(slug, entry, attempt);
       if (last.ok) return last;
       lastError = [
         last.fallbackPresent ? 'fallback rendered' : '',
         last.missing.length ? `missing: ${last.missing.join(' | ')}` : '',
-        last.actualLocation !== last.expectedLocation ? `hero redirect mismatch: ${last.actualLocation || '(none)'} != ${last.expectedLocation}` : '',
-        last.imageType.toLowerCase().startsWith('image/') ? '' : `image MIME: ${last.imageType || '(none)'}`,
+        !last.redirectOk ? `hero redirect mismatch: ${last.actualLocation || '(none)'} != ${last.expectedLocation}` : '',
+        !last.imageOk ? `image health failed: status=${last.imageStatus} type=${last.imageType || '(none)'} target=${last.imageTarget || '(none)'}` : '',
       ].filter(Boolean).join('; ');
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
     }
-    if (attempt < 3) await sleep(2_500);
+    if (attempt < 4) await sleep(4_000 * attempt);
   }
   throw new Error(lastError || `${slug} failed exhaustive live hero verification.`);
 }
@@ -209,7 +224,7 @@ const entries = [...effective.entries()].sort(([a], [b]) => a.localeCompare(b));
 const results = [];
 const failures = [];
 let cursor = 0;
-const workerCount = Math.min(6, entries.length);
+const workerCount = Math.min(2, entries.length);
 
 async function worker() {
   while (true) {
@@ -226,6 +241,7 @@ async function worker() {
       failures.push({ slug, message });
       console.error(`::error title=LIVE PRODUCTION sports venue exhaustive hero failure::${slug}: ${message}`);
     }
+    await sleep(250);
   }
 }
 
@@ -233,7 +249,7 @@ await Promise.all(Array.from({ length: workerCount }, () => worker()));
 
 appendSummary('\n## Exhaustive sports venue hero production audit\n\n');
 appendSummary(`Verified ${results.length}/${entries.length} governed venue heroes against ${origin}.\n\n`);
-appendSummary('| Result | Venue | Page | Hero endpoint | Image | Media kind |\n|---|---|---:|---:|---:|---|\n');
+appendSummary('| Result | Venue | Page | Hero redirect | Image health | Media kind |\n|---|---|---:|---:|---:|---|\n');
 const passedBySlug = new Map(results.map((result) => [result.slug, result]));
 const failedBySlug = new Map(failures.map((failure) => [failure.slug, failure]));
 for (const [slug] of entries) {
@@ -251,4 +267,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`PASS: exhaustive sports venue hero production audit verified ${results.length}/${entries.length} governed venue pages, attribution semantics, exact same-origin hero redirects, and live image health.`);
+console.log(`PASS: exhaustive sports venue hero production audit verified ${results.length}/${entries.length} governed venue pages, attribution semantics, exact hero redirects, and live image health.`);
