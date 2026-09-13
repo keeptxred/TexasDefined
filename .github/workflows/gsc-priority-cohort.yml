@@ -4,12 +4,27 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '17 13 * * *'
+  pull_request:
+    paths:
+      - 'src/routes/property.tsx'
+      - 'src/data/fixtures/fredericksburg-history-weekend-guide.ts'
+      - 'src/routes/best-places-to-go-camping-in-texas.lazy.tsx'
+      - 'src/server-entry.ts'
+      - 'ops/seo/gsc-discovered-2026-09-13.json'
+      - 'scripts/seo/check-gsc-priority-cohort.mjs'
+      - 'scripts/seo/validate-gsc-crawl-demand-links.mjs'
+      - '.github/workflows/gsc-priority-cohort.yml'
   push:
     branches:
       - main
     paths:
+      - 'src/routes/property.tsx'
+      - 'src/data/fixtures/fredericksburg-history-weekend-guide.ts'
+      - 'src/routes/best-places-to-go-camping-in-texas.lazy.tsx'
+      - 'src/server-entry.ts'
       - 'ops/seo/gsc-discovered-2026-09-13.json'
       - 'scripts/seo/check-gsc-priority-cohort.mjs'
+      - 'scripts/seo/validate-gsc-crawl-demand-links.mjs'
       - '.github/workflows/gsc-priority-cohort.yml'
 
 permissions:
@@ -26,5 +41,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Validate durable GSC crawl-demand links
+        run: node scripts/seo/validate-gsc-crawl-demand-links.mjs
       - name: Verify GSC priority cohort on production
         run: node scripts/seo/check-gsc-priority-cohort.mjs
