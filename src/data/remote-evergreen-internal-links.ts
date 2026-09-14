@@ -138,8 +138,62 @@ const cultureLinks: Record<string, ArticleInternalLink[]> = {
   ],
 };
 
+const redditBatchLinks: Record<string, ArticleInternalLink[]> = {
+  "state-fair-texas-2026-new-foods-guide": [
+    { href: "/texas-state-fair", label: "Plan the 2026 State Fair of Texas", description: "Use the main State Fair planning guide for dates, tickets, parking, transit and trip logistics." },
+    { href: "/explore/food-bbq", label: "Explore Texas food and barbecue", description: "Keep going through TexasDefined's statewide food, barbecue and dining guides." },
+    { href: "/article/texas-restaurants-for-out-of-town-visitors", label: "Texas restaurant picks for visitors", description: "Build the rest of the trip around reliable local food stops in major Texas cities." },
+  ],
+  "why-austin-i35-traffic-keeps-getting-worse": [
+    { href: "/article/texas-road-closures-drivetexas-guide", label: "Check Texas road closures before you leave", description: "Use DriveTexas and local sources to verify construction, incidents and closures before a trip." },
+    { href: "/article/texas-toll-roads-tags-fees-guide", label: "Understand Texas toll roads and tags", description: "Compare toll tags, pay-by-mail rules and common fee surprises across Texas systems." },
+    { href: "/explore/road-trips", label: "Explore Texas road trips", description: "Plan routes and stops around the state's long-distance driving realities." },
+  ],
+  "why-houston-humidity-feels-so-bad": [
+    { href: "/article/moving-to-texas-what-nobody-tells-you", label: "What nobody tells you about moving to Texas", description: "Put Houston heat and humidity in the larger context of Texas climate, housing and everyday costs." },
+    { href: "/explore/outdoors", label: "Explore Texas outdoors", description: "Use TexasDefined's outdoor guides to plan around heat, seasonality and regional conditions." },
+    { href: "/article/texas-boil-water-notice-guide", label: "Texas boil-water notice guide", description: "Know how to respond when a local water system issues a public-health notice." },
+  ],
+  "tex-mex-history-texas-cuisine-guide": [
+    { href: "/article/texas-chili-beans-history", label: "The Texas chili-and-beans debate", description: "Follow another Texas food argument whose history is more complicated than the slogan." },
+    { href: "/article/texas-restaurants-for-out-of-town-visitors", label: "Where to take out-of-town visitors", description: "Use city-by-city dining picks to turn Texas food history into an actual meal plan." },
+    { href: "/explore/food-bbq", label: "Explore Texas food and barbecue", description: "Browse more guides to Texas dining traditions, barbecue and regional food culture." },
+  ],
+  "texas-chili-beans-history": [
+    { href: "/article/tex-mex-history-texas-cuisine-guide", label: "How Tex-Mex became its own Texas cuisine", description: "See how borderlands ingredients, restaurants and local taste built a distinct culinary tradition." },
+    { href: "/article/texas-restaurants-for-out-of-town-visitors", label: "Texas restaurants for out-of-town visitors", description: "Find practical places to introduce visitors to Texas food across ten cities." },
+    { href: "/explore/food-bbq", label: "Explore Texas food and barbecue", description: "Continue through TexasDefined's statewide food and dining collection." },
+  ],
+  "texas-bluebonnet-photo-etiquette-safety": [
+    { href: "/article/bluebonnet-season-field-guide", label: "Chasing bluebonnet season", description: "Use the broader field guide for bloom timing, routes and responsible wildflower viewing." },
+    { href: "/explore/outdoors", label: "Explore Texas outdoors", description: "Find more practical guides for Texas landscapes, parks and outdoor trips." },
+    { href: "/explore/road-trips", label: "Plan a Texas road trip", description: "Build a spring drive around safe stops instead of roadside improvisation." },
+  ],
+  "texas-restaurants-for-out-of-town-visitors": [
+    { href: "/article/tex-mex-history-texas-cuisine-guide", label: "Understand the Tex-Mex tradition", description: "Give visitors context for one of the cuisines they are most likely to encounter in Texas." },
+    { href: "/article/texas-chili-beans-history", label: "Texas chili: beans, history and the argument", description: "Add context to one of the state's longest-running food debates." },
+    { href: "/explore/food-bbq", label: "Explore Texas food and barbecue", description: "Browse the larger statewide food, barbecue and dining collection." },
+  ],
+  "texas-road-closures-drivetexas-guide": [
+    { href: "/article/why-austin-i35-traffic-keeps-getting-worse", label: "Why Austin I-35 traffic keeps getting worse", description: "Understand the construction and capacity pressures behind one of the state's most difficult urban corridors." },
+    { href: "/article/texas-toll-roads-tags-fees-guide", label: "Texas toll roads, tags and fees", description: "Know which toll systems and payment rules can affect an alternate route." },
+    { href: "/explore/road-trips", label: "Explore Texas road trips", description: "Plan statewide drives with better route and stop context." },
+  ],
+  "texas-toll-roads-tags-fees-guide": [
+    { href: "/article/texas-road-closures-drivetexas-guide", label: "Check current Texas road closures", description: "Verify incidents, construction and closures before choosing a toll-road or frontage-road alternative." },
+    { href: "/article/why-austin-i35-traffic-keeps-getting-worse", label: "Austin I-35 traffic and the Capital Express build", description: "See why Central Texas route planning will stay complicated through major I-35 construction." },
+    { href: "/explore/road-trips", label: "Explore Texas road trips", description: "Use TexasDefined's road-trip guides to plan longer drives across multiple toll systems." },
+  ],
+  "texas-boil-water-notice-guide": [
+    { href: "/article/moving-to-texas-what-nobody-tells-you", label: "The practical moving-to-Texas guide", description: "Understand utilities, infrastructure and other day-to-day realities before choosing a Texas community." },
+    { href: "/moving-to-texas", label: "Moving to Texas resources", description: "Use TexasDefined's relocation hub for utilities, schools, taxes, licenses and local setup." },
+    { href: "/article/why-houston-humidity-feels-so-bad", label: "Why Houston humidity feels so intense", description: "See how Gulf Coast weather shapes everyday life in one of Texas's largest metro areas." },
+  ],
+};
+
 export const remoteEvergreenInternalLinks: Readonly<Record<string, readonly ArticleInternalLink[]>> = {
   ...historyLinks,
   ...militaryLinks,
   ...cultureLinks,
+  ...redditBatchLinks,
 };
