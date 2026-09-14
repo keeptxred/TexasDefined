@@ -24,7 +24,7 @@ for (const marker of [
   'export function isGeneratedSportsVenueImage',
   '/^AI-generated\\b/i.test(photo.licenseName)',
   'export function sportsVenueImageCaption',
-  'AI-generated representative editorial image by ${photo.author}; not documentary photography',
+  'TexasDefined editorial illustration by ${photo.author}; not documentary photography',
   'photo by ${photo.author}, ${photo.licenseName}',
 ]) requireText(helper, marker, 'central venue image attribution helper');
 
@@ -32,11 +32,12 @@ for (const marker of [
   'isGeneratedSportsVenueImage',
   'sportsVenueImageCaption(venueName, photo)',
   'const isGeneratedHero = isGeneratedSportsVenueImage(photo);',
-  'AI-generated representative editorial image by {photo.author} for TexasDefined.',
-  'This is not documentary photography of the venue. {photo.licenseName}.',
+  'Editorial illustration by {photo.author} for TexasDefined.',
+  'This is not documentary photography of the venue.',
   'Photo by <a',
   'Original source file is served unchanged',
 ]) requireText(quickAnswers, marker, 'quick-answer hero attribution');
+forbidText(quickAnswers, 'AI-generated representative editorial image by {photo.author} for TexasDefined.', 'generated quick-answer disclosure should defer AI details to the sitewide policy');
 forbidText(quickAnswers, 'caption: photo ? `${venueName} — photo by', 'structured image metadata must branch on generated media');
 forbidText(quickAnswers, '>Media record</a>', 'generated quick-answer disclosure must not render a self-referential media link');
 
@@ -44,9 +45,10 @@ for (const marker of [
   'isGeneratedSportsVenueImage',
   'const generatedImage = isGeneratedSportsVenueImage(photo);',
   'photo && generatedImage ?',
-  'AI-generated representative editorial image by {photo.author} for TexasDefined; not documentary photography. {photo.licenseName}.',
+  'Editorial illustration by {photo.author} for TexasDefined; not documentary photography.',
   'Photo: <a href={photo.sourcePage}',
 ]) requireText(guidePage, marker, 'shared guide source attribution');
+forbidText(guidePage, 'AI-generated representative editorial image by {photo.author} for TexasDefined; not documentary photography.', 'generated guide disclosure should defer AI details to the sitewide policy');
 forbidText(guidePage, '>Media record</a>', 'generated guide disclosure must not render a self-referential media link');
 
 if (failures.length) {
@@ -55,4 +57,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('PASS: sports venue imagery distinguishes generated representative media from documentary photography in visible credits and structured image captions, avoids generated-media self-links, and preserves real-photo attribution.');
+console.log('PASS: sports venue imagery preserves generated-media provenance, uses concise non-documentary visible credits under the sitewide AI disclosure, avoids generated-media self-links, and preserves real-photo attribution.');

@@ -5,8 +5,8 @@ import { Container } from "@/components/layout/Container";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/editorial-policy";
-const reviewedAt = "2026-09-01";
-const description = "Read the Texas Defined editorial policy covering bylines, sourcing, verification, updates, independence, automated tools, and the distinction between editorial guidance and official authority.";
+const reviewedAt = "2026-09-14";
+const description = "Read the Texas Defined editorial policy covering bylines, sourcing, verification, updates, independence, automated tools, visual media, and the distinction between editorial guidance and official authority.";
 
 export const Route = createFileRoute(canonicalPath)({
   head: () => {
@@ -74,6 +74,10 @@ const POLICY_SECTIONS = [
     body: "Software and automated tools may assist with data processing, formatting, discovery, quality checks and drafting support. Those tools do not change Texas Defined's responsibility for what it publishes. We do not treat generated text as a source, invent citations to make a page look researched, or create fictional authors or credentials to simulate expertise.",
   },
   {
+    title: "Images, illustrations and AI-generated media",
+    body: "Some imagery on Texas Defined may be created or enhanced using artificial intelligence. Generated imagery is used for illustrative or editorial purposes when appropriate and should not be interpreted as documentary photography of an actual person, place, event or moment unless the page specifically identifies it as such. We preserve source and generation provenance in our media records. We do not require a repetitive AI label on every generated image when this sitewide policy supplies the disclosure; however, an individual image may receive an additional disclosure when a synthetic depiction of a specific real-world person, place or event could reasonably be mistaken for documentary evidence. Rights, licensing and source credits for third-party photography remain separate requirements and are shown when applicable.",
+  },
+  {
     title: "Commercial relationships",
     body: "Advertising, commerce and partnership features should be distinguishable from editorial material. A commercial relationship does not change the sourcing standard for factual editorial claims. Product availability, prices, offers and third-party terms can change and are controlled by the relevant provider at the time of a transaction.",
   },
@@ -91,7 +95,7 @@ function EditorialPolicyPage() {
           <p className="eyebrow text-primary">Editorial standards</p>
           <h1 className="mt-4 max-w-4xl font-display text-5xl leading-none sm:text-6xl">Editorial Policy</h1>
           <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">{description}</p>
-          <p className="mt-4 text-sm text-muted-foreground">Policy last reviewed September 1, 2026.</p>
+          <p className="mt-4 text-sm text-muted-foreground">Policy last reviewed September 14, 2026.</p>
         </Container>
       </section>
 

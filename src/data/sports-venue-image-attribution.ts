@@ -15,7 +15,7 @@ export function isGeneratedSportsVenueImage(photo: SportsVenuePhoto | undefined)
 export function sportsVenueImageCaption(venueName: string, photo: SportsVenuePhoto | undefined) {
   if (!photo) return `${venueName} — original TexasDefined sports venue illustration`;
   if (isGeneratedSportsVenueImage(photo)) {
-    return `${venueName} — AI-generated representative editorial image by ${photo.author}; not documentary photography`;
+    return `${venueName} — TexasDefined editorial illustration by ${photo.author}; not documentary photography`;
   }
   return `${venueName} — photo by ${photo.author}, ${photo.licenseName}`;
 }
