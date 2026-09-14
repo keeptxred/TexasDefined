@@ -1,11 +1,14 @@
 {
-  "generatedAt": "2026-08-08T14:24:15.635Z",
+  "generatedAt": "2026-09-13T05:22:16.913Z",
   "targeted": 0,
+  "resolved": 0,
   "freeUse": 0,
-  "generated": 0,
+  "aiGenerated": 0,
+  "unresolved": [],
+  "aiAvailable": true,
   "remainingPublishedSvgOrPlaceholderRefs": [
     {
-      "file": "src/data/explore-hero-reconciliation.ts",
+      "file": "src/data/destination-hero-placeholder.ts",
       "line": "export const DESTINATION_PHOTO_PLACEHOLDER = \"/images/texasdefined-destination-placeholder.svg\";"
     },
     {
