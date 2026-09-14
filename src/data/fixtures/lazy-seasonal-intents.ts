@@ -6,6 +6,7 @@ import smallTown from "@/assets/small-town.jpg";
 import { canonicalizeSeasonalArticleLinks } from "../seasonal-article-redirects";
 import type { Article, ImageRef } from "../types";
 import { blueHoleJasperCountyStoryArticle } from "./blue-hole-jasper-county-story";
+import { freeChristmasEventsInTexasArticle } from "./free-christmas-events-in-texas";
 
 const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
 const heroes = {
@@ -34,7 +35,7 @@ export const seasonalIntentStubs: Article[] = [
   stub({ id: "si-6", slug: "is-it-illegal-to-pick-bluebonnets-in-texas", title: "Is It Illegal to Pick Bluebonnets in Texas?", dek: "What Texas law actually says about picking bluebonnets.", category: "guides", hero: heroes.blue, authorId: "a-hollis", readingMinutes: 6, featured: true }),
   stub({ id: "si-7", slug: "best-christmas-lights-in-texas", title: "The Best Christmas Lights in Texas", dek: "Texas holiday light displays worth planning a trip around.", category: "events", hero: heroes.christmas, authorId: "a-marisol", readingMinutes: 9, featured: true }),
   stub({ id: "si-8", slug: "texas-christmas-train-rides", title: "Christmas Train Rides in Texas", dek: "Holiday train rides and family railroad experiences across Texas.", category: "events", hero: heroes.road, authorId: "a-marisol", readingMinutes: 8 }),
-  stub({ id: "si-9", slug: "free-christmas-events-in-texas", title: "Free Christmas Events in Texas", dek: "Free Texas holiday lights, strolls and community traditions.", category: "events", hero: heroes.christmas, authorId: "a-marisol", readingMinutes: 8 }),
+  stub({ id: "si-9", slug: "free-christmas-events-in-texas", title: "Free Christmas Events in Texas", dek: "Free Texas holiday lights, strolls and community traditions.", category: "events", hero: heroes.christmas, authorId: "a-marisol", readingMinutes: 7 }),
   stub({ id: "si-10", slug: "east-texas-fall-colors", title: "Where to See Fall Colors in East Texas", dek: "The strongest fall-color destinations across East Texas.", category: "outdoors", region: "piney-woods", hero: heroes.fall, authorId: "a-dell", readingMinutes: 8, featured: true, relatedDestinations: ["caddo-lake"] }),
   stub({ id: "si-11", slug: "hill-country-fall-colors", title: "Where to See Fall Colors in the Texas Hill Country", dek: "Hill Country river corridors and parks for autumn color.", category: "outdoors", region: "hill-country", hero: heroes.fall, authorId: "a-dell", readingMinutes: 8 }),
   stub({ id: "si-12", slug: "best-texas-state-parks-for-fall-colors", title: "The Best Texas State Parks for Fall Colors", dek: "Texas state parks that reliably reward an autumn trip.", category: "state-parks", hero: heroes.fall, authorId: "a-dell", readingMinutes: 9, featured: true, relatedDestinations: ["caddo-lake"] }),
@@ -59,6 +60,7 @@ export async function loadSeasonalIntentArticle(brandId: string, slug: string): 
   if (brandId !== "texasdefined" || !slugs.has(slug)) return null;
   const supplementalArticle = supplementalIntentArticles.get(slug);
   if (supplementalArticle) return supplementalArticle;
+  if (slug === freeChristmasEventsInTexasArticle.slug) return canonicalizeSeasonalArticleLinks(freeChristmasEventsInTexasArticle);
   const localFullArticle = seasonalIntentStubs.find((item) => item.slug === slug && item.body.length > 0);
   if (localFullArticle) return localFullArticle;
   const { seasonalIntentArticles } = await import("./seasonal-intent-articles");
