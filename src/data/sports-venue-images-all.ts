@@ -5,10 +5,11 @@ import { getSportsVenuePhotoAdditionWave4 } from './sports-venue-images-addition
 import { getSportsVenuePhotoAdditionWave5 } from './sports-venue-images-additions-wave5';
 import { getSportsVenuePhotoAdditionWave6 } from './sports-venue-images-additions-wave6';
 import { getSportsVenuePhotoAdditionWave7 } from './sports-venue-images-additions-wave7';
+import { getCuratedSportsVenuePhotoOverride } from './sports-venue-images-curated-overrides';
 import { getSportsVenuePhoto as getSportsVenuePhotoBase } from './sports-venue-images';
 
 export type { SportsVenuePhoto } from './sports-venue-images';
 
 export function getSportsVenuePhoto(slug: string) {
-  return getSportsVenuePhotoBase(slug) ?? getSportsVenuePhotoAddition(slug) ?? getSportsVenuePhotoAdditionWave2(slug) ?? getSportsVenuePhotoAdditionWave3(slug) ?? getSportsVenuePhotoAdditionWave4(slug) ?? getSportsVenuePhotoAdditionWave5(slug) ?? getSportsVenuePhotoAdditionWave6(slug) ?? getSportsVenuePhotoAdditionWave7(slug);
+  return getCuratedSportsVenuePhotoOverride(slug) ?? getSportsVenuePhotoBase(slug) ?? getSportsVenuePhotoAddition(slug) ?? getSportsVenuePhotoAdditionWave2(slug) ?? getSportsVenuePhotoAdditionWave3(slug) ?? getSportsVenuePhotoAdditionWave4(slug) ?? getSportsVenuePhotoAdditionWave5(slug) ?? getSportsVenuePhotoAdditionWave6(slug) ?? getSportsVenuePhotoAdditionWave7(slug);
 }
