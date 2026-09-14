@@ -97,7 +97,7 @@ export function SportsVenueQuickAnswers({
         />
       </div>
       {photo && isGeneratedHero ? <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
-        AI-generated representative editorial image by {photo.author} for TexasDefined. This is not documentary photography of the venue. {photo.licenseName}.
+        Editorial illustration by {photo.author} for TexasDefined. This is not documentary photography of the venue.
       </figcaption> : photo ? <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
         Photo by <a className="underline underline-offset-2 hover:text-foreground" href={photo.sourcePage} target="_blank" rel="noreferrer">{photo.author}</a> via {photo.sourceName}, licensed under <a className="underline underline-offset-2 hover:text-foreground" href={photo.licenseUrl} target="_blank" rel="noreferrer">{photo.licenseName}</a>. Original source file is served unchanged and may be visually cropped by the page layout.
       </figcaption> : null}
