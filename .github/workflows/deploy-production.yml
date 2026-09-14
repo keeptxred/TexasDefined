@@ -165,7 +165,20 @@ jobs:
         continue-on-error: true
         env:
           DIRECT_WORKER_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
-        run: node scripts/ci/verify-direct-worker-discovery.mjs
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p .artifacts
+          node scripts/ci/verify-direct-worker-discovery.mjs 2>&1 | tee .artifacts/direct-worker-discovery.log
+
+      - name: Upload direct Worker discovery diagnostics
+        if: ${{ always() && steps.live_direct_worker.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: direct-worker-discovery-${{ github.run_id }}
+          path: .artifacts/direct-worker-discovery.log
+          if-no-files-found: warn
+          retention-days: 7
 
       - name: Verify base production surfaces
         id: live_base
