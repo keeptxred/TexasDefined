@@ -5,6 +5,7 @@ on:
     paths:
       - 'src/data/fixtures/seasonal-authority-articles.ts'
       - 'src/data/fixtures/seasonal-intent-articles.ts'
+      - 'src/data/fixtures/seasonal-intent-depth-blocks.ts'
       - 'src/data/fixtures/free-christmas-events-in-texas.ts'
       - 'src/data/fixtures/lazy-authority-legacy.ts'
       - 'src/data/fixtures/lazy-seasonal-authority.ts'
@@ -16,6 +17,7 @@ on:
       - 'src/data/queries.ts'
       - 'src/components/editorial/ExploreIntentPaths.tsx'
       - 'scripts/data/validate-seasonal-authority.mjs'
+      - 'scripts/data/validate-seasonal-intent-depth.mjs'
       - 'scripts/data/validate-christmas-authority-resolution.mjs'
       - '.github/workflows/validate-seasonal-authority.yml'
   push:
@@ -23,6 +25,7 @@ on:
     paths:
       - 'src/data/fixtures/seasonal-authority-articles.ts'
       - 'src/data/fixtures/seasonal-intent-articles.ts'
+      - 'src/data/fixtures/seasonal-intent-depth-blocks.ts'
       - 'src/data/fixtures/free-christmas-events-in-texas.ts'
       - 'src/data/fixtures/lazy-authority-legacy.ts'
       - 'src/data/fixtures/lazy-seasonal-authority.ts'
@@ -34,6 +37,7 @@ on:
       - 'src/data/queries.ts'
       - 'src/components/editorial/ExploreIntentPaths.tsx'
       - 'scripts/data/validate-seasonal-authority.mjs'
+      - 'scripts/data/validate-seasonal-intent-depth.mjs'
       - 'scripts/data/validate-christmas-authority-resolution.mjs'
       - '.github/workflows/validate-seasonal-authority.yml'
 
@@ -51,4 +55,5 @@ jobs:
       - name: Validate bluebonnet, Christmas and fall authority clusters
         run: |
           node scripts/data/validate-seasonal-authority.mjs
+          node scripts/data/validate-seasonal-intent-depth.mjs
           node scripts/data/validate-christmas-authority-resolution.mjs
