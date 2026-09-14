@@ -9,9 +9,9 @@ export const majorEventSchemaEnrichmentOverrides: MajorEventSchemaEnrichment[] =
       url: "https://chappellhillhistoricalsociety.com/",
     },
     image: {
-      url: "https://texasdefined.com/images/events/chappell-hill-bluebonnet-festival.webp",
+      url: "https://texasdefined.com/images/events/chappell-hill-bluebonnet-festival-20260914.webp",
       alt: "AI-generated Texas Bluebonnet Festival scene with Texas flags, bluebonnets, vendor tents, visitors and a Ferris wheel",
-      sourceUrl: "https://texasdefined.com/images/events/chappell-hill-bluebonnet-festival.webp",
+      sourceUrl: "https://texasdefined.com/images/events/chappell-hill-bluebonnet-festival-20260914.webp",
       sourceType: "ai-generated",
       rightsNote: "TexasDefined-generated photorealistic editorial image approved for site use.",
       exactLocation: false,
