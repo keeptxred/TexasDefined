@@ -1,0 +1,3527 @@
+{
+  "generatedAt": "2026-09-14T13:33:22.939Z",
+  "previouslyCovered": 148,
+  "targeted": 234,
+  "resolved": 234,
+  "freeUse": 126,
+  "aiGenerated": 108,
+  "unresolved": [],
+  "images": [
+    {
+      "slug": "1919-san-augustine-county-jail-museum",
+      "name": "1919 San Augustine County Jail Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave7.ts",
+      "src": "/images/destination-heroes/1919-san-augustine-county-jail-museum.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "alabama-creek-wildlife-management-area",
+      "name": "Alabama Creek Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave5.ts",
+      "src": "/images/destination-heroes/alabama-creek-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "alazan-bayou-wildlife-management-area",
+      "name": "Alazan Bayou Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave1.ts",
+      "src": "/images/destination-heroes/alazan-bayou-wildlife-management-area.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:WRP restoration at Alazan Bayou Wildlife Management Area. (25019298471).jpg",
+      "credit": "USDA NRCS Texas · Public domain · Wikimedia Commons"
+    },
+    {
+      "slug": "amarillo-museum-of-art",
+      "name": "Amarillo Museum of Art",
+      "sourceFile": "src/data/museum-expansion-statewide-wave2.ts",
+      "src": "/images/destination-heroes/amarillo-museum-of-art.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Amarillo Texas Amarillo Museum of Art 2005-05-15.jpg",
+      "credit": "Who What Where Nguyen Why a/k/a Anonymous Cow · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "american-quarter-horse-hall-of-fame-museum-amarillo",
+      "name": "American Quarter Horse Hall of Fame & Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave2.ts",
+      "src": "/images/destination-heroes/american-quarter-horse-hall-of-fame-museum-amarillo.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Amarillo Texas - AQHA - Outside.jpg",
+      "credit": "No machine-readable author provided. J. Nguyen~commonswiki assumed (based on copyright claims). · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "angelina-neches-dam-b-wildlife-management-area",
+      "name": "Angelina-Neches/Dam B Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave5.ts",
+      "src": "/images/destination-heroes/angelina-neches-dam-b-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "art-museum-south-texas-corpus-christi",
+      "name": "Art Museum of South Texas",
+      "sourceFile": "src/data/museum-expansion-statewide-wave2.ts",
+      "src": "/images/destination-heroes/art-museum-south-texas-corpus-christi.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:The Art Museum of South Texas.JPG",
+      "credit": "Simiprof · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "art-museum-southeast-texas-beaumont",
+      "name": "Art Museum of Southeast Texas",
+      "sourceFile": "src/data/museum-expansion-statewide.ts",
+      "src": "/images/destination-heroes/art-museum-southeast-texas-beaumont.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Art Museum of Southeast Texas.jpg",
+      "credit": "R. Rothenberger · CC BY 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "atkinson-island-wildlife-management-area",
+      "name": "Atkinson Island Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave7.ts",
+      "src": "/images/destination-heroes/atkinson-island-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "bannister-wildlife-management-area",
+      "name": "Bannister Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave5.ts",
+      "src": "/images/destination-heroes/bannister-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "bastrop-county-museum-visitor-center",
+      "name": "Bastrop County Museum & Visitor Center",
+      "sourceFile": "src/data/museum-expansion-statewide-wave8.ts",
+      "src": "/images/destination-heroes/bastrop-county-museum-visitor-center.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Bastrop county historical society museum.jpg",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "beeville-art-museum",
+      "name": "Beeville Art Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave6.ts",
+      "src": "/images/destination-heroes/beeville-art-museum.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "bell-county-museum-belton",
+      "name": "Bell County Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave8.ts",
+      "src": "/images/destination-heroes/bell-county-museum-belton.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Chuckwagon exhibit at Bell County Museum, Belton, TX IMG 2418.JPG",
+      "credit": "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "big-lake-bottom-wildlife-management-area",
+      "name": "Big Lake Bottom Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave2.ts",
+      "src": "/images/destination-heroes/big-lake-bottom-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "black-beauty-ranch",
+      "name": "Black Beauty Ranch",
+      "sourceFile": "src/data/animal-sanctuary-destinations.ts",
+      "src": "/images/destination-heroes/black-beauty-ranch.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "black-gap-wildlife-management-area",
+      "name": "Black Gap Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave1.ts",
+      "src": "/images/destination-heroes/black-gap-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "bosque-museum-clifton",
+      "name": "Bosque Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave3.ts",
+      "src": "/images/destination-heroes/bosque-museum-clifton.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Bosque County Museum.jpg",
+      "credit": "Frank Buchalski from Dallas, United States · CC BY 2.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "brazoria-county-historical-museum-angleton",
+      "name": "Brazoria County Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave5.ts",
+      "src": "/images/destination-heroes/brazoria-county-historical-museum-angleton.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "brazos-valley-museum-natural-history-bryan",
+      "name": "Brazos Valley Museum of Natural History",
+      "sourceFile": "src/data/museum-expansion-statewide.ts",
+      "src": "/images/destination-heroes/brazos-valley-museum-natural-history-bryan.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Brazos valley museum of natural history.jpg",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "briscoe-garner-museum-uvalde",
+      "name": "Briscoe-Garner Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave9.ts",
+      "src": "/images/destination-heroes/briscoe-garner-museum-uvalde.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:John Nance Garner Museum sign IMG 4279.JPG",
+      "credit": "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "brown-county-museum-history-brownwood",
+      "name": "Brown County Museum of History",
+      "sourceFile": "src/data/museum-expansion-statewide-wave8.ts",
+      "src": "/images/destination-heroes/brown-county-museum-history-brownwood.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Brown county jail 2009.jpg",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "brownsville-heritage-museum",
+      "name": "Brownsville Heritage Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave11.ts",
+      "src": "/images/destination-heroes/brownsville-heritage-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Stillman House Brownsville Texas.jpg",
+      "credit": "25or6to4 · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "brush-country-museum-cotulla",
+      "name": "Brush Country Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave10.ts",
+      "src": "/images/destination-heroes/brush-country-museum-cotulla.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Brush Country Museum IMG 0460.JPG",
+      "credit": "Billy Hathorn at en.wikipedia · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "burleson-county-historical-museum-caldwell",
+      "name": "Burleson County Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave8.ts",
+      "src": "/images/destination-heroes/burleson-county-historical-museum-caldwell.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "caddo-lake-wildlife-management-area",
+      "name": "Caddo Lake Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave5.ts",
+      "src": "/images/destination-heroes/caddo-lake-wildlife-management-area.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:USA - Texas - Caddo Lake - Mossy Brake Swamp Tour.jpg",
+      "credit": "Alexander Hatley · CC BY 2.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "caddo-national-grasslands-wildlife-management-area",
+      "name": "Caddo National Grasslands Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave2.ts",
+      "src": "/images/destination-heroes/caddo-national-grasslands-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "calhoun-county-museum-port-lavaca",
+      "name": "Calhoun County Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave8.ts",
+      "src": "/images/destination-heroes/calhoun-county-museum-port-lavaca.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "callandret-black-history-museum-san-benito",
+      "name": "Callandret Black History Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave13.ts",
+      "src": "/images/destination-heroes/callandret-black-history-museum-san-benito.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "candy-cain-abshier-wildlife-management-area",
+      "name": "Candy Cain Abshier Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave1.ts",
+      "src": "/images/destination-heroes/candy-cain-abshier-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "carson-county-square-house-museum-panhandle",
+      "name": "Carson County Square House Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave3.ts",
+      "src": "/images/destination-heroes/carson-county-square-house-museum-panhandle.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:ATSF Railroad in Panhandle, TX IMG 0636.JPG",
+      "credit": "The original uploader was Billy Hathorn at English Wikipedia . · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "castro-county-historical-museum-dimmitt",
+      "name": "Castro County Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave19.ts",
+      "src": "/images/destination-heroes/castro-county-historical-museum-dimmitt.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "cedar-creek-islands-wildlife-management-area",
+      "name": "Cedar Creek Islands Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave2.ts",
+      "src": "/images/destination-heroes/cedar-creek-islands-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "center-for-animal-research-and-education",
+      "name": "Center for Animal Research and Education",
+      "sourceFile": "src/data/animal-sanctuary-destinations.ts",
+      "src": "/images/destination-heroes/center-for-animal-research-and-education.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "chaparral-wildlife-management-area",
+      "name": "Chaparral Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave1.ts",
+      "src": "/images/destination-heroes/chaparral-wildlife-management-area.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Beloved Emarginea Moth (Noctuidae, Emarginea percara) (30508354912).jpg",
+      "credit": "Insects Unlocked · CC0 · Wikimedia Commons"
+    },
+    {
+      "slug": "childress-county-heritage-museum",
+      "name": "Childress County Heritage Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave8.ts",
+      "src": "/images/destination-heroes/childress-county-heritage-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Childress County Heritage Museum, Childress, TX IMG 6206.JPG",
+      "credit": "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "chisholm-trail-heritage-museum-cuero",
+      "name": "Chisholm Trail Heritage Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave4.ts",
+      "src": "/images/destination-heroes/chisholm-trail-heritage-museum-cuero.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "collingsworth-county-museum-art-center-wellington",
+      "name": "Collingsworth County Museum & Art Center",
+      "sourceFile": "src/data/museum-expansion-statewide-wave20.ts",
+      "src": "/images/destination-heroes/collingsworth-county-museum-art-center-wellington.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "comanche-county-historical-museum",
+      "name": "Comanche County Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave24.ts",
+      "src": "/images/destination-heroes/comanche-county-historical-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Captain Jack Hays and Battle of Walker's Creek 1844.jpg",
+      "credit": "Texas Ranger Hall of Fame and Museum · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "cooper-wildlife-management-area",
+      "name": "Cooper Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave2.ts",
+      "src": "/images/destination-heroes/cooper-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "corpus-christi-museum-science-history",
+      "name": "Corpus Christi Museum of Science and History",
+      "sourceFile": "src/data/museum-expansion-statewide-wave2.ts",
+      "src": "/images/destination-heroes/corpus-christi-museum-science-history.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Corpus Christi Museum of Science and History (14418478850).jpg",
+      "credit": "Ted Gresham from Lufkin, United States · CC BY 2.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "coryell-museum-historical-center-gatesville",
+      "name": "Coryell Museum & Historical Center",
+      "sourceFile": "src/data/museum-expansion-statewide-wave25.ts",
+      "src": "/images/destination-heroes/coryell-museum-historical-center-gatesville.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "crosby-county-pioneer-memorial-museum-crosbyton",
+      "name": "Crosby County Pioneer Memorial Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave21.ts",
+      "src": "/images/destination-heroes/crosby-county-pioneer-memorial-museum-crosbyton.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "czech-heritage-museum-genealogy-center-temple",
+      "name": "Czech Heritage Museum & Genealogy Center",
+      "sourceFile": "src/data/museum-expansion-statewide-wave3.ts",
+      "src": "/images/destination-heroes/czech-heritage-museum-genealogy-center-temple.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "deaf-smith-county-museum-hereford",
+      "name": "Deaf Smith County Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave14.ts",
+      "src": "/images/destination-heroes/deaf-smith-county-museum-hereford.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Early phonograph, Deaf Smith County Museum, Hereford, TX IMG 4857.JPG",
+      "credit": "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "denton-county-courthouse-on-the-square-museum",
+      "name": "Denton County Courthouse-on-the-Square Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave22.ts",
+      "src": "/images/destination-heroes/denton-county-courthouse-on-the-square-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Old Courthouse Denton TX.jpg",
+      "credit": "Aaron Jacobs on en.wikipedia · CC BY-SA 2.5 · Wikimedia Commons"
+    },
+    {
+      "slug": "doss-heritage-culture-center-weatherford",
+      "name": "Doss Heritage & Culture Center",
+      "sourceFile": "src/data/museum-expansion-statewide-wave26.ts",
+      "src": "/images/destination-heroes/doss-heritage-culture-center-weatherford.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "dr-wintermann-wildlife-management-area",
+      "name": "D.R. Wintermann Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave6.ts",
+      "src": "/images/destination-heroes/dr-wintermann-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "east-texas-oil-museum-kilgore",
+      "name": "East Texas Oil Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave3.ts",
+      "src": "/images/destination-heroes/east-texas-oil-museum-kilgore.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:East Texas Oil Museum building, Kilgore, TX IMG 5900.JPG",
+      "credit": "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "eastland-county-museum",
+      "name": "Eastland County Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave25.ts",
+      "src": "/images/destination-heroes/eastland-county-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Old Eastland County Jail & Museum.jpg",
+      "credit": "Chuckfinley71 · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "elephant-mountain-wildlife-management-area",
+      "name": "Elephant Mountain Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave1.ts",
+      "src": "/images/destination-heroes/elephant-mountain-wildlife-management-area.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Pinus remota, Elephant Mountain WMA, Brewster County, Texas 01.jpg",
+      "credit": "annikaml · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "ellen-noel-art-museum-odessa",
+      "name": "Ellen Noël Art Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave7.ts",
+      "src": "/images/destination-heroes/ellen-noel-art-museum-odessa.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Ellen Noël Art Museum.jpg",
+      "credit": "AshleyFlores9696 · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "ellis-county-museum-waxahachie",
+      "name": "Ellis County Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave22.ts",
+      "src": "/images/destination-heroes/ellis-county-museum-waxahachie.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Ellis county museum interior 2013.jpg",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "fannin-county-museum-of-history-bonham",
+      "name": "Fannin County Museum of History",
+      "sourceFile": "src/data/museum-expansion-statewide-wave5.ts",
+      "src": "/images/destination-heroes/fannin-county-museum-of-history-bonham.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Bonham July 2016 29 (Fannin County Museum of History).jpg",
+      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "fire-museum-of-texas-beaumont",
+      "name": "Fire Museum of Texas",
+      "sourceFile": "src/data/museum-expansion-statewide.ts",
+      "src": "/images/destination-heroes/fire-museum-of-texas-beaumont.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Fire Museum of Texas in Beaumont.jpg",
+      "credit": "R. Rothenberger · CC BY 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "floyd-county-historical-museum-floydada",
+      "name": "Floyd County Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave18.ts",
+      "src": "/images/destination-heroes/floyd-county-historical-museum-floydada.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "fort-croghan-museum-grounds-burnet",
+      "name": "Fort Croghan Museum & Grounds",
+      "sourceFile": "src/data/museum-expansion-statewide-wave8.ts",
+      "src": "/images/destination-heroes/fort-croghan-museum-grounds-burnet.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:(Fort Croghan - Building -4 - Adjutant's Office) - DPLA - 061d3d94b89ff279cc110a98f2f4ae7c.jpg",
+      "credit": "Hicks, William · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "fort-inglish-village-bonham",
+      "name": "Fort Inglish Village",
+      "sourceFile": "src/data/museum-expansion-statewide-wave54.ts",
+      "src": "/images/destination-heroes/fort-inglish-village-bonham.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Johnston et al. Reconnoissances (sic.) of Routes from San Antonio de Bexar to El Paso del Norte 1849 (1850) UTA.jpg",
+      "credit": "Joseph E. Johnston · Public domain · Wikimedia Commons"
+    },
+    {
+      "slug": "fort-worth-aviation-museum",
+      "name": "Fort Worth Aviation Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave7.ts",
+      "src": "/images/destination-heroes/fort-worth-aviation-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Fort Worth Aviation Museum 2016.jpg",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "fossil-rim-wildlife-center",
+      "name": "Fossil Rim Wildlife Center",
+      "sourceFile": "src/data/animal-sanctuary-destinations.ts",
+      "src": "/images/destination-heroes/fossil-rim-wildlife-center.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Fossil Rim Wildlife Center (49192779473).jpg",
+      "credit": "runarut · CC BY 2.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "freddy-fender-museum-san-benito",
+      "name": "Freddy Fender Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave12.ts",
+      "src": "/images/destination-heroes/freddy-fender-museum-san-benito.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "freestone-county-historical-museum-fairfield",
+      "name": "Freestone County Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave5.ts",
+      "src": "/images/destination-heroes/freestone-county-historical-museum-fairfield.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "frio-pioneer-jail-museum-pearsall",
+      "name": "Frio Pioneer Jail Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave9.ts",
+      "src": "/images/destination-heroes/frio-pioneer-jail-museum-pearsall.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "frisco-heritage-museum",
+      "name": "Frisco Heritage Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave23.ts",
+      "src": "/images/destination-heroes/frisco-heritage-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Frisco Heritage Center July 2016 07 (Frisco Heritage Museum).jpg",
+      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "frontier-times-museum-bandera",
+      "name": "Frontier Times Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave6.ts",
+      "src": "/images/destination-heroes/frontier-times-museum-bandera.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Frontier Times Museum (6444392747).jpg",
+      "credit": "BFS Man from Webster, TX, USA · CC BY 2.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "garza-county-historical-museum-post",
+      "name": "Garza County Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave21.ts",
+      "src": "/images/destination-heroes/garza-county-historical-museum-post.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Garza County Historical Museum, Post, TX IMG 4644.JPG",
+      "credit": "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "gene-howe-wildlife-management-area",
+      "name": "Gene Howe Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave1.ts",
+      "src": "/images/destination-heroes/gene-howe-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "george-hw-bush-presidential-library-museum-college-station",
+      "name": "George H.W. Bush Presidential Library and Museum",
+      "sourceFile": "src/data/museum-expansion-statewide.ts",
+      "src": "/images/destination-heroes/george-hw-bush-presidential-library-museum-college-station.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:George H.W. Bush Presidential Library and Museum March 2022 12 (interior).jpg",
+      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "grace-museum-abilene",
+      "name": "The Grace Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave2.ts",
+      "src": "/images/destination-heroes/grace-museum-abilene.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:The Grace Museum Abilene Texas 2015.jpg",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "gregg-county-historical-museum-longview",
+      "name": "Gregg County Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave5.ts",
+      "src": "/images/destination-heroes/gregg-county-historical-museum-longview.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Longview May 2016 17 (Gregg County Historical Museum).jpg",
+      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "guadalupe-delta-wildlife-management-area",
+      "name": "Guadalupe Delta Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave3.ts",
+      "src": "/images/destination-heroes/guadalupe-delta-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "gus-engeling-wildlife-management-area",
+      "name": "Gus Engeling Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave1.ts",
+      "src": "/images/destination-heroes/gus-engeling-wildlife-management-area.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Northern Post Oak Savanna, Gus Engeling Wildlife Management Area, Anderson County, Texas, USA (15 April 2017).jpg",
+      "credit": "William L. Farr · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "hale-county-farm-ranch-museum-hale-center",
+      "name": "Hale County Farm and Ranch Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave17.ts",
+      "src": "/images/destination-heroes/hale-county-farm-ranch-museum-hale-center.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "hamilton-county-historical-museum",
+      "name": "Hamilton County Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave25.ts",
+      "src": "/images/destination-heroes/hamilton-county-historical-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Former Hamilton County Texas Jail 2018.jpg",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "harlingen-arts-heritage-museum",
+      "name": "Harlingen Arts & Heritage Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave4.ts",
+      "src": "/images/destination-heroes/harlingen-arts-heritage-museum.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "harrison-county-historical-museum-marshall",
+      "name": "Harrison County Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave5.ts",
+      "src": "/images/destination-heroes/harrison-county-historical-museum-marshall.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:(Basic Mileage Ration Coupons for M. S. McCutchan Jr.) - DPLA - 5e3d914ffaa051dc03ab06b46c3e24ae (page 1).jpg",
+      "credit": "United States. Office of Price Administration · Public domain · Wikimedia Commons"
+    },
+    {
+      "slug": "heard-natural-science-museum-wildlife-sanctuary",
+      "name": "Heard Natural Science Museum & Wildlife Sanctuary",
+      "sourceFile": "src/data/animal-sanctuary-destinations.ts",
+      "src": "/images/destination-heroes/heard-natural-science-museum-wildlife-sanctuary.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Heard Natural Science Museum and Wildlife Sanctuary- sign1.jpg",
+      "credit": "Sanctuary.p · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "heard-natural-science-museum-wildlife-sanctuary-mckinney",
+      "name": "Heard Natural Science Museum & Wildlife Sanctuary",
+      "sourceFile": "src/data/museum-expansion-statewide-wave3.ts",
+      "src": "/images/destination-heroes/heard-natural-science-museum-wildlife-sanctuary-mckinney.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:HeardTexasHeritage.jpg",
+      "credit": "Sanctuary.p · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "heritage-center-cherokee-county-rusk",
+      "name": "Heritage Center of Cherokee County",
+      "sourceFile": "src/data/museum-expansion-statewide-wave8.ts",
+      "src": "/images/destination-heroes/heritage-center-cherokee-county-rusk.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "heritage-farmstead-museum-plano",
+      "name": "Heritage Farmstead Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave22.ts",
+      "src": "/images/destination-heroes/heritage-farmstead-museum-plano.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Ammie Wilson House.jpg",
+      "credit": "Susan Bartley · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "heritage-hall-museum-memphis",
+      "name": "Heritage Hall Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave17.ts",
+      "src": "/images/destination-heroes/heritage-hall-museum-memphis.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Heritage Hall Museum, AKA Hamilton Municipal Building.jpg",
+      "credit": "Amy Bolinder · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "heritage-house-museum-orange",
+      "name": "Heritage House Museum of Orange County",
+      "sourceFile": "src/data/museum-expansion-statewide-wave6.ts",
+      "src": "/images/destination-heroes/heritage-house-museum-orange.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Jimmy sims house orange tx.jpg",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "heritage-museum-falfurrias",
+      "name": "The Heritage Museum at Falfurrias",
+      "sourceFile": "src/data/museum-expansion-statewide-wave9.ts",
+      "src": "/images/destination-heroes/heritage-museum-falfurrias.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "heritage-museum-montgomery-county-conroe",
+      "name": "Heritage Museum of Montgomery County",
+      "sourceFile": "src/data/museum-expansion-statewide-wave23.ts",
+      "src": "/images/destination-heroes/heritage-museum-montgomery-county-conroe.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Montgomery County Heritage Museum, Conroe, Texas.jpg",
+      "credit": "HIM Nguyen · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "heritage-museum-of-montgomery-county",
+      "name": "Heritage Museum of Montgomery County",
+      "sourceFile": "src/data/museum-expansion-statewide-wave30.ts",
+      "src": "/images/destination-heroes/heritage-museum-of-montgomery-county.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "historic-brownsville-museum",
+      "name": "Historic Brownsville Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave11.ts",
+      "src": "/images/destination-heroes/historic-brownsville-museum.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "hopkins-county-museum-heritage-park-sulphur-springs",
+      "name": "Hopkins County Museum and Heritage Park",
+      "sourceFile": "src/data/museum-expansion-statewide-wave5.ts",
+      "src": "/images/destination-heroes/hopkins-county-museum-heritage-park-sulphur-springs.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Hopkins County Museum and Heritage Park March 2017 06 (Railroad Museum interior).jpg",
+      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "hutchinson-county-historical-museum-borger",
+      "name": "Hutchinson County Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave14.ts",
+      "src": "/images/destination-heroes/hutchinson-county-historical-museum-borger.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Santa Fe Railroad exhibit at Boomtown Revisited Picture 2116.jpg",
+      "credit": "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "in-sync-exotics",
+      "name": "In-Sync Exotics",
+      "sourceFile": "src/data/animal-sanctuary-destinations.ts",
+      "src": "/images/destination-heroes/in-sync-exotics.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "iwo-jima-museum-monument-harlingen",
+      "name": "Iwo Jima Museum and Monument State Historic Site",
+      "sourceFile": "src/data/museum-expansion-statewide-wave12.ts",
+      "src": "/images/destination-heroes/iwo-jima-museum-monument-harlingen.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "james-e-daughtrey-wildlife-management-area",
+      "name": "James E. Daughtrey Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave1.ts",
+      "src": "/images/destination-heroes/james-e-daughtrey-wildlife-management-area.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Ardea alba (Great Egret) 171.jpg",
+      "credit": "gary_leavens · CC BY-SA 2.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "jd-murphree-wildlife-management-area",
+      "name": "J.D. Murphree Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave3.ts",
+      "src": "/images/destination-heroes/jd-murphree-wildlife-management-area.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Port Arthur Aerial photo of restoration projects.jpg",
+      "credit": "Chevron · Public domain · Wikimedia Commons"
+    },
+    {
+      "slug": "johnson-county-courthouse-museum-cleburne",
+      "name": "Johnson County Courthouse Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave26.ts",
+      "src": "/images/destination-heroes/johnson-county-courthouse-museum-cleburne.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Blanco County Courthouse (Old), Blanco, Texas Historical Marker (8691845468).jpg",
+      "credit": "Nicolas Henderson from Coppell, Texas · Public domain · Wikimedia Commons"
+    },
+    {
+      "slug": "justin-hurst-wildlife-management-area",
+      "name": "Justin Hurst Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave1.ts",
+      "src": "/images/destination-heroes/justin-hurst-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "karnes-county-museum-helena",
+      "name": "Karnes County Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave27.ts",
+      "src": "/images/destination-heroes/karnes-county-museum-helena.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "keechi-creek-wildlife-management-area",
+      "name": "Keechi Creek Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave1.ts",
+      "src": "/images/destination-heroes/keechi-creek-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "kelsey-bass-museum-rio-grande-city",
+      "name": "Kelsey Bass Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave13.ts",
+      "src": "/images/destination-heroes/kelsey-bass-museum-rio-grande-city.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "kenedy-ranch-museum-south-texas-sarita",
+      "name": "Kenedy Ranch Museum of South Texas",
+      "sourceFile": "src/data/museum-expansion-statewide-wave10.ts",
+      "src": "/images/destination-heroes/kenedy-ranch-museum-south-texas-sarita.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Sarita Kenedy East.jpg",
+      "credit": "Unknown author Unknown author · Public domain · Wikimedia Commons"
+    },
+    {
+      "slug": "kerr-wildlife-management-area",
+      "name": "Kerr Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave1.ts",
+      "src": "/images/destination-heroes/kerr-wildlife-management-area.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Common Whitetail Dragonfly Plathemis Lydia 0716 (167564219).jpeg",
+      "credit": "Mike Duran · CC BY 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "lampasas-county-museum",
+      "name": "Lampasas County Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave24.ts",
+      "src": "/images/destination-heroes/lampasas-county-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Keystone square museum lampasas.jpg",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "laredo-center-for-the-arts",
+      "name": "Laredo Center for the Arts",
+      "sourceFile": "src/data/museum-expansion-statewide-wave4.ts",
+      "src": "/images/destination-heroes/laredo-center-for-the-arts.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Laredo Center for the Arts in Laredo, TX IMG 1969.JPG",
+      "credit": "Billy Hathorn at en.wikipedia · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "las-palomas-wildlife-management-area",
+      "name": "Las Palomas Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave1.ts",
+      "src": "/images/destination-heroes/las-palomas-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "llano-county-historical-museum",
+      "name": "Llano County Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave25.ts",
+      "src": "/images/destination-heroes/llano-county-historical-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Llano County Texas Historical Museum in Llano, Texas 2016.jpg",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "longview-museum-of-fine-arts",
+      "name": "Longview Museum of Fine Arts",
+      "sourceFile": "src/data/museum-expansion-statewide-wave4.ts",
+      "src": "/images/destination-heroes/longview-museum-of-fine-arts.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Longview May 2016 46 (Longview Museum of Fine Arts).jpg",
+      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "lower-neches-wildlife-management-area",
+      "name": "Lower Neches Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave3.ts",
+      "src": "/images/destination-heroes/lower-neches-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "luling-oil-museum",
+      "name": "Luling Oil Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave53.ts",
+      "src": "/images/destination-heroes/luling-oil-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Luling, TX Oil Museum IMG 8193.JPG",
+      "credit": "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "mad-island-wildlife-management-area",
+      "name": "Mad Island Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave3.ts",
+      "src": "/images/destination-heroes/mad-island-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "mason-mountain-wildlife-management-area",
+      "name": "Mason Mountain Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave6.ts",
+      "src": "/images/destination-heroes/mason-mountain-wildlife-management-area.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:South End of Mason Valley, Nevada (15083240673).jpg",
+      "credit": "Ken Lund from Reno, Nevada, USA · CC BY-SA 2.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "matador-wildlife-management-area",
+      "name": "Matador Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave6.ts",
+      "src": "/images/destination-heroes/matador-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "matagorda-county-museum-bay-city",
+      "name": "Matagorda County Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave5.ts",
+      "src": "/images/destination-heroes/matagorda-county-museum-bay-city.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Matagorda County Museum in Bay City, TX IMG 1034.JPG",
+      "credit": "Billy Hathorn at en.wikipedia · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "matagorda-island-wildlife-management-area",
+      "name": "Matagorda Island Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave3.ts",
+      "src": "/images/destination-heroes/matagorda-island-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "mcallen-heritage-center",
+      "name": "McAllen Heritage Center",
+      "sourceFile": "src/data/museum-expansion-statewide-wave11.ts",
+      "src": "/images/destination-heroes/mcallen-heritage-center.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "mcfaddin-ward-house-museum-beaumont",
+      "name": "McFaddin-Ward House",
+      "sourceFile": "src/data/museum-expansion-statewide.ts",
+      "src": "/images/destination-heroes/mcfaddin-ward-house-museum-beaumont.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Mcfaddin ward house.jpg",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "mcgillivray-leona-mckie-muse-wildlife-management-area",
+      "name": "McGillivray and Leona McKie Muse Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave10.ts",
+      "src": "/images/destination-heroes/mcgillivray-leona-mckie-muse-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "midland-army-air-field-museum",
+      "name": "Midland Army Air Field Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave7.ts",
+      "src": "/images/destination-heroes/midland-army-air-field-museum.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "mills-county-historical-museum-goldthwaite",
+      "name": "Mills County Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave25.ts",
+      "src": "/images/destination-heroes/mills-county-historical-museum-goldthwaite.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "mo-neasloney-wildlife-management-area",
+      "name": "M.O. Neasloney Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave2.ts",
+      "src": "/images/destination-heroes/mo-neasloney-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "moore-plantation-wildlife-management-area",
+      "name": "Moore Plantation Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave5.ts",
+      "src": "/images/destination-heroes/moore-plantation-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "morton-museum-of-cooke-county",
+      "name": "Morton Museum of Cooke County",
+      "sourceFile": "src/data/museum-expansion-statewide-wave29.ts",
+      "src": "/images/destination-heroes/morton-museum-of-cooke-county.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Gainesville June 2017 10 (Morton Museum of Cooke County).jpg",
+      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "motley-county-historical-museum-matador",
+      "name": "Motley County Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave18.ts",
+      "src": "/images/destination-heroes/motley-county-historical-museum-matador.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Motley County, TX, Historical Museum IMG 1552.JPG",
+      "credit": "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "museum-of-east-texas-lufkin",
+      "name": "Museum of East Texas",
+      "sourceFile": "src/data/museum-expansion-statewide-wave9.ts",
+      "src": "/images/destination-heroes/museum-of-east-texas-lufkin.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "museum-of-hardin-county-kountze",
+      "name": "Museum of Hardin County",
+      "sourceFile": "src/data/museum-expansion-statewide-wave54.ts",
+      "src": "/images/destination-heroes/museum-of-hardin-county-kountze.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "museum-of-south-texas-history-edinburg",
+      "name": "Museum of South Texas History",
+      "sourceFile": "src/data/museum-expansion-statewide-wave47.ts",
+      "src": "/images/destination-heroes/museum-of-south-texas-history-edinburg.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Old Hidalgo County Jail Edinburg Texas 2021.jpg",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "museum-of-texas-tech-university-lubbock",
+      "name": "Museum of Texas Tech University",
+      "sourceFile": "src/data/museum-expansion-statewide-wave2.ts",
+      "src": "/images/destination-heroes/museum-of-texas-tech-university-lubbock.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Museum of Texas Tech University IMG 0038.JPG",
+      "credit": "Billy Hathorn at English Wikipedia · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "museum-of-the-american-railroad-frisco",
+      "name": "Museum of the American Railroad",
+      "sourceFile": "src/data/museum-expansion-statewide-wave3.ts",
+      "src": "/images/destination-heroes/museum-of-the-american-railroad-frisco.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Frisco June 2019 28 (Museum of the American Railroad).jpg",
+      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "museum-of-the-big-bend-alpine",
+      "name": "Museum of the Big Bend",
+      "sourceFile": "src/data/museum-expansion-statewide-wave46.ts",
+      "src": "/images/destination-heroes/museum-of-the-big-bend-alpine.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:The quicksilver mine at Terlingua, Texas. Big Bend National Park. (a12443cb8b584828ad196de0737ba03a).jpg",
+      "credit": "George A. Grant · Public domain · Wikimedia Commons"
+    },
+    {
+      "slug": "museum-of-the-coastal-bend-victoria",
+      "name": "Museum of the Coastal Bend",
+      "sourceFile": "src/data/museum-expansion-statewide-wave4.ts",
+      "src": "/images/destination-heroes/museum-of-the-coastal-bend-victoria.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Mission Nuestra Señora del Espíritu Santo de Zúñiga, Goliad, Texas (16260602101).jpg",
+      "credit": "Ken Lund from Reno, Nevada, USA · CC BY-SA 2.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "museum-of-the-gulf-coast-port-arthur",
+      "name": "Museum of the Gulf Coast",
+      "sourceFile": "src/data/museum-expansion-statewide-wave49.ts",
+      "src": "/images/destination-heroes/museum-of-the-gulf-coast-port-arthur.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Gulf of Mexico from the 'Birkdale' RMG BHC0076.jpg",
+      "credit": "John Everett · Public domain · Wikimedia Commons"
+    },
+    {
+      "slug": "museum-of-the-plains-perryton",
+      "name": "Museum of the Plains",
+      "sourceFile": "src/data/museum-expansion-statewide-wave15.ts",
+      "src": "/images/destination-heroes/museum-of-the-plains-perryton.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Museum of the Plains Indian.jpg",
+      "credit": "Royalbroil · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "museum-of-western-art-kerrville",
+      "name": "Museum of Western Art",
+      "sourceFile": "src/data/museum-expansion-statewide-wave4.ts",
+      "src": "/images/destination-heroes/museum-of-western-art-kerrville.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Le Penseur (enlarged replica) - National Museum of Western Art, Tokyo - DSC08025.JPG",
+      "credit": "Daderot · Public domain · Wikimedia Commons"
+    },
+    {
+      "slug": "museum-south-texas-history-edinburg",
+      "name": "Museum of South Texas History",
+      "sourceFile": "src/data/museum-expansion-statewide-wave2.ts",
+      "src": "/images/destination-heroes/museum-south-texas-history-edinburg.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:El Sol. (Alice, Tex.), Vol. 14, No. 49, Ed. 1 Wednesday, October 27, 1909 - DPLA - c8da500cc8c9d4597253877105cb3793 (page 1).jpg",
+      "credit": "Smith, A. D · Public domain · Wikimedia Commons"
+    },
+    {
+      "slug": "nacogdoches-railroad-depot-museum",
+      "name": "Nacogdoches Railroad Depot",
+      "sourceFile": "src/data/museum-expansion-statewide-wave5.ts",
+      "src": "/images/destination-heroes/nacogdoches-railroad-depot-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Nacogdoches August 2017 24 (Nacogdoches Railroad Depot).jpg",
+      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "nannie-m-stringfellow-wildlife-management-area",
+      "name": "Nannie M. Stringfellow Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave7.ts",
+      "src": "/images/destination-heroes/nannie-m-stringfellow-wildlife-management-area.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Cedar Lake TX Nannie Stringfellow WMA.jpg",
+      "credit": "Djmaschek · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "new-braunfels-railroad-museum",
+      "name": "New Braunfels Railroad Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave3.ts",
+      "src": "/images/destination-heroes/new-braunfels-railroad-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:New Braunfels Railroad Museum IMG 3246.JPG",
+      "credit": "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "newton-county-history-center-and-museum",
+      "name": "Newton County History Center and Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave42.ts",
+      "src": "/images/destination-heroes/newton-county-history-center-and-museum.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "north-toledo-bend-wildlife-management-area",
+      "name": "North Toledo Bend Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave5.ts",
+      "src": "/images/destination-heroes/north-toledo-bend-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "northeast-texas-rural-heritage-museum-pittsburg",
+      "name": "Northeast Texas Rural Heritage Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave8.ts",
+      "src": "/images/destination-heroes/northeast-texas-rural-heritage-museum-pittsburg.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Northeast Texas Rural Heritage Museum August 2015 01.jpg",
+      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "old-jail-art-center-albany",
+      "name": "Old Jail Art Center",
+      "sourceFile": "src/data/museum-expansion-statewide-wave3.ts",
+      "src": "/images/destination-heroes/old-jail-art-center-albany.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Old Jail Art Center, Darien, GA, US.JPG",
+      "credit": "Bubba73 (Jud McCranie) · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "old-jail-museum-complex-palo-pinto",
+      "name": "Old Jail Museum Complex",
+      "sourceFile": "src/data/museum-expansion-statewide-wave54.ts",
+      "src": "/images/destination-heroes/old-jail-museum-complex-palo-pinto.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "old-post-museum-art-center-graham",
+      "name": "The Old Post Museum & Art Center",
+      "sourceFile": "src/data/museum-expansion-statewide-wave14.ts",
+      "src": "/images/destination-heroes/old-post-museum-art-center-graham.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:1940 - Main U. S. Post Office.jpg",
+      "credit": "Unknown author Unknown author · Public domain · Wikimedia Commons"
+    },
+    {
+      "slug": "old-post-office-museum-art-center-graham",
+      "name": "The Old Post",
+      "sourceFile": "src/data/museum-expansion-statewide-wave51.ts",
+      "src": "/images/destination-heroes/old-post-office-museum-art-center-graham.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Gaunt's Common, postbox № BH21 14 and the old post office - geograph.org.uk - 1165562.jpg",
+      "credit": "Chris Downer · CC BY-SA 2.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "old-sabine-bottom-wildlife-management-area",
+      "name": "Old Sabine Bottom Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave5.ts",
+      "src": "/images/destination-heroes/old-sabine-bottom-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "panhandle-plains-historical-museum-canyon",
+      "name": "Panhandle-Plains Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide.ts",
+      "src": "/images/destination-heroes/panhandle-plains-historical-museum-canyon.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Panhandle Plains Historical Museum Canyon Texas 2024.jpg",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "parmer-county-museum-friona",
+      "name": "Parmer County Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave20.ts",
+      "src": "/images/destination-heroes/parmer-county-museum-friona.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "pat-mayse-wildlife-management-area",
+      "name": "Pat Mayse Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave2.ts",
+      "src": "/images/destination-heroes/pat-mayse-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "pat-murphy-wildlife-management-area",
+      "name": "Pat Murphy Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave10.ts",
+      "src": "/images/destination-heroes/pat-murphy-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "paul-toni-fox-burns-wildlife-management-area",
+      "name": "Paul and Toni Fox Burns Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave10.ts",
+      "src": "/images/destination-heroes/paul-toni-fox-burns-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "pearce-museum-corsicana",
+      "name": "Pearce Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave3.ts",
+      "src": "/images/destination-heroes/pearce-museum-corsicana.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "permian-basin-petroleum-museum-midland",
+      "name": "Permian Basin Petroleum Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave2.ts",
+      "src": "/images/destination-heroes/permian-basin-petroleum-museum-midland.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Permian Basin Petroleum Museum entrance, Midland, TX DSCN1296.JPG",
+      "credit": "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "pioneer-city-county-museum-sweetwater",
+      "name": "Pioneer City County Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave43.ts",
+      "src": "/images/destination-heroes/pioneer-city-county-museum-sweetwater.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:(Certificate Presented to Charles R. Griggs by the U. S. Army) - DPLA - 801923e7e9f72eb31279c8696bd2c703 (page 1).jpg",
+      "credit": "United States. Army · Public domain · Wikimedia Commons"
+    },
+    {
+      "slug": "pioneer-village-corsicana",
+      "name": "Pioneer Village",
+      "sourceFile": "src/data/museum-expansion-statewide-wave41.ts",
+      "src": "/images/destination-heroes/pioneer-village-corsicana.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Pioneer Village 9198.jpg",
+      "credit": "Dori · CC BY-SA 3.0 us · Wikimedia Commons"
+    },
+    {
+      "slug": "pioneer-west-museum-shamrock",
+      "name": "Pioneer West Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave15.ts",
+      "src": "/images/destination-heroes/pioneer-west-museum-shamrock.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Pioneer West Museum, Shamrock, TX IMG 6142.JPG",
+      "credit": "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "playa-lakes-armstrong-unit-wildlife-management-area",
+      "name": "Playa Lakes WMA Armstrong Unit",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave10.ts",
+      "src": "/images/destination-heroes/playa-lakes-armstrong-unit-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "playa-lakes-dimmitt-unit-wildlife-management-area",
+      "name": "Playa Lakes WMA Dimmitt Unit",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave10.ts",
+      "src": "/images/destination-heroes/playa-lakes-dimmitt-unit-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "playa-lakes-taylor-lakes-unit-wildlife-management-area",
+      "name": "Playa Lakes WMA Taylor Lakes Unit",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave10.ts",
+      "src": "/images/destination-heroes/playa-lakes-taylor-lakes-unit-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "polk-county-memorial-museum-livingston",
+      "name": "Polk County Memorial Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave5.ts",
+      "src": "/images/destination-heroes/polk-county-memorial-museum-livingston.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Polk county memorial museum livingston tx.jpg",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "port-isabel-historical-museum",
+      "name": "Port Isabel Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave4.ts",
+      "src": "/images/destination-heroes/port-isabel-historical-museum.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "powderhorn-wildlife-management-area",
+      "name": "Powderhorn Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave3.ts",
+      "src": "/images/destination-heroes/powderhorn-wildlife-management-area.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Belostoma lutarium ventral MP TX US.jpg",
+      "credit": "Matthew Pintar · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "red-river-valley-museum-vernon",
+      "name": "Red River Valley Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave6.ts",
+      "src": "/images/destination-heroes/red-river-valley-museum-vernon.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Red River Valley Museum, Vernon, TX Picture 2202.jpg",
+      "credit": "Billy Hathorn at en.wikipedia · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "redhead-pond-wildlife-management-area",
+      "name": "Redhead Pond Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave7.ts",
+      "src": "/images/destination-heroes/redhead-pond-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "republic-of-the-rio-grande-museum-laredo",
+      "name": "Republic of the Rio Grande Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave10.ts",
+      "src": "/images/destination-heroes/republic-of-the-rio-grande-museum-laredo.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:MVI 3084 Kitchen at hacienda of Republic of the Rio Grande Museum.jpg",
+      "credit": "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "richland-creek-wildlife-management-area",
+      "name": "Richland Creek Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave2.ts",
+      "src": "/images/destination-heroes/richland-creek-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "river-valley-pioneer-museum-canadian",
+      "name": "River Valley Pioneer Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave16.ts",
+      "src": "/images/destination-heroes/river-valley-pioneer-museum-canadian.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "roberts-county-museum-miami",
+      "name": "Roberts County Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave16.ts",
+      "src": "/images/destination-heroes/roberts-county-museum-miami.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "rockport-center-for-the-arts",
+      "name": "Rockport Center for the Arts",
+      "sourceFile": "src/data/museum-expansion-statewide-wave4.ts",
+      "src": "/images/destination-heroes/rockport-center-for-the-arts.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Gil Gutiérrez Trio.jpg",
+      "credit": "Hudson Valley Traveller · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "rockwall-county-historical-foundation-museum",
+      "name": "Rockwall County Historical Foundation & Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave7.ts",
+      "src": "/images/destination-heroes/rockwall-county-historical-foundation-museum.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "roger-r-fawcett-wildlife-management-area",
+      "name": "Roger R. Fawcett Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave10.ts",
+      "src": "/images/destination-heroes/roger-r-fawcett-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "rosenberg-railroad-museum",
+      "name": "Rosenberg Railroad Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave3.ts",
+      "src": "/images/destination-heroes/rosenberg-railroad-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Rosenberg RailRoad Museum model train set.jpg",
+      "credit": "Dontyoufanta · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "round-top-area-historical-society-museum",
+      "name": "Round Top Area Historical Society Wood Campus Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave54.ts",
+      "src": "/images/destination-heroes/round-top-area-historical-society-museum.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "rusk-county-depot-museum-history-center-henderson",
+      "name": "Rusk County Depot Museum & History Center",
+      "sourceFile": "src/data/museum-expansion-statewide-wave9.ts",
+      "src": "/images/destination-heroes/rusk-county-depot-museum-history-center-henderson.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "sabine-county-jail-museum-and-virgie-speights-memorial-library",
+      "name": "Sabine County Jail Museum and Virgie Speights Memorial Library",
+      "sourceFile": "src/data/museum-expansion-statewide-wave32.ts",
+      "src": "/images/destination-heroes/sabine-county-jail-museum-and-virgie-speights-memorial-library.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "saints-roost-museum-clarendon",
+      "name": "Saints",
+      "sourceFile": "src/data/museum-expansion-statewide-wave17.ts",
+      "src": "/images/destination-heroes/saints-roost-museum-clarendon.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Church of All Saints, Odiham 1.JPG",
+      "credit": "Lewis Hulbert · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "sam-houston-memorial-museum-republic-texas-presidential-library-huntsville",
+      "name": "Sam Houston Memorial Museum & Republic of Texas Presidential Library",
+      "sourceFile": "src/data/museum-expansion-statewide-wave4.ts",
+      "src": "/images/destination-heroes/sam-houston-memorial-museum-republic-texas-presidential-library-huntsville.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "sam-houston-national-forest-wildlife-management-area",
+      "name": "Sam Houston National Forest Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave5.ts",
+      "src": "/images/destination-heroes/sam-houston-national-forest-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "sam-rayburn-museum-bonham",
+      "name": "Sam Rayburn Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave4.ts",
+      "src": "/images/destination-heroes/sam-rayburn-museum-bonham.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Sam Rayburn House, Bonham, Texas Historical Marker (7551799838).jpg",
+      "credit": "Nicolas Henderson from Coppell, Texas · CC BY 2.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "san-angelo-museum-of-fine-arts",
+      "name": "San Angelo Museum of Fine Arts",
+      "sourceFile": "src/data/museum-expansion-statewide-wave2.ts",
+      "src": "/images/destination-heroes/san-angelo-museum-of-fine-arts.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:San Angelo September 2019 43 (San Angelo Museum of Fine Arts).jpg",
+      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "san-saba-county-historical-museum",
+      "name": "San Saba County Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave33.ts",
+      "src": "/images/destination-heroes/san-saba-county-historical-museum.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "schulenburg-historical-museum",
+      "name": "Schulenburg Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave54.ts",
+      "src": "/images/destination-heroes/schulenburg-historical-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Schulenburg historical museum 2012.jpg",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "science-spectrum-omni-theater-lubbock",
+      "name": "Science Spectrum & OMNI Theater",
+      "sourceFile": "src/data/museum-expansion-statewide.ts",
+      "src": "/images/destination-heroes/science-spectrum-omni-theater-lubbock.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "scurry-county-museum",
+      "name": "Scurry County Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave34.ts",
+      "src": "/images/destination-heroes/scurry-county-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Scurry County Museum, Snyder, TX IMG 1769.JPG",
+      "credit": "Billy Hathorn · CC BY 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "scurry-county-museum-snyder",
+      "name": "Scurry County Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave14.ts",
+      "src": "/images/destination-heroes/scurry-county-museum-snyder.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:J.C. Cornelius House, Snyder, TX IMG 4593.JPG",
+      "credit": "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "sherman-county-depot-museum-stratford",
+      "name": "Sherman County Depot Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave20.ts",
+      "src": "/images/destination-heroes/sherman-county-depot-museum-stratford.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "sherman-museum",
+      "name": "The Sherman Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave6.ts",
+      "src": "/images/destination-heroes/sherman-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Sherman July 2016 41 (The Sherman Museum).jpg",
+      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "sierra-diablo-wildlife-management-area",
+      "name": "Sierra Diablo Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave10.ts",
+      "src": "/images/destination-heroes/sierra-diablo-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "smith-county-historical-society-museum-tyler",
+      "name": "Smith County Historical Society Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave5.ts",
+      "src": "/images/destination-heroes/smith-county-historical-society-museum-tyler.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "somervell-county-historical-society-museum-glen-rose",
+      "name": "Somervell County Historical Society Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave54.ts",
+      "src": "/images/destination-heroes/somervell-county-historical-society-museum-glen-rose.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Glen Rose August 2017 06 (Somervell County Museum).jpg",
+      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "south-texas-museum-alice",
+      "name": "South Texas Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave10.ts",
+      "src": "/images/destination-heroes/south-texas-museum-alice.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:El Sol. (Alice, Tex.), Vol. 14, No. 49, Ed. 1 Wednesday, October 27, 1909 - DPLA - c8da500cc8c9d4597253877105cb3793 (page 2).jpg",
+      "credit": "Smith, A. D · Public domain · Wikimedia Commons"
+    },
+    {
+      "slug": "southwest-dairy-museum-sulphur-springs",
+      "name": "Southwest Dairy Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave3.ts",
+      "src": "/images/destination-heroes/southwest-dairy-museum-sulphur-springs.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Southwest Dairy Museum September 2015 01.jpg",
+      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "spindletop-gladys-city-boomtown-museum-beaumont",
+      "name": "Spindletop-Gladys City Boomtown Museum",
+      "sourceFile": "src/data/museum-expansion-statewide.ts",
+      "src": "/images/destination-heroes/spindletop-gladys-city-boomtown-museum-beaumont.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:The Spindletop-Gladys City Boomtown Museum.jpg",
+      "credit": "i_am_jim · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "stationmasters-house-museum-spearman",
+      "name": "Stationmaster",
+      "sourceFile": "src/data/museum-expansion-statewide-wave16.ts",
+      "src": "/images/destination-heroes/stationmasters-house-museum-spearman.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Oldcastle stationmaster.jpg",
+      "credit": "Crazylaika · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "stephenville-historical-house-museum",
+      "name": "Stephenville Historical House Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave26.ts",
+      "src": "/images/destination-heroes/stephenville-historical-house-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Stephenville Historical House Museum August 2017 2 (Chapel on the Bosque).jpg",
+      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "stillman-house-museum-brownsville",
+      "name": "Stillman House Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave11.ts",
+      "src": "/images/destination-heroes/stillman-house-museum-brownsville.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "stone-fort-museum-nacogdoches",
+      "name": "Stone Fort Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave52.ts",
+      "src": "/images/destination-heroes/stone-fort-museum-nacogdoches.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:StoneFortMuseum-SFA.jpg",
+      "credit": "StoneFortMuseum · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "swenson-memorial-museum-breckenridge",
+      "name": "Swenson Memorial Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave54.ts",
+      "src": "/images/destination-heroes/swenson-memorial-museum-breckenridge.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Old First National Bank Building Breckenridge TX.jpg",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "swisher-county-archives-and-museum",
+      "name": "Swisher County Archives and Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave35.ts",
+      "src": "/images/destination-heroes/swisher-county-archives-and-museum.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "swisher-county-museum-tulia",
+      "name": "Swisher County Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave15.ts",
+      "src": "/images/destination-heroes/swisher-county-museum-tulia.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "tawakoni-wildlife-management-area",
+      "name": "Tawakoni Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave2.ts",
+      "src": "/images/destination-heroes/tawakoni-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "teacup-mountain-wildlife-management-area",
+      "name": "Teacup Mountain Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave10.ts",
+      "src": "/images/destination-heroes/teacup-mountain-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "terry-county-heritage-museum-brownfield",
+      "name": "Terry County Heritage Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave64.ts",
+      "src": "/images/destination-heroes/terry-county-heritage-museum-brownfield.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "texana-museum-and-library",
+      "name": "Texana Museum and Library",
+      "sourceFile": "src/data/museum-expansion-statewide-wave28.ts",
+      "src": "/images/destination-heroes/texana-museum-and-library.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "texas-air-museum-stinson-field-san-antonio",
+      "name": "Texas Air Museum at Stinson Field",
+      "sourceFile": "src/data/museum-expansion-statewide-wave7.ts",
+      "src": "/images/destination-heroes/texas-air-museum-stinson-field-san-antonio.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Northrop F-89B Scorpion ‘92434 FV-434’ (40320950955).jpg",
+      "credit": "Alan Wilson from Stilton, Peterborough, Cambs, UK · CC BY-SA 2.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "texas-broadcast-museum-kilgore",
+      "name": "Texas Broadcast Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave4.ts",
+      "src": "/images/destination-heroes/texas-broadcast-museum-kilgore.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "texas-conjunto-music-hall-of-fame-museum-san-benito",
+      "name": "Texas Conjunto Music Hall of Fame & Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave12.ts",
+      "src": "/images/destination-heroes/texas-conjunto-music-hall-of-fame-museum-san-benito.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "texas-cotton-gin-museum-burton",
+      "name": "Texas Cotton Gin Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave3.ts",
+      "src": "/images/destination-heroes/texas-cotton-gin-museum-burton.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Texas cotton gin museum 2013.jpg",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "texas-energy-museum-beaumont",
+      "name": "Texas Energy Museum",
+      "sourceFile": "src/data/museum-expansion-statewide.ts",
+      "src": "/images/destination-heroes/texas-energy-museum-beaumont.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Seismometer Plaque, Texas Energy Museum.jpg",
+      "credit": "JJonahJackalope · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "texas-forestry-museum-lufkin",
+      "name": "Texas Forestry Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave3.ts",
+      "src": "/images/destination-heroes/texas-forestry-museum-lufkin.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Texas Forestry Museum, Lufkin, TX IMG 8594.JPG",
+      "credit": "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "texas-heritage-museum-hillsboro",
+      "name": "Texas Heritage Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave4.ts",
+      "src": "/images/destination-heroes/texas-heritage-museum-hillsboro.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Texas Heritage Museum IMG 5571.JPG",
+      "credit": "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "texas-maritime-museum-rockport",
+      "name": "Texas Maritime Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave2.ts",
+      "src": "/images/destination-heroes/texas-maritime-museum-rockport.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Texas Maritime Museum Rockport Texas 2024.jpg",
+      "credit": "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "texas-prison-museum-huntsville",
+      "name": "Texas Prison Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave3.ts",
+      "src": "/images/destination-heroes/texas-prison-museum-huntsville.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:TexasPrisonMuseum.JPG",
+      "credit": "WhisperToMe · Public domain · Wikimedia Commons"
+    },
+    {
+      "slug": "texas-sealife-center",
+      "name": "Texas Sealife Center",
+      "sourceFile": "src/data/animal-sanctuary-destinations.ts",
+      "src": "/images/destination-heroes/texas-sealife-center.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "texas-transportation-museum-san-antonio",
+      "name": "Texas Transportation Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave3.ts",
+      "src": "/images/destination-heroes/texas-transportation-museum-san-antonio.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Texas Transportation Museum Locomotive.JPG",
+      "credit": "Guðsþegn · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "texas-wolfdog-project",
+      "name": "Texas Wolfdog Project",
+      "sourceFile": "src/data/animal-sanctuary-destinations.ts",
+      "src": "/images/destination-heroes/texas-wolfdog-project.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "tiger-creek-animal-sanctuary",
+      "name": "Tiger Creek Animal Sanctuary",
+      "sourceFile": "src/data/animal-sanctuary-destinations.ts",
+      "src": "/images/destination-heroes/tiger-creek-animal-sanctuary.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "titus-county-museum-mount-pleasant",
+      "name": "Titus County Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave63.ts",
+      "src": "/images/destination-heroes/titus-county-museum-mount-pleasant.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "tony-houseman-blue-elbow-swamp-wildlife-management-area",
+      "name": "Tony Houseman/Blue Elbow Swamp Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave7.ts",
+      "src": "/images/destination-heroes/tony-houseman-blue-elbow-swamp-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "tyler-museum-of-art",
+      "name": "Tyler Museum of Art",
+      "sourceFile": "src/data/museum-expansion-statewide-wave4.ts",
+      "src": "/images/destination-heroes/tyler-museum-of-art.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Tyler Junior College May 2016 04 (Tyler Museum of Art).jpg",
+      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "tyler-rose-museum",
+      "name": "Tyler Rose Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave6.ts",
+      "src": "/images/destination-heroes/tyler-rose-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Tyler TX Montage.jpg",
+      "credit": "Cletus Ditto , Billy Hathorn , Billy Hathorn, Billy Hathorn, Billy Hathorn, Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "villa-antigua-border-heritage-museum-laredo",
+      "name": "Villa Antigua Border Heritage Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave10.ts",
+      "src": "/images/destination-heroes/villa-antigua-border-heritage-museum-laredo.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "welder-flats-wildlife-management-area",
+      "name": "Welder Flats Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave7.ts",
+      "src": "/images/destination-heroes/welder-flats-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "weslaco-museum",
+      "name": "The Weslaco Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave11.ts",
+      "src": "/images/destination-heroes/weslaco-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Child of white migrant worker in front of trailer home, Weslaco, Texas, 8a24960.jpg",
+      "credit": "Russell Lee · Public domain · Wikimedia Commons"
+    },
+    {
+      "slug": "wharton-county-historical-museum",
+      "name": "Wharton County Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave31.ts",
+      "src": "/images/destination-heroes/wharton-county-historical-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Tiger at Wharton County Historical Museum IMG 1052.JPG",
+      "credit": "Billy Hathorn at en.wikipedia · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "wheeler-historical-museum",
+      "name": "Wheeler Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave36.ts",
+      "src": "/images/destination-heroes/wheeler-historical-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Wheeler County Courthouse (Nebraska) from SW.JPG",
+      "credit": "Ammodramus · Public domain · Wikimedia Commons"
+    },
+    {
+      "slug": "white-deer-land-museum",
+      "name": "White Deer Land Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave37.ts",
+      "src": "/images/destination-heroes/white-deer-land-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:White Deer Land Company Building.JPG",
+      "credit": "Jeffrey Beall · CC BY 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "white-deer-land-museum-pampa",
+      "name": "White Deer Land Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave14.ts",
+      "src": "/images/destination-heroes/white-deer-land-museum-pampa.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Chapel 07-02-2008 06;44;32PM.JPG",
+      "credit": "Billy Hathorn at en.wikipedia · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "white-oak-creek-wildlife-management-area",
+      "name": "White Oak Creek Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave5.ts",
+      "src": "/images/destination-heroes/white-oak-creek-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "whitehead-memorial-museum-del-rio",
+      "name": "Whitehead Memorial Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave9.ts",
+      "src": "/images/destination-heroes/whitehead-memorial-museum-del-rio.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Whitehead Memorial Museum in Del Rio, TX Picture 1806.jpg",
+      "credit": "Billy Hathorn at en.wikipedia · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "wichita-falls-museum-of-art",
+      "name": "Wichita Falls Museum of Art at MSU Texas",
+      "sourceFile": "src/data/museum-expansion-statewide-wave6.ts",
+      "src": "/images/destination-heroes/wichita-falls-museum-of-art.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "willacy-county-historical-museum-raymondville",
+      "name": "Willacy County Historical Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave13.ts",
+      "src": "/images/destination-heroes/willacy-county-historical-museum-raymondville.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "window-on-the-plains-museum",
+      "name": "Window on the Plains Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave40.ts",
+      "src": "/images/destination-heroes/window-on-the-plains-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:Window on the Plains Museum IMG 0579.JPG",
+      "credit": "Billy Hathorn ( talk ) · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "window-on-the-plains-museum-dumas",
+      "name": "Window on the Plains Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave15.ts",
+      "src": "/images/destination-heroes/window-on-the-plains-museum-dumas.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:General store items at Window on the Plains Museum IMG 0586.JPG",
+      "credit": "Billy Hathorn at en.wikipedia · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "wolf-creek-heritage-museum",
+      "name": "Wolf Creek Heritage Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave39.ts",
+      "src": "/images/destination-heroes/wolf-creek-heritage-museum.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "xit-museum",
+      "name": "XIT Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave38.ts",
+      "src": "/images/destination-heroes/xit-museum.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:XIT Museum 27Oct2002.jpg",
+      "credit": "Leaflet · Public domain · Wikimedia Commons"
+    },
+    {
+      "slug": "xit-museum-dalhart",
+      "name": "XIT Museum",
+      "sourceFile": "src/data/museum-expansion-statewide-wave6.ts",
+      "src": "/images/destination-heroes/xit-museum-dalhart.jpg",
+      "source": "free-use",
+      "sourceTitle": "File:XIT Museum sign IMG 0561.JPG",
+      "credit": "Billy Hathorn at en.wikipedia · CC BY-SA 3.0 · Wikimedia Commons"
+    },
+    {
+      "slug": "yoakum-dunes-wildlife-management-area",
+      "name": "Yoakum Dunes Wildlife Management Area",
+      "sourceFile": "src/data/wildlife-management-area-destinations-wave6.ts",
+      "src": "/images/destination-heroes/yoakum-dunes-wildlife-management-area.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    },
+    {
+      "slug": "zapata-county-museum-history",
+      "name": "Zapata County Museum of History",
+      "sourceFile": "src/data/museum-expansion-statewide-wave9.ts",
+      "src": "/images/destination-heroes/zapata-county-museum-history.jpg",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated representative editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined"
+    }
+  ],
+  "dimensionNormalization": {
+    "width": 1800,
+    "height": 1013,
+    "normalized": [
+      {
+        "slug": "1919-san-augustine-county-jail-museum",
+        "src": "/images/destination-heroes/1919-san-augustine-county-jail-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "alabama-creek-wildlife-management-area",
+        "src": "/images/destination-heroes/alabama-creek-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "alazan-bayou-wildlife-management-area",
+        "src": "/images/destination-heroes/alazan-bayou-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "amarillo-museum-of-art",
+        "src": "/images/destination-heroes/amarillo-museum-of-art.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "american-quarter-horse-hall-of-fame-museum-amarillo",
+        "src": "/images/destination-heroes/american-quarter-horse-hall-of-fame-museum-amarillo.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "angelina-neches-dam-b-wildlife-management-area",
+        "src": "/images/destination-heroes/angelina-neches-dam-b-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "art-museum-south-texas-corpus-christi",
+        "src": "/images/destination-heroes/art-museum-south-texas-corpus-christi.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "art-museum-southeast-texas-beaumont",
+        "src": "/images/destination-heroes/art-museum-southeast-texas-beaumont.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "atkinson-island-wildlife-management-area",
+        "src": "/images/destination-heroes/atkinson-island-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "bannister-wildlife-management-area",
+        "src": "/images/destination-heroes/bannister-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "bastrop-county-museum-visitor-center",
+        "src": "/images/destination-heroes/bastrop-county-museum-visitor-center.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "beeville-art-museum",
+        "src": "/images/destination-heroes/beeville-art-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "bell-county-museum-belton",
+        "src": "/images/destination-heroes/bell-county-museum-belton.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "big-lake-bottom-wildlife-management-area",
+        "src": "/images/destination-heroes/big-lake-bottom-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "black-beauty-ranch",
+        "src": "/images/destination-heroes/black-beauty-ranch.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "black-gap-wildlife-management-area",
+        "src": "/images/destination-heroes/black-gap-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "bosque-museum-clifton",
+        "src": "/images/destination-heroes/bosque-museum-clifton.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "brazoria-county-historical-museum-angleton",
+        "src": "/images/destination-heroes/brazoria-county-historical-museum-angleton.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "brazos-valley-museum-natural-history-bryan",
+        "src": "/images/destination-heroes/brazos-valley-museum-natural-history-bryan.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "briscoe-garner-museum-uvalde",
+        "src": "/images/destination-heroes/briscoe-garner-museum-uvalde.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "brown-county-museum-history-brownwood",
+        "src": "/images/destination-heroes/brown-county-museum-history-brownwood.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "brownsville-heritage-museum",
+        "src": "/images/destination-heroes/brownsville-heritage-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "brush-country-museum-cotulla",
+        "src": "/images/destination-heroes/brush-country-museum-cotulla.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "burleson-county-historical-museum-caldwell",
+        "src": "/images/destination-heroes/burleson-county-historical-museum-caldwell.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "caddo-lake-wildlife-management-area",
+        "src": "/images/destination-heroes/caddo-lake-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "caddo-national-grasslands-wildlife-management-area",
+        "src": "/images/destination-heroes/caddo-national-grasslands-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "calhoun-county-museum-port-lavaca",
+        "src": "/images/destination-heroes/calhoun-county-museum-port-lavaca.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "callandret-black-history-museum-san-benito",
+        "src": "/images/destination-heroes/callandret-black-history-museum-san-benito.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "candy-cain-abshier-wildlife-management-area",
+        "src": "/images/destination-heroes/candy-cain-abshier-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "carson-county-square-house-museum-panhandle",
+        "src": "/images/destination-heroes/carson-county-square-house-museum-panhandle.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "castro-county-historical-museum-dimmitt",
+        "src": "/images/destination-heroes/castro-county-historical-museum-dimmitt.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "cedar-creek-islands-wildlife-management-area",
+        "src": "/images/destination-heroes/cedar-creek-islands-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "center-for-animal-research-and-education",
+        "src": "/images/destination-heroes/center-for-animal-research-and-education.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "chaparral-wildlife-management-area",
+        "src": "/images/destination-heroes/chaparral-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "childress-county-heritage-museum",
+        "src": "/images/destination-heroes/childress-county-heritage-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "chisholm-trail-heritage-museum-cuero",
+        "src": "/images/destination-heroes/chisholm-trail-heritage-museum-cuero.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "collingsworth-county-museum-art-center-wellington",
+        "src": "/images/destination-heroes/collingsworth-county-museum-art-center-wellington.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "comanche-county-historical-museum",
+        "src": "/images/destination-heroes/comanche-county-historical-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "cooper-wildlife-management-area",
+        "src": "/images/destination-heroes/cooper-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "corpus-christi-museum-science-history",
+        "src": "/images/destination-heroes/corpus-christi-museum-science-history.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "coryell-museum-historical-center-gatesville",
+        "src": "/images/destination-heroes/coryell-museum-historical-center-gatesville.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "crosby-county-pioneer-memorial-museum-crosbyton",
+        "src": "/images/destination-heroes/crosby-county-pioneer-memorial-museum-crosbyton.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "czech-heritage-museum-genealogy-center-temple",
+        "src": "/images/destination-heroes/czech-heritage-museum-genealogy-center-temple.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "deaf-smith-county-museum-hereford",
+        "src": "/images/destination-heroes/deaf-smith-county-museum-hereford.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "denton-county-courthouse-on-the-square-museum",
+        "src": "/images/destination-heroes/denton-county-courthouse-on-the-square-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "doss-heritage-culture-center-weatherford",
+        "src": "/images/destination-heroes/doss-heritage-culture-center-weatherford.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "dr-wintermann-wildlife-management-area",
+        "src": "/images/destination-heroes/dr-wintermann-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "east-texas-oil-museum-kilgore",
+        "src": "/images/destination-heroes/east-texas-oil-museum-kilgore.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "eastland-county-museum",
+        "src": "/images/destination-heroes/eastland-county-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "elephant-mountain-wildlife-management-area",
+        "src": "/images/destination-heroes/elephant-mountain-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "ellen-noel-art-museum-odessa",
+        "src": "/images/destination-heroes/ellen-noel-art-museum-odessa.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "ellis-county-museum-waxahachie",
+        "src": "/images/destination-heroes/ellis-county-museum-waxahachie.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "fannin-county-museum-of-history-bonham",
+        "src": "/images/destination-heroes/fannin-county-museum-of-history-bonham.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "fire-museum-of-texas-beaumont",
+        "src": "/images/destination-heroes/fire-museum-of-texas-beaumont.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "floyd-county-historical-museum-floydada",
+        "src": "/images/destination-heroes/floyd-county-historical-museum-floydada.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "fort-croghan-museum-grounds-burnet",
+        "src": "/images/destination-heroes/fort-croghan-museum-grounds-burnet.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "fort-inglish-village-bonham",
+        "src": "/images/destination-heroes/fort-inglish-village-bonham.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "fort-worth-aviation-museum",
+        "src": "/images/destination-heroes/fort-worth-aviation-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "fossil-rim-wildlife-center",
+        "src": "/images/destination-heroes/fossil-rim-wildlife-center.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "freddy-fender-museum-san-benito",
+        "src": "/images/destination-heroes/freddy-fender-museum-san-benito.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "freestone-county-historical-museum-fairfield",
+        "src": "/images/destination-heroes/freestone-county-historical-museum-fairfield.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "frio-pioneer-jail-museum-pearsall",
+        "src": "/images/destination-heroes/frio-pioneer-jail-museum-pearsall.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "frisco-heritage-museum",
+        "src": "/images/destination-heroes/frisco-heritage-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "frontier-times-museum-bandera",
+        "src": "/images/destination-heroes/frontier-times-museum-bandera.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "garza-county-historical-museum-post",
+        "src": "/images/destination-heroes/garza-county-historical-museum-post.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "gene-howe-wildlife-management-area",
+        "src": "/images/destination-heroes/gene-howe-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "george-hw-bush-presidential-library-museum-college-station",
+        "src": "/images/destination-heroes/george-hw-bush-presidential-library-museum-college-station.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "grace-museum-abilene",
+        "src": "/images/destination-heroes/grace-museum-abilene.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "gregg-county-historical-museum-longview",
+        "src": "/images/destination-heroes/gregg-county-historical-museum-longview.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "guadalupe-delta-wildlife-management-area",
+        "src": "/images/destination-heroes/guadalupe-delta-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "gus-engeling-wildlife-management-area",
+        "src": "/images/destination-heroes/gus-engeling-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "hale-county-farm-ranch-museum-hale-center",
+        "src": "/images/destination-heroes/hale-county-farm-ranch-museum-hale-center.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "hamilton-county-historical-museum",
+        "src": "/images/destination-heroes/hamilton-county-historical-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "harlingen-arts-heritage-museum",
+        "src": "/images/destination-heroes/harlingen-arts-heritage-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "harrison-county-historical-museum-marshall",
+        "src": "/images/destination-heroes/harrison-county-historical-museum-marshall.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "heard-natural-science-museum-wildlife-sanctuary",
+        "src": "/images/destination-heroes/heard-natural-science-museum-wildlife-sanctuary.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "heard-natural-science-museum-wildlife-sanctuary-mckinney",
+        "src": "/images/destination-heroes/heard-natural-science-museum-wildlife-sanctuary-mckinney.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "heritage-center-cherokee-county-rusk",
+        "src": "/images/destination-heroes/heritage-center-cherokee-county-rusk.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "heritage-farmstead-museum-plano",
+        "src": "/images/destination-heroes/heritage-farmstead-museum-plano.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "heritage-hall-museum-memphis",
+        "src": "/images/destination-heroes/heritage-hall-museum-memphis.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "heritage-house-museum-orange",
+        "src": "/images/destination-heroes/heritage-house-museum-orange.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "heritage-museum-falfurrias",
+        "src": "/images/destination-heroes/heritage-museum-falfurrias.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "heritage-museum-montgomery-county-conroe",
+        "src": "/images/destination-heroes/heritage-museum-montgomery-county-conroe.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "heritage-museum-of-montgomery-county",
+        "src": "/images/destination-heroes/heritage-museum-of-montgomery-county.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "historic-brownsville-museum",
+        "src": "/images/destination-heroes/historic-brownsville-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "hopkins-county-museum-heritage-park-sulphur-springs",
+        "src": "/images/destination-heroes/hopkins-county-museum-heritage-park-sulphur-springs.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "hutchinson-county-historical-museum-borger",
+        "src": "/images/destination-heroes/hutchinson-county-historical-museum-borger.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "in-sync-exotics",
+        "src": "/images/destination-heroes/in-sync-exotics.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "iwo-jima-museum-monument-harlingen",
+        "src": "/images/destination-heroes/iwo-jima-museum-monument-harlingen.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "james-e-daughtrey-wildlife-management-area",
+        "src": "/images/destination-heroes/james-e-daughtrey-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "jd-murphree-wildlife-management-area",
+        "src": "/images/destination-heroes/jd-murphree-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "johnson-county-courthouse-museum-cleburne",
+        "src": "/images/destination-heroes/johnson-county-courthouse-museum-cleburne.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "justin-hurst-wildlife-management-area",
+        "src": "/images/destination-heroes/justin-hurst-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "karnes-county-museum-helena",
+        "src": "/images/destination-heroes/karnes-county-museum-helena.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "keechi-creek-wildlife-management-area",
+        "src": "/images/destination-heroes/keechi-creek-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "kelsey-bass-museum-rio-grande-city",
+        "src": "/images/destination-heroes/kelsey-bass-museum-rio-grande-city.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "kenedy-ranch-museum-south-texas-sarita",
+        "src": "/images/destination-heroes/kenedy-ranch-museum-south-texas-sarita.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "kerr-wildlife-management-area",
+        "src": "/images/destination-heroes/kerr-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "lampasas-county-museum",
+        "src": "/images/destination-heroes/lampasas-county-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "laredo-center-for-the-arts",
+        "src": "/images/destination-heroes/laredo-center-for-the-arts.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "las-palomas-wildlife-management-area",
+        "src": "/images/destination-heroes/las-palomas-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "llano-county-historical-museum",
+        "src": "/images/destination-heroes/llano-county-historical-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "longview-museum-of-fine-arts",
+        "src": "/images/destination-heroes/longview-museum-of-fine-arts.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "lower-neches-wildlife-management-area",
+        "src": "/images/destination-heroes/lower-neches-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "luling-oil-museum",
+        "src": "/images/destination-heroes/luling-oil-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "mad-island-wildlife-management-area",
+        "src": "/images/destination-heroes/mad-island-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "mason-mountain-wildlife-management-area",
+        "src": "/images/destination-heroes/mason-mountain-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "matador-wildlife-management-area",
+        "src": "/images/destination-heroes/matador-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "matagorda-county-museum-bay-city",
+        "src": "/images/destination-heroes/matagorda-county-museum-bay-city.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "matagorda-island-wildlife-management-area",
+        "src": "/images/destination-heroes/matagorda-island-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "mcallen-heritage-center",
+        "src": "/images/destination-heroes/mcallen-heritage-center.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "mcfaddin-ward-house-museum-beaumont",
+        "src": "/images/destination-heroes/mcfaddin-ward-house-museum-beaumont.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "mcgillivray-leona-mckie-muse-wildlife-management-area",
+        "src": "/images/destination-heroes/mcgillivray-leona-mckie-muse-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "midland-army-air-field-museum",
+        "src": "/images/destination-heroes/midland-army-air-field-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "mills-county-historical-museum-goldthwaite",
+        "src": "/images/destination-heroes/mills-county-historical-museum-goldthwaite.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "mo-neasloney-wildlife-management-area",
+        "src": "/images/destination-heroes/mo-neasloney-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "moore-plantation-wildlife-management-area",
+        "src": "/images/destination-heroes/moore-plantation-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "morton-museum-of-cooke-county",
+        "src": "/images/destination-heroes/morton-museum-of-cooke-county.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "motley-county-historical-museum-matador",
+        "src": "/images/destination-heroes/motley-county-historical-museum-matador.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "museum-of-east-texas-lufkin",
+        "src": "/images/destination-heroes/museum-of-east-texas-lufkin.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "museum-of-hardin-county-kountze",
+        "src": "/images/destination-heroes/museum-of-hardin-county-kountze.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "museum-of-south-texas-history-edinburg",
+        "src": "/images/destination-heroes/museum-of-south-texas-history-edinburg.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "museum-of-texas-tech-university-lubbock",
+        "src": "/images/destination-heroes/museum-of-texas-tech-university-lubbock.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "museum-of-the-american-railroad-frisco",
+        "src": "/images/destination-heroes/museum-of-the-american-railroad-frisco.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "museum-of-the-big-bend-alpine",
+        "src": "/images/destination-heroes/museum-of-the-big-bend-alpine.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "museum-of-the-coastal-bend-victoria",
+        "src": "/images/destination-heroes/museum-of-the-coastal-bend-victoria.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "museum-of-the-gulf-coast-port-arthur",
+        "src": "/images/destination-heroes/museum-of-the-gulf-coast-port-arthur.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "museum-of-the-plains-perryton",
+        "src": "/images/destination-heroes/museum-of-the-plains-perryton.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "museum-of-western-art-kerrville",
+        "src": "/images/destination-heroes/museum-of-western-art-kerrville.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "museum-south-texas-history-edinburg",
+        "src": "/images/destination-heroes/museum-south-texas-history-edinburg.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "nacogdoches-railroad-depot-museum",
+        "src": "/images/destination-heroes/nacogdoches-railroad-depot-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "nannie-m-stringfellow-wildlife-management-area",
+        "src": "/images/destination-heroes/nannie-m-stringfellow-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "new-braunfels-railroad-museum",
+        "src": "/images/destination-heroes/new-braunfels-railroad-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "newton-county-history-center-and-museum",
+        "src": "/images/destination-heroes/newton-county-history-center-and-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "north-toledo-bend-wildlife-management-area",
+        "src": "/images/destination-heroes/north-toledo-bend-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "northeast-texas-rural-heritage-museum-pittsburg",
+        "src": "/images/destination-heroes/northeast-texas-rural-heritage-museum-pittsburg.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "old-jail-art-center-albany",
+        "src": "/images/destination-heroes/old-jail-art-center-albany.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "old-jail-museum-complex-palo-pinto",
+        "src": "/images/destination-heroes/old-jail-museum-complex-palo-pinto.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "old-post-museum-art-center-graham",
+        "src": "/images/destination-heroes/old-post-museum-art-center-graham.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "old-post-office-museum-art-center-graham",
+        "src": "/images/destination-heroes/old-post-office-museum-art-center-graham.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "old-sabine-bottom-wildlife-management-area",
+        "src": "/images/destination-heroes/old-sabine-bottom-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "panhandle-plains-historical-museum-canyon",
+        "src": "/images/destination-heroes/panhandle-plains-historical-museum-canyon.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "parmer-county-museum-friona",
+        "src": "/images/destination-heroes/parmer-county-museum-friona.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "pat-mayse-wildlife-management-area",
+        "src": "/images/destination-heroes/pat-mayse-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "pat-murphy-wildlife-management-area",
+        "src": "/images/destination-heroes/pat-murphy-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "paul-toni-fox-burns-wildlife-management-area",
+        "src": "/images/destination-heroes/paul-toni-fox-burns-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "pearce-museum-corsicana",
+        "src": "/images/destination-heroes/pearce-museum-corsicana.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "permian-basin-petroleum-museum-midland",
+        "src": "/images/destination-heroes/permian-basin-petroleum-museum-midland.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "pioneer-city-county-museum-sweetwater",
+        "src": "/images/destination-heroes/pioneer-city-county-museum-sweetwater.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "pioneer-village-corsicana",
+        "src": "/images/destination-heroes/pioneer-village-corsicana.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "pioneer-west-museum-shamrock",
+        "src": "/images/destination-heroes/pioneer-west-museum-shamrock.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "playa-lakes-armstrong-unit-wildlife-management-area",
+        "src": "/images/destination-heroes/playa-lakes-armstrong-unit-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "playa-lakes-dimmitt-unit-wildlife-management-area",
+        "src": "/images/destination-heroes/playa-lakes-dimmitt-unit-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "playa-lakes-taylor-lakes-unit-wildlife-management-area",
+        "src": "/images/destination-heroes/playa-lakes-taylor-lakes-unit-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "polk-county-memorial-museum-livingston",
+        "src": "/images/destination-heroes/polk-county-memorial-museum-livingston.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "port-isabel-historical-museum",
+        "src": "/images/destination-heroes/port-isabel-historical-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "powderhorn-wildlife-management-area",
+        "src": "/images/destination-heroes/powderhorn-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "red-river-valley-museum-vernon",
+        "src": "/images/destination-heroes/red-river-valley-museum-vernon.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "redhead-pond-wildlife-management-area",
+        "src": "/images/destination-heroes/redhead-pond-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "republic-of-the-rio-grande-museum-laredo",
+        "src": "/images/destination-heroes/republic-of-the-rio-grande-museum-laredo.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "richland-creek-wildlife-management-area",
+        "src": "/images/destination-heroes/richland-creek-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "river-valley-pioneer-museum-canadian",
+        "src": "/images/destination-heroes/river-valley-pioneer-museum-canadian.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "roberts-county-museum-miami",
+        "src": "/images/destination-heroes/roberts-county-museum-miami.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "rockport-center-for-the-arts",
+        "src": "/images/destination-heroes/rockport-center-for-the-arts.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "rockwall-county-historical-foundation-museum",
+        "src": "/images/destination-heroes/rockwall-county-historical-foundation-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "roger-r-fawcett-wildlife-management-area",
+        "src": "/images/destination-heroes/roger-r-fawcett-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "rosenberg-railroad-museum",
+        "src": "/images/destination-heroes/rosenberg-railroad-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "round-top-area-historical-society-museum",
+        "src": "/images/destination-heroes/round-top-area-historical-society-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "rusk-county-depot-museum-history-center-henderson",
+        "src": "/images/destination-heroes/rusk-county-depot-museum-history-center-henderson.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "sabine-county-jail-museum-and-virgie-speights-memorial-library",
+        "src": "/images/destination-heroes/sabine-county-jail-museum-and-virgie-speights-memorial-library.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "saints-roost-museum-clarendon",
+        "src": "/images/destination-heroes/saints-roost-museum-clarendon.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "sam-houston-memorial-museum-republic-texas-presidential-library-huntsville",
+        "src": "/images/destination-heroes/sam-houston-memorial-museum-republic-texas-presidential-library-huntsville.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "sam-houston-national-forest-wildlife-management-area",
+        "src": "/images/destination-heroes/sam-houston-national-forest-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "sam-rayburn-museum-bonham",
+        "src": "/images/destination-heroes/sam-rayburn-museum-bonham.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "san-angelo-museum-of-fine-arts",
+        "src": "/images/destination-heroes/san-angelo-museum-of-fine-arts.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "san-saba-county-historical-museum",
+        "src": "/images/destination-heroes/san-saba-county-historical-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "schulenburg-historical-museum",
+        "src": "/images/destination-heroes/schulenburg-historical-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "science-spectrum-omni-theater-lubbock",
+        "src": "/images/destination-heroes/science-spectrum-omni-theater-lubbock.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "scurry-county-museum",
+        "src": "/images/destination-heroes/scurry-county-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "scurry-county-museum-snyder",
+        "src": "/images/destination-heroes/scurry-county-museum-snyder.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "sherman-county-depot-museum-stratford",
+        "src": "/images/destination-heroes/sherman-county-depot-museum-stratford.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "sherman-museum",
+        "src": "/images/destination-heroes/sherman-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "sierra-diablo-wildlife-management-area",
+        "src": "/images/destination-heroes/sierra-diablo-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "smith-county-historical-society-museum-tyler",
+        "src": "/images/destination-heroes/smith-county-historical-society-museum-tyler.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "somervell-county-historical-society-museum-glen-rose",
+        "src": "/images/destination-heroes/somervell-county-historical-society-museum-glen-rose.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "south-texas-museum-alice",
+        "src": "/images/destination-heroes/south-texas-museum-alice.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "southwest-dairy-museum-sulphur-springs",
+        "src": "/images/destination-heroes/southwest-dairy-museum-sulphur-springs.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "spindletop-gladys-city-boomtown-museum-beaumont",
+        "src": "/images/destination-heroes/spindletop-gladys-city-boomtown-museum-beaumont.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "stationmasters-house-museum-spearman",
+        "src": "/images/destination-heroes/stationmasters-house-museum-spearman.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "stephenville-historical-house-museum",
+        "src": "/images/destination-heroes/stephenville-historical-house-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "stillman-house-museum-brownsville",
+        "src": "/images/destination-heroes/stillman-house-museum-brownsville.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "stone-fort-museum-nacogdoches",
+        "src": "/images/destination-heroes/stone-fort-museum-nacogdoches.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "swenson-memorial-museum-breckenridge",
+        "src": "/images/destination-heroes/swenson-memorial-museum-breckenridge.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "swisher-county-archives-and-museum",
+        "src": "/images/destination-heroes/swisher-county-archives-and-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "swisher-county-museum-tulia",
+        "src": "/images/destination-heroes/swisher-county-museum-tulia.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "tawakoni-wildlife-management-area",
+        "src": "/images/destination-heroes/tawakoni-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "teacup-mountain-wildlife-management-area",
+        "src": "/images/destination-heroes/teacup-mountain-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "terry-county-heritage-museum-brownfield",
+        "src": "/images/destination-heroes/terry-county-heritage-museum-brownfield.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "texana-museum-and-library",
+        "src": "/images/destination-heroes/texana-museum-and-library.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "texas-air-museum-stinson-field-san-antonio",
+        "src": "/images/destination-heroes/texas-air-museum-stinson-field-san-antonio.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "texas-broadcast-museum-kilgore",
+        "src": "/images/destination-heroes/texas-broadcast-museum-kilgore.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "texas-conjunto-music-hall-of-fame-museum-san-benito",
+        "src": "/images/destination-heroes/texas-conjunto-music-hall-of-fame-museum-san-benito.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "texas-cotton-gin-museum-burton",
+        "src": "/images/destination-heroes/texas-cotton-gin-museum-burton.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "texas-energy-museum-beaumont",
+        "src": "/images/destination-heroes/texas-energy-museum-beaumont.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "texas-forestry-museum-lufkin",
+        "src": "/images/destination-heroes/texas-forestry-museum-lufkin.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "texas-heritage-museum-hillsboro",
+        "src": "/images/destination-heroes/texas-heritage-museum-hillsboro.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "texas-maritime-museum-rockport",
+        "src": "/images/destination-heroes/texas-maritime-museum-rockport.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "texas-prison-museum-huntsville",
+        "src": "/images/destination-heroes/texas-prison-museum-huntsville.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "texas-sealife-center",
+        "src": "/images/destination-heroes/texas-sealife-center.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "texas-transportation-museum-san-antonio",
+        "src": "/images/destination-heroes/texas-transportation-museum-san-antonio.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "texas-wolfdog-project",
+        "src": "/images/destination-heroes/texas-wolfdog-project.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "tiger-creek-animal-sanctuary",
+        "src": "/images/destination-heroes/tiger-creek-animal-sanctuary.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "titus-county-museum-mount-pleasant",
+        "src": "/images/destination-heroes/titus-county-museum-mount-pleasant.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "tony-houseman-blue-elbow-swamp-wildlife-management-area",
+        "src": "/images/destination-heroes/tony-houseman-blue-elbow-swamp-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "tyler-museum-of-art",
+        "src": "/images/destination-heroes/tyler-museum-of-art.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "tyler-rose-museum",
+        "src": "/images/destination-heroes/tyler-rose-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "villa-antigua-border-heritage-museum-laredo",
+        "src": "/images/destination-heroes/villa-antigua-border-heritage-museum-laredo.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "welder-flats-wildlife-management-area",
+        "src": "/images/destination-heroes/welder-flats-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "weslaco-museum",
+        "src": "/images/destination-heroes/weslaco-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "wharton-county-historical-museum",
+        "src": "/images/destination-heroes/wharton-county-historical-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "wheeler-historical-museum",
+        "src": "/images/destination-heroes/wheeler-historical-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "white-deer-land-museum",
+        "src": "/images/destination-heroes/white-deer-land-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "white-deer-land-museum-pampa",
+        "src": "/images/destination-heroes/white-deer-land-museum-pampa.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "white-oak-creek-wildlife-management-area",
+        "src": "/images/destination-heroes/white-oak-creek-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "whitehead-memorial-museum-del-rio",
+        "src": "/images/destination-heroes/whitehead-memorial-museum-del-rio.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "wichita-falls-museum-of-art",
+        "src": "/images/destination-heroes/wichita-falls-museum-of-art.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "willacy-county-historical-museum-raymondville",
+        "src": "/images/destination-heroes/willacy-county-historical-museum-raymondville.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "window-on-the-plains-museum",
+        "src": "/images/destination-heroes/window-on-the-plains-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "window-on-the-plains-museum-dumas",
+        "src": "/images/destination-heroes/window-on-the-plains-museum-dumas.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "wolf-creek-heritage-museum",
+        "src": "/images/destination-heroes/wolf-creek-heritage-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "xit-museum",
+        "src": "/images/destination-heroes/xit-museum.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "xit-museum-dalhart",
+        "src": "/images/destination-heroes/xit-museum-dalhart.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "yoakum-dunes-wildlife-management-area",
+        "src": "/images/destination-heroes/yoakum-dunes-wildlife-management-area.jpg",
+        "width": 1800,
+        "height": 1013
+      },
+      {
+        "slug": "zapata-county-museum-history",
+        "src": "/images/destination-heroes/zapata-county-museum-history.jpg",
+        "width": 1800,
+        "height": 1013
+      }
+    ]
+  }
+}
