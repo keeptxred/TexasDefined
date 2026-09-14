@@ -19,11 +19,29 @@ const LIFE_SLUGS = new Set([
   "texas-native-garden-that-survives-august",
 ]);
 
+const INTERNAL_LINK_REPLACEMENTS = new Map([
+  ["/article/texas-kolache-klobasnek-history", "/article/kolache-or-klobasnek-texas-story"],
+  ["/article/texas-painted-churches-guide", "/explore/painted-churches"],
+  ["/texas-life/sports", "/sports"],
+  ["/texas-life/home-garden", "/home-garden"],
+]);
+
 export const legacyAuthoritySlugs = new Set([
   ...FOOD_CULTURE_SLUGS,
   ...TRAVEL_SLUGS,
   ...LIFE_SLUGS,
 ]);
+
+function canonicalizeAuthorityInternalLinks(article: Article): Article {
+  if (!article.internalLinks?.length) return article;
+  return {
+    ...article,
+    internalLinks: article.internalLinks.map((link) => ({
+      ...link,
+      href: INTERNAL_LINK_REPLACEMENTS.get(link.href) ?? link.href,
+    })),
+  };
+}
 
 async function loadBaseArticle(slug: string): Promise<Article | null> {
   if (slug === "texas-food-beyond-brisket-guide") {
@@ -58,14 +76,14 @@ export async function loadLegacyAuthorityArticle(brandId: string, slug: string):
 
   if (FOOD_CULTURE_SLUGS.has(slug)) {
     const { enrichLegacyFoodCultureArticle } = await import("./authority-legacy-food-culture");
-    return enrichLegacyFoodCultureArticle(article);
+    return canonicalizeAuthorityInternalLinks(enrichLegacyFoodCultureArticle(article));
   }
 
   if (TRAVEL_SLUGS.has(slug)) {
     const { enrichLegacyTravelArticle } = await import("./authority-legacy-travel");
-    return enrichLegacyTravelArticle(article);
+    return canonicalizeAuthorityInternalLinks(enrichLegacyTravelArticle(article));
   }
 
   const { enrichLegacyLifeArticle } = await import("./authority-legacy-life");
-  return enrichLegacyLifeArticle(article);
+  return canonicalizeAuthorityInternalLinks(enrichLegacyLifeArticle(article));
 }
