@@ -6,6 +6,7 @@ on:
       - 'scripts/ci/verify-sports-venue-heroes-production-all.mjs'
       - '.github/workflows/verify-sports-venue-heroes-production-all.yml'
       - 'src/data/sports-venue-images.ts'
+      - 'src/data/sports-venue-images-curated-overrides.ts'
       - 'src/data/sports-venue-images-additions.ts'
       - 'src/data/sports-venue-images-additions-wave2.ts'
       - 'src/data/sports-venue-images-additions-wave3.ts'
@@ -13,27 +14,15 @@ on:
       - 'src/data/sports-venue-images-additions-wave5.ts'
       - 'src/data/sports-venue-images-additions-wave6.ts'
       - 'src/data/sports-venue-images-additions-wave7.ts'
+      - 'src/data/sports-venue-images-all.ts'
       - 'src/routes/api.sports-venue-hero.ts'
       - 'src/routes/sports-venue.$slug.tsx'
       - 'src/components/sports/SportsVenueQuickAnswers.tsx'
       - 'src/components/sports/SportsVenueGuidePage.tsx'
-  push:
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
     branches: [main]
-    paths:
-      - 'scripts/ci/verify-sports-venue-heroes-production-all.mjs'
-      - '.github/workflows/verify-sports-venue-heroes-production-all.yml'
-      - 'src/data/sports-venue-images.ts'
-      - 'src/data/sports-venue-images-additions.ts'
-      - 'src/data/sports-venue-images-additions-wave2.ts'
-      - 'src/data/sports-venue-images-additions-wave3.ts'
-      - 'src/data/sports-venue-images-additions-wave4.ts'
-      - 'src/data/sports-venue-images-additions-wave5.ts'
-      - 'src/data/sports-venue-images-additions-wave6.ts'
-      - 'src/data/sports-venue-images-additions-wave7.ts'
-      - 'src/routes/api.sports-venue-hero.ts'
-      - 'src/routes/sports-venue.$slug.tsx'
-      - 'src/components/sports/SportsVenueQuickAnswers.tsx'
-      - 'src/components/sports/SportsVenueGuidePage.tsx'
   schedule:
     - cron: '23 10 * * *'
   workflow_dispatch:
@@ -42,7 +31,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: sports-venue-heroes-production-all-${{ github.event_name }}
+  group: sports-venue-heroes-production-all-${{ github.event_name }}-${{ github.event.workflow_run.head_sha || github.sha }}
   cancel-in-progress: false
 
 jobs:
@@ -55,12 +44,15 @@ jobs:
         run: node scripts/ci/verify-sports-venue-heroes-production-all.mjs --contract-only
 
   live-production:
-    if: github.event_name != 'pull_request'
+    if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     env:
       PRODUCTION_ORIGIN: https://texasdefined.com
+      DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
       - name: Verify all governed sports venue heroes in production
         run: node scripts/ci/verify-sports-venue-heroes-production-all.mjs
