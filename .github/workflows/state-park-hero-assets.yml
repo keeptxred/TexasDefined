@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - "scripts/data/sync-state-park-hero-assets.mjs"
+      - "src/data/state-park-heroes.ts"
+      - "src/data/state-park-hero-map.ts"
       - ".github/workflows/state-park-hero-assets.yml"
 
 permissions:
@@ -87,7 +89,7 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --title 'Review generated state park hero assets' \
-            --body $'Automated state-park hero reconciliation. This PR is intentionally not auto-merged. Review item-level image rights, source/credit metadata, park relevance, and visual quality before merge. The official TexasDefined validation workflow is dispatched explicitly against this exact branch commit.')"
+            --body $'Automated state-park hero reconciliation. Reusable park-specific photography is preferred; unresolved parks use the configured destination-specific photorealistic AI fallback. No SVG or procedural placeholder satisfies completion. Review item-level image rights, source/credit metadata, park relevance, and visual quality before merge. The official TexasDefined validation workflow is dispatched explicitly against this exact branch commit.')"
           echo "url=$pr_url" >> "$GITHUB_OUTPUT"
           echo "Opened $pr_url"
 
