@@ -15,6 +15,7 @@ const LICENSE_OK = ["public domain", "cc0", "cc by", "cc-by", "cc by-sa", "cc-by
 const USER_AGENT = "TexasDefined/1.0 (park-photo sync; https://texasdefined.com)";
 const API_GAP_MS = 850;
 const CLOUDFLARE_MODEL = "@cf/black-forest-labs/flux-1-schnell";
+const EXPECTED_STATE_PARK_COUNT = 99;
 let lastApiRequestAt = 0;
 
 const GENERIC_WORDS = new Set([
@@ -102,47 +103,19 @@ async function loadParks() {
   if (!process.env.CLOUDFLARE_API_TOKEN && env.CLOUDFLARE_API_TOKEN) process.env.CLOUDFLARE_API_TOKEN = env.CLOUDFLARE_API_TOKEN;
   const supabaseUrl = String(env.VITE_TEXASDEFINED_SUPABASE_URL || env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
   const supabaseKey = String(env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
-  const rows = [];
 
-  if (supabaseUrl && supabaseKey) {
-    const params = new URLSearchParams({
-      select: "name,slug,entity_type,city,county,region,latitude,longitude,hero_image_url,hero_image_alt,summary,description,activities",
-      limit: "5000",
-    });
-    const response = await fetch(`${supabaseUrl}/rest/v1/explore_public_entities?${params}`, {
-      headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "User-Agent": USER_AGENT },
-    });
-    if (response.ok) {
-      const remote = await response.json();
-      if (Array.isArray(remote)) {
-        for (const row of remote) {
-          if (!isStateParkType(row.entity_type)) continue;
-          rows.push({
-            slug: String(row.slug || slugify(row.name)),
-            name: String(row.name || "Texas State Park"),
-            city: String(row.city || ""),
-            county: String(row.county || ""),
-            lat: Number(row.latitude || 0),
-            lng: Number(row.longitude || 0),
-            summary: String(row.summary || row.description || ""),
-            activities: Array.isArray(row.activities) ? row.activities.map(String) : [],
-            existingHero: String(row.hero_image_url || ""),
-            existingAlt: String(row.hero_image_alt || ""),
-            source: "remote",
-          });
-        }
-      }
-    } else {
-      console.warn(`Explore public catalog returned ${response.status}; using preserved records too.`);
-    }
-  }
-
+  // The preserved 99-record catalog is the fail-closed membership authority for this image job.
+  // Remote Explore data may enrich a canonical slug, but generic remote park/campground/trail rows
+  // must never silently expand the state-park hero inventory.
+  const preserved = new Map();
   const legacy = await fs.readFile(LEGACY_PATH, "utf8").catch(() => "");
   const block = legacy.match(/const records = `([\s\S]*?)`\.trim\(\)/)?.[1] || "";
   for (const line of block.split(/\r?\n/).map((item) => item.trim()).filter(Boolean)) {
     const [slug, name, type, town, county, , lat, lng, summary, , activities] = line.split("|");
     if (!isStateParkType(type)) continue;
-    rows.push({
+    if (!slug) throw new Error(`State Parks canonical catalog contains a row without a slug: ${name || line}`);
+    if (preserved.has(slug)) throw new Error(`State Parks canonical catalog contains duplicate slug: ${slug}`);
+    preserved.set(slug, {
       slug,
       name,
       city: town,
@@ -157,13 +130,63 @@ async function loadParks() {
     });
   }
 
-  const merged = new Map();
-  for (const row of rows) {
-    if (!row.slug) continue;
-    const current = merged.get(row.slug);
-    if (!current || (row.source === "remote" && current.source !== "remote")) merged.set(row.slug, row);
+  if (preserved.size !== EXPECTED_STATE_PARK_COUNT) {
+    throw new Error(`State Parks canonical source integrity check failed: expected ${EXPECTED_STATE_PARK_COUNT} preserved listings, found ${preserved.size}.`);
   }
-  return [...merged.values()].sort((a, b) => a.name.localeCompare(b.name));
+
+  const ignoredRemoteParkLike = [];
+  if (supabaseUrl && supabaseKey) {
+    const params = new URLSearchParams({
+      select: "name,slug,entity_type,city,county,region,latitude,longitude,hero_image_url,hero_image_alt,summary,description,activities",
+      limit: "5000",
+    });
+    const response = await fetch(`${supabaseUrl}/rest/v1/explore_public_entities?${params}`, {
+      headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "User-Agent": USER_AGENT },
+    });
+    if (response.ok) {
+      const remote = await response.json();
+      if (Array.isArray(remote)) {
+        for (const row of remote) {
+          if (!isStateParkType(row.entity_type)) continue;
+          const slug = String(row.slug || slugify(row.name));
+          const current = preserved.get(slug);
+          if (!current) {
+            ignoredRemoteParkLike.push({
+              slug,
+              name: String(row.name || ""),
+              entityType: String(row.entity_type || ""),
+            });
+            continue;
+          }
+          preserved.set(slug, {
+            ...current,
+            name: String(row.name || current.name),
+            city: String(row.city || current.city),
+            county: String(row.county || current.county),
+            lat: Number(row.latitude || current.lat || 0),
+            lng: Number(row.longitude || current.lng || 0),
+            summary: String(row.summary || row.description || current.summary || ""),
+            activities: Array.isArray(row.activities) && row.activities.length ? row.activities.map(String) : current.activities,
+            existingHero: String(row.hero_image_url || current.existingHero || ""),
+            existingAlt: String(row.hero_image_alt || current.existingAlt || ""),
+            source: "remote-overlay",
+          });
+        }
+      }
+    } else {
+      console.warn(`Explore public catalog returned ${response.status}; using canonical preserved records only.`);
+    }
+  }
+
+  ignoredRemoteParkLike.sort((a, b) => a.slug.localeCompare(b.slug));
+  if (ignoredRemoteParkLike.length) {
+    console.warn(`Ignored ${ignoredRemoteParkLike.length} remote park-like rows outside the canonical ${EXPECTED_STATE_PARK_COUNT}-record state-park catalog.`);
+  }
+
+  return {
+    parks: [...preserved.values()].sort((a, b) => a.name.localeCompare(b.name)),
+    ignoredRemoteParkLike,
+  };
 }
 
 async function pacedFetch(url, options = {}, attempts = 5) {
@@ -385,8 +408,10 @@ function tsString(value) {
 
 async function main() {
   await fs.mkdir(OUT_DIR, { recursive: true });
-  const parks = await loadParks();
-  if (parks.length !== 99) throw new Error(`State Parks catalog integrity check failed: expected 99 listings, found ${parks.length}.`);
+  const { parks, ignoredRemoteParkLike } = await loadParks();
+  if (parks.length !== EXPECTED_STATE_PARK_COUNT) {
+    throw new Error(`State Parks catalog integrity check failed: expected ${EXPECTED_STATE_PARK_COUNT} canonical listings, found ${parks.length}.`);
+  }
 
   const heroCounts = new Map();
   for (const park of parks) if (isJpeg(park.existingHero)) heroCounts.set(park.existingHero, (heroCounts.get(park.existingHero) || 0) + 1);
@@ -395,6 +420,8 @@ async function main() {
   const mapRows = [];
   const report = {
     generatedAt: new Date().toISOString(), totalParks: parks.length,
+    canonicalMembership: "preserved-legacy-explore",
+    ignoredRemoteParkLike,
     retainedUniqueExisting: [], downloaded: [], aiGenerated: [], unresolved: [], rejectedDuplicateExisting: [],
     aiAvailable: imageAiConfigured(),
   };
@@ -455,7 +482,7 @@ async function main() {
   await fs.writeFile(MAP_PATH, lines.join("\n"), "utf8");
   await fs.writeFile(REPORT_PATH, `${JSON.stringify(report, null, 2)}\n`, "utf8");
 
-  console.log(JSON.stringify({ totalParks: report.totalParks, retainedUniqueExisting: report.retainedUniqueExisting.length, downloaded: report.downloaded.length, aiGenerated: report.aiGenerated.length, unresolved: report.unresolved.length, rejectedDuplicateExisting: report.rejectedDuplicateExisting.length, aiAvailable: report.aiAvailable }, null, 2));
+  console.log(JSON.stringify({ totalParks: report.totalParks, retainedUniqueExisting: report.retainedUniqueExisting.length, downloaded: report.downloaded.length, aiGenerated: report.aiGenerated.length, unresolved: report.unresolved.length, rejectedDuplicateExisting: report.rejectedDuplicateExisting.length, ignoredRemoteParkLike: report.ignoredRemoteParkLike.length, aiAvailable: report.aiAvailable }, null, 2));
   if (report.unresolved.length) process.exitCode = 3;
 }
 
