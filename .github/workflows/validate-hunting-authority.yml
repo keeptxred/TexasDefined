@@ -2,6 +2,13 @@ name: Validate hunting authority
 
 on:
   pull_request:
+    branches: [main]
+    paths:
+      - 'src/data/hunting*'
+      - 'src/data/hunting/**'
+      - 'src/routes/hunting*'
+      - 'scripts/data/validate-hunting-authority.mjs'
+      - '.github/workflows/validate-hunting-authority.yml'
   workflow_dispatch:
 
 permissions:
