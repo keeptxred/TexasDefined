@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - "scripts/data/resolve-destination-placeholder-heroes.mjs"
+      - "scripts/data/normalize-destination-placeholder-hero-dimensions.mjs"
       - ".github/workflows/resolve-destination-placeholder-heroes.yml"
 
 permissions:
@@ -46,6 +47,9 @@ jobs:
       - name: Resolve placeholder-backed destination heroes
         run: node scripts/data/resolve-destination-placeholder-heroes.mjs
 
+      - name: Normalize destination hero JPEGs to governed dimensions
+        run: node scripts/data/normalize-destination-placeholder-hero-dimensions.mjs
+
       - name: Detect generated destination hero changes
         id: changes
         shell: bash
@@ -85,7 +89,7 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --title 'Replace destination placeholder heroes with governed raster images' \
-            --body $'Automated placeholder-backed destination hero reconciliation. Exact/relevant commercially reusable JPEGs are preferred. When no compliant reusable image is available, the resolver generates a destination-specific photorealistic AI JPEG. No SVG, procedural graphic, gradient, or generic placeholder is accepted as success. Review scripts/data/destination-placeholder-hero-report.json for per-destination provenance.'
+            --body $'Automated placeholder-backed destination hero reconciliation. Exact/relevant commercially reusable JPEGs are preferred. When no compliant reusable image is available, the resolver generates a destination-specific photorealistic AI JPEG. All generated assets are normalized to the governed 1800×1013 hero dimensions. No SVG, procedural graphic, gradient, or generic placeholder is accepted as success. Review scripts/data/destination-placeholder-hero-report.json for per-destination provenance.'
 
       - name: Run official validation on generated branch
         if: steps.changes.outputs.changed == 'true'
