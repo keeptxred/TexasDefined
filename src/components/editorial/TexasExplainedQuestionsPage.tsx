@@ -11,7 +11,7 @@ export default function TexasExplainedQuestionLibrary() {
 
   return (
     <section id="texas-questions" className="mt-16 scroll-mt-28 border-t border-border pt-10" aria-labelledby="texas-questions-heading">
-      <header className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-end">
+      <header className="grid gap-4 lg:grid-cols-2 lg:items-end">
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">The everyday Texas reference desk</p>
           <h2 id="texas-questions-heading" className="mt-3 font-display text-3xl leading-tight sm:text-4xl">{questions.length} Texas questions, answered in plain English</h2>
@@ -37,7 +37,7 @@ export default function TexasExplainedQuestionLibrary() {
           const categoryQuestions = questions.filter((item) => item.category === category);
           return (
             <section key={category} id={anchorFor(category)} className="scroll-mt-28" aria-labelledby={`${anchorFor(category)}-heading`}>
-              <header className="grid gap-3 border-b border-border pb-5 lg:grid-cols-[18rem_1fr] lg:items-end">
+              <header className="grid gap-3 border-b border-border pb-5 lg:grid-cols-2 lg:items-end">
                 <div>
                   <p className="eyebrow text-primary">Texas Explained</p>
                   <h3 id={`${anchorFor(category)}-heading`} className="mt-2 font-display text-3xl leading-tight sm:text-4xl">{category}</h3>
