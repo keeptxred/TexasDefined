@@ -19,10 +19,6 @@ const LIFE_SLUGS = new Set([
   "texas-native-garden-that-survives-august",
 ]);
 
-const SEASONAL_AUTHORITY_SLUGS = new Set([
-  "free-christmas-events-in-texas",
-]);
-
 const INTERNAL_LINK_REPLACEMENTS = new Map([
   ["/article/texas-kolache-klobasnek-history", "/article/kolache-or-klobasnek-texas-story"],
   ["/article/texas-painted-churches-guide", "/explore/painted-churches"],
@@ -34,7 +30,6 @@ export const legacyAuthoritySlugs = new Set([
   ...FOOD_CULTURE_SLUGS,
   ...TRAVEL_SLUGS,
   ...LIFE_SLUGS,
-  ...SEASONAL_AUTHORITY_SLUGS,
 ]);
 
 function canonicalizeAuthorityInternalLinks(article: Article): Article {
@@ -93,15 +88,6 @@ async function loadBaseArticle(slug: string): Promise<Article | null> {
     return texasDanceHallPreservationArticle;
   }
 
-  if (slug === "free-christmas-events-in-texas") {
-    const [{ seasonalIntentArticles }, { freeChristmasEventsInTexasBody }] = await Promise.all([
-      import("./seasonal-intent-articles"),
-      import("./free-christmas-events-in-texas"),
-    ]);
-    const article = seasonalIntentArticles.find((item) => item.slug === slug);
-    return article ? { ...article, body: freeChristmasEventsInTexasBody, readingMinutes: 8 } : null;
-  }
-
   const { texasCoreDepthArticles } = await import("./texas-core-depth");
   return texasCoreDepthArticles.find((article) => article.slug === slug) ?? null;
 }
@@ -111,10 +97,6 @@ export async function loadLegacyAuthorityArticle(brandId: string, slug: string):
 
   const article = await loadBaseArticle(slug);
   if (!article) return null;
-
-  if (SEASONAL_AUTHORITY_SLUGS.has(slug)) {
-    return finalizeAuthorityArticle(article);
-  }
 
   if (FOOD_CULTURE_SLUGS.has(slug)) {
     const { enrichLegacyFoodCultureArticle } = await import("./authority-legacy-food-culture");
