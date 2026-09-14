@@ -5,7 +5,6 @@ on:
     paths:
       - 'src/data/fixtures/seasonal-authority-articles.ts'
       - 'src/data/fixtures/seasonal-intent-articles.ts'
-      - 'src/data/fixtures/free-christmas-events-in-texas.ts'
       - 'src/data/fixtures/lazy-authority-legacy.ts'
       - 'src/data/fixtures/lazy-seasonal-authority.ts'
       - 'src/data/fixtures/lazy-seasonal-intents.ts'
@@ -23,7 +22,6 @@ on:
     paths:
       - 'src/data/fixtures/seasonal-authority-articles.ts'
       - 'src/data/fixtures/seasonal-intent-articles.ts'
-      - 'src/data/fixtures/free-christmas-events-in-texas.ts'
       - 'src/data/fixtures/lazy-authority-legacy.ts'
       - 'src/data/fixtures/lazy-seasonal-authority.ts'
       - 'src/data/fixtures/lazy-seasonal-intents.ts'
