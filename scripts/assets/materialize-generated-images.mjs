@@ -11,7 +11,10 @@ const assets = [
     prefix: "clean-v4-20260914.webp.b64.",
     expectedParts: 10,
     expectedSha256: "9664491618145e39ce2ebac354ae65325dba7d65d9557dc9d13206fe8ead62d8",
-    outputPath: path.join(root, "public/images/events/chappell-hill-bluebonnet-festival-20260914.webp"),
+    outputPaths: [
+      path.join(root, "public/images/events/chappell-hill-bluebonnet-festival-20260914.webp"),
+      path.join(root, "public/images/events/chappell-hill-bluebonnet-festival.webp"),
+    ],
   },
 ];
 
@@ -36,7 +39,9 @@ for (const asset of assets) {
     throw new Error(`Generated image checksum mismatch: ${actualSha256}`);
   }
 
-  fs.mkdirSync(path.dirname(asset.outputPath), { recursive: true });
-  fs.writeFileSync(asset.outputPath, bytes);
-  console.log(`Materialized ${path.relative(root, asset.outputPath)} (${bytes.length} bytes).`);
+  for (const outputPath of asset.outputPaths) {
+    fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+    fs.writeFileSync(outputPath, bytes);
+    console.log(`Materialized ${path.relative(root, outputPath)} (${bytes.length} bytes).`);
+  }
 }
