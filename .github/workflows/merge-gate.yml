@@ -16,7 +16,7 @@ jobs:
   required:
     name: Required merge gate
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 35
 
     steps:
       - name: Check out repository
@@ -32,122 +32,7 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
-      - name: Validate retired integration traces
-        run: node scripts/ci/validate-retired-integration-traces.mjs
-
-      - name: Validate direct-main writer inventory
-        run: node scripts/ci/validate-direct-main-writer-inventory.mjs
-
-      - name: Validate consolidated county certifiers
-        run: node scripts/ci/validate-county-certifier-consolidation.mjs
-
-      - name: Validate automation main-write policy
-        run: node scripts/ci/validate-automation-main-write-policy.mjs
-
-      - name: Validate retired one-time certifications
-        run: node scripts/ci/validate-retired-one-time-certifications.mjs
-
-      - name: Validate Texas AI intelligence foundation
-        run: node scripts/data/validate-texas-defined-ai-readiness.mjs
-
-      - name: Validate Texas Defined AI official research
-        run: node scripts/ai/validate-ai-official-research.mjs
-
-      - name: Validate Event schema enrichment coverage
-        run: |
-          node scripts/data/validate-events-seo.mjs
-          node scripts/data/audit-event-schema-enrichment.mjs
-          node --check scripts/ci/verify-event-structured-data-production.mjs
-
-      - name: Validate RV image provenance
-        run: node scripts/data/validate-rv-image-provenance.mjs
-
-      - name: Validate destination final image readiness
-        run: node scripts/data/validate-destination-image-final-readiness.mjs
-
-      - name: Validate date formatting SSR regression
-        run: node --experimental-strip-types --test src/domain/utils/format.test.ts
-
-      - name: Validate canonical Texas geography taxonomy
-        run: node --experimental-strip-types --test src/data/__tests__/canonical-geography.test.ts
-
-      - name: Validate populated Texas geography knowledge graph
-        run: node --experimental-strip-types --test src/data/__tests__/geography-knowledge-graph.test.ts
-
-      - name: Validate remote image upstream request policy
-        run: node --experimental-strip-types --test src/lib/remote-image-fetch-policy.test.ts
-
-      - name: Validate priority county property overlays
-        run: node scripts/data/validate-priority-county-property-overlays.mjs
-
-      - name: Validate Phase 10 housing index-suppression contract
-        run: node scripts/data/validate-phase10-housing-indexing.mjs
-
-      - name: Validate Texas beaches and coast authority
-        run: node scripts/data/validate-coastal-authority.mjs
-
-      - name: Run authoritative validation suite
-        run: node scripts/ci/run-validation-suite.mjs full
-
-      - name: Validate mountain biking authority
-        run: node scripts/data/validate-mountain-biking-authority.mjs
-
-      - name: Validate horseback riding authority
-        run: node scripts/data/validate-horseback-riding-authority.mjs
-
-      - name: Validate OHV authority
-        run: node scripts/data/validate-ohv-authority.mjs
-
-      - name: Validate paddling authority
-        run: node scripts/data/validate-paddling-authority.mjs
-
-      - name: Validate stargazing authority
-        run: node scripts/data/validate-stargazing-authority.mjs
-
-      - name: Validate hunting authority
-        run: node scripts/data/validate-hunting-authority.mjs
-
-      - name: Validate national cemetery authority cluster
-        run: node scripts/data/validate-national-cemetery-authority.mjs
-
-      - name: Validate AdSense-facing finance content depth
-        run: node scripts/data/validate-adsense-content-depth.mjs
-
-      - name: Validate Texas Talent content depth
-        run: node scripts/data/validate-texas-talent-content-depth.mjs
-
-      - name: Validate Texas Talent launch-depth gate
-        run: node scripts/data/validate-texas-talent-launch-depth-gate.mjs
-
-      - name: Validate Texas Talent flagship depth wave
-        run: node scripts/data/validate-texas-talent-flagship-depth.mjs
-
-      - name: Validate Texas Talent flagship depth wave 2
-        run: node scripts/data/validate-texas-talent-flagship-depth-wave2.mjs
-
-      # Keep future launch metadata and canonical ownership under the universal merge gate.
-      - name: Validate Texas Talent launch metadata
-        run: node scripts/data/validate-texas-talent-launch-metadata.mjs
-
-      - name: Validate Texas Talent reverse-link audit
-        run: node scripts/data/validate-texas-talent-reverse-links.mjs
-
-      - name: Validate Texas Talent public-style preview
-        run: node scripts/data/validate-texas-talent-public-preview.mjs
-
-      - name: Validate production predeploy gates
-        run: node scripts/ci/run-validation-suite.mjs predeploy
-
-      - name: Build production application
-        run: npm run build
-
-      - name: Validate generated route tree is committed
-        shell: bash
-        run: |
-          if ! git diff --exit-code -- src/routeTree.gen.ts; then
-            echo '::error title=Generated route tree is stale::The production build changed src/routeTree.gen.ts. Commit the TanStack-generated route tree before merging.'
-            exit 1
-          fi
-
-      - name: Validate client performance budget
-        run: npm run performance:validate
+      # Single source of truth: developers and CI run the same deterministic
+      # pre-merge contract. Add future required checks to the runner, not here.
+      - name: Run canonical pre-merge validation
+        run: node scripts/ci/run-premerge-validation.mjs
