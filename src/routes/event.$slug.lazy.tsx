@@ -1,44 +1,61 @@
+import { useEffect } from "react";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { ParkingMapPanel } from "@/components/parking/ParkingMapPanel";
 
-const CHAPPELL_HILL_WILDFLOWER_SECTION_TITLE = "Use the county wildflower map before chasing roadside photos";
-const CHAPPELL_HILL_WILDFLOWER_MAP_MARKUP = `<div data-map="chappell-hill-wildflower" class="mt-5">
-  <div class="aspect-[4/3] overflow-hidden rounded-xl border border-border bg-muted sm:aspect-[16/9]">
-    <iframe
-      title="Visit Brenham Wildflower Driving Map for Washington County"
-      src="https://www.google.com/maps/d/u/0/embed?ehbc=2E312F&amp;mid=1b6COvSIJuQzAg-UOzybkAXoKRVjeheE"
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      class="h-full w-full"
-      allowfullscreen
-    ></iframe>
-  </div>
-  <div class="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm">
-    <a class="font-semibold text-primary underline" href="https://visitbrenhamtexas.com/things/wildflower-watch/wildflower-driving-map/" target="_blank" rel="noreferrer noopener">Open the live Wildflower Driving Map ↗</a>
-    <a class="font-semibold text-primary underline" href="https://visitbrenhamtexas.com/wp-content/uploads/2018/03/20180323105225204_0001.pdf" target="_blank" rel="noreferrer noopener">Open or download the Washington County road map (PDF) ↗</a>
-  </div>
-  <p class="mt-3 text-xs leading-6 text-muted-foreground">The live Visit Brenham map is updated during wildflower season with current flower reports and the Bluebonnet Trail Scenic Drive. The PDF is a static county road map for offline reference.</p>
+const CHAPPELL_HILL_SLUG = "chappell-hill-bluebonnet-festival";
+const CHAPPELL_HILL_WILDFLOWER_MAP_URL = "https://www.google.com/maps/d/u/0/embed?ehbc=2E312F&mid=1b6COvSIJuQzAg-UOzybkAXoKRVjeheE";
+const CHAPPELL_HILL_WILDFLOWER_IFRAME = /<iframe\s+title="Visit Brenham Wildflower Driving Map for Washington County"[\s\S]*?<\/iframe>/;
+const CHAPPELL_HILL_WILDFLOWER_DEFERRED_MARKUP = `<div data-wildflower-map-frame class="aspect-[4/3] overflow-hidden rounded-xl border border-border bg-muted sm:aspect-[16/9]">
+  <button
+    type="button"
+    data-wildflower-map-load
+    data-map-src="${CHAPPELL_HILL_WILDFLOWER_MAP_URL.replace(/&/g, "&amp;")}"
+    class="flex h-full w-full flex-col items-center justify-center gap-2 px-6 text-center hover:bg-background/60"
+    aria-label="Load the interactive Visit Brenham Wildflower Driving Map"
+  >
+    <span class="font-display text-xl">Load the interactive wildflower map</span>
+    <span class="max-w-xl text-sm leading-6 text-muted-foreground">The Google map stays unloaded until you ask for it, reducing memory use and background activity.</span>
+  </button>
 </div>`;
 
 export const Route = createLazyFileRoute("/event/$slug")({
   component: MajorEventGuidePage,
 });
 
-function injectChappellHillWildflowerMap(slug: string, html: string) {
-  if (slug !== "chappell-hill-bluebonnet-festival" || html.includes('data-map="chappell-hill-wildflower"')) return html;
-
-  const sectionTitleIndex = html.indexOf(CHAPPELL_HILL_WILDFLOWER_SECTION_TITLE);
-  if (sectionTitleIndex === -1) return html;
-
-  const sectionEndIndex = html.indexOf("</section>", sectionTitleIndex);
-  if (sectionEndIndex === -1) return html;
-
-  return `${html.slice(0, sectionEndIndex)}${CHAPPELL_HILL_WILDFLOWER_MAP_MARKUP}${html.slice(sectionEndIndex)}`;
+function deferChappellHillWildflowerMap(slug: string, html: string) {
+  if (slug !== CHAPPELL_HILL_SLUG) return html;
+  return html.replace(CHAPPELL_HILL_WILDFLOWER_IFRAME, CHAPPELL_HILL_WILDFLOWER_DEFERRED_MARKUP);
 }
 
 function MajorEventGuidePage() {
   const { page, parkingMap } = Route.useLoaderData();
-  const articleHtml = injectChappellHillWildflowerMap(page.slug, page.html);
+  const articleHtml = deferChappellHillWildflowerMap(page.slug, page.html);
+
+  useEffect(() => {
+    if (page.slug !== CHAPPELL_HILL_SLUG) return;
+
+    const button = document.querySelector<HTMLButtonElement>("[data-wildflower-map-load]");
+    const frame = document.querySelector<HTMLElement>("[data-wildflower-map-frame]");
+    if (!button || !frame) return;
+
+    const loadMap = () => {
+      const src = button.dataset.mapSrc;
+      if (!src || frame.querySelector("iframe")) return;
+
+      const iframe = document.createElement("iframe");
+      iframe.title = "Visit Brenham Wildflower Driving Map for Washington County";
+      iframe.src = src;
+      iframe.loading = "lazy";
+      iframe.referrerPolicy = "no-referrer-when-downgrade";
+      iframe.className = "h-full w-full";
+      iframe.setAttribute("allowfullscreen", "");
+      frame.replaceChildren(iframe);
+    };
+
+    button.addEventListener("click", loadMap, { once: true });
+    return () => button.removeEventListener("click", loadMap);
+  }, [page.slug]);
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: page.jsonLd }} />
