@@ -19,6 +19,12 @@ function prepareArticleDetail(article: Article): Article {
   return prepareArticleForDelivery(ensureRemoteEvergreenSourceFallback(article));
 }
 
+async function loadLegacyAuthorityDetail(slug: Slug): Promise<Article | null> {
+  const { legacyAuthoritySlugs, loadLegacyAuthorityArticle } = await import("./fixtures/lazy-authority-legacy");
+  if (!legacyAuthoritySlugs.has(slug)) return null;
+  return loadLegacyAuthorityArticle(scope.brandId, slug);
+}
+
 export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => queryOptions({
   queryKey: ["articles", scope.brandId, params],
   queryFn: async () => {
@@ -31,6 +37,9 @@ export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => que
 export const articleQuery = (slug: Slug) => queryOptions({
   queryKey: ["article", scope.brandId, slug],
   queryFn: async () => {
+    const authorityArticle = await loadLegacyAuthorityDetail(slug);
+    if (authorityArticle) return prepareArticleDetail(authorityArticle);
+
     const platform = await loadPlatform();
     const localArticle = await platform.articles.getBySlug(scope, slug);
     if (localArticle) {
