@@ -54,3 +54,6 @@ jobs:
 
       - name: Verify RV Wave 11 production content and image gate
         run: node scripts/ci/verify-rv-wave11-production.mjs
+
+      - name: Verify RV Wave 12 production content and image gate
+        run: node scripts/ci/verify-rv-wave12-production.mjs
