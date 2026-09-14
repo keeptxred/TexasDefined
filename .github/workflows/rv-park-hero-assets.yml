@@ -8,6 +8,12 @@ on:
       - "scripts/data/sync-rv-park-hero-assets.mjs"
       - "scripts/data/enforce-rv-park-hero-location-policy.mjs"
       - "scripts/data/enforce-rv-hero-subject-quality.mjs"
+      - "src/data/rv-parks/registry.server.ts"
+      - "src/data/rv-parks/hill-country.ts"
+      - "src/data/rv-parks/gulf-coast.ts"
+      - "src/data/rv-parks/piney-woods-east-texas.ts"
+      - "src/data/rv-parks/panhandle-north-texas.ts"
+      - "src/data/rv-parks/big-bend-west-texas.ts"
       - ".github/workflows/rv-park-hero-assets.yml"
 
 permissions:
