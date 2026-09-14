@@ -35,7 +35,7 @@ assert(aggregatePhotoSource.includes("getSportsVenuePhotoAdditionWave7(slug)"), 
 assert(aggregatePhotoSource.includes("getCuratedSportsVenuePhotoOverride(slug) ?? getSportsVenuePhotoBase(slug)"), 'Curated sports venue photo overrides must resolve before the base registry.');
 for (const marker of [
   'const curatedSportsVenuePhotoOverrides',
-  'getCuratedSportsVenuePhotoOverride(slug)',
+  'export function getCuratedSportsVenuePhotoOverride',
 ]) assert(curatedOverrideSource.includes(marker), `Curated sports venue override layer is missing protected marker: ${marker}`);
 assert(!curatedOverrideSource.includes('http://'), 'Curated sports venue photo overrides must use HTTPS only.');
 for (const forbidden of ['gettyimages', 'tripadvisor', 'yelp', 'facebook.com', 'images.unsplash.com']) {
