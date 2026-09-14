@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REAL_CONVERT="${IMAGEMAGICK_CONVERT_BIN:-/usr/bin/convert}"
+
+if [[ ! -x "$REAL_CONVERT" ]]; then
+  echo "ImageMagick convert binary not found at $REAL_CONVERT" >&2
+  exit 127
+fi
+
+if [[ $# -gt 0 && -f "$1" ]]; then
+  input="$1"
+  mime="$(file --brief --mime-type "$input" 2>/dev/null || true)"
+  case "$mime" in
+    image/jpeg) input="jpeg:$input" ;;
+    image/png) input="png:$input" ;;
+    image/webp) input="webp:$input" ;;
+    image/gif) input="gif:$input" ;;
+    image/tiff) input="tiff:$input" ;;
+  esac
+  shift
+  exec "$REAL_CONVERT" "$input" "$@"
+fi
+
+exec "$REAL_CONVERT" "$@"
