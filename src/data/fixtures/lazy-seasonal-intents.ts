@@ -7,6 +7,7 @@ import { canonicalizeSeasonalArticleLinks } from "../seasonal-article-redirects"
 import type { Article, ImageRef } from "../types";
 import { blueHoleJasperCountyStoryArticle } from "./blue-hole-jasper-county-story";
 import { legacyAuthoritySlugs, loadLegacyAuthorityArticle } from "./lazy-authority-legacy";
+import { enrichSeasonalIntentArticle } from "./seasonal-intent-depth";
 
 const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
 const heroes = {
@@ -63,8 +64,8 @@ export async function loadSeasonalIntentArticle(brandId: string, slug: string): 
   const supplementalArticle = supplementalIntentArticles.get(slug);
   if (supplementalArticle) return supplementalArticle;
   const localFullArticle = seasonalIntentStubs.find((item) => item.slug === slug && item.body.length > 0);
-  if (localFullArticle) return localFullArticle;
+  if (localFullArticle) return enrichSeasonalIntentArticle(localFullArticle);
   const { seasonalIntentArticles } = await import("./seasonal-intent-articles");
   const article = seasonalIntentArticles.find((item) => item.slug === slug);
-  return article ? canonicalizeSeasonalArticleLinks(article) : null;
+  return article ? canonicalizeSeasonalArticleLinks(enrichSeasonalIntentArticle(article)) : null;
 }

@@ -5,6 +5,7 @@ on:
     paths:
       - 'src/data/fixtures/seasonal-authority-articles.ts'
       - 'src/data/fixtures/seasonal-intent-articles.ts'
+      - 'src/data/fixtures/seasonal-intent-depth.ts'
       - 'src/data/fixtures/lazy-seasonal-authority.ts'
       - 'src/data/fixtures/lazy-seasonal-intents.ts'
       - 'src/data/fixtures/seasonal-authority-links.ts'
@@ -13,12 +14,14 @@ on:
       - 'src/data/destination-editorial-links.ts'
       - 'src/components/editorial/ExploreIntentPaths.tsx'
       - 'scripts/data/validate-seasonal-authority.mjs'
+      - 'scripts/data/validate-seasonal-intent-depth.mjs'
       - '.github/workflows/validate-seasonal-authority.yml'
   push:
     branches: [main]
     paths:
       - 'src/data/fixtures/seasonal-authority-articles.ts'
       - 'src/data/fixtures/seasonal-intent-articles.ts'
+      - 'src/data/fixtures/seasonal-intent-depth.ts'
       - 'src/data/fixtures/lazy-seasonal-authority.ts'
       - 'src/data/fixtures/lazy-seasonal-intents.ts'
       - 'src/data/fixtures/seasonal-authority-links.ts'
@@ -27,6 +30,7 @@ on:
       - 'src/data/destination-editorial-links.ts'
       - 'src/components/editorial/ExploreIntentPaths.tsx'
       - 'scripts/data/validate-seasonal-authority.mjs'
+      - 'scripts/data/validate-seasonal-intent-depth.mjs'
       - '.github/workflows/validate-seasonal-authority.yml'
 
 permissions:
@@ -41,4 +45,6 @@ jobs:
         with:
           node-version: 22
       - name: Validate bluebonnet, Christmas and fall authority clusters
-        run: node scripts/data/validate-seasonal-authority.mjs
+        run: |
+          node scripts/data/validate-seasonal-authority.mjs
+          node scripts/data/validate-seasonal-intent-depth.mjs
