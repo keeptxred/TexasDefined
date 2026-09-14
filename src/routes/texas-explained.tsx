@@ -42,6 +42,7 @@ export const Route = createFileRoute("/texas-explained")({
       })),
     });
   },
+  // Keep collection schema rich on SSR while client rendering fetches inside the lazy page chunk.
   loader: async ({ context }): Promise<TexasExplainedLoaderData | null> => {
     if (!import.meta.env.SSR) return null;
     const [{ articlesQuery }, { buildTexasExplainedLoaderData }] = await Promise.all([
