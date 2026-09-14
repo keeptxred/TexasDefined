@@ -51,13 +51,16 @@ const localHousingSlugs = [
 ];
 
 for (const slug of localHousingSlugs) {
+  const ownershipPath = `/texas-homeownership-cost-calculator/${slug}`;
   if (!localHousingHubServer.includes(`slug: '${slug}'`)) {
     failures.push(`Server-backed local housing directory lost governed location ${slug}.`);
+  }
+  if (!localHousingHubServer.includes(`ownershipHref: '${ownershipPath}'`)) {
+    failures.push(`Server-backed local housing directory lost direct ownership path ${ownershipPath}.`);
   }
 }
 
 for (const marker of [
-  'ownershipHref: `/texas-homeownership-cost-calculator/${slug}`',
   'affordabilityHref: `/texas-home-affordability-calculator/${slug}`',
   'insuranceHref: `/texas-home-insurance-calculator/${slug}`',
   'mortgageHref: `/texas-mortgage-calculator/${slug}`',
