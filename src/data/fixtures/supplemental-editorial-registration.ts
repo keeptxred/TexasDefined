@@ -1,12 +1,14 @@
 import { articleInternalLinks } from "../article-internal-links";
 import { blueHoleJasperCountyStoryArticle } from "./blue-hole-jasper-county-story";
 import { registerSupplementalIntentArticle } from "./lazy-seasonal-intents";
+import { texasDogsEvergreenArticles } from "./texas-dogs-evergreen";
 
 // Keep small, opportunistic editorial additions discoverable without expanding
 // the already-large lazy evergreen registry. Registration updates both the
 // combined editorial list and direct slug lookup so a listed article cannot
 // silently resolve to a production 404.
 registerSupplementalIntentArticle(blueHoleJasperCountyStoryArticle);
+for (const article of texasDogsEvergreenArticles) registerSupplementalIntentArticle(article);
 
 const blueHoleLink = {
   href: `/article/${blueHoleJasperCountyStoryArticle.slug}`,

@@ -4,6 +4,20 @@ import type { DogBreedSummary, DogDesignCollection } from "@/data/texas-dogs";
 
 const routeApi = getRouteApi("/dogs/{-$breed}");
 const description = "Texas Dogs Defined is the playful dog-life department of Texas Defined: breed personalities, Texas dog culture and breed-specific shirt ideas built for dog people.";
+const dogDeskStories = [
+  {
+    slug: "the-unofficial-job-description-of-a-texas-porch-dog",
+    eyebrow: "Texas dog life",
+    title: "The Unofficial Job Description of a Texas Porch Dog",
+    dek: "Part security department, part weather station, part neighborhood gossip desk: the porch dog has responsibilities nobody assigned.",
+  },
+  {
+    slug: "why-the-best-dog-shirt-joke-feels-like-your-dog-and-nobody-elses",
+    eyebrow: "Breed humor",
+    title: "Why the Best Dog Shirt Joke Feels Like Your Dog and Nobody Else’s",
+    dek: "The strongest dog joke is not the loudest one. It is the one that makes an owner say: that is exactly what mine would do.",
+  },
+] as const;
 
 export default function DogsHubPage() {
   const { breeds, collections } = routeApi.useLoaderData() as { breeds: DogBreedSummary[]; collections: DogDesignCollection[] };
@@ -41,6 +55,24 @@ export default function DogsHubPage() {
     </section>
 
     <section className="border-b border-border bg-surface/40">
+      <Container className="py-12 sm:py-16">
+        <div className="max-w-3xl">
+          <p className="eyebrow text-primary">From the Dog Desk</p>
+          <h2 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">The stories behind the personalities</h2>
+          <p className="mt-4 text-base leading-7 text-muted-foreground">Texas Dogs Defined is an editorial world first. These stories turn the familiar habits, jobs and attitudes of Texas dogs into something worth reading before there is ever something to buy.</p>
+        </div>
+        <div className="mt-9 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
+          {dogDeskStories.map((story) => <Link key={story.slug} to="/article/$slug" params={{ slug: story.slug }} className="group bg-background p-7 sm:p-9">
+            <p className="eyebrow text-primary">{story.eyebrow}</p>
+            <h3 className="mt-3 font-display text-3xl leading-tight transition-colors group-hover:text-primary sm:text-4xl">{story.title}</h3>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">{story.dek}</p>
+            <span className="eyebrow mt-7 inline-block text-primary">Read the story →</span>
+          </Link>)}
+        </div>
+      </Container>
+    </section>
+
+    <section className="border-b border-border">
       <Container className="py-12 sm:py-16">
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">The shirt universe</p>
