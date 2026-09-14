@@ -133,6 +133,7 @@ jobs:
           fetch_assert christmas-towns '/article/best-christmas-towns-in-texas' 'The Texas Towns That Go All In for Christmas'
           fetch_assert christmas-lights '/article/best-christmas-lights-in-texas' 'The Best Christmas Lights in Texas'
           fetch_assert christmas-trains '/article/texas-christmas-train-rides' 'Christmas Train Rides in Texas'
+          fetch_assert christmas-free-events '/article/free-christmas-events-in-texas' 'Fredericksburg: Christmas Nights of Lights at Marktplatz'
 
           fetch_assert fall-hub '/article/fall-in-texas-complete-guide' 'Where Autumn Actually Shows Up in Texas'
           redirect_assert fall-best-retired '/article/best-places-for-fall-colors-in-texas' '/article/best-texas-state-parks-for-fall-colors'
