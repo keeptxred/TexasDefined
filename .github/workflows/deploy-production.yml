@@ -190,13 +190,39 @@ jobs:
         id: live_events
         if: ${{ always() && steps.cloudflare.outcome == 'success' }}
         continue-on-error: true
-        run: node scripts/ci/verify-event-structured-data-production.mjs
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p .artifacts
+          node scripts/ci/verify-event-structured-data-production.mjs 2>&1 | tee .artifacts/live-events.log
+
+      - name: Upload Event structured-data diagnostics
+        if: ${{ always() && steps.live_events.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: event-structured-data-${{ github.run_id }}
+          path: .artifacts/live-events.log
+          if-no-files-found: warn
+          retention-days: 7
 
       - name: Verify local financial production
         id: live_local_financial
         if: ${{ always() && steps.cloudflare.outcome == 'success' }}
         continue-on-error: true
-        run: node scripts/ci/verify-local-financial-production.mjs
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p .artifacts
+          node scripts/ci/verify-local-financial-production.mjs 2>&1 | tee .artifacts/live-local-financial.log
+
+      - name: Upload local financial diagnostics
+        if: ${{ always() && steps.live_local_financial.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: local-financial-${{ github.run_id }}
+          path: .artifacts/live-local-financial.log
+          if-no-files-found: warn
+          retention-days: 7
 
       - name: Verify statewide financial discovery
         id: live_statewide_financial
