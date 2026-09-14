@@ -1,0 +1,71 @@
+name: Verify legacy article depth production
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+
+permissions:
+  contents: read
+
+jobs:
+  verify-legacy-article-depth:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+    steps:
+      - name: Verify formerly thin canonical articles are serving deep bodies
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          assert_live_marker() {
+            local label="$1" path="$2" marker="$3"
+            local out="$workdir/${label}.html"
+            local attempt
+            for attempt in 1 2 3 4 5 6; do
+              echo "[$label] attempt $attempt: ${origin}${path}"
+              if curl --fail-with-body --silent --show-error --location --max-time 30 \
+                "${origin}${path}?verify-depth=${DEPLOY_SHA}-${GITHUB_RUN_ID}-${attempt}" -o "$out"; then
+                if grep -Fq "$marker" "$out"; then
+                  echo "[$label] deep production body verified"
+                  return 0
+                fi
+                echo "[$label] page is live but deep-body marker is not present yet"
+              fi
+              sleep 5
+            done
+            echo "[$label] production depth verification failed for ${origin}${path}" >&2
+            head -c 2400 "$out" 2>/dev/null || true
+            echo >&2
+            return 1
+          }
+
+          assert_live_marker free-christmas '/article/free-christmas-events-in-texas' \
+            'A free Texas Christmas night can be every bit as memorable as a ticketed attraction'
+          assert_live_marker austin-bluebonnets '/article/bluebonnets-near-austin' \
+            'How to time an Austin bluebonnet day'
+          assert_live_marker christmas-lights '/article/best-christmas-lights-in-texas' \
+            'Choose the setting, not only the bulb count'
+          assert_live_marker christmas-trains '/article/texas-christmas-train-rides' \
+            'Two Texas rail experiences lead the list'
+          assert_live_marker east-texas-fall '/article/east-texas-fall-colors' \
+            'East Texas usually runs later than the Hill Country'
+          assert_live_marker fall-state-parks '/article/best-texas-state-parks-for-fall-colors' \
+            'Pick the park by the kind of fall color you want'
+
+          # Preserve the resolver fixes that already upgraded these legacy authority pages.
+          assert_live_marker friday-night '/article/friday-night-and-the-texas-town' \
+            'The easiest way to misunderstand Texas high-school football is to look only at the football'
+          assert_live_marker moving-texas '/article/moving-to-texas-what-nobody-tells-you' \
+            'The best way to move here is to understand the systems before you fall in love with a kitchen'
+          assert_live_marker moving-houston '/article/moving-to-houston-address-checklist' \
+            'Moving to Houston is an address-level decision'
