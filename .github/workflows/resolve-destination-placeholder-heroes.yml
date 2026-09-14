@@ -1,0 +1,100 @@
+name: Resolve destination placeholder heroes
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/data/resolve-destination-placeholder-heroes.mjs"
+      - "scripts/data/normalize-destination-placeholder-hero-dimensions.mjs"
+      - ".github/workflows/resolve-destination-placeholder-heroes.yml"
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: resolve-destination-placeholder-heroes
+  cancel-in-progress: false
+
+jobs:
+  resolve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Ensure JPEG conversion support
+        run: |
+          if ! command -v convert >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq imagemagick
+          fi
+
+      - name: Resolve placeholder-backed destination heroes
+        run: node scripts/data/resolve-destination-placeholder-heroes.mjs
+
+      - name: Normalize destination hero JPEGs to governed dimensions
+        run: node scripts/data/normalize-destination-placeholder-hero-dimensions.mjs
+
+      - name: Detect generated destination hero changes
+        id: changes
+        shell: bash
+        run: |
+          if [[ -z "$(git status --porcelain -- public/images/destination-heroes src/data/destination-hero-overrides.ts scripts/data/destination-placeholder-hero-report.json)" ]]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No destination placeholder hero changes to preserve."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Destination placeholder hero changes detected."
+          fi
+
+      - name: Create destination hero review branch
+        if: steps.changes.outputs.changed == 'true'
+        id: branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/destination-placeholder-heroes-${GITHUB_RUN_ID}"
+          git config user.name "Texas Defined Data Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add public/images/destination-heroes src/data/destination-hero-overrides.ts scripts/data/destination-placeholder-hero-report.json
+          git commit -m "fix: replace destination placeholder heroes"
+          git push origin "$branch"
+          echo "name=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Open reviewable destination hero pull request
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title 'Replace destination placeholder heroes with governed raster images' \
+            --body $'Automated placeholder-backed destination hero reconciliation. Exact/relevant commercially reusable JPEGs are preferred. When no compliant reusable image is available, the resolver generates a destination-specific photorealistic AI JPEG. All generated assets are normalized to the governed 1800×1013 hero dimensions. No SVG, procedural graphic, gradient, or generic placeholder is accepted as success. Review scripts/data/destination-placeholder-hero-report.json for per-destination provenance.'
+
+      - name: Run official validation on generated branch
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        shell: bash
+        run: bash scripts/ci/dispatch-validate-branch.sh "$BRANCH"
