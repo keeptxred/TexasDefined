@@ -83,25 +83,33 @@ for (const [label, path, needle] of surfaces) {
   }
 }
 
-async function verifyContentPolicy(targetOrigin, targetLabel, path, requiredNeedles, forbiddenNeedles, policyLabel) {
+async function verifyContentPolicy(targetOrigin, targetLabel, path, requiredNeedles, forbiddenNeedles, policyLabel, mode) {
   let passed = false;
   let lastStatus = 'network-error';
   let lastBody = '';
   let lastError = '';
   let missingRequired = [];
   let staleForbidden = [];
-  const checkLabel = `${targetLabel}:${policyLabel}`;
+  const canonicalMode = mode === 'canonical';
+  const checkLabel = `${targetLabel}:${policyLabel}:${mode}`;
 
   for (let attempt = 1; attempt <= 6; attempt += 1) {
     const separator = path.includes('?') ? '&' : '?';
-    const url = `${targetOrigin}${path}${separator}verify=${encodeURIComponent(`${sha}-${runId}-${policyLabel}-${attempt}`)}`;
+    const suffix = canonicalMode
+      ? ''
+      : `${separator}verify=${encodeURIComponent(`${sha}-${runId}-${policyLabel}-${attempt}`)}`;
+    const url = `${targetOrigin}${path}${suffix}`;
     console.log(`[${checkLabel}] attempt ${attempt}: ${url}`);
     try {
       const response = await fetch(url, {
         redirect: 'follow',
-        cache: 'no-store',
+        ...(canonicalMode ? {} : { cache: 'no-store' }),
         signal: AbortSignal.timeout(30_000),
-        headers: { 'user-agent': 'TexasDefined-CI-Content-Policy-Smoke/1.0' },
+        headers: {
+          'user-agent': canonicalMode
+            ? 'TexasDefined-CI-Content-Policy-Canonical-Smoke/1.0'
+            : 'TexasDefined-CI-Content-Policy-Revision-Smoke/1.0',
+        },
       });
       lastStatus = String(response.status);
       lastBody = await response.text();
@@ -231,8 +239,10 @@ async function diagnoseRandallOrigin(targetOrigin, targetLabel) {
   }
 }
 
-await verifyContentPolicy(origin, 'direct-worker', christmasAuthorityPath, christmasAuthorityRequiredNeedles, christmasAuthorityForbiddenNeedles, 'free-christmas-authority');
-await verifyContentPolicy(productionOrigin, 'custom-domain', christmasAuthorityPath, christmasAuthorityRequiredNeedles, christmasAuthorityForbiddenNeedles, 'free-christmas-authority');
+await verifyContentPolicy(origin, 'direct-worker', christmasAuthorityPath, christmasAuthorityRequiredNeedles, christmasAuthorityForbiddenNeedles, 'free-christmas-authority', 'canonical');
+await verifyContentPolicy(productionOrigin, 'custom-domain', christmasAuthorityPath, christmasAuthorityRequiredNeedles, christmasAuthorityForbiddenNeedles, 'free-christmas-authority', 'canonical');
+await verifyContentPolicy(origin, 'direct-worker', christmasAuthorityPath, christmasAuthorityRequiredNeedles, christmasAuthorityForbiddenNeedles, 'free-christmas-authority', 'revision');
+await verifyContentPolicy(productionOrigin, 'custom-domain', christmasAuthorityPath, christmasAuthorityRequiredNeedles, christmasAuthorityForbiddenNeedles, 'free-christmas-authority', 'revision');
 await verifyMajorEventLanding(origin, 'direct-worker', 'canonical');
 await verifyMajorEventLanding(productionOrigin, 'custom-domain', 'canonical');
 await verifyMajorEventLanding(origin, 'direct-worker', 'revision');
@@ -240,4 +250,4 @@ await verifyMajorEventLanding(productionOrigin, 'custom-domain', 'revision');
 await diagnoseRandallOrigin(origin, 'direct-worker');
 await diagnoseRandallOrigin(productionOrigin, 'custom-domain');
 
-console.log(`Direct Worker discovery verification passed (${surfaces.length} discovery surfaces plus direct/custom-domain Christmas authority, canonical/revision-bound major-event landing policy, and Randall origin diagnostics).`);
+console.log(`Direct Worker discovery verification passed (${surfaces.length} discovery surfaces plus direct/custom-domain canonical and revision Christmas authority, canonical/revision-bound major-event landing policy, and Randall origin diagnostics).`);
