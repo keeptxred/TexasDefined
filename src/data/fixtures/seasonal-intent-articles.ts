@@ -4,6 +4,7 @@ import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
 
 import type { Article, ImageRef } from "../types";
+import { applySeasonalIntentDepth } from "./seasonal-intent-depth-blocks";
 
 const BRAND = "texasdefined" as const;
 const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
@@ -12,7 +13,7 @@ const fall = image(caddoLake, "Bald cypress trees and reflective water in East T
 const christmas = image(smallTown, "A historic Texas town square during the holiday season");
 const road = image(roadTrip, "A two-lane Texas road crossing open country");
 
-export const seasonalIntentArticles: Article[] = [
+const baseSeasonalIntentArticles: Article[] = [
   {
     id: "si-1", brandId: BRAND, slug: "bluebonnets-near-austin", title: "Where to See Bluebonnets Near Austin",
     dek: "A practical Austin-area bluebonnet guide covering Lake Travis, the Highland Lakes, Hill Country drives and public places where spring flower viewing makes sense.", category: "outdoors", region: "hill-country", hero: blue, authorId: "a-dell", publishedAt: "2026-08-20", readingMinutes: 8,
@@ -281,3 +282,5 @@ export const seasonalIntentArticles: Article[] = [
     ],
   },
 ];
+
+export const seasonalIntentArticles: Article[] = baseSeasonalIntentArticles.map(applySeasonalIntentDepth);
