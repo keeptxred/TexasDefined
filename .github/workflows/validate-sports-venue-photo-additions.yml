@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'src/data/sports-venue-images.ts'
+      - 'src/data/sports-venue-images-curated-overrides.ts'
       - 'src/data/sports-venue-images-additions.ts'
       - 'src/data/sports-venue-images-additions-wave2.ts'
       - 'src/data/sports-venue-images-additions-wave3.ts'
@@ -20,6 +21,8 @@ on:
       - 'src/routes/sports-venue.$slug.tsx'
       - 'src/routes/sports-venue.jones-att-stadium.tsx'
       - 'scripts/data/validate-sports-venue-images.mjs'
+      - 'scripts/data/validate-curated-sports-venue-image-layer.mjs'
+      - 'scripts/data/validate-curated-sports-venue-image-sources.mjs'
       - 'scripts/data/validate-sports-venue-photo-additions.mjs'
       - 'scripts/data/validate-sports-venue-photo-additions-wave2.mjs'
       - 'scripts/data/validate-sports-venue-photo-additions-wave5.mjs'
@@ -41,6 +44,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: node scripts/data/validate-sports-venue-images.mjs
+      - run: node scripts/data/validate-curated-sports-venue-image-layer.mjs
+      - run: node scripts/data/validate-curated-sports-venue-image-sources.mjs
       - run: node scripts/data/validate-sports-venue-photo-additions.mjs
       - run: node scripts/data/validate-sports-venue-photo-additions-wave2.mjs
       - run: node scripts/data/validate-sports-venue-photo-additions-wave5.mjs
