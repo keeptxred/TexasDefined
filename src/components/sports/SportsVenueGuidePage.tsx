@@ -322,7 +322,7 @@ function SourcesSection({ entity, guide, enrichment, photo, reviewedAt }: { enti
           ) : null}
           {photo && generatedImage ? (
             <p className="border-t border-border pt-4 text-xs leading-6 text-muted-foreground">
-              AI-generated representative editorial image by {photo.author} for TexasDefined; not documentary photography. {photo.licenseName}.
+              Editorial illustration by {photo.author} for TexasDefined; not documentary photography.
             </p>
           ) : photo ? (
             <p className="border-t border-border pt-4 text-xs leading-6 text-muted-foreground">
