@@ -26,6 +26,7 @@ const eventAuthority = read('src/data/major-event-authority.ts');
 const eventRoute = read('src/routes/event.$slug.tsx');
 const eventImageAudit = read('scripts/data/audit-event-schema-enrichment.mjs');
 const mergeGate = read('.github/workflows/merge-gate.yml');
+const premergeRunner = read('scripts/ci/run-premerge-validation.mjs');
 const sitemap = read('src/routes/sitemap[.]xml.ts');
 const venueImageValidator = read('scripts/data/validate-sports-venue-photo-additions-final.mjs');
 
@@ -141,7 +142,8 @@ for (const marker of [
 ]) {
   if (!eventImageAudit.includes(marker)) errors.push(`Major-event effective image audit guard missing: ${marker}`);
 }
-if (!mergeGate.includes('node scripts/data/audit-event-schema-enrichment.mjs')) errors.push('Required merge gate must run the event image coverage audit.');
+if (!mergeGate.includes('node scripts/ci/run-premerge-validation.mjs')) errors.push('Required merge gate must invoke the canonical pre-merge validation contract.');
+if (!premergeRunner.includes("'scripts/data/audit-event-schema-enrichment.mjs'")) errors.push('Canonical pre-merge contract must run the event image coverage audit.');
 
 for (const marker of [
   'Expected governed hero coverage for all 84 seeded sports venues after wave 7',

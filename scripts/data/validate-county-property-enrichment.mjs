@@ -9,6 +9,7 @@ const sync = fs.readFileSync('scripts/data/sync-county-property-data.mjs', 'utf8
 const directoryRoute = fs.readFileSync('src/routes/property-tax.counties.tsx', 'utf8');
 const refreshWorkflow = fs.readFileSync('.github/workflows/sync-county-property-data.yml', 'utf8');
 const validateWorkflow = fs.readFileSync('.github/workflows/validate.yml', 'utf8');
+const premergeRunner = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 const validationSuite = fs.readFileSync('scripts/ci/run-validation-suite.mjs', 'utf8');
 const failures = [];
 const SOURCE_MAX_AGE_DAYS = 730;
@@ -154,11 +155,12 @@ if (/git\s+push\s+origin\s+main(?:\s|$)/m.test(refreshWorkflow)) failures.push('
 if (/gh\s+pr\s+merge/m.test(refreshWorkflow)) failures.push('County property refresh workflow must not auto-merge externally refreshed data.');
 
 const legacyStandaloneProtection = validateWorkflow.includes('Validate county property enrichment') && validateWorkflow.includes('node scripts/data/validate-county-property-enrichment.mjs');
-const centralizedProtection = validateWorkflow.includes('node scripts/ci/run-validation-suite.mjs full')
+const centralizedProtection = validateWorkflow.includes('node scripts/ci/run-premerge-validation.mjs')
+  && premergeRunner.includes("'scripts/ci/run-validation-suite.mjs', 'full'")
   && validationSuite.includes("'county-property-enrichment'")
   && validationSuite.includes("'scripts/data/validate-county-property-enrichment.mjs'");
 if (!legacyStandaloneProtection && !centralizedProtection) {
-  failures.push('Main validation must permanently run county property enrichment protection either as its legacy named step or through the authoritative validation suite.');
+  failures.push('Main validation must permanently run county property enrichment protection either as its legacy named step or through the canonical pre-merge validation contract.');
 }
 
 if (/lastVerifiedAt:\s*['"]?\s*['"]?\s*,/.test(snapshot)) failures.push('Snapshot contains an empty verification date.');

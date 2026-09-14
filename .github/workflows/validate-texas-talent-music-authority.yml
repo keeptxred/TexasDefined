@@ -1,10 +1,14 @@
 name: Validate Texas Talent music authority links
 
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
+    paths:
+      - 'src/data/texas-talent*'
+      - 'src/data/texas-talent/**'
+      - 'src/routes/texas-talent*'
+      - 'scripts/data/validate-texas-talent-music-authority.mjs'
+      - '.github/workflows/validate-texas-talent-music-authority.yml'
   workflow_dispatch:
 
 permissions:

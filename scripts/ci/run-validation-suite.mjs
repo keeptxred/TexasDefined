@@ -98,7 +98,9 @@ const predeployIds = new Set([
 ]);
 
 const fullExcludedIds = new Set(['texas-flag-authority', 'painted-churches-seo', 'painted-church-map', 'painted-church-completion']);
-const suiteName = process.argv[2] ?? 'full';
+const args = process.argv.slice(2);
+const suiteName = args.find((arg) => !arg.startsWith('--')) ?? 'full';
+const collectAll = args.includes('--collect-all');
 const selected = suiteName === 'predeploy'
   ? checks.filter(([id]) => predeployIds.has(id))
   : suiteName === 'full'
@@ -118,11 +120,12 @@ function appendSummary(text) {
 appendSummary(`## Validation suite: ${suiteName}\n\n`);
 appendSummary('| Result | Class | Check | Duration |\n|---|---|---|---:|\n');
 
-for (const [, classification, label, command, args] of selected) {
+const failures = [];
+for (const [, classification, label, command, commandArgs] of selected) {
   const started = Date.now();
   console.log(`::group::[${classification}] ${label}`);
-  console.log(`$ ${command} ${args.join(' ')}`);
-  const result = spawnSync(command, args, { cwd: process.cwd(), env: process.env, stdio: 'inherit', shell: false });
+  console.log(`$ ${command} ${commandArgs.join(' ')}`);
+  const result = spawnSync(command, commandArgs, { cwd: process.cwd(), env: process.env, stdio: 'inherit', shell: false });
   console.log('::endgroup::');
 
   const durationSeconds = ((Date.now() - started) / 1000).toFixed(1);
@@ -131,10 +134,21 @@ for (const [, classification, label, command, args] of selected) {
 
   if (!ok) {
     const detail = result.error ? result.error.message : `exit code ${result.status ?? 'unknown'}`;
-    console.error(`::error title=${classification} failure::${label} failed (${detail}). Command: ${command} ${args.join(' ')}`);
-    appendSummary(`\n**Failure class:** \`${classification}\`  \n**Failed check:** ${label}  \n**Command:** \`${command} ${args.join(' ')}\`  \n**Result:** ${detail}\n`);
-    process.exit(1);
+    const failure = { classification, label, command: `${command} ${commandArgs.join(' ')}`, detail };
+    failures.push(failure);
+    console.error(`::error title=${classification} failure::${label} failed (${detail}). Command: ${failure.command}`);
+    appendSummary(`\n**Failure class:** \`${classification}\`  \n**Failed check:** ${label}  \n**Command:** \`${failure.command}\`  \n**Result:** ${detail}\n`);
+    if (!collectAll) process.exit(1);
   }
+}
+
+if (failures.length > 0) {
+  appendSummary(`\n### Validation failures (${failures.length})\n`);
+  for (const failure of failures) {
+    appendSummary(`- \`${failure.classification}\` — ${failure.label}: \`${failure.command}\` (${failure.detail})\n`);
+  }
+  console.error(`Validation suite '${suiteName}' failed ${failures.length} check(s).`);
+  process.exit(1);
 }
 
 appendSummary(`\nAll ${selected.length} checks passed.\n`);
