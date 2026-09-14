@@ -1,0 +1,1058 @@
+{
+  "generatedAt": "2026-09-14T04:54:23.210Z",
+  "reviewedLeaves": 175,
+  "compliantBefore": 1,
+  "pendingBefore": 174,
+  "attempted": 174,
+  "resolved": 174,
+  "unresolved": [],
+  "remainingAfterThisRun": 0,
+  "model": "@cf/black-forest-labs/flux-1-schnell",
+  "policy": "Missing Event heroes remain fail-closed until generated assets and structured provenance are reviewed and merged.",
+  "images": [
+    {
+      "slug": "grapefest",
+      "file": "major-event-schema-enrichment-batch1.server.ts",
+      "asset": "public/images/events/grapefest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "wurstfest",
+      "file": "major-event-schema-enrichment-batch1.server.ts",
+      "asset": "public/images/events/wurstfest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-renaissance-festival",
+      "file": "major-event-schema-enrichment-batch1.server.ts",
+      "asset": "public/images/events/texas-renaissance-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "fort-worth-stock-show-rodeo",
+      "file": "major-event-schema-enrichment-batch1.server.ts",
+      "asset": "public/images/events/fort-worth-stock-show-rodeo.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "san-antonio-stock-show-rodeo",
+      "file": "major-event-schema-enrichment-batch1.server.ts",
+      "asset": "public/images/events/san-antonio-stock-show-rodeo.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "sxsw",
+      "file": "major-event-schema-enrichment-batch1.server.ts",
+      "asset": "public/images/events/sxsw.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "houston-livestock-show-rodeo",
+      "file": "major-event-schema-enrichment-batch1.server.ts",
+      "asset": "public/images/events/houston-livestock-show-rodeo.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "fiesta-san-antonio",
+      "file": "major-event-schema-enrichment-batch1.server.ts",
+      "asset": "public/images/events/fiesta-san-antonio.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-rose-festival",
+      "file": "major-event-schema-enrichment-batch1.server.ts",
+      "asset": "public/images/events/texas-rose-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-sandfest",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/texas-sandfest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "austin-film-festival",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/austin-film-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "dickens-on-the-strand",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/dickens-on-the-strand.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "scarborough-renaissance-festival",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/scarborough-renaissance-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "kerrville-folk-festival",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/kerrville-folk-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "wings-over-houston-airshow",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/wings-over-houston-airshow.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "central-texas-state-fair",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/central-texas-state-fair.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "bandera-round-up-cattle-drive",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/bandera-round-up-cattle-drive.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "addison-oktoberfest",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/addison-oktoberfest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "fort-bend-county-fair-rodeo",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/fort-bend-county-fair-rodeo.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "mckinney-oktoberfest",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/mckinney-oktoberfest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "fort-worth-oktoberfest",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/fort-worth-oktoberfest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "west-texas-fair-rodeo",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/west-texas-fair-rodeo.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "denton-blues-festival",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/denton-blues-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-sounds-country-music-awards",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/texas-sounds-country-music-awards.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "terlingua-international-chili-championship",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/terlingua-international-chili-championship.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "austin-celtic-festival",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/austin-celtic-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "houston-thanksgiving-day-parade",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/houston-thanksgiving-day-parade.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "charro-days-fiesta",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/charro-days-fiesta.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "burnet-bluebonnet-festival",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/burnet-bluebonnet-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "main-st-fort-worth-arts-festival",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/main-st-fort-worth-arts-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "buc-days",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/buc-days.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "houston-auto-show",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/houston-auto-show.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "fulton-oysterfest",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/fulton-oysterfest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "parker-county-peach-festival",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/parker-county-peach-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "valero-texas-open",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/valero-texas-open.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "red-river-rivalry",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/red-river-rivalry.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "formula-1-united-states-grand-prix",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/formula-1-united-states-grand-prix.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "dobie-dichos",
+      "file": "major-event-schema-enrichment-batch3.server.ts",
+      "asset": "public/images/events/dobie-dichos.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "dallas-holiday-parade",
+      "file": "major-event-schema-enrichment-batch3.server.ts",
+      "asset": "public/images/events/dallas-holiday-parade.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "schulenburg-festival",
+      "file": "major-event-schema-enrichment-batch3.server.ts",
+      "asset": "public/images/events/schulenburg-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "westfest",
+      "file": "major-event-schema-enrichment-batch3.server.ts",
+      "asset": "public/images/events/westfest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "luling-watermelon-thump",
+      "file": "major-event-schema-enrichment-batch3.server.ts",
+      "asset": "public/images/events/luling-watermelon-thump.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "national-polka-festival",
+      "file": "major-event-schema-enrichment-batch3.server.ts",
+      "asset": "public/images/events/national-polka-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "gillespie-county-fair",
+      "file": "major-event-schema-enrichment-batch3.server.ts",
+      "asset": "public/images/events/gillespie-county-fair.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "north-texas-fair-rodeo",
+      "file": "major-event-schema-enrichment-batch3.server.ts",
+      "asset": "public/images/events/north-texas-fair-rodeo.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "austin-chronicle-hot-sauce-festival",
+      "file": "major-event-schema-enrichment-batch3.server.ts",
+      "asset": "public/images/events/austin-chronicle-hot-sauce-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "sandhills-stock-show-rodeo",
+      "file": "major-event-schema-enrichment-batch4.server.ts",
+      "asset": "public/images/events/sandhills-stock-show-rodeo.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "sweetwater-rattlesnake-roundup",
+      "file": "major-event-schema-enrichment-batch4.server.ts",
+      "asset": "public/images/events/sweetwater-rattlesnake-roundup.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "granbury-founders-day-jubilee",
+      "file": "major-event-schema-enrichment-batch4.server.ts",
+      "asset": "public/images/events/granbury-founders-day-jubilee.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "galveston-juneteenth-celebrations",
+      "file": "major-event-schema-enrichment-batch4.server.ts",
+      "asset": "public/images/events/galveston-juneteenth-celebrations.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "larry-joe-taylor-texas-music-festival",
+      "file": "major-event-schema-enrichment-batch4.server.ts",
+      "asset": "public/images/events/larry-joe-taylor-texas-music-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "san-antonio-marathon",
+      "file": "major-event-schema-enrichment-batch4.server.ts",
+      "asset": "public/images/events/san-antonio-marathon.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "rockport-art-festival",
+      "file": "major-event-schema-enrichment-batch4.server.ts",
+      "asset": "public/images/events/rockport-art-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "viva-el-paso",
+      "file": "major-event-schema-enrichment-batch4.server.ts",
+      "asset": "public/images/events/viva-el-paso.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-shakespeare-festival",
+      "file": "major-event-schema-enrichment-batch4.server.ts",
+      "asset": "public/images/events/texas-shakespeare-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "poteet-strawberry-festival",
+      "file": "major-event-schema-enrichment-batch4.server.ts",
+      "asset": "public/images/events/poteet-strawberry-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "comicpalooza",
+      "file": "major-event-schema-enrichment-batch5.server.ts",
+      "asset": "public/images/events/comicpalooza.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "tejano-conjunto-festival",
+      "file": "major-event-schema-enrichment-batch5.server.ts",
+      "asset": "public/images/events/tejano-conjunto-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "great-texas-balloon-race",
+      "file": "major-event-schema-enrichment-batch5.server.ts",
+      "asset": "public/images/events/great-texas-balloon-race.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "hidalgo-borderfest",
+      "file": "major-event-schema-enrichment-batch5.server.ts",
+      "asset": "public/images/events/hidalgo-borderfest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "austin-reggae-festival",
+      "file": "major-event-schema-enrichment-batch5.server.ts",
+      "asset": "public/images/events/austin-reggae-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-outdoor-musical",
+      "file": "major-event-schema-enrichment-batch5.server.ts",
+      "asset": "public/images/events/texas-outdoor-musical.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "washington-on-the-brazos-texas-independence-day",
+      "file": "major-event-schema-enrichment-batch5.server.ts",
+      "asset": "public/images/events/washington-on-the-brazos-texas-independence-day.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "great-american-scrapbook-convention",
+      "file": "major-event-schema-enrichment-batch5.server.ts",
+      "asset": "public/images/events/great-american-scrapbook-convention.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "the-very-rary",
+      "file": "major-event-schema-enrichment-batch5.server.ts",
+      "asset": "public/images/events/the-very-rary.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "marfa-lights-festival",
+      "file": "major-event-schema-enrichment-batch5.server.ts",
+      "asset": "public/images/events/marfa-lights-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "fredericksburg-oktoberfest",
+      "file": "major-event-schema-enrichment-batch6.server.ts",
+      "asset": "public/images/events/fredericksburg-oktoberfest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-book-festival",
+      "file": "major-event-schema-enrichment-batch6.server.ts",
+      "asset": "public/images/events/texas-book-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "houston-art-car-parade",
+      "file": "major-event-schema-enrichment-batch6.server.ts",
+      "asset": "public/images/events/houston-art-car-parade.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "mardi-gras-galveston",
+      "file": "major-event-schema-enrichment-batch6.server.ts",
+      "asset": "public/images/events/mardi-gras-galveston.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-state-forest-festival",
+      "file": "major-event-schema-enrichment-batch6.server.ts",
+      "asset": "public/images/events/texas-state-forest-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "bayou-city-art-festival-memorial-park",
+      "file": "major-event-schema-enrichment-batch6.server.ts",
+      "asset": "public/images/events/bayou-city-art-festival-memorial-park.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "western-heritage-classic",
+      "file": "major-event-schema-enrichment-batch6.server.ts",
+      "asset": "public/images/events/western-heritage-classic.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "bob-wills-day",
+      "file": "major-event-schema-enrichment-batch6.server.ts",
+      "asset": "public/images/events/bob-wills-day.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "lone-star-cowboy-poetry-gathering-alpine",
+      "file": "major-event-schema-enrichment-batch6.server.ts",
+      "asset": "public/images/events/lone-star-cowboy-poetry-gathering-alpine.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "lone-star-cowboy-poetry-gathering-bastrop",
+      "file": "major-event-schema-enrichment-batch6.server.ts",
+      "asset": "public/images/events/lone-star-cowboy-poetry-gathering-bastrop.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-jazz-festival",
+      "file": "major-event-schema-enrichment-batch7.server.ts",
+      "asset": "public/images/events/texas-jazz-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "red-steagall-cowboy-gathering",
+      "file": "major-event-schema-enrichment-batch7.server.ts",
+      "asset": "public/images/events/red-steagall-cowboy-gathering.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-rice-festival",
+      "file": "major-event-schema-enrichment-batch7.server.ts",
+      "asset": "public/images/events/texas-rice-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "international-quilt-festival-houston",
+      "file": "major-event-schema-enrichment-batch7.server.ts",
+      "asset": "public/images/events/international-quilt-festival-houston.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "original-greek-festival-houston",
+      "file": "major-event-schema-enrichment-batch7.server.ts",
+      "asset": "public/images/events/original-greek-festival-houston.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "san-antonio-muertos-fest",
+      "file": "major-event-schema-enrichment-batch7.server.ts",
+      "asset": "public/images/events/san-antonio-muertos-fest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "austin-food-wine-festival",
+      "file": "major-event-schema-enrichment-batch7.server.ts",
+      "asset": "public/images/events/austin-food-wine-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "gruene-music-wine-festival",
+      "file": "major-event-schema-enrichment-batch7.server.ts",
+      "asset": "public/images/events/gruene-music-wine-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-clay-festival",
+      "file": "major-event-schema-enrichment-batch7.server.ts",
+      "asset": "public/images/events/texas-clay-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-craft-brewers-festival",
+      "file": "major-event-schema-enrichment-batch7.server.ts",
+      "asset": "public/images/events/texas-craft-brewers-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-tribune-festival",
+      "file": "major-event-schema-enrichment-batch8.server.ts",
+      "asset": "public/images/events/texas-tribune-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "san-antonio-beer-festival",
+      "file": "major-event-schema-enrichment-batch8.server.ts",
+      "asset": "public/images/events/san-antonio-beer-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "rodeo-austin",
+      "file": "major-event-schema-enrichment-batch8.server.ts",
+      "asset": "public/images/events/rodeo-austin.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "san-antonio-book-festival",
+      "file": "major-event-schema-enrichment-batch8.server.ts",
+      "asset": "public/images/events/san-antonio-book-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "pecan-street-festival",
+      "file": "major-event-schema-enrichment-batch8.server.ts",
+      "asset": "public/images/events/pecan-street-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "lone-star-rally",
+      "file": "major-event-schema-enrichment-batch8.server.ts",
+      "asset": "public/images/events/lone-star-rally.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "austin-city-limits-music-festival",
+      "file": "major-event-schema-enrichment-batch8.server.ts",
+      "asset": "public/images/events/austin-city-limits-music-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "austin-marathon",
+      "file": "major-event-schema-enrichment-batch8.server.ts",
+      "asset": "public/images/events/austin-marathon.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "cowtown-marathon",
+      "file": "major-event-schema-enrichment-batch8.server.ts",
+      "asset": "public/images/events/cowtown-marathon.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "bmw-dallas-marathon",
+      "file": "major-event-schema-enrichment-batch8.server.ts",
+      "asset": "public/images/events/bmw-dallas-marathon.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "chevron-houston-marathon",
+      "file": "major-event-schema-enrichment-batch9.server.ts",
+      "asset": "public/images/events/chevron-houston-marathon.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "spurs-austin-international-half",
+      "file": "major-event-schema-enrichment-batch9.server.ts",
+      "asset": "public/images/events/spurs-austin-international-half.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "atx-open",
+      "file": "major-event-schema-enrichment-batch9.server.ts",
+      "asset": "public/images/events/atx-open.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "austin-e-prix",
+      "file": "major-event-schema-enrichment-batch9.server.ts",
+      "asset": "public/images/events/austin-e-prix.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "nascar-at-cota",
+      "file": "major-event-schema-enrichment-batch9.server.ts",
+      "asset": "public/images/events/nascar-at-cota.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-motor-speedway-nascar-weekend",
+      "file": "major-event-schema-enrichment-batch9.server.ts",
+      "asset": "public/images/events/texas-motor-speedway-nascar-weekend.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "autumn-at-the-arboretum",
+      "file": "major-event-schema-enrichment-batch9.server.ts",
+      "asset": "public/images/events/autumn-at-the-arboretum.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "austin-powwow",
+      "file": "major-event-schema-enrichment-batch9.server.ts",
+      "asset": "public/images/events/austin-powwow.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "ford-holiday-river-parade",
+      "file": "major-event-schema-enrichment-batch9.server.ts",
+      "asset": "public/images/events/ford-holiday-river-parade.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "houston-ballet-nutcracker-market",
+      "file": "major-event-schema-enrichment-batch9.server.ts",
+      "asset": "public/images/events/houston-ballet-nutcracker-market.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-monthly-bbq-fest",
+      "file": "major-event-schema-enrichment-batch10.server.ts",
+      "asset": "public/images/events/texas-monthly-bbq-fest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "valero-alamo-bowl",
+      "file": "major-event-schema-enrichment-batch10.server.ts",
+      "asset": "public/images/events/valero-alamo-bowl.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "plano-balloon-festival",
+      "file": "major-event-schema-enrichment-batch10.server.ts",
+      "asset": "public/images/events/plano-balloon-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "cottonwood-art-festival",
+      "file": "major-event-schema-enrichment-batch10.server.ts",
+      "asset": "public/images/events/cottonwood-art-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "grapevine-main-street-fest",
+      "file": "major-event-schema-enrichment-batch10.server.ts",
+      "asset": "public/images/events/grapevine-main-street-fest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-pinball-festival",
+      "file": "major-event-schema-enrichment-batch10.server.ts",
+      "asset": "public/images/events/texas-pinball-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "east-texas-yamboree",
+      "file": "major-event-schema-enrichment-batch10.server.ts",
+      "asset": "public/images/events/east-texas-yamboree.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "czhilispiel",
+      "file": "major-event-schema-enrichment-batch10.server.ts",
+      "asset": "public/images/events/czhilispiel.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-butterfly-festival",
+      "file": "major-event-schema-enrichment-batch10.server.ts",
+      "asset": "public/images/events/texas-butterfly-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "rio-grande-valley-livestock-show-rodeo",
+      "file": "major-event-schema-enrichment-batch10.server.ts",
+      "asset": "public/images/events/rio-grande-valley-livestock-show-rodeo.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "original-round-top-antiques-fair",
+      "file": "major-event-schema-enrichment-batch11.server.ts",
+      "asset": "public/images/events/original-round-top-antiques-fair.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "fort-worth-food-wine-festival",
+      "file": "major-event-schema-enrichment-batch11.server.ts",
+      "asset": "public/images/events/fort-worth-food-wine-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "houston-cinema-arts-festival",
+      "file": "major-event-schema-enrichment-batch11.server.ts",
+      "asset": "public/images/events/houston-cinema-arts-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "heart-o-texas-fair-rodeo",
+      "file": "major-event-schema-enrichment-batch11.server.ts",
+      "asset": "public/images/events/heart-o-texas-fair-rodeo.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "east-texas-state-fair",
+      "file": "major-event-schema-enrichment-batch11.server.ts",
+      "asset": "public/images/events/east-texas-state-fair.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "conroe-cajun-catfish-festival",
+      "file": "major-event-schema-enrichment-batch11.server.ts",
+      "asset": "public/images/events/conroe-cajun-catfish-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "comal-county-fair-rodeo",
+      "file": "major-event-schema-enrichment-batch11.server.ts",
+      "asset": "public/images/events/comal-county-fair-rodeo.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "cuero-turkeyfest",
+      "file": "major-event-schema-enrichment-batch11.server.ts",
+      "asset": "public/images/events/cuero-turkeyfest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "come-and-take-it-celebration",
+      "file": "major-event-schema-enrichment-batch11.server.ts",
+      "asset": "public/images/events/come-and-take-it-celebration.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-mushroom-festival",
+      "file": "major-event-schema-enrichment-batch11.server.ts",
+      "asset": "public/images/events/texas-mushroom-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "seguin-pecan-fest",
+      "file": "major-event-schema-enrichment-batch12.server.ts",
+      "asset": "public/images/events/seguin-pecan-fest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "hopkins-county-stew-contest",
+      "file": "major-event-schema-enrichment-batch12.server.ts",
+      "asset": "public/images/events/hopkins-county-stew-contest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-state-championship-fiddlers-frolics",
+      "file": "major-event-schema-enrichment-batch12.server.ts",
+      "asset": "public/images/events/texas-state-championship-fiddlers-frolics.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-citrus-fiesta",
+      "file": "major-event-schema-enrichment-batch12.server.ts",
+      "asset": "public/images/events/texas-citrus-fiesta.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "caldwell-kolache-festival",
+      "file": "major-event-schema-enrichment-batch12.server.ts",
+      "asset": "public/images/events/caldwell-kolache-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-czech-heritage-fest",
+      "file": "major-event-schema-enrichment-batch12.server.ts",
+      "asset": "public/images/events/texas-czech-heritage-fest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "floresville-peanut-festival",
+      "file": "major-event-schema-enrichment-batch12.server.ts",
+      "asset": "public/images/events/floresville-peanut-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "crossroads-of-texas-country-festival",
+      "file": "major-event-schema-enrichment-batch12.server.ts",
+      "asset": "public/images/events/crossroads-of-texas-country-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "charles-schwab-challenge",
+      "file": "major-event-schema-enrichment-batch13.server.ts",
+      "asset": "public/images/events/charles-schwab-challenge.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "the-cj-cup-byron-nelson",
+      "file": "major-event-schema-enrichment-batch13.server.ts",
+      "asset": "public/images/events/the-cj-cup-byron-nelson.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-childrens-houston-open",
+      "file": "major-event-schema-enrichment-batch13.server.ts",
+      "asset": "public/images/events/texas-childrens-houston-open.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "chevron-championship",
+      "file": "major-event-schema-enrichment-batch13.server.ts",
+      "asset": "public/images/events/chevron-championship.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "the-cotton-bowl-classic",
+      "file": "major-event-schema-enrichment-batch13.server.ts",
+      "asset": "public/images/events/the-cotton-bowl-classic.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "the-texas-bowl",
+      "file": "major-event-schema-enrichment-batch13.server.ts",
+      "asset": "public/images/events/the-texas-bowl.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "the-sun-bowl",
+      "file": "major-event-schema-enrichment-batch13.server.ts",
+      "asset": "public/images/events/the-sun-bowl.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "the-armed-forces-bowl",
+      "file": "major-event-schema-enrichment-batch13.server.ts",
+      "asset": "public/images/events/the-armed-forces-bowl.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "the-first-responder-bowl",
+      "file": "major-event-schema-enrichment-batch13.server.ts",
+      "asset": "public/images/events/the-first-responder-bowl.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "hummerbird-celebration",
+      "file": "major-event-schema-enrichment-batch14.server.ts",
+      "asset": "public/images/events/hummerbird-celebration.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "washington-county-fair",
+      "file": "major-event-schema-enrichment-batch14.server.ts",
+      "asset": "public/images/events/washington-county-fair.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "kendall-county-fair-rodeo",
+      "file": "major-event-schema-enrichment-batch14.server.ts",
+      "asset": "public/images/events/kendall-county-fair-rodeo.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "galveston-island-shrimp-festival",
+      "file": "major-event-schema-enrichment-batch14.server.ts",
+      "asset": "public/images/events/galveston-island-shrimp-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "rockport-fulton-seafair",
+      "file": "major-event-schema-enrichment-batch14.server.ts",
+      "asset": "public/images/events/rockport-fulton-seafair.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "rockport-songwriter-festival",
+      "file": "major-event-schema-enrichment-batch14.server.ts",
+      "asset": "public/images/events/rockport-songwriter-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "fredericksburg-food-wine-festival",
+      "file": "major-event-schema-enrichment-batch15.server.ts",
+      "asset": "public/images/events/fredericksburg-food-wine-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "korean-festival-houston",
+      "file": "major-event-schema-enrichment-batch15.server.ts",
+      "asset": "public/images/events/korean-festival-houston.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "a-christmas-affair",
+      "file": "major-event-schema-enrichment-batch15.server.ts",
+      "asset": "public/images/events/a-christmas-affair.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "hot-luck-live-food-music",
+      "file": "major-event-schema-enrichment-batch15.server.ts",
+      "asset": "public/images/events/hot-luck-live-food-music.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "viva-la-vida-festival-parade",
+      "file": "major-event-schema-enrichment-batch15.server.ts",
+      "asset": "public/images/events/viva-la-vida-festival-parade.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "meca-dia-de-muertos-festival",
+      "file": "major-event-schema-enrichment-batch15.server.ts",
+      "asset": "public/images/events/meca-dia-de-muertos-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "houston-diwali-festival-of-lights",
+      "file": "major-event-schema-enrichment-batch15.server.ts",
+      "asset": "public/images/events/houston-diwali-festival-of-lights.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "uil-football-state-championships",
+      "file": "major-event-schema-enrichment-batch16.server.ts",
+      "asset": "public/images/events/uil-football-state-championships.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "uil-boys-basketball-state-tournament",
+      "file": "major-event-schema-enrichment-batch16.server.ts",
+      "asset": "public/images/events/uil-boys-basketball-state-tournament.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "uil-girls-basketball-state-tournament",
+      "file": "major-event-schema-enrichment-batch16.server.ts",
+      "asset": "public/images/events/uil-girls-basketball-state-tournament.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "uil-baseball-state-tournament",
+      "file": "major-event-schema-enrichment-batch16.server.ts",
+      "asset": "public/images/events/uil-baseball-state-tournament.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "uil-softball-state-tournament",
+      "file": "major-event-schema-enrichment-batch16.server.ts",
+      "asset": "public/images/events/uil-softball-state-tournament.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "uil-soccer-state-championships",
+      "file": "major-event-schema-enrichment-batch16.server.ts",
+      "asset": "public/images/events/uil-soccer-state-championships.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "uil-tennis-state-tournaments",
+      "file": "major-event-schema-enrichment-batch16.server.ts",
+      "asset": "public/images/events/uil-tennis-state-tournaments.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "us-mens-clay-court-championships",
+      "file": "major-event-schema-enrichment-batch16.server.ts",
+      "asset": "public/images/events/us-mens-clay-court-championships.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "uil-volleyball-state-tournament",
+      "file": "major-event-schema-enrichment-batch17.server.ts",
+      "asset": "public/images/events/uil-volleyball-state-tournament.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "uil-cross-country-state-championships",
+      "file": "major-event-schema-enrichment-batch17.server.ts",
+      "asset": "public/images/events/uil-cross-country-state-championships.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "uil-wrestling-state-championships",
+      "file": "major-event-schema-enrichment-batch17.server.ts",
+      "asset": "public/images/events/uil-wrestling-state-championships.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "uil-spirit-state-championships",
+      "file": "major-event-schema-enrichment-batch17.server.ts",
+      "asset": "public/images/events/uil-spirit-state-championships.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "the-texas-relays",
+      "file": "major-event-schema-enrichment-batch18.server.ts",
+      "asset": "public/images/events/the-texas-relays.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "worlds-championship-bar-b-que-contest",
+      "file": "major-event-schema-enrichment-batch18.server.ts",
+      "asset": "public/images/events/worlds-championship-bar-b-que-contest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "nsca-national-sporting-clays-championship",
+      "file": "major-event-schema-enrichment-batch19.server.ts",
+      "asset": "public/images/events/nsca-national-sporting-clays-championship.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-state-science-and-engineering-fair",
+      "file": "major-event-schema-enrichment-batch19.server.ts",
+      "asset": "public/images/events/texas-state-science-and-engineering-fair.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "ironman-texas",
+      "file": "major-event-schema-enrichment-batch20.server.ts",
+      "asset": "public/images/events/ironman-texas.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "world-skeet-shooting-championships",
+      "file": "major-event-schema-enrichment-batch20.server.ts",
+      "asset": "public/images/events/world-skeet-shooting-championships.jpg",
+      "sourceType": "ai-generated"
+    }
+  ]
+}
