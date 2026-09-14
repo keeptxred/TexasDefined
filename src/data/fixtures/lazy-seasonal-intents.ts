@@ -6,6 +6,7 @@ import smallTown from "@/assets/small-town.jpg";
 import { canonicalizeSeasonalArticleLinks } from "../seasonal-article-redirects";
 import type { Article, ImageRef } from "../types";
 import { blueHoleJasperCountyStoryArticle } from "./blue-hole-jasper-county-story";
+import { freeChristmasEventsInTexasBody } from "./free-christmas-events-in-texas";
 import { legacyAuthoritySlugs, loadLegacyAuthorityArticle } from "./lazy-authority-legacy";
 
 const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
@@ -66,5 +67,13 @@ export async function loadSeasonalIntentArticle(brandId: string, slug: string): 
   if (localFullArticle) return localFullArticle;
   const { seasonalIntentArticles } = await import("./seasonal-intent-articles");
   const article = seasonalIntentArticles.find((item) => item.slug === slug);
-  return article ? canonicalizeSeasonalArticleLinks(article) : null;
+  if (!article) return null;
+  if (slug === "free-christmas-events-in-texas") {
+    return canonicalizeSeasonalArticleLinks({
+      ...article,
+      body: freeChristmasEventsInTexasBody,
+      readingMinutes: 8,
+    });
+  }
+  return canonicalizeSeasonalArticleLinks(article);
 }
