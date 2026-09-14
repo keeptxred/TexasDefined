@@ -6,6 +6,8 @@ const sha = process.env.GITHUB_SHA ?? 'local';
 const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 
+const BLUEBONNET_SHA256 = '9664491618145e39ce2ebac354ae65325dba7d65d9557dc9d13206fe8ead62d8';
+
 const assets = [
   {
     label: 'xtreme-raceway-park-image',
@@ -14,11 +16,18 @@ const assets = [
     minBytes: 4_096,
   },
   {
-    label: 'chappell-hill-bluebonnet-festival-image',
+    label: 'chappell-hill-bluebonnet-festival-versioned-image',
     path: '/images/events/chappell-hill-bluebonnet-festival-20260914.webp',
     contentType: 'image/webp',
     minBytes: 100_000,
-    sha256: '9664491618145e39ce2ebac354ae65325dba7d65d9557dc9d13206fe8ead62d8',
+    sha256: BLUEBONNET_SHA256,
+  },
+  {
+    label: 'chappell-hill-bluebonnet-festival-legacy-image',
+    path: '/images/events/chappell-hill-bluebonnet-festival.webp',
+    contentType: 'image/webp',
+    minBytes: 100_000,
+    sha256: BLUEBONNET_SHA256,
   },
 ];
 
