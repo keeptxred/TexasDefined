@@ -47,9 +47,14 @@ export function Footer() {
           ))}
         </Container>
         <div className="border-t border-border/70">
-          <Container className="flex flex-col gap-4 py-6 text-xs tracking-wide text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-            <p>© {year} {brand.identity.wordmark}</p>
-            <div className="flex flex-wrap gap-x-5 gap-y-2">
+          <Container className="flex flex-col gap-4 py-6 text-xs tracking-wide text-muted-foreground sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p>© {year} {brand.identity.wordmark}</p>
+              <p className="mt-2 max-w-xl normal-case leading-5 tracking-normal">
+                Some imagery on this site may be AI-generated or AI-enhanced. See our <a href="/editorial-policy" className="underline underline-offset-2 transition-colors hover:text-primary">Editorial Policy</a> for details.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-x-5 gap-y-2 sm:justify-end">
               <Link to="/partner-with-us" className="transition-colors hover:text-primary">Partner With Us</Link>
               <Link to="/citation-guide" className="transition-colors hover:text-primary">Citation Guide</Link>
               <a href="/editorial-policy" className="transition-colors hover:text-primary">Editorial Policy</a>
