@@ -65,6 +65,29 @@ for (const hub of ["texas-bluebonnets-complete-guide", "christmas-in-texas-compl
   if (!exploreIntents.includes(`/article/${hub}`)) fail(`${hub}: missing direct Explore discovery path`);
 }
 
+const freeChristmasSlug = "free-christmas-events-in-texas";
+const freeChristmasMarker = `slug: \"${freeChristmasSlug}\"`;
+const freeChristmasAt = intents.indexOf(freeChristmasMarker);
+if (freeChristmasAt < 0) {
+  fail(`${freeChristmasSlug}: canonical seasonal intent article missing`);
+} else {
+  const next = intents.indexOf("\n  {\n    id:", freeChristmasAt + freeChristmasMarker.length);
+  const block = intents.slice(freeChristmasAt, next < 0 ? intents.length : next);
+  const bodyAt = block.indexOf("body: [");
+  const body = bodyAt >= 0 ? block.slice(bodyAt) : "";
+  const headings = (body.match(/type: \"heading\"/g) || []).length;
+  const paragraphs = (body.match(/type: \"paragraph\"/g) || []).length;
+  const bodyWords = [...body.matchAll(/text: \"([^\"]*)\"/g)]
+    .flatMap((match) => match[1].trim().split(/\s+/).filter(Boolean))
+    .length;
+  if (headings < 8 || paragraphs < 12 || bodyWords < 900) {
+    fail(`${freeChristmasSlug}: authority body is too thin (${bodyWords} words, ${headings} headings, ${paragraphs} paragraphs)`);
+  }
+  for (const required of ["San Antonio River Walk", "Fredericksburg", "Georgetown Christmas Stroll", "Grapevine", "What 'free' does and does not mean", "Verify this year's schedule before you leave"]) {
+    if (!body.includes(required)) fail(`${freeChristmasSlug}: missing researched planning section ${required}`);
+  }
+}
+
 const destinationRequirements = {
   "enchanted-rock-state-natural-area": ["/article/texas-bluebonnets-complete-guide", "/article/best-places-to-see-bluebonnets-in-texas", "/article/texas-bluebonnet-road-trip"],
   "caddo-lake-state-park": ["/article/fall-in-texas-complete-guide", "/article/east-texas-fall-colors", "/article/best-texas-state-parks-for-fall-colors", "/article/texas-fall-foliage-road-trip"],
