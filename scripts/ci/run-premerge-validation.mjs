@@ -49,6 +49,7 @@ const prebuildChecks = [
   ['CI/GOVERNANCE', 'Validate retired one-time certifications', 'node', ['scripts/ci/validate-retired-one-time-certifications.mjs']],
   ['CONTENT/GOVERNANCE', 'Validate permanent SEO content quality governance', 'node', ['scripts/data/validate-content-quality-governance.mjs']],
   ['CONTENT/GOVERNANCE', 'Validate 250 Texas Stories source backlog', 'node', ['scripts/data/validate-250-texas-stories-backlog.mjs']],
+  ['CONTENT/GOVERNANCE', 'Validate 250 Texas Stories Part 1 reconciliation', 'node', ['scripts/data/validate-250-texas-stories-part1-reconciliation.mjs']],
   ['SEO/STATE-EVIDENCE', 'Validate Texas-vs state promotions', 'node', ['scripts/data/validate-texas-vs-state-promotions.mjs']],
   ['AI/FOUNDATION', 'Validate Texas AI intelligence foundation', 'node', ['scripts/data/validate-texas-defined-ai-readiness.mjs']],
   ['AI/RESEARCH', 'Validate Texas Defined AI official research', 'node', ['scripts/ai/validate-ai-official-research.mjs']],
