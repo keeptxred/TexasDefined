@@ -9,7 +9,7 @@ const questionCount = 124;
 const description = `Ten deeply reported Texas Defined guides, twenty-five focused supporting explainers and ${questionCount} plain-English answers connecting the roads, water, government, food, traditions, landscapes, homes and local systems that make Texas work the way it does.`;
 
 export const Route = createFileRoute("/texas-explained")({
-  head: ({ loaderData }: { loaderData?: TexasExplainedLoaderData }) => {
+  head: ({ loaderData }: { loaderData?: TexasExplainedLoaderData | null }) => {
     if (!loaderData?.articles.length) {
       return {
         meta: buildMeta(texasDefinedBrand, {
@@ -42,7 +42,8 @@ export const Route = createFileRoute("/texas-explained")({
       })),
     });
   },
-  loader: async ({ context }): Promise<TexasExplainedLoaderData> => {
+  loader: async ({ context }): Promise<TexasExplainedLoaderData | null> => {
+    if (!import.meta.env.SSR) return null;
     const [{ articlesQuery }, { buildTexasExplainedLoaderData }] = await Promise.all([
       import("@/data/queries"),
       import("@/components/editorial/TexasExplainedPage"),

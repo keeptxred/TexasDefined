@@ -1,9 +1,11 @@
 import { lazy, Suspense } from "react";
-import { Link, useLoaderData } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
 
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DepartmentHero } from "@/components/editorial/DepartmentHero";
 import { Container } from "@/components/layout/Container";
+import { articlesQuery } from "@/data/queries";
 import type { Article } from "@/data/types";
 
 const TexasExplainedQuestionLibrary = lazy(() => import("@/components/editorial/TexasExplainedQuestionsPage"));
@@ -126,7 +128,8 @@ function DepthGrid({ articles, label }: { articles: Article[]; label: string }) 
 }
 
 export default function TexasExplainedPage() {
-  const { pillars, supportArticles, depthArticles, riverProfiles, reservoirProfiles, roadSystems } = useLoaderData({ from: "/texas-explained" });
+  const { data: catalog } = useSuspenseQuery(articlesQuery());
+  const { pillars, supportArticles, depthArticles, riverProfiles, reservoirProfiles, roadSystems } = buildTexasExplainedLoaderData(catalog);
   const bySlug = new Map(pillars.map((article) => [article.slug, article]));
   const pillarPosition = new Map<string, number>(pillarSlugs.map((slug, index) => [slug, index + 1]));
 

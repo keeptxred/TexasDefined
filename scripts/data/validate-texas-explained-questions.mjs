@@ -61,6 +61,7 @@ for (const marker of [
   'buildEditorialCollectionHead',
   'import("@/data/queries")',
   'import("@/components/editorial/TexasExplainedPage")',
+  'if (!import.meta.env.SSR) return null;',
 ]) {
   if (!parent.includes(marker)) failures.push(`Texas Explained eager route missing marker: ${marker}`);
 }
@@ -77,7 +78,8 @@ for (const marker of [
 }
 
 for (const marker of [
-  'useLoaderData({ from: "/texas-explained" })',
+  'useSuspenseQuery(articlesQuery())',
+  'const { data: catalog } = useSuspenseQuery(articlesQuery());',
   'lazy(() => import("@/components/editorial/TexasExplainedQuestionsPage"))',
   '<Suspense fallback={null}><TexasExplainedQuestionLibrary /></Suspense>',
   'href="#texas-questions"',
@@ -127,6 +129,7 @@ for (const marker of [
   if (!page.includes(marker)) failures.push(`Lazy Texas Explained page missing SEO/content marker: ${marker}`);
 }
 if (page.includes('texas-explained-questions.ts')) failures.push('The lazy page shell should not eagerly import the answer registry; keep it behind the nested lazy question renderer.');
+if (page.includes('useLoaderData')) failures.push('The lazy page must own its article query instead of depending on eager route loader data.');
 
 for (const marker of [
   'TEXAS_EXPLAINED_QUESTIONS',
