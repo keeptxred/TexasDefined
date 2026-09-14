@@ -67,12 +67,18 @@ for (const marker of [
   'const wave7RealPhotoAttribution = {',
   "'round-rock-sports-center': ['Wikimedia Commons', 'Tony Webster', 'CC BY 2.0']",
   "'texas-motorplex': ['Wikimedia Commons', 'Michael Barera', 'CC BY-SA 4.0']",
-  "'AI-generated representative editorial image'",
-  "'not documentary photography'",
+  "'Editorial illustration by'",
+  "'Cloudflare Workers AI / FLUX.1 schnell'",
+  "'for TexasDefined; not documentary photography.'",
   '...attributionMarkers',
   'lastBody = await response.text();',
   "headers: { 'user-agent': 'TexasDefined-CI-Production-Smoke/1.0' }",
 ]) requireText(productionVerifier, marker, 'live raw-HTML hero and attribution production contract');
+forbidText(
+  productionVerifier,
+  "'AI-generated representative editorial image'",
+  'live raw-HTML production contract must defer AI details to the sitewide disclosure',
+);
 
 if (failures.length) {
   console.error('Sports venue SSR hero validation failed:');
@@ -80,4 +86,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Sports venue SSR hero validation passed: guide content is server-visible, runtime hero metadata uses the aggregate photo registry, and live production verification protects generated-vs-real attribution semantics.');
+console.log('Sports venue SSR hero validation passed: guide content is server-visible, runtime hero metadata uses the aggregate photo registry, and live production verification protects current generated-vs-real attribution semantics under the sitewide AI disclosure.');
