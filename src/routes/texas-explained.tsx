@@ -1,4 +1,3 @@
-import { lazy, Suspense } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
@@ -6,7 +5,6 @@ import { articlesQuery } from "@/data/queries";
 import type { TexasExplainedLoaderData } from "@/components/editorial/TexasExplainedPage";
 import { buildEditorialCollectionHead, buildMeta, canonicalLink } from "@/lib/seo";
 
-const TexasExplainedPage = lazy(() => import("@/components/editorial/TexasExplainedPage"));
 const canonicalPath = "/texas-explained";
 const questionCount = 124;
 const description = `Ten deeply reported Texas Defined guides, twenty-five focused supporting explainers and ${questionCount} plain-English answers connecting the roads, water, government, food, traditions, landscapes, homes and local systems that make Texas work the way it does.`;
@@ -50,13 +48,4 @@ export const Route = createFileRoute("/texas-explained")({
     const { buildTexasExplainedLoaderData } = await import("@/components/editorial/TexasExplainedPage");
     return buildTexasExplainedLoaderData(catalog);
   },
-  component: TexasExplainedRoutePage,
 });
-
-function TexasExplainedRoutePage() {
-  return (
-    <Suspense fallback={null}>
-      <TexasExplainedPage />
-    </Suspense>
-  );
-}

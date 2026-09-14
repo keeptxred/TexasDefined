@@ -1,10 +1,11 @@
 import fs from 'node:fs';
 
-// Keep this authority guard aligned with the eager route, lazy page, answer renderer, and legacy SEO/depth validators.
+// Keep this authority guard aligned with the eager route, native lazy route, lazy page, answer renderer, and legacy SEO/depth validators.
 const dataPath = 'src/data/texas-explained-questions.ts';
 const componentPath = 'src/components/editorial/TexasExplainedQuestionsPage.tsx';
 const pagePath = 'src/components/editorial/TexasExplainedPage.tsx';
 const parentPath = 'src/routes/texas-explained.tsx';
+const lazyRoutePath = 'src/routes/texas-explained.lazy.tsx';
 const publicRoutesPath = 'src/lib/public-routes.ts';
 const retiredServerDataPath = 'src/data/texas-explained-questions.server.ts';
 const retiredFunctionsPath = 'src/data/texas-explained-questions.functions.ts';
@@ -14,6 +15,7 @@ const data = fs.readFileSync(dataPath, 'utf8');
 const component = fs.readFileSync(componentPath, 'utf8');
 const page = fs.readFileSync(pagePath, 'utf8');
 const parent = fs.readFileSync(parentPath, 'utf8');
+const lazyRoute = fs.readFileSync(lazyRoutePath, 'utf8');
 const publicRoutes = fs.readFileSync(publicRoutesPath, 'utf8');
 
 const questionCount = (data.match(/question:\s*"/g) ?? []).length;
@@ -55,14 +57,24 @@ for (const question of requiredQuestions) {
 }
 
 for (const marker of [
-  'lazy(() => import("@/components/editorial/TexasExplainedPage"))',
-  '<Suspense fallback={null}>',
-  '<TexasExplainedPage />',
+  'createFileRoute("/texas-explained")',
+  'import("@/components/editorial/TexasExplainedPage")',
 ]) {
-  if (!parent.includes(marker)) failures.push(`Texas Explained route missing lazy-shell marker: ${marker}`);
+  if (!parent.includes(marker)) failures.push(`Texas Explained eager route missing server/head marker: ${marker}`);
 }
+if (parent.includes('from "react"')) failures.push('The eager Texas Explained route must not import React lazy/Suspense; rendering belongs in the native lazy route.');
+if (parent.includes('component:')) failures.push('The eager Texas Explained route must not own a component; rendering belongs in texas-explained.lazy.tsx.');
 if (parent.includes('texas-explained-questions')) failures.push('The eager Texas Explained route must not import or request the question registry.');
 if (parent.includes('/texas-explained/questions')) failures.push('Texas Explained route must not link to the retired child route.');
+
+for (const marker of [
+  'createLazyFileRoute("/texas-explained")',
+  'import TexasExplainedPage from "@/components/editorial/TexasExplainedPage"',
+  'component: TexasExplainedPage',
+]) {
+  if (!lazyRoute.includes(marker)) failures.push(`Texas Explained native lazy route missing marker: ${marker}`);
+}
+if (lazyRoute.includes('texas-explained-questions')) failures.push('Native lazy route must not directly import the question registry; keep it behind the nested lazy question renderer.');
 
 for (const marker of [
   'useLoaderData({ from: "/texas-explained" })',
@@ -139,4 +151,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas Explained question authority OK: ${questionCount} questions across ${categoryCount} categories, all answered inside the indexable parent page, with the page shell and answer registry isolated behind lazy client chunks and no dedicated question server-function stub in main.`);
+console.log(`Texas Explained question authority OK: ${questionCount} questions across ${categoryCount} categories, all answered inside the indexable parent page, with the render surface isolated behind the native lazy route plus nested answer chunk and no dedicated question server-function stub in main.`);
