@@ -6,6 +6,7 @@ import smallTown from "@/assets/small-town.jpg";
 import { canonicalizeSeasonalArticleLinks } from "../seasonal-article-redirects";
 import type { Article, ImageRef } from "../types";
 import { blueHoleJasperCountyStoryArticle } from "./blue-hole-jasper-county-story";
+import { legacyAuthoritySlugs, loadLegacyAuthorityArticle } from "./lazy-authority-legacy";
 
 const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
 const heroes = {
@@ -56,7 +57,9 @@ export function registerSupplementalIntentArticle(article: Article) {
 }
 
 export async function loadSeasonalIntentArticle(brandId: string, slug: string): Promise<Article | null> {
-  if (brandId !== "texasdefined" || !slugs.has(slug)) return null;
+  if (brandId !== "texasdefined") return null;
+  if (legacyAuthoritySlugs.has(slug)) return loadLegacyAuthorityArticle(brandId, slug);
+  if (!slugs.has(slug)) return null;
   const supplementalArticle = supplementalIntentArticles.get(slug);
   if (supplementalArticle) return supplementalArticle;
   const localFullArticle = seasonalIntentStubs.find((item) => item.slug === slug && item.body.length > 0);
