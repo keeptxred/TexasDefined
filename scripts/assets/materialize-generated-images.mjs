@@ -10,7 +10,7 @@ const assets = [
     sourceDir: path.join(root, "assets/generated/chappell-hill-bluebonnet-festival"),
     prefix: "chappell-hill-bluebonnet-festival.webp.b64.",
     expectedParts: 7,
-    expectedSha256: "ace7c10c27e319b9bb9e601e096a67af993ae00b6297f10c1f4a9ed9c0e5983f",
+    expectedSha256: "460aef1e567bcd4135ae1c4e16c30e713e1ee44989c4700c3b86506d625aa834",
     outputPath: path.join(root, "public/images/events/chappell-hill-bluebonnet-festival.webp"),
   },
 ];
