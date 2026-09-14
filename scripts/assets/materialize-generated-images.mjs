@@ -16,6 +16,15 @@ const assets = [
       path.join(root, "public/images/events/chappell-hill-bluebonnet-festival.webp"),
     ],
   },
+  {
+    sourceDir: path.join(root, "assets/generated/xtreme-raceway-park"),
+    prefix: "clean-20260914.jpg.b64.",
+    expectedParts: 6,
+    expectedSha256: "b5a54a7b8406e83cec09ed8679d706cce6e27d2465a10654a43eac4b281d512c",
+    outputPaths: [
+      path.join(root, "public/images/sports-venues/xtreme-raceway-park.jpg"),
+    ],
+  },
 ];
 
 for (const asset of assets) {
