@@ -15,10 +15,11 @@ const enrichmentFiles = [
   'src/data/sports-venue-enrichment-batch8b-completion.ts',
 ];
 
-const [heroRoute, sharedComponent, photoSource, aggregatePhotoSource, allLookup, ...enrichmentSources] = await Promise.all([
+const [heroRoute, sharedComponent, photoSource, curatedOverrideSource, aggregatePhotoSource, allLookup, ...enrichmentSources] = await Promise.all([
   read('src/routes/api.sports-venue-hero.ts'),
   read('src/components/sports/SportsVenueQuickAnswers.tsx'),
   read('src/data/sports-venue-images.ts'),
+  read('src/data/sports-venue-images-curated-overrides.ts'),
   read('src/data/sports-venue-images-all.ts'),
   read('src/data/sports-venue-enrichment-all.ts'),
   ...enrichmentFiles.map(read),
@@ -31,6 +32,18 @@ const imageBriefCount = enrichmentSources.reduce((sum, source) => sum + (source.
 assert(imageBriefCount === 84, `Expected 84 venue-specific image briefs; found ${imageBriefCount}.`);
 assert(allLookup.includes("lookupSlug = slug === 'galaxy-stadium' ? 'jones-att-stadium' : slug"), 'Galaxy/Jones image lookup alias must remain governed.');
 assert(aggregatePhotoSource.includes("getSportsVenuePhotoAdditionWave7(slug)"), 'Aggregate sports venue image registry must include Wave 7.');
+assert(aggregatePhotoSource.includes("getCuratedSportsVenuePhotoOverride(slug) ?? getSportsVenuePhotoBase(slug)"), 'Curated sports venue photo overrides must resolve before the base registry.');
+
+for (const marker of [
+  "'dickies-arena': {",
+  'Dickies Arena exterior in Fort Worth, Texas',
+  'Dickies_Arena_%28Fort_Worth%2C_Texas%29_-_2021-03-06_-_001.jpg?width=1600',
+  'File:Dickies_Arena_(Fort_Worth,_Texas)_-_2021-03-06_-_001.jpg',
+  "author: 'Michael Barera'",
+  "licenseName: 'CC BY-SA 4.0'",
+  "licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/'",
+]) assert(curatedOverrideSource.includes(marker), `Curated Dickies Arena exterior override is missing protected marker: ${marker}`);
+assert(!curatedOverrideSource.includes('http://'), 'Curated sports venue photo overrides must use HTTPS only.');
 
 const licensedPhotoSlugs = [
   'att-stadium',
@@ -135,4 +148,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue imagery validated: ${imageBriefCount} venue briefs, ${licensedPhotoSlugs.length} licensed photo overrides with attribution metadata, aggregate Wave 1–7 same-origin delivery, fail-closed missing-hero behavior, and governed structured ImageObject metadata.`);
+console.log(`Sports venue imagery validated: ${imageBriefCount} venue briefs, ${licensedPhotoSlugs.length} licensed base photo overrides, curated high-priority replacements, aggregate Wave 1–7 same-origin delivery, fail-closed missing-hero behavior, and governed structured ImageObject metadata.`);
