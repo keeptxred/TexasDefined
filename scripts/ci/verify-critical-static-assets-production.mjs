@@ -12,6 +12,12 @@ const assets = [
     contentType: 'image/jpeg',
     minBytes: 4_096,
   },
+  {
+    label: 'chappell-hill-bluebonnet-festival-image',
+    path: '/images/events/chappell-hill-bluebonnet-festival.webp',
+    contentType: 'image/webp',
+    minBytes: 50_000,
+  },
 ];
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
