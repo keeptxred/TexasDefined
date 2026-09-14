@@ -1,4 +1,5 @@
 import type { Article } from "../types";
+import { texasDogsArticles } from "./texas-dogs-articles";
 import { texasLifeSplitArticles as sourceArticles } from "./texas-life-split-source";
 
 const CURRENT_FORT_NAME_SENTENCE =
@@ -95,6 +96,9 @@ const addReciprocalPolicyLinks = (article: Article): Article => {
   };
 };
 
-export const texasLifeSplitArticles: Article[] = sourceArticles
-  .map(correctCurrentFortHoodReference)
-  .map(addReciprocalPolicyLinks);
+export const texasLifeSplitArticles: Article[] = [
+  ...sourceArticles
+    .map(correctCurrentFortHoodReference)
+    .map(addReciprocalPolicyLinks),
+  ...texasDogsArticles,
+];
