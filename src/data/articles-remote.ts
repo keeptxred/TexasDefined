@@ -7,6 +7,12 @@ const ARTICLE_SELECT = "id,slug,title,dek,category,region,hero_url,hero_alt,hero
 const SITEMAP_PAGE_SIZE = 200;
 const SITEMAP_MAX_ROWS = 10_000;
 
+const REMOTE_INTERNAL_LINK_CANONICALS: Readonly<Record<string, string>> = {
+  "/article/texas-chili-beans-history": "/texas-chili-con-carne-history",
+  "/article/texas-bluebonnet-photo-etiquette-safety": "/article/bluebonnet-photo-etiquette-and-best-practices",
+  "/article/texas-toll-roads-tags-fees-guide": "/texas-toll-tags",
+};
+
 type RemoteArticleKind = "all" | "evergreen" | "news";
 
 async function loadRemoteEvergreenInternalLinks() {
@@ -14,6 +20,12 @@ async function loadRemoteEvergreenInternalLinks() {
 }
 
 type RemoteEvergreenInternalLinks = Awaited<ReturnType<typeof loadRemoteEvergreenInternalLinks>>;
+type RemoteInternalLink = NonNullable<Article["internalLinks"]>[number];
+
+function canonicalRemoteInternalLink(link: RemoteInternalLink): RemoteInternalLink {
+  const href = REMOTE_INTERNAL_LINK_CANONICALS[link.href] ?? link.href;
+  return href === link.href ? link : { ...link, href };
+}
 
 function headers(): HeadersInit {
   return { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, Accept: "application/json" };
@@ -73,7 +85,7 @@ function mapRow(row: Record<string, unknown>, evergreenInternalLinks: RemoteEver
   const blocks = body(row.body_json);
   if (!slug || !title || !heroUrl || blocks.length === 0) return null;
   const mappedRegion = region(row.region);
-  const internalLinks = evergreenInternalLinks[slug];
+  const internalLinks = evergreenInternalLinks[slug]?.map(canonicalRemoteInternalLink);
   return {
     id: `remote-${String(row.id || slug)}`,
     brandId: "texasdefined",
