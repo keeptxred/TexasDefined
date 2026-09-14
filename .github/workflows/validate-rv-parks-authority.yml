@@ -22,6 +22,7 @@ on:
       - 'scripts/data/validate-rv-curated-public-wave8.mjs'
       - 'scripts/data/validate-rv-curated-public-wave9.mjs'
       - 'scripts/data/validate-rv-curated-public-wave10.mjs'
+      - 'scripts/data/validate-rv-curated-public-wave11.mjs'
       - 'scripts/ci/verify-rv-parks-production.mjs'
       - 'scripts/ci/verify-rv-wave5-production.mjs'
       - 'scripts/ci/verify-rv-wave6-production.mjs'
@@ -29,6 +30,7 @@ on:
       - 'scripts/ci/verify-rv-wave8-production.mjs'
       - 'scripts/ci/verify-rv-wave9-production.mjs'
       - 'scripts/ci/verify-rv-wave10-production.mjs'
+      - 'scripts/ci/verify-rv-wave11-production.mjs'
       - 'src/data/rv-parks/**'
       - 'src/data/county-major-events.ts'
       - 'src/data/county-major-events.server.ts'
@@ -69,6 +71,7 @@ on:
       - 'scripts/data/validate-rv-curated-public-wave8.mjs'
       - 'scripts/data/validate-rv-curated-public-wave9.mjs'
       - 'scripts/data/validate-rv-curated-public-wave10.mjs'
+      - 'scripts/data/validate-rv-curated-public-wave11.mjs'
       - 'scripts/ci/verify-rv-parks-production.mjs'
       - 'scripts/ci/verify-rv-wave5-production.mjs'
       - 'scripts/ci/verify-rv-wave6-production.mjs'
@@ -76,6 +79,7 @@ on:
       - 'scripts/ci/verify-rv-wave8-production.mjs'
       - 'scripts/ci/verify-rv-wave9-production.mjs'
       - 'scripts/ci/verify-rv-wave10-production.mjs'
+      - 'scripts/ci/verify-rv-wave11-production.mjs'
       - 'src/data/rv-parks/**'
       - 'src/data/county-major-events.ts'
       - 'src/data/county-major-events.server.ts'
@@ -142,6 +146,8 @@ jobs:
         run: node scripts/data/validate-rv-curated-public-wave9.mjs
       - name: Validate curated public RV wave ten
         run: node scripts/data/validate-rv-curated-public-wave10.mjs
+      - name: Validate curated public RV wave eleven
+        run: node scripts/data/validate-rv-curated-public-wave11.mjs
 
   production:
     if: ${{ github.event_name == 'workflow_dispatch' }}
@@ -169,3 +175,5 @@ jobs:
         run: node scripts/ci/verify-rv-wave9-production.mjs
       - name: Verify RV Wave 10 production content and image gate
         run: node scripts/ci/verify-rv-wave10-production.mjs
+      - name: Verify RV Wave 11 production content and image gate
+        run: node scripts/ci/verify-rv-wave11-production.mjs
