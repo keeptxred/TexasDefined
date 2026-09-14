@@ -7,6 +7,7 @@ on:
     paths:
       - "scripts/data/resolve-direct-svg-heroes.mjs"
       - "scripts/data/normalize-direct-hero-jpeg-dimensions.mjs"
+      - "scripts/bin/convert"
       - ".github/workflows/resolve-direct-svg-heroes.yml"
 
 permissions:
@@ -43,6 +44,11 @@ jobs:
             sudo apt-get update -qq
             sudo apt-get install -y -qq imagemagick
           fi
+
+      - name: Enable format-aware ImageMagick wrapper
+        run: |
+          chmod +x scripts/bin/convert
+          echo "$PWD/scripts/bin" >> "$GITHUB_PATH"
 
       - name: Replace direct SVG heroes with reusable or AI JPEGs
         run: node scripts/data/resolve-direct-svg-heroes.mjs
