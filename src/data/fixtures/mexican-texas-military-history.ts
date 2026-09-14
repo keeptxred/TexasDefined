@@ -13,7 +13,7 @@ export const mexicanTexasMilitaryHistoryArticle: Article = {
   category: "texas-history",
   region: "gulf-coast",
   hero: {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mexican_Texas_1833-en.svg?width=1600",
+    src: "/images/generated/heroes/mexican-texas-1833-en.jpg",
     alt: "Map of Mexican Texas and Coahuila y Tejas in 1833",
     width: 1600,
     height: 1200,
