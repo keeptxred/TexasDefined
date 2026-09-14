@@ -108,25 +108,28 @@ function titleFromSlug(slug) {
 
 function sceneHint(slug) {
   const rules = [
-    [/rodeo|stock-show|fair|cattle/, "Texas fairgrounds or rodeo arena atmosphere with livestock and western event context"],
-    [/football|bowl/, "Texas football stadium event atmosphere with field, stands, and game-day energy"],
+    [/science|engineering/, "Texas science and engineering fair atmosphere with exhibition tables and student project displays, no readable text"],
+    [/skeet|sporting-clays|shooting/, "Texas sporting-clays competition venue atmosphere with safe range setting and distant competitors"],
+    [/football|(?:^|-)bowl(?:-|$)/, "Texas football stadium event atmosphere with field, stands, and game-day energy"],
     [/basketball/, "indoor Texas basketball arena event atmosphere with court and spectator seating"],
     [/baseball/, "Texas baseball ballpark event atmosphere with diamond and grandstands"],
     [/softball/, "Texas softball stadium event atmosphere with diamond and grandstands"],
     [/soccer/, "Texas soccer stadium event atmosphere with pitch and grandstands"],
     [/tennis|clay-court/, "professional tennis venue atmosphere with court and spectator seating"],
-    [/golf|challenge|open|championship/, "Texas golf tournament atmosphere with manicured fairway, gallery areas, and tournament setting"],
-    [/skeet|sporting-clays|shooting/, "Texas sporting-clays competition venue atmosphere with safe range setting and distant competitors"],
-    [/science|engineering/, "Texas science and engineering fair atmosphere with exhibition tables and student project displays, no readable text"],
-    [/wine|food|bar-b-que|bbq|shrimp/, "Texas food festival atmosphere with outdoor tasting booths and regional culinary setting"],
+    [/relays|cross-country|wrestling|volleyball|spirit/, "Texas championship competition atmosphere appropriate to the named sport, with venue context and distant participants"],
+    [/charles-schwab|cj-cup|houston-open|chevron|golf/, "Texas golf tournament atmosphere with manicured fairway, gallery areas, and tournament setting"],
+    [/wine|food|bar-b-que|bbq|shrimp|chili|kolache|pecan/, "Texas food festival atmosphere with outdoor tasting booths and regional culinary setting"],
+    [/rodeo|stock-show|cattle|(?:^|-)fair(?:-|$)/, "Texas fairgrounds or rodeo arena atmosphere with livestock and western event context"],
     [/oktoberfest|wurstfest/, "Texas German-heritage festival atmosphere with outdoor gathering space, traditional decor, and food stalls"],
     [/renaissance/, "Texas renaissance festival atmosphere with period-inspired outdoor market architecture and costumed figures seen only at a distance"],
     [/film/, "Texas film festival atmosphere with theater exterior, audience arrival, and cinematic event lighting, no logos or readable text"],
-    [/music|songwriter|blues|celtic/, "Texas live-music festival atmosphere with outdoor stage and crowd seen at a distance, no identifiable performers"],
+    [/fiddler|music|songwriter|blues|celtic/, "Texas live-music festival atmosphere with outdoor stage and crowd seen at a distance, no identifiable performers"],
     [/diwali/, "Texas Diwali festival atmosphere with warm decorative lights and community celebration, no identifiable faces"],
     [/dia-de-muertos|viva-la-vida/, "Texas cultural festival atmosphere with colorful festival decor and community gathering, no copyrighted art or identifiable faces"],
     [/parade/, "Texas downtown parade-route atmosphere with spectators and festive street scene, no logos or identifiable faces"],
-    [/relays|cross-country|wrestling|volleyball|spirit/, "Texas championship competition atmosphere appropriate to the named sport, with venue context and distant participants"],
+    [/hummerbird|bird/, "Texas Gulf Coast birding-festival atmosphere with native habitat, observation areas, and birdwatchers seen from a distance"],
+    [/bluebonnet|rose|peanut|citrus|sandfest/, "Texas seasonal festival atmosphere centered on the named regional tradition, with landscape or festival grounds and distant visitors"],
+    [/championship|tournament/, "Texas championship event atmosphere appropriate to the named competition, with venue context and distant participants"],
   ];
   return rules.find(([pattern]) => pattern.test(slug))?.[1] || "Texas festival or major public event atmosphere appropriate to the event name";
 }
