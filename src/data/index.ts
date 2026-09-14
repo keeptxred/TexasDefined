@@ -31,31 +31,31 @@ const TEXAS_UNDERGROUND_HERO = {
 
 const MOVING_ARTICLE_HEROES: Partial<Record<string, Article["hero"]>> = {
   "moving-to-austin-guide": {
-    src: "/images/editorial/moving/austin.svg",
+    src: "/images/editorial/moving/austin.jpg",
     alt: "Austin skyline across Lady Bird Lake at sunrise",
     width: 1600,
     height: 900,
   },
   "moving-to-san-antonio-guide": {
-    src: "/images/editorial/moving/san-antonio.svg",
+    src: "/images/editorial/moving/san-antonio.jpg",
     alt: "San Antonio River Walk in warm evening light",
     width: 1600,
     height: 900,
   },
   "moving-to-dallas-fort-worth-guide": {
-    src: "/images/editorial/moving/dallas-fort-worth.svg",
+    src: "/images/editorial/moving/dallas-fort-worth.jpg",
     alt: "Dallas skyline with Reunion Tower at sunset",
     width: 1600,
     height: 900,
   },
   "moving-to-houston-address-checklist": {
-    src: "/images/editorial/moving/houston.svg",
+    src: "/images/editorial/moving/houston.jpg",
     alt: "Houston skyline beyond a green bayou and freeway",
     width: 1600,
     height: 900,
   },
   "moving-to-texas-what-nobody-tells-you": {
-    src: "/images/editorial/moving/moving-to-texas.svg",
+    src: "/images/editorial/moving/moving-to-texas.jpg",
     alt: "Moving truck on a Texas road approaching a new home at sunset",
     width: 1600,
     height: 900,
