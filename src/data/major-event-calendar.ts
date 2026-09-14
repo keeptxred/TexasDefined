@@ -17,9 +17,19 @@ export const getMajorEventLandingDirectory = createServerFn({ method: "POST" })
       import("./events/texas-event-calendar.server"),
     ]);
     const records = loadUpcomingTexasEventRecordsServer({ limit: 200 });
+    const landingDirectory = loadMajorEventLandingDirectoryServer();
+    const topicLinksByHref = new Map(landingDirectory.eventTopicLinks.map((item) => [item.href, item] as const));
+
+    for (const item of loadIndexableEventCollectionCrawlDirectoryServer()) {
+      if (item.group !== "Tournament directories") continue;
+      if (!topicLinksByHref.has(item.href)) {
+        topicLinksByHref.set(item.href, { href: item.href, title: item.title, description: item.description });
+      }
+    }
+
     return {
-      ...loadMajorEventLandingDirectoryServer(),
-      eventCollectionCrawlLinks: loadIndexableEventCollectionCrawlDirectoryServer(),
+      ...landingDirectory,
+      eventTopicLinks: [...topicLinksByHref.values()],
       upcomingEventRecords: buildTexasEventCarouselItemsServer(records.slice(0, 12)),
       calendarView: buildGlobalEventCalendarServer(records, data),
     };
