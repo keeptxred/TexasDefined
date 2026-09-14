@@ -1,14 +1,41 @@
+import fs from 'node:fs';
+
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
+const images = fs.readFileSync('src/data/rv-parks/images.server.ts', 'utf8');
 
 const profiles = [
-  { path: '/destination/big-bend-national-park-cottonwood-campground', name: 'Big Bend National Park Cottonwood Campground', temporaryImage: true },
-  { path: '/destination/big-bend-national-park-rio-grande-village-rv-park', name: 'Big Bend National Park Rio Grande Village RV Park', temporaryImage: true },
-  { path: '/destination/hueco-tanks-state-park-rv-sites', name: 'Hueco Tanks State Park RV Sites', temporaryImage: true },
-  { path: '/destination/fort-griffin-state-historic-site-rv-loop', name: 'Fort Griffin State Historic Site RV Loop', temporaryImage: true },
-  { path: '/destination/davis-mountains-state-park-rv-loop', name: 'Davis Mountains State Park RV Loop', temporaryImage: false },
+  { slug: 'big-bend-national-park-cottonwood-campground', path: '/destination/big-bend-national-park-cottonwood-campground', name: 'Big Bend National Park Cottonwood Campground' },
+  { slug: 'big-bend-national-park-rio-grande-village-rv-park', path: '/destination/big-bend-national-park-rio-grande-village-rv-park', name: 'Big Bend National Park Rio Grande Village RV Park' },
+  { slug: 'hueco-tanks-state-park-rv-sites', path: '/destination/hueco-tanks-state-park-rv-sites', name: 'Hueco Tanks State Park RV Sites' },
+  { slug: 'fort-griffin-state-historic-site-rv-loop', path: '/destination/fort-griffin-state-historic-site-rv-loop', name: 'Fort Griffin State Historic Site RV Loop' },
+  { slug: 'davis-mountains-state-park-rv-loop', path: '/destination/davis-mountains-state-park-rv-loop', name: 'Davis Mountains State Park RV Loop' },
 ];
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function blockFor(source, slug) {
+  const singleStart = source.indexOf(`'${slug}': {`);
+  const doubleStart = source.indexOf(`"${slug}": {`);
+  const start = singleStart >= 0 ? singleStart : doubleStart;
+  if (start < 0) return '';
+  const singleNext = source.indexOf("\n  '", start + slug.length + 8);
+  const doubleNext = source.indexOf('\n  "', start + slug.length + 8);
+  const candidates = [singleNext, doubleNext].filter((value) => value > start);
+  const end = candidates.length ? Math.min(...candidates) : source.indexOf('\n};', start);
+  return source.slice(start, end > start ? end : undefined);
+}
+
+function finalImageReady(slug) {
+  const block = blockFor(images, slug);
+  if (!block) throw new Error(`Wave 7 image registry record missing for ${slug}`);
+  if (/actualLocation:\s*true/.test(block)) return true;
+  const representative = /actualLocation:\s*false/.test(block)
+    && /subjectScope:\s*['"]representative['"]/.test(block)
+    && /sourceKind:\s*['"]generated-representative['"]/.test(block)
+    && /AI-generated representative editorial image/i.test(block);
+  if (representative) return false;
+  throw new Error(`Wave 7 image record has unsupported readiness state for ${slug}`);
+}
 
 function metaContent(html, name) {
   for (const match of html.matchAll(/<meta\b[^>]*>/gi)) {
@@ -59,18 +86,18 @@ async function fetchProduction(path) {
 }
 
 const sitemap = await fetchProduction('/sitemap-explore.xml');
+let indexReady = 0;
+let imageGated = 0;
+
 for (const profile of profiles) {
   const expectedUrl = `${origin}${profile.path}`;
+  const ready = finalImageReady(profile.slug);
   const inSitemap = sitemap.includes(expectedUrl);
-  if (profile.temporaryImage && inSitemap) {
-    throw new Error(`Wave 7 temporary-image profile must stay out of sitemap: ${expectedUrl}`);
-  }
-  if (!profile.temporaryImage && !inSitemap) {
-    throw new Error(`Wave 7 final-image profile missing from sitemap: ${expectedUrl}`);
-  }
-
   const html = await fetchProduction(profile.path);
-  if (!html.includes(profile.name)) throw new Error(`Wave 7 profile missing visible identity: ${profile.name}`);
+
+  if (!html.toLowerCase().includes(profile.name.toLowerCase())) {
+    throw new Error(`Wave 7 profile missing visible identity: ${profile.name}`);
+  }
   if (!html.includes('"@type":"WebPage"') || !html.includes('"@type":"TouristAttraction"')) {
     throw new Error(`Wave 7 profile missing destination structured data: ${profile.name}`);
   }
@@ -79,15 +106,19 @@ for (const profile of profiles) {
   }
 
   const directives = robotsDirectives(html);
-  if (profile.temporaryImage) {
-    if (!directives.has('noindex') || !directives.has('follow')) {
-      throw new Error(`Wave 7 temporary-image robots policy mismatch for ${profile.name}: ${metaContent(html, 'robots') || 'missing'}`);
+  if (ready) {
+    indexReady += 1;
+    if (!inSitemap) throw new Error(`Wave 7 final-image profile missing from sitemap: ${expectedUrl}`);
+    if (directives.has('noindex') || !directives.has('index') || !directives.has('follow')) {
+      throw new Error(`Wave 7 final-image robots policy mismatch for ${profile.name}: ${metaContent(html, 'robots') || 'missing'}`);
     }
-  } else if (directives.has('noindex') || !directives.has('index') || !directives.has('follow')) {
-    throw new Error(`Wave 7 final-image robots policy mismatch for ${profile.name}: ${metaContent(html, 'robots') || 'missing'}`);
+  } else {
+    imageGated += 1;
+    if (inSitemap) throw new Error(`Wave 7 representative-image profile must stay out of sitemap: ${expectedUrl}`);
+    if (!directives.has('noindex') || !directives.has('follow')) {
+      throw new Error(`Wave 7 representative-image robots policy mismatch for ${profile.name}: ${metaContent(html, 'robots') || 'missing'}`);
+    }
   }
 }
 
-const temporaryCount = profiles.filter((profile) => profile.temporaryImage).length;
-const finalCount = profiles.length - temporaryCount;
-console.log(`RV Wave 7 production verification passed: ${temporaryCount} temporary representative-image profiles remain live/canonical but noindex/follow and out of the sitemap, while ${finalCount} exact-location-image profile remains index/follow and sitemap-discoverable.`);
+console.log(`RV Wave 7 production verification passed: ${profiles.length} authority-backed profiles are live and canonical; ${indexReady} satisfy the final-image gate and ${imageGated} remain correctly noindex/follow and out of the sitemap pending final governed imagery.`);
