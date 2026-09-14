@@ -48,6 +48,30 @@ function canonicalizeAuthorityInternalLinks(article: Article): Article {
   };
 }
 
+function wordsInAuthorityBlock(block: Article["body"][number]): number {
+  const text = block.type === "list"
+    ? block.items.join(" ")
+    : "text" in block
+      ? block.text
+      : "";
+  return text.trim() ? text.trim().split(/\s+/).length : 0;
+}
+
+function finalizeAuthorityArticle(article: Article): Article {
+  const canonicalArticle = canonicalizeAuthorityInternalLinks(article);
+  const wordCount = canonicalArticle.body.reduce(
+    (total, block) => total + wordsInAuthorityBlock(block),
+    0,
+  );
+
+  return {
+    ...canonicalArticle,
+    readingMinutes: wordCount > 0
+      ? Math.max(1, Math.ceil(wordCount / 220))
+      : canonicalArticle.readingMinutes,
+  };
+}
+
 async function loadBaseArticle(slug: string): Promise<Article | null> {
   if (slug === "texas-food-beyond-brisket-guide") {
     const { exploreFeatureArticles } = await import("./explore-feature-articles");
@@ -89,19 +113,19 @@ export async function loadLegacyAuthorityArticle(brandId: string, slug: string):
   if (!article) return null;
 
   if (SEASONAL_AUTHORITY_SLUGS.has(slug)) {
-    return canonicalizeAuthorityInternalLinks(article);
+    return finalizeAuthorityArticle(article);
   }
 
   if (FOOD_CULTURE_SLUGS.has(slug)) {
     const { enrichLegacyFoodCultureArticle } = await import("./authority-legacy-food-culture");
-    return canonicalizeAuthorityInternalLinks(enrichLegacyFoodCultureArticle(article));
+    return finalizeAuthorityArticle(enrichLegacyFoodCultureArticle(article));
   }
 
   if (TRAVEL_SLUGS.has(slug)) {
     const { enrichLegacyTravelArticle } = await import("./authority-legacy-travel");
-    return canonicalizeAuthorityInternalLinks(enrichLegacyTravelArticle(article));
+    return finalizeAuthorityArticle(enrichLegacyTravelArticle(article));
   }
 
   const { enrichLegacyLifeArticle } = await import("./authority-legacy-life");
-  return canonicalizeAuthorityInternalLinks(enrichLegacyLifeArticle(article));
+  return finalizeAuthorityArticle(enrichLegacyLifeArticle(article));
 }
