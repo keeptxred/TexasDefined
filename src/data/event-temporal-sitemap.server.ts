@@ -1,6 +1,8 @@
+import { shouldIndexTournamentCollection } from "./event-collection-indexability";
 import { loadMajorEventGuideDirectoryServer } from "./major-event-directory.server";
 import { TEMPORAL_EVENT_COLLECTIONS, resolveTemporalEventCollectionServer } from "./event-temporal-collections.server";
 import { TOURNAMENT_COLLECTIONS } from "./texas-tournament-collections";
+import { loadTournamentCollectionItemsServer } from "./texas-tournaments.server";
 
 export interface TemporalEventSitemapEntry {
   path: string;
@@ -17,10 +19,14 @@ export function loadTemporalEventSitemapEntriesServer(now = new Date()): Tempora
       path: collection.path,
       lastmod: latestVerifiedDate(collection.items.map((item) => item.sourceCheckedAt)),
     }));
-  const tournamentEntries = TOURNAMENT_COLLECTIONS.map((collection) => ({
-    path: collection.path,
-    lastmod: "2026-09-04",
-  }));
+  const tournamentEntries = TOURNAMENT_COLLECTIONS
+    .map((collection) => ({
+      path: collection.path,
+      itemCount: loadTournamentCollectionItemsServer(collection.value).length,
+      lastmod: "2026-09-04",
+    }))
+    .filter((entry) => shouldIndexTournamentCollection(entry.itemCount))
+    .map(({ path, lastmod }) => ({ path, lastmod }));
 
   return [...temporalEntries, ...tournamentEntries];
 }
