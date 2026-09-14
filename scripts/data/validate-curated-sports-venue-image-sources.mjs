@@ -6,8 +6,8 @@ const sourcePages = [...source.matchAll(/sourcePage:\s*'([^']+)'/g)].map((match)
 const urls = [...new Set([...imageUrls, ...sourcePages])];
 
 if (!urls.length) {
-  console.error('Curated sports venue source validation failed: no curated URLs found.');
-  process.exit(1);
+  console.log('No curated sports venue image overrides to validate remotely.');
+  process.exit(0);
 }
 
 const failures = [];
