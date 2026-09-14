@@ -1,0 +1,75 @@
+name: Temporary Optimize Texas Explained Bundle
+
+on:
+  push:
+    branches:
+      - feat/texas-explained-authority-v2
+    paths:
+      - .github/workflows/tmp-optimize-texas-explained-bundle.yml
+
+permissions:
+  contents: write
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/texas-explained-authority-v2
+      - name: Move article query behind lazy route while preserving SSR SEO
+        shell: python
+        run: |
+          from pathlib import Path
+
+          page_path = Path('src/components/editorial/TexasExplainedPage.tsx')
+          page = page_path.read_text()
+          old = 'import { lazy, Suspense } from "react";\nimport { Link, useLoaderData } from "@tanstack/react-router";'
+          new = 'import { lazy, Suspense } from "react";\nimport { useSuspenseQuery } from "@tanstack/react-query";\nimport { Link } from "@tanstack/react-router";'
+          assert old in page, 'page router import marker missing'
+          page = page.replace(old, new, 1)
+          old = 'import { Container } from "@/components/layout/Container";\nimport type { Article } from "@/data/types";'
+          new = 'import { Container } from "@/components/layout/Container";\nimport { articlesQuery } from "@/data/queries";\nimport type { Article } from "@/data/types";'
+          assert old in page, 'page data import marker missing'
+          page = page.replace(old, new, 1)
+          old = '  const { pillars, supportArticles, depthArticles, riverProfiles, reservoirProfiles, roadSystems } = useLoaderData({ from: "/texas-explained" });'
+          new = '  const { data: catalog } = useSuspenseQuery(articlesQuery());\n  const { pillars, supportArticles, depthArticles, riverProfiles, reservoirProfiles, roadSystems } = buildTexasExplainedLoaderData(catalog);'
+          assert old in page, 'page loader-data marker missing'
+          page = page.replace(old, new, 1)
+          page_path.write_text(page)
+
+          route_path = Path('src/routes/texas-explained.tsx')
+          route = route_path.read_text()
+          old = 'head: ({ loaderData }: { loaderData?: TexasExplainedLoaderData }) => {'
+          new = 'head: ({ loaderData }: { loaderData?: TexasExplainedLoaderData | null }) => {'
+          assert old in route, 'route head type marker missing'
+          route = route.replace(old, new, 1)
+          old = 'loader: async ({ context }): Promise<TexasExplainedLoaderData> => {\n    const [{ articlesQuery }, { buildTexasExplainedLoaderData }] = await Promise.all(['
+          new = 'loader: async ({ context }): Promise<TexasExplainedLoaderData | null> => {\n    if (!import.meta.env.SSR) return null;\n    const [{ articlesQuery }, { buildTexasExplainedLoaderData }] = await Promise.all(['
+          assert old in route, 'route loader marker missing'
+          route = route.replace(old, new, 1)
+          route_path.write_text(route)
+
+          validator_path = Path('scripts/data/validate-texas-explained-questions.mjs')
+          validator = validator_path.read_text()
+          old = "  'import(\"@/components/editorial/TexasExplainedPage\")',\n]) {"
+          new = "  'import(\"@/components/editorial/TexasExplainedPage\")',\n  'if (!import.meta.env.SSR) return null;',\n]) {"
+          assert old in validator, 'validator eager marker block missing'
+          validator = validator.replace(old, new, 1)
+          old = "  'useLoaderData({ from: \"/texas-explained\" })',\n  'lazy(() => import(\"@/components/editorial/TexasExplainedQuestionsPage\"))',"
+          new = "  'useSuspenseQuery(articlesQuery())',\n  'const { data: catalog } = useSuspenseQuery(articlesQuery());',\n  'lazy(() => import(\"@/components/editorial/TexasExplainedQuestionsPage\"))',"
+          assert old in validator, 'validator page marker block missing'
+          validator = validator.replace(old, new, 1)
+          old = "if (page.includes('texas-explained-questions.ts')) failures.push('The lazy page shell should not eagerly import the answer registry; keep it behind the nested lazy question renderer.');"
+          new = old + "\nif (page.includes('useLoaderData')) failures.push('The lazy page must own its article query instead of depending on eager route loader data.');"
+          assert old in validator, 'validator page isolation marker missing'
+          validator = validator.replace(old, new, 1)
+          validator_path.write_text(validator)
+      - name: Commit optimized split and remove temporary workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/tmp-optimize-texas-explained-bundle.yml
+          git add src/routes/texas-explained.tsx src/components/editorial/TexasExplainedPage.tsx scripts/data/validate-texas-explained-questions.mjs
+          git commit -m "Keep Texas Explained catalog query out of client route shell"
+          git push origin HEAD:feat/texas-explained-authority-v2
