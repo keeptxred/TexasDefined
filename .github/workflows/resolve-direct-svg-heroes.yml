@@ -7,6 +7,7 @@ on:
     paths:
       - "scripts/data/resolve-direct-svg-heroes.mjs"
       - "scripts/data/enforce-direct-hero-source-match.mjs"
+      - "scripts/data/sync-direct-hero-credit-metadata.mjs"
       - "scripts/data/normalize-direct-hero-jpeg-dimensions.mjs"
       - "scripts/bin/convert"
       - ".github/workflows/resolve-direct-svg-heroes.yml"
@@ -57,6 +58,9 @@ jobs:
       - name: Reject ambiguous reusable-photo subject matches
         run: node scripts/data/enforce-direct-hero-source-match.mjs
 
+      - name: Synchronize replacement hero attribution metadata
+        run: node scripts/data/sync-direct-hero-credit-metadata.mjs
+
       - name: Match replacement JPEGs to declared hero dimensions
         run: node scripts/data/normalize-direct-hero-jpeg-dimensions.mjs
 
@@ -99,7 +103,7 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --title 'Replace direct SVG hero images with governed raster heroes' \
-            --body $'Sitewide direct-SVG hero remediation. For each hero, automation prefers an exact/relevant commercially reusable JPEG and falls back to a subject-specific photorealistic AI JPEG when no compliant reusable image is found. Ambiguous Commons subject matches are rejected before review. Replacements are normalized to each page’s declared hero dimensions. No procedural placeholder or SVG fallback is accepted. Review scripts/data/direct-svg-hero-report.json for source and generation provenance.'
+            --body $'Sitewide direct-SVG hero remediation. For each hero, automation prefers an exact/relevant commercially reusable JPEG and falls back to a subject-specific photorealistic AI JPEG when no compliant reusable image is found. Ambiguous Commons subject matches are rejected before review. Replacement attribution is synchronized from the resolver report so stale SVG credits cannot survive a raster replacement. Replacements are normalized to each page’s declared hero dimensions. No procedural placeholder or SVG fallback is accepted. Review scripts/data/direct-svg-hero-report.json for source and generation provenance.'
 
       - name: Run official validation on generated branch
         if: steps.changes.outputs.changed == 'true'
