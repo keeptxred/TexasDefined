@@ -63,6 +63,7 @@ const prebuildChecks = [
   ['PROPERTY/DATA', 'Validate priority county property overlays', 'node', ['scripts/data/validate-priority-county-property-overlays.mjs']],
   ['SEO/INDEXING', 'Validate Phase 10 housing index-suppression contract', 'node', ['scripts/data/validate-phase10-housing-indexing.mjs']],
   ['CONTENT/AUTHORITY', 'Validate Texas beaches and coast authority', 'node', ['scripts/data/validate-coastal-authority.mjs']],
+  ['AGGREGATE/SITE-QUALITY', 'Run recurring site quality contract', 'node', ['scripts/data/run-site-quality-watch.mjs']],
   ['AGGREGATE/FULL', 'Run authoritative validation suite', 'node', ['scripts/ci/run-validation-suite.mjs', 'full', '--collect-all']],
   ['CONTENT/AUTHORITY', 'Validate mountain biking authority', 'node', ['scripts/data/validate-mountain-biking-authority.mjs']],
   ['CONTENT/AUTHORITY', 'Validate horseback riding authority', 'node', ['scripts/data/validate-horseback-riding-authority.mjs']],
