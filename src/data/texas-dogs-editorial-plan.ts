@@ -68,10 +68,12 @@ export const texasDogsEditorialPlan = {
     {
       slug: "the-unofficial-job-description-of-a-texas-porch-dog",
       title: "The Unofficial Job Description of a Texas Porch Dog",
+      status: "published",
     },
     {
       slug: "why-the-best-dog-shirt-joke-feels-like-your-dog-and-nobody-elses",
       title: "Why the Best Dog Shirt Joke Feels Like Your Dog and Nobody Else’s",
+      status: "published",
     },
   ],
 } as const;
