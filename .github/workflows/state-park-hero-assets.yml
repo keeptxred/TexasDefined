@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - "scripts/data/sync-state-park-hero-assets.mjs"
+      - "scripts/bin/convert"
       - "src/data/state-park-heroes.ts"
       - "src/data/state-park-hero-map.ts"
       - ".github/workflows/state-park-hero-assets.yml"
@@ -44,6 +45,11 @@ jobs:
             sudo apt-get update -qq
             sudo apt-get install -y -qq imagemagick
           fi
+
+      - name: Enable format-aware ImageMagick wrapper
+        run: |
+          chmod +x scripts/bin/convert
+          echo "$PWD/scripts/bin" >> "$GITHUB_PATH"
 
       - name: Resolve and generate park-specific JPEGs
         run: node scripts/data/sync-state-park-hero-assets.mjs
