@@ -72,9 +72,9 @@ export const AUTHORITY_HUB_PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchP
         ],
         links: [
           { label: "Explore Texas", href: "/explore" },
-          { label: "Texas state parks", href: "/state-parks" },
+          { label: "Texas state parks", href: "/explore/state-parks" },
           { label: "Texas fishing", href: "/fishing" },
-          { label: "Texas wildflowers", href: "/texas-wildflowers" }
+          { label: "Texas wildflowers", href: "/article/texas-wildflowers-guide" }
         ]
       }
     ],
@@ -87,7 +87,7 @@ export const AUTHORITY_HUB_PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchP
     related: [
       { label: "Texas resources", href: "/texas-resources" },
       { label: "Explore Texas", href: "/explore" },
-      { label: "Texas state parks", href: "/state-parks" },
+      { label: "Texas state parks", href: "/explore/state-parks" },
       { label: "Texas data", href: "/texas-data" }
     ]
   },
@@ -210,7 +210,7 @@ export const AUTHORITY_HUB_PRIORITY_SEARCH_PAGES: Record<string, PrioritySearchP
           "For county and ZIP-level searches, confirm the geography and dataset vintage before comparing numbers. A decennial Census count, annual population estimate and ACS survey estimate answer different questions and should not be mixed without labeling."
         ],
         links: [
-          { label: "U.S. Census QuickFacts — Texas", href: "https://www.census.gov/quickfacts/fact/table/TX/PST045225", external: true },
+          { label: "U.S. Census QuickFacts — Texas", href: "https://www.census.gov/quickfacts/TX", external: true },
           { label: "Texas population and migration data", href: "/texas-data/texas-population-and-migration-2025" },
           { label: "Texas county population growth", href: "/texas-data/county-growth" },
           { label: "Browse Texas counties", href: "/browse/counties" }
