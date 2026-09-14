@@ -8,10 +8,10 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..")
 const assets = [
   {
     sourceDir: path.join(root, "assets/generated/chappell-hill-bluebonnet-festival"),
-    prefix: "chappell-hill-bluebonnet-festival.webp.b64.",
-    expectedParts: 7,
-    expectedSha256: "460aef1e567bcd4135ae1c4e16c30e713e1ee44989c4700c3b86506d625aa834",
-    outputPath: path.join(root, "public/images/events/chappell-hill-bluebonnet-festival.webp"),
+    prefix: "clean-v4-20260914.webp.b64.",
+    expectedParts: 10,
+    expectedSha256: "9664491618145e39ce2ebac354ae65325dba7d65d9557dc9d13206fe8ead62d8",
+    outputPath: path.join(root, "public/images/events/chappell-hill-bluebonnet-festival-20260914.webp"),
   },
 ];
 
