@@ -8,6 +8,7 @@ import { loadTournamentCollectionItemsServer } from "./texas-tournaments.server"
 export interface EventCollectionCrawlLink {
   href: string;
   title: string;
+  description: string;
   group: "Evergreen event guides" | "Seasonal and regional guides" | "Tournament directories";
 }
 
@@ -23,7 +24,7 @@ export function loadIndexableEventCollectionCrawlDirectoryServer(now = new Date(
       ).length;
 
       return shouldIndexEvergreenEventCollection(itemCount)
-        ? { href: collection.path, title: collection.title, group: "Evergreen event guides" as const }
+        ? { href: collection.path, title: collection.title, description: collection.description, group: "Evergreen event guides" as const }
         : null;
     })
     .filter((item): item is NonNullable<typeof item> => Boolean(item));
@@ -34,6 +35,7 @@ export function loadIndexableEventCollectionCrawlDirectoryServer(now = new Date(
     .map((collection) => ({
       href: collection.path,
       title: collection.title,
+      description: collection.description,
       group: "Seasonal and regional guides" as const,
     }));
 
@@ -42,6 +44,7 @@ export function loadIndexableEventCollectionCrawlDirectoryServer(now = new Date(
     .map((collection) => ({
       href: collection.path,
       title: collection.title,
+      description: collection.description,
       group: "Tournament directories" as const,
     }));
 
