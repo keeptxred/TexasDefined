@@ -23,6 +23,7 @@ on:
       - 'scripts/data/validate-sports-venue-images.mjs'
       - 'scripts/data/validate-curated-sports-venue-image-layer.mjs'
       - 'scripts/data/validate-curated-sports-venue-image-sources.mjs'
+      - 'scripts/data/validate-governed-sports-venue-image-sources.mjs'
       - 'scripts/data/validate-sports-venue-photo-additions.mjs'
       - 'scripts/data/validate-sports-venue-photo-additions-wave2.mjs'
       - 'scripts/data/validate-sports-venue-photo-additions-wave5.mjs'
@@ -46,6 +47,7 @@ jobs:
       - run: node scripts/data/validate-sports-venue-images.mjs
       - run: node scripts/data/validate-curated-sports-venue-image-layer.mjs
       - run: node scripts/data/validate-curated-sports-venue-image-sources.mjs
+      - run: node scripts/data/validate-governed-sports-venue-image-sources.mjs
       - run: node scripts/data/validate-sports-venue-photo-additions.mjs
       - run: node scripts/data/validate-sports-venue-photo-additions-wave2.mjs
       - run: node scripts/data/validate-sports-venue-photo-additions-wave5.mjs
