@@ -1,19 +1,39 @@
+const localHousingLocations = [
+  { name: 'Houston', slug: 'houston' },
+  { name: 'Austin', slug: 'austin' },
+  { name: 'Dallas', slug: 'dallas' },
+  { name: 'Fort Worth', slug: 'fort-worth' },
+  { name: 'San Antonio', slug: 'san-antonio' },
+  { name: 'Frisco', slug: 'frisco' },
+  { name: 'El Paso', slug: 'el-paso' },
+  { name: 'Harris County', slug: 'harris-county' },
+  { name: 'Dallas County', slug: 'dallas-county' },
+  { name: 'Tarrant County', slug: 'tarrant-county' },
+  { name: 'Bexar County', slug: 'bexar-county' },
+  { name: 'Travis County', slug: 'travis-county' },
+  { name: 'Collin County', slug: 'collin-county' },
+  { name: 'Denton County', slug: 'denton-county' },
+  { name: 'Fort Bend County', slug: 'fort-bend-county' },
+  { name: 'Montgomery County', slug: 'montgomery-county' },
+  { name: 'Williamson County', slug: 'williamson-county' },
+  { name: 'El Paso County', slug: 'el-paso-county' },
+  { name: 'Hidalgo County', slug: 'hidalgo-county' },
+] as const;
+
 export function loadHomeownershipCostHubPageServer() {
   return {
     description: 'Combine a Texas mortgage, property taxes, homeowners insurance, maintenance, utilities, HOA or district costs and other recurring expenses into a fuller homeownership budget, with official local property-tax rate autofill.',
     local: {
-      eyebrow: 'Local ownership budgets',
-      title: 'Run the full homeownership budget with city-specific property context',
-      copy: 'The budget categories are the same statewide, but the inputs are not. These local pages connect the calculator to city or county property-tax tools and relocation research so taxes, insurance, utilities, HOA or district charges, maintenance and transportation can be replaced with address-level assumptions.',
-      cards: [
-        { name: 'Houston', href: '/texas-homeownership-cost-calculator/houston' },
-        { name: 'Austin', href: '/texas-homeownership-cost-calculator/austin' },
-        { name: 'Dallas', href: '/texas-homeownership-cost-calculator/dallas' },
-        { name: 'Fort Worth', href: '/texas-homeownership-cost-calculator/fort-worth' },
-        { name: 'San Antonio', href: '/texas-homeownership-cost-calculator/san-antonio' },
-        { name: 'Frisco', href: '/texas-homeownership-cost-calculator/frisco' },
-        { name: 'El Paso', href: '/texas-homeownership-cost-calculator/el-paso' },
-      ],
+      eyebrow: 'Local housing planning',
+      title: 'Run the full housing budget with city- and county-specific property context',
+      copy: 'The planning categories are the same statewide, but the inputs are not. These local pages connect affordability, mortgage, insurance and full ownership-cost planning to city or county property-tax tools and relocation research so assumptions can be replaced with address-level numbers.',
+      cards: localHousingLocations.map(({ name, slug }) => ({
+        name,
+        ownershipHref: `/texas-homeownership-cost-calculator/${slug}`,
+        affordabilityHref: `/texas-home-affordability-calculator/${slug}`,
+        insuranceHref: `/texas-home-insurance-calculator/${slug}`,
+        mortgageHref: `/texas-mortgage-calculator/${slug}`,
+      })),
     },
     stack: {
       eyebrow: 'Build the whole monthly stack',
