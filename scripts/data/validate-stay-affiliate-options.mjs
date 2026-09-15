@@ -3,6 +3,9 @@ import vm from 'node:vm';
 
 const root = fs.readFileSync('src/routes/__root.tsx', 'utf8');
 const source = fs.readFileSync('public/stay-affiliate-options.js', 'utf8');
+const eventRoute = fs.readFileSync('src/routes/event.$slug.lazy.tsx', 'utf8');
+const productionVerifier = fs.readFileSync('scripts/ci/verify-stay-affiliate-production.mjs', 'utf8');
+const productionWorkflow = fs.readFileSync('.github/workflows/verify-stay-affiliate-production.yml', 'utf8');
 const errors = [];
 
 const requireText = (text, needle, label) => {
@@ -34,8 +37,9 @@ for (const [needle, label] of [
   ['https://www.vrbo.com/en-us/list/lead', 'Vrbo owner onboarding destination'],
   ['link.href = buildCjDeepLink(destination)', 'tracked-link enforcement'],
   ['sponsored nofollow noopener noreferrer', 'affiliate relationship attributes'],
-  ['Search Hotels.com', 'Hotels.com CTA'],
-  ['Search Vrbo vacation rentals', 'Vrbo traveler CTA'],
+  ['Find hotels on Hotels.com', 'Hotels.com CTA'],
+  ['Find vacation rentals on Vrbo', 'Vrbo traveler CTA'],
+  ['Find places to stay', 'prominent stay CTA'],
   ['List a property on Vrbo', 'Vrbo owner CTA'],
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com or Vrbo activity', 'traveler affiliate disclosure'],
   ['Affiliate disclosure: TexasDefined may earn a referral commission when an eligible new Vrbo property listing goes live', 'owner affiliate disclosure'],
@@ -44,9 +48,41 @@ for (const [needle, label] of [
   ['OWNER_PATH = /^\\/real-estate\\/?$/', 'owner route guard'],
   ['OWNER_SECTION', 'owner article-section guard'],
   ['EXPEDIA_SURFACE_ID = "expedia-travel-surface"', 'existing Stay Nearby integration'],
+  ['STAY_SLOT_SELECTOR = "[data-stay-nearby-slot]"', 'explicit stay-slot preservation'],
+  ['PLACEMENT_HEADING', 'contextual placement heading guard'],
+  ['anchor.parentNode.insertBefore(surface, anchor)', 'prominent in-content placement'],
+  ['surface.dataset.prominentPlacement = "contextual"', 'prominent placement marker'],
   ['expediaSurface.prepend(choice)', 'contextual integration placement'],
+  ['event: "affiliate_click"', 'affiliate click analytics event'],
+  ['window.dataLayer.push(detail)', 'GTM affiliate click tracking'],
+  ['affiliate_placement: placement', 'affiliate placement attribution'],
   ['MutationObserver', 'SPA synchronization'],
 ]) requireText(source, needle, label);
+
+for (const [needle, label] of [
+  ['injectStayNearbySlot', 'event stay-slot injection helper'],
+  ['data-stay-nearby-slot', 'event in-content Stay Nearby slot'],
+  ['Plan the visit', 'event planning placement anchor'],
+  ['Places to stay near this event', 'event stay-slot accessibility label'],
+]) requireText(eventRoute, needle, label);
+
+for (const [needle, label] of [
+  ['/stay-affiliate-options.js', 'live affiliate bootstrap verification'],
+  ['/expedia-travel.js', 'live Expedia bootstrap verification'],
+  ['Find places to stay', 'live prominent CTA verification'],
+  ['event: "affiliate_click"', 'live affiliate analytics verification'],
+  ['/event/chappell-hill-bluebonnet-festival', 'live event placement probe'],
+  ['/sports-venue/globe-life-field', 'live venue placement probe'],
+  ['/destination/fredericksburg', 'live destination eligibility probe'],
+  ['data-stay-nearby-slot', 'live explicit slot verification'],
+]) requireText(productionVerifier, needle, label);
+
+for (const [needle, label] of [
+  ['workflow_run:', 'post-deploy workflow trigger'],
+  ['Deploy TexasDefined production', 'production deployment dependency'],
+  ['github.event.workflow_run.conclusion == \'success\'', 'successful-deploy guard'],
+  ['node scripts/ci/verify-stay-affiliate-production.mjs', 'live stay affiliate verifier invocation'],
+]) requireText(productionWorkflow, needle, label);
 
 if (/facebook\.com|twitter\.com|x\.com/i.test(source)) {
   errors.push('Hotels.com/Vrbo website affiliate bootstrap must not contain social-network promotion targets.');
@@ -61,4 +97,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hotels.com / Vrbo stay affiliate validation passed: CJ tracking is fail-closed through the TexasDefined publisher ID, hotel/vacation-rental intent is route-scoped, owner referrals use the current Vrbo onboarding URL, disclosures and sponsored-link attributes are present, and the existing Expedia/Stay Nearby surface remains the integration host.');
+console.log('Hotels.com / Vrbo stay affiliate validation passed: CJ tracking is fail-closed through the TexasDefined publisher ID, stay CTAs are promoted beside or ahead of lodging content instead of being buried at the page end, event guides expose deterministic in-content stay slots, explicit in-page stay slots remain authoritative, outbound affiliate clicks are attributed through GTM, live post-deploy verification covers event/venue/destination intent, route intent remains scoped, disclosures and sponsored-link attributes are present, and the existing Expedia/Stay Nearby surface remains the integration host.');
