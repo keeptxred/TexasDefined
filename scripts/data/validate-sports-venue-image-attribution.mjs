@@ -5,6 +5,7 @@ const helper = read('src/data/sports-venue-image-attribution.ts');
 const quickAnswers = read('src/components/sports/SportsVenueQuickAnswers.tsx');
 const guidePage = read('src/components/sports/SportsVenueGuidePage.tsx');
 const wave7 = read('src/data/sports-venue-images-additions-wave7.ts');
+const productionVerifier = read('scripts/ci/verify-sports-venue-heroes-production.mjs');
 const failures = [];
 
 const requireText = (source, needle, label) => {
@@ -51,10 +52,18 @@ for (const marker of [
 forbidText(guidePage, 'AI-generated representative editorial image by {photo.author} for TexasDefined; not documentary photography.', 'generated guide disclosure should defer AI details to the sitewide policy');
 forbidText(guidePage, '>Media record</a>', 'generated guide disclosure must not render a self-referential media link');
 
+for (const marker of [
+  'const wave7GeneratedAttribution = [',
+  "'Editorial illustration by'",
+  "'Cloudflare Workers AI / FLUX.1 schnell'",
+  "'for TexasDefined; not documentary photography.'",
+]) requireText(productionVerifier, marker, 'live sports venue attribution verifier');
+forbidText(productionVerifier, "'AI-generated representative editorial image'", 'live verifier must follow the sitewide AI disclosure contract');
+
 if (failures.length) {
   console.error('Sports venue image attribution validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('PASS: sports venue imagery preserves generated-media provenance, uses concise non-documentary visible credits under the sitewide AI disclosure, avoids generated-media self-links, and preserves real-photo attribution.');
+console.log('PASS: sports venue imagery preserves generated-media provenance, uses concise non-documentary visible credits under the sitewide AI disclosure, keeps live verification aligned with that contract, avoids generated-media self-links, and preserves real-photo attribution.');

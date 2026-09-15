@@ -11,8 +11,9 @@ const wave7RealPhotoAttribution = {
   'texas-motorplex': ['Wikimedia Commons', 'Michael Barera', 'CC BY-SA 4.0'],
 };
 const wave7GeneratedAttribution = [
-  'AI-generated representative editorial image',
-  'not documentary photography',
+  'Editorial illustration by',
+  'Cloudflare Workers AI / FLUX.1 schnell',
+  'for TexasDefined; not documentary photography.',
 ];
 
 const repairedWave7 = [
