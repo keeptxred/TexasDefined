@@ -86,7 +86,7 @@ jobs:
                 });
                 const html = await response.text();
                 const text = visibleText(html);
-                const reading = text.match(/About\s+(\d+)\s+min\b/i);
+                const reading = text.match(/About\s+(\d+)\s+minutes?\b/i);
                 const minutes = reading ? Number(reading[1]) : null;
                 const markerLive = text.includes(marker);
                 const readingLive = minutes !== null && minutes >= 5;
