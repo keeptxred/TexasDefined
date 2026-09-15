@@ -21,6 +21,7 @@ const christmasAuthorityRequiredNeedles = [
 const christmasAuthorityForbiddenNeedles = [
   'Texas Christmas trips can get expensive quickly when every evening has timed tickets.',
   'Walk the San Antonio River Walk lights',
+  'About 1 minute',
 ];
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
