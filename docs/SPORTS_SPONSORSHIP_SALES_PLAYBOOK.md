@@ -1,39 +1,44 @@
 # TexasDefined Sports Sponsorship Sales Playbook
 
-Updated: 2026-08-14
+Updated: 2026-09-15
 
 ## Purpose
 
-Turn TexasDefined's 84 deep sports-venue guides into a small-business-friendly sponsorship product without compromising editorial independence. These are launch sponsorships, not traffic guarantees. Editorial rankings, factual conclusions, structured data, and recommendations remain independent of sponsorship.
+Use TexasDefined's sports-venue guides as one governed sponsorship surface inside the publication-wide advertising program. Sports sponsorships are no longer sold under the old placeholder $49/$149/$299/$499 launch menu. Public pricing and package commitments come from `src/data/advertising-program.ts` and `/partner-with-us`.
 
-## Founding launch packages
+No outreach may begin while the server-owned sports sponsorship outreach hold is enabled or before the advertiser launch-readiness checklist is complete.
 
-| Package | Launch price | Included surfaces | Best fit |
-| --- | ---: | --- | --- |
-| Single Venue | $49/month | 1 sports-venue guide | Restaurant, independent hotel, tour, parking/transport operator serving one venue |
-| Metro Sports Pack | $149/month | Up to 5 venue guides in one metro/market | Hotel group, restaurant group, transportation company, regional attraction |
-| Texas Sports Network | $299/month | Statewide sports directory + up to 10 venue guides | Multi-market Texas travel brand |
-| Founding Statewide Partner | $499/month | Statewide sports directory + up to 20 venue guides | Statewide lodging, transportation, tourism, or visitor-services brand |
+## Publication-wide partner tiers
 
-Launch terms:
+| Package | Monthly | Annual | Sports fit |
+| --- | ---: | ---: | --- |
+| Local Partner | $249/month | $2,490/year | One approved sponsored placement, appropriate for a business focused on one venue, destination or reader intent |
+| Growth Partner | $499/month | $4,990/year | Up to three approved placements, appropriate for a metro, regional or closely related set of sports/travel surfaces |
+| Premier Partner | $999/month | $9,990/year | Up to six approved placements plus broader integrated benefits for multi-market or statewide advertisers |
+| Custom | Quote | Quote | Event campaigns, section sponsorships, custom inventory, procurement needs or negotiated exclusivity |
 
-- Month-to-month unless a custom insertion order says otherwise.
-- No guaranteed impression, click, booking, revenue, ranking, or editorial outcome.
-- Surface availability is first-come among approved placements because only one approved sponsored placement can run on a surface at a time.
+Commercial terms:
+
+- Monthly plans begin with a three-month initial commitment and are billed in advance.
+- Annual plans cover twelve months and are prepaid at the published annual rate.
+- One-time and custom campaigns are priced separately.
+- No guaranteed impression, click, booking, revenue, ranking, conversion or editorial outcome unless a signed custom order explicitly guarantees a delivery metric.
 - Sponsor approval and placement approval are separate steps.
-- Any copy revision returns the placement to draft for reapproval.
-- Sponsored links are clearly disclosed and use sponsored/nofollow attributes.
-- Aggregate impressions and clicks are reported; visitor PII is not collected for sponsorship metrics.
-- Founding pricing may be revised for new advertisers as traffic and demand grow. Existing signed terms should be honored for their agreed period.
+- Any placement copy revision returns the placement to draft for reapproval.
+- Sponsored links are clearly disclosed and use appropriate sponsored/nofollow treatment.
+- Aggregate impressions and clicks may be reported; visitor PII is not collected for sports sponsorship metrics.
+- Paid relationships do not buy editorial rankings, recommendations, reviews or factual conclusions.
 
-## Recommended first sales sequence
+## Sports package mapping
 
-1. Sell single-venue sponsorships first. They are easiest to explain and lowest risk for a local business.
-2. Offer the Metro Sports Pack when a business naturally serves multiple nearby venues.
-3. Use statewide packages only for companies with a genuine multi-market footprint.
-4. Never use audience-size language that is not supported by current analytics.
-5. Lead with relevance: "Texas sports visitors planning a trip to this venue" rather than generic banner advertising.
-6. Use the protected `/admin/sports-sponsors` registry as the working CRM. Prospect means only that TexasDefined may contact the business; it never means partner, advertiser, recommendation, or endorsement.
+Use the publication-wide package first, then define the exact sports surfaces in Schedule A of the advertiser agreement.
+
+- **Local Partner:** normally one venue or sports-planning surface.
+- **Growth Partner:** normally up to three mutually approved venue, metro or sports-planning surfaces.
+- **Premier Partner:** normally up to six mutually approved sports/travel surfaces and may include eligible featured-partner or sponsored-content benefits from the Premier package.
+- **Custom:** use when the advertiser needs a tournament/event window, unusual inventory, more surfaces, procurement-specific terms or negotiated category exclusivity.
+
+Never promise a surface that is unavailable, irrelevant or blocked by sponsorship governance.
 
 ## Qualification checklist
 
@@ -41,174 +46,98 @@ A good prospect should satisfy most of these:
 
 - Has a current HTTPS website.
 - Serves visitors in the same market as one or more TexasDefined sports venues.
-- Can fulfill demand from game/concert/tournament weekends.
-- Has a clear consumer action: book a room, reserve a table, request a ride, buy admission, reserve parking, or book a tour.
-- Is not primarily political, adult, gambling, tobacco/nicotine, controlled-substance, weapons, or other brand-incompatible activity.
+- Can fulfill demand from game, concert or tournament weekends.
+- Has a clear consumer action such as booking a room, reserving a table, requesting transportation, buying admission, reserving parking or booking a tour.
+- Is compatible with TexasDefined advertising standards and applicable law.
 - Would still be a legitimate reader option if it were not paying TexasDefined.
-- Can be described accurately without implying TexasDefined tested, ranked, or endorsed it.
+- Can be described accurately without implying TexasDefined tested, ranked or endorsed it.
 
-## Initial prospect markets
+## Prospect examples
 
-The protected sponsorship registry was seeded on 2026-08-14 with 14 public-business prospects. No relationship or endorsement is implied. Reverify the official website and current business status before outreach.
+The protected sponsorship registry contains public-business prospect research. No relationship or endorsement is implied. Reverify each official website, current business status, campaign fit and contact before any eventual outreach.
 
-### Arlington / DFW
+Examples of package fit:
 
-- Live! by Loews - Arlington, TX — hotel — AT&T Stadium + Globe Life Field — Metro Sports Pack.
-- Pappadeaux Seafood Kitchen - Arlington — restaurant — AT&T Stadium + Globe Life Field — Single Venue or Metro Sports Pack.
+- A restaurant or independent hotel serving one stadium: **Local Partner**.
+- A hotel group, attraction or transportation company serving several venues in one metro: **Growth Partner**.
+- A statewide lodging, transportation, tourism or visitor-services brand serving multiple Texas sports markets: **Premier Partner** or **Custom**.
 
-### Houston
+## Outreach rule
 
-- Hilton Americas-Houston — hotel — Toyota Center + Daikin Park + Shell Energy Stadium — Metro Sports Pack.
-- Osso & Kristalla — restaurant — Daikin Park — Single Venue.
-- Allstar Limousine & Tours — transportation/tours — downtown Houston venues + Reliant Stadium — Metro Sports Pack.
+Do not send advertiser outreach until all of the following are true:
 
-### Austin
+1. `/partner-with-us`, `/partner-with-us/billing`, `/partner-with-us/terms`, `/partner-with-us/showcase` and tier agreement previews are deployed and tested.
+2. Stripe live-mode advertiser products/prices and invoice settings are configured and verified.
+3. Card, annual billing, invoice, approved Net terms and ACH test paths have passed where supported.
+4. A sample agreement has been reviewed for the actual Publisher legal entity and any attorney/accountant changes have been incorporated.
+5. The applicable sponsorship delivery hold has been intentionally removed after real traffic/inventory readiness is confirmed.
 
-- Hilton Garden Inn Austin University Capitol District — hotel — Moody Center + DKR — Metro Sports Pack.
-- Austin Pedicab Company — transportation/tours — Moody Center + DKR + Q2 Stadium — Metro Sports Pack.
-- SpringHill Suites Austin The Domain Area — hotel — Q2 Stadium — Single Venue.
+Only then use researched, personalized outreach. Do not mass-email.
 
-### San Antonio
+## Approved first-contact structure after launch readiness
 
-- Holiday Inn Express & Suites San Antonio - Frost Bank Ctr — hotel — Frost Bank Center — Single Venue or Metro Sports Pack.
-- CTA Worldwide — transportation — San Antonio + Austin event markets — Metro Sports Pack.
-
-### College Station
-
-- Texas A&M Hotel and Conference Center — hotel — Kyle Field + Reed Arena — Metro Sports Pack.
-- Dixie Chicken — restaurant/bar — Kyle Field — Single Venue.
-
-### Waco
-
-- Terry Black's Barbecue Waco — restaurant/visitor experience — McLane Stadium + Foster Pavilion — Metro Sports Pack.
-
-### Lubbock
-
-- Woodrow House Bed & Breakfast — lodging — Galaxy Stadium (stable route `/sports-venue/jones-att-stadium`) — Single Venue.
-
-## Outreach email: first contact
-
-Subject: TexasDefined sports visitors + [BUSINESS NAME]
+Subject: TexasDefined visitors + [BUSINESS NAME]
 
 Hi [NAME/TEAM],
 
-I run TexasDefined, a Texas travel and reference site. We have a statewide sports-venue guide system that helps readers plan trips around major Texas stadiums, arenas, race tracks, golf destinations, and college venues.
+I run TexasDefined, a Texas travel and reference publication. We build practical planning resources around Texas destinations, events and sports venues.
 
-I am opening a small number of founding local sponsorships around [VENUE / MARKET]. [BUSINESS NAME] looks relevant because [ONE-SENTENCE REAL REASON].
+I am opening a small number of clearly disclosed partner placements around [VENUE / MARKET / TOPIC]. [BUSINESS NAME] looks relevant because [ONE-SENTENCE REAL REASON].
 
-The launch option is $49/month for one venue guide, or $149/month for up to five venue guides in one metro. Sponsored placements are clearly labeled and kept separate from our editorial recommendations. We do not sell rankings or promise traffic we cannot substantiate.
+Our public partner plans start with the Local Partner at $249/month, with annual and broader regional/statewide options available. Sponsorship is kept separate from editorial rankings and recommendations, and we do not promise traffic or bookings we cannot substantiate.
 
-If that is worth exploring, I can send the exact placement format and the venue pages I think fit best.
+You can review package details, sample placements, billing options and terms at TexasDefined.com/partner-with-us.
 
-Thanks,
-TexasDefined
-
-## Outreach email: follow-up 1 (3-5 business days)
-
-Subject: Re: TexasDefined sports visitors + [BUSINESS NAME]
-
-Hi [NAME/TEAM],
-
-Following up on the TexasDefined sports-visitor sponsorship around [VENUE / MARKET]. I think the strongest fit is [PACKAGE] across [SURFACES] because [SHORT RELEVANCE REASON].
-
-The founding rate is [PRICE]/month, month-to-month, with clearly labeled sponsored placement and aggregate impression/click reporting. There is no paid influence on our editorial content or venue recommendations.
-
-If you would like, reply with the best person for local marketing/partnerships and I will keep it brief.
+If this is relevant, I can send the exact surfaces I think fit best.
 
 Thanks,
-TexasDefined
+Texas Defined
+admin@texasdefined.com
 
-## Outreach email: follow-up 2 (7-10 business days later)
+## Personalization formula
 
-Subject: Closing the loop — TexasDefined [VENUE] sponsorship
+Use one factual reason per first email:
 
-Hi [NAME/TEAM],
+- Hotel: the property is positioned for visitors attending a specific venue or event market.
+- Restaurant: the restaurant is near the relevant venue/destination and already serves visitor traffic.
+- Transportation: the company already handles event, airport, charter or group transportation in the relevant market.
+- Attraction/tour: the business gives an out-of-town visitor something useful to do before or after the event.
+- Parking: the service solves a high-friction part of attending an event at the relevant venue.
 
-I am closing the loop on the founding TexasDefined sponsorship for [VENUE / MARKET]. If this is not a priority right now, no problem.
-
-If it is relevant later, the current launch rate is [PRICE]/month for [PACKAGE]. I am limiting each sports surface to one approved sponsored placement at a time so the page stays useful and uncluttered.
-
-Thanks,
-TexasDefined
-
-## Phone / contact-form opening
-
-"Hi, I run TexasDefined, a Texas travel and reference site. We have visitor-planning guides for [VENUE] and the surrounding sports market. I am looking for the right person who handles local marketing or partnerships. We are offering a clearly labeled founding sponsorship starting at $49 a month, and I thought [BUSINESS] was relevant because [REASON]. Who would be the right person to send a short overview to?"
-
-## Fast personalization formula
-
-Use exactly one factual reason per first email:
-
-- Hotel: "Your property is positioned specifically for visitors attending events at [VENUE]."
-- Restaurant: "You are close to [VENUE] and already serve game/event traffic."
-- Transportation: "You already handle event, airport, charter, or group transportation in this market."
-- Attraction/tour: "You give an out-of-town sports visitor something useful to do before or after the event."
-- Parking: "Your service solves one of the highest-friction parts of attending events at [VENUE]."
-
-Do not fabricate audience figures, customer counts, conversion rates, exclusivity, endorsements, or "top" status.
+Do not fabricate audience figures, customer counts, conversion rates, exclusivity, endorsements or “top” status.
 
 ## Objection handling
 
-### "How much traffic do you get?"
+### “How much traffic do you get?”
 
-Use current analytics only. If traffic is still early-stage:
+Use current analytics only. If traffic is still early-stage, say so plainly and provide the actual numbers available for the relevant surfaces. Do not inflate projections.
 
-"TexasDefined is still in its growth stage, which is why this is priced as a founding sponsorship rather than a mature CPM buy. I would rather give you the actual current numbers and a low entry price than inflate projections."
+### “Can we be listed as the best hotel/restaurant?”
 
-### "Can we be listed as the best hotel/restaurant?"
+No. Paid relationships do not buy rankings or editorial conclusions. The sponsorship is a separate disclosed commercial placement.
 
-"No. Paid relationships do not buy rankings or editorial conclusions. The sponsorship is a separate disclosed block."
+### “Can you guarantee bookings?”
 
-### "Can you guarantee bookings?"
+No unless a signed custom order explicitly contains a guaranteed metric. Standard packages report available placement performance but do not guarantee bookings or revenue.
 
-"No. We can report aggregate impressions and clicks on the sponsored placement, but we do not guarantee bookings or revenue."
+### “Can we have exclusivity?”
 
-### "Can we have exclusivity?"
+Do not promise publication-wide category exclusivity. Any exclusivity must be inventory-appropriate, written into the agreement/order form and priced as an approved add-on.
 
-"Each individual sports surface can have only one approved sponsored placement at a time. That is placement exclusivity on that page while active, not editorial/category exclusivity across TexasDefined."
+### “Can we change the copy?”
 
-### "Can we change the copy anytime?"
-
-"Yes, but any saved revision returns the placement to draft and it must be approved again before it can go live."
-
-## Weekly sales operating rhythm
-
-Monday:
-- Reverify 5-10 prospects.
-- Send 5 highly personalized first contacts.
-
-Wednesday:
-- Send first follow-ups due from prior outreach.
-- Promote qualified inbound sports-travel inquiries into sponsor prospects.
-
-Friday:
-- Send final follow-ups due.
-- Review sponsor dashboard, placement status, impressions, clicks, and CTR.
-- Record reasons for no/yes decisions in sponsor notes.
-
-Avoid mass-email behavior. Ten relevant, researched contacts are more valuable than hundreds of generic messages.
-
-## Launch KPI targets
-
-The first milestone is not ad yield optimization. It is proving that a local business will pay for the product.
-
-1. First target: 20 qualified prospects in the protected registry.
-2. Outreach target: 5-10 personalized contacts per week.
-3. Conversation target: at least 2 meaningful replies per 20 qualified contacts.
-4. Revenue target: first paid Single Venue sponsor at $49/month.
-5. Next target: $149/month Metro Sports Pack.
-6. After 3-5 active sponsors, compare market/surface performance and revise package pricing based on real demand and analytics.
+Yes, subject to review. Governed sports placement revisions return the placement to draft and require explicit reapproval before publication.
 
 ## Commercial/editorial line
 
-A sponsor may buy a disclosed placement. A sponsor may not buy:
+A sponsor may buy a disclosed placement or sponsored service. A sponsor may not buy:
 
 - an editorial ranking;
 - a favorable review;
-- removal of a competitor from editorial coverage;
-- an inaccurate claim;
+- removal of a competitor from independent editorial coverage;
+- an inaccurate or unsubstantiated claim;
 - inclusion in editorial structured data as though TexasDefined recommended the business;
-- fabricated traffic/performance claims;
-- undisclosed links.
+- fabricated traffic or performance claims;
+- undisclosed links or disguised advertising.
 
-That separation is part of the product, not an obstacle to it.
+That separation is part of the product.
