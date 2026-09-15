@@ -88,10 +88,10 @@ function hasArticleReadinessMetadata(article: Article): boolean {
   return hasValidOptionalSource(article);
 }
 
-function articleIndexMinimumBodyWords(article: Article): number {
+function meetsArticleIndexBodyFloor(article: Article): boolean {
+  if (articleBodyWordCount(article) >= ARTICLE_INDEX_MIN_BODY_WORDS) return true;
   return SEASONAL_INTENT_INDEX_READY_SLUGS.has(article.slug)
-    ? SEASONAL_INTENT_INDEX_MIN_BODY_WORDS
-    : ARTICLE_INDEX_MIN_BODY_WORDS;
+    && articleBodyWordCount(article) >= SEASONAL_INTENT_INDEX_MIN_BODY_WORDS;
 }
 
 /**
@@ -105,8 +105,7 @@ function articleIndexMinimumBodyWords(article: Article): number {
  * for every other article family.
  */
 export function isArticleIndexReady(article: Article): boolean {
-  return hasArticleReadinessMetadata(article)
-    && articleBodyWordCount(article) >= articleIndexMinimumBodyWords(article);
+  return hasArticleReadinessMetadata(article) && meetsArticleIndexBodyFloor(article);
 }
 
 /**
@@ -121,10 +120,8 @@ export function isArticleIndexReady(article: Article): boolean {
  */
 export function isArticleDiscoveryReady(article: Article): boolean {
   if (!hasArticleReadinessMetadata(article)) return false;
-  const bodyWords = articleBodyWordCount(article);
-  if (bodyWords >= articleIndexMinimumBodyWords(article)) return true;
-  return bodyWords === 0
-    && article.body.length === 0
+  if (meetsArticleIndexBodyFloor(article)) return true;
+  return article.body.length === 0
     && article.readingMinutes >= ARTICLE_DISCOVERY_MIN_READING_MINUTES;
 }
 
