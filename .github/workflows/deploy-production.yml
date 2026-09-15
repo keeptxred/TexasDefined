@@ -39,6 +39,7 @@ jobs:
     env:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN || secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}
       CLOUDFLARE_DEPLOY_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN != '' }}
       GH_TOKEN: ${{ github.token }}
       PUBLIC_INDEXING_ENABLED: ${{ vars.PUBLIC_INDEXING_ENABLED }}
@@ -149,6 +150,10 @@ jobs:
           NODE
           npx wrangler deploy --secrets-file .artifacts/texasdefined-worker-secrets.json
 
+      - name: Purge remediated canonical HTML cache
+        if: ${{ steps.cloudflare.outcome == 'success' }}
+        run: node scripts/ci/purge-remediated-html-cache.mjs
+
       - name: Publish Cloudflare deploy result
         if: always()
         env:
@@ -177,6 +182,25 @@ jobs:
         with:
           name: direct-worker-discovery-${{ github.run_id }}
           path: .artifacts/direct-worker-discovery.log
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Verify clean canonical HTML freshness
+        id: live_clean_html
+        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p .artifacts
+          node scripts/ci/verify-clean-canonical-html.mjs 2>&1 | tee .artifacts/clean-canonical-html.log
+
+      - name: Upload clean canonical HTML diagnostics
+        if: ${{ always() && steps.live_clean_html.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: clean-canonical-html-${{ github.run_id }}
+          path: .artifacts/clean-canonical-html.log
           if-no-files-found: warn
           retention-days: 7
 
@@ -245,6 +269,7 @@ jobs:
         shell: bash
         env:
           DIRECT_WORKER_OUTCOME: ${{ steps.live_direct_worker.outcome }}
+          CLEAN_HTML_OUTCOME: ${{ steps.live_clean_html.outcome }}
           BASE_OUTCOME: ${{ steps.live_base.outcome }}
           EVENT_OUTCOME: ${{ steps.live_events.outcome }}
           LOCAL_FINANCIAL_OUTCOME: ${{ steps.live_local_financial.outcome }}
@@ -256,14 +281,15 @@ jobs:
             echo '| Verification | Outcome |'
             echo '|---|---|'
             echo "| Direct Worker discovery | ${DIRECT_WORKER_OUTCOME:-not-run} |"
+            echo "| Clean canonical HTML | ${CLEAN_HTML_OUTCOME:-not-run} |"
             echo "| Base production surfaces | ${BASE_OUTCOME:-not-run} |"
             echo "| Event structured data | ${EVENT_OUTCOME:-not-run} |"
             echo "| Local financial production | ${LOCAL_FINANCIAL_OUTCOME:-not-run} |"
             echo "| Statewide financial discovery | ${STATEWIDE_FINANCIAL_OUTCOME:-not-run} |"
           } >> "$GITHUB_STEP_SUMMARY"
 
-          if [[ "$DIRECT_WORKER_OUTCOME" != 'success' || "$BASE_OUTCOME" != 'success' || "$EVENT_OUTCOME" != 'success' || "$LOCAL_FINANCIAL_OUTCOME" != 'success' || "$STATEWIDE_FINANCIAL_OUTCOME" != 'success' ]]; then
-            echo "::error title=Live production verification failed::direct-worker=${DIRECT_WORKER_OUTCOME:-not-run}, base=${BASE_OUTCOME:-not-run}, event=${EVENT_OUTCOME:-not-run}, local-financial=${LOCAL_FINANCIAL_OUTCOME:-not-run}, statewide-financial=${STATEWIDE_FINANCIAL_OUTCOME:-not-run}"
+          if [[ "$DIRECT_WORKER_OUTCOME" != 'success' || "$CLEAN_HTML_OUTCOME" != 'success' || "$BASE_OUTCOME" != 'success' || "$EVENT_OUTCOME" != 'success' || "$LOCAL_FINANCIAL_OUTCOME" != 'success' || "$STATEWIDE_FINANCIAL_OUTCOME" != 'success' ]]; then
+            echo "::error title=Live production verification failed::direct-worker=${DIRECT_WORKER_OUTCOME:-not-run}, clean-html=${CLEAN_HTML_OUTCOME:-not-run}, base=${BASE_OUTCOME:-not-run}, event=${EVENT_OUTCOME:-not-run}, local-financial=${LOCAL_FINANCIAL_OUTCOME:-not-run}, statewide-financial=${STATEWIDE_FINANCIAL_OUTCOME:-not-run}"
             exit 1
           fi
 
