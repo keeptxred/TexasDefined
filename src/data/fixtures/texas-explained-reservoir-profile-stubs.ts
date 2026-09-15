@@ -18,7 +18,7 @@ const reservoirStub = (
   hero: { src: image, alt, width: 1200, height: 800, credit: "Texas Water Development Board reservoir record" },
   authorId: "a-marisol",
   publishedAt: "2026-08-16",
-  readingMinutes: 9,
+  readingMinutes: 6,
   tags,
   featured: false,
   sourceName: "Texas Water Development Board",
