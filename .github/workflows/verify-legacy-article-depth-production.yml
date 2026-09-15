@@ -35,30 +35,51 @@ jobs:
               echo "[$label] attempt $attempt: ${origin}${path}"
               if curl --fail-with-body --silent --show-error --location --max-time 30 \
                 "${origin}${path}?verify-depth=${DEPLOY_SHA}-${GITHUB_RUN_ID}-${attempt}" -o "$out"; then
-                if grep -Fq "$marker" "$out"; then
-                  echo "[$label] deep production body verified"
+                if grep -Fq 'About 1 minute' "$out"; then
+                  echo "[$label] one-minute reading-time regression is still present"
+                elif grep -Fq "$marker" "$out"; then
+                  echo "[$label] deep production body verified and one-minute regression absent"
                   return 0
+                else
+                  echo "[$label] page is live but deep-body marker is not present yet"
                 fi
-                echo "[$label] page is live but deep-body marker is not present yet"
               fi
               sleep 5
             done
             echo "[$label] production depth verification failed for ${origin}${path}" >&2
+            if grep -Fq 'About 1 minute' "$out" 2>/dev/null; then
+              echo "[$label] forbidden reading-time label found: About 1 minute" >&2
+            fi
             head -c 2400 "$out" 2>/dev/null || true
             echo >&2
             return 1
           }
 
-          assert_live_marker free-christmas '/article/free-christmas-events-in-texas' \
-            'A free Texas Christmas night can be every bit as memorable as a ticketed attraction'
+          # Every seasonal intent URL that was part of the legacy thin-content family.
+          # Each check proves both a topic-specific deep-body marker and the absence of
+          # the exact one-minute label that originally exposed the regression.
           assert_live_marker austin-bluebonnets '/article/bluebonnets-near-austin' \
             'How to time an Austin bluebonnet day'
+          assert_live_marker houston-bluebonnets '/article/bluebonnets-near-houston' \
+            'Why Washington County is the safest bet from Houston'
+          assert_live_marker dfw-bluebonnets '/article/bluebonnets-near-dallas-fort-worth' \
+            'Use Ennis as a system, not a single stop'
+          assert_live_marker san-antonio-bluebonnets '/article/bluebonnets-near-san-antonio' \
+            'San Antonio sits between two bloom zones'
+          assert_live_marker bluebonnet-festivals '/article/texas-bluebonnet-festivals' \
+            'Festival weekend is not a bloom guarantee'
+          assert_live_marker bluebonnet-law '/article/is-it-illegal-to-pick-bluebonnets-in-texas' \
+            'The myth hides several real rules'
           assert_live_marker christmas-lights '/article/best-christmas-lights-in-texas' \
             'Choose the setting, not only the bulb count'
           assert_live_marker christmas-trains '/article/texas-christmas-train-rides' \
             'Two Texas rail experiences lead the list'
+          assert_live_marker free-christmas '/article/free-christmas-events-in-texas' \
+            'A free Texas Christmas night can be every bit as memorable as a ticketed attraction'
           assert_live_marker east-texas-fall '/article/east-texas-fall-colors' \
             'East Texas usually runs later than the Hill Country'
+          assert_live_marker hill-country-fall '/article/hill-country-fall-colors' \
+            'The Hill Country fall season follows water and elevation'
           assert_live_marker fall-state-parks '/article/best-texas-state-parks-for-fall-colors' \
             'Pick the park by the kind of fall color you want'
 
