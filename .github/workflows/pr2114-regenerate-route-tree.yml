@@ -1,0 +1,44 @@
+name: PR 2114 regenerate route tree
+
+on:
+  push:
+    branches:
+      - phase4-relocation-tools
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pr2114-route-tree-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  regenerate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: phase4-relocation-tools
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - name: Generate TanStack route tree
+        run: npm run build
+      - name: Commit generated route tree only
+        shell: bash
+        run: |
+          if git diff --quiet -- src/routeTree.gen.ts; then
+            echo 'Route tree already current.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/routeTree.gen.ts
+          git commit -m 'Regenerate route tree for lazy relocation finders'
+          git push origin HEAD:phase4-relocation-tools
+          echo 'Generated route tree committed.'
