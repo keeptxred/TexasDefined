@@ -84,8 +84,9 @@ export const TEXAS_VS_GSC_IMPROVE_STATE_SLUGS = new Set<string>(GSC_IMPROVE_STAT
 export const TEXAS_VS_GSC_PROMOTED_STATE_SLUGS = new Set<string>(GSC_PROMOTED_STATE_SLUGS);
 export const TEXAS_VS_REDIRECT_ONLY_STATE_SLUGS = new Set<string>(REDIRECT_ONLY_STATE_SLUGS);
 
-export function isTexasVsStateSitemapReady(slug: string) {
-  if (TEXAS_VS_REDIRECT_ONLY_STATE_SLUGS.has(slug)) return false;
-  if (TEXAS_VS_GSC_PROMOTED_STATE_SLUGS.has(slug)) return true;
-  return !TEXAS_VS_GSC_IMPROVE_STATE_SLUGS.has(slug);
+// State comparison choices now live on one canonical interactive page.
+// Keep the historical registries above for GSC/audit continuity, but do not emit
+// any /texas-vs/:state URL into the sitemap after consolidation.
+export function isTexasVsStateSitemapReady(_slug: string) {
+  return false;
 }

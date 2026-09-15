@@ -62,15 +62,15 @@ const stepCount = [...stepBlock.matchAll(/^\s*\['[^\n]+', '[^\n]+'\],$/gm)].leng
 if (stepCount !== 9) failures.push(`Texas homebuyer journey must preserve exactly nine explicit purchase-planning steps; found ${stepCount}.`);
 
 const cityPaths = [
-  '/texas-home-affordability-calculator/houston',
-  '/texas-home-affordability-calculator/austin',
-  '/texas-home-affordability-calculator/dallas',
-  '/texas-home-affordability-calculator/fort-worth',
-  '/texas-home-affordability-calculator/san-antonio',
-  '/texas-home-affordability-calculator/frisco',
-  '/texas-home-affordability-calculator/el-paso',
+  '/texas-home-affordability-calculator#houston',
+  '/texas-home-affordability-calculator#austin',
+  '/texas-home-affordability-calculator#dallas',
+  '/texas-home-affordability-calculator#fort-worth',
+  '/texas-home-affordability-calculator#san-antonio',
+  '/texas-home-affordability-calculator#frisco',
+  '/texas-home-affordability-calculator#el-paso',
 ];
-for (const cityPath of cityPaths) if (!data.includes(cityPath)) failures.push(`Texas homebuyer city discovery missing ${cityPath}`);
+for (const cityPath of cityPaths) if (!data.includes(cityPath)) failures.push(`Texas homebuyer city discovery missing consolidated target ${cityPath}`);
 
 for (const marker of [
   "'@type': 'HowTo'",
@@ -126,4 +126,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas homebuyer journey validation passed with ${stepCount} purchase-planning steps, ${cityPaths.length} local affordability entry points, primary-source research links, server-built schema, and reciprocal cash-to-close discovery.`);
+console.log(`Texas homebuyer journey validation passed with ${stepCount} purchase-planning steps, ${cityPaths.length} consolidated local affordability entry points, primary-source research links, server-built schema, and reciprocal cash-to-close discovery.`);

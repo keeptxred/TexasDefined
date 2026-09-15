@@ -1,342 +1,91 @@
 import './validate-calculator-app-seo.mjs';
+import './validate-phase10-housing-indexing.mjs';
 import fs from 'node:fs';
 
-const route = fs.readFileSync('src/routes/decide.financial-tools.tsx', 'utf8');
-const propertyHub = fs.readFileSync('src/routes/property-tax-calculators.tsx', 'utf8');
-const localProfiles = fs.readFileSync('src/data/local-property-tax-calculators.ts', 'utf8');
-const localPage = fs.readFileSync('src/components/property/LocalPropertyTaxCalculatorPage.tsx', 'utf8');
-const localRoute = fs.readFileSync('src/routes/property-tax-calculator.$location.tsx', 'utf8');
-const localLazyRoute = fs.readFileSync('src/routes/property-tax-calculator.$location.lazy.tsx', 'utf8');
-const localServer = fs.readFileSync('src/data/local-property-tax-calculator-page.server.ts', 'utf8');
-const localServerFn = fs.readFileSync('src/data/local-property-tax-calculator-page.ts', 'utf8');
-const affordabilityHub = fs.readFileSync('src/routes/texas-home-affordability-calculator.lazy.tsx', 'utf8');
-const affordabilityProfiles = fs.readFileSync('src/data/local-home-affordability.ts', 'utf8');
-const affordabilityPage = fs.readFileSync('src/components/calculators/LocalHomeAffordabilityPage.tsx', 'utf8');
-const affordabilityRoute = fs.readFileSync('src/routes/texas-home-affordability-calculator_.$location.tsx', 'utf8');
-const affordabilityLazyRoute = fs.readFileSync('src/routes/texas-home-affordability-calculator_.$location.lazy.tsx', 'utf8');
-const affordabilityServer = fs.readFileSync('src/data/local-home-affordability-page.server.ts', 'utf8');
-const affordabilityServerFn = fs.readFileSync('src/data/local-home-affordability-page.ts', 'utf8');
-const ownershipHubRoute = fs.readFileSync('src/routes/texas-homeownership-cost-calculator.tsx', 'utf8');
-const ownershipHub = fs.readFileSync('src/routes/texas-homeownership-cost-calculator.lazy.tsx', 'utf8');
-const ownershipHubServer = fs.readFileSync('src/data/homeownership-cost-hub-page.server.ts', 'utf8');
-const ownershipHubServerFn = fs.readFileSync('src/data/homeownership-cost-hub-page.ts', 'utf8');
-const ownershipProfiles = fs.readFileSync('src/data/local-homeownership-cost.ts', 'utf8');
-const ownershipPage = fs.readFileSync('src/components/calculators/LocalHomeownershipCostPage.tsx', 'utf8');
-const ownershipRoute = fs.readFileSync('src/routes/texas-homeownership-cost-calculator_.$location.tsx', 'utf8');
-const ownershipLazyRoute = fs.readFileSync('src/routes/texas-homeownership-cost-calculator_.$location.lazy.tsx', 'utf8');
-const ownershipServer = fs.readFileSync('src/data/local-homeownership-cost-page.server.ts', 'utf8');
-const ownershipServerFn = fs.readFileSync('src/data/local-homeownership-cost-page.ts', 'utf8');
-const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
-const movingHub = fs.readFileSync('src/routes/moving-to-texas.lazy.tsx', 'utf8');
-const homestead = fs.readFileSync('src/routes/texas-homestead-savings-calculator.tsx', 'utf8');
+const read = (path) => fs.readFileSync(path, 'utf8');
+const route = read('src/routes/decide.financial-tools.tsx');
+const propertyHub = read('src/routes/property.tsx');
+const publicRoutes = read('src/lib/public-routes.ts');
+const selector = read('src/components/calculators/ConsolidatedLocationSelector.tsx');
+const calculatorPage = read('src/components/calculators/CalculatorPage.tsx');
+const sitemapDependencies = read('src/data/sitemap-dependencies.server.ts');
+const propertyProfiles = read('src/data/local-property-tax-calculators.ts');
+const affordabilityProfiles = read('src/data/local-home-affordability.ts');
+const costProfiles = read('src/data/local-cost-of-living.ts');
 
-const required = [
+const failures = [];
+
+for (const feature of [
   "'@type': 'CollectionPage'",
   "'@type': 'BreadcrumbList'",
   "'@type': 'ItemList'",
   "mainEntity: { '@id': `${hubUrl}#tools` }",
-  "absoluteUrl(texasDefinedBrand, path)",
-];
-
-const failures = required
-  .filter((feature) => !route.includes(feature))
-  .map((feature) => `Financial tools route missing ${feature}`);
-
+  'absoluteUrl(texasDefinedBrand, path)',
+]) {
+  if (!route.includes(feature)) failures.push(`Financial tools route missing ${feature}.`);
+}
 if (route.includes("'@type': 'FinancialProduct'")) failures.push('Financial tools hub must not claim FinancialProduct entities.');
 if (route.includes("'@type': 'Offer'")) failures.push('Financial tools hub must not claim Offer data.');
 
-const cityPaths = [
-  '/property-tax-calculator/houston',
-  '/property-tax-calculator/austin',
-  '/property-tax-calculator/frisco',
+const canonicalCalculators = [
+  '/texas-property-tax-estimator',
+  '/texas-home-affordability-calculator',
+  '/texas-homeownership-cost-calculator',
+  '/texas-home-insurance-calculator',
+  '/texas-mortgage-calculator',
+  '/texas-cost-of-living-calculator',
+  '/texas-salary-needed-calculator',
 ];
-const countyPaths = [
-  '/property-tax-calculator/harris-county',
-  '/property-tax-calculator/dallas-county',
-  '/property-tax-calculator/tarrant-county',
-  '/property-tax-calculator/bexar-county',
-  '/property-tax-calculator/travis-county',
-  '/property-tax-calculator/collin-county',
-  '/property-tax-calculator/denton-county',
-  '/property-tax-calculator/fort-bend-county',
-  '/property-tax-calculator/montgomery-county',
-  '/property-tax-calculator/williamson-county',
-  '/property-tax-calculator/el-paso-county',
-  '/property-tax-calculator/hidalgo-county',
-];
-const requiredLocalPaths = [...cityPaths, ...countyPaths];
+for (const path of canonicalCalculators) {
+  if (!publicRoutes.includes(`\"${path}\"`)) failures.push(`Canonical calculator is missing from public-route governance: ${path}.`);
+  if (!selector.includes(`'${path}'`)) failures.push(`Consolidated location selector is missing canonical calculator config: ${path}.`);
+}
+if (!calculatorPage.includes('<ConsolidatedLocationSelector />')) failures.push('Shared CalculatorPage must render the consolidated location selector.');
 
-const profilePaths = [...localProfiles.matchAll(/path:\s*'([^']+)'/g)].map((match) => match[1]);
-const uniqueProfilePaths = new Set(profilePaths);
-if (profilePaths.length !== requiredLocalPaths.length || uniqueProfilePaths.size !== requiredLocalPaths.length) {
-  failures.push(`Local property-tax profile registry must contain exactly ${requiredLocalPaths.length} unique paths; found ${profilePaths.length} definitions and ${uniqueProfilePaths.size} unique paths.`);
-}
-for (const path of requiredLocalPaths) {
-  if (!uniqueProfilePaths.has(path)) failures.push(`Local property-tax profile registry missing ${path}`);
-  if (!propertyHub.includes(path)) failures.push(`Property-tax calculator hub missing crawlable link to ${path}`);
-}
-
-for (const marker of [
-  'function countyProfile(',
-  'defaultCountySlug: countySlug',
-  'counties: [{ name, slug: countySlug }]',
-  'The county rate is only one part of a Texas property-tax bill',
-  'Add MUD, ESD, community-college and other special districts only when appraisal or tax records confirm parcel membership.',
-]) {
-  if (!localProfiles.includes(marker)) failures.push(`Major-county calculator profile contract missing ${marker}`);
-}
-for (const marker of ['const countyTools = [', 'Major county calculators', 'Build an address-level scenario in a major Texas county']) {
-  if (!propertyHub.includes(marker)) failures.push(`Property-tax calculator hub major-county discovery contract missing ${marker}`);
-}
-
-for (const marker of [
-  "createFileRoute('/property-tax-calculator/$location')",
-  'getLocalPropertyTaxCalculatorPage',
-  'notFound()',
-  'loaderData?.page.head',
-]) {
-  if (!localRoute.includes(marker)) failures.push(`Local property-tax route missing ${marker}`);
-}
-for (const marker of [
-  "createLazyFileRoute('/property-tax-calculator/$location')",
-  'LocalPropertyTaxCalculatorPage',
-  'page.profile',
-]) {
-  if (!localLazyRoute.includes(marker)) failures.push(`Local property-tax lazy route missing ${marker}`);
-}
-for (const marker of [
-  'OfficialTaxRateAssist',
-  'CountySelector',
-  'CalculatorCountyLink',
-  'CitationTrustPanel',
-  'profile.faqs.map',
-  'parcel',
-  'taxing-unit',
-]) {
-  if (!localPage.includes(marker)) failures.push(`Local property-tax calculator UI missing ${marker}`);
-}
-for (const marker of [
-  "'@type': 'WebApplication'",
-  "'@type': 'BreadcrumbList'",
-  "'@type': 'FAQPage'",
-  'canonicalLink(texasDefinedBrand, profile.path)',
-  'buildMeta(texasDefinedBrand',
-  'LOCAL_PROPERTY_TAX_PROFILE_BY_SLUG',
-]) {
-  if (!localServer.includes(marker)) failures.push(`Local property-tax server head missing ${marker}`);
-}
-for (const marker of ['createServerFn', "import('./local-property-tax-calculator-page.server')"]) {
-  if (!localServerFn.includes(marker)) failures.push(`Local property-tax server boundary missing ${marker}`);
-}
-if (!sitemap.includes('LOCAL_PROPERTY_TAX_PROFILES')) failures.push('Primary sitemap must import the governed local property-tax profile registry.');
-if (!sitemap.includes('...LOCAL_PROPERTY_TAX_PROFILES.map((profile) => ({ path: profile.path')) failures.push('Primary sitemap must emit each local property-tax calculator profile.');
-
-for (const path of cityPaths) {
-  if (!movingHub.includes(path)) failures.push(`Moving-to-Texas hub missing local property-tax discovery link to ${path}`);
-}
-
-const affordabilityCityLocations = ['houston', 'austin', 'dallas', 'fort-worth', 'san-antonio', 'frisco', 'el-paso'];
-const affordabilityCountyLocations = [
-  'harris-county',
-  'dallas-county',
-  'tarrant-county',
-  'bexar-county',
-  'travis-county',
-  'collin-county',
-  'denton-county',
-  'fort-bend-county',
-  'montgomery-county',
-  'williamson-county',
-  'el-paso-county',
-  'hidalgo-county',
-];
-const affordabilityLocations = [...affordabilityCityLocations, ...affordabilityCountyLocations];
-const affordabilityPaths = affordabilityLocations.map((slug) => `/texas-home-affordability-calculator/${slug}`);
-for (const slug of affordabilityLocations) {
-  if (!affordabilityProfiles.includes(`slug: '${slug}'`)) failures.push(`Local affordability profile registry missing ${slug}`);
-}
-for (const path of affordabilityPaths) {
-  if (!affordabilityHub.includes(path)) failures.push(`Texas home affordability hub missing crawlable link to ${path}`);
-}
-for (const marker of [
+for (const registry of [
+  'LOCAL_PROPERTY_TAX_PROFILES',
   'LOCAL_HOME_AFFORDABILITY_PROFILES',
-  'LOCAL_HOME_AFFORDABILITY_PROFILE_BY_SLUG',
-  'Replace the calculator defaults with the numbers for the exact property you are considering.',
-  'Verify the parcel taxing units instead of applying one San Antonio-wide property-tax assumption.',
-  'Frisco spans Collin and Denton counties',
-]) {
-  if (!affordabilityProfiles.includes(marker)) failures.push(`Local affordability profile contract missing ${marker}`);
-}
-for (const marker of [
-  'function countyProfile(',
-  "kind: 'county'",
-  'propertyTaxHref: `/property-tax-calculator/${slug}`',
-  'relocationHref: `/county/${countySlug}`',
-  'relatedLocalCalculators',
-  'Fort Bend County combines incorporated communities',
-  'Hidalgo County spans multiple Rio Grande Valley cities',
-]) {
-  if (!affordabilityProfiles.includes(marker)) failures.push(`County affordability profile contract missing ${marker}`);
-}
-for (const marker of [
-  'const countyCalculators = [',
-  'County planning hubs',
-  'not a countywide cost average',
-  'County affordability hub →',
-]) {
-  if (!affordabilityHub.includes(marker)) failures.push(`Texas home affordability hub county-discovery contract missing ${marker}`);
-}
-for (const marker of [
-  "createFileRoute('/texas-home-affordability-calculator/$location')",
-  'getLocalHomeAffordabilityPage',
-  'notFound()',
-  'loaderData?.page.head',
-]) {
-  if (!affordabilityRoute.includes(marker)) failures.push(`Local affordability route missing ${marker}`);
-}
-for (const marker of [
-  "createLazyFileRoute('/texas-home-affordability-calculator/$location')",
-  'LocalHomeAffordabilityPage',
-  'page.profile',
-]) {
-  if (!affordabilityLazyRoute.includes(marker)) failures.push(`Local affordability lazy route missing ${marker}`);
-}
-for (const marker of [
-  'AffordabilityCalculator',
-  'Make the estimate local',
-  'profile.propertyTaxHref',
-  'ownershipPath',
-  'profile.relocationHref',
-  'profile.relatedLocalCalculators',
-  'County-to-city planning',
-  'nextCalculators',
-  'Open local guide →',
-  'profile.faqs.map',
-  'planning calculator, not a lending decision',
-]) {
-  if (!affordabilityPage.includes(marker)) failures.push(`Local affordability calculator UI missing ${marker}`);
-}
-for (const marker of [
-  "'@type': 'WebApplication'",
-  "'@type': 'BreadcrumbList'",
-  "'@type': 'FAQPage'",
-  'canonicalLink(texasDefinedBrand, profile.path)',
-  'buildMeta(texasDefinedBrand',
-  'LOCAL_HOME_AFFORDABILITY_PROFILE_BY_SLUG',
-]) {
-  if (!affordabilityServer.includes(marker)) failures.push(`Local affordability server head missing ${marker}`);
-}
-for (const marker of ['createServerFn', "import('./local-home-affordability-page.server')"]) {
-  if (!affordabilityServerFn.includes(marker)) failures.push(`Local affordability server boundary missing ${marker}`);
-}
-if (!sitemap.includes('LOCAL_HOME_AFFORDABILITY_PROFILES')) failures.push('Primary sitemap must import the governed local home-affordability profile registry.');
-if (!sitemap.includes('...LOCAL_HOME_AFFORDABILITY_PROFILES.map((profile) => ({ path: profile.path')) failures.push('Primary sitemap must emit each local home-affordability profile.');
-if (!affordabilityHub.includes('Run the affordability check with city-specific ownership context')) failures.push('Texas home affordability hub missing local planning discovery section.');
-if (affordabilityProfiles.includes('average home price') || affordabilityProfiles.includes('average property tax rate')) failures.push('Local affordability pages must not publish unsupported city/county-average home-price or property-tax assumptions.');
-if (affordabilityServer.includes("'@type': 'FinancialProduct'") || affordabilityServer.includes("'@type': 'Offer'")) failures.push('Local affordability calculators must not claim FinancialProduct or Offer schema.');
-
-const ownershipPaths = affordabilityLocations.map((slug) => `/texas-homeownership-cost-calculator/${slug}`);
-const ownershipCityPaths = affordabilityCityLocations.map((slug) => `/texas-homeownership-cost-calculator/${slug}`);
-for (const path of ownershipCityPaths) {
-  if (!ownershipHubServer.includes(path)) failures.push(`Server-backed Texas homeownership cost hub missing crawlable city link to ${path}`);
-}
-for (const marker of [
-  'getHomeownershipCostHubPage',
-  'loader: async () => ({ hub: await getHomeownershipCostHubPage() })',
-]) {
-  if (!ownershipHubRoute.includes(marker)) failures.push(`Texas homeownership-cost hub route missing server loader marker ${marker}`);
-}
-for (const marker of [
-  "import('./homeownership-cost-hub-page.server')",
-  'createServerFn',
-  'loadHomeownershipCostHubPage',
-]) {
-  if (!ownershipHubServerFn.includes(marker)) failures.push(`Texas homeownership-cost hub server boundary missing ${marker}`);
-}
-for (const marker of [
-  'Run the full homeownership budget with city-specific property context',
-  'cards:',
-  '/texas-homeownership-cost-calculator/houston',
-  '/texas-homeownership-cost-calculator/el-paso',
-  'Texas homeownership cost calculator FAQ',
-]) {
-  if (!ownershipHubServer.includes(marker)) failures.push(`Texas homeownership-cost server hub content missing ${marker}`);
-}
-for (const marker of [
-  'Route.useLoaderData()',
-  'hub.local.cards.map',
-  'hub.categories.cards.map',
-  'hub.links.cards.map',
-  'hub.faq.items.map',
-]) {
-  if (!ownershipHub.includes(marker)) failures.push(`Texas homeownership-cost client hub missing server-rendered discovery marker ${marker}`);
-}
-for (const marker of [
-  'LOCAL_HOME_AFFORDABILITY_PROFILES.map(toHomeownershipProfile)',
   'LOCAL_HOMEOWNERSHIP_COST_PROFILES',
-  'LOCAL_HOMEOWNERSHIP_COST_PROFILE_BY_SLUG',
-  'parcel-specific property taxes',
-  'No. The calculator can load finalized local taxing-unit rates',
+  'LOCAL_HOME_INSURANCE_PROFILES',
+  'LOCAL_MORTGAGE_PROFILES',
+  'LOCAL_COST_OF_LIVING_PROFILES',
+  'LOCAL_SALARY_NEEDED_PROFILES',
 ]) {
-  if (!ownershipProfiles.includes(marker)) failures.push(`Local homeownership-cost profile contract missing ${marker}`);
+  if (!selector.includes(registry)) failures.push(`Consolidated selector is missing governed registry ${registry}.`);
 }
-for (const marker of [
-  "createFileRoute('/texas-homeownership-cost-calculator/$location')",
-  'getLocalHomeownershipCostPage',
-  'notFound()',
-  'loaderData?.page.head',
-]) {
-  if (!ownershipRoute.includes(marker)) failures.push(`Local homeownership-cost route missing ${marker}`);
-}
-for (const marker of [
-  "createLazyFileRoute('/texas-homeownership-cost-calculator/$location')",
-  'LocalHomeownershipCostPage',
-  'page.profile',
-]) {
-  if (!ownershipLazyRoute.includes(marker)) failures.push(`Local homeownership-cost lazy route missing ${marker}`);
-}
-for (const marker of [
-  'OfficialHomeownershipCostCalculator',
-  'Make the budget address-specific',
-  'profile.propertyTaxHref',
-  'affordabilityPath',
-  'profile.relocationHref',
-  'profile.ownershipFaqs.map',
-  'planning calculator, not a mortgage quote',
-]) {
-  if (!ownershipPage.includes(marker)) failures.push(`Local homeownership-cost calculator UI missing ${marker}`);
-}
-for (const marker of [
-  "'@type': 'WebApplication'",
-  "'@type': 'BreadcrumbList'",
-  "'@type': 'FAQPage'",
-  'canonicalLink(texasDefinedBrand, profile.ownershipPath)',
-  'buildMeta(texasDefinedBrand',
-  'LOCAL_HOMEOWNERSHIP_COST_PROFILE_BY_SLUG',
-]) {
-  if (!ownershipServer.includes(marker)) failures.push(`Local homeownership-cost server head missing ${marker}`);
-}
-for (const marker of ['createServerFn', "import('./local-homeownership-cost-page.server')"]) {
-  if (!ownershipServerFn.includes(marker)) failures.push(`Local homeownership-cost server boundary missing ${marker}`);
-}
-if (!sitemap.includes('LOCAL_HOMEOWNERSHIP_COST_PROFILES')) failures.push('Primary sitemap must import the governed local homeownership-cost profile registry.');
-if (!sitemap.includes('...LOCAL_HOMEOWNERSHIP_COST_PROFILES.map((profile) => ({ path: profile.ownershipPath')) failures.push('Primary sitemap must emit each local homeownership-cost profile.');
-if (ownershipProfiles.includes('average home price') || ownershipProfiles.includes('average property tax rate')) failures.push('Local homeownership-cost pages must not publish unsupported city/county-average home-price or property-tax assumptions.');
-if (ownershipServer.includes("'@type': 'FinancialProduct'") || ownershipServer.includes("'@type': 'Offer'")) failures.push('Local homeownership-cost calculators must not claim FinancialProduct or Offer schema.');
-
-for (const marker of [
-  'Texas Homestead Exemption Calculator | Estimate Tax Savings',
-  'Texas homestead exemption calculator',
-  "name: 'Texas Homestead Exemption Calculator'",
-]) {
-  if (!homestead.includes(marker)) failures.push(`Homestead calculator missing exact-intent marker ${marker}`);
+for (const marker of ['window.location.hash', 'window.history.replaceState', 'Select a city or county', 'One calculator, local context']) {
+  if (!selector.includes(marker)) failures.push(`Consolidated selector is missing behavior/content marker ${marker}.`);
 }
 
-if (localProfiles.includes('average property tax rate') || localProfiles.includes('average combined rate')) {
-  failures.push('Local property-tax profiles must not substitute metro/county averages for parcel taxing-unit selection.');
+const retiredPrefixes = [
+  '/property-tax-calculator/',
+  '/texas-home-affordability-calculator/',
+  '/texas-homeownership-cost-calculator/',
+  '/texas-home-insurance-calculator/',
+  '/texas-mortgage-calculator/',
+  '/texas-cost-of-living-calculator/',
+  '/texas-salary-needed-calculator/',
+];
+for (const prefix of retiredPrefixes) {
+  if (!sitemapDependencies.includes(`\"${prefix}\"`)) failures.push(`Sitemap governance must suppress retired calculator prefix ${prefix}.`);
 }
-if (localServer.includes("'@type': 'FinancialProduct'") || localServer.includes("'@type': 'Offer'")) {
-  failures.push('Local property-tax calculators must not claim FinancialProduct or Offer schema.');
+
+const propertyLocations = [...propertyProfiles.matchAll(/path:\s*'\/property-tax-calculator\/([^']+)'/g)].map((match) => match[1]);
+const housingLocations = [...affordabilityProfiles.matchAll(/slug:\s*'([^']+)'/g)].map((match) => match[1]);
+const costLocations = [...costProfiles.matchAll(/slug:\s*'([^']+)'/g)].map((match) => match[1]);
+if (propertyLocations.length !== 15 || new Set(propertyLocations).size !== 15) failures.push(`Expected 15 governed property-tax location contexts; found ${propertyLocations.length}/${new Set(propertyLocations).size}.`);
+if (housingLocations.length !== 19 || new Set(housingLocations).size !== 19) failures.push(`Expected 19 governed housing location contexts; found ${housingLocations.length}/${new Set(housingLocations).size}.`);
+if (costLocations.length !== 7 || new Set(costLocations).size !== 7) failures.push(`Expected 7 governed cost/salary location contexts; found ${costLocations.length}/${new Set(costLocations).size}.`);
+
+for (const marker of [
+  '/texas-property-tax-estimator',
+  '/texas-homeownership-cost-calculator',
+  '/texas-home-affordability-calculator',
+  'Official-Rate Property Tax Estimator',
+  'Homeownership Cost Calculator',
+  'Home Affordability Calculator',
+]) {
+  if (!propertyHub.includes(marker)) failures.push(`Property authority hub is missing canonical financial-tool discovery marker ${marker}.`);
 }
 
 if (failures.length) {
@@ -345,4 +94,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Financial tools structured-data validation passed, including ${cityPaths.length} city and ${countyPaths.length} major-county local property-tax calculators, ${affordabilityCityLocations.length} city and ${affordabilityCountyLocations.length} county home-affordability calculators, and ${ownershipPaths.length} aligned local homeownership-cost calculators with server-backed hub discovery.`);
+console.log(`Financial tools SEO validation passed: seven canonical interactive calculators retain governed local context (${propertyLocations.length} property-tax, ${housingLocations.length} housing, ${costLocations.length} cost/salary locations), legacy child URLs remain redirect-only, and canonical financial-tool discovery/schema safeguards are intact.`);

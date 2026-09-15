@@ -37,6 +37,7 @@ import { Route as TexasSecretaryOfStateRouteImport } from './routes/texas-secret
 import { Route as TexasScienceTechnologyIndustryRouteImport } from './routes/texas-science-technology-industry'
 import { Route as TexasSchoolDistrictPropertyTaxComparisonRouteImport } from './routes/texas-school-district-property-tax-comparison'
 import { Route as TexasSalesTaxExplainedRouteImport } from './routes/texas-sales-tax-explained'
+import { Route as TexasSalaryNeededCalculatorRouteImport } from './routes/texas-salary-needed-calculator'
 import { Route as TexasSalaryComparisonByCityRouteImport } from './routes/texas-salary-comparison-by-city'
 import { Route as TexasSalaryCalculatorRouteImport } from './routes/texas-salary-calculator'
 import { Route as TexasSacredPlacesRouteImport } from './routes/texas-sacred-places'
@@ -642,6 +643,14 @@ const TexasSalesTaxExplainedRoute = TexasSalesTaxExplainedRouteImport.update({
   path: '/texas-sales-tax-explained',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TexasSalaryNeededCalculatorRoute =
+  TexasSalaryNeededCalculatorRouteImport.update({
+    id: '/texas-salary-needed-calculator',
+    path: '/texas-salary-needed-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any).lazy(() =>
+    import('./routes/texas-salary-needed-calculator.lazy').then((d) => d.Route),
+  )
 const TexasSalaryComparisonByCityRoute =
   TexasSalaryComparisonByCityRouteImport.update({
     id: '/texas-salary-comparison-by-city',
@@ -3415,6 +3424,7 @@ export interface FileRoutesByFullPath {
   '/texas-sacred-places': typeof TexasSacredPlacesRoute
   '/texas-salary-calculator': typeof TexasSalaryCalculatorRoute
   '/texas-salary-comparison-by-city': typeof TexasSalaryComparisonByCityRoute
+  '/texas-salary-needed-calculator': typeof TexasSalaryNeededCalculatorRoute
   '/texas-sales-tax-explained': typeof TexasSalesTaxExplainedRoute
   '/texas-school-district-property-tax-comparison': typeof TexasSchoolDistrictPropertyTaxComparisonRoute
   '/texas-science-technology-industry': typeof TexasScienceTechnologyIndustryRoute
@@ -3866,6 +3876,7 @@ export interface FileRoutesByTo {
   '/texas-sacred-places': typeof TexasSacredPlacesRoute
   '/texas-salary-calculator': typeof TexasSalaryCalculatorRoute
   '/texas-salary-comparison-by-city': typeof TexasSalaryComparisonByCityRoute
+  '/texas-salary-needed-calculator': typeof TexasSalaryNeededCalculatorRoute
   '/texas-sales-tax-explained': typeof TexasSalesTaxExplainedRoute
   '/texas-school-district-property-tax-comparison': typeof TexasSchoolDistrictPropertyTaxComparisonRoute
   '/texas-science-technology-industry': typeof TexasScienceTechnologyIndustryRoute
@@ -4321,6 +4332,7 @@ export interface FileRoutesById {
   '/texas-sacred-places': typeof TexasSacredPlacesRoute
   '/texas-salary-calculator': typeof TexasSalaryCalculatorRoute
   '/texas-salary-comparison-by-city': typeof TexasSalaryComparisonByCityRoute
+  '/texas-salary-needed-calculator': typeof TexasSalaryNeededCalculatorRoute
   '/texas-sales-tax-explained': typeof TexasSalesTaxExplainedRoute
   '/texas-school-district-property-tax-comparison': typeof TexasSchoolDistrictPropertyTaxComparisonRoute
   '/texas-science-technology-industry': typeof TexasScienceTechnologyIndustryRoute
@@ -4777,6 +4789,7 @@ export interface FileRouteTypes {
     | '/texas-sacred-places'
     | '/texas-salary-calculator'
     | '/texas-salary-comparison-by-city'
+    | '/texas-salary-needed-calculator'
     | '/texas-sales-tax-explained'
     | '/texas-school-district-property-tax-comparison'
     | '/texas-science-technology-industry'
@@ -5228,6 +5241,7 @@ export interface FileRouteTypes {
     | '/texas-sacred-places'
     | '/texas-salary-calculator'
     | '/texas-salary-comparison-by-city'
+    | '/texas-salary-needed-calculator'
     | '/texas-sales-tax-explained'
     | '/texas-school-district-property-tax-comparison'
     | '/texas-science-technology-industry'
@@ -5682,6 +5696,7 @@ export interface FileRouteTypes {
     | '/texas-sacred-places'
     | '/texas-salary-calculator'
     | '/texas-salary-comparison-by-city'
+    | '/texas-salary-needed-calculator'
     | '/texas-sales-tax-explained'
     | '/texas-school-district-property-tax-comparison'
     | '/texas-science-technology-industry'
@@ -6137,6 +6152,7 @@ export interface RootRouteChildren {
   TexasSacredPlacesRoute: typeof TexasSacredPlacesRoute
   TexasSalaryCalculatorRoute: typeof TexasSalaryCalculatorRoute
   TexasSalaryComparisonByCityRoute: typeof TexasSalaryComparisonByCityRoute
+  TexasSalaryNeededCalculatorRoute: typeof TexasSalaryNeededCalculatorRoute
   TexasSalesTaxExplainedRoute: typeof TexasSalesTaxExplainedRoute
   TexasSchoolDistrictPropertyTaxComparisonRoute: typeof TexasSchoolDistrictPropertyTaxComparisonRoute
   TexasScienceTechnologyIndustryRoute: typeof TexasScienceTechnologyIndustryRoute
@@ -6550,6 +6566,13 @@ declare module '@tanstack/react-router' {
       path: '/texas-sales-tax-explained'
       fullPath: '/texas-sales-tax-explained'
       preLoaderRoute: typeof TexasSalesTaxExplainedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-salary-needed-calculator': {
+      id: '/texas-salary-needed-calculator'
+      path: '/texas-salary-needed-calculator'
+      fullPath: '/texas-salary-needed-calculator'
+      preLoaderRoute: typeof TexasSalaryNeededCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/texas-salary-comparison-by-city': {
@@ -10184,6 +10207,7 @@ const rootRouteChildren: RootRouteChildren = {
   TexasSacredPlacesRoute: TexasSacredPlacesRoute,
   TexasSalaryCalculatorRoute: TexasSalaryCalculatorRoute,
   TexasSalaryComparisonByCityRoute: TexasSalaryComparisonByCityRoute,
+  TexasSalaryNeededCalculatorRoute: TexasSalaryNeededCalculatorRoute,
   TexasSalesTaxExplainedRoute: TexasSalesTaxExplainedRoute,
   TexasSchoolDistrictPropertyTaxComparisonRoute:
     TexasSchoolDistrictPropertyTaxComparisonRoute,

@@ -4,13 +4,13 @@ import { OfficialMortgageCalculator } from '@/components/calculators/OfficialMor
 
 const description = 'Estimate a Texas mortgage payment with down payment, principal, interest, official local property-tax rates and homeowners insurance in one monthly housing-cost view.';
 const cityCalculators = [
-  ['Houston', '/texas-mortgage-calculator/houston'],
-  ['Austin', '/texas-mortgage-calculator/austin'],
-  ['Dallas', '/texas-mortgage-calculator/dallas'],
-  ['Fort Worth', '/texas-mortgage-calculator/fort-worth'],
-  ['San Antonio', '/texas-mortgage-calculator/san-antonio'],
-  ['Frisco', '/texas-mortgage-calculator/frisco'],
-  ['El Paso', '/texas-mortgage-calculator/el-paso'],
+  ['Houston', '/texas-mortgage-calculator#houston'],
+  ['Austin', '/texas-mortgage-calculator#austin'],
+  ['Dallas', '/texas-mortgage-calculator#dallas'],
+  ['Fort Worth', '/texas-mortgage-calculator#fort-worth'],
+  ['San Antonio', '/texas-mortgage-calculator#san-antonio'],
+  ['Frisco', '/texas-mortgage-calculator#frisco'],
+  ['El Paso', '/texas-mortgage-calculator#el-paso'],
 ] as const;
 
 const faqs = [
@@ -40,9 +40,9 @@ function TexasMortgageCalculatorPage() {
     <section className="mt-12 border-t border-border pt-10" aria-labelledby="mortgage-local-heading">
       <p className="eyebrow text-primary">Local payment planning</p>
       <h2 id="mortgage-local-heading" className="mt-3 font-display text-3xl">Connect the mortgage estimate to local taxes, insurance and ownership costs</h2>
-      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The financing math is statewide, but the property costs are not. These city pages reuse the same mortgage engine and connect it to the matching local property-tax, insurance, affordability and ownership-cost tools. Major-county mortgage pages are also linked from their matching local affordability pages.</p>
+      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The financing math is statewide, but the property costs are not. Choose a city below to load its researched context on this one canonical mortgage calculator instead of opening a separate indexable city page.</p>
       <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-        {cityCalculators.map(([name, href]) => <a key={href} href={href} className="group bg-background p-5"><strong className="font-display text-2xl group-hover:text-primary">{name}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Local mortgage payment calculator →</span></a>)}
+        {cityCalculators.map(([name, href]) => <a key={href} href={href} className="group bg-background p-5"><strong className="font-display text-2xl group-hover:text-primary">{name}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Load local mortgage context →</span></a>)}
       </div>
     </section>
 

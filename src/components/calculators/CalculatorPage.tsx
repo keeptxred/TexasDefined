@@ -3,6 +3,7 @@ import { Link } from '@tanstack/react-router';
 import { AnswerSummary } from '@/components/content/AnswerSummary';
 import { Container } from '@/components/layout/Container';
 import { EvergreenNextSteps } from '@/components/monetization/EvergreenNextSteps';
+import { ConsolidatedLocationSelector } from '@/components/calculators/ConsolidatedLocationSelector';
 
 export function CalculatorPage({ eyebrow, title, description, children }: { eyebrow: string; title: string; description: string; children: ReactNode }) {
   return (
@@ -37,6 +38,7 @@ export function CalculatorPage({ eyebrow, title, description, children }: { eyeb
 
       <Container className="py-12 sm:py-16">
         <article className="mx-auto max-w-5xl">
+          <ConsolidatedLocationSelector />
           <div className="border-t-2 border-foreground pt-8">{children}</div>
           <nav aria-label="More planning tools" className="mt-14 border-y border-border py-6">
             <p className="eyebrow text-primary">Keep planning</p>

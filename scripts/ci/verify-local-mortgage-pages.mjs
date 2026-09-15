@@ -1,46 +1,61 @@
 const origin = 'https://texasdefined.com';
-const cases = [
-  ['houston', 'Houston'], ['austin', 'Austin'], ['dallas', 'Dallas'], ['fort-worth', 'Fort Worth'], ['san-antonio', 'San Antonio'], ['frisco', 'Frisco'], ['el-paso', 'El Paso'],
-  ['harris-county', 'Harris County'], ['dallas-county', 'Dallas County'], ['tarrant-county', 'Tarrant County'], ['bexar-county', 'Bexar County'], ['travis-county', 'Travis County'], ['collin-county', 'Collin County'], ['denton-county', 'Denton County'], ['fort-bend-county', 'Fort Bend County'], ['montgomery-county', 'Montgomery County'], ['williamson-county', 'Williamson County'], ['el-paso-county', 'El Paso County'], ['hidalgo-county', 'Hidalgo County'],
+const slugs = [
+  'houston', 'austin', 'dallas', 'fort-worth', 'san-antonio', 'frisco', 'el-paso',
+  'harris-county', 'dallas-county', 'tarrant-county', 'bexar-county', 'travis-county', 'collin-county', 'denton-county', 'fort-bend-county', 'montgomery-county', 'williamson-county', 'el-paso-county', 'hidalgo-county',
 ];
 
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const get = (url) => fetch(url, { headers: { 'user-agent': 'TexasDefinedLocalMortgageVerifier/1.0' }, signal: AbortSignal.timeout(30000) });
+const get = (url, redirect = 'follow') => fetch(url, {
+  headers: { 'user-agent': 'TexasDefinedLocalMortgageVerifier/2.0' },
+  redirect,
+  signal: AbortSignal.timeout(30000),
+});
 
 async function check() {
-  const sitemapResponse = await get(`${origin}/sitemap.xml`);
-  if (sitemapResponse.status !== 200) return false;
-  const sitemap = await sitemapResponse.text();
-  let ok = true;
-  for (const [slug, name] of cases) {
-    const url = `${origin}/texas-mortgage-calculator/${slug}`;
-    const response = await get(url);
-    const html = response.status === 200 ? await response.text() : '';
-    const canonical = (html.match(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)/i) || html.match(/<link[^>]+href=["']([^"']+)["'][^>]+rel=["']canonical["']/i))?.[1] ?? '';
-    const passes = response.status === 200
-      && canonical === url
-      && sitemap.includes(url)
-      && !/<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(html)
-      && html.includes(`${name} mortgage payment calculator`)
-      && /"@type"\s*:\s*"WebApplication"/.test(html)
-      && /"@type"\s*:\s*"FAQPage"/.test(html)
-      && html.includes('does not publish a current mortgage rate or imply lender approval')
-      && html.includes('texas-home-insurance-calculator')
-      && html.includes('texas-homeownership-cost-calculator')
-      && html.includes('texas-home-affordability-calculator')
-      && html.includes('property-tax-calculator')
-      && html.includes('consumerfinance.gov/owning-a-home/loan-estimate')
-      && html.includes('comptroller.texas.gov/taxes/property-tax/rates');
-    console.log(`${passes ? 'PASS' : 'WAIT'} ${url} status=${response.status}`);
+  const canonicalPath = '/texas-mortgage-calculator';
+  const canonicalUrl = `${origin}${canonicalPath}`;
+  const [hubResponse, sitemapResponse] = await Promise.all([
+    get(canonicalUrl),
+    get(`${origin}/sitemap.xml`),
+  ]);
+  if (hubResponse.status !== 200 || sitemapResponse.status !== 200) return false;
+
+  const [hubHtml, sitemap] = await Promise.all([hubResponse.text(), sitemapResponse.text()]);
+  const canonical = (
+    hubHtml.match(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)/i)
+    || hubHtml.match(/<link[^>]+href=["']([^"']+)["'][^>]+rel=["']canonical["']/i)
+  )?.[1] ?? '';
+
+  let ok = canonical === canonicalUrl
+    && sitemap.includes(canonicalUrl)
+    && hubHtml.includes('Local mortgage context')
+    && hubHtml.includes('Select a city or county');
+
+  console.log(`${ok ? 'PASS' : 'WAIT'} canonical ${canonicalUrl} status=${hubResponse.status}`);
+
+  for (const slug of slugs) {
+    const legacyUrl = `${origin}${canonicalPath}/${slug}`;
+    const expectedLocation = `${canonicalPath}#${slug}`;
+    const response = await get(legacyUrl, 'manual');
+    const location = response.headers.get('location') ?? '';
+    const retiredFromSitemap = !sitemap.includes(legacyUrl);
+    const redirectsToCanonical = response.status === 301
+      && (location === expectedLocation || location === `${origin}${expectedLocation}`);
+    const passes = redirectsToCanonical && retiredFromSitemap;
+    console.log(`${passes ? 'PASS' : 'WAIT'} ${legacyUrl} status=${response.status} location=${location || 'none'}`);
     ok = ok && passes;
   }
-  return ok;
+
+  const invalid = await get(`${origin}${canonicalPath}/not-a-governed-location`, 'manual');
+  const invalidPasses = invalid.status === 404;
+  console.log(`${invalidPasses ? 'PASS' : 'WAIT'} invalid mortgage slug status=${invalid.status}`);
+  return ok && invalidPasses;
 }
 
 for (let attempt = 1; attempt <= 10; attempt += 1) {
   try {
     if (await check()) {
-      console.log(`All ${cases.length} local mortgage pages passed live production and sitemap verification.`);
+      console.log(`Canonical mortgage calculator and all ${slugs.length} retired local routes passed live redirect/sitemap verification.`);
       process.exit(0);
     }
   } catch (error) {
@@ -48,5 +63,6 @@ for (let attempt = 1; attempt <= 10; attempt += 1) {
   }
   if (attempt < 10) await pause(30000);
 }
-console.error('Local mortgage live production verification failed.');
+
+console.error('Consolidated mortgage live production verification failed.');
 process.exit(1);

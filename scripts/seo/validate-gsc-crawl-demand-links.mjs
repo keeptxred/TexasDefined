@@ -10,18 +10,18 @@ const localHousingHub = read('src/routes/texas-homeownership-cost-calculator.laz
 const failures = [];
 
 const propertyTargets = [
-  '/property-tax-calculator/bexar-county',
-  '/property-tax-calculator/fort-bend-county',
-  '/property-tax-calculator/montgomery-county',
-  '/property-tax-calculator/williamson-county',
-  '/property-tax-calculator/hidalgo-county',
-  '/texas-mortgage-calculator/houston',
-  '/texas-home-affordability-calculator/houston',
-  '/texas-home-insurance-calculator/houston',
+  '/texas-property-tax-estimator#bexar-county',
+  '/texas-property-tax-estimator#fort-bend-county',
+  '/texas-property-tax-estimator#montgomery-county',
+  '/texas-property-tax-estimator#williamson-county',
+  '/texas-property-tax-estimator#hidalgo-county',
+  '/texas-mortgage-calculator#houston',
+  '/texas-home-affordability-calculator#houston',
+  '/texas-home-insurance-calculator#houston',
 ];
 
 for (const target of propertyTargets) {
-  if (!propertyHub.includes(target)) failures.push(`Property authority hub lost crawl-demand link to ${target}.`);
+  if (!propertyHub.includes(target)) failures.push(`Property authority hub lost direct consolidated crawl-demand link to ${target}.`);
 }
 
 if (!propertyHub.includes('const localPlanning = [')) {
@@ -51,22 +51,19 @@ const localHousingSlugs = [
 ];
 
 for (const slug of localHousingSlugs) {
-  const ownershipPath = `/texas-homeownership-cost-calculator/${slug}`;
   if (!localHousingHubServer.includes(`slug: '${slug}'`)) {
     failures.push(`Server-backed local housing directory lost governed location ${slug}.`);
-  }
-  if (!localHousingHubServer.includes(`ownershipHref: '${ownershipPath}'`)) {
-    failures.push(`Server-backed local housing directory lost direct ownership path ${ownershipPath}.`);
   }
 }
 
 for (const marker of [
-  'affordabilityHref: `/texas-home-affordability-calculator/${slug}`',
-  'insuranceHref: `/texas-home-insurance-calculator/${slug}`',
-  'mortgageHref: `/texas-mortgage-calculator/${slug}`',
+  'ownershipHref: `/texas-homeownership-cost-calculator#${slug}`',
+  'affordabilityHref: `/texas-home-affordability-calculator#${slug}`',
+  'insuranceHref: `/texas-home-insurance-calculator#${slug}`',
+  'mortgageHref: `/texas-mortgage-calculator#${slug}`',
 ]) {
   if (!localHousingHubServer.includes(marker)) {
-    failures.push(`Server-backed local housing directory lost crawl-path template ${marker}.`);
+    failures.push(`Server-backed local housing directory lost consolidated crawl-path template ${marker}.`);
   }
 }
 
@@ -77,7 +74,7 @@ for (const marker of [
   'card.mortgageHref',
 ]) {
   if (!localHousingHub.includes(marker)) {
-    failures.push(`Local housing hub no longer renders direct crawl links via ${marker}.`);
+    failures.push(`Local housing hub no longer renders direct consolidated links via ${marker}.`);
   }
 }
 
@@ -104,4 +101,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`GSC crawl-demand links protected: ${propertyTargets.length} priority property tools plus ${localHousingSlugs.length * 4} direct local housing paths, Fredericksburg and Garner destination paths, and the known Pitmasters consolidation redirect.`);
+console.log(`GSC crawl-demand links protected: ${propertyTargets.length} priority canonical property-tool selections plus ${localHousingSlugs.length * 4} consolidated local housing selections, Fredericksburg and Garner destination paths, and the known Pitmasters consolidation redirect.`);

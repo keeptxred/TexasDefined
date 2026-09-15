@@ -1,4 +1,4 @@
-name: Verify local home insurance production
+name: Verify consolidated home-insurance production
 
 on:
   pull_request:
@@ -6,12 +6,11 @@ on:
       - '.github/workflows/verify-local-home-insurance-production.yml'
       - 'scripts/ci/verify-local-home-insurance-pages.mjs'
       - 'scripts/data/validate-local-home-insurance-seo.mjs'
-      - 'src/components/calculators/LocalHomeAffordabilityPage.tsx'
-      - 'src/components/calculators/LocalHomeInsurancePage.tsx'
-      - 'src/components/calculators/LocalHomeownershipCostPage.tsx'
+      - 'src/components/calculators/CalculatorPage.tsx'
+      - 'src/components/calculators/ConsolidatedLocationSelector.tsx'
       - 'src/data/local-home-affordability.ts'
       - 'src/data/local-home-insurance.ts'
-      - 'src/data/local-home-insurance-page*.ts'
+      - 'src/data/sitemap-dependencies.server.ts'
       - 'src/routes/texas-home-insurance-calculator*.tsx'
       - 'src/routes/sitemap*.ts'
   push:
@@ -21,12 +20,11 @@ on:
       - '.github/workflows/verify-local-home-insurance-production.yml'
       - 'scripts/ci/verify-local-home-insurance-pages.mjs'
       - 'scripts/data/validate-local-home-insurance-seo.mjs'
-      - 'src/components/calculators/LocalHomeAffordabilityPage.tsx'
-      - 'src/components/calculators/LocalHomeInsurancePage.tsx'
-      - 'src/components/calculators/LocalHomeownershipCostPage.tsx'
+      - 'src/components/calculators/CalculatorPage.tsx'
+      - 'src/components/calculators/ConsolidatedLocationSelector.tsx'
       - 'src/data/local-home-affordability.ts'
       - 'src/data/local-home-insurance.ts'
-      - 'src/data/local-home-insurance-page*.ts'
+      - 'src/data/sitemap-dependencies.server.ts'
       - 'src/routes/texas-home-insurance-calculator*.tsx'
       - 'src/routes/sitemap*.ts'
   workflow_dispatch:
@@ -40,7 +38,7 @@ concurrency:
 
 jobs:
   validate-contract:
-    name: Validate local home-insurance authority
+    name: Validate consolidated home-insurance authority
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -49,11 +47,11 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci --no-audit --no-fund
-      - name: Validate governed local insurance inventory and SEO contract
+      - name: Validate preserved local context and redirect contract
         run: node scripts/data/validate-local-home-insurance-seo.mjs
 
   verify-production:
-    name: Verify 19 live local home-insurance pages
+    name: Verify canonical insurance page and 19 legacy redirects
     if: ${{ github.event_name != 'pull_request' }}
     needs: validate-contract
     runs-on: ubuntu-latest
@@ -63,5 +61,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verify local pages, schema, cross-links and sitemap discovery
+      - name: Verify canonical page, permanent redirects and sitemap retirement
         run: node scripts/ci/verify-local-home-insurance-pages.mjs

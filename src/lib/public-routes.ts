@@ -252,6 +252,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-refinance-savings-calculator",
   "/texas-rent-vs-buy-calculator",
   "/texas-salary-calculator",
+  "/texas-salary-needed-calculator",
   "/texas-salary-comparison-by-city",
   "/texas-sales-tax-explained",
   "/texas-school-district-property-tax-comparison",
