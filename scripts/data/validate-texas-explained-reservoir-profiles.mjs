@@ -17,6 +17,16 @@ const profiles = [
   ['toledo-bend-water-system-guide', 'https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/toledo_bend/index.asp'],
 ];
 
+const officialDepthSources = [
+  'https://www.lcra.org/water/dams-and-lakes/',
+  'https://www.lcra.org/water/flood-management/key-elevations-for-lake-travis-during-floods/',
+  'https://www.swf-wc.usace.army.mil/whitney/',
+  'https://brazos.org/about-us/reservoirs/possum-kingdom-lake',
+  'https://brazos.org/about-us/water-supply',
+  'https://srala-toledo.com/sra/',
+  'https://srala-toledo.com/engineering/',
+];
+
 for (const marker of [
   'const reservoirsLink = { href: "/article/texas-lakes-reservoirs-explained"',
   'const basinsLink = { href: "/article/texas-river-basins-guide"',
@@ -30,6 +40,10 @@ for (const [slug, sourceUrl] of profiles) {
   if (!hub.includes(`"${slug}"`)) errors.push(`Texas Explained hub must surface reservoir profile: ${slug}`);
   if (!topology.includes(`/article/${slug}`)) errors.push(`Reservoir pillar must link to profile: ${slug}`);
   if (!articleRoute.includes(`"${slug}"`)) errors.push(`Shared article route must recognize reservoir profile: ${slug}`);
+}
+
+for (const sourceUrl of officialDepthSources) {
+  if (!articles.includes(sourceUrl)) errors.push(`Missing official reservoir depth source: ${sourceUrl}`);
 }
 
 for (const marker of [
@@ -49,20 +63,47 @@ for (const marker of [
   'Twenty-five focused explainers behind the core guides',
 ]) if (!hub.includes(marker)) errors.push(`Reservoir hub contract missing: ${marker}`);
 
-const paragraphCount = (block) => (block.match(/p\("/g) || []).length;
+const articleBlock = (source, slug) => {
+  const start = source.indexOf(`slug: "${slug}"`);
+  if (start < 0) return '';
+  const next = source.indexOf('\nexport const ', start + 1);
+  return source.slice(start, next > start ? next : source.length);
+};
+
+const paragraphCount = (block) => (block.match(/\bp\("/g) || []).length;
+const bodyWordCount = (block) => {
+  const start = block.indexOf('body: [');
+  if (start < 0) return 0;
+  const end = block.indexOf('\n  ],', start);
+  if (end < 0) return 0;
+  const body = block.slice(start, end);
+  const literals = body.match(/"(?:\\.|[^"\\])*"/g) ?? [];
+  const text = literals.map((literal) => {
+    try { return JSON.parse(literal); } catch { return ''; }
+  }).join(' ');
+  return (text.match(/[A-Za-z0-9]+(?:['’][A-Za-z0-9]+)*/g) ?? []).length;
+};
+
+const RESERVOIR_MIN_PARAGRAPHS = 12;
+const RESERVOIR_MIN_WORDS = 850;
+
 for (const [slug] of profiles) {
-  const start = articles.indexOf(`slug: "${slug}"`);
-  const next = start >= 0 ? articles.indexOf('\nexport const ', start + 1) : -1;
-  const block = start >= 0 ? articles.slice(start, next > start ? next : articles.length) : '';
-  if (paragraphCount(block) < 7) errors.push(`Reservoir profile is too shallow (${paragraphCount(block)} paragraphs): ${slug}`);
+  const block = articleBlock(articles, slug);
+  const paragraphs = paragraphCount(block);
+  const words = bodyWordCount(block);
+  if (paragraphs < RESERVOIR_MIN_PARAGRAPHS) errors.push(`Reservoir profile is too shallow (${paragraphs} paragraphs; minimum ${RESERVOIR_MIN_PARAGRAPHS}): ${slug}`);
+  if (words < RESERVOIR_MIN_WORDS) errors.push(`Reservoir profile is too thin (${words} body words; minimum ${RESERVOIR_MIN_WORDS}): ${slug}`);
+  if (!block.includes('readingMinutes: 6')) errors.push(`Reservoir profile reading time must match expanded authority depth: ${slug}`);
   for (const link of ['reservoirsLink', 'basinsLink', 'collectionLink']) {
     if (!block.includes(link)) errors.push(`Reservoir profile ${slug} must use ${link}`);
   }
 }
+
+if (!stubs.includes('readingMinutes: 6')) errors.push('Reservoir discovery stubs must advertise the expanded six-minute authority depth.');
 
 if (errors.length) {
   console.error('Texas Explained reservoir profile validation failed:');
   errors.forEach((error) => console.error(`- ${error}`));
   process.exit(1);
 }
-console.log('Texas Explained reservoir batch passed: five TWDB-backed water-system profiles are lazy-loaded, hub-visible, reciprocal with the reservoir pillar, collection-aware and substantive.');
+console.log(`Texas Explained reservoir batch passed: five TWDB-backed water-system profiles remain lazy-loaded, hub-visible, reciprocal, source-backed, collection-aware and substantive at ${RESERVOIR_MIN_PARAGRAPHS}+ paragraphs and ${RESERVOIR_MIN_WORDS}+ body words each.`);
