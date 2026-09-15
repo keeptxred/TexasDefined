@@ -8,6 +8,7 @@ on:
       - 'scripts/ci/verify-stay-affiliate-production.mjs'
       - 'src/routes/__root.tsx'
       - 'src/routes/event.$slug.lazy.tsx'
+      - 'src/components/editorial/DestinationVisitPlanner.tsx'
       - '.github/workflows/validate-stay-affiliate-options.yml'
       - '.github/workflows/verify-stay-affiliate-production.yml'
   push:
@@ -18,6 +19,7 @@ on:
       - 'scripts/ci/verify-stay-affiliate-production.mjs'
       - 'src/routes/__root.tsx'
       - 'src/routes/event.$slug.lazy.tsx'
+      - 'src/components/editorial/DestinationVisitPlanner.tsx'
       - '.github/workflows/validate-stay-affiliate-options.yml'
       - '.github/workflows/verify-stay-affiliate-production.yml'
 
