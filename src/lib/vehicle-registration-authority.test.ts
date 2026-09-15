@@ -4,8 +4,10 @@ import { INDEXABLE_STATIC_PATHS } from "./public-routes";
 
 const renewalPath = "/texas-vehicle-registration-renewal";
 const feesPath = "/texas-vehicle-registration-fees-taxes";
-const renewalSource = readFileSync(new URL("../routes/texas-vehicle-registration-renewal.tsx", import.meta.url), "utf8");
-const feesSource = readFileSync(new URL("../routes/texas-vehicle-registration-fees-taxes.tsx", import.meta.url), "utf8");
+const renewalRouteSource = readFileSync(new URL("../routes/texas-vehicle-registration-renewal.tsx", import.meta.url), "utf8");
+const feesRouteSource = readFileSync(new URL("../routes/texas-vehicle-registration-fees-taxes.tsx", import.meta.url), "utf8");
+const renewalPageSource = readFileSync(new URL("../components/editorial/VehicleRegistrationRenewalPage.tsx", import.meta.url), "utf8");
+const feesPageSource = readFileSync(new URL("../components/editorial/VehicleRegistrationFeesTaxesPage.tsx", import.meta.url), "utf8");
 const parentSource = readFileSync(new URL("../routes/texas-vehicle-registration.lazy.tsx", import.meta.url), "utf8");
 
 describe("Texas vehicle registration authority ownership", () => {
@@ -14,15 +16,22 @@ describe("Texas vehicle registration authority ownership", () => {
     expect(INDEXABLE_STATIC_PATHS).toContain(feesPath);
   });
 
-  it("keeps specialist pages self-canonical and grounded in official Texas sources", () => {
-    expect(renewalSource).toContain(`const canonicalPath = '${renewalPath}'`);
-    expect(renewalSource).toContain("https://www.txdmv.gov/motorists/register-your-vehicle");
-    expect(renewalSource).toContain("https://www.txdmv.gov/motorists/track");
+  it("keeps specialist pages self-canonical and lazily rendered", () => {
+    expect(renewalRouteSource).toContain(`const canonicalPath = '${renewalPath}'`);
+    expect(feesRouteSource).toContain(`const canonicalPath = '${feesPath}'`);
+    expect(renewalRouteSource).toContain('lazyRouteComponent');
+    expect(feesRouteSource).toContain('lazyRouteComponent');
+    expect(renewalRouteSource).toContain('VehicleRegistrationRenewalPage');
+    expect(feesRouteSource).toContain('VehicleRegistrationFeesTaxesPage');
+  });
 
-    expect(feesSource).toContain(`const canonicalPath = '${feesPath}'`);
-    expect(feesSource).toContain("https://www.txdmv.gov/motorists/register-your-vehicle");
-    expect(feesSource).toContain("https://comptroller.texas.gov/taxes/motor-vehicle/sales-use.php");
-    expect(feesSource).toContain("https://comptroller.texas.gov/taxes/motor-vehicle/private-party-spv.php");
+  it("grounds both specialist guides in official Texas sources", () => {
+    expect(renewalPageSource).toContain("https://www.txdmv.gov/motorists/register-your-vehicle");
+    expect(renewalPageSource).toContain("https://www.txdmv.gov/motorists/track");
+
+    expect(feesPageSource).toContain("https://www.txdmv.gov/motorists/register-your-vehicle");
+    expect(feesPageSource).toContain("https://comptroller.texas.gov/taxes/motor-vehicle/sales-use.php");
+    expect(feesPageSource).toContain("https://comptroller.texas.gov/taxes/motor-vehicle/private-party-spv.php");
   });
 
   it("links the parent registration authority directly to both specialist guides", () => {
