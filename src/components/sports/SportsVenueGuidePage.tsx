@@ -52,6 +52,8 @@ export function SportsVenueGuidePage({
   const reviewedAt = guide.reviewedAt ?? enrichment?.verifiedAt ?? entity.sourceCheckedAt;
   const attractions = nearbyAttractions.slice(0, 4);
   const schemaType = sportsVenueSchemaType(entity);
+  const heroSrc = photo ? `/api/sports-venue-hero?slug=${encodeURIComponent(entity.slug)}` : undefined;
+  const absoluteHeroUrl = heroSrc ? new URL(heroSrc, siteUrl).toString() : undefined;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -63,7 +65,7 @@ export function SportsVenueGuidePage({
         description: entity.description,
         url: canonicalUrl,
         mainEntityOfPage: canonicalUrl,
-        image: photo?.imageUrl,
+        image: absoluteHeroUrl,
         sameAs: officialUrl ? [officialUrl] : undefined,
         geo: entity.coordinates
           ? {
@@ -125,7 +127,7 @@ export function SportsVenueGuidePage({
           </header>
 
           <div className="grid gap-6 border-b border-border pb-12 lg:grid-cols-[minmax(0,1fr)_22rem]">
-            <VenuePhoto photo={photo} venueName={entity.name} />
+            <VenuePhoto photo={photo} venueName={entity.name} heroSrc={heroSrc} />
             <QuickFacts guide={guide} directionsUrl={directionsUrl} officialUrl={officialUrl} />
           </div>
 
@@ -197,8 +199,8 @@ function VenueBreadcrumb({ venueName }: { venueName: string }) {
   );
 }
 
-function VenuePhoto({ photo, venueName }: { photo?: SportsVenuePhoto; venueName: string }) {
-  if (!photo) {
+function VenuePhoto({ photo, venueName, heroSrc }: { photo?: SportsVenuePhoto; venueName: string; heroSrc?: string }) {
+  if (!photo || !heroSrc) {
     return (
       <div
         className="flex min-h-[32rem] items-center justify-center bg-muted px-8 text-center text-sm text-muted-foreground"
@@ -213,7 +215,7 @@ function VenuePhoto({ photo, venueName }: { photo?: SportsVenuePhoto; venueName:
   return (
     <figure className="min-w-0 overflow-hidden bg-muted">
       <img
-        src={photo.imageUrl}
+        src={heroSrc}
         alt={photo.alt}
         width={photo.width}
         height={photo.height}

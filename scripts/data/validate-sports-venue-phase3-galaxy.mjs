@@ -19,6 +19,9 @@ const failures = [];
 const requireText = (source, needle, label) => {
   if (!source.includes(needle)) failures.push(`${label}: missing ${needle}`);
 };
+const forbidText = (source, needle, label) => {
+  if (source.includes(needle)) failures.push(`${label}: forbidden ${needle}`);
+};
 
 for (const marker of [
   "createFileRoute('/sports-venue/jones-att-stadium')",
@@ -94,9 +97,12 @@ for (const marker of [
   'data-stay-nearby-slot',
   'A verified venue photograph is not available yet.',
   'mainEntityOfPage: canonicalUrl',
-  'image: photo?.imageUrl',
+  'const heroSrc = photo ? `/api/sports-venue-hero?slug=${encodeURIComponent(entity.slug)}` : undefined;',
+  'image: absoluteHeroUrl',
+  'src={heroSrc}',
   'SourcesSection',
 ]) requireText(guidePage, marker, 'shared venue guide page');
+forbidText(guidePage, 'src={photo.imageUrl}', 'shared venue guide page must not bypass governed same-origin hero delivery');
 
 const galaxyImageStart = images.indexOf("'jones-att-stadium': {");
 if (galaxyImageStart === -1) {
@@ -149,4 +155,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Galaxy Stadium shared-guide reconciliation passed: stable canonical route and aliases, current Texas Tech sources, governed Commons hero and social metadata, modern shared events/Stay Nearby/source architecture, governed sponsor delivery, and the complete 83-dynamic + 1-static = 84 venue coverage contract are intact.');
+console.log('Galaxy Stadium shared-guide reconciliation passed: stable canonical route and aliases, current Texas Tech sources, governed Commons hero and social metadata, modern shared events/Stay Nearby/source architecture, governed same-origin hero delivery, governed sponsor delivery, and the complete 83-dynamic + 1-static = 84 venue coverage contract are intact.');
