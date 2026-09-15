@@ -157,7 +157,7 @@ export function SportsVenueGuidePage({
 
           {enrichment?.history ? (
             <EditorialSection eyebrow="Venue story" title={`The story of ${entity.name}`}>
-              <p className="max-w-3xl text-base leading-8 text-foreground/85 sm:text-lg">
+              <p className="max-w-3xl text-base leading-8 text-muted-foreground sm:text-lg">
                 {enrichment.history}
               </p>
             </EditorialSection>
