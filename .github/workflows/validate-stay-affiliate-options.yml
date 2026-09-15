@@ -1,0 +1,43 @@
+name: Validate stay affiliate options
+
+on:
+  pull_request:
+    paths:
+      - 'public/stay-affiliate-options.js'
+      - 'scripts/data/validate-stay-affiliate-options.mjs'
+      - 'scripts/ci/verify-stay-affiliate-production.mjs'
+      - 'src/routes/__root.tsx'
+      - 'src/routes/event.$slug.lazy.tsx'
+      - 'src/components/editorial/DestinationVisitPlanner.tsx'
+      - '.github/workflows/validate-stay-affiliate-options.yml'
+      - '.github/workflows/verify-stay-affiliate-production.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'public/stay-affiliate-options.js'
+      - 'scripts/data/validate-stay-affiliate-options.mjs'
+      - 'scripts/ci/verify-stay-affiliate-production.mjs'
+      - 'src/routes/__root.tsx'
+      - 'src/routes/event.$slug.lazy.tsx'
+      - 'src/components/editorial/DestinationVisitPlanner.tsx'
+      - '.github/workflows/validate-stay-affiliate-options.yml'
+      - '.github/workflows/verify-stay-affiliate-production.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: stay-affiliate-options-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate Hotels.com and Vrbo integration
+        run: node scripts/data/validate-stay-affiliate-options.mjs

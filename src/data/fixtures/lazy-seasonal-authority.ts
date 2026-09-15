@@ -23,7 +23,8 @@ const heroes = {
 };
 
 // These records power lightweight discovery cards only. Full article metadata,
-// including complete SEO tags and descriptions, is lazy-loaded from seasonal-authority-articles.
+// including complete SEO tags and descriptions, is lazy-loaded from the
+// seasonal authority modules.
 type SeasonalStub = Omit<Article, "brandId" | "body" | "publishedAt" | "tags" | "relatedCollections" | "relatedDestinations"> & Partial<Pick<Article, "relatedCollections" | "relatedDestinations">>;
 const stub = (record: SeasonalStub): Article => ({
   brandId: "texasdefined",
@@ -38,8 +39,8 @@ const stub = (record: SeasonalStub): Article => ({
 export const seasonalAuthorityArticleStubs: Article[] = [
   stub({ id: "sa-1", slug: "texas-lighthouses-complete-guide", title: "The Lighthouses That Watched the Texas Coast", dek: "Texas lighthouses, survivors, lost lights and visitor access.", category: "texas-history", region: "gulf-coast", hero: heroes.lighthouse, authorId: "a-hollis", readingMinutes: 18, featured: true, relatedDestinations: ["port-isabel-lighthouse"] }),
   stub({ id: "sa-2", slug: "texas-lighthouse-road-trip", title: "A Texas Lighthouse Road Trip, Sabine to Port Isabel", dek: "A coast-spanning Texas lighthouse road trip and itinerary.", category: "road-trips", region: "gulf-coast", hero: heroes.roadTrip, authorId: "a-dell", readingMinutes: 12, relatedDestinations: ["port-isabel-lighthouse"] }),
-  stub({ id: "sa-3", slug: "port-isabel-lighthouse-guide", title: "Port Isabel Lighthouse: The Texas Light You Can Still Climb", dek: "History and visitor guidance for Port Isabel Lighthouse.", category: "historic-sites", region: "gulf-coast", hero: heroes.lighthouse, authorId: "a-hollis", readingMinutes: 9, relatedDestinations: ["port-isabel-lighthouse"] }),
-  stub({ id: "sa-4", slug: "lost-lighthouses-of-texas", title: "The Lost Lighthouses of Texas", dek: "The Texas lights that disappeared, moved or became obsolete.", category: "texas-history", region: "gulf-coast", hero: heroes.lighthouse, authorId: "a-hollis", readingMinutes: 10 }),
+  stub({ id: "sa-3", slug: "port-isabel-lighthouse-guide", title: "Port Isabel Lighthouse: The Texas Light You Can Still Climb", dek: "History and visitor guidance for Port Isabel Lighthouse.", category: "historic-sites", region: "gulf-coast", hero: heroes.lighthouse, authorId: "a-hollis", readingMinutes: 7, relatedDestinations: ["port-isabel-lighthouse"] }),
+  stub({ id: "sa-4", slug: "lost-lighthouses-of-texas", title: "The Lost Lighthouses of Texas", dek: "The Texas lights that disappeared, moved or became obsolete.", category: "texas-history", region: "gulf-coast", hero: heroes.lighthouse, authorId: "a-hollis", readingMinutes: 7 }),
   stub({ id: "sa-5", slug: "texas-bluebonnets-complete-guide", title: "Bluebonnet Season, Explained", dek: "Texas bluebonnet timing, places, laws and trip planning.", category: "outdoors", region: "hill-country", hero: heroes.bluebonnets, authorId: "a-hollis", readingMinutes: 16, featured: true, relatedCollections: ["wildflower-house"], relatedDestinations: ["enchanted-rock"] }),
   stub({ id: "sa-6", slug: "best-places-to-see-bluebonnets-in-texas", title: "Where Texas Turns Blue in Spring", dek: "The Texas regions most worth planning around for bluebonnets.", category: "outdoors", hero: heroes.bluebonnets, authorId: "a-dell", readingMinutes: 11, relatedCollections: ["wildflower-house"], relatedDestinations: ["enchanted-rock"] }),
   stub({ id: "sa-7", slug: "texas-bluebonnet-road-trip", title: "The Bluebonnet Loop We Would Actually Drive", dek: "A practical spring bluebonnet road trip through Central Texas.", category: "road-trips", region: "hill-country", hero: heroes.roadTrip, authorId: "a-dell", readingMinutes: 10, relatedDestinations: ["enchanted-rock"] }),
@@ -51,9 +52,20 @@ export const seasonalAuthorityArticleStubs: Article[] = [
 ];
 
 const seasonalSlugs = new Set(seasonalAuthorityArticleStubs.map((article) => article.slug));
+const lighthouseSeasonalDepthSlugs = new Set([
+  "port-isabel-lighthouse-guide",
+  "lost-lighthouses-of-texas",
+]);
 
 export async function loadSeasonalAuthorityArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined" || !seasonalSlugs.has(slug)) return null;
+
+  if (lighthouseSeasonalDepthSlugs.has(slug)) {
+    const { lighthouseSeasonalAuthorityArticles } = await import("./lighthouse-seasonal-authority-articles");
+    const article = lighthouseSeasonalAuthorityArticles.find((item) => item.slug === slug);
+    return article ? canonicalizeSeasonalArticleLinks(article) : null;
+  }
+
   const { seasonalAuthorityArticles } = await import("./seasonal-authority-articles");
   const article = seasonalAuthorityArticles.find((item) => item.slug === slug);
   return article ? canonicalizeSeasonalArticleLinks(article) : null;

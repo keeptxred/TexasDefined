@@ -46,6 +46,11 @@ export function DestinationVisitPlanner({ destination }: Props) {
           { question: "Where is it?", answer: `${destination.nearestTown ? `Near ${destination.nearestTown}, Texas` : "In Texas"}${destination.county ? `, in ${destination.county} County` : ""}.` },
         ]}
       />
+      <div
+        data-stay-nearby-slot
+        className="my-10"
+        aria-label={`Places to stay near ${destination.name}`}
+      />
       <section aria-labelledby="plan-your-visit" className="border-t border-border pt-8">
         <p className="eyebrow text-primary">Field notes</p>
         <h2 id="plan-your-visit" className="mt-3 font-display text-3xl">What to know before you go</h2>

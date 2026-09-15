@@ -4,37 +4,36 @@ import { hasExpiredConfirmedEventOccurrence, type EventOccurrenceDateShape } fro
 import { isRecurrenceDerivedMajorEventSlug } from "./major-event-date-confidence";
 
 const CHAPPELL_HILL_WILDFLOWER_SECTION_TITLE = "Use the county wildflower map before chasing roadside photos";
-const CHAPPELL_HILL_WILDFLOWER_MAP_MARKUP = `<div data-map="chappell-hill-wildflower" class="mt-5">
-  <div class="aspect-[4/3] overflow-hidden rounded-xl border border-border bg-muted sm:aspect-[16/9]">
-    <iframe
-      title="Visit Brenham Wildflower Driving Map for Washington County"
-      src="https://www.google.com/maps/d/u/0/embed?ehbc=2E312F&amp;mid=1b6COvSIJuQzAg-UOzybkAXoKRVjeheE"
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      class="h-full w-full"
-      allowfullscreen
-    ></iframe>
-  </div>
+const CHAPPELL_HILL_MAP_EMBED_BLOCK = /<div\b[^>]*>\s*<iframe\b[\s\S]*?src="https:\/\/www\.google\.com\/maps\/d\/u\/0\/embed\?ehbc=2E312F&amp;mid=1b6COvSIJuQzAg-UOzybkAXoKRVjeheE"[\s\S]*?<\/iframe>\s*<\/div>/i;
+const CHAPPELL_HILL_MAP_IFRAME = /<iframe\b[\s\S]*?src="https:\/\/www\.google\.com\/maps\/d\/u\/0\/embed\?ehbc=2E312F&amp;mid=1b6COvSIJuQzAg-UOzybkAXoKRVjeheE"[\s\S]*?<\/iframe>/i;
+const CHAPPELL_HILL_WILDFLOWER_LINK_MARKUP = `<div data-map="chappell-hill-wildflower" class="mt-5 rounded-xl border border-border bg-muted/30 p-5">
+  <p class="font-semibold">Washington County wildflower map</p>
+  <p class="mt-2 text-sm leading-6 text-muted-foreground">Open Visit Brenham's live map in a new tab for current flower reports, photo-stop guidance and the Bluebonnet Trail Scenic Drive.</p>
   <div class="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm">
     <a class="font-semibold text-primary underline" href="https://visitbrenhamtexas.com/things/wildflower-watch/wildflower-driving-map/" target="_blank" rel="noreferrer noopener">Open the live Wildflower Driving Map ↗</a>
     <a class="font-semibold text-primary underline" href="https://visitbrenhamtexas.com/wp-content/uploads/2018/03/20180323105225204_0001.pdf" target="_blank" rel="noreferrer noopener">Open or download the Washington County road map (PDF) ↗</a>
   </div>
-  <p class="mt-3 text-xs leading-6 text-muted-foreground">The live Visit Brenham map is updated during wildflower season with current flower reports and the Bluebonnet Trail Scenic Drive. The PDF is a static county road map for offline reference.</p>
+  <p class="mt-3 text-xs leading-6 text-muted-foreground">The live Visit Brenham map is updated during wildflower season. The PDF is a static county road map for offline reference.</p>
 </div>`;
 
-function injectChappellHillWildflowerMap<T extends { slug: string; html: string }>(page: T): T {
-  if (page.slug !== "chappell-hill-bluebonnet-festival" || page.html.includes('data-map="chappell-hill-wildflower"')) return page;
+function stabilizeChappellHillWildflowerMap<T extends { slug: string; html: string }>(page: T): T {
+  if (page.slug !== "chappell-hill-bluebonnet-festival") return page;
 
-  const sectionTitleIndex = page.html.indexOf(CHAPPELL_HILL_WILDFLOWER_SECTION_TITLE);
+  let html = page.html
+    .replace(CHAPPELL_HILL_MAP_EMBED_BLOCK, "")
+    .replace(CHAPPELL_HILL_MAP_IFRAME, "");
+  if (html.includes('data-map="chappell-hill-wildflower"')) {
+    return html === page.html ? page : { ...page, html };
+  }
+
+  const sectionTitleIndex = html.indexOf(CHAPPELL_HILL_WILDFLOWER_SECTION_TITLE);
   if (sectionTitleIndex === -1) return page;
 
-  const sectionEndIndex = page.html.indexOf("</section>", sectionTitleIndex);
+  const sectionEndIndex = html.indexOf("</section>", sectionTitleIndex);
   if (sectionEndIndex === -1) return page;
 
-  return {
-    ...page,
-    html: `${page.html.slice(0, sectionEndIndex)}${CHAPPELL_HILL_WILDFLOWER_MAP_MARKUP}${page.html.slice(sectionEndIndex)}`,
-  };
+  html = `${html.slice(0, sectionEndIndex)}${CHAPPELL_HILL_WILDFLOWER_LINK_MARKUP}${html.slice(sectionEndIndex)}`;
+  return { ...page, html };
 }
 
 // These authority guides remain useful evergreen trip-planning pages even when a
@@ -83,7 +82,7 @@ const loadMajorEventPage = createServerFn({ method: "GET" })
     // The live call is occurrence-aware so expired confirmed dates can also suppress stale Event schema.
     const governedPage = page ? applyEventSchemaConfidencePolicy(page, occurrence) : page;
     if (!governedPage) return governedPage;
-    const renderedPage = injectChappellHillWildflowerMap(governedPage);
+    const renderedPage = stabilizeChappellHillWildflowerMap(governedPage);
     return {
       ...renderedPage,
       imageCompliant: hasCompliantMajorEventImageServer(data.slug),
