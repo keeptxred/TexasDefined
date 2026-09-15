@@ -1,0 +1,117 @@
+name: Verify historic-sites roadmap production
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+
+permissions:
+  contents: read
+
+concurrency:
+  group: historic-sites-roadmap-production
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    name: Verify expanded historic-sites roadmap live
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+    steps:
+      - name: Probe direct Worker and custom domain
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          const origins = [
+            ['direct-worker', 'https://texasdefined-site.freddy-coppola.workers.dev'],
+            ['custom-domain', 'https://texasdefined.com'],
+          ];
+          const path = '/article/texas-historic-sites-roadmap';
+          const required = [
+            "Begin with San Antonio's missions, not only the Alamo",
+            'Go to Palo Alto when you are ready for the U.S.-Mexico War',
+            'Courthouse squares explain how local Texas government became geography',
+            'Do not treat Indigenous, Tejano or Black history as sidebars',
+            'Build regional history trips instead of trying to cover Texas at once',
+            'Verify the modern visit before chasing the historic past',
+            'The landscape gets a vote in the story',
+          ];
+          const forbidden = [
+            'Then follow the revolution east',
+            'Museums are strongest with a specific question',
+          ];
+
+          function visibleText(html) {
+            return html
+              .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+              .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+              .replace(/<!--[\s\S]*?-->/g, '')
+              .replace(/<[^>]+>/g, ' ')
+              .replace(/&nbsp;/gi, ' ')
+              .replace(/&amp;/gi, '&')
+              .replace(/&quot;/gi, '"')
+              .replace(/&#39;|&#x27;|&apos;/gi, "'")
+              .replace(/&lt;/gi, '<')
+              .replace(/&gt;/gi, '>')
+              .replace(/\s+/g, ' ')
+              .trim();
+          }
+
+          async function probe(originLabel, origin, mode) {
+            const revision = mode === 'revision'
+              ? `?historic-sites-authority=${encodeURIComponent(`${process.env.DEPLOY_SHA ?? 'local'}-${Date.now()}`)}`
+              : '';
+            const url = `${origin}${path}${revision}`;
+            let last = '';
+
+            for (let attempt = 1; attempt <= 6; attempt += 1) {
+              try {
+                const response = await fetch(url, {
+                  redirect: 'follow',
+                  cache: 'no-store',
+                  signal: AbortSignal.timeout(30_000),
+                  headers: { 'user-agent': 'TexasDefined-CI-Historic-Sites-Authority/1.0' },
+                });
+                const html = await response.text();
+                const text = visibleText(html);
+                const reading = text.match(/About\s+(\d+)\s+minutes?\b/i);
+                const minutes = reading ? Number(reading[1]) : null;
+                const missing = required.filter((needle) => !text.includes(needle));
+                const stale = forbidden.filter((needle) => text.includes(needle));
+                const status = `status=${response.status} reading=${minutes ?? 'missing'} missing=${missing.length} stale=${stale.length} cf-cache=${response.headers.get('cf-cache-status') ?? 'none'}`;
+                console.log(`[${originLabel}:${mode}] attempt ${attempt} ${status}`);
+                if (response.ok && minutes !== null && minutes >= 6 && missing.length === 0 && stale.length === 0) return;
+                last = `${status}; missing=${missing.join(' | ') || 'none'}; stale=${stale.join(' | ') || 'none'}`;
+              } catch (error) {
+                last = error instanceof Error ? error.message : String(error);
+                console.log(`[${originLabel}:${mode}] attempt ${attempt} error=${last}`);
+              }
+              if (attempt < 6) await new Promise((resolve) => setTimeout(resolve, 5000));
+            }
+
+            throw new Error(`${originLabel}:${mode} failed: ${last}`);
+          }
+
+          const results = await Promise.allSettled(
+            origins.flatMap(([originLabel, origin]) => [
+              probe(originLabel, origin, 'canonical'),
+              probe(originLabel, origin, 'revision'),
+            ]),
+          );
+          const failures = results
+            .filter((result) => result.status === 'rejected')
+            .map((result) => result.reason instanceof Error ? result.reason.message : String(result.reason));
+
+          if (failures.length) {
+            for (const failure of failures) console.error(`::error title=Historic-sites roadmap production mismatch::${failure}`);
+            process.exit(1);
+          }
+
+          console.log('Verified the expanded historic-sites roadmap on direct Worker and custom domain, canonical and cache-busted, with rendered reading time >= 6 minutes and no legacy-short-body markers.');
+          NODE
