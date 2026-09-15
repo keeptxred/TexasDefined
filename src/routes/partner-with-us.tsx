@@ -4,11 +4,13 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const canonicalPath = '/partner-with-us';
-const description = 'Partner with Texas Defined on useful, clearly disclosed Texas home, moving, travel, sports-travel, Texas-brand and local-service resources while preserving editorial independence.';
+const description = 'Compare Texas Defined advertising and sponsorship packages, review billing options, see sample placements and start a clearly disclosed partnership while preserving editorial independence.';
 
 type PartnerSearch = {
   partnershipType?: 'sports-travel' | 'brand-retail';
   sourcePath?: string;
+  tier?: 'local' | 'growth' | 'premier';
+  billing?: 'monthly' | 'annual';
 };
 
 function sanitizePartnerSource(value: unknown) {
@@ -26,9 +28,11 @@ export const Route = createFileRoute('/partner-with-us')({
         ? 'brand-retail'
         : undefined,
     sourcePath: typeof search.source === 'string' ? sanitizePartnerSource(search.source) : undefined,
+    tier: search.tier === 'local' || search.tier === 'growth' || search.tier === 'premier' ? search.tier : undefined,
+    billing: search.billing === 'monthly' || search.billing === 'annual' ? search.billing : undefined,
   }),
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Partner With Texas Defined', description }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Advertise & Partner With Texas Defined', description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
   }),
 });
