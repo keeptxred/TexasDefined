@@ -4,6 +4,7 @@ import vm from 'node:vm';
 const root = fs.readFileSync('src/routes/__root.tsx', 'utf8');
 const source = fs.readFileSync('public/stay-affiliate-options.js', 'utf8');
 const eventRoute = fs.readFileSync('src/routes/event.$slug.lazy.tsx', 'utf8');
+const destinationPlanner = fs.readFileSync('src/components/editorial/DestinationVisitPlanner.tsx', 'utf8');
 const productionVerifier = fs.readFileSync('scripts/ci/verify-stay-affiliate-production.mjs', 'utf8');
 const productionWorkflow = fs.readFileSync('.github/workflows/verify-stay-affiliate-production.yml', 'utf8');
 const errors = [];
@@ -67,15 +68,25 @@ for (const [needle, label] of [
 ]) requireText(eventRoute, needle, label);
 
 for (const [needle, label] of [
+  ['data-stay-nearby-slot', 'destination in-content Stay Nearby slot'],
+  ['Places to stay near ${destination.name}', 'destination stay-slot accessibility label'],
+  ['What to know before you go', 'destination planning adjacency'],
+]) requireText(destinationPlanner, needle, label);
+
+for (const [needle, label] of [
   ['/stay-affiliate-options.js', 'live affiliate bootstrap verification'],
   ['/expedia-travel.js', 'live Expedia bootstrap verification'],
   ['Find places to stay', 'live prominent CTA verification'],
   ['event: "affiliate_click"', 'live affiliate analytics verification'],
   ['/event/chappell-hill-bluebonnet-festival', 'live event placement probe'],
   ['/sports-venue/globe-life-field', 'live venue placement probe'],
-  ['/destination/fredericksburg', 'live destination eligibility probe'],
+  ['/destination/fredericksburg', 'live destination placement probe'],
   ['data-stay-nearby-slot', 'live explicit slot verification'],
 ]) requireText(productionVerifier, needle, label);
+
+if (!productionVerifier.includes("route: '/destination/fredericksburg'") || !productionVerifier.includes('requireSlot: true')) {
+  errors.push('Live destination probe must require an explicit in-content Stay Nearby slot.');
+}
 
 for (const [needle, label] of [
   ['workflow_run:', 'post-deploy workflow trigger'],
@@ -97,4 +108,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hotels.com / Vrbo stay affiliate validation passed: CJ tracking is fail-closed through the TexasDefined publisher ID, stay CTAs are promoted beside or ahead of lodging content instead of being buried at the page end, event guides expose deterministic in-content stay slots, explicit in-page stay slots remain authoritative, outbound affiliate clicks are attributed through GTM, live post-deploy verification covers event/venue/destination intent, route intent remains scoped, disclosures and sponsored-link attributes are present, and the existing Expedia/Stay Nearby surface remains the integration host.');
+console.log('Hotels.com / Vrbo stay affiliate validation passed: CJ tracking is fail-closed through the TexasDefined publisher ID, stay CTAs are promoted beside or ahead of lodging content instead of being buried at the page end, event and destination guides expose deterministic in-content stay slots, explicit in-page stay slots remain authoritative, outbound affiliate clicks are attributed through GTM, live post-deploy verification covers event/venue/destination placement, route intent remains scoped, disclosures and sponsored-link attributes are present, and the existing Expedia/Stay Nearby surface remains the integration host.');
