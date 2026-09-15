@@ -19,6 +19,48 @@ try {
   errors.push(`stay affiliate bootstrap does not parse: ${error.message}`);
 }
 
+try {
+  const sandbox = {
+    window: {
+      location: { pathname: '/' },
+      dataLayer: [],
+      addEventListener() {},
+      dispatchEvent() {},
+      requestAnimationFrame() {},
+    },
+    document: {
+      readyState: 'loading',
+      addEventListener() {},
+      querySelectorAll() { return []; },
+    },
+    URL,
+    CustomEvent: class CustomEvent {},
+    console,
+  };
+  vm.runInNewContext(source, sandbox, { filename: 'public/stay-affiliate-options.js' });
+  const api = sandbox.window.TexasDefinedStayAffiliateOptions;
+  if (!api || typeof api.bookingIntent !== 'function' || typeof api.ownerEligible !== 'function') {
+    errors.push('stay affiliate bootstrap must expose bookingIntent and ownerEligible for route-policy verification.');
+  } else {
+    const bookingCases = [
+      ['/event/chappell-hill-bluebonnet-festival', 'hotel-first'],
+      ['/sports-venue/globe-life-field', 'hotel-first'],
+      ['/destination/fredericksburg', 'both'],
+      ['/city/austin', 'both'],
+      ['/county/travis', 'both'],
+      ['/explore/painted-churches', 'both'],
+    ];
+    for (const [pathname, expected] of bookingCases) {
+      const actual = api.bookingIntent(pathname);
+      if (actual !== expected) errors.push(`booking intent regression for ${pathname}: expected ${expected}, received ${actual}.`);
+    }
+    if (!api.ownerEligible('/real-estate')) errors.push('Vrbo owner referral must remain eligible on /real-estate.');
+    if (api.ownerEligible('/city/austin')) errors.push('Vrbo owner referral must not appear merely because a page is a city travel guide.');
+  }
+} catch (error) {
+  errors.push(`stay affiliate route-policy runtime check failed: ${error.message}`);
+}
+
 for (const [needle, label] of [
   ['<script src="/stay-affiliate-options.js" defer />', 'root bootstrap'],
   ['"query-input": "required name=search_term_string"', 'SearchAction contract'],
@@ -108,4 +150,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hotels.com / Vrbo stay affiliate validation passed: CJ tracking is fail-closed through the TexasDefined publisher ID, stay CTAs are promoted beside or ahead of lodging content instead of being buried at the page end, event and destination guides expose deterministic in-content stay slots, explicit in-page stay slots remain authoritative, outbound affiliate clicks are attributed through GTM, live post-deploy verification covers event/venue/destination placement, route intent remains scoped, disclosures and sponsored-link attributes are present, and the existing Expedia/Stay Nearby surface remains the integration host.');
+console.log('Hotels.com / Vrbo stay affiliate validation passed: CJ tracking is fail-closed through the TexasDefined publisher ID, stay CTAs are promoted beside or ahead of lodging content instead of being buried at the page end, event and destination guides expose deterministic in-content stay slots, city/county/destination route intent is runtime-verified, owner referrals remain separately gated, explicit in-page stay slots remain authoritative, outbound affiliate clicks are attributed through GTM, live post-deploy verification covers event/venue/destination placement, disclosures and sponsored-link attributes are present, and the existing Expedia/Stay Nearby surface remains the integration host.');
