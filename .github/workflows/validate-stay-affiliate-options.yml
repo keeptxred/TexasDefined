@@ -5,15 +5,21 @@ on:
     paths:
       - 'public/stay-affiliate-options.js'
       - 'scripts/data/validate-stay-affiliate-options.mjs'
+      - 'scripts/ci/verify-stay-affiliate-production.mjs'
       - 'src/routes/__root.tsx'
+      - 'src/routes/event.$slug.lazy.tsx'
       - '.github/workflows/validate-stay-affiliate-options.yml'
+      - '.github/workflows/verify-stay-affiliate-production.yml'
   push:
     branches: [main]
     paths:
       - 'public/stay-affiliate-options.js'
       - 'scripts/data/validate-stay-affiliate-options.mjs'
+      - 'scripts/ci/verify-stay-affiliate-production.mjs'
       - 'src/routes/__root.tsx'
+      - 'src/routes/event.$slug.lazy.tsx'
       - '.github/workflows/validate-stay-affiliate-options.yml'
+      - '.github/workflows/verify-stay-affiliate-production.yml'
 
 permissions:
   contents: read
