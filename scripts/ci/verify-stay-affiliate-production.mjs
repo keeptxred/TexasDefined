@@ -80,6 +80,16 @@ const pages = [
     marker: 'Fredericksburg',
     requireSlot: true,
   },
+  {
+    route: '/city/austin',
+    marker: 'Austin',
+    requireSlot: false,
+  },
+  {
+    route: '/county/travis',
+    marker: 'Travis County',
+    requireSlot: false,
+  },
 ];
 
 for (const page of pages) {
@@ -93,4 +103,4 @@ for (const page of pages) {
   if (page.requireSlot) requireCondition(html.includes('data-stay-nearby-slot'), `${page.route} is missing its explicit in-content Stay Nearby slot.`);
 }
 
-console.log('Stay affiliate production verification passed: Hotels.com/Vrbo tracking and disclosures are live, Expedia remains the lodging host, representative event, venue and destination pages expose deterministic in-content stay slots, and script ordering is intact.');
+console.log('Stay affiliate production verification passed: Hotels.com/Vrbo tracking and disclosures are live, Expedia remains the lodging host, representative event, venue and destination pages expose deterministic in-content stay slots, representative city and county travel pages retain the shared stay bootstraps, and script ordering is intact.');
