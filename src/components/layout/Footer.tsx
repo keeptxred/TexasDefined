@@ -55,7 +55,7 @@ export function Footer() {
               </p>
             </div>
             <div className="flex flex-wrap gap-x-5 gap-y-2 sm:justify-end">
-              <Link to="/partner-with-us" className="transition-colors hover:text-primary">Partner With Us</Link>
+              <Link to="/partner-with-us" className="font-semibold text-surface-foreground transition-colors hover:text-primary">Advertise & Partner</Link>
               <Link to="/citation-guide" className="transition-colors hover:text-primary">Citation Guide</Link>
               <a href="/editorial-policy" className="transition-colors hover:text-primary">Editorial Policy</a>
               <a href="/sourcing-methodology" className="transition-colors hover:text-primary">Sourcing</a>
