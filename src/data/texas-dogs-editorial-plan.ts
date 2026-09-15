@@ -66,6 +66,16 @@ export const texasDogsEditorialPlan = {
   ],
   evergreenArticles: [
     {
+      slug: "small-dogs-big-texas-attitude",
+      title: "Small Dogs, Big Texas Attitude",
+      status: "published",
+    },
+    {
+      slug: "big-dogs-texas-sized-problems",
+      title: "Big Dogs, Texas-Sized Problems",
+      status: "published",
+    },
+    {
       slug: "the-unofficial-job-description-of-a-texas-porch-dog",
       title: "The Unofficial Job Description of a Texas Porch Dog",
       status: "published",
