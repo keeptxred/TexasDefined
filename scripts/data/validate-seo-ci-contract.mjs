@@ -66,6 +66,7 @@ const protectedValidators = [...directValidators, ...delegatedValidators];
 const seoScript = packageJson.scripts?.['seo:validate'] ?? '';
 const dataScript = packageJson.scripts?.['data:validate'] ?? '';
 const generatedPageScript = packageJson.scripts?.['generated-pages:validate'] ?? '';
+const canonicalPremergeScript = packageJson.scripts?.['validate:premerge'] ?? '';
 if (!seoScript) errors.push('package.json must expose an seo:validate script.');
 if (!generatedPageScript.includes('validate-generated-page-quality.mjs')) errors.push('package.json must expose generated-pages:validate as a permanent standalone gate.');
 if (!dataScript.includes('validate-generated-page-quality.mjs')) errors.push('data:validate must run the generated-page quality validator.');
@@ -81,7 +82,8 @@ const workflowRunsMonolithicSeoGate = workflow.includes('npm run seo:validate');
 const missingNamedWorkflowValidators = directValidators.filter((validator) => !workflow.includes(`node scripts/data/${validator}`));
 const workflowRunsNamedSeoGates = missingNamedWorkflowValidators.length === 0;
 const workflowRunsCentralSuite = workflow.includes('node scripts/ci/run-validation-suite.mjs full');
-const workflowRunsCanonicalPremerge = workflow.includes('node scripts/ci/run-premerge-validation.mjs');
+const workflowRunsCanonicalPremerge = workflow.includes('npm run validate:premerge')
+  && canonicalPremergeScript === 'node scripts/ci/run-premerge-validation.mjs';
 const canonicalRunsCentralSuite = premergeRunner.includes("'scripts/ci/run-validation-suite.mjs', 'full'");
 const missingCentralSuiteValidators = directValidators.filter((validator) => !validationSuite.includes(`scripts/data/${validator}`));
 const workflowRunsCentralSeoGates = (
@@ -154,4 +156,4 @@ for (const validator of delegatedValidators) {
   }
 }
 
-console.log(`SEO CI contract passed with ${protectedValidators.length} protected remediation validators (${directValidators.length} direct, ${delegatedValidators.length} delegated) plus ${cultureDeployValidators.length} culture-authority predeploy gates. The workflow may use one monolithic SEO gate, stricter named direct gates, the authoritative validation suite, or the canonical pre-merge runner while preserving the 91-link Texas icon-depth floor, generated-page quality, citation discovery, GSC evergreen recovery, machine-readable citation-download protections and Texas culture deployment safety.`);
+console.log(`SEO CI contract passed with ${protectedValidators.length} protected remediation validators (${directValidators.length} direct, ${delegatedValidators.length} delegated) plus ${cultureDeployValidators.length} culture-authority predeploy gates. The workflow may use one monolithic SEO gate, stricter named direct gates, the authoritative validation suite, or the canonical pre-merge npm entry point while preserving the 91-link Texas icon-depth floor, generated-page quality, citation discovery, GSC evergreen recovery, machine-readable citation-download protections and Texas culture deployment safety.`);
