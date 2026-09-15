@@ -31,7 +31,7 @@ for (const [needle, label] of [
   ['https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/', 'CJ Deep Link Generator base'],
   ['https://www.hotels.com/', 'Hotels.com destination'],
   ['https://www.vrbo.com/', 'Vrbo traveler destination'],
-  ['https://www.vrbo.com/en-us/list', 'Vrbo owner destination'],
+  ['https://www.vrbo.com/en-us/list/lead', 'Vrbo owner onboarding destination'],
   ['link.href = buildCjDeepLink(destination)', 'tracked-link enforcement'],
   ['sponsored nofollow noopener noreferrer', 'affiliate relationship attributes'],
   ['Search Hotels.com', 'Hotels.com CTA'],
@@ -61,4 +61,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hotels.com / Vrbo stay affiliate validation passed: CJ tracking is fail-closed through the TexasDefined publisher ID, hotel/vacation-rental intent is route-scoped, owner referrals are separately gated, disclosures and sponsored-link attributes are present, and the existing Expedia/Stay Nearby surface remains the integration host.');
+console.log('Hotels.com / Vrbo stay affiliate validation passed: CJ tracking is fail-closed through the TexasDefined publisher ID, hotel/vacation-rental intent is route-scoped, owner referrals use the current Vrbo onboarding URL, disclosures and sponsored-link attributes are present, and the existing Expedia/Stay Nearby surface remains the integration host.');
