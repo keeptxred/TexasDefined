@@ -9,10 +9,10 @@ import bbqBrisket from "@/assets/bbq-brisket.jpg";
 import type { Article, ImageRef } from "../types";
 
 const image = (src: string, alt: string): ImageRef => ({ src, alt, width: 1600, height: 1067 });
-const stub = (record: Omit<Article, "brandId" | "authorId" | "readingMinutes" | "body" | "relatedCollections" | "relatedDestinations"> & { relatedDestinations?: string[] }): Article => ({
+const stub = (record: Omit<Article, "brandId" | "authorId" | "readingMinutes" | "body" | "relatedCollections" | "relatedDestinations"> & { relatedDestinations?: string[]; readingMinutes?: number }): Article => ({
   brandId: "texasdefined",
   authorId: "a-hollis",
-  readingMinutes: 4,
+  readingMinutes: record.readingMinutes ?? 4,
   body: [],
   relatedCollections: [],
   relatedDestinations: record.relatedDestinations ?? [],
@@ -87,6 +87,7 @@ export const exploreFeatureArticleStubs: Article[] = [
     hero: image(smallTown, "Historic Texas courthouse square in warm evening light"),
     publishedAt: "2026-08-07",
     tags: ["history", "missions", "museums", "courthouses"],
+    readingMinutes: 8,
   }),
   stub({
     id: "explore-feature-road-trips",
@@ -135,6 +136,7 @@ export const exploreFeatureArticleStubs: Article[] = [
 ];
 
 const exploreFeatureSlugs = new Set(exploreFeatureArticleStubs.map((article) => article.slug));
+const historicSitesRoadmapSlug = "texas-historic-sites-roadmap";
 
 function estimateReadingMinutes(article: Article): number {
   const text = article.body.map((block) => {
@@ -148,6 +150,12 @@ function estimateReadingMinutes(article: Article): number {
 
 export async function loadExploreFeatureArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined" || !exploreFeatureSlugs.has(slug)) return null;
+
+  if (slug === historicSitesRoadmapSlug) {
+    const { historicSitesRoadmapArticle } = await import("./historic-sites-roadmap-article");
+    return { ...historicSitesRoadmapArticle, readingMinutes: estimateReadingMinutes(historicSitesRoadmapArticle) };
+  }
+
   const { exploreFeatureArticles } = await import("./explore-feature-articles");
   const article = exploreFeatureArticles.find((candidate) => candidate.slug === slug);
   return article ? { ...article, readingMinutes: estimateReadingMinutes(article) } : null;
