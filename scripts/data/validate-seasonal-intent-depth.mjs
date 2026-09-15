@@ -3,10 +3,12 @@ import fs from "node:fs";
 const ARTICLE_PATH = "src/data/fixtures/seasonal-intent-articles.ts";
 const DEPTH_PATH = "src/data/fixtures/seasonal-intent-depth-blocks.ts";
 const LOADER_PATH = "src/data/fixtures/lazy-seasonal-intents.ts";
+const READINESS_PATH = "src/data/fixtures/texas-gateway-index-readiness.ts";
 
 const articles = fs.readFileSync(ARTICLE_PATH, "utf8");
 const depth = fs.readFileSync(DEPTH_PATH, "utf8");
 const loader = fs.readFileSync(LOADER_PATH, "utf8");
+const readiness = fs.readFileSync(READINESS_PATH, "utf8");
 
 const slugs = [
   "bluebonnets-near-austin",
@@ -28,7 +30,21 @@ const fail = (message) => {
   process.exitCode = 1;
 };
 
-const wordCount = (value) => value.match(/[A-Za-z0-9]+(?:['’][A-Za-z0-9]+)*/g)?.length ?? 0;
+const wordCount = (value) => value.trim().split(/\s+/).filter(Boolean).length;
+const sourceWordCount = (value) => value.match(/[A-Za-z0-9]+(?:['’][A-Za-z0-9]+)*/g)?.length ?? 0;
+const ignoredLiteralValues = new Set(["paragraph", "heading", "list", "image", "shop"]);
+
+const quotedLiteralValues = (source) => {
+  const matches = source.match(/"(?:\\.|[^"\\])*"/g) ?? [];
+  return matches.flatMap((token) => {
+    try {
+      const value = JSON.parse(token);
+      return typeof value === "string" && !ignoredLiteralValues.has(value) ? [value] : [];
+    } catch {
+      return [];
+    }
+  });
+};
 
 const articleBlock = (slug) => {
   const marker = `slug: \"${slug}\"`;
@@ -48,6 +64,34 @@ const depthBlock = (slug) => {
   return depth.slice(start, end < 0 ? depth.length : end);
 };
 
+const baseBodyWordCount = (block) => {
+  const marker = "body: [";
+  const start = block.indexOf(marker);
+  if (start < 0) return 0;
+  return wordCount(quotedLiteralValues(block.slice(start + marker.length)).join(" "));
+};
+
+const supplementalBodyWordCount = (slug, block) => {
+  if (!block) return 0;
+  const marker = `\"${slug}\": [`;
+  const start = block.indexOf(marker);
+  if (start < 0) return 0;
+  return wordCount(quotedLiteralValues(block.slice(start + marker.length)).join(" "));
+};
+
+const readinessMinimumMatch = readiness.match(/export const SEASONAL_INTENT_INDEX_MIN_BODY_WORDS = (\d+);/);
+const seasonalIndexMinimum = Number(readinessMinimumMatch?.[1] ?? NaN);
+if (!Number.isFinite(seasonalIndexMinimum) || seasonalIndexMinimum < 400) {
+  fail("seasonal route-level body threshold must remain explicit and at least 400 words");
+}
+
+const readinessSetStart = readiness.indexOf("export const SEASONAL_INTENT_INDEX_READY_SLUGS");
+const readinessSetEnd = readiness.indexOf("]);", readinessSetStart);
+const readinessSet = readinessSetStart >= 0 && readinessSetEnd > readinessSetStart
+  ? readiness.slice(readinessSetStart, readinessSetEnd)
+  : "";
+if (!readinessSet) fail("seasonal index-ready allowlist is missing from route readiness governance");
+
 if (!articles.includes('import { applySeasonalIntentDepth } from "./seasonal-intent-depth-blocks"')) {
   fail("canonical seasonal article module is not wired to the depth blocks");
 }
@@ -64,6 +108,7 @@ if (articles.includes("readingMinutes: 1") || depth.includes("readingMinutes: 1"
   fail("seasonal intent sources must never advertise a one-minute canonical article");
 }
 
+let minimumObservedBodyWords = Number.POSITIVE_INFINITY;
 for (const slug of slugs) {
   const base = articleBlock(slug);
   if (!base) {
@@ -71,9 +116,18 @@ for (const slug of slugs) {
     continue;
   }
   const supplement = depthBlock(slug);
-  const combinedWords = wordCount(`${base} ${supplement}`);
-  if (combinedWords < 500) {
-    fail(`${slug}: canonical source remains too thin (${combinedWords} words; minimum 500)`);
+  const combinedSourceWords = sourceWordCount(`${base} ${supplement}`);
+  if (combinedSourceWords < 500) {
+    fail(`${slug}: canonical source remains too thin (${combinedSourceWords} source words; minimum 500)`);
+  }
+
+  const bodyWords = baseBodyWordCount(base) + supplementalBodyWordCount(slug, supplement);
+  minimumObservedBodyWords = Math.min(minimumObservedBodyWords, bodyWords);
+  if (bodyWords < seasonalIndexMinimum) {
+    fail(`${slug}: rendered article body would trigger route noindex (${bodyWords} words; minimum ${seasonalIndexMinimum})`);
+  }
+  if (!readinessSet.includes(`\"${slug}\"`)) {
+    fail(`${slug}: missing from explicit seasonal route index-readiness allowlist`);
   }
   if (slug !== "free-christmas-events-in-texas" && !supplement) {
     fail(`${slug}: missing canonical depth blocks`);
@@ -94,5 +148,5 @@ for (const marker of [
 }
 
 if (!process.exitCode) {
-  console.log(`Seasonal intent depth guard passed: ${slugs.length} canonical seasonal pages are at least 500 source words, keep one canonical owner, and cannot regress to a one-minute contract.`);
+  console.log(`Seasonal intent depth guard passed: ${slugs.length} canonical seasonal pages retain at least 500 source words, every rendered body clears the ${seasonalIndexMinimum}-word route indexability floor (minimum observed ${minimumObservedBodyWords}), keep one canonical owner, and cannot regress to a one-minute contract.`);
 }
