@@ -39,8 +39,8 @@ try {
   };
   vm.runInNewContext(source, sandbox, { filename: 'public/stay-affiliate-options.js' });
   const api = sandbox.window.TexasDefinedStayAffiliateOptions;
-  if (!api || typeof api.bookingIntent !== 'function' || typeof api.ownerEligible !== 'function') {
-    errors.push('stay affiliate bootstrap must expose bookingIntent and ownerEligible for route-policy verification.');
+  if (!api || typeof api.bookingIntent !== 'function' || typeof api.ownerEligible !== 'function' || typeof api.buildCjDeepLink !== 'function') {
+    errors.push('stay affiliate bootstrap must expose bookingIntent, ownerEligible and buildCjDeepLink for policy verification.');
   } else {
     const bookingCases = [
       ['/event/chappell-hill-bluebonnet-festival', 'hotel-first'],
@@ -49,6 +49,12 @@ try {
       ['/city/austin', 'both'],
       ['/county/travis', 'both'],
       ['/explore/painted-churches', 'both'],
+      ['/best-places-to-go-camping-in-texas', 'both'],
+      ['/texas-college-towns', 'both'],
+      ['/texas-tailgating-guide', 'both'],
+      ['/texas-unique-lodging', 'both'],
+      ['/texas-music-venues', 'both'],
+      ['/texas-roadside-oddities', 'both'],
     ];
     for (const [pathname, expected] of bookingCases) {
       const actual = api.bookingIntent(pathname);
@@ -56,6 +62,21 @@ try {
     }
     if (!api.ownerEligible('/real-estate')) errors.push('Vrbo owner referral must remain eligible on /real-estate.');
     if (api.ownerEligible('/city/austin')) errors.push('Vrbo owner referral must not appear merely because a page is a city travel guide.');
+
+    const hotelsDeepLink = api.buildCjDeepLink('https://www.hotels.com/');
+    const vrboDeepLink = api.buildCjDeepLink('https://www.vrbo.com/');
+    for (const [value, partner] of [[hotelsDeepLink, 'Hotels.com'], [vrboDeepLink, 'Vrbo']]) {
+      if (!value.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/')) {
+        errors.push(`${partner} CJ deep link must stay bound to TexasDefined publisher 101876465.`);
+      }
+    }
+    let rejectedUnsupportedHost = false;
+    try {
+      api.buildCjDeepLink('https://example.com/');
+    } catch {
+      rejectedUnsupportedHost = true;
+    }
+    if (!rejectedUnsupportedHost) errors.push('CJ deep-link builder must reject destinations outside Hotels.com and Vrbo.');
   }
 } catch (error) {
   errors.push(`stay affiliate route-policy runtime check failed: ${error.message}`);
@@ -123,6 +144,8 @@ for (const [needle, label] of [
   ['/event/chappell-hill-bluebonnet-festival', 'live event placement probe'],
   ['/sports-venue/globe-life-field', 'live venue placement probe'],
   ['/destination/fredericksburg', 'live destination placement probe'],
+  ['/city/austin', 'live city eligibility probe'],
+  ['/county/travis', 'live county eligibility probe'],
   ['data-stay-nearby-slot', 'live explicit slot verification'],
 ]) requireText(productionVerifier, needle, label);
 
@@ -150,4 +173,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hotels.com / Vrbo stay affiliate validation passed: CJ tracking is fail-closed through the TexasDefined publisher ID, stay CTAs are promoted beside or ahead of lodging content instead of being buried at the page end, event and destination guides expose deterministic in-content stay slots, city/county/destination route intent is runtime-verified, owner referrals remain separately gated, explicit in-page stay slots remain authoritative, outbound affiliate clicks are attributed through GTM, live post-deploy verification covers event/venue/destination placement, disclosures and sponsored-link attributes are present, and the existing Expedia/Stay Nearby surface remains the integration host.');
+console.log('Hotels.com / Vrbo stay affiliate validation passed: CJ tracking is fail-closed through the TexasDefined publisher ID and restricted to approved partner hosts; stay CTAs are promoted beside or ahead of lodging content instead of being buried at the page end; event and destination guides expose deterministic in-content stay slots; all governed travel-route families are runtime-verified; owner referrals remain separately gated; explicit in-page stay slots remain authoritative; outbound affiliate clicks are attributed through GTM; live post-deploy verification covers event, venue, destination, city and county surfaces; disclosures and sponsored-link attributes are present; and the existing Expedia/Stay Nearby surface remains the integration host.');
