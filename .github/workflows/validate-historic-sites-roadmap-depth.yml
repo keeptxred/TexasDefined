@@ -1,0 +1,38 @@
+name: Validate historic-sites roadmap depth
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/fixtures/historic-sites-roadmap-article.ts'
+      - 'src/data/fixtures/lazy-explore-feature-articles.ts'
+      - 'scripts/data/validate-historic-sites-roadmap-depth.mjs'
+      - '.github/workflows/validate-historic-sites-roadmap-depth.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/data/fixtures/historic-sites-roadmap-article.ts'
+      - 'src/data/fixtures/lazy-explore-feature-articles.ts'
+      - 'scripts/data/validate-historic-sites-roadmap-depth.mjs'
+      - '.github/workflows/validate-historic-sites-roadmap-depth.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Historic-sites roadmap depth
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate authority depth and routing
+        run: node scripts/data/validate-historic-sites-roadmap-depth.mjs
