@@ -94,6 +94,7 @@ export const texasDefinedBrand: BrandConfig = {
       children: [
         { label: "Things That Define Texas", to: "/things-unique-to-texas", description: "250 foods, places, traditions and symbols that define Texas" },
         { label: "Texas Icons", to: "/texas-icons" },
+        { label: "Texas Dogs Defined", to: "/dogs", description: "Breed personalities, dog life and the fun side of living with dogs in Texas" },
         { label: "Homes & Land", to: "/real-estate", description: "Buying and owning Texas homes and land" },
         { label: "Property", to: "/property", description: "Taxes, exemptions, county guides and homeowner tools" },
         { label: "Moving Here", to: "/moving-to-texas", description: "What to know before the boxes arrive", image: { src: roadTrip, alt: "A Texas highway stretching toward the horizon" } },
@@ -131,6 +132,7 @@ export const texasDefinedBrand: BrandConfig = {
       title: "Texas Life",
       items: [
         { label: "Things That Define Texas", to: "/things-unique-to-texas" },
+        { label: "Texas Dogs Defined", to: "/dogs" },
         { label: "Homes & Land", to: "/real-estate" },
         { label: "Property", to: "/property" },
         { label: "Moving Here", to: "/moving-to-texas" },
