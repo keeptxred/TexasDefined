@@ -32,7 +32,20 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
-      # Single source of truth: developers and CI run the same deterministic
-      # pre-merge contract. Add future required checks to the runner, not here.
+      # Diagnostic wrapper only: preserve the canonical validator and its exit code,
+      # while retaining its complete output long enough to identify the exact
+      # fail-closed invariant. Remove this wrapper before merge.
       - name: Run canonical pre-merge validation
-        run: node scripts/ci/run-premerge-validation.mjs
+        shell: bash
+        run: |
+          set -o pipefail
+          node scripts/ci/run-premerge-validation.mjs 2>&1 | tee premerge-diagnostic.log
+
+      - name: Upload canonical pre-merge diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: canonical-premerge-diagnostic-${{ github.sha }}
+          path: premerge-diagnostic.log
+          if-no-files-found: error
+          retention-days: 1
