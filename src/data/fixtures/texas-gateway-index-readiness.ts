@@ -15,7 +15,30 @@ export const TEXAS_GATEWAY_INDEX_READY_SLUGS = new Set<string>([
   "texas-bucket-list-by-season",
 ]);
 
+/**
+ * These twelve seasonal intent guides are a deliberately narrow article family:
+ * concise, source-backed planning pages with strong internal linking and a
+ * focused answer to one seasonal query. They are not gateway acquisition drafts.
+ * Keep the family explicit so future seasonal rows do not inherit a relaxed gate
+ * merely by sharing an id prefix.
+ */
+export const SEASONAL_INTENT_INDEX_READY_SLUGS = new Set<string>([
+  "bluebonnets-near-austin",
+  "bluebonnets-near-houston",
+  "bluebonnets-near-dallas-fort-worth",
+  "bluebonnets-near-san-antonio",
+  "texas-bluebonnet-festivals",
+  "is-it-illegal-to-pick-bluebonnets-in-texas",
+  "best-christmas-lights-in-texas",
+  "texas-christmas-train-rides",
+  "free-christmas-events-in-texas",
+  "east-texas-fall-colors",
+  "hill-country-fall-colors",
+  "best-texas-state-parks-for-fall-colors",
+]);
+
 export const ARTICLE_INDEX_MIN_BODY_WORDS = 600;
+export const SEASONAL_INTENT_INDEX_MIN_BODY_WORDS = 400;
 export const ARTICLE_INDEX_MIN_DEK_CHARS = 80;
 export const ARTICLE_DISCOVERY_MIN_READING_MINUTES = 4;
 
@@ -65,14 +88,25 @@ function hasArticleReadinessMetadata(article: Article): boolean {
   return hasValidOptionalSource(article);
 }
 
+function articleIndexMinimumBodyWords(article: Article): number {
+  return SEASONAL_INTENT_INDEX_READY_SLUGS.has(article.slug)
+    ? SEASONAL_INTENT_INDEX_MIN_BODY_WORDS
+    : ARTICLE_INDEX_MIN_BODY_WORDS;
+}
+
 /**
  * Strict route-level boundary for a fully loaded editorial article. Direct URLs
  * remain usable for QA/history, but a full article must carry substantive body
  * depth before it can be indexed.
+ *
+ * The explicit seasonal intent family uses a 400-word body floor because those
+ * pages answer narrow planning questions and already carry source, author, hero,
+ * dek and canonical-depth governance. The sitewide 600-word gate remains intact
+ * for every other article family.
  */
 export function isArticleIndexReady(article: Article): boolean {
   return hasArticleReadinessMetadata(article)
-    && articleBodyWordCount(article) >= ARTICLE_INDEX_MIN_BODY_WORDS;
+    && articleBodyWordCount(article) >= articleIndexMinimumBodyWords(article);
 }
 
 /**
@@ -88,7 +122,7 @@ export function isArticleIndexReady(article: Article): boolean {
 export function isArticleDiscoveryReady(article: Article): boolean {
   if (!hasArticleReadinessMetadata(article)) return false;
   const bodyWords = articleBodyWordCount(article);
-  if (bodyWords >= ARTICLE_INDEX_MIN_BODY_WORDS) return true;
+  if (bodyWords >= articleIndexMinimumBodyWords(article)) return true;
   return bodyWords === 0
     && article.body.length === 0
     && article.readingMinutes >= ARTICLE_DISCOVERY_MIN_READING_MINUTES;
