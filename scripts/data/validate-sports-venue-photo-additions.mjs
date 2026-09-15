@@ -13,6 +13,9 @@ const failures = [];
 const requireText = (source, needle, label) => {
   if (!source.includes(needle)) failures.push(`${label}: missing ${needle}`);
 };
+const forbidText = (source, needle, label) => {
+  if (source.includes(needle)) failures.push(`${label}: forbidden ${needle}`);
+};
 const recordSlugs = (source) => [...source.matchAll(/^  '([^']+)': \{/gm)].map((match) => match[1]);
 const baseSlugs = recordSlugs(base);
 const additionSlugs = recordSlugs(additions);
@@ -67,8 +70,20 @@ for (const marker of [
 requireText(guideContent, 'getSportsVenuePhoto } from "@/data/sports-venue-images-all"', 'shared venue guide photo lookup');
 requireText(guideContent, 'const photo = getSportsVenuePhoto(slug);', 'shared venue guide photo lookup');
 requireText(guidePage, 'A verified venue photograph is not available yet.', 'fail-closed photo fallback');
-requireText(guidePage, 'image: photo?.imageUrl', 'structured venue image metadata');
-requireText(guidePage, 'src={photo.imageUrl}', 'shared venue hero rendering');
+requireText(
+  guidePage,
+  'const heroSrc = photo ? `/api/sports-venue-hero?slug=${encodeURIComponent(entity.slug)}` : undefined;',
+  'governed same-origin venue hero source',
+);
+requireText(
+  guidePage,
+  'const absoluteHeroUrl = heroSrc ? new URL(heroSrc, siteUrl).toString() : undefined;',
+  'governed structured venue image metadata',
+);
+requireText(guidePage, 'image: absoluteHeroUrl', 'structured venue image metadata');
+requireText(guidePage, 'src={heroSrc}', 'shared venue hero rendering');
+forbidText(guidePage, 'image: photo?.imageUrl', 'structured venue image metadata must not bypass the governed endpoint');
+forbidText(guidePage, 'src={photo.imageUrl}', 'shared venue hero rendering must not bypass the governed endpoint');
 
 const uniqueLicensedSlugs = new Set([...baseSlugs, ...additionSlugs]);
 const overlap = additionSlugs.filter((slug) => baseSlugs.includes(slug));
@@ -84,4 +99,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue photo additions validated: ${baseSlugs.length} base records + ${additionSlugs.length} supplemental records (${overlap.length} safely shadowed by base-first precedence) = ${totalLicensed}/${totalSeeded} unique licensed venue heroes; ${remainingFallback} venues remain on the intentional fail-closed fallback.`);
+console.log(`Sports venue photo additions validated: ${baseSlugs.length} base records + ${additionSlugs.length} supplemental records (${overlap.length} safely shadowed by base-first precedence) = ${totalLicensed}/${totalSeeded} unique licensed venue heroes; ${remainingFallback} venues remain on the intentional fail-closed fallback, with modern guide delivery protected by the governed same-origin endpoint.`);
