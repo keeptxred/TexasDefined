@@ -67,7 +67,7 @@ const spanishTexasMilitaryBattleMedinaStub: Article = {
 const mexicanTexasMilitaryHistoryStub: Article = {
   id: "evergreen-mexican-texas-military-history", brandId: "texasdefined", slug: "mexican-texas-military-history", title: "Military in Mexican Texas: Presidios, Militias, Anahuac and the Road to Revolution",
   dek: "Between Mexican independence in 1821 and the Texas Revolution in 1835, military power in Texas shifted from thin presidio garrisons to settler militias and larger Mexican deployments.", category: "texas-history", region: "gulf-coast",
-  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mexican_Texas_1833-en.svg?width=1600", alt: "Map of Mexican Texas and Coahuila y Tejas in 1833", width: 1600, height: 1200, credit: "Map of Mexican Texas, 1833 · CC BY-SA 4.0 · Wikimedia Commons" },
+  hero: { src: "/images/generated/heroes/mexican-texas-1833-en.jpg", alt: "Map of Mexican Texas and Coahuila y Tejas in 1833", width: 1600, height: 1200, credit: "Map of Mexican Texas, 1833 · CC BY-SA 4.0 · Wikimedia Commons" },
   authorId: "a-marisol", publishedAt: "2026-08-20", readingMinutes: 17, tags: ["Mexican Texas", "Coahuila y Tejas", "Anahuac", "Fredonian Rebellion", "Turtle Bayou Resolutions", "Gonzales", "Texas Rangers", "Texas military history"], featured: true,
   sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/learn/military-history/military-mexican-texas", body: [], relatedCollections: [], relatedDestinations: ["the-alamo", "presidio-la-bahia", "san-felipe-de-austin"],
 };

@@ -8,7 +8,7 @@ export const texasRiverBasinsGuideStub: Article = {
   dek: "Texas water makes more sense when you stop thinking only about individual rivers and start thinking in basins: the large drainage systems that connect rain, tributaries, reservoirs, cities, farms and the Gulf.",
   category: "lakes-rivers",
   hero: {
-    src: "/images/editorial/texas-river-basins.svg",
+    src: "/images/editorial/texas-river-basins.jpg",
     alt: "Guadalupe River flowing through a wooded Texas river corridor",
     width: 1600,
     height: 1115,
@@ -34,7 +34,7 @@ export const texasHighwayDesignationsGuideStub: Article = {
   dek: "Texas road shields look like alphabet soup until you know the system. FM, RM, SH, Loop, Spur, Park Road and business routes each describe a different place in the state highway network.",
   category: "road-trips",
   hero: {
-    src: "/images/editorial/texas-highway-designations.svg",
+    src: "/images/editorial/texas-highway-designations.jpg",
     alt: "Two-lane Texas highway crossing open rural country",
     width: 1600,
     height: 1067,
@@ -59,7 +59,7 @@ export const texasCourthouseArchitectureGuideStub: Article = {
   dek: "Texas courthouses share a civic purpose but not a single look. Their towers, domes, stone, brick and symmetry reflect different eras, budgets, architects and ideas about what public buildings should say about a county.",
   category: "texas-history",
   hero: {
-    src: "/images/editorial/texas-courthouse-architecture.svg",
+    src: "/images/editorial/texas-courthouse-architecture.jpg",
     alt: "Historic civic architecture in a Texas county-seat setting",
     width: 1600,
     height: 1067,
@@ -85,7 +85,7 @@ export const texasEcoregionsHabitatsGuideStub: Article = {
   dek: "Pine forest, coastal marsh, blackland prairie, limestone plateau, High Plains and desert can all exist in one state because Texas sits at the meeting point of major climates, elevations, soils and habitat systems.",
   category: "outdoors",
   hero: {
-    src: "/images/editorial/texas-ecoregions-habitats.svg",
+    src: "/images/editorial/texas-ecoregions-habitats.jpg",
     alt: "A broad Texas landscape showing the state's dramatic regional variety",
     width: 1600,
     height: 2133,
