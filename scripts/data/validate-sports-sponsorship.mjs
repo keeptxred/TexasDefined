@@ -4,7 +4,7 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [schemaMigration, deliveryMigration, server, functions, component, directory, guide, galaxy, sharedContent, sharedPage, adminHead, adminLazy, adminNav, partnerPageHead, partnerPageLazy, salesPlaybook] = await Promise.all([
+const [schemaMigration, deliveryMigration, server, functions, component, directory, guide, galaxy, sharedContent, sharedPage, adminHead, adminLazy, adminNav, partnerPageHead, partnerPageLazy, advertisingProgram, salesPlaybook] = await Promise.all([
   read('supabase/migrations/20260814041151_create_governed_sports_sponsorship.sql'),
   read('supabase/migrations/20260814041302_govern_sports_sponsor_delivery.sql'),
   read('src/data/sports-sponsorship.server.ts'),
@@ -20,12 +20,10 @@ const [schemaMigration, deliveryMigration, server, functions, component, directo
   read('src/routes/admin.tsx'),
   read('src/routes/partner-with-us.tsx'),
   read('src/routes/partner-with-us.lazy.tsx'),
+  read('src/data/advertising-program.ts'),
   read('docs/SPORTS_SPONSORSHIP_SALES_PLAYBOOK.md'),
 ]);
 
-// The sponsorship console and public partner page deliberately split route
-// metadata from lazy UI. Treat each pair as one contract while retaining all
-// security, approval, privacy, reporting and commercial-integrity assertions.
 const admin = `${adminHead}\n${adminLazy}`;
 const partnerPage = `${partnerPageHead}\n${partnerPageLazy}`;
 
@@ -122,9 +120,6 @@ for (const marker of [
   "event: 'click'",
 ]) assert(component.includes(marker), `Sponsored sports component is missing disclosure or aggregate metric marker: ${marker}.`);
 
-// Directory owns its placement directly. Venue routes own exact-surface lookup,
-// while the statewide shared guide owns rendering/disclosure. Galaxy preserves
-// the same boundary through its protected static canonical wrapper.
 for (const marker of [
   'SponsoredSportsPlacement',
   'getActiveSportsSponsorPlacement',
@@ -186,33 +181,46 @@ assert(!admin.includes('loader:'), 'Sports sponsorship admin route must not SSR-
 assert(adminNav.includes('to="/admin/sports-sponsors"'), 'TexasDefined Operations navigation must link to the gated sports sponsorship console.');
 
 for (const marker of [
-  'Founding sports rates',
-  '$49/month',
-  '$149/month',
-  '$299/month',
-  '$499/month',
-  'not guaranteed-impression or guaranteed-booking packages',
-  'does not sell editorial rankings, favorable reviews or factual conclusions',
-  'One approved sponsored placement may run on a sports surface at a time',
-]) assert(partnerPage.includes(marker), `Partner page is missing a founding-rate or commercial-integrity marker: ${marker}.`);
+  'advertising & partnerships',
+  'Choose the reach that fits the campaign',
+  'No traffic guarantees',
+  '/partner-with-us/showcase',
+  '/partner-with-us/billing',
+  '/partner-with-us/terms',
+  'does not create a contract or charge your card',
+]) assert(partnerPage.toLowerCase().includes(marker.toLowerCase()), `Partner page is missing unified commercial-program marker: ${marker}.`);
+
+for (const marker of [
+  "id: 'local'",
+  "monthlyCents: 24_900",
+  "annualCents: 249_000",
+  "id: 'growth'",
+  "monthlyCents: 49_900",
+  "annualCents: 499_000",
+  "id: 'premier'",
+  "monthlyCents: 99_900",
+  "annualCents: 999_000",
+  'No traffic guarantees',
+]) assert(advertisingProgram.toLowerCase().includes(marker.toLowerCase()), `Unified advertising program is missing pricing/governance marker: ${marker}.`);
+
+for (const forbidden of ['$49/month', '$149/month', '$299/month', '$499/month']) {
+  assert(!partnerPage.includes(forbidden), `Public partner page must not retain legacy sports placeholder price ${forbidden}.`);
+  assert(!salesPlaybook.includes(forbidden), `Sports sales playbook must not retain legacy sports placeholder price ${forbidden}.`);
+}
 
 for (const marker of [
   'TexasDefined Sports Sponsorship Sales Playbook',
-  'Single Venue',
-  '$49/month',
-  'Metro Sports Pack',
-  '$149/month',
-  'Texas Sports Network',
-  '$299/month',
-  'Founding Statewide Partner',
+  'Local Partner',
+  '$249/month',
+  'Growth Partner',
   '$499/month',
-  'Initial prospect markets',
-  'Outreach email: first contact',
-  'Outreach email: follow-up 1',
-  'Outreach email: follow-up 2',
-  'No guaranteed impression, click, booking, revenue, ranking, or editorial outcome',
-  'A sponsor may buy a disclosed placement. A sponsor may not buy:',
-]) assert(salesPlaybook.includes(marker), `Sports sales playbook is missing launch-sales governance marker: ${marker}.`);
+  'Premier Partner',
+  '$999/month',
+  'No outreach may begin',
+  'Do not send advertiser outreach until all of the following are true',
+  'Paid relationships do not buy editorial rankings',
+  'A sponsor may buy a disclosed placement or sponsored service. A sponsor may not buy:',
+]) assert(salesPlaybook.includes(marker), `Sports sales playbook is missing unified launch-sales governance marker: ${marker}.`);
 
 if (errors.length) {
   console.error('Sports sponsorship validation failed:');
@@ -220,4 +228,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Sports sponsorship validated: traffic-gated outreach hold, explicit two-stage approval, one approved placement per surface, fail-closed public delivery, shared venue-guide sponsored disclosure, privacy-light aggregate metrics, key-gated operator controls and founding launch-sales terms are protected.');
+console.log('Sports sponsorship validated: traffic-gated outreach hold, explicit two-stage approval, one approved placement per surface, fail-closed public delivery, shared venue-guide disclosure, privacy-light aggregate metrics, key-gated operator controls and unified advertiser-program pricing are protected.');
