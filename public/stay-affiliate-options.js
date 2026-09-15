@@ -6,7 +6,7 @@
   const CJ_DLG_BASE = `https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/`;
   const HOTELS_DESTINATION = "https://www.hotels.com/";
   const VRBO_DESTINATION = "https://www.vrbo.com/";
-  const VRBO_OWNER_DESTINATION = "https://www.vrbo.com/en-us/list";
+  const VRBO_OWNER_DESTINATION = "https://www.vrbo.com/en-us/list/lead";
   const HOTEL_FIRST_PATH = /^\/(?:event\/|events(?:\/|$)|sports-venue\/|sports-venues(?:\/|$))/;
   const BOTH_PATH = /^\/(?:destination\/|explore(?:\/|$)|city\/|county\/|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const OWNER_PATH = /^\/real-estate\/?$/;
@@ -35,7 +35,7 @@
 
   function buildCjDeepLink(destination) {
     const parsed = new URL(destination);
-    if (!['www.hotels.com', 'www.vrbo.com'].includes(parsed.hostname)) {
+    if (!["www.hotels.com", "www.vrbo.com"].includes(parsed.hostname)) {
       throw new Error(`Unsupported stay affiliate destination: ${parsed.hostname}`);
     }
     return `${CJ_DLG_BASE}${encodeURI(parsed.toString())}`;
