@@ -78,7 +78,7 @@ const pages = [
   {
     route: '/destination/fredericksburg',
     marker: 'Fredericksburg',
-    requireSlot: false,
+    requireSlot: true,
   },
 ];
 
@@ -93,4 +93,4 @@ for (const page of pages) {
   if (page.requireSlot) requireCondition(html.includes('data-stay-nearby-slot'), `${page.route} is missing its explicit in-content Stay Nearby slot.`);
 }
 
-console.log('Stay affiliate production verification passed: Hotels.com/Vrbo tracking and disclosures are live, Expedia remains the lodging host, event and venue pages expose deterministic in-content stay slots, representative destination intent remains eligible, and script ordering is intact.');
+console.log('Stay affiliate production verification passed: Hotels.com/Vrbo tracking and disclosures are live, Expedia remains the lodging host, representative event, venue and destination pages expose deterministic in-content stay slots, and script ordering is intact.');
