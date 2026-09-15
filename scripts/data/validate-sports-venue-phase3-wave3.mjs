@@ -86,7 +86,7 @@ for (const [slug, name] of venues) {
     }
   } else {
     requireText(guidePage, 'A verified venue photograph is not available yet.', `${name} intentional image fallback`);
-    requireText(guidePage, 'image: photo?.imageUrl', `${name} fail-closed image structured data`);
+    requireText(guidePage, 'image: absoluteHeroUrl', `${name} fail-closed governed image structured data`);
   }
 
   const hotelContexts = registry.properties.flatMap((property) =>
@@ -139,6 +139,8 @@ for (const marker of [
   'Verification & review',
   'photo.licenseUrl',
   'A verified venue photograph is not available yet.',
+  'image: absoluteHeroUrl',
+  'src={heroSrc}',
 ]) requireText(guidePage, marker, 'shared venue guide architecture');
 
 for (const marker of ['`sports-venue:${data.slug}`', 'encodeURIComponent(venueId)', '#calendar']) {
@@ -164,4 +166,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue Phase 3 wave-three validation passed for ${venues.length} migrations: governed dynamic routing, source-reviewed venue-specific editorial records, canonical event/calendar wiring, provider-neutral ticket fallbacks, fail-closed Stay Nearby behavior and licensed-photo-or-intentional-fallback image handling remain intact without generic filler.`);
+console.log(`Sports venue Phase 3 wave-three validation passed for ${venues.length} migrations: governed dynamic routing, source-reviewed venue-specific editorial records, canonical event/calendar wiring, provider-neutral ticket fallbacks, fail-closed Stay Nearby behavior and governed licensed-photo-or-intentional-fallback image handling remain intact without generic filler.`);
