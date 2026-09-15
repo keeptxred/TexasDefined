@@ -78,6 +78,7 @@ const requiredIntentTargets = [
   '/explore/state-parks',
   '/explore/national-parks',
   '/explore/outdoors',
+  '/explore/wildlife',
   '/explore/historic-sites',
   '/explore/small-towns',
   '/explore/road-trips',
