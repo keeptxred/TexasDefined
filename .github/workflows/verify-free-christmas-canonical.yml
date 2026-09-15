@@ -22,7 +22,6 @@ jobs:
     timeout-minutes: 8
     environment: texasdefined-publication
     env:
-      CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       GH_TOKEN: ${{ github.token }}
       DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
     steps:
@@ -32,11 +31,7 @@ jobs:
           ref: ${{ env.DEPLOY_SHA }}
 
       - name: Publish pending status
-        run: node scripts/ci/publish-github-status.mjs texasdefined-free-christmas-live pending "Refreshing and verifying free Christmas canonical HTML"
-
-      - name: Purge free Christmas canonical cache
-        id: purge
-        run: node scripts/ci/purge-free-christmas-html-cache.mjs
+        run: node scripts/ci/publish-github-status.mjs texasdefined-free-christmas-live pending "Verifying free Christmas canonical HTML"
 
       - name: Verify bare canonical HTML
         id: live
