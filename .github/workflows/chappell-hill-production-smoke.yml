@@ -1,0 +1,54 @@
+name: Chappell Hill production renderer smoke
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/workflows/chappell-hill-production-smoke.yml
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/chappell-hill-production-smoke.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify the live page never ships the Google My Maps iframe
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          urls=(
+            "https://texasdefined.com/event/chappell-hill-bluebonnet-festival"
+            "https://texasdefined-site.freddy-coppola.workers.dev/event/chappell-hill-bluebonnet-festival"
+          )
+
+          for url in "${urls[@]}"; do
+            echo "Checking $url"
+            html="$(curl --fail --silent --show-error --location --retry 3 --retry-delay 2 \
+              --user-agent 'TexasDefined-production-smoke/1.0' \
+              "$url")"
+
+            if grep -Fq 'google.com/maps/d/u/0/embed' <<<"$html"; then
+              echo "FAIL: third-party Google My Maps iframe is present in server HTML: $url" >&2
+              exit 1
+            fi
+
+            grep -Fq 'https://visitbrenhamtexas.com/things/wildflower-watch/wildflower-driving-map/' <<<"$html" || {
+              echo "FAIL: official Visit Brenham live-map link is missing: $url" >&2
+              exit 1
+            }
+
+            grep -Fq 'https://visitbrenhamtexas.com/wp-content/uploads/2018/03/20180323105225204_0001.pdf' <<<"$html" || {
+              echo "FAIL: Washington County PDF link is missing: $url" >&2
+              exit 1
+            }
+
+            echo "PASS: no auto-loaded Google map iframe; official map links remain."
+          done
