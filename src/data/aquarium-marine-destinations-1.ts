@@ -108,7 +108,7 @@ export const aquariumMarineDestinations1: Destination[] = [
     county: "Bexar",
     address: "849 E Commerce St, San Antonio, TX 78205",
     coordinates: { lat: 29.4237, lng: -98.4862 },
-    hero: h("/images/aquariums/sea-life-san-antonio.svg", "TexasDefined editorial illustration for SEA LIFE San Antonio in downtown San Antonio", "TexasDefined editorial illustration"),
+    hero: h("/images/aquariums/sea-life-san-antonio.jpg", "TexasDefined editorial illustration for SEA LIFE San Antonio in downtown San Antonio", "TexasDefined editorial illustration"),
     bestSeason: "Year-round; the indoor setting works well in summer heat and can be folded into a downtown River Walk and Alamo day.",
     entryNote: "Use SEA LIFE San Antonio’s official site for current timed-entry policies, tickets, operating hours, talks, feedings and parking information.",
     highlights: ["Ocean tunnel", "Sharks and rescued sea turtles", "Stingray Bay", "Interactive touchpool"],
