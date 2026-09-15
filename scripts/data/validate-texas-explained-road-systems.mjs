@@ -58,11 +58,11 @@ for (const [slug] of profiles) {
 }
 
 for (const hero of [
-  '/images/editorial/texas-rm-roads.svg',
-  '/images/editorial/texas-loops-spurs.svg',
-  '/images/editorial/texas-business-routes.svg',
-  '/images/editorial/texas-park-recreational-roads.svg',
-  '/images/editorial/texas-historic-memorial-routes.svg',
+  '/images/editorial/texas-rm-roads.jpg',
+  '/images/editorial/texas-loops-spurs.jpg',
+  '/images/editorial/texas-business-routes.jpg',
+  '/images/editorial/texas-park-recreational-roads.jpg',
+  '/images/editorial/texas-historic-memorial-routes.jpg',
 ]) if (!stubs.includes(hero) || !articles.includes(hero)) errors.push(`Road-system hero contract missing: ${hero}`);
 
 if (errors.length) {
