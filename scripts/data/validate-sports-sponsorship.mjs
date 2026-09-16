@@ -4,7 +4,7 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [schemaMigration, deliveryMigration, server, functions, component, directory, guide, galaxy, sharedContent, sharedPage, adminHead, adminLazy, adminNav, partnerPageHead, partnerPageLazy, salesPlaybook, advertisingProgram] = await Promise.all([
+const [schemaMigration, deliveryMigration, server, functions, component, directory, guide, galaxy, sharedContent, sharedPage, adminHead, adminLazy, adminNav, partnerPageHead, partnerPageLazy, salesPlaybook, advertisingProgram, advertiserAgreementContent] = await Promise.all([
   read('supabase/migrations/20260814041151_create_governed_sports_sponsorship.sql'),
   read('supabase/migrations/20260814041302_govern_sports_sponsor_delivery.sql'),
   read('src/data/sports-sponsorship.server.ts'),
@@ -22,6 +22,7 @@ const [schemaMigration, deliveryMigration, server, functions, component, directo
   read('src/routes/partner-with-us.lazy.tsx'),
   read('docs/SPORTS_SPONSORSHIP_SALES_PLAYBOOK.md'),
   read('src/data/advertising-program.ts'),
+  read('src/data/advertiser-agreement-content.server.ts'),
 ]);
 
 // The sponsorship console and public partner page deliberately split route
@@ -206,8 +207,8 @@ for (const marker of [
   'monthlyPrice: 999',
   'annualPrice: 9990',
   "id: 'custom'",
-  'advertiserAgreementSnapshot',
 ]) assert(advertisingProgram.includes(marker), `Unified advertising program is missing tier marker: ${marker}.`);
+assert(advertiserAgreementContent.includes('advertiserAgreementSnapshot'), 'Server-only advertiser agreement content is missing advertiserAgreementSnapshot.');
 
 for (const marker of [
   'TexasDefined Sports Sponsorship Sales Playbook',
