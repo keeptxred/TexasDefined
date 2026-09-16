@@ -65,7 +65,7 @@ export const advertiserTiers = [
   },
   {
     id: 'custom',
-    name: 'Custom / Integrated',
+    name: 'Custom Partnership',
     monthlyPrice: null,
     annualPrice: null,
     shortDescription: 'For destination, event, relocation, RV/outdoor, sports-travel, statewide, agency, tourism and seasonal campaigns that need a tailored plan.',
