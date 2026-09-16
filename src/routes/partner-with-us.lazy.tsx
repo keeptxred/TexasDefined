@@ -90,7 +90,7 @@ function PartnerWithUsPage() {
       <Container className="py-12 sm:py-16">
         <div className="flex flex-col gap-6 justify-between md:flex-row md:items-end">
           <div><p className="eyebrow text-primary">Packages & pricing</p><h2 className="mt-3 max-w-3xl font-display text-4xl sm:text-5xl">Choose the footprint that matches your Texas audience.</h2><p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Local, Growth and Premier monthly plans begin with a three-month commitment. Annual pricing is charged annually in advance and effectively includes two months free.</p></div>
-          <div className="inline-flex self-start border border-border bg-background p-1" role="group" aria-label="Pricing billing cycle">
+          <div className="inline-flex w-fit border border-border bg-background p-1" role="group" aria-label="Pricing billing cycle">
             {(['monthly', 'annual'] as const).map((cycle) => <button key={cycle} type="button" aria-pressed={billingCycle === cycle} onClick={() => setBillingCycle(cycle)} className={`px-4 py-2 text-sm font-semibold capitalize ${billingCycle === cycle ? 'bg-foreground text-background' : 'text-muted-foreground'}`}>{cycle}</button>)}
           </div>
         </div>
