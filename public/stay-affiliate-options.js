@@ -8,6 +8,23 @@
   const HOTELS_DESTINATION = "https://www.hotels.com/";
   const VRBO_DESTINATION = "https://www.vrbo.com/";
   const VRBO_OWNER_DESTINATION = "https://www.vrbo.com/en-us/list/lead";
+  const VERIFIED_PROPERTY_DESTINATIONS = new Map([
+    ["Courtyard Fort Worth University Drive", "https://www.hotels.com/ho122433/courtyard-by-marriott-fort-worth-university-drive-fort-worth-united-states-of-america/"],
+    ["Hilton Garden Inn Fort Worth Medical Center", "https://www.hotels.com/ho403739/hilton-garden-inn-fort-worth-medical-center-fort-worth-united-states-of-america/"],
+    ["Homewood Suites by Hilton Fort Worth Medical Center", "https://www.hotels.com/ho434078/homewood-suites-by-hilton-fort-worth-medical-center-tx-fort-worth-united-states-of-america/"],
+    ["Graduate by Hilton Dallas", "https://www.hotels.com/ho214111/the-lumen-dallas-united-states-of-america/"],
+    ["The Highland Dallas, Curio Collection by Hilton", "https://www.hotels.com/ho239327/the-highland-dallas-curio-collection-by-hilton-dallas-united-states-of-america/"],
+    ["Hotel Mockingbird, Dallas, a Tribute Portfolio Hotel", "https://www.hotels.com/ho129054/the-beeman-hotel-dallas-united-states-of-america/"],
+    ["Live! by Loews – Arlington, TX", "https://www.hotels.com/ho1066640416/live-by-loews-arlington-tx-arlington-united-states-of-america/"],
+    ["Loews Arlington Hotel", "https://www.hotels.com/ho2949850752/loews-arlington-arlington-united-states-of-america/"],
+    ["Drury Plaza Hotel Dallas Arlington", "https://www.hotels.com/ho3155976672/drury-plaza-hotel-dallas-arlington-arlington-united-states-of-america/"],
+    ["W Dallas", "https://www.hotels.com/ho241720/w-dallas-victory-dallas-united-states-of-america/"],
+    ["Homewood Suites by Hilton Dallas Downtown, TX", "https://www.hotels.com/ho433692/homewood-suites-by-hilton-dallas-downtown-tx-dallas-united-states-of-america/"],
+    ["Hilton Anatole", "https://www.hotels.com/ho115100/hilton-anatole-dallas-united-states-of-america/"],
+    ["Tru by Hilton Northlake Fort Worth", "https://www.hotels.com/ho1830497920/tru-by-hilton-northlake-fort-worth-tx-roanoke-united-states-of-america/"],
+    ["Home2 Suites by Hilton Fort Worth Northlake", "https://www.hotels.com/ho599143232/home2-suites-by-hilton-fort-worth-northlake-roanoke-united-states-of-america/"],
+    ["Holiday Inn Express & Suites Fort Worth North - Northlake", "https://www.hotels.com/ho929311744/holiday-inn-express-suites-fort-worth-north-northlake-an-ihg-hotel-roanoke-united-states-of-america/"],
+  ]);
   const HOTEL_FIRST_PATH = /^\/(?:event\/|events(?:\/|$)|sports-venue\/|sports-venues(?:\/|$))/;
   const BOTH_PATH = /^\/(?:destination\/|explore(?:\/|$)|city\/|county\/|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const OWNER_PATH = /^\/real-estate\/?$/;
@@ -43,6 +60,10 @@
     return `${CJ_DLG_BASE}${encodeURI(parsed.toString())}`;
   }
 
+  function exactPropertyDestination(name) {
+    return VERIFIED_PROPERTY_DESTINATIONS.get(String(name || "").trim()) || null;
+  }
+
   function partnerName(destination) {
     const hostname = new URL(destination).hostname;
     if (hostname === "www.hotels.com") return "hotels.com";
@@ -72,6 +93,8 @@
     link.textContent = label;
     link.dataset.affiliatePartner = partnerName(destination);
     link.dataset.affiliatePlacement = placement;
+    link.dataset.commercialPartner = partnerName(destination);
+    link.dataset.commercialPlacement = placement;
     if (ariaLabel) link.setAttribute("aria-label", ariaLabel);
     link.addEventListener("click", () => trackAffiliateClick({ destination, label, placement }));
     return link;
@@ -259,6 +282,27 @@
     headingRow.appendChild(button);
   }
 
+  function upgradeExactPropertyCards(surface) {
+    if (!surface || surface.dataset.surfaceType !== "curated") return;
+    for (const card of surface.querySelectorAll(".td-stay-card")) {
+      const heading = card.querySelector("h3");
+      const destination = exactPropertyDestination(heading?.textContent);
+      if (!destination) continue;
+      const fallback = Array.from(card.querySelectorAll("button")).find((button) => /Search Expedia stays/i.test(button.textContent || ""));
+      if (!fallback?.parentElement) continue;
+      const propertyName = String(heading.textContent || "").trim();
+      const link = createTrackedLink({
+        destination,
+        label: "View on Hotels.com",
+        variant: "primary",
+        ariaLabel: `View ${propertyName} on Hotels.com in a new tab`,
+        placement: "stay-nearby-card-exact",
+      });
+      link.dataset.exactProperty = propertyName;
+      fallback.parentElement.replaceChildren(link);
+    }
+  }
+
   function syncBookingChoice() {
     const expediaSurface = document.getElementById(EXPEDIA_SURFACE_ID);
     const existing = document.getElementById(CHOICE_ID);
@@ -275,6 +319,7 @@
     }
     promoteStaySurface(expediaSurface);
     ensureProminentStayCta(expediaSurface);
+    upgradeExactPropertyCards(expediaSurface);
   }
 
   function syncOwnerReferral() {
@@ -313,6 +358,7 @@
   window.TexasDefinedStayAffiliateOptions = {
     buildCjDeepLink,
     bookingIntent,
+    exactPropertyDestination,
     ownerEligible,
     promoteStaySurface,
     sync: scheduleSync,

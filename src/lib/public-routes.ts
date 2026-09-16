@@ -100,6 +100,8 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-by-texas-txt",
   "/texas-dmv",
   "/texas-vehicle-registration",
+  "/texas-vehicle-registration-renewal",
+  "/texas-vehicle-registration-fees-taxes",
   "/replace-texas-registration-receipt",
   "/texas-toll-tags",
   "/texas-flag",

@@ -20,6 +20,8 @@ import { Route as ThingsThatDefineTexasDotjsonRouteImport } from './routes/thing
 import { Route as ThingsThatDefineTexasDotcsvRouteImport } from './routes/things-that-define-texas[.]csv'
 import { Route as TexasWesternSwingRouteImport } from './routes/texas-western-swing'
 import { Route as TexasVsEveryStateRouteImport } from './routes/texas-vs-every-state'
+import { Route as TexasVehicleRegistrationRenewalRouteImport } from './routes/texas-vehicle-registration-renewal'
+import { Route as TexasVehicleRegistrationFeesTaxesRouteImport } from './routes/texas-vehicle-registration-fees-taxes'
 import { Route as TexasVehicleRegistrationRouteImport } from './routes/texas-vehicle-registration'
 import { Route as TexasUtilityCostCalculatorRouteImport } from './routes/texas-utility-cost-calculator'
 import { Route as TexasUniqueLodgingRouteImport } from './routes/texas-unique-lodging'
@@ -531,6 +533,18 @@ const TexasVsEveryStateRoute = TexasVsEveryStateRouteImport.update({
 } as any).lazy(() =>
   import('./routes/texas-vs-every-state.lazy').then((d) => d.Route),
 )
+const TexasVehicleRegistrationRenewalRoute =
+  TexasVehicleRegistrationRenewalRouteImport.update({
+    id: '/texas-vehicle-registration-renewal',
+    path: '/texas-vehicle-registration-renewal',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasVehicleRegistrationFeesTaxesRoute =
+  TexasVehicleRegistrationFeesTaxesRouteImport.update({
+    id: '/texas-vehicle-registration-fees-taxes',
+    path: '/texas-vehicle-registration-fees-taxes',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const TexasVehicleRegistrationRoute =
   TexasVehicleRegistrationRouteImport.update({
     id: '/texas-vehicle-registration',
@@ -3447,6 +3461,8 @@ export interface FileRoutesByFullPath {
   '/texas-unique-lodging': typeof TexasUniqueLodgingRoute
   '/texas-utility-cost-calculator': typeof TexasUtilityCostCalculatorRoute
   '/texas-vehicle-registration': typeof TexasVehicleRegistrationRoute
+  '/texas-vehicle-registration-fees-taxes': typeof TexasVehicleRegistrationFeesTaxesRoute
+  '/texas-vehicle-registration-renewal': typeof TexasVehicleRegistrationRenewalRoute
   '/texas-vs-every-state': typeof TexasVsEveryStateRoute
   '/texas-western-swing': typeof TexasWesternSwingRoute
   '/things-that-define-texas.csv': typeof ThingsThatDefineTexasDotcsvRoute
@@ -3900,6 +3916,8 @@ export interface FileRoutesByTo {
   '/texas-unique-lodging': typeof TexasUniqueLodgingRoute
   '/texas-utility-cost-calculator': typeof TexasUtilityCostCalculatorRoute
   '/texas-vehicle-registration': typeof TexasVehicleRegistrationRoute
+  '/texas-vehicle-registration-fees-taxes': typeof TexasVehicleRegistrationFeesTaxesRoute
+  '/texas-vehicle-registration-renewal': typeof TexasVehicleRegistrationRenewalRoute
   '/texas-vs-every-state': typeof TexasVsEveryStateRoute
   '/texas-western-swing': typeof TexasWesternSwingRoute
   '/things-that-define-texas.csv': typeof ThingsThatDefineTexasDotcsvRoute
@@ -4357,6 +4375,8 @@ export interface FileRoutesById {
   '/texas-unique-lodging': typeof TexasUniqueLodgingRoute
   '/texas-utility-cost-calculator': typeof TexasUtilityCostCalculatorRoute
   '/texas-vehicle-registration': typeof TexasVehicleRegistrationRoute
+  '/texas-vehicle-registration-fees-taxes': typeof TexasVehicleRegistrationFeesTaxesRoute
+  '/texas-vehicle-registration-renewal': typeof TexasVehicleRegistrationRenewalRoute
   '/texas-vs-every-state': typeof TexasVsEveryStateRoute
   '/texas-western-swing': typeof TexasWesternSwingRoute
   '/things-that-define-texas.csv': typeof ThingsThatDefineTexasDotcsvRoute
@@ -4815,6 +4835,8 @@ export interface FileRouteTypes {
     | '/texas-unique-lodging'
     | '/texas-utility-cost-calculator'
     | '/texas-vehicle-registration'
+    | '/texas-vehicle-registration-fees-taxes'
+    | '/texas-vehicle-registration-renewal'
     | '/texas-vs-every-state'
     | '/texas-western-swing'
     | '/things-that-define-texas.csv'
@@ -5268,6 +5290,8 @@ export interface FileRouteTypes {
     | '/texas-unique-lodging'
     | '/texas-utility-cost-calculator'
     | '/texas-vehicle-registration'
+    | '/texas-vehicle-registration-fees-taxes'
+    | '/texas-vehicle-registration-renewal'
     | '/texas-vs-every-state'
     | '/texas-western-swing'
     | '/things-that-define-texas.csv'
@@ -5724,6 +5748,8 @@ export interface FileRouteTypes {
     | '/texas-unique-lodging'
     | '/texas-utility-cost-calculator'
     | '/texas-vehicle-registration'
+    | '/texas-vehicle-registration-fees-taxes'
+    | '/texas-vehicle-registration-renewal'
     | '/texas-vs-every-state'
     | '/texas-western-swing'
     | '/things-that-define-texas.csv'
@@ -6181,6 +6207,8 @@ export interface RootRouteChildren {
   TexasUniqueLodgingRoute: typeof TexasUniqueLodgingRoute
   TexasUtilityCostCalculatorRoute: typeof TexasUtilityCostCalculatorRoute
   TexasVehicleRegistrationRoute: typeof TexasVehicleRegistrationRoute
+  TexasVehicleRegistrationFeesTaxesRoute: typeof TexasVehicleRegistrationFeesTaxesRoute
+  TexasVehicleRegistrationRenewalRoute: typeof TexasVehicleRegistrationRenewalRoute
   TexasVsEveryStateRoute: typeof TexasVsEveryStateRoute
   TexasWesternSwingRoute: typeof TexasWesternSwingRoute
   ThingsThatDefineTexasDotcsvRoute: typeof ThingsThatDefineTexasDotcsvRoute
@@ -6459,6 +6487,20 @@ declare module '@tanstack/react-router' {
       path: '/texas-vs-every-state'
       fullPath: '/texas-vs-every-state'
       preLoaderRoute: typeof TexasVsEveryStateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-vehicle-registration-renewal': {
+      id: '/texas-vehicle-registration-renewal'
+      path: '/texas-vehicle-registration-renewal'
+      fullPath: '/texas-vehicle-registration-renewal'
+      preLoaderRoute: typeof TexasVehicleRegistrationRenewalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-vehicle-registration-fees-taxes': {
+      id: '/texas-vehicle-registration-fees-taxes'
+      path: '/texas-vehicle-registration-fees-taxes'
+      fullPath: '/texas-vehicle-registration-fees-taxes'
+      preLoaderRoute: typeof TexasVehicleRegistrationFeesTaxesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/texas-vehicle-registration': {
@@ -10245,6 +10287,9 @@ const rootRouteChildren: RootRouteChildren = {
   TexasUniqueLodgingRoute: TexasUniqueLodgingRoute,
   TexasUtilityCostCalculatorRoute: TexasUtilityCostCalculatorRoute,
   TexasVehicleRegistrationRoute: TexasVehicleRegistrationRoute,
+  TexasVehicleRegistrationFeesTaxesRoute:
+    TexasVehicleRegistrationFeesTaxesRoute,
+  TexasVehicleRegistrationRenewalRoute: TexasVehicleRegistrationRenewalRoute,
   TexasVsEveryStateRoute: TexasVsEveryStateRoute,
   TexasWesternSwingRoute: TexasWesternSwingRoute,
   ThingsThatDefineTexasDotcsvRoute: ThingsThatDefineTexasDotcsvRoute,

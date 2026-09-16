@@ -1,0 +1,44 @@
+name: Validate stay monetization policy
+
+on:
+  pull_request:
+    paths:
+      - 'public/expedia-travel.js'
+      - 'public/stay-nearby-destination-hotels.json'
+      - 'scripts/data/validate-stay-monetization-policy.mjs'
+      - 'scripts/data/validate-stay-destination-cohort.mjs'
+      - 'src/routes/admin.stay-monetization.lazy.tsx'
+      - 'src/routes/admin.tsx'
+      - '.github/workflows/validate-stay-monetization-policy.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'public/expedia-travel.js'
+      - 'public/stay-nearby-destination-hotels.json'
+      - 'scripts/data/validate-stay-monetization-policy.mjs'
+      - 'scripts/data/validate-stay-destination-cohort.mjs'
+      - 'src/routes/admin.stay-monetization.lazy.tsx'
+      - 'src/routes/admin.tsx'
+      - '.github/workflows/validate-stay-monetization-policy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate eligibility and telemetry policy
+        run: node scripts/data/validate-stay-monetization-policy.mjs
+      - name: Validate controlled destination cohort
+        run: node scripts/data/validate-stay-destination-cohort.mjs
+      - name: Preserve existing Expedia contract
+        run: node scripts/data/validate-expedia-affiliate.mjs
+      - name: Preserve Hotels.com and Vrbo contract
+        run: node scripts/data/validate-stay-affiliate-options.mjs
