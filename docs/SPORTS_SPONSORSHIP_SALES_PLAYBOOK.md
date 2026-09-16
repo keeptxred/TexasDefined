@@ -19,7 +19,7 @@ Paid placements remain clearly separated from editorial recommendations, ranking
 | Local Partner | $249/month | $2,490/year | One approved sports or visitor-planning sponsored placement |
 | Growth Partner | $499/month | $4,990/year | Up to three relevant placements, suitable for a metro or regional sports-travel business |
 | Premier Partner | $999/month | $9,990/year | Up to six relevant placements with broader hub/social/sponsored-feature options |
-| Custom / Integrated | Quote | Quote | Event campaigns, agencies, section sponsorships, exclusivity or custom statewide programs |
+| Custom Partnership | Quote | Quote | Event campaigns, agencies, section sponsorships, exclusivity or custom statewide programs |
 
 One-time commercial options on the main advertiser page also include Event Campaigns from $495, Integrated Campaigns from $1,500 and custom Section or Category Sponsorships.
 
