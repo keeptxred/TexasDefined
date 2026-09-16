@@ -82,6 +82,11 @@ export const destinationQuery = (slug: Slug) => queryOptions({
   refetchOnMount: false,
   refetchOnReconnect: false,
   queryFn: async () => {
+    if (slug === "westcave-preserve") {
+      const { cavernExpansionDestinations } = await import("./cavern-destination-expansion");
+      const westcave = cavernExpansionDestinations.find((destination) => destination.slug === slug);
+      if (westcave) return prepareDestinationForDelivery(westcave);
+    }
     const { getResolvedDestination } = await import("./destination-query-runtime");
     const destination = await getResolvedDestination(slug);
     return destination ? prepareDestinationForDelivery(destination) : destination;
