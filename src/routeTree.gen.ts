@@ -391,6 +391,7 @@ import { Route as AdminSportsSponsorsRouteImport } from './routes/admin.sports-s
 import { Route as AdminSportsPartnersRouteImport } from './routes/admin.sports-partners'
 import { Route as AdminSocialCalendarRouteImport } from './routes/admin.social-calendar'
 import { Route as AdminPlatformHealthRouteImport } from './routes/admin.platform-health'
+import { Route as AdminPartnerReferralsRouteImport } from './routes/admin.partner-referrals'
 import { Route as AdminKnowledgeGraphBehaviorRouteImport } from './routes/admin.knowledge-graph-behavior'
 import { Route as AdminInternalLinkTestsRouteImport } from './routes/admin.internal-link-tests'
 import { Route as AdminInternalLinkRollbackRouteImport } from './routes/admin.internal-link-rollback'
@@ -2835,6 +2836,13 @@ const AdminPlatformHealthRoute = AdminPlatformHealthRouteImport.update({
 } as any).lazy(() =>
   import('./routes/admin.platform-health.lazy').then((d) => d.Route),
 )
+const AdminPartnerReferralsRoute = AdminPartnerReferralsRouteImport.update({
+  id: '/partner-referrals',
+  path: '/partner-referrals',
+  getParentRoute: () => AdminRoute,
+} as any).lazy(() =>
+  import('./routes/admin.partner-referrals.lazy').then((d) => d.Route),
+)
 const AdminKnowledgeGraphBehaviorRoute =
   AdminKnowledgeGraphBehaviorRouteImport.update({
     id: '/knowledge-graph-behavior',
@@ -3468,6 +3476,7 @@ export interface FileRoutesByFullPath {
   '/admin/internal-link-rollback': typeof AdminInternalLinkRollbackRoute
   '/admin/internal-link-tests': typeof AdminInternalLinkTestsRoute
   '/admin/knowledge-graph-behavior': typeof AdminKnowledgeGraphBehaviorRoute
+  '/admin/partner-referrals': typeof AdminPartnerReferralsRoute
   '/admin/platform-health': typeof AdminPlatformHealthRoute
   '/admin/social-calendar': typeof AdminSocialCalendarRoute
   '/admin/sports-partners': typeof AdminSportsPartnersRoute
@@ -3921,6 +3930,7 @@ export interface FileRoutesByTo {
   '/admin/internal-link-rollback': typeof AdminInternalLinkRollbackRoute
   '/admin/internal-link-tests': typeof AdminInternalLinkTestsRoute
   '/admin/knowledge-graph-behavior': typeof AdminKnowledgeGraphBehaviorRoute
+  '/admin/partner-referrals': typeof AdminPartnerReferralsRoute
   '/admin/platform-health': typeof AdminPlatformHealthRoute
   '/admin/social-calendar': typeof AdminSocialCalendarRoute
   '/admin/sports-partners': typeof AdminSportsPartnersRoute
@@ -4378,6 +4388,7 @@ export interface FileRoutesById {
   '/admin/internal-link-rollback': typeof AdminInternalLinkRollbackRoute
   '/admin/internal-link-tests': typeof AdminInternalLinkTestsRoute
   '/admin/knowledge-graph-behavior': typeof AdminKnowledgeGraphBehaviorRoute
+  '/admin/partner-referrals': typeof AdminPartnerReferralsRoute
   '/admin/platform-health': typeof AdminPlatformHealthRoute
   '/admin/social-calendar': typeof AdminSocialCalendarRoute
   '/admin/sports-partners': typeof AdminSportsPartnersRoute
@@ -4836,6 +4847,7 @@ export interface FileRouteTypes {
     | '/admin/internal-link-rollback'
     | '/admin/internal-link-tests'
     | '/admin/knowledge-graph-behavior'
+    | '/admin/partner-referrals'
     | '/admin/platform-health'
     | '/admin/social-calendar'
     | '/admin/sports-partners'
@@ -5289,6 +5301,7 @@ export interface FileRouteTypes {
     | '/admin/internal-link-rollback'
     | '/admin/internal-link-tests'
     | '/admin/knowledge-graph-behavior'
+    | '/admin/partner-referrals'
     | '/admin/platform-health'
     | '/admin/social-calendar'
     | '/admin/sports-partners'
@@ -5745,6 +5758,7 @@ export interface FileRouteTypes {
     | '/admin/internal-link-rollback'
     | '/admin/internal-link-tests'
     | '/admin/knowledge-graph-behavior'
+    | '/admin/partner-referrals'
     | '/admin/platform-health'
     | '/admin/social-calendar'
     | '/admin/sports-partners'
@@ -9058,6 +9072,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPlatformHealthRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/partner-referrals': {
+      id: '/admin/partner-referrals'
+      path: '/partner-referrals'
+      fullPath: '/admin/partner-referrals'
+      preLoaderRoute: typeof AdminPartnerReferralsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/knowledge-graph-behavior': {
       id: '/admin/knowledge-graph-behavior'
       path: '/knowledge-graph-behavior'
@@ -9589,6 +9610,7 @@ interface AdminRouteChildren {
   AdminInternalLinkRollbackRoute: typeof AdminInternalLinkRollbackRoute
   AdminInternalLinkTestsRoute: typeof AdminInternalLinkTestsRoute
   AdminKnowledgeGraphBehaviorRoute: typeof AdminKnowledgeGraphBehaviorRoute
+  AdminPartnerReferralsRoute: typeof AdminPartnerReferralsRoute
   AdminPlatformHealthRoute: typeof AdminPlatformHealthRoute
   AdminSocialCalendarRoute: typeof AdminSocialCalendarRoute
   AdminSportsPartnersRoute: typeof AdminSportsPartnersRoute
@@ -9606,6 +9628,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminInternalLinkRollbackRoute: AdminInternalLinkRollbackRoute,
   AdminInternalLinkTestsRoute: AdminInternalLinkTestsRoute,
   AdminKnowledgeGraphBehaviorRoute: AdminKnowledgeGraphBehaviorRoute,
+  AdminPartnerReferralsRoute: AdminPartnerReferralsRoute,
   AdminPlatformHealthRoute: AdminPlatformHealthRoute,
   AdminSocialCalendarRoute: AdminSocialCalendarRoute,
   AdminSportsPartnersRoute: AdminSportsPartnersRoute,
