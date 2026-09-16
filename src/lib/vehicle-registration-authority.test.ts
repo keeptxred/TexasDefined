@@ -6,6 +6,8 @@ const renewalPath = "/texas-vehicle-registration-renewal";
 const feesPath = "/texas-vehicle-registration-fees-taxes";
 const renewalRouteSource = readFileSync(new URL("../routes/texas-vehicle-registration-renewal.tsx", import.meta.url), "utf8");
 const feesRouteSource = readFileSync(new URL("../routes/texas-vehicle-registration-fees-taxes.tsx", import.meta.url), "utf8");
+const renewalLazySource = readFileSync(new URL("../routes/texas-vehicle-registration-renewal.lazy.tsx", import.meta.url), "utf8");
+const feesLazySource = readFileSync(new URL("../routes/texas-vehicle-registration-fees-taxes.lazy.tsx", import.meta.url), "utf8");
 const renewalPageSource = readFileSync(new URL("../components/editorial/VehicleRegistrationRenewalPage.tsx", import.meta.url), "utf8");
 const feesPageSource = readFileSync(new URL("../components/editorial/VehicleRegistrationFeesTaxesPage.tsx", import.meta.url), "utf8");
 const parentSource = readFileSync(new URL("../routes/texas-vehicle-registration.lazy.tsx", import.meta.url), "utf8");
@@ -16,13 +18,15 @@ describe("Texas vehicle registration authority ownership", () => {
     expect(INDEXABLE_STATIC_PATHS).toContain(feesPath);
   });
 
-  it("keeps specialist pages self-canonical and lazily rendered", () => {
+  it("keeps specialist pages self-canonical and uses native lazy route modules", () => {
     expect(renewalRouteSource).toContain(`const canonicalPath = '${renewalPath}'`);
     expect(feesRouteSource).toContain(`const canonicalPath = '${feesPath}'`);
-    expect(renewalRouteSource).toContain('lazyRouteComponent');
-    expect(feesRouteSource).toContain('lazyRouteComponent');
-    expect(renewalRouteSource).toContain('VehicleRegistrationRenewalPage');
-    expect(feesRouteSource).toContain('VehicleRegistrationFeesTaxesPage');
+    expect(renewalRouteSource).not.toContain('lazyRouteComponent');
+    expect(feesRouteSource).not.toContain('lazyRouteComponent');
+    expect(renewalLazySource).toContain('createLazyFileRoute');
+    expect(feesLazySource).toContain('createLazyFileRoute');
+    expect(renewalLazySource).toContain('VehicleRegistrationRenewalPage');
+    expect(feesLazySource).toContain('VehicleRegistrationFeesTaxesPage');
   });
 
   it("grounds both specialist guides in official Texas sources", () => {
