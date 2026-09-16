@@ -43,16 +43,16 @@ jobs:
               name: 'advertiser hub',
               path: '/partner-with-us',
               canonical: '/partner-with-us',
-              needles: ['Local Partner', 'Growth Partner', 'Premier Partner', '$249', '$499', '$999', 'Review first. Agreement and payment follow approval.'],
-              forbidden: ['Founding sports rates', '$49/month', '$149/month', '$299/month', 'TEST ONLY', 'test mode'],
+              needles: ['Local Partner', 'Growth Partner', 'Premier Partner', 'Custom Partnership', '$249', '$499', '$999', 'Review first. Agreement and payment follow approval.'],
+              forbidden: ['Custom / Integrated', 'Founding sports rates', '$49/month', '$149/month', '$299/month', 'TEST ONLY', 'test mode'],
               indexable: true,
             },
             {
               name: 'advertiser terms',
               path: '/partner-with-us/terms',
               canonical: '/partner-with-us/terms',
-              needles: ['Texas Defined advertising and sponsorship terms.', 'Agreement version 2026-09-16-v2', '$249/month', '$2,490/year', 'does not represent that it has been reviewed by counsel'],
-              forbidden: ['TEST ONLY', 'test mode'],
+              needles: ['Texas Defined advertising and sponsorship terms.', 'Agreement version 2026-09-16-v2', 'Custom Partnership', '$249/month', '$2,490/year', 'does not represent that it has been reviewed by counsel'],
+              forbidden: ['Custom / Integrated', 'TEST ONLY', 'test mode'],
               indexable: true,
             },
             {
@@ -170,5 +170,5 @@ jobs:
             process.exit(1);
           }
 
-          console.log('Advertiser production verification passed: canonical hub/support pages, exact pricing/content, demo disclosure, agreement noindex, no test-only public copy, and permanent legacy redirects are live.');
+          console.log('Advertiser production verification passed: canonical hub/support pages, exact pricing/content and tier naming, demo disclosure, agreement noindex, no test-only public copy, and permanent legacy redirects are live.');
           NODE
