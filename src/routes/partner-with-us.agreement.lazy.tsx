@@ -94,7 +94,7 @@ function AdvertiserAgreementPage() {
             <Field label="Type your full legal name as your electronic signature" name="typedSignature" autoComplete="name" required />
             <label className="flex gap-3 text-sm leading-6 text-muted-foreground"><input type="checkbox" name="authorityConfirmed" required className="mt-1 h-4 w-4" /><span>I confirm I am authorized to sign for the advertiser named above.</span></label>
             <label className="flex gap-3 text-sm leading-6 text-muted-foreground"><input type="checkbox" name="esignConsent" required className="mt-1 h-4 w-4" /><span>I accept the agreement and intend my typed name and submission to serve as my electronic signature and consent to electronic records.</span></label>
-            <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true"><label htmlFor="addressLine2">Address line 2</label><input id="addressLine2" name="addressLine2" tabIndex={-1} autoComplete="off" /></div>
+            <div className="sr-only" aria-hidden="true"><label htmlFor="addressLine2">Address line 2</label><input id="addressLine2" name="addressLine2" tabIndex={-1} autoComplete="off" /></div>
             {status === 'error' ? <p role="alert" className="text-sm font-semibold text-destructive">{errorMessage}</p> : null}
             <button type="submit" disabled={status === 'sending'} className="min-h-11 justify-self-start border border-primary bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground disabled:opacity-60">{status === 'sending' ? 'Recording acceptance…' : 'Accept & sign electronically'}</button>
           </form>
