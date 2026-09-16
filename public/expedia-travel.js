@@ -2,6 +2,7 @@
   const SURFACE_ID = "expedia-travel-surface";
   const SLOT_SELECTOR = "[data-stay-nearby-slot]";
   const STAY_DATA_URL = "/stay-nearby-hotels.json";
+  const DESTINATION_STAY_DATA_URL = "/stay-nearby-destination-hotels.json";
   const TRAVEL_PATH = /^\/(?:explore(?:\/|$)|destination\/|city\/|county\/|sports-venue\/|sports-venues\/(?!compare(?:\.csv)?(?:\/|$))|sports-venues$|event\/|events(?:\/|$)|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const TRAVEL_ARTICLE_SECTION = /\b(?:travel|lodging|road trips?|weekend getaways?|events?)\b/i;
   const CONTEXT_PATHS = [
@@ -107,13 +108,25 @@
     return null;
   }
 
+  async function fetchRegistry(url) {
+    const response = await fetch(url, { credentials: "same-origin" });
+    if (!response.ok) throw new Error(`Stay Nearby data request failed for ${url}: ${response.status}`);
+    return response.json();
+  }
+
   function loadStayData() {
     if (!stayDataPromise) {
-      stayDataPromise = fetch(STAY_DATA_URL, { credentials: "same-origin" })
-        .then((response) => {
-          if (!response.ok) throw new Error(`Stay Nearby data request failed: ${response.status}`);
-          return response.json();
-        })
+      stayDataPromise = Promise.all([
+        fetchRegistry(STAY_DATA_URL),
+        fetchRegistry(DESTINATION_STAY_DATA_URL).catch(() => ({ properties: [] })),
+      ])
+        .then(([base, destination]) => ({
+          ...base,
+          properties: [
+            ...(Array.isArray(base?.properties) ? base.properties : []),
+            ...(Array.isArray(destination?.properties) ? destination.properties : []),
+          ],
+        }))
         .catch(() => null);
     }
     return stayDataPromise;
@@ -389,6 +402,13 @@
     section.appendChild(style);
   }
 
+  function contextHeading(kind) {
+    if (kind === "destination") return "Useful stays near this destination";
+    if (kind === "venue") return "Useful stays near this venue";
+    if (kind === "city") return "Useful stays in this area";
+    return "Useful stays near your event";
+  }
+
   function buildStaySurface(context, selection) {
     const section = document.createElement("section");
     section.id = SURFACE_ID;
@@ -410,7 +430,7 @@
     const heading = document.createElement("h2");
     heading.id = "stay-nearby-heading";
     heading.className = "mt-2 font-display text-3xl";
-    heading.textContent = "Useful stays near your event";
+    heading.textContent = contextHeading(context.kind);
     const intro = document.createElement("p");
     intro.className = "mt-3 max-w-3xl text-sm leading-6 text-muted-foreground";
     intro.textContent = "A short, context-first set of places to stay. We favor useful location over a long metro-wide affiliate list.";
