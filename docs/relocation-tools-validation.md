@@ -1,0 +1,1 @@
+Relocation routes must remain indexable only when they provide a useful first-party workflow and a clear source-of-record handoff. Do not claim that a ZIP or city alone determines school, utility, appraisal, voting, or emergency-service jurisdiction.
