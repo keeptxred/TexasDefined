@@ -1,8 +1,6 @@
 import { createServerFn } from '@tanstack/react-start';
 import { z } from 'zod';
 
-import { savePartnerInquiry } from '@/data/partner-inquiry.server';
-
 const partnerInquirySchema = z.object({
   contactName: z.string().trim().min(2).max(120),
   email: z.string().trim().email().max(320),
@@ -20,7 +18,6 @@ const partnerInquirySchema = z.object({
 export const submitPartnerInquiry = createServerFn({ method: 'POST' })
   .inputValidator(partnerInquirySchema)
   .handler(async ({ data }) => {
-    // Quietly accept honeypot submissions so bots do not learn the filter.
     if (data.addressLine2.trim()) return { ok: true };
 
     let website: string | null = null;
@@ -30,6 +27,7 @@ export const submitPartnerInquiry = createServerFn({ method: 'POST' })
       website = parsed.toString();
     }
 
+    const { savePartnerInquiry } = await import('@/data/partner-inquiry.server');
     await savePartnerInquiry({
       contact_name: data.contactName,
       email: data.email.toLowerCase(),

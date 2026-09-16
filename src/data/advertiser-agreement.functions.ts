@@ -3,12 +3,10 @@ import { z } from 'zod';
 
 import {
   ADVERTISING_AGREEMENT_VERSION,
-  advertiserAgreementSnapshot,
   getAdvertiserTier,
   type AdvertiserBillingCycle,
   type AdvertiserTierId,
 } from '@/data/advertising-program';
-import { saveAdvertiserAgreement } from '@/data/advertiser-agreement.server';
 
 const advertiserAgreementSchema = z.object({
   tier: z.enum(['local', 'growth', 'premier', 'custom']),
@@ -32,7 +30,6 @@ const advertiserAgreementSchema = z.object({
 export const submitAdvertiserAgreement = createServerFn({ method: 'POST' })
   .inputValidator(advertiserAgreementSchema)
   .handler(async ({ data }) => {
-    // Quietly accept honeypot submissions so bots do not learn the filter.
     if (data.addressLine2.trim()) return { ok: true };
 
     if (data.typedSignature.localeCompare(data.signerName, undefined, { sensitivity: 'accent' }) !== 0) {
@@ -50,6 +47,11 @@ export const submitAdvertiserAgreement = createServerFn({ method: 'POST' })
     const billingCycle = data.billingCycle as AdvertiserBillingCycle;
     const tier = getAdvertiserTier(tierId);
     const dollars = billingCycle === 'annual' ? tier.annualPrice : tier.monthlyPrice;
+
+    const [{ advertiserAgreementSnapshot }, { saveAdvertiserAgreement }] = await Promise.all([
+      import('@/data/advertiser-agreement-content.server'),
+      import('@/data/advertiser-agreement.server'),
+    ]);
 
     await saveAdvertiserAgreement({
       agreement_version: ADVERTISING_AGREEMENT_VERSION,
