@@ -12,7 +12,7 @@ const title = 'Texas Vehicle Registration Renewal: Online & In Person';
 const description = 'Renew Texas vehicle registration online, by mail or in person. Check renewal timing, emissions rules, expired-registration limits and sticker delivery.';
 const pageHead = {
   meta: [
-    { title },
+    { title: title },
     { name: 'description', content: description },
   ],
   links: [{ rel: 'canonical', href: `https://texasdefined.com${canonicalPath}` }],
