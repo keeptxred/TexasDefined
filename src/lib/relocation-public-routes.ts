@@ -1,0 +1,1 @@
+export const RELOCATION_TOOL_PATHS = ['/moving-to-texas/tools','/compare-texas-cities','/find-my-emergency-services','/find-my-homestead-exemption','/find-my-property-tax','/find-my-utilities','/find-my-voter-registration','/texas-zip-code-explorer'] as const;
