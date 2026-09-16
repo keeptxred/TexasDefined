@@ -1,0 +1,53 @@
+name: Reconcile relocation generated files
+on:
+  push:
+    branches: [finish-relocation-tools-2114]
+permissions:
+  contents: write
+jobs:
+  reconcile:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: finish-relocation-tools-2114
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Register relocation public routes
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('src/lib/public-routes.ts')
+          s=p.read_text()
+          anchor='  "/find-my-school-district",\n'
+          routes=[
+            '  "/find-my-county",',
+            '  "/find-my-emergency-services",',
+            '  "/find-my-homestead-exemption",',
+            '  "/find-my-property-tax",',
+            '  "/find-my-utilities",',
+            '  "/find-my-voter-registration",',
+            '  "/moving-to-texas/tools",',
+            '  "/texas-zip-code-explorer",',
+            '  "/compare-texas-cities",',
+          ]
+          missing=[r for r in routes if r not in s]
+          if missing:
+            if anchor not in s: raise SystemExit('public route anchor missing')
+            s=s.replace(anchor, anchor+'\n'.join(missing)+'\n', 1)
+            p.write_text(s)
+          PY
+      - run: npm ci
+      - name: Generate TanStack route tree
+        run: npm run build
+      - name: Commit generated reconciliation
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add src/lib/public-routes.ts src/routeTree.gen.ts
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Regenerate relocation route governance"
+          git push origin HEAD:finish-relocation-tools-2114
