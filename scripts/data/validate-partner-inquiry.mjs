@@ -4,7 +4,7 @@ const read = (path) => fs.readFileSync(path, 'utf8');
 
 const inquiryMigration = read('supabase/migrations/20260814023200_create_partner_inquiries.sql');
 const inquiryPackageMigration = read('supabase/migrations/20260916163411_add_advertiser_package_fields_to_partner_inquiries.sql');
-const agreementMigration = read('supabase/migrations/20260915185000_create_advertiser_agreements.sql');
+const agreementMigration = read('supabase/migrations/20260915234926_create_texasdefined_advertiser_agreements.sql');
 const agreementHardeningMigration = read('supabase/migrations/20260916162851_harden_texasdefined_advertiser_agreements.sql');
 const agreementSearchPathMigration = read('supabase/migrations/20260916163025_pin_advertiser_agreement_trigger_search_path.sql');
 const inquiryWriter = read('src/data/partner-inquiry.server.ts');
