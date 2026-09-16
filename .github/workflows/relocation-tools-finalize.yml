@@ -31,11 +31,19 @@ jobs:
           NODE
       - name: Generate route tree
         run: npm run build
-      - name: Commit generated governance files
+      - name: Run diagnostic premerge contract
+        run: |
+          set +e
+          node scripts/ci/run-premerge-validation.mjs > /tmp/premerge.log 2>&1
+          code=$?
+          tail -n 400 /tmp/premerge.log > docs/relocation-premerge-diagnostic.txt
+          echo "premerge_exit=$code" >> docs/relocation-premerge-diagnostic.txt
+          exit 0
+      - name: Commit generated governance files and diagnostic
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add src/lib/public-routes.ts src/routeTree.gen.ts
+          git add src/lib/public-routes.ts src/routeTree.gen.ts docs/relocation-premerge-diagnostic.txt
           git diff --cached --quiet && exit 0
-          git commit -m "Register generated relocation routes"
+          git commit -m "Refresh relocation route validation"
           git push origin HEAD:relocation-tools-final
