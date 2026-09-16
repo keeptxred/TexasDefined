@@ -165,7 +165,7 @@ function TexasMusicPage() {
                 <h3 className="font-display text-3xl font-semibold leading-tight text-foreground">{title}</h3>
                 <p className="mt-3 text-sm font-semibold text-primary">{route}</p>
                 <ul className="mt-5 divide-y divide-border border-y border-border">
-                  {stops.map(([label, href]) => <li key={href}><a href={href} className="flex min-h-12 items-center justify-between gap-4 py-2 text-sm font-semibold text-foreground hover:text-primary">{label}<span aria-hidden>→</span></a></li>)}
+                  {stops.map(([label, href]) => <li key={href}><a href={href} className="flex min-h-11 items-center justify-between gap-4 py-2 text-sm font-semibold text-foreground hover:text-primary">{label}<span aria-hidden>→</span></a></li>)}
                 </ul>
               </article>
             ))}
