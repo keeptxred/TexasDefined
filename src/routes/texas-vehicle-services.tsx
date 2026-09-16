@@ -1,5 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { buildSeo, SITE_URL } from "@/lib/seo";
+
+import { texasDefinedBrand } from "@/brand/texasdefined";
+import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
+
+const canonicalPath = "/texas-vehicle-services";
+const description = "Texas vehicle services guide for registration, titles, license plates, inspections, driver licenses and new-resident vehicle tasks.";
 
 const services = [
   ["New Texas residents", "Start with the relocation checklist, then handle vehicle registration through your county tax assessor-collector and driver-license work through DPS.", "/moving-to-texas-checklist"],
@@ -20,10 +25,11 @@ function TexasVehicleServicesPage() {
   </main>;
 }
 
-export const Route = createFileRoute("/texas-vehicle-services")({
-  head: () => {
-    const seo = buildSeo({ title: "Texas Vehicle Services: Registration, Titles, Plates & DPS", description: "Texas vehicle services guide for registration, titles, license plates, inspections, driver licenses and new-resident vehicle tasks.", path: "/texas-vehicle-services", type: "article", keywords: "Texas vehicle registration, Texas vehicle title, Texas license plates, Texas DPS, TxDMV, moving to Texas vehicle" });
-    return { meta: seo.meta, links: seo.links, scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "WebPage", name: "Texas Vehicle Services Guide", url: `${SITE_URL}/texas-vehicle-services`, isPartOf: { "@type": "WebSite", name: "TexasDefined", url: SITE_URL } }) }] };
-  },
+export const Route = createFileRoute(canonicalPath)({
+  head: () => ({
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: "Texas Vehicle Services: Registration, Titles, Plates & DPS", description, type: "article" }),
+    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+    scripts: [jsonLd({ "@context": "https://schema.org", "@type": "WebPage", name: "Texas Vehicle Services Guide", url: absoluteUrl(texasDefinedBrand, canonicalPath), isPartOf: { "@type": "WebSite", name: "Texas Defined", url: absoluteUrl(texasDefinedBrand, "/") } })],
+  }),
   component: TexasVehicleServicesPage,
 });
