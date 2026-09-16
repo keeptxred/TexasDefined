@@ -3,7 +3,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 
-export const Route = createLazyFileRoute("/explore/painted-churches/guides/$slug")({
+export const Route = createLazyFileRoute("/explore/painted-churches_/guides_/$slug")({
   component: PaintedChurchSearchGuidePage,
 });
 

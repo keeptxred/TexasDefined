@@ -8,7 +8,7 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 const canonicalPath = "/things-unique-to-texas/methodology";
 const description = "How TexasDefined selects, labels, cross-links and maintains the 250 Things That Define Texas collection, including source precedence, scope rules, data distributions and corrections.";
 
-export const Route = createFileRoute("/things-unique-to-texas/methodology")({
+export const Route = createFileRoute("/things-unique-to-texas_/methodology")({
   loader: async () => {
     const { TEXAS_ICON_DEEPER_GUIDE_COUNT } = await import("@/data/things-unique-to-texas-reference");
     return { deeperGuideCount: TEXAS_ICON_DEEPER_GUIDE_COUNT };
