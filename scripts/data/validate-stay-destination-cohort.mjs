@@ -2,6 +2,9 @@ import fs from 'node:fs';
 
 const registry = JSON.parse(fs.readFileSync('public/stay-nearby-destination-hotels.json', 'utf8'));
 const bootstrap = fs.readFileSync('public/expedia-travel.js', 'utf8');
+const adminRoute = fs.readFileSync('src/routes/admin.stay-monetization.tsx', 'utf8');
+const adminPage = fs.readFileSync('src/routes/admin.stay-monetization.lazy.tsx', 'utf8');
+const adminNav = fs.readFileSync('src/routes/admin.tsx', 'utf8');
 const destinationSources = {
   fredericksburg: fs.readFileSync('src/data/small-town-destinations-wave1.ts', 'utf8'),
   'galveston-seawall': fs.readFileSync('src/data/viator-destination-expansion-wave9.ts', 'utf8'),
@@ -56,10 +59,34 @@ for (const marker of [
   if (!bootstrap.includes(marker)) fail(`Expedia/Stay Nearby bootstrap missing destination cohort marker: ${marker}`);
 }
 
+for (const marker of [
+  "createFileRoute('/admin/stay-monetization')",
+  'noindex,nofollow,noarchive',
+]) {
+  if (!adminRoute.includes(marker)) fail(`Stay monetization admin route missing marker: ${marker}`);
+}
+
+for (const marker of [
+  "createLazyFileRoute('/admin/stay-monetization')",
+  'Stay monetization readiness',
+  'does not invent traffic, booking, conversion or revenue performance',
+  "fetch('/stay-nearby-hotels.json'",
+  "fetch('/stay-nearby-destination-hotels.json'",
+  'Verified property links',
+  'Property imagery ready',
+  'Indexability gate',
+  'Editorial fallback',
+  'Unverified deeplinks',
+]) {
+  if (!adminPage.includes(marker)) fail(`Stay monetization readiness dashboard missing marker: ${marker}`);
+}
+
+if (!adminNav.includes('to="/admin/stay-monetization"')) fail('Admin navigation must expose stay monetization readiness.');
+
 if (errors.length) {
   console.error('Controlled destination stay cohort validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log(`Controlled destination stay cohort validation passed: ${expectedContexts.length} deep destination pages, ${registry.properties.length} source-backed properties, exactly 3 choices per destination, no unverified property deeplinks, no ungoverned property imagery, and runtime overlay loading enabled.`);
+console.log(`Controlled destination stay cohort validation passed: ${expectedContexts.length} deep destination pages, ${registry.properties.length} source-backed properties, exactly 3 choices per destination, no unverified property deeplinks, no ungoverned property imagery, runtime overlay loading enabled, and the readiness dashboard is wired without fabricated performance data.`);
