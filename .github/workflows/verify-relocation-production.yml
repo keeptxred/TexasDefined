@@ -1,0 +1,41 @@
+name: Verify relocation production
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-relocation-production.mjs'
+      - '.github/workflows/verify-relocation-production.yml'
+      - 'src/routes/find-my-*.tsx'
+      - 'src/routes/moving-to-texas*.tsx'
+      - 'src/routes/compare-texas-cities.tsx'
+      - 'src/routes/texas-zip-code-explorer.tsx'
+      - 'src/components/relocation/**'
+      - 'src/lib/relocation-public-routes.ts'
+      - 'src/lib/public-routes.ts'
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: relocation-production-${{ github.event.workflow_run.head_sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify relocation toolkit in production
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-relocation-production.mjs
