@@ -65,14 +65,18 @@ function Page() {
   return (
     <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
       <article className="mx-auto max-w-6xl">
-        <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
+        <nav
+          aria-label="Breadcrumb"
+          className="border-b border-border pb-4 text-xs uppercase text-muted-foreground"
+          style={{ letterSpacing: '0.14em' }}
+        >
           <Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/moving-to-texas">Moving Here</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page" className="text-foreground">Find My County</span>
         </nav>
 
         <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-end">
           <div>
             <p className="eyebrow text-primary">Texas address lookup</p>
-            <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">What county am I in?</h1>
+            <h1 className="mt-3 max-w-4xl font-display text-5xl sm:text-7xl" style={{ lineHeight: 0.98 }}>What county am I in?</h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{description}</p>
           </div>
           <p className="border-l border-border pl-6 text-sm leading-6 text-muted-foreground">Texas has 254 counties, and a mailing-city name does not always tell you which county government, appraisal district or county office serves an address.</p>
