@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
@@ -16,6 +16,15 @@ describe("GSC sitemap indexability regressions", () => {
     expect(source).toMatch(/LEAF_ONLY_PARENT_ROUTES[\s\S]*movingToTexasRoute,/);
     expect(source).toMatch(/LEAF_ONLY_PARENT_ROUTES[\s\S]*partnerWithUsRoute,/);
     expect(source).toContain("if (!leafMatch || leafMatch.id !== context.match.id) return {};");
+  });
+
+  it("keeps relocation tools outside the lazy moving-to-texas page layout", () => {
+    expect(existsSync(join(ROOT, "src/routes/moving-to-texas_.tools.tsx"))).toBe(true);
+    expect(existsSync(join(ROOT, "src/routes/moving-to-texas.tools.tsx"))).toBe(false);
+
+    const source = read("src/routes/moving-to-texas_.tools.tsx");
+    expect(source).toContain("const canonicalPath='/moving-to-texas/tools';");
+    expect(source).toContain("Texas relocation tools");
   });
 
   it("does not serialize empty event filters onto the canonical events URL", () => {
