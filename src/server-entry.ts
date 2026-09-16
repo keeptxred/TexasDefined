@@ -2,6 +2,7 @@ import server from "./server";
 import { texasBrandLocatorApiResponse } from "./lib/texas-brand-locator-api.server";
 import { texasDefinedGovernmentAiResponse } from "./lib/texas-defined-government-ai.server";
 import { texasDefinedAiResponse } from "./lib/texas-defined-ai.server";
+import { texasDefinedOutcomeAnalyticsResponse } from "./lib/texas-defined-outcome-analytics.server";
 
 const LEGACY_PITMASTERS_SLUG = "live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp";
 const PITMASTERS_CANONICAL_PATH = "/article/texas-pitmasters-food-network-competition";
@@ -15,6 +16,9 @@ const SEO_CANONICAL_REDIRECTS: Record<string, string> = {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const outcomeAnalyticsResponse = await texasDefinedOutcomeAnalyticsResponse(request, env);
+    if (outcomeAnalyticsResponse) return outcomeAnalyticsResponse;
+
     const brandLocatorResponse = await texasBrandLocatorApiResponse(request);
     if (brandLocatorResponse) return brandLocatorResponse;
 

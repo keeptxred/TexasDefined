@@ -13,6 +13,10 @@
     {
       "binding": "TEXAS_DEFINED_AI_ANALYTICS",
       "dataset": "texas_defined_ai_questions"
+    },
+    {
+      "binding": "TEXAS_DEFINED_OUTCOME_ANALYTICS",
+      "dataset": "texas_defined_outcomes"
     }
   ],
   "ratelimits": [

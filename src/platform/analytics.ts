@@ -40,6 +40,7 @@ const SESSION_KEY = 'texasdefined:analytics-session';
 const QUEUE_KEY = 'texasdefined:analytics-queue';
 const AI_REFERRAL_SESSION_KEY = 'texasdefined:ai-referral-recorded';
 const MAX_QUEUE = 100;
+const ANALYTICS_ENDPOINT = (import.meta.env.VITE_ANALYTICS_ENDPOINT as string | undefined)?.trim() || '/api/analytics';
 
 function safeStorage(): Storage | undefined {
   try { return window.localStorage; } catch { return undefined; }
@@ -85,21 +86,18 @@ export function trackTexasDefinedOutcome(
     path: window.location.pathname + window.location.search,
     sessionId: sessionId(),
   };
-  const endpoint = import.meta.env.VITE_ANALYTICS_ENDPOINT as string | undefined;
-  if (endpoint && navigator.sendBeacon) {
-    const sent = navigator.sendBeacon(endpoint, new Blob([JSON.stringify(payload)], { type: 'application/json' }));
+  if (navigator.sendBeacon) {
+    const sent = navigator.sendBeacon(ANALYTICS_ENDPOINT, new Blob([JSON.stringify(payload)], { type: 'application/json' }));
     if (sent) return;
   }
   writeQueue([...readQueue(), payload]);
 }
 
 export async function flushTexasDefinedAnalytics() {
-  const endpoint = import.meta.env.VITE_ANALYTICS_ENDPOINT as string | undefined;
-  if (!endpoint) return { sent: 0, remaining: readQueue().length };
   const queue = readQueue();
   if (!queue.length) return { sent: 0, remaining: 0 };
   try {
-    const response = await fetch(endpoint, {
+    const response = await fetch(ANALYTICS_ENDPOINT, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ events: queue }),
@@ -141,6 +139,7 @@ export function installTexasDefinedAnalytics() {
     if (commercialPartner) {
       trackTexasDefinedOutcome('partner_referral_clicked', {
         resourceId: commercialPartner,
+        entityKind: anchor.dataset.commercialPlacement || 'unspecified',
         destination: anchor.href,
       });
       return;
