@@ -59,11 +59,21 @@ function hasRobotsNoindex(body) {
   return metas.some((tag) => /\bname=["']robots["']/i.test(tag) && /\bcontent=["'][^"']*noindex/i.test(tag));
 }
 
+function bodySample(body) {
+  return body.slice(0, 4000).replace(/\s+/g, ' ');
+}
+
 for (const [path, needle] of routes) {
   const { response, body } = await fetchLive(path, path);
   if (response.status !== 200) throw new Error(`${path}: expected HTTP 200, received ${response.status}`);
-  if (!body.includes(needle)) throw new Error(`${path}: expected substantive content not found: ${needle}`);
-  if (!hasCanonical(body, path)) throw new Error(`${path}: canonical does not resolve to ${origin}${path}`);
+  if (!body.includes(needle)) {
+    console.error(`${path} response sample: ${bodySample(body)}`);
+    throw new Error(`${path}: expected substantive content not found: ${needle}`);
+  }
+  if (!hasCanonical(body, path)) {
+    console.error(`${path} response sample: ${bodySample(body)}`);
+    throw new Error(`${path}: canonical does not resolve to ${origin}${path}`);
+  }
   if (hasRobotsNoindex(body)) throw new Error(`${path}: robots meta unexpectedly contains noindex`);
   console.log(`PASS ${path}: 200, expected content, canonical, indexable meta`);
 }
