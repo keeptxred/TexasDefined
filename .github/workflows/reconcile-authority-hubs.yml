@@ -34,51 +34,38 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python - <<'PY'
-          from pathlib import Path
+          node <<'NODE'
+          const fs = require('node:fs');
 
-          validator_path = Path('scripts/data/validate-texas-resources-seo.mjs')
-          validator = validator_path.read_text()
-          old = 'if (!searchDocuments.includes(`href: "${pathValue}"`)) errors.push(`Site search discovery missing ${pathValue}.`);'
-          new = 'if (!searchDocuments.includes(`["${pathValue.slice(1)}",`)) errors.push(`Site search discovery missing ${pathValue}.`);'
-          if old in validator:
-              validator = validator.replace(old, new)
-          elif new not in validator:
-              raise SystemExit('Expected site-search validator assertion not found')
-          validator_path.write_text(validator)
+          const validatorPath = 'scripts/data/validate-texas-resources-seo.mjs';
+          let validator = fs.readFileSync(validatorPath, 'utf8');
+          const oldAssertion = 'if (!searchDocuments.includes(`href: "${pathValue}"`)) errors.push(`Site search discovery missing ${pathValue}.`);';
+          const newAssertion = 'if (!searchDocuments.includes(`["${pathValue.slice(1)}",`)) errors.push(`Site search discovery missing ${pathValue}.`);';
+          if (validator.includes(oldAssertion)) validator = validator.replace(oldAssertion, newAssertion);
+          else if (!validator.includes(newAssertion)) throw new Error('Expected site-search validator assertion not found');
+          fs.writeFileSync(validatorPath, validator);
 
-          public_routes_path = Path('src/lib/public-routes.ts')
-          public_routes = public_routes_path.read_text()
-          needed = ['texas-weather', 'texas-colleges-universities', 'texas-economy']
-          if not all(f'"/{slug}"' in public_routes for slug in needed):
-              marker = '  "/texas-data",\n'
-              if marker not in public_routes:
-                  raise SystemExit('Expected public-routes insertion point not found')
-              additions = ''.join(f'  "/{slug}",\n' for slug in needed if f'"/{slug}"' not in public_routes)
-              public_routes = public_routes.replace(marker, marker + additions, 1)
-              public_routes_path.write_text(public_routes)
+          const publicRoutesPath = 'src/lib/public-routes.ts';
+          let publicRoutes = fs.readFileSync(publicRoutesPath, 'utf8');
+          const needed = ['texas-weather', 'texas-colleges-universities', 'texas-economy'];
+          const publicMarker = '  "/texas-data",\n';
+          if (!needed.every((slug) => publicRoutes.includes(`"/${slug}"`))) {
+            if (!publicRoutes.includes(publicMarker)) throw new Error('Expected public-routes insertion point not found');
+            const additions = needed.filter((slug) => !publicRoutes.includes(`"/${slug}"`)).map((slug) => `  "/${slug}",\n`).join('');
+            publicRoutes = publicRoutes.replace(publicMarker, publicMarker + additions);
+            fs.writeFileSync(publicRoutesPath, publicRoutes);
+          }
 
-          resources_path = Path('src/routes/texas-resources.lazy.tsx')
-          resources = resources_path.read_text()
-          if "title: 'High-demand Texas reference hubs'" not in resources:
-              marker = "  {\n    title: 'Moving and settling in',"
-              if marker not in resources:
-                  raise SystemExit('Expected Texas Resources insertion point not found')
-              block = """  {
-    title: 'High-demand Texas reference hubs',
-    links: [
-      ['Texas weather & current conditions', '/texas-weather'],
-      ['Texas colleges & universities', '/texas-colleges-universities'],
-      ['Texas economy & data', '/texas-economy'],
-      ['Texas facts and figures', '/texas-data'],
-      ['Texas sports', '/sports'],
-      ['Texas events', '/events'],
-    ],
-  },
-"""
-              resources = resources.replace(marker, block + marker, 1)
-              resources_path.write_text(resources)
-          PY
+          const resourcesPath = 'src/routes/texas-resources.lazy.tsx';
+          let resources = fs.readFileSync(resourcesPath, 'utf8');
+          if (!resources.includes("title: 'High-demand Texas reference hubs'")) {
+            const resourcesMarker = "  {\n    title: 'Moving and settling in',";
+            if (!resources.includes(resourcesMarker)) throw new Error('Expected Texas Resources insertion point not found');
+            const block = "  {\n    title: 'High-demand Texas reference hubs',\n    links: [\n      ['Texas weather & current conditions', '/texas-weather'],\n      ['Texas colleges & universities', '/texas-colleges-universities'],\n      ['Texas economy & data', '/texas-economy'],\n      ['Texas facts and figures', '/texas-data'],\n      ['Texas sports', '/sports'],\n      ['Texas events', '/events'],\n    ],\n  },\n";
+            resources = resources.replace(resourcesMarker, block + resourcesMarker);
+            fs.writeFileSync(resourcesPath, resources);
+          }
+          NODE
 
       - name: Regenerate TanStack route tree
         run: npm run build
