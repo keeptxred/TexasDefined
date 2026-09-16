@@ -1,0 +1,36 @@
+name: PR 2114 regenerate route tree
+
+on:
+  push:
+    branches:
+      - phase4-relocation-tools
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/pull/2114/merge
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Commit reconciled generated route tree
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/routeTree.gen.ts
+          if git diff --cached --quiet; then
+            git commit --allow-empty -m "Reconcile current main before relocation merge"
+          else
+            git commit -m "Reconcile current main and regenerate TanStack route tree"
+          fi
+          git push origin HEAD:phase4-relocation-tools
