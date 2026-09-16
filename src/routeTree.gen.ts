@@ -187,6 +187,8 @@ import { Route as BestPlacesToGoCampingInTexasRouteImport } from './routes/best-
 import { Route as BarbacoaBigRedSanAntonioRouteImport } from './routes/barbacoa-big-red-san-antonio'
 import { Route as AustinMusicHistoryRouteImport } from './routes/austin-music-history'
 import { Route as AntonesAustinHistoryRouteImport } from './routes/antones-austin-history'
+import { Route as AdvertisingTermsRouteImport } from './routes/advertising-terms'
+import { Route as AdvertisingBillingRouteImport } from './routes/advertising-billing'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -278,6 +280,10 @@ import { Route as ShopCartRouteImport } from './routes/shop.cart'
 import { Route as ShopCollectionRouteImport } from './routes/shop.$collection'
 import { Route as PropertyTaxCountiesRouteImport } from './routes/property-tax.counties'
 import { Route as PropertyTaxCalculatorLocationRouteImport } from './routes/property-tax-calculator.$location'
+import { Route as PartnerWithUsTermsRouteImport } from './routes/partner-with-us.terms'
+import { Route as PartnerWithUsExamplesRouteImport } from './routes/partner-with-us.examples'
+import { Route as PartnerWithUsBillingRouteImport } from './routes/partner-with-us.billing'
+import { Route as PartnerWithUsAgreementRouteImport } from './routes/partner-with-us.agreement'
 import { Route as NewsSlugRouteImport } from './routes/news.$slug'
 import { Route as MovingToTexasDataRouteImport } from './routes/moving-to-texas_.data'
 import { Route as MovingToTexasToolsRouteImport } from './routes/moving-to-texas.tools'
@@ -1640,6 +1646,16 @@ const AntonesAustinHistoryRoute = AntonesAustinHistoryRouteImport.update({
 } as any).lazy(() =>
   import('./routes/antones-austin-history.lazy').then((d) => d.Route),
 )
+const AdvertisingTermsRoute = AdvertisingTermsRouteImport.update({
+  id: '/advertising-terms',
+  path: '/advertising-terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdvertisingBillingRoute = AdvertisingBillingRouteImport.update({
+  id: '/advertising-billing',
+  path: '/advertising-billing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -2201,6 +2217,34 @@ const PropertyTaxCalculatorLocationRoute =
       (d) => d.Route,
     ),
   )
+const PartnerWithUsTermsRoute = PartnerWithUsTermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => PartnerWithUsRoute,
+} as any).lazy(() =>
+  import('./routes/partner-with-us.terms.lazy').then((d) => d.Route),
+)
+const PartnerWithUsExamplesRoute = PartnerWithUsExamplesRouteImport.update({
+  id: '/examples',
+  path: '/examples',
+  getParentRoute: () => PartnerWithUsRoute,
+} as any).lazy(() =>
+  import('./routes/partner-with-us.examples.lazy').then((d) => d.Route),
+)
+const PartnerWithUsBillingRoute = PartnerWithUsBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => PartnerWithUsRoute,
+} as any).lazy(() =>
+  import('./routes/partner-with-us.billing.lazy').then((d) => d.Route),
+)
+const PartnerWithUsAgreementRoute = PartnerWithUsAgreementRouteImport.update({
+  id: '/agreement',
+  path: '/agreement',
+  getParentRoute: () => PartnerWithUsRoute,
+} as any).lazy(() =>
+  import('./routes/partner-with-us.agreement.lazy').then((d) => d.Route),
+)
 const NewsSlugRoute = NewsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -3360,6 +3404,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
+  '/advertising-billing': typeof AdvertisingBillingRoute
+  '/advertising-terms': typeof AdvertisingTermsRoute
   '/antones-austin-history': typeof AntonesAustinHistoryRoute
   '/austin-music-history': typeof AustinMusicHistoryRoute
   '/barbacoa-big-red-san-antonio': typeof BarbacoaBigRedSanAntonioRoute
@@ -3404,7 +3450,7 @@ export interface FileRoutesByFullPath {
   '/painted-churches-checklist.txt': typeof PaintedChurchesChecklistDottxtRoute
   '/painted-churches.csv': typeof PaintedChurchesDotcsvRoute
   '/painted-churches.json': typeof PaintedChurchesDotjsonRoute
-  '/partner-with-us': typeof PartnerWithUsRoute
+  '/partner-with-us': typeof PartnerWithUsRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/property': typeof PropertyRoute
   '/property-tax-calculators': typeof PropertyTaxCalculatorsRoute
@@ -3670,6 +3716,10 @@ export interface FileRoutesByFullPath {
   '/moving-to-texas/tools': typeof MovingToTexasToolsRoute
   '/moving-to-texas/data': typeof MovingToTexasDataRoute
   '/news/$slug': typeof NewsSlugRoute
+  '/partner-with-us/agreement': typeof PartnerWithUsAgreementRoute
+  '/partner-with-us/billing': typeof PartnerWithUsBillingRoute
+  '/partner-with-us/examples': typeof PartnerWithUsExamplesRoute
+  '/partner-with-us/terms': typeof PartnerWithUsTermsRoute
   '/property-tax-calculator/$location': typeof PropertyTaxCalculatorLocationRoute
   '/property-tax/counties': typeof PropertyTaxCountiesRoute
   '/shop/$collection': typeof ShopCollectionRoute
@@ -3826,6 +3876,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
+  '/advertising-billing': typeof AdvertisingBillingRoute
+  '/advertising-terms': typeof AdvertisingTermsRoute
   '/antones-austin-history': typeof AntonesAustinHistoryRoute
   '/austin-music-history': typeof AustinMusicHistoryRoute
   '/barbacoa-big-red-san-antonio': typeof BarbacoaBigRedSanAntonioRoute
@@ -3868,7 +3920,7 @@ export interface FileRoutesByTo {
   '/painted-churches-checklist.txt': typeof PaintedChurchesChecklistDottxtRoute
   '/painted-churches.csv': typeof PaintedChurchesDotcsvRoute
   '/painted-churches.json': typeof PaintedChurchesDotjsonRoute
-  '/partner-with-us': typeof PartnerWithUsRoute
+  '/partner-with-us': typeof PartnerWithUsRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/property': typeof PropertyRoute
   '/property-tax-calculators': typeof PropertyTaxCalculatorsRoute
@@ -4133,6 +4185,10 @@ export interface FileRoutesByTo {
   '/moving-to-texas/tools': typeof MovingToTexasToolsRoute
   '/moving-to-texas/data': typeof MovingToTexasDataRoute
   '/news/$slug': typeof NewsSlugRoute
+  '/partner-with-us/agreement': typeof PartnerWithUsAgreementRoute
+  '/partner-with-us/billing': typeof PartnerWithUsBillingRoute
+  '/partner-with-us/examples': typeof PartnerWithUsExamplesRoute
+  '/partner-with-us/terms': typeof PartnerWithUsTermsRoute
   '/property-tax-calculator/$location': typeof PropertyTaxCalculatorLocationRoute
   '/property-tax/counties': typeof PropertyTaxCountiesRoute
   '/shop/$collection': typeof ShopCollectionRoute
@@ -4290,6 +4346,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
+  '/advertising-billing': typeof AdvertisingBillingRoute
+  '/advertising-terms': typeof AdvertisingTermsRoute
   '/antones-austin-history': typeof AntonesAustinHistoryRoute
   '/austin-music-history': typeof AustinMusicHistoryRoute
   '/barbacoa-big-red-san-antonio': typeof BarbacoaBigRedSanAntonioRoute
@@ -4334,7 +4392,7 @@ export interface FileRoutesById {
   '/painted-churches-checklist.txt': typeof PaintedChurchesChecklistDottxtRoute
   '/painted-churches.csv': typeof PaintedChurchesDotcsvRoute
   '/painted-churches.json': typeof PaintedChurchesDotjsonRoute
-  '/partner-with-us': typeof PartnerWithUsRoute
+  '/partner-with-us': typeof PartnerWithUsRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/property': typeof PropertyRoute
   '/property-tax-calculators': typeof PropertyTaxCalculatorsRoute
@@ -4600,6 +4658,10 @@ export interface FileRoutesById {
   '/moving-to-texas/tools': typeof MovingToTexasToolsRoute
   '/moving-to-texas_/data': typeof MovingToTexasDataRoute
   '/news/$slug': typeof NewsSlugRoute
+  '/partner-with-us/agreement': typeof PartnerWithUsAgreementRoute
+  '/partner-with-us/billing': typeof PartnerWithUsBillingRoute
+  '/partner-with-us/examples': typeof PartnerWithUsExamplesRoute
+  '/partner-with-us/terms': typeof PartnerWithUsTermsRoute
   '/property-tax-calculator/$location': typeof PropertyTaxCalculatorLocationRoute
   '/property-tax/counties': typeof PropertyTaxCountiesRoute
   '/shop/$collection': typeof ShopCollectionRoute
@@ -4758,6 +4820,8 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/advertising-billing'
+    | '/advertising-terms'
     | '/antones-austin-history'
     | '/austin-music-history'
     | '/barbacoa-big-red-san-antonio'
@@ -5068,6 +5132,10 @@ export interface FileRouteTypes {
     | '/moving-to-texas/tools'
     | '/moving-to-texas/data'
     | '/news/$slug'
+    | '/partner-with-us/agreement'
+    | '/partner-with-us/billing'
+    | '/partner-with-us/examples'
+    | '/partner-with-us/terms'
     | '/property-tax-calculator/$location'
     | '/property-tax/counties'
     | '/shop/$collection'
@@ -5224,6 +5292,8 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/advertising-billing'
+    | '/advertising-terms'
     | '/antones-austin-history'
     | '/austin-music-history'
     | '/barbacoa-big-red-san-antonio'
@@ -5531,6 +5601,10 @@ export interface FileRouteTypes {
     | '/moving-to-texas/tools'
     | '/moving-to-texas/data'
     | '/news/$slug'
+    | '/partner-with-us/agreement'
+    | '/partner-with-us/billing'
+    | '/partner-with-us/examples'
+    | '/partner-with-us/terms'
     | '/property-tax-calculator/$location'
     | '/property-tax/counties'
     | '/shop/$collection'
@@ -5687,6 +5761,8 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/advertising-billing'
+    | '/advertising-terms'
     | '/antones-austin-history'
     | '/austin-music-history'
     | '/barbacoa-big-red-san-antonio'
@@ -5997,6 +6073,10 @@ export interface FileRouteTypes {
     | '/moving-to-texas/tools'
     | '/moving-to-texas_/data'
     | '/news/$slug'
+    | '/partner-with-us/agreement'
+    | '/partner-with-us/billing'
+    | '/partner-with-us/examples'
+    | '/partner-with-us/terms'
     | '/property-tax-calculator/$location'
     | '/property-tax/counties'
     | '/shop/$collection'
@@ -6154,6 +6234,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRouteWithChildren
+  AdvertisingBillingRoute: typeof AdvertisingBillingRoute
+  AdvertisingTermsRoute: typeof AdvertisingTermsRoute
   AntonesAustinHistoryRoute: typeof AntonesAustinHistoryRoute
   AustinMusicHistoryRoute: typeof AustinMusicHistoryRoute
   BarbacoaBigRedSanAntonioRoute: typeof BarbacoaBigRedSanAntonioRoute
@@ -6198,7 +6280,7 @@ export interface RootRouteChildren {
   PaintedChurchesChecklistDottxtRoute: typeof PaintedChurchesChecklistDottxtRoute
   PaintedChurchesDotcsvRoute: typeof PaintedChurchesDotcsvRoute
   PaintedChurchesDotjsonRoute: typeof PaintedChurchesDotjsonRoute
-  PartnerWithUsRoute: typeof PartnerWithUsRoute
+  PartnerWithUsRoute: typeof PartnerWithUsRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
   PropertyRoute: typeof PropertyRoute
   PropertyTaxCalculatorsRoute: typeof PropertyTaxCalculatorsRoute
@@ -7770,6 +7852,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AntonesAustinHistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/advertising-terms': {
+      id: '/advertising-terms'
+      path: '/advertising-terms'
+      fullPath: '/advertising-terms'
+      preLoaderRoute: typeof AdvertisingTermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/advertising-billing': {
+      id: '/advertising-billing'
+      path: '/advertising-billing'
+      fullPath: '/advertising-billing'
+      preLoaderRoute: typeof AdvertisingBillingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -8406,6 +8502,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/property-tax-calculator/$location'
       preLoaderRoute: typeof PropertyTaxCalculatorLocationRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/partner-with-us/terms': {
+      id: '/partner-with-us/terms'
+      path: '/terms'
+      fullPath: '/partner-with-us/terms'
+      preLoaderRoute: typeof PartnerWithUsTermsRouteImport
+      parentRoute: typeof PartnerWithUsRoute
+    }
+    '/partner-with-us/examples': {
+      id: '/partner-with-us/examples'
+      path: '/examples'
+      fullPath: '/partner-with-us/examples'
+      preLoaderRoute: typeof PartnerWithUsExamplesRouteImport
+      parentRoute: typeof PartnerWithUsRoute
+    }
+    '/partner-with-us/billing': {
+      id: '/partner-with-us/billing'
+      path: '/billing'
+      fullPath: '/partner-with-us/billing'
+      preLoaderRoute: typeof PartnerWithUsBillingRouteImport
+      parentRoute: typeof PartnerWithUsRoute
+    }
+    '/partner-with-us/agreement': {
+      id: '/partner-with-us/agreement'
+      path: '/agreement'
+      fullPath: '/partner-with-us/agreement'
+      preLoaderRoute: typeof PartnerWithUsAgreementRouteImport
+      parentRoute: typeof PartnerWithUsRoute
     }
     '/news/$slug': {
       id: '/news/$slug'
@@ -10018,6 +10142,24 @@ const NewsRouteChildren: NewsRouteChildren = {
 
 const NewsRouteWithChildren = NewsRoute._addFileChildren(NewsRouteChildren)
 
+interface PartnerWithUsRouteChildren {
+  PartnerWithUsAgreementRoute: typeof PartnerWithUsAgreementRoute
+  PartnerWithUsBillingRoute: typeof PartnerWithUsBillingRoute
+  PartnerWithUsExamplesRoute: typeof PartnerWithUsExamplesRoute
+  PartnerWithUsTermsRoute: typeof PartnerWithUsTermsRoute
+}
+
+const PartnerWithUsRouteChildren: PartnerWithUsRouteChildren = {
+  PartnerWithUsAgreementRoute: PartnerWithUsAgreementRoute,
+  PartnerWithUsBillingRoute: PartnerWithUsBillingRoute,
+  PartnerWithUsExamplesRoute: PartnerWithUsExamplesRoute,
+  PartnerWithUsTermsRoute: PartnerWithUsTermsRoute,
+}
+
+const PartnerWithUsRouteWithChildren = PartnerWithUsRoute._addFileChildren(
+  PartnerWithUsRouteChildren,
+)
+
 interface ShopRouteChildren {
   ShopCollectionRoute: typeof ShopCollectionRoute
   ShopCartRoute: typeof ShopCartRoute
@@ -10302,6 +10444,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRouteWithChildren,
+  AdvertisingBillingRoute: AdvertisingBillingRoute,
+  AdvertisingTermsRoute: AdvertisingTermsRoute,
   AntonesAustinHistoryRoute: AntonesAustinHistoryRoute,
   AustinMusicHistoryRoute: AustinMusicHistoryRoute,
   BarbacoaBigRedSanAntonioRoute: BarbacoaBigRedSanAntonioRoute,
@@ -10346,7 +10490,7 @@ const rootRouteChildren: RootRouteChildren = {
   PaintedChurchesChecklistDottxtRoute: PaintedChurchesChecklistDottxtRoute,
   PaintedChurchesDotcsvRoute: PaintedChurchesDotcsvRoute,
   PaintedChurchesDotjsonRoute: PaintedChurchesDotjsonRoute,
-  PartnerWithUsRoute: PartnerWithUsRoute,
+  PartnerWithUsRoute: PartnerWithUsRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
   PropertyRoute: PropertyRoute,
   PropertyTaxCalculatorsRoute: PropertyTaxCalculatorsRoute,
