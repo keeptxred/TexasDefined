@@ -1,6 +1,6 @@
 # TexasDefined Sports Sponsorship Sales Playbook
 
-Updated: 2026-09-15
+Updated: 2026-09-16
 
 ## Purpose
 
@@ -10,7 +10,7 @@ Paid placements remain clearly separated from editorial recommendations, ranking
 
 ## Pre-outreach hold
 
-**Do not send advertiser outreach until the commercial launch checklist is complete.** The site, agreement acceptance, correct live Stripe account, invoice flow, payment methods, receipt behavior and production placement rendering must all be tested first. The existing sports sponsorship server-side launch hold remains fail-closed until intentionally lifted after launch readiness is confirmed.
+**Do not send advertiser outreach until the commercial launch checklist is complete.** The public sales pages, inquiry flow, agreement acceptance, correct TexasDefined Stripe account, invoice flow, payment methods, receipt behavior and production placement rendering must all be tested first. The existing sports sponsorship server-side launch hold remains fail-closed until intentionally lifted after launch readiness is confirmed.
 
 ## Current packages
 
@@ -19,7 +19,7 @@ Paid placements remain clearly separated from editorial recommendations, ranking
 | Local Partner | $249/month | $2,490/year | One approved sports or visitor-planning sponsored placement |
 | Growth Partner | $499/month | $4,990/year | Up to three relevant placements, suitable for a metro or regional sports-travel business |
 | Premier Partner | $999/month | $9,990/year | Up to six relevant placements with broader hub/social/sponsored-feature options |
-| Custom Partnership | Quote | Quote | Event campaigns, agencies, section sponsorships, exclusivity or custom statewide programs |
+| Custom / Integrated | Quote | Quote | Event campaigns, agencies, section sponsorships, exclusivity or custom statewide programs |
 
 One-time commercial options on the main advertiser page also include Event Campaigns from $495, Integrated Campaigns from $1,500 and custom Section or Category Sponsorships.
 
@@ -94,21 +94,21 @@ Yes, subject to review. Under the sports sponsorship governance system, a saved 
 
 Outreach remains on hold until all of the following are verified:
 
-1. `/partner-with-us` pricing, comparison, examples, billing disclosures and agreement render correctly on desktop and mobile.
-2. Advertiser inquiry submission works in production.
-3. Versioned electronic agreement acceptance works in production and persists privately.
-4. The final contracting legal entity and notice address are inserted into the agreement.
-5. The correct TexasDefined live Stripe account is connected.
-6. Local, Growth and Premier monthly and annual Stripe prices are configured in the correct account.
-7. Stripe-hosted card payment is tested.
-8. Stripe invoice creation, delivery, Hosted Invoice Page and paid-state reconciliation are tested.
-9. ACH is configured and tested where available.
-10. Receipt/reminder behavior is verified.
-11. Subscription cancellation and annual billing behavior are verified.
-12. One production advertiser placement is rendered with fictional/test creative and confirmed to remain outside editorial structured data.
+1. `/partner-with-us`, `/partner-with-us/terms`, `/partner-with-us/billing` and `/partner-with-us/examples` render correctly on desktop and mobile.
+2. Advertiser inquiry submission works and records the selected package and billing preference.
+3. `/partner-with-us/agreement` remains noindex, renders the selected package schedule, supports printing and persists versioned electronic acceptance privately.
+4. Advertiser agreement identity/snapshot fields are immutable after acceptance; operational payment/invoice/campaign fields remain separately maintainable.
+5. The correct existing TexasDefined Stripe account is connected for billing work.
+6. Local, Growth and Premier monthly and annual Stripe test prices are configured in that account with TexasDefined advertising metadata.
+7. Stripe-hosted card payment is tested in test mode.
+8. Stripe invoice creation, delivery, Hosted Invoice Page and paid-state reconciliation are tested in test mode.
+9. ACH is checked/tested where the account is eligible.
+10. Receipt/reminder behavior and approved Net 15 handling are verified.
+11. Subscription cancellation and annual billing behavior are verified in test mode.
+12. A demonstration placement is rendered and confirmed to remain clearly disclosed and outside editorial structured data.
 13. Required repository validation and production deployment gates are green.
-14. Final legal review of the advertiser agreement is complete.
-15. Only after all preceding items pass may outbound advertiser email begin.
+14. The master agreement remains suitable for later attorney review without claiming that counsel has reviewed it.
+15. Only after all preceding readiness items pass may outbound advertiser email begin.
 
 ## Commercial/editorial line
 
