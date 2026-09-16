@@ -3,6 +3,9 @@ export type AdvertiserBillingCycle = 'monthly' | 'annual';
 
 export const ADVERTISING_AGREEMENT_VERSION = '2026-09-15-v1';
 
+// Contract text intentionally stays out of the client bundle. advertiserAgreementSnapshot
+// is defined in advertiser-agreement-content.server.ts and persisted when an advertiser signs.
+
 export const advertiserTiers = [
   {
     id: 'local',
