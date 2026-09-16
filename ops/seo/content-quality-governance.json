@@ -238,7 +238,9 @@
       "ops/seo/gsc-remediation-wave13-2026-09-08.json",
       "ops/seo/gsc-remediation-wave14-2026-09-08.json",
       "ops/seo/gsc-remediation-wave15-2026-09-08.json",
-      "ops/seo/gsc-remediation-wave16-2026-09-08.json",
+      "ops/seo/gsc-remediation-wave16-2026-09-08.json"
+    ],
+    "currentSnapshotReviewWaves": [
       "ops/seo/gsc-remediation-wave17-2026-09-15.json"
     ],
     "manualNextProductionGuard": {
