@@ -234,6 +234,9 @@ export const INDEXABLE_STATIC_PATHS = [
   "/privacy",
   "/return-refund-policy",
   "/partner-with-us",
+  "/partner-with-us/terms",
+  "/partner-with-us/billing",
+  "/partner-with-us/examples",
   "/citation-guide",
   "/texas-agricultural-valuation-calculator",
   "/texas-budget-planner",
@@ -282,6 +285,8 @@ export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
 ] as const;
 
 export const REDIRECT_ONLY_PATHS = [
+  "/advertising-billing",
+  "/advertising-terms",
   "/texas-attorney-general",
   "/texas-secretary-of-state",
   "/texas-comptroller",
@@ -397,6 +402,7 @@ export const NON_INDEXABLE_PUBLIC_PATHS = [
   "/fishing/reports/submit",
   "/shop/cart",
   "/shop/checkout-return",
+  "/partner-with-us/agreement",
   "/sports-venues/compare.csv",
   "/top-25-texas-attractions.csv",
   "/top-25-texas-attractions.json",

@@ -6,6 +6,8 @@ export type PartnerInquiryInsert = {
   company: string;
   website: string | null;
   partnership_type: 'insurance' | 'mortgage' | 'real-estate' | 'moving' | 'travel' | 'sports-travel' | 'brand-retail' | 'sponsorship' | 'other';
+  requested_tier: 'local' | 'growth' | 'premier' | 'custom' | null;
+  billing_cycle: 'monthly' | 'annual' | null;
   message: string;
   source_path: string;
 };

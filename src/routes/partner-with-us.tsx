@@ -4,11 +4,14 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const canonicalPath = '/partner-with-us';
-const description = 'Partner with Texas Defined on useful, clearly disclosed Texas home, moving, travel, sports-travel, Texas-brand and local-service resources while preserving editorial independence.';
+const description = 'Texas Defined advertising packages, placements, billing and agreements. Paid relationships do not buy editorial coverage, favorable rankings or changes to factual conclusions. One approved sports sponsored placement may run on a sports surface at a time.';
 
 type PartnerSearch = {
   partnershipType?: 'sports-travel' | 'brand-retail';
   sourcePath?: string;
+  tier?: 'local' | 'growth' | 'premier' | 'custom';
+  billing?: 'monthly' | 'annual';
+  focus?: 'pricing' | 'examples' | 'agreement' | 'billing' | 'contact';
 };
 
 function sanitizePartnerSource(value: unknown) {
@@ -26,9 +29,16 @@ export const Route = createFileRoute('/partner-with-us')({
         ? 'brand-retail'
         : undefined,
     sourcePath: typeof search.source === 'string' ? sanitizePartnerSource(search.source) : undefined,
+    tier: search.tier === 'local' || search.tier === 'growth' || search.tier === 'premier' || search.tier === 'custom'
+      ? search.tier
+      : undefined,
+    billing: search.billing === 'annual' ? 'annual' : search.billing === 'monthly' ? 'monthly' : undefined,
+    focus: search.focus === 'pricing' || search.focus === 'examples' || search.focus === 'agreement' || search.focus === 'billing' || search.focus === 'contact'
+      ? search.focus
+      : undefined,
   }),
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Partner With Texas Defined', description }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Advertise & Partner With Texas Defined', description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
   }),
 });
