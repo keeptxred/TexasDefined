@@ -22,8 +22,8 @@ type NewsletterInsertClient = {
  *
  * The browser never receives Supabase service credentials. Validation happens
  * before the server-only client is loaded, and the shared subscriber table is
- * scoped by brand so a reader can independently subscribe to Texas Defined and
- * Keep TX Red with the same email address.
+ * scoped by brand so a reader can independently subscribe to each publication
+ * with the same email address.
  */
 export const subscribeTexasDefinedNewsletter = createServerFn({ method: 'POST' })
   .validator((input: unknown) => SubscribeSchema.parse(input))
