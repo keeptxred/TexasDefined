@@ -39,11 +39,70 @@ async function fetchLive(path) {
   throw lastError || new Error(`${path} failed production verification.`);
 }
 
+async function verifyOutcomeAnalytics() {
+  let lastError;
+  for (let attempt = 1; attempt <= 6; attempt += 1) {
+    const url = liveUrl('/api/analytics', attempt);
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        redirect: 'follow',
+        cache: 'no-store',
+        signal: AbortSignal.timeout(30_000),
+        headers: {
+          'cache-control': 'no-cache',
+          'content-type': 'application/json',
+          'origin': new URL(origin).origin,
+          'user-agent': 'TexasDefined-CI-Stay-Affiliate/1.0',
+        },
+        body: JSON.stringify({
+          event: 'partner_referral_clicked',
+          resourceId: 'hotels.com',
+          entityKind: 'production-verifier',
+          destination: 'https://www.hotels.com/',
+          detection: 'ci-probe',
+          occurredAt: new Date().toISOString(),
+          path: '/sports-venue/globe-life-field?ignored=1',
+          sessionId: 'ci-probe-must-not-persist',
+        }),
+      });
+      const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+      const body = await response.text();
+      if (challenged) {
+        lastError = new Error('/api/analytics returned a Cloudflare challenge.');
+      } else if (response.status !== 202) {
+        lastError = new Error(`/api/analytics returned HTTP ${response.status}: ${body.slice(0, 300)}`);
+      } else {
+        let parsed;
+        try {
+          parsed = JSON.parse(body);
+        } catch {
+          throw new Error('/api/analytics returned non-JSON success content.');
+        }
+        requireCondition(parsed?.accepted === 1, `/api/analytics accepted count must be 1; received ${JSON.stringify(parsed)}.`);
+        return;
+      }
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+    }
+    if (attempt < 6) await sleep(5_000);
+  }
+  throw lastError || new Error('/api/analytics failed production verification.');
+}
+
 const affiliateBootstrap = await fetchLive('/stay-affiliate-options.js');
 for (const marker of [
   'const CJ_PUBLISHER_ID = "101876465"',
   'https://www.hotels.com/',
   'https://www.vrbo.com/',
+  'const VERIFIED_PROPERTY_DESTINATIONS = new Map([',
+  'https://www.hotels.com/ho115100/hilton-anatole-dallas-united-states-of-america/',
+  'https://www.hotels.com/ho2949850752/loews-arlington-arlington-united-states-of-america/',
+  'https://www.hotels.com/ho1830497920/tru-by-hilton-northlake-fort-worth-tx-roanoke-united-states-of-america/',
+  'upgradeExactPropertyCards',
+  'View on Hotels.com',
+  'placement: "stay-nearby-card-exact"',
+  'link.dataset.exactProperty = propertyName',
   'Find places to stay',
   'Find hotels on Hotels.com',
   'Find vacation rentals on Vrbo',
@@ -51,9 +110,17 @@ for (const marker of [
   'event: "affiliate_click"',
   'window.dataLayer.push(detail)',
   'affiliate_placement: placement',
+  'link.dataset.commercialPartner = partnerName(destination)',
+  'link.dataset.commercialPlacement = placement',
   'PLACEMENT_HEADING',
   'anchor.parentNode.insertBefore(surface, anchor)',
 ]) requireCondition(affiliateBootstrap.includes(marker), `Live stay affiliate bootstrap is missing marker: ${marker}`);
+
+const exactPropertyUrls = affiliateBootstrap.match(/https:\/\/www\.hotels\.com\/ho\d+\/[a-z0-9-]+\//gi) || [];
+requireCondition(exactPropertyUrls.length === 15, `Live stay affiliate bootstrap must contain 15 exact Hotels.com property URLs; found ${exactPropertyUrls.length}.`);
+requireCondition(new Set(exactPropertyUrls).size === 15, 'Live exact Hotels.com property URLs must be unique across the curated hotel cohort.');
+
+await verifyOutcomeAnalytics();
 
 const expediaBootstrap = await fetchLive('/expedia-travel.js');
 for (const marker of [
@@ -121,4 +188,4 @@ for (const page of pages) {
   requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === page.route.replace(/\/+$/, ''), `${page.route} is not self-canonical and must not be part of the monetized production cohort.`);
 }
 
-console.log('Stay affiliate production verification passed: Hotels.com/Vrbo tracking and disclosures are live; Expedia remains the lodging host; the live Stay Nearby asset enforces separate indexability and monetization eligibility with provider/module telemetry; representative event, venue and destination pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; and script ordering is intact.');
+console.log('Stay affiliate production verification passed: all 15 curated hotel records expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher while broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted a real partner_referral_clicked probe backed by Cloudflare Analytics Engine; Hotels.com/Vrbo tracking and disclosures remain live with GTM plus first-party placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, venue and destination pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; and script ordering is intact.');
