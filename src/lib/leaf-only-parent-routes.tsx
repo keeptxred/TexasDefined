@@ -14,6 +14,7 @@ import { Route as guidesRoute } from "@/routes/guides";
 import { Route as huntingRoute } from "@/routes/hunting";
 import { Route as landscapesRoute } from "@/routes/explore.landscapes";
 import { Route as movingToTexasRoute } from "@/routes/moving-to-texas";
+import { Route as partnerWithUsRoute } from "@/routes/partner-with-us";
 import { Route as paintedChurchesRoute } from "@/routes/explore.painted-churches";
 import { Route as paintedChurchGlossaryRoute } from "@/routes/explore.painted-churches.glossary";
 import { Route as paintedChurchHeritageRoute } from "@/routes/explore.painted-churches.heritage";
@@ -75,6 +76,7 @@ const LEAF_ONLY_PARENT_ROUTES = [
   huntingRoute,
   landscapesRoute,
   movingToTexasRoute,
+  partnerWithUsRoute,
   paintedChurchesRoute,
   paintedChurchTechniquesRoute,
   paintedChurchSymbolsRoute,
