@@ -15,6 +15,7 @@
   let observer;
   let stayDataPromise;
   let syncVersion = 0;
+  let lastImpressionKey = "";
 
   function hasTravelArticleSection(value) {
     if (!value || typeof value !== "object") return false;
@@ -34,8 +35,67 @@
     });
   }
 
-  function isTravelBookingSurface() {
-    return TRAVEL_PATH.test(window.location.pathname) || hasTravelBookingMetadata();
+  function normalizePath(pathname = window.location.pathname) {
+    const normalized = String(pathname || "/").replace(/\/+$/, "");
+    return normalized || "/";
+  }
+
+  function hasNoindexDirective() {
+    return Array.from(document.querySelectorAll('meta[name="robots" i],meta[name="googlebot" i],meta[name="googlebot-news" i]'))
+      .some((meta) => /(?:^|[\s,])noindex(?:$|[\s,])/i.test(meta.getAttribute("content") || ""));
+  }
+
+  function canonicalPath() {
+    const canonical = document.querySelector('link[rel="canonical" i]');
+    const href = canonical?.getAttribute("href") || canonical?.href;
+    if (!href) return null;
+    try {
+      const resolved = new URL(href, window.location.origin);
+      if (resolved.origin !== window.location.origin) return null;
+      return normalizePath(resolved.pathname);
+    } catch {
+      return null;
+    }
+  }
+
+  function isIndexabilityEligible(pathname = window.location.pathname) {
+    if (hasNoindexDirective()) return false;
+    const canonical = canonicalPath();
+    return canonical !== null && canonical === normalizePath(pathname);
+  }
+
+  function isTravelBookingSurface(pathname = window.location.pathname) {
+    return TRAVEL_PATH.test(pathname) || hasTravelBookingMetadata();
+  }
+
+  function isMonetizationEligible(pathname = window.location.pathname) {
+    return isIndexabilityEligible(pathname) && isTravelBookingSurface(pathname);
+  }
+
+  function trackStayAction({ provider, label, placement, event = "affiliate_click" }) {
+    const detail = {
+      event,
+      affiliate_partner: provider,
+      affiliate_label: label,
+      affiliate_placement: placement,
+      affiliate_module: "stay-nearby",
+      page_path: window.location.pathname,
+    };
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(detail);
+    window.dispatchEvent(new CustomEvent("texasdefined:affiliate-click", { detail }));
+  }
+
+  function trackSurfaceImpression(surface, placement) {
+    const key = `${window.location.pathname}|${surface?.dataset?.surfaceType || "unknown"}|${placement}`;
+    if (lastImpressionKey === key) return;
+    lastImpressionKey = key;
+    trackStayAction({
+      provider: "expedia",
+      label: surface?.dataset?.surfaceType || "stay-surface",
+      placement,
+      event: "affiliate_surface_impression",
+    });
   }
 
   function contextFromPath(pathname = window.location.pathname) {
@@ -171,11 +231,17 @@
     const affiliateTarget = verifiedAffiliateTarget(property);
     if (affiliateTarget) {
       const link = document.createElement("a");
+      const label = affiliateTarget.ctaLabel || "View stay";
       link.className = "inline-flex min-h-11 items-center justify-center bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90";
       link.href = affiliateTarget.affiliateUrl;
       link.target = "_blank";
       link.rel = "sponsored noopener noreferrer";
-      link.textContent = affiliateTarget.ctaLabel || "View stay";
+      link.textContent = label;
+      link.addEventListener("click", () => trackStayAction({
+        provider: affiliateTarget.provider || "expedia",
+        label,
+        placement: "stay-nearby-card",
+      }));
       return link;
     }
 
@@ -183,7 +249,10 @@
     button.type = "button";
     button.className = "inline-flex min-h-11 items-center justify-center border border-border px-4 py-2 text-sm font-semibold hover:bg-muted";
     button.textContent = "Search Expedia stays";
-    button.addEventListener("click", () => activateWidget(section));
+    button.addEventListener("click", () => {
+      trackStayAction({ provider: "expedia", label: "Search Expedia stays", placement: "stay-nearby-card-fallback" });
+      activateWidget(section);
+    });
     return button;
   }
 
@@ -325,6 +394,7 @@
     section.className = "td-stay-nearby border-y border-border py-10";
     section.dataset.surfaceType = "curated";
     section.dataset.stayContext = `${context.kind}:${context.key}`;
+    section.dataset.monetizationEligible = "true";
     section.setAttribute("aria-labelledby", "stay-nearby-heading");
 
     const container = document.createElement("div");
@@ -376,7 +446,10 @@
     search.type = "button";
     search.className = "inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90";
     search.textContent = "Search all nearby stays →";
-    search.addEventListener("click", () => activateWidget(section));
+    search.addEventListener("click", () => {
+      trackStayAction({ provider: "expedia", label: "Search all nearby stays", placement: "stay-nearby-curated-footer" });
+      activateWidget(section);
+    });
     const disclosure = document.createElement("p");
     disclosure.className = "text-xs text-muted-foreground";
     disclosure.textContent = DISCLOSURE;
@@ -394,6 +467,7 @@
     section.id = SURFACE_ID;
     section.className = "border-y border-border py-8";
     section.dataset.surfaceType = "generic";
+    section.dataset.monetizationEligible = "true";
     const container = document.createElement("div");
     container.className = "mx-auto max-w-7xl px-5";
 
@@ -407,7 +481,10 @@
     search.type = "button";
     search.className = "mt-5 inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90";
     search.textContent = "Search Expedia stays →";
-    search.addEventListener("click", () => activateWidget(section), { once: true });
+    search.addEventListener("click", () => {
+      trackStayAction({ provider: "expedia", label: "Search Expedia stays", placement: "stay-nearby-end-fallback" });
+      activateWidget(section);
+    }, { once: true });
     const disclosure = document.createElement("p");
     disclosure.className = "mt-3 text-xs text-muted-foreground";
     disclosure.textContent = DISCLOSURE;
@@ -424,15 +501,18 @@
 
   function placeSurface(surface, main) {
     const target = placementTarget(main);
+    const placement = target.matches?.(SLOT_SELECTOR) ? "contextual-slot" : "end-of-guide-fallback";
+    surface.dataset.stayPlacement = placement;
     if (target.matches?.(SLOT_SELECTOR)) target.replaceChildren(surface);
     else target.appendChild(surface);
+    trackSurfaceImpression(surface, placement);
   }
 
   async function syncSurface() {
     const version = ++syncVersion;
     const current = document.getElementById(SURFACE_ID);
 
-    if (!isTravelBookingSurface()) {
+    if (!isMonetizationEligible()) {
       current?.remove();
       return;
     }
@@ -449,7 +529,7 @@
 
     if (context) {
       const data = await loadStayData();
-      if (version !== syncVersion || !document.getElementById("main")) return;
+      if (version !== syncVersion || !document.getElementById("main") || !isMonetizationEligible()) return;
       const selection = selectStayNearby(data, context);
       if (selection.length) {
         placeSurface(buildStaySurface(context, selection), main);
@@ -457,7 +537,7 @@
       }
     }
 
-    if (version !== syncVersion) return;
+    if (version !== syncVersion || !isMonetizationEligible()) return;
     placeSurface(buildGenericSurface(), main);
   }
 
@@ -466,12 +546,16 @@
   }
 
   async function mountStayNearby(context, target) {
+    if (!isMonetizationEligible()) return false;
     const data = await loadStayData();
     const selection = selectStayNearby(data, context);
-    if (!selection.length) return false;
+    if (!selection.length || !isMonetizationEligible()) return false;
     const node = typeof target === "string" ? document.querySelector(target) : target;
     if (!node) return false;
-    node.replaceChildren(buildStaySurface(context, selection));
+    const surface = buildStaySurface(context, selection);
+    surface.dataset.stayPlacement = "explicit-mount";
+    node.replaceChildren(surface);
+    trackSurfaceImpression(surface, "explicit-mount");
     return true;
   }
 
@@ -498,6 +582,8 @@
     select: async (context, limit = 3) => selectStayNearby(await loadStayData(), context, limit),
     mount: mountStayNearby,
     refresh: scheduleSync,
+    isIndexabilityEligible,
+    isMonetizationEligible,
   });
 
   if (document.readyState === "complete") start();
