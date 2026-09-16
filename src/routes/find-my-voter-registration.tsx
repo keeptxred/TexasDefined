@@ -1,0 +1,2 @@
+import { createFileRoute } from '@tanstack/react-router'; import { buildMeta } from '@/lib/seo'; import { LazyRelocationServiceFinder } from '@/components/relocation/LazyRelocationServiceFinder';
+export const Route=createFileRoute('/find-my-voter-registration')({head:()=>({meta:buildMeta('/find-my-voter-registration',{title:'Texas Voter Registration Finder',description:'Find Texas county context and continue to the official Texas voter-registration portal for status and requirements.'})}),component:()=> <LazyRelocationServiceFinder kind="voter"/>});
