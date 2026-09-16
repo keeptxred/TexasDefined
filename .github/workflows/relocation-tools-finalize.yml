@@ -34,9 +34,12 @@ jobs:
       - name: Run diagnostic premerge contract
         run: |
           set +e
+          : > "$GITHUB_STEP_SUMMARY"
           node scripts/ci/run-premerge-validation.mjs > /tmp/premerge.log 2>&1
           code=$?
-          tail -n 3000 /tmp/premerge.log > docs/relocation-premerge-diagnostic.txt
+          cp "$GITHUB_STEP_SUMMARY" docs/relocation-premerge-diagnostic.txt
+          printf '\n## Error excerpts\n' >> docs/relocation-premerge-diagnostic.txt
+          grep -E '::error|failed \(|validation failed|budget|Missing|missing' /tmp/premerge.log >> docs/relocation-premerge-diagnostic.txt || true
           echo "premerge_exit=$code" >> docs/relocation-premerge-diagnostic.txt
           exit 0
       - name: Commit generated governance files and diagnostic
