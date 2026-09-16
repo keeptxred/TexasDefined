@@ -4,6 +4,7 @@ import vm from 'node:vm';
 const root = fs.readFileSync('src/routes/__root.tsx', 'utf8');
 const source = fs.readFileSync('public/stay-affiliate-options.js', 'utf8');
 const stayRegistry = JSON.parse(fs.readFileSync('public/stay-nearby-hotels.json', 'utf8'));
+const hotelsVerification = JSON.parse(fs.readFileSync('public/stay-nearby-hotelscom-verification.json', 'utf8'));
 const analytics = fs.readFileSync('src/platform/analytics.ts', 'utf8');
 const eventRoute = fs.readFileSync('src/routes/event.$slug.lazy.tsx', 'utf8');
 const destinationPlanner = fs.readFileSync('src/components/editorial/DestinationVisitPlanner.tsx', 'utf8');
@@ -73,15 +74,37 @@ try {
       }
     }
 
+    if (hotelsVerification.version !== 1) errors.push('Hotels.com property verification registry must be version 1.');
+    if (hotelsVerification.publisherId !== '101876465') errors.push('Hotels.com property verification registry must remain bound to TexasDefined CJ publisher 101876465.');
+    if (hotelsVerification.policy?.exactPropertyOnly !== true || hotelsVerification.policy?.broadSearchAllowed !== false) {
+      errors.push('Hotels.com property verification policy must require exact properties and forbid broad search URLs.');
+    }
+
     const activeProperties = (stayRegistry.properties || []).filter((property) => property.status === 'active');
+    const evidence = hotelsVerification.properties || [];
     if (activeProperties.length !== 15) errors.push(`Exact Hotels.com wave expects 15 active curated properties; found ${activeProperties.length}.`);
+    if (evidence.length !== activeProperties.length) errors.push(`Hotels.com verification evidence must cover every active curated property; expected ${activeProperties.length}, found ${evidence.length}.`);
+
+    const evidenceById = new Map();
+    for (const item of evidence) {
+      if (!item?.propertyId || evidenceById.has(item.propertyId)) errors.push(`Invalid or duplicate Hotels.com verification evidence: ${item?.propertyId ?? '<missing>'}.`);
+      evidenceById.set(item.propertyId, item);
+    }
+
     const seenPropertyDestinations = new Set();
     for (const property of activeProperties) {
+      const item = evidenceById.get(property.id);
+      if (!item) {
+        errors.push(`${property.id} is missing Hotels.com verification evidence.`);
+        continue;
+      }
+      if (item.name !== property.name) errors.push(`${property.id} Hotels.com verification name does not match the canonical curated property name.`);
       const destination = api.exactPropertyDestination(property.name);
       if (!destination) {
         errors.push(`${property.id} is missing an exact Hotels.com property destination.`);
         continue;
       }
+      if (item.destinationUrl !== destination) errors.push(`${property.id} runtime Hotels.com destination diverges from its verification record.`);
       if (!/^https:\/\/www\.hotels\.com\/ho\d+\/[a-z0-9-]+\/$/i.test(destination)) {
         errors.push(`${property.id} does not use a stable exact-property Hotels.com URL: ${destination}`);
       }
@@ -215,4 +238,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hotels.com / Vrbo stay affiliate validation passed: all 15 active curated Stay Nearby hotels have unique verified exact-property Hotels.com destinations that generate TexasDefined CJ deep links, unknown properties fail closed, curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs, CJ tracking remains restricted to approved partner hosts, stay CTAs remain contextually promoted, event and destination guides expose deterministic in-content slots, owner referrals remain separately gated, outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics, post-deploy verification covers the exact-property registry, disclosures and sponsored-link attributes are present, and Expedia remains the fallback lodging host.');
+console.log('Hotels.com / Vrbo stay affiliate validation passed: all 15 active curated Stay Nearby hotels have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; unknown properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the exact-property registry; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');
