@@ -14,9 +14,11 @@ const advertiserAgreementSchema = z.object({
   tier: z.enum(['local', 'growth', 'premier', 'custom']),
   billingCycle: z.enum(['monthly', 'annual']),
   legalName: z.string().trim().min(2).max(180),
+  businessName: z.string().trim().max(180).optional().default(''),
   signerName: z.string().trim().min(2).max(120),
   signerTitle: z.string().trim().min(2).max(120),
   signerEmail: z.string().trim().email().max(320),
+  billingEmail: z.string().trim().max(320).optional().default(''),
   billingAddress: z.string().trim().min(10).max(500),
   companyWebsite: z.string().trim().max(500),
   requestedStart: z.string().trim().max(40),
@@ -39,6 +41,9 @@ export const submitAdvertiserAgreement = createServerFn({ method: 'POST' })
       throw new Error('Typed signature must match the signer name.');
     }
 
+    const billingEmail = data.billingEmail || data.signerEmail;
+    if (!z.string().email().safeParse(billingEmail).success) throw new Error('Billing email must be a valid email address.');
+
     let companyWebsite: string | null = null;
     if (data.companyWebsite) {
       const parsed = new URL(data.companyWebsite);
@@ -58,9 +63,11 @@ export const submitAdvertiserAgreement = createServerFn({ method: 'POST' })
       billing_cycle: billingCycle,
       published_price_cents: dollars == null ? null : dollars * 100,
       legal_name: data.legalName,
+      business_name: data.businessName || data.legalName,
       signer_name: data.signerName,
       signer_title: data.signerTitle,
       signer_email: data.signerEmail.toLowerCase(),
+      billing_email: billingEmail.toLowerCase(),
       billing_address: data.billingAddress,
       company_website: companyWebsite,
       requested_start: data.requestedStart || null,
