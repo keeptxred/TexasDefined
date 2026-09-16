@@ -36,7 +36,7 @@ jobs:
           set +e
           node scripts/ci/run-premerge-validation.mjs > /tmp/premerge.log 2>&1
           code=$?
-          tail -n 400 /tmp/premerge.log > docs/relocation-premerge-diagnostic.txt
+          tail -n 3000 /tmp/premerge.log > docs/relocation-premerge-diagnostic.txt
           echo "premerge_exit=$code" >> docs/relocation-premerge-diagnostic.txt
           exit 0
       - name: Commit generated governance files and diagnostic
