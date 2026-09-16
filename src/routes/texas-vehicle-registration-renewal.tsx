@@ -1,11 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { lazy, Suspense } from 'react';
-
-const VehicleRegistrationRenewalRouteContent = lazy(() =>
-  import('@/components/editorial/VehicleRegistrationAuthorityPages').then((module) => ({
-    default: module.VehicleRegistrationRenewalRouteContent,
-  })),
-);
 
 const canonicalPath = '/texas-vehicle-registration-renewal';
 const title = 'Texas Vehicle Registration Renewal: Online & In Person';
@@ -20,13 +13,4 @@ const pageHead = {
 
 export const Route = createFileRoute('/texas-vehicle-registration-renewal')({
   head: () => pageHead,
-  component: VehicleRegistrationRenewalRoute,
 });
-
-function VehicleRegistrationRenewalRoute() {
-  return (
-    <Suspense fallback={<div className="min-h-[36rem]" aria-hidden="true" />}>
-      <VehicleRegistrationRenewalRouteContent />
-    </Suspense>
-  );
-}
