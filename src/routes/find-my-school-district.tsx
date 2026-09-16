@@ -6,14 +6,14 @@ export const description = 'A dependable way to confirm which public school dist
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const canonicalPath = '/find-my-school-district';
 const pageUrl = `${siteUrl}${canonicalPath}`;
-export const steps = [
+const steps = [
   'Start with the Texas Education Agency’s official school and district pages.',
   'Enter the exact property address in an official district or county map.',
   'Confirm the assigned campus directly with the district.',
   'Ask about planned boundary changes, transfers or new-campus assignments.',
   'Keep written confirmation when a home purchase or lease depends on the answer.',
 ] as const;
-export const stepNames = [
+const stepNames = [
   'Start with the state school pages',
   'Check the exact address',
   'Confirm the assigned campus',
