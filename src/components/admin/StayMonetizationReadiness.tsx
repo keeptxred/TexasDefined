@@ -53,7 +53,7 @@ export function StayMonetizationReadiness() {
       </div>
 
       <div className="mt-8 divide-y divide-border border-y border-border">
-        {readiness.destinationRows.map((row) => <article key={row.key} className="grid gap-3 py-4 md:grid-cols-[1fr_auto_auto] md:items-center">
+        {readiness.destinationRows.map((row) => <article key={row.key} className="grid gap-3 py-4 md:grid-cols-3 md:items-center">
           <div><strong className="capitalize">{row.key.replaceAll('-', ' ')}</strong><p className="mt-1 text-sm text-muted-foreground">{row.properties.join(' · ')}</p></div>
           <span className="text-sm font-semibold">{row.properties.length}/3 curated</span>
           <span className="text-xs text-muted-foreground">{row.verifiedLinks} verified deeplink{row.verifiedLinks === 1 ? '' : 's'}</span>
