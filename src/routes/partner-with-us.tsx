@@ -4,7 +4,7 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const canonicalPath = '/partner-with-us';
-const description = 'Texas Defined advertising packages, placements, billing and agreements. Paid relationships do not buy editorial coverage, favorable rankings or changes to factual conclusions. One approved sports sponsored placement may run on a sports surface at a time.';
+const description = 'Texas Defined advertising packages, placements, billing and agreements. Advertising does not buy editorial coverage, rankings, reviews, recommendations or factual conclusions. One approved sports sponsored placement may run on a sports surface at a time.';
 
 type PartnerSearch = {
   partnershipType?: 'sports-travel' | 'brand-retail';
