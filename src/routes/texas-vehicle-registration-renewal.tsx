@@ -1,4 +1,4 @@
-import { createFileRoute, lazyRouteComponent } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
@@ -71,8 +71,4 @@ export const Route = createFileRoute('/texas-vehicle-registration-renewal')({
       ],
     })],
   }),
-  component: lazyRouteComponent(
-    () => import('@/components/editorial/VehicleRegistrationRenewalPage'),
-    'VehicleRegistrationRenewalPage',
-  ),
 });
