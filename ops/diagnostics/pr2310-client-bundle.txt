@@ -1,0 +1,50 @@
+PR 2310 client bundle diagnostic
+commit=d8763463fb0012fb4f7fe14622bb839308431818
+1977565	destination-query-runtime-Dm-OL7Ou.js
+1581501	main-BleMxjnA.js
+586499	lazy-texas-gateway-1hor3w5K.js
+283695	sports-venue-enrichment-all-Cg7SWWHt.js
+144836	index-WTN85nnV.js
+140392	styles-BMFgmwQA.css
+134052	explore.painted-churches._slug.lazy-DGNl04uu.js
+104956	painted-church-profile-index-BXnpOFe0.js
+104455	_kind._slug.lazy-BeKHSD57.js
+93886	texas-gateway-articles-batch2-B28j9RMZ.js
+85190	painted-church-search-guides-C99SRXBV.js
+64352	texas-gateway-lifestyle-batch3-DUXx08Fn.js
+63038	texas-life-split-Ciy_YEMq.js
+58971	SportsVenueGuidePilotContent-Bt7p-_YN.js
+58414	seasonal-intent-articles-DCTZJm0g.js
+49492	texas-explained-support-articles-2-ckx7-pS1.js
+48877	texas-explained-reservoir-profiles-BwclseYu.js
+47862	texas-core-depth-DGJxzGw_.js
+45892	lazy-newest-evergreen-CvIuKTSU.js
+45496	TexasExplainedQuestionsPage-CcJqBwQc.js
+45297	sports-venue-images-all-BiLVZowz.js
+45202	seasonal-authority-articles-B-BCb5sz.js
+42067	index-DyprTcmw.js
+41734	ShowcaseLakeGuide-CuhVF5js.js
+38724	top-attraction-authority-resolver-DA5rRC9k.js
+36038	moving-to-texas-pillar-BSsgDxSK.js
+35989	texas-explained-support-articles-T3cH7dHm.js
+34540	explore-feature-articles-DGU7Bp4T.js
+34224	national-wildlife-refuge-destinations-JAjzwn5d.js
+31028	texas-gateway-articles-klQZZG87.js
+30767	texas-route-66-page-DloTiM4r.js
+30255	destination._slug-C36uHBt2.js
+29864	texas-music-venue-guides-C8rJbX4U.js
+29326	texas-music-guides-batch2-vgdq52sD.js
+29145	texas-music-city-guides-DcrIlmQ2.js
+28761	migrated-editorial-Dreiu4dG.js
+27829	Container-CSdidZMM.js
+27047	explore.painted-churches-RvAD5yTn.js
+26486	authority-legacy-food-culture-DEOxfJqT.js
+25146	TexasEvergreenGuide-BkhgT5qW.js
+
+performance-validator:
+
+> performance:validate
+> node scripts/data/validate-client-bundle-budget.mjs
+
+::error title=Client stylesheet budget::Primary stylesheet styles-BMFgmwQA.css is 140,392 bytes; budget is 140,000 bytes.
+Primary stylesheet styles-BMFgmwQA.css is 140,392 bytes; budget is 140,000 bytes.
