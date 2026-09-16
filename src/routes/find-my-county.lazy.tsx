@@ -21,6 +21,8 @@ type CountyLookupFailure = {
 
 type CountyLookupResponse = CountyLookupSuccess | CountyLookupFailure;
 
+const editorialSerif = { fontFamily: 'Georgia, Cambria, "Times New Roman", Times, serif' } as const;
+
 export const Route = createLazyFileRoute('/find-my-county')({ component: Page });
 
 function Page() {
@@ -135,7 +137,7 @@ function Page() {
 
         <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
           <div><p className="eyebrow text-primary">Why it matters</p><h2 className="mt-2 font-display text-3xl">County is more than a mailing label</h2></div>
-          <div className="space-y-5 font-serif text-base leading-8">
+          <div className="space-y-5 text-base leading-8" style={editorialSerif}>
             <p>County matters quickly when you move, buy a home or start dealing with local government in Texas. Vehicle-registration work is commonly handled through the county tax assessor-collector. Property records and appraisals are tied to county appraisal districts. County courts, clerk records, elections administration and many local services also depend on the county that actually contains the property.</p>
             <p>Do not assume the city printed in a postal address answers that question. Postal city names are designed to route mail, while municipal limits and county boundaries are separate geographic systems. Large metropolitan areas can cross several counties, and suburban mailing addresses can make the distinction especially easy to miss.</p>
             <p>Once the tool returns a county, use the Texas Defined county profile as an orientation page and then verify the transaction with the responsible local office. A county result does not by itself identify every taxing unit, school district, emergency-services district, municipality, special district or utility provider that serves the address.</p>
@@ -144,7 +146,7 @@ function Page() {
 
         <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
           <div><p className="eyebrow text-primary">Method</p><h2 className="mt-2 font-display text-3xl">How the county lookup works</h2></div>
-          <div className="space-y-5 font-serif text-base leading-8">
+          <div className="space-y-5 text-base leading-8" style={editorialSerif}>
             <p>Texas Defined sends the address to the U.S. Census Bureau Geocoding Services API using the current public address benchmark and current Census geography vintage. The Census service first matches the street address and then returns the geographic areas associated with that match. Texas Defined reads the county code from that response and requires the state code to be 48, the federal FIPS code for Texas.</p>
             <p>The returned three-digit county code is then matched against Texas Defined’s governed registry of all 254 Texas counties. That second step prevents the page from inventing a county slug or linking a Census result to the wrong county profile. The five-digit value displayed in the result combines Texas state FIPS 48 with the three-digit county code.</p>
             <p>Address geocoding is not perfect. New subdivisions, recently renamed streets, rural routes, incomplete addresses and unusual postal conventions can fail to match or can match less precisely than expected. If the result affects a legal filing, tax payment, school enrollment, election question or property transaction, confirm it with the relevant county or local authority before acting.</p>
