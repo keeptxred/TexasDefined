@@ -76,9 +76,10 @@ for (const route of expected.map((slug) => `/destination/${slug}`)) {
   requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === route.replace(/\/+$/, ''), `${route} is not self-canonical.`);
 }
 
-const admin = await fetchLive('/admin/stay-monetization');
-requireCondition(/noindex/i.test(admin), 'Stay monetization readiness route must remain noindex in production.');
-requireCondition(admin.includes('Stay monetization readiness'), 'Stay monetization readiness route did not render its expected heading.');
-requireCondition(admin.includes('does not invent traffic, booking, conversion or revenue performance'), 'Stay monetization readiness route lost its evidence-only performance disclaimer.');
+const admin = await fetchLive('/admin/platform-health');
+requireCondition(/noindex/i.test(admin), 'Platform Health must remain noindex in production.');
+requireCondition(admin.includes('Platform Health'), 'Platform Health did not render its expected heading.');
+requireCondition(admin.includes('Stay monetization readiness'), 'Platform Health did not render the stay monetization readiness panel heading.');
+requireCondition(admin.includes('does not invent traffic, booking, conversion or revenue performance'), 'Platform Health lost the evidence-only stay performance disclaimer.');
 
-console.log('Destination stay production verification passed: 3 governed destination contexts and 9 source-backed properties are live; each destination has exactly 3 curated choices; unverified property deeplinks and ungoverned imagery fail closed; destination pages are self-canonical/indexable with contextual stay slots; and the noindex readiness dashboard is live without fabricated performance data.');
+console.log('Destination stay production verification passed: 3 governed destination contexts and 9 source-backed properties are live; each destination has exactly 3 curated choices; unverified property deeplinks and ungoverned imagery fail closed; destination pages are self-canonical/indexable with contextual stay slots; and the noindex Platform Health readiness panel is live without fabricated performance data.');
