@@ -66,10 +66,10 @@ function AdvertiserAgreementPage() {
         <button type="button" onClick={() => window.print()} className="border border-border px-4 py-2 text-sm font-semibold">Print / save agreement</button>
       </div>
 
-      <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:gap-14">
+      <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-14">
         <section>
           <div className="grid gap-5 sm:grid-cols-2">
-            <label className="grid gap-2 text-sm font-semibold" htmlFor="tier">Package<select id="tier" value={tier} onChange={(event) => setTier(event.target.value as AdvertiserTierId)} className="min-h-11 border border-border bg-background px-3 py-2 font-normal"><option value="local">Local Partner</option><option value="growth">Growth Partner</option><option value="premier">Premier Partner</option><option value="custom">Custom / Integrated</option></select></label>
+            <label className="grid gap-2 text-sm font-semibold" htmlFor="tier">Package<select id="tier" value={tier} onChange={(event) => setTier(event.target.value as AdvertiserTierId)} className="min-h-11 border border-border bg-background px-3 py-2 font-normal"><option value="local">Local Partner</option><option value="growth">Growth Partner</option><option value="premier">Premier Partner</option><option value="custom">Custom Partnership</option></select></label>
             <label className="grid gap-2 text-sm font-semibold" htmlFor="billing">Billing<select id="billing" value={billing} onChange={(event) => setBilling(event.target.value as AdvertiserBillingCycle)} className="min-h-11 border border-border bg-background px-3 py-2 font-normal"><option value="monthly">Monthly</option><option value="annual">Annual</option></select></label>
           </div>
           <div className="mt-6 border-y border-border py-5"><div className="flex flex-wrap items-baseline justify-between gap-3"><h2 className="font-display text-3xl">{selectedTier.name}</h2><p className="font-bold text-primary">{advertiserPriceLabel(selectedTier, billing)}</p></div><p className="mt-2 text-sm leading-6 text-muted-foreground">{selectedTier.commitment}</p><ul className="mt-4 space-y-2 text-sm leading-6 text-muted-foreground">{selectedTier.features.map((feature) => <li key={feature}>✓ {feature}</li>)}</ul></div>
