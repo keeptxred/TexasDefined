@@ -44,6 +44,14 @@ for (const marker of [
   'const CJ_PUBLISHER_ID = "101876465"',
   'https://www.hotels.com/',
   'https://www.vrbo.com/',
+  'const VERIFIED_PROPERTY_DESTINATIONS = new Map([',
+  'https://www.hotels.com/ho115100/hilton-anatole-dallas-united-states-of-america/',
+  'https://www.hotels.com/ho2949850752/loews-arlington-arlington-united-states-of-america/',
+  'https://www.hotels.com/ho1830497920/tru-by-hilton-northlake-fort-worth-tx-roanoke-united-states-of-america/',
+  'upgradeExactPropertyCards',
+  'View on Hotels.com',
+  'placement: "stay-nearby-card-exact"',
+  'link.dataset.exactProperty = propertyName',
   'Find places to stay',
   'Find hotels on Hotels.com',
   'Find vacation rentals on Vrbo',
@@ -56,6 +64,10 @@ for (const marker of [
   'PLACEMENT_HEADING',
   'anchor.parentNode.insertBefore(surface, anchor)',
 ]) requireCondition(affiliateBootstrap.includes(marker), `Live stay affiliate bootstrap is missing marker: ${marker}`);
+
+const exactPropertyUrls = affiliateBootstrap.match(/https:\/\/www\.hotels\.com\/ho\d+\/[a-z0-9-]+\//gi) || [];
+requireCondition(exactPropertyUrls.length === 15, `Live stay affiliate bootstrap must contain 15 exact Hotels.com property URLs; found ${exactPropertyUrls.length}.`);
+requireCondition(new Set(exactPropertyUrls).size === 15, 'Live exact Hotels.com property URLs must be unique across the curated hotel cohort.');
 
 const expediaBootstrap = await fetchLive('/expedia-travel.js');
 for (const marker of [
@@ -123,4 +135,4 @@ for (const page of pages) {
   requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === page.route.replace(/\/+$/, ''), `${page.route} is not self-canonical and must not be part of the monetized production cohort.`);
 }
 
-console.log('Stay affiliate production verification passed: Hotels.com/Vrbo tracking and disclosures are live with GTM plus first-party commercial-partner attribution; Expedia remains the lodging host; the live Stay Nearby asset enforces separate indexability and monetization eligibility with provider/module telemetry; representative event, venue and destination pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; and script ordering is intact.');
+console.log('Stay affiliate production verification passed: all 15 curated hotel records expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher while broad Expedia search remains the fallback; Hotels.com/Vrbo tracking and disclosures are live with GTM plus first-party commercial-partner attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, venue and destination pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; and script ordering is intact.');
