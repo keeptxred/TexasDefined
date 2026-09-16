@@ -1,0 +1,85 @@
+name: Reconcile Authority Hubs
+
+on:
+  push:
+    branches: [seo/authority-search-250-20260914]
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out reconciled feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: seo/authority-search-250-20260914
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Three-way merge concurrently edited authority discovery files
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASE_SHA: 5320790fca5e6b52d65a019338e0d13720e4fb94
+          FEATURE_SHA: 440c199b3b19d59e81b135057f87331ef15adca3
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/authority-reconcile
+
+          fetch_version() {
+            local path="$1"
+            local ref="$2"
+            local out="$3"
+            gh api "/repos/${GITHUB_REPOSITORY}/contents/${path}?ref=${ref}" --jq '.content' | tr -d '\n' | base64 -d > "$out"
+          }
+
+          merge_file() {
+            local path="$1"
+            local key
+            key="$(echo "$path" | tr '/.' '__')"
+            cp "$path" "/tmp/authority-reconcile/${key}.ours"
+            fetch_version "$path" "$BASE_SHA" "/tmp/authority-reconcile/${key}.base"
+            fetch_version "$path" "$FEATURE_SHA" "/tmp/authority-reconcile/${key}.theirs"
+            if ! git merge-file -p "/tmp/authority-reconcile/${key}.ours" "/tmp/authority-reconcile/${key}.base" "/tmp/authority-reconcile/${key}.theirs" > "/tmp/authority-reconcile/${key}.merged"; then
+              echo "Three-way merge conflict in $path" >&2
+              exit 1
+            fi
+            mv "/tmp/authority-reconcile/${key}.merged" "$path"
+          }
+
+          merge_file src/lib/public-routes.ts
+          merge_file src/routes/texas-resources.lazy.tsx
+
+      - name: Regenerate TanStack route tree
+        run: npm run build
+
+      - name: Validate authority resources contract
+        run: node scripts/data/validate-texas-resources-seo.mjs
+
+      - name: Commit reconciled overlap and generated route tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add src/lib/public-routes.ts src/routes/texas-resources.lazy.tsx src/routeTree.gen.ts
+          if git diff --cached --quiet; then
+            echo "Nothing to reconcile."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Reconcile authority overlap and route tree"
+          git push origin HEAD:seo/authority-search-250-20260914
