@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
 
 export type AdvertiserAgreementInsert = {
@@ -7,9 +9,11 @@ export type AdvertiserAgreementInsert = {
   billing_cycle: 'monthly' | 'annual';
   published_price_cents: number | null;
   legal_name: string;
+  business_name: string;
   signer_name: string;
   signer_title: string;
   signer_email: string;
+  billing_email: string;
   billing_address: string;
   company_website: string | null;
   requested_start: string | null;
@@ -20,15 +24,23 @@ export type AdvertiserAgreementInsert = {
   source_path: string;
 };
 
+type StoredAdvertiserAgreementInsert = AdvertiserAgreementInsert & {
+  agreement_snapshot_sha256: string;
+};
+
 type InsertResult = { error: { message: string } | null };
 type AdvertiserAgreementAdminClient = {
   from: (table: string) => {
-    insert: (value: AdvertiserAgreementInsert) => PromiseLike<InsertResult>;
+    insert: (value: StoredAdvertiserAgreementInsert) => PromiseLike<InsertResult>;
   };
 };
 
 export async function saveAdvertiserAgreement(value: AdvertiserAgreementInsert) {
   const client = supabaseAdmin as unknown as AdvertiserAgreementAdminClient;
-  const { error } = await client.from('texasdefined_advertiser_agreements').insert(value);
+  const agreement_snapshot_sha256 = createHash('sha256').update(value.agreement_snapshot, 'utf8').digest('hex');
+  const { error } = await client.from('texasdefined_advertiser_agreements').insert({
+    ...value,
+    agreement_snapshot_sha256,
+  });
   if (error) throw new Error(`Advertiser agreement could not be saved: ${error.message}`);
 }
