@@ -1,11 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { lazy, Suspense } from 'react';
-
-const VehicleRegistrationFeesTaxesRouteContent = lazy(() =>
-  import('@/components/editorial/VehicleRegistrationAuthorityPages').then((module) => ({
-    default: module.VehicleRegistrationFeesTaxesRouteContent,
-  })),
-);
 
 const canonicalPath = '/texas-vehicle-registration-fees-taxes';
 const title = 'Texas Vehicle Registration Fees, Taxes & EV Charges';
@@ -20,13 +13,4 @@ const pageHead = {
 
 export const Route = createFileRoute('/texas-vehicle-registration-fees-taxes')({
   head: () => pageHead,
-  component: VehicleRegistrationFeesTaxesRoute,
 });
-
-function VehicleRegistrationFeesTaxesRoute() {
-  return (
-    <Suspense fallback={<div className="min-h-[36rem]" aria-hidden="true" />}>
-      <VehicleRegistrationFeesTaxesRouteContent />
-    </Suspense>
-  );
-}
