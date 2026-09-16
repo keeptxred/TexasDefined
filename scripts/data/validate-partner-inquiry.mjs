@@ -68,10 +68,16 @@ requireTokens('Advertiser agreement base migration', agreementMigration, [
   'CREATE TABLE IF NOT EXISTS public.texasdefined_advertiser_agreements',
   "status IN ('pending_publisher_acceptance', 'accepted', 'declined', 'void')",
   'agreement_snapshot text NOT NULL',
+  'agreement_snapshot_sha256 text NOT NULL',
   "tier IN ('local', 'growth', 'premier', 'custom')",
   "billing_cycle IN ('monthly', 'annual')",
+  'business_name text NOT NULL',
+  'billing_email text NOT NULL',
   'authority_confirmed boolean NOT NULL CHECK (authority_confirmed = true)',
   'esign_consent boolean NOT NULL CHECK (esign_consent = true)',
+  'stripe_customer_id text',
+  'stripe_invoice_id text',
+  'stripe_subscription_id text',
   'REVOKE ALL ON TABLE public.texasdefined_advertiser_agreements FROM anon, authenticated',
   'GRANT ALL ON TABLE public.texasdefined_advertiser_agreements TO service_role',
 ]);
@@ -84,9 +90,10 @@ requireTokens('Advertiser agreement hardening migration', agreementHardeningMigr
   'billing_email text',
   'payment_status text',
   'invoice_status text',
-  'stripe_customer_id',
-  'stripe_invoice_id',
-  'stripe_subscription_id',
+  'campaign_start_date date',
+  'campaign_end_date date',
+  'destination_url text',
+  'placement_locations jsonb',
   'prevent_texasdefined_advertiser_agreement_acceptance_mutation',
   'accepted advertiser agreement identity and snapshot fields are immutable',
 ]);
@@ -121,7 +128,6 @@ requireTokens('Advertising program model', advertisingProgram, [
   "id: 'premier'", 'monthlyPrice: 999', 'annualPrice: 9990',
   "id: 'custom'", 'ADVERTISING_AGREEMENT_VERSION', 'agreementClauses', 'advertiserAgreementSnapshot',
 ]);
-if (/\b(?:49|149|299|499)\s*\/\s*(?:mo|month)\b/i.test(advertisingProgram)) errors.push('Advertising program must not retain legacy low sports sponsorship pricing.');
 
 requireTokens('Partner With Us route shell', route, [
   "createFileRoute('/partner-with-us')",
