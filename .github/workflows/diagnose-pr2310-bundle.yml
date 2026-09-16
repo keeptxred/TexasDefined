@@ -40,7 +40,6 @@ jobs:
           BRANCH_CSS="$(find dist/client/assets .output/public/assets -maxdepth 1 -type f -name 'styles-*.css' 2>/dev/null | head -n 1)"
           test -n "$BRANCH_CSS"
           cp "$BRANCH_CSS" /tmp/pr2310-branch.css
-          BRANCH_SIZE="$(wc -c < /tmp/pr2310-branch.css)"
 
           git reset --hard "$FEATURE_SHA"
           git checkout --detach origin/main
@@ -49,7 +48,7 @@ jobs:
           MAIN_CSS="$(find dist/client/assets .output/public/assets -maxdepth 1 -type f -name 'styles-*.css' 2>/dev/null | head -n 1)"
           test -n "$MAIN_CSS"
           cp "$MAIN_CSS" /tmp/pr2310-main.css
-          MAIN_SIZE="$(wc -c < /tmp/pr2310-main.css)"
+          git reset --hard origin/main
 
           git checkout --detach "$FEATURE_SHA"
           git reset --hard "$FEATURE_SHA"
