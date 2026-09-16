@@ -21,7 +21,7 @@ export const Route = createLazyFileRoute('/partner-with-us')({ component: Partne
 type SubmitStatus = 'idle' | 'sending' | 'sent' | 'error';
 const partnershipOptions = [
   ['insurance', 'Insurance'], ['mortgage', 'Mortgage / lending'], ['real-estate', 'Real estate'],
-  ['moving', 'Moving services'], ['travel', 'Travel / tourism'], ['sports-travel', 'Sports travel / visitor business'],
+  ['moving', 'Moving services'], ['travel', 'Travel / tourism'], ['sports-travel', 'Sports travel / local visitor business'],
   ['brand-retail', 'Texas brand / grocery / retail'], ['sponsorship', 'Sponsorship'], ['other', 'Other'],
 ] as const;
 
@@ -37,6 +37,7 @@ function PartnerWithUsPage() {
   const [agreementStatus, setAgreementStatus] = useState<SubmitStatus>('idle');
   const [formError, setFormError] = useState('');
   const agreementTier = getAdvertiserTier(selectedTier);
+  const isSportsTravelLead = search.partnershipType === 'sports-travel';
 
   function chooseTier(tier: AdvertiserTierId) {
     setSelectedTier(tier);
@@ -86,7 +87,7 @@ function PartnerWithUsPage() {
     <Container className="py-12 sm:py-16">
       <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div><p className="eyebrow text-primary">Built for useful alignment</p><h2 className="mt-3 font-display text-4xl leading-tight">A professional sponsorship program, not a link marketplace.</h2></div>
-        <div className="space-y-5 text-base leading-8 text-muted-foreground"><p>Texas Defined builds practical Texas travel, events, destinations, relocation, home and local-life resources. Commercial partners can appear where their service is a natural next step for the reader.</p><p>Advertising does not buy editorial coverage, rankings, reviews, recommendations or factual conclusions. Every advertiser, placement and destination is subject to approval.</p><div className="flex flex-wrap gap-3 pt-2 text-sm font-semibold"><a href="#pricing" className="border border-primary bg-primary px-5 py-3 text-primary-foreground">Compare packages</a><a href="/advertising/examples.html" className="border border-border px-5 py-3 text-foreground">View full placement demo</a><a href="#contact" className="border border-border px-5 py-3 text-foreground">Request a proposal</a></div></div>
+        <div className="space-y-5 text-base leading-8 text-muted-foreground"><p>Texas Defined builds practical Texas travel, events, destinations, relocation, home and local-life resources. Commercial partners can appear where their service is a natural next step for the reader.</p><p>Paid relationships do not buy editorial coverage, favorable rankings or changes to factual conclusions. Every advertiser, placement and destination is subject to approval.</p>{isSportsTravelLead ? <p className="border-l-2 border-primary pl-4 text-sm">You came from our sports-travel coverage. Tell us which venue, event, lodging, dining or visitor market you want to support and we will keep that source context with your inquiry.</p> : null}<div className="flex flex-wrap gap-3 pt-2 text-sm font-semibold"><a href="#pricing" className="border border-primary bg-primary px-5 py-3 text-primary-foreground">Compare packages</a><a href="/advertising/examples.html" className="border border-border px-5 py-3 text-foreground">View full placement demo</a><a href="#contact" className="border border-border px-5 py-3 text-foreground">Request a proposal</a></div></div>
       </div>
     </Container>
 
