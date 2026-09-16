@@ -35,4 +35,16 @@ jobs:
       # Single source of truth: developers and CI run the same deterministic
       # pre-merge contract. Add future required checks to the runner, not here.
       - name: Run canonical pre-merge validation
-        run: node scripts/ci/run-premerge-validation.mjs
+        shell: bash
+        run: |
+          set -o pipefail
+          node scripts/ci/run-premerge-validation.mjs 2>&1 | tee canonical-premerge.log
+
+      - name: Upload canonical pre-merge diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: canonical-premerge-diagnostic
+          path: canonical-premerge.log
+          if-no-files-found: error
+          retention-days: 1
