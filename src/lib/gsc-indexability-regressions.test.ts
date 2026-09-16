@@ -1,0 +1,28 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { describe, expect, it } from "vitest";
+
+const ROOT = process.cwd();
+const read = (path: string) => readFileSync(join(ROOT, path), "utf8");
+
+describe("GSC sitemap indexability regressions", () => {
+  it("suppresses page-parent canonicals while nested guide and relocation children are active", () => {
+    const source = read("src/lib/leaf-only-parent-routes.tsx");
+
+    expect(source).toContain('import { Route as guidesRoute } from "@/routes/guides";');
+    expect(source).toContain('import { Route as movingToTexasRoute } from "@/routes/moving-to-texas";');
+    expect(source).toMatch(/LEAF_ONLY_PARENT_ROUTES[\s\S]*guidesRoute,/);
+    expect(source).toMatch(/LEAF_ONLY_PARENT_ROUTES[\s\S]*movingToTexasRoute,/);
+    expect(source).toContain("if (!leafMatch || leafMatch.id !== context.match.id) return {};");
+  });
+
+  it("does not serialize empty event filters onto the canonical events URL", () => {
+    const source = read("src/routes/events.index.tsx");
+
+    expect(source).toContain("Object.fromEntries(Object.entries(cleaned).filter(([, value]) => Boolean(value)))");
+    expect(source).toContain("normalizeEventSearch(search)");
+    expect(source).toContain('featured: search.featured ?? ""');
+    expect(source).toContain('venue: search.venue ?? ""');
+    expect(source).toContain("getMajorEventLandingDirectory({ data: deps.search })");
+  });
+});
