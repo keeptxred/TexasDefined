@@ -65,6 +65,7 @@
   }
 
   function isTravelBookingSurface(pathname = window.location.pathname) {
+    if (pathname === window.location.pathname && TRAVEL_PATH.test(window.location.pathname)) return true;
     return TRAVEL_PATH.test(pathname) || hasTravelBookingMetadata();
   }
 
