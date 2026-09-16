@@ -1,0 +1,62 @@
+name: Diagnose PR 2310 bundle once
+
+on:
+  push:
+    branches:
+      - growth/find-my-texas-county
+    paths:
+      - .github/workflows/diagnose-pr2310-bundle.yml
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: growth/find-my-texas-county
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Record protected bundle measurement
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p ops/diagnostics
+          {
+            echo 'PR 2310 client bundle diagnostic'
+            echo "commit=$(git rev-parse HEAD)"
+            python3 <<'PY'
+          from pathlib import Path
+          roots=[Path('dist/client/assets'),Path('.output/public/assets')]
+          root=next((p for p in roots if p.is_dir()),None)
+          if not root:
+              raise SystemExit('assets missing')
+          files=[(p.stat().st_size,p.name) for p in root.iterdir() if p.is_file() and p.suffix in {'.js','.css'}]
+          for size,name in sorted(files, reverse=True)[:40]:
+              print(f'{size}\t{name}')
+          PY
+            echo
+            echo 'performance-validator:'
+            npm run performance:validate 2>&1 || true
+          } > ops/diagnostics/pr2310-client-bundle.txt
+          cat ops/diagnostics/pr2310-client-bundle.txt
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add ops/diagnostics/pr2310-client-bundle.txt
+          git commit -m 'Record PR 2310 bundle diagnostic'
+          git push origin HEAD:growth/find-my-texas-county
