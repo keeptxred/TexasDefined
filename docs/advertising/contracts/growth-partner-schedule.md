@@ -1,6 +1,6 @@
 # Texas Defined Growth Partner — Tier Schedule
 
-Incorporated into the **Texas Defined Advertising and Sponsorship Agreement — Base Terms**, version 2026-09-15-v1.
+Incorporated into the **Texas Defined Advertising and Sponsorship Agreement — Base Terms**, version 2026-09-16-v2.
 
 ## Package
 **Growth Partner**
@@ -14,13 +14,14 @@ Incorporated into the **Texas Defined Advertising and Sponsorship Agreement — 
 - Annual billing: twelve-month term, paid annually in advance unless approved invoice terms state otherwise.
 
 ## Included services
+- Everything appropriate from Local Partner.
 - Up to three approved sponsored placements on relevant Texas Defined surfaces.
-- One featured partner placement on a relevant hub when inventory permits.
-- Up to three advertiser destination links.
+- Up to three advertiser destination links and contextual calls to action.
+- One featured partner placement on a relevant hub or category when inventory permits.
+- Monthly reporting and campaign tracking.
 - Quarterly creative refreshes.
-- Monthly performance summary.
-- One coordinated social support placement per month when campaign creative is suitable.
-- Campaign setup and placement review.
+- Up to one appropriate coordinated social mention per month when available and suitable.
+- Improved placement options where approved inventory permits.
 
 ## Best fit
 Hotel groups, tourism operators, moving companies, attractions, restaurant groups and regional services serving a metro, region or several related Texas destinations.
