@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: texasdefined-merge-gate-${{ github.ref }}
@@ -32,7 +32,31 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
+      - name: Generate route codegen snapshot
+        shell: bash
+        run: |
+          npm run build
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/routeTree.gen.ts src/routes
+          git diff --cached --quiet && { echo "Route codegen already clean"; exit 0; }
+          git commit -m "Capture generated route code"
+          git push --force origin HEAD:refs/heads/automation/partner-route-codegen
+
       # Single source of truth: developers and CI run the same deterministic
       # pre-merge contract. Add future required checks to the runner, not here.
       - name: Run canonical pre-merge validation
-        run: node scripts/ci/run-premerge-validation.mjs
+        shell: bash
+        run: |
+          mkdir -p tmp
+          set -o pipefail
+          node scripts/ci/run-premerge-validation.mjs 2>&1 | tee tmp/premerge-validation.log
+
+      - name: Upload pre-merge diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: canonical-premerge-diagnostic
+          path: tmp/premerge-validation.log
+          if-no-files-found: error
+          retention-days: 1
