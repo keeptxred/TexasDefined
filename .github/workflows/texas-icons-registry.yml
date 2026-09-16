@@ -29,8 +29,6 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -113,41 +111,5 @@ jobs:
         with:
           name: client-bundle-budget-diagnostic
           path: tmp/bundle-budget-diagnostic.txt
-          if-no-files-found: error
-          retention-days: 1
-      - name: Compare compiled CSS with current main
-        if: always()
-        shell: bash
-        run: |
-          HEAD_CSS=$(find dist/client/assets -type f -name '*.css' -printf '%s %p\n' 2>/dev/null | sort -nr | head -1 | cut -d' ' -f2-)
-          cp "$HEAD_CSS" /tmp/head.css
-          git fetch origin main
-          git checkout --detach origin/main
-          npm ci
-          npm run build
-          BASE_CSS=$(find dist/client/assets -type f -name '*.css' -printf '%s %p\n' 2>/dev/null | sort -nr | head -1 | cut -d' ' -f2-)
-          cp "$BASE_CSS" /tmp/base.css
-          python - <<'PY' > tmp/css-delta.txt
-          from difflib import SequenceMatcher
-          base = open('/tmp/base.css', encoding='utf-8').read()
-          head = open('/tmp/head.css', encoding='utf-8').read()
-          print(f'BASE_BYTES={len(base.encode())}')
-          print(f'HEAD_BYTES={len(head.encode())}')
-          print(f'DELTA_BYTES={len(head.encode()) - len(base.encode())}')
-          sm = SequenceMatcher(None, base, head, autojunk=False)
-          for tag, i1, i2, j1, j2 in sm.get_opcodes():
-              if tag == 'equal':
-                  continue
-              print(f'\nOP={tag} BASE[{i1}:{i2}] HEAD[{j1}:{j2}]')
-              print('BASE_CONTEXT=' + repr(base[max(0,i1-180):min(len(base),i2+180)]))
-              print('HEAD_CONTEXT=' + repr(head[max(0,j1-180):min(len(head),j2+180)]))
-          PY
-          cat tmp/css-delta.txt
-      - name: Upload CSS delta diagnostic
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: css-delta-diagnostic
-          path: tmp/css-delta.txt
           if-no-files-found: error
           retention-days: 1
