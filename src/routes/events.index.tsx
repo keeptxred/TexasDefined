@@ -13,21 +13,51 @@ function cleanDate(value: unknown) {
   const candidate = cleanSearchValue(value, 10);
   return /^\d{4}-\d{2}-\d{2}$/.test(candidate) ? candidate : "";
 }
-const validateEventSearch = (search: Record<string, unknown>) => ({
-  featured: cleanSearchValue(search.featured, 80),
-  location: cleanSearchValue(search.location),
-  start: cleanDate(search.start),
-  end: cleanDate(search.end),
-  category: cleanSearchValue(search.category, 32),
-  venue: cleanSearchValue(search.venue),
-});
-function hasEventSearch(search: ReturnType<typeof validateEventSearch>) {
+
+type EventRouteSearch = Partial<{
+  featured: string;
+  location: string;
+  start: string;
+  end: string;
+  category: string;
+  venue: string;
+}>;
+
+type NormalizedEventSearch = Required<EventRouteSearch>;
+
+export const validateEventSearch = (search: Record<string, unknown>): EventRouteSearch => {
+  const cleaned = {
+    featured: cleanSearchValue(search.featured, 80),
+    location: cleanSearchValue(search.location),
+    start: cleanDate(search.start),
+    end: cleanDate(search.end),
+    category: cleanSearchValue(search.category, 32),
+    venue: cleanSearchValue(search.venue),
+  };
+  return Object.fromEntries(Object.entries(cleaned).filter(([, value]) => Boolean(value))) as EventRouteSearch;
+};
+
+export function normalizeEventSearch(search: EventRouteSearch): NormalizedEventSearch {
+  return {
+    featured: search.featured ?? "",
+    location: search.location ?? "",
+    start: search.start ?? "",
+    end: search.end ?? "",
+    category: search.category ?? "",
+    venue: search.venue ?? "",
+  };
+}
+
+function hasEventSearch(search: NormalizedEventSearch) {
   return Object.values(search).some(Boolean);
 }
 
 export const Route = createFileRoute("/events/")({
   validateSearch: validateEventSearch,
-  loaderDeps: ({ search }) => ({ search, filtered: hasEventSearch(search) }),
+  loaderDeps: ({ search }) => {
+    const normalizedSearch = normalizeEventSearch(search);
+    return { search: normalizedSearch, filtered: hasEventSearch(normalizedSearch) };
+  },
   loader: async ({ context, deps }) => {
     const [{ eventsQuery, regionsQuery }, { getEventsPageHead }] = await Promise.all([
       import("@/data/queries"),
