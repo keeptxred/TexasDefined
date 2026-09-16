@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: texasdefined-merge-gate-${{ github.ref }}
@@ -31,6 +31,20 @@ jobs:
 
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
+
+      - name: Commit generated partner route tree
+        shell: bash
+        run: |
+          npm run build
+          if git diff --quiet -- src/routeTree.gen.ts; then
+            echo "Generated route tree already committed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/routeTree.gen.ts
+          git commit -m "Commit generated partner route tree"
+          git push origin "HEAD:${{ github.head_ref }}"
 
       # Single source of truth: developers and CI run the same deterministic
       # pre-merge contract. Add future required checks to the runner, not here.
