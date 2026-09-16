@@ -104,12 +104,13 @@ jobs:
             echo "MAIN_JS_LIMIT_BYTES=1825000"
             find dist/client/assets -type f \( -name '*.css' -o -name 'index-*.js' \) -printf '%f %s\n' 2>/dev/null | sort -k2,2nr
           } > tmp/bundle-budget-diagnostic.txt
+          cp dist/client/assets/styles-*.css tmp/ 2>/dev/null || true
           cat tmp/bundle-budget-diagnostic.txt
       - name: Upload bundle budget diagnostic
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: client-bundle-budget-diagnostic
-          path: tmp/bundle-budget-diagnostic.txt
+          path: tmp/
           if-no-files-found: error
           retention-days: 1
