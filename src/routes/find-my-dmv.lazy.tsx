@@ -36,7 +36,8 @@ function Page() {
             <div className="grid sm:grid-cols-2">
               <a className="group border-t border-border py-5 sm:px-5" href="https://www.txdmv.gov/motorists/new-to-texas" target="_blank" rel="noreferrer noopener"><span className="font-display text-xl group-hover:text-primary">Official TxDMV steps</span><span className="ml-2 text-sm">↗</span></a>
               <a className="group border-t border-border py-5 sm:px-5" href="https://www.dps.texas.gov/section/driver-license" target="_blank" rel="noreferrer noopener"><span className="font-display text-xl group-hover:text-primary">Driver-license information</span><span className="ml-2 text-sm">↗</span></a>
-              <Link className="group border-t border-border py-5 sm:px-5" to="/browse/counties"><span className="font-display text-xl group-hover:text-primary">Find your county office</span><span className="ml-2 text-sm">→</span></Link>
+              <Link className="group border-t border-border py-5 sm:px-5" to="/find-my-county"><span className="font-display text-xl group-hover:text-primary">Find your county by address</span><span className="ml-2 text-sm">→</span></Link>
+              <Link className="group border-t border-border py-5 sm:px-5" to="/browse/counties"><span className="font-display text-xl group-hover:text-primary">Browse all Texas counties</span><span className="ml-2 text-sm">→</span></Link>
               <Link className="group border-t border-border py-5 sm:px-5" to="/moving-to-texas-checklist"><span className="font-display text-xl group-hover:text-primary">Moving checklist</span><span className="ml-2 text-sm">→</span></Link>
             </div>
           </section>

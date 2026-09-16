@@ -162,6 +162,7 @@ import { Route as GermanCzechTexasTownsRouteImport } from './routes/german-czech
 import { Route as FishingRouteImport } from './routes/fishing'
 import { Route as FindMySchoolDistrictRouteImport } from './routes/find-my-school-district'
 import { Route as FindMyDmvRouteImport } from './routes/find-my-dmv'
+import { Route as FindMyCountyRouteImport } from './routes/find-my-county'
 import { Route as EverythingBiggerInTexasRouteImport } from './routes/everything-bigger-in-texas'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as EditorialPolicyRouteImport } from './routes/editorial-policy'
@@ -381,6 +382,7 @@ import { Route as ApiInternalLinkPolicyRollbackRouteImport } from './routes/api.
 import { Route as ApiInternalLinkPoliciesRouteImport } from './routes/api.internal-link-policies'
 import { Route as ApiInternalLinkCoverageRouteImport } from './routes/api.internal-link-coverage'
 import { Route as ApiGovernanceHealthRouteImport } from './routes/api.governance-health'
+import { Route as ApiFindMyCountyRouteImport } from './routes/api.find-my-county'
 import { Route as ApiEntityMaintenanceRouteImport } from './routes/api.entity-maintenance'
 import { Route as ApiEntityImportPreviewRouteImport } from './routes/api.entity-import-preview'
 import { Route as ApiContentDispositionRouteImport } from './routes/api.content-disposition'
@@ -1460,6 +1462,13 @@ const FindMyDmvRoute = FindMyDmvRouteImport.update({
   path: '/find-my-dmv',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/find-my-dmv.lazy').then((d) => d.Route))
+const FindMyCountyRoute = FindMyCountyRouteImport.update({
+  id: '/find-my-county',
+  path: '/find-my-county',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/find-my-county.lazy').then((d) => d.Route),
+)
 const EverythingBiggerInTexasRoute = EverythingBiggerInTexasRouteImport.update({
   id: '/everything-bigger-in-texas',
   path: '/everything-bigger-in-texas',
@@ -2773,6 +2782,11 @@ const ApiGovernanceHealthRoute = ApiGovernanceHealthRouteImport.update({
   path: '/api/governance-health',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiFindMyCountyRoute = ApiFindMyCountyRouteImport.update({
+  id: '/api/find-my-county',
+  path: '/api/find-my-county',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiEntityMaintenanceRoute = ApiEntityMaintenanceRouteImport.update({
   id: '/api/entity-maintenance',
   path: '/api/entity-maintenance',
@@ -3306,6 +3320,7 @@ export interface FileRoutesByFullPath {
   '/editorial-policy': typeof EditorialPolicyRoute
   '/events': typeof EventsRouteWithChildren
   '/everything-bigger-in-texas': typeof EverythingBiggerInTexasRoute
+  '/find-my-county': typeof FindMyCountyRoute
   '/find-my-dmv': typeof FindMyDmvRoute
   '/find-my-school-district': typeof FindMySchoolDistrictRoute
   '/fishing': typeof FishingRouteWithChildren
@@ -3478,6 +3493,7 @@ export interface FileRoutesByFullPath {
   '/api/content-disposition': typeof ApiContentDispositionRoute
   '/api/entity-import-preview': typeof ApiEntityImportPreviewRoute
   '/api/entity-maintenance': typeof ApiEntityMaintenanceRoute
+  '/api/find-my-county': typeof ApiFindMyCountyRoute
   '/api/governance-health': typeof ApiGovernanceHealthRoute
   '/api/internal-link-coverage': typeof ApiInternalLinkCoverageRoute
   '/api/internal-link-policies': typeof ApiInternalLinkPoliciesRoute
@@ -3761,6 +3777,7 @@ export interface FileRoutesByTo {
   '/dr-pepper-texas-history': typeof DrPepperTexasHistoryRoute
   '/editorial-policy': typeof EditorialPolicyRoute
   '/everything-bigger-in-texas': typeof EverythingBiggerInTexasRoute
+  '/find-my-county': typeof FindMyCountyRoute
   '/find-my-dmv': typeof FindMyDmvRoute
   '/find-my-school-district': typeof FindMySchoolDistrictRoute
   '/fishing': typeof FishingRouteWithChildren
@@ -3931,6 +3948,7 @@ export interface FileRoutesByTo {
   '/api/content-disposition': typeof ApiContentDispositionRoute
   '/api/entity-import-preview': typeof ApiEntityImportPreviewRoute
   '/api/entity-maintenance': typeof ApiEntityMaintenanceRoute
+  '/api/find-my-county': typeof ApiFindMyCountyRoute
   '/api/governance-health': typeof ApiGovernanceHealthRoute
   '/api/internal-link-coverage': typeof ApiInternalLinkCoverageRoute
   '/api/internal-link-policies': typeof ApiInternalLinkPoliciesRoute
@@ -4216,6 +4234,7 @@ export interface FileRoutesById {
   '/editorial-policy': typeof EditorialPolicyRoute
   '/events': typeof EventsRouteWithChildren
   '/everything-bigger-in-texas': typeof EverythingBiggerInTexasRoute
+  '/find-my-county': typeof FindMyCountyRoute
   '/find-my-dmv': typeof FindMyDmvRoute
   '/find-my-school-district': typeof FindMySchoolDistrictRoute
   '/fishing': typeof FishingRouteWithChildren
@@ -4388,6 +4407,7 @@ export interface FileRoutesById {
   '/api/content-disposition': typeof ApiContentDispositionRoute
   '/api/entity-import-preview': typeof ApiEntityImportPreviewRoute
   '/api/entity-maintenance': typeof ApiEntityMaintenanceRoute
+  '/api/find-my-county': typeof ApiFindMyCountyRoute
   '/api/governance-health': typeof ApiGovernanceHealthRoute
   '/api/internal-link-coverage': typeof ApiInternalLinkCoverageRoute
   '/api/internal-link-policies': typeof ApiInternalLinkPoliciesRoute
@@ -4674,6 +4694,7 @@ export interface FileRouteTypes {
     | '/editorial-policy'
     | '/events'
     | '/everything-bigger-in-texas'
+    | '/find-my-county'
     | '/find-my-dmv'
     | '/find-my-school-district'
     | '/fishing'
@@ -4846,6 +4867,7 @@ export interface FileRouteTypes {
     | '/api/content-disposition'
     | '/api/entity-import-preview'
     | '/api/entity-maintenance'
+    | '/api/find-my-county'
     | '/api/governance-health'
     | '/api/internal-link-coverage'
     | '/api/internal-link-policies'
@@ -5129,6 +5151,7 @@ export interface FileRouteTypes {
     | '/dr-pepper-texas-history'
     | '/editorial-policy'
     | '/everything-bigger-in-texas'
+    | '/find-my-county'
     | '/find-my-dmv'
     | '/find-my-school-district'
     | '/fishing'
@@ -5299,6 +5322,7 @@ export interface FileRouteTypes {
     | '/api/content-disposition'
     | '/api/entity-import-preview'
     | '/api/entity-maintenance'
+    | '/api/find-my-county'
     | '/api/governance-health'
     | '/api/internal-link-coverage'
     | '/api/internal-link-policies'
@@ -5583,6 +5607,7 @@ export interface FileRouteTypes {
     | '/editorial-policy'
     | '/events'
     | '/everything-bigger-in-texas'
+    | '/find-my-county'
     | '/find-my-dmv'
     | '/find-my-school-district'
     | '/fishing'
@@ -5755,6 +5780,7 @@ export interface FileRouteTypes {
     | '/api/content-disposition'
     | '/api/entity-import-preview'
     | '/api/entity-maintenance'
+    | '/api/find-my-county'
     | '/api/governance-health'
     | '/api/internal-link-coverage'
     | '/api/internal-link-policies'
@@ -6040,6 +6066,7 @@ export interface RootRouteChildren {
   EditorialPolicyRoute: typeof EditorialPolicyRoute
   EventsRoute: typeof EventsRouteWithChildren
   EverythingBiggerInTexasRoute: typeof EverythingBiggerInTexasRoute
+  FindMyCountyRoute: typeof FindMyCountyRoute
   FindMyDmvRoute: typeof FindMyDmvRoute
   FindMySchoolDistrictRoute: typeof FindMySchoolDistrictRoute
   FishingRoute: typeof FishingRouteWithChildren
@@ -6198,6 +6225,7 @@ export interface RootRouteChildren {
   ApiContentDispositionRoute: typeof ApiContentDispositionRoute
   ApiEntityImportPreviewRoute: typeof ApiEntityImportPreviewRoute
   ApiEntityMaintenanceRoute: typeof ApiEntityMaintenanceRoute
+  ApiFindMyCountyRoute: typeof ApiFindMyCountyRoute
   ApiGovernanceHealthRoute: typeof ApiGovernanceHealthRoute
   ApiInternalLinkCoverageRoute: typeof ApiInternalLinkCoverageRoute
   ApiInternalLinkPoliciesRoute: typeof ApiInternalLinkPoliciesRoute
@@ -7453,6 +7481,13 @@ declare module '@tanstack/react-router' {
       path: '/find-my-dmv'
       fullPath: '/find-my-dmv'
       preLoaderRoute: typeof FindMyDmvRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/find-my-county': {
+      id: '/find-my-county'
+      path: '/find-my-county'
+      fullPath: '/find-my-county'
+      preLoaderRoute: typeof FindMyCountyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/everything-bigger-in-texas': {
@@ -8988,6 +9023,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiGovernanceHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/find-my-county': {
+      id: '/api/find-my-county'
+      path: '/api/find-my-county'
+      fullPath: '/api/find-my-county'
+      preLoaderRoute: typeof ApiFindMyCountyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/entity-maintenance': {
       id: '/api/entity-maintenance'
       path: '/api/entity-maintenance'
@@ -10097,6 +10139,7 @@ const rootRouteChildren: RootRouteChildren = {
   EditorialPolicyRoute: EditorialPolicyRoute,
   EventsRoute: EventsRouteWithChildren,
   EverythingBiggerInTexasRoute: EverythingBiggerInTexasRoute,
+  FindMyCountyRoute: FindMyCountyRoute,
   FindMyDmvRoute: FindMyDmvRoute,
   FindMySchoolDistrictRoute: FindMySchoolDistrictRoute,
   FishingRoute: FishingRouteWithChildren,
@@ -10264,6 +10307,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiContentDispositionRoute: ApiContentDispositionRoute,
   ApiEntityImportPreviewRoute: ApiEntityImportPreviewRoute,
   ApiEntityMaintenanceRoute: ApiEntityMaintenanceRoute,
+  ApiFindMyCountyRoute: ApiFindMyCountyRoute,
   ApiGovernanceHealthRoute: ApiGovernanceHealthRoute,
   ApiInternalLinkCoverageRoute: ApiInternalLinkCoverageRoute,
   ApiInternalLinkPoliciesRoute: ApiInternalLinkPoliciesRoute,

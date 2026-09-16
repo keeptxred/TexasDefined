@@ -23,7 +23,9 @@ function CountyDirectoryPage() {
     />
     <Container className="pb-8">
       <div className="border-y border-border py-5 text-sm">
-        Looking for a specific county? <Link to="/county" className="font-semibold text-primary underline underline-offset-4">Browse the county guide index →</Link>
+        Need the county for an exact street address? <Link to="/find-my-county" className="font-semibold text-primary underline underline-offset-4">Use Find My Texas County →</Link>
+        <span className="mx-3 text-muted-foreground">|</span>
+        <Link to="/county" className="font-semibold text-primary underline underline-offset-4">Browse the county guide index →</Link>
       </div>
       <TexasCountyComparisonTable rows={counties} />
       <CitationTrustPanel

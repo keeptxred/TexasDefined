@@ -215,6 +215,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/do/property-tax-protest",
   "/browse/counties",
   "/browse/cities",
+  "/find-my-county",
   "/find-my-dmv",
   "/find-my-school-district",
   "/shop",
