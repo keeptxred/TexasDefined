@@ -3,7 +3,9 @@ import vm from 'node:vm';
 
 const root = fs.readFileSync('src/routes/__root.tsx', 'utf8');
 const source = fs.readFileSync('public/stay-affiliate-options.js', 'utf8');
+const analytics = fs.readFileSync('src/platform/analytics.ts', 'utf8');
 const eventRoute = fs.readFileSync('src/routes/event.$slug.lazy.tsx', 'utf8');
+const destinationRoute = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
 const destinationPlanner = fs.readFileSync('src/components/editorial/DestinationVisitPlanner.tsx', 'utf8');
 const productionVerifier = fs.readFileSync('scripts/ci/verify-stay-affiliate-production.mjs', 'utf8');
 const productionWorkflow = fs.readFileSync('.github/workflows/verify-stay-affiliate-production.yml', 'utf8');
@@ -31,6 +33,7 @@ try {
     document: {
       readyState: 'loading',
       addEventListener() {},
+      querySelector() { return null; },
       querySelectorAll() { return []; },
     },
     URL,
@@ -39,8 +42,8 @@ try {
   };
   vm.runInNewContext(source, sandbox, { filename: 'public/stay-affiliate-options.js' });
   const api = sandbox.window.TexasDefinedStayAffiliateOptions;
-  if (!api || typeof api.bookingIntent !== 'function' || typeof api.ownerEligible !== 'function' || typeof api.buildCjDeepLink !== 'function') {
-    errors.push('stay affiliate bootstrap must expose bookingIntent, ownerEligible and buildCjDeepLink for policy verification.');
+  if (!api || typeof api.bookingIntent !== 'function' || typeof api.ownerEligible !== 'function' || typeof api.buildCjDeepLink !== 'function' || typeof api.commercialEligible !== 'function') {
+    errors.push('stay affiliate bootstrap must expose bookingIntent, ownerEligible, buildCjDeepLink and commercialEligible for policy verification.');
   } else {
     const bookingCases = [
       ['/event/chappell-hill-bluebonnet-festival', 'hotel-first'],
@@ -62,6 +65,9 @@ try {
     }
     if (!api.ownerEligible('/real-estate')) errors.push('Vrbo owner referral must remain eligible on /real-estate.');
     if (api.ownerEligible('/city/austin')) errors.push('Vrbo owner referral must not appear merely because a page is a city travel guide.');
+    if (!api.commercialEligible('/destination/fredericksburg', 'index, follow')) errors.push('Indexable destination pages must remain commercially eligible.');
+    if (api.commercialEligible('/destination/unready-example', 'noindex, follow')) errors.push('Noindex destination pages must fail closed for stay monetization.');
+    if (!api.commercialEligible('/event/chappell-hill-bluebonnet-festival', 'noindex, follow')) errors.push('Destination quality gating must not silently suppress non-destination route families.');
 
     const hotelsDeepLink = api.buildCjDeepLink('https://www.hotels.com/');
     const vrboDeepLink = api.buildCjDeepLink('https://www.vrbo.com/');
@@ -107,6 +113,14 @@ for (const [needle, label] of [
   ['List a property on Vrbo', 'Vrbo owner CTA'],
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com or Vrbo activity', 'traveler affiliate disclosure'],
   ['Affiliate disclosure: TexasDefined may earn a referral commission when an eligible new Vrbo property listing goes live', 'owner affiliate disclosure'],
+  ['DESTINATION_PATH', 'destination quality-gate route scope'],
+  ['COMMERCIAL_ELIGIBILITY_ATTR = "data-td-commercial-eligibility"', 'machine-readable commercial eligibility state'],
+  ['meta[name="robots"]', 'destination robots quality signal'],
+  ['!\\bnoindex\\b', 'noindex fail-closed policy'],
+  ['expediaSurface.hidden = true', 'blocked Expedia surface suppression'],
+  ['expediaSurface.setAttribute("inert", "")', 'blocked commercial interaction suppression'],
+  ['html[data-td-commercial-eligibility="blocked"] #expedia-travel-surface', 'blocked commercial CSS safeguard'],
+  ['headObserver.observe(document.head', 'SPA metadata quality-gate synchronization'],
   ['HOTEL_FIRST_PATH', 'hotel-first route intent'],
   ['BOTH_PATH', 'combined lodging route intent'],
   ['OWNER_PATH = /^\\/real-estate\\/?$/', 'owner route guard'],
@@ -120,8 +134,14 @@ for (const [needle, label] of [
   ['event: "affiliate_click"', 'affiliate click analytics event'],
   ['window.dataLayer.push(detail)', 'GTM affiliate click tracking'],
   ['affiliate_placement: placement', 'affiliate placement attribution'],
+  ['link.dataset.commercialPartner', 'first-party commercial partner attribution'],
   ['MutationObserver', 'SPA synchronization'],
 ]) requireText(source, needle, label);
+
+for (const [needle, label] of [
+  ['anchor.dataset.commercialPartner', 'first-party commercial click reader'],
+  ["trackTexasDefinedOutcome('partner_referral_clicked'", 'first-party partner referral event'],
+]) requireText(analytics, needle, label);
 
 for (const [needle, label] of [
   ['injectStayNearbySlot', 'event stay-slot injection helper'],
@@ -129,6 +149,11 @@ for (const [needle, label] of [
   ['Plan the visit', 'event planning placement anchor'],
   ['Places to stay near this event', 'event stay-slot accessibility label'],
 ]) requireText(eventRoute, needle, label);
+
+for (const [needle, label] of [
+  ['const indexable = audit.readyForIndexing && isPrimaryTripPlannerDestination(destination)', 'destination substantive quality gate'],
+  ['robots: indexable ? undefined : "noindex, follow"', 'destination machine-readable quality signal'],
+]) requireText(destinationRoute, needle, label);
 
 for (const [needle, label] of [
   ['data-stay-nearby-slot', 'destination in-content Stay Nearby slot'],
@@ -141,6 +166,10 @@ for (const [needle, label] of [
   ['/expedia-travel.js', 'live Expedia bootstrap verification'],
   ['Find places to stay', 'live prominent CTA verification'],
   ['event: "affiliate_click"', 'live affiliate analytics verification'],
+  ['link.dataset.commercialPartner', 'live first-party partner attribution verification'],
+  ['function commercialEligible', 'live destination quality-gate verification'],
+  ['data-td-commercial-eligibility', 'live commercial eligibility state verification'],
+  ['expediaSurface.hidden = true', 'live blocked surface safeguard verification'],
   ['/event/chappell-hill-bluebonnet-festival', 'live event placement probe'],
   ['/sports-venue/globe-life-field', 'live venue placement probe'],
   ['/destination/fredericksburg', 'live destination placement probe'],
@@ -173,4 +202,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hotels.com / Vrbo stay affiliate validation passed: CJ tracking is fail-closed through the TexasDefined publisher ID and restricted to approved partner hosts; stay CTAs are promoted beside or ahead of lodging content instead of being buried at the page end; event and destination guides expose deterministic in-content stay slots; all governed travel-route families are runtime-verified; owner referrals remain separately gated; explicit in-page stay slots remain authoritative; outbound affiliate clicks are attributed through GTM; live post-deploy verification covers event, venue, destination, city and county surfaces; disclosures and sponsored-link attributes are present; and the existing Expedia/Stay Nearby surface remains the integration host.');
+console.log('Hotels.com / Vrbo stay affiliate validation passed: CJ tracking is fail-closed through the TexasDefined publisher ID and restricted to approved partner hosts; destination monetization now consumes the same noindex quality signal used by the destination publication audit and fails closed on unfinished destination guides; eligible SPA navigation restores commercial surfaces; stay CTAs remain promoted beside or ahead of lodging content; event and destination guides expose deterministic in-content stay slots; owner referrals remain separately gated; outbound affiliate clicks are attributed through GTM and the first-party partner-referral pipeline; live post-deploy verification covers the new quality gate plus event, venue, destination, city and county surfaces; disclosures and sponsored-link attributes are present; and the existing Expedia/Stay Nearby surface remains the integration host.');
