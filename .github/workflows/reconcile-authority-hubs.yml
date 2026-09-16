@@ -64,6 +64,43 @@ jobs:
           merge_file src/lib/public-routes.ts
           merge_file src/routes/texas-resources.lazy.tsx
 
+      - name: Apply reconciled authority discovery contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          validator_path = Path('scripts/data/validate-texas-resources-seo.mjs')
+          validator = validator_path.read_text()
+          old = 'if (!searchDocuments.includes(`href: "${pathValue}"`)) errors.push(`Site search discovery missing ${pathValue}.`);'
+          new = 'if (!searchDocuments.includes(`["${pathValue.slice(1)}",`)) errors.push(`Site search discovery missing ${pathValue}.`);'
+          if old not in validator and new not in validator:
+              raise SystemExit('Expected site-search validator assertion not found')
+          validator_path.write_text(validator.replace(old, new))
+
+          resources_path = Path('src/routes/texas-resources.lazy.tsx')
+          resources = resources_path.read_text()
+          if "title: 'High-demand Texas reference hubs'" not in resources:
+              marker = "  {\n    title: 'Moving and settling in',"
+              if marker not in resources:
+                  raise SystemExit('Expected Texas Resources insertion point not found')
+              block = """  {
+            title: 'High-demand Texas reference hubs',
+            links: [
+              ['Texas weather & current conditions', '/texas-weather'],
+              ['Texas colleges & universities', '/texas-colleges-universities'],
+              ['Texas economy & data', '/texas-economy'],
+              ['Texas facts and figures', '/texas-data'],
+              ['Texas sports', '/sports'],
+              ['Texas events', '/events'],
+            ],
+          },
+          """
+              resources = resources.replace(marker, block + marker, 1)
+              resources_path.write_text(resources)
+          PY
+
       - name: Regenerate TanStack route tree
         run: npm run build
 
@@ -94,16 +131,16 @@ jobs:
             exit 1
           fi
 
-      - name: Commit reconciled overlap and generated route tree
+      - name: Commit reconciled authority state
         shell: bash
         run: |
           set -euo pipefail
-          git add src/lib/public-routes.ts src/routes/texas-resources.lazy.tsx src/routeTree.gen.ts
+          git add scripts/data/validate-texas-resources-seo.mjs src/lib/public-routes.ts src/routes/texas-resources.lazy.tsx src/routeTree.gen.ts
           if git diff --cached --quiet; then
             echo "Nothing to reconcile."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Reconcile authority overlap and route tree"
+          git commit -m "Reconcile authority discovery and route tree"
           git push origin HEAD:seo/authority-search-250-20260914
