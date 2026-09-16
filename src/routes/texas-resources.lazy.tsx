@@ -25,6 +25,17 @@ const groups: ReadonlyArray<ResourceGroup> = [
     ],
   },
   {
+    title: 'High-demand Texas reference hubs',
+    links: [
+      ['Texas weather & current conditions', '/texas-weather'],
+      ['Texas colleges & universities', '/texas-colleges-universities'],
+      ['Texas economy & data', '/texas-economy'],
+      ['Texas facts and figures', '/texas-data'],
+      ['Texas sports', '/sports'],
+      ['Texas events', '/events'],
+    ],
+  },
+  {
     title: 'Moving and settling in',
     links: [
       ['Moving to Texas', '/moving-to-texas'],

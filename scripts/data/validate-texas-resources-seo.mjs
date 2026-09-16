@@ -126,7 +126,7 @@ if (fs.existsSync(publicRoutesPath)) {
 if (fs.existsSync(searchDocumentsPath)) {
   const searchDocuments = read('src/data/priority-search-documents.ts');
   for (const pathValue of ['/texas-weather', '/texas-colleges-universities', '/texas-economy']) {
-    if (!searchDocuments.includes(`href: "${pathValue}"`)) errors.push(`Site search discovery missing ${pathValue}.`);
+    if (!searchDocuments.includes(`["${pathValue.slice(1)}",`)) errors.push(`Site search discovery missing ${pathValue}.`);
   }
 }
 
