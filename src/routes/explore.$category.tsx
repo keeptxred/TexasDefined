@@ -16,6 +16,13 @@ const legacyExploreRedirects: Record<string, string> = {
   "texas-dark-sky-stargazing": "/texas-stargazing-guide",
   "river-tubing": `/explore/${SWIMMING_HOLES_RIVER_TUBING_SLUG}`,
   "swimming-holes": `/explore/${SWIMMING_HOLES_RIVER_TUBING_SLUG}`,
+  "big-bend": "/explore/region/big-bend",
+  "gulf-coast": "/explore/region/gulf-coast",
+  "hill-country": "/explore/region/hill-country",
+  "panhandle-plains": "/explore/region/panhandle-plains",
+  "piney-woods": "/explore/region/piney-woods",
+  "prairies-lakes": "/explore/region/prairies-lakes",
+  "south-texas-plains": "/explore/region/south-texas-plains",
 };
 const authorityCategorySlugs = new Set(["outdoors", "caverns", "lakes-rivers", "beaches-coast", "small-towns"]);
 for (const slug of ["major-springs", "swimming-holes-river-tubing", "state-parks", "national-parks", "historic-sites", "road-trips", "food-bbq"]) authorityCategorySlugs.add(slug);
