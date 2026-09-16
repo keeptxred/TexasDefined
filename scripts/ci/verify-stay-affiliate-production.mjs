@@ -51,6 +51,8 @@ for (const marker of [
   'event: "affiliate_click"',
   'window.dataLayer.push(detail)',
   'affiliate_placement: placement',
+  'link.dataset.commercialPartner = partnerName(destination)',
+  'link.dataset.commercialPlacement = placement',
   'PLACEMENT_HEADING',
   'anchor.parentNode.insertBefore(surface, anchor)',
 ]) requireCondition(affiliateBootstrap.includes(marker), `Live stay affiliate bootstrap is missing marker: ${marker}`);
@@ -121,4 +123,4 @@ for (const page of pages) {
   requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === page.route.replace(/\/+$/, ''), `${page.route} is not self-canonical and must not be part of the monetized production cohort.`);
 }
 
-console.log('Stay affiliate production verification passed: Hotels.com/Vrbo tracking and disclosures are live; Expedia remains the lodging host; the live Stay Nearby asset enforces separate indexability and monetization eligibility with provider/module telemetry; representative event, venue and destination pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; and script ordering is intact.');
+console.log('Stay affiliate production verification passed: Hotels.com/Vrbo tracking and disclosures are live with GTM plus first-party commercial-partner attribution; Expedia remains the lodging host; the live Stay Nearby asset enforces separate indexability and monetization eligibility with provider/module telemetry; representative event, venue and destination pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; and script ordering is intact.');

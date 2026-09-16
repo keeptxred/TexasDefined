@@ -72,6 +72,8 @@
     link.textContent = label;
     link.dataset.affiliatePartner = partnerName(destination);
     link.dataset.affiliatePlacement = placement;
+    link.dataset.commercialPartner = partnerName(destination);
+    link.dataset.commercialPlacement = placement;
     if (ariaLabel) link.setAttribute("aria-label", ariaLabel);
     link.addEventListener("click", () => trackAffiliateClick({ destination, label, placement }));
     return link;
