@@ -6,13 +6,15 @@ const ROOT = process.cwd();
 const read = (path: string) => readFileSync(join(ROOT, path), "utf8");
 
 describe("GSC sitemap indexability regressions", () => {
-  it("suppresses page-parent canonicals while nested guide and relocation children are active", () => {
+  it("suppresses page-parent canonicals while nested guide, relocation and partner children are active", () => {
     const source = read("src/lib/leaf-only-parent-routes.tsx");
 
     expect(source).toContain('import { Route as guidesRoute } from "@/routes/guides";');
     expect(source).toContain('import { Route as movingToTexasRoute } from "@/routes/moving-to-texas";');
+    expect(source).toContain('import { Route as partnerWithUsRoute } from "@/routes/partner-with-us";');
     expect(source).toMatch(/LEAF_ONLY_PARENT_ROUTES[\s\S]*guidesRoute,/);
     expect(source).toMatch(/LEAF_ONLY_PARENT_ROUTES[\s\S]*movingToTexasRoute,/);
+    expect(source).toMatch(/LEAF_ONLY_PARENT_ROUTES[\s\S]*partnerWithUsRoute,/);
     expect(source).toContain("if (!leafMatch || leafMatch.id !== context.match.id) return {};");
   });
 
