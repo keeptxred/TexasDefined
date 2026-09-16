@@ -117,9 +117,9 @@ function Page() {
             </form>
 
             <div aria-live="polite" className="mt-5">
-              {error ? <div role="alert" className="border border-destructive/40 bg-card p-5 text-sm leading-6 text-foreground"><strong>County not found.</strong> {error}</div> : null}
+              {error ? <div role="alert" className="border border-border bg-card p-5 text-sm leading-6 text-foreground"><strong>County not found.</strong> {error}</div> : null}
               {result ? (
-                <div className="border border-primary/40 bg-primary/5 p-6">
+                <div className="border border-border bg-card p-6">
                   <p className="eyebrow text-primary">Census match</p>
                   <h3 className="mt-2 font-display text-4xl">{result.countyName}</h3>
                   <dl className="mt-5 grid gap-4 text-sm sm:grid-cols-2">
