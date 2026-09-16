@@ -1,0 +1,2 @@
+import { createFileRoute } from '@tanstack/react-router'; import { buildMeta } from '@/lib/seo'; import { LazyRelocationServiceFinder } from '@/components/relocation/LazyRelocationServiceFinder';
+export const Route=createFileRoute('/find-my-utilities')({head:()=>({meta:buildMeta('/find-my-utilities',{title:'Find Utilities for a Texas Address',description:'Research Texas utility service areas and verify an exact address with official Public Utility Commission tools.'})}),component:()=> <LazyRelocationServiceFinder kind="utilities"/>});
