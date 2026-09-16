@@ -1,3 +1,4 @@
+# One-time trigger: reconcile the county finder branch with current main, then delete this workflow.
 name: Reconcile PR 2310 with main
 
 on:
