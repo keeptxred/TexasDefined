@@ -3,11 +3,13 @@
   const OWNER_ID = "td-vrbo-owner-referral";
   const EXPEDIA_SURFACE_ID = "expedia-travel-surface";
   const STAY_SLOT_SELECTOR = "[data-stay-nearby-slot]";
+  const COMMERCIAL_ELIGIBILITY_ATTR = "data-td-commercial-eligibility";
   const CJ_PUBLISHER_ID = "101876465";
   const CJ_DLG_BASE = `https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/`;
   const HOTELS_DESTINATION = "https://www.hotels.com/";
   const VRBO_DESTINATION = "https://www.vrbo.com/";
   const VRBO_OWNER_DESTINATION = "https://www.vrbo.com/en-us/list/lead";
+  const DESTINATION_PATH = /^\/destination\/[^/?#]+\/?$/;
   const HOTEL_FIRST_PATH = /^\/(?:event\/|events(?:\/|$)|sports-venue\/|sports-venues(?:\/|$))/;
   const BOTH_PATH = /^\/(?:destination\/|explore(?:\/|$)|city\/|county\/|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const OWNER_PATH = /^\/real-estate\/?$/;
@@ -16,6 +18,7 @@
   const PLACEMENT_HEADING = /\b(?:where to stay|stay nearby|plan(?:ning)? (?:a |your )?(?:visit|trip)|what to know before you go|know before you go|getting there|visitor guide|trip planning)\b/i;
   let scheduled = false;
   let observer;
+  let headObserver;
 
   function walkArticleSections(value, pattern) {
     if (!value || typeof value !== "object") return false;
@@ -33,6 +36,18 @@
         return false;
       }
     });
+  }
+
+  function commercialEligible(pathname = window.location.pathname, robotsContent) {
+    if (!DESTINATION_PATH.test(pathname)) return true;
+    const robots = robotsContent ?? document.querySelector('meta[name="robots"]')?.getAttribute("content") ?? "";
+    return !/\bnoindex\b/i.test(robots);
+  }
+
+  function syncCommercialEligibility() {
+    const eligible = commercialEligible();
+    document.documentElement?.setAttribute(COMMERCIAL_ELIGIBILITY_ATTR, eligible ? "eligible" : "blocked");
+    return eligible;
   }
 
   function buildCjDeepLink(destination) {
@@ -72,6 +87,8 @@
     link.textContent = label;
     link.dataset.affiliatePartner = partnerName(destination);
     link.dataset.affiliatePlacement = placement;
+    link.dataset.commercialPartner = partnerName(destination);
+    link.dataset.commercialPlacement = placement;
     if (ariaLabel) link.setAttribute("aria-label", ariaLabel);
     link.addEventListener("click", () => trackAffiliateClick({ destination, label, placement }));
     return link;
@@ -82,6 +99,7 @@
     const style = document.createElement("style");
     style.id = "td-stay-affiliate-styles";
     style.textContent = `
+      html[data-td-commercial-eligibility="blocked"] #expedia-travel-surface{display:none!important}
       .td-stay-affiliate-options,.td-vrbo-owner-referral{box-sizing:border-box;margin:0 auto;max-width:80rem;padding:0 1.25rem 1.75rem}
       .td-stay-affiliate-panel,.td-vrbo-owner-panel{border:1px solid hsl(var(--border));background:hsl(var(--background));padding:1.25rem}
       .td-stay-affiliate-eyebrow{margin:0 0 .35rem;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:hsl(var(--primary))}
@@ -260,12 +278,25 @@
   }
 
   function syncBookingChoice() {
+    const eligible = syncCommercialEligibility();
     const expediaSurface = document.getElementById(EXPEDIA_SURFACE_ID);
     const existing = document.getElementById(CHOICE_ID);
+    if (!eligible) {
+      existing?.remove();
+      if (expediaSurface) {
+        expediaSurface.hidden = true;
+        expediaSurface.setAttribute("aria-hidden", "true");
+        expediaSurface.setAttribute("inert", "");
+      }
+      return;
+    }
     if (!expediaSurface) {
       existing?.remove();
       return;
     }
+    expediaSurface.hidden = false;
+    expediaSurface.removeAttribute("aria-hidden");
+    expediaSurface.removeAttribute("inert");
     const intent = bookingIntent();
     if (!(existing?.dataset.intent === intent && existing.parentElement === expediaSurface)) {
       existing?.remove();
@@ -307,12 +338,17 @@
     const main = document.getElementById("main") || document.body;
     observer = new MutationObserver(scheduleSync);
     observer.observe(main, { childList: true, subtree: true });
+    if (document.head) {
+      headObserver = new MutationObserver(scheduleSync);
+      headObserver.observe(document.head, { childList: true, subtree: true, attributes: true, attributeFilter: ["content"] });
+    }
     window.addEventListener("popstate", scheduleSync);
   }
 
   window.TexasDefinedStayAffiliateOptions = {
     buildCjDeepLink,
     bookingIntent,
+    commercialEligible,
     ownerEligible,
     promoteStaySurface,
     sync: scheduleSync,
