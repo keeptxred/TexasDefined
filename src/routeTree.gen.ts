@@ -551,13 +551,21 @@ const TexasVehicleRegistrationRenewalRoute =
     id: '/texas-vehicle-registration-renewal',
     path: '/texas-vehicle-registration-renewal',
     getParentRoute: () => rootRouteImport,
-  } as any)
+  } as any).lazy(() =>
+    import('./routes/texas-vehicle-registration-renewal.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 const TexasVehicleRegistrationFeesTaxesRoute =
   TexasVehicleRegistrationFeesTaxesRouteImport.update({
     id: '/texas-vehicle-registration-fees-taxes',
     path: '/texas-vehicle-registration-fees-taxes',
     getParentRoute: () => rootRouteImport,
-  } as any)
+  } as any).lazy(() =>
+    import('./routes/texas-vehicle-registration-fees-taxes.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 const TexasVehicleRegistrationRoute =
   TexasVehicleRegistrationRouteImport.update({
     id: '/texas-vehicle-registration',
