@@ -15,14 +15,21 @@ export const Route = createFileRoute('/sports-venues/$landing')({
     const [
       { matchesSportsVenueLanding, SPORTS_VENUE_LANDINGS, sportsVenueLanding },
       { entitiesByKind },
+      { getSportsVenueEditorialDescriptions },
     ] = await Promise.all([
       import('@/data/sports-venue-landings'),
       import('@/data/knowledge-graph'),
+      import('@/data/sports-venue-editorial.functions'),
     ]);
     const landing = sportsVenueLanding(params.landing);
     if (!landing) throw notFound();
 
-    const venues = entitiesByKind('sports-venue')
+    const correctedVenues = entitiesByKind('sports-venue').map(applyCurrentEntityCorrections);
+    const editorialDescriptions = await getSportsVenueEditorialDescriptions({
+      data: { ids: correctedVenues.map((venue) => venue.id) },
+    });
+    const venues = correctedVenues
+      .map((venue) => editorialDescriptions[venue.id] ? { ...venue, description: editorialDescriptions[venue.id] } : venue)
       .filter(isIndexableEntityPage)
       .map(applyCurrentEntityCorrections)
       .filter((venue) => matchesSportsVenueLanding(venue, landing))

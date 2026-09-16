@@ -76,8 +76,11 @@ async function cityPassPreservedFor(query: Omit<DestinationQuery, "brandId">): P
 }
 
 async function loadPublicCavernDestinationFallbacks(): Promise<Destination[]> {
-  const { publicCavernDestinationFallbacks } = await import("./public-cavern-destinations");
-  return publicCavernDestinationFallbacks;
+  const [{ publicCavernDestinationFallbacks }, { cavernExpansionDestinations }] = await Promise.all([
+    import("./public-cavern-destinations"),
+    import("./cavern-destination-expansion"),
+  ]);
+  return mergeDestinations(publicCavernDestinationFallbacks, cavernExpansionDestinations);
 }
 
 async function cavernPreservedFor(query: Omit<DestinationQuery, "brandId">): Promise<Destination[]> {
