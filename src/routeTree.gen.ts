@@ -19,6 +19,7 @@ import { Route as ThingsUniqueToTexasRouteImport } from './routes/things-unique-
 import { Route as ThingsThatDefineTexasDotjsonRouteImport } from './routes/things-that-define-texas[.]json'
 import { Route as ThingsThatDefineTexasDotcsvRouteImport } from './routes/things-that-define-texas[.]csv'
 import { Route as TexasWesternSwingRouteImport } from './routes/texas-western-swing'
+import { Route as TexasWeatherRouteImport } from './routes/texas-weather'
 import { Route as TexasVsEveryStateRouteImport } from './routes/texas-vs-every-state'
 import { Route as TexasVehicleRegistrationRouteImport } from './routes/texas-vehicle-registration'
 import { Route as TexasUtilityCostCalculatorRouteImport } from './routes/texas-utility-cost-calculator'
@@ -93,6 +94,7 @@ import { Route as TexasFirstTimeHomebuyerProgramsRouteImport } from './routes/te
 import { Route as TexasFinancialToolsRouteImport } from './routes/texas-financial-tools'
 import { Route as TexasFactsRouteImport } from './routes/texas-facts'
 import { Route as TexasExplainedRouteImport } from './routes/texas-explained'
+import { Route as TexasEconomyRouteImport } from './routes/texas-economy'
 import { Route as TexasDriversLicenseRouteImport } from './routes/texas-drivers-license'
 import { Route as TexasDpsRouteImport } from './routes/texas-dps'
 import { Route as TexasDownPaymentCalculatorRouteImport } from './routes/texas-down-payment-calculator'
@@ -105,6 +107,7 @@ import { Route as TexasCountryOutlawRouteImport } from './routes/texas-country-o
 import { Route as TexasCostOfLivingCalculatorRouteImport } from './routes/texas-cost-of-living-calculator'
 import { Route as TexasConjuntoTejanoRouteImport } from './routes/texas-conjunto-tejano'
 import { Route as TexasComptrollerRouteImport } from './routes/texas-comptroller'
+import { Route as TexasCollegesUniversitiesRouteImport } from './routes/texas-colleges-universities'
 import { Route as TexasCollegeTownsRouteImport } from './routes/texas-college-towns'
 import { Route as TexasClosingCostCalculatorRouteImport } from './routes/texas-closing-cost-calculator'
 import { Route as TexasChiliConCarneHistoryRouteImport } from './routes/texas-chili-con-carne-history'
@@ -522,6 +525,11 @@ const TexasWesternSwingRoute = TexasWesternSwingRouteImport.update({
 } as any).lazy(() =>
   import('./routes/texas-western-swing.lazy').then((d) => d.Route),
 )
+const TexasWeatherRoute = TexasWeatherRouteImport.update({
+  id: '/texas-weather',
+  path: '/texas-weather',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TexasVsEveryStateRoute = TexasVsEveryStateRouteImport.update({
   id: '/texas-vs-every-state',
   path: '/texas-vs-every-state',
@@ -1036,6 +1044,11 @@ const TexasExplainedRoute = TexasExplainedRouteImport.update({
   path: '/texas-explained',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TexasEconomyRoute = TexasEconomyRouteImport.update({
+  id: '/texas-economy',
+  path: '/texas-economy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TexasDriversLicenseRoute = TexasDriversLicenseRouteImport.update({
   id: '/texas-drivers-license',
   path: '/texas-drivers-license',
@@ -1119,6 +1132,12 @@ const TexasComptrollerRoute = TexasComptrollerRouteImport.update({
   path: '/texas-comptroller',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TexasCollegesUniversitiesRoute =
+  TexasCollegesUniversitiesRouteImport.update({
+    id: '/texas-colleges-universities',
+    path: '/texas-colleges-universities',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const TexasCollegeTownsRoute = TexasCollegeTownsRouteImport.update({
   id: '/texas-college-towns',
   path: '/texas-college-towns',
@@ -3345,6 +3364,7 @@ export interface FileRoutesByFullPath {
   '/texas-chili-con-carne-history': typeof TexasChiliConCarneHistoryRoute
   '/texas-closing-cost-calculator': typeof TexasClosingCostCalculatorRoute
   '/texas-college-towns': typeof TexasCollegeTownsRoute
+  '/texas-colleges-universities': typeof TexasCollegesUniversitiesRoute
   '/texas-comptroller': typeof TexasComptrollerRoute
   '/texas-conjunto-tejano': typeof TexasConjuntoTejanoRoute
   '/texas-cost-of-living-calculator': typeof TexasCostOfLivingCalculatorRoute
@@ -3357,6 +3377,7 @@ export interface FileRoutesByFullPath {
   '/texas-down-payment-calculator': typeof TexasDownPaymentCalculatorRoute
   '/texas-dps': typeof TexasDpsRoute
   '/texas-drivers-license': typeof TexasDriversLicenseRoute
+  '/texas-economy': typeof TexasEconomyRoute
   '/texas-explained': typeof TexasExplainedRoute
   '/texas-facts': typeof TexasFactsRoute
   '/texas-financial-tools': typeof TexasFinancialToolsRoute
@@ -3431,6 +3452,7 @@ export interface FileRoutesByFullPath {
   '/texas-utility-cost-calculator': typeof TexasUtilityCostCalculatorRoute
   '/texas-vehicle-registration': typeof TexasVehicleRegistrationRoute
   '/texas-vs-every-state': typeof TexasVsEveryStateRoute
+  '/texas-weather': typeof TexasWeatherRoute
   '/texas-western-swing': typeof TexasWesternSwingRoute
   '/things-that-define-texas.csv': typeof ThingsThatDefineTexasDotcsvRoute
   '/things-that-define-texas.json': typeof ThingsThatDefineTexasDotjsonRoute
@@ -3796,6 +3818,7 @@ export interface FileRoutesByTo {
   '/texas-chili-con-carne-history': typeof TexasChiliConCarneHistoryRoute
   '/texas-closing-cost-calculator': typeof TexasClosingCostCalculatorRoute
   '/texas-college-towns': typeof TexasCollegeTownsRoute
+  '/texas-colleges-universities': typeof TexasCollegesUniversitiesRoute
   '/texas-comptroller': typeof TexasComptrollerRoute
   '/texas-conjunto-tejano': typeof TexasConjuntoTejanoRoute
   '/texas-cost-of-living-calculator': typeof TexasCostOfLivingCalculatorRoute
@@ -3808,6 +3831,7 @@ export interface FileRoutesByTo {
   '/texas-down-payment-calculator': typeof TexasDownPaymentCalculatorRoute
   '/texas-dps': typeof TexasDpsRoute
   '/texas-drivers-license': typeof TexasDriversLicenseRoute
+  '/texas-economy': typeof TexasEconomyRoute
   '/texas-explained': typeof TexasExplainedRoute
   '/texas-facts': typeof TexasFactsRoute
   '/texas-financial-tools': typeof TexasFinancialToolsRoute
@@ -3882,6 +3906,7 @@ export interface FileRoutesByTo {
   '/texas-utility-cost-calculator': typeof TexasUtilityCostCalculatorRoute
   '/texas-vehicle-registration': typeof TexasVehicleRegistrationRoute
   '/texas-vs-every-state': typeof TexasVsEveryStateRoute
+  '/texas-weather': typeof TexasWeatherRoute
   '/texas-western-swing': typeof TexasWesternSwingRoute
   '/things-that-define-texas.csv': typeof ThingsThatDefineTexasDotcsvRoute
   '/things-that-define-texas.json': typeof ThingsThatDefineTexasDotjsonRoute
@@ -4251,6 +4276,7 @@ export interface FileRoutesById {
   '/texas-chili-con-carne-history': typeof TexasChiliConCarneHistoryRoute
   '/texas-closing-cost-calculator': typeof TexasClosingCostCalculatorRoute
   '/texas-college-towns': typeof TexasCollegeTownsRoute
+  '/texas-colleges-universities': typeof TexasCollegesUniversitiesRoute
   '/texas-comptroller': typeof TexasComptrollerRoute
   '/texas-conjunto-tejano': typeof TexasConjuntoTejanoRoute
   '/texas-cost-of-living-calculator': typeof TexasCostOfLivingCalculatorRoute
@@ -4263,6 +4289,7 @@ export interface FileRoutesById {
   '/texas-down-payment-calculator': typeof TexasDownPaymentCalculatorRoute
   '/texas-dps': typeof TexasDpsRoute
   '/texas-drivers-license': typeof TexasDriversLicenseRoute
+  '/texas-economy': typeof TexasEconomyRoute
   '/texas-explained': typeof TexasExplainedRoute
   '/texas-facts': typeof TexasFactsRoute
   '/texas-financial-tools': typeof TexasFinancialToolsRoute
@@ -4337,6 +4364,7 @@ export interface FileRoutesById {
   '/texas-utility-cost-calculator': typeof TexasUtilityCostCalculatorRoute
   '/texas-vehicle-registration': typeof TexasVehicleRegistrationRoute
   '/texas-vs-every-state': typeof TexasVsEveryStateRoute
+  '/texas-weather': typeof TexasWeatherRoute
   '/texas-western-swing': typeof TexasWesternSwingRoute
   '/things-that-define-texas.csv': typeof ThingsThatDefineTexasDotcsvRoute
   '/things-that-define-texas.json': typeof ThingsThatDefineTexasDotjsonRoute
@@ -4707,6 +4735,7 @@ export interface FileRouteTypes {
     | '/texas-chili-con-carne-history'
     | '/texas-closing-cost-calculator'
     | '/texas-college-towns'
+    | '/texas-colleges-universities'
     | '/texas-comptroller'
     | '/texas-conjunto-tejano'
     | '/texas-cost-of-living-calculator'
@@ -4719,6 +4748,7 @@ export interface FileRouteTypes {
     | '/texas-down-payment-calculator'
     | '/texas-dps'
     | '/texas-drivers-license'
+    | '/texas-economy'
     | '/texas-explained'
     | '/texas-facts'
     | '/texas-financial-tools'
@@ -4793,6 +4823,7 @@ export interface FileRouteTypes {
     | '/texas-utility-cost-calculator'
     | '/texas-vehicle-registration'
     | '/texas-vs-every-state'
+    | '/texas-weather'
     | '/texas-western-swing'
     | '/things-that-define-texas.csv'
     | '/things-that-define-texas.json'
@@ -5158,6 +5189,7 @@ export interface FileRouteTypes {
     | '/texas-chili-con-carne-history'
     | '/texas-closing-cost-calculator'
     | '/texas-college-towns'
+    | '/texas-colleges-universities'
     | '/texas-comptroller'
     | '/texas-conjunto-tejano'
     | '/texas-cost-of-living-calculator'
@@ -5170,6 +5202,7 @@ export interface FileRouteTypes {
     | '/texas-down-payment-calculator'
     | '/texas-dps'
     | '/texas-drivers-license'
+    | '/texas-economy'
     | '/texas-explained'
     | '/texas-facts'
     | '/texas-financial-tools'
@@ -5244,6 +5277,7 @@ export interface FileRouteTypes {
     | '/texas-utility-cost-calculator'
     | '/texas-vehicle-registration'
     | '/texas-vs-every-state'
+    | '/texas-weather'
     | '/texas-western-swing'
     | '/things-that-define-texas.csv'
     | '/things-that-define-texas.json'
@@ -5612,6 +5646,7 @@ export interface FileRouteTypes {
     | '/texas-chili-con-carne-history'
     | '/texas-closing-cost-calculator'
     | '/texas-college-towns'
+    | '/texas-colleges-universities'
     | '/texas-comptroller'
     | '/texas-conjunto-tejano'
     | '/texas-cost-of-living-calculator'
@@ -5624,6 +5659,7 @@ export interface FileRouteTypes {
     | '/texas-down-payment-calculator'
     | '/texas-dps'
     | '/texas-drivers-license'
+    | '/texas-economy'
     | '/texas-explained'
     | '/texas-facts'
     | '/texas-financial-tools'
@@ -5698,6 +5734,7 @@ export interface FileRouteTypes {
     | '/texas-utility-cost-calculator'
     | '/texas-vehicle-registration'
     | '/texas-vs-every-state'
+    | '/texas-weather'
     | '/texas-western-swing'
     | '/things-that-define-texas.csv'
     | '/things-that-define-texas.json'
@@ -6067,6 +6104,7 @@ export interface RootRouteChildren {
   TexasChiliConCarneHistoryRoute: typeof TexasChiliConCarneHistoryRoute
   TexasClosingCostCalculatorRoute: typeof TexasClosingCostCalculatorRoute
   TexasCollegeTownsRoute: typeof TexasCollegeTownsRoute
+  TexasCollegesUniversitiesRoute: typeof TexasCollegesUniversitiesRoute
   TexasComptrollerRoute: typeof TexasComptrollerRoute
   TexasConjuntoTejanoRoute: typeof TexasConjuntoTejanoRoute
   TexasCostOfLivingCalculatorRoute: typeof TexasCostOfLivingCalculatorRoute
@@ -6079,6 +6117,7 @@ export interface RootRouteChildren {
   TexasDownPaymentCalculatorRoute: typeof TexasDownPaymentCalculatorRoute
   TexasDpsRoute: typeof TexasDpsRoute
   TexasDriversLicenseRoute: typeof TexasDriversLicenseRoute
+  TexasEconomyRoute: typeof TexasEconomyRoute
   TexasExplainedRoute: typeof TexasExplainedRoute
   TexasFactsRoute: typeof TexasFactsRoute
   TexasFinancialToolsRoute: typeof TexasFinancialToolsRoute
@@ -6153,6 +6192,7 @@ export interface RootRouteChildren {
   TexasUtilityCostCalculatorRoute: typeof TexasUtilityCostCalculatorRoute
   TexasVehicleRegistrationRoute: typeof TexasVehicleRegistrationRoute
   TexasVsEveryStateRoute: typeof TexasVsEveryStateRoute
+  TexasWeatherRoute: typeof TexasWeatherRoute
   TexasWesternSwingRoute: typeof TexasWesternSwingRoute
   ThingsThatDefineTexasDotcsvRoute: typeof ThingsThatDefineTexasDotcsvRoute
   ThingsThatDefineTexasDotjsonRoute: typeof ThingsThatDefineTexasDotjsonRoute
@@ -6422,6 +6462,13 @@ declare module '@tanstack/react-router' {
       path: '/texas-western-swing'
       fullPath: '/texas-western-swing'
       preLoaderRoute: typeof TexasWesternSwingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-weather': {
+      id: '/texas-weather'
+      path: '/texas-weather'
+      fullPath: '/texas-weather'
+      preLoaderRoute: typeof TexasWeatherRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/texas-vs-every-state': {
@@ -6942,6 +6989,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TexasExplainedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/texas-economy': {
+      id: '/texas-economy'
+      path: '/texas-economy'
+      fullPath: '/texas-economy'
+      preLoaderRoute: typeof TexasEconomyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/texas-drivers-license': {
       id: '/texas-drivers-license'
       path: '/texas-drivers-license'
@@ -7024,6 +7078,13 @@ declare module '@tanstack/react-router' {
       path: '/texas-comptroller'
       fullPath: '/texas-comptroller'
       preLoaderRoute: typeof TexasComptrollerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-colleges-universities': {
+      id: '/texas-colleges-universities'
+      path: '/texas-colleges-universities'
+      fullPath: '/texas-colleges-universities'
+      preLoaderRoute: typeof TexasCollegesUniversitiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/texas-college-towns': {
@@ -10109,6 +10170,7 @@ const rootRouteChildren: RootRouteChildren = {
   TexasChiliConCarneHistoryRoute: TexasChiliConCarneHistoryRoute,
   TexasClosingCostCalculatorRoute: TexasClosingCostCalculatorRoute,
   TexasCollegeTownsRoute: TexasCollegeTownsRoute,
+  TexasCollegesUniversitiesRoute: TexasCollegesUniversitiesRoute,
   TexasComptrollerRoute: TexasComptrollerRoute,
   TexasConjuntoTejanoRoute: TexasConjuntoTejanoRoute,
   TexasCostOfLivingCalculatorRoute: TexasCostOfLivingCalculatorRoute,
@@ -10123,6 +10185,7 @@ const rootRouteChildren: RootRouteChildren = {
   TexasDownPaymentCalculatorRoute: TexasDownPaymentCalculatorRoute,
   TexasDpsRoute: TexasDpsRoute,
   TexasDriversLicenseRoute: TexasDriversLicenseRoute,
+  TexasEconomyRoute: TexasEconomyRoute,
   TexasExplainedRoute: TexasExplainedRoute,
   TexasFactsRoute: TexasFactsRoute,
   TexasFinancialToolsRoute: TexasFinancialToolsRoute,
@@ -10201,6 +10264,7 @@ const rootRouteChildren: RootRouteChildren = {
   TexasUtilityCostCalculatorRoute: TexasUtilityCostCalculatorRoute,
   TexasVehicleRegistrationRoute: TexasVehicleRegistrationRoute,
   TexasVsEveryStateRoute: TexasVsEveryStateRoute,
+  TexasWeatherRoute: TexasWeatherRoute,
   TexasWesternSwingRoute: TexasWesternSwingRoute,
   ThingsThatDefineTexasDotcsvRoute: ThingsThatDefineTexasDotcsvRoute,
   ThingsThatDefineTexasDotjsonRoute: ThingsThatDefineTexasDotjsonRoute,
