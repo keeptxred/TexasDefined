@@ -1,5 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { TEXAS_COUNTIES } from '@/data/texas-places';
 
 const CENSUS_GEOCODER = 'https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress';
 const RESPONSE_HEADERS = {
@@ -92,6 +91,10 @@ export const Route = createFileRoute('/api/find-my-county')({
             return json({ ok: false, error: 'That address is outside Texas. This tool only returns Texas counties.' }, 422);
           }
 
+          // Keep the governed county registry behind the server handler boundary so
+          // the route module cannot pull the full Texas places dataset into the
+          // protected browser bundle.
+          const { TEXAS_COUNTIES } = await import('@/data/texas-places');
           const record = TEXAS_COUNTIES.find((candidate) => candidate.code === countyCode);
           if (!record) {
             return json({ ok: false, error: 'The county code returned by Census could not be matched to the Texas county directory.' }, 502);
