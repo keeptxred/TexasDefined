@@ -1,5 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { buildSeo, SITE_URL } from "@/lib/seo";
+
+import { texasDefinedBrand } from "@/brand/texasdefined";
+import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
+
+const canonicalPath = "/texas-license-plates";
+const description = "Texas license plate guide covering general, specialty, personalized, replacement, transferred, disabled and military plates.";
 
 const topics = [
   ["General-issue plates", "Passenger vehicles normally receive a general-issue plate when titled and registered. Many public-facing transactions are handled by the county tax assessor-collector."],
@@ -19,7 +24,11 @@ function TexasLicensePlatesPage() {
   </main>;
 }
 
-export const Route = createFileRoute("/texas-license-plates")({
-  head: () => { const seo = buildSeo({ title: "Texas License Plates: Specialty, Replacement & Transfer Guide", description: "Texas license plate guide covering general, specialty, personalized, replacement, transferred, disabled and military plates.", path: "/texas-license-plates", type: "article", keywords: "Texas license plates, Texas specialty plates, replacement plates Texas, personalized plates Texas" }); return { meta: seo.meta, links: seo.links, scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "Article", headline: "Texas License Plates Guide", mainEntityOfPage: `${SITE_URL}/texas-license-plates`, publisher: { "@type": "Organization", name: "TexasDefined" } }) }] }; },
+export const Route = createFileRoute(canonicalPath)({
+  head: () => ({
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: "Texas License Plates: Specialty, Replacement & Transfer Guide", description, type: "article" }),
+    links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+    scripts: [jsonLd({ "@context": "https://schema.org", "@type": "Article", headline: "Texas License Plates Guide", mainEntityOfPage: absoluteUrl(texasDefinedBrand, canonicalPath), publisher: { "@type": "Organization", name: "Texas Defined" } })],
+  }),
   component: TexasLicensePlatesPage,
 });
