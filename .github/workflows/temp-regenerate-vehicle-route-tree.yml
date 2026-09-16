@@ -1,0 +1,39 @@
+name: Temp regenerate vehicle route tree
+
+on:
+  push:
+    branches:
+      - seo/vehicle-renewal-fees-authority-2026-09-14
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: seo/vehicle-renewal-fees-authority-2026-09-14
+          fetch-depth: 0
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Regenerate route tree
+        run: npm run build
+      - name: Commit generated route tree
+        run: |
+          if git diff --quiet -- src/routeTree.gen.ts; then
+            echo "Route tree already current"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/routeTree.gen.ts
+          git commit -m "Regenerate route tree for vehicle authority pages"
+          git push origin HEAD:seo/vehicle-renewal-fees-authority-2026-09-14
