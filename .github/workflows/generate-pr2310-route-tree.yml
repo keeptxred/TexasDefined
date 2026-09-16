@@ -1,0 +1,47 @@
+name: Generate PR 2310 route tree once
+
+on:
+  push:
+    branches:
+      - growth/find-my-texas-county
+    paths:
+      - .github/workflows/generate-pr2310-route-tree.yml
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: growth/find-my-texas-county
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Generate route tree through production build
+        run: npm run build
+
+      - name: Commit generated route tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- src/routeTree.gen.ts; then
+            echo '::error::Production build did not generate a route-tree change for the new county routes.'
+            exit 1
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/routeTree.gen.ts
+          git commit -m 'Commit generated county route tree'
+          git push origin HEAD:growth/find-my-texas-county
