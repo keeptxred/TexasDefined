@@ -16,6 +16,7 @@ const billingPage = fs.readFileSync('public/advertising/billing.html', 'utf8');
 const examplesPage = fs.readFileSync('public/advertising/examples.html', 'utf8');
 const footer = fs.readFileSync('src/components/layout/Footer.tsx', 'utf8');
 const publicRoutes = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
+const partnerPage = `${route}\n${lazyRoute}`;
 const errors = [];
 
 for (const token of [
@@ -93,12 +94,14 @@ for (const token of ["createFileRoute('/partner-with-us')", "title: 'Advertise &
 
 for (const token of [
   "createLazyFileRoute('/partner-with-us')", 'A professional sponsorship program, not a link marketplace.',
-  'Advertising does not buy editorial coverage, rankings, reviews, recommendations or factual conclusions.',
   'Packages & pricing', 'Billing & payment', 'Agreement & electronic acceptance',
   '/advertising/examples.html', '/advertising/terms.html', '/advertising/billing.html',
   'name="addressLine2"', 'name="agreementAddressLine2"', 'await submitPartnerInquiry({ data:',
   'await submitAdvertiserAgreement({ data:', 'Submit partnership inquiry', 'Accept & submit agreement',
 ]) if (!lazyRoute.includes(token)) errors.push(`Partner With Us advertiser platform missing ${token}`);
+if (!partnerPage.includes('Advertising does not buy editorial coverage, rankings, reviews, recommendations or factual conclusions.')) {
+  errors.push('Partner With Us advertiser platform missing Advertising does not buy editorial coverage, rankings, reviews, recommendations or factual conclusions.');
+}
 
 for (const token of ['Advertising & Sponsorship Agreement', 'Local Partner', 'Growth Partner', 'Premier Partner', 'Electronic signatures']) {
   if (!termsPage.includes(token)) errors.push(`Public advertiser terms page missing ${token}`);
