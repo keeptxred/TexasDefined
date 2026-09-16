@@ -3,6 +3,8 @@ import vm from 'node:vm';
 
 const root = fs.readFileSync('src/routes/__root.tsx', 'utf8');
 const source = fs.readFileSync('public/stay-affiliate-options.js', 'utf8');
+const stayRegistry = JSON.parse(fs.readFileSync('public/stay-nearby-hotels.json', 'utf8'));
+const hotelsVerification = JSON.parse(fs.readFileSync('public/stay-nearby-hotelscom-verification.json', 'utf8'));
 const analytics = fs.readFileSync('src/platform/analytics.ts', 'utf8');
 const eventRoute = fs.readFileSync('src/routes/event.$slug.lazy.tsx', 'utf8');
 const destinationPlanner = fs.readFileSync('src/components/editorial/DestinationVisitPlanner.tsx', 'utf8');
@@ -40,8 +42,8 @@ try {
   };
   vm.runInNewContext(source, sandbox, { filename: 'public/stay-affiliate-options.js' });
   const api = sandbox.window.TexasDefinedStayAffiliateOptions;
-  if (!api || typeof api.bookingIntent !== 'function' || typeof api.ownerEligible !== 'function' || typeof api.buildCjDeepLink !== 'function') {
-    errors.push('stay affiliate bootstrap must expose bookingIntent, ownerEligible and buildCjDeepLink for policy verification.');
+  if (!api || typeof api.bookingIntent !== 'function' || typeof api.ownerEligible !== 'function' || typeof api.buildCjDeepLink !== 'function' || typeof api.exactPropertyDestination !== 'function') {
+    errors.push('stay affiliate bootstrap must expose bookingIntent, ownerEligible, buildCjDeepLink and exactPropertyDestination for policy verification.');
   } else {
     const bookingCases = [
       ['/event/chappell-hill-bluebonnet-festival', 'hotel-first'],
@@ -71,6 +73,50 @@ try {
         errors.push(`${partner} CJ deep link must stay bound to TexasDefined publisher 101876465.`);
       }
     }
+
+    if (hotelsVerification.version !== 1) errors.push('Hotels.com property verification registry must be version 1.');
+    if (hotelsVerification.publisherId !== '101876465') errors.push('Hotels.com property verification registry must remain bound to TexasDefined CJ publisher 101876465.');
+    if (hotelsVerification.policy?.exactPropertyOnly !== true || hotelsVerification.policy?.broadSearchAllowed !== false) {
+      errors.push('Hotels.com property verification policy must require exact properties and forbid broad search URLs.');
+    }
+
+    const activeProperties = (stayRegistry.properties || []).filter((property) => property.status === 'active');
+    const evidence = hotelsVerification.properties || [];
+    if (activeProperties.length !== 15) errors.push(`Exact Hotels.com wave expects 15 active curated properties; found ${activeProperties.length}.`);
+    if (evidence.length !== activeProperties.length) errors.push(`Hotels.com verification evidence must cover every active curated property; expected ${activeProperties.length}, found ${evidence.length}.`);
+
+    const evidenceById = new Map();
+    for (const item of evidence) {
+      if (!item?.propertyId || evidenceById.has(item.propertyId)) errors.push(`Invalid or duplicate Hotels.com verification evidence: ${item?.propertyId ?? '<missing>'}.`);
+      evidenceById.set(item.propertyId, item);
+    }
+
+    const seenPropertyDestinations = new Set();
+    for (const property of activeProperties) {
+      const item = evidenceById.get(property.id);
+      if (!item) {
+        errors.push(`${property.id} is missing Hotels.com verification evidence.`);
+        continue;
+      }
+      if (item.name !== property.name) errors.push(`${property.id} Hotels.com verification name does not match the canonical curated property name.`);
+      const destination = api.exactPropertyDestination(property.name);
+      if (!destination) {
+        errors.push(`${property.id} is missing an exact Hotels.com property destination.`);
+        continue;
+      }
+      if (item.destinationUrl !== destination) errors.push(`${property.id} runtime Hotels.com destination diverges from its verification record.`);
+      if (!/^https:\/\/www\.hotels\.com\/ho\d+\/[a-z0-9-]+\/$/i.test(destination)) {
+        errors.push(`${property.id} does not use a stable exact-property Hotels.com URL: ${destination}`);
+      }
+      if (seenPropertyDestinations.has(destination)) errors.push(`${property.id} reuses another property's Hotels.com destination: ${destination}`);
+      seenPropertyDestinations.add(destination);
+      const affiliateUrl = api.buildCjDeepLink(destination);
+      if (!affiliateUrl.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho')) {
+        errors.push(`${property.id} exact Hotels.com target does not generate a TexasDefined CJ deep link.`);
+      }
+    }
+    if (api.exactPropertyDestination('Not A Curated Hotel') !== null) errors.push('Unknown hotel names must fail closed instead of receiving a guessed property URL.');
+
     let rejectedUnsupportedHost = false;
     try {
       api.buildCjDeepLink('https://example.com/');
@@ -97,6 +143,10 @@ if (expediaPosition < 0 || affiliatePosition < 0 || affiliatePosition < expediaP
 for (const [needle, label] of [
   ['const CJ_PUBLISHER_ID = "101876465"', 'TexasDefined CJ publisher ID'],
   ['https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/', 'CJ Deep Link Generator base'],
+  ['const VERIFIED_PROPERTY_DESTINATIONS = new Map([', 'exact Hotels.com property registry'],
+  ['https://www.hotels.com/ho115100/hilton-anatole-dallas-united-states-of-america/', 'mature Hilton Anatole property record'],
+  ['https://www.hotels.com/ho2949850752/loews-arlington-arlington-united-states-of-america/', 'Loews Arlington property record'],
+  ['https://www.hotels.com/ho1830497920/tru-by-hilton-northlake-fort-worth-tx-roanoke-united-states-of-america/', 'Tru Northlake property record'],
   ['https://www.hotels.com/', 'Hotels.com destination'],
   ['https://www.vrbo.com/', 'Vrbo traveler destination'],
   ['https://www.vrbo.com/en-us/list/lead', 'Vrbo owner onboarding destination'],
@@ -105,7 +155,11 @@ for (const [needle, label] of [
   ['Find hotels on Hotels.com', 'Hotels.com CTA'],
   ['Find vacation rentals on Vrbo', 'Vrbo traveler CTA'],
   ['Find places to stay', 'prominent stay CTA'],
+  ['View on Hotels.com', 'exact-property Hotels.com CTA'],
   ['List a property on Vrbo', 'Vrbo owner CTA'],
+  ['upgradeExactPropertyCards', 'exact property card upgrader'],
+  ['placement: "stay-nearby-card-exact"', 'exact-property attribution placement'],
+  ['link.dataset.exactProperty = propertyName', 'exact-property identity marker'],
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com or Vrbo activity', 'traveler affiliate disclosure'],
   ['Affiliate disclosure: TexasDefined may earn a referral commission when an eligible new Vrbo property listing goes live', 'owner affiliate disclosure'],
   ['HOTEL_FIRST_PATH', 'hotel-first route intent'],
@@ -149,6 +203,9 @@ for (const [needle, label] of [
   ['/expedia-travel.js', 'live Expedia bootstrap verification'],
   ['Find places to stay', 'live prominent CTA verification'],
   ['event: "affiliate_click"', 'live affiliate analytics verification'],
+  ['VERIFIED_PROPERTY_DESTINATIONS', 'live exact-property registry verification'],
+  ['upgradeExactPropertyCards', 'live property upgrader verification'],
+  ['ho115100/hilton-anatole', 'live exact-property destination probe'],
   ['/event/chappell-hill-bluebonnet-festival', 'live event placement probe'],
   ['/sports-venue/globe-life-field', 'live venue placement probe'],
   ['/destination/fredericksburg', 'live destination placement probe'],
@@ -181,4 +238,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hotels.com / Vrbo stay affiliate validation passed: CJ tracking is fail-closed through the TexasDefined publisher ID and restricted to approved partner hosts; stay CTAs are promoted beside or ahead of lodging content instead of being buried at the page end; event and destination guides expose deterministic in-content stay slots; all governed travel-route families are runtime-verified; owner referrals remain separately gated; explicit in-page stay slots remain authoritative; outbound affiliate clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; live post-deploy verification covers event, venue, destination, city and county surfaces; disclosures and sponsored-link attributes are present; and the existing Expedia/Stay Nearby surface remains the integration host.');
+console.log('Hotels.com / Vrbo stay affiliate validation passed: all 15 active curated Stay Nearby hotels have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; unknown properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the exact-property registry; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');
