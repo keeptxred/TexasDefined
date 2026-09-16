@@ -1,0 +1,72 @@
+name: Vehicle authority production smoke
+
+on:
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-vehicle-authority-production-smoke
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verify vehicle authority routes on production
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin="https://texasdefined.com"
+
+          verify_route() {
+            local path="$1"
+            local marker="$2"
+            local headers body status challenge canonical_url url
+            headers="$(mktemp)"
+            body="$(mktemp)"
+            trap 'rm -f "$headers" "$body"' RETURN
+            canonical_url="$origin$path"
+
+            for attempt in $(seq 1 12); do
+              url="${canonical_url}?vehicle_smoke=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${attempt}"
+              status="$(curl --retry 3 --retry-delay 2 --retry-all-errors \
+                --connect-timeout 10 --max-time 45 \
+                --silent --show-error \
+                -H 'cache-control: no-cache' \
+                -H 'pragma: no-cache' \
+                -D "$headers" -o "$body" -w '%{http_code}' \
+                "$url" || true)"
+
+              challenge="$(tr -d '\r' < "$headers" | awk 'BEGIN { IGNORECASE=1 } /^cf-mitigated:[[:space:]]*challenge/ { print "yes"; exit }')"
+              if [[ "$status" == "200" && "$challenge" != "yes" ]] \
+                && grep -Fq "$marker" "$body" \
+                && grep -Fq "$canonical_url" "$body" \
+                && ! grep -Fq 'noindex' "$body"; then
+                echo "Vehicle authority production route passed: $canonical_url"
+                return 0
+              fi
+
+              echo "Waiting for $canonical_url: HTTP ${status:-000}, challenge=${challenge:-no}, attempt $attempt/12"
+              sleep 5
+            done
+
+            echo "::error title=Vehicle authority production smoke failed::$canonical_url did not render HTTP 200 with marker, self-canonical, and indexable output."
+            echo "Last headers:" >&2
+            cat "$headers" >&2 || true
+            echo "Body sample:" >&2
+            head -c 1600 "$body" >&2 || true
+            exit 1
+          }
+
+          verify_route "/texas-vehicle-registration-renewal" "Texas vehicle registration renewal"
+          verify_route "/texas-vehicle-registration-fees-taxes" "Texas vehicle registration fees and taxes"
