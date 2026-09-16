@@ -9,6 +9,8 @@ const partnerInquirySchema = z.object({
   company: z.string().trim().min(2).max(180),
   website: z.string().trim().max(500),
   partnershipType: z.enum(['insurance', 'mortgage', 'real-estate', 'moving', 'travel', 'sports-travel', 'brand-retail', 'sponsorship', 'other']),
+  requestedTier: z.enum(['local', 'growth', 'premier', 'custom']).nullable().default(null),
+  billingCycle: z.enum(['monthly', 'annual']).nullable().default(null),
   message: z.string().trim().min(20).max(5000),
   sourcePath: z.union([
     z.string().trim().max(500).regex(/^\/(?:partner-with-us|sports-venues|sports-venue\/[a-z0-9-]+)$/),
@@ -36,6 +38,8 @@ export const submitPartnerInquiry = createServerFn({ method: 'POST' })
       company: data.company,
       website,
       partnership_type: data.partnershipType,
+      requested_tier: data.requestedTier,
+      billing_cycle: data.billingCycle,
       message: data.message,
       source_path: data.sourcePath || '/partner-with-us',
     });
