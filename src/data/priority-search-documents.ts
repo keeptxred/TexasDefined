@@ -9,6 +9,9 @@ const priorityGuides = [
   ["texas-flag", "Texas Flag: History, Meaning, Rules and the Lone Star", "History, meaning, design and display guidance for the Texas Lone Star flag.", ["Texas flag", "Lone Star flag", "Texas flag history", "Texas flag rules"]],
   ["texas-state-fair", "State Fair of Texas 2026: Dates, Fair Park and Planning", "Plan a 2026 State Fair of Texas visit with dates, Fair Park basics, food, rides, exhibits and official resources.", ["State Fair of Texas", "Texas state fair", "Fair Park", "Big Tex"]],
   ["texas-two-step", "Texas Two Step: How the Texas Lottery Game Works", "A plain-English guide to Texas Two Step numbers, drawings, prizes and current official lottery administration.", ["Texas Two Step", "Texas lottery", "Two Step lottery"]],
+  ["texas-weather", "Texas Weather: Radar, Alerts, Drought, Floods and Air Quality", "A source-first hub for live Texas radar, warnings, hurricanes, drought, burn bans, river conditions and air quality.", ["Texas weather radar live", "Texas drought map", "Texas hurricane tracker", "Texas burn ban map", "Texas flood map", "Texas air quality"]],
+  ["texas-colleges-universities", "Texas Colleges & Universities: Programs, Tuition and Admissions", "Statewide resources for Texas degree programs, tuition, admissions, financial aid and official university information.", ["Texas universities", "Texas colleges", "Texas tuition", "Texas university admissions", "Texas degree programs"]],
+  ["texas-economy", "Texas Economy: Jobs, GDP, Population, Housing and Energy", "Primary-source guide to Texas GDP, job growth, population, housing, oil and gas, electricity and business data.", ["Texas economy", "Texas GDP", "Texas population growth", "Texas jobs", "Texas housing market", "Texas oil production", "Texas wind energy"]],
 ] as const;
 
 export function buildPrioritySearchDocuments(): SearchDocument[] {
