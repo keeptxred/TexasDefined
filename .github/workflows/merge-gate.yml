@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: texasdefined-merge-gate-${{ github.ref }}
@@ -36,3 +36,17 @@ jobs:
       # pre-merge contract. Add future required checks to the runner, not here.
       - name: Run canonical pre-merge validation
         run: node scripts/ci/run-premerge-validation.mjs
+
+      - name: Commit generated route tree to PR branch
+        if: always() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        shell: bash
+        run: |
+          if git diff --quiet -- src/routeTree.gen.ts; then
+            echo "Generated route tree is already committed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/routeTree.gen.ts
+          git commit -m "Regenerate route tree for authority hubs"
+          git push origin HEAD:${{ github.head_ref }}
