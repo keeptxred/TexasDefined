@@ -68,7 +68,31 @@ jobs:
         run: npm run build
 
       - name: Validate authority resources contract
-        run: node scripts/data/validate-texas-resources-seo.mjs
+        id: authority-validator
+        shell: bash
+        run: |
+          set +e
+          node scripts/data/validate-texas-resources-seo.mjs 2>&1 | tee authority-validator-output.txt
+          status=${PIPESTATUS[0]}
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload authority validator diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: authority-validator-output
+          path: authority-validator-output.txt
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Enforce authority validator
+        shell: bash
+        run: |
+          if [ "${{ steps.authority-validator.outputs.exit_code }}" != "0" ]; then
+            echo "Authority resources validator failed; see uploaded diagnostics." >&2
+            exit 1
+          fi
 
       - name: Commit reconciled overlap and generated route tree
         shell: bash
