@@ -1,6 +1,6 @@
 # Texas Defined Local Partner — Tier Schedule
 
-Incorporated into the **Texas Defined Advertising and Sponsorship Agreement — Base Terms**, version 2026-09-15-v1.
+Incorporated into the **Texas Defined Advertising and Sponsorship Agreement — Base Terms**, version 2026-09-16-v2.
 
 ## Package
 **Local Partner**
@@ -15,11 +15,13 @@ Incorporated into the **Texas Defined Advertising and Sponsorship Agreement — 
 
 ## Included services
 - One approved sponsored placement on a relevant Texas Defined surface.
-- One advertiser destination link.
-- Quarterly creative refreshes.
+- Business name and logo in the approved placement.
+- Short sponsor description and contextual call to action.
+- One advertiser destination URL.
+- Basic campaign tracking.
 - Monthly performance summary.
+- Quarterly creative refreshes.
 - Clear Sponsored / Partner labeling.
-- Campaign setup and placement review.
 
 ## Best fit
 Independent hotels, restaurants, attractions, RV parks, guides, movers and local-service businesses whose commercial offering is directly relevant to the Texas Defined page where the placement appears.
