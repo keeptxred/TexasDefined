@@ -130,8 +130,8 @@ export function RelocationAuthorityLab() {
             <div>
               <form onSubmit={(event) => { event.preventDefault(); void researchSubmittedAddress(); }} className="flex flex-col gap-3 sm:flex-row">
                 <label htmlFor="relocation-address" className="sr-only">Texas address</label>
-                <input id="relocation-address" value={addressDraft} onChange={(event) => setAddressDraft(event.target.value)} placeholder="Street address, city, Texas ZIP" className="min-h-12 flex-1 border border-border bg-background px-4 text-sm outline-none focus:border-primary" />
-                <button type="submit" disabled={addressStatus === "loading"} className="min-h-12 bg-primary px-5 text-sm font-semibold text-primary-foreground disabled:opacity-60">{addressStatus === "loading" ? "Resolving address…" : "Build research packet"}</button>
+                <input id="relocation-address" value={addressDraft} onChange={(event) => setAddressDraft(event.target.value)} placeholder="Street address, city, Texas ZIP" className="min-h-11 flex-1 border border-border bg-background px-4 text-sm outline-none focus:border-primary" />
+                <button type="submit" disabled={addressStatus === "loading"} className="min-h-11 bg-primary px-5 text-sm font-semibold text-primary-foreground disabled:opacity-60">{addressStatus === "loading" ? "Resolving address…" : "Build research packet"}</button>
               </form>
               <p className="mt-2 text-xs leading-5 text-muted-foreground">The submitted address is used for the Census lookup and is not saved by this tool.</p>
               {researchAddress && <div className="mt-4 border-l-2 border-primary pl-4 text-sm leading-7" aria-live="polite">
