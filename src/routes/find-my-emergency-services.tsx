@@ -1,0 +1,2 @@
+import { createFileRoute } from '@tanstack/react-router'; import { buildMeta } from '@/lib/seo'; import { LazyRelocationServiceFinder } from '@/components/relocation/LazyRelocationServiceFinder';
+export const Route=createFileRoute('/find-my-emergency-services')({head:()=>({meta:buildMeta('/find-my-emergency-services',{title:'Find Texas Emergency and Community Services',description:'Find local Texas context and official emergency and community-service resources. Call 911 for an immediate emergency.'})}),component:()=> <LazyRelocationServiceFinder kind="emergency"/>});
