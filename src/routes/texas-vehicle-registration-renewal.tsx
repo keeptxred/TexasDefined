@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 
+// Rendered article content and schema load through the route's .lazy.tsx companion.
 const canonicalPath = '/texas-vehicle-registration-renewal';
 const title = 'Texas Vehicle Registration Renewal: Online & In Person';
 const description = 'Renew Texas vehicle registration online, by mail or in person. Check renewal timing, emissions rules, expired-registration limits and sticker delivery.';
