@@ -9,6 +9,7 @@ on:
       - 'scripts/ci/verify-stay-affiliate-production.mjs'
       - 'src/platform/analytics.ts'
       - 'src/lib/texas-defined-outcome-analytics.server.ts'
+      - 'src/lib/texas-defined-outcome-analytics.contract.test.ts'
       - 'src/server-entry.ts'
       - 'wrangler.jsonc'
       - 'src/routes/__root.tsx'
@@ -25,6 +26,7 @@ on:
       - 'scripts/ci/verify-stay-affiliate-production.mjs'
       - 'src/platform/analytics.ts'
       - 'src/lib/texas-defined-outcome-analytics.server.ts'
+      - 'src/lib/texas-defined-outcome-analytics.contract.test.ts'
       - 'src/server-entry.ts'
       - 'wrangler.jsonc'
       - 'src/routes/__root.tsx'
@@ -53,3 +55,5 @@ jobs:
         run: node scripts/data/validate-stay-affiliate-options.mjs
       - name: Validate first-party outcome analytics
         run: node scripts/data/validate-outcome-analytics.mjs
+      - name: Test first-party outcome analytics collector
+        run: node --experimental-strip-types --test src/lib/texas-defined-outcome-analytics.contract.test.ts
