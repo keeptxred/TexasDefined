@@ -3,6 +3,7 @@ import vm from 'node:vm';
 
 const root = fs.readFileSync('src/routes/__root.tsx', 'utf8');
 const source = fs.readFileSync('public/stay-affiliate-options.js', 'utf8');
+const analytics = fs.readFileSync('src/platform/analytics.ts', 'utf8');
 const eventRoute = fs.readFileSync('src/routes/event.$slug.lazy.tsx', 'utf8');
 const destinationPlanner = fs.readFileSync('src/components/editorial/DestinationVisitPlanner.tsx', 'utf8');
 const productionVerifier = fs.readFileSync('scripts/ci/verify-stay-affiliate-production.mjs', 'utf8');
@@ -120,8 +121,15 @@ for (const [needle, label] of [
   ['event: "affiliate_click"', 'affiliate click analytics event'],
   ['window.dataLayer.push(detail)', 'GTM affiliate click tracking'],
   ['affiliate_placement: placement', 'affiliate placement attribution'],
+  ['link.dataset.commercialPartner = partnerName(destination)', 'first-party partner identity attribution'],
+  ['link.dataset.commercialPlacement = placement', 'first-party placement attribution'],
   ['MutationObserver', 'SPA synchronization'],
 ]) requireText(source, needle, label);
+
+for (const [needle, label] of [
+  ['anchor.dataset.commercialPartner', 'first-party commercial click reader'],
+  ["trackTexasDefinedOutcome('partner_referral_clicked'", 'first-party partner referral outcome'],
+]) requireText(analytics, needle, label);
 
 for (const [needle, label] of [
   ['injectStayNearbySlot', 'event stay-slot injection helper'],
@@ -173,4 +181,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hotels.com / Vrbo stay affiliate validation passed: CJ tracking is fail-closed through the TexasDefined publisher ID and restricted to approved partner hosts; stay CTAs are promoted beside or ahead of lodging content instead of being buried at the page end; event and destination guides expose deterministic in-content stay slots; all governed travel-route families are runtime-verified; owner referrals remain separately gated; explicit in-page stay slots remain authoritative; outbound affiliate clicks are attributed through GTM; live post-deploy verification covers event, venue, destination, city and county surfaces; disclosures and sponsored-link attributes are present; and the existing Expedia/Stay Nearby surface remains the integration host.');
+console.log('Hotels.com / Vrbo stay affiliate validation passed: CJ tracking is fail-closed through the TexasDefined publisher ID and restricted to approved partner hosts; stay CTAs are promoted beside or ahead of lodging content instead of being buried at the page end; event and destination guides expose deterministic in-content stay slots; all governed travel-route families are runtime-verified; owner referrals remain separately gated; explicit in-page stay slots remain authoritative; outbound affiliate clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; live post-deploy verification covers event, venue, destination, city and county surfaces; disclosures and sponsored-link attributes are present; and the existing Expedia/Stay Nearby surface remains the integration host.');
