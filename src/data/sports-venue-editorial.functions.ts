@@ -7,7 +7,7 @@ export const getSportsVenueEditorialDescription = createServerFn({ method: 'GET'
     return getSportsVenueEditorialDescriptionServer(data.id);
   });
 
-export const getSportsVenueEditorialDescriptions = createServerFn({ method: 'GET' })
+export const getSportsVenueEditorialDescriptions = createServerFn({ method: 'POST' })
   .inputValidator((data: { ids: string[] }) => data)
   .handler(async ({ data }) => {
     const { getSportsVenueEditorialDescriptionServer } = await import('./sports-venue-editorial.server');
