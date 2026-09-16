@@ -30,41 +30,7 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
-      - name: Three-way merge concurrently edited authority discovery files
-        env:
-          GH_TOKEN: ${{ github.token }}
-          BASE_SHA: 5320790fca5e6b52d65a019338e0d13720e4fb94
-          FEATURE_SHA: 440c199b3b19d59e81b135057f87331ef15adca3
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p /tmp/authority-reconcile
-
-          fetch_version() {
-            local path="$1"
-            local ref="$2"
-            local out="$3"
-            gh api "/repos/${GITHUB_REPOSITORY}/contents/${path}?ref=${ref}" --jq '.content' | tr -d '\n' | base64 -d > "$out"
-          }
-
-          merge_file() {
-            local path="$1"
-            local key
-            key="$(echo "$path" | tr '/.' '__')"
-            cp "$path" "/tmp/authority-reconcile/${key}.ours"
-            fetch_version "$path" "$BASE_SHA" "/tmp/authority-reconcile/${key}.base"
-            fetch_version "$path" "$FEATURE_SHA" "/tmp/authority-reconcile/${key}.theirs"
-            if ! git merge-file -p "/tmp/authority-reconcile/${key}.ours" "/tmp/authority-reconcile/${key}.base" "/tmp/authority-reconcile/${key}.theirs" > "/tmp/authority-reconcile/${key}.merged"; then
-              echo "Three-way merge conflict in $path" >&2
-              exit 1
-            fi
-            mv "/tmp/authority-reconcile/${key}.merged" "$path"
-          }
-
-          merge_file src/lib/public-routes.ts
-          merge_file src/routes/texas-resources.lazy.tsx
-
-      - name: Apply reconciled authority discovery contract
+      - name: Apply final authority discovery contract
         shell: bash
         run: |
           set -euo pipefail
@@ -75,9 +41,22 @@ jobs:
           validator = validator_path.read_text()
           old = 'if (!searchDocuments.includes(`href: "${pathValue}"`)) errors.push(`Site search discovery missing ${pathValue}.`);'
           new = 'if (!searchDocuments.includes(`["${pathValue.slice(1)}",`)) errors.push(`Site search discovery missing ${pathValue}.`);'
-          if old not in validator and new not in validator:
+          if old in validator:
+              validator = validator.replace(old, new)
+          elif new not in validator:
               raise SystemExit('Expected site-search validator assertion not found')
-          validator_path.write_text(validator.replace(old, new))
+          validator_path.write_text(validator)
+
+          public_routes_path = Path('src/lib/public-routes.ts')
+          public_routes = public_routes_path.read_text()
+          needed = ['texas-weather', 'texas-colleges-universities', 'texas-economy']
+          if not all(f'"/{slug}"' in public_routes for slug in needed):
+              marker = '  "/texas-data",\n'
+              if marker not in public_routes:
+                  raise SystemExit('Expected public-routes insertion point not found')
+              additions = ''.join(f'  "/{slug}",\n' for slug in needed if f'"/{slug}"' not in public_routes)
+              public_routes = public_routes.replace(marker, marker + additions, 1)
+              public_routes_path.write_text(public_routes)
 
           resources_path = Path('src/routes/texas-resources.lazy.tsx')
           resources = resources_path.read_text()
@@ -86,17 +65,17 @@ jobs:
               if marker not in resources:
                   raise SystemExit('Expected Texas Resources insertion point not found')
               block = """  {
-            title: 'High-demand Texas reference hubs',
-            links: [
-              ['Texas weather & current conditions', '/texas-weather'],
-              ['Texas colleges & universities', '/texas-colleges-universities'],
-              ['Texas economy & data', '/texas-economy'],
-              ['Texas facts and figures', '/texas-data'],
-              ['Texas sports', '/sports'],
-              ['Texas events', '/events'],
-            ],
-          },
-          """
+    title: 'High-demand Texas reference hubs',
+    links: [
+      ['Texas weather & current conditions', '/texas-weather'],
+      ['Texas colleges & universities', '/texas-colleges-universities'],
+      ['Texas economy & data', '/texas-economy'],
+      ['Texas facts and figures', '/texas-data'],
+      ['Texas sports', '/sports'],
+      ['Texas events', '/events'],
+    ],
+  },
+"""
               resources = resources.replace(marker, block + marker, 1)
               resources_path.write_text(resources)
           PY
@@ -105,42 +84,15 @@ jobs:
         run: npm run build
 
       - name: Validate authority resources contract
-        id: authority-validator
-        shell: bash
-        run: |
-          set +e
-          node scripts/data/validate-texas-resources-seo.mjs 2>&1 | tee authority-validator-output.txt
-          status=${PIPESTATUS[0]}
-          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
-          exit 0
+        run: node scripts/data/validate-texas-resources-seo.mjs
 
-      - name: Upload authority validator diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: authority-validator-output
-          path: authority-validator-output.txt
-          if-no-files-found: error
-          retention-days: 1
-
-      - name: Enforce authority validator
-        shell: bash
-        run: |
-          if [ "${{ steps.authority-validator.outputs.exit_code }}" != "0" ]; then
-            echo "Authority resources validator failed; see uploaded diagnostics." >&2
-            exit 1
-          fi
-
-      - name: Commit reconciled authority state
+      - name: Commit clean reconciled authority state and remove helper
         shell: bash
         run: |
           set -euo pipefail
+          git rm .github/workflows/reconcile-authority-hubs.yml
           git add scripts/data/validate-texas-resources-seo.mjs src/lib/public-routes.ts src/routes/texas-resources.lazy.tsx src/routeTree.gen.ts
-          if git diff --cached --quiet; then
-            echo "Nothing to reconcile."
-            exit 0
-          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Reconcile authority discovery and route tree"
+          git commit -m "Finalize reconciled Texas authority hubs"
           git push origin HEAD:seo/authority-search-250-20260914
