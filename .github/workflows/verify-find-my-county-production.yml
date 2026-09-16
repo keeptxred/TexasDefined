@@ -1,0 +1,38 @@
+name: Verify Find My County production
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-find-my-county-production.mjs'
+      - '.github/workflows/verify-find-my-county-production.yml'
+  workflow_run:
+    workflows:
+      - 'Deploy TexasDefined production'
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate production smoke syntax
+        run: node --check scripts/ci/verify-find-my-county-production.mjs
+
+      - name: Verify Find My County production
+        run: node scripts/ci/verify-find-my-county-production.mjs
