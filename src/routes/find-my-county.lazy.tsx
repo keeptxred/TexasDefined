@@ -73,7 +73,7 @@ function Page() {
           <Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/moving-to-texas">Moving Here</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page" className="text-foreground">Find My County</span>
         </nav>
 
-        <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-end">
+        <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
           <div>
             <p className="eyebrow text-primary">Texas address lookup</p>
             <h1 className="mt-3 max-w-4xl font-display text-5xl sm:text-7xl" style={{ lineHeight: 0.98 }}>What county am I in?</h1>
