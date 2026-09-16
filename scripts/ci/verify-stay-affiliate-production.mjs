@@ -62,6 +62,15 @@ for (const marker of [
   'function placementTarget(main)',
   'function placeSurface(surface, main)',
   'window.TexasDefinedStayNearby',
+  'function isIndexabilityEligible(',
+  'function isMonetizationEligible(',
+  'hasNoindexDirective()',
+  'link[rel="canonical" i]',
+  'canonical === normalizePath(pathname)',
+  'affiliate_module: "stay-nearby"',
+  'event: "affiliate_surface_impression"',
+  'contextual-slot',
+  'end-of-guide-fallback',
 ]) requireCondition(expediaBootstrap.includes(marker), `Live Expedia/Stay Nearby bootstrap is missing marker: ${marker}`);
 
 const pages = [
@@ -101,6 +110,15 @@ for (const page of pages) {
   const affiliatePosition = html.indexOf('/stay-affiliate-options.js');
   requireCondition(expediaPosition >= 0 && affiliatePosition > expediaPosition, `${page.route} no longer loads the stay affiliate bootstrap after Expedia/Stay Nearby.`);
   if (page.requireSlot) requireCondition(html.includes('data-stay-nearby-slot'), `${page.route} is missing its explicit in-content Stay Nearby slot.`);
+
+  const noindex = /<meta[^>]+(?:name=["'](?:robots|googlebot|googlebot-news)["'][^>]+content=["'][^"']*\bnoindex\b|content=["'][^"']*\bnoindex\b[^>]+name=["'](?:robots|googlebot|googlebot-news)["'])/i.test(html);
+  requireCondition(!noindex, `${page.route} is noindex and must not be part of the monetized production cohort.`);
+
+  const canonicalMatch = html.match(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']|<link[^>]+href=["']([^"']+)["'][^>]+rel=["']canonical["']/i);
+  const canonicalHref = canonicalMatch?.[1] || canonicalMatch?.[2];
+  requireCondition(Boolean(canonicalHref), `${page.route} is missing a canonical URL required by the monetization policy.`);
+  const canonical = new URL(canonicalHref, origin);
+  requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === page.route.replace(/\/+$/, ''), `${page.route} is not self-canonical and must not be part of the monetized production cohort.`);
 }
 
-console.log('Stay affiliate production verification passed: Hotels.com/Vrbo tracking and disclosures are live, Expedia remains the lodging host, representative event, venue and destination pages expose deterministic in-content stay slots, representative city and county travel pages retain the shared stay bootstraps, and script ordering is intact.');
+console.log('Stay affiliate production verification passed: Hotels.com/Vrbo tracking and disclosures are live; Expedia remains the lodging host; the live Stay Nearby asset enforces separate indexability and monetization eligibility with provider/module telemetry; representative event, venue and destination pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; and script ordering is intact.');
