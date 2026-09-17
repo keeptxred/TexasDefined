@@ -13,6 +13,18 @@ const curatedSportsVenuePhotoOverrides: Record<string, SportsVenuePhoto> = {
     width: 2012,
     height: 1054,
   },
+  'tpc-san-antonio': {
+    slug: 'tpc-san-antonio',
+    alt: 'PGA Tour golfer Martin Trainer on the course at TPC San Antonio during the Valero Texas Open',
+    imageUrl: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Martin_Trainer_The_Thinker.jpg?width=1600',
+    sourcePage: 'https://commons.wikimedia.org/wiki/File:Martin_Trainer_The_Thinker.jpg',
+    sourceName: 'Wikimedia Commons',
+    author: 'TheDapperDan',
+    licenseName: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    width: 6016,
+    height: 4016,
+  },
   'xtreme-raceway-park': {
     slug: 'xtreme-raceway-park',
     alt: 'Xtreme Raceway Park drag strip in Ferris, Texas',
