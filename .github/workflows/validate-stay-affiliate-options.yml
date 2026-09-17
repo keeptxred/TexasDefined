@@ -5,6 +5,7 @@ on:
     paths:
       - 'public/stay-affiliate-options.js'
       - 'scripts/data/validate-stay-affiliate-options.mjs'
+      - 'scripts/data/validate-booking-car-rental-affiliate.mjs'
       - 'scripts/data/validate-outcome-analytics.mjs'
       - 'scripts/ci/verify-stay-affiliate-production.mjs'
       - 'src/platform/analytics.ts'
@@ -15,6 +16,8 @@ on:
       - 'src/routes/__root.tsx'
       - 'src/routes/event.$slug.lazy.tsx'
       - 'src/components/editorial/DestinationVisitPlanner.tsx'
+      - 'src/components/explore/TopAttractionRoadTripsContent.tsx'
+      - 'src/components/monetization/BookingCarRentalCard.tsx'
       - '.github/workflows/validate-stay-affiliate-options.yml'
       - '.github/workflows/verify-stay-affiliate-production.yml'
   push:
@@ -22,6 +25,7 @@ on:
     paths:
       - 'public/stay-affiliate-options.js'
       - 'scripts/data/validate-stay-affiliate-options.mjs'
+      - 'scripts/data/validate-booking-car-rental-affiliate.mjs'
       - 'scripts/data/validate-outcome-analytics.mjs'
       - 'scripts/ci/verify-stay-affiliate-production.mjs'
       - 'src/platform/analytics.ts'
@@ -32,6 +36,8 @@ on:
       - 'src/routes/__root.tsx'
       - 'src/routes/event.$slug.lazy.tsx'
       - 'src/components/editorial/DestinationVisitPlanner.tsx'
+      - 'src/components/explore/TopAttractionRoadTripsContent.tsx'
+      - 'src/components/monetization/BookingCarRentalCard.tsx'
       - '.github/workflows/validate-stay-affiliate-options.yml'
       - '.github/workflows/verify-stay-affiliate-production.yml'
 
@@ -53,6 +59,8 @@ jobs:
           node-version: 22
       - name: Validate Hotels.com and Vrbo integration
         run: node scripts/data/validate-stay-affiliate-options.mjs
+      - name: Validate Booking.com car-rental integration
+        run: node scripts/data/validate-booking-car-rental-affiliate.mjs
       - name: Validate first-party outcome analytics
         run: node scripts/data/validate-outcome-analytics.mjs
       - name: Test first-party outcome analytics collector
