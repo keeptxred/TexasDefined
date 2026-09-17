@@ -1,32 +1,25 @@
-import { Container } from '@/components/layout/Container';
 import type { ParkingMapAsset } from '@/data/parking-map-model';
 import { isPublishableParkingMap } from '@/data/parking-map-model';
 
 export function ParkingMapPanel({
   map,
   contextName,
-  embedded = false,
 }: {
   map?: ParkingMapAsset;
   contextName: string;
-  embedded?: boolean;
 }) {
   if (!isPublishableParkingMap(map)) return null;
 
   const sourceLabel = map.origin === 'ai-generated'
     ? 'TexasDefined-created parking orientation diagram'
     : `Reusable parking map${map.sourceName ? ` via ${map.sourceName}` : ''}`;
-  const Wrapper = embedded ? 'div' : 'section';
 
   return (
-    <Wrapper
-      className={embedded ? 'mt-6 border-t border-border pt-5' : 'border-b border-border py-10 sm:py-12'}
-      aria-labelledby={`parking-map-${map.id.replace(/[^a-z0-9]+/gi, '-')}`}
-    >
-      <div className={embedded ? 'grid gap-5' : 'grid gap-7 lg:grid-cols-[15rem_1fr]'}>
+    <section className="border-b border-border py-10 sm:py-12" aria-labelledby={`parking-map-${map.id.replace(/[^a-z0-9]+/gi, '-')}`}>
+      <div className="grid gap-7 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Parking map</p>
-          <h2 id={`parking-map-${map.id.replace(/[^a-z0-9]+/gi, '-')}`} className={embedded ? 'mt-2 font-display text-2xl leading-tight' : 'mt-2 font-display text-3xl leading-tight'}>
+          <h2 id={`parking-map-${map.id.replace(/[^a-z0-9]+/gi, '-')}`} className="mt-2 font-display text-3xl leading-tight">
             Parking orientation for {contextName}
           </h2>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">
@@ -79,18 +72,7 @@ export function ParkingMapPanel({
           </div>
         </div>
       </div>
-    </Wrapper>
-  );
-}
-
-export function StandaloneParkingMapPanel(props: { map?: ParkingMapAsset; contextName: string }) {
-  if (!isPublishableParkingMap(props.map)) return null;
-  return (
-    <Container className="pb-8">
-      <div className="mx-auto max-w-7xl">
-        <ParkingMapPanel {...props} />
-      </div>
-    </Container>
+    </section>
   );
 }
 
