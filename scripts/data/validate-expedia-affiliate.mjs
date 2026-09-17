@@ -86,7 +86,13 @@ for (const [needle, label] of [
   ['scroll-snap-type', 'touch/mobile scroll behavior'],
   ['calc((100% - 2rem)/3)', 'three-card desktop layout'],
   ['prefers-reduced-motion', 'reduced-motion behavior'],
-  ['rel = "sponsored noopener noreferrer"', 'affiliate link relationship'],
+  ['rel = "sponsored nofollow noopener noreferrer"', 'affiliate link relationship'],
+  ['const provider = affiliateTarget.provider || "expedia"', 'affiliate provider fallback'],
+  ['const placement = "stay-nearby-card"', 'affiliate placement identity'],
+  ['link.dataset.affiliatePartner = provider', 'affiliate partner metadata'],
+  ['link.dataset.affiliatePlacement = placement', 'affiliate placement metadata'],
+  ['link.dataset.commercialPartner = provider', 'first-party commercial partner attribution'],
+  ['link.dataset.commercialPlacement = placement', 'first-party commercial placement attribution'],
   ['property.image', 'property image rights gate'],
   ['expedia-creator-toolbox', 'approved property image source gate'],
   ['affiliateUrl', 'provider-agnostic deep-link target support'],
@@ -284,4 +290,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Expedia / Stay Nearby validation passed: approved tracking remains click-loaded, curated hotel selection remains evidence-backed and capped at three cards, ${integratedProperties.length} configured redesigned-guide hotel cards are image-gated, rights-cleared affiliate property photos remain preferred, every remaining configured hotel card has a unique first-party photorealistic exact-property AI raster grounded to an exact address and verified property source, and generic hotel imagery and SVG fallbacks are prohibited.`);
+console.log(`Expedia / Stay Nearby validation passed: approved tracking remains click-loaded with sponsored/nofollow and first-party partner attribution, curated hotel selection remains evidence-backed and capped at three cards, ${integratedProperties.length} configured redesigned-guide hotel cards are image-gated, rights-cleared affiliate property photos remain preferred, every remaining configured hotel card has a unique first-party photorealistic exact-property AI raster grounded to an exact address and verified property source, and generic hotel imagery and SVG fallbacks are prohibited.`);
