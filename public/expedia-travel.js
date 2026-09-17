@@ -246,15 +246,21 @@
     if (affiliateTarget) {
       const link = document.createElement("a");
       const label = affiliateTarget.ctaLabel || "View stay";
+      const provider = affiliateTarget.provider || "expedia";
+      const placement = "stay-nearby-card";
       link.className = "inline-flex min-h-11 items-center justify-center bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90";
       link.href = affiliateTarget.affiliateUrl;
       link.target = "_blank";
-      link.rel = "sponsored noopener noreferrer";
+      link.rel = "sponsored nofollow noopener noreferrer";
+      link.dataset.affiliatePartner = provider;
+      link.dataset.affiliatePlacement = placement;
+      link.dataset.commercialPartner = provider;
+      link.dataset.commercialPlacement = placement;
       link.textContent = label;
       link.addEventListener("click", () => trackStayAction({
-        provider: affiliateTarget.provider || "expedia",
+        provider,
         label,
-        placement: "stay-nearby-card",
+        placement,
       }));
       return link;
     }
