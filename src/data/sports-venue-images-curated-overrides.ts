@@ -1,17 +1,17 @@
 import type { SportsVenuePhoto } from './sports-venue-images';
 
 const curatedSportsVenuePhotoOverrides: Record<string, SportsVenuePhoto> = {
-  'dickies-arena': {
-    slug: 'dickies-arena',
-    alt: 'AI-generated photorealistic representative exterior depiction of Dickies Arena in Fort Worth, Texas',
-    imageUrl: '/images/sports-venues/dickies-arena-ai-generated-2026.webp',
-    sourcePage: 'https://texasdefined.com/sports-venue/dickies-arena',
-    sourceName: 'Texas Defined generated media',
-    author: 'OpenAI image generation',
-    licenseName: 'AI-generated image supplied for TexasDefined use',
-    licenseUrl: 'https://texasdefined.com/sports-venue/dickies-arena',
-    width: 1400,
-    height: 788,
+  'retama-park': {
+    slug: 'retama-park',
+    alt: 'Quarter horse racing at Retama Park in Selma, Texas',
+    imageUrl: 'https://www.dvidshub.net/download/image/8518059',
+    sourcePage: 'https://www.dvidshub.net/image/8518059/quarter-horse-races-honoring-the-memorial-of-colonel-gary-baber',
+    sourceName: 'DVIDS / U.S. Air Force',
+    author: 'Olivia Mendoza Sencalar',
+    licenseName: 'Public domain; the appearance of U.S. Department of War visual information does not imply or constitute DoW endorsement',
+    licenseUrl: 'https://www.dvidshub.net/about/copyright',
+    width: 2012,
+    height: 1054,
   },
   'xtreme-raceway-park': {
     slug: 'xtreme-raceway-park',
