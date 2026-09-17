@@ -1,4 +1,5 @@
 import { CityPassCalloutContent } from "./CityPassCalloutContent";
+import { CityViatorBooking } from "./CityViatorBooking";
 import {
   cityPassMarketForCitySlug,
   cityPassMarketForDestinationSlug,
@@ -22,5 +23,11 @@ export function CityPassContextualCallout({
       ? cityPassMarketForCitySlug(slug)
       : cityPassMarketForSportsVenueSlug(slug);
 
-  return market ? <CityPassCalloutContent market={market} placement={placement} /> : null;
+  if (surface === "sports-venue") {
+    if (!market) return null;
+    return <CityPassCalloutContent market={market} placement={placement} />;
+  }
+
+  if (market) return <CityPassCalloutContent market={market} placement={placement} />;
+  return surface === "city" ? <CityViatorBooking citySlug={slug} /> : null;
 }
