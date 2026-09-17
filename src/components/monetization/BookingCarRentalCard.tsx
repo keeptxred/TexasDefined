@@ -1,31 +1,15 @@
+import { trackAffiliateClick } from "@/lib/affiliate-click";
+
 type Props = {
   className?: string;
   placement: string;
   title?: string;
 };
 
-type AffiliateAnalyticsWindow = Window & {
-  dataLayer?: Array<Record<string, unknown>>;
-};
-
 const CJ_PUBLISHER_ID = "101876465";
 const BOOKING_CAR_RENTAL_DESTINATION = "https://www.booking.com/cars/country/us.html";
 const BOOKING_CAR_RENTAL_URL = `https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/${encodeURI(BOOKING_CAR_RENTAL_DESTINATION)}`;
-
-function trackBookingCarRentalClick(placement: string) {
-  if (typeof window === "undefined") return;
-  const analyticsWindow = window as AffiliateAnalyticsWindow;
-  const detail = {
-    event: "affiliate_click",
-    affiliate_partner: "booking.com",
-    affiliate_label: "Compare rental cars on Booking.com",
-    affiliate_placement: placement,
-    page_path: window.location.pathname,
-  };
-  analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
-  analyticsWindow.dataLayer.push(detail);
-  window.dispatchEvent(new CustomEvent("texasdefined:affiliate-click", { detail }));
-}
+const BOOKING_CAR_RENTAL_LABEL = "Compare rental cars on Booking.com";
 
 export function BookingCarRentalCard({ className = "", placement, title = "Need a rental car for the trip?" }: Props) {
   return (
@@ -45,9 +29,14 @@ export function BookingCarRentalCard({ className = "", placement, title = "Need 
           data-affiliate-placement={placement}
           data-commercial-partner="booking.com"
           data-commercial-placement={placement}
-          onClick={() => trackBookingCarRentalClick(placement)}
+          onClick={() => trackAffiliateClick({
+            partner: "booking.com",
+            label: BOOKING_CAR_RENTAL_LABEL,
+            placement,
+            module: "car-rental",
+          })}
         >
-          Compare rental cars on Booking.com ↗
+          {BOOKING_CAR_RENTAL_LABEL} ↗
         </a>
         <p className="mt-3 text-xs leading-5 text-muted-foreground">
           Affiliate disclosure: TexasDefined may earn a commission from qualifying Booking.com car-rental bookings, at no additional cost to you.
