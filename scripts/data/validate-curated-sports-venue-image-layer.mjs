@@ -53,7 +53,7 @@ assert(
   'Retama Park hero must be documentary venue media, not generated or illustrative imagery.',
 );
 
-const tpcMatch = overrideSource.match(/'tpc-san-antonio': \\{[\\s\\S]*?\\n  \\},/);
+const tpcMatch = overrideSource.match(/'tpc-san-antonio': \{[\s\S]*?\n  \},/);
 const tpcSource = tpcMatch?.[0] ?? '';
 assert(tpcSource, 'TPC San Antonio must have a curated documentary hero override.');
 for (const marker of [
