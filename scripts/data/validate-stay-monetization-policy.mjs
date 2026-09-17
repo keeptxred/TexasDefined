@@ -31,6 +31,11 @@ for (const [needle, label] of [
   ['event: "affiliate_surface_impression"', 'surface-impression telemetry'],
   ['affiliate_module: "stay-nearby"', 'module attribution'],
   ['affiliate_partner: provider', 'provider attribution'],
+  ['rel = "sponsored nofollow noopener noreferrer"', 'sponsored/nofollow affiliate link relationship'],
+  ['link.dataset.commercialPartner = provider', 'first-party commercial partner attribution'],
+  ['link.dataset.commercialPlacement = placement', 'first-party commercial placement attribution'],
+  ['link.dataset.affiliatePartner = provider', 'affiliate partner metadata'],
+  ['link.dataset.affiliatePlacement = placement', 'affiliate placement metadata'],
   ['isIndexabilityEligible,', 'public indexability policy API'],
   ['isMonetizationEligible,', 'public monetization policy API'],
 ]) requireText(needle, label);
@@ -45,4 +50,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Stay monetization policy validation passed: indexability and monetization are separate fail-closed gates; noindex, missing/non-self canonicals and non-travel pages cannot mount Stay Nearby; contextual and end-of-guide placements remain available only on eligible pages; and provider/module click plus impression telemetry is enforced.');
+console.log('Stay monetization policy validation passed: indexability and monetization are separate fail-closed gates; noindex, missing/non-self canonicals and non-travel pages cannot mount Stay Nearby; contextual and end-of-guide placements remain available only on eligible pages; and provider/module click, sponsored/nofollow, first-party partner/placement attribution plus impression telemetry are enforced.');
