@@ -145,11 +145,13 @@ export const Route = createFileRoute('/sports-venue/$slug')({
       { getSportsVenueEnrichmentAll, sportsVenueMapUrl },
       { sportsVenueLandingLinksForVenue },
       { getSportsVenuePhoto },
+      { getSportsVenueParkingMap },
     ] = await Promise.all([
       import('@/data/knowledge-graph'),
       import('@/data/sports-venue-enrichment-all'),
       import('@/data/sports-venue-landings'),
       import('@/data/sports-venue-images-all'),
+      import('@/data/parking-maps.functions'),
     ]);
     const graph = await loadTexasKnowledgeGraph();
     const entity = await findCompleteTexasEntity(params.slug);
@@ -160,17 +162,23 @@ export const Route = createFileRoute('/sports-venue/$slug')({
     const mapUrl = entity.coordinates
       ? `https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`
       : sportsVenueMapUrl(entity.name, entity.countySlug);
-    const guideEvents = isSportsVenueGuidePilot(params.slug)
-      ? await import('@/data/sports-venue-events.functions').then(({ getSportsVenueUpcomingEvents }) =>
-        getSportsVenueUpcomingEvents({ data: { slug: params.slug } }))
-      : null;
+    const isGuide = isSportsVenueGuidePilot(params.slug);
+    const [guideEvents, parkingMap, sponsorPlacement] = await Promise.all([
+      isGuide
+        ? import('@/data/sports-venue-events.functions').then(({ getSportsVenueUpcomingEvents }) =>
+          getSportsVenueUpcomingEvents({ data: { slug: params.slug } }))
+        : Promise.resolve(null),
+      isGuide ? getSportsVenueParkingMap(params.slug) : Promise.resolve(undefined),
+      getActiveSportsSponsorPlacement({ data: { surfacePath: canonicalPath } }),
+    ]);
     return {
       entity,
       related: rankRelatedEntities(entity, graph, 16),
       visitorPlaces: countyVisitorPlaces(entity, graph),
-      sponsorPlacement: await getActiveSportsSponsorPlacement({ data: { surfacePath: canonicalPath } }),
+      sponsorPlacement,
       enrichment,
       photo,
+      parkingMap,
       landingLinks: sportsVenueLandingLinksForVenue(entity),
       mapUrl,
       upcomingEvents: guideEvents?.events ?? [],
@@ -201,12 +209,13 @@ export const Route = createFileRoute('/sports-venue/$slug')({
 
 function SportsVenuePage() {
   const { slug } = Route.useParams();
-  const { entity, visitorPlaces, upcomingEvents, eventCalendarHref, landingLinks, sponsorPlacement } = Route.useLoaderData();
+  const { entity, parkingMap, visitorPlaces, upcomingEvents, eventCalendarHref, landingLinks, sponsorPlacement } = Route.useLoaderData();
 
   if (isSportsVenueGuidePilot(slug)) {
     return <SportsVenueGuidePilotContent
       slug={slug}
       entity={entity}
+      parkingMap={parkingMap}
       nearbyAttractions={visitorPlaces}
       upcomingEvents={upcomingEvents}
       eventCalendarHref={eventCalendarHref}
