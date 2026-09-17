@@ -3,20 +3,26 @@ name: Validate experience affiliate analytics
 on:
   pull_request:
     paths:
+      - 'public/city-experience-affiliate.js'
+      - 'src/routes/__root.tsx'
       - 'src/lib/affiliate-click.ts'
       - 'src/components/monetization/CityPassCalloutContent.tsx'
       - 'src/components/editorial/DestinationViatorBooking.tsx'
       - 'src/components/editorial/TexasExperienceMarkets.tsx'
       - 'scripts/data/validate-experience-affiliate-analytics.mjs'
+      - 'scripts/ci/verify-viator-production.mjs'
       - '.github/workflows/validate-experience-affiliate-analytics.yml'
   push:
     branches: [main]
     paths:
+      - 'public/city-experience-affiliate.js'
+      - 'src/routes/__root.tsx'
       - 'src/lib/affiliate-click.ts'
       - 'src/components/monetization/CityPassCalloutContent.tsx'
       - 'src/components/editorial/DestinationViatorBooking.tsx'
       - 'src/components/editorial/TexasExperienceMarkets.tsx'
       - 'scripts/data/validate-experience-affiliate-analytics.mjs'
+      - 'scripts/ci/verify-viator-production.mjs'
       - '.github/workflows/validate-experience-affiliate-analytics.yml'
 
 permissions:

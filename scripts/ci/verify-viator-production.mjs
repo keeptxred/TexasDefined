@@ -67,6 +67,34 @@ async function verifySurface({ path, label, required, minAffiliateLinks }) {
   process.exit(1);
 }
 
+async function verifyCityBootstrap() {
+  const token = encodeURIComponent(`${sha}-${runId}-city-bootstrap`);
+  const [cityResponse, assetResponse] = await Promise.all([
+    fetch(`${origin}/city/austin?verify=${token}`, { cache: 'no-store', redirect: 'follow', signal: AbortSignal.timeout(30_000) }),
+    fetch(`${origin}/city-experience-affiliate.js?verify=${token}`, { cache: 'no-store', redirect: 'follow', signal: AbortSignal.timeout(30_000) }),
+  ]);
+  const cityHtml = await cityResponse.text();
+  const asset = await assetResponse.text();
+  const missing = [];
+  if (!cityResponse.ok) missing.push(`Austin city page HTTP ${cityResponse.status}`);
+  if (!assetResponse.ok) missing.push(`city bootstrap HTTP ${assetResponse.status}`);
+  for (const needle of [
+    '/city-experience-affiliate.js',
+  ]) if (!cityHtml.includes(needle)) missing.push(`city page missing ${needle}`);
+  for (const needle of [
+    'austin: ["Austin", "/Austin/d5021"]',
+    'pid=P00318227&mcid=42383&campaign=texasdefined-city-${slug}',
+    'data-commercial-partner="viator"',
+    'sponsored nofollow noopener noreferrer',
+    'Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings',
+  ]) if (!asset.includes(needle)) missing.push(`city bootstrap missing ${needle}`);
+  if (missing.length) {
+    console.error(`::error title=VIATOR CITY BOOTSTRAP production failure::${missing.join('; ')}`);
+    process.exit(1);
+  }
+  console.log('[viator-production] Austin city page references the deployed bundle-neutral city experience bootstrap with approved Viator attribution and disclosure.');
+}
+
 await verifySurface({
   path: '/explore',
   label: 'explore-directory',
@@ -101,7 +129,8 @@ await verifySurface({
   ],
 });
 
-console.log('[viator-production] Explore directory and representative destination booking card passed live verification.');
+await verifyCityBootstrap();
+console.log('[viator-production] Explore directory, representative destination booking card and city affiliate bootstrap passed live verification.');
 
 await import('./verify-ask-texas-government-production.mjs');
 await import('./verify-stay-nearby-production.mjs');
