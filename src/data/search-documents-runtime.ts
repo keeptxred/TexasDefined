@@ -158,17 +158,30 @@ export async function buildSearchDocuments(): Promise<SearchDocument[]> {
     reportOptionalSearchFailure("RV park");
   }
 
+  let foodDocuments: SearchDocument[] = [];
+  try {
+    const { buildFoodSearchDocuments } = await import("./food-destinations");
+    foodDocuments = buildFoodSearchDocuments();
+  } catch {
+    reportOptionalSearchFailure("food destination");
+  }
+
   let destinations: Destination[];
   try {
     const { listResolvedDestinationSearchCatalog } = await import("./destination-query-runtime");
     destinations = await listResolvedDestinationSearchCatalog();
   } catch {
     reportOptionalSearchFailure("resolved destination");
-    return [...new Map(base.map((document) => [document.href, document])).values()];
+    return [...new Map([...base, ...foodDocuments].map((document) => [document.href, document])).values()];
   }
 
   const nonDestinationDocuments = base.filter((document) => document.kind !== "destination");
   const nonDestinationHrefs = new Set(nonDestinationDocuments.map((document) => document.href));
+  for (const document of foodDocuments) {
+    if (nonDestinationHrefs.has(document.href)) continue;
+    nonDestinationDocuments.push(document);
+    nonDestinationHrefs.add(document.href);
+  }
   try {
     const { paintedChurchSearchDocuments } = await import("./painted-church-search");
     for (const document of paintedChurchSearchDocuments) {
