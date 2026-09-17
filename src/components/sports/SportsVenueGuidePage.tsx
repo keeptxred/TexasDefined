@@ -5,9 +5,11 @@ import {
   type TexasEventCarouselItem,
 } from "@/components/editorial/TexasEventCarousel";
 import { Container } from "@/components/layout/Container";
+import { EmbeddedParkingMapPanel } from "@/components/parking/ParkingMapPanel";
 import { SponsoredSportsPlacement } from "@/components/sports/SponsoredSportsPlacement";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
+import type { ParkingMapAsset } from "@/data/parking-map-model";
 import type { SportsVenueEnrichment } from "@/data/sports-venue-enrichment";
 import type { SportsVenueGuidePilot } from "@/data/sports-venue-guide-pilots";
 import { isGeneratedSportsVenueImage } from "@/data/sports-venue-image-attribution";
@@ -28,6 +30,7 @@ export type SportsVenueGuidePageProps = {
   guide: SportsVenueGuidePilot;
   enrichment?: SportsVenueEnrichment;
   photo?: SportsVenuePhoto;
+  parkingMap?: ParkingMapAsset;
   nearbyAttractions?: readonly TexasEntityRecord[];
   upcomingEvents?: readonly TexasEventCarouselItem[];
   eventCalendarHref?: string;
@@ -40,6 +43,7 @@ export function SportsVenueGuidePage({
   guide,
   enrichment,
   photo,
+  parkingMap,
   nearbyAttractions = [],
   upcomingEvents = [],
   eventCalendarHref = "/events",
@@ -148,6 +152,7 @@ export function SportsVenueGuidePage({
               venueName={entity.name}
               parking={enrichment.parking}
               arrival={enrichment.arrival}
+              parkingMap={parkingMap}
             />
           ) : null}
 
@@ -161,7 +166,7 @@ export function SportsVenueGuidePage({
             </EditorialSection>
           ) : null}
 
-          {landingLinks.length ? <SportsCollectionSection venueName={entity.name} items={landingLinks} /> : null}
+          <SportsCollectionSection venueName={entity.name} items={landingLinks} />
 
           {attractions.length >= 2 ? <NearbyAttractionsSection items={attractions} /> : null}
 
@@ -251,11 +256,24 @@ function QuickFacts({ guide, directionsUrl, officialUrl }: { guide: SportsVenueG
   );
 }
 
-function KnowBeforeYouGo({ venueName, parking, arrival }: { venueName: string; parking: string; arrival: string }) {
+function KnowBeforeYouGo({
+  venueName,
+  parking,
+  arrival,
+  parkingMap,
+}: {
+  venueName: string;
+  parking: string;
+  arrival: string;
+  parkingMap?: ParkingMapAsset;
+}) {
   return (
     <EditorialSection eyebrow="Know before you go" title={`Planning for ${venueName}`}>
-      <div className="grid gap-x-10 gap-y-7 md:grid-cols-2">
-        <GuideItem title="Parking" body={parking} />
+      <div className={parkingMap ? "grid gap-x-10 gap-y-7 lg:grid-cols-[minmax(0,1.65fr)_minmax(16rem,0.85fr)]" : "grid gap-x-10 gap-y-7 md:grid-cols-2"}>
+        <div>
+          <GuideItem title="Parking" body={parking} />
+          <EmbeddedParkingMapPanel map={parkingMap} contextName={venueName} />
+        </div>
         <GuideItem title="Arrival" body={arrival} />
       </div>
     </EditorialSection>
@@ -264,16 +282,27 @@ function KnowBeforeYouGo({ venueName, parking, arrival }: { venueName: string; p
 
 function SportsCollectionSection({ venueName, items }: { venueName: string; items: readonly SportsVenueLanding[] }) {
   return (
-    <EditorialSection eyebrow="Explore the collection" title={`More venues like ${venueName}`}>
-      <div className="grid gap-x-7 border-t border-border sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((landing) => (
-          <a key={landing.slug} href={`/sports-venues/${landing.slug}`} className="group border-b border-border py-5">
-            <span className="eyebrow text-primary">{landing.kind === "market" ? "Sports market" : "Sports collection"}</span>
-            <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{landing.title}</strong>
-            <span className="mt-3 block text-sm font-semibold text-primary">Browse collection →</span>
-          </a>
-        ))}
-      </div>
+    <EditorialSection eyebrow="Explore the collection" title="Explore more Texas sports venues">
+      <p className="max-w-3xl text-sm leading-7 text-muted-foreground sm:text-base">
+        Continue from {venueName} into its related sports market and sport-specific venue collections, or browse the full statewide directory.
+      </p>
+      {items.length ? (
+        <div className="mt-6 grid gap-x-7 border-t border-border sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((landing) => (
+            <a key={landing.slug} href={`/sports-venues/${landing.slug}`} className="group border-b border-border py-5">
+              <span className="eyebrow text-primary">{landing.kind === "market" ? "Sports market" : "Sports collection"}</span>
+              <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{landing.title}</strong>
+              <span className="mt-3 block text-sm font-semibold text-primary">Browse collection →</span>
+            </a>
+          ))}
+        </div>
+      ) : null}
+      <a
+        href="/sports-venues"
+        className="mt-6 inline-flex min-h-11 items-center justify-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary"
+      >
+        Browse all Texas sports venues →
+      </a>
     </EditorialSection>
   );
 }
