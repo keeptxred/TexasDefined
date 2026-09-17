@@ -25,6 +25,17 @@ const groups: ReadonlyArray<ResourceGroup> = [
     ],
   },
   {
+    title: 'Education and schools',
+    links: [
+      ['Texas colleges, universities, tuition and admissions', '/texas-colleges-universities'],
+      ['Find your Texas school district', '/find-my-school-district'],
+      ['Texas schools and family life', '/article/texas-schools-family-life'],
+      ['Texas school-district property-tax comparison', '/texas-school-district-property-tax-comparison'],
+      ['Texas college towns', '/texas-college-towns'],
+      ['Texas Education Agency', '/agency/texas-education-agency'],
+    ],
+  },
+  {
     title: 'Moving and settling in',
     links: [
       ['Moving to Texas', '/moving-to-texas'],
