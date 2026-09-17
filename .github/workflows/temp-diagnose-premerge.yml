@@ -1,0 +1,237 @@
+name: TEMP Diagnose canonical premerge
+
+on:
+  push:
+    branches:
+      - fix/partner-referral-reporting-replay-20260917
+    paths:
+      - '.github/workflows/temp-diagnose-premerge.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - name: 01 retired integration traces
+        id: c01
+        continue-on-error: true
+        run: node scripts/ci/validate-retired-integration-traces.mjs
+      - name: 02 direct-main writer inventory
+        id: c02
+        continue-on-error: true
+        run: node scripts/ci/validate-direct-main-writer-inventory.mjs
+      - name: 03 county certifier consolidation
+        id: c03
+        continue-on-error: true
+        run: node scripts/ci/validate-county-certifier-consolidation.mjs
+      - name: 04 automation main-write policy
+        id: c04
+        continue-on-error: true
+        run: node scripts/ci/validate-automation-main-write-policy.mjs
+      - name: 05 retired one-time certifications
+        id: c05
+        continue-on-error: true
+        run: node scripts/ci/validate-retired-one-time-certifications.mjs
+      - name: 06 content quality governance
+        id: c06
+        continue-on-error: true
+        run: node scripts/data/validate-content-quality-governance.mjs
+      - name: 07 250 stories backlog
+        id: c07
+        continue-on-error: true
+        run: node scripts/data/validate-250-texas-stories-backlog.mjs
+      - name: 08 250 stories part1
+        id: c08
+        continue-on-error: true
+        run: node scripts/data/validate-250-texas-stories-part1-reconciliation.mjs
+      - name: 09 250 stories part2
+        id: c09
+        continue-on-error: true
+        run: node scripts/data/validate-250-texas-stories-part2-reconciliation.mjs
+      - name: 10 Texas-vs state promotions
+        id: c10
+        continue-on-error: true
+        run: node scripts/data/validate-texas-vs-state-promotions.mjs
+      - name: 11 AI foundation
+        id: c11
+        continue-on-error: true
+        run: node scripts/data/validate-texas-defined-ai-readiness.mjs
+      - name: 12 AI official research
+        id: c12
+        continue-on-error: true
+        run: node scripts/ai/validate-ai-official-research.mjs
+      - name: 13 Event SEO
+        id: c13
+        continue-on-error: true
+        run: node scripts/data/validate-events-seo.mjs
+      - name: 14 Event schema enrichment
+        id: c14
+        continue-on-error: true
+        run: node scripts/data/audit-event-schema-enrichment.mjs
+      - name: 15 Event verifier syntax
+        id: c15
+        continue-on-error: true
+        run: node --check scripts/ci/verify-event-structured-data-production.mjs
+      - name: 16 RV image provenance
+        id: c16
+        continue-on-error: true
+        run: node scripts/data/validate-rv-image-provenance.mjs
+      - name: 17 destination image readiness
+        id: c17
+        continue-on-error: true
+        run: node scripts/data/validate-destination-image-final-readiness.mjs
+      - name: 18 SSR date regression
+        id: c18
+        continue-on-error: true
+        run: node --experimental-strip-types --test src/domain/utils/format.test.ts
+      - name: 19 geography taxonomy
+        id: c19
+        continue-on-error: true
+        run: node --experimental-strip-types --test src/data/__tests__/canonical-geography.test.ts
+      - name: 20 geography knowledge graph
+        id: c20
+        continue-on-error: true
+        run: node --experimental-strip-types --test src/data/__tests__/geography-knowledge-graph.test.ts
+      - name: 21 remote image policy
+        id: c21
+        continue-on-error: true
+        run: node --experimental-strip-types --test src/lib/remote-image-fetch-policy.test.ts
+      - name: 22 property overlays
+        id: c22
+        continue-on-error: true
+        run: node scripts/data/validate-priority-county-property-overlays.mjs
+      - name: 23 housing index suppression
+        id: c23
+        continue-on-error: true
+        run: node scripts/data/validate-phase10-housing-indexing.mjs
+      - name: 24 coastal authority
+        id: c24
+        continue-on-error: true
+        run: node scripts/data/validate-coastal-authority.mjs
+      - name: 25 site quality watch
+        id: c25
+        continue-on-error: true
+        run: node scripts/data/run-site-quality-watch.mjs
+      - name: 26 full validation suite
+        id: c26
+        continue-on-error: true
+        run: node scripts/ci/run-validation-suite.mjs full --collect-all
+      - name: 27 mountain biking authority
+        id: c27
+        continue-on-error: true
+        run: node scripts/data/validate-mountain-biking-authority.mjs
+      - name: 28 horseback riding authority
+        id: c28
+        continue-on-error: true
+        run: node scripts/data/validate-horseback-riding-authority.mjs
+      - name: 29 OHV authority
+        id: c29
+        continue-on-error: true
+        run: node scripts/data/validate-ohv-authority.mjs
+      - name: 30 paddling authority
+        id: c30
+        continue-on-error: true
+        run: node scripts/data/validate-paddling-authority.mjs
+      - name: 31 stargazing authority
+        id: c31
+        continue-on-error: true
+        run: node scripts/data/validate-stargazing-authority.mjs
+      - name: 32 hunting authority
+        id: c32
+        continue-on-error: true
+        run: node scripts/data/validate-hunting-authority.mjs
+      - name: 33 national cemetery authority
+        id: c33
+        continue-on-error: true
+        run: node scripts/data/validate-national-cemetery-authority.mjs
+      - name: 34 AdSense finance depth
+        id: c34
+        continue-on-error: true
+        run: node scripts/data/validate-adsense-content-depth.mjs
+      - name: 35 Texas Talent depth
+        id: c35
+        continue-on-error: true
+        run: node scripts/data/validate-texas-talent-content-depth.mjs
+      - name: 36 Texas Talent launch depth
+        id: c36
+        continue-on-error: true
+        run: node scripts/data/validate-texas-talent-launch-depth-gate.mjs
+      - name: 37 Talent flagship depth
+        id: c37
+        continue-on-error: true
+        run: node scripts/data/validate-texas-talent-flagship-depth.mjs
+      - name: 38 Talent flagship wave2
+        id: c38
+        continue-on-error: true
+        run: node scripts/data/validate-texas-talent-flagship-depth-wave2.mjs
+      - name: 39 Talent flagship wave3
+        id: c39
+        continue-on-error: true
+        run: node scripts/data/validate-texas-talent-flagship-depth-wave3.mjs
+      - name: 40 Talent flagship wave4
+        id: c40
+        continue-on-error: true
+        run: node scripts/data/validate-texas-talent-flagship-depth-wave4.mjs
+      - name: 41 Talent flagship wave5
+        id: c41
+        continue-on-error: true
+        run: node scripts/data/validate-texas-talent-flagship-depth-wave5.mjs
+      - name: 42 Talent flagship wave6
+        id: c42
+        continue-on-error: true
+        run: node scripts/data/validate-texas-talent-flagship-depth-wave6.mjs
+      - name: 43 Talent flagship wave7
+        id: c43
+        continue-on-error: true
+        run: node scripts/data/validate-texas-talent-flagship-depth-wave7.mjs
+      - name: 44 Talent metadata
+        id: c44
+        continue-on-error: true
+        run: node scripts/data/validate-texas-talent-launch-metadata.mjs
+      - name: 45 Talent reverse links
+        id: c45
+        continue-on-error: true
+        run: node scripts/data/validate-texas-talent-reverse-links.mjs
+      - name: 46 Talent related network
+        id: c46
+        continue-on-error: true
+        run: node scripts/data/validate-texas-talent-related-network.mjs
+      - name: 47 Talent public preview
+        id: c47
+        continue-on-error: true
+        run: node scripts/data/validate-texas-talent-public-preview.mjs
+      - name: 48 Talent ownership
+        id: c48
+        continue-on-error: true
+        run: node scripts/data/validate-texas-talent-ownership.mjs
+      - name: 49 predeploy suite
+        id: c49
+        continue-on-error: true
+        run: node scripts/ci/run-validation-suite.mjs predeploy --collect-all
+      - name: 50 production build
+        id: c50
+        continue-on-error: true
+        run: npm run build
+      - name: 51 generated route tree
+        id: c51
+        continue-on-error: true
+        run: git diff --exit-code -- src/routeTree.gen.ts
+      - name: 52 performance budget
+        id: c52
+        continue-on-error: true
+        run: npm run performance:validate
+      - name: Fail if any diagnostic failed
+        if: always()
+        run: |
+          outcomes='${{ steps.c01.outcome }} ${{ steps.c02.outcome }} ${{ steps.c03.outcome }} ${{ steps.c04.outcome }} ${{ steps.c05.outcome }} ${{ steps.c06.outcome }} ${{ steps.c07.outcome }} ${{ steps.c08.outcome }} ${{ steps.c09.outcome }} ${{ steps.c10.outcome }} ${{ steps.c11.outcome }} ${{ steps.c12.outcome }} ${{ steps.c13.outcome }} ${{ steps.c14.outcome }} ${{ steps.c15.outcome }} ${{ steps.c16.outcome }} ${{ steps.c17.outcome }} ${{ steps.c18.outcome }} ${{ steps.c19.outcome }} ${{ steps.c20.outcome }} ${{ steps.c21.outcome }} ${{ steps.c22.outcome }} ${{ steps.c23.outcome }} ${{ steps.c24.outcome }} ${{ steps.c25.outcome }} ${{ steps.c26.outcome }} ${{ steps.c27.outcome }} ${{ steps.c28.outcome }} ${{ steps.c29.outcome }} ${{ steps.c30.outcome }} ${{ steps.c31.outcome }} ${{ steps.c32.outcome }} ${{ steps.c33.outcome }} ${{ steps.c34.outcome }} ${{ steps.c35.outcome }} ${{ steps.c36.outcome }} ${{ steps.c37.outcome }} ${{ steps.c38.outcome }} ${{ steps.c39.outcome }} ${{ steps.c40.outcome }} ${{ steps.c41.outcome }} ${{ steps.c42.outcome }} ${{ steps.c43.outcome }} ${{ steps.c44.outcome }} ${{ steps.c45.outcome }} ${{ steps.c46.outcome }} ${{ steps.c47.outcome }} ${{ steps.c48.outcome }} ${{ steps.c49.outcome }} ${{ steps.c50.outcome }} ${{ steps.c51.outcome }} ${{ steps.c52.outcome }}'
+          if echo "$outcomes" | grep -q failure; then exit 1; fi
