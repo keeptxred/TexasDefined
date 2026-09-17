@@ -38,7 +38,7 @@ const retamaMatch = overrideSource.match(/'retama-park': \{[\s\S]*?\n  \},/);
 const retamaSource = retamaMatch?.[0] ?? '';
 assert(retamaSource, 'Retama Park must have a curated documentary hero override.');
 for (const marker of [
-  "imageUrl: 'https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/2406/8518059/2000w_q95.jpg'",
+  "imageUrl: 'https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/2407/8518059/2000w_q95.jpg'",
   "sourcePage: 'https://www.dvidshub.net/image/8518059/quarter-horse-races-honoring-the-memorial-of-colonel-gary-baber'",
   "sourceName: 'DVIDS / U.S. Air Force'",
   "author: 'Olivia Mendoza Sencalar'",
