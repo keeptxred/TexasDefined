@@ -311,6 +311,7 @@ import { Route as HistoricSiteFortLeatonStateHistoricSiteRouteImport } from './r
 import { Route as HistoricSiteFanthorpInnStateHistoricSiteRouteImport } from './routes/historic-site.fanthorp-inn-state-historic-site'
 import { Route as HistoricSiteSlugRouteImport } from './routes/historic-site.$slug'
 import { Route as GuidesCitypassTexasRouteImport } from './routes/guides.citypass-texas'
+import { Route as FoodSlugRouteImport } from './routes/food.$slug'
 import { Route as FishingTechniquesRouteImport } from './routes/fishing.techniques'
 import { Route as FishingSpeciesRouteImport } from './routes/fishing.species'
 import { Route as FishingServicesRouteImport } from './routes/fishing.services'
@@ -2402,6 +2403,11 @@ const GuidesCitypassTexasRoute = GuidesCitypassTexasRouteImport.update({
 } as any).lazy(() =>
   import('./routes/guides.citypass-texas.lazy').then((d) => d.Route),
 )
+const FoodSlugRoute = FoodSlugRouteImport.update({
+  id: '/food/$slug',
+  path: '/food/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/food.$slug.lazy').then((d) => d.Route))
 const FishingTechniquesRoute = FishingTechniquesRouteImport.update({
   id: '/techniques',
   path: '/techniques',
@@ -3698,6 +3704,7 @@ export interface FileRoutesByFullPath {
   '/fishing/services': typeof FishingServicesRouteWithChildren
   '/fishing/species': typeof FishingSpeciesRouteWithChildren
   '/fishing/techniques': typeof FishingTechniquesRouteWithChildren
+  '/food/$slug': typeof FoodSlugRoute
   '/guides/citypass-texas': typeof GuidesCitypassTexasRoute
   '/historic-site/$slug': typeof HistoricSiteSlugRoute
   '/historic-site/fanthorp-inn-state-historic-site': typeof HistoricSiteFanthorpInnStateHistoricSiteRoute
@@ -4168,6 +4175,7 @@ export interface FileRoutesByTo {
   '/fishing/services': typeof FishingServicesRouteWithChildren
   '/fishing/species': typeof FishingSpeciesRouteWithChildren
   '/fishing/techniques': typeof FishingTechniquesRouteWithChildren
+  '/food/$slug': typeof FoodSlugRoute
   '/guides/citypass-texas': typeof GuidesCitypassTexasRoute
   '/historic-site/$slug': typeof HistoricSiteSlugRoute
   '/historic-site/fanthorp-inn-state-historic-site': typeof HistoricSiteFanthorpInnStateHistoricSiteRoute
@@ -4642,6 +4650,7 @@ export interface FileRoutesById {
   '/fishing/services': typeof FishingServicesRouteWithChildren
   '/fishing/species': typeof FishingSpeciesRouteWithChildren
   '/fishing/techniques': typeof FishingTechniquesRouteWithChildren
+  '/food/$slug': typeof FoodSlugRoute
   '/guides/citypass-texas': typeof GuidesCitypassTexasRoute
   '/historic-site/$slug': typeof HistoricSiteSlugRoute
   '/historic-site/fanthorp-inn-state-historic-site': typeof HistoricSiteFanthorpInnStateHistoricSiteRoute
@@ -5117,6 +5126,7 @@ export interface FileRouteTypes {
     | '/fishing/services'
     | '/fishing/species'
     | '/fishing/techniques'
+    | '/food/$slug'
     | '/guides/citypass-texas'
     | '/historic-site/$slug'
     | '/historic-site/fanthorp-inn-state-historic-site'
@@ -5587,6 +5597,7 @@ export interface FileRouteTypes {
     | '/fishing/services'
     | '/fishing/species'
     | '/fishing/techniques'
+    | '/food/$slug'
     | '/guides/citypass-texas'
     | '/historic-site/$slug'
     | '/historic-site/fanthorp-inn-state-historic-site'
@@ -6060,6 +6071,7 @@ export interface FileRouteTypes {
     | '/fishing/services'
     | '/fishing/species'
     | '/fishing/techniques'
+    | '/food/$slug'
     | '/guides/citypass-texas'
     | '/historic-site/$slug'
     | '/historic-site/fanthorp-inn-state-historic-site'
@@ -6507,6 +6519,7 @@ export interface RootRouteChildren {
   ExploreTripPlannerRoute: typeof ExploreTripPlannerRoute
   ExploreWildlifeRoute: typeof ExploreWildlifeRoute
   ExploreWildlifeManagementAreasRoute: typeof ExploreWildlifeManagementAreasRoute
+  FoodSlugRoute: typeof FoodSlugRoute
   HistoricSiteSlugRoute: typeof HistoricSiteSlugRoute
   HistoricSiteFanthorpInnStateHistoricSiteRoute: typeof HistoricSiteFanthorpInnStateHistoricSiteRoute
   HistoricSiteFortLeatonStateHistoricSiteRoute: typeof HistoricSiteFortLeatonStateHistoricSiteRoute
@@ -8734,6 +8747,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuidesCitypassTexasRouteImport
       parentRoute: typeof GuidesRoute
     }
+    '/food/$slug': {
+      id: '/food/$slug'
+      path: '/food/$slug'
+      fullPath: '/food/$slug'
+      preLoaderRoute: typeof FoodSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/fishing/techniques': {
       id: '/fishing/techniques'
       path: '/techniques'
@@ -10754,6 +10774,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreTripPlannerRoute: ExploreTripPlannerRoute,
   ExploreWildlifeRoute: ExploreWildlifeRoute,
   ExploreWildlifeManagementAreasRoute: ExploreWildlifeManagementAreasRoute,
+  FoodSlugRoute: FoodSlugRoute,
   HistoricSiteSlugRoute: HistoricSiteSlugRoute,
   HistoricSiteFanthorpInnStateHistoricSiteRoute:
     HistoricSiteFanthorpInnStateHistoricSiteRoute,

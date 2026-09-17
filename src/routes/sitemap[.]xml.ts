@@ -171,6 +171,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const evergreenEventSitemapEntries = loadEvergreenEventSitemapEntriesServer();
         const temporalEventSitemapEntries = loadTemporalEventSitemapEntriesServer();
         const texasDogSitemapEntries = loadTexasDogSitemapEntriesServer();
+        const { FOOD_DESTINATIONS } = await import("@/data/food-destinations");
         const [
           { LOCAL_PROPERTY_TAX_PROFILES },
           { LOCAL_HOME_AFFORDABILITY_PROFILES },
@@ -201,6 +202,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...LOCAL_MORTGAGE_PROFILES.map((profile) => ({ path: profile.mortgagePath, lastmod: "2026-08-30" })),
           ...LOCAL_COST_OF_LIVING_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-09-01" })),
           ...LOCAL_SALARY_NEEDED_PROFILES.map((profile) => ({ path: profile.salaryPath, lastmod: "2026-09-01" })),
+          ...FOOD_DESTINATIONS.map((destination) => ({ path: `/food/${destination.slug}`, lastmod: destination.verifiedAt })),
           ...majorEventSitemapEntries,
           ...supplementalMajorEventSitemapEntries,
           ...evergreenEventSitemapEntries,
