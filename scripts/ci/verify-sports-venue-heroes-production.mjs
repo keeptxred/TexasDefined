@@ -16,6 +16,21 @@ const wave7GeneratedAttribution = [
   'for TexasDefined; not documentary photography.',
 ];
 
+const wave7CuratedRemotePhoto = {
+  'retama-park': {
+    imageUrl: 'https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/2407/8518059/2000w_q95.jpg',
+    attributionMarkers: [
+      'DVIDS / U.S. Air Force',
+      'Olivia Mendoza Sencalar',
+      'Public domain; the appearance of U.S. Department of War visual information does not imply or constitute DoW endorsement',
+    ],
+  },
+  'tpc-san-antonio': {
+    imageUrl: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Martin_Trainer_The_Thinker.jpg?width=1600',
+    attributionMarkers: ['Wikimedia Commons', 'TheDapperDan', 'CC BY-SA 4.0'],
+  },
+};
+
 const repairedWave7 = [
   ['amarillo-national-center', 'AI-generated photorealistic editorial depiction of Amarillo National Center in Amarillo, Texas'],
   ['childrens-health-stadium-prosper', "AI-generated photorealistic editorial depiction of Children's Health Stadium in Prosper, Texas"],
@@ -28,10 +43,10 @@ const repairedWave7 = [
   ['memorial-park-golf-course', 'AI-generated photorealistic editorial depiction of Memorial Park Golf Course in Houston, Texas'],
   ['national-shooting-complex', 'AI-generated photorealistic editorial depiction of National Shooting Complex in San Antonio, Texas'],
   ['pga-frisco-fields-ranch', 'AI-generated photorealistic editorial depiction of PGA Frisco / Fields Ranch in Frisco, Texas'],
-  ['retama-park', 'AI-generated photorealistic editorial depiction of Retama Park in Selma, Texas'],
+  ['retama-park', 'Quarter horse racing at Retama Park in Selma, Texas'],
   ['round-rock-sports-center', 'Round Rock Sports Center in Round Rock, Texas'],
   ['texas-motorplex', 'Texas Motorplex in Ennis, Texas'],
-  ['tpc-san-antonio', 'AI-generated photorealistic editorial depiction of TPC San Antonio in San Antonio, Texas'],
+  ['tpc-san-antonio', 'PGA Tour golfer Martin Trainer on the course at TPC San Antonio during the Valero Texas Open'],
   ['waco-surf', 'AI-generated photorealistic editorial depiction of Waco Surf in Waco, Texas'],
 ].map(([slug, alt]) => {
   const attributionMarkers = wave7RealPhotoAttribution[slug] ?? wave7GeneratedAttribution;
