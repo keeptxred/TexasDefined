@@ -1,5 +1,5 @@
 import { type FormEvent, useState } from 'react';
-import { createLazyFileRoute } from '@tanstack/react-router';
+import { createLazyFileRoute, Outlet, useRouterState } from '@tanstack/react-router';
 
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Container } from '@/components/layout/Container';
@@ -14,7 +14,7 @@ import { submitPartnerInquiry } from '@/data/partner-inquiry.functions';
 
 const description = 'Compare Texas Defined advertising and sponsorship packages, see realistic sample placements, review billing and contract terms, and request a partnership proposal.';
 
-export const Route = createLazyFileRoute('/partner-with-us')({ component: PartnerWithUsPage });
+export const Route = createLazyFileRoute('/partner-with-us')({ component: PartnerWithUsRoute });
 
 const partnershipOptions = [
   ['insurance', 'Insurance'],
@@ -32,6 +32,12 @@ type SubmitStatus = 'idle' | 'sending' | 'sent' | 'error';
 
 function money(value: number) {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
+}
+
+function PartnerWithUsRoute() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  if (pathname.startsWith('/partner-with-us/')) return <Outlet />;
+  return <PartnerWithUsPage />;
 }
 
 function PartnerWithUsPage() {
