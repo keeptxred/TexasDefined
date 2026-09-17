@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { BookingCarRentalCard } from "@/components/monetization/BookingCarRentalCard";
 import type { TexasRoute66Stop } from "@/data/texas-route-66";
 
 const itineraryPlans = [
@@ -50,6 +51,11 @@ export function TexasRoute66Hub({ stops }: { stops: readonly TexasRoute66Stop[] 
         <div><p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Best pace</p><p className="mt-2 font-display text-3xl">2 days</p></div>
         <div><p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Direction here</p><p className="mt-2 font-display text-3xl">East → west</p></div>
       </section>
+      <BookingCarRentalCard
+        className="mt-8"
+        placement="route-66-hub"
+        title="Flying in or need a rental car for the Texas Route 66 drive?"
+      />
     </Container>
 
     <Container className="py-12 sm:py-16">
