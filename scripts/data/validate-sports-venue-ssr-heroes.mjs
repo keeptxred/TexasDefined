@@ -50,12 +50,17 @@ forbidText(
 requireText(
   guideContent,
   "import { getSportsVenuePhoto } from \"@/data/sports-venue-images-all\";",
-  'shared sports venue guide must use the aggregate photo registry for attribution and event-image identity',
+  'shared sports venue guide must use the aggregate photo registry',
 );
 requireText(
   guideContent,
-  'const registeredPhoto = getSportsVenuePhoto(slug);',
-  'shared sports venue guide must retain the registered photo for attribution and duplicate-event checks',
+  'const photo = getSportsVenuePhoto(slug);',
+  'shared sports venue guide must retain the governed photo for attribution and event-image identity',
+);
+requireText(
+  guideContent,
+  'const renderedPhoto = photo',
+  'shared sports venue guide must separate rendered hero delivery from governed photo metadata',
 );
 requireText(
   guideContent,
@@ -64,8 +69,13 @@ requireText(
 );
 requireText(
   guideContent,
-  '[registeredPhoto.imageUrl, registeredPhoto.sourcePage]',
-  'event-image dedupe must compare against the registered venue photo rather than the redirect endpoint',
+  'photo={renderedPhoto}',
+  'shared sports venue guide must render the server-authoritative hero URL',
+);
+requireText(
+  guideContent,
+  '[photo.imageUrl, photo.sourcePage]',
+  'event-image dedupe must continue comparing against the governed venue photo',
 );
 requireText(
   guideContent,
@@ -112,4 +122,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Sports venue SSR hero validation passed: guide content is server-visible, hydrated heroes remain server-authoritative, redirect caching cannot revive stale image URLs, runtime attribution uses the aggregate photo registry, and live production verification protects current generated-vs-real attribution semantics under the sitewide AI disclosure.');
+console.log('Sports venue SSR hero validation passed: guide content is server-visible, hydrated rendered heroes remain server-authoritative, redirect caching cannot revive stale image URLs, governed attribution and event-image identity remain intact, and live production verification protects current generated-vs-real attribution semantics under the sitewide AI disclosure.');
