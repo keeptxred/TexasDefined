@@ -5,9 +5,11 @@ import {
   type TexasEventCarouselItem,
 } from "@/components/editorial/TexasEventCarousel";
 import { Container } from "@/components/layout/Container";
+import { ParkingMapPanel } from "@/components/parking/ParkingMapPanel";
 import { SponsoredSportsPlacement } from "@/components/sports/SponsoredSportsPlacement";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
+import type { ParkingMapAsset } from "@/data/parking-map-model";
 import type { SportsVenueEnrichment } from "@/data/sports-venue-enrichment";
 import type { SportsVenueGuidePilot } from "@/data/sports-venue-guide-pilots";
 import { isGeneratedSportsVenueImage } from "@/data/sports-venue-image-attribution";
@@ -28,6 +30,7 @@ export type SportsVenueGuidePageProps = {
   guide: SportsVenueGuidePilot;
   enrichment?: SportsVenueEnrichment;
   photo?: SportsVenuePhoto;
+  parkingMap?: ParkingMapAsset;
   nearbyAttractions?: readonly TexasEntityRecord[];
   upcomingEvents?: readonly TexasEventCarouselItem[];
   eventCalendarHref?: string;
@@ -40,6 +43,7 @@ export function SportsVenueGuidePage({
   guide,
   enrichment,
   photo,
+  parkingMap,
   nearbyAttractions = [],
   upcomingEvents = [],
   eventCalendarHref = "/events",
@@ -148,6 +152,7 @@ export function SportsVenueGuidePage({
               venueName={entity.name}
               parking={enrichment.parking}
               arrival={enrichment.arrival}
+              parkingMap={parkingMap}
             />
           ) : null}
 
@@ -251,13 +256,24 @@ function QuickFacts({ guide, directionsUrl, officialUrl }: { guide: SportsVenueG
   );
 }
 
-function KnowBeforeYouGo({ venueName, parking, arrival }: { venueName: string; parking: string; arrival: string }) {
+function KnowBeforeYouGo({
+  venueName,
+  parking,
+  arrival,
+  parkingMap,
+}: {
+  venueName: string;
+  parking: string;
+  arrival: string;
+  parkingMap?: ParkingMapAsset;
+}) {
   return (
     <EditorialSection eyebrow="Know before you go" title={`Planning for ${venueName}`}>
       <div className="grid gap-x-10 gap-y-7 md:grid-cols-2">
         <GuideItem title="Parking" body={parking} />
         <GuideItem title="Arrival" body={arrival} />
       </div>
+      <ParkingMapPanel map={parkingMap} contextName={venueName} />
     </EditorialSection>
   );
 }
@@ -274,6 +290,9 @@ function SportsCollectionSection({ venueName, items }: { venueName: string; item
           </a>
         ))}
       </div>
+      <a href="/sports-venues" className="mt-6 inline-flex text-sm font-semibold text-primary underline underline-offset-4">
+        Browse all Texas sports venues →
+      </a>
     </EditorialSection>
   );
 }

@@ -1,4 +1,3 @@
-import { Container } from '@/components/layout/Container';
 import type { ParkingMapAsset } from '@/data/parking-map-model';
 import { isPublishableParkingMap } from '@/data/parking-map-model';
 
@@ -74,17 +73,6 @@ export function ParkingMapPanel({
         </div>
       </div>
     </section>
-  );
-}
-
-export function StandaloneParkingMapPanel(props: { map?: ParkingMapAsset; contextName: string }) {
-  if (!isPublishableParkingMap(props.map)) return null;
-  return (
-    <Container className="pb-8">
-      <div className="mx-auto max-w-7xl">
-        <ParkingMapPanel {...props} />
-      </div>
-    </Container>
   );
 }
 
