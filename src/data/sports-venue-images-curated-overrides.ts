@@ -4,7 +4,7 @@ const curatedSportsVenuePhotoOverrides: Record<string, SportsVenuePhoto> = {
   'retama-park': {
     slug: 'retama-park',
     alt: 'Quarter horse racing at Retama Park in Selma, Texas',
-    imageUrl: 'https://www.dvidshub.net/download/image/8518059',
+    imageUrl: 'https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/2406/8518059/2000w_q95.jpg',
     sourcePage: 'https://www.dvidshub.net/image/8518059/quarter-horse-races-honoring-the-memorial-of-colonel-gary-baber',
     sourceName: 'DVIDS / U.S. Air Force',
     author: 'Olivia Mendoza Sencalar',
