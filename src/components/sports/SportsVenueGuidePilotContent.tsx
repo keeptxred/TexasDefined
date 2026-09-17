@@ -66,23 +66,23 @@ export function SportsVenueGuidePilotContent({
     guide.officialUrl && entity.officialUrl !== guide.officialUrl
       ? { ...entity, officialUrl: guide.officialUrl }
       : entity;
-  const registeredPhoto = getSportsVenuePhoto(slug);
-  const photo = registeredPhoto
+  const photo = getSportsVenuePhoto(slug);
+  const renderedPhoto = photo
     ? {
-        ...registeredPhoto,
+        ...photo,
         imageUrl: `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}`,
       }
-    : registeredPhoto;
+    : photo;
   const seenEventImageKeys = new Set<string>();
   const venueEvents: readonly TexasEventCarouselItem[] = upcomingEvents.map((event) => {
     if (!event.image) return event;
 
-    const isDistinctFromVenueHero = !registeredPhoto || (
-      event.image?.url !== registeredPhoto.imageUrl
-      && event.image?.sourceUrl !== registeredPhoto.sourcePage
+    const isDistinctFromVenueHero = !photo || (
+      event.image?.url !== photo.imageUrl
+      && event.image?.sourceUrl !== photo.sourcePage
       && !imageReferencesMatch(
         [event.image?.url, event.image?.sourceUrl],
-        [registeredPhoto.imageUrl, registeredPhoto.sourcePage],
+        [photo.imageUrl, photo.sourcePage],
       )
     );
     const repeatsVenueHero = !isDistinctFromVenueHero;
@@ -103,7 +103,7 @@ export function SportsVenueGuidePilotContent({
       entity={verifiedEntity}
       guide={guide}
       enrichment={enrichment}
-      photo={photo}
+      photo={renderedPhoto}
       parkingMap={parkingMap}
       nearbyAttractions={nearbyAttractions}
       upcomingEvents={venueEvents}
