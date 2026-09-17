@@ -3,6 +3,9 @@ import fs from 'node:fs';
 const component = fs.readFileSync('src/components/monetization/BookingCarRentalCard.tsx', 'utf8');
 const destinationPlanner = fs.readFileSync('src/components/editorial/DestinationVisitPlanner.tsx', 'utf8');
 const roadTrips = fs.readFileSync('src/components/explore/TopAttractionRoadTripsContent.tsx', 'utf8');
+const route66Hub = fs.readFileSync('src/components/explore/TexasRoute66Hub.tsx', 'utf8');
+const route66Page = fs.readFileSync('src/components/explore/TexasRoute66Page.tsx', 'utf8');
+const paintedChurchesPlanner = fs.readFileSync('src/routes/explore.painted-churches-plan.tsx', 'utf8');
 const errors = [];
 
 function requireText(source, needle, label) {
@@ -34,6 +37,21 @@ for (const [needle, label] of [
   ['placement="top-attraction-road-trips"', 'road-trip placement attribution'],
 ]) requireText(roadTrips, needle, label);
 
+for (const [needle, label] of [
+  ['BookingCarRentalCard', 'Route 66 hub affiliate card'],
+  ['placement="route-66-hub"', 'Route 66 hub placement attribution'],
+]) requireText(route66Hub, needle, label);
+
+for (const [needle, label] of [
+  ['BookingCarRentalCard', 'Route 66 stop affiliate card'],
+  ['placement="route-66-stop"', 'Route 66 stop placement attribution'],
+]) requireText(route66Page, needle, label);
+
+for (const [needle, label] of [
+  ['BookingCarRentalCard', 'Painted Churches affiliate card'],
+  ['placement="painted-churches-planner"', 'Painted Churches placement attribution'],
+]) requireText(paintedChurchesPlanner, needle, label);
+
 if (/window\.location\s*=|window\.location\.href\s*=/.test(component)) {
   errors.push('Booking.com affiliate component must not force redirects.');
 }
@@ -48,4 +66,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Booking.com car-rental affiliate validation passed: TexasDefined uses the approved CJ publisher, a current Booking.com U.S. rental-car destination, explicit sponsored links, first-party click attribution, disclosure, driving-intent gating on destination planners, and a dedicated road-trip placement without forced redirects.');
+console.log('Booking.com car-rental affiliate validation passed: TexasDefined uses the approved CJ publisher, a current Booking.com U.S. rental-car destination, explicit sponsored links, first-party click attribution, disclosure, destination driving-intent gating, and dedicated placements on Top Attractions road trips, Route 66 hub/stop guides, and the Painted Churches driving planner without forced redirects.');

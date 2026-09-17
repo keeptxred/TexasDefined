@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
+import { BookingCarRentalCard } from "@/components/monetization/BookingCarRentalCard";
 import { paintedChurchSources, schulenburgCoreRoute } from "@/data/painted-churches";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -67,6 +68,12 @@ function PaintedChurchesTripPlanner() {
             <a href={paintedChurchSources.schulenburgChamber} target="_blank" rel="noreferrer" className="mt-4 inline-block border-b border-primary pb-1 text-sm text-primary">Check current tour information</a>
           </aside>
         </section>
+
+        <BookingCarRentalCard
+          className="mt-10"
+          placement="painted-churches-planner"
+          title="Need a rental car for the Painted Churches loop?"
+        />
 
         <ol className="mt-12 space-y-12">
           {schulenburgCoreRoute.map((church, index) => {
