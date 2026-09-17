@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { createLazyFileRoute, Link } from "@tanstack/react-router";
+import { createLazyFileRoute, Link, Outlet, useChildMatches } from "@tanstack/react-router";
 
 import roadTrip from "@/assets/road-trip.jpg";
 import { CitationTrustPanel } from "@/components/authority/CitationTrustPanel";
@@ -56,7 +56,13 @@ const localSalaryNeededTools = [
 export const Route = createLazyFileRoute("/moving-to-texas")({ component: MovingToTexasPage });
 
 function MovingToTexasPage() {
+  const childMatches = useChildMatches();
   const { counties } = Route.useLoaderData();
+
+  if (childMatches.length > 0) {
+    return <Outlet />;
+  }
+
   const largestCounties = counties
     .filter((county) => county.population2020 != null)
     .slice()
