@@ -166,7 +166,7 @@ export function SportsVenueGuidePage({
             </EditorialSection>
           ) : null}
 
-          <SportsCollectionSection venueName={entity.name} items={landingLinks} />
+          {landingLinks.length ? <SportsCollectionSection venueName={entity.name} items={landingLinks} /> : null}
 
           {attractions.length >= 2 ? <NearbyAttractionsSection items={attractions} /> : null}
 
@@ -269,13 +269,11 @@ function KnowBeforeYouGo({
 }) {
   return (
     <EditorialSection eyebrow="Know before you go" title={`Planning for ${venueName}`}>
-      <div className={parkingMap ? "grid gap-x-10 gap-y-7 lg:grid-cols-[minmax(0,1.65fr)_minmax(16rem,0.85fr)]" : "grid gap-x-10 gap-y-7 md:grid-cols-2"}>
-        <div>
-          <GuideItem title="Parking" body={parking} />
-          <ParkingMapPanel map={parkingMap} contextName={venueName} embedded />
-        </div>
+      <div className="grid gap-x-10 gap-y-7 md:grid-cols-2">
+        <GuideItem title="Parking" body={parking} />
         <GuideItem title="Arrival" body={arrival} />
       </div>
+      <ParkingMapPanel map={parkingMap} contextName={venueName} />
     </EditorialSection>
   );
 }
@@ -283,24 +281,16 @@ function KnowBeforeYouGo({
 function SportsCollectionSection({ venueName, items }: { venueName: string; items: readonly SportsVenueLanding[] }) {
   return (
     <EditorialSection eyebrow="Explore the collection" title={`More venues like ${venueName}`}>
-      <p className="max-w-3xl text-sm leading-7 text-muted-foreground sm:text-base">
-        Continue from {venueName} into its related sports market and sport-specific venue collections, or browse the full statewide directory.
-      </p>
-      {items.length ? (
-        <div className="mt-6 grid gap-x-7 border-t border-border sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((landing) => (
-            <a key={landing.slug} href={`/sports-venues/${landing.slug}`} className="group border-b border-border py-5">
-              <span className="eyebrow text-primary">{landing.kind === "market" ? "Sports market" : "Sports collection"}</span>
-              <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{landing.title}</strong>
-              <span className="mt-3 block text-sm font-semibold text-primary">Browse collection →</span>
-            </a>
-          ))}
-        </div>
-      ) : null}
-      <a
-        href="/sports-venues"
-        className="mt-6 inline-flex min-h-11 items-center justify-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary"
-      >
+      <div className="grid gap-x-7 border-t border-border sm:grid-cols-2 lg:grid-cols-3">
+        {items.map((landing) => (
+          <a key={landing.slug} href={`/sports-venues/${landing.slug}`} className="group border-b border-border py-5">
+            <span className="eyebrow text-primary">{landing.kind === "market" ? "Sports market" : "Sports collection"}</span>
+            <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{landing.title}</strong>
+            <span className="mt-3 block text-sm font-semibold text-primary">Browse collection →</span>
+          </a>
+        ))}
+      </div>
+      <a href="/sports-venues" className="mt-6 inline-flex text-sm font-semibold text-primary underline underline-offset-4">
         Browse all Texas sports venues →
       </a>
     </EditorialSection>
