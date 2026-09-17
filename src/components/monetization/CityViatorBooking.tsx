@@ -1,5 +1,4 @@
 import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl } from "@/data/viator-destination-links";
-import { viatorMarketsForPlace } from "@/data/viator-market-match";
 import { trackAffiliateClick } from "@/lib/affiliate-click";
 import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
 
@@ -12,14 +11,13 @@ function cityNameFromSlug(slug: string) {
 }
 
 export function CityViatorBooking({ citySlug }: { citySlug: string }) {
-  const cityName = cityNameFromSlug(citySlug);
-  const market = viatorMarketsForPlace(cityName).find((candidate) => hasVerifiedViatorMarketUrl(candidate.slug));
-  if (!market) return null;
+  if (!hasVerifiedViatorMarketUrl(citySlug)) return null;
 
+  const cityName = cityNameFromSlug(citySlug);
   const placement = `viator-city-${citySlug}`;
   const label = `Browse current ${cityName} experiences`;
   const href = buildViatorAffiliateUrl(
-    verifiedViatorMarketUrl(market.slug),
+    verifiedViatorMarketUrl(citySlug),
     `texasdefined-city-${citySlug}`,
   );
 
