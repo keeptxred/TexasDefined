@@ -102,27 +102,30 @@ Every destination remains subject to the normal TexasDefined source-depth, image
 
 ## Current UI placement
 
-The booking layer now appears in two primary places:
+The booking layer now appears in three primary places:
 
 1. `/explore#tours-experiences` — the statewide experience-market directory, including compact reviewed inventory signals;
-2. canonical `/destination/:slug` pages — a market-matched booking card that can surface the same category-level signals while sending the visitor to current Viator inventory.
+2. canonical `/destination/:slug` pages — a market-matched booking card that can surface the same category-level signals while sending the visitor to current Viator inventory;
+3. canonical `/city/:slug` authority pages — a direct-market booking card only when that city resolves to an already verified Viator destination URL. Dallas, Houston and San Antonio keep CityPASS as the city-level commercial surface and do not stack a second Viator card there.
 
-Both surfaces keep prices, ratings, review counts and current availability on Viator rather than hard-coding volatile values into TexasDefined.
+City-level Viator placement fails closed. A city without a verified direct Viator market URL gets no city booking card rather than a generic statewide fallback. The city card is reached through the existing lazy contextual monetization boundary, so the broad entity route does not synchronously import Viator data or CTA code.
+
+All Viator surfaces keep prices, ratings, review counts and current availability on Viator rather than hard-coding volatile values into TexasDefined.
 
 Rich research records and curated product seeds stay outside the lightweight client runtime projection so statewide booking discovery does not consume the protected main-bundle performance headroom.
 
 ## Production safeguards
 
-`scripts/ci/verify-viator-production.mjs` protects the live integration after deployment. It verifies the Explore experience directory plus a representative canonical destination booking card, including:
+`scripts/ci/verify-viator-production.mjs` protects the live integration after deployment. It verifies the Explore experience directory, a representative canonical destination booking card and a representative verified direct-market city booking card, including:
 
-- required booking copy and inventory-signal text;
+- required booking copy and inventory-signal text where applicable;
 - approved PID and MCID attribution;
 - placement-specific campaign values;
 - sponsored/nofollow link relationship attributes;
 - affiliate disclosure;
 - successful live rendering without a Cloudflare challenge.
 
-`scripts/data/validate-experience-affiliate-analytics.mjs` additionally protects first-party CityPASS and Viator click attribution and commercial partner/placement metadata before merge.
+`scripts/data/validate-experience-affiliate-analytics.mjs` additionally protects first-party CityPASS and Viator click attribution and commercial partner/placement metadata before merge. It also enforces CityPASS priority in its three Texas city markets and the verified-direct-market gate for city Viator fallback.
 
 The production smoke is part of the existing production verification chain and must not be weakened to accommodate a broken booking surface.
 
