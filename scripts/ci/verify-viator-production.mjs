@@ -46,7 +46,7 @@ async function verifySurface({ path, label, required, minAffiliateLinks }) {
           if (affiliateLinkCount < minAffiliateLinks) {
             lastError = new Error(`expected at least ${minAffiliateLinks} affiliate link(s), found ${affiliateLinkCount}`);
           } else {
-            console.log(`[viator-production] ${label} verified ${affiliateLinkCount} affiliate link(s) with PID P00318227 / MCID 42383 and sponsored disclosure.`);
+            console.log(`[viator-production] ${label} verified ${affiliateLinkCount} affiliate link(s) with PID P00318227 / MCID 42383 and sponsored nofollow disclosure.`);
             return;
           }
         } else {
@@ -80,7 +80,7 @@ await verifySurface({
     'pid=P00318227',
     'mcid=42383',
     'campaign=texasdefined-statewide-explore',
-    'rel="sponsored noopener noreferrer"',
+    'rel="sponsored nofollow noopener noreferrer"',
   ],
 });
 
@@ -97,7 +97,7 @@ await verifySurface({
     'pid=P00318227',
     'mcid=42383',
     'campaign=texasdefined-destination-barton-springs-pool',
-    'rel="sponsored noopener noreferrer"',
+    'rel="sponsored nofollow noopener noreferrer"',
   ],
 });
 
