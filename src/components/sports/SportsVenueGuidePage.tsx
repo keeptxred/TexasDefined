@@ -282,7 +282,7 @@ function KnowBeforeYouGo({
 
 function SportsCollectionSection({ venueName, items }: { venueName: string; items: readonly SportsVenueLanding[] }) {
   return (
-    <EditorialSection eyebrow="Explore the collection" title="Explore more Texas sports venues">
+    <EditorialSection eyebrow="Explore the collection" title={`More venues like ${venueName}`}>
       <p className="max-w-3xl text-sm leading-7 text-muted-foreground sm:text-base">
         Continue from {venueName} into its related sports market and sport-specific venue collections, or browse the full statewide directory.
       </p>
