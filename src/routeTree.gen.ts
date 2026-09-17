@@ -8733,13 +8733,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HistoricSiteFanthorpInnStateHistoricSiteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/food/$slug': {
-      id: '/food/$slug'
-      path: '/food/$slug'
-      fullPath: '/food/$slug'
-      preLoaderRoute: typeof FoodSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/historic-site/$slug': {
       id: '/historic-site/$slug'
       path: '/historic-site/$slug'
@@ -8753,6 +8746,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/guides/citypass-texas'
       preLoaderRoute: typeof GuidesCitypassTexasRouteImport
       parentRoute: typeof GuidesRoute
+    }
+    '/food/$slug': {
+      id: '/food/$slug'
+      path: '/food/$slug'
+      fullPath: '/food/$slug'
+      preLoaderRoute: typeof FoodSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/fishing/techniques': {
       id: '/fishing/techniques'
