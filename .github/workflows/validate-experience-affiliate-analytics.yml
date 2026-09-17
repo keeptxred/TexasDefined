@@ -5,6 +5,8 @@ on:
     paths:
       - 'src/lib/affiliate-click.ts'
       - 'src/components/monetization/CityPassCalloutContent.tsx'
+      - 'src/components/monetization/CityPassContextualCallout.tsx'
+      - 'src/components/monetization/CityViatorBooking.tsx'
       - 'src/components/editorial/DestinationViatorBooking.tsx'
       - 'src/components/editorial/TexasExperienceMarkets.tsx'
       - 'scripts/data/validate-experience-affiliate-analytics.mjs'
@@ -14,6 +16,8 @@ on:
     paths:
       - 'src/lib/affiliate-click.ts'
       - 'src/components/monetization/CityPassCalloutContent.tsx'
+      - 'src/components/monetization/CityPassContextualCallout.tsx'
+      - 'src/components/monetization/CityViatorBooking.tsx'
       - 'src/components/editorial/DestinationViatorBooking.tsx'
       - 'src/components/editorial/TexasExperienceMarkets.tsx'
       - 'scripts/data/validate-experience-affiliate-analytics.mjs'
