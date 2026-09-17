@@ -53,6 +53,25 @@ assert(
   'Retama Park hero must be documentary venue media, not generated or illustrative imagery.',
 );
 
+const tpcMatch = overrideSource.match(/'tpc-san-antonio': \\{[\\s\\S]*?\\n  \\},/);
+const tpcSource = tpcMatch?.[0] ?? '';
+assert(tpcSource, 'TPC San Antonio must have a curated documentary hero override.');
+for (const marker of [
+  "imageUrl: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Martin_Trainer_The_Thinker.jpg?width=1600'",
+  "sourcePage: 'https://commons.wikimedia.org/wiki/File:Martin_Trainer_The_Thinker.jpg'",
+  "sourceName: 'Wikimedia Commons'",
+  "author: 'TheDapperDan'",
+  "licenseName: 'CC BY-SA 4.0'",
+  "licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/'",
+  "alt: 'PGA Tour golfer Martin Trainer on the course at TPC San Antonio during the Valero Texas Open'",
+]) {
+  assert(tpcSource.includes(marker), `TPC San Antonio documentary hero is missing required source marker: ${marker}`);
+}
+assert(
+  !/AI-generated|illustration|OpenAI|Copilot/i.test(tpcSource),
+  'TPC San Antonio hero must be documentary venue media, not generated or illustrative imagery.',
+);
+
 const xtremeMatch = overrideSource.match(/'xtreme-raceway-park': \{[\s\S]*?\n  \},/);
 const xtremeSource = xtremeMatch?.[0] ?? '';
 assert(xtremeSource, 'Xtreme Raceway Park must have a curated documentary hero override.');
