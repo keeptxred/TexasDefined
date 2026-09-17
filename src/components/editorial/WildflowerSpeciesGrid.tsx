@@ -28,29 +28,29 @@ const species: SpeciesCard[] = [
 
 export function WildflowerSpeciesGrid() {
   return (
-    <section aria-labelledby="wildflower-species-heading" className="my-12 sm:my-16">
-      <div className="mb-7 border-y border-border py-6">
+    <section aria-labelledby="wildflower-species-heading" className="my-12">
+      <div className="mb-6 border-y border-border py-6">
         <p className="eyebrow text-primary">Visual field guide</p>
-        <h2 id="wildflower-species-heading" className="mt-3 font-display text-[2.25rem] font-semibold leading-[1.05] sm:text-[2.8rem]">11 Texas wildflowers to know</h2>
+        <h2 id="wildflower-species-heading" className="mt-3 font-display text-4xl font-semibold leading-tight">11 Texas wildflowers to know</h2>
         <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">See the flower first, then open its guide for identification marks, bloom timing, habitat, Texas range and native-garden context.</p>
       </div>
-      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {species.map((flower, index) => (
-          <article key={flower.slug} className="group overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-transform duration-300 hover:-translate-y-1">
-            <Link to="/article/$slug" params={{ slug: flower.slug }} className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary">
-              <div className="relative aspect-[4/3] overflow-hidden bg-muted/30">
-                <img src={editorialImageSrc(flower.image)} alt={flower.alt} width={1200} height={900} loading="lazy" decoding="async" className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.025]" />
-                <span className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold tabular-nums text-foreground backdrop-blur">{String(index + 1).padStart(2, "0")}</span>
+          <article key={flower.slug} className="overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+            <Link to="/article/$slug" params={{ slug: flower.slug }} className="block">
+              <div className="relative overflow-hidden bg-muted">
+                <img src={editorialImageSrc(flower.image)} alt={flower.alt} width={1200} height={900} loading="lazy" decoding="async" className="h-auto w-full object-cover" />
+                <span className="absolute left-4 top-4 rounded-full bg-background px-3 py-1 text-xs font-semibold text-foreground">{String(index + 1).padStart(2, "0")}</span>
               </div>
-              <div className="p-5 sm:p-6">
+              <div className="p-5">
                 <h3 className="font-display text-2xl font-semibold leading-tight text-foreground">{flower.common}</h3>
-                <p className="mt-1 font-serif text-sm italic text-muted-foreground">{flower.scientific}</p>
+                <p className="mt-1 text-sm italic text-muted-foreground">{flower.scientific}</p>
                 <dl className="mt-5 space-y-3 border-t border-border pt-4 text-sm leading-6">
                   <div><dt className="font-semibold text-foreground">Bloom</dt><dd className="text-muted-foreground">{flower.bloom}</dd></div>
                   <div><dt className="font-semibold text-foreground">Texas range</dt><dd className="text-muted-foreground">{flower.regions}</dd></div>
                 </dl>
                 <p className="mt-5 text-sm font-semibold text-primary">Open species guide →</p>
-                <p className="mt-3 text-[0.68rem] leading-4 text-muted-foreground">Photo: {flower.credit}</p>
+                <p className="mt-3 text-xs leading-4 text-muted-foreground">Photo: {flower.credit}</p>
               </div>
             </Link>
           </article>
