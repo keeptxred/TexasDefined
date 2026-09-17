@@ -2,7 +2,8 @@ import { createFileRoute } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
-export const description = 'The basic steps for registering a vehicle after a move, plus the official state and county pages you’ll need along the way.';
+export const pageTitle = 'Find My DMV in Texas: Vehicle Registration & County Tax Offices';
+export const description = 'Find the Texas office you need for vehicle registration, title, plates or a driver license. Most registration and title work is handled by your county tax office; DPS handles driver licenses.';
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const canonicalPath = '/find-my-dmv';
 const pageUrl = `${siteUrl}${canonicalPath}`;
@@ -23,7 +24,7 @@ export const stepNames = [
 
 export const Route = createFileRoute('/find-my-dmv')({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Getting Your Car Settled in Texas', description }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: pageTitle, description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({
       '@context': 'https://schema.org',
@@ -42,7 +43,7 @@ export const Route = createFileRoute('/find-my-dmv')({
           itemListElement: [
             { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
             { '@type': 'ListItem', position: 2, name: 'Moving Here', item: `${siteUrl}/moving-to-texas` },
-            { '@type': 'ListItem', position: 3, name: 'Getting Your Car Settled', item: pageUrl },
+            { '@type': 'ListItem', position: 3, name: 'Find My DMV in Texas', item: pageUrl },
           ],
         },
       ],
