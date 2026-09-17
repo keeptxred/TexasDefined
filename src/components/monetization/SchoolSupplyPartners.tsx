@@ -9,10 +9,30 @@ const discountSchoolSupplyUrls = {
     "https://email.cj.com/c/eJxEzD1urDAUQOHV2B2W__EULp70RBElUrZwudcES4ARNsOw-yhN0p3mfBTDRGB5iqoPIQTppOVzDH5EOXppRuOUwaDQ9BOBeni0qFLPc1SmV8Eqp4V29tGL319r68UbPOED8iK2Mha6mZVrWsd0dLDnzpOfgvPWu85VfxFf4tzazsw_pgemh-u6BOWK5dxaxbmUpZ77vtwCy8r08HkUOrH91XuuTUDdX8wMCC19leNm5r_2RvMjAq15Y1a29IJKacpboh-JP6P-DgAA__-fOE7b",
 };
 
+type AffiliateAnalyticsWindow = Window & {
+  dataLayer?: Array<Record<string, unknown>>;
+};
+
+function trackSchoolSupplyClick(partner: "really-good-stuff" | "discount-school-supply", placement: string, label: string) {
+  if (typeof window === "undefined") return;
+  const analyticsWindow = window as AffiliateAnalyticsWindow;
+  const detail = {
+    event: "affiliate_click",
+    affiliate_partner: partner,
+    affiliate_label: label,
+    affiliate_placement: placement,
+    page_path: window.location.pathname,
+  };
+  analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
+  analyticsWindow.dataLayer.push(detail);
+  window.dispatchEvent(new CustomEvent("texasdefined:affiliate-click", { detail }));
+}
+
 export function SchoolSupplyPartners({ placement = "inline", className = "", context = "school" }: { placement?: "inline" | "rail"; className?: string; context?: "school" | "homecoming" }) {
   const isRail = placement === "rail";
   const isHomecoming = context === "homecoming";
   const discountSchoolSupplyUrl = isHomecoming ? discountSchoolSupplyUrls.artsAndCrafts : discountSchoolSupplyUrls.curriculum;
+  const commercialPlacement = `school-supplies-${context}-${placement}`;
   const heading = isHomecoming ? "DIY mum materials and craft supplies" : "Useful supplies after you know the school plan";
   const intro = isHomecoming
     ? "Building a homecoming mum yourself? These retailers carry craft and classroom materials that can help with the ribbons, accents and personalization. Check your school's rules and local traditions before you buy."
@@ -23,20 +43,60 @@ export function SchoolSupplyPartners({ placement = "inline", className = "", con
       <h2 id="school-supplies-heading" className={isRail ? "mt-2 font-display text-2xl" : "mt-3 font-display text-3xl"}>{heading}</h2>
       <p className="mt-3 text-sm leading-6 text-muted-foreground">{intro}</p>
       <div className={isRail ? "mt-5 grid gap-3" : "mt-6 grid gap-4 sm:grid-cols-2"}>
-        <a href={reallyGoodStuffUrl} target="_blank" rel="sponsored nofollow noopener noreferrer" className={isRail ? "group border-b border-border pb-4 transition-colors hover:text-primary" : "group border border-border bg-background p-5 transition-colors hover:border-primary/60"}>
+        <a
+          href={reallyGoodStuffUrl}
+          target="_blank"
+          rel="sponsored nofollow noopener noreferrer"
+          data-affiliate-partner="really-good-stuff"
+          data-affiliate-placement={commercialPlacement}
+          data-commercial-partner="really-good-stuff"
+          data-commercial-placement={commercialPlacement}
+          onClick={() => trackSchoolSupplyClick("really-good-stuff", commercialPlacement, "Really Good Stuff")}
+          className={isRail ? "group border-b border-border pb-4 transition-colors hover:text-primary" : "group border border-border bg-background p-5 transition-colors hover:border-primary/60"}
+        >
           <span className="font-display text-xl group-hover:text-primary">Really Good Stuff</span>
           <span className="mt-2 block text-sm leading-6 text-muted-foreground">{isHomecoming ? "Craft-ready classroom supplies, kits and materials for students, teachers and makers." : "Teacher-tested classroom supplies, curated kits and learning materials."} Current offer: free shipping and $10 off orders of $50 or more with code <strong className="text-foreground">SAVE10NOW</strong>.</span>
           <span className="mt-3 inline-block border-b border-primary pb-1 text-xs font-semibold uppercase tracking-[0.12em] text-primary">{isHomecoming ? "Browse supplies for your DIY project ↗" : "Shop classroom supplies ↗"}</span>
         </a>
-        <a href={discountSchoolSupplyUrl} target="_blank" rel="sponsored nofollow noopener noreferrer" className="group border border-border bg-background p-5 transition-colors hover:border-primary/60">
+        <a
+          href={discountSchoolSupplyUrl}
+          target="_blank"
+          rel="sponsored nofollow noopener noreferrer"
+          data-affiliate-partner="discount-school-supply"
+          data-affiliate-placement={commercialPlacement}
+          data-commercial-partner="discount-school-supply"
+          data-commercial-placement={commercialPlacement}
+          onClick={() => trackSchoolSupplyClick("discount-school-supply", commercialPlacement, isHomecoming ? "Discount School Supply arts and crafts" : "Discount School Supply curriculum")}
+          className="group border border-border bg-background p-5 transition-colors hover:border-primary/60"
+        >
           <span className="font-display text-xl group-hover:text-primary">Discount School Supply</span>
           <span className="mt-2 block text-sm leading-6 text-muted-foreground">{isHomecoming ? "Arts, crafts and early-learning materials for personalized projects and hands-on making." : "Curriculum, classroom essentials, arts and crafts, special-needs resources and early-learning supplies."}</span>
           <span className="eyebrow mt-4 inline-block border-b border-primary pb-1 text-primary">{isHomecoming ? "Browse arts & crafts ↗" : "Browse curriculum & classroom supplies ↗"}</span>
         </a>
       </div>
       <div className="mt-4 flex flex-wrap gap-x-4 gap-y-3 text-sm font-semibold">
-        <a href={discountSchoolSupplyUrls.artsAndCrafts} target="_blank" rel="sponsored nofollow noopener noreferrer" className="border-b border-primary pb-1 text-primary">Arts & crafts ↗</a>
-        <a href={discountSchoolSupplyUrls.specialNeeds} target="_blank" rel="sponsored nofollow noopener noreferrer" className="border-b border-primary pb-1 text-primary">Special-needs resources ↗</a>
+        <a
+          href={discountSchoolSupplyUrls.artsAndCrafts}
+          target="_blank"
+          rel="sponsored nofollow noopener noreferrer"
+          data-affiliate-partner="discount-school-supply"
+          data-affiliate-placement={`${commercialPlacement}-arts-crafts`}
+          data-commercial-partner="discount-school-supply"
+          data-commercial-placement={`${commercialPlacement}-arts-crafts`}
+          onClick={() => trackSchoolSupplyClick("discount-school-supply", `${commercialPlacement}-arts-crafts`, "Discount School Supply arts and crafts")}
+          className="border-b border-primary pb-1 text-primary"
+        >Arts & crafts ↗</a>
+        <a
+          href={discountSchoolSupplyUrls.specialNeeds}
+          target="_blank"
+          rel="sponsored nofollow noopener noreferrer"
+          data-affiliate-partner="discount-school-supply"
+          data-affiliate-placement={`${commercialPlacement}-special-needs`}
+          data-commercial-partner="discount-school-supply"
+          data-commercial-placement={`${commercialPlacement}-special-needs`}
+          onClick={() => trackSchoolSupplyClick("discount-school-supply", `${commercialPlacement}-special-needs`, "Discount School Supply special-needs resources")}
+          className="border-b border-primary pb-1 text-primary"
+        >Special-needs resources ↗</a>
       </div>
       <p className="mt-5 text-xs leading-6 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying purchases, at no additional cost to you. Retailer availability, prices and promotions can change.</p>
     </aside>
