@@ -120,6 +120,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       }
     ],
     related: [
+      { href: "/sports/friday-night-lights", label: "Friday Night Lights, Defined", description: "Connect homecoming mums to the broader Texas high-school football traditions, game-night culture and season arc." },
       { href: "/sports-venues/high-school-football", label: "Texas high-school football", description: "The Friday-night culture that provides the backdrop for homecoming." },
       { href: "/things-unique-to-texas/culture-music", label: "Texas cultural traditions", description: "Rodeos, music, school rituals and community customs." },
       { href: "/texas-slang-explained", label: "Texas slang explained", description: "Another guide to the everyday customs outsiders notice first." }
