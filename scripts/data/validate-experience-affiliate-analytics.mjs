@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const tracker = fs.readFileSync('src/lib/affiliate-click.ts', 'utf8');
 const citypass = fs.readFileSync('src/components/monetization/CityPassCalloutContent.tsx', 'utf8');
 const cityViator = fs.readFileSync('public/city-experience-affiliate.js', 'utf8');
+const canonicalViatorLinks = fs.readFileSync('src/data/viator-destination-links.ts', 'utf8');
 const root = fs.readFileSync('src/routes/__root.tsx', 'utf8');
 const destinationViator = fs.readFileSync('src/components/editorial/DestinationViatorBooking.tsx', 'utf8');
 const statewideViator = fs.readFileSync('src/components/editorial/TexasExperienceMarkets.tsx', 'utf8');
@@ -10,6 +11,20 @@ const errors = [];
 
 function requireText(source, needle, label) {
   if (!source.includes(needle)) errors.push(`${label}: missing ${needle}`);
+}
+
+function parseCanonicalMarkets(source) {
+  const markets = new Map();
+  const entryPattern = /^\s*(?:"([^"]+)"|([a-z][\w-]*)):\s*"https:\/\/www\.viator\.com([^\"]+)",/gm;
+  for (const match of source.matchAll(entryPattern)) markets.set(match[1] ?? match[2], match[3]);
+  return markets;
+}
+
+function parseCityBootstrapMarkets(source) {
+  const markets = new Map();
+  const entryPattern = /^\s*(?:"([^"]+)"|([a-z][\w-]*)):\s*\["([^"]+)",\s*"([^"]+)"\],/gm;
+  for (const match of source.matchAll(entryPattern)) markets.set(match[1] ?? match[2], { name: match[3], path: match[4] });
+  return markets;
 }
 
 for (const [needle, label] of [
@@ -41,7 +56,6 @@ for (const [source, prefix] of [[destinationViator, 'destination Viator'], [stat
 }
 
 for (const [needle, label] of [
-  ['austin: ["Austin", "/Austin/d5021"]', 'Austin verified market path'],
   ['const market = slug ? markets[slug] : null', 'verified city allowlist gate'],
   ['if (!market)', 'city no-inventory fail-closed gate'],
   ['pid=P00318227&mcid=42383&campaign=texasdefined-city-${slug}', 'city approved Viator affiliate parameters'],
@@ -53,8 +67,45 @@ for (const [needle, label] of [
   ['new MutationObserver(scheduleRender)', 'client-navigation reinsertion support'],
 ]) requireText(cityViator, needle, label);
 
-for (const blockedCity of ['dallas:', 'houston:', '"san-antonio":']) {
-  if (cityViator.includes(blockedCity)) errors.push(`City Viator bootstrap must not compete with CityPASS market ${blockedCity.replace(/[:"]/g, '')}.`);
+const canonicalMarkets = parseCanonicalMarkets(canonicalViatorLinks);
+const cityBootstrapMarkets = parseCityBootstrapMarkets(cityViator);
+const expectedCityMarkets = new Map([
+  ['austin', 'austin'],
+  ['fort-worth', 'fort-worth'],
+  ['galveston', 'galveston'],
+  ['fredericksburg', 'fredericksburg'],
+  ['waco', 'waco'],
+  ['corpus-christi', 'corpus-christi'],
+  ['port-aransas', 'port-aransas'],
+  ['south-padre-island', 'south-padre-island'],
+  ['el-paso', 'el-paso'],
+  ['amarillo', 'amarillo-palo-duro'],
+]);
+
+for (const [citySlug, canonicalSlug] of expectedCityMarkets) {
+  const canonicalPath = canonicalMarkets.get(canonicalSlug);
+  const publicMarket = cityBootstrapMarkets.get(citySlug);
+  if (!canonicalPath) {
+    errors.push(`Canonical Viator registry is missing required verified market ${canonicalSlug}.`);
+    continue;
+  }
+  if (!publicMarket) {
+    errors.push(`City Viator bootstrap is missing verified city market ${citySlug}.`);
+    continue;
+  }
+  if (publicMarket.path !== canonicalPath) {
+    errors.push(`City Viator bootstrap path drift for ${citySlug}: expected ${canonicalPath} from canonical registry, found ${publicMarket.path}.`);
+  }
+}
+
+for (const citySlug of cityBootstrapMarkets.keys()) {
+  if (!expectedCityMarkets.has(citySlug)) {
+    errors.push(`City Viator bootstrap contains unreviewed market ${citySlug}; add an explicit canonical registry mapping before monetizing it.`);
+  }
+}
+
+for (const blockedCity of ['dallas', 'houston', 'san-antonio']) {
+  if (cityBootstrapMarkets.has(blockedCity)) errors.push(`City Viator bootstrap must not compete with CityPASS market ${blockedCity}.`);
 }
 
 requireText(root, '<script src="/city-experience-affiliate.js" defer />', 'bundle-neutral city affiliate bootstrap');
@@ -73,4 +124,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Experience affiliate analytics validation passed: CityPASS remains primary in its three Texas city markets; verified direct-market city Viator fallback runs from a bundle-neutral public bootstrap with first-party attribution and fail-closed market gating; destination and statewide Viator surfaces preserve shared click analytics, disclosure and sponsored/nofollow links without forced redirects.');
+console.log(`Experience affiliate analytics validation passed: CityPASS remains primary in its three Texas city markets; ${cityBootstrapMarkets.size} verified city Viator markets reconcile exactly to the canonical destination-link registry and run from a bundle-neutral public bootstrap with first-party attribution and fail-closed gating; destination and statewide Viator surfaces preserve shared click analytics, disclosure and sponsored/nofollow links without forced redirects.`);
