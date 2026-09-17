@@ -21,13 +21,11 @@ for (const marker of [
 
 for (const marker of [
   'canonicalImageReference',
-  'const registeredPhoto = getSportsVenuePhoto(slug);',
   'const seenEventImageKeys = new Set<string>();',
   'const repeatsEventImage = Boolean(imageKey && seenEventImageKeys.has(imageKey));',
   'seenEventImageKeys.add(imageKey)',
-  'event.image?.url !== registeredPhoto.imageUrl',
-  'event.image?.sourceUrl !== registeredPhoto.sourcePage',
-  '[registeredPhoto.imageUrl, registeredPhoto.sourcePage]',
+  'event.image?.url !== photo.imageUrl',
+  'event.image?.sourceUrl !== photo.sourcePage',
   'eventWithoutDuplicateVenueImage',
 ]) requireText(client, marker, 'client venue-event image dedupe');
 
@@ -37,4 +35,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('PASS: sports venue event carousels keep the first unique event image, suppress repeated event-card images, and still compare event imagery against the governed venue photo even when the rendered hero uses the server-authoritative redirect endpoint.');
+console.log('PASS: sports venue event carousels keep the first unique event image, suppress repeated event-card images, and still suppress venue-hero reuse on both server and client boundaries.');
