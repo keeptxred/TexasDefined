@@ -6,6 +6,7 @@ const roadTrips = fs.readFileSync('src/components/explore/TopAttractionRoadTrips
 const route66Hub = fs.readFileSync('src/components/explore/TexasRoute66Hub.tsx', 'utf8');
 const route66Page = fs.readFileSync('src/components/explore/TexasRoute66Page.tsx', 'utf8');
 const paintedChurchesPlanner = fs.readFileSync('src/routes/explore.painted-churches-plan.tsx', 'utf8');
+const tripPlanner = fs.readFileSync('src/routes/explore.trip-planner.lazy.tsx', 'utf8');
 const errors = [];
 
 function requireText(source, needle, label) {
@@ -56,6 +57,14 @@ for (const [needle, label] of [
   ['placement="painted-churches-planner"', 'Painted Churches placement attribution'],
 ]) requireText(paintedChurchesPlanner, needle, label);
 
+for (const [needle, label] of [
+  ['BookingCarRentalCard', 'Trip Planner affiliate card'],
+  ['const hasGeneratedDrivingRoute = Boolean(trip?.days.some((day) => day.stops.length))', 'Trip Planner generated-route gate'],
+  ['hasGeneratedDrivingRoute && <BookingCarRentalCard', 'Trip Planner post-generation placement gate'],
+  ['placement="trip-planner-generated-itinerary"', 'Trip Planner placement attribution'],
+  ['title="Need a rental car for this Texas itinerary?"', 'Trip Planner contextual rental-car title'],
+]) requireText(tripPlanner, needle, label);
+
 if (/window\.location\s*=|window\.location\.href\s*=/.test(component)) {
   errors.push('Booking.com affiliate component must not force redirects.');
 }
@@ -70,4 +79,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Booking.com car-rental affiliate validation passed: TexasDefined uses the approved CJ publisher, a current Booking.com U.S. rental-car destination, explicit sponsored links, first-party click attribution, disclosure, a high-intent destination gate that excludes parking-only matches, and dedicated placements on Top Attractions road trips, Route 66 hub/stop guides, and the Painted Churches driving planner without forced redirects.');
+console.log('Booking.com car-rental affiliate validation passed: TexasDefined uses the approved CJ publisher, a current Booking.com U.S. rental-car destination, explicit sponsored links, first-party click attribution, disclosure, a high-intent destination gate that excludes parking-only matches, dedicated placements on Top Attractions road trips, Route 66 hub/stop guides and Painted Churches, plus a generated-route-only Trip Planner placement without forced redirects.');
