@@ -1,0 +1,124 @@
+name: TEMP Pinpoint premerge failure
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  pinpoint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: 01 Validate retired integration traces
+        run: node scripts/ci/validate-retired-integration-traces.mjs
+      - name: 02 Validate direct-main writer inventory
+        run: node scripts/ci/validate-direct-main-writer-inventory.mjs
+      - name: 03 Validate consolidated county certifiers
+        run: node scripts/ci/validate-county-certifier-consolidation.mjs
+      - name: 04 Validate automation main-write policy
+        run: node scripts/ci/validate-automation-main-write-policy.mjs
+      - name: 05 Validate retired one-time certifications
+        run: node scripts/ci/validate-retired-one-time-certifications.mjs
+      - name: 06 Validate content quality governance
+        run: node scripts/data/validate-content-quality-governance.mjs
+      - name: 07 Validate 250 Texas Stories source backlog
+        run: node scripts/data/validate-250-texas-stories-backlog.mjs
+      - name: 08 Validate 250 Texas Stories Part 1 reconciliation
+        run: node scripts/data/validate-250-texas-stories-part1-reconciliation.mjs
+      - name: 09 Validate 250 Texas Stories Part 2 reconciliation
+        run: node scripts/data/validate-250-texas-stories-part2-reconciliation.mjs
+      - name: 10 Validate Texas-vs state promotions
+        run: node scripts/data/validate-texas-vs-state-promotions.mjs
+      - name: 11 Validate Texas AI intelligence foundation
+        run: node scripts/data/validate-texas-defined-ai-readiness.mjs
+      - name: 12 Validate Texas Defined AI official research
+        run: node scripts/ai/validate-ai-official-research.mjs
+      - name: 13 Validate Event SEO
+        run: node scripts/data/validate-events-seo.mjs
+      - name: 14 Audit Event schema enrichment
+        run: node scripts/data/audit-event-schema-enrichment.mjs
+      - name: 15 Syntax-check Event verifier
+        run: node --check scripts/ci/verify-event-structured-data-production.mjs
+      - name: 16 Validate RV image provenance
+        run: node scripts/data/validate-rv-image-provenance.mjs
+      - name: 17 Validate destination final image readiness
+        run: node scripts/data/validate-destination-image-final-readiness.mjs
+      - name: 18 Validate date formatting SSR regression
+        run: node --experimental-strip-types --test src/domain/utils/format.test.ts
+      - name: 19 Validate canonical Texas geography taxonomy
+        run: node --experimental-strip-types --test src/data/__tests__/canonical-geography.test.ts
+      - name: 20 Validate populated Texas geography knowledge graph
+        run: node --experimental-strip-types --test src/data/__tests__/geography-knowledge-graph.test.ts
+      - name: 21 Validate remote image upstream request policy
+        run: node --experimental-strip-types --test src/lib/remote-image-fetch-policy.test.ts
+      - name: 22 Validate priority county property overlays
+        run: node scripts/data/validate-priority-county-property-overlays.mjs
+      - name: 23 Validate Phase 10 housing index-suppression contract
+        run: node scripts/data/validate-phase10-housing-indexing.mjs
+      - name: 24 Validate Texas beaches and coast authority
+        run: node scripts/data/validate-coastal-authority.mjs
+      - name: 25 Run recurring site quality contract
+        run: node scripts/data/run-site-quality-watch.mjs
+      - name: 26 Run authoritative validation suite
+        run: node scripts/ci/run-validation-suite.mjs full --collect-all
+      - name: 27 Validate mountain biking authority
+        run: node scripts/data/validate-mountain-biking-authority.mjs
+      - name: 28 Validate horseback riding authority
+        run: node scripts/data/validate-horseback-riding-authority.mjs
+      - name: 29 Validate OHV authority
+        run: node scripts/data/validate-ohv-authority.mjs
+      - name: 30 Validate paddling authority
+        run: node scripts/data/validate-paddling-authority.mjs
+      - name: 31 Validate stargazing authority
+        run: node scripts/data/validate-stargazing-authority.mjs
+      - name: 32 Validate hunting authority
+        run: node scripts/data/validate-hunting-authority.mjs
+      - name: 33 Validate national cemetery authority cluster
+        run: node scripts/data/validate-national-cemetery-authority.mjs
+      - name: 34 Validate AdSense-facing finance content depth
+        run: node scripts/data/validate-adsense-content-depth.mjs
+      - name: 35 Validate Texas Talent content depth
+        run: node scripts/data/validate-texas-talent-content-depth.mjs
+      - name: 36 Validate Texas Talent launch-depth gate
+        run: node scripts/data/validate-texas-talent-launch-depth-gate.mjs
+      - name: 37 Validate Texas Talent flagship depth wave
+        run: node scripts/data/validate-texas-talent-flagship-depth.mjs
+      - name: 38 Validate Texas Talent flagship depth wave 2
+        run: node scripts/data/validate-texas-talent-flagship-depth-wave2.mjs
+      - name: 39 Validate Texas Talent flagship depth wave 3
+        run: node scripts/data/validate-texas-talent-flagship-depth-wave3.mjs
+      - name: 40 Validate Texas Talent flagship depth wave 4
+        run: node scripts/data/validate-texas-talent-flagship-depth-wave4.mjs
+      - name: 41 Validate Texas Talent flagship depth wave 5
+        run: node scripts/data/validate-texas-talent-flagship-depth-wave5.mjs
+      - name: 42 Validate Texas Talent flagship depth wave 6
+        run: node scripts/data/validate-texas-talent-flagship-depth-wave6.mjs
+      - name: 43 Validate Texas Talent flagship depth wave 7
+        run: node scripts/data/validate-texas-talent-flagship-depth-wave7.mjs
+      - name: 44 Validate Texas Talent launch metadata
+        run: node scripts/data/validate-texas-talent-launch-metadata.mjs
+      - name: 45 Validate Texas Talent reverse-link audit
+        run: node scripts/data/validate-texas-talent-reverse-links.mjs
+      - name: 46 Validate Texas Talent related network
+        run: node scripts/data/validate-texas-talent-related-network.mjs
+      - name: 47 Validate Texas Talent public-style preview
+        run: node scripts/data/validate-texas-talent-public-preview.mjs
+      - name: 48 Validate Texas Talent canonical ownership
+        run: node scripts/data/validate-texas-talent-ownership.mjs
+      - name: 49 Validate production predeploy gates
+        run: node scripts/ci/run-validation-suite.mjs predeploy --collect-all
+      - name: 50 Build production application
+        run: npm run build
+      - name: 51 Validate generated route tree is committed
+        run: git diff --exit-code -- src/routeTree.gen.ts
+      - name: 52 Validate client performance budget
+        run: npm run performance:validate
