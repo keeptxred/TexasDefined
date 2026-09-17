@@ -47,7 +47,6 @@ export function SportsVenueGuidePage({
   nearbyAttractions = [],
   upcomingEvents = [],
   eventCalendarHref = "/events",
-  landingLinks = [],
   sponsorPlacement,
 }: SportsVenueGuidePageProps) {
   const canonicalUrl = `${siteUrl}${guide.canonicalPath}`;
@@ -166,8 +165,6 @@ export function SportsVenueGuidePage({
             </EditorialSection>
           ) : null}
 
-          {landingLinks.length ? <SportsCollectionSection venueName={entity.name} items={landingLinks} /> : null}
-
           {attractions.length >= 2 ? <NearbyAttractionsSection items={attractions} /> : null}
 
           <SourcesSection
@@ -270,29 +267,12 @@ function KnowBeforeYouGo({
   return (
     <EditorialSection eyebrow="Know before you go" title={`Planning for ${venueName}`}>
       <div className="grid gap-x-10 gap-y-7 md:grid-cols-2">
-        <GuideItem title="Parking" body={parking} />
+        <div className="min-w-0">
+          <GuideItem title="Parking" body={parking} />
+          <ParkingMapPanel map={parkingMap} contextName={venueName} embedded />
+        </div>
         <GuideItem title="Arrival" body={arrival} />
       </div>
-      <ParkingMapPanel map={parkingMap} contextName={venueName} />
-    </EditorialSection>
-  );
-}
-
-function SportsCollectionSection({ venueName, items }: { venueName: string; items: readonly SportsVenueLanding[] }) {
-  return (
-    <EditorialSection eyebrow="Explore the collection" title={`More venues like ${venueName}`}>
-      <div className="grid gap-x-7 border-t border-border sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((landing) => (
-          <a key={landing.slug} href={`/sports-venues/${landing.slug}`} className="group border-b border-border py-5">
-            <span className="eyebrow text-primary">{landing.kind === "market" ? "Sports market" : "Sports collection"}</span>
-            <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{landing.title}</strong>
-            <span className="mt-3 block text-sm font-semibold text-primary">Browse collection →</span>
-          </a>
-        ))}
-      </div>
-      <a href="/sports-venues" className="mt-6 inline-flex text-sm font-semibold text-primary underline underline-offset-4">
-        Browse all Texas sports venues →
-      </a>
     </EditorialSection>
   );
 }
