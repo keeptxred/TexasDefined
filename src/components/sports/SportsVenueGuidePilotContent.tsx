@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 
 import type { TexasEventCarouselItem } from "@/components/editorial/TexasEventCarousel";
-import { useVenueParkingMap } from "@/components/parking/useVenueParkingMap";
 import { canonicalImageReference, imageReferencesMatch } from "@/data/image-reference-identity";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
+import type { ParkingMapAsset } from "@/data/parking-map-model";
 import { getSportsVenueEnrichmentAll } from "@/data/sports-venue-enrichment-all";
 import { getSportsVenueGuideGalaxy } from "@/data/sports-venue-guide-galaxy";
 import { getSportsVenueGuidePilot } from "@/data/sports-venue-guide-pilots";
@@ -26,6 +26,7 @@ type StayNearbyWindow = Window & {
 export function SportsVenueGuidePilotContent({
   slug,
   entity,
+  parkingMap,
   nearbyAttractions,
   upcomingEvents,
   eventCalendarHref,
@@ -34,6 +35,7 @@ export function SportsVenueGuidePilotContent({
 }: {
   slug: string;
   entity: TexasEntityRecord;
+  parkingMap?: ParkingMapAsset;
   nearbyAttractions: readonly TexasEntityRecord[];
   upcomingEvents: readonly TexasEventCarouselItem[];
   eventCalendarHref: string;
@@ -41,7 +43,6 @@ export function SportsVenueGuidePilotContent({
   sponsorPlacement?: PublicSportsSponsorPlacement | null;
 }) {
   const guide = getSportsVenueGuideGalaxy(slug) ?? getSportsVenueGuideWave7(slug) ?? getSportsVenueGuideWave6(slug) ?? getSportsVenueGuideWave5(slug) ?? getSportsVenueGuideWave4(slug) ?? getSportsVenueGuidePilot(slug);
-  const parkingMap = useVenueParkingMap(slug);
 
   useEffect(() => {
     const slot = document.querySelector("[data-stay-nearby-slot]");
