@@ -273,11 +273,9 @@ function KnowBeforeYouGo({
   return (
     <EditorialSection eyebrow="Know before you go" title={`Planning for ${venueName}`}>
       <div className="grid gap-x-10 gap-y-7 md:grid-cols-2">
-        <div className="min-w-0">
-          <GuideItem title="Parking" body={parking} />
-          <ParkingMapPanel map={parkingMap} contextName={venueName} embedded />
-        </div>
+        <GuideItem title="Parking" body={parking} />
         <GuideItem title="Arrival" body={arrival} />
+        <ParkingMapPanel map={parkingMap} contextName={venueName} embedded />
       </div>
     </EditorialSection>
   );
