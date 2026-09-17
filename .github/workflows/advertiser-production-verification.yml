@@ -101,6 +101,13 @@ jobs:
             return content?.[1]?.toLowerCase() || '';
           }
 
+          function normalizeRenderedHtml(html) {
+            // React SSR inserts empty comment separators between adjacent text nodes.
+            // Remove only those separators so smoke assertions match the rendered text
+            // a browser/user sees without weakening any content, canonical or robots checks.
+            return html.replace(/<!--\s*-->/g, '');
+          }
+
           async function fetchRoute(route, attempt) {
             const url = `${origin}${route.path}?verify-advertiser=${encodeURIComponent(`${revision}-${Date.now()}-${attempt}`)}`;
             const response = await fetch(url, {
@@ -110,8 +117,9 @@ jobs:
               headers: { 'user-agent': 'TexasDefined-Advertiser-Production-Smoke/1.0' },
             });
             const html = await response.text();
-            const missing = route.needles.filter((needle) => !html.includes(needle));
-            const forbidden = route.forbidden.filter((needle) => html.toLowerCase().includes(needle.toLowerCase()));
+            const renderedHtml = normalizeRenderedHtml(html);
+            const missing = route.needles.filter((needle) => !renderedHtml.includes(needle));
+            const forbidden = route.forbidden.filter((needle) => renderedHtml.toLowerCase().includes(needle.toLowerCase()));
             const robots = robotsContent(html);
             const canonicalOk = canonicalPresent(html, route.canonical);
             const indexOk = route.indexable ? !robots.includes('noindex') : robots.includes('noindex');
