@@ -4,12 +4,17 @@ type Props = {
   title?: string;
 };
 
+type AffiliateAnalyticsWindow = Window & {
+  dataLayer?: Array<Record<string, unknown>>;
+};
+
 const CJ_PUBLISHER_ID = "101876465";
 const BOOKING_CAR_RENTAL_DESTINATION = "https://www.booking.com/cars/country/us.html";
 const BOOKING_CAR_RENTAL_URL = `https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/${encodeURI(BOOKING_CAR_RENTAL_DESTINATION)}`;
 
 function trackBookingCarRentalClick(placement: string) {
   if (typeof window === "undefined") return;
+  const analyticsWindow = window as AffiliateAnalyticsWindow;
   const detail = {
     event: "affiliate_click",
     affiliate_partner: "booking.com",
@@ -17,8 +22,8 @@ function trackBookingCarRentalClick(placement: string) {
     affiliate_placement: placement,
     page_path: window.location.pathname,
   };
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push(detail);
+  analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
+  analyticsWindow.dataLayer.push(detail);
   window.dispatchEvent(new CustomEvent("texasdefined:affiliate-click", { detail }));
 }
 
