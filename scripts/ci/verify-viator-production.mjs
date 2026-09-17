@@ -101,7 +101,22 @@ await verifySurface({
   ],
 });
 
-console.log('[viator-production] Explore directory and representative destination booking card passed live verification.');
+await verifySurface({
+  path: '/city/austin',
+  label: 'city-booking-card',
+  minAffiliateLinks: 1,
+  required: [
+    'Find things to do in Austin',
+    'Browse current Austin experiences',
+    'Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings',
+    'pid=P00318227',
+    'mcid=42383',
+    'campaign=texasdefined-city-austin',
+    'rel="sponsored nofollow noopener noreferrer"',
+  ],
+});
+
+console.log('[viator-production] Explore directory plus representative destination and city booking cards passed live verification.');
 
 await import('./verify-ask-texas-government-production.mjs');
 await import('./verify-stay-nearby-production.mjs');
