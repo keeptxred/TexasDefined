@@ -133,7 +133,7 @@ export function SportsVenueGuidePage({
             ) : null}
           </header>
 
-          <div className="grid gap-6 border-b border-border pb-12 lg:grid-cols-[minmax(0,1fr)_22rem]">
+          <div className="grid items-start gap-6 border-b border-border pb-12 lg:grid-cols-[minmax(0,1fr)_22rem]">
             <VenuePhoto photo={photo} venueName={entity.name} />
             <QuickFacts guide={guide} directionsUrl={directionsUrl} officialUrl={officialUrl} />
           </div>
@@ -228,7 +228,7 @@ function VenuePhoto({ photo, venueName }: { photo?: SportsVenuePhoto; venueName:
         loading="eager"
         fetchPriority="high"
         decoding="async"
-        className="h-full min-h-[32rem] w-full object-cover"
+        className="block h-auto w-full object-contain"
       />
     </figure>
   );
