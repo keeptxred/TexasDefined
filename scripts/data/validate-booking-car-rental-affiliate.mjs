@@ -22,7 +22,7 @@ for (const [needle, label] of [
   ['event: "affiliate_click"', 'affiliate click event'],
   ['affiliate_partner: "booking.com"', 'Booking.com analytics partner'],
   ['data-commercial-partner="booking.com"', 'first-party commercial partner metadata'],
-  ['data-commercial-placement={placement}', 'first-party commercial placement metadata'],
+  ['data-commercial-placement={placement}', 'first-party commercial placement attribution'],
   ['texasdefined:affiliate-click', 'first-party affiliate browser event'],
 ]) requireText(component, needle, label);
 
@@ -31,6 +31,10 @@ for (const [needle, label] of [
   ['showRentalCarOption', 'destination rental-car eligibility'],
   ['placement="destination-visit-planner"', 'destination placement attribution'],
 ]) requireText(destinationPlanner, needle, label);
+
+if (/drivingIntentPattern\s*=.*parking/.test(destinationPlanner)) {
+  errors.push('Destination rental-car eligibility must not treat parking alone as rental-car intent.');
+}
 
 for (const [needle, label] of [
   ['BookingCarRentalCard', 'road-trip affiliate card'],
@@ -66,4 +70,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Booking.com car-rental affiliate validation passed: TexasDefined uses the approved CJ publisher, a current Booking.com U.S. rental-car destination, explicit sponsored links, first-party click attribution, disclosure, destination driving-intent gating, and dedicated placements on Top Attractions road trips, Route 66 hub/stop guides, and the Painted Churches driving planner without forced redirects.');
+console.log('Booking.com car-rental affiliate validation passed: TexasDefined uses the approved CJ publisher, a current Booking.com U.S. rental-car destination, explicit sponsored links, first-party click attribution, disclosure, a high-intent destination gate that excludes parking-only matches, and dedicated placements on Top Attractions road trips, Route 66 hub/stop guides, and the Painted Churches driving planner without forced redirects.');

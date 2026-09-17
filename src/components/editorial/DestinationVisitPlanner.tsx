@@ -8,7 +8,7 @@ type Props = { destination: Destination };
 
 const activityPattern = /hiking|trail|camping|fishing|swimming|boating|paddling|kayak|canoe|bird|wildlife|cycling|climbing|horse|picnic|photograph|stargaz/i;
 const facilityPattern = /restroom|visitor center|playground|parking|campground|campsite|shower|electric|water|accessible|accessibility|boat ramp|dock|store|rental/i;
-const drivingIntentPattern = /\b(?:drive|driving|car|road trip|highway|airport|remote|vehicle|parking)\b/i;
+const drivingIntentPattern = /\b(?:drive|driving|car|road trip|highway|airport|remote|vehicle)\b/i;
 
 function unique(values: string[]) {
   return values.filter((value, index, all) => Boolean(value) && all.indexOf(value) === index);
