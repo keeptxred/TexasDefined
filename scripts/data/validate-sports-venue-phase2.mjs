@@ -53,7 +53,13 @@ for (const marker of ['const calendarHref = viewAllHref.includes("#calendar")', 
 for (const marker of ['overflow-x: auto', 'scroll-snap-type: x mandatory', 'min-width: 84%', '@media (min-width: 640px)', '@media (min-width: 1024px)', 'calc(33.333% - .7rem)']) requireText(carouselCss, marker, 'event carousel responsive behavior');
 for (const marker of ['`sports-venue:${data.slug}`', 'encodeURIComponent(venueId)', '#calendar', 'limit: 9']) requireText(eventFn, marker, 'venue event query');
 for (const marker of ['timeZone: "America/Chicago"', 'startsOnOrAfter', '["scheduled", "postponed"]']) requireText(eventRecords, marker, 'event expiration');
-for (const marker of ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Expedia bookings', 'rel = "sponsored noopener noreferrer"', 'td-stay-media']) requireText(expedia, marker, 'Stay Nearby disclosure/fallback');
+for (const marker of [
+  'Affiliate disclosure: TexasDefined may earn a commission from qualifying Expedia bookings',
+  'rel = "sponsored nofollow noopener noreferrer"',
+  'link.dataset.commercialPartner = provider',
+  'link.dataset.commercialPlacement = placement',
+  'td-stay-media',
+]) requireText(expedia, marker, 'Stay Nearby disclosure/fallback');
 if (registry.policy?.displayComputedDistance !== false) failures.push('Stay Nearby must keep computed hotel distance display disabled unless verified distance data is introduced.');
 requireText(route, 'canonicalLink(texasDefinedBrand, canonicalPath)', 'venue canonical');
 requireText(guidePage, 'canonicalEntityPath(item)', 'nearby internal links');
@@ -68,4 +74,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Sports venue Phase 2 integration validation passed for five production candidates: shared responsive event/calendar/ticketing, real licensed venue imagery, verified quick facts, safe lodging fallbacks, internal linking, sources, canonicals and expiration behavior are wired without template filler.');
+console.log('Sports venue Phase 2 integration validation passed for five production candidates: shared responsive event/calendar/ticketing, real licensed venue imagery, verified quick facts, safe lodging fallbacks with sponsored/nofollow and first-party partner attribution, internal linking, sources, canonicals and expiration behavior are wired without template filler.');
