@@ -202,7 +202,7 @@ requireTokens('Legacy advertising billing route', legacyBillingRoute, ["createFi
 requireTokens('Legacy advertising terms route', legacyTermsRoute, ["createFileRoute('/advertising-terms')", "to: '/partner-with-us/terms'", 'replace: true']);
 
 requireTokens('Master advertising agreement draft', baseAgreement, [
-  '2026-09-16-v2', 'not been reviewed by counsel', 'Editorial independence', 'No performance guarantees', 'Indemnification', 'Limitation of liability', 'Force majeure', 'Governing law',
+  '2026-09-16-v2', 'does not represent that it has been reviewed by counsel', 'Editorial independence', 'No performance guarantee', 'Indemnification', 'Limitation of liability', 'Force majeure', 'Governing law',
 ]);
 requireTokens('Local Partner schedule', localSchedule, ['$249', '$2,490']);
 requireTokens('Growth Partner schedule', growthSchedule, ['$499', '$4,990']);
@@ -213,7 +213,7 @@ requireTokens('Integrated Campaign schedule', integratedSchedule, ['$1,500', 'Fo
 requireTokens('Advertising order form', orderForm, [
   'Annual Local Partner — $2,490/year prepaid', 'Annual Growth Partner — $4,990/year prepaid', 'Annual Premier Partner — $9,990/year prepaid',
   'Event Campaign — starting at $495', 'Integrated Campaign — starting at $1,500', 'Custom Sponsorship / Partnership',
-  'Authorized signer', 'Publisher acceptance', 'does not',
+  'Advertiser authorized signer', 'Texas Defined publisher acceptance', 'does not',
 ]);
 
 for (const [name, source] of [
