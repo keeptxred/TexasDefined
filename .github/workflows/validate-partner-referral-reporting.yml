@@ -1,0 +1,51 @@
+name: Validate partner referral reporting
+
+on:
+  pull_request:
+    paths:
+      - 'supabase/migrations/20260916032000_create_partner_referral_daily.sql'
+      - 'scripts/monetization/sync-partner-referral-analytics.mjs'
+      - 'scripts/data/validate-partner-referral-reporting.mjs'
+      - '.github/workflows/sync-partner-referral-analytics.yml'
+      - '.github/workflows/validate-partner-referral-reporting.yml'
+      - 'src/data/partner-referral-analytics.types.ts'
+      - 'src/data/partner-referral-analytics.server.ts'
+      - 'src/data/partner-referral-analytics.functions.ts'
+      - 'src/routes/admin.partner-referrals.tsx'
+      - 'src/routes/admin.partner-referrals.lazy.tsx'
+      - 'src/routes/admin.tsx'
+      - 'src/lib/texas-defined-outcome-analytics.server.ts'
+  push:
+    branches: [main]
+    paths:
+      - 'supabase/migrations/20260916032000_create_partner_referral_daily.sql'
+      - 'scripts/monetization/sync-partner-referral-analytics.mjs'
+      - 'scripts/data/validate-partner-referral-reporting.mjs'
+      - '.github/workflows/sync-partner-referral-analytics.yml'
+      - '.github/workflows/validate-partner-referral-reporting.yml'
+      - 'src/data/partner-referral-analytics.types.ts'
+      - 'src/data/partner-referral-analytics.server.ts'
+      - 'src/data/partner-referral-analytics.functions.ts'
+      - 'src/routes/admin.partner-referrals.tsx'
+      - 'src/routes/admin.partner-referrals.lazy.tsx'
+      - 'src/routes/admin.tsx'
+      - 'src/lib/texas-defined-outcome-analytics.server.ts'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: partner-referral-reporting-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate private partner referral reporting
+        run: node scripts/data/validate-partner-referral-reporting.mjs
