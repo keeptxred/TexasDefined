@@ -1,6 +1,30 @@
 import type { SportsVenuePhoto } from './sports-venue-images';
 
 const curatedSportsVenuePhotoOverrides: Record<string, SportsVenuePhoto> = {
+  'legacy-stadium-katy': {
+    slug: 'legacy-stadium-katy',
+    alt: 'Football game and crowd activity at Legacy Stadium in Katy, Texas',
+    imageUrl: 'https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/2410/8718549/2000w_q95.jpg',
+    sourcePage: 'https://www.dvidshub.net/image/8718549/rss-katy-attends-katy-jordan-vs-katy-taylor-football-game',
+    sourceName: 'DVIDS / U.S. Marine Corps',
+    author: 'Ryan Pulliam',
+    licenseName: 'Public domain; the appearance of U.S. Department of War visual information does not imply or constitute DoW endorsement',
+    licenseUrl: 'https://www.dvidshub.net/about/copyright',
+    width: 6720,
+    height: 4480,
+  },
+  'national-shooting-complex': {
+    slug: 'national-shooting-complex',
+    alt: 'U.S. Army Marksmanship Unit shotgun demonstration at the National Shooting Complex in San Antonio',
+    imageUrl: 'https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/1902/5114543/2000w_q95.jpg',
+    sourcePage: 'https://www.dvidshub.net/image/5114543/us-army-soldiers-give-shotgun-demo-in-texas',
+    sourceName: 'DVIDS / U.S. Army Marksmanship Unit',
+    author: 'Michelle Lunato',
+    licenseName: 'Public domain; the appearance of U.S. Department of War visual information does not imply or constitute DoW endorsement',
+    licenseUrl: 'https://www.dvidshub.net/about/copyright',
+    width: 6001,
+    height: 3097,
+  },
   'retama-park': {
     slug: 'retama-park',
     alt: 'Quarter horse racing at Retama Park in Selma, Texas',
