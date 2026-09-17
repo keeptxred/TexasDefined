@@ -8,6 +8,7 @@ const route66Hub = fs.readFileSync('src/components/explore/TexasRoute66Hub.tsx',
 const route66Page = fs.readFileSync('src/components/explore/TexasRoute66Page.tsx', 'utf8');
 const paintedChurchesPlanner = fs.readFileSync('src/routes/explore.painted-churches-plan.tsx', 'utf8');
 const tripPlanner = fs.readFileSync('src/routes/explore.trip-planner.lazy.tsx', 'utf8');
+const categoryHub = fs.readFileSync('src/routes/explore.$category.lazy.tsx', 'utf8');
 const errors = [];
 
 function requireText(source, needle, label) {
@@ -78,6 +79,17 @@ for (const [needle, label] of [
   ['title="Need a rental car for this Texas itinerary?"', 'Trip Planner contextual rental-car title'],
 ]) requireText(tripPlanner, needle, label);
 
+for (const [needle, label] of [
+  ['const showRoadTripRentalCar = match.slug === "road-trips"', 'road-trip category-only gate'],
+  ['showRoadTripRentalCar ? <Container', 'road-trip category conditional placement'],
+  ['<BookingCarRentalCard placement="road-trips-category"', 'road-trip category affiliate card'],
+  ['title="Need a rental car for your Texas road trip?"', 'road-trip category contextual title'],
+]) requireText(categoryHub, needle, label);
+
+if (/showRoadTripRentalCar\s*=.*(?:state-parks|lakes-rivers|small-towns|historic-sites)/.test(categoryHub)) {
+  errors.push('Generic category rental-car placement must remain limited to the explicit road-trips authority surface.');
+}
+
 if (/window\.location\s*=|window\.location\.href\s*=/.test(component)) {
   errors.push('Booking.com affiliate component must not force redirects.');
 }
@@ -92,4 +104,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Booking.com car-rental affiliate validation passed: TexasDefined uses the approved CJ publisher, current Booking.com U.S. rental-car destination, shared first-party affiliate click telemetry, explicit sponsored links, disclosure, high-intent destination gating, dedicated road-trip placements and a generated-route-only Trip Planner placement without forced redirects or duplicate analytics code.');
+console.log('Booking.com car-rental affiliate validation passed: TexasDefined uses the approved CJ publisher, current Booking.com U.S. rental-car destination, shared first-party affiliate click telemetry, explicit sponsored links, disclosure, high-intent destination gating, dedicated road-trip placements including the canonical road-trips authority hub, and a generated-route-only Trip Planner placement without forced redirects or duplicate analytics code.');
