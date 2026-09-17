@@ -92,8 +92,9 @@ jobs:
           ];
 
           const variants = [
-            { name: 'bare canonical', cacheBust: false },
-            { name: 'cache-busted', cacheBust: true },
+            { name: 'ordinary browser', cacheBust: false, bypassCache: false },
+            { name: 'cache-bypass', cacheBust: false, bypassCache: true },
+            { name: 'cache-busted', cacheBust: true, bypassCache: false },
           ];
 
           function canonicalPresent(html, path) {
@@ -116,23 +117,31 @@ jobs:
             return html.replace(/<!--\s*-->/g, '');
           }
 
-          function routeUrl(route, attempt, cacheBust) {
-            if (!cacheBust) return `${origin}${route.path}`;
+          function routeUrl(route, attempt, variant) {
+            if (!variant.cacheBust) return `${origin}${route.path}`;
             return `${origin}${route.path}?verify-advertiser=${encodeURIComponent(`${revision}-${Date.now()}-${attempt}`)}`;
           }
 
-          async function fetchRoute(route, attempt, cacheBust) {
-            const url = routeUrl(route, attempt, cacheBust);
-            const response = await fetch(url, {
-              redirect: 'follow',
-              cache: 'no-store',
+          function requestInit(variant, redirect) {
+            const headers = {
+              'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/153.0.0.0 Safari/537.36',
+              accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+            };
+            if (variant.bypassCache) {
+              headers['cache-control'] = 'no-cache';
+              headers.pragma = 'no-cache';
+            }
+            return {
+              redirect,
+              cache: variant.bypassCache ? 'no-store' : 'default',
               signal: AbortSignal.timeout(30_000),
-              headers: {
-                'user-agent': 'TexasDefined-Advertiser-Production-Smoke/1.1',
-                'cache-control': 'no-cache',
-                pragma: 'no-cache',
-              },
-            });
+              headers,
+            };
+          }
+
+          async function fetchRoute(route, attempt, variant) {
+            const url = routeUrl(route, attempt, variant);
+            const response = await fetch(url, requestInit(variant, 'follow'));
             const html = await response.text();
             const renderedHtml = normalizeRenderedHtml(html);
             const missing = route.needles.filter((needle) => !renderedHtml.includes(needle));
@@ -150,7 +159,7 @@ jobs:
               let passed = false;
               for (let attempt = 1; attempt <= 6; attempt += 1) {
                 try {
-                  result = await fetchRoute(route, attempt, variant.cacheBust);
+                  result = await fetchRoute(route, attempt, variant);
                   passed = result.response.ok && result.missing.length === 0 && result.forbidden.length === 0 && result.canonicalOk && result.indexOk;
                   console.log(`[${route.name} / ${variant.name}] attempt ${attempt}: HTTP ${result.response.status}; missing=${result.missing.join(' | ') || 'none'}; forbidden=${result.forbidden.join(' | ') || 'none'}; canonical=${result.canonicalOk}; robots=${result.robots || '(none)'}`);
                   if (passed) break;
@@ -172,16 +181,7 @@ jobs:
                 try {
                   const suffix = variant.cacheBust ? `?verify-advertiser=${encodeURIComponent(`${revision}-${Date.now()}-${attempt}`)}` : '';
                   const url = `${origin}${from}${suffix}`;
-                  const response = await fetch(url, {
-                    redirect: 'manual',
-                    cache: 'no-store',
-                    signal: AbortSignal.timeout(30_000),
-                    headers: {
-                      'user-agent': 'TexasDefined-Advertiser-Production-Smoke/1.1',
-                      'cache-control': 'no-cache',
-                      pragma: 'no-cache',
-                    },
-                  });
+                  const response = await fetch(url, requestInit(variant, 'manual'));
                   const location = response.headers.get('location') || '';
                   const resolved = location ? new URL(location, origin).pathname : '';
                   passed = response.status === 301 && resolved === to;
@@ -204,5 +204,5 @@ jobs:
             process.exit(1);
           }
 
-          console.log('Advertiser production verification passed for bare canonical and cache-busted requests: hub/support pages, exact pricing/content and tier naming, demo disclosure, agreement noindex, no test-only public copy, and permanent legacy redirects are live.');
+          console.log('Advertiser production verification passed for ordinary-browser, cache-bypass and cache-busted requests: hub/support pages, exact pricing/content and tier naming, demo disclosure, agreement noindex, no test-only public copy, and permanent legacy redirects are live.');
           NODE
