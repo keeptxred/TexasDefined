@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 
 const component = fs.readFileSync('src/components/monetization/BookingCarRentalCard.tsx', 'utf8');
+const tracker = fs.readFileSync('src/lib/affiliate-click.ts', 'utf8');
 const destinationPlanner = fs.readFileSync('src/components/editorial/DestinationVisitPlanner.tsx', 'utf8');
 const roadTrips = fs.readFileSync('src/components/explore/TopAttractionRoadTripsContent.tsx', 'utf8');
 const route66Hub = fs.readFileSync('src/components/explore/TexasRoute66Hub.tsx', 'utf8');
@@ -20,12 +21,24 @@ for (const [needle, label] of [
   ['sponsored nofollow noopener noreferrer', 'affiliate relationship attributes'],
   ['Compare rental cars on Booking.com', 'Booking.com car-rental CTA'],
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Booking.com car-rental bookings', 'affiliate disclosure'],
-  ['event: "affiliate_click"', 'affiliate click event'],
-  ['affiliate_partner: "booking.com"', 'Booking.com analytics partner'],
+  ['import { trackAffiliateClick } from "@/lib/affiliate-click"', 'shared affiliate tracker import'],
+  ['partner: "booking.com"', 'Booking.com analytics partner'],
+  ['label: BOOKING_CAR_RENTAL_LABEL', 'Booking.com analytics label'],
+  ['module: "car-rental"', 'Booking.com analytics module'],
   ['data-commercial-partner="booking.com"', 'first-party commercial partner metadata'],
   ['data-commercial-placement={placement}', 'first-party commercial placement attribution'],
-  ['texasdefined:affiliate-click', 'first-party affiliate browser event'],
 ]) requireText(component, needle, label);
+
+for (const [needle, label] of [
+  ['event: "affiliate_click"', 'shared affiliate click event'],
+  ['affiliate_partner: partner', 'shared affiliate partner field'],
+  ['affiliate_placement: placement', 'shared affiliate placement field'],
+  ['texasdefined:affiliate-click', 'first-party affiliate browser event'],
+]) requireText(tracker, needle, label);
+
+if (component.includes('type AffiliateAnalyticsWindow') || component.includes('trackBookingCarRentalClick')) {
+  errors.push('Booking.com rental-car card must reuse the shared affiliate click tracker instead of duplicating client analytics code.');
+}
 
 for (const [needle, label] of [
   ['drivingIntentPattern', 'driving-intent gate'],
@@ -79,4 +92,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Booking.com car-rental affiliate validation passed: TexasDefined uses the approved CJ publisher, a current Booking.com U.S. rental-car destination, explicit sponsored links, first-party click attribution, disclosure, a high-intent destination gate that excludes parking-only matches, dedicated placements on Top Attractions road trips, Route 66 hub/stop guides and Painted Churches, plus a generated-route-only Trip Planner placement without forced redirects.');
+console.log('Booking.com car-rental affiliate validation passed: TexasDefined uses the approved CJ publisher, current Booking.com U.S. rental-car destination, shared first-party affiliate click telemetry, explicit sponsored links, disclosure, high-intent destination gating, dedicated road-trip placements and a generated-route-only Trip Planner placement without forced redirects or duplicate analytics code.');
