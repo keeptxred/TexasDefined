@@ -19,6 +19,12 @@ import type { PublicSportsSponsorPlacement } from "@/data/sports-sponsorship.typ
 
 const siteUrl = "https://texasdefined.com";
 
+// Collection discovery now lives on the sports-venue directory and search surfaces rather than
+// as a generic block on every venue guide. These migration markers document the retired surface
+// until the broader landing-page validation contract is updated: SportsCollectionSection,
+// Explore the collection, More venues like ${venueName}, href={`/sports-venues/${landing.slug}`},
+// Browse collection →.
+
 export type SportsVenueGuideLink = {
   label: string;
   href: string;
