@@ -24,7 +24,19 @@ for (const token of ["safeHttpsUrl", 'url.protocol === "https:"', "isExpired", "
 for (const token of ['provider: "official"', "uniqueTicketUrls", "new Set(offers.map((offer) => offer.url))", "officialTicketUrl: url", 'saleStatus: "unknown"', 'kind: "official-event"', "lastVerifiedAt", "priority: index"]) requireText(adapter, token, "official ticket normalization");
 if (adapter.includes("affiliateUrl:")) failures.push("official-source adapter must not fabricate affiliate URLs");
 for (const token of ["resolveEventTicketCta", "ticketCta: resolveEventTicketCta(event.ticketing)"]) requireText(calendar, token, "calendar projection");
-for (const token of ["target=\"_blank\"", "rel={cta.rel}", "cta.disclosure", "TexasDefined never owns ticket checkout"]) requireText(component, token, "ticket CTA component");
+for (const token of [
+  "target=\"_blank\"",
+  "rel={cta.rel}",
+  "cta.disclosure",
+  "TexasDefined never owns ticket checkout",
+  'const partner = cta.isAffiliate ? cta.provider : undefined',
+  'data-affiliate-partner={partner}',
+  'data-affiliate-placement={partner ? placement : undefined}',
+  'data-commercial-partner={partner}',
+  'data-commercial-placement={partner ? placement : undefined}',
+  'trackAffiliateClick({ partner, label: cta.label, placement, module: "event-ticketing" })',
+]) requireText(component, token, "ticket CTA component");
+if (component.includes('data-commercial-partner={cta.provider}')) failures.push("official ticket CTAs must not be marked commercial; metadata must remain affiliate-gated");
 for (const token of ["EventTicketCta", "event.ticketCta", "Official event site"]) requireText(carousel, token, "carousel integration");
 for (const token of ["EventTicketCta", "event.ticketCta", "Official event site"]) requireText(landing, token, "calendar integration");
 for (const token of ["Calendar workstream", "Venue-page workstream", "Do not read raw ticketing.links in presentation components", "getSportsVenueUpcomingEvents", "buildTexasEventCarouselItemsServer", "Ticketmaster", "SeatGeek", "Vivid Seats", "No checkout", "environment/secrets manager", "deduplicated by destination URL", "validate-event-ticket-positive-path.mjs", "verify-event-ticketing-production.mjs"]) requireText(docs, token, "integration documentation");
@@ -58,4 +70,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("PASS: provider-neutral event ticketing resolves one safe outbound CTA with affiliate-first fallback, expiration/status suppression, deduplicated official destinations, disclosure semantics, and shared calendar/venue integration.");
+console.log("PASS: provider-neutral event ticketing resolves one safe outbound CTA with affiliate-first fallback, expiration/status suppression, deduplicated official destinations, disclosure semantics, affiliate-only first-party partner attribution, and shared calendar/venue integration.");
