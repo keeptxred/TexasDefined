@@ -66,17 +66,23 @@ export function SportsVenueGuidePilotContent({
     guide.officialUrl && entity.officialUrl !== guide.officialUrl
       ? { ...entity, officialUrl: guide.officialUrl }
       : entity;
-  const photo = getSportsVenuePhoto(slug);
+  const registeredPhoto = getSportsVenuePhoto(slug);
+  const photo = registeredPhoto
+    ? {
+        ...registeredPhoto,
+        imageUrl: `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}`,
+      }
+    : registeredPhoto;
   const seenEventImageKeys = new Set<string>();
   const venueEvents: readonly TexasEventCarouselItem[] = upcomingEvents.map((event) => {
     if (!event.image) return event;
 
-    const isDistinctFromVenueHero = !photo || (
-      event.image?.url !== photo.imageUrl
-      && event.image?.sourceUrl !== photo.sourcePage
+    const isDistinctFromVenueHero = !registeredPhoto || (
+      event.image?.url !== registeredPhoto.imageUrl
+      && event.image?.sourceUrl !== registeredPhoto.sourcePage
       && !imageReferencesMatch(
         [event.image?.url, event.image?.sourceUrl],
-        [photo.imageUrl, photo.sourcePage],
+        [registeredPhoto.imageUrl, registeredPhoto.sourcePage],
       )
     );
     const repeatsVenueHero = !isDistinctFromVenueHero;
