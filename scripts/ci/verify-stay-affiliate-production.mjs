@@ -173,6 +173,12 @@ const pages = [
     marker: 'Travis County',
     requireSlot: false,
   },
+  {
+    route: '/explore/road-trips',
+    marker: 'Road Trips',
+    requireSlot: false,
+    requireBookingCar: true,
+  },
 ];
 
 for (const page of pages) {
@@ -184,6 +190,16 @@ for (const page of pages) {
   const affiliatePosition = html.indexOf('/stay-affiliate-options.js');
   requireCondition(expediaPosition >= 0 && affiliatePosition > expediaPosition, `${page.route} no longer loads the stay affiliate bootstrap after Expedia/Stay Nearby.`);
   if (page.requireSlot) requireCondition(html.includes('data-stay-nearby-slot'), `${page.route} is missing its explicit in-content Stay Nearby slot.`);
+  if (page.requireBookingCar) {
+    for (const marker of [
+      'Need a rental car for your Texas road trip?',
+      'Compare rental cars on Booking.com',
+      'data-affiliate-partner="booking.com"',
+      'data-commercial-placement="road-trips-category"',
+      'rel="sponsored nofollow noopener noreferrer"',
+      'Affiliate disclosure: TexasDefined may earn a commission from qualifying Booking.com car-rental bookings',
+    ]) requireCondition(html.includes(marker), `${page.route} is missing live Booking.com rental-car marker: ${marker}`);
+  }
 
   const noindex = /<meta[^>]+(?:name=["'](?:robots|googlebot|googlebot-news)["'][^>]+content=["'][^"']*\bnoindex\b|content=["'][^"']*\bnoindex\b[^>]+name=["'](?:robots|googlebot|googlebot-news)["'])/i.test(html);
   requireCondition(!noindex, `${page.route} is noindex and must not be part of the monetized production cohort.`);
@@ -195,4 +211,4 @@ for (const page of pages) {
   requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === page.route.replace(/\/+$/, ''), `${page.route} is not self-canonical and must not be part of the monetized production cohort.`);
 }
 
-console.log('Stay affiliate production verification passed: all 15 curated hotel records expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher while broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted a real partner_referral_clicked probe backed by Cloudflare Analytics Engine; Hotels.com/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, venue and destination pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; and script ordering is intact.');
+console.log('Stay affiliate production verification passed: all 15 curated hotel records expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher while broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted a real partner_referral_clicked probe backed by Cloudflare Analytics Engine; Hotels.com/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, venue and destination pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');
