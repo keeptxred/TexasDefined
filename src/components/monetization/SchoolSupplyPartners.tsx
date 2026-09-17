@@ -1,3 +1,5 @@
+import { trackAffiliateClick } from "@/lib/affiliate-click";
+
 const reallyGoodStuffUrl = "https://www.anrdoezrs.net/click-101876465-17106455";
 
 const discountSchoolSupplyUrls = {
@@ -8,25 +10,6 @@ const discountSchoolSupplyUrls = {
   specialNeeds:
     "https://email.cj.com/c/eJxEzD1urDAUQOHV2B2W__EULp70RBElUrZwudcES4ARNsOw-yhN0p3mfBTDRGB5iqoPIQTppOVzDH5EOXppRuOUwaDQ9BOBeni0qFLPc1SmV8Eqp4V29tGL319r68UbPOED8iK2Mha6mZVrWsd0dLDnzpOfgvPWu85VfxFf4tzazsw_pgemh-u6BOWK5dxaxbmUpZ77vtwCy8r08HkUOrH91XuuTUDdX8wMCC19leNm5r_2RvMjAq15Y1a29IJKacpboh-JP6P-DgAA__-fOE7b",
 };
-
-type AffiliateAnalyticsWindow = Window & {
-  dataLayer?: Array<Record<string, unknown>>;
-};
-
-function trackSchoolSupplyClick(partner: "really-good-stuff" | "discount-school-supply", placement: string, label: string) {
-  if (typeof window === "undefined") return;
-  const analyticsWindow = window as AffiliateAnalyticsWindow;
-  const detail = {
-    event: "affiliate_click",
-    affiliate_partner: partner,
-    affiliate_label: label,
-    affiliate_placement: placement,
-    page_path: window.location.pathname,
-  };
-  analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
-  analyticsWindow.dataLayer.push(detail);
-  window.dispatchEvent(new CustomEvent("texasdefined:affiliate-click", { detail }));
-}
 
 export function SchoolSupplyPartners({ placement = "inline", className = "", context = "school" }: { placement?: "inline" | "rail"; className?: string; context?: "school" | "homecoming" }) {
   const isRail = placement === "rail";
@@ -51,7 +34,7 @@ export function SchoolSupplyPartners({ placement = "inline", className = "", con
           data-affiliate-placement={commercialPlacement}
           data-commercial-partner="really-good-stuff"
           data-commercial-placement={commercialPlacement}
-          onClick={() => trackSchoolSupplyClick("really-good-stuff", commercialPlacement, "Really Good Stuff")}
+          onClick={() => trackAffiliateClick({ partner: "really-good-stuff", label: "Really Good Stuff", placement: commercialPlacement, module: "school-supplies" })}
           className={isRail ? "group border-b border-border pb-4 transition-colors hover:text-primary" : "group border border-border bg-background p-5 transition-colors hover:border-primary/60"}
         >
           <span className="font-display text-xl group-hover:text-primary">Really Good Stuff</span>
@@ -66,7 +49,7 @@ export function SchoolSupplyPartners({ placement = "inline", className = "", con
           data-affiliate-placement={commercialPlacement}
           data-commercial-partner="discount-school-supply"
           data-commercial-placement={commercialPlacement}
-          onClick={() => trackSchoolSupplyClick("discount-school-supply", commercialPlacement, isHomecoming ? "Discount School Supply arts and crafts" : "Discount School Supply curriculum")}
+          onClick={() => trackAffiliateClick({ partner: "discount-school-supply", label: isHomecoming ? "Discount School Supply arts and crafts" : "Discount School Supply curriculum", placement: commercialPlacement, module: "school-supplies" })}
           className="group border border-border bg-background p-5 transition-colors hover:border-primary/60"
         >
           <span className="font-display text-xl group-hover:text-primary">Discount School Supply</span>
@@ -83,7 +66,7 @@ export function SchoolSupplyPartners({ placement = "inline", className = "", con
           data-affiliate-placement={`${commercialPlacement}-arts-crafts`}
           data-commercial-partner="discount-school-supply"
           data-commercial-placement={`${commercialPlacement}-arts-crafts`}
-          onClick={() => trackSchoolSupplyClick("discount-school-supply", `${commercialPlacement}-arts-crafts`, "Discount School Supply arts and crafts")}
+          onClick={() => trackAffiliateClick({ partner: "discount-school-supply", label: "Discount School Supply arts and crafts", placement: `${commercialPlacement}-arts-crafts`, module: "school-supplies" })}
           className="border-b border-primary pb-1 text-primary"
         >Arts & crafts ↗</a>
         <a
@@ -94,7 +77,7 @@ export function SchoolSupplyPartners({ placement = "inline", className = "", con
           data-affiliate-placement={`${commercialPlacement}-special-needs`}
           data-commercial-partner="discount-school-supply"
           data-commercial-placement={`${commercialPlacement}-special-needs`}
-          onClick={() => trackSchoolSupplyClick("discount-school-supply", `${commercialPlacement}-special-needs`, "Discount School Supply special-needs resources")}
+          onClick={() => trackAffiliateClick({ partner: "discount-school-supply", label: "Discount School Supply special-needs resources", placement: `${commercialPlacement}-special-needs`, module: "school-supplies" })}
           className="border-b border-primary pb-1 text-primary"
         >Special-needs resources ↗</a>
       </div>
