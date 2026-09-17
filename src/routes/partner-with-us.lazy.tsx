@@ -24,8 +24,26 @@ const partnershipOptions = [
   ['travel', 'Travel / tourism'],
   ['sports-travel', 'Sports travel / local visitor business'],
   ['brand-retail', 'Texas brand / grocery / retail'],
-  ['sponsorship', 'Sponsorship'],
+  ['sponsorship', 'Sponsorship / agency'],
   ['other', 'Other'],
+] as const;
+
+const advertiserFit = [
+  'Hotels, lodging, campgrounds and RV destinations',
+  'Attractions, restaurants, events and visitor businesses',
+  'Moving, real-estate, mortgage and home-service companies',
+  'Texas brands, retailers and consumer services',
+  'Tourism organizations, chambers, CVBs and agencies',
+  'Outdoor, recreation and sports-travel businesses',
+] as const;
+
+const faqs = [
+  ['Does advertising buy favorable coverage?', 'No. Advertising, sponsorship and sponsored content are separate from Texas Defined editorial decisions. Paid relationships do not buy reviews, rankings, recommendations, factual conclusions or removal of legitimate coverage.'],
+  ['Do you guarantee traffic, leads or sales?', 'No. Texas Defined does not guarantee impressions, clicks, leads, bookings, conversions, sales, search rankings or editorial outcomes unless a separately signed order form expressly states a delivery quantity.'],
+  ['How are paid placements disclosed?', 'Paid placements are clearly identified with labels such as Sponsored, Partner or Advertisement. Sponsored-content links may use rel="sponsored" or nofollow treatment where appropriate.'],
+  ['How do payments work?', 'New advertisers prepay by default. Recurring plans are billed in advance, annual plans are prepaid annually, and approved organizations may receive Stripe-hosted Net 15 or Net 30 invoices. Cards and eligible ACH / US bank payments are handled by Stripe where available.'],
+  ['Do I sign a contract?', 'Yes. Approved advertisers receive the versioned Texas Defined Advertising and Sponsorship Agreement plus the applicable package or campaign order terms before a campaign goes live.'],
+  ['Can I request a custom campaign?', 'Yes. Event campaigns start at $495, integrated campaigns start at $1,500, and section/category sponsorships or other custom programs are quoted individually.'],
 ] as const;
 
 type SubmitStatus = 'idle' | 'sending' | 'sent' | 'error';
@@ -62,11 +80,15 @@ function PartnerWithUsPage() {
         contactName: String(form.get('contactName') || ''),
         email: String(form.get('email') || ''),
         company: String(form.get('company') || ''),
+        phone: String(form.get('phone') || ''),
         website: String(form.get('website') || ''),
         partnershipType: String(form.get('partnershipType') || 'other') as typeof partnershipOptions[number][0],
+        targetTexasLocations: String(form.get('targetTexasLocations') || ''),
         requestedTier: selectedTier,
         billingCycle,
-        message: String(form.get('message') || ''),
+        desiredStartDate: String(form.get('desiredStartDate') || ''),
+        objectives: String(form.get('objectives') || ''),
+        notes: String(form.get('notes') || ''),
         sourcePath: search.sourcePath,
         addressLine2: String(form.get('addressLine2') || ''),
       } });
@@ -85,9 +107,9 @@ function PartnerWithUsPage() {
       <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div><p className="eyebrow text-primary">Useful alignment</p><h2 className="mt-3 font-display text-4xl leading-tight">A professional sponsorship program, not a link marketplace.</h2></div>
         <div className="max-w-3xl space-y-5 text-base leading-8 text-muted-foreground">
-          <p>Texas Defined builds practical Texas travel, events, destinations, relocation, home, sports-travel and local-life resources. Approved commercial partners can appear where their service is a natural next step for the reader.</p>
+          <p>Texas Defined builds practical Texas travel, events, destinations, relocation, home, outdoors, sports-travel and local-life resources. Approved commercial partners can appear where their service is a natural next step for the reader.</p>
           <p>Every paid relationship is disclosed. Advertising does not buy editorial coverage, rankings, reviews, recommendations or factual conclusions. Texas Defined does not guarantee traffic, clicks, leads, bookings, sales or search rankings.</p>
-          <div className="flex flex-wrap gap-3 pt-2 text-sm font-semibold"><a href="#pricing" className="border border-primary bg-primary px-5 py-3 text-primary-foreground">Compare packages</a><a href="/partner-with-us/examples" className="border border-border px-5 py-3 text-foreground">See placement examples</a><a href="#contact" className="border border-border px-5 py-3 text-foreground">Request information</a></div>
+          <div className="flex flex-wrap gap-3 pt-2 text-sm font-semibold"><a href="#pricing" className="border border-primary bg-primary px-5 py-3 text-primary-foreground">Compare packages</a><a href="/partner-with-us/examples" className="border border-border px-5 py-3 text-foreground">See placement examples</a><a href="#contact" className="border border-border px-5 py-3 text-foreground">Request information</a><a href="#media-kit" className="border border-border px-5 py-3 text-foreground">Media kit</a></div>
         </div>
       </div>
     </Container>
@@ -128,7 +150,7 @@ function PartnerWithUsPage() {
             <ComparisonRow label="Featured hub placement" values={['—', '1', 'Up to 2', 'Custom']} />
             <ComparisonRow label="Creative refresh" values={['Quarterly', 'Quarterly', 'Monthly', 'Custom']} />
             <ComparisonRow label="Performance report" values={['Monthly', 'Monthly', 'Detailed monthly', 'Custom']} />
-            <ComparisonRow label="Social mentions" values={['—', 'Up to 1/month when available', 'Up to 2/month', 'Custom']} />
+            <ComparisonRow label="Social support" values={['—', 'Up to 1/month when appropriate', 'Up to 2/month', 'Custom']} />
             <ComparisonRow label="Sponsored feature" values={['—', '—', 'Up to 1/quarter', 'Negotiated']} />
           </tbody></table>
         </div>
@@ -141,15 +163,32 @@ function PartnerWithUsPage() {
       <div className="grid gap-8 md:grid-cols-3">
         <article className="border-t-2 border-foreground pt-5"><p className="eyebrow text-primary">See it</p><h2 className="mt-2 font-display text-3xl">Placement examples</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">See demonstration-only event, destination, relocation, sports, RV, hub and sponsored-feature treatments on desktop and mobile.</p><a href="/partner-with-us/examples" className="mt-5 inline-block border-b border-primary text-sm font-semibold">View examples →</a></article>
         <article className="border-t-2 border-foreground pt-5"><p className="eyebrow text-primary">Know the rules</p><h2 className="mt-2 font-display text-3xl">Commercial terms</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Review eligibility, creative standards, disclosures, placement flexibility, cancellation, make-goods and editorial independence.</p><a href="/partner-with-us/terms" className="mt-5 inline-block border-b border-primary text-sm font-semibold">Review terms →</a></article>
-        <article className="border-t-2 border-foreground pt-5"><p className="eyebrow text-primary">Payment</p><h2 className="mt-2 font-display text-3xl">Billing & payment</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Review prepayment, monthly and annual billing, cards, eligible ACH, Stripe invoices, Net 15 and approved Net 30 terms.</p><a href="/partner-with-us/billing" className="mt-5 inline-block border-b border-primary text-sm font-semibold">Review billing →</a></article>
+        <article className="border-t-2 border-foreground pt-5"><p className="eyebrow text-primary">Payment</p><h2 className="mt-2 font-display text-3xl">Billing & payment</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Cards, eligible ACH / bank payment, recurring billing and Stripe-hosted invoices are handled by Stripe. Approved organizations may receive Net 15 or procurement-driven Net 30 terms.</p><a href="/partner-with-us/billing" className="mt-5 inline-block border-b border-primary text-sm font-semibold">Review billing →</a></article>
       </div>
     </Container>
 
     <section className="border-y border-border bg-surface">
       <Container className="py-12 sm:py-16">
         <p className="eyebrow text-primary">How it works</p><h2 className="mt-3 max-w-4xl font-display text-4xl">Review first. Agreement and payment follow approval.</h2>
-        <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">{['Choose a package and submit the inquiry.', 'Texas Defined reviews the business and contextual fit.', 'Approved advertiser reviews and signs the versioned agreement.', 'Texas Defined issues the approved Stripe payment or invoice step and collects assets.', 'Campaign is scheduled, disclosed, launched and reported.'].map((step, index) => <li key={step} className="border-t border-border pt-4 text-sm leading-7 text-muted-foreground"><span className="font-bold text-primary">0{index + 1}</span><p className="mt-2">{step}</p></li>)}</ol>
-        <p className="mt-7 text-sm text-muted-foreground">Approved advertisers can use the <a href="/partner-with-us/agreement" className="font-semibold text-foreground underline underline-offset-4">electronic agreement route</a>. Submitting an agreement never bypasses Texas Defined review or payment requirements.</p>
+        <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">{['Choose a package and submit the inquiry.', 'Texas Defined reviews the business and contextual fit.', 'Approved advertiser receives a private agreement link and signs the versioned agreement.', 'Texas Defined issues the approved Stripe payment or invoice step and collects assets.', 'Campaign is scheduled, disclosed, launched and reported.'].map((step, index) => <li key={step} className="border-t border-border pt-4 text-sm leading-7 text-muted-foreground"><span className="font-bold text-primary">0{index + 1}</span><p className="mt-2">{step}</p></li>)}</ol>
+        <p className="mt-7 text-sm text-muted-foreground">The agreement workflow is for approved advertisers only. Signing never bypasses Texas Defined approval, payment or creative review requirements.</p>
+      </Container>
+    </section>
+
+    <Container id="media-kit" className="scroll-mt-24 py-12 sm:py-16">
+      <p className="eyebrow text-primary">Media kit</p><h2 className="mt-3 max-w-4xl font-display text-4xl">Texas-focused context, intent and relevance without invented reach claims.</h2>
+      <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">Texas Defined covers destinations, events, lakes and rivers, state parks, road trips, small towns, food and BBQ, outdoors, sports travel, moving to Texas, home and garden, real estate, Texas history, guides and practical tools. Until verified audience metrics are strong enough to publish, partnerships are presented around contextual fit, geographic relevance, useful reader intent and founding-partner access—not fabricated traffic numbers.</p>
+      <div className="mt-8 grid gap-6 lg:grid-cols-3">
+        <article className="border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl">Who fits</h3><ul className="mt-4 space-y-2 text-sm leading-6 text-muted-foreground">{advertiserFit.map((item) => <li key={item}>• {item}</li>)}</ul></article>
+        <article className="border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl">Formats</h3><p className="mt-4 text-sm leading-7 text-muted-foreground">Contextual sponsor modules, featured partner placements on appropriate hubs or sections, disclosed sponsored features when editorially appropriate, agreed social support, event campaigns, integrated campaigns and custom section/category sponsorships.</p><a href="/partner-with-us/examples" className="mt-4 inline-block border-b border-primary text-sm font-semibold">See DEMO placements →</a></article>
+        <article className="border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl">Standards</h3><p className="mt-4 text-sm leading-7 text-muted-foreground">Every paid relationship is disclosed. Texas Defined maintains editorial independence, rejects unsuitable advertising, does not sell favorable coverage and does not guarantee commercial outcomes. Billing contact: <a href="mailto:admin@texasdefined.com" className="font-semibold text-foreground underline underline-offset-4">admin@texasdefined.com</a>.</p></article>
+      </div>
+    </Container>
+
+    <section className="border-y border-border bg-surface">
+      <Container className="py-12 sm:py-16">
+        <p className="eyebrow text-primary">Frequently asked questions</p><h2 className="mt-3 max-w-4xl font-display text-4xl">Straight answers before you request a proposal.</h2>
+        <div className="mt-8 grid gap-4 lg:grid-cols-2">{faqs.map(([question, answer]) => <details key={question} className="border-t border-border pt-4"><summary className="cursor-pointer font-semibold">{question}</summary><p className="pb-3 pt-3 text-sm leading-7 text-muted-foreground">{answer}</p></details>)}</div>
       </Container>
     </section>
 
@@ -170,13 +209,17 @@ function PartnerWithUsPage() {
             {status === 'sent' ? <div className="mt-7 border-y border-border py-6" role="status"><p className="font-semibold">Inquiry received.</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Texas Defined will review the business and proposed fit before any agreement or payment step is issued.</p></div> : null}
             <form onSubmit={submitInquiry} className="mt-8 grid gap-5" noValidate>
               <div className="grid gap-5 sm:grid-cols-2"><Field label="Your name" name="contactName" autoComplete="name" required /><Field label="Work email" name="email" type="email" autoComplete="email" required /></div>
-              <div className="grid gap-5 sm:grid-cols-2"><Field label="Company or organization" name="company" autoComplete="organization" required /><Field label="Website" name="website" type="url" autoComplete="url" placeholder="https://" /></div>
+              <div className="grid gap-5 sm:grid-cols-2"><Field label="Company or organization" name="company" autoComplete="organization" required /><Field label="Phone (optional)" name="phone" type="tel" autoComplete="tel" /></div>
+              <Field label="Website" name="website" type="url" autoComplete="url" placeholder="https://" />
               <div className="grid gap-5 sm:grid-cols-2">
                 <label className="grid gap-2 text-sm font-semibold" htmlFor="requestedTier">Package interest<select id="requestedTier" value={selectedTier} onChange={(event) => setSelectedTier(event.target.value as AdvertiserTierId)} className="min-h-11 border border-border bg-background px-3 py-2 font-normal text-foreground"><option value="local">Local Partner</option><option value="growth">Growth Partner</option><option value="premier">Premier Partner</option><option value="custom">Custom Partnership</option></select></label>
                 <label className="grid gap-2 text-sm font-semibold" htmlFor="billingCycle">Billing preference<select id="billingCycle" value={billingCycle} onChange={(event) => setBillingCycle(event.target.value as AdvertiserBillingCycle)} className="min-h-11 border border-border bg-background px-3 py-2 font-normal text-foreground"><option value="monthly">Monthly</option><option value="annual">Annual</option></select></label>
               </div>
-              <label className="grid gap-2 text-sm font-semibold" htmlFor="partnershipType">Business / partnership type<select key={search.partnershipType ?? 'other'} id="partnershipType" name="partnershipType" className="min-h-11 border border-border bg-background px-3 py-2 font-normal text-foreground" defaultValue={search.partnershipType ?? 'other'} required>{partnershipOptions.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
-              <label className="grid gap-2 text-sm font-semibold" htmlFor="message">What would you like to accomplish?<textarea id="message" name="message" minLength={20} maxLength={5000} rows={7} required className="border border-border bg-background px-3 py-3 font-normal text-foreground" placeholder="Tell us what you offer, the Texas audience you serve, desired geography or section, timing and campaign goals." /></label>
+              <label className="grid gap-2 text-sm font-semibold" htmlFor="partnershipType">Business category<select key={search.partnershipType ?? 'other'} id="partnershipType" name="partnershipType" className="min-h-11 border border-border bg-background px-3 py-2 font-normal text-foreground" defaultValue={search.partnershipType ?? 'other'} required>{partnershipOptions.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
+              <Field label="Target Texas locations" name="targetTexasLocations" placeholder="Cities, regions, counties or statewide" />
+              <Field label="Desired start date" name="desiredStartDate" type="date" />
+              <label className="grid gap-2 text-sm font-semibold" htmlFor="objectives">Campaign objectives<textarea id="objectives" name="objectives" minLength={20} maxLength={3000} rows={6} required className="border border-border bg-background px-3 py-3 font-normal text-foreground" placeholder="What should this campaign help your business accomplish, and which Texas audience or context matters most?" /></label>
+              <label className="grid gap-2 text-sm font-semibold" htmlFor="notes">Additional notes (optional)<textarea id="notes" name="notes" maxLength={3000} rows={4} className="border border-border bg-background px-3 py-3 font-normal text-foreground" placeholder="Timing, placement ideas, procurement needs, PO requirements or other useful details." /></label>
               <div className="sr-only" aria-hidden="true"><label htmlFor="addressLine2">Address line 2</label><input id="addressLine2" name="addressLine2" tabIndex={-1} autoComplete="off" /></div>
               {status === 'error' ? <p className="text-sm font-semibold text-destructive" role="alert">{errorMessage}</p> : null}
               <button type="submit" disabled={status === 'sending'} className="min-h-11 justify-self-start border border-primary bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground disabled:opacity-60">{status === 'sending' ? 'Submitting…' : 'Submit partnership inquiry'}</button>

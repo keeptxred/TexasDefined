@@ -109,15 +109,15 @@ for (const marker of [
   'type="password"',
   'sessionStorage.setItem(SESSION_KEY, key)',
   'sessionStorage.removeItem(SESSION_KEY)',
-  'getSportsPartnerLeadDashboard',
-  'setSportsPartnerLeadStatus',
+  'getAdvertiserLeadDashboard',
+  'setAdvertiserLeadStatus',
   'promoteSportsPartnerLeadToSponsor',
-  'Promote to sponsor prospect',
-  'Website required before sponsor promotion',
-  'was promoted to a sponsor prospect',
-  'Venue-attributed',
+  "lead.partnershipType === 'sports-travel' && lead.website",
+  'Promote to sports sponsor prospect',
+  'was promoted to a sports sponsor prospect',
   'Lead sources',
-  'Sports-travel opportunities',
+  'Advertiser opportunities',
+  'Prepare private agreement link',
   'Lock dashboard',
 ]) {
   assert(route.includes(marker), `Sports partner admin route is missing privacy, promotion, or operator marker: ${marker}.`);
@@ -141,4 +141,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Sports partner operations validated: RLS-protected hashed admin key, server-only PII access, gated operator dashboard, venue-source attribution, status workflow and duplicate-safe lead-to-sponsor promotion are protected.');
+console.log('Sports partner operations validated: RLS-protected hashed admin key, server-only PII access, unified advertiser operations dashboard, venue-source attribution, advertiser lifecycle handling and duplicate-safe sports lead-to-sponsor promotion are protected.');
