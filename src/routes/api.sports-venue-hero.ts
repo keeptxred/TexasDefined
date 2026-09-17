@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 const photoRedirectHeaders = {
-  'cache-control': 'public, max-age=86400, stale-while-revalidate=604800',
+  'cache-control': 'no-store',
   'x-robots-tag': 'noindex, follow',
 };
 

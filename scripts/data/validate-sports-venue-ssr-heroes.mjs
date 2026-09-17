@@ -4,6 +4,7 @@ const read = (path) => fs.readFileSync(path, 'utf8');
 const route = read('src/routes/sports-venue.$slug.tsx');
 const quickAnswers = read('src/components/sports/SportsVenueQuickAnswers.tsx');
 const guideContent = read('src/components/sports/SportsVenueGuidePilotContent.tsx');
+const heroEndpoint = read('src/routes/api.sports-venue-hero.ts');
 const wave7Photos = read('src/data/sports-venue-images-additions-wave7.ts');
 const productionVerifier = read('scripts/ci/verify-sports-venue-heroes-production.mjs');
 
@@ -53,8 +54,43 @@ requireText(
 );
 requireText(
   guideContent,
+  'const photo = getSportsVenuePhoto(slug);',
+  'shared sports venue guide must retain the governed photo for attribution and event-image identity',
+);
+requireText(
+  guideContent,
+  'const renderedPhoto = photo',
+  'shared sports venue guide must separate rendered hero delivery from governed photo metadata',
+);
+requireText(
+  guideContent,
+  'imageUrl: `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}`',
+  'hydrated sports venue hero must use the server-authoritative hero endpoint instead of a bundled image URL',
+);
+requireText(
+  guideContent,
+  'photo={renderedPhoto}',
+  'shared sports venue guide must render the server-authoritative hero URL',
+);
+requireText(
+  guideContent,
+  '[photo.imageUrl, photo.sourcePage]',
+  'event-image dedupe must continue comparing against the governed venue photo',
+);
+requireText(
+  guideContent,
   'export function SportsVenueGuidePilotContent(',
   'shared sports venue guide must expose a synchronous named export for the dynamic route',
+);
+requireText(
+  heroEndpoint,
+  "'cache-control': 'no-store'",
+  'server-authoritative sports venue hero redirects must not preserve stale photo locations',
+);
+forbidText(
+  heroEndpoint,
+  "'cache-control': 'public, max-age=86400, stale-while-revalidate=604800'",
+  'sports venue hero endpoint must not cache redirects for a day after governed image changes',
 );
 
 for (const marker of [
@@ -86,4 +122,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Sports venue SSR hero validation passed: guide content is server-visible, runtime hero metadata uses the aggregate photo registry, and live production verification protects current generated-vs-real attribution semantics under the sitewide AI disclosure.');
+console.log('Sports venue SSR hero validation passed: guide content is server-visible, hydrated rendered heroes remain server-authoritative, redirect caching cannot revive stale image URLs, governed attribution and event-image identity remain intact, and live production verification protects current generated-vs-real attribution semantics under the sitewide AI disclosure.');

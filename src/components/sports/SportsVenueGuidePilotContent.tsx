@@ -67,6 +67,12 @@ export function SportsVenueGuidePilotContent({
       ? { ...entity, officialUrl: guide.officialUrl }
       : entity;
   const photo = getSportsVenuePhoto(slug);
+  const renderedPhoto = photo
+    ? {
+        ...photo,
+        imageUrl: `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}`,
+      }
+    : photo;
   const seenEventImageKeys = new Set<string>();
   const venueEvents: readonly TexasEventCarouselItem[] = upcomingEvents.map((event) => {
     if (!event.image) return event;
@@ -97,7 +103,7 @@ export function SportsVenueGuidePilotContent({
       entity={verifiedEntity}
       guide={guide}
       enrichment={enrichment}
-      photo={photo}
+      photo={renderedPhoto}
       parkingMap={parkingMap}
       nearbyAttractions={nearbyAttractions}
       upcomingEvents={venueEvents}
