@@ -202,7 +202,7 @@ requireTokens('Legacy advertising billing route', legacyBillingRoute, ["createFi
 requireTokens('Legacy advertising terms route', legacyTermsRoute, ["createFileRoute('/advertising-terms')", "to: '/partner-with-us/terms'", 'replace: true']);
 
 requireTokens('Master advertising agreement draft', baseAgreement, [
-  '2026-09-16-v2', 'does not represent that it has been reviewed by counsel', 'Editorial independence', 'No performance guarantee', 'Indemnification', 'Limitation of liability', 'Force majeure', 'Governing law',
+  '2026-09-16-v2', 'does not represent that these terms have been reviewed by counsel', 'Editorial independence', 'No performance guarantee', 'Indemnification', 'Limitation of liability', 'Force majeure', 'Governing law',
 ]);
 requireTokens('Local Partner schedule', localSchedule, ['$249', '$2,490']);
 requireTokens('Growth Partner schedule', growthSchedule, ['$499', '$4,990']);
