@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
 import type { TexasEventCarouselItem } from "@/components/editorial/TexasEventCarousel";
-import { StandaloneParkingMapPanel } from "@/components/parking/ParkingMapPanel";
 import { useVenueParkingMap } from "@/components/parking/useVenueParkingMap";
 import { canonicalImageReference, imageReferencesMatch } from "@/data/image-reference-identity";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
@@ -93,20 +92,18 @@ export function SportsVenueGuidePilotContent({
   });
 
   return (
-    <>
-      <SportsVenueGuidePage
-        entity={verifiedEntity}
-        guide={guide}
-        enrichment={enrichment}
-        photo={photo}
-        nearbyAttractions={nearbyAttractions}
-        upcomingEvents={venueEvents}
-        eventCalendarHref={eventCalendarHref}
-        landingLinks={landingLinks}
-        sponsorPlacement={sponsorPlacement}
-      />
-      <StandaloneParkingMapPanel map={parkingMap} contextName={entity.name} />
-    </>
+    <SportsVenueGuidePage
+      entity={verifiedEntity}
+      guide={guide}
+      enrichment={enrichment}
+      photo={photo}
+      parkingMap={parkingMap}
+      nearbyAttractions={nearbyAttractions}
+      upcomingEvents={venueEvents}
+      eventCalendarHref={eventCalendarHref}
+      landingLinks={landingLinks}
+      sponsorPlacement={sponsorPlacement}
+    />
   );
 }
 
