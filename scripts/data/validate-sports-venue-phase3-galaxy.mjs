@@ -29,13 +29,17 @@ for (const marker of [
   "getActiveSportsSponsorPlacement({ data: { surfacePath: canonicalPath } })",
   "getSportsVenueUpcomingEvents({ data: { slug: stableSlug } })",
   "import('@/data/sports-venue-images-all')",
+  "import('@/data/parking-maps.functions')",
+  'getSportsVenueParkingMap(stableSlug)',
   'photo: getSportsVenuePhoto(stableSlug)',
+  'parkingMap,',
   'head: ({ loaderData }) =>',
   'image: photo?.imageUrl',
   'imageAlt: photo?.alt',
   'imageWidth: photo?.width',
   'imageHeight: photo?.height',
   "robots: isIndexableEntityPage(entity) && photo ? undefined : 'noindex, follow, max-image-preview:large'",
+  'parkingMap={parkingMap}',
   'nearbyAttractions={nearbyAttractions}',
   'upcomingEvents={upcomingEvents}',
   'eventCalendarHref={eventCalendarHref}',
@@ -81,10 +85,13 @@ for (const marker of [
   'getSportsVenueGuideGalaxy(slug) ?? getSportsVenueGuideWave7(slug)',
   'getSportsVenuePhoto(slug)',
   'getSportsVenueEnrichmentAll(slug)',
+  'parkingMap?: ParkingMapAsset;',
+  'parkingMap={parkingMap}',
   'TexasDefinedStayNearby?.refresh?.()',
   'sponsorPlacement?: PublicSportsSponsorPlacement | null;',
   'sponsorPlacement={sponsorPlacement}',
 ]) requireText(guideContent, marker, 'shared Galaxy guide resolver');
+if (guideContent.includes('useVenueParkingMap')) failures.push('Shared venue guide must receive parking maps from SSR loader data, not a client-only effect hook.');
 
 for (const marker of [
   'SponsoredSportsPlacement',
@@ -119,7 +126,13 @@ for (const marker of ['`sports-venue:${data.slug}`', 'encodeURIComponent(venueId
   requireText(eventFn, marker, 'Galaxy venue-scoped event/calendar integration');
 }
 
-requireText(dynamicRoute, 'sponsorPlacement={sponsorPlacement}', 'dynamic redesigned venue sponsor delivery');
+for (const marker of [
+  "import('@/data/parking-maps.functions')",
+  'getSportsVenueParkingMap(params.slug)',
+  'parkingMap={parkingMap}',
+  'sponsorPlacement={sponsorPlacement}',
+]) requireText(dynamicRoute, marker, 'dynamic redesigned venue SSR delivery');
+
 for (const marker of [
   'Sponsored',
   'Paid placement by',
@@ -149,4 +162,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Galaxy Stadium shared-guide reconciliation passed: stable canonical route and aliases, current Texas Tech sources, governed Commons hero and social metadata, modern shared events/Stay Nearby/source architecture, governed sponsor delivery, and the complete 83-dynamic + 1-static = 84 venue coverage contract are intact.');
+console.log('Galaxy Stadium shared-guide reconciliation passed: stable canonical route and aliases, current Texas Tech sources, governed Commons hero and social metadata, server-rendered governed parking maps across the 83 dynamic venues plus protected Galaxy route, modern shared events/Stay Nearby/source architecture, governed sponsor delivery, and the complete 83-dynamic + 1-static = 84 venue coverage contract are intact.');
