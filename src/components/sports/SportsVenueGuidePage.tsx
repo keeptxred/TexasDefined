@@ -5,7 +5,7 @@ import {
   type TexasEventCarouselItem,
 } from "@/components/editorial/TexasEventCarousel";
 import { Container } from "@/components/layout/Container";
-import { EmbeddedParkingMapPanel } from "@/components/parking/ParkingMapPanel";
+import { ParkingMapPanel } from "@/components/parking/ParkingMapPanel";
 import { SponsoredSportsPlacement } from "@/components/sports/SponsoredSportsPlacement";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
@@ -272,7 +272,7 @@ function KnowBeforeYouGo({
       <div className={parkingMap ? "grid gap-x-10 gap-y-7 lg:grid-cols-[minmax(0,1.65fr)_minmax(16rem,0.85fr)]" : "grid gap-x-10 gap-y-7 md:grid-cols-2"}>
         <div>
           <GuideItem title="Parking" body={parking} />
-          <EmbeddedParkingMapPanel map={parkingMap} contextName={venueName} />
+          <ParkingMapPanel map={parkingMap} contextName={venueName} embedded />
         </div>
         <GuideItem title="Arrival" body={arrival} />
       </div>
