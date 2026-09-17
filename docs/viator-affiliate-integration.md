@@ -14,7 +14,9 @@ The approved TexasDefined attribution values are active as the centralized defau
 
 Do not hard-code affiliate IDs into components or content records. Do not manually replace or strip Viator tracking parameters. TexasDefined appends a market- or placement-specific `campaign` value only when the target link does not already contain one.
 
-All monetized outbound links use `rel="sponsored noopener noreferrer"`.
+All monetized outbound links use `rel="sponsored nofollow noopener noreferrer"`.
+
+First-party click measurement uses `src/lib/affiliate-click.ts`. Viator clicks emit `affiliate_click` into `window.dataLayer` and dispatch `texasdefined:affiliate-click` with partner, CTA label, placement, module and current page path. The payload does not include visitor PII.
 
 ## Link policy
 
@@ -116,9 +118,11 @@ Rich research records and curated product seeds stay outside the lightweight cli
 - required booking copy and inventory-signal text;
 - approved PID and MCID attribution;
 - placement-specific campaign values;
-- sponsored-link relationship attributes;
+- sponsored/nofollow link relationship attributes;
 - affiliate disclosure;
 - successful live rendering without a Cloudflare challenge.
+
+`scripts/data/validate-experience-affiliate-analytics.mjs` additionally protects first-party CityPASS and Viator click attribution and commercial partner/placement metadata before merge.
 
 The production smoke is part of the existing production verification chain and must not be weakened to accommodate a broken booking surface.
 
