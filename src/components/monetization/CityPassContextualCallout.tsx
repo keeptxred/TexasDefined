@@ -23,6 +23,11 @@ export function CityPassContextualCallout({
       ? cityPassMarketForCitySlug(slug)
       : cityPassMarketForSportsVenueSlug(slug);
 
+  if (surface === "sports-venue") {
+    if (!market) return null;
+    return <CityPassCalloutContent market={market} placement={placement} />;
+  }
+
   if (market) return <CityPassCalloutContent market={market} placement={placement} />;
   return surface === "city" ? <CityViatorBooking citySlug={slug} /> : null;
 }
