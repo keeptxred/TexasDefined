@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+  "reviewDate": "2026-09-05",
+  "reviewMethod": "Post-remediation re-review against the existing county property indexability gate, current repository records, and authoritative local sources without adding duplicate client-runtime data",
+  "summary": { "reviewed": 2, "KEEP": 2, "IMPROVE": 0, "NOINDEX": 0, "REMOVE_CONSOLIDATE": 0 },
+  "reviewed": [
+    {
+      "path": "/property-tax/county/haskell",
+      "action": "KEEP",
+      "supersedes": "ops/seo/gsc-remediation-wave1-2026-09-05.json",
+      "previousAction": "IMPROVE",
+      "reason": "Haskell passes the unchanged county-property indexability gate with a fresh 2026-08-25 local verification and distinct authoritative Haskell CAD and county tax-office sources already present in the production data path."
+    },
+    {
+      "path": "/property-tax/county/leon",
+      "action": "KEEP",
+      "supersedes": "ops/seo/gsc-remediation-wave1-2026-09-05.json",
+      "previousAction": "IMPROVE",
+      "reason": "Leon passes the unchanged county-property indexability gate on the existing production county record, while the 2026-09-05 editorial re-review independently confirmed the current Leon CAD and Leon County assessor-collector authorities. The review evidence is retained here instead of duplicating source metadata into the shared client bundle."
+    }
+  ],
+  "evidence": {
+    "indexabilityGate": "src/data/property/county-property-schema.ts",
+    "countyDataset": "src/data/property/county-property-data.ts",
+    "generatedEnrichment": "src/data/property/county-property-enrichment.generated.ts",
+    "existingLocalVerification": "src/data/property/county-property-local-verification.ts",
+    "readinessTests": "src/data/property/county-property-priority.test.ts"
+  },
+  "sourceNotes": {
+    "haskell": [
+      "https://www.haskellcad.com",
+      "https://www.haskellcountytx.gov/page/haskell.County.Assessor.Collector"
+    ],
+    "leon": [
+      "https://www.leoncad.org/",
+      "https://www.co.leon.tx.us/page/leon.County.Assessor.Collector",
+      "https://www.leoncountytax.org/"
+    ]
+  },
+  "result": "The original GSC IMPROVE backlog has no unresolved county-property pages. Haskell and Leon are promoted through the existing production indexability contract, with re-review evidence kept in SEO governance rather than expanding the shared browser payload."
+}

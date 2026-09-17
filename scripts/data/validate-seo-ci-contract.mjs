@@ -4,6 +4,7 @@ import { spawnSync } from 'node:child_process';
 const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 const workflow = fs.readFileSync('.github/workflows/validate.yml', 'utf8');
 const deployWorkflow = fs.readFileSync('.github/workflows/deploy-production.yml', 'utf8');
+const premergeRunner = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 const validationSuite = fs.readFileSync('scripts/ci/run-validation-suite.mjs', 'utf8');
 const errors = [];
 
@@ -49,6 +50,7 @@ const delegatedValidators = [
   'validate-internal-link-policy-release.mjs', 'validate-internal-link-golden-corpus.mjs',
   'validate-knowledge-graph-behavior.mjs', 'validate-citation-magnets.mjs',
   'validate-citation-downloads.mjs', 'validate-gsc-evergreen-recovery.mjs',
+  'validate-expedia-affiliate.mjs', 'validate-rv-parks-authority.mjs',
 ];
 
 const cultureDeployValidators = [
@@ -79,22 +81,33 @@ const workflowRunsMonolithicSeoGate = workflow.includes('npm run seo:validate');
 const missingNamedWorkflowValidators = directValidators.filter((validator) => !workflow.includes(`node scripts/data/${validator}`));
 const workflowRunsNamedSeoGates = missingNamedWorkflowValidators.length === 0;
 const workflowRunsCentralSuite = workflow.includes('node scripts/ci/run-validation-suite.mjs full');
+const workflowRunsCanonicalPremerge = workflow.includes('node scripts/ci/run-premerge-validation.mjs');
+const canonicalRunsCentralSuite = premergeRunner.includes("'scripts/ci/run-validation-suite.mjs', 'full'");
 const missingCentralSuiteValidators = directValidators.filter((validator) => !validationSuite.includes(`scripts/data/${validator}`));
-const workflowRunsCentralSeoGates = workflowRunsCentralSuite && missingCentralSuiteValidators.length === 0;
+const workflowRunsCentralSeoGates = (
+  workflowRunsCentralSuite || (workflowRunsCanonicalPremerge && canonicalRunsCentralSuite)
+) && missingCentralSuiteValidators.length === 0;
 
 if (!workflowRunsMonolithicSeoGate && !workflowRunsNamedSeoGates && !workflowRunsCentralSeoGates) {
-  errors.push(`Validate workflow must run npm run seo:validate, preserve every named direct SEO validator, or invoke the authoritative validation suite with every direct validator registered. Missing named gates: ${missingNamedWorkflowValidators.join(', ') || 'none'}. Missing suite registrations: ${missingCentralSuiteValidators.join(', ') || 'none'}.`);
+  errors.push(`Validate workflow must run npm run seo:validate, preserve every named direct SEO validator, or invoke the authoritative validation suite directly or through the canonical pre-merge runner with every direct validator registered. Missing named gates: ${missingNamedWorkflowValidators.join(', ') || 'none'}. Missing suite registrations: ${missingCentralSuiteValidators.join(', ') || 'none'}.`);
 }
 
 const workflowRetainsSeoContract = (
   workflow.includes('Validate SEO CI contract') && workflow.includes('node scripts/data/validate-seo-ci-contract.mjs')
 ) || (
   workflowRunsCentralSuite && validationSuite.includes('scripts/data/validate-seo-ci-contract.mjs')
+) || (
+  workflowRunsCanonicalPremerge && canonicalRunsCentralSuite && validationSuite.includes('scripts/data/validate-seo-ci-contract.mjs')
 );
 if (!workflowRetainsSeoContract) {
-  errors.push('Validate workflow must retain the SEO CI contract either as its own named gate or as a protected registration in the authoritative validation suite.');
+  errors.push('Validate workflow must retain the SEO CI contract either as its own named gate or through the canonical/authoritative validation suite.');
 }
-if (!workflow.includes('Build production application')) errors.push('Validate workflow must retain the production build gate.');
+const canonicalRetainsProductionBuild = workflowRunsCanonicalPremerge
+  && premergeRunner.includes("label: 'Build production application'")
+  && premergeRunner.includes("args: ['run', 'build']");
+if (!workflow.includes('Build production application') && !canonicalRetainsProductionBuild) {
+  errors.push('Validate workflow must retain the production build gate directly or through the canonical pre-merge contract.');
+}
 if (!workflow.includes('cancel-in-progress: true')) errors.push('Validate workflow should cancel superseded runs to reduce wasted CI minutes.');
 
 const deployRunsCentralPredeploy = deployWorkflow.includes('node scripts/ci/run-validation-suite.mjs predeploy');
@@ -141,4 +154,4 @@ for (const validator of delegatedValidators) {
   }
 }
 
-console.log(`SEO CI contract passed with ${protectedValidators.length} protected remediation validators (${directValidators.length} direct, ${delegatedValidators.length} delegated) plus ${cultureDeployValidators.length} culture-authority predeploy gates. The workflow may use one monolithic SEO gate, stricter named direct gates, or the authoritative validation suite while preserving the 91-link Texas icon-depth floor, generated-page quality, citation discovery, GSC evergreen recovery, machine-readable citation-download protections and Texas culture deployment safety.`);
+console.log(`SEO CI contract passed with ${protectedValidators.length} protected remediation validators (${directValidators.length} direct, ${delegatedValidators.length} delegated) plus ${cultureDeployValidators.length} culture-authority predeploy gates. The workflow may use one monolithic SEO gate, stricter named direct gates, the authoritative validation suite, or the canonical pre-merge runner while preserving the 91-link Texas icon-depth floor, generated-page quality, citation discovery, GSC evergreen recovery, machine-readable citation-download protections and Texas culture deployment safety.`);

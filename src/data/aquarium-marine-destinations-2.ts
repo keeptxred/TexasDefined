@@ -59,7 +59,7 @@ export const aquariumMarineDestinations2: Destination[] = [
     county: "Bexar",
     address: "6320 Bandera Rd, San Antonio, TX 78238",
     coordinates: { lat: 29.48721, lng: -98.60964 },
-    hero: h("/images/aquariums/san-antonio-aquarium.svg", "TexasDefined editorial illustration for San Antonio Aquarium on the Bandera Road corridor", "TexasDefined editorial illustration"),
+    hero: h("/images/aquariums/san-antonio-aquarium.jpg", "TexasDefined editorial illustration for San Antonio Aquarium on the Bandera Road corridor", "TexasDefined editorial illustration"),
     bestSeason: "Year-round; it is primarily an indoor family attraction and works well as a heat or rain backup.",
     entryNote: "Interactive encounters can have separate credits, age or height requirements. Review the aquarium’s current park information and encounter rules before purchasing admission or add-ons.",
     highlights: ["Sharks and stingrays", "Interactive animal encounters", "Rainforest reptiles", "Family indoor attraction"],

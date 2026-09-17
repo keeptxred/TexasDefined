@@ -1,7 +1,11 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { PrioritySearchPage } from "@/components/editorial/PrioritySearchPage";
+import { lazy, Suspense } from "react";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
+
+const PrioritySearchPage = lazy(() =>
+  import("@/components/editorial/PrioritySearchPage").then((module) => ({ default: module.PrioritySearchPage })),
+);
 
 const canonicalPath = "/what-does-chud-mean";
 
@@ -22,5 +26,9 @@ export const Route = createFileRoute("/what-does-chud-mean")({
 });
 
 function Page() {
-  return <PrioritySearchPage data={Route.useLoaderData()} />;
+  return (
+    <Suspense fallback={null}>
+      <PrioritySearchPage data={Route.useLoaderData()} />
+    </Suspense>
+  );
 }

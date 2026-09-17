@@ -13,6 +13,7 @@ export const highSchoolFootballNewcomersArticle: Article = {
   tags:["texas high school football","friday night lights","texas sports","uil football","texas culture"], featured:true,
   internalLinks:[
     {href:"/sports",label:"Explore Texas sports",description:"More stories about the games and traditions Texans follow."},
+    {href:"/sports/friday-night-lights",label:"Friday Night Lights, Defined",description:"Use the parent guide for Texas high-school football traditions, game-night planning, homecoming, stadiums and the season arc."},
     {href:"/sports-venues/high-school-football",label:"Explore landmark Texas high-school football stadiums",description:"Browse verified stadium guides tied to Friday night lights, playoff trips and regional football culture."},
     {href:"/explore/small-towns",label:"Explore Texas small towns",description:"See the communities where Friday night can still set the weekly rhythm."},
     {href:"/article/texas-regions-explained",label:"Texas regions explained",description:"Football culture changes with the places Texans call home."},

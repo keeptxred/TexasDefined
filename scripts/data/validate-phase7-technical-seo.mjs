@@ -7,6 +7,7 @@ import './validate-texas-254-counties-authority.mjs';
 import './validate-texas-courthouse-square-authority.mjs';
 import './validate-texas-railroad-town-growth-authority.mjs';
 import './validate-texas-aquifers-springs-authority.mjs';
+import './validate-texas-prairies-grasslands-authority.mjs';
 
 const seoSource = fs.readFileSync('src/lib/seo.ts', 'utf8');
 const fredericksburgChurchRoute = fs.readFileSync('src/routes/explore.painted-churches.$slug.tsx', 'utf8');
@@ -65,8 +66,8 @@ const gscIntentTargets = [
   ],
   [
     '/article/texas-lakes-reservoirs-explained',
-    'Texas Lakes & Reservoirs: Major Water Systems Explained',
-    'Learn why most Texas lakes are reservoirs, how dams reshape rivers, and how Lake Travis, Texoma, Canyon Lake and other systems store water.',
+    'Texas Lakes & Reservoirs: Why Most Are Man-Made',
+    'See why most familiar inland Texas lakes are reservoirs built for water supply and flood control, including Lake Travis, Texoma and Canyon Lake.',
   ],
   [
     '/article/texas-national-parks-big-bend-guadalupe-guide',

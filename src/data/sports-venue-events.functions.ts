@@ -1,0 +1,57 @@
+import { createServerFn } from "@tanstack/react-start";
+
+type SportsVenueEventsInput = {
+  slug: string;
+};
+
+/**
+ * Keep the canonical event registry and normalization code on the server while
+ * exposing only the small, venue-scoped carousel payload needed by guide pages.
+ */
+export const getSportsVenueUpcomingEvents = createServerFn({ method: "POST" })
+  .inputValidator((data: SportsVenueEventsInput) => data)
+  .handler(async ({ data }) => {
+    const [
+      { loadUpcomingTexasEventRecordsServer },
+      { buildTexasEventCarouselItemsServer },
+      { getSportsVenuePhoto },
+      { canonicalImageReference, imageReferencesMatch },
+    ] = await Promise.all([
+      import("./events/texas-event-records.server"),
+      import("./events/texas-event-calendar.server"),
+      import("./sports-venue-images-all"),
+      import("./image-reference-identity"),
+    ]);
+    const venueId = `sports-venue:${data.slug}`;
+    const records = loadUpcomingTexasEventRecordsServer({ venueId, limit: 9 });
+    const photo = getSportsVenuePhoto(data.slug);
+    const seenEventImageKeys = new Set<string>();
+    const events = buildTexasEventCarouselItemsServer(records).map((event) => {
+      if (!event.image) return event;
+
+      const repeatsVenueHero = Boolean(photo && (
+        event.image.url === photo.imageUrl
+        || event.image.sourceUrl === photo.sourcePage
+        || imageReferencesMatch(
+          [event.image.url, event.image.sourceUrl],
+          [photo.imageUrl, photo.sourcePage],
+        )
+      ));
+      const imageKey = canonicalImageReference(event.image.url);
+      const repeatsEventImage = Boolean(imageKey && seenEventImageKeys.has(imageKey));
+
+      if (!repeatsVenueHero && !repeatsEventImage) {
+        if (imageKey) seenEventImageKeys.add(imageKey);
+        return event;
+      }
+
+      const { image: _venueHeroFallback, ...eventWithoutVenueHeroFallback } = event;
+      return eventWithoutVenueHeroFallback;
+    });
+
+    return {
+      venueId,
+      calendarHref: `/events?venue=${encodeURIComponent(venueId)}#calendar`,
+      events,
+    };
+  });

@@ -24,8 +24,9 @@ const FORBIDDEN = [
 ];
 
 // These paths intentionally describe cross-site ownership, shared contracts,
-// server-side commerce bridges, private governance tooling, or explicit
-// editorial handoffs to KeepTXRed for policy/statutory coverage. They are not
+// server-side commerce bridges, private governance tooling, explicit editorial
+// handoffs to KeepTXRed for policy/statutory coverage, or the narrowly governed
+// server-only Texas Defined AI government bridge. They are not accidental
 // consumer-facing legacy-brand leaks.
 const ALLOWED_PREFIXES = [
   "src/shared/platform-core/",
@@ -43,6 +44,11 @@ const ALLOWED_FILES = new Set([
   "src/data/types.ts",
   "src/domain/validation/schemas.ts",
   "src/lib/brand-route-ownership.ts",
+  // Intentional server-only sibling-site government bridge. Keep this list
+  // exact: broad src/lib allowlisting would weaken the brand-separation gate.
+  "src/lib/keeptxred-government.server.ts",
+  "src/lib/texas-defined-government-ai.server.ts",
+  "src/lib/texas-defined-government-ai.contract.test.ts",
   "src/routes/api/public/store-products.ts",
   "src/routes/llms[.]txt.ts",
   "src/routes/texas-attorney-general.tsx",

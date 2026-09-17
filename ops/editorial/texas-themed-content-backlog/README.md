@@ -1,6 +1,6 @@
 # Texas-themed content backlog
 
-This directory converts the 250 supplied Texas-themed ideas into a publication-safe editorial backlog. It does not publish content or grant publication approval.
+This directory holds publication-safe TexasDefined editorial source backlogs. The original 250 supplied Texas-themed ideas remain organized below, and the additional `250 Texas Stories` collection is preserved under `250-texas-stories/`. Nothing in this directory publishes content or grants publication approval.
 
 ## Backlog files
 
@@ -16,8 +16,15 @@ This directory converts the 250 supplied Texas-themed ideas into a publication-s
 - `seasonal-holidays-traditions.csv` — 15 ideas
 - `sports-entertainment.csv` — 25 ideas
 - `transportation-travel-infrastructure.csv` — 10 ideas
+- `250-texas-stories/` — 250 additional story candidates preserved from the supplied `250_Texas_Stories.pdf`, split into five 50-story parts
 
-## Current totals
+## Additional 250 Texas Stories source collection
+
+The `250-texas-stories/` collection preserves the supplied story titles and one-sentence summaries with source-page traceability and unique working slugs. Every story is intentionally marked `needs-research` and `publish_approved=no`; the PDF is a source of story leads, not an authority for publication.
+
+Across both source collections, this directory now preserves **500 Texas editorial ideas/candidates**. The original backlog metrics below continue to describe only the first 250-item themed backlog and its draft program.
+
+## Original themed backlog totals
 
 - **250 ideas** across 12 source categories
 - **205 SEO articles / 45 social-first lists**
@@ -54,10 +61,10 @@ This directory converts the 250 supplied Texas-themed ideas into a publication-s
 
 ## Publication safety
 
-Every CSV row remains `publish_approved=no`. Every Markdown draft declares `status: draft` and `publish_approved: no`.
+Every original-backlog CSV row remains `publish_approved=no`. Every Markdown draft declares `status: draft` and `publish_approved: no`. Every row in `250-texas-stories/` also remains `publish_approved=no` and `verification_status=needs-research` until separately researched.
 
-Drafts are editorial assets only under `ops/editorial`. They are **not** connected to routes, runtime article fixtures, CMS publishing, sitemaps, deployment, social posting or automation. Promotion to any live system requires a separate explicit editorial decision.
+Drafts and story candidates are editorial assets only under `ops/editorial`. They are **not** connected to routes, runtime article fixtures, CMS publishing, sitemaps, deployment, social posting or automation. Promotion to any live system requires a separate explicit editorial decision.
 
 Freshness and verification can be stricter in the draft layer than in the source backlog. Current examples include official school/higher-ed data, tax/water law, wildlife status, transportation conditions, event calendars, sports records, Texas Film Commission production/location verification, literary landmarks, museum/theater access, food safety and current restaurant/dance-hall service.
 
-See `drafts/README.md` for exact files and promotion rules.
+See `drafts/README.md` for exact files and promotion rules. See `250-texas-stories/README.md` for the additional story collection and its validation/promotion contract.

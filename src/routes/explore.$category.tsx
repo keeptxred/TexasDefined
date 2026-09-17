@@ -1,7 +1,7 @@
-import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
+import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { Container } from "@/components/layout/Container";
+import { getCavernAuthorityHtml } from "@/data/cavern-authority.functions";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
 import type { Destination } from "@/data/types";
@@ -9,17 +9,43 @@ import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const SWIMMING_HOLES_RIVER_TUBING_SLUG = "swimming-holes-river-tubing";
+const COASTAL_AUTHORITY_ITEM_COUNT = 52;
+const COASTAL_AUTHORITY_PATH = "/content/explore-category-authority/beaches-coast-directory.html";
 const legacyExploreRedirects: Record<string, string> = {
   "scenic-rivers": "/article/texas-rivers-explained",
   "texas-dark-sky-stargazing": "/texas-stargazing-guide",
   "river-tubing": `/explore/${SWIMMING_HOLES_RIVER_TUBING_SLUG}`,
   "swimming-holes": `/explore/${SWIMMING_HOLES_RIVER_TUBING_SLUG}`,
+  "big-bend": "/explore/region/big-bend",
+  "gulf-coast": "/explore/region/gulf-coast",
+  "hill-country": "/explore/region/hill-country",
+  "panhandle-plains": "/explore/region/panhandle-plains",
+  "piney-woods": "/explore/region/piney-woods",
+  "prairies-lakes": "/explore/region/prairies-lakes",
+  "south-texas-plains": "/explore/region/south-texas-plains",
 };
 const authorityCategorySlugs = new Set(["outdoors", "caverns", "lakes-rivers", "beaches-coast", "small-towns"]);
+for (const slug of ["major-springs", "swimming-holes-river-tubing", "state-parks", "national-parks", "historic-sites", "road-trips", "food-bbq"]) authorityCategorySlugs.add(slug);
 const categorySeoOverrides: Partial<Record<string, { title: string; description: string }>> = {
   outdoors: {
     title: "Texas Outdoors & Wildlife: Parks, Trails, Birding & Wild Places",
     description: "Explore Texas outdoors by region, from state parks and hiking trails to wildlife, birding, dark skies, rivers and public lands, with seasonal access and safety guidance.",
+  },
+  "major-springs": {
+    title: "Texas Springs: Spring-Fed Pools, Rivers & Trip Planning",
+    description: "Explore major Texas springs and spring-fed destinations with aquifer context, current-flow planning, public-access guidance, swimming considerations and regional trip ideas.",
+  },
+  "swimming-holes-river-tubing": {
+    title: "Texas Swimming Holes & River Tubing: Access, Flow & Safety Guide",
+    description: "Plan Texas swimming-hole and river-tubing trips with current-flow checks, public-access guidance, water-quality considerations, heat safety, shuttle logistics and regional trip ideas.",
+  },
+  "state-parks": {
+    title: "Texas State Parks: Camping, Hiking, Reservations & Trip Planning",
+    description: "Explore Texas state parks by region and activity, with reservation strategy, current-alert checks, camping guidance, seasonal conditions and practical trip planning.",
+  },
+  "national-parks": {
+    title: "Texas National Parks & NPS Sites: Complete Trip Planning Guide",
+    description: "Explore Big Bend, Guadalupe Mountains and other National Park Service sites in Texas with designation, conditions, access, driving and itinerary guidance.",
   },
   "lakes-rivers": {
     title: "Texas Lakes & Rivers: Swimming, Paddling, Fishing & Water Trips",
@@ -29,9 +55,25 @@ const categorySeoOverrides: Partial<Record<string, { title: string; description:
     title: "Texas Beaches & Gulf Coast: Islands, Wildlife, Fishing & Beach Trips",
     description: "Explore the Texas Gulf Coast by beaches, barrier islands, bays and marshes, with public access, water quality, rip-current safety, birding, fishing and trip-planning guidance.",
   },
+  "historic-sites": {
+    title: "Texas Historic Sites & Museums: Heritage Trip Planning Guide",
+    description: "Explore Texas historic sites, missions, battlefields, museums, markers and heritage districts with source-backed context, visitor etiquette and regional trip planning.",
+  },
+  "road-trips": {
+    title: "Texas Road Trips: Scenic Routes, Small Towns & Itineraries",
+    description: "Plan Texas road trips with realistic drive times, official road conditions, regional route themes, fuel and overnight strategy, scenic stops and practical backup plans.",
+  },
   "small-towns": {
     title: "Texas Small Towns: Downtown Squares, Local Shopping & Road Trips",
     description: "Explore Texas small towns through courthouse squares, Main Street districts, local shopping, antiques, markets, food, festivals and practical road-trip planning.",
+  },
+  "food-bbq": {
+    title: "Texas Food & BBQ: Barbecue, Regional Foodways & Road Trips",
+    description: "Explore Texas barbecue and regional food traditions with brisket and smoking context, producer discovery, sellout-aware timing, food safety and practical road-trip planning.",
+  },
+  "rv-parks": {
+    title: "Texas RV Parks & Campgrounds: 250 Places by Region & County",
+    description: "Browse 250 Texas RV parks, campgrounds and public RV camping areas by region, town and county, with individual profiles staged for source verification before search indexing.",
   },
 };
 
@@ -41,15 +83,17 @@ function validCoordinates(destination: Destination) {
 }
 
 function destinationSchema(destination: Destination) {
+  const isRvPark = destination.category === "rv-parks";
   return {
-    "@type": "TouristAttraction",
+    "@type": isRvPark ? "Campground" : "TouristAttraction",
     name: destination.name,
     description: destination.summary,
     url: `${siteUrl}/destination/${destination.slug}`,
-    image: absoluteUrl(texasDefinedBrand, destination.hero.src),
+    image: isRvPark ? undefined : absoluteUrl(texasDefinedBrand, destination.hero.src),
     sameAs: destination.officialUrl || undefined,
     dateModified: destination.sourceCheckedAt || undefined,
     provider: destination.managingAuthority ? { "@type": "Organization", name: destination.managingAuthority } : undefined,
+    address: isRvPark ? { "@type": "PostalAddress", addressLocality: destination.nearestTown, addressRegion: "TX", addressCountry: "US", ...(destination.address ? { streetAddress: destination.address } : {}) } : undefined,
     containedInPlace: destination.county ? { "@type": "AdministrativeArea", name: `${destination.county} County` } : destination.nearestTown ? { "@type": "City", name: destination.nearestTown } : undefined,
     geo: validCoordinates(destination) ? { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } : undefined,
   };
@@ -63,6 +107,11 @@ export const Route = createFileRoute("/explore/$category")({
     }
   },
   loader: async ({ context, params }) => {
+    if (params.category === "water-towers") {
+      const { waterTowersCategory } = await import("@/data/water-towers");
+      return { category: waterTowersCategory, articles: [], destinations: [], authorityHtml: null };
+    }
+
     const categories = await context.queryClient.ensureQueryData(categoriesQuery());
     const category = categories.find((item) => item.slug === params.category);
     if (!category) {
@@ -74,7 +123,14 @@ export const Route = createFileRoute("/explore/$category")({
     const [articles, destinations, authorityHtml] = await Promise.all([
       context.queryClient.ensureQueryData(articlesQuery({ category: category.slug })),
       context.queryClient.ensureQueryData(destinationsQuery({ category: category.slug })),
-      authorityPath ? fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath).then((response) => response.ok ? response.text() : null) : null,
+      authorityPath ? Promise.all([
+        category.slug === "caverns"
+          ? getCavernAuthorityHtml()
+          : fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath).then((response) => response.ok ? response.text() : null),
+        category.slug === "beaches-coast"
+          ? fetch(import.meta.env.SSR ? `${siteUrl}${COASTAL_AUTHORITY_PATH}` : COASTAL_AUTHORITY_PATH).then((response) => response.ok ? response.text() : null)
+          : Promise.resolve(null),
+      ]).then((parts) => parts.filter(Boolean).join("\n")) : null,
     ]);
     return { category, articles, destinations, authorityHtml };
   },
@@ -90,8 +146,9 @@ export const Route = createFileRoute("/explore/$category")({
         : [];
     const indexReady = isExploreCategoryIndexReady(
       loaderData.category.slug,
-      loaderData.articles.length + loaderData.destinations.length + featuredCollectionItems.length,
-    );
+      loaderData.articles.length + loaderData.destinations.length + featuredCollectionItems.length
+        + (params.category === "beaches-coast" ? COASTAL_AUTHORITY_ITEM_COUNT : 0),
+    ) || loaderData.category.slug === "water-towers";
     const categorySeo = categorySeoOverrides[loaderData.category.slug];
     const metaTitle = categorySeo?.title ?? loaderData.category.name;
     const metaDescription = categorySeo?.description ?? loaderData.category.description;
@@ -117,14 +174,4 @@ export const Route = createFileRoute("/explore/$category")({
       scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [collectionSchema, breadcrumbSchema] }) }],
     };
   },
-  notFoundComponent: CategoryNotFound,
 });
-
-function CategoryNotFound() {
-  return <Container className="py-24">
-    <p className="eyebrow text-primary">A different road</p>
-    <h1 className="mt-3 font-display text-3xl">We haven't made that list yet</h1>
-    <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">The page may have moved, but there are still plenty of places worth the drive.</p>
-    <Link to="/explore" className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary">Find another road →</Link>
-  </Container>;
-}

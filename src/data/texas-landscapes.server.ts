@@ -1,13 +1,20 @@
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
+import { isTexasLandscapeIndexReady } from './explore-leaf-quality';
 import { texasLandscapeCatalog, texasLandscapeGuideCatalog } from './texas-landscape-catalog';
-import { texasLandscapeGuides, texasLandscapes } from './texas-landscapes';
+import { enrichedTexasLandscapeGuides } from './texas-landscape-guide-enrichment';
+import { enrichedTexasLandscapeProfiles } from './texas-landscape-profile-enrichment';
 
 const hubDescription = 'A field guide to the landscapes that define Texas: Hill Country limestone, Piney Woods forest, Gulf marshes, prairie, canyon, desert, mountain, river and more.';
 const hubPath = '/explore/landscapes';
 
 function buildHubHead() {
+  const indexableLandscapes = texasLandscapeCatalog.filter((catalogItem) => {
+    const item = enrichedTexasLandscapeProfiles.find((entry) => entry.slug === catalogItem.slug);
+    return Boolean(item && isTexasLandscapeIndexReady(item));
+  });
+
   return {
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath: hubPath,
@@ -31,8 +38,8 @@ function buildHubHead() {
           '@type': 'ItemList',
           '@id': `${absoluteUrl(texasDefinedBrand, hubPath)}#landscapes`,
           name: 'Landscapes of Texas',
-          numberOfItems: texasLandscapeCatalog.length,
-          itemListElement: texasLandscapeCatalog.map((item, index) => ({
+          numberOfItems: indexableLandscapes.length,
+          itemListElement: indexableLandscapes.map((item, index) => ({
             '@type': 'ListItem',
             position: index + 1,
             item: {
@@ -57,14 +64,20 @@ function buildHubHead() {
   };
 }
 
-function buildLandscapePageHead(item: (typeof texasLandscapes)[number] | (typeof texasLandscapeGuides)[number]) {
+function buildLandscapePageHead(item: (typeof enrichedTexasLandscapeProfiles)[number] | (typeof enrichedTexasLandscapeGuides)[number]) {
   const path = `/explore/landscapes/${item.slug}`;
   const isLandscape = 'name' in item;
   const title = isLandscape ? `${item.name}: Texas Landscape Guide` : item.title;
   const description = item.dek;
+  const readyForIndexing = isTexasLandscapeIndexReady(item);
 
   return {
-    meta: buildMeta(texasDefinedBrand, { canonicalPath: path, title, description }),
+    meta: buildMeta(texasDefinedBrand, {
+      canonicalPath: path,
+      title,
+      description,
+      robots: readyForIndexing ? undefined : 'noindex, follow',
+    }),
     links: [canonicalLink(texasDefinedBrand, path)],
     scripts: [jsonLd({
       '@context': 'https://schema.org',
@@ -79,6 +92,7 @@ function buildLandscapePageHead(item: (typeof texasLandscapes)[number] | (typeof
           about: isLandscape
             ? [item.terrain, item.geology, item.vegetation, item.water]
             : item.sections.map((section) => section.heading),
+          citation: item.sourceLinks.map((source) => source.href),
           mainEntityOfPage: absoluteUrl(texasDefinedBrand, path),
         },
         {
@@ -105,8 +119,8 @@ export function loadTexasLandscapeHubServer() {
 }
 
 export function loadTexasLandscapePageServer(slug: string) {
-  const item = texasLandscapes.find((entry) => entry.slug === slug)
-    ?? texasLandscapeGuides.find((entry) => entry.slug === slug)
+  const item = enrichedTexasLandscapeProfiles.find((entry) => entry.slug === slug)
+    ?? enrichedTexasLandscapeGuides.find((entry) => entry.slug === slug)
     ?? null;
 
   if (!item) return null;

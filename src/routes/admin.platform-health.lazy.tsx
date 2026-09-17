@@ -2,6 +2,7 @@ import { Link, createLazyFileRoute } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 import { InternalLinkMemoryCard } from '@/components/admin/InternalLinkMemoryCard';
 import { InternalLinkPolicyHistory } from '@/components/admin/InternalLinkPolicyHistory';
+import { StayMonetizationReadiness } from '@/components/admin/StayMonetizationReadiness';
 import { CONTENT_HEALTH_RESOURCES, validateAuthoritativeSources } from '@/data/source-governance';
 import { TEXAS_CITIES, TEXAS_COUNTIES, validateTexasPlaces } from '@/data/texas-places';
 import { validateTexasEntityRegistry } from '@/data/knowledge-graph';
@@ -49,6 +50,7 @@ function Page() {
       <Metric value={String(audit.overdueReviews)} label="Overdue reviews" detail="Review date has passed" />
       <Metric value={String(audit.duplicateAliases)} label="Duplicate aliases" detail="Ambiguous entity resolution" />
     </section>
+    <StayMonetizationReadiness />
     {errors.length > 0 && <section className="mt-8 rounded-md border border-destructive/40 p-5"><h2 className="font-display text-2xl">Validation errors</h2>{errors.slice(0, 100).map((error) => <p className="mt-2 text-sm" key={error}>{error}</p>)}</section>}
     {linkQuality.issues.length > 0 && <section className="mt-8 rounded-md border border-amber-500/40 p-5"><h2 className="font-display text-2xl">Internal-link quality issues</h2>{linkQuality.issues.map((issue) => <p className="mt-2 text-sm" key={issue}>{issue}</p>)}</section>}
     <InternalLinkMemoryCard />

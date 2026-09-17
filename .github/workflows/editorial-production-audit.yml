@@ -1,0 +1,171 @@
+name: Editorial production audit
+
+on:
+  schedule:
+    - cron: '23 11 * * 1'
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/editorial-production-audit.yml'
+      - 'src/data/articles*.ts'
+      - 'src/data/fixtures/**'
+      - 'src/routes/article.$slug.tsx'
+      - 'src/routes/article.$slug.lazy.tsx'
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: editorial-production-audit-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit-editorial-production:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 2
+
+      - name: Decide audit mode
+        id: audit-mode
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          inventory=true
+          production=true
+          reason='scheduled or manual full production audit'
+
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            production=false
+            reason='pull request inventory validation; future URLs are not expected to exist in production yet'
+          elif [[ "${{ github.event_name }}" == "workflow_run" ]]; then
+            changed=$(git diff --name-only HEAD^ HEAD || true)
+            relevant=false
+            while IFS= read -r path; do
+              case "$path" in
+                .github/workflows/editorial-production-audit.yml|src/data/articles*.ts|src/data/fixtures/*|src/routes/article.\$slug.tsx|src/routes/article.\$slug.lazy.tsx)
+                  relevant=true
+                  break
+                  ;;
+              esac
+            done <<< "$changed"
+
+            if [[ "$relevant" != "true" ]]; then
+              inventory=false
+              production=false
+              reason='successful deployment did not change editorial article inventory or rendering paths'
+            else
+              reason='successful deployment completed after an editorial change'
+            fi
+          fi
+
+          echo "inventory=$inventory" >> "$GITHUB_OUTPUT"
+          echo "production=$production" >> "$GITHUB_OUTPUT"
+          echo "reason=$reason" >> "$GITHUB_OUTPUT"
+          echo "Audit mode: inventory=$inventory production=$production ($reason)"
+
+      - name: Explain skipped production crawl
+        if: steps.audit-mode.outputs.production != 'true'
+        shell: bash
+        run: |
+          {
+            echo '## TexasDefined editorial production audit'
+            echo
+            echo "Production crawl skipped: ${{ steps.audit-mode.outputs.reason }}."
+            if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+              echo 'The pull request still inventories and validates the proposed editorial registry. Live URL verification runs only after the production deployment succeeds.'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: oven-sh/setup-bun@v2
+        if: steps.audit-mode.outputs.inventory == 'true'
+      - uses: actions/setup-node@v4
+        if: steps.audit-mode.outputs.inventory == 'true'
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+        if: steps.audit-mode.outputs.inventory == 'true'
+
+      - name: Inventory every current editorial article
+        if: steps.audit-mode.outputs.inventory == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > .audit-editorial.ts <<'EOF'
+          import fs from 'node:fs';
+          import { platform, scope } from './src/data/index.ts';
+          const rows = await platform.articles.list(scope);
+          const unique = [...new Map(rows.map((row) => [row.slug, row])).values()]
+            .filter((row) => row?.slug)
+            .sort((a, b) => a.slug.localeCompare(b.slug));
+          if (!unique.length) throw new Error('Editorial repository returned zero articles');
+          fs.writeFileSync('/tmp/article-slugs.txt', unique.map((row) => row.slug).join('\n') + '\n');
+          console.log(`Editorial inventory: ${unique.length} unique articles`);
+          EOF
+          bun .audit-editorial.ts
+          rm .audit-editorial.ts
+
+      - name: Verify every article page resolves in production
+        if: steps.audit-mode.outputs.production == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          : > /tmp/results.txt
+
+          check_article() {
+            slug="$1"
+            url="https://texasdefined.com/article/$slug"
+            body=$(mktemp)
+            code=000
+            for attempt in 1 2 3; do
+              code=$(curl -A 'TexasDefinedEditorialAudit/1.0 (+https://texasdefined.com)' -L -sS -o "$body" -w '%{http_code}' --connect-timeout 10 --max-time 30 "$url" || echo 000)
+              if [[ "$code" == "200" ]] && ! grep -Eqi 'Story unavailable|This story is no longer available|page not found|(^|>)404([^0-9]|<)' "$body"; then
+                printf 'PASS\t%s\t%s\n' "$code" "$url"
+                rm -f "$body"
+                return 0
+              fi
+              sleep $((attempt * 2))
+            done
+            printf 'FAIL\t%s\t%s\n' "$code" "$url"
+            rm -f "$body"
+            return 0
+          }
+          export -f check_article
+
+          xargs -r -n1 -P8 bash -c 'check_article "$1"' _ < /tmp/article-slugs.txt | sort > /tmp/results.txt
+          total=$(wc -l < /tmp/results.txt | tr -d ' ')
+          passed=$(grep -c '^PASS' /tmp/results.txt || true)
+          failed=$(grep -c '^FAIL' /tmp/results.txt || true)
+
+          echo "Total checked: $total"
+          echo "Passed: $passed"
+          echo "Failed: $failed"
+          grep '^FAIL' /tmp/results.txt || true
+
+          {
+            echo '## TexasDefined editorial production audit'
+            echo
+            echo "- Total checked: $total"
+            echo "- Passed: $passed"
+            echo "- Failed: $failed"
+            if [[ "$failed" -gt 0 ]]; then
+              echo
+              echo '### Failed article URLs'
+              echo '```'
+              grep '^FAIL' /tmp/results.txt
+              echo '```'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          test "$failed" -eq 0

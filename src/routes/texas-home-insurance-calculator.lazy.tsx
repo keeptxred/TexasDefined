@@ -1,9 +1,10 @@
 import { createLazyFileRoute, Link } from '@tanstack/react-router';
 import { CalculatorPage } from '@/components/calculators/CalculatorPage';
 import { HomeInsuranceCalculator } from '@/components/calculators/TexasPlanningCalculators';
-
-const description =
-  'Estimate Texas homeowners insurance cost from replacement cost, rate assumptions, wind or flood coverage, and deductibles—without entering personal information.';
+import {
+  homeInsuranceDescription,
+  homeInsuranceFaqs,
+} from '@/data/home-insurance-query-alignment';
 
 const localInsurancePages = [
   ['Houston', '/texas-home-insurance-calculator/houston'],
@@ -15,40 +16,28 @@ const localInsurancePages = [
   ['El Paso', '/texas-home-insurance-calculator/el-paso'],
 ] as const;
 
-const faqs = [
-  {
-    question: 'How can I estimate homeowners insurance in Texas?',
-    answer: 'Start with the estimated replacement cost of the home rather than its market value, apply a reasonable annual insurance rate, and then account separately for wind, hail, coastal, or flood coverage that may apply to the property.',
-  },
-  {
-    question: 'Can I use this homeowners insurance calculator without personal information?',
-    answer: 'Yes. This calculator is designed for planning and does not require your name, email address, phone number, or street address. The result is an estimate, not an insurance quote.',
-  },
-  {
-    question: 'Is home insurance based on the purchase price of the house?',
-    answer: 'Not necessarily. Homeowners insurance commonly focuses on the cost to repair or rebuild the insured structure, which can differ substantially from a home’s purchase price or taxable value.',
-  },
-  {
-    question: 'Does a Texas home insurance estimate include flood insurance?',
-    answer: 'Not automatically. Standard homeowners policies generally treat flood coverage separately, so the calculator lets you add a separate flood-cost assumption when it is relevant to your planning.',
-  },
-  {
-    question: 'Why can homeowners insurance costs vary so much across Texas?',
-    answer: 'Location, rebuilding cost, roof and construction characteristics, wind and hail exposure, coastal risk, claims history, deductibles, and selected coverage can all materially change the final premium.',
-  },
-];
-
 const deductibleExamples = [
   ['250,000', '2,500', '5,000', '7,500'],
   ['400,000', '4,000', '8,000', '12,000'],
   ['600,000', '6,000', '12,000', '18,000'],
 ];
 
+const homeInsuranceFaqJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: homeInsuranceFaqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+});
+
 export const Route = createLazyFileRoute('/texas-home-insurance-calculator')({ component: HomeInsuranceCalculatorPage });
 
 function HomeInsuranceCalculatorPage() {
   return (
-    <CalculatorPage eyebrow="Texas homeowners insurance estimator" title="Texas home insurance cost calculator" description={description}>
+    <CalculatorPage eyebrow="Texas homeowners insurance estimator" title="Texas homeowners insurance calculator — no personal information required" description={homeInsuranceDescription}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: homeInsuranceFaqJsonLd }} />
       <HomeInsuranceCalculator />
       <section className="mt-8 border border-border p-6" aria-labelledby="insurance-private-estimate-heading">
         <p className="eyebrow text-primary">No quote form required</p>
@@ -122,7 +111,7 @@ function HomeInsuranceCalculatorPage() {
       <section className="mt-12 border-t border-border pt-10" aria-labelledby="insurance-faq-heading">
         <p className="eyebrow text-primary">Common questions</p>
         <h2 id="insurance-faq-heading" className="mt-3 font-display text-3xl">Home insurance estimate FAQ</h2>
-        <div className="mt-6 divide-y divide-border border-y border-border">{faqs.map((faq) => <div key={faq.question} className="py-6"><h3 className="font-display text-2xl">{faq.question}</h3><p className="mt-3 max-w-3xl text-base leading-7 text-muted-foreground">{faq.answer}</p></div>)}</div>
+        <div className="mt-6 divide-y divide-border border-y border-border">{homeInsuranceFaqs.map((faq) => <div key={faq.question} className="py-6"><h3 className="font-display text-2xl">{faq.question}</h3><p className="mt-3 max-w-3xl text-base leading-7 text-muted-foreground">{faq.answer}</p></div>)}</div>
       </section>
     </CalculatorPage>
   );

@@ -1,12 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
 import type {} from '@tanstack/react-start';
 
-import { TEXAS_CITIES, TEXAS_COUNTIES } from '@/data/texas-places';
-
 export const Route = createFileRoute('/texas-data/city-county-relationships.csv')({
   server: {
     handlers: {
       GET: async () => {
+        const { TEXAS_CITIES, TEXAS_COUNTIES } = await import('@/data/texas-places');
         const countyByName = new Map(TEXAS_COUNTIES.map((county) => [county.name.replace(/ County$/, ''), county] as const));
         const header = ['city_name', 'city_slug', 'county_name', 'county_slug', 'region', 'county_registry_match'];
         const rows = TEXAS_CITIES

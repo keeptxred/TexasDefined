@@ -23,11 +23,25 @@ if (localCountyPaths.length !== 12 || uniqueLocalCountyPaths.size !== 12) {
   failures.push(`Expected exactly 12 governed major-county calculator profiles; found ${localCountyPaths.length} definitions and ${uniqueLocalCountyPaths.size} unique paths.`);
 }
 
+const targetRows = [...targets.matchAll(/\{ countySlug: '([^']+)', countyName: '([^']+)', calculatorPath: '\/property-tax-calculator\/([^']+)' \}/g)]
+  .map((match) => ({ countySlug: match[1], countyName: match[2], calculatorPathSlug: match[3] }));
+const targetPathSlugs = new Set(targetRows.map((row) => row.calculatorPathSlug));
+if (targetRows.length !== 12 || targetPathSlugs.size !== 12) {
+  failures.push(`Expected exactly 12 lightweight county calculator targets; found ${targetRows.length} definitions and ${targetPathSlugs.size} unique paths.`);
+}
+for (const pathSlug of uniqueLocalCountyPaths) {
+  if (!targetPathSlugs.has(pathSlug)) failures.push(`County calculator target registry is missing governed profile ${pathSlug}.`);
+}
+for (const row of targetRows) {
+  if (!uniqueLocalCountyPaths.has(row.calculatorPathSlug)) failures.push(`County calculator target ${row.calculatorPathSlug} has no governed local profile.`);
+  if (row.calculatorPathSlug !== `${row.countySlug}-county`) failures.push(`County calculator target slug mismatch: ${row.countySlug} -> ${row.calculatorPathSlug}.`);
+  if (!row.countyName.endsWith(' County')) failures.push(`County calculator target name must end with County: ${row.countyName}.`);
+}
+if (targets.includes("from '@/data/local-property-tax-calculators'")) {
+  failures.push('County calculator target helper must remain decoupled from the full local property-tax profile catalog.');
+}
+
 for (const marker of [
-  'LOCAL_PROPERTY_TAX_PROFILES.filter',
-  'profile.defaultCountySlug',
-  'profile.counties.length === 1',
-  "profile.name.endsWith(' County')",
   'MAJOR_COUNTY_PROPERTY_TAX_CALCULATORS',
   'countyPropertyTaxCalculatorTarget',
   "kind: 'local'",
@@ -104,4 +118,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`County property-tax calculator flow validation passed: ${countyNames.length} county references, ${localCountyPaths.length} governed major-county calculators, statewide preselection fallback, readiness-aware guide links, and no thin 254-page calculator family.`);
+console.log(`County property-tax calculator flow validation passed: ${countyNames.length} county references, ${localCountyPaths.length} governed major-county calculators, matching lightweight calculator targets, statewide preselection fallback, readiness-aware guide links, and no thin 254-page calculator family.`);

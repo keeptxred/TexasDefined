@@ -1,7 +1,7 @@
 export type RawTournament = readonly [name:string, locationLabel:string, summary:string, countySlug?:string];
 export const TOURNAMENT_RAW_3: readonly RawTournament[] = [
   ["UIL Volleyball State Tournament", "Garland", "High school volleyball championship tournament at the Curtis Culwell Center.", "dallas"],
-  ["Lone Star Classic National Qualifier", "Dallas", "Massive club volleyball tournament and USA Volleyball national qualifier.", "dallas"],
+  ["Lone Star Classic National Qualifier", "Dallas / Oklahoma City", "The 2027 adidas Lone Star Classic National Qualifier spans April weekends in Dallas and Oklahoma City, so it is not a Dallas-only tournament footprint."],
   ["Tour de Texas Volleyball League Championship", "Varies", "Elite club volleyball multi-stop tournament finale."],
   ["AVP Titleist Texas Open", "Austin", "Professional beach volleyball tournament stop.", "travis"],
   ["Mizuno Lone Star Circle City Qualifier", "Austin", "Major youth club national qualifying tournament.", "travis"],
@@ -25,7 +25,7 @@ export const TOURNAMENT_RAW_3: readonly RawTournament[] = [
   ["Dallas Marathon Championship", "Dallas", "Texas' oldest marathon tournament race.", "dallas"],
   ["Austin Marathon & Half", "Austin", "Premier rolling-hill endurance tournament.", "travis"],
   ["UIL Track & Field State Championships", "Austin", "High school track tournament finals at Mike A. Myers Stadium.", "travis"],
-  ["UIL Cross Country State Championships", "Round Rock", "High school cross country state tournament at Old Settlers Park."],
+  ["UIL Cross Country State Championships", "Round Rock", "High school cross country state championships at Old Settlers Park.", "williamson"],
   ["Ironman Texas", "The Woodlands", "Full distance North American Championship triathlon tournament.", "montgomery"],
   ["Ironman 70.3 Texas", "Galveston", "Highly competitive middle-distance triathlon tournament.", "galveston"],
   ["Texas Water Safari", "San Marcos to Seadrift", "Billed as the \"World's Toughest Boat Race,\" an ultra-marathon canoe tournament."],

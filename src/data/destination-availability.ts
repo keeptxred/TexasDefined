@@ -22,6 +22,10 @@ const UNAVAILABLE_DESTINATION_SLUGS = new Set([
  * Explore sitemap. Curation-only spelling adapters whose canonical target is not
  * guaranteed to exist as a public route (for example Possum/Possums Kingdom)
  * are intentionally not added here.
+ *
+ * Porretto Beach is also retained here as a researched coastal reference because
+ * it is privately owned and its 2026 public-access status is not reliable enough
+ * to recommend as an ordinary visitable public-beach destination.
  */
 const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([
   "barton-warnock-environmental-educational-center-state-park",
@@ -52,6 +56,7 @@ const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([
   "lyndon-b-johnson-state-park-state-historic-site",
   "monument-hill-kreische-brewery-state-historic-site",
   "palo-duro-canyon",
+  "porretto-beach",
   "port-isabel-lighthouse-state-park",
   "ray-roberts-lake-isle-du-bois-unit",
   "ray-roberts-lake-isle-du-bois-unit-state-park",

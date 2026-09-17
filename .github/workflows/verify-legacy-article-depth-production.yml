@@ -1,0 +1,127 @@
+name: Verify legacy article depth production
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+
+permissions:
+  contents: read
+
+jobs:
+  verify-legacy-article-depth:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+    steps:
+      - name: Verify formerly thin canonical articles are deep and indexable
+        shell: bash
+        run: |
+          set -euo pipefail
+          origin='https://texasdefined.com'
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          assert_live_marker() {
+            local label="$1" path="$2" marker="$3"
+            local out="$workdir/${label}.html"
+            local headers="$workdir/${label}.headers"
+            local attempt
+            for attempt in 1 2 3 4 5 6; do
+              echo "[$label] attempt $attempt: ${origin}${path}"
+              if curl --fail-with-body --silent --show-error --location --max-time 30 \
+                --dump-header "$headers" \
+                "${origin}${path}?verify-depth=${DEPLOY_SHA}-${GITHUB_RUN_ID}-${attempt}" -o "$out"; then
+                if grep -Fq 'About 1 minute' "$out"; then
+                  echo "[$label] one-minute reading-time regression is still present"
+                elif ! python - "$out" "$headers" "${origin}${path}" <<'PY'
+          import re
+          import sys
+          from html import unescape
+
+          html_path, headers_path, expected_canonical = sys.argv[1:4]
+          html = open(html_path, encoding="utf-8", errors="replace").read()
+          headers = open(headers_path, encoding="utf-8", errors="replace").read()
+
+          for tag in re.findall(r"<meta\b[^>]*>", html, flags=re.I):
+              if re.search(r"\bname\s*=\s*(['\"])robots\1", tag, flags=re.I) and "noindex" in tag.lower():
+                  print(f"robots meta blocks indexing: {tag[:300]}", file=sys.stderr)
+                  raise SystemExit(1)
+
+          for line in headers.splitlines():
+              if line.lower().startswith("x-robots-tag:") and "noindex" in line.lower():
+                  print(f"X-Robots-Tag blocks indexing: {line}", file=sys.stderr)
+                  raise SystemExit(1)
+
+          canonicals = []
+          for tag in re.findall(r"<link\b[^>]*>", html, flags=re.I):
+              if not re.search(r"\brel\s*=\s*(['\"])canonical\1", tag, flags=re.I):
+                  continue
+              href = re.search(r"\bhref\s*=\s*(['\"])(.*?)\1", tag, flags=re.I)
+              if href:
+                  canonicals.append(unescape(href.group(2)))
+
+          if expected_canonical not in canonicals:
+              print(f"canonical mismatch: expected {expected_canonical}; found {canonicals}", file=sys.stderr)
+              raise SystemExit(1)
+          PY
+                then
+                  echo "[$label] live page is not safely indexable yet"
+                elif grep -Fq "$marker" "$out"; then
+                  echo "[$label] deep production body, canonical and indexability verified"
+                  return 0
+                else
+                  echo "[$label] page is live but deep-body marker is not present yet"
+                fi
+              fi
+              sleep 5
+            done
+            echo "[$label] production depth/indexability verification failed for ${origin}${path}" >&2
+            if grep -Fq 'About 1 minute' "$out" 2>/dev/null; then
+              echo "[$label] forbidden reading-time label found: About 1 minute" >&2
+            fi
+            head -c 2400 "$out" 2>/dev/null || true
+            echo >&2
+            return 1
+          }
+
+          # Every seasonal intent URL that was part of the legacy thin-content family.
+          # Each check proves a topic-specific deep-body marker, the canonical URL,
+          # the absence of noindex and the absence of the original one-minute label.
+          assert_live_marker austin-bluebonnets '/article/bluebonnets-near-austin' \
+            'How to time an Austin bluebonnet day'
+          assert_live_marker houston-bluebonnets '/article/bluebonnets-near-houston' \
+            'Why Washington County is the safest bet from Houston'
+          assert_live_marker dfw-bluebonnets '/article/bluebonnets-near-dallas-fort-worth' \
+            'Use Ennis as a system, not a single stop'
+          assert_live_marker san-antonio-bluebonnets '/article/bluebonnets-near-san-antonio' \
+            'San Antonio sits between two bloom zones'
+          assert_live_marker bluebonnet-festivals '/article/texas-bluebonnet-festivals' \
+            'Festival weekend is not a bloom guarantee'
+          assert_live_marker bluebonnet-law '/article/is-it-illegal-to-pick-bluebonnets-in-texas' \
+            'The myth hides several real rules'
+          assert_live_marker christmas-lights '/article/best-christmas-lights-in-texas' \
+            'Choose the setting, not only the bulb count'
+          assert_live_marker christmas-trains '/article/texas-christmas-train-rides' \
+            'Two Texas rail experiences lead the list'
+          assert_live_marker free-christmas '/article/free-christmas-events-in-texas' \
+            'A free Texas Christmas night can be every bit as memorable as a ticketed attraction'
+          assert_live_marker east-texas-fall '/article/east-texas-fall-colors' \
+            'East Texas usually runs later than the Hill Country'
+          assert_live_marker hill-country-fall '/article/hill-country-fall-colors' \
+            'The Hill Country fall season follows water and elevation'
+          assert_live_marker fall-state-parks '/article/best-texas-state-parks-for-fall-colors' \
+            'Pick the park by the kind of fall color you want'
+
+          # Preserve the resolver fixes that already upgraded these legacy authority pages.
+          assert_live_marker friday-night '/article/friday-night-and-the-texas-town' \
+            'The easiest way to misunderstand Texas high-school football is to look only at the football'
+          assert_live_marker moving-texas '/article/moving-to-texas-what-nobody-tells-you' \
+            'The best way to move here is to understand the systems before you fall in love with a kitchen'
+          assert_live_marker moving-houston '/article/moving-to-houston-address-checklist' \
+            'Moving to Houston is an address-level decision'

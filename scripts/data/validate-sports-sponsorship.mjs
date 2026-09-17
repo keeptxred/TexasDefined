@@ -4,7 +4,7 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [schemaMigration, deliveryMigration, server, functions, component, directory, guide, galaxy, adminHead, adminLazy, adminNav, partnerPageHead, partnerPageLazy, salesPlaybook] = await Promise.all([
+const [schemaMigration, deliveryMigration, server, functions, component, directory, guide, galaxy, sharedContent, sharedPage, adminHead, adminLazy, adminNav, partnerPageHead, partnerPageLazy, salesPlaybook, advertisingProgram] = await Promise.all([
   read('supabase/migrations/20260814041151_create_governed_sports_sponsorship.sql'),
   read('supabase/migrations/20260814041302_govern_sports_sponsor_delivery.sql'),
   read('src/data/sports-sponsorship.server.ts'),
@@ -13,12 +13,15 @@ const [schemaMigration, deliveryMigration, server, functions, component, directo
   read('src/routes/sports-venues.tsx'),
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/routes/sports-venue.jones-att-stadium.tsx'),
+  read('src/components/sports/SportsVenueGuidePilotContent.tsx'),
+  read('src/components/sports/SportsVenueGuidePage.tsx'),
   read('src/routes/admin.sports-sponsors.tsx'),
   read('src/routes/admin.sports-sponsors.lazy.tsx'),
   read('src/routes/admin.tsx'),
   read('src/routes/partner-with-us.tsx'),
   read('src/routes/partner-with-us.lazy.tsx'),
   read('docs/SPORTS_SPONSORSHIP_SALES_PLAYBOOK.md'),
+  read('src/data/advertising-program.ts'),
 ]);
 
 // The sponsorship console and public partner page deliberately split route
@@ -120,21 +123,44 @@ for (const marker of [
   "event: 'click'",
 ]) assert(component.includes(marker), `Sponsored sports component is missing disclosure or aggregate metric marker: ${marker}.`);
 
-for (const [name, source, surfaceMarker] of [
-  ['sports directory', directory, "surfacePath: '/sports-venues'"],
-  ['generic sports venue guide', guide, 'surfacePath: canonicalPath'],
-  ['Galaxy Stadium guide', galaxy, 'surfacePath: canonicalPath'],
+for (const marker of [
+  'SponsoredSportsPlacement',
+  'getActiveSportsSponsorPlacement',
+  "surfacePath: '/sports-venues'",
+  'sponsorPlacement ?',
+]) assert(directory.includes(marker), `Sports directory sponsorship contract is missing marker: ${marker}.`);
+
+for (const [name, source] of [
+  ['generic sports venue guide', guide],
+  ['Galaxy Stadium guide', galaxy],
 ]) {
-  assert(source.includes('SponsoredSportsPlacement'), `${name} does not render the governed sponsored component.`);
   assert(source.includes('getActiveSportsSponsorPlacement'), `${name} does not load sponsorship through the approved server function.`);
-  assert(source.includes(surfaceMarker), `${name} does not request sponsorship for its exact surface.`);
-  assert(source.includes('sponsorPlacement ?'), `${name} must render nothing when there is no approved placement.`);
+  assert(source.includes('surfacePath: canonicalPath'), `${name} does not request sponsorship for its exact surface.`);
+  assert(source.includes('sponsorPlacement={sponsorPlacement}'), `${name} does not pass its governed placement into the shared renderer.`);
 }
-const jsonLdStart = guide.indexOf('const jsonLd = {');
-const jsonLdEnd = guide.indexOf('  return <>', jsonLdStart);
-const jsonLdSection = jsonLdStart >= 0 && jsonLdEnd > jsonLdStart ? guide.slice(jsonLdStart, jsonLdEnd) : '';
-assert(jsonLdSection.length > 0, 'Sports venue JSON-LD block could not be isolated for sponsorship separation validation.');
-assert(!jsonLdSection.includes('sponsorPlacement'), 'Sponsor content must not be injected into editorial structured data.');
+
+for (const marker of [
+  'sponsorPlacement?: PublicSportsSponsorPlacement | null;',
+  'sponsorPlacement={sponsorPlacement}',
+]) assert(sharedContent.includes(marker), `Shared sports venue content boundary is missing sponsor propagation marker: ${marker}.`);
+for (const marker of [
+  'SponsoredSportsPlacement',
+  'sponsorPlacement?: PublicSportsSponsorPlacement | null;',
+  'sponsorPlacement ?',
+  '<SponsoredSportsPlacement placement={sponsorPlacement} />',
+]) assert(sharedPage.includes(marker), `Shared sports venue page is missing governed sponsor rendering marker: ${marker}.`);
+
+const sharedJsonLdStart = sharedPage.indexOf('const jsonLd = {');
+const sharedJsonLdEnd = sharedPage.indexOf('  return (', sharedJsonLdStart);
+const sharedJsonLdSection = sharedJsonLdStart >= 0 && sharedJsonLdEnd > sharedJsonLdStart ? sharedPage.slice(sharedJsonLdStart, sharedJsonLdEnd) : '';
+assert(sharedJsonLdSection.length > 0, 'Shared sports venue JSON-LD block could not be isolated for sponsorship separation validation.');
+assert(!sharedJsonLdSection.includes('sponsorPlacement'), 'Sponsor content must not be injected into shared editorial structured data.');
+
+const legacyJsonLdStart = guide.indexOf('const jsonLd = {');
+const legacyJsonLdEnd = guide.indexOf('  return <>', legacyJsonLdStart);
+const legacyJsonLdSection = legacyJsonLdStart >= 0 && legacyJsonLdEnd > legacyJsonLdStart ? guide.slice(legacyJsonLdStart, legacyJsonLdEnd) : '';
+assert(legacyJsonLdSection.length > 0, 'Legacy sports venue JSON-LD block could not be isolated for sponsorship separation validation.');
+assert(!legacyJsonLdSection.includes('sponsorPlacement'), 'Sponsor content must not be injected into legacy editorial structured data.');
 
 for (const marker of [
   "createFileRoute('/admin/sports-sponsors')",
@@ -158,33 +184,49 @@ assert(!admin.includes('loader:'), 'Sports sponsorship admin route must not SSR-
 assert(adminNav.includes('to="/admin/sports-sponsors"'), 'TexasDefined Operations navigation must link to the gated sports sponsorship console.');
 
 for (const marker of [
-  'Founding sports rates',
-  '$49/month',
-  '$149/month',
-  '$299/month',
-  '$499/month',
-  "not guaranteed-impression or guaranteed-booking packages",
-  'does not sell editorial rankings, favorable reviews or factual conclusions',
-  'One approved sponsored placement may run on a sports surface at a time',
-]) assert(partnerPage.includes(marker), `Partner page is missing a founding-rate or commercial-integrity marker: ${marker}.`);
+  'Packages & pricing',
+  'Local Partner',
+  'Growth Partner',
+  'Premier Partner',
+  'Custom Partnership',
+  'Placement examples',
+  'Billing & payment',
+  'Advertising does not buy editorial coverage, rankings, reviews, recommendations or factual conclusions.',
+  'one approved sports sponsored placement may run on a sports surface at a time',
+]) assert(partnerPage.toLowerCase().includes(marker.toLowerCase()), `Partner page is missing unified advertiser-program marker: ${marker}.`);
+
+for (const marker of [
+  "id: 'local'",
+  'monthlyPrice: 249',
+  'annualPrice: 2490',
+  "id: 'growth'",
+  'monthlyPrice: 499',
+  'annualPrice: 4990',
+  "id: 'premier'",
+  'monthlyPrice: 999',
+  'annualPrice: 9990',
+  "id: 'custom'",
+  'advertiserAgreementSnapshot',
+]) assert(advertisingProgram.includes(marker), `Unified advertising program is missing tier marker: ${marker}.`);
 
 for (const marker of [
   'TexasDefined Sports Sponsorship Sales Playbook',
-  'Single Venue',
-  '$49/month',
-  'Metro Sports Pack',
-  '$149/month',
-  'Texas Sports Network',
-  '$299/month',
-  'Founding Statewide Partner',
+  'Pre-outreach hold',
+  'Local Partner',
+  '$249/month',
+  '$2,490/year',
+  'Growth Partner',
   '$499/month',
-  'Initial prospect markets',
-  'Outreach email: first contact',
-  'Outreach email: follow-up 1',
-  'Outreach email: follow-up 2',
-  'No guaranteed impression, click, booking, revenue, ranking, or editorial outcome',
+  '$4,990/year',
+  'Premier Partner',
+  '$999/month',
+  '$9,990/year',
+  'Custom Partnership',
+  'Launch-readiness checklist',
+  'Do not send advertiser outreach until the commercial launch checklist is complete.',
+  'No guaranteed impression, click, booking, revenue, ranking, social-reach or editorial outcome',
   'A sponsor may buy a disclosed placement. A sponsor may not buy:',
-]) assert(salesPlaybook.includes(marker), `Sports sales playbook is missing launch-sales governance marker: ${marker}.`);
+]) assert(salesPlaybook.includes(marker), `Sports sales playbook is missing unified commercial-governance marker: ${marker}.`);
 
 if (errors.length) {
   console.error('Sports sponsorship validation failed:');
@@ -192,4 +234,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Sports sponsorship validated: traffic-gated outreach hold, explicit two-stage approval, one approved placement per surface, fail-closed public delivery, sponsored disclosure, privacy-light aggregate metrics, key-gated operator controls and founding launch-sales terms are protected.');
+console.log('Sports sponsorship validated: existing fail-closed placement governance, traffic-gated approval hold, privacy-light metrics and editorial separation are preserved while sports sales now use the unified TexasDefined advertiser tiers and pre-outreach launch checklist.');

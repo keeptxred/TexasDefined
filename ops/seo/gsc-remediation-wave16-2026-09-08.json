@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+  "reviewDate": "2026-09-08",
+  "reviewMethod": "Final GSC-prioritized Texas-vs state review against the permanent Wave 4 remediation requirements: current tax, housing, labor, hazard/resilience and transportation sources; stronger metro/place comparison; dated review metadata; canonical/schema integrity; and sitemap qualification",
+  "summary": { "reviewed": 5, "KEEP": 5, "IMPROVE": 0, "NOINDEX": 0, "REMOVE_CONSOLIDATE": 0 },
+  "reviewed": [
+    {
+      "path": "/texas-vs/new-jersey",
+      "action": "KEEP",
+      "reason": "New Jersey now has current Division of Taxation rate guidance, Census housing benchmarks, July 2026 Department of Labor evidence, the FEMA-approved 2024 State Hazard Mitigation Plan and statewide public-transportation evidence plus distinct North Jersey, central corridor, Shore and South Jersey comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/north-dakota",
+      "action": "KEEP",
+      "reason": "North Dakota now has current Office of State Tax Commissioner rate guidance, Census housing benchmarks, July 2026 BLS labor evidence, current Department of Emergency Services mitigation resources and NDDOT statewide-transit evidence plus distinct Fargo, Bismarck-Mandan, Grand Forks, Minot, western energy and rural-market guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/rhode-island",
+      "action": "KEEP",
+      "reason": "Rhode Island now has 2026 Division of Taxation brackets, Census housing benchmarks, July 2026 Department of Labor evidence, the FEMA-approved 2024 State Hazard Mitigation Plan and a current RIPTA statewide system map plus distinct Providence, Warwick, Newport, South County and inland comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/south-dakota",
+      "action": "KEEP",
+      "reason": "South Dakota now has official no-income-tax guidance, Census housing benchmarks, July 2026 Department of Labor evidence, state emergency-management mitigation evidence and SDDOT public-transit evidence plus distinct Sioux Falls, Rapid City/Black Hills, regional-center and rural comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/wyoming",
+      "action": "KEEP",
+      "reason": "Wyoming now has official no-income-tax guidance, Census housing benchmarks, July 2026 workforce evidence, current Homeland Security mitigation evidence and WYDOT transit evidence plus distinct Cheyenne, Casper, Laramie, Jackson/Teton, energy-community and rural comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    }
+  ]
+}

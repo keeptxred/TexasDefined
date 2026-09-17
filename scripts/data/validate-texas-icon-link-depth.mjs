@@ -141,12 +141,17 @@ if (!hub.includes('<Stat value={String(deeperGuideCount)} label="Deeper guide li
 if (!hub.includes('to="/texas-blue-norther-weather-guide"')) failures.push('Things That Define Texas hub must visibly feature the Texas Blue Norther weather guide.');
 if (hub.includes('label="Very big state"')) failures.push('Things That Define Texas hub must not replace its authority metric with the old novelty statistic.');
 for (const token of [
-  'import { TEXAS_ICON_DEEPER_GUIDE_COUNT } from "@/data/things-unique-to-texas-reference";',
-  'At the current source state, {TEXAS_ICON_DEEPER_GUIDE_COUNT} of the 250 records resolve to a deeper canonical TexasDefined guide.',
+  'await import("@/data/things-unique-to-texas-reference")',
+  'return { deeperGuideCount: TEXAS_ICON_DEEPER_GUIDE_COUNT };',
+  'const { deeperGuideCount } = Route.useLoaderData();',
+  'At the current source state, {deeperGuideCount} of the 250 records resolve to a deeper canonical TexasDefined guide.',
   '<dt className="font-semibold">Deeper guide links</dt>',
-  '{TEXAS_ICON_DEEPER_GUIDE_COUNT} computed relationships',
+  '{deeperGuideCount} computed relationships',
 ]) {
-  if (!methodology.includes(token)) failures.push(`Things That Define Texas methodology must expose computed deeper-guide coverage: ${token}`);
+  if (!methodology.includes(token)) failures.push(`Things That Define Texas methodology must expose computed deeper-guide coverage through the lazy reference boundary: ${token}`);
+}
+if (methodology.includes('import { TEXAS_ICON_DEEPER_GUIDE_COUNT } from "@/data/things-unique-to-texas-reference";')) {
+  failures.push('Things That Define Texas methodology must not eagerly import the 250-record reference graph just to display its computed count.');
 }
 
 if (failures.length) {

@@ -1,4 +1,3 @@
-import { getGeneratedTexasEvents } from "./events-generated";
 import type { TexasEvent, TexasRegion } from "./types";
 
 const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
@@ -53,6 +52,7 @@ function mapRow(row: Record<string, unknown>): TexasEvent {
 }
 
 export async function fetchPublishedTexasEvents(limit = 24): Promise<TexasEvent[]> {
+  const { getGeneratedTexasEvents } = await import("./events-generated");
   const generated = getGeneratedTexasEvents(limit);
   if (generated.length) return generated;
 

@@ -41,15 +41,16 @@ const records: MajorEventAuthorityRecord[] = [
     category: "seasonal",
     startDate: "2026-12-05",
     endDate: "2026-12-05",
-    dateNote: "The organizer says the parade is always held on the first Saturday in December. In 2026, that falls on December 5. Recheck the official site close to the event for the dedicated 2026 announcement and any operational changes.",
+    dateNote: "Dallas Holiday Parade 2026 planning date: Saturday, December 5. The organizer's standing rule says the parade is always held on the first Saturday in December; its current spectator guide says the parade starts at 9 a.m. and lasts about two hours. The dedicated 2026 announcement is not yet posted on the organizer's homepage, so recheck the official site before travel for year-specific operational changes.",
     venue: "Downtown Dallas",
     officialUrl: "https://dallasholidayparade.com/",
-    sourceCheckedAt: "2026-08-27",
-    whyItMatters: "The Dallas Holiday Parade is a long-running downtown holiday tradition and one of the city's largest one-day outdoor events, making it useful as both a seasonal calendar anchor and a Dallas travel-planning page.",
+    sourceCheckedAt: "2026-09-10",
+    whyItMatters: "The Dallas Holiday Parade—also commonly searched as the Dallas Christmas parade—is one of the city's largest one-day outdoor events. For 2026 planning, the highest-value facts are the first-Saturday date rule, the 9 a.m. standing start time, the downtown route start, free public viewing and the organizer's DART recommendation.",
     planningSections: [
-      { title: "Use the first-Saturday rule carefully", body: "The organizer's standing guidance places the parade on the first Saturday in December. Recheck the official site close to parade week because year-specific operations can change." },
-      { title: "Arrive before the route fills", body: "The organizer says the parade starts at 9 a.m., lasts about two hours and begins at Commerce and Houston streets. Arrive early enough to choose a viewing location before crowds and street closures build." },
-      { title: "Prefer transit when it fits", body: "The parade recommends DART for downtown access to avoid parking, traffic and street closures. If driving, review current downtown parking information before parade morning." },
+      { title: "Dallas Holiday Parade 2026: December 5 planning date", body: "The organizer says the parade is always held on the first Saturday in December, which falls on December 5 in 2026. Its current spectator guide lists a 9 a.m. start and about a two-hour parade. Because the organizer's homepage still displays the 2025 event announcement, treat December 5 and the standing timing as the 2026 planning window and confirm the dedicated 2026 update before departure." },
+      { title: "Dallas Christmas parade route: start at Commerce and Houston", body: "The official spectator guide says the parade route begins at Commerce and Houston streets in downtown Dallas. Arrive early enough to choose a viewing location before crowds build, and recheck the organizer's 2026 route or operational notice when it is published rather than relying on prior-year closure maps." },
+      { title: "Dallas Holiday Parade tickets and viewing", body: "The organizer says the public parade is free. Optional bleacher seating is sold separately, and the standing spectator guide says those tickets become available beginning October 5. No 2026 bleacher price is posted in the current guide, so do not assume a prior-year price; use the official site when 2026 seating sales open." },
+      { title: "Use DART if it fits your trip", body: "The organizer recommends taking DART downtown to avoid traffic, parking fees and street closures. If you drive, use current downtown parking information and wait for a 2026 traffic advisory before planning around specific closure streets or times." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-dallas", label: "Explore Dallas County", description: "Build a broader holiday weekend around downtown Dallas." },
@@ -57,7 +58,7 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "Dallas Holiday Parade official site", url: "https://dallasholidayparade.com/" },
-      { label: "Dallas Holiday Parade official things to know", url: "https://dallasholidayparade.com/things-to-know" },
+      { label: "Dallas Holiday Parade official spectator guide and FAQ", url: "https://dallasholidayparade.com/things-to-know" },
     ],
   },
 ];

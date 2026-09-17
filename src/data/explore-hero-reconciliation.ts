@@ -1,12 +1,8 @@
 import { destinationHeroOverrides } from "./destination-hero-overrides";
+import { DESTINATION_PHOTO_PLACEHOLDER, isDestinationPhotoPlaceholder } from "./destination-hero-placeholder";
 import type { Destination, ImageRef } from "./types";
 
-export const DESTINATION_PHOTO_PLACEHOLDER = "/images/texasdefined-destination-placeholder.svg";
-
-export function isDestinationPhotoPlaceholder(src?: string) {
-  if (!src) return true;
-  return src.includes("texasdefined-destination-placeholder") || src.includes("texasdefined-placeholder");
-}
+export { DESTINATION_PHOTO_PLACEHOLDER, isDestinationPhotoPlaceholder } from "./destination-hero-placeholder";
 
 export function missingDestinationHero(destination: Destination): ImageRef {
   return {

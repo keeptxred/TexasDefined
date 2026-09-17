@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
+import { BookingCarRentalCard } from "@/components/monetization/BookingCarRentalCard";
 import { destinationEditorialLinks } from "@/data/destination-editorial-links";
 import type { Destination } from "@/data/types";
 
@@ -7,6 +8,7 @@ type Props = { destination: Destination };
 
 const activityPattern = /hiking|trail|camping|fishing|swimming|boating|paddling|kayak|canoe|bird|wildlife|cycling|climbing|horse|picnic|photograph|stargaz/i;
 const facilityPattern = /restroom|visitor center|playground|parking|campground|campsite|shower|electric|water|accessible|accessibility|boat ramp|dock|store|rental/i;
+const drivingIntentPattern = /\b(?:drive|driving|car|road trip|highway|airport|remote|vehicle)\b/i;
 
 function unique(values: string[]) {
   return values.filter((value, index, all) => Boolean(value) && all.indexOf(value) === index);
@@ -24,6 +26,14 @@ export function DestinationVisitPlanner({ destination }: Props) {
     destination.directions ? `Getting there: ${destination.directions}` : "",
   ]);
   const editorialLinks = destinationEditorialLinks(destination.slug);
+  const drivingIntentText = [
+    destination.summary,
+    destination.entryNote,
+    destination.directions,
+    destination.nearestTown,
+    ...destination.highlights,
+  ].filter(Boolean).join(" ");
+  const showRentalCarOption = drivingIntentPattern.test(drivingIntentText);
 
   if (!activities.length && !facilities.length && !otherHighlights.length && !practicalTips.length) return null;
 
@@ -46,6 +56,18 @@ export function DestinationVisitPlanner({ destination }: Props) {
           { question: "Where is it?", answer: `${destination.nearestTown ? `Near ${destination.nearestTown}, Texas` : "In Texas"}${destination.county ? `, in ${destination.county} County` : ""}.` },
         ]}
       />
+      <div
+        data-stay-nearby-slot
+        className="my-10"
+        aria-label={`Places to stay near ${destination.name}`}
+      />
+      {showRentalCarOption ? (
+        <BookingCarRentalCard
+          className="my-10"
+          placement="destination-visit-planner"
+          title={`Need a rental car for ${destination.name}?`}
+        />
+      ) : null}
       <section aria-labelledby="plan-your-visit" className="border-t border-border pt-8">
         <p className="eyebrow text-primary">Field notes</p>
         <h2 id="plan-your-visit" className="mt-3 font-display text-3xl">What to know before you go</h2>

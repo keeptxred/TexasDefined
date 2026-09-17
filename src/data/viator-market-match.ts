@@ -5,9 +5,9 @@ export interface ViatorMatchMarket {
 
 /** Compact destination matcher. Exact aliases prevent substring collisions such as Mission, Texas vs. San Antonio Missions. */
 export const VIATOR_MATCH_MARKETS: readonly ViatorMatchMarket[] = [
-  { slug: "austin", aliases: "|austin|travis|texas capitol|lady bird lake|barton springs|congress avenue|" },
+  { slug: "austin", aliases: "|austin|travis|dripping springs|texas capitol|lady bird lake|barton springs|congress avenue|" },
   { slug: "san-antonio", aliases: "|san antonio|bexar|the alamo|alamo|river walk|san antonio missions|mission san jose|" },
-  { slug: "dallas", aliases: "|dallas|dealey plaza|sixth floor museum|reunion tower|bishop arts|" },
+  { slug: "dallas", aliases: "|dallas|parker|collin|southfork ranch|dealey plaza|sixth floor museum|reunion tower|bishop arts|" },
   { slug: "fort-worth", aliases: "|fort worth|tarrant|stockyards|fort worth stockyards|billy bobs texas|sundance square|" },
   { slug: "arlington", aliases: "|arlington|at t stadium|globe life field|six flags over texas|" },
   { slug: "houston", aliases: "|houston|harris|space center houston|johnson space center|houston museum district|buffalo bayou|" },
@@ -19,7 +19,7 @@ export const VIATOR_MATCH_MARKETS: readonly ViatorMatchMarket[] = [
   { slug: "marble-falls-lake-travis", aliases: "|marble falls|burnet|lake travis|highland lakes|" },
   { slug: "waco", aliases: "|waco|mclennan|magnolia market|waco mammoth|dr pepper museum|" },
   { slug: "college-station-bryan", aliases: "|bryan|college station|brazos|texas a m|kyle field|" },
-  { slug: "corpus-christi", aliases: "|corpus christi|nueces|texas state aquarium|uss lexington|padre island national seashore|" },
+  { slug: "corpus-christi", aliases: "|corpus christi|nueces|rockport|aransas|little bay|texas state aquarium|uss lexington|padre island national seashore|" },
   { slug: "port-aransas", aliases: "|port aransas|mustang island|" },
   { slug: "south-padre-island", aliases: "|south padre island|cameron|laguna madre|port isabel|" },
   { slug: "rio-grande-valley", aliases: "|rio grande valley|hidalgo|mcallen|brownsville|edinburg|mission|" },

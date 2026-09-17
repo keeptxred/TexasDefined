@@ -1,0 +1,208 @@
+name: Verify advertiser production
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/advertiser-production-verification.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/advertiser-production-verification.yml'
+  workflow_run:
+    workflows:
+      - 'Deploy TexasDefined production'
+    types:
+      - completed
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-advertiser-production-verification
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Verify advertiser production surfaces
+        env:
+          ORIGIN: https://texasdefined.com
+          REVISION: ${{ github.event.workflow_run.head_sha || github.sha }}
+        shell: bash
+        run: |
+          node <<'NODE'
+          const origin = process.env.ORIGIN;
+          const revision = process.env.REVISION || 'unknown';
+          const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+          const routes = [
+            {
+              name: 'advertiser hub',
+              path: '/partner-with-us',
+              canonical: '/partner-with-us',
+              needles: ['Local Partner', 'Growth Partner', 'Premier Partner', 'Custom Partnership', '$249', '$499', '$999', 'Review first. Agreement and payment follow approval.'],
+              forbidden: ['Custom / Integrated', 'Founding sports rates', '$49/month', '$149/month', '$299/month', 'TEST ONLY', 'test mode'],
+              indexable: true,
+            },
+            {
+              name: 'advertiser terms',
+              path: '/partner-with-us/terms',
+              canonical: '/partner-with-us/terms',
+              needles: ['Texas Defined advertising and sponsorship terms.', 'Agreement version 2026-09-16-v2', 'Custom Partnership', '$249/month', '$2,490/year', 'does not represent that it has been reviewed by counsel'],
+              forbidden: ['Custom / Integrated', 'TEST ONLY', 'test mode'],
+              indexable: true,
+            },
+            {
+              name: 'advertiser billing',
+              path: '/partner-with-us/billing',
+              canonical: '/partner-with-us/billing',
+              needles: ['Straightforward payment and invoice terms for Texas Defined partners.', 'Stripe Hosted Invoice Page', 'eligible ACH', 'Net 15', 'does not store raw card or bank-account numbers'],
+              forbidden: ['TEST ONLY', 'test mode'],
+              indexable: true,
+            },
+            {
+              name: 'advertiser examples',
+              path: '/partner-with-us/examples',
+              canonical: '/partner-with-us/examples',
+              needles: ['Every business shown below is fictional.', 'Sample advertiser', 'Demonstration only', 'Desktop sample', 'Mobile sample'],
+              forbidden: ['TEST ONLY', 'test mode'],
+              indexable: true,
+            },
+            {
+              name: 'advertiser agreement',
+              path: '/partner-with-us/agreement',
+              canonical: '/partner-with-us/agreement',
+              needles: ['Approved advertiser workflow', 'Review and electronically accept the Texas Defined advertiser agreement.', 'Electronic acceptance'],
+              forbidden: ['TEST ONLY', 'test mode'],
+              indexable: false,
+            },
+          ];
+
+          const legacyRedirects = [
+            ['/advertising-terms', '/partner-with-us/terms'],
+            ['/advertising-billing', '/partner-with-us/billing'],
+          ];
+
+          const variants = [
+            { name: 'ordinary browser', cacheBust: false, bypassCache: false },
+            { name: 'cache-bypass', cacheBust: false, bypassCache: true },
+            { name: 'cache-busted', cacheBust: true, bypassCache: false },
+          ];
+
+          function canonicalPresent(html, path) {
+            const expected = `${origin}${path}`.toLowerCase();
+            return [...html.matchAll(/<link\b[^>]*>/gi)].some((match) => {
+              const tag = match[0].toLowerCase();
+              return (/rel=["']canonical["']/.test(tag) && tag.includes(`href="${expected}"`)) ||
+                (/rel=["']canonical["']/.test(tag) && tag.includes(`href='${expected}'`));
+            });
+          }
+
+          function robotsContent(html) {
+            const tag = [...html.matchAll(/<meta\b[^>]*>/gi)].map((m) => m[0]).find((value) => /name=["']robots["']/i.test(value));
+            if (!tag) return '';
+            const content = tag.match(/content=["']([^"']*)["']/i);
+            return content?.[1]?.toLowerCase() || '';
+          }
+
+          function normalizeRenderedHtml(html) {
+            return html.replace(/<!--\s*-->/g, '');
+          }
+
+          function routeUrl(route, attempt, variant) {
+            if (!variant.cacheBust) return `${origin}${route.path}`;
+            return `${origin}${route.path}?verify-advertiser=${encodeURIComponent(`${revision}-${Date.now()}-${attempt}`)}`;
+          }
+
+          function requestInit(variant, redirect) {
+            const headers = {
+              'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/153.0.0.0 Safari/537.36',
+              accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+            };
+            if (variant.bypassCache) {
+              headers['cache-control'] = 'no-cache';
+              headers.pragma = 'no-cache';
+            }
+            return {
+              redirect,
+              cache: variant.bypassCache ? 'no-store' : 'default',
+              signal: AbortSignal.timeout(30_000),
+              headers,
+            };
+          }
+
+          async function fetchRoute(route, attempt, variant) {
+            const url = routeUrl(route, attempt, variant);
+            const response = await fetch(url, requestInit(variant, 'follow'));
+            const html = await response.text();
+            const renderedHtml = normalizeRenderedHtml(html);
+            const missing = route.needles.filter((needle) => !renderedHtml.includes(needle));
+            const forbidden = route.forbidden.filter((needle) => renderedHtml.toLowerCase().includes(needle.toLowerCase()));
+            const robots = robotsContent(html);
+            const canonicalOk = canonicalPresent(html, route.canonical);
+            const indexOk = route.indexable ? !robots.includes('noindex') : robots.includes('noindex');
+            return { response, missing, forbidden, robots, canonicalOk, indexOk, url };
+          }
+
+          const failures = [];
+          for (const route of routes) {
+            for (const variant of variants) {
+              let result;
+              let passed = false;
+              for (let attempt = 1; attempt <= 6; attempt += 1) {
+                try {
+                  result = await fetchRoute(route, attempt, variant);
+                  passed = result.response.ok && result.missing.length === 0 && result.forbidden.length === 0 && result.canonicalOk && result.indexOk;
+                  console.log(`[${route.name} / ${variant.name}] attempt ${attempt}: HTTP ${result.response.status}; missing=${result.missing.join(' | ') || 'none'}; forbidden=${result.forbidden.join(' | ') || 'none'}; canonical=${result.canonicalOk}; robots=${result.robots || '(none)'}`);
+                  if (passed) break;
+                } catch (error) {
+                  result = { error: error instanceof Error ? error.message : String(error) };
+                  console.log(`[${route.name} / ${variant.name}] attempt ${attempt}: ${result.error}`);
+                }
+                if (attempt < 6) await sleep(5_000);
+              }
+              if (!passed) failures.push(`${route.name} / ${variant.name}: ${JSON.stringify(result)}`);
+            }
+          }
+
+          for (const [from, to] of legacyRedirects) {
+            for (const variant of variants) {
+              let passed = false;
+              let detail = '';
+              for (let attempt = 1; attempt <= 6; attempt += 1) {
+                try {
+                  const suffix = variant.cacheBust ? `?verify-advertiser=${encodeURIComponent(`${revision}-${Date.now()}-${attempt}`)}` : '';
+                  const url = `${origin}${from}${suffix}`;
+                  const response = await fetch(url, requestInit(variant, 'manual'));
+                  const location = response.headers.get('location') || '';
+                  const resolved = location ? new URL(location, origin).pathname : '';
+                  passed = response.status === 301 && resolved === to;
+                  detail = `HTTP ${response.status}; location=${location || '(none)'}`;
+                  console.log(`[legacy ${from} / ${variant.name}] attempt ${attempt}: ${detail}`);
+                  if (passed) break;
+                } catch (error) {
+                  detail = error instanceof Error ? error.message : String(error);
+                  console.log(`[legacy ${from} / ${variant.name}] attempt ${attempt}: ${detail}`);
+                }
+                if (attempt < 6) await sleep(5_000);
+              }
+              if (!passed) failures.push(`legacy redirect ${from} -> ${to} / ${variant.name}: ${detail}`);
+            }
+          }
+
+          if (failures.length) {
+            console.error('\nAdvertiser production verification failed:');
+            for (const failure of failures) console.error(`- ${failure}`);
+            process.exit(1);
+          }
+
+          console.log('Advertiser production verification passed for ordinary-browser, cache-bypass and cache-busted requests: hub/support pages, exact pricing/content and tier naming, demo disclosure, agreement noindex, no test-only public copy, and permanent legacy redirects are live.');
+          NODE

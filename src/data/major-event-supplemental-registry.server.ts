@@ -1,3 +1,4 @@
+import { hasCurrentOrFutureConfirmedEventOccurrence } from "./event-occurrence-lifecycle";
 import { getMajorEventRecordServer } from "./major-event-page.server";
 
 export const supplementalMajorEventSlugs = [
@@ -22,6 +23,24 @@ export const supplementalMajorEventSlugs = [
   "the-sun-bowl",
   "the-armed-forces-bowl",
   "the-first-responder-bowl",
+  "uil-football-state-championships",
+  "uil-boys-basketball-state-tournament",
+  "uil-girls-basketball-state-tournament",
+  "uil-baseball-state-tournament",
+  "uil-softball-state-tournament",
+  "uil-soccer-state-championships",
+  "uil-tennis-state-tournaments",
+  "us-mens-clay-court-championships",
+  "uil-volleyball-state-tournament",
+  "uil-cross-country-state-championships",
+  "uil-wrestling-state-championships",
+  "uil-spirit-state-championships",
+  "the-texas-relays",
+  "worlds-championship-bar-b-que-contest",
+  "nsca-national-sporting-clays-championship",
+  "texas-state-science-and-engineering-fair",
+  "ironman-texas",
+  "world-skeet-shooting-championships",
   "houston-auto-show",
   "fulton-oysterfest",
   "sandhills-stock-show-rodeo",
@@ -135,9 +154,11 @@ export function loadSupplementalMajorEventRecordsServer() {
   });
 }
 
-export function loadSupplementalMajorEventSitemapEntriesServer() {
-  return loadSupplementalMajorEventRecordsServer().map((event) => ({
-    path: `/event/${event.slug}`,
-    lastmod: event.sourceCheckedAt?.slice(0, 10),
-  }));
+export function loadSupplementalMajorEventSitemapEntriesServer(now = new Date()) {
+  return loadSupplementalMajorEventRecordsServer()
+    .filter((event) => hasCurrentOrFutureConfirmedEventOccurrence(event, now))
+    .map((event) => ({
+      path: `/event/${event.slug}`,
+      lastmod: event.sourceCheckedAt?.slice(0, 10),
+    }));
 }

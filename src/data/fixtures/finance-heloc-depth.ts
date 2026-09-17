@@ -12,7 +12,7 @@ export const texasHelocRulesArticle: Article = {
   dek: "Texas allows home-equity loans and HELOCs, but homestead-secured borrowing has state-specific constitutional rules. Understand the 80% combined-lien ceiling, loan structures, risks and what to verify before applying.",
   category: "real-estate",
   hero: {
-    src: "/images/editorial/texas-heloc-home-equity.svg",
+    src: "/images/editorial/texas-heloc-home-equity.jpg",
     alt: "Texas home equity illustration with a house, an 80 percent ceiling marker and a value line chart",
     width: 1600,
     height: 1000,

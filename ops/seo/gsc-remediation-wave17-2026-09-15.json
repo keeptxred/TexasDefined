@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-13.json",
+  "reviewDate": "2026-09-15",
+  "reviewMethod": "Review the current MANUAL_NEXT cohort against existing crawl-demand protections, then add a deploy-triggered production contract that requires each priority URL to stay live, non-redirecting, indexable and self-canonical while Google recrawl/indexing catches up.",
+  "summary": {
+    "reviewed": 10,
+    "KEEP": 10,
+    "IMPROVE": 0,
+    "NOINDEX": 0,
+    "REMOVE_CONSOLIDATE": 0
+  },
+  "guardrails": {
+    "staticCrawlDemandValidator": "scripts/seo/validate-gsc-crawl-demand-links.mjs",
+    "productionVerifier": "scripts/ci/verify-gsc-manual-next-production.mjs",
+    "productionWorkflow": ".github/workflows/verify-gsc-manual-next-production.yml",
+    "checks": [
+      "HTTP success without Cloudflare challenge",
+      "priority URL does not redirect away",
+      "no meta robots/googlebot noindex",
+      "no X-Robots-Tag noindex",
+      "self-referencing canonical"
+    ]
+  },
+  "reviewed": [
+    { "path": "/property-tax-calculator/bexar-county", "action": "KEEP", "reason": "Priority property-tax calculator already has a protected crawl-demand link from the property authority hub; production guard now protects indexability and canonical integrity." },
+    { "path": "/property-tax-calculator/fort-bend-county", "action": "KEEP", "reason": "Priority property-tax calculator already has a protected crawl-demand link from the property authority hub; production guard now protects indexability and canonical integrity." },
+    { "path": "/property-tax-calculator/montgomery-county", "action": "KEEP", "reason": "Priority property-tax calculator already has a protected crawl-demand link from the property authority hub; production guard now protects indexability and canonical integrity." },
+    { "path": "/property-tax-calculator/williamson-county", "action": "KEEP", "reason": "Priority property-tax calculator already has a protected crawl-demand link from the property authority hub; production guard now protects indexability and canonical integrity." },
+    { "path": "/property-tax-calculator/hidalgo-county", "action": "KEEP", "reason": "Priority property-tax calculator already has a protected crawl-demand link from the property authority hub; production guard now protects indexability and canonical integrity." },
+    { "path": "/texas-mortgage-calculator/houston", "action": "KEEP", "reason": "Priority Houston housing calculator already has protected discovery from the property authority hub and server-backed local housing directory; production guard now protects indexability and canonical integrity." },
+    { "path": "/texas-home-affordability-calculator/houston", "action": "KEEP", "reason": "Priority Houston housing calculator already has protected discovery from the property authority hub and server-backed local housing directory; production guard now protects indexability and canonical integrity." },
+    { "path": "/texas-home-insurance-calculator/houston", "action": "KEEP", "reason": "Priority Houston housing calculator already has protected discovery from the property authority hub and server-backed local housing directory; production guard now protects indexability and canonical integrity." },
+    { "path": "/destination/fredericksburg", "action": "KEEP", "reason": "Priority destination already has a protected authority-guide relationship and now also participates in the governed Stay Nearby cohort; production guard protects its canonical/indexability state." },
+    { "path": "/destination/garner-state-park", "action": "KEEP", "reason": "Priority destination already has a protected direct link from the statewide camping guide; production guard protects its canonical/indexability state." }
+  ],
+  "manualSubmission": {
+    "status": "NEXT_BATCH",
+    "policy": "Do not repeatedly resubmit previously requested URLs. Submit this cohort through Google URL Inspection only when quota is available, then monitor for crawl/index-state change rather than interpreting discovery status alone as a content defect."
+  }
+}

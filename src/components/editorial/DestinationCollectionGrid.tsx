@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "@tanstack/react-router";
 
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import type { Destination } from "@/data/types";
@@ -24,6 +25,7 @@ export function DestinationCollectionGrid({ destinations, regionLabel }: { desti
     }
     return [...counts.entries()].filter(([, item]) => item.count >= 2).sort((a, b) => b[1].count - a[1].count || a[1].label.localeCompare(b[1].label)).slice(0, 30).map(([key, item]) => ({ key, ...item }));
   }, [destinations]);
+  const allDestinations = useMemo(() => [...destinations].sort((a, b) => a.name.localeCompare(b.name)), [destinations]);
 
   const filtered = useMemo(() => {
     const needle = normalized(query);
@@ -57,5 +59,17 @@ export function DestinationCollectionGrid({ destinations, regionLabel }: { desti
     {visible.length > 0 ? <ul className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">{visible.map((destination) => <li key={destination.id}><DestinationCard destination={destination} regionLabel={regionLabel(destination.region)} /></li>)}</ul> : <div className="mt-10 border-t border-border py-12"><p className="font-display text-3xl">Nothing quite fits those choices.</p><p className="mt-3 text-sm text-muted-foreground">Try another region, activity or a broader search.</p></div>}
 
     {remaining > 0 && <div className="mt-12 border-t border-border pt-7 text-center"><button type="button" onClick={() => setVisibleCount((count) => Math.min(count + PAGE_SIZE, filtered.length))} className="eyebrow border-b border-primary pb-1 text-primary">Show {Math.min(PAGE_SIZE, remaining).toLocaleString("en-US")} more →</button><p className="mt-3 text-xs text-muted-foreground">{visible.length.toLocaleString("en-US")} of {filtered.length.toLocaleString("en-US")} places shown</p></div>}
+
+    {destinations.length > PAGE_SIZE && <nav aria-label="All places in this guide" className="mt-14 border-t border-border pt-8">
+      <p className="eyebrow text-primary">All places</p>
+      <h3 className="mt-2 font-display text-3xl">Browse every place in this guide</h3>
+      <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">A complete A–Z directory of the destinations covered in this section.</p>
+      <ul className="mt-6 columns-1 gap-x-8 sm:columns-2 lg:columns-3">
+        {allDestinations.map((destination) => <li key={`directory-${destination.id}`} className="mb-2 break-inside-avoid text-sm leading-6">
+          <Link to="/destination/$slug" params={{ slug: destination.slug }} className="font-medium text-foreground transition-colors hover:text-primary">{destination.name}</Link>
+          {destination.nearestTown ? <span className="text-muted-foreground"> · {destination.nearestTown}</span> : null}
+        </li>)}
+      </ul>
+    </nav>}
   </>;
 }

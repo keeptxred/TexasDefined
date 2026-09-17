@@ -2,7 +2,6 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { loadCountyProfile } from '@/data/county-profile';
 import { loadCountySeriesArticle } from '@/data/county-series';
-import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
 import {
   canonicalEntityPath,
   isIndexableEntityPage,
@@ -14,6 +13,7 @@ import { buildMeta, canonicalLink } from '@/lib/seo';
 
 export const Route = createFileRoute('/$kind/$slug')({
   loader: async ({ params }) => {
+    const { findCompleteTexasEntity, loadTexasKnowledgeGraph } = await import('@/data/knowledge-graph');
     const graph = await loadTexasKnowledgeGraph();
     const entity = await findCompleteTexasEntity(`${params.kind}:${params.slug}`) ?? await findCompleteTexasEntity(params.slug);
     if (!entity || entity.kind !== params.kind) throw notFound();
@@ -24,18 +24,24 @@ export const Route = createFileRoute('/$kind/$slug')({
         .sort((left, right) => sportsVenuePriority(left) - sportsVenuePriority(right) || left.name.localeCompare(right.name))
       : [];
     if (entity.kind !== 'county') return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues };
-    const [countyProfile, localGovernment, countySeriesArticle] = await Promise.all([
+    const countyRvParksPromise = import('@/data/rv-parks/county-index').then(({ loadCountyRvParksSnapshot }) => loadCountyRvParksSnapshot(entity.slug));
+    const countyMajorEventsPromise = import('@/data/county-major-events').then(({ getCountyMajorEvents }) => getCountyMajorEvents(entity.slug));
+    const [countyProfile, localGovernment, countySeriesArticle, countyRvParks, countyMajorEvents] = await Promise.all([
       loadCountyProfile(entity.slug, entity.name),
       loadLocalGovernmentProfile(entity.slug, entity.name),
       loadCountySeriesArticle(entity.slug),
+      countyRvParksPromise,
+      countyMajorEventsPromise,
     ]);
-    return { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues };
+    const countyEntity = { ...entity, rvParks: countyRvParks, majorEvents: countyMajorEvents };
+    return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
     const canonicalPath = canonicalEntityPath(loaderData.entity);
     const countySeriesArticle = loaderData.countySeriesArticle;
-    const description = searchSnippetDescription(loaderData.entity);
+    let description = searchSnippetDescription(loaderData.entity);
+    if (loaderData.entity.kind === 'county' && countySeriesArticle?.dek) description = countySeriesArticle.dek;
     const indexable = isIndexableEntityPage(loaderData.entity);
     return {
       meta: buildMeta(texasDefinedBrand, {

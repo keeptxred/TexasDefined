@@ -3,6 +3,12 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import { CampingDiscovery } from "@/components/camping/CampingDiscovery";
 import { Container } from "@/components/layout/Container";
 
+const featuredPublicCamping = [
+  { to: "/destination/garner-state-park", label: "Garner State Park", body: "Plan Frio River access, camping and a Hill Country park visit from the main destination guide." },
+  { to: "/destination/palo-duro-canyon-state-park", label: "Palo Duro Canyon State Park", body: "Use the destination guide for canyon camping, trails, seasonal planning and official park sources." },
+  { to: "/destination/balmorhea-state-park", label: "Balmorhea State Park", body: "Connect camping plans with the spring-fed pool, West Texas routing and current park information." },
+] as const;
+
 export const Route = createLazyFileRoute("/best-places-to-go-camping-in-texas")({ component: CampingDatabasePage });
 
 function CampingDatabasePage() {
@@ -37,6 +43,17 @@ function CampingDatabasePage() {
     </section>
 
     <section className="border-y border-border bg-muted/30 py-12 md:py-16">
+      <Container>
+        <p className="eyebrow text-primary">Start with a park</p>
+        <h2 className="mt-2 font-display text-4xl">Popular public-camping destinations</h2>
+        <p className="mt-4 max-w-3xl leading-8 text-muted-foreground">Use the statewide database to compare camping styles, then open the destination guide for the park-specific trip context, nearby planning and official visitor sources.</p>
+        <div className="mt-8 grid gap-5 md:grid-cols-3">
+          {featuredPublicCamping.map((item) => <Link key={item.to} to={item.to} className="rounded-md border border-border bg-background p-6 transition-colors hover:border-primary/50"><h3 className="font-display text-2xl">{item.label}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{item.body}</p><span className="mt-5 inline-block text-sm font-semibold text-primary">Open destination guide →</span></Link>)}
+        </div>
+      </Container>
+    </section>
+
+    <section className="border-b border-border py-12 md:py-16">
       <Container className="grid gap-10 lg:grid-cols-[1.2fr_.8fr]">
         <div><p className="eyebrow text-primary">High-intent planning</p><h2 className="mt-2 font-display text-4xl">Use one database instead of thin doorway pages</h2><p className="mt-5 max-w-3xl leading-8 text-muted-foreground">Queries such as RV camping near Austin, campgrounds near Houston, Lake Texana camping, Toledo Bend camping, public cabins and glamping, full-hookup public campgrounds, primitive camping and lake or river camping are handled through the same verified inventory and filters. TexasDefined does not need a separate low-value page for every keyword permutation.</p></div>
         <aside className="border border-border bg-background p-6"><p className="eyebrow text-primary">Plan beyond the campsite</p><div className="mt-4 grid gap-3 text-sm font-semibold"><Link to="/explore/trip-planner" search={{}}>Trip Planner →</Link><Link to="/fishing">Texas fishing →</Link><Link to="/texas-fishing-license">Fishing license guide →</Link><Link to="/explore/lakes-rivers">Lakes & rivers →</Link><Link to="/explore/road-trips">Road trips →</Link><Link to="/explore/outdoors">Outdoors & wildlife →</Link></div></aside>

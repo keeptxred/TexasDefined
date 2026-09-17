@@ -1,0 +1,217 @@
+const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
+const curatedProfiles = [
+  { path: '/destination/blanco-state-park-rv-area', name: 'Blanco State Park RV Area' },
+  { path: '/destination/garner-state-park-rv-loops', name: 'Garner State Park RV Loops' },
+  { path: '/destination/pedernales-falls-state-park-rv-sites', name: 'Pedernales Falls State Park RV Sites' },
+  { path: '/destination/galveston-island-state-park-rv-area', name: 'Galveston Island State Park RV Area' },
+  { path: '/destination/palo-duro-canyon-state-park-rv-loop', name: 'Palo Duro Canyon State Park RV Loop' },
+  { path: '/destination/tyler-state-park-rv-loop', name: 'Tyler State Park RV Loop' },
+  { path: '/destination/huntsville-state-park-rv-loop', name: 'Huntsville State Park RV Loop' },
+  { path: '/destination/balmorhea-state-park-rv-area', name: 'Balmorhea State Park RV Area' },
+  { path: '/destination/davis-mountains-state-park-rv-loop', name: 'Davis Mountains State Park RV Loop' },
+  { path: '/destination/copper-breaks-state-park-rv-area', name: 'Copper Breaks State Park RV Area' },
+  { path: '/destination/lake-mineral-wells-state-park-rv-loop', name: 'Lake Mineral Wells State Park RV Loop' },
+  { path: '/destination/eisenhower-state-park-rv-loop', name: 'Eisenhower State Park RV Loop' },
+  { path: '/destination/monahans-sandhills-state-park-rv-area', name: 'Monahans Sandhills State Park RV Area' },
+  { path: '/destination/bonham-state-park-rv-loop', name: 'Bonham State Park RV Loop' },
+  { path: '/destination/lake-whitney-state-park-rv-loop', name: 'Lake Whitney State Park RV Loop' },
+  { path: '/destination/martin-dies-jr-state-park-rv-loop', name: 'Martin Dies Jr. State Park RV Loop' },
+  { path: '/destination/lake-livingston-state-park-rv-loops', name: 'Lake Livingston State Park RV Loops' },
+  { path: '/destination/lake-arrowhead-state-park-rv-loop', name: 'Lake Arrowhead State Park RV Loop' },
+  { path: '/destination/lake-tawakoni-state-park-rv-area', name: 'Lake Tawakoni State Park RV Area' },
+  { path: '/destination/inks-lake-state-park-rv-loop', name: 'Inks Lake State Park RV Loop' },
+  { path: '/destination/sea-rim-state-park-rv-sites', name: 'Sea Rim State Park RV Sites' },
+  { path: '/destination/goose-island-state-park-rv-loop', name: 'Goose Island State Park RV Loop' },
+  { path: '/destination/mustang-island-state-park-rv-loops', name: 'Mustang Island State Park RV Loops' },
+  { path: '/destination/martin-creek-lake-state-park-rv-area', name: 'Martin Creek Lake State Park RV Area' },
+  { path: '/destination/atlanta-state-park-rv-loop', name: 'Atlanta State Park RV Loop' },
+];
+const guardedProfile = { path: '/destination/caddo-lake-state-park-rv-area', name: 'Caddo Lake State Park RV Area' };
+const profilePath = '/destination/palo-duro-canyon-state-park-rv-loop';
+const countySurfaces = [
+  {
+    slug: 'randall',
+    name: 'Randall County',
+    parks: [
+      { name: 'Palo Duro Canyon State Park RV Loop', path: '/destination/palo-duro-canyon-state-park-rv-loop' },
+      { name: 'Palo Duro Rim RV Camp', path: '/destination/palo-duro-rim-rv-camp' },
+    ],
+  },
+  {
+    slug: 'blanco',
+    name: 'Blanco County',
+    parks: [
+      { name: 'Blanco State Park RV Area', path: '/destination/blanco-state-park-rv-area' },
+    ],
+  },
+  {
+    slug: 'galveston',
+    name: 'Galveston County',
+    parks: [
+      { name: 'Galveston Island State Park RV Area', path: '/destination/galveston-island-state-park-rv-area' },
+    ],
+  },
+];
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function metaContent(html, name) {
+  for (const match of html.matchAll(/<meta\b[^>]*>/gi)) {
+    const tag = match[0];
+    const metaName = tag.match(/\bname=["']([^"']+)["']/i)?.[1];
+    if (metaName?.toLowerCase() !== name.toLowerCase()) continue;
+    return tag.match(/\bcontent=["']([^"']*)["']/i)?.[1] ?? '';
+  }
+  return '';
+}
+
+function canonicalHref(html) {
+  for (const match of html.matchAll(/<link\b[^>]*>/gi)) {
+    const tag = match[0];
+    const rel = tag.match(/\brel=["']([^"']+)["']/i)?.[1] ?? '';
+    if (!rel.toLowerCase().split(/\s+/).includes('canonical')) continue;
+    return tag.match(/\bhref=["']([^"']+)["']/i)?.[1] ?? '';
+  }
+  return '';
+}
+
+function robotsDirectives(html) {
+  return new Set(metaContent(html, 'robots').toLowerCase().split(',').map((item) => item.trim()).filter(Boolean));
+}
+
+function visibleText(html) {
+  return html
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+async function fetchProduction(path) {
+  let lastError;
+  for (let attempt = 1; attempt <= 6; attempt += 1) {
+    const separator = path.includes('?') ? '&' : '?';
+    const url = `${origin}${path}${separator}verify=rv-production-${Date.now()}-${attempt}`;
+    try {
+      const response = await fetch(url, {
+        redirect: 'follow',
+        cache: 'no-store',
+        signal: AbortSignal.timeout(30_000),
+        headers: { 'user-agent': 'TexasDefined-CI-RV-Production-Smoke/1.0' },
+      });
+      const body = await response.text();
+      const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+      if (!challenged && response.ok) return { response, body };
+      lastError = new Error(challenged ? 'Cloudflare challenge' : `HTTP ${response.status}`);
+    } catch (error) {
+      lastError = error;
+    }
+    if (attempt < 6) await sleep(5_000);
+  }
+  throw lastError ?? new Error(`Unable to fetch ${path}`);
+}
+
+function requireIncludes(body, needles, label) {
+  const missing = needles.filter((needle) => !body.includes(needle));
+  if (missing.length) throw new Error(`${label} missing expected production content: ${missing.join(' | ')}`);
+}
+
+function requireVisibleIncludes(body, needles, label) {
+  const text = visibleText(body);
+  const missing = needles.filter((needle) => !text.includes(needle));
+  if (missing.length) throw new Error(`${label} missing expected visible production text: ${missing.join(' | ')}`);
+}
+
+const hydrationBoundaryFixture = '<h2>RV camping around <!-- -->Randall County</h2>';
+requireVisibleIncludes(hydrationBoundaryFixture, ['RV camping around Randall County'], 'RV smoke hydration-boundary regression');
+
+const hub = await fetchProduction('/explore/rv-parks');
+requireIncludes(hub.body, [
+  'Texas RV Parks',
+  '250 Places by Region',
+  '"@type":"CollectionPage"',
+  '"@type":"Campground"',
+  profilePath,
+], 'RV hub');
+if (canonicalHref(hub.body) !== `${origin}/explore/rv-parks`) {
+  throw new Error(`RV hub canonical mismatch: ${canonicalHref(hub.body) || 'missing'}`);
+}
+if (metaContent(hub.body, 'robots').toLowerCase().includes('noindex')) {
+  throw new Error(`RV hub unexpectedly noindex: ${metaContent(hub.body, 'robots')}`);
+}
+console.log('RV hub production verification passed: indexable canonical collection with Campground ItemList coverage.');
+
+const sitemap = await fetchProduction('/sitemap-explore.xml');
+for (const profile of curatedProfiles) {
+  requireIncludes(sitemap.body, [`${origin}${profile.path}`], `RV sitemap ${profile.name}`);
+}
+if (sitemap.body.includes(`${origin}${guardedProfile.path}`)) {
+  throw new Error(`Guarded RV profile unexpectedly entered the Explore sitemap: ${guardedProfile.path}`);
+}
+console.log(`RV sitemap production verification passed: all ${curatedProfiles.length} curated public-park profiles are discoverable and the guarded seed remains excluded.`);
+
+for (const profileSpec of curatedProfiles) {
+  const profile = await fetchProduction(profileSpec.path);
+  requireIncludes(profile.body, [
+    profileSpec.name,
+    '"@type":"WebPage"',
+    '"@type":"TouristAttraction"',
+  ], `RV profile ${profileSpec.name}`);
+  if (canonicalHref(profile.body) !== `${origin}${profileSpec.path}`) {
+    throw new Error(`RV profile canonical mismatch for ${profileSpec.name}: ${canonicalHref(profile.body) || 'missing'}`);
+  }
+  const directives = robotsDirectives(profile.body);
+  if (directives.has('noindex') || !directives.has('index') || !directives.has('follow')) {
+    throw new Error(`RV profile robots policy mismatch for ${profileSpec.name}: ${metaContent(profile.body, 'robots') || 'missing'}`);
+  }
+
+  if (profileSpec.path === profilePath) {
+    requireIncludes(profile.body, [
+      'Campground inside Palo Duro Canyon State Park in Randall County, Texas',
+      'Photography:',
+      'Larry D. Moore',
+      'CC BY 4.0',
+      'Wikimedia Commons',
+    ], 'Palo Duro RV profile attribution');
+  }
+}
+console.log(`RV profile production verification passed: all ${curatedProfiles.length} curated public-park profiles are canonical index/follow pages with WebPage and TouristAttraction schema; Palo Duro attribution remains intact.`);
+
+const guarded = await fetchProduction(guardedProfile.path);
+requireIncludes(guarded.body, [
+  guardedProfile.name,
+  '"@type":"WebPage"',
+], `Guarded RV profile ${guardedProfile.name}`);
+if (canonicalHref(guarded.body) !== `${origin}${guardedProfile.path}`) {
+  throw new Error(`Guarded RV profile canonical mismatch for ${guardedProfile.name}: ${canonicalHref(guarded.body) || 'missing'}`);
+}
+const guardedDirectives = robotsDirectives(guarded.body);
+if (!guardedDirectives.has('noindex') || !guardedDirectives.has('follow') || guardedDirectives.has('index')) {
+  throw new Error(`Guarded RV profile robots policy mismatch for ${guardedProfile.name}: ${metaContent(guarded.body, 'robots') || 'missing'}`);
+}
+console.log('Guarded RV production verification passed: Caddo Lake remains canonical noindex/follow and excluded from sitemap discovery until it clears the indexing audit.');
+
+for (const countySpec of countySurfaces) {
+  const county = await fetchProduction(`/county/${countySpec.slug}`);
+  requireVisibleIncludes(county.body, [
+    `RV camping around ${countySpec.name}`,
+  ], `${countySpec.name} RV integration`);
+  requireIncludes(county.body, [
+    ...countySpec.parks.flatMap((park) => [park.name, park.path]),
+    `${origin}/county/${countySpec.slug}#rv-parks`,
+    '"@type":"ItemList"',
+    '"@type":"Campground"',
+    '/explore/rv-parks',
+  ], `${countySpec.name} RV integration`);
+  console.log(`${countySpec.name} RV production verification passed: generic county lookup, visible RV discovery, ItemList/Campground schema and statewide-directory handoff.`);
+}
+
+console.log(`TexasDefined RV production smoke passed for hub, ${curatedProfiles.length} index-ready profiles, guarded noindex control, sitemap discovery, attribution and ${countySurfaces.length} county integrations.`);

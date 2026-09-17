@@ -2,17 +2,22 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
 import { Container } from '@/components/layout/Container';
-import { TEXAS_CITIES, TEXAS_COUNTIES } from '@/data/texas-places';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/texas-data/city-county-relationships';
 const description = 'Browse the current Texas Defined city directory mapped to counties and regions, with direct links to canonical city and county reference pages.';
-const countyByName = new Map(TEXAS_COUNTIES.map((county) => [county.name.replace(/ County$/, ''), county] as const));
-const relationships = TEXAS_CITIES.map((city) => ({ city, county: countyByName.get(city.county) ?? null }));
 const officialCountyDirectory = 'https://www.texas.gov/texas-county-websites.html';
 
 export const Route = createFileRoute('/texas-data/city-county-relationships')({
-  head: () => {
+  loader: async () => {
+    const { TEXAS_CITIES, TEXAS_COUNTIES } = await import('@/data/texas-places');
+    const countyByName = new Map(TEXAS_COUNTIES.map((county) => [county.name.replace(/ County$/, ''), county] as const));
+    return {
+      relationships: TEXAS_CITIES.map((city) => ({ city, county: countyByName.get(city.county) ?? null })),
+    };
+  },
+  head: ({ loaderData }) => {
+    const relationships = loaderData?.relationships ?? [];
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     return {
       meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Texas City-to-County Relationship Dataset', description }),
@@ -70,6 +75,7 @@ export const Route = createFileRoute('/texas-data/city-county-relationships')({
 });
 
 function CityCountyRelationshipsPage() {
+  const { relationships } = Route.useLoaderData();
   const grouped = [...relationships].sort((a, b) => a.city.name.localeCompare(b.city.name));
   const unmatched = grouped.filter((item) => !item.county);
   return (

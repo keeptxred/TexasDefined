@@ -1,0 +1,512 @@
+{
+  "generatedAt": "2026-09-14T14:54:39.661Z",
+  "targeted": 25,
+  "resolved": 25,
+  "freeUse": 2,
+  "aiGenerated": 23,
+  "unresolved": [],
+  "remainingDirectSvgHeroReferences": [],
+  "aiAvailable": true,
+  "images": [
+    {
+      "reference": "/images/aquariums/sea-life-san-antonio.svg",
+      "replacement": "/images/aquariums/sea-life-san-antonio.jpg",
+      "output": "public/images/aquariums/sea-life-san-antonio.jpg",
+      "key": "sea-life-san-antonio",
+      "query": "SEA LIFE San Antonio Aquarium",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/aquarium-marine-destinations-1.ts"
+      ]
+    },
+    {
+      "reference": "/images/aquariums/san-antonio-aquarium.svg",
+      "replacement": "/images/aquariums/san-antonio-aquarium.jpg",
+      "output": "public/images/aquariums/san-antonio-aquarium.jpg",
+      "key": "san-antonio-aquarium",
+      "query": "San Antonio Aquarium",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/aquarium-marine-destinations-2.ts"
+      ]
+    },
+    {
+      "reference": "/images/aquariums/houston-interactive-aquarium.svg",
+      "replacement": "/images/aquariums/houston-interactive-aquarium.jpg",
+      "output": "public/images/aquariums/houston-interactive-aquarium.jpg",
+      "key": "houston-interactive-aquarium",
+      "query": "Houston Interactive Aquarium & Animal Preserve",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/aquarium-marine-destinations-3.ts"
+      ]
+    },
+    {
+      "reference": "/images/aquariums/utmsi-patton-center.svg",
+      "replacement": "/images/aquariums/utmsi-patton-center.jpg",
+      "output": "public/images/aquariums/utmsi-patton-center.jpg",
+      "key": "utmsi-patton-center",
+      "query": "UT Marine Science Institute Patton Center",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/aquarium-marine-destinations-3.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/texas-heloc-home-equity.svg",
+      "replacement": "/images/editorial/texas-heloc-home-equity.jpg",
+      "output": "public/images/editorial/texas-heloc-home-equity.jpg",
+      "key": "texas-heloc-home-equity",
+      "query": "Texas home equity illustration with a house, an 80 percent ceiling marker and a value line chart",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/fixtures/finance-heloc-depth.ts"
+      ]
+    },
+    {
+      "reference": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mexican_Texas_1833-en.svg?width=1600",
+      "replacement": "/images/generated/heroes/mexican-texas-1833-en.jpg",
+      "output": "public/images/generated/heroes/mexican-texas-1833-en.jpg",
+      "key": "mexican-texas-1833-en",
+      "query": "Map of Mexican Texas and Coahuila y Tejas in 1833",
+      "source": "free-use",
+      "sourceTitle": "File:Map of Coahuila and Texas in 1833.jpg",
+      "credit": "Holley (Armstrong & Plaskitt) · Public domain · Wikimedia Commons",
+      "files": [
+        "src/data/fixtures/lazy-military-history-expansion.ts",
+        "src/data/fixtures/mexican-texas-military-history.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/texas-guadalupe-river.svg",
+      "replacement": "/images/editorial/texas-guadalupe-river.jpg",
+      "output": "public/images/editorial/texas-guadalupe-river.jpg",
+      "key": "texas-guadalupe-river-guide",
+      "query": "Clear Guadalupe River flowing beneath mature cypress trees",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/fixtures/texas-explained-river-profile-stubs.ts",
+        "src/data/fixtures/texas-explained-river-profiles.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/texas-trinity-river.svg",
+      "replacement": "/images/editorial/texas-trinity-river.jpg",
+      "output": "public/images/editorial/texas-trinity-river.jpg",
+      "key": "texas-trinity-river-guide",
+      "query": "Reservoir shoreline and open water in the upper Trinity River basin",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/fixtures/texas-explained-river-profile-stubs.ts",
+        "src/data/fixtures/texas-explained-river-profiles.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/texas-rm-roads.svg",
+      "replacement": "/images/editorial/texas-rm-roads.jpg",
+      "output": "public/images/editorial/texas-rm-roads.jpg",
+      "key": "texas-rm-roads",
+      "query": "Illustrated two-lane Texas ranch road with an RM highway shield",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/fixtures/texas-explained-road-systems.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/texas-loops-spurs.svg",
+      "replacement": "/images/editorial/texas-loops-spurs.jpg",
+      "output": "public/images/editorial/texas-loops-spurs.jpg",
+      "key": "texas-loops-spurs",
+      "query": "Illustrated Texas interchange with Loop and Spur route shields",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/fixtures/texas-explained-road-systems.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/texas-business-routes.svg",
+      "replacement": "/images/editorial/texas-business-routes.jpg",
+      "output": "public/images/editorial/texas-business-routes.jpg",
+      "key": "texas-business-routes",
+      "query": "Illustrated Texas main street with a green business-route highway shield",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/fixtures/texas-explained-road-systems.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/texas-park-recreational-roads.svg",
+      "replacement": "/images/editorial/texas-park-recreational-roads.jpg",
+      "output": "public/images/editorial/texas-park-recreational-roads.jpg",
+      "key": "texas-park-recreational-roads",
+      "query": "Illustrated Texas park road entering a wooded recreational area with PR and RE shields",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/fixtures/texas-explained-road-systems.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/texas-historic-memorial-routes.svg",
+      "replacement": "/images/editorial/texas-historic-memorial-routes.jpg",
+      "output": "public/images/editorial/texas-historic-memorial-routes.jpg",
+      "key": "texas-historic-memorial-routes",
+      "query": "Illustrated Texas highway with a brown historic-route sign and memorial-highway plaque",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/fixtures/texas-explained-road-systems.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/texas-aquifers-springs.svg",
+      "replacement": "/images/editorial/texas-aquifers-springs.jpg",
+      "output": "public/images/editorial/texas-aquifers-springs.jpg",
+      "key": "texas-aquifers-springs",
+      "query": "Clear spring-fed Texas river flowing beneath cypress trees",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/fixtures/texas-explained-support-articles-2.ts",
+        "src/data/fixtures/texas-explained-support-stubs-2.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/texas-prairies-grasslands.svg",
+      "replacement": "/images/editorial/texas-prairies-grasslands.jpg",
+      "output": "public/images/editorial/texas-prairies-grasslands.jpg",
+      "key": "texas-prairies-grasslands",
+      "query": "Open Texas grassland stretching across a broad natural landscape",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/fixtures/texas-explained-support-articles-2.ts",
+        "src/data/fixtures/texas-explained-support-stubs-2.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/texas-main-street-downtowns.svg",
+      "replacement": "/images/editorial/texas-main-street-downtowns.jpg",
+      "output": "public/images/editorial/texas-main-street-downtowns.jpg",
+      "key": "texas-main-street-downtowns",
+      "query": "Historic Texas streetscape with traditional civic and commercial buildings",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/fixtures/texas-explained-support-articles-2.ts",
+        "src/data/fixtures/texas-explained-support-stubs-2.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/texas-river-basins.svg",
+      "replacement": "/images/editorial/texas-river-basins.jpg",
+      "output": "public/images/editorial/texas-river-basins.jpg",
+      "key": "texas-river-basins",
+      "query": "Guadalupe River flowing through a wooded Texas river corridor",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/fixtures/texas-explained-support-articles.ts",
+        "src/data/fixtures/texas-explained-support-stubs.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/texas-highway-designations.svg",
+      "replacement": "/images/editorial/texas-highway-designations.jpg",
+      "output": "public/images/editorial/texas-highway-designations.jpg",
+      "key": "texas-highway-designations",
+      "query": "Two-lane Texas highway crossing open rural country",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/fixtures/texas-explained-support-articles.ts",
+        "src/data/fixtures/texas-explained-support-stubs.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/texas-courthouse-architecture.svg",
+      "replacement": "/images/editorial/texas-courthouse-architecture.jpg",
+      "output": "public/images/editorial/texas-courthouse-architecture.jpg",
+      "key": "texas-courthouse-architecture",
+      "query": "Historic civic architecture in a Texas county-seat setting",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/fixtures/texas-explained-support-articles.ts",
+        "src/data/fixtures/texas-explained-support-stubs.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/texas-ecoregions-habitats.svg",
+      "replacement": "/images/editorial/texas-ecoregions-habitats.jpg",
+      "output": "public/images/editorial/texas-ecoregions-habitats.jpg",
+      "key": "texas-ecoregions-habitats",
+      "query": "A broad Texas landscape showing the state",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/fixtures/texas-explained-support-articles.ts",
+        "src/data/fixtures/texas-explained-support-stubs.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/moving/austin.svg",
+      "replacement": "/images/editorial/moving/austin.jpg",
+      "output": "public/images/editorial/moving/austin.jpg",
+      "key": "moving-to-austin-guide",
+      "query": "Austin skyline across Lady Bird Lake at sunrise",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/index.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/moving/san-antonio.svg",
+      "replacement": "/images/editorial/moving/san-antonio.jpg",
+      "output": "public/images/editorial/moving/san-antonio.jpg",
+      "key": "moving-to-san-antonio-guide",
+      "query": "San Antonio River Walk in warm evening light",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/index.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/moving/dallas-fort-worth.svg",
+      "replacement": "/images/editorial/moving/dallas-fort-worth.jpg",
+      "output": "public/images/editorial/moving/dallas-fort-worth.jpg",
+      "key": "moving-to-dallas-fort-worth-guide",
+      "query": "Dallas skyline with Reunion Tower at sunset",
+      "source": "free-use",
+      "sourceTitle": "File:Downtown Dallas Skyline with shot of Hyatt Regency Dallas and the Reunion Tower.jpg",
+      "credit": "Milestone2 · CC BY-SA 3.0 · Wikimedia Commons",
+      "files": [
+        "src/data/index.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/moving/houston.svg",
+      "replacement": "/images/editorial/moving/houston.jpg",
+      "output": "public/images/editorial/moving/houston.jpg",
+      "key": "moving-to-houston-address-checklist",
+      "query": "Houston skyline beyond a green bayou and freeway",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/index.ts"
+      ]
+    },
+    {
+      "reference": "/images/editorial/moving/moving-to-texas.svg",
+      "replacement": "/images/editorial/moving/moving-to-texas.jpg",
+      "output": "public/images/editorial/moving/moving-to-texas.jpg",
+      "key": "moving-to-texas-what-nobody-tells-you",
+      "query": "Moving truck on a Texas road approaching a new home at sunset",
+      "source": "ai-generated",
+      "sourceTitle": "",
+      "credit": "AI-generated photorealistic editorial image · Cloudflare Workers AI / FLUX.1 schnell · Texas Defined",
+      "files": [
+        "src/data/index.ts"
+      ]
+    }
+  ],
+  "subjectMatchEnforcement": {
+    "replaced": [
+      {
+        "key": "san-antonio-aquarium",
+        "rejectedSourceTitle": "File:Duiker at San Antonio, TX Zoo, 2014 DSCN0701.JPG"
+      },
+      {
+        "key": "texas-ecoregions-habitats",
+        "rejectedSourceTitle": "File:HDR Infrared San Antonio Texas River Walk (2852696520).jpg"
+      }
+    ],
+    "rejectedCount": 2
+  },
+  "dimensionNormalization": {
+    "normalized": [
+      {
+        "key": "texas-heloc-home-equity",
+        "output": "public/images/editorial/texas-heloc-home-equity.jpg",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "key": "mexican-texas-1833-en",
+        "output": "public/images/generated/heroes/mexican-texas-1833-en.jpg",
+        "width": 1600,
+        "height": 1200
+      },
+      {
+        "key": "texas-guadalupe-river-guide",
+        "output": "public/images/editorial/texas-guadalupe-river.jpg",
+        "width": 1600,
+        "height": 1115
+      },
+      {
+        "key": "texas-trinity-river-guide",
+        "output": "public/images/editorial/texas-trinity-river.jpg",
+        "width": 1600,
+        "height": 1067
+      },
+      {
+        "key": "texas-rm-roads",
+        "output": "public/images/editorial/texas-rm-roads.jpg",
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "key": "texas-loops-spurs",
+        "output": "public/images/editorial/texas-loops-spurs.jpg",
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "key": "texas-business-routes",
+        "output": "public/images/editorial/texas-business-routes.jpg",
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "key": "texas-park-recreational-roads",
+        "output": "public/images/editorial/texas-park-recreational-roads.jpg",
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "key": "texas-historic-memorial-routes",
+        "output": "public/images/editorial/texas-historic-memorial-routes.jpg",
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "key": "texas-aquifers-springs",
+        "output": "public/images/editorial/texas-aquifers-springs.jpg",
+        "width": 1600,
+        "height": 1115
+      },
+      {
+        "key": "texas-prairies-grasslands",
+        "output": "public/images/editorial/texas-prairies-grasslands.jpg",
+        "width": 1600,
+        "height": 2133
+      },
+      {
+        "key": "texas-main-street-downtowns",
+        "output": "public/images/editorial/texas-main-street-downtowns.jpg",
+        "width": 1600,
+        "height": 1067
+      },
+      {
+        "key": "texas-river-basins",
+        "output": "public/images/editorial/texas-river-basins.jpg",
+        "width": 1600,
+        "height": 1115
+      },
+      {
+        "key": "texas-highway-designations",
+        "output": "public/images/editorial/texas-highway-designations.jpg",
+        "width": 1600,
+        "height": 1067
+      },
+      {
+        "key": "texas-courthouse-architecture",
+        "output": "public/images/editorial/texas-courthouse-architecture.jpg",
+        "width": 1600,
+        "height": 1067
+      },
+      {
+        "key": "texas-ecoregions-habitats",
+        "output": "public/images/editorial/texas-ecoregions-habitats.jpg",
+        "width": 1600,
+        "height": 2133
+      },
+      {
+        "key": "moving-to-austin-guide",
+        "output": "public/images/editorial/moving/austin.jpg",
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "key": "moving-to-san-antonio-guide",
+        "output": "public/images/editorial/moving/san-antonio.jpg",
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "key": "moving-to-dallas-fort-worth-guide",
+        "output": "public/images/editorial/moving/dallas-fort-worth.jpg",
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "key": "moving-to-houston-address-checklist",
+        "output": "public/images/editorial/moving/houston.jpg",
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "key": "moving-to-texas-what-nobody-tells-you",
+        "output": "public/images/editorial/moving/moving-to-texas.jpg",
+        "width": 1600,
+        "height": 900
+      }
+    ],
+    "skipped": [
+      {
+        "key": "sea-life-san-antonio",
+        "output": "public/images/aquariums/sea-life-san-antonio.jpg",
+        "reason": "declared dimensions not found"
+      },
+      {
+        "key": "san-antonio-aquarium",
+        "output": "public/images/aquariums/san-antonio-aquarium.jpg",
+        "reason": "declared dimensions not found"
+      },
+      {
+        "key": "houston-interactive-aquarium",
+        "output": "public/images/aquariums/houston-interactive-aquarium.jpg",
+        "reason": "declared dimensions not found"
+      },
+      {
+        "key": "utmsi-patton-center",
+        "output": "public/images/aquariums/utmsi-patton-center.jpg",
+        "reason": "declared dimensions not found"
+      }
+    ]
+  }
+}

@@ -88,10 +88,35 @@ requireAll('office source enrichment', entityIndex, [
   'enrichedById.set(entity.id, enriched)',
 ]);
 
-requireAll('county guide richness', countyGuide, [
-  'At a glance', 'The county in numbers', 'Where it is', 'A sense of place',
-  'County seat & communities', 'Places on the map', 'What to know',
-  'Property & county services', 'Official local resources', 'Nearby places', 'Keep exploring',
+requireAll('county editorial-first richness', countyGuide, [
+  'County feature',
+  'The story of {entity.name}',
+  'countySeriesArticle.title',
+  'countySeriesArticle.dek',
+  '<ArticleBody blocks={countySeriesArticle.body} entities={relatedEntities} />',
+  'At a glance',
+  'The county in numbers',
+  'County seat & communities',
+  'Places on the map',
+  'Property & county services',
+  'Official local resources',
+  'Nearby places',
+  'Keep exploring',
+]);
+requireAll('county loader-resolved feature handoff', countyGuide, [
+  'countySeriesArticle: Article | null',
+]);
+forbidAll('county render-time feature resolution', countyGuide, [
+  "getRouteApi('/$kind/$slug')",
+  'entityRouteApi.useLoaderData()',
+  'use(loadCountySeriesArticle(entity.slug))',
+  "from '@/data/county-series'",
+]);
+forbidAll('county template-heavy regressions', countyGuide, [
+  'The county reference point is near',
+  'How to use this guide',
+  'Where it is',
+  'A sense of place',
 ]);
 requireAll('county property link gate', countyGuide, [
   'getCountyPropertyRecordBySlug',
@@ -104,7 +129,7 @@ requireAll('county property link gate', countyGuide, [
 requireAll('entity route index control', entityRoute, [
   'isIndexableEntityPage(loaderData.entity)',
   "robots: indexable ? undefined : 'noindex, follow, max-image-preview:large'",
-  '<CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} />',
+  '<CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} countySeriesArticle={countySeriesArticle} />',
 ]);
 forbidAll('generic placeholder copy', entityRoute, [
   'A closer look at ${entity.name}, where to find it, and what else is worth seeing nearby.',
@@ -195,4 +220,4 @@ if (errors.length) {
   process.exit(1);
 }
 for (const warning of warnings) console.warn(`- ${warning}`);
-console.log('Generated-page quality validator passed: inventory, source authority, county-seat place semantics, content richness, brand ownership, indexability, sitemap qualification, snapshot-backed local-office data, property-page gating, county crawl-demand filtering, and related-content relevance are protected.');
+console.log('Generated-page quality validator passed: inventory, source authority, county-seat place semantics, editorial-first county richness, brand ownership, indexability, sitemap qualification, snapshot-backed local-office data, property-page gating, county crawl-demand filtering, and related-content relevance are protected.');

@@ -7,10 +7,19 @@ const partnerInquirySchema = z.object({
   contactName: z.string().trim().min(2).max(120),
   email: z.string().trim().email().max(320),
   company: z.string().trim().min(2).max(180),
+  phone: z.string().trim().max(80).default(''),
   website: z.string().trim().max(500),
-  partnershipType: z.enum(['insurance', 'mortgage', 'real-estate', 'moving', 'travel', 'sports-travel', 'sponsorship', 'other']),
-  message: z.string().trim().min(20).max(5000),
-  sourcePath: z.string().trim().max(500).regex(/^\/(?:partner-with-us|sports-venues|sports-venue\/[a-z0-9-]+)$/).default('/partner-with-us'),
+  partnershipType: z.enum(['insurance', 'mortgage', 'real-estate', 'moving', 'travel', 'sports-travel', 'brand-retail', 'sponsorship', 'other']),
+  targetTexasLocations: z.string().trim().max(1000).default(''),
+  requestedTier: z.enum(['local', 'growth', 'premier', 'custom']).nullable().default(null),
+  billingCycle: z.enum(['monthly', 'annual']).nullable().default(null),
+  desiredStartDate: z.union([z.literal(''), z.string().regex(/^\d{4}-\d{2}-\d{2}$/)]).default(''),
+  objectives: z.string().trim().min(20).max(3000),
+  notes: z.string().trim().max(3000).default(''),
+  sourcePath: z.union([
+    z.string().trim().max(500).regex(/^\/(?:partner-with-us|sports-venues|sports-venue\/[a-z0-9-]+)$/),
+    z.literal('/things-unique-to-texas/texas-brands'),
+  ]).default('/partner-with-us'),
   addressLine2: z.string().max(200).default(''),
 });
 
@@ -31,9 +40,17 @@ export const submitPartnerInquiry = createServerFn({ method: 'POST' })
       contact_name: data.contactName,
       email: data.email.toLowerCase(),
       company: data.company,
+      phone: data.phone || null,
       website,
       partnership_type: data.partnershipType,
-      message: data.message,
+      target_texas_locations: data.targetTexasLocations || null,
+      requested_tier: data.requestedTier,
+      billing_cycle: data.billingCycle,
+      desired_start_date: data.desiredStartDate || null,
+      objectives: data.objectives,
+      notes: data.notes || null,
+      // Keep the legacy message field populated for existing internal review surfaces.
+      message: data.objectives,
       source_path: data.sourcePath || '/partner-with-us',
     });
 

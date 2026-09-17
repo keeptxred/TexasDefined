@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
+import { BookingCarRentalCard } from "@/components/monetization/BookingCarRentalCard";
 import type { TopAttractionRoadTrip } from "@/data/top-attraction-road-trips";
 import type { Destination } from "@/data/types";
 
@@ -23,6 +24,7 @@ export function TopAttractionRoadTripsContent({ trips }: { trips: ResolvedTopAtt
           <Link to="/explore/top-attractions/methodology" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary">Read the methodology →</Link>
         </div>
       </header>
+      <BookingCarRentalCard placement="top-attraction-road-trips" title="Flying in or need a different vehicle for the road trip?" />
     </Container>
 
     {trips.map((trip, tripIndex) => <Section key={trip.id} tone={tripIndex % 2 ? "surface" : undefined}>

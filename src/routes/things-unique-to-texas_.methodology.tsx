@@ -3,13 +3,16 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { TEXAS_ICON_DEEPER_GUIDE_COUNT } from "@/data/things-unique-to-texas-reference";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const canonicalPath = "/things-unique-to-texas/methodology";
 const description = "How TexasDefined selects, labels, cross-links and maintains the 250 Things That Define Texas collection, including source precedence, scope rules, data distributions and corrections.";
 
 export const Route = createFileRoute("/things-unique-to-texas/methodology")({
+  loader: async () => {
+    const { TEXAS_ICON_DEEPER_GUIDE_COUNT } = await import("@/data/things-unique-to-texas-reference");
+    return { deeperGuideCount: TEXAS_ICON_DEEPER_GUIDE_COUNT };
+  },
   head: () => {
     const origin = `https://${texasDefinedBrand.identity.domain}`;
     const url = `${origin}${canonicalPath}`;
@@ -53,6 +56,8 @@ export const Route = createFileRoute("/things-unique-to-texas/methodology")({
 });
 
 function ThingsThatDefineTexasMethodology() {
+  const { deeperGuideCount } = Route.useLoaderData();
+
   return (
     <main>
       <Container className="py-12 sm:py-16">
@@ -93,7 +98,7 @@ function ThingsThatDefineTexasMethodology() {
 
             <MethodSection title="Data distributions">
               <p>The downloadable CSV and JSON are generated from the same 250 editorial records and canonical-link resolver as the human-readable collection. They do not maintain a separate copy of the list. A row's <code>deeperGuide</code> field is present only when TexasDefined has a direct, high-confidence canonical page for that exact entry.</p>
-              <p>At the current source state, {TEXAS_ICON_DEEPER_GUIDE_COUNT} of the 250 records resolve to a deeper canonical TexasDefined guide. That count is computed from the same reference rows used by the CSV and JSON rather than maintained as a separate editorial number.</p>
+              <p>At the current source state, {deeperGuideCount} of the 250 records resolve to a deeper canonical TexasDefined guide. That count is computed from the same reference rows used by the CSV and JSON rather than maintained as a separate editorial number.</p>
               <p>The collection page remains the canonical reader-facing citation target. Use the CSV for tabular analysis and the JSON when a machine-readable object format is more useful. Both downloads link back to this methodology and the canonical collection.</p>
               <div className="flex flex-wrap gap-3 pt-2">
                 <a href="/things-that-define-texas.csv" className="border border-border px-4 py-2 text-sm font-semibold hover:border-primary hover:text-primary">Download CSV →</a>
@@ -113,7 +118,7 @@ function ThingsThatDefineTexasMethodology() {
               <dl className="mt-5 space-y-4 text-sm">
                 <div><dt className="font-semibold">Entries</dt><dd className="mt-1 text-muted-foreground">250 numbered Texas icons</dd></div>
                 <div><dt className="font-semibold">Chapters</dt><dd className="mt-1 text-muted-foreground">8 editorial categories</dd></div>
-                <div><dt className="font-semibold">Deeper guide links</dt><dd className="mt-1 text-muted-foreground">{TEXAS_ICON_DEEPER_GUIDE_COUNT} computed relationships</dd></div>
+                <div><dt className="font-semibold">Deeper guide links</dt><dd className="mt-1 text-muted-foreground">{deeperGuideCount} computed relationships</dd></div>
                 <div><dt className="font-semibold">Canonical collection</dt><dd className="mt-1"><Link to="/things-unique-to-texas" className="text-primary underline-offset-4 hover:underline">Things That Define Texas</Link></dd></div>
                 <div><dt className="font-semibold">Editorial accountability</dt><dd className="mt-1"><Link to="/about" className="text-primary underline-offset-4 hover:underline">About TexasDefined</Link></dd></div>
               </dl>

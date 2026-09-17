@@ -128,7 +128,26 @@ jobs:
 
       - name: Deploy TexasDefined Worker
         id: cloudflare
-        run: npx wrangler deploy
+        shell: bash
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ftkznprjljkhymknvhye.supabase.co' }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [[ -z "${SUPABASE_URL:-}" || -z "${SUPABASE_SERVICE_ROLE_KEY:-}" ]]; then
+            echo '::error title=Missing Supabase Worker credentials::SUPABASE_URL and a service-role repository secret are required for protected server-side intelligence writes.'
+            exit 1
+          fi
+          mkdir -p .artifacts
+          trap 'rm -f .artifacts/texasdefined-worker-secrets.json' EXIT
+          node --input-type=module <<'NODE'
+          import { writeFileSync } from 'node:fs';
+          const payload = {
+            SUPABASE_URL: process.env.SUPABASE_URL,
+            SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
+          };
+          writeFileSync('.artifacts/texasdefined-worker-secrets.json', JSON.stringify(payload), { mode: 0o600 });
+          NODE
+          npx wrangler deploy --secrets-file .artifacts/texasdefined-worker-secrets.json
 
       - name: Publish Cloudflare deploy result
         if: always()
@@ -146,7 +165,20 @@ jobs:
         continue-on-error: true
         env:
           DIRECT_WORKER_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
-        run: node scripts/ci/verify-direct-worker-discovery.mjs
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p .artifacts
+          node scripts/ci/verify-direct-worker-discovery.mjs 2>&1 | tee .artifacts/direct-worker-discovery.log
+
+      - name: Upload direct Worker discovery diagnostics
+        if: ${{ always() && steps.live_direct_worker.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: direct-worker-discovery-${{ github.run_id }}
+          path: .artifacts/direct-worker-discovery.log
+          if-no-files-found: warn
+          retention-days: 7
 
       - name: Verify base production surfaces
         id: live_base
@@ -158,13 +190,39 @@ jobs:
         id: live_events
         if: ${{ always() && steps.cloudflare.outcome == 'success' }}
         continue-on-error: true
-        run: node scripts/ci/verify-event-structured-data-production.mjs
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p .artifacts
+          node scripts/ci/verify-event-structured-data-production.mjs 2>&1 | tee .artifacts/live-events.log
+
+      - name: Upload Event structured-data diagnostics
+        if: ${{ always() && steps.live_events.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: event-structured-data-${{ github.run_id }}
+          path: .artifacts/live-events.log
+          if-no-files-found: warn
+          retention-days: 7
 
       - name: Verify local financial production
         id: live_local_financial
         if: ${{ always() && steps.cloudflare.outcome == 'success' }}
         continue-on-error: true
-        run: node scripts/ci/verify-local-financial-production.mjs
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p .artifacts
+          node scripts/ci/verify-local-financial-production.mjs 2>&1 | tee .artifacts/live-local-financial.log
+
+      - name: Upload local financial diagnostics
+        if: ${{ always() && steps.live_local_financial.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: local-financial-${{ github.run_id }}
+          path: .artifacts/live-local-financial.log
+          if-no-files-found: warn
+          retention-days: 7
 
       - name: Verify statewide financial discovery
         id: live_statewide_financial

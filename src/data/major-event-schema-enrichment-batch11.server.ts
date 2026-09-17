@@ -55,12 +55,16 @@ export const majorEventSchemaEnrichmentBatch11: MajorEventSchemaEnrichment[] = [
   {
     slug: "heart-o-texas-fair-rodeo",
     organizer: organization("Heart O' Texas Fair & Rodeo", "https://www.hotfair.com/"),
+    offers: [
+      usdOffer("Advance fair gate admission", 18, "https://www.hotfair.com/p/tickets"),
+    ],
     sources: [
       { label: "Heart O' Texas Fair & Rodeo official 2026 site", url: "https://www.hotfair.com/" },
-      { label: "Heart O' Texas Fair & Rodeo official nonprofit About page", url: "https://www.hotfair.com/about.aspx" },
+      { label: "Heart O' Texas Fair & Rodeo official 2026 hours", url: "https://www.hotfair.com/directions.aspx" },
+      { label: "Heart O' Texas Fair & Rodeo official 2026 rodeo schedule", url: "https://www.hotfair.com/p/rodeo" },
       { label: "Heart O' Texas Fair & Rodeo official 2026 tickets", url: "https://www.hotfair.com/p/tickets" },
     ],
-    verifiedAt: "2026-09-03",
+    verifiedAt: "2026-09-10",
   },
   {
     slug: "east-texas-state-fair",

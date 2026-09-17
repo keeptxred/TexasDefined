@@ -1,0 +1,31 @@
+name: Validate school supply affiliate
+
+on:
+  pull_request:
+    paths:
+      - 'src/lib/affiliate-click.ts'
+      - 'src/components/monetization/SchoolSupplyPartners.tsx'
+      - 'scripts/data/validate-school-supply-affiliate.mjs'
+      - '.github/workflows/validate-school-supply-affiliate.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/lib/affiliate-click.ts'
+      - 'src/components/monetization/SchoolSupplyPartners.tsx'
+      - 'scripts/data/validate-school-supply-affiliate.mjs'
+      - '.github/workflows/validate-school-supply-affiliate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate school-supply affiliate attribution
+        run: node scripts/data/validate-school-supply-affiliate.mjs

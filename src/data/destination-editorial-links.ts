@@ -5,6 +5,13 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "jasper": [
+    {
+      href: "/article/blue-hole-jasper-county-east-texas",
+      label: "Read the history of Jasper County's Blue Hole",
+      description: "Learn how a private sandstone quarry became a blue-green East Texas landmark, with railroad history, geology, access limits and the lost-train legend.",
+    },
+  ],
   "port-isabel-lighthouse": [
     {
       href: "/article/best-lighthouses-to-visit-in-texas",

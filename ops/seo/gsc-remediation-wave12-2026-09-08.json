@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+  "reviewDate": "2026-09-08",
+  "reviewMethod": "GSC-prioritized state-specific server-side evidence review against the Wave 4 remediation requirements: current tax, housing, labor, hazard/resilience and transportation sources; stronger metro/place comparison; dated review metadata; canonical/schema integrity; and sitemap qualification",
+  "summary": { "reviewed": 3, "KEEP": 3, "IMPROVE": 0, "NOINDEX": 0, "REMOVE_CONSOLIDATE": 0 },
+  "reviewed": [
+    {
+      "path": "/texas-vs/connecticut",
+      "action": "KEEP",
+      "reason": "Connecticut now has current DRS tax-table guidance, current Census housing benchmarks, July 2026 Department of Labor evidence, the state hazard-mitigation authority and CTDOT multimodal-transit evidence plus distinct Fairfield/Stamford, Hartford, New Haven and eastern-Connecticut comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/delaware",
+      "action": "KEEP",
+      "reason": "Delaware now has current Division of Revenue income-tax guidance, current Census housing benchmarks, the Department of Labor current Monthly Labor Review, the 2023 state Hazard Mitigation Plan and current statewide DART evidence plus distinct New Castle, Kent and Sussex County comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/hawaii",
+      "action": "KEEP",
+      "reason": "Hawaiʻi now has current state individual-income-tax schedules, current Census housing benchmarks, July 2026 DBEDT labor evidence, the 2023 State Hazard Mitigation Plan and HDOT multimodal evidence plus island-specific Oʻahu, Maui, Hawaiʻi Island and Kauaʻi comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    }
+  ]
+}

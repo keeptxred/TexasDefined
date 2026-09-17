@@ -4,7 +4,6 @@ on:
   pull_request:
     paths:
       - '.github/workflows/verify-priority-county-property-production.yml'
-      - '.github/workflows/merge-gate.yml'
       - 'scripts/ci/verify-priority-county-pages.mjs'
       - 'scripts/data/validate-county-property-enrichment.mjs'
       - 'scripts/data/validate-priority-county-property-overlays.mjs'

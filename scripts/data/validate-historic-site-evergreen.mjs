@@ -156,8 +156,10 @@ for (const slug of reciprocalSlugSets) if (!seedSlugs.includes(slug)) failures.p
 for (const marker of ['import { enrichHistoricSiteEvergreenLinks } from "./historic-site-evergreen-links";', 'enrichHistoricSiteEvergreenLinks(', '.map(enrichHistoricSiteEvergreenLinks)']) if (!runtime.includes(marker)) failures.push(`Historic destination runtime is missing reciprocal evergreen enrichment: ${marker}`);
 for (const marker of ['standaloneEvergreenStubs', '...standaloneEvergreenStubs', 'loadStandaloneEvergreenArticle']) if (!repositories.includes(marker)) failures.push(`Historic evergreen repository discovery contract missing: ${marker}.`);
 if (!sitemap.includes('platform.articles.list(scope)')) failures.push('Historic evergreen sitemap discovery contract missing: platform.articles.list(scope).');
-const articleCatalogPattern = /\.\.\.articles\s*\.filter\(\(article\)\s*=>\s*!isLegacyCountySeriesArticle\(article\.slug\)\s*&&\s*isArticleIndexReady\(article\)\)\s*\.map\(\(article\)\s*=>\s*\(\{\s*path:\s*`\/article\/\$\{article\.slug\}`/s;
-if (!articleCatalogPattern.test(sitemap)) failures.push('Historic evergreen sitemap discovery contract missing: strict quality-gated canonical article catalog.');
+for (const marker of [
+  'const indexableLocalArticles = articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article));',
+  '...indexableLocalArticles.map((article) => ({ path: `/article/${article.slug}`',
+]) if (!sitemap.includes(marker)) failures.push(`Historic evergreen sitemap discovery contract missing: ${marker}.`);
 for (const marker of ['historicAuthorityGuides', 'Plan history by story', '{historicAuthorityGuides.length} routes into the statewide collection']) if (!historyHub.includes(marker)) failures.push(`Texas History hub authority-guide presentation contract missing: ${marker}`);
 
 if (failures.length) { console.error('Historic-site evergreen validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }

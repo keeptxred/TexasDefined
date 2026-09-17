@@ -1,0 +1,58 @@
+import type { ParkingMapAsset } from './parking-map-model';
+
+export const VENUE_PARKING_MAPS_BATCH_4: Record<string, ParkingMapAsset> = {
+  'daikin-park': {
+    id: 'parking-map:daikin-park:2026-09', venueSlug: 'daikin-park', venueName: 'Daikin Park', imageUrl: '/images/parking-maps/daikin-park.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Daikin Park showing Astros Lots A, B and C and major downtown streets',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['The Houston Astros publish a current official parking map, but no reusable publication license was documented for that artwork.', 'Open-license searches surfaced reusable downtown locator maps and ballpark photography, but no current open-license Astros parking map with Lots A, B and C.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Houston Astros — Daikin Park official parking map', url: 'https://www.mlb.com/astros/ballpark/parking', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Houston Astros — accessibility parking details', url: 'https://www.mlb.com/astros/ballpark/disability-access-guide', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Lots A, B and C and their relationship to Congress/Preston, Crawford, Texas, Chartres and St. Emanuel were compared with the current official Astros parking map.', 'Lot C was verified as the Astros-operated lot with individual-game parking availability.', 'Accessible spaces were verified in Lots A, B and C.', 'The schematic omits the many independently operated downtown lots and garages rather than implying they are Astros-controlled.'],
+  },
+  'toyota-center-houston': {
+    id: 'parking-map:toyota-center-houston:2026-09', venueSlug: 'toyota-center-houston', venueName: 'Toyota Center', imageUrl: '/images/parking-maps/toyota-center-houston.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Houston Toyota Center showing Toyota Tundra Garage entrances on Jackson, Leeland and La Branch streets',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['Toyota Center publishes current garage and traffic information but the reviewed maps do not document reusable publication rights.', 'Open-license searches found downtown Houston locator mapping but no current reusable Toyota Center parking/garage map with pass-level entrances.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Toyota Center — Directions & Parking', url: 'https://www.toyotacenter.com/plan-your-visit/directions-parking', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Toyota Center — Plan Your Visit', url: 'https://www.toyotacenter.com/plan-your-visit', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['The Toyota Tundra Garage was verified immediately south of Toyota Center.', 'Green-pass access from Jackson Street, White/Red from Leeland Street and Yellow from La Branch Street were checked against current official guidance.', 'The current construction warning and street-closure risk near the convention center were verified and are called out rather than frozen into the schematic.', 'Surface lots are intentionally not presented as Toyota Center-controlled parking.'],
+  },
+  'shell-energy-stadium': {
+    id: 'parking-map:shell-energy-stadium:2026-09', venueSlug: 'shell-energy-stadium', venueName: 'Shell Energy Stadium', imageUrl: '/images/parking-maps/shell-energy-stadium.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Shell Energy Stadium showing Lots B and C, METRORail and major EaDo streets',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['Shell Energy Stadium publishes a current parking map, but no reusable publication license was documented for the official artwork.', 'Wikimedia Commons contains reusable stadium photography and a stadium category but no current parking map showing matchday Lots B and C.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Shell Energy Stadium — Directions', url: 'https://www.houstondynamofc.com/shell-energy-stadium/directions', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Shell Energy Stadium — Stadium Maps', url: 'https://www.houstondynamofc.com/shell-energy-stadium/stadium-maps', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Wikimedia Commons — Shell Energy Stadium category', url: 'https://commons.wikimedia.org/wiki/Category:Shell_Energy_Stadium', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Lots B and C on the stadium’s north/west side were checked against current official stadium parking material.', 'Bastrop Street, Texas Avenue and Emancipation Avenue orientation was compared with the official map.', 'EaDo/Stadium METRORail access and the Hutchins/Walker rideshare area were checked against current official directions.', 'Availability is explicitly described as event-dependent because the Astros schedule affects Lots B and C.'],
+  },
+  'tdecu-stadium': {
+    id: 'parking-map:tdecu-stadium:2026-09', venueSlug: 'tdecu-stadium', venueName: 'TDECU Stadium', imageUrl: '/images/parking-maps/tdecu-stadium.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for TDECU Stadium showing current 2026 Blue, Orange, Green, Purple Garage and Teal parking options',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['UH Athletics publishes a current 2026 football parking map, but no reusable publication license was documented for the official map artwork.', 'Wikimedia Commons has reusable stadium photography, but no current open-license 2026 football parking map.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Houston Athletics — 2026 football gameday guide', url: 'https://uhcougars.com/sports/2025/11/6/football-gameday-guide', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Houston Athletics — 2026 parking pricing and map update', url: 'https://uhcougars.com/news/2026/9/2/football-whats-new-at-tdecu-parking-pricing-reductions', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Houston Athletics — lot-specific parking directions', url: 'https://uhcougars.com/sports/2018/6/12/TDECU-Stadium-directions-html', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Blue, Orange and Green were verified as the three primary 2026 public purchase options, with Purple Garage and eastern Teal lots also available under current guidance.', 'Single-game RV parking at the south end of Green Lot was verified against the September 2026 parking update.', 'The Elgin/Cullen rideshare location and METRORail access near Gate 3 were verified against the current gameday guide.', 'The schematic deliberately avoids fixed ingress arrows because construction and gameday closures can change routing.'],
+  },
+  'fertitta-center': {
+    id: 'parking-map:fertitta-center:2026-09', venueSlug: 'fertitta-center', venueName: 'Fertitta Center', imageUrl: '/images/parking-maps/fertitta-center.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Fertitta Center showing Tan Lot 15C, Stadium Garage Orange and Blue parking areas',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['UH Athletics publishes a current Fertitta Center gameday parking map, but no reusable publication license was documented for the official artwork.', 'Wikimedia Commons contains reusable Fertitta Center photography but no current basketball parking map.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Houston Athletics — Fertitta Center gameday guide', url: 'https://uhcougars.com/sports/2025/11/3/Fertitta-Center-Gameday-Guide', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Wikimedia Commons — Fertitta Center category', url: 'https://commons.wikimedia.org/wiki/Category:Fertitta_Center', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Tan Lot 15C, Stadium Garage Orange and the Blue Lot on the west side of 16B/16C were verified against the current basketball gameday guide.', 'The current guide states ADA spaces are available in each gameday lot on a first-come basis.', 'The venue’s relationship to Holman Street and Cullen Boulevard was checked against current UH campus/gameday material.', 'The schematic warns that weekday academic parking demand can force relocation to alternate parking.'],
+  },
+  'rice-stadium': {
+    id: 'parking-map:rice-stadium:2026-09', venueSlug: 'rice-stadium', venueName: 'Rice Stadium', imageUrl: '/images/parking-maps/rice-stadium.svg',
+    alt: 'Verified TexasDefined parking orientation diagram for Rice Stadium showing Greenbriar, South Stadium, West Lot 3 and West Lot 4 football parking areas',
+    origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
+    reuseSearchNotes: ['Rice Athletics publishes current football parking information and map imagery, but no reusable publication license was documented for the official artwork.', 'Open-license searches did not surface a current Rice Stadium parking map suitable for commercial republication.'],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
+    verificationSources: [{ label: 'Rice Athletics — current parking information', url: 'https://riceowls.com/sports/2022/7/7/rice-athletics-parking', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Rice Athletics — maps and directions', url: 'https://riceowls.com/sports/2018/7/17/facilities-driving-parking-directions-html', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Rice Athletics — 2026 Fan Fest parking update', url: 'https://riceowls.com/news/2026/8/13/general-fan-fest-returns-on-august-22', checkedAt: '2026-09-11', role: 'accuracy' }],
+    accuracyNotes: ['Greenbriar Lot was verified as general football parking under current Rice Athletics guidance.', 'South Stadium/Blue, West Lot 4 Yellow/Orange and West Lot 3 Purple designations were checked against current football parking information.', 'Rice Boulevard, Greenbriar Drive and University Boulevard relationships were checked against official Rice maps/directions.', 'A 2026 venue update independently confirms Lots 3 and 4 on the east side of the stadium, supporting the orientation used in the schematic.'],
+  },
+};

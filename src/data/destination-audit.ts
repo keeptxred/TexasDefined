@@ -1,4 +1,13 @@
-import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
+import { isDestinationPhotoPlaceholder } from "./destination-hero-placeholder";
+import { applyRvParkCuratedPublicWave4 } from "./rv-parks/curated-public-wave4";
+import { applyRvParkCuratedPublicWave5 } from "./rv-parks/curated-public-wave5";
+import { applyRvParkCuratedPublicWave6 } from "./rv-parks/curated-public-wave6";
+import { applyRvParkCuratedPublicWave7 } from "./rv-parks/curated-public-wave7";
+import { applyRvParkCuratedPublicWave8 } from "./rv-parks/curated-public-wave8";
+import { applyRvParkCuratedPublicWave9 } from "./rv-parks/curated-public-wave9";
+import { applyRvParkCuratedPublicWave10 } from "./rv-parks/curated-public-wave10";
+import { applyRvParkCuratedPublicWave11 } from "./rv-parks/curated-public-wave11";
+import { applyRvParkCuratedPublicWave12 } from "./rv-parks/curated-public-wave12";
 import type { Destination } from "./types";
 
 export type DestinationAuditIssue = {
@@ -23,6 +32,7 @@ const GENERATED_COPY_MARKERS = [
   "works best as part of a trip built around the surrounding region",
   "use the official visitor-information link on this page for the latest details",
 ];
+const TEMPORARY_REPRESENTATIVE_AI_MARKER = /AI-generated representative editorial image/i;
 
 function validCoordinates(destination: Destination) {
   const { lat, lng } = destination.coordinates;
@@ -45,7 +55,14 @@ function containsGeneratedFallbackCopy(summary: string, bodyText: string) {
   return GENERATED_COPY_MARKERS.some((marker) => combined.includes(marker));
 }
 
-export function auditDestination(destination: Destination): DestinationAuditResult {
+function usesTemporaryRepresentativeAiHero(destination: Destination) {
+  return TEMPORARY_REPRESENTATIVE_AI_MARKER.test(`${destination.hero.alt} ${destination.hero.credit ?? ""}`);
+}
+
+export function auditDestination(input: Destination): DestinationAuditResult {
+  const destination = input.category === "rv-parks"
+    ? applyRvParkCuratedPublicWave12(applyRvParkCuratedPublicWave11(applyRvParkCuratedPublicWave10(applyRvParkCuratedPublicWave9(applyRvParkCuratedPublicWave8(applyRvParkCuratedPublicWave7(applyRvParkCuratedPublicWave6(applyRvParkCuratedPublicWave5(applyRvParkCuratedPublicWave4(input)))))))))
+    : input;
   const issues: DestinationAuditIssue[] = [];
   const summary = destination.summary.trim();
   const bodyText = destination.body.join(" ").trim();
@@ -70,6 +87,9 @@ export function auditDestination(destination: Destination): DestinationAuditResu
   }
   if (isDestinationPhotoPlaceholder(destination.hero.src)) {
     issues.push({ code: "hero-placeholder", severity: "error", message: "Destination still uses a placeholder hero image." });
+  }
+  if (usesTemporaryRepresentativeAiHero(destination)) {
+    issues.push({ code: "hero-representative-ai", severity: "error", message: "Destination still uses a generic representative AI hero. Replace it with a rights-cleared exact-location image or a photorealistic AI depiction grounded in verified facts about the named place before indexing." });
   }
   if (!destination.hero.alt || destination.hero.alt.trim().length < 20) {
     issues.push({ code: "hero-alt", severity: "warning", message: "Hero image needs descriptive alt text." });

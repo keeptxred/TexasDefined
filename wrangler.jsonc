@@ -2,10 +2,33 @@
   // Cloudflare Workers runtime for TexasDefined.
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "texasdefined-site",
-  "main": "src/server.ts",
+  "main": "src/server-entry.ts",
   "compatibility_date": "2026-08-14",
   "compatibility_flags": ["nodejs_compat"],
   "workers_dev": true,
+  "ai": {
+    "binding": "AI"
+  },
+  "analytics_engine_datasets": [
+    {
+      "binding": "TEXAS_DEFINED_AI_ANALYTICS",
+      "dataset": "texas_defined_ai_questions"
+    },
+    {
+      "binding": "TEXAS_DEFINED_OUTCOME_ANALYTICS",
+      "dataset": "texas_defined_outcomes"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "TEXAS_DEFINED_AI_RATE_LIMITER",
+      "namespace_id": "1651001",
+      "simple": {
+        "limit": 10,
+        "period": 60
+      }
+    }
+  ],
   "observability": {
     "enabled": true
   }

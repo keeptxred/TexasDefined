@@ -11,7 +11,7 @@ export const COUNTY_SERIES_PROFILES_NORTHEAST: CountySeriesProfile[] = [
     countySlug: "hunt",
     articleSlug: "hunt-county-greenville-cotton-railroads-blackland-prairie-texas",
     loadArticle: () => import("@/data/fixtures/hunt-county-greenville-cotton-railroads-blackland-prairie-texas")
-      .then((module) => module.huntCountyGreenvilleCottonRailroadsBlacklandPrairieTexasArticle),
+      .then((module) => module.huntCountyGreenvilleCottonRailroadsBlacklandPrairieArticle),
   },
   {
     countySlug: "rains",

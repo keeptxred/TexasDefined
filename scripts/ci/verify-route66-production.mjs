@@ -28,6 +28,7 @@ const routePages = [
     path: '/explore/route-66/texas-road-trip',
     marker: 'Texas Route 66 Road Trip',
     requiredLinks: stops.map(([, slug]) => `/explore/route-66/${slug}`),
+    expectedIndexable: true,
   },
   ...stops.map(([name, slug], index) => ({
     label: `route66-${slug}`,
@@ -38,6 +39,7 @@ const routePages = [
       ...(index > 0 ? [`/explore/route-66/${stops[index - 1][1]}`] : []),
       ...(index < stops.length - 1 ? [`/explore/route-66/${stops[index + 1][1]}`] : []),
     ],
+    expectedIndexable: true,
   })),
 ];
 
@@ -107,7 +109,8 @@ for (const page of routePages) {
     await fetchWithRetries(page.label, page.path, (html) => {
       if (!html.includes(page.marker)) return { ok: false, reason: `missing marker: ${page.marker}` };
       if (!html.includes(canonical)) return { ok: false, reason: `missing canonical URL: ${canonical}` };
-      if (hasNoindex(html)) return { ok: false, reason: 'page is marked noindex' };
+      const noindex = hasNoindex(html);
+      if (page.expectedIndexable && noindex) return { ok: false, reason: 'indexable page is marked noindex' };
       const missingLink = page.requiredLinks.find((link) => !html.includes(link));
       if (missingLink) return { ok: false, reason: `missing required internal link: ${missingLink}` };
       return { ok: true };
@@ -128,7 +131,7 @@ try {
     const missing = routePages
       .map((page) => `${origin}${page.path}`)
       .filter((url) => !xml.includes(url));
-    if (missing.length > 0) return { ok: false, reason: `missing Route 66 sitemap URLs: ${missing.join(', ')}` };
+    if (missing.length > 0) return { ok: false, reason: `missing indexable Route 66 sitemap URLs: ${missing.join(', ')}` };
     return { ok: true };
   });
   appendSummary('| sitemap-explore-route66-inventory | ✅ pass |\n');
@@ -139,5 +142,5 @@ try {
   process.exit(1);
 }
 
-appendSummary(`\nAll ${routePages.length} Route 66 pages are live, canonical, indexable, internally linked, and present in the Explore sitemap.\n`);
-console.log(`Texas Route 66 production verification passed (${routePages.length} pages + Explore sitemap inventory).`);
+appendSummary(`\nAll ${routePages.length} Route 66 pages are live, canonical and indexable after authority-depth qualification.\n`);
+console.log(`Texas Route 66 production verification passed (${routePages.length} pages + quality-gated Explore sitemap inventory).`);

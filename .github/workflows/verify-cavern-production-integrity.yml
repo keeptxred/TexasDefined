@@ -1,0 +1,29 @@
+name: Verify cavern production integrity
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cavern-production-integrity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate cavern sitemap and production-check contract
+        run: node scripts/ci/validate-cavern-production-integrity-contract.mjs
+      - name: Verify cavern sitemap and restored destination pages
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-cavern-production-integrity.mjs

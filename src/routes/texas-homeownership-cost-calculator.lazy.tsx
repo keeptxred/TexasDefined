@@ -15,12 +15,19 @@ function TexasHomeownershipCostCalculatorPage() {
         <p className="eyebrow text-primary">{hub.local.eyebrow}</p>
         <h2 id="ownership-city-heading" className="mt-3 font-display text-3xl">{hub.local.title}</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{hub.local.copy}</p>
-        <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {hub.local.cards.map((card) => (
-            <a key={card.href} href={card.href} className="group bg-background p-5">
-              <strong className="font-display text-2xl group-hover:text-primary">{card.name}</strong>
-              <span className="mt-2 block text-sm leading-6 text-muted-foreground">Local ownership-cost calculator →</span>
-            </a>
+            <div key={card.ownershipHref} className="bg-background p-5">
+              <a href={card.ownershipHref} className="group block">
+                <strong className="font-display text-2xl group-hover:text-primary">{card.name}</strong>
+                <span className="mt-2 block text-sm leading-6 text-muted-foreground">Full ownership-cost calculator →</span>
+              </a>
+              <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 border-t border-border pt-4 text-sm font-semibold">
+                <a href={card.affordabilityHref} className="text-primary underline decoration-primary/30 underline-offset-4">Affordability</a>
+                <a href={card.insuranceHref} className="text-primary underline decoration-primary/30 underline-offset-4">Insurance</a>
+                <a href={card.mortgageHref} className="text-primary underline decoration-primary/30 underline-offset-4">Mortgage</a>
+              </div>
+            </div>
           ))}
         </div>
       </section>

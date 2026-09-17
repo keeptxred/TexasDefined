@@ -12,12 +12,13 @@ test("approved TexasDefined Viator attribution defaults and campaign are applied
   assert.equal(url.searchParams.get("campaign"), "texasdefined-test");
 });
 
-test("existing Viator tracking values are preserved without duplication", () => {
-  const url = new URL(buildViatorAffiliateUrl("https://www.viator.com/Austin/d5021?pid=existing&mcid=existing-mcid&campaign=existing-campaign", "new-campaign"));
+test("existing Viator tracking values are replaced with approved attribution without duplication", () => {
+  const url = new URL(buildViatorAffiliateUrl("https://www.viator.com/Austin/d5021?pid=old&pid=duplicate&mcid=old-mcid&mcid=duplicate-mcid&campaign=existing-campaign&keep=this", "new-campaign"));
 
-  assert.deepEqual(url.searchParams.getAll("pid"), ["existing"]);
-  assert.deepEqual(url.searchParams.getAll("mcid"), ["existing-mcid"]);
+  assert.deepEqual(url.searchParams.getAll("pid"), ["P00318227"]);
+  assert.deepEqual(url.searchParams.getAll("mcid"), ["42383"]);
   assert.deepEqual(url.searchParams.getAll("campaign"), ["existing-campaign"]);
+  assert.equal(url.searchParams.get("keep"), "this");
 });
 
 test("untrusted outbound targets fail closed to Viator", () => {

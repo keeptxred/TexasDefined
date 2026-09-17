@@ -1,21 +1,25 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { COUNTY_PROPERTY_RECORDS } from "@/data/property/county-property-data";
 import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
   "Compare all 254 Texas counties by county seat, Census population, land area and communities, then continue to verified county property-tax guides and official local resources.";
-const verifiedPropertyCounties = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
-export const verifiedPropertySlugs = verifiedPropertyCounties.map((county) => county.slug);
 
 export const Route = createFileRoute("/browse/counties")({
   loader: async () => {
-    const { loadTexasCountyComparison } = await import("@/data/county-comparison");
-    return loadTexasCountyComparison();
+    const [{ loadTexasCountyComparison }, { COUNTY_PROPERTY_RECORDS }] = await Promise.all([
+      import("@/data/county-comparison"),
+      import("@/data/property/county-property-data"),
+    ]);
+    const verifiedPropertyCounties = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
+    const verifiedPropertySlugs = verifiedPropertyCounties.map((county) => county.slug);
+    const counties = await loadTexasCountyComparison();
+    return { counties, verifiedPropertyCounties, verifiedPropertySlugs };
   },
-  head: () => {
+  head: ({ loaderData }) => {
+    const { verifiedPropertyCounties } = loaderData;
     const pageUrl = absoluteUrl(texasDefinedBrand, "/browse/counties");
     return {
       meta: buildMeta(texasDefinedBrand, {

@@ -2,17 +2,27 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { paintedChurchGlossaryBySlug } from "@/data/painted-church-glossary";
-import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/explore/painted-churches/glossary/$slug")({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
+    const [
+      { paintedChurchGlossaryBySlug },
+      { expandedPaintedChurches },
+    ] = await Promise.all([
+      import("@/data/painted-church-glossary"),
+      import("@/data/painted-churches-expanded"),
+    ]);
     const term = paintedChurchGlossaryBySlug.get(params.slug);
     if (!term) throw notFound();
-    return { term };
+    const churches = expandedPaintedChurches.filter((church) => term.churchSlugs.includes(church.slug));
+    const relatedTerms = (term.related ?? []).map((slug) => ({
+      slug,
+      name: paintedChurchGlossaryBySlug.get(slug)?.name ?? slug,
+    }));
+    return { term, churches, relatedTerms };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Glossary term unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
@@ -38,8 +48,7 @@ export const Route = createFileRoute("/explore/painted-churches/glossary/$slug")
 });
 
 function GlossaryTermPage() {
-  const { term } = Route.useLoaderData();
-  const churches = expandedPaintedChurches.filter((church) => term.churchSlugs.includes(church.slug));
+  const { term, churches, relatedTerms } = Route.useLoaderData();
   return (
     <main>
       <section className="border-b border-border bg-surface">
@@ -69,7 +78,7 @@ function GlossaryTermPage() {
           <p className="eyebrow text-primary">Church examples</p>
           <div className="mt-7 grid gap-px border border-border bg-border md:grid-cols-2">{churches.map((church) => <article key={church.slug} className="bg-background p-6"><p className="eyebrow text-muted-foreground">{church.city} · {church.county} County</p><h2 className="mt-2 font-display text-2xl"><Link to="/explore/painted-churches/$slug" params={{ slug: church.slug }} className="hover:text-primary">{church.shortName}</Link></h2><p className="mt-3 text-sm leading-7 text-muted-foreground">{church.summary}</p></article>)}</div>
         </section>
-        {term.related?.length ? <section className="mt-14 border-t border-border pt-8"><p className="eyebrow text-primary">Related terms</p><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Architectural vocabulary works best as a system. Follow the related terms to see how adjacent spaces, forms and decorative effects connect to this feature.</p><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">{term.related.map((slug) => <Link key={slug} to="/explore/painted-churches/glossary/$slug" params={{ slug }} className="border-b border-primary text-primary">{paintedChurchGlossaryBySlug.get(slug)?.name ?? slug}</Link>)}</div></section> : null}
+        {relatedTerms.length ? <section className="mt-14 border-t border-border pt-8"><p className="eyebrow text-primary">Related terms</p><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Architectural vocabulary works best as a system. Follow the related terms to see how adjacent spaces, forms and decorative effects connect to this feature.</p><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">{relatedTerms.map((related) => <Link key={related.slug} to="/explore/painted-churches/glossary/$slug" params={{ slug: related.slug }} className="border-b border-primary text-primary">{related.name}</Link>)}</div></section> : null}
       </Container>
     </main>
   );

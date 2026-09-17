@@ -81,10 +81,173 @@
         "isCountyPropertyIndexReady",
         "noindex, follow"
       ]
+    },
+    {
+      "family": "county property promotion audit",
+      "file": "ops/seo/gsc-remediation-wave5-2026-09-05.json",
+      "requiredMarkers": [
+        "/property-tax/county/haskell",
+        "/property-tax/county/leon",
+        "https://www.leoncad.org/",
+        "https://www.co.leon.tx.us/page/leon.County.Assessor.Collector",
+        "previousAction"
+      ]
+    },
+    {
+      "family": "Texas-vs-state canonical consolidation",
+      "file": "src/server-entry.ts",
+      "requiredMarkers": [
+        "SEO_CANONICAL_REDIRECTS",
+        "/texas-vs/california",
+        "/article/texas-vs-california-differences",
+        "/texas-vs/florida",
+        "/article/texas-vs-florida-differences",
+        "Response.redirect(url.toString(), 301)"
+      ]
+    },
+    {
+      "family": "Texas-vs-state edge deployment",
+      "file": "wrangler.jsonc",
+      "requiredMarkers": [
+        "src/server-entry.ts"
+      ]
+    },
+    {
+      "family": "Texas-vs-state sitemap readiness",
+      "file": "src/data/texas-vs-state-index-readiness.server.ts",
+      "requiredMarkers": [
+        "GSC_IMPROVE_STATE_SLUGS",
+        "GSC_PROMOTED_STATE_SLUGS",
+        "REDIRECT_ONLY_STATE_SLUGS",
+        "TEXAS_VS_GSC_IMPROVE_STATE_SLUGS",
+        "TEXAS_VS_GSC_PROMOTED_STATE_SLUGS",
+        "TEXAS_VS_REDIRECT_ONLY_STATE_SLUGS",
+        "isTexasVsStateSitemapReady"
+      ]
+    },
+    {
+      "family": "Texas-vs-state evidence promotion",
+      "file": "src/data/texas-vs-state-evidence.server.ts",
+      "requiredMarkers": [
+        "reviewedAt",
+        "taxLens",
+        "housingLens",
+        "jobsLens",
+        "riskLens",
+        "transportationLens",
+        "metroLens",
+        "sources"
+      ]
+    },
+    {
+      "family": "Texas-vs-state wave 7 evidence promotion",
+      "file": "src/data/texas-vs-state-evidence-wave7.server.ts",
+      "requiredMarkers": [
+        "reviewedAt",
+        "taxLens",
+        "housingLens",
+        "jobsLens",
+        "riskLens",
+        "transportationLens",
+        "metroLens",
+        "sources"
+      ]
+    },
+    {
+      "family": "Texas-vs-state wave 8 evidence promotion",
+      "file": "src/data/texas-vs-state-evidence-wave8.server.ts",
+      "requiredMarkers": [
+        "reviewedAt",
+        "taxLens",
+        "housingLens",
+        "jobsLens",
+        "riskLens",
+        "transportationLens",
+        "metroLens",
+        "sources"
+      ]
+    },
+    {
+      "family": "Texas-vs-state wave 9 evidence promotion",
+      "file": "src/data/texas-vs-state-evidence-wave9.server.ts",
+      "requiredMarkers": [
+        "reviewedAt",
+        "taxLens",
+        "housingLens",
+        "jobsLens",
+        "riskLens",
+        "transportationLens",
+        "metroLens",
+        "sources"
+      ]
+    },
+    {
+      "family": "Texas-vs-state wave 10 evidence promotion",
+      "file": "src/data/texas-vs-state-evidence-wave10.server.ts",
+      "requiredMarkers": [
+        "reviewedAt",
+        "taxLens",
+        "housingLens",
+        "jobsLens",
+        "riskLens",
+        "transportationLens",
+        "metroLens",
+        "sources"
+      ]
+    },
+    {
+      "family": "Texas-vs-state wave 11 evidence promotion",
+      "file": "src/data/texas-vs-state-evidence-wave11.server.ts",
+      "requiredMarkers": [
+        "reviewedAt",
+        "taxLens",
+        "housingLens",
+        "jobsLens",
+        "riskLens",
+        "transportationLens",
+        "metroLens",
+        "sources"
+      ]
+    },
+    {
+      "family": "Texas-vs-state sitemap quality integration",
+      "file": "src/routes/sitemap[.]xml.ts",
+      "requiredMarkers": [
+        "isTexasVsStateSitemapReady",
+        ".filter((state) => isTexasVsStateSitemapReady(texasVsStateSlug(state)))"
+      ]
     }
   ],
   "gscRemediation": {
     "initialSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+    "currentSnapshot": "ops/seo/gsc-discovered-2026-09-13.json",
+    "initialUrlInventory": "ops/seo/gsc-discovered-2026-09-05-urls.tsv",
+    "reviewWaves": [
+      "ops/seo/gsc-remediation-wave1-2026-09-05.json",
+      "ops/seo/gsc-remediation-wave2-2026-09-05.json",
+      "ops/seo/gsc-remediation-wave3-2026-09-05.json",
+      "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "ops/seo/gsc-remediation-wave5-2026-09-05.json",
+      "ops/seo/gsc-remediation-wave6-2026-09-06.json",
+      "ops/seo/gsc-remediation-wave7-2026-09-06.json",
+      "ops/seo/gsc-remediation-wave8-2026-09-06.json",
+      "ops/seo/gsc-remediation-wave9-2026-09-06.json",
+      "ops/seo/gsc-remediation-wave10-2026-09-07.json",
+      "ops/seo/gsc-remediation-wave11-2026-09-07.json",
+      "ops/seo/gsc-remediation-wave12-2026-09-08.json",
+      "ops/seo/gsc-remediation-wave13-2026-09-08.json",
+      "ops/seo/gsc-remediation-wave14-2026-09-08.json",
+      "ops/seo/gsc-remediation-wave15-2026-09-08.json",
+      "ops/seo/gsc-remediation-wave16-2026-09-08.json"
+    ],
+    "currentSnapshotReviewWaves": [
+      "ops/seo/gsc-remediation-wave17-2026-09-15.json"
+    ],
+    "manualNextProductionGuard": {
+      "staticCrawlDemandValidator": "scripts/seo/validate-gsc-crawl-demand-links.mjs",
+      "productionVerifier": "scripts/ci/verify-gsc-manual-next-production.mjs",
+      "productionWorkflow": ".github/workflows/verify-gsc-manual-next-production.yml"
+    },
     "maxUnreviewedAgeDays": 30,
     "manualInspectionPriority": [
       "HIGH",

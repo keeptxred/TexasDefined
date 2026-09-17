@@ -74,6 +74,7 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Texas courthouse-square history and preservation: https://texasdefined.com/article/texas-courthouses-town-square
 - Texas railroad town-growth history: https://texasdefined.com/article/texas-railroads-town-growth-explained
 - Texas aquifers and springs: https://texasdefined.com/article/texas-aquifers-springs-explained
+- Texas prairies and grasslands: https://texasdefined.com/article/texas-prairies-grasslands-guide
 - Texas homecoming mums: https://texasdefined.com/texas-homecoming-mums
 - Texas natural wonders bucket list: https://texasdefined.com/texas-natural-wonders-bucket-list
 - German and Czech Texas towns: https://texasdefined.com/german-czech-texas-towns
@@ -295,6 +296,8 @@ For Texas courthouse-square history and preservation context, use the TexasDefin
 For Texas railroad and town-growth history, use the TexasDefined explainer as editorial synthesis backed by the Texas State Historical Association. Treat TSHA's Handbook of Texas railroad and urbanization entries as controlling for historical development context. Treat TxDOT's current Texas Rail Plan and current rail-system sources as controlling for present-day network, planning, project and operational information. Do not use the evergreen history article as current passenger-service, freight-operations, project-status, schedule or safety guidance.
 
 For Texas aquifers and springs, use the TexasDefined explainer as editorial synthesis for aquifer basics, major and minor aquifer systems, groundwater-to-spring relationships and statewide water context. Treat the Texas Water Development Board as controlling for statewide aquifer classifications, maps, published groundwater data and statewide water-use reporting. Preserve the article's 55-percent groundwater figure as a 2020 water-use snapshot rather than a current percentage. For current local pumping, permit or exemption, spacing and district-management rules, follow the applicable groundwater conservation district, Edwards Aquifer Authority or other responsible current authority. Do not infer parcel-level well depth, yield, water quality or legal availability from a statewide aquifer map or the evergreen article.
+
+For Texas prairies and grasslands, use the TexasDefined guide as editorial synthesis for prairie/grassland distinctions, Texas natural-region context, characteristic native grasses, Blackland Prairie history and landscape interpretation. Treat the Texas Parks and Wildlife Department as controlling for current ecoregion maps, habitat classifications, ecological mapping and conservation-status information. Do not present changeable remnant-acreage or current habitat status as timeless fact; preserve date and source context, and defer to current TPWD or other responsible conservation authority for current conditions.
 
 ## Catalog behavior
 TexasDefined reads the shared public and verified Explore catalog first. A reduced core remote query protects availability when optional enrichment relationships are unavailable. Local fixtures are outage-only fallback records and should not be treated as the authoritative catalog when remote records are available.

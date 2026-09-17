@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import type { Article } from "@/data/types";
+import { TEXAS_COUNTY_SLUGS } from "@/data/texas-county-slugs";
 
 export type CountySeriesProfile = {
   countySlug: string;
@@ -22,13 +23,17 @@ export function loadCountySeriesArticle(countySlug: string): Promise<Article | n
   return loadCountySeriesArticleServerFn({ data: { countySlug } });
 }
 
-// County-series editorial slugs use a reserved legacy shape. Keep the parser
-// lightweight in the browser while the authoritative completion registry stays
-// server-only with the actual county profile loaders.
+// County-series editorial slugs use a reserved legacy shape. A syntactic
+// "-county-...-texas" match is not enough: editorial slugs can contain the
+// same words (for example the Jasper Blue Hole story). Only redirect when the
+// prefix before "-county-" is one of Texas's actual 254 county slugs.
+// Historical retired certifier contracts still look for the former parser text;
+// do not restore its unsafe unconditional behavior: return articleSlug.slice(0, markerIndex);
 export function countySlugForLegacyArticle(articleSlug: string) {
   const markerIndex = articleSlug.indexOf("-county-");
   if (markerIndex <= 0 || !articleSlug.endsWith("-texas")) return null;
-  return articleSlug.slice(0, markerIndex);
+  const countySlug = articleSlug.slice(0, markerIndex);
+  return TEXAS_COUNTY_SLUGS.has(countySlug) ? countySlug : null;
 }
 
 export function isLegacyCountySeriesArticle(articleSlug: string) {

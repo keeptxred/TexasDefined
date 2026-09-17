@@ -1,36 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { platform, scope } from "@/data";
-import { getTexasCountyHousingCosts } from "@/data/acs-county-housing-costs.functions";
-import { fetchPublishedTexasDefinedEvergreenArticlesForSitemap, fetchPublishedTexasDefinedNewsArticlesForSitemap } from "@/data/articles-remote";
-import { loadTexasCountyGrowth } from "@/data/census-county-growth";
-import { isLegacyCountySeriesArticle } from "@/data/county-series";
-import { loadTemporalEventSitemapEntriesServer } from "@/data/event-temporal-sitemap.server";
-import { isArticleDiscoveryReady, isArticleIndexReady } from "@/data/fixtures/texas-gateway-index-readiness";
-import { loadFishingGuideSitemapEntriesServer } from "@/data/fishing/guide-sitemap.server";
-import { loadFishingLocalSitemapEntriesServer } from "@/data/fishing/local-sitemap.server";
-import { loadFishingReportSitemapEntriesServer } from "@/data/fishing/report-sitemap.server";
-import { FISHING_SITEMAP_ENTRIES } from "@/data/fishing/sitemap";
-import { HUNTING_SITEMAP_ENTRIES } from "@/data/hunting/sitemap";
-import { LOCAL_COST_OF_LIVING_PROFILES } from "@/data/local-cost-of-living";
-import { LOCAL_HOME_AFFORDABILITY_PROFILES } from "@/data/local-home-affordability";
-import { LOCAL_HOME_INSURANCE_PROFILES } from "@/data/local-home-insurance";
-import { LOCAL_HOMEOWNERSHIP_COST_PROFILES } from "@/data/local-homeownership-cost";
-import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
-import { canonicalEntityPath, isIndexableEntityPage } from "@/data/knowledge-graph/relationships";
-import { LOCAL_MORTGAGE_PROFILES } from "@/data/local-mortgage";
-import { LOCAL_PROPERTY_TAX_PROFILES } from "@/data/local-property-tax-calculators";
-import { LOCAL_SALARY_NEEDED_PROFILES } from "@/data/local-salary-needed";
-import { majorEventIndexRecords } from "@/data/major-event-index";
-import { loadSupplementalMajorEventSitemapEntriesServer } from "@/data/major-event-supplemental-registry.server";
-import { COUNTY_PROPERTY_RECORDS } from "@/data/property/county-property-data";
-import { isCountyPropertyIndexReady } from "@/data/property/county-property-schema";
-import { fetchAssignedShopProducts } from "@/data/shop-products-remote";
-import { TEXAS_DATASETS } from "@/data/texas-data-center";
-import { TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-states-index";
-import { isTexasDefinedOwnedEntity, isTexasDefinedOwnedStaticPath } from "@/lib/brand-route-ownership";
-import { INDEXABLE_STATIC_PATHS, isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
 const origin = `https://${texasDefinedBrand.identity.domain}`;
 type SitemapEntry = { path: string; lastmod?: string };
@@ -71,6 +41,44 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
+        const {
+          getTexasCountyHousingCosts,
+          fetchPublishedTexasDefinedEvergreenArticlesForSitemap,
+          fetchPublishedTexasDefinedNewsArticlesForSitemap,
+          loadTexasCountyGrowth,
+          isLegacyCountySeriesArticle,
+          isEvergreenEventCollectionPath,
+          loadEvergreenEventSitemapEntriesServer,
+          hasCurrentOrFutureConfirmedEventOccurrence,
+          loadTemporalEventSitemapEntriesServer,
+          isArticleDiscoveryReady,
+          isArticleIndexReady,
+          loadFishingGuideSitemapEntriesServer,
+          loadFishingLocalSitemapEntriesServer,
+          loadFishingReportSitemapEntriesServer,
+          FISHING_SITEMAP_ENTRIES,
+          HUNTING_SITEMAP_ENTRIES,
+          canonicalEntityPath,
+          isIndexableEntityPage,
+          majorEventIndexRecords,
+          hasCompliantMajorEventImageServer,
+          loadSupplementalMajorEventSitemapEntriesServer,
+          isCountyPropertyIndexReady,
+          fetchAssignedShopProducts,
+          TEXAS_DATASETS,
+          loadTexasDogSitemapEntriesServer,
+          isTexasVsStateSitemapReady,
+          TEXAS_VS_STATES,
+          texasVsStateSlug,
+          isTexasDefinedOwnedEntity,
+          isTexasDefinedOwnedStaticPath,
+          INDEXABLE_STATIC_PATHS,
+          isExploreSitemapOwnedPath,
+          isIndexablePublicPath,
+          normalizePublicPath,
+        } = await import("@/data/sitemap-dependencies.server");
+        const { platform, scope } = await import("@/data");
+        const { loadTexasKnowledgeGraph } = await import("@/data/knowledge-graph");
         const coreResults = await Promise.allSettled([
           platform.articles.list(scope),
           platform.collections.list(scope),
@@ -105,6 +113,43 @@ export const Route = createFileRoute("/sitemap.xml")({
         const remoteEvergreen = remoteEvergreenResult.status === "fulfilled" ? remoteEvergreenResult.value : [];
         const indexableRemoteNews = remoteNews.filter(isArticleIndexReady);
         const indexableRemoteEvergreen = remoteEvergreen.filter(isArticleIndexReady);
+        const indexableLocalArticles = articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article));
+        const indexableLocalArticleSlugs = new Set(indexableLocalArticles.map((article) => article.slug));
+        const protectedLocalArticles = (await Promise.all(
+          Object.keys(ARTICLE_LASTMOD_BY_SLUG)
+            .filter((slug) => !indexableLocalArticleSlugs.has(slug))
+            .map(async (slug) => {
+              const catalogArticle = articles.find((article) => article.slug === slug);
+              if (!catalogArticle || !isArticleDiscoveryReady(catalogArticle)) return null;
+              const fullArticle = await platform.articles.getBySlug(scope, slug);
+              return fullArticle && isArticleIndexReady(fullArticle) ? fullArticle : null;
+            }),
+        )).flatMap((article) => article ? [article] : []);
+        indexableLocalArticles.push(...protectedLocalArticles);
+
+        // Listing/search repositories intentionally expose lightweight lazy article stubs. Keep
+        // discovery readiness as a candidate boundary only: resolve the full article server-side
+        // and require the unchanged strict full-page gate before adding any candidate to the sitemap.
+        const hydratedLocalArticleSlugs = new Set(indexableLocalArticles.map((article) => article.slug));
+        const unresolvedDiscoveryLocalArticles = articles.filter(
+          (article) => !isLegacyCountySeriesArticle(article.slug)
+            && isArticleDiscoveryReady(article)
+            && !hydratedLocalArticleSlugs.has(article.slug),
+        );
+        const hydratedDiscoveryLocalArticles = (await Promise.all(
+          unresolvedDiscoveryLocalArticles.map((article) => platform.articles.getBySlug(scope, article.slug)),
+        )).flatMap((article) => article && isArticleIndexReady(article) ? [article] : []);
+        indexableLocalArticles.push(...hydratedDiscoveryLocalArticles);
+
+        const indexableLocalArticlePaths = new Set(indexableLocalArticles.map((article) => `/article/${article.slug}`));
+        const discoveryOnlyLocalArticlePaths = [
+          ...articles
+            .filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleDiscoveryReady(article))
+            .map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
+        ].filter((entry) => !indexableLocalArticlePaths.has(entry.path));
+        if (discoveryOnlyLocalArticlePaths.length > 0) {
+          console.info(`Primary sitemap omitted ${discoveryOnlyLocalArticlePaths.length} discovery-only article URLs that are not fully index-ready.`);
+        }
         const countyHousingCosts = countyHousingResult.status === "fulfilled" ? countyHousingResult.value : null;
         const fishingGuideSitemapEntries = fishingGuideSitemapResult.status === "fulfilled" ? fishingGuideSitemapResult.value : [];
         const fishingReportSitemapEntries = fishingReportSitemapResult.status === "fulfilled" ? fishingReportSitemapResult.value : [];
@@ -112,14 +157,42 @@ export const Route = createFileRoute("/sitemap.xml")({
         const countyGrowth = await loadTexasCountyGrowth();
         const liveShopProducts = await fetchAssignedShopProducts();
         const activeCollectionSlugs = new Set(liveShopProducts.flatMap((product) => product.collectionSlugs));
+        const { COUNTY_PROPERTY_RECORDS } = await import("@/data/property/county-property-data");
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
         const entityPages = graph.filter(isIndexableEntityPage).filter(isTexasDefinedOwnedEntity);
-        const supplementalMajorEventSitemapEntries = loadSupplementalMajorEventSitemapEntriesServer();
+        const majorEventSitemapEntries = majorEventIndexRecords
+          .filter((event) => hasCurrentOrFutureConfirmedEventOccurrence(event))
+          .filter((event) => hasCompliantMajorEventImageServer(event.slug))
+          .map((event) => ({ path: `/event/${event.slug}`, lastmod: toDate(event.sourceCheckedAt) }));
+        const supplementalMajorEventSitemapEntries = loadSupplementalMajorEventSitemapEntriesServer().filter((entry) => {
+          const slug = entry.path.match(/^\/event\/([^/?#]+)/)?.[1];
+          return slug ? hasCompliantMajorEventImageServer(slug) : true;
+        });
+        const evergreenEventSitemapEntries = loadEvergreenEventSitemapEntriesServer();
         const temporalEventSitemapEntries = loadTemporalEventSitemapEntriesServer();
+        const texasDogSitemapEntries = loadTexasDogSitemapEntriesServer();
+        const [
+          { LOCAL_PROPERTY_TAX_PROFILES },
+          { LOCAL_HOME_AFFORDABILITY_PROFILES },
+          { LOCAL_HOMEOWNERSHIP_COST_PROFILES },
+          { LOCAL_HOME_INSURANCE_PROFILES },
+          { LOCAL_MORTGAGE_PROFILES },
+          { LOCAL_COST_OF_LIVING_PROFILES },
+          { LOCAL_SALARY_NEEDED_PROFILES },
+        ] = await Promise.all([
+          import("@/data/local-property-tax-calculators"),
+          import("@/data/local-home-affordability"),
+          import("@/data/local-homeownership-cost"),
+          import("@/data/local-home-insurance"),
+          import("@/data/local-mortgage"),
+          import("@/data/local-cost-of-living"),
+          import("@/data/local-salary-needed"),
+        ]);
 
         const entries: SitemapEntry[] = [
-          ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).filter((path) => isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
+          ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).filter((path) => !isEvergreenEventCollectionPath(path)).filter((path) => isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
           ...AUTHORITY_STATIC_PATHS.map((path) => ({ path, lastmod: AUTHORITY_LASTMOD })),
+          ...texasDogSitemapEntries,
           ...HUNTING_SITEMAP_ENTRIES,
           ...LOCAL_PROPERTY_TAX_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-08-30" })),
           ...LOCAL_HOME_AFFORDABILITY_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-08-30" })),
@@ -128,24 +201,23 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...LOCAL_MORTGAGE_PROFILES.map((profile) => ({ path: profile.mortgagePath, lastmod: "2026-08-30" })),
           ...LOCAL_COST_OF_LIVING_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-09-01" })),
           ...LOCAL_SALARY_NEEDED_PROFILES.map((profile) => ({ path: profile.salaryPath, lastmod: "2026-09-01" })),
-          { path: "/texas-icons" },
-          ...majorEventIndexRecords.map((event) => ({ path: `/event/${event.slug}`, lastmod: toDate(event.sourceCheckedAt) })),
+          ...majorEventSitemapEntries,
           ...supplementalMajorEventSitemapEntries,
+          ...evergreenEventSitemapEntries,
           ...temporalEventSitemapEntries,
-          ...TEXAS_VS_STATES.map((state) => ({ path: `/texas-vs/${texasVsStateSlug(state)}`, lastmod: PRIORITY_SEO_LASTMOD })),
+          ...TEXAS_VS_STATES.filter((state) => isTexasVsStateSitemapReady(texasVsStateSlug(state))).map((state) => ({ path: `/texas-vs/${texasVsStateSlug(state)}`, lastmod: PRIORITY_SEO_LASTMOD })),
           ...FISHING_SITEMAP_ENTRIES,
           ...fishingGuideSitemapEntries,
           ...fishingReportSitemapEntries,
           ...fishingLocalSitemapEntries,
           ...(indexableRemoteNews.length ? [{ path: "/news" }] : []),
           ...indexableRemoteNews.map((article) => ({ path: `/news/${article.slug}`, lastmod: toDate(article.publishedAt) })),
-          ...indexableRemoteEvergreen.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(article.publishedAt) })),
+          ...indexableRemoteEvergreen.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
           ...(countyGrowth.available ? [{ path: "/texas-data/county-growth", lastmod: "2026-03-17" }] : []),
           ...(countyHousingCosts?.available ? [{ path: "/texas-data/county-housing-costs", lastmod: toDate(countyHousingCosts.generatedAt ?? undefined) }] : []),
           ...collections.filter((collection) => activeCollectionSlugs.has(collection.slug)).map((collection) => ({ path: `/shop/${collection.slug}` })),
           ...authors.map((author) => ({ path: `/authors/${author.id}` })),
-          ...articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article)).map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
-          ...articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleDiscoveryReady(article)).map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
+          ...indexableLocalArticles.map((article) => ({ path: `/article/${article.slug}`, lastmod: toDate(ARTICLE_LASTMOD_BY_SLUG[article.slug] ?? article.publishedAt) })),
           ...countyPages.map((county) => ({ path: `/property-tax/county/${county.slug}`, lastmod: toDate(county.lastVerifiedAt ?? undefined) })),
           ...entityPages.map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
           ...TEXAS_DATASETS.map((dataset) => ({ path: `/texas-data/${dataset.slug}`, lastmod: toDate(dataset.updated) })),

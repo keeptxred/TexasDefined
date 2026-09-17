@@ -1,0 +1,91 @@
+name: Texas Defined AI demand intelligence
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 12 * * *'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: texasdefined-ai-demand-intelligence
+  cancel-in-progress: false
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build private demand intelligence
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: node scripts/ai/build-ai-demand-report.mjs
+
+      - name: Validate privacy and publication boundaries
+        run: node scripts/ai/validate-ai-demand-report.mjs
+
+      - name: Detect reviewable demand changes
+        id: changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain -- ops/ai/texas-defined-ai-demand.generated.json)" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No generalized AI demand opportunity changed enough to create a review PR."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Generalized AI demand intelligence changed; preparing a review-only PR."
+          fi
+
+      - name: Create or refresh review branch
+        if: steps.changes.outputs.changed == 'true'
+        id: branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/texas-defined-ai-demand"
+          remote_sha="$(git ls-remote --heads origin "$branch" | awk '{print $1}')"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$branch"
+          git add ops/ai/texas-defined-ai-demand.generated.json
+          git commit -m 'Refresh generalized Texas Defined AI demand intelligence'
+          if [ -n "$remote_sha" ]; then
+            git push --force-with-lease="refs/heads/$branch:$remote_sha" origin "$branch"
+          else
+            git push origin "$branch"
+          fi
+          echo "name=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Open or retain review-only pull request
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          pr_url="$(gh pr list --base main --head "$BRANCH" --state open --json url --jq '.[0].url // empty')"
+          if [ -n "$pr_url" ]; then
+            echo "Updated existing AI demand review PR."
+            exit 0
+          fi
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title 'Review Texas Defined AI demand and content gaps' \
+            --body $'Automated privacy-safe demand intelligence from Texas Defined AI.\n\nThis PR contains only generalized topic/category signals, aggregate demand/coverage counts, recommended asset types, and authoritative research-source targets. Raw or sanitized user questions are intentionally excluded from the public repository and workflow output.\n\nThis is a review queue, not a publication action. It does not create or publish articles, does not auto-merge, and does not bypass TexasDefined quality, indexing, source, image-rights, or publication gates. Any resulting content/data work must be researched against the listed authoritative sources and pass normal repository validation before a separate merge decision.'

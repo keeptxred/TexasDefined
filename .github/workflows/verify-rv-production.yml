@@ -1,0 +1,59 @@
+name: Verify RV production
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-rv-production
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify RV hub, profile and county production
+        run: node scripts/ci/verify-rv-production.mjs
+
+      - name: Verify RV Wave 5 production publication
+        run: node scripts/ci/verify-rv-wave5-production.mjs
+
+      - name: Verify RV Wave 6 production publication
+        run: node scripts/ci/verify-rv-wave6-production.mjs
+
+      - name: Verify RV Wave 7 production publication
+        run: node scripts/ci/verify-rv-wave7-production.mjs
+
+      - name: Verify RV Wave 8 production content and image gate
+        run: node scripts/ci/verify-rv-wave8-production.mjs
+
+      - name: Verify RV Wave 9 production content and image gate
+        run: node scripts/ci/verify-rv-wave9-production.mjs
+
+      - name: Verify RV Wave 10 production content and image gate
+        run: node scripts/ci/verify-rv-wave10-production.mjs
+
+      - name: Verify RV Wave 11 production content and image gate
+        run: node scripts/ci/verify-rv-wave11-production.mjs
+
+      - name: Verify RV Wave 12 production content and image gate
+        run: node scripts/ci/verify-rv-wave12-production.mjs

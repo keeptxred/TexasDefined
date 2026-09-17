@@ -82,8 +82,10 @@ for (const marker of ['export const historicSupportingStubs', 'export async func
 }
 
 if (!sitemap.includes('platform.articles.list(scope)')) failures.push('Historic supporting sitemap discovery contract missing: platform.articles.list(scope)');
-const articleCatalogPattern = /\.\.\.articles\s*\.filter\(\(article\)\s*=>\s*!isLegacyCountySeriesArticle\(article\.slug\)\s*&&\s*isArticleIndexReady\(article\)\)\s*\.map\(\(article\)\s*=>\s*\(\{\s*path:\s*`\/article\/\$\{article\.slug\}`/s;
-if (!articleCatalogPattern.test(sitemap)) failures.push('Historic supporting sitemap discovery contract missing: strict quality-gated canonical article catalog.');
+for (const marker of [
+  'const indexableLocalArticles = articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article));',
+  '...indexableLocalArticles.map((article) => ({ path: `/article/${article.slug}`',
+]) if (!sitemap.includes(marker)) failures.push(`Historic supporting sitemap discovery contract missing: ${marker}.`);
 
 if (failures.length) {
   console.error('Historic supporting-guide validation failed:');

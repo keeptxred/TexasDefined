@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { BookingCarRentalCard } from "@/components/monetization/BookingCarRentalCard";
 import { TexasRoute66Hub } from "@/components/explore/TexasRoute66Hub";
 import type { TexasRoute66Stop } from "@/data/texas-route-66";
 
@@ -45,6 +46,11 @@ export function TexasRoute66PageContent({ data }: { data: TexasRoute66PageData }
         <div><p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">County</p><p className="mt-2 font-display text-2xl">{stop.county}</p></div>
         <div><p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Stop type</p><p className="mt-2 font-display text-2xl capitalize">{stop.kind.replace("-", " ")}</p></div>
       </section>
+      <BookingCarRentalCard
+        className="mt-8"
+        placement="route-66-stop"
+        title={`Need a rental car for the Route 66 drive through ${stop.name}?`}
+      />
     </Container>
 
     <Container className="py-12 sm:py-16">

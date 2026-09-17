@@ -24,11 +24,22 @@ const nestedAdminChildPaths = new Set([
 const nestedShopChildPaths = new Set(['/cart', '/checkout-return']);
 const normalize = (value) => value === '/' ? value : value.replace(/\/$/, '');
 const shouldCountPublicRoute = (routePath) => routePath.startsWith('/') && !routePath.includes('$') && !routePath.startsWith('/api/') && !routePath.startsWith('/admin') && !nestedAdminChildPaths.has(routePath) && !nestedShopChildPaths.has(routePath) && !routePath.endsWith('.xml') && !routePath.endsWith('.txt');
+const optionalParamSegment = /^\{\-\$[^}]+\}$/;
 const routePatternMatches = (concretePath, routePattern) => {
   const concreteSegments = normalize(concretePath).split('/').filter(Boolean);
   const patternSegments = normalize(routePattern).split('/').filter(Boolean);
-  if (concreteSegments.length !== patternSegments.length) return false;
-  return patternSegments.every((segment, index) => segment.startsWith('$') ? concreteSegments[index].length > 0 : segment === concreteSegments[index]);
+  const matchesFrom = (concreteIndex, patternIndex) => {
+    if (patternIndex === patternSegments.length) return concreteIndex === concreteSegments.length;
+    const segment = patternSegments[patternIndex];
+    if (optionalParamSegment.test(segment)) {
+      return matchesFrom(concreteIndex, patternIndex + 1)
+        || (concreteIndex < concreteSegments.length && matchesFrom(concreteIndex + 1, patternIndex + 1));
+    }
+    if (concreteIndex >= concreteSegments.length) return false;
+    if (segment.startsWith('$')) return matchesFrom(concreteIndex + 1, patternIndex + 1);
+    return segment === concreteSegments[concreteIndex] && matchesFrom(concreteIndex + 1, patternIndex + 1);
+  };
+  return matchesFrom(0, 0);
 };
 const sourceRoots = ['src/routes', 'src/components', 'src/data', 'src/brand'];
 const sourceFiles = [];

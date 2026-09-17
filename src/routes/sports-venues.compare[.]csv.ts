@@ -1,7 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { SPORTS_VENUE_COMPARISON_ROWS } from '@/data/sports-venue-comparison';
-
 const siteUrl = 'https://texasdefined.com';
 const headers = [
   'venue_name',
@@ -20,6 +18,7 @@ export const Route = createFileRoute('/sports-venues/compare.csv')({
   server: {
     handlers: {
       GET: async () => {
+        const { SPORTS_VENUE_COMPARISON_ROWS } = await import('@/data/sports-venue-comparison');
         const lines = [
           headers.join(','),
           ...SPORTS_VENUE_COMPARISON_ROWS.map((row) => [

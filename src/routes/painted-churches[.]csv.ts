@@ -1,19 +1,29 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { canonicalPaintedChurchProfileBySlug } from "@/data/painted-church-profile-index";
-import { paintedChurchHeritage } from "@/data/painted-church-heritage";
-import { paintedChurchPeople } from "@/data/painted-church-people";
-import { paintedChurchPreservationTopics } from "@/data/painted-church-preservation";
-import { paintedChurchRegisterRecordBySlug } from "@/data/painted-church-register-evidence";
-import { paintedChurchSymbols } from "@/data/painted-church-symbols";
-import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
-
 const quote = (value: unknown) => `"${String(value ?? "").replace(/"/g, '""')}"`;
 
 export const Route = createFileRoute("/painted-churches.csv")({
   server: {
     handlers: {
       GET: async () => {
+        const [
+          { canonicalPaintedChurchProfileBySlug },
+          { paintedChurchHeritage },
+          { paintedChurchPeople },
+          { paintedChurchPreservationTopics },
+          { paintedChurchRegisterRecordBySlug },
+          { paintedChurchSymbols },
+          { expandedPaintedChurches },
+        ] = await Promise.all([
+          import("@/data/painted-church-profile-index"),
+          import("@/data/painted-church-heritage"),
+          import("@/data/painted-church-people"),
+          import("@/data/painted-church-preservation"),
+          import("@/data/painted-church-register-evidence"),
+          import("@/data/painted-church-symbols"),
+          import("@/data/painted-churches-expanded"),
+        ]);
+
         const header = [
           "name", "city", "county", "denomination", "address", "founded_year", "built_year", "painted_year", "architecture", "architect", "builder", "artists",
           "classification", "interior_integrity", "cultural_heritage", "documented_techniques", "documented_symbols", "connected_people", "heritage_contexts", "preservation_topics",

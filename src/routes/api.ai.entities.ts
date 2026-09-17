@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { findCompleteTexasEntity, loadTexasKnowledgeGraph, type TexasEntityRecord } from '@/data/knowledge-graph';
+import type { TexasEntityRecord } from '@/data/knowledge-graph';
 import { applyCurrentEntityCorrections } from '@/data/knowledge-graph/current-entity-corrections';
 import { canonicalEntityPath, rankRelatedEntities } from '@/data/knowledge-graph/relationships';
 
@@ -15,6 +15,7 @@ const publicHeaders = {
 
 export const Route = createFileRoute('/api/ai/entities')({
   server: { handlers: { GET: async ({ request }) => {
+    const { findCompleteTexasEntity, loadTexasKnowledgeGraph } = await import('@/data/knowledge-graph');
     const url = new URL(request.url);
     const id = url.searchParams.get('id')?.trim();
     const q = url.searchParams.get('q')?.trim() ?? '';

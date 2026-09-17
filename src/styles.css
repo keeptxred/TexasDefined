@@ -12,7 +12,6 @@
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
   --font-display: var(--font-family-display);
   --font-sans: var(--font-family-sans);
   --color-background: var(--background);
@@ -95,7 +94,7 @@
 
 @layer base {
   * { border-color: var(--border); }
-  body { background-color: var(--background); color: var(--foreground); font-family: var(--font-family-sans); font-size: 1rem; line-height: 1.65; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { background-color: var(--background); color: var(--foreground); font-family: var(--font-family-sans); line-height: 1.65; -webkit-font-smoothing: antialiased; }
   h1, h2, h3, h4 { font-family: var(--font-family-display); font-weight: 600; letter-spacing: -0.02em; text-wrap: balance; }
   p { text-wrap: pretty; }
   :focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
@@ -103,7 +102,6 @@
 
 @utility eyebrow { font-family: var(--font-family-sans); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
 @utility editorial-body { font-family: var(--font-family-sans); font-size: 1.125rem; line-height: 1.85; }
-@utility rule-top { border-top: 1px solid var(--border); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

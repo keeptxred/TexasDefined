@@ -4,7 +4,7 @@ const read = (path) => fs.readFileSync(path, 'utf8');
 const stubs = read('src/data/fixtures/texas-explained-road-system-stubs.ts');
 const articles = read('src/data/fixtures/texas-explained-road-systems.ts');
 const lazy = read('src/data/fixtures/lazy-evergreen.ts');
-const hub = read('src/routes/texas-explained.tsx');
+const hub = `${read('src/routes/texas-explained.tsx')}\n${read('src/components/editorial/TexasExplainedPage.tsx')}`;
 const topology = read('src/data/fixtures/newest-evergreen.ts');
 const articleRoute = read('src/routes/article.$slug.tsx');
 const errors = [];
@@ -58,11 +58,11 @@ for (const [slug] of profiles) {
 }
 
 for (const hero of [
-  '/images/editorial/texas-rm-roads.svg',
-  '/images/editorial/texas-loops-spurs.svg',
-  '/images/editorial/texas-business-routes.svg',
-  '/images/editorial/texas-park-recreational-roads.svg',
-  '/images/editorial/texas-historic-memorial-routes.svg',
+  '/images/editorial/texas-rm-roads.jpg',
+  '/images/editorial/texas-loops-spurs.jpg',
+  '/images/editorial/texas-business-routes.jpg',
+  '/images/editorial/texas-park-recreational-roads.jpg',
+  '/images/editorial/texas-historic-memorial-routes.jpg',
 ]) if (!stubs.includes(hero) || !articles.includes(hero)) errors.push(`Road-system hero contract missing: ${hero}`);
 
 if (errors.length) {

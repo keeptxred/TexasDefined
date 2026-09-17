@@ -6,6 +6,7 @@ const home = fs.readFileSync('src/routes/index.tsx', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const article = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
 const destination = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
+const destinationCollection = fs.readFileSync('src/components/editorial/DestinationCollectionGrid.tsx', 'utf8');
 
 for (const feature of [
   'staleTime: 10 * 60 * 1000',
@@ -45,10 +46,24 @@ for (const [name, source] of [['article', article], ['destination', destination]
   if (!source.includes('height={')) errors.push(`${name} hero must declare height.`);
 }
 
+for (const feature of [
+  'const PAGE_SIZE = 24',
+  'aria-label="All places in this guide"',
+  'Browse every place in this guide',
+  'allDestinations.map((destination)',
+  'to="/destination/$slug"',
+]) {
+  if (!destinationCollection.includes(feature)) errors.push(`Destination crawl directory contract missing: ${feature}`);
+}
+
+if (destinationCollection.includes('filtered.slice(0, visibleCount)') && !destinationCollection.includes('allDestinations.map((destination)')) {
+  errors.push('Paginated destination cards must retain a complete crawlable text-link directory for destinations beyond the initial render.');
+}
+
 if (errors.length) {
   console.error('Search rendering/performance validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Homepage payload bounds, destination query hydration caching, sitemap resilience, and primary hero rendering contracts passed validation.');
+console.log('Homepage payload bounds, destination query hydration caching, complete destination crawl discovery, sitemap resilience, and primary hero rendering contracts passed validation.');

@@ -1,12 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { loadTexasKnowledgeGraph } from '@/data/knowledge-graph';
 import type { TexasEntityRecord } from '@/data/knowledge-graph';
-import { buildEntityPromotionManifest, promotableEntities } from '@/platform/entity-promotion';
 
 export const Route = createFileRoute('/api/entity-import-preview')({
   server: {
     handlers: {
       POST: async ({ request }) => {
+        const [{ loadTexasKnowledgeGraph }, { buildEntityPromotionManifest, promotableEntities }] = await Promise.all([
+          import('@/data/knowledge-graph'),
+          import('@/platform/entity-promotion'),
+        ]);
         let body: unknown;
         try { body = await request.json(); }
         catch { return json({ error: 'Request body must be valid JSON.' }, 400); }

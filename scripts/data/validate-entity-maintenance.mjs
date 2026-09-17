@@ -44,8 +44,8 @@ requireSymbols(promotion, [
 ], 'promotion governance');
 requireSymbols(panel, ['EntityMaintenanceHealth', 'Stale entities', 'Missing official URLs', 'Highest-priority entity reviews', 'Authoritative source schedule'], 'maintenance panel');
 requireSymbols(review, ['EntityImportReview', '/api/entity-import-preview', 'Preview promotion', 'read-only manifest', 'manifest ID', 'rollback snapshot'], 'import review console');
-requireSymbols(api, ["createFileRoute('/api/entity-maintenance')", 'auditEntityMaintenanceHealth', 'status: report.healthy ? 200 : 503', 'no-store', 'noindex, nofollow'], 'maintenance API');
-requireSymbols(previewApi, ["createFileRoute('/api/entity-import-preview')", 'buildEntityPromotionManifest', 'promotableEntities', 'preview-only', '10000', 'no-store', 'noindex, nofollow'], 'promotion preview API');
+requireSymbols(api, ["createFileRoute('/api/entity-maintenance')", 'auditEntityMaintenanceHealth', 'status: report.healthy ? 200 : 503', 'no-store', 'noindex, nofollow', "import('@/data/knowledge-graph')", "import('@/data/source-governance')", "import('@/platform/entity-maintenance')"], 'maintenance API');
+requireSymbols(previewApi, ["createFileRoute('/api/entity-import-preview')", 'buildEntityPromotionManifest', 'promotableEntities', 'preview-only', '10000', 'no-store', 'noindex, nofollow', "import('@/data/knowledge-graph')", "import('@/platform/entity-promotion')"], 'promotion preview API');
 requireSymbols(page, ["createFileRoute('/admin/entity-maintenance')", 'EntityMaintenanceHealth', 'loadTexasKnowledgeGraph', 'noindex,nofollow', '/admin/entity-import-review', '/admin/platform-health'], 'maintenance admin page');
 requireSymbols(reviewPage, ["createFileRoute('/admin/entity-import-review')", 'EntityImportReview', 'noindex,nofollow', '/admin/entity-maintenance', '/admin/platform-health'], 'import review page');
 requireSymbols(importer, ['staged-only', 'promoted: 0', 'No production graph files were modified', 'prepare-entity-promotion.mjs'], 'stage-only importer');
@@ -65,8 +65,22 @@ requireSymbols(workflow, [
 if (promotionRunner.includes('ENTITY_PROMOTION_APPROVAL ?? manifestId')) errors.push('Promotion runner defaults approval to the manifest ID.');
 if (previewApi.includes('writeFile') || previewApi.includes('promote: true')) errors.push('Preview API contains write or promotion behavior.');
 
+for (const [label, source, forbidden] of [
+  ['maintenance API', api, [
+    "import { loadTexasKnowledgeGraph } from '@/data/knowledge-graph'",
+    "import { AUTHORITATIVE_SOURCES } from '@/data/source-governance'",
+    "import { auditEntityMaintenanceHealth, ENTITY_MAINTENANCE_THRESHOLDS } from '@/platform/entity-maintenance'",
+  ]],
+  ['promotion preview API', previewApi, [
+    "import { loadTexasKnowledgeGraph } from '@/data/knowledge-graph'",
+    "import { buildEntityPromotionManifest, promotableEntities } from '@/platform/entity-promotion'",
+  ]],
+]) {
+  for (const needle of forbidden) if (source.includes(needle)) errors.push(`${label} must keep heavy runtime dependencies behind the request-handler boundary: ${needle}`);
+}
+
 if (errors.length) fail();
-console.log('Phase 3 source freshness, stage-only imports, URL verification, quarantine, governed promotion manifests, rollback snapshots, scheduled maintenance, and import review are protected.');
+console.log('Phase 3 source freshness, stage-only imports, URL verification, quarantine, governed promotion manifests, rollback snapshots, scheduled maintenance, import review, and request-scoped entity API runtime loading are protected.');
 
 function read(path) { return fs.readFileSync(path, 'utf8'); }
 function requireSymbols(source, symbols, area) { for (const symbol of symbols) if (!source.includes(symbol)) errors.push(`${area} feature missing: ${symbol}`); }

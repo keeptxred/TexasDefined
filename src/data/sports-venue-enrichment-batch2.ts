@@ -141,7 +141,7 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH2: Record<string, SportsVenueEnrichmen
     stayAndEat: 'Central Austin lodging or transit-friendly accommodations can reduce game-day driving. Campus, downtown and nearby dining districts make it easy to build a full weekend around football.',
     nearby: 'The UT campus, Moody Center, Disch-Falk Field and central Austin attractions create a dense cluster of sports and visitor stops.',
     planningLinks: [
-      { label: 'DKR stadium facility page', url: 'https://texaslonghorns.com/facilities/bobcat-stadium/1' },
+      { label: 'DKR stadium facility page', url: 'https://texaslonghorns.com/facilities/memorial-stadium/1' },
       { label: 'Texas Gameday Parking Central', url: 'https://texaslonghorns.com/sports/2026/1/27/parking-information' },
       { label: 'Football fan guide', url: 'https://texaslonghorns.com/sports/2026/2/10/football-fan-guide' },
     ],

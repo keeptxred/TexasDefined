@@ -33,7 +33,7 @@ const wardStub = stub({
   title: "Ward County: Monahans, Moving Sand and the Oil Roads of West Texas",
   dek: "Ward County is a place where wind-built dunes, railroad water stops, Pecos River irrigation, bomber-base history and Permian Basin oil all occupy the same compact stretch of West Texas.",
   category: "texas-history", region: "big-bend",
-  hero: { src: "https://tpwd.texas.gov/state-parks/monahans-sandhills/gallery/monahans_106.jpg", alt: "Wind-shaped dunes at Monahans Sandhills State Park in Ward County, Texas", width: 1200, height: 800, credit: "Texas Parks and Wildlife Department" },
+  hero: { src: "https://upload.wikimedia.org/wikipedia/commons/1/18/USA_-_Texas_-_Monahans_Sandhills_State_Park.jpg", alt: "Wind-shaped dunes at Monahans Sandhills State Park in Ward County, Texas", width: 5344, height: 3006, credit: "Alexander Hatley · Wikimedia Commons · CC BY 2.0" },
   authorId: "a-marisol", publishedAt: "2026-08-10", readingMinutes: 10,
   tags: ["Ward County", "Monahans", "Monahans Sandhills State Park", "Pyote", "Barstow", "Permian Basin", "Texas counties", "West Texas", "Texas history"], featured: false,
 });

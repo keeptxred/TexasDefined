@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "system": "Google Search Console",
+    "report": "Discovered - currently not indexed",
+    "snapshotDate": "2026-09-13",
+    "firstDetected": "2026-08-10",
+    "affectedUrlCount": 699,
+    "lastCrawledPattern": "N/A"
+  },
+  "comparison": {
+    "previousSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+    "previousAffectedUrlCount": 452,
+    "affectedCountDelta": 247,
+    "note": "The count delta is not proof that exactly 247 specific URLs are newly discovered because Google can rotate URLs within the issue set."
+  },
+  "triageSummary": {
+    "NORMAL_CRAWL": 369,
+    "STRENGTHEN": 309,
+    "MANUAL_NEXT": 10,
+    "MANUAL_SUBMITTED": 10,
+    "CONSOLIDATE_REVIEW": 1
+  },
+  "routeFamilyCounts": {
+    "articles": 57,
+    "authors": 4,
+    "cities": 6,
+    "counties": 27,
+    "destinations": 115,
+    "eventCollections": 40,
+    "events": 69,
+    "exploreLandscapes": 16,
+    "explorePaintedChurches": 74,
+    "exploreRegions": 4,
+    "fishing": 14,
+    "hunting": 18,
+    "learn": 2,
+    "localCostOfLiving": 7,
+    "localHomeAffordability": 19,
+    "localHomeInsurance": 19,
+    "localHomeownershipCost": 19,
+    "localMortgage": 19,
+    "localPropertyTaxCalculators": 15,
+    "localSalaryNeeded": 7,
+    "metros": 7,
+    "otherExplore": 28,
+    "otherTopLevel": 60,
+    "propertyTax": 4,
+    "sportsVenueCollections": 3,
+    "sportsVenueProfiles": 9,
+    "texasVs": 23,
+    "wildlifeSpecies": 14
+  },
+  "manualSubmission": {
+    "submittedOn2026-09-13": [
+      "/property-tax-calculators",
+      "/property-tax-calculator/harris-county",
+      "/property-tax-calculator/dallas-county",
+      "/property-tax-calculator/travis-county",
+      "/property-tax-calculator/tarrant-county",
+      "/property-tax-calculator/collin-county",
+      "/texas-over-65-property-tax-calculator",
+      "/texas-rent-vs-buy-calculator",
+      "/texas-salary-comparison-by-city",
+      "/explore/lakes-rivers"
+    ],
+    "nextBatch": [
+      "/property-tax-calculator/bexar-county",
+      "/property-tax-calculator/fort-bend-county",
+      "/property-tax-calculator/montgomery-county",
+      "/property-tax-calculator/williamson-county",
+      "/property-tax-calculator/hidalgo-county",
+      "/texas-mortgage-calculator/houston",
+      "/texas-home-affordability-calculator/houston",
+      "/texas-home-insurance-calculator/houston",
+      "/destination/fredericksburg",
+      "/destination/garner-state-park"
+    ]
+  },
+  "triagePolicy": {
+    "MANUAL_SUBMITTED": "High-value URLs manually requested in GSC on 2026-09-13. Do not repeatedly resubmit; monitor for crawl/index state change.",
+    "MANUAL_NEXT": "Next highest-value manual URL Inspection cohort after quota resets.",
+    "STRENGTHEN": "Known/indexable family with elevated duplication, freshness, entity-depth, or internal-linking risk. Improve or consolidate based on page-level evidence before spending manual requests.",
+    "NORMAL_CRAWL": "Core crawlable page. Keep indexable and rely on sitemap plus internal-link discovery unless page-level review finds a defect.",
+    "CONSOLIDATE_REVIEW": "Known stale/duplicate candidate from the prior GSC remediation baseline; verify redirect/noindex/removal before promoting."
+  },
+  "interpretation": "Healthy sitemaps do not eliminate crawl-demand problems. This snapshot separates manual-request priorities from families that need stronger crawl demand or page-level quality review, while avoiding blanket noindex decisions based only on GSC discovery status."
+}

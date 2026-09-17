@@ -3,6 +3,7 @@ import { spawnSync } from 'node:child_process';
 
 const checks = [
   ['generated-page-quality', 'CODE/CONTENT', 'Validate generated page quality', 'node', ['scripts/data/validate-generated-page-quality.mjs']],
+  ['county-editorial-discovery', 'INTERNAL-LINKING', 'Validate county editorial discovery', 'node', ['scripts/data/validate-county-editorial-discovery.mjs']],
   ['county-property-enrichment', 'CODE/CONTENT', 'Validate county property enrichment', 'node', ['scripts/data/validate-county-property-enrichment.mjs']],
   ['destination-indexing-policy', 'SEO/INDEXING', 'Validate destination indexing policy', 'node', ['scripts/data/validate-destination-indexing-policy.mjs']],
   ['public-route-governance', 'ROUTING/GOVERNANCE', 'Validate public route governance', 'node', ['scripts/data/validate-public-route-governance.mjs']],
@@ -61,6 +62,7 @@ const checks = [
   ['phase7-technical-seo', 'SEO/TECHNICAL', 'Validate Phase 7 technical SEO batch', 'node', ['scripts/data/validate-phase7-technical-seo.mjs']],
   ['citation-magnets', 'SEO/CITATIONS', 'Validate citation magnets', 'node', ['scripts/data/validate-citation-magnets.mjs']],
   ['citation-downloads', 'SEO/CITATIONS', 'Validate citation downloads', 'node', ['scripts/data/validate-citation-downloads.mjs']],
+  ['citypass-affiliate', 'MONETIZATION/AFFILIATE', 'Validate Texas CityPASS affiliate coverage', 'node', ['scripts/data/validate-citypass-affiliate.mjs']],
   ['seo-ci-contract', 'CI/CONTRACT', 'Validate SEO CI contract', 'node', ['scripts/data/validate-seo-ci-contract.mjs']],
   ['data-validate', 'DATA/QUALITY', 'Validate production data and migrated features', 'npm', ['run', 'data:validate']],
   ['trip-planner-destinations', 'DATA/COVERAGE', 'Validate complete Trip Planner mapped coverage', 'node', ['scripts/data/audit-trip-planner-destinations.mjs', '--strict']],
@@ -83,6 +85,7 @@ const checks = [
 ];
 
 const predeployIds = new Set([
+  'county-editorial-discovery',
   'machine-indexing', 'things-unique-to-texas', 'texas-icon-link-depth', 'texas-weather-authority',
   'texas-food-history', 'texas-culture-citation-index', 'texas-flag-authority', 'painted-churches-seo',
   'painted-church-search-intents', 'painted-church-map', 'painted-church-completion', 'military-history-expansion',
@@ -91,10 +94,13 @@ const predeployIds = new Set([
   'texas-talent-content-depth', 'texas-talent-launch-metadata', 'texas-talent-reverse-links',
   'texas-talent-public-preview', 'texas-talent-music-authority',
   'relocation-insurance-authority', 'relocation-city-comparison', 'relocation-freshness',
+  'citypass-affiliate',
 ]);
 
 const fullExcludedIds = new Set(['texas-flag-authority', 'painted-churches-seo', 'painted-church-map', 'painted-church-completion']);
-const suiteName = process.argv[2] ?? 'full';
+const args = process.argv.slice(2);
+const suiteName = args.find((arg) => !arg.startsWith('--')) ?? 'full';
+const collectAll = args.includes('--collect-all');
 const selected = suiteName === 'predeploy'
   ? checks.filter(([id]) => predeployIds.has(id))
   : suiteName === 'full'
@@ -114,11 +120,12 @@ function appendSummary(text) {
 appendSummary(`## Validation suite: ${suiteName}\n\n`);
 appendSummary('| Result | Class | Check | Duration |\n|---|---|---|---:|\n');
 
-for (const [, classification, label, command, args] of selected) {
+const failures = [];
+for (const [, classification, label, command, commandArgs] of selected) {
   const started = Date.now();
   console.log(`::group::[${classification}] ${label}`);
-  console.log(`$ ${command} ${args.join(' ')}`);
-  const result = spawnSync(command, args, { cwd: process.cwd(), env: process.env, stdio: 'inherit', shell: false });
+  console.log(`$ ${command} ${commandArgs.join(' ')}`);
+  const result = spawnSync(command, commandArgs, { cwd: process.cwd(), env: process.env, stdio: 'inherit', shell: false });
   console.log('::endgroup::');
 
   const durationSeconds = ((Date.now() - started) / 1000).toFixed(1);
@@ -127,10 +134,21 @@ for (const [, classification, label, command, args] of selected) {
 
   if (!ok) {
     const detail = result.error ? result.error.message : `exit code ${result.status ?? 'unknown'}`;
-    console.error(`::error title=${classification} failure::${label} failed (${detail}). Command: ${command} ${args.join(' ')}`);
-    appendSummary(`\n**Failure class:** \`${classification}\`  \n**Failed check:** ${label}  \n**Command:** \`${command} ${args.join(' ')}\`  \n**Result:** ${detail}\n`);
-    process.exit(1);
+    const failure = { classification, label, command: `${command} ${commandArgs.join(' ')}`, detail };
+    failures.push(failure);
+    console.error(`::error title=${classification} failure::${label} failed (${detail}). Command: ${failure.command}`);
+    appendSummary(`\n**Failure class:** \`${classification}\`  \n**Failed check:** ${label}  \n**Command:** \`${failure.command}\`  \n**Result:** ${detail}\n`);
+    if (!collectAll) process.exit(1);
   }
+}
+
+if (failures.length > 0) {
+  appendSummary(`\n### Validation failures (${failures.length})\n`);
+  for (const failure of failures) {
+    appendSummary(`- \`${failure.classification}\` — ${failure.label}: \`${failure.command}\` (${failure.detail})\n`);
+  }
+  console.error(`Validation suite '${suiteName}' failed ${failures.length} check(s).`);
+  process.exit(1);
 }
 
 appendSummary(`\nAll ${selected.length} checks passed.\n`);

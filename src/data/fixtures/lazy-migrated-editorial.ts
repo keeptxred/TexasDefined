@@ -28,8 +28,10 @@ const bbqHero = image(bbqBrisket, "Sliced Texas brisket on butcher paper beside 
 const cityHero = image(smallTown, "A Texas city and neighborhood seen in warm late-day light");
 
 const stub = (index: number, record: Omit<Article, "id" | "brandId" | "body" | "relatedCollections" | "relatedDestinations">): Article => ({ id: `migration-article-${index}`, brandId: "texasdefined", body: [], relatedCollections: [], relatedDestinations: [], ...record });
+const PITMASTERS_LEGACY_SLUG = "live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp";
+const PITMASTERS_CANONICAL_SLUG = "texas-pitmasters-food-network-competition";
 
-export const migratedEditorialArticleStubs: Article[] = [
+const migratedEditorialSourceStubs: Article[] = [
   stub(1, { slug: "renting-vs-buying-in-texas", title: "Renting vs. Buying in Texas", dek: "A complete comparison of flexibility, equity, taxes, insurance, maintenance and the time it takes ownership costs to break even.", category: "real-estate", hero: rentBuyHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 11, tags: ["renting", "home buying", "affordability", "moving to texas"] }),
   stub(2, { slug: "texas-house-down-payment-guide", title: "How Much Down Payment Do You Need for a Texas House?", dek: "Why 20 percent is not a universal minimum, how loan programs differ and how to preserve enough cash for closing and repairs.", category: "real-estate", hero: downPaymentHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 9, tags: ["down payment", "mortgage", "homebuyer", "closing costs"] }),
   stub(3, { slug: "true-cost-of-owning-a-home-in-texas", title: "The True Cost of Owning a Home in Texas", dek: "Mortgage, taxes and insurance are only the beginning. Build a realistic budget for heat, roofs, foundations, pools, districts and repairs.", category: "real-estate", hero: trueCostHero, authorId: "a-hollis", publishedAt: "2026-07-25", readingMinutes: 12, tags: ["homeownership", "maintenance", "property taxes", "insurance"] }),
@@ -49,6 +51,9 @@ export const migratedEditorialArticleStubs: Article[] = [
   stub(17, { slug: "live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp", title: "Texas Pitmasters Bring Several Traditions to National Television", dek: "A Food Network competition puts Central Texas smoke, South Texas influence and live-fire cooking on the same stage.", category: "food-bbq", region: "south-texas", hero: bbqHero, authorId: "a-marisol", publishedAt: "2026-07-07", readingMinutes: 6, tags: ["barbecue", "pitmasters", "san antonio", "live fire"] }),
 ];
 
+export const migratedEditorialArticleStubs: Article[] = migratedEditorialSourceStubs.map((article) =>
+  article.slug === PITMASTERS_LEGACY_SLUG ? { ...article, slug: PITMASTERS_CANONICAL_SLUG } : article,
+);
 export const migratedEditorialSlugs = migratedEditorialArticleStubs.map((article) => article.slug);
 const migratedSlugSet = new Set(migratedEditorialSlugs);
 const financeDepthSlugSet = new Set([
@@ -112,6 +117,8 @@ export async function loadMigratedEditorialArticle(brandId: string, slug: string
     const { stockTankNameDepthArticle } = await import("./stock-tank-name-depth");
     return stockTankNameDepthArticle;
   }
+  const sourceSlug = slug === PITMASTERS_CANONICAL_SLUG ? PITMASTERS_LEGACY_SLUG : slug;
   const { migratedEditorialArticles } = await import("./migrated-editorial");
-  return migratedEditorialArticles.find((article) => article.slug === slug) ?? null;
+  const article = migratedEditorialArticles.find((candidate) => candidate.slug === sourceSlug) ?? null;
+  return article && sourceSlug !== slug ? { ...article, slug } : article;
 }

@@ -3,25 +3,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
 import { auditDestination } from "@/data/destination-audit";
-import { applyAllCuratedDestinations } from "@/data/destination-curation-all";
-import { preservedExploreDestinations } from "@/data/destination-preserved-catalog";
-import { improveDestinationCatalog } from "@/data/destination-quality";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
-import { fetchCoreExploreDestinations } from "@/data/explore-core-remote";
-import { reconcileDestinationHeroes } from "@/data/explore-hero-reconciliation";
-import { applyExploreHeroAssets } from "@/data/explore-heroes";
-import { categories, regions } from "@/data/fixtures/texas";
-import { paintedChurchGlossary } from "@/data/painted-church-glossary";
-import { paintedChurchHeritage } from "@/data/painted-church-heritage";
-import { paintedChurchItineraries } from "@/data/painted-church-itineraries";
-import { paintedChurchPeople } from "@/data/painted-church-people";
-import { paintedChurchPreservationTopics } from "@/data/painted-church-preservation";
-import { paintedChurchSymbols } from "@/data/painted-church-symbols";
-import { paintedChurchTechniques } from "@/data/painted-church-techniques";
-import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
-import { fetchExploreDestinations, hasExploreRemoteData } from "@/data/explore-remote";
-import { applyStateParkHeroAssets } from "@/data/state-park-heroes";
 import type { Destination } from "@/data/types";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
@@ -70,23 +53,6 @@ const PAINTED_CHURCH_STATIC_PATHS = [
   "/explore/painted-churches/then-and-now",
 ] as const;
 
-const TEXAS_ROUTE_66_STATIC_PATHS = [
-  "/explore/route-66/texas-road-trip",
-  "/explore/route-66/shamrock",
-  "/explore/route-66/lela",
-  "/explore/route-66/mclean",
-  "/explore/route-66/alanreed",
-  "/explore/route-66/groom",
-  "/explore/route-66/conway",
-  "/explore/route-66/washburn",
-  "/explore/route-66/amarillo",
-  "/explore/route-66/bushland",
-  "/explore/route-66/wildorado",
-  "/explore/route-66/vega",
-  "/explore/route-66/adrian",
-  "/explore/route-66/glenrio",
-] as const;
-
 function escapeXml(value: string): string {
   return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&apos;");
 }
@@ -126,7 +92,19 @@ function mergeDestinationSources(...groups: Destination[][]): Destination[] {
   return [...merged.values()];
 }
 
-function resolveDestinationCatalog(destinations: Destination[]) {
+async function resolveDestinationCatalog(destinations: Destination[]) {
+  const { applyAllCuratedDestinations } = await import("@/data/destination-curation-all");
+  const [
+    { improveDestinationCatalog },
+    { reconcileDestinationHeroes },
+    { applyExploreHeroAssets },
+    { applyStateParkHeroAssets },
+  ] = await Promise.all([
+    import("@/data/destination-quality"),
+    import("@/data/explore-hero-reconciliation"),
+    import("@/data/explore-heroes"),
+    import("@/data/state-park-heroes"),
+  ]);
   return improveDestinationCatalog(
     applyAllCuratedDestinations(
       reconcileDestinationHeroes(
@@ -142,9 +120,39 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const { landscapeGuideSlugs, landscapeSlugs } = await import("@/data/texas-landscape-slugs");
+        const { categories, regions } = await import("@/data/fixtures/texas");
+        const { isRoute66StopIndexReady, isTexasLandscapeIndexReady } = await import("@/data/explore-leaf-quality");
+        const { enrichedTexasLandscapeGuides } = await import("@/data/texas-landscape-guide-enrichment");
+        const { enrichedTexasLandscapeProfiles } = await import("@/data/texas-landscape-profile-enrichment");
+        const { TEXAS_ROUTE_66_STOPS } = await import("@/data/texas-route-66");
+        const { cityPassDestinationExpansion } = await import("@/data/citypass-destination-expansion");
+        const { preservedExploreDestinations } = await import("@/data/destination-preserved-catalog");
+        const { publicCavernDestinationFallbacks } = await import("@/data/public-cavern-destinations");
+        const { paintedChurchGlossary } = await import("@/data/painted-church-glossary");
         const { paintedChurchSearchGuides } = await import("@/data/painted-church-search-guides");
+        const { loadRvParkDestinationsServer } = await import("@/data/rv-parks/registry.server");
         const { selectSwimmingHoleAndTubingDestinations } = await import("@/data/water-recreation");
+        const [
+          { paintedChurchHeritage },
+          { paintedChurchItineraries },
+          { paintedChurchPeople },
+          { paintedChurchPreservationTopics },
+          { paintedChurchSymbols },
+          { paintedChurchTechniques },
+          { expandedPaintedChurches },
+          { fetchCoreExploreDestinations },
+          { fetchExploreDestinations, hasExploreRemoteData },
+        ] = await Promise.all([
+          import("@/data/painted-church-heritage"),
+          import("@/data/painted-church-itineraries"),
+          import("@/data/painted-church-people"),
+          import("@/data/painted-church-preservation"),
+          import("@/data/painted-church-symbols"),
+          import("@/data/painted-church-techniques"),
+          import("@/data/painted-churches-expanded"),
+          import("@/data/explore-core-remote"),
+          import("@/data/explore-remote"),
+        ]);
         let enrichedDestinations: Awaited<ReturnType<typeof fetchExploreDestinations>> = [];
         let coreDestinations: Awaited<ReturnType<typeof fetchCoreExploreDestinations>> = [];
         const remoteConfigured = hasExploreRemoteData();
@@ -173,9 +181,16 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           const remoteSlugs = new Set(rawDestinations.map((destination) => destination.slug));
           rawDestinations.push(...preservedExploreDestinations.filter((destination) => destination.slug && !remoteSlugs.has(destination.slug)));
         }
-        const destinations = resolveDestinationCatalog(rawDestinations);
+        const resolvedSlugs = new Set(rawDestinations.map((destination) => destination.slug));
+        rawDestinations.push(...cityPassDestinationExpansion.filter((destination) => destination.slug && !resolvedSlugs.has(destination.slug)));
+        const expandedSlugs = new Set(rawDestinations.map((destination) => destination.slug));
+        rawDestinations.push(...publicCavernDestinationFallbacks.filter((destination) => destination.slug && !expandedSlugs.has(destination.slug)));
+        const destinations = await resolveDestinationCatalog(rawDestinations);
         const indexableDestinations = [...new Map(destinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
           .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
+        const indexableRvParkDestinations = [...new Map(loadRvParkDestinationsServer().filter((item) => item.slug).map((item) => [item.slug, item])).values()]
+          .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
+        const sitemapIndexableDestinations = mergeDestinationSources(indexableDestinations, indexableRvParkDestinations);
         const swimmingHoleAndTubingCount = selectSwimmingHoleAndTubingDestinations(indexableDestinations).length;
         const swimmingHoleAndTubingCategory = supplementalExploreCategories.find((category) => category.slug === SWIMMING_HOLES_RIVER_TUBING_SLUG);
         const swimmingHoleAndTubingIndexReady = Boolean(swimmingHoleAndTubingCategory && isExploreCategoryIndexReady(swimmingHoleAndTubingCategory.slug, swimmingHoleAndTubingCount));
@@ -186,33 +201,44 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const categorySlugs = categoryCandidates.filter((slug) => isExploreCategoryIndexReady(
           slug,
           (EXPLORE_CATEGORY_ARTICLE_COUNTS[slug as keyof typeof EXPLORE_CATEGORY_ARTICLE_COUNTS] ?? 0)
-            + destinations.filter((destination) => destination.category === slug).length
+            + indexableDestinations.filter((destination) => destination.category === slug).length
             + (slug === "food-bbq" ? 1 : 0),
         ));
         const regionSlugs = [...new Set([
           ...regions.map((region) => region.id),
           ...EXPLORE_REGION_SLUGS,
         ])];
+        const route66Paths = [
+          "/explore/route-66/texas-road-trip",
+          ...TEXAS_ROUTE_66_STOPS
+            .filter(isRoute66StopIndexReady)
+            .map((stop) => `/explore/route-66/${stop.slug}`),
+        ];
+        const landscapePaths = [...enrichedTexasLandscapeProfiles, ...enrichedTexasLandscapeGuides]
+          .filter(isTexasLandscapeIndexReady)
+          .map((item) => `/explore/landscapes/${item.slug}`);
         const staticPaths = [
           "/explore",
+          "/explore/beaches-coast",
           "/explore/trip-planner",
           "/explore/attractions-comparison",
           "/explore/museums",
           "/explore/aquariums",
+          "/explore/rv-parks",
           "/explore/wildlife",
+          "/explore/water-towers",
           ...PAINTED_CHURCH_STATIC_PATHS,
           "/explore/top-attractions",
           "/explore/top-attractions/methodology",
           "/explore/top-attractions/road-trips",
-          ...TEXAS_ROUTE_66_STATIC_PATHS,
+          ...route66Paths,
           "/explore/landscapes",
-          ...landscapeSlugs.map((slug) => `/explore/landscapes/${slug}`),
-          ...landscapeGuideSlugs.map((slug) => `/explore/landscapes/${slug}`),
+          ...landscapePaths,
           ...(swimmingHoleAndTubingIndexReady ? [`/explore/${SWIMMING_HOLES_RIVER_TUBING_SLUG}`] : []),
           ...categorySlugs.map((slug) => `/explore/${slug}`),
           ...regionSlugs.map((regionSlug) => `/explore/region/${regionSlug}`),
         ];
-        const destinationEntries = indexableDestinations
+        const destinationEntries = sitemapIndexableDestinations
           .map((item) => entry(`/destination/${item.slug}`, item.sourceCheckedAt))
           .filter((item): item is string => Boolean(item));
         const paintedChurchEntries = expandedPaintedChurches
@@ -240,11 +266,11 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           ...itineraryEntries,
           ...searchGuideEntries,
         ].join("\n");
-        const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/sitemap/0.9">\n${entries}\n</urlset>`;
+        const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
         return new Response(xml, {
           headers: {
             "Content-Type": "application/xml; charset=utf-8",
-            "Cache-Control": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400",
+            "Cache-Control": "no-store",
           },
         });
       },

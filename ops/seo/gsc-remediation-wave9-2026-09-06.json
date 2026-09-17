@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+  "reviewDate": "2026-09-06",
+  "reviewMethod": "State-specific server-side evidence review against the Wave 4 remediation requirements: current tax, housing, labor, hazard/resilience and transportation sources; stronger metro/place comparison; dated review metadata; canonical/schema integrity; and sitemap qualification",
+  "summary": { "reviewed": 3, "KEEP": 3, "IMPROVE": 0, "NOINDEX": 0, "REMOVE_CONSOLIDATE": 0 },
+  "reviewed": [
+    {
+      "path": "/texas-vs/alabama",
+      "action": "KEEP",
+      "reason": "Alabama now has current state income-tax evidence, current Census housing benchmarks, July 2026 official labor-market evidence, state hazard-mitigation authority and ALDOT transit evidence plus distinct Huntsville, Birmingham, Mobile and Montgomery comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/nevada",
+      "action": "KEEP",
+      "reason": "Nevada now has official no-state-income-tax evidence, current Nevada Housing Division market resources, July 2026 workforce evidence, the state hazard-mitigation plan and NDOT transit evidence plus distinct Las Vegas, Reno-Sparks, Carson City and rural-market comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/south-carolina",
+      "action": "KEEP",
+      "reason": "South Carolina now has enacted 2026 individual income-tax evidence, current Census housing benchmarks, July 2026 employment evidence, current state hazard-mitigation evidence and SCDOT transit evidence plus distinct Charleston, Greenville-Spartanburg, Columbia and Myrtle Beach comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    }
+  ]
+}

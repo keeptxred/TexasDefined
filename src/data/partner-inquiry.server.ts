@@ -4,8 +4,15 @@ export type PartnerInquiryInsert = {
   contact_name: string;
   email: string;
   company: string;
+  phone: string | null;
   website: string | null;
-  partnership_type: 'insurance' | 'mortgage' | 'real-estate' | 'moving' | 'travel' | 'sports-travel' | 'sponsorship' | 'other';
+  partnership_type: 'insurance' | 'mortgage' | 'real-estate' | 'moving' | 'travel' | 'sports-travel' | 'brand-retail' | 'sponsorship' | 'other';
+  target_texas_locations: string | null;
+  requested_tier: 'local' | 'growth' | 'premier' | 'custom' | null;
+  billing_cycle: 'monthly' | 'annual' | null;
+  desired_start_date: string | null;
+  objectives: string;
+  notes: string | null;
   message: string;
   source_path: string;
 };

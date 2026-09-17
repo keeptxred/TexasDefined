@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+  "reviewDate": "2026-09-06",
+  "reviewMethod": "State-specific server-side evidence review against the Wave 4 remediation requirements: current tax, housing, labor, hazard/resilience and transportation sources; stronger metro/place comparison; dated review metadata; canonical/schema integrity; and sitemap qualification",
+  "summary": { "reviewed": 3, "KEEP": 3, "IMPROVE": 0, "NOINDEX": 0, "REMOVE_CONSOLIDATE": 0 },
+  "reviewed": [
+    {
+      "path": "/texas-vs/ohio",
+      "action": "KEEP",
+      "reason": "Ohio now has 2026 statutory income-tax evidence, FY2026 housing-needs data, official labor-market statistics, the 2024 Enhanced Hazard Mitigation Plan and public-transportation authority evidence plus metro-specific Columbus, Cleveland, Cincinnati and Dayton comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/virginia",
+      "action": "KEEP",
+      "reason": "Virginia now has current state income-tax, 2026-2027 housing-planning, Virginia Works labor-market, 2023 hazard-mitigation and DRPT transportation evidence plus distinct Northern Virginia, Richmond, Hampton Roads and regional-market comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/pennsylvania",
+      "action": "KEEP",
+      "reason": "Pennsylvania now has current 3.07% income-tax evidence, the February 2026 comprehensive Housing Action Plan, current CWIA labor-market data, PEMA mitigation evidence and PennDOT transit evidence plus distinct Philadelphia, Pittsburgh, Harrisburg and Lehigh Valley comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    }
+  ]
+}

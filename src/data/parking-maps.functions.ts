@@ -1,0 +1,37 @@
+import { createServerFn } from '@tanstack/react-start';
+
+const loadSportsVenueParkingMap = createServerFn({ method: 'GET' })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const { getParkingMapForVenueSlug } = await import('./parking-maps');
+    return getParkingMapForVenueSlug(data.slug);
+  });
+
+const loadMajorEventParkingMap = createServerFn({ method: 'GET' })
+  .inputValidator((data: { slug: string }) => data)
+  .handler(async ({ data }) => {
+    const [
+      { getMajorEventRecordServer },
+      { resolveSportsVenueEventLink },
+      { getParkingMapForEvent },
+    ] = await Promise.all([
+      import('./major-event-page.server'),
+      import('./sports-venue-event-links'),
+      import('./parking-maps'),
+    ]);
+
+    const event = getMajorEventRecordServer(data.slug);
+    if (!event) return undefined;
+
+    const venueLink = resolveSportsVenueEventLink(event.venue);
+    const venueSlug = venueLink?.href.split('/sports-venue/')[1]?.split(/[?#]/)[0];
+    return getParkingMapForEvent(event.slug, venueSlug, event.startDate);
+  });
+
+export function getSportsVenueParkingMap(slug: string) {
+  return loadSportsVenueParkingMap({ data: { slug } });
+}
+
+export function getMajorEventParkingMap(slug: string) {
+  return loadMajorEventParkingMap({ data: { slug } });
+}

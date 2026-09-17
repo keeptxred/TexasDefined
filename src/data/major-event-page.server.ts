@@ -50,6 +50,24 @@ import {
 
 const siteUrl = "https://texasdefined.com";
 const esc = (value: string | undefined) => (value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
+const CHAPPELL_HILL_WILDFLOWER_SECTION_TITLE = "Use the county wildflower map before chasing roadside photos";
+const CHAPPELL_HILL_WILDFLOWER_MAP_MARKUP = `<div data-map="chappell-hill-wildflower" class="mt-5">
+  <div class="aspect-[4/3] overflow-hidden rounded-xl border border-border bg-muted sm:aspect-[16/9]">
+    <iframe
+      title="Visit Brenham Wildflower Driving Map for Washington County"
+      src="https://www.google.com/maps/d/u/0/embed?ehbc=2E312F&amp;mid=1b6COvSIJuQzAg-UOzybkAXoKRVjeheE"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      class="h-full w-full"
+      allowfullscreen
+    ></iframe>
+  </div>
+  <div class="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+    <a class="font-semibold text-primary underline" href="https://visitbrenhamtexas.com/things/wildflower-watch/wildflower-driving-map/" target="_blank" rel="noreferrer noopener">Open the live Wildflower Driving Map ↗</a>
+    <a class="font-semibold text-primary underline" href="https://visitbrenhamtexas.com/wp-content/uploads/2018/03/20180323105225204_0001.pdf" target="_blank" rel="noreferrer noopener">Open or download the Washington County road map (PDF) ↗</a>
+  </div>
+  <p class="mt-3 text-xs leading-6 text-muted-foreground">The live Visit Brenham map is updated during wildflower season with current flower reports and the Bluebonnet Trail Scenic Drive. The PDF is a static county road map for offline reference.</p>
+</div>`;
 
 export interface MajorEventOccurrenceWindow {
   label?: string;
@@ -167,7 +185,13 @@ export function loadMajorEventPageServer(slug: string) {
   const eventYear = new Date(occurrenceWindows[0]?.startDate ?? event.startDate).getUTCFullYear();
   const canonicalUrl = `${siteUrl}/event/${event.slug}`;
   const placeLine = [event.city && `${event.city}, Texas`, event.countyName].filter(Boolean).join(" · ");
-  const planning = event.planningSections.map((item) => `<section class="mt-8"><h2 class="font-display text-2xl">${esc(item.title)}</h2><p class="mt-3 leading-7 text-muted-foreground">${esc(item.body)}</p></section>`).join("");
+  const planning = event.planningSections.map((item) => {
+    const supplement = event.slug === "chappell-hill-bluebonnet-festival"
+      && item.title === CHAPPELL_HILL_WILDFLOWER_SECTION_TITLE
+      ? CHAPPELL_HILL_WILDFLOWER_MAP_MARKUP
+      : "";
+    return `<section class="mt-8"><h2 class="font-display text-2xl">${esc(item.title)}</h2><p class="mt-3 leading-7 text-muted-foreground">${esc(item.body)}</p>${supplement}</section>`;
+  }).join("");
   const countyHref = event.countySlug ? `/browse/counties#county-${event.countySlug}` : null;
   const relatedItems = countyHref && !event.relatedLinks.some((item) => item.href === countyHref)
     ? [{ href: countyHref, label: `Explore ${event.countyName ?? "the county"}`, description: `Continue from ${event.name} into the county guide for places, communities and local resources.` }, ...event.relatedLinks]

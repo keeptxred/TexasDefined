@@ -9,7 +9,8 @@ const siteSearchRoute = `${siteSearchShell}\n${siteSearchLazy}`;
 const exploreSearchRoute = fs.readFileSync(path.join(root, 'src/routes/explore.search.tsx'), 'utf8');
 const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
 const destinationRuntime = fs.readFileSync(path.join(root, 'src/data/destination-query-runtime.ts'), 'utf8');
-const searchImplementation = `${queries}\n${destinationRuntime}`;
+const searchDocumentsRuntime = fs.readFileSync(path.join(root, 'src/data/search-documents-runtime.ts'), 'utf8');
+const searchImplementation = `${queries}\n${destinationRuntime}\n${searchDocumentsRuntime}`;
 const errors = [];
 
 if (!rootRoute.includes('"@type": "SearchAction"')) errors.push('WebSite schema is missing SearchAction.');
@@ -34,6 +35,7 @@ for (const feature of [
   if (!searchImplementation.includes(feature)) errors.push(`Gated destination search-index feature missing: ${feature}`);
 }
 if (!queries.includes('await import("./destination-query-runtime")')) errors.push('Heavy destination search resolution must stay behind the dynamic runtime boundary.');
+if (!queries.includes('await import("./search-documents-runtime")')) errors.push('Site-wide search document assembly must stay behind its dynamic runtime boundary.');
 if (!exploreSearchRoute.includes('robots: "noindex, follow"')) errors.push('Destination-only search results are not protected from indexing.');
 
 if (errors.length) {

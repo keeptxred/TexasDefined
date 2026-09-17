@@ -82,10 +82,27 @@ for (const path of imageWorkflows) {
   forbidPattern(path, source, /gh\s+pr\s+merge/, 'auto-merge generated image changes; item-level rights review must remain explicit');
 }
 
+const aiDemandPath = '.github/workflows/texas-defined-ai-demand.yml';
+const aiDemand = read(aiDemandPath);
+for (const contract of [
+  'pull-requests: write',
+  'node scripts/ai/build-ai-demand-report.mjs',
+  'node scripts/ai/validate-ai-demand-report.mjs',
+  'automation/texas-defined-ai-demand',
+  'gh pr create',
+  'Raw or sanitized user questions are intentionally excluded',
+  'This is a review queue, not a publication action',
+]) {
+  requireText(aiDemandPath, aiDemand, contract);
+}
+forbidPattern(aiDemandPath, aiDemand, /git\s+push\s+origin\s+HEAD:main/, 'push AI-derived demand changes directly to main');
+forbidPattern(aiDemandPath, aiDemand, /git\s+push\s+origin\s+main(?:\s|$)/m, 'push AI-derived demand changes directly to main');
+forbidPattern(aiDemandPath, aiDemand, /gh\s+pr\s+merge/, 'auto-merge AI-derived demand or content changes');
+
 if (failures.length) {
   console.error('Automation main-write policy validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('Automation main-write policy passed: daily event refreshes are idempotent when only verification timestamps change, use exact-branch validation, current-main reconciliation and explicit deployment; generated image changes remain reviewable PRs with explicit item-level rights review and official validation.');
+console.log('Automation main-write policy passed: daily event refreshes are idempotent when only verification timestamps change, use exact-branch validation, current-main reconciliation and explicit deployment; generated image changes remain reviewable PRs with explicit item-level rights review and official validation; Texas Defined AI demand intelligence remains privacy-safe and review-only with no direct-main or auto-merge path.');

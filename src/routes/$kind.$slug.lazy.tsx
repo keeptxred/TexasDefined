@@ -1,5 +1,7 @@
+import { lazy, Suspense } from 'react';
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
+import { CountyCoastalPlaces } from '@/components/content/CountyCoastalPlaces';
 import { CountyGuideSections } from '@/components/content/CountyGuideSections';
 import { EntityDepthSections } from '@/components/content/EntityDepthSections';
 import { Container } from '@/components/layout/Container';
@@ -10,6 +12,12 @@ import {
 } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 
+const CityPassContextualCallout = lazy(() =>
+  import('@/components/monetization/CityPassContextualCallout').then((module) => ({
+    default: module.CityPassContextualCallout,
+  })),
+);
+
 const siteUrl = 'https://texasdefined.com';
 const localGovernmentKinds = new Set(['county', 'appraisal-district', 'tax-office', 'county-clerk', 'dps-office']);
 const referenceKinds = new Set([...localGovernmentKinds, 'agency']);
@@ -17,10 +25,10 @@ const referenceKinds = new Set([...localGovernmentKinds, 'agency']);
 export const Route = createLazyFileRoute('/$kind/$slug')({ component: EntityPage });
 
 function EntityPage() {
-  const { entity, related, countyProfile, localGovernment, countySportsVenues } = Route.useLoaderData();
+  const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues } = Route.useLoaderData();
   const visibleRelated = relatedForDisplay(entity, related);
   const relatedEntities = visibleRelated.map((item) => item.entity);
-  const description = pageDescription(entity);
+  const description = entity.kind === 'county' && countySeriesArticle?.dek ? countySeriesArticle.dek : pageDescription(entity);
   const canonicalPath = canonicalEntityPath(entity);
   const canonicalUrl = `${siteUrl}${canonicalPath}`;
   const incomplete = !entity.description;
@@ -32,7 +40,7 @@ function EntityPage() {
         '@id': `${canonicalUrl}#entity`,
         name: entity.name,
         alternateName: entity.aliases.length ? entity.aliases : undefined,
-        description: entity.description,
+        description,
         url: canonicalUrl,
         sameAs: entity.officialUrl ? [entity.officialUrl] : undefined,
         geo: entity.coordinates ? { '@type': 'GeoCoordinates', latitude: entity.coordinates.latitude, longitude: entity.coordinates.longitude } : undefined,
@@ -103,7 +111,9 @@ function EntityPage() {
           {entity.coordinates && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={`https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`} target="_blank" rel="noreferrer">Open in maps ↗</a>}
         </div>
 
-        {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} /> : null}
+        {entity.kind === 'city' ? <Suspense fallback={null}><CityPassContextualCallout surface="city" slug={entity.slug} /></Suspense> : null}
+        {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} countySeriesArticle={countySeriesArticle} /> : null}
+        {entity.kind === 'county' ? <CountyCoastalPlaces county={entity} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
         {entity.kind !== 'county' ? <EntityDepthSections entity={entity} related={visibleRelated} /> : null}
 

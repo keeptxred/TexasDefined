@@ -1,0 +1,125 @@
+import type { SportsVenueGuidePilot } from './sports-venue-guide-pilots';
+
+const SPORTS_VENUE_GUIDE_WAVE5: Record<string, SportsVenueGuidePilot> = {
+  'united-supermarkets-arena': {
+    canonicalPath: '/sports-venue/united-supermarkets-arena',
+    city: 'Lubbock',
+    subtitle: 'Texas Tech campus · Red Raider basketball, volleyball and major arena events',
+    venueType: 'College basketball and multipurpose arena',
+    homeTeam: 'Texas Tech Red Raiders and Lady Raiders basketball · Texas Tech volleyball',
+    capacity: '15,000',
+    address: '1701 Indiana Ave, Lubbock, TX 79409',
+    officialUrl: 'https://www.depts.ttu.edu/unitedsupermarketsarena/',
+    reviewedAt: '2026-09-11',
+    sources: [
+      { label: 'United Supermarkets Arena official site', href: 'https://www.depts.ttu.edu/unitedsupermarketsarena/' },
+      { label: 'United Supermarkets Arena facility information', href: 'https://www.depts.ttu.edu/unitedsupermarketsarena/guestServices/facility/' },
+    ],
+  },
+  'sun-bowl-stadium': {
+    canonicalPath: '/sports-venue/sun-bowl-stadium',
+    city: 'El Paso',
+    subtitle: 'UTEP campus · Home of Miners football and the annual Sun Bowl',
+    venueType: 'College football and bowl-game stadium',
+    homeTeam: 'UTEP Miners football',
+    capacity: '45,971',
+    opened: '1963',
+    officialUrl: 'https://utepminers.com/facilities/sun-bowl/2',
+    reviewedAt: '2026-09-11',
+    sources: [
+      { label: 'UTEP Athletics Sun Bowl facility guide', href: 'https://utepminers.com/facilities/sun-bowl/2' },
+    ],
+  },
+  'don-haskins-center': {
+    canonicalPath: '/sports-venue/don-haskins-center',
+    city: 'El Paso',
+    subtitle: 'UTEP campus · Home of Miners basketball and major indoor events',
+    venueType: 'College basketball and multipurpose arena',
+    homeTeam: 'UTEP Miners men’s and women’s basketball',
+    capacity: '12,000',
+    opened: '1976',
+    officialUrl: 'https://utepminers.com/facilities/don-haskins-center/3',
+    reviewedAt: '2026-09-11',
+    sources: [
+      { label: 'UTEP Athletics Don Haskins Center facility guide', href: 'https://utepminers.com/facilities/don-haskins-center/3' },
+    ],
+  },
+  'southwest-university-park': {
+    canonicalPath: '/sports-venue/southwest-university-park',
+    city: 'El Paso',
+    subtitle: 'Downtown El Paso · Home of the El Paso Chihuahuas',
+    venueType: 'Triple-A Minor League Baseball ballpark',
+    homeTeam: 'El Paso Chihuahuas',
+    opened: '2014',
+    address: '1 Ballpark Plaza, El Paso, TX 79901',
+    officialUrl: 'https://www.milb.com/el-paso/ballpark',
+    reviewedAt: '2026-09-11',
+    sources: [
+      { label: 'El Paso Chihuahuas ballpark hub', href: 'https://www.milb.com/el-paso/ballpark' },
+      { label: 'Southwest University Park ballpark guide', href: 'https://www.milb.com/el-paso/ballpark/ballpark-guidelines' },
+    ],
+  },
+  'hodgetown': {
+    canonicalPath: '/sports-venue/hodgetown',
+    city: 'Amarillo',
+    subtitle: 'Downtown Amarillo · Home of the Amarillo Sod Poodles',
+    venueType: 'Double-A Minor League Baseball ballpark',
+    homeTeam: 'Amarillo Sod Poodles',
+    opened: '2019',
+    officialUrl: 'https://www.milb.com/amarillo/ballpark/hodgetown',
+    reviewedAt: '2026-09-11',
+    sources: [
+      { label: 'HODGETOWN official ballpark guide', href: 'https://www.milb.com/amarillo/ballpark/hodgetown' },
+      { label: 'HODGETOWN event calendar', href: 'https://www.milb.com/amarillo/ballpark/events' },
+    ],
+  },
+  'momentum-bank-ballpark': {
+    canonicalPath: '/sports-venue/momentum-bank-ballpark',
+    city: 'Midland',
+    subtitle: 'Midland · Home of the Midland RockHounds',
+    venueType: 'Double-A Minor League Baseball ballpark',
+    homeTeam: 'Midland RockHounds',
+    capacity: '4,709 seats; 6,669 including grass berm areas',
+    opened: '2002',
+    address: '5514 Champions Dr., Midland, TX 79706',
+    officialUrl: 'https://www.milb.com/midland/ballpark',
+    reviewedAt: '2026-09-11',
+    sources: [
+      { label: 'Midland RockHounds ballpark guide', href: 'https://www.milb.com/midland/ballpark' },
+      { label: 'Momentum Bank Ballpark A–Z guide', href: 'https://www.milb.com/midland/ballpark/ballpark-guidelines' },
+    ],
+  },
+  'whataburger-field': {
+    canonicalPath: '/sports-venue/whataburger-field',
+    city: 'Corpus Christi',
+    subtitle: 'Corpus Christi waterfront · Home of the Corpus Christi Hooks',
+    venueType: 'Double-A Minor League Baseball ballpark',
+    homeTeam: 'Corpus Christi Hooks',
+    opened: '2005',
+    officialUrl: 'https://www.milb.com/corpus-christi/ballpark',
+    reviewedAt: '2026-09-11',
+    sources: [
+      { label: 'Corpus Christi Hooks Whataburger Field guide', href: 'https://www.milb.com/corpus-christi/ballpark' },
+      { label: 'Whataburger Field A–Z guide', href: 'https://www.milb.com/corpus-christi/ballpark/guide' },
+    ],
+  },
+  'bowers-stadium': {
+    canonicalPath: '/sports-venue/bowers-stadium',
+    city: 'Huntsville',
+    subtitle: 'Sam Houston campus · Home of Bearkats football',
+    venueType: 'College football stadium',
+    homeTeam: 'Sam Houston Bearkats football',
+    capacity: '14,000',
+    opened: '1986',
+    address: '620 Bowers Blvd., Huntsville, TX 77340',
+    officialUrl: 'https://gobearkats.com/facilities/bowers-stadium/22',
+    reviewedAt: '2026-09-11',
+    sources: [
+      { label: 'Sam Houston Athletics Bowers Stadium facility guide', href: 'https://gobearkats.com/facilities/bowers-stadium/22' },
+    ],
+  },
+};
+
+export function getSportsVenueGuideWave5(slug: string) {
+  return SPORTS_VENUE_GUIDE_WAVE5[slug];
+}

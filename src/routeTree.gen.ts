@@ -18,8 +18,11 @@ import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as ThingsUniqueToTexasRouteImport } from './routes/things-unique-to-texas'
 import { Route as ThingsThatDefineTexasDotjsonRouteImport } from './routes/things-that-define-texas[.]json'
 import { Route as ThingsThatDefineTexasDotcsvRouteImport } from './routes/things-that-define-texas[.]csv'
+import { Route as TexasZipCodeExplorerRouteImport } from './routes/texas-zip-code-explorer'
 import { Route as TexasWesternSwingRouteImport } from './routes/texas-western-swing'
 import { Route as TexasVsEveryStateRouteImport } from './routes/texas-vs-every-state'
+import { Route as TexasVehicleRegistrationRenewalRouteImport } from './routes/texas-vehicle-registration-renewal'
+import { Route as TexasVehicleRegistrationFeesTaxesRouteImport } from './routes/texas-vehicle-registration-fees-taxes'
 import { Route as TexasVehicleRegistrationRouteImport } from './routes/texas-vehicle-registration'
 import { Route as TexasUtilityCostCalculatorRouteImport } from './routes/texas-utility-cost-calculator'
 import { Route as TexasUniqueLodgingRouteImport } from './routes/texas-unique-lodging'
@@ -158,8 +161,14 @@ import { Route as GrueneHallHistoryRouteImport } from './routes/gruene-hall-hist
 import { Route as GoogleMerchantFeedDotxmlRouteImport } from './routes/google-merchant-feed[.]xml'
 import { Route as GermanCzechTexasTownsRouteImport } from './routes/german-czech-texas-towns'
 import { Route as FishingRouteImport } from './routes/fishing'
+import { Route as FindMyVoterRegistrationRouteImport } from './routes/find-my-voter-registration'
+import { Route as FindMyUtilitiesRouteImport } from './routes/find-my-utilities'
 import { Route as FindMySchoolDistrictRouteImport } from './routes/find-my-school-district'
+import { Route as FindMyPropertyTaxRouteImport } from './routes/find-my-property-tax'
+import { Route as FindMyHomesteadExemptionRouteImport } from './routes/find-my-homestead-exemption'
+import { Route as FindMyEmergencyServicesRouteImport } from './routes/find-my-emergency-services'
 import { Route as FindMyDmvRouteImport } from './routes/find-my-dmv'
+import { Route as FindMyCountyRouteImport } from './routes/find-my-county'
 import { Route as EverythingBiggerInTexasRouteImport } from './routes/everything-bigger-in-texas'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as EditorialPolicyRouteImport } from './routes/editorial-policy'
@@ -169,6 +178,7 @@ import { Route as CountyRouteImport } from './routes/county'
 import { Route as CorrectionsPolicyRouteImport } from './routes/corrections-policy'
 import { Route as CorpusChristiMusicHistoryRouteImport } from './routes/corpus-christi-music-history'
 import { Route as ContinentalClubAustinHistoryRouteImport } from './routes/continental-club-austin-history'
+import { Route as CompareTexasCitiesRouteImport } from './routes/compare-texas-cities'
 import { Route as CitationGuideRouteImport } from './routes/citation-guide'
 import { Route as BuyingAHomeInTexasRouteImport } from './routes/buying-a-home-in-texas'
 import { Route as BrokenSpokeAustinHistoryRouteImport } from './routes/broken-spoke-austin-history'
@@ -177,12 +187,15 @@ import { Route as BestPlacesToGoCampingInTexasRouteImport } from './routes/best-
 import { Route as BarbacoaBigRedSanAntonioRouteImport } from './routes/barbacoa-big-red-san-antonio'
 import { Route as AustinMusicHistoryRouteImport } from './routes/austin-music-history'
 import { Route as AntonesAustinHistoryRouteImport } from './routes/antones-austin-history'
+import { Route as AdvertisingTermsRouteImport } from './routes/advertising-terms'
+import { Route as AdvertisingBillingRouteImport } from './routes/advertising-billing'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShopIndexRouteImport } from './routes/shop.index'
 import { Route as NewsIndexRouteImport } from './routes/news.index'
 import { Route as ExploreIndexRouteImport } from './routes/explore.index'
+import { Route as EventsIndexRouteImport } from './routes/events.index'
 import { Route as ThingsUniqueToTexasMethodologyRouteImport } from './routes/things-unique-to-texas_.methodology'
 import { Route as ThingsUniqueToTexasCategoryRouteImport } from './routes/things-unique-to-texas_.$category'
 import { Route as TexasVsStateRouteImport } from './routes/texas-vs.$state'
@@ -267,8 +280,13 @@ import { Route as ShopCartRouteImport } from './routes/shop.cart'
 import { Route as ShopCollectionRouteImport } from './routes/shop.$collection'
 import { Route as PropertyTaxCountiesRouteImport } from './routes/property-tax.counties'
 import { Route as PropertyTaxCalculatorLocationRouteImport } from './routes/property-tax-calculator.$location'
+import { Route as PartnerWithUsTermsRouteImport } from './routes/partner-with-us.terms'
+import { Route as PartnerWithUsExamplesRouteImport } from './routes/partner-with-us.examples'
+import { Route as PartnerWithUsBillingRouteImport } from './routes/partner-with-us.billing'
+import { Route as PartnerWithUsAgreementRouteImport } from './routes/partner-with-us.agreement'
 import { Route as NewsSlugRouteImport } from './routes/news.$slug'
 import { Route as MovingToTexasDataRouteImport } from './routes/moving-to-texas_.data'
+import { Route as MovingToTexasToolsRouteImport } from './routes/moving-to-texas.tools'
 import { Route as LearnWildlifeManagementValuationRouteImport } from './routes/learn.wildlife-management-valuation'
 import { Route as LearnPropertyTaxesRouteImport } from './routes/learn.property-taxes'
 import { Route as LearnPropertyTaxPaymentsRouteImport } from './routes/learn.property-tax-payments'
@@ -292,6 +310,7 @@ import { Route as HistoricSiteFortRichardsonStateParkStateHistoricSiteRouteImpor
 import { Route as HistoricSiteFortLeatonStateHistoricSiteRouteImport } from './routes/historic-site.fort-leaton-state-historic-site'
 import { Route as HistoricSiteFanthorpInnStateHistoricSiteRouteImport } from './routes/historic-site.fanthorp-inn-state-historic-site'
 import { Route as HistoricSiteSlugRouteImport } from './routes/historic-site.$slug'
+import { Route as GuidesCitypassTexasRouteImport } from './routes/guides.citypass-texas'
 import { Route as FishingTechniquesRouteImport } from './routes/fishing.techniques'
 import { Route as FishingSpeciesRouteImport } from './routes/fishing.species'
 import { Route as FishingServicesRouteImport } from './routes/fishing.services'
@@ -328,6 +347,7 @@ import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
 import { Route as EventsCollectionRouteImport } from './routes/events.$collection'
 import { Route as EventSlugRouteImport } from './routes/event.$slug'
 import { Route as DpsOfficeSlugRouteImport } from './routes/dps-office.$slug'
+import { Route as DogsChar123BreedChar125RouteImport } from './routes/dogs.{-$breed}'
 import { Route as DoPropertyTaxProtestRouteImport } from './routes/do.property-tax-protest'
 import { Route as DoHomesteadExemptionRouteImport } from './routes/do.homestead-exemption'
 import { Route as DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRouteImport } from './routes/destination.world-birding-center-resaca-de-la-palma-state-park'
@@ -341,6 +361,7 @@ import { Route as DestinationLakeSomervilleBirchCreekUnitStateParkRouteImport } 
 import { Route as DestinationEnchantedRockRouteImport } from './routes/destination.enchanted-rock'
 import { Route as DestinationDevilsRiverDelNorteUnitStateNaturalAreaRouteImport } from './routes/destination.devils-river-del-norte-unit-state-natural-area'
 import { Route as DestinationDevilsRiverBigSatanUnitStateNaturalAreaRouteImport } from './routes/destination.devils-river-big-satan-unit-state-natural-area'
+import { Route as DestinationDevilSSinkholeStateNaturalAreaRouteImport } from './routes/destination.devil-s-sinkhole-state-natural-area'
 import { Route as DestinationCooperLakeSouthSulphurUnitStateParkRouteImport } from './routes/destination.cooper-lake-south-sulphur-unit-state-park'
 import { Route as DestinationCooperLakeJohnsCreekUnitStateParkRouteImport } from './routes/destination.cooper-lake-johns-creek-unit-state-park'
 import { Route as DestinationCooperLakeDoctorsCreekUnitStateParkRouteImport } from './routes/destination.cooper-lake-doctors-creek-unit-state-park'
@@ -375,6 +396,7 @@ import { Route as ApiInternalLinkPolicyRollbackRouteImport } from './routes/api.
 import { Route as ApiInternalLinkPoliciesRouteImport } from './routes/api.internal-link-policies'
 import { Route as ApiInternalLinkCoverageRouteImport } from './routes/api.internal-link-coverage'
 import { Route as ApiGovernanceHealthRouteImport } from './routes/api.governance-health'
+import { Route as ApiFindMyCountyRouteImport } from './routes/api.find-my-county'
 import { Route as ApiEntityMaintenanceRouteImport } from './routes/api.entity-maintenance'
 import { Route as ApiEntityImportPreviewRouteImport } from './routes/api.entity-import-preview'
 import { Route as ApiContentDispositionRouteImport } from './routes/api.content-disposition'
@@ -385,6 +407,7 @@ import { Route as AdminSportsSponsorsRouteImport } from './routes/admin.sports-s
 import { Route as AdminSportsPartnersRouteImport } from './routes/admin.sports-partners'
 import { Route as AdminSocialCalendarRouteImport } from './routes/admin.social-calendar'
 import { Route as AdminPlatformHealthRouteImport } from './routes/admin.platform-health'
+import { Route as AdminPartnerReferralsRouteImport } from './routes/admin.partner-referrals'
 import { Route as AdminKnowledgeGraphBehaviorRouteImport } from './routes/admin.knowledge-graph-behavior'
 import { Route as AdminInternalLinkTestsRouteImport } from './routes/admin.internal-link-tests'
 import { Route as AdminInternalLinkRollbackRouteImport } from './routes/admin.internal-link-rollback'
@@ -511,6 +534,11 @@ const ThingsThatDefineTexasDotcsvRoute =
     path: '/things-that-define-texas.csv',
     getParentRoute: () => rootRouteImport,
   } as any)
+const TexasZipCodeExplorerRoute = TexasZipCodeExplorerRouteImport.update({
+  id: '/texas-zip-code-explorer',
+  path: '/texas-zip-code-explorer',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TexasWesternSwingRoute = TexasWesternSwingRouteImport.update({
   id: '/texas-western-swing',
   path: '/texas-western-swing',
@@ -525,6 +553,26 @@ const TexasVsEveryStateRoute = TexasVsEveryStateRouteImport.update({
 } as any).lazy(() =>
   import('./routes/texas-vs-every-state.lazy').then((d) => d.Route),
 )
+const TexasVehicleRegistrationRenewalRoute =
+  TexasVehicleRegistrationRenewalRouteImport.update({
+    id: '/texas-vehicle-registration-renewal',
+    path: '/texas-vehicle-registration-renewal',
+    getParentRoute: () => rootRouteImport,
+  } as any).lazy(() =>
+    import('./routes/texas-vehicle-registration-renewal.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+const TexasVehicleRegistrationFeesTaxesRoute =
+  TexasVehicleRegistrationFeesTaxesRouteImport.update({
+    id: '/texas-vehicle-registration-fees-taxes',
+    path: '/texas-vehicle-registration-fees-taxes',
+    getParentRoute: () => rootRouteImport,
+  } as any).lazy(() =>
+    import('./routes/texas-vehicle-registration-fees-taxes.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 const TexasVehicleRegistrationRoute =
   TexasVehicleRegistrationRouteImport.update({
     id: '/texas-vehicle-registration',
@@ -1031,7 +1079,9 @@ const TexasExplainedRoute = TexasExplainedRouteImport.update({
   id: '/texas-explained',
   path: '/texas-explained',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/texas-explained.lazy').then((d) => d.Route),
+)
 const TexasDriversLicenseRoute = TexasDriversLicenseRouteImport.update({
   id: '/texas-drivers-license',
   path: '/texas-drivers-license',
@@ -1428,6 +1478,16 @@ const FishingRoute = FishingRouteImport.update({
   path: '/fishing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FindMyVoterRegistrationRoute = FindMyVoterRegistrationRouteImport.update({
+  id: '/find-my-voter-registration',
+  path: '/find-my-voter-registration',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FindMyUtilitiesRoute = FindMyUtilitiesRouteImport.update({
+  id: '/find-my-utilities',
+  path: '/find-my-utilities',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FindMySchoolDistrictRoute = FindMySchoolDistrictRouteImport.update({
   id: '/find-my-school-district',
   path: '/find-my-school-district',
@@ -1435,11 +1495,34 @@ const FindMySchoolDistrictRoute = FindMySchoolDistrictRouteImport.update({
 } as any).lazy(() =>
   import('./routes/find-my-school-district.lazy').then((d) => d.Route),
 )
+const FindMyPropertyTaxRoute = FindMyPropertyTaxRouteImport.update({
+  id: '/find-my-property-tax',
+  path: '/find-my-property-tax',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FindMyHomesteadExemptionRoute =
+  FindMyHomesteadExemptionRouteImport.update({
+    id: '/find-my-homestead-exemption',
+    path: '/find-my-homestead-exemption',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const FindMyEmergencyServicesRoute = FindMyEmergencyServicesRouteImport.update({
+  id: '/find-my-emergency-services',
+  path: '/find-my-emergency-services',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FindMyDmvRoute = FindMyDmvRouteImport.update({
   id: '/find-my-dmv',
   path: '/find-my-dmv',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/find-my-dmv.lazy').then((d) => d.Route))
+const FindMyCountyRoute = FindMyCountyRouteImport.update({
+  id: '/find-my-county',
+  path: '/find-my-county',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/find-my-county.lazy').then((d) => d.Route),
+)
 const EverythingBiggerInTexasRoute = EverythingBiggerInTexasRouteImport.update({
   id: '/everything-bigger-in-texas',
   path: '/everything-bigger-in-texas',
@@ -1500,6 +1583,11 @@ const ContinentalClubAustinHistoryRoute =
       (d) => d.Route,
     ),
   )
+const CompareTexasCitiesRoute = CompareTexasCitiesRouteImport.update({
+  id: '/compare-texas-cities',
+  path: '/compare-texas-cities',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CitationGuideRoute = CitationGuideRouteImport.update({
   id: '/citation-guide',
   path: '/citation-guide',
@@ -1559,6 +1647,16 @@ const AntonesAustinHistoryRoute = AntonesAustinHistoryRouteImport.update({
 } as any).lazy(() =>
   import('./routes/antones-austin-history.lazy').then((d) => d.Route),
 )
+const AdvertisingTermsRoute = AdvertisingTermsRouteImport.update({
+  id: '/advertising-terms',
+  path: '/advertising-terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdvertisingBillingRoute = AdvertisingBillingRouteImport.update({
+  id: '/advertising-billing',
+  path: '/advertising-billing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -1589,6 +1687,11 @@ const ExploreIndexRoute = ExploreIndexRouteImport.update({
   path: '/explore/',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/explore.index.lazy').then((d) => d.Route))
+const EventsIndexRoute = EventsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => EventsRoute,
+} as any).lazy(() => import('./routes/events.index.lazy').then((d) => d.Route))
 const ThingsUniqueToTexasMethodologyRoute =
   ThingsUniqueToTexasMethodologyRouteImport.update({
     id: '/things-unique-to-texas_/methodology',
@@ -2115,6 +2218,34 @@ const PropertyTaxCalculatorLocationRoute =
       (d) => d.Route,
     ),
   )
+const PartnerWithUsTermsRoute = PartnerWithUsTermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => PartnerWithUsRoute,
+} as any).lazy(() =>
+  import('./routes/partner-with-us.terms.lazy').then((d) => d.Route),
+)
+const PartnerWithUsExamplesRoute = PartnerWithUsExamplesRouteImport.update({
+  id: '/examples',
+  path: '/examples',
+  getParentRoute: () => PartnerWithUsRoute,
+} as any).lazy(() =>
+  import('./routes/partner-with-us.examples.lazy').then((d) => d.Route),
+)
+const PartnerWithUsBillingRoute = PartnerWithUsBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => PartnerWithUsRoute,
+} as any).lazy(() =>
+  import('./routes/partner-with-us.billing.lazy').then((d) => d.Route),
+)
+const PartnerWithUsAgreementRoute = PartnerWithUsAgreementRouteImport.update({
+  id: '/agreement',
+  path: '/agreement',
+  getParentRoute: () => PartnerWithUsRoute,
+} as any).lazy(() =>
+  import('./routes/partner-with-us.agreement.lazy').then((d) => d.Route),
+)
 const NewsSlugRoute = NewsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -2127,6 +2258,11 @@ const MovingToTexasDataRoute = MovingToTexasDataRouteImport.update({
 } as any).lazy(() =>
   import('./routes/moving-to-texas_.data.lazy').then((d) => d.Route),
 )
+const MovingToTexasToolsRoute = MovingToTexasToolsRouteImport.update({
+  id: '/tools',
+  path: '/tools',
+  getParentRoute: () => MovingToTexasRoute,
+} as any)
 const LearnWildlifeManagementValuationRoute =
   LearnWildlifeManagementValuationRouteImport.update({
     id: '/learn/wildlife-management-valuation',
@@ -2259,6 +2395,13 @@ const HistoricSiteSlugRoute = HistoricSiteSlugRouteImport.update({
   path: '/historic-site/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuidesCitypassTexasRoute = GuidesCitypassTexasRouteImport.update({
+  id: '/citypass-texas',
+  path: '/citypass-texas',
+  getParentRoute: () => GuidesRoute,
+} as any).lazy(() =>
+  import('./routes/guides.citypass-texas.lazy').then((d) => d.Route),
+)
 const FishingTechniquesRoute = FishingTechniquesRouteImport.update({
   id: '/techniques',
   path: '/techniques',
@@ -2464,6 +2607,13 @@ const DpsOfficeSlugRoute = DpsOfficeSlugRouteImport.update({
   path: '/dps-office/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DogsChar123BreedChar125Route = DogsChar123BreedChar125RouteImport.update({
+  id: '/dogs/{-$breed}',
+  path: '/dogs/{-$breed}',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/dogs.{-$breed}.lazy').then((d) => d.Route),
+)
 const DoPropertyTaxProtestRoute = DoPropertyTaxProtestRouteImport.update({
   id: '/do/property-tax-protest',
   path: '/do/property-tax-protest',
@@ -2540,6 +2690,12 @@ const DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute =
   DestinationDevilsRiverBigSatanUnitStateNaturalAreaRouteImport.update({
     id: '/destination/devils-river-big-satan-unit-state-natural-area',
     path: '/destination/devils-river-big-satan-unit-state-natural-area',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DestinationDevilSSinkholeStateNaturalAreaRoute =
+  DestinationDevilSSinkholeStateNaturalAreaRouteImport.update({
+    id: '/destination/devil-s-sinkhole-state-natural-area',
+    path: '/destination/devil-s-sinkhole-state-natural-area',
     getParentRoute: () => rootRouteImport,
   } as any)
 const DestinationCooperLakeSouthSulphurUnitStateParkRoute =
@@ -2728,6 +2884,11 @@ const ApiGovernanceHealthRoute = ApiGovernanceHealthRouteImport.update({
   path: '/api/governance-health',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiFindMyCountyRoute = ApiFindMyCountyRouteImport.update({
+  id: '/api/find-my-county',
+  path: '/api/find-my-county',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiEntityMaintenanceRoute = ApiEntityMaintenanceRouteImport.update({
   id: '/api/entity-maintenance',
   path: '/api/entity-maintenance',
@@ -2789,6 +2950,13 @@ const AdminPlatformHealthRoute = AdminPlatformHealthRouteImport.update({
   getParentRoute: () => AdminRoute,
 } as any).lazy(() =>
   import('./routes/admin.platform-health.lazy').then((d) => d.Route),
+)
+const AdminPartnerReferralsRoute = AdminPartnerReferralsRouteImport.update({
+  id: '/partner-referrals',
+  path: '/partner-referrals',
+  getParentRoute: () => AdminRoute,
+} as any).lazy(() =>
+  import('./routes/admin.partner-referrals.lazy').then((d) => d.Route),
 )
 const AdminKnowledgeGraphBehaviorRoute =
   AdminKnowledgeGraphBehaviorRouteImport.update({
@@ -3244,6 +3412,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
+  '/advertising-billing': typeof AdvertisingBillingRoute
+  '/advertising-terms': typeof AdvertisingTermsRoute
   '/antones-austin-history': typeof AntonesAustinHistoryRoute
   '/austin-music-history': typeof AustinMusicHistoryRoute
   '/barbacoa-big-red-san-antonio': typeof BarbacoaBigRedSanAntonioRoute
@@ -3252,6 +3422,7 @@ export interface FileRoutesByFullPath {
   '/broken-spoke-austin-history': typeof BrokenSpokeAustinHistoryRoute
   '/buying-a-home-in-texas': typeof BuyingAHomeInTexasRoute
   '/citation-guide': typeof CitationGuideRoute
+  '/compare-texas-cities': typeof CompareTexasCitiesRoute
   '/continental-club-austin-history': typeof ContinentalClubAustinHistoryRoute
   '/corpus-christi-music-history': typeof CorpusChristiMusicHistoryRoute
   '/corrections-policy': typeof CorrectionsPolicyRoute
@@ -3261,13 +3432,19 @@ export interface FileRoutesByFullPath {
   '/editorial-policy': typeof EditorialPolicyRoute
   '/events': typeof EventsRouteWithChildren
   '/everything-bigger-in-texas': typeof EverythingBiggerInTexasRoute
+  '/find-my-county': typeof FindMyCountyRoute
   '/find-my-dmv': typeof FindMyDmvRoute
+  '/find-my-emergency-services': typeof FindMyEmergencyServicesRoute
+  '/find-my-homestead-exemption': typeof FindMyHomesteadExemptionRoute
+  '/find-my-property-tax': typeof FindMyPropertyTaxRoute
   '/find-my-school-district': typeof FindMySchoolDistrictRoute
+  '/find-my-utilities': typeof FindMyUtilitiesRoute
+  '/find-my-voter-registration': typeof FindMyVoterRegistrationRoute
   '/fishing': typeof FishingRouteWithChildren
   '/german-czech-texas-towns': typeof GermanCzechTexasTownsRoute
   '/google-merchant-feed.xml': typeof GoogleMerchantFeedDotxmlRoute
   '/gruene-hall-history': typeof GrueneHallHistoryRoute
-  '/guides': typeof GuidesRoute
+  '/guides': typeof GuidesRouteWithChildren
   '/home-garden': typeof HomeGardenRoute
   '/houston-music-history': typeof HoustonMusicHistoryRoute
   '/hunting': typeof HuntingRouteWithChildren
@@ -3275,13 +3452,13 @@ export interface FileRoutesByFullPath {
   '/lubbock-music-history': typeof LubbockMusicHistoryRoute
   '/made-in-texas': typeof MadeInTexasRoute
   '/mortgage-calculator': typeof MortgageCalculatorRoute
-  '/moving-to-texas': typeof MovingToTexasRoute
+  '/moving-to-texas': typeof MovingToTexasRouteWithChildren
   '/moving-to-texas-checklist': typeof MovingToTexasChecklistRoute
   '/news': typeof NewsRouteWithChildren
   '/painted-churches-checklist.txt': typeof PaintedChurchesChecklistDottxtRoute
   '/painted-churches.csv': typeof PaintedChurchesDotcsvRoute
   '/painted-churches.json': typeof PaintedChurchesDotjsonRoute
-  '/partner-with-us': typeof PartnerWithUsRoute
+  '/partner-with-us': typeof PartnerWithUsRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/property': typeof PropertyRoute
   '/property-tax-calculators': typeof PropertyTaxCalculatorsRoute
@@ -3401,8 +3578,11 @@ export interface FileRoutesByFullPath {
   '/texas-unique-lodging': typeof TexasUniqueLodgingRoute
   '/texas-utility-cost-calculator': typeof TexasUtilityCostCalculatorRoute
   '/texas-vehicle-registration': typeof TexasVehicleRegistrationRoute
+  '/texas-vehicle-registration-fees-taxes': typeof TexasVehicleRegistrationFeesTaxesRoute
+  '/texas-vehicle-registration-renewal': typeof TexasVehicleRegistrationRenewalRoute
   '/texas-vs-every-state': typeof TexasVsEveryStateRoute
   '/texas-western-swing': typeof TexasWesternSwingRoute
+  '/texas-zip-code-explorer': typeof TexasZipCodeExplorerRoute
   '/things-that-define-texas.csv': typeof ThingsThatDefineTexasDotcsvRoute
   '/things-that-define-texas.json': typeof ThingsThatDefineTexasDotjsonRoute
   '/things-unique-to-texas': typeof ThingsUniqueToTexasRoute
@@ -3421,6 +3601,7 @@ export interface FileRoutesByFullPath {
   '/admin/internal-link-rollback': typeof AdminInternalLinkRollbackRoute
   '/admin/internal-link-tests': typeof AdminInternalLinkTestsRoute
   '/admin/knowledge-graph-behavior': typeof AdminKnowledgeGraphBehaviorRoute
+  '/admin/partner-referrals': typeof AdminPartnerReferralsRoute
   '/admin/platform-health': typeof AdminPlatformHealthRoute
   '/admin/social-calendar': typeof AdminSocialCalendarRoute
   '/admin/sports-partners': typeof AdminSportsPartnersRoute
@@ -3431,6 +3612,7 @@ export interface FileRoutesByFullPath {
   '/api/content-disposition': typeof ApiContentDispositionRoute
   '/api/entity-import-preview': typeof ApiEntityImportPreviewRoute
   '/api/entity-maintenance': typeof ApiEntityMaintenanceRoute
+  '/api/find-my-county': typeof ApiFindMyCountyRoute
   '/api/governance-health': typeof ApiGovernanceHealthRoute
   '/api/internal-link-coverage': typeof ApiInternalLinkCoverageRoute
   '/api/internal-link-policies': typeof ApiInternalLinkPoliciesRoute
@@ -3465,6 +3647,7 @@ export interface FileRoutesByFullPath {
   '/destination/cooper-lake-doctors-creek-unit-state-park': typeof DestinationCooperLakeDoctorsCreekUnitStateParkRoute
   '/destination/cooper-lake-johns-creek-unit-state-park': typeof DestinationCooperLakeJohnsCreekUnitStateParkRoute
   '/destination/cooper-lake-south-sulphur-unit-state-park': typeof DestinationCooperLakeSouthSulphurUnitStateParkRoute
+  '/destination/devil-s-sinkhole-state-natural-area': typeof DestinationDevilSSinkholeStateNaturalAreaRoute
   '/destination/devils-river-big-satan-unit-state-natural-area': typeof DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute
   '/destination/devils-river-del-norte-unit-state-natural-area': typeof DestinationDevilsRiverDelNorteUnitStateNaturalAreaRoute
   '/destination/enchanted-rock': typeof DestinationEnchantedRockRoute
@@ -3478,6 +3661,7 @@ export interface FileRoutesByFullPath {
   '/destination/world-birding-center-resaca-de-la-palma-state-park': typeof DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute
   '/do/homestead-exemption': typeof DoHomesteadExemptionRoute
   '/do/property-tax-protest': typeof DoPropertyTaxProtestRoute
+  '/dogs/{-$breed}': typeof DogsChar123BreedChar125Route
   '/dps-office/$slug': typeof DpsOfficeSlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
@@ -3514,6 +3698,7 @@ export interface FileRoutesByFullPath {
   '/fishing/services': typeof FishingServicesRouteWithChildren
   '/fishing/species': typeof FishingSpeciesRouteWithChildren
   '/fishing/techniques': typeof FishingTechniquesRouteWithChildren
+  '/guides/citypass-texas': typeof GuidesCitypassTexasRoute
   '/historic-site/$slug': typeof HistoricSiteSlugRoute
   '/historic-site/fanthorp-inn-state-historic-site': typeof HistoricSiteFanthorpInnStateHistoricSiteRoute
   '/historic-site/fort-leaton-state-historic-site': typeof HistoricSiteFortLeatonStateHistoricSiteRoute
@@ -3537,8 +3722,13 @@ export interface FileRoutesByFullPath {
   '/learn/property-tax-payments': typeof LearnPropertyTaxPaymentsRoute
   '/learn/property-taxes': typeof LearnPropertyTaxesRoute
   '/learn/wildlife-management-valuation': typeof LearnWildlifeManagementValuationRoute
+  '/moving-to-texas/tools': typeof MovingToTexasToolsRoute
   '/moving-to-texas/data': typeof MovingToTexasDataRoute
   '/news/$slug': typeof NewsSlugRoute
+  '/partner-with-us/agreement': typeof PartnerWithUsAgreementRoute
+  '/partner-with-us/billing': typeof PartnerWithUsBillingRoute
+  '/partner-with-us/examples': typeof PartnerWithUsExamplesRoute
+  '/partner-with-us/terms': typeof PartnerWithUsTermsRoute
   '/property-tax-calculator/$location': typeof PropertyTaxCalculatorLocationRoute
   '/property-tax/counties': typeof PropertyTaxCountiesRoute
   '/shop/$collection': typeof ShopCollectionRoute
@@ -3623,6 +3813,7 @@ export interface FileRoutesByFullPath {
   '/texas-vs/$state': typeof TexasVsStateRoute
   '/things-unique-to-texas/$category': typeof ThingsUniqueToTexasCategoryRoute
   '/things-unique-to-texas/methodology': typeof ThingsUniqueToTexasMethodologyRoute
+  '/events/': typeof EventsIndexRoute
   '/explore/': typeof ExploreIndexRoute
   '/news/': typeof NewsIndexRoute
   '/shop/': typeof ShopIndexRoute
@@ -3694,6 +3885,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
+  '/advertising-billing': typeof AdvertisingBillingRoute
+  '/advertising-terms': typeof AdvertisingTermsRoute
   '/antones-austin-history': typeof AntonesAustinHistoryRoute
   '/austin-music-history': typeof AustinMusicHistoryRoute
   '/barbacoa-big-red-san-antonio': typeof BarbacoaBigRedSanAntonioRoute
@@ -3702,6 +3895,7 @@ export interface FileRoutesByTo {
   '/broken-spoke-austin-history': typeof BrokenSpokeAustinHistoryRoute
   '/buying-a-home-in-texas': typeof BuyingAHomeInTexasRoute
   '/citation-guide': typeof CitationGuideRoute
+  '/compare-texas-cities': typeof CompareTexasCitiesRoute
   '/continental-club-austin-history': typeof ContinentalClubAustinHistoryRoute
   '/corpus-christi-music-history': typeof CorpusChristiMusicHistoryRoute
   '/corrections-policy': typeof CorrectionsPolicyRoute
@@ -3709,15 +3903,20 @@ export interface FileRoutesByTo {
   '/dallas-fort-worth-music-history': typeof DallasFortWorthMusicHistoryRoute
   '/dr-pepper-texas-history': typeof DrPepperTexasHistoryRoute
   '/editorial-policy': typeof EditorialPolicyRoute
-  '/events': typeof EventsRouteWithChildren
   '/everything-bigger-in-texas': typeof EverythingBiggerInTexasRoute
+  '/find-my-county': typeof FindMyCountyRoute
   '/find-my-dmv': typeof FindMyDmvRoute
+  '/find-my-emergency-services': typeof FindMyEmergencyServicesRoute
+  '/find-my-homestead-exemption': typeof FindMyHomesteadExemptionRoute
+  '/find-my-property-tax': typeof FindMyPropertyTaxRoute
   '/find-my-school-district': typeof FindMySchoolDistrictRoute
+  '/find-my-utilities': typeof FindMyUtilitiesRoute
+  '/find-my-voter-registration': typeof FindMyVoterRegistrationRoute
   '/fishing': typeof FishingRouteWithChildren
   '/german-czech-texas-towns': typeof GermanCzechTexasTownsRoute
   '/google-merchant-feed.xml': typeof GoogleMerchantFeedDotxmlRoute
   '/gruene-hall-history': typeof GrueneHallHistoryRoute
-  '/guides': typeof GuidesRoute
+  '/guides': typeof GuidesRouteWithChildren
   '/home-garden': typeof HomeGardenRoute
   '/houston-music-history': typeof HoustonMusicHistoryRoute
   '/hunting': typeof HuntingRouteWithChildren
@@ -3725,12 +3924,12 @@ export interface FileRoutesByTo {
   '/lubbock-music-history': typeof LubbockMusicHistoryRoute
   '/made-in-texas': typeof MadeInTexasRoute
   '/mortgage-calculator': typeof MortgageCalculatorRoute
-  '/moving-to-texas': typeof MovingToTexasRoute
+  '/moving-to-texas': typeof MovingToTexasRouteWithChildren
   '/moving-to-texas-checklist': typeof MovingToTexasChecklistRoute
   '/painted-churches-checklist.txt': typeof PaintedChurchesChecklistDottxtRoute
   '/painted-churches.csv': typeof PaintedChurchesDotcsvRoute
   '/painted-churches.json': typeof PaintedChurchesDotjsonRoute
-  '/partner-with-us': typeof PartnerWithUsRoute
+  '/partner-with-us': typeof PartnerWithUsRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/property': typeof PropertyRoute
   '/property-tax-calculators': typeof PropertyTaxCalculatorsRoute
@@ -3849,8 +4048,11 @@ export interface FileRoutesByTo {
   '/texas-unique-lodging': typeof TexasUniqueLodgingRoute
   '/texas-utility-cost-calculator': typeof TexasUtilityCostCalculatorRoute
   '/texas-vehicle-registration': typeof TexasVehicleRegistrationRoute
+  '/texas-vehicle-registration-fees-taxes': typeof TexasVehicleRegistrationFeesTaxesRoute
+  '/texas-vehicle-registration-renewal': typeof TexasVehicleRegistrationRenewalRoute
   '/texas-vs-every-state': typeof TexasVsEveryStateRoute
   '/texas-western-swing': typeof TexasWesternSwingRoute
+  '/texas-zip-code-explorer': typeof TexasZipCodeExplorerRoute
   '/things-that-define-texas.csv': typeof ThingsThatDefineTexasDotcsvRoute
   '/things-that-define-texas.json': typeof ThingsThatDefineTexasDotjsonRoute
   '/things-unique-to-texas': typeof ThingsUniqueToTexasRoute
@@ -3869,6 +4071,7 @@ export interface FileRoutesByTo {
   '/admin/internal-link-rollback': typeof AdminInternalLinkRollbackRoute
   '/admin/internal-link-tests': typeof AdminInternalLinkTestsRoute
   '/admin/knowledge-graph-behavior': typeof AdminKnowledgeGraphBehaviorRoute
+  '/admin/partner-referrals': typeof AdminPartnerReferralsRoute
   '/admin/platform-health': typeof AdminPlatformHealthRoute
   '/admin/social-calendar': typeof AdminSocialCalendarRoute
   '/admin/sports-partners': typeof AdminSportsPartnersRoute
@@ -3879,6 +4082,7 @@ export interface FileRoutesByTo {
   '/api/content-disposition': typeof ApiContentDispositionRoute
   '/api/entity-import-preview': typeof ApiEntityImportPreviewRoute
   '/api/entity-maintenance': typeof ApiEntityMaintenanceRoute
+  '/api/find-my-county': typeof ApiFindMyCountyRoute
   '/api/governance-health': typeof ApiGovernanceHealthRoute
   '/api/internal-link-coverage': typeof ApiInternalLinkCoverageRoute
   '/api/internal-link-policies': typeof ApiInternalLinkPoliciesRoute
@@ -3913,6 +4117,7 @@ export interface FileRoutesByTo {
   '/destination/cooper-lake-doctors-creek-unit-state-park': typeof DestinationCooperLakeDoctorsCreekUnitStateParkRoute
   '/destination/cooper-lake-johns-creek-unit-state-park': typeof DestinationCooperLakeJohnsCreekUnitStateParkRoute
   '/destination/cooper-lake-south-sulphur-unit-state-park': typeof DestinationCooperLakeSouthSulphurUnitStateParkRoute
+  '/destination/devil-s-sinkhole-state-natural-area': typeof DestinationDevilSSinkholeStateNaturalAreaRoute
   '/destination/devils-river-big-satan-unit-state-natural-area': typeof DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute
   '/destination/devils-river-del-norte-unit-state-natural-area': typeof DestinationDevilsRiverDelNorteUnitStateNaturalAreaRoute
   '/destination/enchanted-rock': typeof DestinationEnchantedRockRoute
@@ -3926,6 +4131,7 @@ export interface FileRoutesByTo {
   '/destination/world-birding-center-resaca-de-la-palma-state-park': typeof DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute
   '/do/homestead-exemption': typeof DoHomesteadExemptionRoute
   '/do/property-tax-protest': typeof DoPropertyTaxProtestRoute
+  '/dogs/{-$breed}': typeof DogsChar123BreedChar125Route
   '/dps-office/$slug': typeof DpsOfficeSlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
@@ -3962,6 +4168,7 @@ export interface FileRoutesByTo {
   '/fishing/services': typeof FishingServicesRouteWithChildren
   '/fishing/species': typeof FishingSpeciesRouteWithChildren
   '/fishing/techniques': typeof FishingTechniquesRouteWithChildren
+  '/guides/citypass-texas': typeof GuidesCitypassTexasRoute
   '/historic-site/$slug': typeof HistoricSiteSlugRoute
   '/historic-site/fanthorp-inn-state-historic-site': typeof HistoricSiteFanthorpInnStateHistoricSiteRoute
   '/historic-site/fort-leaton-state-historic-site': typeof HistoricSiteFortLeatonStateHistoricSiteRoute
@@ -3985,8 +4192,13 @@ export interface FileRoutesByTo {
   '/learn/property-tax-payments': typeof LearnPropertyTaxPaymentsRoute
   '/learn/property-taxes': typeof LearnPropertyTaxesRoute
   '/learn/wildlife-management-valuation': typeof LearnWildlifeManagementValuationRoute
+  '/moving-to-texas/tools': typeof MovingToTexasToolsRoute
   '/moving-to-texas/data': typeof MovingToTexasDataRoute
   '/news/$slug': typeof NewsSlugRoute
+  '/partner-with-us/agreement': typeof PartnerWithUsAgreementRoute
+  '/partner-with-us/billing': typeof PartnerWithUsBillingRoute
+  '/partner-with-us/examples': typeof PartnerWithUsExamplesRoute
+  '/partner-with-us/terms': typeof PartnerWithUsTermsRoute
   '/property-tax-calculator/$location': typeof PropertyTaxCalculatorLocationRoute
   '/property-tax/counties': typeof PropertyTaxCountiesRoute
   '/shop/$collection': typeof ShopCollectionRoute
@@ -4071,6 +4283,7 @@ export interface FileRoutesByTo {
   '/texas-vs/$state': typeof TexasVsStateRoute
   '/things-unique-to-texas/$category': typeof ThingsUniqueToTexasCategoryRoute
   '/things-unique-to-texas/methodology': typeof ThingsUniqueToTexasMethodologyRoute
+  '/events': typeof EventsIndexRoute
   '/explore': typeof ExploreIndexRoute
   '/news': typeof NewsIndexRoute
   '/shop': typeof ShopIndexRoute
@@ -4143,6 +4356,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
+  '/advertising-billing': typeof AdvertisingBillingRoute
+  '/advertising-terms': typeof AdvertisingTermsRoute
   '/antones-austin-history': typeof AntonesAustinHistoryRoute
   '/austin-music-history': typeof AustinMusicHistoryRoute
   '/barbacoa-big-red-san-antonio': typeof BarbacoaBigRedSanAntonioRoute
@@ -4151,6 +4366,7 @@ export interface FileRoutesById {
   '/broken-spoke-austin-history': typeof BrokenSpokeAustinHistoryRoute
   '/buying-a-home-in-texas': typeof BuyingAHomeInTexasRoute
   '/citation-guide': typeof CitationGuideRoute
+  '/compare-texas-cities': typeof CompareTexasCitiesRoute
   '/continental-club-austin-history': typeof ContinentalClubAustinHistoryRoute
   '/corpus-christi-music-history': typeof CorpusChristiMusicHistoryRoute
   '/corrections-policy': typeof CorrectionsPolicyRoute
@@ -4160,13 +4376,19 @@ export interface FileRoutesById {
   '/editorial-policy': typeof EditorialPolicyRoute
   '/events': typeof EventsRouteWithChildren
   '/everything-bigger-in-texas': typeof EverythingBiggerInTexasRoute
+  '/find-my-county': typeof FindMyCountyRoute
   '/find-my-dmv': typeof FindMyDmvRoute
+  '/find-my-emergency-services': typeof FindMyEmergencyServicesRoute
+  '/find-my-homestead-exemption': typeof FindMyHomesteadExemptionRoute
+  '/find-my-property-tax': typeof FindMyPropertyTaxRoute
   '/find-my-school-district': typeof FindMySchoolDistrictRoute
+  '/find-my-utilities': typeof FindMyUtilitiesRoute
+  '/find-my-voter-registration': typeof FindMyVoterRegistrationRoute
   '/fishing': typeof FishingRouteWithChildren
   '/german-czech-texas-towns': typeof GermanCzechTexasTownsRoute
   '/google-merchant-feed.xml': typeof GoogleMerchantFeedDotxmlRoute
   '/gruene-hall-history': typeof GrueneHallHistoryRoute
-  '/guides': typeof GuidesRoute
+  '/guides': typeof GuidesRouteWithChildren
   '/home-garden': typeof HomeGardenRoute
   '/houston-music-history': typeof HoustonMusicHistoryRoute
   '/hunting': typeof HuntingRouteWithChildren
@@ -4174,13 +4396,13 @@ export interface FileRoutesById {
   '/lubbock-music-history': typeof LubbockMusicHistoryRoute
   '/made-in-texas': typeof MadeInTexasRoute
   '/mortgage-calculator': typeof MortgageCalculatorRoute
-  '/moving-to-texas': typeof MovingToTexasRoute
+  '/moving-to-texas': typeof MovingToTexasRouteWithChildren
   '/moving-to-texas-checklist': typeof MovingToTexasChecklistRoute
   '/news': typeof NewsRouteWithChildren
   '/painted-churches-checklist.txt': typeof PaintedChurchesChecklistDottxtRoute
   '/painted-churches.csv': typeof PaintedChurchesDotcsvRoute
   '/painted-churches.json': typeof PaintedChurchesDotjsonRoute
-  '/partner-with-us': typeof PartnerWithUsRoute
+  '/partner-with-us': typeof PartnerWithUsRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/property': typeof PropertyRoute
   '/property-tax-calculators': typeof PropertyTaxCalculatorsRoute
@@ -4300,8 +4522,11 @@ export interface FileRoutesById {
   '/texas-unique-lodging': typeof TexasUniqueLodgingRoute
   '/texas-utility-cost-calculator': typeof TexasUtilityCostCalculatorRoute
   '/texas-vehicle-registration': typeof TexasVehicleRegistrationRoute
+  '/texas-vehicle-registration-fees-taxes': typeof TexasVehicleRegistrationFeesTaxesRoute
+  '/texas-vehicle-registration-renewal': typeof TexasVehicleRegistrationRenewalRoute
   '/texas-vs-every-state': typeof TexasVsEveryStateRoute
   '/texas-western-swing': typeof TexasWesternSwingRoute
+  '/texas-zip-code-explorer': typeof TexasZipCodeExplorerRoute
   '/things-that-define-texas.csv': typeof ThingsThatDefineTexasDotcsvRoute
   '/things-that-define-texas.json': typeof ThingsThatDefineTexasDotjsonRoute
   '/things-unique-to-texas': typeof ThingsUniqueToTexasRoute
@@ -4320,6 +4545,7 @@ export interface FileRoutesById {
   '/admin/internal-link-rollback': typeof AdminInternalLinkRollbackRoute
   '/admin/internal-link-tests': typeof AdminInternalLinkTestsRoute
   '/admin/knowledge-graph-behavior': typeof AdminKnowledgeGraphBehaviorRoute
+  '/admin/partner-referrals': typeof AdminPartnerReferralsRoute
   '/admin/platform-health': typeof AdminPlatformHealthRoute
   '/admin/social-calendar': typeof AdminSocialCalendarRoute
   '/admin/sports-partners': typeof AdminSportsPartnersRoute
@@ -4330,6 +4556,7 @@ export interface FileRoutesById {
   '/api/content-disposition': typeof ApiContentDispositionRoute
   '/api/entity-import-preview': typeof ApiEntityImportPreviewRoute
   '/api/entity-maintenance': typeof ApiEntityMaintenanceRoute
+  '/api/find-my-county': typeof ApiFindMyCountyRoute
   '/api/governance-health': typeof ApiGovernanceHealthRoute
   '/api/internal-link-coverage': typeof ApiInternalLinkCoverageRoute
   '/api/internal-link-policies': typeof ApiInternalLinkPoliciesRoute
@@ -4364,6 +4591,7 @@ export interface FileRoutesById {
   '/destination/cooper-lake-doctors-creek-unit-state-park': typeof DestinationCooperLakeDoctorsCreekUnitStateParkRoute
   '/destination/cooper-lake-johns-creek-unit-state-park': typeof DestinationCooperLakeJohnsCreekUnitStateParkRoute
   '/destination/cooper-lake-south-sulphur-unit-state-park': typeof DestinationCooperLakeSouthSulphurUnitStateParkRoute
+  '/destination/devil-s-sinkhole-state-natural-area': typeof DestinationDevilSSinkholeStateNaturalAreaRoute
   '/destination/devils-river-big-satan-unit-state-natural-area': typeof DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute
   '/destination/devils-river-del-norte-unit-state-natural-area': typeof DestinationDevilsRiverDelNorteUnitStateNaturalAreaRoute
   '/destination/enchanted-rock': typeof DestinationEnchantedRockRoute
@@ -4377,6 +4605,7 @@ export interface FileRoutesById {
   '/destination/world-birding-center-resaca-de-la-palma-state-park': typeof DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute
   '/do/homestead-exemption': typeof DoHomesteadExemptionRoute
   '/do/property-tax-protest': typeof DoPropertyTaxProtestRoute
+  '/dogs/{-$breed}': typeof DogsChar123BreedChar125Route
   '/dps-office/$slug': typeof DpsOfficeSlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
@@ -4413,6 +4642,7 @@ export interface FileRoutesById {
   '/fishing/services': typeof FishingServicesRouteWithChildren
   '/fishing/species': typeof FishingSpeciesRouteWithChildren
   '/fishing/techniques': typeof FishingTechniquesRouteWithChildren
+  '/guides/citypass-texas': typeof GuidesCitypassTexasRoute
   '/historic-site/$slug': typeof HistoricSiteSlugRoute
   '/historic-site/fanthorp-inn-state-historic-site': typeof HistoricSiteFanthorpInnStateHistoricSiteRoute
   '/historic-site/fort-leaton-state-historic-site': typeof HistoricSiteFortLeatonStateHistoricSiteRoute
@@ -4436,8 +4666,13 @@ export interface FileRoutesById {
   '/learn/property-tax-payments': typeof LearnPropertyTaxPaymentsRoute
   '/learn/property-taxes': typeof LearnPropertyTaxesRoute
   '/learn/wildlife-management-valuation': typeof LearnWildlifeManagementValuationRoute
+  '/moving-to-texas/tools': typeof MovingToTexasToolsRoute
   '/moving-to-texas_/data': typeof MovingToTexasDataRoute
   '/news/$slug': typeof NewsSlugRoute
+  '/partner-with-us/agreement': typeof PartnerWithUsAgreementRoute
+  '/partner-with-us/billing': typeof PartnerWithUsBillingRoute
+  '/partner-with-us/examples': typeof PartnerWithUsExamplesRoute
+  '/partner-with-us/terms': typeof PartnerWithUsTermsRoute
   '/property-tax-calculator/$location': typeof PropertyTaxCalculatorLocationRoute
   '/property-tax/counties': typeof PropertyTaxCountiesRoute
   '/shop/$collection': typeof ShopCollectionRoute
@@ -4522,6 +4757,7 @@ export interface FileRoutesById {
   '/texas-vs/$state': typeof TexasVsStateRoute
   '/things-unique-to-texas_/$category': typeof ThingsUniqueToTexasCategoryRoute
   '/things-unique-to-texas_/methodology': typeof ThingsUniqueToTexasMethodologyRoute
+  '/events/': typeof EventsIndexRoute
   '/explore/': typeof ExploreIndexRoute
   '/news/': typeof NewsIndexRoute
   '/shop/': typeof ShopIndexRoute
@@ -4595,6 +4831,8 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/advertising-billing'
+    | '/advertising-terms'
     | '/antones-austin-history'
     | '/austin-music-history'
     | '/barbacoa-big-red-san-antonio'
@@ -4603,6 +4841,7 @@ export interface FileRouteTypes {
     | '/broken-spoke-austin-history'
     | '/buying-a-home-in-texas'
     | '/citation-guide'
+    | '/compare-texas-cities'
     | '/continental-club-austin-history'
     | '/corpus-christi-music-history'
     | '/corrections-policy'
@@ -4612,8 +4851,14 @@ export interface FileRouteTypes {
     | '/editorial-policy'
     | '/events'
     | '/everything-bigger-in-texas'
+    | '/find-my-county'
     | '/find-my-dmv'
+    | '/find-my-emergency-services'
+    | '/find-my-homestead-exemption'
+    | '/find-my-property-tax'
     | '/find-my-school-district'
+    | '/find-my-utilities'
+    | '/find-my-voter-registration'
     | '/fishing'
     | '/german-czech-texas-towns'
     | '/google-merchant-feed.xml'
@@ -4752,8 +4997,11 @@ export interface FileRouteTypes {
     | '/texas-unique-lodging'
     | '/texas-utility-cost-calculator'
     | '/texas-vehicle-registration'
+    | '/texas-vehicle-registration-fees-taxes'
+    | '/texas-vehicle-registration-renewal'
     | '/texas-vs-every-state'
     | '/texas-western-swing'
+    | '/texas-zip-code-explorer'
     | '/things-that-define-texas.csv'
     | '/things-that-define-texas.json'
     | '/things-unique-to-texas'
@@ -4772,6 +5020,7 @@ export interface FileRouteTypes {
     | '/admin/internal-link-rollback'
     | '/admin/internal-link-tests'
     | '/admin/knowledge-graph-behavior'
+    | '/admin/partner-referrals'
     | '/admin/platform-health'
     | '/admin/social-calendar'
     | '/admin/sports-partners'
@@ -4782,6 +5031,7 @@ export interface FileRouteTypes {
     | '/api/content-disposition'
     | '/api/entity-import-preview'
     | '/api/entity-maintenance'
+    | '/api/find-my-county'
     | '/api/governance-health'
     | '/api/internal-link-coverage'
     | '/api/internal-link-policies'
@@ -4816,6 +5066,7 @@ export interface FileRouteTypes {
     | '/destination/cooper-lake-doctors-creek-unit-state-park'
     | '/destination/cooper-lake-johns-creek-unit-state-park'
     | '/destination/cooper-lake-south-sulphur-unit-state-park'
+    | '/destination/devil-s-sinkhole-state-natural-area'
     | '/destination/devils-river-big-satan-unit-state-natural-area'
     | '/destination/devils-river-del-norte-unit-state-natural-area'
     | '/destination/enchanted-rock'
@@ -4829,6 +5080,7 @@ export interface FileRouteTypes {
     | '/destination/world-birding-center-resaca-de-la-palma-state-park'
     | '/do/homestead-exemption'
     | '/do/property-tax-protest'
+    | '/dogs/{-$breed}'
     | '/dps-office/$slug'
     | '/event/$slug'
     | '/events/$collection'
@@ -4865,6 +5117,7 @@ export interface FileRouteTypes {
     | '/fishing/services'
     | '/fishing/species'
     | '/fishing/techniques'
+    | '/guides/citypass-texas'
     | '/historic-site/$slug'
     | '/historic-site/fanthorp-inn-state-historic-site'
     | '/historic-site/fort-leaton-state-historic-site'
@@ -4888,8 +5141,13 @@ export interface FileRouteTypes {
     | '/learn/property-tax-payments'
     | '/learn/property-taxes'
     | '/learn/wildlife-management-valuation'
+    | '/moving-to-texas/tools'
     | '/moving-to-texas/data'
     | '/news/$slug'
+    | '/partner-with-us/agreement'
+    | '/partner-with-us/billing'
+    | '/partner-with-us/examples'
+    | '/partner-with-us/terms'
     | '/property-tax-calculator/$location'
     | '/property-tax/counties'
     | '/shop/$collection'
@@ -4974,6 +5232,7 @@ export interface FileRouteTypes {
     | '/texas-vs/$state'
     | '/things-unique-to-texas/$category'
     | '/things-unique-to-texas/methodology'
+    | '/events/'
     | '/explore/'
     | '/news/'
     | '/shop/'
@@ -5045,6 +5304,8 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/advertising-billing'
+    | '/advertising-terms'
     | '/antones-austin-history'
     | '/austin-music-history'
     | '/barbacoa-big-red-san-antonio'
@@ -5053,6 +5314,7 @@ export interface FileRouteTypes {
     | '/broken-spoke-austin-history'
     | '/buying-a-home-in-texas'
     | '/citation-guide'
+    | '/compare-texas-cities'
     | '/continental-club-austin-history'
     | '/corpus-christi-music-history'
     | '/corrections-policy'
@@ -5060,10 +5322,15 @@ export interface FileRouteTypes {
     | '/dallas-fort-worth-music-history'
     | '/dr-pepper-texas-history'
     | '/editorial-policy'
-    | '/events'
     | '/everything-bigger-in-texas'
+    | '/find-my-county'
     | '/find-my-dmv'
+    | '/find-my-emergency-services'
+    | '/find-my-homestead-exemption'
+    | '/find-my-property-tax'
     | '/find-my-school-district'
+    | '/find-my-utilities'
+    | '/find-my-voter-registration'
     | '/fishing'
     | '/german-czech-texas-towns'
     | '/google-merchant-feed.xml'
@@ -5200,8 +5467,11 @@ export interface FileRouteTypes {
     | '/texas-unique-lodging'
     | '/texas-utility-cost-calculator'
     | '/texas-vehicle-registration'
+    | '/texas-vehicle-registration-fees-taxes'
+    | '/texas-vehicle-registration-renewal'
     | '/texas-vs-every-state'
     | '/texas-western-swing'
+    | '/texas-zip-code-explorer'
     | '/things-that-define-texas.csv'
     | '/things-that-define-texas.json'
     | '/things-unique-to-texas'
@@ -5220,6 +5490,7 @@ export interface FileRouteTypes {
     | '/admin/internal-link-rollback'
     | '/admin/internal-link-tests'
     | '/admin/knowledge-graph-behavior'
+    | '/admin/partner-referrals'
     | '/admin/platform-health'
     | '/admin/social-calendar'
     | '/admin/sports-partners'
@@ -5230,6 +5501,7 @@ export interface FileRouteTypes {
     | '/api/content-disposition'
     | '/api/entity-import-preview'
     | '/api/entity-maintenance'
+    | '/api/find-my-county'
     | '/api/governance-health'
     | '/api/internal-link-coverage'
     | '/api/internal-link-policies'
@@ -5264,6 +5536,7 @@ export interface FileRouteTypes {
     | '/destination/cooper-lake-doctors-creek-unit-state-park'
     | '/destination/cooper-lake-johns-creek-unit-state-park'
     | '/destination/cooper-lake-south-sulphur-unit-state-park'
+    | '/destination/devil-s-sinkhole-state-natural-area'
     | '/destination/devils-river-big-satan-unit-state-natural-area'
     | '/destination/devils-river-del-norte-unit-state-natural-area'
     | '/destination/enchanted-rock'
@@ -5277,6 +5550,7 @@ export interface FileRouteTypes {
     | '/destination/world-birding-center-resaca-de-la-palma-state-park'
     | '/do/homestead-exemption'
     | '/do/property-tax-protest'
+    | '/dogs/{-$breed}'
     | '/dps-office/$slug'
     | '/event/$slug'
     | '/events/$collection'
@@ -5313,6 +5587,7 @@ export interface FileRouteTypes {
     | '/fishing/services'
     | '/fishing/species'
     | '/fishing/techniques'
+    | '/guides/citypass-texas'
     | '/historic-site/$slug'
     | '/historic-site/fanthorp-inn-state-historic-site'
     | '/historic-site/fort-leaton-state-historic-site'
@@ -5336,8 +5611,13 @@ export interface FileRouteTypes {
     | '/learn/property-tax-payments'
     | '/learn/property-taxes'
     | '/learn/wildlife-management-valuation'
+    | '/moving-to-texas/tools'
     | '/moving-to-texas/data'
     | '/news/$slug'
+    | '/partner-with-us/agreement'
+    | '/partner-with-us/billing'
+    | '/partner-with-us/examples'
+    | '/partner-with-us/terms'
     | '/property-tax-calculator/$location'
     | '/property-tax/counties'
     | '/shop/$collection'
@@ -5422,6 +5702,7 @@ export interface FileRouteTypes {
     | '/texas-vs/$state'
     | '/things-unique-to-texas/$category'
     | '/things-unique-to-texas/methodology'
+    | '/events'
     | '/explore'
     | '/news'
     | '/shop'
@@ -5493,6 +5774,8 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/advertising-billing'
+    | '/advertising-terms'
     | '/antones-austin-history'
     | '/austin-music-history'
     | '/barbacoa-big-red-san-antonio'
@@ -5501,6 +5784,7 @@ export interface FileRouteTypes {
     | '/broken-spoke-austin-history'
     | '/buying-a-home-in-texas'
     | '/citation-guide'
+    | '/compare-texas-cities'
     | '/continental-club-austin-history'
     | '/corpus-christi-music-history'
     | '/corrections-policy'
@@ -5510,8 +5794,14 @@ export interface FileRouteTypes {
     | '/editorial-policy'
     | '/events'
     | '/everything-bigger-in-texas'
+    | '/find-my-county'
     | '/find-my-dmv'
+    | '/find-my-emergency-services'
+    | '/find-my-homestead-exemption'
+    | '/find-my-property-tax'
     | '/find-my-school-district'
+    | '/find-my-utilities'
+    | '/find-my-voter-registration'
     | '/fishing'
     | '/german-czech-texas-towns'
     | '/google-merchant-feed.xml'
@@ -5650,8 +5940,11 @@ export interface FileRouteTypes {
     | '/texas-unique-lodging'
     | '/texas-utility-cost-calculator'
     | '/texas-vehicle-registration'
+    | '/texas-vehicle-registration-fees-taxes'
+    | '/texas-vehicle-registration-renewal'
     | '/texas-vs-every-state'
     | '/texas-western-swing'
+    | '/texas-zip-code-explorer'
     | '/things-that-define-texas.csv'
     | '/things-that-define-texas.json'
     | '/things-unique-to-texas'
@@ -5670,6 +5963,7 @@ export interface FileRouteTypes {
     | '/admin/internal-link-rollback'
     | '/admin/internal-link-tests'
     | '/admin/knowledge-graph-behavior'
+    | '/admin/partner-referrals'
     | '/admin/platform-health'
     | '/admin/social-calendar'
     | '/admin/sports-partners'
@@ -5680,6 +5974,7 @@ export interface FileRouteTypes {
     | '/api/content-disposition'
     | '/api/entity-import-preview'
     | '/api/entity-maintenance'
+    | '/api/find-my-county'
     | '/api/governance-health'
     | '/api/internal-link-coverage'
     | '/api/internal-link-policies'
@@ -5714,6 +6009,7 @@ export interface FileRouteTypes {
     | '/destination/cooper-lake-doctors-creek-unit-state-park'
     | '/destination/cooper-lake-johns-creek-unit-state-park'
     | '/destination/cooper-lake-south-sulphur-unit-state-park'
+    | '/destination/devil-s-sinkhole-state-natural-area'
     | '/destination/devils-river-big-satan-unit-state-natural-area'
     | '/destination/devils-river-del-norte-unit-state-natural-area'
     | '/destination/enchanted-rock'
@@ -5727,6 +6023,7 @@ export interface FileRouteTypes {
     | '/destination/world-birding-center-resaca-de-la-palma-state-park'
     | '/do/homestead-exemption'
     | '/do/property-tax-protest'
+    | '/dogs/{-$breed}'
     | '/dps-office/$slug'
     | '/event/$slug'
     | '/events/$collection'
@@ -5763,6 +6060,7 @@ export interface FileRouteTypes {
     | '/fishing/services'
     | '/fishing/species'
     | '/fishing/techniques'
+    | '/guides/citypass-texas'
     | '/historic-site/$slug'
     | '/historic-site/fanthorp-inn-state-historic-site'
     | '/historic-site/fort-leaton-state-historic-site'
@@ -5786,8 +6084,13 @@ export interface FileRouteTypes {
     | '/learn/property-tax-payments'
     | '/learn/property-taxes'
     | '/learn/wildlife-management-valuation'
+    | '/moving-to-texas/tools'
     | '/moving-to-texas_/data'
     | '/news/$slug'
+    | '/partner-with-us/agreement'
+    | '/partner-with-us/billing'
+    | '/partner-with-us/examples'
+    | '/partner-with-us/terms'
     | '/property-tax-calculator/$location'
     | '/property-tax/counties'
     | '/shop/$collection'
@@ -5872,6 +6175,7 @@ export interface FileRouteTypes {
     | '/texas-vs/$state'
     | '/things-unique-to-texas_/$category'
     | '/things-unique-to-texas_/methodology'
+    | '/events/'
     | '/explore/'
     | '/news/'
     | '/shop/'
@@ -5944,6 +6248,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRouteWithChildren
+  AdvertisingBillingRoute: typeof AdvertisingBillingRoute
+  AdvertisingTermsRoute: typeof AdvertisingTermsRoute
   AntonesAustinHistoryRoute: typeof AntonesAustinHistoryRoute
   AustinMusicHistoryRoute: typeof AustinMusicHistoryRoute
   BarbacoaBigRedSanAntonioRoute: typeof BarbacoaBigRedSanAntonioRoute
@@ -5952,6 +6258,7 @@ export interface RootRouteChildren {
   BrokenSpokeAustinHistoryRoute: typeof BrokenSpokeAustinHistoryRoute
   BuyingAHomeInTexasRoute: typeof BuyingAHomeInTexasRoute
   CitationGuideRoute: typeof CitationGuideRoute
+  CompareTexasCitiesRoute: typeof CompareTexasCitiesRoute
   ContinentalClubAustinHistoryRoute: typeof ContinentalClubAustinHistoryRoute
   CorpusChristiMusicHistoryRoute: typeof CorpusChristiMusicHistoryRoute
   CorrectionsPolicyRoute: typeof CorrectionsPolicyRoute
@@ -5961,13 +6268,19 @@ export interface RootRouteChildren {
   EditorialPolicyRoute: typeof EditorialPolicyRoute
   EventsRoute: typeof EventsRouteWithChildren
   EverythingBiggerInTexasRoute: typeof EverythingBiggerInTexasRoute
+  FindMyCountyRoute: typeof FindMyCountyRoute
   FindMyDmvRoute: typeof FindMyDmvRoute
+  FindMyEmergencyServicesRoute: typeof FindMyEmergencyServicesRoute
+  FindMyHomesteadExemptionRoute: typeof FindMyHomesteadExemptionRoute
+  FindMyPropertyTaxRoute: typeof FindMyPropertyTaxRoute
   FindMySchoolDistrictRoute: typeof FindMySchoolDistrictRoute
+  FindMyUtilitiesRoute: typeof FindMyUtilitiesRoute
+  FindMyVoterRegistrationRoute: typeof FindMyVoterRegistrationRoute
   FishingRoute: typeof FishingRouteWithChildren
   GermanCzechTexasTownsRoute: typeof GermanCzechTexasTownsRoute
   GoogleMerchantFeedDotxmlRoute: typeof GoogleMerchantFeedDotxmlRoute
   GrueneHallHistoryRoute: typeof GrueneHallHistoryRoute
-  GuidesRoute: typeof GuidesRoute
+  GuidesRoute: typeof GuidesRouteWithChildren
   HomeGardenRoute: typeof HomeGardenRoute
   HoustonMusicHistoryRoute: typeof HoustonMusicHistoryRoute
   HuntingRoute: typeof HuntingRouteWithChildren
@@ -5975,13 +6288,13 @@ export interface RootRouteChildren {
   LubbockMusicHistoryRoute: typeof LubbockMusicHistoryRoute
   MadeInTexasRoute: typeof MadeInTexasRoute
   MortgageCalculatorRoute: typeof MortgageCalculatorRoute
-  MovingToTexasRoute: typeof MovingToTexasRoute
+  MovingToTexasRoute: typeof MovingToTexasRouteWithChildren
   MovingToTexasChecklistRoute: typeof MovingToTexasChecklistRoute
   NewsRoute: typeof NewsRouteWithChildren
   PaintedChurchesChecklistDottxtRoute: typeof PaintedChurchesChecklistDottxtRoute
   PaintedChurchesDotcsvRoute: typeof PaintedChurchesDotcsvRoute
   PaintedChurchesDotjsonRoute: typeof PaintedChurchesDotjsonRoute
-  PartnerWithUsRoute: typeof PartnerWithUsRoute
+  PartnerWithUsRoute: typeof PartnerWithUsRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
   PropertyRoute: typeof PropertyRoute
   PropertyTaxCalculatorsRoute: typeof PropertyTaxCalculatorsRoute
@@ -6101,8 +6414,11 @@ export interface RootRouteChildren {
   TexasUniqueLodgingRoute: typeof TexasUniqueLodgingRoute
   TexasUtilityCostCalculatorRoute: typeof TexasUtilityCostCalculatorRoute
   TexasVehicleRegistrationRoute: typeof TexasVehicleRegistrationRoute
+  TexasVehicleRegistrationFeesTaxesRoute: typeof TexasVehicleRegistrationFeesTaxesRoute
+  TexasVehicleRegistrationRenewalRoute: typeof TexasVehicleRegistrationRenewalRoute
   TexasVsEveryStateRoute: typeof TexasVsEveryStateRoute
   TexasWesternSwingRoute: typeof TexasWesternSwingRoute
+  TexasZipCodeExplorerRoute: typeof TexasZipCodeExplorerRoute
   ThingsThatDefineTexasDotcsvRoute: typeof ThingsThatDefineTexasDotcsvRoute
   ThingsThatDefineTexasDotjsonRoute: typeof ThingsThatDefineTexasDotjsonRoute
   ThingsUniqueToTexasRoute: typeof ThingsUniqueToTexasRoute
@@ -6117,6 +6433,7 @@ export interface RootRouteChildren {
   ApiContentDispositionRoute: typeof ApiContentDispositionRoute
   ApiEntityImportPreviewRoute: typeof ApiEntityImportPreviewRoute
   ApiEntityMaintenanceRoute: typeof ApiEntityMaintenanceRoute
+  ApiFindMyCountyRoute: typeof ApiFindMyCountyRoute
   ApiGovernanceHealthRoute: typeof ApiGovernanceHealthRoute
   ApiInternalLinkCoverageRoute: typeof ApiInternalLinkCoverageRoute
   ApiInternalLinkPoliciesRoute: typeof ApiInternalLinkPoliciesRoute
@@ -6151,6 +6468,7 @@ export interface RootRouteChildren {
   DestinationCooperLakeDoctorsCreekUnitStateParkRoute: typeof DestinationCooperLakeDoctorsCreekUnitStateParkRoute
   DestinationCooperLakeJohnsCreekUnitStateParkRoute: typeof DestinationCooperLakeJohnsCreekUnitStateParkRoute
   DestinationCooperLakeSouthSulphurUnitStateParkRoute: typeof DestinationCooperLakeSouthSulphurUnitStateParkRoute
+  DestinationDevilSSinkholeStateNaturalAreaRoute: typeof DestinationDevilSSinkholeStateNaturalAreaRoute
   DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute: typeof DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute
   DestinationDevilsRiverDelNorteUnitStateNaturalAreaRoute: typeof DestinationDevilsRiverDelNorteUnitStateNaturalAreaRoute
   DestinationEnchantedRockRoute: typeof DestinationEnchantedRockRoute
@@ -6164,6 +6482,7 @@ export interface RootRouteChildren {
   DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute: typeof DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute
   DoHomesteadExemptionRoute: typeof DoHomesteadExemptionRoute
   DoPropertyTaxProtestRoute: typeof DoPropertyTaxProtestRoute
+  DogsChar123BreedChar125Route: typeof DogsChar123BreedChar125Route
   DpsOfficeSlugRoute: typeof DpsOfficeSlugRoute
   EventSlugRoute: typeof EventSlugRoute
   ExploreCategoryRoute: typeof ExploreCategoryRoute
@@ -6364,6 +6683,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ThingsThatDefineTexasDotcsvRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/texas-zip-code-explorer': {
+      id: '/texas-zip-code-explorer'
+      path: '/texas-zip-code-explorer'
+      fullPath: '/texas-zip-code-explorer'
+      preLoaderRoute: typeof TexasZipCodeExplorerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/texas-western-swing': {
       id: '/texas-western-swing'
       path: '/texas-western-swing'
@@ -6376,6 +6702,20 @@ declare module '@tanstack/react-router' {
       path: '/texas-vs-every-state'
       fullPath: '/texas-vs-every-state'
       preLoaderRoute: typeof TexasVsEveryStateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-vehicle-registration-renewal': {
+      id: '/texas-vehicle-registration-renewal'
+      path: '/texas-vehicle-registration-renewal'
+      fullPath: '/texas-vehicle-registration-renewal'
+      preLoaderRoute: typeof TexasVehicleRegistrationRenewalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-vehicle-registration-fees-taxes': {
+      id: '/texas-vehicle-registration-fees-taxes'
+      path: '/texas-vehicle-registration-fees-taxes'
+      fullPath: '/texas-vehicle-registration-fees-taxes'
+      preLoaderRoute: typeof TexasVehicleRegistrationFeesTaxesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/texas-vehicle-registration': {
@@ -7344,6 +7684,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FishingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/find-my-voter-registration': {
+      id: '/find-my-voter-registration'
+      path: '/find-my-voter-registration'
+      fullPath: '/find-my-voter-registration'
+      preLoaderRoute: typeof FindMyVoterRegistrationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/find-my-utilities': {
+      id: '/find-my-utilities'
+      path: '/find-my-utilities'
+      fullPath: '/find-my-utilities'
+      preLoaderRoute: typeof FindMyUtilitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/find-my-school-district': {
       id: '/find-my-school-district'
       path: '/find-my-school-district'
@@ -7351,11 +7705,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FindMySchoolDistrictRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/find-my-property-tax': {
+      id: '/find-my-property-tax'
+      path: '/find-my-property-tax'
+      fullPath: '/find-my-property-tax'
+      preLoaderRoute: typeof FindMyPropertyTaxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/find-my-homestead-exemption': {
+      id: '/find-my-homestead-exemption'
+      path: '/find-my-homestead-exemption'
+      fullPath: '/find-my-homestead-exemption'
+      preLoaderRoute: typeof FindMyHomesteadExemptionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/find-my-emergency-services': {
+      id: '/find-my-emergency-services'
+      path: '/find-my-emergency-services'
+      fullPath: '/find-my-emergency-services'
+      preLoaderRoute: typeof FindMyEmergencyServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/find-my-dmv': {
       id: '/find-my-dmv'
       path: '/find-my-dmv'
       fullPath: '/find-my-dmv'
       preLoaderRoute: typeof FindMyDmvRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/find-my-county': {
+      id: '/find-my-county'
+      path: '/find-my-county'
+      fullPath: '/find-my-county'
+      preLoaderRoute: typeof FindMyCountyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/everything-bigger-in-texas': {
@@ -7421,6 +7803,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContinentalClubAustinHistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/compare-texas-cities': {
+      id: '/compare-texas-cities'
+      path: '/compare-texas-cities'
+      fullPath: '/compare-texas-cities'
+      preLoaderRoute: typeof CompareTexasCitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/citation-guide': {
       id: '/citation-guide'
       path: '/citation-guide'
@@ -7477,6 +7866,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AntonesAustinHistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/advertising-terms': {
+      id: '/advertising-terms'
+      path: '/advertising-terms'
+      fullPath: '/advertising-terms'
+      preLoaderRoute: typeof AdvertisingTermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/advertising-billing': {
+      id: '/advertising-billing'
+      path: '/advertising-billing'
+      fullPath: '/advertising-billing'
+      preLoaderRoute: typeof AdvertisingBillingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -7518,6 +7921,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/explore/'
       preLoaderRoute: typeof ExploreIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/events/': {
+      id: '/events/'
+      path: '/'
+      fullPath: '/events/'
+      preLoaderRoute: typeof EventsIndexRouteImport
+      parentRoute: typeof EventsRoute
     }
     '/things-unique-to-texas_/methodology': {
       id: '/things-unique-to-texas_/methodology'
@@ -8107,6 +8517,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PropertyTaxCalculatorLocationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/partner-with-us/terms': {
+      id: '/partner-with-us/terms'
+      path: '/terms'
+      fullPath: '/partner-with-us/terms'
+      preLoaderRoute: typeof PartnerWithUsTermsRouteImport
+      parentRoute: typeof PartnerWithUsRoute
+    }
+    '/partner-with-us/examples': {
+      id: '/partner-with-us/examples'
+      path: '/examples'
+      fullPath: '/partner-with-us/examples'
+      preLoaderRoute: typeof PartnerWithUsExamplesRouteImport
+      parentRoute: typeof PartnerWithUsRoute
+    }
+    '/partner-with-us/billing': {
+      id: '/partner-with-us/billing'
+      path: '/billing'
+      fullPath: '/partner-with-us/billing'
+      preLoaderRoute: typeof PartnerWithUsBillingRouteImport
+      parentRoute: typeof PartnerWithUsRoute
+    }
+    '/partner-with-us/agreement': {
+      id: '/partner-with-us/agreement'
+      path: '/agreement'
+      fullPath: '/partner-with-us/agreement'
+      preLoaderRoute: typeof PartnerWithUsAgreementRouteImport
+      parentRoute: typeof PartnerWithUsRoute
+    }
     '/news/$slug': {
       id: '/news/$slug'
       path: '/$slug'
@@ -8120,6 +8558,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/moving-to-texas/data'
       preLoaderRoute: typeof MovingToTexasDataRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/moving-to-texas/tools': {
+      id: '/moving-to-texas/tools'
+      path: '/tools'
+      fullPath: '/moving-to-texas/tools'
+      preLoaderRoute: typeof MovingToTexasToolsRouteImport
+      parentRoute: typeof MovingToTexasRoute
     }
     '/learn/wildlife-management-valuation': {
       id: '/learn/wildlife-management-valuation'
@@ -8281,6 +8726,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/historic-site/$slug'
       preLoaderRoute: typeof HistoricSiteSlugRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/guides/citypass-texas': {
+      id: '/guides/citypass-texas'
+      path: '/citypass-texas'
+      fullPath: '/guides/citypass-texas'
+      preLoaderRoute: typeof GuidesCitypassTexasRouteImport
+      parentRoute: typeof GuidesRoute
     }
     '/fishing/techniques': {
       id: '/fishing/techniques'
@@ -8534,6 +8986,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DpsOfficeSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dogs/{-$breed}': {
+      id: '/dogs/{-$breed}'
+      path: '/dogs/{-$breed}'
+      fullPath: '/dogs/{-$breed}'
+      preLoaderRoute: typeof DogsChar123BreedChar125RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/do/property-tax-protest': {
       id: '/do/property-tax-protest'
       path: '/do/property-tax-protest'
@@ -8623,6 +9082,13 @@ declare module '@tanstack/react-router' {
       path: '/destination/devils-river-big-satan-unit-state-natural-area'
       fullPath: '/destination/devils-river-big-satan-unit-state-natural-area'
       preLoaderRoute: typeof DestinationDevilsRiverBigSatanUnitStateNaturalAreaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/destination/devil-s-sinkhole-state-natural-area': {
+      id: '/destination/devil-s-sinkhole-state-natural-area'
+      path: '/destination/devil-s-sinkhole-state-natural-area'
+      fullPath: '/destination/devil-s-sinkhole-state-natural-area'
+      preLoaderRoute: typeof DestinationDevilSSinkholeStateNaturalAreaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/destination/cooper-lake-south-sulphur-unit-state-park': {
@@ -8863,6 +9329,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiGovernanceHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/find-my-county': {
+      id: '/api/find-my-county'
+      path: '/api/find-my-county'
+      fullPath: '/api/find-my-county'
+      preLoaderRoute: typeof ApiFindMyCountyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/entity-maintenance': {
       id: '/api/entity-maintenance'
       path: '/api/entity-maintenance'
@@ -8931,6 +9404,13 @@ declare module '@tanstack/react-router' {
       path: '/platform-health'
       fullPath: '/admin/platform-health'
       preLoaderRoute: typeof AdminPlatformHealthRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/partner-referrals': {
+      id: '/admin/partner-referrals'
+      path: '/partner-referrals'
+      fullPath: '/admin/partner-referrals'
+      preLoaderRoute: typeof AdminPartnerReferralsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/knowledge-graph-behavior': {
@@ -9464,6 +9944,7 @@ interface AdminRouteChildren {
   AdminInternalLinkRollbackRoute: typeof AdminInternalLinkRollbackRoute
   AdminInternalLinkTestsRoute: typeof AdminInternalLinkTestsRoute
   AdminKnowledgeGraphBehaviorRoute: typeof AdminKnowledgeGraphBehaviorRoute
+  AdminPartnerReferralsRoute: typeof AdminPartnerReferralsRoute
   AdminPlatformHealthRoute: typeof AdminPlatformHealthRoute
   AdminSocialCalendarRoute: typeof AdminSocialCalendarRoute
   AdminSportsPartnersRoute: typeof AdminSportsPartnersRoute
@@ -9481,6 +9962,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminInternalLinkRollbackRoute: AdminInternalLinkRollbackRoute,
   AdminInternalLinkTestsRoute: AdminInternalLinkTestsRoute,
   AdminKnowledgeGraphBehaviorRoute: AdminKnowledgeGraphBehaviorRoute,
+  AdminPartnerReferralsRoute: AdminPartnerReferralsRoute,
   AdminPlatformHealthRoute: AdminPlatformHealthRoute,
   AdminSocialCalendarRoute: AdminSocialCalendarRoute,
   AdminSportsPartnersRoute: AdminSportsPartnersRoute,
@@ -9493,10 +9975,12 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface EventsRouteChildren {
   EventsCollectionRoute: typeof EventsCollectionRoute
+  EventsIndexRoute: typeof EventsIndexRoute
 }
 
 const EventsRouteChildren: EventsRouteChildren = {
   EventsCollectionRoute: EventsCollectionRoute,
+  EventsIndexRoute: EventsIndexRoute,
 }
 
 const EventsRouteWithChildren =
@@ -9635,6 +10119,17 @@ const FishingRouteChildren: FishingRouteChildren = {
 const FishingRouteWithChildren =
   FishingRoute._addFileChildren(FishingRouteChildren)
 
+interface GuidesRouteChildren {
+  GuidesCitypassTexasRoute: typeof GuidesCitypassTexasRoute
+}
+
+const GuidesRouteChildren: GuidesRouteChildren = {
+  GuidesCitypassTexasRoute: GuidesCitypassTexasRoute,
+}
+
+const GuidesRouteWithChildren =
+  GuidesRoute._addFileChildren(GuidesRouteChildren)
+
 interface HuntingRouteChildren {
   HuntingSlugRoute: typeof HuntingSlugRoute
 }
@@ -9645,6 +10140,18 @@ const HuntingRouteChildren: HuntingRouteChildren = {
 
 const HuntingRouteWithChildren =
   HuntingRoute._addFileChildren(HuntingRouteChildren)
+
+interface MovingToTexasRouteChildren {
+  MovingToTexasToolsRoute: typeof MovingToTexasToolsRoute
+}
+
+const MovingToTexasRouteChildren: MovingToTexasRouteChildren = {
+  MovingToTexasToolsRoute: MovingToTexasToolsRoute,
+}
+
+const MovingToTexasRouteWithChildren = MovingToTexasRoute._addFileChildren(
+  MovingToTexasRouteChildren,
+)
 
 interface NewsRouteChildren {
   NewsSlugRoute: typeof NewsSlugRoute
@@ -9657,6 +10164,24 @@ const NewsRouteChildren: NewsRouteChildren = {
 }
 
 const NewsRouteWithChildren = NewsRoute._addFileChildren(NewsRouteChildren)
+
+interface PartnerWithUsRouteChildren {
+  PartnerWithUsAgreementRoute: typeof PartnerWithUsAgreementRoute
+  PartnerWithUsBillingRoute: typeof PartnerWithUsBillingRoute
+  PartnerWithUsExamplesRoute: typeof PartnerWithUsExamplesRoute
+  PartnerWithUsTermsRoute: typeof PartnerWithUsTermsRoute
+}
+
+const PartnerWithUsRouteChildren: PartnerWithUsRouteChildren = {
+  PartnerWithUsAgreementRoute: PartnerWithUsAgreementRoute,
+  PartnerWithUsBillingRoute: PartnerWithUsBillingRoute,
+  PartnerWithUsExamplesRoute: PartnerWithUsExamplesRoute,
+  PartnerWithUsTermsRoute: PartnerWithUsTermsRoute,
+}
+
+const PartnerWithUsRouteWithChildren = PartnerWithUsRoute._addFileChildren(
+  PartnerWithUsRouteChildren,
+)
 
 interface ShopRouteChildren {
   ShopCollectionRoute: typeof ShopCollectionRoute
@@ -9942,6 +10467,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRouteWithChildren,
+  AdvertisingBillingRoute: AdvertisingBillingRoute,
+  AdvertisingTermsRoute: AdvertisingTermsRoute,
   AntonesAustinHistoryRoute: AntonesAustinHistoryRoute,
   AustinMusicHistoryRoute: AustinMusicHistoryRoute,
   BarbacoaBigRedSanAntonioRoute: BarbacoaBigRedSanAntonioRoute,
@@ -9950,6 +10477,7 @@ const rootRouteChildren: RootRouteChildren = {
   BrokenSpokeAustinHistoryRoute: BrokenSpokeAustinHistoryRoute,
   BuyingAHomeInTexasRoute: BuyingAHomeInTexasRoute,
   CitationGuideRoute: CitationGuideRoute,
+  CompareTexasCitiesRoute: CompareTexasCitiesRoute,
   ContinentalClubAustinHistoryRoute: ContinentalClubAustinHistoryRoute,
   CorpusChristiMusicHistoryRoute: CorpusChristiMusicHistoryRoute,
   CorrectionsPolicyRoute: CorrectionsPolicyRoute,
@@ -9959,13 +10487,19 @@ const rootRouteChildren: RootRouteChildren = {
   EditorialPolicyRoute: EditorialPolicyRoute,
   EventsRoute: EventsRouteWithChildren,
   EverythingBiggerInTexasRoute: EverythingBiggerInTexasRoute,
+  FindMyCountyRoute: FindMyCountyRoute,
   FindMyDmvRoute: FindMyDmvRoute,
+  FindMyEmergencyServicesRoute: FindMyEmergencyServicesRoute,
+  FindMyHomesteadExemptionRoute: FindMyHomesteadExemptionRoute,
+  FindMyPropertyTaxRoute: FindMyPropertyTaxRoute,
   FindMySchoolDistrictRoute: FindMySchoolDistrictRoute,
+  FindMyUtilitiesRoute: FindMyUtilitiesRoute,
+  FindMyVoterRegistrationRoute: FindMyVoterRegistrationRoute,
   FishingRoute: FishingRouteWithChildren,
   GermanCzechTexasTownsRoute: GermanCzechTexasTownsRoute,
   GoogleMerchantFeedDotxmlRoute: GoogleMerchantFeedDotxmlRoute,
   GrueneHallHistoryRoute: GrueneHallHistoryRoute,
-  GuidesRoute: GuidesRoute,
+  GuidesRoute: GuidesRouteWithChildren,
   HomeGardenRoute: HomeGardenRoute,
   HoustonMusicHistoryRoute: HoustonMusicHistoryRoute,
   HuntingRoute: HuntingRouteWithChildren,
@@ -9973,13 +10507,13 @@ const rootRouteChildren: RootRouteChildren = {
   LubbockMusicHistoryRoute: LubbockMusicHistoryRoute,
   MadeInTexasRoute: MadeInTexasRoute,
   MortgageCalculatorRoute: MortgageCalculatorRoute,
-  MovingToTexasRoute: MovingToTexasRoute,
+  MovingToTexasRoute: MovingToTexasRouteWithChildren,
   MovingToTexasChecklistRoute: MovingToTexasChecklistRoute,
   NewsRoute: NewsRouteWithChildren,
   PaintedChurchesChecklistDottxtRoute: PaintedChurchesChecklistDottxtRoute,
   PaintedChurchesDotcsvRoute: PaintedChurchesDotcsvRoute,
   PaintedChurchesDotjsonRoute: PaintedChurchesDotjsonRoute,
-  PartnerWithUsRoute: PartnerWithUsRoute,
+  PartnerWithUsRoute: PartnerWithUsRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
   PropertyRoute: PropertyRoute,
   PropertyTaxCalculatorsRoute: PropertyTaxCalculatorsRoute,
@@ -10106,8 +10640,12 @@ const rootRouteChildren: RootRouteChildren = {
   TexasUniqueLodgingRoute: TexasUniqueLodgingRoute,
   TexasUtilityCostCalculatorRoute: TexasUtilityCostCalculatorRoute,
   TexasVehicleRegistrationRoute: TexasVehicleRegistrationRoute,
+  TexasVehicleRegistrationFeesTaxesRoute:
+    TexasVehicleRegistrationFeesTaxesRoute,
+  TexasVehicleRegistrationRenewalRoute: TexasVehicleRegistrationRenewalRoute,
   TexasVsEveryStateRoute: TexasVsEveryStateRoute,
   TexasWesternSwingRoute: TexasWesternSwingRoute,
+  TexasZipCodeExplorerRoute: TexasZipCodeExplorerRoute,
   ThingsThatDefineTexasDotcsvRoute: ThingsThatDefineTexasDotcsvRoute,
   ThingsThatDefineTexasDotjsonRoute: ThingsThatDefineTexasDotjsonRoute,
   ThingsUniqueToTexasRoute: ThingsUniqueToTexasRoute,
@@ -10123,6 +10661,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiContentDispositionRoute: ApiContentDispositionRoute,
   ApiEntityImportPreviewRoute: ApiEntityImportPreviewRoute,
   ApiEntityMaintenanceRoute: ApiEntityMaintenanceRoute,
+  ApiFindMyCountyRoute: ApiFindMyCountyRoute,
   ApiGovernanceHealthRoute: ApiGovernanceHealthRoute,
   ApiInternalLinkCoverageRoute: ApiInternalLinkCoverageRoute,
   ApiInternalLinkPoliciesRoute: ApiInternalLinkPoliciesRoute,
@@ -10165,6 +10704,8 @@ const rootRouteChildren: RootRouteChildren = {
     DestinationCooperLakeJohnsCreekUnitStateParkRoute,
   DestinationCooperLakeSouthSulphurUnitStateParkRoute:
     DestinationCooperLakeSouthSulphurUnitStateParkRoute,
+  DestinationDevilSSinkholeStateNaturalAreaRoute:
+    DestinationDevilSSinkholeStateNaturalAreaRoute,
   DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute:
     DestinationDevilsRiverBigSatanUnitStateNaturalAreaRoute,
   DestinationDevilsRiverDelNorteUnitStateNaturalAreaRoute:
@@ -10187,6 +10728,7 @@ const rootRouteChildren: RootRouteChildren = {
     DestinationWorldBirdingCenterResacaDeLaPalmaStateParkRoute,
   DoHomesteadExemptionRoute: DoHomesteadExemptionRoute,
   DoPropertyTaxProtestRoute: DoPropertyTaxProtestRoute,
+  DogsChar123BreedChar125Route: DogsChar123BreedChar125Route,
   DpsOfficeSlugRoute: DpsOfficeSlugRoute,
   EventSlugRoute: EventSlugRoute,
   ExploreCategoryRoute: ExploreCategoryRoute,

@@ -8,7 +8,7 @@ export const texasRiverBasinsGuideStub: Article = {
   dek: "Texas water makes more sense when you stop thinking only about individual rivers and start thinking in basins: the large drainage systems that connect rain, tributaries, reservoirs, cities, farms and the Gulf.",
   category: "lakes-rivers",
   hero: {
-    src: "/images/editorial/texas-river-basins.svg",
+    src: "/images/editorial/texas-river-basins.jpg",
     alt: "Guadalupe River flowing through a wooded Texas river corridor",
     width: 1600,
     height: 1115,
@@ -34,7 +34,7 @@ export const texasHighwayDesignationsGuideStub: Article = {
   dek: "Texas road shields look like alphabet soup until you know the system. FM, RM, SH, Loop, Spur, Park Road and business routes each describe a different place in the state highway network.",
   category: "road-trips",
   hero: {
-    src: "/images/editorial/texas-highway-designations.svg",
+    src: "/images/editorial/texas-highway-designations.jpg",
     alt: "Two-lane Texas highway crossing open rural country",
     width: 1600,
     height: 1067,
@@ -59,7 +59,7 @@ export const texasCourthouseArchitectureGuideStub: Article = {
   dek: "Texas courthouses share a civic purpose but not a single look. Their towers, domes, stone, brick and symmetry reflect different eras, budgets, architects and ideas about what public buildings should say about a county.",
   category: "texas-history",
   hero: {
-    src: "/images/editorial/texas-courthouse-architecture.svg",
+    src: "/images/editorial/texas-courthouse-architecture.jpg",
     alt: "Historic civic architecture in a Texas county-seat setting",
     width: 1600,
     height: 1067,
@@ -85,7 +85,7 @@ export const texasEcoregionsHabitatsGuideStub: Article = {
   dek: "Pine forest, coastal marsh, blackland prairie, limestone plateau, High Plains and desert can all exist in one state because Texas sits at the meeting point of major climates, elevations, soils and habitat systems.",
   category: "outdoors",
   hero: {
-    src: "/images/editorial/texas-ecoregions-habitats.svg",
+    src: "/images/editorial/texas-ecoregions-habitats.jpg",
     alt: "A broad Texas landscape showing the state's dramatic regional variety",
     width: 1600,
     height: 2133,
@@ -107,8 +107,8 @@ export const texasSettlementPatternsGuideStub: Article = {
   id: "evergreen-texas-settlement-patterns-guide",
   brandId: "texasdefined",
   slug: "texas-settlement-patterns-explained",
-  title: "Texas Settlement Patterns Explained: Why Towns, Farms and Ranch Country Ended Up Where They Did",
-  dek: "Texas communities did not appear randomly. Water, trails, missions, rivers, farming soils, ranching country, county seats, railroads and highways layered one settlement map on top of another.",
+  title: "Texas Settlement Patterns: How Geography Shaped Towns",
+  dek: "See how rivers and reliable water drew early Texas settlement, while rainfall and fertile soils supported denser farm communities than drier ranch country.",
   category: "texas-history",
   hero: {
     src: "https://images.unsplash.com/photo-1531218150217-54595bc2b934?auto=format&fit=crop&w=1600&q=82",
@@ -119,7 +119,7 @@ export const texasSettlementPatternsGuideStub: Article = {
   authorId: "a-marisol",
   publishedAt: "2026-08-16",
   readingMinutes: 9,
-  tags: ["texas settlement", "texas towns", "texas migration", "ranching", "railroads", "county seats", "texas history"],
+  tags: ["texas settlement patterns", "texas geography", "texas towns", "rivers", "ranching", "railroads", "county seats", "texas history"],
   featured: false,
   sourceName: "Texas Historical Commission",
   sourceUrl: "https://thc.texas.gov/travel/historic-road-trips",

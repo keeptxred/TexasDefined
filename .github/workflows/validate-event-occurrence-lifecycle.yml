@@ -1,0 +1,37 @@
+name: Validate event occurrence lifecycle
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/event-occurrence-lifecycle.ts'
+      - 'src/data/major-event-authority.ts'
+      - 'src/data/major-event-supplemental-registry.server.ts'
+      - 'src/routes/event.$slug.tsx'
+      - 'scripts/data/validate-event-occurrence-lifecycle.mjs'
+      - '.github/workflows/validate-event-occurrence-lifecycle.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/data/event-occurrence-lifecycle.ts'
+      - 'src/data/major-event-authority.ts'
+      - 'src/data/major-event-supplemental-registry.server.ts'
+      - 'src/routes/event.$slug.tsx'
+      - 'scripts/data/validate-event-occurrence-lifecycle.mjs'
+      - '.github/workflows/validate-event-occurrence-lifecycle.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate event occurrence lifecycle
+        run: node scripts/data/validate-event-occurrence-lifecycle.mjs

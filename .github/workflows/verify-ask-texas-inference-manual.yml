@@ -1,0 +1,30 @@
+name: Verify Ask Texas inference manually
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ask-texas-inference-manual
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run one bounded live Ask Texas inference probe
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+          ASK_TEXAS_PROBE_QUESTION: Is SH 130 closed right now near Seguin?
+        run: node scripts/ai/verify-ask-texas-inference-production.mjs

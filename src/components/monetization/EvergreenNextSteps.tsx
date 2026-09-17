@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { trackAffiliateClick } from "@/lib/affiliate-click";
 
 export type EvergreenFunnelKind = "home" | "moving" | "travel";
 
@@ -78,6 +79,7 @@ export function EvergreenNextSteps({ category, title }: { category?: string; tit
     const href = safePartnerUrl(partnerUrls[partner.id]);
     return href ? [{ ...partner, href }] : [];
   });
+  const commercialPlacement = `evergreen-next-steps-${kind}`;
 
   const heading = kind === "home"
     ? "Turn the estimate into a real-world comparison"
@@ -120,7 +122,11 @@ export function EvergreenNextSteps({ category, title }: { category?: string; tit
                     href={partner.href}
                     target="_blank"
                     rel="sponsored nofollow noopener noreferrer"
+                    data-affiliate-partner={partner.id}
+                    data-affiliate-placement={commercialPlacement}
                     data-commercial-partner={partner.id}
+                    data-commercial-placement={commercialPlacement}
+                    onClick={() => trackAffiliateClick({ partner: partner.id, label: partner.label, placement: commercialPlacement, module: "evergreen-next-steps" })}
                     className="group block h-full border border-border bg-background p-5 transition-colors hover:border-primary/60"
                   >
                     <span className="font-display text-lg leading-tight transition-colors group-hover:text-primary">{partner.label}</span>

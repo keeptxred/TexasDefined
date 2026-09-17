@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+  "reviewDate": "2026-09-08",
+  "reviewMethod": "GSC-prioritized state-specific server-side evidence review against the Wave 4 remediation requirements: current tax, housing, labor, hazard/resilience and transportation sources; stronger metro/place comparison; dated review metadata; canonical/schema integrity; and sitemap qualification",
+  "summary": { "reviewed": 3, "KEEP": 3, "IMPROVE": 0, "NOINDEX": 0, "REMOVE_CONSOLIDATE": 0 },
+  "reviewed": [
+    {
+      "path": "/texas-vs/minnesota",
+      "action": "KEEP",
+      "reason": "Minnesota now has 2026 Department of Revenue tax brackets, current Census housing benchmarks, July 2026 DEED labor evidence, the FEMA-approved 2024 State Hazard Mitigation Plan and MnDOT statewide transit-provider evidence plus distinct Twin Cities, Rochester, Duluth, St. Cloud, Mankato and rural-market comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/montana",
+      "action": "KEEP",
+      "reason": "Montana now has current 2026 Department of Revenue tax guidance, current Census housing benchmarks, July 2026 state labor evidence, current Montana DES hazard-mitigation planning and MDT statewide public-transit evidence plus distinct Billings, Missoula, Bozeman, Great Falls, Helena, Kalispell and rural-market comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    },
+    {
+      "path": "/texas-vs/new-hampshire",
+      "action": "KEEP",
+      "reason": "New Hampshire now has current DRA confirmation of no W-2 wage tax and the repeal of the Interest and Dividends Tax, current Census housing benchmarks, July 2026 BLS labor evidence, the 2023 State Hazard Mitigation Plan and NHDOT community-transportation-region evidence plus distinct Manchester-Nashua, Seacoast, Concord, Upper Valley, Lakes Region and North Country comparison guidance.",
+      "supersedes": "ops/seo/gsc-remediation-wave4-2026-09-05.json",
+      "previousAction": "IMPROVE"
+    }
+  ]
+}

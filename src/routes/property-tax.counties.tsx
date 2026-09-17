@@ -4,22 +4,31 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
 import { Container } from '@/components/layout/Container';
 import { MAJOR_COUNTY_PROPERTY_TAX_CALCULATORS, countyPropertyTaxCalculatorTarget } from '@/data/property/county-calculator-targets';
-import { COUNTY_PROPERTY_RECORDS } from '@/data/property/county-property-data';
 import { isCountyPropertyIndexReady } from '@/data/property/county-property-schema';
 import { formatDatasetValue, getTexasDataset } from '@/data/texas-data-center';
-import { TEXAS_COUNTIES } from '@/data/texas-places';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/property-tax/counties';
 const description = 'Compare selected adopted county government property-tax rates, browse verified county property-tax guides, and move from any Texas county into a parcel-specific official-rate calculator.';
-const verifiedPropertyCounties = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
-const verifiedPropertySlugs = new Set(verifiedPropertyCounties.map((county) => county.slug));
 const popularCountySlugs = ['comal', 'travis', 'denton', 'bexar', 'harris', 'waller', 'coryell', 'polk', 'lubbock'];
-const popularCounties = popularCountySlugs.map((slug) => TEXAS_COUNTIES.find((county) => county.slug === slug)).filter((county): county is (typeof TEXAS_COUNTIES)[number] => Boolean(county));
 
 export const Route = createFileRoute('/property-tax/counties')({
-  loader: () => getTexasDataset('county-property-tax-rates'),
-  head: ({ loaderData: countyRateDataset }) => {
+  loader: async () => {
+    const [{ COUNTY_PROPERTY_RECORDS }, { TEXAS_COUNTIES }, countyRateDataset] = await Promise.all([
+      import('@/data/property/county-property-data'),
+      import('@/data/texas-places'),
+      getTexasDataset('county-property-tax-rates'),
+    ]);
+    const verifiedPropertyCounties = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
+    const verifiedPropertySlugs = new Set(verifiedPropertyCounties.map((county) => county.slug));
+    const popularCounties = popularCountySlugs
+      .map((slug) => TEXAS_COUNTIES.find((county) => county.slug === slug))
+      .filter((county) => county !== undefined);
+
+    return { countyRateDataset, verifiedPropertyCounties, verifiedPropertySlugList: [...verifiedPropertySlugs], popularCounties, TEXAS_COUNTIES };
+  },
+  head: ({ loaderData }) => {
+    const { countyRateDataset, verifiedPropertyCounties } = loaderData;
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     const siteUrl = absoluteUrl(texasDefinedBrand, '/');
     return {
@@ -60,7 +69,8 @@ export const Route = createFileRoute('/property-tax/counties')({
 });
 
 function CountyPropertyTaxDirectory() {
-  const countyRateDataset = Route.useLoaderData();
+  const { countyRateDataset, verifiedPropertyCounties, verifiedPropertySlugList, popularCounties, TEXAS_COUNTIES } = Route.useLoaderData();
+  const verifiedPropertySlugs = new Set(verifiedPropertySlugList);
 
   return (
     <>

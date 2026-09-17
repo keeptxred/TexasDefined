@@ -1,0 +1,35 @@
+name: Validate sports venue Phase 3 wave 3
+
+on:
+  pull_request:
+    paths:
+      - 'src/routes/sports-venue.$slug.tsx'
+      - 'src/data/sports-venue-guide-pilots.ts'
+      - 'src/data/sports-venue-images.ts'
+      - 'src/data/sports-venue-enrichment*.ts'
+      - 'src/data/sports-venue-content-remediation*.ts'
+      - 'src/data/sports-venue-events.functions.ts'
+      - 'src/components/sports/SportsVenueGuidePilotContent.tsx'
+      - 'src/components/sports/SportsVenueGuidePage.tsx'
+      - 'src/components/editorial/TexasEventCarousel.tsx'
+      - 'public/stay-nearby-hotels.json'
+      - 'scripts/data/validate-sports-venue-phase3-wave3.mjs'
+      - '.github/workflows/validate-sports-venue-phase3-wave3.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/data/validate-sports-venue-phase3-wave3.mjs
+      - run: npm run build
+      - run: npm run performance:validate

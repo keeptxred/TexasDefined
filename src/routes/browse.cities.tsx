@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { CITY_AUTHORITY_SLUGS, cityAuthorityPath } from "@/data/city-authority-index";
-import { TEXAS_CITIES } from "@/data/texas-places";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const description =
@@ -10,7 +9,12 @@ const description =
 const cityAnchor = (slug: string) => `city-${slug}`;
 
 export const Route = createFileRoute("/browse/cities")({
-  head: () => {
+  loader: async () => {
+    const { TEXAS_CITIES } = await import("@/data/texas-places");
+    return { cities: TEXAS_CITIES };
+  },
+  head: ({ loaderData }) => {
+    const cities = loaderData?.cities ?? [];
     const pageUrl = absoluteUrl(texasDefinedBrand, "/browse/cities");
     const siteUrl = absoluteUrl(texasDefinedBrand, "/");
     return {
@@ -44,8 +48,8 @@ export const Route = createFileRoute("/browse/cities")({
               "@type": "ItemList",
               "@id": `${pageUrl}#cities`,
               name: "Texas cities",
-              numberOfItems: TEXAS_CITIES.length,
-              itemListElement: TEXAS_CITIES.map((city, index) => ({
+              numberOfItems: cities.length,
+              itemListElement: cities.map((city, index) => ({
                 "@type": "ListItem",
                 position: index + 1,
                 url: CITY_AUTHORITY_SLUGS.has(city.slug)

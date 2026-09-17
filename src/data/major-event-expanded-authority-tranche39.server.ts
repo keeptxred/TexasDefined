@@ -11,14 +11,16 @@ const records: MajorEventAuthorityRecord[] = [
     category: "rodeo",
     startDate: "2026-10-08",
     endDate: "2026-10-18",
+    dateNote: "The 2026 Heart O' Texas Fair & Rodeo runs October 8-18 at the Extraco Events Center in Waco. Fair hours vary by day, and the One HOT Rodeo is scheduled October 9-11 and 13-18. Use the organizer's current hours, rodeo and ticket pages for the exact day you plan to attend.",
     venue: "Extraco Events Center",
     officialUrl: "https://www.hotfair.com/",
-    sourceCheckedAt: "2026-08-30",
-    whyItMatters: "The Heart O' Texas Fair & Rodeo is an 11-day Waco destination combining PRCA rodeo performances, livestock and competitive events, carnival attractions, concerts, marketplace vendors and agricultural education at the Extraco Events Center.",
+    sourceCheckedAt: "2026-09-10",
+    whyItMatters: "The Heart O' Texas Fair & Rodeo is an 11-day Waco destination combining fairgrounds attractions, concerts, livestock and competitive events with a separately scheduled rodeo program. The official 2026 pages now publish the day-by-day fair hours, One HOT Rodeo dates and ticket rules visitors need before choosing a date.",
     planningSections: [
-      { title: "Use October 8-18 as the confirmed 2026 fair window", body: "The organizer's current FAQ and vendor materials publish the Heart O' Texas Fair & Rodeo for October 8 through 18, 2026 at the Extraco Events Center. Daily fair and carnival hours vary, so use the official schedule rather than treating every day as identical." },
-      { title: "Choose a day around the rodeo or fair experience", body: "The One HOT Rodeo has separately scheduled performances across the fair run while general fair admission covers many attractions and entertainment areas. Decide whether rodeo seating, livestock competition, concerts or carnival time is the priority before buying tickets." },
-      { title: "Build Waco into the itinerary", body: "The fairgrounds sit within Waco, giving travelers enough nearby museums, food and riverfront attractions to make the fair part of a broader McLennan County trip rather than an isolated evening stop." },
+      { title: "Heart O' Texas Fair 2026 dates and hours", body: "The fair runs October 8-18, 2026. The organizer lists Thursday, October 8 from 6-11 p.m.; Friday, October 9 from 4 p.m.-midnight; Saturday, October 10 from noon-midnight; Sunday, October 11 from noon-11 p.m.; Monday through Thursday, October 12-15 from 4-11 p.m.; Friday, October 16 from 4 p.m.-midnight; Saturday, October 17 from noon-midnight; and Sunday, October 18 from noon-11 p.m. Day-specific promotions also vary, so confirm the official hours page for the date you choose." },
+      { title: "One HOT Rodeo 2026 schedule", body: "Rodeo performances are scheduled October 9, 10 and 11; October 13, 14, 15 and 16; October 17; and October 18. The organizer lists a 7 p.m. start for the October 9-17 rodeo nights, while the October 18 Extreme Bulls performance starts at 5 p.m. inside the Extraco Coliseum. The fair is open on additional days when no rodeo performance is scheduled." },
+      { title: "Heart O' Texas tickets: know what your ticket includes", body: "The current official ticket page lists advance general fair admission at $18 and states that gate admission does not include the rodeo. Rodeo tickets use reserved seating and include fairgrounds gate admission; prices vary by performance. Check the official ticket page before purchasing because promotions, inventory and day-specific packages can change." },
+      { title: "Build Waco into the itinerary", body: "The Extraco Events Center is in Waco, so the fair can anchor a broader McLennan County trip. Once you choose the exact fair or rodeo date, add museums, food and riverfront stops around the confirmed gate and performance times instead of treating the event as an isolated evening stop." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-mclennan", label: "Explore McLennan County", description: "Build more Waco and McLennan County stops around the fair." },
@@ -26,8 +28,10 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "Heart O' Texas Fair & Rodeo official site", url: "https://www.hotfair.com/" },
+      { label: "Heart O' Texas Fair & Rodeo 2026 hours and directions", url: "https://www.hotfair.com/directions.aspx" },
       { label: "Heart O' Texas Fair & Rodeo official FAQ", url: "https://www.hotfair.com/p/about-us/faq" },
-      { label: "Heart O' Texas Fair & Rodeo vendor information", url: "https://www.hotfair.com/p/get-involved/vendors" },
+      { label: "Heart O' Texas Fair & Rodeo 2026 rodeo schedule", url: "https://www.hotfair.com/p/rodeo" },
+      { label: "Heart O' Texas Fair & Rodeo 2026 tickets", url: "https://www.hotfair.com/p/tickets" },
     ],
   },
   {

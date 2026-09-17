@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "sourceSnapshot": "ops/seo/gsc-discovered-2026-09-05.json",
+  "reviewDate": "2026-09-05",
+  "reviewMethod": "Repository publication-gate and deep-completeness review, with live production spot-checking",
+  "summary": {
+    "reviewed": 24,
+    "KEEP": 24,
+    "IMPROVE": 0,
+    "NOINDEX": 0,
+    "REMOVE_CONSOLIDATE": 0
+  },
+  "reviewed": [
+    {
+      "path": "/sports-venue/baylor-ballpark",
+      "action": "KEEP",
+      "reason": "The seeded venue is protected by the entity indexability gate and statewide sports deep-completeness validator, which requires venue-specific events, parking, arrival, visitor context, planning links, imagery and a verified review date."
+    },
+    {
+      "path": "/sports-venue/circuit-of-the-americas",
+      "action": "KEEP",
+      "reason": "The live page and repository profile provide official-source verification, reviewed date, parking and arrival guidance, event planning, county context, related venues and visitor discovery links; the venue also passes the statewide deep-completeness contract."
+    },
+    {
+      "path": "/sports-venue/credit-union-of-texas-event-center",
+      "action": "KEEP",
+      "reason": "The seeded venue is protected by the entity indexability gate and statewide sports deep-completeness validator, which requires venue-specific events, parking, arrival, visitor context, planning links, imagery and a verified review date."
+    },
+    {
+      "path": "/sports-venue/cy-fair-fcu-stadium",
+      "action": "KEEP",
+      "reason": "The seeded venue is protected by the entity indexability gate and statewide sports deep-completeness validator, which requires venue-specific events, parking, arrival, visitor context, planning links, imagery and a verified review date."
+    },
+    {
+      "path": "/sports-venue/darrell-k-royal-texas-memorial-stadium",
+      "action": "KEEP",
+      "reason": "The seeded venue is protected by the entity indexability gate and statewide sports deep-completeness validator, which requires venue-specific events, parking, arrival, visitor context, planning links, imagery and a verified review date."
+    },
+    {
+      "path": "/sports-venue/dell-diamond",
+      "action": "KEEP",
+      "reason": "The seeded venue is protected by the entity indexability gate and statewide sports deep-completeness validator, which requires venue-specific events, parking, arrival, visitor context, planning links, imagery and a verified review date."
+    },
+    {
+      "path": "/sports-venue/foster-pavilion",
+      "action": "KEEP",
+      "reason": "The seeded venue is protected by the entity indexability gate and statewide sports deep-completeness validator, which requires venue-specific events, parking, arrival, visitor context, planning links, imagery and a verified review date."
+    },
+    {
+      "path": "/sports-venue/jones-att-stadium",
+      "action": "KEEP",
+      "reason": "The seeded venue is protected by the entity indexability gate and statewide sports deep-completeness validator, which requires venue-specific events, parking, arrival, visitor context, planning links, imagery and a verified review date."
+    },
+    {
+      "path": "/sports-venue/memorial-park-golf-course",
+      "action": "KEEP",
+      "reason": "The seeded venue is protected by the entity indexability gate and statewide sports deep-completeness validator, which requires venue-specific events, parking, arrival, visitor context, planning links, imagery and a verified review date."
+    },
+    {
+      "path": "/sports-venue/moody-center",
+      "action": "KEEP",
+      "reason": "The seeded venue is protected by the entity indexability gate and statewide sports deep-completeness validator, which requires venue-specific events, parking, arrival, visitor context, planning links, imagery and a verified review date."
+    },
+    {
+      "path": "/sports-venue/q2-stadium",
+      "action": "KEEP",
+      "reason": "The seeded venue is protected by the entity indexability gate and statewide sports deep-completeness validator, which requires venue-specific events, parking, arrival, visitor context, planning links, imagery and a verified review date."
+    },
+    {
+      "path": "/sports-venue/reed-arena",
+      "action": "KEEP",
+      "reason": "The seeded venue is protected by the entity indexability gate and statewide sports deep-completeness validator, which requires venue-specific events, parking, arrival, visitor context, planning links, imagery and a verified review date."
+    },
+    {
+      "path": "/sports-venue/round-rock-multipurpose-complex",
+      "action": "KEEP",
+      "reason": "The seeded venue is protected by the entity indexability gate and statewide sports deep-completeness validator, which requires venue-specific events, parking, arrival, visitor context, planning links, imagery and a verified review date."
+    },
+    {
+      "path": "/sports-venue/round-rock-sports-center",
+      "action": "KEEP",
+      "reason": "The seeded venue is protected by the entity indexability gate and statewide sports deep-completeness validator, which requires venue-specific events, parking, arrival, visitor context, planning links, imagery and a verified review date."
+    },
+    {
+      "path": "/sports-venue/sam-houston-race-park",
+      "action": "KEEP",
+      "reason": "The seeded venue is protected by the entity indexability gate and statewide sports deep-completeness validator, which requires venue-specific events, parking, arrival, visitor context, planning links, imagery and a verified review date."
+    },
+    {
+      "path": "/sports-venue/texas-motor-speedway",
+      "action": "KEEP",
+      "reason": "The seeded venue is protected by the entity indexability gate and statewide sports deep-completeness validator, which requires venue-specific events, parking, arrival, visitor context, planning links, imagery and a verified review date."
+    },
+    {
+      "path": "/sports-venue/whataburger-field",
+      "action": "KEEP",
+      "reason": "The seeded venue is protected by the entity indexability gate and statewide sports deep-completeness validator, which requires venue-specific events, parking, arrival, visitor context, planning links, imagery and a verified review date."
+    },
+    {
+      "path": "/fishing/lakes/canyon-lake/access",
+      "action": "KEEP",
+      "reason": "This section is published only for a complete-lake record and has its own canonical metadata, WebPage and breadcrumb schema, official access citations, live lake-level context and sitemap discovery; unfinished lake records are explicitly blocked from thin publication."
+    },
+    {
+      "path": "/fishing/lakes/canyon-lake/boating",
+      "action": "KEEP",
+      "reason": "This section is published only for a complete-lake record and has its own canonical metadata, WebPage and breadcrumb schema, official lake/live-level citations, section-specific planning content and sitemap discovery; unfinished lake records are explicitly blocked from thin publication."
+    },
+    {
+      "path": "/fishing/lakes/canyon-lake/guides",
+      "action": "KEEP",
+      "reason": "This section is published only for a complete-lake record and uses the shared complete-lake guide data, canonical metadata, structured data, verified lake source context and sitemap discovery; unfinished lake records are explicitly blocked from thin publication."
+    },
+    {
+      "path": "/fishing/lakes/lake-livingston/nearby",
+      "action": "KEEP",
+      "reason": "This nearby-planning section is published only for a complete-lake record and uses the verified showcase-lake guide system with canonical metadata, structured data, lake-specific visitor context and sitemap discovery; unfinished lake records are explicitly blocked from thin publication."
+    },
+    {
+      "path": "/fishing/lakes/lake-texoma/boating",
+      "action": "KEEP",
+      "reason": "This section is published only for a complete-lake record and has its own canonical metadata, WebPage and breadcrumb schema, official lake/live-level citations, section-specific planning content and sitemap discovery; unfinished lake records are explicitly blocked from thin publication."
+    },
+    {
+      "path": "/fishing/lakes/lake-texoma/nearby",
+      "action": "KEEP",
+      "reason": "This nearby-planning section is published only for a complete-lake record and uses the verified showcase-lake guide system with canonical metadata, structured data, lake-specific visitor context and sitemap discovery; unfinished lake records are explicitly blocked from thin publication."
+    },
+    {
+      "path": "/fishing/lakes/sam-rayburn-reservoir/nearby",
+      "action": "KEEP",
+      "reason": "This nearby-planning section is published only for a complete-lake record and uses the verified showcase-lake guide system with canonical metadata, structured data, lake-specific visitor context and sitemap discovery; unfinished lake records are explicitly blocked from thin publication."
+    }
+  ],
+  "evidence": {
+    "sportsVenueTemplate": "src/routes/sports-venue.$slug.tsx",
+    "sportsVenueIndexabilityGate": "src/data/knowledge-graph/relationships.ts",
+    "sportsVenueDeepCompletenessValidator": "scripts/data/validate-sports-venue-deep-completeness.mjs",
+    "fishingSectionRoute": "src/routes/fishing.lakes.$slug.$section.tsx",
+    "fishingCompleteLakeValidator": "scripts/data/validate-fishing-lake-expansion.mjs"
+  },
+  "nextReviewCohorts": [
+    "remaining Texas-vs-state pages",
+    "nested Painted Churches people/symbols/techniques/routes/heritage/preservation/support pages",
+    "remaining initial IMPROVE utility and support pages"
+  ]
+}

@@ -9,8 +9,28 @@ export const TEXAS_VS_STATES = TEXAS_VS_STATE_GROUPS.flatMap((group) => group.st
 export const texasVsStateSlug = (value: string) => value.toLowerCase().replaceAll(" ", "-");
 export const texasVsStateName = (slug: string) => TEXAS_VS_STATES.find((state) => texasVsStateSlug(state) === slug) ?? null;
 
+export type TexasVsStateSourceTopic = "tax" | "housing" | "jobs" | "risk" | "transport";
+
+export type TexasVsStateSource = {
+  label: string;
+  url: string;
+  topic: TexasVsStateSourceTopic;
+};
+
+export type TexasVsStateEvidence = {
+  reviewedAt: string;
+  taxLens: string;
+  housingLens: string;
+  jobsLens: string;
+  riskLens: string;
+  transportationLens: string;
+  metroLens: string;
+  sources: TexasVsStateSource[];
+};
+
 export type TexasVsStateProfile = {
   comparisonFocus: string;
   placeLens: string;
   climateLens: string;
+  evidence?: TexasVsStateEvidence;
 };

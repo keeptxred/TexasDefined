@@ -80,6 +80,22 @@ if (!sitemap.includes('Promise.allSettled')) failures.push('Primary sitemap must
 if (!sitemap.includes('status: 503') || !sitemap.includes('"retry-after": "300"')) failures.push('Primary sitemap must return retryable 503 semantics on core data failure.');
 
 for (const feature of [
+  'const ARTICLE_LASTMOD_BY_SLUG',
+  'const indexableLocalArticles = articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article));',
+  'indexableLocalArticleSlugs',
+  'Object.keys(ARTICLE_LASTMOD_BY_SLUG)',
+  'isArticleDiscoveryReady(catalogArticle)',
+  'platform.articles.getBySlug(scope, slug)',
+  'fullArticle && isArticleIndexReady(fullArticle)',
+  'indexableLocalArticles.push(...protectedLocalArticles)',
+]) {
+  if (!sitemap.includes(feature)) failures.push(`Protected sitemap article readiness contract missing: ${feature}`);
+}
+if (sitemap.includes('...articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleDiscoveryReady(article)).map')) {
+  failures.push('Discovery-only article catalog entries must not be submitted directly to the sitemap.');
+}
+
+for (const feature of [
   'const SITEMAP_PAGE_SIZE = 200',
   'const SITEMAP_MAX_ROWS = 10_000',
   'requestAllForSitemap',
@@ -114,7 +130,8 @@ for (const lowValueDependency of ['fetchExploreDestinations', 'fetchCoreExploreD
   if (sitemap.includes(lowValueDependency)) failures.push(`Primary sitemap must not load Explore-only dependency: ${lowValueDependency}.`);
 }
 if (!sitemap.includes('stale-while-revalidate=86400')) failures.push('Primary sitemap cache policy must preserve a stale response while revalidating.');
-if (!exploreSitemap.includes('stale-while-revalidate=86400')) failures.push('Explore sitemap cache policy must preserve a stale response while revalidating.');
+if (!exploreSitemap.includes('"Cache-Control": "no-store"')) failures.push('Explore sitemap cache policy must disable edge storage while crawl consistency is protected.');
+if (exploreSitemap.includes('stale-while-revalidate=')) failures.push('Explore sitemap must not permit stale-while-revalidate while regional stale variants are a GSC risk.');
 
 for (const [filename, legacyPrefix, targetPrefix] of legacyExploreRedirects) {
   const source = fs.readFileSync(filename, 'utf8');
@@ -141,7 +158,7 @@ for (const feature of [
   '.filter((slug) => EXPLORE_CATEGORY_SLUGS.has(slug))',
   'const categorySlugs = categoryCandidates.filter((slug) => isExploreCategoryIndexReady(',
   '(EXPLORE_CATEGORY_ARTICLE_COUNTS[slug as keyof typeof EXPLORE_CATEGORY_ARTICLE_COUNTS] ?? 0)',
-  '+ destinations.filter((destination) => destination.category === slug).length',
+  '+ indexableDestinations.filter((destination) => destination.category === slug).length',
   '+ (slug === "food-bbq" ? 1 : 0)',
   'categorySlugs.map((slug)',
   '`/explore/${slug}`',
@@ -191,4 +208,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Sitemap ownership, complete paginated remote-article coverage, crawl-demand partitioning, preserved-catalog remote fallback, resolved quality gates, runtime-isolated sparse-category sitemap gating, malformed-path rejection, all ${redirects.length} governed redirects, all ${nonIndexableRoutes.length} governed noindex routes, migrated aliases and regional quality passed validation.`);
+console.log(`Sitemap ownership, complete paginated remote-article coverage, strict protected lazy-article resolution, crawl-demand partitioning, preserved-catalog remote fallback, resolved quality gates, runtime-isolated sparse-category sitemap gating, malformed-path rejection, all ${redirects.length} governed redirects, all ${nonIndexableRoutes.length} governed noindex routes, migrated aliases and regional quality passed validation.`);

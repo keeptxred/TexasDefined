@@ -2,8 +2,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
-const route = fs.readFileSync(path.join(root, 'src/routes/events.tsx'), 'utf8');
-const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/events.lazy.tsx'), 'utf8');
+const layoutRoute = fs.readFileSync(path.join(root, 'src/routes/events.tsx'), 'utf8');
+const layoutLazyRoute = fs.readFileSync(path.join(root, 'src/routes/events.lazy.tsx'), 'utf8');
+const route = fs.readFileSync(path.join(root, 'src/routes/events.index.tsx'), 'utf8');
+const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/events.index.lazy.tsx'), 'utf8');
 const visibleRoute = `${route}\n${lazyRoute}`;
 const serverHead = fs.readFileSync(path.join(root, 'src/data/major-event-directory.server.ts'), 'utf8');
 const eventLeaf = fs.readFileSync(path.join(root, 'src/data/major-event-page.server.ts'), 'utf8');
@@ -21,6 +23,13 @@ const eventIndex = fs.readFileSync(path.join(root, 'src/data/major-event-index.t
 const supplementalRegistry = fs.readFileSync(path.join(root, 'src/data/major-event-supplemental-registry.server.ts'), 'utf8');
 const wrapper = fs.readFileSync(path.join(root, 'src/data/major-event-directory.ts'), 'utf8');
 const errors = [];
+
+if (!layoutRoute.includes('createFileRoute("/events")')) errors.push('Events layout route must remain the /events parent.');
+if (layoutRoute.includes('loader:') || layoutRoute.includes('head:')) errors.push('Events layout route must not own landing loader/head state.');
+if (!layoutLazyRoute.includes('createLazyFileRoute("/events")') || !layoutLazyRoute.includes('<Outlet />')) errors.push('Events layout must unconditionally render its child Outlet.');
+if (layoutLazyRoute.includes('useRouterState') || layoutLazyRoute.includes('What’s happening across Texas')) errors.push('Events layout must not choose landing vs child content from pathname state.');
+if (!route.includes('createFileRoute("/events/")')) errors.push('Events statewide landing must remain an explicit /events/ index child.');
+if (!lazyRoute.includes('createLazyFileRoute("/events/")')) errors.push('Events statewide UI must remain on the explicit /events/ index child.');
 
 const recurrenceDerivedDateSlugs = [
   'dallas-holiday-parade',

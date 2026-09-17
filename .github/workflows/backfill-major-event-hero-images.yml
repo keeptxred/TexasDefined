@@ -1,0 +1,136 @@
+name: Backfill major Event hero images
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/data/backfill-major-event-hero-images.mjs'
+      - '.github/workflows/backfill-major-event-hero-images.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/data/backfill-major-event-hero-images.mjs'
+      - '.github/workflows/backfill-major-event-hero-images.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: major-event-hero-backfill
+  cancel-in-progress: false
+
+jobs:
+  validate-resolver:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Syntax-check Event hero resolver
+        run: node --check scripts/data/backfill-major-event-hero-images.mjs
+      - name: Verify current Event enrichment provenance
+        run: node scripts/data/audit-event-schema-enrichment.mjs
+
+  backfill:
+    if: github.event_name != 'pull_request'
+    needs: validate-resolver
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Ensure JPEG conversion support
+        run: |
+          if ! command -v convert >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq imagemagick
+          fi
+
+      - name: Generate governed Event hero backlog
+        run: node scripts/data/backfill-major-event-hero-images.mjs
+
+      - name: Audit generated Event provenance
+        run: node scripts/data/audit-event-schema-enrichment.mjs
+
+      - name: Verify Event SEO and image governance
+        run: |
+          node scripts/data/validate-events-seo.mjs
+          node scripts/data/validate-image-seo.mjs
+
+      - name: Upload backfill report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: major-event-hero-backfill-${{ github.run_id }}
+          path: scripts/data/major-event-hero-backfill-report.json
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Detect reviewable changes
+        id: changes
+        shell: bash
+        run: |
+          if [[ -z "$(git status --porcelain -- 'src/data/major-event-schema-enrichment-batch*.server.ts' src/data/major-event-schema-enrichment-overrides.server.ts public/images/events scripts/data/major-event-hero-backfill-report.json)" ]]; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+            echo 'No Event hero changes to preserve.'
+          else
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+            echo 'Event hero changes detected.'
+          fi
+
+      - name: Create Event hero review branch
+        if: steps.changes.outputs.changed == 'true'
+        id: branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/major-event-hero-backfill-${GITHUB_RUN_ID}"
+          git config user.name "Texas Defined Data Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add 'src/data/major-event-schema-enrichment-batch'*.server.ts src/data/major-event-schema-enrichment-overrides.server.ts public/images/events scripts/data/major-event-hero-backfill-report.json
+          git commit -m "fix: backfill governed major Event hero images"
+          git push origin "$branch"
+          echo "name=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Open reviewable Event hero pull request
+        if: steps.changes.outputs.changed == 'true'
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          pr_url="$(gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title 'Review governed major Event hero backfill' \
+            --body $'Automated major-Event hero remediation. Existing compliant images are preserved. Missing heroes receive unique TexasDefined-owned photorealistic AI editorial depictions with explicit structured provenance, because exact-location third-party licensing cannot be accepted automatically. No image is presented as documentary photography, and this PR is intentionally not auto-merged. Review visual relevance/quality plus the generated report; the normal protected merge gate remains required.')"
+          echo "url=$pr_url" >> "$GITHUB_OUTPUT"
+          echo "Opened $pr_url"
+
+      - name: Run official validation on generated branch
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        run: bash scripts/ci/dispatch-validate-branch.sh "$BRANCH"

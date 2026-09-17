@@ -61,10 +61,60 @@ for (const guide of guides) {
   }
 }
 
+const countyRouteFiles = [
+  'src/routes/find-my-county.tsx',
+  'src/routes/find-my-county.lazy.tsx',
+  'src/routes/api.find-my-county.ts',
+];
+const countyFinder = countyRouteFiles
+  .map((filename) => fs.readFileSync(path.join(root, filename), 'utf8'))
+  .join('\n');
+const countyApi = fs.readFileSync(path.join(root, 'src/routes/api.find-my-county.ts'), 'utf8');
+
+for (const feature of [
+  "canonicalPath = '/find-my-county'",
+  "'@type': 'WebApplication'",
+  "'@type': 'BreadcrumbList'",
+  "createFileRoute('/api/find-my-county')",
+  "POST: async ({ request })",
+  "benchmark', 'Public_AR_Current'",
+  "vintage', 'Current_Current'",
+  "layers', 'Counties'",
+  "stateCode !== '48'",
+  'TEXAS_COUNTIES.find',
+  "'cache-control': 'private, no-store, max-age=0'",
+  "fetch('/api/find-my-county'",
+  "method: 'POST'",
+  '/county/${record.slug}',
+  'U.S. Census Bureau Geocoding Services',
+  'does not write the submitted address or the lookup result to the site database',
+]) {
+  if (!countyFinder.includes(feature)) errors.push(`Find My Texas County contract missing: ${feature}.`);
+}
+
+if (/^import\s*\{\s*TEXAS_COUNTIES\s*\}\s*from\s*['"]@\/data\/texas-places['"];?/m.test(countyApi)) {
+  errors.push('Find My Texas County API must not eagerly import the governed Texas places registry into the route module/client bundle.');
+}
+if (!countyApi.includes("const { TEXAS_COUNTIES } = await import('@/data/texas-places');")) {
+  errors.push('Find My Texas County API must load the governed Texas places registry inside the server POST handler.');
+}
+
+const countyPublicRoutes = fs.readFileSync(path.join(root, 'src/lib/public-routes.ts'), 'utf8');
+if (!countyPublicRoutes.includes('"/find-my-county"')) errors.push('Find My Texas County must remain in INDEXABLE_STATIC_PATHS.');
+
+const countyLinks = [
+  'src/routes/find-my-dmv.lazy.tsx',
+  'src/routes/browse.counties.lazy.tsx',
+  'src/routes/texas-resources.lazy.tsx',
+].map((filename) => fs.readFileSync(path.join(root, filename), 'utf8')).join('\n');
+if ((countyLinks.match(/\/find-my-county/g) ?? []).length < 3) {
+  errors.push('Find My Texas County needs durable internal links from the DMV guide, county directory, and Texas resources hub.');
+}
+
 if (errors.length) {
   console.error('Practical guide SEO validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Practical guide HowTo, anchored steps, and breadcrumb validation passed.');
+console.log('Practical guide HowTo, county-finder utility, anchored steps, breadcrumb, privacy, source, and server-isolation validation passed.');

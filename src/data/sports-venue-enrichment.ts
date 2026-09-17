@@ -11,8 +11,8 @@ export type SportsVenueEnrichment = {
   history?: string;
   parking: string;
   arrival: string;
-  stayAndEat: string;
-  nearby: string;
+  stayAndEat?: string;
+  nearby?: string;
   planningLinks: SportsVenuePlanningLink[];
   imageBrief: string;
   verifiedAt: string;

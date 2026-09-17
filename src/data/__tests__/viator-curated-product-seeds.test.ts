@@ -1,7 +1,29 @@
 import { describe, expect, it } from "vitest";
 
 import { VIATOR_CURATED_PRODUCT_SEEDS, viatorSeedsForMarket } from "@/data/viator-curated-product-seeds";
-import { VIATOR_TEXAS_MARKETS } from "@/data/viator-experiences";
+import {
+  VIATOR_RUNTIME_CATEGORIES,
+  VIATOR_RUNTIME_MARKETS,
+  VIATOR_RUNTIME_SIGNAL_REVIEWED_AT,
+  viatorRuntimeMarketForSlug,
+  type ViatorRuntimeCategory,
+} from "@/data/viator-experience-runtime";
+import { VIATOR_TEXAS_MARKETS, type ViatorExperienceCategory } from "@/data/viator-experiences";
+
+const runtimeLaneToSeedCategory: Record<ViatorRuntimeCategory, ViatorExperienceCategory> = {
+  "City sightseeing": "city-sightseeing",
+  "History & landmarks": "history-landmarks",
+  "Food & barbecue": "food-bbq",
+  "Wine, beer & spirits": "wine-spirits",
+  "Outdoor adventure": "outdoors",
+  "On the water": "water",
+  "Ghost tours & nightlife": "ghost-nightlife",
+  "Western & ranch": "western",
+  "Museums & culture": "museums-culture",
+  "Family attractions": "family",
+  "Sports & stadiums": "sports",
+  "Day trips": "day-trips",
+};
 
 describe("curated Viator product seeds", () => {
   it("keeps every curated product attached to a real Texas experience market", () => {
@@ -33,5 +55,39 @@ describe("curated Viator product seeds", () => {
     expect(viatorSeedsForMarket("south-padre-island").length).toBeGreaterThanOrEqual(6);
     expect(viatorSeedsForMarket("waco").some((seed) => seed.title.includes("Brazos River"))).toBe(true);
     expect(viatorSeedsForMarket("big-bend-terlingua").some((seed) => seed.title.includes("Rio Grande"))).toBe(true);
+  });
+
+  it("keeps representative pages 21-23 discovery signals", () => {
+    const titles = new Set(VIATOR_CURATED_PRODUCT_SEEDS.map((seed) => seed.title));
+    for (const title of [
+      "The Buckhorn Saloon & Museum and Texas Ranger Museum Admission",
+      "Giant Glow Paddleboarding the Downtown Skyline with Bats",
+      "Waco AdvenTOUR: Explore Waco & Magnolia Market from Dallas",
+      "Private Sailing Experience on Galveston Bay",
+      "Dallas Deep Ellum Food & Street Art Tour by Food Tours of America",
+    ]) {
+      expect(titles.has(title), `missing curated pages 21-23 signal: ${title}`).toBe(true);
+    }
+  });
+
+  it("keeps client-facing inventory signals compact, supported and category-level", () => {
+    const runtimeCategories = new Set<string>(VIATOR_RUNTIME_CATEGORIES);
+    const signaledMarkets = VIATOR_RUNTIME_MARKETS.filter((market) => market.signalLanes?.length);
+
+    expect(VIATOR_RUNTIME_SIGNAL_REVIEWED_AT).toBe("2026-09-08");
+    expect(signaledMarkets.length).toBeGreaterThanOrEqual(12);
+
+    for (const market of signaledMarkets) {
+      expect(viatorRuntimeMarketForSlug(market.slug)?.slug).toBe(market.slug);
+      expect(market.signalLanes!.length).toBeLessThanOrEqual(3);
+      const seedCategories = new Set(viatorSeedsForMarket(market.slug).map((seed) => seed.category));
+      for (const lane of market.signalLanes!) {
+        expect(runtimeCategories.has(lane), `${market.slug} has unsupported runtime lane ${lane}`).toBe(true);
+        expect(
+          seedCategories.has(runtimeLaneToSeedCategory[lane]),
+          `${market.slug} runtime lane ${lane} lacks a curated seed signal`,
+        ).toBe(true);
+      }
+    }
   });
 });
