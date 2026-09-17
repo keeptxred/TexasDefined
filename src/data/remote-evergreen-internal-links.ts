@@ -114,6 +114,7 @@ const cultureLinks: Record<string, ArticleInternalLink[]> = {
     iconsHub,
   ],
   "texas-high-school-football-friday-night-lights": [
+    { href: "/sports/friday-night-lights", label: "Friday Night Lights, Defined", description: "Use the parent guide for Texas high-school football traditions, game-night planning, homecoming, stadiums and the season arc." },
     { href: "/article/san-antonio-spurs-texas-basketball-culture", label: "The San Antonio Spurs and team-first culture", description: "Move from school-level Friday nights to one of Texas's most successful professional franchises." },
     { href: "/sports", label: "Explore Texas sports", description: "Browse teams, venues and sports culture around the state." },
     iconsHub,
