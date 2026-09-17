@@ -62,8 +62,8 @@ function PartnerReferralAnalyticsAdmin() {
       <section className="mt-12 border-t border-border pt-6">
         <div className="flex flex-wrap items-end justify-between gap-3"><div><p className="eyebrow text-primary">30-day trend</p><h2 className="mt-2 font-display text-4xl">Daily referral clicks</h2></div><button disabled={busy} onClick={() => { setBusy(true); setError(''); void refresh().catch((cause) => setError(cause instanceof Error ? cause.message : 'Refresh failed.')).finally(() => setBusy(false)); }} className="min-h-10 border border-border px-4 text-sm font-semibold">Refresh</button></div>
         {error ? <p className="mt-4 text-sm font-semibold text-destructive">{error}</p> : null}
-        <div className="mt-6 grid h-44 items-end gap-1" style={{ gridTemplateColumns: 'repeat(30,minmax(0,1fr))' }} aria-label="Daily partner referral clicks">
-          {dashboard.daily.map((row) => <div key={row.date} className="relative flex h-full items-end" title={`${row.date}: ${row.clicks} clicks`}><div className="w-full bg-primary" style={{ height: `${Math.max(2, (row.clicks / maxDaily) * 100)}%`, opacity: 0.7 }} /><span className="sr-only">{row.date}: {row.clicks} clicks</span></div>)}
+        <div className="mt-6 grid h-44 grid-cols-[repeat(30,minmax(0,1fr))] items-end gap-1" aria-label="Daily partner referral clicks">
+          {dashboard.daily.map((row) => <div key={row.date} className="group relative flex h-full items-end" title={`${row.date}: ${row.clicks} clicks`}><div className="w-full bg-primary/70" style={{ height: `${Math.max(2, (row.clicks / maxDaily) * 100)}%` }} /><span className="sr-only">{row.date}: {row.clicks} clicks</span></div>)}
         </div>
       </section>
 
@@ -74,7 +74,7 @@ function PartnerReferralAnalyticsAdmin() {
 
       <section className="mt-12 border-t border-border pt-6">
         <p className="eyebrow text-primary">Content performance</p><h2 className="mt-2 font-display text-4xl">Top referral pages</h2>
-        <div className="mt-5 overflow-x-auto"><table className="w-full min-w-[760px] text-sm"><thead><tr className="border-b border-border text-left"><th className="py-3 pr-4">Page</th><th className="py-3 pr-4 text-right">30d</th><th className="py-3 text-right">7d</th></tr></thead><tbody>{dashboard.pages.map((row) => <tr key={row.pagePath} className="border-b border-border/60"><td className="py-3 pr-4 font-mono text-xs"><a href={row.pagePath} className="hover:text-primary">{row.pagePath}</a></td><td className="py-3 pr-4 text-right font-semibold">{row.clicks30d}</td><td className="py-3 text-right">{row.clicks7d}</td></tr>)}</tbody></table></div>
+        <div className="mt-5 overflow-x-auto"><table className="w-full min-w-[640px] text-sm"><thead><tr className="border-b border-border text-left"><th className="py-3 pr-4">Page</th><th className="py-3 pr-4 text-right">30d</th><th className="py-3 text-right">7d</th></tr></thead><tbody>{dashboard.pages.map((row) => <tr key={row.pagePath} className="border-b border-border/60"><td className="py-3 pr-4 font-mono text-xs"><a href={row.pagePath} className="hover:text-primary">{row.pagePath}</a></td><td className="py-3 pr-4 text-right font-semibold">{row.clicks30d}</td><td className="py-3 text-right">{row.clicks7d}</td></tr>)}</tbody></table></div>
       </section>
 
       <section className="mt-12 border-t border-border pt-6">
