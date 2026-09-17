@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave66Destinations } from "./museum-expansion-statewide-wave66";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-17";
@@ -54,4 +55,5 @@ export const statewideMuseumExpansionWave65Destinations: Destination[] = [
     address: "490 W 1st St, Groveton, TX 75845",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave66Destinations,
 ];
