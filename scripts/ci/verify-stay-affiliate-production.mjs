@@ -136,6 +136,13 @@ for (const marker of [
   'canonical === normalizePath(pathname)',
   'affiliate_module: "stay-nearby"',
   'event: "affiliate_surface_impression"',
+  'link.rel = "sponsored nofollow noopener noreferrer"',
+  'const provider = affiliateTarget.provider || "expedia"',
+  'const placement = "stay-nearby-card"',
+  'link.dataset.affiliatePartner = provider',
+  'link.dataset.affiliatePlacement = placement',
+  'link.dataset.commercialPartner = provider',
+  'link.dataset.commercialPlacement = placement',
   'contextual-slot',
   'end-of-guide-fallback',
 ]) requireCondition(expediaBootstrap.includes(marker), `Live Expedia/Stay Nearby bootstrap is missing marker: ${marker}`);
@@ -188,4 +195,4 @@ for (const page of pages) {
   requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === page.route.replace(/\/+$/, ''), `${page.route} is not self-canonical and must not be part of the monetized production cohort.`);
 }
 
-console.log('Stay affiliate production verification passed: all 15 curated hotel records expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher while broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted a real partner_referral_clicked probe backed by Cloudflare Analytics Engine; Hotels.com/Vrbo tracking and disclosures remain live with GTM plus first-party placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, venue and destination pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; and script ordering is intact.');
+console.log('Stay affiliate production verification passed: all 15 curated hotel records expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher while broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted a real partner_referral_clicked probe backed by Cloudflare Analytics Engine; Hotels.com/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, venue and destination pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; and script ordering is intact.');
