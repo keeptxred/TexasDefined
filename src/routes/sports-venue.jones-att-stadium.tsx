@@ -41,24 +41,28 @@ export const Route = createFileRoute('/sports-venue/jones-att-stadium')({
       { getSportsVenueUpcomingEvents },
       { sportsVenueLandingLinksForVenue },
       { getSportsVenuePhoto },
+      { getSportsVenueParkingMap },
       sponsorPlacement,
     ] = await Promise.all([
       import('@/data/knowledge-graph'),
       import('@/data/sports-venue-events.functions'),
       import('@/data/sports-venue-landings'),
       import('@/data/sports-venue-images-all'),
+      import('@/data/parking-maps.functions'),
       getActiveSportsSponsorPlacement({ data: { surfacePath: canonicalPath } }),
     ]);
-    const [graph, entity, guideEvents] = await Promise.all([
+    const [graph, entity, guideEvents, parkingMap] = await Promise.all([
       loadTexasKnowledgeGraph(),
       findCompleteTexasEntity(stableSlug),
       getSportsVenueUpcomingEvents({ data: { slug: stableSlug } }),
+      getSportsVenueParkingMap(stableSlug),
     ]);
     if (!entity || entity.kind !== 'sports-venue') throw notFound();
 
     return {
       entity,
       photo: getSportsVenuePhoto(stableSlug),
+      parkingMap,
       nearbyAttractions: countyVisitorPlaces(entity, graph),
       upcomingEvents: guideEvents.events,
       eventCalendarHref: guideEvents.calendarHref,
@@ -87,12 +91,13 @@ export const Route = createFileRoute('/sports-venue/jones-att-stadium')({
 });
 
 function GalaxyStadiumPage() {
-  const { entity, nearbyAttractions, upcomingEvents, eventCalendarHref, landingLinks, sponsorPlacement } = Route.useLoaderData();
+  const { entity, parkingMap, nearbyAttractions, upcomingEvents, eventCalendarHref, landingLinks, sponsorPlacement } = Route.useLoaderData();
 
   return (
     <SportsVenueGuidePilotContent
       slug={stableSlug}
       entity={entity}
+      parkingMap={parkingMap}
       nearbyAttractions={nearbyAttractions}
       upcomingEvents={upcomingEvents}
       eventCalendarHref={eventCalendarHref}
