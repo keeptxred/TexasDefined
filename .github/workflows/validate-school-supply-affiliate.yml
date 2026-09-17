@@ -3,12 +3,14 @@ name: Validate school supply affiliate
 on:
   pull_request:
     paths:
+      - 'src/lib/affiliate-click.ts'
       - 'src/components/monetization/SchoolSupplyPartners.tsx'
       - 'scripts/data/validate-school-supply-affiliate.mjs'
       - '.github/workflows/validate-school-supply-affiliate.yml'
   push:
     branches: [main]
     paths:
+      - 'src/lib/affiliate-click.ts'
       - 'src/components/monetization/SchoolSupplyPartners.tsx'
       - 'scripts/data/validate-school-supply-affiliate.mjs'
       - '.github/workflows/validate-school-supply-affiliate.yml'
