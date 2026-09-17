@@ -55,9 +55,10 @@ const venues = [
     path: '/sports-venue/xtreme-raceway-park',
     required: [
       'Xtreme Raceway Park',
-      '/images/sports-venues/xtreme-raceway-park.jpg',
-      'Xtreme Raceway Park entrance in Ferris, Texas at dusk',
-      'site-owner supplied media',
+      'https://membertrack.nhradata.com/Images/Tracks/PRIMARY__153.jpg',
+      'Xtreme Raceway Park drag strip in Ferris, Texas',
+      'NHRA South Central Division',
+      'NHRA Member Track Network',
     ],
   },
   {
