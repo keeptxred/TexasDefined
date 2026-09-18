@@ -16,6 +16,10 @@ const registryPaths = [
   'src/data/sports-venue-images-additions-wave6.ts',
   'src/data/sports-venue-images-additions-wave7.ts',
 ];
+const generatedDisclosureMarkers = [
+  'AI-generated representative editorial image',
+  'Editorial illustration by',
+];
 
 const read = (filePath) => fs.readFileSync(filePath, 'utf8');
 const decodeTsString = (value) => value
@@ -65,6 +69,34 @@ for (const [slug, entry] of effective) {
   if (!entry.licenseName.trim()) contractFailures.push(`Missing governed license name: ${slug}.`);
 }
 
+const generatedCreditSources = [
+  ['sports venue quick-answer hero', read('src/components/sports/SportsVenueQuickAnswers.tsx')],
+  ['sports venue guide source section', read('src/components/sports/SportsVenueGuidePage.tsx')],
+];
+for (const [label, source] of generatedCreditSources) {
+  if (!generatedDisclosureMarkers.some((marker) => source.includes(marker))) {
+    contractFailures.push(`${label} must retain an approved generated/illustrative media disclosure marker.`);
+  }
+  if (!source.includes('not documentary photography')) {
+    contractFailures.push(`${label} must explicitly state that generated venue media is not documentary photography.`);
+  }
+}
+
+const usesConciseIllustrationCredit = generatedCreditSources.some(([, source]) => source.includes('Editorial illustration by'));
+if (usesConciseIllustrationCredit) {
+  const footerSource = read('src/components/layout/Footer.tsx');
+  const editorialPolicySource = read('src/routes/editorial-policy.tsx');
+  if (!footerSource.includes('Some imagery on this site may be AI-generated or AI-enhanced.')) {
+    contractFailures.push('Concise venue illustration credits require the sitewide footer AI-imagery disclosure.');
+  }
+  if (!editorialPolicySource.includes('Images, illustrations and AI-generated media')) {
+    contractFailures.push('Concise venue illustration credits require the Editorial Policy AI-media section.');
+  }
+  if (!editorialPolicySource.includes('should not be interpreted as documentary photography')) {
+    contractFailures.push('Editorial Policy must explain that generated imagery is not documentary photography.');
+  }
+}
+
 if (contractFailures.length) {
   console.error('Sports venue exhaustive production audit contract failed:');
   for (const failure of contractFailures) console.error(`- ${failure}`);
@@ -72,7 +104,7 @@ if (contractFailures.length) {
 }
 
 if (contractOnly) {
-  console.log(`PASS: exhaustive sports venue production audit derives ${effective.size}/${expectedVenueCount} governed venue heroes from the curated-first production registry chain and safely parses escaped metadata strings.`);
+  console.log(`PASS: exhaustive sports venue production audit derives ${effective.size}/${expectedVenueCount} governed venue heroes from the curated-first production registry chain, safely parses escaped metadata strings, and validates generated-media disclosure semantics.`);
   process.exit(0);
 }
 
@@ -96,7 +128,7 @@ async function fetchWithTimeout(url, init = {}) {
     cache: 'no-store',
     signal: AbortSignal.timeout(30_000),
     headers: {
-      'user-agent': 'TexasDefined-CI-Sports-Venue-Exhaustive/1.1 (+https://texasdefined.com)',
+      'user-agent': 'TexasDefined-CI-Sports-Venue-Exhaustive/1.2 (+https://texasdefined.com)',
       ...(init.headers ?? {}),
     },
   });
@@ -180,7 +212,7 @@ async function inspectOnce(slug, entry, attempt) {
   if (!decodedBody.includes(endpointPath) && !decodedBody.includes(`${origin}${endpointPath}`)) missing.push('same-origin governed hero endpoint');
   if (!decodedBody.includes(entry.alt)) missing.push(`alt text: ${entry.alt}`);
   if (generated) {
-    if (!decodedBody.includes('AI-generated representative editorial image')) missing.push('AI-generated representative editorial image disclosure');
+    if (!generatedDisclosureMarkers.some((marker) => decodedBody.includes(marker))) missing.push('generated/illustrative media disclosure');
     if (!decodedBody.includes('not documentary photography')) missing.push('not-documentary-photography disclosure');
     if (!decodedBody.includes(entry.author)) missing.push(`generated-media author: ${entry.author}`);
   } else {
@@ -269,7 +301,7 @@ const failedBySlug = new Map(failures.map((failure) => [failure.slug, failure]))
 for (const [slug] of entries) {
   const result = passedBySlug.get(slug);
   if (result) {
-    appendSummary(`| ✅ | ${slug} | ${result.pageStatus} | ${result.endpointStatus} | ${result.imageStatus} | ${result.generated ? 'AI-generated representative' : 'real/reusable photo'} |\n`);
+    appendSummary(`| ✅ | ${slug} | ${result.pageStatus} | ${result.endpointStatus} | ${result.imageStatus} | ${result.generated ? 'generated representative media' : 'real/reusable photo'} |\n`);
   } else {
     appendSummary(`| ❌ | ${slug} | — | — | — | ${failedBySlug.get(slug)?.message ?? 'failed'} |\n`);
   }

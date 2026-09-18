@@ -15,13 +15,16 @@ on:
       - 'src/data/sports-venue-images-additions-wave6.ts'
       - 'src/data/sports-venue-images-additions-wave7.ts'
       - 'src/data/sports-venue-images-all.ts'
+      - 'src/data/sports-venue-image-attribution.ts'
       - 'src/routes/api.sports-venue-hero.ts'
       - 'src/routes/sports-venue.$slug.tsx'
+      - 'src/routes/editorial-policy.tsx'
+      - 'src/components/layout/Footer.tsx'
       - 'src/components/sports/SportsVenueQuickAnswers.tsx'
       - 'src/components/sports/SportsVenueGuidePage.tsx'
   workflow_run:
     workflows: ["Deploy TexasDefined production"]
-    types: [completed]
+    types: [requested, in_progress, completed]
     branches: [main]
   schedule:
     - cron: '23 10 * * *'
@@ -31,8 +34,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: sports-venue-heroes-production-all-${{ github.event_name }}-${{ github.event.workflow_run.head_sha || github.sha }}
-  cancel-in-progress: false
+  group: sports-venue-heroes-production-all-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || 'live' }}
+  cancel-in-progress: true
 
 jobs:
   contract:
@@ -44,7 +47,7 @@ jobs:
         run: node scripts/ci/verify-sports-venue-heroes-production-all.mjs --contract-only
 
   live-production:
-    if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.action == 'completed' && github.event.workflow_run.conclusion == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
