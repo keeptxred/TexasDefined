@@ -25,6 +25,18 @@ const curatedSportsVenuePhotoOverrides: Record<string, SportsVenuePhoto> = {
     width: 6001,
     height: 3097,
   },
+  'pga-frisco-fields-ranch': {
+    slug: 'pga-frisco-fields-ranch',
+    alt: 'Exterior of the PGA of America headquarters at PGA Frisco in Frisco, Texas',
+    imageUrl: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Exterior_view_of_the_Professional_Golfers%27_Association_%28PGA%29_of_America_headquarters_in_Frisco%2C_Texas.jpg?width=1600',
+    sourcePage: 'https://commons.wikimedia.org/wiki/File:Exterior_view_of_the_Professional_Golfers%27_Association_%28PGA%29_of_America_headquarters_in_Frisco%2C_Texas.jpg',
+    sourceName: 'Wikimedia Commons',
+    author: 'Jackilometresan',
+    licenseName: 'CC0 1.0',
+    licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
+    width: 5455,
+    height: 4091,
+  },
   'retama-park': {
     slug: 'retama-park',
     alt: 'Quarter horse racing at Retama Park in Selma, Texas',

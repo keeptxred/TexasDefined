@@ -1,4 +1,4 @@
-import { appendFileSync } from 'node:fs';
+import { appendFileSync, readFileSync } from 'node:fs';
 
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 const sha = process.env.GITHUB_SHA ?? 'local';
@@ -16,20 +16,48 @@ const wave7GeneratedAttribution = [
   'for TexasDefined; not documentary photography.',
 ];
 
-const wave7CuratedRemotePhoto = {
-  'retama-park': {
-    imageUrl: 'https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/2407/8518059/2000w_q95.jpg',
-    attributionMarkers: [
-      'DVIDS / U.S. Air Force',
-      'Olivia Mendoza Sencalar',
-      'Public domain; the appearance of U.S. Department of War visual information does not imply or constitute DoW endorsement',
-    ],
-  },
-  'tpc-san-antonio': {
-    imageUrl: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Martin_Trainer_The_Thinker.jpg?width=1600',
-    attributionMarkers: ['Wikimedia Commons', 'TheDapperDan', 'CC BY-SA 4.0'],
-  },
-};
+const registryPaths = [
+  'src/data/sports-venue-images-curated-overrides.ts',
+  'src/data/sports-venue-images.ts',
+  'src/data/sports-venue-images-additions.ts',
+  'src/data/sports-venue-images-additions-wave2.ts',
+  'src/data/sports-venue-images-additions-wave3.ts',
+  'src/data/sports-venue-images-additions-wave4.ts',
+  'src/data/sports-venue-images-additions-wave5.ts',
+  'src/data/sports-venue-images-additions-wave6.ts',
+  'src/data/sports-venue-images-additions-wave7.ts',
+];
+
+const decodeTsString = (value) => value
+  .replace(/\\'/g, "'")
+  .replace(/\\"/g, '"')
+  .replace(/\\n/g, '\n')
+  .replace(/\\r/g, '\r')
+  .replace(/\\t/g, '\t')
+  .replace(/\\\\/g, '\\');
+
+const recordEntries = (source) => [...source.matchAll(/^  ["']([^"']+)["']: \{\n([\s\S]*?)^  \},$/gm)].map((match) => {
+  const body = match[2];
+  const stringField = (name) => {
+    const field = body.match(new RegExp(`\\b${name}:\\s*(["'])((?:\\\\.|(?!\\1)[\\s\\S])*?)\\1`));
+    return field ? decodeTsString(field[2]) : '';
+  };
+  return {
+    slug: match[1],
+    alt: stringField('alt'),
+    imageUrl: stringField('imageUrl'),
+    sourceName: stringField('sourceName'),
+    author: stringField('author'),
+    licenseName: stringField('licenseName'),
+  };
+});
+
+const governedPhotos = new Map();
+for (const registryPath of registryPaths) {
+  for (const entry of recordEntries(readFileSync(registryPath, 'utf8'))) {
+    if (!governedPhotos.has(entry.slug)) governedPhotos.set(entry.slug, entry);
+  }
+}
 
 const repairedWave7 = [
   ['amarillo-national-center', 'AI-generated photorealistic editorial depiction of Amarillo National Center in Amarillo, Texas'],
@@ -48,11 +76,16 @@ const repairedWave7 = [
   ['texas-motorplex', 'Texas Motorplex in Ennis, Texas'],
   ['tpc-san-antonio', 'PGA Tour golfer Martin Trainer on the course at TPC San Antonio during the Valero Texas Open'],
   ['waco-surf', 'AI-generated photorealistic editorial depiction of Waco Surf in Waco, Texas'],
-].map(([slug, alt]) => {
-  const remotePhoto = wave7CuratedRemotePhoto[slug];
-  const expectedImageUrl = remotePhoto?.imageUrl ?? `/images/sports-venues/${slug}.jpg`;
-  const assetPath = remotePhoto ? undefined : expectedImageUrl;
-  const attributionMarkers = remotePhoto?.attributionMarkers ?? wave7RealPhotoAttribution[slug] ?? wave7GeneratedAttribution;
+].map(([slug]) => {
+  const governedPhoto = governedPhotos.get(slug);
+  if (!governedPhoto) throw new Error(`Missing governed sports venue photo metadata for ${slug}.`);
+  const expectedImageUrl = governedPhoto.imageUrl;
+  const assetPath = expectedImageUrl.startsWith('/') ? expectedImageUrl : undefined;
+  const generated = governedPhoto.sourceName === 'Texas Defined generated media'
+    || /^AI-generated\b/i.test(governedPhoto.licenseName);
+  const attributionMarkers = generated
+    ? wave7GeneratedAttribution
+    : [governedPhoto.sourceName, governedPhoto.author, governedPhoto.licenseName];
   return {
     label: `${slug}-hero`,
     path: `/sports-venue/${slug}`,
@@ -60,11 +93,11 @@ const repairedWave7 = [
     expectedImageUrl,
     heroEndpointPath: `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}`,
     required: [
-      ...(remotePhoto ? [] : [
+      ...(assetPath ? [
         expectedImageUrl,
-        `content=\"${origin}${expectedImageUrl}\"`,
-      ]),
-      alt,
+        `content="${origin}${expectedImageUrl}"`,
+      ] : []),
+      governedPhoto.alt,
       ...attributionMarkers,
     ],
   };

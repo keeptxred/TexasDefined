@@ -73,6 +73,25 @@ assert(
   'National Shooting Complex hero must be documentary venue media, not generated or illustrative imagery.',
 );
 
+const pgaFriscoMatch = overrideSource.match(/'pga-frisco-fields-ranch': \{[\s\S]*?\n  \},/);
+const pgaFriscoSource = pgaFriscoMatch?.[0] ?? '';
+assert(pgaFriscoSource, 'PGA Frisco / Fields Ranch must have a curated documentary hero override.');
+for (const marker of [
+  "imageUrl: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Exterior_view_of_the_Professional_Golfers%27_Association_%28PGA%29_of_America_headquarters_in_Frisco%2C_Texas.jpg?width=1600'",
+  "sourcePage: 'https://commons.wikimedia.org/wiki/File:Exterior_view_of_the_Professional_Golfers%27_Association_%28PGA%29_of_America_headquarters_in_Frisco%2C_Texas.jpg'",
+  "sourceName: 'Wikimedia Commons'",
+  "author: 'Jackilometresan'",
+  "licenseName: 'CC0 1.0'",
+  "licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/'",
+  "alt: 'Exterior of the PGA of America headquarters at PGA Frisco in Frisco, Texas'",
+]) {
+  assert(pgaFriscoSource.includes(marker), `PGA Frisco documentary hero is missing required source marker: ${marker}`);
+}
+assert(
+  !/AI-generated|illustration|OpenAI|Copilot/i.test(pgaFriscoSource),
+  'PGA Frisco hero must be documentary venue media, not generated or illustrative imagery.',
+);
+
 const retamaMatch = overrideSource.match(/'retama-park': \{[\s\S]*?\n  \},/);
 const retamaSource = retamaMatch?.[0] ?? '';
 assert(retamaSource, 'Retama Park must have a curated documentary hero override.');
@@ -129,15 +148,18 @@ assert(
 );
 
 for (const marker of [
-  'const remotePhoto = wave7CuratedRemotePhoto[slug];',
-  'const expectedImageUrl = remotePhoto?.imageUrl',
+  "'src/data/sports-venue-images-curated-overrides.ts'",
+  'const governedPhotos = new Map();',
+  'const governedPhoto = governedPhotos.get(slug);',
+  'const expectedImageUrl = governedPhoto.imageUrl;',
+  "const assetPath = expectedImageUrl.startsWith('/') ? expectedImageUrl : undefined;",
   "redirect: 'manual'",
   'actualLocation === expectedLocation',
   'expectedImageUrl ?? assetPath',
 ]) {
   assert(
     productionVerifier.includes(marker),
-    `Wave 7 production hero verifier must enforce governed local-or-remote target resolution: ${marker}`,
+    `Wave 7 production hero verifier must derive curated-first governed targets and enforce local-or-remote resolution: ${marker}`,
   );
 }
 
@@ -147,4 +169,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Curated sports venue image layer validated: precedence, HTTPS policy, documentary Legacy Stadium, National Shooting Complex, Retama Park, TPC San Antonio and Xtreme Raceway sources, real Dickies Arena fallback, production target enforcement, and disallowed-source guardrails are intact.');
+console.log('Curated sports venue image layer validated: precedence, HTTPS policy, documentary Legacy Stadium, National Shooting Complex, PGA Frisco, Retama Park, TPC San Antonio and Xtreme Raceway sources, real Dickies Arena fallback, production target enforcement, and disallowed-source guardrails are intact.');
