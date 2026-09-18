@@ -144,13 +144,11 @@ export const Route = createFileRoute('/sports-venue/$slug')({
     const [
       { findCompleteTexasEntity, loadTexasKnowledgeGraph },
       { getSportsVenueEnrichmentAll, sportsVenueMapUrl },
-      { sportsVenueLandingLinksForVenue },
       { getSportsVenuePhoto },
       { getSportsVenueParkingMap },
     ] = await Promise.all([
       import('@/data/knowledge-graph'),
       import('@/data/sports-venue-enrichment-all'),
-      import('@/data/sports-venue-landings'),
       import('@/data/sports-venue-images-all'),
       import('@/data/parking-maps.functions'),
     ]);
@@ -180,7 +178,6 @@ export const Route = createFileRoute('/sports-venue/$slug')({
       enrichment,
       photo,
       parkingMap,
-      landingLinks: sportsVenueLandingLinksForVenue(entity),
       mapUrl,
       upcomingEvents: guideEvents?.events ?? [],
       eventCalendarHref: guideEvents?.calendarHref ?? '/events',
@@ -210,7 +207,7 @@ export const Route = createFileRoute('/sports-venue/$slug')({
 
 function SportsVenuePage() {
   const { slug } = Route.useParams();
-  const { entity, parkingMap, visitorPlaces, upcomingEvents, eventCalendarHref, landingLinks, sponsorPlacement } = Route.useLoaderData();
+  const { entity, parkingMap, visitorPlaces, upcomingEvents, eventCalendarHref, sponsorPlacement } = Route.useLoaderData();
 
   if (isSportsVenueGuidePilot(slug)) {
     return <SportsVenueGuidePilotContent
@@ -220,7 +217,6 @@ function SportsVenuePage() {
       nearbyAttractions={visitorPlaces}
       upcomingEvents={upcomingEvents}
       eventCalendarHref={eventCalendarHref}
-      landingLinks={landingLinks}
       sponsorPlacement={sponsorPlacement}
     />;
   }
