@@ -50,13 +50,14 @@ requireFeatures(engine, [
 ], 'Destination relationship engine');
 
 requireFeatures(component, [
-  'groups.length ? <>',
+  'const pairedDestinations = [...new Map(',
+  '.flatMap((group) => group.destinations)',
+  '.map((item) => [item.slug, item])',
+  '.sort((left, right)',
+  '.slice(0, 6)',
   'TexasExplainedContextLinks surface="destination"',
-  'aria-label="Ways to continue the trip"',
-  'groups.map((group)',
-  'href={`#relationship-${group.id}`}',
-  'id={`relationship-${group.id}`}',
-  'group.destinations.map',
+  'Places worth adding to the same trip',
+  'pairedDestinations.map((item)',
   'DestinationCard',
   'distanceMiles(destination, item)',
   'Math.max(1, Math.round(miles)).toLocaleString("en-US")',
@@ -73,6 +74,9 @@ requireFeatures(component, [
 
 if (component.includes('if (!groups.length) return null')) {
   errors.push('Destination relationship UI must preserve Texas Explained fallback discovery when no relationship groups are available.');
+}
+if (component.includes('#relationship-') || component.includes('groups.map((group, index)')) {
+  errors.push('Destination relationship UI must not regress to a stacked relationship-section tail.');
 }
 
 if (route.includes('destinationsQuery({ category: destination.category, limit: 16 })')) {

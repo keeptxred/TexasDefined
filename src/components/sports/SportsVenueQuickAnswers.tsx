@@ -104,7 +104,7 @@ export function SportsVenueQuickAnswers({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <div>
         <p className="eyebrow text-primary">Quick answers</p>
-        <h2 id="venue-quick-answers-heading" className="mt-2 font-display text-3xl leading-tight">Planning a visit to {venueName}</h2>
+        <h2 id="venue-quick-answers-heading" className="mt-2 font-display text-3xl leading-tight">Planning your visit to {venueName}</h2>
         <p className="mt-3 text-sm leading-6 text-muted-foreground">Answer-first trip details from the verified venue record. Use the official links farther down the guide for information that can change by event.</p>
         <p className="mt-3 text-xs leading-5 text-muted-foreground">{freshnessNote}</p>
       </div>
