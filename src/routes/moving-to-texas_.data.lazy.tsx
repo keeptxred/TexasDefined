@@ -37,7 +37,7 @@ function RelocationDataCenterPage() {
         <div className="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-sm font-semibold">
           <Link to="/moving-to-texas" className="text-primary underline underline-offset-4">Open the relocation guide →</Link>
           <a href="/moving-to-texas#address-research-desk" className="underline underline-offset-4">Research an exact address</a>
-          <Link to="/texas-data" className="underline underline-offset-4">Open the full Texas Data Desk</Link>
+          <Link to="/texas-data" className="underline underline-offset-4">Open Texas facts & figures</Link>
         </div>
       </header>
 
