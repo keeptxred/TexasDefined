@@ -174,6 +174,16 @@ export function installTexasDefinedAnalytics() {
         entityKind: productMatch ? 'product' : 'shop-route',
         destination: `${clickedUrl.pathname}${clickedUrl.search}`,
       });
+    } else if (
+      window.location.pathname.startsWith('/shop')
+      && clickedUrl.protocol === 'https:'
+      && clickedUrl.origin !== window.location.origin
+    ) {
+      trackTexasDefinedOutcome('shop_outbound_clicked', {
+        resourceId: anchor.dataset.commercialPartner || anchor.textContent?.trim().slice(0, 120) || 'outbound-link',
+        entityKind: anchor.dataset.commercialPlacement || 'shop-outbound',
+        destination: clickedUrl.toString(),
+      });
     }
 
     const commercialPartner = anchor.dataset.commercialPartner;
@@ -208,13 +218,6 @@ export function installTexasDefinedAnalytics() {
     }
     const href = anchor.href;
     if (/^https:\/\//.test(href) && !href.startsWith(window.location.origin)) {
-      if (window.location.pathname.startsWith('/shop')) {
-        trackTexasDefinedOutcome('shop_outbound_clicked', {
-          resourceId: anchor.dataset.commercialPartner || anchor.textContent?.trim().slice(0, 120) || 'outbound-link',
-          entityKind: anchor.dataset.commercialPlacement || 'shop-outbound',
-          destination: href,
-        });
-      }
       trackTexasDefinedOutcome('official_resource_visited', { destination: href });
     }
   };
