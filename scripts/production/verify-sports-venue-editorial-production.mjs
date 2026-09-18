@@ -87,9 +87,10 @@ const venuePageChecks = [
     ordered: [
       'Know before you go',
       'Planning your visit to Gerald J. Ford Stadium',
-      'Parking',
-      'Official parking sources',
-      'Arrival',
+      '>Parking</h3>',
+      '>Arrival</h3>',
+      'aria-label="Parking orientation for Gerald J. Ford Stadium"',
+      'Official parking source',
     ],
   },
   {
@@ -98,9 +99,10 @@ const venuePageChecks = [
     ordered: [
       'Know before you go',
       'Planning your visit to Xtreme Raceway Park',
-      'Parking',
+      '>Parking</h3>',
+      '>Arrival</h3>',
+      'aria-label="Parking orientation for Xtreme Raceway Park"',
       'Official parking source',
-      'Arrival',
     ],
   },
   {
@@ -109,9 +111,10 @@ const venuePageChecks = [
     ordered: [
       'Know before you go',
       'Planning your visit to Memorial Park Golf Course',
-      'Parking',
-      'Official parking sources',
-      'Arrival',
+      '>Parking</h3>',
+      '>Arrival</h3>',
+      'aria-label="Parking orientation for Memorial Park Golf Course"',
+      'Official parking source',
     ],
   },
 ];
