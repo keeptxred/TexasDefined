@@ -16,7 +16,7 @@ const CORE_GUIDES = [
   { to: '/do/property-tax-protest', label: 'Property-tax protest' },
 ] as const;
 const relatedLinks = [
-  { to: '/property-tax-guides', label: 'Property guide library', description: 'Browse the full property-tax authority cluster.', kind: 'guide' as const },
+  { to: '/property-tax-guides', label: 'Property guide library', description: 'Browse the full property-tax guide library.', kind: 'guide' as const },
   { to: '/property-tax-calculators', label: 'Property-tax calculators', description: 'Model exemptions, protests, escrow and local scenarios.', kind: 'calculator' as const },
   { to: '/property-tax/counties', label: 'County property-tax guides', description: 'Research the county and exact local property account.', kind: 'county' as const },
   { to: '/learn/property-tax-deadlines', label: 'Property-tax deadlines', description: 'Track appraisal, protest and payment dates.', kind: 'guide' as const },
