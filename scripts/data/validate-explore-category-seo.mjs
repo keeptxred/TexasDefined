@@ -299,20 +299,35 @@ function validateMegaMenuImages(label, expectedCount) {
 validateMegaMenuImages('Explore', 14);
 validateMegaMenuImages('Texas Life', 10);
 
-function supplementalCategoryBlock(slug) {
-  return supplemental.match(new RegExp('slug: "' + slug + '"[\\s\\S]*?(?=\\n  \\},\\n  \\{|\\n  \\},\\n\\];)'))?.[0] ?? '';
+const fixtureCategoryTable = fixtures.match(/export const categories: Category\[\] = \[([\s\S]*?)\n\];/)?.[1] ?? '';
+const landingCategoryTable = landing.match(/export const EXPLORE_CATEGORIES = \[([^\]]+)\] as const;/)?.[1] ?? '';
+const landingCategorySlugs = [...landingCategoryTable.matchAll(/"([^"]+)"/g)].map((match) => match[1]);
+
+function categorySourceBlock(source, slug) {
+  return source.match(new RegExp('slug: "' + slug + '"(?: as Category\\["slug"\\])?,[\\s\\S]*?(?=\\n  \\},\\n  \\{|\\n  \\},?$)'))?.[0] ?? '';
 }
 
-const rvParksLanding = supplementalCategoryBlock('rv-parks');
-if (!rvParksLanding.includes('image: {') || !rvParksLanding.includes('/images/rv-parks/')) {
-  errors.push('Explore landing RV Parks & Campgrounds card must use a real RV/campground image instead of the generic gradient placeholder.');
+function categoryImageToken(block) {
+  const objectSrc = block.match(/image:\s*\{[\s\S]*?src:\s*([^,\n}]+)/)?.[1]?.trim();
+  if (objectSrc) return objectSrc;
+  return block.match(/image:\s*([A-Za-z_$][A-Za-z0-9_.$]*)/)?.[1] ?? null;
 }
-const swimmingLanding = supplementalCategoryBlock('swimming-holes-river-tubing');
-if (!supplemental.includes('import blueHole from "@/assets/blue-hole.jpg";') || !swimmingLanding.includes('src: blueHole')) {
-  errors.push('Explore landing Swimming Holes & River Tubing card must use its distinct Blue Hole image.');
+
+const landingImageOwners = new Map();
+for (const slug of landingCategorySlugs) {
+  const block = categorySourceBlock(supplemental, slug) || categorySourceBlock(fixtureCategoryTable, slug);
+  const token = categoryImageToken(block);
+  if (!token) {
+    errors.push(`Explore landing category ${slug} must have a real image instead of the generic gradient placeholder.`);
+    continue;
+  }
+  const prior = landingImageOwners.get(token);
+  if (prior) errors.push(`Explore landing categories ${prior} and ${slug} reuse the same image source ${token}.`);
+  else landingImageOwners.set(token, slug);
 }
-if (swimmingLanding.includes('image: hamiltonPoolImage')) {
-  errors.push('Explore landing Major Springs and Swimming Holes cards must not reuse the same Hamilton Pool image.');
+
+if (landingCategorySlugs.length !== 13) {
+  errors.push(`Explore landing image guard found ${landingCategorySlugs.length} categories; expected 13.`);
 }
 
 for (const feature of ['supplementalExploreCategories', 'const merged = new Map', 'return [...merged.values()]']) {
