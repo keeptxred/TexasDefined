@@ -29,7 +29,9 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
       { title: "Treat downtown as the venue", body: "Build in walking time and use the organizer's current parking and transportation instructions before leaving home." },
       { title: "Make it a weekend", body: "Keep the festival as the fixed point, then add Main Street, dining and other Tarrant County stops around the hours you plan to attend." },
     ],
-    relatedLinks: [{ href: "/events", label: "Texas events calendar", description: "Compare other fall events." }, { href: "/browse/counties#county-tarrant", label: "Explore Tarrant County", description: "Plan more of the North Texas trip." }],
+    relatedLinks: [
+      { href: "/event/texas-rose-festival", label: "Texas Rose Festival", description: "Compare another major North and East Texas fall festival weekend." },
+      { href: "/event/wurstfest", label: "Wurstfest", description: "Compare another destination-scale Texas fall festival." },{ href: "/events", label: "Texas events calendar", description: "Compare other fall events." }, { href: "/browse/counties#county-tarrant", label: "Explore Tarrant County", description: "Plan more of the North Texas trip." }],
     sources: [{ label: "GrapeFest official general information", url: "https://www.grapevinetexasusa.com/grapefest/general-information/" }],
   },
   {
@@ -40,7 +42,9 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
       { title: "Plan for a full outdoor day", body: "Comfortable footwear, weather planning and a realistic arrival window matter across the large festival footprint." },
       { title: "Recheck operating days", body: "The published start and end dates mark the season boundary; the organizer's calendar remains authoritative for individual operating days." },
     ],
-    relatedLinks: [{ href: "/events", label: "Texas events calendar", description: "See other major fall festivals." }],
+    relatedLinks: [
+      { href: "/event/grapefest", label: "GrapeFest", description: "Compare another major North Texas fall festival." },
+      { href: "/event/wurstfest", label: "Wurstfest", description: "Compare another repeat-weekend fall destination." },{ href: "/events", label: "Texas events calendar", description: "See other major fall festivals." }],
     sources: [{ label: "Texas Renaissance Festival official site", url: "https://www.texrenfest.com/" }],
   },
   {
@@ -51,7 +55,9 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
       { title: "Leave room for Tyler", body: "Reserve time outside the scheduled program for rose-related attractions and other Smith County stops." },
       { title: "Plan for October demand", body: "Confirm lodging, parking and event-access details early, then check the organizer again close to departure." },
     ],
-    relatedLinks: [{ href: "/events", label: "Texas events calendar", description: "Compare other fall events." }, { href: "/browse/counties#county-smith", label: "Explore Smith County", description: "Plan more of the East Texas trip." }],
+    relatedLinks: [
+      { href: "/event/grapefest", label: "GrapeFest", description: "Compare another major Texas fall festival." },
+      { href: "/event/texas-renaissance-festival", label: "Texas Renaissance Festival", description: "Compare another destination-scale fall festival." },{ href: "/events", label: "Texas events calendar", description: "Compare other fall events." }, { href: "/browse/counties#county-smith", label: "Explore Smith County", description: "Plan more of the East Texas trip." }],
     sources: [{ label: "Texas Rose Festival official site", url: "https://www.texasrosefestival.org/" }],
   },
   {
@@ -62,7 +68,9 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
       { title: "Use it as a heritage gateway", body: "Leave time for New Braunfels beyond the festival grounds and connect the visit to the region's German-Texan history." },
       { title: "Check the daily schedule", body: "Entertainment, admission details and operating hours vary; use the organizer's current schedule for your exact day." },
     ],
-    relatedLinks: [{ href: "/german-czech-texas-towns", label: "German and Czech Texas towns", description: "Connect Wurstfest to the larger heritage story." }, { href: "/browse/counties#county-comal", label: "Explore Comal County", description: "Build a broader Hill Country itinerary." }, { href: "/events", label: "Texas events calendar", description: "Compare other major fall events." }],
+    relatedLinks: [
+      { href: "/event/texas-renaissance-festival", label: "Texas Renaissance Festival", description: "Compare another repeat-weekend Texas fall event." },
+      { href: "/event/texas-rose-festival", label: "Texas Rose Festival", description: "Compare another heritage-focused fall festival." },{ href: "/german-czech-texas-towns", label: "German and Czech Texas towns", description: "Connect Wurstfest to the larger heritage story." }, { href: "/browse/counties#county-comal", label: "Explore Comal County", description: "Build a broader Hill Country itinerary." }, { href: "/events", label: "Texas events calendar", description: "Compare other major fall events." }],
     sources: [{ label: "Wurstfest official site", url: "https://wurstfest.com/" }],
   },
   {
@@ -73,7 +81,8 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
       { title: "Use the cultural district", body: "Pair the event with nearby museums, dining and other Tarrant County stops instead of making a separate cross-city trip." },
       { title: "Recheck final logistics", body: "Grounds hours, rodeo entry and other operational details can change; use the organizer's current visitor information." },
     ],
-    relatedLinks: [{ href: "/browse/counties#county-tarrant", label: "Explore Tarrant County", description: "Plan more of the Fort Worth trip." }, { href: "/events", label: "Texas events calendar", description: "Compare other rodeos and winter events." }],
+    relatedLinks: [
+      { href: "/event/san-antonio-stock-show-rodeo", label: "San Antonio Stock Show & Rodeo", description: "Compare another major Texas stock show and rodeo." },{ href: "/browse/counties#county-tarrant", label: "Explore Tarrant County", description: "Plan more of the Fort Worth trip." }, { href: "/events", label: "Texas events calendar", description: "Compare other rodeos and winter events." }],
     sources: [{ label: "Fort Worth Stock Show & Rodeo official site", url: "https://www.fwssr.com/" }, { label: "FWSSR visitor FAQ", url: "https://www.fwssr.com/p/plan-a-visit/frequently-asked-questions" }],
   },
   {
@@ -84,7 +93,8 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
       { title: "Budget time for the grounds", body: "If livestock exhibits, fair attractions or food are part of the plan, arrive early enough to use the grounds before the performance." },
       { title: "Use official day-of information", body: "Recheck parking, entry rules, show times and ticket availability with the organizer before attending." },
     ],
-    relatedLinks: [{ href: "/browse/counties#county-bexar", label: "Explore Bexar County", description: "Build a larger San Antonio visit." }, { href: "/events", label: "Texas events calendar", description: "Compare major Texas rodeos." }],
+    relatedLinks: [
+      { href: "/event/fort-worth-stock-show-rodeo", label: "Fort Worth Stock Show & Rodeo", description: "Compare another major Texas stock show and rodeo." },{ href: "/browse/counties#county-bexar", label: "Explore Bexar County", description: "Build a larger San Antonio visit." }, { href: "/events", label: "Texas events calendar", description: "Compare major Texas rodeos." }],
     sources: [{ label: "San Antonio Stock Show & Rodeo official site", url: "https://www.sarodeo.com/" }, { label: "Visit San Antonio rodeo guide", url: "https://www.visitsanantonio.com/events/arts-culture-events/san-antonio-rodeo/" }],
   },
   {
@@ -95,7 +105,8 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
       { title: "Plan for venue changes", body: "Programming is distributed across downtown; walking time, transit and schedule gaps are part of the event experience." },
       { title: "Book around event demand", body: "Lodging location and transportation strategy can matter as much as the session list when several days of programming are involved." },
     ],
-    relatedLinks: [{ href: "/browse/counties#county-travis", label: "Explore Travis County", description: "Connect SXSW with a broader Austin-area visit." }, { href: "/events", label: "Texas events calendar", description: "See other major cultural events." }],
+    relatedLinks: [
+      { href: "/event/texas-sandfest", label: "Texas SandFest", description: "Compare another destination-scale Texas spring event." },{ href: "/browse/counties#county-travis", label: "Explore Travis County", description: "Connect SXSW with a broader Austin-area visit." }, { href: "/events", label: "Texas events calendar", description: "See other major cultural events." }],
     sources: [{ label: "SXSW official 2027 dates announcement", url: "https://sxsw.com/news/2026/south-by-southwest-2027-dates-announced/" }, { label: "SXSW official site", url: "https://sxsw.com/" }],
   },
   {
@@ -106,7 +117,8 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
       { title: "Check prohibited items", body: "The organizer publishes current guidance on pets, coolers, shade structures, wagons and other items, so check the list while packing." },
       { title: "Give the sculptures time", body: "Leave a broad viewing window, then place beach time, meals and other Port Aransas stops around the festival." },
     ],
-    relatedLinks: [{ href: "/browse/counties#county-nueces", label: "Explore Nueces County", description: "Expand the Gulf Coast trip beyond the festival." }, { href: "/events", label: "Texas events calendar", description: "Compare other spring events." }],
+    relatedLinks: [
+      { href: "/event/sxsw", label: "SXSW", description: "Compare another destination-scale Texas spring event." },{ href: "/browse/counties#county-nueces", label: "Explore Nueces County", description: "Expand the Gulf Coast trip beyond the festival." }, { href: "/events", label: "Texas events calendar", description: "Compare other spring events." }],
     sources: [{ label: "Texas SandFest official site", url: "https://www.texassandfest.org/" }, { label: "Texas SandFest know-before-you-go guide", url: "https://www.texassandfest.org/knowbeforeyougo" }],
   },
 ];
