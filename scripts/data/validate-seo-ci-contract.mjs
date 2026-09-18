@@ -6,6 +6,8 @@ const workflow = fs.readFileSync('.github/workflows/validate.yml', 'utf8');
 const deployWorkflow = fs.readFileSync('.github/workflows/deploy-production.yml', 'utf8');
 const premergeRunner = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 const validationSuite = fs.readFileSync('scripts/ci/run-validation-suite.mjs', 'utf8');
+const sitemapIndexabilityAudit = fs.readFileSync('scripts/ci/audit-sitemap-page-indexability.mjs', 'utf8');
+const sitemapIndexabilityWorkflow = fs.readFileSync('.github/workflows/audit-sitemap-page-indexability.yml', 'utf8');
 const errors = [];
 
 const directValidators = [
@@ -69,6 +71,22 @@ const generatedPageScript = packageJson.scripts?.['generated-pages:validate'] ??
 if (!seoScript) errors.push('package.json must expose an seo:validate script.');
 if (!generatedPageScript.includes('validate-generated-page-quality.mjs')) errors.push('package.json must expose generated-pages:validate as a permanent standalone gate.');
 if (!dataScript.includes('validate-generated-page-quality.mjs')) errors.push('data:validate must run the generated-page quality validator.');
+
+for (const marker of [
+  'function internalSitemapLinks(html, sitemapUrls)',
+  'parsed.origin === ORIGIN && sitemapUrls.has(normalized)',
+  'return { failures, links: internalSitemapLinks(html, sitemapUrls) };',
+  'for (const target of result.links)',
+]) {
+  if (!sitemapIndexabilityAudit.includes(marker)) errors.push(`Sitemap indexability audit crawl-graph contract missing: ${marker}`);
+}
+for (const marker of [
+  'ref: main',
+  'node scripts/ci/audit-sitemap-page-indexability.mjs',
+  'AUDIT_OUTPUT: tmp/sitemap-page-indexability-audit.json',
+]) {
+  if (!sitemapIndexabilityWorkflow.includes(marker)) errors.push(`Scheduled sitemap indexability workflow contract missing: ${marker}`);
+}
 
 for (const validator of protectedValidators) {
   if (!fs.existsSync(`scripts/data/${validator}`)) errors.push(`Missing SEO validator file: ${validator}`);
