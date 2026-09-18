@@ -8,6 +8,7 @@ const premergeRunner = fs.readFileSync('scripts/ci/run-premerge-validation.mjs',
 const validationSuite = fs.readFileSync('scripts/ci/run-validation-suite.mjs', 'utf8');
 const sitemapIndexabilityAudit = fs.readFileSync('scripts/ci/audit-sitemap-page-indexability.mjs', 'utf8');
 const sitemapIndexabilityWorkflow = fs.readFileSync('.github/workflows/audit-sitemap-page-indexability.yml', 'utf8');
+const destinationIndexingWorkflow = fs.readFileSync('.github/workflows/destination-indexing-smoke.yml', 'utf8');
 const errors = [];
 
 const directValidators = [
@@ -86,6 +87,20 @@ for (const marker of [
   'AUDIT_OUTPUT: tmp/sitemap-page-indexability-audit.json',
 ]) {
   if (!sitemapIndexabilityWorkflow.includes(marker)) errors.push(`Scheduled sitemap indexability workflow contract missing: ${marker}`);
+}
+
+for (const marker of [
+  'workflow_run:',
+  'Deploy TexasDefined production',
+  'types:',
+  '- completed',
+  "github.event.workflow_run.conclusion == 'success'",
+  'workflow_dispatch:',
+]) {
+  if (!destinationIndexingWorkflow.includes(marker)) errors.push(`Destination indexing smoke post-deploy contract missing: ${marker}`);
+}
+if (/\n\s+push:\s*\n/.test(destinationIndexingWorkflow)) {
+  errors.push('Destination indexing smoke must not race production deployment from a direct push trigger.');
 }
 
 for (const validator of protectedValidators) {
