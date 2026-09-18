@@ -121,6 +121,7 @@ for (const [needle, label] of [
   ['most recent successful Cloudflare-to-Supabase pipeline run', 'healthy zero-click heartbeat explanation'],
   ['30d CTA impressions', 'impression headline metric'],
   ['CTR since', 'post-rollout CTR metric'],
+  ["timeZone: 'UTC'", 'CTR start-date display timezone lock'],
   ['qualifying impressions', 'zero-click impression diagnosis'],
   ['impressions30d', 'partner/page/destination impression breakdowns'],
 ]) expect(lazyRoute, needle, label);
