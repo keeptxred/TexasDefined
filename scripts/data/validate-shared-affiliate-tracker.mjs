@@ -18,6 +18,42 @@ function walk(dir) {
   return files;
 }
 
+function validateAffiliateAnchorMetadata(file, source) {
+  let offset = 0;
+  const marker = 'data-affiliate-partner';
+  while (true) {
+    const index = source.indexOf(marker, offset);
+    if (index < 0) break;
+    const start = source.lastIndexOf('<a', index);
+    const end = source.indexOf('</a>', index);
+    if (start < 0 || end < 0) {
+      failures.push(`${file} contains ${marker} outside a complete anchor; affiliate metadata cannot be verified.`);
+      offset = index + marker.length;
+      continue;
+    }
+    const anchor = source.slice(start, end + 4);
+    for (const required of ['data-affiliate-placement', 'data-commercial-partner', 'data-commercial-placement']) {
+      if (!anchor.includes(required)) {
+        failures.push(`${file} affiliate anchor with ${marker} is missing ${required}; first-party referral reporting would be incomplete.`);
+      }
+    }
+    offset = index + marker.length;
+  }
+}
+
+function validateDomAffiliateMetadata(file, source) {
+  if (!source.includes('.dataset.affiliatePartner')) return;
+  for (const required of [
+    '.dataset.affiliatePlacement',
+    '.dataset.commercialPartner',
+    '.dataset.commercialPlacement',
+  ]) {
+    if (!source.includes(required)) {
+      failures.push(`${file} builds affiliate links with .dataset.affiliatePartner but is missing ${required}; first-party referral reporting would be incomplete.`);
+    }
+  }
+}
+
 if (!fs.existsSync(sharedTrackerPath)) {
   console.error(`Missing shared affiliate tracker: ${sharedTrackerPath}`);
   process.exit(1);
@@ -59,6 +95,9 @@ for (const file of walk(sourceRoot)) {
   }
 }
 
+  validateAffiliateAnchorMetadata(file, source);
+  validateDomAffiliateMetadata(file, source);
+
 if (fs.existsSync(publicRoot)) {
   for (const file of walk(publicRoot)) {
     if (path.extname(file) !== '.js') continue;
@@ -66,6 +105,8 @@ if (fs.existsSync(publicRoot)) {
     if (source.includes('partner_referral_clicked')) {
       failures.push(`${file} writes partner_referral_clicked directly; public affiliate bootstraps must rely on the centralized delegated commercial-link listener to avoid double counting.`);
     }
+    validateAffiliateAnchorMetadata(file, source);
+    validateDomAffiliateMetadata(file, source);
   }
 }
 
@@ -75,4 +116,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Shared affiliate tracker governance passed: React/source affiliate marketing emitters are centralized in src/lib/affiliate-click.ts, while first-party partner referral counting remains single-path through src/platform/analytics.ts with no direct public-bootstrap writes.');
+console.log('Shared affiliate tracker governance passed: affiliate marketing emitters are centralized, first-party partner referral counting remains single-path through src/platform/analytics.ts, and every affiliate-tagged source/public link retains commercial partner and placement metadata for private reporting.');
