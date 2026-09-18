@@ -50,13 +50,15 @@ requireFeatures(engine, [
 ], 'Destination relationship engine');
 
 requireFeatures(component, [
-  'groups.length ? <>',
+  'const pairedDestinations = [...new Map(',
+  'groups',
+  '.flatMap((group) => group.destinations)',
+  '.map((item) => [item.slug, item])',
+  '.sort((left, right)',
+  '.slice(0, 6)',
   'TexasExplainedContextLinks surface="destination"',
-  'aria-label="Ways to continue the trip"',
-  'groups.map((group)',
-  'href={`#relationship-${group.id}`}',
-  'id={`relationship-${group.id}`}',
-  'group.destinations.map',
+  'Places worth adding to the same trip',
+  'pairedDestinations.map((item)',
   'DestinationCard',
   'distanceMiles(destination, item)',
   'Math.max(1, Math.round(miles)).toLocaleString("en-US")',
@@ -74,6 +76,12 @@ requireFeatures(component, [
 if (component.includes('if (!groups.length) return null')) {
   errors.push('Destination relationship UI must preserve Texas Explained fallback discovery when no relationship groups are available.');
 }
+if (component.includes('#relationship-') || component.includes('groups.map((group, index)')) {
+  errors.push('Destination relationship UI must not regress to a stacked relationship-section tail.');
+}
+if (route.includes('belongs on the list') || route.includes('>Plan the visit<')) {
+  errors.push('Destination route must use visitor-first headings instead of vague list language or command-style planning headings.');
+}
 
 if (route.includes('destinationsQuery({ category: destination.category, limit: 16 })')) {
   errors.push('Destination route regressed to the former same-category-only relationship query.');
@@ -85,4 +93,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Destination proximity, trip-intent water/history/outdoors/weekend groups, Texas Explained fallback discovery, town, complementary-category, similarity, regional, deduplication, crawlable UI, planner exits, and ItemList relationships passed validation.');
+console.log('Destination proximity and trip-intent relationships remain structured and crawlable while the public UI uses one deduplicated six-place nearby block, visitor-first headings, Texas Explained fallback discovery, planner exits, and ItemList relationships.');
