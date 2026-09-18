@@ -53,7 +53,7 @@ for (const token of ["No generic tackle encyclopedia",'method="get"','name="cate
 for (const token of ["buildFishingTechniqueProfileHead",'"@type": "WebPage"','"@type": "ItemList"','"@type": "BreadcrumbList"',"citation:"]) requireText(files.server, token, `profile server-side head contract missing ${token}`);
 for (const token of ['createFileRoute("/fishing/techniques/$slug")',"throw notFound()",'content: "noindex, nofollow"','head: ({ loaderData }) => loaderData?.head']) requireText(files.profileRoute, token, `profile critical route contract missing ${token}`);
 for (const token of ['createLazyFileRoute("/fishing/techniques/$slug")','FishingTechniqueProfile data={Route.useLoaderData()}']) requireText(files.profileLazy, token, `profile native lazy route missing ${token}`);
-for (const token of ["Verified lake applications, not a universal ranking","not today's answer","does not claim",'target="_blank"','rel="noopener noreferrer"']) requireText(files.profileComponent, token, `profile UI contract missing ${token}`);
+for (const token of ["Source-backed lake applications, not a universal ranking","not today's answer","does not claim",'target="_blank"','rel="noopener noreferrer"']) requireText(files.profileComponent, token, `profile UI contract missing ${token}`);
 
 for (const [routeName, routeText, componentPath] of [
   ["directory", files.directoryRoute, "@/components/fishing/FishingTechniqueDirectory"],
@@ -66,6 +66,14 @@ for (const routeText of [files.directoryRoute, files.profileRoute]) {
   for (const eagerHeadToken of ["buildMeta", "canonicalLink", "texasDefinedBrand", '"@type":']) {
     if (routeText.includes(eagerHeadToken)) throw new Error(`Fishing Batch 13 validation failed: eager SEO/schema payload leaked into critical technique route (${eagerHeadToken}).`);
   }
+}
+for (const token of ["source-backed relationship", "Any species", "Any season", ">Species</p>", ">Seasons</p>", "No technique matches all filters.", "source-backed lake applications"]) requireText(files.directoryComponent, token, `technique directory visitor-facing copy missing ${token}`);
+for (const stale of ["verified source relationship", "Any verified species", "Any verified season", "Verified species", "Verified seasons", "No verified technique matches all filters.", "verified lake applications"]) {
+  if (files.directoryComponent.includes(stale)) throw new Error(`Fishing Batch 13 validation failed: technique directory still exposes verification-heavy public copy (${stale}).`);
+}
+for (const token of ["Source-backed lake applications, not a universal ranking.", ">Species</p>", "source-backed technique dataset", "source-backed lake-technique relationship", "Browse all fishing techniques"]) requireText(files.profileComponent, token, `technique profile visitor-facing copy missing ${token}`);
+for (const stale of ["Verified lake applications", "Verified species", "verified technique dataset", "verified lake-technique relationship", "Browse all verified fishing techniques"]) {
+  if (files.profileComponent.includes(stale)) throw new Error(`Fishing Batch 13 validation failed: technique profile still exposes verification-heavy public copy (${stale}).`);
 }
 for (const forbidden of ["guaranteed catch","today's best technique","affiliate pick","sponsored ranking","buy this lure"]) if (`${files.directoryRoute}\n${files.profileRoute}\n${files.directoryComponent}\n${files.profileComponent}`.toLowerCase().includes(forbidden)) throw new Error(`Fishing Batch 13 validation failed: unsupported technique claim leaked (${forbidden}).`);
 
