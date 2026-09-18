@@ -43,7 +43,7 @@ for (const marker of [
   'data-stay-nearby-slot',
   'Know before you go',
   'Planning your visit to ${venueName}',
-  '<ParkingMapPanel map={parkingMap} contextName={venueName} embedded />',
+  '<ParkingMapPanel map={parkingMap} contextName={venueName} />',
   'Venue story',
   'Nearby attractions',
   'Sources & review',
@@ -56,8 +56,8 @@ for (const marker of [
   'grid gap-6 border-t border-border pt-5 lg:grid-cols-2 lg:items-start',
   'lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0',
 ]) requireText(parkingPanel, marker, 'parking map visitor layout');
-for (const stale of ['Accuracy checks', 'Verification source']) {
-  if (parkingPanel.includes(stale)) failures.push(`Parking map panel must not expose internal verification language: ${stale}`);
+for (const stale of ['Accuracy checks', 'Verification source', 'embedded = false', '>Parking map</p>']) {
+  if (parkingPanel.includes(stale)) failures.push(`Parking map panel must remain embedded-only and free of internal verification language: ${stale}`);
 }
 
 for (const marker of ['EventTicketCta', 'ArrowLeft', 'ArrowRight', 'Home', 'End', 'aria-roledescription="carousel"', 'View all events', 'View Calendar']) requireText(carousel, marker, 'event carousel accessibility/CTA');
