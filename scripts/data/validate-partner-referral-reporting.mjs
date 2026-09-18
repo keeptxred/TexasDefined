@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const read = (path) => fs.readFileSync(path, 'utf8');
 const migration = read('supabase/migrations/20260916032000_create_partner_referral_daily.sql');
 const impressionMigration = read('supabase/migrations/20260918133000_add_partner_referral_impressions.sql');
+const aggregateCommentMigration = read('supabase/migrations/20260918143500_update_partner_referral_aggregate_comment.sql');
 const sync = read('scripts/monetization/sync-partner-referral-analytics.mjs');
 const workflow = read('.github/workflows/sync-partner-referral-analytics.yml');
 const server = read('src/data/partner-referral-analytics.server.ts');
@@ -32,6 +33,9 @@ for (const [needle, label] of [
   ['check (impression_count >= 0)', 'nonnegative impression count'],
   ['Privacy-safe daily count of qualifying commercial CTA impressions', 'impression privacy contract'],
 ]) expect(impressionMigration, needle, label);
+
+expect(aggregateCommentMigration, 'partner referral clicks and qualifying CTA impressions', 'aggregate table click/impression documentation');
+expect(aggregateCommentMigration, 'Raw browser session identifiers are not stored here', 'aggregate table privacy documentation');
 
 for (const [needle, label] of [
   ["const DATASET = 'texas_defined_outcomes'", 'outcome dataset'],
@@ -68,7 +72,10 @@ for (const [needle, label] of [
   ["schedule:", 'scheduled sync'],
   ["cron: '17 * * * *'", 'primary hourly sync cadence'],
   ["cron: '47 * * * *'", 'fallback hourly sync opportunity'],
-  ["PARTNER_REFERRAL_SYNC_IF_STALE_MINUTES: ${{ github.event_name == 'schedule' && github.event.schedule == '47 * * * *' && '70' || '' }}", 'fallback-only freshness guard'],
+  ["workflow_run:", 'production-deploy recovery trigger'],
+  ["- 'Deploy TexasDefined production'", 'production-deploy recovery source'],
+  ["github.event_name == 'workflow_run' && '70'", 'deploy-recovery freshness guard'],
+  ["github.event_name == 'schedule' && github.event.schedule == '47 * * * *' && '70'", 'scheduled-fallback freshness guard'],
   ['authorize:', 'protected authorization job'],
   ['environment: texasdefined-publication', 'protected GitHub environment'],
   ['Authorize private referral sync', 'explicit environment authorization step'],
@@ -90,6 +97,8 @@ for (const [needle, label] of [
   ['IMPRESSION_TRACKING_STARTED_AT', 'CTR tracking start boundary'],
   ['totalImpressions30d', '30-day impression reporting'],
   ['clickThroughRateSinceImpressionTracking', 'truthful post-rollout CTR reporting'],
+  ['dailyImpressionsMap', 'daily impression aggregation'],
+  ['impressions: date >= IMPRESSION_TRACKING_STARTED_AT ? dailyImpressionsMap.get(date) ?? 0 : null', 'pre-rollout daily impressions remain unmeasured'],
   ["import { supabaseAdmin } from '@/integrations/supabase/client.server'", 'server-only Supabase client'],
   ['weekOverWeekPercent', 'trend reporting'],
   ["row.partner === HEARTBEAT_PARTNER && row.placement === HEARTBEAT_PLACEMENT", 'heartbeat metric exclusion'],
@@ -111,7 +120,7 @@ for (const [needle, label] of [
   ["createLazyFileRoute('/admin/partner-referrals')", 'admin lazy route'],
   ["const SESSION_KEY = 'texasdefined:sports-partner-admin-key'", 'shared commercial admin key'],
   ['raw browser session IDs are not stored', 'privacy disclosure'],
-  ['CI probe clicks are excluded', 'synthetic traffic disclosure'],
+  ['CI probe events are excluded', 'synthetic traffic disclosure'],
   ['Last aggregate write', 'aggregate freshness label'],
   ['No referral rows yet', 'zero-row aggregate state'],
   ['Dashboard refreshed', 'dashboard query freshness label'],
@@ -124,11 +133,17 @@ for (const [needle, label] of [
   ["timeZone: 'UTC'", 'CTR start-date display timezone lock'],
   ['qualifying impressions', 'zero-click impression diagnosis'],
   ['impressions30d', 'partner/page/destination impression breakdowns'],
+  ['Daily referral performance', 'combined daily performance heading'],
+  ['Daily affiliate CTA impressions', 'daily impression trend accessibility label'],
+  ['row.impressions === null', 'pre-rollout impression gap rendering'],
+  ['maxDailyImpressions', 'independent daily impression scaling'],
+  ['intentionally shown as unmeasured rather than zero', 'measurement-boundary explanation'],
 ]) expect(lazyRoute, needle, label);
 
 expect(types, 'lastPipelineSyncAt: string | null', 'pipeline heartbeat dashboard type');
 expect(types, 'totalImpressions30d: number', 'dashboard impression total type');
 expect(types, 'clickThroughRateSinceImpressionTracking: number | null', 'dashboard CTR type');
+expect(types, 'impressions: number | null', 'daily measured-impression boundary type');
 expect(admin, '<Link to="/admin/partner-referrals"', 'operations navigation');
 expect(collector, '// Browser session IDs are intentionally never persisted in Analytics Engine.', 'collector session-minimization contract');
 
@@ -144,4 +159,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Partner referral reporting validation passed: referral clicks are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has a staggered fallback opportunity that skips Cloudflare while the heartbeat is fresh, the scheduled sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
+console.log('Partner referral reporting validation passed: referral clicks and post-rollout CTA impressions are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, pre-rollout daily impression history remains explicitly unmeasured instead of being falsified as zero, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has staggered schedule and production-deploy recovery opportunities that skip Cloudflare while the heartbeat is fresh, the sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
