@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const read = (path) => fs.readFileSync(path, 'utf8');
 const migration = read('supabase/migrations/20260916032000_create_partner_referral_daily.sql');
 const impressionMigration = read('supabase/migrations/20260918133000_add_partner_referral_impressions.sql');
+const aggregateCommentMigration = read('supabase/migrations/20260918143500_update_partner_referral_aggregate_comment.sql');
 const sync = read('scripts/monetization/sync-partner-referral-analytics.mjs');
 const workflow = read('.github/workflows/sync-partner-referral-analytics.yml');
 const server = read('src/data/partner-referral-analytics.server.ts');
@@ -32,6 +33,9 @@ for (const [needle, label] of [
   ['check (impression_count >= 0)', 'nonnegative impression count'],
   ['Privacy-safe daily count of qualifying commercial CTA impressions', 'impression privacy contract'],
 ]) expect(impressionMigration, needle, label);
+
+expect(aggregateCommentMigration, 'partner referral clicks and qualifying CTA impressions', 'aggregate table click/impression documentation');
+expect(aggregateCommentMigration, 'Raw browser session identifiers are not stored here', 'aggregate table privacy documentation');
 
 for (const [needle, label] of [
   ["const DATASET = 'texas_defined_outcomes'", 'outcome dataset'],
@@ -111,7 +115,7 @@ for (const [needle, label] of [
   ["createLazyFileRoute('/admin/partner-referrals')", 'admin lazy route'],
   ["const SESSION_KEY = 'texasdefined:sports-partner-admin-key'", 'shared commercial admin key'],
   ['raw browser session IDs are not stored', 'privacy disclosure'],
-  ['CI probe clicks are excluded', 'synthetic traffic disclosure'],
+  ['CI probe events are excluded', 'synthetic traffic disclosure'],
   ['Last aggregate write', 'aggregate freshness label'],
   ['No referral rows yet', 'zero-row aggregate state'],
   ['Dashboard refreshed', 'dashboard query freshness label'],
@@ -144,4 +148,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Partner referral reporting validation passed: referral clicks are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has a staggered fallback opportunity that skips Cloudflare while the heartbeat is fresh, the scheduled sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
+console.log('Partner referral reporting validation passed: referral clicks and qualifying CTA impressions are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has a staggered fallback opportunity that skips Cloudflare while the heartbeat is fresh, the scheduled sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
