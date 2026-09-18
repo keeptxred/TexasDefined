@@ -332,7 +332,7 @@ function LegacySportsVenuePage() {
           <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
             <div>
               <p className="eyebrow text-primary">Event-day essentials</p>
-              <h2 id="venue-event-day-heading" className="mt-2 font-display text-3xl leading-tight">Planning your visit to {entity.name}</h2>
+              <h2 id="venue-event-day-heading" className="mt-2 font-display text-3xl leading-tight">{entity.name} parking, arrival and event-day details</h2>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">Venue-specific details reviewed against official sources on {formatCheckedDate(enrichment.verifiedAt)}.</p>
             </div>
             <div className="grid gap-8 md:grid-cols-2">
