@@ -117,6 +117,8 @@ for (const [county, hrefs] of Object.entries(countyRequirements)) {
   for (const href of hrefs) if (!countyRegistry.includes(`href: \"${href}\"`)) fail(`/county/${county}: missing ${href}`);
 }
 if (!countyComponent.includes("countySeasonalLinks(countySlug)")) fail("canonical county seasonal component is not reading the shared county registry");
+if (!countyComponent.includes("Best times to visit {countyName}")) fail("canonical county seasonal heading must use visitor-facing copy");
+if (countyComponent.includes("When to plan {countyName}")) fail("canonical county seasonal heading must not use awkward legacy planning copy");
 if (!countyIdentity.includes("<CountySeasonalPlanning countySlug={slug} countyName={countyName} />")) fail("canonical county pages are not rendering the seasonal planning layer");
 if (!countyLegacyLinks.includes("countySeasonalLinksBySlug, legacyCountyArticleSlugByCountySlug")) fail("legacy county articles are not sharing the canonical seasonal registry");
 if (!newest.includes('import "./seasonal-county-links"')) fail("legacy seasonal county reciprocity compatibility file is not loaded");
