@@ -11,7 +11,8 @@ type StayProperty = {
   contexts?: StayContext[];
 };
 type StayRegistry = { reviewedAt?: string; properties?: StayProperty[] };
-type DashboardState = { venue: StayRegistry; destination: StayRegistry };
+type HotelsComVerification = { reviewedAt?: string; publisherId?: string; properties?: Array<{ propertyId?: string; name?: string; destinationUrl?: string }> };
+type DashboardState = { venue: StayRegistry; destination: StayRegistry; hotelsCom: HotelsComVerification };
 
 export function StayMonetizationReadiness() {
   const [data, setData] = useState<DashboardState | null>(null);
@@ -22,8 +23,9 @@ export function StayMonetizationReadiness() {
     Promise.all([
       fetch('/stay-nearby-hotels.json', { cache: 'no-store' }).then(assertJson),
       fetch('/stay-nearby-destination-hotels.json', { cache: 'no-store' }).then(assertJson),
+      fetch('/stay-nearby-hotelscom-verification.json', { cache: 'no-store' }).then(assertHotelsComVerification),
     ])
-      .then(([venue, destination]) => { if (active) setData({ venue, destination }); })
+      .then(([venue, destination, hotelsCom]) => { if (active) setData({ venue, destination, hotelsCom }); })
       .catch((cause) => { if (active) setError(cause instanceof Error ? cause.message : 'Stay monetization readiness could not be loaded.'); });
     return () => { active = false; };
   }, []);
@@ -42,14 +44,14 @@ export function StayMonetizationReadiness() {
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <ReadinessMetric label="Curated contexts" value={String(readiness.totalContexts)} detail={`${readiness.venueContexts} venue · ${readiness.destinationContexts} destination`} />
         <ReadinessMetric label="Active properties" value={String(readiness.activeProperties)} detail={`${readiness.destinationProperties} destination-cohort properties`} />
-        <ReadinessMetric label="Verified property links" value={String(readiness.verifiedAffiliateLinks)} detail="Only account-generated verified links count" />
+        <ReadinessMetric label="Verified property links" value={String(readiness.verifiedAffiliateLinks)} detail={`${readiness.venueVerifiedAffiliateLinks} venue · ${readiness.destinationVerifiedAffiliateLinks} destination exact-property links`} />
         <ReadinessMetric label="Property imagery ready" value={String(readiness.imageReady)} detail="Governed first-party image records only" />
       </div>
 
       <div className="mt-8 rounded-md border border-border p-5">
         <strong className="font-display text-2xl">Controlled destination cohort: {readiness.destinationContexts} destinations · {readiness.destinationProperties} properties</strong>
         <p className="mt-2 text-sm text-muted-foreground">Destination pages use contextual curated cards only where this registry has a reviewed relationship. Other eligible travel pages keep the generic Expedia/Hotels.com/Vrbo fallback rather than inheriting unsourced local recommendations.</p>
-        <p className="mt-2 text-xs text-muted-foreground">Destination registry reviewed: {data?.destination.reviewedAt || 'not recorded'} · Venue registry reviewed: {data?.venue.reviewedAt || 'not recorded'}</p>
+        <p className="mt-2 text-xs text-muted-foreground">Destination registry reviewed: {data?.destination.reviewedAt || 'not recorded'} · Venue registry reviewed: {data?.venue.reviewedAt || 'not recorded'} · Hotels.com verification reviewed: {data?.hotelsCom.reviewedAt || 'not recorded'}</p>
       </div>
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -74,21 +76,33 @@ async function assertJson(response: Response): Promise<StayRegistry> {
   return response.json() as Promise<StayRegistry>;
 }
 
-function summarize({ venue, destination }: DashboardState) {
+async function assertHotelsComVerification(response: Response): Promise<HotelsComVerification> {
+  if (!response.ok) throw new Error(`${response.url} returned HTTP ${response.status}.`);
+  return response.json() as Promise<HotelsComVerification>;
+}
+
+function summarize({ venue, destination, hotelsCom }: DashboardState) {
   const venueProperties = (venue.properties || []).filter((property) => property.status === 'active');
   const destinationProperties = (destination.properties || []).filter((property) => property.status === 'active');
   const all = [...venueProperties, ...destinationProperties];
   const contextKeys = (properties: StayProperty[], kind: string) => new Set(properties.flatMap((property) => (property.contexts || []).filter((context) => context.kind === kind && context.key).map((context) => context.key as string)));
   const venueContextKeys = contextKeys(venueProperties, 'venue');
   const destinationContextKeys = contextKeys(destinationProperties, 'destination');
-  const verifiedAffiliateLinks = all.reduce((total, property) => total + (property.bookingTargets || []).filter((target) => target.verified === true && typeof target.affiliateUrl === 'string' && target.affiliateUrl.startsWith('https://')).length, 0);
+  const activePropertyIds = new Set(all.flatMap((property) => property.id ? [property.id] : []));
+  const verifiedPropertyIds = new Set((hotelsCom.properties || [])
+    .filter((property) => property.propertyId && activePropertyIds.has(property.propertyId))
+    .filter((property) => typeof property.destinationUrl === 'string' && /^https:\/\/www\.hotels\.com\/ho\d+\//i.test(property.destinationUrl))
+    .map((property) => property.propertyId as string));
+  const venueVerifiedAffiliateLinks = venueProperties.filter((property) => property.id && verifiedPropertyIds.has(property.id)).length;
+  const destinationVerifiedAffiliateLinks = destinationProperties.filter((property) => property.id && verifiedPropertyIds.has(property.id)).length;
+  const verifiedAffiliateLinks = verifiedPropertyIds.size;
   const imageReady = all.filter((property) => typeof property.image?.url === 'string' && property.image.url.startsWith('/')).length;
   const destinationRows = [...destinationContextKeys].sort().map((key) => {
     const matching = destinationProperties.filter((property) => (property.contexts || []).some((context) => context.kind === 'destination' && context.key === key));
     return {
       key,
       properties: matching.map((property) => property.name || property.id || 'Unnamed property'),
-      verifiedLinks: matching.reduce((total, property) => total + (property.bookingTargets || []).filter((target) => target.verified === true && typeof target.affiliateUrl === 'string' && target.affiliateUrl.startsWith('https://')).length, 0),
+      verifiedLinks: matching.filter((property) => property.id && verifiedPropertyIds.has(property.id)).length,
     };
   });
   return {
@@ -98,6 +112,8 @@ function summarize({ venue, destination }: DashboardState) {
     activeProperties: all.length,
     destinationProperties: destinationProperties.length,
     verifiedAffiliateLinks,
+    venueVerifiedAffiliateLinks,
+    destinationVerifiedAffiliateLinks,
     imageReady,
     destinationRows,
   };
