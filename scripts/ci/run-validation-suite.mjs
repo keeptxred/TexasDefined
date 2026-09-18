@@ -54,6 +54,7 @@ const checks = [
   ['entity-template-quality', 'CONTENT/QUALITY', 'Validate entity template quality', 'node', ['scripts/data/validate-entity-template-quality.mjs']],
   ['image-seo', 'IMAGE/SEO', 'Validate image SEO', 'node', ['scripts/data/validate-image-seo.mjs']],
   ['editorial-image-duplicates', 'IMAGE/QUALITY', 'Validate editorial hero uniqueness site-wide', 'node', ['scripts/data/validate-editorial-image-duplicates.mjs', '--all']],
+  ['navigation-image-quality', 'IMAGE/QUALITY', 'Validate navigation image coverage and uniqueness', 'node', ['scripts/data/validate-navigation-image-quality.mjs']],
   ['search-rendering-performance', 'PERFORMANCE', 'Validate search rendering performance', 'node', ['scripts/data/validate-search-rendering-performance.mjs']],
   ['content-duplication', 'CONTENT/QUALITY', 'Validate content duplication', 'node', ['scripts/data/validate-content-duplication.mjs']],
   ['sitemap-routes', 'SEO/ROUTING', 'Validate sitemap routes', 'node', ['scripts/data/validate-sitemap-routes.mjs']],
