@@ -31,6 +31,12 @@ if (!failures.length) {
   if (!routing.includes('FISHING_REPORTS_DIRECTORY_PATH = "/fishing/reports"') || !routing.includes("fishingReportCanonicalPath") || !routing.includes('"current" | "stale" | "expired"')) failures.push("Canonical report routing/freshness contract incomplete.");
   if (!directoryServer.includes("isPublicFishingReportValid") || !profileServer.includes("isPublicFishingReportValid") || !sitemapServer.includes("isPublicFishingReportValid")) failures.push("Public report surfaces do not share the integrity gate.");
   if (!directoryUi.includes("does not create placeholder bite reports") || !profileUi.includes("not a live bite claim") || !profileUi.includes("old observations forward as current facts")) failures.push("Anti-fabrication/freshness disclosure missing.");
+  for (const phrase of ["Current-window report", "Current only within this report’s published window", "Contributed by approved guide"]) {
+    if (!profileUi.includes(phrase)) failures.push(`Fishing report profile is missing visitor-facing label: ${phrase}`);
+  }
+  for (const stale of ["Verified current-window report", "Verified stale report", "Verified historical report", "verified, contributor-approved guide"]) {
+    if (profileUi.includes(stale)) failures.push(`Fishing report profile still exposes verification-heavy public copy: ${stale}`);
+  }
   for (const phrase of ["Fishing reports with dates and freshness labels.", "Submit a report for review →", "Reports are reviewed, not purchased.", "No fishing reports are published yet."]) {
     if (!directoryUi.includes(phrase)) failures.push(`Fishing report directory is missing visitor-facing label: ${phrase}`);
   }
