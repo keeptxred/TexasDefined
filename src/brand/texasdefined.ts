@@ -12,6 +12,8 @@ import enchantedRock from "@/assets/enchanted-rock.jpg";
 import heroHillCountry from "@/assets/hero-hill-country.jpg";
 import sixFlagsHero from "@/assets/six-flags-hero-photo.jpg";
 import courthouseSquare from "@/assets/generated/texas-courthouse-square.jpg";
+import texasHomeMaintenance from "@/assets/texas-home-maintenance-photo.jpg";
+import texasSpecialDistricts from "@/assets/generated/texas-special-districts.jpg";
 
 import type { BrandConfig } from "./types";
 
@@ -97,14 +99,14 @@ export const texasDefinedBrand: BrandConfig = {
       to: "/texas-living",
       description: "Homes, history, sports and the practical side of making a life in Texas",
       children: [
-        { label: "Things That Define Texas", to: "/things-unique-to-texas", description: "250 foods, places, traditions and symbols that define Texas" },
-        { label: "Texas Icons", to: "/texas-icons" },
-        { label: "Homes & Land", to: "/real-estate", description: "Buying and owning Texas homes and land" },
-        { label: "Property", to: "/property", description: "Taxes, exemptions, county guides and homeowner tools" },
+        { label: "Things That Define Texas", to: "/things-unique-to-texas", description: "250 foods, places, traditions and symbols that define Texas", image: { src: bbqBrisket, alt: "Texas barbecue representing one of the foods and traditions that define the state" } },
+        { label: "Texas Icons", to: "/texas-icons", image: { src: bluebonnets, alt: "Texas bluebonnets, one of the state’s best-known natural icons" } },
+        { label: "Homes & Land", to: "/real-estate", description: "Buying and owning Texas homes and land", image: { src: heroHillCountry, alt: "Texas Hill Country land and homes landscape" } },
+        { label: "Property", to: "/property", description: "Taxes, exemptions, county guides and homeowner tools", image: { src: courthouseSquare, alt: "Texas courthouse square representing county property and tax resources" } },
         { label: "Moving Here", to: "/moving-to-texas", description: "What to know before the boxes arrive", image: { src: roadTrip, alt: "A Texas highway stretching toward the horizon" } },
-        { label: "Texas vs Every State", to: "/texas-vs-every-state", description: "Compare Texas with all 49 other states using one consistent framework", image: { src: roadTrip, alt: "A Texas highway stretching toward the horizon" } },
-        { label: "Texas Resources", to: "/texas-resources", description: "Driver licenses, DMV, state agencies and practical services" },
-        { label: "Home & Garden", to: "/home-garden", description: "Texas homes, yards, seasons and practical projects" },
+        { label: "Texas vs Every State", to: "/texas-vs-every-state", description: "Compare Texas with all 49 other states using one consistent framework", image: { src: bigBend, alt: "Big Bend landscape representing Texas in the fifty-state comparison" } },
+        { label: "Texas Resources", to: "/texas-resources", description: "Driver licenses, DMV, state agencies and practical services", image: { src: texasSpecialDistricts, alt: "Texas civic and public-service infrastructure" } },
+        { label: "Home & Garden", to: "/home-garden", description: "Texas homes, yards, seasons and practical projects", image: { src: texasHomeMaintenance, alt: "Texas home exterior for seasonal home and garden projects" } },
         { label: "History", to: "/texas-history", description: "The people, places and moments that shaped the state", image: { src: smallTown, alt: "A historic Texas courthouse square" } },
         { label: "Sports", to: "/sports", description: "Teams, traditions and the games Texans follow", image: { src: highSchoolFootball, alt: "Texas high school football under stadium lights" } },
       ],
