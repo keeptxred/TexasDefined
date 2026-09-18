@@ -269,7 +269,7 @@ function KnowBeforeYouGo({
         <GuideItem title="Parking" body={parking} />
         <GuideItem title="Arrival" body={arrival} />
       </div>
-      <ParkingMapPanel map={parkingMap} contextName={venueName} embedded />
+      <ParkingMapPanel map={parkingMap} contextName={venueName} />
     </EditorialSection>
   );
 }
