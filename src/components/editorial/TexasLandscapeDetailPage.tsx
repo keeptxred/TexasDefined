@@ -14,8 +14,8 @@ type TexasLandscapeDetailPageProps = {
 
 function SourceDesk({ sources, noun }: { sources: Array<{ label: string; href: string }>; noun: string }) {
   return <section className="mt-14 border-t-2 border-foreground pt-7">
-    <p className="eyebrow text-primary">Source desk</p>
-    <h2 className="mt-3 font-display text-3xl">Authority sources used for this {noun}</h2>
+    <p className="eyebrow text-primary">Sources</p>
+    <h2 className="mt-3 font-display text-3xl">Sources used for this {noun}</h2>
     <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Landscape boundaries are gradual, and travel conditions can change. These public-agency and institutional sources support the physical-geography claims here; current park access, road conditions, water levels and closures should still be checked before travel.</p>
     <ul className="mt-6 space-y-3">{sources.map((source) => <li key={source.href}><a href={source.href} target="_blank" rel="noreferrer" className="border-b border-primary pb-1 text-sm font-semibold text-primary">{source.label} →</a></li>)}</ul>
   </section>;
