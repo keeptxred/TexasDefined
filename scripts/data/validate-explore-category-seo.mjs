@@ -24,6 +24,7 @@ const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
 const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'utf8');
 const sitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap-explore[.]xml.ts'), 'utf8');
 const brand = fs.readFileSync(path.join(root, 'src/brand/texasdefined.ts'), 'utf8');
+const header = fs.readFileSync(path.join(root, 'src/components/layout/Header.tsx'), 'utf8');
 const exploreFeatureStubs = fs.readFileSync(path.join(root, 'src/data/fixtures/lazy-explore-feature-articles.ts'), 'utf8');
 const routeFiles = fs.readdirSync(path.join(root, 'src/routes'));
 const errors = [];
@@ -276,6 +277,64 @@ for (const category of migratedCategories) {
   if (!brand.includes(`/explore/${category}`)) errors.push(`Explore navigation link missing: ${category}.`);
 }
 
+function validateMegaMenuImages(label, expectedCount) {
+  const block = brand.match(new RegExp('label: "' + label + '",[\\s\\S]*?children: \\[([\\s\\S]*?)\\n      \\],'))?.[1] ?? '';
+  const items = [...block.matchAll(/^\s*\{ label: "([^"]+)"[^\n]*$/gm)].map((match) => ({ label: match[1], source: match[0] }));
+  if (items.length !== expectedCount) {
+    errors.push(label + ' mega-menu image guard found ' + items.length + ' children; expected ' + expectedCount + '.');
+    return;
+  }
+  const seenSources = new Map();
+  for (const item of items) {
+    const source = item.source.match(/image:\s*\{\s*src:\s*([^,}]+)/)?.[1]?.trim();
+    if (!source) {
+      errors.push(label + ' mega-menu item "' + item.label + '" must have a real image instead of the generic placeholder.');
+      continue;
+    }
+    const prior = seenSources.get(source);
+    if (prior) errors.push(label + ' mega-menu items "' + prior + '" and "' + item.label + '" reuse the same image source ' + source + '.');
+    else seenSources.set(source, item.label);
+  }
+}
+
+validateMegaMenuImages('Explore', 14);
+validateMegaMenuImages('Texas Life', 10);
+
+if (!header.includes('onFocus={() => setOpenGroup(hasChildren ? item.to : null)} onClick={() => setOpenGroup(null)} aria-haspopup={hasChildren ? "true" : undefined}')) {
+  errors.push('Desktop top-level navigation must close any open mega-menu when a destination is clicked.');
+}
+
+const fixtureCategoryTable = fixtures.match(/export const categories: Category\[\] = \[([\s\S]*?)\n\];/)?.[1] ?? '';
+const landingCategoryTable = landing.match(/export const EXPLORE_CATEGORIES = \[([^\]]+)\] as const;/)?.[1] ?? '';
+const landingCategorySlugs = [...landingCategoryTable.matchAll(/"([^"]+)"/g)].map((match) => match[1]);
+
+function categorySourceBlock(source, slug) {
+  return source.match(new RegExp('slug: "' + slug + '"(?: as Category\\["slug"\\])?,[\\s\\S]*?(?=\\n  \\},\\n  \\{|\\n  \\},\\n\\];|\\n  \\},?$)'))?.[0] ?? '';
+}
+
+function categoryImageToken(block) {
+  const objectSrc = block.match(/image:\s*\{[\s\S]*?src:\s*([^,\n}]+)/)?.[1]?.trim();
+  if (objectSrc) return objectSrc;
+  return block.match(/image:\s*([A-Za-z_$][A-Za-z0-9_.$]*)/)?.[1] ?? null;
+}
+
+const landingImageOwners = new Map();
+for (const slug of landingCategorySlugs) {
+  const block = categorySourceBlock(supplemental, slug) || categorySourceBlock(fixtureCategoryTable, slug);
+  const token = categoryImageToken(block);
+  if (!token) {
+    errors.push(`Explore landing category ${slug} must have a real image instead of the generic gradient placeholder.`);
+    continue;
+  }
+  const prior = landingImageOwners.get(token);
+  if (prior) errors.push(`Explore landing categories ${prior} and ${slug} reuse the same image source ${token}.`);
+  else landingImageOwners.set(token, slug);
+}
+
+if (landingCategorySlugs.length !== 13) {
+  errors.push(`Explore landing image guard found ${landingCategorySlugs.length} categories; expected 13.`);
+}
+
 for (const feature of ['supplementalExploreCategories', 'const merged = new Map', 'return [...merged.values()]']) {
   if (!queries.includes(feature)) errors.push(`Merged Explore taxonomy feature missing: ${feature}.`);
 }
@@ -317,4 +376,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore categories, sparse-archive indexability, tag-archive governance, lightweight inventory drift protection, classification, filterable collections, taxonomy, navigation, dedicated quality-gated sitemap, related links, regions, structured data, breadcrumbs, and body-derived feature reading times passed validation.');
+console.log('Explore categories, sparse-archive indexability, tag-archive governance, lightweight inventory drift protection, classification, filterable collections, taxonomy, duplicate-safe mega-menu imagery, duplicate-safe Explore landing imagery, navigation, dedicated quality-gated sitemap, related links, regions, structured data, breadcrumbs, and body-derived feature reading times passed validation.');
