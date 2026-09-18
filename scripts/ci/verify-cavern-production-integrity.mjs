@@ -108,7 +108,7 @@ for (const [slug, name] of restoredCaverns) {
       && !noindexPatternB.test(html)
       && (canonicalPatternA.test(html) || canonicalPatternB.test(html))
       && (html.includes('Official source') || html.includes('Official visitor information'))
-      && html.includes('Visitor information checked')
+      && html.includes('Visitor details last reviewed')
       && html.includes('Photography:'),
     `${name} has not reached the complete canonical/indexable/source-attributed state yet`,
   );
@@ -118,7 +118,7 @@ for (const [slug, name] of restoredCaverns) {
   assert(!noindexPatternA.test(body) && !noindexPatternB.test(body), `${name} page is marked noindex`);
   assert(canonicalPatternA.test(body) || canonicalPatternB.test(body), `${name} is missing the expected canonical link: ${canonicalUrl}`);
   assert(body.includes('Official source') || body.includes('Official visitor information'), `${name} is missing official-source metadata`);
-  assert(body.includes('Visitor information checked'), `${name} is missing source review metadata`);
+  assert(body.includes('Visitor details last reviewed'), `${name} is missing source review metadata`);
   assert(body.includes('Photography:'), `${name} is missing image attribution`);
   console.log(`[${slug}] verified HTTP 200, canonical, indexability, official-source metadata, review date, and image attribution.`);
 }
