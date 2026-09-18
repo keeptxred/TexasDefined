@@ -15,9 +15,9 @@ function CitiesDirectoryPage() {
       eyebrow="Texas cities"
       title="How to use the Texas city directory"
       items={[
-        { question: "What is this directory?", answer: `A searchable starting point for ${TEXAS_CITIES.length.toLocaleString("en-US")} Texas cities in the current Texas Defined reference set, organized by county and region, plus a source-backed relocation comparison layer for places with deeper moving research.` },
-        { question: "How can I find what county a Texas city is in?", answer: "Each city entry identifies its Texas county and region. Use the county directory and exact-address research tools for local tax, school, utility, flood and insurance context while city detail records are independently source-verified." },
-        { question: "Can I use this to compare places to live?", answer: "Yes, as an orientation tool. The relocation comparison uses transparent geography, setting, commute and planning labels; it does not publish a hidden best-city score or treat editorial labels as live home-price data." },
+        { question: "What is this directory?", answer: `A searchable directory of ${TEXAS_CITIES.length.toLocaleString("en-US")} Texas cities, organized by county and region, with relocation comparisons for places where Texas Defined has deeper moving research.` },
+        { question: "How can I find what county a Texas city is in?", answer: "Each city entry identifies its Texas county and region. Use the county directory and exact-address tools for local tax, school, utility, flood and insurance context; city detail records are checked against independent public sources." },
+        { question: "Can I use this to compare places to live?", answer: "Yes, as a starting point. The relocation comparison uses clearly labeled geography, setting, commute and planning information; it does not publish a hidden best-city score or treat editorial guidance as live home-price data." },
         { question: "Why does the exact address matter?", answer: "Texas mailing cities can cross county, school, utility, tax and insurance boundaries. Verify an exact address with the responsible public sources before relying on a citywide assumption." },
         { question: "Is this an official government directory?", answer: "No. Texas Defined is an independent reference and editorial guide; verify official boundaries, services and records with the relevant public agency." },
       ]}
