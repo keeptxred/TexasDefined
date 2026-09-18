@@ -23,7 +23,7 @@ export const Route = createFileRoute("/fishing/reports/$slug")({
     ]) } ] };
   },
   component: FishingReportProfileRoute,
-  notFoundComponent: () => <div className="mx-auto max-w-3xl px-6 py-20"><h1 className="font-display text-4xl">Verified fishing report not found</h1><p className="mt-4 text-muted-foreground">TexasDefined only publishes report routes after source, date, lake and species verification.</p><a href="/fishing/reports" className="mt-6 inline-block border-b border-primary pb-1 font-semibold text-primary">Browse fishing reports →</a></div>,
+  notFoundComponent: () => <div className="mx-auto max-w-3xl px-6 py-20"><h1 className="font-display text-4xl">Fishing report not found</h1><p className="mt-4 text-muted-foreground">This report may be unavailable, unpublished or still under review.</p><a href="/fishing/reports" className="mt-6 inline-block border-b border-primary pb-1 font-semibold text-primary">Browse fishing reports →</a></div>,
 });
 
 function FishingReportProfileRoute() {
