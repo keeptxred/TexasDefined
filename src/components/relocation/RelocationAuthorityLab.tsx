@@ -131,17 +131,17 @@ export function RelocationAuthorityLab() {
               <form onSubmit={(event) => { event.preventDefault(); void researchSubmittedAddress(); }} className="flex flex-col gap-3 sm:flex-row">
                 <label htmlFor="relocation-address" className="sr-only">Texas address</label>
                 <input id="relocation-address" value={addressDraft} onChange={(event) => setAddressDraft(event.target.value)} placeholder="Street address, city, Texas ZIP" className="min-h-11 flex-1 border border-border bg-background px-4 text-sm outline-none focus:border-primary" />
-                <button type="submit" disabled={addressStatus === "loading"} className="min-h-11 bg-primary px-5 text-sm font-semibold text-primary-foreground disabled:opacity-60">{addressStatus === "loading" ? "Resolving address…" : "Build research packet"}</button>
+                <button type="submit" disabled={addressStatus === "loading"} className="min-h-11 bg-primary px-5 text-sm font-semibold text-primary-foreground disabled:opacity-60">{addressStatus === "loading" ? "Checking address…" : "Research this address"}</button>
               </form>
               <p className="mt-2 text-xs leading-5 text-muted-foreground">The submitted address is used for the Census lookup and is not saved by this tool.</p>
               {researchAddress && <div className="mt-4 border-l-2 border-primary pl-4 text-sm leading-7" aria-live="polite">
                 {addressResult ? <>
                   <p><span className="font-semibold">Matched address:</span> {addressResult.matchedAddress}</p>
-                  <p><span className="font-semibold">County:</span> {addressResult.county ?? "Not returned by the geocoder"}</p>
-                  <p><span className="font-semibold">Census place:</span> {addressResult.place ?? "Not returned by the geocoder"}</p>
-                  <p><span className="font-semibold">Unified school district:</span> {addressResult.schoolDistrict ?? "Not returned — verify with TEA"}</p>
+                  <p><span className="font-semibold">County:</span> {addressResult.county ?? "Not found for this address"}</p>
+                  <p><span className="font-semibold">Census city/place:</span> {addressResult.place ?? "Not returned by the geocoder"}</p>
+                  <p><span className="font-semibold">School district:</span> {addressResult.schoolDistrict ?? "Not found — check with TEA"}</p>
                   <p><span className="font-semibold">Coordinates:</span> {addressResult.latitude.toFixed(5)}, {addressResult.longitude.toFixed(5)}</p>
-                </> : addressStatus === "not-found" ? <p>No Texas address match was returned for <span className="font-semibold">{researchAddress}</span>. Check the street, city and ZIP, then try again.</p> : addressStatus === "error" ? <p>The federal geocoder could not be reached. You can still use the official research links below with <span className="font-semibold">{researchAddress}</span>.</p> : <p>Resolving <span className="font-semibold">{researchAddress}</span>…</p>}
+                </> : addressStatus === "not-found" ? <p>No Texas address match was returned for <span className="font-semibold">{researchAddress}</span>. Check the street, city and ZIP, then try again.</p> : addressStatus === "error" ? <p>The federal address lookup is temporarily unavailable. You can still use the official research links below with <span className="font-semibold">{researchAddress}</span>.</p> : <p>Checking <span className="font-semibold">{researchAddress}</span>…</p>}
               </div>}
               <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 xl:grid-cols-3">
                 {RELOCATION_RESEARCH_STEPS.map((step) => <article key={step.title} className="bg-background p-5">
