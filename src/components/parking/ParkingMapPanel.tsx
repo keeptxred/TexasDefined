@@ -40,13 +40,13 @@ export function ParkingMapPanel({
 
       <div className="mt-5 grid gap-4 border-t border-border pt-4 sm:grid-cols-2">
         <div>
-          <h3 className="text-sm font-semibold">Accuracy checks</h3>
+          <h3 className="text-sm font-semibold">Parking details</h3>
           <ul className="mt-2 space-y-2 text-sm leading-6 text-muted-foreground">
             {map.accuracyNotes.slice(0, 4).map((note) => <li key={note}>• {note}</li>)}
           </ul>
         </div>
         <div>
-          <h3 className="text-sm font-semibold">Verification source{map.verificationSources.length === 1 ? '' : 's'}</h3>
+          <h3 className="text-sm font-semibold">Current venue source{map.verificationSources.length === 1 ? '' : 's'}</h3>
           <ul className="mt-2 space-y-2 text-sm leading-6">
             {map.verificationSources.map((source) => (
               <li key={source.url}>
@@ -80,8 +80,8 @@ export function ParkingMapPanel({
           </h2>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">
             {map.origin === 'ai-generated'
-              ? `This original diagram was checked against real venue parking material on ${formatDate(map.verifiedAt)}.`
-              : `Reuse rights and map accuracy were checked on ${formatDate(map.verifiedAt)}.`}
+              ? `This original diagram is based on current venue parking information reviewed on ${formatDate(map.verifiedAt)}.`
+              : `Map reuse rights and current parking information were reviewed on ${formatDate(map.verifiedAt)}.`}
           </p>
         </div>
         {content}
