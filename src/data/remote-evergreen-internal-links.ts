@@ -191,7 +191,6 @@ const redditBatchLinks: Record<string, ArticleInternalLink[]> = {
   ],
   "texas-road-closures-drivetexas-guide": [
     { href: "/article/why-austin-i35-traffic-keeps-getting-worse", label: "Why Austin I-35 traffic keeps getting worse", description: "Understand the construction and capacity pressures behind one of the state's most difficult urban corridors." },
-    { href: "/article/why-austin-i35-traffic-keeps-getting-worse", label: "Why Austin I-35 traffic keeps getting worse", description: "Understand the construction and capacity pressures behind one of the state's most difficult urban corridors." },
     { href: "/article/texas-toll-roads-tags-fees-guide", label: "Texas toll roads, tags and fees", description: "Know which toll systems and payment rules can affect an alternate route." },
     { href: "/explore/road-trips", label: "Explore Texas road trips", description: "Plan statewide drives with better route and stop context." },
   ],
