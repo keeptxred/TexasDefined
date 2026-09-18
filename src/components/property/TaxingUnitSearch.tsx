@@ -7,7 +7,7 @@ export function TaxingUnitSearch({
   label = 'Search taxing units',
   type,
   onSelect,
-  placeholder = 'Enter a city, ISD, MUD or district name',
+  placeholder = 'Enter a city, school district or special district',
   allowVariableSelection = false,
 }: {
   label?: string;
