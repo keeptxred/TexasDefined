@@ -20,6 +20,10 @@ const OUTCOME_EVENTS = new Set([
   "resource_saved",
   "internal_link_shown",
   "internal_link_clicked",
+  "shop_page_view",
+  "shop_navigation_clicked",
+  "shop_product_clicked",
+  "shop_outbound_clicked",
   "ai_referral_visit",
 ]);
 
