@@ -19,12 +19,6 @@ import type { PublicSportsSponsorPlacement } from "@/data/sports-sponsorship.typ
 
 const siteUrl = "https://texasdefined.com";
 
-// Collection discovery now lives on the sports-venue directory and search surfaces rather than
-// as a generic block on every venue guide. These migration markers document the retired surface
-// until the broader landing-page validation contract is updated: SportsCollectionSection,
-// Explore the collection, More venues like ${venueName}, href={`/sports-venues/${landing.slug}`},
-// Browse collection →.
-
 export type SportsVenueGuideLink = {
   label: string;
   href: string;
@@ -271,14 +265,12 @@ function KnowBeforeYouGo({
   parkingMap?: ParkingMapAsset;
 }) {
   return (
-    <EditorialSection eyebrow="Know before you go" title={`Planning for ${venueName}`}>
+    <EditorialSection eyebrow="Know before you go" title={`Planning your visit to ${venueName}`}>
       <div className="grid gap-x-10 gap-y-7 md:grid-cols-2">
-        <div className="min-w-0">
-          <GuideItem title="Parking" body={parking} />
-          <ParkingMapPanel map={parkingMap} contextName={venueName} embedded />
-        </div>
+        <GuideItem title="Parking" body={parking} />
         <GuideItem title="Arrival" body={arrival} />
       </div>
+      <ParkingMapPanel map={parkingMap} contextName={venueName} embedded />
     </EditorialSection>
   );
 }
@@ -312,7 +304,7 @@ function SourcesSection({ entity, guide, enrichment, photo, reviewedAt }: { enti
       <div className="grid gap-7 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Sources</p>
-          <h2 id="venue-sources-heading" className="mt-2 font-display text-3xl">Verification & review</h2>
+          <h2 id="venue-sources-heading" className="mt-2 font-display text-3xl">Sources & review</h2>
           {reviewedAt ? <p className="mt-3 text-sm leading-6 text-muted-foreground">Last reviewed {formatDate(reviewedAt)}.</p> : null}
         </div>
         <div className="min-w-0">
