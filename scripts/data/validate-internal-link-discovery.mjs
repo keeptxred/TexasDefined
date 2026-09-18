@@ -35,6 +35,8 @@ const appraisalHub = read('src/routes/learn.appraisal-districts.tsx');
 const countyPropertyDirectory = read('src/routes/property-tax.counties.tsx');
 const countyPropertyTemplate = read('src/components/property/CountyPropertyTaxTemplate.tsx');
 const appraisalRedirect = read('src/routes/appraisal-district.$slug.tsx');
+const entityRoute = read('src/routes/$kind.$slug.lazy.tsx');
+const entityDepth = read('src/components/content/EntityDepthSections.tsx');
 
 for (const path of ['/property', '/explore/trip-planner']) {
   const indexableSection = registry.split('export const REDIRECT_ONLY_PATHS')[0];
@@ -96,6 +98,22 @@ for (const marker of ['type TexasExplainedSurface = "destination" | "fishing"', 
 if (!destinationRelationships.includes('TexasExplainedContextLinks surface="destination"')) failures.push('Destination pages must render contextual Texas Explained links.');
 if (!fishingHub.includes('TexasExplainedContextLinks surface="fishing"')) failures.push('Fishing hub must render contextual Texas Explained links.');
 if (sportsQuickAnswers.includes('TexasExplainedContextLinks')) failures.push('Sports venue quick answers must not force Texas Explained links without venue-specific editorial relevance.');
+
+for (const marker of [
+  '<EntityDepthSections entity={entity} related={visibleRelated} />',
+  '{notesHeading(entity)}',
+  'return `What defines ${entity.name}`',
+]) if (!entityRoute.includes(marker)) failures.push(`Generic entity layout contract is missing ${marker}.`);
+for (const marker of [
+  'const relatedItems = related.slice(0, 6)',
+  'Related TexasDefined references',
+  'relatedItems.map(({ entity: candidate })',
+]) if (!entityDepth.includes(marker)) failures.push(`Generic entity related-reference contract is missing ${marker}.`);
+for (const stale of [
+  'Why it belongs in the guide',
+  'relatedEyebrow(entity.kind)',
+  'visibleRelated.map(({ entity: candidate }',
+]) if (entityRoute.includes(stale)) failures.push(`Generic entity route must not restore the duplicate/vague tail marker: ${stale}.`);
 if (!categoryPage.includes('TexasLifeDiscovery')) failures.push('Texas Life category pages must render TexasLifeDiscovery.');
 if (!categoryPage.includes('belongsToTexasLife && (') || !categoryPage.includes('<TexasLifeDiscovery currentCategory={category} />')) failures.push('TexasLifeDiscovery must be limited to Texas Life category surfaces.');
 if (!exploreSitemap.includes('"/explore/trip-planner"')) failures.push('Explore sitemap must publish the Trip Planner.');
@@ -143,4 +161,4 @@ if (countyPropertyTemplate.includes("const appraisalDistrict = countyEntity('app
 if (countyPropertyTemplate.includes('canonicalEntityPath(appraisalDistrict)')) failures.push('County property-tax pages must not route appraisal authority through the retired appraisal-district path.');
 
 if (failures.length) { console.error('Internal-link discovery validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
-console.log('Internal-link discovery pathways, sitewide Start Here resources link, homepage priority-search links, protected camping-cornerstone links, Texas Explained links from Texas Life, county profiles, Guidebook, destination pages and fishing, the sports-venue editorial-relevance opt-out, calculator hub inbound/outbound discovery, reciprocal finance evergreen/calculator clusters, direct Texas Life and financial-tools finance/special-district evergreen discovery, priority calculator indexing depth, structured calculator collection links, Explore sitemap coverage, and appraisal-district authority consolidation onto verified canonical county-tax pages are protected.');
+console.log('Internal-link discovery pathways, compact non-duplicative generic entity references, sitewide Start Here resources link, homepage priority-search links, protected camping-cornerstone links, Texas Explained links from Texas Life, county profiles, Guidebook, destination pages and fishing, the sports-venue editorial-relevance opt-out, calculator hub inbound/outbound discovery, reciprocal finance evergreen/calculator clusters, direct Texas Life and financial-tools finance/special-district evergreen discovery, priority calculator indexing depth, structured calculator collection links, Explore sitemap coverage, and appraisal-district authority consolidation onto verified canonical county-tax pages are protected.');
