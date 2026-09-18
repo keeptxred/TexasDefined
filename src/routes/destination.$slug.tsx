@@ -180,7 +180,7 @@ function DestinationPage() {
 
     {isChokeCanyon && <span data-stay-nearby-disabled="true" className="hidden" aria-hidden="true" />}
     <Container className={isChokeCanyon ? "grid gap-8 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:py-16" : "grid gap-14 py-16 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:py-20"}>
-      <div className={isChokeCanyon ? "min-w-0" : "max-w-[44rem]"}>
+      <div className="min-w-0">
         <section aria-labelledby="why-go" className="border-t border-border pt-8">
           <p className="eyebrow text-primary">The place</p>
           <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">Why {destination.name} belongs on our {categoryName.toLowerCase()} list</h2>
@@ -205,11 +205,10 @@ function DestinationPage() {
       </div>
 
       <aside className={isChokeCanyon ? "space-y-6 lg:sticky lg:top-28 lg:self-start" : "space-y-8 lg:sticky lg:top-28 lg:self-start"}>
-        {isChokeCanyon ? <div className="border-t-2 border-foreground pt-5"><p className="eyebrow text-primary">Choose your unit</p><dl className="mt-5 divide-y divide-border text-sm"><div className="pb-4"><dt className="font-semibold">Calliham Unit</dt><dd className="mt-1 leading-6 text-muted-foreground">Park headquarters, camping, cabins and the broader set of developed facilities.</dd></div><div className="pt-4"><dt className="font-semibold">South Shore Unit</dt><dd className="mt-1 leading-6 text-muted-foreground">Separate day-use access for boating, fishing, birding and shoreline recreation.</dd></div></dl></div> : <div className="border-t-2 border-foreground pt-5"><p className="eyebrow text-primary">At a glance</p><dl className="mt-5 divide-y divide-border text-sm"><div className="pb-4"><dt className="text-muted-foreground">Nearest town</dt><dd className="mt-1 font-medium"><AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} /></dd></div><div className="py-4"><dt className="text-muted-foreground">Best season</dt><dd className="mt-1 font-medium">{destination.bestSeason}</dd></div><div className="py-4"><dt className="text-muted-foreground">Before arrival</dt><dd className="mt-1 leading-6">{destination.entryNote}</dd></div>{destination.managingAuthority && <div className="pt-4"><dt className="text-muted-foreground">Managed by</dt><dd className="mt-1 font-medium">{destination.managingAuthority}</dd></div>}</dl></div>}
-        {isChokeCanyon && <MapPreview markers={mapMarkers} directionsLabel="Choke Canyon State Park — Calliham Unit, Texas" />}
+        {isChokeCanyon && <div className="border-t-2 border-foreground pt-5"><p className="eyebrow text-primary">Choose your unit</p><dl className="mt-5 divide-y divide-border text-sm"><div className="pb-4"><dt className="font-semibold">Calliham Unit</dt><dd className="mt-1 leading-6 text-muted-foreground">Park headquarters, camping, cabins and the broader set of developed facilities.</dd></div><div className="pt-4"><dt className="font-semibold">South Shore Unit</dt><dd className="mt-1 leading-6 text-muted-foreground">Separate day-use access for boating, fishing, birding and shoreline recreation.</dd></div></dl></div>}
+        <MapPreview markers={mapMarkers} directionsLabel={isChokeCanyon ? "Choke Canyon State Park — Calliham Unit, Texas" : `${destination.name}, Texas`} />
         {!isChokeCanyon && <Suspense fallback={null}><CityPassContextualCallout surface="destination" slug={destination.slug} placement="rail" /></Suspense>}
         {(validExternalUrl(destination.officialUrl) || verifiedLabel) && <div className="border-t border-border pt-5 text-sm"><p className="eyebrow text-muted-foreground">Source notes</p>{verifiedLabel && <p className="mt-3 leading-6 text-muted-foreground">Visitor information checked {verifiedLabel}.</p>}{validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-4 inline-block border-b border-primary pb-1 text-primary">Official source</a>}</div>}
-        {!isChokeCanyon && <MapPreview markers={mapMarkers} directionsLabel={`${destination.name}, Texas`} />}
       </aside>
     </Container>
 
