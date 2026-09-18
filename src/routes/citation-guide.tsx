@@ -43,7 +43,7 @@ const GROUPS = [
   },
   {
     title: 'Explore & relocation',
-    description: 'Maintained comparison and authority layers for moving, parks, water destinations, small towns, road trips and attractions.',
+    description: 'Maintained comparison guides and planning resources for moving, parks, water destinations, small towns, road trips and attractions.',
     links: [
       ['Moving to Texas', '/moving-to-texas'],
       ['Texas state parks', '/explore/state-parks'],
@@ -56,7 +56,7 @@ const GROUPS = [
   },
   {
     title: 'Painted Churches of Texas',
-    description: 'A 27-church verified heritage-reference collection with canonical entity pages for decorative techniques, symbols, people, cultural communities, preservation, archives, routes and research methodology.',
+    description: 'A 27-church verified heritage collection with dedicated pages for decorative techniques, symbols, people, cultural communities, preservation, archives, routes and research methodology.',
     links: [
       ['Painted Churches of Texas', '/explore/painted-churches'],
       ['Research methodology & corrections', '/explore/painted-churches/methodology'],
