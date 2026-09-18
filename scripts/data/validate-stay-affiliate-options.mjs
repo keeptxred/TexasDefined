@@ -188,7 +188,8 @@ for (const [needle, label] of [
 for (const [needle, label] of [
   ['injectStayNearbySlot', 'event stay-slot injection helper'],
   ['data-stay-nearby-slot', 'event in-content Stay Nearby slot'],
-  ['Planning your visit|Plan the visit', 'event planning placement anchor'],
+  ['normalizeVisitorHeadings', 'legacy event heading normalizer'],
+  ['Planning your visit', 'event planning placement anchor'],
   ['Places to stay near this event', 'event stay-slot accessibility label'],
   ['KEEP_EXPLORING_SECTION', 'event parking placement boundary'],
   ['splitEventHtmlForParking', 'event parking placement helper'],
@@ -196,6 +197,13 @@ for (const [needle, label] of [
   ['afterParking', 'event continuation content after parking map'],
   ['<ParkingMapPanel map={parkingMap} contextName={page.venue ?? page.title} />', 'event parking map embedded before discovery tail'],
 ]) requireText(eventRoute, needle, label);
+
+if (eventRoute.includes('(?:Planning your visit|Plan the visit)')) {
+  errors.push('Event renderer must not preserve the legacy "Plan the visit" heading as an accepted display heading.');
+}
+if (!eventRoute.includes('LEGACY_PLAN_VISIT_HEADING') || !eventRoute.includes('"$1Planning your visit$2"')) {
+  errors.push('Event renderer must normalize legacy "Plan the visit" HTML to "Planning your visit" before render.');
+}
 
 for (const [needle, label] of [
   ['data-stay-nearby-slot', 'destination in-content Stay Nearby slot'],
