@@ -4,14 +4,14 @@ import { PropertyClusterGuidePage } from '@/components/guides/PropertyClusterGui
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/learn/property-tax-appeals-arbitration';
-const description = 'Texas property-tax appeals guide covering ARB orders, binding arbitration, limited binding arbitration, SOAH review and district court.';
+const description = 'Texas property-tax appeals guide covering appraisal review board (ARB) orders, binding arbitration, limited binding arbitration, State Office of Administrative Hearings (SOAH) review and district court.';
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}${canonicalPath}`;
 const faqs = [
-  { question: 'What can I do after an ARB decision?', answer: 'Depending on the dispute and property, an owner may have access to regular binding arbitration, limited binding arbitration, SOAH review or state district court.' },
-  { question: 'How long do I have to request arbitration?', answer: 'Regular binding arbitration generally must be requested within 60 days after receiving the ARB order, subject to current law and eligibility rules.' },
+  { question: 'What can I do after an appraisal review board (ARB) decision?', answer: 'Depending on the dispute and property, an owner may have access to regular binding arbitration, limited binding arbitration, State Office of Administrative Hearings (SOAH) review or state district court.' },
+  { question: 'How long do I have to request arbitration?', answer: 'Regular binding arbitration generally must be requested within 60 days after receiving the appraisal review board (ARB) order, subject to current law and eligibility rules.' },
   { question: 'Does an appeal postpone payment?', answer: 'Usually not. Owners generally must timely pay the amount required by statute to preserve the appeal.' },
-  { question: 'What is limited binding arbitration?', answer: 'It is a separate remedy addressing certain alleged procedural violations by an appraisal district or ARB rather than the ordinary market-value dispute itself.' },
+  { question: 'What is limited binding arbitration?', answer: 'It is a separate remedy addressing certain alleged procedural violations by an appraisal district or appraisal review board (ARB) rather than the ordinary market-value dispute itself.' },
 ];
 
 export const Route = createFileRoute('/learn/property-tax-appeals-arbitration')({
