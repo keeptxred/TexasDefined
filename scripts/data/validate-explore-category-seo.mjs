@@ -299,6 +299,22 @@ function validateMegaMenuImages(label, expectedCount) {
 validateMegaMenuImages('Explore', 14);
 validateMegaMenuImages('Texas Life', 10);
 
+function supplementalCategoryBlock(slug) {
+  return supplemental.match(new RegExp('slug: "' + slug + '"[\\s\\S]*?(?=\\n  \\},\\n  \\{|\\n  \\},\\n\\];)'))?.[0] ?? '';
+}
+
+const rvParksLanding = supplementalCategoryBlock('rv-parks');
+if (!rvParksLanding.includes('image: {') || !rvParksLanding.includes('/images/rv-parks/')) {
+  errors.push('Explore landing RV Parks & Campgrounds card must use a real RV/campground image instead of the generic gradient placeholder.');
+}
+const swimmingLanding = supplementalCategoryBlock('swimming-holes-river-tubing');
+if (!supplemental.includes('import blueHole from "@/assets/blue-hole.jpg";') || !swimmingLanding.includes('src: blueHole')) {
+  errors.push('Explore landing Swimming Holes & River Tubing card must use its distinct Blue Hole image.');
+}
+if (swimmingLanding.includes('image: hamiltonPoolImage')) {
+  errors.push('Explore landing Major Springs and Swimming Holes cards must not reuse the same Hamilton Pool image.');
+}
+
 for (const feature of ['supplementalExploreCategories', 'const merged = new Map', 'return [...merged.values()]']) {
   if (!queries.includes(feature)) errors.push(`Merged Explore taxonomy feature missing: ${feature}.`);
 }
@@ -340,4 +356,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore categories, sparse-archive indexability, tag-archive governance, lightweight inventory drift protection, classification, filterable collections, taxonomy, duplicate-safe mega-menu imagery, navigation, dedicated quality-gated sitemap, related links, regions, structured data, breadcrumbs, and body-derived feature reading times passed validation.');
+console.log('Explore categories, sparse-archive indexability, tag-archive governance, lightweight inventory drift protection, classification, filterable collections, taxonomy, duplicate-safe mega-menu imagery, duplicate-safe Explore landing imagery, navigation, dedicated quality-gated sitemap, related links, regions, structured data, breadcrumbs, and body-derived feature reading times passed validation.');
