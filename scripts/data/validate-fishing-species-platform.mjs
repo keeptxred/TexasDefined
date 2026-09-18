@@ -97,6 +97,12 @@ if (!failures.length) {
   if (!speciesLazy.includes('createLazyFileRoute("/fishing/species/$slug")') || !speciesLazy.includes("FishingSpeciesProfile data={Route.useLoaderData()}")) failures.push("General species UI is not protected by a native lazy route.");
   if (speciesRoute.includes('from "@/components/fishing/FishingSpeciesProfile"') || /\bcomponent\s*:/.test(speciesRoute) || speciesRoute.includes("buildMeta") || speciesRoute.includes('"@type":')) failures.push("General species UI or SEO payload leaked into the critical route.");
   if (!speciesUi.includes("Complete-lake relationships, not a statewide popularity ranking") || !speciesUi.includes("Durable planning context, not today's bite")) failures.push("General species source/conditions integrity copy is missing.");
+  for (const phrase of ["Techniques listed", "Lake coverage", "Fishing methods", "source-backed dataset", "source-backed complete-lake technique relationship"]) {
+    if (!speciesUi.includes(phrase)) failures.push(`Fishing species profile is missing visitor-facing label: ${phrase}.`);
+  }
+  for (const stale of ["Verified techniques", "Verified lake coverage", "Verified method relationships", "verified dataset", "verified complete-lake technique relationship"]) {
+    if (speciesUi.includes(stale)) failures.push(`Fishing species profile still exposes verification-heavy public copy: ${stale}.`);
+  }
 
   for (const signal of ["qualityScore", "prominenceScore", "rankedLakes", "verifiedListing", "sponsoredPlacements", "buildLargemouthBassHead"]) if (!bassServer.includes(signal)) failures.push(`Largemouth ranking/guide/sponsorship/server-head contract missing: ${signal}`);
   if (/score[^\n]{0,120}(?:placement|priority)|(?:placement|priority)[^\n]{0,120}score/i.test(bassServer)) failures.push("Sponsored placement or placement priority appears to influence editorial lake ranking.");
