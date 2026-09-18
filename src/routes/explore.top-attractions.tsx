@@ -243,7 +243,7 @@ function TopAttractionsPage() {
             </Link>
           ))}
         </div>
-        <p className="mt-6 max-w-3xl text-xs leading-6 text-muted-foreground">Family-attraction source review: August 30, 2026. This section is a planning framework, not a separate ranking; the Top 25 methodology and canonical destination guides remain the editorial authority for the ranked collection.</p>
+        <p className="mt-6 max-w-3xl text-xs leading-6 text-muted-foreground">Family-attraction source review: August 30, 2026. This section is a planning framework, not a separate ranking; the Top 25 methodology and main destination guides remain the source for the ranked collection.</p>
       </Container>
     </Section>
 
