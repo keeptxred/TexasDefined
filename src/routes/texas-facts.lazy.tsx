@@ -15,7 +15,7 @@ function TexasFactsPage() {
           <nav aria-label="Breadcrumb" className="mb-8 text-sm text-muted-foreground">
             <Link to="/" className="hover:text-foreground">Home</Link><span className="mx-2">/</span><span className="text-foreground">Texas Facts</span>
           </nav>
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Texas reference desk</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Texas facts & figures</p>
           <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-6xl lg:text-7xl">100 Essential Facts About Texas</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A practical reference to the history, geography, culture, industry and civic structure that explain why Texas feels different. Every fact links to the authoritative or institutional source used to support it; current-law and current-ranking claims remain subject to the controlling official source.</p>
           <div className="mt-10 flex flex-wrap gap-3 text-sm font-semibold">
