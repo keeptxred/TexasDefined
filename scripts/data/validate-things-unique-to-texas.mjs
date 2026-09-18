@@ -126,7 +126,7 @@ for (const token of ['schemaVersion: 1', 'count: TEXAS_ICON_REFERENCE_ROWS.lengt
 for (const token of ["'deeper_guide'", "'canonical_collection'", "'methodology'"]) if (!csvRoute.includes(token)) failures.push(`CSV distribution must retain column: ${token}.`);
 
 for (const path of ['/things-unique-to-texas', '/things-unique-to-texas/methodology']) if (!trustRouter.includes(`'${path}'`)) failures.push(`Collection trust router must cover ${path}.`);
-if (!trustRouter.includes('Collection structure, methodology and canonical-link policy reviewed August 19, 2026.')) failures.push('Magazine trust layer must retain an explicit collection review date.');
+if (!trustRouter.includes('Collection structure, methodology and deeper-link policy reviewed August 19, 2026.')) failures.push('Magazine trust layer must retain an explicit collection review date.');
 
 for (const token of ['"@type": "Article"', '"@type": "WebPage"', '"@type": "ItemList"', '"@type": "BreadcrumbList"', 'publisher:', 'articleSection: isFoodHistoryChild ? "Texas Food History" : "Things That Define Texas"', 'citation: sources.length', 'Source notes', 'Where the historical claims come from']) if (!evergreenComponent.includes(token)) failures.push(`Shared evergreen guide schema/source layer must retain token: ${token}.`);
 for (const sourceUrl of ['https://www.tshaonline.org/handbook/entries/san-antonio-tx','https://www.tshaonline.org/handbook/entries/gebhardt-mexican-foods-company','https://www.tshaonline.org/handbook/entries/chicken-fried-steak','https://drpeppermuseum.com/history/']) if (!evergreenComponent.includes(sourceUrl)) failures.push(`Evergreen source notes missing authoritative source ${sourceUrl}.`);
@@ -161,4 +161,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${evergreenGuides.length} evergreen deep dives, ${canonicalIds.length} exact destination mappings, ${deepDiveIds.length} protected editorial/deep-dive mappings (${canonicalIds.length + deepDiveIds.length} protected relationships), six evergreen data batches, two shared data distributions, methodology/provenance/trust contracts, and ${smokePaths.length + evergreenGuides.length + additionalSmokePaths.length} HTML production smoke routes intact.`);
+console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${evergreenGuides.length} evergreen deep dives, ${canonicalIds.length} exact destination mappings, ${deepDiveIds.length} protected editorial/deep-dive mappings (${canonicalIds.length + deepDiveIds.length} protected relationships), six evergreen data batches, two shared data distributions, methodology/sourcing/trust contracts, and ${smokePaths.length + evergreenGuides.length + additionalSmokePaths.length} HTML production smoke routes intact.`);
