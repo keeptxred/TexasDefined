@@ -9,7 +9,11 @@ const origin = 'https://texasdefined.com';
 const host = 'texasdefined.com';
 const key = '0c2b08423ce5be707dd931f57239acf1';
 const keyLocation = `${origin}/${key}.txt`;
-const sitemapUrls = [`${origin}/sitemap.xml`, `${origin}/sitemap-explore.xml`];
+const sitemapUrls = [
+  `${origin}/sitemap.xml`,
+  `${origin}/sitemap-explore.xml`,
+  `${origin}/sitemap-texas-icons.xml`,
+];
 
 async function fetchText(url) {
   const response = await fetch(url, {
@@ -34,6 +38,7 @@ for (const required of [
   'User-agent: Bingbot',
   'Sitemap: https://texasdefined.com/sitemap.xml',
   'Sitemap: https://texasdefined.com/sitemap-explore.xml',
+  'Sitemap: https://texasdefined.com/sitemap-texas-icons.xml',
   'Sitemap: https://texasdefined.com/rss.xml',
 ]) {
   if (!robots.includes(required)) throw new Error(`robots.txt missing: ${required}`);
