@@ -51,7 +51,7 @@ function PartnerReferralAnalyticsAdmin() {
       <button disabled={busy} className="min-h-11 justify-self-start bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">Unlock analytics</button>
       {error ? <p className="text-sm font-semibold text-destructive">{error}</p> : null}
     </form> : <>
-      <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7">
+      <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
         <Metric label="30d referral clicks" value={dashboard.totalClicks30d} />
         <Metric label="Last 7 days" value={dashboard.totalClicks7d} />
         <Metric label="Prior 7 days" value={dashboard.prior7dClicks} />
