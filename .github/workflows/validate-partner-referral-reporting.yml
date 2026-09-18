@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'supabase/migrations/20260916032000_create_partner_referral_daily.sql'
+      - 'supabase/migrations/20260918133000_add_partner_referral_impressions.sql'
       - 'scripts/monetization/sync-partner-referral-analytics.mjs'
       - 'scripts/data/validate-partner-referral-reporting.mjs'
       - '.github/workflows/sync-partner-referral-analytics.yml'
@@ -15,10 +16,14 @@ on:
       - 'src/routes/admin.partner-referrals.lazy.tsx'
       - 'src/routes/admin.tsx'
       - 'src/lib/texas-defined-outcome-analytics.server.ts'
+      - 'src/platform/analytics.ts'
+      - 'src/routes/__root.tsx'
+      - 'src/lib/texas-defined-outcome-analytics.contract.test.ts'
   push:
     branches: [main]
     paths:
       - 'supabase/migrations/20260916032000_create_partner_referral_daily.sql'
+      - 'supabase/migrations/20260918133000_add_partner_referral_impressions.sql'
       - 'scripts/monetization/sync-partner-referral-analytics.mjs'
       - 'scripts/data/validate-partner-referral-reporting.mjs'
       - '.github/workflows/sync-partner-referral-analytics.yml'
@@ -30,6 +35,9 @@ on:
       - 'src/routes/admin.partner-referrals.lazy.tsx'
       - 'src/routes/admin.tsx'
       - 'src/lib/texas-defined-outcome-analytics.server.ts'
+      - 'src/platform/analytics.ts'
+      - 'src/routes/__root.tsx'
+      - 'src/lib/texas-defined-outcome-analytics.contract.test.ts'
 
 permissions:
   contents: read

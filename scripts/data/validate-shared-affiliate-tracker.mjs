@@ -73,13 +73,14 @@ for (const [pattern, label] of [
 
 for (const [needle, label] of [
   ["const commercialPartner = anchor.dataset.commercialPartner;", 'delegated commercial-link detection'],
+  ["trackTexasDefinedOutcome('partner_referral_shown'", 'single first-party partner referral impression outcome'],
   ["trackTexasDefinedOutcome('partner_referral_clicked'", 'single first-party partner referral outcome'],
 ]) {
   if (!outcomeClient.includes(needle)) failures.push(`Central outcome client is missing ${label}.`);
 }
 
-if (sharedTracker.includes('partner_referral_clicked') || sharedTracker.includes('trackTexasDefinedOutcome(')) {
-  failures.push('Shared affiliate marketing tracker must not write first-party partner_referral_clicked outcomes; the delegated platform listener owns that count.');
+if (sharedTracker.includes('partner_referral_clicked') || sharedTracker.includes('partner_referral_shown') || sharedTracker.includes('trackTexasDefinedOutcome(')) {
+  failures.push('Shared affiliate marketing tracker must not write first-party partner_referral_shown or partner_referral_clicked outcomes; the delegated platform listener owns those counts.');
 }
 
 for (const file of walk(sourceRoot)) {
@@ -102,8 +103,10 @@ if (fs.existsSync(publicRoot)) {
   for (const file of walk(publicRoot)) {
     if (path.extname(file) !== '.js') continue;
     const source = fs.readFileSync(file, 'utf8');
-    if (source.includes('partner_referral_clicked')) {
-      failures.push(`${file} writes partner_referral_clicked directly; public affiliate bootstraps must rely on the centralized delegated commercial-link listener to avoid double counting.`);
+    for (const outcome of ['partner_referral_shown', 'partner_referral_clicked']) {
+      if (source.includes(outcome)) {
+        failures.push(`${file} writes ${outcome} directly; public affiliate bootstraps must rely on the centralized delegated commercial-link listener to avoid double counting.`);
+      }
     }
     validateAffiliateAnchorMetadata(file, source);
     validateDomAffiliateMetadata(file, source);
@@ -116,4 +119,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Shared affiliate tracker governance passed: affiliate marketing emitters are centralized, first-party partner referral counting remains single-path through src/platform/analytics.ts, and every affiliate-tagged source/public link retains commercial partner and placement metadata for private reporting.');
+console.log('Shared affiliate tracker governance passed: affiliate marketing emitters are centralized, first-party partner referral impression and click counting remain single-path through src/platform/analytics.ts, public bootstraps cannot write either outcome directly, and every affiliate-tagged source/public link retains commercial partner and placement metadata for private reporting.');

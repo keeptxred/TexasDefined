@@ -13,6 +13,7 @@ const OUTCOME_EVENTS = new Set([
   "journey_completed",
   "official_resource_visited",
   "next_step_selected",
+  "partner_referral_shown",
   "partner_referral_clicked",
   "search_submitted",
   "assistant_submitted",

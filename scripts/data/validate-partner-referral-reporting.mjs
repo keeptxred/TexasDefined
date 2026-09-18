@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const read = (path) => fs.readFileSync(path, 'utf8');
 const migration = read('supabase/migrations/20260916032000_create_partner_referral_daily.sql');
+const impressionMigration = read('supabase/migrations/20260918133000_add_partner_referral_impressions.sql');
 const sync = read('scripts/monetization/sync-partner-referral-analytics.mjs');
 const workflow = read('.github/workflows/sync-partner-referral-analytics.yml');
 const server = read('src/data/partner-referral-analytics.server.ts');
@@ -27,10 +28,18 @@ for (const [needle, label] of [
 ]) expect(migration, needle, label);
 
 for (const [needle, label] of [
+  ['add column if not exists impression_count bigint not null default 0', 'affiliate impression aggregate column'],
+  ['check (impression_count >= 0)', 'nonnegative impression count'],
+  ['Privacy-safe daily count of qualifying commercial CTA impressions', 'impression privacy contract'],
+]) expect(impressionMigration, needle, label);
+
+for (const [needle, label] of [
   ["const DATASET = 'texas_defined_outcomes'", 'outcome dataset'],
-  ["blob1 = 'partner_referral_clicked'", 'partner click filter'],
+  ["blob1 IN ('partner_referral_clicked', 'partner_referral_shown')", 'partner click/impression filter'],
+  ['blob1 AS eventName', 'outcome event dimension'],
+  ['SUM(_sample_interval) AS eventCount', 'sampling-aware outcome aggregation'],
+  ['impression_count: 0', 'impression aggregate initialization'],
   ["blob10 != 'ci-probe'", 'CI probe exclusion'],
-  ['SUM(_sample_interval) AS clickCount', 'sampling-aware click aggregation'],
   ["const TABLE = 'texasdefined_partner_referral_daily'", 'private aggregate target'],
   ["createHash('sha256')", 'destination hash'],
   ["Prefer: 'resolution=merge-duplicates,return=minimal'", 'idempotent upsert'],
@@ -44,7 +53,8 @@ for (const [needle, label] of [
   ["endpoint.searchParams.set('placement', `eq.${HEARTBEAT_PLACEMENT}`)", 'heartbeat placement filter'],
   ['if (heartbeatAgeMinutes <= fallbackStaleMinutes)', 'fallback freshness skip'],
   ['Partner referral analytics fallback skipped', 'fallback skip telemetry'],
-  ['click_count: 0', 'zero-count heartbeat'],
+  ['click_count: 0', 'zero-click heartbeat'],
+  ['impression_count: 0', 'zero-impression heartbeat'],
   ['await upsertRows(supabaseUrl, serviceRoleKey, [heartbeat])', 'post-aggregate heartbeat write'],
 ]) expect(sync, needle, label);
 if (/sessionId|session_id/.test(sync)) errors.push('Sync must not read or persist browser session identifiers.');
@@ -76,6 +86,10 @@ else if (/^    environment:/m.test(syncJobMatch[1])) {
 for (const [needle, label] of [
   ["assertSportsPartnerAccess(accessKey)", 'commercial admin authorization'],
   ["from('texasdefined_partner_referral_daily')", 'private aggregate read'],
+  ['impression_count', 'private impression aggregate read'],
+  ['IMPRESSION_TRACKING_STARTED_AT', 'CTR tracking start boundary'],
+  ['totalImpressions30d', '30-day impression reporting'],
+  ['clickThroughRateSinceImpressionTracking', 'truthful post-rollout CTR reporting'],
   ["import { supabaseAdmin } from '@/integrations/supabase/client.server'", 'server-only Supabase client'],
   ['weekOverWeekPercent', 'trend reporting'],
   ["row.partner === HEARTBEAT_PARTNER && row.placement === HEARTBEAT_PLACEMENT", 'heartbeat metric exclusion'],
@@ -105,9 +119,15 @@ for (const [needle, label] of [
   ['No successful sync heartbeat', 'missing-heartbeat state'],
   ['most recent successful Cloudflare-to-Supabase pipeline run', 'heartbeat explanation'],
   ['most recent successful Cloudflare-to-Supabase pipeline run', 'healthy zero-click heartbeat explanation'],
+  ['30d CTA impressions', 'impression headline metric'],
+  ['CTR since', 'post-rollout CTR metric'],
+  ['qualifying impressions', 'zero-click impression diagnosis'],
+  ['impressions30d', 'partner/page/destination impression breakdowns'],
 ]) expect(lazyRoute, needle, label);
 
 expect(types, 'lastPipelineSyncAt: string | null', 'pipeline heartbeat dashboard type');
+expect(types, 'totalImpressions30d: number', 'dashboard impression total type');
+expect(types, 'clickThroughRateSinceImpressionTracking: number | null', 'dashboard CTR type');
 expect(admin, '<Link to="/admin/partner-referrals"', 'operations navigation');
 expect(collector, '// Browser session IDs are intentionally never persisted in Analytics Engine.', 'collector session-minimization contract');
 

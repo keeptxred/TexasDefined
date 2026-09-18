@@ -193,8 +193,17 @@ function RootComponent() {
 
       const entityKind = anchor.dataset.commercialPlacement || "unspecified";
       const destination = anchor.href;
+      const shouldRecordImpression = anchor.dataset.commercialImpressionRecorded !== "1";
+      if (shouldRecordImpression) anchor.dataset.commercialImpressionRecorded = "1";
       void ensureAnalyticsInstalled().then((analytics) => {
         if (!active) return;
+        if (shouldRecordImpression) {
+          analytics.trackTexasDefinedOutcome("partner_referral_shown", {
+            resourceId,
+            entityKind,
+            destination,
+          });
+        }
         analytics.trackTexasDefinedOutcome("partner_referral_clicked", {
           resourceId,
           entityKind,
