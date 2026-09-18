@@ -67,10 +67,10 @@ if (failures.length === 0) {
     if (count !== 32) failures.push(`Expected 32 ${token} fields, found ${count}.`);
   }
 
-  for (const token of ["50 Popular Questions", "paintedChurchSearchCoverage", "ItemList", "canonical answer"]) {
+  for (const token of ["50 Popular Questions", "paintedChurchSearchCoverage", "ItemList", "Open the answer"]) {
     if (!hub.includes(token)) failures.push(`Search guide hub missing ${token}.`);
   }
-  for (const token of ["FAQPage", '"@type": "Article"', "relatedChurchSlugs", "Primary / controlling sources", "Open verified profile"]) {
+  for (const token of ["FAQPage", '"@type": "Article"', "relatedChurchSlugs", "Primary sources", "Open verified profile"]) {
     if (!detail.includes(token)) failures.push(`Search guide detail route missing ${token}.`);
   }
   if (!sitemap.includes('await import("@/data/painted-church-search-guides")')) failures.push("Explore sitemap is not dynamically loading Painted Churches search guides inside its server handler.");
@@ -96,4 +96,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Painted Churches search-intent coverage protected: 50 queries (15 churches, 10 places, 13 planning, 12 history), including 32 dedicated search guides and 18 existing canonical authority pages.");
+console.log("Painted Churches search-intent coverage protected: 50 queries (15 churches, 10 places, 13 planning, 12 history), including 32 dedicated search guides and 18 existing reader-facing guide pages.");
