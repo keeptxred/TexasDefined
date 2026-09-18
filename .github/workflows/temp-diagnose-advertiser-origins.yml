@@ -1,0 +1,59 @@
+name: TEMP Diagnose advertiser origins
+
+on:
+  push:
+    branches:
+      - 'fix/advertiser-origin-and-live-verifier-20260918'
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Compare advertiser origins
+        shell: bash
+        run: |
+          node <<'NODE'
+          const origins = [
+            ['custom-domain', 'https://texasdefined.com'],
+            ['direct-worker', 'https://texasdefined-site.freddy-coppola.workers.dev'],
+          ];
+          for (const [name, origin] of origins) {
+            const url = `${origin}/partner-with-us?diagnose-advertiser=${Date.now()}`;
+            try {
+              const response = await fetch(url, {
+                redirect: 'follow',
+                cache: 'no-store',
+                signal: AbortSignal.timeout(30000),
+                headers: {
+                  'cache-control': 'no-cache',
+                  pragma: 'no-cache',
+                  'user-agent': 'TexasDefined-Origin-Diagnostic/1.0',
+                },
+              });
+              const html = (await response.text()).replace(/<!--\s*-->/g, '');
+              const markers = {
+                modernLocal: html.includes('Local Partner'),
+                modern249: html.includes('$249'),
+                modern999: html.includes('$999'),
+                retiredSports: html.includes('Founding sports rates'),
+                retired49: html.includes('$49/month'),
+              };
+              console.log(JSON.stringify({
+                name,
+                status: response.status,
+                finalUrl: response.url,
+                cfCacheStatus: response.headers.get('cf-cache-status'),
+                age: response.headers.get('age'),
+                server: response.headers.get('server'),
+                markers,
+              }));
+            } catch (error) {
+              console.error(JSON.stringify({name,error:error instanceof Error ? error.message : String(error)}));
+              process.exitCode = 1;
+            }
+          }
+          NODE
