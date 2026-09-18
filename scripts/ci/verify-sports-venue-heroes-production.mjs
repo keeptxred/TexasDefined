@@ -49,15 +49,19 @@ const repairedWave7 = [
   ['tpc-san-antonio', 'PGA Tour golfer Martin Trainer on the course at TPC San Antonio during the Valero Texas Open'],
   ['waco-surf', 'AI-generated photorealistic editorial depiction of Waco Surf in Waco, Texas'],
 ].map(([slug, alt]) => {
-  const attributionMarkers = wave7RealPhotoAttribution[slug] ?? wave7GeneratedAttribution;
+  const curatedRemotePhoto = wave7CuratedRemotePhoto[slug];
+  const imageUrl = curatedRemotePhoto?.imageUrl ?? `/images/sports-venues/${slug}.jpg`;
+  const absoluteImageUrl = new URL(imageUrl, origin).toString();
+  const attributionMarkers = curatedRemotePhoto?.attributionMarkers ?? wave7RealPhotoAttribution[slug] ?? wave7GeneratedAttribution;
   return {
     label: `${slug}-hero`,
     path: `/sports-venue/${slug}`,
-    assetPath: `/images/sports-venues/${slug}.jpg`,
+    assetPath: curatedRemotePhoto ? undefined : imageUrl,
+    expectedHeroUrl: imageUrl,
     heroEndpointPath: `/api/sports-venue-hero?slug=${encodeURIComponent(slug)}`,
     required: [
-      `/images/sports-venues/${slug}.jpg`,
-      `content=\"${origin}/images/sports-venues/${slug}.jpg\"`,
+      imageUrl,
+      `content=\"${absoluteImageUrl}\"`,
       alt,
       ...attributionMarkers,
     ],
@@ -147,32 +151,52 @@ async function inspectLocalAsset(assetPath, token) {
   }
 }
 
-async function inspectHeroEndpoint(heroEndpointPath, assetPath, token) {
-  if (!heroEndpointPath || !assetPath) return { ok: true, status: 'n/a', bytes: 0, contentType: 'n/a', finalPath: 'n/a', challenge: false, error: '' };
+async function inspectHeroEndpoint(heroEndpointPath, expectedImageUrl, token) {
+  if (!heroEndpointPath || !expectedImageUrl) return { ok: true, status: 'n/a', bytes: 0, contentType: 'n/a', finalPath: 'n/a', actualLocation: 'n/a', expectedLocation: 'n/a', challenge: false, error: '' };
+  const separator = heroEndpointPath.includes('?') ? '&' : '?';
+  const endpointUrl = `${origin}${heroEndpointPath}${separator}verify=${encodeURIComponent(token)}`;
+  const expectedLocation = new URL(expectedImageUrl, origin).toString();
   try {
-    const separator = heroEndpointPath.includes('?') ? '&' : '?';
-    const response = await fetch(`${origin}${heroEndpointPath}${separator}verify=${encodeURIComponent(token)}`, {
+    const manual = await fetch(endpointUrl, {
+      redirect: 'manual',
+      cache: 'no-store',
+      signal: AbortSignal.timeout(30_000),
+      headers: { 'user-agent': 'TexasDefined-CI-Production-Smoke/1.0' },
+    });
+    const challenge = manual.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+    const location = manual.headers.get('location') ?? '';
+    const actualLocation = location ? new URL(location, origin).toString() : '';
+    const redirectOk = !challenge && [301, 302, 307, 308].includes(manual.status) && actualLocation === expectedLocation;
+    await manual.body?.cancel();
+
+    const response = await fetch(endpointUrl, {
       redirect: 'follow',
       cache: 'no-store',
       signal: AbortSignal.timeout(30_000),
       headers: { 'user-agent': 'TexasDefined-CI-Production-Smoke/1.0' },
     });
-    const challenge = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+    const healthChallenge = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
     const contentType = response.headers.get('content-type') ?? '';
     const bytes = (await response.arrayBuffer()).byteLength;
-    const finalPath = new URL(response.url).pathname;
+    const finalUrl = new URL(response.url);
+    const expectedUrl = new URL(expectedImageUrl, origin);
+    const local = expectedImageUrl.startsWith('/');
+    const targetOk = !local || (finalUrl.origin === expectedUrl.origin && finalUrl.pathname === expectedUrl.pathname);
     return {
-      ok: !challenge
+      ok: redirectOk
+        && !healthChallenge
         && response.ok
-        && finalPath === assetPath
+        && targetOk
         && contentType.toLowerCase().startsWith('image/')
         && !contentType.toLowerCase().includes('svg')
         && bytes >= 10_000,
-      status: String(response.status),
+      status: String(manual.status),
       bytes,
       contentType,
-      finalPath,
-      challenge,
+      finalPath: finalUrl.pathname,
+      actualLocation,
+      expectedLocation,
+      challenge: challenge || healthChallenge,
       error: '',
     };
   } catch (error) {
@@ -182,6 +206,8 @@ async function inspectHeroEndpoint(heroEndpointPath, assetPath, token) {
       bytes: 0,
       contentType: '',
       finalPath: '',
+      actualLocation: '',
+      expectedLocation,
       challenge: false,
       error: error instanceof Error ? error.message : String(error),
     };
@@ -199,7 +225,7 @@ function decodeHtmlText(value) {
     .replace(/&gt;/g, '>');
 }
 
-async function verifyVenue({ label, path, required, assetPath, heroEndpointPath }) {
+async function verifyVenue({ label, path, required, assetPath, expectedHeroUrl, heroEndpointPath }) {
   let lastStatus = 'network-error';
   let lastBody = '';
   let lastError = '';
@@ -208,7 +234,7 @@ async function verifyVenue({ label, path, required, assetPath, heroEndpointPath 
   let missing = [];
   let fallbackPresent = false;
   let lastAsset = { ok: !assetPath, status: assetPath ? 'not-run' : 'n/a', bytes: 0, contentType: '', challenge: false, error: '' };
-  let lastEndpoint = { ok: !heroEndpointPath, status: heroEndpointPath ? 'not-run' : 'n/a', bytes: 0, contentType: '', finalPath: '', challenge: false, error: '' };
+  let lastEndpoint = { ok: !heroEndpointPath, status: heroEndpointPath ? 'not-run' : 'n/a', bytes: 0, contentType: '', finalPath: '', actualLocation: '', expectedLocation: expectedHeroUrl ? new URL(expectedHeroUrl, origin).toString() : '', challenge: false, error: '' };
 
   for (let attempt = 1; attempt <= 6; attempt += 1) {
     attempts = attempt;
@@ -231,7 +257,7 @@ async function verifyVenue({ label, path, required, assetPath, heroEndpointPath 
       missing = required.filter((needle) => !lastBody.includes(needle) && !decodedBody.includes(needle));
       fallbackPresent = lastBody.includes(fallbackText);
       lastAsset = await inspectLocalAsset(assetPath, token);
-      lastEndpoint = await inspectHeroEndpoint(heroEndpointPath, assetPath, token);
+      lastEndpoint = await inspectHeroEndpoint(heroEndpointPath, expectedHeroUrl, token);
 
       if (!lastChallenge && response.ok && missing.length === 0 && !fallbackPresent && lastAsset.ok && lastEndpoint.ok) {
         console.log(`[${label}] verified (${response.status}): registered hero and attribution are present, fallback is absent, local asset is healthy, and the same-origin hero endpoint resolves to the governed asset.`);
@@ -247,7 +273,7 @@ async function verifyVenue({ label, path, required, assetPath, heroEndpointPath 
         if (missing.length) console.log(`[${label}] registered hero/attribution markers missing: ${missing.join(' | ')}`);
         if (fallbackPresent) console.log(`[${label}] fail-closed photo fallback is still being rendered.`);
         if (!lastAsset.ok) console.log(`[${label}] local hero asset unhealthy: status=${lastAsset.status} bytes=${lastAsset.bytes} type=${lastAsset.contentType || 'unknown'} error=${lastAsset.error || 'none'}`);
-        if (!lastEndpoint.ok) console.log(`[${label}] same-origin hero endpoint mismatch: status=${lastEndpoint.status} finalPath=${lastEndpoint.finalPath || 'unknown'} expected=${assetPath || 'n/a'} bytes=${lastEndpoint.bytes} type=${lastEndpoint.contentType || 'unknown'} error=${lastEndpoint.error || 'none'}`);
+        if (!lastEndpoint.ok) console.log(`[${label}] governed hero endpoint mismatch: status=${lastEndpoint.status} redirect=${lastEndpoint.actualLocation || 'unknown'} expected=${lastEndpoint.expectedLocation || 'n/a'} finalPath=${lastEndpoint.finalPath || 'unknown'} bytes=${lastEndpoint.bytes} type=${lastEndpoint.contentType || 'unknown'} error=${lastEndpoint.error || 'none'}`);
       }
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
@@ -267,7 +293,7 @@ async function verifyVenue({ label, path, required, assetPath, heroEndpointPath 
     || (lastStatus !== '200' ? `HTTP ${lastStatus}` : '')
     || (fallbackPresent ? 'photo fallback is still rendered despite a registered venue hero' : '')
     || (!lastAsset.ok ? `local hero asset unhealthy: status=${lastAsset.status}, bytes=${lastAsset.bytes}, type=${lastAsset.contentType || 'unknown'}, error=${lastAsset.error || 'none'}` : '')
-    || (!lastEndpoint.ok ? `same-origin hero endpoint failed to resolve governed asset: status=${lastEndpoint.status}, finalPath=${lastEndpoint.finalPath || 'unknown'}, expected=${assetPath || 'n/a'}, bytes=${lastEndpoint.bytes}, type=${lastEndpoint.contentType || 'unknown'}, error=${lastEndpoint.error || 'none'}` : '')
+    || (!lastEndpoint.ok ? `governed hero endpoint failed: status=${lastEndpoint.status}, redirect=${lastEndpoint.actualLocation || 'unknown'}, expected=${lastEndpoint.expectedLocation || 'n/a'}, finalPath=${lastEndpoint.finalPath || 'unknown'}, bytes=${lastEndpoint.bytes}, type=${lastEndpoint.contentType || 'unknown'}, error=${lastEndpoint.error || 'none'}` : '')
     || `required hero/attribution markers missing: ${missing.join(' | ')}`;
   console.error(`::error title=LIVE PRODUCTION sports venue hero failure::${label} failed after ${attempts} attempts — ${reason}`);
   if (lastBody) console.error(`[${label}] response sample: ${lastBody.slice(0, 1800).replace(/\s+/g, ' ')}`);
