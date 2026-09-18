@@ -31,15 +31,15 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
       <section className="grid gap-6 border-y border-border py-8 sm:grid-cols-2 lg:grid-cols-4" aria-label="Species coverage">
         <Stat label="Complete lakes" value={data.lakes.length} />
         <Stat label="Season patterns" value={data.seasonalPatterns.length} />
-        <Stat label="Verified techniques" value={data.relatedTechniques.length} />
+        <Stat label="Techniques listed" value={data.relatedTechniques.length} />
         <Stat label="Source pages" value={data.sources.length} />
       </section>
 
       <section className="py-12" aria-labelledby="complete-lakes">
         <div className="max-w-3xl">
-          <p className="eyebrow text-primary">Verified lake coverage</p>
+          <p className="eyebrow text-primary">Lake coverage</p>
           <h2 id="complete-lakes" className="mt-3 font-display text-4xl sm:text-5xl">Complete-lake relationships, not a statewide popularity ranking.</h2>
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">Every lake below has a sourced lake-to-species relationship in the TexasDefined fishing catalog and has already cleared the complete lake-guide standard. Missing lakes are simply not represented by this verified dataset yet.</p>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">Every lake below has a sourced lake-to-species relationship in the TexasDefined fishing catalog and has already cleared the complete lake-guide standard. Missing lakes are simply not represented by this source-backed dataset yet.</p>
         </div>
         <div className="mt-8 grid gap-x-8 lg:grid-cols-2">
           {data.lakes.map((row) => <article key={row.relation.id} className="border-t border-border py-8">
@@ -62,9 +62,9 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
 
       <section className="border-y border-border py-12" aria-labelledby="species-techniques">
         <div className="max-w-3xl">
-          <p className="eyebrow text-primary">Verified method relationships</p>
+          <p className="eyebrow text-primary">Fishing methods</p>
           <h2 id="species-techniques" className="mt-3 font-display text-4xl">Techniques only where the lake dataset supports them.</h2>
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">TexasDefined does not turn a general species profile into a universal tackle recommendation. These methods appear only when a verified complete-lake technique relationship explicitly includes {species.commonName.toLowerCase()}.</p>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">TexasDefined does not turn a general species profile into a universal tackle recommendation. These methods appear only when a source-backed complete-lake technique relationship explicitly includes {species.commonName.toLowerCase()}.</p>
         </div>
         {data.techniqueApplications.length > 0 ? <div className="mt-8 grid gap-x-8 lg:grid-cols-2">
           {data.techniqueApplications.map((row) => <article key={row.profile.id} className="border-t border-border py-6">
