@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 
 const source = fs.readFileSync('src/brand/texasdefined.ts', 'utf8');
+const header = fs.readFileSync('src/components/layout/Header.tsx', 'utf8');
 const failures = [];
 
 function extractGroup(label, expectedCount) {
@@ -67,10 +68,15 @@ function validateGroup(label, expectedCount) {
 validateGroup('Explore', 14);
 validateGroup('Texas Life', 10);
 
+const topLevelCloseContract = 'onFocus={() => setOpenGroup(hasChildren ? item.to : null)} onClick={() => setOpenGroup(null)} aria-haspopup=';
+if (!header.includes(topLevelCloseContract)) {
+  failures.push('Desktop top-level navigation must explicitly close an open mega-menu when a destination is clicked.');
+}
+
 if (failures.length) {
   console.error('Navigation image quality validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('Navigation image quality validation passed: Explore and Texas Life cards all have unique images and alt text.');
+console.log('Navigation image quality validation passed: mega-menu cards are unique and top-level navigation closes open menus on click.');
