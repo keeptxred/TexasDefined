@@ -103,7 +103,7 @@ for (const feature of ['duration', 'summary', 'planningNote', 'TopAttractionRoad
 }
 
 for (const feature of [
-  'Visitor information', 'Evidence layer', 'Editorial assessment', 'Why it matters to Texas',
+  'Visitor information', 'Sources', 'Editorial assessment', 'Why it matters to Texas',
   'Three ways to visit', 'Key dates', 'in context', 'Source:', 'Traveler questions, answered',
   'Sources & updates', 'Authority sources used', 'Primary visitor source', 'Supporting source',
   'Update history', 'Texas Defined Editorial Desk', 'a-hollis', '/explore/top-attractions/methodology', '/citation-guide',
@@ -146,7 +146,7 @@ for (const feature of [
 }
 for (const feature of [
   'Statewide significance', 'Distinctiveness', 'Trip-anchor value', 'Collection balance', 'Rank order:',
-  'Official sources control changing visitor facts', 'Primary visitor source', 'Supporting public or institutional authority',
+  'Official sources control changing visitor facts', 'Controlling visitor source', 'Supporting public or institutional authority',
   'Review sites are not authority evidence', 'No invented experience', 'Missing beats guessing', 'Shared comparison scale',
   '/top-25-texas-attractions.csv', '/top-25-texas-attractions.json', 'export default TopAttractionsMethodologyContent',
 ]) {
