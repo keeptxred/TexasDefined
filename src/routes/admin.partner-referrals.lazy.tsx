@@ -54,7 +54,7 @@ function PartnerReferralAnalyticsAdmin() {
       <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
         <Metric label="30d referral clicks" value={dashboard.totalClicks30d} />
         <Metric label="30d CTA impressions" value={dashboard.totalImpressions30d} />
-        <Metric label={`CTR since ${new Date(`${dashboard.impressionTrackingStartedAt}T00:00:00Z`).toLocaleDateString()}`} value={dashboard.clickThroughRateSinceImpressionTracking === null ? 'No impressions yet' : `${dashboard.clickThroughRateSinceImpressionTracking}%`} />
+        <Metric label={`CTR since ${new Date(`${dashboard.impressionTrackingStartedAt}T00:00:00Z`).toLocaleDateString(undefined, { timeZone: 'UTC' })}`} value={dashboard.clickThroughRateSinceImpressionTracking === null ? 'No impressions yet' : `${dashboard.clickThroughRateSinceImpressionTracking}%`} />
         <Metric label="Last 7 days clicks" value={dashboard.totalClicks7d} />
         <Metric label="Last 7 days impressions" value={dashboard.totalImpressions7d} />
         <Metric label="Prior 7 days clicks" value={dashboard.prior7dClicks} />
