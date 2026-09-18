@@ -108,8 +108,8 @@ for (const feature of [
   '...(organizer ? { organizer } : {})',
   '...(offers?.length ? { offers } : {})',
   '...(performers?.length ? { performer: performers } : {})',
-  'Verified event details',
-  'Official-source details checked',
+  'Current event details',
+  'Last reviewed',
 ]) {
   if (!eventLeaf.includes(feature)) errors.push(`Dedicated Event leaf SEO feature missing: ${feature}.`);
 }

@@ -32,7 +32,7 @@ for (const feature of [
 ]) if (!remote.includes(feature)) errors.push(`Remote Explore enrichment feature missing: ${feature}`);
 
 for (const feature of [
-  'Official visitor information', 'Reservations', 'Visitor information checked', 'Official source',
+  'Official visitor information', 'Reservations', 'Visitor details last reviewed', 'Official source',
   'destination.hero.credit', 'citation: destination.officialUrl',
   'sameAs: destination.officialUrl', 'dateModified: destination.sourceCheckedAt',
   'provider: { "@type": "Organization"',

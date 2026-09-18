@@ -22,6 +22,7 @@ const landscapeGuideEnrichment = read('src/data/texas-landscape-guide-enrichment
 const landscapeProfileEnrichment = read('src/data/texas-landscape-profile-enrichment.ts');
 const landscapeDetail = read('src/components/editorial/TexasLandscapeDetailPage.tsx');
 const route66Page = read('src/data/texas-route-66-page.ts');
+const route66PageComponent = read('src/components/explore/TexasRoute66Page.tsx');
 const route66Enrichment = read('src/data/texas-route-66-enrichment.ts');
 const exploreLeafQuality = read('src/data/explore-leaf-quality.ts');
 const failures = [];
@@ -180,6 +181,13 @@ for (const marker of [
   'robots: readyForIndexing ? undefined : "noindex, follow"',
 ]) {
   if (!route66Page.includes(marker)) failures.push(`Route 66 child crawl-quality contract missing: ${marker}`);
+}
+
+if (!route66PageComponent.includes('Route 66 significance')) {
+  failures.push('Route 66 stop pages must use a specific significance label instead of vague list-membership wording.');
+}
+if (route66PageComponent.includes('>Why it belongs<')) {
+  failures.push('Route 66 stop pages must not restore the vague Why it belongs eyebrow.');
 }
 
 for (const marker of [

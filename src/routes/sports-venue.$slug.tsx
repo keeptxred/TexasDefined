@@ -333,7 +333,7 @@ function LegacySportsVenuePage() {
             <div>
               <p className="eyebrow text-primary">Event-day essentials</p>
               <h2 id="venue-event-day-heading" className="mt-2 font-display text-3xl leading-tight">{entity.name} parking, arrival and event-day details</h2>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">Venue-specific details reviewed against official sources on {formatCheckedDate(enrichment.verifiedAt)}.</p>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">Last reviewed {formatCheckedDate(enrichment.verifiedAt)}. Use the official venue links below for changing schedules, parking and policies.</p>
             </div>
             <div className="grid gap-8 md:grid-cols-2">
               <div className="md:col-span-2">
