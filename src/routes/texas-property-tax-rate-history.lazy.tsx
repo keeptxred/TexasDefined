@@ -48,7 +48,7 @@ function Page() {
       <header className="border-b border-border py-10">
         <p className="eyebrow text-primary">Historical tax data</p>
         <h1 className="mt-3 font-display text-5xl sm:text-7xl">Texas property tax rate history explorer</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Search a county, city, ISD, MUD or other special district and compare its finalized annual statewide records retained by Texas Defined. The tool is designed to answer a narrow but useful question: how did the reported tax rate for this taxing unit change over time?</p>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Search a county, city, school district, municipal utility district (MUD) or other special district and compare its finalized annual statewide records retained by Texas Defined. The tool is designed to answer a narrow but useful question: how did the reported tax rate for this taxing unit change over time?</p>
       </header>
 
       <section className="grid gap-8 py-10 lg:grid-cols-[15rem_1fr]">
