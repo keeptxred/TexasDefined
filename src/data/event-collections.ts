@@ -142,7 +142,7 @@ export const EVENT_COLLECTIONS: EventCollectionDefinition[] = [
     ],
     kind: "region",
     value: "hill-country",
-    relatedPaths: ["/events/music-festivals", "/events/food-festivals", "/german-czech-texas-towns"],
+    relatedPaths: ["/events/music-festivals", "/events/food-festivals", "/events/south-texas-events", "/german-czech-texas-towns"],
   },
   {
     slug: "gulf-coast-events",
@@ -160,7 +160,7 @@ export const EVENT_COLLECTIONS: EventCollectionDefinition[] = [
     ],
     kind: "region",
     value: "gulf-coast",
-    relatedPaths: ["/events/arts-culture", "/events/rodeos", "/explore/beaches-coast"],
+    relatedPaths: ["/events/arts-culture", "/events/rodeos", "/events/houston-area-events", "/explore/beaches-coast"],
   },
   {
     slug: "north-texas-events",
@@ -178,7 +178,7 @@ export const EVENT_COLLECTIONS: EventCollectionDefinition[] = [
     ],
     kind: "region",
     value: "prairies-lakes",
-    relatedPaths: ["/events/food-festivals", "/events/sports-events", "/sports-venues/dallas-fort-worth"],
+    relatedPaths: ["/events/food-festivals", "/events/sports-events", "/events/dallas-fort-worth-events", "/sports-venues/dallas-fort-worth"],
   },
   {
     slug: "south-texas-events",
@@ -196,7 +196,7 @@ export const EVENT_COLLECTIONS: EventCollectionDefinition[] = [
     ],
     kind: "region",
     value: "south-texas",
-    relatedPaths: ["/events/rodeos", "/events/arts-culture", "/texas-conjunto-tejano"],
+    relatedPaths: ["/events/rodeos", "/events/arts-culture", "/events/hill-country-events", "/texas-conjunto-tejano"],
   },
   {
     slug: "piney-woods-events",
@@ -214,7 +214,7 @@ export const EVENT_COLLECTIONS: EventCollectionDefinition[] = [
     ],
     kind: "region",
     value: "piney-woods",
-    relatedPaths: ["/events/seasonal-events", "/events/music-festivals", "/explore"],
+    relatedPaths: ["/events/seasonal-events", "/events/music-festivals", "/events/panhandle-events", "/explore"],
   },
   {
     slug: "big-bend-events",
@@ -232,7 +232,7 @@ export const EVENT_COLLECTIONS: EventCollectionDefinition[] = [
     ],
     kind: "region",
     value: "big-bend",
-    relatedPaths: ["/events/arts-culture", "/events/food-festivals", "/explore"],
+    relatedPaths: ["/events/arts-culture", "/events/food-festivals", "/events/panhandle-events", "/explore"],
   },
   {
     slug: "panhandle-events",
@@ -250,7 +250,7 @@ export const EVENT_COLLECTIONS: EventCollectionDefinition[] = [
     ],
     kind: "region",
     value: "panhandle",
-    relatedPaths: ["/events/arts-culture", "/texas-old-west", "/explore"],
+    relatedPaths: ["/events/arts-culture", "/events/piney-woods-events", "/events/big-bend-events", "/texas-old-west", "/explore"],
   },
 ];
 

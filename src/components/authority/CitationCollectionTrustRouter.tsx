@@ -56,7 +56,7 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
       { name: 'TexasDefined citation policy', url: 'https://texasdefined.com/citation-guide' },
       { name: 'Machine-readable citation index', url: 'https://texasdefined.com/citation-magnets.json' },
     ],
-    methodology: 'The Top 25 collection uses each attraction’s linked official visitor source for current operational guidance and keeps those facts separate from TexasDefined editorial assessments of visit length, physical effort, weather exposure, advance-planning needs and trip value. Every child guide carries its own review date, sources and review log.',
+    methodology: 'The Top 25 collection uses each attraction’s linked official visitor source for current operational guidance and keeps those facts separate from TexasDefined editorial assessments of visit length, physical effort, weather exposure, advance-planning needs and trip value. Every child guide carries its own review date, sources and update history.',
     lastVerified: 'Top 25 authority framework and collection coverage reviewed August 18, 2026. Current-day hours, prices, closures and reservations remain controlled by each attraction’s linked official source.',
   },
   '/explore/top-attractions/methodology': {

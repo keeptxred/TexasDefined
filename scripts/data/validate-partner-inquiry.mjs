@@ -10,6 +10,7 @@ const agreementHardeningMigration = read('supabase/migrations/20260916162851_har
 const agreementSearchPathMigration = read('supabase/migrations/20260916163025_pin_advertiser_agreement_trigger_search_path.sql');
 const agreementOfferMigration = read('supabase/migrations/20260917130039_create_texasdefined_advertiser_agreement_offers.sql');
 const agreementOfferProtectionMigration = read('supabase/migrations/20260917130651_protect_signed_advertiser_agreement_offer_links.sql');
+const agreementOfferSignedIndexMigration = read('supabase/migrations/20260918164616_index_advertiser_agreement_offer_signed_agreement_fk.sql');
 const inquiryWriter = read('src/data/partner-inquiry.server.ts');
 const inquiryFn = read('src/data/partner-inquiry.functions.ts');
 const agreementWriter = read('src/data/advertiser-agreement.server.ts');
@@ -122,6 +123,11 @@ requireTokens('Private advertiser agreement offer migration', agreementOfferMigr
 if (/CREATE POLICY/i.test(agreementOfferMigration)) errors.push('Advertiser agreement offer table must not expose a direct public RLS policy.');
 requireTokens('Signed advertiser agreement offer protection', agreementOfferProtectionMigration, [
   'ON DELETE RESTRICT', 'texasdefined_advertiser_agreement_offers_signed_agreement_id_fkey',
+]);
+requireTokens('Signed advertiser agreement offer FK index', agreementOfferSignedIndexMigration, [
+  'texasdefined_advertiser_agreement_offers_signed_agreement_idx',
+  'on public.texasdefined_advertiser_agreement_offers (signed_agreement_id)',
+  'where signed_agreement_id is not null',
 ]);
 
 requireTokens('Advertiser agreement server service', agreementWriter, [

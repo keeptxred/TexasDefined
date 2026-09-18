@@ -210,8 +210,8 @@ function PaintedChurchDetail() {
           </section>
 
           <section className="border-t border-border pt-6">
-            <p className="eyebrow text-muted-foreground">Source check</p>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">Historic and visitor information checked {new Date(`${church.sourceCheckedAt}T12:00:00`).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}. Re-check time-sensitive access before traveling.</p>
+            <p className="eyebrow text-muted-foreground">Official information</p>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">Historic and visitor details last reviewed {new Date(`${church.sourceCheckedAt}T12:00:00`).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}. Check current access before traveling.</p>
           </section>
         </aside>
       </Container>

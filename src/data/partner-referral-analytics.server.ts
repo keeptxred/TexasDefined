@@ -39,14 +39,30 @@ function addBreakdown(
   clicks: number,
   impressions: number,
   in7d: boolean,
+  inMeasurementWindow: boolean,
 ) {
-  const row = map.get(key) ?? { key, label, clicks30d: 0, clicks7d: 0, impressions30d: 0, impressions7d: 0 };
+  const row = map.get(key) ?? {
+    key,
+    label,
+    clicks30d: 0,
+    clicks7d: 0,
+    impressions30d: 0,
+    impressions7d: 0,
+    measurementClicks: 0,
+    measurementImpressions: 0,
+    measurementCtr: null,
+  };
   row.clicks30d += clicks;
   row.impressions30d += impressions;
   if (in7d) {
     row.clicks7d += clicks;
     row.impressions7d += impressions;
   }
+  if (inMeasurementWindow) {
+    row.measurementClicks += clicks;
+    row.measurementImpressions += impressions;
+  }
+  row.measurementCtr = clickThroughRate(row.measurementClicks, row.measurementImpressions);
   map.set(key, row);
 }
 
@@ -85,7 +101,8 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
   const placementMap = new Map<string, PartnerReferralBreakdown>();
   const pageMap = new Map<string, PartnerReferralPageBreakdown>();
   const destinationMap = new Map<string, PartnerReferralDestinationBreakdown>();
-  const dailyMap = new Map<string, number>();
+  const dailyClicksMap = new Map<string, number>();
+  const dailyImpressionsMap = new Map<string, number>();
   let totalClicks30d = 0;
   let totalClicks7d = 0;
   let totalImpressions30d = 0;
@@ -107,6 +124,7 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
     const metricDate = String(row.metric_date).slice(0, 10);
     const in30d = metricDate >= thirtyDayStart;
     const in7d = metricDate >= sevenDayStart;
+    const inMeasurementWindow = metricDate >= IMPRESSION_TRACKING_STARTED_AT;
     const inPrior7d = metricDate >= priorSevenStart && metricDate <= priorSevenEnd;
 
     if (lastSyncedAt === null || String(row.synced_at) > lastSyncedAt) lastSyncedAt = String(row.synced_at);
@@ -119,21 +137,38 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
       totalClicks7d += clicks;
       totalImpressions7d += impressions;
     }
-    if (metricDate >= IMPRESSION_TRACKING_STARTED_AT) {
+    if (inMeasurementWindow) {
       clicksSinceImpressionTracking += clicks;
       impressionsSinceImpressionTracking += impressions;
     }
-    dailyMap.set(metricDate, (dailyMap.get(metricDate) ?? 0) + clicks);
-    addBreakdown(partnerMap, row.partner, row.partner, clicks, impressions, in7d);
-    addBreakdown(placementMap, row.placement, row.placement, clicks, impressions, in7d);
+    dailyClicksMap.set(metricDate, (dailyClicksMap.get(metricDate) ?? 0) + clicks);
+    if (inMeasurementWindow) {
+      dailyImpressionsMap.set(metricDate, (dailyImpressionsMap.get(metricDate) ?? 0) + impressions);
+    }
+    addBreakdown(partnerMap, row.partner, row.partner, clicks, impressions, in7d, inMeasurementWindow);
+    addBreakdown(placementMap, row.placement, row.placement, clicks, impressions, in7d, inMeasurementWindow);
 
-    const page = pageMap.get(row.page_path) ?? { pagePath: row.page_path, clicks30d: 0, clicks7d: 0, impressions30d: 0, impressions7d: 0 };
+    const page = pageMap.get(row.page_path) ?? {
+      pagePath: row.page_path,
+      clicks30d: 0,
+      clicks7d: 0,
+      impressions30d: 0,
+      impressions7d: 0,
+      measurementClicks: 0,
+      measurementImpressions: 0,
+      measurementCtr: null,
+    };
     page.clicks30d += clicks;
     page.impressions30d += impressions;
     if (in7d) {
       page.clicks7d += clicks;
       page.impressions7d += impressions;
     }
+    if (inMeasurementWindow) {
+      page.measurementClicks += clicks;
+      page.measurementImpressions += impressions;
+    }
+    page.measurementCtr = clickThroughRate(page.measurementClicks, page.measurementImpressions);
     pageMap.set(row.page_path, page);
 
     const destinationKey = `${row.partner}\u0000${row.destination_url}`;
@@ -144,6 +179,9 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
       clicks7d: 0,
       impressions30d: 0,
       impressions7d: 0,
+      measurementClicks: 0,
+      measurementImpressions: 0,
+      measurementCtr: null,
     };
     destination.clicks30d += clicks;
     destination.impressions30d += impressions;
@@ -151,12 +189,21 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
       destination.clicks7d += clicks;
       destination.impressions7d += impressions;
     }
+    if (inMeasurementWindow) {
+      destination.measurementClicks += clicks;
+      destination.measurementImpressions += impressions;
+    }
+    destination.measurementCtr = clickThroughRate(destination.measurementClicks, destination.measurementImpressions);
     destinationMap.set(destinationKey, destination);
   }
 
   const daily = Array.from({ length: WINDOW_DAYS }, (_, index) => {
     const date = utcDateOffset(WINDOW_DAYS - 1 - index);
-    return { date, clicks: dailyMap.get(date) ?? 0 };
+    return {
+      date,
+      clicks: dailyClicksMap.get(date) ?? 0,
+      impressions: date >= IMPRESSION_TRACKING_STARTED_AT ? dailyImpressionsMap.get(date) ?? 0 : null,
+    };
   });
 
   return {

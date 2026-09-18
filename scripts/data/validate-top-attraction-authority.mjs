@@ -103,10 +103,10 @@ for (const feature of ['duration', 'summary', 'planningNote', 'TopAttractionRoad
 }
 
 for (const feature of [
-  'Verified visitor information', 'Evidence layer', 'Editorial assessment', 'Why it matters to Texas',
+  'Visitor information', 'Sources', 'Editorial assessment', 'Why it matters to Texas',
   'Three ways to visit', 'Key dates', 'in context', 'Source:', 'Traveler questions, answered',
-  'Sources & verification', 'Authority sources used', 'Controlling visitor source', 'Supporting authority source',
-  'Review log', 'Texas Defined Editorial Desk', 'a-hollis', '/explore/top-attractions/methodology', '/citation-guide',
+  'Sources & updates', 'Authority sources used', 'Primary visitor source', 'Supporting source',
+  'Update history', 'Texas Defined Editorial Desk', 'a-hollis', '/explore/top-attractions/methodology', '/citation-guide',
   'destination.authorityGuide', 'export default DestinationAuthorityGuide',
 ]) {
   if (!componentSource.includes(feature)) failures.push(`Authority component missing visible feature: ${feature}.`);
@@ -210,6 +210,15 @@ for (const source of [collectionLinksSource, categoryRouteSource, regionRouteSou
 }
 for (const feature of ['/explore/top-attractions', '/explore/top-attractions/road-trips', '/explore/top-attractions/methodology']) {
   if (!collectionLinksSource.includes(feature)) failures.push(`Top 25 collection-link component missing ${feature}.`);
+}
+
+for (const [source, label] of [
+  [collectionLinksSource, 'Top 25 collection links'],
+  [hubSource, 'Top 25 hub'],
+  [trustRouterSource, 'Top 25 trust summary'],
+]) {
+  if (!source.includes('update history') && !source.includes('Update history')) failures.push(`${label} must use update-history wording.`);
+  if (source.includes('review log') || source.includes('Review log')) failures.push(`${label} must not restore the retired review-log label.`);
 }
 
 if (failures.length) {
