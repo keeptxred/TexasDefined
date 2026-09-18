@@ -4,19 +4,32 @@ const TPWD = "Texas Parks and Wildlife Department";
 const CHECKED = "2026-08-07";
 const curated: Record<string, Partial<Destination>> = {
   "choke-canyon-state-park": {
-    summary: "A South Texas reservoir park between San Antonio and Corpus Christi with excellent fishing, birding and brush-country wildlife across the full-service Calliham Unit and day-use South Shore Unit.",
+    summary: "A South Texas reservoir state park with two separate public units: full-service Calliham for camping and broader park facilities, and day-use South Shore for boating, fishing and birding.",
+    category: "state-parks",
     nearestTown: "Three Rivers",
+    county: "McMullen",
+    coordinates: { lat: 28.465773, lng: -98.354195 },
+    address: "358 Recreation Rd. 8, Calliham, TX 78007",
     bestSeason: "Fall through spring for birding, camping and comfortable shore time; fishing remains popular year-round",
-    entryNote: "Choose the unit before navigating: Calliham is the full-service camping unit, while South Shore is day use only. Low reservoir levels can close boat ramps, so check TPWD alerts before bringing a boat.",
-    highlights: ["Calliham Unit camping and recreation", "South Shore day-use fishing and birding", "Choke Canyon Reservoir fishing", "Alligators and South Texas brush-country wildlife"],
+    entryNote: "Both units are generally open daily 6 a.m.–10 p.m.; adult day use is $5 and children 12 and under enter free. Reservations are recommended. Choose the correct unit and check current TPWD alerts plus lake and ramp conditions before departure.",
+    directions: "Use the Calliham Unit for park headquarters, camping, cabins and the full-service visit; it is about 12 miles west of Three Rivers on State Highway 72 toward Tilden. South Shore is a separate day-use entrance about 3.5 miles west of Three Rivers on State Highway 72.",
+    accessibilityNotes: "At Calliham, TPWD lists an accessible fishing jetty, dock, pavilions, parts of the gym and sports complex, designated cabins and campsites, and accessible restrooms. South Shore includes an accessible courtesy dock and designated picnic sites.",
+    highlights: ["Calliham Unit camping, cabins and recreation", "South Shore day-use fishing, boating and birding", "Choke Canyon Reservoir fishing", "Alligators and South Texas brush-country wildlife"],
+    hero: {
+      src: "/images/state-parks/choke-canyon-calliham-unit-state-park.jpg",
+      alt: "Choke Canyon State Park's Calliham Unit in South Texas",
+      width: 1600,
+      height: 900,
+      credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+    },
     body: [
-      "Choke Canyon State Park occupies two different public-use areas on the reservoir, and that distinction matters when planning the day. Calliham is the full-service unit with camping and broader amenities; South Shore is a day-use unit focused on boating, fishing and birding.",
-      "The reservoir is one of South Texas' major fishing destinations, while surrounding thornscrub, wetlands and open water support an unusually rich bird list and wildlife that includes alligators. The landscape feels distinctly different from Hill Country lake parks farther north.",
-      "Check reservoir level and ramp notices before towing a boat because low water can affect multiple access points at once. Give alligators substantial space, plan for intense warm-season heat and confirm the correct unit before following GPS."
+      "Choke Canyon State Park is one park with two separate public-use areas, and choosing the unit is the first planning decision. The Calliham Unit in McMullen County contains park headquarters, camping, cabins and the broader set of developed facilities. South Shore in Live Oak County is a separate day-use unit focused on boating, fishing and birding.",
+      "The reservoir is one of South Texas' major fishing destinations, while surrounding thornscrub, wetlands and open water support an unusually rich bird list and wildlife that includes alligators. Swimming, hiking, wildlife watching and geocaching add options beyond the boat ramps and shoreline.",
+      "Reservoir levels can change access quickly, so check TPWD's current park alerts and ramp information before towing a boat. Give alligators substantial space, plan for intense warm-season heat and use the unit-specific directions rather than a generic Choke Canyon map pin."
     ],
     managingAuthority: TPWD,
     officialUrl: "https://tpwd.texas.gov/state-parks/choke-canyon",
-    sourceCheckedAt: CHECKED,
+    sourceCheckedAt: "2026-09-17",
   },
   "cooper-lake-state-park": {
     summary: "A Northeast Texas lake park 90 minutes from Dallas with two active units—Doctors Creek on the north shore and South Sulphur on the south—offering fishing, swimming, trails, camping and cabins around Jim Chapman Lake.",
