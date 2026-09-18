@@ -105,7 +105,7 @@ for (const feature of ['duration', 'summary', 'planningNote', 'TopAttractionRoad
 for (const feature of [
   'Visitor information', 'Sources', 'Editorial assessment', 'Why it matters to Texas',
   'Three ways to visit', 'Key dates', 'in context', 'Source:', 'Traveler questions, answered',
-  'Sources & updates', 'Authority sources used', 'Primary visitor source', 'Supporting source',
+  'Sources & updates', 'Sources used for this guide', 'Primary visitor source', 'Supporting source',
   'Update history', 'Texas Defined Editorial Desk', 'a-hollis', '/explore/top-attractions/methodology', '/citation-guide',
   'destination.authorityGuide', 'export default DestinationAuthorityGuide',
 ]) {
@@ -146,13 +146,13 @@ for (const feature of [
 }
 for (const feature of [
   'Statewide significance', 'Distinctiveness', 'Trip-anchor value', 'Collection balance', 'Rank order:',
-  'Official sources control changing visitor facts', 'Controlling visitor source', 'Supporting public or institutional authority',
-  'Review sites are not authority evidence', 'No invented experience', 'Missing beats guessing', 'Shared comparison scale',
+  'Official sources control changing visitor facts', 'Controlling visitor source', 'Supporting public or institutional sources',
+  'Review sites are not primary evidence', 'No invented experience', 'Missing beats guessing', 'Shared comparison scale',
   '/top-25-texas-attractions.csv', '/top-25-texas-attractions.json', 'export default TopAttractionsMethodologyContent',
 ]) {
   if (!methodologyContentSource.includes(feature)) failures.push(`Top 25 methodology content missing ${feature}.`);
 }
-if (methodologyRouteSource.includes('Review sites are not authority evidence')) failures.push('Large Top 25 methodology body must stay outside the route shell.');
+if (methodologyRouteSource.includes('Review sites are not primary evidence')) failures.push('Large Top 25 methodology body must stay outside the route shell.');
 
 for (const feature of [
   'lazy(() => import("@/components/explore/TopAttractionRoadTripsContent"))', 'Suspense',

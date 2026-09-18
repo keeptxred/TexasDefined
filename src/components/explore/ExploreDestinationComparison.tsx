@@ -36,7 +36,7 @@ const COPY: Record<ExploreComparisonKind, { title: string; description: string; 
   'road-trips': {
     title: 'Compare Texas road-trip destinations and routes',
     description: 'Compare the maintained road-trip records by region, starting-area context, season guidance, highlights and planning notes. Drive time, road closures and current conditions must be checked before departure.',
-    methodology: 'Texas Defined compares only destinations returned by the canonical road-trips category. The matrix uses maintained route/destination fields and official links where available; it does not calculate live drive times or infer road conditions.',
+    methodology: 'Texas Defined compares only destinations in the maintained road-trip collection. The matrix uses maintained route/destination fields and official links where available; it does not calculate live drive times or infer road conditions.',
     trustTitle: 'Road-trip comparison sources and methodology',
   },
   attractions: {

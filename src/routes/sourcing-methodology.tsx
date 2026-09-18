@@ -76,7 +76,7 @@ function SourcingMethodologyPage() {
     <>
       <section className="border-b border-border bg-surface">
         <Container className="py-16 sm:py-20">
-          <p className="eyebrow text-primary">Research &amp; provenance</p>
+          <p className="eyebrow text-primary">Research &amp; sourcing</p>
           <h1 className="mt-4 max-w-4xl font-display text-5xl leading-none sm:text-6xl">Sourcing Methodology</h1>
           <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">{description}</p>
           <p className="mt-4 text-sm text-muted-foreground">Methodology last reviewed September 1, 2026.</p>

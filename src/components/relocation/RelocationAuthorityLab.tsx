@@ -65,9 +65,9 @@ export function RelocationAuthorityLab() {
         <Container>
           <div className="grid gap-10 lg:grid-cols-[18rem_1fr]">
             <div>
-              <p className="eyebrow text-primary">Relocation decision lab</p>
+              <p className="eyebrow text-primary">Compare Texas places</p>
               <h2 id="relocation-decision-lab" className="mt-3 font-display text-4xl leading-tight">Where should you research first?</h2>
-              <p className="mt-4 text-sm leading-7 text-muted-foreground">Filter Texas places by the kind of move you are planning. This is an orientation tool; there is no secret “best places” score: every match shows which filters matched, and current prices still belong in the calculators and address-level research.</p>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">Filter Texas places by the kind of move you are planning. This is a starting point, not a “best places” ranking. Every match shows which filters matched, and current prices still belong in the calculators and exact-address research.</p>
             </div>
             <div>
               <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
@@ -101,7 +101,7 @@ export function RelocationAuthorityLab() {
             <div>
               <p className="eyebrow text-primary">Metro research framework</p>
               <h2 id="metro-research-grid" className="mt-3 font-display text-4xl leading-tight">The same questions, city by city</h2>
-              <p className="mt-4 text-sm leading-7 text-muted-foreground">Each major-metro guide is the local layer. Pair it with counties, schools, insurance, utilities, jobs and transportation rather than comparing city reputations in isolation.</p>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">Each major-metro guide covers the local details. Pair it with counties, schools, insurance, utilities, jobs and transportation rather than comparing city reputations in isolation.</p>
             </div>
             <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 xl:grid-cols-3">
               {RELOCATION_METROS.map((metro) => <article key={metro.id} className="bg-background p-5">
@@ -137,8 +137,8 @@ export function RelocationAuthorityLab() {
               {researchAddress && <div className="mt-4 border-l-2 border-primary pl-4 text-sm leading-7" aria-live="polite">
                 {addressResult ? <>
                   <p><span className="font-semibold">Matched address:</span> {addressResult.matchedAddress}</p>
-                  <p><span className="font-semibold">County:</span> {addressResult.county ?? "Not returned by the geocoder"}</p>
-                  <p><span className="font-semibold">Census place:</span> {addressResult.place ?? "Not returned by the geocoder"}</p>
+                  <p><span className="font-semibold">County:</span> {addressResult.county ?? "Not found for this address"}</p>
+                  <p><span className="font-semibold">Census place:</span> {addressResult.place ?? "Not found for this address"}</p>
                   <p><span className="font-semibold">Unified school district:</span> {addressResult.schoolDistrict ?? "Not returned — verify with TEA"}</p>
                   <p><span className="font-semibold">Coordinates:</span> {addressResult.latitude.toFixed(5)}, {addressResult.longitude.toFixed(5)}</p>
                 </> : addressStatus === "not-found" ? <p>No Texas address match was returned for <span className="font-semibold">{researchAddress}</span>. Check the street, city and ZIP, then try again.</p> : addressStatus === "error" ? <p>The federal geocoder could not be reached. You can still use the official research links below with <span className="font-semibold">{researchAddress}</span>.</p> : <p>Resolving <span className="font-semibold">{researchAddress}</span>…</p>}

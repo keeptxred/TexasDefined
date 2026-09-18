@@ -143,7 +143,7 @@ for (const requirement of [
   'RELOCATION_RESEARCH_STEPS',
   'RELOCATION_SOURCES',
   'resolveRelocationAddress',
-  'no secret “best places” score',
+  'not a “best places” ranking',
   'Census geography is a research starting point',
   'not authority for school attendance zones',
   'utility territories',

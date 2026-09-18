@@ -29,7 +29,7 @@ function TexasScienceTechnologyIndustryPage() {
         <nav aria-label="Breadcrumb" className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground"><Link to="/">Home</Link> <span aria-hidden> / </span><Link to="/explore">Explore</Link> <span aria-hidden> / </span><span aria-current="page">Science, Space & Industry</span></nav>
         <p className="eyebrow mt-10 text-primary">Science · space · technology · industry</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">See the systems Texas built—and the science behind them</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Use space centers, observatories, flight museums, rail collections, maritime museums and energy exhibits to connect Texas innovation with the cities, landscapes and industries that made it possible. This guide is a visitor pathway over existing canonical destinations and guides, not a duplicate museum directory.</p>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Use space centers, observatories, flight museums, rail collections, maritime museums and energy exhibits to connect Texas innovation with the cities, landscapes and industries that made it possible. This guide connects existing destination pages and guides into one visitor-focused path instead of duplicating the museum directory.</p>
       </Container>
     </section>
 

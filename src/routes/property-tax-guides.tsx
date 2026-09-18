@@ -19,7 +19,7 @@ export const Route = createFileRoute('/property-tax-guides')({
     officialLabel="Texas Comptroller Property Tax Assistance"
     faqs={[
       { question: 'Where should I start?', answer: 'Start with the complete Texas property-tax guide, then use the specialized guide matching your exemption, protest, land or homebuying question.' },
-      { question: 'Are these official decisions?', answer: 'No. Texas Defined provides educational guidance; appraisal districts, taxing units, tax offices, ARBs and courts make official decisions.' },
+      { question: 'Are these official decisions?', answer: 'No. Texas Defined provides educational guidance; appraisal districts, taxing units, tax offices, appraisal review boards and courts make official decisions.' },
     ]}
     sections={[
       { id: 'core', title: 'Core homeowner guides', paragraphs: ['Use the complete property-tax guide, calculator, appraisal-district guide, homestead guide and protest guide as the foundation for understanding the system.'], bullets: ['/learn/property-taxes', '/decide/property-taxes', '/learn/appraisal-districts', '/do/homestead-exemption', '/do/property-tax-protest'] },

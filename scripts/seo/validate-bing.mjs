@@ -8,6 +8,7 @@ const canonicalOrigin = 'https://texasdefined.com';
 const sitemapUrls = [
   `${canonicalOrigin}/sitemap.xml`,
   `${canonicalOrigin}/sitemap-explore.xml`,
+  `${canonicalOrigin}/sitemap-texas-icons.xml`,
 ];
 const errors = [];
 
@@ -37,6 +38,8 @@ const server = read('src/server.ts');
 const indexNowScript = read('scripts/seo/submit-indexnow.mjs');
 const indexNowWorkflow = read('.github/workflows/bing-indexnow.yml');
 const productionWorkflow = read('.github/workflows/deploy-production.yml');
+const bingCollector = read('scripts/seo/sync-bing-webmaster.mjs');
+const bingSyncWorkflow = read('.github/workflows/sync-bing-webmaster.yml');
 const keyFile = read(`public/${indexNowKey}.txt`);
 
 requirePattern(
@@ -88,6 +91,7 @@ for (const expected of [
   'https://api.indexnow.org/indexnow',
   '/sitemap.xml',
   '/sitemap-explore.xml',
+  '/sitemap-texas-icons.xml',
   '[200, 202]',
   '10_000',
   "process.env.PUBLIC_INDEXING_ENABLED === 'true'",
@@ -106,6 +110,35 @@ for (const expected of [
   requireText(indexNowWorkflow, expected, `Bing IndexNow workflow is missing required contract: ${expected}`);
 }
 
+for (const expected of [
+  'https://ssl.bing.com/webmaster/api.svc/json',
+  'GetUserSites',
+  'GetRankAndTrafficStats',
+  'GetQueryStats',
+  'GetPageStats',
+  'GetCrawlStats',
+  'GetCrawlIssues',
+  'GetFeeds',
+  'texasdefined_bing_webmaster_snapshots',
+  'userSitesRaw.map(({ Url, IsVerified }) => ({ Url, IsVerified }))',
+]) {
+  requireText(bingCollector, expected, `Bing Webmaster collector is missing required contract: ${expected}`);
+}
+
+for (const expected of [
+  'workflow_dispatch:',
+  'schedule:',
+  'scripts/seo/sync-bing-webmaster.mjs',
+  'BING_WEBMASTER_API_KEY: ${{ secrets.BING_WEBMASTER_API_KEY }}',
+  'SUPABASE_SERVICE_ROLE_KEY:',
+  'environment: texasdefined-publication',
+]) {
+  requireText(bingSyncWorkflow, expected, `Bing Webmaster sync workflow is missing required contract: ${expected}`);
+}
+
+if (bingSyncWorkflow.includes('actions/upload-artifact')) {
+  errors.push('Bing Webmaster private performance data must not be uploaded as a GitHub Actions artifact.');
+}
 const approvalVariableContract = 'PUBLIC_INDEXING_ENABLED: ${{ vars.PUBLIC_INDEXING_ENABLED }}';
 requireText(
   indexNowWorkflow,
@@ -134,4 +167,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Bing Webmaster verification, Bingbot access, canonical sitemaps, IndexNow keying, manual-only execution, explicit public-indexing approval wiring, and URL submission contracts are protected without duplicating the production deployment.');
+console.log('Bing Webmaster verification, Bingbot access, canonical sitemaps, IndexNow keying, private Webmaster data collection, Supabase-only storage, scheduled sync, and URL submission contracts are protected.');

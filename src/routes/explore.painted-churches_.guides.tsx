@@ -5,7 +5,7 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/painted-churches/guides";
 const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
-const description = "Texas Painted Churches search guide covering 50 high-interest church, town, route, visitor and history questions with a dedicated canonical answer for each search intent.";
+const description = "Texas Painted Churches search guide covering 50 high-interest church, town, route, visitor and history questions with a dedicated answer for each major visitor or research question.";
 
 export const Route = createFileRoute(canonicalPath)({
   loader: async () => {

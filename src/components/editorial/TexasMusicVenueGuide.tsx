@@ -211,7 +211,7 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
                 {venue.related.map((item) => <Link key={item.href} to={item.href} className="border-b border-primary text-primary">{item.label}</Link>)}
               </div>
               <div className="mt-6 border-t border-border pt-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Authority sources</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Sources</p>
                 <div className="mt-2 flex flex-wrap gap-x-4 gap-y-2 text-xs">
                   {venue.sources.map((source) => <a key={source.href} href={source.href} target="_blank" rel="noreferrer noopener" className="text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a>)}
                 </div>
