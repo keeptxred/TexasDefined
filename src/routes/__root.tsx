@@ -13,6 +13,7 @@ import { BrandProvider } from "@/brand/context";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { absoluteUrl } from "@/lib/seo";
 import { ShopCartProvider } from "@/lib/shop-cart";
+import { commercialReferralForAnchor, markEarlyCommercialReferralEvent } from "@/platform/commercial-referral";
 
 const Header = lazy(() => import("@/components/layout/Header").then((module) => ({ default: module.Header })));
 const Footer = lazy(() => import("@/components/layout/Footer").then((module) => ({ default: module.Footer })));
@@ -188,18 +189,13 @@ function RootComponent() {
     const earlyCommercialClick = (event: MouseEvent) => {
       if (!active || installed) return;
       const anchor = (event.target as Element | null)?.closest("a[data-commercial-partner]") as HTMLAnchorElement | null;
-      const resourceId = anchor?.dataset.commercialPartner;
-      if (!anchor || !resourceId) return;
+      const commercialReferral = commercialReferralForAnchor(anchor);
+      if (!commercialReferral) return;
 
-      const entityKind = anchor.dataset.commercialPlacement || "unspecified";
-      const destination = anchor.href;
+      markEarlyCommercialReferralEvent(event);
       void ensureAnalyticsInstalled().then((analytics) => {
         if (!active) return;
-        analytics.trackTexasDefinedOutcome("partner_referral_clicked", {
-          resourceId,
-          entityKind,
-          destination,
-        });
+        analytics.trackTexasDefinedOutcome("partner_referral_clicked", commercialReferral);
         document.removeEventListener("click", earlyCommercialClick, true);
       });
     };
