@@ -7,7 +7,7 @@ import { FISHING_LAKE_COMPARE_PATH, FISHING_TRIP_PLANNER_PATH } from "@/data/fis
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
-const description = "Plan a Texas fishing trip by species and region using verified lake data, current-report safeguards, and verified local coverage.";
+const description = "Plan a Texas fishing trip by species and region using source-backed lake data, current-report safeguards, and published local coverage.";
 type PlannerSearch = { species?: string; region?: string };
 
 export const Route = createFileRoute("/fishing/plan")({
@@ -51,7 +51,7 @@ function FishingTripPlannerPage() {
 
     <Container className="py-12 sm:py-16">
       <form method="get" action={FISHING_TRIP_PLANNER_PATH} className="grid gap-6 border-b border-border pb-10 md:grid-cols-[1fr_1fr_auto] md:items-end" aria-label="Trip planner filters">
-        <label className="text-sm"><span className="eyebrow text-muted-foreground">Target species</span><select name="species" defaultValue={search.species ?? ""} className="mt-2 w-full border border-border bg-background px-3 py-3"><option value="">Any verified target</option>{data.species.map((fish) => <option key={fish.id} value={fish.slug}>{fish.commonName}</option>)}</select></label>
+        <label className="text-sm"><span className="eyebrow text-muted-foreground">Target species</span><select name="species" defaultValue={search.species ?? ""} className="mt-2 w-full border border-border bg-background px-3 py-3"><option value="">Any target species</option>{data.species.map((fish) => <option key={fish.id} value={fish.slug}>{fish.commonName}</option>)}</select></label>
         <label className="text-sm"><span className="eyebrow text-muted-foreground">Region</span><select name="region" defaultValue={search.region ?? ""} className="mt-2 w-full border border-border bg-background px-3 py-3"><option value="">Any region</option>{data.regions.map((region) => <option key={region} value={region}>{titleCase(region)}</option>)}</select></label>
         <button type="submit" className="border border-primary px-5 py-3 text-sm font-semibold text-primary">Update</button>
       </form>
@@ -61,8 +61,8 @@ function FishingTripPlannerPage() {
           const target = selectedSpecies ? row.targets.find((item) => item.species?.id === selectedSpecies.id) : undefined;
           const currentReport = row.reports.current[0];
           return <article key={row.lake.id} className="border-t border-border py-8"><div className="flex flex-wrap items-start justify-between gap-4"><div><p className="eyebrow text-primary">{titleCase(row.lake.region)}</p><h3 className="mt-2 font-display text-3xl"><a href={row.href}>{row.lake.name}</a></h3></div>{target ? <span className="border border-border px-3 py-1.5 text-xs">{selectedSpecies?.commonName} · {target.relation.quality}</span> : null}</div><p className="mt-4 text-sm leading-7 text-muted-foreground">{row.lake.summary}</p>
-            <dl className="mt-6 grid gap-4 text-sm sm:grid-cols-2"><Fact label="Verified guides" value={countLabel(row.guides.length)} /><Fact label="Verified access sites" value={countLabel(row.access.length)} /><Fact label="Verified local services" value={countLabel(row.services.length)} /><Fact label="Current reports" value={countLabel(row.reports.current.length)} /></dl>
-            {currentReport ? <div className="mt-6 border-l-2 border-primary pl-4"><p className="eyebrow text-primary">Current report context</p><p className="mt-2 text-sm font-semibold"><a href={currentReport.href}>{currentReport.report.title}</a></p><p className="mt-1 text-xs text-muted-foreground">Published {currentReport.report.publishedAt.slice(0, 10)}; freshness gate passed.</p></div> : <p className="mt-6 text-xs text-muted-foreground">No current verified report. The planner does not infer today's bite from seasonal guidance.</p>}
+            <dl className="mt-6 grid gap-4 text-sm sm:grid-cols-2"><Fact label="Published guides" value={countLabel(row.guides.length)} /><Fact label="Published access sites" value={countLabel(row.access.length)} /><Fact label="Published local services" value={countLabel(row.services.length)} /><Fact label="Current reports" value={countLabel(row.reports.current.length)} /></dl>
+            {currentReport ? <div className="mt-6 border-l-2 border-primary pl-4"><p className="eyebrow text-primary">Current report context</p><p className="mt-2 text-sm font-semibold"><a href={currentReport.href}>{currentReport.report.title}</a></p><p className="mt-1 text-xs text-muted-foreground">Published {currentReport.report.publishedAt.slice(0, 10)}; freshness gate passed.</p></div> : <p className="mt-6 text-xs text-muted-foreground">No current report. The planner does not infer today's bite from seasonal guidance.</p>}
             <a href={row.href} className="mt-6 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open lake guide →</a>
           </article>;
         })}</div>

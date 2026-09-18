@@ -37,6 +37,11 @@ requireText(server, "Zero means no verified listing is currently published", "pl
 
 requireText(planner, "Target species", "planner species filter missing");
 requireText(planner, "Region", "planner region filter missing");
+requireText(planner, "Any target species", "planner visitor-facing species empty option missing");
+requireText(planner, "Published guides", "planner published-guide coverage label missing");
+requireText(planner, "Published access sites", "planner published-access coverage label missing");
+requireText(planner, "Published local services", "planner published-service coverage label missing");
+if (planner.includes("Any verified target") || planner.includes("Verified guides") || planner.includes("Verified access sites") || planner.includes("Verified local services") || planner.includes("No current verified report")) throw new Error("Fishing Batch 9 validation failed: planner still exposes verification-heavy public labels.");
 requireText(planner, "Current report context", "planner current-condition layer missing");
 requireText(planner, "does not infer today's bite", "planner stale-condition safeguard missing");
 requireText(planner, "None published", "planner verified-coverage empty state missing");
@@ -45,11 +50,15 @@ requireText(planner, '"@type": "BreadcrumbList"', "planner breadcrumb schema mis
 requireText(planner, "canonicalPath: FISHING_TRIP_PLANNER_PATH", "planner canonical metadata missing");
 
 requireText(compare, "Choose up to three", "comparison selection control missing");
-requireText(compare, "Top verified targets", "comparison fishery-strength row missing");
-requireText(compare, "Verified guides", "comparison guide coverage row missing");
-requireText(compare, "Verified access", "comparison access coverage row missing");
-requireText(compare, "Verified services", "comparison service coverage row missing");
+requireText(compare, "Top source-backed targets", "comparison fishery-strength row missing");
+requireText(compare, "Published guides", "comparison guide coverage row missing");
+requireText(compare, "Published access", "comparison access coverage row missing");
+requireText(compare, "Published services", "comparison service coverage row missing");
 requireText(compare, "Coverage is not a quality score", "comparison anti-ranking safeguard missing");
+requireText(compare, "Source-backed lake signals", "comparison source-backed heading missing");
+requireText(compare, "No source-backed target relationships", "comparison source-backed empty-target label missing");
+requireText(compare, "A zero means no listing is currently published here", "comparison honest zero-inventory wording missing");
+if (compare.includes("Verified lake signals") || compare.includes("Top verified targets") || compare.includes("Verified guides") || compare.includes("Verified access") || compare.includes("Verified services") || compare.includes("no verified listing is published here")) throw new Error("Fishing Batch 9 validation failed: comparison still exposes verification-heavy public labels.");
 requireText(compare, "does not create an editorial ranking", "comparison must explicitly reject selection-as-ranking");
 requireText(compare, "does not accept paid weighting", "comparison sponsorship independence missing");
 requireText(compare, "canonicalPath: FISHING_LAKE_COMPARE_PATH", "comparison canonical metadata missing");
