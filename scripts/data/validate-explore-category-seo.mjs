@@ -24,6 +24,7 @@ const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
 const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'utf8');
 const sitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap-explore[.]xml.ts'), 'utf8');
 const brand = fs.readFileSync(path.join(root, 'src/brand/texasdefined.ts'), 'utf8');
+const header = fs.readFileSync(path.join(root, 'src/components/layout/Header.tsx'), 'utf8');
 const exploreFeatureStubs = fs.readFileSync(path.join(root, 'src/data/fixtures/lazy-explore-feature-articles.ts'), 'utf8');
 const routeFiles = fs.readdirSync(path.join(root, 'src/routes'));
 const errors = [];
@@ -298,6 +299,10 @@ function validateMegaMenuImages(label, expectedCount) {
 
 validateMegaMenuImages('Explore', 14);
 validateMegaMenuImages('Texas Life', 10);
+
+if (!header.includes('onFocus={() => setOpenGroup(hasChildren ? item.to : null)} onClick={() => setOpenGroup(null)} aria-haspopup={hasChildren ? "true" : undefined}')) {
+  errors.push('Desktop top-level navigation must close any open mega-menu when a destination is clicked.');
+}
 
 const fixtureCategoryTable = fixtures.match(/export const categories: Category\[\] = \[([\s\S]*?)\n\];/)?.[1] ?? '';
 const landingCategoryTable = landing.match(/export const EXPLORE_CATEGORIES = \[([^\]]+)\] as const;/)?.[1] ?? '';
