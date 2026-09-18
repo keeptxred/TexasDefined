@@ -202,7 +202,7 @@ function TopAttractionsPage() {
           <Link to="/explore/attractions-comparison" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Compare destinations →</Link>
           <Link to="/explore/top-attractions/methodology" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Methodology →</Link>
           <a href="/top-25-texas-attractions.csv" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Download comparison CSV →</a>
-          <a href="/top-25-texas-attractions.json" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Download reference JSON →</a>
+          <a href="/top-25-texas-attractions.json" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Download JSON data →</a>
           <a href="/top-25-texas-attractions-checklist.txt" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Download checklist →</a>
           <Link to="/citation-guide" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Citation guidance →</Link>
         </div>
