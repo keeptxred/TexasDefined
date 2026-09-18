@@ -118,7 +118,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
 
     <Section tone="ink" className="py-8 sm:py-10">
       <Container>
-        <div className="flex flex-col gap-4 border-t border-ink-foreground/20 pt-5 lg:flex-row lg:items-start lg:justify-between">
+        <div className="flex flex-col gap-4 border-t border-ink-foreground/20 pt-5 sm:flex-row sm:items-start sm:justify-between">
           <p className="eyebrow shrink-0 text-ink-foreground/60">Continue exploring</p>
           <nav aria-label={`Continue exploring from ${destination.name}`} className="flex flex-wrap gap-x-6 gap-y-3">
             {topAttractionRank && <Link to="/explore/top-attractions" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Top 25 · #{topAttractionRank}</Link>}
