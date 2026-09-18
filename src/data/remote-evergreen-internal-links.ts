@@ -155,7 +155,6 @@ const redditBatchLinks: Record<string, ArticleInternalLink[]> = {
     { href: "/article/texas-restaurants-for-out-of-town-visitors", label: "Texas restaurant picks for visitors", description: "Build the rest of the trip around reliable local food stops in major Texas cities." },
     { href: "/texas-state-fair", label: "Plan the 2026 State Fair of Texas", description: "Use the main State Fair planning guide for dates, tickets, parking, transit and trip logistics." },
     { href: "/explore/food-bbq", label: "Explore Texas food and barbecue", description: "Keep going through TexasDefined's statewide food, barbecue and dining guides." },
-    { href: "/article/texas-restaurants-for-out-of-town-visitors", label: "Texas restaurant picks for visitors", description: "Build the rest of the trip around reliable local food stops in major Texas cities." },
   ],
   "why-austin-i35-traffic-keeps-getting-worse": [
     { href: "/article/texas-road-closures-drivetexas-guide", label: "Check Texas road closures before you leave", description: "Use DriveTexas and local sources to verify construction, incidents and closures before a trip." },
@@ -189,7 +188,6 @@ const redditBatchLinks: Record<string, ArticleInternalLink[]> = {
     { href: "/explore/food-bbq", label: "Explore Texas food and barbecue", description: "Browse the larger statewide food, barbecue and dining collection." },
   ],
   "texas-road-closures-drivetexas-guide": [
-    { href: "/article/why-austin-i35-traffic-keeps-getting-worse", label: "Why Austin I-35 traffic keeps getting worse", description: "Understand the construction and capacity pressures behind one of the state's most difficult urban corridors." },
     { href: "/article/why-austin-i35-traffic-keeps-getting-worse", label: "Why Austin I-35 traffic keeps getting worse", description: "Understand the construction and capacity pressures behind one of the state's most difficult urban corridors." },
     { href: "/article/texas-toll-roads-tags-fees-guide", label: "Texas toll roads, tags and fees", description: "Know which toll systems and payment rules can affect an alternate route." },
     { href: "/explore/road-trips", label: "Explore Texas road trips", description: "Plan statewide drives with better route and stop context." },
