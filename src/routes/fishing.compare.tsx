@@ -7,7 +7,7 @@ import { FISHING_LAKE_COMPARE_PATH, FISHING_TRIP_PLANNER_PATH } from "@/data/fis
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
-const description = "Compare complete Texas fishing lake guides by verified fishery strengths, geography, current reports and verified local coverage.";
+const description = "Compare complete Texas fishing lake guides by source-backed fishery strengths, geography, current reports and published local coverage.";
 type CompareSearch = { lake1?: string; lake2?: string; lake3?: string };
 
 export const Route = createFileRoute("/fishing/compare")({
@@ -51,19 +51,19 @@ function FishingLakeComparePage() {
           <button type="submit" className="border border-primary px-5 py-3 text-sm font-semibold text-primary">Compare</button>
         </form><p className="mt-4 text-xs text-muted-foreground">Selection changes the view only; it does not create an editorial ranking.</p></section>
 
-      {selected.length ? <section className="py-10 overflow-x-auto"><div className="min-w-[760px]"><div className="grid border-y border-border" style={{ gridTemplateColumns: `12rem repeat(${selected.length}, minmax(12rem, 1fr))` }}><div className="p-4"><p className="eyebrow text-primary">Compare</p><h2 className="mt-2 font-display text-3xl">Verified lake signals</h2></div>{selected.map((row) => <div key={row.lake.id} className="border-l border-border p-4"><p className="eyebrow text-primary">{titleCase(row.lake.region)}</p><h3 className="mt-2 font-display text-2xl"><a href={row.href}>{row.lake.name}</a></h3></div>)}
+      {selected.length ? <section className="py-10 overflow-x-auto"><div className="min-w-[760px]"><div className="grid border-y border-border" style={{ gridTemplateColumns: `12rem repeat(${selected.length}, minmax(12rem, 1fr))` }}><div className="p-4"><p className="eyebrow text-primary">Compare</p><h2 className="mt-2 font-display text-3xl">Source-backed lake signals</h2></div>{selected.map((row) => <div key={row.lake.id} className="border-l border-border p-4"><p className="eyebrow text-primary">{titleCase(row.lake.region)}</p><h3 className="mt-2 font-display text-2xl"><a href={row.href}>{row.lake.name}</a></h3></div>)}
           <CompareRow label="Surface area" rows={selected.map((row) => row.lake.surfaceAcres ? `${row.lake.surfaceAcres.toLocaleString("en-US")} acres` : "Not published")} />
           <CompareRow label="Maximum depth" rows={selected.map((row) => row.lake.maxDepthFeet ? `${row.lake.maxDepthFeet} ft` : "Not published")} />
           <CompareRow label="Counties" rows={selected.map((row) => row.lake.counties.join(", ") || "Not published")} />
           <CompareRow label="Nearby cities" rows={selected.map((row) => row.lake.nearestCities.join(", ") || "Not published")} />
-          <CompareRow label="Top verified targets" rows={selected.map((row) => row.targets.slice(0, 4).map((target) => `${target.species?.commonName} (${target.relation.quality})`).join(" · ") || "No verified target relationships")} />
+          <CompareRow label="Top source-backed targets" rows={selected.map((row) => row.targets.slice(0, 4).map((target) => `${target.species?.commonName} (${target.relation.quality})`).join(" · ") || "No source-backed target relationships")} />
           <CompareRow label="Current reports" rows={selected.map((row) => count(row.reports.current.length))} />
-          <CompareRow label="Verified guides" rows={selected.map((row) => count(row.guides.length))} />
-          <CompareRow label="Verified access" rows={selected.map((row) => count(row.access.length))} />
-          <CompareRow label="Verified services" rows={selected.map((row) => count(row.services.length))} />
+          <CompareRow label="Published guides" rows={selected.map((row) => count(row.guides.length))} />
+          <CompareRow label="Published access" rows={selected.map((row) => count(row.access.length))} />
+          <CompareRow label="Published services" rows={selected.map((row) => count(row.services.length))} />
         </div></div></section> : <p className="py-12 text-sm text-muted-foreground">Select at least one lake.</p>}
 
-      <section className="border-y border-border py-10"><p className="eyebrow text-primary">Comparison policy</p><h2 className="mt-2 font-display text-3xl">Coverage is not a quality score.</h2><p className="mt-5 text-sm leading-7 text-muted-foreground">A zero means no verified listing is published here, not that a facility or business does not exist. {data.policy.conditions} {data.policy.ranking} The comparison engine does not accept paid weighting.</p></section>
+      <section className="border-y border-border py-10"><p className="eyebrow text-primary">Comparison policy</p><h2 className="mt-2 font-display text-3xl">Coverage is not a quality score.</h2><p className="mt-5 text-sm leading-7 text-muted-foreground">A zero means no listing is currently published here, not that a facility or business does not exist. {data.policy.conditions} {data.policy.ranking} The comparison engine does not accept paid weighting.</p></section>
     </Container>
   </>;
 }
