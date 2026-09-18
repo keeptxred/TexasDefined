@@ -4,7 +4,7 @@ import { BookingCarRentalCard } from "@/components/monetization/BookingCarRental
 import { destinationEditorialLinks } from "@/data/destination-editorial-links";
 import type { Destination } from "@/data/types";
 
-type Props = { destination: Destination };
+type Props = { destination: Destination; showQuickAnswer?: boolean };
 
 const activityPattern = /hiking|trail|camping|fishing|swimming|boating|paddling|kayak|canoe|bird|wildlife|cycling|climbing|horse|picnic|photograph|stargaz/i;
 const facilityPattern = /restroom|visitor center|playground|parking|campground|campsite|shower|electric|water|accessible|accessibility|boat ramp|dock|store|rental/i;
@@ -14,7 +14,7 @@ function unique(values: string[]) {
   return values.filter((value, index, all) => Boolean(value) && all.indexOf(value) === index);
 }
 
-export function DestinationVisitPlanner({ destination }: Props) {
+export function DestinationVisitPlanner({ destination, showQuickAnswer = true }: Props) {
   const activities = unique(destination.highlights.filter((item) => activityPattern.test(item)));
   const facilities = unique(destination.highlights.filter((item) => facilityPattern.test(item) && !activities.includes(item)));
   const otherHighlights = unique(destination.highlights.filter((item) => !activities.includes(item) && !facilities.includes(item)));
@@ -46,7 +46,7 @@ export function DestinationVisitPlanner({ destination }: Props) {
 
   return (
     <>
-      <AnswerSummary
+{showQuickAnswer && <AnswerSummary
         eyebrow="Quick answer"
         title={`Planning a visit to ${destination.name}`}
         items={[
@@ -55,7 +55,7 @@ export function DestinationVisitPlanner({ destination }: Props) {
           { question: "What should I know before arriving?", answer: destination.entryNote || "Check current access, fees, hours and reservation requirements before making the drive." },
           { question: "Where is it?", answer: `${destination.nearestTown ? `Near ${destination.nearestTown}, Texas` : "In Texas"}${destination.county ? `, in ${destination.county} County` : ""}.` },
         ]}
-      />
+      />}
       <div
         data-stay-nearby-slot
         className="my-10"
