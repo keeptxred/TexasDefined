@@ -6,7 +6,7 @@ const required = [
   "src/data/fishing/types.ts", "src/data/fishing/slugs.ts", "src/data/fishing/validation.ts", "src/data/fishing/fixtures.ts",
   "src/data/fishing/repositories.ts", "src/data/fishing/queries.ts", "src/data/fishing/search.ts", "src/data/fishing/internal-links.ts",
   "src/data/fishing/lake-conroe-prototype.ts", "src/data/fishing/lake-conroe-routing.ts", "src/data/fishing/lake-conroe-page-data.server.ts",
-  "src/data/fishing/lake-conroe-page-data.functions.ts", "src/data/fishing/sitemap.ts", "src/components/fishing/LakeConroeGuide.tsx",
+  "src/data/fishing/lake-conroe-page-data.functions.ts", "src/data/fishing/sitemap.ts", "src/components/fishing/LakeConroeGuide.tsx", "src/components/fishing/FishingHub.tsx",
   "src/routes/fishing.tsx", "src/routes/fishing.lakes.$slug.tsx", "src/routes/fishing.lakes.$slug.$section.tsx",
   "src/routes/fishing.lake.lake-conroe.tsx", "src/routes/lakes.lake-conroe[.]html.tsx",
 ];
@@ -23,6 +23,7 @@ if (!failures.length) {
   const sitemap = read("src/data/fishing/sitemap.ts");
   const primarySitemap = read("src/routes/sitemap[.]xml.ts");
   const ui = read("src/components/fishing/LakeConroeGuide.tsx");
+  const hubUi = read("src/components/fishing/FishingHub.tsx");
   const overviewRoute = read("src/routes/fishing.lakes.$slug.tsx");
   const sectionRoute = read("src/routes/fishing.lakes.$slug.$section.tsx");
   const fishingRoute = read("src/routes/fishing.tsx");
@@ -41,6 +42,13 @@ if (!failures.length) {
   if (!globalQueries.includes('await import("./search-documents-runtime")')) failures.push("Global fishing search must remain behind the lazy search-document runtime boundary.");
   if (!slugs.includes('lake: "/fishing/lakes"') || !slugs.includes('isCompleteFishingLakeSlug(canonicalSlug)')) failures.push("Canonical fishing-lake routing is incomplete.");
   if (!fishingRoute.includes('to="/fishing/lakes/lake-conroe"')) failures.push("/fishing does not discover Lake Conroe.");
+  for (const phrase of ["source-backed local infrastructure", "Fishing guides →", "source-backed fishery fit", "Browse fishing guides →", "source-backed evergreen facts"]) {
+    if (!hubUi.includes(phrase)) failures.push(`Fishing hub is missing visitor-facing phrase: ${phrase}`);
+  }
+  for (const stale of ["Verified fishing guides", "verified fishery fit", "Browse the verified directory", "Only verified profiles publish", "verified evergreen facts"]) {
+    if (hubUi.includes(stale)) failures.push(`Fishing hub still exposes verification-heavy public copy: ${stale}`);
+  }
+  if (!fishingRoute.includes("source-backed lake facts") || !fishingRoute.includes("local guide resources")) failures.push("Fishing hub metadata must use source-backed visitor language.");
 
   for (const value of ["LAKE_CONROE_SLUG", "LAKE_CONROE_VERIFIED_AT", "LAKE_CONROE_SECTION_SLUGS", "lakeConroeCanonicalPath", "isLakeConroeSection"]) if (!routing.includes(value)) failures.push(`Lake Conroe routing contract missing: ${value}`);
   for (const section of ["fish", "access", "boating", "regulations", "camping", "nearby", "reports", "guides"]) if (!routing.includes(`"${section}"`)) failures.push(`Lake Conroe route section missing: ${section}`);
