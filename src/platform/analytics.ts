@@ -1,4 +1,5 @@
 import { classifyAIReferral } from './ai-referral';
+import { commercialReferralForAnchor, wasEarlyCommercialReferralEvent } from './commercial-referral';
 import { recordInternalLinkExposure } from './internal-link-memory';
 
 export type TexasDefinedOutcomeEvent =
@@ -135,13 +136,10 @@ export function installTexasDefinedAnalytics() {
     const anchor = (event.target as Element | null)?.closest('a[href]') as HTMLAnchorElement | null;
     if (!anchor) return;
 
-    const commercialPartner = anchor.dataset.commercialPartner;
-    if (commercialPartner) {
-      trackTexasDefinedOutcome('partner_referral_clicked', {
-        resourceId: commercialPartner,
-        entityKind: anchor.dataset.commercialPlacement || 'unspecified',
-        destination: anchor.href,
-      });
+    const commercialReferral = commercialReferralForAnchor(anchor);
+    if (commercialReferral) {
+      if (wasEarlyCommercialReferralEvent(event)) return;
+      trackTexasDefinedOutcome('partner_referral_clicked', commercialReferral);
       return;
     }
 
