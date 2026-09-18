@@ -85,7 +85,8 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
   const placementMap = new Map<string, PartnerReferralBreakdown>();
   const pageMap = new Map<string, PartnerReferralPageBreakdown>();
   const destinationMap = new Map<string, PartnerReferralDestinationBreakdown>();
-  const dailyMap = new Map<string, number>();
+  const dailyClicksMap = new Map<string, number>();
+  const dailyImpressionsMap = new Map<string, number>();
   let totalClicks30d = 0;
   let totalClicks7d = 0;
   let totalImpressions30d = 0;
@@ -123,7 +124,10 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
       clicksSinceImpressionTracking += clicks;
       impressionsSinceImpressionTracking += impressions;
     }
-    dailyMap.set(metricDate, (dailyMap.get(metricDate) ?? 0) + clicks);
+    dailyClicksMap.set(metricDate, (dailyClicksMap.get(metricDate) ?? 0) + clicks);
+    if (metricDate >= IMPRESSION_TRACKING_STARTED_AT) {
+      dailyImpressionsMap.set(metricDate, (dailyImpressionsMap.get(metricDate) ?? 0) + impressions);
+    }
     addBreakdown(partnerMap, row.partner, row.partner, clicks, impressions, in7d);
     addBreakdown(placementMap, row.placement, row.placement, clicks, impressions, in7d);
 
@@ -156,7 +160,11 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
 
   const daily = Array.from({ length: WINDOW_DAYS }, (_, index) => {
     const date = utcDateOffset(WINDOW_DAYS - 1 - index);
-    return { date, clicks: dailyMap.get(date) ?? 0 };
+    return {
+      date,
+      clicks: dailyClicksMap.get(date) ?? 0,
+      impressions: date >= IMPRESSION_TRACKING_STARTED_AT ? dailyImpressionsMap.get(date) ?? 0 : null,
+    };
   });
 
   return {
