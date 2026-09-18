@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
+import { ParkingMapPanel } from '@/components/parking/ParkingMapPanel';
 import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
 import { SportsVenueGuidePilotContent } from '@/components/sports/SportsVenueGuidePilotContent';
 import { SportsVenueQuickAnswers } from '@/components/sports/SportsVenueQuickAnswers';
@@ -143,13 +144,11 @@ export const Route = createFileRoute('/sports-venue/$slug')({
     const [
       { findCompleteTexasEntity, loadTexasKnowledgeGraph },
       { getSportsVenueEnrichmentAll, sportsVenueMapUrl },
-      { sportsVenueLandingLinksForVenue },
       { getSportsVenuePhoto },
       { getSportsVenueParkingMap },
     ] = await Promise.all([
       import('@/data/knowledge-graph'),
       import('@/data/sports-venue-enrichment-all'),
-      import('@/data/sports-venue-landings'),
       import('@/data/sports-venue-images-all'),
       import('@/data/parking-maps.functions'),
     ]);
@@ -168,7 +167,7 @@ export const Route = createFileRoute('/sports-venue/$slug')({
         ? import('@/data/sports-venue-events.functions').then(({ getSportsVenueUpcomingEvents }) =>
           getSportsVenueUpcomingEvents({ data: { slug: params.slug } }))
         : Promise.resolve(null),
-      isGuide ? getSportsVenueParkingMap(params.slug) : Promise.resolve(undefined),
+      getSportsVenueParkingMap(params.slug),
       getActiveSportsSponsorPlacement({ data: { surfacePath: canonicalPath } }),
     ]);
     return {
@@ -179,7 +178,6 @@ export const Route = createFileRoute('/sports-venue/$slug')({
       enrichment,
       photo,
       parkingMap,
-      landingLinks: sportsVenueLandingLinksForVenue(entity),
       mapUrl,
       upcomingEvents: guideEvents?.events ?? [],
       eventCalendarHref: guideEvents?.calendarHref ?? '/events',
@@ -209,7 +207,7 @@ export const Route = createFileRoute('/sports-venue/$slug')({
 
 function SportsVenuePage() {
   const { slug } = Route.useParams();
-  const { entity, parkingMap, visitorPlaces, upcomingEvents, eventCalendarHref, landingLinks, sponsorPlacement } = Route.useLoaderData();
+  const { entity, parkingMap, visitorPlaces, upcomingEvents, eventCalendarHref, sponsorPlacement } = Route.useLoaderData();
 
   if (isSportsVenueGuidePilot(slug)) {
     return <SportsVenueGuidePilotContent
@@ -219,7 +217,6 @@ function SportsVenuePage() {
       nearbyAttractions={visitorPlaces}
       upcomingEvents={upcomingEvents}
       eventCalendarHref={eventCalendarHref}
-      landingLinks={landingLinks}
       sponsorPlacement={sponsorPlacement}
     />;
   }
@@ -228,7 +225,7 @@ function SportsVenuePage() {
 }
 
 function LegacySportsVenuePage() {
-  const { entity, related, visitorPlaces, sponsorPlacement, enrichment, landingLinks, mapUrl } = Route.useLoaderData();
+  const { entity, related, visitorPlaces, sponsorPlacement, enrichment, parkingMap, mapUrl } = Route.useLoaderData();
   const tags = new Set(entity.tags ?? []);
   const profile = venueProfile(tags);
   const canonicalPath = canonicalEntityPath(entity);
@@ -339,7 +336,10 @@ function LegacySportsVenuePage() {
               <p className="mt-3 text-sm leading-6 text-muted-foreground">Venue-specific details reviewed against official sources on {formatCheckedDate(enrichment.verifiedAt)}.</p>
             </div>
             <div className="grid gap-8 md:grid-cols-2">
-              <GuideCard title={`Parking at ${entity.name}`} body={enrichment.parking} />
+              <div className="md:col-span-2">
+                <GuideCard title={`Parking at ${entity.name}`} body={enrichment.parking} />
+                <ParkingMapPanel map={parkingMap} contextName={entity.name} embedded />
+              </div>
               <GuideCard title="When to arrive" body={enrichment.arrival} />
               <GuideCard title="Main sports and events" body={`The verified venue profile currently highlights ${formatList(enrichment.primaryEvents.slice(0, 3))}. Check the official calendar for the exact event date, start time and ticket requirements.`} />
               {enrichment.capacity ? <GuideCard title="Capacity and configuration" body={`${entity.name}'s verified profile lists ${enrichment.capacity}. Seating or event configurations can change for concerts, tournaments and special events, so use the official event page for the final layout.`} /> : null}
@@ -380,21 +380,6 @@ function LegacySportsVenuePage() {
           <ul className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
             {entity.tags.filter((tag) => !['sports-venue', 'major-tourist-draw', 'regional-tourist-draw'].includes(tag)).map((tag) => <li key={tag} className="border-t border-border py-3 text-sm font-medium">{title(tag)}</li>)}
           </ul>
-        </section> : null}
-
-        {landingLinks.length ? <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]" aria-labelledby="venue-collections-heading">
-          <div>
-            <p className="eyebrow text-primary">Explore the collection</p>
-            <h2 id="venue-collections-heading" className="mt-2 font-display text-3xl leading-tight">More venues like {entity.name}</h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">Move from this venue into its matching Texas sports market and sport-specific directories.</p>
-          </div>
-          <div className="grid gap-x-7 sm:grid-cols-2 lg:grid-cols-3">
-            {landingLinks.map((landing) => <a key={landing.slug} href={`/sports-venues/${landing.slug}`} className="group border-t border-border py-5">
-              <span className="eyebrow text-primary">{landing.kind === 'market' ? 'Sports market' : 'Sports collection'}</span>
-              <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{landing.title}</strong>
-              <span className="mt-3 block text-sm font-semibold text-primary">Browse collection →</span>
-            </a>)}
-          </div>
         </section> : null}
 
         {visitorPlaces.length ? <RelatedGrid
