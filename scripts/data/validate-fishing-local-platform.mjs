@@ -74,6 +74,24 @@ if (!failures.length) {
   for (const stale of ["Verified business facts", "Verified specialties", "Available per verified source"]) {
     if (serviceProfileUi.includes(stale)) failures.push(`Fishing service profile still exposes internal verification jargon: ${stale}.`);
   }
+  for (const phrase of ["Fishing access ·", "Source checked", "No fee indicated by source", "Available per source", "Amenities"]) {
+    if (!accessProfileUi.includes(phrase)) failures.push(`Fishing access profile is missing visitor-facing label: ${phrase}.`);
+  }
+  for (const stale of ["Verified fishing access", "Verified amenities", "Available per verified source", "No fee indicated by verified source"]) {
+    if (accessProfileUi.includes(stale)) failures.push(`Fishing access profile still exposes verification-heavy public copy: ${stale}.`);
+  }
+  for (const phrase of ["— Texas Fishing Access", "Fishing access not found", "source-backed access profiles"]) {
+    if (!accessProfileRoute.includes(phrase)) failures.push(`Fishing access profile route is missing visitor-facing metadata/copy: ${phrase}.`);
+  }
+  for (const stale of ["Verified Texas Fishing Access", "Verified fishing access not found", "pass verification"]) {
+    if (accessProfileRoute.includes(stale)) failures.push(`Fishing access profile route still exposes verification-heavy public copy: ${stale}.`);
+  }
+  for (const phrase of ["— Texas Fishing Service", "Fishing service not found", "source-backed local-service profiles"]) {
+    if (!serviceProfileRoute.includes(phrase)) failures.push(`Fishing service profile route is missing visitor-facing metadata/copy: ${phrase}.`);
+  }
+  for (const stale of ["Verified Texas Fishing Service", "Verified fishing service not found", "pass verification"]) {
+    if (serviceProfileRoute.includes(stale)) failures.push(`Fishing service profile route still exposes verification-heavy public copy: ${stale}.`);
+  }
   for (const field of ['name="lake"', 'name="kind"', 'name="city"', 'name="county"']) if (!accessUi.includes(field)) failures.push(`Access directory filter missing: ${field}`);
   for (const field of ['name="lake"', 'name="category"', 'name="city"', 'name="county"']) if (!servicesUi.includes(field)) failures.push(`Services directory filter missing: ${field}`);
   if (!accessServer.includes("Sponsorship never changes access ordering") || !servicesServer.includes("Sponsorship never changes service ordering")) failures.push("Editorial independence ordering rule missing.");
