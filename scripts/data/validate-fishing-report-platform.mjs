@@ -31,6 +31,12 @@ if (!failures.length) {
   if (!routing.includes('FISHING_REPORTS_DIRECTORY_PATH = "/fishing/reports"') || !routing.includes("fishingReportCanonicalPath") || !routing.includes('"current" | "stale" | "expired"')) failures.push("Canonical report routing/freshness contract incomplete.");
   if (!directoryServer.includes("isPublicFishingReportValid") || !profileServer.includes("isPublicFishingReportValid") || !sitemapServer.includes("isPublicFishingReportValid")) failures.push("Public report surfaces do not share the integrity gate.");
   if (!directoryUi.includes("does not create placeholder bite reports") || !profileUi.includes("not a live bite claim") || !profileUi.includes("old observations forward as current facts")) failures.push("Anti-fabrication/freshness disclosure missing.");
+  for (const phrase of ["Fishing reports with dates and freshness labels.", "Submit a report for review →", "Reports are reviewed, not purchased.", "No fishing reports are published yet."]) {
+    if (!directoryUi.includes(phrase)) failures.push(`Fishing report directory is missing visitor-facing label: ${phrase}`);
+  }
+  for (const stale of ["Verified reports, dated and freshness-labeled.", "All verified lakes", "All verified species", "Reports are earned by verification, not purchased."]) {
+    if (directoryUi.includes(stale)) failures.push(`Fishing report directory still exposes verification-heavy public copy: ${stale}`);
+  }
   if (!directoryUi.includes('name="lake"') || !directoryUi.includes('name="species"') || !directoryUi.includes('name="freshness"')) failures.push("Fishing report filters incomplete.");
   if (!profileServer.includes("guide.contributorApproved") || !profileUi.includes("verified, contributor-approved guide")) failures.push("Verified guide contributor attribution gate missing.");
   if (!directoryServer.includes("Sponsorship never changes report order") || !directoryUi.includes("Sponsored placement") || !directoryUi.includes('rel="noopener sponsored"') || !profileUi.includes("Sponsored status can never change")) failures.push("Report sponsorship/editorial independence disclosure missing.");
