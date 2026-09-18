@@ -38,14 +38,27 @@ for (const [needle, label] of [
   ["required('SUPABASE_SERVICE_ROLE_KEY')", 'Supabase service-role requirement'],
   ["const HEARTBEAT_PARTNER = '__pipeline__'", 'reserved sync heartbeat identity'],
   ["const HEARTBEAT_PLACEMENT = 'sync-heartbeat'", 'sync heartbeat placement'],
+  ["const FALLBACK_STALE_MINUTES_ENV = 'PARTNER_REFERRAL_SYNC_IF_STALE_MINUTES'", 'fallback freshness environment'],
+  ['async function latestHeartbeatAgeMinutes', 'service-role heartbeat freshness lookup'],
+  ["endpoint.searchParams.set('partner', `eq.${HEARTBEAT_PARTNER}`)", 'heartbeat partner filter'],
+  ["endpoint.searchParams.set('placement', `eq.${HEARTBEAT_PLACEMENT}`)", 'heartbeat placement filter'],
+  ['if (heartbeatAgeMinutes <= fallbackStaleMinutes)', 'fallback freshness skip'],
+  ['Partner referral analytics fallback skipped', 'fallback skip telemetry'],
   ['click_count: 0', 'zero-count heartbeat'],
   ['await upsertRows(supabaseUrl, serviceRoleKey, [heartbeat])', 'post-aggregate heartbeat write'],
 ]) expect(sync, needle, label);
 if (/sessionId|session_id/.test(sync)) errors.push('Sync must not read or persist browser session identifiers.');
+const fallbackGuardIndex = sync.indexOf('if (fallbackStaleMinutes > 0)');
+const cloudflareCredentialIndex = sync.indexOf("const accountId = required('CLOUDFLARE_ACCOUNT_ID')");
+if (fallbackGuardIndex < 0 || cloudflareCredentialIndex < 0 || fallbackGuardIndex > cloudflareCredentialIndex) {
+  errors.push('Fallback freshness guard must run before Cloudflare credentials are required so healthy fallback runs avoid an unnecessary Analytics Engine query.');
+}
 
 for (const [needle, label] of [
   ["schedule:", 'scheduled sync'],
-  ["cron: '17 * * * *'", 'hourly sync cadence'],
+  ["cron: '17 * * * *'", 'primary hourly sync cadence'],
+  ["cron: '47 * * * *'", 'fallback hourly sync opportunity'],
+  ["PARTNER_REFERRAL_SYNC_IF_STALE_MINUTES: ${{ github.event_name == 'schedule' && github.event.schedule == '47 * * * *' && '70' || '' }}", 'fallback-only freshness guard'],
   ['authorize:', 'protected authorization job'],
   ['environment: texasdefined-publication', 'protected GitHub environment'],
   ['Authorize private referral sync', 'explicit environment authorization step'],
@@ -110,4 +123,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Partner referral reporting validation passed: referral clicks are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful hourly pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the scheduled sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
+console.log('Partner referral reporting validation passed: referral clicks are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has a staggered fallback opportunity that skips Cloudflare while the heartbeat is fresh, the scheduled sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');

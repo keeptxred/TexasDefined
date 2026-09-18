@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '17 * * * *'
+    - cron: '47 * * * *'
   push:
     branches: [main]
     paths:
@@ -42,4 +43,5 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ftkznprjljkhymknvhye.supabase.co' }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+          PARTNER_REFERRAL_SYNC_IF_STALE_MINUTES: ${{ github.event_name == 'schedule' && github.event.schedule == '47 * * * *' && '70' || '' }}
         run: node scripts/monetization/sync-partner-referral-analytics.mjs
