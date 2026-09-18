@@ -38,7 +38,7 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
       <Container>
         <SectionHeader
           eyebrow="TexasDefined authority guide"
-          title={`Verified planning notes for ${destination.name}`}
+          title={`Planning notes for ${destination.name}`}
           description="Operational facts are tied to official sources and a recorded review date. Supporting agency, institutional, conservation, science and historic-designation sources add context where useful. TexasDefined's planning assessment is editorial judgment—not a paid rating or a claim of an unrecorded personal visit."
         />
 
@@ -46,17 +46,17 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
           <section className="border-y border-border py-7" aria-labelledby={`${destination.slug}-verified-info`}>
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
-                <p className="eyebrow text-primary">Verified visitor information</p>
-                <h2 id={`${destination.slug}-verified-info`} className="mt-2 font-display text-3xl">What we checked</h2>
+                <p className="eyebrow text-primary">Visitor information</p>
+                <h2 id={`${destination.slug}-verified-info`} className="mt-2 font-display text-3xl">Planning details</h2>
               </div>
-              <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Reviewed {checkedDate(destination.sourceCheckedAt)}</p>
+              <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Last reviewed {checkedDate(destination.sourceCheckedAt)}</p>
             </div>
             <dl className="mt-6 grid gap-x-8 sm:grid-cols-2">
               <div className="border-t border-border py-4"><dt className="eyebrow text-muted-foreground">Recommended visit</dt><dd className="mt-2 leading-6">{authority.assessment.recommendedVisit}</dd></div>
               {destination.managingAuthority && <div className="border-t border-border py-4"><dt className="eyebrow text-muted-foreground">Managing authority</dt><dd className="mt-2 leading-6">{destination.managingAuthority}{primarySource && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</dd></div>}
               {destination.address && <div className="border-t border-border py-4"><dt className="eyebrow text-muted-foreground">Visitor address</dt><dd className="mt-2 leading-6">{destination.address}{primarySource && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</dd></div>}
               <div className="border-t border-border py-4"><dt className="eyebrow text-muted-foreground">Entry / reservations</dt><dd className="mt-2 leading-6">{destination.entryNote}{primarySource && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</dd></div>
-              <div className="border-t border-border py-4 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Evidence layer</dt><dd className="mt-2 leading-6">{authority.sources.length} distinct authority {authority.sources.length === 1 ? "source" : "sources"} attached to this guide, including the controlling visitor source and supporting institutional context where available.</dd></div>
+              <div className="border-t border-border py-4 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Sources</dt><dd className="mt-2 leading-6">{authority.sources.length} distinct authority {authority.sources.length === 1 ? "source" : "sources"} attached to this guide, including the controlling visitor source and supporting institutional context where available.</dd></div>
             </dl>
           </section>
 
@@ -83,7 +83,7 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
             <h2 id={`${destination.slug}-texas-significance`} className="mt-2 font-display text-4xl">More than a photo stop</h2>
             <p className="mt-6 text-base leading-8 text-foreground/90">{authority.whyItMatters}</p>
             <div className="mt-7 border-t border-border pt-5 text-sm leading-6 text-muted-foreground">
-              <strong className="text-foreground">Research & review:</strong> <Link to="/authors/$author" params={{ author: "a-hollis" }} className="border-b border-primary text-primary">Texas Defined Editorial Desk</Link>. Operational details are checked against the linked controlling source; supporting sources deepen history, science, conservation or institutional context. Editorial assessments describe trip-planning value rather than a star rating. <Link to="/explore/top-attractions/methodology" className="border-b border-primary text-primary">See the Top-25 methodology.</Link> <Link to="/citation-guide" className="border-b border-primary text-primary">Citation guidance.</Link>
+              <strong className="text-foreground">About this guide:</strong> <Link to="/authors/$author" params={{ author: "a-hollis" }} className="border-b border-primary text-primary">Texas Defined Editorial Desk</Link>. Operational details are checked against the linked controlling source; supporting sources deepen history, science, conservation or institutional context. Editorial assessments describe trip-planning value rather than a star rating. <Link to="/explore/top-attractions/methodology" className="border-b border-primary text-primary">See the Top-25 methodology.</Link> <Link to="/citation-guide" className="border-b border-primary text-primary">Citation guidance.</Link>
             </div>
           </section>
 
@@ -129,12 +129,12 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
 
           <aside>
             <section aria-labelledby={`${destination.slug}-sources`}>
-              <p className="eyebrow text-primary">Sources & verification</p>
+              <p className="eyebrow text-primary">Sources & updates</p>
               <h2 id={`${destination.slug}-sources`} className="mt-2 font-display text-3xl">Authority sources used</h2>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">The first source is the controlling visitor source when available. Additional sources support history, accessibility, science, conservation, designation or institutional context; they do not override current operator guidance.</p>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">The first source is the primary visitor source when available. Additional sources support history, accessibility, science, conservation, designation or institutional context; they do not override current operator guidance.</p>
               <ol className="mt-6 space-y-5">
                 {authority.sources.map((source, index) => <li key={source.url} id={`authority-source-${index + 1}`} className="border-t border-border pt-4 scroll-mt-28">
-                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">[{index + 1}] {index === 0 ? "Controlling visitor source" : "Supporting authority source"}</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">[{index + 1}] {index === 0 ? "Primary visitor source" : "Supporting source"}</p>
                   <a href={source.url} target="_blank" rel="noreferrer noopener" className="mt-1 block font-semibold underline decoration-primary/30 underline-offset-4 hover:text-primary">{source.label}</a>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">{source.scope}</p>
                 </li>)}
@@ -142,8 +142,8 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
             </section>
 
             <section className="mt-10 border-t-2 border-foreground pt-5" aria-labelledby={`${destination.slug}-review-log`}>
-              <p className="eyebrow text-primary">Review log</p>
-              <h2 id={`${destination.slug}-review-log`} className="mt-2 font-display text-3xl">What was reviewed</h2>
+              <p className="eyebrow text-primary">Update history</p>
+              <h2 id={`${destination.slug}-review-log`} className="mt-2 font-display text-3xl">Latest review</h2>
               <p className="mt-4 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">{checkedDate(destination.sourceCheckedAt)}:</strong> official visitor guidance, entry/reservation notes, access and accessibility information where published, recommended visit structure, surrounding trip context and supporting institutional sources reviewed for this guide.</p>
               <p className="mt-3 text-xs leading-5 text-muted-foreground">Hours, prices, weather closures, special events and capacity limits can change after review. The linked controlling visitor source governs current-day operations.</p>
             </section>
