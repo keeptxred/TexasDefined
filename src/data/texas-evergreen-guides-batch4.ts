@@ -16,6 +16,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH4: Record<string, TexasEvergreenGuide> 
       { heading: "How to read a Texas chili menu", body: ["A strong Texas chili should taste primarily of beef, chile and seasoning rather than sweetness or tomato sauce. Beyond that, there is enormous room for technique: cubed meat or ground beef, dried chile puree or powder, different fats, different heat levels and different garnishes.", "When traveling, use chili as a regional clue rather than a purity test. San Antonio history, West Texas cookoff culture and modern restaurant interpretations all belong to the same broader story."] }
     ],
     related: [
+      { href: "/food/tolberts-chili-parlor-grapevine", label: "Tolbert's Restaurant & Chili Parlor", description: "Connect Texas chili history to a verified restaurant profile carrying the Terlingua chili tradition." },
       { href: "/texas-food-trail", label: "The Texas Food Trail", description: "Place chili beside barbecue, breakfast tacos, Czech baking, Gulf seafood and other regional traditions." },
       { href: "/things-unique-to-texas/food-drink", label: "Texas food & drink icons", description: "The broader index of foods and drinks that help define the state." },
       { href: "/article/texas-cultural-regions-explained", label: "Texas cultural regions", description: "See how migration and geography shaped distinct food traditions across Texas." }
@@ -36,6 +37,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH4: Record<string, TexasEvergreenGuide> 
       { heading: "How to judge a good one", body: ["Look for a crust that stays attached, beef that is tender without becoming mushy, seasoning in both meat and coating, and gravy with enough black pepper and pan flavor to taste deliberate.", "Size is not quality. Texas restaurants sometimes turn chicken-fried steak into a spectacle, but the memorable versions are about texture and balance rather than how far the steak hangs over the plate."], links: [{ href: "/things-unique-to-texas/food-drink", label: "More iconic Texas foods" }] }
     ],
     related: [
+      { href: "/food/blue-bonnet-cafe-marble-falls", label: "Blue Bonnet Cafe", description: "Connect the chicken-fried-steak guide to a verified historic Texas cafe profile." },
       { href: "/texas-food-trail", label: "The Texas Food Trail", description: "Build chicken-fried steak into a wider regional food trip." },
       { href: "/things-unique-to-texas/food-drink", label: "Texas food & drink icons", description: "Explore the broader collection of foods associated with Texas." },
       { href: "/texas-chili-con-carne-history", label: "Texas chili con carne", description: "Another Texas staple whose folklore and documented history do not always line up." }
@@ -56,6 +58,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH4: Record<string, TexasEvergreenGuide> 
       { heading: "How to order like breakfast, not a tasting menu", body: ["Pick two contrasting tacos instead of ordering six versions of the same thing. Bean and cheese plus barbacoa, or potato and egg plus carne guisada, gives a better sense of a shop's range.", "Then pay attention to the tortilla and salsa. Those two elements often tell you more about the kitchen than an overloaded specialty taco."], links: [{ href: "/things-unique-to-texas/food-drink", label: "More Texas food traditions" }] }
     ],
     related: [
+      { href: "/food/joes-bakery-austin", label: "Joe's Bakery & Coffee Shop", description: "Connect the breakfast-taco guide to a verified East Austin family restaurant profile." },
       { href: "/texas-food-trail", label: "The Texas Food Trail", description: "Place breakfast tacos inside the broader map of Texas food regions." },
       { href: "/texas-chili-con-carne-history", label: "Texas chili con carne", description: "Follow San Antonio food history from the breakfast counter back to the plaza chili stands." },
       { href: "/things-unique-to-texas/food-drink", label: "Texas food & drink icons", description: "Browse the full food chapter of Things That Define Texas." }
