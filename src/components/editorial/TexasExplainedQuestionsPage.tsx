@@ -13,7 +13,7 @@ export default function TexasExplainedQuestionLibrary() {
     <section id="texas-questions" className="mt-16 scroll-mt-28 border-t border-border pt-10" aria-labelledby="texas-questions-heading">
       <header className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-end">
         <div className="max-w-3xl">
-          <p className="eyebrow text-primary">The everyday Texas reference desk</p>
+          <p className="eyebrow text-primary">Texas questions</p>
           <h2 id="texas-questions-heading" className="mt-3 font-display text-3xl leading-tight sm:text-4xl">{questions.length} Texas questions, answered in plain English</h2>
           <p className="mt-4 text-base leading-8 text-muted-foreground">Start with the question people actually type. TexasDefined answers the short-form question here, then points to a stronger canonical guide when the subject deserves deeper treatment. Questions without a deep-dive link are still answered here instead of being turned into thin standalone pages.</p>
         </div>
@@ -61,7 +61,7 @@ export default function TexasExplainedQuestionLibrary() {
       <div className="mt-16 max-w-3xl border-t border-border pt-8">
         <p className="eyebrow text-primary">Keep building the map</p>
         <h3 className="mt-3 font-display text-3xl leading-tight">A short answer is the floor, not the ceiling.</h3>
-        <p className="mt-4 text-base leading-8 text-muted-foreground">As a subject earns deeper treatment, TexasDefined can publish a sourced evergreen guide and point this answer to the new canonical page without flooding the index with weak pages.</p>
+        <p className="mt-4 text-base leading-8 text-muted-foreground">As a subject earns deeper treatment, Texas Defined can publish a sourced in-depth guide and point this answer there without creating duplicate or thin pages.</p>
       </div>
     </section>
   );
