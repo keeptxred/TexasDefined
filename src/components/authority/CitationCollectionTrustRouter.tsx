@@ -12,12 +12,12 @@ type TrustConfig = {
 
 const TRUST_BY_PATH: Record<string, TrustConfig> = {
   '/citation-guide': {
-    title: 'Citation policy provenance',
+    title: 'Citation guide sources',
     sources: [
       { name: 'Texas Defined editorial accountability', url: 'https://texasdefined.com/about' },
       { name: 'Machine-readable citation index', url: 'https://texasdefined.com/citation-magnets.json' },
     ],
-    methodology: 'The citation guide explains how TexasDefined reference pages relate to their underlying official and public-data sources. It is a policy layer rather than an independent factual dataset.',
+    methodology: 'The citation guide explains how TexasDefined reference pages relate to their underlying official and public-data sources. It explains sourcing policy rather than creating a separate factual dataset.',
     lastVerified: 'Citation policy and manifest relationship reviewed August 18, 2026.',
   },
   '/texas-data': {
@@ -30,19 +30,19 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
     lastVerified: 'Catalog source hierarchy reviewed August 11, 2026. Dataset-specific source and modification dates control individual figures.',
   },
   '/things-unique-to-texas': {
-    title: 'Things That Define Texas editorial provenance',
+    title: 'Things That Define Texas sources',
     sources: [
       { name: 'Things That Define Texas methodology', url: 'https://texasdefined.com/things-unique-to-texas/methodology' },
       { name: 'Texas Defined editorial accountability', url: 'https://texasdefined.com/about' },
       { name: 'TexasDefined citation policy', url: 'https://texasdefined.com/citation-guide' },
     ],
-    methodology: 'The 250-entry collection is an editorial map of Texas identity. It separates official designations from folklore, labels Texas adoption separately from Texas origin, and routes current operational facts to deeper pages whose linked public agency or operator remains controlling. Automatic canonical links are limited to direct, high-confidence matches.',
-    lastVerified: 'Collection structure, methodology and canonical-link policy reviewed August 19, 2026.',
+    methodology: 'The 250-entry collection is an editorial map of Texas identity. It separates official designations from folklore, labels Texas adoption separately from Texas origin, and routes current operational facts to deeper pages whose linked public agency or operator remains controlling. Automatic deeper-guide links are limited to exact, well-supported matches.',
+    lastVerified: 'Collection structure, methodology and deeper-link policy reviewed August 19, 2026.',
   },
   '/things-unique-to-texas/methodology': {
-    title: 'Things That Define Texas methodology provenance',
+    title: 'Things That Define Texas methodology sources',
     sources: [
-      { name: 'Canonical 250-item collection', url: 'https://texasdefined.com/things-unique-to-texas' },
+      { name: 'Main 250-item collection', url: 'https://texasdefined.com/things-unique-to-texas' },
       { name: 'Texas Defined editorial accountability', url: 'https://texasdefined.com/about' },
       { name: 'TexasDefined citation policy', url: 'https://texasdefined.com/citation-guide' },
     ],
@@ -57,12 +57,12 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
       { name: 'Machine-readable citation index', url: 'https://texasdefined.com/citation-magnets.json' },
     ],
     methodology: 'The Top 25 collection uses each attraction’s linked official visitor source for current operational guidance and keeps those facts separate from TexasDefined editorial assessments of visit length, physical effort, weather exposure, advance-planning needs and trip value. Every child guide carries its own review date, sources and update history.',
-    lastVerified: 'Top 25 authority framework and collection coverage reviewed August 18, 2026. Current-day hours, prices, closures and reservations remain controlled by each attraction’s linked official source.',
+    lastVerified: 'Top 25 sourcing framework and collection coverage reviewed August 18, 2026. Current-day hours, prices, closures and reservations remain controlled by each attraction’s linked official source.',
   },
   '/explore/top-attractions/methodology': {
-    title: 'Top 25 methodology provenance',
+    title: 'Top 25 methodology sources',
     sources: [
-      { name: 'Top 25 canonical collection', url: 'https://texasdefined.com/explore/top-attractions' },
+      { name: 'Top 25 main collection', url: 'https://texasdefined.com/explore/top-attractions' },
       { name: 'TexasDefined citation policy', url: 'https://texasdefined.com/citation-guide' },
       { name: 'Texas Defined editorial accountability', url: 'https://texasdefined.com/about' },
     ],
@@ -72,11 +72,11 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
   '/explore/top-attractions/road-trips': {
     title: 'Top 25 road-trip methodology',
     sources: [
-      { name: 'Top 25 canonical collection', url: 'https://texasdefined.com/explore/top-attractions' },
+      { name: 'Top 25 main collection', url: 'https://texasdefined.com/explore/top-attractions' },
       { name: 'Top 25 methodology and source policy', url: 'https://texasdefined.com/explore/top-attractions/methodology' },
     ],
-    methodology: 'The seven route structures are TexasDefined editorial trip-planning synthesis built only from canonical Top-25 attraction guides. They are not live navigation instructions. Each attraction’s official source controls current hours, reservations, closures and operating restrictions.',
-    lastVerified: 'Top 25 route groupings and canonical stop links reviewed August 18, 2026.',
+    methodology: 'The seven route structures are TexasDefined editorial trip-planning synthesis built only from the main Top-25 attraction guides. They are not live navigation instructions. Each attraction’s official source controls current hours, reservations, closures and operating restrictions.',
+    lastVerified: 'Top 25 route groupings and main stop links reviewed August 18, 2026.',
   },
   '/explore/painted-churches': {
     title: 'Painted Churches research and verification',
@@ -86,12 +86,12 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
       { name: 'TexasDefined citation policy', url: 'https://texasdefined.com/citation-guide' },
     ],
     methodology: 'The statewide collection separates formal National Register decorative-interior membership, the Schulenburg touring cluster and the broader Painted Churches tradition. Primary and official church-specific records lead for dates, designations and current access; public-history and scholarly sources deepen interpretation. Churches are not added from travel-list mentions alone.',
-    lastVerified: 'The verified statewide collection, inclusion labels and source hierarchy were reviewed August 25, 2026; the canonical collection controls the current church count.',
+    lastVerified: 'The verified statewide collection, inclusion labels and source hierarchy were reviewed August 25, 2026; the main collection controls the current church count.',
   },
   '/explore/painted-churches/methodology': {
-    title: 'Painted Churches methodology provenance',
+    title: 'Painted Churches methodology sources',
     sources: [
-      { name: 'Painted Churches canonical collection', url: 'https://texasdefined.com/explore/painted-churches' },
+      { name: 'Painted Churches main collection', url: 'https://texasdefined.com/explore/painted-churches' },
       { name: 'Texas Defined editorial accountability', url: 'https://texasdefined.com/about' },
       { name: 'Machine-readable citation index', url: 'https://texasdefined.com/citation-magnets.json' },
     ],
@@ -101,25 +101,25 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
   '/explore/painted-churches/how-many': {
     title: 'Painted Churches count methodology',
     sources: [
-      { name: 'Painted Churches canonical collection', url: 'https://texasdefined.com/explore/painted-churches' },
+      { name: 'Painted Churches main collection', url: 'https://texasdefined.com/explore/painted-churches' },
       { name: 'Painted Churches methodology', url: 'https://texasdefined.com/explore/painted-churches/methodology' },
     ],
     methodology: 'The count explainer treats the Schulenburg cluster, formal National Register decorative-interior group and broader statewide tradition as distinct definitions. It reports the TexasDefined verified collection count without claiming that every historical or tourism source uses the same scope.',
     lastVerified: 'Collection counts and definition labels reviewed August 18, 2026.',
   },
   '/explore/painted-churches/compare': {
-    title: 'Painted Churches comparison provenance',
+    title: 'Painted Churches comparison sources',
     sources: [
-      { name: 'Painted Churches canonical collection', url: 'https://texasdefined.com/explore/painted-churches' },
+      { name: 'Painted Churches main collection', url: 'https://texasdefined.com/explore/painted-churches' },
       { name: 'Painted Churches methodology', url: 'https://texasdefined.com/explore/painted-churches/methodology' },
     ],
     methodology: 'The comparison table is generated from the same verified church records as the collection hub. It preserves county, denomination and designation flags without filling missing fields or converting broader-tradition churches into formal National Register members.',
     lastVerified: 'Comparison labels and verified collection coverage reviewed August 18, 2026.',
   },
   '/explore/painted-churches/map': {
-    title: 'Painted Churches location-directory provenance',
+    title: 'Painted Churches map sources',
     sources: [
-      { name: 'Painted Churches canonical collection', url: 'https://texasdefined.com/explore/painted-churches' },
+      { name: 'Painted Churches main collection', url: 'https://texasdefined.com/explore/painted-churches' },
       { name: 'Painted Churches methodology', url: 'https://texasdefined.com/explore/painted-churches/methodology' },
     ],
     methodology: 'The statewide location directory is a geographic distribution of the verified church collection. Map searches use a verified address when available and otherwise the named church and community; the directory does not infer public access from map presence.',
