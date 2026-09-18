@@ -9,10 +9,21 @@ const HEARTBEAT_PARTNER = '__pipeline__';
 const HEARTBEAT_PLACEMENT = 'sync-heartbeat';
 const HEARTBEAT_PAGE_PATH = '/admin/partner-referrals';
 const HEARTBEAT_DESTINATION = 'https://texasdefined.com/admin/partner-referrals';
+const FALLBACK_STALE_MINUTES_ENV = 'PARTNER_REFERRAL_SYNC_IF_STALE_MINUTES';
 
 function required(name) {
   const value = process.env[name]?.trim();
   if (!value) throw new Error(`${name} is required.`);
+  return value;
+}
+
+function optionalPositiveMinutes(name) {
+  const raw = process.env[name]?.trim();
+  if (!raw) return 0;
+  const value = Number(raw);
+  if (!Number.isFinite(value) || value <= 0 || value > 24 * 60) {
+    throw new Error(`${name} must be a positive number of minutes no greater than 1440.`);
+  }
   return value;
 }
 
@@ -126,6 +137,37 @@ function heartbeatRow() {
   };
 }
 
+async function latestHeartbeatAgeMinutes(supabaseUrl, serviceRoleKey) {
+  const endpoint = new URL(`/rest/v1/${TABLE}`, supabaseUrl);
+  endpoint.searchParams.set('select', 'synced_at');
+  endpoint.searchParams.set('partner', `eq.${HEARTBEAT_PARTNER}`);
+  endpoint.searchParams.set('placement', `eq.${HEARTBEAT_PLACEMENT}`);
+  endpoint.searchParams.set('order', 'synced_at.desc');
+  endpoint.searchParams.set('limit', '1');
+
+  const response = await fetch(endpoint, {
+    headers: {
+      apikey: serviceRoleKey,
+      Authorization: `Bearer ${serviceRoleKey}`,
+      Accept: 'application/json',
+    },
+  });
+  const body = await response.text();
+  if (!response.ok) {
+    throw new Error(`Supabase referral heartbeat lookup failed with HTTP ${response.status}: ${body.slice(0, 500)}`);
+  }
+
+  let rows;
+  try { rows = JSON.parse(body); }
+  catch { throw new Error('Supabase referral heartbeat lookup returned invalid JSON.'); }
+  if (!Array.isArray(rows)) throw new Error('Supabase referral heartbeat lookup returned an unexpected response shape.');
+  if (!rows.length) return Number.POSITIVE_INFINITY;
+
+  const syncedAt = Date.parse(rows[0]?.synced_at);
+  if (!Number.isFinite(syncedAt)) throw new Error('Supabase referral heartbeat lookup returned an invalid synced_at timestamp.');
+  return Math.max(0, (Date.now() - syncedAt) / 60_000);
+}
+
 async function upsertRows(supabaseUrl, serviceRoleKey, rows) {
   if (!rows.length) return;
   const endpoint = new URL(`/rest/v1/${TABLE}`, supabaseUrl);
@@ -150,10 +192,22 @@ async function upsertRows(supabaseUrl, serviceRoleKey, rows) {
   }
 }
 
-const accountId = required('CLOUDFLARE_ACCOUNT_ID');
-const apiToken = required('CLOUDFLARE_API_TOKEN');
 const supabaseUrl = required('SUPABASE_URL');
 const serviceRoleKey = required('SUPABASE_SERVICE_ROLE_KEY');
+const fallbackStaleMinutes = optionalPositiveMinutes(FALLBACK_STALE_MINUTES_ENV);
+
+if (fallbackStaleMinutes > 0) {
+  const heartbeatAgeMinutes = await latestHeartbeatAgeMinutes(supabaseUrl, serviceRoleKey);
+  if (heartbeatAgeMinutes <= fallbackStaleMinutes) {
+    console.log(`Partner referral analytics fallback skipped: latest successful pipeline heartbeat is ${heartbeatAgeMinutes.toFixed(1)} minutes old, within the ${fallbackStaleMinutes}-minute freshness window.`);
+    process.exit(0);
+  }
+  const ageLabel = Number.isFinite(heartbeatAgeMinutes) ? `${heartbeatAgeMinutes.toFixed(1)} minutes` : 'missing';
+  console.log(`Partner referral analytics fallback proceeding: latest successful pipeline heartbeat is ${ageLabel}; freshness window is ${fallbackStaleMinutes} minutes.`);
+}
+
+const accountId = required('CLOUDFLARE_ACCOUNT_ID');
+const apiToken = required('CLOUDFLARE_API_TOKEN');
 
 const rawRows = await queryCloudflare(accountId, apiToken);
 if (rawRows.length >= MAX_ROWS) throw new Error(`Cloudflare result hit the ${MAX_ROWS}-row safety cap; refine the aggregation before syncing.`);
