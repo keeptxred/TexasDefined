@@ -124,8 +124,8 @@ export function RelocationAuthorityLab() {
           <div className="grid gap-10 lg:grid-cols-[18rem_1fr]">
             <div>
               <p className="eyebrow text-primary">Research this Texas address</p>
-              <h2 id="address-research-desk" className="mt-3 font-display text-4xl leading-tight">Build an address-level research packet</h2>
-              <p className="mt-4 text-sm leading-7 text-muted-foreground">Census geography is a research starting point—not authority for school attendance zones, utility territories, tax liability or flood status. Verify each boundary with the official sources below.</p>
+              <h2 id="address-research-desk" className="mt-3 font-display text-4xl leading-tight">Research the details for this address</h2>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">Census geography is a starting point, not the final word on school attendance zones, utility territories, tax liability or flood status. Check each boundary with the official sources below.</p>
             </div>
             <div>
               <form onSubmit={(event) => { event.preventDefault(); void researchSubmittedAddress(); }} className="flex flex-col gap-3 sm:flex-row">
@@ -159,7 +159,7 @@ export function RelocationAuthorityLab() {
       <section className="py-12 sm:py-16" aria-labelledby="relocation-source-desk">
         <Container>
           <div className="border-b border-border pb-5">
-            <p className="eyebrow text-primary">Relocation Data Desk</p>
+            <p className="eyebrow text-primary">Moving research</p>
             <h2 id="relocation-source-desk" className="mt-2 font-display text-4xl">Primary sources behind the move</h2>
             <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Use the latest source for the question it actually answers. Migration, insurance, school, tax, utility and traffic data come from different systems and different vintages.</p>
           </div>
