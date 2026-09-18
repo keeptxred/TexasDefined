@@ -22,7 +22,7 @@ export function TopAttractionCollectionLinks({ destinations, contextLabel }: { d
       <SectionHeader
         eyebrow="TexasDefined Top 25"
         title={`${top.length} Top-25 ${top.length === 1 ? "attraction" : "attractions"} in ${contextLabel}`}
-        description="These places are part of TexasDefined's statewide Top 25 reference collection. Each guide includes official-source verification, a review log, trip-planning assessments, three itinerary options and a full nearby-area layer."
+        description="These places are part of TexasDefined's statewide Top 25 reference collection. Each guide includes official source links, update history, trip-planning assessments, three itinerary options and a full nearby-area layer."
       />
       <ol className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {top.map(({ destination, rank }) => <li key={destination.slug} className="border-t-2 border-foreground pt-5">

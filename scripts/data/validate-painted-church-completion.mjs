@@ -18,7 +18,7 @@ const detailLazyRoute = read('src/routes/explore.painted-churches.$slug.lazy.tsx
 const profileIndex = read('src/data/painted-church-profile-index.ts');
 const expansionProfiles = read('src/data/painted-church-profiles-expansion.ts');
 const latestProfiles = read('src/data/painted-church-profiles-latest.ts');
-const tripPlanner = read('src/routes/explore.trip-planner.tsx');
+const tripPlanner = `${read('src/routes/explore.trip-planner.tsx')}\n${read('src/routes/explore.trip-planner.lazy.tsx')}`;
 const countyGuides = read('src/components/content/CountyGuideSections.tsx');
 const guidebook = read('src/routes/guides.tsx');
 const topicPaths = read('src/components/editorial/ExploreTopicPaths.tsx');
@@ -71,6 +71,10 @@ requireText(detailLazyRoute, 'profile.paintings.map', 'Promoted profile primary 
 requireText(detailLazyRoute, 'profile?.visitorNotes?.length', 'Promoted profile visitor notes');
 requireText(detailLazyRoute, 'profile?.sources?.length', 'Promoted profile source list');
 requireText(detailLazyRoute, '<PaintedChurchResearchDossier', 'Painted Church research dossier delivery');
+requireText(detailLazyRoute, '>Official information</p>', 'Painted Church visitor source language');
+requireText(detailLazyRoute, 'Historic and visitor details last reviewed', 'Painted Church review-date language');
+forbidText(detailLazyRoute, '>Source check</p>', 'Painted Church retired QA label');
+forbidText(detailLazyRoute, 'Historic and visitor information checked', 'Painted Church retired QA sentence');
 
 requireText(people, 'slug: "michaela-wegman"', 'People authority');
 requireText(people, 'umbarger-st-marys-catholic-church', 'Umbarger researcher relationship');
@@ -102,6 +106,8 @@ requireText(mapRoute, 'return "Hill Country & South-Central Texas"', 'Medina Cou
 requireText(tripPlanner, 'PaintedChurchRoutePromo', 'Trip-planner reciprocal link');
 requireText(tripPlanner, '/explore/painted-churches/routes', 'Trip-planner reciprocal link');
 requireText(tripPlanner, '/explore/painted-churches/map', 'Trip-planner reciprocal link');
+requireText(tripPlanner, 'church-specific visitor information and official sources', 'Trip-planner visitor-facing source language');
+forbidText(tripPlanner, 'visitor-source checks', 'Trip-planner retired QA language');
 requireText(countyGuides, 'countyChurches = expandedPaintedChurches.filter', 'County reciprocal link');
 requireText(guidebook, 'label: "Painted Churches of Texas"', 'Guidebook discovery');
 requireText(guidebook, 'A source-backed heritage reference and travel-planning system for 27 verified churches.', 'Guidebook authority copy');
