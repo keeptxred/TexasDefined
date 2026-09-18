@@ -10,7 +10,6 @@ import highSchoolFootball from "@/assets/high-school-football-hero.jpg";
 import bluebonnets from "@/assets/bluebonnets.jpg";
 import enchantedRock from "@/assets/enchanted-rock.jpg";
 import heroHillCountry from "@/assets/hero-hill-country.jpg";
-import sixFlagsHero from "@/assets/six-flags-hero-photo.jpg";
 import courthouseSquare from "@/assets/generated/texas-courthouse-square.jpg";
 import texasHomeMaintenance from "@/assets/texas-home-maintenance-photo.jpg";
 import texasSpecialDistricts from "@/assets/generated/texas-special-districts.jpg";
@@ -82,9 +81,9 @@ export const texasDefinedBrand: BrandConfig = {
         { label: "State Parks", to: "/explore/state-parks", description: "Canyons, coastlines, trails and campsites", image: { src: enchantedRock, alt: "Granite dome and Hill Country landscape at Enchanted Rock" } },
         { label: "Best Camping in Texas", to: "/best-places-to-go-camping-in-texas", description: "Choose campsites by region, season and camping style", image: { src: paloDuro, alt: "Palo Duro Canyon landscape near Texas campsites" } },
         { label: "National Parks", to: "/explore/national-parks", description: "Big Bend, Guadalupe Mountains and federal lands", image: { src: bigBend, alt: "Desert mountains in Big Bend country" } },
-        { label: "Caverns & Caves", to: "/explore/caverns", description: "Show caves and limestone rooms below ground", image: { src: heroHillCountry, alt: "Limestone Hill Country landscape above Texas cave country" } },
-        { label: "Beaches & Coast", to: "/explore/beaches-coast", description: "Barrier islands, bays and Gulf Coast towns", image: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Port_Isabel%2C_Texas_Lighthouse.jpg?width=1600", alt: "Port Isabel Lighthouse on the Texas Gulf Coast" } },
-        { label: "Historic Sites", to: "/explore/historic-sites", description: "Missions, museums, monuments and battlefields", image: { src: sixFlagsHero, alt: "Historic Texas flags representing layers of state history" } },
+        { label: "Caverns & Caves", to: "/explore/caverns", description: "Show caves and limestone rooms below ground", image: { src: "/images/explore/caverns/longhorn-cavern-state-park.jpg", alt: "Underground limestone formations inside Longhorn Cavern State Park" } },
+        { label: "Beaches & Coast", to: "/explore/beaches-coast", description: "Barrier islands, bays and Gulf Coast towns", image: { src: "/images/explore/beaches-coast/galveston-island-state-park.jpg", alt: "Galveston Island State Park on the Texas Gulf Coast" } },
+        { label: "Historic Sites", to: "/explore/historic-sites", description: "Missions, museums, monuments and battlefields", image: { src: "/images/explore/historic-sites/the-alamo.jpg", alt: "The Alamo in San Antonio" } },
         { label: "Painted Churches", to: "/explore/painted-churches", description: "Historic sanctuaries, painted interiors and heritage-driving routes", image: { src: smallTown, alt: "Historic Central Texas architecture along a heritage route" } },
         { label: "Road Trips", to: "/explore/road-trips", description: "Scenic drives and stops worth pulling over for", image: { src: bluebonnets, alt: "Texas bluebonnets along a scenic spring drive" } },
         { label: "Small Towns", to: "/explore/small-towns", description: "Courthouse squares, dance halls and local favorites", image: { src: courthouseSquare, alt: "A classic Texas courthouse square in a small town" } },
