@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave67Destinations } from "./museum-expansion-statewide-wave67";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-17";
@@ -16,6 +17,7 @@ function museumPlaceholder(name: string): ImageRef {
  * Sixty-sixth statewide museum wave. This record uses the museum's current
  * City of Van Alstyne visitor identity and relocated Cartwright House address,
  * rather than the former downtown museum location.
+ * Wave 67 is chained here so later museum expansion remains conflict-light.
  */
 export const statewideMuseumExpansionWave66Destinations: Destination[] = [
   {
@@ -54,4 +56,5 @@ export const statewideMuseumExpansionWave66Destinations: Destination[] = [
     address: "130 N Waco St, Van Alstyne, TX 75495",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave67Destinations,
 ];
