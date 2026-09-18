@@ -8,6 +8,7 @@ const canonicalOrigin = 'https://texasdefined.com';
 const sitemapUrls = [
   `${canonicalOrigin}/sitemap.xml`,
   `${canonicalOrigin}/sitemap-explore.xml`,
+  `${canonicalOrigin}/sitemap-texas-icons.xml`,
 ];
 const errors = [];
 
@@ -88,6 +89,7 @@ for (const expected of [
   'https://api.indexnow.org/indexnow',
   '/sitemap.xml',
   '/sitemap-explore.xml',
+  '/sitemap-texas-icons.xml',
   '[200, 202]',
   '10_000',
   "process.env.PUBLIC_INDEXING_ENABLED === 'true'",
