@@ -80,23 +80,28 @@ for (const feature of [
   'facilityPattern.test(item)',
   '!activities.includes(item)',
   '!facilities.includes(item)',
-  'const practicalTips = unique([',
-  'destination.bestSeason ?',
-  'destination.entryNote',
-  'destination.reservationUrl ?',
-  'destination.accessibilityNotes ?',
-  'destination.directions ?',
-  'if (!activities.length && !facilities.length && !otherHighlights.length && !practicalTips.length) return null',
-  'Conditions, closures, fees and availability can change',
-  'aria-labelledby="plan-your-visit"',
+  'data-stay-nearby-slot',
+  'BookingCarRentalCard',
+  'drivingIntentPattern',
+  'showRentalCarOption',
+  'While you’re there',
+  'Things to do and see',
   '{ title: "Things to do", items: activities }',
   '{ title: "What you’ll find", items: facilities }',
   '{ title: "Don’t miss", items: otherHighlights }',
-  '{ title: "Good to know", items: practicalTips }',
   'groups.map((group, index)',
   'group.items.map((item)',
 ]) {
   if (!destinationPlanner.includes(feature)) errors.push(`Destination visit-planner integrity feature missing: ${feature}.`);
+}
+for (const stale of [
+  'const practicalTips = unique([',
+  'What to know before you go',
+  '{ title: "Good to know", items: practicalTips }',
+  'Keep exploring',
+  '<AnswerSummary',
+]) {
+  if (destinationPlanner.includes(stale)) errors.push(`Destination visit planner must not duplicate route-level visitor planning content: ${stale}.`);
 }
 
 if (destinationRoute.includes('isAccessibleForFree:')) {
