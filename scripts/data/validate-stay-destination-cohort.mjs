@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const registry = JSON.parse(fs.readFileSync('public/stay-nearby-destination-hotels.json', 'utf8'));
 const bootstrap = fs.readFileSync('public/expedia-travel.js', 'utf8');
 const readinessPanel = fs.readFileSync('src/components/admin/StayMonetizationReadiness.tsx', 'utf8');
+const hotelsComVerification = JSON.parse(fs.readFileSync('public/stay-nearby-hotelscom-verification.json', 'utf8'));
 const platformHealth = fs.readFileSync('src/routes/admin.platform-health.lazy.tsx', 'utf8');
 const adminNav = fs.readFileSync('src/routes/admin.tsx', 'utf8');
 const destinationSources = {
@@ -60,6 +61,11 @@ for (const marker of [
   'does not invent traffic, booking, conversion or revenue performance',
   "fetch('/stay-nearby-hotels.json'",
   "fetch('/stay-nearby-destination-hotels.json'",
+  "fetch('/stay-nearby-hotelscom-verification.json'",
+  'verifiedPropertyIds',
+  'venueVerifiedAffiliateLinks',
+  'destinationVerifiedAffiliateLinks',
+  'Hotels.com verification reviewed',
   'Verified property links',
   'Property imagery ready',
   'Indexability gate',
@@ -67,6 +73,15 @@ for (const marker of [
   'Unverified deeplinks',
   'id="stay-monetization"',
 ]) if (!readinessPanel.includes(marker)) fail(`Stay monetization readiness panel missing marker: ${marker}`);
+
+const activePropertyIds = new Set([
+  ...JSON.parse(fs.readFileSync('public/stay-nearby-hotels.json', 'utf8')).properties.filter((property) => property.status === 'active').map((property) => property.id),
+  ...(registry.properties || []).filter((property) => property.status === 'active').map((property) => property.id),
+]);
+const verifiedHotelsComProperties = (hotelsComVerification.properties || [])
+  .filter((property) => activePropertyIds.has(property.propertyId))
+  .filter((property) => /^https:\/\/www\.hotels\.com\/ho\d+\//i.test(property.destinationUrl || ''));
+if (verifiedHotelsComProperties.length !== 15) fail(`Stay readiness must reconcile all 15 governed Hotels.com exact-property links; found ${verifiedHotelsComProperties.length}.`);
 
 if (!platformHealth.includes("import { StayMonetizationReadiness } from '@/components/admin/StayMonetizationReadiness'")) fail('Platform Health must import the stay monetization readiness panel.');
 if (!platformHealth.includes('<StayMonetizationReadiness />')) fail('Platform Health must render the stay monetization readiness panel.');
@@ -78,4 +93,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Controlled destination stay cohort validation passed: ${expectedContexts.length} deep destination pages, ${registry.properties.length} source-backed properties, exactly 3 choices per destination, no unverified property deeplinks, no ungoverned property imagery, runtime overlay loading enabled, and embedded Platform Health readiness reporting is wired without fabricated performance data.`);
+console.log(`Controlled destination stay cohort validation passed: ${expectedContexts.length} deep destination pages, ${registry.properties.length} source-backed properties, exactly 3 choices per destination, no unverified property deeplinks, no ungoverned property imagery, runtime overlay loading enabled, and Platform Health reconciles the governed 15-property Hotels.com verification registry without fabricated performance data.`);
