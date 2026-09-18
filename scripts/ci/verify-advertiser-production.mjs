@@ -108,7 +108,13 @@ async function fetchRoute(route, attempt, variant) {
   const robots = robotsContent(html);
   const canonicalOk = canonicalPresent(html, route.canonical);
   const indexOk = route.indexable ? !robots.includes('noindex') : robots.includes('noindex');
-  const cacheDiagnostics = [\n      `cf-cache-status=${response.headers.get('cf-cache-status') || 'missing'}`,\n      `age=${response.headers.get('age') || 'missing'}`,\n      `cache-control=${response.headers.get('cache-control') || 'missing'}`,\n      `cf-ray=${response.headers.get('cf-ray') || 'missing'}`,\n    ].join('; ');\n    return { response, missing, forbidden, robots, canonicalOk, indexOk, url, cacheDiagnostics };
+  const cacheDiagnostics = [
+    `cf-cache-status=${response.headers.get('cf-cache-status') || 'missing'}`,
+    `age=${response.headers.get('age') || 'missing'}`,
+    `cache-control=${response.headers.get('cache-control') || 'missing'}`,
+    `cf-ray=${response.headers.get('cf-ray') || 'missing'}`,
+  ].join('; ');
+  return { response, missing, forbidden, robots, canonicalOk, indexOk, url, cacheDiagnostics };
 }
 
 const failures = [];
