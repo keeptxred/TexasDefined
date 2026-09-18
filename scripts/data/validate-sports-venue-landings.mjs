@@ -121,7 +121,7 @@ for (const marker of [
   "'@type': 'FAQPage'",
   "'@type': 'Question'",
   "'@type': 'Answer'",
-  'Planning a visit to {venueName}',
+  'Planning your visit to {venueName}',
   'Where is ${venueName}?',
   'What sports or events take place at ${venueName}?',
   'What should I know about parking at ${venueName}?',
