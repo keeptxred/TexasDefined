@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave73Destinations } from "./museum-expansion-statewide-wave73";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-18";
@@ -53,4 +54,5 @@ export const statewideMuseumExpansionWave72Destinations: Destination[] = [
     address: "303 N Brazos St, Whitney, TX 76692",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave73Destinations,
 ];
