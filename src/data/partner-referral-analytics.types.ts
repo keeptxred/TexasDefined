@@ -27,6 +27,7 @@ export type PartnerReferralDestinationBreakdown = {
 export type PartnerReferralDailyPoint = {
   date: string;
   clicks: number;
+  impressions: number | null;
 };
 
 export type PartnerReferralAnalyticsDashboard = {
