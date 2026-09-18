@@ -56,6 +56,12 @@ if (!failures.length) {
   if (!accessUi.includes("does not create placeholder ramps") || !servicesUi.includes("does not invent businesses")) failures.push("Honest empty-state anti-fabrication copy missing.");
   if (!accessProfileUi.includes("not live operational status") || !accessProfileUi.includes("Water level, ramp usability, fees, gates, hours and temporary closures can change")) failures.push("Changing access-condition disclosure missing.");
   if (!serviceProfileUi.includes("does not guess current hours, inventory, rates, availability or reviews")) failures.push("Changing business-fact disclosure missing.");
+  for (const phrase of ["Texas fishing service", "Business details", "Specialties", "Sources & corrections", "Listing reviewed"]) {
+    if (!serviceProfileUi.includes(phrase)) failures.push(`Fishing service profile is missing visitor-facing label: ${phrase}.`);
+  }
+  for (const stale of ["Verified business facts", "Verified specialties", "Available per verified source"]) {
+    if (serviceProfileUi.includes(stale)) failures.push(`Fishing service profile still exposes internal verification jargon: ${stale}.`);
+  }
   for (const field of ['name="lake"', 'name="kind"', 'name="city"', 'name="county"']) if (!accessUi.includes(field)) failures.push(`Access directory filter missing: ${field}`);
   for (const field of ['name="lake"', 'name="category"', 'name="city"', 'name="county"']) if (!servicesUi.includes(field)) failures.push(`Services directory filter missing: ${field}`);
   if (!accessServer.includes("Sponsorship never changes access ordering") || !servicesServer.includes("Sponsorship never changes service ordering")) failures.push("Editorial independence ordering rule missing.");
