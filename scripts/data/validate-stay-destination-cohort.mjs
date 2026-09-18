@@ -81,7 +81,9 @@ const activePropertyIds = new Set([
 const verifiedHotelsComProperties = (hotelsComVerification.properties || [])
   .filter((property) => activePropertyIds.has(property.propertyId))
   .filter((property) => /^https:\/\/www\.hotels\.com\/ho\d+\//i.test(property.destinationUrl || ''));
-if (verifiedHotelsComProperties.length !== 15) fail(`Stay readiness must reconcile all 15 governed Hotels.com exact-property links; found ${verifiedHotelsComProperties.length}.`);
+if (verifiedHotelsComProperties.length !== 24) fail(`Stay readiness must reconcile all 24 governed Hotels.com exact-property links; found ${verifiedHotelsComProperties.length}.`);
+const verifiedDestinationHotels = verifiedHotelsComProperties.filter((property) => ids.has(property.propertyId));
+if (verifiedDestinationHotels.length !== 9) fail(`All 9 controlled destination-cohort properties must have governed Hotels.com exact-property links; found ${verifiedDestinationHotels.length}.`);
 
 if (!platformHealth.includes("import { StayMonetizationReadiness } from '@/components/admin/StayMonetizationReadiness'")) fail('Platform Health must import the stay monetization readiness panel.');
 if (!platformHealth.includes('<StayMonetizationReadiness />')) fail('Platform Health must render the stay monetization readiness panel.');
@@ -93,4 +95,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Controlled destination stay cohort validation passed: ${expectedContexts.length} deep destination pages, ${registry.properties.length} source-backed properties, exactly 3 choices per destination, no unverified property deeplinks, no ungoverned property imagery, runtime overlay loading enabled, and Platform Health reconciles the governed 15-property Hotels.com verification registry without fabricated performance data.`);
+console.log(`Controlled destination stay cohort validation passed: ${expectedContexts.length} deep destination pages, ${registry.properties.length} source-backed properties, exactly 3 choices per destination, no unverified property deeplinks, no ungoverned property imagery, runtime overlay loading enabled, all 9 destination-cohort properties have governed Hotels.com exact-property links, and Platform Health reconciles the governed 24-property Hotels.com verification registry without fabricated performance data.`);
