@@ -71,6 +71,7 @@
   }
 
   function isMonetizationEligible(pathname = window.location.pathname) {
+    if (document.querySelector('[data-stay-nearby-disabled="true"]')) return false;
     return isIndexabilityEligible(pathname) && isTravelBookingSurface(pathname);
   }
 
