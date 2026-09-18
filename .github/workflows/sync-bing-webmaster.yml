@@ -1,0 +1,51 @@
+name: Sync Bing Webmaster data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 12 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/seo/sync-bing-webmaster.mjs"
+      - ".github/workflows/sync-bing-webmaster.yml"
+      - "supabase/migrations/20260918221815_add_texasdefined_bing_webmaster_snapshots.sql"
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: texasdefined-publication
+    env:
+      BING_WEBMASTER_API_KEY: ${{ secrets.BING_WEBMASTER_API_KEY }}
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ftkznprjljkhymknvhye.supabase.co' }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate Bing and Supabase credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${BING_WEBMASTER_API_KEY:-}" ]]; then
+            echo "::error title=Missing Bing Webmaster API key::Repository or environment secret BING_WEBMASTER_API_KEY is required."
+            exit 1
+          fi
+          if [[ -z "${SUPABASE_URL:-}" || -z "${SUPABASE_SERVICE_ROLE_KEY:-}" ]]; then
+            echo "::error title=Missing Supabase server credentials::SUPABASE_URL and a service-role secret are required."
+            exit 1
+          fi
+
+      - name: Sync Bing Webmaster snapshot
+        run: node scripts/seo/sync-bing-webmaster.mjs
