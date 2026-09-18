@@ -70,6 +70,10 @@ requireFeatures(component, [
   'to="/events"',
   'to="/search"',
   'search={{ q: destination.nearestTown }}',
+  'const areaGroups = AREA_GROUPS.filter((group) => guide[group.key].length > 0)',
+  '<details key={group.key} open={index === 0}',
+  'Continue exploring from ${destination.name}',
+  'className="flex flex-wrap gap-x-6 gap-y-3"',
 ], 'Destination relationship UI');
 
 if (component.includes('if (!groups.length) return null')) {
@@ -77,6 +81,9 @@ if (component.includes('if (!groups.length) return null')) {
 }
 if (component.includes('#relationship-') || component.includes('groups.map((group, index)')) {
   errors.push('Destination relationship UI must not regress to a stacked relationship-section tail.');
+}
+if (component.includes('mt-12 grid gap-x-12 gap-y-14 lg:grid-cols-2') || component.includes('mt-6 grid border-t border-ink-foreground/20 sm:grid-cols-2 lg:grid-cols-3')) {
+  errors.push('Destination relationship UI must keep the area guide and continuation links compact instead of restoring the tall stacked tail.');
 }
 
 if (route.includes('destinationsQuery({ category: destination.category, limit: 16 })')) {
@@ -89,4 +96,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Destination proximity, trip-intent water/history/outdoors/weekend groups, Texas Explained fallback discovery, town, complementary-category, similarity, regional, deduplication, crawlable UI, planner exits, and ItemList relationships passed validation.');
+console.log('Destination proximity and trip-intent relationships remain crawlable and structured while the area guide uses non-empty compact disclosure groups and continuation links stay in a compact strip.');
