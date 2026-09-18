@@ -78,6 +78,10 @@ for (const [needle, label] of [
   ["const SESSION_KEY = 'texasdefined:sports-partner-admin-key'", 'shared commercial admin key'],
   ['raw browser session IDs are not stored', 'privacy disclosure'],
   ['CI probe clicks are excluded', 'synthetic traffic disclosure'],
+  ['Last aggregate write', 'aggregate freshness label'],
+  ['No referral rows yet', 'zero-row aggregate state'],
+  ['Dashboard refreshed', 'dashboard query freshness label'],
+  ['zero-click sync can legitimately leave the aggregate table empty', 'healthy zero-click explanation'],
 ]) expect(lazyRoute, needle, label);
 
 expect(admin, '<Link to="/admin/partner-referrals"', 'operations navigation');
@@ -95,4 +99,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Partner referral reporting validation passed: referral clicks are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, the scheduled sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
+console.log('Partner referral reporting validation passed: referral clicks are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, the scheduled sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
