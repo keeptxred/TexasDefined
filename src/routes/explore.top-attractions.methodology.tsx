@@ -5,7 +5,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/top-attractions/methodology";
-const description = "How TexasDefined selects, ranks, researches, verifies and updates its Top 25 Texas Attractions collection, including source precedence, supporting authority evidence and the editorial planning scales used across all 25 guides.";
+const description = "How TexasDefined selects, ranks, researches, verifies and updates its Top 25 Texas Attractions collection, including source precedence, supporting source evidence and the editorial planning scales used across all 25 guides.";
 const TopAttractionsMethodologyContent = lazy(() => import("@/components/explore/TopAttractionsMethodologyContent"));
 
 export const Route = createFileRoute("/explore/top-attractions/methodology")({
