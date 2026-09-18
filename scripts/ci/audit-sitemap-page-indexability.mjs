@@ -72,6 +72,20 @@ function titleText(html) {
   return decodeHtml(html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.replace(/\s+/g, ' ').trim() ?? '');
 }
 
+function internalSitemapLinks(html, sitemapUrls) {
+  const links = new Set();
+  for (const match of html.matchAll(/<a\b[^>]*\bhref\s*=\s*["']([^"'#]+)["'][^>]*>/gi)) {
+    try {
+      const normalized = normalizeUrl(decodeHtml(match[1].trim()));
+      const parsed = new URL(normalized);
+      if (parsed.origin === ORIGIN && sitemapUrls.has(normalized)) links.add(normalized);
+    } catch {
+      // Ignore malformed/non-HTTP hrefs; indexability checks cover the page itself.
+    }
+  }
+  return [...links];
+}
+
 async function fetchWithTimeout(url, options = {}) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
