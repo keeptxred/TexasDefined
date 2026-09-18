@@ -1,3 +1,4 @@
+import blueHole from "@/assets/blue-hole.jpg";
 import type { Category } from "./types";
 
 const hamiltonPoolImage = {
@@ -27,6 +28,13 @@ export const supplementalExploreCategories: Category[] = [
     name: "RV Parks & Campgrounds",
     eyebrow: "RV travel",
     description: "Browse 250 Texas RV parks, campgrounds and public RV camping areas by region, town and county. Park-specific hookups, rig limits, rates, pet rules and reservation details are verified before individual profiles enter search indexing.",
+    image: {
+      src: "/images/rv-parks/mckinney-falls-state-park-rv-loop.jpg",
+      alt: "Representative Texas RV campground scene",
+      width: 1600,
+      height: 900,
+      credit: "Texas Defined editorial image",
+    },
   },
   {
     slug: "major-springs",
@@ -40,7 +48,12 @@ export const supplementalExploreCategories: Category[] = [
     name: "Swimming Holes & River Tubing",
     eyebrow: "Swim & float",
     description: "Texas swimming holes, spring-fed pools, tubing and float trips.",
-    image: hamiltonPoolImage,
+    image: {
+      src: blueHole,
+      alt: "Cypress-shaded swimming water at Blue Hole in Wimberley, Texas",
+      width: 1600,
+      height: 1067,
+    },
   },
   {
     slug: "caverns",
