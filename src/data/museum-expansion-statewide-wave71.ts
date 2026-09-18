@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave72Destinations } from "./museum-expansion-statewide-wave72";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-18";
@@ -54,4 +55,5 @@ export const statewideMuseumExpansionWave71Destinations: Destination[] = [
     address: "1826 Cumberland St, Vernon, TX 76384",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave72Destinations,
 ];
