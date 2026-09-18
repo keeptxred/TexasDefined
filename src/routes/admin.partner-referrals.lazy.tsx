@@ -37,7 +37,8 @@ function PartnerReferralAnalyticsAdmin() {
     }
   }
 
-  const maxDaily = useMemo(() => Math.max(1, ...(dashboard?.daily.map((row) => row.clicks) ?? [1])), [dashboard]);
+  const maxDailyClicks = useMemo(() => Math.max(1, ...(dashboard?.daily.map((row) => row.clicks) ?? [1])), [dashboard]);
+  const maxDailyImpressions = useMemo(() => Math.max(1, ...(dashboard?.daily.flatMap((row) => row.impressions === null ? [] : [row.impressions]) ?? [1])), [dashboard]);
 
   return <Container className="py-12 sm:py-16"><main className="mx-auto max-w-7xl">
     <header className="border-b border-border pb-8">
@@ -66,10 +67,18 @@ function PartnerReferralAnalyticsAdmin() {
       {dashboard.totalClicks30d === 0 ? <p className="mt-5 max-w-3xl border-l-2 border-border pl-4 text-sm leading-6 text-muted-foreground">{dashboard.totalImpressions30d > 0 ? `Affiliate CTAs recorded ${dashboard.totalImpressions30d.toLocaleString()} qualifying impressions in the 30-day window but no qualifying referral clicks. Use the partner and placement tables below to see where offers are being viewed before changing copy or placement.` : 'No qualifying affiliate CTA impressions or referral clicks are currently present in the 30-day aggregate. “Hourly sync” shows the most recent successful Cloudflare-to-Supabase pipeline run even when there are no referral rows.'}</p> : null}
 
       <section className="mt-12 border-t border-border pt-6">
-        <div className="flex flex-wrap items-end justify-between gap-3"><div><p className="eyebrow text-primary">30-day trend</p><h2 className="mt-2 font-display text-4xl">Daily referral clicks</h2></div><button disabled={busy} onClick={() => { setBusy(true); setError(''); void refresh().catch((cause) => setError(cause instanceof Error ? cause.message : 'Refresh failed.')).finally(() => setBusy(false)); }} className="min-h-10 border border-border px-4 text-sm font-semibold">Refresh</button></div>
+        <div className="flex flex-wrap items-end justify-between gap-3"><div><p className="eyebrow text-primary">30-day trend</p><h2 className="mt-2 font-display text-4xl">Daily referral performance</h2></div><button disabled={busy} onClick={() => { setBusy(true); setError(''); void refresh().catch((cause) => setError(cause instanceof Error ? cause.message : 'Refresh failed.')).finally(() => setBusy(false)); }} className="min-h-10 border border-border px-4 text-sm font-semibold">Refresh</button></div>
         {error ? <p className="mt-4 text-sm font-semibold text-destructive">{error}</p> : null}
-        <div className="mt-6 grid h-44 items-end gap-1" style={{ gridTemplateColumns: 'repeat(30,minmax(0,1fr))' }} aria-label="Daily partner referral clicks">
-          {dashboard.daily.map((row) => <div key={row.date} className="relative flex h-full items-end" title={`${row.date}: ${row.clicks} clicks`}><div className="w-full bg-primary" style={{ height: `${Math.max(2, (row.clicks / maxDaily) * 100)}%`, opacity: 0.7 }} /><span className="sr-only">{row.date}: {row.clicks} clicks</span></div>)}
+        <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">Click history spans the full 30-day window. CTA impression history begins on {new Date(`${dashboard.impressionTrackingStartedAt}T00:00:00Z`).toLocaleDateString(undefined, { timeZone: 'UTC' })}; earlier days are intentionally shown as unmeasured rather than zero.</p>
+        <p className="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Referral clicks</p>
+        <div className="mt-2 grid h-36 items-end gap-1" style={{ gridTemplateColumns: 'repeat(30,minmax(0,1fr))' }} aria-label="Daily partner referral clicks">
+          {dashboard.daily.map((row) => <div key={`clicks:${row.date}`} className="relative flex h-full items-end" title={`${row.date}: ${row.clicks} clicks`}><div className="w-full bg-primary" style={{ height: `${Math.max(2, (row.clicks / maxDailyClicks) * 100)}%`, opacity: 0.7 }} /><span className="sr-only">{row.date}: {row.clicks} clicks</span></div>)}
+        </div>
+        <p className="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">CTA impressions</p>
+        <div className="mt-2 grid h-36 items-end gap-1" style={{ gridTemplateColumns: 'repeat(30,minmax(0,1fr))' }} aria-label="Daily affiliate CTA impressions">
+          {dashboard.daily.map((row) => row.impressions === null
+            ? <div key={`impressions:${row.date}`} className="relative h-full" title={`${row.date}: impressions not measured before rollout`}><span className="sr-only">{row.date}: impressions not measured before rollout</span></div>
+            : <div key={`impressions:${row.date}`} className="relative flex h-full items-end" title={`${row.date}: ${row.impressions} impressions, ${row.clicks} clicks`}><div className="w-full bg-primary" style={{ height: `${Math.max(2, (row.impressions / maxDailyImpressions) * 100)}%`, opacity: 0.35 }} /><span className="sr-only">{row.date}: {row.impressions} impressions, {row.clicks} clicks</span></div>)}
         </div>
       </section>
 
