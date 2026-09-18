@@ -17,7 +17,7 @@ for (const requirement of [
   'RELOCATION_SOURCES',
   'RELOCATION_SOURCE_VERIFIED',
   'Compare places without a hidden “best city” score',
-  'editorial orientation labels—not live home prices',
+  'broad comparison labels—not live home prices',
   'A mailing city can cross county, school, utility, tax, flood and insurance boundaries.',
   'region === ALL || place.region === region',
   'setting === ALL || place.setting === setting',
