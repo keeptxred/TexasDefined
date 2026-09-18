@@ -245,7 +245,7 @@ async function verifyFiestaLeaf() {
   assert(canonicalHref(html) === `${origin}${path}`, `Fiesta canonical must be ${origin}${path}`);
   assert(html.includes('Fiesta San Antonio'), 'Fiesta page must render the event name');
   assert(html.includes('Organizer:'), 'Fiesta visible page must expose the verified organizer');
-  assert(!html.includes('Verified admission options'), 'Fiesta visible page must not invent unreleased 2027 offers');
+  assert(!html.includes('Admission options'), 'Fiesta visible page must not invent unreleased 2027 offers');
   assert(!html.includes('Announced performers'), 'Fiesta visible page must not leak a prior-year performer lineup');
 
   const events = eventNodes(html);
@@ -274,7 +274,7 @@ async function verifyExpiredConfirmedLeaf() {
   const html = await fetchProduction(path, 'bandera-round-up-cattle-drive');
   assert(canonicalHref(html) === `${origin}${path}`, `Bandera Round-Up canonical must be ${origin}${path}`);
   assert(html.includes('Organizer:'), 'Bandera Round-Up visible page must expose the verified organizer');
-  assert(html.includes('Verified admission options'), 'Bandera Round-Up visible page must retain its reviewed admission evidence');
+  assert(html.includes('Admission options'), 'Bandera Round-Up visible page must retain its reviewed admission evidence');
 
   const blocks = extractJsonLd(html);
   assert(blocks.length > 0, 'Bandera Round-Up expired leaf must expose JSON-LD');
@@ -292,7 +292,7 @@ async function verifyFreeOfferLeaf() {
   const html = await fetchProduction(path, 'mckinney-oktoberfest');
   assert(canonicalHref(html) === `${origin}${path}`, `McKinney Oktoberfest canonical must be ${origin}${path}`);
   assert(html.includes('Organizer:'), 'McKinney Oktoberfest visible page must expose the verified organizer');
-  assert(html.includes('Verified admission options'), 'McKinney Oktoberfest visible page must expose verified free admission');
+  assert(html.includes('Admission options'), 'McKinney Oktoberfest visible page must expose verified free admission');
 
   const events = eventNodes(html);
   assert(events.length >= 1, 'McKinney Oktoberfest leaf must expose Event schema while its confirmed occurrence is upcoming');
@@ -313,7 +313,7 @@ async function verifyPaidOfferAndPerformersLeaf() {
   const html = await fetchProduction(path, 'fort-bend-county-fair-rodeo');
   assert(canonicalHref(html) === `${origin}${path}`, `Fort Bend County Fair canonical must be ${origin}${path}`);
   assert(html.includes('Organizer:'), 'Fort Bend visible page must expose the verified organizer');
-  assert(html.includes('Verified admission options'), 'Fort Bend visible page must expose verified admission');
+  assert(html.includes('Admission options'), 'Fort Bend visible page must expose verified admission');
   assert(html.includes('Announced performers'), 'Fort Bend visible page must expose announced performers');
 
   const event = eventNodes(html)[0];
@@ -335,7 +335,7 @@ async function verifyRecurringLeaf() {
   const path = '/event/texas-renaissance-festival';
   const html = await fetchProduction(path, 'texas-renaissance-festival');
   assert(canonicalHref(html) === `${origin}${path}`, `Texas Renaissance Festival canonical must be ${origin}${path}`);
-  assert(html.includes('Verified admission options'), 'Texas Renaissance Festival visible page must expose occurrence-backed admission options');
+  assert(html.includes('Admission options'), 'Texas Renaissance Festival visible page must expose occurrence-backed admission options');
 
   const events = eventNodes(html);
   assert(events.length === 8, `Texas Renaissance Festival must expose 8 scheduled Event windows, found ${events.length}`);
