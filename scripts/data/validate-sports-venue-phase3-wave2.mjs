@@ -99,7 +99,7 @@ for (const marker of [
   'Know before you go',
   'Venue story',
   'Nearby attractions',
-  'Verification & review',
+  'Sources & review',
   'photo.licenseUrl',
 ]) requireText(guidePage, marker, 'shared venue guide architecture');
 

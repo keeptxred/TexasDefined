@@ -4,6 +4,7 @@ const read = (path) => fs.readFileSync(path, 'utf8');
 const route = read('src/routes/sports-venue.$slug.tsx');
 const guides = read('src/data/sports-venue-guide-pilots.ts');
 const guidePage = read('src/components/sports/SportsVenueGuidePage.tsx');
+const parkingPanel = read('src/components/parking/ParkingMapPanel.tsx');
 const carousel = read('src/components/editorial/TexasEventCarousel.tsx');
 const carouselCss = read('src/components/editorial/texas-event-carousel.css');
 const eventFn = read('src/data/sports-venue-events.functions.ts');
@@ -41,12 +42,23 @@ for (const marker of [
   'TexasEventCarousel',
   'data-stay-nearby-slot',
   'Know before you go',
+  'Planning your visit to ${venueName}',
+  '<ParkingMapPanel map={parkingMap} contextName={venueName} embedded />',
   'Venue story',
   'Nearby attractions',
-  'Sources',
+  'Sources & review',
   'Last reviewed',
   'StadiumOrArena',
 ]) requireText(guidePage, marker, 'shared venue guide');
+
+for (const marker of [
+  'Official parking source',
+  'grid gap-6 border-t border-border pt-5 lg:grid-cols-2 lg:items-start',
+  'lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0',
+]) requireText(parkingPanel, marker, 'parking map visitor layout');
+for (const stale of ['Accuracy checks', 'Verification source']) {
+  if (parkingPanel.includes(stale)) failures.push(`Parking map panel must not expose internal verification language: ${stale}`);
+}
 
 for (const marker of ['EventTicketCta', 'ArrowLeft', 'ArrowRight', 'Home', 'End', 'aria-roledescription="carousel"', 'View all events', 'View Calendar']) requireText(carousel, marker, 'event carousel accessibility/CTA');
 for (const marker of ['const calendarHref = viewAllHref.includes("#calendar")', '`${viewAllHref.replace(/#.*$/, "")}#calendar`', '<a href={calendarHref} className="ec-l">View Calendar</a>']) requireText(carousel, marker, 'event carousel calendar contract');
