@@ -68,7 +68,10 @@ for (const [needle, label] of [
   ["schedule:", 'scheduled sync'],
   ["cron: '17 * * * *'", 'primary hourly sync cadence'],
   ["cron: '47 * * * *'", 'fallback hourly sync opportunity'],
-  ["PARTNER_REFERRAL_SYNC_IF_STALE_MINUTES: ${{ github.event_name == 'schedule' && github.event.schedule == '47 * * * *' && '70' || '' }}", 'fallback-only freshness guard'],
+  ["workflow_run:", 'production-deploy recovery trigger'],
+  ["- 'Deploy TexasDefined production'", 'production-deploy recovery source'],
+  ["github.event_name == 'workflow_run' && '70'", 'deploy-recovery freshness guard'],
+  ["github.event_name == 'schedule' && github.event.schedule == '47 * * * *' && '70'", 'scheduled-fallback freshness guard'],
   ['authorize:', 'protected authorization job'],
   ['environment: texasdefined-publication', 'protected GitHub environment'],
   ['Authorize private referral sync', 'explicit environment authorization step'],
@@ -144,4 +147,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Partner referral reporting validation passed: referral clicks are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has a staggered fallback opportunity that skips Cloudflare while the heartbeat is fresh, the scheduled sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
+console.log('Partner referral reporting validation passed: referral clicks are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has staggered schedule and production-deploy recovery opportunities that skip Cloudflare while the heartbeat is fresh, the sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
