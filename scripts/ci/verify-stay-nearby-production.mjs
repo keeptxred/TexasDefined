@@ -206,14 +206,15 @@ for (const pilot of pilots) {
   requireCondition(!page.includes(`More venues like ${pilot.pageMarker}`), `${pilot.route} still renders the retired More venues like block.`);
 
   if (pilot.key === 'gerald-j-ford-stadium') {
-    const planningIndex = page.indexOf('Planning for Gerald J. Ford Stadium');
-    const embeddedMapIndex = page.indexOf('aria-label="Parking orientation for Gerald J. Ford Stadium"', planningIndex);
+    const planningIndex = page.indexOf('Planning your visit to Gerald J. Ford Stadium');
     const arrivalIndex = page.indexOf('>Arrival</h3>', planningIndex);
-    requireCondition(planningIndex >= 0, `${pilot.route} is missing the event-day planning section.`);
-    requireCondition(embeddedMapIndex > planningIndex, `${pilot.route} did not render the Gerald J. Ford Stadium parking map inside the Parking section.`);
-    requireCondition(arrivalIndex > embeddedMapIndex, `${pilot.route} parking map is not positioned before Arrival inside the shared planning section.`);
+    const embeddedMapIndex = page.indexOf('aria-label="Parking orientation for Gerald J. Ford Stadium"', planningIndex);
+    requireCondition(planningIndex >= 0, `${pilot.route} is missing the visitor planning section.`);
+    requireCondition(arrivalIndex > planningIndex, `${pilot.route} did not render Arrival inside the shared planning section.`);
+    requireCondition(embeddedMapIndex > arrivalIndex, `${pilot.route} parking map must follow the Parking and Arrival overview inside the shared planning section.`);
+    requireCondition(page.includes('Official parking source'), `${pilot.route} is missing the official parking-source panel beside the embedded map.`);
     requireCondition(!page.includes('>Parking map</p>'), `${pilot.route} still renders the parking map as a second standalone Parking map section.`);
   }
 }
 
-console.log(`Stay Nearby production verification passed for ${pilots.length} redesigned venue guides: curated three-card hotel sets remain source-backed, approved affiliate property photos retain precedence, ${verifiedAiAssets} exact-property photorealistic AI raster assets were verified live with property-specific address/source provenance, SVG and generic hotel fallbacks are prohibited, retired collection blocks remain absent, and Gerald J. Ford Stadium keeps its parking map embedded in the Parking section.`);
+console.log(`Stay Nearby production verification passed for ${pilots.length} redesigned venue guides: curated three-card hotel sets remain source-backed, approved affiliate property photos retain precedence, ${verifiedAiAssets} exact-property photorealistic AI raster assets were verified live with property-specific address/source provenance, SVG and generic hotel fallbacks are prohibited, retired collection blocks remain absent, and Gerald J. Ford Stadium keeps Parking, Arrival, the embedded map and official parking sources together in one visitor planning section.`);
