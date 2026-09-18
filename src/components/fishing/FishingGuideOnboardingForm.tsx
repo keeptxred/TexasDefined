@@ -47,39 +47,39 @@ export function FishingGuideOnboardingForm({ pageData }: { pageData: FishingGuid
     <header className="border-b border-border bg-ink text-ink-foreground">
       <Container className="py-14 sm:py-20">
         <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-ink-foreground/60"><a href="/">Front page</a> · <a href="/fishing">Fishing</a> · <a href="/fishing/guides">Fishing guides</a> · Submit or update</nav>
-        <p className="mt-10 eyebrow text-ink-foreground/65">Verified guide directory</p>
+        <p className="mt-10 eyebrow text-ink-foreground/65">Fishing guide directory</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Submit, claim or correct a Texas fishing-guide listing.</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">This is the editorial verification path for the fishing-guide directory. It is not a sponsorship purchase, and submitting a form does not automatically publish a listing.</p>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">Use this form to submit a new fishing-guide listing, claim an existing one or request a correction. Submissions are reviewed before publication and are separate from sponsorship.</p>
       </Container>
     </header>
 
     <Container className="py-12 sm:py-16">
       <section className="grid gap-6 border-y border-border py-8 lg:grid-cols-3" aria-label="Listing standards">
-        <Policy title="Verification first" body={pageData.policy.verification} />
+        <Policy title="Reviewed before publication" body={pageData.policy.verification} />
         <Policy title="Editorial stays independent" body={pageData.policy.editorial} />
         <Policy title="Source-backed details" body={pageData.policy.accuracy} />
       </section>
 
       <div className="mt-12 grid gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
         <aside>
-          <p className="eyebrow text-primary">What TexasDefined verifies</p>
-          <h2 className="mt-3 font-display text-4xl">Enough evidence to publish a useful listing.</h2>
+          <p className="eyebrow text-primary">What we check</p>
+          <h2 className="mt-3 font-display text-4xl">Details we can confirm before publication</h2>
           <div className="mt-6 space-y-4 text-sm leading-7 text-muted-foreground">
-            <p>Provide the business's official website and any other source URLs that support the facts you want listed. TexasDefined can verify the business identity, guide identity, lakes served, target species and public contact or booking details before publication.</p>
-            <p>Prices, boat details, capacity and booking links are optional. When submitted, they remain unpublished until supported by a source TexasDefined can verify.</p>
+            <p>Provide the business's official website and any other source URLs that support the facts you want listed. Texas Defined can confirm the business identity, guide identity, lakes served, target species and public contact or booking details before publication.</p>
+            <p>Prices, boat details, capacity and booking links are optional. When submitted, they remain unpublished until supported by a source Texas Defined can confirm.</p>
             <p>For lakes not yet represented by a complete TexasDefined lake guide, use the “other service regions” field. The current checkbox list intentionally contains only the complete-lake collection.</p>
           </div>
           <div className="mt-8 border-t border-border pt-6">
             <h3 className="font-display text-2xl">Want advertising instead?</h3>
-            <p className="mt-3 text-sm leading-7 text-muted-foreground">Sponsorship is a separate commercial workflow and cannot speed up verification or change editorial rank.</p>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">Sponsorship is a separate commercial workflow and cannot speed up review or change editorial decisions.</p>
             <a href="/partner-with-us" className="mt-4 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Ask about sponsorship →</a>
           </div>
         </aside>
 
         <section aria-labelledby="guide-listing-form-heading" className="border-t border-border pt-7 lg:border-t-0 lg:pt-0">
           <p className="eyebrow text-primary">Listing request</p>
-          <h2 id="guide-listing-form-heading" className="mt-3 font-display text-4xl">Tell us what should be verified.</h2>
-          {status === "sent" ? <div className="mt-7 border-y border-border py-6" role="status"><p className="font-semibold">Guide listing request received.</p><p className="mt-2 text-sm leading-6 text-muted-foreground">The submission is stored privately for verification. It does not create a public listing automatically.</p></div> : null}
+          <h2 id="guide-listing-form-heading" className="mt-3 font-display text-4xl">Tell us about the guide service.</h2>
+          {status === "sent" ? <div className="mt-7 border-y border-border py-6" role="status"><p className="font-semibold">Guide listing request received.</p><p className="mt-2 text-sm leading-6 text-muted-foreground">The submission is stored privately for review. It does not create a public listing automatically.</p></div> : null}
 
           <form onSubmit={submit} className="mt-8 grid gap-7" noValidate>
             <label className="grid gap-2 text-sm font-semibold" htmlFor="intent">Request type
