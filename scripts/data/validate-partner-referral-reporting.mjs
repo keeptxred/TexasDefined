@@ -5,6 +5,7 @@ const migration = read('supabase/migrations/20260916032000_create_partner_referr
 const sync = read('scripts/monetization/sync-partner-referral-analytics.mjs');
 const workflow = read('.github/workflows/sync-partner-referral-analytics.yml');
 const server = read('src/data/partner-referral-analytics.server.ts');
+const types = read('src/data/partner-referral-analytics.types.ts');
 const functions = read('src/data/partner-referral-analytics.functions.ts');
 const route = read('src/routes/admin.partner-referrals.tsx');
 const lazyRoute = read('src/routes/admin.partner-referrals.lazy.tsx');
@@ -35,6 +36,10 @@ for (const [needle, label] of [
   ["Prefer: 'resolution=merge-duplicates,return=minimal'", 'idempotent upsert'],
   ["required('CLOUDFLARE_API_TOKEN')", 'Cloudflare token requirement'],
   ["required('SUPABASE_SERVICE_ROLE_KEY')", 'Supabase service-role requirement'],
+  ["const HEARTBEAT_PARTNER = '__pipeline__'", 'reserved sync heartbeat identity'],
+  ["const HEARTBEAT_PLACEMENT = 'sync-heartbeat'", 'sync heartbeat placement'],
+  ['click_count: 0', 'zero-count heartbeat'],
+  ['await upsertRows(supabaseUrl, serviceRoleKey, [heartbeat])', 'post-aggregate heartbeat write'],
 ]) expect(sync, needle, label);
 if (/sessionId|session_id/.test(sync)) errors.push('Sync must not read or persist browser session identifiers.');
 
@@ -60,6 +65,8 @@ for (const [needle, label] of [
   ["from('texasdefined_partner_referral_daily')", 'private aggregate read'],
   ["import { supabaseAdmin } from '@/integrations/supabase/client.server'", 'server-only Supabase client'],
   ['weekOverWeekPercent', 'trend reporting'],
+  ["row.partner === HEARTBEAT_PARTNER && row.placement === HEARTBEAT_PLACEMENT", 'heartbeat metric exclusion'],
+  ['lastPipelineSyncAt', 'pipeline freshness reporting'],
 ]) expect(server, needle, label);
 
 for (const [needle, label] of [
@@ -81,9 +88,13 @@ for (const [needle, label] of [
   ['Last aggregate write', 'aggregate freshness label'],
   ['No referral rows yet', 'zero-row aggregate state'],
   ['Dashboard refreshed', 'dashboard query freshness label'],
+  ['Hourly sync', 'pipeline freshness label'],
+  ['No successful sync heartbeat', 'missing-heartbeat state'],
+  ['most recent successful Cloudflare-to-Supabase pipeline run', 'heartbeat explanation'],
   ['zero-click sync can legitimately leave the aggregate table empty', 'healthy zero-click explanation'],
 ]) expect(lazyRoute, needle, label);
 
+expect(types, 'lastPipelineSyncAt: string | null', 'pipeline heartbeat dashboard type');
 expect(admin, '<Link to="/admin/partner-referrals"', 'operations navigation');
 expect(collector, '// Browser session IDs are intentionally never persisted in Analytics Engine.', 'collector session-minimization contract');
 
@@ -99,4 +110,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Partner referral reporting validation passed: referral clicks are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, the scheduled sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
+console.log('Partner referral reporting validation passed: referral clicks are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful hourly pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the scheduled sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
