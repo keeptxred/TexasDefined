@@ -212,6 +212,15 @@ for (const feature of ['/explore/top-attractions', '/explore/top-attractions/roa
   if (!collectionLinksSource.includes(feature)) failures.push(`Top 25 collection-link component missing ${feature}.`);
 }
 
+for (const [source, label] of [
+  [collectionLinksSource, 'Top 25 collection links'],
+  [hubSource, 'Top 25 hub'],
+  [trustRouterSource, 'Top 25 trust summary'],
+]) {
+  if (!source.includes('update history') && !source.includes('Update history')) failures.push(`${label} must use update-history wording.`);
+  if (source.includes('review log') || source.includes('Review log')) failures.push(`${label} must not restore the retired review-log label.`);
+}
+
 if (failures.length) {
   console.error('Top 25 attraction authority validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
