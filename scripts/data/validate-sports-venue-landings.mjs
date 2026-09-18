@@ -250,7 +250,7 @@ for (const marker of [
   'parking={enrichment?.parking}',
   'arrival={enrichment?.arrival}',
   'verifiedAt={enrichment?.verifiedAt ?? entity.sourceCheckedAt}',
-  '<ParkingMapPanel map={parkingMap} contextName={entity.name} embedded />',
+  '<ParkingMapPanel map={parkingMap} contextName={entity.name} />',
 ]) assert(genericVenue.includes(marker), `Generic sports venue guide is missing answer-first, parking-in-context or lazy-data marker: ${marker}.`);
 for (const marker of ['Explore the collection', 'More venues like {entity.name}', 'Browse collection →']) {
   assert(!genericVenue.includes(marker), `Generic sports venue guide must not render retired collection block marker: ${marker}.`);
