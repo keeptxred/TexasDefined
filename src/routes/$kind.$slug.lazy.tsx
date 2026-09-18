@@ -17,6 +17,11 @@ const CityPassContextualCallout = lazy(() =>
     default: module.CityPassContextualCallout,
   })),
 );
+const EntityFoodDestinations = lazy(() =>
+  import('@/components/content/EntityFoodDestinations').then((module) => ({
+    default: module.EntityFoodDestinations,
+  })),
+);
 
 const siteUrl = 'https://texasdefined.com';
 const localGovernmentKinds = new Set(['county', 'appraisal-district', 'tax-office', 'county-clerk', 'dps-office']);
@@ -25,7 +30,7 @@ const referenceKinds = new Set([...localGovernmentKinds, 'agency']);
 export const Route = createLazyFileRoute('/$kind/$slug')({ component: EntityPage });
 
 function EntityPage() {
-  const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues } = Route.useLoaderData();
+  const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations } = Route.useLoaderData();
   const visibleRelated = relatedForDisplay(entity, related);
   const relatedEntities = visibleRelated.map((item) => item.entity);
   const description = entity.kind === 'county' && countySeriesArticle?.dek ? countySeriesArticle.dek : pageDescription(entity);
@@ -113,6 +118,7 @@ function EntityPage() {
 
         {entity.kind === 'city' ? <Suspense fallback={null}><CityPassContextualCallout surface="city" slug={entity.slug} /></Suspense> : null}
         {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} countySeriesArticle={countySeriesArticle} /> : null}
+        {(entity.kind === 'city' || entity.kind === 'county') && foodDestinations.length ? <Suspense fallback={null}><EntityFoodDestinations entity={entity} destinations={foodDestinations} /></Suspense> : null}
         {entity.kind === 'county' ? <CountyCoastalPlaces county={entity} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
         {entity.kind !== 'county' ? <EntityDepthSections entity={entity} related={visibleRelated} /> : null}
