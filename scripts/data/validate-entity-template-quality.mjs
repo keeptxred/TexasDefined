@@ -11,6 +11,7 @@ const schema = read('src/data/property/county-property-schema.ts');
 const countyRoute = read('src/routes/property-tax.county.$county.tsx');
 const entityRelationships = read('src/data/knowledge-graph/relationships.ts');
 const entityRoute = readRouteSurface('src/routes/$kind.$slug.tsx');
+const entityDepth = read('src/components/content/EntityDepthSections.tsx');
 const countyGuide = read('src/components/content/CountyGuideSections.tsx');
 const countyIdentity = read('src/components/content/CountyIdentitySection.tsx');
 const countyStatewide = read('src/components/content/CountyStatewideContextSection.tsx');
@@ -45,7 +46,7 @@ for (const feature of ['const entityCounty = countyContext(entity)','if (!isInde
 for (const forbiddenRanking of ['if (entity.kind === candidate.kind) score += 3',"if (entity.kind === candidate.kind) { score += 3"]) {
   if (entityRelationships.includes(forbiddenRanking)) errors.push(`Alphabetical same-kind fallback must not return: ${forbiddenRanking}`);
 }
-for (const feature of ['isIndexableEntityPage(loaderData.entity)',"robots: indexable ? undefined : 'noindex, follow, max-image-preview:large'",'loadCountyProfile(entity.slug, entity.name)','loadLocalGovernmentProfile(entity.slug, entity.name)','loadCountySeriesArticle(entity.slug)','<CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} countySeriesArticle={countySeriesArticle} />',"entity.kind !== 'county' && entity.tags?.length","entity.kind !== 'county' && visibleRelated.length",'2020 Census population','Official county website',"loaderData.entity.kind === 'county' && countySeriesArticle?.dek","entity.kind === 'county' && countySeriesArticle?.dek ? countySeriesArticle.dek : pageDescription(entity)"]) {
+for (const feature of ['isIndexableEntityPage(loaderData.entity)',"robots: indexable ? undefined : 'noindex, follow, max-image-preview:large'",'loadCountyProfile(entity.slug, entity.name)','loadLocalGovernmentProfile(entity.slug, entity.name)','loadCountySeriesArticle(entity.slug)','<CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} countySeriesArticle={countySeriesArticle} />',"entity.kind !== 'county' && entity.tags?.length",'<EntityDepthSections entity={entity} related={visibleRelated} />','2020 Census population','Official county website',"loaderData.entity.kind === 'county' && countySeriesArticle?.dek","entity.kind === 'county' && countySeriesArticle?.dek ? countySeriesArticle.dek : pageDescription(entity)"]) {
   if (!entityRoute.includes(feature)) errors.push(`Rich county route contract missing: ${feature}`);
 }
 for (const feature of ['County feature','The story of {entity.name}','countySeriesArticle.title','countySeriesArticle.dek','<ArticleBody blocks={countySeriesArticle.body} entities={relatedEntities} />','At a glance','The county in numbers','County seat & communities','Places on the map','Property & county services','Official local resources','Nearby places','Keep exploring','profile.population2020','profile.landAreaSquareMiles','profile.majorCommunities','localGovernment.appraisalDistrict','localGovernment.taxOffice','localGovernment.countyWebsiteUrl','CountyIdentitySection','profile.populationDensityPerSquareMile','profile.waterSharePercent','How densely populated is','propertyGuideReady','propertyGuideHref','propertyGuideLabel','getCountyPropertyRecordBySlug','isCountyPropertyIndexReady']) {
@@ -74,6 +75,21 @@ for (const feature of ['Density','Water share','row.populationDensityPerSquareMi
 }
 for (const forbiddenCopy of ['A closer look at ${entity.name}, where to find it, and what else is worth seeing nearby.','What to know about ${loaderData.entity.name}, where it is, and what is nearby.','This county guide is being expanded']) {
   if (entityRoute.includes(forbiddenCopy)) errors.push(`Generic placeholder copy must not return: ${forbiddenCopy}`);
+}
+
+for (const feature of [
+  'const relatedItems = related.slice(0, 6)',
+  'Related TexasDefined references',
+  'relatedItems.map(({ entity: candidate })',
+]) {
+  if (!entityDepth.includes(feature)) errors.push(`Generic entity related-reference contract missing: ${feature}`);
+}
+for (const stale of [
+  'Why it belongs in the guide',
+  "entity.kind !== 'county' && visibleRelated.length",
+  'visibleRelated.map(({ entity: candidate }',
+]) {
+  if (entityRoute.includes(stale)) errors.push(`Generic entity template must not restore duplicate/vague tail content: ${stale}`);
 }
 
 for (const feature of [

@@ -308,7 +308,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         </section>
 
         <div>
-          {guide.sections.map((section, index) => <section key={section.heading} className="grid gap-6 border-b border-border py-10 lg:grid-cols-[12rem_minmax(0,1fr)]">
+          {guide.sections.map((section, index) => <section key={section.heading} id={`${guide.slug}-section-${index + 1}`} className="scroll-mt-24 grid gap-6 border-b border-border py-10 lg:grid-cols-[12rem_minmax(0,1fr)]">
             <div>
               <p className="eyebrow text-primary">{String(index + 1).padStart(2, "0")}</p>
               <h2 className="mt-2 font-display text-3xl leading-tight">{section.heading}</h2>

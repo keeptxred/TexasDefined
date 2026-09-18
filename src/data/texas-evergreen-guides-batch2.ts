@@ -291,6 +291,10 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       }
     ],
     related: [
+      { href: "/food/czech-stop-west", label: "Czech Stop", description: "Connect West's Czech-Texan bakery heritage to a verified destination profile." },
+      { href: "/food/naegelins-bakery-new-braunfels", label: "Naegelin's Bakery", description: "Follow German-Texan baking history into a verified New Braunfels institution." },
+      { href: "/food/krauses-cafe-new-braunfels", label: "Krause's Cafe & Biergarten", description: "Pair New Braunfels heritage with a verified German-Texan restaurant profile." },
+      { href: "/food/scholz-garten-austin", label: "Scholz Garten", description: "Trace German-Texan gathering-place history into a verified Austin institution." },
       { href: "/explore/painted-churches", label: "Painted Churches of Texas", description: "A source-checked network of churches tied to immigrant communities and decorative arts." },
       { href: "/texas-dance-halls-honky-tonks", label: "Texas dance halls", description: "The music and social spaces that kept regional traditions alive." },
       { href: "/texas-food-trail", label: "Texas Food Trail", description: "Follow Czech and German influence through bakeries, sausage, markets and road food." }

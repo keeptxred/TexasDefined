@@ -114,6 +114,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH5: Record<string, TexasEvergreenGuide> 
       }
     ],
     related: [
+      { href: "/food/rays-drive-inn-san-antonio", label: "Ray's Drive Inn", description: "Connect the puffy-taco history guide to the verified West Side restaurant profile central to the modern San Antonio story." },
       { href: "/texas-food-history", label: "Texas Food History", description: "Connect the puffy taco with chili, breakfast tacos, barbecue and other regional food traditions." },
       { href: "/texas-breakfast-taco-guide", label: "Texas Breakfast Tacos", description: "Compare another everyday taco tradition with the puffy taco's restaurant-centered San Antonio identity." },
       { href: "/things-unique-to-texas/food-drink", label: "Texas food & drink icons", description: "Browse the broader food chapter that includes San Antonio's puffy taco." }
@@ -175,6 +176,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH5: Record<string, TexasEvergreenGuide> 
       }
     ],
     related: [
+      { href: "/food/veras-backyard-bar-b-que-brownsville", label: "Vera's Backyard Bar-B-Que", description: "Connect the barbacoa guide to a verified South Texas profile preserving traditional barbacoa de cabeza." },
       { href: "/texas-food-history", label: "Texas Food History", description: "Place the Sunday pairing inside the broader map of Texas migration, foodways and regional identity." },
       { href: "/texas-breakfast-taco-guide", label: "Texas Breakfast Tacos", description: "See how barbacoa fits into the larger South and Central Texas breakfast-taco tradition." },
       { href: "/dr-pepper-texas-history", label: "Dr Pepper in Texas", description: "Follow another Waco-born soda into the state's broader consumer culture." }

@@ -20,92 +20,148 @@ export const TEXAS_EVERGREEN_GUIDES: Record<string, TexasEvergreenGuide> = {
     slug: "texas-food-trail",
     eyebrow: "Eat your way across Texas",
     title: "The Texas Food Trail: 10 Food Traditions Worth a Road Trip",
-    dek: "Texas food is not one cuisine. It is barbecue smoke, border cooking, Czech and German baking, Gulf seafood, ranch food, fair food and small-town institutions layered across a very large state.",
-    quickAnswer: "For a first Texas food road trip, build around Central Texas barbecue, San Antonio Tex-Mex, Czech-Texan bakeries around West, Gulf seafood, Hill Country peaches, East Texas catfish and a few deeply Texas institutions such as H-E-B, Whataburger, Blue Bell and Buc-ee's. The point is not to chase one famous restaurant; it is to understand how geography and migration changed what Texans eat.",
+    dek: "Texas food is not one cuisine. Follow verified barbecue smokehouses, Tex-Mex institutions, Czech and German bakeries, Gulf seafood, ranch steakhouses, historic cafes and other traditions that only make sense in place.",
+    quickAnswer: "For a first Texas food road trip, start with one coherent region instead of chasing a statewide ranking. Lockhart, Taylor, Lexington and Elgin form the strongest Central Texas barbecue corridor; San Antonio and South Texas connect Tex-Mex, puffy tacos and barbacoa; West and New Braunfels connect Czech and German foodways; Galveston and Riviera anchor a Gulf seafood route; Fort Worth and Buffalo Gap show two very different Texas steakhouse traditions. TexasDefined's verified food profiles focus on durable history and place, while current hours, prices and menus should always be checked with the business.",
     sections: [
       {
-        heading: "1. Central Texas barbecue country",
+        heading: "1. Lockhart and the Central Texas barbecue corridor",
         body: [
-          "Brisket is the headline, but the deeper story is the old meat-market tradition that linked cattle, German and Czech communities, smokehouses and small-town commerce. A classic Central Texas tray puts sliced brisket beside sausage, ribs, pickles, onions and simple bread, letting smoke and rendered fat carry most of the flavor.",
-          "Treat barbecue as a region rather than a single stop. Lockhart, Taylor, Lexington, Elgin and the wider Austin corridor each contribute to the story, and modern pits now reinterpret the tradition across the state. If you only order brisket, you miss how sausage and market-style service explain where the cuisine came from."
+          "Central Texas barbecue is best understood as a network of meat-market traditions rather than a single restaurant ranking. Lockhart alone preserves several branches of the same long history: Kreuz Market, The Original Black's Barbecue and Smitty's Market each connect smoke, sausage and beef to the town's butcher-shop past.",
+          "Build the route outward instead of crisscrossing the state. Taylor adds Louie Mueller Barbecue, Lexington adds Snow's BBQ and Elgin adds Southside Market & Barbeque. Together they make a practical corridor for comparing smokehouses, sausage traditions and town identities without pretending one tray represents every Texas barbecue style."
         ],
-        links: [{ href: "/article/texas-barbecue-styles-explained", label: "Texas barbecue styles explained" }]
-      },
-      {
-        heading: "2. San Antonio Tex-Mex and puffy tacos",
-        body: [
-          "San Antonio is one of the best places to understand Tex-Mex as a living city cuisine rather than a generic restaurant category. Puffy tacos, enchiladas, chile con carne, queso, carne guisada and breakfast tacos all overlap here, with family restaurants and neighborhood institutions often mattering as much as polished downtown dining.",
-          "A good San Antonio food day mixes formats: breakfast tacos in the morning, a puffy taco or enchilada plate later, then something completely different around the River Walk, the Pearl or an older neighborhood. The contrast is the point."
-        ],
-        links: [{ href: "/explore", label: "Explore Texas destinations" }]
-      },
-      {
-        heading: "3. Breakfast tacos from the Rio Grande Valley to Austin",
-        body: [
-          "Breakfast tacos are one of the most ordinary and most revealing Texas foods. Flour tortillas carry eggs, potatoes, beans, bacon, chorizo, carne guisada, barbacoa or migas, and every city has opinions about the correct tortilla, salsa and filling ratio.",
-          "They are especially useful for travelers because the best experience is often not a destination restaurant at all. It can be a bakery, taqueria, gas-station counter or neighborhood drive-through. That everyday quality is part of what makes the breakfast taco so distinctly Texan."
+        links: [
+          { href: "/food/kreuz-market-lockhart", label: "Kreuz Market" },
+          { href: "/food/blacks-barbecue-lockhart", label: "The Original Black's Barbecue" },
+          { href: "/food/smittys-market-lockhart", label: "Smitty's Market" },
+          { href: "/food/louie-mueller-barbecue-taylor", label: "Louie Mueller Barbecue" },
+          { href: "/food/snows-bbq-lexington", label: "Snow's BBQ" },
+          { href: "/food/southside-market-elgin", label: "Southside Market & Barbeque" },
+          { href: "/article/texas-barbecue-styles-explained", label: "Texas barbecue styles explained" }
         ]
       },
       {
-        heading: "4. Czech-Texan kolaches and klobasneks",
+        heading: "2. San Antonio and South Texas: Tex-Mex, puffy tacos and barbacoa",
         body: [
-          "Central Texas communities shaped by Czech immigration created one of the state's great road-food traditions. Sweet kolaches use fruit, cheese or poppy-seed fillings, while the savory sausage-filled pastries many Texans casually call kolaches are more properly described as klobasneks.",
-          "West is the best-known stop, but the larger story extends through Czech-Texan communities across Central Texas. Pair a bakery stop with historic churches, dance halls or town squares and the pastry becomes part of a broader cultural landscape rather than just a snack."
+          "San Antonio works best as a food city when the traditions are kept distinct. Mi Tierra Cafe y Panaderia ties Market Square to Tex-Mex, Mexican baking and family restaurant culture, while Ray's Drive Inn gives the puffy taco a specific West Side address and history.",
+          "Carry the route south and the story changes again. Vera's Backyard Bar-B-Que in Brownsville preserves a barbacoa de cabeza tradition tied to underground-pit cooking. That is why a useful South Texas food itinerary should connect neighborhoods and communities instead of flattening everything into one Tex-Mex label."
         ],
-        links: [{ href: "/explore/painted-churches", label: "Painted Churches of Texas" }]
-      },
-      {
-        heading: "5. German-Texan sausage, beer and Hill Country food",
-        body: [
-          "German settlement left a durable mark on the Hill Country and Central Texas table through smoked sausage, meat markets, beer culture, bakeries and community festivals. Towns such as Fredericksburg, New Braunfels and surrounding communities connect food with architecture, music and settlement history.",
-          "This is also where a food itinerary can become a broader weekend route: market sausage, a bakery, a historic district, a dance hall, wineries or breweries, and nearby parks all fit naturally into the same trip."
-        ],
-        links: [{ href: "/things-unique-to-texas/culture-music", label: "Texas culture and music traditions" }]
-      },
-      {
-        heading: "6. Gulf Coast seafood",
-        body: [
-          "The Texas coast adds shrimp, oysters, redfish, snapper, crab and Cajun-influenced crawfish culture to the state food map. Galveston, the upper coast, Corpus Christi and communities farther south each combine working-waterfront traditions with vacation-town dining.",
-          "Look beyond fried platters. A strong coastal food trip can include seafood markets, oyster bars, blackened or grilled Gulf fish, shrimp dishes, fish tacos and seasonal crawfish. The best meals often make more sense when paired with the bay, harbor or beach that supplied the culinary identity."
-        ],
-        links: [{ href: "/explore/outdoors", label: "Texas coast and outdoors" }]
-      },
-      {
-        heading: "7. East Texas fish fries and comfort food",
-        body: [
-          "Cornmeal-fried catfish, hushpuppies, beans, greens and homestyle sides connect East Texas to Southern food traditions and to the lakes and rivers that define much of the region. Fish camps and modest local restaurants can be as culturally important as celebrated destination dining rooms.",
-          "This part of the trail works especially well with a lake trip. Fishing, a small-town square and a catfish dinner make a coherent TexasDefined itinerary instead of three unrelated stops."
-        ],
-        links: [{ href: "/fishing", label: "Texas fishing guides" }]
-      },
-      {
-        heading: "8. Hill Country peaches, pecans and seasonal Texas",
-        body: [
-          "Texas food changes with the calendar. Hill Country peaches around Fredericksburg and Stonewall, pecans across large parts of the state and spring or summer produce stands turn roadside travel into a seasonal ritual.",
-          "That seasonality matters for trip planning. A place can be worth visiting for only a few weeks at peak harvest, which is why produce stands, orchards and small-town festivals should be treated as time-sensitive travel experiences rather than permanent attractions."
-        ],
-        links: [{ href: "/events", label: "Texas events" }]
-      },
-      {
-        heading: "9. State Fair food and Texas spectacle",
-        body: [
-          "The State Fair of Texas turns food into theater. Corny dogs are the enduring symbol, but the broader tradition is experimentation: frying, stacking, stuffing and exaggerating familiar foods until eating becomes part of the fairground spectacle.",
-          "This is a different side of Texas food from barbecue or border cuisine, but it belongs in the same story. It shows how deeply the state embraces food as entertainment, ritual and identity."
+        links: [
+          { href: "/food/mi-tierra-cafe-san-antonio", label: "Mi Tierra Cafe y Panaderia" },
+          { href: "/food/rays-drive-inn-san-antonio", label: "Ray's Drive Inn" },
+          { href: "/food/veras-backyard-bar-b-que-brownsville", label: "Vera's Backyard Bar-B-Que" },
+          { href: "/san-antonio-puffy-taco-history", label: "San Antonio puffy taco history" },
+          { href: "/barbacoa-big-red-san-antonio", label: "Barbacoa & Big Red" }
         ]
       },
       {
-        heading: "10. The institutions Texans argue about",
+        heading: "3. Breakfast tacos and Austin's everyday food institutions",
         body: [
-          "Whataburger, H-E-B, Blue Bell, Shipley Do-Nuts, Shiner, Buc-ee's and other Texas-rooted institutions inspire unusually personal loyalty. They are not substitutes for independent restaurants, but they help explain everyday Texas habits: the road-trip stop, the grocery run, the late-night burger, the doughnut box and the ice cream in the freezer.",
-          "Use them as punctuation marks in a trip rather than the whole itinerary. A Buc-ee's stop makes sense between destinations; an H-E-B visit can reveal regional products; a Blue Bell detour can connect Brenham to a larger Washington County route."
+          "Breakfast tacos matter because they are ordinary. The format belongs to bakeries, taquerias, neighborhood counters and drive-throughs as much as destination dining rooms, which makes the tradition more revealing than a single 'best taco' list.",
+          "Joe's Bakery & Coffee Shop anchors the TexasDefined profile set with East Austin family history, while Matt's El Rancho shows how a long-running Austin Tex-Mex institution can belong to the same day without serving the same purpose. Use the dedicated breakfast-taco guide for the broader regional story."
         ],
-        links: [{ href: "/things-unique-to-texas/texas-brands", label: "Legendary Texas brands" }]
+        links: [
+          { href: "/food/joes-bakery-austin", label: "Joe's Bakery & Coffee Shop" },
+          { href: "/food/matts-el-rancho-austin", label: "Matt's El Rancho" },
+          { href: "/texas-breakfast-taco-guide", label: "Texas breakfast taco guide" }
+        ]
+      },
+      {
+        heading: "4. Czech and German foodways from West to New Braunfels",
+        body: [
+          "Czech Stop in West turns the I-35 bakery stop into a doorway to Czech-Texan food history. Kolaches, klobasneks and road-trip culture make more sense when they are connected to the communities that preserved those baking traditions.",
+          "Farther south, Naegelin's Bakery, Krause's Cafe & Biergarten and Scholz Garten carry different parts of the German-Texan story through baking, beer-garden culture and long-running gathering places. Pair the food with town history, painted churches, dance halls and settlement patterns for a route that explains why the tradition exists where it does."
+        ],
+        links: [
+          { href: "/food/czech-stop-west", label: "Czech Stop" },
+          { href: "/food/naegelins-bakery-new-braunfels", label: "Naegelin's Bakery" },
+          { href: "/food/krauses-cafe-new-braunfels", label: "Krause's Cafe & Biergarten" },
+          { href: "/food/scholz-garten-austin", label: "Scholz Garten" },
+          { href: "/german-czech-texas-towns", label: "German & Czech Texas towns" },
+          { href: "/explore/painted-churches", label: "Painted Churches of Texas" }
+        ]
+      },
+      {
+        heading: "5. Houston Tex-Mex and the Texas icehouse tradition",
+        body: [
+          "Houston's food history is too broad for one cuisine, but two institutions make useful starting points. The Original Ninfa's on Navigation connects the East End, tacos al carbon and the restaurant history of fajitas, while West Alabama Ice House preserves a very different open-air neighborhood gathering tradition.",
+          "Treat them as cultural anchors rather than a complete Houston food list. The city rewards neighborhood-by-neighborhood exploration, and the strongest route uses long-running institutions to explain how migration, commerce and social spaces shaped the table."
+        ],
+        links: [
+          { href: "/food/ninfas-on-navigation-houston", label: "The Original Ninfa's on Navigation" },
+          { href: "/food/west-alabama-ice-house-houston", label: "West Alabama Ice House" }
+        ]
+      },
+      {
+        heading: "6. Gulf Coast seafood from Galveston to Baffin Bay",
+        body: [
+          "Seafood belongs on a Texas food trail because the coast changes both the ingredients and the travel experience. Gaido's in Galveston ties a century-plus restaurant history to the island's tourism and port culture, while King's Inn near Baffin Bay represents a very different South Texas coastal setting.",
+          "Build the meal around the coast itself. Beaches, bays, birding, fishing and working-waterfront history make the route coherent, and they keep Gulf seafood from becoming just another restaurant category detached from geography."
+        ],
+        links: [
+          { href: "/food/gaidos-seafood-galveston", label: "Gaido's Seafood Restaurant" },
+          { href: "/food/kings-inn-riviera", label: "King's Inn" },
+          { href: "/explore/beaches-coast", label: "Texas Gulf Coast guide" }
+        ]
+      },
+      {
+        heading: "7. Texas steakhouse tradition: Stockyards to ranch country",
+        body: [
+          "Cattlemen's Steakhouse in the Fort Worth Stockyards and Perini Ranch Steakhouse in Buffalo Gap tell two different versions of the Texas beef story. One sits inside a historic cattle-trade district; the other turns ranch hospitality and cowboy cooking into a destination experience in West Texas.",
+          "The value is in the contrast. A Texas steakhouse guide should connect beef to cattle history, ranching and place rather than treating every steak dinner as interchangeable upscale dining."
+        ],
+        links: [
+          { href: "/food/cattlemens-steakhouse-fort-worth", label: "Cattlemen's Steakhouse" },
+          { href: "/food/perini-ranch-steakhouse-buffalo-gap", label: "Perini Ranch Steakhouse" },
+          { href: "/texas-old-west", label: "Texas Old West" }
+        ]
+      },
+      {
+        heading: "8. Historic cafes, chili parlors and comfort-food Texas",
+        body: [
+          "Blue Bonnet Cafe in Marble Falls and Tolbert's Restaurant & Chili Parlor in Grapevine show why Texas food history is not limited to barbecue and tacos. One represents the long-running cafe tradition of breakfast, chicken-fried steak and pie; the other carries forward the public memory of Texas red chili and the Terlingua cook-off story.",
+          "These are useful anchors for a broader comfort-food route because they connect everyday dishes to specific businesses and towns instead of relying on generic lists of state foods."
+        ],
+        links: [
+          { href: "/food/blue-bonnet-cafe-marble-falls", label: "Blue Bonnet Cafe" },
+          { href: "/food/tolberts-chili-parlor-grapevine", label: "Tolbert's Restaurant & Chili Parlor" },
+          { href: "/texas-chicken-fried-steak-guide", label: "Texas chicken-fried steak guide" },
+          { href: "/texas-chili-con-carne-history", label: "Texas chili history" }
+        ]
+      },
+      {
+        heading: "9. Dallas and Austin legacy restaurants",
+        body: [
+          "El Fenix in Dallas and Matt's El Rancho in Austin show how long-running Mexican-American and Tex-Mex restaurants became part of city identity. Scholz Garten adds a different Austin lineage through German-Texan social culture, while Joe's Bakery keeps the East Austin breakfast tradition grounded in a neighborhood institution.",
+          "Use these profiles as entry points, not exhaustive city rankings. TexasDefined's goal is to document durable institutions and then connect them to the larger city, county and cultural story."
+        ],
+        links: [
+          { href: "/food/el-fenix-downtown-dallas", label: "El Fenix" },
+          { href: "/food/matts-el-rancho-austin", label: "Matt's El Rancho" },
+          { href: "/food/scholz-garten-austin", label: "Scholz Garten" },
+          { href: "/food/joes-bakery-austin", label: "Joe's Bakery & Coffee Shop" }
+        ]
+      },
+      {
+        heading: "10. Turn the food trail into a realistic Texas trip",
+        body: [
+          "Do not try to cover Texas food by driving from Houston to Lockhart to San Antonio to Galveston in one day. Pick one cluster, choose one anchor meal and add nearby towns, museums, parks, markets or events so the trip still works if a restaurant sells out or changes its schedule.",
+          "The Food & Barbecue hub now groups verified profiles by route, while TexasDefined's food-town and weekend-trip guides help decide which cluster deserves a full day or overnight. Current operating details remain deliberately outside the evergreen profiles: verify hours, reservations, menus and prices with the business before driving."
+        ],
+        links: [
+          { href: "/explore/food-bbq", label: "Texas Food & Barbecue hub" },
+          { href: "/article/best-texas-food-towns", label: "Texas food towns" },
+          { href: "/article/best-texas-weekend-trips-for-food-lovers", label: "Food-lover weekend trips" },
+          { href: "/article/texas-food-road-trip-bucket-list", label: "Texas food road-trip bucket list" },
+          { href: "/explore/trip-planner", label: "Texas Trip Planner" }
+        ]
       }
     ],
     related: [
-      { href: "/things-unique-to-texas/food-drink", label: "35 iconic Texas foods and drinks", description: "The larger TexasDefined food index, from brisket and queso to ranch water and venison sausage." },
-      { href: "/explore/trip-planner", label: "Build a Texas trip", description: "Turn food regions into a multi-stop itinerary." },
-      { href: "/article/texas-cultural-regions-explained", label: "Texas cultural regions explained", description: "Understand why the state's food changes from one region to another." }
+      { href: "/explore/food-bbq", label: "Texas Food & Barbecue", description: "Browse the verified destination profiles and route clusters behind this trail." },
+      { href: "/texas-food-history", label: "Texas Food History", description: "Understand the migration, cattle, Gulf Coast and border histories behind the food." },
+      { href: "/article/best-texas-food-towns", label: "Texas food towns", description: "Choose a town or city where food can anchor a full day or weekend." },
+      { href: "/article/best-texas-weekend-trips-for-food-lovers", label: "Texas food weekends", description: "Turn regional food traditions into realistic overnight trips." },
+      { href: "/article/texas-cultural-regions-explained", label: "Texas cultural regions explained", description: "See why food traditions change as geography, migration and settlement patterns change." }
     ]
   },
   "texas-roadside-oddities": {

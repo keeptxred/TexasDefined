@@ -17,6 +17,11 @@ const CityPassContextualCallout = lazy(() =>
     default: module.CityPassContextualCallout,
   })),
 );
+const EntityFoodDestinations = lazy(() =>
+  import('@/components/content/EntityFoodDestinations').then((module) => ({
+    default: module.EntityFoodDestinations,
+  })),
+);
 
 const siteUrl = 'https://texasdefined.com';
 const localGovernmentKinds = new Set(['county', 'appraisal-district', 'tax-office', 'county-clerk', 'dps-office']);
@@ -25,7 +30,7 @@ const referenceKinds = new Set([...localGovernmentKinds, 'agency']);
 export const Route = createLazyFileRoute('/$kind/$slug')({ component: EntityPage });
 
 function EntityPage() {
-  const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues } = Route.useLoaderData();
+  const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations } = Route.useLoaderData();
   const visibleRelated = relatedForDisplay(entity, related);
   const relatedEntities = visibleRelated.map((item) => item.entity);
   const description = entity.kind === 'county' && countySeriesArticle?.dek ? countySeriesArticle.dek : pageDescription(entity);
@@ -113,6 +118,7 @@ function EntityPage() {
 
         {entity.kind === 'city' ? <Suspense fallback={null}><CityPassContextualCallout surface="city" slug={entity.slug} /></Suspense> : null}
         {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} countySeriesArticle={countySeriesArticle} /> : null}
+        {(entity.kind === 'city' || entity.kind === 'county') && foodDestinations.length ? <Suspense fallback={null}><EntityFoodDestinations entity={entity} destinations={foodDestinations} /></Suspense> : null}
         {entity.kind === 'county' ? <CountyCoastalPlaces county={entity} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
         {entity.kind !== 'county' ? <EntityDepthSections entity={entity} related={visibleRelated} /> : null}
@@ -120,28 +126,13 @@ function EntityPage() {
         {entity.kind !== 'county' && entity.tags?.length ? <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
           <div>
             <p className="eyebrow text-primary">{notesEyebrow(entity.kind)}</p>
-            <h2 className="mt-2 font-display text-3xl">{notesHeading(entity.kind)}</h2>
+            <h2 className="mt-2 font-display text-3xl">{notesHeading(entity)}</h2>
           </div>
           <ul className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
             {entity.tags.map((tag) => <li key={tag} className="border-t border-border py-3 text-sm font-medium">{title(tag)}</li>)}
           </ul>
         </section> : null}
 
-        {entity.kind !== 'county' && visibleRelated.length ? <section className="py-12">
-          <div className="flex items-end justify-between gap-6 border-b border-border pb-4">
-            <div>
-              <p className="eyebrow text-primary">{relatedEyebrow(entity.kind)}</p>
-              <h2 className="mt-2 font-display text-4xl">{relatedHeading(entity.kind)}</h2>
-            </div>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3">
-            {visibleRelated.map(({ entity: candidate }, index) => <a key={candidate.id} href={canonicalEntityPath(candidate)} className={`group py-6 sm:px-5 ${index % 3 !== 0 ? 'lg:border-l lg:border-border' : ''} border-b border-border`}>
-              <span className="eyebrow text-primary">{readerLabel(candidate.kind)}</span>
-              <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{candidate.name}</strong>
-              <small className="mt-3 block text-sm leading-6 text-muted-foreground">{relatedActionLabel(candidate.kind)} →</small>
-            </a>)}
-          </div>
-        </section> : null}
       </article>
     </Container>
   </>;
@@ -206,20 +197,12 @@ function officialLinkLabel(kind: string) {
 }
 
 function notesEyebrow(kind: string) { return referenceKinds.has(kind) ? 'Reference notes' : 'Field notes'; }
-function notesHeading(kind: string) {
-  if (kind === 'county') return 'What defines this county';
-  if (kind === 'agency') return 'What this agency handles';
-  if (localGovernmentKinds.has(kind)) return 'What this office handles';
-  return 'Why it belongs in the guide';
+function notesHeading(entity: TexasEntityRecord) {
+  if (entity.kind === 'county') return 'What defines this county';
+  if (entity.kind === 'agency') return 'What this agency handles';
+  if (localGovernmentKinds.has(entity.kind)) return 'What this office handles';
+  return `What defines ${entity.name}`;
 }
-function relatedEyebrow(kind: string) { return referenceKinds.has(kind) ? 'Useful connections' : 'Continue exploring'; }
-function relatedHeading(kind: string) {
-  if (kind === 'county') return 'County services and places';
-  if (kind === 'agency') return 'Related Texas resources';
-  if (localGovernmentKinds.has(kind)) return 'Related county resources';
-  return 'Nearby and related';
-}
-function relatedActionLabel(kind: string) { return referenceKinds.has(kind) ? 'Open reference page' : 'Open the field guide'; }
 function breadcrumbSection(kind: string) { return referenceKinds.has(kind) ? 'Texas reference' : 'Explore'; }
 
 function Fact({ label, value }: { label: string; value?: string }) {

@@ -17,7 +17,6 @@ function museumPlaceholder(name: string): ImageRef {
  * Sixty-seventh statewide museum wave. This Georgetown record reconciles the
  * audit's older Williamson County Museum wording to the active institution's
  * current public name, The Williamson Museum.
- * Wave 68 is chained here so later museum expansion remains conflict-light.
  */
 export const statewideMuseumExpansionWave67Destinations: Destination[] = [
   {

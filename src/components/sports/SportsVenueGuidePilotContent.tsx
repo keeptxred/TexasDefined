@@ -12,7 +12,6 @@ import { getSportsVenueGuideWave5 } from "@/data/sports-venue-guide-wave5";
 import { getSportsVenueGuideWave6 } from "@/data/sports-venue-guide-wave6";
 import { getSportsVenueGuideWave7 } from "@/data/sports-venue-guide-wave7";
 import { getSportsVenuePhoto } from "@/data/sports-venue-images-all";
-import type { SportsVenueLanding } from "@/data/sports-venue-landings";
 import type { PublicSportsSponsorPlacement } from "@/data/sports-sponsorship.types";
 
 import { SportsVenueGuidePage } from "./SportsVenueGuidePage";
@@ -30,7 +29,6 @@ export function SportsVenueGuidePilotContent({
   nearbyAttractions,
   upcomingEvents,
   eventCalendarHref,
-  landingLinks,
   sponsorPlacement,
 }: {
   slug: string;
@@ -39,7 +37,6 @@ export function SportsVenueGuidePilotContent({
   nearbyAttractions: readonly TexasEntityRecord[];
   upcomingEvents: readonly TexasEventCarouselItem[];
   eventCalendarHref: string;
-  landingLinks?: readonly SportsVenueLanding[];
   sponsorPlacement?: PublicSportsSponsorPlacement | null;
 }) {
   const guide = getSportsVenueGuideGalaxy(slug) ?? getSportsVenueGuideWave7(slug) ?? getSportsVenueGuideWave6(slug) ?? getSportsVenueGuideWave5(slug) ?? getSportsVenueGuideWave4(slug) ?? getSportsVenueGuidePilot(slug);
@@ -108,7 +105,6 @@ export function SportsVenueGuidePilotContent({
       nearbyAttractions={nearbyAttractions}
       upcomingEvents={venueEvents}
       eventCalendarHref={eventCalendarHref}
-      landingLinks={landingLinks}
       sponsorPlacement={sponsorPlacement}
     />
   );

@@ -7,6 +7,7 @@ const guideContent = read('src/components/sports/SportsVenueGuidePilotContent.ts
 const heroEndpoint = read('src/routes/api.sports-venue-hero.ts');
 const wave7Photos = read('src/data/sports-venue-images-additions-wave7.ts');
 const productionVerifier = read('scripts/ci/verify-sports-venue-heroes-production.mjs');
+const exhaustiveProductionVerifier = read('scripts/ci/verify-sports-venue-heroes-production-all.mjs');
 
 const failures = [];
 const requireText = (source, needle, label) => {
@@ -116,10 +117,21 @@ forbidText(
   'live raw-HTML production contract must defer AI details to the sitewide disclosure',
 );
 
+for (const marker of [
+  "if (!decodedBody.includes(endpointPath) && !decodedBody.includes(`${origin}${endpointPath}`)) missing.push('same-origin governed hero endpoint');",
+  "if (!decodedBody.includes('Editorial illustration by')) missing.push('editorial-illustration disclosure');",
+  "if (!decodedBody.includes('for TexasDefined; not documentary photography.')) missing.push('not-documentary-photography disclosure');",
+]) requireText(exhaustiveProductionVerifier, marker, 'exhaustive live hero verifier must protect governed delivery and current attribution semantics');
+forbidText(
+  exhaustiveProductionVerifier,
+  "decodedBody.includes('AI-generated representative editorial image')",
+  'exhaustive live verifier must not require the retired repetitive AI label',
+);
+
 if (failures.length) {
   console.error('Sports venue SSR hero validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('Sports venue SSR hero validation passed: guide content is server-visible, hydrated rendered heroes remain server-authoritative, redirect caching cannot revive stale image URLs, governed attribution and event-image identity remain intact, and live production verification protects current generated-vs-real attribution semantics under the sitewide AI disclosure.');
+console.log('Sports venue SSR hero validation passed: guide content is server-visible, hydrated rendered heroes remain server-authoritative, redirect caching cannot revive stale image URLs, governed attribution and event-image identity remain intact, and both targeted and exhaustive live production verification protect current generated-vs-real attribution semantics under the sitewide AI disclosure.');

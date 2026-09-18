@@ -9,10 +9,21 @@ const HEARTBEAT_PARTNER = '__pipeline__';
 const HEARTBEAT_PLACEMENT = 'sync-heartbeat';
 const HEARTBEAT_PAGE_PATH = '/admin/partner-referrals';
 const HEARTBEAT_DESTINATION = 'https://texasdefined.com/admin/partner-referrals';
+const FALLBACK_STALE_MINUTES_ENV = 'PARTNER_REFERRAL_SYNC_IF_STALE_MINUTES';
 
 function required(name) {
   const value = process.env[name]?.trim();
   if (!value) throw new Error(`${name} is required.`);
+  return value;
+}
+
+function optionalPositiveMinutes(name) {
+  const raw = process.env[name]?.trim();
+  if (!raw) return 0;
+  const value = Number(raw);
+  if (!Number.isFinite(value) || value <= 0 || value > 24 * 60) {
+    throw new Error(`${name} must be a positive number of minutes no greater than 1440.`);
+  }
   return value;
 }
 
@@ -53,19 +64,20 @@ function asCount(value) {
 async function queryCloudflare(accountId, apiToken) {
   const sql = `SELECT
     formatDateTime(toStartOfDay(timestamp), '%Y-%m-%d', 'Etc/UTC') AS metricDate,
+    blob1 AS eventName,
     blob2 AS partner,
     blob7 AS placement,
     blob11 AS pagePath,
     blob6 AS destinationUrl,
-    SUM(_sample_interval) AS clickCount
+    SUM(_sample_interval) AS eventCount
   FROM ${DATASET}
   WHERE timestamp > NOW() - INTERVAL '${WINDOW_DAYS}' DAY
-    AND blob1 = 'partner_referral_clicked'
+    AND blob1 IN ('partner_referral_clicked', 'partner_referral_shown')
     AND blob10 != 'ci-probe'
     AND blob2 != ''
     AND blob6 != ''
     AND blob11 != ''
-  GROUP BY metricDate, partner, placement, pagePath, destinationUrl
+  GROUP BY metricDate, eventName, partner, placement, pagePath, destinationUrl
   ORDER BY metricDate ASC
   LIMIT ${MAX_ROWS}
   FORMAT JSON`;
@@ -89,27 +101,39 @@ async function queryCloudflare(accountId, apiToken) {
 }
 
 function normalizeRows(rows) {
-  const normalized = [];
+  const normalized = new Map();
+  const syncedAt = new Date().toISOString();
+
   for (const row of rows) {
     const metricDate = dateOnly(row.metricDate);
+    const eventName = clean(row.eventName, 80);
     const partner = clean(row.partner, 120);
     const placement = clean(row.placement || 'unspecified', 160) || 'unspecified';
     const pagePath = validPath(row.pagePath);
     const destinationUrl = validHttps(row.destinationUrl);
-    const clickCount = asCount(row.clickCount);
-    if (!metricDate || !partner || !pagePath || !destinationUrl || clickCount <= 0) continue;
-    normalized.push({
+    const eventCount = asCount(row.eventCount);
+    if (!metricDate || !['partner_referral_clicked', 'partner_referral_shown'].includes(eventName) || !partner || !pagePath || !destinationUrl || eventCount <= 0) continue;
+
+    const destinationHash = hash(destinationUrl);
+    const key = [metricDate, partner, placement, pagePath, destinationHash].join('\u0000');
+    const existing = normalized.get(key) ?? {
       metric_date: metricDate,
       partner,
       placement,
       page_path: pagePath,
       destination_url: destinationUrl,
-      destination_hash: hash(destinationUrl),
-      click_count: clickCount,
-      synced_at: new Date().toISOString(),
-    });
+      destination_hash: destinationHash,
+      click_count: 0,
+      impression_count: 0,
+      synced_at: syncedAt,
+    };
+
+    if (eventName === 'partner_referral_clicked') existing.click_count += eventCount;
+    else existing.impression_count += eventCount;
+    normalized.set(key, existing);
   }
-  return normalized;
+
+  return [...normalized.values()];
 }
 
 function heartbeatRow() {
@@ -122,8 +146,40 @@ function heartbeatRow() {
     destination_url: HEARTBEAT_DESTINATION,
     destination_hash: hash(HEARTBEAT_DESTINATION),
     click_count: 0,
+    impression_count: 0,
     synced_at: syncedAt,
   };
+}
+
+async function latestHeartbeatAgeMinutes(supabaseUrl, serviceRoleKey) {
+  const endpoint = new URL(`/rest/v1/${TABLE}`, supabaseUrl);
+  endpoint.searchParams.set('select', 'synced_at');
+  endpoint.searchParams.set('partner', `eq.${HEARTBEAT_PARTNER}`);
+  endpoint.searchParams.set('placement', `eq.${HEARTBEAT_PLACEMENT}`);
+  endpoint.searchParams.set('order', 'synced_at.desc');
+  endpoint.searchParams.set('limit', '1');
+
+  const response = await fetch(endpoint, {
+    headers: {
+      apikey: serviceRoleKey,
+      Authorization: `Bearer ${serviceRoleKey}`,
+      Accept: 'application/json',
+    },
+  });
+  const body = await response.text();
+  if (!response.ok) {
+    throw new Error(`Supabase referral heartbeat lookup failed with HTTP ${response.status}: ${body.slice(0, 500)}`);
+  }
+
+  let rows;
+  try { rows = JSON.parse(body); }
+  catch { throw new Error('Supabase referral heartbeat lookup returned invalid JSON.'); }
+  if (!Array.isArray(rows)) throw new Error('Supabase referral heartbeat lookup returned an unexpected response shape.');
+  if (!rows.length) return Number.POSITIVE_INFINITY;
+
+  const syncedAt = Date.parse(rows[0]?.synced_at);
+  if (!Number.isFinite(syncedAt)) throw new Error('Supabase referral heartbeat lookup returned an invalid synced_at timestamp.');
+  return Math.max(0, (Date.now() - syncedAt) / 60_000);
 }
 
 async function upsertRows(supabaseUrl, serviceRoleKey, rows) {
@@ -150,10 +206,22 @@ async function upsertRows(supabaseUrl, serviceRoleKey, rows) {
   }
 }
 
-const accountId = required('CLOUDFLARE_ACCOUNT_ID');
-const apiToken = required('CLOUDFLARE_API_TOKEN');
 const supabaseUrl = required('SUPABASE_URL');
 const serviceRoleKey = required('SUPABASE_SERVICE_ROLE_KEY');
+const fallbackStaleMinutes = optionalPositiveMinutes(FALLBACK_STALE_MINUTES_ENV);
+
+if (fallbackStaleMinutes > 0) {
+  const heartbeatAgeMinutes = await latestHeartbeatAgeMinutes(supabaseUrl, serviceRoleKey);
+  if (heartbeatAgeMinutes <= fallbackStaleMinutes) {
+    console.log(`Partner referral analytics fallback skipped: latest successful pipeline heartbeat is ${heartbeatAgeMinutes.toFixed(1)} minutes old, within the ${fallbackStaleMinutes}-minute freshness window.`);
+    process.exit(0);
+  }
+  const ageLabel = Number.isFinite(heartbeatAgeMinutes) ? `${heartbeatAgeMinutes.toFixed(1)} minutes` : 'missing';
+  console.log(`Partner referral analytics fallback proceeding: latest successful pipeline heartbeat is ${ageLabel}; freshness window is ${fallbackStaleMinutes} minutes.`);
+}
+
+const accountId = required('CLOUDFLARE_ACCOUNT_ID');
+const apiToken = required('CLOUDFLARE_API_TOKEN');
 
 const rawRows = await queryCloudflare(accountId, apiToken);
 if (rawRows.length >= MAX_ROWS) throw new Error(`Cloudflare result hit the ${MAX_ROWS}-row safety cap; refine the aggregation before syncing.`);
@@ -163,4 +231,5 @@ const heartbeat = heartbeatRow();
 await upsertRows(supabaseUrl, serviceRoleKey, [heartbeat]);
 
 const clicks = rows.reduce((sum, row) => sum + row.click_count, 0);
-console.log(`Partner referral analytics sync complete: ${rows.length} aggregates covering ${clicks} non-CI clicks across the last ${WINDOW_DAYS} days; successful pipeline heartbeat ${heartbeat.synced_at}.`);
+const impressions = rows.reduce((sum, row) => sum + row.impression_count, 0);
+console.log(`Partner referral analytics sync complete: ${rows.length} aggregates covering ${clicks} non-CI clicks and ${impressions} non-CI CTA impressions across the last ${WINDOW_DAYS} days; successful pipeline heartbeat ${heartbeat.synced_at}.`);

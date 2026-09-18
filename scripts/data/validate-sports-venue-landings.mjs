@@ -121,7 +121,7 @@ for (const marker of [
   "'@type': 'FAQPage'",
   "'@type': 'Question'",
   "'@type': 'Answer'",
-  'Planning a visit to {venueName}',
+  'Planning your visit to {venueName}',
   'Where is ${venueName}?',
   'What sports or events take place at ${venueName}?',
   'What should I know about parking at ${venueName}?',
@@ -245,18 +245,16 @@ for (const marker of [
   "import { SportsVenueQuickAnswers } from '@/components/sports/SportsVenueQuickAnswers'",
   "import('@/data/knowledge-graph')",
   "import('@/data/sports-venue-enrichment-all')",
-  "import('@/data/sports-venue-landings')",
-  'landingLinks: sportsVenueLandingLinksForVenue(entity)',
   '<SportsVenueQuickAnswers',
   'primaryEvents={enrichment?.primaryEvents}',
   'parking={enrichment?.parking}',
   'arrival={enrichment?.arrival}',
   'verifiedAt={enrichment?.verifiedAt ?? entity.sourceCheckedAt}',
-  'Explore the collection',
-  'More venues like {entity.name}',
-  'href={`/sports-venues/${landing.slug}`}',
-  'Browse collection →',
-]) assert(genericVenue.includes(marker), `Generic sports venue guide is missing answer-first, bidirectional discovery or lazy-data marker: ${marker}.`);
+  '<ParkingMapPanel map={parkingMap} contextName={entity.name} embedded />',
+]) assert(genericVenue.includes(marker), `Generic sports venue guide is missing answer-first, parking-in-context or lazy-data marker: ${marker}.`);
+for (const marker of ['Explore the collection', 'More venues like {entity.name}', 'Browse collection →']) {
+  assert(!genericVenue.includes(marker), `Generic sports venue guide must not render retired collection block marker: ${marker}.`);
+}
 assert(!genericVenue.includes("import { sportsVenueLandingLinksForVenue } from '@/data/sports-venue-landings'"), 'Generic sports venue guide must not eagerly import the sports venue landing taxonomy.');
 assert(!genericVenue.includes("import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph'"), 'Generic sports venue guide must not eagerly import the full knowledge graph.');
 assert(!genericVenue.includes("import { getSportsVenueEnrichmentAll, sportsVenueMapUrl } from '@/data/sports-venue-enrichment-all'"), 'Generic sports venue guide must not eagerly import the full venue enrichment payload.');
@@ -264,22 +262,17 @@ assert(!genericVenue.includes("import { getSportsVenueEnrichmentAll, sportsVenue
 for (const marker of [
   "createFileRoute('/sports-venue/jones-att-stadium')",
   'SportsVenueGuidePilotContent',
-  "import('@/data/sports-venue-landings')",
-  'landingLinks: sportsVenueLandingLinksForVenue(entity)',
-  'landingLinks={landingLinks}',
-]) assert(galaxyVenue.includes(marker), `Galaxy Stadium static wrapper is missing shared sports collection discovery marker: ${marker}.`);
-for (const marker of [
-  'landingLinks?: readonly SportsVenueLanding[];',
-  'landingLinks={landingLinks}',
-]) assert(sharedGuideContent.includes(marker), `Shared sports venue resolver is missing collection-link propagation marker: ${marker}.`);
+  'parkingMap={parkingMap}',
+  'nearbyAttractions={nearbyAttractions}',
+]) assert(galaxyVenue.includes(marker), `Galaxy Stadium static wrapper is missing shared venue-guide marker: ${marker}.`);
+assert(!sharedGuideContent.includes('landingLinks'), 'Shared sports venue resolver must not propagate retired generic collection links.');
 for (const marker of [
   'SportsCollectionSection',
   'Explore the collection',
-  'More venues like ${venueName}',
-  'href={`/sports-venues/${landing.slug}`}',
+  'More venues like',
   'Browse collection →',
-]) assert(sharedGuidePage.includes(marker), `Shared sports venue guide is missing bidirectional collection discovery marker: ${marker}.`);
-assert(galaxySharedGuide.includes("canonicalPath: '/sports-venue/jones-att-stadium'"), 'Galaxy shared guide must preserve its stable canonical path while using shared collection discovery.');
+]) assert(!sharedGuidePage.includes(marker), `Shared sports venue guide must not render retired collection block marker: ${marker}.`);
+assert(galaxySharedGuide.includes("canonicalPath: '/sports-venue/jones-att-stadium'"), 'Galaxy shared guide must preserve its stable canonical path while using the shared venue guide.');
 
 const venueSources = `${majorVenues}\n${tier2Venues}`;
 const representativeVenueByLanding = {

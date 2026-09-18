@@ -180,8 +180,8 @@ async function inspectOnce(slug, entry, attempt) {
   if (!decodedBody.includes(endpointPath) && !decodedBody.includes(`${origin}${endpointPath}`)) missing.push('same-origin governed hero endpoint');
   if (!decodedBody.includes(entry.alt)) missing.push(`alt text: ${entry.alt}`);
   if (generated) {
-    if (!decodedBody.includes('AI-generated representative editorial image')) missing.push('AI-generated representative editorial image disclosure');
-    if (!decodedBody.includes('not documentary photography')) missing.push('not-documentary-photography disclosure');
+    if (!decodedBody.includes('Editorial illustration by')) missing.push('editorial-illustration disclosure');
+    if (!decodedBody.includes('for TexasDefined; not documentary photography.')) missing.push('not-documentary-photography disclosure');
     if (!decodedBody.includes(entry.author)) missing.push(`generated-media author: ${entry.author}`);
   } else {
     if (!decodedBody.includes('Photo by') && !decodedBody.includes('Photo:')) missing.push('real-photo attribution label');
@@ -269,7 +269,7 @@ const failedBySlug = new Map(failures.map((failure) => [failure.slug, failure]))
 for (const [slug] of entries) {
   const result = passedBySlug.get(slug);
   if (result) {
-    appendSummary(`| ✅ | ${slug} | ${result.pageStatus} | ${result.endpointStatus} | ${result.imageStatus} | ${result.generated ? 'AI-generated representative' : 'real/reusable photo'} |\n`);
+    appendSummary(`| ✅ | ${slug} | ${result.pageStatus} | ${result.endpointStatus} | ${result.imageStatus} | ${result.generated ? 'generated editorial' : 'real/reusable photo'} |\n`);
   } else {
     appendSummary(`| ❌ | ${slug} | — | — | — | ${failedBySlug.get(slug)?.message ?? 'failed'} |\n`);
   }

@@ -6,8 +6,9 @@ export const Route = createLazyFileRoute("/event/$slug")({
 });
 
 const CHAPPELL_HILL_MAP_FRAME = /<div class="aspect-\[4\/3\] overflow-hidden rounded-xl border border-border bg-muted sm:aspect-\[16\/9\]">\s*<iframe[\s\S]*?src="https:\/\/www\.google\.com\/maps\/d\/u\/0\/embed\?ehbc=2E312F&amp;mid=1b6COvSIJuQzAg-UOzybkAXoKRVjeheE"[\s\S]*?<\/iframe>\s*<\/div>/i;
-const PLAN_VISIT_HEADING = /(<h2[^>]*>\s*Plan the visit\s*<\/h2>)/i;
+const PLAN_VISIT_HEADING = /(<h2[^>]*>\s*(?:Planning your visit|Plan the visit)\s*<\/h2>)/i;
 const FIRST_SECTION_HEADING = /(<h2[^>]*>)/i;
+const KEEP_EXPLORING_SECTION = /(<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Keep exploring<\/h2>)/i;
 const STAY_NEARBY_SLOT = '<div data-stay-nearby-slot class="my-10" aria-label="Places to stay near this event"></div>';
 
 function stabilizeEventHtml(slug: string, html: string) {
@@ -25,15 +26,26 @@ function injectStayNearbySlot(html: string) {
   return `${html}${STAY_NEARBY_SLOT}`;
 }
 
+function splitEventHtmlForParking(html: string) {
+  const match = KEEP_EXPLORING_SECTION.exec(html);
+  if (!match || match.index === undefined) return { beforeParking: html, afterParking: "" };
+  return {
+    beforeParking: html.slice(0, match.index),
+    afterParking: html.slice(match.index),
+  };
+}
+
 function MajorEventGuidePage() {
   const { page, parkingMap } = Route.useLoaderData();
   const eventHtml = injectStayNearbySlot(stabilizeEventHtml(page.slug, page.html));
+  const { beforeParking, afterParking } = splitEventHtmlForParking(eventHtml);
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: page.jsonLd }} />
       <main className="mx-auto max-w-4xl px-5 pb-20 pt-12 sm:px-8">
-        <article dangerouslySetInnerHTML={{ __html: eventHtml }} />
-        <ParkingMapPanel map={parkingMap} contextName={page.venue ?? page.title} />
+        <article dangerouslySetInnerHTML={{ __html: beforeParking }} />
+        <ParkingMapPanel map={parkingMap} contextName={page.venue ?? page.title} embedded />
+        {afterParking ? <article dangerouslySetInnerHTML={{ __html: afterParking }} /> : null}
       </main>
     </>
   );

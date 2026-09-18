@@ -145,7 +145,7 @@ for (const marker of [
   'Know before you go',
   'Venue story',
   'Nearby attractions',
-  'Verification & review',
+  'Sources & review',
   'photo.licenseUrl',
   'A verified venue photograph is not available yet.',
 ]) requireText(guidePage, marker, 'shared venue guide architecture');

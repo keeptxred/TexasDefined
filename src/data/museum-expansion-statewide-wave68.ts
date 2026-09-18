@@ -1,7 +1,7 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
 import type { Destination, ImageRef } from "./types";
 
-const SOURCE_CHECKED_AT = "2026-09-17";
+const SOURCE_CHECKED_AT = "2026-09-18";
 
 function museumPlaceholder(name: string): ImageRef {
   return {

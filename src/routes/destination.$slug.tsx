@@ -5,6 +5,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
+import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { DestinationRelationships } from "@/components/editorial/DestinationRelationships";
 import { DestinationVisitPlanner } from "@/components/editorial/DestinationVisitPlanner";
 import { MapPreview } from "@/components/editorial/MapPreview";
@@ -12,7 +13,7 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
 import { auditDestination } from "@/data/destination-audit";
-import { buildDestinationRelationshipGroups } from "@/data/destination-relationships";
+import { buildDestinationRelationshipGroups, distanceMiles } from "@/data/destination-relationships";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import { isTopTexasAttraction } from "@/data/top-texas-attractions";
@@ -120,6 +121,37 @@ function DestinationPage() {
   const spend = (requested: number) => { const value = limit(requested); remainingLinks -= value; return value; };
   const verifiedLabel = checkedDate(destination.sourceCheckedAt);
   const countySlug = destination.county?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const isChokeCanyon = destination.slug === "choke-canyon-state-park";
+  const locationAnswer = isChokeCanyon
+    ? `${destination.name} has two public units west of Three Rivers: Calliham in McMullen County and South Shore in Live Oak County.`
+    : `${destination.name} is near ${destination.nearestTown}, Texas${destination.county ? `, in ${destination.county} County` : ""}.`;
+  const relationshipGroupsForPage = isChokeCanyon
+    ? relationshipGroups
+      .map((group) => ({
+        ...group,
+        destinations: group.destinations.filter((item) => {
+          const miles = distanceMiles(destination, item);
+          return miles !== null && miles <= 60;
+        }).slice(0, 3),
+      }))
+      .filter((group) => group.destinations.length > 0)
+      .slice(0, 3)
+    : relationshipGroups;
+  const mapMarkers = isChokeCanyon
+    ? [
+      { id: `${destination.id}-calliham`, label: "Calliham Unit — headquarters, camping and full-service facilities", point: destination.coordinates },
+      { id: `${destination.id}-south-shore`, label: "South Shore Unit — day use, fishing and boating", point: { lat: 28.467458, lng: -98.246528 } },
+    ]
+    : [{ id: destination.id, label: destination.name, point: destination.coordinates }];
+  const compactNearby = isChokeCanyon
+    ? [...new Map(
+      relationshipGroupsForPage
+        .flatMap((group) => group.destinations)
+        .map((item) => [item.slug, item]),
+    ).values()]
+      .sort((left, right) => (distanceMiles(destination, left) ?? Number.POSITIVE_INFINITY) - (distanceMiles(destination, right) ?? Number.POSITIVE_INFINITY))
+      .slice(0, 3)
+    : [];
 
   return <>
     <Container className="pt-10 sm:pt-14"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden>·</li><li><Link to="/explore/$category" params={{ category: destination.category }} className="hover:text-foreground">{categoryName}</Link></li></ol></nav></Container>
@@ -136,50 +168,51 @@ function DestinationPage() {
     </section>
 
     <AnswerSummary
-      eyebrow="Plan the visit"
+      eyebrow="Planning your visit"
       title={`${destination.name} at a glance`}
       items={[
-        { question: `Where is ${destination.name}?`, answer: `${destination.name} is near ${destination.nearestTown}, Texas${destination.county ? `, in ${destination.county} County` : ""}.` },
+        { question: `Where is ${destination.name}?`, answer: locationAnswer },
         { question: `When is the best time to visit ${destination.name}?`, answer: destination.bestSeason },
         { question: `Do I need to plan ahead for ${destination.name}?`, answer: destination.entryNote },
         ...(destination.managingAuthority ? [{ question: `Who manages ${destination.name}?`, answer: destination.managingAuthority }] : []),
       ]}
     />
 
-    <Container className="grid gap-14 py-16 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:py-20">
-      <div className="max-w-[44rem]">
+    {isChokeCanyon && <span data-stay-nearby-disabled="true" className="hidden" aria-hidden="true" />}
+    <Container className={isChokeCanyon ? "grid gap-8 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:py-16" : "grid gap-14 py-16 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:py-20"}>
+      <div className="min-w-0">
         <section aria-labelledby="why-go" className="border-t border-border pt-8">
           <p className="eyebrow text-primary">The place</p>
-          <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">Why {destination.name} belongs on the list</h2>
+          <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">Why {destination.name} belongs on our {categoryName.toLowerCase()} list</h2>
           <div className="editorial-body mt-7 text-foreground/90">{destination.body.map((paragraph) => <p key={paragraph} className="mt-6 first:mt-0"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}</div>
         </section>
-        <section aria-labelledby="before-you-go" className="mt-16 border-t border-border pt-8">
+        <section aria-labelledby="before-you-go" className={isChokeCanyon ? "mt-10 border-t border-border pt-6" : "mt-16 border-t border-border pt-8"}>
           <p className="eyebrow text-primary">The details</p>
-          <h2 id="before-you-go" className="mt-3 font-display text-3xl">Plan the visit</h2>
+          <h2 id="before-you-go" className="mt-3 font-display text-3xl">Planning your visit</h2>
           <dl className="mt-8 grid border-y border-border sm:grid-cols-2">
             <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">Nearest town</dt><dd className="mt-2 text-base">Near <AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} />, Texas</dd></div>
             <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Best season</dt><dd className="mt-2 text-base">{destination.bestSeason}</dd></div>
-            {destination.county && <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">County</dt><dd className="mt-2 text-base">{countySlug ? <Link to="/$kind/$slug" params={{ kind: "county", slug: countySlug }} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{destination.county} County</Link> : `${destination.county} County`}</dd></div>}
+            {destination.county && <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">{isChokeCanyon ? "Counties" : "County"}</dt><dd className="mt-2 text-base">{isChokeCanyon ? "McMullen County (Calliham) · Live Oak County (South Shore)" : countySlug ? <Link to="/$kind/$slug" params={{ kind: "county", slug: countySlug }} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{destination.county} County</Link> : `${destination.county} County`}</dd></div>}
             {destination.address && <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Address</dt><dd className="mt-2 text-base">{destination.address}</dd></div>}
             <div className="py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Entry & reservations</dt><dd className="mt-2 text-base leading-7">{destination.entryNote}</dd></div>
             {destination.accessibilityNotes && <div className="border-t border-border py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Accessibility</dt><dd className="mt-2 text-base leading-7">{destination.accessibilityNotes}</dd></div>}
             {destination.directions && <div className="border-t border-border py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Getting there</dt><dd className="mt-2 text-base leading-7">{destination.directions}</dd></div>}
           </dl>
-          <div className="mt-7 flex flex-wrap gap-6">{validExternalUrl(destination.reservationUrl) && <a href={destination.reservationUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Reservations</a>}{validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official visitor information</a>}</div>
+          <div className="mt-7 flex flex-wrap gap-6">{validExternalUrl(destination.reservationUrl) && <a href={destination.reservationUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Reservations</a>}{validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official visitor information</a>}{isChokeCanyon && <a href="https://tpwd.texas.gov/state-parks/choke-canyon/alert" target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Current park alerts</a>}</div>
         </section>
-        <Suspense fallback={null}><DestinationViatorBooking destination={destination} /></Suspense>
-        <div className="mt-14"><DestinationVisitPlanner destination={destination} /></div>
+        {!isChokeCanyon && <Suspense fallback={null}><DestinationViatorBooking destination={destination} /></Suspense>}
+        {!isChokeCanyon && <div className="mt-14"><DestinationVisitPlanner destination={destination} /></div>}
       </div>
 
-      <aside className="space-y-8 lg:sticky lg:top-28 lg:self-start">
-        <div className="border-t-2 border-foreground pt-5"><p className="eyebrow text-primary">At a glance</p><dl className="mt-5 divide-y divide-border text-sm"><div className="pb-4"><dt className="text-muted-foreground">Nearest town</dt><dd className="mt-1 font-medium"><AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} /></dd></div><div className="py-4"><dt className="text-muted-foreground">Best season</dt><dd className="mt-1 font-medium">{destination.bestSeason}</dd></div><div className="py-4"><dt className="text-muted-foreground">Before arrival</dt><dd className="mt-1 leading-6">{destination.entryNote}</dd></div>{destination.managingAuthority && <div className="pt-4"><dt className="text-muted-foreground">Managed by</dt><dd className="mt-1 font-medium">{destination.managingAuthority}</dd></div>}</dl></div>
-        <Suspense fallback={null}><CityPassContextualCallout surface="destination" slug={destination.slug} placement="rail" /></Suspense>
+      <aside className={isChokeCanyon ? "space-y-6 lg:sticky lg:top-28 lg:self-start" : "space-y-8 lg:sticky lg:top-28 lg:self-start"}>
+        {isChokeCanyon && <div className="border-t-2 border-foreground pt-5"><p className="eyebrow text-primary">Choose your unit</p><dl className="mt-5 divide-y divide-border text-sm"><div className="pb-4"><dt className="font-semibold">Calliham Unit</dt><dd className="mt-1 leading-6 text-muted-foreground">Park headquarters, camping, cabins and the broader set of developed facilities.</dd></div><div className="pt-4"><dt className="font-semibold">South Shore Unit</dt><dd className="mt-1 leading-6 text-muted-foreground">Separate day-use access for boating, fishing, birding and shoreline recreation.</dd></div></dl></div>}
+        <MapPreview markers={mapMarkers} directionsLabel={isChokeCanyon ? "Choke Canyon State Park — Calliham Unit, Texas" : `${destination.name}, Texas`} />
+        {!isChokeCanyon && <Suspense fallback={null}><CityPassContextualCallout surface="destination" slug={destination.slug} placement="rail" /></Suspense>}
         {(validExternalUrl(destination.officialUrl) || verifiedLabel) && <div className="border-t border-border pt-5 text-sm"><p className="eyebrow text-muted-foreground">Source notes</p>{verifiedLabel && <p className="mt-3 leading-6 text-muted-foreground">Visitor information checked {verifiedLabel}.</p>}{validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-4 inline-block border-b border-primary pb-1 text-primary">Official source</a>}</div>}
-        <MapPreview markers={[{ id: destination.id, label: destination.name, point: destination.coordinates }]} directionsLabel={`${destination.name}, Texas`} />
       </aside>
     </Container>
 
-    <DestinationRelationships destination={destination} groups={relationshipGroups} regionName={region?.name} />
-    {relatedArticles.length > 0 && <Section><SectionHeader eyebrow="Read next" title={`More from ${categoryName}`} /><div className="mt-8 grid gap-6 lg:grid-cols-3">{relatedArticles.map((article) => <ArticleCard key={article.id} article={article} />)}</div></Section>}
+    {isChokeCanyon ? compactNearby.length > 0 && <Section className="py-10 sm:py-12 lg:py-14" tone="surface"><Container><SectionHeader eyebrow="Nearby" title="Three practical additions near Choke Canyon" description="A short list of close-by stops instead of a long statewide recommendation feed." /><div className="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{compactNearby.map((item) => <DestinationCard key={item.id} destination={item} regionLabel={item.region === destination.region ? region?.name : undefined} />)}</div></Container></Section> : <DestinationRelationships destination={destination} groups={relationshipGroupsForPage} regionName={region?.name} />}
+    {!isChokeCanyon && relatedArticles.length > 0 && <Section><SectionHeader eyebrow="Read next" title={`More from ${categoryName}`} /><div className="mt-8 grid gap-6 lg:grid-cols-3">{relatedArticles.map((article) => <ArticleCard key={article.id} article={article} />)}</div></Section>}
   </>;
 }
