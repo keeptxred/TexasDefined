@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave67Destinations } from "./museum-expansion-statewide-wave67";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-17";
@@ -54,4 +55,5 @@ export const statewideMuseumExpansionWave66Destinations: Destination[] = [
     address: "130 N Waco St, Van Alstyne, TX 75495",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave67Destinations,
 ];
