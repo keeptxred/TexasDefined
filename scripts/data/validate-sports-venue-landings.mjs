@@ -121,7 +121,7 @@ for (const marker of [
   "'@type': 'FAQPage'",
   "'@type': 'Question'",
   "'@type': 'Answer'",
-  'Planning a visit to {venueName}',
+  'Planning your visit to {venueName}',
   'Where is ${venueName}?',
   'What sports or events take place at ${venueName}?',
   'What should I know about parking at ${venueName}?',
@@ -252,11 +252,9 @@ for (const marker of [
   'parking={enrichment?.parking}',
   'arrival={enrichment?.arrival}',
   'verifiedAt={enrichment?.verifiedAt ?? entity.sourceCheckedAt}',
-  'Explore the collection',
-  'More venues like {entity.name}',
-  'href={`/sports-venues/${landing.slug}`}',
-  'Browse collection →',
-]) assert(genericVenue.includes(marker), `Generic sports venue guide is missing answer-first, bidirectional discovery or lazy-data marker: ${marker}.`);
+  'Planning your visit to {entity.name}',
+  '<ParkingMapPanel map={parkingMap} contextName={entity.name} embedded />',
+]) assert(genericVenue.includes(marker), `Generic sports venue guide is missing answer-first, planning-layout or lazy-data marker: ${marker}.`);
 assert(!genericVenue.includes("import { sportsVenueLandingLinksForVenue } from '@/data/sports-venue-landings'"), 'Generic sports venue guide must not eagerly import the sports venue landing taxonomy.');
 assert(!genericVenue.includes("import { findCompleteTexasEntity, loadTexasKnowledgeGraph } from '@/data/knowledge-graph'"), 'Generic sports venue guide must not eagerly import the full knowledge graph.');
 assert(!genericVenue.includes("import { getSportsVenueEnrichmentAll, sportsVenueMapUrl } from '@/data/sports-venue-enrichment-all'"), 'Generic sports venue guide must not eagerly import the full venue enrichment payload.');
@@ -273,12 +271,16 @@ for (const marker of [
   'landingLinks={landingLinks}',
 ]) assert(sharedGuideContent.includes(marker), `Shared sports venue resolver is missing collection-link propagation marker: ${marker}.`);
 for (const marker of [
-  'SportsCollectionSection',
-  'Explore the collection',
-  'More venues like ${venueName}',
-  'href={`/sports-venues/${landing.slug}`}',
-  'Browse collection →',
-]) assert(sharedGuidePage.includes(marker), `Shared sports venue guide is missing bidirectional collection discovery marker: ${marker}.`);
+  'Know before you go',
+  'Planning your visit to ${venueName}',
+  '<ParkingMapPanel map={parkingMap} contextName={venueName} embedded />',
+  'Nearby attractions',
+  'Sources & review',
+]) assert(sharedGuidePage.includes(marker), `Shared sports venue guide is missing visitor-first planning marker: ${marker}.`);
+for (const stale of ['Explore the collection', 'More venues like', 'Browse collection →']) {
+  assert(!genericVenue.includes(stale), `Generic sports venue guide still renders retired collection copy: ${stale}.`);
+  assert(!sharedGuidePage.includes(stale), `Shared sports venue guide still retains retired collection copy: ${stale}.`);
+}
 assert(galaxySharedGuide.includes("canonicalPath: '/sports-venue/jones-att-stadium'"), 'Galaxy shared guide must preserve its stable canonical path while using shared collection discovery.');
 
 const venueSources = `${majorVenues}\n${tier2Venues}`;
