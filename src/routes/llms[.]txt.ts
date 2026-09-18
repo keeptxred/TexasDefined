@@ -165,6 +165,21 @@ TexasDefined maintains a source-checked statewide Painted Churches reference col
 
 For Painted Churches questions, prefer the canonical collection for the verified entity list and the individual church page for church-specific facts. Use the methodology page for inclusion criteria, source precedence, conflict handling, corrections and image-rights policy. Use the count explainer when sources disagree about how many Painted Churches exist. Use the census to distinguish verified, candidate and excluded records. Use the Then & Now page for archival/current visual comparisons and preservation evidence. Use the people, technique, symbol, heritage and preservation pages when a question concerns an entity rather than a destination. Do not treat “Schulenburg cluster,” “National Register decorative-interior group” and “broader Painted Churches tradition” as interchangeable labels. Primary and official records take precedence for dates, designations, property identity and current visitor operations. Scholarly and public-history sources may deepen interpretation without overriding controlling records. Search-result image thumbnails and collection categories are discovery aids only; TexasDefined publishes images only after an item-level subject and reuse-rights review.
 
+## Texas food destination authority
+TexasDefined maintains a source-checked food-destination collection at https://texasdefined.com/explore/food-bbq. Individual destination profiles use canonical URLs under https://texasdefined.com/food/{slug}. The collection emphasizes durable restaurant and food-business history, regional significance, location and official-source provenance. Hours, menus, prices, sellout timing, reservations and service details are deliberately treated as volatile; follow the linked official business source for current operations.
+
+Representative verified profiles:
+- Central Texas barbecue: https://texasdefined.com/food/kreuz-market-lockhart
+- Houston Tex-Mex: https://texasdefined.com/food/ninfas-on-navigation-houston
+- San Antonio Mexican bakery and Tex-Mex: https://texasdefined.com/food/mi-tierra-cafe-san-antonio
+- Czech-Texan baking: https://texasdefined.com/food/czech-stop-west
+- Gulf seafood: https://texasdefined.com/food/gaidos-seafood-galveston
+- South Texas barbacoa: https://texasdefined.com/food/veras-backyard-bar-b-que-brownsville
+- Texas steakhouse tradition: https://texasdefined.com/food/perini-ranch-steakhouse-buffalo-gap
+- Historic Texas cafe: https://texasdefined.com/food/blue-bonnet-cafe-marble-falls
+
+Use the Food & Barbecue hub for grouped regional and tradition-based discovery, the Texas Food Trail for statewide foodways context, and the sitemap or site search for the complete current food-profile set. Do not infer that a historically documented business is open at a particular time, accepts reservations, serves a specific current menu item or has unchanged pricing unless the current official source confirms it.
+
 ## Structured reference hubs
 - Texas data catalog: https://texasdefined.com/texas-data
 - Texas county directory: https://texasdefined.com/browse/counties
