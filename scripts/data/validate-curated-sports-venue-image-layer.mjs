@@ -1,8 +1,9 @@
 import fs from 'node:fs/promises';
 
-const [overrideSource, aggregateSource] = await Promise.all([
+const [overrideSource, aggregateSource, productionVerifier] = await Promise.all([
   fs.readFile('src/data/sports-venue-images-curated-overrides.ts', 'utf8'),
   fs.readFile('src/data/sports-venue-images-all.ts', 'utf8'),
+  fs.readFile('scripts/ci/verify-sports-venue-heroes-production.mjs', 'utf8'),
 ]);
 
 const errors = [];
@@ -88,6 +89,19 @@ assert(
   !/AI-generated|illustration|OpenAI|Copilot/i.test(xtremeSource),
   'Xtreme Raceway Park hero must be documentary venue media, not generated or illustrative imagery.',
 );
+
+for (const marker of [
+  'const remotePhoto = wave7CuratedRemotePhoto[slug];',
+  'const expectedImageUrl = remotePhoto?.imageUrl',
+  "redirect: 'manual'",
+  'actualLocation === expectedLocation',
+  'expectedImageUrl ?? assetPath',
+]) {
+  assert(
+    productionVerifier.includes(marker),
+    `Wave 7 production hero verifier must enforce governed local-or-remote target resolution: ${marker}`,
+  );
+}
 
 if (errors.length) {
   console.error('Curated sports venue image layer validation failed:');
