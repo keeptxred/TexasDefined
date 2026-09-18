@@ -5,6 +5,7 @@ const route = read('src/routes/sports-venue.$slug.tsx');
 const guides = read('src/data/sports-venue-guide-pilots.ts');
 const guidePage = read('src/components/sports/SportsVenueGuidePage.tsx');
 const parkingPanel = read('src/components/parking/ParkingMapPanel.tsx');
+const productionEditorialVerifier = read('scripts/production/verify-sports-venue-editorial-production.mjs');
 const carousel = read('src/components/editorial/TexasEventCarousel.tsx');
 const carouselCss = read('src/components/editorial/texas-event-carousel.css');
 const eventFn = read('src/data/sports-venue-events.functions.ts');
@@ -59,6 +60,10 @@ for (const marker of [
 for (const stale of ['Accuracy checks', 'Verification source']) {
   if (parkingPanel.includes(stale)) failures.push(`Parking map panel must not expose internal verification language: ${stale}`);
 }
+
+const orderedParkingContract = productionEditorialVerifier.match(/'Parking',\s*'Arrival',\s*'Official parking source'/g) ?? [];
+if (orderedParkingContract.length < 3) failures.push('Sports venue live editorial verifier must require Parking → Arrival → Official parking source for all governed venue checks.');
+if (productionEditorialVerifier.includes("'Official parking sources'")) failures.push('Sports venue live editorial verifier must use the singular/plural-safe Official parking source prefix.');
 
 for (const marker of ['EventTicketCta', 'ArrowLeft', 'ArrowRight', 'Home', 'End', 'aria-roledescription="carousel"', 'View all events', 'View Calendar']) requireText(carousel, marker, 'event carousel accessibility/CTA');
 for (const marker of ['const calendarHref = viewAllHref.includes("#calendar")', '`${viewAllHref.replace(/#.*$/, "")}#calendar`', '<a href={calendarHref} className="ec-l">View Calendar</a>']) requireText(carousel, marker, 'event carousel calendar contract');
