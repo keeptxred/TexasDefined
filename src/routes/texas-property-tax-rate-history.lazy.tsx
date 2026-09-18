@@ -52,7 +52,7 @@ function Page() {
       </header>
 
       <section className="grid gap-8 py-10 lg:grid-cols-[15rem_1fr]">
-        <div><p className="eyebrow text-primary">Taxing unit</p><h2 className="mt-2 font-display text-3xl">Find a local rate</h2></div>
+        <div><p className="eyebrow text-primary">Taxing unit</p><h2 className="mt-2 font-display text-3xl">Find a local tax rate</h2></div>
         <div><TaxingUnitSearch allowVariableSelection onSelect={(record) => void choose(record)} />{selected ? <p className="mt-4 text-sm"><strong>{selected.name}</strong> · {selected.type.replaceAll('-', ' ')}</p> : null}{status ? <p className="mt-3 text-sm text-muted-foreground">{status}</p> : null}</div>
       </section>
 
