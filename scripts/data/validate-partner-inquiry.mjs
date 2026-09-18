@@ -126,8 +126,8 @@ requireTokens('Signed advertiser agreement offer protection', agreementOfferProt
 ]);
 requireTokens('Signed advertiser agreement offer FK index', agreementOfferSignedIndexMigration, [
   'texasdefined_advertiser_agreement_offers_signed_agreement_idx',
-  'ON public.texasdefined_advertiser_agreement_offers (signed_agreement_id)',
-  'WHERE signed_agreement_id IS NOT NULL',
+  'on public.texasdefined_advertiser_agreement_offers (signed_agreement_id)',
+  'where signed_agreement_id is not null',
 ]);
 
 requireTokens('Advertiser agreement server service', agreementWriter, [
