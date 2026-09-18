@@ -32,7 +32,8 @@
     "entities:import:write": "node scripts/data/import-authoritative-entities.mjs --write",
     "entities:import:census": "node scripts/data/import-authoritative-entities.mjs --source=census",
     "entities:import:parks": "node scripts/data/import-authoritative-entities.mjs --source=tpwd",
-    "validate": "npm run county-property:validate && npm run seo:validate && npm run data:validate && npm run build && npm run performance:validate",
+    "validate:premerge": "node scripts/ci/run-premerge-validation.mjs",
+    "validate": "node scripts/ci/run-premerge-validation.mjs",
     "explore:verify:database": "bash scripts/explore/migrate-postgres.sh"
   },
   "dependencies": {

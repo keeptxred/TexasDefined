@@ -39,4 +39,4 @@ jobs:
       # Post-merge/manual verification uses the exact same deterministic
       # contract as the protected PR Merge Gate. There is no second CI spec.
       - name: Run canonical validation contract
-        run: node scripts/ci/run-premerge-validation.mjs
+        run: npm run validate:premerge

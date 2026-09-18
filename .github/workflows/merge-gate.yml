@@ -35,4 +35,4 @@ jobs:
       # Single source of truth: developers and CI run the same deterministic
       # pre-merge contract. Add future required checks to the runner, not here.
       - name: Run canonical pre-merge validation
-        run: node scripts/ci/run-premerge-validation.mjs
+        run: npm run validate:premerge
