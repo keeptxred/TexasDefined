@@ -104,37 +104,37 @@ function AppraisalDistrictPage() {
     />
     <Container className="pb-16 sm:pb-24">
       {migrationPriorityCounties.length ? <section aria-labelledby="appraisal-migration-guides" className="border-t-2 border-foreground pt-8">
-        <p className="eyebrow text-primary">Canonical county guides</p>
+        <p className="eyebrow text-primary">Current county guides</p>
         <h2 id="appraisal-migration-guides" className="mt-2 font-display text-4xl">Use the current county property-tax pages</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These verified county guides replace older appraisal-district URLs that now redirect here. Use the current county page for appraisal records, exemptions, protests, tax-office resources and official local links.</p>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          {migrationPriorityCounties.map((county) => <Link key={county.slug} to="/property-tax/county/$county" params={{ county: county.slug }} className="group border-t border-border pt-4"><span className="eyebrow text-primary">Current verified guide</span><strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{county.name} appraisal & property tax</strong><span className="mt-3 block text-sm font-semibold">Open canonical county guide →</span></Link>)}
+          {migrationPriorityCounties.map((county) => <Link key={county.slug} to="/property-tax/county/$county" params={{ county: county.slug }} className="group border-t border-border pt-4"><span className="eyebrow text-primary">Current county guide</span><strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{county.name} appraisal & property tax</strong><span className="mt-3 block text-sm font-semibold">Open county guide →</span></Link>)}
         </div>
       </section> : null}
 
       {priorityCounties.length ? <section aria-labelledby="appraisal-priority-guides" className="mt-12 border-t-2 border-foreground pt-8">
-        <p className="eyebrow text-primary">Verified local guides</p>
+        <p className="eyebrow text-primary">Local appraisal guides</p>
         <h2 id="appraisal-priority-guides" className="mt-2 font-display text-4xl">Direct appraisal-district starting points</h2>
-        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These county guides have passed TexasDefined’s local-source readiness gate and link to verified appraisal-district and tax-office resources. They are surfaced here directly instead of sending readers through retired appraisal-district URLs.</p>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These county guides link to checked appraisal-district and tax-office resources. They appear here directly so you can reach the current local offices without going through retired appraisal-district URLs.</p>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {priorityCounties.map((county) => <Link key={county.slug} to="/property-tax/county/$county" params={{ county: county.slug }} className="group border-t border-border pt-4"><span className="eyebrow text-primary">Verified county guide</span><strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{county.name}</strong><span className="mt-3 block text-sm font-semibold">Appraisal & property tax →</span></Link>)}
+          {priorityCounties.map((county) => <Link key={county.slug} to="/property-tax/county/$county" params={{ county: county.slug }} className="group border-t border-border pt-4"><span className="eyebrow text-primary">County property-tax guide</span><strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{county.name}</strong><span className="mt-3 block text-sm font-semibold">Appraisal & property tax →</span></Link>)}
         </div>
       </section> : null}
 
       <section aria-labelledby="appraisal-county-directory" className="mt-12 border-t-2 border-foreground pt-8">
         <p className="eyebrow text-primary">All 254 counties</p>
-        <h2 id="appraisal-county-directory" className="mt-2 font-display text-4xl">County appraisal-district research directory</h2>
-        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Choose a county. Verified local property-tax guides link directly to the county’s appraisal workflow. Counties whose local property-tax sources have not yet passed the publication gate link to the substantive county reference instead of a noindex tax page.</p>
+        <h2 id="appraisal-county-directory" className="mt-2 font-display text-4xl">Find your county appraisal district</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Choose a county to start with the right local office. Counties with complete property-tax research link directly to the local appraisal and tax guide; the remaining counties link to the main county reference while their local tax resources are still being completed.</p>
         <ul className="mt-6 grid gap-x-6 sm:grid-cols-2 lg:grid-cols-4">
-          {TEXAS_COUNTIES.map((county) => <li key={county.slug} className="border-b border-border py-3">{verifiedPropertySlugs.has(county.slug) ? <Link to="/property-tax/county/$county" params={{ county: county.slug }} className="font-semibold hover:text-primary"><span className="text-primary">{county.name}</span> <span className="text-xs font-normal text-muted-foreground">verified appraisal guide</span> →</Link> : <Link to="/county/$slug" params={{ slug: county.slug }} className="font-semibold hover:text-primary">{county.name} <span className="text-xs font-normal text-muted-foreground">county reference</span> →</Link>}</li>)}
+          {TEXAS_COUNTIES.map((county) => <li key={county.slug} className="border-b border-border py-3">{verifiedPropertySlugs.has(county.slug) ? <Link to="/property-tax/county/$county" params={{ county: county.slug }} className="font-semibold hover:text-primary"><span className="text-primary">{county.name}</span> <span className="text-xs font-normal text-muted-foreground">appraisal & tax guide</span> →</Link> : <Link to="/county/$slug" params={{ slug: county.slug }} className="font-semibold hover:text-primary">{county.name} <span className="text-xs font-normal text-muted-foreground">county reference</span> →</Link>}</li>)}
         </ul>
       </section>
       <CitationTrustPanel
         className="mt-10"
         sources={[{ name: 'Texas Comptroller county appraisal-district directory', url: officialDirectoryUrl }]}
-        methodology="Texas Defined uses the Comptroller’s statewide directory as the authoritative starting point. County property-tax pages receive direct internal discovery only after the local-source readiness gate is satisfied; until then, this directory points to the substantive county reference rather than a noindex county-tax page."
+        methodology="Texas Defined uses the Comptroller’s statewide directory as the authoritative starting point. Counties link directly to a local property-tax guide once the appraisal-district and tax-office sources are checked; otherwise this directory links to the main county reference until that local research is complete."
         lastVerified="August 3, 2026"
-        title="Appraisal-district directory sources and methodology"
+        title="Sources for this appraisal-district directory"
       />
     </Container>
   </>;
