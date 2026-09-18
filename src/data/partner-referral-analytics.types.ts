@@ -26,6 +26,7 @@ export type PartnerReferralDailyPoint = {
 export type PartnerReferralAnalyticsDashboard = {
   generatedAt: string;
   lastSyncedAt: string | null;
+  lastPipelineSyncAt: string | null;
   windowDays: number;
   totalClicks30d: number;
   totalClicks7d: number;

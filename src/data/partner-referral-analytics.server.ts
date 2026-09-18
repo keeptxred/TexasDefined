@@ -10,6 +10,8 @@ import type {
 const WINDOW_DAYS = 30;
 const QUERY_DAYS = 60;
 const TOP_LIMIT = 25;
+const HEARTBEAT_PARTNER = '__pipeline__';
+const HEARTBEAT_PLACEMENT = 'sync-heartbeat';
 
 type ReferralRow = {
   metric_date: string;
@@ -76,8 +78,14 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
   let totalClicks7d = 0;
   let prior7dClicks = 0;
   let lastSyncedAt: string | null = null;
+  let lastPipelineSyncAt: string | null = null;
 
   for (const row of rows) {
+    if (row.partner === HEARTBEAT_PARTNER && row.placement === HEARTBEAT_PLACEMENT) {
+      if (lastPipelineSyncAt === null || String(row.synced_at) > lastPipelineSyncAt) lastPipelineSyncAt = String(row.synced_at);
+      continue;
+    }
+
     const clicks = Math.max(0, Number(row.click_count) || 0);
     const metricDate = String(row.metric_date).slice(0, 10);
     const in30d = metricDate >= thirtyDayStart;
@@ -119,6 +127,7 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
   return {
     generatedAt: new Date().toISOString(),
     lastSyncedAt,
+    lastPipelineSyncAt,
     windowDays: WINDOW_DAYS,
     totalClicks30d,
     totalClicks7d,

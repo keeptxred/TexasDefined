@@ -57,9 +57,10 @@ function PartnerReferralAnalyticsAdmin() {
         <Metric label="Prior 7 days" value={dashboard.prior7dClicks} />
         <Metric label="Week over week" value={dashboard.weekOverWeekPercent === null ? 'New' : `${dashboard.weekOverWeekPercent > 0 ? '+' : ''}${dashboard.weekOverWeekPercent}%`} />
         <Metric label="Last aggregate write" value={dashboard.lastSyncedAt ? new Date(dashboard.lastSyncedAt).toLocaleString() : 'No referral rows yet'} />
+        <Metric label="Hourly sync" value={dashboard.lastPipelineSyncAt ? new Date(dashboard.lastPipelineSyncAt).toLocaleString() : 'No successful sync heartbeat'} />
         <Metric label="Dashboard refreshed" value={new Date(dashboard.generatedAt).toLocaleString()} />
       </section>
-      {dashboard.totalClicks30d === 0 ? <p className="mt-5 max-w-3xl border-l-2 border-border pl-4 text-sm leading-6 text-muted-foreground">No qualifying non-CI affiliate referral clicks are currently present in the 30-day aggregate. This dashboard query completed successfully; a zero-click sync can legitimately leave the aggregate table empty, so “Last aggregate write” remains blank until a real referral row exists.</p> : null}
+      {dashboard.totalClicks30d === 0 ? <p className="mt-5 max-w-3xl border-l-2 border-border pl-4 text-sm leading-6 text-muted-foreground">No qualifying non-CI affiliate referral clicks are currently present in the 30-day aggregate. “Hourly sync” shows the most recent successful Cloudflare-to-Supabase pipeline run even when there are no referral rows; “Last aggregate write” remains blank until a real referral row exists.</p> : null}
 
       <section className="mt-12 border-t border-border pt-6">
         <div className="flex flex-wrap items-end justify-between gap-3"><div><p className="eyebrow text-primary">30-day trend</p><h2 className="mt-2 font-display text-4xl">Daily referral clicks</h2></div><button disabled={busy} onClick={() => { setBusy(true); setError(''); void refresh().catch((cause) => setError(cause instanceof Error ? cause.message : 'Refresh failed.')).finally(() => setBusy(false)); }} className="min-h-10 border border-border px-4 text-sm font-semibold">Refresh</button></div>

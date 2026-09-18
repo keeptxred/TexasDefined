@@ -5,6 +5,10 @@ const TABLE = 'texasdefined_partner_referral_daily';
 const WINDOW_DAYS = 31;
 const MAX_ROWS = 10_000;
 const UPSERT_CHUNK_SIZE = 400;
+const HEARTBEAT_PARTNER = '__pipeline__';
+const HEARTBEAT_PLACEMENT = 'sync-heartbeat';
+const HEARTBEAT_PAGE_PATH = '/admin/partner-referrals';
+const HEARTBEAT_DESTINATION = 'https://texasdefined.com/admin/partner-referrals';
 
 function required(name) {
   const value = process.env[name]?.trim();
@@ -108,6 +112,20 @@ function normalizeRows(rows) {
   return normalized;
 }
 
+function heartbeatRow() {
+  const syncedAt = new Date().toISOString();
+  return {
+    metric_date: syncedAt.slice(0, 10),
+    partner: HEARTBEAT_PARTNER,
+    placement: HEARTBEAT_PLACEMENT,
+    page_path: HEARTBEAT_PAGE_PATH,
+    destination_url: HEARTBEAT_DESTINATION,
+    destination_hash: hash(HEARTBEAT_DESTINATION),
+    click_count: 0,
+    synced_at: syncedAt,
+  };
+}
+
 async function upsertRows(supabaseUrl, serviceRoleKey, rows) {
   if (!rows.length) return;
   const endpoint = new URL(`/rest/v1/${TABLE}`, supabaseUrl);
@@ -141,6 +159,8 @@ const rawRows = await queryCloudflare(accountId, apiToken);
 if (rawRows.length >= MAX_ROWS) throw new Error(`Cloudflare result hit the ${MAX_ROWS}-row safety cap; refine the aggregation before syncing.`);
 const rows = normalizeRows(rawRows);
 await upsertRows(supabaseUrl, serviceRoleKey, rows);
+const heartbeat = heartbeatRow();
+await upsertRows(supabaseUrl, serviceRoleKey, [heartbeat]);
 
 const clicks = rows.reduce((sum, row) => sum + row.click_count, 0);
-console.log(`Partner referral analytics sync complete: ${rows.length} aggregates covering ${clicks} non-CI clicks across the last ${WINDOW_DAYS} days.`);
+console.log(`Partner referral analytics sync complete: ${rows.length} aggregates covering ${clicks} non-CI clicks across the last ${WINDOW_DAYS} days; successful pipeline heartbeat ${heartbeat.synced_at}.`);
