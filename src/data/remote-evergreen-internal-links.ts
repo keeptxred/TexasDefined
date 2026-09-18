@@ -93,6 +93,7 @@ const cultureLinks: Record<string, ArticleInternalLink[]> = {
     iconsHub,
   ],
   "bucees-texas-road-trip-history": [
+    { href: "/article/weirdest-town-names-in-texas-and-how-they-got-them", label: "Texas towns with names you won't forget", description: "Keep the road-trip detour going with the stories behind some of Texas's strangest town names." },
     { href: "/texas-brand-origin-stories", label: "Texas brand origin stories", description: "Place Buc-ee's in the larger story of Texas companies that became cultural shorthand." },
     { href: "/article/heb-texas-grocery-history-culture", label: "H-E-B and Texas civic identity", description: "Compare the highway-stop phenomenon with a grocery chain embedded in everyday community life." },
     { href: "/texas-roadside-oddities", label: "Texas roadside culture", description: "Keep exploring the attractions, stops and visual landmarks that make long Texas drives distinctive." },
@@ -182,12 +183,14 @@ const redditBatchLinks: Record<string, ArticleInternalLink[]> = {
     { href: "/explore/road-trips", label: "Plan a Texas road trip", description: "Build a spring drive around safe stops instead of roadside improvisation." },
   ],
   "texas-restaurants-for-out-of-town-visitors": [
+    { href: "/article/texas-gulf-coast-erosion-shoreline-retreat-guide", label: "How the Texas Gulf Coast shoreline is changing", description: "Understand erosion and shoreline retreat before planning time along Texas beaches and barrier islands." },
     { href: "/article/state-fair-texas-2026-new-foods-guide", label: "See what's new to eat at the 2026 State Fair", description: "Pair the statewide restaurant guide with the seasonal fair-food guide for a Dallas visit." },
     { href: "/article/tex-mex-history-texas-cuisine-guide", label: "Understand the Tex-Mex tradition", description: "Give visitors context for one of the cuisines they are most likely to encounter in Texas." },
     { href: "/article/texas-chili-beans-history", label: "Texas chili: beans, history and the argument", description: "Add context to one of the state's longest-running food debates." },
     { href: "/explore/food-bbq", label: "Explore Texas food and barbecue", description: "Browse the larger statewide food, barbecue and dining collection." },
   ],
   "texas-road-closures-drivetexas-guide": [
+    { href: "/article/why-austin-i35-traffic-keeps-getting-worse", label: "Why Austin I-35 traffic keeps getting worse", description: "Understand the construction and capacity pressures behind one of the state's most difficult urban corridors." },
     { href: "/article/why-austin-i35-traffic-keeps-getting-worse", label: "Why Austin I-35 traffic keeps getting worse", description: "Understand the construction and capacity pressures behind one of the state's most difficult urban corridors." },
     { href: "/article/texas-toll-roads-tags-fees-guide", label: "Texas toll roads, tags and fees", description: "Know which toll systems and payment rules can affect an alternate route." },
     { href: "/explore/road-trips", label: "Explore Texas road trips", description: "Plan statewide drives with better route and stop context." },
