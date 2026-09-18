@@ -33,9 +33,9 @@ function CountyDirectoryPage() {
           { name: 'Texas State Library and Archives Commission county-seat reference', url: 'https://www.tsl.texas.gov/ref/abouttx/countyseats.html' },
           { name: 'U.S. Census Bureau TIGERweb county data', url: 'https://tigerweb.geo.census.gov/arcgis/rest/services/Census2020/State_County/MapServer/1' },
         ]}
-        methodology="Texas Defined matches all 254 county records to Texas county FIPS identifiers, then uses the state county-seat reference and Census county dataset for county seat, 2020 population and land area. Missing upstream values are shown as pending rather than inferred. Local property-tax child pages are promoted only after the separate local-source verification gate passes."
+        methodology="Texas Defined matches all 254 county records to Texas county FIPS identifiers, then uses the state county-seat reference and Census data for county seat, 2020 population and land area. Missing source values are shown as pending rather than guessed. A county links directly to a local property-tax guide only after its appraisal-district and tax-office sources have been checked."
         lastVerified="Source data is fetched from the cited state and federal references when the comparison loads; individual local-service details are verified separately on county and property pages."
-        title="County comparison sources and methodology"
+        title="Sources for the county comparison"
       />
     </Container>
     <TexasCountyPropertyDirectory verifiedPropertySlugs={verifiedPropertySlugs} />
