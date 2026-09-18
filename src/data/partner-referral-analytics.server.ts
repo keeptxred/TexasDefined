@@ -39,13 +39,32 @@ function addBreakdown(
   clicks: number,
   impressions: number,
   in7d: boolean,
+  inImpressionTracking: boolean,
 ) {
-  const row = map.get(key) ?? { key, label, clicks30d: 0, clicks7d: 0, impressions30d: 0, impressions7d: 0 };
+  const row = map.get(key) ?? {
+    key,
+    label,
+    clicks30d: 0,
+    clicks7d: 0,
+    impressions30d: 0,
+    impressions7d: 0,
+    clicksSinceImpressionTracking: 0,
+    impressionsSinceImpressionTracking: 0,
+    clickThroughRateSinceImpressionTracking: null,
+  };
   row.clicks30d += clicks;
   row.impressions30d += impressions;
   if (in7d) {
     row.clicks7d += clicks;
     row.impressions7d += impressions;
+  }
+  if (inImpressionTracking) {
+    row.clicksSinceImpressionTracking += clicks;
+    row.impressionsSinceImpressionTracking += impressions;
+    row.clickThroughRateSinceImpressionTracking = clickThroughRate(
+      row.clicksSinceImpressionTracking,
+      row.impressionsSinceImpressionTracking,
+    );
   }
   map.set(key, row);
 }
@@ -108,6 +127,7 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
     const in30d = metricDate >= thirtyDayStart;
     const in7d = metricDate >= sevenDayStart;
     const inPrior7d = metricDate >= priorSevenStart && metricDate <= priorSevenEnd;
+    const inImpressionTracking = metricDate >= IMPRESSION_TRACKING_STARTED_AT;
 
     if (lastSyncedAt === null || String(row.synced_at) > lastSyncedAt) lastSyncedAt = String(row.synced_at);
     if (inPrior7d) prior7dClicks += clicks;
@@ -119,20 +139,37 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
       totalClicks7d += clicks;
       totalImpressions7d += impressions;
     }
-    if (metricDate >= IMPRESSION_TRACKING_STARTED_AT) {
+    if (inImpressionTracking) {
       clicksSinceImpressionTracking += clicks;
       impressionsSinceImpressionTracking += impressions;
     }
     dailyMap.set(metricDate, (dailyMap.get(metricDate) ?? 0) + clicks);
-    addBreakdown(partnerMap, row.partner, row.partner, clicks, impressions, in7d);
-    addBreakdown(placementMap, row.placement, row.placement, clicks, impressions, in7d);
+    addBreakdown(partnerMap, row.partner, row.partner, clicks, impressions, in7d, inImpressionTracking);
+    addBreakdown(placementMap, row.placement, row.placement, clicks, impressions, in7d, inImpressionTracking);
 
-    const page = pageMap.get(row.page_path) ?? { pagePath: row.page_path, clicks30d: 0, clicks7d: 0, impressions30d: 0, impressions7d: 0 };
+    const page = pageMap.get(row.page_path) ?? {
+      pagePath: row.page_path,
+      clicks30d: 0,
+      clicks7d: 0,
+      impressions30d: 0,
+      impressions7d: 0,
+      clicksSinceImpressionTracking: 0,
+      impressionsSinceImpressionTracking: 0,
+      clickThroughRateSinceImpressionTracking: null,
+    };
     page.clicks30d += clicks;
     page.impressions30d += impressions;
     if (in7d) {
       page.clicks7d += clicks;
       page.impressions7d += impressions;
+    }
+    if (inImpressionTracking) {
+      page.clicksSinceImpressionTracking += clicks;
+      page.impressionsSinceImpressionTracking += impressions;
+      page.clickThroughRateSinceImpressionTracking = clickThroughRate(
+        page.clicksSinceImpressionTracking,
+        page.impressionsSinceImpressionTracking,
+      );
     }
     pageMap.set(row.page_path, page);
 
@@ -144,12 +181,23 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
       clicks7d: 0,
       impressions30d: 0,
       impressions7d: 0,
+      clicksSinceImpressionTracking: 0,
+      impressionsSinceImpressionTracking: 0,
+      clickThroughRateSinceImpressionTracking: null,
     };
     destination.clicks30d += clicks;
     destination.impressions30d += impressions;
     if (in7d) {
       destination.clicks7d += clicks;
       destination.impressions7d += impressions;
+    }
+    if (inImpressionTracking) {
+      destination.clicksSinceImpressionTracking += clicks;
+      destination.impressionsSinceImpressionTracking += impressions;
+      destination.clickThroughRateSinceImpressionTracking = clickThroughRate(
+        destination.clicksSinceImpressionTracking,
+        destination.impressionsSinceImpressionTracking,
+      );
     }
     destinationMap.set(destinationKey, destination);
   }
