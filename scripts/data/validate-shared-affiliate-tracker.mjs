@@ -4,6 +4,8 @@ import path from 'node:path';
 const sourceRoot = 'src';
 const sharedTrackerPath = path.normalize('src/lib/affiliate-click.ts');
 const outcomeClientPath = path.normalize('src/platform/analytics.ts');
+const rootPath = path.normalize('src/routes/__root.tsx');
+const commercialReferralPath = path.normalize('src/platform/commercial-referral.ts');
 const publicRoot = 'public';
 const sourceExtensions = new Set(['.js', '.jsx', '.ts', '.tsx']);
 const failures = [];
@@ -64,6 +66,8 @@ if (!fs.existsSync(outcomeClientPath)) {
   failures.push(`Missing centralized first-party outcome client: ${outcomeClientPath}.`);
 }
 const outcomeClient = fs.existsSync(outcomeClientPath) ? fs.readFileSync(outcomeClientPath, 'utf8') : '';
+const rootSource = fs.existsSync(rootPath) ? fs.readFileSync(rootPath, 'utf8') : '';
+const commercialReferralSource = fs.existsSync(commercialReferralPath) ? fs.readFileSync(commercialReferralPath, 'utf8') : '';
 for (const [pattern, label] of [
   [/event\s*:\s*["'`]affiliate_click["'`]/, 'shared affiliate_click payload'],
   [/new\s+CustomEvent\s*\(\s*["'`]texasdefined:affiliate-click["'`]/, 'shared browser event dispatch'],
@@ -72,10 +76,27 @@ for (const [pattern, label] of [
 }
 
 for (const [needle, label] of [
-  ["const commercialPartner = anchor.dataset.commercialPartner;", 'delegated commercial-link detection'],
-  ["trackTexasDefinedOutcome('partner_referral_clicked'", 'single first-party partner referral outcome'],
+  ['commercialReferralForAnchor(anchor)', 'delegated commercial-link mapping'],
+  ['wasEarlyCommercialReferralEvent(event)', 'delegated early-event dedupe'],
+  ["trackTexasDefinedOutcome('partner_referral_clicked'", 'delegated first-party partner referral outcome'],
 ]) {
   if (!outcomeClient.includes(needle)) failures.push(`Central outcome client is missing ${label}.`);
+}
+
+for (const [needle, label] of [
+  ['commercialReferralForAnchor(anchor)', 'early commercial-link mapping'],
+  ['markEarlyCommercialReferralEvent(event)', 'early click event mark'],
+  ['analytics.trackTexasDefinedOutcome("partner_referral_clicked", commercialReferral)', 'early first-party referral capture'],
+]) {
+  if (!rootSource.includes(needle)) failures.push(`Root analytics bootstrap is missing ${label}.`);
+}
+
+for (const [needle, label] of [
+  ['const earlyCommercialReferralEvents = new WeakSet<object>()', 'event-scoped dedupe store'],
+  ['earlyCommercialReferralEvents.add(event)', 'early event marking'],
+  ['earlyCommercialReferralEvents.has(event)', 'early event lookup'],
+]) {
+  if (!commercialReferralSource.includes(needle)) failures.push(`Commercial referral helper is missing ${label}.`);
 }
 
 if (sharedTracker.includes('partner_referral_clicked') || sharedTracker.includes('trackTexasDefinedOutcome(')) {
@@ -92,6 +113,12 @@ for (const file of walk(sourceRoot)) {
 
   if (/new\s+CustomEvent\s*\(\s*["'`]texasdefined:affiliate-click["'`]/.test(source)) {
     failures.push(`${file} dispatches texasdefined:affiliate-click locally; use src/lib/affiliate-click.ts instead.`);
+  }
+
+  if (/trackTexasDefinedOutcome\(\s*["'`]partner_referral_clicked["'`]/.test(source)
+    && file !== outcomeClientPath
+    && file !== rootPath) {
+    failures.push(`${file} writes partner_referral_clicked outside the two governed browser capture paths.`);
   }
 
   validateAffiliateAnchorMetadata(file, source);
@@ -116,4 +143,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Shared affiliate tracker governance passed: affiliate marketing emitters are centralized, first-party partner referral counting remains single-path through src/platform/analytics.ts, and every affiliate-tagged source/public link retains commercial partner and placement metadata for private reporting.');
+console.log('Shared affiliate tracker governance passed: affiliate marketing emitters are centralized, first-party partner referral counting is event-deduped across the early root capture and delegated analytics listener, no other source/public writer can emit that outcome, and every affiliate-tagged link retains commercial partner and placement metadata for private reporting.');
