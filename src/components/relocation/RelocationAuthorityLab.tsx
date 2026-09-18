@@ -101,7 +101,7 @@ export function RelocationAuthorityLab() {
             <div>
               <p className="eyebrow text-primary">Metro research framework</p>
               <h2 id="metro-research-grid" className="mt-3 font-display text-4xl leading-tight">The same questions, city by city</h2>
-              <p className="mt-4 text-sm leading-7 text-muted-foreground">Each major-metro guide is the local layer. Pair it with counties, schools, insurance, utilities, jobs and transportation rather than comparing city reputations in isolation.</p>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">Each major-metro guide covers the local details. Pair it with counties, schools, insurance, utilities, jobs and transportation rather than comparing city reputations in isolation.</p>
             </div>
             <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 xl:grid-cols-3">
               {RELOCATION_METROS.map((metro) => <article key={metro.id} className="bg-background p-5">
