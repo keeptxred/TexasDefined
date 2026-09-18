@@ -131,7 +131,7 @@ if (destinationRouteSource.includes('from "@/data/top-attraction-authority-resol
 for (const feature of [
   'import("@/data/top-attraction-authority-resolver")', 'resolveTopAttractionAuthority', 'assessment.recommendedVisit',
   'assessment.physicalEffort', 'assessment.planningLevel', 'sourceCount', 'Download comparison CSV',
-  'Download reference JSON', 'Top-25 road trips', 'Methodology', '"@type": "Dataset"', 'variableMeasured',
+  'Download JSON data', 'Top-25 road trips', 'Methodology', '"@type": "Dataset"', 'variableMeasured',
   '/top-25-texas-attractions.csv', '/top-25-texas-attractions.json',
 ]) {
   if (!hubSource.includes(feature)) failures.push(`Top 25 hub authority layer missing ${feature}.`);
