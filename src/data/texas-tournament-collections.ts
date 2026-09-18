@@ -86,7 +86,17 @@ export const TOURNAMENT_COLLECTIONS: readonly TournamentCollectionDefinition[] =
     ],
     kind: "tournament",
     value: category.slug,
-    relatedPaths: [hubPath, "/events/sports-events"],
+    relatedPaths: [
+      hubPath,
+      "/events/sports-events",
+      ...TEXAS_TOURNAMENT_CATEGORIES
+        .filter((candidate) => candidate.slug !== category.slug)
+        .slice(
+          Math.max(0, TEXAS_TOURNAMENT_CATEGORIES.findIndex((candidate) => candidate.slug === category.slug) - 1),
+          TEXAS_TOURNAMENT_CATEGORIES.findIndex((candidate) => candidate.slug === category.slug) + 2,
+        )
+        .map((candidate) => candidate.path),
+    ],
   })),
 ];
 
