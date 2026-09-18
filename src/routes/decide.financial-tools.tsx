@@ -35,8 +35,8 @@ const sections = [
   ['Use property-tax calculators', '/property-tax-calculators', 'Choose a calculator for homestead savings, protests, escrow, age-65 scenarios and more.', 'Property taxes'],
   ['File a homestead exemption', '/do/homestead-exemption', 'Review eligibility, filing steps and what to check after approval.', 'Property taxes'],
   ['Prepare an appraisal protest', '/do/property-tax-protest', 'Work through deadlines, evidence, informal review and appraisal review board hearing steps.', 'Property taxes'],
-  ['Find your county', '/browse/counties', 'Continue to county offices, appraisal districts and official local information.', 'Texas reference'],
-  ['Find a city', '/browse/cities', 'Look up cities across the state by county and region.', 'Texas reference'],
+  ['Find your county', '/browse/counties', 'Continue to county offices, appraisal districts and official local information.', 'Texas guides'],
+  ['Find a city', '/browse/cities', 'Look up cities across the state by county and region.', 'Texas guides'],
   ['Plan your move', '/moving-to-texas', 'Compare places, understand likely costs and get settled.', 'Moving'],
   ['Use the moving checklist', '/moving-to-texas-checklist', 'Keep the practical before-and-after steps in one place.', 'Moving'],
 ] as const;
