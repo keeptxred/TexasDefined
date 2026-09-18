@@ -338,7 +338,7 @@ function LegacySportsVenuePage() {
             <div className="grid gap-8 md:grid-cols-2">
               <div className="md:col-span-2">
                 <GuideCard title={`Parking at ${entity.name}`} body={enrichment.parking} />
-                <ParkingMapPanel map={parkingMap} contextName={entity.name} embedded />
+                <ParkingMapPanel map={parkingMap} contextName={entity.name} />
               </div>
               <GuideCard title="When to arrive" body={enrichment.arrival} />
               <GuideCard title="Main sports and events" body={`The verified venue profile currently highlights ${formatList(enrichment.primaryEvents.slice(0, 3))}. Check the official calendar for the exact event date, start time and ticket requirements.`} />
