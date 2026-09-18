@@ -7,6 +7,7 @@ const readRouteSurface = (file) => {
 };
 
 const route = fs.readFileSync('src/routes/texas-food-history.tsx', 'utf8');
+const foodDestinationRoute = readRouteSurface('src/routes/food.$slug.tsx');
 const evergreenComponent = fs.readFileSync('src/components/editorial/TexasEvergreenGuide.tsx', 'utf8');
 const exploreCategory = readRouteSurface('src/routes/explore.$category.tsx');
 const publicRoutes = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
@@ -19,6 +20,9 @@ const llms = fs.readFileSync('src/routes/llms[.]txt.ts', 'utf8');
 const citationIndex = JSON.parse(fs.readFileSync('public/citation-magnets.json', 'utf8'));
 const batch5 = fs.readFileSync('src/data/texas-evergreen-guides-batch5.ts', 'utf8');
 const failures = [];
+
+if (!foodDestinationRoute.includes('>Last reviewed</p>')) failures.push('Food destination pages must use Last reviewed for public freshness.');
+if (foodDestinationRoute.includes('>Source checked</p>')) failures.push('Food destination pages must not restore internal source-check wording.');
 
 const focusedGuides = [
   '/article/texas-barbecue-styles-explained',
