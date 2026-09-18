@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave69Destinations } from "./museum-expansion-statewide-wave69";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-18";
@@ -16,6 +17,7 @@ function museumPlaceholder(name: string): ImageRef {
  * Sixty-eighth statewide museum wave. This record reconciles the audit's
  * legacy "Ysleta Mission Museum" wording to the current Ysleta del Sur Pueblo
  * Cultural Center Museum, which is distinct from the nearby mission church.
+ * Wave 69 is chained here so later museum expansion remains conflict-light.
  */
 export const statewideMuseumExpansionWave68Destinations: Destination[] = [
   {
@@ -55,4 +57,5 @@ export const statewideMuseumExpansionWave68Destinations: Destination[] = [
     address: "305 Yaya Ln, El Paso, TX 79907",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave69Destinations,
 ];
