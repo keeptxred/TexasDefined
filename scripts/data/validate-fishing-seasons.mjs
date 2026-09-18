@@ -60,6 +60,11 @@ for (const token of [
   'name="species"',
 ]) requireText(component, token, `season UI contract missing ${token}`);
 
+for (const token of ["source-backed lake/species relationships", "Any species with seasonal guidance", "Related techniques", "No seasonal pattern matches both filters.", "source-backed fishery opportunity"]) requireText(component, token, `visitor-facing season copy missing ${token}`);
+for (const stale of ["verified lake/species relationships", "Any species with verified seasonal guidance", "Related verified techniques", "No verified seasonal pattern matches both filters.", "verified fishery opportunity"]) {
+  if (component.includes(stale)) throw new Error(`Fishing Batch 12 validation failed: season UI still exposes verification-heavy public copy (${stale}).`);
+}
+
 for (const forbidden of ["the best season is", "guaranteed catch", "today's best", "fish are biting", "current bite is"]) {
   if (`${route}\n${component}`.toLowerCase().includes(forbidden)) throw new Error(`Fishing Batch 12 validation failed: live/predictive claim leaked into evergreen season route (${forbidden}).`);
 }
