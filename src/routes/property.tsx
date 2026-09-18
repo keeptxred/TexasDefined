@@ -11,7 +11,7 @@ const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
 const startHere = [
   { to: '/buying-a-home-in-texas', label: 'Buying a home in Texas', body: 'Build the purchase from affordability and cash to close through mortgage, local taxes, insurance, closing and post-closing reserves.' },
   { to: '/learn/property-taxes', label: 'Understand Texas property taxes', body: 'Start with the full system: values, exemptions, rates, protests, payments and local taxing units.' },
-  { to: '/texas-property-tax-estimator', label: 'Estimate your property taxes', body: 'Choose county, ISD, city and applicable special districts, then load finalized official rates.' },
+  { to: '/texas-property-tax-estimator', label: 'Estimate your property taxes', body: 'Choose county, school district, city and applicable special districts, then load finalized official rates.' },
   { to: '/browse/counties', label: 'Find your county', body: 'Open the county guide for local tax rates, appraisal, exemption, protest, payment and office resources.' },
 ] as const;
 
@@ -27,18 +27,18 @@ const popularGuides = [
   { to: '/learn/property-taxes', label: 'Texas Property Taxes', body: 'The main guide to the Texas property-tax system.' },
   { to: '/decide/property-taxes', label: 'Property Tax Decisions', body: 'A decision-oriented path through exemptions, protests, payments and the next action to take.' },
   { to: '/do/homestead-exemption', label: 'Homestead Exemption', body: 'Eligibility, filing, appraisal limits and related protections.' },
-  { to: '/do/property-tax-protest', label: 'Property Tax Protest', body: 'Deadlines, evidence, ARB hearings and next steps.' },
+  { to: '/do/property-tax-protest', label: 'Property Tax Protest', body: 'Deadlines, evidence, appraisal review board hearings and next steps.' },
   { to: '/learn/agricultural-valuation', label: 'Agricultural Valuation', body: 'How qualifying agricultural land can be valued by productivity.' },
   { to: '/learn/wildlife-management-valuation', label: 'Wildlife Management Valuation', body: 'How qualifying land can continue special valuation under wildlife management.' },
-  { to: '/learn/mud-taxes-explained', label: 'MUD Taxes Explained', body: 'Understand utility-district taxes, debt and the impact on ownership cost.' },
+  { to: '/learn/mud-taxes-explained', label: 'Municipal Utility District (MUD) Taxes', body: 'Understand utility-district taxes, debt and the impact on ownership cost.' },
 ] as const;
 
 const calculators = [
-  { to: '/texas-property-tax-estimator', label: 'Official-Rate Property Tax Estimator', body: 'Build a parcel tax scenario from finalized county, ISD, city and special-district rates.' },
+  { to: '/texas-property-tax-estimator', label: 'Official-Rate Property Tax Estimator', body: 'Build a parcel tax scenario from finalized county, school-district, city and special-district rates.' },
   { to: '/texas-property-tax-bill-breakdown', label: 'Tax Bill Breakdown', body: 'See what share of a combined rate comes from each selected taxing unit.' },
   { to: '/texas-property-tax-county-comparison-calculator', label: 'Location Comparison', body: 'Compare two exact local taxing-unit scenarios instead of county averages.' },
-  { to: '/texas-property-tax-rate-history', label: 'Rate History Explorer', body: 'Track counties, cities, ISDs, MUDs and other taxing units across retained annual files.' },
-  { to: '/texas-mud-tax-impact-calculator', label: 'MUD / District Impact', body: 'Measure the annual, monthly and long-term impact of a special-district rate.' },
+  { to: '/texas-property-tax-rate-history', label: 'Rate History Explorer', body: 'Track counties, cities, school districts, municipal utility districts and other taxing units across retained annual files.' },
+  { to: '/texas-mud-tax-impact-calculator', label: 'Utility / Special-District Impact', body: 'Measure the annual, monthly and long-term impact of a special-district rate.' },
   { to: '/texas-homeownership-cost-calculator', label: 'Homeownership Cost Calculator', body: 'Add official-rate property taxes, insurance, financing and recurring ownership costs.' },
   { to: '/texas-home-affordability-calculator', label: 'Home Affordability Calculator', body: 'Test home price, income and recurring costs before comparing a purchase scenario.' },
 ] as const;

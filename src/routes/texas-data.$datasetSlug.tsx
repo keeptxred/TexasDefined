@@ -65,7 +65,7 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
   },
   notFoundComponent: () => (
     <Container className="py-24">
-      <p className="eyebrow text-primary">The Data Desk</p>
+      <p className="eyebrow text-primary">Texas data</p>
       <h1 className="mt-3 font-display text-4xl">We could not find that data brief</h1>
       <p className="mt-4 text-sm text-muted-foreground"><Link to="/texas-data" className="font-semibold underline underline-offset-4">Return to Texas Facts and Figures.</Link></p>
     </Container>
@@ -83,14 +83,14 @@ function Page() {
           <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
             <Link to="/" className="hover:text-foreground">Front page</Link>
             <span aria-hidden="true" className="mx-2">/</span>
-            <Link to="/texas-data" className="hover:text-foreground">The Data Desk</Link>
+            <Link to="/texas-data" className="hover:text-foreground">Texas data</Link>
             <span aria-hidden="true" className="mx-2">/</span>
             <span aria-current="page" className="text-foreground">{dataset.title}</span>
           </nav>
 
           <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
             <div>
-              <p className="eyebrow text-primary">The Data Desk · {dataset.year}</p>
+              <p className="eyebrow text-primary">Texas data · {dataset.year}</p>
               <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{dataset.title}</h1>
               <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">{dataset.description}</p>
             </div>

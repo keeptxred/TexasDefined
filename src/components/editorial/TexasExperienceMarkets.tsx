@@ -46,14 +46,14 @@ export function TexasExperienceMarkets() {
       <div className="mt-14">
         <p className="eyebrow text-primary">Statewide coverage</p>
         <h3 className="mt-2 font-display text-3xl">Secondary and emerging Texas experience markets</h3>
-        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">These places matter even when supplier inventory is thinner. The market map gives TexasDefined a durable place to route booking intent as inventory changes.</p>
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">These places still matter when fewer bookable tours are listed. The market map keeps them visible as available experiences change.</p>
         <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {additional.map((market) => <MarketCard key={market.slug} market={market} />)}
         </div>
       </div>
 
       <div className="mt-10 border-t border-border pt-6 text-sm leading-6 text-muted-foreground">
-        <p><strong className="text-foreground">Editorial rule:</strong> Viator is a booking and inventory layer, not the authority source for whether a Texas public site is open, what it costs, or who manages it. Operational facts stay tied to first-party and authoritative sources.</p>
+        <p><strong className="text-foreground">Editorial rule:</strong> Viator is a booking marketplace, not the source for whether a Texas public site is open, what it costs or who manages it. For operating details, use the site or agency that runs the place.</p>
       </div>
     </Container>
   </section>;

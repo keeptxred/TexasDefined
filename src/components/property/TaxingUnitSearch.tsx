@@ -7,7 +7,7 @@ export function TaxingUnitSearch({
   label = 'Search taxing units',
   type,
   onSelect,
-  placeholder = 'Enter a city, ISD, MUD or district name',
+  placeholder = 'Enter a city, school district or special district',
   allowVariableSelection = false,
 }: {
   label?: string;
@@ -51,12 +51,12 @@ export function TaxingUnitSearch({
       const applicable = !record.rateUnavailable && !record.variableRate && record.totalRate != null;
       const selectable = applicable || allowVariableSelection;
       const rateLabel = record.rateUnavailable
-        ? record.sourceStatus === 'cross-source-conflict' ? 'state-source conflict — verify locally' : 'rate not reported — verify locally'
+        ? record.sourceStatus === 'cross-source-conflict' ? 'conflicting state records — verify locally' : 'rate not reported — verify locally'
         : applicable
           ? `${record.totalRate!.toFixed(6)} per $100`
           : record.rateVariants.length
             ? `variable rates: ${record.rateVariants.map((rate) => rate.toFixed(6)).join(', ')} — verify parcel`
-            : 'parcel-specific rate verification required';
+            : 'parcel-specific rate — verify locally';
       return <button key={record.id} type="button" disabled={!selectable} onClick={() => onSelect(record)} className="block w-full border-b border-border px-0 py-3 text-left last:border-b-0 hover:text-primary disabled:cursor-not-allowed disabled:opacity-60"><strong className="block text-sm">{record.name}</strong><span className="mt-1 block text-xs text-muted-foreground">{record.type.replaceAll('-', ' ')} · {rateLabel} · {record.year}</span></button>;
     })}</div> : null}
   </div>;

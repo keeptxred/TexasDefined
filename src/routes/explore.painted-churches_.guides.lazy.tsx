@@ -28,7 +28,7 @@ function PaintedChurchSearchGuideHub() {
         </nav>
         <p className="eyebrow mt-10 text-ink-foreground/65">Search-intent atlas · {coverage.length} queries</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">Every major Painted Churches question has somewhere useful to land.</h1>
-        <p className="mt-6 max-w-4xl text-lg leading-8 text-ink-foreground/80">This index connects the most common Texas Painted Churches searches to the strongest answer on Texas Defined. Existing church, map, people, heritage and technique pages remain canonical where they already answer the query well; {dedicated} additional guides fill the search-intent gaps without creating duplicate pages.</p>
+        <p className="mt-6 max-w-4xl text-lg leading-8 text-ink-foreground/80">This index connects the most common Texas Painted Churches searches to the strongest answer on Texas Defined. Existing church, map, people, heritage and technique pages stay in place when they already answer the question well; {dedicated} additional guides fill the remaining gaps without creating duplicate pages.</p>
       </Container>
     </section>
 
@@ -45,9 +45,9 @@ function PaintedChurchSearchGuideHub() {
           <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">Query group</p><h2 className="mt-3 font-display text-4xl sm:text-5xl">{groupLabels[group]}</h2></div><p className="text-sm text-muted-foreground">{items.length} search intents</p></div>
           <div className="mt-8 grid gap-px border border-border bg-border md:grid-cols-2">
             {items.map((item) => <a key={item.query} href={item.canonicalPath} className="group bg-background p-6 hover:bg-surface">
-              <p className="eyebrow text-muted-foreground">{item.coverage === "search-guide" ? "Dedicated guide" : item.coverage === "church-profile" ? "Church profile" : "Existing authority page"}</p>
+              <p className="eyebrow text-muted-foreground">{item.coverage === "search-guide" ? "Dedicated guide" : item.coverage === "church-profile" ? "Church profile" : "Existing guide"}</p>
               <h3 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{item.query}</h3>
-              <p className="mt-4 text-sm font-medium text-primary">Open the canonical answer →</p>
+              <p className="mt-4 text-sm font-medium text-primary">Open the answer →</p>
             </a>)}
           </div>
         </section>;

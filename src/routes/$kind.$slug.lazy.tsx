@@ -94,7 +94,7 @@ function EntityPage() {
             <Fact label={entity.kind === 'county' ? 'Guide type' : 'County'} value={entity.kind === 'county' ? 'Texas county guide' : entity.countySlug ? `${title(entity.countySlug)} County` : undefined} />
             {entity.kind === 'county' && countyProfile?.countySeat && <Fact label="County seat" value={countyProfile.countySeat} />}
             <Fact label="Part of Texas" value={entity.region ? title(entity.region) : undefined} />
-            <Fact label="Source status" value={sourceStatus(entity)} />
+            <Fact label="Source check" value={sourceStatus(entity)} />
             {entity.sourceCheckedAt && <Fact label="Last reviewed" value={formatCheckedDate(entity.sourceCheckedAt)} />}
           </dl>
         </header>
@@ -180,10 +180,10 @@ function countyDisplayName(value: string) {
 }
 
 function sourceStatus(entity: TexasEntityRecord) {
-  if (entity.status === 'pending-source-verification') return 'Verification in progress';
+  if (entity.status === 'pending-source-verification') return 'Still being checked';
   if (entity.sourceConfidence === 'official') return 'Official source checked';
-  if (entity.sourceConfidence === 'high') return 'High-confidence source';
-  return 'Reference source';
+  if (entity.sourceConfidence === 'high') return 'Source checked';
+  return 'Reference information';
 }
 
 function officialLinkLabel(kind: string) {

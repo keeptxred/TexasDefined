@@ -71,7 +71,7 @@ for (const target of [
 ]) if (!financialToolsHub.includes(`'${target}'`) && !financialToolsHub.includes(`"${target}"`)) failures.push(`Financial-tools hub must keep an inbound discovery link to ${target}.`);
 for (const marker of [
   "'@type': 'ItemList'", 'itemListElement: sections.map', 'numberOfItems: sections.length', 'Read the utility-cost guide',
-  'Understand closing costs and cash to close', 'Understand salary and home affordability', 'Understand MUDs, PIDs, HOAs and special districts',
+  'Understand closing costs and cash to close', 'Understand salary and home affordability', 'Understand utility districts, improvement districts and HOA costs',
 ]) if (!financialToolsHub.includes(marker)) failures.push(`Financial-tools hub structured discovery contract is missing ${marker}.`);
 
 for (const [label, source, markers] of [
@@ -144,7 +144,7 @@ for (const marker of [
   'verifiedPropertySlugs.has(county.slug)',
   'to="/property-tax/county/$county"',
   'to="/county/$slug"',
-  'instead of a noindex tax page',
+  'remaining counties link to the main county reference',
 ]) if (!appraisalHub.includes(marker)) failures.push(`Appraisal hub authority-flow contract is missing ${marker}.`);
 if (appraisalHub.includes("import { COUNTY_PROPERTY_RECORDS } from '@/data/property/county-property-data'")) failures.push('Appraisal hub must keep county property records behind its loader boundary instead of eagerly importing the catalog.');
 if (appraisalHub.includes("import { TEXAS_COUNTIES } from '@/data/texas-places'")) failures.push('Appraisal hub must keep the Texas county registry behind its loader boundary instead of eagerly importing the catalog.');

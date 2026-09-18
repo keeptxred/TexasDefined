@@ -158,7 +158,7 @@ const extractionContracts = [
   [topAttractions, 'How this list is researched', 'Top 25 authority methodology layer'],
   [topAttractions, 'resolveTopAttractionAuthority', 'Top 25 multi-source assessment layer'],
   [topAttractions, 'variableMeasured', 'Top 25 Dataset variable definitions'],
-  [topMethodologyContent, 'Review sites are not authority evidence', 'Top 25 source-selection policy'],
+  [topMethodologyContent, 'Review sites are not primary evidence', 'Top 25 source-selection policy'],
   [topRoadTrips, 'TouristTrip', 'Top 25 machine-readable road-trip collection'],
   [topCsv, 'authority_source_urls', 'Top 25 CSV source provenance'],
   [topJson, 'authoritySources', 'Top 25 JSON source provenance'],
