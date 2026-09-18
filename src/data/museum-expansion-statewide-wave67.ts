@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave68Destinations } from "./museum-expansion-statewide-wave68";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-17";
@@ -16,6 +17,7 @@ function museumPlaceholder(name: string): ImageRef {
  * Sixty-seventh statewide museum wave. This Georgetown record reconciles the
  * audit's older Williamson County Museum wording to the active institution's
  * current public name, The Williamson Museum.
+ * Wave 68 is chained here so later museum expansion remains conflict-light.
  */
 export const statewideMuseumExpansionWave67Destinations: Destination[] = [
   {
@@ -56,4 +58,5 @@ export const statewideMuseumExpansionWave67Destinations: Destination[] = [
     address: "716 S Austin Ave, Georgetown, TX 78626",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave68Destinations,
 ];
