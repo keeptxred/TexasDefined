@@ -44,7 +44,7 @@ function MajorEventGuidePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: page.jsonLd }} />
       <main className="mx-auto max-w-4xl px-5 pb-20 pt-12 sm:px-8">
         <article dangerouslySetInnerHTML={{ __html: beforeParking }} />
-        <ParkingMapPanel map={parkingMap} contextName={page.venue ?? page.title} embedded />
+        <ParkingMapPanel map={parkingMap} contextName={page.venue ?? page.title} />
         {afterParking ? <article dangerouslySetInnerHTML={{ __html: afterParking }} /> : null}
       </main>
     </>
