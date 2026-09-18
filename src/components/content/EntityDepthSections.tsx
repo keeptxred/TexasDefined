@@ -16,6 +16,7 @@ const CITY_RESOURCE_LINKS = [
   { href: '/find-my-school-district', label: 'Find my school district', copy: 'Check the school-district lookup instead of assuming a city name determines the district serving an address.' },
   { href: '/texas-toll-tags', label: 'Texas toll tags', copy: 'Compare statewide toll-tag systems and understand where regional toll networks overlap.' },
   { href: '/texas-dmv', label: 'Texas DMV guide', copy: 'Start with the statewide vehicle reference for registration, titles and related Texas motor-vehicle tasks.' },
+  { href: '/explore/food-bbq', label: 'Texas food & barbecue', copy: 'Use the verified food-destination hub to connect city planning with Texas restaurant history, regional food traditions and road-trip stops.' },
   { href: '/explore/trip-planner', label: 'Texas trip planner', copy: 'Turn the city into a travel base and discover destinations through the broader TexasDefined planning system.' },
 ] as const;
 
