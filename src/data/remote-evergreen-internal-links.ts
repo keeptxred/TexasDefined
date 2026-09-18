@@ -139,11 +139,22 @@ const cultureLinks: Record<string, ArticleInternalLink[]> = {
   ],
 };
 
+const crawlRecoveryLinks: Record<string, ArticleInternalLink[]> = {
+  "weirdest-town-names-in-texas-and-how-they-got-them": [
+    { href: "/explore/small-towns", label: "Explore Texas small towns", description: "Keep exploring the communities, histories and local character behind Texas town names." },
+    historyHub,
+  ],
+  "texas-gulf-coast-erosion-shoreline-retreat-guide": [
+    { href: "/explore/beaches-coast", label: "Explore the Texas coast", description: "Connect shoreline change with TexasDefined's beaches, barrier islands and Gulf Coast travel guides." },
+    { href: "/explore/outdoors", label: "Explore Texas outdoors", description: "Continue through practical guides to Texas landscapes, parks and outdoor conditions." },
+  ],
+};
+
 const redditBatchLinks: Record<string, ArticleInternalLink[]> = {
   "state-fair-texas-2026-new-foods-guide": [
+    { href: "/article/texas-restaurants-for-out-of-town-visitors", label: "Texas restaurant picks for visitors", description: "Build the rest of the trip around reliable local food stops in major Texas cities." },
     { href: "/texas-state-fair", label: "Plan the 2026 State Fair of Texas", description: "Use the main State Fair planning guide for dates, tickets, parking, transit and trip logistics." },
     { href: "/explore/food-bbq", label: "Explore Texas food and barbecue", description: "Keep going through TexasDefined's statewide food, barbecue and dining guides." },
-    { href: "/article/texas-restaurants-for-out-of-town-visitors", label: "Texas restaurant picks for visitors", description: "Build the rest of the trip around reliable local food stops in major Texas cities." },
   ],
   "why-austin-i35-traffic-keeps-getting-worse": [
     { href: "/article/texas-road-closures-drivetexas-guide", label: "Check Texas road closures before you leave", description: "Use DriveTexas and local sources to verify construction, incidents and closures before a trip." },
@@ -171,6 +182,7 @@ const redditBatchLinks: Record<string, ArticleInternalLink[]> = {
     { href: "/explore/road-trips", label: "Plan a Texas road trip", description: "Build a spring drive around safe stops instead of roadside improvisation." },
   ],
   "texas-restaurants-for-out-of-town-visitors": [
+    { href: "/article/state-fair-texas-2026-new-foods-guide", label: "See what's new to eat at the 2026 State Fair", description: "Pair the statewide restaurant guide with the seasonal fair-food guide for a Dallas visit." },
     { href: "/article/tex-mex-history-texas-cuisine-guide", label: "Understand the Tex-Mex tradition", description: "Give visitors context for one of the cuisines they are most likely to encounter in Texas." },
     { href: "/article/texas-chili-beans-history", label: "Texas chili: beans, history and the argument", description: "Add context to one of the state's longest-running food debates." },
     { href: "/explore/food-bbq", label: "Explore Texas food and barbecue", description: "Browse the larger statewide food, barbecue and dining collection." },
@@ -196,5 +208,6 @@ export const remoteEvergreenInternalLinks: Readonly<Record<string, readonly Arti
   ...historyLinks,
   ...militaryLinks,
   ...cultureLinks,
+  ...crawlRecoveryLinks,
   ...redditBatchLinks,
 };
