@@ -55,7 +55,7 @@ export function TexasRoute66PageContent({ data }: { data: TexasRoute66PageData }
 
     <Container className="py-12 sm:py-16">
       <div className="grid gap-10 lg:grid-cols-[0.9fr_1.6fr]">
-        <div><p className="eyebrow text-primary">Why it belongs</p><h2 className="mt-2 font-display text-4xl">The Route 66 story here</h2></div>
+        <div><p className="eyebrow text-primary">Route 66 significance</p><h2 className="mt-2 font-display text-4xl">The Route 66 story here</h2></div>
         <div><p className="text-base leading-8 text-muted-foreground">{stop.routeContext}</p><p className="mt-5 text-base leading-8 text-muted-foreground">A complete Texas Route 66 road trip works because the famous landmarks are connected by places like this one. The route was a transportation system before it became a nostalgia trail: service stations, cafes, motels, bridges, commercial blocks, grain elevators and roadside advertising all developed around motorists moving across the Panhandle. Reading the communities in sequence gives the road more meaning than jumping directly from one photo stop to another.</p></div>
       </div>
     </Container>
