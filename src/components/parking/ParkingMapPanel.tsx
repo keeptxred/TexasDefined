@@ -58,9 +58,9 @@ export function ParkingMapPanel({
 
   if (embedded) {
     return (
-      <div className="mt-6 border-t border-border pt-5" aria-label={`Parking orientation for ${contextName}`}>
+      <div className="mt-6 grid gap-6 border-t border-border pt-5 lg:grid-cols-2 lg:items-start" aria-label={`Parking orientation for ${contextName}`}>
         {mapFigure}
-        <div className="mt-4 border-t border-border pt-4">{sourceLinks}</div>
+        <div className="border-t border-border pt-4 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">{sourceLinks}</div>
       </div>
     );
   }
