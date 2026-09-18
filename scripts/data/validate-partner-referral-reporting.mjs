@@ -90,6 +90,8 @@ for (const [needle, label] of [
   ['IMPRESSION_TRACKING_STARTED_AT', 'CTR tracking start boundary'],
   ['totalImpressions30d', '30-day impression reporting'],
   ['clickThroughRateSinceImpressionTracking', 'truthful post-rollout CTR reporting'],
+  ['dailyImpressionsMap', 'daily impression aggregation'],
+  ['impressions: date >= IMPRESSION_TRACKING_STARTED_AT ? dailyImpressionsMap.get(date) ?? 0 : null', 'pre-rollout daily impressions remain unmeasured'],
   ["import { supabaseAdmin } from '@/integrations/supabase/client.server'", 'server-only Supabase client'],
   ['weekOverWeekPercent', 'trend reporting'],
   ["row.partner === HEARTBEAT_PARTNER && row.placement === HEARTBEAT_PLACEMENT", 'heartbeat metric exclusion'],
@@ -124,11 +126,17 @@ for (const [needle, label] of [
   ["timeZone: 'UTC'", 'CTR start-date display timezone lock'],
   ['qualifying impressions', 'zero-click impression diagnosis'],
   ['impressions30d', 'partner/page/destination impression breakdowns'],
+  ['Daily referral performance', 'combined daily performance heading'],
+  ['Daily affiliate CTA impressions', 'daily impression trend accessibility label'],
+  ['row.impressions === null', 'pre-rollout impression gap rendering'],
+  ['maxDailyImpressions', 'independent daily impression scaling'],
+  ['intentionally shown as unmeasured rather than zero', 'measurement-boundary explanation'],
 ]) expect(lazyRoute, needle, label);
 
 expect(types, 'lastPipelineSyncAt: string | null', 'pipeline heartbeat dashboard type');
 expect(types, 'totalImpressions30d: number', 'dashboard impression total type');
 expect(types, 'clickThroughRateSinceImpressionTracking: number | null', 'dashboard CTR type');
+expect(types, 'impressions: number | null', 'daily measured-impression boundary type');
 expect(admin, '<Link to="/admin/partner-referrals"', 'operations navigation');
 expect(collector, '// Browser session IDs are intentionally never persisted in Analytics Engine.', 'collector session-minimization contract');
 
@@ -144,4 +152,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Partner referral reporting validation passed: referral clicks are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has a staggered fallback opportunity that skips Cloudflare while the heartbeat is fresh, the scheduled sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
+console.log('Partner referral reporting validation passed: referral clicks and post-rollout CTA impressions are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, pre-rollout daily impression history remains explicitly unmeasured instead of being falsified as zero, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has a staggered fallback opportunity that skips Cloudflare while the heartbeat is fresh, the scheduled sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
