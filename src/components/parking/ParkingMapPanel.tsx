@@ -17,7 +17,7 @@ export function ParkingMapPanel({
     : `Reusable parking map${map.sourceName ? ` via ${map.sourceName}` : ''}`;
 
   const content = (
-    <div className="min-w-0">
+    <div className={embedded ? "grid min-w-0 gap-6 lg:grid-cols-2 lg:items-start" : "min-w-0"}>
       <figure>
         <div className="overflow-hidden border border-border bg-muted/30">
           <img
@@ -38,7 +38,7 @@ export function ParkingMapPanel({
         </figcaption>
       </figure>
 
-      <div className="mt-5 grid gap-4 border-t border-border pt-4 sm:grid-cols-2">
+      <div className={embedded ? "grid gap-5 border-t border-border pt-5 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0" : "mt-5 grid gap-4 border-t border-border pt-4 sm:grid-cols-2"}>
         <div>
           <h3 className="text-sm font-semibold">Parking details</h3>
           <ul className="mt-2 space-y-2 text-sm leading-6 text-muted-foreground">
