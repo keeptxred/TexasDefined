@@ -12,6 +12,7 @@ const QUERY_DAYS = 60;
 const TOP_LIMIT = 25;
 const HEARTBEAT_PARTNER = '__pipeline__';
 const HEARTBEAT_PLACEMENT = 'sync-heartbeat';
+const IMPRESSION_TRACKING_STARTED_AT = '2026-09-18';
 
 type ReferralRow = {
   metric_date: string;
@@ -20,6 +21,7 @@ type ReferralRow = {
   page_path: string;
   destination_url: string;
   click_count: number | string;
+  impression_count: number | string;
   synced_at: string;
 };
 
@@ -35,17 +37,27 @@ function addBreakdown(
   key: string,
   label: string,
   clicks: number,
+  impressions: number,
   in7d: boolean,
 ) {
-  const row = map.get(key) ?? { key, label, clicks30d: 0, clicks7d: 0 };
+  const row = map.get(key) ?? { key, label, clicks30d: 0, clicks7d: 0, impressions30d: 0, impressions7d: 0 };
   row.clicks30d += clicks;
-  if (in7d) row.clicks7d += clicks;
+  row.impressions30d += impressions;
+  if (in7d) {
+    row.clicks7d += clicks;
+    row.impressions7d += impressions;
+  }
   map.set(key, row);
 }
 
 function percentChange(current: number, prior: number) {
   if (prior <= 0) return current > 0 ? null : 0;
   return Math.round(((current - prior) / prior) * 1000) / 10;
+}
+
+function clickThroughRate(clicks: number, impressions: number) {
+  if (impressions <= 0) return null;
+  return Math.round((clicks / impressions) * 10_000) / 100;
 }
 
 function sortBreakdowns(rows: PartnerReferralBreakdown[]) {
@@ -58,7 +70,7 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
   const queryStart = utcDateOffset(QUERY_DAYS - 1);
   const { data, error } = await client
     .from('texasdefined_partner_referral_daily')
-    .select('metric_date,partner,placement,page_path,destination_url,click_count,synced_at')
+    .select('metric_date,partner,placement,page_path,destination_url,click_count,impression_count,synced_at')
     .gte('metric_date', queryStart)
     .order('metric_date', { ascending: true });
 
@@ -76,6 +88,10 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
   const dailyMap = new Map<string, number>();
   let totalClicks30d = 0;
   let totalClicks7d = 0;
+  let totalImpressions30d = 0;
+  let totalImpressions7d = 0;
+  let clicksSinceImpressionTracking = 0;
+  let impressionsSinceImpressionTracking = 0;
   let prior7dClicks = 0;
   let lastSyncedAt: string | null = null;
   let lastPipelineSyncAt: string | null = null;
@@ -87,6 +103,7 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
     }
 
     const clicks = Math.max(0, Number(row.click_count) || 0);
+    const impressions = Math.max(0, Number(row.impression_count) || 0);
     const metricDate = String(row.metric_date).slice(0, 10);
     const in30d = metricDate >= thirtyDayStart;
     const in7d = metricDate >= sevenDayStart;
@@ -97,14 +114,26 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
     if (!in30d) continue;
 
     totalClicks30d += clicks;
-    if (in7d) totalClicks7d += clicks;
+    totalImpressions30d += impressions;
+    if (in7d) {
+      totalClicks7d += clicks;
+      totalImpressions7d += impressions;
+    }
+    if (metricDate >= IMPRESSION_TRACKING_STARTED_AT) {
+      clicksSinceImpressionTracking += clicks;
+      impressionsSinceImpressionTracking += impressions;
+    }
     dailyMap.set(metricDate, (dailyMap.get(metricDate) ?? 0) + clicks);
-    addBreakdown(partnerMap, row.partner, row.partner, clicks, in7d);
-    addBreakdown(placementMap, row.placement, row.placement, clicks, in7d);
+    addBreakdown(partnerMap, row.partner, row.partner, clicks, impressions, in7d);
+    addBreakdown(placementMap, row.placement, row.placement, clicks, impressions, in7d);
 
-    const page = pageMap.get(row.page_path) ?? { pagePath: row.page_path, clicks30d: 0, clicks7d: 0 };
+    const page = pageMap.get(row.page_path) ?? { pagePath: row.page_path, clicks30d: 0, clicks7d: 0, impressions30d: 0, impressions7d: 0 };
     page.clicks30d += clicks;
-    if (in7d) page.clicks7d += clicks;
+    page.impressions30d += impressions;
+    if (in7d) {
+      page.clicks7d += clicks;
+      page.impressions7d += impressions;
+    }
     pageMap.set(row.page_path, page);
 
     const destinationKey = `${row.partner}\u0000${row.destination_url}`;
@@ -113,9 +142,15 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
       destinationUrl: row.destination_url,
       clicks30d: 0,
       clicks7d: 0,
+      impressions30d: 0,
+      impressions7d: 0,
     };
     destination.clicks30d += clicks;
-    if (in7d) destination.clicks7d += clicks;
+    destination.impressions30d += impressions;
+    if (in7d) {
+      destination.clicks7d += clicks;
+      destination.impressions7d += impressions;
+    }
     destinationMap.set(destinationKey, destination);
   }
 
@@ -128,9 +163,15 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
     generatedAt: new Date().toISOString(),
     lastSyncedAt,
     lastPipelineSyncAt,
+    impressionTrackingStartedAt: IMPRESSION_TRACKING_STARTED_AT,
     windowDays: WINDOW_DAYS,
     totalClicks30d,
     totalClicks7d,
+    totalImpressions30d,
+    totalImpressions7d,
+    clicksSinceImpressionTracking,
+    impressionsSinceImpressionTracking,
+    clickThroughRateSinceImpressionTracking: clickThroughRate(clicksSinceImpressionTracking, impressionsSinceImpressionTracking),
     prior7dClicks,
     weekOverWeekPercent: percentChange(totalClicks7d, prior7dClicks),
     partners: sortBreakdowns([...partnerMap.values()]),
