@@ -120,7 +120,10 @@ for (const expected of [
   'GetCrawlIssues',
   'GetFeeds',
   'texasdefined_bing_webmaster_snapshots',
+  'texasdefined.com,keeptxred.com',
   'userSitesRaw.map(({ Url, IsVerified }) => ({ Url, IsVerified }))',
+  'const missingHosts = targetHosts.filter((host) => !verifiedSitesByHost.has(host));',
+  'for (const host of targetHosts) {'
 ]) {
   requireText(bingCollector, expected, `Bing Webmaster collector is missing required contract: ${expected}`);
 }
