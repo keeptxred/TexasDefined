@@ -7,6 +7,12 @@ import wildlife from "@/assets/wildlife.jpg";
 import blueHole from "@/assets/blue-hole.jpg";
 import bigBend from "@/assets/big-bend.jpg";
 import highSchoolFootball from "@/assets/high-school-football-hero.jpg";
+import bluebonnets from "@/assets/bluebonnets.jpg";
+import enchantedRock from "@/assets/enchanted-rock.jpg";
+import heroHillCountry from "@/assets/hero-hill-country.jpg";
+import courthouseSquare from "@/assets/generated/texas-courthouse-square.jpg";
+import texasHomeMaintenance from "@/assets/texas-home-maintenance-photo.jpg";
+import texasSpecialDistricts from "@/assets/generated/texas-special-districts.jpg";
 
 import type { BrandConfig } from "./types";
 
@@ -72,15 +78,15 @@ export const texasDefinedBrand: BrandConfig = {
         { label: "Trip Planner", to: "/explore/trip-planner", description: "Build a Texas itinerary around your interests and driving time", image: { src: roadTrip, alt: "A two-lane Texas road leading toward the horizon" } },
         { label: "Lakes & Rivers", to: "/explore/lakes-rivers", description: "Swimming holes, quiet rivers and cypress-lined water", image: { src: caddoLake, alt: "Cypress trees on Caddo Lake at dawn" } },
         { label: "Springs & Swimming", to: "/explore/major-springs", description: "Clear springs, spring-fed pools and swimming water", image: { src: blueHole, alt: "Clear spring-fed water in the Texas Hill Country" } },
-        { label: "State Parks", to: "/explore/state-parks", description: "Canyons, coastlines, trails and campsites", image: { src: paloDuro, alt: "Red rock walls of Palo Duro Canyon" } },
-        { label: "Best Camping in Texas", to: "/best-places-to-go-camping-in-texas", description: "Choose campsites by region, season and camping style", image: { src: paloDuro, alt: "Red rock walls of Palo Duro Canyon" } },
+        { label: "State Parks", to: "/explore/state-parks", description: "Canyons, coastlines, trails and campsites", image: { src: enchantedRock, alt: "Granite dome and Hill Country landscape at Enchanted Rock" } },
+        { label: "Best Camping in Texas", to: "/best-places-to-go-camping-in-texas", description: "Choose campsites by region, season and camping style", image: { src: paloDuro, alt: "Palo Duro Canyon landscape near Texas campsites" } },
         { label: "National Parks", to: "/explore/national-parks", description: "Big Bend, Guadalupe Mountains and federal lands", image: { src: bigBend, alt: "Desert mountains in Big Bend country" } },
-        { label: "Caverns & Caves", to: "/explore/caverns", description: "Show caves and limestone rooms below ground" },
-        { label: "Beaches & Coast", to: "/explore/beaches-coast", description: "Barrier islands, bays and Gulf Coast towns" },
-        { label: "Historic Sites", to: "/explore/historic-sites", description: "Missions, museums, monuments and battlefields", image: { src: smallTown, alt: "Historic Texas courthouse square" } },
-        { label: "Painted Churches", to: "/explore/painted-churches", description: "Historic sanctuaries, painted interiors and heritage-driving routes", image: { src: smallTown, alt: "Historic Texas architecture" } },
-        { label: "Road Trips", to: "/explore/road-trips", description: "Scenic drives and stops worth pulling over for", image: { src: roadTrip, alt: "A two-lane Texas farm road at sunset" } },
-        { label: "Small Towns", to: "/explore/small-towns", description: "Courthouse squares, dance halls and local favorites", image: { src: smallTown, alt: "A historic Texas courthouse square" } },
+        { label: "Caverns & Caves", to: "/explore/caverns", description: "Show caves and limestone rooms below ground", image: { src: "/images/explore/caverns/longhorn-cavern-state-park.jpg", alt: "Underground limestone formations inside Longhorn Cavern State Park" } },
+        { label: "Beaches & Coast", to: "/explore/beaches-coast", description: "Barrier islands, bays and Gulf Coast towns", image: { src: "/images/explore/beaches-coast/galveston-island-state-park.jpg", alt: "Galveston Island State Park on the Texas Gulf Coast" } },
+        { label: "Historic Sites", to: "/explore/historic-sites", description: "Missions, museums, monuments and battlefields", image: { src: "/images/explore/historic-sites/the-alamo.jpg", alt: "The Alamo in San Antonio" } },
+        { label: "Painted Churches", to: "/explore/painted-churches", description: "Historic sanctuaries, painted interiors and heritage-driving routes", image: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Sts%20Cyril%20%26%20Methodius%20Catholic%20Church%20in%20Dubina%2C%20Texas.jpg?width=800", alt: "Saints Cyril and Methodius Catholic Church in Dubina, Texas" } },
+        { label: "Road Trips", to: "/explore/road-trips", description: "Scenic drives and stops worth pulling over for", image: { src: bluebonnets, alt: "Texas bluebonnets along a scenic spring drive" } },
+        { label: "Small Towns", to: "/explore/small-towns", description: "Courthouse squares, dance halls and local favorites", image: { src: courthouseSquare, alt: "A classic Texas courthouse square in a small town" } },
         { label: "Food & Barbecue", to: "/explore/food-bbq", description: "Barbecue joints, regional dishes and places worth the wait", image: { src: bbqBrisket, alt: "Sliced smoked brisket on butcher paper" } },
         { label: "Outdoors & Wildlife", to: "/explore/outdoors", description: "Wild places, native wildlife and big Texas skies", image: { src: wildlife, alt: "White-tailed deer in Texas brush country" } },
       ],
@@ -92,14 +98,14 @@ export const texasDefinedBrand: BrandConfig = {
       to: "/texas-living",
       description: "Homes, history, sports and the practical side of making a life in Texas",
       children: [
-        { label: "Things That Define Texas", to: "/things-unique-to-texas", description: "250 foods, places, traditions and symbols that define Texas" },
-        { label: "Texas Icons", to: "/texas-icons" },
-        { label: "Homes & Land", to: "/real-estate", description: "Buying and owning Texas homes and land" },
-        { label: "Property", to: "/property", description: "Taxes, exemptions, county guides and homeowner tools" },
+        { label: "Things That Define Texas", to: "/things-unique-to-texas", description: "250 foods, places, traditions and symbols that define Texas", image: { src: bbqBrisket, alt: "Texas barbecue representing one of the foods and traditions that define the state" } },
+        { label: "Texas Icons", to: "/texas-icons", image: { src: bluebonnets, alt: "Texas bluebonnets, one of the state’s best-known natural icons" } },
+        { label: "Homes & Land", to: "/real-estate", description: "Buying and owning Texas homes and land", image: { src: heroHillCountry, alt: "Texas Hill Country land and homes landscape" } },
+        { label: "Property", to: "/property", description: "Taxes, exemptions, county guides and homeowner tools", image: { src: courthouseSquare, alt: "Texas courthouse square representing county property and tax resources" } },
         { label: "Moving Here", to: "/moving-to-texas", description: "What to know before the boxes arrive", image: { src: roadTrip, alt: "A Texas highway stretching toward the horizon" } },
-        { label: "Texas vs Every State", to: "/texas-vs-every-state", description: "Compare Texas with all 49 other states using one consistent framework", image: { src: roadTrip, alt: "A Texas highway stretching toward the horizon" } },
-        { label: "Texas Resources", to: "/texas-resources", description: "Driver licenses, DMV, state agencies and practical services" },
-        { label: "Home & Garden", to: "/home-garden", description: "Texas homes, yards, seasons and practical projects" },
+        { label: "Texas vs Every State", to: "/texas-vs-every-state", description: "Compare Texas with all 49 other states using one consistent framework", image: { src: bigBend, alt: "Big Bend landscape representing Texas in the fifty-state comparison" } },
+        { label: "Texas Resources", to: "/texas-resources", description: "Driver licenses, DMV, state agencies and practical services", image: { src: texasSpecialDistricts, alt: "Texas civic and public-service infrastructure" } },
+        { label: "Home & Garden", to: "/home-garden", description: "Texas homes, yards, seasons and practical projects", image: { src: texasHomeMaintenance, alt: "Texas home exterior for seasonal home and garden projects" } },
         { label: "History", to: "/texas-history", description: "The people, places and moments that shaped the state", image: { src: smallTown, alt: "A historic Texas courthouse square" } },
         { label: "Sports", to: "/sports", description: "Teams, traditions and the games Texans follow", image: { src: highSchoolFootball, alt: "Texas high school football under stadium lights" } },
       ],
