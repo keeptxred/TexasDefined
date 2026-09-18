@@ -51,7 +51,14 @@ const INTERNAL = {
 } as const satisfies Record<string, HuntingAuthorityLink>;
 
 const verifyRules = "Use TexasDefined to understand the planning framework, then confirm the current legal rule with TPWD for the exact species, county, property and method you plan to hunt.";
-const standardRelated = [INTERNAL.hunting, INTERNAL.publicLands, INTERNAL.wildlife, INTERNAL.counties, INTERNAL.tripPlanner];
+const standardRelated = [
+  INTERNAL.hunting,
+  { label: "Texas hunting seasons", href: "/hunting/hunting-seasons" },
+  { label: "Texas bag limits", href: "/hunting/bag-limits" },
+  { label: "Texas public hunting", href: "/hunting/public-hunting" },
+  INTERNAL.wildlife,
+  INTERNAL.counties,
+];
 
 function topic(input: Omit<HuntingAuthorityTopic, "faq"> & { faq?: HuntingAuthorityFaq[] }): HuntingAuthorityTopic {
   return {
@@ -103,7 +110,7 @@ export const HUNTING_AUTHORITY_TOPICS: Record<string, HuntingAuthorityTopic> = {
       { heading: "License and hunter education are separate", paragraphs: ["TPWD treats license eligibility and hunter-education compliance as related but distinct requirements. Resolve both before the hunt."], links: [{ label: "Texas hunter education guide", href: "/hunting/hunter-education" }, HUNTING_OFFICIAL_SOURCES.hunterEducation] },
       { heading: "Public-land access may require another permit", paragraphs: ["A hunting license does not automatically grant access to every public hunting area. APH areas, drawn hunts and individual properties can have additional requirements."], links: [{ label: "Texas public hunting guide", href: "/hunting/public-hunting" }, HUNTING_OFFICIAL_SOURCES.publicHunting, INTERNAL.publicLands] },
     ],
-    related: [INTERNAL.resources, INTERNAL.publicLands, INTERNAL.counties, INTERNAL.hunting],
+    related: [{ label: "Texas hunter education", href: "/hunting/hunter-education" }, { label: "Texas hunting seasons", href: "/hunting/hunting-seasons" }, { label: "Texas public hunting", href: "/hunting/public-hunting" }, INTERNAL.resources, INTERNAL.counties],
   }),
   "hunter-education": topic({
     slug: "hunter-education",
@@ -117,7 +124,7 @@ export const HUNTING_AUTHORITY_TOPICS: Record<string, HuntingAuthorityTopic> = {
       { heading: "Certification and deferral are different", paragraphs: ["A completed certification is the durable credential. Limited alternatives can carry conditions and do not erase license or hunt-area requirements.", verifyRules], links: [HUNTING_OFFICIAL_SOURCES.hunterEducation] },
       { heading: "Resolve education before applying", paragraphs: ["Drawn hunts, youth opportunities and mentored hunts can involve deadlines well before opening day."], links: [{ label: "Texas drawn hunts", href: "/hunting/drawn-hunts" }, { label: "Texas youth hunting", href: "/hunting/youth-hunting" }] },
     ],
-    related: [INTERNAL.hunting, INTERNAL.publicLands, INTERNAL.resources, INTERNAL.tripPlanner],
+    related: [{ label: "Texas hunting license", href: "/hunting/texas-hunting-license" }, { label: "Texas youth hunting", href: "/hunting/youth-hunting" }, { label: "Texas public hunting", href: "/hunting/public-hunting" }, INTERNAL.resources, INTERNAL.tripPlanner],
   }),
   "public-hunting": topic({
     slug: "public-hunting",
@@ -131,7 +138,7 @@ export const HUNTING_AUTHORITY_TOPICS: Record<string, HuntingAuthorityTopic> = {
       { heading: "Walk-in and drawn hunts solve different needs", paragraphs: ["APH is the broad walk-in framework for designated lands. Drawn hunts cover separate limited-entry opportunities, and some properties use other procedures."], links: [HUNTING_OFFICIAL_SOURCES.aph, HUNTING_OFFICIAL_SOURCES.drawnHunts] },
       { heading: "Public does not mean unrestricted", paragraphs: ["Every hunt still depends on legal game, season, county or zone, methods, boundaries and property instructions."], links: [HUNTING_OFFICIAL_SOURCES.regulations, INTERNAL.tripPlanner] },
     ],
-    related: [INTERNAL.publicLands, INTERNAL.wildlife, INTERNAL.camping, INTERNAL.fishing, INTERNAL.parks, INTERNAL.counties],
+    related: [{ label: "Annual Public Hunting Permit", href: "/hunting/annual-public-hunting-permit" }, { label: "Texas drawn hunts", href: "/hunting/drawn-hunts" }, { label: "Texas hunting seasons", href: "/hunting/hunting-seasons" }, INTERNAL.publicLands, INTERNAL.wildlife, INTERNAL.counties],
   }),
   "annual-public-hunting-permit": topic({
     slug: "annual-public-hunting-permit",
@@ -145,7 +152,7 @@ export const HUNTING_AUTHORITY_TOPICS: Record<string, HuntingAuthorityTopic> = {
       { heading: "APH does not replace hunting rules", paragraphs: ["Licenses, endorsements, hunter education, seasons, tagging, reporting and legal methods still apply."], links: [HUNTING_OFFICIAL_SOURCES.regulations, HUNTING_OFFICIAL_SOURCES.licenses] },
       { heading: "Check property instructions", paragraphs: ["Registration, parking, boundaries, closures and other access instructions can be property-specific."], links: [HUNTING_OFFICIAL_SOURCES.publicHunting, INTERNAL.tripPlanner] },
     ],
-    related: [INTERNAL.publicLands, INTERNAL.camping, INTERNAL.wildlife, INTERNAL.counties],
+    related: [{ label: "Texas public hunting", href: "/hunting/public-hunting" }, { label: "Texas drawn hunts", href: "/hunting/drawn-hunts" }, { label: "Texas hunting seasons", href: "/hunting/hunting-seasons" }, INTERNAL.publicLands, INTERNAL.counties],
   }),
   "drawn-hunts": topic({
     slug: "drawn-hunts",
@@ -159,7 +166,7 @@ export const HUNTING_AUTHORITY_TOPICS: Record<string, HuntingAuthorityTopic> = {
       { heading: "Read the individual hunt notice", paragraphs: ["Party size, eligibility, permits, lodging or camping and required licenses can differ by hunt."], links: [HUNTING_OFFICIAL_SOURCES.drawnHunts, INTERNAL.publicLands, INTERNAL.parks] },
       { heading: "Plan travel after selection", paragraphs: ["Build lodging, county and travel plans around the final assignment and check-in instructions."], links: [INTERNAL.counties, INTERNAL.camping, INTERNAL.tripPlanner] },
     ],
-    related: [INTERNAL.hunting, INTERNAL.publicLands, INTERNAL.parks, INTERNAL.tripPlanner],
+    related: [{ label: "Texas public hunting", href: "/hunting/public-hunting" }, { label: "Annual Public Hunting Permit", href: "/hunting/annual-public-hunting-permit" }, { label: "Texas youth hunting", href: "/hunting/youth-hunting" }, INTERNAL.parks, INTERNAL.tripPlanner],
   }),
   "hunting-seasons": topic({
     slug: "hunting-seasons", eyebrow: "Texas hunting seasons", title: "Texas Hunting Seasons: How to Check the Current Dates", description: "Use TPWD's current season tables without relying on stale dates copied into evergreen guides.", quickAnswer: "Texas hunting seasons vary by species, county or zone, method and sometimes property. Start with TPWD's current season-date tables, then open the species and county rules that apply to your hunt.", about: ["Texas hunting seasons", "2026–27 Texas hunting seasons", "TPWD season dates"],
@@ -167,7 +174,7 @@ export const HUNTING_AUTHORITY_TOPICS: Record<string, HuntingAuthorityTopic> = {
       { heading: "Use season tables as the starting point", paragraphs: ["Season summaries help orient the calendar, but they are not the final check for every hunt."], links: [HUNTING_OFFICIAL_SOURCES.seasonDates] },
       { heading: "Then check species and geography", paragraphs: ["County, zone, method and special-property rules can narrow or alter the general season framework.", verifyRules], links: [HUNTING_OFFICIAL_SOURCES.regulations, INTERNAL.counties] },
       { heading: "Treat public-hunt dates as property specific", paragraphs: ["APH and drawn-hunt opportunities may have their own legal-game windows and access instructions."], links: [HUNTING_OFFICIAL_SOURCES.publicHunting, HUNTING_OFFICIAL_SOURCES.drawnHunts] },
-    ], related: [INTERNAL.hunting, INTERNAL.publicLands, INTERNAL.counties, INTERNAL.tripPlanner],
+    ], related: [{ label: "Texas bag limits", href: "/hunting/bag-limits" }, { label: "Texas archery hunting", href: "/hunting/archery-hunting" }, { label: "Texas public hunting", href: "/hunting/public-hunting" }, INTERNAL.counties, INTERNAL.tripPlanner],
   }),
   "bag-limits": topic({
     slug: "bag-limits", eyebrow: "Texas hunting regulations", title: "Texas Hunting Bag Limits Explained", description: "Understand daily, possession, season and county-specific limit concepts while keeping the current TPWD rule as the source of truth.", quickAnswer: "Bag limits are species- and location-specific and can involve daily, possession, season, sex or antler restrictions. Verify the exact current limit in TPWD's Outdoor Annual before hunting.", about: ["Texas bag limits", "Texas hunting limits", "TPWD bag limits"],
@@ -175,7 +182,7 @@ export const HUNTING_AUTHORITY_TOPICS: Record<string, HuntingAuthorityTopic> = {
       { heading: "Do not assume one statewide number", paragraphs: ["Limits may vary by species, county, zone, sex, antler classification or hunt type."], links: [HUNTING_OFFICIAL_SOURCES.regulations] },
       { heading: "Tagging and reporting can be separate duties", paragraphs: ["A lawful harvest can also trigger tagging, proof-of-sex or reporting requirements depending on species and method.", verifyRules], links: [HUNTING_OFFICIAL_SOURCES.regulations] },
       { heading: "Public-hunt permits do not override limits", paragraphs: ["APH and drawn hunts operate inside the applicable legal framework unless the hunt notice states a specific controlled-hunt condition."], links: [HUNTING_OFFICIAL_SOURCES.publicHunting, HUNTING_OFFICIAL_SOURCES.drawnHunts] },
-    ], related: [INTERNAL.hunting, INTERNAL.publicLands, INTERNAL.counties],
+    ], related: [{ label: "Texas hunting seasons", href: "/hunting/hunting-seasons" }, { label: "Texas archery hunting", href: "/hunting/archery-hunting" }, { label: "Texas public hunting", href: "/hunting/public-hunting" }, INTERNAL.counties],
   }),
   "archery-hunting": topic({
     slug: "archery-hunting", eyebrow: "Texas archery hunting", title: "Texas Archery Hunting Guide", description: "Plan archery-only opportunities while checking species, county, equipment and public-land rules with TPWD.", quickAnswer: "Archery opportunities can have distinct season windows and equipment rules. Confirm the current species, county or zone and legal means-and-methods rules before hunting.", about: ["Texas archery hunting", "Texas bow season", "archery-only season Texas"],
@@ -183,7 +190,7 @@ export const HUNTING_AUTHORITY_TOPICS: Record<string, HuntingAuthorityTopic> = {
       { heading: "Archery season is not one statewide rule", paragraphs: ["Species and geography still control the applicable season structure."], links: [HUNTING_OFFICIAL_SOURCES.seasonDates] },
       { heading: "Check legal equipment definitions", paragraphs: ["Legal archery equipment and any special restrictions belong to the current means-and-methods rules.", verifyRules], links: [HUNTING_OFFICIAL_SOURCES.regulations] },
       { heading: "Public-land archery access varies", paragraphs: ["Some public lands offer archery opportunities through APH or drawn hunts; verify the property listing."], links: [HUNTING_OFFICIAL_SOURCES.publicHunting, INTERNAL.publicLands] },
-    ], related: [INTERNAL.hunting, INTERNAL.publicLands, INTERNAL.camping, INTERNAL.counties],
+    ], related: [{ label: "Texas hunting seasons", href: "/hunting/hunting-seasons" }, { label: "Texas bag limits", href: "/hunting/bag-limits" }, { label: "Texas public hunting", href: "/hunting/public-hunting" }, INTERNAL.camping, INTERNAL.counties],
   }),
   "youth-hunting": topic({
     slug: "youth-hunting", eyebrow: "Texas youth hunting", title: "Texas Youth Hunting Guide", description: "Connect youth hunting opportunities with hunter education, licenses, supervision and TPWD public-hunt programs.", quickAnswer: "Youth hunts can use special eligibility, supervision and application rules. Check the current TPWD hunt notice plus license and hunter-education requirements for the youth hunter and accompanying adult.", about: ["Texas youth hunting", "youth hunts Texas", "TPWD youth hunts"],
@@ -191,7 +198,7 @@ export const HUNTING_AUTHORITY_TOPICS: Record<string, HuntingAuthorityTopic> = {
       { heading: "Start with age and education rules", paragraphs: ["Youth status does not eliminate hunter-education or supervision rules; the exact requirement depends on age and circumstances."], links: [HUNTING_OFFICIAL_SOURCES.hunterEducation, HUNTING_OFFICIAL_SOURCES.licenses] },
       { heading: "Look for youth-specific public hunts", paragraphs: ["TPWD public-hunting and drawn-hunt catalogs can include youth-only or youth-focused opportunities."], links: [HUNTING_OFFICIAL_SOURCES.publicHunting, HUNTING_OFFICIAL_SOURCES.drawnHunts] },
       { heading: "Read the adult-supervision instructions", paragraphs: ["Each opportunity can specify who must accompany the youth and what licenses or permits apply."], links: [HUNTING_OFFICIAL_SOURCES.regulations] },
-    ], related: [INTERNAL.hunting, INTERNAL.publicLands, INTERNAL.tripPlanner, INTERNAL.resources],
+    ], related: [{ label: "Texas hunter education", href: "/hunting/hunter-education" }, { label: "Texas drawn hunts", href: "/hunting/drawn-hunts" }, { label: "Texas hunting license", href: "/hunting/texas-hunting-license" }, INTERNAL.tripPlanner, INTERNAL.resources],
   }),
   "texas-deer-hunting": speciesTopic({ slug: "texas-deer-hunting", title: "Texas White-Tailed Deer Hunting Guide", species: "white-tailed deer", description: "Plan a Texas deer hunt around county rules, antler restrictions, tagging, habitat and public access.", source: HUNTING_OFFICIAL_SOURCES.whiteTailedDeer, habitat: "White-tailed deer occur across much of Texas, but habitat, herd management and county regulations differ sharply among regions.", planning: "For public deer hunting, verify legal game, antler or sex restrictions, permit type and check-in requirements for the exact property." }),
   "mule-deer": speciesTopic({ slug: "mule-deer", title: "Texas Mule Deer Hunting Guide", species: "mule deer", description: "Plan mule-deer hunting in the parts of Texas where the species and current TPWD seasons apply.", source: HUNTING_OFFICIAL_SOURCES.muleDeer, habitat: "Texas mule-deer hunting is concentrated in western parts of the state, making region, county and habitat selection central to trip planning.", planning: "Public mule-deer opportunities are limited enough that drawn-hunt and property-specific planning should begin early." }),
