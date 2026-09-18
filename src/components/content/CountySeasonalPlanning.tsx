@@ -8,7 +8,7 @@ export function CountySeasonalPlanning({ countySlug, countyName }: { countySlug:
     <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
       <div>
         <p className="eyebrow text-primary">Seasonal planning</p>
-        <h2 id={`county-seasonal-${countySlug}`} className="mt-2 font-display text-4xl">When to plan {countyName}</h2>
+        <h2 id={`county-seasonal-${countySlug}`} className="mt-2 font-display text-4xl">Best times to visit {countyName}</h2>
       </div>
       <div>
         <p className="max-w-3xl text-base leading-7 text-muted-foreground">Use current seasonal reports and statewide planning guides before building a trip around wildflowers, fall color or holiday events. Conditions and event dates can change from year to year.</p>
