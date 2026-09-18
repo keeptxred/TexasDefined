@@ -148,15 +148,18 @@ assert(
 );
 
 for (const marker of [
-  'const remotePhoto = wave7CuratedRemotePhoto[slug];',
-  'const expectedImageUrl = remotePhoto?.imageUrl',
+  "'src/data/sports-venue-images-curated-overrides.ts'",
+  'const governedPhotos = new Map();',
+  'const governedPhoto = governedPhotos.get(slug);',
+  'const expectedImageUrl = governedPhoto.imageUrl;',
+  "const assetPath = expectedImageUrl.startsWith('/') ? expectedImageUrl : undefined;",
   "redirect: 'manual'",
   'actualLocation === expectedLocation',
   'expectedImageUrl ?? assetPath',
 ]) {
   assert(
     productionVerifier.includes(marker),
-    `Wave 7 production hero verifier must enforce governed local-or-remote target resolution: ${marker}`,
+    `Wave 7 production hero verifier must derive curated-first governed targets and enforce local-or-remote resolution: ${marker}`,
   );
 }
 
