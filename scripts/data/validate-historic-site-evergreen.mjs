@@ -139,6 +139,8 @@ for (const guide of weekendGuides) {
   const headingCount = (source.match(/\bh\("/g) ?? []).length;
   if (paragraphCount < 10) failures.push(`Historic weekend guide is too thin (${paragraphCount} paragraphs): ${guide.slug}.`);
   if (headingCount < 5) failures.push(`Historic weekend guide lacks planning depth (${headingCount} headings): ${guide.slug}.`);
+  if (guide.slug === "washington-on-the-brazos-weekend-guide" && !source.includes('h("How to avoid a rushed visit")')) failures.push("Washington weekend guide is missing its visitor-facing pacing heading.");
+  if (guide.slug === "washington-on-the-brazos-weekend-guide" && source.includes('h("What not to do")')) failures.push("Washington weekend guide still exposes the vague legacy heading: What not to do.");
   for (const destination of guide.destinations) {
     if (!seedSlugs.includes(destination)) failures.push(`Historic weekend guide validator references non-seed destination ${destination} in ${guide.slug}.`);
     if (!source.includes(destination)) failures.push(`Historic weekend guide does not link required destination ${destination}: ${guide.slug}.`);
