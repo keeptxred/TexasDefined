@@ -39,6 +39,16 @@ function assertIncludes(text, marker, label) {
   if (!text.includes(marker)) throw new Error(`${label} is missing expected venue-specific editorial copy: ${marker}`);
 }
 
+function assertOrdered(text, markers, label) {
+  let cursor = -1;
+  for (const marker of markers) {
+    const index = text.indexOf(marker, cursor + 1);
+    if (index < 0) throw new Error(`${label} is missing expected ordered marker: ${marker}`);
+    if (index <= cursor) throw new Error(`${label} has planning markers out of order near: ${marker}`);
+    cursor = index;
+  }
+}
+
 const countyChecks = [
   {
     path: '/county/tarrant',
@@ -70,6 +80,57 @@ for (const check of countyChecks) {
   console.log(`PASS ${check.label}: ${url}`);
 }
 
+const venuePageChecks = [
+  {
+    path: '/sports-venue/gerald-j-ford-stadium',
+    label: 'Gerald J. Ford Stadium live planning layout',
+    ordered: [
+      'Know before you go',
+      'Planning for Gerald J. Ford Stadium',
+      'Parking',
+      'Official parking sources',
+      'Arrival',
+    ],
+  },
+  {
+    path: '/sports-venue/xtreme-raceway-park',
+    label: 'Xtreme Raceway Park live planning layout',
+    ordered: [
+      'Know before you go',
+      'Planning for Xtreme Raceway Park',
+      'Parking',
+      'Official parking source',
+      'Arrival',
+    ],
+  },
+  {
+    path: '/sports-venue/memorial-park-golf-course',
+    label: 'Memorial Park Golf Course live planning layout',
+    ordered: [
+      'Know before you go',
+      'Planning for Memorial Park Golf Course',
+      'Parking',
+      'Official parking sources',
+      'Arrival',
+    ],
+  },
+];
+
+const retiredVenueLayoutMarkers = [
+  'Accuracy checks',
+  'Explore the collection',
+  'More venues like ',
+  'Browse collection →',
+];
+
+for (const check of venuePageChecks) {
+  const { url, text } = await fetchText(check.path);
+  const html = decodeHtml(text);
+  for (const marker of retiredVenueLayoutMarkers) assertAbsent(html, marker, check.label);
+  assertOrdered(html, check.ordered, check.label);
+  console.log(`PASS ${check.label}: ${url}`);
+}
+
 const entityChecks = [
   {
     id: 'sports-venue:att-stadium',
@@ -96,4 +157,4 @@ for (const check of entityChecks) {
   console.log(`PASS AI entity ${check.id}: ${url}`);
 }
 
-console.log('Sports venue production editorial verification passed: representative major and tier-2 county cards plus AI entity records use venue-specific editorial copy and retired boilerplate is absent.');
+console.log('Sports venue production editorial verification passed: county cards, cache-busted venue planning layouts and AI entity records use current venue-specific copy; retired boilerplate, accuracy-check UI and generic per-venue collection blocks are absent.');
