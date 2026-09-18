@@ -75,8 +75,8 @@ export function TexasRoute66PageContent({ data }: { data: TexasRoute66PageData }
     {stop.internalLinks?.length ? <Container className="py-10"><div className="border-y border-border py-8"><p className="eyebrow text-primary">Keep exploring TexasDefined</p><h2 className="mt-2 font-display text-3xl">Related guides for this stop</h2><div className="mt-5 flex flex-wrap gap-4">{stop.internalLinks.map((link) => <a key={link.to} href={link.to} className="border-b border-primary pb-1 text-sm font-semibold text-primary">{link.label} →</a>)}</div></div></Container> : null}
 
     <Container className="py-12 sm:py-16">
-      <p className="eyebrow text-primary">Source desk</p><h2 className="mt-2 font-display text-4xl">Verify the historic record and current access</h2>
-      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined uses preservation and transportation authorities for the historic corridor. Hours, business operations, construction, private-property access and road conditions can change after publication, so use these sources and current local information before departure.</p>
+      <p className="eyebrow text-primary">Official sources</p><h2 className="mt-2 font-display text-4xl">Check the historic record and current access</h2>
+      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Texas Defined uses official preservation and transportation sources for the historic corridor. Hours, business operations, construction, private-property access and road conditions can change after publication, so use these sources and current local information before departure.</p>
       <ul className="mt-6 space-y-3">{stop.sourceLinks.map((source) => <li key={source.href}><a href={source.href} rel="noreferrer" target="_blank" className="border-b border-primary pb-1 text-sm font-semibold text-primary">{source.label} →</a></li>)}</ul>
     </Container>
 
