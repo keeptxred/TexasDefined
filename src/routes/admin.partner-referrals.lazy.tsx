@@ -43,7 +43,7 @@ function PartnerReferralAnalyticsAdmin() {
     <header className="border-b border-border pb-8">
       <p className="eyebrow text-primary">TexasDefined Operations</p>
       <h1 className="mt-2 font-display text-5xl">Partner Referral Analytics</h1>
-      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Private first-party reporting for outbound commercial referrals. This dashboard uses daily aggregates synced from Cloudflare Analytics Engine; raw browser session IDs are not stored in the reporting table and CI probe clicks are excluded.</p>
+      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Private first-party reporting for outbound commercial referrals. This dashboard uses daily aggregates synced from Cloudflare Analytics Engine; raw browser session IDs are not stored in the reporting table and CI probe events are excluded.</p>
     </header>
 
     {!dashboard ? <form onSubmit={unlock} className="mt-10 max-w-lg grid gap-4">
