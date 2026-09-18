@@ -161,10 +161,10 @@ function RateSelect({ label, value, onChange, records, placeholder }: { label: s
 }
 
 function formatRate(record: TexasTaxRateRecord) {
-  if (record.rateUnavailable) return record.sourceStatus === 'cross-source-conflict' ? 'state-source conflict — verify locally' : 'rate not reported — verify locally';
+  if (record.rateUnavailable) return record.sourceStatus === 'cross-source-conflict' ? 'conflicting state records — verify locally' : 'rate not reported — verify locally';
   if (record.totalRate != null && !record.variableRate) return `${record.totalRate.toFixed(6)} per $100`;
-  if (record.rateVariants.length) return `variable reported rates: ${record.rateVariants.map((rate) => rate.toFixed(6)).join(', ')} — verify parcel`;
-  return 'parcel-specific rate verification required';
+  if (record.rateVariants.length) return `variable rates: ${record.rateVariants.map((rate) => rate.toFixed(6)).join(', ')} — verify parcel`;
+  return 'parcel-specific rate — verify locally';
 }
 
 function RateFact({ label, value, emphasize = false }: { label: string; value: number; emphasize?: boolean }) {
