@@ -86,7 +86,7 @@ const venuePageChecks = [
     label: 'Gerald J. Ford Stadium live planning layout',
     ordered: [
       'Know before you go',
-      'Planning for Gerald J. Ford Stadium',
+      'Planning your visit to Gerald J. Ford Stadium',
       'Parking',
       'Official parking sources',
       'Arrival',
@@ -97,7 +97,7 @@ const venuePageChecks = [
     label: 'Xtreme Raceway Park live planning layout',
     ordered: [
       'Know before you go',
-      'Planning for Xtreme Raceway Park',
+      'Planning your visit to Xtreme Raceway Park',
       'Parking',
       'Official parking source',
       'Arrival',
@@ -108,7 +108,7 @@ const venuePageChecks = [
     label: 'Memorial Park Golf Course live planning layout',
     ordered: [
       'Know before you go',
-      'Planning for Memorial Park Golf Course',
+      'Planning your visit to Memorial Park Golf Course',
       'Parking',
       'Official parking sources',
       'Arrival',
