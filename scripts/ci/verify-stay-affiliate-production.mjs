@@ -56,14 +56,28 @@ async function verifyOutcomeAnalytics() {
           'user-agent': 'TexasDefined-CI-Stay-Affiliate/1.0',
         },
         body: JSON.stringify({
-          event: 'partner_referral_clicked',
-          resourceId: 'hotels.com',
-          entityKind: 'production-verifier',
-          destination: 'https://www.hotels.com/',
-          detection: 'ci-probe',
-          occurredAt: new Date().toISOString(),
-          path: '/sports-venue/globe-life-field?ignored=1',
-          sessionId: 'ci-probe-must-not-persist',
+          events: [
+            {
+              event: 'partner_referral_shown',
+              resourceId: 'hotels.com',
+              entityKind: 'production-verifier',
+              destination: 'https://www.hotels.com/',
+              detection: 'ci-probe',
+              occurredAt: new Date().toISOString(),
+              path: '/sports-venue/globe-life-field?ignored=1',
+              sessionId: 'ci-probe-must-not-persist',
+            },
+            {
+              event: 'partner_referral_clicked',
+              resourceId: 'hotels.com',
+              entityKind: 'production-verifier',
+              destination: 'https://www.hotels.com/',
+              detection: 'ci-probe',
+              occurredAt: new Date().toISOString(),
+              path: '/sports-venue/globe-life-field?ignored=1',
+              sessionId: 'ci-probe-must-not-persist',
+            },
+          ],
         }),
       });
       const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
@@ -79,7 +93,7 @@ async function verifyOutcomeAnalytics() {
         } catch {
           throw new Error('/api/analytics returned non-JSON success content.');
         }
-        requireCondition(parsed?.accepted === 1, `/api/analytics accepted count must be 1; received ${JSON.stringify(parsed)}.`);
+        requireCondition(parsed?.accepted === 2, `/api/analytics accepted count must be 2; received ${JSON.stringify(parsed)}.`);
         return;
       }
     } catch (error) {
@@ -211,4 +225,4 @@ for (const page of pages) {
   requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === page.route.replace(/\/+$/, ''), `${page.route} is not self-canonical and must not be part of the monetized production cohort.`);
 }
 
-console.log('Stay affiliate production verification passed: all 15 curated hotel records expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher while broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted a real partner_referral_clicked probe backed by Cloudflare Analytics Engine; Hotels.com/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, venue and destination pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');
+console.log('Stay affiliate production verification passed: all 15 curated hotel records expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher while broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted paired partner_referral_shown and partner_referral_clicked CI probes backed by Cloudflare Analytics Engine; Hotels.com/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, venue and destination pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');

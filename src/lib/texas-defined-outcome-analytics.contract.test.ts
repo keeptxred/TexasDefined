@@ -88,6 +88,32 @@ test("writes sanitized partner-referral telemetry without persisting session IDs
   assert.match(points[0]?.indexes?.[0] || "", /^partner_referral_clicked:hotels\.com$/);
 });
 
+test("writes privacy-safe partner referral impressions with the same partner and placement dimensions", async () => {
+  const points: DataPoint[] = [];
+  const response = await texasDefinedOutcomeAnalyticsResponse(
+    request({
+      event: "partner_referral_shown",
+      resourceId: "citypass",
+      entityKind: "citypass-houston-destination",
+      destination: "https://citypass.7eer.net/c/7236213/305537/3331",
+      path: "/destination/houston?private=value",
+      occurredAt: "2026-09-18T13:30:00Z",
+      sessionId: "raw-session-id-must-not-persist",
+    }),
+    env(points),
+  );
+
+  assert.equal(response?.status, 202);
+  assert.deepEqual(await response?.json(), { accepted: 1 });
+  assert.equal(points.length, 1);
+  assert.equal(points[0]?.blobs?.[0], "partner_referral_shown");
+  assert.equal(points[0]?.blobs?.[1], "citypass");
+  assert.equal(points[0]?.blobs?.[6], "citypass-houston-destination");
+  assert.equal(points[0]?.blobs?.[10], "/destination/houston");
+  assert.ok(!JSON.stringify(points[0]).includes("raw-session-id-must-not-persist"));
+  assert.match(points[0]?.indexes?.[0] || "", /^partner_referral_shown:citypass$/);
+});
+
 test("rejects batches larger than the collector cap", async () => {
   const response = await texasDefinedOutcomeAnalyticsResponse(
     request({ events: Array.from({ length: 51 }, () => ({ event: "resource_found" })) }),

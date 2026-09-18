@@ -19,6 +19,7 @@ for (const [needle, label] of [
   ['const MAX_REQUEST_BYTES = 65_536', 'request-size limit'],
   ['const MAX_BATCH_EVENTS = 50', 'batch-size limit'],
   ['const OUTCOME_EVENTS = new Set([', 'event allowlist'],
+  ['"partner_referral_shown"', 'commercial referral impression event'],
   ['"partner_referral_clicked"', 'commercial referral event'],
   ['function sameOriginRequest(request: Request)', 'same-origin request guard'],
   ['request.headers.get("sec-fetch-site") !== "same-origin"', 'fetch-site fallback guard'],
@@ -42,7 +43,10 @@ for (const [needle, label] of [
   ["const ANALYTICS_ENDPOINT = (import.meta.env.VITE_ANALYTICS_ENDPOINT as string | undefined)?.trim() || '/api/analytics'", 'same-origin client endpoint default'],
   ['navigator.sendBeacon(ANALYTICS_ENDPOINT', 'beacon delivery'],
   ['fetch(ANALYTICS_ENDPOINT', 'queued-event delivery'],
+  ["trackTexasDefinedOutcome('partner_referral_shown'", 'partner referral impression tracking'],
   ["trackTexasDefinedOutcome('partner_referral_clicked'", 'partner referral tracking'],
+  ["a[data-entity-id], a[data-commercial-partner]", 'commercial impression observation'],
+  ["anchor.dataset.commercialImpressionRecorded = '1'", 'single commercial impression per CTA element'],
   ["entityKind: anchor.dataset.commercialPlacement || 'unspecified'", 'commercial placement attribution'],
 ]) requireText(client, needle, label);
 
@@ -51,7 +55,9 @@ for (const [needle, label] of [
   ['a[data-commercial-partner]', 'early commercial-link interception'],
   ['anchor?.dataset.commercialPartner', 'early commercial partner attribution'],
   ['anchor.dataset.commercialPlacement || "unspecified"', 'early commercial placement attribution'],
+  ['analytics.trackTexasDefinedOutcome("partner_referral_shown"', 'early implied commercial impression capture'],
   ['analytics.trackTexasDefinedOutcome("partner_referral_clicked"', 'early first-party referral capture'],
+  ['anchor.dataset.commercialImpressionRecorded = "1"', 'early impression de-duplication marker'],
   ['document.addEventListener("click", earlyCommercialClick, true)', 'capture-phase early referral listener'],
   ['document.removeEventListener("click", earlyCommercialClick, true)', 'early listener teardown'],
   ['}, 1500);', 'delayed background analytics fallback'],
@@ -70,6 +76,7 @@ for (const [needle, label] of [
 
 for (const [needle, label] of [
   ["'/api/analytics'", 'live analytics endpoint probe'],
+  ['partner_referral_shown', 'live partner-referral impression probe event'],
   ['partner_referral_clicked', 'live partner-referral probe event'],
   ['production-verifier', 'live probe placement marker'],
   ['ci-probe', 'live probe exclusion marker'],
@@ -90,4 +97,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('First-party outcome analytics validation passed: the browser has a same-origin default collector, partner placements are attributed, commercial clicks during the delayed analytics bootstrap are captured through the same code-split outcome module, the Worker accepts only bounded same-origin allowlisted events, likely direct identifiers in free-text queries are redacted, browser session IDs are not persisted, Cloudflare Analytics Engine has a dedicated dataset binding, and production verification exercises a real collector write.');
+console.log('First-party outcome analytics validation passed: the browser has a same-origin default collector, partner placements are attributed, qualifying commercial CTA impressions are recorded once per element, early clicks imply a de-duplicated impression before the delayed analytics bootstrap, the Worker accepts only bounded same-origin allowlisted events, likely direct identifiers in free-text queries are redacted, browser session IDs are not persisted, Cloudflare Analytics Engine has a dedicated dataset binding, and production verification exercises live impression and click collector writes.');

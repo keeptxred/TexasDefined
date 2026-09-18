@@ -11,6 +11,7 @@ export type TexasDefinedOutcomeEvent =
   | 'journey_completed'
   | 'official_resource_visited'
   | 'next_step_selected'
+  | 'partner_referral_shown'
   | 'partner_referral_clicked'
   | 'search_submitted'
   | 'assistant_submitted'
@@ -176,6 +177,22 @@ export function installTexasDefinedAnalytics() {
         for (const entry of entries) {
           if (!entry.isIntersecting) continue;
           const anchor = entry.target as HTMLAnchorElement;
+          const commercialPartner = anchor.dataset.commercialPartner;
+          if (commercialPartner) {
+            if (anchor.dataset.commercialImpressionRecorded === '1') {
+              observer?.unobserve(anchor);
+              continue;
+            }
+            anchor.dataset.commercialImpressionRecorded = '1';
+            trackTexasDefinedOutcome('partner_referral_shown', {
+              resourceId: commercialPartner,
+              entityKind: anchor.dataset.commercialPlacement || 'unspecified',
+              destination: anchor.href,
+            });
+            observer?.unobserve(anchor);
+            continue;
+          }
+
           const entityId = anchor.dataset.entityId;
           if (!entityId || shown.has(entityId)) continue;
           shown.add(entityId);
@@ -191,7 +208,7 @@ export function installTexasDefinedAnalytics() {
       }, { threshold: 0.5 })
     : undefined;
 
-  const observe = () => document.querySelectorAll<HTMLAnchorElement>('a[data-entity-id]').forEach((anchor) => observer?.observe(anchor));
+  const observe = () => document.querySelectorAll<HTMLAnchorElement>('a[data-entity-id], a[data-commercial-partner]').forEach((anchor) => observer?.observe(anchor));
   const mutation = observer ? new MutationObserver(observe) : undefined;
   document.addEventListener('click', click);
   observe();
