@@ -179,7 +179,7 @@ function DestinationPage() {
     />
 
     {isChokeCanyon && <span data-stay-nearby-disabled="true" className="hidden" aria-hidden="true" />}
-    <Container className={isChokeCanyon ? "grid gap-8 py-12 lg:grid-cols-[minmax(0,1.55fr)_minmax(280px,.85fr)] lg:py-14" : "grid gap-14 py-16 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:py-20"}>
+    <Container className={isChokeCanyon ? "grid gap-8 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:py-16" : "grid gap-14 py-16 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:py-20"}>
       <div className={isChokeCanyon ? "min-w-0" : "max-w-[44rem]"}>
         <section aria-labelledby="why-go" className="border-t border-border pt-8">
           <p className="eyebrow text-primary">The place</p>
