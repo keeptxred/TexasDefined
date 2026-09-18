@@ -65,7 +65,7 @@ function speciesTopic(input: {
       { heading: "Access is a separate legal check", paragraphs: [input.access], links: [PUBLIC, APH, OUTDOORS] },
       { heading: "Confirm the exact county and property", paragraphs: ["Season structure and legal game can vary by county, zone and property. Use the county and property-specific TPWD information before travel."], links: [COUNTIES, OFFICIAL.regulations] },
     ],
-    related: input.related ?? [HUNTING, SEASONS, PUBLIC, OUTDOORS, COUNTIES],
+    related: input.related ?? [SEASONS, PUBLIC, internal("Texas bag limits", "/hunting/bag-limits"), internal("Texas youth hunting", "/hunting/youth-hunting"), OUTDOORS, COUNTIES],
     faq: [
       { question: `Where should I verify current ${input.title.toLowerCase()} rules?`, answer: "Use the current TPWD species page, county rules and the individual public-property or hunt notice when applicable." },
       { question: "Can public-land rules differ from private-land rules?", answer: "Yes. Public properties can add legal-game, permit, method, date, boundary, check-in and other access restrictions." },
@@ -87,7 +87,7 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
       { heading: "Resolve license, education and accompaniment first", paragraphs: ["Youth licensing and youth-only season eligibility are related but not identical. Hunter-education and accompaniment requirements can depend on age and circumstances."], links: [LICENSE, EDUCATION, OFFICIAL.regulations] },
       { heading: "Public youth hunts can add another layer", paragraphs: ["A youth season does not automatically open every public property. APH areas, drawn hunts and individual properties can have their own legal-game listings, applications, permits, check-in procedures and supervision instructions."], links: [PUBLIC, APH, DRAWN] },
     ],
-    related: [HUNTING, PUBLIC, DRAWN, OUTDOORS, COUNTIES],
+    related: [LICENSE, EDUCATION, PUBLIC, DRAWN, internal("Texas hunting seasons", "/hunting/hunting-seasons"), COUNTIES],
     faq: [
       { question: "Which species have youth-only seasons in Texas for 2026–27?", answer: "TPWD lists youth-only opportunities for duck, squirrel, wild turkey and white-tailed deer. Dates, zones and eligible counties differ by species." },
       { question: "Does a youth hunting license automatically make every youth-only hunt legal?", answer: "No. Season eligibility, hunter education, accompaniment, endorsements, permits and property-specific rules can still apply." },
@@ -157,7 +157,7 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
       { heading: "Property permission and permit validity are separate checks", paragraphs: ["An open county does not create general access. Confirm landowner permission and that the TPWD permit is valid for that property before making travel plans."], links: [OFFICIAL.pronghorn, COUNTIES] },
       { heading: "Review after-harvest requirements before the hunt", paragraphs: ["Pronghorn harvest has species-specific tagging, proof-of-sex and transport rules. Review the current TPWD instructions in advance."], links: [OFFICIAL.pronghorn, OFFICIAL.regulations] },
     ],
-    related: [HUNTING, SEASONS, COUNTIES],
+    related: [SEASONS, internal("Texas bag limits", "/hunting/bag-limits"), internal("Texas public hunting guide", "/hunting/public-hunting"), COUNTIES],
     faq: [
       { question: "Can I hunt pronghorn in Texas without a permit?", answer: "No. TPWD states that pronghorn harvest is by permit only." },
       { question: "Does an open county mean any property is huntable?", answer: "No. Hunters need lawful property access and must verify the permit was issued to that property." },
@@ -177,7 +177,7 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
       { heading: "Alligator take is tied to private property", paragraphs: ["TPWD's current means-and-methods section says alligators may only be taken on private property. Do not use TexasDefined's public-hunting discovery as an alligator-access shortcut."], links: [OFFICIAL.alligator] },
       { heading: "CITES tags and harvest procedures matter", paragraphs: ["CITES tags are required in both core and non-core counties, with different issuance and documentation procedures. Review the current TPWD instructions before the hunt."], links: [OFFICIAL.alligator, OFFICIAL.regulations] },
     ],
-    related: [HUNTING, SEASONS, COUNTIES],
+    related: [SEASONS, internal("Texas bag limits", "/hunting/bag-limits"), internal("Texas public hunting guide", "/hunting/public-hunting"), COUNTIES],
     faq: [
       { question: "Can alligators be taken on ordinary public hunting land in Texas?", answer: "TPWD's current alligator rule says alligators may only be taken on private property. Verify any property-specific authorization directly with TPWD." },
       { question: "Is alligator season the same in every Texas county?", answer: "No. Core and non-core counties use different season structures." },
@@ -197,7 +197,7 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
       { heading: "Species and zone still control the season", paragraphs: ["Dove, duck, goose, teal, crane, rail, gallinule, snipe and woodcock do not share one statewide calendar. Use the current TPWD species page and zone or county rule."], links: [OFFICIAL.seasonDates, internal("Texas dove hunting guide", "/hunting/dove-hunting"), internal("Texas waterfowl hunting guide", "/hunting/waterfowl-hunting")] },
       { heading: "Methods can be more restrictive", paragraphs: ["Migratory game bird rules can differ from general hunting rules on methods and federal requirements. Verify the current special regulations rather than carrying over a rule from non-migratory game."], links: [OFFICIAL.migratoryBirds, OFFICIAL.meansMethods] },
     ],
-    related: [HUNTING, SEASONS, PUBLIC, APH, OUTDOORS],
+    related: [internal("Texas dove hunting guide", "/hunting/dove-hunting"), internal("Texas waterfowl hunting guide", "/hunting/waterfowl-hunting"), internal("Texas goose hunting guide", "/hunting/goose-hunting"), internal("Texas teal hunting guide", "/hunting/teal-hunting"), PUBLIC, APH],
     faq: [
       { question: "Do all migratory game birds use the same Texas season?", answer: "No. Seasons and zones differ by species." },
       { question: "Is a Texas hunting license the only requirement?", answer: "Not always. Migratory-bird endorsement, HIP certification, a federal duck stamp or another permit can apply depending on species and hunter age." },
@@ -256,7 +256,7 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
       { heading: "Migratory-bird requirements still apply", paragraphs: ["These species sit inside the migratory game bird framework, including endorsement and HIP requirements. Verify current methods and any species-specific rules."], links: [OFFICIAL.migratoryBirds, LICENSE] },
       { heading: "Confirm habitat and legal access separately", paragraphs: ["Marsh, wetland or bottomland habitat can identify where to look, but legal access and legal game remain property-specific."], links: [PUBLIC, APH, OUTDOORS] },
     ],
-    related: [internal("Migratory game bird guide", "/hunting/migratory-game-birds"), HUNTING, PUBLIC, OUTDOORS],
+    related: [internal("Migratory game bird guide", "/hunting/migratory-game-birds"), internal("Texas waterfowl hunting guide", "/hunting/waterfowl-hunting"), internal("Texas sandhill crane hunting guide", "/hunting/sandhill-crane-hunting"), PUBLIC, OUTDOORS],
     faq: [
       { question: "Are rails and woodcock covered by Texas migratory-game-bird rules?", answer: "Yes. TPWD includes them in the migratory game bird framework and publishes species-specific seasons and limits." },
       { question: "Do they use the duck season dates?", answer: "No. Use the individual TPWD season information for the species you intend to hunt." },
@@ -276,7 +276,7 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
       { heading: "Know what Texas classifies as a fur-bearing animal", paragraphs: ["TPWD's fur-bearing rules include badger, beaver, fox, mink, muskrat, nutria, opossum, raccoon, otter, skunk and ring-tailed cat, with additional species-specific requirements in some cases."], links: [OFFICIAL.furbearers] },
       { heading: "Methods and property rules remain separate checks", paragraphs: ["Legal means, commercial or recreational season structure, public-land restrictions and landowner permission can all change the answer for a particular take."], links: [OFFICIAL.meansMethods, PUBLIC, OUTDOORS] },
     ],
-    related: [HUNTING, LICENSE, EDUCATION, PUBLIC, OUTDOORS],
+    related: [LICENSE, EDUCATION, internal("Texas hunting seasons", "/hunting/hunting-seasons"), PUBLIC, OUTDOORS],
     faq: [
       { question: "Do I need a Texas trapper's license for every fur-bearer take?", answer: "Not necessarily. TPWD distinguishes recreational take from commercial harvest for sale. Use the current license requirements for your purpose and method." },
       { question: "Which animals are fur-bearers in Texas?", answer: "TPWD's fur-bearing framework includes badger, beaver, fox, mink, muskrat, nutria, opossum, raccoon, otter, skunk and ring-tailed cat." },
