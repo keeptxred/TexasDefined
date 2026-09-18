@@ -82,7 +82,7 @@ const repairedWave7 = [
   const expectedImageUrl = governedPhoto.imageUrl;
   const assetPath = expectedImageUrl.startsWith('/') ? expectedImageUrl : undefined;
   const generated = governedPhoto.sourceName === 'Texas Defined generated media'
-    || /^AI-generated\\b/i.test(governedPhoto.licenseName);
+    || /^AI-generated\b/i.test(governedPhoto.licenseName);
   const attributionMarkers = generated
     ? wave7GeneratedAttribution
     : [governedPhoto.sourceName, governedPhoto.author, governedPhoto.licenseName];
@@ -95,7 +95,7 @@ const repairedWave7 = [
     required: [
       ...(assetPath ? [
         expectedImageUrl,
-        `content=\\"${origin}${expectedImageUrl}\\"`,
+        `content="${origin}${expectedImageUrl}"`,
       ] : []),
       governedPhoto.alt,
       ...attributionMarkers,
