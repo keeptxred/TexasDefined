@@ -168,15 +168,53 @@ function RootComponent() {
   useEffect(() => {
     let active = true;
     let cleanup: (() => void) | undefined;
+    let installed = false;
+    let analyticsPromise: Promise<typeof import("@/platform/analytics")> | undefined;
+
+    const loadAnalytics = () => {
+      analyticsPromise ??= import("@/platform/analytics");
+      return analyticsPromise;
+    };
+
+    const ensureAnalyticsInstalled = async () => {
+      const analytics = await loadAnalytics();
+      if (active && !installed) {
+        cleanup = analytics.installTexasDefinedAnalytics();
+        installed = true;
+      }
+      return analytics;
+    };
+
+    const earlyCommercialClick = (event: MouseEvent) => {
+      if (!active || installed) return;
+      const anchor = (event.target as Element | null)?.closest("a[data-commercial-partner]") as HTMLAnchorElement | null;
+      const resourceId = anchor?.dataset.commercialPartner;
+      if (!anchor || !resourceId) return;
+
+      const entityKind = anchor.dataset.commercialPlacement || "unspecified";
+      const destination = anchor.href;
+      void ensureAnalyticsInstalled().then((analytics) => {
+        if (!active) return;
+        analytics.trackTexasDefinedOutcome("partner_referral_clicked", {
+          resourceId,
+          entityKind,
+          destination,
+        });
+        document.removeEventListener("click", earlyCommercialClick, true);
+      });
+    };
+
+    document.addEventListener("click", earlyCommercialClick, true);
     const id = window.setTimeout(() => {
-      void import("@/platform/analytics").then(({ installTexasDefinedAnalytics }) => {
-        if (active) cleanup = installTexasDefinedAnalytics();
+      void ensureAnalyticsInstalled().then(() => {
+        document.removeEventListener("click", earlyCommercialClick, true);
       });
     }, 1500);
 
     return () => {
       active = false;
       window.clearTimeout(id);
+      document.removeEventListener("click", earlyCommercialClick, true);
       cleanup?.();
     };
   }, []);

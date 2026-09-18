@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const read = (path) => fs.readFileSync(path, 'utf8');
 const collector = read('src/lib/texas-defined-outcome-analytics.server.ts');
 const client = read('src/platform/analytics.ts');
+const root = read('src/routes/__root.tsx');
 const serverEntry = read('src/server-entry.ts');
 const wrangler = read('wrangler.jsonc');
 const productionVerifier = read('scripts/ci/verify-stay-affiliate-production.mjs');
@@ -46,6 +47,17 @@ for (const [needle, label] of [
 ]) requireText(client, needle, label);
 
 for (const [needle, label] of [
+  ['analyticsPromise ??= import("@/platform/analytics")', 'analytics remains code-split'],
+  ['a[data-commercial-partner]', 'early commercial-link interception'],
+  ['anchor?.dataset.commercialPartner', 'early commercial partner attribution'],
+  ['anchor.dataset.commercialPlacement || "unspecified"', 'early commercial placement attribution'],
+  ['analytics.trackTexasDefinedOutcome("partner_referral_clicked"', 'early first-party referral capture'],
+  ['document.addEventListener("click", earlyCommercialClick, true)', 'capture-phase early referral listener'],
+  ['document.removeEventListener("click", earlyCommercialClick, true)', 'early listener teardown'],
+  ['}, 1500);', 'delayed background analytics fallback'],
+]) requireText(root, needle, label);
+
+for (const [needle, label] of [
   ['import { texasDefinedOutcomeAnalyticsResponse } from "./lib/texas-defined-outcome-analytics.server";', 'Worker collector import'],
   ['const outcomeAnalyticsResponse = await texasDefinedOutcomeAnalyticsResponse(request, env);', 'Worker collector invocation'],
   ['if (outcomeAnalyticsResponse) return outcomeAnalyticsResponse;', 'Worker collector response routing'],
@@ -78,4 +90,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('First-party outcome analytics validation passed: the browser has a same-origin default collector, partner placements are attributed, the Worker accepts only bounded same-origin allowlisted events, likely direct identifiers in free-text queries are redacted, browser session IDs are not persisted, Cloudflare Analytics Engine has a dedicated dataset binding, and production verification exercises a real collector write.');
+console.log('First-party outcome analytics validation passed: the browser has a same-origin default collector, partner placements are attributed, commercial clicks during the delayed analytics bootstrap are captured through the same code-split outcome module, the Worker accepts only bounded same-origin allowlisted events, likely direct identifiers in free-text queries are redacted, browser session IDs are not persisted, Cloudflare Analytics Engine has a dedicated dataset binding, and production verification exercises a real collector write.');
