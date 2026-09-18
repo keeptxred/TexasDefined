@@ -118,7 +118,7 @@ requireText(topicPaths, 'label: "Painted Churches"', 'Small-town reciprocal link
 forbidText(categoryRoute, 'Explore 18 historic church guides', 'Explore category Painted Churches promo');
 requireText(categoryRoute, 'Explore the verified statewide church collection', 'Explore category Painted Churches promo');
 forbidText(trustRouter, '22-church verified collection', 'Painted Churches trust panel');
-requireText(trustRouter, 'the canonical collection controls the current church count', 'Painted Churches trust panel');
+requireText(trustRouter, 'the main collection controls the current church count', 'Painted Churches trust panel');
 
 const authorityPaths = [
   '/explore/painted-churches/map', '/explore/painted-churches/compare', '/explore/painted-churches/how-many',
