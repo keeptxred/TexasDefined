@@ -88,8 +88,8 @@ const venuePageChecks = [
       'Know before you go',
       'Planning your visit to Gerald J. Ford Stadium',
       'Parking',
-      'Official parking source',
       'Arrival',
+      'Official parking source',
     ],
   },
   {
@@ -99,8 +99,8 @@ const venuePageChecks = [
       'Know before you go',
       'Planning your visit to Xtreme Raceway Park',
       'Parking',
-      'Official parking source',
       'Arrival',
+      'Official parking source',
     ],
   },
   {
@@ -110,8 +110,8 @@ const venuePageChecks = [
       'Know before you go',
       'Planning your visit to Memorial Park Golf Course',
       'Parking',
-      'Official parking source',
       'Arrival',
+      'Official parking source',
     ],
   },
 ];
