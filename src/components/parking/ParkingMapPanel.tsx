@@ -4,11 +4,9 @@ import { isPublishableParkingMap } from '@/data/parking-map-model';
 export function ParkingMapPanel({
   map,
   contextName,
-  embedded = false,
 }: {
   map?: ParkingMapAsset;
   contextName: string;
-  embedded?: boolean;
 }) {
   if (!isPublishableParkingMap(map)) return null;
 
@@ -56,31 +54,11 @@ export function ParkingMapPanel({
     </>
   );
 
-  if (embedded) {
-    return (
-      <div className="mt-6 grid gap-6 border-t border-border pt-5 lg:grid-cols-2 lg:items-start" aria-label={`Parking orientation for ${contextName}`}>
-        {mapFigure}
-        <div className="border-t border-border pt-4 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">{sourceLinks}</div>
-      </div>
-    );
-  }
-
   return (
-    <section className="border-b border-border py-10 sm:py-12" aria-labelledby={`parking-map-${map.id.replace(/[^a-z0-9]+/gi, '-')}`}>
-      <div className="grid gap-7 lg:grid-cols-[15rem_1fr]">
-        <div>
-          <p className="eyebrow text-primary">Parking map</p>
-          <h2 id={`parking-map-${map.id.replace(/[^a-z0-9]+/gi, '-')}`} className="mt-2 font-display text-3xl leading-tight">
-            Parking orientation for {contextName}
-          </h2>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">
-            Use this diagram for orientation, then check the official venue or event source for current event-day assignments.
-          </p>
-          <div className="mt-6 border-t border-border pt-4">{sourceLinks}</div>
-        </div>
-        <div className="min-w-0">{mapFigure}</div>
-      </div>
-    </section>
+    <div className="mt-6 grid gap-6 border-t border-border pt-5 lg:grid-cols-2 lg:items-start" aria-label={`Parking orientation for ${contextName}`}>
+      {mapFigure}
+      <div className="border-t border-border pt-4 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">{sourceLinks}</div>
+    </div>
   );
 }
 

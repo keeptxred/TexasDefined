@@ -59,8 +59,14 @@ if (!failures.length) {
   if (!directoryServer.includes("verifiedListing: true") || !profileServer.includes('guide.status !== "published" || !guide.verifiedListing')) failures.push("Guide directory/profile server gate is incomplete.");
   if (!guideSitemap.includes("verifiedListing: true") || !search.includes("verifiedListing: true") || !internalLinks.includes("verifiedListing: true")) failures.push("Unverified guides could leak into sitemap, search or internal-link discovery.");
 
-  if (!directoryUi.includes("does not create placeholder guide identities") || !directoryUi.includes("No fishing guide has cleared the statewide verified-listing gate yet")) failures.push("Honest zero-guide state or anti-fabrication disclosure missing.");
-  if (!profileUi.includes("Missing details stay missing until they are verified") || !profileUi.includes("guide.startingPriceCents !== undefined")) failures.push("Guide profile optional-fact rendering is not protected.");
+  if (!directoryUi.includes("does not create placeholder guide identities") || !directoryUi.includes("No fishing guide listings are published yet.")) failures.push("Honest zero-guide state or anti-fabrication disclosure missing.");
+  if (!profileUi.includes("Only source-backed listing details are shown.") || !profileUi.includes("Sources for this listing") || !profileUi.includes("guide.startingPriceCents !== undefined")) failures.push("Guide profile visitor-facing source-backed optional-fact rendering is not protected.");
+  for (const phrase of ["Fishing guide directory", "Public results include only source-backed listings", "Waters served", "Target species", "View guide profile →"]) {
+    if (!directoryUi.includes(phrase)) failures.push(`Fishing guide directory is missing visitor-facing label: ${phrase}`);
+  }
+  for (const stale of ["verifiedListing=true", "Verified directory", "Verified fishing guide", "Verified waters", "Verified target species", "View verified guide profile"]) {
+    if (directoryUi.includes(stale)) failures.push(`Fishing guide directory still exposes implementation/verification-heavy copy: ${stale}`);
+  }
   for (const signal of ["guideLakes:", "guideSpecies:", "GuideLakeRelationship", "GuideSpeciesRelationship"]) if (!repositories.includes(signal)) failures.push(`Guide relationship repository contract missing: ${signal}`);
   for (const signal of ["verified-guide-lake-relationship", "verified-guide-species-relationship", "verified-guide-lake-mismatch", "verified-guide-species-mismatch"]) if (!validation.includes(signal)) failures.push(`Verified guide relationship validation missing: ${signal}`);
   if (!directoryServer.includes("guideLakes.filter") || !directoryServer.includes("guideSpecies.filter") || !profileServer.includes("fishingPlatform.guideLakes.list") || !profileServer.includes("fishingPlatform.guideSpecies.list")) failures.push("Guide pages are not using guide-to-lake and guide-to-species relationships.");
@@ -105,11 +111,11 @@ if (!failures.length) {
   if (!submitLazy.includes('createLazyFileRoute("/fishing/guides/submit")') || !submitLazy.includes("FishingGuideOnboardingForm pageData={Route.useLoaderData()}")) failures.push("Guide onboarding form is not native-lazy loaded.");
   if (submitRoute.includes("FishingGuideOnboardingForm") || /\bcomponent\s*:/.test(submitRoute)) failures.push("Guide onboarding UI leaked into critical route.");
   for (const phrase of ["Submission does not publish a listing", "A free verified listing and paid sponsorship are separate", "does not automatically publish", "source URLs", "Sponsorship is a separate commercial workflow"]) if (!`${onboardingServer}\n${onboardingUi}`.includes(phrase)) failures.push(`Guide onboarding integrity disclosure missing: ${phrase}`);
-  if (!directoryUi.includes('to="/fishing/guides/submit"') || !directoryUi.includes("Open the fishing-guide verification form")) failures.push("Guide directory does not discover the dedicated verification workflow.");
+  if (!directoryUi.includes('to="/fishing/guides/submit"') || !directoryUi.includes("Open the fishing-guide listing form")) failures.push("Guide directory does not discover the dedicated listing workflow.");
   if (!directoryUi.includes('to="/partner-with-us"') || !directoryUi.includes("Ask about a sponsored fishing-guide placement")) failures.push("Fishing sponsorship inquiry must remain separate from free listing verification.");
 
   for (const filter of ['name="lake"', 'name="region"', 'name="species"', 'name="trip"']) if (!directoryUi.includes(filter)) failures.push(`Guide directory filter missing: ${filter}`);
-  if (!directoryUi.includes("Trip type") || !directoryUi.includes("Available when verified")) failures.push("Trip-type filter must remain honest when the model has no verified trip-type data.");
+  if (!directoryUi.includes("Trip type") || !directoryUi.includes("Available when supported by listing data")) failures.push("Trip-type filter must remain honest when the model has no source-backed trip-type data.");
   if (!sitemap.includes("FISHING_GUIDES_DIRECTORY_PATH") || !guideSitemap.includes("fishingGuideCanonicalPath") || !primarySitemap.includes("loadFishingGuideSitemapEntriesServer") || !primarySitemap.includes("...fishingGuideSitemapEntries")) failures.push("Fishing guide sitemap coverage incomplete.");
 
   if (!directoryFunctions.includes("createServerFn") || !profileFunctions.includes("createServerFn") || !profileFunctions.includes("inputValidator")) failures.push("Fishing guide server-function boundary incomplete.");
