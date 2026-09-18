@@ -87,7 +87,7 @@ for (const token of [
   'contentUrl: csvUrl',
   'contentUrl: jsonUrl',
   'Download comparison CSV',
-  'Download reference JSON',
+  'Download JSON data',
   'variableMeasured',
 ]) expect(topRoute.includes(token), `Top 25 Dataset distribution missing: ${token}`);
 for (const token of [
