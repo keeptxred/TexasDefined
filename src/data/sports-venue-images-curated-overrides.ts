@@ -1,6 +1,18 @@
 import type { SportsVenuePhoto } from './sports-venue-images';
 
 const curatedSportsVenuePhotoOverrides: Record<string, SportsVenuePhoto> = {
+  'cy-fair-fcu-stadium': {
+    slug: 'cy-fair-fcu-stadium',
+    alt: 'Richard E. Berry Educational Support Center at the Berry Center complex, home of Cy-Fair FCU Stadium in Cypress, Texas',
+    imageUrl: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Richard_E._Berry_Educational_Support_Center.png?width=1600',
+    sourcePage: 'https://commons.wikimedia.org/wiki/File:Richard_E._Berry_Educational_Support_Center.png',
+    sourceName: 'Wikimedia Commons',
+    author: 'CrimsonJazzDynamo',
+    licenseName: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    width: 4288,
+    height: 2848,
+  },
   'legacy-stadium-katy': {
     slug: 'legacy-stadium-katy',
     alt: 'Football game and crowd activity at Legacy Stadium in Katy, Texas',
