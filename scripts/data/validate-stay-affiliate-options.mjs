@@ -195,7 +195,7 @@ for (const [needle, label] of [
 for (const [needle, label] of [
   ['data-stay-nearby-slot', 'destination in-content Stay Nearby slot'],
   ['Places to stay near ${destination.name}', 'destination stay-slot accessibility label'],
-  ['What to know before you go', 'destination planning adjacency'],
+  ['Things to do and see', 'destination planning adjacency'],
 ]) requireText(destinationPlanner, needle, label);
 
 for (const [needle, label] of [
