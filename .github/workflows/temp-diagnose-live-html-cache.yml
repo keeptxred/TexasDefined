@@ -1,0 +1,58 @@
+name: TEMP Diagnose live HTML cache
+
+on:
+  push:
+    branches:
+      - diag/live-html-cache-20260918
+    paths:
+      - '.github/workflows/temp-diagnose-live-html-cache.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Compare direct Worker and custom domain
+        shell: bash
+        run: |
+          node <<'NODE'
+          const targets = [
+            ['direct-worker', 'https://texasdefined-site.freddy-coppola.workers.dev/sports-venue/gerald-j-ford-stadium'],
+            ['custom-domain', 'https://texasdefined.com/sports-venue/gerald-j-ford-stadium'],
+          ];
+          for (const [label, base] of targets) {
+            for (const mode of ['bare', 'revision']) {
+              const url = mode === 'bare' ? base : `${base}?td_cache_diag=${Date.now()}`;
+              const response = await fetch(url, {
+                redirect: 'follow',
+                cache: 'no-store',
+                headers: {
+                  'user-agent': 'TexasDefined-Cache-Diagnostic/1.0',
+                  'cache-control': 'no-cache',
+                  pragma: 'no-cache',
+                },
+                signal: AbortSignal.timeout(30000),
+              });
+              const body = await response.text();
+              const markers = {
+                officialParkingSources: body.includes('Official parking sources'),
+                verificationSources: body.includes('Verification sources'),
+                accuracyChecks: body.includes('Accuracy checks'),
+              };
+              console.log(JSON.stringify({
+                label, mode, url,
+                status: response.status,
+                cfCacheStatus: response.headers.get('cf-cache-status'),
+                age: response.headers.get('age'),
+                cacheControl: response.headers.get('cache-control'),
+                etag: response.headers.get('etag'),
+                lastModified: response.headers.get('last-modified'),
+                server: response.headers.get('server'),
+                markers,
+              }));
+            }
+          }
+          NODE
