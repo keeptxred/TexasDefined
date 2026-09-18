@@ -136,7 +136,8 @@ for (const marker of [
   'mainEntityOfPage: canonicalUrl',
   'image: venueHeroUrl',
   'Event-day essentials',
-  '{entity.name} parking, arrival and event planning',
+  'Planning your visit to {entity.name}',
+  '<ParkingMapPanel map={parkingMap} contextName={entity.name} embedded />',
   'parking={enrichment?.parking}',
   'arrival={enrichment?.arrival}',
   'Parking at ${entity.name}',
@@ -176,6 +177,9 @@ for (const marker of [
 }
 assert(!guide.includes('`${entity.name}: Texas Sports Venue & Visitor Guide`'), 'Sports venue search titles must not regress to the long generic boilerplate title.');
 assert(!guide.includes('const nearbyPlaces = related.filter'), 'Sports venue guide must not describe generic related entities as nearby when the seed lacks reliable distance data.');
+for (const stale of ['Explore the collection', 'More venues like {entity.name}', 'Browse collection →']) {
+  assert(!guide.includes(stale), `Legacy sports venue guide must not render retired collection copy: ${stale}.`);
+}
 
 for (const marker of [
   'parking?: string;',
