@@ -71,9 +71,9 @@ export function MetroRelocationAuthority({ articlePath }: { articlePath: string 
 
   return (
     <aside className="my-14 border-y border-border bg-surface px-5 py-8 sm:px-7 sm:py-10" aria-labelledby="metro-relocation-authority">
-      <p className="eyebrow text-primary">Relocation Data Desk · {metro.name}</p>
+      <p className="eyebrow text-primary">Metro research · {metro.name}</p>
       <h2 id="metro-relocation-authority" className="mt-3 font-display text-3xl leading-tight sm:text-4xl">
-        Put this metro guide against the underlying data
+        See the data behind this metro guide
       </h2>
       <p className="mt-4 text-sm leading-7 text-muted-foreground">
         {metro.researchNote} Jobs, migration, insurance and traffic come from different datasets and vintages, so Texas Defined does not collapse them into a composite “best city” score.
@@ -89,7 +89,7 @@ export function MetroRelocationAuthority({ articlePath }: { articlePath: string 
               <dd className="text-muted-foreground">{metro.counties.join(", ")}</dd>
             </div>
             <div>
-              <dt className="font-semibold text-foreground">Places in this research layer</dt>
+              <dt className="font-semibold text-foreground">Places included here</dt>
               <dd className="text-muted-foreground">{metro.places.join(", ")}</dd>
             </div>
             <div>
