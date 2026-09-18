@@ -194,7 +194,7 @@ for (const [needle, label] of [
   ['splitEventHtmlForParking', 'event parking placement helper'],
   ['beforeParking', 'event planning content before parking map'],
   ['afterParking', 'event continuation content after parking map'],
-  ['<ParkingMapPanel map={parkingMap} contextName={page.venue ?? page.title} embedded />', 'event parking map embedded before discovery tail'],
+  ['<ParkingMapPanel map={parkingMap} contextName={page.venue ?? page.title} />', 'event parking map embedded before discovery tail'],
 ]) requireText(eventRoute, needle, label);
 
 for (const [needle, label] of [
