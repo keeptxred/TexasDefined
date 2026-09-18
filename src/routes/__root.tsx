@@ -74,6 +74,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "google-adsense-account", content: "ca-pub-1891256141359926" },
+      { name: "msvalidate.01", content: "74E5E79AEC351CF6D2577A6FC6A125DF" },
       { title: texasDefinedBrand.seo.defaultTitle },
       { name: "description", content: texasDefinedBrand.seo.defaultDescription },
       { name: "author", content: texasDefinedBrand.identity.name },
