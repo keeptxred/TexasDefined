@@ -3,6 +3,8 @@ import path from 'node:path';
 
 const sourceRoot = 'src';
 const sharedTrackerPath = path.normalize('src/lib/affiliate-click.ts');
+const outcomeClientPath = path.normalize('src/platform/analytics.ts');
+const publicRoot = 'public';
 const sourceExtensions = new Set(['.js', '.jsx', '.ts', '.tsx']);
 const failures = [];
 
@@ -22,11 +24,26 @@ if (!fs.existsSync(sharedTrackerPath)) {
 }
 
 const sharedTracker = fs.readFileSync(sharedTrackerPath, 'utf8');
+if (!fs.existsSync(outcomeClientPath)) {
+  failures.push(`Missing centralized first-party outcome client: ${outcomeClientPath}.`);
+}
+const outcomeClient = fs.existsSync(outcomeClientPath) ? fs.readFileSync(outcomeClientPath, 'utf8') : '';
 for (const [pattern, label] of [
   [/event\s*:\s*["'`]affiliate_click["'`]/, 'shared affiliate_click payload'],
   [/new\s+CustomEvent\s*\(\s*["'`]texasdefined:affiliate-click["'`]/, 'shared browser event dispatch'],
 ]) {
   if (!pattern.test(sharedTracker)) failures.push(`Shared tracker is missing ${label}.`);
+}
+
+for (const [needle, label] of [
+  ["const commercialPartner = anchor.dataset.commercialPartner;", 'delegated commercial-link detection'],
+  ["trackTexasDefinedOutcome('partner_referral_clicked'", 'single first-party partner referral outcome'],
+]) {
+  if (!outcomeClient.includes(needle)) failures.push(`Central outcome client is missing ${label}.`);
+}
+
+if (sharedTracker.includes('partner_referral_clicked') || sharedTracker.includes('trackTexasDefinedOutcome(')) {
+  failures.push('Shared affiliate marketing tracker must not write first-party partner_referral_clicked outcomes; the delegated platform listener owns that count.');
 }
 
 for (const file of walk(sourceRoot)) {
@@ -42,10 +59,20 @@ for (const file of walk(sourceRoot)) {
   }
 }
 
+if (fs.existsSync(publicRoot)) {
+  for (const file of walk(publicRoot)) {
+    if (path.extname(file) !== '.js') continue;
+    const source = fs.readFileSync(file, 'utf8');
+    if (source.includes('partner_referral_clicked')) {
+      failures.push(`${file} writes partner_referral_clicked directly; public affiliate bootstraps must rely on the centralized delegated commercial-link listener to avoid double counting.`);
+    }
+  }
+}
+
 if (failures.length) {
   console.error('Shared affiliate tracker governance failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('Shared affiliate tracker governance passed: React/source affiliate emitters are centralized in src/lib/affiliate-click.ts.');
+console.log('Shared affiliate tracker governance passed: React/source affiliate marketing emitters are centralized in src/lib/affiliate-click.ts, while first-party partner referral counting remains single-path through src/platform/analytics.ts with no direct public-bootstrap writes.');
