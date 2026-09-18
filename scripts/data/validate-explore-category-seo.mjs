@@ -304,7 +304,7 @@ const landingCategoryTable = landing.match(/export const EXPLORE_CATEGORIES = \[
 const landingCategorySlugs = [...landingCategoryTable.matchAll(/"([^"]+)"/g)].map((match) => match[1]);
 
 function categorySourceBlock(source, slug) {
-  return source.match(new RegExp('slug: "' + slug + '"(?: as Category\\["slug"\\])?,[\\s\\S]*?(?=\\n  \\},\\n  \\{|\\n  \\},?$)'))?.[0] ?? '';
+  return source.match(new RegExp('slug: "' + slug + '"(?: as Category\\["slug"\\])?,[\\s\\S]*?(?=\\n  \\},\\n  \\{|\\n  \\},\\n\\];|\\n  \\},?$)'))?.[0] ?? '';
 }
 
 function categoryImageToken(block) {
