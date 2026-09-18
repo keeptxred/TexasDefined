@@ -10,6 +10,7 @@ const articleRoute = read('src/routes/article.$slug.tsx');
 const destinationRoute = read('src/routes/destination.$slug.tsx');
 const duplicateGuard = read('scripts/data/validate-editorial-image-duplicates.mjs');
 const header = read('src/components/layout/Header.tsx');
+const brandConfig = read('src/brand/texasdefined.ts');
 const rootRoute = read('src/routes/__root.tsx');
 const button = read('src/components/ui/button.tsx');
 const input = read('src/components/ui/input.tsx');
@@ -57,6 +58,15 @@ for (const [name, source] of [['ProductCard', productCard], ['ShopTheStory', sho
     if (!source.includes(feature)) errors.push(`${name} responsive image contract missing: ${feature}`);
   }
 }
+
+const exploreNav = brandConfig.match(/label: "Explore",[\s\S]*?children: \[([\s\S]*?)\n      \],/)?.[1] ?? '';
+const exploreCards = [...exploreNav.matchAll(/\{ label: "([^"]+)"/g)].map((match) => match[1]);
+const exploreImages = [...exploreNav.matchAll(/image:\s*\{\s*src:\s*([^,]+),\s*alt:\s*"([^"]+)"/g)].map((match) => ({ src: match[1].trim(), alt: match[2].trim() }));
+if (!exploreNav) errors.push('Explore navigation image contract could not be parsed from brand config.');
+if (exploreCards.length !== exploreImages.length) errors.push(`Every Explore mega-menu card must have an image: found ${exploreImages.length} images for ${exploreCards.length} cards.`);
+const exploreImageSources = exploreImages.map((image) => image.src);
+if (new Set(exploreImageSources).size !== exploreImageSources.length) errors.push('Explore mega-menu cards must use distinct image sources; duplicate imagery detected.');
+if (exploreImages.some((image) => !image.alt)) errors.push('Every Explore mega-menu image must have descriptive alt text.');
 
 for (const feature of ['duplicate hero image group', 'Every editorial article must have its own hero image']) {
   if (!duplicateGuard.includes(feature)) errors.push(`Editorial image uniqueness protection missing: ${feature}`);
