@@ -67,7 +67,7 @@ export function ParkingMapPanel({
 
   return (
     <section className="border-b border-border py-10 sm:py-12" aria-labelledby={`parking-map-${map.id.replace(/[^a-z0-9]+/gi, '-')}`}>
-      <div className="grid items-start gap-7 lg:grid-cols-[15rem_minmax(0,1fr)]">
+      <div className="grid gap-7 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Parking map</p>
           <h2 id={`parking-map-${map.id.replace(/[^a-z0-9]+/gi, '-')}`} className="mt-2 font-display text-3xl leading-tight">
