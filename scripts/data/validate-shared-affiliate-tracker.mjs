@@ -93,10 +93,10 @@ for (const file of walk(sourceRoot)) {
   if (/new\s+CustomEvent\s*\(\s*["'`]texasdefined:affiliate-click["'`]/.test(source)) {
     failures.push(`${file} dispatches texasdefined:affiliate-click locally; use src/lib/affiliate-click.ts instead.`);
   }
-}
 
   validateAffiliateAnchorMetadata(file, source);
   validateDomAffiliateMetadata(file, source);
+}
 
 if (fs.existsSync(publicRoot)) {
   for (const file of walk(publicRoot)) {
