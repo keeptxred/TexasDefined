@@ -255,6 +255,11 @@ const lowInbound = Object.fromEntries(lowInboundThresholds.map((threshold) => {
     families: Object.fromEntries([...families.entries()].sort((a, b) => b[1] - a[1])),
   }];
 }));
+const weakInboundUrls = urls
+  .map((url) => ({ url, inboundCount: inboundCounts.get(url) ?? 0, family: familyFor(url) }))
+  .filter((item) => item.inboundCount <= 3)
+  .sort((left, right) => left.inboundCount - right.inboundCount || left.family.localeCompare(right.family) || left.url.localeCompare(right.url));
+
 const inboundDistribution = Object.fromEntries(
   [...new Map(urls.map((url) => inboundCounts.get(url) ?? 0).map((count) => [count, 0])).keys()]
     .sort((a, b) => a - b)
@@ -284,6 +289,7 @@ const report = {
     zeroInboundFamilies: Object.fromEntries([...zeroInboundFamilies.entries()].sort((a, b) => b[1] - a[1])),
     lowInbound,
     inboundDistribution,
+    weakInboundUrls,
     urls: zeroInboundUrls,
   },
 };
