@@ -4,7 +4,7 @@ import type { TexasCountyComparisonRow } from '@/data/county-comparison';
 export function TexasCountyComparisonTable({
   rows,
   title = 'Compare Texas counties',
-  description = 'Compare county seats, 2020 Census population, land area, derived population density, water share and structured community relationships, then open the county reference or property-tax guide.',
+  description = 'Compare county seats, 2020 Census population, land area, population density, water share and listed communities, then open the county guide or property-tax guide.',
   limit,
 }: {
   rows: TexasCountyComparisonRow[];
