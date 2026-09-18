@@ -41,10 +41,19 @@ if (/sessionId|session_id/.test(sync)) errors.push('Sync must not read or persis
 for (const [needle, label] of [
   ["schedule:", 'scheduled sync'],
   ["cron: '17 * * * *'", 'hourly sync cadence'],
+  ['authorize:', 'protected authorization job'],
   ['environment: texasdefined-publication', 'protected GitHub environment'],
-  ['CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}', 'private Cloudflare secret'],
+  ['Authorize private referral sync', 'explicit environment authorization step'],
+  ['needs: authorize', 'sync dependency on protected authorization'],
+  ['CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}', 'repository Cloudflare analytics secret'],
   ["SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}", 'private Supabase secret'],
 ]) expect(workflow, needle, label);
+
+const syncJobMatch = workflow.match(/\n  sync:\n([\s\S]*)$/);
+if (!syncJobMatch) errors.push('Sync workflow must define a sync job.');
+else if (/^    environment:/m.test(syncJobMatch[1])) {
+  errors.push('Sync job must remain outside the texasdefined-publication environment so repository-level Analytics Engine credentials are not shadowed by environment-scoped deployment credentials.');
+}
 
 for (const [needle, label] of [
   ["assertSportsPartnerAccess(accessKey)", 'commercial admin authorization'],
@@ -86,4 +95,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Partner referral reporting validation passed: referral clicks are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, and analytics credentials remain confined to the protected scheduled workflow.');
+console.log('Partner referral reporting validation passed: referral clicks are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, the scheduled sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
