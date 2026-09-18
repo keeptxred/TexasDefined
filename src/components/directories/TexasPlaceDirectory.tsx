@@ -23,7 +23,7 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
   const title = mode === "counties" ? "The Texas county directory" : "The Texas city directory";
   const intro = mode === "counties"
     ? "Find a county, then continue to verified local property-tax guides, official offices and public records."
-    : "Find a Texas city by county and region, then open a verified city authority guide where available or continue to its county guide, relocation research center, salary comparisons and cost-of-living tools.";
+    : "Find a Texas city by county and region, then open its city guide where available or continue to the county guide, moving tools, salary comparisons and cost-of-living tools.";
   const searchLabel = mode === "counties" ? "county" : "city";
   const current = mode === "counties" ? "Counties" : "Cities";
 
