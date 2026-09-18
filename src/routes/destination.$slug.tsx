@@ -168,7 +168,7 @@ function DestinationPage() {
     </section>
 
     <AnswerSummary
-      eyebrow="Plan the visit"
+      eyebrow="Planning your visit"
       title={`${destination.name} at a glance`}
       items={[
         { question: `Where is ${destination.name}?`, answer: locationAnswer },
@@ -183,12 +183,12 @@ function DestinationPage() {
       <div className={isChokeCanyon ? "min-w-0" : "max-w-[44rem]"}>
         <section aria-labelledby="why-go" className="border-t border-border pt-8">
           <p className="eyebrow text-primary">The place</p>
-          <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">Why {destination.name} belongs on the list</h2>
+          <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">Why {destination.name} belongs on our {categoryName.toLowerCase()} list</h2>
           <div className="editorial-body mt-7 text-foreground/90">{destination.body.map((paragraph) => <p key={paragraph} className="mt-6 first:mt-0"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}</div>
         </section>
         <section aria-labelledby="before-you-go" className={isChokeCanyon ? "mt-10 border-t border-border pt-6" : "mt-16 border-t border-border pt-8"}>
           <p className="eyebrow text-primary">The details</p>
-          <h2 id="before-you-go" className="mt-3 font-display text-3xl">Plan the visit</h2>
+          <h2 id="before-you-go" className="mt-3 font-display text-3xl">Planning your visit</h2>
           <dl className="mt-8 grid border-y border-border sm:grid-cols-2">
             <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">Nearest town</dt><dd className="mt-2 text-base">Near <AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} />, Texas</dd></div>
             <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Best season</dt><dd className="mt-2 text-base">{destination.bestSeason}</dd></div>

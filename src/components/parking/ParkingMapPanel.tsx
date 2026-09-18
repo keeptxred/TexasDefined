@@ -16,56 +16,51 @@ export function ParkingMapPanel({
     ? 'TexasDefined-created parking orientation diagram'
     : `Reusable parking map${map.sourceName ? ` via ${map.sourceName}` : ''}`;
 
-  const content = (
-    <div className="min-w-0">
-      <figure>
-        <div className="overflow-hidden border border-border bg-muted/30">
-          <img
-            src={map.imageUrl}
-            alt={map.alt}
-            loading="lazy"
-            decoding="async"
-            className="h-auto w-full"
-          />
-        </div>
-        <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
-          {sourceLabel}. {map.origin === 'ai-generated'
-            ? 'It is a schematic, not a scale drawing, and does not reproduce third-party map artwork.'
-            : map.licenseName
-              ? `Licensed under ${map.licenseName}.`
-              : ''}{' '}
-          Parking assignments, traffic routing and accessible parking can change by event.
-        </figcaption>
-      </figure>
-
-      <div className="mt-5 grid gap-4 border-t border-border pt-4 sm:grid-cols-2">
-        <div>
-          <h3 className="text-sm font-semibold">Accuracy checks</h3>
-          <ul className="mt-2 space-y-2 text-sm leading-6 text-muted-foreground">
-            {map.accuracyNotes.slice(0, 4).map((note) => <li key={note}>• {note}</li>)}
-          </ul>
-        </div>
-        <div>
-          <h3 className="text-sm font-semibold">Verification source{map.verificationSources.length === 1 ? '' : 's'}</h3>
-          <ul className="mt-2 space-y-2 text-sm leading-6">
-            {map.verificationSources.map((source) => (
-              <li key={source.url}>
-                <a className="font-semibold text-primary underline underline-offset-4" href={source.url} target="_blank" rel="noreferrer">
-                  {source.label} ↗
-                </a>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-3 text-xs leading-5 text-muted-foreground">Always use the linked current venue/event source for final lot assignments before travel.</p>
-        </div>
+  const mapFigure = (
+    <figure>
+      <div className="overflow-hidden border border-border bg-muted/30">
+        <img
+          src={map.imageUrl}
+          alt={map.alt}
+          loading="lazy"
+          decoding="async"
+          className="h-auto w-full"
+        />
       </div>
-    </div>
+      <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
+        {sourceLabel}. {map.origin === 'ai-generated'
+          ? 'It is a schematic, not a scale drawing, and does not reproduce third-party map artwork.'
+          : map.licenseName
+            ? `Licensed under ${map.licenseName}.`
+            : ''}{' '}
+        Parking assignments, traffic routing and accessible parking can change by event.
+      </figcaption>
+    </figure>
+  );
+
+  const sourceLinks = (
+    <>
+      <h3 className="text-sm font-semibold">Official parking source{map.verificationSources.length === 1 ? '' : 's'}</h3>
+      <ul className="mt-2 space-y-2 text-sm leading-6">
+        {map.verificationSources.map((source) => (
+          <li key={source.url}>
+            <a className="font-semibold text-primary underline underline-offset-4" href={source.url} target="_blank" rel="noreferrer">
+              {source.label} ↗
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-3 text-xs leading-5 text-muted-foreground">
+        Reviewed {formatDate(map.verifiedAt)}. Use the linked venue or event source for current lot assignments before travel.
+      </p>
+    </>
   );
 
   if (embedded) {
     return (
       <div className="mt-6 border-t border-border pt-5" aria-label={`Parking orientation for ${contextName}`}>
-        {content}
+        {mapFigure}
+        <div className="mt-4 border-t border-border pt-4">{sourceLinks}</div>
       </div>
     );
   }
@@ -79,12 +74,11 @@ export function ParkingMapPanel({
             Parking orientation for {contextName}
           </h2>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">
-            {map.origin === 'ai-generated'
-              ? `This original diagram was checked against real venue parking material on ${formatDate(map.verifiedAt)}.`
-              : `Reuse rights and map accuracy were checked on ${formatDate(map.verifiedAt)}.`}
+            Use this diagram for orientation, then check the official venue or event source for current event-day assignments.
           </p>
+          <div className="mt-6 border-t border-border pt-4">{sourceLinks}</div>
         </div>
-        {content}
+        <div className="min-w-0">{mapFigure}</div>
       </div>
     </section>
   );

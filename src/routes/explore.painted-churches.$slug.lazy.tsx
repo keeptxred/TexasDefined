@@ -154,7 +154,7 @@ function PaintedChurchDetail() {
           </section>
 
           <section aria-labelledby="visit" className="mt-14 border-t border-border pt-8">
-            <p className="eyebrow text-primary">Plan the visit</p>
+            <p className="eyebrow text-primary">Planning your visit</p>
             <h2 id="visit" className="mt-3 font-display text-3xl">What to know before you go</h2>
             <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">{church.visitNote}</p>
             {profile?.visitorNotes?.length ? <ul className="mt-5 max-w-3xl list-disc space-y-2 pl-5 text-base leading-7 text-muted-foreground">{profile.visitorNotes.map((note) => <li key={note}>{note}</li>)}</ul> : null}
