@@ -77,7 +77,7 @@ function DestinationAreaGuideSection({ destination }: { destination: Destination
               <span className="eyebrow text-primary">{group.eyebrow}</span>
               <span className="mt-2 block font-display text-2xl">{group.title}</span>
             </span>
-            <span aria-hidden className="mt-2 text-xl text-muted-foreground transition-transform group-open:rotate-45">+</span>
+            <span aria-hidden className="mt-2 text-xl text-muted-foreground">+</span>
           </summary>
           <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground">{group.description}</p>
           <ul className="mt-5 grid gap-5 sm:grid-cols-2">
