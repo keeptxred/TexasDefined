@@ -127,7 +127,7 @@ export function OfficialTaxRateAssist({
 
         <details className="border-y border-border py-4">
           <summary className="cursor-pointer text-sm font-semibold">Special districts ({summary.specialDistricts.length} reported in county; {specialSlugs.length} selected)</summary>
-          <p className="mt-3 text-xs leading-5 text-muted-foreground">Do not select every district in the county. A parcel normally belongs to only a subset. Confirm MUD, ESD, hospital, community-college, flood-control and other district membership on the appraisal/tax record. Unavailable or conflicting rates cannot be auto-applied.</p>
+          <p className="mt-3 text-xs leading-5 text-muted-foreground">Do not select every district in the county. A parcel normally belongs to only a subset. Confirm municipal utility district (MUD), emergency services district (ESD), hospital, community-college, flood-control and other district membership on the appraisal/tax record. Unavailable or conflicting rates cannot be auto-applied.</p>
           <input type="search" value={specialFilter} onChange={(event) => setSpecialFilter(event.target.value)} placeholder="Filter special districts" className="mt-4 w-full border-0 border-b border-border bg-background px-0 py-3 text-sm outline-none focus:border-primary" />
           <div className="mt-4 grid max-h-80 gap-x-6 overflow-y-auto sm:grid-cols-2">
             {filteredSpecial.map((record) => {
