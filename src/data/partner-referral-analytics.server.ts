@@ -12,7 +12,7 @@ const QUERY_DAYS = 60;
 const TOP_LIMIT = 25;
 const HEARTBEAT_PARTNER = '__pipeline__';
 const HEARTBEAT_PLACEMENT = 'sync-heartbeat';
-const IMPRESSION_TRACKING_STARTED_AT = '2026-09-18';
+const IMPRESSION_TRACKING_STARTED_AT = '2026-09-19';
 
 type ReferralRow = {
   metric_date: string;
