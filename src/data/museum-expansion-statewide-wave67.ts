@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave68Destinations } from "./museum-expansion-statewide-wave68";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-17";
@@ -56,4 +57,5 @@ export const statewideMuseumExpansionWave67Destinations: Destination[] = [
     address: "716 S Austin Ave, Georgetown, TX 78626",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave68Destinations,
 ];
