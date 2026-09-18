@@ -47,23 +47,27 @@ for (const feature of [
 for (const feature of [
   'const activityPattern', 'const facilityPattern', 'function unique(values: string[])',
   'const activities = unique(', 'const facilities = unique(', 'const otherHighlights = unique(',
-  'const practicalTips = unique([', 'destination.highlights', 'destination.bestSeason',
-  'destination.entryNote', 'destination.reservationUrl', 'destination.accessibilityNotes',
-  'destination.directions', 'Conditions, closures, fees and availability can change',
-  'aria-labelledby="plan-your-visit"',
+  'destination.highlights', 'data-stay-nearby-slot', 'BookingCarRentalCard',
+  'While you’re there', 'Things to do and see',
   '{ title: "Things to do", items: activities }',
   '{ title: "What you’ll find", items: facilities }',
   '{ title: "Don’t miss", items: otherHighlights }',
-  '{ title: "Good to know", items: practicalTips }',
   'groups.map((group, index)', 'group.items.map((item)',
-]) if (!planner.includes(feature)) errors.push(`Destination Phase 1 planning feature missing: ${feature}`);
+]) if (!planner.includes(feature)) errors.push(`Destination streamlined planning feature missing: ${feature}`);
+if (planner.includes('const practicalTips = unique([') || planner.includes('What to know before you go') || planner.includes('Keep exploring')) {
+  errors.push('Destination visit planner must not duplicate the route-level visitor information or add another generic exploration tail.');
+}
 
 for (const feature of [
-  'groups.length ? <>', 'TexasExplainedContextLinks surface="destination"', 'groups.map((group)',
-  'href={`#relationship-${group.id}`}', 'id={`relationship-${group.id}`}',
-  'group.destinations.map', 'to="/explore/$category"', 'to="/explore/region/$region"',
+  'const pairedDestinations = [...new Map(', '.flatMap((group) => group.destinations)',
+  '.slice(0, 6)', 'Places worth adding to the same trip',
+  'pairedDestinations.map((item)', 'TexasExplainedContextLinks surface="destination"',
+  'to="/explore/$category"', 'to="/explore/region/$region"',
   'to="/events"', 'to="/search"',
-]) if (!relationships.includes(feature)) errors.push(`Destination relationship discovery feature missing: ${feature}`);
+]) if (!relationships.includes(feature)) errors.push(`Destination compact relationship discovery feature missing: ${feature}`);
+if (relationships.includes('#relationship-') || relationships.includes('groups.map((group, index)')) {
+  errors.push('Destination relationships must not regress to the former stacked section-per-group layout.');
+}
 if (relationships.includes('if (!groups.length) return null')) errors.push('Destination relationship discovery must keep the Texas Explained fallback when no relationship groups are available.');
 
 for (const feature of [
@@ -186,4 +190,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore enrichment, grouped planning, ranked structured search, AI discovery, unavailable-or-empty remote fallback with quality-gated sitemap freshness, authority, relationship discovery with Texas Explained fallback, public-view fallback, lazy destination runtime, and preserved-catalog resilience passed.');
+console.log('Explore enrichment, streamlined destination planning, compact relationship discovery, ranked structured search, AI discovery, unavailable-or-empty remote fallback with quality-gated sitemap freshness, authority, Texas Explained fallback, public-view fallback, lazy destination runtime, and preserved-catalog resilience passed.');
