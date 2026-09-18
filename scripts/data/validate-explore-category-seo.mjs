@@ -277,15 +277,15 @@ for (const category of migratedCategories) {
 }
 
 function validateMegaMenuImages(label, expectedCount) {
-  const block = brand.match(new RegExp('label: "' + label.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\for (const feature of ['supplementalExploreCategories', 'const merged = new Map', 'return [...merged.values()]']) {') + '",[\\s\\S]*?children: \\[([\\s\\S]*?)\\n      \\],'))?.[1] ?? '';
-  const items = [...block.matchAll(/^\\s*\\{ label: "([^"]+)"[^\\n]*$/gm)].map((match) => ({ label: match[1], source: match[0] }));
+  const block = brand.match(new RegExp('label: "' + label + '",[\\s\\S]*?children: \\[([\\s\\S]*?)\\n      \\],'))?.[1] ?? '';
+  const items = [...block.matchAll(/^\s*\{ label: "([^"]+)"[^\n]*$/gm)].map((match) => ({ label: match[1], source: match[0] }));
   if (items.length !== expectedCount) {
     errors.push(label + ' mega-menu image guard found ' + items.length + ' children; expected ' + expectedCount + '.');
     return;
   }
   const seenSources = new Map();
   for (const item of items) {
-    const source = item.source.match(/image:\\s*\\{\\s*src:\\s*([^,}]+)/)?.[1]?.trim();
+    const source = item.source.match(/image:\s*\{\s*src:\s*([^,}]+)/)?.[1]?.trim();
     if (!source) {
       errors.push(label + ' mega-menu item "' + item.label + '" must have a real image instead of the generic placeholder.');
       continue;
