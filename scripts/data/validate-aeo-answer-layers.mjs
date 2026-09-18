@@ -26,12 +26,13 @@ const requiredFiles = {
     'Is the result official?',
     'What should I do with the result?',
   ],
-  'src/components/editorial/DestinationVisitPlanner.tsx': [
+  'src/routes/destination.$slug.tsx': [
     'AnswerSummary',
-    'What is ${destination.name}?',
-    'When is the best time to go?',
-    'What should I know before arriving?',
-    'Where is it?',
+    'Planning your visit',
+    'Where is ${destination.name}?',
+    'When is the best time to visit ${destination.name}?',
+    'Do I need to plan ahead for ${destination.name}?',
+    'Why visit {destination.name}',
   ],
   'src/routes/browse.cities.tsx': [
     'AnswerSummary',
