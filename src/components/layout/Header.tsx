@@ -37,7 +37,7 @@ export function Header() {
               {brand.nav.map((item) => {
                 const hasChildren = Boolean(item.children?.length);
                 const isExpanded = hasChildren && openGroup === item.to;
-                return <div key={item.to} onMouseEnter={() => setOpenGroup(hasChildren ? item.to : null)}><Link to={item.to} className="relative inline-flex h-[2.75rem] items-center px-3 text-[0.69rem] font-semibold uppercase tracking-[0.13em] text-foreground/70 transition-colors hover:text-primary" activeProps={{ className: "text-primary" }} onFocus={() => setOpenGroup(hasChildren ? item.to : null)} aria-haspopup={hasChildren ? "true" : undefined} aria-expanded={hasChildren ? isExpanded : undefined}>{item.label}</Link></div>;
+                return <div key={item.to} onMouseEnter={() => setOpenGroup(hasChildren ? item.to : null)}><Link to={item.to} className="relative inline-flex h-[2.75rem] items-center px-3 text-[0.69rem] font-semibold uppercase tracking-[0.13em] text-foreground/70 transition-colors hover:text-primary" activeProps={{ className: "text-primary" }} onFocus={() => setOpenGroup(hasChildren ? item.to : null)} onClick={() => setOpenGroup(null)} aria-haspopup={hasChildren ? "true" : undefined} aria-expanded={hasChildren ? isExpanded : undefined}>{item.label}</Link></div>;
               })}
             </nav>
           </Container>
