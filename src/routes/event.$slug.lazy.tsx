@@ -6,8 +6,7 @@ export const Route = createLazyFileRoute("/event/$slug")({
 });
 
 const CHAPPELL_HILL_MAP_FRAME = /<div class="aspect-\[4\/3\] overflow-hidden rounded-xl border border-border bg-muted sm:aspect-\[16\/9\]">\s*<iframe[\s\S]*?src="https:\/\/www\.google\.com\/maps\/d\/u\/0\/embed\?ehbc=2E312F&amp;mid=1b6COvSIJuQzAg-UOzybkAXoKRVjeheE"[\s\S]*?<\/iframe>\s*<\/div>/i;
-const PLAN_VISIT_HEADING = /(<h2[^>]*>\s*Plan the visit\s*<\/h2>)/i;
-const FIRST_SECTION_HEADING = /(<h2[^>]*>)/i;
+const PLAN_VISIT_HEADING = /(<h2[^>]*>\\s*(?:Planning your visit|Plan the visit)\\s*<\\/h2>)/i;\nconst FIRST_SECTION_HEADING = /(<h2[^>]*>)/i;
 const STAY_NEARBY_SLOT = '<div data-stay-nearby-slot class="my-10" aria-label="Places to stay near this event"></div>';
 
 function stabilizeEventHtml(slug: string, html: string) {
