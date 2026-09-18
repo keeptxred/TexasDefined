@@ -241,6 +241,25 @@ for (const url of zeroInboundUrls) {
   const family = familyFor(url);
   zeroInboundFamilies.set(family, (zeroInboundFamilies.get(family) ?? 0) + 1);
 }
+const lowInboundThresholds = [1, 2, 3];
+const lowInbound = Object.fromEntries(lowInboundThresholds.map((threshold) => {
+  const matching = urls.filter((url) => (inboundCounts.get(url) ?? 0) <= threshold);
+  const families = new Map();
+  for (const url of matching) {
+    const family = familyFor(url);
+    families.set(family, (families.get(family) ?? 0) + 1);
+  }
+  return [`atMost${threshold}`, {
+    urls: matching.length,
+    rate: urls.length ? matching.length / urls.length : 0,
+    families: Object.fromEntries([...families.entries()].sort((a, b) => b[1] - a[1])),
+  }];
+}));
+const inboundDistribution = Object.fromEntries(
+  [...new Map(urls.map((url) => inboundCounts.get(url) ?? 0).map((count) => [count, 0])).keys()]
+    .sort((a, b) => a - b)
+    .map((count) => [count, urls.filter((url) => (inboundCounts.get(url) ?? 0) === count).length]),
+);
 
 const failureUrls = new Set(failures.map((item) => item.url));
 const familyCounts = new Map();
@@ -263,6 +282,8 @@ const report = {
     zeroInboundUrls: zeroInboundUrls.length,
     zeroInboundRate: urls.length ? zeroInboundUrls.length / urls.length : 0,
     zeroInboundFamilies: Object.fromEntries([...zeroInboundFamilies.entries()].sort((a, b) => b[1] - a[1])),
+    lowInbound,
+    inboundDistribution,
     urls: zeroInboundUrls,
   },
 };
@@ -274,6 +295,12 @@ if (OUTPUT) {
 }
 
 console.log(`Crawl-discovery graph: ${(urls.length - zeroInboundUrls.length).toLocaleString('en-US')} sitemap URL(s) receive at least one HTML link from another sitemap URL; ${zeroInboundUrls.length.toLocaleString('en-US')} receive none.`);
+for (const threshold of lowInboundThresholds) {
+  const summary = lowInbound[`atMost${threshold}`];
+  console.log(`Low-link crawl discovery: ${summary.urls.toLocaleString('en-US')} sitemap URL(s) receive at most ${threshold} inbound HTML link(s).`);
+  console.log(`Largest families at <=${threshold} inbound link(s):`);
+  for (const [family, count] of Object.entries(summary.families).slice(0, 15)) console.log(`- ${family}: ${count}`);
+}
 if (zeroInboundUrls.length) {
   console.log('Largest zero-inbound families:');
   for (const [family, count] of [...zeroInboundFamilies.entries()].sort((a, b) => b[1] - a[1]).slice(0, 30)) console.log(`- ${family}: ${count}`);
