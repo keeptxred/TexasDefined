@@ -71,7 +71,7 @@ const temporalCollections: TemporalEventCollectionDefinition[] = [
     planningTitle: "Use the month view to compare weekends, then narrow by place",
     planningIntro: "The most useful comparison is usually not which event is biggest, but which event fits the region, drive time and kind of trip you want.",
     planningPoints: [
-      "Compare date windows first, then open the event guide for the exact city, county, venue and current source check.",
+      "Compare date windows first, then open the event guide for the exact city, county, venue and current event details.",
       "For multi-day fairs and festivals, choose the specific performance, parade, competition or operating day before booking lodging.",
       "This rolling month view stays noindex so search engines are directed toward permanent event guides and durable seasonal or regional landing pages.",
     ],

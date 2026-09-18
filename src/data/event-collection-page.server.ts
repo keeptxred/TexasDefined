@@ -154,7 +154,7 @@ export function loadEventCollectionPageServer(slug: string) {
     ? buildTournamentCollectionIndexabilityNote(items.length, verifiedTournamentCount, shouldIndex)
     : temporal?.indexabilityNote
       ?? (shouldIndex
-        ? "This collection is a durable, crawlable event-discovery page backed by enough permanent verified event guides to stand on its own."
+        ? "This collection is a durable, crawlable event-discovery page backed by enough permanent event guides to stand on its own."
         : `This collection is temporarily noindex because it currently contains only ${items.length.toLocaleString("en-US")} verified event ${items.length === 1 ? "guide" : "guides"}. Texas Defined will open it to search after the verified inventory is substantive enough to uniquely satisfy the page promise.`);
 
   const latestSourceCheck = items
@@ -178,9 +178,9 @@ export function loadEventCollectionPageServer(slug: string) {
     indexabilityNote,
     itemCountLabel: tournament
       ? `${items.length.toLocaleString("en-US")} tournament and competition entries · ${verifiedTournamentCount.toLocaleString("en-US")} verified guides`
-      : `${items.length.toLocaleString("en-US")} verified event guides${latestSourceCheck ? ` · Latest source check: ${latestSourceCheck}` : ""}`,
+      : `${items.length.toLocaleString("en-US")} event guides${latestSourceCheck ? ` · Last reviewed: ${latestSourceCheck}` : ""}`,
     itemsEyebrow: tournament ? "Texas tournament directory" : "Permanent planning pages",
-    itemsTitle: tournament ? (tournament.value ? tournament.title : "250 Texas tournaments & competitions") : "Verified event guides",
+    itemsTitle: tournament ? (tournament.value ? tournament.title : "250 Texas tournaments & competitions") : "Event guides",
     emptyMessage: tournament
       ? "No tournament seed currently belongs to this category."
       : "No permanent event guide currently meets the source standard for this collection; Texas Defined does not pad the page with invented dates.",
