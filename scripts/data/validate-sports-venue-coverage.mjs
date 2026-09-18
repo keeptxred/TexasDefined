@@ -136,7 +136,7 @@ for (const marker of [
   'mainEntityOfPage: canonicalUrl',
   'image: venueHeroUrl',
   'Event-day essentials',
-  'Planning your visit to {entity.name}',
+  '{entity.name} parking, arrival and event-day details',
   'parking={enrichment?.parking}',
   'arrival={enrichment?.arrival}',
   'Parking at ${entity.name}',
