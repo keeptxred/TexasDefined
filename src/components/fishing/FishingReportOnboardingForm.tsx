@@ -33,7 +33,7 @@ export function FishingReportOnboardingForm({ pageData }: { pageData: FishingRep
         accuracyAttested: values.get("accuracyAttested") === "on",
         addressLine2: String(values.get("addressLine2") ?? ""),
       } });
-      form.reset(); setStatus("success"); setMessage("Submission received for verification. It is not public and will not publish automatically.");
+      form.reset(); setStatus("success"); setMessage("Submission received for review. It is not public and will not publish automatically.");
     } catch (error) {
       setStatus("error"); setMessage(error instanceof Error ? error.message : "Submission failed. Please review the form and try again.");
     }
@@ -41,7 +41,7 @@ export function FishingReportOnboardingForm({ pageData }: { pageData: FishingRep
 
   return <>
     <Container className="pt-8 sm:pt-10"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap items-center gap-2"><li><Link to="/">Front page</Link></li><li aria-hidden>·</li><li><Link to="/fishing">Fishing</Link></li><li aria-hidden>·</li><li><Link to="/fishing/reports">Reports</Link></li><li aria-hidden>·</li><li aria-current="page">Submit</li></ol></nav></Container>
-    <header className="mt-5 border-y border-border bg-ink text-ink-foreground"><Container className="py-12 sm:py-16"><p className="eyebrow text-ink-foreground/65">Fishing report contributor intake</p><h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.96] sm:text-7xl">Submit a dated fishing report for verification.</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">This is an editorial intake form, not instant publishing. TexasDefined verifies the contributor, source trail, lake/species relationships and report date before a report can appear publicly.</p></Container></header>
+    <header className="mt-5 border-y border-border bg-ink text-ink-foreground"><Container className="py-12 sm:py-16"><p className="eyebrow text-ink-foreground/65">Submit a fishing report</p><h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.96] sm:text-7xl">Submit a dated Texas fishing report.</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">Reports are reviewed before publication. Texas Defined checks the contributor, supporting sources, lake and species details, and report date before anything appears publicly.</p></Container></header>
     <Container className="py-12 sm:py-16">
       <section className="grid gap-5 border-y border-border py-6 md:grid-cols-3">{Object.entries(pageData.policy).map(([key, value]) => <div key={key}><p className="eyebrow text-primary">{key}</p><p className="mt-2 text-sm leading-6 text-muted-foreground">{value}</p></div>)}</section>
       <form onSubmit={onSubmit} className="mt-10 max-w-4xl space-y-8">
