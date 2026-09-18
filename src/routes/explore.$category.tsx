@@ -11,6 +11,7 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const SWIMMING_HOLES_RIVER_TUBING_SLUG = "swimming-holes-river-tubing";
 const COASTAL_AUTHORITY_ITEM_COUNT = 52;
 const COASTAL_AUTHORITY_PATH = "/content/explore-category-authority/beaches-coast-directory.html";
+const FOOD_AUTHORITY_WAVE_PATH = "/content/explore-category-authority/food-bbq-destinations-wave-20260918.html";
 const legacyExploreRedirects: Record<string, string> = {
   "scenic-rivers": "/article/texas-rivers-explained",
   "texas-dark-sky-stargazing": "/texas-stargazing-guide",
@@ -129,6 +130,9 @@ export const Route = createFileRoute("/explore/$category")({
           : fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath).then((response) => response.ok ? response.text() : null),
         category.slug === "beaches-coast"
           ? fetch(import.meta.env.SSR ? `${siteUrl}${COASTAL_AUTHORITY_PATH}` : COASTAL_AUTHORITY_PATH).then((response) => response.ok ? response.text() : null)
+          : Promise.resolve(null),
+        category.slug === "food-bbq"
+          ? fetch(import.meta.env.SSR ? `${siteUrl}${FOOD_AUTHORITY_WAVE_PATH}` : FOOD_AUTHORITY_WAVE_PATH).then((response) => response.ok ? response.text() : null)
           : Promise.resolve(null),
       ]).then((parts) => parts.filter(Boolean).join("\n")) : null,
     ]);
