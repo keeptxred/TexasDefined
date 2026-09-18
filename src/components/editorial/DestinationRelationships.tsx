@@ -47,36 +47,43 @@ const AREA_GROUPS: Array<{
 
 function AreaItemCard({ item }: { item: DestinationAreaItem }) {
   const name = item.href
-    ? <a href={item.href} className="font-display text-2xl leading-tight underline decoration-primary/30 underline-offset-4 transition-colors hover:text-primary">{item.name}</a>
-    : <span className="font-display text-2xl leading-tight">{item.name}</span>;
+    ? <a href={item.href} className="font-display text-xl leading-tight underline decoration-primary/30 underline-offset-4 transition-colors hover:text-primary">{item.name}</a>
+    : <span className="font-display text-xl leading-tight">{item.name}</span>;
 
-  return <li className="border-t border-border pt-5">
+  return <li className="border-t border-border pt-4">
     {item.proximity && <p className="eyebrow mb-2 text-primary">{item.proximity}</p>}
     <h3>{name}</h3>
-    <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.description}</p>
+    <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.description}</p>
   </li>;
 }
 
 function DestinationAreaGuideSection({ destination }: { destination: Destination }) {
   const guide = destination.areaGuide;
   if (!guide) return null;
+  const areaGroups = AREA_GROUPS.filter((group) => guide[group.key].length > 0);
+  if (!areaGroups.length) return null;
 
-  return <Section>
+  return <Section className="py-10 sm:py-12 lg:py-14">
     <Container>
       <SectionHeader
         eyebrow="What's in the area"
         title={`Build a fuller trip around ${destination.name}`}
         description={guide.intro}
       />
-      <div className="mt-12 grid gap-x-12 gap-y-14 lg:grid-cols-2">
-        {AREA_GROUPS.map((group) => <section key={group.key} aria-labelledby={`${destination.slug}-area-${group.key}`}>
-          <p className="eyebrow text-primary">{group.eyebrow}</p>
-          <h2 id={`${destination.slug}-area-${group.key}`} className="mt-2 font-display text-3xl">{group.title}</h2>
+      <div className="mt-8 grid gap-x-10 lg:grid-cols-2">
+        {areaGroups.map((group, index) => <details key={group.key} open={index === 0} className="group border-t border-border py-5">
+          <summary className="flex cursor-pointer list-none items-start justify-between gap-5">
+            <span>
+              <span className="eyebrow text-primary">{group.eyebrow}</span>
+              <span className="mt-2 block font-display text-2xl">{group.title}</span>
+            </span>
+            <span aria-hidden className="mt-2 text-xl text-muted-foreground">+</span>
+          </summary>
           <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground">{group.description}</p>
-          <ul className="mt-6 grid gap-6 sm:grid-cols-2">
+          <ul className="mt-5 grid gap-5 sm:grid-cols-2">
             {guide[group.key].map((item) => <AreaItemCard key={`${group.key}-${item.name}`} item={item} />)}
           </ul>
-        </section>)}
+        </details>)}
       </div>
     </Container>
   </Section>;
@@ -109,17 +116,19 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
 
     <Container><TexasExplainedContextLinks surface="destination" /></Container>
 
-    <Section tone="ink">
+    <Section tone="ink" className="py-8 sm:py-10">
       <Container>
-        <p className="eyebrow text-ink-foreground/60">Continue exploring</p>
-        <div className="mt-6 grid border-t border-ink-foreground/20 sm:grid-cols-2 lg:grid-cols-3">
-          {topAttractionRank && <Link to="/explore/top-attractions" className="border-b border-ink-foreground/20 py-6 sm:border-r sm:px-6 sm:first:pl-0"><strong className="font-display text-2xl">Top 25 · #{topAttractionRank}</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">See all 25 Texas attractions in the ranked collection.</span></Link>}
-          {hasCampingProfile && <Link to="/best-places-to-go-camping-in-texas" className="border-b border-ink-foreground/20 py-6 sm:border-r sm:px-6 sm:first:pl-0"><strong className="font-display text-2xl">Camping details</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">Compare verified campsite styles, facilities and reservation sources for {destination.name}.</span></Link>}
-          <Link to="/explore/trip-planner" search={{ destination: destination.slug }} className="border-b border-ink-foreground/20 py-6 sm:border-r sm:px-6 sm:first:pl-0"><strong className="font-display text-2xl">Build the weekend</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">Start a Texas itinerary with {destination.name} already on the route.</span></Link>
-          <Link to="/explore/$category" params={{ category: destination.category }} className="border-b border-ink-foreground/20 py-6 sm:px-6 sm:border-r"><strong className="font-display text-2xl">More like this</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">More places across Texas with the same kind of appeal.</span></Link>
-          <Link to="/explore/region/$region" params={{ region: destination.region }} className="border-b border-ink-foreground/20 py-6 sm:border-r sm:px-6"><strong className="font-display text-2xl">Explore the region</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">See what else belongs on the route.</span></Link>
-          <Link to="/events" className="border-b border-ink-foreground/20 py-6 sm:px-6 sm:border-r"><strong className="font-display text-2xl">Check the calendar</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">Add festivals, fairs and seasonal events.</span></Link>
-          <Link to="/search" search={{ q: destination.nearestTown }} className="py-6 sm:px-6 sm:last:pr-0"><strong className="font-display text-2xl">Look nearby</strong><span className="mt-2 block text-sm leading-6 text-ink-foreground/65">Find stories and places tied to {destination.nearestTown}.</span></Link>
+        <div className="flex flex-col gap-4 border-t border-ink-foreground/20 pt-5 sm:flex-row sm:items-start sm:justify-between">
+          <p className="eyebrow shrink-0 text-ink-foreground/60">Continue exploring</p>
+          <nav aria-label={`Continue exploring from ${destination.name}`} className="flex flex-wrap gap-x-6 gap-y-3">
+            {topAttractionRank && <Link to="/explore/top-attractions" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Top 25 · #{topAttractionRank}</Link>}
+            {hasCampingProfile && <Link to="/best-places-to-go-camping-in-texas" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Camping details</Link>}
+            <Link to="/explore/trip-planner" search={{ destination: destination.slug }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Build the weekend</Link>
+            <Link to="/explore/$category" params={{ category: destination.category }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">More like this</Link>
+            <Link to="/explore/region/$region" params={{ region: destination.region }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Explore the region</Link>
+            <Link to="/events" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Check the calendar</Link>
+            <Link to="/search" search={{ q: destination.nearestTown }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Look nearby</Link>
+          </nav>
         </div>
       </Container>
     </Section>
