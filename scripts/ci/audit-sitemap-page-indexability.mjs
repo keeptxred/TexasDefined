@@ -125,24 +125,24 @@ function failure(url, code, detail = '') {
   return { url, family: familyFor(url), code, detail };
 }
 
-async function auditUrl(url) {
+async function auditUrl(url, sitemapUrls) {
   let response;
   try {
     response = await fetchRetry(url, { redirect: 'manual' });
   } catch (error) {
-    return [failure(url, 'fetch-error', error instanceof Error ? error.message : String(error))];
+    return { failures: [failure(url, 'fetch-error', error instanceof Error ? error.message : String(error))], links: [] };
   }
 
   const failures = [];
   if (response.status >= 300 && response.status < 400) {
     failures.push(failure(url, 'redirect', `${response.status} -> ${response.headers.get('location') ?? '(missing location)'}`));
     await response.body?.cancel().catch(() => {});
-    return failures;
+    return { failures, links: [] };
   }
   if (response.status !== 200) {
     failures.push(failure(url, 'http-status', String(response.status)));
     await response.body?.cancel().catch(() => {});
-    return failures;
+    return { failures, links: [] };
   }
 
   const contentType = (response.headers.get('content-type') ?? '').toLowerCase();
@@ -176,7 +176,7 @@ async function auditUrl(url) {
     failures.push(failure(url, 'soft-404-title', title));
   }
 
-  return failures;
+  return { failures, links: internalSitemapLinks(html, sitemapUrls) };
 }
 
 async function mapConcurrent(items, worker, concurrency) {
@@ -214,8 +214,20 @@ let urls = [...memberships.keys()];
 if (MAX_URLS > 0) urls = urls.slice(0, MAX_URLS);
 console.log(`Auditing ${urls.length.toLocaleString('en-US')} sitemap URL(s) with concurrency ${CONCURRENCY}.`);
 
-const nestedFailures = await mapConcurrent(urls, auditUrl, CONCURRENCY);
-const failures = nestedFailures.flat();
+const sitemapUrlSet = new Set(urls);
+const auditResults = await mapConcurrent(urls, (url) => auditUrl(url, sitemapUrlSet), CONCURRENCY);
+const failures = auditResults.flatMap((result) => result.failures);
+const inboundCounts = new Map(urls.map((url) => [url, 0]));
+for (const result of auditResults) {
+  for (const target of result.links) inboundCounts.set(target, (inboundCounts.get(target) ?? 0) + 1);
+}
+const zeroInboundUrls = urls.filter((url) => (inboundCounts.get(url) ?? 0) === 0);
+const zeroInboundFamilies = new Map();
+for (const url of zeroInboundUrls) {
+  const family = familyFor(url);
+  zeroInboundFamilies.set(family, (zeroInboundFamilies.get(family) ?? 0) + 1);
+}
+
 const failureUrls = new Set(failures.map((item) => item.url));
 const familyCounts = new Map();
 const codeCounts = new Map();
@@ -233,12 +245,24 @@ const report = {
   failures,
   failureCodes: Object.fromEntries([...codeCounts.entries()].sort((a, b) => b[1] - a[1])),
   failureFamilies: Object.fromEntries([...familyCounts.entries()].sort((a, b) => b[1] - a[1])),
+  crawlDiscovery: {
+    zeroInboundUrls: zeroInboundUrls.length,
+    zeroInboundRate: urls.length ? zeroInboundUrls.length / urls.length : 0,
+    zeroInboundFamilies: Object.fromEntries([...zeroInboundFamilies.entries()].sort((a, b) => b[1] - a[1])),
+    urls: zeroInboundUrls,
+  },
 };
 
 if (OUTPUT) {
   fs.mkdirSync(path.dirname(OUTPUT), { recursive: true });
   fs.writeFileSync(OUTPUT, `${JSON.stringify(report, null, 2)}\n`);
   console.log(`Wrote audit report to ${OUTPUT}.`);
+}
+
+console.log(`Crawl-discovery graph: ${(urls.length - zeroInboundUrls.length).toLocaleString('en-US')} sitemap URL(s) receive at least one HTML link from another sitemap URL; ${zeroInboundUrls.length.toLocaleString('en-US')} receive none.`);
+if (zeroInboundUrls.length) {
+  console.log('Largest zero-inbound families:');
+  for (const [family, count] of [...zeroInboundFamilies.entries()].sort((a, b) => b[1] - a[1]).slice(0, 30)) console.log(`- ${family}: ${count}`);
 }
 
 if (failures.length) {
