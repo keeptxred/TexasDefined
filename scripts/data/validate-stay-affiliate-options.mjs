@@ -188,8 +188,13 @@ for (const [needle, label] of [
 for (const [needle, label] of [
   ['injectStayNearbySlot', 'event stay-slot injection helper'],
   ['data-stay-nearby-slot', 'event in-content Stay Nearby slot'],
-  ['Plan the visit', 'event planning placement anchor'],
+  ['Planning your visit|Plan the visit', 'event planning placement anchor'],
   ['Places to stay near this event', 'event stay-slot accessibility label'],
+  ['KEEP_EXPLORING_SECTION', 'event parking placement boundary'],
+  ['splitEventHtmlForParking', 'event parking placement helper'],
+  ['beforeParking', 'event planning content before parking map'],
+  ['afterParking', 'event continuation content after parking map'],
+  ['<ParkingMapPanel map={parkingMap} contextName={page.venue ?? page.title} embedded />', 'event parking map embedded before discovery tail'],
 ]) requireText(eventRoute, needle, label);
 
 for (const [needle, label] of [
