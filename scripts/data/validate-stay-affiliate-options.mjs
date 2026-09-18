@@ -213,6 +213,7 @@ for (const [needle, label] of [
   ['ho115100/hilton-anatole', 'live exact-property destination probe'],
   ['/event/chappell-hill-bluebonnet-festival', 'live event placement probe'],
   ['/sports-venue/globe-life-field', 'live venue placement probe'],
+  ['/sports-venue/xtreme-raceway-park', 'live traffic-prioritized venue placement probe'],
   ['/destination/fredericksburg', 'live destination placement probe'],
   ['/city/austin', 'live city eligibility probe'],
   ['/county/travis', 'live county eligibility probe'],
@@ -221,6 +222,10 @@ for (const [needle, label] of [
 
 if (!productionVerifier.includes("route: '/destination/fredericksburg'") || !productionVerifier.includes('requireSlot: true')) {
   errors.push('Live destination probe must require an explicit in-content Stay Nearby slot.');
+}
+
+if (!productionVerifier.includes("route: '/sports-venue/xtreme-raceway-park'") || !productionVerifier.includes("marker: 'Xtreme Raceway Park'")) {
+  errors.push('Live monetization smoke must include Xtreme Raceway Park, the current highest measured sports-venue traffic surface.');
 }
 
 for (const [needle, label] of [
@@ -243,4 +248,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hotels.com / Vrbo stay affiliate validation passed: all 15 active curated Stay Nearby hotels have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; unknown properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the exact-property registry; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');
+console.log('Hotels.com / Vrbo stay affiliate validation passed: all 15 active curated Stay Nearby hotels have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; unknown properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the exact-property registry and the traffic-prioritized Xtreme Raceway Park lodging slot; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');
