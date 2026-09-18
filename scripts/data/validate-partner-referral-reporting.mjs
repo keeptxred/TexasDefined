@@ -91,7 +91,7 @@ for (const [needle, label] of [
   ['Hourly sync', 'pipeline freshness label'],
   ['No successful sync heartbeat', 'missing-heartbeat state'],
   ['most recent successful Cloudflare-to-Supabase pipeline run', 'heartbeat explanation'],
-  ['zero-click sync can legitimately leave the aggregate table empty', 'healthy zero-click explanation'],
+  ['most recent successful Cloudflare-to-Supabase pipeline run', 'healthy zero-click heartbeat explanation'],
 ]) expect(lazyRoute, needle, label);
 
 expect(types, 'lastPipelineSyncAt: string | null', 'pipeline heartbeat dashboard type');
