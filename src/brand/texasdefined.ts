@@ -1,4 +1,6 @@
 import caddoLake from "@/assets/caddo-lake.jpg";
+import enchantedRock from "@/assets/enchanted-rock.jpg";
+import heroHillCountry from "@/assets/hero-hill-country.jpg";
 import paloDuro from "@/assets/palo-duro.jpg";
 import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
@@ -7,6 +9,8 @@ import wildlife from "@/assets/wildlife.jpg";
 import blueHole from "@/assets/blue-hole.jpg";
 import bigBend from "@/assets/big-bend.jpg";
 import highSchoolFootball from "@/assets/high-school-football-hero.jpg";
+import culturalRootsHero from "@/assets/generated/texas-town-cultural-roots.jpg";
+import courthouseHero from "@/assets/generated/texas-courthouse-square.jpg";
 
 import type { BrandConfig } from "./types";
 
@@ -73,14 +77,14 @@ export const texasDefinedBrand: BrandConfig = {
         { label: "Lakes & Rivers", to: "/explore/lakes-rivers", description: "Swimming holes, quiet rivers and cypress-lined water", image: { src: caddoLake, alt: "Cypress trees on Caddo Lake at dawn" } },
         { label: "Springs & Swimming", to: "/explore/major-springs", description: "Clear springs, spring-fed pools and swimming water", image: { src: blueHole, alt: "Clear spring-fed water in the Texas Hill Country" } },
         { label: "State Parks", to: "/explore/state-parks", description: "Canyons, coastlines, trails and campsites", image: { src: paloDuro, alt: "Red rock walls of Palo Duro Canyon" } },
-        { label: "Best Camping in Texas", to: "/best-places-to-go-camping-in-texas", description: "Choose campsites by region, season and camping style", image: { src: paloDuro, alt: "Red rock walls of Palo Duro Canyon" } },
+        { label: "Best Camping in Texas", to: "/best-places-to-go-camping-in-texas", description: "Choose campsites by region, season and camping style", image: { src: enchantedRock, alt: "Granite dome and Hill Country landscape at Enchanted Rock State Natural Area" } },
         { label: "National Parks", to: "/explore/national-parks", description: "Big Bend, Guadalupe Mountains and federal lands", image: { src: bigBend, alt: "Desert mountains in Big Bend country" } },
-        { label: "Caverns & Caves", to: "/explore/caverns", description: "Show caves and limestone rooms below ground" },
-        { label: "Beaches & Coast", to: "/explore/beaches-coast", description: "Barrier islands, bays and Gulf Coast towns" },
-        { label: "Historic Sites", to: "/explore/historic-sites", description: "Missions, museums, monuments and battlefields", image: { src: smallTown, alt: "Historic Texas courthouse square" } },
-        { label: "Painted Churches", to: "/explore/painted-churches", description: "Historic sanctuaries, painted interiors and heritage-driving routes", image: { src: smallTown, alt: "Historic Texas architecture" } },
-        { label: "Road Trips", to: "/explore/road-trips", description: "Scenic drives and stops worth pulling over for", image: { src: roadTrip, alt: "A two-lane Texas farm road at sunset" } },
-        { label: "Small Towns", to: "/explore/small-towns", description: "Courthouse squares, dance halls and local favorites", image: { src: smallTown, alt: "A historic Texas courthouse square" } },
+        { label: "Caverns & Caves", to: "/explore/caverns", description: "Show caves and limestone rooms below ground", image: { src: "/images/explore/caverns/longhorn-cavern-state-park.jpg", alt: "Underground limestone formations inside Longhorn Cavern State Park" } },
+        { label: "Beaches & Coast", to: "/explore/beaches-coast", description: "Barrier islands, bays and Gulf Coast towns", image: { src: "/images/explore/beaches-coast/galveston-island-state-park.jpg", alt: "Beach and barrier-island landscape at Galveston Island State Park" } },
+        { label: "Historic Sites", to: "/explore/historic-sites", description: "Missions, museums, monuments and battlefields", image: { src: "/images/explore/historic-sites/the-alamo.jpg", alt: "The Alamo historic mission in San Antonio" } },
+        { label: "Painted Churches", to: "/explore/painted-churches", description: "Historic sanctuaries, painted interiors and heritage-driving routes", image: { src: culturalRootsHero, alt: "Central Texas immigrant heritage architecture including historic church traditions" } },
+        { label: "Road Trips", to: "/explore/road-trips", description: "Scenic drives and stops worth pulling over for", image: { src: heroHillCountry, alt: "Hill Country landscape along a scenic Texas driving route" } },
+        { label: "Small Towns", to: "/explore/small-towns", description: "Courthouse squares, dance halls and local favorites", image: { src: courthouseHero, alt: "Historic Texas courthouse anchoring a small-town square" } },
         { label: "Food & Barbecue", to: "/explore/food-bbq", description: "Barbecue joints, regional dishes and places worth the wait", image: { src: bbqBrisket, alt: "Sliced smoked brisket on butcher paper" } },
         { label: "Outdoors & Wildlife", to: "/explore/outdoors", description: "Wild places, native wildlife and big Texas skies", image: { src: wildlife, alt: "White-tailed deer in Texas brush country" } },
       ],
