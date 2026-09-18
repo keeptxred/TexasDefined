@@ -44,7 +44,7 @@ if (!failures.length) {
     if (directoryUi.includes(stale)) failures.push(`Fishing report directory still exposes verification-heavy public copy: ${stale}`);
   }
   if (!directoryUi.includes('name="lake"') || !directoryUi.includes('name="species"') || !directoryUi.includes('name="freshness"')) failures.push("Fishing report filters incomplete.");
-  if (!profileServer.includes("guide.contributorApproved") || !profileUi.includes("verified, contributor-approved guide")) failures.push("Verified guide contributor attribution gate missing.");
+  if (!profileServer.includes('status: "published", verifiedListing: true') || !profileServer.includes("guide.contributorApproved") || !profileUi.includes("approved guide")) failures.push("Source-backed contributor attribution gate missing.");
   if (!directoryServer.includes("Sponsorship never changes report order") || !directoryUi.includes("Sponsored placement") || !directoryUi.includes('rel="noopener sponsored"') || !profileUi.includes("Sponsored status can never change")) failures.push("Report sponsorship/editorial independence disclosure missing.");
   if (!directoryUi.includes('fishingFoundationAnchor("lake"') || !directoryUi.includes('fishingFoundationAnchor("species"') || !profileUi.includes('fishingFoundationAnchor("lake"') || !profileUi.includes('fishingFoundationAnchor("species"')) failures.push("Report lake/species cross-linking missing.");
   if (!directoryRoute.includes('createFileRoute("/fishing/reports")') || !profileRoute.includes('createFileRoute("/fishing/reports/$slug")') || !directoryRoute.includes("canonicalLink") || !profileRoute.includes("canonicalLink")) failures.push("Report canonical route integrity missing.");
