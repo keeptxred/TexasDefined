@@ -120,7 +120,7 @@ for (const expected of [
   'GetCrawlIssues',
   'GetFeeds',
   'texasdefined_bing_webmaster_snapshots',
-  'userSites.map(({ Url, IsVerified }) => ({ Url, IsVerified }))',
+  'userSitesRaw.map(({ Url, IsVerified }) => ({ Url, IsVerified }))',
 ]) {
   requireText(bingCollector, expected, `Bing Webmaster collector is missing required contract: ${expected}`);
 }
