@@ -276,6 +276,29 @@ for (const category of migratedCategories) {
   if (!brand.includes(`/explore/${category}`)) errors.push(`Explore navigation link missing: ${category}.`);
 }
 
+function validateMegaMenuImages(label, expectedCount) {
+  const block = brand.match(new RegExp('label: "' + label.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\for (const feature of ['supplementalExploreCategories', 'const merged = new Map', 'return [...merged.values()]']) {') + '",[\\s\\S]*?children: \\[([\\s\\S]*?)\\n      \\],'))?.[1] ?? '';
+  const items = [...block.matchAll(/^\\s*\\{ label: "([^"]+)"[^\\n]*$/gm)].map((match) => ({ label: match[1], source: match[0] }));
+  if (items.length !== expectedCount) {
+    errors.push(label + ' mega-menu image guard found ' + items.length + ' children; expected ' + expectedCount + '.');
+    return;
+  }
+  const seenSources = new Map();
+  for (const item of items) {
+    const source = item.source.match(/image:\\s*\\{\\s*src:\\s*([^,}]+)/)?.[1]?.trim();
+    if (!source) {
+      errors.push(label + ' mega-menu item "' + item.label + '" must have a real image instead of the generic placeholder.');
+      continue;
+    }
+    const prior = seenSources.get(source);
+    if (prior) errors.push(label + ' mega-menu items "' + prior + '" and "' + item.label + '" reuse the same image source ' + source + '.');
+    else seenSources.set(source, item.label);
+  }
+}
+
+validateMegaMenuImages('Explore', 14);
+validateMegaMenuImages('Texas Life', 10);
+
 for (const feature of ['supplementalExploreCategories', 'const merged = new Map', 'return [...merged.values()]']) {
   if (!queries.includes(feature)) errors.push(`Merged Explore taxonomy feature missing: ${feature}.`);
 }
@@ -317,4 +340,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Explore categories, sparse-archive indexability, tag-archive governance, lightweight inventory drift protection, classification, filterable collections, taxonomy, navigation, dedicated quality-gated sitemap, related links, regions, structured data, breadcrumbs, and body-derived feature reading times passed validation.');
+console.log('Explore categories, sparse-archive indexability, tag-archive governance, lightweight inventory drift protection, classification, filterable collections, taxonomy, duplicate-safe mega-menu imagery, navigation, dedicated quality-gated sitemap, related links, regions, structured data, breadcrumbs, and body-derived feature reading times passed validation.');
