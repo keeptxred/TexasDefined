@@ -5,6 +5,9 @@ export type PartnerReferralBreakdown = {
   clicks7d: number;
   impressions30d: number;
   impressions7d: number;
+  measurementClicks: number;
+  measurementImpressions: number;
+  measurementCtr: number | null;
 };
 
 export type PartnerReferralPageBreakdown = {
@@ -13,6 +16,9 @@ export type PartnerReferralPageBreakdown = {
   clicks7d: number;
   impressions30d: number;
   impressions7d: number;
+  measurementClicks: number;
+  measurementImpressions: number;
+  measurementCtr: number | null;
 };
 
 export type PartnerReferralDestinationBreakdown = {
@@ -22,6 +28,9 @@ export type PartnerReferralDestinationBreakdown = {
   clicks7d: number;
   impressions30d: number;
   impressions7d: number;
+  measurementClicks: number;
+  measurementImpressions: number;
+  measurementCtr: number | null;
 };
 
 export type PartnerReferralDailyPoint = {
