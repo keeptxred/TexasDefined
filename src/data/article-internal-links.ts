@@ -7,6 +7,40 @@ const texasExplainedLink: ArticleInternalLink = {
 };
 
 export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
+  "texas-road-closures-drivetexas-guide": [
+    {
+      href: "/article/why-austin-i35-traffic-keeps-getting-worse",
+      label: "Why Austin I-35 traffic keeps getting worse",
+      description: "Understand the construction and capacity pressures behind one of the state's most difficult urban corridors.",
+    },
+    {
+      href: "/article/texas-toll-roads-tags-fees-guide",
+      label: "Texas toll roads, tags and fees",
+      description: "Know which toll systems and payment rules can affect an alternate route.",
+    },
+    {
+      href: "/explore/road-trips",
+      label: "Explore Texas road trips",
+      description: "Plan statewide drives with better route and stop context.",
+    },
+  ],
+  "texas-toll-roads-tags-fees-guide": [
+    {
+      href: "/article/texas-road-closures-drivetexas-guide",
+      label: "Check current Texas road closures",
+      description: "Verify incidents, construction and closures before choosing a toll-road or frontage-road alternative.",
+    },
+    {
+      href: "/article/why-austin-i35-traffic-keeps-getting-worse",
+      label: "Austin I-35 traffic and the Capital Express build",
+      description: "See why Central Texas route planning will stay complicated through major I-35 construction.",
+    },
+    {
+      href: "/explore/road-trips",
+      label: "Explore Texas road trips",
+      description: "Use TexasDefined's road-trip guides to plan longer drives across multiple toll systems.",
+    },
+  ],
   "texas-rivers-explained": [
     texasExplainedLink,
     {
