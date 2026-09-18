@@ -18,6 +18,10 @@ export type TexasDefinedOutcomeEvent =
   | 'resource_saved'
   | 'internal_link_shown'
   | 'internal_link_clicked'
+  | 'shop_page_view'
+  | 'shop_navigation_clicked'
+  | 'shop_product_clicked'
+  | 'shop_outbound_clicked'
   | 'ai_referral_visit';
 
 export type TexasDefinedAnalyticsPayload = {
@@ -132,9 +136,45 @@ export function trackAIReferralVisit() {
 export function installTexasDefinedAnalytics() {
   if (typeof window === 'undefined') return () => undefined;
   const shown = new Set<string>();
+  let lastShopViewPath = '';
+
+  const recordShopPageView = () => {
+    const pathname = window.location.pathname;
+    if (!pathname.startsWith('/shop')) {
+      lastShopViewPath = '';
+      return;
+    }
+    if (pathname === lastShopViewPath) return;
+    lastShopViewPath = pathname;
+
+    const productMatch = pathname.match(/^\/shop\/product\/([^/]+)/);
+    const entityKind =
+      pathname === '/shop' ? 'landing'
+      : productMatch ? 'product'
+      : pathname.startsWith('/shop/cart') ? 'cart'
+      : pathname.startsWith('/shop/checkout') ? 'checkout'
+      : 'collection';
+
+    trackTexasDefinedOutcome('shop_page_view', {
+      resourceId: productMatch ? decodeURIComponent(productMatch[1]) : pathname,
+      entityKind,
+      destination: pathname,
+    });
+  };
+
   const click = (event: MouseEvent) => {
     const anchor = (event.target as Element | null)?.closest('a[href]') as HTMLAnchorElement | null;
     if (!anchor) return;
+
+    const clickedUrl = new URL(anchor.href, window.location.origin);
+    if (clickedUrl.origin === window.location.origin && clickedUrl.pathname.startsWith('/shop')) {
+      const productMatch = clickedUrl.pathname.match(/^\/shop\/product\/([^/]+)/);
+      trackTexasDefinedOutcome(productMatch ? 'shop_product_clicked' : 'shop_navigation_clicked', {
+        resourceId: productMatch ? decodeURIComponent(productMatch[1]) : clickedUrl.pathname,
+        entityKind: productMatch ? 'product' : 'shop-route',
+        destination: `${clickedUrl.pathname}${clickedUrl.search}`,
+      });
+    }
 
     const commercialPartner = anchor.dataset.commercialPartner;
     if (commercialPartner) {
@@ -168,6 +208,13 @@ export function installTexasDefinedAnalytics() {
     }
     const href = anchor.href;
     if (/^https:\/\//.test(href) && !href.startsWith(window.location.origin)) {
+      if (window.location.pathname.startsWith('/shop')) {
+        trackTexasDefinedOutcome('shop_outbound_clicked', {
+          resourceId: anchor.dataset.commercialPartner || anchor.textContent?.trim().slice(0, 120) || 'outbound-link',
+          entityKind: anchor.dataset.commercialPlacement || 'shop-outbound',
+          destination: href,
+        });
+      }
       trackTexasDefinedOutcome('official_resource_visited', { destination: href });
     }
   };
@@ -208,7 +255,10 @@ export function installTexasDefinedAnalytics() {
       }, { threshold: 0.5 })
     : undefined;
 
-  const observe = () => document.querySelectorAll<HTMLAnchorElement>('a[data-entity-id], a[data-commercial-partner]').forEach((anchor) => observer?.observe(anchor));
+  const observe = () => {
+    recordShopPageView();
+    document.querySelectorAll<HTMLAnchorElement>('a[data-entity-id], a[data-commercial-partner]').forEach((anchor) => observer?.observe(anchor));
+  };
   const mutation = observer ? new MutationObserver(observe) : undefined;
   document.addEventListener('click', click);
   observe();
