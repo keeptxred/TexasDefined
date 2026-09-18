@@ -13,6 +13,18 @@ const curatedSportsVenuePhotoOverrides: Record<string, SportsVenuePhoto> = {
     width: 6720,
     height: 4480,
   },
+  'memorial-park-golf-course': {
+    slug: 'memorial-park-golf-course',
+    alt: 'Memorial Park Golf Course in Houston with Williams Tower in the background',
+    imageUrl: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/MemorialParkHouston.JPG?width=1600',
+    sourcePage: 'https://commons.wikimedia.org/wiki/File:MemorialParkHouston.JPG',
+    sourceName: 'Wikimedia Commons',
+    author: 'Tartessos75',
+    licenseName: 'Public domain',
+    licenseUrl: 'https://commons.wikimedia.org/wiki/File:MemorialParkHouston.JPG',
+    width: 2048,
+    height: 1536,
+  },
   'national-shooting-complex': {
     slug: 'national-shooting-complex',
     alt: 'U.S. Army Marksmanship Unit shotgun demonstration at the National Shooting Complex in San Antonio',

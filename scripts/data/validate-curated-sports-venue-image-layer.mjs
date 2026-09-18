@@ -54,6 +54,24 @@ assert(
   'Legacy Stadium hero must be documentary venue media, not generated or illustrative imagery.',
 );
 
+const memorialGolfMatch = overrideSource.match(/'memorial-park-golf-course': \{[\s\S]*?\n  \},/);
+const memorialGolfSource = memorialGolfMatch?.[0] ?? '';
+assert(memorialGolfSource, 'Memorial Park Golf Course must have a curated documentary hero override.');
+for (const marker of [
+  "imageUrl: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/MemorialParkHouston.JPG?width=1600'",
+  "sourcePage: 'https://commons.wikimedia.org/wiki/File:MemorialParkHouston.JPG'",
+  "sourceName: 'Wikimedia Commons'",
+  "author: 'Tartessos75'",
+  "licenseName: 'Public domain'",
+  "alt: 'Memorial Park Golf Course in Houston with Williams Tower in the background'",
+]) {
+  assert(memorialGolfSource.includes(marker), `Memorial Park Golf Course documentary hero is missing required source marker: ${marker}`);
+}
+assert(
+  !/AI-generated|illustration|OpenAI|Copilot/i.test(memorialGolfSource),
+  'Memorial Park Golf Course hero must be documentary venue media, not generated or illustrative imagery.',
+);
+
 const nationalShootingMatch = overrideSource.match(/'national-shooting-complex': \{[\s\S]*?\n  \},/);
 const nationalShootingSource = nationalShootingMatch?.[0] ?? '';
 assert(nationalShootingSource, 'National Shooting Complex must have a curated documentary hero override.');
@@ -169,4 +187,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Curated sports venue image layer validated: precedence, HTTPS policy, documentary Legacy Stadium, National Shooting Complex, PGA Frisco, Retama Park, TPC San Antonio and Xtreme Raceway sources, real Dickies Arena fallback, production target enforcement, and disallowed-source guardrails are intact.');
+console.log('Curated sports venue image layer validated: precedence, HTTPS policy, documentary Legacy Stadium, Memorial Park Golf Course, National Shooting Complex, PGA Frisco, Retama Park, TPC San Antonio and Xtreme Raceway sources, real Dickies Arena fallback, production target enforcement, and disallowed-source guardrails are intact.');
