@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave70Destinations } from "./museum-expansion-statewide-wave70";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-18";
@@ -54,4 +55,5 @@ export const statewideMuseumExpansionWave69Destinations: Destination[] = [
     address: "100 E Broadway St, Winnsboro, TX 75494",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave70Destinations,
 ];
