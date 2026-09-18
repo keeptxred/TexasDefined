@@ -17,7 +17,6 @@ function museumPlaceholder(name: string): ImageRef {
  * Sixty-sixth statewide museum wave. This record uses the museum's current
  * City of Van Alstyne visitor identity and relocated Cartwright House address,
  * rather than the former downtown museum location.
- * Wave 67 is chained here so later museum expansion remains conflict-light.
  */
 export const statewideMuseumExpansionWave66Destinations: Destination[] = [
   {
