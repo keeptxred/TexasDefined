@@ -35,6 +35,44 @@ assert(
   'Dickies Arena must resolve to its existing reusable documentary photo instead of an AI-generated curated override.',
 );
 
+const legacyMatch = overrideSource.match(/'legacy-stadium-katy': \{[\s\S]*?\n  \},/);
+const legacySource = legacyMatch?.[0] ?? '';
+assert(legacySource, 'Legacy Stadium Katy must have a curated documentary hero override.');
+for (const marker of [
+  "imageUrl: 'https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/2410/8718549/2000w_q95.jpg'",
+  "sourcePage: 'https://www.dvidshub.net/image/8718549/rss-katy-attends-katy-jordan-vs-katy-taylor-football-game'",
+  "sourceName: 'DVIDS / U.S. Marine Corps'",
+  "author: 'Ryan Pulliam'",
+  "licenseName: 'Public domain; the appearance of U.S. Department of War visual information does not imply or constitute DoW endorsement'",
+  "licenseUrl: 'https://www.dvidshub.net/about/copyright'",
+  "alt: 'Football game and crowd activity at Legacy Stadium in Katy, Texas'",
+]) {
+  assert(legacySource.includes(marker), `Legacy Stadium documentary hero is missing required source marker: ${marker}`);
+}
+assert(
+  !/AI-generated|illustration|OpenAI|Copilot/i.test(legacySource),
+  'Legacy Stadium hero must be documentary venue media, not generated or illustrative imagery.',
+);
+
+const nationalShootingMatch = overrideSource.match(/'national-shooting-complex': \{[\s\S]*?\n  \},/);
+const nationalShootingSource = nationalShootingMatch?.[0] ?? '';
+assert(nationalShootingSource, 'National Shooting Complex must have a curated documentary hero override.');
+for (const marker of [
+  "imageUrl: 'https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/1902/5114543/2000w_q95.jpg'",
+  "sourcePage: 'https://www.dvidshub.net/image/5114543/us-army-soldiers-give-shotgun-demo-in-texas'",
+  "sourceName: 'DVIDS / U.S. Army Marksmanship Unit'",
+  "author: 'Michelle Lunato'",
+  "licenseName: 'Public domain; the appearance of U.S. Department of War visual information does not imply or constitute DoW endorsement'",
+  "licenseUrl: 'https://www.dvidshub.net/about/copyright'",
+  "alt: 'U.S. Army Marksmanship Unit shotgun demonstration at the National Shooting Complex in San Antonio'",
+]) {
+  assert(nationalShootingSource.includes(marker), `National Shooting Complex documentary hero is missing required source marker: ${marker}`);
+}
+assert(
+  !/AI-generated|illustration|OpenAI|Copilot/i.test(nationalShootingSource),
+  'National Shooting Complex hero must be documentary venue media, not generated or illustrative imagery.',
+);
+
 const retamaMatch = overrideSource.match(/'retama-park': \{[\s\S]*?\n  \},/);
 const retamaSource = retamaMatch?.[0] ?? '';
 assert(retamaSource, 'Retama Park must have a curated documentary hero override.');
@@ -109,4 +147,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Curated sports venue image layer validated: precedence, HTTPS policy, documentary Retama Park and Xtreme Raceway sources, real Dickies Arena fallback, and disallowed-source guardrails are intact.');
+console.log('Curated sports venue image layer validated: precedence, HTTPS policy, documentary Legacy Stadium, National Shooting Complex, Retama Park, TPC San Antonio and Xtreme Raceway sources, real Dickies Arena fallback, production target enforcement, and disallowed-source guardrails are intact.');
