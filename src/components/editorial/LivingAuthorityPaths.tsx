@@ -22,7 +22,7 @@ const pathways = [
   { to: "/texas-home-insurance-calculator", label: "Estimate home insurance", description: "Create a planning estimate before comparing actual Texas insurance quotes." },
   { to: "/browse/counties", label: "Find the county", description: "Connect a location to local appraisal, tax and public-record research paths." },
   { to: "/find-my-school-district", label: "Verify the school district", description: "Use the exact address to research district and campus assignment instead of relying on a city name." },
-  { to: "/article/texas-schools-family-life", label: "Understand schools & family life", description: "Put ISDs, STAAR, charters, Pre-K, UIL, school taxes and family logistics around the address-level lookup." },
+  { to: "/article/texas-schools-family-life", label: "Understand schools & family life", description: "Put school districts, STAAR testing, charters, Pre-K, UIL activities, school taxes and family logistics around the address-level lookup." },
   { to: "/article/texas-health-safety-daily-living", label: "Plan for Texas daily living", description: "Heat, storms, allergies, generators, insects, pets and emergency preparation can change the practical fit of a place." },
   { to: "/article/texas-culture-social-customs-newcomers", label: "Learn the everyday Texas culture", description: "Get oriented to the social customs, traditions, sports, food and habits newcomers notice first." },
   { to: "/moving-to-texas/data", label: "Open the Relocation Data Center", description: "Put migration, jobs, insurance, traffic and source-vintage methodology next to the move." },
