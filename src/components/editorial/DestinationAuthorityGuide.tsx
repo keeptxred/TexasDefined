@@ -130,8 +130,8 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
           <aside>
             <section aria-labelledby={`${destination.slug}-sources`}>
               <p className="eyebrow text-primary">Sources & updates</p>
-              <h2 id={`${destination.slug}-sources`} className="mt-2 font-display text-3xl">Authority sources used</h2>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">The first source is the primary visitor source when available. Additional sources support history, accessibility, science, conservation, designation or institutional context; they do not override current operator guidance.</p>
+              <h2 id={`${destination.slug}-sources`} className="mt-2 font-display text-3xl">Sources used for this guide</h2>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">The first source is the primary visitor source when available. Additional sources add history, accessibility, science, conservation, designation or institutional context; for current visitor rules, follow the operator or responsible public agency.</p>
               <ol className="mt-6 space-y-5">
                 {authority.sources.map((source, index) => <li key={source.url} id={`authority-source-${index + 1}`} className="border-t border-border pt-4 scroll-mt-28">
                   <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">[{index + 1}] {index === 0 ? "Primary visitor source" : "Supporting source"}</p>
