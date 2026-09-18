@@ -8,12 +8,14 @@ export function buildPrioritySearchHead({
   description,
   data,
   about = [],
+  breadcrumbParent = { name: "Texas Resources", path: "/texas-resources" },
 }: {
   canonicalPath: string;
   title: string;
   description: string;
   data: PrioritySearchPageData;
   about?: string[];
+  breadcrumbParent?: { name: string; path: string };
 }) {
   const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
   const sectionItems = data.sections.map((section, index) => ({
@@ -47,23 +49,11 @@ export function buildPrioritySearchHead({
       "@id": `${pageUrl}#breadcrumbs`,
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl(texasDefinedBrand, "/") },
-        { "@type": "ListItem", position: 2, name: "Texas Resources", item: absoluteUrl(texasDefinedBrand, "/texas-resources") },
+        { "@type": "ListItem", position: 2, name: breadcrumbParent.name, item: absoluteUrl(texasDefinedBrand, breadcrumbParent.path) },
         { "@type": "ListItem", position: 3, name: data.title, item: pageUrl },
       ],
     },
   ];
-
-  if (data.faq?.length) {
-    graph.push({
-      "@type": "FAQPage",
-      "@id": `${pageUrl}#faq`,
-      mainEntity: data.faq.map((item) => ({
-        "@type": "Question",
-        name: item.question,
-        acceptedAnswer: { "@type": "Answer", text: item.answer },
-      })),
-    });
-  }
 
   return {
     meta: buildMeta(texasDefinedBrand, { canonicalPath, title, description }),
