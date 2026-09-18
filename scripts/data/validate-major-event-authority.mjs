@@ -31,6 +31,7 @@ const registry = read(registryPath);
 const ledger = read(ledgerPath);
 const collections = read(collectionsPath);
 const temporalCollections = read(temporalCollectionsPath);
+const collectionPage = read(collectionPagePath);
 const temporalSitemap = read(temporalSitemapPath);
 const collectionLoader = read(collectionLoaderPath);
 const directory = read(directoryPath);
@@ -125,6 +126,11 @@ const requiredTemporalPaths = [
 const rollingTemporalPaths = ["/events/this-weekend", "/events/this-month"];
 const qualifiedTemporalPaths = requiredTemporalPaths.filter((routePath) => !rollingTemporalPaths.includes(routePath));
 const collectionPaths = [...collections.matchAll(/\bpath:\s*"(\/events\/[a-z0-9-]+)"/g)].map((match) => match[1]);
+if (!collectionPage.includes("Last reviewed:") || !collectionPage.includes("Event guides")) fail("event collection page must expose visitor-facing review language.");
+if (collectionPage.includes("Latest source check:") || collectionPage.includes("Verified event guides")) fail("event collection page must not restore retired source-check/verification labels.");
+if (!temporalCollections.includes("current event details.")) fail("temporal event collections must expose visitor-facing event-detail language.");
+if (temporalCollections.includes("current source check.")) fail("temporal event collections must not restore retired source-check wording.");
+
 const temporalPaths = [...temporalCollections.matchAll(/\bpath:\s*"(\/events\/[a-z0-9-]+)"/g)].map((match) => match[1]);
 if (collectionPaths.length !== requiredCollectionPaths.length) {
   fail(`expected ${requiredCollectionPaths.length} event authority collections, found ${collectionPaths.length}`);
