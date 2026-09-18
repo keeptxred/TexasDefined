@@ -14,16 +14,10 @@ import type { SportsVenueEnrichment } from "@/data/sports-venue-enrichment";
 import type { SportsVenueGuidePilot } from "@/data/sports-venue-guide-pilots";
 import { isGeneratedSportsVenueImage } from "@/data/sports-venue-image-attribution";
 import type { SportsVenuePhoto } from "@/data/sports-venue-images";
-import type { SportsVenueLanding } from "@/data/sports-venue-landings";
 import type { PublicSportsSponsorPlacement } from "@/data/sports-sponsorship.types";
 
 const siteUrl = "https://texasdefined.com";
 
-// Collection discovery now lives on the sports-venue directory and search surfaces rather than
-// as a generic block on every venue guide. These migration markers document the retired surface
-// until the broader landing-page validation contract is updated: SportsCollectionSection,
-// Explore the collection, More venues like ${venueName}, href={`/sports-venues/${landing.slug}`},
-// Browse collection →.
 
 export type SportsVenueGuideLink = {
   label: string;
@@ -40,7 +34,6 @@ export type SportsVenueGuidePageProps = {
   nearbyAttractions?: readonly TexasEntityRecord[];
   upcomingEvents?: readonly TexasEventCarouselItem[];
   eventCalendarHref?: string;
-  landingLinks?: readonly SportsVenueLanding[];
   sponsorPlacement?: PublicSportsSponsorPlacement | null;
 };
 
