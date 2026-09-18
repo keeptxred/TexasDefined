@@ -127,7 +127,15 @@ async function fetchRetry(url, options = {}) {
 
 async function loadSitemap(sitemapPath) {
   const url = `${ORIGIN}${sitemapPath}`;
-  const response = await fetchRetry(url, { redirect: 'manual' });
+  let response;
+  try {
+    response = await fetchRetry(url, { redirect: 'manual' });
+  } catch (error) {
+    throw new Error(
+      `${sitemapPath} fetch failed after ${RETRIES + 1} attempt(s): ${error instanceof Error ? error.message : String(error)}`,
+      { cause: error },
+    );
+  }
   if (response.status !== 200) throw new Error(`${sitemapPath} returned HTTP ${response.status}`);
   const xml = await response.text();
   const locations = [...xml.matchAll(/<loc>([\s\S]*?)<\/loc>/gi)].map((match) => normalizeUrl(decodeXml(match[1].trim())));
