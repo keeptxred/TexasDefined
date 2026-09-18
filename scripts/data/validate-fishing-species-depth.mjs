@@ -67,7 +67,7 @@ for (const eagerHeadToken of ["buildMeta", "canonicalLink", "texasDefinedBrand",
 
 requireText(files.directoryServer, "isCompleteFishingSpeciesSlug(row.slug)", "directory full-guide badges must use shared completion gate");
 requireText(files.directoryComponent, "Cards marked “Full guide”", "directory expanded-guide explanation missing");
-requireText(files.directoryComponent, "Batch 14 expands standalone coverage", "directory Batch 14 growth policy missing");
+requireText(files.directoryComponent, "Standalone species coverage expands only for records already supported by source-backed relationships", "directory source-backed standalone-growth policy missing");
 
 for (const token of ["buildLargemouthBassHead", '"@type": "WebPage"', '"@type": "BreadcrumbList"', "canonicalPath"]) requireText(files.bassServer, token, `flagship server-head optimization missing ${token}`);
 for (const token of ['createFileRoute("/fishing/species/largemouth-bass")', "head: ({ loaderData }) => loaderData?.head"]) requireText(files.bassRoute, token, `flagship critical route contract missing ${token}`);
