@@ -21,39 +21,43 @@ jobs:
             ['custom-domain', 'https://texasdefined.com'],
             ['direct-worker', 'https://texasdefined-site.freddy-coppola.workers.dev'],
           ];
+          const variants = [
+            ['ordinary', '', {}],
+            ['cache-bypass', '', {'cache-control':'no-cache', pragma:'no-cache'}],
+            ['cache-busted', `?diagnose-advertiser=${Date.now()}`, {}],
+          ];
           for (const [name, origin] of origins) {
-            const url = `${origin}/partner-with-us?diagnose-advertiser=${Date.now()}`;
-            try {
-              const response = await fetch(url, {
-                redirect: 'follow',
-                cache: 'no-store',
-                signal: AbortSignal.timeout(30000),
-                headers: {
-                  'cache-control': 'no-cache',
-                  pragma: 'no-cache',
-                  'user-agent': 'TexasDefined-Origin-Diagnostic/1.0',
-                },
-              });
-              const html = (await response.text()).replace(/<!--\s*-->/g, '');
-              const markers = {
-                modernLocal: html.includes('Local Partner'),
-                modern249: html.includes('$249'),
-                modern999: html.includes('$999'),
-                retiredSports: html.includes('Founding sports rates'),
-                retired49: html.includes('$49/month'),
-              };
-              console.log(JSON.stringify({
-                name,
-                status: response.status,
-                finalUrl: response.url,
-                cfCacheStatus: response.headers.get('cf-cache-status'),
-                age: response.headers.get('age'),
-                server: response.headers.get('server'),
-                markers,
-              }));
-            } catch (error) {
-              console.error(JSON.stringify({name,error:error instanceof Error ? error.message : String(error)}));
-              process.exitCode = 1;
+            for (const [variant, suffix, extraHeaders] of variants) {
+              const url = `${origin}/partner-with-us${suffix}`;
+              try {
+                const response = await fetch(url, {
+                  redirect: 'follow',
+                  cache: variant === 'cache-bypass' ? 'no-store' : 'default',
+                  signal: AbortSignal.timeout(30000),
+                  headers: {
+                    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/153.0.0.0 Safari/537.36',
+                    accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                    ...extraHeaders,
+                  },
+                });
+                const html = (await response.text()).replace(/<!--\s*-->/g, '');
+                console.log(JSON.stringify({
+                  name, variant, status: response.status, finalUrl: response.url,
+                  cfCacheStatus: response.headers.get('cf-cache-status'),
+                  age: response.headers.get('age'),
+                  server: response.headers.get('server'),
+                  markers: {
+                    modernLocal: html.includes('Local Partner'),
+                    modern249: html.includes('$249'),
+                    modern999: html.includes('$999'),
+                    retiredSports: html.includes('Founding sports rates'),
+                    retired49: html.includes('$49/month'),
+                  },
+                }));
+              } catch (error) {
+                console.error(JSON.stringify({name,variant,error:error instanceof Error ? error.message : String(error)}));
+                process.exitCode = 1;
+              }
             }
           }
           NODE
