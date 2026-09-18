@@ -31,6 +31,7 @@ const checks = [
   [hub, "encodingFormat: 'text/csv'", 'Texas DataCatalog sports comparison distribution must identify CSV encoding'],
   [hub, 'contentUrl: absoluteUrl(texasDefinedBrand, sportsComparisonCsvPath)', 'Texas DataCatalog must point to the canonical sports comparison CSV'],
   [hub, 'Data from across Texas Defined', 'Texas data hub must visibly distinguish cross-vertical reference datasets from native data briefs'],
+  [hub, 'address-level official-source research', 'Texas data hub relocation discovery must use visitor-facing source language'],
   [hub, 'Texas Sports Venue Comparison', 'Texas data hub must visibly link the sports comparison'],
   [hub, 'Capacity and opening fields remain blank when the verified profile does not contain a usable value.', 'Texas data hub must preserve sports missing-value guidance'],
   [detail, "'@type': 'Dataset'", 'Dataset pages must declare Dataset schema'],
@@ -59,6 +60,7 @@ if (hub.includes("from '@/data/sports-venue-comparison'")) {
 if (hub.includes('getSportsVenueEnrichmentAll') || hub.includes('CURATED_KNOWLEDGE_GRAPH_SEED')) {
   failures.push('Texas data hub must not import sports venue enrichment or the statewide knowledge seed just to advertise the comparison dataset.');
 }
+if (hub.includes('address-level source checks')) failures.push('Texas data hub must not restore internal source-check wording in visitor copy.');
 
 if (failures.length) {
   console.error('Texas data SEO validation failed:');
