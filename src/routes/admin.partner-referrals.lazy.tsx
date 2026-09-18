@@ -51,13 +51,15 @@ function PartnerReferralAnalyticsAdmin() {
       <button disabled={busy} className="min-h-11 justify-self-start bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">Unlock analytics</button>
       {error ? <p className="text-sm font-semibold text-destructive">{error}</p> : null}
     </form> : <>
-      <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
         <Metric label="30d referral clicks" value={dashboard.totalClicks30d} />
         <Metric label="Last 7 days" value={dashboard.totalClicks7d} />
         <Metric label="Prior 7 days" value={dashboard.prior7dClicks} />
         <Metric label="Week over week" value={dashboard.weekOverWeekPercent === null ? 'New' : `${dashboard.weekOverWeekPercent > 0 ? '+' : ''}${dashboard.weekOverWeekPercent}%`} />
-        <Metric label="Last sync" value={dashboard.lastSyncedAt ? new Date(dashboard.lastSyncedAt).toLocaleString() : 'No data yet'} />
+        <Metric label="Last aggregate write" value={dashboard.lastSyncedAt ? new Date(dashboard.lastSyncedAt).toLocaleString() : 'No referral rows yet'} />
+        <Metric label="Dashboard refreshed" value={new Date(dashboard.generatedAt).toLocaleString()} />
       </section>
+      {dashboard.totalClicks30d === 0 ? <p className="mt-5 max-w-3xl border-l-2 border-border pl-4 text-sm leading-6 text-muted-foreground">No qualifying non-CI affiliate referral clicks are currently present in the 30-day aggregate. This dashboard query completed successfully; a zero-click sync can legitimately leave the aggregate table empty, so “Last aggregate write” remains blank until a real referral row exists.</p> : null}
 
       <section className="mt-12 border-t border-border pt-6">
         <div className="flex flex-wrap items-end justify-between gap-3"><div><p className="eyebrow text-primary">30-day trend</p><h2 className="mt-2 font-display text-4xl">Daily referral clicks</h2></div><button disabled={busy} onClick={() => { setBusy(true); setError(''); void refresh().catch((cause) => setError(cause instanceof Error ? cause.message : 'Refresh failed.')).finally(() => setBusy(false)); }} className="min-h-10 border border-border px-4 text-sm font-semibold">Refresh</button></div>
