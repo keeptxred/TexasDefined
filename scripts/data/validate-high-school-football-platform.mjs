@@ -34,11 +34,10 @@ const programSlugsPath = 'src/data/high-school-football/program-slugs.ts';
 const programProfileServerPath = 'src/data/high-school-football/football-program-profile.server.ts';
 const programProfileFunctionsPath = 'src/data/high-school-football/football-program-profile.functions.ts';
 const uilDirectoryComponentPath = 'src/components/sports/UilFootballProgramDirectory.tsx';
-const featuredFiles = [
+const legacyMetadataFiles = [
   'src/data/high-school-football/featured-programs.ts',
   'src/data/high-school-football/school-identities.ts',
   'src/data/high-school-football/featured-program-profile.server.ts',
-  'src/components/sports/FeaturedFootballResearchList.tsx',
   'src/routes/texas-high-school-football-teams.$slug.tsx',
   'src/routes/texas-high-school-football-teams.$slug.lazy.tsx',
   'src/routes/sitemap[.]xml.ts',
@@ -64,7 +63,7 @@ for (const file of [
   programProfileServerPath,
   programProfileFunctionsPath,
   uilDirectoryComponentPath,
-  ...featuredFiles,
+  ...legacyMetadataFiles,
 ]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing high-school football platform file: ${file}`);
 }
@@ -98,13 +97,12 @@ if (!errors.length) {
   const programProfileServer = read(programProfileServerPath);
   const programProfileFunctions = read(programProfileFunctionsPath);
   const uilDirectoryComponent = read(uilDirectoryComponentPath);
-  const featuredPrograms = read(featuredFiles[0]);
-  const schoolIdentities = read(featuredFiles[1]);
-  const featuredProfileLoader = read(featuredFiles[2]);
-  const featuredResearchList = read(featuredFiles[3]);
-  const featuredProfileRoute = read(featuredFiles[4]);
-  const featuredProfilePage = read(featuredFiles[5]);
-  const sitemap = read(featuredFiles[6]);
+  const legacyProgramMetadata = read(legacyMetadataFiles[0]);
+  const schoolIdentities = read(legacyMetadataFiles[1]);
+  const featuredProfileLoader = read(legacyMetadataFiles[2]);
+  const featuredProfileRoute = read(legacyMetadataFiles[3]);
+  const featuredProfilePage = read(legacyMetadataFiles[4]);
+  const sitemap = read(legacyMetadataFiles[5]);
 
   for (const marker of [
     'UIL_FOOTBALL_PROGRAM_COUNT !== 1268',
@@ -196,12 +194,7 @@ if (!errors.length) {
   if (finder.includes('Research list #')) errors.push('Football lookup must not expose seed-list rank or priority treatment.');
 
   for (const marker of [
-    'FEATURED_SOURCE_ROW_COUNT = 250',
-    'FEATURED_UNIQUE_PROGRAM_COUNT = 242',
-    'FEATURED_FOOTBALL_SOURCE_ROWS',
     'FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS',
-    'sourceRanks',
-    'primaryRank',
     'SEARCH_NAME_OVERRIDES',
     'ASSOCIATION_OVERRIDES',
     'matchFeaturedFootballProgram',
@@ -209,7 +202,7 @@ if (!errors.length) {
     '"Austin LBJ": "Austin Johnson"',
     '"Plano Senior": "Plano"',
     '"Calallen": "Corpus Christi Calallen"',
-  ]) requireText(featuredPrograms, marker, 'Featured football program data');
+  ]) requireText(legacyProgramMetadata, marker, 'Legacy football alias/private-school metadata');
 
   for (const marker of [
     'VERIFIED_FOOTBALL_SCHOOL_IDENTITIES',
@@ -494,7 +487,7 @@ if (!errors.length) {
     [files[8], schoolDistrict],
     [files[9], relocationFinder],
     [files[10], entityPage],
-    [featuredFiles[5], featuredProfilePage],
+    [legacyMetadataFiles[4], featuredProfilePage],
     [uilDirectoryComponentPath, uilDirectoryComponent],
   ]) {
     if (
