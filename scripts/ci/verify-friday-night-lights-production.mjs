@@ -21,6 +21,16 @@ function requireNeedle(body, needle, label) {
   if (!body.includes(needle)) throw new Error(`${label} missing expected content: ${needle}`);
 }
 
+function requireOrderedNeedles(body, needles, label) {
+  let previousIndex = -1;
+  for (const needle of needles) {
+    const index = body.indexOf(needle);
+    if (index < 0) throw new Error(`${label} missing ordered content: ${needle}`);
+    if (index <= previousIndex) throw new Error(`${label} order regression around: ${needle}`);
+    previousIndex = index;
+  }
+}
+
 function decodeHtml(value) {
   return value
     .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(Number(code)))
@@ -128,6 +138,12 @@ await fetchVerified(finderPath, 'football finder', (body) => {
     sixManPath,
     'Browse all 1,268 Texas high school football programs',
     'All 1,268',
+    '6A · 249',
+    '5A · 246',
+    '4A · 205',
+    '3A · 204',
+    '2A · 205',
+    '1A · 159',
     '6A → 1A · enrollment classification',
     'UIL enrollment band: 2,215 and above',
     'UIL enrollment band: 1,305–2,214',
@@ -137,6 +153,14 @@ await fetchVerified(finderPath, 'football finder', (body) => {
     '/texas-high-school-football-teams/katy',
     '/texas-high-school-football-teams/abbott',
   ]) requireNeedle(body, needle, 'football finder');
+  requireOrderedNeedles(body, [
+    '6A football programs',
+    '5A football programs',
+    '4A football programs',
+    '3A football programs',
+    '2A football programs',
+    '1A football programs',
+  ], 'football finder UIL classification hierarchy');
   if (/\bnoindex\b/i.test(body)) throw new Error('football finder unexpectedly contains noindex');
 });
 
