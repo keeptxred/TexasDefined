@@ -47,9 +47,11 @@ for (const marker of [
   'Other records stay in the directory rather than becoming thin pages.',
   'In complete lake guides',
   'Directory profile · standalone guide not published',
-  'No completed TexasDefined lake guide currently carries a verified relationship for this record.',
-  'lake-to-species relationship',
+  'No completed TexasDefined lake guide currently carries a source-backed relationship for this record.',
+  'source-backed lake-to-species relationship',
   'not a live fishing report',
+  'Source-backed relationships first; standalone pages second.',
+  'Standalone species coverage expands only for records already supported by source-backed relationships',
 ]) assert(component.includes(marker), `Fishing species directory UI is missing quality/internal-link marker: ${marker}.`);
 
 for (const marker of [

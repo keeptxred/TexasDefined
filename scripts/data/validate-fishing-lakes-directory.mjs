@@ -35,13 +35,15 @@ for (const marker of [
 ]) assert(route.includes(marker), `Fishing lakes route is missing loader/SEO/lazy-boundary marker: ${marker}.`);
 
 for (const marker of [
-  "lake guides have cleared TexasDefined's complete-guide standard",
+  "complete Texas fishing lake guides are published",
   'What this directory covers',
   'not a claim that these are the only or universally “best” fishing lakes in Texas',
   'Compare before you choose the water',
-  'Verified fishing targets',
+  'Fishing targets',
   'Lake facts are durable. Conditions are not.',
   'unfinished lake records are not exposed here as thin pages',
+  'same sourcing standard',
+  'source-backed lake-to-species relationships',
   'fishingFoundationAnchor("lake", lake.slug)',
 ]) assert(component.includes(marker), `Fishing lakes UI is missing quality/discovery marker: ${marker}.`);
 
