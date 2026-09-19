@@ -30,6 +30,11 @@ type FootballProgram = {
     sourceUrl: string;
     matchMethod: 'exact-normalized-uil-name';
   };
+  featuredProfile?: {
+    slug: string;
+    primaryRank: number;
+    sourceRanks: readonly number[];
+  };
   allTimeHistory?: {
     stateTitles: number;
     stateFinalAppearances: number;
@@ -212,7 +217,10 @@ export function HighSchoolFootballLookup({
           {selectedPrograms.length > 0 && <ProgramComparison programs={selectedPrograms} onClear={() => setSelectedKeys([])} />}
           <div className="grid gap-px bg-border md:grid-cols-2">
             {visible.map((program) => <article key={programKey(program)} className="bg-background p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">{alignmentLabel(program)}</p>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">{alignmentLabel(program)}</p>
+                {program.featuredProfile && <span className="text-[0.68rem] font-semibold uppercase tracking-[0.1em] text-muted-foreground">Research list #{program.featuredProfile.primaryRank}</span>}
+              </div>
               <h4 className="mt-2 font-display text-2xl leading-tight">{program.officialSchoolName || program.schoolName}</h4>
               {program.districtName && <p className="mt-2 text-sm font-medium">{program.districtName}</p>}
               <p className="mt-1 text-sm text-muted-foreground">{placeLabel(program)}</p>
@@ -231,7 +239,10 @@ export function HighSchoolFootballLookup({
               </dl>
               {program.allTimeHistory && <AllTimeHistory history={program.allTimeHistory} />}
               {program.recentHistory && <RecentFinals history={program.recentHistory} />}
-              <a href={program.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-xs font-semibold text-primary underline underline-offset-4">Official UIL alignment ↗</a>
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold">
+                {program.featuredProfile && <a href={`/texas-high-school-football-teams/${program.featuredProfile.slug}`} className="text-primary underline underline-offset-4">School profile, enrollment & mascot →</a>}
+                <a href={program.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official UIL alignment ↗</a>
+              </div>
             </article>)}
           </div>
           {matchedTotal > visible.length && <p className="mt-4 text-sm text-muted-foreground">Showing the first {visible.length} programs. Use a school or ISD name to narrow the list.</p>}
