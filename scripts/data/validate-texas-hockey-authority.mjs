@@ -21,6 +21,8 @@ const sportsVenuePilot = fs.readFileSync('src/components/sports/SportsVenueGuide
 const entityHockey = fs.readFileSync('src/components/sports/EntityHockeyTeams.tsx', 'utf8');
 const entityLazy = fs.readFileSync('src/routes/$kind.$slug.lazy.tsx', 'utf8');
 const routeTree = fs.readFileSync('src/routeTree.gen.ts', 'utf8');
+const hockeySearch = fs.readFileSync('src/data/texas-hockey-search.ts', 'utf8');
+const searchRuntime = fs.readFileSync('src/data/search-documents-runtime.ts', 'utf8');
 
 for (const marker of [
   "TEXAS_HOCKEY_SEASON = '2026–27'",
@@ -98,6 +100,8 @@ for (const marker of ['texasHockeyTeamsForVenuePath', 'texasHockeyTeamPath', 'Ho
 for (const marker of ['TEXAS_HOCKEY_ACTIVE_TEAMS', "kind === 'city' ? team.citySlug === slug : team.countySlug === slug", 'Hockey in {name}', 'texasHockeyTeamPath', 'hockeyVenuePathForTeam']) requireText(entityHockey, marker, 'City/county hockey backlinks');
 for (const marker of ['EntityHockeyTeams', "entity.kind === 'city' || entity.kind === 'county'"]) requireText(entityLazy, marker, 'City/county hockey integration');
 for (const marker of ["'/texas-hockey'", "'/texas-hockey/teams/$slug'", "'/texas-hockey/leagues/$slug'", "'/texas-hockey/venues/$slug'"]) requireText(routeTree, marker, 'Generated hockey route tree');
+for (const marker of ['buildTexasHockeySearchDocuments', 'TEXAS_HOCKEY_ACTIVE_TEAMS', 'TEXAS_HOCKEY_LEAGUES', 'TEXAS_HOCKEY_VENUES', "kind: 'sports-team'", "href: '/texas-hockey'"]) requireText(hockeySearch, marker, 'Texas hockey search documents');
+for (const marker of ['buildTexasHockeySearchDocuments', 'reportOptionalSearchFailure("Texas hockey")']) requireText(searchRuntime, marker, 'Texas hockey runtime search integration');
 
 const activeTeamCount = [...data.matchAll(/status: 'active'/g)].length;
 if (activeTeamCount !== 21) failures.push('Expected exactly 21 current Texas hockey teams/programs; found ' + activeTeamCount + '.');
