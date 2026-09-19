@@ -86,6 +86,7 @@ import { smallTownWave12Destinations } from "./small-town-destinations-wave12";
 import { smallTownWave13Destinations } from "./small-town-destinations-wave13";
 import { smallTownWave14Destinations } from "./small-town-destinations-wave14";
 import { smallTownWave15Destinations } from "./small-town-destinations-wave15";
+import { shinerBreweryDestination } from "./shiner-brewery-destination";
 import { viatorDestinationExpansion } from "./viator-destination-expansion";
 import { whirlyballHurstDestinations } from "./whirlyball-hurst-destination";
 import { wildlifeManagementAreaWave1Destinations } from "./wildlife-management-area-destinations-wave1";
@@ -286,6 +287,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   smallTownWave13Destinations,
   smallTownWave14Destinations,
   smallTownWave15Destinations,
+  [shinerBreweryDestination],
   [newBraunfelsSeasonalFallback],
   [sanMarcosWaterGatewayFallback],
 );
