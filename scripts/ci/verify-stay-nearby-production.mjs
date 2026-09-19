@@ -119,6 +119,35 @@ requireCondition(registry?.policy?.displayComputedDistance === false, 'Stay Near
 requireCondition(registry?.policy?.broadVenueFallback === false, 'Stay Nearby production registry allows broad venue fallback.');
 requireCondition(Array.isArray(registry?.properties), 'Stay Nearby production registry properties are missing.');
 
+const paintedChurchesRegistry = await fetchLive('/stay-nearby-painted-churches-hotels.json', 'json');
+requireCondition(paintedChurchesRegistry?.version === 1, 'Painted Churches stay production registry version is not 1.');
+requireCondition(paintedChurchesRegistry?.reviewedAt === '2026-09-19', 'Painted Churches stay production registry review date drifted.');
+requireCondition(paintedChurchesRegistry?.policy?.maxCards === 3, 'Painted Churches stay production registry no longer caps cards at 3.');
+requireCondition(Array.isArray(paintedChurchesRegistry?.properties) && paintedChurchesRegistry.properties.length === 3, 'Painted Churches stay production registry must expose exactly 3 properties.');
+
+const paintedExpected = [
+  ['holiday-inn-express-schulenburg', 'Holiday Inn Express Hotel & Suites Schulenburg by IHG', 1, 'ho439556'],
+  ['comfort-inn-suites-schulenburg', 'Comfort Inn & Suites Schulenburg', 2, 'ho499127'],
+  ['americas-best-value-inn-schulenburg', 'Americas Best Value Inn Schulenburg', 3, 'ho467717'],
+];
+const paintedAffiliateUrls = new Set();
+for (const [id, name, rank, hotelsId] of paintedExpected) {
+  const property = paintedChurchesRegistry.properties.find((candidate) => candidate?.id === id);
+  requireCondition(Boolean(property), `Painted Churches production registry is missing ${id}.`);
+  requireCondition(property?.name === name && property?.city === 'Schulenburg' && property?.status === 'active', `${id} production identity/status drifted.`);
+  requireCondition(property?.image === null, `${id} must remain text-only until separately governed property imagery exists.`);
+  const context = property?.contexts?.[0];
+  requireCondition(property?.contexts?.length === 1 && context?.kind === 'destination' && context?.key === 'painted-churches' && context?.rank === rank, `${id} Painted Churches destination context/rank drifted.`);
+  requireCondition(/^https:\/\//.test(context?.source?.url || '') && context?.source?.verifiedAt === '2026-09-19', `${id} production source evidence drifted.`);
+  const target = property?.bookingTargets?.[0];
+  requireCondition(property?.bookingTargets?.length === 1 && target?.provider === 'hotels.com' && target?.verified === true && target?.ctaLabel === 'View on Hotels.com', `${id} verified Hotels.com target metadata drifted.`);
+  requireCondition(target?.affiliateUrl?.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/'), `${id} is missing the TexasDefined CJ Hotels.com wrapper.`);
+  requireCondition(target?.affiliateUrl?.includes(`/ho${String(hotelsId).replace(/^ho/, '')}/`), `${id} Hotels.com exact-property identifier drifted.`);
+  requireCondition(!paintedAffiliateUrls.has(target?.affiliateUrl), `${id} reuses another Painted Churches affiliate target.`);
+  paintedAffiliateUrls.add(target.affiliateUrl);
+}
+
+
 const aiRegistry = await fetchLive('/stay-nearby-ai-property-images.json', 'json');
 requireCondition(aiRegistry?.version === 2, 'Stay Nearby exact-property AI production registry version is not 2.');
 requireCondition(aiRegistry?.disclosure === aiDisclosure, 'Stay Nearby exact-property AI disclosure drifted.');
@@ -129,6 +158,24 @@ requireCondition(Array.isArray(aiRegistry?.items), 'Production exact-property AI
 const aiById = new Map(aiRegistry.items.map((item) => [item.propertyId, item]));
 const seenAiUrls = new Set();
 let verifiedAiAssets = 0;
+
+const paintedChurchesPages = [
+  ['/explore/painted-churches', 'Painted Churches'],
+  ['/explore/painted-churches/guides/national-register-painted-churches', 'National Register'],
+];
+for (const [route, marker] of paintedChurchesPages) {
+  const page = await fetchLive(route);
+  requireCondition(page.includes(marker), `${route} did not render its expected Painted Churches marker.`);
+  requireCondition(page.includes('/expedia-travel.js'), `${route} is missing the Expedia/Stay Nearby bootstrap reference.`);
+  requireCondition(page.includes('/stay-affiliate-options.js'), `${route} is missing the Hotels.com/Vrbo affiliate bootstrap reference.`);
+  const noindex = /<meta[^>]+(?:name=["'](?:robots|googlebot|googlebot-news)["'][^>]+content=["'][^"']*\bnoindex\b|content=["'][^"']*\bnoindex\b[^>]+name=["'](?:robots|googlebot|googlebot-news)["'])/i.test(page);
+  requireCondition(!noindex, `${route} is noindex and cannot remain in the Painted Churches monetization cohort.`);
+  const canonicalMatch = page.match(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']|<link[^>]+href=["']([^"']+)["'][^>]+rel=["']canonical["']/i);
+  const canonicalHref = canonicalMatch?.[1] || canonicalMatch?.[2];
+  requireCondition(Boolean(canonicalHref), `${route} is missing its canonical URL.`);
+  const canonical = new URL(canonicalHref, origin);
+  requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === route.replace(/\/+$/, ''), `${route} is not self-canonical.`);
+}
 
 for (const pilot of pilots) {
   const entries = registry.properties
@@ -178,6 +225,12 @@ for (const marker of [
   'flex:0 0 calc((100% - 2rem)/3)', 'flex-basis:84%', 'data-camref', '1110lMy6E', 'data-pubref', 'texasdefined-stays',
   'TexasDefined does not cache or display nightly prices.',
   'Affiliate disclosure: TexasDefined may earn a commission from qualifying Expedia bookings',
+  'const PAINTED_CHURCHES_STAY_DATA_URL = "/stay-nearby-painted-churches-hotels.json"',
+  'key: "painted-churches"',
+  'loadPaintedChurchesStayData',
+  'loadStayDataForContext',
+  'HOTELS_EXPEDIA_DISCLOSURE',
+  'curatedDisclosure(selection)',
 ]) requireCondition(bootstrap.includes(marker), `Live Expedia/Stay Nearby bootstrap is missing marker: ${marker}`);
 
 const contextBootstrap = await fetchLive('/stay-nearby-context-images.js');
@@ -218,4 +271,4 @@ for (const pilot of pilots) {
   }
 }
 
-console.log(`Stay Nearby production verification passed for ${pilots.length} redesigned venue guides: curated three-card hotel sets remain source-backed, approved affiliate property photos retain precedence, ${verifiedAiAssets} exact-property photorealistic AI raster assets were verified live with property-specific address/source provenance, SVG and generic hotel fallbacks are prohibited, retired collection blocks remain absent, and Gerald J. Ford Stadium keeps its parking map embedded in the shared planning section after the Parking/Arrival row.`);
+console.log(`Stay Nearby production verification passed for ${pilots.length} redesigned venue guides plus the targeted Painted Churches cohort: venue hotel sets remain source-backed and image-governed, Painted Churches exposes exactly three source-backed text-only Schulenburg stays with unique verified Hotels.com CJ property targets and provider-aware disclosure, ${verifiedAiAssets} exact-property photorealistic AI raster assets were verified live for the venue cohort, representative Painted Churches pages remain indexable/self-canonical with both stay bootstraps, SVG and generic hotel fallbacks are prohibited, retired collection blocks remain absent, and Gerald J. Ford Stadium keeps its parking map embedded in the shared planning section after the Parking/Arrival row.`);
