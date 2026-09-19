@@ -19,6 +19,16 @@ export type TeaSchoolDirectoryRecord = {
   districtName: string;
   countyName: string;
   city: string;
+  schoolNumber?: string;
+  siteStreetAddress?: string;
+  siteCity?: string;
+  siteState?: string;
+  siteZip?: string;
+  phone?: string;
+  webAddress?: string;
+  gradeRange?: string;
+  enrollment?: number;
+  enrollmentLabel?: string;
 };
 
 export type FootballProgramDirectoryResult = UilFootballProgram & {
@@ -27,6 +37,16 @@ export type FootballProgramDirectoryResult = UilFootballProgram & {
   districtName?: string;
   countyName?: string;
   city?: string;
+  schoolNumber?: string;
+  siteStreetAddress?: string;
+  siteCity?: string;
+  siteState?: string;
+  siteZip?: string;
+  phone?: string;
+  webAddress?: string;
+  gradeRange?: string;
+  enrollment?: number;
+  enrollmentLabel?: string;
   recentHistory?: UilRecentFootballHistory;
   allTimeHistory?: UilAllTimeFootballHistory;
 };
@@ -125,19 +145,43 @@ function parseTeaDirectory(text: string): TeaSchoolDirectoryRecord[] {
   const schoolIndex = findColumn(headers, ['schoolname', 'campusname']);
   const districtIndex = findColumn(headers, ['districtname', 'leaname']);
   const countyIndex = findColumn(headers, ['countyname', 'county']);
-  const cityIndex = findColumn(headers, ['sitecity', 'schoolcity', 'city']);
+  const cityIndex = findColumn(headers, ['schoolsitecity', 'sitecity', 'schoolcity', 'city']);
+  const schoolNumberIndex = findColumn(headers, ['schoolnumber', 'campusnumber']);
+  const siteStreetAddressIndex = findColumn(headers, ['schoolsitestreetaddress', 'sitestreetaddress', 'schoolsiteaddress']);
+  const siteCityIndex = findColumn(headers, ['schoolsitecity', 'sitecity']);
+  const siteStateIndex = findColumn(headers, ['schoolsitestate', 'sitestate']);
+  const siteZipIndex = findColumn(headers, ['schoolsitezip', 'sitezip']);
+  const phoneIndex = findColumn(headers, ['schoolphone']);
+  const webAddressIndex = findColumn(headers, ['schoolwebpageaddress', 'schoolwebaddress']);
+  const gradeRangeIndex = findColumn(headers, ['graderange']);
+  const enrollmentIndex = findColumn(headers, ['schoolenrollmentasof', 'schoolenrollment']);
+  const enrollmentLabel = enrollmentIndex >= 0 ? headers[enrollmentIndex]?.trim() ?? '' : '';
 
   if (schoolIndex < 0 || districtIndex < 0) {
     throw new Error('AskTED school and district columns were not found.');
   }
 
   return parsed
-    .map((row) => ({
-      schoolName: row[schoolIndex]?.trim() ?? '',
-      districtName: row[districtIndex]?.trim() ?? '',
-      countyName: countyIndex >= 0 ? (row[countyIndex]?.trim() ?? '') : '',
-      city: cityIndex >= 0 ? (row[cityIndex]?.trim() ?? '') : '',
-    }))
+    .map((row) => {
+      const rawEnrollment = enrollmentIndex >= 0 ? (row[enrollmentIndex]?.trim() ?? '') : '';
+      const parsedEnrollment = Number.parseInt(rawEnrollment.replace(/,/g, ''), 10);
+      return {
+        schoolName: row[schoolIndex]?.trim() ?? '',
+        districtName: row[districtIndex]?.trim() ?? '',
+        countyName: countyIndex >= 0 ? (row[countyIndex]?.trim() ?? '') : '',
+        city: cityIndex >= 0 ? (row[cityIndex]?.trim() ?? '') : '',
+        schoolNumber: schoolNumberIndex >= 0 ? (row[schoolNumberIndex]?.trim() || undefined) : undefined,
+        siteStreetAddress: siteStreetAddressIndex >= 0 ? (row[siteStreetAddressIndex]?.trim() || undefined) : undefined,
+        siteCity: siteCityIndex >= 0 ? (row[siteCityIndex]?.trim() || undefined) : undefined,
+        siteState: siteStateIndex >= 0 ? (row[siteStateIndex]?.trim() || undefined) : undefined,
+        siteZip: siteZipIndex >= 0 ? (row[siteZipIndex]?.trim() || undefined) : undefined,
+        phone: phoneIndex >= 0 ? (row[phoneIndex]?.trim() || undefined) : undefined,
+        webAddress: webAddressIndex >= 0 ? (row[webAddressIndex]?.trim() || undefined) : undefined,
+        gradeRange: gradeRangeIndex >= 0 ? (row[gradeRangeIndex]?.trim() || undefined) : undefined,
+        enrollment: Number.isFinite(parsedEnrollment) ? parsedEnrollment : undefined,
+        enrollmentLabel: Number.isFinite(parsedEnrollment) && enrollmentLabel ? enrollmentLabel : undefined,
+      };
+    })
     .filter((row) => row.schoolName && row.districtName);
 }
 
@@ -209,6 +253,16 @@ function withDirectory(program: UilFootballProgram, rows: TeaSchoolDirectoryReco
     districtName: record.districtName,
     countyName: record.countyName,
     city: record.city,
+    schoolNumber: record.schoolNumber,
+    siteStreetAddress: record.siteStreetAddress,
+    siteCity: record.siteCity,
+    siteState: record.siteState,
+    siteZip: record.siteZip,
+    phone: record.phone,
+    webAddress: record.webAddress,
+    gradeRange: record.gradeRange,
+    enrollment: record.enrollment,
+    enrollmentLabel: record.enrollmentLabel,
   } : {
     ...program,
     profilePath: footballProgramProfilePath(program.schoolName),
