@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 const DATASET = 'texas_defined_outcomes';
 const TABLE = 'texasdefined_partner_referral_daily';
 const WINDOW_DAYS = 31;
+const RETENTION_DAYS = 90;
 const MAX_ROWS = 10_000;
 const UPSERT_CHUNK_SIZE = 400;
 const HEARTBEAT_PARTNER = '__pipeline__';
@@ -211,6 +212,29 @@ async function upsertRows(supabaseUrl, serviceRoleKey, rows) {
   }
 }
 
+async function pruneOldRows(supabaseUrl, serviceRoleKey) {
+  const cutoffDate = new Date();
+  cutoffDate.setUTCHours(0, 0, 0, 0);
+  cutoffDate.setUTCDate(cutoffDate.getUTCDate() - RETENTION_DAYS);
+  const cutoff = cutoffDate.toISOString().slice(0, 10);
+
+  const endpoint = new URL(`/rest/v1/${TABLE}`, supabaseUrl);
+  endpoint.searchParams.set('metric_date', `lt.${cutoff}`);
+  const response = await fetch(endpoint, {
+    method: 'DELETE',
+    headers: {
+      apikey: serviceRoleKey,
+      Authorization: `Bearer ${serviceRoleKey}`,
+      Prefer: 'return=minimal',
+    },
+  });
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(`Supabase referral retention cleanup failed with HTTP ${response.status}: ${body.slice(0, 500)}`);
+  }
+  return cutoff;
+}
+
 const supabaseUrl = required('SUPABASE_URL');
 const serviceRoleKey = required('SUPABASE_SERVICE_ROLE_KEY');
 const fallbackStaleMinutes = optionalPositiveMinutes(FALLBACK_STALE_MINUTES_ENV);
@@ -234,8 +258,9 @@ const rows = normalizeRows(rawRows);
 await upsertRows(supabaseUrl, serviceRoleKey, rows);
 const heartbeat = heartbeatRow();
 await upsertRows(supabaseUrl, serviceRoleKey, [heartbeat]);
+const retentionCutoff = await pruneOldRows(supabaseUrl, serviceRoleKey);
 
 const searchStarts = rows.filter((row) => row.partner === 'expedia-search').reduce((sum, row) => sum + row.click_count, 0);
 const clicks = rows.filter((row) => row.partner !== 'expedia-search').reduce((sum, row) => sum + row.click_count, 0);
 const impressions = rows.filter((row) => row.partner !== 'expedia-search').reduce((sum, row) => sum + row.impression_count, 0);
-console.log(`Partner referral analytics sync complete: ${rows.length} aggregates covering ${clicks} non-CI referral clicks, ${impressions} non-CI CTA impressions and ${searchStarts} Expedia search starts across the last ${WINDOW_DAYS} days; successful pipeline heartbeat ${heartbeat.synced_at}.`);
+console.log(`Partner referral analytics sync complete: ${rows.length} aggregates covering ${clicks} non-CI referral clicks, ${impressions} non-CI CTA impressions and ${searchStarts} Expedia search starts across the last ${WINDOW_DAYS} days; successful pipeline heartbeat ${heartbeat.synced_at}; retained metric dates >= ${retentionCutoff} (${RETENTION_DAYS}-day retention).`);
