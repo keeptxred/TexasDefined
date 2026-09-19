@@ -38,7 +38,7 @@ export function UilFootballProgramDirectory({ programs }: { programs: Program[] 
     if (classification !== 'ALL' && program.classification !== classification) return false;
     if (!normalizedQuery) return true;
     return normalize(program.schoolName).includes(normalizedQuery)
-      || normalize(\`\${program.classification} district \${program.district}\`).includes(normalizedQuery);
+      || normalize(`${program.classification} district ${program.district}`).includes(normalizedQuery);
   }), [programs, classification, normalizedQuery]);
 
   return <section className="border-b border-border py-12">
@@ -106,8 +106,8 @@ export function UilFootballProgramDirectory({ programs }: { programs: Program[] 
                   >
                     <p className="text-xs font-semibold uppercase tracking-[0.1em] text-primary">
                       {program.classification}
-                      {program.division ? \` · Division \${program.division === 1 ? 'I' : 'II'}\` : ''}
-                      {\` · District \${program.district}\`}
+                      {program.division ? ` · Division ${program.division === 1 ? 'I' : 'II'}` : ''}
+                      {` · District ${program.district}`}
                     </p>
                     <h4 className="mt-2 font-display text-xl leading-tight group-hover:text-primary">{program.schoolName}</h4>
                     <p className="mt-2 text-xs text-muted-foreground">{program.footballType} · Open school football profile →</p>
