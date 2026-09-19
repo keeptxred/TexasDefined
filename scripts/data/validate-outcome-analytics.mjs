@@ -45,6 +45,8 @@ for (const [needle, label] of [
   ['fetch(ANALYTICS_ENDPOINT', 'queued-event delivery'],
   ["trackTexasDefinedOutcome('partner_referral_shown'", 'partner referral impression tracking'],
   ["trackTexasDefinedOutcome('partner_referral_clicked'", 'partner referral tracking'],
+  ["if (anchor.dataset.commercialImpressionRecorded !== '1')", 'click-path impression backfill guard'],
+  ["observer?.unobserve(anchor);", 'click-path observer de-duplication'],
   ["a[data-entity-id], a[data-commercial-partner]", 'commercial impression observation'],
   ["anchor.dataset.commercialImpressionRecorded = '1'", 'single commercial impression per CTA element'],
   ["entityKind: anchor.dataset.commercialPlacement || 'unspecified'", 'commercial placement attribution'],
