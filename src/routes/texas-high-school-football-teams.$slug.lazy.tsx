@@ -13,6 +13,8 @@ function Page() {
     program,
     identity,
     enrollmentLink,
+    privateAlignment,
+    privateAdmissions,
     districtPeers,
     governingBodyHint,
     associationClassification,
@@ -21,7 +23,7 @@ function Page() {
 
   const schoolName = program?.officialSchoolName || displayName;
   const countyPath = program?.countyName ? '/county/' + countySlug(program.countyName) : null;
-  const associationLabel = program ? 'UIL' : governingBodyHint ?? 'Association not yet verified';
+  const associationLabel = program ? 'UIL' : privateAlignment?.association ?? governingBodyHint ?? 'Association not yet verified';
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <article className="mx-auto max-w-6xl">
@@ -43,8 +45,10 @@ function Page() {
         <dl className="border-y border-border py-3 text-sm lg:border-y-0 lg:border-l lg:pl-6">
           <Fact label="Governing body" value={associationLabel} />
           {program && <Fact label="Current alignment" value={alignmentLabel(program)} />}
+          {!program && privateAlignment && <Fact label="Current alignment" value={privateAlignmentLabel(privateAlignment)} />}
           {program && <Fact label="Football district" value={String(program.district)} />}
-          {program && <Fact label="Format" value={program.footballType} />}
+          {!program && privateAlignment?.districtLabel && <Fact label="Football district" value={privateAlignment.districtLabel} />}
+          <Fact label="Format" value={program?.footballType || privateAlignment?.footballType} />
         </dl>
       </header>
 
@@ -66,7 +70,20 @@ function Page() {
             <p className="mt-4 text-sm leading-7 text-muted-foreground">
               TexasDefined orders the statewide directory from 6A through 1A because UIL classifications reflect enrollment size. That order is not a claim that a larger-classification program is better than a smaller-classification program.
             </p>
-          </> : <>
+          </> : privateAlignment ? <div>
+            <dl className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+              <Snapshot label="Association" value={privateAlignment.association} />
+              <Snapshot label="Football division" value={privateAlignment.divisionLabel} />
+              <Snapshot label="Football district" value={privateAlignment.districtLabel || 'No district label in source'} />
+              <Snapshot label="Format" value={privateAlignment.footballType || 'Not specified by source'} />
+              <Snapshot label="Season / cycle" value={privateAlignment.seasonLabel} />
+              <Snapshot label="Source type" value={privateAlignment.sourceKind === 'official-association' ? 'Official association' : 'Current secondary source'} />
+            </dl>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
+              Private-school football uses its association’s own alignment system. TAPPS divisions, SPC classes and TAIAO divisions are not equivalent to UIL 1A–6A classifications.
+            </p>
+            <a href={privateAlignment.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">{privateAlignment.sourceLabel} ↗</a>
+          </div> : <>
             <div className="border-y border-border py-5">
               <p className="font-display text-2xl">{governingBodyHint ? [governingBodyHint, associationClassification].filter(Boolean).join(' ') : 'No current UIL alignment match'}</p>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
@@ -107,7 +124,7 @@ function Page() {
         <div>
           {program
             ? <PublicEnrollmentSteps schoolName={schoolName} districtName={program.districtName} enrollmentLink={enrollmentLink} />
-            : <NonUilEnrollmentSteps schoolName={schoolName} association={governingBodyHint} />}
+            : <NonUilEnrollmentSteps schoolName={schoolName} association={privateAlignment?.association ?? governingBodyHint} admissions={privateAdmissions} />}
 
           {program && <div className="mt-6 border border-border p-5 text-sm leading-7 text-muted-foreground">
             <strong className="text-foreground">Football eligibility is a separate question from school admission.</strong> Being admitted, moving into a district or receiving a transfer does not by itself establish varsity eligibility. UIL rules address residence, attendance zones, transfers, previous participation and changing schools for athletic purposes. A family considering a move specifically for football should get the student's eligibility determined by the school rather than assuming enrollment equals immediate varsity eligibility.
