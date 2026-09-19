@@ -19,31 +19,6 @@ function museumPlaceholder(name: string): ImageRef {
  */
 export const statewideMuseumExpansionWave14Destinations: Destination[] = [
   {
-    id: "museum-statewide-wave14-white-deer-land",
-    brandId: "texasdefined",
-    slug: "white-deer-land-museum-pampa",
-    name: "White Deer Land Museum",
-    summary: "The White Deer Land Museum in downtown Pampa preserves Gray County and White Deer Land Company history inside the restored 1916 land-company office, with exhibits spanning Panhandle settlement, Native peoples, the Red River War and community life.",
-    category: "historic-sites",
-    region: "panhandle",
-    nearestTown: "Pampa",
-    county: "Gray County",
-    coordinates: { lat: 35.53504, lng: -100.96098 },
-    hero: museumPlaceholder("White Deer Land Museum"),
-    bestSeason: "Year-round indoor history stop; fall through spring is especially comfortable for combining Pampa with broader Panhandle drives.",
-    entryNote: "The museum currently lists regular Tuesday-through-Saturday access and free admission. Guided tours are available by request; verify current hours before a special trip because community-museum schedules can change.",
-    highlights: ["Restored 1916 White Deer Land Company office", "Gray County history", "Red River War interpretation", "Panhandle settlement and community exhibits"],
-    body: [
-      "The White Deer Land Museum is unusually valuable because its primary building is part of the collection. The restored White Deer Land Company office connects visitors directly to the land business and settlement forces that shaped Pampa and much of the eastern Texas Panhandle.",
-      "Exhibits broaden the story beyond town founding. The museum interprets Native peoples, the Red River War, ranching, settlement and changing community life through artifacts, period rooms, photographs and documentary material tied to Gray County.",
-      "For TexasDefined, the museum gives Pampa and Gray County a dedicated local-history authority page that can cross-link to Panhandle road trips, Native and frontier history, nearby historic sites and county content without duplicating broader regional articles."
-    ],
-    officialUrl: "https://whitedeerlandmuseum.org/",
-    managingAuthority: "White Deer Land Museum Foundation",
-    address: "112 S Cuyler St, Pampa, TX 79065",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
-  },
-  {
     id: "museum-statewide-wave14-hutchinson-county",
     brandId: "texasdefined",
     slug: "hutchinson-county-historical-museum-borger",

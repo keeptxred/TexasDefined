@@ -33,6 +33,7 @@ const ENTITY_REDIRECTS: Record<string, string> = {
   "/destination/xit-museum-dalhart": "/destination/xit-museum",
   "/destination/scurry-county-museum-snyder": "/destination/scurry-county-museum",
   "/destination/old-post-museum-art-center-graham": "/destination/old-post-office-museum-art-center-graham",
+  "/destination/white-deer-land-museum-pampa": "/destination/white-deer-land-museum",
   "/sports-venue/nrg-stadium": "/sports-venue/reliant-stadium",
   "/article/best-places-for-fall-colors-in-texas": "/article/best-texas-state-parks-for-fall-colors",
 };

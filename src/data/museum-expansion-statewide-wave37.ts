@@ -1,7 +1,7 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
 import type { Destination, ImageRef } from "./types";
 
-const SOURCE_CHECKED_AT = "2026-09-01";
+const SOURCE_CHECKED_AT = "2026-09-19";
 
 function museumPlaceholder(name: string): ImageRef {
   return {
@@ -15,6 +15,8 @@ function museumPlaceholder(name: string): ImageRef {
 /**
  * Thirty-seventh statewide museum wave. This Panhandle record adds Pampa's
  * White Deer Land Museum using the institution's current visitor information.
+ * This module owns the canonical record; the older Wave 14 Pampa-suffixed
+ * duplicate is retired to a permanent redirect.
  */
 export const statewideMuseumExpansionWave37Destinations: Destination[] = [
   {
@@ -30,7 +32,7 @@ export const statewideMuseumExpansionWave37Destinations: Destination[] = [
     coordinates: { lat: 35.53504, lng: -100.96098 },
     hero: museumPlaceholder("White Deer Land Museum"),
     bestSeason: "Year-round indoor history stop; spring and fall are especially comfortable for combining the museum with downtown Pampa and other Plains Trail heritage sites.",
-    entryNote: "The museum's current visitor page lists the complex at 112 South Cuyler Street and free admission. Published hours can vary across current visitor sources, so verify the museum's current schedule before making a dedicated trip.",
+    entryNote: "The museum currently lists free admission at 112 South Cuyler Street. The Pampa Chamber publishes Tuesday-Friday hours from 10 a.m. to 3 p.m. and Saturday hours from 9 a.m. to 5 p.m.; verify the museum's current schedule before a dedicated trip because special programs can affect access.",
     highlights: [
       "Restored 1916 White Deer Land Company office",
       "Gray County and Pampa history",
