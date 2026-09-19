@@ -46,6 +46,7 @@ export const Route = createFileRoute('/api/high-school-football')({
             sources: {
               footballAlignment: 'University Interscholastic League 2026-28 football alignment',
               recentStateFinals: 'University Interscholastic League Football State Archives, 2018-2019 through 2025-2026',
+              allTimeStateFinals: 'University Interscholastic League Football All-Time Appearances, supplemented by newer completed State Archives rows when needed',
               schoolDirectory: 'Texas Education Agency AskTED',
             },
           });
