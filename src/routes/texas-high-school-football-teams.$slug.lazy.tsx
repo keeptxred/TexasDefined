@@ -26,7 +26,7 @@ function Page() {
           <p className="eyebrow text-primary">Texas high school football school profile</p>
           <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{featured.displayName}</h1>
           <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">
-            A school-and-football research page connecting current competition placement with ISD and county context, enrollment steps, school identity and verified recent state-final history where available.
+            A school-and-football research page connecting current competition placement with ISD and county context, enrollment steps, school identity and verified UIL championship history where available.
           </p>
         </div>
         <dl className="border-y border-border py-3 text-sm lg:border-y-0 lg:border-l lg:pl-6">
@@ -103,6 +103,23 @@ function Page() {
           <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined has a mascot field for this school, but it stays blank until the school or district identity can be tied to a source. We do not fill school identity fields from an unsourced guess.</p>
         </div>}
       </section>
+
+      {program?.allTimeHistory && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Program history</p>
+          <h2 className="mt-2 font-display text-3xl">All-time UIL state-final record</h2>
+        </div>
+        <div>
+          <dl className="grid gap-px border border-border bg-border sm:grid-cols-3">
+            <Snapshot label="All-time state titles" value={String(program.allTimeHistory.stateTitles)} />
+            <Snapshot label="All-time state finals" value={String(program.allTimeHistory.stateFinalAppearances)} />
+            <Snapshot label="UIL table through" value={String(program.allTimeHistory.publishedThroughYear)} />
+          </dl>
+          {program.allTimeHistory.appearanceYears && <p className="mt-5 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">State-final appearance years:</strong> {program.allTimeHistory.appearanceYears}</p>}
+          {program.allTimeHistory.supplementedFinals.length > 0 && <p className="mt-3 text-xs leading-6 text-muted-foreground">TexasDefined supplements UIL’s published all-time table with {program.allTimeHistory.supplementedFinals.length} newer completed {program.allTimeHistory.supplementedFinals.length === 1 ? 'state final' : 'state finals'} from the official UIL state archive.</p>}
+          <a href={program.allTimeHistory.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">UIL all-time appearances ↗</a>
+        </div>
+      </section>}
 
       {program?.recentHistory && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
