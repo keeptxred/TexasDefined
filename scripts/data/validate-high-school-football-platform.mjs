@@ -133,6 +133,8 @@ if (!errors.length) {
     'allTimeHistory',
     'historyAvailable',
     'allTimeHistoryAvailable',
+    'profilePath',
+    'footballProgramProfilePath',
   ]) requireText(directory, marker, 'Football directory');
 
   for (const marker of [
@@ -188,7 +190,10 @@ if (!errors.length) {
     'Select up to three programs',
     'Three-program comparison limit reached',
     'it does not rank academics, roster opportunity, coaching quality or overall student fit',
+    'profilePath',
+    'School profile, enrollment & mascot →',
   ]) requireText(finder, marker, 'Football lookup component');
+  if (finder.includes('Research list #')) errors.push('Football lookup must not expose seed-list rank or priority treatment.');
 
   for (const marker of [
     'FEATURED_SOURCE_ROW_COUNT = 250',
@@ -326,21 +331,55 @@ if (!errors.length) {
     'featured-program-profile.server',
     'loadFeaturedFootballProgramProfile',
     'getFeaturedFootballProgramProfile',
-  ]) requireText(featuredProfileFunction, marker, 'Featured football profile server-function bridge');
+  ]) requireText(featuredProfileFunction, marker, 'Legacy/private football profile server-function bridge');
 
   for (const marker of [
-    '250-school research list',
-    'FEATURED_SOURCE_ROW_COUNT',
-    'FEATURED_UNIQUE_PROGRAM_COUNT',
-    'Open a detailed school profile',
-    'featuredFootballProfilePath',
-    'Original positions preserved',
-  ]) requireText(featuredResearchList, marker, 'Featured football research list');
+    'footballProgramSlug',
+    'footballProgramProfilePath',
+    'footballClassificationRank',
+  ]) requireText(programSlugs, marker, 'UIL football profile slug helpers');
+
+  for (const marker of [
+    'PROGRAM_BY_SLUG',
+    'PROGRAM_BY_SLUG.size !== 1268',
+    'UIL football program slug collision',
+    'getFootballProgramProfile',
+    'getAllUilFootballPrograms',
+    'footballProgramSitemapEntries',
+    'districtPeers',
+    'profilePath: footballProgramProfilePath',
+  ]) requireText(programProfileServer, marker, 'Universal UIL football profile resolver');
+
+  for (const marker of [
+    "createServerFn({ method: 'GET' })",
+    'loadFootballProgramProfile',
+    'loadFootballProgramDirectory',
+    "import('./football-program-profile.server')",
+    'getFootballProgramProfilePage',
+    'getFootballProgramDirectoryPage',
+  ]) requireText(programProfileFunctions, marker, 'Universal UIL football profile server functions');
+
+  for (const marker of [
+    'Browse all 1,268 Texas high school football programs',
+    "const CLASSIFICATIONS = ['6A', '5A', '4A', '3A', '2A', '1A']",
+    'Every current UIL football program gets the same directory and profile treatment.',
+    'All 1,268',
+    '6A → 1A · enrollment classification',
+    'Open school football profile →',
+    'not because TexasDefined has rated its football program as better',
+  ]) requireText(uilDirectoryComponent, marker, 'All-UIL football directory');
+
+  // The original supplied list remains available only as alias/private-school research metadata.
+  // It must not control the public UIL directory, profile availability, profile order or search handoff.
+  if (page.includes('FeaturedFootballResearchList')) errors.push('Football finder page must not use the old seed-list directory.');
+  if (page.includes('242 canonical school profiles')) errors.push('Football finder page must not present the old seed list as the profile universe.');
+  if (featuredProfilePage.includes('Research list position')) errors.push('Football school profiles must not display seed-list positions.');
+  if (featuredProfilePage.includes('preserving every supplied list position')) errors.push('Football school profiles must not give the supplied seed list public priority treatment.');
 
   for (const marker of [
     "createFileRoute('/texas-high-school-football-teams/$slug')",
-    'getFeaturedFootballProgramProfile',
-    'featured-program-profile.functions',
+    'getFootballProgramProfilePage',
+    'football-program-profile.functions',
     'Football: Class, District, Enrollment & School Guide',
   ]) requireText(featuredProfileRoute, marker, 'Football school profile route');
 
@@ -355,20 +394,23 @@ if (!errors.length) {
     'All-time UIL state-final record',
     'Freshman, JV and varsity path',
     'Football eligibility is a separate question from school admission.',
+    'UIL eligibility standards ↗',
+    'UIL detailed eligibility rules ↗',
+    'Current district',
+    'Every opponent links to the same school-profile system.',
     'Association placement not yet verified',
     'Private-school football uses its association’s own alignment system.',
     "privateAlignment.sourceKind === 'official-association'",
     'privateAlignmentLabel',
-    'Duplicate and alternate school names resolve to one canonical profile',
+    'All current UIL football programs use the same profile system.',
   ]) requireText(featuredProfilePage, marker, 'Football school profile page');
 
-  requireText(directory, 'featuredProfile', 'Football directory featured-profile enrichment');
-  requireText(directory, 'matchFeaturedFootballProgram', 'Football directory featured-profile enrichment');
   requireText(finder, 'School profile, enrollment & mascot →', 'Football finder profile handoff');
-  requireText(page, 'FeaturedFootballResearchList', 'Football finder research-list integration');
-  requireText(page, '242 canonical school profiles', 'Football finder research-list integration');
-  requireText(sitemap, 'FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS', 'Football school profile sitemap');
-  requireText(sitemap, '/texas-high-school-football-teams/${program.slug}', 'Football school profile sitemap');
+  requireText(page, 'UilFootballProgramDirectory', 'Football finder all-UIL directory integration');
+  requireText(page, 'all 1,268 current UIL football programs as the authoritative school universe', 'Football finder all-UIL scope');
+  requireText(page, '6A, 5A, 4A, 3A, 2A, 1A', 'Football finder classification ordering');
+  requireText(sitemap, 'footballProgramSitemapEntries', 'Football school profile sitemap');
+  requireText(sitemap, '...footballProfileEntries', 'Football school profile sitemap');
 
   requireText(countyModule, 'High school football in', 'County football module');
   requireText(countyModule, 'countyName={countyName}', 'County football module');
@@ -388,8 +430,8 @@ if (!errors.length) {
     'Route.useSearch()',
     'initialQuery={q}',
     'official UIL all-time state-title and state-final totals',
-    'lets families compare up to three programs side by side',
-    'Full season-by-season records, current schedules, standings and coaching continuity remain future layers',
+    'three-program comparison remain part of the finder',
+    'all 1,268 current UIL football programs as the authoritative school universe',
   ]) requireText(page, marker, 'Football finder page');
 
   requireText(schoolDistrict, 'HighSchoolFootballLookup', 'School-district integration');
@@ -449,8 +491,8 @@ if (!errors.length) {
     [files[8], schoolDistrict],
     [files[9], relocationFinder],
     [files[10], entityPage],
-    [featuredFiles[3], featuredResearchList],
     [featuredFiles[5], featuredProfilePage],
+    [uilDirectoryComponentPath, uilDirectoryComponent],
   ]) {
     if (
       source.includes('uil-football-alignments-2026.server')
