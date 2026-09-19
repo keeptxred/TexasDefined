@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave77Destinations } from "./museum-expansion-statewide-wave77";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-19";
@@ -16,6 +17,7 @@ function museumPlaceholder(name: string): ImageRef {
  * Seventy-sixth statewide museum wave. This record adds the Wills Point Depot
  * Museum as the town's railroad-and-community-history destination while
  * avoiding stale assumptions about public hours.
+ * Wave 77 is chained here so later museum expansion remains conflict-light.
  */
 export const statewideMuseumExpansionWave76Destinations: Destination[] = [
   {
@@ -54,4 +56,5 @@ export const statewideMuseumExpansionWave76Destinations: Destination[] = [
     address: "210 W South Commerce St, Wills Point, TX 75169",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave77Destinations,
 ];
