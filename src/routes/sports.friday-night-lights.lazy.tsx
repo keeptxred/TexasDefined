@@ -24,6 +24,13 @@ const startHere = [
     label: "Understand classifications",
   },
   {
+    title: "How do the UIL playoffs work?",
+    description: "Follow district qualification into the postseason, including the 6A Division I/II split, bi-district matchups, neutral sites and the road to 12 state champions.",
+    href: "/article/texas-high-school-football-playoffs-explained",
+    label: "Understand the playoffs",
+  },
+
+  {
     title: "Find a football program by high school",
     description: "Search every current UIL football program by high school, ISD, city or county and see its 2026–28 classification, division and district.",
     href: "/texas-high-school-football-teams",
@@ -148,6 +155,9 @@ function FridayNightLightsPage() {
           <SeasonStep number="02" title="District play" body="District games determine the playoff path, turning familiar opponents and nearby schools into the core competitive map of the season." />
           <SeasonStep number="03" title="Playoffs" body="The bracket expands the geography. Neutral-site games and longer drives can turn a local season into a regional road trip for families and fans." />
           <SeasonStep number="04" title="State championships" body="UIL state championship games close the season across the football classifications. Use the official UIL page for the current schedule, teams and venue details." />
+        </div>
+        <div className="mt-7">
+          <Link to="/article/texas-high-school-football-playoffs-explained" className="text-sm font-semibold text-primary">How the UIL football playoffs work →</Link>
         </div>
       </Container>
     </section>
