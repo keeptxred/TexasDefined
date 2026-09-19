@@ -27,6 +27,7 @@ const files = [
 
 const allTimeHistoryPath = 'src/data/high-school-football/uil-football-all-time-history.server.ts';
 const featuredProfileFunctionPath = 'src/data/high-school-football/featured-program-profile.functions.ts';
+const officialEnrollmentLinksPath = 'src/data/high-school-football/official-enrollment-links.ts';
 const featuredFiles = [
   'src/data/high-school-football/featured-programs.ts',
   'src/data/high-school-football/school-identities.ts',
@@ -45,7 +46,7 @@ const authorityFiles = [
   'src/data/friday-night-lights-structured-data.server.ts',
 ];
 
-for (const file of [...files, ...authorityFiles, allTimeHistoryPath, featuredProfileFunctionPath, ...featuredFiles]) {
+for (const file of [...files, ...authorityFiles, allTimeHistoryPath, featuredProfileFunctionPath, officialEnrollmentLinksPath, ...featuredFiles]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing high-school football platform file: ${file}`);
 }
 
@@ -71,6 +72,7 @@ if (!errors.length) {
   const sixManGuide = read(authorityFiles[3]);
   const footballHubSchema = read(authorityFiles[4]);
   const featuredProfileFunction = read(featuredProfileFunctionPath);
+  const officialEnrollmentLinks = read(officialEnrollmentLinksPath);
   const featuredPrograms = read(featuredFiles[0]);
   const schoolIdentities = read(featuredFiles[1]);
   const featuredProfileLoader = read(featuredFiles[2]);
@@ -203,6 +205,33 @@ if (!errors.length) {
     'searchFootballPrograms',
     'getVerifiedFootballSchoolIdentity',
   ]) requireText(featuredProfileLoader, marker, 'Featured football profile loader');
+  requireText(featuredProfileLoader, 'getOfficialFootballEnrollmentLink', 'Featured football profile loader');
+  requireText(featuredProfileLoader, 'enrollmentLink:', 'Featured football profile loader');
+
+  for (const marker of [
+    'OFFICIAL_FOOTBALL_ENROLLMENT_LINKS',
+    'getOfficialFootballEnrollmentLink',
+    "districtName: 'Denton ISD'",
+    "districtName: 'Prosper ISD'",
+    "districtName: 'Lake Travis ISD'",
+    "districtName: 'Katy ISD'",
+    "districtName: 'Humble ISD'",
+    "districtName: 'Rockwall ISD'",
+    "districtName: 'Clear Creek ISD'",
+    "districtName: 'Leander ISD'",
+    "districtName: 'Round Rock ISD'",
+    "districtName: 'Pearland ISD'",
+    "districtName: 'Alief ISD'",
+    "districtName: 'Pflugerville ISD'",
+    "districtName: 'Judson ISD'",
+    "districtName: 'Northside ISD'",
+    'enrollmentUrl',
+    'verifiedAt',
+  ]) requireText(officialEnrollmentLinks, marker, 'Official football enrollment links');
+  const verifiedEnrollmentLinkCount = (officialEnrollmentLinks.match(/districtName: '/g) ?? []).length;
+  if (verifiedEnrollmentLinkCount < 21) {
+    errors.push(`Official football enrollment-link data fell below 21 verified districts; found ${verifiedEnrollmentLinkCount}.`);
+  }
 
   for (const marker of [
     'createServerFn',
@@ -230,6 +259,8 @@ if (!errors.length) {
   for (const marker of [
     "createLazyFileRoute('/texas-high-school-football-teams/$slug')",
     'How to enroll at',
+    'Official district enrollment',
+    'Start with {enrollmentLink.sourceLabel} ↗',
     'Mascot & identity',
     'All-time UIL state-final record',
     'Freshman, JV and varsity path',
