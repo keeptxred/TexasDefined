@@ -5,6 +5,7 @@ import type {
   PartnerReferralBreakdown,
   PartnerReferralDestinationBreakdown,
   PartnerReferralPageBreakdown,
+  PartnerSearchStartBreakdown,
 } from '@/data/partner-referral-analytics.types';
 
 const WINDOW_DAYS = 30;
@@ -12,6 +13,7 @@ const QUERY_DAYS = 60;
 const TOP_LIMIT = 25;
 const HEARTBEAT_PARTNER = '__pipeline__';
 const HEARTBEAT_PLACEMENT = 'sync-heartbeat';
+const EXPEDIA_SEARCH_PARTNER = 'expedia-search';
 const IMPRESSION_TRACKING_STARTED_AT = '2026-09-18';
 const CTR_MEASUREMENT_STARTED_AT = '2026-09-19';
 
@@ -67,6 +69,23 @@ function addBreakdown(
   map.set(key, row);
 }
 
+function addSearchStartBreakdown(
+  map: Map<string, PartnerSearchStartBreakdown>,
+  key: string,
+  label: string,
+  starts: number,
+  in7d: boolean,
+) {
+  const row = map.get(key) ?? { key, label, starts30d: 0, starts7d: 0 };
+  row.starts30d += starts;
+  if (in7d) row.starts7d += starts;
+  map.set(key, row);
+}
+
+function sortSearchStarts(rows: PartnerSearchStartBreakdown[]) {
+  return rows.sort((a, b) => b.starts30d - a.starts30d || b.starts7d - a.starts7d || a.label.localeCompare(b.label));
+}
+
 function percentChange(current: number, prior: number) {
   if (prior <= 0) return current > 0 ? null : 0;
   return Math.round(((current - prior) / prior) * 1000) / 10;
@@ -102,12 +121,16 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
   const placementMap = new Map<string, PartnerReferralBreakdown>();
   const pageMap = new Map<string, PartnerReferralPageBreakdown>();
   const destinationMap = new Map<string, PartnerReferralDestinationBreakdown>();
+  const searchPlacementMap = new Map<string, PartnerSearchStartBreakdown>();
+  const searchPageMap = new Map<string, PartnerSearchStartBreakdown>();
   const dailyClicksMap = new Map<string, number>();
   const dailyImpressionsMap = new Map<string, number>();
   let totalClicks30d = 0;
   let totalClicks7d = 0;
   let totalImpressions30d = 0;
   let totalImpressions7d = 0;
+  let totalSearchStarts30d = 0;
+  let totalSearchStarts7d = 0;
   let clicksSinceImpressionTracking = 0;
   let impressionsSinceImpressionTracking = 0;
   let prior7dClicks = 0;
@@ -129,8 +152,17 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
     const inPrior7d = metricDate >= priorSevenStart && metricDate <= priorSevenEnd;
 
     if (lastSyncedAt === null || String(row.synced_at) > lastSyncedAt) lastSyncedAt = String(row.synced_at);
-    if (inPrior7d) prior7dClicks += clicks;
     if (!in30d) continue;
+
+    if (row.partner === EXPEDIA_SEARCH_PARTNER) {
+      totalSearchStarts30d += clicks;
+      if (in7d) totalSearchStarts7d += clicks;
+      addSearchStartBreakdown(searchPlacementMap, row.placement, row.placement, clicks, in7d);
+      addSearchStartBreakdown(searchPageMap, row.page_path, row.page_path, clicks, in7d);
+      continue;
+    }
+
+    if (inPrior7d) prior7dClicks += clicks;
 
     totalClicks30d += clicks;
     totalImpressions30d += impressions;
@@ -218,6 +250,8 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
     totalClicks7d,
     totalImpressions30d,
     totalImpressions7d,
+    totalSearchStarts30d,
+    totalSearchStarts7d,
     clicksSinceImpressionTracking,
     impressionsSinceImpressionTracking,
     clickThroughRateSinceImpressionTracking: clickThroughRate(clicksSinceImpressionTracking, impressionsSinceImpressionTracking),
@@ -231,6 +265,8 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
     destinations: [...destinationMap.values()]
       .sort((a, b) => b.clicks30d - a.clicks30d || b.impressions30d - a.impressions30d || b.clicks7d - a.clicks7d || b.impressions7d - a.impressions7d || a.destinationUrl.localeCompare(b.destinationUrl))
       .slice(0, TOP_LIMIT),
+    searchStartPlacements: sortSearchStarts([...searchPlacementMap.values()]).slice(0, TOP_LIMIT),
+    searchStartPages: sortSearchStarts([...searchPageMap.values()]).slice(0, TOP_LIMIT),
     daily,
   };
 }
