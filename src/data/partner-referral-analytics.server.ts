@@ -5,6 +5,7 @@ import type {
   PartnerReferralBreakdown,
   PartnerReferralDestinationBreakdown,
   PartnerReferralPageBreakdown,
+  PartnerRecommendationEngagementBreakdown,
   PartnerSearchStartBreakdown,
 } from '@/data/partner-referral-analytics.types';
 
@@ -14,6 +15,7 @@ const TOP_LIMIT = 25;
 const HEARTBEAT_PARTNER = '__pipeline__';
 const HEARTBEAT_PLACEMENT = 'sync-heartbeat';
 const EXPEDIA_SEARCH_PARTNER = 'expedia-search';
+const STAY_RECOMMENDATIONS_PARTNER = 'stay-recommendations';
 const IMPRESSION_TRACKING_STARTED_AT = '2026-09-18';
 const CTR_MEASUREMENT_STARTED_AT = '2026-09-19';
 
@@ -86,6 +88,23 @@ function sortSearchStarts(rows: PartnerSearchStartBreakdown[]) {
   return rows.sort((a, b) => b.starts30d - a.starts30d || b.starts7d - a.starts7d || a.label.localeCompare(b.label));
 }
 
+function addRecommendationOpenBreakdown(
+  map: Map<string, PartnerRecommendationEngagementBreakdown>,
+  key: string,
+  label: string,
+  opens: number,
+  in7d: boolean,
+) {
+  const row = map.get(key) ?? { key, label, opens30d: 0, opens7d: 0 };
+  row.opens30d += opens;
+  if (in7d) row.opens7d += opens;
+  map.set(key, row);
+}
+
+function sortRecommendationOpens(rows: PartnerRecommendationEngagementBreakdown[]) {
+  return rows.sort((a, b) => b.opens30d - a.opens30d || b.opens7d - a.opens7d || a.label.localeCompare(b.label));
+}
+
 function percentChange(current: number, prior: number) {
   if (prior <= 0) return current > 0 ? null : 0;
   return Math.round(((current - prior) / prior) * 1000) / 10;
@@ -123,6 +142,8 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
   const destinationMap = new Map<string, PartnerReferralDestinationBreakdown>();
   const searchPlacementMap = new Map<string, PartnerSearchStartBreakdown>();
   const searchPageMap = new Map<string, PartnerSearchStartBreakdown>();
+  const recommendationPlacementMap = new Map<string, PartnerRecommendationEngagementBreakdown>();
+  const recommendationPageMap = new Map<string, PartnerRecommendationEngagementBreakdown>();
   const dailyClicksMap = new Map<string, number>();
   const dailyImpressionsMap = new Map<string, number>();
   let totalClicks30d = 0;
@@ -131,6 +152,8 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
   let totalImpressions7d = 0;
   let totalSearchStarts30d = 0;
   let totalSearchStarts7d = 0;
+  let totalRecommendationOpens30d = 0;
+  let totalRecommendationOpens7d = 0;
   let clicksSinceImpressionTracking = 0;
   let impressionsSinceImpressionTracking = 0;
   let prior7dClicks = 0;
@@ -159,6 +182,14 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
       if (in7d) totalSearchStarts7d += clicks;
       addSearchStartBreakdown(searchPlacementMap, row.placement, row.placement, clicks, in7d);
       addSearchStartBreakdown(searchPageMap, row.page_path, row.page_path, clicks, in7d);
+      continue;
+    }
+
+    if (row.partner === STAY_RECOMMENDATIONS_PARTNER) {
+      totalRecommendationOpens30d += clicks;
+      if (in7d) totalRecommendationOpens7d += clicks;
+      addRecommendationOpenBreakdown(recommendationPlacementMap, row.placement, row.placement, clicks, in7d);
+      addRecommendationOpenBreakdown(recommendationPageMap, row.page_path, row.page_path, clicks, in7d);
       continue;
     }
 
@@ -252,6 +283,8 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
     totalImpressions7d,
     totalSearchStarts30d,
     totalSearchStarts7d,
+    totalRecommendationOpens30d,
+    totalRecommendationOpens7d,
     clicksSinceImpressionTracking,
     impressionsSinceImpressionTracking,
     clickThroughRateSinceImpressionTracking: clickThroughRate(clicksSinceImpressionTracking, impressionsSinceImpressionTracking),
@@ -267,6 +300,8 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
       .slice(0, TOP_LIMIT),
     searchStartPlacements: sortSearchStarts([...searchPlacementMap.values()]).slice(0, TOP_LIMIT),
     searchStartPages: sortSearchStarts([...searchPageMap.values()]).slice(0, TOP_LIMIT),
+    recommendationOpenPlacements: sortRecommendationOpens([...recommendationPlacementMap.values()]).slice(0, TOP_LIMIT),
+    recommendationOpenPages: sortRecommendationOpens([...recommendationPageMap.values()]).slice(0, TOP_LIMIT),
     daily,
   };
 }
