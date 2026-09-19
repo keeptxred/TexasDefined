@@ -1,5 +1,7 @@
 import { type FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
 
+import { featuredFootballProfilePath, matchFeaturedFootballProgram } from '@/data/high-school-football/featured-programs';
+
 type FootballProgram = {
   schoolName: string;
   officialSchoolName?: string;
@@ -211,7 +213,10 @@ export function HighSchoolFootballLookup({
                 <div><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">Format</dt><dd className="mt-1 font-semibold">{program.footballType}</dd></div>
               </dl>
               {program.recentHistory && <RecentFinals history={program.recentHistory} />}
-              <a href={program.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-xs font-semibold text-primary underline underline-offset-4">Official UIL alignment ↗</a>
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold">
+                {featuredProgram(program) && <a href={featuredFootballProfilePath(featuredProgram(program)!)} className="text-primary underline underline-offset-4">School profile, enrollment & mascot →</a>}
+                <a href={program.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official UIL alignment ↗</a>
+              </div>
             </article>)}
           </div>
           {matchedTotal > visible.length && <p className="mt-4 text-sm text-muted-foreground">Showing the first {visible.length} programs. Use a school or ISD name to narrow the list.</p>}
@@ -312,4 +317,8 @@ function placeLabel(program: FootballProgram) {
 
 function programKey(program: FootballProgram) {
   return `${program.classification}-${program.division ?? 'x'}-${program.district}-${program.schoolName}`;
+}
+
+function featuredProgram(program: FootballProgram) {
+  return matchFeaturedFootballProgram(program.schoolName, program.officialSchoolName);
 }
