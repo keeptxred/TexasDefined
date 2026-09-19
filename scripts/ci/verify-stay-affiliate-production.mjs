@@ -107,6 +107,9 @@ async function verifyOutcomeAnalytics() {
 const affiliateBootstrap = await fetchLive('/stay-affiliate-options.js');
 for (const marker of [
   'const CJ_PUBLISHER_ID = "101876465"',
+  'const CJ_SID_PREFIX = "td-"',
+  'function cjSid(placement)',
+  'CJ_DLG_BASE}sid/${encodeURIComponent(cjSid(placement))}',
   'https://www.hotels.com/',
   'https://www.vrbo.com/',
   'const VERIFIED_PROPERTY_DESTINATIONS = new Map([',
@@ -215,6 +218,7 @@ for (const page of pages) {
       'Compare rental cars on Booking.com',
       'data-affiliate-partner="booking.com"',
       'data-commercial-placement="road-trips-category"',
+      '/type/dlg/sid/td-road-trips-category/',
       'rel="sponsored nofollow noopener noreferrer"',
       'Affiliate disclosure: TexasDefined may earn a commission from qualifying Booking.com car-rental bookings',
     ]) requireCondition(html.includes(marker), `${page.route} is missing live Booking.com rental-car marker: ${marker}`);
@@ -230,4 +234,4 @@ for (const page of pages) {
   requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === page.route.replace(/\/+$/, ''), `${page.route} is not self-canonical and must not be part of the monetized production cohort.`);
 }
 
-console.log('Stay affiliate production verification passed: all 15 curated hotel records expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher while broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted paired partner_referral_shown and partner_referral_clicked CI probes backed by Cloudflare Analytics Engine; Hotels.com/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');
+console.log('Stay affiliate production verification passed: all 15 curated hotel records expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher with privacy-safe placement SIDs while broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted paired partner_referral_shown and partner_referral_clicked CI probes backed by Cloudflare Analytics Engine; Hotels.com/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');
