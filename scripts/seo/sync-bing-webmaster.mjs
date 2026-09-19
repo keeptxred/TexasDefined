@@ -1,6 +1,6 @@
 import process from "node:process";
 
-const collectorVersion = "2026-09-18.2";
+const collectorVersion = "2026-09-18.3";
 const bingApiKey = process.env.BING_WEBMASTER_API_KEY?.trim();
 const supabaseUrl = process.env.SUPABASE_URL?.trim().replace(/\/$/, "");
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
@@ -64,6 +64,28 @@ async function bingGet(method, params = {}) {
   return cleanBingValue(payload?.d);
 }
 
+async function bingPost(method, body) {
+  const search = new URLSearchParams({ apikey: bingApiKey });
+  const response = await fetch(`${bingBaseUrl}/${method}?${search.toString()}`, {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "content-type": "application/json; charset=utf-8",
+      "user-agent": "TexasDefinedBingWebmasterCollector/1.2",
+    },
+    redirect: "follow",
+    body: JSON.stringify(body),
+  });
+
+  if (!response.ok) {
+    const responseBody = (await response.text()).slice(0, 500);
+    throw new Error(`Bing ${method} returned HTTP ${response.status}${responseBody ? `: ${responseBody}` : ""}`);
+  }
+
+  const payload = await response.json();
+  return cleanBingValue(payload?.d);
+}
+
 function normalizedHostname(url) {
   try {
     return new URL(url).hostname.toLowerCase().replace(/^www\./, "");
@@ -112,7 +134,7 @@ for (const host of targetHosts) {
   const siteUrl = site.Url;
   const requestForSite = (method) => bingGet(method, { siteUrl });
 
-  const [rankTraffic, queryStats, pageStats, crawlStats, crawlIssues, feeds] = await Promise.all([
+  const [rankTraffic, queryStats, pageStats, crawlStats, crawlIssues, initialFeeds] = await Promise.all([
     requestForSite("GetRankAndTrafficStats").then(asArray),
     requestForSite("GetQueryStats").then(asArray),
     requestForSite("GetPageStats").then(asArray),
@@ -120,6 +142,15 @@ for (const host of targetHosts) {
     requestForSite("GetCrawlIssues").then(asArray),
     requestForSite("GetFeeds").then(asArray),
   ]);
+
+  const canonicalFeedUrl = `https://${host}/sitemap.xml`;
+  let feeds = initialFeeds;
+  let canonicalFeedSubmitted = false;
+  if (!feeds.some((feed) => feed?.Url === canonicalFeedUrl)) {
+    await bingPost("SubmitFeed", { siteUrl, feedUrl: canonicalFeedUrl });
+    canonicalFeedSubmitted = true;
+    feeds = asArray(await requestForSite("GetFeeds"));
+  }
 
   const fetchedAt = new Date().toISOString();
   await insertSnapshot({
@@ -147,6 +178,8 @@ for (const host of targetHosts) {
       crawlIssues: crawlIssues.length,
       feeds: feeds.length,
     },
+    canonicalFeedUrl,
+    canonicalFeedSubmitted,
   });
 }
 
