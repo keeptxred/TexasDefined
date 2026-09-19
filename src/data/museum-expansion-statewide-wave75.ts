@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave76Destinations } from "./museum-expansion-statewide-wave76";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-18";
@@ -16,6 +17,7 @@ function museumPlaceholder(name: string): ImageRef {
  * Seventy-fifth statewide museum wave. This record reconciles the audit's
  * former Wise County Heritage Museum identity to the active Wise History
  * Museum on Decatur's courthouse square after the 2023 museum fire.
+ * Wave 76 is chained here so later museum expansion remains conflict-light.
  */
 export const statewideMuseumExpansionWave75Destinations: Destination[] = [
   {
@@ -54,4 +56,5 @@ export const statewideMuseumExpansionWave75Destinations: Destination[] = [
     address: "119 N State St, Decatur, TX 76234",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave76Destinations,
 ];
