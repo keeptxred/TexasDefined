@@ -23,6 +23,10 @@ export type TeaSchoolDirectoryRecord = {
   districtName: string;
   countyName: string;
   city: string;
+  schoolNumber?: string;
+  districtNumber?: string;
+  schoolWebsite?: string;
+  districtWebsite?: string;
 };
 
 export type FootballProgramDirectoryResult = UilFootballProgram & {
@@ -31,6 +35,12 @@ export type FootballProgramDirectoryResult = UilFootballProgram & {
   districtName?: string;
   countyName?: string;
   city?: string;
+  teaSchoolNumber?: string;
+  teaDistrictNumber?: string;
+  teaSchoolProfileUrl?: string;
+  teaDistrictProfileUrl?: string;
+  schoolWebsite?: string;
+  districtWebsite?: string;
   uilEnrollment?: number;
   uilSubmittedConference?: UilFootballExactEnrollment['submittedConference'];
   recentHistory?: UilRecentFootballHistory;
@@ -41,6 +51,35 @@ let directoryCache: { loadedAt: number; rows: TeaSchoolDirectoryRecord[] } | nul
 
 function normalizeHeader(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function normalizeTeaId(value: string | undefined, expectedLength: number) {
+  if (!value) return undefined;
+  const digits = value.replace(/^'+/, '').replace(/\D/g, '');
+  return digits.length === expectedLength ? digits : undefined;
+}
+
+function normalizeOfficialUrl(value: string | undefined) {
+  const trimmed = value?.trim();
+  if (!trimmed) return undefined;
+  const candidate = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed.replace(/^\/+/, '')}`;
+  try {
+    const url = new URL(candidate);
+    if (!['http:', 'https:'].includes(url.protocol)) return undefined;
+    return url.toString();
+  } catch {
+    return undefined;
+  }
+}
+
+function teaSchoolProfileUrl(schoolNumber?: string) {
+  const id = normalizeTeaId(schoolNumber, 9);
+  return id ? `https://txschools.gov/?id=${id}&view=school` : undefined;
+}
+
+function teaDistrictProfileUrl(districtNumber?: string) {
+  const id = normalizeTeaId(districtNumber, 6);
+  return id ? `https://txschools.gov/?id=${id}&view=district` : undefined;
 }
 
 function cleanName(value: string) {
@@ -132,6 +171,10 @@ function parseTeaDirectory(text: string): TeaSchoolDirectoryRecord[] {
   const districtIndex = findColumn(headers, ['districtname', 'leaname']);
   const countyIndex = findColumn(headers, ['countyname', 'county']);
   const cityIndex = findColumn(headers, ['sitecity', 'schoolcity', 'city']);
+  const schoolNumberIndex = findColumn(headers, ['schoolnumber', 'campusnumber', 'campusid', 'schoolid']);
+  const districtNumberIndex = findColumn(headers, ['districtnumber', 'districtid', 'leanumber', 'leaid']);
+  const schoolWebsiteIndex = findColumn(headers, ['schoolwebsite', 'campuswebsite', 'schoolwebaddress', 'campuswebaddress']);
+  const districtWebsiteIndex = findColumn(headers, ['districtwebsite', 'districtwebaddress', 'leawebsite']);
 
   if (schoolIndex < 0 || districtIndex < 0) {
     throw new Error('AskTED school and district columns were not found.');
@@ -143,6 +186,10 @@ function parseTeaDirectory(text: string): TeaSchoolDirectoryRecord[] {
       districtName: row[districtIndex]?.trim() ?? '',
       countyName: countyIndex >= 0 ? (row[countyIndex]?.trim() ?? '') : '',
       city: cityIndex >= 0 ? (row[cityIndex]?.trim() ?? '') : '',
+      schoolNumber: schoolNumberIndex >= 0 ? normalizeTeaId(row[schoolNumberIndex], 9) : undefined,
+      districtNumber: districtNumberIndex >= 0 ? normalizeTeaId(row[districtNumberIndex], 6) : undefined,
+      schoolWebsite: schoolWebsiteIndex >= 0 ? normalizeOfficialUrl(row[schoolWebsiteIndex]) : undefined,
+      districtWebsite: districtWebsiteIndex >= 0 ? normalizeOfficialUrl(row[districtWebsiteIndex]) : undefined,
     }))
     .filter((row) => row.schoolName && row.districtName);
 }
@@ -221,6 +268,12 @@ function withDirectory(program: UilFootballProgram, rows: TeaSchoolDirectoryReco
     districtName: record.districtName,
     countyName: record.countyName,
     city: record.city,
+    teaSchoolNumber: record.schoolNumber,
+    teaDistrictNumber: record.districtNumber,
+    teaSchoolProfileUrl: teaSchoolProfileUrl(record.schoolNumber),
+    teaDistrictProfileUrl: teaDistrictProfileUrl(record.districtNumber),
+    schoolWebsite: record.schoolWebsite,
+    districtWebsite: record.districtWebsite,
   } : {
     ...program,
     ...exactFields,
