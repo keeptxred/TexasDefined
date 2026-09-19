@@ -5,6 +5,28 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "spoetzl-brewery": [
+    {
+      href: "/texas-icons/shiner-bock",
+      label: "Read the full Shiner Bock history",
+      description: "Follow Shiner Bock from the 1909 brewery story and Kosmos Spoetzl through Prohibition, year-round Bock production and modern Texas brand identity.",
+    },
+    {
+      href: "/county/lavaca",
+      label: "Explore Lavaca County",
+      description: "Connect the brewery to Hallettsville, Shiner, Yoakum, Czech and German settlement, railroads, ranching and the Lavaca-Navidad landscape.",
+    },
+    {
+      href: "/explore/painted-churches/shiner-saints-cyril-methodius",
+      label: "See Shiner's painted church",
+      description: "Pair the brewery with Saints Cyril and Methodius Church for a deeper look at the town's Czech and German Catholic heritage.",
+    },
+    {
+      href: "/texas-brand-origin-stories",
+      label: "Compare Texas brand origin stories",
+      description: "See how Shiner fits alongside H-E-B, Whataburger, Blue Bell, Dickies and Buc-ee's as a place-rooted Texas brand.",
+    },
+  ],
   "jasper": [
     {
       href: "/article/blue-hole-jasper-county-east-texas",
