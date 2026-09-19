@@ -3,6 +3,9 @@ import { createFileRoute } from '@tanstack/react-router';
 const canonicalPath = '/texas-high-school-football-teams';
 
 export const Route = createFileRoute(canonicalPath)({
+  validateSearch: (search: Record<string, unknown>) => ({
+    q: typeof search.q === 'string' ? search.q.trim().replace(/\s+/g, ' ').slice(0, 100) : '',
+  }),
   head: () => ({
     meta: [
       { title: 'Texas High School Football Team Finder: UIL Class, District & ISD' },
