@@ -88,6 +88,7 @@ import { Route as TexasHomeAffordabilityCalculatorRouteImport } from './routes/t
 import { Route as TexasHistoryRouteImport } from './routes/texas-history'
 import { Route as TexasHipHopRouteImport } from './routes/texas-hip-hop'
 import { Route as TexasHighSchoolFootballTeamsRouteImport } from './routes/texas-high-school-football-teams'
+import { Route as TexasHighSchoolFootballDistrictsRouteImport } from './routes/texas-high-school-football-districts'
 import { Route as TexasGospelRnbPopRouteImport } from './routes/texas-gospel-rnb-pop'
 import { Route as TexasFoodTrailRouteImport } from './routes/texas-food-trail'
 import { Route as TexasFoodHistoryRouteImport } from './routes/texas-food-history'
@@ -208,6 +209,7 @@ import { Route as TexasHomeownershipCostCalculatorLocationRouteImport } from './
 import { Route as TexasHomeInsuranceCalculatorLocationRouteImport } from './routes/texas-home-insurance-calculator_.$location'
 import { Route as TexasHomeAffordabilityCalculatorLocationRouteImport } from './routes/texas-home-affordability-calculator_.$location'
 import { Route as TexasHighSchoolFootballTeamsSlugRouteImport } from './routes/texas-high-school-football-teams_.$slug'
+import { Route as TexasHighSchoolFootballDistrictsSlugRouteImport } from './routes/texas-high-school-football-districts_.$slug'
 import { Route as TexasDataCountyHousingCostsDotcsvRouteImport } from './routes/texas-data.county-housing-costs[.]csv'
 import { Route as TexasDataCountyHousingCostsRouteImport } from './routes/texas-data.county-housing-costs'
 import { Route as TexasDataCountyGrowthDotcsvRouteImport } from './routes/texas-data.county-growth[.]csv'
@@ -1042,6 +1044,16 @@ const TexasHighSchoolFootballTeamsRoute =
       (d) => d.Route,
     ),
   )
+const TexasHighSchoolFootballDistrictsRoute =
+  TexasHighSchoolFootballDistrictsRouteImport.update({
+    id: '/texas-high-school-football-districts',
+    path: '/texas-high-school-football-districts',
+    getParentRoute: () => rootRouteImport,
+  } as any).lazy(() =>
+    import('./routes/texas-high-school-football-districts.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 const TexasGospelRnbPopRoute = TexasGospelRnbPopRouteImport.update({
   id: '/texas-gospel-rnb-pop',
   path: '/texas-gospel-rnb-pop',
@@ -1796,6 +1808,16 @@ const TexasHighSchoolFootballTeamsSlugRoute =
     getParentRoute: () => rootRouteImport,
   } as any).lazy(() =>
     import('./routes/texas-high-school-football-teams_.$slug.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+const TexasHighSchoolFootballDistrictsSlugRoute =
+  TexasHighSchoolFootballDistrictsSlugRouteImport.update({
+    id: '/texas-high-school-football-districts_/$slug',
+    path: '/texas-high-school-football-districts/$slug',
+    getParentRoute: () => rootRouteImport,
+  } as any).lazy(() =>
+    import('./routes/texas-high-school-football-districts_.$slug.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -3548,6 +3570,7 @@ export interface FileRoutesByFullPath {
   '/texas-food-history': typeof TexasFoodHistoryRoute
   '/texas-food-trail': typeof TexasFoodTrailRoute
   '/texas-gospel-rnb-pop': typeof TexasGospelRnbPopRoute
+  '/texas-high-school-football-districts': typeof TexasHighSchoolFootballDistrictsRoute
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
   '/texas-history': typeof TexasHistoryRoute
@@ -3840,6 +3863,7 @@ export interface FileRoutesByFullPath {
   '/texas-data/county-growth.csv': typeof TexasDataCountyGrowthDotcsvRoute
   '/texas-data/county-housing-costs': typeof TexasDataCountyHousingCostsRoute
   '/texas-data/county-housing-costs.csv': typeof TexasDataCountyHousingCostsDotcsvRoute
+  '/texas-high-school-football-districts/$slug': typeof TexasHighSchoolFootballDistrictsSlugRoute
   '/texas-high-school-football-teams/$slug': typeof TexasHighSchoolFootballTeamsSlugRoute
   '/texas-home-affordability-calculator/$location': typeof TexasHomeAffordabilityCalculatorLocationRoute
   '/texas-home-insurance-calculator/$location': typeof TexasHomeInsuranceCalculatorLocationRoute
@@ -4022,6 +4046,7 @@ export interface FileRoutesByTo {
   '/texas-food-history': typeof TexasFoodHistoryRoute
   '/texas-food-trail': typeof TexasFoodTrailRoute
   '/texas-gospel-rnb-pop': typeof TexasGospelRnbPopRoute
+  '/texas-high-school-football-districts': typeof TexasHighSchoolFootballDistrictsRoute
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
   '/texas-history': typeof TexasHistoryRoute
@@ -4314,6 +4339,7 @@ export interface FileRoutesByTo {
   '/texas-data/county-growth.csv': typeof TexasDataCountyGrowthDotcsvRoute
   '/texas-data/county-housing-costs': typeof TexasDataCountyHousingCostsRoute
   '/texas-data/county-housing-costs.csv': typeof TexasDataCountyHousingCostsDotcsvRoute
+  '/texas-high-school-football-districts/$slug': typeof TexasHighSchoolFootballDistrictsSlugRoute
   '/texas-high-school-football-teams/$slug': typeof TexasHighSchoolFootballTeamsSlugRoute
   '/texas-home-affordability-calculator/$location': typeof TexasHomeAffordabilityCalculatorLocationRoute
   '/texas-home-insurance-calculator/$location': typeof TexasHomeInsuranceCalculatorLocationRoute
@@ -4500,6 +4526,7 @@ export interface FileRoutesById {
   '/texas-food-history': typeof TexasFoodHistoryRoute
   '/texas-food-trail': typeof TexasFoodTrailRoute
   '/texas-gospel-rnb-pop': typeof TexasGospelRnbPopRoute
+  '/texas-high-school-football-districts': typeof TexasHighSchoolFootballDistrictsRoute
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
   '/texas-history': typeof TexasHistoryRoute
@@ -4792,6 +4819,7 @@ export interface FileRoutesById {
   '/texas-data/county-growth.csv': typeof TexasDataCountyGrowthDotcsvRoute
   '/texas-data/county-housing-costs': typeof TexasDataCountyHousingCostsRoute
   '/texas-data/county-housing-costs.csv': typeof TexasDataCountyHousingCostsDotcsvRoute
+  '/texas-high-school-football-districts_/$slug': typeof TexasHighSchoolFootballDistrictsSlugRoute
   '/texas-high-school-football-teams_/$slug': typeof TexasHighSchoolFootballTeamsSlugRoute
   '/texas-home-affordability-calculator_/$location': typeof TexasHomeAffordabilityCalculatorLocationRoute
   '/texas-home-insurance-calculator_/$location': typeof TexasHomeInsuranceCalculatorLocationRoute
@@ -4979,6 +5007,7 @@ export interface FileRouteTypes {
     | '/texas-food-history'
     | '/texas-food-trail'
     | '/texas-gospel-rnb-pop'
+    | '/texas-high-school-football-districts'
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
     | '/texas-history'
@@ -5271,6 +5300,7 @@ export interface FileRouteTypes {
     | '/texas-data/county-growth.csv'
     | '/texas-data/county-housing-costs'
     | '/texas-data/county-housing-costs.csv'
+    | '/texas-high-school-football-districts/$slug'
     | '/texas-high-school-football-teams/$slug'
     | '/texas-home-affordability-calculator/$location'
     | '/texas-home-insurance-calculator/$location'
@@ -5453,6 +5483,7 @@ export interface FileRouteTypes {
     | '/texas-food-history'
     | '/texas-food-trail'
     | '/texas-gospel-rnb-pop'
+    | '/texas-high-school-football-districts'
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
     | '/texas-history'
@@ -5745,6 +5776,7 @@ export interface FileRouteTypes {
     | '/texas-data/county-growth.csv'
     | '/texas-data/county-housing-costs'
     | '/texas-data/county-housing-costs.csv'
+    | '/texas-high-school-football-districts/$slug'
     | '/texas-high-school-football-teams/$slug'
     | '/texas-home-affordability-calculator/$location'
     | '/texas-home-insurance-calculator/$location'
@@ -5930,6 +5962,7 @@ export interface FileRouteTypes {
     | '/texas-food-history'
     | '/texas-food-trail'
     | '/texas-gospel-rnb-pop'
+    | '/texas-high-school-football-districts'
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
     | '/texas-history'
@@ -6222,6 +6255,7 @@ export interface FileRouteTypes {
     | '/texas-data/county-growth.csv'
     | '/texas-data/county-housing-costs'
     | '/texas-data/county-housing-costs.csv'
+    | '/texas-high-school-football-districts_/$slug'
     | '/texas-high-school-football-teams_/$slug'
     | '/texas-home-affordability-calculator_/$location'
     | '/texas-home-insurance-calculator_/$location'
@@ -6408,6 +6442,7 @@ export interface RootRouteChildren {
   TexasFoodHistoryRoute: typeof TexasFoodHistoryRoute
   TexasFoodTrailRoute: typeof TexasFoodTrailRoute
   TexasGospelRnbPopRoute: typeof TexasGospelRnbPopRoute
+  TexasHighSchoolFootballDistrictsRoute: typeof TexasHighSchoolFootballDistrictsRoute
   TexasHighSchoolFootballTeamsRoute: typeof TexasHighSchoolFootballTeamsRoute
   TexasHipHopRoute: typeof TexasHipHopRoute
   TexasHistoryRoute: typeof TexasHistoryRoute
@@ -6651,6 +6686,7 @@ export interface RootRouteChildren {
   StateParkTylerStateParkRoute: typeof StateParkTylerStateParkRoute
   TaxOfficeSlugRoute: typeof TaxOfficeSlugRoute
   TexasCostOfLivingCalculatorLocationRoute: typeof TexasCostOfLivingCalculatorLocationRoute
+  TexasHighSchoolFootballDistrictsSlugRoute: typeof TexasHighSchoolFootballDistrictsSlugRoute
   TexasHighSchoolFootballTeamsSlugRoute: typeof TexasHighSchoolFootballTeamsSlugRoute
   TexasHomeAffordabilityCalculatorLocationRoute: typeof TexasHomeAffordabilityCalculatorLocationRoute
   TexasHomeInsuranceCalculatorLocationRoute: typeof TexasHomeInsuranceCalculatorLocationRoute
@@ -7233,6 +7269,13 @@ declare module '@tanstack/react-router' {
       path: '/texas-high-school-football-teams'
       fullPath: '/texas-high-school-football-teams'
       preLoaderRoute: typeof TexasHighSchoolFootballTeamsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-high-school-football-districts': {
+      id: '/texas-high-school-football-districts'
+      path: '/texas-high-school-football-districts'
+      fullPath: '/texas-high-school-football-districts'
+      preLoaderRoute: typeof TexasHighSchoolFootballDistrictsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/texas-gospel-rnb-pop': {
@@ -8073,6 +8116,13 @@ declare module '@tanstack/react-router' {
       path: '/texas-high-school-football-teams/$slug'
       fullPath: '/texas-high-school-football-teams/$slug'
       preLoaderRoute: typeof TexasHighSchoolFootballTeamsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-high-school-football-districts_/$slug': {
+      id: '/texas-high-school-football-districts_/$slug'
+      path: '/texas-high-school-football-districts/$slug'
+      fullPath: '/texas-high-school-football-districts/$slug'
+      preLoaderRoute: typeof TexasHighSchoolFootballDistrictsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/texas-data/county-housing-costs.csv': {
@@ -10662,6 +10712,7 @@ const rootRouteChildren: RootRouteChildren = {
   TexasFoodHistoryRoute: TexasFoodHistoryRoute,
   TexasFoodTrailRoute: TexasFoodTrailRoute,
   TexasGospelRnbPopRoute: TexasGospelRnbPopRoute,
+  TexasHighSchoolFootballDistrictsRoute: TexasHighSchoolFootballDistrictsRoute,
   TexasHighSchoolFootballTeamsRoute: TexasHighSchoolFootballTeamsRoute,
   TexasHipHopRoute: TexasHipHopRoute,
   TexasHistoryRoute: TexasHistoryRoute,
@@ -10966,6 +11017,8 @@ const rootRouteChildren: RootRouteChildren = {
   TaxOfficeSlugRoute: TaxOfficeSlugRoute,
   TexasCostOfLivingCalculatorLocationRoute:
     TexasCostOfLivingCalculatorLocationRoute,
+  TexasHighSchoolFootballDistrictsSlugRoute:
+    TexasHighSchoolFootballDistrictsSlugRoute,
   TexasHighSchoolFootballTeamsSlugRoute: TexasHighSchoolFootballTeamsSlugRoute,
   TexasHomeAffordabilityCalculatorLocationRoute:
     TexasHomeAffordabilityCalculatorLocationRoute,
