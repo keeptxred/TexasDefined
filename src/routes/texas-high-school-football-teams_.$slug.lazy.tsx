@@ -14,6 +14,7 @@ function Page() {
     identity,
     enrollmentLink,
     districtPeers,
+    venueLinks,
     privateAlignment,
     privateAdmissions,
     governingBodyHint,
@@ -114,6 +115,32 @@ function Page() {
             <h3 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{peer.schoolName}</h3>
             <p className="mt-2 text-xs text-muted-foreground">{peer.footballType} · Open profile →</p>
           </a>)}
+        </div>
+      </section>}
+
+      {program && venueLinks.length > 0 && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Game venue</p>
+          <h2 className="mt-2 font-display text-3xl">Verified football venue relationships</h2>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">Texas high schools often share district stadiums. A venue listed here is a sourced school or district football relationship, not a promise that every home game is played there. Confirm the current schedule before travel.</p>
+        </div>
+        <div className="space-y-5">
+          {venueLinks.map((venue) => <article key={venue.venueSlug} className="border-t-2 border-foreground pt-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">{venue.relationshipLabel}</p>
+            <h3 className="mt-2 font-display text-3xl"><a href={venue.venuePath} className="hover:text-primary">{venue.venueName}</a></h3>
+            <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">{venue.note}</p>
+            <dl className="mt-5 grid gap-px border border-border bg-border sm:grid-cols-2">
+              {venue.city && <Snapshot label="City" value={venue.city} />}
+              {venue.capacity && <Snapshot label="Capacity" value={venue.capacity} />}
+            </dl>
+            {venue.parking && <p className="mt-5 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Parking:</strong> {venue.parking}</p>}
+            {venue.arrival && <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Arrival:</strong> {venue.arrival}</p>}
+            <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+              <a href={venue.venuePath} className="text-primary underline underline-offset-4">Open TexasDefined stadium guide →</a>
+              <a href={venue.officialUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official venue source ↗</a>
+            </div>
+            {venue.verifiedAt && <p className="mt-3 text-xs text-muted-foreground">Venue planning details reviewed {venue.verifiedAt}.</p>}
+          </article>)}
         </div>
       </section>}
 
