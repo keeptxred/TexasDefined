@@ -1,4 +1,4 @@
-import { matchFeaturedFootballProgram } from './featured-programs';
+import { footballProgramProfilePath } from './program-slugs';
 import { UIL_FOOTBALL_PROGRAMS_2026, type UilFootballProgram } from './uil-football-alignments-2026.server';
 import {
   loadUilRecentFootballHistory,
@@ -22,17 +22,13 @@ export type TeaSchoolDirectoryRecord = {
 };
 
 export type FootballProgramDirectoryResult = UilFootballProgram & {
+  profilePath: string;
   officialSchoolName?: string;
   districtName?: string;
   countyName?: string;
   city?: string;
   recentHistory?: UilRecentFootballHistory;
   allTimeHistory?: UilAllTimeFootballHistory;
-  featuredProfile?: {
-    slug: string;
-    primaryRank: number;
-    sourceRanks: readonly number[];
-  };
 };
 
 let directoryCache: { loadedAt: number; rows: TeaSchoolDirectoryRecord[] } | null = null;
@@ -208,11 +204,12 @@ function withDirectory(program: UilFootballProgram, rows: TeaSchoolDirectoryReco
   const record = bestDirectoryMatch(program, rows);
   return record ? {
     ...program,
+    profilePath: footballProgramProfilePath(program.schoolName),
     officialSchoolName: record.schoolName,
     districtName: record.districtName,
     countyName: record.countyName,
     city: record.city,
-  } : { ...program };
+  } : { ...program, profilePath: footballProgramProfilePath(program.schoolName) };
 }
 
 function includesQuery(value: string, query: string) {
@@ -295,18 +292,10 @@ export async function searchFootballPrograms(options: {
       const allTime = allTimeHistory
         ? allTimeFootballHistoryFromLoaded(allTimeHistory, history, base.schoolName, base.officialSchoolName)
         : null;
-      const featured = matchFeaturedFootballProgram(base.schoolName, base.officialSchoolName);
       return {
         ...base,
         ...(history ? { recentHistory: history } : {}),
         ...(allTime ? { allTimeHistory: allTime } : {}),
-        ...(featured ? {
-          featuredProfile: {
-            slug: featured.slug,
-            primaryRank: featured.primaryRank,
-            sourceRanks: featured.sourceRanks,
-          },
-        } : {}),
       };
     })
     .sort((a, b) => {
