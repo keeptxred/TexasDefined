@@ -2,15 +2,26 @@ import { createLazyFileRoute, Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
 
+const UIL_ELIGIBILITY_URL = 'https://www.uiltexas.org/policy/eligibility';
+const UIL_DETAILED_ELIGIBILITY_URL = 'https://www.uiltexas.org/policy/constitution/general/eligibility';
+
 export const Route = createLazyFileRoute('/texas-high-school-football-teams/$slug')({ component: Page });
 
 function Page() {
-  const { featured, program, identity, enrollmentLink } = Route.useLoaderData();
-  const schoolName = program?.officialSchoolName || featured.displayName;
-  const countyPath = program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
-  const associationLabel = program
-    ? 'UIL'
-    : featured.governingBodyHint ?? 'Association not yet verified';
+  const {
+    displayName,
+    program,
+    identity,
+    enrollmentLink,
+    districtPeers,
+    governingBodyHint,
+    associationClassification,
+    associationSourceUrl,
+  } = Route.useLoaderData();
+
+  const schoolName = program?.officialSchoolName || displayName;
+  const countyPath = program?.countyName ? '/county/' + countySlug(program.countyName) : null;
+  const associationLabel = program ? 'UIL' : governingBodyHint ?? 'Association not yet verified';
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <article className="mx-auto max-w-6xl">
@@ -18,19 +29,18 @@ function Page() {
         <Link to="/">Front page</Link><span className="mx-2">/</span>
         <Link to="/sports">Texas Sports</Link><span className="mx-2">/</span>
         <a href="/texas-high-school-football-teams">High school football teams</a><span className="mx-2">/</span>
-        <span aria-current="page">{featured.displayName}</span>
+        <span aria-current="page">{displayName}</span>
       </nav>
 
       <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
         <div>
           <p className="eyebrow text-primary">Texas high school football school profile</p>
-          <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{featured.displayName}</h1>
+          <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{displayName}</h1>
           <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">
-            A school-and-football research page connecting current competition placement with ISD and county context, enrollment steps, school identity and verified UIL championship history where available.
+            A school-and-football research page using the same profile structure applied across every current UIL football program: current competition placement, ISD and county context, enrollment steps, eligibility guidance, school identity and verified championship history where available.
           </p>
         </div>
         <dl className="border-y border-border py-3 text-sm lg:border-y-0 lg:border-l lg:pl-6">
-          <Fact label="Research list position" value={rankLabel(featured.sourceRanks)} />
           <Fact label="Governing body" value={associationLabel} />
           {program && <Fact label="Current alignment" value={alignmentLabel(program)} />}
           {program && <Fact label="Football district" value={String(program.district)} />}
@@ -50,21 +60,22 @@ function Page() {
               <Snapshot label="ISD / district" value={program.districtName || 'TEA directory match pending'} />
               <Snapshot label="Location" value={[program.city, program.countyName].filter(Boolean).join(' · ') || 'Texas'} />
               <Snapshot label="UIL classification" value={program.classification} />
-              <Snapshot label="Football division" value={program.division ? `Division ${program.division === 1 ? 'I' : 'II'}` : 'Not pre-split in alignment'} />
+              <Snapshot label="Football division" value={program.division ? 'Division ' + (program.division === 1 ? 'I' : 'II') : 'Not pre-split in alignment'} />
               <Snapshot label="UIL district" value={String(program.district)} />
             </dl>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">
-              Classification is based on enrollment for the current UIL realignment cycle; it is not a quality tier or a TexasDefined school rating. District assignments and enrollment cutoffs can change at realignment.
+              TexasDefined orders the statewide directory from 6A through 1A because UIL classifications reflect enrollment size. That order is not a claim that a larger-classification program is better than a smaller-classification program.
             </p>
           </> : <>
             <div className="border-y border-border py-5">
-              <p className="font-display text-2xl">{featured.governingBodyHint ? `${featured.governingBodyHint} ${featured.associationClassification ?? ''}`.trim() : 'No current UIL alignment match'}</p>
+              <p className="font-display text-2xl">{governingBodyHint ? [governingBodyHint, associationClassification].filter(Boolean).join(' ') : 'No current UIL alignment match'}</p>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-                This supplied school did not resolve to the current UIL football alignment. TexasDefined does not force private or non-UIL programs into a UIL classification. Association placement is shown only when it has been separately sourced.
+                This school is outside the current UIL football directory. TexasDefined does not force private or non-UIL programs into a UIL classification; association placement is shown only when separately sourced.
               </p>
-              {featured.associationSourceUrl && <a href={featured.associationSourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Official association football source ↗</a>}
+              {associationSourceUrl && <a href={associationSourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Official association football source ↗</a>}
             </div>
           </>}
+
           <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
             {countyPath && <a href={countyPath} className="text-primary">Open {program?.countyName} guide →</a>}
             <a href="/find-my-school-district" className="text-primary">Verify a school district by address →</a>
@@ -73,16 +84,38 @@ function Page() {
         </div>
       </section>
 
+      {program && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Current district</p>
+          <h2 className="mt-2 font-display text-3xl">{alignmentLabel(program)} · District {program.district}</h2>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">These are the other schools in the same 2026–28 UIL football district. Every opponent links to the same school-profile system.</p>
+        </div>
+        <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
+          {districtPeers.map((peer) => <a key={peer.profilePath} href={peer.profilePath} className="group bg-background p-5 hover:bg-surface">
+            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-primary">{alignmentLabel(peer)} · District {peer.district}</p>
+            <h3 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{peer.schoolName}</h3>
+            <p className="mt-2 text-xs text-muted-foreground">{peer.footballType} · Open profile →</p>
+          </a>)}
+        </div>
+      </section>}
+
       <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">How to enroll</p>
           <h2 className="mt-2 font-display text-3xl">How to enroll at {schoolName}</h2>
         </div>
         <div>
-          {program ? <PublicEnrollmentSteps schoolName={schoolName} districtName={program.districtName} enrollmentLink={enrollmentLink} /> : <NonUilEnrollmentSteps schoolName={schoolName} association={featured.governingBodyHint} />}
-          <div className="mt-6 border border-border p-5 text-sm leading-7 text-muted-foreground">
-            <strong className="text-foreground">Football eligibility is a separate question from school admission.</strong> Being admitted, moving into a district or receiving a transfer does not by itself establish varsity eligibility. Confirm the student's facts directly with the school and the governing athletic association before relying on a move or transfer for football.
-          </div>
+          {program
+            ? <PublicEnrollmentSteps schoolName={schoolName} districtName={program.districtName} enrollmentLink={enrollmentLink} />
+            : <NonUilEnrollmentSteps schoolName={schoolName} association={governingBodyHint} />}
+
+          {program && <div className="mt-6 border border-border p-5 text-sm leading-7 text-muted-foreground">
+            <strong className="text-foreground">Football eligibility is a separate question from school admission.</strong> Being admitted, moving into a district or receiving a transfer does not by itself establish varsity eligibility. UIL rules address residence, attendance zones, transfers, previous participation and changing schools for athletic purposes. A family considering a move specifically for football should get the student's eligibility determined by the school rather than assuming enrollment equals immediate varsity eligibility.
+            <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 font-semibold">
+              <a href={UIL_ELIGIBILITY_URL} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL eligibility standards ↗</a>
+              <a href={UIL_DETAILED_ELIGIBILITY_URL} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL detailed eligibility rules ↗</a>
+            </div>
+          </div>}
         </div>
       </section>
 
@@ -100,7 +133,7 @@ function Page() {
           <a href={identity.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">{identity.sourceLabel} ↗</a>
         </div> : <div className="border-y border-border py-5">
           <p className="font-display text-2xl">Mascot verification pending</p>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined has a mascot field for this school, but it stays blank until the school or district identity can be tied to a source. We do not fill school identity fields from an unsourced guess.</p>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Every UIL profile has the same mascot field, but TexasDefined leaves it blank until the school or district identity is tied to a source. We do not fill school identity fields from an unsourced guess.</p>
         </div>}
       </section>
 
@@ -133,7 +166,7 @@ function Page() {
             <Snapshot label="Most recent final" value={program.recentHistory.mostRecentFinalSeason || '—'} />
           </dl>
           <div className="mt-5 divide-y divide-border border-y border-border">
-            {program.recentHistory.finals.map((final) => <div key={`${final.season}-${final.conference}-${final.result}`} className="grid gap-1 py-4 text-sm sm:grid-cols-3">
+            {program.recentHistory.finals.map((final) => <div key={[final.season, final.conference, final.result].join('-')} className="grid gap-1 py-4 text-sm sm:grid-cols-3">
               <span className="font-semibold">{final.season}</span>
               <span>{final.result}</span>
               <span className="text-muted-foreground">{final.conference} · vs. {final.opponent} · {final.score}</span>
@@ -154,15 +187,15 @@ function Page() {
           <ResearchCard title="Schedule and district travel" body="The UIL district tells you the competitive neighborhood. Review opponents, travel distance, rivalry games and the current schedule rather than relying on an old classification." />
           <ResearchCard title="Academics and daily fit" body="Football is one piece of a four-year school experience. Compare academics, programs, commute, campus culture and student support alongside the football program." />
           <ResearchCard title="Facilities and stadium" body="Some teams play on campus and others use shared district stadiums. Confirm practice facilities, game venue, parking and game-night logistics." />
-          <ResearchCard title="Transfers and eligibility" body="Ask the school about enrollment and transfer rules, then separately verify the athletic eligibility consequences with the governing association." />
+          <ResearchCard title="Transfers and eligibility" body="Ask the school about enrollment and transfer rules, then separately verify the athletic eligibility consequences with UIL." />
         </div>
       </section>
 
       <section className="py-10">
         <p className="eyebrow text-primary">Keep researching</p>
-        <h2 className="mt-2 font-display text-3xl">Put {featured.displayName} in the statewide football picture</h2>
+        <h2 className="mt-2 font-display text-3xl">Put {displayName} in the statewide football picture</h2>
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <Related href="/texas-high-school-football-teams" title="Texas football team finder" body="Search by school, ISD, city or county and compare current football placement." />
+          <Related href="/texas-high-school-football-teams" title="All 1,268 UIL programs" body="Browse every current UIL football school, ordered from 6A through 1A, or search by school, ISD, city or county." />
           <Related href="/article/texas-high-school-football-classifications-1a-6a" title="How 1A through 6A work" body="Understand enrollment classifications, divisions, districts and realignment." />
           <Related href="/article/texas-high-school-football-playoffs-explained" title="How the playoffs work" body="Follow district qualification, bi-district and the state bracket." />
           {program?.footballType === '6-Man' && <Related href="/article/texas-six-man-football-rules-explained" title="Six-man football rules" body="Understand the field, first-down distance, exchange rule, scoring and mercy rule." />}
@@ -170,7 +203,7 @@ function Page() {
           <Related href="/sports/friday-night-lights" title="Friday Night Lights, Defined" body="Explore the wider culture, traditions and season around Texas high school football." />
         </div>
         <p className="mt-8 max-w-4xl text-xs leading-6 text-muted-foreground">
-          The supplied 250-school working list is used as an editorial research set, not as a TexasDefined rating of academics, coaching quality, recruiting prospects or overall student fit. Duplicate and alternate school names resolve to one canonical profile while preserving every supplied list position.
+          All current UIL football programs use the same profile system. Earlier seed lists may still help resolve alternate school names behind the scenes, but they do not control whether a school receives a page, its directory position or its research priority.
         </p>
       </section>
     </article>
@@ -192,18 +225,19 @@ function PublicEnrollmentSteps({
   } | null;
 }) {
   const district = districtName || 'the school district';
-  const steps = [
-    ['Verify the exact address', `Use an official district boundary or campus-assignment tool to confirm that the residence is served by ${schoolName}. A city name or ZIP code is not enough.`],
-    ['Start district registration', `Use ${district}'s official new-student registration process. Expect proof of residence, parent or guardian identification, student identity records, immunization records and prior school records as applicable.`],
+  const steps: Array<[string, string]> = [
+    ['Verify the exact address', 'Use an official district boundary or campus-assignment tool to confirm that the residence is served by ' + schoolName + '. A city name or ZIP code is not enough.'],
+    ['Start district registration', "Use " + district + "'s official new-student registration process. Expect proof of residence, parent or guardian identification, student identity records, immunization records and prior school records as applicable."],
     ['Confirm the campus assignment', 'Before signing a lease or closing on a home because of a particular school, get the campus assignment confirmed by the district and ask whether boundary changes are pending.'],
     ['Ask about transfers separately', 'If the address is outside the attendance zone, review the district’s current transfer or open-enrollment policy. Approval rules, capacity limits and renewal terms can change.'],
-    ['Verify athletic eligibility', 'After enrollment is settled, ask the school athletic office how UIL residency, transfer and previous-athletic-participation rules apply to this student’s specific situation.'],
+    ['Verify athletic eligibility', 'After enrollment is settled, ask the school athletic office how UIL residency, transfer, attendance-zone and previous-athletic-participation rules apply to this student’s specific situation.'],
   ];
+
   return <>
     {enrollmentLink && <div className="mb-6 border border-border p-5">
       <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official district enrollment</p>
       <p className="mt-2 text-sm leading-7 text-muted-foreground">
-        TexasDefined verified this district enrollment source on {enrollmentLink.verifiedAt}{enrollmentLink.schoolYear ? ` for the ${enrollmentLink.schoolYear} school year` : ''}. Use the district page for current forms, deadlines and required documents.
+        TexasDefined verified this district enrollment source on {enrollmentLink.verifiedAt}{enrollmentLink.schoolYear ? ' for the ' + enrollmentLink.schoolYear + ' school year' : ''}. Use the district page for current forms, deadlines and required documents.
       </p>
       <a href={enrollmentLink.enrollmentUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
         Start with {enrollmentLink.sourceLabel} ↗
@@ -214,11 +248,11 @@ function PublicEnrollmentSteps({
 }
 
 function NonUilEnrollmentSteps({ schoolName, association }: { schoolName: string; association?: string }) {
-  const steps = [
-    ['Use the school’s admissions office', `Start with ${schoolName}'s official admissions process rather than a public-school attendance-zone lookup.`],
+  const steps: Array<[string, string]> = [
+    ['Use the school’s admissions office', "Start with " + schoolName + "'s official admissions process rather than a public-school attendance-zone lookup."],
     ['Check application requirements', 'Confirm application dates, transcripts or records, recommendations, testing or interviews, grade-level availability and any tuition or financial-aid requirements.'],
     ['Ask about admission timing', 'Private-school admission can depend on available seats and deadlines, so verify the intended entry year directly with the school.'],
-    ['Confirm the football program', `Verify that the school is fielding football in the intended season and confirm its current ${association ?? 'athletic association'} placement and schedule.`],
+    ['Confirm the football program', 'Verify that the school is fielding football in the intended season and confirm its current ' + (association ?? 'athletic association') + ' placement and schedule.'],
     ['Verify athletic eligibility separately', 'Admission does not automatically establish athletic eligibility. Ask the school how transfer, age, residence, prior participation and association rules apply to the student.'],
   ];
   return <StepList steps={steps} />;
@@ -250,11 +284,7 @@ function Related({ href, title, body }: { href: string; title: string; body: str
 }
 
 function alignmentLabel(program: { classification: string; division: 1 | 2 | null }) {
-  return program.division ? `${program.classification} Division ${program.division === 1 ? 'I' : 'II'}` : program.classification;
-}
-
-function rankLabel(ranks: readonly number[]) {
-  return ranks.map((rank) => `#${rank}`).join(', ');
+  return program.division ? program.classification + ' Division ' + (program.division === 1 ? 'I' : 'II') : program.classification;
 }
 
 function countySlug(value: string) {
