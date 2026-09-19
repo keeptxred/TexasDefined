@@ -18,6 +18,12 @@ const startHere = [
     label: "Read the culture guide",
   },
   {
+    title: "Find a football program by high school",
+    description: "Search every current UIL football program by high school, ISD, city or county and see its 2026–28 classification, division and district.",
+    href: "/texas-high-school-football-teams",
+    label: "Open the football team finder",
+  },
+  {
     title: "Find the school district first",
     description: "For newcomers and relocating families, the district is the cleanest starting point for understanding which schools, rivalries and local traditions belong to a community.",
     href: "/find-my-school-district",
