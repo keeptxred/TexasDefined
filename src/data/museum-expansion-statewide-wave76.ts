@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave77Destinations } from "./museum-expansion-statewide-wave77";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-19";
@@ -54,4 +55,5 @@ export const statewideMuseumExpansionWave76Destinations: Destination[] = [
     address: "210 W South Commerce St, Wills Point, TX 75169",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave77Destinations,
 ];
