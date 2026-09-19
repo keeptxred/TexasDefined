@@ -14,10 +14,12 @@ const FEATURED_GUIDES: Record<string, { href: string; label: string; description
     { href: "/texas-ranch-water-guide", label: "Texas Ranch Water", description: "Separate West Texas cocktail folklore from the better-documented Ranch 616 chapter of the modern drink." },
     { href: "/san-antonio-puffy-taco-history", label: "San Antonio Puffy Tacos", description: "Follow the fried-masa shell into San Antonio's West Side food culture and Ray's Drive Inn history." },
     { href: "/barbacoa-big-red-san-antonio", label: "Barbacoa & Big Red", description: "See how an older Sunday barbacoa tradition and a Waco-born soda became San Antonio cultural shorthand." },
+    { href: "/destination/spoetzl-brewery", label: "Visit K. Spoetzl Brewery", description: "Plan a Shiner brewery tour and see the current beer lineup, distillery, barbecue and visitor details." },
     { href: "/german-czech-texas-towns", label: "German & Czech Texas towns", description: "Connect kolaches, sausage and beer traditions to the communities and institutions that kept them alive." },
   ],
   "texas-brands": [
     { href: "/texas-brand-origin-stories", label: "Texas Brand Origin Stories", description: "Trace H-E-B, Whataburger, Blue Bell, Shiner, Dickies and Buc-ee's back to the Texas places and routines that shaped them." },
+    { href: "/destination/spoetzl-brewery", label: "Shiner & Spoetzl Brewery", description: "Go from the Shiner brand story to the working brewery, tours and current visitor campus in Lavaca County." },
     { href: "/article/heb-texas-grocery-history-culture", label: "H-E-B & Texas Grocery Culture", description: "Go deeper on H-E-B's Kerrville roots, grocery growth and role in everyday Texas community life." },
     { href: "/article/bucees-texas-road-trip-history", label: "Buc-ee's & the Texas Road Trip", description: "See how a Lake Jackson-area convenience store grew into a recognizable Texas highway ritual." },
   ],
