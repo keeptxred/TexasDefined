@@ -268,12 +268,20 @@ if (!errors.length) {
     "slug: 'round-rock'",
     "slug: 'harker-heights'",
     "slug: 'richland'",
+    "slug: 'el-paso-coronado'",
+    "slug: 'el-paso-eastlake'",
+    "slug: 'el-paso-eastwood'",
+    "slug: 'el-paso-pebble-hills'",
+    "slug: 'midland'",
+    "slug: 'midland-lee'",
+    "slug: 'odessa'",
+    "slug: 'san-angelo-central'",
     'sourceUrl',
     'verifiedAt',
   ]) requireText(schoolIdentities, marker, 'Football school identity data');
   const verifiedFootballIdentityCount = (schoolIdentities.match(/slug: '/g) ?? []).length;
-  if (verifiedFootballIdentityCount < 42) {
-    errors.push(`Football school identity data fell below 42 verified profiles; found ${verifiedFootballIdentityCount}.`);
+  if (verifiedFootballIdentityCount < 50) {
+    errors.push(`Football school identity data fell below 50 verified profiles; found ${verifiedFootballIdentityCount}.`);
   }
 
   for (const marker of [
