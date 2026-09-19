@@ -3,9 +3,11 @@
   const SLOT_SELECTOR = "[data-stay-nearby-slot]";
   const STAY_DATA_URL = "/stay-nearby-hotels.json";
   const DESTINATION_STAY_DATA_URL = "/stay-nearby-destination-hotels.json";
+  const PAINTED_CHURCHES_STAY_DATA_URL = "/stay-nearby-painted-churches-hotels.json";
   const TRAVEL_PATH = /^\/(?:explore(?:\/|$)|destination\/|city\/|county\/|sports-venue\/|sports-venues\/(?!compare(?:\.csv)?(?:\/|$))|sports-venues$|event\/|events(?:\/|$)|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const TRAVEL_ARTICLE_SECTION = /\b(?:travel|lodging|road trips?|weekend getaways?|events?)\b/i;
   const CONTEXT_PATHS = [
+    { kind: "destination", key: "painted-churches", pattern: /^\/explore\/painted-churches(?:\/|$)/ },
     { kind: "venue", pattern: /^\/sports-venue\/([^/?#]+)\/?$/ },
     { kind: "event", pattern: /^\/event\/([^/?#]+)\/?$/ },
     { kind: "destination", pattern: /^\/destination\/([^/?#]+)\/?$/ },
@@ -13,8 +15,10 @@
   ];
   const VENDOR_SCRIPT = "https://creator.expediagroup.com/products/widgets/assets/eg-widgets.js";
   const DISCLOSURE = "Affiliate disclosure: TexasDefined may earn a commission from qualifying Expedia bookings, at no additional cost to you.";
+  const HOTELS_EXPEDIA_DISCLOSURE = "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com or Expedia bookings, at no additional cost to you. Availability, rates and booking terms are provided by the booking service.";
   let observer;
   let stayDataPromise;
+  let paintedChurchesStayDataPromise;
   let syncVersion = 0;
   let lastImpressionKey = "";
 
@@ -104,7 +108,9 @@
   function contextFromPath(pathname = window.location.pathname) {
     for (const candidate of CONTEXT_PATHS) {
       const match = pathname.match(candidate.pattern);
-      if (match) return { kind: candidate.kind, key: decodeURIComponent(match[1]) };
+      if (!match) continue;
+      const key = candidate.key || match[1];
+      if (key) return { kind: candidate.kind, key: decodeURIComponent(key) };
     }
     return null;
   }
@@ -131,6 +137,18 @@
         .catch(() => null);
     }
     return stayDataPromise;
+  }
+
+  function loadPaintedChurchesStayData() {
+    if (!paintedChurchesStayDataPromise) {
+      paintedChurchesStayDataPromise = fetchRegistry(PAINTED_CHURCHES_STAY_DATA_URL).catch(() => null);
+    }
+    return paintedChurchesStayDataPromise;
+  }
+
+  function loadStayDataForContext(context) {
+    if (context?.kind === "destination" && context?.key === "painted-churches") return loadPaintedChurchesStayData();
+    return loadStayData();
   }
 
   function distanceMiles(left, right) {
@@ -189,6 +207,13 @@
       target.verified === true
       && typeof target.affiliateUrl === "string"
       && /^https:\/\//.test(target.affiliateUrl));
+  }
+
+  function curatedDisclosure(selection) {
+    const providers = new Set(selection
+      .map(({ property }) => verifiedAffiliateTarget(property)?.provider)
+      .filter(Boolean));
+    return providers.has("hotels.com") ? HOTELS_EXPEDIA_DISCLOSURE : DISCLOSURE;
   }
 
   function permittedImage(property, affiliateTarget) {
@@ -480,7 +505,7 @@
     });
     const disclosure = document.createElement("p");
     disclosure.className = "text-xs text-muted-foreground";
-    disclosure.textContent = DISCLOSURE;
+    disclosure.textContent = curatedDisclosure(selection);
     footer.append(search, disclosure);
 
     container.append(headingRow, track, footer, createWidgetHost());
@@ -556,7 +581,7 @@
     current?.remove();
 
     if (context) {
-      const data = await loadStayData();
+      const data = await loadStayDataForContext(context);
       if (version !== syncVersion || !document.getElementById("main") || !isMonetizationEligible()) return;
       const selection = selectStayNearby(data, context);
       if (selection.length) {
