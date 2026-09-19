@@ -122,6 +122,7 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Painted Churches printable field guide: https://texasdefined.com/explore/painted-churches/print-guide
 - Painted Churches comparison CSV: https://texasdefined.com/painted-churches.csv
 - Painted Churches reference JSON: https://texasdefined.com/painted-churches.json
+- Texas hockey teams, leagues and home rinks: https://texasdefined.com/texas-hockey
 - Texas sports venue directory: https://texasdefined.com/sports-venues
 - Texas sports venue comparison: https://texasdefined.com/sports-venues/compare
 - Texas sports venue comparison CSV: https://texasdefined.com/sports-venues/compare.csv

@@ -85,6 +85,7 @@ import { Route as TexasHomeInsuranceCalculatorRouteImport } from './routes/texas
 import { Route as TexasHomeEquityGrowthCalculatorRouteImport } from './routes/texas-home-equity-growth-calculator'
 import { Route as TexasHomeEquityCalculatorRouteImport } from './routes/texas-home-equity-calculator'
 import { Route as TexasHomeAffordabilityCalculatorRouteImport } from './routes/texas-home-affordability-calculator'
+import { Route as TexasHockeyRouteImport } from './routes/texas-hockey'
 import { Route as TexasHistoryRouteImport } from './routes/texas-history'
 import { Route as TexasHipHopRouteImport } from './routes/texas-hip-hop'
 import { Route as TexasHighSchoolFootballTeamsRouteImport } from './routes/texas-high-school-football-teams'
@@ -421,6 +422,9 @@ import { Route as AdminFishingReviewRouteImport } from './routes/admin.fishing-r
 import { Route as AdminEntityMaintenanceRouteImport } from './routes/admin.entity-maintenance'
 import { Route as AdminEntityImportReviewRouteImport } from './routes/admin.entity-import-review'
 import { Route as KindSlugRouteImport } from './routes/$kind.$slug'
+import { Route as TexasHockeyVenuesSlugRouteImport } from './routes/texas-hockey.venues.$slug'
+import { Route as TexasHockeyTeamsSlugRouteImport } from './routes/texas-hockey.teams.$slug'
+import { Route as TexasHockeyLeaguesSlugRouteImport } from './routes/texas-hockey.leagues.$slug'
 import { Route as ShopProductProductIdRouteImport } from './routes/shop.product.$productId'
 import { Route as PropertyTaxTaxingUnitUnitRouteImport } from './routes/property-tax.taxing-unit.$unit'
 import { Route as PropertyTaxCountyCountyRouteImport } from './routes/property-tax.county.$county'
@@ -1022,6 +1026,11 @@ const TexasHomeAffordabilityCalculatorRoute =
       (d) => d.Route,
     ),
   )
+const TexasHockeyRoute = TexasHockeyRouteImport.update({
+  id: '/texas-hockey',
+  path: '/texas-hockey',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TexasHistoryRoute = TexasHistoryRouteImport.update({
   id: '/texas-history',
   path: '/texas-history',
@@ -3055,6 +3064,21 @@ const KindSlugRoute = KindSlugRouteImport.update({
   path: '/$kind/$slug',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/$kind.$slug.lazy').then((d) => d.Route))
+const TexasHockeyVenuesSlugRoute = TexasHockeyVenuesSlugRouteImport.update({
+  id: '/venues/$slug',
+  path: '/venues/$slug',
+  getParentRoute: () => TexasHockeyRoute,
+} as any)
+const TexasHockeyTeamsSlugRoute = TexasHockeyTeamsSlugRouteImport.update({
+  id: '/teams/$slug',
+  path: '/teams/$slug',
+  getParentRoute: () => TexasHockeyRoute,
+} as any)
+const TexasHockeyLeaguesSlugRoute = TexasHockeyLeaguesSlugRouteImport.update({
+  id: '/leagues/$slug',
+  path: '/leagues/$slug',
+  getParentRoute: () => TexasHockeyRoute,
+} as any)
 const ShopProductProductIdRoute = ShopProductProductIdRouteImport.update({
   id: '/product/$productId',
   path: '/product/$productId',
@@ -3551,6 +3575,7 @@ export interface FileRoutesByFullPath {
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
   '/texas-history': typeof TexasHistoryRoute
+  '/texas-hockey': typeof TexasHockeyRouteWithChildren
   '/texas-home-affordability-calculator': typeof TexasHomeAffordabilityCalculatorRoute
   '/texas-home-equity-calculator': typeof TexasHomeEquityCalculatorRoute
   '/texas-home-equity-growth-calculator': typeof TexasHomeEquityGrowthCalculatorRoute
@@ -3909,6 +3934,9 @@ export interface FileRoutesByFullPath {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
+  '/texas-hockey/leagues/$slug': typeof TexasHockeyLeaguesSlugRoute
+  '/texas-hockey/teams/$slug': typeof TexasHockeyTeamsSlugRoute
+  '/texas-hockey/venues/$slug': typeof TexasHockeyVenuesSlugRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
   '/explore/painted-churches/people/$slug': typeof ExplorePaintedChurchesPeopleSlugRoute
@@ -4025,6 +4053,7 @@ export interface FileRoutesByTo {
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
   '/texas-history': typeof TexasHistoryRoute
+  '/texas-hockey': typeof TexasHockeyRouteWithChildren
   '/texas-home-affordability-calculator': typeof TexasHomeAffordabilityCalculatorRoute
   '/texas-home-equity-calculator': typeof TexasHomeEquityCalculatorRoute
   '/texas-home-equity-growth-calculator': typeof TexasHomeEquityGrowthCalculatorRoute
@@ -4383,6 +4412,9 @@ export interface FileRoutesByTo {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
+  '/texas-hockey/leagues/$slug': typeof TexasHockeyLeaguesSlugRoute
+  '/texas-hockey/teams/$slug': typeof TexasHockeyTeamsSlugRoute
+  '/texas-hockey/venues/$slug': typeof TexasHockeyVenuesSlugRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
   '/explore/painted-churches/people/$slug': typeof ExplorePaintedChurchesPeopleSlugRoute
@@ -4503,6 +4535,7 @@ export interface FileRoutesById {
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
   '/texas-history': typeof TexasHistoryRoute
+  '/texas-hockey': typeof TexasHockeyRouteWithChildren
   '/texas-home-affordability-calculator': typeof TexasHomeAffordabilityCalculatorRoute
   '/texas-home-equity-calculator': typeof TexasHomeEquityCalculatorRoute
   '/texas-home-equity-growth-calculator': typeof TexasHomeEquityGrowthCalculatorRoute
@@ -4861,6 +4894,9 @@ export interface FileRoutesById {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
+  '/texas-hockey/leagues/$slug': typeof TexasHockeyLeaguesSlugRoute
+  '/texas-hockey/teams/$slug': typeof TexasHockeyTeamsSlugRoute
+  '/texas-hockey/venues/$slug': typeof TexasHockeyVenuesSlugRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
   '/explore/painted-churches/people/$slug': typeof ExplorePaintedChurchesPeopleSlugRoute
@@ -4982,6 +5018,7 @@ export interface FileRouteTypes {
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
     | '/texas-history'
+    | '/texas-hockey'
     | '/texas-home-affordability-calculator'
     | '/texas-home-equity-calculator'
     | '/texas-home-equity-growth-calculator'
@@ -5340,6 +5377,9 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
+    | '/texas-hockey/leagues/$slug'
+    | '/texas-hockey/teams/$slug'
+    | '/texas-hockey/venues/$slug'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
     | '/explore/painted-churches/people/$slug'
@@ -5456,6 +5496,7 @@ export interface FileRouteTypes {
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
     | '/texas-history'
+    | '/texas-hockey'
     | '/texas-home-affordability-calculator'
     | '/texas-home-equity-calculator'
     | '/texas-home-equity-growth-calculator'
@@ -5814,6 +5855,9 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
+    | '/texas-hockey/leagues/$slug'
+    | '/texas-hockey/teams/$slug'
+    | '/texas-hockey/venues/$slug'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
     | '/explore/painted-churches/people/$slug'
@@ -5933,6 +5977,7 @@ export interface FileRouteTypes {
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
     | '/texas-history'
+    | '/texas-hockey'
     | '/texas-home-affordability-calculator'
     | '/texas-home-equity-calculator'
     | '/texas-home-equity-growth-calculator'
@@ -6291,6 +6336,9 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
+    | '/texas-hockey/leagues/$slug'
+    | '/texas-hockey/teams/$slug'
+    | '/texas-hockey/venues/$slug'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
     | '/explore/painted-churches/people/$slug'
@@ -6411,6 +6459,7 @@ export interface RootRouteChildren {
   TexasHighSchoolFootballTeamsRoute: typeof TexasHighSchoolFootballTeamsRoute
   TexasHipHopRoute: typeof TexasHipHopRoute
   TexasHistoryRoute: typeof TexasHistoryRoute
+  TexasHockeyRoute: typeof TexasHockeyRouteWithChildren
   TexasHomeAffordabilityCalculatorRoute: typeof TexasHomeAffordabilityCalculatorRoute
   TexasHomeEquityCalculatorRoute: typeof TexasHomeEquityCalculatorRoute
   TexasHomeEquityGrowthCalculatorRoute: typeof TexasHomeEquityGrowthCalculatorRoute
@@ -7219,6 +7268,13 @@ declare module '@tanstack/react-router' {
       path: '/texas-history'
       fullPath: '/texas-history'
       preLoaderRoute: typeof TexasHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-hockey': {
+      id: '/texas-hockey'
+      path: '/texas-hockey'
+      fullPath: '/texas-hockey'
+      preLoaderRoute: typeof TexasHockeyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/texas-hip-hop': {
@@ -9573,6 +9629,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopProductProductIdRouteImport
       parentRoute: typeof ShopRoute
     }
+    '/texas-hockey/venues/$slug': {
+      id: '/texas-hockey/venues/$slug'
+      path: '/venues/$slug'
+      fullPath: '/texas-hockey/venues/$slug'
+      preLoaderRoute: typeof TexasHockeyVenuesSlugRouteImport
+      parentRoute: typeof TexasHockeyRoute
+    }
+    '/texas-hockey/teams/$slug': {
+      id: '/texas-hockey/teams/$slug'
+      path: '/teams/$slug'
+      fullPath: '/texas-hockey/teams/$slug'
+      preLoaderRoute: typeof TexasHockeyTeamsSlugRouteImport
+      parentRoute: typeof TexasHockeyRoute
+    }
+    '/texas-hockey/leagues/$slug': {
+      id: '/texas-hockey/leagues/$slug'
+      path: '/leagues/$slug'
+      fullPath: '/texas-hockey/leagues/$slug'
+      preLoaderRoute: typeof TexasHockeyLeaguesSlugRouteImport
+      parentRoute: typeof TexasHockeyRoute
+    }
     '/property-tax/taxing-unit/$unit': {
       id: '/property-tax/taxing-unit/$unit'
       path: '/property-tax/taxing-unit/$unit'
@@ -10344,6 +10421,22 @@ const TexasDataRouteWithChildren = TexasDataRoute._addFileChildren(
   TexasDataRouteChildren,
 )
 
+interface TexasHockeyRouteChildren {
+  TexasHockeyLeaguesSlugRoute: typeof TexasHockeyLeaguesSlugRoute
+  TexasHockeyTeamsSlugRoute: typeof TexasHockeyTeamsSlugRoute
+  TexasHockeyVenuesSlugRoute: typeof TexasHockeyVenuesSlugRoute
+}
+
+const TexasHockeyRouteChildren: TexasHockeyRouteChildren = {
+  TexasHockeyLeaguesSlugRoute: TexasHockeyLeaguesSlugRoute,
+  TexasHockeyTeamsSlugRoute: TexasHockeyTeamsSlugRoute,
+  TexasHockeyVenuesSlugRoute: TexasHockeyVenuesSlugRoute,
+}
+
+const TexasHockeyRouteWithChildren = TexasHockeyRoute._addFileChildren(
+  TexasHockeyRouteChildren,
+)
+
 interface TexasSymbolsRouteChildren {
   TexasSymbolsSlugRoute: typeof TexasSymbolsSlugRoute
 }
@@ -10665,6 +10758,7 @@ const rootRouteChildren: RootRouteChildren = {
   TexasHighSchoolFootballTeamsRoute: TexasHighSchoolFootballTeamsRoute,
   TexasHipHopRoute: TexasHipHopRoute,
   TexasHistoryRoute: TexasHistoryRoute,
+  TexasHockeyRoute: TexasHockeyRouteWithChildren,
   TexasHomeAffordabilityCalculatorRoute: TexasHomeAffordabilityCalculatorRoute,
   TexasHomeEquityCalculatorRoute: TexasHomeEquityCalculatorRoute,
   TexasHomeEquityGrowthCalculatorRoute: TexasHomeEquityGrowthCalculatorRoute,
