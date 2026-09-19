@@ -29,6 +29,7 @@ const allTimeHistoryPath = 'src/data/high-school-football/uil-football-all-time-
 const featuredProfileFunctionPath = 'src/data/high-school-football/featured-program-profile.functions.ts';
 const officialEnrollmentLinksPath = 'src/data/high-school-football/official-enrollment-links.ts';
 const privateFootballAlignmentsPath = 'src/data/high-school-football/private-football-alignments.ts';
+const privateSchoolAdmissionsPath = 'src/data/high-school-football/private-school-admissions.ts';
 const featuredFiles = [
   'src/data/high-school-football/featured-programs.ts',
   'src/data/high-school-football/school-identities.ts',
@@ -47,7 +48,7 @@ const authorityFiles = [
   'src/data/friday-night-lights-structured-data.server.ts',
 ];
 
-for (const file of [...files, ...authorityFiles, allTimeHistoryPath, featuredProfileFunctionPath, officialEnrollmentLinksPath, privateFootballAlignmentsPath, ...featuredFiles]) {
+for (const file of [...files, ...authorityFiles, allTimeHistoryPath, featuredProfileFunctionPath, officialEnrollmentLinksPath, privateFootballAlignmentsPath, privateSchoolAdmissionsPath, ...featuredFiles]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing high-school football platform file: ${file}`);
 }
 
@@ -75,6 +76,7 @@ if (!errors.length) {
   const featuredProfileFunction = read(featuredProfileFunctionPath);
   const officialEnrollmentLinks = read(officialEnrollmentLinksPath);
   const privateFootballAlignments = read(privateFootballAlignmentsPath);
+  const privateSchoolAdmissions = read(privateSchoolAdmissionsPath);
   const featuredPrograms = read(featuredFiles[0]);
   const schoolIdentities = read(featuredFiles[1]);
   const featuredProfileLoader = read(featuredFiles[2]);
@@ -211,6 +213,8 @@ if (!errors.length) {
   requireText(featuredProfileLoader, 'enrollmentLink:', 'Featured football profile loader');
   requireText(featuredProfileLoader, 'getVerifiedPrivateFootballAlignment', 'Featured football profile loader');
   requireText(featuredProfileLoader, 'privateAlignment:', 'Featured football profile loader');
+  requireText(featuredProfileLoader, 'getVerifiedPrivateSchoolAdmissions', 'Featured football profile loader');
+  requireText(featuredProfileLoader, 'privateAdmissions:', 'Featured football profile loader');
 
   for (const marker of [
     'OFFICIAL_FOOTBALL_ENROLLMENT_LINKS',
@@ -269,6 +273,34 @@ if (!errors.length) {
   }
 
   for (const marker of [
+    'VERIFIED_PRIVATE_SCHOOL_ADMISSIONS',
+    'getVerifiedPrivateSchoolAdmissions',
+    "slug: 'liberty-christian-argyle'",
+    "slug: 'parish-episcopal'",
+    "slug: 'fort-bend-christian'",
+    "slug: 'all-saints-fort-worth'",
+    "slug: 'lubbock-christian'",
+    "slug: 'first-baptist-dallas'",
+    "slug: 'san-antonio-central-catholic'",
+    "slug: 'san-antonio-antonian'",
+    "slug: 'san-antonio-holy-cross'",
+    "slug: 'san-antonio-christian'",
+    "slug: 'geneva-boerne'",
+    "slug: 'castle-hills'",
+    "slug: 'kinkaid'",
+    "slug: 'oakridge-arlington'",
+    "slug: 'tmi-episcopal'",
+    "slug: 'grace-academy-georgetown'",
+    "slug: 'harvest-christian-bartonville'",
+    'admissionsUrl',
+    'verifiedAt',
+  ]) requireText(privateSchoolAdmissions, marker, 'Private-school admissions');
+  const verifiedPrivateAdmissionsCount = (privateSchoolAdmissions.match(/slug: '/g) ?? []).length;
+  if (verifiedPrivateAdmissionsCount < 17) {
+    errors.push(`Private-school admissions data fell below 17 verified profiles; found ${verifiedPrivateAdmissionsCount}.`);
+  }
+
+  for (const marker of [
     'createServerFn',
     'featured-program-profile.server',
     'loadFeaturedFootballProgramProfile',
@@ -295,6 +327,8 @@ if (!errors.length) {
     "createLazyFileRoute('/texas-high-school-football-teams/$slug')",
     'How to enroll at',
     'Official district enrollment',
+    'Official school admissions',
+    'Start with {admissions.sourceLabel} ↗',
     'Start with {enrollmentLink.sourceLabel} ↗',
     'Mascot & identity',
     'All-time UIL state-final record',
