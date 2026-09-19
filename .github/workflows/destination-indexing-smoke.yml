@@ -1,44 +1,11 @@
 name: Destination indexing smoke
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/destination-indexing-smoke.yml'
-      - 'src/routes/destination.*'
-      - 'src/routes/explore.top-attractions*'
-      - 'src/routes/top-25-texas-attractions*'
-      - 'src/routes/sitemap-explore*'
-      - 'src/components/editorial/DestinationRelationships.tsx'
-      - 'src/components/editorial/DestinationAuthorityGuide.tsx'
-      - 'src/components/editorial/TopAttractionCollectionLinks.tsx'
-      - 'src/components/explore/TopAttractionsMethodologyContent.tsx'
-      - 'src/components/explore/TopAttractionRoadTripsContent.tsx'
-      - 'src/components/authority/CitationCollectionTrustRouter.tsx'
-      - 'src/data/top-texas-attractions.ts'
-      - 'src/data/top-attraction-road-trips.ts'
-      - 'src/data/top-attraction-authority-sources.ts'
-      - 'src/data/top-attraction-authority-resolver.ts'
-      - 'src/data/top-attraction-reference-data.ts'
-      - 'src/data/destination-authority-top-attractions.ts'
-      - 'src/data/destination-timelines-top-attractions.ts'
-      - 'src/data/destination-audit.ts'
-      - 'src/data/destination-availability.ts'
-      - 'src/data/destination-curation-all.ts'
-      - 'src/data/destination-curation-top-attractions*.ts'
-      - 'src/data/destination-quality.ts'
-      - 'src/data/explore-core-remote.ts'
-      - 'src/data/explore-remote.ts'
-      - 'src/data/explore-hero-reconciliation.ts'
-      - 'src/data/explore-heroes.ts'
-      - 'src/data/state-park-heroes.ts'
-      - 'src/data/fixtures/texas.ts'
-      - 'src/routes/explore.$category.tsx'
-      - 'src/routes/explore.region.$region.tsx'
-      - 'src/lib/public-routes.ts'
-      - 'public/citation-magnets.json'
-      - 'src/routes/llms*txt.ts'
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
   workflow_dispatch:
 
 permissions:
@@ -50,6 +17,7 @@ concurrency:
 
 jobs:
   smoke:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
