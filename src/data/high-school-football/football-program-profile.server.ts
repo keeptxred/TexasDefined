@@ -1,5 +1,6 @@
 import { getFeaturedFootballProgramProfile } from './featured-program-profile.server';
 import {
+  FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS,
   getFeaturedFootballProgram,
   matchFeaturedFootballProgram,
   normalizeFeaturedFootballName,
@@ -174,4 +175,13 @@ export function footballProgramSitemapEntries() {
     path: program.profilePath,
     lastmod: '2026-09-19',
   }));
+}
+
+export function privateFootballProgramSitemapEntries() {
+  return FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS
+    .filter((program) => !findLegacyUilProgram(program.slug))
+    .map((program) => ({
+      path: `/texas-high-school-football-teams/${program.slug}`,
+      lastmod: '2026-09-19',
+    }));
 }
