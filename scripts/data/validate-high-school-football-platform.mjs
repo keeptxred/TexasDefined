@@ -629,6 +629,8 @@ if (!errors.length) {
     'districtPath',
     '/article/texas-high-school-football-scores-schedules',
     'Current scores & schedules',
+    'UIL Texas Scoreboard gateway ↗',
+    'the current scoreboard is not an official district-standings table',
     'UIL enrollment band',
     'Official UIL 2026–28 enrollment cutoffs ↗',
     'uilFootballEnrollmentBand',
