@@ -184,9 +184,18 @@ if (!errors.length) {
     "slug: 'north-shore'",
     "slug: 'cypress-ranch'",
     "slug: 'south-oak-cliff'",
+    "slug: 'allen'",
+    "slug: 'lake-travis'",
+    "slug: 'katy'",
+    "slug: 'smithson-valley'",
+    "slug: 'rockwall'",
     'sourceUrl',
     'verifiedAt',
   ]) requireText(schoolIdentities, marker, 'Football school identity data');
+  const verifiedFootballIdentityCount = (schoolIdentities.match(/slug: '/g) ?? []).length;
+  if (verifiedFootballIdentityCount < 26) {
+    errors.push(`Football school identity data fell below 26 verified profiles; found ${verifiedFootballIdentityCount}.`);
+  }
 
   for (const marker of [
     'getFeaturedFootballProgramProfile',
