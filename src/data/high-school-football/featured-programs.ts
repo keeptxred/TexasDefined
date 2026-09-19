@@ -1,3 +1,13 @@
+/**
+ * Legacy source metadata from the user's original starter list.
+ *
+ * This file is NOT the TexasDefined UIL school directory, ranking, priority list,
+ * or profile-eligibility gate. The authoritative public-school universe is the
+ * complete 1,268-program UIL 2026-28 alignment. These rows are retained only for
+ * alternate-name resolution and separate non-UIL/private-school research that
+ * originated in the starter material. Numeric source positions must never be
+ * surfaced as a TexasDefined school or football ranking.
+ */
 export type FeaturedFootballSourceRow = readonly [rank: number, suppliedName: string];
 
 export type FeaturedFootballProgram = {
