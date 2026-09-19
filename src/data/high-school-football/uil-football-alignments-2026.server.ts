@@ -267,3 +267,27 @@ export const UIL_FOOTBALL_ALIGNMENT_SOURCES = ALIGNMENTS.map(({ classification, 
 }));
 
 export const UIL_FOOTBALL_PROGRAM_COUNT = UIL_FOOTBALL_PROGRAMS_2026.length;
+
+export const UIL_FOOTBALL_EXPECTED_COUNTS = {
+  '1A': 159,
+  '2A': 205,
+  '3A': 204,
+  '4A': 205,
+  '5A': 246,
+  '6A': 249,
+} as const;
+
+const actualCounts = UIL_FOOTBALL_PROGRAMS_2026.reduce<Record<string, number>>((counts, program) => {
+  counts[program.classification] = (counts[program.classification] ?? 0) + 1;
+  return counts;
+}, {});
+
+if (UIL_FOOTBALL_PROGRAM_COUNT !== 1268) {
+  throw new Error(`UIL 2026-28 football alignment expected 1,268 programs; found ${UIL_FOOTBALL_PROGRAM_COUNT}.`);
+}
+
+for (const [classification, expected] of Object.entries(UIL_FOOTBALL_EXPECTED_COUNTS)) {
+  if (actualCounts[classification] !== expected) {
+    throw new Error(`UIL 2026-28 ${classification} football alignment expected ${expected} programs; found ${actualCounts[classification] ?? 0}.`);
+  }
+}
