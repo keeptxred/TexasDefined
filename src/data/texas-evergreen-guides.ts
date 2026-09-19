@@ -36,6 +36,7 @@ export const TEXAS_EVERGREEN_GUIDES: Record<string, TexasEvergreenGuide> = {
           { href: "/food/louie-mueller-barbecue-taylor", label: "Louie Mueller Barbecue" },
           { href: "/food/snows-bbq-lexington", label: "Snow's BBQ" },
           { href: "/food/southside-market-elgin", label: "Southside Market & Barbeque" },
+          { href: "/lockhart-bbq-guide", label: "Lockhart BBQ guide" },
           { href: "/article/texas-barbecue-styles-explained", label: "Texas barbecue styles explained" }
         ]
       },
@@ -76,6 +77,7 @@ export const TEXAS_EVERGREEN_GUIDES: Record<string, TexasEvergreenGuide> = {
           { href: "/food/naegelins-bakery-new-braunfels", label: "Naegelin's Bakery" },
           { href: "/food/krauses-cafe-new-braunfels", label: "Krause's Cafe & Biergarten" },
           { href: "/food/scholz-garten-austin", label: "Scholz Garten" },
+          { href: "/texas-kolache-guide", label: "Texas kolache & Czech bakery guide" },
           { href: "/german-czech-texas-towns", label: "German & Czech Texas towns" },
           { href: "/explore/painted-churches", label: "Painted Churches of Texas" }
         ]
@@ -100,6 +102,7 @@ export const TEXAS_EVERGREEN_GUIDES: Record<string, TexasEvergreenGuide> = {
         links: [
           { href: "/food/gaidos-seafood-galveston", label: "Gaido's Seafood Restaurant" },
           { href: "/food/kings-inn-riviera", label: "King's Inn" },
+          { href: "/texas-gulf-seafood-guide", label: "Texas Gulf seafood destinations" },
           { href: "/explore/beaches-coast", label: "Texas Gulf Coast guide" }
         ]
       },

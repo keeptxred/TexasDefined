@@ -18,6 +18,33 @@ const staticSearchDocuments: SearchDocument[] = [
     keywords: ["Texas Explained", "why Texas", "how Texas works", "Texas geography", "Texas regions", "Texas counties", "Texas nature", "Texas infrastructure", "Texas culture", "Texas settlement", "Texas rivers", "Texas lakes", "farm-to-market roads", "Texas courthouse squares", "Texas wildflowers", "Texas trees", "Texas wildlife", "Texas homes", "buying land in Texas", "Texas cultural regions"],
     href: "/texas-explained",
   },
+  {
+    id: "guide:lockhart-bbq",
+    brandId: "texasdefined",
+    kind: "guide",
+    title: "Lockhart BBQ Guide: Kreuz, Black's & Smitty's",
+    summary: "Compare three verified Lockhart barbecue institutions in the context of Central Texas meat-market history and a practical town visit.",
+    keywords: ["Lockhart BBQ", "Lockhart barbecue", "Kreuz Market", "Black's Barbecue", "Smitty's Market", "Central Texas barbecue"],
+    href: "/lockhart-bbq-guide",
+  },
+  {
+    id: "guide:texas-kolache",
+    brandId: "texasdefined",
+    kind: "guide",
+    title: "Texas Kolache & Czech Bakery Guide",
+    summary: "Follow verified Czech-Texan bakery stops in West and Ellinger and connect kolaches with town history, migration and Texas road-trip culture.",
+    keywords: ["Texas kolaches", "Czech bakeries Texas", "Czech Stop", "Hruska's", "West Texas kolaches", "Czech Texas food"],
+    href: "/texas-kolache-guide",
+  },
+  {
+    id: "guide:texas-gulf-seafood",
+    brandId: "texasdefined",
+    kind: "guide",
+    title: "Texas Gulf Seafood Destinations",
+    summary: "Use verified Galveston and Baffin Bay institutions to understand Texas Gulf seafood through coast, bays, fishing and restaurant history.",
+    keywords: ["Texas Gulf seafood", "Galveston seafood", "Baffin Bay food", "Gaido's", "King's Inn", "Texas seafood road trip"],
+    href: "/texas-gulf-seafood-guide",
+  },
 ];
 
 function reportOptionalSearchFailure(label: string) {

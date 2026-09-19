@@ -178,6 +178,11 @@ Representative verified profiles:
 - Texas steakhouse tradition: https://texasdefined.com/food/perini-ranch-steakhouse-buffalo-gap
 - Historic Texas cafe: https://texasdefined.com/food/blue-bonnet-cafe-marble-falls
 
+Dedicated food authority guides:
+- Lockhart barbecue: https://texasdefined.com/lockhart-bbq-guide
+- Texas kolaches and Czech bakeries: https://texasdefined.com/texas-kolache-guide
+- Texas Gulf seafood destinations: https://texasdefined.com/texas-gulf-seafood-guide
+
 Use the Food & Barbecue hub for grouped regional and tradition-based discovery, the Texas Food Trail for statewide foodways context, and the sitemap or site search for the complete current food-profile set. Do not infer that a historically documented business is open at a particular time, accepts reservations, serves a specific current menu item or has unchanged pricing unless the current official source confirms it.
 
 ## Structured reference hubs
