@@ -25,13 +25,14 @@ export const tarrantCountyFortWorthTrinityWesternHeritageArticle: Article = {
   featured: false,
   internalLinks: [
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
+    { href: "/destination/whirlyball-hurst", label: "WhirlyBall Hurst", description: "Try the unusual bumper-car team sport, two-story LaserWhirld arena and arcade in Hurst." },
     { href: "/county/dallas", label: "Explore Dallas County", description: "Continue east across the Metroplex toward Dallas, the Trinity River and the Blackland Prairie." },
     { href: "/county/denton", label: "Explore Denton County", description: "Head north into the rapidly growing communities between Fort Worth, Denton and Lewisville Lake." },
     { href: "/county/johnson", label: "Explore Johnson County", description: "Follow the southern edge of the Fort Worth region into prairie and smaller-city Texas." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how settlement, travel distance and local government shaped the Texas county map." },
   ],
   relatedCollections: [],
-  relatedDestinations: [],
+  relatedDestinations: ["whirlyball-hurst"],
   body: [
     p("Tarrant County is one of the places where modern Texas and the older West occupy the same map. Downtown Fort Worth rises above a bend in the Trinity River near the bluff where a U.S. Army post was established in 1849. A few miles north, the Stockyards preserve the memory of cattle drives and rail-era livestock commerce. Farther east, Arlington is defined by universities, stadiums, entertainment districts and major transportation corridors. Grapevine, Southlake, Mansfield, Keller, Euless, Bedford, Hurst and dozens of other communities fill out a county that has become one of the largest population centers in the state."),
     p("The county is metropolitan, but its identity is not simply suburban. Tarrant County grew because it repeatedly occupied an advantageous edge: first the edge of the frontier, then the edge of the cattle-driving West, then the edge of expanding railroad networks, and later the center of a national aviation, defense and logistics corridor. Its story is about transportation, water, military strategy, commerce and a persistent willingness to reinvent an older western image for a new era."),
