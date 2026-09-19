@@ -319,6 +319,8 @@ await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {
     'serves multiple Katy ISD schools',
     scoresSchedulesPath,
     'Current scores & schedules',
+    'UIL Texas Scoreboard gateway',
+    'not an official district-standings table',
   ]) requireNeedle(body, needle, 'Katy football school profile');
   if (/\bnoindex\b/i.test(body)) throw new Error('Katy football school profile unexpectedly contains noindex');
 });
