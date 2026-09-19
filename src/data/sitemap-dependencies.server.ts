@@ -1,3 +1,5 @@
+import { isIndexablePublicPath as isBaseIndexablePublicPath } from "@/lib/public-routes";
+
 export { getTexasCountyHousingCosts } from "@/data/acs-county-housing-costs.functions";
 export {
   fetchPublishedTexasDefinedEvergreenArticlesForSitemap,
@@ -40,6 +42,21 @@ export {
 export {
   INDEXABLE_STATIC_PATHS,
   isExploreSitemapOwnedPath,
-  isIndexablePublicPath,
   normalizePublicPath,
 } from "@/lib/public-routes";
+
+const CONSOLIDATED_LEGACY_PREFIXES = [
+  "/property-tax-calculator/",
+  "/texas-home-affordability-calculator/",
+  "/texas-homeownership-cost-calculator/",
+  "/texas-home-insurance-calculator/",
+  "/texas-mortgage-calculator/",
+  "/texas-cost-of-living-calculator/",
+  "/texas-salary-needed-calculator/",
+  "/texas-vs/",
+] as const;
+
+export function isIndexablePublicPath(path: string) {
+  if (!isBaseIndexablePublicPath(path)) return false;
+  return !CONSOLIDATED_LEGACY_PREFIXES.some((prefix) => path.startsWith(prefix));
+}

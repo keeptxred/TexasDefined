@@ -1,12 +1,9 @@
-import { createFileRoute, notFound } from '@tanstack/react-router';
-
-import { getLocalCostOfLivingPage } from '@/data/local-cost-of-living-page';
+import { createFileRoute, notFound, redirect } from '@tanstack/react-router';
+import { LOCAL_COST_OF_LIVING_PROFILE_BY_SLUG } from '@/data/local-cost-of-living';
 
 export const Route = createFileRoute('/texas-cost-of-living-calculator/$location')({
-  loader: async ({ params }) => {
-    const page = await getLocalCostOfLivingPage(params.location);
-    if (!page) throw notFound();
-    return { page };
+  beforeLoad: ({ params }) => {
+    if (!LOCAL_COST_OF_LIVING_PROFILE_BY_SLUG.has(params.location)) throw notFound();
+    throw redirect({ href: `/texas-cost-of-living-calculator#${params.location}`, statusCode: 301 });
   },
-  head: ({ loaderData }) => loaderData?.page.head ?? {},
 });

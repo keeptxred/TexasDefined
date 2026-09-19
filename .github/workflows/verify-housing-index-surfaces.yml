@@ -1,4 +1,4 @@
-name: Verify housing index surfaces
+name: Verify calculator consolidation surfaces
 
 on:
   pull_request:
@@ -6,12 +6,14 @@ on:
       - '.github/workflows/verify-housing-index-surfaces.yml'
       - 'scripts/ci/verify-housing-index-surfaces.mjs'
       - 'scripts/data/validate-phase10-housing-indexing.mjs'
+      - 'src/components/calculators/CalculatorPage.tsx'
+      - 'src/components/calculators/ConsolidatedLocationSelector.tsx'
+      - 'src/data/sitemap-dependencies.server.ts'
       - 'src/lib/public-routes.ts'
       - 'src/routes/sitemap*.ts'
       - 'src/routes/buying-a-home-in-texas*.tsx'
-      - 'src/data/texas-homebuyer-journey*'
+      - 'src/routes/texas-property-tax-estimator.tsx'
       - 'src/data/local-property-tax-calculators.ts'
-      - 'src/data/local-property-tax-calculator-page*'
       - 'src/routes/property-tax-calculator*.tsx'
       - 'src/data/local-home-affordability*'
       - 'src/routes/texas-home-affordability-calculator*.tsx'
@@ -21,6 +23,10 @@ on:
       - 'src/routes/texas-home-insurance-calculator*.tsx'
       - 'src/data/local-mortgage*'
       - 'src/routes/texas-mortgage-calculator*.tsx'
+      - 'src/data/local-cost-of-living*'
+      - 'src/routes/texas-cost-of-living-calculator*.tsx'
+      - 'src/data/local-salary-needed*'
+      - 'src/routes/texas-salary-needed-calculator*.tsx'
   push:
     branches:
       - main
@@ -28,12 +34,14 @@ on:
       - '.github/workflows/verify-housing-index-surfaces.yml'
       - 'scripts/ci/verify-housing-index-surfaces.mjs'
       - 'scripts/data/validate-phase10-housing-indexing.mjs'
+      - 'src/components/calculators/CalculatorPage.tsx'
+      - 'src/components/calculators/ConsolidatedLocationSelector.tsx'
+      - 'src/data/sitemap-dependencies.server.ts'
       - 'src/lib/public-routes.ts'
       - 'src/routes/sitemap*.ts'
       - 'src/routes/buying-a-home-in-texas*.tsx'
-      - 'src/data/texas-homebuyer-journey*'
+      - 'src/routes/texas-property-tax-estimator.tsx'
       - 'src/data/local-property-tax-calculators.ts'
-      - 'src/data/local-property-tax-calculator-page*'
       - 'src/routes/property-tax-calculator*.tsx'
       - 'src/data/local-home-affordability*'
       - 'src/routes/texas-home-affordability-calculator*.tsx'
@@ -43,18 +51,22 @@ on:
       - 'src/routes/texas-home-insurance-calculator*.tsx'
       - 'src/data/local-mortgage*'
       - 'src/routes/texas-mortgage-calculator*.tsx'
+      - 'src/data/local-cost-of-living*'
+      - 'src/routes/texas-cost-of-living-calculator*.tsx'
+      - 'src/data/local-salary-needed*'
+      - 'src/routes/texas-salary-needed-calculator*.tsx'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: housing-index-surfaces-${{ github.ref }}
+  group: calculator-consolidation-surfaces-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   validate-contract:
-    name: Validate Phase 10 housing index contract
+    name: Validate calculator consolidation contract
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -63,11 +75,11 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci --no-audit --no-fund
-      - name: Audit routing, sitemap and fail-closed indexability contracts
+      - name: Audit canonical calculators, redirects and sitemap suppression
         run: node scripts/data/validate-phase10-housing-indexing.mjs
 
   verify-production:
-    name: Verify 92 live housing planning URLs
+    name: Verify consolidated calculator surfaces
     if: ${{ github.event_name != 'pull_request' }}
     needs: validate-contract
     runs-on: ubuntu-latest
@@ -77,5 +89,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verify live HTTP, canonicals, noindex, schema, sitemap and invalid-slug handling
+      - name: Verify live canonical calculators, legacy 301s, sitemap cleanup and invalid-slug handling
         run: node scripts/ci/verify-housing-index-surfaces.mjs

@@ -1,12 +1,12 @@
-import { createFileRoute, notFound } from '@tanstack/react-router';
+import { createFileRoute, notFound, redirect } from '@tanstack/react-router';
+import { LOCAL_PROPERTY_TAX_PROFILE_BY_SLUG } from '@/data/local-property-tax-calculators';
 
-import { getLocalPropertyTaxCalculatorPage } from '@/data/local-property-tax-calculator-page';
-
+// Consolidation note: the former getLocalPropertyTaxCalculatorPage loader and
+// loaderData?.page.head self-canonical page pipeline is intentionally retired.
+// These legacy URLs now preserve location state by redirecting to the statewide estimator.
 export const Route = createFileRoute('/property-tax-calculator/$location')({
-  loader: async ({ params }) => {
-    const page = await getLocalPropertyTaxCalculatorPage(params.location);
-    if (!page) throw notFound();
-    return { page };
+  beforeLoad: ({ params }) => {
+    if (!LOCAL_PROPERTY_TAX_PROFILE_BY_SLUG.has(params.location)) throw notFound();
+    throw redirect({ href: `/texas-property-tax-estimator#${params.location}`, statusCode: 301 });
   },
-  head: ({ loaderData }) => loaderData?.page.head ?? {},
 });

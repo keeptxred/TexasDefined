@@ -1,12 +1,9 @@
-import { createFileRoute, notFound } from '@tanstack/react-router';
-
-import { getLocalHomeownershipCostPage } from '@/data/local-homeownership-cost-page';
+import { createFileRoute, notFound, redirect } from '@tanstack/react-router';
+import { LOCAL_HOMEOWNERSHIP_COST_PROFILE_BY_SLUG } from '@/data/local-homeownership-cost';
 
 export const Route = createFileRoute('/texas-homeownership-cost-calculator/$location')({
-  loader: async ({ params }) => {
-    const page = await getLocalHomeownershipCostPage(params.location);
-    if (!page) throw notFound();
-    return { page };
+  beforeLoad: ({ params }) => {
+    if (!LOCAL_HOMEOWNERSHIP_COST_PROFILE_BY_SLUG.has(params.location)) throw notFound();
+    throw redirect({ href: `/texas-homeownership-cost-calculator#${params.location}`, statusCode: 301 });
   },
-  head: ({ loaderData }) => loaderData?.page.head ?? {},
 });

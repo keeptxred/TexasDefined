@@ -33,13 +33,13 @@ export const TEXAS_HOMEBUYER_TOOLS = [
 ] as const;
 
 export const TEXAS_HOMEBUYER_CITY_PATHS = [
-  ['Houston', '/texas-home-affordability-calculator/houston'],
-  ['Austin', '/texas-home-affordability-calculator/austin'],
-  ['Dallas', '/texas-home-affordability-calculator/dallas'],
-  ['Fort Worth', '/texas-home-affordability-calculator/fort-worth'],
-  ['San Antonio', '/texas-home-affordability-calculator/san-antonio'],
-  ['Frisco', '/texas-home-affordability-calculator/frisco'],
-  ['El Paso', '/texas-home-affordability-calculator/el-paso'],
+  ['Houston', '/texas-home-affordability-calculator#houston'],
+  ['Austin', '/texas-home-affordability-calculator#austin'],
+  ['Dallas', '/texas-home-affordability-calculator#dallas'],
+  ['Fort Worth', '/texas-home-affordability-calculator#fort-worth'],
+  ['San Antonio', '/texas-home-affordability-calculator#san-antonio'],
+  ['Frisco', '/texas-home-affordability-calculator#frisco'],
+  ['El Paso', '/texas-home-affordability-calculator#el-paso'],
 ] as const;
 
 export const TEXAS_HOMEBUYER_SOURCES = [

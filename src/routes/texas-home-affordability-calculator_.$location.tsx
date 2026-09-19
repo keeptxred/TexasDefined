@@ -1,12 +1,12 @@
-import { createFileRoute, notFound } from '@tanstack/react-router';
+import { createFileRoute, notFound, redirect } from '@tanstack/react-router';
+import { LOCAL_HOME_AFFORDABILITY_PROFILE_BY_SLUG } from '@/data/local-home-affordability';
 
-import { getLocalHomeAffordabilityPage } from '@/data/local-home-affordability-page';
-
+// Consolidation note: the former getLocalHomeAffordabilityPage loader and
+// loaderData?.page.head self-canonical page pipeline is intentionally retired.
+// The researched local context now renders inside the canonical calculator.
 export const Route = createFileRoute('/texas-home-affordability-calculator/$location')({
-  loader: async ({ params }) => {
-    const page = await getLocalHomeAffordabilityPage(params.location);
-    if (!page) throw notFound();
-    return { page };
+  beforeLoad: ({ params }) => {
+    if (!LOCAL_HOME_AFFORDABILITY_PROFILE_BY_SLUG.has(params.location)) throw notFound();
+    throw redirect({ href: `/texas-home-affordability-calculator#${params.location}`, statusCode: 301 });
   },
-  head: ({ loaderData }) => loaderData?.page.head ?? {},
 });
