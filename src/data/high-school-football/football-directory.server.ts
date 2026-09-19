@@ -229,7 +229,7 @@ export async function searchFootballPrograms(options: {
   const query = cleanName(options.query ?? '');
   const county = cleanName(options.county ?? '').replace(/\bcounty\b/g, '').trim();
   const district = cleanName(options.district ?? '');
-  const limit = Math.min(Math.max(options.limit ?? 50, 1), 100);
+  const limit = Math.min(Math.max(options.limit ?? 50, 1), 500);
 
   const [directoryResult, historyResult, allTimeHistoryResult] = await Promise.allSettled([
     loadTeaSchoolDirectory(),
