@@ -90,7 +90,7 @@ function Page() {
       <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Current district</p>
-          <h2 className="mt-2 font-display text-3xl">Who {${schoolName}} is aligned with</h2>
+          <h2 className="mt-2 font-display text-3xl">Who {schoolName} is aligned with</h2>
         </div>
         <div>
           {program && districtPeers.length > 0 ? <>
