@@ -7,6 +7,7 @@ import {
 } from './featured-programs';
 import { searchFootballPrograms, type FootballProgramDirectoryResult } from './football-directory.server';
 import { getOfficialFootballEnrollmentLink } from './official-enrollment-links';
+import { getVerifiedFootballVenueLinks, type VerifiedFootballVenueLink } from './football-venue-links.server';
 import type { VerifiedPrivateFootballAlignment } from './private-football-alignments';
 import type { VerifiedPrivateSchoolAdmissions } from './private-school-admissions';
 import { footballClassificationRank, footballProgramProfilePath, footballProgramSlug } from './program-slugs';
@@ -29,6 +30,7 @@ export type FootballProgramProfile = {
   identity: ReturnType<typeof getVerifiedFootballSchoolIdentity> | null;
   enrollmentLink: ReturnType<typeof getOfficialFootballEnrollmentLink> | null;
   districtPeers: FootballProgramProfilePeer[];
+  venueLinks: VerifiedFootballVenueLink[];
   governingBodyHint?: 'SPC' | 'TAPPS' | 'TCAL';
   associationClassification?: string;
   associationSourceUrl?: string;
@@ -120,6 +122,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
       identity: legacy.identity,
       enrollmentLink: legacy.enrollmentLink,
       districtPeers: [],
+      venueLinks: [],
       governingBodyHint: legacy.featured.governingBodyHint,
       associationClassification: legacy.featured.associationClassification,
       associationSourceUrl: legacy.featured.associationSourceUrl,
@@ -144,6 +147,11 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     identity: getVerifiedFootballSchoolIdentity(legacyIdentity?.slug ?? canonicalSlug) ?? null,
     enrollmentLink: getOfficialFootballEnrollmentLink(program.districtName) ?? null,
     districtPeers: districtPeers(seed),
+    venueLinks: getVerifiedFootballVenueLinks({
+      schoolName: program.schoolName,
+      officialSchoolName: program.officialSchoolName,
+      districtName: program.districtName,
+    }),
     privateAlignment: null,
     privateAdmissions: null,
   };
