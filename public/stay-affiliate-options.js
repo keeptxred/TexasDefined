@@ -141,7 +141,7 @@
     return "hotel-first";
   }
 
-  function createBookingChoice(intent) {
+  function createBookingChoice(intent, exactPropertyFirst = false) {
     const wrapper = document.createElement("aside");
     wrapper.id = CHOICE_ID;
     wrapper.className = "td-stay-affiliate-options";
@@ -156,30 +156,35 @@
 
     const heading = document.createElement("h2");
     heading.className = "td-stay-affiliate-title";
-    heading.textContent = intent === "hotel-first" ? "Find places to stay near this event or venue" : "Find places to stay nearby";
+    heading.textContent = exactPropertyFirst ? "More places to stay nearby" : (intent === "hotel-first" ? "Find places to stay near this event or venue" : "Find places to stay nearby");
 
     const copy = document.createElement("p");
     copy.className = "td-stay-affiliate-copy";
-    copy.textContent = intent === "hotel-first"
-      ? "Compare hotel availability close to the event or venue. Broader leisure and destination guides also include vacation-rental options when they fit the trip."
-      : "Compare a conventional hotel stay or a vacation rental when extra space, a kitchen, or a group-friendly setup fits the trip better.";
+    copy.textContent = exactPropertyFirst
+      ? (intent === "hotel-first"
+        ? "Start with the recommended stays above. If none fit, compare additional hotel availability nearby."
+        : "Start with the recommended stays above. If none fit, compare more hotels or browse vacation rentals for a different lodging setup.")
+      : (intent === "hotel-first"
+        ? "Compare hotel availability close to the event or venue. Broader leisure and destination guides also include vacation-rental options when they fit the trip."
+        : "Compare a conventional hotel stay or a vacation rental when extra space, a kitchen, or a group-friendly setup fits the trip better.");
 
     const actions = document.createElement("div");
     actions.className = "td-stay-affiliate-actions";
+    const choicePlacement = exactPropertyFirst ? "stay-nearby-choice-after-exact" : "stay-nearby-choice";
     actions.appendChild(createTrackedLink({
       destination: HOTELS_DESTINATION,
-      label: "Find hotels on Hotels.com",
+      label: exactPropertyFirst ? "Compare more hotels on Hotels.com" : "Find hotels on Hotels.com",
       variant: "primary",
-      ariaLabel: "Find hotels on Hotels.com in a new tab",
-      placement: "stay-nearby-choice",
+      ariaLabel: exactPropertyFirst ? "Compare more hotels on Hotels.com in a new tab" : "Find hotels on Hotels.com in a new tab",
+      placement: choicePlacement,
     }));
     if (intent === "both") {
       actions.appendChild(createTrackedLink({
         destination: VRBO_DESTINATION,
-        label: "Find vacation rentals on Vrbo",
+        label: exactPropertyFirst ? "Browse vacation rentals on Vrbo" : "Find vacation rentals on Vrbo",
         variant: "secondary",
-        ariaLabel: "Find vacation rentals on Vrbo in a new tab",
-        placement: "stay-nearby-choice",
+        ariaLabel: exactPropertyFirst ? "Browse vacation rentals on Vrbo in a new tab" : "Find vacation rentals on Vrbo in a new tab",
+        placement: choicePlacement,
       }));
     }
 
@@ -353,11 +358,13 @@
     upgradeExactPropertyCards(expediaSurface);
     const exactPropertyFirst = hasExactPropertyAffiliate(expediaSurface);
     const intent = bookingIntent();
+    const choiceMode = exactPropertyFirst ? "after-exact" : "broad";
     let choice = existing;
-    if (!(choice?.dataset.intent === intent && choice.parentElement === expediaSurface)) {
+    if (!(choice?.dataset.intent === intent && choice?.dataset.mode === choiceMode && choice.parentElement === expediaSurface)) {
       choice?.remove();
-      choice = createBookingChoice(intent);
+      choice = createBookingChoice(intent, exactPropertyFirst);
       choice.dataset.intent = intent;
+      choice.dataset.mode = choiceMode;
     }
     placeBookingChoice(expediaSurface, choice, exactPropertyFirst);
 
