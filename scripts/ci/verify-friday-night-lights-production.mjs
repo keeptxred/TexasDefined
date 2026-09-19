@@ -128,6 +128,9 @@ await fetchVerified(finderPath, 'football finder', (body) => {
     'Browse all 1,268 Texas high school football programs',
     'All 1,268',
     '6A → 1A · enrollment classification',
+    'UIL enrollment band: 2,215 and above',
+    'UIL enrollment band: 1,305–2,214',
+    'Official UIL 2026–28 enrollment cutoffs',
     '/texas-high-school-football-teams/katy',
     '/texas-high-school-football-teams/abbott',
   ]) requireNeedle(body, needle, 'football finder');
@@ -155,6 +158,9 @@ await fetchVerified(katyDistrictPath, 'Katy UIL football district', (body) => {
     'Katy Tompkins',
     '/texas-high-school-football-teams/katy',
     'Member order is alphabetical for research usability',
+    'Enrollment band',
+    '2,215 and above',
+    'Official UIL 2026–28 enrollment cutoffs',
     'University Interscholastic League',
   ]) requireNeedle(body, needle, 'Katy UIL football district');
   if (/\bnoindex\b/i.test(body)) throw new Error('Katy UIL football district unexpectedly contains noindex');
@@ -243,6 +249,9 @@ await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {
     'Open full district guide',
     'How to enroll at',
     'UIL eligibility standards',
+    'UIL enrollment band',
+    '2,215 and above',
+    'Official UIL 2026–28 enrollment cutoffs',
     'All current UIL football programs use the same profile system.',
     'Verified football venue relationships',
     'Legacy Stadium',
@@ -259,6 +268,9 @@ await fetchVerified(abbottProfilePath, 'Abbott football school profile', (body) 
     'Current district',
     'How to enroll at',
     'UIL eligibility standards',
+    'UIL enrollment band',
+    '57.6–104.9',
+    'Official UIL 2026–28 enrollment cutoffs',
     'All current UIL football programs use the same profile system.',
   ]) requireNeedle(body, needle, 'Abbott football school profile');
   if (/\bnoindex\b/i.test(body)) throw new Error('Abbott football school profile unexpectedly contains noindex');
@@ -279,4 +291,4 @@ await fetchVerified('/robots.txt', 'robots', (body) => {
   if (/Disallow:\s*\/sports(?:\/|\s|$)/i.test(body)) throw new Error('robots.txt blocks /sports');
 });
 
-console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, 192 canonical UIL district hubs, shared 6A and 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, history, sitemap and robots are live.');
+console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, official 2026–28 enrollment bands, 192 canonical UIL district hubs, shared 6A and 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, history, sitemap and robots are live.');
