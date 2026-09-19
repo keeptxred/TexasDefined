@@ -220,6 +220,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/find-my-school-district",
   "/texas-high-school-football-teams",
   "/texas-high-school-football-districts",
+  "/texas-high-school-football-scores-schedules",
   "/moving-to-texas/tools",
   "/compare-texas-cities",
   "/find-my-emergency-services",
