@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 
 import {
   UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE,
+  UIL_FOOTBALL_EXACT_ENROLLMENT_SOURCE,
   uilFootballConferenceBand,
 } from '@/data/high-school-football/enrollment-bands';
 
@@ -13,6 +14,7 @@ type Program = {
   division: 1 | 2 | null;
   district: number;
   footballType: '6-Man' | '11-Man';
+  enrollment: number;
 };
 
 const CLASSIFICATIONS = ['6A', '5A', '4A', '3A', '2A', '1A'] as const;
@@ -116,7 +118,8 @@ export function UilFootballProgramDirectory({ programs }: { programs: Program[] 
                       {` · District ${program.district}`}
                     </p>
                     <h4 className="mt-2 font-display text-xl leading-tight group-hover:text-primary">{program.schoolName}</h4>
-                    <p className="mt-2 text-xs text-muted-foreground">{program.footballType} · Open school football profile →</p>
+                    <p className="mt-2 text-sm font-semibold">UIL reported enrollment: {program.enrollment.toLocaleString()}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">{program.footballType} · Open school football profile →</p>
                   </a>)}
                 </div>
               </section>;
@@ -128,7 +131,10 @@ export function UilFootballProgramDirectory({ programs }: { programs: Program[] 
         <p className="mt-5 max-w-4xl text-xs leading-6 text-muted-foreground">
           UIL classifications are based on enrollment. A 6A school is listed above a 5A school because it is in the larger-enrollment classification, not because TexasDefined has rated its football program as better.
         </p>
-        <a href={UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE.url} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-xs font-semibold text-primary underline underline-offset-4">Official UIL 2026–28 enrollment cutoffs ↗</a>
+        <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold">
+          <a href={UIL_FOOTBALL_EXACT_ENROLLMENT_SOURCE.url} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official UIL school enrollment listing ↗</a>
+          <a href={UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE.url} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official UIL 2026–28 enrollment cutoffs ↗</a>
+        </div>
       </div>
     </div>
   </section>;
