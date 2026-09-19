@@ -265,7 +265,25 @@
     surface.dataset.prominentPlacement = "contextual";
   }
 
+  const EXACT_PROPERTY_AFFILIATE_SELECTOR = 'a[data-commercial-partner="hotels.com"][data-commercial-placement="stay-nearby-card"], a[data-commercial-partner="hotels.com"][data-commercial-placement="stay-nearby-card-exact"]';
+
+  function firstExactPropertyAffiliate(surface) {
+    return surface?.querySelector(EXACT_PROPERTY_AFFILIATE_SELECTOR) || null;
+  }
+
+  function hasExactPropertyAffiliate(surface) {
+    return Boolean(firstExactPropertyAffiliate(surface));
+  }
+
   function activateExistingStaySearch(surface) {
+    const exactPropertyAffiliate = firstExactPropertyAffiliate(surface);
+    if (exactPropertyAffiliate) {
+      const behavior = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+      exactPropertyAffiliate.scrollIntoView({ behavior, block: "nearest" });
+      exactPropertyAffiliate.focus({ preventScroll: true });
+      return;
+    }
+
     const searchButton = Array.from(surface.querySelectorAll("button")).find((button) => {
       const text = button.textContent || "";
       return /Search all nearby stays|Search Expedia stays/i.test(text);
@@ -282,13 +300,25 @@
     if (!surface || surface.dataset.surfaceType !== "curated") return;
     const headingRow = surface.querySelector(".td-stay-heading-row");
     if (!headingRow || headingRow.querySelector(".td-stay-affiliate-jump")) return;
+    const exactPropertyFirst = hasExactPropertyAffiliate(surface);
     const button = document.createElement("button");
     button.type = "button";
     button.className = "td-stay-affiliate-jump";
-    button.textContent = "Find places to stay";
-    button.setAttribute("aria-label", "Find places to stay near this destination");
+    button.textContent = exactPropertyFirst ? "View recommended stays" : "Find places to stay";
+    button.setAttribute("aria-label", exactPropertyFirst ? "View recommended stays near this destination" : "Find places to stay near this destination");
     button.addEventListener("click", () => activateExistingStaySearch(surface));
     headingRow.appendChild(button);
+  }
+
+  function placeBookingChoice(surface, choice, exactPropertyFirst) {
+    choice.dataset.priority = exactPropertyFirst ? "exact-property-first" : "broad-search-first";
+    if (exactPropertyFirst) {
+      const scopedStyle = Array.from(surface.children).find((child) => child.tagName === "STYLE");
+      if (scopedStyle) surface.insertBefore(choice, scopedStyle);
+      else surface.appendChild(choice);
+      return;
+    }
+    surface.prepend(choice);
   }
 
   function upgradeExactPropertyCards(surface) {
@@ -319,16 +349,20 @@
       existing?.remove();
       return;
     }
+
+    upgradeExactPropertyCards(expediaSurface);
+    const exactPropertyFirst = hasExactPropertyAffiliate(expediaSurface);
     const intent = bookingIntent();
-    if (!(existing?.dataset.intent === intent && existing.parentElement === expediaSurface)) {
-      existing?.remove();
-      const choice = createBookingChoice(intent);
+    let choice = existing;
+    if (!(choice?.dataset.intent === intent && choice.parentElement === expediaSurface)) {
+      choice?.remove();
+      choice = createBookingChoice(intent);
       choice.dataset.intent = intent;
-      expediaSurface.prepend(choice);
     }
+    placeBookingChoice(expediaSurface, choice, exactPropertyFirst);
+
     promoteStaySurface(expediaSurface);
     ensureProminentStayCta(expediaSurface);
-    upgradeExactPropertyCards(expediaSurface);
   }
 
   function syncOwnerReferral() {
