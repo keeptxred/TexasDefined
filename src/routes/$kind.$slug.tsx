@@ -1,5 +1,5 @@
 import { createFileRoute, notFound } from '@tanstack/react-router';
-import { texasDefinedBrand } from '@/brand/texasdefined';
+import { texasDefinedBrand } from '@/brand/texasdefined';\nimport { exploreDestinationsForEntity } from '@/data/entity-explore-destinations';
 import { loadCountyProfile } from '@/data/county-profile';
 import { loadCountySeriesArticle } from '@/data/county-series';
 import {
@@ -17,7 +17,7 @@ export const Route = createFileRoute('/$kind/$slug')({
     const graph = await loadTexasKnowledgeGraph();
     const entity = await findCompleteTexasEntity(`${params.kind}:${params.slug}`) ?? await findCompleteTexasEntity(params.slug);
     if (!entity || entity.kind !== params.kind) throw notFound();
-    const related = rankRelatedEntities(entity, graph, 12);
+    const related = rankRelatedEntities(entity, graph, 12);\n    const exploreDestinations = exploreDestinationsForEntity(entity.kind, entity.slug);
     const countySportsVenues = entity.kind === 'county'
       ? graph
         .filter((candidate) => candidate.kind === 'sports-venue' && candidate.countySlug === entity.slug && isIndexableEntityPage(candidate))
@@ -28,7 +28,7 @@ export const Route = createFileRoute('/$kind/$slug')({
       : Promise.resolve([]);
     if (entity.kind !== 'county') {
       const foodDestinations = await foodDestinationsPromise;
-      return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues, foodDestinations };
+      return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues, foodDestinations, exploreDestinations };
     }
     const countyRvParksPromise = import('@/data/rv-parks/county-index').then(({ loadCountyRvParksSnapshot }) => loadCountyRvParksSnapshot(entity.slug));
     const countyMajorEventsPromise = import('@/data/county-major-events').then(({ getCountyMajorEvents }) => getCountyMajorEvents(entity.slug));
@@ -41,7 +41,7 @@ export const Route = createFileRoute('/$kind/$slug')({
       foodDestinationsPromise,
     ]);
     const countyEntity = { ...entity, rvParks: countyRvParks, majorEvents: countyMajorEvents };
-    return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations };
+    return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations, exploreDestinations };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};

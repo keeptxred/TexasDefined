@@ -35,7 +35,7 @@ export const texasMedalOfHonorHeroesArticle: Article = {
     { href: "/texas-history", label: "Texas History", description: "Return to the statewide history collection." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["texas-military-forces-museum", "fort-sam-houston-national-cemetery", "houston-national-cemetery", "dallas-fort-worth-national-cemetery"],
+  relatedDestinations: ["national-medal-of-honor-museum", "texas-military-forces-museum", "fort-sam-houston-national-cemetery", "houston-national-cemetery", "dallas-fort-worth-national-cemetery"],
   body: [
     p("The Medal of Honor is the United States' highest military decoration, awarded for conspicuous gallantry at the risk of life above and beyond the call of duty. Texas has deep connections to many recipients, but those connections are not all the same. Some were born in Texas, some entered the service here, some made the state their home, and some are buried in Texas military cemeteries."),
     p("It is also important to distinguish the federal Medal of Honor from the Texas Legislative Medal of Honor. The latter is the state's highest military award and is created through Texas law and legislative action. This guide focuses primarily on federal Medal of Honor recipients with strong Texas ties, while noting where the state has separately honored them."),

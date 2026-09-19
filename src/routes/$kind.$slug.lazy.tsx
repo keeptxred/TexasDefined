@@ -22,6 +22,11 @@ const EntityFoodDestinations = lazy(() =>
     default: module.EntityFoodDestinations,
   })),
 );
+const EntityExploreDestinations = lazy(() =>
+  import('@/components/content/EntityExploreDestinations').then((module) => ({
+    default: module.EntityExploreDestinations,
+  })),
+);
 const CountyHighSchoolFootball = lazy(() =>
   import('@/components/sports/CountyHighSchoolFootball').then((module) => ({
     default: module.CountyHighSchoolFootball,
@@ -35,7 +40,7 @@ const referenceKinds = new Set([...localGovernmentKinds, 'agency']);
 export const Route = createLazyFileRoute('/$kind/$slug')({ component: EntityPage });
 
 function EntityPage() {
-  const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations } = Route.useLoaderData();
+  const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations, exploreDestinations } = Route.useLoaderData();
   const visibleRelated = relatedForDisplay(entity, related);
   const relatedEntities = visibleRelated.map((item) => item.entity);
   const description = entity.kind === 'county' && countySeriesArticle?.dek ? countySeriesArticle.dek : pageDescription(entity);
