@@ -192,7 +192,7 @@ if (!errors.length) {
     'sourceUrl',
     'verifiedAt',
   ]) requireText(schoolIdentities, marker, 'Football school identity data');
-  const verifiedFootballIdentityCount = (schoolIdentities.match(/\\bslug:\s*'[^']+'/g) ?? []).length;
+  const verifiedFootballIdentityCount = (schoolIdentities.match(/slug: '/g) ?? []).length;
   if (verifiedFootballIdentityCount < 26) {
     errors.push(`Football school identity data fell below 26 verified profiles; found ${verifiedFootballIdentityCount}.`);
   }
