@@ -4,6 +4,7 @@ import {
   type FeaturedFootballProgram,
 } from './featured-programs';
 import { searchFootballPrograms, type FootballProgramDirectoryResult } from './football-directory.server';
+import { getOfficialFootballEnrollmentLink } from './official-enrollment-links';
 import { getVerifiedFootballSchoolIdentity } from './school-identities';
 import { UIL_FOOTBALL_PROGRAMS_2026 } from './uil-football-alignments-2026.server';
 
@@ -11,6 +12,7 @@ export type FeaturedFootballProgramProfile = {
   featured: FeaturedFootballProgram;
   program: FootballProgramDirectoryResult | null;
   identity: ReturnType<typeof getVerifiedFootballSchoolIdentity> | null;
+  enrollmentLink: ReturnType<typeof getOfficialFootballEnrollmentLink> | null;
 };
 
 function normalizedAliases(featured: FeaturedFootballProgram) {
@@ -51,5 +53,6 @@ export async function getFeaturedFootballProgramProfile(slug: string): Promise<F
     featured,
     program,
     identity: getVerifiedFootballSchoolIdentity(slug) ?? null,
+    enrollmentLink: getOfficialFootballEnrollmentLink(program?.districtName) ?? null,
   };
 }
