@@ -273,6 +273,7 @@ function Page() {
         <h2 className="mt-2 font-display text-3xl">Put {displayName} in the statewide football picture</h2>
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           <Related href="/texas-high-school-football-teams" title="All 1,268 UIL programs" body="Browse every current UIL football school, ordered from 6A through 1A, or search by school, ISD, city or county." />
+          <Related href="/article/texas-high-school-football-scores-schedules" title="Current scores & schedules" body="Use the UIL Texas Scoreboard plus school sources for current results, weekly schedules and final game-day verification." />
           <Related href="/article/texas-high-school-football-classifications-1a-6a" title="How 1A through 6A work" body="Understand enrollment classifications, divisions, districts and realignment." />
           <Related href="/article/texas-high-school-football-playoffs-explained" title="How the playoffs work" body="Follow district qualification, bi-district and the state bracket." />
           {(program?.footballType === '6-Man' || privateAlignment?.footballType === '6-Man') && <Related href="/article/texas-six-man-football-rules-explained" title="Six-man football rules" body="Understand the field, first-down distance, exchange rule, scoring and mercy rule." />}
