@@ -10,6 +10,8 @@ on:
       - 'scripts/data/validate-stay-monetization-policy.mjs'
       - 'scripts/data/validate-stay-destination-cohort.mjs'
       - 'src/routes/admin.stay-monetization.lazy.tsx'
+      - 'src/components/admin/StayMonetizationReadiness.tsx'
+      - 'src/routes/admin.platform-health.lazy.tsx'
       - 'src/routes/admin.tsx'
       - '.github/workflows/validate-stay-monetization-policy.yml'
   push:
@@ -23,6 +25,8 @@ on:
       - 'scripts/data/validate-stay-monetization-policy.mjs'
       - 'scripts/data/validate-stay-destination-cohort.mjs'
       - 'src/routes/admin.stay-monetization.lazy.tsx'
+      - 'src/components/admin/StayMonetizationReadiness.tsx'
+      - 'src/routes/admin.platform-health.lazy.tsx'
       - 'src/routes/admin.tsx'
       - '.github/workflows/validate-stay-monetization-policy.yml'
   workflow_dispatch:
