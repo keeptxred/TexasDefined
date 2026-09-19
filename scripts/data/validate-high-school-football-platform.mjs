@@ -17,6 +17,7 @@ const files = [
   'src/routes/texas-high-school-football-teams.tsx',
   'src/routes/texas-high-school-football-teams.lazy.tsx',
   'src/routes/find-my-school-district.lazy.tsx',
+  'src/components/relocation/RelocationServiceFinder.tsx',
   'src/routes/$kind.$slug.lazy.tsx',
   'src/routes/sports.friday-night-lights.lazy.tsx',
   'src/lib/public-routes.ts',
@@ -36,10 +37,11 @@ if (!errors.length) {
   const route = read(files[5]);
   const page = read(files[6]);
   const schoolDistrict = read(files[7]);
-  const entityPage = read(files[8]);
-  const footballHub = read(files[9]);
-  const publicRoutes = read(files[10]);
-  const dataSources = read(files[11]);
+  const relocationFinder = read(files[8]);
+  const entityPage = read(files[9]);
+  const footballHub = read(files[10]);
+  const publicRoutes = read(files[11]);
+  const dataSources = read(files[12]);
 
   for (const marker of [
     'UIL_FOOTBALL_PROGRAM_COUNT !== 1268',
@@ -77,6 +79,8 @@ if (!errors.length) {
     'Official UIL alignment',
     'This is not a “best school” rating.',
     'Attendance zones, transfers, eligibility and campus assignments can change',
+    'initialQuery',
+    'runQuery',
   ]) requireText(finder, marker, 'Football lookup component');
 
   requireText(countyModule, 'High school football in', 'County football module');
@@ -84,16 +88,22 @@ if (!errors.length) {
 
   requireText(route, "createFileRoute(canonicalPath)", 'Football finder route');
   requireText(route, "const canonicalPath = '/texas-high-school-football-teams'", 'Football finder route');
+  requireText(route, 'validateSearch:', 'Football finder route');
+  requireText(route, "q: typeof search.q === 'string'", 'Football finder route');
   for (const marker of [
     "createLazyFileRoute('/texas-high-school-football-teams')",
     'Find a Texas high school football team',
     'What “good football fit” should mean',
     '/find-my-school-district',
     '/sports-venues/high-school-football',
+    'Route.useSearch()',
+    'initialQuery={q}',
   ]) requireText(page, marker, 'Football finder page');
 
   requireText(schoolDistrict, 'HighSchoolFootballLookup', 'School-district integration');
   requireText(schoolDistrict, 'Research the football program after you identify the ISD', 'School-district integration');
+  requireText(relocationFinder, 'texas-high-school-football-teams?q=', 'School lookup football handoff');
+  requireText(relocationFinder, 'See football programs →', 'School lookup football handoff');
   requireText(entityPage, 'CountyHighSchoolFootball', 'County page integration');
   requireText(footballHub, '/texas-high-school-football-teams', 'Friday Night Lights discovery');
   requireText(publicRoutes, '"/texas-high-school-football-teams"', 'Public route governance');
@@ -105,7 +115,8 @@ if (!errors.length) {
     [files[4], countyModule],
     [files[6], page],
     [files[7], schoolDistrict],
-    [files[8], entityPage],
+    [files[8], relocationFinder],
+    [files[9], entityPage],
   ]) {
     if (source.includes('uil-football-alignments-2026.server') || source.includes('football-directory.server')) {
       errors.push(`Client surface must not import the server-only football dataset directly: ${file}`);
