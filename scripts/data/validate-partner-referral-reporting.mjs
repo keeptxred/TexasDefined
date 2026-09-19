@@ -51,6 +51,11 @@ for (const [needle, label] of [
   ["const TABLE = 'texasdefined_partner_referral_daily'", 'private aggregate target'],
   ["createHash('sha256')", 'destination hash'],
   ["Prefer: 'resolution=merge-duplicates,return=minimal'", 'idempotent upsert'],
+  ["const RETENTION_DAYS = 90", 'bounded aggregate retention'],
+  ["async function pruneOldRows", 'retention cleanup'],
+  ["method: 'DELETE'", 'retention delete request'],
+  ["endpoint.searchParams.set('metric_date', `lt.${cutoff}`)", 'retention cutoff filter'],
+  ["const retentionCutoff = await pruneOldRows", 'post-sync retention execution'],
   ["required('CLOUDFLARE_API_TOKEN')", 'Cloudflare token requirement'],
   ["required('SUPABASE_SERVICE_ROLE_KEY')", 'Supabase service-role requirement'],
   ["const HEARTBEAT_PARTNER = '__pipeline__'", 'reserved sync heartbeat identity'],
@@ -103,6 +108,12 @@ for (const [needle, label] of [
   ["window.addEventListener('texasdefined:affiliate-click', expediaSearchStarted as EventListener)", 'Expedia search-start browser listener'],
   ["window.removeEventListener('texasdefined:affiliate-click', expediaSearchStarted as EventListener)", 'Expedia search-start listener cleanup'],
 ]) expect(analytics, needle, label);
+
+const retentionDays = Number(sync.match(/const RETENTION_DAYS = (\d+);/)?.[1] || 0);
+const queryDays = Number(server.match(/const QUERY_DAYS = (\d+);/)?.[1] || 0);
+if (!retentionDays || !queryDays || retentionDays <= queryDays) {
+  errors.push(`Partner referral retention must exceed the dashboard query horizon; retention=${retentionDays || 'missing'} days, query=${queryDays || 'missing'} days.`);
+}
 
 for (const [needle, label] of [
   ["assertSportsPartnerAccess(accessKey)", 'commercial admin authorization'],
@@ -202,4 +213,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Partner referral reporting validation passed: referral clicks, CTA impressions and separately classified Expedia search starts are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, pre-rollout daily impression history remains explicitly unmeasured while the September 18 rollout day stays visible, CTR uses only the clean September 19+ measurement window, exposure volume breaks click ties so zero-click surfaces remain visible, the private dashboard promotes clean-window placements and pages with at least three measured impressions and zero clicks into a conversion watchlist, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has staggered schedule and production-deploy recovery opportunities that skip Cloudflare while the heartbeat is fresh, the sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
+console.log('Partner referral reporting validation passed: referral clicks, CTA impressions and separately classified Expedia search starts are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, pre-rollout daily impression history remains explicitly unmeasured while the September 18 rollout day stays visible, CTR uses only the clean September 19+ measurement window, exposure volume breaks click ties so zero-click surfaces remain visible, the private dashboard promotes clean-window placements and pages with at least three measured impressions and zero clicks into a conversion watchlist, private aggregates are pruned to a 90-day retention window that exceeds the 60-day dashboard query horizon, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has staggered schedule and production-deploy recovery opportunities that skip Cloudflare while the heartbeat is fresh, the sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
