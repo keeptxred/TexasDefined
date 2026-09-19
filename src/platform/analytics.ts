@@ -162,6 +162,23 @@ export function installTexasDefinedAnalytics() {
     });
   };
 
+  const expediaSearchStarted = (event: Event) => {
+    const detail = (event as CustomEvent<Record<string, unknown>>).detail;
+    if (!detail || detail.event !== 'affiliate_click') return;
+    if (detail.affiliate_partner !== 'expedia' || detail.affiliate_module !== 'stay-nearby') return;
+    const label = typeof detail.affiliate_label === 'string' ? detail.affiliate_label.trim() : '';
+    if (!/^Search (?:all nearby stays|Expedia stays)/i.test(label)) return;
+    const placement = typeof detail.affiliate_placement === 'string' && detail.affiliate_placement.trim()
+      ? detail.affiliate_placement.trim().slice(0, 160)
+      : 'unspecified';
+    trackTexasDefinedOutcome('next_step_selected', {
+      resourceId: 'expedia-search',
+      stepId: label.slice(0, 240),
+      entityKind: placement,
+      destination: 'https://www.expedia.com/',
+    });
+  };
+
   const click = (event: MouseEvent) => {
     const anchor = (event.target as Element | null)?.closest('a[href]') as HTMLAnchorElement | null;
     if (!anchor) return;
@@ -264,6 +281,7 @@ export function installTexasDefinedAnalytics() {
   };
   const mutation = observer ? new MutationObserver(observe) : undefined;
   document.addEventListener('click', click);
+  window.addEventListener('texasdefined:affiliate-click', expediaSearchStarted as EventListener);
   observe();
   mutation?.observe(document.documentElement, { childList: true, subtree: true });
   trackAIReferralVisit();
@@ -272,6 +290,7 @@ export function installTexasDefinedAnalytics() {
 
   return () => {
     document.removeEventListener('click', click);
+    window.removeEventListener('texasdefined:affiliate-click', expediaSearchStarted as EventListener);
     window.removeEventListener('online', flushTexasDefinedAnalytics);
     mutation?.disconnect();
     observer?.disconnect();

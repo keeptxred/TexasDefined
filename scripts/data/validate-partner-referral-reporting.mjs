@@ -13,6 +13,7 @@ const route = read('src/routes/admin.partner-referrals.tsx');
 const lazyRoute = read('src/routes/admin.partner-referrals.lazy.tsx');
 const admin = read('src/routes/admin.tsx');
 const collector = read('src/lib/texas-defined-outcome-analytics.server.ts');
+const analytics = read('src/platform/analytics.ts');
 const errors = [];
 
 function expect(source, needle, label) {
@@ -40,9 +41,12 @@ expect(aggregateCommentMigration, 'Raw browser session identifiers are not store
 for (const [needle, label] of [
   ["const DATASET = 'texas_defined_outcomes'", 'outcome dataset'],
   ["blob1 IN ('partner_referral_clicked', 'partner_referral_shown')", 'partner click/impression filter'],
+  ["blob1 = 'next_step_selected' AND blob2 = 'expedia-search'", 'Expedia search-start filter'],
   ['blob1 AS eventName', 'outcome event dimension'],
   ['SUM(_sample_interval) AS eventCount', 'sampling-aware outcome aggregation'],
   ['impression_count: 0', 'impression aggregate initialization'],
+  ["partner === 'expedia-search'", 'reserved Expedia search-start aggregate identity'],
+  ['searchStarts', 'Expedia search-start sync total'],
   ["blob10 != 'ci-probe'", 'CI probe exclusion'],
   ["const TABLE = 'texasdefined_partner_referral_daily'", 'private aggregate target'],
   ["createHash('sha256')", 'destination hash'],
@@ -91,12 +95,26 @@ else if (/^    environment:/m.test(syncJobMatch[1])) {
 }
 
 for (const [needle, label] of [
+  ["resourceId: 'expedia-search'", 'central Expedia search-start identity'],
+  ["detail.affiliate_partner !== 'expedia'", 'Expedia-only search-start filter'],
+  ["detail.affiliate_module !== 'stay-nearby'", 'Stay Nearby-only search-start filter'],
+  ["/^Search (?:all nearby stays|Expedia stays)/i", 'Expedia search-action label guard'],
+  ["trackTexasDefinedOutcome('next_step_selected'", 'Expedia search-start first-party outcome'],
+  ["window.addEventListener('texasdefined:affiliate-click', expediaSearchStarted as EventListener)", 'Expedia search-start browser listener'],
+  ["window.removeEventListener('texasdefined:affiliate-click', expediaSearchStarted as EventListener)", 'Expedia search-start listener cleanup'],
+]) expect(analytics, needle, label);
+
+for (const [needle, label] of [
   ["assertSportsPartnerAccess(accessKey)", 'commercial admin authorization'],
   ["from('texasdefined_partner_referral_daily')", 'private aggregate read'],
   ['impression_count', 'private impression aggregate read'],
   ["const IMPRESSION_TRACKING_STARTED_AT = '2026-09-18'", 'impression rollout start boundary'],
   ["const CTR_MEASUREMENT_STARTED_AT = '2026-09-19'", 'clean CTR measurement boundary'],
   ['totalImpressions30d', '30-day impression reporting'],
+  ['totalSearchStarts30d', '30-day Expedia search-start reporting'],
+  ['searchStartPlacements', 'Expedia search-start placement breakdown'],
+  ['searchStartPages', 'Expedia search-start page breakdown'],
+  ["row.partner === EXPEDIA_SEARCH_PARTNER", 'Expedia search rows excluded from referral CTR'],
   ['clickThroughRateSinceImpressionTracking', 'truthful post-rollout CTR reporting'],
   ['measurementCtr = clickThroughRate', 'dimension-level measured-window CTR calculation'],
   ['metricDate >= CTR_MEASUREMENT_STARTED_AT', 'dimension-level clean CTR measurement boundary'],
@@ -133,6 +151,10 @@ for (const [needle, label] of [
   ['most recent successful Cloudflare-to-Supabase pipeline run', 'heartbeat explanation'],
   ['most recent successful Cloudflare-to-Supabase pipeline run', 'healthy zero-click heartbeat explanation'],
   ['30d CTA impressions', 'impression headline metric'],
+  ['30d Expedia search starts', 'Expedia search-start headline metric'],
+  ['Last 7 days Expedia searches', 'Expedia search-start weekly metric'],
+  ['reported separately from outbound referral clicks so referral CTR remains comparable', 'Expedia search-start semantic separation'],
+  ['No Expedia search starts recorded yet.', 'Expedia search-start empty state'],
   ['CTR since', 'clean-window CTR metric'],
   ['dashboard.ctrMeasurementStartedAt', 'clean CTR date rendering'],
   ['CTA impression history begins on {impressionStartLabel}', 'impression rollout date rendering'],
@@ -151,6 +173,8 @@ for (const [needle, label] of [
 expect(types, 'lastPipelineSyncAt: string | null', 'pipeline heartbeat dashboard type');
 expect(types, 'ctrMeasurementStartedAt: string', 'clean CTR boundary dashboard type');
 expect(types, 'totalImpressions30d: number', 'dashboard impression total type');
+expect(types, 'totalSearchStarts30d: number', 'dashboard Expedia search-start total type');
+expect(types, 'PartnerSearchStartBreakdown', 'dashboard Expedia search-start breakdown type');
 expect(types, 'clickThroughRateSinceImpressionTracking: number | null', 'dashboard CTR type');
 expect(types, 'measurementCtr: number | null', 'dimension-level measured-window CTR type');
 expect(types, 'measurementClicks: number', 'dimension-level measured click type');
@@ -171,4 +195,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Partner referral reporting validation passed: referral clicks and CTA impressions are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, pre-rollout daily impression history remains explicitly unmeasured while the September 18 rollout day stays visible, CTR uses only the clean September 19+ measurement window, exposure volume breaks click ties so zero-click surfaces remain visible, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has staggered schedule and production-deploy recovery opportunities that skip Cloudflare while the heartbeat is fresh, the sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
+console.log('Partner referral reporting validation passed: referral clicks, CTA impressions and separately classified Expedia search starts are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, pre-rollout daily impression history remains explicitly unmeasured while the September 18 rollout day stays visible, CTR uses only the clean September 19+ measurement window, exposure volume breaks click ties so zero-click surfaces remain visible, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has staggered schedule and production-deploy recovery opportunities that skip Cloudflare while the heartbeat is fresh, the sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
