@@ -6,10 +6,13 @@ on:
       - 'public/stay-affiliate-options.js'
       - 'scripts/data/validate-stay-affiliate-options.mjs'
       - 'scripts/data/validate-booking-car-rental-affiliate.mjs'
+      - 'scripts/data/validate-booking-air-travel-affiliate.mjs'
       - 'scripts/data/validate-outcome-analytics.mjs'
       - 'scripts/ci/verify-stay-affiliate-production.mjs'
       - 'src/platform/analytics.ts'
       - 'src/lib/affiliate-click.ts'
+      - 'src/lib/booking-affiliate.ts'
+      - 'src/lib/__tests__/booking-affiliate.test.ts'
       - 'src/lib/texas-defined-outcome-analytics.server.ts'
       - 'src/lib/texas-defined-outcome-analytics.contract.test.ts'
       - 'src/server-entry.ts'
@@ -24,6 +27,9 @@ on:
       - 'src/components/explore/TexasRoute66Hub.tsx'
       - 'src/components/explore/TexasRoute66Page.tsx'
       - 'src/components/monetization/BookingCarRentalCard.tsx'
+      - 'src/components/monetization/BookingAirportTravelCard.tsx'
+      - 'src/components/content/EntityDepthSections.tsx'
+      - 'src/data/city-authority-profiles.ts'
       - '.github/workflows/validate-stay-affiliate-options.yml'
       - '.github/workflows/verify-stay-affiliate-production.yml'
   push:
@@ -32,10 +38,13 @@ on:
       - 'public/stay-affiliate-options.js'
       - 'scripts/data/validate-stay-affiliate-options.mjs'
       - 'scripts/data/validate-booking-car-rental-affiliate.mjs'
+      - 'scripts/data/validate-booking-air-travel-affiliate.mjs'
       - 'scripts/data/validate-outcome-analytics.mjs'
       - 'scripts/ci/verify-stay-affiliate-production.mjs'
       - 'src/platform/analytics.ts'
       - 'src/lib/affiliate-click.ts'
+      - 'src/lib/booking-affiliate.ts'
+      - 'src/lib/__tests__/booking-affiliate.test.ts'
       - 'src/lib/texas-defined-outcome-analytics.server.ts'
       - 'src/lib/texas-defined-outcome-analytics.contract.test.ts'
       - 'src/server-entry.ts'
@@ -50,6 +59,9 @@ on:
       - 'src/components/explore/TexasRoute66Hub.tsx'
       - 'src/components/explore/TexasRoute66Page.tsx'
       - 'src/components/monetization/BookingCarRentalCard.tsx'
+      - 'src/components/monetization/BookingAirportTravelCard.tsx'
+      - 'src/components/content/EntityDepthSections.tsx'
+      - 'src/data/city-authority-profiles.ts'
       - '.github/workflows/validate-stay-affiliate-options.yml'
       - '.github/workflows/verify-stay-affiliate-production.yml'
 
@@ -73,6 +85,10 @@ jobs:
         run: node scripts/data/validate-stay-affiliate-options.mjs
       - name: Validate Booking.com car-rental integration
         run: node scripts/data/validate-booking-car-rental-affiliate.mjs
+      - name: Validate Booking.com air-travel integration
+        run: node scripts/data/validate-booking-air-travel-affiliate.mjs
+      - name: Test Booking.com affiliate destination guard
+        run: node --experimental-strip-types --test src/lib/__tests__/booking-affiliate.test.ts
       - name: Validate first-party outcome analytics
         run: node scripts/data/validate-outcome-analytics.mjs
       - name: Test first-party outcome analytics collector
