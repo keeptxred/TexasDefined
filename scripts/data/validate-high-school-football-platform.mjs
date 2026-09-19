@@ -310,12 +310,20 @@ if (!errors.length) {
     "districtName: 'Garland ISD'",
     "districtName: 'Irving ISD'",
     "districtName: 'Grand Prairie ISD'",
+    "districtName: 'Cypress-Fairbanks ISD'",
+    "districtName: 'Conroe ISD'",
+    "districtName: 'Klein ISD'",
+    "districtName: 'Alvin ISD'",
+    "districtName: 'Tomball ISD'",
+    "districtName: 'Dickinson ISD'",
+    "districtName: 'Spring ISD'",
+    "districtName: 'Fort Bend ISD'",
     'enrollmentUrl',
     'verifiedAt',
   ]) requireText(officialEnrollmentLinks, marker, 'Official football enrollment links');
   const verifiedEnrollmentLinkCount = (officialEnrollmentLinks.match(/districtName: '/g) ?? []).length;
-  if (verifiedEnrollmentLinkCount < 31) {
-    errors.push(`Official football enrollment-link data fell below 31 verified districts; found ${verifiedEnrollmentLinkCount}.`);
+  if (verifiedEnrollmentLinkCount < 39) {
+    errors.push(`Official football enrollment-link data fell below 39 verified districts; found ${verifiedEnrollmentLinkCount}.`);
   }
 
   for (const marker of [
