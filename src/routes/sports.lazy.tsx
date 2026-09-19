@@ -41,6 +41,11 @@ function SportsPage() {
                 <span className="mt-2 block text-sm leading-6 text-muted-foreground">Browse 250 competition seeds across golf, rodeo, basketball, baseball, soccer, volleyball, motorsports, fishing, combat sports and more, organized by category and county where the location is clear.</span>
                 <span className="mt-3 block text-sm font-semibold text-primary">Browse Texas tournaments →</span>
               </a>
+              <Link to="/destination/$slug" params={{ slug: "whirlyball-hurst" }} className="group border-t border-border py-5">
+                <strong className="block font-display text-2xl group-hover:text-primary">WhirlyBall Hurst: an unusual indoor team game</strong>
+                <span className="mt-2 block text-sm leading-6 text-muted-foreground">Drive bumper-style WhirlyBugs, pass with scoops and score on electronic targets, then add laser tag or arcade play in Tarrant County.</span>
+                <span className="mt-3 block text-sm font-semibold text-primary">Open the WhirlyBall Hurst guide →</span>
+              </Link>
             </div>
           </div>
         </section>
