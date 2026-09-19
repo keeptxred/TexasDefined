@@ -53,7 +53,7 @@ export function EventsLandingPage({ data, search, breadcrumb }: { data: EventsLa
     <section className="ev-section ev-surface"><Container><div className="ev-split"><div><p className="eyebrow ev-e">Understand the tradition</p><h2 className="ev-title">The culture behind the calendar</h2></div><div className="ev-grid4">
       <EditorialLink href="/texas-state-fair" title="State Fair of Texas 2026" text="Dates, Fair Park, Big Tex, food, rides and practical planning for the Dallas fair." />
       <EditorialLink href="/texas-dance-halls-honky-tonks" title="Dance halls & honky-tonks" text="Two-step culture, Western swing, historic community halls and how to plan a live-music weekend." />
-      <EditorialLink href="/texas-homecoming-mums" title="Texas homecoming mums" text="How a school flower became an oversized wearable tradition tied to football, clubs and homecoming week." />
+      <EditorialLink href="/texas-homecoming" title="Texas homecoming" text="Why football, alumni, pep rallies, parades, courts, dances and giant mums turn one school week into a Texas tradition." />
       <EditorialLink href="/german-czech-texas-towns" title="German & Czech Texas heritage" text="Connect festivals and music to the towns, churches, bakeries and halls that preserve the deeper history." />
     </div></div></Container></section>
 
