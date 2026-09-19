@@ -113,6 +113,9 @@ for (const marker of [
   'https://www.hotels.com/ho115100/hilton-anatole-dallas-united-states-of-america/',
   'https://www.hotels.com/ho2949850752/loews-arlington-arlington-united-states-of-america/',
   'https://www.hotels.com/ho1830497920/tru-by-hilton-northlake-fort-worth-tx-roanoke-united-states-of-america/',
+  'https://www.hotels.com/ho3489929696/albert-hotel/',
+  'https://www.hotels.com/ho145347/hotel-galvez-spa-galveston-united-states-of-america/',
+  'https://www.hotels.com/ho3586848288/hotel-1928/',
   'upgradeExactPropertyCards',
   'View on Hotels.com',
   'placement: "stay-nearby-card-exact"',
@@ -131,8 +134,15 @@ for (const marker of [
 ]) requireCondition(affiliateBootstrap.includes(marker), `Live stay affiliate bootstrap is missing marker: ${marker}`);
 
 const exactPropertyUrls = affiliateBootstrap.match(/https:\/\/www\.hotels\.com\/ho\d+\/[a-z0-9-]+\//gi) || [];
-requireCondition(exactPropertyUrls.length === 15, `Live stay affiliate bootstrap must contain 15 exact Hotels.com property URLs; found ${exactPropertyUrls.length}.`);
-requireCondition(new Set(exactPropertyUrls).size === 15, 'Live exact Hotels.com property URLs must be unique across the curated hotel cohort.');
+requireCondition(exactPropertyUrls.length === 24, `Live stay affiliate bootstrap must contain 24 exact Hotels.com property URLs; found ${exactPropertyUrls.length}.`);
+requireCondition(new Set(exactPropertyUrls).size === 24, 'Live exact Hotels.com property URLs must be unique across the governed stay cohort.');
+
+const verificationRegistry = JSON.parse(await fetchLive('/stay-nearby-hotelscom-verification.json'));
+requireCondition(verificationRegistry?.publisherId === '101876465', 'Live Hotels.com verification registry lost the TexasDefined CJ publisher ID.');
+requireCondition(Array.isArray(verificationRegistry?.properties) && verificationRegistry.properties.length === 24, `Live Hotels.com verification registry must contain 24 governed properties; found ${verificationRegistry?.properties?.length ?? 'invalid'}.`);
+for (const propertyId of ['albert-hotel-fredericksburg', 'grand-galvez', 'hotel-1928-waco']) {
+  requireCondition(verificationRegistry.properties.some((property) => property.propertyId === propertyId), `Live Hotels.com verification registry is missing destination property: ${propertyId}`);
+}
 
 await verifyOutcomeAnalytics();
 
@@ -230,4 +240,4 @@ for (const page of pages) {
   requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === page.route.replace(/\/+$/, ''), `${page.route} is not self-canonical and must not be part of the monetized production cohort.`);
 }
 
-console.log('Stay affiliate production verification passed: all 15 curated hotel records expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher while broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted paired partner_referral_shown and partner_referral_clicked CI probes backed by Cloudflare Analytics Engine; Hotels.com/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');
+console.log('Stay affiliate production verification passed: all 24 governed stay properties (15 venue + 9 destination) expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher while broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted paired partner_referral_shown and partner_referral_clicked CI probes backed by Cloudflare Analytics Engine; Hotels.com/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');

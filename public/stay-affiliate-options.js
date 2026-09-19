@@ -24,6 +24,15 @@
     ["Tru by Hilton Northlake Fort Worth", "https://www.hotels.com/ho1830497920/tru-by-hilton-northlake-fort-worth-tx-roanoke-united-states-of-america/"],
     ["Home2 Suites by Hilton Fort Worth Northlake", "https://www.hotels.com/ho599143232/home2-suites-by-hilton-fort-worth-northlake-roanoke-united-states-of-america/"],
     ["Holiday Inn Express & Suites Fort Worth North - Northlake", "https://www.hotels.com/ho929311744/holiday-inn-express-suites-fort-worth-north-northlake-an-ihg-hotel-roanoke-united-states-of-america/"],
+    ["Albert Hotel", "https://www.hotels.com/ho3489929696/albert-hotel/"],
+    ["Fredericksburg Inn & Suites", "https://www.hotels.com/ho109548/fredericksburg-inn-suites-fredericksburg-united-states-of-america/"],
+    ["Hoffman Haus", "https://www.hotels.com/ho243589/hoffman-haus-fredericksburg-united-states-of-america/"],
+    ["Grand Galvez", "https://www.hotels.com/ho145347/hotel-galvez-spa-galveston-united-states-of-america/"],
+    ["The Tremont House", "https://www.hotels.com/ho145366/the-tremont-house-galveston-united-states-of-america/"],
+    ["Harbor House Hotel & Marina at Pier 21", "https://www.hotels.com/ho132202/harbor-house-at-pier-21-galveston-united-states-of-america/"],
+    ["Courtyard by Marriott Waco", "https://www.hotels.com/ho116039/courtyard-by-marriott-waco-waco-united-states-of-america/"],
+    ["Hilton Waco", "https://www.hotels.com/ho112972/hilton-waco-waco-united-states-of-america/"],
+    ["Hotel 1928", "https://www.hotels.com/ho3586848288/hotel-1928/"],
   ]);
   const HOTEL_FIRST_PATH = /^\/(?:event\/|events(?:\/|$)|sports-venue\/|sports-venues(?:\/|$))/;
   const BOTH_PATH = /^\/(?:destination\/|explore(?:\/|$)|city\/|county\/|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;

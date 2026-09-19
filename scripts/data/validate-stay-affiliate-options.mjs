@@ -4,6 +4,7 @@ import vm from 'node:vm';
 const root = fs.readFileSync('src/routes/__root.tsx', 'utf8');
 const source = fs.readFileSync('public/stay-affiliate-options.js', 'utf8');
 const stayRegistry = JSON.parse(fs.readFileSync('public/stay-nearby-hotels.json', 'utf8'));
+const destinationStayRegistry = JSON.parse(fs.readFileSync('public/stay-nearby-destination-hotels.json', 'utf8'));
 const hotelsVerification = JSON.parse(fs.readFileSync('public/stay-nearby-hotelscom-verification.json', 'utf8'));
 const analytics = fs.readFileSync('src/platform/analytics.ts', 'utf8');
 const eventRoute = fs.readFileSync('src/routes/event.$slug.lazy.tsx', 'utf8');
@@ -80,10 +81,14 @@ try {
       errors.push('Hotels.com property verification policy must require exact properties and forbid broad search URLs.');
     }
 
-    const activeProperties = (stayRegistry.properties || []).filter((property) => property.status === 'active');
+    const venueActiveProperties = (stayRegistry.properties || []).filter((property) => property.status === 'active');
+    const destinationActiveProperties = (destinationStayRegistry.properties || []).filter((property) => property.status === 'active');
+    const activeProperties = [...venueActiveProperties, ...destinationActiveProperties];
     const evidence = hotelsVerification.properties || [];
-    if (activeProperties.length !== 15) errors.push(`Exact Hotels.com wave expects 15 active curated properties; found ${activeProperties.length}.`);
-    if (evidence.length !== activeProperties.length) errors.push(`Hotels.com verification evidence must cover every active curated property; expected ${activeProperties.length}, found ${evidence.length}.`);
+    if (venueActiveProperties.length !== 15) errors.push(`Exact Hotels.com venue cohort expects 15 active curated properties; found ${venueActiveProperties.length}.`);
+    if (destinationActiveProperties.length !== 9) errors.push(`Exact Hotels.com destination cohort expects 9 active curated properties; found ${destinationActiveProperties.length}.`);
+    if (activeProperties.length !== 24) errors.push(`Exact Hotels.com coverage expects 24 active governed properties; found ${activeProperties.length}.`);
+    if (evidence.length !== activeProperties.length) errors.push(`Hotels.com verification evidence must cover every active governed property; expected ${activeProperties.length}, found ${evidence.length}.`);
 
     const evidenceById = new Map();
     for (const item of evidence) {
@@ -147,6 +152,9 @@ for (const [needle, label] of [
   ['https://www.hotels.com/ho115100/hilton-anatole-dallas-united-states-of-america/', 'mature Hilton Anatole property record'],
   ['https://www.hotels.com/ho2949850752/loews-arlington-arlington-united-states-of-america/', 'Loews Arlington property record'],
   ['https://www.hotels.com/ho1830497920/tru-by-hilton-northlake-fort-worth-tx-roanoke-united-states-of-america/', 'Tru Northlake property record'],
+  ['https://www.hotels.com/ho3489929696/albert-hotel/', 'Albert Hotel destination property record'],
+  ['https://www.hotels.com/ho145347/hotel-galvez-spa-galveston-united-states-of-america/', 'Grand Galvez destination property record'],
+  ['https://www.hotels.com/ho3586848288/hotel-1928/', 'Hotel 1928 destination property record'],
   ['https://www.hotels.com/', 'Hotels.com destination'],
   ['https://www.vrbo.com/', 'Vrbo traveler destination'],
   ['https://www.vrbo.com/en-us/list/lead', 'Vrbo owner onboarding destination'],
@@ -256,4 +264,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hotels.com / Vrbo stay affiliate validation passed: all 15 active curated Stay Nearby hotels have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; unknown properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the exact-property registry and the traffic-prioritized Xtreme Raceway Park lodging slot; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');
+console.log('Hotels.com / Vrbo stay affiliate validation passed: all 24 active governed Stay Nearby properties (15 venue + 9 destination) have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; unknown properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the exact-property registry and the traffic-prioritized Xtreme Raceway Park lodging slot; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "publisherId": "101876465",
-  "verifiedAt": "2026-09-15",
+  "verifiedAt": "2026-09-18",
   "policy": {
     "exactPropertyOnly": true,
     "broadSearchAllowed": false,
@@ -83,6 +83,51 @@
       "propertyId": "holiday-inn-express-fort-worth-north-northlake",
       "name": "Holiday Inn Express & Suites Fort Worth North - Northlake",
       "destinationUrl": "https://www.hotels.com/ho929311744/holiday-inn-express-suites-fort-worth-north-northlake-an-ihg-hotel-roanoke-united-states-of-america/"
+    },
+    {
+      "propertyId": "albert-hotel-fredericksburg",
+      "name": "Albert Hotel",
+      "destinationUrl": "https://www.hotels.com/ho3489929696/albert-hotel/"
+    },
+    {
+      "propertyId": "fredericksburg-inn-suites",
+      "name": "Fredericksburg Inn & Suites",
+      "destinationUrl": "https://www.hotels.com/ho109548/fredericksburg-inn-suites-fredericksburg-united-states-of-america/"
+    },
+    {
+      "propertyId": "hoffman-haus-fredericksburg",
+      "name": "Hoffman Haus",
+      "destinationUrl": "https://www.hotels.com/ho243589/hoffman-haus-fredericksburg-united-states-of-america/"
+    },
+    {
+      "propertyId": "grand-galvez",
+      "name": "Grand Galvez",
+      "destinationUrl": "https://www.hotels.com/ho145347/hotel-galvez-spa-galveston-united-states-of-america/"
+    },
+    {
+      "propertyId": "tremont-house-galveston",
+      "name": "The Tremont House",
+      "destinationUrl": "https://www.hotels.com/ho145366/the-tremont-house-galveston-united-states-of-america/"
+    },
+    {
+      "propertyId": "harbor-house-pier-21",
+      "name": "Harbor House Hotel & Marina at Pier 21",
+      "destinationUrl": "https://www.hotels.com/ho132202/harbor-house-at-pier-21-galveston-united-states-of-america/"
+    },
+    {
+      "propertyId": "courtyard-waco",
+      "name": "Courtyard by Marriott Waco",
+      "destinationUrl": "https://www.hotels.com/ho116039/courtyard-by-marriott-waco-waco-united-states-of-america/"
+    },
+    {
+      "propertyId": "hilton-waco",
+      "name": "Hilton Waco",
+      "destinationUrl": "https://www.hotels.com/ho112972/hilton-waco-waco-united-states-of-america/"
+    },
+    {
+      "propertyId": "hotel-1928-waco",
+      "name": "Hotel 1928",
+      "destinationUrl": "https://www.hotels.com/ho3586848288/hotel-1928/"
     }
   ]
 }
