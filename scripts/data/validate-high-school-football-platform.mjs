@@ -28,6 +28,7 @@ const files = [
 const allTimeHistoryPath = 'src/data/high-school-football/uil-football-all-time-history.server.ts';
 const featuredProfileFunctionPath = 'src/data/high-school-football/featured-program-profile.functions.ts';
 const officialEnrollmentLinksPath = 'src/data/high-school-football/official-enrollment-links.ts';
+const privateFootballAlignmentsPath = 'src/data/high-school-football/private-football-alignments.ts';
 const featuredFiles = [
   'src/data/high-school-football/featured-programs.ts',
   'src/data/high-school-football/school-identities.ts',
@@ -46,7 +47,7 @@ const authorityFiles = [
   'src/data/friday-night-lights-structured-data.server.ts',
 ];
 
-for (const file of [...files, ...authorityFiles, allTimeHistoryPath, featuredProfileFunctionPath, officialEnrollmentLinksPath, ...featuredFiles]) {
+for (const file of [...files, ...authorityFiles, allTimeHistoryPath, featuredProfileFunctionPath, officialEnrollmentLinksPath, privateFootballAlignmentsPath, ...featuredFiles]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing high-school football platform file: ${file}`);
 }
 
@@ -73,6 +74,7 @@ if (!errors.length) {
   const footballHubSchema = read(authorityFiles[4]);
   const featuredProfileFunction = read(featuredProfileFunctionPath);
   const officialEnrollmentLinks = read(officialEnrollmentLinksPath);
+  const privateFootballAlignments = read(privateFootballAlignmentsPath);
   const featuredPrograms = read(featuredFiles[0]);
   const schoolIdentities = read(featuredFiles[1]);
   const featuredProfileLoader = read(featuredFiles[2]);
@@ -207,6 +209,8 @@ if (!errors.length) {
   ]) requireText(featuredProfileLoader, marker, 'Featured football profile loader');
   requireText(featuredProfileLoader, 'getOfficialFootballEnrollmentLink', 'Featured football profile loader');
   requireText(featuredProfileLoader, 'enrollmentLink:', 'Featured football profile loader');
+  requireText(featuredProfileLoader, 'getVerifiedPrivateFootballAlignment', 'Featured football profile loader');
+  requireText(featuredProfileLoader, 'privateAlignment:', 'Featured football profile loader');
 
   for (const marker of [
     'OFFICIAL_FOOTBALL_ENROLLMENT_LINKS',
@@ -231,6 +235,37 @@ if (!errors.length) {
   const verifiedEnrollmentLinkCount = (officialEnrollmentLinks.match(/districtName: '/g) ?? []).length;
   if (verifiedEnrollmentLinkCount < 21) {
     errors.push(`Official football enrollment-link data fell below 21 verified districts; found ${verifiedEnrollmentLinkCount}.`);
+  }
+
+  for (const marker of [
+    'VERIFIED_PRIVATE_FOOTBALL_ALIGNMENTS',
+    "association: 'SPC'",
+    "association: 'TAPPS'",
+    "association: 'TAIAO'",
+    "slug: 'kinkaid'",
+    "slug: 'liberty-christian-argyle'",
+    "slug: 'parish-episcopal'",
+    "slug: 'fort-bend-christian'",
+    "slug: 'all-saints-fort-worth'",
+    "slug: 'lubbock-christian'",
+    "slug: 'first-baptist-dallas'",
+    "slug: 'san-antonio-central-catholic'",
+    "slug: 'san-antonio-antonian'",
+    "slug: 'san-antonio-holy-cross'",
+    "slug: 'san-antonio-christian'",
+    "slug: 'new-braunfels-christian'",
+    "slug: 'geneva-boerne'",
+    "slug: 'castle-hills'",
+    "slug: 'texas-wind-waco'",
+    "slug: 'harvest-christian-bartonville'",
+    "slug: 'grace-academy-georgetown'",
+    "divisionLabel: 'Six-Man Division I'",
+    "sourceKind: 'official-association'",
+    "sourceKind: 'current-secondary'",
+  ]) requireText(privateFootballAlignments, marker, 'Private football alignments');
+  const verifiedPrivateAlignmentCount = (privateFootballAlignments.match(/slug: '/g) ?? []).length;
+  if (verifiedPrivateAlignmentCount < 19) {
+    errors.push(`Private football alignment data fell below 19 verified programs; found ${verifiedPrivateAlignmentCount}.`);
   }
 
   for (const marker of [
@@ -265,7 +300,10 @@ if (!errors.length) {
     'All-time UIL state-final record',
     'Freshman, JV and varsity path',
     'Football eligibility is a separate question from school admission.',
-    'Association not yet verified',
+    'Association placement not yet verified',
+    'Private-school football uses its association’s own alignment system.',
+    "privateAlignment.sourceKind === 'official-association'",
+    'privateAlignmentLabel',
     'Duplicate and alternate school names resolve to one canonical profile',
   ]) requireText(featuredProfilePage, marker, 'Football school profile page');
 
