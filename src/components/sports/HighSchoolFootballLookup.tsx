@@ -29,6 +29,7 @@ type Props = {
   intro?: string;
   compact?: boolean;
   showSearch?: boolean;
+  initialQuery?: string;
 };
 
 export function HighSchoolFootballLookup({
@@ -37,8 +38,9 @@ export function HighSchoolFootballLookup({
   intro = 'Search a high school, ISD, city or county to see its current UIL football classification, division and district.',
   compact = false,
   showSearch = true,
+  initialQuery = '',
 }: Props) {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(initialQuery);
   const [programs, setPrograms] = useState<FootballProgram[]>([]);
   const [matchedTotal, setMatchedTotal] = useState(0);
   const [directoryAvailable, setDirectoryAvailable] = useState(true);
@@ -73,9 +75,8 @@ export function HighSchoolFootballLookup({
     return () => controller.abort();
   }, [countyName]);
 
-  async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const trimmed = query.trim();
+  async function runQuery(value: string) {
+    const trimmed = value.trim();
     if (!trimmed) {
       setError('Enter a high school, ISD, city or county.');
       return;
@@ -99,6 +100,18 @@ export function HighSchoolFootballLookup({
     } finally {
       setLoading(false);
     }
+  }
+
+  useEffect(() => {
+    const trimmed = initialQuery.trim();
+    if (!trimmed || countyName) return;
+    setQuery(trimmed);
+    void runQuery(trimmed);
+  }, [initialQuery, countyName]);
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    await runQuery(query);
   }
 
   const visible = useMemo(() => programs.slice(0, compact ? 16 : 50), [programs, compact]);
