@@ -13,7 +13,7 @@ type SeasonSearch = { season?: FishingSeasonFilter; species?: string };
 
 const faq = [
   { question: "Is this a live Texas fishing forecast?", answer: "No. This guide organizes durable, source-backed seasonal patterns from complete TexasDefined lake guides. Live fishing reports and current conditions remain separate." },
-  { question: "What does year-round mean here?", answer: "Year-round means the verified fishery opportunity is not limited to one named season. It does not mean conditions or catch rates are equally good every day." },
+  { question: "What does year-round mean here?", answer: "Year-round means the source-backed fishery opportunity is not limited to one named season. It does not mean conditions or catch rates are equally good every day." },
   { question: "Does TexasDefined rank the best fishing season?", answer: "No. Results are alphabetical by lake and species. Seasonal patterns explain when a source identifies a useful pattern; sponsorship never changes the order or guidance." },
 ];
 
