@@ -1,9 +1,13 @@
+import { UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28 } from './uil-football-enrollments-2026.generated';
+
 export type UilFootballProgram = {
   schoolName: string;
   classification: '1A' | '2A' | '3A' | '4A' | '5A' | '6A';
   division: 1 | 2 | null;
   district: number;
   footballType: '6-Man' | '11-Man';
+  enrollment: number;
+  submittedConference: '1A' | '2A' | '3A' | '4A' | '5A' | '6A';
   alignmentCycle: '2026-28';
   sourceUrl: string;
 };
@@ -250,15 +254,23 @@ export function displayUilSchoolName(name: string) {
 
 export const UIL_FOOTBALL_PROGRAMS_2026: readonly UilFootballProgram[] = ALIGNMENTS.flatMap((block) =>
   block.districts.flatMap((teams, index) =>
-    teams.split(';').map((schoolName) => ({
-      schoolName: displayUilSchoolName(schoolName),
-      classification: block.classification,
-      division: block.division,
-      district: index + 1,
-      footballType: block.footballType,
-      alignmentCycle: '2026-28' as const,
-      sourceUrl: block.sourceUrl,
-    })),
+    teams.split(';').map((schoolName) => {
+      const exactEnrollment = UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[schoolName];
+      if (!exactEnrollment) {
+        throw new Error(`UIL 2026–28 exact enrollment is missing for ${schoolName}.`);
+      }
+      return {
+        schoolName: displayUilSchoolName(schoolName),
+        classification: block.classification,
+        division: block.division,
+        district: index + 1,
+        footballType: block.footballType,
+        enrollment: exactEnrollment.enrollment,
+        submittedConference: exactEnrollment.submittedConference,
+        alignmentCycle: '2026-28' as const,
+        sourceUrl: block.sourceUrl,
+      };
+    }),
   ),
 );
 
