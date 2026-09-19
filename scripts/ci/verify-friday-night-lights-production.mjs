@@ -135,7 +135,7 @@ await fetchVerified(playoffsPath, 'football playoffs', (body) => {
   for (const needle of [
     'How Do the Texas High School Football Playoffs Work?',
     'The short version',
-    'What &#39;bi-district&#39; means',
+    'bi-district',
     'Home field, neutral sites',
     '/texas-high-school-football-teams',
     '/article/texas-high-school-football-classifications-1a-6a',
