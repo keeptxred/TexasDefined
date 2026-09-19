@@ -36,6 +36,8 @@ const footballVenueLinksPath = 'src/data/high-school-football/football-venue-lin
 const programProfileFunctionsPath = 'src/data/high-school-football/football-program-profile.functions.ts';
 const uilDirectoryComponentPath = 'src/components/sports/UilFootballProgramDirectory.tsx';
 const enrollmentBandsPath = 'src/data/high-school-football/enrollment-bands.ts';
+const exactEnrollmentsPath = 'src/data/high-school-football/uil-football-enrollments-2026.generated.ts';
+const exactEnrollmentGeneratorPath = 'scripts/data/generate-uil-football-enrollments.mjs';
 const footballDistrictServerPath = 'src/data/high-school-football/football-districts.server.ts';
 const footballDistrictFunctionsPath = 'src/data/high-school-football/football-districts.functions.ts';
 const footballDistrictIndexRoutePath = 'src/routes/texas-high-school-football-districts.tsx';
@@ -74,6 +76,8 @@ for (const file of [
   programProfileFunctionsPath,
   uilDirectoryComponentPath,
   enrollmentBandsPath,
+  exactEnrollmentsPath,
+  exactEnrollmentGeneratorPath,
   footballDistrictServerPath,
   footballDistrictFunctionsPath,
   footballDistrictIndexRoutePath,
@@ -120,6 +124,8 @@ if (!errors.length) {
   const programProfileFunctions = read(programProfileFunctionsPath);
   const uilDirectoryComponent = read(uilDirectoryComponentPath);
   const enrollmentBands = read(enrollmentBandsPath);
+  const exactEnrollments = read(exactEnrollmentsPath);
+  const exactEnrollmentGenerator = read(exactEnrollmentGeneratorPath);
   const footballDistrictServer = read(footballDistrictServerPath);
   const footballDistrictFunctions = read(footballDistrictFunctionsPath);
   const footballDistrictIndexRoute = read(footballDistrictIndexRoutePath);
@@ -431,6 +437,24 @@ if (!errors.length) {
   ]) requireText(programProfileFunctions, marker, 'Universal UIL football profile server functions');
 
   for (const marker of [
+    'UIL_FOOTBALL_EXACT_ENROLLMENT_SOURCE',
+    'UIL 2026–28 Realignment Alphabetical Listing',
+    'https://www.uiltexas.org/files/alignments/Alpha_26-28.pdf',
+    '"Allen": {"enrollment":6798',
+    '"Katy": {"enrollment":3401',
+    '"Abbott": {"enrollment":91',
+  ]) requireText(exactEnrollments, marker, 'Exact UIL football enrollment data');
+  const exactEnrollmentCount = (exactEnrollments.match(/^\s*"[^"]+": \{"enrollment":[0-9.]+,"submittedConference":"[1-6]A"\},$/gm) ?? []).length;
+  if (exactEnrollmentCount !== 1268) errors.push(`Exact UIL football enrollment data expected 1,268 schools; found ${exactEnrollmentCount}.`);
+
+  for (const marker of [
+    'const EXPECTED_TOTAL = 1268',
+    'Exact UIL school-name join failed',
+    'Football type mismatch',
+    'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28',
+  ]) requireText(exactEnrollmentGenerator, marker, 'Exact UIL football enrollment generator');
+
+  for (const marker of [
     "classification: '6A', division: null, label: '2,215 and above'",
     "classification: '5A', division: 1, label: '1,870–2,214'",
     "classification: '5A', division: 2, label: '1,305–1,869'",
@@ -448,6 +472,17 @@ if (!errors.length) {
   ]) requireText(enrollmentBands, marker, 'UIL football enrollment bands');
 
   for (const marker of [
+    'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28',
+    'uilEnrollment',
+    'uilSubmittedConference',
+  ]) requireText(directory, marker, 'Football directory exact enrollment integration');
+
+  for (const marker of [
+    'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28',
+    'uilEnrollment:',
+  ]) requireText(programProfileServer, marker, 'Football profile exact enrollment integration');
+
+  for (const marker of [
     'Browse all 1,268 Texas high school football programs',
     "const CLASSIFICATIONS = ['6A', '5A', '4A', '3A', '2A', '1A']",
     'Every current UIL football program gets the same directory and profile treatment.',
@@ -458,6 +493,8 @@ if (!errors.length) {
     'UIL enrollment band:',
     'Official UIL 2026–28 enrollment cutoffs ↗',
     'uilFootballConferenceBand',
+    'uilEnrollment',
+    'UIL enrollment',
   ]) requireText(uilDirectoryComponent, marker, 'All-UIL football directory');
 
   for (const marker of [
@@ -554,7 +591,13 @@ if (!errors.length) {
     'UIL enrollment band',
     'Official UIL 2026–28 enrollment cutoffs ↗',
     'uilFootballEnrollmentBand',
+    'UIL reported enrollment',
+    'program.uilEnrollment',
+    'Official UIL alphabetical enrollment listing ↗',
   ]) requireText(featuredProfilePage, marker, 'Football school profile page');
+
+  requireText(finder, 'uilEnrollment', 'Football finder exact enrollment');
+  requireText(finder, 'UIL enrollment', 'Football finder exact enrollment');
 
   requireText(finder, 'School profile, enrollment & mascot →', 'Football finder profile handoff');
   requireText(page, 'UilFootballProgramDirectory', 'Football finder all-UIL directory integration');
