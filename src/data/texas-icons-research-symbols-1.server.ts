@@ -144,7 +144,7 @@ export const TEXAS_ICON_RESEARCH_SYMBOLS_BATCH_1: readonly TexasIconResearchProf
     ],
     texasPlaces: [
       { name: "Shiner and Lavaca County", context: "The brewery's hometown and the wider county landscape that connects Czech and German settlement, agriculture, railroads, churches and small-town culture.", href: "/county/lavaca" },
-      { name: "Spoetzl Brewery", context: "Historic and still-operating brewery at 603 East Brewery Street in Shiner; public tours and visitor facilities make the production site part of the modern travel experience." },
+      { name: "Spoetzl Brewery", context: "Historic and still-operating brewery at 603 East Brewery Street in Shiner; public tours, the current beer lineup, distillery, barbecue and visitor planning are covered in the dedicated destination guide.", href: "/destination/spoetzl-brewery" },
       { name: "Saints Cyril and Methodius Church", context: "Shiner's major painted-church landmark and an important companion stop for understanding the town's Czech and German Catholic heritage.", href: "/explore/painted-churches/shiner-saints-cyril-methodius" },
       { name: "Texas brand history", context: "Compare Shiner's place-based identity with H-E-B, Whataburger, Blue Bell, Dickies and Buc-ee's.", href: "/texas-brand-origin-stories" },
       { name: "Made, Built & Born in Texas", context: "See Spoetzl Brewery in TexasDefined's county-linked index of products and companies with documented Texas production or origins.", href: "/made-in-texas" },
