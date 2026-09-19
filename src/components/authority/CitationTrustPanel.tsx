@@ -28,7 +28,7 @@ export function CitationTrustPanel({
     >
       <div className="grid gap-7 lg:grid-cols-[14rem_minmax(0,1fr)]">
         <div>
-          <p className="eyebrow text-primary">Reference notes</p>
+          <p className="eyebrow text-primary">Sources & notes</p>
           <h2 id="citation-trust-heading" className="mt-2 font-display text-3xl">{title}</h2>
         </div>
         <div className="grid gap-7 text-sm leading-7 text-muted-foreground sm:grid-cols-2">

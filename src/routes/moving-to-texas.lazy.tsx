@@ -112,7 +112,7 @@ function MovingToTexasPage() {
       <div className="mb-10 flex flex-wrap gap-x-7 gap-y-3 border-b border-border pb-7 text-sm font-semibold">
         <Link to="/texas-moving-cost-calculator" className="text-primary underline underline-offset-4">Estimate the one-time moving budget →</Link>
         <Link to="/browse/cities" className="text-primary underline underline-offset-4">Compare Texas cities & suburbs →</Link>
-        <Link to="/moving-to-texas/data" className="text-primary underline underline-offset-4">Relocation Data Center →</Link>
+        <Link to="/moving-to-texas/data" className="text-primary underline underline-offset-4">Relocation data →</Link>
         <a href="/texas-data/texas-population-and-migration-2025" className="underline underline-offset-4">Current Texas population snapshot</a>
         <a href="/texas-data/texas-population-and-migration-2024" className="underline underline-offset-4">Revised 2024 population history</a>
         <a href="/texas-data/where-new-texans-came-from-2024" className="underline underline-offset-4">Where new Texans came from</a>
@@ -120,7 +120,7 @@ function MovingToTexasPage() {
         <a href="/texas-data/texas-metro-payrolls-june-2026" className="underline underline-offset-4">Metro jobs data</a>
         <a href="/texas-data/texas-traffic-monitoring-coverage" className="underline underline-offset-4">Traffic data coverage</a>
       </div>
-      <TexasCountyComparisonTable rows={largestCounties} title="Largest Texas counties by 2020 Census population" description="Use this as an orientation layer, not a best-places ranking. County population and land area can help frame a move, but housing costs, schools, commute, property taxes and local services require address-level research." />
+      <TexasCountyComparisonTable rows={largestCounties} title="Largest Texas counties by 2020 Census population" description="Use this as a starting point, not a best-places ranking. County population and land area can help frame a move, but housing costs, schools, commute, property taxes and local services require address-level research." />
       <p className="-mt-5 mb-10 text-sm text-muted-foreground"><a href="/browse/counties" className="font-semibold text-primary underline underline-offset-4">Compare all 254 Texas counties →</a></p>
       <CitationTrustPanel sources={[{ name: 'Texas State Library and Archives Commission county-seat reference', url: 'https://www.tsl.texas.gov/ref/abouttx/countyseats.html' }, { name: 'U.S. Census Bureau TIGERweb county data', url: 'https://tigerweb.geo.census.gov/arcgis/rest/services/Census2020/State_County/MapServer/1' }]} methodology="The relocation comparison ranks counties only by 2020 Census population and displays source-backed county seat, land area and referenced communities. Texas Defined does not turn those fields into a subjective best-county score." lastVerified="County comparison values are fetched from the cited state and federal references when the page loads; local moving decisions should be verified with current local sources." title="Relocation comparison sources and methodology" />
     </Container>

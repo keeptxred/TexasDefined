@@ -73,11 +73,11 @@ export function CityRelocationComparison() {
               This research layer covers {RELOCATION_PLACES.length} Texas cities and suburbs that already connect to Texas Defined&apos;s relocation framework. Filter by geography and planning style, then verify the exact address before treating a city name as a decision.
             </p>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">
-              The planning bands below are editorial orientation labels—not live home prices, affordability rankings, school ratings or investment advice. A mailing city can cross county, school, utility, tax, flood and insurance boundaries.
+              The planning bands below are broad comparison labels—not live home prices, affordability rankings, school ratings or investment advice. A mailing city can cross county, school, utility, tax, flood and insurance boundaries.
             </p>
             <div className="mt-6 space-y-2 text-sm font-semibold">
               <a href="/moving-to-texas#address-research-desk" className="block text-primary underline underline-offset-4">Research an exact Texas address →</a>
-              <a href="/moving-to-texas/data" className="block underline underline-offset-4">Open the Relocation Data Center →</a>
+              <a href="/moving-to-texas/data" className="block underline underline-offset-4">See relocation data →</a>
               <a href="/browse/counties" className="block underline underline-offset-4">Compare Texas counties →</a>
             </div>
           </div>
@@ -87,12 +87,12 @@ export function CityRelocationComparison() {
               <FilterSelect label="Region" value={region} onChange={setRegion} options={regions} />
               <FilterSelect label="Setting" value={setting} onChange={setSetting} options={["urban", "suburban", "small-city"]} labels={settingLabels} />
               <FilterSelect label="Commute pattern" value={commute} onChange={setCommute} options={["core", "corridor", "regional"]} labels={commuteLabels} />
-              <FilterSelect label="Planning orientation" value={planningBand} onChange={setPlanningBand} options={["value", "balanced", "location-first"]} labels={planningLabels} />
+              <FilterSelect label="Planning priority" value={planningBand} onChange={setPlanningBand} options={["value", "balanced", "location-first"]} labels={planningLabels} />
             </div>
 
             <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
               <p className="text-sm text-muted-foreground" role="status">
-                Showing <strong className="text-foreground">{filtered.length}</strong> of {RELOCATION_PLACES.length} research places
+                Showing <strong className="text-foreground">{filtered.length}</strong> of {RELOCATION_PLACES.length} places
               </p>
               <button type="button" onClick={reset} className="text-sm font-semibold text-primary underline underline-offset-4">Reset filters</button>
             </div>

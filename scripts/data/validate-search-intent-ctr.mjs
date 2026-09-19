@@ -173,7 +173,7 @@ for (const required of [
   "if (entity.kind === 'agency') return `${entity.name}: Services`;",
   "if (entity.kind === 'agency') {",
   "const officialCopy = entity.officialUrl ? ' and a verified link to its official Texas website' : '';",
-  'Independent Texas Defined reference.',
+  'Independent Texas Defined guide.',
   'property search, appraisal records, exemptions and protests',
   "const officialCopy = entity.officialUrl ? ', plus a verified link to the official district website' : '';",
   "agency: 'Texas State Agency'",

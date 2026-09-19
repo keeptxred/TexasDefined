@@ -23,7 +23,7 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
   const title = mode === "counties" ? "The Texas county directory" : "The Texas city directory";
   const intro = mode === "counties"
     ? "Find a county, then continue to verified local property-tax guides, official offices and public records."
-    : "Find a Texas city by county and region, then open a verified city authority guide where available or continue to its county guide, relocation research center, salary comparisons and cost-of-living tools.";
+    : "Find a Texas city by county and region, then open its city guide where available or continue to the county guide, moving tools, salary comparisons and cost-of-living tools.";
   const searchLabel = mode === "counties" ? "county" : "city";
   const current = mode === "counties" ? "Counties" : "Cities";
 
@@ -48,11 +48,11 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
             {mode === "counties"
               ? results.counties.map((county, index) => (
                   <li id={countyAnchor(county.slug)} key={county.code} className={`border-b border-border py-7 sm:px-6 ${index % 3 === 0 ? "lg:pl-0" : ""} ${index % 3 !== 2 ? "lg:border-r" : ""}`}>
-                    <p className="eyebrow text-primary">County reference</p>
+                    <p className="eyebrow text-primary">County guide</p>
                     <h3 className="mt-3 font-display text-3xl leading-tight">{county.name}</h3>
-                    <p className="mt-3 text-sm leading-7 text-muted-foreground">County context and official references for {county.name}.</p>
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground">County context and official links for {county.name}.</p>
                     <div className="mt-5 flex flex-col items-start gap-3 text-sm">
-                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/$kind/$slug" params={{ kind: "county", slug: county.slug }}>Open county reference →</Link>
+                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/$kind/$slug" params={{ kind: "county", slug: county.slug }}>Open county guide →</Link>
                       <a className="inline-flex items-center gap-2 text-xs text-muted-foreground underline underline-offset-4" href={county.officialDirectoryUrl} target="_blank" rel="noreferrer noopener">Official county directory <ExternalLink className="h-3.5 w-3.5" aria-hidden /></a>
                     </div>
                   </li>
@@ -61,10 +61,10 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
                   <li id={cityAnchor(city.slug)} key={city.slug} className={`border-b border-border py-7 sm:px-6 ${index % 3 === 0 ? "lg:pl-0" : ""} ${index % 3 !== 2 ? "lg:border-r" : ""}`}>
                     <p className="eyebrow text-primary">{city.region}</p>
                     <h3 className="mt-3 font-display text-3xl leading-tight">{city.name}, Texas</h3>
-                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{CITY_AUTHORITY_SLUGS.has(city.slug) ? `${city.name} has a verified TexasDefined city authority guide with official municipal sourcing plus county, regional, relocation and nearby-place context.` : `${city.name} is in ${city.county} County. City detail pages are published only after local source verification; use the county authority guide, relocation research framework and statewide planning tools in the meantime.`}</p>
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{CITY_AUTHORITY_SLUGS.has(city.slug) ? `${city.name} has a Texas Defined city guide with official municipal sources, county and regional context, moving information and nearby places.` : `${city.name} is in ${city.county} County. Until a dedicated city guide is available, use the county guide and statewide moving tools for local context.`}</p>
                     <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3">
-                      {CITY_AUTHORITY_SLUGS.has(city.slug) ? <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/$kind/$slug" params={{ kind: "city", slug: city.slug }}>Open city reference →</Link> : null}
-                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/moving-to-texas">Relocation research →</Link>
+                      {CITY_AUTHORITY_SLUGS.has(city.slug) ? <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/$kind/$slug" params={{ kind: "city", slug: city.slug }}>Open city guide →</Link> : null}
+                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/moving-to-texas">Plan a move →</Link>
                       <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/$kind/$slug" params={{ kind: "county", slug: countySlugForCity(city.county) }}>Explore {city.county} County →</Link>
                       <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/texas-salary-comparison-by-city">Compare salary →</Link>
                       <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/texas-cost-of-living-calculator">Compare costs →</Link>
@@ -80,7 +80,7 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
           <p className="eyebrow text-primary">Keep planning</p>
           <div className="mt-4 flex flex-wrap gap-x-7 gap-y-3">
             <Link to="/moving-to-texas" className="eyebrow border-b border-primary pb-1 text-primary">Moving to Texas →</Link>
-            <Link to="/texas-data" className="eyebrow border-b border-primary pb-1 text-primary">Texas Data Desk →</Link>
+            <Link to="/texas-data" className="eyebrow border-b border-primary pb-1 text-primary">Texas facts & figures →</Link>
             <Link to="/property" className="eyebrow border-b border-primary pb-1 text-primary">Property & taxes →</Link>
             <Link to="/decide/financial-tools" className="eyebrow border-b border-primary pb-1 text-primary">Money & property tools →</Link>
             <Link to="/texas-utility-cost-calculator" className="eyebrow border-b border-primary pb-1 text-primary">Utility costs →</Link>

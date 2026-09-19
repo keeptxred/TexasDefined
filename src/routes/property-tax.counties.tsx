@@ -91,7 +91,7 @@ function CountyPropertyTaxDirectory() {
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">This is a source-backed comparison of selected county government rates from the dataset below. It is not a ranking of total property-tax burden and it does not treat missing counties as zero.</p>
           <div className="mt-6 overflow-x-auto border-y border-border">
             <table className="w-full min-w-[520px] text-left text-sm">
-              <thead><tr className="border-b border-border bg-surface text-[0.68rem] uppercase tracking-[0.12em] text-muted-foreground"><th className="px-4 py-3">County</th><th className="px-4 py-3">County government rate</th><th className="px-4 py-3">Coverage year</th><th className="px-4 py-3">Local reference</th></tr></thead>
+              <thead><tr className="border-b border-border bg-surface text-[0.68rem] uppercase tracking-[0.12em] text-muted-foreground"><th className="px-4 py-3">County</th><th className="px-4 py-3">County government rate</th><th className="px-4 py-3">Coverage year</th><th className="px-4 py-3">Local guide</th></tr></thead>
               <tbody className="divide-y divide-border">{countyRateDataset.rows.map((row) => {
                 const slug = row.label.replace(/ County$/, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
                 const verified = verifiedPropertySlugs.has(slug);
@@ -137,7 +137,7 @@ function CountyPropertyTaxDirectory() {
         </section>
 
         <section className="py-10">
-          <div className="border-b border-border pb-4"><p className="eyebrow text-primary">All 254 counties</p><h2 className="mt-2 font-display text-4xl">Browse county references and open a calculator</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Counties without a verified local property-tax guide link to their substantive county reference page instead of an incomplete tax placeholder. Every county also gets a calculator path: a dedicated major-county page where available, otherwise the statewide estimator with that county preselected.</p></div>
+          <div className="border-b border-border pb-4"><p className="eyebrow text-primary">All 254 counties</p><h2 className="mt-2 font-display text-4xl">Browse county guides and open a calculator</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Counties without a local property-tax guide link to the main county guide instead of an incomplete tax placeholder. Every county also gets a calculator path: a dedicated major-county page where available, otherwise the statewide estimator with that county preselected.</p></div>
           <ul className="grid sm:grid-cols-2 lg:grid-cols-4">
             {TEXAS_COUNTIES.map((county, index) => {
               const calculatorTarget = countyPropertyTaxCalculatorTarget(county.slug);
@@ -146,7 +146,7 @@ function CountyPropertyTaxDirectory() {
                   <div className="h-full py-5 sm:px-4">
                     {verifiedPropertySlugs.has(county.slug)
                       ? <Link to="/property-tax/county/$county" params={{ county: county.slug }} className="group block"><span className="text-[0.68rem] uppercase tracking-[0.14em] text-primary">Verified property-tax guide</span><strong className="mt-1 block font-display text-xl leading-tight group-hover:text-primary">{county.name}</strong><span className="mt-3 block text-sm font-semibold">Local tax resources →</span></Link>
-                      : <Link to="/county/$slug" params={{ slug: county.slug }} className="group block"><span className="text-[0.68rem] uppercase tracking-[0.14em] text-muted-foreground">County reference</span><strong className="mt-1 block font-display text-xl leading-tight group-hover:text-primary">{county.name}</strong><span className="mt-3 block text-sm font-semibold">County guide →</span></Link>}
+                      : <Link to="/county/$slug" params={{ slug: county.slug }} className="group block"><span className="text-[0.68rem] uppercase tracking-[0.14em] text-muted-foreground">County guide</span><strong className="mt-1 block font-display text-xl leading-tight group-hover:text-primary">{county.name}</strong><span className="mt-3 block text-sm font-semibold">County guide →</span></Link>}
                     <a href={calculatorTarget.href} rel={calculatorTarget.follow ? undefined : 'nofollow'} className="mt-4 inline-block border-t border-border pt-3 text-sm font-semibold text-primary">Calculate {county.name} taxes →</a>
                   </div>
                 </li>

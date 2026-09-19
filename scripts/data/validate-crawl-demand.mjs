@@ -227,8 +227,8 @@ for (const marker of [
 for (const marker of [
   'verifiedPropertySlugs',
   'const hasVerifiedPropertyGuide = verified.has(county.slug)',
-  'Open verified property guide',
-  'Open county reference',
+  'Open property-tax guide',
+  'Open county guide',
 ]) {
   if (!countyPropertyDirectory.includes(marker)) failures.push(`County property directory verification-aware link contract missing: ${marker}`);
 }

@@ -54,7 +54,7 @@ for (const target of ['/moving-to-texas','/property','/decide/financial-tools','
 for (const target of ['/texas-salary-comparison-by-city','/texas-cost-of-living-calculator','/texas-data']) {
   if (!directory.includes(`to=\"${target}\"`)) failures.push(`City records must expose ${target}.`);
 }
-if (!directory.includes('Relocation research →')) failures.push('City directory cards must expose relocation research.');
+if (!directory.includes('Plan a move →')) failures.push('City directory cards must expose relocation research.');
 
 for (const target of ['/texas-cost-of-living-calculator','/texas-salary-comparison-by-city','/texas-moving-cost-calculator','/texas-utility-cost-calculator','/texas-home-insurance-calculator','/browse/counties','/browse/cities','/moving-to-texas']) {
   if (!moneyHub.includes(target)) failures.push(`Money & Property hub must retain ${target}.`);

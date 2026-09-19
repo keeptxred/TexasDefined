@@ -19,7 +19,7 @@ export function TexasCountyPropertyDirectory({ verifiedPropertySlugs }: { verifi
         current="County property-tax guides"
         eyebrow="All 254 counties"
         title="The Texas county property guide"
-        description="Find any Texas county. Verified local property-tax guides open directly; counties still awaiting current local-source verification continue to the substantive county reference page."
+        description="Find any Texas county. Local property-tax guides open directly when available; otherwise, use the main county guide while the local tax research is completed."
         tone="surface"
       />
 
@@ -41,14 +41,14 @@ export function TexasCountyPropertyDirectory({ verifiedPropertySlugs }: { verifi
               const hasVerifiedPropertyGuide = verified.has(county.slug);
               return (
                 <li id={countyPropertyAnchor(county.slug)} key={county.code} className={`border-b border-border py-7 sm:px-6 ${index % 3 === 0 ? 'lg:pl-0' : ''} ${index % 3 !== 2 ? 'lg:border-r' : ''}`}>
-                  <p className="eyebrow text-primary">{hasVerifiedPropertyGuide ? 'Verified property guide' : 'County reference'}</p>
+                  <p className="eyebrow text-primary">{hasVerifiedPropertyGuide ? 'Property-tax guide' : 'County guide'}</p>
                   <h3 className="mt-3 font-display text-3xl leading-tight">{county.name}</h3>
-                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{hasVerifiedPropertyGuide ? 'Appraisal records, exemptions, protest steps, taxing units, calculators and official local resources.' : 'Local property-tax guide verification is still in progress. Use the county reference and official directory for current local information.'}</p>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{hasVerifiedPropertyGuide ? 'Appraisal records, exemptions, protest steps, taxing units, calculators and official local resources.' : 'A full local property-tax guide is not available yet. Use the county guide and official directory for current local information.'}</p>
                   <div className="mt-5 flex flex-col items-start gap-3">
                     {hasVerifiedPropertyGuide ? (
-                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/property-tax/county/$county" params={{ county: county.slug }}>Open verified property guide →</Link>
+                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/property-tax/county/$county" params={{ county: county.slug }}>Open property-tax guide →</Link>
                     ) : (
-                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/$kind/$slug" params={{ kind: 'county', slug: county.slug }}>Open county reference →</Link>
+                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/$kind/$slug" params={{ kind: 'county', slug: county.slug }}>Open county guide →</Link>
                     )}
                     <a className="inline-flex items-center gap-2 text-xs text-muted-foreground underline underline-offset-4" href={county.officialDirectoryUrl} target="_blank" rel="noreferrer noopener">Official county directory <ExternalLink className="h-3.5 w-3.5" aria-hidden /></a>
                   </div>

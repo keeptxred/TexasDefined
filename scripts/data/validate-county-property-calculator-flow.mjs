@@ -67,7 +67,7 @@ for (const marker of [
   'countyPropertyTaxCalculatorTarget(county.slug)',
   'Calculate {county.name} taxes →',
   "rel={calculatorTarget.follow ? undefined : 'nofollow'}",
-  'Counties without a verified local property-tax guide still link to their substantive county reference page.',
+  'Counties without a local property-tax guide link to the main county guide instead of an incomplete tax placeholder.',
   'verifiedPropertyCounties = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)',
 ]) {
   if (!countyHub.includes(marker)) failures.push(`County property-tax directory flow missing ${marker}`);

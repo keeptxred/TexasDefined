@@ -119,7 +119,7 @@ for (const feature of [
   ': <Link to="/county/$slug"',
   'to="/county/$slug"',
   'Verified county property-tax guides',
-  'Counties without a verified local property-tax guide link to their substantive county reference page',
+  'Counties without a local property-tax guide link to the main county guide',
 ]) {
   if (!directoryRoute.includes(feature)) failures.push(`County property directory crawl-demand protection missing ${feature}`);
 }

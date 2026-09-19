@@ -91,13 +91,13 @@ function searchSnippetDescription(entity: TexasEntityRecord) {
     const topics = entity.tags?.slice(0, 3).join(', ');
     const topicCopy = topics ? `Find information on ${topics}` : 'See what the agency handles';
     const officialCopy = entity.officialUrl ? ' and a verified link to its official Texas website' : '';
-    return `${entity.name}: ${topicCopy}${officialCopy}. Independent Texas Defined reference.`;
+    return `${entity.name}: ${topicCopy}${officialCopy}. Independent Texas Defined guide.`;
   }
   if (entity.kind === 'appraisal-district' && entity.countySlug) {
     const countyName = `${title(entity.countySlug)} County`;
     const officialCopy = entity.officialUrl ? ', plus a verified link to the official district website' : '';
-    if (entity.description) return `Find ${countyName} Appraisal District information for property search, appraisal records, exemptions and protests, with verified office details${officialCopy}. Independent Texas Defined reference.`;
-    return `${countyName} Appraisal District reference from Texas Defined. Office and property-appraisal details are published as authoritative sources are verified.`;
+    if (entity.description) return `Find ${countyName} Appraisal District information for property search, appraisal records, exemptions and protests, with verified office details${officialCopy}. Independent Texas Defined guide.`;
+    return `${countyName} Appraisal District guide from Texas Defined. Office and property-appraisal details are published as authoritative sources are verified.`;
   }
   return pageDescription(entity);
 }
@@ -105,11 +105,11 @@ function searchSnippetDescription(entity: TexasEntityRecord) {
 function pageDescription(entity: TexasEntityRecord) {
   if (entity.description) return entity.description;
   if (entity.kind === 'county') return `${entity.name} county guide from Texas Defined, combining verified geography, communities, Census facts and official local resources.`;
-  if (entity.kind === 'appraisal-district') return `${entity.name} property appraisal reference from Texas Defined. Office details and service links are published only as they are verified against authoritative sources.`;
-  if (entity.kind === 'tax-office') return `${entity.name} county tax office reference from Texas Defined. Taxpayer and vehicle-service details are published only after source verification.`;
-  if (entity.kind === 'county-clerk') return `${entity.name} county clerk reference from Texas Defined. Public-service details are added after they are checked against authoritative local sources.`;
-  if (entity.kind === 'dps-office') return `${entity.name} public-service reference from Texas Defined. Location and service information is added only after it is verified.`;
-  return `${entity.name} is part of the Texas Defined reference guide. We are adding verified details before expanding this page into a full guide.`;
+  if (entity.kind === 'appraisal-district') return `${entity.name} property appraisal guide from Texas Defined. Office details and service links are published only as they are verified against authoritative sources.`;
+  if (entity.kind === 'tax-office') return `${entity.name} county tax office guide from Texas Defined. Taxpayer and vehicle-service details are published only after source verification.`;
+  if (entity.kind === 'county-clerk') return `${entity.name} county clerk guide from Texas Defined. Public-service details are added after they are checked against authoritative local sources.`;
+  if (entity.kind === 'dps-office') return `${entity.name} public-service guide from Texas Defined. Location and service information is added only after it is verified.`;
+  return `${entity.name} is part of the Texas Defined guide collection. We are adding checked details before expanding this page.`;
 }
 
 function title(value: string) { return value.replaceAll('-', ' ').replace(/\b\w/g, (character) => character.toUpperCase()); }

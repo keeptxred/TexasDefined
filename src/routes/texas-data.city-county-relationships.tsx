@@ -5,7 +5,7 @@ import { Container } from '@/components/layout/Container';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/texas-data/city-county-relationships';
-const description = 'Browse the current Texas Defined city directory mapped to counties and regions, with direct links to canonical city and county reference pages.';
+const description = 'Browse the current Texas Defined city directory mapped to counties and regions, with direct links to city and county guides.';
 const officialCountyDirectory = 'https://www.texas.gov/texas-county-websites.html';
 
 export const Route = createFileRoute('/texas-data/city-county-relationships')({
@@ -85,7 +85,7 @@ function CityCountyRelationshipsPage() {
 
       <div className="overflow-x-auto border-y border-border">
         <table className="w-full min-w-[720px] text-left text-sm">
-          <thead><tr className="border-b border-border bg-surface text-[0.68rem] uppercase tracking-[0.12em] text-muted-foreground"><th className="px-4 py-3">City</th><th className="px-4 py-3">County</th><th className="px-4 py-3">Region</th><th className="px-4 py-3">City reference</th><th className="px-4 py-3">County reference</th></tr></thead>
+          <thead><tr className="border-b border-border bg-surface text-[0.68rem] uppercase tracking-[0.12em] text-muted-foreground"><th className="px-4 py-3">City</th><th className="px-4 py-3">County</th><th className="px-4 py-3">Region</th><th className="px-4 py-3">City guide</th><th className="px-4 py-3">County guide</th></tr></thead>
           <tbody className="divide-y divide-border">{grouped.map(({ city, county }) => <tr key={city.slug}><td className="px-4 py-4 font-display text-lg font-semibold">{city.name}</td><td className="px-4 py-4">{city.county} County</td><td className="px-4 py-4">{city.region}</td><td className="px-4 py-4"><Link to="/$kind/$slug" params={{ kind: 'city', slug: city.slug }} className="font-semibold text-primary hover:underline">City guide →</Link></td><td className="px-4 py-4">{county ? <Link to="/$kind/$slug" params={{ kind: 'county', slug: county.slug }} className="font-semibold text-primary hover:underline">County guide →</Link> : <span className="text-muted-foreground">Registry match pending</span>}</td></tr>)}</tbody>
         </table>
       </div>
