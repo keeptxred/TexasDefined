@@ -12,6 +12,8 @@ type FootballProgram = {
   districtName?: string;
   countyName?: string;
   city?: string;
+  teaSchoolProfileUrl?: string;
+  teaDistrictProfileUrl?: string;
   uilEnrollment?: number;
   sourceUrl: string;
   recentHistory?: {
@@ -245,6 +247,8 @@ export function HighSchoolFootballLookup({
               {program.recentHistory && <RecentFinals history={program.recentHistory} />}
               <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold">
                 <a href={program.profilePath} className="text-primary underline underline-offset-4">School profile, enrollment & mascot →</a>
+                {program.teaSchoolProfileUrl && <a href={program.teaSchoolProfileUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">TEA school profile ↗</a>}
+                {program.teaDistrictProfileUrl && <a href={program.teaDistrictProfileUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">TEA district profile ↗</a>}
                 <a href={program.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official UIL alignment ↗</a>
               </div>
             </article>)}
