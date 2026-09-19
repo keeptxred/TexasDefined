@@ -41,6 +41,7 @@ const INTENT_GROUPS = [
     body: "Follow bird migration, refuge habitat, public lands and the ecosystems that make each region distinct.",
     links: [
       { to: "/texas-birds-guide", label: "Texas birds guide" },
+      { to: "/explore/wildlife", label: "Wildlife refuges & destinations" },
       { to: "/explore/outdoors", label: "Wildlife & outdoors" },
       { to: "/explore/state-parks", label: "State parks" },
       { to: "/explore/beaches-coast", label: "Coastal habitat" },
