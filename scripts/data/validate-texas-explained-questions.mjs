@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 
-// Guard the 133-answer authority layer, native lazy route split, and no-thin-child-route contract on every authority PR change.
+// Guard the 134-answer authority layer, native lazy route split, and no-thin-child-route contract on every authority PR change.
 const dataPath = 'src/data/texas-explained-questions.ts';
 const componentPath = 'src/components/editorial/TexasExplainedQuestionsPage.tsx';
 const pagePath = 'src/components/editorial/TexasExplainedPage.tsx';
@@ -25,7 +25,7 @@ const parentCountMatch = parent.match(/const questionCount = (\d+);/);
 const pageCountMatch = page.match(/const questionCount = (\d+);/);
 const failures = [];
 
-if (questionCount !== 133) failures.push(`Expected exactly 133 questions; found ${questionCount}.`);
+if (questionCount !== 134) failures.push(`Expected exactly 134 questions; found ${questionCount}.`);
 if (answerCount !== questionCount) failures.push(`Every question must have an answer; found ${answerCount} answers for ${questionCount} questions.`);
 if (categoryCount < 8) failures.push(`Expected broad topical coverage across at least 8 categories; found ${categoryCount}.`);
 if (!parentCountMatch || Number(parentCountMatch[1]) !== questionCount) failures.push(`Texas Explained route count must match the ${questionCount}-question library.`);
@@ -37,6 +37,7 @@ if (fs.existsSync(retiredChildRoutePath)) failures.push('Do not restore a dedica
 const requiredQuestions = [
   'Why are Texas roads called FM and RM roads?',
   'What is a MUD district in Texas?',
+  'Why is homecoming such a big deal in Texas?',
   'Why do Texans wear homecoming mums?',
   'What is a kolache versus a klobasnek?',
   'Why does Texas have so many frontage roads?',
@@ -63,7 +64,7 @@ for (const question of requiredQuestions) {
 
 for (const marker of [
   'createFileRoute("/texas-explained")',
-  'const questionCount = 133;',
+  'const questionCount = 134;',
   'buildEditorialCollectionHead',
   'import("@/data/queries")',
   'import("@/components/editorial/TexasExplainedPage")',
