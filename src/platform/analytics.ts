@@ -205,9 +205,19 @@ export function installTexasDefinedAnalytics() {
 
     const commercialPartner = anchor.dataset.commercialPartner;
     if (commercialPartner) {
+      const entityKind = anchor.dataset.commercialPlacement || 'unspecified';
+      if (anchor.dataset.commercialImpressionRecorded !== '1') {
+        anchor.dataset.commercialImpressionRecorded = '1';
+        trackTexasDefinedOutcome('partner_referral_shown', {
+          resourceId: commercialPartner,
+          entityKind,
+          destination: anchor.href,
+        });
+        observer?.unobserve(anchor);
+      }
       trackTexasDefinedOutcome('partner_referral_clicked', {
         resourceId: commercialPartner,
-        entityKind: anchor.dataset.commercialPlacement || 'unspecified',
+        entityKind,
         destination: anchor.href,
       });
       return;
