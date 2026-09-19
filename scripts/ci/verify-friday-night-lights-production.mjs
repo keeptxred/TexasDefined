@@ -102,7 +102,7 @@ const hubNeedles = [
   'Friday Night Lights, Defined', 'CollectionPage', 'ItemList', 'BreadcrumbList',
   '/article/texas-high-school-football-newcomers', '/article/texas-high-school-football-friday-night-lights',
   '/texas-homecoming-mums', '/sports-venues/high-school-football', '/find-my-school-district', '/texas-tailgating-guide',
-  '/texas-high-school-football-teams', classificationsPath, playoffsPath, sixManPath,
+  '/texas-high-school-football-teams', districtDirectoryPath, classificationsPath, playoffsPath, sixManPath,
 ];
 
 await fetchVerified(hubPath, 'hub', (body) => {
@@ -167,6 +167,7 @@ await fetchVerified(classificationsPath, 'football classifications', (body) => {
     'Prairie View Interscholastic League',
     'A quick glossary',
     '/texas-high-school-football-teams',
+    districtDirectoryPath,
   ]) requireNeedle(body, needle, 'football classifications');
   if (/\bnoindex\b/i.test(body)) throw new Error('football classifications unexpectedly contains noindex');
 });
