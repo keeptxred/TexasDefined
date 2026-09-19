@@ -311,7 +311,14 @@
     button.className = "td-stay-affiliate-jump";
     button.textContent = exactPropertyFirst ? "View recommended stays" : "Find places to stay";
     button.setAttribute("aria-label", exactPropertyFirst ? "View recommended stays near this destination" : "Find places to stay near this destination");
-    button.addEventListener("click", () => activateExistingStaySearch(surface));
+    button.addEventListener("click", () => {
+      if (exactPropertyFirst) {
+        window.dispatchEvent(new CustomEvent("texasdefined:stay-recommendations-opened", {
+          detail: { placement: "stay-recommendations-jump" },
+        }));
+      }
+      activateExistingStaySearch(surface);
+    });
     headingRow.appendChild(button);
   }
 
