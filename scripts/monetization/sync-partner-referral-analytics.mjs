@@ -9,6 +9,7 @@ const UPSERT_CHUNK_SIZE = 400;
 const HEARTBEAT_PARTNER = '__pipeline__';
 const HEARTBEAT_PLACEMENT = 'sync-heartbeat';
 const HEARTBEAT_PAGE_PATH = '/admin/partner-referrals';
+const STAY_RECOMMENDATIONS_PARTNER = 'stay-recommendations';
 const HEARTBEAT_DESTINATION = 'https://texasdefined.com/admin/partner-referrals';
 const FALLBACK_STALE_MINUTES_ENV = 'PARTNER_REFERRAL_SYNC_IF_STALE_MINUTES';
 
@@ -75,7 +76,7 @@ async function queryCloudflare(accountId, apiToken) {
   WHERE timestamp > NOW() - INTERVAL '${WINDOW_DAYS}' DAY
     AND (
       blob1 IN ('partner_referral_clicked', 'partner_referral_shown')
-      OR (blob1 = 'next_step_selected' AND blob2 = 'expedia-search')
+      OR (blob1 = 'next_step_selected' AND blob2 IN ('expedia-search', 'stay-recommendations'))
     )
     AND blob10 != 'ci-probe'
     AND blob2 != ''
@@ -114,10 +115,10 @@ function normalizeRows(rows) {
     const partner = clean(row.partner, 120);
     const placement = clean(row.placement || 'unspecified', 160) || 'unspecified';
     const pagePath = validPath(row.pagePath);
-    const destinationUrl = validHttps(row.destinationUrl);
+    const destinationUrl = partner === STAY_RECOMMENDATIONS_PARTNER ? validPath(row.destinationUrl) : validHttps(row.destinationUrl);
     const eventCount = asCount(row.eventCount);
     const supportedEvent = ['partner_referral_clicked', 'partner_referral_shown'].includes(eventName)
-      || (eventName === 'next_step_selected' && partner === 'expedia-search');
+      || (eventName === 'next_step_selected' && ['expedia-search', STAY_RECOMMENDATIONS_PARTNER].includes(partner));
     if (!metricDate || !supportedEvent || !partner || !pagePath || !destinationUrl || eventCount <= 0) continue;
 
     const destinationHash = hash(destinationUrl);
@@ -261,6 +262,7 @@ await upsertRows(supabaseUrl, serviceRoleKey, [heartbeat]);
 const retentionCutoff = await pruneOldRows(supabaseUrl, serviceRoleKey);
 
 const searchStarts = rows.filter((row) => row.partner === 'expedia-search').reduce((sum, row) => sum + row.click_count, 0);
-const clicks = rows.filter((row) => row.partner !== 'expedia-search').reduce((sum, row) => sum + row.click_count, 0);
-const impressions = rows.filter((row) => row.partner !== 'expedia-search').reduce((sum, row) => sum + row.impression_count, 0);
-console.log(`Partner referral analytics sync complete: ${rows.length} aggregates covering ${clicks} non-CI referral clicks, ${impressions} non-CI CTA impressions and ${searchStarts} Expedia search starts across the last ${WINDOW_DAYS} days; successful pipeline heartbeat ${heartbeat.synced_at}; retained metric dates >= ${retentionCutoff} (${RETENTION_DAYS}-day retention).`);
+const recommendationOpens = rows.filter((row) => row.partner === STAY_RECOMMENDATIONS_PARTNER).reduce((sum, row) => sum + row.click_count, 0);
+const clicks = rows.filter((row) => !['expedia-search', STAY_RECOMMENDATIONS_PARTNER].includes(row.partner)).reduce((sum, row) => sum + row.click_count, 0);
+const impressions = rows.filter((row) => !['expedia-search', STAY_RECOMMENDATIONS_PARTNER].includes(row.partner)).reduce((sum, row) => sum + row.impression_count, 0);
+console.log(`Partner referral analytics sync complete: ${rows.length} aggregates covering ${clicks} non-CI referral clicks, ${impressions} non-CI CTA impressions, ${recommendationOpens} recommended-stay opens and ${searchStarts} Expedia search starts across the last ${WINDOW_DAYS} days; successful pipeline heartbeat ${heartbeat.synced_at}; retained metric dates >= ${retentionCutoff} (${RETENTION_DAYS}-day retention).`);
