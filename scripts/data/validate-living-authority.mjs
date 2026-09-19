@@ -214,6 +214,16 @@ for (const guidePath of [
   if (!articleBody.includes(`\"${guidePath}\"`)) failures.push(`Article body must lazy-gate metro relocation authority on ${guidePath}.`);
 }
 
+for (const protectedRoute of [
+  '/relocation/austin-vs-san-antonio',
+  '/relocation/dallas-vs-houston',
+  '/relocation/hill-country-vs-east-texas',
+  '/relocation/best-texas-cities-for-families',
+  '/relocation/best-texas-cities-for-retirees',
+]) {
+  if (!articleBody.includes(`\"${protectedRoute}\"`)) failures.push(`Article body must retain protected relocation authority route literal ${protectedRoute}.`);
+}
+
 for (const requirement of [
   'lazy(() => import("@/components/relocation/MetroRelocationAuthority")',
   'useRouterState',
