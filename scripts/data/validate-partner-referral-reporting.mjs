@@ -13,6 +13,7 @@ const route = read('src/routes/admin.partner-referrals.tsx');
 const lazyRoute = read('src/routes/admin.partner-referrals.lazy.tsx');
 const admin = read('src/routes/admin.tsx');
 const collector = read('src/lib/texas-defined-outcome-analytics.server.ts');
+const analytics = read('src/platform/analytics.ts');
 const errors = [];
 
 function expect(source, needle, label) {
