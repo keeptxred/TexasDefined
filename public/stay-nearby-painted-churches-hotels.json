@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-09-19",
+  "policy": {
+    "maxCards": 3,
+    "scope": "painted-churches-schulenburg",
+    "imageRule": "No property image renders for this cohort until a rights-qualified exact-property image is separately governed.",
+    "propertyLinkRule": "Only verified exact-property Hotels.com destinations wrapped with TexasDefined CJ publisher 101876465 may render as property links."
+  },
+  "properties": [
+    {
+      "id": "holiday-inn-express-schulenburg",
+      "name": "Holiday Inn Express Hotel & Suites Schulenburg by IHG",
+      "city": "Schulenburg",
+      "area": "I-10 / Highway 77",
+      "neighborhoods": [
+        "schulenburg",
+        "i-10"
+      ],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [
+        {
+          "provider": "hotels.com",
+          "affiliateUrl": "https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho439556/holiday-inn-express-hotel-suites-schulenburg-an-ihg-hotel-schulenburg-united-states-of-america/",
+          "verified": true,
+          "ctaLabel": "View on Hotels.com"
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "destination",
+          "key": "painted-churches",
+          "rank": 1,
+          "geographicContext": "Schulenburg / I-10 and Highway 77",
+          "proximity": "IHG explicitly promotes this Schulenburg hotel as a base for touring Texas' Painted Churches.",
+          "differentiator": "A conventional hotel base with free breakfast, Wi-Fi and group-friendly amenities for visitors driving the rural church circuit.",
+          "source": {
+            "url": "https://www.ihg.com/holidayinnexpress/hotels/us/en/schulenburg/vctsc/hoteldetail",
+            "verifiedAt": "2026-09-19"
+          }
+        }
+      ]
+    },
+    {
+      "id": "comfort-inn-suites-schulenburg",
+      "name": "Comfort Inn & Suites Schulenburg",
+      "city": "Schulenburg",
+      "area": "I-10 / Huser Boulevard",
+      "neighborhoods": [
+        "schulenburg",
+        "i-10"
+      ],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [
+        {
+          "provider": "hotels.com",
+          "affiliateUrl": "https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho499127/best-western-plus-schulenburg-inn-suites-schulenburg-united-states-of-america/",
+          "verified": true,
+          "ctaLabel": "View on Hotels.com"
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "destination",
+          "key": "painted-churches",
+          "rank": 2,
+          "geographicContext": "Schulenburg / I-10",
+          "proximity": "Choice Hotels places this property right off I-10 in Schulenburg.",
+          "differentiator": "A practical highway base with free hot breakfast, Wi-Fi and a fitness center for a driving-oriented Painted Churches visit.",
+          "source": {
+            "url": "https://www.choicehotels.com/texas/schulenburg/comfort-inn-hotels/txp82",
+            "verifiedAt": "2026-09-19"
+          }
+        }
+      ]
+    },
+    {
+      "id": "americas-best-value-inn-schulenburg",
+      "name": "Americas Best Value Inn Schulenburg",
+      "city": "Schulenburg",
+      "area": "I-10 / U.S. 77",
+      "neighborhoods": [
+        "schulenburg",
+        "i-10"
+      ],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [
+        {
+          "provider": "hotels.com",
+          "affiliateUrl": "https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho467717/americas-best-value-inn-schulenburg-schulenburg-united-states-of-america/",
+          "verified": true,
+          "ctaLabel": "View on Hotels.com"
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "destination",
+          "key": "painted-churches",
+          "rank": 3,
+          "geographicContext": "Schulenburg / I-10 and U.S. 77",
+          "proximity": "Sonesta lists the Painted Churches Tour among this Schulenburg hotel's nearby attractions.",
+          "differentiator": "A budget-oriented interstate option with breakfast, Wi-Fi and seasonal outdoor pool access.",
+          "source": {
+            "url": "https://www.sonesta.com/americas-best-value-inn/tx/schulenburg/americas-best-value-inn-schulenburg",
+            "verifiedAt": "2026-09-19"
+          }
+        }
+      ]
+    }
+  ]
+}
