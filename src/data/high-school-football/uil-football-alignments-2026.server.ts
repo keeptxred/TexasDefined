@@ -1,0 +1,293 @@
+export type UilFootballProgram = {
+  schoolName: string;
+  classification: '1A' | '2A' | '3A' | '4A' | '5A' | '6A';
+  division: 1 | 2 | null;
+  district: number;
+  footballType: '6-Man' | '11-Man';
+  alignmentCycle: '2026-28';
+  sourceUrl: string;
+};
+
+type AlignmentBlock = {
+  classification: UilFootballProgram['classification'];
+  division: 1 | 2 | null;
+  footballType: UilFootballProgram['footballType'];
+  sourceUrl: string;
+  districts: readonly string[];
+};
+
+const ALIGNMENTS: readonly AlignmentBlock[] = [
+  { classification:'1A', division:1, footballType:'6-Man', sourceUrl:'https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf', districts:[
+    'Boys Ranch;Booker;Claude;White Deer;Wildorado',
+    'Earth Springlake;Nazareth;Whiteface;Whitharral',
+    'Happy;Kress;Petersburg;Silverton',
+    'Aspermont;Hermleigh;Jayton;Roby;Rotan;Spur',
+    "Ackerly Sands;Borden County;Ira;Lamesa Klondike;O'Donnell;Westbrook",
+    'Fort Hancock;Garden City;Imperial Buena Vista;Lenorah Grady;Rankin',
+    'Baird;Bronte;Paint Rock;Robert Lee;Roscoe Highland;Santa Anna',
+    'Eden;Menard;Mertzon Irion County;Sterling City;Veribest;Water Valley',
+    'Bryson;Newcastle;Perrin-Whitt;Vernon Northside',
+    'Gordon;Gorman;Lingleville;May;Ranger',
+    'Avalon;Bluff Dale;Blum;Covington;Milford',
+    'Campbell;Fruitvale;Saint Jo;Savoy',
+    'Burkeville;Chester;Gilmer Union Hill;Laird Hill Leveretts Chapel',
+    'Abbott;Aquilla;Coolidge;Gholson;Penelope',
+    'Evant;Jonesboro;Lometa;Oglesby',
+    'Barksdale Nueces Canyon;Bruni;Knippa;Leakey;Medina;Prairie Lea',
+  ]},
+  { classification:'1A', division:2, footballType:'6-Man', sourceUrl:'https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf', districts:[
+    'Follett;Groom;Hedley;Lefors;McLean;Miami',
+    'Chillicothe;Crowell;Guthrie;Matador Motley County;Paducah;Turkey Valley',
+    'Amherst;Anton;Cotton Center;Hart;Lazbuddie;Lorenzo',
+    'Loop;Meadow;Southland;Welch Dawson;Wellman-Union;Wilson',
+    'Dell City;Fort Davis;Marfa;Sierra Blanca',
+    'Balmorhea;Grandfalls-Royalty;Rocksprings;Sanderson',
+    'Blackwell;Loraine;Olfen;Trent;Valera Panther Creek',
+    'Brookesmith;Cherokee;Lohn;Richland Springs;Rochelle',
+    'Benjamin;Haskell Paint Creek;Knox City;Lueders-Avoca;Rule',
+    'Bowie Gold-Burg;Forestburg;Harrold;Throckmorton;Woodson',
+    'Moran;Rising Star;Sidney;Strawn',
+    'Blanket;Gustine;Mullin;Priddy;Zephyr',
+    'Cranfills Gap;Iredell;Kopperl;Morgan;Three Way School;Walnut Springs',
+    'Bynum;Ladonia Fannindel;Mount Calm;Oakwood;Trinidad',
+    'Apple Springs;Buckholts;Calvert;High Island',
+    'Benavides;Pawnee;Runge;San Perlita',
+  ]},
+  { classification:'2A', division:1, footballType:'11-Man', sourceUrl:'https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf', districts:[
+    'Amarillo Highland Park;Panhandle;Sanford-Fritch;Spearman;Sunray',
+    'Farwell;Floydada;Hale Center;Olton;Tulia',
+    'Abernathy;New Deal;New Home;Post;Sundown',
+    'Ballinger;Big Lake Reagan Co.;Christoval;Colorado City Colorado;Forsan;Ozona;Sonora',
+    'Abilene Texas Leadership;Anson;Cisco;De Leon;Hawley;Hico',
+    'Alvord;Chico;Muenster;Nocona;Olney;Tioga',
+    'Bangs;Brady;Coleman;Johnson City LBJ;Mason;San Saba',
+    'Axtell;Bosqueville;Dawson;Italy;Itasca;Riesel;Valley Mills',
+    'Bogata Rivercrest;Cooper;Honey Grove;Tom Bean;Trenton;Whitewright;Wolfe City',
+    'Alba-Golden;Cayuga;Como-Pickton;Frankston;Hawkins;Kerens;Price Carlisle',
+    'Beckville;Elysian Fields;Gladewater Union Grove;Harleton;Omaha Pewitt;Ore City;Waskom',
+    'Garrison;Hemphill;Joaquin;San Augustine;Shelbyville;Timpson',
+    'Bruceville-Eddy;Granger;Hearne;Marlin;Moody;Rosebud-Lott;Thorndale',
+    'Centerville;Corrigan-Camden;Groveton;Iola;Jewett Leon;Lovelady;Normangee',
+    'Bloomington;Danbury;Flatonia;Ganado;Kenedy;Shiner;Weimar',
+    'Banquete;Dilley;Freer;Monte Alto;Premont;Refugio;Skidmore-Tynan;Taft',
+  ]},
+  { classification:'2A', division:2, footballType:'11-Man', sourceUrl:'https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf', districts:[
+    'Bovina;Gruver;Stinnett West Texas;Stratford;Vega',
+    'Morton;Plains;Ropes;Seagraves;Smyer;Sudan',
+    'Lockney;Pathway Academy;Roscoe Collegiate;Tahoka;Crosbyton;Ralls',
+    'Eldorado;McCamey;Van Horn;Wink;Iraan',
+    'Clarendon;Memphis;Quanah;Wellington;Wheeler;Shamrock',
+    'Archer City;Electra;Haskell;Munday;Petrolia;Seymour;Windthorst',
+    'Albany;Cross Plains;Goldthwaite;Hamlin;Miles;Stamford;Winters',
+    'Crawford;Frost;Hubbard;Mart;Meridian;Santo;Wortham',
+    'Celeste;Collinsville;Cumby;Era;Lindsay;Quinlan Boles',
+    'Big Sandy;Clarksville;Detroit;Linden-Kildare;Maud;Simms Bowie',
+    'Alto;Cushing;Grapeland;Malakoff Cross Roads;Mount Enterprise;Overton;Tenaha',
+    'Colmesneil;Deweyville;Evadale;Sabine Pass;Saratoga West Hardin;West Sabine;Hull-Daisetta',
+    'Bartlett;Bremond;Burton;Chilton;Holland;Milano;Snook;Somerville',
+    "Brackettville Brackett;Center Point;Harper;Junction;La Pryor;Sabinal;D'Hanis",
+    'Charlotte;Falls City;Louise;Pettus;Three Rivers;Yorktown',
+    'Agua Dulce;Ben Bolt-Palito Blanco;La Villa;Riviera Kaufer;Santa Maria;Woodsboro',
+  ]},
+  { classification:'3A', division:1, footballType:'11-Man', sourceUrl:'https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf', districts:[
+    'Brownfield;Bushland;Dalhart;Denver City;Shallowater',
+    'Clyde;Kermit;Lamesa;Odessa Compass Academy;Sweetwater;Tuscola Jim Ned',
+    'Early;Ingram Moore;Llano;San Angelo Texas Leadership;Wall',
+    'Bowie;Boyd;Paradise;Peaster;Vernon',
+    'Dallas A+;Dallas Life Oak Cliff;Gunter;Pilot Point;Pottsboro;Whitesboro',
+    'Grandview;Groesbeck;Keene;Mexia;Palmer;West;Whitney',
+    'Commerce;Eustace;Malakoff;Mineola;Mount Vernon;Rains;Winnsboro',
+    'Atlanta;Gladewater;Gladewater Sabine;Tatum;Tex. Liberty-Eylau;White Oak',
+    'Crockett;Diboll;Fairfield;Huntington;Palestine Westwood;Trinity',
+    'Anahuac;Buna;Cleveland Tarkington;Coldspring-Oakhurst;East Chambers;Kirbyville;Orangefield',
+    'Columbus;Edna;Hempstead;Palacios;Sweeny;Wharton',
+    'Caldwell;Cameron Yoe;Franklin;Little River Academy;Lorena;McGregor;Rockdale;Troy',
+    'Hallettsville;Luling;Marion;San Antonio Cole;Smithville;Universal City Randolph;Yoakum',
+    'Carrizo Springs;Crystal City;Devine;Hondo;Jourdanton;Lytle;Natalia;Poteet',
+    'Aransas Pass;Corpus Christi West Oso;Goliad;Mathis;Orange Grove;Sinton',
+    'Bishop;Lyford;Progreso;Raymondville;Rio Hondo;San Diego;Santa Gertrudis Acad',
+  ]},
+  { classification:'3A', division:2, footballType:'11-Man', sourceUrl:'https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf', districts:[
+    'Amarillo River Road;Canadian;Childress;Dimmitt;Friona',
+    'Idalou;Littlefield;Lubbock Roosevelt;Muleshoe;Slaton',
+    'Alpine;Anthony;Coahoma;Crane;San Angelo Grape Creek;Stanton',
+    'Breckenridge;Henrietta;Holliday;Jacksboro;Merkel;Wichita Falls City View',
+    'Clifton;Comanche;Dublin;Eastland;Hamilton;Millsap;Rio Vista;Tolar',
+    'Dallas Gateway Charter Academy;Dallas Madison;Inspired Vision Academy Dallas;Maypearl;Mesquite PTAA;Scurry-Rosser;Trinity Leadership Cedar Hill',
+    'Bells;Blue Ridge;Callisburg;Howe;Leonard;Sadler S & S Cons.;Valley View',
+    'Big Sandy Harmony;Edgewood;Grand Saline;Lone Oak;Paris Chisum;Pattonville Prairiland;Quitman',
+    'Daingerfield;De Kalb;Hooks;Hughes Springs;New Boston;Queen City;Redwater',
+    'Arp;Diana New Diana;Jefferson;New London West Rusk;Troup;Winona',
+    'Blooming Grove;Buffalo;Elkhart;Mildred;Rice;Teague',
+    'Hardin;Kountze;New Waverly;Newton;Warren;Woodville',
+    'Anderson-Shiro;Florence;Lexington;Rogers;Schulenburg;Thrall',
+    'Altair Rice;Boling;East Bernard;El Maton Tidehaven;Van Vleck;Vanderbilt Industrial;Wallis Brazos',
+    "Blanco;Comfort;Karnes City;Nixon Smiley;Poth;SA Young Men's Leadership;Stockdale",
+    'Cotulla;Falfurrias;George West;Hebbronville;Odem;Santa Rosa',
+  ]},
+  { classification:'4A', division:1, footballType:'11-Man', sourceUrl:'https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf', districts:[
+    'El Paso Andress;El Paso Austin;El Paso Riverside;El Paso Ysleta;San Elizario',
+    'Canyon;Canyon Randall;Canyon West Plains;Dumas;Hereford;Pampa',
+    'Andrews;Midland Greenwood;Plainview;San Angelo Lake View',
+    'Alvarado;Aubrey;Carrollton Ranchview;Decatur;Godley;Lake Dallas;River Oaks Castleberry;Springtown',
+    'Ft Worth Benbrook;Ft Worth Carter-Riverside;Ft Worth Dunbar;Ft Worth Eastern Hills;Ft Worth Southwest;Ft Worth Western Hills;FW Diamond Hill-Jarvis;Kennedale',
+    'Dallas Carter;Dallas Conrad;Dallas Hutchins;Dallas Kimball;Dallas Lincoln;Dallas Pinkston;Dallas Roosevelt;Dallas Spruce;North Dallas',
+    'Caddo Mills;Ferris;Kaufman;Mabank;Paris;Sulphur Springs;Waxahachie Life',
+    'Bullard;Henderson;Jacksonville;Kilgore;Lindale;Longview Pine Tree;Palestine;Tyler Chapel Hill',
+    'Bridge City;Huffman Hargrave;Liberty;Livingston;Lumberton;Orange Little Cypress-Mauriceville;Vidor',
+    'Fort Bend Willowridge;H Austin;H Northside;H Sterling;Harmony School of Innovation;Stafford',
+    'Bay City;El Campo;Navasota;Needville;Royal;Sealy;West Columbia Columbia',
+    'Burnet;China Spring;Jarrell;Lampasas;Marble Falls;Stephenville',
+    'Austin Johnson;Austin Northeast;Austin Travis;Comal Canyon Lake;Comal Davenport;Fredericksburg;Kerrville Tivy;Taylor',
+    'Floresville;La Vernia;Medina Valley Creek View;Pleasanton;San Antonio Kennedy;Somerset;Uvalde',
+    'Beeville Jones;CC Calallen;CC Tuloso-Midway;Corpus Christi King;Corpus Christi Miller;Corpus Christi Moody;Port Lavaca Calhoun',
+    'Alice;Edcouch-Elsa;Hidalgo Early College;Pharr Valley View;Zapata',
+  ]},
+  { classification:'4A', division:2, footballType:'11-Man', sourceUrl:'https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf', districts:[
+    'Clint;Clint Mountain View;El Paso Bowie;El Paso Irvin;Fabens',
+    'Big Spring;Fort Stockton;Monahans;Pecos;Seminole;Snyder',
+    'Borger;Levelland;Lubbock Cooper Liberty;Lubbock Estacado;Perryton',
+    'Bridgeport;Brock;Burkburnett;Graham;Iowa Park;Mineral Wells',
+    'Glen Rose;Hillsboro;Kemp;Uplift Hampton Prep;Venus',
+    'Gainesville;Krum;Lake Worth;Ponder;Sanger;Van Alstyne',
+    'Bonham;Farmersville;Paris North Lamar;Quinlan Ford;Sunnyvale;Wills Point',
+    'Carthage;Center;Gilmer;Longview Spring Hill;Pittsburg;Texarkana Pleasant Grove',
+    'Athens;Brownsboro;Canton;Madisonville;Rusk;Van',
+    'Hamshire-Fannett;Hardin-Jefferson;Jasper;Shepherd;Silsbee;West Orange-Stark',
+    'H Furr;H Kashmere;H North Forest;H Scarborough;H Washington;H Wheatley;H Worthing;H Yates',
+    'Bellville;Freeport Brazosport;Hitchcock;Katy Harmony;La Grange;La Marque',
+    'Brownwood;Gatesville;Robinson;Salado;Waco Connally;Waco La Vega',
+    'Austin Achieve;Austin Eastside;Giddings;Lago Vista;Manor New Tech;Wimberley',
+    'Bandera;Cuero;Geronimo Navarro;Gonzales;Pearsall;San Antonio Memorial',
+    'Corpus Christi London;Ingleside;Kingsville King;La Feria;Port Isabel;Rio Grande City Grulla;Robstown;Rockport-Fulton',
+  ]},
+  { classification:'5A', division:1, footballType:'11-Man', sourceUrl:'https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf', districts:[
+    'Clint Horizon;El Paso Americas;El Paso Bel Air;El Paso El Dorado;El Paso Hanks;El Paso Parkland',
+    'Abilene;Amarillo;Amarillo Caprock;Amarillo Tascosa;Frenship Memorial;Lubbock;Lubbock Monterey;Wolfforth Frenship',
+    'Azle;Denton;Denton Ryan;FW Chisholm Trail;Keller Fossil Ridge;Saginaw;Sherman',
+    'Ft Worth Arlington Hts;Ft Worth North Side;Ft Worth Paschal;Ft Worth Polytechnic;Ft Worth South Hills;Ft Worth Trimble Tech;Ft Worth Wyatt;White Settlement Brewer',
+    'Frisco Centennial;Frisco Heritage;Frisco Lebanon Trail;Frisco Liberty;Frisco Lone Star;Frisco Reedy;McKinney North;Melissa',
+    'Carrollton Creekview;Carrollton Smith;Carrollton Turner;Dallas Highland Park;Garland Naaman Forest;N Richland Hills Birdville;N Richland Hills Richland',
+    'Crandall;Dallas Adams;Dallas Sunset;Dallas White;Mesquite;North Mesquite;Tyler;West Mesquite',
+    'Burleson Centennial;Cedar Hill;Cleburne;De Soto;Lancaster;Mansfield Legacy;Mansfield Summit;Midlothian',
+    'Baytown Goose Crk Mem;Baytown Sterling;Beaumont United;Beaumont West Brook;Galveston Ball;La Porte;Lufkin;New Caney;Port Arthur Memorial',
+    'H Chavez;H Madison;H Math Sci. & Tech;H Milby;H Sharpstown;H Waltrip;H Westbury;H Wisdom;Houston Northbrook',
+    'Alvin Iowa Colony;Angleton;Fort Bend Dulles;Friendswood;Katy Freeman;Pasadena;Pasadena South Houston;Richmond Randle;Victoria East',
+    'College Station;College Station A&M Consolidated;Georgetown;Killeen;Killeen Shoemaker;Leander Glenn;Pflugerville Connally;Pflugerville Hendrickson;Pflugerville Weiss',
+    'Austin Anderson;Austin McCallum;Bastrop Cedar Creek;Boerne Champion;Comal Smithson Valley;Kyle Lehman;Lockhart;Manor;Seguin',
+    'Castroville Medina Valley;Eagle Pass Winn;Laredo Martin;Laredo Nixon;Northside Jay;San Antonio MacArthur;San Antonio Southside;South San Antonio',
+    'Brownsville Hanna;Brownsville Rivera;CC Carroll;CC Flour Bluff;CC Veterans Memorial;Harlingen South;Weslaco East',
+    'Donna North;La Joya Palmview;McAllen;McAllen Memorial;McAllen Rowe;Mission;PSJA Memorial;Rio Grande City',
+  ]},
+  { classification:'5A', division:2, footballType:'11-Man', sourceUrl:'https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf', districts:[
+    'Canutillo;El Paso;El Paso Burges;El Paso Chapin;El Paso Del Valle;El Paso Jefferson',
+    'Abilene Cooper;Abilene Wylie;Amarillo Palo Duro;Lubbock Cooper;Lubbock Coronado;WF Legacy;Wichita Falls Memorial',
+    'Argyle;Colleyville Heritage;Eagle Mountain;Grapevine;Lewisville The Colony;Lucas Lovejoy;Nevada Community',
+    'Anna;Celina;Denison;Frisco;Frisco Emerson;Frisco Independence;Frisco Memorial;Frisco Panther Creek;Prosper Richland',
+    'Dallas Adamson;Dallas Hillcrest;Dallas Jefferson;Dallas Molina;Dallas Samuell;Dallas Seagoville;Dallas South Oak Cliff;Dallas Wilson;Mesquite Poteet',
+    'Greenville;Hallsville;Marshall;Mount Pleasant;Nacogdoches;Terrell;Texarkana Texas;Whitehouse',
+    'Arlington Seguin;Burleson;Corsicana;Ennis;Everman;Joshua;Mansfield Timberview;Midlothian Heritage',
+    'Belton;Brenham;Bryan Rudder;Killeen Ellison;Waco;Waco University',
+    'Houston Spring Woods;Humble Kingwood Park;Huntsville;Montgomery;Montgomery Lake Creek;New Caney Porter;New Caney West Fork;Splendora',
+    'Baytown Lee;Dayton;Galena Park;Nederland;Port Neches-Groves;Santa Fe;Texas City',
+    'Fort Bend Crawford;Fort Bend Kempner;Fort Bend Marshall;Richmond Tomas;Rosenberg Lamar Cons;Rosenberg Terry;Victoria West',
+    'Austin Crockett;Austin LASA;Austin Navarro;Bastrop;Elgin;Pflugerville',
+    'Boerne;LH Legacy Ranch;Liberty Hill;New Braunfels;New Braunfels Long Creek;SA Alamo Heights;SA Veterans Memorial',
+    'SA Brackenridge;San Antonio Burbank;San Antonio Edison;San Antonio Harlandale;San Antonio Highlands;San Antonio Houston;San Antonio Jefferson;San Antonio Lanier;San Antonio McCollum',
+    'Brownsville Lopez;Brownsville Pace;Brownsville Porter;Corpus Christi Ray;Donna;Gregory-Portland;Mercedes',
+    'La Joya Juarez-Lincoln;Laredo Cigarroa;Mission Sharyland;Mission Veterans Memorial;PSJA Southwest;Roma;Sharyland Pioneer',
+  ]},
+  { classification:'6A', division:null, footballType:'11-Man', sourceUrl:'https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf', districts:[
+    'El Paso Coronado;El Paso Eastlake;El Paso Eastwood;El Paso Franklin;El Paso Montwood;El Paso Pebble Hills;El Paso Socorro',
+    'Midland;Midland Lee;Odessa;Odessa Permian;San Angelo Central',
+    'Aledo;Arlington;Arlington Bowie;Arlington Houston;Arlington Lamar;Arlington Martin;Granbury;Weatherford',
+    'Ft Worth Boswell;Keller;Keller Central;Keller Timber Creek;Northwest;Northwest Eaton;Northwest Nelson;Southlake Carroll',
+    'Denton Braswell;Denton Guyer;Frisco Wakeland;Lewisville;Lewisville Flower Mound;Lewisville Hebron;Lewisville Marcus;Little Elm',
+    'Allen;Dallas Jesuit;McKinney;McKinney Boyd;Princeton;Prosper;Prosper Rock Hill;Prosper Walnut Grove',
+    'Coppell;Plano;Plano East;Plano West;Richardson;Richardson Berkner;Richardson Lake Highlands;Richardson Pearce',
+    'Euless Trinity;Grand Prairie;Haltom City Haltom;Hurst Bell;Irving;Irving MacArthur;Irving Nimitz;South Grand Prairie',
+    'Garland;Garland Lakeview Cent;Garland Rowlett;Garland Sachse;North Garland;South Garland;Wylie;Wylie East',
+    'Forney;Longview;Mesquite Horn;North Forney;Rockwall;Rockwall Heath;Royse City;Tyler Legacy',
+    'Crowley;Dallas Skyline;Duncanville;Mansfield;Mansfield Lake Ridge;North Crowley;Red Oak;Waxahachie',
+    'Bryan;Copperas Cove;Killeen Chaparral;Killeen Harker Heights;Lake Belton;Temple;Waco Midway',
+    'Cleveland;Conroe;Conroe Caney Creek;Conroe Grand Oaks;Conroe Oak Ridge;Conroe The Woodlands;Conroe Woodlands College Park;Willis',
+    'Houston Aldine;Houston Benjamin Davis Sr;Houston Eisenhower;Houston MacArthur;Houston Nimitz;Spring;Spring Dekaney;Spring Westfield',
+    'Klein;Klein Cain;Klein Collins;Klein Forest;Klein Oak;Magnolia;Magnolia West;Tomball;Tomball Memorial',
+    'Cy-Fair;Cyp. Creek;Cyp. Falls;Cyp. Lakes;Cyp. Ridge;Cyp. Woods;Jersey Village;Langham Creek',
+    'Channelview;Crosby;Galena Park North Shore;Humble;Humble Atascocita;Humble Kingwood;Humble Summer Creek;Sheldon King',
+    'Deer Park;Dickinson;Frndswd Clear Brook;Houston Clear Lake;LC Clear Creek;LC Clear Falls;LC Clear Springs;Mt Belvieu Barbers Hill',
+    'Alvin;Alvin Shadow Creek;Clute Brazoswood;Manvel;Pasadena Dobie;Pasadena Memorial;Pasadena Rayburn;Pearland;Pearland Dawson',
+    'Alief Elsik;Alief Hastings;Alief Taylor;H Bellaire;H Heights;H Lamar;H Westside;Houston Memorial;Houston Stratford',
+    'Fort Bend Austin;Fort Bend Bush;Fort Bend Clements;Fort Bend Elkins;Fort Bend Hightower;Fort Bend Ridge Point;Fort Bend Travis;Houston Strake Jesuit',
+    'Katy;Katy Cinco Ranch;Katy Jordan;Katy Mayde Creek;Katy Morton Ranch;Katy Paetow;Katy Seven Lakes;Katy Taylor;Katy Tompkins',
+    'Bridgeland;Cyp. Park;Cyp. Ranch;Cyp. Springs;Lamar Fulshear;Richmond Foster;Richmond George Ranch;Waller',
+    'Austin Vandegrift;Cedar Park;Cedar Park Vista Ridge;Georgetown East View;Hutto;Leander;Leander Rouse',
+    'Austin Lake Travis;Austin Westlake;Round Rock;Round Rock McNeil;Round Rock Stony Pt.;Round Rock Westwood;RR Cedar Ridge',
+    'Austin;Austin Akins;Austin Bowie;Buda Hays;Buda Johnson;Del Valle;Dripping Springs',
+    'Cibolo Steele;Comal Canyon;Comal Pieper;Converse Judson;San Antonio E. Central;San Antonio Wagner;San Marcos;Schertz Clemens',
+    'Northside Brandeis;Northside Clark;San Antonio Churchill;San Antonio Johnson;San Antonio LEE;San Antonio Madison;San Antonio Reagan;San Antonio Roosevelt',
+    "Northside Brennan;Northside Harlan;Northside Holmes;Northside Marshall;Northside O'Connor;Northside Sotomayor;Northside Stevens;Northside Taft;Northside Warren",
+    'Del Rio;Eagle Pass;Laredo Alexander;Laredo Johnson;Laredo United;Laredo United South;San Antonio Southwest;Southwest Legacy',
+    'Edinburg;Edinburg Economedes;Edinburg North;Edinburg Vela;La Joya;Weslaco',
+    'Brownsville Veterans Memorial;Harlingen;Los Fresnos;Pharr-San Juan-Alamo;PSJA North;San Benito',
+  ]},
+] as const;
+
+const DISPLAY_REPLACEMENTS: readonly [RegExp, string][] = [
+  [/^H /, 'Houston '], [/^CC /, 'Corpus Christi '], [/^SA /, 'San Antonio '],
+  [/^Ft Worth /, 'Fort Worth '], [/^FW /, 'Fort Worth '], [/^WF /, 'Wichita Falls '],
+  [/^Cyp\. /, 'Cypress '], [/^LC /, 'League City '], [/^RR /, 'Round Rock '],
+  [/^Frndswd /, 'Friendswood '], [/^Mt Belvieu /, 'Mont Belvieu '],
+  [/^N Richland Hills /, 'North Richland Hills '], [/^Tex\. /, 'Texarkana '],
+  [/Crk\b/g, 'Creek'], [/\bMem\b/g, 'Memorial'], [/\bHts\b/g, 'Heights'], [/\bCons\b/g, 'Consolidated'],
+];
+
+export function displayUilSchoolName(name: string) {
+  return DISPLAY_REPLACEMENTS.reduce((value, [pattern, replacement]) => value.replace(pattern, replacement), name)
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+export const UIL_FOOTBALL_PROGRAMS_2026: readonly UilFootballProgram[] = ALIGNMENTS.flatMap((block) =>
+  block.districts.flatMap((teams, index) =>
+    teams.split(';').map((schoolName) => ({
+      schoolName: displayUilSchoolName(schoolName),
+      classification: block.classification,
+      division: block.division,
+      district: index + 1,
+      footballType: block.footballType,
+      alignmentCycle: '2026-28' as const,
+      sourceUrl: block.sourceUrl,
+    })),
+  ),
+);
+
+export const UIL_FOOTBALL_ALIGNMENT_SOURCES = ALIGNMENTS.map(({ classification, division, footballType, sourceUrl }) => ({
+  classification, division, footballType, sourceUrl,
+}));
+
+export const UIL_FOOTBALL_PROGRAM_COUNT = UIL_FOOTBALL_PROGRAMS_2026.length;
+
+export const UIL_FOOTBALL_EXPECTED_COUNTS = {
+  '1A': 159,
+  '2A': 205,
+  '3A': 204,
+  '4A': 205,
+  '5A': 246,
+  '6A': 249,
+} as const;
+
+const actualCounts = UIL_FOOTBALL_PROGRAMS_2026.reduce<Record<string, number>>((counts, program) => {
+  counts[program.classification] = (counts[program.classification] ?? 0) + 1;
+  return counts;
+}, {});
+
+if (UIL_FOOTBALL_PROGRAM_COUNT !== 1268) {
+  throw new Error(`UIL 2026-28 football alignment expected 1,268 programs; found ${UIL_FOOTBALL_PROGRAM_COUNT}.`);
+}
+
+for (const [classification, expected] of Object.entries(UIL_FOOTBALL_EXPECTED_COUNTS)) {
+  if (actualCounts[classification] !== expected) {
+    throw new Error(`UIL 2026-28 ${classification} football alignment expected ${expected} programs; found ${actualCounts[classification] ?? 0}.`);
+  }
+}

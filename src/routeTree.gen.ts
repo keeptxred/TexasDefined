@@ -87,6 +87,7 @@ import { Route as TexasHomeEquityCalculatorRouteImport } from './routes/texas-ho
 import { Route as TexasHomeAffordabilityCalculatorRouteImport } from './routes/texas-home-affordability-calculator'
 import { Route as TexasHistoryRouteImport } from './routes/texas-history'
 import { Route as TexasHipHopRouteImport } from './routes/texas-hip-hop'
+import { Route as TexasHighSchoolFootballTeamsRouteImport } from './routes/texas-high-school-football-teams'
 import { Route as TexasGospelRnbPopRouteImport } from './routes/texas-gospel-rnb-pop'
 import { Route as TexasFoodTrailRouteImport } from './routes/texas-food-trail'
 import { Route as TexasFoodHistoryRouteImport } from './routes/texas-food-history'
@@ -396,6 +397,7 @@ import { Route as ApiInternalLinkQualityRouteImport } from './routes/api.interna
 import { Route as ApiInternalLinkPolicyRollbackRouteImport } from './routes/api.internal-link-policy-rollback'
 import { Route as ApiInternalLinkPoliciesRouteImport } from './routes/api.internal-link-policies'
 import { Route as ApiInternalLinkCoverageRouteImport } from './routes/api.internal-link-coverage'
+import { Route as ApiHighSchoolFootballRouteImport } from './routes/api.high-school-football'
 import { Route as ApiGovernanceHealthRouteImport } from './routes/api.governance-health'
 import { Route as ApiFindMyCountyRouteImport } from './routes/api.find-my-county'
 import { Route as ApiEntityMaintenanceRouteImport } from './routes/api.entity-maintenance'
@@ -1029,6 +1031,16 @@ const TexasHipHopRoute = TexasHipHopRouteImport.update({
   path: '/texas-hip-hop',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/texas-hip-hop.lazy').then((d) => d.Route))
+const TexasHighSchoolFootballTeamsRoute =
+  TexasHighSchoolFootballTeamsRouteImport.update({
+    id: '/texas-high-school-football-teams',
+    path: '/texas-high-school-football-teams',
+    getParentRoute: () => rootRouteImport,
+  } as any).lazy(() =>
+    import('./routes/texas-high-school-football-teams.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 const TexasGospelRnbPopRoute = TexasGospelRnbPopRouteImport.update({
   id: '/texas-gospel-rnb-pop',
   path: '/texas-gospel-rnb-pop',
@@ -2885,6 +2897,11 @@ const ApiInternalLinkCoverageRoute = ApiInternalLinkCoverageRouteImport.update({
   path: '/api/internal-link-coverage',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiHighSchoolFootballRoute = ApiHighSchoolFootballRouteImport.update({
+  id: '/api/high-school-football',
+  path: '/api/high-school-football',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiGovernanceHealthRoute = ApiGovernanceHealthRouteImport.update({
   id: '/api/governance-health',
   path: '/api/governance-health',
@@ -3520,6 +3537,7 @@ export interface FileRoutesByFullPath {
   '/texas-food-history': typeof TexasFoodHistoryRoute
   '/texas-food-trail': typeof TexasFoodTrailRoute
   '/texas-gospel-rnb-pop': typeof TexasGospelRnbPopRoute
+  '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
   '/texas-history': typeof TexasHistoryRoute
   '/texas-home-affordability-calculator': typeof TexasHomeAffordabilityCalculatorRoute
@@ -3620,6 +3638,7 @@ export interface FileRoutesByFullPath {
   '/api/entity-maintenance': typeof ApiEntityMaintenanceRoute
   '/api/find-my-county': typeof ApiFindMyCountyRoute
   '/api/governance-health': typeof ApiGovernanceHealthRoute
+  '/api/high-school-football': typeof ApiHighSchoolFootballRoute
   '/api/internal-link-coverage': typeof ApiInternalLinkCoverageRoute
   '/api/internal-link-policies': typeof ApiInternalLinkPoliciesRoute
   '/api/internal-link-policy-rollback': typeof ApiInternalLinkPolicyRollbackRoute
@@ -3991,6 +4010,7 @@ export interface FileRoutesByTo {
   '/texas-food-history': typeof TexasFoodHistoryRoute
   '/texas-food-trail': typeof TexasFoodTrailRoute
   '/texas-gospel-rnb-pop': typeof TexasGospelRnbPopRoute
+  '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
   '/texas-history': typeof TexasHistoryRoute
   '/texas-home-affordability-calculator': typeof TexasHomeAffordabilityCalculatorRoute
@@ -4091,6 +4111,7 @@ export interface FileRoutesByTo {
   '/api/entity-maintenance': typeof ApiEntityMaintenanceRoute
   '/api/find-my-county': typeof ApiFindMyCountyRoute
   '/api/governance-health': typeof ApiGovernanceHealthRoute
+  '/api/high-school-football': typeof ApiHighSchoolFootballRoute
   '/api/internal-link-coverage': typeof ApiInternalLinkCoverageRoute
   '/api/internal-link-policies': typeof ApiInternalLinkPoliciesRoute
   '/api/internal-link-policy-rollback': typeof ApiInternalLinkPolicyRollbackRoute
@@ -4466,6 +4487,7 @@ export interface FileRoutesById {
   '/texas-food-history': typeof TexasFoodHistoryRoute
   '/texas-food-trail': typeof TexasFoodTrailRoute
   '/texas-gospel-rnb-pop': typeof TexasGospelRnbPopRoute
+  '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
   '/texas-history': typeof TexasHistoryRoute
   '/texas-home-affordability-calculator': typeof TexasHomeAffordabilityCalculatorRoute
@@ -4566,6 +4588,7 @@ export interface FileRoutesById {
   '/api/entity-maintenance': typeof ApiEntityMaintenanceRoute
   '/api/find-my-county': typeof ApiFindMyCountyRoute
   '/api/governance-health': typeof ApiGovernanceHealthRoute
+  '/api/high-school-football': typeof ApiHighSchoolFootballRoute
   '/api/internal-link-coverage': typeof ApiInternalLinkCoverageRoute
   '/api/internal-link-policies': typeof ApiInternalLinkPoliciesRoute
   '/api/internal-link-policy-rollback': typeof ApiInternalLinkPolicyRollbackRoute
@@ -4942,6 +4965,7 @@ export interface FileRouteTypes {
     | '/texas-food-history'
     | '/texas-food-trail'
     | '/texas-gospel-rnb-pop'
+    | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
     | '/texas-history'
     | '/texas-home-affordability-calculator'
@@ -5042,6 +5066,7 @@ export interface FileRouteTypes {
     | '/api/entity-maintenance'
     | '/api/find-my-county'
     | '/api/governance-health'
+    | '/api/high-school-football'
     | '/api/internal-link-coverage'
     | '/api/internal-link-policies'
     | '/api/internal-link-policy-rollback'
@@ -5413,6 +5438,7 @@ export interface FileRouteTypes {
     | '/texas-food-history'
     | '/texas-food-trail'
     | '/texas-gospel-rnb-pop'
+    | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
     | '/texas-history'
     | '/texas-home-affordability-calculator'
@@ -5513,6 +5539,7 @@ export interface FileRouteTypes {
     | '/api/entity-maintenance'
     | '/api/find-my-county'
     | '/api/governance-health'
+    | '/api/high-school-football'
     | '/api/internal-link-coverage'
     | '/api/internal-link-policies'
     | '/api/internal-link-policy-rollback'
@@ -5887,6 +5914,7 @@ export interface FileRouteTypes {
     | '/texas-food-history'
     | '/texas-food-trail'
     | '/texas-gospel-rnb-pop'
+    | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
     | '/texas-history'
     | '/texas-home-affordability-calculator'
@@ -5987,6 +6015,7 @@ export interface FileRouteTypes {
     | '/api/entity-maintenance'
     | '/api/find-my-county'
     | '/api/governance-health'
+    | '/api/high-school-football'
     | '/api/internal-link-coverage'
     | '/api/internal-link-policies'
     | '/api/internal-link-policy-rollback'
@@ -6362,6 +6391,7 @@ export interface RootRouteChildren {
   TexasFoodHistoryRoute: typeof TexasFoodHistoryRoute
   TexasFoodTrailRoute: typeof TexasFoodTrailRoute
   TexasGospelRnbPopRoute: typeof TexasGospelRnbPopRoute
+  TexasHighSchoolFootballTeamsRoute: typeof TexasHighSchoolFootballTeamsRoute
   TexasHipHopRoute: typeof TexasHipHopRoute
   TexasHistoryRoute: typeof TexasHistoryRoute
   TexasHomeAffordabilityCalculatorRoute: typeof TexasHomeAffordabilityCalculatorRoute
@@ -6447,6 +6477,7 @@ export interface RootRouteChildren {
   ApiEntityMaintenanceRoute: typeof ApiEntityMaintenanceRoute
   ApiFindMyCountyRoute: typeof ApiFindMyCountyRoute
   ApiGovernanceHealthRoute: typeof ApiGovernanceHealthRoute
+  ApiHighSchoolFootballRoute: typeof ApiHighSchoolFootballRoute
   ApiInternalLinkCoverageRoute: typeof ApiInternalLinkCoverageRoute
   ApiInternalLinkPoliciesRoute: typeof ApiInternalLinkPoliciesRoute
   ApiInternalLinkPolicyRollbackRoute: typeof ApiInternalLinkPolicyRollbackRoute
@@ -7177,6 +7208,13 @@ declare module '@tanstack/react-router' {
       path: '/texas-hip-hop'
       fullPath: '/texas-hip-hop'
       preLoaderRoute: typeof TexasHipHopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-high-school-football-teams': {
+      id: '/texas-high-school-football-teams'
+      path: '/texas-high-school-football-teams'
+      fullPath: '/texas-high-school-football-teams'
+      preLoaderRoute: typeof TexasHighSchoolFootballTeamsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/texas-gospel-rnb-pop': {
@@ -9342,6 +9380,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInternalLinkCoverageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/high-school-football': {
+      id: '/api/high-school-football'
+      path: '/api/high-school-football'
+      fullPath: '/api/high-school-football'
+      preLoaderRoute: typeof ApiHighSchoolFootballRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/governance-health': {
       id: '/api/governance-health'
       path: '/api/governance-health'
@@ -10592,6 +10637,7 @@ const rootRouteChildren: RootRouteChildren = {
   TexasFoodHistoryRoute: TexasFoodHistoryRoute,
   TexasFoodTrailRoute: TexasFoodTrailRoute,
   TexasGospelRnbPopRoute: TexasGospelRnbPopRoute,
+  TexasHighSchoolFootballTeamsRoute: TexasHighSchoolFootballTeamsRoute,
   TexasHipHopRoute: TexasHipHopRoute,
   TexasHistoryRoute: TexasHistoryRoute,
   TexasHomeAffordabilityCalculatorRoute: TexasHomeAffordabilityCalculatorRoute,
@@ -10683,6 +10729,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiEntityMaintenanceRoute: ApiEntityMaintenanceRoute,
   ApiFindMyCountyRoute: ApiFindMyCountyRoute,
   ApiGovernanceHealthRoute: ApiGovernanceHealthRoute,
+  ApiHighSchoolFootballRoute: ApiHighSchoolFootballRoute,
   ApiInternalLinkCoverageRoute: ApiInternalLinkCoverageRoute,
   ApiInternalLinkPoliciesRoute: ApiInternalLinkPoliciesRoute,
   ApiInternalLinkPolicyRollbackRoute: ApiInternalLinkPolicyRollbackRoute,

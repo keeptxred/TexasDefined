@@ -130,6 +130,7 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Texas football stadiums: https://texasdefined.com/sports-venues/football
 - Texas motorsports venues: https://texasdefined.com/sports-venues/motorsports
 - Texas high-school football stadiums: https://texasdefined.com/sports-venues/high-school-football
+- Texas high-school football team finder: https://texasdefined.com/texas-high-school-football-teams
 - DMV lookup: https://texasdefined.com/find-my-dmv
 - School-district lookup: https://texasdefined.com/find-my-school-district
 

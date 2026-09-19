@@ -1,7 +1,7 @@
 export type TexasDataDomain =
   | 'places' | 'counties' | 'regions' | 'water' | 'school-districts' | 'agencies'
   | 'parks' | 'forests' | 'wildlife' | 'utilities' | 'appraisal-districts' | 'tax-offices'
-  | 'tourism' | 'events' | 'elections' | 'representatives';
+  | 'tourism' | 'events' | 'sports' | 'elections' | 'representatives';
 
 export type TexasDataSource = {
   id: string;
@@ -24,6 +24,7 @@ export const TEXAS_DATA_SOURCES: TexasDataSource[] = [
   { id:'explore-shared-catalog', domain:'tourism', authority:'TexasDefined and Keep TX Red shared Supabase catalog', title:'Published Explore destination catalog', url:'https://texasdefined.com/explore', format:'shared-platform', updateCadence:'daily', canonical:true, notes:'Public published or verified Explore records are mapped into the Texas knowledge graph at runtime and retain official destination links when available.' },
   { id:'usgs-water', domain:'water', authority:'U.S. Geological Survey', title:'National Hydrography and Texas water features', url:'https://www.usgs.gov/national-hydrography', format:'api', updateCadence:'quarterly', canonical:true, notes:'Use for canonical water-feature names and hydrographic relationships.' },
   { id:'tea-districts', domain:'school-districts', authority:'Texas Education Agency', title:'Texas school district directory and AskTED', url:'https://tea.texas.gov/texas-schools/general-information/askted', format:'csv', updateCadence:'monthly', canonical:true, notes:'Use TEA district identifiers, names, addresses and service regions.' },
+  { id:'uil-football-alignments', domain:'sports', authority:'University Interscholastic League', title:'2026–28 Texas high school football district alignments', url:'https://realignment.uiltexas.org/', format:'html', updateCadence:'as-needed', canonical:true, notes:'Use the official UIL football alignment cycle for public-school classification, football division and district placement; retain the alignment-cycle date with every derived record.' },
   { id:'texas-agencies', domain:'agencies', authority:'State of Texas', title:'Texas state agency directory', url:'https://www.texas.gov/texas-agencies.html', format:'html', updateCadence:'quarterly', canonical:true, notes:'Canonical directory for state agencies and official websites.' },
   { id:'tpwd-parks', domain:'parks', authority:'Texas Parks and Wildlife Department', title:'Texas state parks directory', url:'https://tpwd.texas.gov/state-parks/parks-map', format:'html', updateCadence:'monthly', canonical:true, notes:'Use official park names, locations, reservations and closure information.' },
   { id:'tpwd-wildlife-species', domain:'wildlife', authority:'Texas Parks and Wildlife Department', title:'Texas wildlife species profiles and management references', url:'https://tpwd.texas.gov/huntwild/wild/species/', format:'html', updateCadence:'monthly', canonical:true, notes:'Use TPWD species profiles and current regulation pages for Texas distribution, habitat, conservation status and management context. Avoid copying time-sensitive hunting rules into evergreen species copy.' },
@@ -52,7 +53,7 @@ export function validateTexasDataSources() {
     if (!source.authority.trim()) errors.push(`${source.id} requires an authority.`);
     if (!source.canonical) errors.push(`${source.id} must explicitly identify canonical ownership.`);
   }
-  const required: TexasDataDomain[] = ['places','counties','regions','water','school-districts','agencies','parks','forests','wildlife','utilities','appraisal-districts','tax-offices','tourism','events','elections','representatives'];
+  const required: TexasDataDomain[] = ['places','counties','regions','water','school-districts','agencies','parks','forests','wildlife','utilities','appraisal-districts','tax-offices','tourism','events','sports','elections','representatives'];
   for (const domain of required) if (!sourcesForDomain(domain).length) errors.push(`Missing authoritative source for ${domain}.`);
   return { valid: errors.length === 0, errors };
 }
