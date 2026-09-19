@@ -57,9 +57,11 @@ function PartnerReferralAnalyticsAdmin() {
       <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
         <Metric label="30d referral clicks" value={dashboard.totalClicks30d} />
         <Metric label="30d CTA impressions" value={dashboard.totalImpressions30d} />
+        <Metric label="30d Expedia search starts" value={dashboard.totalSearchStarts30d} />
         <Metric label={`CTR since ${ctrStartLabel}`} value={dashboard.clickThroughRateSinceImpressionTracking === null ? 'No impressions yet' : `${dashboard.clickThroughRateSinceImpressionTracking}%`} />
         <Metric label="Last 7 days clicks" value={dashboard.totalClicks7d} />
         <Metric label="Last 7 days impressions" value={dashboard.totalImpressions7d} />
+        <Metric label="Last 7 days Expedia searches" value={dashboard.totalSearchStarts7d} />
         <Metric label="Prior 7 days clicks" value={dashboard.prior7dClicks} />
         <Metric label="Click week over week" value={dashboard.weekOverWeekPercent === null ? 'New' : `${dashboard.weekOverWeekPercent > 0 ? '+' : ''}${dashboard.weekOverWeekPercent}%`} />
         <Metric label="Last aggregate write" value={dashboard.lastSyncedAt ? new Date(dashboard.lastSyncedAt).toLocaleString() : 'No referral rows yet'} />
@@ -90,6 +92,16 @@ function PartnerReferralAnalyticsAdmin() {
       </section>
 
       <section className="mt-12 border-t border-border pt-6">
+        <p className="eyebrow text-primary">On-page booking intent</p>
+        <h2 className="mt-2 font-display text-4xl">Expedia search starts</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">These are on-page Expedia widget/search activations, reported separately from outbound referral clicks so referral CTR remains comparable.</p>
+        <div className="mt-6 grid gap-10 xl:grid-cols-2">
+          <SearchStartTable title="By placement" rows={dashboard.searchStartPlacements} />
+          <SearchStartTable title="By page" rows={dashboard.searchStartPages} />
+        </div>
+      </section>
+
+      <section className="mt-12 border-t border-border pt-6">
         <p className="eyebrow text-primary">Content performance</p><h2 className="mt-2 font-display text-4xl">Top referral pages</h2>
         <div className="mt-5 overflow-x-auto"><table className="w-full min-w-[760px] text-sm"><thead><tr className="border-b border-border text-left"><th className="py-3 pr-4">Page</th><th className="py-3 pr-4 text-right">30d clicks</th><th className="py-3 pr-4 text-right">30d impressions</th><th className="py-3 pr-4 text-right">7d clicks</th><th className="py-3 pr-4 text-right">7d impressions</th><th className="py-3 text-right">CTR since {ctrStartLabel}</th></tr></thead><tbody>{dashboard.pages.map((row) => <tr key={row.pagePath} className="border-b border-border/60"><td className="py-3 pr-4 font-mono text-xs"><a href={row.pagePath} className="hover:text-primary">{row.pagePath}</a></td><td className="py-3 pr-4 text-right font-semibold">{row.clicks30d}</td><td className="py-3 pr-4 text-right">{row.impressions30d}</td><td className="py-3 pr-4 text-right">{row.clicks7d}</td><td className="py-3 pr-4 text-right">{row.impressions7d}</td><td className="py-3 text-right font-semibold">{formatCtr(row.measurementCtr)}</td></tr>)}</tbody></table></div>
       </section>
@@ -113,3 +125,8 @@ function formatCtr(value: number | null) {
 function BreakdownTable({ title, ctrLabel, rows }: { title: string; ctrLabel: string; rows: Array<{ label: string; clicks30d: number; impressions30d: number; clicks7d: number; impressions7d: number; measurementCtr: number | null }> }) {
   return <section><h2 className="font-display text-4xl">{title}</h2><div className="mt-5 overflow-x-auto"><table className="w-full min-w-[640px] text-sm"><thead><tr className="border-b border-border text-left"><th className="py-3 pr-4">Name</th><th className="py-3 pr-4 text-right">30d clicks</th><th className="py-3 pr-4 text-right">30d impressions</th><th className="py-3 pr-4 text-right">7d clicks</th><th className="py-3 pr-4 text-right">7d impressions</th><th className="py-3 text-right">CTR since {ctrLabel}</th></tr></thead><tbody>{rows.map((row) => <tr key={row.label} className="border-b border-border/60"><td className="py-3 pr-4">{row.label}</td><td className="py-3 pr-4 text-right font-semibold">{row.clicks30d}</td><td className="py-3 pr-4 text-right">{row.impressions30d}</td><td className="py-3 pr-4 text-right">{row.clicks7d}</td><td className="py-3 pr-4 text-right">{row.impressions7d}</td><td className="py-3 text-right font-semibold">{formatCtr(row.measurementCtr)}</td></tr>)}</tbody></table></div></section>;
 }
+
+function SearchStartTable({ title, rows }: { title: string; rows: Array<{ key: string; label: string; starts30d: number; starts7d: number }> }) {
+  return <section><h3 className="font-display text-3xl">{title}</h3><div className="mt-4 overflow-x-auto"><table className="w-full min-w-[480px] text-sm"><thead><tr className="border-b border-border text-left"><th className="py-3 pr-4">Name</th><th className="py-3 pr-4 text-right">30d starts</th><th className="py-3 text-right">7d starts</th></tr></thead><tbody>{rows.length ? rows.map((row) => <tr key={row.key} className="border-b border-border/60"><td className="py-3 pr-4">{row.label}</td><td className="py-3 pr-4 text-right font-semibold">{row.starts30d}</td><td className="py-3 text-right">{row.starts7d}</td></tr>) : <tr><td colSpan={3} className="py-4 text-muted-foreground">No Expedia search starts recorded yet.</td></tr>}</tbody></table></div></section>;
+}
+
