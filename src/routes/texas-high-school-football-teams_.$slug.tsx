@@ -46,10 +46,14 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
             about: {
               '@type': 'HighSchool',
               name: program?.officialSchoolName || displayName,
-              address: program?.city ? {
+              url: program?.webAddress ? normalizeExternalUrl(program.webAddress) : undefined,
+              telephone: program?.phone || undefined,
+              address: (program?.siteStreetAddress || program?.siteCity || program?.city) ? {
                 '@type': 'PostalAddress',
-                addressLocality: program.city,
-                addressRegion: 'TX',
+                streetAddress: program?.siteStreetAddress || undefined,
+                addressLocality: program?.siteCity || program?.city || undefined,
+                addressRegion: program?.siteState || 'TX',
+                postalCode: program?.siteZip || undefined,
                 addressCountry: 'US',
               } : undefined,
             },
@@ -69,3 +73,8 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
     };
   },
 });
+
+
+function normalizeExternalUrl(value: string) {
+  return /^https?:\/\//i.test(value) ? value : `https://${value}`;
+}
