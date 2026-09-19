@@ -25,6 +25,8 @@ const files = [
   'src/data/texas-data-sources.ts',
 ];
 
+const allTimeHistoryPath = 'src/data/high-school-football/uil-football-all-time-history.server.ts';
+
 const authorityFiles = [
   'src/data/fixtures/high-school-football-newcomers.ts',
   'src/data/fixtures/texas-high-school-football-classifications.ts',
@@ -33,7 +35,7 @@ const authorityFiles = [
   'src/data/friday-night-lights-structured-data.server.ts',
 ];
 
-for (const file of [...files, ...authorityFiles]) {
+for (const file of [...files, ...authorityFiles, allTimeHistoryPath]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing high-school football platform file: ${file}`);
 }
 
@@ -41,6 +43,7 @@ if (!errors.length) {
   const alignment = read(files[0]);
   const directory = read(files[1]);
   const history = read(files[2]);
+  const allTimeHistory = read(allTimeHistoryPath);
   const api = read(files[3]);
   const finder = read(files[4]);
   const countyModule = read(files[5]);
@@ -80,8 +83,11 @@ if (!errors.length) {
     'countyName',
     'CACHE_TTL_MS',
     'loadUilRecentFootballHistory',
+    'loadUilAllTimeFootballHistory',
     'recentHistory',
+    'allTimeHistory',
     'historyAvailable',
+    'allTimeHistoryAvailable',
   ]) requireText(directory, marker, 'Football directory');
 
   for (const marker of [
@@ -96,11 +102,24 @@ if (!errors.length) {
   ]) requireText(history, marker, 'UIL recent football history');
 
   for (const marker of [
+    "const UIL_FOOTBALL_ALL_TIME_APPEARANCES_URL = 'https://www.uiltexas.org/football/all-time-appearances'",
+    'ALL_TIME_CACHE_TTL_MS',
+    'parseAllTimeRows',
+    'rows.length < 300',
+    'publishedThroughYear < 2024',
+    'supplementedFinals',
+    "Number.parseInt(final.season.slice(0, 4), 10) > history.publishedThroughYear",
+    "matchMethod: 'exact-normalized-uil-name'",
+    'allTimeFootballHistoryFromLoaded',
+  ]) requireText(allTimeHistory, marker, 'UIL all-time football history');
+
+  for (const marker of [
     "createFileRoute('/api/high-school-football')",
     'searchFootballPrograms',
     "'x-robots-tag': 'noindex, nofollow'",
     "alignmentCycle: '2026-28'",
     'recentStateFinals',
+    'allTimeStateFinals',
   ]) requireText(api, marker, 'Football lookup API');
 
   for (const marker of [
@@ -111,8 +130,13 @@ if (!errors.length) {
     'Attendance zones, transfers, eligibility and campus assignments can change',
     'initialQuery',
     'runQuery',
+    'All-time UIL state-final history',
+    'All-time titles',
+    'All-time state finals',
+    'allTimeHistoryAvailable',
+    'UIL all-time appearances ↗',
     'Recent UIL state-final history · 2018–19 to 2025–26',
-    'No badge does not mean a weak program',
+    'No history badge does not mean a weak program',
     'UIL state archives ↗',
     'Compare this program',
     'Compare football programs',
@@ -138,6 +162,7 @@ if (!errors.length) {
     '/article/texas-six-man-football-rules-explained',
     'Route.useSearch()',
     'initialQuery={q}',
+    'official UIL all-time state-title and state-final totals',
     'lets families compare up to three programs side by side',
     'Full season-by-season records, current schedules, standings and coaching continuity remain future layers',
   ]) requireText(page, marker, 'Football finder page');
@@ -200,7 +225,11 @@ if (!errors.length) {
     [files[9], relocationFinder],
     [files[10], entityPage],
   ]) {
-    if (source.includes('uil-football-alignments-2026.server') || source.includes('football-directory.server')) {
+    if (
+      source.includes('uil-football-alignments-2026.server')
+      || source.includes('football-directory.server')
+      || source.includes('uil-football-all-time-history.server')
+    ) {
       errors.push(`Client surface must not import the server-only football dataset directly: ${file}`);
     }
   }
