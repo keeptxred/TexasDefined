@@ -35,7 +35,7 @@ export function TopAttractionsMethodologyContent() {
       <header className="py-10 sm:py-14">
         <p className="eyebrow text-primary">Research & sourcing</p>
         <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">How TexasDefined builds the Top 25 attractions list</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">The Top 25 is an editorial reference collection, not a scientific ranking or a review-score leaderboard. This page documents the selection criteria, source hierarchy, planning scales and review rules used so readers and other researchers can understand what the list does—and what it does not claim.</p>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">The Top 25 is an editorial list, not a scientific ranking or a review-score leaderboard. This page documents the selection criteria, source hierarchy, planning scales and review rules used so readers and other researchers can understand what the list does—and what it does not claim.</p>
       </header>
     </Container>
 
