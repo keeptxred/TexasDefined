@@ -11,6 +11,7 @@ const allTimeFinderApiPath = '/api/high-school-football?q=Katy&limit=50';
 const oneAFinderApiPath = '/api/high-school-football?q=Abbott&limit=10';
 const katyProfilePath = '/texas-high-school-football-teams/katy';
 const abbottProfilePath = '/texas-high-school-football-teams/abbott';
+const kellerProfilePath = '/texas-high-school-football-teams/keller';
 const expectedTitle = 'Texas High School Football: Friday Night Lights, Traditions & Game-Day Guide';
 const expectedDescription = 'Understand Texas high school football through Friday-night traditions, six-man and 11-man culture, stadiums, homecoming mums, playoffs, school communities and practical game-day planning.';
 const expectedCanonical = `${origin}${hubPath}`;
@@ -128,6 +129,9 @@ await fetchVerified(finderPath, 'football finder', (body) => {
     'Browse all 1,268 Texas high school football programs',
     'All 1,268',
     '6A → 1A · enrollment classification',
+    'UIL enrollment band: 2,215 and above',
+    'UIL enrollment band: 1,305–2,214',
+    'Official UIL 2026–28 enrollment cutoffs',
     '/texas-high-school-football-teams/katy',
     '/texas-high-school-football-teams/abbott',
   ]) requireNeedle(body, needle, 'football finder');
@@ -155,6 +159,9 @@ await fetchVerified(katyDistrictPath, 'Katy UIL football district', (body) => {
     'Katy Tompkins',
     '/texas-high-school-football-teams/katy',
     'Member order is alphabetical for research usability',
+    'Enrollment band',
+    '2,215 and above',
+    'Official UIL 2026–28 enrollment cutoffs',
     'University Interscholastic League',
   ]) requireNeedle(body, needle, 'Katy UIL football district');
   if (/\bnoindex\b/i.test(body)) throw new Error('Katy UIL football district unexpectedly contains noindex');
@@ -243,6 +250,9 @@ await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {
     'Open full district guide',
     'How to enroll at',
     'UIL eligibility standards',
+    'UIL enrollment band',
+    '2,215 and above',
+    'Official UIL 2026–28 enrollment cutoffs',
     'All current UIL football programs use the same profile system.',
     'Verified football venue relationships',
     'Legacy Stadium',
@@ -259,9 +269,25 @@ await fetchVerified(abbottProfilePath, 'Abbott football school profile', (body) 
     'Current district',
     'How to enroll at',
     'UIL eligibility standards',
+    'UIL enrollment band',
+    '57.6–104.9',
+    'Official UIL 2026–28 enrollment cutoffs',
     'All current UIL football programs use the same profile system.',
   ]) requireNeedle(body, needle, 'Abbott football school profile');
   if (/\bnoindex\b/i.test(body)) throw new Error('Abbott football school profile unexpectedly contains noindex');
+});
+
+await fetchVerified(kellerProfilePath, 'Keller football school profile', (body) => {
+  for (const needle of [
+    'Keller',
+    '6A',
+    'How to enroll at',
+    'Official district enrollment',
+    'Keller ISD new student enrollment',
+    'https://www.kellerisd.net/students-families/enrollment/why-kisd/new-student-enrollment',
+    'UIL eligibility standards',
+  ]) requireNeedle(body, needle, 'Keller football school profile');
+  if (/\bnoindex\b/i.test(body)) throw new Error('Keller football school profile unexpectedly contains noindex');
 });
 
 await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
@@ -271,6 +297,7 @@ await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-districts/6a-district-22</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/katy</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/abbott</loc>', 'sitemap');
+  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/keller</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/article/texas-high-school-football-playoffs-explained</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/article/texas-six-man-football-rules-explained</loc>', 'sitemap');
 });
@@ -279,4 +306,4 @@ await fetchVerified('/robots.txt', 'robots', (body) => {
   if (/Disallow:\s*\/sports(?:\/|\s|$)/i.test(body)) throw new Error('robots.txt blocks /sports');
 });
 
-console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, 192 canonical UIL district hubs, shared 6A and 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, history, sitemap and robots are live.');
+console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, official 2026–28 enrollment bands, 192 canonical UIL district hubs, shared 6A and 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, history, sitemap and robots are live.');

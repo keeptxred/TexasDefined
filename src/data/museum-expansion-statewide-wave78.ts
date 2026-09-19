@@ -16,7 +16,6 @@ function museumPlaceholder(name: string): ImageRef {
 /**
  * Seventy-eighth statewide museum wave. This record adds Wink's active,
  * volunteer-run Roy Orbison Museum as a distinct music-history destination.
- * Wave 79 is chained here so later museum expansion remains conflict-light.
  */
 export const statewideMuseumExpansionWave78Destinations: Destination[] = [
   {

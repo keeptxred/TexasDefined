@@ -1,6 +1,11 @@
 import { createLazyFileRoute, Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
+import {
+  UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE,
+  uilFootballConferenceBand,
+  uilFootballEnrollmentBand,
+} from '@/data/high-school-football/enrollment-bands';
 
 const UIL_ELIGIBILITY_URL = 'https://www.uiltexas.org/policy/eligibility';
 const UIL_DETAILED_ELIGIBILITY_URL = 'https://www.uiltexas.org/policy/constitution/general/eligibility';
@@ -27,6 +32,12 @@ function Page() {
   const associationLabel = program
     ? 'UIL'
     : privateAlignment?.association ?? governingBodyHint ?? 'Association not yet verified';
+  const enrollmentBand = program
+    ? uilFootballEnrollmentBand(program.classification, program.division)
+    : null;
+  const conferenceBand = program
+    ? uilFootballConferenceBand(program.classification)
+    : null;
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <article className="mx-auto max-w-6xl">
@@ -68,11 +79,13 @@ function Page() {
               <Snapshot label="Location" value={[program.city, program.countyName].filter(Boolean).join(' · ') || 'Texas'} />
               <Snapshot label="UIL classification" value={program.classification} />
               <Snapshot label="Football division" value={program.division ? `Division ${program.division === 1 ? 'I' : 'II'}` : 'Not pre-split in alignment'} />
+              <Snapshot label="UIL enrollment band" value={enrollmentBand?.label || conferenceBand || 'See current UIL cutoff table'} />
               <Snapshot label="UIL district" value={String(program.district)} />
             </dl>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">
-              TexasDefined orders the statewide directory from 6A through 1A because UIL classifications reflect enrollment size. That ordering is not a claim that a larger-classification football program is better than a smaller-classification program. District assignments and enrollment cutoffs can change at realignment.
+              TexasDefined orders the statewide directory from 6A through 1A because UIL classifications reflect enrollment size. For the 2026–28 cycle, this program’s published classification{program.division ? ' and football division' : ''} corresponds to an enrollment band of <strong className="text-foreground">{enrollmentBand?.label || conferenceBand}</strong>. That ordering is not a claim that a larger-classification football program is better than a smaller-classification program. District assignments and enrollment cutoffs can change at realignment.
             </p>
+            <a href={UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE.url} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Official UIL 2026–28 enrollment cutoffs ↗</a>
           </> : privateAlignment ? <div>
             <dl className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
               <Snapshot label="Association" value={privateAlignment.association} />

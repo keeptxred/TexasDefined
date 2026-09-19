@@ -1,5 +1,10 @@
 import { useMemo, useState } from 'react';
 
+import {
+  UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE,
+  uilFootballConferenceBand,
+} from '@/data/high-school-football/enrollment-bands';
+
 type Program = {
   slug: string;
   profilePath: string;
@@ -95,6 +100,7 @@ export function UilFootballProgramDirectory({ programs }: { programs: Program[] 
                   <div>
                     <p className="eyebrow text-primary">{item}</p>
                     <h3 className="mt-1 font-display text-3xl">{item} football programs</h3>
+                    <p className="mt-2 text-xs text-muted-foreground">UIL enrollment band: {uilFootballConferenceBand(item)}</p>
                   </div>
                   <span className="text-sm text-muted-foreground">{classPrograms.length.toLocaleString()}</span>
                 </div>
@@ -122,6 +128,7 @@ export function UilFootballProgramDirectory({ programs }: { programs: Program[] 
         <p className="mt-5 max-w-4xl text-xs leading-6 text-muted-foreground">
           UIL classifications are based on enrollment. A 6A school is listed above a 5A school because it is in the larger-enrollment classification, not because TexasDefined has rated its football program as better.
         </p>
+        <a href={UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE.url} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-xs font-semibold text-primary underline underline-offset-4">Official UIL 2026–28 enrollment cutoffs ↗</a>
       </div>
     </div>
   </section>;
