@@ -72,7 +72,10 @@ async function queryCloudflare(accountId, apiToken) {
     SUM(_sample_interval) AS eventCount
   FROM ${DATASET}
   WHERE timestamp > NOW() - INTERVAL '${WINDOW_DAYS}' DAY
-    AND blob1 IN ('partner_referral_clicked', 'partner_referral_shown')
+    AND (
+      blob1 IN ('partner_referral_clicked', 'partner_referral_shown')
+      OR (blob1 = 'next_step_selected' AND blob2 = 'expedia-search')
+    )
     AND blob10 != 'ci-probe'
     AND blob2 != ''
     AND blob6 != ''
@@ -112,7 +115,9 @@ function normalizeRows(rows) {
     const pagePath = validPath(row.pagePath);
     const destinationUrl = validHttps(row.destinationUrl);
     const eventCount = asCount(row.eventCount);
-    if (!metricDate || !['partner_referral_clicked', 'partner_referral_shown'].includes(eventName) || !partner || !pagePath || !destinationUrl || eventCount <= 0) continue;
+    const supportedEvent = ['partner_referral_clicked', 'partner_referral_shown'].includes(eventName)
+      || (eventName === 'next_step_selected' && partner === 'expedia-search');
+    if (!metricDate || !supportedEvent || !partner || !pagePath || !destinationUrl || eventCount <= 0) continue;
 
     const destinationHash = hash(destinationUrl);
     const key = [metricDate, partner, placement, pagePath, destinationHash].join('\u0000');
@@ -128,8 +133,8 @@ function normalizeRows(rows) {
       synced_at: syncedAt,
     };
 
-    if (eventName === 'partner_referral_clicked') existing.click_count += eventCount;
-    else existing.impression_count += eventCount;
+    if (eventName === 'partner_referral_shown') existing.impression_count += eventCount;
+    else existing.click_count += eventCount;
     normalized.set(key, existing);
   }
 
@@ -230,6 +235,7 @@ await upsertRows(supabaseUrl, serviceRoleKey, rows);
 const heartbeat = heartbeatRow();
 await upsertRows(supabaseUrl, serviceRoleKey, [heartbeat]);
 
-const clicks = rows.reduce((sum, row) => sum + row.click_count, 0);
-const impressions = rows.reduce((sum, row) => sum + row.impression_count, 0);
-console.log(`Partner referral analytics sync complete: ${rows.length} aggregates covering ${clicks} non-CI clicks and ${impressions} non-CI CTA impressions across the last ${WINDOW_DAYS} days; successful pipeline heartbeat ${heartbeat.synced_at}.`);
+const searchStarts = rows.filter((row) => row.partner === 'expedia-search').reduce((sum, row) => sum + row.click_count, 0);
+const clicks = rows.filter((row) => row.partner !== 'expedia-search').reduce((sum, row) => sum + row.click_count, 0);
+const impressions = rows.filter((row) => row.partner !== 'expedia-search').reduce((sum, row) => sum + row.impression_count, 0);
+console.log(`Partner referral analytics sync complete: ${rows.length} aggregates covering ${clicks} non-CI referral clicks, ${impressions} non-CI CTA impressions and ${searchStarts} Expedia search starts across the last ${WINDOW_DAYS} days; successful pipeline heartbeat ${heartbeat.synced_at}.`);
