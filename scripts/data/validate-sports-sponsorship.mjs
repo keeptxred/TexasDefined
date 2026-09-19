@@ -4,9 +4,10 @@ import path from 'node:path';
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
 
-const [schemaMigration, deliveryMigration, server, functions, component, directory, guide, galaxy, sharedContent, sharedPage, adminHead, adminLazy, adminNav, partnerPageHead, partnerPageLazy, salesPlaybook, advertisingProgram] = await Promise.all([
+const [schemaMigration, deliveryMigration, indexMigration, server, functions, component, directory, guide, galaxy, sharedContent, sharedPage, adminHead, adminLazy, adminNav, partnerPageHead, partnerPageLazy, salesPlaybook, advertisingProgram] = await Promise.all([
   read('supabase/migrations/20260814041151_create_governed_sports_sponsorship.sql'),
   read('supabase/migrations/20260814041302_govern_sports_sponsor_delivery.sql'),
+  read('supabase/migrations/20260918233716_add_sponsor_fk_indexes.sql'),
   read('src/data/sports-sponsorship.server.ts'),
   read('src/data/sports-sponsorship.functions.ts'),
   read('src/components/sports/SponsoredSportsPlacement.tsx'),
@@ -51,6 +52,11 @@ for (const marker of [
 for (const forbidden of ['ip_address', 'user_agent', 'device_id', 'visitor_id', 'email text not null']) {
   assert(!schemaMigration.toLowerCase().includes(forbidden), `Sports sponsorship metrics/schema must not collect visitor identity field: ${forbidden}.`);
 }
+
+for (const marker of [
+  'texasdefined_sports_sponsor_placements_sponsor_id_idx',
+  'on public.texasdefined_sports_sponsor_placements (sponsor_id)',
+]) assert(indexMigration.toLowerCase().includes(marker.toLowerCase()), `Sports sponsorship FK-index migration is missing marker: ${marker}.`);
 
 for (const marker of [
   'texasdefined_sports_sponsor_one_approved_surface_idx',
