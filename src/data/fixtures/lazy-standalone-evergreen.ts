@@ -27,6 +27,18 @@ const texasHighSchoolFootballClassificationsStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: [],
 };
 
+const texasSixManFootballExplainedStub: Article = {
+  id: "evergreen-texas-six-man-football-explained", brandId: "texasdefined", slug: "texas-six-man-football-rules-explained",
+  title: "Texas Six-Man Football Explained: Rules, Scoring and Why It Looks So Different",
+  dek: "Texas six-man football is not simply 11-man football with five players removed. Here is how the UIL game changes the field, first downs, scoring, ball movement and the 45-point rule.",
+  category: "sports",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Bart_Coan_Field_from_west.jpg?width=1600", alt: "Six-man football game at Bart Coan Field on the Fort Davis High School campus in Fort Davis, Texas", width: 1600, height: 1200, credit: "Fortguy · CC BY-SA 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-09-19", readingMinutes: 12,
+  tags: ["texas six-man football", "six player football rules", "1A football Texas", "45 point rule", "UIL football", "small town Texas football"], featured: false,
+  sourceName: "University Interscholastic League", sourceUrl: "https://www.uiltexas.org/football/rules-guidelines",
+  body: [], relatedCollections: [], relatedDestinations: [],
+};
+
 const texasHighSchoolFootballPlayoffsStub: Article = {
   id: "evergreen-texas-high-school-football-playoffs", brandId: "texasdefined", slug: "texas-high-school-football-playoffs-explained",
   title: "How Do the Texas High School Football Playoffs Work?",
@@ -238,6 +250,7 @@ const fredericksburgHistoryWeekendGuideStub: Article = {
 export const standaloneEvergreenStubs: Article[] = [
   rodeo101Stub,
   texasHighSchoolFootballClassificationsStub,
+  texasSixManFootballExplainedStub,
   texasHighSchoolFootballPlayoffsStub,
   highSchoolFootballNewcomersStub,
   kolacheOrKlobasnekStub,
@@ -262,6 +275,7 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (brandId !== "texasdefined") return null;
   if (slug === rodeo101Stub.slug) return import("./rodeo-101").then((module) => module.rodeo101Article);
   if (slug === texasHighSchoolFootballClassificationsStub.slug) return import("./texas-high-school-football-classifications").then((module) => module.texasHighSchoolFootballClassificationsArticle);
+  if (slug === texasSixManFootballExplainedStub.slug) return import("./texas-six-man-football-explained").then((module) => module.texasSixManFootballExplainedArticle);
   if (slug === texasHighSchoolFootballPlayoffsStub.slug) return import("./texas-high-school-football-playoffs").then((module) => module.texasHighSchoolFootballPlayoffsArticle);
   if (slug === highSchoolFootballNewcomersStub.slug) return import("./high-school-football-newcomers").then((module) => module.highSchoolFootballNewcomersArticle);
   if (slug === kolacheOrKlobasnekStub.slug) return import("./kolache-or-klobasnek").then((module) => module.kolacheOrKlobasnekArticle);
