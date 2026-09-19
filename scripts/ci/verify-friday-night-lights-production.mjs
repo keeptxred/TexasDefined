@@ -1,6 +1,8 @@
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 const hubPath = '/sports/friday-night-lights';
 const finderPath = '/texas-high-school-football-teams';
+const districtDirectoryPath = '/texas-high-school-football-districts';
+const katyDistrictPath = '/texas-high-school-football-districts/6a-district-22';
 const classificationsPath = '/article/texas-high-school-football-classifications-1a-6a';
 const playoffsPath = '/article/texas-high-school-football-playoffs-explained';
 const sixManPath = '/article/texas-six-man-football-rules-explained';
@@ -119,6 +121,7 @@ await fetchVerified(finderPath, 'football finder', (body) => {
     'High school, ISD, city or county',
     'What “good football fit” should mean',
     '/find-my-school-district',
+    districtDirectoryPath,
     '/article/texas-high-school-football-classifications-1a-6a',
     playoffsPath,
     sixManPath,
@@ -129,6 +132,32 @@ await fetchVerified(finderPath, 'football finder', (body) => {
     '/texas-high-school-football-teams/abbott',
   ]) requireNeedle(body, needle, 'football finder');
   if (/\bnoindex\b/i.test(body)) throw new Error('football finder unexpectedly contains noindex');
+});
+
+await fetchVerified(districtDirectoryPath, 'football district directory', (body) => {
+  for (const needle of [
+    'Texas high school football districts',
+    'Browse all 192 current UIL football districts',
+    '6A',
+    '1A Division II',
+    katyDistrictPath,
+    '/texas-high-school-football-teams',
+  ]) requireNeedle(body, needle, 'football district directory');
+  if (/\bnoindex\b/i.test(body)) throw new Error('football district directory unexpectedly contains noindex');
+});
+
+await fetchVerified(katyDistrictPath, 'Katy UIL football district', (body) => {
+  for (const needle of [
+    '6A District 22',
+    '9 programs',
+    'Katy',
+    'Katy Cinco Ranch',
+    'Katy Tompkins',
+    '/texas-high-school-football-teams/katy',
+    'Member order is alphabetical for research usability',
+    'University Interscholastic League',
+  ]) requireNeedle(body, needle, 'Katy UIL football district');
+  if (/\bnoindex\b/i.test(body)) throw new Error('Katy UIL football district unexpectedly contains noindex');
 });
 
 await fetchVerified(classificationsPath, 'football classifications', (body) => {
@@ -209,6 +238,8 @@ await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {
   for (const needle of [
     'Katy',
     'Current district',
+    katyDistrictPath,
+    'Open full district guide',
     'How to enroll at',
     'UIL eligibility standards',
     'All current UIL football programs use the same profile system.',
@@ -235,6 +266,8 @@ await fetchVerified(abbottProfilePath, 'Abbott football school profile', (body) 
 await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
   requireNeedle(body, '<loc>https://texasdefined.com/sports/friday-night-lights</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams</loc>', 'sitemap');
+  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-districts</loc>', 'sitemap');
+  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-districts/6a-district-22</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/katy</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/abbott</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/article/texas-high-school-football-playoffs-explained</loc>', 'sitemap');
@@ -245,4 +278,4 @@ await fetchVerified('/robots.txt', 'robots', (body) => {
   if (/Disallow:\s*\/sports(?:\/|\s|$)/i.test(body)) throw new Error('robots.txt blocks /sports');
 });
 
-console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, shared 6A and 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, history, sitemap and robots are live.');
+console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, 192 canonical UIL district hubs, shared 6A and 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, history, sitemap and robots are live.');
