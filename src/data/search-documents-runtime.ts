@@ -111,6 +111,17 @@ export async function buildSearchDocuments(): Promise<SearchDocument[]> {
   }
 
   try {
+    const { buildTexasHockeySearchDocuments } = await import("./texas-hockey-search");
+    for (const document of buildTexasHockeySearchDocuments()) {
+      if (knownHrefs.has(document.href)) continue;
+      base.push(document);
+      knownHrefs.add(document.href);
+    }
+  } catch {
+    reportOptionalSearchFailure("Texas hockey");
+  }
+
+  try {
     const { getMajorEventGuideDirectory } = await import("./major-event-directory");
     const majorEventGuides = await getMajorEventGuideDirectory();
     for (const event of majorEventGuides) {
