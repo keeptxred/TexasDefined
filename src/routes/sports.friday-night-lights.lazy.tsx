@@ -44,6 +44,12 @@ const startHere = [
     label: "Open the football team finder",
   },
   {
+    title: "Browse every current UIL football district",
+    description: "Open all 192 current 2026–28 UIL football districts and move from a district roster directly into each school’s research profile.",
+    href: "/texas-high-school-football-districts",
+    label: "Browse UIL districts",
+  },
+  {
     title: "Find the school district first",
     description: "For newcomers and relocating families, the district is the cleanest starting point for understanding which schools, rivalries and local traditions belong to a community.",
     href: "/find-my-school-district",
@@ -142,6 +148,7 @@ function FridayNightLightsPage() {
               <Link to="/article/texas-high-school-football-classifications-1a-6a" className="text-primary">How 1A through 6A work →</Link>
               <Link to="/article/texas-six-man-football-rules-explained" className="text-primary">Six-man rules explained →</Link>
               <Link to="/texas-high-school-football-teams" className="text-primary">Look up a current UIL program →</Link>
+              <Link to="/texas-high-school-football-districts" className="text-primary">Browse current UIL districts →</Link>
             </div>
           </div>
           <div className="grid gap-5">
