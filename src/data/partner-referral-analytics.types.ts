@@ -44,6 +44,7 @@ export type PartnerReferralAnalyticsDashboard = {
   lastSyncedAt: string | null;
   lastPipelineSyncAt: string | null;
   impressionTrackingStartedAt: string;
+  ctrMeasurementStartedAt: string;
   windowDays: number;
   totalClicks30d: number;
   totalClicks7d: number;
