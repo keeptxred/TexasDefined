@@ -30,6 +30,10 @@ const featuredProfileFunctionPath = 'src/data/high-school-football/featured-prog
 const officialEnrollmentLinksPath = 'src/data/high-school-football/official-enrollment-links.ts';
 const privateFootballAlignmentsPath = 'src/data/high-school-football/private-football-alignments.ts';
 const privateSchoolAdmissionsPath = 'src/data/high-school-football/private-school-admissions.ts';
+const programSlugsPath = 'src/data/high-school-football/program-slugs.ts';
+const programProfileServerPath = 'src/data/high-school-football/football-program-profile.server.ts';
+const programProfileFunctionsPath = 'src/data/high-school-football/football-program-profile.functions.ts';
+const uilDirectoryComponentPath = 'src/components/sports/UilFootballProgramDirectory.tsx';
 const featuredFiles = [
   'src/data/high-school-football/featured-programs.ts',
   'src/data/high-school-football/school-identities.ts',
@@ -48,7 +52,20 @@ const authorityFiles = [
   'src/data/friday-night-lights-structured-data.server.ts',
 ];
 
-for (const file of [...files, ...authorityFiles, allTimeHistoryPath, featuredProfileFunctionPath, officialEnrollmentLinksPath, privateFootballAlignmentsPath, privateSchoolAdmissionsPath, ...featuredFiles]) {
+for (const file of [
+  ...files,
+  ...authorityFiles,
+  allTimeHistoryPath,
+  featuredProfileFunctionPath,
+  officialEnrollmentLinksPath,
+  privateFootballAlignmentsPath,
+  privateSchoolAdmissionsPath,
+  programSlugsPath,
+  programProfileServerPath,
+  programProfileFunctionsPath,
+  uilDirectoryComponentPath,
+  ...featuredFiles,
+]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing high-school football platform file: ${file}`);
 }
 
@@ -77,6 +94,10 @@ if (!errors.length) {
   const officialEnrollmentLinks = read(officialEnrollmentLinksPath);
   const privateFootballAlignments = read(privateFootballAlignmentsPath);
   const privateSchoolAdmissions = read(privateSchoolAdmissionsPath);
+  const programSlugs = read(programSlugsPath);
+  const programProfileServer = read(programProfileServerPath);
+  const programProfileFunctions = read(programProfileFunctionsPath);
+  const uilDirectoryComponent = read(uilDirectoryComponentPath);
   const featuredPrograms = read(featuredFiles[0]);
   const schoolIdentities = read(featuredFiles[1]);
   const featuredProfileLoader = read(featuredFiles[2]);
