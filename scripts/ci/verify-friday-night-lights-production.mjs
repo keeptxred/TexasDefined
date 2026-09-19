@@ -6,6 +6,7 @@ const playoffsPath = '/article/texas-high-school-football-playoffs-explained';
 const sixManPath = '/article/texas-six-man-football-rules-explained';
 const finderApiPath = '/api/high-school-football?q=Dallas%20South%20Oak%20Cliff&limit=5';
 const allTimeFinderApiPath = '/api/high-school-football?q=Katy&limit=50';
+const katyProgramProfilePath = '/high-school-football/katy';
 const expectedTitle = 'Texas High School Football: Friday Night Lights, Traditions & Game-Day Guide';
 const expectedDescription = 'Understand Texas high school football through Friday-night traditions, six-man and 11-man culture, stadiums, homecoming mums, playoffs, school communities and practical game-day planning.';
 const expectedCanonical = `${origin}${hubPath}`;
@@ -182,15 +183,32 @@ await fetchVerified(allTimeFinderApiPath, 'football all-time history API', (body
   const katy = payload?.programs?.find((program) => program.schoolName === 'Katy');
   if (!katy) throw new Error('Katy was not returned by UIL program search');
   if (!katy.allTimeHistory) throw new Error('Katy is missing all-time UIL state-final history');
+  if (katy.profilePath !== katyProgramProfilePath) throw new Error('Katy football profile path is missing or unstable');
   if (katy.allTimeHistory.stateTitles < 9) throw new Error('Katy all-time title count is below the official UIL baseline');
   if (katy.allTimeHistory.stateFinalAppearances < 15) throw new Error('Katy all-time state-final appearances are below the official UIL baseline');
   if (katy.allTimeHistory.publishedThroughYear < 2024) throw new Error('UIL all-time appearances table recency detection is unexpectedly old');
   if (!katy.allTimeHistory.sourceUrl?.includes('uiltexas.org/football/all-time-appearances')) throw new Error('Katy all-time history is missing official UIL provenance');
 });
 
+await fetchVerified(katyProgramProfilePath, 'Katy football program profile', (body) => {
+  for (const needle of [
+    'Katy football',
+    'Program snapshot',
+    'District competition',
+    'How to enroll at Katy and research football eligibility',
+    'Verify the exact home address',
+    'Verify UIL athletic eligibility before making a football-driven move',
+    '/find-my-school-district',
+    'https://www.uiltexas.org/policy/eligibility',
+    '/texas-high-school-football-teams',
+  ]) requireNeedle(body, needle, 'Katy football program profile');
+  if (/\bnoindex\b/i.test(body)) throw new Error('Katy football program profile unexpectedly contains noindex');
+});
+
 await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
   requireNeedle(body, '<loc>https://texasdefined.com/sports/friday-night-lights</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams</loc>', 'sitemap');
+  requireNeedle(body, '<loc>https://texasdefined.com/high-school-football/katy</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/article/texas-high-school-football-playoffs-explained</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/article/texas-six-man-football-rules-explained</loc>', 'sitemap');
 });
@@ -199,4 +217,4 @@ await fetchVerified('/robots.txt', 'robots', (body) => {
   if (/Disallow:\s*\/sports(?:\/|\s|$)/i.test(body)) throw new Error('robots.txt blocks /sports');
 });
 
-console.log('Friday Night Lights production smoke passed: hub SEO/discovery, classification/history authority, playoff authority, six-man rules authority, statewide team finder, UIL all-time plus recent-finals API history, sitemap and robots are live.');
+console.log('Friday Night Lights production smoke passed: hub authority, statewide finder, individual program profile/enrollment research, UIL all-time plus recent-finals API history, sitemap and robots are live.');
