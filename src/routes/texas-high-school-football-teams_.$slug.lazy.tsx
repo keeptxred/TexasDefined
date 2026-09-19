@@ -225,7 +225,7 @@ function Page() {
             <Snapshot label="Most recent final" value={program.recentHistory.mostRecentFinalSeason || '—'} />
           </dl>
           <div className="mt-5 divide-y divide-border border-y border-border">
-            {program.recentHistory.finals.map((final) => <div key={`${final.season}-${final.conference}-${final.result}`} className="grid gap-1 py-4 text-sm sm:grid-cols-3">
+            {program.recentHistory.finals.map((final) => <div key={`${final.season}-${final.conference}-${final.result}`} className={'grid gap-1 py-4 text-sm sm:grid-cols-3'}>
               <span className="font-semibold">{final.season}</span>
               <span>{final.result}</span>
               <span className="text-muted-foreground">{final.conference} · vs. {final.opponent} · {final.score}</span>
