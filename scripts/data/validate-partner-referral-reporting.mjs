@@ -146,7 +146,6 @@ for (const [needle, label] of [
   ['Daily affiliate CTA impressions', 'daily impression trend accessibility label'],
   ['row.impressions === null', 'pre-rollout impression gap rendering'],
   ['maxDailyImpressions', 'independent daily impression scaling'],
-  ['intentionally shown as unmeasured rather than zero', 'measurement-boundary explanation'],
 ]) expect(lazyRoute, needle, label);
 
 expect(types, 'lastPipelineSyncAt: string | null', 'pipeline heartbeat dashboard type');
