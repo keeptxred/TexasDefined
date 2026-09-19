@@ -94,17 +94,19 @@ for (const [needle, label] of [
   ["assertSportsPartnerAccess(accessKey)", 'commercial admin authorization'],
   ["from('texasdefined_partner_referral_daily')", 'private aggregate read'],
   ['impression_count', 'private impression aggregate read'],
-  ['IMPRESSION_TRACKING_STARTED_AT', 'CTR tracking start boundary'],
+  ["const IMPRESSION_TRACKING_STARTED_AT = '2026-09-18'", 'impression rollout start boundary'],
+  ["const CTR_MEASUREMENT_STARTED_AT = '2026-09-19'", 'clean CTR measurement boundary'],
   ['totalImpressions30d', '30-day impression reporting'],
   ['clickThroughRateSinceImpressionTracking', 'truthful post-rollout CTR reporting'],
   ['measurementCtr = clickThroughRate', 'dimension-level measured-window CTR calculation'],
-  ['inMeasurementWindow', 'dimension-level measurement boundary'],
+  ['metricDate >= CTR_MEASUREMENT_STARTED_AT', 'dimension-level clean CTR measurement boundary'],
   ['dailyImpressionsMap', 'daily impression aggregation'],
   ['impressions: date >= IMPRESSION_TRACKING_STARTED_AT ? dailyImpressionsMap.get(date) ?? 0 : null', 'pre-rollout daily impressions remain unmeasured'],
   ["import { supabaseAdmin } from '@/integrations/supabase/client.server'", 'server-only Supabase client'],
   ['weekOverWeekPercent', 'trend reporting'],
   ["row.partner === HEARTBEAT_PARTNER && row.placement === HEARTBEAT_PLACEMENT", 'heartbeat metric exclusion'],
   ['lastPipelineSyncAt', 'pipeline freshness reporting'],
+  ['b.impressions30d - a.impressions30d', 'exposure-aware partner/placement/page/destination ranking'],
 ]) expect(server, needle, label);
 
 for (const [needle, label] of [
@@ -131,7 +133,10 @@ for (const [needle, label] of [
   ['most recent successful Cloudflare-to-Supabase pipeline run', 'heartbeat explanation'],
   ['most recent successful Cloudflare-to-Supabase pipeline run', 'healthy zero-click heartbeat explanation'],
   ['30d CTA impressions', 'impression headline metric'],
-  ['CTR since', 'post-rollout CTR metric'],
+  ['CTR since', 'clean-window CTR metric'],
+  ['dashboard.ctrMeasurementStartedAt', 'clean CTR date rendering'],
+  ['CTA impression history begins on {impressionStartLabel}', 'impression rollout date rendering'],
+  ['rollout-day impressions remain visible but are excluded from CTR', 'rollout-versus-CTR explanation'],
   ['measurementCtr: row.measurementCtr', 'partner and placement measured-window CTR projection'],
   ['formatCtr(row.measurementCtr)', 'page and destination measured-window CTR rendering'],
   ["timeZone: 'UTC'", 'CTR start-date display timezone lock'],
@@ -145,6 +150,7 @@ for (const [needle, label] of [
 ]) expect(lazyRoute, needle, label);
 
 expect(types, 'lastPipelineSyncAt: string | null', 'pipeline heartbeat dashboard type');
+expect(types, 'ctrMeasurementStartedAt: string', 'clean CTR boundary dashboard type');
 expect(types, 'totalImpressions30d: number', 'dashboard impression total type');
 expect(types, 'clickThroughRateSinceImpressionTracking: number | null', 'dashboard CTR type');
 expect(types, 'measurementCtr: number | null', 'dimension-level measured-window CTR type');
@@ -166,4 +172,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Partner referral reporting validation passed: referral clicks and post-rollout CTA impressions are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, pre-rollout daily impression history remains explicitly unmeasured instead of being falsified as zero, dimension-level CTR uses only the clean post-rollout measurement window while historical count columns remain intact, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has staggered schedule and production-deploy recovery opportunities that skip Cloudflare while the heartbeat is fresh, the sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
+console.log('Partner referral reporting validation passed: referral clicks and CTA impressions are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, pre-rollout daily impression history remains explicitly unmeasured while the September 18 rollout day stays visible, CTR uses only the clean September 19+ measurement window, exposure volume breaks click ties so zero-click surfaces remain visible, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has staggered schedule and production-deploy recovery opportunities that skip Cloudflare while the heartbeat is fresh, the sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
