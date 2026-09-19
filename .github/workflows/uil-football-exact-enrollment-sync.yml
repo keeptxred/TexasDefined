@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   extract:
@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -47,6 +49,23 @@ jobs:
             /tmp/uil-alpha-26-28.txt \
             /tmp/uil-football-enrollments-2026.generated.ts \
             src/data/high-school-football/uil-football-alignments-2026.server.ts
+
+      - name: Commit validated enrollment module to PR branch
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          cp /tmp/uil-football-enrollments-2026.generated.ts \
+            src/data/high-school-football/uil-football-enrollments-2026.generated.ts
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/high-school-football/uil-football-enrollments-2026.generated.ts
+          if git diff --cached --quiet; then
+            echo "Exact enrollment module is already current."
+          else
+            git commit -m "Generate exact UIL football enrollments"
+            git push origin "HEAD:${HEAD_REF}"
+          fi
 
       - name: Upload exact enrollment module
         uses: actions/upload-artifact@v4
