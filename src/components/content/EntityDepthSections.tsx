@@ -1,3 +1,4 @@
+import { BookingAirportTravelCard, isBookingAirGatewayCity } from '@/components/monetization/BookingAirportTravelCard';
 import { getCityAuthorityProfile } from '@/data/city-authority-profiles';
 import { canonicalEntityPath, type RankedRelatedEntity } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
@@ -30,6 +31,8 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
   const questions = quickAnswers(entity, countyName, regionName);
   const relatedItems = related.slice(0, 6);
   const cityProfile = entity.kind === 'city' ? getCityAuthorityProfile(entity.slug) : undefined;
+  const hasAirportSystem = Boolean(cityProfile?.systems.some((system) => /\\bairports?\\b/i.test(system.title)));
+  const showBookingAirTravel = Boolean(cityProfile && hasAirportSystem && isBookingAirGatewayCity(entity.slug));
 
   return <>
     <section className="border-b border-border py-12" aria-labelledby="entity-context-heading">
@@ -70,6 +73,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
               </div>
             </article>)}
           </div>
+          {showBookingAirTravel ? <BookingAirportTravelCard cityName={entity.name} citySlug={entity.slug} /> : null}
         </div>
       </div>
     </section> : null}
