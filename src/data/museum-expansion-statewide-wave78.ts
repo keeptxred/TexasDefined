@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave79Destinations } from "./museum-expansion-statewide-wave79";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-19";
@@ -53,4 +54,5 @@ export const statewideMuseumExpansionWave78Destinations: Destination[] = [
     address: "213 E Hendricks Blvd, Wink, TX 79789",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave79Destinations,
 ];
