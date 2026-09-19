@@ -2,7 +2,7 @@ import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
 import { statewideMuseumExpansionWave71Destinations } from "./museum-expansion-statewide-wave71";
 import type { Destination, ImageRef } from "./types";
 
-const SOURCE_CHECKED_AT = "2026-09-18";
+const SOURCE_CHECKED_AT = "2026-09-19";
 
 function museumPlaceholder(name: string): ImageRef {
   return {
@@ -35,10 +35,10 @@ export const statewideMuseumExpansionWave70Destinations: Destination[] = [
     },
     nearestTown: "Monahans",
     county: "Ward County",
-    coordinates: { lat: 31.53763, lng: -102.95571 },
+    coordinates: { lat: 31.59472, lng: -102.87833 },
     hero: museumPlaceholder("Ward County Museum at the Million Barrel"),
     bestSeason: "Year-round during museum hours; fall through spring is especially comfortable for walking the outdoor complex and pairing the museum with Monahans Sandhills State Park.",
-    entryNote: "The City of Monahans currently lists museum hours Tuesday through Saturday from 10 a.m. to 6 p.m., with Sunday and Monday closed. The complex is large and includes several separate historic buildings and collections, so allow more time than a single-room local museum would require.",
+    entryNote: "The City of Monahans currently lists museum hours Tuesday through Saturday from 10 a.m. to 6 p.m., with Sunday and Monday closed. The city uses 400 Museum Blvd as the visitor address; Monahans Chamber material also references 1500 E. Sealy for the same complex. The complex is large and includes several separate historic buildings and collections, so allow more time than a single-room local museum would require.",
     highlights: [
       "1928 Million Barrel Tank and West Texas oil-boom history",
       "Rattlesnake Bomber Base Museum and World War II aviation exhibits",
