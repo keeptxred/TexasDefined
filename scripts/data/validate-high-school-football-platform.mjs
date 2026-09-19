@@ -34,6 +34,7 @@ const programSlugsPath = 'src/data/high-school-football/program-slugs.ts';
 const programProfileServerPath = 'src/data/high-school-football/football-program-profile.server.ts';
 const programProfileFunctionsPath = 'src/data/high-school-football/football-program-profile.functions.ts';
 const uilDirectoryComponentPath = 'src/components/sports/UilFootballProgramDirectory.tsx';
+const obsoleteSeedListComponentPath = 'src/components/sports/FeaturedFootballResearchList.tsx';
 const legacyMetadataFiles = [
   'src/data/high-school-football/featured-programs.ts',
   'src/data/high-school-football/school-identities.ts',
@@ -66,6 +67,10 @@ for (const file of [
   ...legacyMetadataFiles,
 ]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing high-school football platform file: ${file}`);
+}
+
+if (fs.existsSync(path.join(root, obsoleteSeedListComponentPath))) {
+  errors.push('Obsolete 250-school football research-list component must not exist; all UIL programs belong to the canonical 1,268-program directory.');
 }
 
 if (!errors.length) {
@@ -194,6 +199,10 @@ if (!errors.length) {
   if (finder.includes('Research list #')) errors.push('Football lookup must not expose seed-list rank or priority treatment.');
 
   for (const marker of [
+    'Legacy source metadata from the user\'s original starter list.',
+    'NOT the TexasDefined UIL school directory, ranking, priority list',
+    'complete 1,268-program UIL 2026-28 alignment',
+    'Numeric source positions must never be',
     'FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS',
     'SEARCH_NAME_OVERRIDES',
     'ASSOCIATION_OVERRIDES',
