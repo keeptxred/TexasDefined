@@ -102,7 +102,7 @@ export const TEXAS_ESSENTIAL_FACTS: TexasEssentialFact[] = [
   fact(87, 'economy-industry', 'F-35 production in Fort Worth', 'Lockheed Martin\'s Fort Worth plant is the principal final-assembly site for the F-35 Lightning II.', '/made-in-texas'),
   fact(88, 'economy-industry', 'Ruby Red grapefruit', 'The Ruby Red grapefruit was discovered in the Rio Grande Valley and became a defining Texas citrus variety.', '/made-in-texas'),
   fact(89, 'economy-industry', '7-Eleven roots', 'The business that became 7-Eleven began in Dallas as an ice-company retail operation.', '/made-in-texas'),
-  fact(90, 'economy-industry', 'Texas beer in Shiner', 'Spoetzl Brewery has brewed beer in Shiner since 1909, making the town name a statewide brand.', '/made-in-texas'),
+  fact(90, 'economy-industry', 'Texas beer in Shiner', 'Spoetzl Brewery has brewed beer in Shiner since 1909, making the town name a statewide brand.', '/destination/spoetzl-brewery'),
   fact(91, 'government-civics', 'Two highest courts', 'Texas divides final state appellate jurisdiction between the Supreme Court of Texas for civil matters and the Texas Court of Criminal Appeals for criminal matters.'),
   fact(92, 'government-civics', 'Biennial regular sessions', 'The Texas Legislature meets in regular session in odd-numbered years for a maximum of 140 days.'),
   fact(93, 'government-civics', 'Plural executive', 'Texas voters independently elect several statewide executive officers, including the attorney general, comptroller and land commissioner.'),
