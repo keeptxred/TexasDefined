@@ -5,6 +5,13 @@ export type PartnerSearchStartBreakdown = {
   starts7d: number;
 };
 
+export type PartnerRecommendationEngagementBreakdown = {
+  key: string;
+  label: string;
+  opens30d: number;
+  opens7d: number;
+};
+
 export type PartnerReferralBreakdown = {
   key: string;
   label: string;
@@ -59,6 +66,8 @@ export type PartnerReferralAnalyticsDashboard = {
   totalImpressions7d: number;
   totalSearchStarts30d: number;
   totalSearchStarts7d: number;
+  totalRecommendationOpens30d: number;
+  totalRecommendationOpens7d: number;
   clicksSinceImpressionTracking: number;
   impressionsSinceImpressionTracking: number;
   clickThroughRateSinceImpressionTracking: number | null;
@@ -70,5 +79,7 @@ export type PartnerReferralAnalyticsDashboard = {
   destinations: PartnerReferralDestinationBreakdown[];
   searchStartPlacements: PartnerSearchStartBreakdown[];
   searchStartPages: PartnerSearchStartBreakdown[];
+  recommendationOpenPlacements: PartnerRecommendationEngagementBreakdown[];
+  recommendationOpenPages: PartnerRecommendationEngagementBreakdown[];
   daily: PartnerReferralDailyPoint[];
 };
