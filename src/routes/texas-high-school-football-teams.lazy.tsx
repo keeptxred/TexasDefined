@@ -66,6 +66,7 @@ function Page() {
         <div><p className="eyebrow text-primary">Connect the move</p><h2 className="mt-2 font-display text-3xl">Research the school and the address together</h2></div>
         <div className="grid gap-5 sm:grid-cols-2">
           <RelatedLink href="/find-my-school-district" title="Find the school district" body="Verify which district and campus serve the exact address before relying on a city name, ZIP code or listing." />
+          <RelatedLink href="/texas-high-school-football-districts" title="Browse all 192 UIL football districts" body="Open the current 2026–28 district directory and see every member program with a direct school-profile link." />
           <RelatedLink href="/article/texas-high-school-football-classifications-1a-6a" title="Understand 1A through 6A" body="See how enrollment, divisions, districts, realignment and six-man football fit together." />
           <RelatedLink href="/article/texas-high-school-football-playoffs-explained" title="Understand the playoff path" body="See who qualifies from each district, how 6A splits Division I and II, what bi-district means and how the bracket reaches the state finals." />
           <RelatedLink href="/article/texas-six-man-football-rules-explained" title="Learn six-man football" body="For 1A programs, see how the 80-yard field, exchange rule, scoring values and 45-point rule change the game." />
