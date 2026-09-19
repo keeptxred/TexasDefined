@@ -25,7 +25,13 @@ const files = [
   'src/data/texas-data-sources.ts',
 ];
 
-for (const file of files) {
+const authorityFiles = [
+  'src/data/fixtures/high-school-football-newcomers.ts',
+  'src/data/fixtures/texas-high-school-football-classifications.ts',
+  'src/data/friday-night-lights-structured-data.server.ts',
+];
+
+for (const file of [...files, ...authorityFiles]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing high-school football platform file: ${file}`);
 }
 
@@ -44,6 +50,9 @@ if (!errors.length) {
   const footballHub = read(files[11]);
   const publicRoutes = read(files[12]);
   const dataSources = read(files[13]);
+  const newcomerGuide = read(authorityFiles[0]);
+  const classificationGuide = read(authorityFiles[1]);
+  const footballHubSchema = read(authorityFiles[2]);
 
   for (const marker of [
     'UIL_FOOTBALL_PROGRAM_COUNT !== 1268',
@@ -126,6 +135,15 @@ if (!errors.length) {
   requireText(relocationFinder, 'See football programs →', 'School lookup football handoff');
   requireText(entityPage, 'CountyHighSchoolFootball', 'County page integration');
   requireText(footballHub, '/texas-high-school-football-teams', 'Friday Night Lights discovery');
+  requireText(footballHub, '/article/texas-high-school-football-classifications-1a-6a', 'Friday Night Lights classification discovery');
+  requireText(newcomerGuide, '/texas-high-school-football-teams', 'Newcomer football finder discovery');
+  requireText(newcomerGuide, '/article/texas-high-school-football-classifications-1a-6a', 'Newcomer classification discovery');
+  requireText(classificationGuide, '/texas-high-school-football-teams', 'Classification guide football finder discovery');
+  requireText(classificationGuide, 'Prairie View Interscholastic League', 'Classification guide history');
+  requireText(classificationGuide, 'https://www.uiltexas.org/history/timeline', 'Classification guide UIL history source');
+  requireText(classificationGuide, 'https://www.uiltexas.org/football/rules-guidelines', 'Classification guide rules source');
+  requireText(footballHubSchema, '/article/texas-high-school-football-classifications-1a-6a', 'Friday Night Lights schema classification discovery');
+  requireText(footballHubSchema, '/texas-high-school-football-teams', 'Friday Night Lights schema finder discovery');
   requireText(publicRoutes, '"/texas-high-school-football-teams"', 'Public route governance');
   requireText(dataSources, "id:'uil-football-alignments'", 'Texas source registry');
   requireText(dataSources, "domain:'sports'", 'Texas source registry');
