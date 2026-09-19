@@ -8,6 +8,7 @@ import {
 import { searchFootballPrograms, type FootballProgramDirectoryResult } from './football-directory.server';
 import { getOfficialFootballEnrollmentLink } from './official-enrollment-links';
 import { getVerifiedFootballVenueLinks, type VerifiedFootballVenueLink } from './football-venue-links.server';
+import { footballDistrictProfilePath } from './football-districts.server';
 import type { VerifiedPrivateFootballAlignment } from './private-football-alignments';
 import type { VerifiedPrivateSchoolAdmissions } from './private-school-admissions';
 import { footballClassificationRank, footballProgramProfilePath, footballProgramSlug } from './program-slugs';
@@ -30,6 +31,7 @@ export type FootballProgramProfile = {
   identity: ReturnType<typeof getVerifiedFootballSchoolIdentity> | null;
   enrollmentLink: ReturnType<typeof getOfficialFootballEnrollmentLink> | null;
   districtPeers: FootballProgramProfilePeer[];
+  districtPath: string | null;
   venueLinks: VerifiedFootballVenueLink[];
   governingBodyHint?: 'SPC' | 'TAPPS' | 'TCAL';
   associationClassification?: string;
@@ -122,6 +124,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
       identity: legacy.identity,
       enrollmentLink: legacy.enrollmentLink,
       districtPeers: [],
+      districtPath: null,
       venueLinks: [],
       governingBodyHint: legacy.featured.governingBodyHint,
       associationClassification: legacy.featured.associationClassification,
@@ -147,6 +150,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     identity: getVerifiedFootballSchoolIdentity(legacyIdentity?.slug ?? canonicalSlug) ?? null,
     enrollmentLink: getOfficialFootballEnrollmentLink(program.districtName) ?? null,
     districtPeers: districtPeers(seed),
+    districtPath: footballDistrictProfilePath(seed.classification, seed.division, seed.district),
     venueLinks: getVerifiedFootballVenueLinks({
       schoolName: program.schoolName,
       officialSchoolName: program.officialSchoolName,
