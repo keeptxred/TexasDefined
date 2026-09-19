@@ -132,6 +132,7 @@ for (const marker of [
   'placement: "stay-nearby-card-exact"',
   'link.dataset.exactProperty = propertyName',
   'EXACT_PROPERTY_AFFILIATE_SELECTOR',
+  'a[data-commercial-partner="hotels.com"][data-commercial-placement="stay-nearby-card-exact"]',
   'View recommended stays',
   'choice.dataset.priority = exactPropertyFirst ? "exact-property-first" : "broad-search-first"',
   'placeBookingChoice(expediaSurface, choice, exactPropertyFirst)',
@@ -178,7 +179,7 @@ for (const marker of [
   'event: "affiliate_surface_impression"',
   'link.rel = "sponsored nofollow noopener noreferrer"',
   'const provider = affiliateTarget.provider || "expedia"',
-  'const placement = "stay-nearby-card"',
+  'const placement = "stay-nearby-card-exact"',
   'link.dataset.affiliatePartner = provider',
   'link.dataset.affiliatePlacement = placement',
   'link.dataset.commercialPartner = provider',
@@ -256,4 +257,4 @@ for (const page of pages) {
   requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === page.route.replace(/\/+$/, ''), `${page.route} is not self-canonical and must not be part of the monetized production cohort.`);
 }
 
-console.log('Stay affiliate production verification passed: all 24 governed stay properties (15 venue + 9 destination) expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher, curated surfaces prioritize exact-property referrals before broad Hotels.com/Vrbo choices, while broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted partner_referral_shown, partner_referral_clicked and reserved expedia-search next_step_selected CI probes backed by Cloudflare Analytics Engine; Hotels.com/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');
+console.log('Stay affiliate production verification passed: all 24 governed stay properties (15 venue + 9 destination) expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher, curated surfaces prioritize exact-property referrals before broad Hotels.com/Vrbo choices, while broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted partner_referral_shown, partner_referral_clicked and reserved expedia-search next_step_selected CI probes backed by Cloudflare Analytics Engine; Hotels.com/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution, with every verified property CTA unified under stay-nearby-card-exact; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');
