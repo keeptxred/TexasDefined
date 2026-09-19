@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave79Destinations } from "./museum-expansion-statewide-wave79";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-19";
@@ -15,6 +16,7 @@ function museumPlaceholder(name: string): ImageRef {
 /**
  * Seventy-eighth statewide museum wave. This record adds Wink's active,
  * volunteer-run Roy Orbison Museum as a distinct music-history destination.
+ * Wave 79 is chained here so later museum expansion remains conflict-light.
  */
 export const statewideMuseumExpansionWave78Destinations: Destination[] = [
   {
@@ -53,4 +55,5 @@ export const statewideMuseumExpansionWave78Destinations: Destination[] = [
     address: "213 E Hendricks Blvd, Wink, TX 79789",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave79Destinations,
 ];
