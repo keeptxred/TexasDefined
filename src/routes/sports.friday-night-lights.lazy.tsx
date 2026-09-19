@@ -24,6 +24,13 @@ const startHere = [
     label: "Understand classifications",
   },
   {
+    title: "How does six-man football work?",
+    description: "Learn the current UIL six-player rules: the 80-yard field, 15-yard first downs, exchange rule, all-player receiving eligibility, kicking values and the 45-point rule.",
+    href: "/article/texas-six-man-football-rules-explained",
+    label: "Learn six-man football",
+  },
+
+  {
     title: "How do the UIL playoffs work?",
     description: "Follow district qualification into the postseason, including the 6A Division I/II split, bi-district matchups, neutral sites and the road to 12 state champions.",
     href: "/article/texas-high-school-football-playoffs-explained",
@@ -133,6 +140,7 @@ function FridayNightLightsPage() {
             <p className="mt-4 text-sm leading-7 text-muted-foreground">UIL competition spans 1A six-man through 6A football. Classification is not a quality ranking; it is part of how schools of very different enrollment sizes are organized for competition.</p>
             <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
               <Link to="/article/texas-high-school-football-classifications-1a-6a" className="text-primary">How 1A through 6A work →</Link>
+              <Link to="/article/texas-six-man-football-rules-explained" className="text-primary">Six-man rules explained →</Link>
               <Link to="/texas-high-school-football-teams" className="text-primary">Look up a current UIL program →</Link>
             </div>
           </div>
