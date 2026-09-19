@@ -264,7 +264,20 @@ function PublicEnrollmentSteps({
   </>;
 }
 
-function NonUilEnrollmentSteps({ schoolName, association }: { schoolName: string; association?: string }) {
+function NonUilEnrollmentSteps({
+  schoolName,
+  association,
+  admissions,
+}: {
+  schoolName: string;
+  association?: string;
+  admissions?: {
+    admissionsUrl: string;
+    sourceLabel: string;
+    verifiedAt: string;
+    schoolYear?: string;
+  } | null;
+}) {
   const steps: Array<[string, string]> = [
     ['Use the school’s admissions office', "Start with " + schoolName + "'s official admissions process rather than a public-school attendance-zone lookup."],
     ['Check application requirements', 'Confirm application dates, transcripts or records, recommendations, testing or interviews, grade-level availability and any tuition or financial-aid requirements.'],
@@ -272,7 +285,18 @@ function NonUilEnrollmentSteps({ schoolName, association }: { schoolName: string
     ['Confirm the football program', 'Verify that the school is fielding football in the intended season and confirm its current ' + (association ?? 'athletic association') + ' placement and schedule.'],
     ['Verify athletic eligibility separately', 'Admission does not automatically establish athletic eligibility. Ask the school how transfer, age, residence, prior participation and association rules apply to the student.'],
   ];
-  return <StepList steps={steps} />;
+  return <>
+    {admissions && <div className="mb-6 border border-border p-5">
+      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official school admissions</p>
+      <p className="mt-2 text-sm leading-7 text-muted-foreground">
+        TexasDefined verified this admissions source on {admissions.verifiedAt}{admissions.schoolYear ? ' for the ' + admissions.schoolYear + ' school year' : ''}. Use the school page for current deadlines, forms and requirements.
+      </p>
+      <a href={admissions.admissionsUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
+        Start with {admissions.sourceLabel} ↗
+      </a>
+    </div>}
+    <StepList steps={steps} />
+  </>;
 }
 
 function StepList({ steps }: { steps: Array<[string, string]> }) {
@@ -302,6 +326,10 @@ function Related({ href, title, body }: { href: string; title: string; body: str
 
 function alignmentLabel(program: { classification: string; division: 1 | 2 | null }) {
   return program.division ? program.classification + ' Division ' + (program.division === 1 ? 'I' : 'II') : program.classification;
+}
+
+function privateAlignmentLabel(alignment: { association: string; divisionLabel: string; districtLabel?: string }) {
+  return [alignment.association, alignment.divisionLabel, alignment.districtLabel].filter(Boolean).join(' · ');
 }
 
 function countySlug(value: string) {
