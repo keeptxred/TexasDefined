@@ -28,6 +28,7 @@ const evergreenGuides = [
   ['/texas-slang-explained', 'src/routes/texas-slang-explained.tsx', 'texas-slang-explained'],
   ['/texas-blue-norther-weather-guide', 'src/routes/texas-blue-norther-weather-guide.tsx', 'texas-blue-norther-weather-guide'],
   ['/texas-dance-halls-honky-tonks', 'src/routes/texas-dance-halls-honky-tonks.tsx', 'texas-dance-halls-honky-tonks'],
+  ['/texas-homecoming', 'src/routes/texas-homecoming.tsx', 'texas-homecoming'],
   ['/texas-homecoming-mums', 'src/routes/texas-homecoming-mums.tsx', 'texas-homecoming-mums'],
   ['/texas-natural-wonders-bucket-list', 'src/routes/texas-natural-wonders-bucket-list.tsx', 'texas-natural-wonders-bucket-list'],
   ['/german-czech-texas-towns', 'src/routes/german-czech-texas-towns.tsx', 'german-czech-texas-towns'],
