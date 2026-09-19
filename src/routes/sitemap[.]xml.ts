@@ -80,6 +80,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const { platform, scope } = await import("@/data");
         const { loadTexasKnowledgeGraph } = await import("@/data/knowledge-graph");
         const { footballProgramSitemapEntries, privateFootballProgramSitemapEntries } = await import("@/data/high-school-football/football-program-profile.server");
+        const { TEXAS_HOCKEY_ACTIVE_TEAMS, TEXAS_HOCKEY_LEAGUES, TEXAS_HOCKEY_REVIEWED_AT, TEXAS_HOCKEY_VENUES, texasHockeyLeaguePath, texasHockeyTeamPath, texasHockeyVenuePath } = await import("@/data/texas-hockey");
         const footballProfileEntries = footballProgramSitemapEntries();
         const privateFootballProfileEntries = privateFootballProgramSitemapEntries();
         const coreResults = await Promise.allSettled([
@@ -227,6 +228,9 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...entityPages.map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
           ...TEXAS_DATASETS.map((dataset) => ({ path: `/texas-data/${dataset.slug}`, lastmod: toDate(dataset.updated) })),
           ...footballProfileEntries,
+          ...TEXAS_HOCKEY_LEAGUES.map((league) => ({ path: texasHockeyLeaguePath(league.slug), lastmod: TEXAS_HOCKEY_REVIEWED_AT })),
+          ...TEXAS_HOCKEY_ACTIVE_TEAMS.map((team) => ({ path: texasHockeyTeamPath(team.slug), lastmod: TEXAS_HOCKEY_REVIEWED_AT })),
+          ...TEXAS_HOCKEY_VENUES.map((venue) => ({ path: texasHockeyVenuePath(venue.slug), lastmod: TEXAS_HOCKEY_REVIEWED_AT })),
           ...privateFootballProfileEntries,
         ];
 

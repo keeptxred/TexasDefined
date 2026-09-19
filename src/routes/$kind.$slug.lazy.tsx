@@ -27,6 +27,11 @@ const CountyHighSchoolFootball = lazy(() =>
     default: module.CountyHighSchoolFootball,
   })),
 );
+const EntityHockeyTeams = lazy(() =>
+  import('@/components/sports/EntityHockeyTeams').then((module) => ({
+    default: module.EntityHockeyTeams,
+  })),
+);
 
 const siteUrl = 'https://texasdefined.com';
 const localGovernmentKinds = new Set(['county', 'appraisal-district', 'tax-office', 'county-clerk', 'dps-office']);
@@ -126,6 +131,7 @@ function EntityPage() {
         {(entity.kind === 'city' || entity.kind === 'county') && foodDestinations.length ? <Suspense fallback={null}><EntityFoodDestinations entity={entity} destinations={foodDestinations} /></Suspense> : null}
         {entity.kind === 'county' ? <CountyCoastalPlaces county={entity} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
+        {(entity.kind === 'city' || entity.kind === 'county') ? <Suspense fallback={null}><EntityHockeyTeams kind={entity.kind} slug={entity.slug} name={entity.name} /></Suspense> : null}
         {entity.kind === 'county' ? <Suspense fallback={null}><CountyHighSchoolFootball county={entity} /></Suspense> : null}
         {entity.kind !== 'county' ? <EntityDepthSections entity={entity} related={visibleRelated} /> : null}
 
