@@ -3,26 +3,6 @@
 
 export const generatedTexasEvents = [
   {
-    "id": "official:marfa-lights-festival:2026-09-04",
-    "brandId": "texasdefined",
-    "slug": "marfa-lights-festival-2026-09-04",
-    "name": "Marfa Lights Festival",
-    "blurb": "Marfa Lights Festival puts live music and a strong sense of place on the calendar in Marfa.",
-    "city": "Marfa",
-    "region": "big-bend",
-    "startDate": "2026-09-04",
-    "endDate": "2026-09-06",
-    "category": "music",
-    "venue": "Marfa",
-    "officialUrl": "https://visitmarfa.com/",
-    "sourceName": "Marfa Lights Festival",
-    "sourceCheckedAt": "2026-08-26T12:37:01.292Z",
-    "confidenceScore": 88,
-    "editorialScore": 88,
-    "status": "pending",
-    "autoPublish": false
-  },
-  {
     "id": "official:state-fair-of-texas:2026-09-25",
     "brandId": "texasdefined",
     "slug": "state-fair-of-texas-2026-09-25",
