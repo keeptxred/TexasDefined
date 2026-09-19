@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 
 const component = fs.readFileSync('src/components/monetization/BookingCarRentalCard.tsx', 'utf8');
+const bookingAffiliate = fs.readFileSync('src/lib/booking-affiliate.ts', 'utf8');
 const tracker = fs.readFileSync('src/lib/affiliate-click.ts', 'utf8');
 const destinationPlanner = fs.readFileSync('src/components/editorial/DestinationVisitPlanner.tsx', 'utf8');
 const roadTrips = fs.readFileSync('src/components/explore/TopAttractionRoadTripsContent.tsx', 'utf8');
@@ -16,9 +17,10 @@ function requireText(source, needle, label) {
 }
 
 for (const [needle, label] of [
-  ['const CJ_PUBLISHER_ID = "101876465"', 'TexasDefined CJ publisher ID'],
-  ['https://www.booking.com/cars/country/us.html', 'Booking.com U.S. car-rental destination'],
-  ['https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/', 'CJ deep-link base'],
+  ['import { BOOKING_CJ_PUBLISHER_ID, bookingAffiliateDestinations, buildBookingCjDeepLink } from "@/lib/booking-affiliate"', 'shared Booking.com affiliate builder import'],
+  ['bookingAffiliateDestinations.carRental', 'shared Booking.com car-rental destination'],
+  ['buildBookingCjDeepLink(BOOKING_CAR_RENTAL_DESTINATION)', 'shared Booking.com deep-link builder'],
+  ['publisherId: BOOKING_CJ_PUBLISHER_ID', 'shared TexasDefined CJ publisher ID'],
   ['sponsored nofollow noopener noreferrer', 'affiliate relationship attributes'],
   ['Compare rental cars on Booking.com', 'Booking.com car-rental CTA'],
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Booking.com car-rental bookings', 'affiliate disclosure'],
@@ -29,6 +31,13 @@ for (const [needle, label] of [
   ['data-commercial-partner="booking.com"', 'first-party commercial partner metadata'],
   ['data-commercial-placement={placement}', 'first-party commercial placement attribution'],
 ]) requireText(component, needle, label);
+
+for (const [needle, label] of [
+  ['export const BOOKING_CJ_PUBLISHER_ID = "101876465"', 'TexasDefined CJ publisher ID'],
+  ['carRental: "https://www.booking.com/cars/country/us.html"', 'Booking.com U.S. car-rental destination'],
+  ['https://www.anrdoezrs.net/links/${BOOKING_CJ_PUBLISHER_ID}/type/dlg/', 'CJ deep-link base'],
+  ['url.protocol !== "https:" || url.hostname !== BOOKING_ALLOWED_HOST', 'Booking.com destination host guard'],
+]) requireText(bookingAffiliate, needle, label);
 
 for (const [needle, label] of [
   ['event: "affiliate_click"', 'shared affiliate click event'],
