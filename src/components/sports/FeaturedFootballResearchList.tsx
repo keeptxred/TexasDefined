@@ -49,7 +49,7 @@ export function FeaturedFootballResearchList() {
             className="group bg-background p-4 hover:bg-surface"
           >
             <div className="flex items-start gap-4">
-              <span className="min-w-12 font-display text-2xl text-primary">#{program.primaryRank}</span>
+              <span className="font-display text-2xl text-primary">#{program.primaryRank}</span>
               <div className="min-w-0">
                 <h3 className="font-display text-xl leading-tight group-hover:text-primary">{program.displayName}</h3>
                 {program.sourceRanks.length > 1
