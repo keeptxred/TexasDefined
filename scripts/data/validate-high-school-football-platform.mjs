@@ -346,6 +346,7 @@ if (!errors.length) {
     'getFootballProgramProfile',
     'getAllUilFootballPrograms',
     'footballProgramSitemapEntries',
+    'privateFootballProgramSitemapEntries',
     'districtPeers',
     'profilePath: footballProgramProfilePath',
   ]) requireText(programProfileServer, marker, 'Universal UIL football profile resolver');
@@ -410,7 +411,9 @@ if (!errors.length) {
   requireText(page, 'all 1,268 current UIL football programs as the authoritative school universe', 'Football finder all-UIL scope');
   requireText(page, '6A, 5A, 4A, 3A, 2A, 1A', 'Football finder classification ordering');
   requireText(sitemap, 'footballProgramSitemapEntries', 'Football school profile sitemap');
+  requireText(sitemap, 'privateFootballProgramSitemapEntries', 'Private football profile sitemap');
   requireText(sitemap, '...footballProfileEntries', 'Football school profile sitemap');
+  requireText(sitemap, '...privateFootballProfileEntries', 'Private football profile sitemap');
 
   requireText(countyModule, 'High school football in', 'County football module');
   requireText(countyModule, 'countyName={countyName}', 'County football module');
