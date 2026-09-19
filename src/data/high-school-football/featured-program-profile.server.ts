@@ -5,6 +5,7 @@ import {
 } from './featured-programs';
 import { searchFootballPrograms, type FootballProgramDirectoryResult } from './football-directory.server';
 import { getOfficialFootballEnrollmentLink } from './official-enrollment-links';
+import { footballProgramProfilePath } from './program-slugs';
 import { getVerifiedPrivateFootballAlignment } from './private-football-alignments';
 import { getVerifiedPrivateSchoolAdmissions } from './private-school-admissions';
 import { getVerifiedFootballSchoolIdentity } from './school-identities';
@@ -50,6 +51,7 @@ export async function getFeaturedFootballProgramProfile(slug: string): Promise<F
       && candidate.division === seed.division
     ) ?? {
       ...seed,
+      profilePath: footballProgramProfilePath(seed.schoolName),
     };
   }
 
