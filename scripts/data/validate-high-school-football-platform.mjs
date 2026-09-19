@@ -44,6 +44,8 @@ const footballDistrictIndexRoutePath = 'src/routes/texas-high-school-football-di
 const footballDistrictIndexPagePath = 'src/routes/texas-high-school-football-districts.lazy.tsx';
 const footballDistrictRoutePath = 'src/routes/texas-high-school-football-districts_.$slug.tsx';
 const footballDistrictPagePath = 'src/routes/texas-high-school-football-districts_.$slug.lazy.tsx';
+const scoresSchedulesGuidePath = 'src/data/fixtures/texas-high-school-football-scores-schedules.ts';
+const evergreenRegistryPath = 'src/data/fixtures/lazy-standalone-evergreen.ts';
 const obsoleteSeedListComponentPath = 'src/components/sports/FeaturedFootballResearchList.tsx';
 const legacyMetadataFiles = [
   'src/data/high-school-football/featured-programs.ts',
@@ -84,6 +86,8 @@ for (const file of [
   footballDistrictIndexPagePath,
   footballDistrictRoutePath,
   footballDistrictPagePath,
+  scoresSchedulesGuidePath,
+  evergreenRegistryPath,
   ...legacyMetadataFiles,
 ]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing high-school football platform file: ${file}`);
@@ -132,6 +136,8 @@ if (!errors.length) {
   const footballDistrictIndexPage = read(footballDistrictIndexPagePath);
   const footballDistrictRoute = read(footballDistrictRoutePath);
   const footballDistrictPage = read(footballDistrictPagePath);
+  const scoresSchedulesGuide = read(scoresSchedulesGuidePath);
+  const evergreenRegistry = read(evergreenRegistryPath);
   const legacyProgramMetadata = read(legacyMetadataFiles[0]);
   const schoolIdentities = read(legacyMetadataFiles[1]);
   const featuredProfileLoader = read(legacyMetadataFiles[2]);
@@ -572,6 +578,8 @@ if (!errors.length) {
     'Enrollment band',
     'Official UIL 2026–28 enrollment cutoffs ↗',
     'uilFootballEnrollmentBand',
+    '/article/texas-high-school-football-scores-schedules',
+    'Follow scores & weekly schedules',
   ]) requireText(footballDistrictPage, marker, 'Football district detail page');
 
   // The original supplied list remains available only as alias/private-school research metadata.
@@ -619,6 +627,8 @@ if (!errors.length) {
     'All current UIL football programs use the same profile system.',
     'Open full district guide →',
     'districtPath',
+    '/article/texas-high-school-football-scores-schedules',
+    'Current scores & schedules',
     'UIL enrollment band',
     'Official UIL 2026–28 enrollment cutoffs ↗',
     'uilFootballEnrollmentBand',
@@ -658,6 +668,7 @@ if (!errors.length) {
     '/sports-venues/high-school-football',
     '/article/texas-high-school-football-playoffs-explained',
     '/article/texas-six-man-football-rules-explained',
+    '/article/texas-high-school-football-scores-schedules',
     'Route.useSearch()',
     'initialQuery={q}',
     'Official UIL all-time state-title and state-final totals',
@@ -675,6 +686,7 @@ if (!errors.length) {
   requireText(footballHub, '/article/texas-high-school-football-classifications-1a-6a', 'Friday Night Lights classification discovery');
   requireText(footballHub, '/article/texas-high-school-football-playoffs-explained', 'Friday Night Lights playoff discovery');
   requireText(footballHub, '/article/texas-six-man-football-rules-explained', 'Friday Night Lights six-man discovery');
+  requireText(footballHub, '/article/texas-high-school-football-scores-schedules', 'Friday Night Lights scores discovery');
   requireText(newcomerGuide, '/texas-high-school-football-teams', 'Newcomer football finder discovery');
   requireText(newcomerGuide, '/article/texas-high-school-football-classifications-1a-6a', 'Newcomer classification discovery');
   requireText(newcomerGuide, '/article/texas-high-school-football-playoffs-explained', 'Newcomer playoff discovery');
@@ -693,6 +705,27 @@ if (!errors.length) {
     '/texas-high-school-football-teams',
   ]) requireText(playoffGuide, marker, 'Football playoff guide');
   requireText(playoffGuide, '/article/texas-six-man-football-rules-explained', 'Football playoff guide six-man discovery');
+  requireText(playoffGuide, '/article/texas-high-school-football-scores-schedules', 'Football playoff guide scores discovery');
+  for (const marker of [
+    'Texas High School Football Scores & Schedules: How to Follow the 2026 Season',
+    'https://www.uiltexas.org/athletics/uil-maxpreps',
+    'UIL Texas Scoreboard',
+    'scores and weekly schedules',
+    'standings and stat leaderboards are planned additions',
+    'District certification',
+    'do not confuse incomplete live submissions with an official standings table',
+    'December 16–19',
+    '/texas-high-school-football-teams',
+    '/texas-high-school-football-districts',
+    '/article/texas-high-school-football-playoffs-explained',
+  ]) requireText(scoresSchedulesGuide, marker, 'Football scores and schedules guide');
+
+  for (const marker of [
+    'texasHighSchoolFootballScoresSchedulesStub',
+    'texas-high-school-football-scores-schedules',
+    'texasHighSchoolFootballScoresSchedulesArticle',
+  ]) requireText(evergreenRegistry, marker, 'Football scores and schedules registry');
+
   for (const marker of [
     'Texas Six-Man Football Explained: Rules, Scoring and Why It Looks So Different',
     'https://www.uiltexas.org/football/rules-guidelines',
@@ -714,12 +747,15 @@ if (!errors.length) {
   requireText(footballHubSchema, '/article/texas-six-man-football-rules-explained', 'Friday Night Lights schema six-man discovery');
   requireText(footballHubSchema, '/texas-high-school-football-teams', 'Friday Night Lights schema finder discovery');
   requireText(footballHubSchema, '/texas-high-school-football-districts', 'Friday Night Lights schema district discovery');
+  requireText(footballHubSchema, '/article/texas-high-school-football-scores-schedules', 'Friday Night Lights schema scores discovery');
   requireText(publicRoutes, '"/texas-high-school-football-teams"', 'Public route governance');
   requireText(publicRoutes, '"/texas-high-school-football-districts"', 'Football district public route governance');
   requireText(dataSources, "id:'uil-football-alignments'", 'Texas source registry');
   requireText(dataSources, "domain:'sports'", 'Texas source registry');
   requireText(dataSources, "id:'uil-football-enrollment-cutoffs'", 'Texas source registry');
   requireText(dataSources, 'https://www.uiltexas.org/athletics/conference-cutoffs', 'Texas source registry');
+  requireText(dataSources, "id:'uil-football-scoreboard'", 'Texas source registry');
+  requireText(dataSources, 'https://www.uiltexas.org/athletics/uil-maxpreps', 'Texas source registry');
 
   for (const [file, source] of [
     [files[4], finder],
