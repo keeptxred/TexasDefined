@@ -5,6 +5,8 @@ on:
     paths:
       - 'public/expedia-travel.js'
       - 'public/stay-nearby-destination-hotels.json'
+      - 'public/stay-nearby-painted-churches-hotels.json'
+      - 'scripts/data/validate-expedia-affiliate.mjs'
       - 'scripts/data/validate-stay-monetization-policy.mjs'
       - 'scripts/data/validate-stay-destination-cohort.mjs'
       - 'src/routes/admin.stay-monetization.lazy.tsx'
@@ -16,6 +18,8 @@ on:
     paths:
       - 'public/expedia-travel.js'
       - 'public/stay-nearby-destination-hotels.json'
+      - 'public/stay-nearby-painted-churches-hotels.json'
+      - 'scripts/data/validate-expedia-affiliate.mjs'
       - 'scripts/data/validate-stay-monetization-policy.mjs'
       - 'scripts/data/validate-stay-destination-cohort.mjs'
       - 'src/routes/admin.stay-monetization.lazy.tsx'
