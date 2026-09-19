@@ -14,6 +14,7 @@ const required = [
 for (const path of required) if (!fs.existsSync(path)) throw new Error(`Fishing Batch 10 missing required file: ${path}`);
 
 const migration = read(required[0]);
+const indexMigration = read('supabase/migrations/20260918233716_add_sponsor_fk_indexes.sql');
 const inventory = read(required[2]);
 const server = read(required[3]);
 const functions = read(required[4]);
@@ -38,6 +39,13 @@ for (const token of [
   'priority integer',
   'exclusive boolean',
 ]) requireText(migration, token, `migration contract missing ${token}`);
+
+for (const token of [
+  'texasdefined_fishing_sponsor_placements_sponsor_id_idx',
+  'on public.texasdefined_fishing_sponsor_placements (sponsor_id)',
+  'texasdefined_fishing_sponsors_source_inquiry_id_idx',
+  'on public.texasdefined_fishing_sponsors (source_inquiry_id)',
+]) requireText(indexMigration.toLowerCase(), token.toLowerCase(), `FK-index migration missing ${token}`);
 
 for (const kind of ['featured-guide','lake-guide','regional-guide','species-guide','lake-sponsor','featured-marina','featured-tackle-shop','featured-lodging','featured-campground','featured-restaurant','regional-advertiser','statewide-advertiser']) {
   requireText(inventory, `kind: '${kind}'`, `inventory missing ${kind}`);
