@@ -1,4 +1,5 @@
 import { trackAffiliateClick } from "@/lib/affiliate-click";
+import { BOOKING_CJ_PUBLISHER_ID, bookingAffiliateDestinations, buildBookingCjDeepLink } from "@/lib/booking-affiliate";
 
 type Props = {
   className?: string;
@@ -6,9 +7,8 @@ type Props = {
   title?: string;
 };
 
-const CJ_PUBLISHER_ID = "101876465";
-const BOOKING_CAR_RENTAL_DESTINATION = "https://www.booking.com/cars/country/us.html";
-const BOOKING_CAR_RENTAL_URL = `https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/${encodeURI(BOOKING_CAR_RENTAL_DESTINATION)}`;
+const BOOKING_CAR_RENTAL_DESTINATION = bookingAffiliateDestinations.carRental;
+const BOOKING_CAR_RENTAL_URL = buildBookingCjDeepLink(BOOKING_CAR_RENTAL_DESTINATION);
 const BOOKING_CAR_RENTAL_LABEL = "Compare rental cars on Booking.com";
 
 export function BookingCarRentalCard({ className = "", placement, title = "Need a rental car for the trip?" }: Props) {
@@ -47,7 +47,7 @@ export function BookingCarRentalCard({ className = "", placement, title = "Need 
 }
 
 export const bookingCarRentalAffiliate = {
-  publisherId: CJ_PUBLISHER_ID,
+  publisherId: BOOKING_CJ_PUBLISHER_ID,
   destination: BOOKING_CAR_RENTAL_DESTINATION,
   affiliateUrl: BOOKING_CAR_RENTAL_URL,
 } as const;
