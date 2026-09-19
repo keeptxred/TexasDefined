@@ -25,6 +25,7 @@ const comparisonPoints = [
 ] as const;
 
 function Page() {
+  const { q } = Route.useSearch();
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <article className="mx-auto max-w-6xl">
       <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
@@ -37,7 +38,7 @@ function Page() {
         <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">Search by high school, ISD, city or county. TexasDefined connects current UIL football alignment with Texas Education Agency school-directory context so a family can see where a program fits before researching the deeper football and school picture.</p>
       </header>
 
-      <HighSchoolFootballLookup />
+      <HighSchoolFootballLookup initialQuery={q} />
 
       <section className="border-b border-border py-12">
         <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
