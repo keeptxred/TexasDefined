@@ -6,6 +6,7 @@ const bootstrap = fs.readFileSync('public/expedia-travel.js', 'utf8');
 const contextImages = fs.readFileSync('public/stay-nearby-context-images.js', 'utf8');
 const venueRoute = fs.readFileSync('src/routes/sports-venue.$slug.tsx', 'utf8');
 const registry = JSON.parse(fs.readFileSync('public/stay-nearby-hotels.json', 'utf8'));
+const paintedChurchesRegistry = JSON.parse(fs.readFileSync('public/stay-nearby-painted-churches-hotels.json', 'utf8'));
 const propertyImageManifestPath = 'public/stay-nearby-ai-property-images.json';
 const propertyImageManifest = fs.existsSync(propertyImageManifestPath)
   ? JSON.parse(fs.readFileSync(propertyImageManifestPath, 'utf8'))
@@ -96,6 +97,12 @@ for (const [needle, label] of [
   ['property.image', 'property image rights gate'],
   ['expedia-creator-toolbox', 'approved property image source gate'],
   ['affiliateUrl', 'provider-agnostic deep-link target support'],
+  ['const PAINTED_CHURCHES_STAY_DATA_URL = "/stay-nearby-painted-churches-hotels.json"', 'Painted Churches targeted stay registry'],
+  ['key: "painted-churches"', 'Painted Churches fixed destination context'],
+  ['loadPaintedChurchesStayData', 'Painted Churches targeted registry loader'],
+  ['loadStayDataForContext', 'context-specific stay registry selector'],
+  ['HOTELS_EXPEDIA_DISCLOSURE', 'mixed Hotels.com and Expedia disclosure'],
+  ['curatedDisclosure(selection)', 'provider-aware curated disclosure'],
 ]) requireText(bootstrap, needle, label);
 
 for (const family of ['explore', 'destination', 'city', 'county', 'sports-venue', 'sports-venues', 'event', 'best-places-to-go-camping-in-texas', 'texas-college-towns', 'texas-tailgating-guide']) {
@@ -167,6 +174,77 @@ if (fs.existsSync('public/stay-nearby-ai-fallbacks.json')) errors.push('Legacy S
 if (fs.existsSync('public/images/stay-nearby/ai')) errors.push('Legacy Stay Nearby AI SVG fallback directory must be removed.');
 for (const file of walkFiles('public/images/stay-nearby')) {
   if (/\.svg$/i.test(file) && file.includes(`${path.sep}properties${path.sep}`)) errors.push(`Stay Nearby property imagery must never use SVG: ${file}`);
+}
+
+const expectedPaintedChurchesProperties = [
+  {
+    id: 'holiday-inn-express-schulenburg',
+    name: 'Holiday Inn Express Hotel & Suites Schulenburg by IHG',
+    rank: 1,
+    sourceHost: 'www.ihg.com',
+    hotelsPath: '/ho439556/holiday-inn-express-hotel-suites-schulenburg-an-ihg-hotel-schulenburg-united-states-of-america/',
+  },
+  {
+    id: 'comfort-inn-suites-schulenburg',
+    name: 'Comfort Inn & Suites Schulenburg',
+    rank: 2,
+    sourceHost: 'www.choicehotels.com',
+    hotelsPath: '/ho499127/best-western-plus-schulenburg-inn-suites-schulenburg-united-states-of-america/',
+  },
+  {
+    id: 'americas-best-value-inn-schulenburg',
+    name: 'Americas Best Value Inn Schulenburg',
+    rank: 3,
+    sourceHost: 'www.sonesta.com',
+    hotelsPath: '/ho467717/americas-best-value-inn-schulenburg-schulenburg-united-states-of-america/',
+  },
+];
+
+if (paintedChurchesRegistry?.version !== 1 || !Array.isArray(paintedChurchesRegistry?.properties)) {
+  errors.push('Painted Churches stay registry must be version 1 with a properties array.');
+} else {
+  if (paintedChurchesRegistry.reviewedAt !== '2026-09-19') errors.push('Painted Churches stay registry review date must be 2026-09-19.');
+  if (paintedChurchesRegistry.policy?.maxCards !== 3) errors.push('Painted Churches stay registry must cap the cohort at three cards.');
+  if (paintedChurchesRegistry.properties.length !== 3) errors.push(`Painted Churches stay registry must contain exactly 3 properties; found ${paintedChurchesRegistry.properties.length}.`);
+
+  const destinations = new Set();
+  for (const expected of expectedPaintedChurchesProperties) {
+    const property = paintedChurchesRegistry.properties.find((candidate) => candidate.id === expected.id);
+    if (!property) {
+      errors.push(`Painted Churches stay registry is missing ${expected.id}.`);
+      continue;
+    }
+    if (property.name !== expected.name || property.city !== 'Schulenburg' || property.status !== 'active') errors.push(`${expected.id} identity/status drifted.`);
+    if (property.image !== null) errors.push(`${expected.id} must remain text-only until separately governed property imagery exists.`);
+    if (!Array.isArray(property.bookingTargets) || property.bookingTargets.length !== 1) {
+      errors.push(`${expected.id} must expose exactly one verified Hotels.com booking target.`);
+    } else {
+      const target = property.bookingTargets[0];
+      const prefix = 'https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com';
+      if (target.provider !== 'hotels.com' || target.verified !== true || target.ctaLabel !== 'View on Hotels.com') errors.push(`${expected.id} Hotels.com target metadata drifted.`);
+      if (target.affiliateUrl !== `${prefix}${expected.hotelsPath}`) errors.push(`${expected.id} exact Hotels.com CJ destination drifted.`);
+      if (destinations.has(target.affiliateUrl)) errors.push(`${expected.id} reuses another Painted Churches affiliate destination.`);
+      destinations.add(target.affiliateUrl);
+    }
+
+    const contexts = Array.isArray(property.contexts) ? property.contexts : [];
+    if (contexts.length !== 1) errors.push(`${expected.id} must have exactly one Painted Churches destination context.`);
+    const context = contexts[0];
+    if (context?.kind !== 'destination' || context?.key !== 'painted-churches' || context?.rank !== expected.rank) errors.push(`${expected.id} destination context/rank drifted.`);
+    if (!context?.geographicContext || !context?.proximity || !context?.differentiator) errors.push(`${expected.id} editorial lodging context is incomplete.`);
+    if (context?.source?.verifiedAt !== '2026-09-19') errors.push(`${expected.id} source verification date drifted.`);
+    try {
+      const sourceUrl = new URL(context?.source?.url || '');
+      if (sourceUrl.protocol !== 'https:' || sourceUrl.hostname !== expected.sourceHost) errors.push(`${expected.id} source must remain the verified official property/brand host ${expected.sourceHost}.`);
+    } catch {
+      errors.push(`${expected.id} source URL is invalid.`);
+    }
+  }
+
+  const paintedText = JSON.stringify(paintedChurchesRegistry).toLowerCase();
+  for (const forbidden of ['nightlyprice', 'nightly_price', 'estimateddistance', 'estimated_distance']) {
+    if (paintedText.includes(forbidden)) errors.push(`Painted Churches stay registry contains forbidden synthetic commerce field: ${forbidden}.`);
+  }
 }
 
 const pilots = guidePilotSlugs();
@@ -290,4 +368,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Expedia / Stay Nearby validation passed: approved tracking remains click-loaded with sponsored/nofollow and first-party partner attribution, curated hotel selection remains evidence-backed and capped at three cards, ${integratedProperties.length} configured redesigned-guide hotel cards are image-gated, rights-cleared affiliate property photos remain preferred, every remaining configured hotel card has a unique first-party photorealistic exact-property AI raster grounded to an exact address and verified property source, and generic hotel imagery and SVG fallbacks are prohibited.`);
+console.log(`Expedia / Stay Nearby validation passed: approved tracking remains click-loaded with sponsored/nofollow and first-party partner attribution, curated hotel selection remains evidence-backed and capped at three cards, the targeted Painted Churches cohort contains three source-backed text-only Schulenburg stays with unique verified Hotels.com CJ property targets and provider-aware disclosure, ${integratedProperties.length} configured redesigned-guide hotel cards are image-gated, rights-cleared affiliate property photos remain preferred, every remaining configured venue hotel card has a unique first-party photorealistic exact-property AI raster grounded to an exact address and verified property source, and generic hotel imagery and SVG fallbacks are prohibited.`);
