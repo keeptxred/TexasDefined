@@ -66,11 +66,11 @@ try {
     if (!api.ownerEligible('/real-estate')) errors.push('Vrbo owner referral must remain eligible on /real-estate.');
     if (api.ownerEligible('/city/austin')) errors.push('Vrbo owner referral must not appear merely because a page is a city travel guide.');
 
-    const hotelsDeepLink = api.buildCjDeepLink('https://www.hotels.com/');
-    const vrboDeepLink = api.buildCjDeepLink('https://www.vrbo.com/');
+    const hotelsDeepLink = api.buildCjDeepLink('https://www.hotels.com/', 'stay-nearby-choice');
+    const vrboDeepLink = api.buildCjDeepLink('https://www.vrbo.com/', 'stay-nearby-choice');
     for (const [value, partner] of [[hotelsDeepLink, 'Hotels.com'], [vrboDeepLink, 'Vrbo']]) {
-      if (!value.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/')) {
-        errors.push(`${partner} CJ deep link must stay bound to TexasDefined publisher 101876465.`);
+      if (!value.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/sid/td-stay-nearby-choice/')) {
+        errors.push(`${partner} CJ deep link must stay bound to TexasDefined publisher 101876465 with the privacy-safe stay-nearby-choice SID.`);
       }
     }
 
@@ -110,20 +110,28 @@ try {
       }
       if (seenPropertyDestinations.has(destination)) errors.push(`${property.id} reuses another property's Hotels.com destination: ${destination}`);
       seenPropertyDestinations.add(destination);
-      const affiliateUrl = api.buildCjDeepLink(destination);
-      if (!affiliateUrl.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho')) {
-        errors.push(`${property.id} exact Hotels.com target does not generate a TexasDefined CJ deep link.`);
+      const affiliateUrl = api.buildCjDeepLink(destination, 'stay-nearby-card-exact');
+      if (!affiliateUrl.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/sid/td-stay-nearby-card-exact/https://www.hotels.com/ho')) {
+        errors.push(`${property.id} exact Hotels.com target does not generate a TexasDefined CJ deep link with the exact-card placement SID.`);
       }
     }
     if (api.exactPropertyDestination('Not A Curated Hotel') !== null) errors.push('Unknown hotel names must fail closed instead of receiving a guessed property URL.');
 
     let rejectedUnsupportedHost = false;
     try {
-      api.buildCjDeepLink('https://example.com/');
+      api.buildCjDeepLink('https://example.com/', 'stay-nearby-choice');
     } catch {
       rejectedUnsupportedHost = true;
     }
     if (!rejectedUnsupportedHost) errors.push('CJ deep-link builder must reject destinations outside Hotels.com and Vrbo.');
+
+    let rejectedUnsafeSid = false;
+    try {
+      api.buildCjDeepLink('https://www.hotels.com/', 'stay nearby / user');
+    } catch {
+      rejectedUnsafeSid = true;
+    }
+    if (!rejectedUnsafeSid) errors.push('CJ deep-link builder must reject placement SIDs outside the static lowercase letter/digit/hyphen contract.');
   }
 } catch (error) {
   errors.push(`stay affiliate route-policy runtime check failed: ${error.message}`);
@@ -143,6 +151,9 @@ if (expediaPosition < 0 || affiliatePosition < 0 || affiliatePosition < expediaP
 for (const [needle, label] of [
   ['const CJ_PUBLISHER_ID = "101876465"', 'TexasDefined CJ publisher ID'],
   ['https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/', 'CJ Deep Link Generator base'],
+  ['const CJ_SID_PREFIX = "td-"', 'TexasDefined CJ SID prefix'],
+  ['function cjSid(placement)', 'privacy-safe placement SID builder'],
+  ['CJ_DLG_BASE}sid/${encodeURIComponent(cjSid(placement))}', 'CJ network placement attribution'],
   ['const VERIFIED_PROPERTY_DESTINATIONS = new Map([', 'exact Hotels.com property registry'],
   ['https://www.hotels.com/ho115100/hilton-anatole-dallas-united-states-of-america/', 'mature Hilton Anatole property record'],
   ['https://www.hotels.com/ho2949850752/loews-arlington-arlington-united-states-of-america/', 'Loews Arlington property record'],
@@ -150,7 +161,7 @@ for (const [needle, label] of [
   ['https://www.hotels.com/', 'Hotels.com destination'],
   ['https://www.vrbo.com/', 'Vrbo traveler destination'],
   ['https://www.vrbo.com/en-us/list/lead', 'Vrbo owner onboarding destination'],
-  ['link.href = buildCjDeepLink(destination)', 'tracked-link enforcement'],
+  ['link.href = buildCjDeepLink(destination, placement)', 'tracked-link placement SID enforcement'],
   ['sponsored nofollow noopener noreferrer', 'affiliate relationship attributes'],
   ['Find hotels on Hotels.com', 'Hotels.com CTA'],
   ['Find vacation rentals on Vrbo', 'Vrbo traveler CTA'],
