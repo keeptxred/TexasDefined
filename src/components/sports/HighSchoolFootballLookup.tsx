@@ -66,6 +66,7 @@ export function HighSchoolFootballLookup({
   const [historyAvailable, setHistoryAvailable] = useState(true);
   const [loading, setLoading] = useState(Boolean(countyName));
   const [error, setError] = useState('');
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
 
   useEffect(() => {
     if (!countyName) return;
@@ -83,6 +84,7 @@ export function HighSchoolFootballLookup({
         setMatchedTotal(payload.matchedTotal ?? payload.programs?.length ?? 0);
         setDirectoryAvailable(payload.directoryAvailable !== false);
         setHistoryAvailable(payload.historyAvailable !== false);
+        setSelectedKeys([]);
       } catch (cause) {
         if (controller.signal.aborted) return;
         setError(cause instanceof Error ? cause.message : 'Football programs could not be loaded.');
@@ -114,6 +116,7 @@ export function HighSchoolFootballLookup({
       setMatchedTotal(payload.matchedTotal ?? payload.programs?.length ?? 0);
       setDirectoryAvailable(payload.directoryAvailable !== false);
       setHistoryAvailable(payload.historyAvailable !== false);
+      setSelectedKeys([]);
       if (!(payload.programs?.length)) setError(`No current UIL football program matched “${trimmed}.” Try the official high-school or ISD name.`);
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : 'Football programs could not be loaded.');
@@ -137,6 +140,19 @@ export function HighSchoolFootballLookup({
   }
 
   const visible = useMemo(() => programs.slice(0, compact ? 16 : 50), [programs, compact]);
+  const selectedPrograms = useMemo(
+    () => selectedKeys.map((key) => programs.find((program) => programKey(program) === key)).filter((program): program is FootballProgram => Boolean(program)),
+    [programs, selectedKeys],
+  );
+
+  function toggleCompare(program: FootballProgram) {
+    const key = programKey(program);
+    setSelectedKeys((current) => {
+      if (current.includes(key)) return current.filter((item) => item !== key);
+      if (current.length >= 3) return current;
+      return [...current, key];
+    });
+  }
 
   return <section className={compact ? 'border-b border-border py-10' : 'border-y border-border py-10 sm:py-12'}>
     <div className={compact ? 'grid gap-8 lg:grid-cols-[15rem_1fr]' : ''}>
@@ -172,13 +188,23 @@ export function HighSchoolFootballLookup({
             <h3 className="font-display text-2xl">{countyName ? `UIL football programs in ${countyName}` : 'Matching football programs'}</h3>
             <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{matchedTotal.toLocaleString()} {matchedTotal === 1 ? 'program' : 'programs'}</span>
           </div>
+          {selectedPrograms.length > 0 && <ProgramComparison programs={selectedPrograms} onClear={() => setSelectedKeys([])} />}
           <div className="grid gap-px bg-border md:grid-cols-2">
             {visible.map((program) => <article key={programKey(program)} className="bg-background p-5">
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">{alignmentLabel(program)}</p>
               <h4 className="mt-2 font-display text-2xl leading-tight">{program.officialSchoolName || program.schoolName}</h4>
               {program.districtName && <p className="mt-2 text-sm font-medium">{program.districtName}</p>}
               <p className="mt-1 text-sm text-muted-foreground">{placeLabel(program)}</p>
-              <dl className="mt-4 grid grid-cols-2 gap-x-5 gap-y-3 border-t border-border pt-4 text-sm">
+              <label className="mt-4 flex min-h-10 cursor-pointer items-center gap-2 border-y border-border py-2 text-sm font-semibold">
+                <input
+                  type="checkbox"
+                  checked={selectedKeys.includes(programKey(program))}
+                  disabled={!selectedKeys.includes(programKey(program)) && selectedKeys.length >= 3}
+                  onChange={() => toggleCompare(program)}
+                />
+                Compare this program
+              </label>
+              <dl className="mt-4 grid grid-cols-2 gap-x-5 gap-y-3 text-sm">
                 <div><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">UIL district</dt><dd className="mt-1 font-semibold">{program.district}</dd></div>
                 <div><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">Format</dt><dd className="mt-1 font-semibold">{program.footballType}</dd></div>
               </dl>
@@ -199,6 +225,48 @@ export function HighSchoolFootballLookup({
         </div>
       </div>
     </div>
+  </section>;
+}
+
+function ProgramComparison({ programs, onClear }: { programs: FootballProgram[]; onClear: () => void }) {
+  const rows = [
+    ['ISD', (program: FootballProgram) => program.districtName || 'Not matched'],
+    ['Location', (program: FootballProgram) => placeLabel(program)],
+    ['UIL level', (program: FootballProgram) => alignmentLabel(program).replace(' · UIL 2026–28', '')],
+    ['UIL district', (program: FootballProgram) => String(program.district)],
+    ['Format', (program: FootballProgram) => program.footballType],
+    ['Recent titles', (program: FootballProgram) => program.recentHistory ? String(program.recentHistory.stateTitles) : 'No exact recent-final match'],
+    ['Recent state finals', (program: FootballProgram) => program.recentHistory ? String(program.recentHistory.stateFinalAppearances) : 'No exact recent-final match'],
+    ['Latest state final', (program: FootballProgram) => program.recentHistory?.mostRecentFinalSeason ? shortSeason(program.recentHistory.mostRecentFinalSeason) : '—'],
+  ] as const;
+
+  return <section className="mb-6 border border-border" aria-labelledby="football-program-comparison">
+    <div className="flex flex-wrap items-start justify-between gap-3 border-b border-border p-4">
+      <div>
+        <p className="eyebrow text-primary">Side-by-side research</p>
+        <h4 id="football-program-comparison" className="mt-1 font-display text-2xl">Compare football programs</h4>
+        <p className="mt-2 max-w-3xl text-xs leading-5 text-muted-foreground">Select up to three programs. This compares sourced football context; it does not rank academics, roster opportunity, coaching quality or overall student fit.</p>
+      </div>
+      <button type="button" onClick={onClear} className="text-xs font-semibold text-primary underline underline-offset-4">Clear comparison</button>
+    </div>
+    <div className="overflow-x-auto">
+      <table className="w-full min-w-[44rem] border-collapse text-left text-sm">
+        <thead>
+          <tr className="border-b border-border">
+            <th className="w-40 p-3 text-xs uppercase tracking-[0.1em] text-muted-foreground">Measure</th>
+            {programs.map((program) => <th key={programKey(program)} className="p-3 font-display text-lg">{program.officialSchoolName || program.schoolName}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(([label, getValue]) => <tr key={label} className="border-b border-border last:border-b-0">
+            <th scope="row" className="p-3 text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">{label}</th>
+            {programs.map((program) => <td key={programKey(program)} className="p-3 align-top">{getValue(program)}</td>)}
+          </tr>)}
+        </tbody>
+      </table>
+    </div>
+    {programs.length < 2 && <p className="border-t border-border p-3 text-xs text-muted-foreground">Select one more program to make the comparison useful.</p>}
+    {programs.length === 3 && <p className="border-t border-border p-3 text-xs text-muted-foreground">Three-program comparison limit reached. Uncheck one program to choose a different school.</p>}
   </section>;
 }
 
