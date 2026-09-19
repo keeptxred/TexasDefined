@@ -26,6 +26,7 @@ const files = [
 ];
 
 const allTimeHistoryPath = 'src/data/high-school-football/uil-football-all-time-history.server.ts';
+const featuredProfileFunctionPath = 'src/data/high-school-football/featured-program-profile.functions.ts';
 const featuredFiles = [
   'src/data/high-school-football/featured-programs.ts',
   'src/data/high-school-football/school-identities.ts',
@@ -44,7 +45,7 @@ const authorityFiles = [
   'src/data/friday-night-lights-structured-data.server.ts',
 ];
 
-for (const file of [...files, ...authorityFiles, allTimeHistoryPath, ...featuredFiles]) {
+for (const file of [...files, ...authorityFiles, allTimeHistoryPath, featuredProfileFunctionPath, ...featuredFiles]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing high-school football platform file: ${file}`);
 }
 
@@ -69,6 +70,7 @@ if (!errors.length) {
   const playoffGuide = read(authorityFiles[2]);
   const sixManGuide = read(authorityFiles[3]);
   const footballHubSchema = read(authorityFiles[4]);
+  const featuredProfileFunction = read(featuredProfileFunctionPath);
   const featuredPrograms = read(featuredFiles[0]);
   const schoolIdentities = read(featuredFiles[1]);
   const featuredProfileLoader = read(featuredFiles[2]);
@@ -194,6 +196,13 @@ if (!errors.length) {
   ]) requireText(featuredProfileLoader, marker, 'Featured football profile loader');
 
   for (const marker of [
+    'createServerFn',
+    'featured-program-profile.server',
+    'loadFeaturedFootballProgramProfile',
+    'getFeaturedFootballProgramProfile',
+  ]) requireText(featuredProfileFunction, marker, 'Featured football profile server-function bridge');
+
+  for (const marker of [
     '250-school research list',
     'FEATURED_SOURCE_ROW_COUNT',
     'FEATURED_UNIQUE_PROGRAM_COUNT',
@@ -205,6 +214,7 @@ if (!errors.length) {
   for (const marker of [
     "createFileRoute('/texas-high-school-football-teams/$slug')",
     'getFeaturedFootballProgramProfile',
+    'featured-program-profile.functions',
     'Football: Class, District, Enrollment & School Guide',
   ]) requireText(featuredProfileRoute, marker, 'Football school profile route');
 
