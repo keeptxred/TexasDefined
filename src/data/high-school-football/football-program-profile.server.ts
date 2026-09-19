@@ -7,6 +7,7 @@ import {
 import { searchFootballPrograms, type FootballProgramDirectoryResult } from './football-directory.server';
 import { getOfficialFootballEnrollmentLink } from './official-enrollment-links';
 import type { VerifiedPrivateFootballAlignment } from './private-football-alignments';
+import type { VerifiedPrivateSchoolAdmissions } from './private-school-admissions';
 import { footballClassificationRank, footballProgramProfilePath, footballProgramSlug } from './program-slugs';
 import { getVerifiedFootballSchoolIdentity } from './school-identities';
 import { UIL_FOOTBALL_PROGRAMS_2026, type UilFootballProgram } from './uil-football-alignments-2026.server';
@@ -31,6 +32,7 @@ export type FootballProgramProfile = {
   associationClassification?: string;
   associationSourceUrl?: string;
   privateAlignment: VerifiedPrivateFootballAlignment | null;
+  privateAdmissions: VerifiedPrivateSchoolAdmissions | null;
 };
 
 export type FootballProgramDirectoryEntry = {
@@ -121,6 +123,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
       associationClassification: legacy.featured.associationClassification,
       associationSourceUrl: legacy.featured.associationSourceUrl,
       privateAlignment: legacy.privateAlignment,
+      privateAdmissions: legacy.privateAdmissions,
     };
   }
 
@@ -138,6 +141,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     enrollmentLink: getOfficialFootballEnrollmentLink(program.districtName) ?? null,
     districtPeers: districtPeers(seed),
     privateAlignment: null,
+    privateAdmissions: null,
   };
 }
 
