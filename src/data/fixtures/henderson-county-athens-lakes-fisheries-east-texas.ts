@@ -36,6 +36,7 @@ export const hendersonCountyAthensLakesFisheriesEastTexasArticle: Article = {
   featured: false,
   internalLinks: [
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county reference pages and enriched county guides." },
+    { href: "/article/bluebonnet-animal-preservation-athens", label: "Bluebonnet Animal Preservation in Athens", description: "See how this unusual Athens business handles pet cremation and freeze-dry preservation." },
     { href: "/county/van-zandt", label: "Explore Van Zandt County", description: "Continue north toward Canton, Grand Saline and the transition into Northeast Texas." },
     { href: "/county/smith", label: "Explore Smith County", description: "Head east toward Tyler, rose country and the Piney Woods." },
     { href: "/county/anderson", label: "Explore Anderson County", description: "Travel southeast toward Palestine, railroad history and deeper East Texas timber country." },
@@ -116,6 +117,7 @@ export const hendersonCountyAthensLakesFisheriesEastTexasArticle: Article = {
     h("Athens mixes local tradition with a wider reputation"),
     p("Athens has long promoted a distinctive civic identity. It became associated with black-eyed pea agriculture and local food traditions, and it also claims an important place in Texas hamburger lore through the story of Fletcher Davis. Whether visitors come for history, food, fishing or courthouse architecture, the city has developed a larger cultural profile than its population might suggest."),
     p("Annual gatherings, music, school traditions, churches and local museums reinforce the county seat's community role. Athens is still the place where county business, health care, shopping and public events bring together residents from lake towns, farms, rural roads and smaller municipalities."),
+    p("Athens also supports specialized businesses whose reach extends beyond the county. Bluebonnet Animal Preservation, for example, offers pet cremation and freeze-dry preservation from its Highway 19 North location. TexasDefined covers it separately because the service is unusual enough to draw statewide search interest while still belonging to the local Athens service economy."),
 
     h("The economy now rests on several different Henderson Counties"),
     p("Modern Henderson County is economically diverse because its geography is diverse. Athens supports government, health care, education, retail and services. Western lake communities depend heavily on real estate, construction, tourism and recreation. Eastern and southern areas retain stronger ties to timber, ranching, agriculture and rural land. Manufacturing and transportation remain important across the county."),
