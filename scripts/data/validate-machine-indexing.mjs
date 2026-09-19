@@ -109,6 +109,7 @@ const requiredDiscoveryTargets = [
   '/sports-venues/houston',
   '/sports-venues/football',
   '/sports-venues/motorsports',
+  '/texas-high-school-football-teams',
   '/sitemap.xml',
   '/sitemap-explore.xml',
 ];
@@ -193,6 +194,7 @@ if (citationIndex) {
     'https://texasdefined.com/sports-venues/football',
     'https://texasdefined.com/sports-venues/motorsports',
     'https://texasdefined.com/sports-venues/high-school-football',
+    'https://texasdefined.com/texas-high-school-football-teams',
   ]) {
     if (!citationUrls.has(url)) errors.push(`Machine-readable citation index is missing sports resource ${url}.`);
   }
