@@ -82,6 +82,8 @@ export const Route = createFileRoute("/sitemap.xml")({
         const { footballProgramSitemapEntries, privateFootballProgramSitemapEntries } = await import("@/data/high-school-football/football-program-profile.server");
         const footballProfileEntries = footballProgramSitemapEntries();
         const privateFootballProfileEntries = privateFootballProgramSitemapEntries();
+        const { footballDistrictSitemapEntries } = await import("@/data/high-school-football/football-districts.server");
+        const footballDistrictEntries = footballDistrictSitemapEntries();
         const coreResults = await Promise.allSettled([
           platform.articles.list(scope),
           platform.collections.list(scope),
@@ -228,6 +230,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...TEXAS_DATASETS.map((dataset) => ({ path: `/texas-data/${dataset.slug}`, lastmod: toDate(dataset.updated) })),
           ...footballProfileEntries,
           ...privateFootballProfileEntries,
+          ...footballDistrictEntries,
         ];
 
         const uniqueEntries = [...new Map(entries.map((entry) => {
