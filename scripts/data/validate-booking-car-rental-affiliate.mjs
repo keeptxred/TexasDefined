@@ -19,6 +19,13 @@ for (const [needle, label] of [
   ['const CJ_PUBLISHER_ID = "101876465"', 'TexasDefined CJ publisher ID'],
   ['https://www.booking.com/cars/country/us.html', 'Booking.com U.S. car-rental destination'],
   ['https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/', 'CJ deep-link base'],
+  ['const CJ_SID_PREFIX = "td-"', 'TexasDefined CJ SID prefix'],
+  ['function cjSid(placement: string)', 'privacy-safe Booking placement SID builder'],
+  ['if (!/^[a-z0-9][a-z0-9-]*$/.test(placement))', 'static CJ SID character gate'],
+  ['function bookingCarRentalAffiliateUrl(placement: string)', 'placement-aware Booking CJ URL builder'],
+  ['CJ_DLG_BASE}sid/${encodeURIComponent(cjSid(placement))}', 'CJ network placement attribution'],
+  ['const affiliateUrl = bookingCarRentalAffiliateUrl(placement)', 'runtime placement-to-SID binding'],
+  ['href={affiliateUrl}', 'placement-aware Booking affiliate href'],
   ['sponsored nofollow noopener noreferrer', 'affiliate relationship attributes'],
   ['Compare rental cars on Booking.com', 'Booking.com car-rental CTA'],
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Booking.com car-rental bookings', 'affiliate disclosure'],
@@ -39,6 +46,10 @@ for (const [needle, label] of [
 
 if (component.includes('type AffiliateAnalyticsWindow') || component.includes('trackBookingCarRentalClick')) {
   errors.push('Booking.com rental-car card must reuse the shared affiliate click tracker instead of duplicating client analytics code.');
+}
+
+if (/session|randomUUID|Date\.now|location\.pathname/.test(component.match(/function cjSid[\s\S]*?\n}/)?.[0] || '')) {
+  errors.push('Booking.com CJ SID builder must remain static-placement-only and must not include session, time or page-path identifiers.');
 }
 
 for (const [needle, label] of [
