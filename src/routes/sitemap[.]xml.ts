@@ -79,6 +79,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         } = await import("@/data/sitemap-dependencies.server");
         const { platform, scope } = await import("@/data");
         const { loadTexasKnowledgeGraph } = await import("@/data/knowledge-graph");
+        const { FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS } = await import("@/data/high-school-football/featured-programs");
         const coreResults = await Promise.allSettled([
           platform.articles.list(scope),
           platform.collections.list(scope),
@@ -223,6 +224,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...countyPages.map((county) => ({ path: `/property-tax/county/${county.slug}`, lastmod: toDate(county.lastVerifiedAt ?? undefined) })),
           ...entityPages.map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
           ...TEXAS_DATASETS.map((dataset) => ({ path: `/texas-data/${dataset.slug}`, lastmod: toDate(dataset.updated) })),
+          ...FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS.map((program) => ({ path: `/texas-high-school-football-teams/${program.slug}`, lastmod: "2026-09-19" })),
         ];
 
         const uniqueEntries = [...new Map(entries.map((entry) => {
