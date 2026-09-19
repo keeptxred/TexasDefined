@@ -44,6 +44,8 @@ const footballDistrictIndexRoutePath = 'src/routes/texas-high-school-football-di
 const footballDistrictIndexPagePath = 'src/routes/texas-high-school-football-districts.lazy.tsx';
 const footballDistrictRoutePath = 'src/routes/texas-high-school-football-districts_.$slug.tsx';
 const footballDistrictPagePath = 'src/routes/texas-high-school-football-districts_.$slug.lazy.tsx';
+const footballScoresRoutePath = 'src/routes/texas-high-school-football-scores-schedules.tsx';
+const footballScoresPagePath = 'src/routes/texas-high-school-football-scores-schedules.lazy.tsx';
 const obsoleteSeedListComponentPath = 'src/components/sports/FeaturedFootballResearchList.tsx';
 const legacyMetadataFiles = [
   'src/data/high-school-football/featured-programs.ts',
@@ -84,6 +86,8 @@ for (const file of [
   footballDistrictIndexPagePath,
   footballDistrictRoutePath,
   footballDistrictPagePath,
+  footballScoresRoutePath,
+  footballScoresPagePath,
   ...legacyMetadataFiles,
 ]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing high-school football platform file: ${file}`);
@@ -132,6 +136,8 @@ if (!errors.length) {
   const footballDistrictIndexPage = read(footballDistrictIndexPagePath);
   const footballDistrictRoute = read(footballDistrictRoutePath);
   const footballDistrictPage = read(footballDistrictPagePath);
+  const footballScoresRoute = read(footballScoresRoutePath);
+  const footballScoresPage = read(footballScoresPagePath);
   const legacyProgramMetadata = read(legacyMetadataFiles[0]);
   const schoolIdentities = read(legacyMetadataFiles[1]);
   const featuredProfileLoader = read(legacyMetadataFiles[2]);
@@ -574,6 +580,28 @@ if (!errors.length) {
     'uilFootballEnrollmentBand',
   ]) requireText(footballDistrictPage, marker, 'Football district detail page');
 
+  for (const marker of [
+    "const canonicalPath = '/texas-high-school-football-scores-schedules'",
+    'Texas High School Football Scores & Schedules: 2026 UIL Guide',
+    'buildMeta',
+    'canonicalLink',
+  ]) requireText(footballScoresRoute, marker, 'Football scores and schedules route');
+
+  for (const marker of [
+    "createLazyFileRoute('/texas-high-school-football-scores-schedules')",
+    'Scores, schedules and the UIL season calendar',
+    'Open the UIL Texas Scoreboard ↗',
+    'A missing score is not proof a game was not played',
+    'This page does not publish district standings.',
+    '11 playing weeks to schedule a maximum of 10 games',
+    'State championships',
+    'Dec. 16–19',
+    'Current results stay with the current source',
+    'https://www.uiltexas.org/maxpreps/scoreboard',
+    'https://www.uiltexas.org/athletics/uil-maxpreps',
+    'https://www.uiltexas.org/football',
+  ]) requireText(footballScoresPage, marker, 'Football scores and schedules page');
+
   // The original supplied list remains available only as alias/private-school research metadata.
   // It must not control the public UIL directory, profile availability, profile order or search handoff.
   if (page.includes('FeaturedFootballResearchList')) errors.push('Football finder page must not use the old seed-list directory.');
@@ -614,6 +642,8 @@ if (!errors.length) {
     'All current UIL football programs use the same profile system.',
     'Open full district guide →',
     'districtPath',
+    'Check current scores & schedules →',
+    '/texas-high-school-football-scores-schedules',
     'UIL enrollment band',
     'Official UIL 2026–28 enrollment cutoffs ↗',
     'uilFootballEnrollmentBand',
@@ -650,6 +680,8 @@ if (!errors.length) {
     '/find-my-school-district',
     '/texas-high-school-football-districts',
     'Browse all 192 UIL football districts',
+    '/texas-high-school-football-scores-schedules',
+    'Check current scores and schedules',
     '/sports-venues/high-school-football',
     '/article/texas-high-school-football-playoffs-explained',
     '/article/texas-six-man-football-rules-explained',
@@ -667,6 +699,7 @@ if (!errors.length) {
   requireText(entityPage, 'CountyHighSchoolFootball', 'County page integration');
   requireText(footballHub, '/texas-high-school-football-teams', 'Friday Night Lights discovery');
   requireText(footballHub, '/texas-high-school-football-districts', 'Friday Night Lights district discovery');
+  requireText(footballHub, '/texas-high-school-football-scores-schedules', 'Friday Night Lights score-guide discovery');
   requireText(footballHub, '/article/texas-high-school-football-classifications-1a-6a', 'Friday Night Lights classification discovery');
   requireText(footballHub, '/article/texas-high-school-football-playoffs-explained', 'Friday Night Lights playoff discovery');
   requireText(footballHub, '/article/texas-six-man-football-rules-explained', 'Friday Night Lights six-man discovery');
@@ -709,12 +742,17 @@ if (!errors.length) {
   requireText(footballHubSchema, '/article/texas-six-man-football-rules-explained', 'Friday Night Lights schema six-man discovery');
   requireText(footballHubSchema, '/texas-high-school-football-teams', 'Friday Night Lights schema finder discovery');
   requireText(footballHubSchema, '/texas-high-school-football-districts', 'Friday Night Lights schema district discovery');
+  requireText(footballHubSchema, '/texas-high-school-football-scores-schedules', 'Friday Night Lights schema score-guide discovery');
   requireText(publicRoutes, '"/texas-high-school-football-teams"', 'Public route governance');
   requireText(publicRoutes, '"/texas-high-school-football-districts"', 'Football district public route governance');
+  requireText(publicRoutes, '"/texas-high-school-football-scores-schedules"', 'Football score-guide public route governance');
   requireText(dataSources, "id:'uil-football-alignments'", 'Texas source registry');
   requireText(dataSources, "domain:'sports'", 'Texas source registry');
   requireText(dataSources, "id:'uil-football-enrollment-cutoffs'", 'Texas source registry');
   requireText(dataSources, 'https://www.uiltexas.org/athletics/conference-cutoffs', 'Texas source registry');
+  requireText(dataSources, "id:'uil-football-scoreboard'", 'Texas source registry');
+  requireText(dataSources, 'https://www.uiltexas.org/maxpreps/scoreboard', 'Texas source registry');
+  requireText(dataSources, 'do not represent the feed as official district standings', 'Texas source registry');
 
   for (const [file, source] of [
     [files[4], finder],
@@ -727,6 +765,7 @@ if (!errors.length) {
     [uilDirectoryComponentPath, uilDirectoryComponent],
     [footballDistrictIndexPagePath, footballDistrictIndexPage],
     [footballDistrictPagePath, footballDistrictPage],
+    [footballScoresPagePath, footballScoresPage],
   ]) {
     if (
       source.includes('uil-football-alignments-2026.server')
