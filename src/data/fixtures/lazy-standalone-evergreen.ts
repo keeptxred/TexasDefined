@@ -51,6 +51,18 @@ const texasHighSchoolFootballPlayoffsStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: [],
 };
 
+const texasHighSchoolFootballScoresSchedulesStub: Article = {
+  id: "evergreen-texas-high-school-football-scores-schedules", brandId: "texasdefined", slug: "texas-high-school-football-scores-schedules",
+  title: "Texas High School Football Scores & Schedules: How to Follow the 2026 Season",
+  dek: "Use the UIL Texas Scoreboard, school sources and the official playoff brackets to follow current Texas high school football schedules and results without mistaking incomplete score submissions for official district standings.",
+  category: "sports",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Eagle_Stadium.jpg?width=1600", alt: "Eagle Stadium football field in Allen, Texas", width: 800, height: 499, credit: "Aerial Photography, Inc. · CC BY-SA 3.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-09-19", readingMinutes: 9,
+  tags: ["texas high school football scores", "texas high school football schedules", "uil football scoreboard", "texas football results", "2026 texas high school football", "uil maxpreps"], featured: false,
+  sourceName: "University Interscholastic League", sourceUrl: "https://www.uiltexas.org/athletics/uil-maxpreps",
+  body: [], relatedCollections: [], relatedDestinations: [],
+};
+
 const highSchoolFootballNewcomersStub: Article = {
   id: "evergreen-high-school-football-newcomers", brandId: "texasdefined", slug: "texas-high-school-football-newcomers",
   title: "Texas High School Football for Newcomers: Why Friday Night Matters",
@@ -252,6 +264,7 @@ export const standaloneEvergreenStubs: Article[] = [
   texasHighSchoolFootballClassificationsStub,
   texasSixManFootballExplainedStub,
   texasHighSchoolFootballPlayoffsStub,
+  texasHighSchoolFootballScoresSchedulesStub,
   highSchoolFootballNewcomersStub,
   kolacheOrKlobasnekStub,
   orderingTexasBarbecueStub,
@@ -277,6 +290,7 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === texasHighSchoolFootballClassificationsStub.slug) return import("./texas-high-school-football-classifications").then((module) => module.texasHighSchoolFootballClassificationsArticle);
   if (slug === texasSixManFootballExplainedStub.slug) return import("./texas-six-man-football-explained").then((module) => module.texasSixManFootballExplainedArticle);
   if (slug === texasHighSchoolFootballPlayoffsStub.slug) return import("./texas-high-school-football-playoffs").then((module) => module.texasHighSchoolFootballPlayoffsArticle);
+  if (slug === texasHighSchoolFootballScoresSchedulesStub.slug) return import("./texas-high-school-football-scores-schedules").then((module) => module.texasHighSchoolFootballScoresSchedulesArticle);
   if (slug === highSchoolFootballNewcomersStub.slug) return import("./high-school-football-newcomers").then((module) => module.highSchoolFootballNewcomersArticle);
   if (slug === kolacheOrKlobasnekStub.slug) return import("./kolache-or-klobasnek").then((module) => module.kolacheOrKlobasnekArticle);
   if (slug === orderingTexasBarbecueStub.slug) return import("./ordering-texas-barbecue").then((module) => module.orderingTexasBarbecueArticle);
