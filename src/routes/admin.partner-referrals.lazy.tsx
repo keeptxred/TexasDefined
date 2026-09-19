@@ -6,6 +6,7 @@ import { getPartnerReferralAnalyticsDashboard } from '@/data/partner-referral-an
 import type { PartnerReferralAnalyticsDashboard } from '@/data/partner-referral-analytics.types';
 
 const SESSION_KEY = 'texasdefined:sports-partner-admin-key';
+const WATCHLIST_MIN_IMPRESSIONS = 3;
 
 export const Route = createLazyFileRoute('/admin/partner-referrals')({ component: PartnerReferralAnalyticsAdmin });
 
@@ -39,6 +40,14 @@ function PartnerReferralAnalyticsAdmin() {
 
   const maxDailyClicks = useMemo(() => Math.max(1, ...(dashboard?.daily.map((row) => row.clicks) ?? [1])), [dashboard]);
   const maxDailyImpressions = useMemo(() => Math.max(1, ...(dashboard?.daily.flatMap((row) => row.impressions === null ? [] : [row.impressions]) ?? [1])), [dashboard]);
+  const zeroClickPlacements = useMemo(() => (dashboard?.placements ?? [])
+    .filter((row) => row.measurementImpressions >= WATCHLIST_MIN_IMPRESSIONS && row.measurementClicks === 0)
+    .sort((a, b) => b.measurementImpressions - a.measurementImpressions || a.label.localeCompare(b.label))
+    .slice(0, 10), [dashboard]);
+  const zeroClickPages = useMemo(() => (dashboard?.pages ?? [])
+    .filter((row) => row.measurementImpressions >= WATCHLIST_MIN_IMPRESSIONS && row.measurementClicks === 0)
+    .sort((a, b) => b.measurementImpressions - a.measurementImpressions || a.pagePath.localeCompare(b.pagePath))
+    .slice(0, 10), [dashboard]);
   const impressionStartLabel = dashboard ? new Date(`${dashboard.impressionTrackingStartedAt}T00:00:00Z`).toLocaleDateString(undefined, { timeZone: 'UTC' }) : '';
   const ctrStartLabel = dashboard ? new Date(`${dashboard.ctrMeasurementStartedAt}T00:00:00Z`).toLocaleDateString(undefined, { timeZone: 'UTC' }) : '';
 
@@ -92,6 +101,16 @@ function PartnerReferralAnalyticsAdmin() {
       </section>
 
       <section className="mt-12 border-t border-border pt-6">
+        <p className="eyebrow text-primary">Conversion watchlist</p>
+        <h2 className="mt-2 font-display text-4xl">Seen but not clicked</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Private diagnostic only. These rows have at least {WATCHLIST_MIN_IMPRESSIONS} CTA impressions inside the clean CTR measurement window and zero measured referral clicks. Review relevance, wording and placement before adding more affiliate inventory.</p>
+        <div className="mt-6 grid gap-10 xl:grid-cols-2">
+          <WatchlistTable title="Placements to review" rows={zeroClickPlacements.map((row) => ({ key: row.key, label: row.label, impressions: row.measurementImpressions }))} />
+          <WatchlistTable title="Pages to review" rows={zeroClickPages.map((row) => ({ key: row.pagePath, label: row.pagePath, impressions: row.measurementImpressions }))} />
+        </div>
+      </section>
+
+      <section className="mt-12 border-t border-border pt-6">
         <p className="eyebrow text-primary">On-page booking intent</p>
         <h2 className="mt-2 font-display text-4xl">Expedia search starts</h2>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">These are on-page Expedia widget/search activations, reported separately from outbound referral clicks so referral CTR remains comparable.</p>
@@ -124,6 +143,10 @@ function formatCtr(value: number | null) {
 
 function BreakdownTable({ title, ctrLabel, rows }: { title: string; ctrLabel: string; rows: Array<{ label: string; clicks30d: number; impressions30d: number; clicks7d: number; impressions7d: number; measurementCtr: number | null }> }) {
   return <section><h2 className="font-display text-4xl">{title}</h2><div className="mt-5 overflow-x-auto"><table className="w-full min-w-[640px] text-sm"><thead><tr className="border-b border-border text-left"><th className="py-3 pr-4">Name</th><th className="py-3 pr-4 text-right">30d clicks</th><th className="py-3 pr-4 text-right">30d impressions</th><th className="py-3 pr-4 text-right">7d clicks</th><th className="py-3 pr-4 text-right">7d impressions</th><th className="py-3 text-right">CTR since {ctrLabel}</th></tr></thead><tbody>{rows.map((row) => <tr key={row.label} className="border-b border-border/60"><td className="py-3 pr-4">{row.label}</td><td className="py-3 pr-4 text-right font-semibold">{row.clicks30d}</td><td className="py-3 pr-4 text-right">{row.impressions30d}</td><td className="py-3 pr-4 text-right">{row.clicks7d}</td><td className="py-3 pr-4 text-right">{row.impressions7d}</td><td className="py-3 text-right font-semibold">{formatCtr(row.measurementCtr)}</td></tr>)}</tbody></table></div></section>;
+}
+
+function WatchlistTable({ title, rows }: { title: string; rows: Array<{ key: string; label: string; impressions: number }> }) {
+  return <section><h3 className="font-display text-3xl">{title}</h3><div className="mt-4 overflow-x-auto"><table className="w-full min-w-[520px] text-sm"><thead><tr className="border-b border-border text-left"><th className="py-3 pr-4">Name</th><th className="py-3 text-right">Measured impressions</th></tr></thead><tbody>{rows.length ? rows.map((row) => <tr key={row.key} className="border-b border-border/60"><td className="py-3 pr-4 font-mono text-xs">{row.label}</td><td className="py-3 text-right font-semibold">{row.impressions}</td></tr>) : <tr><td colSpan={2} className="py-4 text-muted-foreground">No zero-click rows meet the watchlist threshold yet.</td></tr>}</tbody></table></div></section>;
 }
 
 function SearchStartTable({ title, rows }: { title: string; rows: Array<{ key: string; label: string; starts30d: number; starts7d: number }> }) {
