@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave81Destinations } from "./museum-expansion-statewide-wave81";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-19";
@@ -54,4 +55,5 @@ export const statewideMuseumExpansionWave80Destinations: Destination[] = [
     address: "105 S Market St, Brenham, TX 77833",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave81Destinations,
 ];
