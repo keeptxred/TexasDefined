@@ -51,6 +51,12 @@ export const texasHighSchoolFootballClassificationsArticle: Article = {
       description: "Search current UIL programs by high school, ISD, city or county and see each program's 2026–28 classification, division, district and recent state-final history where available.",
     },
     {
+      href: "/article/texas-high-school-football-playoffs-explained",
+      label: "How the Texas high school football playoffs work",
+      description: "Follow district qualification, the 6A Division I/II split, bracket rounds, playoff sites and the road to the state championships.",
+    },
+
+    {
       href: "/sports-venues/high-school-football",
       label: "Texas high school football stadiums",
       description: "Browse landmark stadiums and game-night destinations across the state.",

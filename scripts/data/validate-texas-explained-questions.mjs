@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 
-// Guard the 127-answer authority layer, native lazy route split, and no-thin-child-route contract on every authority PR change.
+// Guard the 130-answer authority layer, native lazy route split, and no-thin-child-route contract on every authority PR change.
 const dataPath = 'src/data/texas-explained-questions.ts';
 const componentPath = 'src/components/editorial/TexasExplainedQuestionsPage.tsx';
 const pagePath = 'src/components/editorial/TexasExplainedPage.tsx';
@@ -25,7 +25,7 @@ const parentCountMatch = parent.match(/const questionCount = (\d+);/);
 const pageCountMatch = page.match(/const questionCount = (\d+);/);
 const failures = [];
 
-if (questionCount !== 127) failures.push(`Expected exactly 127 questions; found ${questionCount}.`);
+if (questionCount !== 130) failures.push(`Expected exactly 130 questions; found ${questionCount}.`);
 if (answerCount !== questionCount) failures.push(`Every question must have an answer; found ${answerCount} answers for ${questionCount} questions.`);
 if (categoryCount < 8) failures.push(`Expected broad topical coverage across at least 8 categories; found ${categoryCount}.`);
 if (!parentCountMatch || Number(parentCountMatch[1]) !== questionCount) failures.push(`Texas Explained route count must match the ${questionCount}-question library.`);
@@ -50,6 +50,9 @@ const requiredQuestions = [
   'What makes Texas barbecue different?',
   'Why do so many Texas towns have courthouse squares?',
   'What is a farm-to-market road?',
+  'How many teams make the Texas high school football playoffs?',
+  'What does bi-district mean in Texas high school football?',
+  'How are 6A Division I and Division II playoff teams chosen?',
 ];
 for (const question of requiredQuestions) {
   if (!data.includes(`question: "${question}"`)) failures.push(`Missing required question: ${question}`);
@@ -57,7 +60,7 @@ for (const question of requiredQuestions) {
 
 for (const marker of [
   'createFileRoute("/texas-explained")',
-  'const questionCount = 127;',
+  'const questionCount = 130;',
   'buildEditorialCollectionHead',
   'import("@/data/queries")',
   'import("@/components/editorial/TexasExplainedPage")',

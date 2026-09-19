@@ -15,6 +15,7 @@ export const highSchoolFootballNewcomersArticle: Article = {
     {href:"/sports",label:"Explore Texas sports",description:"More stories about the games and traditions Texans follow."},
     {href:"/sports/friday-night-lights",label:"Friday Night Lights, Defined",description:"Use the parent guide for Texas high-school football traditions, game-night planning, homecoming, stadiums and the season arc."},
     {href:"/article/texas-high-school-football-classifications-1a-6a",label:"Understand Texas football classifications",description:"See how 1A through 6A, divisions, districts, realignment, six-man football and the history of the UIL structure fit together."},
+    {href:"/article/texas-high-school-football-playoffs-explained",label:"Understand the UIL playoffs",description:"See who qualifies, how brackets and the 6A Division I/II split work, what bi-district means and why playoff games often move to neutral sites."},
     {href:"/texas-high-school-football-teams",label:"Find a Texas high school football team",description:"Search current UIL programs by high school, ISD, city or county and see the 2026–28 classification, division and district."},
     {href:"/sports-venues/high-school-football",label:"Explore landmark Texas high-school football stadiums",description:"Browse verified stadium guides tied to Friday night lights, playoff trips and regional football culture."},
     {href:"/explore/small-towns",label:"Explore Texas small towns",description:"See the communities where Friday night can still set the weekly rhythm."},

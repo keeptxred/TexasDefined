@@ -11,6 +11,7 @@ const collectionItems = [
   ["Texas homecoming mums explained", "/texas-homecoming-mums"],
   ["Texas high-school football stadiums", "/sports-venues/high-school-football"],
   ["Texas high school football classifications and history", "/article/texas-high-school-football-classifications-1a-6a"],
+  ["Texas high school football playoffs explained", "/article/texas-high-school-football-playoffs-explained"],
   ["Texas high school football team finder", "/texas-high-school-football-teams"],
   ["Find your Texas school district", "/find-my-school-district"],
   ["Texas sports hub", "/sports"],

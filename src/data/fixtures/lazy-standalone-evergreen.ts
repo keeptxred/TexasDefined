@@ -21,9 +21,21 @@ const texasHighSchoolFootballClassificationsStub: Article = {
   dek: "Texas high school football classifications are based on school enrollment, not team strength. Here is how UIL classes, divisions, districts and media rankings fit together for 2026–28.",
   category: "sports",
   hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Celina_High_School%2C_Friday_Night_Football.jpg?width=2042", alt: "Celina High School football field under the Friday night lights in Celina, Texas", width: 2042, height: 719, credit: "Heidi Knapp · CC BY-SA 4.0 · Wikimedia Commons" },
-  authorId: "a-marisol", publishedAt: "2026-09-18", readingMinutes: 7,
+  authorId: "a-marisol", publishedAt: "2026-09-18", readingMinutes: 13,
   tags: ["texas high school football", "uil classifications", "texas football rankings", "6A football", "5A football", "six-man football"], featured: false,
   sourceName: "University Interscholastic League", sourceUrl: "https://www.uiltexas.org/athletics/conference-cutoffs",
+  body: [], relatedCollections: [], relatedDestinations: [],
+};
+
+const texasHighSchoolFootballPlayoffsStub: Article = {
+  id: "evergreen-texas-high-school-football-playoffs", brandId: "texasdefined", slug: "texas-high-school-football-playoffs-explained",
+  title: "How Do the Texas High School Football Playoffs Work?",
+  dek: "From district qualification and bi-district matchups to 6A's Division I/II split, neutral sites and state championships, here is how the UIL football postseason works in 2026.",
+  category: "sports",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Cultural_District_June_2016_09_%28Farrington_Field%29.jpg?width=1800", alt: "Farrington Field, a historic high school football stadium in Fort Worth, Texas", width: 1800, height: 1200, credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-09-19", readingMinutes: 12,
+  tags: ["texas high school football playoffs", "uil football playoffs", "texas football bracket", "bi-district football", "6A football playoffs", "texas state championships"], featured: false,
+  sourceName: "University Interscholastic League", sourceUrl: "https://www.uiltexas.org/football/playoff-brackets",
   body: [], relatedCollections: [], relatedDestinations: [],
 };
 
@@ -226,6 +238,7 @@ const fredericksburgHistoryWeekendGuideStub: Article = {
 export const standaloneEvergreenStubs: Article[] = [
   rodeo101Stub,
   texasHighSchoolFootballClassificationsStub,
+  texasHighSchoolFootballPlayoffsStub,
   highSchoolFootballNewcomersStub,
   kolacheOrKlobasnekStub,
   orderingTexasBarbecueStub,
@@ -249,6 +262,7 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (brandId !== "texasdefined") return null;
   if (slug === rodeo101Stub.slug) return import("./rodeo-101").then((module) => module.rodeo101Article);
   if (slug === texasHighSchoolFootballClassificationsStub.slug) return import("./texas-high-school-football-classifications").then((module) => module.texasHighSchoolFootballClassificationsArticle);
+  if (slug === texasHighSchoolFootballPlayoffsStub.slug) return import("./texas-high-school-football-playoffs").then((module) => module.texasHighSchoolFootballPlayoffsArticle);
   if (slug === highSchoolFootballNewcomersStub.slug) return import("./high-school-football-newcomers").then((module) => module.highSchoolFootballNewcomersArticle);
   if (slug === kolacheOrKlobasnekStub.slug) return import("./kolache-or-klobasnek").then((module) => module.kolacheOrKlobasnekArticle);
   if (slug === orderingTexasBarbecueStub.slug) return import("./ordering-texas-barbecue").then((module) => module.orderingTexasBarbecueArticle);
