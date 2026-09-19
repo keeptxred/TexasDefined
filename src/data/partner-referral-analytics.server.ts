@@ -12,7 +12,8 @@ const QUERY_DAYS = 60;
 const TOP_LIMIT = 25;
 const HEARTBEAT_PARTNER = '__pipeline__';
 const HEARTBEAT_PLACEMENT = 'sync-heartbeat';
-const IMPRESSION_TRACKING_STARTED_AT = '2026-09-19';
+const IMPRESSION_TRACKING_STARTED_AT = '2026-09-18';
+const CTR_MEASUREMENT_STARTED_AT = '2026-09-19';
 
 type ReferralRow = {
   metric_date: string;
@@ -77,7 +78,7 @@ function clickThroughRate(clicks: number, impressions: number) {
 }
 
 function sortBreakdowns(rows: PartnerReferralBreakdown[]) {
-  return rows.sort((a, b) => b.clicks30d - a.clicks30d || b.clicks7d - a.clicks7d || a.label.localeCompare(b.label));
+  return rows.sort((a, b) => b.clicks30d - a.clicks30d || b.impressions30d - a.impressions30d || b.clicks7d - a.clicks7d || b.impressions7d - a.impressions7d || a.label.localeCompare(b.label));
 }
 
 export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): Promise<PartnerReferralAnalyticsDashboard> {
@@ -124,7 +125,7 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
     const metricDate = String(row.metric_date).slice(0, 10);
     const in30d = metricDate >= thirtyDayStart;
     const in7d = metricDate >= sevenDayStart;
-    const inMeasurementWindow = metricDate >= IMPRESSION_TRACKING_STARTED_AT;
+    const inMeasurementWindow = metricDate >= CTR_MEASUREMENT_STARTED_AT;
     const inPrior7d = metricDate >= priorSevenStart && metricDate <= priorSevenEnd;
 
     if (lastSyncedAt === null || String(row.synced_at) > lastSyncedAt) lastSyncedAt = String(row.synced_at);
@@ -211,6 +212,7 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
     lastSyncedAt,
     lastPipelineSyncAt,
     impressionTrackingStartedAt: IMPRESSION_TRACKING_STARTED_AT,
+    ctrMeasurementStartedAt: CTR_MEASUREMENT_STARTED_AT,
     windowDays: WINDOW_DAYS,
     totalClicks30d,
     totalClicks7d,
@@ -224,10 +226,10 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
     partners: sortBreakdowns([...partnerMap.values()]),
     placements: sortBreakdowns([...placementMap.values()]),
     pages: [...pageMap.values()]
-      .sort((a, b) => b.clicks30d - a.clicks30d || b.clicks7d - a.clicks7d || a.pagePath.localeCompare(b.pagePath))
+      .sort((a, b) => b.clicks30d - a.clicks30d || b.impressions30d - a.impressions30d || b.clicks7d - a.clicks7d || b.impressions7d - a.impressions7d || a.pagePath.localeCompare(b.pagePath))
       .slice(0, TOP_LIMIT),
     destinations: [...destinationMap.values()]
-      .sort((a, b) => b.clicks30d - a.clicks30d || b.clicks7d - a.clicks7d || a.destinationUrl.localeCompare(b.destinationUrl))
+      .sort((a, b) => b.clicks30d - a.clicks30d || b.impressions30d - a.impressions30d || b.clicks7d - a.clicks7d || b.impressions7d - a.impressions7d || a.destinationUrl.localeCompare(b.destinationUrl))
       .slice(0, TOP_LIMIT),
     daily,
   };
