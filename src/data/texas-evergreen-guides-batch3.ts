@@ -37,7 +37,7 @@ export const TEXAS_BRAND_ORIGINS_GUIDE: TexasEvergreenGuide = {
         "The beer now known simply as Shiner is still brewed in the small Lavaca County town whose name appears on the label. The brewery traces its history to 1909 and to German and Czech immigrant communities that wanted beer resembling the traditions they remembered.",
         "That origin makes Shiner especially useful for understanding Texas brand identity: the product cannot be separated easily from the town, local heritage, Central Texas music and the larger German- and Czech-Texan cultural landscape."
       ],
-      links: [{ href: "/texas-icons/shiner-bock", label: "Shiner Bock: brewery history & visitor guide" }, { href: "/german-czech-texas-towns", label: "German & Czech Texas towns" }, { href: "/texas-dance-halls-honky-tonks", label: "Texas dance halls & honky-tonks" }]
+      links: [{ href: "/texas-icons/shiner-bock", label: "Shiner Bock history" }, { href: "/destination/spoetzl-brewery", label: "Plan a Spoetzl Brewery visit" }, { href: "/german-czech-texas-towns", label: "German & Czech Texas towns" }, { href: "/texas-dance-halls-honky-tonks", label: "Texas dance halls & honky-tonks" }]
     },
     {
       heading: "Dickies: Fort Worth workwear crosses into global style",
