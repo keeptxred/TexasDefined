@@ -32,6 +32,10 @@ const CityPassContextualCallout = lazy(() =>
   })),
 );
 
+const ShinerBreweryAuthority = lazy(() =>
+  import("@/components/editorial/ShinerBreweryAuthority")
+);
+
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 function hasValidCoordinates(lat: number, lng: number) {
@@ -54,6 +58,7 @@ function destinationSeoTitle(name: string, categoryName: string) {
   if (category.includes("state park") || category.includes("natural area")) return `${name} | Texas State Park Guide`;
   if (category.includes("lake") || category.includes("river")) return `${name} | Texas Lake & River Guide`;
   if (category.includes("historic")) return `${name} | Texas Historic Site Guide`;
+  if (name.toLowerCase().includes("brewery")) return `${name}: Tours, Beers & Visitor Guide`;
   return `${name} | Texas Travel Guide`;
 }
 
@@ -202,6 +207,7 @@ function DestinationPage() {
         </section>
         {!isChokeCanyon && <Suspense fallback={null}><DestinationViatorBooking destination={destination} /></Suspense>}
         {!isChokeCanyon && <div className="mt-14"><DestinationVisitPlanner destination={destination} /></div>}
+        {destination.slug === "spoetzl-brewery" && <Suspense fallback={null}><ShinerBreweryAuthority /></Suspense>}
       </div>
 
       <aside className={isChokeCanyon ? "space-y-6 lg:sticky lg:top-28 lg:self-start" : "space-y-8 lg:sticky lg:top-28 lg:self-start"}>
