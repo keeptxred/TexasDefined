@@ -81,7 +81,7 @@ function TexasMusicTimelinePage() {
               Follow durable turning points in Texas music history—from community dance halls and early recorded blues to western swing, Black performance circuits, Tejano, landmark clubs and regional hip-hop systems.
             </p>
             <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
-              <Link to="/texas-music" className="border-b border-primary pb-1 text-primary">Texas Music authority hub →</Link>
+              <Link to="/texas-music" className="border-b border-primary pb-1 text-primary">Explore Texas Music →</Link>
               <Link to="/texas-music-cities" className="border-b border-primary pb-1 text-primary">Compare Texas music cities →</Link>
             </div>
           </header>
