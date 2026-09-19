@@ -79,8 +79,9 @@ export const Route = createFileRoute("/sitemap.xml")({
         } = await import("@/data/sitemap-dependencies.server");
         const { platform, scope } = await import("@/data");
         const { loadTexasKnowledgeGraph } = await import("@/data/knowledge-graph");
-        const { footballProgramSitemapEntries } = await import("@/data/high-school-football/football-program-profile.server");
+        const { footballProgramSitemapEntries, privateFootballProgramSitemapEntries } = await import("@/data/high-school-football/football-program-profile.server");
         const footballProfileEntries = footballProgramSitemapEntries();
+        const privateFootballProfileEntries = privateFootballProgramSitemapEntries();
         const coreResults = await Promise.allSettled([
           platform.articles.list(scope),
           platform.collections.list(scope),
@@ -226,6 +227,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...entityPages.map((entity) => ({ path: canonicalEntityPath(entity), lastmod: toDate(entity.sourceCheckedAt) })),
           ...TEXAS_DATASETS.map((dataset) => ({ path: `/texas-data/${dataset.slug}`, lastmod: toDate(dataset.updated) })),
           ...footballProfileEntries,
+          ...privateFootballProfileEntries,
         ];
 
         const uniqueEntries = [...new Map(entries.map((entry) => {
