@@ -1,0 +1,57 @@
+name: UIL football exact enrollment sync
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/uil-football-exact-enrollment-sync.yml"
+      - "scripts/data/generate-uil-football-enrollments.mjs"
+      - "src/data/high-school-football/uil-football-alignments-2026.server.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install PDF text tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+
+      - name: Download official UIL alphabetical listing
+        run: |
+          curl --fail --location --retry 3 --retry-delay 2 \
+            "https://www.uiltexas.org/files/alignments/Alpha_26-28.pdf" \
+            --output /tmp/uil-alpha-26-28.pdf
+          test -s /tmp/uil-alpha-26-28.pdf
+
+      - name: Extract PDF text
+        run: |
+          pdftotext -layout /tmp/uil-alpha-26-28.pdf /tmp/uil-alpha-26-28.txt
+          test -s /tmp/uil-alpha-26-28.txt
+
+      - name: Generate and validate exact enrollment module
+        run: |
+          node scripts/data/generate-uil-football-enrollments.mjs \
+            /tmp/uil-alpha-26-28.txt \
+            /tmp/uil-football-enrollments-2026.generated.ts \
+            src/data/high-school-football/uil-football-alignments-2026.server.ts
+
+      - name: Upload exact enrollment module
+        uses: actions/upload-artifact@v4
+        with:
+          name: uil-football-exact-enrollments
+          path: /tmp/uil-football-enrollments-2026.generated.ts
+          if-no-files-found: error
+          retention-days: 7
