@@ -44,6 +44,12 @@ const startHere = [
     label: "Open the football team finder",
   },
   {
+    title: "Follow current scores and weekly schedules",
+    description: "Use the UIL Texas Scoreboard and school sources for current results and schedules, with clear caveats about submission completeness and standings.",
+    href: "/article/texas-high-school-football-scores-schedules",
+    label: "Open scores & schedules guide",
+  },
+  {
     title: "Browse every current UIL football district",
     description: "Open all 192 current 2026–28 UIL football districts and move from a district roster directly into each school’s research profile.",
     href: "/texas-high-school-football-districts",
@@ -204,7 +210,8 @@ function FridayNightLightsPage() {
         <p className="eyebrow text-primary">Go deeper</p>
         <h2 className="mt-3 font-display text-4xl">Follow football into the rest of Texas culture</h2>
         <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          <RelatedCard title="Texas homecoming" body="Why the game, alumni, parades, pep rallies, court, dance and giant mums combine into one of the state's biggest school traditions." href="/texas-homecoming" />\n          <RelatedCard title="Homecoming mums" body="Why Texas turned a small corsage tradition into an elaborate wearable school-spirit display." href="/texas-homecoming-mums" />
+          <RelatedCard title="Texas homecoming" body="Why the game, alumni, parades, pep rallies, court, dance and giant mums combine into one of the state's biggest school traditions." href="/texas-homecoming" />
+          <RelatedCard title="Homecoming mums" body="Why Texas turned a small corsage tradition into an elaborate wearable school-spirit display." href="/texas-homecoming-mums" />
           <RelatedCard title="Texas sports venues" body="Browse stadiums, arenas, racetracks, rodeo grounds and other sports destinations across the state." href="/sports-venues" />
           <RelatedCard title="Texas college towns" body="See how football, universities and local identity continue beyond high school into the state's college towns." href="/texas-college-towns" />
           <RelatedCard title="Texas Sports" body="Return to the statewide sports hub for college and pro football, basketball, rodeo, motorsports and more." href="/sports" />
