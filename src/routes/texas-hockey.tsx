@@ -18,7 +18,7 @@ import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/texas-hockey';
 const siteUrl = 'https://texasdefined.com';
-const description = 'Texas hockey directory for 2026–27: every current NHL, AHL, ECHL, NAHL, NA3HL and TCHC team, plus home rinks, league context, city and county links, and hockey-trip planning.';
+const description = 'Texas hockey directory for 2026–27: every current NHL, AHL, ECHL, NAHL, NA3HL and TCHC team, plus verified home rinks where current sources identify them, league context, city and county links, and hockey-trip planning.';
 
 export const Route = createFileRoute('/texas-hockey')({
   head: () => ({

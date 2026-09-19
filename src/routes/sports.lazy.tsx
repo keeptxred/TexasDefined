@@ -27,8 +27,8 @@ function SportsPage() {
                 <span className="mt-3 block text-sm font-semibold text-primary">Open the Texas tailgating guide →</span>
               </Link>
               <Link to="/texas-hockey" className="group border-t border-border py-5">
-                <strong className="block font-display text-2xl group-hover:text-primary">Texas hockey: every team, league and home rink</strong>
-                <span className="mt-2 block text-sm leading-6 text-muted-foreground">Browse the current NHL, AHL, ECHL, NAHL, NA3HL and college hockey map with team profiles, home ice, city and county connections, and trip planning.</span>
+                <strong className="block font-display text-2xl group-hover:text-primary">Texas hockey: teams, leagues and home ice</strong>
+                <span className="mt-2 block text-sm leading-6 text-muted-foreground">Browse every current NHL, AHL, ECHL, NAHL, NA3HL and TCHC team with league context, verified home ice where current sources identify it, city and county connections, and trip planning.</span>
                 <span className="mt-3 block text-sm font-semibold text-primary">Open the Texas hockey hub →</span>
               </Link>
               <Link to="/article/$slug" params={{ slug: "san-antonio-spurs-texas-basketball-culture" }} className="group border-t border-border py-5">

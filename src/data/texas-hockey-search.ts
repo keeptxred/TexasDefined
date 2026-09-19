@@ -15,7 +15,7 @@ export function buildTexasHockeySearchDocuments(): SearchDocument[] {
     brandId: 'texasdefined',
     kind: 'sports-collection',
     title: 'Texas Hockey Teams, Leagues and Arenas',
-    summary: 'Statewide TexasDefined directory of current NHL, AHL, ECHL, NAHL, NA3HL and college hockey teams, home ice and hockey travel context.',
+    summary: 'Statewide TexasDefined directory of current NHL, AHL, ECHL, NAHL, NA3HL and college hockey teams, verified home ice where available, and hockey travel context.',
     keywords: ['Texas hockey', 'Texas hockey teams', 'Texas ice hockey', 'hockey teams in Texas', 'Texas hockey arenas', 'Texas junior hockey', 'Texas college hockey'],
     href: '/texas-hockey',
   };
