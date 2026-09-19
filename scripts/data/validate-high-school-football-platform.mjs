@@ -39,8 +39,8 @@ const legacyMetadataFiles = [
   'src/data/high-school-football/featured-programs.ts',
   'src/data/high-school-football/school-identities.ts',
   'src/data/high-school-football/featured-program-profile.server.ts',
-  'src/routes/texas-high-school-football-teams.$slug.tsx',
-  'src/routes/texas-high-school-football-teams.$slug.lazy.tsx',
+  'src/routes/texas-high-school-football-teams_.$slug.tsx',
+  'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx',
   'src/routes/sitemap[.]xml.ts',
 ];
 
