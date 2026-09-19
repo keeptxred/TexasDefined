@@ -212,6 +212,10 @@ await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {
     'How to enroll at',
     'UIL eligibility standards',
     'All current UIL football programs use the same profile system.',
+    'Verified football venue relationships',
+    'Legacy Stadium',
+    '/sports-venue/legacy-stadium-katy',
+    'serves multiple Katy ISD schools',
   ]) requireNeedle(body, needle, 'Katy football school profile');
   if (/\bnoindex\b/i.test(body)) throw new Error('Katy football school profile unexpectedly contains noindex');
 });
@@ -241,4 +245,4 @@ await fetchVerified('/robots.txt', 'robots', (body) => {
   if (/Disallow:\s*\/sports(?:\/|\s|$)/i.test(body)) throw new Error('robots.txt blocks /sports');
 });
 
-console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, shared 6A and 1A school-profile system, district/enrollment/eligibility research, history, sitemap and robots are live.');
+console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, shared 6A and 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, history, sitemap and robots are live.');
