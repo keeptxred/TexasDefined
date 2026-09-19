@@ -27,6 +27,7 @@ const files = [
 
 const allTimeHistoryPath = 'src/data/high-school-football/uil-football-all-time-history.server.ts';
 const programProfilePath = 'src/routes/high-school-football.$teamSlug.tsx';
+const programProfileFunctionsPath = 'src/data/high-school-football/football-program-profile.functions.ts';
 const sitemapPath = 'src/routes/sitemap[.]xml.ts';
 
 const authorityFiles = [
@@ -37,7 +38,7 @@ const authorityFiles = [
   'src/data/friday-night-lights-structured-data.server.ts',
 ];
 
-for (const file of [...files, ...authorityFiles, allTimeHistoryPath, programProfilePath, sitemapPath]) {
+for (const file of [...files, ...authorityFiles, allTimeHistoryPath, programProfilePath, programProfileFunctionsPath, sitemapPath]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing high-school football platform file: ${file}`);
 }
 
@@ -47,6 +48,7 @@ if (!errors.length) {
   const history = read(files[2]);
   const allTimeHistory = read(allTimeHistoryPath);
   const programProfile = read(programProfilePath);
+  const programProfileFunctions = read(programProfileFunctionsPath);
   const sitemap = read(sitemapPath);
   const api = read(files[3]);
   const finder = read(files[4]);
@@ -160,7 +162,7 @@ if (!errors.length) {
 
   for (const marker of [
     "createFileRoute('/high-school-football/$teamSlug')",
-    'getFootballProgramProfile',
+    'getFootballProgramProfilePage',
     "'@type': 'SportsTeam'",
     'Program snapshot',
     'District competition',
@@ -248,6 +250,14 @@ if (!errors.length) {
   requireText(publicRoutes, '"/texas-high-school-football-teams"', 'Public route governance');
   requireText(dataSources, "id:'uil-football-alignments'", 'Texas source registry');
   requireText(dataSources, "domain:'sports'", 'Texas source registry');
+  for (const marker of [
+    "createServerFn({ method: 'GET' })",
+    "import('./football-directory.server')",
+    'getFootballProgramProfile',
+    'getFootballProgramProfilePage',
+  ]) requireText(programProfileFunctions, marker, 'Football program profile server function');
+  if (programProfile.includes("football-directory.server")) errors.push('Football program profile route must not import server-only directory code directly.');
+
   requireText(sitemap, 'footballProgramSitemapEntries', 'Football profile sitemap');
   requireText(sitemap, '...highSchoolFootballProfiles', 'Football profile sitemap');
 
