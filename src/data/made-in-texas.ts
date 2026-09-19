@@ -37,7 +37,7 @@ export const MADE_IN_TEXAS_ENTRIES: TexasMadeEntry[] = [
   entry('Kountry Boys Sausage', 'Brenham', 'washington', 'food-drink', 'made-or-processed', 'A Brenham-area smoked-meat name tied to the county\'s food culture.'),
   entry('Dr Pepper', 'Waco', 'mclennan', 'food-drink', 'founded', 'The soft drink was created in Waco and remains part of the city\'s commercial identity.', '/attraction/dr-pepper-museum'),
   entry('Balcones Distilling', 'Waco', 'mclennan', 'food-drink', 'made-or-processed', 'Waco distillery known for Texas-made whisky.'),
-  entry('Spoetzl Brewery / Shiner', 'Shiner', 'lavaca', 'food-drink', 'made-or-processed', 'Shiner beer is brewed in the small Lavaca County city that gave the brand its name.', '/texas-icons/shiner-bock'),
+  entry('Spoetzl Brewery / Shiner', 'Shiner', 'lavaca', 'food-drink', 'made-or-processed', 'Shiner beer is brewed in the small Lavaca County city that gave the brand its name.', '/destination/spoetzl-brewery'),
   entry('Whataburger', 'San Antonio', 'bexar', 'food-drink', 'headquartered', 'The Texas-born burger chain is headquartered in San Antonio.'),
   entry('H-E-B', 'San Antonio', 'bexar', 'retail-lifestyle', 'headquartered', 'The grocery company is headquartered in San Antonio and is one of the state\'s largest homegrown retail institutions.'),
   entry('Taco Cabana', 'San Antonio', 'bexar', 'food-drink', 'founded', 'The fast-casual Tex-Mex chain began in San Antonio.'),
