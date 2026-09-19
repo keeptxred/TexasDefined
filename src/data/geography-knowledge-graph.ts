@@ -98,6 +98,7 @@ export const TEXAS_PLACE_GEOGRAPHY: readonly TexasPlaceGeography[] = [
   place("Dallas", ["dallas"], "north-texas", ["dallas-fort-worth-metroplex"], { metroId: "dallas-fort-worth" }),
   place("Fort Worth", ["tarrant"], "north-texas", ["dallas-fort-worth-metroplex"], { metroId: "dallas-fort-worth", gatewaySubregionIds: ["cross-timbers"] }),
   place("Arlington", ["tarrant"], "north-texas", ["dallas-fort-worth-metroplex"], { metroId: "dallas-fort-worth" }),
+  place("Hurst", ["tarrant"], "north-texas", ["dallas-fort-worth-metroplex"], { metroId: "dallas-fort-worth" }),
   place("Denton", ["denton"], "north-texas", ["dallas-fort-worth-metroplex", "cross-timbers"], { metroId: "dallas-fort-worth" }),
   place("Plano", ["collin"], "north-texas", ["dallas-fort-worth-metroplex"], { metroId: "dallas-fort-worth" }),
   place("Frisco", ["collin", "denton"], "north-texas", ["dallas-fort-worth-metroplex"], { metroId: "dallas-fort-worth" }),
