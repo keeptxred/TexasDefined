@@ -21,6 +21,7 @@ export type TeaSchoolDirectoryRecord = {
 };
 
 export type FootballProgramDirectoryResult = UilFootballProgram & {
+  profilePath: string;
   officialSchoolName?: string;
   districtName?: string;
   countyName?: string;
@@ -30,6 +31,33 @@ export type FootballProgramDirectoryResult = UilFootballProgram & {
 };
 
 let directoryCache: { loadedAt: number; rows: TeaSchoolDirectoryRecord[] } | null = null;
+
+export function footballProgramSlug(value: Pick<UilFootballProgram, 'schoolName'> | string) {
+  const schoolName = typeof value === 'string' ? value : value.schoolName;
+  return schoolName
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+export function footballProgramPath(value: Pick<UilFootballProgram, 'schoolName'> | string) {
+  return `/high-school-football/${footballProgramSlug(value)}`;
+}
+
+const PROGRAM_BY_SLUG = new Map<string, UilFootballProgram>();
+for (const program of UIL_FOOTBALL_PROGRAMS_2026) {
+  const slug = footballProgramSlug(program);
+  if (!slug) throw new Error(`UIL football program is missing a stable slug: ${program.schoolName}`);
+  const existing = PROGRAM_BY_SLUG.get(slug);
+  if (existing) throw new Error(`UIL football program slug collision: ${existing.schoolName} and ${program.schoolName} -> ${slug}`);
+  PROGRAM_BY_SLUG.set(slug, program);
+}
+if (PROGRAM_BY_SLUG.size !== UIL_FOOTBALL_PROGRAMS_2026.length) {
+  throw new Error('UIL football program profile index is incomplete.');
+}
 
 function normalizeHeader(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -202,16 +230,88 @@ function withDirectory(program: UilFootballProgram, rows: TeaSchoolDirectoryReco
   const record = bestDirectoryMatch(program, rows);
   return record ? {
     ...program,
+    profilePath: footballProgramPath(program),
     officialSchoolName: record.schoolName,
     districtName: record.districtName,
     countyName: record.countyName,
     city: record.city,
-  } : { ...program };
+  } : {
+    ...program,
+    profilePath: footballProgramPath(program),
+  };
 }
 
 function includesQuery(value: string, query: string) {
   const normalizedValue = cleanName(value);
   return normalizedValue.includes(query) || cleanName(expandSearchName(value)).includes(query);
+}
+
+async function loadFootballContext() {
+  const [directoryResult, historyResult, allTimeHistoryResult] = await Promise.allSettled([
+    loadTeaSchoolDirectory(),
+    loadUilRecentFootballHistory(),
+    loadUilAllTimeFootballHistory(),
+  ]);
+
+  return {
+    directoryAvailable: directoryResult.status === 'fulfilled',
+    historyAvailable: historyResult.status === 'fulfilled',
+    allTimeHistoryAvailable: allTimeHistoryResult.status === 'fulfilled',
+    directory: directoryResult.status === 'fulfilled' ? directoryResult.value : [] as TeaSchoolDirectoryRecord[],
+    recentHistory: historyResult.status === 'fulfilled' ? historyResult.value : null,
+    allTimeHistory: allTimeHistoryResult.status === 'fulfilled' ? allTimeHistoryResult.value : null,
+  };
+}
+
+function enrichProgram(
+  program: UilFootballProgram,
+  context: Awaited<ReturnType<typeof loadFootballContext>>,
+) {
+  const base = withDirectory(program, context.directoryAvailable ? context.directory : []);
+  const recentHistory = context.recentHistory
+    ? recentFootballHistoryFromLoaded(context.recentHistory, base.schoolName, base.officialSchoolName)
+    : null;
+  const allTimeHistory = context.allTimeHistory
+    ? allTimeFootballHistoryFromLoaded(context.allTimeHistory, recentHistory, base.schoolName, base.officialSchoolName)
+    : null;
+
+  return {
+    ...base,
+    ...(recentHistory ? { recentHistory } : {}),
+    ...(allTimeHistory ? { allTimeHistory } : {}),
+  };
+}
+
+export async function getFootballProgramProfile(teamSlug: string) {
+  const program = PROGRAM_BY_SLUG.get(teamSlug);
+  if (!program) return null;
+
+  const context = await loadFootballContext();
+  const enriched = enrichProgram(program, context);
+  const districtPeers = UIL_FOOTBALL_PROGRAMS_2026
+    .filter((candidate) =>
+      candidate.schoolName !== program.schoolName
+      && candidate.classification === program.classification
+      && candidate.division === program.division
+      && candidate.district === program.district,
+    )
+    .map((candidate) => withDirectory(candidate, context.directoryAvailable ? context.directory : []))
+    .sort((left, right) => left.schoolName.localeCompare(right.schoolName));
+
+  return {
+    program: enriched,
+    districtPeers,
+    directoryAvailable: context.directoryAvailable,
+    historyAvailable: context.historyAvailable,
+    allTimeHistoryAvailable: context.allTimeHistoryAvailable,
+  };
+}
+
+export function footballProgramSitemapEntries() {
+  return UIL_FOOTBALL_PROGRAMS_2026.map((program) => ({
+    path: footballProgramPath(program),
+    lastmod: '2026-09-19',
+  }));
 }
 
 export async function searchFootballPrograms(options: {
@@ -225,18 +325,13 @@ export async function searchFootballPrograms(options: {
   const district = cleanName(options.district ?? '');
   const limit = Math.min(Math.max(options.limit ?? 50, 1), 100);
 
-  const [directoryResult, historyResult, allTimeHistoryResult] = await Promise.allSettled([
-    loadTeaSchoolDirectory(),
-    loadUilRecentFootballHistory(),
-    loadUilAllTimeFootballHistory(),
-  ]);
-
-  const directoryAvailable = directoryResult.status === 'fulfilled';
-  const historyAvailable = historyResult.status === 'fulfilled';
-  const allTimeHistoryAvailable = allTimeHistoryResult.status === 'fulfilled';
-  const directory: TeaSchoolDirectoryRecord[] = directoryAvailable ? directoryResult.value : [];
-  const recentHistory = historyAvailable ? historyResult.value : null;
-  const allTimeHistory = allTimeHistoryAvailable ? allTimeHistoryResult.value : null;
+  const context = await loadFootballContext();
+  const {
+    directoryAvailable,
+    historyAvailable,
+    allTimeHistoryAvailable,
+    directory,
+  } = context;
 
   let relevantDirectory = directory;
   if (county) {
@@ -281,20 +376,7 @@ export async function searchFootballPrograms(options: {
   }
 
   const enriched = candidates
-    .map((program) => {
-      const base = withDirectory(program, directoryAvailable ? directory : []);
-      const history = recentHistory
-        ? recentFootballHistoryFromLoaded(recentHistory, base.schoolName, base.officialSchoolName)
-        : null;
-      const allTime = allTimeHistory
-        ? allTimeFootballHistoryFromLoaded(allTimeHistory, history, base.schoolName, base.officialSchoolName)
-        : null;
-      return {
-        ...base,
-        ...(history ? { recentHistory: history } : {}),
-        ...(allTime ? { allTimeHistory: allTime } : {}),
-      };
-    })
+    .map((program) => enrichProgram(program, context))
     .sort((a, b) => {
       const classDiff = Number(b.classification[0]) - Number(a.classification[0]);
       if (classDiff) return classDiff;

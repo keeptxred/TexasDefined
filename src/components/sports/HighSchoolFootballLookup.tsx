@@ -2,6 +2,7 @@ import { type FormEvent, useCallback, useEffect, useMemo, useState } from 'react
 
 type FootballProgram = {
   schoolName: string;
+  profilePath: string;
   officialSchoolName?: string;
   classification: '1A' | '2A' | '3A' | '4A' | '5A' | '6A';
   division: 1 | 2 | null;
@@ -231,7 +232,10 @@ export function HighSchoolFootballLookup({
               </dl>
               {program.allTimeHistory && <AllTimeHistory history={program.allTimeHistory} />}
               {program.recentHistory && <RecentFinals history={program.recentHistory} />}
-              <a href={program.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-xs font-semibold text-primary underline underline-offset-4">Official UIL alignment ↗</a>
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+                <a href={program.profilePath} className="text-sm font-semibold text-primary underline underline-offset-4">Open full program profile →</a>
+                <a href={program.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-xs font-semibold text-primary underline underline-offset-4">Official UIL alignment ↗</a>
+              </div>
             </article>)}
           </div>
           {matchedTotal > visible.length && <p className="mt-4 text-sm text-muted-foreground">Showing the first {visible.length} programs. Use a school or ISD name to narrow the list.</p>}

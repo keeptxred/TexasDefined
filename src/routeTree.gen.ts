@@ -311,6 +311,7 @@ import { Route as HistoricSiteFortRichardsonStateParkStateHistoricSiteRouteImpor
 import { Route as HistoricSiteFortLeatonStateHistoricSiteRouteImport } from './routes/historic-site.fort-leaton-state-historic-site'
 import { Route as HistoricSiteFanthorpInnStateHistoricSiteRouteImport } from './routes/historic-site.fanthorp-inn-state-historic-site'
 import { Route as HistoricSiteSlugRouteImport } from './routes/historic-site.$slug'
+import { Route as HighSchoolFootballTeamSlugRouteImport } from './routes/high-school-football.$teamSlug'
 import { Route as GuidesCitypassTexasRouteImport } from './routes/guides.citypass-texas'
 import { Route as FoodSlugRouteImport } from './routes/food.$slug'
 import { Route as FishingTechniquesRouteImport } from './routes/fishing.techniques'
@@ -2408,6 +2409,12 @@ const HistoricSiteSlugRoute = HistoricSiteSlugRouteImport.update({
   path: '/historic-site/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HighSchoolFootballTeamSlugRoute =
+  HighSchoolFootballTeamSlugRouteImport.update({
+    id: '/high-school-football/$teamSlug',
+    path: '/high-school-football/$teamSlug',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const GuidesCitypassTexasRoute = GuidesCitypassTexasRouteImport.update({
   id: '/citypass-texas',
   path: '/citypass-texas',
@@ -3725,6 +3732,7 @@ export interface FileRoutesByFullPath {
   '/fishing/techniques': typeof FishingTechniquesRouteWithChildren
   '/food/$slug': typeof FoodSlugRoute
   '/guides/citypass-texas': typeof GuidesCitypassTexasRoute
+  '/high-school-football/$teamSlug': typeof HighSchoolFootballTeamSlugRoute
   '/historic-site/$slug': typeof HistoricSiteSlugRoute
   '/historic-site/fanthorp-inn-state-historic-site': typeof HistoricSiteFanthorpInnStateHistoricSiteRoute
   '/historic-site/fort-leaton-state-historic-site': typeof HistoricSiteFortLeatonStateHistoricSiteRoute
@@ -4198,6 +4206,7 @@ export interface FileRoutesByTo {
   '/fishing/techniques': typeof FishingTechniquesRouteWithChildren
   '/food/$slug': typeof FoodSlugRoute
   '/guides/citypass-texas': typeof GuidesCitypassTexasRoute
+  '/high-school-football/$teamSlug': typeof HighSchoolFootballTeamSlugRoute
   '/historic-site/$slug': typeof HistoricSiteSlugRoute
   '/historic-site/fanthorp-inn-state-historic-site': typeof HistoricSiteFanthorpInnStateHistoricSiteRoute
   '/historic-site/fort-leaton-state-historic-site': typeof HistoricSiteFortLeatonStateHistoricSiteRoute
@@ -4675,6 +4684,7 @@ export interface FileRoutesById {
   '/fishing/techniques': typeof FishingTechniquesRouteWithChildren
   '/food/$slug': typeof FoodSlugRoute
   '/guides/citypass-texas': typeof GuidesCitypassTexasRoute
+  '/high-school-football/$teamSlug': typeof HighSchoolFootballTeamSlugRoute
   '/historic-site/$slug': typeof HistoricSiteSlugRoute
   '/historic-site/fanthorp-inn-state-historic-site': typeof HistoricSiteFanthorpInnStateHistoricSiteRoute
   '/historic-site/fort-leaton-state-historic-site': typeof HistoricSiteFortLeatonStateHistoricSiteRoute
@@ -5153,6 +5163,7 @@ export interface FileRouteTypes {
     | '/fishing/techniques'
     | '/food/$slug'
     | '/guides/citypass-texas'
+    | '/high-school-football/$teamSlug'
     | '/historic-site/$slug'
     | '/historic-site/fanthorp-inn-state-historic-site'
     | '/historic-site/fort-leaton-state-historic-site'
@@ -5626,6 +5637,7 @@ export interface FileRouteTypes {
     | '/fishing/techniques'
     | '/food/$slug'
     | '/guides/citypass-texas'
+    | '/high-school-football/$teamSlug'
     | '/historic-site/$slug'
     | '/historic-site/fanthorp-inn-state-historic-site'
     | '/historic-site/fort-leaton-state-historic-site'
@@ -6102,6 +6114,7 @@ export interface FileRouteTypes {
     | '/fishing/techniques'
     | '/food/$slug'
     | '/guides/citypass-texas'
+    | '/high-school-football/$teamSlug'
     | '/historic-site/$slug'
     | '/historic-site/fanthorp-inn-state-historic-site'
     | '/historic-site/fort-leaton-state-historic-site'
@@ -6551,6 +6564,7 @@ export interface RootRouteChildren {
   ExploreWildlifeRoute: typeof ExploreWildlifeRoute
   ExploreWildlifeManagementAreasRoute: typeof ExploreWildlifeManagementAreasRoute
   FoodSlugRoute: typeof FoodSlugRoute
+  HighSchoolFootballTeamSlugRoute: typeof HighSchoolFootballTeamSlugRoute
   HistoricSiteSlugRoute: typeof HistoricSiteSlugRoute
   HistoricSiteFanthorpInnStateHistoricSiteRoute: typeof HistoricSiteFanthorpInnStateHistoricSiteRoute
   HistoricSiteFortLeatonStateHistoricSiteRoute: typeof HistoricSiteFortLeatonStateHistoricSiteRoute
@@ -8778,6 +8792,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HistoricSiteSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/high-school-football/$teamSlug': {
+      id: '/high-school-football/$teamSlug'
+      path: '/high-school-football/$teamSlug'
+      fullPath: '/high-school-football/$teamSlug'
+      preLoaderRoute: typeof HighSchoolFootballTeamSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/guides/citypass-texas': {
       id: '/guides/citypass-texas'
       path: '/citypass-texas'
@@ -10822,6 +10843,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreWildlifeRoute: ExploreWildlifeRoute,
   ExploreWildlifeManagementAreasRoute: ExploreWildlifeManagementAreasRoute,
   FoodSlugRoute: FoodSlugRoute,
+  HighSchoolFootballTeamSlugRoute: HighSchoolFootballTeamSlugRoute,
   HistoricSiteSlugRoute: HistoricSiteSlugRoute,
   HistoricSiteFanthorpInnStateHistoricSiteRoute:
     HistoricSiteFanthorpInnStateHistoricSiteRoute,

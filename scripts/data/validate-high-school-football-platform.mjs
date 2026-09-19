@@ -26,6 +26,9 @@ const files = [
 ];
 
 const allTimeHistoryPath = 'src/data/high-school-football/uil-football-all-time-history.server.ts';
+const programProfilePath = 'src/routes/high-school-football.$teamSlug.tsx';
+const programProfileFunctionsPath = 'src/data/high-school-football/football-program-profile.functions.ts';
+const sitemapPath = 'src/routes/sitemap[.]xml.ts';
 
 const authorityFiles = [
   'src/data/fixtures/high-school-football-newcomers.ts',
@@ -35,7 +38,7 @@ const authorityFiles = [
   'src/data/friday-night-lights-structured-data.server.ts',
 ];
 
-for (const file of [...files, ...authorityFiles, allTimeHistoryPath]) {
+for (const file of [...files, ...authorityFiles, allTimeHistoryPath, programProfilePath, programProfileFunctionsPath, sitemapPath]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing high-school football platform file: ${file}`);
 }
 
@@ -44,6 +47,9 @@ if (!errors.length) {
   const directory = read(files[1]);
   const history = read(files[2]);
   const allTimeHistory = read(allTimeHistoryPath);
+  const programProfile = read(programProfilePath);
+  const programProfileFunctions = read(programProfileFunctionsPath);
+  const sitemap = read(sitemapPath);
   const api = read(files[3]);
   const finder = read(files[4]);
   const countyModule = read(files[5]);
@@ -88,6 +94,13 @@ if (!errors.length) {
     'allTimeHistory',
     'historyAvailable',
     'allTimeHistoryAvailable',
+    'footballProgramSlug',
+    'footballProgramPath',
+    'PROGRAM_BY_SLUG',
+    'UIL football program slug collision',
+    'getFootballProgramProfile',
+    'districtPeers',
+    'footballProgramSitemapEntries',
   ]) requireText(directory, marker, 'Football directory');
 
   for (const marker of [
@@ -143,7 +156,27 @@ if (!errors.length) {
     'Select up to three programs',
     'Three-program comparison limit reached',
     'it does not rank academics, roster opportunity, coaching quality or overall student fit',
+    'profilePath',
+    'Open full program profile →',
   ]) requireText(finder, marker, 'Football lookup component');
+
+  for (const marker of [
+    "createFileRoute('/high-school-football/$teamSlug')",
+    'getFootballProgramProfilePage',
+    "'@type': 'SportsTeam'",
+    'Program snapshot',
+    'District competition',
+    'How to enroll at',
+    'Verify the exact home address',
+    'Complete the district’s student-enrollment process',
+    'Ask the football program about participation',
+    'Verify UIL athletic eligibility before making a football-driven move',
+    'https://www.uiltexas.org/policy/eligibility',
+    'https://www.uiltexas.org/policy/constitution/general/eligibility',
+    '/find-my-school-district',
+    'Open program profile →',
+    'Questions worth asking beyond trophies',
+  ]) requireText(programProfile, marker, 'Football program profile');
 
   requireText(countyModule, 'High school football in', 'County football module');
   requireText(countyModule, 'countyName={countyName}', 'County football module');
@@ -164,7 +197,8 @@ if (!errors.length) {
     'initialQuery={q}',
     'official UIL all-time state-title and state-final totals',
     'lets families compare up to three programs side by side',
-    'Full season-by-season records, current schedules, standings and coaching continuity remain future layers',
+    'links every program to a permanent profile with district peers plus enrollment and UIL-eligibility research guidance',
+    'Full season-by-season records, current schedules, standings, verified mascots and coaching continuity remain future layers',
   ]) requireText(page, marker, 'Football finder page');
 
   requireText(schoolDistrict, 'HighSchoolFootballLookup', 'School-district integration');
@@ -216,6 +250,16 @@ if (!errors.length) {
   requireText(publicRoutes, '"/texas-high-school-football-teams"', 'Public route governance');
   requireText(dataSources, "id:'uil-football-alignments'", 'Texas source registry');
   requireText(dataSources, "domain:'sports'", 'Texas source registry');
+  for (const marker of [
+    "createServerFn({ method: 'GET' })",
+    "import('./football-directory.server')",
+    'getFootballProgramProfile',
+    'getFootballProgramProfilePage',
+  ]) requireText(programProfileFunctions, marker, 'Football program profile server function');
+  if (programProfile.includes("football-directory.server")) errors.push('Football program profile route must not import server-only directory code directly.');
+
+  requireText(sitemap, 'footballProgramSitemapEntries', 'Football profile sitemap');
+  requireText(sitemap, '...highSchoolFootballProfiles', 'Football profile sitemap');
 
   for (const [file, source] of [
     [files[4], finder],
