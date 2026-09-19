@@ -268,7 +268,8 @@ export const FEATURED_FOOTBALL_SOURCE_ROWS: readonly FeaturedFootballSourceRow[]
   [250, "Cedar Park"]
 ] as const;
 
-const SLUG_OVERRIDES: Readonly<Record<string, string>> = {\n  "C.E. King (Houston)": "ce-king",
+const SLUG_OVERRIDES: Readonly<Record<string, string>> = {
+  "C.E. King (Houston)": "ce-king",
   "All Saints (Fort Worth)": "all-saints-fort-worth",
   "Austin Lake Travis": "lake-travis",
   "Austin Westlake": "westlake",
