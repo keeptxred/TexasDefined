@@ -12,7 +12,7 @@ type StayProperty = {
 };
 type StayRegistry = { reviewedAt?: string; properties?: StayProperty[] };
 type HotelsComVerification = { reviewedAt?: string; publisherId?: string; properties?: Array<{ propertyId?: string; name?: string; destinationUrl?: string }> };
-type DashboardState = { venue: StayRegistry; destination: StayRegistry; hotelsCom: HotelsComVerification };
+type DashboardState = { venue: StayRegistry; destination: StayRegistry; paintedChurches: StayRegistry; hotelsCom: HotelsComVerification };
 
 export function StayMonetizationReadiness() {
   const [data, setData] = useState<DashboardState | null>(null);
@@ -23,9 +23,10 @@ export function StayMonetizationReadiness() {
     Promise.all([
       fetch('/stay-nearby-hotels.json', { cache: 'no-store' }).then(assertJson),
       fetch('/stay-nearby-destination-hotels.json', { cache: 'no-store' }).then(assertJson),
+      fetch('/stay-nearby-painted-churches-hotels.json', { cache: 'no-store' }).then(assertJson),
       fetch('/stay-nearby-hotelscom-verification.json', { cache: 'no-store' }).then(assertHotelsComVerification),
     ])
-      .then(([venue, destination, hotelsCom]) => { if (active) setData({ venue, destination, hotelsCom }); })
+      .then(([venue, destination, paintedChurches, hotelsCom]) => { if (active) setData({ venue, destination, paintedChurches, hotelsCom }); })
       .catch((cause) => { if (active) setError(cause instanceof Error ? cause.message : 'Stay monetization readiness could not be loaded.'); });
     return () => { active = false; };
   }, []);
@@ -43,15 +44,15 @@ export function StayMonetizationReadiness() {
     {readiness ? <>
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <ReadinessMetric label="Curated contexts" value={String(readiness.totalContexts)} detail={`${readiness.venueContexts} venue · ${readiness.destinationContexts} destination`} />
-        <ReadinessMetric label="Active properties" value={String(readiness.activeProperties)} detail={`${readiness.destinationProperties} destination-cohort properties`} />
-        <ReadinessMetric label="Verified property links" value={String(readiness.verifiedAffiliateLinks)} detail={`${readiness.venueVerifiedAffiliateLinks} venue · ${readiness.destinationVerifiedAffiliateLinks} destination exact-property links`} />
+        <ReadinessMetric label="Active properties" value={String(readiness.activeProperties)} detail={`${readiness.destinationProperties} general destination · ${readiness.paintedChurchesProperties} Painted Churches`} />
+        <ReadinessMetric label="Verified property links" value={String(readiness.verifiedAffiliateLinks)} detail={`${readiness.venueVerifiedAffiliateLinks} venue · ${readiness.destinationVerifiedAffiliateLinks} general destination · ${readiness.paintedChurchesVerifiedAffiliateLinks} Painted Churches exact-property links`} />
         <ReadinessMetric label="Property imagery ready" value={String(readiness.imageReady)} detail="Governed first-party image records only" />
       </div>
 
       <div className="mt-8 rounded-md border border-border p-5">
-        <strong className="font-display text-2xl">Controlled destination cohort: {readiness.destinationContexts} destinations · {readiness.destinationProperties} properties</strong>
-        <p className="mt-2 text-sm text-muted-foreground">Destination pages use contextual curated cards only where this registry has a reviewed relationship. Other eligible travel pages keep the generic Expedia/Hotels.com/Vrbo fallback rather than inheriting unsourced local recommendations.</p>
-        <p className="mt-2 text-xs text-muted-foreground">Destination registry reviewed: {data?.destination.reviewedAt || 'not recorded'} · Venue registry reviewed: {data?.venue.reviewedAt || 'not recorded'} · Hotels.com verification reviewed: {data?.hotelsCom.reviewedAt || 'not recorded'}</p>
+        <strong className="font-display text-2xl">Controlled destination coverage: {readiness.destinationContexts} contexts · {readiness.destinationProperties + readiness.paintedChurchesProperties} properties</strong>
+        <p className="mt-2 text-sm text-muted-foreground">Destination pages use contextual curated cards only where a governed registry has a reviewed relationship. Painted Churches remains a separate targeted cohort with its own exact-property Hotels.com targets; other eligible travel pages keep the generic Expedia/Hotels.com/Vrbo fallback rather than inheriting unsourced local recommendations.</p>
+        <p className="mt-2 text-xs text-muted-foreground">General destination registry reviewed: {data?.destination.reviewedAt || 'not recorded'} · Painted Churches registry reviewed: {data?.paintedChurches.reviewedAt || 'not recorded'} · Venue registry reviewed: {data?.venue.reviewedAt || 'not recorded'} · Hotels.com verification registry reviewed: {data?.hotelsCom.reviewedAt || 'not recorded'}</p>
       </div>
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -81,28 +82,42 @@ async function assertHotelsComVerification(response: Response): Promise<HotelsCo
   return response.json() as Promise<HotelsComVerification>;
 }
 
-function summarize({ venue, destination, hotelsCom }: DashboardState) {
+function summarize({ venue, destination, paintedChurches, hotelsCom }: DashboardState) {
   const venueProperties = (venue.properties || []).filter((property) => property.status === 'active');
   const destinationProperties = (destination.properties || []).filter((property) => property.status === 'active');
-  const all = [...venueProperties, ...destinationProperties];
+  const paintedChurchesProperties = (paintedChurches.properties || []).filter((property) => property.status === 'active');
+  const all = [...venueProperties, ...destinationProperties, ...paintedChurchesProperties];
   const contextKeys = (properties: StayProperty[], kind: string) => new Set(properties.flatMap((property) => (property.contexts || []).filter((context) => context.kind === kind && context.key).map((context) => context.key as string)));
   const venueContextKeys = contextKeys(venueProperties, 'venue');
-  const destinationContextKeys = contextKeys(destinationProperties, 'destination');
-  const activePropertyIds = new Set(all.flatMap((property) => property.id ? [property.id] : []));
+  const destinationContextKeys = new Set([
+    ...contextKeys(destinationProperties, 'destination'),
+    ...contextKeys(paintedChurchesProperties, 'destination'),
+  ]);
+  const verificationEligibleIds = new Set([...venueProperties, ...destinationProperties].flatMap((property) => property.id ? [property.id] : []));
   const verifiedPropertyIds = new Set((hotelsCom.properties || [])
-    .filter((property) => property.propertyId && activePropertyIds.has(property.propertyId))
+    .filter((property) => property.propertyId && verificationEligibleIds.has(property.propertyId))
     .filter((property) => typeof property.destinationUrl === 'string' && /^https:\/\/www\.hotels\.com\/ho\d+\//i.test(property.destinationUrl))
     .map((property) => property.propertyId as string));
+  const paintedChurchesVerifiedIds = new Set(paintedChurchesProperties
+    .filter((property) => (property.bookingTargets || []).some((target) =>
+      target.provider === 'hotels.com'
+      && target.verified === true
+      && typeof target.affiliateUrl === 'string'
+      && /^https:\/\/www\.anrdoezrs\.net\/links\/101876465\/type\/dlg\/https:\/\/www\.hotels\.com\/ho\d+\//i.test(target.affiliateUrl)))
+    .flatMap((property) => property.id ? [property.id] : []));
   const venueVerifiedAffiliateLinks = venueProperties.filter((property) => property.id && verifiedPropertyIds.has(property.id)).length;
   const destinationVerifiedAffiliateLinks = destinationProperties.filter((property) => property.id && verifiedPropertyIds.has(property.id)).length;
-  const verifiedAffiliateLinks = verifiedPropertyIds.size;
+  const paintedChurchesVerifiedAffiliateLinks = paintedChurchesVerifiedIds.size;
+  const verifiedAffiliateLinks = verifiedPropertyIds.size + paintedChurchesVerifiedAffiliateLinks;
   const imageReady = all.filter((property) => typeof property.image?.url === 'string' && property.image.url.startsWith('/')).length;
   const destinationRows = [...destinationContextKeys].sort().map((key) => {
-    const matching = destinationProperties.filter((property) => (property.contexts || []).some((context) => context.kind === 'destination' && context.key === key));
+    const matching = [...destinationProperties, ...paintedChurchesProperties]
+      .filter((property) => (property.contexts || []).some((context) => context.kind === 'destination' && context.key === key));
     return {
       key,
       properties: matching.map((property) => property.name || property.id || 'Unnamed property'),
-      verifiedLinks: matching.filter((property) => property.id && verifiedPropertyIds.has(property.id)).length,
+      verifiedLinks: matching.filter((property) =>
+        property.id && (verifiedPropertyIds.has(property.id) || paintedChurchesVerifiedIds.has(property.id))).length,
     };
   });
   return {
@@ -111,9 +126,11 @@ function summarize({ venue, destination, hotelsCom }: DashboardState) {
     totalContexts: venueContextKeys.size + destinationContextKeys.size,
     activeProperties: all.length,
     destinationProperties: destinationProperties.length,
+    paintedChurchesProperties: paintedChurchesProperties.length,
     verifiedAffiliateLinks,
     venueVerifiedAffiliateLinks,
     destinationVerifiedAffiliateLinks,
+    paintedChurchesVerifiedAffiliateLinks,
     imageReady,
     destinationRows,
   };
