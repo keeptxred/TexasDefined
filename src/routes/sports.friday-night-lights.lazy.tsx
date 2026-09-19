@@ -131,7 +131,8 @@ function FridayNightLightsPage() {
           </article>)}
         </div>
         <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
-          <Link to="/texas-homecoming" className="text-primary">Why homecoming matters in Texas →</Link>\n          <Link to="/texas-homecoming-mums" className="text-primary">Texas homecoming mums explained →</Link>
+          <Link to="/texas-homecoming" className="text-primary">Why homecoming matters in Texas →</Link>
+          <Link to="/texas-homecoming-mums" className="text-primary">Texas homecoming mums explained →</Link>
           <Link to="/texas-tailgating-guide" className="text-primary">Texas tailgating guide →</Link>
         </div>
       </Container>
