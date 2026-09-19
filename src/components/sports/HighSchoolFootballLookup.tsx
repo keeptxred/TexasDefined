@@ -85,6 +85,7 @@ export function HighSchoolFootballLookup({
   const [loading, setLoading] = useState(Boolean(countyName));
   const [error, setError] = useState('');
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
+  const [showAllMatches, setShowAllMatches] = useState(false);
 
   useEffect(() => {
     if (!countyName) return;
@@ -94,7 +95,7 @@ export function HighSchoolFootballLookup({
       setLoading(true);
       setError('');
       try {
-        const params = new URLSearchParams({ county: countyName, limit: '100' });
+        const params = new URLSearchParams({ county: countyName, limit: '500' });
         const response = await fetch(`/api/high-school-football?${params.toString()}`, { signal: controller.signal });
         const payload = await response.json() as LookupResponse;
         if (!response.ok || !payload.ok) throw new Error(payload.error || 'Football programs could not be loaded.');
@@ -104,6 +105,7 @@ export function HighSchoolFootballLookup({
         setHistoryAvailable(payload.historyAvailable !== false);
         setAllTimeHistoryAvailable(payload.allTimeHistoryAvailable !== false);
         setSelectedKeys([]);
+        setShowAllMatches(false);
       } catch (cause) {
         if (controller.signal.aborted) return;
         setError(cause instanceof Error ? cause.message : 'Football programs could not be loaded.');
@@ -127,7 +129,7 @@ export function HighSchoolFootballLookup({
     setLoading(true);
     setError('');
     try {
-      const params = new URLSearchParams({ q: trimmed, limit: compact ? '24' : '50' });
+      const params = new URLSearchParams({ q: trimmed, limit: '500' });
       const response = await fetch(`/api/high-school-football?${params.toString()}`);
       const payload = await response.json() as LookupResponse;
       if (!response.ok || !payload.ok) throw new Error(payload.error || 'Football programs could not be loaded.');
@@ -137,6 +139,7 @@ export function HighSchoolFootballLookup({
       setHistoryAvailable(payload.historyAvailable !== false);
       setAllTimeHistoryAvailable(payload.allTimeHistoryAvailable !== false);
       setSelectedKeys([]);
+      setShowAllMatches(false);
       if (!(payload.programs?.length)) setError(`No current UIL football program matched “${trimmed}.” Try the official high-school or ISD name.`);
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : 'Football programs could not be loaded.');
@@ -145,7 +148,7 @@ export function HighSchoolFootballLookup({
     } finally {
       setLoading(false);
     }
-  }, [compact]);
+  }, []);
 
   useEffect(() => {
     const trimmed = initialQuery.trim();
@@ -159,7 +162,11 @@ export function HighSchoolFootballLookup({
     await runQuery(query);
   }
 
-  const visible = useMemo(() => programs.slice(0, compact ? 16 : 50), [programs, compact]);
+  const initialVisibleCount = compact ? 16 : 50;
+  const visible = useMemo(
+    () => showAllMatches ? programs : programs.slice(0, initialVisibleCount),
+    [programs, showAllMatches, initialVisibleCount],
+  );
   const selectedPrograms = useMemo(
     () => selectedKeys
       .map((key) => programs.find((program) => programKey(program) === key))
@@ -240,7 +247,17 @@ export function HighSchoolFootballLookup({
               </div>
             </article>)}
           </div>
-          {matchedTotal > visible.length && <p className="mt-4 text-sm text-muted-foreground">Showing the first {visible.length} programs. Use a school or ISD name to narrow the list.</p>}
+          {programs.length > visible.length && <div className="mt-5 flex flex-wrap items-center gap-4 border-t border-border pt-4">
+            <button
+              type="button"
+              onClick={() => setShowAllMatches(true)}
+              className="min-h-10 border border-foreground px-4 text-sm font-semibold"
+            >
+              Show all {programs.length.toLocaleString()} matched programs
+            </button>
+            <p className="text-xs leading-5 text-muted-foreground">Results stay ordered by UIL classification, with 6A before 5A through 1A.</p>
+          </div>}
+          {matchedTotal > programs.length && <p className="mt-4 text-sm text-muted-foreground">This search matched {matchedTotal.toLocaleString()} programs, but the lookup returned the first {programs.length.toLocaleString()}. Narrow by school, ISD, city or county for the complete local set.</p>}
         </div>}
 
         {!loading && !directoryAvailable && <p className="mt-5 border border-border p-4 text-sm leading-6 text-muted-foreground">The UIL school lookup is still available, but TEA’s school-directory service could not be reached, so ISD and county enrichment may be temporarily unavailable.</p>}
