@@ -132,6 +132,8 @@ await fetchVerified(finderPath, 'football finder', (body) => {
     'UIL enrollment band: 2,215 and above',
     'UIL enrollment band: 1,305–2,214',
     'Official UIL 2026–28 enrollment cutoffs',
+    'UIL enrollment 3,401',
+    'UIL enrollment 91',
     '/texas-high-school-football-teams/katy',
     '/texas-high-school-football-teams/abbott',
   ]) requireNeedle(body, needle, 'football finder');
@@ -227,6 +229,7 @@ await fetchVerified(allTimeFinderApiPath, 'football all-time history API', (body
   const katy = payload?.programs?.find((program) => program.schoolName === 'Katy');
   if (!katy) throw new Error('Katy was not returned by UIL program search');
   if (!katy.allTimeHistory) throw new Error('Katy is missing all-time UIL state-final history');
+  if (katy.uilEnrollment !== 3401) throw new Error(`Katy exact UIL enrollment expected 3401; found ${katy.uilEnrollment}`);
   if (katy.allTimeHistory.stateTitles < 9) throw new Error('Katy all-time title count is below the official UIL baseline');
   if (katy.allTimeHistory.stateFinalAppearances < 15) throw new Error('Katy all-time state-final appearances are below the official UIL baseline');
   if (katy.allTimeHistory.publishedThroughYear < 2024) throw new Error('UIL all-time appearances table recency detection is unexpectedly old');
@@ -240,6 +243,7 @@ await fetchVerified(oneAFinderApiPath, '1A football profile API', (body) => {
   if (!abbott) throw new Error('Abbott was not returned from the all-UIL lookup');
   if (abbott.profilePath !== abbottProfilePath) throw new Error('Abbott is missing its canonical all-UIL profile path');
   if (abbott.classification !== '1A') throw new Error('Abbott current UIL classification is not 1A');
+  if (abbott.uilEnrollment !== 91) throw new Error(`Abbott exact UIL enrollment expected 91; found ${abbott.uilEnrollment}`);
 });
 
 await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {
@@ -250,8 +254,11 @@ await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {
     'Open full district guide',
     'How to enroll at',
     'UIL eligibility standards',
+    'UIL reported enrollment',
+    '3,401',
     'UIL enrollment band',
     '2,215 and above',
+    'Official UIL alphabetical enrollment listing',
     'Official UIL 2026–28 enrollment cutoffs',
     'All current UIL football programs use the same profile system.',
     'Verified football venue relationships',
@@ -269,8 +276,11 @@ await fetchVerified(abbottProfilePath, 'Abbott football school profile', (body) 
     'Current district',
     'How to enroll at',
     'UIL eligibility standards',
+    'UIL reported enrollment',
+    '91',
     'UIL enrollment band',
     '57.6–104.9',
+    'Official UIL alphabetical enrollment listing',
     'Official UIL 2026–28 enrollment cutoffs',
     'All current UIL football programs use the same profile system.',
   ]) requireNeedle(body, needle, 'Abbott football school profile');
@@ -306,4 +316,4 @@ await fetchVerified('/robots.txt', 'robots', (body) => {
   if (/Disallow:\s*\/sports(?:\/|\s|$)/i.test(body)) throw new Error('robots.txt blocks /sports');
 });
 
-console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, official 2026–28 enrollment bands, 192 canonical UIL district hubs, shared 6A and 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, history, sitemap and robots are live.');
+console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, exact official UIL enrollments plus 2026–28 enrollment bands, 192 canonical UIL district hubs, shared 6A and 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, history, sitemap and robots are live.');
