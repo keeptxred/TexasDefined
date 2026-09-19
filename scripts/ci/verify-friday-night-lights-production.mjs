@@ -3,6 +3,7 @@ const hubPath = '/sports/friday-night-lights';
 const finderPath = '/texas-high-school-football-teams';
 const districtDirectoryPath = '/texas-high-school-football-districts';
 const katyDistrictPath = '/texas-high-school-football-districts/6a-district-22';
+const scoresSchedulesPath = '/texas-high-school-football-scores-schedules';
 const classificationsPath = '/article/texas-high-school-football-classifications-1a-6a';
 const playoffsPath = '/article/texas-high-school-football-playoffs-explained';
 const sixManPath = '/article/texas-six-man-football-rules-explained';
@@ -120,7 +121,7 @@ const hubNeedles = [
   'Friday Night Lights, Defined', 'CollectionPage', 'ItemList', 'BreadcrumbList',
   '/article/texas-high-school-football-newcomers', '/article/texas-high-school-football-friday-night-lights',
   '/texas-homecoming-mums', '/sports-venues/high-school-football', '/find-my-school-district', '/texas-tailgating-guide',
-  '/texas-high-school-football-teams', districtDirectoryPath, classificationsPath, playoffsPath, sixManPath,
+  '/texas-high-school-football-teams', districtDirectoryPath, scoresSchedulesPath, classificationsPath, playoffsPath, sixManPath,
 ];
 
 await fetchVerified(hubPath, 'hub', (body) => {
@@ -140,6 +141,7 @@ await fetchVerified(finderPath, 'football finder', (body) => {
     'What “good football fit” should mean',
     '/find-my-school-district',
     districtDirectoryPath,
+    scoresSchedulesPath,
     '/article/texas-high-school-football-classifications-1a-6a',
     playoffsPath,
     sixManPath,
@@ -198,6 +200,23 @@ await fetchVerified(katyDistrictPath, 'Katy UIL football district', (body) => {
     'University Interscholastic League',
   ]) requireNeedle(body, needle, 'Katy UIL football district');
   if (/\bnoindex\b/i.test(body)) throw new Error('Katy UIL football district unexpectedly contains noindex');
+});
+
+await fetchVerified(scoresSchedulesPath, 'football scores and schedules', (body) => {
+  for (const needle of [
+    'Scores, schedules and the UIL season calendar',
+    'Open the UIL Texas Scoreboard',
+    'A missing score is not proof a game was not played',
+    'This page does not publish district standings.',
+    'Aug. 27–Nov. 7',
+    '11 playing weeks to schedule a maximum of 10 games',
+    'Dec. 16–19',
+    'Current results stay with the current source',
+    'https://www.uiltexas.org/maxpreps/scoreboard',
+    '/texas-high-school-football-teams',
+    '/texas-high-school-football-districts',
+  ]) requireNeedle(body, needle, 'football scores and schedules');
+  if (/\bnoindex\b/i.test(body)) throw new Error('football scores and schedules unexpectedly contains noindex');
 });
 
 await fetchVerified(classificationsPath, 'football classifications', (body) => {
@@ -283,6 +302,8 @@ await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {
     'Current district',
     katyDistrictPath,
     'Open full district guide',
+    scoresSchedulesPath,
+    'Check current scores & schedules',
     'How to enroll at',
     'UIL eligibility standards',
     'UIL reported enrollment',
@@ -336,6 +357,7 @@ await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-districts</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-districts/6a-district-22</loc>', 'sitemap');
+  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-scores-schedules</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/katy</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/abbott</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/keller</loc>', 'sitemap');
@@ -347,4 +369,4 @@ await fetchVerified('/robots.txt', 'robots', (body) => {
   if (/Disallow:\s*\/sports(?:\/|\s|$)/i.test(body)) throw new Error('robots.txt blocks /sports');
 });
 
-console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, exact official UIL enrollments plus 2026–28 enrollment bands, 192 canonical UIL district hubs, shared 6A and 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, history, sitemap and robots are live.');
+console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, exact official UIL enrollments plus 2026–28 enrollment bands, 192 canonical UIL district hubs, live-source scores/schedules guide, shared 6A and 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, history, sitemap and robots are live.');
