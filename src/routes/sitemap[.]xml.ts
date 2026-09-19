@@ -172,6 +172,8 @@ export const Route = createFileRoute("/sitemap.xml")({
         const temporalEventSitemapEntries = loadTemporalEventSitemapEntriesServer();
         const texasDogSitemapEntries = loadTexasDogSitemapEntriesServer();
         const { FOOD_DESTINATIONS } = await import("@/data/food-destinations");
+        const { footballProgramSitemapEntries } = await import("@/data/high-school-football/football-directory.server");
+        const highSchoolFootballProfiles = footballProgramSitemapEntries();
         const [
           { LOCAL_PROPERTY_TAX_PROFILES },
           { LOCAL_HOME_AFFORDABILITY_PROFILES },
@@ -195,6 +197,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...AUTHORITY_STATIC_PATHS.map((path) => ({ path, lastmod: AUTHORITY_LASTMOD })),
           ...texasDogSitemapEntries,
           ...HUNTING_SITEMAP_ENTRIES,
+          ...highSchoolFootballProfiles,
           ...LOCAL_PROPERTY_TAX_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-08-30" })),
           ...LOCAL_HOME_AFFORDABILITY_PROFILES.map((profile) => ({ path: profile.path, lastmod: "2026-08-30" })),
           ...LOCAL_HOMEOWNERSHIP_COST_PROFILES.map((profile) => ({ path: profile.ownershipPath, lastmod: "2026-08-30" })),
