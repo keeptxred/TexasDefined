@@ -15,6 +15,7 @@ function Page() {
     enrollmentLink,
     districtPeers,
     privateAlignment,
+    privateAdmissions,
     governingBodyHint,
     associationClassification,
     associationSourceUrl,
@@ -122,7 +123,7 @@ function Page() {
           <h2 className="mt-2 font-display text-3xl">How to enroll at {schoolName}</h2>
         </div>
         <div>
-          {program ? <PublicEnrollmentSteps schoolName={schoolName} districtName={program.districtName} enrollmentLink={enrollmentLink} /> : <NonUilEnrollmentSteps schoolName={schoolName} association={privateAlignment?.association ?? governingBodyHint} />}
+          {program ? <PublicEnrollmentSteps schoolName={schoolName} districtName={program.districtName} enrollmentLink={enrollmentLink} /> : <NonUilEnrollmentSteps schoolName={schoolName} association={privateAlignment?.association ?? governingBodyHint} admissions={privateAdmissions} />}
           <div className="mt-6 border border-border p-5 text-sm leading-7 text-muted-foreground">
             <strong className="text-foreground">Football eligibility is a separate question from school admission.</strong> Being admitted, moving into a district or receiving a transfer does not by itself establish varsity eligibility. Confirm the student's facts directly with the school and the governing athletic association before relying on a move or transfer for football.
             {program && <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 font-semibold">
@@ -260,7 +261,20 @@ function PublicEnrollmentSteps({
   </>;
 }
 
-function NonUilEnrollmentSteps({ schoolName, association }: { schoolName: string; association?: string }) {
+function NonUilEnrollmentSteps({
+  schoolName,
+  association,
+  admissions,
+}: {
+  schoolName: string;
+  association?: string;
+  admissions?: {
+    admissionsUrl: string;
+    sourceLabel: string;
+    verifiedAt: string;
+    applicationCycle?: string;
+  } | null;
+}) {
   const steps = [
     ['Use the school’s admissions office', `Start with ${schoolName}'s official admissions process rather than a public-school attendance-zone lookup.`],
     ['Check application requirements', 'Confirm application dates, transcripts or records, recommendations, testing or interviews, grade-level availability and any tuition or financial-aid requirements.'],
@@ -268,7 +282,18 @@ function NonUilEnrollmentSteps({ schoolName, association }: { schoolName: string
     ['Confirm the football program', `Verify that the school is fielding football in the intended season and confirm its current ${association ?? 'athletic association'} placement and schedule.`],
     ['Verify athletic eligibility separately', 'Admission does not automatically establish athletic eligibility. Ask the school how transfer, age, residence, prior participation and association rules apply to the student.'],
   ];
-  return <StepList steps={steps} />;
+  return <>
+    {admissions && <div className="mb-6 border border-border p-5">
+      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official school admissions</p>
+      <p className="mt-2 text-sm leading-7 text-muted-foreground">
+        TexasDefined verified this school admissions source on {admissions.verifiedAt}{admissions.applicationCycle ? ` for the ${admissions.applicationCycle} application cycle` : ''}. Use the school page for current application dates, requirements, availability and fees.
+      </p>
+      <a href={admissions.admissionsUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
+        Start with {admissions.sourceLabel} ↗
+      </a>
+    </div>}
+    <StepList steps={steps} />
+  </>;
 }
 
 function StepList({ steps }: { steps: Array<[string, string]> }) {
