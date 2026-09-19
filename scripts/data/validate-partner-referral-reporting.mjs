@@ -94,6 +94,16 @@ else if (/^    environment:/m.test(syncJobMatch[1])) {
 }
 
 for (const [needle, label] of [
+  ["resourceId: 'expedia-search'", 'central Expedia search-start identity'],
+  ["detail.affiliate_partner !== 'expedia'", 'Expedia-only search-start filter'],
+  ["detail.affiliate_module !== 'stay-nearby'", 'Stay Nearby-only search-start filter'],
+  ["/^Search (?:all nearby stays|Expedia stays)/i", 'Expedia search-action label guard'],
+  ["trackTexasDefinedOutcome('next_step_selected'", 'Expedia search-start first-party outcome'],
+  ["window.addEventListener('texasdefined:affiliate-click', expediaSearchStarted as EventListener)", 'Expedia search-start browser listener'],
+  ["window.removeEventListener('texasdefined:affiliate-click', expediaSearchStarted as EventListener)", 'Expedia search-start listener cleanup'],
+]) expect(analytics, needle, label);
+
+for (const [needle, label] of [
   ["assertSportsPartnerAccess(accessKey)", 'commercial admin authorization'],
   ["from('texasdefined_partner_referral_daily')", 'private aggregate read'],
   ['impression_count', 'private impression aggregate read'],
