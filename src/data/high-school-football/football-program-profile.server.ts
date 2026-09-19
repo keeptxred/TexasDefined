@@ -5,6 +5,8 @@ import {
 } from './featured-programs';
 import { searchFootballPrograms, type FootballProgramDirectoryResult } from './football-directory.server';
 import { getOfficialFootballEnrollmentLink } from './official-enrollment-links';
+import { getVerifiedPrivateFootballAlignment } from './private-football-alignments';
+import { getVerifiedPrivateSchoolAdmissions } from './private-school-admissions';
 import { footballClassificationRank, footballProgramProfilePath, footballProgramSlug } from './program-slugs';
 import { getVerifiedFootballSchoolIdentity } from './school-identities';
 import { UIL_FOOTBALL_PROGRAMS_2026, type UilFootballProgram } from './uil-football-alignments-2026.server';
@@ -24,6 +26,8 @@ export type FootballProgramProfile = {
   program: FootballProgramDirectoryResult | null;
   identity: ReturnType<typeof getVerifiedFootballSchoolIdentity> | null;
   enrollmentLink: ReturnType<typeof getOfficialFootballEnrollmentLink> | null;
+  privateAlignment: ReturnType<typeof getVerifiedPrivateFootballAlignment> | null;
+  privateAdmissions: ReturnType<typeof getVerifiedPrivateSchoolAdmissions> | null;
   districtPeers: FootballProgramProfilePeer[];
   governingBodyHint?: 'SPC' | 'TAPPS' | 'TCAL';
   associationClassification?: string;
@@ -113,6 +117,8 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
       program: null,
       identity: getVerifiedFootballSchoolIdentity(legacy.slug) ?? null,
       enrollmentLink: null,
+      privateAlignment: getVerifiedPrivateFootballAlignment(legacy.slug) ?? null,
+      privateAdmissions: getVerifiedPrivateSchoolAdmissions(legacy.slug) ?? null,
       districtPeers: [],
       governingBodyHint: legacy.governingBodyHint,
       associationClassification: legacy.associationClassification,
@@ -121,7 +127,10 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   }
 
   const result = await searchFootballPrograms({ query: seed.schoolName, limit: 100 });
-  const program = exactProgramMatch(seed, result.programs) ?? { ...seed };
+  const program = exactProgramMatch(seed, result.programs) ?? {
+    ...seed,
+    profilePath: footballProgramProfilePath(seed.schoolName),
+  };
   const legacyIdentity = matchFeaturedFootballProgram(program.schoolName, program.officialSchoolName);
   const canonicalSlug = footballProgramSlug(seed.schoolName);
   const displayName = program.officialSchoolName || seed.schoolName;
@@ -132,6 +141,8 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     program,
     identity: getVerifiedFootballSchoolIdentity(legacyIdentity?.slug ?? canonicalSlug) ?? null,
     enrollmentLink: getOfficialFootballEnrollmentLink(program.districtName) ?? null,
+    privateAlignment: null,
+    privateAdmissions: null,
     districtPeers: districtPeers(seed),
   };
 }
