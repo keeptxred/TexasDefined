@@ -110,6 +110,11 @@ if (!errors.length) {
     'Recent UIL state-final history · 2018–19 to 2025–26',
     'No badge does not mean a weak program',
     'UIL state archives ↗',
+    'Compare this program',
+    'Compare football programs',
+    'Select up to three programs',
+    'Three-program comparison limit reached',
+    'it does not rank academics, roster opportunity, coaching quality or overall student fit',
   ]) requireText(finder, marker, 'Football lookup component');
 
   requireText(countyModule, 'High school football in', 'County football module');
@@ -127,6 +132,8 @@ if (!errors.length) {
     '/sports-venues/high-school-football',
     'Route.useSearch()',
     'initialQuery={q}',
+    'lets families compare up to three programs side by side',
+    'Full season-by-season records, current schedules, standings and coaching continuity remain future layers',
   ]) requireText(page, marker, 'Football finder page');
 
   requireText(schoolDistrict, 'HighSchoolFootballLookup', 'School-district integration');
