@@ -40,6 +40,8 @@ export const lavacaCountyHallettsvilleShinerYoakumRiversTexasArticle: Article = 
     { href: "/county/colorado", label: "Explore Colorado County", description: "Head northeast toward Columbus, Weimar and Eagle Lake." },
     { href: "/county/jackson", label: "Explore Jackson County", description: "Follow the Navidad and Lavaca watershed south toward Edna, Ganado and Lake Texana." },
     { href: "/county/gonzales", label: "Explore Gonzales County", description: "Continue west toward Gonzales, the Guadalupe River and early Texas history." },
+    { href: "/texas-icons/shiner-bock", label: "Shiner Bock & Spoetzl Brewery", description: "Go deeper on the brewery's 1909 roots, Shiner Bock history and planning a brewery visit in Shiner." },
+    { href: "/explore/painted-churches/shiner-saints-cyril-methodius", label: "Saints Cyril and Methodius at Shiner", description: "Pair the brewery story with one of Lavaca County's major Czech- and German-Texan heritage landmarks." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how settlement, travel and courthouse access shaped the Texas county map." },
   ],
   relatedCollections: [],
