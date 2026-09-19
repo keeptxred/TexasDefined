@@ -54,6 +54,27 @@ function validateDomAffiliateMetadata(file, source) {
   }
 }
 
+function validateKnownAffiliateNetworkMetadata(file, source) {
+  const knownNetworkMarkers = [
+    'anrdoezrs.net',
+    'email.cj.com',
+    '7eer.net',
+    'P00318227',
+  ];
+  const rendersLink = source.includes('<a')
+    || source.includes('createElement("a")')
+    || source.includes("createElement('a')")
+    || source.includes('.innerHTML');
+
+  if (!rendersLink || !knownNetworkMarkers.some((marker) => source.includes(marker))) return;
+
+  for (const required of ['data-commercial-partner', 'data-commercial-placement']) {
+    if (!source.includes(required) && !source.includes(`.dataset.${required === 'data-commercial-partner' ? 'commercialPartner' : 'commercialPlacement'}`)) {
+      failures.push(`${file} renders a known affiliate-network destination but is missing ${required}; untagged affiliate links would disappear from first-party referral reporting.`);
+    }
+  }
+}
+
 if (!fs.existsSync(sharedTrackerPath)) {
   console.error(`Missing shared affiliate tracker: ${sharedTrackerPath}`);
   process.exit(1);
@@ -110,6 +131,7 @@ if (fs.existsSync(publicRoot)) {
     }
     validateAffiliateAnchorMetadata(file, source);
     validateDomAffiliateMetadata(file, source);
+    validateKnownAffiliateNetworkMetadata(file, source);
   }
 }
 
@@ -119,4 +141,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Shared affiliate tracker governance passed: affiliate marketing emitters are centralized, first-party partner referral impression and click counting remain single-path through src/platform/analytics.ts, public bootstraps cannot write either outcome directly, and every affiliate-tagged source/public link retains commercial partner and placement metadata for private reporting.');
+console.log('Shared affiliate tracker governance passed: affiliate marketing emitters are centralized, first-party partner referral impression and click counting remain single-path through src/platform/analytics.ts, public bootstraps cannot write either outcome directly, every affiliate-tagged source/public link retains commercial partner and placement metadata, and rendered links using known CJ/CityPASS/Viator affiliate-network identifiers cannot silently bypass private reporting.');
