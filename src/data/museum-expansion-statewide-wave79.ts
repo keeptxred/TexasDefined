@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave80Destinations } from "./museum-expansion-statewide-wave80";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-19";
@@ -53,4 +54,5 @@ export const statewideMuseumExpansionWave79Destinations: Destination[] = [
     address: "124 S Arch St, Royse City, TX 75189",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave80Destinations,
 ];
