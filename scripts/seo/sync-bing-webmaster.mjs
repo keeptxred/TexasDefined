@@ -1,6 +1,6 @@
 import process from "node:process";
 
-const collectorVersion = "2026-09-18.3";
+const collectorVersion = "2026-09-18.4";
 const bingApiKey = process.env.BING_WEBMASTER_API_KEY?.trim();
 const supabaseUrl = process.env.SUPABASE_URL?.trim().replace(/\/$/, "");
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
@@ -152,6 +152,30 @@ for (const host of targetHosts) {
     feeds = asArray(await requestForSite("GetFeeds"));
   }
 
+  const canonicalFeed = feeds.find((feed) => feed?.Url === canonicalFeedUrl);
+  let legacyFeedAliasesRemoved = 0;
+  if (canonicalFeed?.Status === "Success") {
+    const legacyFeedAliases = feeds.filter((feed) => {
+      if (!feed?.Url || feed.Url === canonicalFeedUrl) return false;
+      try {
+        const url = new URL(feed.Url);
+        const feedHost = url.hostname.toLowerCase().replace(/^www\./, "");
+        const feedPath = url.pathname.replace(/\/+$/, "") || "/";
+        return feedHost === host && feedPath === "/sitemap.xml";
+      } catch {
+        return false;
+      }
+    });
+
+    for (const feed of legacyFeedAliases) {
+      await bingPost("RemoveFeed", { siteUrl, feedUrl: feed.Url });
+      legacyFeedAliasesRemoved += 1;
+    }
+    if (legacyFeedAliasesRemoved > 0) {
+      feeds = asArray(await requestForSite("GetFeeds"));
+    }
+  }
+
   const fetchedAt = new Date().toISOString();
   await insertSnapshot({
     fetched_at: fetchedAt,
@@ -180,6 +204,7 @@ for (const host of targetHosts) {
     },
     canonicalFeedUrl,
     canonicalFeedSubmitted,
+    legacyFeedAliasesRemoved,
   });
 }
 
