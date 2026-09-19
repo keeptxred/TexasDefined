@@ -29,6 +29,8 @@ export type TexasHockeyTeam = {
   countySlug: string;
   homeVenueName?: string;
   venuePath?: string;
+  secondaryVenueName?: string;
+  secondaryVenuePath?: string;
   hockeyVenueSlug?: string;
   officialUrl?: string;
   sourceUrl: string;
@@ -37,6 +39,7 @@ export type TexasHockeyTeam = {
   overview: string;
   travelNote: string;
   currentNote?: string;
+  seasonNote?: string;
 };
 
 export type TexasHockeyVenue = {
@@ -128,16 +131,17 @@ export const TEXAS_HOCKEY_TEAMS: readonly TexasHockeyTeam[] = [
     slug: 'dallas-stars', name: 'Dallas Stars', level: 'professional', leagueSlug: 'nhl', status: 'active', seasonLabel: TEXAS_HOCKEY_SEASON,
     division: 'Central Division', city: 'Dallas', citySlug: 'dallas', countySlug: 'dallas',
     homeVenueName: 'American Airlines Center', venuePath: '/sports-venue/american-airlines-center',
-    officialUrl: 'https://www.nhl.com/stars/', sourceUrl: 'https://www.nhl.com/stars/', sourceLabel: 'Dallas Stars / NHL',
+    officialUrl: 'https://www.nhl.com/stars/', sourceUrl: 'https://www.nhl.com/stars/news/topic/press-releases/dallas-stars-announce-2026-27-regular-season-schedule-071626', sourceLabel: 'Dallas Stars 2026–27 schedule / NHL',
     affiliation: 'NHL organization; AHL affiliate: Texas Stars',
     overview: 'Texas’s NHL franchise plays in Dallas and anchors the top of the state’s professional hockey ladder.',
     travelNote: 'Use the American Airlines Center guide for Victory Park arrival, parking, nearby attractions and stay planning.',
+    seasonNote: 'Dallas also plays Vegas in the 2027 NHL Stadium Series at AT&T Stadium in Arlington on February 20, 2027; that special event is separate from the club’s regular American Airlines Center home schedule.',
   },
   {
     slug: 'texas-stars', name: 'Texas Stars', level: 'professional', leagueSlug: 'ahl', status: 'active', seasonLabel: TEXAS_HOCKEY_SEASON,
     division: 'Central Division', city: 'Cedar Park', citySlug: 'cedar-park', countySlug: 'williamson',
     homeVenueName: 'H-E-B Center at Cedar Park', venuePath: '/sports-venue/heb-center-at-cedar-park',
-    officialUrl: 'https://www.texasstars.com/', sourceUrl: 'https://www.texasstars.com/', sourceLabel: 'Texas Stars',
+    officialUrl: 'https://www.texasstars.com/', sourceUrl: 'https://www.texasstars.com/news/detail/texas-stars-announce-2026-27-regular-season-schedule', sourceLabel: 'Texas Stars 2026–27 schedule',
     affiliation: 'Primary AHL affiliate of the Dallas Stars',
     overview: 'The Texas Stars give Central Texas an AHL club and a direct development connection to the Dallas Stars.',
     travelNote: 'The H-E-B Center guide covers Cedar Park game-day access, parking, visitor context and nearby stays.',
@@ -146,10 +150,12 @@ export const TEXAS_HOCKEY_TEAMS: readonly TexasHockeyTeam[] = [
     slug: 'allen-americans', name: 'Allen Americans', level: 'professional', leagueSlug: 'echl', status: 'active', seasonLabel: TEXAS_HOCKEY_SEASON,
     division: 'Mountain Division', city: 'Allen', citySlug: 'allen', countySlug: 'collin',
     homeVenueName: 'Credit Union of Texas Event Center', venuePath: '/sports-venue/credit-union-of-texas-event-center',
-    officialUrl: 'https://allenamericans.com/', sourceUrl: 'https://echl.com/teams/allen-americans', sourceLabel: 'ECHL — Allen Americans',
+    secondaryVenueName: 'Comerica Center', secondaryVenuePath: '/sports-venue/comerica-center',
+    officialUrl: 'https://allenamericans.com/', sourceUrl: 'https://allenamericans.com/news/2026/05/americans-announce-2026-2027-schedule', sourceLabel: 'Allen Americans 2026–27 schedule',
     affiliation: 'NHL affiliate: Ottawa Senators; AHL affiliate: Belleville Senators',
     overview: 'The Allen Americans are Texas’s ECHL club, based in Collin County in the Dallas–Fort Worth area.',
-    travelNote: 'Use the Credit Union of Texas Event Center guide for the arena, parking, surrounding district and stay planning.',
+    travelNote: 'Credit Union of Texas Event Center remains the primary Allen venue in current ticket and game listings, while the 2026–27 schedule also includes a home date at Comerica Center in Frisco. Check the specific game listing before travel.',
+    seasonNote: 'The October 29, 2026 home opener is scheduled at Comerica Center in Frisco; later current-season game listings continue to identify Credit Union of Texas Event Center in Allen.',
   },
 
   {
@@ -409,7 +415,7 @@ export function texasHockeyTeamsForLeague(leagueSlug: string) {
 }
 
 export function texasHockeyTeamsForVenuePath(path: string) {
-  return TEXAS_HOCKEY_ACTIVE_TEAMS.filter((team) => team.venuePath === path);
+  return TEXAS_HOCKEY_ACTIVE_TEAMS.filter((team) => team.venuePath === path || team.secondaryVenuePath === path);
 }
 
 export function texasHockeyTeamsForHockeyVenue(slug: string) {

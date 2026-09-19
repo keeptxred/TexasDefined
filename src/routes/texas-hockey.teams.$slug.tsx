@@ -84,6 +84,7 @@ function TeamPage() {
             <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{team.name}</h1>
             <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">{team.overview}</p>
             {team.status === 'historical' && <p className="mt-5 border-l-4 border-primary pl-4 text-sm leading-7"><strong>Historical record:</strong> {team.currentNote}</p>}
+            {team.status === 'active' && team.seasonNote && <p className="mt-5 border-l-4 border-primary pl-4 text-sm leading-7"><strong>{team.seasonLabel} note:</strong> {team.seasonNote}</p>}
           </div>
           <dl className="border-y border-border py-3 text-sm lg:border-y-0 lg:border-l lg:pl-6">
             <Fact label="League" value={league.abbreviation} />
@@ -116,6 +117,7 @@ function TeamPage() {
             <p className="max-w-4xl text-sm leading-7 text-muted-foreground">{team.travelNote}</p>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {venuePath && <Related href={venuePath} title={team.homeVenueName || 'Home venue'} body="Open the venue guide for rink or arena context, maps, planning details and related travel links." />}
+              {team.secondaryVenuePath && <Related href={team.secondaryVenuePath} title={team.secondaryVenueName || 'Additional current-season venue'} body="This team has a current-season game or venue relationship here; check the specific game listing before travel." />}
               <Related href={'/city/' + team.citySlug} title={'Explore ' + team.city} body="Connect the game with the city guide, local attractions and broader visitor context." />
               <Related href={'/county/' + team.countySlug} title={titleCounty(team.countySlug)} body="Use the county guide for regional context, nearby places and practical Texas research." />
               <Related href={texasHockeyLeaguePath(league.slug)} title={league.abbreviation + ' in Texas'} body="See every current Texas team in this league or conference." />

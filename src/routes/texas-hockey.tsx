@@ -134,6 +134,7 @@ function TexasHockeyPage() {
                 <a href="/sports-venue/american-airlines-center" className="border-t border-border py-4 font-semibold hover:text-primary">American Airlines Center — Dallas Stars →</a>
                 <a href="/sports-venue/heb-center-at-cedar-park" className="border-t border-border py-4 font-semibold hover:text-primary">H-E-B Center — Texas Stars →</a>
                 <a href="/sports-venue/credit-union-of-texas-event-center" className="border-t border-border py-4 font-semibold hover:text-primary">Credit Union of Texas Event Center — Allen Americans →</a>
+                <a href="/sports-venue/comerica-center" className="border-t border-border py-4 font-semibold hover:text-primary">Comerica Center — Allen Americans 2026–27 secondary date →</a>
                 {TEXAS_HOCKEY_VENUES.map((venue) => <a key={venue.slug} href={texasHockeyVenuePath(venue.slug)} className="border-t border-border py-4 font-semibold hover:text-primary">{venue.name} — {venue.city} →</a>)}
               </div>
             </div>

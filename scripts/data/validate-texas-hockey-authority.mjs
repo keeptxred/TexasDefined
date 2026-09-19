@@ -25,9 +25,10 @@ for (const marker of [
   'Baylor Bears Hockey', 'East Texas Baptist Tigers Hockey', 'SMU Mustangs Hockey', 'Texas A&M Aggies Hockey',
   'TCU Horned Frogs Hockey', 'Texas State Bobcats Hockey', 'Texas Longhorns Hockey', 'North Texas Mean Green Hockey',
   "slug: 'mid-cities-jr-stars'", "status: 'historical'",
-  'American Airlines Center', 'H-E-B Center at Cedar Park', 'Credit Union of Texas Event Center',
+  'American Airlines Center', 'H-E-B Center at Cedar Park', 'Credit Union of Texas Event Center', 'Comerica Center',
   'Amarillo Civic Center Complex', 'American Bank Center', 'El Paso County Coliseum', 'Deep South Ice & Sports Center',
   'NYTEX Sports Centre', 'Ector County Coliseum', 'Chaparral Ice at The Crossover', 'Amarillo Ice Ranch', 'Spirit Ice Arena',
+  "secondaryVenuePath: '/sports-venue/comerica-center'", '2027 NHL Stadium Series',
 ]) requireText(data, marker, 'Texas hockey data');
 
 for (const marker of [
@@ -37,6 +38,7 @@ for (const marker of [
   "'@type': 'CollectionPage'",
   "'@type': 'ItemList'",
   'Historical names',
+  'Comerica Center — Allen Americans 2026–27 secondary date',
 ]) requireText(hub, marker, 'Texas hockey hub');
 
 for (const marker of [
@@ -48,6 +50,7 @@ for (const marker of [
   "'/city/' + team.citySlug",
   "'/county/' + team.countySlug",
   'hockeyVenuePathForTeam',
+  'team.secondaryVenuePath',
 ]) requireText(team, marker, 'Texas hockey team route');
 
 for (const marker of [
