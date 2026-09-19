@@ -31,7 +31,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
   const questions = quickAnswers(entity, countyName, regionName);
   const relatedItems = related.slice(0, 6);
   const cityProfile = entity.kind === 'city' ? getCityAuthorityProfile(entity.slug) : undefined;
-  const hasAirportSystem = Boolean(cityProfile?.systems.some((system) => /\\bairports?\\b/i.test(system.title)));
+  const hasAirportSystem = Boolean(cityProfile?.systems.some((system) => /\bairports?\b/i.test(system.title)));
   const showBookingAirTravel = Boolean(cityProfile && hasAirportSystem && isBookingAirGatewayCity(entity.slug));
 
   return <>
