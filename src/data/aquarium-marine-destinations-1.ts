@@ -96,6 +96,28 @@ export const aquariumMarineDestinations1: Destination[] = [
     ],
     managingAuthority: "SEA LIFE",
     officialUrl: "https://www.visitsealife.com/grapevine/",
+    areaGuide: {
+      intro: "SEA LIFE Grapevine works especially well as one indoor anchor in a broader northeast Tarrant County or DFW Airport-area family day.",
+      nearbyAttractions: [
+        { name: "WhirlyBall Hurst", description: "An unusual indoor team game using bumper-style WhirlyBugs, scoops and electronic scoring targets, with laser tag and arcade play in the same venue.", proximity: "Hurst / Mid-Cities", href: "/destination/whirlyball-hurst" },
+        { name: "Fort Worth Stockyards", description: "A signature Tarrant County heritage district for families extending the trip toward Fort Worth.", proximity: "Fort Worth", href: "/destination/fort-worth-stockyards" },
+      ],
+      foodAndDrink: [
+        { name: "Grapevine and Mid-Cities dining", description: "Grapevine Mills, downtown Grapevine and the Hurst-Euless-Bedford corridor all offer practical meal stops around an indoor-attractions day.", proximity: "Grapevine / HEB", href: "/county/tarrant" },
+      ],
+      lodging: [
+        { name: "DFW Airport and northeast Tarrant County hotels", description: "The airport, Grapevine and Mid-Cities hotel clusters make it easy to split a family day between Grapevine and Hurst.", proximity: "Grapevine / Hurst", href: "/county/tarrant" },
+      ],
+      neighborhoods: [
+        { name: "Grapevine, Hurst and the northeast Tarrant corridor", description: "Use the county guide to connect Grapevine's visitor district with Hurst and the rest of the Mid-Cities.", proximity: "Tarrant County", href: "/county/tarrant" },
+      ],
+      familyStops: [
+        { name: "WhirlyBall Hurst", description: "Best for older children and groups who want a more active indoor stop after or before the aquarium.", proximity: "Hurst", href: "/destination/whirlyball-hurst" },
+      ],
+      sideTrips: [
+        { name: "WhirlyBall Hurst", description: "Pair two weather-proof indoor attractions for a North Texas summer, rainy-day or evening itinerary.", proximity: "Hurst", href: "/destination/whirlyball-hurst" },
+      ],
+    },
   }),
   d({
     id: "aquarium-sea-life-san-antonio",
