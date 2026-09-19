@@ -1,7 +1,7 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
 import type { Destination, ImageRef } from "./types";
 
-const SOURCE_CHECKED_AT = "2026-09-01";
+const SOURCE_CHECKED_AT = "2026-09-19";
 
 function museumPlaceholder(name: string): ImageRef {
   return {
@@ -15,7 +15,8 @@ function museumPlaceholder(name: string): ImageRef {
 /**
  * Thirty-eighth statewide museum wave. This Panhandle record adds Dalhart's
  * XIT Museum using the museum's current visitor information and historical
- * association governance.
+ * association governance. This module owns the canonical XIT Museum record;
+ * the older Wave 6 duplicate is retired to a permanent redirect.
  */
 export const statewideMuseumExpansionWave38Destinations: Destination[] = [
   {
@@ -26,9 +27,15 @@ export const statewideMuseumExpansionWave38Destinations: Destination[] = [
     summary: "XIT Museum in Dalhart preserves the history of Dallam and Hartley counties and the enormous XIT Ranch through ranch artifacts, period rooms, railroad and community exhibits, archives and changing displays.",
     category: "historic-sites",
     region: "panhandle",
+    geography: {
+      primaryRegionId: "panhandle",
+      subregionIds: ["texas-panhandle"],
+      countySlugs: ["dallam"],
+      travelRegionIds: ["panhandle"],
+    },
     nearestTown: "Dalhart",
     county: "Dallam County",
-    coordinates: { lat: 36.06126, lng: -102.52285 },
+    coordinates: { lat: 36.061296, lng: -102.52306 },
     hero: museumPlaceholder("XIT Museum"),
     bestSeason: "Year-round indoor history stop; spring through fall is especially useful for combining the museum with Dalhart, Rita Blanca Lake and XIT-related heritage sites.",
     entryNote: "The museum currently publishes Tuesday-Saturday hours from 9 a.m. to 5 p.m. Admission is free, with donations appreciated. Verify holiday or special-event changes before making a dedicated trip.",

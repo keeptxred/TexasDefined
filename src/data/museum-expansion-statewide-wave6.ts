@@ -20,31 +20,6 @@ function museumPlaceholder(name: string): ImageRef {
  */
 export const statewideMuseumExpansionWave6Destinations: Destination[] = [
   {
-    id: "museum-statewide-wave6-xit-dalhart",
-    brandId: "texasdefined",
-    slug: "xit-museum-dalhart",
-    name: "XIT Museum",
-    summary: "Dalhart's XIT Museum preserves the history of the enormous XIT Ranch and the northwestern Panhandle through ranch artifacts, railroad history, Dust Bowl interpretation, wildlife, period rooms and collections from Dallam and Hartley counties.",
-    category: "historic-sites",
-    region: "panhandle",
-    nearestTown: "Dalhart",
-    county: "Dallam County",
-    coordinates: { lat: 36.26003, lng: -102.53352 },
-    hero: museumPlaceholder("XIT Museum"),
-    bestSeason: "Spring through fall for combining the museum with Dalhart, ranch-country drives and the XIT Rodeo & Reunion; indoor galleries remain useful year-round.",
-    entryNote: "The museum currently opens Tuesday through Saturday from 9 a.m. to 5 p.m. Admission is free, with donations appreciated. Verify holiday and event-week schedules before arrival.",
-    highlights: ["XIT Ranch history", "Dust Bowl exhibit", "Panhandle railroad history", "Dallam and Hartley county heritage"],
-    body: [
-      "The XIT Museum gives travelers a direct way to understand one of the largest and most famous ranching enterprises in Texas history. Its XIT material explains the connection between construction of the Texas State Capitol, the three-million-acre ranch, cattle operations and the later sale of ranch lands for settlement and farming.",
-      "The museum goes well beyond one ranch. Dust Bowl interpretation, wildlife displays, railroad history and period rooms place Dalhart inside the environmental and economic changes that shaped the northwestern Panhandle across the twentieth century.",
-      "For TexasDefined, the museum creates a strong Dalhart and Dallam County authority anchor while also serving Hartley County history. It can cross-link Panhandle road trips, ranching, the XIT Rodeo & Reunion and county pages without creating duplicate topic silos."
-    ],
-    officialUrl: "https://www.xitmuseum.org/",
-    managingAuthority: "Dallam-Hartley Counties Historical Association",
-    address: "108 E 5th St, Dalhart, TX 79022",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
-  },
-  {
     id: "museum-statewide-wave6-tyler-rose",
     brandId: "texasdefined",
     slug: "tyler-rose-museum",
