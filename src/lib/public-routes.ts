@@ -156,6 +156,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/what-does-chud-mean",
   "/texas-tall-tales-folklore",
   "/texas-dance-halls-honky-tonks",
+  "/texas-homecoming",
   "/texas-homecoming-mums",
   "/texas-natural-wonders-bucket-list",
   "/texas-rock-climbing-bouldering-guide",

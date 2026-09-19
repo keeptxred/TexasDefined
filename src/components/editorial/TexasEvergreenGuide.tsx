@@ -109,6 +109,15 @@ const guideImages: Partial<Record<string, GuideImage>> = {
 };
 
 const guideSources: Partial<Record<string, { label: string; href: string; note: string }[]>> = {
+  "texas-homecoming": [
+    { label: "Baylor University — History of Homecoming", href: "https://homecoming.web.baylor.edu/welcome/history-homecoming", note: "Documents Baylor's 1909 alumni invitation, parade, school colors, football game and the early structure of a recognizably modern homecoming." },
+    { label: "Texas Standard — A Quest to Find the Origin of the Mum", href: "https://texasstandard.org/stories/a-quest-to-find-the-origin-of-the-mum/", note: "Examines the uncertain origin of the Texas mum tradition, early chrysanthemum evidence and the later growth of artificial, highly decorated mums." },
+    { label: "Seguin ISD — Homecoming festivities", href: "https://www.seguin.k12.tx.us/page/article/5981", note: "Provides a Texas public-school example connecting homecoming week with a community parade, pep rally, game and dance." },
+  ],
+  "texas-homecoming-mums": [
+    { label: "Texas Standard — A Quest to Find the Origin of the Mum", href: "https://texasstandard.org/stories/a-quest-to-find-the-origin-of-the-mum/", note: "Explains the chrysanthemum-corsage roots, documents the difficulty of identifying a single origin and describes the Texas tradition's later expansion." },
+    { label: "Texas Standard — Texans Don't Keep Mum About This Tradition", href: "https://texasstandard.org/stories/mums-the-word-for-this-texas-high-school-homecoming/", note: "Documents modern Texas mum and garter customs, school-spirit use and the scale of elaborate contemporary designs." },
+  ],
   "texas-chili-con-carne-history": [
     { label: "Handbook of Texas — San Antonio", href: "https://www.tshaonline.org/handbook/entries/san-antonio-tx", note: "Documents the downtown Chili Queens and San Antonio's open-air chili-stand tradition." },
     { label: "Handbook of Texas — Gebhardt Mexican Foods Company", href: "https://www.tshaonline.org/handbook/entries/gebhardt-mexican-foods-company", note: "Documents William Gebhardt's chili-powder business and its role in commercializing Texas chili products." },

@@ -137,6 +137,7 @@ function FridayNightLightsPage() {
           </article>)}
         </div>
         <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+          <Link to="/texas-homecoming" className="text-primary">Why homecoming matters in Texas →</Link>
           <Link to="/texas-homecoming-mums" className="text-primary">Texas homecoming mums explained →</Link>
           <Link to="/texas-tailgating-guide" className="text-primary">Texas tailgating guide →</Link>
         </div>
@@ -209,6 +210,7 @@ function FridayNightLightsPage() {
         <p className="eyebrow text-primary">Go deeper</p>
         <h2 className="mt-3 font-display text-4xl">Follow football into the rest of Texas culture</h2>
         <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <RelatedCard title="Texas homecoming" body="Why the game, alumni, parades, pep rallies, court, dance and giant mums combine into one of the state's biggest school traditions." href="/texas-homecoming" />
           <RelatedCard title="Homecoming mums" body="Why Texas turned a small corsage tradition into an elaborate wearable school-spirit display." href="/texas-homecoming-mums" />
           <RelatedCard title="Texas sports venues" body="Browse stadiums, arenas, racetracks, rodeo grounds and other sports destinations across the state." href="/sports-venues" />
           <RelatedCard title="Texas college towns" body="See how football, universities and local identity continue beyond high school into the state's college towns." href="/texas-college-towns" />

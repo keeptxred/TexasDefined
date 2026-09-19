@@ -32,6 +32,7 @@ const required = [
   ['https://texasdefined.com/texas-slang-explained', 'culture-reference'],
   ['https://texasdefined.com/texas-blue-norther-weather-guide', 'weather-culture-reference'],
   ['https://texasdefined.com/texas-dance-halls-honky-tonks', 'music-culture-reference'],
+  ['https://texasdefined.com/texas-homecoming', 'culture-reference'],
   ['https://texasdefined.com/texas-homecoming-mums', 'culture-reference'],
   ['https://texasdefined.com/texas-natural-wonders-bucket-list', 'travel-reference'],
   ['https://texasdefined.com/german-czech-texas-towns', 'heritage-travel-reference'],

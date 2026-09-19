@@ -8,6 +8,7 @@ const canonicalUrl = `${origin}${canonicalPath}`;
 const collectionItems = [
   ["Texas high school football newcomer guide", "/article/texas-high-school-football-newcomers"],
   ["Why Friday night lights matter in Texas", "/article/texas-high-school-football-friday-night-lights"],
+  ["Why homecoming matters in Texas", "/texas-homecoming"],
   ["Texas homecoming mums explained", "/texas-homecoming-mums"],
   ["Texas high-school football stadiums", "/sports-venues/high-school-football"],
   ["Texas high school football classifications and history", "/article/texas-high-school-football-classifications-1a-6a"],

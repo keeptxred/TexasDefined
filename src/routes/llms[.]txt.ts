@@ -75,6 +75,7 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Texas railroad town-growth history: https://texasdefined.com/article/texas-railroads-town-growth-explained
 - Texas aquifers and springs: https://texasdefined.com/article/texas-aquifers-springs-explained
 - Texas prairies and grasslands: https://texasdefined.com/article/texas-prairies-grasslands-guide
+- Texas homecoming traditions: https://texasdefined.com/texas-homecoming
 - Texas homecoming mums: https://texasdefined.com/texas-homecoming-mums
 - Texas natural wonders bucket list: https://texasdefined.com/texas-natural-wonders-bucket-list
 - German and Czech Texas towns: https://texasdefined.com/german-czech-texas-towns
