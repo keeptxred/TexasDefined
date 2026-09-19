@@ -26,6 +26,15 @@ const files = [
 ];
 
 const allTimeHistoryPath = 'src/data/high-school-football/uil-football-all-time-history.server.ts';
+const featuredFiles = [
+  'src/data/high-school-football/featured-programs.ts',
+  'src/data/high-school-football/school-identities.ts',
+  'src/data/high-school-football/featured-program-profile.server.ts',
+  'src/components/sports/FeaturedFootballResearchList.tsx',
+  'src/routes/texas-high-school-football-teams.$slug.tsx',
+  'src/routes/texas-high-school-football-teams.$slug.lazy.tsx',
+  'src/routes/sitemap[.]xml.ts',
+];
 
 const authorityFiles = [
   'src/data/fixtures/high-school-football-newcomers.ts',
@@ -35,7 +44,7 @@ const authorityFiles = [
   'src/data/friday-night-lights-structured-data.server.ts',
 ];
 
-for (const file of [...files, ...authorityFiles, allTimeHistoryPath]) {
+for (const file of [...files, ...authorityFiles, allTimeHistoryPath, ...featuredFiles]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing high-school football platform file: ${file}`);
 }
 
@@ -60,6 +69,13 @@ if (!errors.length) {
   const playoffGuide = read(authorityFiles[2]);
   const sixManGuide = read(authorityFiles[3]);
   const footballHubSchema = read(authorityFiles[4]);
+  const featuredPrograms = read(featuredFiles[0]);
+  const schoolIdentities = read(featuredFiles[1]);
+  const featuredProfileLoader = read(featuredFiles[2]);
+  const featuredResearchList = read(featuredFiles[3]);
+  const featuredProfileRoute = read(featuredFiles[4]);
+  const featuredProfilePage = read(featuredFiles[5]);
+  const sitemap = read(featuredFiles[6]);
 
   for (const marker of [
     'UIL_FOOTBALL_PROGRAM_COUNT !== 1268',
@@ -145,6 +161,71 @@ if (!errors.length) {
     'it does not rank academics, roster opportunity, coaching quality or overall student fit',
   ]) requireText(finder, marker, 'Football lookup component');
 
+  for (const marker of [
+    'FEATURED_SOURCE_ROW_COUNT = 250',
+    'FEATURED_UNIQUE_PROGRAM_COUNT = 242',
+    'FEATURED_FOOTBALL_SOURCE_ROWS',
+    'FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS',
+    'sourceRanks',
+    'primaryRank',
+    'SEARCH_NAME_OVERRIDES',
+    'ASSOCIATION_OVERRIDES',
+    'matchFeaturedFootballProgram',
+    'featuredFootballProfilePath',
+    '"Austin LBJ": "Austin Johnson"',
+    '"Plano Senior": "Plano"',
+    '"Calallen": "Corpus Christi Calallen"',
+  ]) requireText(featuredPrograms, marker, 'Featured football program data');
+
+  for (const marker of [
+    'VERIFIED_FOOTBALL_SCHOOL_IDENTITIES',
+    "slug: 'north-shore'",
+    "slug: 'cypress-ranch'",
+    "slug: 'south-oak-cliff'",
+    'sourceUrl',
+    'verifiedAt',
+  ]) requireText(schoolIdentities, marker, 'Football school identity data');
+
+  for (const marker of [
+    'getFeaturedFootballProgramProfile',
+    'seedUilProgram',
+    'searchFootballPrograms',
+    'getVerifiedFootballSchoolIdentity',
+  ]) requireText(featuredProfileLoader, marker, 'Featured football profile loader');
+
+  for (const marker of [
+    '250-school research list',
+    '242',
+    'Open a detailed school profile',
+    'featuredFootballProfilePath',
+    'Original positions preserved',
+  ]) requireText(featuredResearchList, marker, 'Featured football research list');
+
+  for (const marker of [
+    "createFileRoute('/texas-high-school-football-teams/$slug')",
+    'getFeaturedFootballProgramProfile',
+    'Football: Class, District, Enrollment & School Guide',
+  ]) requireText(featuredProfileRoute, marker, 'Football school profile route');
+
+  for (const marker of [
+    "createLazyFileRoute('/texas-high-school-football-teams/$slug')",
+    'How to enroll at',
+    'Mascot & identity',
+    'All-time UIL state-final record',
+    'Freshman, JV and varsity path',
+    'Football eligibility is a separate question from school admission.',
+    'Association not yet verified',
+    'Duplicate and alternate school names resolve to one canonical profile',
+  ]) requireText(featuredProfilePage, marker, 'Football school profile page');
+
+  requireText(directory, 'featuredProfile', 'Football directory featured-profile enrichment');
+  requireText(directory, 'matchFeaturedFootballProgram', 'Football directory featured-profile enrichment');
+  requireText(finder, 'School profile, enrollment & mascot →', 'Football finder profile handoff');
+  requireText(page, 'FeaturedFootballResearchList', 'Football finder research-list integration');
+  requireText(page, '242 canonical school profiles', 'Football finder research-list integration');
+  requireText(sitemap, 'FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS', 'Football school profile sitemap');
+  requireText(sitemap, '/texas-high-school-football-teams/${program.slug}', 'Football school profile sitemap');
+
   requireText(countyModule, 'High school football in', 'County football module');
   requireText(countyModule, 'countyName={countyName}', 'County football module');
 
@@ -224,6 +305,8 @@ if (!errors.length) {
     [files[8], schoolDistrict],
     [files[9], relocationFinder],
     [files[10], entityPage],
+    [featuredFiles[3], featuredResearchList],
+    [featuredFiles[5], featuredProfilePage],
   ]) {
     if (
       source.includes('uil-football-alignments-2026.server')
