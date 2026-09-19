@@ -92,6 +92,16 @@ function Page() {
               <a href={UIL_EXACT_ENROLLMENT_URL} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official UIL alphabetical enrollment listing ↗</a>
               <a href={UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE.url} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official UIL 2026–28 enrollment cutoffs ↗</a>
             </div>
+            {(program.teaSchoolProfileUrl || program.teaDistrictProfileUrl || program.schoolWebsite || program.districtWebsite) && <div className="mt-6 border-t border-border pt-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official school research</p>
+              <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">Use Texas Education Agency and school-system sources for the current campus profile, district context and official contact information. AskTED is the source used to match this football program to the school and district records below.</p>
+              <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+                {program.teaSchoolProfileUrl && <a href={program.teaSchoolProfileUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">TEA school profile ↗</a>}
+                {program.teaDistrictProfileUrl && <a href={program.teaDistrictProfileUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">TEA district profile ↗</a>}
+                {program.schoolWebsite && <a href={program.schoolWebsite} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official school website ↗</a>}
+                {program.districtWebsite && <a href={program.districtWebsite} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official district website ↗</a>}
+              </div>
+            </div>}
           </> : privateAlignment ? <div>
             <dl className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
               <Snapshot label="Association" value={privateAlignment.association} />
