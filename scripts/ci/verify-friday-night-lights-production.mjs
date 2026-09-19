@@ -5,6 +5,7 @@ const classificationsPath = '/article/texas-high-school-football-classifications
 const playoffsPath = '/article/texas-high-school-football-playoffs-explained';
 const sixManPath = '/article/texas-six-man-football-rules-explained';
 const finderApiPath = '/api/high-school-football?q=Dallas%20South%20Oak%20Cliff&limit=5';
+const allTimeFinderApiPath = '/api/high-school-football?q=Katy&limit=50';
 const expectedTitle = 'Texas High School Football: Friday Night Lights, Traditions & Game-Day Guide';
 const expectedDescription = 'Understand Texas high school football through Friday-night traditions, six-man and 11-man culture, stadiums, homecoming mums, playoffs, school communities and practical game-day planning.';
 const expectedCanonical = `${origin}${hubPath}`;
@@ -118,6 +119,8 @@ await fetchVerified(finderPath, 'football finder', (body) => {
     '/article/texas-high-school-football-classifications-1a-6a',
     playoffsPath,
     sixManPath,
+    'All-time UIL state-final history',
+    'UIL all-time appearances',
   ]) requireNeedle(body, needle, 'football finder');
   if (/\bnoindex\b/i.test(body)) throw new Error('football finder unexpectedly contains noindex');
 });
@@ -163,6 +166,7 @@ await fetchVerified(finderApiPath, 'football finder API', (body) => {
   if (payload?.ok !== true) throw new Error('football finder API did not return ok=true');
   if (payload?.alignmentCycle !== '2026-28') throw new Error('football finder API alignment cycle is not 2026-28');
   if (payload?.historyAvailable !== true) throw new Error('UIL recent-history layer is unavailable');
+  if (payload?.allTimeHistoryAvailable !== true) throw new Error('UIL all-time-history layer is unavailable');
   const southOakCliff = payload?.programs?.find((program) => program.schoolName === 'Dallas South Oak Cliff');
   if (!southOakCliff) throw new Error('Dallas South Oak Cliff was not returned by exact UIL search');
   if (!southOakCliff.recentHistory) throw new Error('Dallas South Oak Cliff is missing recent UIL state-final history');
@@ -171,6 +175,19 @@ await fetchVerified(finderApiPath, 'football finder API', (body) => {
   }
   if (southOakCliff.recentHistory.stateFinalAppearances < 3) throw new Error('recent UIL history did not recover expected state-final appearances');
   if (!southOakCliff.recentHistory.sourceUrl?.includes('uiltexas.org/football/archives')) throw new Error('recent UIL history is missing official archive provenance');
+});
+
+await fetchVerified(allTimeFinderApiPath, 'football all-time history API', (body) => {
+  const payload = JSON.parse(body);
+  if (payload?.ok !== true) throw new Error('football all-time history API did not return ok=true');
+  if (payload?.allTimeHistoryAvailable !== true) throw new Error('UIL all-time-history source is unavailable');
+  const katy = payload?.programs?.find((program) => program.schoolName === 'Katy');
+  if (!katy) throw new Error('Katy was not returned by UIL program search');
+  if (!katy.allTimeHistory) throw new Error('Katy is missing all-time UIL state-final history');
+  if (katy.allTimeHistory.stateTitles < 9) throw new Error('Katy all-time title count is below the official UIL baseline');
+  if (katy.allTimeHistory.stateFinalAppearances < 15) throw new Error('Katy all-time state-final appearances are below the official UIL baseline');
+  if (katy.allTimeHistory.publishedThroughYear < 2024) throw new Error('UIL all-time appearances table recency detection is unexpectedly old');
+  if (!katy.allTimeHistory.sourceUrl?.includes('uiltexas.org/football/all-time-appearances')) throw new Error('Katy all-time history is missing official UIL provenance');
 });
 
 await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
@@ -184,4 +201,4 @@ await fetchVerified('/robots.txt', 'robots', (body) => {
   if (/Disallow:\s*\/sports(?:\/|\s|$)/i.test(body)) throw new Error('robots.txt blocks /sports');
 });
 
-console.log('Friday Night Lights production smoke passed: hub SEO/discovery, classification/history authority, playoff authority, six-man rules authority, statewide team finder, UIL recent-finals API history, sitemap and robots are live.');
+console.log('Friday Night Lights production smoke passed: hub SEO/discovery, classification/history authority, playoff authority, six-man rules authority, statewide team finder, UIL all-time plus recent-finals API history, sitemap and robots are live.');
