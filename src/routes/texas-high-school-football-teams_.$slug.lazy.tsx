@@ -253,6 +253,20 @@ function Page() {
         </div>
       </section>}
 
+      {program && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Current season</p>
+          <h2 className="mt-2 font-display text-3xl">Scores & weekly schedules</h2>
+        </div>
+        <div>
+          <p className="max-w-4xl text-sm leading-7 text-muted-foreground">UIL’s Texas Scoreboard is powered by information submitted through MaxPreps and is the statewide starting point for current football scores and weekly schedules. UIL says completeness depends on school and coach submissions, and the current scoreboard is not an official district-standings table.</p>
+          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+            <a href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL Texas Scoreboard gateway ↗</a>
+            <a href="/article/texas-high-school-football-scores-schedules" className="text-primary underline underline-offset-4">How to verify scores, schedules & standings →</a>
+          </div>
+        </div>
+      </section>}
+
       <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Research beyond the score</p>
