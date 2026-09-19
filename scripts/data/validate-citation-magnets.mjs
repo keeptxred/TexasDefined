@@ -75,10 +75,12 @@ const requiredManifestUrls = [
   'https://texasdefined.com/texas-unique-lodging',
   'https://texasdefined.com/find-my-dmv',
   'https://texasdefined.com/find-my-school-district',
+  'https://texasdefined.com/texas-high-school-football-teams',
 ];
 for (const url of requiredManifestUrls) expect(urls.includes(url), `required citation target missing from manifest: ${url}`);
 
 const authorityTrustContracts = new Map([
+  ['https://texasdefined.com/texas-high-school-football-teams', ['UIL-current-alignment', 'TEA-school-directory', 'UIL-recent-state-finals', 'source-window-caveat', 'attendance-zone-caveat', 'no-best-school-ranking']],
   ['https://texasdefined.com/texas-science-technology-industry', ['official-sources', 'source-review-date', 'operations-caveat', 'canonical-cross-links', 'visitor-planning']],
   ['https://texasdefined.com/texas-college-towns', ['first-party-campus-sources', 'source-review-date', 'game-day-caveat', 'canonical-cross-links', 'visitor-planning']],
   ['https://texasdefined.com/texas-tailgating-guide', ['first-party-athletics-sources', 'source-review-date', 'event-day-caveat', 'safety-caveat', 'canonical-cross-links']],
