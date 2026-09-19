@@ -1,7 +1,7 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
 import type { Destination, ImageRef } from "./types";
 
-const SOURCE_CHECKED_AT = "2026-09-01";
+const SOURCE_CHECKED_AT = "2026-09-19";
 
 function museumPlaceholder(name: string): ImageRef {
   return {
@@ -16,6 +16,8 @@ function museumPlaceholder(name: string): ImageRef {
  * Thirty-fourth statewide museum wave. This Plains-region record adds Snyder's
  * county museum using its current official visitor information and institutional
  * history, with Texas Time Travel supporting the regional classification.
+ * This module owns the canonical Scurry County Museum record; the older Wave 14
+ * duplicate is retired to a permanent redirect.
  */
 export const statewideMuseumExpansionWave34Destinations: Destination[] = [
   {
