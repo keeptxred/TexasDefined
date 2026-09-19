@@ -194,7 +194,10 @@ export async function loadUilRecentFootballHistory() {
   return recentHistoryCache;
 }
 
-export async function recentFootballHistoryForSchool(...schoolNames: Array<string | undefined>) {
+export function recentFootballHistoryFromLoaded(
+  history: Awaited<ReturnType<typeof loadUilRecentFootballHistory>>,
+  ...schoolNames: Array<string | undefined>
+) {
   const keys = [...new Set(
     schoolNames
       .filter((value): value is string => Boolean(value?.trim()))
@@ -203,13 +206,16 @@ export async function recentFootballHistoryForSchool(...schoolNames: Array<strin
   )];
 
   if (!keys.length) return null;
-
-  const history = await loadUilRecentFootballHistory();
   for (const key of keys) {
     const match = history.bySchool.get(key);
     if (match) return match;
   }
   return null;
+}
+
+export async function recentFootballHistoryForSchool(...schoolNames: Array<string | undefined>) {
+  const history = await loadUilRecentFootballHistory();
+  return recentFootballHistoryFromLoaded(history, ...schoolNames);
 }
 
 export const UIL_RECENT_FOOTBALL_HISTORY_WINDOW = {
