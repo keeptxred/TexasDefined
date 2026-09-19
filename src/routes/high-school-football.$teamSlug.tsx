@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
@@ -238,7 +240,7 @@ function Metric({ label, value }: { label: string; value: string }) {
   return <div className="bg-background p-5"><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">{label}</dt><dd className="mt-2 font-display text-2xl">{value}</dd></div>;
 }
 
-function Step({ number, title, children }: { number: string; title: string; children: React.ReactNode }) {
+function Step({ number, title, children }: { number: string; title: string; children: ReactNode }) {
   return <li className="grid gap-3 py-5 sm:grid-cols-[3rem_1fr]">
     <span className="font-display text-3xl text-primary">{number}</span>
     <div><h3 className="font-display text-2xl">{title}</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">{children}</p></div>
