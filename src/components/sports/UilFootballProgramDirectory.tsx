@@ -13,6 +13,7 @@ type Program = {
   division: 1 | 2 | null;
   district: number;
   footballType: '6-Man' | '11-Man';
+  uilEnrollment: number;
 };
 
 const CLASSIFICATIONS = ['6A', '5A', '4A', '3A', '2A', '1A'] as const;
@@ -116,7 +117,8 @@ export function UilFootballProgramDirectory({ programs }: { programs: Program[] 
                       {` · District ${program.district}`}
                     </p>
                     <h4 className="mt-2 font-display text-xl leading-tight group-hover:text-primary">{program.schoolName}</h4>
-                    <p className="mt-2 text-xs text-muted-foreground">{program.footballType} · Open school football profile →</p>
+                    <p className="mt-2 text-xs text-muted-foreground">UIL enrollment {program.uilEnrollment.toLocaleString('en-US')} · {program.footballType}</p>
+                    <p className="mt-1 text-xs font-semibold text-primary">Open school football profile →</p>
                   </a>)}
                 </div>
               </section>;
