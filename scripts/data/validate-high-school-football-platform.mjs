@@ -432,7 +432,7 @@ if (!errors.length) {
     '/article/texas-six-man-football-rules-explained',
     'Route.useSearch()',
     'initialQuery={q}',
-    'official UIL all-time state-title and state-final totals',
+    'Official UIL all-time state-title and state-final totals',
     'three-program comparison remain part of the finder',
     'all 1,268 current UIL football programs as the authoritative school universe',
   ]) requireText(page, marker, 'Football finder page');
