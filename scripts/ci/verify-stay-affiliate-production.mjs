@@ -131,6 +131,11 @@ for (const marker of [
   'link.dataset.commercialPlacement = placement',
   'PLACEMENT_HEADING',
   'anchor.parentNode.insertBefore(surface, anchor)',
+  'function placeBookingChoice(expediaSurface, choice)',
+  'expediaSurface.dataset.surfaceType === "curated"',
+  'expediaSurface.appendChild(choice)',
+  'choice.dataset.presentationOrder = "after-curated"',
+  'choice.dataset.presentationOrder = "generic-primary"',
 ]) requireCondition(affiliateBootstrap.includes(marker), `Live stay affiliate bootstrap is missing marker: ${marker}`);
 
 const exactPropertyUrls = affiliateBootstrap.match(/https:\/\/www\.hotels\.com\/ho\d+\/[a-z0-9-]+\//gi) || [];
@@ -143,6 +148,19 @@ requireCondition(Array.isArray(verificationRegistry?.properties) && verification
 for (const propertyId of ['albert-hotel-fredericksburg', 'grand-galvez', 'hotel-1928-waco']) {
   requireCondition(verificationRegistry.properties.some((property) => property.propertyId === propertyId), `Live Hotels.com verification registry is missing destination property: ${propertyId}`);
 }
+
+const paintedChurchesRegistry = JSON.parse(await fetchLive('/stay-nearby-painted-churches-hotels.json'));
+requireCondition(paintedChurchesRegistry?.version === 1, 'Live Painted Churches stay registry version is not 1.');
+const paintedExactTargets = (paintedChurchesRegistry?.properties || []).flatMap((property) => (property.bookingTargets || [])
+  .filter((target) =>
+    target?.provider === 'hotels.com'
+    && target?.verified === true
+    && typeof target?.affiliateUrl === 'string'
+    && /^https:\/\/www\.anrdoezrs\.net\/links\/101876465\/type\/dlg\/https:\/\/www\.hotels\.com\/ho\d+\//i.test(target.affiliateUrl))
+  .map((target) => target.affiliateUrl));
+requireCondition(paintedChurchesRegistry?.properties?.length === 3, `Live Painted Churches registry must contain 3 governed properties; found ${paintedChurchesRegistry?.properties?.length ?? 'invalid'}.`);
+requireCondition(paintedExactTargets.length === 3 && new Set(paintedExactTargets).size === 3, `Live Painted Churches registry must contain 3 unique verified Hotels.com exact-property targets; found ${paintedExactTargets.length}.`);
+requireCondition(exactPropertyUrls.length + paintedExactTargets.length === 27, 'Live stay monetization must expose 27 governed exact-property Hotels.com targets across the 24-property map and 3-property Painted Churches registry.');
 
 await verifyOutcomeAnalytics();
 
@@ -162,7 +180,7 @@ for (const marker of [
   'event: "affiliate_surface_impression"',
   'link.rel = "sponsored nofollow noopener noreferrer"',
   'const provider = affiliateTarget.provider || "expedia"',
-  'const placement = "stay-nearby-card"',
+  'const placement = "stay-nearby-card-exact"',
   'link.dataset.affiliatePartner = provider',
   'link.dataset.affiliatePlacement = placement',
   'link.dataset.commercialPartner = provider',
@@ -240,4 +258,4 @@ for (const page of pages) {
   requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === page.route.replace(/\/+$/, ''), `${page.route} is not self-canonical and must not be part of the monetized production cohort.`);
 }
 
-console.log('Stay affiliate production verification passed: all 24 governed stay properties (15 venue + 9 destination) expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher while broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted paired partner_referral_shown and partner_referral_clicked CI probes backed by Cloudflare Analytics Engine; Hotels.com/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');
+console.log('Stay affiliate production verification passed: 27 governed stay properties (15 venue + 9 general destination + 3 Painted Churches) expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher, curated exact-property cards lead broad Hotels.com/Vrbo choices, and broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted paired partner_referral_shown and partner_referral_clicked CI probes backed by Cloudflare Analytics Engine; Hotels.com/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');
