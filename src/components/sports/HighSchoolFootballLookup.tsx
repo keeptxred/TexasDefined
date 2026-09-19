@@ -12,6 +12,7 @@ type FootballProgram = {
   districtName?: string;
   countyName?: string;
   city?: string;
+  uilEnrollment?: number;
   sourceUrl: string;
   recentHistory?: {
     windowStartSeason: string;
@@ -238,6 +239,7 @@ export function HighSchoolFootballLookup({
               <dl className="mt-4 grid grid-cols-2 gap-x-5 gap-y-3 text-sm">
                 <div><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">UIL district</dt><dd className="mt-1 font-semibold">{program.district}</dd></div>
                 <div><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">Format</dt><dd className="mt-1 font-semibold">{program.footballType}</dd></div>
+                <div><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">UIL enrollment</dt><dd className="mt-1 font-semibold">{program.uilEnrollment ? program.uilEnrollment.toLocaleString('en-US') : '—'}</dd></div>
               </dl>
               {program.allTimeHistory && <AllTimeHistory history={program.allTimeHistory} />}
               {program.recentHistory && <RecentFinals history={program.recentHistory} />}
@@ -281,6 +283,7 @@ function ProgramComparison({ programs, onClear }: { programs: FootballProgram[];
     ['Location', (program: FootballProgram) => placeLabel(program)],
     ['UIL level', (program: FootballProgram) => alignmentLabel(program).replace(' · UIL 2026–28', '')],
     ['UIL district', (program: FootballProgram) => String(program.district)],
+    ['UIL enrollment', (program: FootballProgram) => program.uilEnrollment ? program.uilEnrollment.toLocaleString('en-US') : '—'],
     ['Format', (program: FootballProgram) => program.footballType],
     ['All-time titles', (program: FootballProgram) => program.allTimeHistory ? String(program.allTimeHistory.stateTitles) : 'No exact all-time match'],
     ['All-time state finals', (program: FootballProgram) => program.allTimeHistory ? String(program.allTimeHistory.stateFinalAppearances) : 'No exact all-time match'],
