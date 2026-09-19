@@ -1,3 +1,4 @@
+import { getFeaturedFootballProgramProfile } from './featured-program-profile.server';
 import {
   getFeaturedFootballProgram,
   matchFeaturedFootballProgram,
@@ -28,6 +29,9 @@ export type FootballProgramProfile = {
   governingBodyHint?: 'SPC' | 'TAPPS' | 'TCAL';
   associationClassification?: string;
   associationSourceUrl?: string;
+  privateAlignment?: Awaited<ReturnType<typeof getFeaturedFootballProgramProfile>> extends infer T
+    ? T extends { privateAlignment: infer P } ? P : never
+    : never;
 };
 
 export type FootballProgramDirectoryEntry = {
@@ -105,18 +109,19 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   const seed = findUilProgram(slug);
 
   if (!seed) {
-    const legacy = getFeaturedFootballProgram(slug);
+    const legacy = await getFeaturedFootballProgramProfile(slug);
     if (!legacy) return null;
     return {
-      slug: legacy.slug,
-      displayName: legacy.displayName,
-      program: null,
-      identity: getVerifiedFootballSchoolIdentity(legacy.slug) ?? null,
-      enrollmentLink: null,
+      slug: legacy.featured.slug,
+      displayName: legacy.featured.displayName,
+      program: legacy.program,
+      identity: legacy.identity,
+      enrollmentLink: legacy.enrollmentLink,
       districtPeers: [],
-      governingBodyHint: legacy.governingBodyHint,
-      associationClassification: legacy.associationClassification,
-      associationSourceUrl: legacy.associationSourceUrl,
+      governingBodyHint: legacy.featured.governingBodyHint,
+      associationClassification: legacy.featured.associationClassification,
+      associationSourceUrl: legacy.featured.associationSourceUrl,
+      privateAlignment: legacy.privateAlignment,
     };
   }
 
@@ -133,6 +138,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     identity: getVerifiedFootballSchoolIdentity(legacyIdentity?.slug ?? canonicalSlug) ?? null,
     enrollmentLink: getOfficialFootballEnrollmentLink(program.districtName) ?? null,
     districtPeers: districtPeers(seed),
+    privateAlignment: null,
   };
 }
 
