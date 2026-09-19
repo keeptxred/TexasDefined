@@ -50,6 +50,12 @@ const startHere = [
     label: "Browse UIL districts",
   },
   {
+    title: "Where are the current scores and schedules?",
+    description: "Use the 2026 season calendar and UIL data-quality guide, then open the UIL Texas Scoreboard for the latest submitted weekly football schedules and scores.",
+    href: "/texas-high-school-football-scores-schedules",
+    label: "Check scores and schedules",
+  },
+  {
     title: "Find the school district first",
     description: "For newcomers and relocating families, the district is the cleanest starting point for understanding which schools, rivalries and local traditions belong to a community.",
     href: "/find-my-school-district",
@@ -149,6 +155,7 @@ function FridayNightLightsPage() {
               <Link to="/article/texas-six-man-football-rules-explained" className="text-primary">Six-man rules explained →</Link>
               <Link to="/texas-high-school-football-teams" className="text-primary">Look up a current UIL program →</Link>
               <Link to="/texas-high-school-football-districts" className="text-primary">Browse current UIL districts →</Link>
+              <Link to="/texas-high-school-football-scores-schedules" className="text-primary">Check current scores & schedules →</Link>
             </div>
           </div>
           <div className="grid gap-5">

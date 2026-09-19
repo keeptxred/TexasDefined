@@ -15,6 +15,7 @@ const collectionItems = [
   ["Texas six-man football rules explained", "/article/texas-six-man-football-rules-explained"],
   ["Texas high school football team finder", "/texas-high-school-football-teams"],
   ["Texas high school football district directory", "/texas-high-school-football-districts"],
+  ["Texas high school football scores and schedules", "/texas-high-school-football-scores-schedules"],
   ["Find your Texas school district", "/find-my-school-district"],
   ["Texas sports hub", "/sports"],
   ["Texas tailgating guide", "/texas-tailgating-guide"],
