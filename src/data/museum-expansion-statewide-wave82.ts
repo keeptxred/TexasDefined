@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave83Destinations } from "./museum-expansion-statewide-wave83";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-19";
@@ -53,4 +54,5 @@ export const statewideMuseumExpansionWave82Destinations: Destination[] = [
     address: "116 N Graham St, Henrietta, TX 76365",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave83Destinations,
 ];
