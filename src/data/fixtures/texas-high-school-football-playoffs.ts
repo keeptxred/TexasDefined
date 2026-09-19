@@ -39,6 +39,12 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
       description: "Understand 1A through 6A, Division I and II, realignment and why classification is about enrollment rather than team strength.",
     },
     {
+      href: "/article/texas-six-man-football-rules-explained",
+      label: "Texas six-man football rules explained",
+      description: "Understand why 1A six-man uses a different field, first-down distance, exchange rule, scoring values and 45-point ending rule.",
+    },
+
+    {
       href: "/texas-high-school-football-teams",
       label: "Find a Texas high school football team",
       description: "Search current UIL programs by school, ISD, city or county and see classification, district and recent state-final history.",
