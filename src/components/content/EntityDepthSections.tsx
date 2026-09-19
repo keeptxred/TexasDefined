@@ -152,7 +152,7 @@ function buildContextItems(entity: TexasEntityRecord, countyName: string | null,
 
   if (sportsKinds.has(entity.kind) || entity.kind === 'sports-venue') {
     return [
-      `${entity.name} is part of TexasDefined's sports-travel reference collection. The page is meant to help readers place the venue geographically, understand the kind of trip it supports, and find the official source before buying tickets or traveling.`,
+      `${entity.name} is part of Texas Defined's sports-travel guides. Use this page to understand where the venue is, the kind of trip it supports and which official source to check before buying tickets or traveling.`,
       placeContext ? `The venue is associated with ${placeContext}. For game-day planning, the surrounding city and county can matter as much as the building itself because parking, transit, lodging and event traffic extend beyond the venue footprint.` : `For game-day planning, check the surrounding area as well as the venue itself because parking, lodging and event traffic can extend beyond the property.`,
       `Schedules, ticket rules, parking procedures, bag policies and gate times can change by event. Treat those as live operational details and confirm them with the venue, team, school or event organizer before departure.`,
     ];
@@ -168,7 +168,7 @@ function buildContextItems(entity: TexasEntityRecord, countyName: string | null,
 
   if (historyKinds.has(entity.kind)) {
     return [
-      `${entity.name} is included as a Texas history and place reference, connecting the site or institution to the larger geography and story around it rather than treating it as an isolated name on a list.`,
+      `${entity.name} is included in Texas Defined's history and place guides, connecting the site or institution to the larger geography and story around it rather than treating it as an isolated name on a list.`,
       placeContext ? `Its location in ${placeContext} provides useful context for nearby historic places, county history and trip planning.` : `Use the related guides on this page to connect the site with nearby historic places and regional context.`,
       `Hours, tours, exhibit access, admission and preservation work can change. Verify the official site before traveling, especially for small museums, seasonal sites and properties with limited public access.`,
     ];
