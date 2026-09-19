@@ -195,7 +195,8 @@ if (!errors.length) {
 
   for (const marker of [
     '250-school research list',
-    '242',
+    'FEATURED_SOURCE_ROW_COUNT',
+    'FEATURED_UNIQUE_PROGRAM_COUNT',
     'Open a detailed school profile',
     'featuredFootballProfilePath',
     'Original positions preserved',
