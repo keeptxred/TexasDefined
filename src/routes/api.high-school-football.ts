@@ -20,7 +20,7 @@ function cleanParam(value: string | null, maxLength = 100) {
 
 function cleanLimit(value: string | null) {
   const parsed = Number.parseInt(value ?? '', 10);
-  return Number.isFinite(parsed) ? Math.min(Math.max(parsed, 1), 100) : 50;
+  return Number.isFinite(parsed) ? Math.min(Math.max(parsed, 1), 500) : 50;
 }
 
 export const Route = createFileRoute('/api/high-school-football')({
