@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave78Destinations } from "./museum-expansion-statewide-wave78";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-19";
@@ -17,6 +18,7 @@ function museumPlaceholder(name: string): ImageRef {
  * Mineola Historical Museum as a separate Wood County history destination.
  * It does not substitute for the audit's unsupported "Wood County Historical
  * Museum" identity.
+ * Wave 78 is chained here so later museum expansion remains conflict-light.
  */
 export const statewideMuseumExpansionWave77Destinations: Destination[] = [
   {
@@ -55,4 +57,5 @@ export const statewideMuseumExpansionWave77Destinations: Destination[] = [
     address: "114 N Pacific St, Mineola, TX 75773",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave78Destinations,
 ];
