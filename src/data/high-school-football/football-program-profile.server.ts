@@ -6,6 +6,7 @@ import {
 } from './featured-programs';
 import { searchFootballPrograms, type FootballProgramDirectoryResult } from './football-directory.server';
 import { getOfficialFootballEnrollmentLink } from './official-enrollment-links';
+import type { VerifiedPrivateFootballAlignment } from './private-football-alignments';
 import { footballClassificationRank, footballProgramProfilePath, footballProgramSlug } from './program-slugs';
 import { getVerifiedFootballSchoolIdentity } from './school-identities';
 import { UIL_FOOTBALL_PROGRAMS_2026, type UilFootballProgram } from './uil-football-alignments-2026.server';
@@ -29,9 +30,7 @@ export type FootballProgramProfile = {
   governingBodyHint?: 'SPC' | 'TAPPS' | 'TCAL';
   associationClassification?: string;
   associationSourceUrl?: string;
-  privateAlignment?: Awaited<ReturnType<typeof getFeaturedFootballProgramProfile>> extends infer T
-    ? T extends { privateAlignment: infer P } ? P : never
-    : never;
+  privateAlignment: VerifiedPrivateFootballAlignment | null;
 };
 
 export type FootballProgramDirectoryEntry = {
