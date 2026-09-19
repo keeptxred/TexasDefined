@@ -21,6 +21,7 @@ export type FootballProgramProfilePeer = {
   division: UilFootballProgram['division'];
   district: number;
   footballType: UilFootballProgram['footballType'];
+  enrollment: number;
   profilePath: string;
 };
 
@@ -48,6 +49,7 @@ export type FootballProgramDirectoryEntry = {
   division: UilFootballProgram['division'];
   district: number;
   footballType: UilFootballProgram['footballType'];
+  enrollment: number;
 };
 
 const PROGRAM_BY_SLUG = new Map<string, UilFootballProgram>();
@@ -106,6 +108,7 @@ function districtPeers(program: UilFootballProgram): FootballProgramProfilePeer[
       division: candidate.division,
       district: candidate.district,
       footballType: candidate.footballType,
+      enrollment: candidate.enrollment,
       profilePath: footballProgramProfilePath(candidate.schoolName),
     }))
     .sort((left, right) => left.schoolName.localeCompare(right.schoolName));
@@ -171,6 +174,7 @@ export function getAllUilFootballPrograms(): FootballProgramDirectoryEntry[] {
       division: program.division,
       district: program.district,
       footballType: program.footballType,
+      enrollment: program.enrollment,
     }))
     .sort((left, right) => {
       const classDiff = footballClassificationRank(right.classification) - footballClassificationRank(left.classification);
