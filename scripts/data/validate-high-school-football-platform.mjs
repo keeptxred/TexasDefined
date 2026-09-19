@@ -558,6 +558,7 @@ if (!errors.length) {
   requireText(relocationFinder, 'See football programs →', 'School lookup football handoff');
   requireText(entityPage, 'CountyHighSchoolFootball', 'County page integration');
   requireText(footballHub, '/texas-high-school-football-teams', 'Friday Night Lights discovery');
+  requireText(footballHub, '/texas-high-school-football-districts', 'Friday Night Lights district discovery');
   requireText(footballHub, '/article/texas-high-school-football-classifications-1a-6a', 'Friday Night Lights classification discovery');
   requireText(footballHub, '/article/texas-high-school-football-playoffs-explained', 'Friday Night Lights playoff discovery');
   requireText(footballHub, '/article/texas-six-man-football-rules-explained', 'Friday Night Lights six-man discovery');
@@ -565,6 +566,7 @@ if (!errors.length) {
   requireText(newcomerGuide, '/article/texas-high-school-football-classifications-1a-6a', 'Newcomer classification discovery');
   requireText(newcomerGuide, '/article/texas-high-school-football-playoffs-explained', 'Newcomer playoff discovery');
   requireText(classificationGuide, '/texas-high-school-football-teams', 'Classification guide football finder discovery');
+  requireText(classificationGuide, '/texas-high-school-football-districts', 'Classification guide district discovery');
   requireText(classificationGuide, '/article/texas-high-school-football-playoffs-explained', 'Classification guide playoff discovery');
   requireText(classificationGuide, '/article/texas-six-man-football-rules-explained', 'Classification guide six-man discovery');
   for (const marker of [
@@ -598,6 +600,7 @@ if (!errors.length) {
   requireText(footballHubSchema, '/article/texas-high-school-football-playoffs-explained', 'Friday Night Lights schema playoff discovery');
   requireText(footballHubSchema, '/article/texas-six-man-football-rules-explained', 'Friday Night Lights schema six-man discovery');
   requireText(footballHubSchema, '/texas-high-school-football-teams', 'Friday Night Lights schema finder discovery');
+  requireText(footballHubSchema, '/texas-high-school-football-districts', 'Friday Night Lights schema district discovery');
   requireText(publicRoutes, '"/texas-high-school-football-teams"', 'Public route governance');
   requireText(publicRoutes, '"/texas-high-school-football-districts"', 'Football district public route governance');
   requireText(dataSources, "id:'uil-football-alignments'", 'Texas source registry');
