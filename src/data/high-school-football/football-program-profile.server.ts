@@ -128,7 +128,10 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   }
 
   const result = await searchFootballPrograms({ query: seed.schoolName, limit: 100 });
-  const program = exactProgramMatch(seed, result.programs) ?? { ...seed };
+  const program: FootballProgramDirectoryResult = exactProgramMatch(seed, result.programs) ?? {
+    ...seed,
+    profilePath: footballProgramProfilePath(seed.schoolName),
+  };
   const legacyIdentity = matchFeaturedFootballProgram(program.schoolName, program.officialSchoolName);
   const canonicalSlug = footballProgramSlug(seed.schoolName);
   const displayName = program.officialSchoolName || seed.schoolName;
