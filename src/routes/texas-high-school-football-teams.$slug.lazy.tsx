@@ -5,7 +5,7 @@ import { Container } from '@/components/layout/Container';
 export const Route = createLazyFileRoute('/texas-high-school-football-teams/$slug')({ component: Page });
 
 function Page() {
-  const { featured, program, identity } = Route.useLoaderData();
+  const { featured, program, identity, enrollmentLink } = Route.useLoaderData();
   const schoolName = program?.officialSchoolName || featured.displayName;
   const countyPath = program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
   const associationLabel = program
@@ -79,7 +79,7 @@ function Page() {
           <h2 className="mt-2 font-display text-3xl">How to enroll at {schoolName}</h2>
         </div>
         <div>
-          {program ? <PublicEnrollmentSteps schoolName={schoolName} districtName={program.districtName} /> : <NonUilEnrollmentSteps schoolName={schoolName} association={featured.governingBodyHint} />}
+          {program ? <PublicEnrollmentSteps schoolName={schoolName} districtName={program.districtName} enrollmentLink={enrollmentLink} /> : <NonUilEnrollmentSteps schoolName={schoolName} association={featured.governingBodyHint} />}
           <div className="mt-6 border border-border p-5 text-sm leading-7 text-muted-foreground">
             <strong className="text-foreground">Football eligibility is a separate question from school admission.</strong> Being admitted, moving into a district or receiving a transfer does not by itself establish varsity eligibility. Confirm the student's facts directly with the school and the governing athletic association before relying on a move or transfer for football.
           </div>
@@ -177,7 +177,20 @@ function Page() {
   </Container>;
 }
 
-function PublicEnrollmentSteps({ schoolName, districtName }: { schoolName: string; districtName?: string }) {
+function PublicEnrollmentSteps({
+  schoolName,
+  districtName,
+  enrollmentLink,
+}: {
+  schoolName: string;
+  districtName?: string;
+  enrollmentLink?: {
+    enrollmentUrl: string;
+    sourceLabel: string;
+    verifiedAt: string;
+    schoolYear?: string;
+  } | null;
+}) {
   const district = districtName || 'the school district';
   const steps = [
     ['Verify the exact address', `Use an official district boundary or campus-assignment tool to confirm that the residence is served by ${schoolName}. A city name or ZIP code is not enough.`],
@@ -186,7 +199,18 @@ function PublicEnrollmentSteps({ schoolName, districtName }: { schoolName: strin
     ['Ask about transfers separately', 'If the address is outside the attendance zone, review the district’s current transfer or open-enrollment policy. Approval rules, capacity limits and renewal terms can change.'],
     ['Verify athletic eligibility', 'After enrollment is settled, ask the school athletic office how UIL residency, transfer and previous-athletic-participation rules apply to this student’s specific situation.'],
   ];
-  return <StepList steps={steps} />;
+  return <>
+    {enrollmentLink && <div className="mb-6 border border-border p-5">
+      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official district enrollment</p>
+      <p className="mt-2 text-sm leading-7 text-muted-foreground">
+        TexasDefined verified this district enrollment source on {enrollmentLink.verifiedAt}{enrollmentLink.schoolYear ? ` for the ${enrollmentLink.schoolYear} school year` : ''}. Use the district page for current forms, deadlines and required documents.
+      </p>
+      <a href={enrollmentLink.enrollmentUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
+        Start with {enrollmentLink.sourceLabel} ↗
+      </a>
+    </div>}
+    <StepList steps={steps} />
+  </>;
 }
 
 function NonUilEnrollmentSteps({ schoolName, association }: { schoolName: string; association?: string }) {
