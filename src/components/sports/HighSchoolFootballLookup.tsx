@@ -30,6 +30,21 @@ type FootballProgram = {
     sourceUrl: string;
     matchMethod: 'exact-normalized-uil-name';
   };
+  allTimeHistory?: {
+    stateTitles: number;
+    stateFinalAppearances: number;
+    appearanceYears: string;
+    publishedThroughYear: number;
+    supplementedFinals: Array<{
+      season: string;
+      conference: string;
+      result: 'Champion' | 'Runner-Up';
+      opponent: string;
+    }>;
+    sourceUrl: string;
+    recentArchiveSourceUrl?: string;
+    matchMethod: 'exact-normalized-uil-name';
+  };
 };
 
 type LookupResponse = {
@@ -38,6 +53,7 @@ type LookupResponse = {
   matchedTotal?: number;
   directoryAvailable?: boolean;
   historyAvailable?: boolean;
+  allTimeHistoryAvailable?: boolean;
   alignmentCycle?: string;
   error?: string;
 };
@@ -64,6 +80,7 @@ export function HighSchoolFootballLookup({
   const [matchedTotal, setMatchedTotal] = useState(0);
   const [directoryAvailable, setDirectoryAvailable] = useState(true);
   const [historyAvailable, setHistoryAvailable] = useState(true);
+  const [allTimeHistoryAvailable, setAllTimeHistoryAvailable] = useState(true);
   const [loading, setLoading] = useState(Boolean(countyName));
   const [error, setError] = useState('');
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
@@ -84,6 +101,7 @@ export function HighSchoolFootballLookup({
         setMatchedTotal(payload.matchedTotal ?? payload.programs?.length ?? 0);
         setDirectoryAvailable(payload.directoryAvailable !== false);
         setHistoryAvailable(payload.historyAvailable !== false);
+        setAllTimeHistoryAvailable(payload.allTimeHistoryAvailable !== false);
         setSelectedKeys([]);
       } catch (cause) {
         if (controller.signal.aborted) return;
@@ -116,6 +134,7 @@ export function HighSchoolFootballLookup({
       setMatchedTotal(payload.matchedTotal ?? payload.programs?.length ?? 0);
       setDirectoryAvailable(payload.directoryAvailable !== false);
       setHistoryAvailable(payload.historyAvailable !== false);
+      setAllTimeHistoryAvailable(payload.allTimeHistoryAvailable !== false);
       setSelectedKeys([]);
       if (!(payload.programs?.length)) setError(`No current UIL football program matched “${trimmed}.” Try the official high-school or ISD name.`);
     } catch (cause) {
@@ -210,6 +229,7 @@ export function HighSchoolFootballLookup({
                 <div><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">UIL district</dt><dd className="mt-1 font-semibold">{program.district}</dd></div>
                 <div><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">Format</dt><dd className="mt-1 font-semibold">{program.footballType}</dd></div>
               </dl>
+              {program.allTimeHistory && <AllTimeHistory history={program.allTimeHistory} />}
               {program.recentHistory && <RecentFinals history={program.recentHistory} />}
               <a href={program.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-xs font-semibold text-primary underline underline-offset-4">Official UIL alignment ↗</a>
             </article>)}
@@ -219,10 +239,12 @@ export function HighSchoolFootballLookup({
 
         {!loading && !directoryAvailable && <p className="mt-5 border border-border p-4 text-sm leading-6 text-muted-foreground">The UIL school lookup is still available, but TEA’s school-directory service could not be reached, so ISD and county enrichment may be temporarily unavailable.</p>}
         {!loading && !historyAvailable && <p className="mt-5 border border-border p-4 text-sm leading-6 text-muted-foreground">Current UIL alignment results are available, but UIL’s state-archive pages could not be reached, so recent state-final history is temporarily omitted.</p>}
+        {!loading && !allTimeHistoryAvailable && <p className="mt-5 border border-border p-4 text-sm leading-6 text-muted-foreground">Current UIL alignment and recent state-final results are still available, but UIL’s all-time appearances table could not be reached, so all-time title and state-final totals are temporarily omitted.</p>}
 
         <div className="mt-6 border-t border-border pt-5 text-xs leading-6 text-muted-foreground">
           <p><strong className="text-foreground">What this tells you:</strong> current 2026–28 UIL classification, football division, district and six-man/11-man format. School, ISD, city and county context comes from Texas Education Agency AskTED when available.</p>
-          <p className="mt-2"><strong className="text-foreground">Recent state-final history:</strong> title and runner-up counts cover the eight completed UIL championship seasons from 2018–19 through 2025–26 and appear only on an exact normalized UIL school-name match. No badge does not mean a weak program and is not an all-time-history claim.</p>
+          <p className="mt-2"><strong className="text-foreground">All-time state-final history:</strong> title and appearance totals use UIL’s Football All-Time Appearances table, supplemented with newer completed state-final rows from the official State Archives when that all-time table trails the latest archive. Totals appear only on an exact normalized UIL school-name match.</p>
+          <p className="mt-2"><strong className="text-foreground">Recent state-final detail:</strong> the game-level list covers the eight completed UIL championship seasons from 2018–19 through 2025–26. No history badge does not mean a weak program; it means the source did not produce an exact normalized school-name match.</p>
           <p className="mt-2">This is not a “best school” rating. Football placement and recent championship history are only parts of researching a program. Attendance zones, transfers, eligibility and campus assignments can change, so confirm an exact address and student eligibility with the school district and UIL before making a move.</p>
         </div>
       </div>
@@ -237,6 +259,8 @@ function ProgramComparison({ programs, onClear }: { programs: FootballProgram[];
     ['UIL level', (program: FootballProgram) => alignmentLabel(program).replace(' · UIL 2026–28', '')],
     ['UIL district', (program: FootballProgram) => String(program.district)],
     ['Format', (program: FootballProgram) => program.footballType],
+    ['All-time titles', (program: FootballProgram) => program.allTimeHistory ? String(program.allTimeHistory.stateTitles) : 'No exact all-time match'],
+    ['All-time state finals', (program: FootballProgram) => program.allTimeHistory ? String(program.allTimeHistory.stateFinalAppearances) : 'No exact all-time match'],
     ['Recent titles', (program: FootballProgram) => program.recentHistory ? String(program.recentHistory.stateTitles) : 'No exact recent-final match'],
     ['Recent state finals', (program: FootballProgram) => program.recentHistory ? String(program.recentHistory.stateFinalAppearances) : 'No exact recent-final match'],
     ['Latest state final', (program: FootballProgram) => program.recentHistory?.mostRecentFinalSeason ? shortSeason(program.recentHistory.mostRecentFinalSeason) : '—'],
@@ -270,6 +294,20 @@ function ProgramComparison({ programs, onClear }: { programs: FootballProgram[];
     {programs.length < 2 && <p className="border-t border-border p-3 text-xs text-muted-foreground">Select one more program to make the comparison useful.</p>}
     {programs.length === 3 && <p className="border-t border-border p-3 text-xs text-muted-foreground">Three-program comparison limit reached. Uncheck one program to choose a different school.</p>}
   </section>;
+}
+
+function AllTimeHistory({ history }: { history: NonNullable<FootballProgram['allTimeHistory']> }) {
+  return <div className="mt-4 border-t border-border pt-4">
+    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-primary">All-time UIL state-final history</p>
+    <dl className="mt-3 grid grid-cols-2 gap-3 text-sm">
+      <div><dt className="text-xs text-muted-foreground">State titles</dt><dd className="mt-1 font-display text-2xl">{history.stateTitles}</dd></div>
+      <div><dt className="text-xs text-muted-foreground">State finals</dt><dd className="mt-1 font-display text-2xl">{history.stateFinalAppearances}</dd></div>
+    </dl>
+    {history.supplementedFinals.length > 0
+      ? <p className="mt-3 text-xs leading-5 text-muted-foreground">UIL’s all-time table currently runs through {history.publishedThroughYear}; {history.supplementedFinals.length} newer completed {history.supplementedFinals.length === 1 ? 'final is' : 'finals are'} added from the official state archive.</p>
+      : <p className="mt-3 text-xs leading-5 text-muted-foreground">From UIL’s published all-time appearances table, with the latest full year detected as {history.publishedThroughYear}.</p>}
+    <a href={history.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-xs font-semibold text-primary underline underline-offset-4">UIL all-time appearances ↗</a>
+  </div>;
 }
 
 function RecentFinals({ history }: { history: NonNullable<FootballProgram['recentHistory']> }) {
