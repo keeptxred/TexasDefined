@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave74Destinations } from "./museum-expansion-statewide-wave74";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-18";
@@ -50,4 +51,5 @@ export const statewideMuseumExpansionWave73Destinations: Destination[] = [
     address: "906 Cooper St, Brookshire, TX 77423",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave74Destinations,
 ];
