@@ -5,6 +5,7 @@
   const STAY_SLOT_SELECTOR = "[data-stay-nearby-slot]";
   const CJ_PUBLISHER_ID = "101876465";
   const CJ_DLG_BASE = `https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/`;
+  const CJ_SID_PREFIX = "td-";
   const HOTELS_DESTINATION = "https://www.hotels.com/";
   const VRBO_DESTINATION = "https://www.vrbo.com/";
   const VRBO_OWNER_DESTINATION = "https://www.vrbo.com/en-us/list/lead";
@@ -52,12 +53,20 @@
     });
   }
 
-  function buildCjDeepLink(destination) {
+  function cjSid(placement) {
+    const value = String(placement || "").trim();
+    if (!/^[a-z0-9][a-z0-9-]*$/.test(value)) {
+      throw new Error(`Unsupported CJ placement SID: ${value || "missing"}`);
+    }
+    return `${CJ_SID_PREFIX}${value}`;
+  }
+
+  function buildCjDeepLink(destination, placement) {
     const parsed = new URL(destination);
     if (!["www.hotels.com", "www.vrbo.com"].includes(parsed.hostname)) {
       throw new Error(`Unsupported stay affiliate destination: ${parsed.hostname}`);
     }
-    return `${CJ_DLG_BASE}${encodeURI(parsed.toString())}`;
+    return `${CJ_DLG_BASE}sid/${encodeURIComponent(cjSid(placement))}/${encodeURI(parsed.toString())}`;
   }
 
   function exactPropertyDestination(name) {
@@ -86,7 +95,7 @@
 
   function createTrackedLink({ destination, label, variant = "secondary", ariaLabel, placement = "stay-nearby" }) {
     const link = document.createElement("a");
-    link.href = buildCjDeepLink(destination);
+    link.href = buildCjDeepLink(destination, placement);
     link.target = "_blank";
     link.rel = "sponsored nofollow noopener noreferrer";
     link.className = `td-stay-affiliate-button td-stay-affiliate-button--${variant}`;
