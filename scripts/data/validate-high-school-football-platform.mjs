@@ -229,12 +229,21 @@ if (!errors.length) {
     "slug: 'katy'",
     "slug: 'smithson-valley'",
     "slug: 'rockwall'",
+    "slug: 'pleasant-grove'",
+    "slug: 'willis'",
+    "slug: 'san-antonio-johnson'",
+    "slug: 'dripping-springs'",
+    "slug: 'klein-collins'",
+    "slug: 'rockwall-heath'",
+    "slug: 'round-rock'",
+    "slug: 'harker-heights'",
+    "slug: 'richland'",
     'sourceUrl',
     'verifiedAt',
   ]) requireText(schoolIdentities, marker, 'Football school identity data');
   const verifiedFootballIdentityCount = (schoolIdentities.match(/slug: '/g) ?? []).length;
-  if (verifiedFootballIdentityCount < 26) {
-    errors.push(`Football school identity data fell below 26 verified profiles; found ${verifiedFootballIdentityCount}.`);
+  if (verifiedFootballIdentityCount < 42) {
+    errors.push(`Football school identity data fell below 42 verified profiles; found ${verifiedFootballIdentityCount}.`);
   }
 
   for (const marker of [
