@@ -138,6 +138,7 @@ if (!errors.length) {
     'allTimeHistoryAvailable',
     'profilePath',
     'footballProgramProfilePath',
+    'Math.min(Math.max(options.limit ?? 50, 1), 500)',
   ]) requireText(directory, marker, 'Football directory');
 
   for (const marker of [
@@ -170,6 +171,7 @@ if (!errors.length) {
     "alignmentCycle: '2026-28'",
     'recentStateFinals',
     'allTimeStateFinals',
+    'Math.min(Math.max(parsed, 1), 500)',
   ]) requireText(api, marker, 'Football lookup API');
 
   for (const marker of [
@@ -195,6 +197,10 @@ if (!errors.length) {
     'it does not rank academics, roster opportunity, coaching quality or overall student fit',
     'profilePath',
     'School profile, enrollment & mascot →',
+    "limit: '500'",
+    'showAllMatches',
+    'Show all {programs.length.toLocaleString()} matched programs',
+    'Results stay ordered by UIL classification, with 6A before 5A through 1A.',
   ]) requireText(finder, marker, 'Football lookup component');
   if (finder.includes('Research list #')) errors.push('Football lookup must not expose seed-list rank or priority treatment.');
 
