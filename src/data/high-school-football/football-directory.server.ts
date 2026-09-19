@@ -1,4 +1,8 @@
 import { footballProgramProfilePath } from './program-slugs';
+import {
+  UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28,
+  type UilFootballExactEnrollment,
+} from './uil-football-enrollments-2026.generated';
 import { UIL_FOOTBALL_PROGRAMS_2026, type UilFootballProgram } from './uil-football-alignments-2026.server';
 import {
   loadUilRecentFootballHistory,
@@ -27,6 +31,8 @@ export type FootballProgramDirectoryResult = UilFootballProgram & {
   districtName?: string;
   countyName?: string;
   city?: string;
+  uilEnrollment?: number;
+  uilSubmittedConference?: UilFootballExactEnrollment['submittedConference'];
   recentHistory?: UilRecentFootballHistory;
   allTimeHistory?: UilAllTimeFootballHistory;
 };
@@ -202,8 +208,14 @@ function bestDirectoryMatch(program: UilFootballProgram, rows: TeaSchoolDirector
 
 function withDirectory(program: UilFootballProgram, rows: TeaSchoolDirectoryRecord[]): FootballProgramDirectoryResult {
   const record = bestDirectoryMatch(program, rows);
+  const exactEnrollment = UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.schoolName];
+  const exactFields = exactEnrollment ? {
+    uilEnrollment: exactEnrollment.enrollment,
+    uilSubmittedConference: exactEnrollment.submittedConference,
+  } : {};
   return record ? {
     ...program,
+    ...exactFields,
     profilePath: footballProgramProfilePath(program.schoolName),
     officialSchoolName: record.schoolName,
     districtName: record.districtName,
@@ -211,6 +223,7 @@ function withDirectory(program: UilFootballProgram, rows: TeaSchoolDirectoryReco
     city: record.city,
   } : {
     ...program,
+    ...exactFields,
     profilePath: footballProgramProfilePath(program.schoolName),
   };
 }

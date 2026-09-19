@@ -12,6 +12,7 @@ import { footballDistrictProfilePath } from './football-districts.server';
 import type { VerifiedPrivateFootballAlignment } from './private-football-alignments';
 import type { VerifiedPrivateSchoolAdmissions } from './private-school-admissions';
 import { footballClassificationRank, footballProgramProfilePath, footballProgramSlug } from './program-slugs';
+import { UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28 } from './uil-football-enrollments-2026.generated';
 import { getVerifiedFootballSchoolIdentity } from './school-identities';
 import { UIL_FOOTBALL_PROGRAMS_2026, type UilFootballProgram } from './uil-football-alignments-2026.server';
 
@@ -48,6 +49,7 @@ export type FootballProgramDirectoryEntry = {
   division: UilFootballProgram['division'];
   district: number;
   footballType: UilFootballProgram['footballType'];
+  uilEnrollment: number;
 };
 
 const PROGRAM_BY_SLUG = new Map<string, UilFootballProgram>();
@@ -135,9 +137,14 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   }
 
   const result = await searchFootballPrograms({ query: seed.schoolName, limit: 100 });
+  const exactEnrollment = UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[seed.schoolName];
   const program: FootballProgramDirectoryResult = exactProgramMatch(seed, result.programs) ?? {
     ...seed,
     profilePath: footballProgramProfilePath(seed.schoolName),
+    ...(exactEnrollment ? {
+      uilEnrollment: exactEnrollment.enrollment,
+      uilSubmittedConference: exactEnrollment.submittedConference,
+    } : {}),
   };
   const legacyIdentity = matchFeaturedFootballProgram(program.schoolName, program.officialSchoolName);
   const canonicalSlug = footballProgramSlug(seed.schoolName);
@@ -171,6 +178,7 @@ export function getAllUilFootballPrograms(): FootballProgramDirectoryEntry[] {
       division: program.division,
       district: program.district,
       footballType: program.footballType,
+      uilEnrollment: UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.schoolName]?.enrollment ?? 0,
     }))
     .sort((left, right) => {
       const classDiff = footballClassificationRank(right.classification) - footballClassificationRank(left.classification);
