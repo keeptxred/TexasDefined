@@ -253,6 +253,20 @@ function Page() {
         </div>
       </section>}
 
+      {program && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Current season</p>
+          <h2 className="mt-2 font-display text-3xl">Scores & weekly schedules</h2>
+        </div>
+        <div>
+          <p className="max-w-4xl text-sm leading-7 text-muted-foreground">UIL’s Texas Scoreboard is powered by information submitted through MaxPreps and is the statewide starting point for current football scores and weekly schedules. UIL says completeness depends on school and coach submissions, and the current scoreboard is not an official district-standings table.</p>
+          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+            <a href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL Texas Scoreboard gateway ↗</a>
+            <a href="/article/texas-high-school-football-scores-schedules" className="text-primary underline underline-offset-4">How to verify scores, schedules & standings →</a>
+          </div>
+        </div>
+      </section>}
+
       <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Research beyond the score</p>
@@ -273,6 +287,7 @@ function Page() {
         <h2 className="mt-2 font-display text-3xl">Put {displayName} in the statewide football picture</h2>
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           <Related href="/texas-high-school-football-teams" title="All 1,268 UIL programs" body="Browse every current UIL football school, ordered from 6A through 1A, or search by school, ISD, city or county." />
+          <Related href="/article/texas-high-school-football-scores-schedules" title="Current scores & schedules" body="Use the UIL Texas Scoreboard plus school sources for current results, weekly schedules and final game-day verification." />
           <Related href="/article/texas-high-school-football-classifications-1a-6a" title="How 1A through 6A work" body="Understand enrollment classifications, divisions, districts and realignment." />
           <Related href="/article/texas-high-school-football-playoffs-explained" title="How the playoffs work" body="Follow district qualification, bi-district and the state bracket." />
           {(program?.footballType === '6-Man' || privateAlignment?.footballType === '6-Man') && <Related href="/article/texas-six-man-football-rules-explained" title="Six-man football rules" body="Understand the field, first-down distance, exchange rule, scoring and mercy rule." />}
