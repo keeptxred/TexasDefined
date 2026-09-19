@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave82Destinations } from "./museum-expansion-statewide-wave82";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-19";
@@ -53,4 +54,5 @@ export const statewideMuseumExpansionWave81Destinations: Destination[] = [
     address: "144 W Main St, Yorktown, TX 78164",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave82Destinations,
 ];
