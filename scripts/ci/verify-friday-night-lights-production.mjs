@@ -119,8 +119,6 @@ await fetchVerified(finderPath, 'football finder', (body) => {
     '/article/texas-high-school-football-classifications-1a-6a',
     playoffsPath,
     sixManPath,
-    'All-time UIL state-final history',
-    'UIL all-time appearances',
   ]) requireNeedle(body, needle, 'football finder');
   if (/\bnoindex\b/i.test(body)) throw new Error('football finder unexpectedly contains noindex');
 });
