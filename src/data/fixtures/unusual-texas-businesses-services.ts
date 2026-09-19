@@ -39,7 +39,7 @@ export const unusualTexasBusinessesServicesArticle: Article = {
     { href: "/texas-homecoming-mums", label: "Texas homecoming mums", description: "See how an oversized school tradition supports a specialized maker economy found most strongly in Texas." },
     { href: "/destination/whirlyball-hurst", label: "WhirlyBall Hurst", description: "Try the bumper-car team sport that mixes driving, scoops, passing and electronic targets." },
     { href: "/things-unique-to-texas", label: "Things unique to Texas", description: "Browse the larger TexasDefined collection of traditions, places, foods, landscapes and cultural oddities." },
-    { href: "/small-towns", label: "Texas small towns", description: "Connect specialized local businesses with the towns and counties that support them." },
+    { href: "/explore/small-towns", label: "Texas small towns", description: "Connect specialized local businesses with the towns and counties that support them." },
   ],
   relatedCollections: [],
   relatedDestinations: ["whirlyball-hurst"],
