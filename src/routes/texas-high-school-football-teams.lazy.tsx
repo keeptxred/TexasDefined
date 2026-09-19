@@ -1,8 +1,8 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
-import { FeaturedFootballResearchList } from '@/components/sports/FeaturedFootballResearchList';
 import { HighSchoolFootballLookup } from '@/components/sports/HighSchoolFootballLookup';
+import { UilFootballProgramDirectory } from '@/components/sports/UilFootballProgramDirectory';
 
 export const Route = createLazyFileRoute('/texas-high-school-football-teams')({ component: Page });
 
@@ -27,6 +27,7 @@ const comparisonPoints = [
 
 function Page() {
   const { q } = Route.useSearch();
+  const { programs } = Route.useLoaderData();
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <article className="mx-auto max-w-6xl">
       <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
@@ -41,7 +42,7 @@ function Page() {
 
       <HighSchoolFootballLookup initialQuery={q} />
 
-      <FeaturedFootballResearchList />
+      <UilFootballProgramDirectory programs={programs} />
 
       <section className="border-b border-border py-12">
         <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
@@ -76,7 +77,7 @@ function Page() {
       <section className="py-10">
         <p className="eyebrow text-primary">Current scope</p>
         <h2 className="mt-2 max-w-4xl font-display text-3xl">The finder starts with every current UIL football program</h2>
-        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The finder covers every current UIL football program with classification, football division, district, six-man or 11-man format, and TEA school/ISD/county context where the records match. The supplied 250-position research list adds 242 canonical school profiles with enrollment research steps, county and ISD connections, sourced mascot identity where verified, and a separate path for non-UIL programs rather than mislabeling them as UIL schools. The finder also adds official UIL all-time state-title and state-final totals, keeps detailed recent state-final results from 2018–19 through 2025–26, and lets families compare up to three programs side by side. Full season-by-season records, current schedules, standings and coaching continuity remain future layers until they can be maintained from reliable sources.</p>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The finder and school directory use all 1,268 current UIL football programs as the authoritative school universe. Every UIL program receives the same profile structure and is eligible for the same ISD/county, enrollment, mascot, stadium, history, schedule and standings layers as verified data becomes available. Directory order follows UIL enrollment classification—6A, 5A, 4A, 3A, 2A, 1A—with Division I before Division II inside split classifications; that ordering describes school size, not program quality. Official UIL all-time state-title and state-final totals, detailed recent state-final results from 2018–19 through 2025–26, and three-program comparison remain part of the finder.</p>
         <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
           <a href="https://realignment.uiltexas.org/" target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">UIL 2026–28 realignment ↗</a>
           <a href="https://tea.texas.gov/texas-schools/general-information/askted" target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">Texas Education Agency AskTED ↗</a>

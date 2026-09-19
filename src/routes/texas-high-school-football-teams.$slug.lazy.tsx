@@ -2,15 +2,29 @@ import { createLazyFileRoute, Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
 
+const UIL_ELIGIBILITY_URL = 'https://www.uiltexas.org/policy/eligibility';
+const UIL_DETAILED_ELIGIBILITY_URL = 'https://www.uiltexas.org/policy/constitution/general/eligibility';
+
 export const Route = createLazyFileRoute('/texas-high-school-football-teams/$slug')({ component: Page });
 
 function Page() {
-  const { featured, program, identity, enrollmentLink, privateAlignment, privateAdmissions } = Route.useLoaderData();
-  const schoolName = program?.officialSchoolName || featured.displayName;
+  const {
+    displayName,
+    program,
+    identity,
+    enrollmentLink,
+    districtPeers,
+    privateAlignment,
+    privateAdmissions,
+    governingBodyHint,
+    associationClassification,
+    associationSourceUrl,
+  } = Route.useLoaderData();
+  const schoolName = program?.officialSchoolName || displayName;
   const countyPath = program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
   const associationLabel = program
     ? 'UIL'
-    : privateAlignment?.association ?? featured.governingBodyHint ?? 'Association not yet verified';
+    : privateAlignment?.association ?? governingBodyHint ?? 'Association not yet verified';
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <article className="mx-auto max-w-6xl">
@@ -18,19 +32,18 @@ function Page() {
         <Link to="/">Front page</Link><span className="mx-2">/</span>
         <Link to="/sports">Texas Sports</Link><span className="mx-2">/</span>
         <a href="/texas-high-school-football-teams">High school football teams</a><span className="mx-2">/</span>
-        <span aria-current="page">{featured.displayName}</span>
+        <span aria-current="page">{displayName}</span>
       </nav>
 
       <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
         <div>
           <p className="eyebrow text-primary">Texas high school football school profile</p>
-          <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{featured.displayName}</h1>
+          <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{displayName}</h1>
           <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">
             A school-and-football research page connecting current competition placement with school and county context, enrollment steps, school identity and sourced championship history where available.
           </p>
         </div>
         <dl className="border-y border-border py-3 text-sm lg:border-y-0 lg:border-l lg:pl-6">
-          <Fact label="Research list position" value={rankLabel(featured.sourceRanks)} />
           <Fact label="Governing body" value={associationLabel} />
           {program && <Fact label="Current alignment" value={alignmentLabel(program)} />}
           {!program && privateAlignment && <Fact label="Current alignment" value={privateAlignmentLabel(privateAlignment)} />}
@@ -56,7 +69,7 @@ function Page() {
               <Snapshot label="UIL district" value={String(program.district)} />
             </dl>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">
-              Classification is based on enrollment for the current UIL realignment cycle; it is not a quality tier or a TexasDefined school rating. District assignments and enrollment cutoffs can change at realignment.
+              TexasDefined orders the statewide directory from 6A through 1A because UIL classifications reflect enrollment size. That ordering is not a claim that a larger-classification football program is better than a smaller-classification program. District assignments and enrollment cutoffs can change at realignment.
             </p>
           </> : privateAlignment ? <div>
             <dl className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
@@ -74,11 +87,11 @@ function Page() {
             <a href={privateAlignment.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">{privateAlignment.sourceLabel} ↗</a>
           </div> : <>
             <div className="border-y border-border py-5">
-              <p className="font-display text-2xl">{featured.governingBodyHint ? `${featured.governingBodyHint} ${featured.associationClassification ?? ''}`.trim() : 'Association placement not yet verified'}</p>
+              <p className="font-display text-2xl">{governingBodyHint ? [governingBodyHint, associationClassification].filter(Boolean).join(' ') : 'Association placement not yet verified'}</p>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
                 This supplied school did not resolve to the current UIL football alignment. TexasDefined does not force private or non-UIL programs into a UIL classification. Association placement is shown only when it has been separately sourced.
               </p>
-              {featured.associationSourceUrl && <a href={featured.associationSourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Official association football source ↗</a>}
+              {associationSourceUrl && <a href={associationSourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Official association football source ↗</a>}
             </div>
           </>}
           <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
@@ -89,15 +102,34 @@ function Page() {
         </div>
       </section>
 
+      {program && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Current district</p>
+          <h2 className="mt-2 font-display text-3xl">{alignmentLabel(program)} · District {program.district}</h2>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">These are the other schools in the same 2026–28 UIL football district. Every opponent links to the same school-profile system.</p>
+        </div>
+        <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
+          {districtPeers.map((peer) => <a key={peer.profilePath} href={peer.profilePath} className="group bg-background p-5 hover:bg-surface">
+            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-primary">{alignmentLabel(peer)} · District {peer.district}</p>
+            <h3 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{peer.schoolName}</h3>
+            <p className="mt-2 text-xs text-muted-foreground">{peer.footballType} · Open profile →</p>
+          </a>)}
+        </div>
+      </section>}
+
       <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">How to enroll</p>
           <h2 className="mt-2 font-display text-3xl">How to enroll at {schoolName}</h2>
         </div>
         <div>
-          {program ? <PublicEnrollmentSteps schoolName={schoolName} districtName={program.districtName} enrollmentLink={enrollmentLink} /> : <NonUilEnrollmentSteps schoolName={schoolName} association={privateAlignment?.association ?? featured.governingBodyHint} admissions={privateAdmissions} />}
+          {program ? <PublicEnrollmentSteps schoolName={schoolName} districtName={program.districtName} enrollmentLink={enrollmentLink} /> : <NonUilEnrollmentSteps schoolName={schoolName} association={privateAlignment?.association ?? governingBodyHint} admissions={privateAdmissions} />}
           <div className="mt-6 border border-border p-5 text-sm leading-7 text-muted-foreground">
             <strong className="text-foreground">Football eligibility is a separate question from school admission.</strong> Being admitted, moving into a district or receiving a transfer does not by itself establish varsity eligibility. Confirm the student's facts directly with the school and the governing athletic association before relying on a move or transfer for football.
+            {program && <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 font-semibold">
+              <a href={UIL_ELIGIBILITY_URL} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL eligibility standards ↗</a>
+              <a href={UIL_DETAILED_ELIGIBILITY_URL} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL detailed eligibility rules ↗</a>
+            </div>}
           </div>
         </div>
       </section>
@@ -116,7 +148,7 @@ function Page() {
           <a href={identity.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">{identity.sourceLabel} ↗</a>
         </div> : <div className="border-y border-border py-5">
           <p className="font-display text-2xl">Mascot verification pending</p>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined has a mascot field for this school, but it stays blank until the school or district identity can be tied to a source. We do not fill school identity fields from an unsourced guess.</p>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Every UIL school profile has the same mascot field, but it stays blank until the school or district identity can be tied to a source. We do not fill school identity fields from an unsourced guess.</p>
         </div>}
       </section>
 
@@ -176,9 +208,9 @@ function Page() {
 
       <section className="py-10">
         <p className="eyebrow text-primary">Keep researching</p>
-        <h2 className="mt-2 font-display text-3xl">Put {featured.displayName} in the statewide football picture</h2>
+        <h2 className="mt-2 font-display text-3xl">Put {displayName} in the statewide football picture</h2>
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <Related href="/texas-high-school-football-teams" title="Texas football team finder" body="Search by school, ISD, city or county and compare current football placement." />
+          <Related href="/texas-high-school-football-teams" title="All 1,268 UIL programs" body="Browse every current UIL football school, ordered from 6A through 1A, or search by school, ISD, city or county." />
           <Related href="/article/texas-high-school-football-classifications-1a-6a" title="How 1A through 6A work" body="Understand enrollment classifications, divisions, districts and realignment." />
           <Related href="/article/texas-high-school-football-playoffs-explained" title="How the playoffs work" body="Follow district qualification, bi-district and the state bracket." />
           {(program?.footballType === '6-Man' || privateAlignment?.footballType === '6-Man') && <Related href="/article/texas-six-man-football-rules-explained" title="Six-man football rules" body="Understand the field, first-down distance, exchange rule, scoring and mercy rule." />}
@@ -186,7 +218,7 @@ function Page() {
           <Related href="/sports/friday-night-lights" title="Friday Night Lights, Defined" body="Explore the wider culture, traditions and season around Texas high school football." />
         </div>
         <p className="mt-8 max-w-4xl text-xs leading-6 text-muted-foreground">
-          The supplied 250-school working list is used as an editorial research set, not as a TexasDefined rating of academics, coaching quality, recruiting prospects or overall student fit. Duplicate and alternate school names resolve to one canonical profile while preserving every supplied list position.
+          All current UIL football programs use the same profile system. Earlier seed lists may still help resolve alternate school names behind the scenes, but they do not control whether a school receives a page, its directory position or its research priority.
         </p>
       </section>
     </article>
@@ -295,10 +327,6 @@ function alignmentLabel(program: { classification: string; division: 1 | 2 | nul
 
 function privateAlignmentLabel(alignment: { association: string; divisionLabel: string; districtLabel?: string }) {
   return `${alignment.association} ${alignment.divisionLabel}${alignment.districtLabel ? ` · ${alignment.districtLabel}` : ''}`;
-}
-
-function rankLabel(ranks: readonly number[]) {
-  return ranks.map((rank) => `#${rank}`).join(', ');
 }
 
 function countySlug(value: string) {

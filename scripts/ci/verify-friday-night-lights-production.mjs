@@ -6,6 +6,9 @@ const playoffsPath = '/article/texas-high-school-football-playoffs-explained';
 const sixManPath = '/article/texas-six-man-football-rules-explained';
 const finderApiPath = '/api/high-school-football?q=Dallas%20South%20Oak%20Cliff&limit=5';
 const allTimeFinderApiPath = '/api/high-school-football?q=Katy&limit=50';
+const nonSeedFinderApiPath = '/api/high-school-football?q=Abbott&limit=10';
+const katyProfilePath = '/texas-high-school-football-teams/katy';
+const abbottProfilePath = '/texas-high-school-football-teams/abbott';
 const expectedTitle = 'Texas High School Football: Friday Night Lights, Traditions & Game-Day Guide';
 const expectedDescription = 'Understand Texas high school football through Friday-night traditions, six-man and 11-man culture, stadiums, homecoming mums, playoffs, school communities and practical game-day planning.';
 const expectedCanonical = `${origin}${hubPath}`;
@@ -119,6 +122,11 @@ await fetchVerified(finderPath, 'football finder', (body) => {
     '/article/texas-high-school-football-classifications-1a-6a',
     playoffsPath,
     sixManPath,
+    'Browse all 1,268 Texas high school football programs',
+    'All 1,268',
+    '6A → 1A · enrollment classification',
+    '/texas-high-school-football-teams/katy',
+    '/texas-high-school-football-teams/abbott',
   ]) requireNeedle(body, needle, 'football finder');
   if (/\bnoindex\b/i.test(body)) throw new Error('football finder unexpectedly contains noindex');
 });
@@ -188,9 +196,43 @@ await fetchVerified(allTimeFinderApiPath, 'football all-time history API', (body
   if (!katy.allTimeHistory.sourceUrl?.includes('uiltexas.org/football/all-time-appearances')) throw new Error('Katy all-time history is missing official UIL provenance');
 });
 
+await fetchVerified(nonSeedFinderApiPath, 'non-seed football profile API', (body) => {
+  const payload = JSON.parse(body);
+  if (payload?.ok !== true) throw new Error('Abbott football lookup did not return ok=true');
+  const abbott = payload?.programs?.find((program) => program.schoolName === 'Abbott');
+  if (!abbott) throw new Error('Abbott was not returned from the all-UIL lookup');
+  if (abbott.profilePath !== abbottProfilePath) throw new Error('Abbott is missing its canonical all-UIL profile path');
+  if (abbott.classification !== '1A') throw new Error('Abbott current UIL classification is not 1A');
+});
+
+await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {
+  for (const needle of [
+    'Katy',
+    'Current district',
+    'How to enroll at',
+    'UIL eligibility standards',
+    'All current UIL football programs use the same profile system.',
+  ]) requireNeedle(body, needle, 'Katy football school profile');
+  if (/\bnoindex\b/i.test(body)) throw new Error('Katy football school profile unexpectedly contains noindex');
+});
+
+await fetchVerified(abbottProfilePath, 'Abbott football school profile', (body) => {
+  for (const needle of [
+    'Abbott',
+    '1A',
+    'Current district',
+    'How to enroll at',
+    'UIL eligibility standards',
+    'All current UIL football programs use the same profile system.',
+  ]) requireNeedle(body, needle, 'Abbott football school profile');
+  if (/\bnoindex\b/i.test(body)) throw new Error('Abbott football school profile unexpectedly contains noindex');
+});
+
 await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
   requireNeedle(body, '<loc>https://texasdefined.com/sports/friday-night-lights</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams</loc>', 'sitemap');
+  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/katy</loc>', 'sitemap');
+  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/abbott</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/article/texas-high-school-football-playoffs-explained</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/article/texas-six-man-football-rules-explained</loc>', 'sitemap');
 });
@@ -199,4 +241,4 @@ await fetchVerified('/robots.txt', 'robots', (body) => {
   if (/Disallow:\s*\/sports(?:\/|\s|$)/i.test(body)) throw new Error('robots.txt blocks /sports');
 });
 
-console.log('Friday Night Lights production smoke passed: hub SEO/discovery, classification/history authority, playoff authority, six-man rules authority, statewide team finder, UIL all-time plus recent-finals API history, sitemap and robots are live.');
+console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, seed and non-seed school profiles, district/enrollment/eligibility research, history, sitemap and robots are live.');
