@@ -28,10 +28,11 @@ export const Route = createFileRoute("/texas-icons/$slug")({
   head: ({ loaderData }) => {
     if (!loaderData) return {};
     const canonicalPath = `/texas-icons/${loaderData.icon.slug}`;
+    const narrativeProfile = (loaderData.talentProfile ?? loaderData.researchProfile) as TexasIconNarrativeProfile | null;
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: `${loaderData.icon.name}: Texas Icon`,
+        title: narrativeProfile?.seoTitle ?? `${loaderData.icon.name}: Texas Icon`,
         description: loaderData.icon.summary,
         type: "article",
       }),

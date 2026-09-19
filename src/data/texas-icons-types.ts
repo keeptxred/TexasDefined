@@ -21,6 +21,7 @@ export type TexasIconRosterEntry = {
 
 export type TexasIconNarrativeProfile = {
   slug: string;
+  seoTitle?: string;
   dek: string;
   overview: readonly string[];
   definingWorks: readonly string[];
