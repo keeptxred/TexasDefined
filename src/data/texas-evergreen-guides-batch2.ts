@@ -67,6 +67,123 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       { href: "/explore/trip-planner", label: "Build a weekend route", description: "Combine live music with nearby towns and attractions." }
     ]
   },
+  "texas-homecoming": {
+    slug: "texas-homecoming",
+    eyebrow: "Football, mums, alumni and school identity",
+    title: "Texas Homecoming: Why the Tradition Means So Much Here",
+    dek: "In Texas, homecoming is bigger than a dance. Football, alumni, parades, pep rallies, bands, school colors, homecoming courts and enormous mums turn one week into a public celebration of school and community identity.",
+    quickAnswer: "Texas homecoming matters because it brings several strong traditions together at once: high-school football, school spirit, alumni return, marching bands, cheer and drill teams, community gatherings, parades, court ceremonies, dances and the unmistakably Texas tradition of giant homecoming mums and garters. Not every school follows the same script, but where homecoming is strong it functions less like a single event and more like a week-long reunion for the school and the community around it.",
+    sections: [
+      {
+        heading: "Homecoming is not just the dance",
+        body: [
+          "For newcomers, the easiest mistake is to think homecoming means one semi-formal dance. In many Texas schools, the dance is only one piece of a much larger week that can include themed spirit days, hallway decorations, a community parade, pep rally, alumni gatherings, a varsity football game, homecoming court ceremonies and school-wide traditions.",
+          "The exact schedule changes from district to district. Some schools emphasize a parade, some a community pep rally, some the game and court, and some do not hold every traditional event. That local variation is important: Texas homecoming is recognizable statewide without being standardized statewide."
+        ],
+        links: [
+          { href: "/sports/friday-night-lights", label: "Friday Night Lights, Defined" },
+          { href: "/events", label: "Texas events" }
+        ]
+      },
+      {
+        heading: "Why football sits at the center",
+        body: [
+          "Homecoming developed around the idea of bringing former students back to a familiar campus event, and football became the natural anchor because it already gathered students, families and alumni in one place. In Texas, where Friday-night football can be a major community ritual, that overlap is especially visible.",
+          "The homecoming game is therefore more than another date on the schedule. It becomes a stage for school colors, alumni recognition, court presentations, band performances, cheer and drill teams, student sections and community traditions that extend well beyond the final score."
+        ],
+        links: [
+          { href: "/texas-high-school-football-teams", label: "Find a Texas high-school football program" },
+          { href: "/sports-venues/high-school-football", label: "Texas high-school football stadiums" }
+        ]
+      },
+      {
+        heading: "The mums are the unmistakably Texas layer",
+        body: [
+          "Nothing makes a Texas homecoming look different faster than the mum. What began as a chrysanthemum corsage evolved into a highly personalized wearable display built from artificial flowers, ribbons, braids, bells, charms, names, jersey numbers, class years, stuffed mascots, photos and, in some cases, lights.",
+          "There is no single statewide size rule. Some students wear relatively simple single-flower designs, while elaborate versions can span much of the torso and trail with ribbons toward the knees or ankles. Multi-flower mums and large senior designs can become so substantial that they are worn from a neck ribbon or harness rather than pinned like an ordinary corsage.",
+          "That scale is not merely decoration. A mum can record the wearer's school colors, clubs, athletics, band, cheer, drill team, friends, date, graduation year and inside jokes. It functions as a wearable scrapbook of the school year."
+        ],
+        links: [
+          { href: "/texas-homecoming-mums", label: "Texas homecoming mums explained in depth" }
+        ]
+      },
+      {
+        heading: "Mums and garters are keepsakes, not a statewide dress code",
+        body: [
+          "Traditionally, the larger mum was associated with girls and the smaller arm-worn garter with boys, often exchanged by homecoming dates. Modern practice is more flexible. Students may buy their own, make them with family or friends, exchange them with a date, or adapt the tradition in ways that fit their school.",
+          "Local customs matter more than supposed universal rules. Colors, senior accents, bell policies, when the pieces are worn and what symbols are considered normal can all vary by campus. The safest advice for a newcomer is to ask students or the school community what is customary there."
+        ]
+      },
+      {
+        heading: "Pep rallies, parades and spirit week make the whole school visible",
+        body: [
+          "Homecoming week gives organizations that may not share the spotlight every Friday a highly visible role. Marching bands, cheerleaders, drill and dance teams, student councils, clubs, class officers, mascots and floats can all become part of the public celebration.",
+          "Spirit days also pull ordinary classroom life into the event. Theme days, color days, class competitions and decorations create a week-long buildup so the game feels like a culmination rather than an isolated event.",
+          "In some communities the parade or pep rally is explicitly public, drawing parents, younger students and local residents. That is one reason homecoming can feel like a town event rather than a closed school function."
+        ]
+      },
+      {
+        heading: "The homecoming court turns memory into ceremony",
+        body: [
+          "Homecoming courts, royalty titles and presentation customs differ widely, and not every school uses the same structure. Where a court is part of the week, the ceremony creates a formal moment that connects student recognition with the game-night crowd.",
+          "The court also shows how homecoming blends old conventions with newer expectations. Schools continue to adjust titles, nomination rules and presentation traditions while keeping the larger idea of recognizing students during a highly visible school celebration."
+        ]
+      },
+      {
+        heading: "Why alumni matter so much",
+        body: [
+          "The word homecoming is literal: the tradition is built around former students coming back. Alumni reunions, former players, past band members, retired teachers and multigenerational families give the event a longer memory than an ordinary school week.",
+          "That continuity is especially powerful in communities where multiple generations attended the same district. The stadium, mascot, fight song and school colors become shared reference points between current students and people who graduated decades earlier."
+        ],
+        links: [
+          { href: "/find-my-school-district", label: "Find a Texas school district" }
+        ]
+      },
+      {
+        heading: "Baylor helps explain how early the Texas connection runs",
+        body: [
+          "Texas has an unusually early place in the history of the modern homecoming idea. Baylor University invited alumni back to Waco in 1909 for a celebration that included a band concert, alumni gatherings, a parade, school colors and a football game against TCU.",
+          "Claims about the single first homecoming in American history have long been debated among universities, so the safest historical description is that Baylor's 1909 event is one of the earliest clearly recognizable modern collegiate homecomings. Its combination of alumni return, parade, school spirit and football already looks remarkably familiar more than a century later.",
+          "The Texas high-school version developed its own identity later, especially through the growth of the mum tradition, but the basic homecoming idea—return, reunion, school pride and a major game—has deep roots in the state."
+        ]
+      },
+      {
+        heading: "Why homecoming feels especially big in Texas",
+        body: [
+          "Texas did not invent every element of homecoming, and plenty of other states celebrate it enthusiastically. What makes the Texas version distinctive is the way several already-large institutions overlap: football culture, large marching bands, school spirit organizations, multigenerational alumni networks, community participation and a craft tradition that turned a corsage into something unmistakable.",
+          "The result is a celebration that can be simultaneously athletic, social, ceremonial, nostalgic and intensely local. For a teenager it may be about friends, the mum and the dance. For a parent it may be a family milestone. For an alumnus it may be a return to a place that still looks familiar. For a town it may be one of the most visible school-community gatherings of the year."
+        ],
+        links: [
+          { href: "/things-unique-to-texas/culture-music", label: "More Texas culture and traditions" },
+          { href: "/texas-living", label: "Texas Living" }
+        ]
+      },
+      {
+        heading: "A newcomer's guide to Texas homecoming week",
+        body: [
+          "If your family is new to Texas, start with the school's official calendar and student communications rather than assuming every tradition is universal. Confirm the homecoming game, parade or pep-rally time, dance rules, ticket requirements and any school-specific guidance for mums or garters.",
+          "If you are attending the game, arrive early enough to see the pregame atmosphere and stay through halftime. If your student wants a mum, ask what students at that campus actually wear before ordering one. The point is to understand the local tradition, not to win an imaginary statewide contest."
+        ],
+        bullets: [
+          "Check the district or high-school calendar for the official homecoming week.",
+          "Ask about local mum and garter customs before ordering or building one.",
+          "Expect game-night parking and crowds to be heavier than an ordinary home game.",
+          "Do not assume every school holds a parade, dance, bonfire or traditional court.",
+          "Treat the band, cheer, drill team, student section and alumni events as part of homecoming—not side attractions."
+        ],
+        links: [
+          { href: "/sports/friday-night-lights", label: "Plan a Texas Friday-night football experience" },
+          { href: "/texas-homecoming-mums", label: "Understand mums and garters" }
+        ]
+      }
+    ],
+    related: [
+      { href: "/texas-homecoming-mums", label: "Texas Homecoming Mums Explained", description: "Go deeper on the enormous ribbons, flowers, garters, charms, school colors and local customs that make Texas homecoming visually distinctive." },
+      { href: "/sports/friday-night-lights", label: "Friday Night Lights, Defined", description: "Understand the football, band, cheer, student-section and community culture that gives homecoming its Friday-night stage." },
+      { href: "/texas-high-school-football-teams", label: "Texas high-school football team finder", description: "Look up current UIL football programs by school, city, county, district and classification." },
+      { href: "/things-unique-to-texas/culture-music", label: "Texas culture and traditions", description: "Explore more rituals, music, foodways and customs that shape everyday Texas identity." }
+    ]
+  },
   "texas-homecoming-mums": {
     slug: "texas-homecoming-mums",
     eyebrow: "Ribbon, bells and high-school tradition",
@@ -87,7 +204,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
           "Homecoming already sits at the intersection of football, school identity, marching bands, alumni traditions and social life. Texas high-school culture gives all of those things unusual visibility, so the mum had room to grow into something bigger and more personalized.",
           "Its scale is part celebration and part friendly competition. Bigger does not automatically mean better, but the visual excess is now part of what makes the tradition recognizable."
         ],
-        links: [{ href: "/sports-venues/high-school-football", label: "Texas high-school football" }]
+        links: [{ href: "/texas-homecoming", label: "Why homecoming matters in Texas" }, { href: "/sports-venues/high-school-football", label: "Texas high-school football" }]
       },
       {
         heading: "What all the ribbons and charms mean",
@@ -120,6 +237,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       }
     ],
     related: [
+      { href: "/texas-homecoming", label: "Texas Homecoming", description: "See how mums fit into the larger homecoming week of football, alumni, parades, pep rallies, court ceremonies and school identity." },
       { href: "/sports/friday-night-lights", label: "Friday Night Lights, Defined", description: "Connect homecoming mums to the broader Texas high-school football traditions, game-night culture and season arc." },
       { href: "/sports-venues/high-school-football", label: "Texas high-school football", description: "The Friday-night culture that provides the backdrop for homecoming." },
       { href: "/things-unique-to-texas/culture-music", label: "Texas cultural traditions", description: "Rodeos, music, school rituals and community customs." },
