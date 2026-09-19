@@ -39,7 +39,8 @@ function PartnerReferralAnalyticsAdmin() {
 
   const maxDailyClicks = useMemo(() => Math.max(1, ...(dashboard?.daily.map((row) => row.clicks) ?? [1])), [dashboard]);
   const maxDailyImpressions = useMemo(() => Math.max(1, ...(dashboard?.daily.flatMap((row) => row.impressions === null ? [] : [row.impressions]) ?? [1])), [dashboard]);
-  const ctrStartLabel = dashboard ? new Date(`${dashboard.impressionTrackingStartedAt}T00:00:00Z`).toLocaleDateString(undefined, { timeZone: 'UTC' }) : '';
+  const impressionStartLabel = dashboard ? new Date(`${dashboard.impressionTrackingStartedAt}T00:00:00Z`).toLocaleDateString(undefined, { timeZone: 'UTC' }) : '';
+  const ctrStartLabel = dashboard ? new Date(`${dashboard.ctrMeasurementStartedAt}T00:00:00Z`).toLocaleDateString(undefined, { timeZone: 'UTC' }) : '';
 
   return <Container className="py-12 sm:py-16"><main className="mx-auto max-w-7xl">
     <header className="border-b border-border pb-8">
@@ -70,7 +71,7 @@ function PartnerReferralAnalyticsAdmin() {
       <section className="mt-12 border-t border-border pt-6">
         <div className="flex flex-wrap items-end justify-between gap-3"><div><p className="eyebrow text-primary">30-day trend</p><h2 className="mt-2 font-display text-4xl">Daily referral performance</h2></div><button disabled={busy} onClick={() => { setBusy(true); setError(''); void refresh().catch((cause) => setError(cause instanceof Error ? cause.message : 'Refresh failed.')).finally(() => setBusy(false)); }} className="min-h-10 border border-border px-4 text-sm font-semibold">Refresh</button></div>
         {error ? <p className="mt-4 text-sm font-semibold text-destructive">{error}</p> : null}
-        <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">Click history spans the full 30-day window. CTA impression history begins on {ctrStartLabel}; earlier days are intentionally shown as unmeasured rather than zero.</p>
+        <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">Click history spans the full 30-day window. CTA impression history begins on {impressionStartLabel}. The clean CTR measurement window begins on {ctrStartLabel}; rollout-day impressions remain visible but are excluded from CTR.</p>
         <p className="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Referral clicks</p>
         <div className="mt-2 grid h-36 items-end gap-1" style={{ gridTemplateColumns: 'repeat(30,minmax(0,1fr))' }} aria-label="Daily partner referral clicks">
           {dashboard.daily.map((row) => <div key={`clicks:${row.date}`} className="relative flex h-full items-end" title={`${row.date}: ${row.clicks} clicks`}><div className="w-full bg-primary" style={{ height: `${Math.max(2, (row.clicks / maxDailyClicks) * 100)}%`, opacity: 0.7 }} /><span className="sr-only">{row.date}: {row.clicks} clicks</span></div>)}
