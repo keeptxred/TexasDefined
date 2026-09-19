@@ -14,13 +14,15 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: 'Football school profile not found' }, { name: 'robots', content: 'noindex' }] };
-    const { displayName, slug, program, identity, governingBodyHint, associationClassification } = loaderData;
+    const { displayName, slug, program, identity, privateAlignment, governingBodyHint, associationClassification } = loaderData;
     const canonicalPath = `/texas-high-school-football-teams/${slug}`;
     const classification = program
       ? `${program.classification}${program.division ? ` Division ${program.division === 1 ? 'I' : 'II'}` : ''}, District ${program.district}`
-      : governingBodyHint
-        ? `${governingBodyHint}${associationClassification ? ` ${associationClassification}` : ''}`
-        : 'Texas high school football';
+      : privateAlignment
+        ? `${privateAlignment.association} ${privateAlignment.divisionLabel}${privateAlignment.districtLabel ? `, ${privateAlignment.districtLabel}` : ''}`
+        : governingBodyHint
+          ? `${governingBodyHint}${associationClassification ? ` ${associationClassification}` : ''}`
+          : 'Texas high school football';
     const description = `${displayName} football profile: ${classification}, school and county context, enrollment research steps${identity ? `, ${identity.mascot} mascot` : ''}, and links for families researching a Texas high school.`;
     const url = `${siteUrl}${canonicalPath}`;
 
