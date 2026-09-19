@@ -149,13 +149,13 @@ function Page() {
         </div>
       </section>}
 
-      {program && venueLinks.length > 0 && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+      {program && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Game venue</p>
-          <h2 className="mt-2 font-display text-3xl">Verified football venue relationships</h2>
+          <h2 className="mt-2 font-display text-3xl">{venueLinks.length > 0 ? 'Verified football venue relationships' : 'Football venue research'}</h2>
           <p className="mt-4 text-sm leading-7 text-muted-foreground">Texas high schools often share district stadiums. A venue listed here is a sourced school or district football relationship, not a promise that every home game is played there. Confirm the current schedule before travel.</p>
         </div>
-        <div className="space-y-5">
+        {venueLinks.length > 0 ? <div className="space-y-5">
           {venueLinks.map((venue) => <article key={venue.venueSlug} className="border-t-2 border-foreground pt-5">
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">{venue.relationshipLabel}</p>
             <h3 className="mt-2 font-display text-3xl"><a href={venue.venuePath} className="hover:text-primary">{venue.venueName}</a></h3>
@@ -172,7 +172,11 @@ function Page() {
             </div>
             {venue.verifiedAt && <p className="mt-3 text-xs text-muted-foreground">Venue planning details reviewed {venue.verifiedAt}.</p>}
           </article>)}
-        </div>
+        </div> : <div className="border-y border-border py-5">
+          <p className="font-display text-2xl">Venue verification pending</p>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Every UIL school profile has the same game-venue field. TexasDefined does not assign a stadium from proximity or a school name alone; this section stays pending until a school, district or official venue source verifies the football relationship.</p>
+          <a href="/sports-venues/high-school-football" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Browse verified Texas high-school football stadiums →</a>
+        </div>}
       </section>}
 
       <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
@@ -306,7 +310,7 @@ function PublicEnrollmentSteps({
     ['Verify athletic eligibility', 'After enrollment is settled, ask the school athletic office how UIL residency, transfer and previous-athletic-participation rules apply to this student’s specific situation.'],
   ];
   return <>
-    {enrollmentLink && <div className="mb-6 border border-border p-5">
+    {enrollmentLink ? <div className="mb-6 border border-border p-5">
       <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official district enrollment</p>
       <p className="mt-2 text-sm leading-7 text-muted-foreground">
         TexasDefined verified this district enrollment source on {enrollmentLink.verifiedAt}{enrollmentLink.schoolYear ? ` for the ${enrollmentLink.schoolYear} school year` : ''}. Use the district page for current forms, deadlines and required documents.
@@ -314,6 +318,11 @@ function PublicEnrollmentSteps({
       <a href={enrollmentLink.enrollmentUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
         Start with {enrollmentLink.sourceLabel} ↗
       </a>
+    </div> : <div className="mb-6 border border-border p-5">
+      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official enrollment source verification pending</p>
+      <p className="mt-2 text-sm leading-7 text-muted-foreground">
+        Every UIL school profile uses the same enrollment-source field. TexasDefined has not yet attached a district-specific enrollment URL for {district}, so use the TEA school/district links above and verify the current new-student process directly with the district before relying on enrollment requirements or deadlines.
+      </p>
     </div>}
     <StepList steps={steps} />
   </>;
