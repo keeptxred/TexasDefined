@@ -1,7 +1,7 @@
 import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
-import { getFeaturedFootballProgramProfile } from '@/data/high-school-football/featured-program-profile.server';
+import { getFeaturedFootballProgramProfile } from '@/data/high-school-football/featured-program-profile.functions';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
