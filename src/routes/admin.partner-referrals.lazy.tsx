@@ -67,10 +67,12 @@ function PartnerReferralAnalyticsAdmin() {
         <Metric label="30d referral clicks" value={dashboard.totalClicks30d} />
         <Metric label="30d CTA impressions" value={dashboard.totalImpressions30d} />
         <Metric label="30d Expedia search starts" value={dashboard.totalSearchStarts30d} />
+        <Metric label="30d recommended stays opens" value={dashboard.totalRecommendationOpens30d} />
         <Metric label={`CTR since ${ctrStartLabel}`} value={dashboard.clickThroughRateSinceImpressionTracking === null ? 'No impressions yet' : `${dashboard.clickThroughRateSinceImpressionTracking}%`} />
         <Metric label="Last 7 days clicks" value={dashboard.totalClicks7d} />
         <Metric label="Last 7 days impressions" value={dashboard.totalImpressions7d} />
         <Metric label="Last 7 days Expedia searches" value={dashboard.totalSearchStarts7d} />
+        <Metric label="Last 7 days recommended opens" value={dashboard.totalRecommendationOpens7d} />
         <Metric label="Prior 7 days clicks" value={dashboard.prior7dClicks} />
         <Metric label="Click week over week" value={dashboard.weekOverWeekPercent === null ? 'New' : `${dashboard.weekOverWeekPercent > 0 ? '+' : ''}${dashboard.weekOverWeekPercent}%`} />
         <Metric label="Last aggregate write" value={dashboard.lastSyncedAt ? new Date(dashboard.lastSyncedAt).toLocaleString() : 'No referral rows yet'} />
@@ -111,6 +113,16 @@ function PartnerReferralAnalyticsAdmin() {
       </section>
 
       <section className="mt-12 border-t border-border pt-6">
+        <p className="eyebrow text-primary">On-page recommendation intent</p>
+        <h2 className="mt-2 font-display text-4xl">Recommended stays opened</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">These are clicks on the internal “View recommended stays” control that moves a visitor to verified exact-property hotel choices. They are reported separately from outbound referral clicks and Expedia search starts so the funnel can distinguish CTA engagement from partner exits.</p>
+        <div className="mt-6 grid gap-10 xl:grid-cols-2">
+          <RecommendationOpenTable title="By placement" rows={dashboard.recommendationOpenPlacements} />
+          <RecommendationOpenTable title="By page" rows={dashboard.recommendationOpenPages} />
+        </div>
+      </section>
+
+      <section className="mt-12 border-t border-border pt-6">
         <p className="eyebrow text-primary">On-page booking intent</p>
         <h2 className="mt-2 font-display text-4xl">Expedia search starts</h2>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">These are on-page Expedia widget/search activations, reported separately from outbound referral clicks so referral CTR remains comparable.</p>
@@ -147,6 +159,11 @@ function BreakdownTable({ title, ctrLabel, rows }: { title: string; ctrLabel: st
 
 function WatchlistTable({ title, rows }: { title: string; rows: Array<{ key: string; label: string; impressions: number }> }) {
   return <section><h3 className="font-display text-3xl">{title}</h3><div className="mt-4 overflow-x-auto"><table className="w-full min-w-[520px] text-sm"><thead><tr className="border-b border-border text-left"><th className="py-3 pr-4">Name</th><th className="py-3 text-right">Measured impressions</th></tr></thead><tbody>{rows.length ? rows.map((row) => <tr key={row.key} className="border-b border-border/60"><td className="py-3 pr-4 font-mono text-xs">{row.label}</td><td className="py-3 text-right font-semibold">{row.impressions}</td></tr>) : <tr><td colSpan={2} className="py-4 text-muted-foreground">No zero-click rows meet the watchlist threshold yet.</td></tr>}</tbody></table></div></section>;
+}
+
+
+function RecommendationOpenTable({ title, rows }: { title: string; rows: Array<{ key: string; label: string; opens30d: number; opens7d: number }> }) {
+  return <section><h3 className="font-display text-3xl">{title}</h3><div className="mt-4 overflow-x-auto"><table className="w-full min-w-[640px] text-sm"><thead><tr className="border-b border-border text-left"><th className="py-3 pr-4">Name</th><th className="py-3 pr-4 text-right">30d opens</th><th className="py-3 text-right">7d opens</th></tr></thead><tbody>{rows.length ? rows.map((row) => <tr key={row.key} className="border-b border-border/60"><td className="py-3 pr-4">{row.label}</td><td className="py-3 pr-4 text-right font-semibold">{row.opens30d}</td><td className="py-3 text-right">{row.opens7d}</td></tr>) : <tr><td colSpan={3} className="py-4 text-muted-foreground">No recommended-stay opens recorded yet.</td></tr>}</tbody></table></div></section>;
 }
 
 function SearchStartTable({ title, rows }: { title: string; rows: Array<{ key: string; label: string; starts30d: number; starts7d: number }> }) {
