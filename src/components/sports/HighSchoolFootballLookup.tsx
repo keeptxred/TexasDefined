@@ -12,6 +12,24 @@ type FootballProgram = {
   countyName?: string;
   city?: string;
   sourceUrl: string;
+  recentHistory?: {
+    windowStartSeason: string;
+    windowEndSeason: string;
+    stateTitles: number;
+    stateRunnerUpFinishes: number;
+    stateFinalAppearances: number;
+    mostRecentTitleSeason?: string;
+    mostRecentFinalSeason?: string;
+    finals: Array<{
+      season: string;
+      conference: string;
+      result: 'Champion' | 'Runner-Up';
+      opponent: string;
+      score: string;
+    }>;
+    sourceUrl: string;
+    matchMethod: 'exact-normalized-uil-name';
+  };
 };
 
 type LookupResponse = {
@@ -19,6 +37,7 @@ type LookupResponse = {
   programs?: FootballProgram[];
   matchedTotal?: number;
   directoryAvailable?: boolean;
+  historyAvailable?: boolean;
   alignmentCycle?: string;
   error?: string;
 };
@@ -44,6 +63,7 @@ export function HighSchoolFootballLookup({
   const [programs, setPrograms] = useState<FootballProgram[]>([]);
   const [matchedTotal, setMatchedTotal] = useState(0);
   const [directoryAvailable, setDirectoryAvailable] = useState(true);
+  const [historyAvailable, setHistoryAvailable] = useState(true);
   const [loading, setLoading] = useState(Boolean(countyName));
   const [error, setError] = useState('');
 
@@ -62,6 +82,7 @@ export function HighSchoolFootballLookup({
         setPrograms(payload.programs ?? []);
         setMatchedTotal(payload.matchedTotal ?? payload.programs?.length ?? 0);
         setDirectoryAvailable(payload.directoryAvailable !== false);
+        setHistoryAvailable(payload.historyAvailable !== false);
       } catch (cause) {
         if (controller.signal.aborted) return;
         setError(cause instanceof Error ? cause.message : 'Football programs could not be loaded.');
@@ -92,6 +113,7 @@ export function HighSchoolFootballLookup({
       setPrograms(payload.programs ?? []);
       setMatchedTotal(payload.matchedTotal ?? payload.programs?.length ?? 0);
       setDirectoryAvailable(payload.directoryAvailable !== false);
+      setHistoryAvailable(payload.historyAvailable !== false);
       if (!(payload.programs?.length)) setError(`No current UIL football program matched “${trimmed}.” Try the official high-school or ISD name.`);
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : 'Football programs could not be loaded.');
@@ -160,6 +182,7 @@ export function HighSchoolFootballLookup({
                 <div><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">UIL district</dt><dd className="mt-1 font-semibold">{program.district}</dd></div>
                 <div><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">Format</dt><dd className="mt-1 font-semibold">{program.footballType}</dd></div>
               </dl>
+              {program.recentHistory && <RecentFinals history={program.recentHistory} />}
               <a href={program.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-xs font-semibold text-primary underline underline-offset-4">Official UIL alignment ↗</a>
             </article>)}
           </div>
@@ -167,14 +190,44 @@ export function HighSchoolFootballLookup({
         </div>}
 
         {!loading && !directoryAvailable && <p className="mt-5 border border-border p-4 text-sm leading-6 text-muted-foreground">The UIL school lookup is still available, but TEA’s school-directory service could not be reached, so ISD and county enrichment may be temporarily unavailable.</p>}
+        {!loading && !historyAvailable && <p className="mt-5 border border-border p-4 text-sm leading-6 text-muted-foreground">Current UIL alignment results are available, but UIL’s state-archive pages could not be reached, so recent state-final history is temporarily omitted.</p>}
 
         <div className="mt-6 border-t border-border pt-5 text-xs leading-6 text-muted-foreground">
           <p><strong className="text-foreground">What this tells you:</strong> current 2026–28 UIL classification, football division, district and six-man/11-man format. School, ISD, city and county context comes from Texas Education Agency AskTED when available.</p>
-          <p className="mt-2">This is not a “best school” rating. Football placement is one part of researching a program. Attendance zones, transfers, eligibility and campus assignments can change, so confirm an exact address and student eligibility with the school district and UIL before making a move.</p>
+          <p className="mt-2"><strong className="text-foreground">Recent state-final history:</strong> title and runner-up counts cover the eight completed UIL championship seasons from 2018–19 through 2025–26 and appear only on an exact normalized UIL school-name match. No badge does not mean a weak program and is not an all-time-history claim.</p>
+          <p className="mt-2">This is not a “best school” rating. Football placement and recent championship history are only parts of researching a program. Attendance zones, transfers, eligibility and campus assignments can change, so confirm an exact address and student eligibility with the school district and UIL before making a move.</p>
         </div>
       </div>
     </div>
   </section>;
+}
+
+function RecentFinals({ history }: { history: NonNullable<FootballProgram['recentHistory']> }) {
+  const latest = history.mostRecentTitleSeason
+    ? `Title ${shortSeason(history.mostRecentTitleSeason)}`
+    : history.mostRecentFinalSeason
+      ? `Final ${shortSeason(history.mostRecentFinalSeason)}`
+      : '—';
+
+  return <div className="mt-4 border-t border-border pt-4">
+    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-primary">Recent UIL state-final history · 2018–19 to 2025–26</p>
+    <dl className="mt-3 grid grid-cols-3 gap-3 text-sm">
+      <div><dt className="text-xs text-muted-foreground">Titles</dt><dd className="mt-1 font-display text-2xl">{history.stateTitles}</dd></div>
+      <div><dt className="text-xs text-muted-foreground">State finals</dt><dd className="mt-1 font-display text-2xl">{history.stateFinalAppearances}</dd></div>
+      <div><dt className="text-xs text-muted-foreground">Latest</dt><dd className="mt-1 font-semibold">{latest}</dd></div>
+    </dl>
+    <div className="mt-3 space-y-1">
+      {history.finals.slice(0, 3).map((final) => <p key={`${final.season}-${final.conference}-${final.result}`} className="text-xs leading-5 text-muted-foreground">
+        {shortSeason(final.season)} · {final.result} · {final.conference} · vs. {final.opponent}
+      </p>)}
+    </div>
+    <a href={history.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-xs font-semibold text-primary underline underline-offset-4">UIL state archives ↗</a>
+  </div>;
+}
+
+function shortSeason(season: string) {
+  const [start, end] = season.split('-');
+  return start && end ? `${start.slice(-2)}–${end.slice(-2)}` : season;
 }
 
 function alignmentLabel(program: FootballProgram) {

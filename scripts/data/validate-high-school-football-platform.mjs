@@ -11,6 +11,7 @@ const requireText = (source, marker, label) => {
 const files = [
   'src/data/high-school-football/uil-football-alignments-2026.server.ts',
   'src/data/high-school-football/football-directory.server.ts',
+  'src/data/high-school-football/uil-football-recent-history.server.ts',
   'src/routes/api.high-school-football.ts',
   'src/components/sports/HighSchoolFootballLookup.tsx',
   'src/components/sports/CountyHighSchoolFootball.tsx',
@@ -31,17 +32,18 @@ for (const file of files) {
 if (!errors.length) {
   const alignment = read(files[0]);
   const directory = read(files[1]);
-  const api = read(files[2]);
-  const finder = read(files[3]);
-  const countyModule = read(files[4]);
-  const route = read(files[5]);
-  const page = read(files[6]);
-  const schoolDistrict = read(files[7]);
-  const relocationFinder = read(files[8]);
-  const entityPage = read(files[9]);
-  const footballHub = read(files[10]);
-  const publicRoutes = read(files[11]);
-  const dataSources = read(files[12]);
+  const history = read(files[2]);
+  const api = read(files[3]);
+  const finder = read(files[4]);
+  const countyModule = read(files[5]);
+  const route = read(files[6]);
+  const page = read(files[7]);
+  const schoolDistrict = read(files[8]);
+  const relocationFinder = read(files[9]);
+  const entityPage = read(files[10]);
+  const footballHub = read(files[11]);
+  const publicRoutes = read(files[12]);
+  const dataSources = read(files[13]);
 
   for (const marker of [
     'UIL_FOOTBALL_PROGRAM_COUNT !== 1268',
@@ -64,13 +66,28 @@ if (!errors.length) {
     'districtName',
     'countyName',
     'CACHE_TTL_MS',
+    'loadUilRecentFootballHistory',
+    'recentHistory',
+    'historyAvailable',
   ]) requireText(directory, marker, 'Football directory');
+
+  for (const marker of [
+    "const UIL_FOOTBALL_ARCHIVE_URL = 'https://www.uiltexas.org/football/archives'",
+    "const HISTORY_START_SEASON = '2018-2019'",
+    "const HISTORY_END_SEASON = '2025-2026'",
+    'ARCHIVE_PAGE_OFFSETS',
+    'stateTitles',
+    'stateFinalAppearances',
+    "matchMethod: 'exact-normalized-uil-name'",
+    'recentFootballHistoryFromLoaded',
+  ]) requireText(history, marker, 'UIL recent football history');
 
   for (const marker of [
     "createFileRoute('/api/high-school-football')",
     'searchFootballPrograms',
     "'x-robots-tag': 'noindex, nofollow'",
     "alignmentCycle: '2026-28'",
+    'recentStateFinals',
   ]) requireText(api, marker, 'Football lookup API');
 
   for (const marker of [
@@ -81,6 +98,9 @@ if (!errors.length) {
     'Attendance zones, transfers, eligibility and campus assignments can change',
     'initialQuery',
     'runQuery',
+    'Recent UIL state-final history · 2018–19 to 2025–26',
+    'No badge does not mean a weak program',
+    'UIL state archives ↗',
   ]) requireText(finder, marker, 'Football lookup component');
 
   requireText(countyModule, 'High school football in', 'County football module');
@@ -111,12 +131,12 @@ if (!errors.length) {
   requireText(dataSources, "domain:'sports'", 'Texas source registry');
 
   for (const [file, source] of [
-    [files[3], finder],
-    [files[4], countyModule],
-    [files[6], page],
-    [files[7], schoolDistrict],
-    [files[8], relocationFinder],
-    [files[9], entityPage],
+    [files[4], finder],
+    [files[5], countyModule],
+    [files[7], page],
+    [files[8], schoolDistrict],
+    [files[9], relocationFinder],
+    [files[10], entityPage],
   ]) {
     if (source.includes('uil-football-alignments-2026.server') || source.includes('football-directory.server')) {
       errors.push(`Client surface must not import the server-only football dataset directly: ${file}`);

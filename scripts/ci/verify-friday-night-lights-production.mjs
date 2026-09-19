@@ -1,5 +1,7 @@
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 const hubPath = '/sports/friday-night-lights';
+const finderPath = '/texas-high-school-football-teams';
+const finderApiPath = '/api/high-school-football?q=Dallas%20South%20Oak%20Cliff&limit=5';
 const expectedTitle = 'Texas High School Football: Friday Night Lights, Traditions & Game-Day Guide';
 const expectedDescription = 'Understand Texas high school football through Friday-night traditions, six-man and 11-man culture, stadiums, homecoming mums, playoffs, school communities and practical game-day planning.';
 const expectedCanonical = `${origin}${hubPath}`;
@@ -91,6 +93,7 @@ const hubNeedles = [
   'Friday Night Lights, Defined', 'CollectionPage', 'ItemList', 'BreadcrumbList',
   '/article/texas-high-school-football-newcomers', '/article/texas-high-school-football-friday-night-lights',
   '/texas-homecoming-mums', '/sports-venues/high-school-football', '/find-my-school-district', '/texas-tailgating-guide',
+  '/texas-high-school-football-teams',
 ];
 
 await fetchVerified(hubPath, 'hub', (body) => {
@@ -103,12 +106,39 @@ await fetchVerified('/sports', 'sports hub', (body) => {
   requireNeedle(body, '/sports/friday-night-lights', 'sports hub');
 });
 
+await fetchVerified(finderPath, 'football finder', (body) => {
+  for (const needle of [
+    'Find a Texas high school football team',
+    'High school, ISD, city or county',
+    'What “good football fit” should mean',
+    '/find-my-school-district',
+    '/article/texas-high-school-football-classifications-1a-6a',
+  ]) requireNeedle(body, needle, 'football finder');
+  if (/\bnoindex\b/i.test(body)) throw new Error('football finder unexpectedly contains noindex');
+});
+
+await fetchVerified(finderApiPath, 'football finder API', (body) => {
+  const payload = JSON.parse(body);
+  if (payload?.ok !== true) throw new Error('football finder API did not return ok=true');
+  if (payload?.alignmentCycle !== '2026-28') throw new Error('football finder API alignment cycle is not 2026-28');
+  if (payload?.historyAvailable !== true) throw new Error('UIL recent-history layer is unavailable');
+  const southOakCliff = payload?.programs?.find((program) => program.schoolName === 'Dallas South Oak Cliff');
+  if (!southOakCliff) throw new Error('Dallas South Oak Cliff was not returned by exact UIL search');
+  if (!southOakCliff.recentHistory) throw new Error('Dallas South Oak Cliff is missing recent UIL state-final history');
+  if (southOakCliff.recentHistory.windowStartSeason !== '2018-2019' || southOakCliff.recentHistory.windowEndSeason !== '2025-2026') {
+    throw new Error('recent UIL history window is incorrect');
+  }
+  if (southOakCliff.recentHistory.stateFinalAppearances < 3) throw new Error('recent UIL history did not recover expected state-final appearances');
+  if (!southOakCliff.recentHistory.sourceUrl?.includes('uiltexas.org/football/archives')) throw new Error('recent UIL history is missing official archive provenance');
+});
+
 await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
   requireNeedle(body, '<loc>https://texasdefined.com/sports/friday-night-lights</loc>', 'sitemap');
+  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams</loc>', 'sitemap');
 });
 
 await fetchVerified('/robots.txt', 'robots', (body) => {
   if (/Disallow:\s*\/sports(?:\/|\s|$)/i.test(body)) throw new Error('robots.txt blocks /sports');
 });
 
-console.log('Friday Night Lights production smoke passed: SSR title, description and canonical plus hub content, schema, discovery links, sitemap and robots are live.');
+console.log('Friday Night Lights production smoke passed: hub SEO/discovery plus statewide team finder, UIL recent-finals API history, sitemap and robots are live.');
