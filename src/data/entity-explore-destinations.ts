@@ -64,7 +64,16 @@ const links: EntityExploreDestinationLink[] = [
     nearestTown: "Galveston",
     countySlug: "galveston",
     citySlug: "galveston",
-  },
+  },,
+  {
+    slug: "hazel-bazemore-county-park",
+    name: "Hazel Bazemore County Park",
+    summary: "A Nueces River birding park and major fall hawk-watch site on Corpus Christi's west side.",
+    category: "outdoors",
+    nearestTown: "Corpus Christi",
+    countySlug: "nueces",
+    citySlug: "corpus-christi",
+  }
 ];
 
 export function exploreDestinationsForEntity(kind: string, slug: string) {
