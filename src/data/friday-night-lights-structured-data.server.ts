@@ -10,6 +10,7 @@ const collectionItems = [
   ["Why Friday night lights matter in Texas", "/article/texas-high-school-football-friday-night-lights"],
   ["Texas homecoming mums explained", "/texas-homecoming-mums"],
   ["Texas high-school football stadiums", "/sports-venues/high-school-football"],
+  ["Texas high school football team finder", "/texas-high-school-football-teams"],
   ["Find your Texas school district", "/find-my-school-district"],
   ["Texas sports hub", "/sports"],
   ["Texas tailgating guide", "/texas-tailgating-guide"],
