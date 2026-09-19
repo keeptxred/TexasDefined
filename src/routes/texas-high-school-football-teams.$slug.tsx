@@ -1,33 +1,33 @@
 import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
-import { getFeaturedFootballProgramProfile } from '@/data/high-school-football/featured-program-profile.functions';
+import { getFootballProgramProfilePage } from '@/data/high-school-football/football-program-profile.functions';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute('/texas-high-school-football-teams/$slug')({
   loader: async ({ params }) => {
-    const profile = await getFeaturedFootballProgramProfile(params.slug);
+    const profile = await getFootballProgramProfilePage(params.slug);
     if (!profile) throw notFound();
     return profile;
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: 'Football school profile not found' }, { name: 'robots', content: 'noindex' }] };
-    const { featured, program, identity } = loaderData;
-    const canonicalPath = `/texas-high-school-football-teams/${featured.slug}`;
+    const { displayName, slug, program, identity, governingBodyHint, associationClassification } = loaderData;
+    const canonicalPath = `/texas-high-school-football-teams/${slug}`;
     const classification = program
       ? `${program.classification}${program.division ? ` Division ${program.division === 1 ? 'I' : 'II'}` : ''}, District ${program.district}`
-      : featured.governingBodyHint
-        ? `${featured.governingBodyHint}${featured.associationClassification ? ` ${featured.associationClassification}` : ''}`
+      : governingBodyHint
+        ? `${governingBodyHint}${associationClassification ? ` ${associationClassification}` : ''}`
         : 'Texas high school football';
-    const description = `${featured.displayName} football profile: ${classification}, school and county context, enrollment research steps${identity ? `, ${identity.mascot} mascot` : ''}, and links for families researching a Texas high school.`;
+    const description = `${displayName} football profile: ${classification}, school and county context, enrollment research steps${identity ? `, ${identity.mascot} mascot` : ''}, and links for families researching a Texas high school.`;
     const url = `${siteUrl}${canonicalPath}`;
 
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: `${featured.displayName} Football: Class, District, Enrollment & School Guide`,
+        title: `${displayName} Football: Class, District, Enrollment & School Guide`,
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -38,12 +38,12 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
             '@type': 'WebPage',
             '@id': `${url}#page`,
             url,
-            name: `${featured.displayName} Football School Profile`,
+            name: `${displayName} Football School Profile`,
             description,
             isPartOf: { '@id': `${siteUrl}/#website` },
             about: {
               '@type': 'HighSchool',
-              name: program?.officialSchoolName || featured.displayName,
+              name: program?.officialSchoolName || displayName,
               address: program?.city ? {
                 '@type': 'PostalAddress',
                 addressLocality: program.city,
@@ -59,7 +59,7 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
               { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
               { '@type': 'ListItem', position: 2, name: 'Texas Sports', item: `${siteUrl}/sports` },
               { '@type': 'ListItem', position: 3, name: 'High School Football Teams', item: `${siteUrl}/texas-high-school-football-teams` },
-              { '@type': 'ListItem', position: 4, name: featured.displayName, item: url },
+              { '@type': 'ListItem', position: 4, name: displayName, item: url },
             ],
           },
         ],
