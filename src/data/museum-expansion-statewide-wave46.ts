@@ -1,7 +1,7 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
 import type { Destination, ImageRef } from "./types";
 
-const SOURCE_CHECKED_AT = "2026-09-01";
+const SOURCE_CHECKED_AT = "2026-09-19";
 
 function museumPlaceholder(name: string): ImageRef {
   return {
@@ -15,7 +15,8 @@ function museumPlaceholder(name: string): ImageRef {
 /**
  * Forty-sixth statewide museum wave. The audit contains both Museum of Big Bend
  * and Museum of the Big Bend wording; this record consolidates them into the
- * active Sul Ross State University museum in Alpine.
+ * active Sul Ross State University museum in Alpine. This module owns the
+ * canonical record; the earlier statewide duplicate is retired.
  */
 export const statewideMuseumExpansionWave46Destinations: Destination[] = [
   {

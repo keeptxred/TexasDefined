@@ -1,7 +1,7 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
 import type { Destination, ImageRef } from "./types";
 
-const SOURCE_CHECKED_AT = "2026-09-01";
+const SOURCE_CHECKED_AT = "2026-09-19";
 
 function museumPlaceholder(name: string): ImageRef {
   return {
@@ -15,7 +15,8 @@ function museumPlaceholder(name: string): ImageRef {
 /**
  * Fifty-first statewide museum wave. This Graham record adds the active Old
  * Post Office Museum & Art Center, now branded as The Old Post, in the city's
- * restored 1936 federal post office.
+ * restored 1936 federal post office. This module owns the canonical record;
+ * the older Wave 14 duplicate is retired to a permanent redirect.
  */
 export const statewideMuseumExpansionWave51Destinations: Destination[] = [
   {

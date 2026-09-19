@@ -318,29 +318,5 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     address: "500 San Agustin Ave, Laredo, TX 78040",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
-  {
-    id: "museum-statewide-wave4-sam-rayburn-bonham",
-    brandId: "texasdefined",
-    slug: "sam-rayburn-museum-bonham",
-    name: "Sam Rayburn Museum",
-    summary: "The University of Texas at Austin's Sam Rayburn Museum in Bonham preserves the political legacy of the long-serving Speaker of the U.S. House through Rayburn's library, artifacts, exhibitions and a replica of his Speaker's office.",
-    category: "historic-sites",
-    region: "prairies-lakes",
-    nearestTown: "Bonham",
-    county: "Fannin County",
-    coordinates: { lat: 33.57833, lng: -96.18778 },
-    hero: museumPlaceholder("Sam Rayburn Museum"),
-    bestSeason: "Year-round indoor museum; spring and fall are especially comfortable for combining it with the Sam Rayburn House and downtown Bonham.",
-    entryNote: "The Briscoe Center currently lists the Sam Rayburn Museum open Monday through Friday 9 a.m. to 4:30 p.m. and Saturday 10 a.m. to 2 p.m. Check UT holiday closures before arrival.",
-    highlights: ["Sam Rayburn political legacy", "Replica Speaker's office", "Historic library building", "UT Briscoe Center exhibitions"],
-    body: [
-      "Sam Rayburn created the Bonham library during his lifetime as a place to preserve records, books and objects connected to a congressional career that made him one of the most consequential legislative leaders of the twentieth century. The building remains a political-history destination as well as an artifact of Rayburn's relationship with Fannin County.",
-      "Today the museum is operated by the Dolph Briscoe Center for American History at the University of Texas at Austin. Permanent exhibitions, Rayburn material and the reproduced Speaker's office help visitors connect national political history with the small North Texas community Rayburn continued to call home.",
-      "The destination belongs beside—not in place of—the Sam Rayburn House State Historic Site. TexasDefined can cross-link the museum's public-career story with the house's domestic story, giving Bonham and Fannin County a two-stop Rayburn authority cluster instead of collapsing both sites into one page."
-    ],
-    officialUrl: "https://briscoecenter.org/visit/",
-    managingAuthority: "Dolph Briscoe Center for American History, The University of Texas at Austin",
-    address: "800 W Sam Rayburn Dr, Bonham, TX 75418",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
-  },
+
 ];
