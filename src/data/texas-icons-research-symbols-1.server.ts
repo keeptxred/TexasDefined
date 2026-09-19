@@ -103,6 +103,7 @@ export const TEXAS_ICON_RESEARCH_SYMBOLS_BATCH_1: readonly TexasIconResearchProf
   },
   {
     slug: "shiner-bock",
+    seoTitle: "Shiner Bock & Spoetzl Brewery: History, Tours & Shiner, Texas",
     editorialStatus: "researched-staged",
     publicationNote: staged,
     dek: "Shiner Bock is the amber lager first brewed in 1913 at the Spoetzl Brewery in Shiner, Texas, where more than a century of Czech- and German-Texan brewing history, small-town identity and modern brewery tourism still meet at the same Lavaca County address.",
