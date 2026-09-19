@@ -35,7 +35,7 @@ export function buildTexasHockeySearchDocuments(): SearchDocument[] {
     return {
       id: `hockey-team:${team.slug}`,
       brandId: 'texasdefined',
-      kind: 'sports-team',
+      kind: 'guide',
       title: team.name,
       summary: team.overview,
       keywords: [...new Set([
