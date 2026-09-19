@@ -1,0 +1,76 @@
+name: UIL football exact enrollment sync
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/uil-football-exact-enrollment-sync.yml"
+      - "scripts/data/generate-uil-football-enrollments.mjs"
+      - "src/data/high-school-football/uil-football-alignments-2026.server.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install PDF text tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+
+      - name: Download official UIL alphabetical listing
+        run: |
+          curl --fail --location --retry 3 --retry-delay 2 \
+            "https://www.uiltexas.org/files/alignments/Alpha_26-28.pdf" \
+            --output /tmp/uil-alpha-26-28.pdf
+          test -s /tmp/uil-alpha-26-28.pdf
+
+      - name: Extract PDF text
+        run: |
+          pdftotext -layout /tmp/uil-alpha-26-28.pdf /tmp/uil-alpha-26-28.txt
+          test -s /tmp/uil-alpha-26-28.txt
+
+      - name: Generate and validate exact enrollment module
+        run: |
+          node scripts/data/generate-uil-football-enrollments.mjs \
+            /tmp/uil-alpha-26-28.txt \
+            /tmp/uil-football-enrollments-2026.generated.ts \
+            src/data/high-school-football/uil-football-alignments-2026.server.ts
+
+      - name: Commit validated enrollment module to PR branch
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          cp /tmp/uil-football-enrollments-2026.generated.ts \
+            src/data/high-school-football/uil-football-enrollments-2026.generated.ts
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/high-school-football/uil-football-enrollments-2026.generated.ts
+          if git diff --cached --quiet; then
+            echo "Exact enrollment module is already current."
+          else
+            git commit -m "Generate exact UIL football enrollments"
+            git push origin "HEAD:${HEAD_REF}"
+          fi
+
+      - name: Upload exact enrollment module
+        uses: actions/upload-artifact@v4
+        with:
+          name: uil-football-exact-enrollments
+          path: /tmp/uil-football-enrollments-2026.generated.ts
+          if-no-files-found: error
+          retention-days: 7
