@@ -217,12 +217,20 @@ if (!errors.length) {
     "districtName: 'Katy ISD'",
     "districtName: 'Humble ISD'",
     "districtName: 'Rockwall ISD'",
+    "districtName: 'Clear Creek ISD'",
+    "districtName: 'Leander ISD'",
+    "districtName: 'Round Rock ISD'",
+    "districtName: 'Pearland ISD'",
+    "districtName: 'Alief ISD'",
+    "districtName: 'Pflugerville ISD'",
+    "districtName: 'Judson ISD'",
+    "districtName: 'Northside ISD'",
     'enrollmentUrl',
     'verifiedAt',
   ]) requireText(officialEnrollmentLinks, marker, 'Official football enrollment links');
   const verifiedEnrollmentLinkCount = (officialEnrollmentLinks.match(/districtName: '/g) ?? []).length;
-  if (verifiedEnrollmentLinkCount < 13) {
-    errors.push(`Official football enrollment-link data fell below 13 verified districts; found ${verifiedEnrollmentLinkCount}.`);
+  if (verifiedEnrollmentLinkCount < 21) {
+    errors.push(`Official football enrollment-link data fell below 21 verified districts; found ${verifiedEnrollmentLinkCount}.`);
   }
 
   for (const marker of [
