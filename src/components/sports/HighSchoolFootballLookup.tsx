@@ -1,4 +1,4 @@
-import { type FormEvent, useEffect, useMemo, useState } from 'react';
+import { type FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
 
 type FootballProgram = {
   schoolName: string;
@@ -75,7 +75,7 @@ export function HighSchoolFootballLookup({
     return () => controller.abort();
   }, [countyName]);
 
-  async function runQuery(value: string) {
+  const runQuery = useCallback(async (value: string) => {
     const trimmed = value.trim();
     if (!trimmed) {
       setError('Enter a high school, ISD, city or county.');
@@ -100,14 +100,14 @@ export function HighSchoolFootballLookup({
     } finally {
       setLoading(false);
     }
-  }
+  }, [compact]);
 
   useEffect(() => {
     const trimmed = initialQuery.trim();
     if (!trimmed || countyName) return;
     setQuery(trimmed);
     void runQuery(trimmed);
-  }, [initialQuery, countyName]);
+  }, [initialQuery, countyName, runQuery]);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
