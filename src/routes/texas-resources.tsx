@@ -11,6 +11,8 @@ const discoveryLinks = [
   ['Texas DMV', '/texas-dmv'],
   ['Texas vehicle registration', '/texas-vehicle-registration'],
   ['Texas fishing license', '/texas-fishing-license'],
+  ['Texas colleges and universities', '/texas-colleges-universities'],
+  ['Find your Texas school district', '/find-my-school-district'],
   ['Moving to Texas', '/moving-to-texas'],
   ['Money & Property', '/decide/financial-tools'],
   ['Texas septic system design & OSSF guide', '/article/texas-septic-systems-homeowner-guide'],

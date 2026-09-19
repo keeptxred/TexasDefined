@@ -9,6 +9,7 @@ const priorityGuides = [
   ["texas-flag", "Texas Flag: History, Meaning, Rules and the Lone Star", "History, meaning, design and display guidance for the Texas Lone Star flag.", ["Texas flag", "Lone Star flag", "Texas flag history", "Texas flag rules"]],
   ["texas-state-fair", "State Fair of Texas 2026: Dates, Fair Park and Planning", "Plan a 2026 State Fair of Texas visit with dates, Fair Park basics, food, rides, exhibits and official resources.", ["State Fair of Texas", "Texas state fair", "Fair Park", "Big Tex"]],
   ["texas-two-step", "Texas Two Step: How the Texas Lottery Game Works", "A plain-English guide to Texas Two Step numbers, drawings, prizes and current official lottery administration.", ["Texas Two Step", "Texas lottery", "Two Step lottery"]],
+  ["texas-colleges-universities", "Texas Colleges & Universities: Programs, Tuition and Admissions", "Statewide official resources for Texas degree programs, tuition, admissions, financial aid and university information.", ["Texas universities", "Texas colleges", "Texas tuition", "Texas university admissions", "Texas degree programs"]],
 ] as const;
 
 export function buildPrioritySearchDocuments(): SearchDocument[] {
