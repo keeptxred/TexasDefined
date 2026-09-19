@@ -168,6 +168,13 @@ for (const [needle, label] of [
   ['Daily affiliate CTA impressions', 'daily impression trend accessibility label'],
   ['row.impressions === null', 'pre-rollout impression gap rendering'],
   ['maxDailyImpressions', 'independent daily impression scaling'],
+  ['WATCHLIST_MIN_IMPRESSIONS = 3', 'zero-click watchlist minimum exposure threshold'],
+  ['row.measurementImpressions >= WATCHLIST_MIN_IMPRESSIONS && row.measurementClicks === 0', 'clean-window zero-click watchlist filter'],
+  ['Conversion watchlist', 'conversion watchlist section'],
+  ['Seen but not clicked', 'zero-click watchlist heading'],
+  ['Placements to review', 'zero-click placement watchlist'],
+  ['Pages to review', 'zero-click page watchlist'],
+  ['No zero-click rows meet the watchlist threshold yet.', 'zero-click watchlist empty state'],
 ]) expect(lazyRoute, needle, label);
 
 expect(types, 'lastPipelineSyncAt: string | null', 'pipeline heartbeat dashboard type');
@@ -195,4 +202,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Partner referral reporting validation passed: referral clicks, CTA impressions and separately classified Expedia search starts are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, pre-rollout daily impression history remains explicitly unmeasured while the September 18 rollout day stays visible, CTR uses only the clean September 19+ measurement window, exposure volume breaks click ties so zero-click surfaces remain visible, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has staggered schedule and production-deploy recovery opportunities that skip Cloudflare while the heartbeat is fresh, the sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
+console.log('Partner referral reporting validation passed: referral clicks, CTA impressions and separately classified Expedia search starts are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, pre-rollout daily impression history remains explicitly unmeasured while the September 18 rollout day stays visible, CTR uses only the clean September 19+ measurement window, exposure volume breaks click ties so zero-click surfaces remain visible, the private dashboard promotes clean-window placements and pages with at least three measured impressions and zero clicks into a conversion watchlist, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has staggered schedule and production-deploy recovery opportunities that skip Cloudflare while the heartbeat is fresh, the sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
