@@ -634,6 +634,8 @@ if (!errors.length) {
   requireText(publicRoutes, '"/texas-high-school-football-districts"', 'Football district public route governance');
   requireText(dataSources, "id:'uil-football-alignments'", 'Texas source registry');
   requireText(dataSources, "domain:'sports'", 'Texas source registry');
+  requireText(dataSources, "id:'uil-football-enrollment-cutoffs'", 'Texas source registry');
+  requireText(dataSources, 'https://www.uiltexas.org/athletics/conference-cutoffs', 'Texas source registry');
 
   for (const [file, source] of [
     [files[4], finder],
