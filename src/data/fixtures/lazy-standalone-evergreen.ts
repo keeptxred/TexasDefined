@@ -15,6 +15,18 @@ const rodeo101Stub: Article = {
   body: [], relatedCollections: [], relatedDestinations: [],
 };
 
+const texasHighSchoolFootballClassificationsStub: Article = {
+  id: "evergreen-texas-high-school-football-classifications", brandId: "texasdefined", slug: "texas-high-school-football-classifications-1a-6a",
+  title: "What Do 1A, 2A, 3A, 4A, 5A and 6A Mean in Texas High School Football?",
+  dek: "Texas high school football classifications are based on school enrollment, not team strength. Here is how UIL classes, divisions, districts and media rankings fit together for 2026–28.",
+  category: "sports",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Celina_High_School%2C_Friday_Night_Football.jpg?width=2042", alt: "Celina High School football field under the Friday night lights in Celina, Texas", width: 2042, height: 719, credit: "Heidi Knapp · CC BY-SA 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-09-18", readingMinutes: 7,
+  tags: ["texas high school football", "uil classifications", "texas football rankings", "6A football", "5A football", "six-man football"], featured: false,
+  sourceName: "University Interscholastic League", sourceUrl: "https://www.uiltexas.org/athletics/conference-cutoffs",
+  body: [], relatedCollections: [], relatedDestinations: [],
+};
+
 const highSchoolFootballNewcomersStub: Article = {
   id: "evergreen-high-school-football-newcomers", brandId: "texasdefined", slug: "texas-high-school-football-newcomers",
   title: "Texas High School Football for Newcomers: Why Friday Night Matters",
@@ -213,6 +225,7 @@ const fredericksburgHistoryWeekendGuideStub: Article = {
 
 export const standaloneEvergreenStubs: Article[] = [
   rodeo101Stub,
+  texasHighSchoolFootballClassificationsStub,
   highSchoolFootballNewcomersStub,
   kolacheOrKlobasnekStub,
   orderingTexasBarbecueStub,
@@ -235,6 +248,7 @@ export const standaloneEvergreenStubs: Article[] = [
 export async function loadStandaloneEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
   if (slug === rodeo101Stub.slug) return import("./rodeo-101").then((module) => module.rodeo101Article);
+  if (slug === texasHighSchoolFootballClassificationsStub.slug) return import("./texas-high-school-football-classifications").then((module) => module.texasHighSchoolFootballClassificationsArticle);
   if (slug === highSchoolFootballNewcomersStub.slug) return import("./high-school-football-newcomers").then((module) => module.highSchoolFootballNewcomersArticle);
   if (slug === kolacheOrKlobasnekStub.slug) return import("./kolache-or-klobasnek").then((module) => module.kolacheOrKlobasnekArticle);
   if (slug === orderingTexasBarbecueStub.slug) return import("./ordering-texas-barbecue").then((module) => module.orderingTexasBarbecueArticle);
