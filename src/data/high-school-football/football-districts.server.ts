@@ -4,6 +4,7 @@ import { UIL_FOOTBALL_PROGRAMS_2026, type UilFootballProgram } from './uil-footb
 export type UilFootballDistrictProgram = {
   schoolName: string;
   profilePath: string;
+  enrollment: number;
 };
 
 export type UilFootballDistrictSummary = {
@@ -55,6 +56,7 @@ for (const program of UIL_FOOTBALL_PROGRAMS_2026) {
   const entry = {
     schoolName: program.schoolName,
     profilePath: footballProgramProfilePath(program.schoolName),
+    enrollment: program.enrollment,
   };
 
   if (existing) {
