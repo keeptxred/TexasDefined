@@ -179,6 +179,19 @@ export function installTexasDefinedAnalytics() {
     });
   };
 
+  const stayRecommendationsOpened = (event: Event) => {
+    const detail = (event as CustomEvent<Record<string, unknown>>).detail;
+    const placement = typeof detail?.placement === 'string' && detail.placement.trim()
+      ? detail.placement.trim().slice(0, 160)
+      : 'stay-recommendations-jump';
+    trackTexasDefinedOutcome('next_step_selected', {
+      resourceId: 'stay-recommendations',
+      stepId: 'View recommended stays',
+      entityKind: placement,
+      destination: window.location.pathname,
+    });
+  };
+
   const click = (event: MouseEvent) => {
     const anchor = (event.target as Element | null)?.closest('a[href]') as HTMLAnchorElement | null;
     if (!anchor) return;
@@ -292,6 +305,7 @@ export function installTexasDefinedAnalytics() {
   const mutation = observer ? new MutationObserver(observe) : undefined;
   document.addEventListener('click', click);
   window.addEventListener('texasdefined:affiliate-click', expediaSearchStarted as EventListener);
+  window.addEventListener('texasdefined:stay-recommendations-opened', stayRecommendationsOpened as EventListener);
   observe();
   mutation?.observe(document.documentElement, { childList: true, subtree: true });
   trackAIReferralVisit();
@@ -301,6 +315,7 @@ export function installTexasDefinedAnalytics() {
   return () => {
     document.removeEventListener('click', click);
     window.removeEventListener('texasdefined:affiliate-click', expediaSearchStarted as EventListener);
+    window.removeEventListener('texasdefined:stay-recommendations-opened', stayRecommendationsOpened as EventListener);
     window.removeEventListener('online', flushTexasDefinedAnalytics);
     mutation?.disconnect();
     observer?.disconnect();
