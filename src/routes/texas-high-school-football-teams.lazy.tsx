@@ -64,6 +64,7 @@ function Page() {
           <RelatedLink href="/find-my-school-district" title="Find the school district" body="Verify which district and campus serve the exact address before relying on a city name, ZIP code or listing." />
           <RelatedLink href="/article/texas-high-school-football-classifications-1a-6a" title="Understand 1A through 6A" body="See how enrollment, divisions, districts, realignment and six-man football fit together." />
           <RelatedLink href="/article/texas-high-school-football-playoffs-explained" title="Understand the playoff path" body="See who qualifies from each district, how 6A splits Division I and II, what bi-district means and how the bracket reaches the state finals." />
+          <RelatedLink href="/article/texas-six-man-football-rules-explained" title="Learn six-man football" body="For 1A programs, see how the 80-yard field, exchange rule, scoring values and 45-point rule change the game." />
           <RelatedLink href="/sports-venues/high-school-football" title="Browse football stadiums" body="Connect programs with TexasDefined stadium, parking and game-day planning guides." />
           <RelatedLink href="/sports/friday-night-lights" title="Friday Night Lights, Defined" body="Understand the season, traditions and community culture around Texas high school football." />
         </div>

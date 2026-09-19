@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 
-// Guard the 130-answer authority layer, native lazy route split, and no-thin-child-route contract on every authority PR change.
+// Guard the 133-answer authority layer, native lazy route split, and no-thin-child-route contract on every authority PR change.
 const dataPath = 'src/data/texas-explained-questions.ts';
 const componentPath = 'src/components/editorial/TexasExplainedQuestionsPage.tsx';
 const pagePath = 'src/components/editorial/TexasExplainedPage.tsx';
@@ -25,7 +25,7 @@ const parentCountMatch = parent.match(/const questionCount = (\d+);/);
 const pageCountMatch = page.match(/const questionCount = (\d+);/);
 const failures = [];
 
-if (questionCount !== 130) failures.push(`Expected exactly 130 questions; found ${questionCount}.`);
+if (questionCount !== 133) failures.push(`Expected exactly 133 questions; found ${questionCount}.`);
 if (answerCount !== questionCount) failures.push(`Every question must have an answer; found ${answerCount} answers for ${questionCount} questions.`);
 if (categoryCount < 8) failures.push(`Expected broad topical coverage across at least 8 categories; found ${categoryCount}.`);
 if (!parentCountMatch || Number(parentCountMatch[1]) !== questionCount) failures.push(`Texas Explained route count must match the ${questionCount}-question library.`);
@@ -53,6 +53,9 @@ const requiredQuestions = [
   'How many teams make the Texas high school football playoffs?',
   'What does bi-district mean in Texas high school football?',
   'How are 6A Division I and Division II playoff teams chosen?',
+  'How is Texas six-man football different from 11-man football?',
+  'What is the 45-point rule in Texas six-man football?',
+  'Why is a kick worth two points in Texas six-man football?',
 ];
 for (const question of requiredQuestions) {
   if (!data.includes(`question: "${question}"`)) failures.push(`Missing required question: ${question}`);
@@ -60,7 +63,7 @@ for (const question of requiredQuestions) {
 
 for (const marker of [
   'createFileRoute("/texas-explained")',
-  'const questionCount = 130;',
+  'const questionCount = 133;',
   'buildEditorialCollectionHead',
   'import("@/data/queries")',
   'import("@/components/editorial/TexasExplainedPage")',
