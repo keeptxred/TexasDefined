@@ -32,6 +32,7 @@ const privateFootballAlignmentsPath = 'src/data/high-school-football/private-foo
 const privateSchoolAdmissionsPath = 'src/data/high-school-football/private-school-admissions.ts';
 const programSlugsPath = 'src/data/high-school-football/program-slugs.ts';
 const programProfileServerPath = 'src/data/high-school-football/football-program-profile.server.ts';
+const footballVenueLinksPath = 'src/data/high-school-football/football-venue-links.server.ts';
 const programProfileFunctionsPath = 'src/data/high-school-football/football-program-profile.functions.ts';
 const uilDirectoryComponentPath = 'src/components/sports/UilFootballProgramDirectory.tsx';
 const obsoleteSeedListComponentPath = 'src/components/sports/FeaturedFootballResearchList.tsx';
@@ -62,6 +63,7 @@ for (const file of [
   privateSchoolAdmissionsPath,
   programSlugsPath,
   programProfileServerPath,
+  footballVenueLinksPath,
   programProfileFunctionsPath,
   uilDirectoryComponentPath,
   ...legacyMetadataFiles,
@@ -100,6 +102,7 @@ if (!errors.length) {
   const privateSchoolAdmissions = read(privateSchoolAdmissionsPath);
   const programSlugs = read(programSlugsPath);
   const programProfileServer = read(programProfileServerPath);
+  const footballVenueLinks = read(footballVenueLinksPath);
   const programProfileFunctions = read(programProfileFunctionsPath);
   const uilDirectoryComponent = read(uilDirectoryComponentPath);
   const legacyProgramMetadata = read(legacyMetadataFiles[0]);
@@ -366,7 +369,24 @@ if (!errors.length) {
     'privateFootballProgramSitemapEntries',
     'districtPeers',
     'profilePath: footballProgramProfilePath',
+    'getVerifiedFootballVenueLinks',
+    'venueLinks:',
   ]) requireText(programProfileServer, marker, 'Universal UIL football profile resolver');
+
+  for (const marker of [
+    'VERIFIED_FOOTBALL_VENUE_RULES',
+    'getVerifiedFootballVenueLinks',
+    'getSportsVenueEnrichmentAll',
+    "venueSlug: 'eagle-stadium-allen'",
+    "venueSlug: 'mckinney-isd-stadium'",
+    "venueSlug: 'childrens-health-stadium-prosper'",
+    "venueSlug: 'legacy-stadium-katy'",
+    "venueSlug: 'ratliff-stadium'",
+    "venueSlug: 'cy-fair-fcu-stadium'",
+    "venueSlug: 'mesquite-memorial-stadium'",
+    "relationship: 'district-football-venue'",
+    'VERIFIED_FOOTBALL_VENUE_RELATIONSHIP_COUNT',
+  ]) requireText(footballVenueLinks, marker, 'Verified football venue relationships');
 
   for (const marker of [
     "createServerFn({ method: 'GET' })",
@@ -416,6 +436,10 @@ if (!errors.length) {
     'UIL detailed eligibility rules ↗',
     'Current district',
     'Every opponent links to the same school-profile system.',
+    'Verified football venue relationships',
+    'Texas high schools often share district stadiums.',
+    'Open TexasDefined stadium guide →',
+    'Official venue source ↗',
     'Association placement not yet verified',
     'Private-school football uses its association’s own alignment system.',
     "privateAlignment.sourceKind === 'official-association'",
