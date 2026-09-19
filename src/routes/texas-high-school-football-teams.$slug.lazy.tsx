@@ -218,7 +218,7 @@ function Page() {
           <Related href="/sports/friday-night-lights" title="Friday Night Lights, Defined" body="Explore the wider culture, traditions and season around Texas high school football." />
         </div>
         <p className="mt-8 max-w-4xl text-xs leading-6 text-muted-foreground">
-          All current UIL football programs use the same profile system. Earlier seed lists may still help resolve alternate school names behind the scenes, but they do not control whether a school receives a page, its directory position or its research priority.
+          All current UIL football programs use the same profile system. Historical alias metadata may help resolve alternate school names behind the scenes, but it does not control whether a school receives a page, its directory position or its research priority.
         </p>
       </section>
     </article>
