@@ -29,6 +29,8 @@ The Expedia vendor script itself is never loaded during the initial page load. I
 
 Traveler links use the TexasDefined CJ publisher ID `101876465` and the CJ Deep Link Generator base. The deep-link builder fails closed: only `www.hotels.com` and `www.vrbo.com` destinations are accepted. Every outbound traveler affiliate link uses `rel="sponsored nofollow noopener noreferrer"` and opens only after an explicit visitor click.
 
+CJ traveler deep links also carry a privacy-safe network SID derived only from the existing static TexasDefined placement key, prefixed with `td-` (for example, `td-stay-nearby-choice` or `td-stay-nearby-card-exact`). The SID must contain only lowercase letters, digits and hyphens. Browser session IDs, visitor identifiers, search terms, page URLs and timestamps are never placed in CJ SID values. This gives CJ-side conversion reporting a placement dimension that matches TexasDefined's first-party `data-commercial-placement` attribution without adding personal data.
+
 Current traveler intent policy:
 
 - **Hotel-first:** individual event and sports-venue intent.
@@ -197,7 +199,8 @@ The Hotels.com/Vrbo choice panel separately discloses that TexasDefined may earn
 - destination, city, county, Explore and the governed statewide travel families remain Hotels.com + Vrbo traveler intent
 - owner-referral eligibility remains separate from ordinary travel intent
 - CJ deep links remain bound to publisher `101876465`
-- unsupported deep-link destination hosts fail closed
+- CJ network SIDs remain derived only from static TexasDefined placement keys and never from visitor/session data
+- unsupported deep-link destination hosts or unsafe SID values fail closed
 - explicit event and destination Stay Nearby placement contracts
 - contextual fallback promotion and the prominent `Find places to stay` CTA
 - affiliate disclosure and sponsored-link attributes
