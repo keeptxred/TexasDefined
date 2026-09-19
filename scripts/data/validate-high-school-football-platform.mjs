@@ -276,12 +276,22 @@ if (!errors.length) {
     "slug: 'midland-lee'",
     "slug: 'odessa'",
     "slug: 'san-angelo-central'",
+    "slug: 'el-paso-franklin'",
+    "slug: 'el-paso-montwood'",
+    "slug: 'el-paso-socorro'",
+    "slug: 'odessa-permian'",
+    "slug: 'arlington'",
+    "slug: 'arlington-bowie'",
+    "slug: 'arlington-houston'",
+    "slug: 'arlington-lamar'",
+    "slug: 'arlington-martin'",
+    "slug: 'granbury'",
     'sourceUrl',
     'verifiedAt',
   ]) requireText(schoolIdentities, marker, 'Football school identity data');
   const verifiedFootballIdentityCount = (schoolIdentities.match(/slug: '/g) ?? []).length;
-  if (verifiedFootballIdentityCount < 50) {
-    errors.push(`Football school identity data fell below 50 verified profiles; found ${verifiedFootballIdentityCount}.`);
+  if (verifiedFootballIdentityCount < 60) {
+    errors.push(`Football school identity data fell below 60 verified profiles; found ${verifiedFootballIdentityCount}.`);
   }
 
   for (const marker of [
