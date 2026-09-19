@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 
 const registry = JSON.parse(fs.readFileSync('public/stay-nearby-destination-hotels.json', 'utf8'));
+const paintedChurchesRegistry = JSON.parse(fs.readFileSync('public/stay-nearby-painted-churches-hotels.json', 'utf8'));
 const bootstrap = fs.readFileSync('public/expedia-travel.js', 'utf8');
 const readinessPanel = fs.readFileSync('src/components/admin/StayMonetizationReadiness.tsx', 'utf8');
 const hotelsComVerification = JSON.parse(fs.readFileSync('public/stay-nearby-hotelscom-verification.json', 'utf8'));
@@ -61,10 +62,15 @@ for (const marker of [
   'does not invent traffic, booking, conversion or revenue performance',
   "fetch('/stay-nearby-hotels.json'",
   "fetch('/stay-nearby-destination-hotels.json'",
+  "fetch('/stay-nearby-painted-churches-hotels.json'",
   "fetch('/stay-nearby-hotelscom-verification.json'",
   'verifiedPropertyIds',
   'venueVerifiedAffiliateLinks',
   'destinationVerifiedAffiliateLinks',
+  'paintedChurchesVerifiedAffiliateLinks',
+  'verifiedAffiliateLinks = verifiedPropertyIds.size + paintedChurchesVerifiedAffiliateLinks',
+  'Targeted Painted Churches cohort',
+  'Painted Churches registry reviewed',
   'Hotels.com verification reviewed',
   'Verified property links',
   'Property imagery ready',
@@ -85,6 +91,17 @@ if (verifiedHotelsComProperties.length !== 24) fail(`Stay readiness must reconci
 const verifiedDestinationHotels = verifiedHotelsComProperties.filter((property) => ids.has(property.propertyId));
 if (verifiedDestinationHotels.length !== 9) fail(`All 9 controlled destination-cohort properties must have governed Hotels.com exact-property links; found ${verifiedDestinationHotels.length}.`);
 
+const paintedChurchesProperties = (paintedChurchesRegistry.properties || []).filter((property) => property.status === 'active');
+if (paintedChurchesProperties.length !== 3) fail(`Painted Churches readiness expects 3 active targeted properties; found ${paintedChurchesProperties.length}.`);
+const paintedChurchesVerified = paintedChurchesProperties.filter((property) =>
+  (property.bookingTargets || []).some((target) =>
+    target.provider === 'hotels.com'
+    && target.verified === true
+    && /^https:\/\/www\.anrdoezrs\.net\/links\/101876465\/type\/dlg\/https:\/\/www\.hotels\.com\/ho\d+\//i.test(target.affiliateUrl || ''),
+  ),
+);
+if (paintedChurchesVerified.length !== 3) fail(`All 3 Painted Churches properties must retain verified TexasDefined CJ exact-property Hotels.com links; found ${paintedChurchesVerified.length}.`);
+
 if (!platformHealth.includes("import { StayMonetizationReadiness } from '@/components/admin/StayMonetizationReadiness'")) fail('Platform Health must import the stay monetization readiness panel.');
 if (!platformHealth.includes('<StayMonetizationReadiness />')) fail('Platform Health must render the stay monetization readiness panel.');
 if (!adminNav.includes('href="/admin/platform-health#stay-monetization"')) fail('Admin navigation must expose stay monetization readiness inside Platform Health.');
@@ -95,4 +112,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Controlled destination stay cohort validation passed: ${expectedContexts.length} deep destination pages, ${registry.properties.length} source-backed properties, exactly 3 choices per destination, no unverified property deeplinks, no ungoverned property imagery, runtime overlay loading enabled, all 9 destination-cohort properties have governed Hotels.com exact-property links, and Platform Health reconciles the governed 24-property Hotels.com verification registry without fabricated performance data.`);
+console.log(`Controlled destination stay cohort validation passed: ${expectedContexts.length} deep destination pages, ${registry.properties.length} source-backed destination properties, exactly 3 choices per destination, no unverified property deeplinks, no ungoverned property imagery, runtime overlay loading enabled, all 9 destination-cohort properties and all 3 targeted Painted Churches properties retain governed exact-property Hotels.com links, and Platform Health reconciles all 27 governed exact-property stay links without fabricated performance data.`);
