@@ -55,6 +55,12 @@ export const texasHighSchoolFootballClassificationsArticle: Article = {
       label: "How the Texas high school football playoffs work",
       description: "Follow district qualification, the 6A Division I/II split, bracket rounds, playoff sites and the road to the state championships.",
     },
+    {
+      href: "/article/texas-six-man-football-rules-explained",
+      label: "Texas six-man football rules explained",
+      description: "See how the 80-yard field, 15-yard first downs, exchange rule, scoring values and 45-point rule make 1A football different.",
+    },
+
 
     {
       href: "/sports-venues/high-school-football",
