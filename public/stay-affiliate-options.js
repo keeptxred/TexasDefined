@@ -312,6 +312,16 @@
     }
   }
 
+  function placeBookingChoice(expediaSurface, choice) {
+    if (expediaSurface.dataset.surfaceType === "curated") {
+      expediaSurface.appendChild(choice);
+      choice.dataset.presentationOrder = "after-curated";
+      return;
+    }
+    expediaSurface.prepend(choice);
+    choice.dataset.presentationOrder = "generic-primary";
+  }
+
   function syncBookingChoice() {
     const expediaSurface = document.getElementById(EXPEDIA_SURFACE_ID);
     const existing = document.getElementById(CHOICE_ID);
@@ -320,11 +330,12 @@
       return;
     }
     const intent = bookingIntent();
-    if (!(existing?.dataset.intent === intent && existing.parentElement === expediaSurface)) {
+    const expectedOrder = expediaSurface.dataset.surfaceType === "curated" ? "after-curated" : "generic-primary";
+    if (!(existing?.dataset.intent === intent && existing.parentElement === expediaSurface && existing.dataset.presentationOrder === expectedOrder)) {
       existing?.remove();
       const choice = createBookingChoice(intent);
       choice.dataset.intent = intent;
-      expediaSurface.prepend(choice);
+      placeBookingChoice(expediaSurface, choice);
     }
     promoteStaySurface(expediaSurface);
     ensureProminentStayCta(expediaSurface);
