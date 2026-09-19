@@ -35,6 +35,7 @@ const programProfileServerPath = 'src/data/high-school-football/football-program
 const footballVenueLinksPath = 'src/data/high-school-football/football-venue-links.server.ts';
 const programProfileFunctionsPath = 'src/data/high-school-football/football-program-profile.functions.ts';
 const uilDirectoryComponentPath = 'src/components/sports/UilFootballProgramDirectory.tsx';
+const enrollmentBandsPath = 'src/data/high-school-football/enrollment-bands.ts';
 const footballDistrictServerPath = 'src/data/high-school-football/football-districts.server.ts';
 const footballDistrictFunctionsPath = 'src/data/high-school-football/football-districts.functions.ts';
 const footballDistrictIndexRoutePath = 'src/routes/texas-high-school-football-districts.tsx';
@@ -72,6 +73,7 @@ for (const file of [
   footballVenueLinksPath,
   programProfileFunctionsPath,
   uilDirectoryComponentPath,
+  enrollmentBandsPath,
   footballDistrictServerPath,
   footballDistrictFunctionsPath,
   footballDistrictIndexRoutePath,
@@ -117,6 +119,7 @@ if (!errors.length) {
   const footballVenueLinks = read(footballVenueLinksPath);
   const programProfileFunctions = read(programProfileFunctionsPath);
   const uilDirectoryComponent = read(uilDirectoryComponentPath);
+  const enrollmentBands = read(enrollmentBandsPath);
   const footballDistrictServer = read(footballDistrictServerPath);
   const footballDistrictFunctions = read(footballDistrictFunctionsPath);
   const footballDistrictIndexRoute = read(footballDistrictIndexRoutePath);
@@ -418,6 +421,23 @@ if (!errors.length) {
   ]) requireText(programProfileFunctions, marker, 'Universal UIL football profile server functions');
 
   for (const marker of [
+    "classification: '6A', division: null, label: '2,215 and above'",
+    "classification: '5A', division: 1, label: '1,870–2,214'",
+    "classification: '5A', division: 2, label: '1,305–1,869'",
+    "classification: '4A', division: 1, label: '896–1,304'",
+    "classification: '4A', division: 2, label: '550–895'",
+    "classification: '3A', division: 1, label: '367–549'",
+    "classification: '3A', division: 2, label: '246–366.9'",
+    "classification: '2A', division: 1, label: '175.6–245.9'",
+    "classification: '2A', division: 2, label: '105–175.5'",
+    "classification: '1A', division: 1, label: '57.6–104.9'",
+    "classification: '1A', division: 2, label: '57.5 and below'",
+    'https://www.uiltexas.org/athletics/conference-cutoffs',
+    'uilFootballEnrollmentBand',
+    'uilFootballConferenceBand',
+  ]) requireText(enrollmentBands, marker, 'UIL football enrollment bands');
+
+  for (const marker of [
     'Browse all 1,268 Texas high school football programs',
     "const CLASSIFICATIONS = ['6A', '5A', '4A', '3A', '2A', '1A']",
     'Every current UIL football program gets the same directory and profile treatment.',
@@ -425,6 +445,9 @@ if (!errors.length) {
     '6A → 1A · enrollment classification',
     'Open school football profile →',
     'not because TexasDefined has rated its football program as better',
+    'UIL enrollment band:',
+    'Official UIL 2026–28 enrollment cutoffs ↗',
+    'uilFootballConferenceBand',
   ]) requireText(uilDirectoryComponent, marker, 'All-UIL football directory');
 
   for (const marker of [
@@ -473,6 +496,9 @@ if (!errors.length) {
     'Member order is alphabetical for research usability; it is not a ranking',
     'District is a competition group',
     'Open official UIL alignment ↗',
+    'Enrollment band',
+    'Official UIL 2026–28 enrollment cutoffs ↗',
+    'uilFootballEnrollmentBand',
   ]) requireText(footballDistrictPage, marker, 'Football district detail page');
 
   // The original supplied list remains available only as alias/private-school research metadata.
@@ -515,6 +541,9 @@ if (!errors.length) {
     'All current UIL football programs use the same profile system.',
     'Open full district guide →',
     'districtPath',
+    'UIL enrollment band',
+    'Official UIL 2026–28 enrollment cutoffs ↗',
+    'uilFootballEnrollmentBand',
   ]) requireText(featuredProfilePage, marker, 'Football school profile page');
 
   requireText(finder, 'School profile, enrollment & mascot →', 'Football finder profile handoff');
