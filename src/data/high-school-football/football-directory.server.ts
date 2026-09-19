@@ -4,6 +4,11 @@ import {
   recentFootballHistoryFromLoaded,
   type UilRecentFootballHistory,
 } from './uil-football-recent-history.server';
+import {
+  allTimeFootballHistoryFromLoaded,
+  loadUilAllTimeFootballHistory,
+  type UilAllTimeFootballHistory,
+} from './uil-football-all-time-history.server';
 
 const TEA_DIRECTORY_URL = 'https://tealprod.tea.state.tx.us/Tea.AskTed.Web/Forms/DownloadSite.aspx';
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
@@ -21,6 +26,7 @@ export type FootballProgramDirectoryResult = UilFootballProgram & {
   countyName?: string;
   city?: string;
   recentHistory?: UilRecentFootballHistory;
+  allTimeHistory?: UilAllTimeFootballHistory;
 };
 
 let directoryCache: { loadedAt: number; rows: TeaSchoolDirectoryRecord[] } | null = null;
@@ -219,15 +225,18 @@ export async function searchFootballPrograms(options: {
   const district = cleanName(options.district ?? '');
   const limit = Math.min(Math.max(options.limit ?? 50, 1), 100);
 
-  const [directoryResult, historyResult] = await Promise.allSettled([
+  const [directoryResult, historyResult, allTimeHistoryResult] = await Promise.allSettled([
     loadTeaSchoolDirectory(),
     loadUilRecentFootballHistory(),
+    loadUilAllTimeFootballHistory(),
   ]);
 
   const directoryAvailable = directoryResult.status === 'fulfilled';
   const historyAvailable = historyResult.status === 'fulfilled';
+  const allTimeHistoryAvailable = allTimeHistoryResult.status === 'fulfilled';
   const directory: TeaSchoolDirectoryRecord[] = directoryAvailable ? directoryResult.value : [];
   const recentHistory = historyAvailable ? historyResult.value : null;
+  const allTimeHistory = allTimeHistoryAvailable ? allTimeHistoryResult.value : null;
 
   let relevantDirectory = directory;
   if (county) {
@@ -245,6 +254,7 @@ export async function searchFootballPrograms(options: {
         programs: [] as FootballProgramDirectoryResult[],
         directoryAvailable,
         historyAvailable,
+        allTimeHistoryAvailable,
         matchedTotal: 0,
       };
     }
@@ -276,7 +286,14 @@ export async function searchFootballPrograms(options: {
       const history = recentHistory
         ? recentFootballHistoryFromLoaded(recentHistory, base.schoolName, base.officialSchoolName)
         : null;
-      return history ? { ...base, recentHistory: history } : base;
+      const allTime = allTimeHistory
+        ? allTimeFootballHistoryFromLoaded(allTimeHistory, history, base.schoolName, base.officialSchoolName)
+        : null;
+      return {
+        ...base,
+        ...(history ? { recentHistory: history } : {}),
+        ...(allTime ? { allTimeHistory: allTime } : {}),
+      };
     })
     .sort((a, b) => {
       const classDiff = Number(b.classification[0]) - Number(a.classification[0]);
@@ -289,6 +306,7 @@ export async function searchFootballPrograms(options: {
     programs: enriched.slice(0, limit),
     directoryAvailable,
     historyAvailable,
+    allTimeHistoryAvailable,
     matchedTotal: enriched.length,
   };
 }
@@ -297,4 +315,5 @@ export const FOOTBALL_DIRECTORY_SOURCES = {
   uil: 'https://realignment.uiltexas.org/',
   tea: TEA_DIRECTORY_URL,
   uilRecentHistory: 'https://www.uiltexas.org/football/archives',
+  uilAllTimeHistory: 'https://www.uiltexas.org/football/all-time-appearances',
 } as const;
