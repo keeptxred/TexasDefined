@@ -8,6 +8,8 @@ type FootballProgram = {
   division: 1 | 2 | null;
   district: number;
   footballType: '6-Man' | '11-Man';
+  enrollment: number;
+  submittedConference: '1A' | '2A' | '3A' | '4A' | '5A' | '6A';
   alignmentCycle: '2026-28';
   districtName?: string;
   countyName?: string;
@@ -236,6 +238,7 @@ export function HighSchoolFootballLookup({
                 Compare this program
               </label>
               <dl className="mt-4 grid grid-cols-2 gap-x-5 gap-y-3 text-sm">
+                <div><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">UIL enrollment</dt><dd className="mt-1 font-semibold">{program.enrollment.toLocaleString()}</dd></div>
                 <div><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">UIL district</dt><dd className="mt-1 font-semibold">{program.district}</dd></div>
                 <div><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">Format</dt><dd className="mt-1 font-semibold">{program.footballType}</dd></div>
               </dl>
@@ -265,7 +268,7 @@ export function HighSchoolFootballLookup({
         {!loading && !allTimeHistoryAvailable && <p className="mt-5 border border-border p-4 text-sm leading-6 text-muted-foreground">Current UIL alignment and recent state-final results are still available, but UIL’s all-time appearances table could not be reached, so all-time title and state-final totals are temporarily omitted.</p>}
 
         <div className="mt-6 border-t border-border pt-5 text-xs leading-6 text-muted-foreground">
-          <p><strong className="text-foreground">What this tells you:</strong> current 2026–28 UIL classification, football division, district and six-man/11-man format. School, ISD, city and county context comes from Texas Education Agency AskTED when available.</p>
+          <p><strong className="text-foreground">What this tells you:</strong> current 2026–28 UIL-reported enrollment, football classification, division, district and six-man/11-man format. School, ISD, city and county context comes from Texas Education Agency AskTED when available.</p>
           <p className="mt-2"><strong className="text-foreground">All-time state-final history:</strong> title and appearance totals use UIL’s Football All-Time Appearances table, supplemented with newer completed state-final rows from the official State Archives when that all-time table trails the latest archive. Totals appear only on an exact normalized UIL school-name match.</p>
           <p className="mt-2"><strong className="text-foreground">Recent state-final detail:</strong> the game-level list covers the eight completed UIL championship seasons from 2018–19 through 2025–26. No history badge does not mean a weak program; it means the source did not produce an exact normalized school-name match.</p>
           <p className="mt-2">This is not a “best school” rating. Football placement and recent championship history are only parts of researching a program. Attendance zones, transfers, eligibility and campus assignments can change, so confirm an exact address and student eligibility with the school district and UIL before making a move.</p>
@@ -280,6 +283,7 @@ function ProgramComparison({ programs, onClear }: { programs: FootballProgram[];
     ['ISD', (program: FootballProgram) => program.districtName || 'Not matched'],
     ['Location', (program: FootballProgram) => placeLabel(program)],
     ['UIL level', (program: FootballProgram) => alignmentLabel(program).replace(' · UIL 2026–28', '')],
+    ['UIL reported enrollment', (program: FootballProgram) => program.enrollment.toLocaleString()],
     ['UIL district', (program: FootballProgram) => String(program.district)],
     ['Format', (program: FootballProgram) => program.footballType],
     ['All-time titles', (program: FootballProgram) => program.allTimeHistory ? String(program.allTimeHistory.stateTitles) : 'No exact all-time match'],
