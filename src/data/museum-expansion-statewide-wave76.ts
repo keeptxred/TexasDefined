@@ -17,7 +17,6 @@ function museumPlaceholder(name: string): ImageRef {
  * Seventy-sixth statewide museum wave. This record adds the Wills Point Depot
  * Museum as the town's railroad-and-community-history destination while
  * avoiding stale assumptions about public hours.
- * Wave 77 is chained here so later museum expansion remains conflict-light.
  */
 export const statewideMuseumExpansionWave76Destinations: Destination[] = [
   {
