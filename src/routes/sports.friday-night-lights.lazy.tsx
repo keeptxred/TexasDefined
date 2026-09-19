@@ -18,6 +18,12 @@ const startHere = [
     label: "Read the culture guide",
   },
   {
+    title: "What do 1A through 6A mean?",
+    description: "Understand the enrollment classifications, Division I and II splits, district structure, realignment, six-man football and the history behind the UIL system.",
+    href: "/article/texas-high-school-football-classifications-1a-6a",
+    label: "Understand classifications",
+  },
+  {
     title: "Find a football program by high school",
     description: "Search every current UIL football program by high school, ISD, city or county and see its 2026–28 classification, division and district.",
     href: "/texas-high-school-football-teams",
@@ -80,7 +86,7 @@ function FridayNightLightsPage() {
           <div>
             <p className="eyebrow text-primary">Start here</p>
             <h2 className="mt-2 font-display text-3xl leading-tight">Pick the part of Texas football you need</h2>
-            <p className="mt-3 text-sm leading-7 text-muted-foreground">This page is the parent guide. The deeper links handle the newcomer basics, cultural history, school geography and venue planning without repeating the same article four times.</p>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">This page is the parent guide. The deeper links handle newcomer basics, classifications and history, program lookup, school geography and venue planning without repeating the same material.</p>
           </div>
           <div className="grid gap-x-8 md:grid-cols-2">
             {startHere.map((item) => <a key={item.href} href={item.href} className="group border-t border-border py-5">
@@ -118,6 +124,10 @@ function FridayNightLightsPage() {
             <p className="eyebrow text-primary">One state, different football worlds</p>
             <h2 className="mt-3 font-display text-4xl">The experience changes with school size and community</h2>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">UIL competition spans 1A six-man through 6A football. Classification is not a quality ranking; it is part of how schools of very different enrollment sizes are organized for competition.</p>
+            <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+              <Link to="/article/texas-high-school-football-classifications-1a-6a" className="text-primary">How 1A through 6A work →</Link>
+              <Link to="/texas-high-school-football-teams" className="text-primary">Look up a current UIL program →</Link>
+            </div>
           </div>
           <div className="grid gap-5">
             {footballWorlds.map((item) => <article key={item.title} className="border-t-2 border-foreground pt-5">

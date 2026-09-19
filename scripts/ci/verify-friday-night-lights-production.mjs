@@ -1,6 +1,7 @@
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 const hubPath = '/sports/friday-night-lights';
 const finderPath = '/texas-high-school-football-teams';
+const classificationsPath = '/article/texas-high-school-football-classifications-1a-6a';
 const finderApiPath = '/api/high-school-football?q=Dallas%20South%20Oak%20Cliff&limit=5';
 const expectedTitle = 'Texas High School Football: Friday Night Lights, Traditions & Game-Day Guide';
 const expectedDescription = 'Understand Texas high school football through Friday-night traditions, six-man and 11-man culture, stadiums, homecoming mums, playoffs, school communities and practical game-day planning.';
@@ -93,7 +94,7 @@ const hubNeedles = [
   'Friday Night Lights, Defined', 'CollectionPage', 'ItemList', 'BreadcrumbList',
   '/article/texas-high-school-football-newcomers', '/article/texas-high-school-football-friday-night-lights',
   '/texas-homecoming-mums', '/sports-venues/high-school-football', '/find-my-school-district', '/texas-tailgating-guide',
-  '/texas-high-school-football-teams',
+  '/texas-high-school-football-teams', classificationsPath,
 ];
 
 await fetchVerified(hubPath, 'hub', (body) => {
@@ -115,6 +116,17 @@ await fetchVerified(finderPath, 'football finder', (body) => {
     '/article/texas-high-school-football-classifications-1a-6a',
   ]) requireNeedle(body, needle, 'football finder');
   if (/\bnoindex\b/i.test(body)) throw new Error('football finder unexpectedly contains noindex');
+});
+
+await fetchVerified(classificationsPath, 'football classifications', (body) => {
+  for (const needle of [
+    'What Do 1A, 2A, 3A, 4A, 5A and 6A Mean in Texas High School Football?',
+    'How Texas high school football got its structure',
+    'Prairie View Interscholastic League',
+    'A quick glossary',
+    '/texas-high-school-football-teams',
+  ]) requireNeedle(body, needle, 'football classifications');
+  if (/\bnoindex\b/i.test(body)) throw new Error('football classifications unexpectedly contains noindex');
 });
 
 await fetchVerified(finderApiPath, 'football finder API', (body) => {
@@ -141,4 +153,4 @@ await fetchVerified('/robots.txt', 'robots', (body) => {
   if (/Disallow:\s*\/sports(?:\/|\s|$)/i.test(body)) throw new Error('robots.txt blocks /sports');
 });
 
-console.log('Friday Night Lights production smoke passed: hub SEO/discovery plus statewide team finder, UIL recent-finals API history, sitemap and robots are live.');
+console.log('Friday Night Lights production smoke passed: hub SEO/discovery, classification/history authority, statewide team finder, UIL recent-finals API history, sitemap and robots are live.');

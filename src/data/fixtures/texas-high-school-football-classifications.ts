@@ -46,6 +46,11 @@ export const texasHighSchoolFootballClassificationsArticle: Article = {
       description: "Explore Texas high school football traditions, stadiums, homecoming and the season arc.",
     },
     {
+      href: "/texas-high-school-football-teams",
+      label: "Find a Texas high school football team",
+      description: "Search current UIL programs by high school, ISD, city or county and see each program's 2026–28 classification, division, district and recent state-final history where available.",
+    },
+    {
       href: "/sports-venues/high-school-football",
       label: "Texas high school football stadiums",
       description: "Browse landmark stadiums and game-night destinations across the state.",
@@ -81,6 +86,16 @@ export const texasHighSchoolFootballClassificationsArticle: Article = {
       description: "Read the rules behind enrollment reporting, conference makeup, opt-ups and six-man or 11-man choices.",
     },
     {
+      href: "https://www.uiltexas.org/football/rules-guidelines",
+      label: "Current UIL football rules and six-man resources",
+      description: "Use the current UIL football rules page for annual amendments, the football plan and the six-man rules comparison.",
+    },
+    {
+      href: "https://www.tshaonline.org/handbook/entries/grace-donald-edward",
+      label: "Handbook of Texas: Donald Edward Grace",
+      description: "Independent Texas State Historical Association context identifying the 1966 PVIL title game as the last legally segregated Texas high school football state championship.",
+    },
+    {
       href: "https://tapps.biz/2026-28-alignment-final/",
       label: "TAPPS 2026–28 alignment",
       description: "See the separate alignment used by many Texas private and parochial schools.",
@@ -104,7 +119,7 @@ export const texasHighSchoolFootballClassificationsArticle: Article = {
     p("The labels themselves changed over time. UIL archives show 1A through 4A competition by the 1960s and 5A by the late 20th century. By the 2014–16 realignment, the UIL was using the modern six-conference 1A-through-6A structure, with 6A beginning at 2,100 students. The names stayed familiar after that, but the enrollment lines have continued to move every two years."),
     p("That history explains the point of the system better than the letters do: classifications were built to create more realistic competitive groupings as Texas added schools, cities expanded and enrollment differences became enormous."),
     h("The history also includes the Prairie View Interscholastic League"),
-    p("For much of the 20th century, Texas high school football was segregated. The Prairie View Interscholastic League, established in 1920 and originally known as the Texas Interscholastic League of Colored Schools, organized academic and athletic competition for more than 150 African American high schools while Black students were excluded from the UIL system."),
+    p("For much of the 20th century, Texas high school football was segregated. The Prairie View Interscholastic League, established in 1920 and originally known as the Texas Interscholastic League of Colored Schools, organized academic and athletic competition for African American high schools while Black students were excluded from the UIL system. The UIL's own history notes 150-plus schools in its broad timeline, while its dedicated PVIL history says the league enrolled 500 schools at its peak."),
     p("PVIL football produced its own champions, coaches, rivalries and traditions. As Texas schools integrated in the 1960s, Black schools began entering UIL competition and the PVIL gradually merged into the UIL structure. Historical accounts identify the 1966 PVIL football championship as the last legally segregated state championship in Texas high school football; the PVIL ceased operations in 1970."),
     p("That is an important part of the statewide story because today\'s UIL record book grew out of two parallel traditions. Looking only at the early UIL champions leaves out decades of championship football played by Black Texas schools."),
     h("How six-man football became part of the Texas map"),
