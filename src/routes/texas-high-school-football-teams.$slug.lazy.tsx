@@ -83,7 +83,7 @@ function Page() {
           </>}
           <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
             {countyPath && <a href={countyPath} className="text-primary">Open {program?.countyName} guide →</a>}
-            <a href="/find-my-school-district" className="text-primary">Verify a school district by address →</a>
+            {program && <a href="/find-my-school-district" className="text-primary">Verify a school district by address →</a>}
             {program?.sourceUrl && <a href={program.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary">Official UIL alignment ↗</a>}
           </div>
         </div>
