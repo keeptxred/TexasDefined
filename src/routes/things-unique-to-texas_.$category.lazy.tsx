@@ -32,7 +32,7 @@ const FEATURED_GUIDES: Record<string, { href: string; label: string; description
   ],
   "culture-music": [
     { href: "/texas-dance-halls-honky-tonks", label: "Texas Dance Halls & Honky-Tonks", description: "Historic halls, Western swing, two-step culture and the social side of Texas music." },
-    { href: "/texas-homecoming-mums", label: "Texas Homecoming Mums Explained", description: "How a simple flower became one of the state's most elaborate school traditions." },
+    { href: "/texas-homecoming", label: "Texas Homecoming", description: "Why football, alumni, parades, pep rallies, school spirit and giant mums turn homecoming into a week-long Texas ritual." },\n    { href: "/texas-homecoming-mums", label: "Texas Homecoming Mums Explained", description: "How a simple flower became one of the state's most elaborate school traditions." },
     { href: "/german-czech-texas-towns", label: "German & Czech Texas towns", description: "Food, churches, dance halls and festivals connect immigrant history to living Texas culture." },
   ],
   "slang-folklore": [
