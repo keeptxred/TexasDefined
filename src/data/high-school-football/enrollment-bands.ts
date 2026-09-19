@@ -38,6 +38,12 @@ export const UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE = {
   cycle: '2026–28',
 } as const;
 
+export const UIL_FOOTBALL_EXACT_ENROLLMENT_SOURCE = {
+  label: 'UIL 2026–28 Realignment Alphabetical Listing',
+  url: 'https://www.uiltexas.org/files/alignments/Alpha_26-28.pdf',
+  cycle: '2026–28',
+} as const;
+
 export function uilFootballEnrollmentBand(
   classification: UilFootballClassification,
   division: UilFootballDivision,
