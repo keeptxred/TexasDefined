@@ -303,6 +303,60 @@ const texasBackupPowerGeneratorGuideStub: Article = {
   relatedDestinations: [],
 };
 
+
+const bluebonnetAnimalPreservationAthensStub: Article = {
+  id: "guide-bluebonnet-animal-preservation-athens",
+  brandId: "texasdefined",
+  slug: "bluebonnet-animal-preservation-athens",
+  title: "Bluebonnet Animal Preservation in Athens: Pet Freeze-Drying, Cremation and Memorial Options",
+  dek: "An Athens, Texas guide to Bluebonnet Animal Preservation, a family-owned pet-aftercare business offering cremation and freeze-dry preservation for companion animals and selected wildlife or hunting trophies.",
+  category: "guides",
+  region: "piney-woods",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Texas%20Bluebonnets%20(25085818956).jpg?width=1600",
+    alt: "Texas bluebonnets in bloom, used as an editorial illustration for Bluebonnet Animal Preservation in Athens",
+    width: 4256,
+    height: 2832,
+    credit: "USDA · Public domain · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-09-19",
+  readingMinutes: 9,
+  tags: ["Bluebonnet Animal Preservation", "Athens Texas", "Henderson County", "pet cremation Texas", "pet freeze drying Texas", "pet preservation Texas", "unusual Texas businesses"],
+  featured: false,
+  sourceName: "Bluebonnet Animal Preservation",
+  sourceUrl: "https://bluebonnetpreservation.com/",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: [],
+};
+
+const unusualTexasBusinessesServicesStub: Article = {
+  id: "guide-unusual-texas-businesses-services",
+  brandId: "texasdefined",
+  slug: "unusual-texas-businesses-services",
+  title: "Unusual Texas Businesses & Services You Probably Didn't Know Existed",
+  dek: "A growing TexasDefined directory of highly specialized, locally rooted Texas businesses, craftspeople and experiences—from pet freeze-dry preservation and giant homecoming mums to hands-on blacksmithing and bumper-car team sports.",
+  category: "guides",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Britten%20USA.jpg?width=1600",
+    alt: "The Leaning Tower of Britten beside old Route 66 in Groom, Texas, an example of the state's unusual roadside character",
+    width: 2117,
+    height: 2387,
+    credit: "Dustin Moore · CC BY 2.0 · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-09-19",
+  readingMinutes: 8,
+  tags: ["unusual Texas businesses", "unique Texas businesses", "Texas small businesses", "Texas craftspeople", "Texas traditions", "things unique to Texas"],
+  featured: false,
+  sourceName: "TexasDefined first-party business research",
+  sourceUrl: "https://bluebonnetpreservation.com/",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: ["whirlyball-hurst"],
+};
+
 export const newestEvergreenArticles: Article[] = [
   ...seasonalIntentStubs,
   ...lighthouseSearchIntentStubs,
@@ -320,6 +374,8 @@ export const newestEvergreenArticles: Article[] = [
   texasPoolOwnerGuideStub,
   texasWildfireHomeProtectionGuideStub,
   texasBackupPowerGeneratorGuideStub,
+  bluebonnetAnimalPreservationAthensStub,
+  unusualTexasBusinessesServicesStub,
 ];
 
 const loaders: Record<string, () => Promise<Article>> = {
@@ -334,6 +390,8 @@ const loaders: Record<string, () => Promise<Article>> = {
   "texas-pool-owner-guide": async () => (await import("./texas-pool-owner-guide")).texasPoolOwnerGuideArticle,
   "texas-wildfire-home-protection-guide": async () => (await import("./texas-wildfire-home-protection-guide")).texasWildfireHomeProtectionGuideArticle,
   "texas-backup-power-generator-guide": async () => (await import("./texas-backup-power-generator-guide")).texasBackupPowerGeneratorGuideArticle,
+  "bluebonnet-animal-preservation-athens": async () => (await import("./bluebonnet-animal-preservation-athens")).bluebonnetAnimalPreservationAthensArticle,
+  "unusual-texas-businesses-services": async () => (await import("./unusual-texas-businesses-services")).unusualTexasBusinessesServicesArticle,
 };
 
 export async function loadNewestEvergreenArticle(brandId: string, slug: string) {
