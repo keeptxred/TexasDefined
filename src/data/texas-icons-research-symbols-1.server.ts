@@ -103,33 +103,61 @@ export const TEXAS_ICON_RESEARCH_SYMBOLS_BATCH_1: readonly TexasIconResearchProf
   },
   {
     slug: "shiner-bock",
+    seoTitle: "Shiner Bock & Spoetzl Brewery: History, Tours & Shiner, Texas",
     editorialStatus: "researched-staged",
     publicationNote: staged,
-    dek: "Shiner Bock grew from the Spoetzl Brewery in the small Lavaca County town of Shiner into a beer whose identity remains tightly bound to Czech-German Texas brewing traditions and the town where it is produced.",
+    dek: "Shiner Bock is the amber lager first brewed in 1913 at the Spoetzl Brewery in Shiner, Texas, where more than a century of Czech- and German-Texan brewing history, small-town identity and modern brewery tourism still meet at the same Lavaca County address.",
     overview: [
-      "The Shiner Brewing Association began brewing in Shiner in 1909, serving a Czech- and German-Texan farming community that wanted locally made beer in old-world styles. Bavarian-trained brewmaster Kosmos Spoetzl arrived during the brewery's early years and became the figure most closely associated with the operation that now bears his name.",
-      "The brewery survived Prohibition by producing legal products including near beer and ice, then continued through changing ownership and wider distribution. Shiner Bock eventually became its best-known label, but geography remains central to the brand story: the brewery still produces its beer in Shiner, Texas.",
+      "Shiner Bock belongs to a longer brewery story that began before the beer itself. The Shiner Brewing Association started brewing in 1909 in a farming community shaped heavily by Czech and German immigration. The brewery served a practical local market: residents wanted beer made close to home in styles familiar from Central Europe, and rail connections made the small Lavaca County town part of a wider regional trade network.",
+      "Kosmos Spoetzl became the defining figure in that early story. The German-trained brewmaster had worked in Cairo, Egypt, before coming to Texas. He and Oswald Petzold leased the Shiner operation in 1915, and Spoetzl soon bought the brewery. The company that eventually took his name survived the disruption of Prohibition by making legal products including near beer and ice, then returned fully to beer production after repeal. The surviving brewery complex and the 1971 Texas historical marker make that history visible rather than merely promotional.",
+      "Shiner Bock itself was first brewed in 1913, according to the brewery's current product history. It began as a seasonal beer and became available year-round in 1973 after demand grew. The modern beer is an amber lager brewed with roasted barley malt and German specialty hops. That combination of a specific product, a specific town and a brewery that never left its hometown is the reason the name Shiner functions as both a beer brand and a geographic identity.",
+      "The brewery's twentieth-century history also mirrors the changing Texas beer business. Kosmos Spoetzl built the recognizable white-brick brewery in 1947. After his death in 1950, his daughter Cecilie took over the operation; the Texas Historical Commission marker notes her unusual position as a woman running a brewery in that era. Family control ended in 1966, and later ownership changes carried the brand through a difficult period before Carlos Alvarez purchased the brewery in 1989 and expanded its reach.",
+      "For visitors, this is not simply a brand-history stop. The K. Spoetzl Brewery remains at 603 East Brewery Street in Shiner and operates public brewery tours. As reviewed on September 19, 2026, Shiner's official visitor page lists brewery tours across the week and the booking page describes an approximately 45-minute signature tour. The visitor campus also includes a distillery, barbecue operation, gift shop and other hospitality spaces. Because schedules and prices can change, travelers should use the brewery's current booking page before driving to Shiner.",
+      "The surrounding town adds context that a brewery-only visit can miss. Shiner sits inside Lavaca County's Czech- and German-Texan cultural landscape, and Saints Cyril and Methodius Catholic Church provides another major local heritage stop. Pairing the brewery with the church, downtown Shiner and a wider Lavaca County drive turns the trip into a clearer picture of how immigration, agriculture, railroads, faith, food and drink shaped this part of Texas."
     ],
-    definingWorks: ["Spoetzl Brewery", "Shiner Bock", "1909 brewing history", "Shiner, Texas", "Texas Czech-German brewing tradition"],
+    definingWorks: [
+      "Spoetzl Brewery in Shiner, operating from a brewing tradition begun in 1909",
+      "Shiner Bock, first brewed in 1913",
+      "Shiner Bock year-round availability beginning in 1973",
+      "1947 white-brick brewery built during Kosmos Spoetzl's ownership",
+      "Czech- and German-Texan brewing heritage",
+      "603 East Brewery Street visitor campus in Shiner"
+    ],
     timeline: [
       { year: "1909", event: "The Shiner Brewing Association begins brewing in Shiner, Texas." },
-      { year: "1910s", event: "Kosmos Spoetzl joins the brewery and becomes its defining early brewmaster-owner." },
-      { year: "1920s", event: "The brewery stays open through Prohibition by producing legal products including near beer and ice." },
-      { year: "1970s-1990s", event: "Shiner beer grows from a regional product into a much wider Texas and national market." },
+      { year: "1913", event: "Shiner Bock is first brewed, according to the brewery's current product history." },
+      { year: "1915", event: "Kosmos Spoetzl and Oswald Petzold lease the brewery; Spoetzl soon becomes the owner most closely identified with it." },
+      { year: "1918-1933", event: "During Prohibition, the brewery remains in operation with legal products including near beer and ice." },
+      { year: "1947", event: "Kosmos Spoetzl constructs the white-brick brewery building that remains a recognizable part of the site." },
+      { year: "1950", event: "After Kosmos Spoetzl's death, his daughter Cecilie takes control of the brewery." },
+      { year: "1966", event: "Spoetzl family ownership ends when the brewery is sold." },
+      { year: "1971", event: "A Texas historical marker is placed at the Spoetzl Brewery." },
+      { year: "1973", event: "Shiner Bock shifts from a seasonal beer to year-round availability." },
+      { year: "1989", event: "Carlos Alvarez purchases the brewery, beginning the ownership era associated with broader modern distribution and growth." },
+      { year: "Today", event: "Shiner Bock and other Shiner beers continue to be brewed in Shiner, with the brewery operating as both a production site and visitor destination." }
     ],
     legacy: [
-      "Shiner Bock helped make a small-town brewery into one of Texas's best-known beverage brands.",
-      "Unlike many brands whose place of origin fades into marketing history, Shiner's continuing production in the town keeps geography unusually central to its identity.",
+      "Shiner Bock helped turn the name of a small Lavaca County town into one of the most recognizable beer identities associated with Texas. The unusual part is that the geographic claim remains literal: the beer is still brewed in Shiner rather than merely borrowing the town's name as heritage branding.",
+      "The brewery also preserves a direct link between Central European immigration and modern Texas food-and-drink culture. Czech and German settlement influenced the social landscape in which the original brewery opened, while the brewery, churches, dance halls, festivals and family traditions of the wider region kept that heritage visible across generations.",
+      "Shiner's significance is bigger than one label. The brewery has survived Prohibition, ownership changes, changing distribution systems and a radically different American beer market while remaining physically rooted in the same town. That continuity gives TexasDefined a useful way to explain how place can remain part of a brand even as the business around it changes.",
+      "For modern travelers, the strongest Shiner itinerary connects the beer to its setting: visit the Spoetzl Brewery, explore Shiner itself, see Saints Cyril and Methodius Church and use the trip as an entry point into Lavaca County's wider Czech, German, railroad and agricultural history."
     ],
     texasPlaces: [
-      { name: "Shiner", context: "Lavaca County town where the brewery has operated since 1909." },
-      { name: "Spoetzl Brewery", context: "Historic brewery site at 603 East Brewery Street in Shiner." },
+      { name: "Shiner and Lavaca County", context: "The brewery's hometown and the wider county landscape that connects Czech and German settlement, agriculture, railroads, churches and small-town culture.", href: "/county/lavaca" },
+      { name: "Spoetzl Brewery", context: "Historic and still-operating brewery at 603 East Brewery Street in Shiner; public tours and visitor facilities make the production site part of the modern travel experience." },
+      { name: "Saints Cyril and Methodius Church", context: "Shiner's major painted-church landmark and an important companion stop for understanding the town's Czech and German Catholic heritage.", href: "/explore/painted-churches/shiner-saints-cyril-methodius" },
+      { name: "Texas brand history", context: "Compare Shiner's place-based identity with H-E-B, Whataburger, Blue Bell, Dickies and Buc-ee's.", href: "/texas-brand-origin-stories" },
+      { name: "Made, Built & Born in Texas", context: "See Spoetzl Brewery in TexasDefined's county-linked index of products and companies with documented Texas production or origins.", href: "/made-in-texas" },
+      { name: "German & Czech Texas towns", context: "Put Shiner into the broader Central European settlement belt of Texas.", href: "/german-czech-texas-towns" }
     ],
     sources: [
       { label: "Handbook of Texas — Spoetzl Brewery", url: "https://www.tshaonline.org/handbook/entries/spoetzl-brewery" },
       { label: "Texas Historical Commission — Spoetzl Brewery marker", url: "https://atlas.thc.texas.gov/Details/5285005011" },
       { label: "Shiner — Brewery History", url: "https://shiner.com/brewery/" },
+      { label: "Shiner — Shiner Bock product history", url: "https://shiner.com/beer/shiner-bock/" },
+      { label: "Shiner — Plan Your Visit", url: "https://shiner.com/visit/" },
+      { label: "Shiner — Brewery & Distillery Tours", url: "https://shiner.com/book-your-tour/" }
     ],
-    lastReviewedAt: reviewed,
-  },
+    lastReviewedAt: "2026-09-19",
+  }
 ];
