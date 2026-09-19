@@ -36,7 +36,7 @@ const cultureGuides = [
   ['/texas-natural-wonders-bucket-list', 'Texas Natural Wonders', 'Twelve landscapes that show how Texas shifts from desert mountains and canyons to cypress swamp, springs and barrier islands.'],
   ['/texas-dance-halls-honky-tonks', 'Dance Halls & Honky-Tonks', 'Historic halls, Western swing, the two-step and the social spaces where Texas music is still experienced together.'],
   ['/german-czech-texas-towns', 'German & Czech Texas Towns', 'Food, churches, dance halls, festivals and historic communities across Central Texas and the Hill Country.'],
-  ['/texas-homecoming-mums', 'Texas Homecoming Mums', 'How a simple chrysanthemum became an enormous wearable tradition of school spirit and local identity.'],
+  ['/texas-homecoming', 'Texas Homecoming', 'Why football, alumni, parades, pep rallies, bands, courts, dances and giant mums make homecoming one of the state’s defining school traditions.'],\n  ['/texas-homecoming-mums', 'Texas Homecoming Mums', 'How a simple chrysanthemum became an enormous wearable tradition of school spirit and local identity.'],
   ['/texas-slang-explained', 'Texas Slang Explained', 'Y’all, fixin’ to, ranch imagery, bilingual influence and the context behind familiar Texas sayings.'],
   ['/texas-blue-norther-weather-guide', 'Texas Blue Northers & Spring Storms', 'Texas weather language and storm-watching culture, separated from the meteorology and National Weather Service guidance that should control real safety decisions.'],
   ['/texas-roadside-oddities', 'Texas Roadside Oddities', 'Giant art, neon, tiny towns and strange stops that can turn a highway drive into a real Texas road trip.'],
