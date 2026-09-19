@@ -14,6 +14,7 @@ import {
 import type { TexasEntityKind, TexasEntityRecord } from '@/data/knowledge-graph/types';
 import type { SportsVenueEnrichment as SportsVenueEnrichmentRecord } from '@/data/sports-venue-enrichment';
 import { getActiveSportsSponsorPlacement } from '@/data/sports-sponsorship.functions';
+import { texasHockeyTeamPath, texasHockeyTeamsForVenuePath } from '@/data/texas-hockey';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const siteUrl = 'https://texasdefined.com';
@@ -208,20 +209,34 @@ export const Route = createFileRoute('/sports-venue/$slug')({
 function SportsVenuePage() {
   const { slug } = Route.useParams();
   const { entity, parkingMap, visitorPlaces, upcomingEvents, eventCalendarHref, sponsorPlacement } = Route.useLoaderData();
+  const hockeyTeams = texasHockeyTeamsForVenuePath('/sports-venue/' + slug);
 
-  if (isSportsVenueGuidePilot(slug)) {
-    return <SportsVenueGuidePilotContent
-      slug={slug}
-      entity={entity}
-      parkingMap={parkingMap}
-      nearbyAttractions={visitorPlaces}
-      upcomingEvents={upcomingEvents}
-      eventCalendarHref={eventCalendarHref}
-      sponsorPlacement={sponsorPlacement}
-    />;
-  }
+  const venuePage = isSportsVenueGuidePilot(slug)
+    ? <SportsVenueGuidePilotContent
+        slug={slug}
+        entity={entity}
+        parkingMap={parkingMap}
+        nearbyAttractions={visitorPlaces}
+        upcomingEvents={upcomingEvents}
+        eventCalendarHref={eventCalendarHref}
+        sponsorPlacement={sponsorPlacement}
+      />
+    : <LegacySportsVenuePage />;
 
-  return <LegacySportsVenuePage />;
+  return <>{venuePage}{hockeyTeams.length > 0 && <HockeyVenueCrossLinks teams={hockeyTeams} />}</>;
+}
+
+function HockeyVenueCrossLinks({ teams }: { teams: ReturnType<typeof texasHockeyTeamsForVenuePath> }) {
+  return <Container className="pb-12">
+    <section className="mx-auto max-w-6xl border-t border-border py-8">
+      <p className="eyebrow text-primary">Texas hockey</p>
+      <h2 className="mt-2 font-display text-3xl">Hockey teams at this venue</h2>
+      <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+        {teams.map((team) => <a key={team.slug} href={texasHockeyTeamPath(team.slug)} className="text-primary underline underline-offset-4">{team.name} team profile →</a>)}
+        <a href="/texas-hockey" className="text-primary underline underline-offset-4">All Texas hockey →</a>
+      </div>
+    </section>
+  </Container>;
 }
 
 function LegacySportsVenuePage() {
