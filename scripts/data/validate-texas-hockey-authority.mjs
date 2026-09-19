@@ -66,7 +66,10 @@ for (const marker of [
 ]) requireText(venue, marker, 'Texas hockey venue route');
 
 for (const marker of [
+  'data-stay-nearby-slot',
   'data-hockey-stay-nearby-slot',
+  'data-stay-context-kind="city"',
+  'data-stay-allow-broad-fallback="true"',
   'TexasDefinedStayNearby',
   "kind: 'city'",
   'allowBroadFallback: true',
@@ -77,6 +80,7 @@ for (const marker of ['TEXAS_HOCKEY_LEAGUES', 'TEXAS_HOCKEY_ACTIVE_TEAMS', 'TEXA
   requireText(sitemap, marker, 'Primary sitemap');
 }
 requireText(expedia, 'texas-hockey', 'Travel affiliate route eligibility');
+requireText(expedia, '[data-stay-context-kind][data-stay-context-key]', 'Travel affiliate explicit-context support');
 requireText(sports, 'to="/texas-hockey"', 'Sports hub discovery');
 requireText(llms, 'https://texasdefined.com/texas-hockey', 'Machine discovery');
 

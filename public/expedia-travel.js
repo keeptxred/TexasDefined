@@ -106,6 +106,20 @@
   }
 
   function contextFromPath(pathname = window.location.pathname) {
+    const explicit = document.querySelector("[data-stay-context-kind][data-stay-context-key]");
+    if (explicit) {
+      const kind = explicit.dataset.stayContextKind;
+      const key = explicit.dataset.stayContextKey;
+      if (kind && key) {
+        return {
+          kind,
+          key,
+          city: explicit.dataset.stayContextCity || undefined,
+          allowBroadFallback: explicit.dataset.stayAllowBroadFallback === "true",
+        };
+      }
+    }
+
     for (const candidate of CONTEXT_PATHS) {
       const match = pathname.match(candidate.pattern);
       if (!match) continue;

@@ -31,7 +31,14 @@ export function HockeyStayNearby({ city, citySlug }: { city: string; citySlug: s
 
   return (
     <section className="border-t border-border py-10">
-      <div data-hockey-stay-nearby-slot>
+      <div
+        data-stay-nearby-slot
+        data-hockey-stay-nearby-slot
+        data-stay-context-kind="city"
+        data-stay-context-key={citySlug}
+        data-stay-context-city={city}
+        data-stay-allow-broad-fallback="true"
+      >
         <p className="eyebrow text-primary">Places to stay</p>
         <h2 className="mt-2 font-display text-3xl">Stay near the hockey trip</h2>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
