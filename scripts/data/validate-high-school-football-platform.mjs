@@ -300,12 +300,22 @@ if (!errors.length) {
     "districtName: 'Pflugerville ISD'",
     "districtName: 'Judson ISD'",
     "districtName: 'Northside ISD'",
+    "districtName: 'Keller ISD'",
+    "districtName: 'Plano ISD'",
+    "districtName: 'McKinney ISD'",
+    "districtName: 'Lewisville ISD'",
+    "districtName: 'Richardson ISD'",
+    "districtName: 'Mansfield ISD'",
+    "districtName: 'Northwest ISD'",
+    "districtName: 'Garland ISD'",
+    "districtName: 'Irving ISD'",
+    "districtName: 'Grand Prairie ISD'",
     'enrollmentUrl',
     'verifiedAt',
   ]) requireText(officialEnrollmentLinks, marker, 'Official football enrollment links');
   const verifiedEnrollmentLinkCount = (officialEnrollmentLinks.match(/districtName: '/g) ?? []).length;
-  if (verifiedEnrollmentLinkCount < 21) {
-    errors.push(`Official football enrollment-link data fell below 21 verified districts; found ${verifiedEnrollmentLinkCount}.`);
+  if (verifiedEnrollmentLinkCount < 31) {
+    errors.push(`Official football enrollment-link data fell below 31 verified districts; found ${verifiedEnrollmentLinkCount}.`);
   }
 
   for (const marker of [
