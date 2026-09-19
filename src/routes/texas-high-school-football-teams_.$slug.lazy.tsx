@@ -26,6 +26,8 @@ function Page() {
   const associationLabel = program
     ? 'UIL'
     : privateAlignment?.association ?? governingBodyHint ?? 'Association not yet verified';
+  const campusAddress = program ? formatCampusAddress(program) : '';
+  const schoolWebsite = program?.webAddress ? normalizeExternalUrl(program.webAddress) : '';
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <article className="mx-auto max-w-6xl">
@@ -72,6 +74,21 @@ function Page() {
             <p className="mt-4 text-sm leading-7 text-muted-foreground">
               TexasDefined orders the statewide directory from 6A through 1A because UIL classifications reflect enrollment size. That ordering is not a claim that a larger-classification football program is better than a smaller-classification program. District assignments and enrollment cutoffs can change at realignment.
             </p>
+            {(program.schoolNumber || program.gradeRange || program.enrollment || campusAddress) && <div className="mt-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">AskTED campus facts</p>
+              <dl className="mt-3 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+                {program.schoolNumber && <Snapshot label="TEA campus number" value={program.schoolNumber} />}
+                {program.gradeRange && <Snapshot label="Grades served" value={program.gradeRange} />}
+                {program.enrollment && <Snapshot label="TEA campus enrollment" value={program.enrollment.toLocaleString('en-US')} />}
+                {campusAddress && <Snapshot label="Physical campus address" value={campusAddress} />}
+                {program.phone && <Snapshot label="Campus phone" value={program.phone} />}
+                {program.enrollmentLabel && <Snapshot label="Enrollment snapshot" value={program.enrollmentLabel.replace(/^School\s+/i, '')} />}
+              </dl>
+              <p className="mt-4 text-xs leading-6 text-muted-foreground">
+                AskTED campus facts come from the Texas Education Directory. The campus-enrollment snapshot can update on a different schedule from UIL realignment and should not be treated as the UIL snapshot enrollment used to set football classifications.
+              </p>
+              {schoolWebsite && <a href={schoolWebsite} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Official school website ↗</a>}
+            </div>}
           </> : privateAlignment ? <div>
             <dl className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
               <Snapshot label="Association" value={privateAlignment.association} />
@@ -346,6 +363,21 @@ function ResearchCard({ title, body }: { title: string; body: string }) {
 
 function Related({ href, title, body }: { href: string; title: string; body: string }) {
   return <a href={href} className="border-t-2 border-foreground pt-4"><h3 className="font-display text-2xl hover:text-primary">{title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p></a>;
+}
+
+function formatCampusAddress(program: {
+  siteStreetAddress?: string;
+  siteCity?: string;
+  siteState?: string;
+  siteZip?: string;
+}) {
+  const cityState = [program.siteCity, program.siteState].filter(Boolean).join(', ');
+  const locality = [cityState, program.siteZip].filter(Boolean).join(' ');
+  return [program.siteStreetAddress, locality].filter(Boolean).join(' · ');
+}
+
+function normalizeExternalUrl(value: string) {
+  return /^https?:\/\//i.test(value) ? value : `https://${value}`;
 }
 
 function alignmentLabel(program: { classification: string; division: 1 | 2 | null }) {
