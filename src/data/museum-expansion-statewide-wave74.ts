@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave75Destinations } from "./museum-expansion-statewide-wave75";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-18";
@@ -16,6 +17,7 @@ function museumPlaceholder(name: string): ImageRef {
  * Seventy-fourth statewide museum wave. This record reconciles the audit's
  * generic "Wilson County Historical Museum" wording to the active Wilson
  * County Jailhouse Museum operated by the Wilson County Historical Society.
+ * Wave 75 is chained here so later museum expansion remains conflict-light.
  */
 export const statewideMuseumExpansionWave74Destinations: Destination[] = [
   {
@@ -54,4 +56,5 @@ export const statewideMuseumExpansionWave74Destinations: Destination[] = [
     address: "1140 C St, Floresville, TX 78114",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave75Destinations,
 ];
