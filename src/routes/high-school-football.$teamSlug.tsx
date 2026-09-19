@@ -4,6 +4,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { Container } from '@/components/layout/Container';
+import { getFootballProgramProfilePage } from '@/data/high-school-football/football-program-profile.functions';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const UIL_ELIGIBILITY_URL = 'https://www.uiltexas.org/policy/eligibility';
@@ -12,8 +13,7 @@ const TEA_ASKTED_URL = 'https://tealprod.tea.state.tx.us/Tea.AskTed.Web/Forms/Ho
 
 export const Route = createFileRoute('/high-school-football/$teamSlug')({
   loader: async ({ params }) => {
-    const { getFootballProgramProfile } = await import('@/data/high-school-football/football-directory.server');
-    const profile = await getFootballProgramProfile(params.teamSlug);
+    const profile = await getFootballProgramProfilePage(params.teamSlug);
     if (!profile) throw notFound();
     return profile;
   },
