@@ -37,44 +37,22 @@ function ExplorePage() {
       </div>
       <div className="mt-5 grid gap-5 lg:grid-cols-3">
         <Link to="/explore/aquariums" className="group grid gap-5 border border-border bg-surface p-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-8">
-          <div>
-            <p className="eyebrow text-primary">Aquariums · conservation · coastal science</p>
-            <h2 className="mt-2 font-display text-3xl leading-tight group-hover:text-primary">Explore Texas aquariums & marine life</h2>
-            <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Compare 17 aquarium, marine-center and aquatic zoo guides across Texas, with county context, current official visitor sources and practical trip-planning notes.</p>
-          </div>
-          <span className="font-semibold text-primary">Aquariums →</span>
+          <div><p className="eyebrow text-primary">Aquariums · conservation · coastal science</p><h2 className="mt-2 font-display text-3xl leading-tight group-hover:text-primary">Explore Texas aquariums & marine life</h2><p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Compare 17 aquarium, marine-center and aquatic zoo guides across Texas, with county context, current official visitor sources and practical trip-planning notes.</p></div><span className="font-semibold text-primary">Aquariums →</span>
         </Link>
         <a href="/events/tournaments" className="group grid gap-5 border border-border bg-surface p-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-8">
-          <div>
-            <p className="eyebrow text-primary">Sports · competitions · championships</p>
-            <h2 className="mt-2 font-display text-3xl leading-tight group-hover:text-primary">Explore Texas tournaments</h2>
-            <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Browse 250 tournament and competition seeds across golf, rodeo, youth sports, fishing, barbecue, chess, esports, academics and more, with county links where geography is clear.</p>
-          </div>
-          <span className="font-semibold text-primary">Tournaments →</span>
+          <div><p className="eyebrow text-primary">Sports · competitions · championships</p><h2 className="mt-2 font-display text-3xl leading-tight group-hover:text-primary">Explore Texas tournaments</h2><p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Browse 250 tournament and competition seeds across golf, rodeo, youth sports, fishing, barbecue, chess, esports, academics and more, with county links where geography is clear.</p></div><span className="font-semibold text-primary">Tournaments →</span>
         </a>
         <a href="#tours-experiences" className="group grid gap-5 border border-border bg-surface p-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-8">
-          <div>
-            <p className="eyebrow text-primary">Tours · tickets · bookable experiences</p>
-            <h2 className="mt-2 font-display text-3xl leading-tight group-hover:text-primary">Find Texas tours & experiences</h2>
-            <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Browse statewide experience markets for sightseeing, history, barbecue, wine, water activities, Western culture, museums, family attractions and day trips.</p>
-          </div>
-          <span className="font-semibold text-primary">Experiences ↓</span>
+          <div><p className="eyebrow text-primary">Tours · tickets · bookable experiences</p><h2 className="mt-2 font-display text-3xl leading-tight group-hover:text-primary">Find Texas tours & experiences</h2><p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Browse statewide experience markets for sightseeing, history, barbecue, wine, water activities, Western culture, museums, family attractions and day trips.</p></div><span className="font-semibold text-primary">Experiences ↓</span>
         </a>
       </div>
     </Container>
 
-    <Section>
-      <Container>
-        <SectionHeader eyebrow="The guide by subject" title="Find your way into Texas" description="Rivers, parks, caverns, beaches, historic places, small towns and road trips — organized as a field guide to the state." />
-        <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{exploreCategories.map((category) => <li key={category.slug}><Link to="/explore/$category" params={{ category: category.slug }} className="group relative block overflow-hidden bg-surface">{category.image ? <img src={category.image.src} alt={category.image.alt} width={category.image.width} height={category.image.height} loading="lazy" decoding="async" className="aspect-[5/4] w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]" /> : <div className="aspect-[5/4] w-full bg-gradient-to-br from-primary/25 via-surface to-accent/25" aria-hidden="true" />}<div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent" /><div className="absolute inset-x-0 bottom-0 p-6 text-ink-foreground"><p className="eyebrow opacity-75">{category.eyebrow}</p><h2 className="mt-2 font-display text-[2rem] leading-none">{category.name}</h2><p className="mt-3 text-sm leading-6 text-ink-foreground/82">{category.description}</p></div></Link></li>)}</ul>
-      </Container>
-    </Section>
+    <Section><Container><SectionHeader eyebrow="The guide by subject" title="Find your way into Texas" description="Rivers, parks, caverns, beaches, historic places, small towns and road trips — organized as a field guide to the state." /><ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{exploreCategories.map((category) => <li key={category.slug}><Link to="/explore/$category" params={{ category: category.slug }} className="group relative block overflow-hidden bg-surface">{category.image ? <img src={category.image.src} alt={category.image.alt} width={category.image.width} height={category.image.height} loading="lazy" decoding="async" className="aspect-[5/4] w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]" /> : <div className="aspect-[5/4] w-full bg-gradient-to-br from-primary/25 via-surface to-accent/25" aria-hidden="true" />}<div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent" /><div className="absolute inset-x-0 bottom-0 p-6 text-ink-foreground"><p className="eyebrow opacity-75">{category.eyebrow}</p><h2 className="mt-2 font-display text-[2rem] leading-none">{category.name}</h2><p className="mt-3 text-sm leading-6 text-ink-foreground/82">{category.description}</p></div></Link></li>)}</ul></Container></Section>
 
-    <Suspense fallback={<div id="tours-experiences" aria-hidden="true" />}>
-      <TexasExperienceMarkets />
-    </Suspense>
+    <Suspense fallback={<div id="tours-experiences" aria-hidden="true" />}><TexasExperienceMarkets /></Suspense>
 
-    <Section tone="surface"><Container><SectionHeader eyebrow="Texas by region" title="Seven distinct sides of the state" description="From Gulf Coast marshes to High Plains horizons, each region has its own rhythm, landscape and reasons to linger." /><ul className="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">{regions.map((region) => <li key={region.id} className="border-t border-border pt-5"><Link to="/explore/region/$region" params={{ region: region.id }} className="group block"><h3 className="font-display text-[1.7rem] leading-tight transition-colors group-hover:text-primary">{region.name}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{region.blurb}</p><span className="eyebrow mt-4 inline-block text-primary">Explore the region →</span></Link></li>)}</ul></Container></Section>
+    <Section tone="surface"><Container><SectionHeader eyebrow="Travel regions" title="Familiar trip-planning lenses, connected to the canonical map" description="Hill Country, Big Bend, Piney Woods and other established travel identities remain useful for planning. TexasDefined cross-walks them to one seven-region statewide geography instead of making them compete with it." /><div className="mt-7 border-y border-border py-5 sm:flex sm:items-center sm:justify-between sm:gap-8"><div><p className="font-semibold">Need the statewide geography?</p><p className="mt-1 text-sm leading-6 text-muted-foreground">Open North Texas, Central Texas, East Texas, South Texas, West Texas, Gulf Coast and the Panhandle with their subregions, metros, cities and relocation context.</p></div><Link to="/regions" className="eyebrow mt-4 inline-block shrink-0 border-b border-primary pb-1 text-primary sm:mt-0">See the 7 canonical regions →</Link></div><ul className="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">{regions.map((region) => <li key={region.id} className="border-t border-border pt-5"><Link to="/explore/region/$region" params={{ region: region.id }} className="group block"><h3 className="font-display text-[1.7rem] leading-tight transition-colors group-hover:text-primary">{region.name}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{region.blurb}</p><span className="eyebrow mt-4 inline-block text-primary">Explore the travel region →</span></Link></li>)}</ul></Container></Section>
 
     {destinations.length > 0 && <Section><Container><SectionHeader eyebrow="Featured places" title="A few places to start" description="A rotating selection of destinations that capture different corners of Texas." /><ul className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{destinations.map((destination) => <li key={destination.id}><DestinationCard destination={destination} regionLabel={regions.find((r) => r.id === destination.region)?.name} /></li>)}</ul></Container></Section>}
 
