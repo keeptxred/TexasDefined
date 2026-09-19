@@ -44,6 +44,12 @@ const startHere = [
     label: "Open the football team finder",
   },
   {
+    title: "Follow current scores and weekly schedules",
+    description: "Use the UIL Texas Scoreboard and school sources for current results and schedules, with clear caveats about submission completeness and standings.",
+    href: "/article/texas-high-school-football-scores-schedules",
+    label: "Open scores & schedules guide",
+  },
+  {
     title: "Browse every current UIL football district",
     description: "Open all 192 current 2026–28 UIL football districts and move from a district roster directly into each school’s research profile.",
     href: "/texas-high-school-football-districts",
