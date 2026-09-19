@@ -110,7 +110,7 @@ export const statewideMuseumExpansionWave54Destinations: Destination[] = [
     officialUrl: "https://briscoecenter.org/visit/sam-rayburn-museum/",
     managingAuthority: "Dolph Briscoe Center for American History, The University of Texas at Austin",
     address: "800 W Sam Rayburn Dr, Bonham, TX 75418",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    sourceCheckedAt: "2026-09-19",
   },
   {
     id: "museum-statewide-wave56-fannin-county-museum-of-history",
