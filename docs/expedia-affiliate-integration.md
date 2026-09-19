@@ -8,6 +8,8 @@ TexasDefined treats lodging as a trip-planning utility, not a sitewide ad layer.
 2. **Expedia stays search** is the approved broad-search fallback and remains the host for live availability/search behavior.
 3. **Hotels.com / Vrbo choices** add a route-scoped traveler monetization layer inside the same Stay Nearby surface. Hotels.com is primary on event and sports-venue intent; broader destination/leisure intent can offer both Hotels.com and Vrbo. Vrbo owner referrals are separately gated to owner/real-estate context and are not inferred from ordinary travel intent.
 
+When a curated Stay Nearby surface has governed exact-property Hotels.com links, those property cards appear before the broader Hotels.com/Vrbo comparison choices. Broad choices remain available as a secondary path after the curated cards; generic-only stay surfaces continue to lead with broad comparison choices. This ordering keeps the highest-context option visible first without removing traveler choice.
+
 Editorial relevance and affiliate activation remain separate. A hotel can be included because its location is useful even when TexasDefined does not yet have a verified property-specific affiliate link. In that case, the card falls back to the approved Expedia stays search instead of inventing a property deep link.
 
 ## Approved Expedia widget contract
