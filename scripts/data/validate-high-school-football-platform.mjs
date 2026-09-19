@@ -142,6 +142,19 @@ if (!errors.length) {
     'profilePath',
     'footballProgramProfilePath',
     'Math.min(Math.max(options.limit ?? 50, 1), 500)',
+    'schoolNumber?: string',
+    'siteStreetAddress?: string',
+    'siteCity?: string',
+    'siteState?: string',
+    'siteZip?: string',
+    'phone?: string',
+    'webAddress?: string',
+    'gradeRange?: string',
+    'enrollment?: number',
+    'enrollmentLabel?: string',
+    "findColumn(headers, ['schoolsitecity', 'sitecity', 'schoolcity', 'city'])",
+    "findColumn(headers, ['schoolenrollmentasof', 'schoolenrollment'])",
+    "rawEnrollment.replace(/,/g, '')",
   ]) requireText(directory, marker, 'Football directory');
 
   for (const marker of [
@@ -419,6 +432,9 @@ if (!errors.length) {
     'getFootballProgramProfilePage',
     'football-program-profile.functions',
     'Football: Class, District, Enrollment & School Guide',
+    'streetAddress: program?.siteStreetAddress',
+    'telephone: program?.phone',
+    'url: program?.webAddress ? normalizeExternalUrl(program.webAddress)',
   ]) requireText(featuredProfileRoute, marker, 'Football school profile route');
 
   for (const marker of [
@@ -445,6 +461,13 @@ if (!errors.length) {
     "privateAlignment.sourceKind === 'official-association'",
     'privateAlignmentLabel',
     'All current UIL football programs use the same profile system.',
+    'AskTED campus facts',
+    'TEA campus number',
+    'TEA campus enrollment',
+    'Physical campus address',
+    'Official school website ↗',
+    'The campus-enrollment snapshot can update on a different schedule from UIL realignment',
+    'program.enrollmentLabel.replace',
   ]) requireText(featuredProfilePage, marker, 'Football school profile page');
 
   requireText(finder, 'School profile, enrollment & mascot →', 'Football finder profile handoff');
