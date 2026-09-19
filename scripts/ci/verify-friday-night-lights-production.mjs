@@ -28,9 +28,10 @@ function requireNeedle(body, needle, label) {
 }
 
 function requireOrderedNeedles(body, needles, label) {
+  const comparable = normalizeHydrationMarkup(body);
   let previousIndex = -1;
   for (const needle of needles) {
-    const index = body.indexOf(needle);
+    const index = comparable.indexOf(needle);
     if (index < 0) throw new Error(`${label} missing ordered content: ${needle}`);
     if (index <= previousIndex) throw new Error(`${label} order regression around: ${needle}`);
     previousIndex = index;
