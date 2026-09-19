@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave83Destinations } from "./museum-expansion-statewide-wave83";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-19";
@@ -13,45 +14,45 @@ function museumPlaceholder(name: string): ImageRef {
 }
 
 /**
- * Eighty-second statewide museum wave. This record gives Anna's restored
- * railroad depot and local-history museum its own canonical destination.
+ * Eighty-second statewide museum wave. This record adds Henrietta's active
+ * county-history museum in the preserved 1890 Clay County Jail.
  */
 export const statewideMuseumExpansionWave82Destinations: Destination[] = [
   {
-    id: "museum-statewide-wave82-anna-depot",
+    id: "museum-statewide-wave82-clay-county-1890-jail-museum",
     brandId: "texasdefined",
-    slug: "anna-depot-and-museum",
-    name: "Anna Depot and Museum",
-    summary: "Anna Depot and Museum preserves the Collin County town's railroad origins inside its restored 1885 Houston & Texas Central depot, with local-history exhibits and educational resources in city-owned Sherley Heritage Park.",
+    slug: "clay-county-1890-jail-museum-henrietta",
+    name: "Clay County 1890 Jail Museum & Heritage Center",
+    summary: "Clay County 1890 Jail Museum & Heritage Center preserves frontier-era county history inside Henrietta's 1890 jail, combining original cells and a never-used gallows with the sheriff's residence, period rooms, Old West material, ranching and agricultural exhibits, and local family-history archives.",
     category: "historic-sites",
     region: "prairies-lakes",
     geography: {
       primaryRegionId: "north-texas",
-      subregionIds: ["dallas-fort-worth-metroplex"],
-      metroId: "dallas-fort-worth",
-      countySlugs: ["collin"],
+      subregionIds: ["north-texas-prairies"],
+      countySlugs: ["clay"],
       travelRegionIds: ["prairies-lakes"],
     },
-    nearestTown: "Anna",
-    county: "Collin County",
-    coordinates: { lat: 33.34872, lng: -96.54833 },
-    hero: museumPlaceholder("Anna Depot and Museum"),
-    bestSeason: "Year-round during the museum's twice-monthly public openings; spring and fall are especially comfortable for combining the depot with Sherley Heritage Park and a walk through Anna's historic core.",
-    entryNote: "The Anna Area Historical Preservation Society currently lists free public hours on the second and fourth Saturday of each month from 10 a.m. to 2 p.m. Tours outside those regular hours can be arranged by phone or email, so confirm access before making a dedicated trip.",
+    nearestTown: "Henrietta",
+    county: "Clay County",
+    coordinates: { lat: 33.81593, lng: -98.19784 },
+    hero: museumPlaceholder("Clay County 1890 Jail Museum & Heritage Center"),
+    bestSeason: "Spring and fall are especially comfortable for pairing the museum with Henrietta's courthouse square and other outdoor North Texas history stops; the museum operates on a limited seasonal schedule.",
+    entryNote: "The City of Henrietta currently publishes free admission, with donations welcome. It lists Thursday and Friday 10 a.m.–2 p.m. and Saturday 1–4 p.m. from March through the first week of December, plus Friday 10 a.m.–2 p.m. and Saturday 1–4 p.m. when the museum reopens in February. Confirm current hours before a dedicated trip.",
     highlights: [
-      "Restored 1885 Houston & Texas Central railroad depot",
-      "Anna railroad and community-history exhibits",
-      "Sherley Heritage Park setting owned by the City of Anna",
-      "Local-history collections and educational resources maintained by the Anna Area Historical Preservation Society",
+      "Original 1890 Clay County jail cells and never-used gallows",
+      "Sheriff's family living quarters with period furnishings",
+      "Clay County ranching, agriculture and Old West exhibits",
+      "Family-history, photograph and local archival collections",
     ],
     body: [
-      "Anna's development is closely tied to the railroad. The Houston & Texas Central Railway reached the area in the 1870s, and the community grew around the rail connection before Anna was formally platted in the 1880s. The depot building was constructed in 1885 and served the town through the period when rail freight, passenger traffic and communications helped connect small North Texas communities to Dallas, Denison and markets beyond.",
-      "The surviving depot nearly disappeared from public view after railroad use ended. The Anna Area Historical Preservation Society rescued the building in 2007, moved it from a private property where it had been used as a barn, and later relocated it to its permanent home in Sherley Heritage Park in May 2018. Restoration culminated in the depot's public dedication in 2019, turning the historic structure into a museum and educational center rather than leaving it as an isolated architectural artifact.",
-      "Today the museum interprets Anna and the surrounding area through exhibits, collected objects and historical research maintained by the local preservation society. The City of Anna owns both the depot and Sherley Heritage Park, while the Anna Area Historical Preservation Society operates the museum under a facility-use agreement. That partnership gives TexasDefined a clear current authority destination for Anna's railroad and community history and complements the site's broader Collin County and Dallas-Fort Worth discovery coverage.",
+      "Clay County 1890 Jail Museum & Heritage Center occupies a building that served county law enforcement for more than eight decades. The Texas Historical Commission dates the jail to 1890, credits the Pauly Jail Building and Manufacturing Company of St. Louis, and records that official jail use ended in 1973. The same in-situ marker identifies the two-story brick structure's attached living quarters for law officers and their families, making the building itself one of the museum's most important artifacts.",
+      "The City of Henrietta presents the museum as a broader Clay County history center rather than only a preserved lockup. Visitors can see the original jail and gallows, the sheriff's residence furnished with period material, Old West artifacts, ranching and agricultural displays, and archives of family histories and photographs. That mix gives the museum a useful countywide role: the building interprets law enforcement and domestic life while the collections extend into the work, families and industries that shaped the surrounding North Texas prairie.",
+      "The Clay County Historical Society has been central to preserving the site. Current regional nonprofit information traces the society's jail-restoration effort to the 1980s, followed by later fundraising that restored the building and expanded display and storage space. For TexasDefined, the museum adds a visitor-ready heritage anchor to the existing Clay County and Henrietta authority coverage while remaining distinct from the active courthouse and other county-government sites nearby. Because the operating schedule is seasonal and volunteer-scale, travelers should verify hours before making the museum the sole purpose of a long drive.",
     ],
-    officialUrl: "https://www.annatxhistory.com/the-depot",
-    managingAuthority: "Anna Area Historical Preservation Society",
-    address: "101 S Sherley Rd, Anna, TX 75409",
+    officialUrl: "https://cityofhenrietta.com/attractions/1890-jail-museum/",
+    managingAuthority: "Clay County Historical Society, Inc.",
+    address: "116 N Graham St, Henrietta, TX 76365",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave83Destinations,
 ];
