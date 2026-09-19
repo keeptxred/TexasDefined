@@ -4,7 +4,7 @@
   const STAY_DATA_URL = "/stay-nearby-hotels.json";
   const DESTINATION_STAY_DATA_URL = "/stay-nearby-destination-hotels.json";
   const PAINTED_CHURCHES_STAY_DATA_URL = "/stay-nearby-painted-churches-hotels.json";
-  const TRAVEL_PATH = /^\/(?:explore(?:\/|$)|destination\/|city\/|county\/|sports-venue\/|sports-venues\/(?!compare(?:\.csv)?(?:\/|$))|sports-venues$|event\/|events(?:\/|$)|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
+  const TRAVEL_PATH = /^\/(?:explore(?:\/|$)|destination\/|city\/|county\/|sports-venue\/|sports-venues\/(?!compare(?:\.csv)?(?:\/|$))|sports-venues$|texas-hockey(?:\/|$)|event\/|events(?:\/|$)|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const TRAVEL_ARTICLE_SECTION = /\b(?:travel|lodging|road trips?|weekend getaways?|events?)\b/i;
   const CONTEXT_PATHS = [
     { kind: "destination", key: "painted-churches", pattern: /^\/explore\/painted-churches(?:\/|$)/ },
@@ -106,6 +106,20 @@
   }
 
   function contextFromPath(pathname = window.location.pathname) {
+    const explicit = document.querySelector("[data-stay-context-kind][data-stay-context-key]");
+    if (explicit) {
+      const kind = explicit.dataset.stayContextKind;
+      const key = explicit.dataset.stayContextKey;
+      if (kind && key) {
+        return {
+          kind,
+          key,
+          city: explicit.dataset.stayContextCity || undefined,
+          allowBroadFallback: explicit.dataset.stayAllowBroadFallback === "true",
+        };
+      }
+    }
+
     for (const candidate of CONTEXT_PATHS) {
       const match = pathname.match(candidate.pattern);
       if (!match) continue;
