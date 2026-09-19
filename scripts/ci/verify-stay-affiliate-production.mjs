@@ -196,6 +196,7 @@ const pages = [
     route: '/city/austin',
     marker: 'Austin',
     requireSlot: false,
+    requireBookingAir: true,
   },
   {
     route: '/county/travis',
@@ -230,6 +231,20 @@ for (const page of pages) {
     ]) requireCondition(html.includes(marker), `${page.route} is missing live Booking.com rental-car marker: ${marker}`);
   }
 
+  if (page.requireBookingAir) {
+    for (const marker of [
+      'Flying to or from Austin?',
+      'Compare flights on Booking.com',
+      'Book an airport taxi on Booking.com',
+      'data-affiliate-partner="booking.com"',
+      'data-commercial-placement="city-air-travel-austin"',
+      'rel="sponsored nofollow noopener noreferrer"',
+      'Affiliate disclosure: TexasDefined may earn a commission from qualifying Booking.com flight or airport-taxi bookings',
+      'https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.booking.com/flights/index.html',
+      'https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.booking.com/taxi/index.html',
+    ]) requireCondition(html.includes(marker), `${page.route} is missing live Booking.com air-travel marker: ${marker}`);
+  }
+
   const noindex = /<meta[^>]+(?:name=["'](?:robots|googlebot|googlebot-news)["'][^>]+content=["'][^"']*\bnoindex\b|content=["'][^"']*\bnoindex\b[^>]+name=["'](?:robots|googlebot|googlebot-news)["'])/i.test(html);
   requireCondition(!noindex, `${page.route} is noindex and must not be part of the monetized production cohort.`);
 
@@ -240,4 +255,4 @@ for (const page of pages) {
   requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === page.route.replace(/\/+$/, ''), `${page.route} is not self-canonical and must not be part of the monetized production cohort.`);
 }
 
-console.log('Stay affiliate production verification passed: all 24 governed stay properties (15 venue + 9 destination) expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher while broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted paired partner_referral_shown and partner_referral_clicked CI probes backed by Cloudflare Analytics Engine; Hotels.com/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');
+console.log('Stay affiliate production verification passed: all 24 governed stay properties (15 venue + 9 destination) expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher while broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted paired partner_referral_shown and partner_referral_clicked CI probes backed by Cloudflare Analytics Engine; Hotels.com/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; the Austin gateway-city guide exposes approved Booking.com Flights and Airport Taxis conversion with city-specific placement attribution and disclosure; and script ordering is intact.');
