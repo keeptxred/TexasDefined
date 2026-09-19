@@ -28,6 +28,7 @@ const files = [
 const authorityFiles = [
   'src/data/fixtures/high-school-football-newcomers.ts',
   'src/data/fixtures/texas-high-school-football-classifications.ts',
+  'src/data/fixtures/texas-high-school-football-playoffs.ts',
   'src/data/friday-night-lights-structured-data.server.ts',
 ];
 
@@ -52,7 +53,8 @@ if (!errors.length) {
   const dataSources = read(files[13]);
   const newcomerGuide = read(authorityFiles[0]);
   const classificationGuide = read(authorityFiles[1]);
-  const footballHubSchema = read(authorityFiles[2]);
+  const playoffGuide = read(authorityFiles[2]);
+  const footballHubSchema = read(authorityFiles[3]);
 
   for (const marker of [
     'UIL_FOOTBALL_PROGRAM_COUNT !== 1268',
@@ -130,6 +132,7 @@ if (!errors.length) {
     'What “good football fit” should mean',
     '/find-my-school-district',
     '/sports-venues/high-school-football',
+    '/article/texas-high-school-football-playoffs-explained',
     'Route.useSearch()',
     'initialQuery={q}',
     'lets families compare up to three programs side by side',
@@ -143,13 +146,27 @@ if (!errors.length) {
   requireText(entityPage, 'CountyHighSchoolFootball', 'County page integration');
   requireText(footballHub, '/texas-high-school-football-teams', 'Friday Night Lights discovery');
   requireText(footballHub, '/article/texas-high-school-football-classifications-1a-6a', 'Friday Night Lights classification discovery');
+  requireText(footballHub, '/article/texas-high-school-football-playoffs-explained', 'Friday Night Lights playoff discovery');
   requireText(newcomerGuide, '/texas-high-school-football-teams', 'Newcomer football finder discovery');
   requireText(newcomerGuide, '/article/texas-high-school-football-classifications-1a-6a', 'Newcomer classification discovery');
+  requireText(newcomerGuide, '/article/texas-high-school-football-playoffs-explained', 'Newcomer playoff discovery');
   requireText(classificationGuide, '/texas-high-school-football-teams', 'Classification guide football finder discovery');
+  requireText(classificationGuide, '/article/texas-high-school-football-playoffs-explained', 'Classification guide playoff discovery');
+  for (const marker of [
+    'How Do the Texas High School Football Playoffs Work?',
+    'https://www.uiltexas.org/football/playoff-brackets',
+    'top two teams from each 1A six-man district',
+    'top four teams from each district advance in 2A through 6A',
+    'the two schools with the larger enrollments go to the Division I bracket',
+    'What \'bi-district\' means',
+    'first round in 5A and 6A',
+    '/texas-high-school-football-teams',
+  ]) requireText(playoffGuide, marker, 'Football playoff guide');
   requireText(classificationGuide, 'Prairie View Interscholastic League', 'Classification guide history');
   requireText(classificationGuide, 'https://www.uiltexas.org/history/timeline', 'Classification guide UIL history source');
   requireText(classificationGuide, 'https://www.uiltexas.org/football/rules-guidelines', 'Classification guide rules source');
   requireText(footballHubSchema, '/article/texas-high-school-football-classifications-1a-6a', 'Friday Night Lights schema classification discovery');
+  requireText(footballHubSchema, '/article/texas-high-school-football-playoffs-explained', 'Friday Night Lights schema playoff discovery');
   requireText(footballHubSchema, '/texas-high-school-football-teams', 'Friday Night Lights schema finder discovery');
   requireText(publicRoutes, '"/texas-high-school-football-teams"', 'Public route governance');
   requireText(dataSources, "id:'uil-football-alignments'", 'Texas source registry');
