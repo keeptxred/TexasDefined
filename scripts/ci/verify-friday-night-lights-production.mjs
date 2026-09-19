@@ -17,8 +17,14 @@ const expectedDescription = 'Understand Texas high school football through Frida
 const expectedCanonical = `${origin}${hubPath}`;
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+function normalizeHydrationMarkup(value) {
+  return value.replace(/<!--[\s\S]*?-->/g, '');
+}
+
 function requireNeedle(body, needle, label) {
-  if (!body.includes(needle)) throw new Error(`${label} missing expected content: ${needle}`);
+  if (!body.includes(needle) && !normalizeHydrationMarkup(body).includes(needle)) {
+    throw new Error(`${label} missing expected content: ${needle}`);
+  }
 }
 
 function requireOrderedNeedles(body, needles, label) {
