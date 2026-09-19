@@ -195,7 +195,8 @@ if (!errors.length) {
     'initialQuery={q}',
     'official UIL all-time state-title and state-final totals',
     'lets families compare up to three programs side by side',
-    'Full season-by-season records, current schedules, standings and coaching continuity remain future layers',
+    'links every program to a permanent profile with district peers plus enrollment and UIL-eligibility research guidance',
+    'Full season-by-season records, current schedules, standings, verified mascots and coaching continuity remain future layers',
   ]) requireText(page, marker, 'Football finder page');
 
   requireText(schoolDistrict, 'HighSchoolFootballLookup', 'School-district integration');
