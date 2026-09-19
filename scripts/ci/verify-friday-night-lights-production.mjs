@@ -6,7 +6,7 @@ const playoffsPath = '/article/texas-high-school-football-playoffs-explained';
 const sixManPath = '/article/texas-six-man-football-rules-explained';
 const finderApiPath = '/api/high-school-football?q=Dallas%20South%20Oak%20Cliff&limit=5';
 const allTimeFinderApiPath = '/api/high-school-football?q=Katy&limit=50';
-const nonSeedFinderApiPath = '/api/high-school-football?q=Abbott&limit=10';
+const oneAFinderApiPath = '/api/high-school-football?q=Abbott&limit=10';
 const katyProfilePath = '/texas-high-school-football-teams/katy';
 const abbottProfilePath = '/texas-high-school-football-teams/abbott';
 const expectedTitle = 'Texas High School Football: Friday Night Lights, Traditions & Game-Day Guide';
@@ -196,7 +196,7 @@ await fetchVerified(allTimeFinderApiPath, 'football all-time history API', (body
   if (!katy.allTimeHistory.sourceUrl?.includes('uiltexas.org/football/all-time-appearances')) throw new Error('Katy all-time history is missing official UIL provenance');
 });
 
-await fetchVerified(nonSeedFinderApiPath, 'non-seed football profile API', (body) => {
+await fetchVerified(oneAFinderApiPath, '1A football profile API', (body) => {
   const payload = JSON.parse(body);
   if (payload?.ok !== true) throw new Error('Abbott football lookup did not return ok=true');
   const abbott = payload?.programs?.find((program) => program.schoolName === 'Abbott');
@@ -241,4 +241,4 @@ await fetchVerified('/robots.txt', 'robots', (body) => {
   if (/Disallow:\s*\/sports(?:\/|\s|$)/i.test(body)) throw new Error('robots.txt blocks /sports');
 });
 
-console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, seed and non-seed school profiles, district/enrollment/eligibility research, history, sitemap and robots are live.');
+console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, shared 6A and 1A school-profile system, district/enrollment/eligibility research, history, sitemap and robots are live.');
