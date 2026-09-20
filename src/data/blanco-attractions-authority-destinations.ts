@@ -288,7 +288,7 @@ export const blancoAttractionsAuthorityDestinations: Destination[] = [
           description:
             "Blanco's long-running brewery and Real Spirits program add beer and grain-to-glass spirits to the same local craft cluster.",
           proximity: "North Blanco",
-          href: "/destination/real-ale-brewing-blanco",
+          href: "/destination/real-ale-brewing-company-blanco",
         },
       ],
       foodAndDrink: [
