@@ -257,7 +257,7 @@ const curated: Record<string, TopAttractionExpansion> = {
       familyStops: items(
         ["Milton Reimers Ranch Park", "Nearby", "More space and flexible access can make Reimers Ranch easier for families when Hamilton Pool's terrain or swimming status is limiting."],
         ["Dripping Springs parks", "In town", "Local parks give younger children a simple break after a structured preserve reservation."],
-        ["Science Mill", "Johnson City", "Hands-on science exhibits make a strong indoor Hill Country family side trip."],
+        ["Science Mill", "Johnson City", "Hands-on science exhibits make a strong indoor Hill Country family side trip.", "/destination/science-mill-johnson-city"],
         ["Lady Bird Johnson Wildflower Center", "South Austin", "Native gardens and family-friendly trails create an accessible nature-focused extension."]
       ),
       sideTrips: items(
