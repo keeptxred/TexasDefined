@@ -5,6 +5,35 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "texas-vintage-motorcycle-museum-johnson-city": [
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Connect the museum with Johnson City, Blanco, the Pedernales corridor, courthouse history and the wider Hill Country county guide.",
+    },
+    {
+      href: "/destination/lyndon-b-johnson-national-historical-park",
+      label: "Add the LBJ National Historical Park",
+      description: "Pair motorcycle history with the Johnson City and Stonewall districts of Lyndon B. Johnson National Historical Park.",
+    },
+    {
+      href: "/explore/region/hill-country",
+      label: "Explore the Texas Hill Country",
+      description: "Build the Johnson City stop into a larger Hill Country route with parks, small towns, scenic drives and museums.",
+    },
+  ],
+  "lyndon-b-johnson-national-historical-park": [
+    {
+      href: "/destination/texas-vintage-motorcycle-museum-johnson-city",
+      label: "See Johnson City's vintage motorcycle museum",
+      description: "Add a very different layer of Johnson City history with more than 100 vintage motorcycles inside a restored 1930s Ford dealership.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Place the Johnson City and ranch districts in the broader county landscape of the Pedernales, Blanco, ranching and Hill Country towns.",
+    },
+  ],
   "shiner": [
     {
       href: "/destination/spoetzl-brewery",
