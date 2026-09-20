@@ -143,7 +143,8 @@ export const TEXAS_ICON_RESEARCH_SYMBOLS_BATCH_1: readonly TexasIconResearchProf
       "For modern travelers, the strongest Shiner itinerary connects the beer to its setting: visit the Spoetzl Brewery, explore Shiner itself, see Saints Cyril and Methodius Church and use the trip as an entry point into Lavaca County's wider Czech, German, railroad and agricultural history."
     ],
     texasPlaces: [
-      { name: "Shiner and Lavaca County", context: "The brewery's hometown and the wider county landscape that connects Czech and German settlement, agriculture, railroads, churches and small-town culture.", href: "/county/lavaca" },
+      { name: "Shiner", context: "The brewery's hometown, with its own small-town visitor guide connecting the brewery, painted church, museum, park and railroad-era history.", href: "/destination/shiner" },
+      { name: "Lavaca County", context: "The wider county landscape connecting Shiner with Hallettsville, Yoakum, Moulton, Czech and German settlement, agriculture, rivers and railroad history.", href: "/county/lavaca" },
       { name: "Spoetzl Brewery", context: "Historic and still-operating brewery at 603 East Brewery Street in Shiner; public tours, the current beer lineup, distillery, barbecue and visitor planning are covered in the dedicated destination guide.", href: "/destination/spoetzl-brewery" },
       { name: "Saints Cyril and Methodius Church", context: "Shiner's major painted-church landmark and an important companion stop for understanding the town's Czech and German Catholic heritage.", href: "/explore/painted-churches/shiner-saints-cyril-methodius" },
       { name: "Texas brand history", context: "Compare Shiner's place-based identity with H-E-B, Whataburger, Blue Bell, Dickies and Buc-ee's.", href: "/texas-brand-origin-stories" },
