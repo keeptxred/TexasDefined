@@ -170,7 +170,7 @@ for (const propertyId of ['albert-hotel-fredericksburg', 'grand-galvez', 'hotel-
 const stayRegistry = JSON.parse(await fetchLive('/stay-nearby-hotels.json'));
 const craftBeerStay = (stayRegistry?.properties || []).find((property) => property?.id === 'holiday-inn-austin-town-lake');
 requireCondition(Boolean(craftBeerStay), 'Live Stay Nearby registry is missing Holiday Inn Austin-Town Lake for the Texas Craft Brewers Festival.');
-requireCondition(craftBeerStay?.name === 'Holiday Inn Austin -Town Lake by IHG' && craftBeerStay?.status === 'active', 'Live Craft Brewers Festival hotel identity/status drifted.');
+requireCondition(craftBeerStay?.name === 'Holiday Inn Austin-Town Lake' && craftBeerStay?.status === 'active', 'Live Craft Brewers Festival hotel identity/status drifted.');
 requireCondition(craftBeerStay?.image === null, 'Live Craft Brewers Festival hotel must remain text-only until governed property imagery exists.');
 const craftBeerContext = (craftBeerStay?.contexts || []).find((context) => context?.kind === 'event' && context?.key === 'texas-craft-brewers-festival');
 requireCondition(craftBeerContext?.rank === 1, 'Live Craft Brewers Festival hotel event rank drifted.');
