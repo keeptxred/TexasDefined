@@ -580,6 +580,12 @@ if (!errors.length) {
     'uilFootballEnrollmentBand',
     '/article/texas-high-school-football-scores-schedules',
     'Follow scores & weekly schedules',
+    'Current season',
+    'Scores & weekly schedules',
+    'https://www.uiltexas.org/maxpreps/',
+    'UIL Texas Scoreboard gateway ↗',
+    'the scoreboard is not currently an official district-standings table',
+    'How to verify scores, schedules & standings →',
   ]) requireText(footballDistrictPage, marker, 'Football district detail page');
 
   // The original supplied list remains available only as alias/private-school research metadata.
