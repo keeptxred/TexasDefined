@@ -15,6 +15,7 @@ const collectionItems = [
   ["Fort Griffin", "/destination/fort-griffin"],
   ["Texas dance halls and honky-tonks", "/texas-dance-halls-honky-tonks"],
   ["Texas rodeo and western venues", "/sports-venues/rodeo-western"],
+  ["Texas fashion and Western wear", "/article/iconic-texas-fashion-western-wear-guide"],
   ["Texas two-step", "/texas-two-step"],
 ] as const;
 
