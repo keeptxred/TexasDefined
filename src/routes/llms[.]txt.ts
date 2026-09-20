@@ -52,6 +52,7 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Texas food traditions: https://texasdefined.com/texas-food-trail
 - Texas food history: https://texasdefined.com/texas-food-history
 - Texas ranch water guide: https://texasdefined.com/texas-ranch-water-guide
+- Texas craft beer guide: https://texasdefined.com/texas-craft-beer-guide
 - San Antonio puffy taco history: https://texasdefined.com/san-antonio-puffy-taco-history
 - Barbacoa and Big Red in San Antonio: https://texasdefined.com/barbacoa-big-red-san-antonio
 - Chili con carne history: https://texasdefined.com/texas-chili-con-carne-history
