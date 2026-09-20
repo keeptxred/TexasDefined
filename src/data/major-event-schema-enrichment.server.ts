@@ -18,6 +18,7 @@ import { majorEventSchemaEnrichmentBatch17 } from "./major-event-schema-enrichme
 import { majorEventSchemaEnrichmentBatch18 } from "./major-event-schema-enrichment-batch18.server";
 import { majorEventSchemaEnrichmentBatch19 } from "./major-event-schema-enrichment-batch19.server";
 import { majorEventSchemaEnrichmentBatch20 } from "./major-event-schema-enrichment-batch20.server";
+import { majorEventSchemaEnrichmentBatch21 } from "./major-event-schema-enrichment-batch21.server";
 import { majorEventSchemaEnrichmentOverrides } from "./major-event-schema-enrichment-overrides.server";
 
 export type EventSchemaEntityType = "Organization" | "Person" | "PerformingGroup";
@@ -153,6 +154,7 @@ const records: MajorEventSchemaEnrichment[] = [
   ...majorEventSchemaEnrichmentBatch18,
   ...majorEventSchemaEnrichmentBatch19,
   ...majorEventSchemaEnrichmentBatch20,
+  ...majorEventSchemaEnrichmentBatch21,
   ...majorEventSchemaEnrichmentOverrides,
 ];
 
