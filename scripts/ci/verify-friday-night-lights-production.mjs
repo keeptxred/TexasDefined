@@ -2,6 +2,8 @@ const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 const hubPath = '/sports/friday-night-lights';
 const finderPath = '/texas-high-school-football-teams';
 const districtDirectoryPath = '/texas-high-school-football-districts';
+const isdDirectoryPath = '/texas-high-school-football-isds';
+const katyIsdPath = '/texas-high-school-football-isds/katy-isd';
 const championshipHistoryPath = '/texas-high-school-football-championship-history';
 const katyDistrictPath = '/texas-high-school-football-districts/6a-district-22';
 const classificationsPath = '/article/texas-high-school-football-classifications-1a-6a';
@@ -145,6 +147,7 @@ await fetchVerified(finderPath, 'football finder', (body) => {
     'High school, ISD, city or county',
     'What “good football fit” should mean',
     '/find-my-school-district',
+    isdDirectoryPath,
     districtDirectoryPath,
     championshipHistoryPath,
     '/article/texas-high-school-football-classifications-1a-6a',
@@ -178,6 +181,32 @@ await fetchVerified(finderPath, 'football finder', (body) => {
     '1A football programs',
   ], 'football finder UIL classification hierarchy');
   if (/\bnoindex\b/i.test(body)) throw new Error('football finder unexpectedly contains noindex');
+});
+
+await fetchVerified(isdDirectoryPath, 'football ISD directory', (body) => {
+  for (const needle of [
+    'Texas high school football by ISD',
+    'Browse district football options',
+    'matched UIL programs',
+    'The ISD list itself is alphabetical',
+    '/find-my-school-district',
+    '/texas-high-school-football-teams',
+  ]) requireNeedle(body, needle, 'football ISD directory');
+  if (/\bnoindex\b/i.test(body)) throw new Error('football ISD directory unexpectedly contains noindex');
+});
+
+await fetchVerified(katyIsdPath, 'Katy ISD football profile', (body) => {
+  for (const needle of [
+    'Katy ISD football programs',
+    'Every matched UIL football school in Katy ISD',
+    'UIL enrollment',
+    '/texas-high-school-football-teams/katy',
+    'Verify the district, campus and football eligibility separately',
+    'UIL eligibility standards',
+    '/find-my-school-district',
+    '/texas-high-school-football-districts',
+  ]) requireNeedle(body, needle, 'Katy ISD football profile');
+  if (/\bnoindex\b/i.test(body)) throw new Error('Katy ISD football profile unexpectedly contains noindex');
 });
 
 await fetchVerified(championshipHistoryPath, 'football championship history', (body) => {
@@ -418,6 +447,7 @@ await fetchVerified(kellerProfilePath, 'Keller football school profile', (body) 
 await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
   requireNeedle(body, '<loc>https://texasdefined.com/sports/friday-night-lights</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams</loc>', 'sitemap');
+  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-isds</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-districts</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-championship-history</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-districts/6a-district-22</loc>', 'sitemap');
