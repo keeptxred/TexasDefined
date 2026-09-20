@@ -4,6 +4,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { commerceApiBase } from "@/data/shop-products-remote";
 import { useShopCart } from "@/lib/shop-cart";
+import { trackTexasDefinedOutcome } from "@/platform/analytics";
 
 export const Route = createLazyFileRoute("/shop/cart")({ component: CartPage });
 
@@ -25,16 +26,34 @@ function CartPage() {
   async function checkout() {
     setWorking(true);
     setError("");
+    let failureDetection = "request-error";
+    trackTexasDefinedOutcome("shop_checkout_started", {
+      resourceId: "cart",
+      entityKind: "checkout",
+      score: cart.count,
+    });
     try {
       const response = await fetch(`${commerceApiBase()}/api/public/texasdefined-checkout`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ items: cart.items.map((item) => ({ productId: item.productId, variantId: item.variantId, quantity: item.quantity })) }),
       });
+      failureDetection = response.ok ? "invalid-response" : `http-${response.status}`;
       const payload = await response.json() as { ok?: boolean; url?: string; error?: string };
       if (!response.ok || !payload.ok || !payload.url) throw new Error(payload.error || "Unable to start checkout");
+      trackTexasDefinedOutcome("shop_checkout_created", {
+        resourceId: "cart",
+        entityKind: "stripe-checkout",
+        score: cart.count,
+      });
       window.location.assign(payload.url);
     } catch (cause) {
+      trackTexasDefinedOutcome("shop_checkout_failed", {
+        resourceId: "cart",
+        entityKind: "checkout",
+        detection: failureDetection,
+        score: cart.count,
+      });
       setError(cause instanceof Error ? cause.message : "Unable to start checkout");
       setWorking(false);
     }
