@@ -1,4 +1,5 @@
 import { useMemo, useState, type ReactNode } from 'react';
+import { estimateRentVsBuy } from '@/lib/rent-vs-buy';
 
 const money = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number.isFinite(value) ? value : 0);
 const number = (value: unknown) => Math.max(0, Number(value) || 0);
@@ -22,9 +23,47 @@ export function AffordabilityCalculator() {
 }
 
 export function RentVsBuyCalculator() {
-  const [rent, setRent] = useState(2200), [price, setPrice] = useState(400000), [down, setDown] = useState(80000), [buyMonthly, setBuyMonthly] = useState(3300), [years, setYears] = useState(7), [appreciation, setAppreciation] = useState(3);
-  const result = useMemo(() => { const rentCost = rent * 12 * years; const buyCash = down + buyMonthly * 12 * years; const futureValue = price * Math.pow(1 + appreciation / 100, years); const equityGain = Math.max(0, futureValue - price); return { rentCost, buyCash, futureValue, netBuy: Math.max(0, buyCash - equityGain), difference: rentCost - Math.max(0, buyCash - equityGain) }; }, [rent, price, down, buyMonthly, years, appreciation]);
-  return <><Shell note="This quick comparison leaves out selling costs, changing maintenance bills, investment returns, tax effects and full loan amortization."><Field label="Monthly rent" value={rent} onChange={setRent} step={50}/><Field label="Home price" value={price} onChange={setPrice} step={1000}/><Field label="Down payment" value={down} onChange={setDown} step={1000}/><Field label="Estimated owner cost" value={buyMonthly} onChange={setBuyMonthly} step={50}/><Field label="Comparison period" value={years} onChange={setYears} suffix="years"/><Field label="Annual appreciation" value={appreciation} onChange={setAppreciation} step={0.1} suffix="%"/></Shell><Results values={[["Rent paid", money(result.rentCost)],["Owner cash outflow", money(result.buyCash)],["Estimated future value", money(result.futureValue)],["Simplified owner cost", money(result.netBuy)],["Rent minus buy", money(result.difference)]]}/></>;
+  const [rent, setRent] = useState(2200);
+  const [rentGrowth, setRentGrowth] = useState(3);
+  const [rentersInsurance, setRentersInsurance] = useState(25);
+  const [price, setPrice] = useState(400000);
+  const [down, setDown] = useState(80000);
+  const [mortgageRate, setMortgageRate] = useState(6.5);
+  const [loanYears, setLoanYears] = useState(30);
+  const [propertyTaxRate, setPropertyTaxRate] = useState(2.1);
+  const [homeInsurance, setHomeInsurance] = useState(2400);
+  const [maintenanceRate, setMaintenanceRate] = useState(1);
+  const [hoa, setHoa] = useState(0);
+  const [buyerClosingRate, setBuyerClosingRate] = useState(3);
+  const [sellerClosingRate, setSellerClosingRate] = useState(6);
+  const [years, setYears] = useState(7);
+  const [appreciation, setAppreciation] = useState(3);
+
+  const result = useMemo(() => estimateRentVsBuy({
+    monthlyRent: rent,
+    annualRentGrowthRate: rentGrowth,
+    monthlyRentersInsurance: rentersInsurance,
+    homePrice: price,
+    downPayment: down,
+    mortgageRate,
+    loanTermYears: loanYears,
+    propertyTaxRate,
+    annualHomeInsurance: homeInsurance,
+    annualMaintenanceRate: maintenanceRate,
+    monthlyHoa: hoa,
+    buyerClosingCostRate: buyerClosingRate,
+    sellerClosingCostRate: sellerClosingRate,
+    comparisonYears: years,
+    annualAppreciationRate: appreciation,
+  }), [rent, rentGrowth, rentersInsurance, price, down, mortgageRate, loanYears, propertyTaxRate, homeInsurance, maintenanceRate, hoa, buyerClosingRate, sellerClosingRate, years, appreciation]);
+
+  const differenceLabel = result.difference > 0
+    ? `${money(Math.abs(result.difference))} lower for buying`
+    : result.difference < 0
+      ? `${money(Math.abs(result.difference))} lower for renting`
+      : 'About even';
+
+  return <><Shell note="This scenario amortizes the mortgage month by month and includes rent growth, renters insurance, property taxes, homeowners insurance, maintenance, HOA dues, buyer closing costs and selling costs. It does not model tax deductions, mortgage insurance, special-district charges or returns on invested cash."><Field label="Monthly rent" value={rent} onChange={setRent} step={50}/><Field label="Annual rent growth" value={rentGrowth} onChange={setRentGrowth} step={0.1} suffix="%"/><Field label="Renters insurance" value={rentersInsurance} onChange={setRentersInsurance} step={5} suffix="/mo"/><Field label="Home price" value={price} onChange={setPrice} step={1000}/><Field label="Down payment" value={down} onChange={setDown} step={1000}/><Field label="Mortgage rate" value={mortgageRate} onChange={setMortgageRate} step={0.01} suffix="%"/><Field label="Loan term" value={loanYears} onChange={setLoanYears} suffix="years"/><Field label="Property-tax rate" value={propertyTaxRate} onChange={setPropertyTaxRate} step={0.01} suffix="%"/><Field label="Annual home insurance" value={homeInsurance} onChange={setHomeInsurance} step={100}/><Field label="Annual maintenance" value={maintenanceRate} onChange={setMaintenanceRate} step={0.1} suffix="%"/><Field label="Monthly HOA" value={hoa} onChange={setHoa} step={25}/><Field label="Buyer closing costs" value={buyerClosingRate} onChange={setBuyerClosingRate} step={0.1} suffix="%"/><Field label="Selling costs" value={sellerClosingRate} onChange={setSellerClosingRate} step={0.1} suffix="%"/><Field label="Comparison period" value={years} onChange={setYears} suffix="years"/><Field label="Annual appreciation" value={appreciation} onChange={setAppreciation} step={0.1} suffix="%"/></Shell><Results values={[["Starting mortgage P&I", money(result.monthlyPrincipalInterest) + '/mo'],["Rent paid", money(result.renterCost)],["Owner cash outflow", money(result.ownerCashOutflow)],["Remaining loan", money(result.remainingLoanBalance)],["Net sale equity", money(result.endingSaleEquity)],["Owner net cost", money(result.ownerNetCost)],["Estimated difference", differenceLabel]]}/></>;
 }
 
 export function CostOfLivingCalculator() {
