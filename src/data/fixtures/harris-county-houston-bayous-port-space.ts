@@ -50,6 +50,11 @@ export const harrisCountyHoustonBayousPortSpaceArticle: Article = {
       description: "Move southwest into the Brazos River country and one of Greater Houston's major suburban counties.",
     },
     {
+      href: "/texas-homecoming-mums",
+      label: "Texas homecoming mums",
+      description: "Meet Spring's Mum Queen and see how Houston-area school culture helped turn the homecoming corsage into a major Texas craft tradition.",
+    },
+    {
       href: "/article/why-texas-has-254-counties",
       label: "Why Texas has 254 counties",
       description: "See how settlement, distance and local government shaped the Texas county map.",
