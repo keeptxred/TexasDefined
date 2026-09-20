@@ -1,7 +1,7 @@
 {
   "version": 1,
   "publisherId": "101876465",
-  "verifiedAt": "2026-09-19",
+  "verifiedAt": "2026-09-20",
   "policy": {
     "exactPropertyOnly": true,
     "broadSearchAllowed": false,
@@ -143,6 +143,11 @@
       "propertyId": "microtel-sweetwater",
       "name": "Microtel Inn & Suites by Wyndham Sweetwater",
       "destinationUrl": "https://www.hotels.com/ho532248/microtel-inn-and-suites-by-wyndham-sweetwater-sweetwater-united-states-of-america/"
+    },
+    {
+      "propertyId": "holiday-inn-austin-town-lake",
+      "name": "Holiday Inn Austin -Town Lake by IHG",
+      "destinationUrl": "https://www.hotels.com/ho108313/holiday-inn-austin-town-lake-an-ihg-hotel-austin-united-states-of-america/"
     }
   ]
 }
