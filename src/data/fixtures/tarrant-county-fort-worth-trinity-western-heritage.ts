@@ -24,6 +24,7 @@ export const tarrantCountyFortWorthTrinityWesternHeritageArticle: Article = {
   tags: ["Tarrant County", "Fort Worth", "Trinity River", "Tarrant County Courthouse", "Stockyards", "Arlington", "Grapevine", "North Texas", "Western heritage", "Aviation"],
   featured: false,
   internalLinks: [
+    { href: "/article/iconic-texas-fashion-western-wear-guide", label: "Texas fashion and Western wear", description: "Connect Fort Worth's Stockyards, rodeo and workwear history to boots, hats, pearl snaps, buckles and practical Western clothing statewide." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/destination/whirlyball-hurst", label: "WhirlyBall Hurst", description: "Try the unusual bumper-car team sport, two-story LaserWhirld arena and arcade in Hurst." },
     { href: "/county/dallas", label: "Explore Dallas County", description: "Continue east across the Metroplex toward Dallas, the Trinity River and the Blackland Prairie." },

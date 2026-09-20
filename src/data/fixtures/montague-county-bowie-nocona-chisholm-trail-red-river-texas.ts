@@ -35,6 +35,7 @@ export const montagueCountyBowieNoconaChisholmTrailRedRiverTexasArticle: Article
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/iconic-texas-fashion-western-wear-guide", label: "Texas fashion and Western wear", description: "Connect Nocona's bootmaking legacy and North Texas ranch culture to the statewide guide to boots, leatherwork, hats and Western dress." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/cooke", label: "Explore Cooke County", description: "Continue east across North Texas toward Gainesville and the Red River corridor." },
     { href: "/county/clay", label: "Explore Clay County", description: "Head west toward Henrietta and the Red River plains." },

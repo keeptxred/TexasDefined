@@ -44,7 +44,8 @@ export const TEXAS_BRAND_ORIGINS_GUIDE: TexasEvergreenGuide = {
       body: [
         "Dickies began in Fort Worth in 1922 making workwear, with bib overalls at the center of the early business. The brand later expanded internationally and crossed from job sites into streetwear and everyday fashion.",
         "That transition is part of the Texas story rather than a departure from it. Durable clothing associated with trades, ranch work and industrial labor gained a second cultural life because the same practical silhouettes could be adopted outside the workplace."
-      ]
+      ],
+      links: [{ href: "/article/iconic-texas-fashion-western-wear-guide", label: "250 iconic Texas fashion items" }]
     },
     {
       heading: "Buc-ee's: the highway stop becomes the destination",
@@ -67,6 +68,7 @@ export const TEXAS_BRAND_ORIGINS_GUIDE: TexasEvergreenGuide = {
     { href: "/things-unique-to-texas/texas-brands", label: "Legendary Texas brands", description: "The broader TexasDefined index of brands, retailers and products tied to the state." },
     { href: "/dr-pepper-texas-history", label: "Dr Pepper in Texas", description: "Follow the documented Waco origin of another Texas-born brand through soda-fountain and bottling history." },
     { href: "/texas-food-trail", label: "Texas Food Trail", description: "See how food brands fit alongside regional food traditions and independent institutions." },
-    { href: "/texas-roadside-oddities", label: "Texas Roadside Oddities", description: "Follow the highway culture that helped turn some Texas brands into travel rituals." }
+    { href: "/texas-roadside-oddities", label: "Texas Roadside Oddities", description: "Follow the highway culture that helped turn some Texas brands into travel rituals." },
+    { href: "/article/iconic-texas-fashion-western-wear-guide", label: "Texas fashion and Western wear", description: "Connect Texas brand identity to 250 hats, boots, workwear, rodeo pieces, accessories and formal Western styles." }
   ]
 };

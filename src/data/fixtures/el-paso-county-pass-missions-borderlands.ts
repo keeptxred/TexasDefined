@@ -25,6 +25,7 @@ export const elPasoCountyPassMissionsBorderlandsArticle: Article = {
   tags: ["El Paso County", "El Paso", "Ysleta Mission", "Ysleta del Sur Pueblo", "Franklin Mountains", "Fort Bliss", "Chamizal", "Texas counties", "West Texas", "Texas history"],
   featured: false,
   internalLinks: [
+    { href: "/article/iconic-texas-fashion-western-wear-guide", label: "Texas fashion and Western wear", description: "Connect El Paso's bootmaking history and Boot Capital identity to the statewide guide to boots, hats, workwear and Western dress." },
     { href: "/article/hudspeth-county-sierra-blanca-salt-flats-texas", label: "Explore neighboring Hudspeth County", description: "Continue east through Sierra Blanca, Rio Grande farming communities and the salt-flat country." },
     { href: "/article/culberson-county-van-horn-guadalupe-mountains-texas", label: "Continue into Culberson County", description: "Follow Far West Texas toward Van Horn, Guadalupe Peak and the Salt Basin." },
     { href: "/browse/counties", label: "Browse all 254 Texas counties", description: "Explore Texas one county at a time." },

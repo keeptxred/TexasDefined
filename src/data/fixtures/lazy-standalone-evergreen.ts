@@ -15,6 +15,18 @@ const rodeo101Stub: Article = {
   body: [], relatedCollections: [], relatedDestinations: [],
 };
 
+const iconicTexasFashionGuideStub: Article = {
+  id: "evergreen-iconic-texas-fashion-western-wear-guide", brandId: "texasdefined", slug: "iconic-texas-fashion-western-wear-guide",
+  title: "250 Iconic Texas Fashion Items: Boots, Hats, Western Wear and Workwear",
+  dek: "A field guide to 250 pieces of clothing, footwear, jewelry and working gear associated with Texas style—from cowboy boots and pearl snaps to rodeo buckles, oil-field workwear, game-day shirts and formal Western dress.",
+  category: "guides",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Boots_on_the_fence..JPG?width=1600", alt: "Cowboy boots displayed on a fence between Marfa and Presidio, Texas", width: 1600, height: 1200, credit: "NorthcottPhotos · CC BY-SA 3.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-09-19", readingMinutes: 18,
+  tags: ["texas fashion", "texas western wear", "cowboy boots", "cowboy hats", "pearl snap shirts", "texas workwear", "rodeo fashion", "western jewelry", "texas style"],
+  featured: false,
+  body: [], relatedCollections: [], relatedDestinations: ["fort-worth-stockyards"],
+};
+
 const texasHighSchoolFootballClassificationsStub: Article = {
   id: "evergreen-texas-high-school-football-classifications", brandId: "texasdefined", slug: "texas-high-school-football-classifications-1a-6a",
   title: "What Do 1A, 2A, 3A, 4A, 5A and 6A Mean in Texas High School Football?",
@@ -261,6 +273,7 @@ const fredericksburgHistoryWeekendGuideStub: Article = {
 
 export const standaloneEvergreenStubs: Article[] = [
   rodeo101Stub,
+  iconicTexasFashionGuideStub,
   texasHighSchoolFootballClassificationsStub,
   texasSixManFootballExplainedStub,
   texasHighSchoolFootballPlayoffsStub,
@@ -287,6 +300,7 @@ export const standaloneEvergreenStubs: Article[] = [
 export async function loadStandaloneEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
   if (slug === rodeo101Stub.slug) return import("./rodeo-101").then((module) => module.rodeo101Article);
+  if (slug === iconicTexasFashionGuideStub.slug) return import("./iconic-texas-fashion-guide").then((module) => module.iconicTexasFashionGuideArticle);
   if (slug === texasHighSchoolFootballClassificationsStub.slug) return import("./texas-high-school-football-classifications").then((module) => module.texasHighSchoolFootballClassificationsArticle);
   if (slug === texasSixManFootballExplainedStub.slug) return import("./texas-six-man-football-explained").then((module) => module.texasSixManFootballExplainedArticle);
   if (slug === texasHighSchoolFootballPlayoffsStub.slug) return import("./texas-high-school-football-playoffs").then((module) => module.texasHighSchoolFootballPlayoffsArticle);

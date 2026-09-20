@@ -358,7 +358,7 @@ export const TEXAS_ICON_CATEGORIES: TexasIconCategory[] = [
       item(227, "Texas Forever", "The phrase became a pop-culture shorthand for Texas loyalty, especially through high-school-football storytelling."),
       item(228, "King Ranch", "The South Texas ranch became a symbol of scale, cattle breeding, land management and the mythology of the Texas ranch."),
       item(229, "Texas Rangers", "The law-enforcement organization occupies an outsized place in both Texas history and popular mythology."),
-      item(230, "Boots, spurs and Western dress", "Practical ranch gear became ceremonial clothing, fashion and visual shorthand for Texas identity."),
+      item(230, "Boots, spurs and Western dress", "Practical ranch gear became ceremonial clothing, fashion and visual shorthand for Texas identity.", "/article/iconic-texas-fashion-western-wear-guide"),
       item(231, "Howdy", "A greeting that can sound natural in a feed store, college campus, rodeo arena or downtown office."),
       item(232, "Calling every soda a Coke", "In parts of Texas and the South, 'Coke' can function as a generic category before the specific drink is named."),
       item(233, "Spring storm watching", "Huge skies, severe-weather seasons and fast-moving fronts make cloud-reading an informal Texas skill."),

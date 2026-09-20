@@ -33,6 +33,7 @@ export const travisCountyAustinCapitolSpringsHillCountryArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/iconic-texas-fashion-western-wear-guide", label: "Texas fashion and Western wear", description: "Connect Austin's newer Western-footwear brands and Central Texas style to the statewide guide to boots, hats, workwear and branded apparel." },
     {
       href: "/browse/counties",
       label: "Browse Texas counties",
