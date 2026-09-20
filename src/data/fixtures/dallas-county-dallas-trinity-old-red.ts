@@ -24,6 +24,7 @@ export const dallasCountyDallasTrinityOldRedArticle: Article = {
   tags: ["Dallas County", "Dallas", "Trinity River", "Old Red Courthouse", "Blackland Prairie", "Irving", "Garland", "Mesquite", "Cedar Hill", "North Texas"],
   featured: false,
   internalLinks: [
+    { href: "/article/iconic-texas-fashion-western-wear-guide", label: "Texas fashion and Western wear", description: "Connect Dallas County and Garland's cowboy-hat manufacturing tradition to the statewide guide to hats, boots, branded apparel and Western style." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/tarrant", label: "Explore Tarrant County", description: "Continue west across the Metroplex toward Fort Worth and the western edge of North Texas." },
     { href: "/county/collin", label: "Explore Collin County", description: "Follow metropolitan growth north into Plano, McKinney and the expanding North Texas suburbs." },
