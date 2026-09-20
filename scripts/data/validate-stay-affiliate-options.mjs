@@ -95,7 +95,7 @@ try {
     if (!craftBeerStay) errors.push('Texas Craft Brewers Festival must retain its curated Holiday Inn Austin-Town Lake stay.');
     else {
       const eventContext = (craftBeerStay.contexts || []).find((context) => context.kind === 'event' && context.key === 'texas-craft-brewers-festival');
-      if (craftBeerStay.name !== 'Holiday Inn Austin -Town Lake by IHG') errors.push('Craft Brewers Festival hotel canonical name drifted.');
+      if (craftBeerStay.name !== 'Holiday Inn Austin-Town Lake') errors.push('Craft Brewers Festival hotel canonical name drifted.');
       if (craftBeerStay.image !== null) errors.push('Craft Brewers Festival hotel must remain text-only until rights-qualified property imagery is governed.');
       if (!eventContext || eventContext.rank !== 1) errors.push('Craft Brewers Festival hotel must retain event rank 1.');
       if (eventContext?.source?.url !== 'https://texascraftbrewersfestival.org/info/' || eventContext?.source?.verifiedAt !== '2026-09-20') errors.push('Craft Brewers Festival hotel source evidence drifted.');
