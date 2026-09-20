@@ -50,6 +50,12 @@ const startHere = [
     label: "Open scores & schedules guide",
   },
   {
+    title: "Explore all-time UIL championship history",
+    description: "Compare current programs by raw state-title and state-final totals, with 2026–28 classification context and direct school-profile links.",
+    href: "/texas-high-school-football-championship-history",
+    label: "Open championship history",
+  },
+  {
     title: "Browse every current UIL football district",
     description: "Open all 192 current 2026–28 UIL football districts and move from a district roster directly into each school’s research profile.",
     href: "/texas-high-school-football-districts",
