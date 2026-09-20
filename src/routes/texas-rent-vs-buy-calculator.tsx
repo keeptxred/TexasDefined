@@ -9,6 +9,6 @@ export const Route = createFileRoute('/texas-rent-vs-buy-calculator')({
     canonicalPath: '/texas-rent-vs-buy-calculator',
     title: 'Texas Rent vs Buy Calculator | Compare the Longer-Term Cost',
     description,
-    featureList: ['Compare renting and buying side by side', 'Account for recurring ownership costs', 'Explore how the answer changes over time', 'Test different home-value assumptions'],
+    featureList: ['Amortize a fixed-rate mortgage month by month', 'Model rent growth and renters insurance', 'Include property taxes, homeowners insurance, maintenance and HOA dues', 'Account for buyer closing and selling costs', 'Compare remaining loan balance, sale equity and net cost over the same time horizon'],
   }),
 });
