@@ -5,6 +5,77 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "buggy-barn-museum-blanco": [
+    {
+      href: "/destination/blanco",
+      label: "Explore Blanco",
+      description: "Pair the museum with the courthouse square, Blanco State Park, food and the wider town guide.",
+    },
+    {
+      href: "/destination/milam-greene-whiskey-distillery-blanco",
+      label: "Add Milam & Greene",
+      description: "Combine transportation history with Blanco's working whiskey distillery and tasting room.",
+    },
+    {
+      href: "/destination/twin-sisters-dance-hall-blanco",
+      label: "Add Twin Sisters Dance Hall",
+      description: "Continue the heritage theme with a working nineteenth-century Hill Country dance hall south of town.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Connect the museum with Johnson City, Hye and the county's larger history-and-craft cluster.",
+    },
+  ],
+  "milam-greene-whiskey-distillery-blanco": [
+    {
+      href: "/destination/blanco",
+      label: "Explore Blanco",
+      description: "Use the town guide for downtown, the river, museums, food and additional Blanco attractions.",
+    },
+    {
+      href: "/destination/real-ale-brewing-company-blanco",
+      label: "Compare Real Ale Brewing",
+      description: "Build a Blanco craft-production day around whiskey, beer and locally made spirits.",
+    },
+    {
+      href: "/destination/garrison-brothers-distillery-hye",
+      label: "Compare Garrison Brothers in Hye",
+      description: "Continue north for another Blanco County whiskey destination along the U.S. 290 corridor.",
+    },
+    {
+      href: "/destination/buggy-barn-museum-blanco",
+      label: "Add Buggy Barn Museum",
+      description: "Break up a beverage-focused day with Blanco's large horse-drawn transportation collection and Old West studio.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Connect the distillery with Blanco, Johnson City, Hye and the wider Hill Country county guide.",
+    },
+  ],
+  "twin-sisters-dance-hall-blanco": [
+    {
+      href: "/destination/blanco",
+      label: "Explore Blanco",
+      description: "Use Blanco for dinner, lodging, river time and daytime attractions around an evening dance.",
+    },
+    {
+      href: "/destination/buggy-barn-museum-blanco",
+      label: "Add Buggy Barn Museum",
+      description: "Pair a public dance with another Blanco County heritage stop focused on horse-drawn transportation and film history.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Place Twin Sisters in the broader county story of German-Texan settlement, ranch country and Hill Country tourism.",
+    },
+    {
+      href: "/explore/region/hill-country",
+      label: "Explore the Texas Hill Country",
+      description: "Build a wider dance-hall and small-town route through the region.",
+    },
+  ],
   "hye": [
     {
       href: "/destination/garrison-brothers-distillery-hye",
@@ -52,6 +123,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/county/blanco",
       label: "Explore Blanco County",
       description: "Connect Blanco with Johnson City, Hye, the Pedernales corridor and the rest of the county's Hill Country attractions.",
+    },
+    {
+      href: "/destination/milam-greene-whiskey-distillery-blanco",
+      label: "Compare Milam & Greene",
+      description: "Add Blanco's whiskey distillery and tasting room for a second local craft-production stop.",
     },
   ],
   "garrison-brothers-distillery-hye": [
