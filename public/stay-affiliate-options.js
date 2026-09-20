@@ -33,6 +33,9 @@
     ["Courtyard by Marriott Waco", "https://www.hotels.com/ho116039/courtyard-by-marriott-waco-waco-united-states-of-america/"],
     ["Hilton Waco", "https://www.hotels.com/ho112972/hilton-waco-waco-united-states-of-america/"],
     ["Hotel 1928", "https://www.hotels.com/ho3586848288/hotel-1928/"],
+    ["Best Western Plus Sweetwater Inn & Suites", "https://www.hotels.com/ho506095/best-western-plus-sweetwater-inn-suites-sweetwater-united-states-of-america/"],
+    ["La Quinta Inn & Suites by Wyndham Sweetwater East", "https://www.hotels.com/ho636049152/la-quinta-inn-suites-by-wyndham-sweetwater-east-sweetwater-united-states-of-america/"],
+    ["Microtel Inn & Suites by Wyndham Sweetwater", "https://www.hotels.com/ho532248/microtel-inn-and-suites-by-wyndham-sweetwater-sweetwater-united-states-of-america/"],
   ]);
   const HOTEL_FIRST_PATH = /^\/(?:event\/|events(?:\/|$)|sports-venue\/|sports-venues(?:\/|$))/;
   const BOTH_PATH = /^\/(?:destination\/|explore(?:\/|$)|city\/|county\/|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;

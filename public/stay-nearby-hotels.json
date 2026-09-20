@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "reviewedAt": "2026-09-11",
+  "reviewedAt": "2026-09-19",
   "policy": {
     "maxCards": 3,
     "displayComputedDistance": false,
@@ -511,6 +511,107 @@
           "source": {
             "url": "https://www.ihg.com/holidayinnexpress/hotels/us/en/northlake/dfwnl/hoteldetail",
             "verifiedAt": "2026-09-11"
+          }
+        }
+      ]
+    },
+    {
+      "id": "best-western-plus-sweetwater",
+      "name": "Best Western Plus Sweetwater Inn & Suites",
+      "city": "Sweetwater",
+      "area": "Georgia Avenue / central Sweetwater",
+      "neighborhoods": [
+        "sweetwater"
+      ],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "event",
+          "key": "sweetwater-rattlesnake-roundup",
+          "rank": 1,
+          "geographicContext": "Georgia Avenue / central Sweetwater",
+          "proximity": "Best Western lists both the World's Largest Rattlesnake Roundup and Nolan County Coliseum about 3 miles from the hotel.",
+          "differentiator": "Free breakfast, Wi-Fi and parking with unusually direct official lodging context for roundup visitors.",
+          "source": {
+            "url": "https://www.bestwestern.com/en_US/book/hotels-in-sweetwater/best-western-plus-sweetwater-inn-suites/propertyCode.44609.html",
+            "verifiedAt": "2026-09-19"
+          }
+        }
+      ]
+    },
+    {
+      "id": "la-quinta-sweetwater-east",
+      "name": "La Quinta Inn & Suites by Wyndham Sweetwater East",
+      "city": "Sweetwater",
+      "area": "I-20 / southeast Sweetwater",
+      "neighborhoods": [
+        "sweetwater",
+        "i-20"
+      ],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "event",
+          "key": "sweetwater-rattlesnake-roundup",
+          "rank": 2,
+          "geographicContext": "I-20 / southeast Sweetwater",
+          "proximity": "Hotels.com lists Nolan County Coliseum Complex about a 5-minute drive from the hotel.",
+          "differentiator": "An I-20 option with free breakfast, Wi-Fi and an outdoor pool for a multi-day event stay.",
+          "source": {
+            "url": "https://www.hotels.com/ho636049152/la-quinta-inn-suites-by-wyndham-sweetwater-east-sweetwater-united-states-of-america/",
+            "verifiedAt": "2026-09-19"
+          }
+        }
+      ]
+    },
+    {
+      "id": "microtel-sweetwater",
+      "name": "Microtel Inn & Suites by Wyndham Sweetwater",
+      "city": "Sweetwater",
+      "area": "I-20 / north Sweetwater",
+      "neighborhoods": [
+        "sweetwater",
+        "i-20"
+      ],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "event",
+          "key": "sweetwater-rattlesnake-roundup",
+          "rank": 3,
+          "geographicContext": "I-20 / north Sweetwater",
+          "proximity": "Wyndham identifies Nolan County Coliseum as a nearby event venue; Hotels.com places the complex about a 6-minute drive from the hotel.",
+          "differentiator": "Free hot breakfast, Wi-Fi, parking and an indoor pool, with extended-stay features for a longer West Texas weekend.",
+          "source": {
+            "url": "https://www.wyndhamhotels.com/microtel/sweetwater-texas/microtel-inn-and-suites-by-wyndham-sweetwater/overview",
+            "verifiedAt": "2026-09-19"
           }
         }
       ]

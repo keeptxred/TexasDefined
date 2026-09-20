@@ -81,13 +81,13 @@ try {
       errors.push('Hotels.com property verification policy must require exact properties and forbid broad search URLs.');
     }
 
-    const venueActiveProperties = (stayRegistry.properties || []).filter((property) => property.status === 'active');
+    const baseActiveProperties = (stayRegistry.properties || []).filter((property) => property.status === 'active');
     const destinationActiveProperties = (destinationStayRegistry.properties || []).filter((property) => property.status === 'active');
-    const activeProperties = [...venueActiveProperties, ...destinationActiveProperties];
+    const activeProperties = [...baseActiveProperties, ...destinationActiveProperties];
     const evidence = hotelsVerification.properties || [];
-    if (venueActiveProperties.length !== 15) errors.push(`Exact Hotels.com venue cohort expects 15 active curated properties; found ${venueActiveProperties.length}.`);
+    if (baseActiveProperties.length !== 18) errors.push(`Exact Hotels.com base cohort expects 18 active curated properties; found ${baseActiveProperties.length}.`);
     if (destinationActiveProperties.length !== 9) errors.push(`Exact Hotels.com destination cohort expects 9 active curated properties; found ${destinationActiveProperties.length}.`);
-    if (activeProperties.length !== 24) errors.push(`Exact Hotels.com coverage expects 24 active governed properties; found ${activeProperties.length}.`);
+    if (activeProperties.length !== 27) errors.push(`Exact Hotels.com coverage expects 27 active governed properties; found ${activeProperties.length}.`);
     if (evidence.length !== activeProperties.length) errors.push(`Hotels.com verification evidence must cover every active governed property; expected ${activeProperties.length}, found ${evidence.length}.`);
 
     const evidenceById = new Map();
@@ -155,6 +155,9 @@ for (const [needle, label] of [
   ['https://www.hotels.com/ho3489929696/albert-hotel/', 'Albert Hotel destination property record'],
   ['https://www.hotels.com/ho145347/hotel-galvez-spa-galveston-united-states-of-america/', 'Grand Galvez destination property record'],
   ['https://www.hotels.com/ho3586848288/hotel-1928/', 'Hotel 1928 destination property record'],
+  ['https://www.hotels.com/ho506095/best-western-plus-sweetwater-inn-suites-sweetwater-united-states-of-america/', 'Best Western Plus Sweetwater property record'],
+  ['https://www.hotels.com/ho636049152/la-quinta-inn-suites-by-wyndham-sweetwater-east-sweetwater-united-states-of-america/', 'La Quinta Sweetwater property record'],
+  ['https://www.hotels.com/ho532248/microtel-inn-and-suites-by-wyndham-sweetwater-sweetwater-united-states-of-america/', 'Microtel Sweetwater property record'],
   ['https://www.hotels.com/', 'Hotels.com destination'],
   ['https://www.vrbo.com/', 'Vrbo traveler destination'],
   ['https://www.vrbo.com/en-us/list/lead', 'Vrbo owner onboarding destination'],
@@ -211,7 +214,8 @@ for (const [needle, label] of [
   ['normalizeVisitorHeadings', 'legacy event heading normalizer'],
   ['Planning your visit', 'event planning placement anchor'],
   ['Places to stay near this event', 'event stay-slot accessibility label'],
-  ['KEEP_EXPLORING_SECTION', 'event parking placement boundary'],
+  ['EVENT_DISCOVERY_TAIL', 'event parking placement boundary'],
+  ['data-event-discovery-tail', 'stable event discovery-tail marker'],
   ['splitEventHtmlForParking', 'event parking placement helper'],
   ['beforeParking', 'event planning content before parking map'],
   ['afterParking', 'event continuation content after parking map'],
