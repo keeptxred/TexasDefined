@@ -17,6 +17,7 @@ const oneAFinderApiPath = '/api/high-school-football?q=Abbott&limit=10';
 const katyProfilePath = '/texas-high-school-football-teams/katy';
 const abbottProfilePath = '/texas-high-school-football-teams/abbott';
 const kellerProfilePath = '/texas-high-school-football-teams/keller';
+const friscoProfilePath = '/texas-high-school-football-teams/frisco';
 const universalProfileCases = [
   { name: 'Lubbock Cooper', classification: '5A', enrollment: '1,663', path: '/texas-high-school-football-teams/lubbock-cooper' },
   { name: 'Huffman Hargrave', classification: '4A', enrollment: '1,168', path: '/texas-high-school-football-teams/huffman-hargrave' },
@@ -449,6 +450,18 @@ await fetchVerified(kellerProfilePath, 'Keller football school profile', (body) 
     'UIL eligibility standards',
   ]) requireNeedle(body, needle, 'Keller football school profile');
   if (/\bnoindex\b/i.test(body)) throw new Error('Keller football school profile unexpectedly contains noindex');
+});
+
+await fetchVerified(friscoProfilePath, 'Frisco football school profile', (body) => {
+  for (const needle of [
+    'Frisco',
+    'Verified football venue relationships',
+    'Ford Center at The Star',
+    '/sports-venue/ford-center-at-the-star',
+    'Frisco ISD football programs use it for district games',
+    'Official venue source',
+  ]) requireNeedle(body, needle, 'Frisco football school profile');
+  if (/\bnoindex\b/i.test(body)) throw new Error('Frisco football school profile unexpectedly contains noindex');
 });
 
 for (const profile of universalProfileCases) {
