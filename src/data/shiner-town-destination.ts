@@ -42,6 +42,29 @@ export const shinerTownDestination: Destination = {
   sourceCheckedAt: "2026-09-19",
   directions: "Shiner is in western Lavaca County at U.S. 90A and State Highway 95, about 14 miles west of Hallettsville. Use current navigation for your starting point and check any attraction-specific parking or reservation instructions before arrival.",
   accessibilityNotes: "Accessibility varies by attraction. Municipal facilities and the brewery publish their own current visitor guidance; contact a site directly when step-free access, seating, sensory accommodations or other specific needs will affect the visit.",
+  authorityGuide: {
+    whyItMatters: "Shiner is one of Texas's clearest examples of a small town whose immigrant heritage, railroad growth, church architecture and homegrown brand identity still reinforce one another in the same compact place.",
+    assessment: {
+      recommendedVisit: "One full day; one night for a slower brewery, church, museum and Lavaca County itinerary.",
+      physicalEffort: "Low",
+      weatherExposure: "Mixed indoor/outdoor",
+      planningLevel: "Moderate",
+      familyFit: "Good for mixed-age groups when the brewery is balanced with the museum and municipal park.",
+      firstTimeValue: "Very high for travelers interested in Texas food-and-drink history, Czech/German heritage and small-town road trips."
+    },
+    itineraries: [
+      { label: "Half day", duration: "4-5 hours", steps: ["Reserve a Spoetzl Brewery tour", "Walk or drive through central Shiner", "See Saints Cyril and Methodius Church if access is available", "Finish with the museum or a short park stop"] },
+      { label: "Full day", duration: "8-10 hours", steps: ["Start with the brewery or church depending on timed access", "Use downtown Shiner for the middle of the day", "Visit the Edwin Wolters Memorial Museum", "Finish at Green-Dickson Municipal Park or another flexible local stop"] },
+      { label: "Overnight", duration: "1 night", steps: ["Give Shiner's major attractions a full first day", "Use the next morning for a second brewery or heritage stop", "Continue through Hallettsville, Moulton, Yoakum or the wider Lavaca County heritage corridor"] }
+    ],
+    sources: [
+      { label: "City of Shiner", url: "https://www.shinertexas.gov/", scope: "Current municipal visitor, park and museum information" },
+      { label: "Handbook of Texas — Shiner", url: "https://www.tshaonline.org/handbook/entries/shiner-tx", scope: "Town founding, railroad development, incorporation and Czech/German community history" },
+      { label: "Shiner — Visit the brewery", url: "https://shiner.com/visit/", scope: "Current Spoetzl Brewery visitor campus, tours, food and distillery information" },
+      { label: "City of Shiner — Edwin Wolters Memorial Museum", url: "https://www.shinertexas.gov/1213/Edwin-Wolters-Memorial-Museum", scope: "Current local museum collections, address and hours" },
+      { label: "City of Shiner — Green-Dickson Municipal Park", url: "https://www.shinertexas.gov/1221/Green-Dickson-Municipal-Park", scope: "Current park amenities, RV camping, recreation and event facilities" }
+    ]
+  },
   areaGuide: {
     intro: "Shiner is compact enough to combine its major stops in one day, but the surrounding Lavaca County countryside rewards a slower overnight or regional road trip.",
     nearbyAttractions: [
