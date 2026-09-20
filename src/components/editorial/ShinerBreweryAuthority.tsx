@@ -120,6 +120,32 @@ export default function ShinerBreweryAuthority() {
       </div>
     </section>
 
+    <section className="mt-10 border-y border-border py-8">
+      <p className="eyebrow text-primary">Hours & events</p>
+      <h3 className="mt-2 font-display text-3xl">Current planning snapshot</h3>
+      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
+        These hours were reviewed September 19, 2026 from Shiner's official visitor page. Special events, holidays and private functions can change normal operations, so recheck the live brewery pages before leaving home.
+      </p>
+      <dl className="mt-6 grid border-y border-border sm:grid-cols-2">
+        <div className="border-b border-border py-4 sm:border-r sm:pr-6"><dt className="font-semibold">Brewery visitor hours</dt><dd className="mt-1 text-sm leading-6 text-muted-foreground">Monday-Saturday 10:30 a.m.-6 p.m.; Sunday 11 a.m.-6 p.m.</dd></div>
+        <div className="border-b border-border py-4 sm:pl-6"><dt className="font-semibold">Outdoor bars</dt><dd className="mt-1 text-sm leading-6 text-muted-foreground">Friday-Saturday noon-8 p.m.; Sunday noon-6 p.m.</dd></div>
+        <div className="border-b border-border py-4 sm:border-r sm:pr-6"><dt className="font-semibold">Distillery tours</dt><dd className="mt-1 text-sm leading-6 text-muted-foreground">Saturday 11:30 a.m.-4:30 p.m.; Sunday-Friday 12:30-4:30 p.m., generally hourly.</dd></div>
+        <div className="border-b border-border py-4 sm:pl-6"><dt className="font-semibold">Rickhouse</dt><dd className="mt-1 text-sm leading-6 text-muted-foreground">Thursday noon-9 p.m.; Friday-Saturday noon-10 p.m.</dd></div>
+      </dl>
+      <div className="mt-7 grid gap-6 lg:grid-cols-2">
+        <div>
+          <h4 className="font-display text-2xl">Brewery events</h4>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">The Spoetzl campus hosts recurring and seasonal programming including Oktoberfest weekends, Market Days, live music, holiday events and the annual Shiner Beer Run. Event dates change, so Texas Defined points to the live official calendar instead of freezing a stale annual schedule into this guide.</p>
+          <a href="https://shiner.com/events/" target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">See Shiner's live event calendar ↗</a>
+        </div>
+        <div>
+          <h4 className="font-display text-2xl">Tour-time note</h4>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">Shiner's visitor page and FAQ do not currently show identical first-tour times on every day. The reservation calendar is therefore the controlling planning source for your date. Reserve before a long drive, check in at least 15 minutes early, and leave extra time between brewery and distillery tours.</p>
+          <a href="https://shiner.com/book-your-tour/" target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Check live tour availability ↗</a>
+        </div>
+      </div>
+    </section>
+
     <nav aria-label="Official Shiner brewery sources" className="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-sm font-semibold">
       <a href="https://shiner.com/beer/" target="_blank" rel="noreferrer noopener" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Official beer catalog ↗</a>
       <a href="https://shiner.com/spirits/" target="_blank" rel="noreferrer noopener" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Official spirits catalog ↗</a>
