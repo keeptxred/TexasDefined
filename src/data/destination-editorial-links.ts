@@ -5,6 +5,23 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "museum-of-the-weird-austin": [
+    {
+      href: "/texas-roadside-oddities",
+      label: "Explore more Texas roadside oddities",
+      description: "Place Austin's dime-museum attraction in the statewide collection of verified strange stops, unusual museums and folk-art environments.",
+    },
+    {
+      href: "/county/travis",
+      label: "Explore Travis County",
+      description: "Connect the East Sixth Street stop with Austin history, the Capitol, springs, museums and the broader Travis County guide.",
+    },
+    {
+      href: "/explore/museums",
+      label: "Browse Texas museums",
+      description: "Compare the Museum of the Weird with larger history, science, art and specialty museum destinations around the state.",
+    },
+  ],
   "paris-texas-eiffel-tower": [
     {
       href: "/texas-roadside-oddities",
