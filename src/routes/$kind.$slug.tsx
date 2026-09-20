@@ -26,9 +26,12 @@ export const Route = createFileRoute('/$kind/$slug')({
     const foodDestinationsPromise = entity.kind === 'county' || entity.kind === 'city'
       ? import('@/data/food-destination-entity-index').then(({ loadEntityFoodDestinations }) => loadEntityFoodDestinations(entity.kind, entity.slug))
       : Promise.resolve([]);
+    const cityMajorEventsPromise = entity.kind === 'city'
+      ? import('@/data/city-major-events').then(({ getCityMajorEvents }) => getCityMajorEvents(entity.name))
+      : Promise.resolve([]);
     if (entity.kind !== 'county') {
-      const foodDestinations = await foodDestinationsPromise;
-      return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues, foodDestinations };
+      const [foodDestinations, cityMajorEvents] = await Promise.all([foodDestinationsPromise, cityMajorEventsPromise]);
+      return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues, foodDestinations, cityMajorEvents };
     }
     const countyRvParksPromise = import('@/data/rv-parks/county-index').then(({ loadCountyRvParksSnapshot }) => loadCountyRvParksSnapshot(entity.slug));
     const countyMajorEventsPromise = import('@/data/county-major-events').then(({ getCountyMajorEvents }) => getCountyMajorEvents(entity.slug));
@@ -41,7 +44,7 @@ export const Route = createFileRoute('/$kind/$slug')({
       foodDestinationsPromise,
     ]);
     const countyEntity = { ...entity, rvParks: countyRvParks, majorEvents: countyMajorEvents };
-    return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations };
+    return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations, cityMajorEvents: [] };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
