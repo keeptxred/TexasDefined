@@ -46,6 +46,8 @@ for (const path of [
   "src/data/fixtures/camp-county-pittsburg-railroads-poultry-piney-woods-texas.ts",
   "src/data/fixtures/travis-county-austin-capitol-springs-hill-country.ts",
   "src/data/fixtures/texas-life-split-source.ts",
+  "src/data/fixtures/rodeo-101.ts",
+  "src/routes/texas-old-west.tsx",
 ]) {
   if (!read(path).includes('/article/iconic-texas-fashion-western-wear-guide')) failures.push(`Missing fashion cross-link: ${path}`);
 }
