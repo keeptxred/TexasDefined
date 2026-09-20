@@ -172,6 +172,10 @@ if (!errors.length) {
     'universalProfileCases',
     'universal football profile',
     'sitemap universal football profile',
+    "const friscoProfilePath = '/texas-high-school-football-teams/frisco'",
+    'Ford Center at The Star',
+    '/sports-venue/ford-center-at-the-star',
+    'Frisco ISD football programs use it for district games',
   ]) requireText(productionSmoke, marker, 'Cross-class universal football production smoke');
 
   for (const marker of [
