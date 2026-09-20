@@ -76,6 +76,7 @@ import { statewideMuseumExpansionWave54Destinations } from "./museum-expansion-s
 import { wacoMuseumDestinations } from "./museum-expansion-waco";
 import { nationalWildlifeRefugeDestinations } from "./national-wildlife-refuge-destinations";
 import { pedernalesRiverNatureParkDestinations } from "./pedernales-river-nature-park-destination";
+import { pecanStreetBrewingDestinations } from "./pecan-street-brewing-destination";
 import { realAleBlancoDestinations } from "./real-ale-blanco-destination";
 import { smallTownWave1Destinations } from "./small-town-destinations-wave1";
 import { smallTownWave2Destinations } from "./small-town-destinations-wave2";
@@ -210,6 +211,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   johnsonCityAuthorityDestinations,
   johnsonCityWildlifeDestinations,
   pedernalesRiverNatureParkDestinations,
+  pecanStreetBrewingDestinations,
   realAleBlancoDestinations,
   historicSiteDestinations,
   militaryHistoryDestinations,
