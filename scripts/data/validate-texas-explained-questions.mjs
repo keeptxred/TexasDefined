@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 
-// Guard the 137-answer authority layer, native lazy route split, and no-thin-child-route contract on every authority PR change.
+// Guard the 140-answer authority layer, native lazy route split, and no-thin-child-route contract on every authority PR change.
 const dataPath = 'src/data/texas-explained-questions.ts';
 const componentPath = 'src/components/editorial/TexasExplainedQuestionsPage.tsx';
 const pagePath = 'src/components/editorial/TexasExplainedPage.tsx';
@@ -25,7 +25,7 @@ const parentCountMatch = parent.match(/const questionCount = (\d+);/);
 const pageCountMatch = page.match(/const questionCount = (\d+);/);
 const failures = [];
 
-if (questionCount !== 137) failures.push(`Expected exactly 137 questions; found ${questionCount}.`);
+if (questionCount !== 140) failures.push(`Expected exactly 140 questions; found ${questionCount}.`);
 if (answerCount !== questionCount) failures.push(`Every question must have an answer; found ${answerCount} answers for ${questionCount} questions.`);
 if (categoryCount < 8) failures.push(`Expected broad topical coverage across at least 8 categories; found ${categoryCount}.`);
 if (!parentCountMatch || Number(parentCountMatch[1]) !== questionCount) failures.push(`Texas Explained route count must match the ${questionCount}-question library.`);
@@ -59,6 +59,9 @@ const requiredQuestions = [
   'Where can I find current Texas high school football scores and schedules?',
   'Does the UIL Texas Scoreboard show official district standings?',
   'Why might a Texas high school football score be missing from the UIL scoreboard?',
+  'When is Texas high school football district certification in 2026?',
+  'When do the 2026 Texas high school football playoffs start?',
+  'When are the 2026 Texas high school football state championships?',
 ];
 for (const question of requiredQuestions) {
   if (!data.includes(`question: "${question}"`)) failures.push(`Missing required question: ${question}`);
@@ -66,7 +69,7 @@ for (const question of requiredQuestions) {
 
 for (const marker of [
   'createFileRoute("/texas-explained")',
-  'const questionCount = 137;',
+  'const questionCount = 140;',
   'buildEditorialCollectionHead',
   'import("@/data/queries")',
   'import("@/components/editorial/TexasExplainedPage")',
