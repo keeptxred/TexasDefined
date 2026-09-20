@@ -26,6 +26,21 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       label: "Go inside Shiner's painted-church story",
       description: "Use the dedicated church guide for architectural, parish and preservation context before visiting Saints Cyril and Methodius.",
     },
+    {
+      href: "/event/shiner-oktoberfest-weekends",
+      label: "Shiner Oktoberfest Weekends",
+      description: "Use the verified three-Saturday 2026 event guide for dates, brewery logistics and trip planning.",
+    },
+    {
+      href: "/event/shinerfest",
+      label: "ShinerFest",
+      description: "Plan the 4th annual 2026 country-music event at the brewery and build the rest of Shiner around the noon-to-10 p.m. concert day.",
+    },
+    {
+      href: "/event/shiner-beer-run",
+      label: "Shiner Beer Run",
+      description: "Plan the annual 5K, 10K and half-marathon race weekend at the brewery.",
+    },
   ],
   "spoetzl-brewery": [
     {
@@ -52,6 +67,21 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/texas-brand-origin-stories",
       label: "Compare Texas brand origin stories",
       description: "See how Shiner fits alongside H-E-B, Whataburger, Blue Bell, Dickies and Buc-ee's as a place-rooted Texas brand.",
+    },
+    {
+      href: "/event/shiner-oktoberfest-weekends",
+      label: "Plan Shiner Oktoberfest Weekends",
+      description: "See the three verified 2026 Saturdays and how to combine the event with tours and the rest of Shiner.",
+    },
+    {
+      href: "/event/shinerfest",
+      label: "Plan ShinerFest",
+      description: "Use the verified 2026 date, hours, admission snapshot and brewery-campus planning guide.",
+    },
+    {
+      href: "/event/shiner-beer-run",
+      label: "Plan the Shiner Beer Run",
+      description: "See the verified 2026 race date, distance options and brewery-campus planning notes.",
     },
   ],
   "jasper": [
