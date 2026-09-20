@@ -18,6 +18,7 @@ const smoke = fs.readFileSync('.github/workflows/things-unique-to-texas-producti
 const llms = fs.readFileSync('src/routes/llms[.]txt.ts', 'utf8');
 const citationIndex = JSON.parse(fs.readFileSync('public/citation-magnets.json', 'utf8'));
 const batch5 = fs.readFileSync('src/data/texas-evergreen-guides-batch5.ts', 'utf8');
+const batch9 = fs.readFileSync('src/data/texas-evergreen-guides-batch9.ts', 'utf8');
 const failures = [];
 
 const focusedGuides = [
@@ -28,6 +29,7 @@ const focusedGuides = [
   '/german-czech-texas-towns',
   '/dr-pepper-texas-history',
   '/texas-ranch-water-guide',
+  '/texas-craft-beer-guide',
   '/san-antonio-puffy-taco-history',
   '/barbacoa-big-red-san-antonio',
 ];
@@ -39,7 +41,7 @@ for (const token of [
   '"@type": "BreadcrumbList"',
   'There is no single Texas cuisine',
   'Separate history from folklore',
-  'Start with nine stories',
+  'Start with ten stories',
 ]) {
   if (!route.includes(token)) failures.push(`Texas Food History route missing contract token: ${token}.`);
 }
@@ -71,6 +73,7 @@ for (const slug of [
   'german-czech-texas-towns',
   'dr-pepper-texas-history',
   'texas-ranch-water-guide',
+  'texas-craft-beer-guide',
   'san-antonio-puffy-taco-history',
   'barbacoa-big-red-san-antonio',
 ]) {
@@ -124,6 +127,9 @@ for (const [slug, routeFile] of [
   if (!fs.existsSync(routeFile)) failures.push(`Missing Food History child route ${routeFile}.`);
 }
 
+if (!batch9.includes('slug: "texas-craft-beer-guide"')) failures.push('Batch 9 data missing texas-craft-beer-guide.');
+if (!fs.existsSync('src/routes/texas-craft-beer-guide.tsx') || !fs.existsSync('src/routes/texas-craft-beer-guide.lazy.tsx')) failures.push('Missing Texas craft beer guide route pair.');
+
 for (const token of [
   'austinmonthly.com/ranch-water',
   'washingtonpost.com/food/2021/07/27/ranch-water-recipe',
@@ -132,6 +138,11 @@ for (const token of [
   'mesquite-news.com/big-red-and-barbacoa-headline-festival',
   'drpeppermuseum.com/virtual-tour',
   'sanantonioreport.org/barbacoa-big-red-festival-only-in-sa',
+  'texascraftbrewersguild.org/brewery-membership',
+  'texascraftbrewersguild.org/about',
+  'texascraftbrewersguild.org/app',
+  'texascraftbrewersguild.org/legislative-history',
+  'tabc.texas.gov/services/tabc-licenses-permits/tabc-license-permit-types',
 ]) {
   if (!evergreenComponent.includes(token)) failures.push(`New Food History source-note layer missing source token: ${token}.`);
 }
@@ -142,7 +153,7 @@ for (const path of ['/san-antonio-puffy-taco-history','/barbacoa-big-red-san-ant
 if (!newestEvergreen.includes('"texas-cultural-regions-explained"')) failures.push('Cultural-regions pillar topology must remain present.');
 
 if (!publicRoutes.includes('"/texas-food-history"')) failures.push('Texas Food History must remain indexable in public route governance.');
-for (const path of ['/texas-ranch-water-guide','/san-antonio-puffy-taco-history','/barbacoa-big-red-san-antonio']) {
+for (const path of ['/texas-ranch-water-guide','/texas-craft-beer-guide','/san-antonio-puffy-taco-history','/barbacoa-big-red-san-antonio']) {
   if (!publicRoutes.includes(`"${path}"`)) failures.push(`${path} must remain indexable in public route governance.`);
   if (!rootHub.includes(`to="${path}"`)) failures.push(`Things That Define Texas hub must surface ${path}.`);
   if (!categoryHub.includes(`href: "${path}"`)) failures.push(`Food & Drink chapter must feature ${path}.`);
@@ -150,7 +161,7 @@ for (const path of ['/texas-ranch-water-guide','/san-antonio-puffy-taco-history'
   if (!llms.includes(`https://texasdefined.com${path}`)) failures.push(`llms.txt must advertise ${path}.`);
 }
 if (!texasLiving.includes("['/texas-food-history', 'Texas Food History'")) failures.push('Texas Life must surface Texas Food History.');
-for (const path of ['/texas-ranch-water-guide','/san-antonio-puffy-taco-history','/barbacoa-big-red-san-antonio']) {
+for (const path of ['/texas-ranch-water-guide','/texas-craft-beer-guide','/san-antonio-puffy-taco-history','/barbacoa-big-red-san-antonio']) {
   if (!texasLiving.includes(`['${path}'`)) failures.push(`Texas Life must surface ${path}.`);
 }
 if (!llms.includes('Texas food history: https://texasdefined.com/texas-food-history')) failures.push('llms.txt must expose Texas Food History.');
@@ -158,6 +169,7 @@ if (!llms.includes('Texas food history: https://texasdefined.com/texas-food-hist
 const citationContracts = [
   ['https://texasdefined.com/texas-food-history', 'food-history-collection', ['topical-hub','source-backed-history','folklore-vs-documentation','canonical-cross-links']],
   ['https://texasdefined.com/texas-ranch-water-guide', 'food-drink-history-reference', ['origin-dispute','source-notes']],
+  ['https://texasdefined.com/texas-craft-beer-guide', 'food-drink-travel-reference', ['Guild-current-network','official-source-notes','operating-vs-planning-distinction']],
   ['https://texasdefined.com/san-antonio-puffy-taco-history', 'food-history-reference', ['San-Antonio-context','source-notes']],
   ['https://texasdefined.com/barbacoa-big-red-san-antonio', 'food-culture-reference', ['chronology-distinction','source-notes']],
 ];
@@ -177,4 +189,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused links, parent-child schema, established-pillar inbound links, Food & BBQ discovery, sourced batch-5 guides, Dr Pepper museum handoff, six exact-subject hero/social-image contracts, sitemap governance, smoke, llms.txt and citation-index coverage intact across eager and lazy Explore category route surfaces.`);
+console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused links, parent-child schema, established-pillar inbound links, Food & BBQ discovery, sourced batch-5/batch-9 guides, Dr Pepper museum handoff, six exact-subject hero/social-image contracts, sitemap governance, smoke, llms.txt and citation-index coverage intact across eager and lazy Explore category route surfaces.`);
