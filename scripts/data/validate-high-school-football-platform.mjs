@@ -295,12 +295,22 @@ if (!errors.length) {
     "slug: 'arlington-lamar'",
     "slug: 'arlington-martin'",
     "slug: 'granbury'",
+    "slug: 'weatherford'",
+    "slug: 'ft-worth-boswell'",
+    "slug: 'keller'",
+    "slug: 'keller-central'",
+    "slug: 'keller-timber-creek'",
+    "slug: 'northwest'",
+    "slug: 'northwest-eaton'",
+    "slug: 'northwest-nelson'",
+    "slug: 'denton-braswell'",
+    "slug: 'frisco-wakeland'",
     'sourceUrl',
     'verifiedAt',
   ]) requireText(schoolIdentities, marker, 'Football school identity data');
   const verifiedFootballIdentityCount = (schoolIdentities.match(/slug: '/g) ?? []).length;
-  if (verifiedFootballIdentityCount < 60) {
-    errors.push(`Football school identity data fell below 60 verified profiles; found ${verifiedFootballIdentityCount}.`);
+  if (verifiedFootballIdentityCount < 70) {
+    errors.push(`Football school identity data fell below 70 verified profiles; found ${verifiedFootballIdentityCount}.`);
   }
 
   for (const marker of [
