@@ -8,15 +8,15 @@
  * originated in the starter material. Numeric source positions must never be
  * surfaced as a TexasDefined school or football ranking.
  */
-export type FeaturedFootballSourceRow = readonly [rank: number, suppliedName: string];
+export type FeaturedFootballSourceRow = readonly [sourcePosition: number, suppliedName: string];
 
 export type FeaturedFootballProgram = {
   slug: string;
   displayName: string;
   searchName: string;
   aliases: readonly string[];
-  sourceRanks: readonly number[];
-  primaryRank: number;
+  sourcePositions: readonly number[];
+  firstSourcePosition: number;
   governingBodyHint?: 'SPC' | 'TAPPS' | 'TCAL';
   associationClassification?: string;
   associationSourceUrl?: string;
@@ -413,7 +413,7 @@ type MutableFeatured = {
   displayName: string;
   searchName: string;
   aliases: string[];
-  sourceRanks: number[];
+  sourcePositions: number[];
   governingBodyHint?: 'SPC' | 'TAPPS' | 'TCAL';
   associationClassification?: string;
   associationSourceUrl?: string;
@@ -421,13 +421,13 @@ type MutableFeatured = {
 
 const featuredBySlug = new Map<string, MutableFeatured>();
 
-for (const [rank, suppliedName] of FEATURED_FOOTBALL_SOURCE_ROWS) {
+for (const [sourcePosition, suppliedName] of FEATURED_FOOTBALL_SOURCE_ROWS) {
   const slug = SLUG_OVERRIDES[suppliedName] ?? slugify(suppliedName);
   const searchName = SEARCH_NAME_OVERRIDES[suppliedName] ?? suppliedName.replace(/\s*\([^)]*\)\s*$/, '').trim();
   const association = ASSOCIATION_OVERRIDES[suppliedName];
   const current = featuredBySlug.get(slug);
   if (current) {
-    current.sourceRanks.push(rank);
+    current.sourcePositions.push(sourcePosition);
     for (const alias of [suppliedName, searchName]) {
       if (!current.aliases.includes(alias)) current.aliases.push(alias);
     }
@@ -444,7 +444,7 @@ for (const [rank, suppliedName] of FEATURED_FOOTBALL_SOURCE_ROWS) {
     displayName: preferredDisplayName(suppliedName, slug),
     searchName,
     aliases: [...new Set([suppliedName, searchName])],
-    sourceRanks: [rank],
+    sourcePositions: [sourcePosition],
     ...(association ? {
       governingBodyHint: association.governingBody,
       associationClassification: association.associationClassification,
@@ -456,10 +456,10 @@ for (const [rank, suppliedName] of FEATURED_FOOTBALL_SOURCE_ROWS) {
 export const FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS: readonly FeaturedFootballProgram[] = [...featuredBySlug.values()]
   .map((program) => ({
     ...program,
-    sourceRanks: [...program.sourceRanks].sort((a, b) => a - b),
-    primaryRank: Math.min(...program.sourceRanks),
+    sourcePositions: [...program.sourcePositions].sort((a, b) => a - b),
+    firstSourcePosition: Math.min(...program.sourcePositions),
   }))
-  .sort((a, b) => a.primaryRank - b.primaryRank);
+  .sort((a, b) => a.firstSourcePosition - b.firstSourcePosition);
 
 if (FEATURED_FOOTBALL_SOURCE_ROWS.length !== FEATURED_SOURCE_ROW_COUNT) {
   throw new Error(`Expected ${FEATURED_SOURCE_ROW_COUNT} supplied football rows; found ${FEATURED_FOOTBALL_SOURCE_ROWS.length}.`);
