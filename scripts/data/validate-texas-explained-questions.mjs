@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 
-// Guard the 136-answer authority layer, native lazy route split, and no-thin-child-route contract on every authority PR change.
+// Guard the 137-answer authority layer, native lazy route split, and no-thin-child-route contract on every authority PR change.
 const dataPath = 'src/data/texas-explained-questions.ts';
 const componentPath = 'src/components/editorial/TexasExplainedQuestionsPage.tsx';
 const pagePath = 'src/components/editorial/TexasExplainedPage.tsx';
@@ -66,7 +66,7 @@ for (const question of requiredQuestions) {
 
 for (const marker of [
   'createFileRoute("/texas-explained")',
-  'const questionCount = 136;',
+  'const questionCount = 137;',
   'buildEditorialCollectionHead',
   'import("@/data/queries")',
   'import("@/components/editorial/TexasExplainedPage")',
