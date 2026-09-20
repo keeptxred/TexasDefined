@@ -99,7 +99,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH9: Record<string, TexasEvergreenGuide> 
         ],
         links: [
           { href: "/explore/food-bbq", label: "Texas Food & Barbecue" },
-          { href: "/road-trips", label: "Texas road trips" }
+          { href: "/explore/road-trips", label: "Texas road trips" }
         ]
       }
     ],
