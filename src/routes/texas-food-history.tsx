@@ -77,7 +77,7 @@ function TexasFoodHistoryPage() {
       </section>
 
       <section className="py-14">
-        <p className="eyebrow text-primary">Start with nine stories</p>
+        <p className="eyebrow text-primary">Start with ten stories</p>
         <h2 className="mt-2 max-w-3xl font-display text-4xl sm:text-5xl">From plaza chili stands to Sunday barbacoa and the Waco soda fountain</h2>
         <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
           {guides.map((guide) => <Link key={guide.href} to={guide.href} className="group bg-background p-7">
