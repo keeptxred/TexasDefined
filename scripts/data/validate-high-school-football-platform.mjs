@@ -596,6 +596,7 @@ if (!errors.length) {
     'getVerifiedFootballVenueLinks',
     'getSportsVenueEnrichmentAll',
     "venueSlug: 'eagle-stadium-allen'",
+    "venueSlug: 'ford-center-at-the-star'",
     "venueSlug: 'mckinney-isd-stadium'",
     "venueSlug: 'childrens-health-stadium-prosper'",
     "venueSlug: 'legacy-stadium-katy'",
