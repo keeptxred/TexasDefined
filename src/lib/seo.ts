@@ -64,6 +64,10 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
   "/sports-venues": { title: "Texas Stadiums & Sports Venues" },
   "/events": { title: "Texas Events & Festivals" },
   "/destination/palo-duro-canyon-state-park": { title: "Palo Duro Canyon State Park Guide" },
+  "/destination/hye": {
+    title: "Hye, Texas: Post Office, Wineries & Hill Country Guide",
+    description: "Explore Hye, Texas with the historic post office, Garrison Brothers, William Chris, Hye Meadow, LBJ country and the U.S. 290 Hill Country corridor.",
+  },
   "/destination/garrison-brothers-distillery-hye": {
     title: "Garrison Brothers Distillery: Tours, Tastings & Hye Guide",
     description: "Plan Garrison Brothers Distillery in Hye with current tour prices, hours, reserve tastings, Whiskey Shack food, U.S. 290 context and official booking links.",
