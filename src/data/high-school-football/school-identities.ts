@@ -7,6 +7,9 @@ export type VerifiedFootballSchoolIdentity = {
   verifiedAt: string;
 };
 
+// Enrichment policy: the authoritative universe is all 1,268 current UIL football programs.
+// Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
+// must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
     slug: 'alief-elsik',
