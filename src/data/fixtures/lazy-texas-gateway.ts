@@ -113,6 +113,7 @@ let allGatewayArticlesPromise: Promise<Article[]> | null = null;
 
 function loadAllTexasGatewayArticles(): Promise<Article[]> {
   allGatewayArticlesPromise ??= Promise.all([
+    import("./fredericksburg-authority-guide").then((module) => module.fredericksburgAuthorityArticles),
     import("./texas-gateway-articles").then((module) => module.texasGatewayArticles),
     import("./texas-gateway-articles-batch2").then((module) => module.texasGatewayArticlesBatch2),
     import("./texas-gateway-lifestyle-batch3").then((module) => module.texasGatewayLifestyleBatch3),
