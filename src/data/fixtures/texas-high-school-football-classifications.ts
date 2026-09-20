@@ -56,6 +56,11 @@ export const texasHighSchoolFootballClassificationsArticle: Article = {
       description: "Open all 192 current 2026–28 UIL football districts and move from a district roster into each member school's research profile.",
     },
     {
+      href: "/texas-high-school-football-championship-history",
+      label: "Explore all-time UIL championship history",
+      description: "Compare current programs by actual state-title and state-final totals while keeping historical accomplishment separate from current team strength.",
+    },
+    {
       href: "/article/texas-high-school-football-playoffs-explained",
       label: "How the Texas high school football playoffs work",
       description: "Follow district qualification, the 6A Division I/II split, bracket rounds, playoff sites and the road to the state championships.",
