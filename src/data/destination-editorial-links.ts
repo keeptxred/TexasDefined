@@ -5,6 +5,74 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "paris-texas-eiffel-tower": [
+    {
+      href: "/texas-roadside-oddities",
+      label: "Explore more Texas roadside oddities",
+      description: "Use the statewide guide to turn the cowboy-hatted Eiffel Tower into a larger road trip built around verified strange stops.",
+    },
+    {
+      href: "/county/lamar",
+      label: "Explore Lamar County",
+      description: "Connect the tower with downtown Paris, local history and the wider Northeast Texas county guide.",
+    },
+    {
+      href: "/things-unique-to-texas/roadside-small-towns",
+      label: "Browse roadside and small-town Texas",
+      description: "See how the Paris tower fits into the larger collection of Texas roadside icons, town landmarks and offbeat detours.",
+    },
+  ],
+  "tex-randall-canyon": [
+    {
+      href: "/texas-roadside-oddities",
+      label: "Explore more Texas roadside oddities",
+      description: "Compare Tex Randall with other verified giant objects, folk-art landmarks and strange highway stops across Texas.",
+    },
+    {
+      href: "/county/randall",
+      label: "Explore Randall County",
+      description: "Build the cowboy stop into a Canyon itinerary with museums, local history and the county's Panhandle landscape.",
+    },
+    {
+      href: "/destination/palo-duro-canyon-state-park",
+      label: "Add Palo Duro Canyon",
+      description: "Turn the quick roadside stop into a fuller Canyon-area day with one of the Panhandle's major destinations.",
+    },
+  ],
+  "prada-marfa": [
+    {
+      href: "/texas-roadside-oddities",
+      label: "Explore more Texas roadside oddities",
+      description: "Place the Valentine land-art installation in a statewide guide to unusual Texas road-trip stops.",
+    },
+    {
+      href: "/county/jeff-davis",
+      label: "Explore Jeff Davis County",
+      description: "Put Prada Marfa in its actual county context and connect the stop with the Davis Mountains and surrounding West Texas towns.",
+    },
+    {
+      href: "/things-unique-to-texas/roadside-small-towns",
+      label: "Browse roadside and small-town Texas",
+      description: "Compare West Texas land art with other strange, oversized and place-specific Texas landmarks.",
+    },
+  ],
+  "beer-can-house-houston": [
+    {
+      href: "/texas-roadside-oddities",
+      label: "Explore more Texas roadside oddities",
+      description: "Connect Houston's folk-art house with other verified unconventional landmarks and roadside environments across the state.",
+    },
+    {
+      href: "/county/harris",
+      label: "Explore Harris County",
+      description: "Use the county guide to place the Beer Can House inside a much larger Houston itinerary of museums, neighborhoods and local history.",
+    },
+    {
+      href: "/things-unique-to-texas/roadside-small-towns",
+      label: "Browse roadside and small-town Texas",
+      description: "See the Beer Can House alongside the wider Texas collection of folk art, odd architecture and memorable roadside stops.",
+    },
+  ],
   "texas-vintage-motorcycle-museum-johnson-city": [
     {
       href: "/county/blanco",
