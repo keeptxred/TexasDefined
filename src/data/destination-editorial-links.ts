@@ -5,7 +5,34 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "shiner": [
+    {
+      href: "/destination/spoetzl-brewery",
+      label: "Plan the K. Spoetzl Brewery visit",
+      description: "See current tour planning, the beer lineup, distillery, barbecue and Rickhouse visitor details before choosing your brewery time.",
+    },
+    {
+      href: "/texas-icons/shiner-bock",
+      label: "Read the Shiner Bock history",
+      description: "Separate the town trip from the deeper 1909 brewery history, Kosmos Spoetzl story and Shiner Bock timeline.",
+    },
+    {
+      href: "/county/lavaca",
+      label: "Explore all of Lavaca County",
+      description: "Connect Shiner with Hallettsville, Yoakum, Moulton, river country and the wider Czech and German settlement landscape.",
+    },
+    {
+      href: "/explore/painted-churches/shiner-saints-cyril-methodius",
+      label: "Go inside Shiner's painted-church story",
+      description: "Use the dedicated church guide for architectural, parish and preservation context before visiting Saints Cyril and Methodius.",
+    },
+  ],
   "spoetzl-brewery": [
+    {
+      href: "/destination/shiner",
+      label: "Explore Shiner beyond the brewery",
+      description: "Build the brewery into a fuller town visit with the painted church, local museum, municipal park and Lavaca County context.",
+    },
     {
       href: "/texas-icons/shiner-bock",
       label: "Read the full Shiner Bock history",
