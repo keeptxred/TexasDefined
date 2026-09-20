@@ -5,6 +5,60 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "buggy-barn-museum-blanco": [
+    {
+      href: "/destination/blanco",
+      label: "Explore Blanco",
+      description: "Connect Buggy Barn with the courthouse square, river, food and the town's broader Hill Country visitor guide.",
+    },
+    {
+      href: "/destination/blanco-state-park",
+      label: "Add Blanco State Park",
+      description: "Pair transportation history with river swimming, fishing, paddling and picnic time inside town.",
+    },
+    {
+      href: "/destination/real-ale-brewing-company-blanco",
+      label: "Add Real Ale Brewing Company",
+      description: "Combine the museum with a working Blanco brewery and distillery for a history-and-production day.",
+    },
+    {
+      href: "/event/blanco-lavender-festival",
+      label: "Plan the Blanco Lavender Festival",
+      description: "Use the current event guide for the announced June 4-6, 2027 festival dates and future schedule updates.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Extend the museum visit to Johnson City, Hye, the Pedernales corridor and the wider county.",
+    },
+  ],
+  "blanco": [
+    {
+      href: "/destination/buggy-barn-museum-blanco",
+      label: "Visit Buggy Barn Museum",
+      description: "Explore more than 250 historic buggies, carriages and wagons plus the Pine Moore Old West Studio.",
+    },
+    {
+      href: "/event/blanco-lavender-festival",
+      label: "Plan the Blanco Lavender Festival",
+      description: "The next announced festival is June 4-6, 2027; use the event guide for current planning and schedule updates.",
+    },
+    {
+      href: "/destination/real-ale-brewing-company-blanco",
+      label: "Visit Real Ale Brewing Company",
+      description: "Tour Blanco's working brewery and distillery and add the taproom, beer garden and Made-in-Texas production story.",
+    },
+    {
+      href: "/destination/blanco-state-park",
+      label: "Add Blanco State Park",
+      description: "Build a river block around swimming, fishing, paddling and picnicking inside town.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Connect Blanco with Johnson City, Hye and the Pedernales corridor.",
+    },
+  ],
   "hye": [
     {
       href: "/destination/garrison-brothers-distillery-hye",
@@ -52,6 +106,16 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/county/blanco",
       label: "Explore Blanco County",
       description: "Connect Blanco with Johnson City, Hye, the Pedernales corridor and the rest of the county's Hill Country attractions.",
+    },
+    {
+      href: "/destination/buggy-barn-museum-blanco",
+      label: "Add Buggy Barn Museum",
+      description: "Pair Blanco-made beer and spirits with the town's large historic carriage collection and Old West studio.",
+    },
+    {
+      href: "/event/blanco-lavender-festival",
+      label: "Plan the Blanco Lavender Festival",
+      description: "Use the current event guide for the next announced June 4-6, 2027 festival weekend.",
     },
   ],
   "garrison-brothers-distillery-hye": [
