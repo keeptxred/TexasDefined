@@ -72,6 +72,10 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
     title: "Real Ale Brewing Blanco: Taproom, Tours & Hours",
     description: "Plan Real Ale Brewing in Blanco with current taproom hours, 16+ taps, free Friday tours, beer garden, pizza, live music and Real Spirits details.",
   },
+  "/event/real-ale-oktoberfest": {
+    title: "Real Ale Oktoberfest 2026: Free Admission & Schedule",
+    description: "Real Ale Oktoberfest is Sept. 26, 2026 from noon-6 p.m. in Blanco. See free admission, stein options, music, food, games, parking and event rules.",
+  },
   "/texas-vs/california": { title: "Texas vs California: Cost & Living" },
   "/article/texas-wildlife-guide": { title: "Texas Wildlife Guide: Animals & Habitats" },
   "/article/texas-regions-explained": {

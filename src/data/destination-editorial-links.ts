@@ -5,6 +5,28 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "blanco": [
+    {
+      href: "/destination/real-ale-brewing-company-blanco",
+      label: "Visit Real Ale Brewing Company",
+      description: "Plan the working Blanco brewery and distillery with current taproom hours, free Friday tours, food, live music and Real Spirits.",
+    },
+    {
+      href: "/event/real-ale-oktoberfest",
+      label: "Plan Real Ale Oktoberfest",
+      description: "See the September 26 free-admission festival schedule, stein options, Czech Melody Masters, food and games.",
+    },
+    {
+      href: "/destination/blanco-state-park",
+      label: "Add Blanco State Park",
+      description: "Pair downtown Blanco with swimming, fishing, paddling and riverside time inside town.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Connect Blanco with Johnson City, Hye, the Pedernales corridor and the rest of the county's Hill Country destinations.",
+    },
+  ],
   "real-ale-brewing-company-blanco": [
     {
       href: "/destination/blanco",
@@ -25,6 +47,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/county/blanco",
       label: "Explore Blanco County",
       description: "Connect Blanco with Johnson City, Hye, the Pedernales corridor and the rest of the county's Hill Country attractions.",
+    },
+    {
+      href: "/event/real-ale-oktoberfest",
+      label: "Plan Real Ale Oktoberfest",
+      description: "See the September 26 free-admission schedule, stein options, Czech Melody Masters, games, food and transportation guidance.",
     },
   ],
   "garrison-brothers-distillery-hye": [
