@@ -5,6 +5,33 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "pecan-street-brewing-johnson-city": [
+    {
+      href: "/event/gears-beers-johnson-city",
+      label: "Plan Gears & Beers",
+      description: "Use the current event guide for the annual car-and-motorcycle show hosted at Pecan Street Brewing.",
+    },
+    {
+      href: "/destination/johnson-city",
+      label: "Explore Johnson City",
+      description: "Pair the brewpub with the courthouse square, museums, LBJ history and the rest of the downtown visitor cluster.",
+    },
+    {
+      href: "/destination/texas-vintage-motorcycle-museum-johnson-city",
+      label: "Add the vintage motorcycle museum",
+      description: "Connect Pecan Street's Gears & Beers role with Johnson City's major vintage-motorcycle collection.",
+    },
+    {
+      href: "/destination/hye",
+      label: "Continue west to Hye",
+      description: "Build a U.S. 290 food-and-drink route with Garrison Brothers, wineries and the historic Hye corridor.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Connect the downtown brewpub with Blanco, Hye, Real Ale, the Pedernales and the county's broader Hill Country network.",
+    },
+  ],
   "hye": [
     {
       href: "/destination/garrison-brothers-distillery-hye",
@@ -235,6 +262,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       label: "Explore Hye",
       description: "Continue west on U.S. 290 to Hye for the historic post office, Texas wine and Garrison Brothers.",
     },
+    {
+      href: "/destination/pecan-street-brewing-johnson-city",
+      label: "Eat and drink at Pecan Street Brewing",
+      description: "Use the dedicated brewpub guide for current hours, food, house-brewed beer, live music and event planning.",
+    },
   ],
   "science-mill-johnson-city": [
     {
@@ -288,6 +320,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/event/gears-beers-johnson-city",
       label: "See Gears & Beers",
       description: "Connect the museum with Johnson City's annual car-and-motorcycle show, which includes six dedicated motorcycle categories.",
+    },
+    {
+      href: "/destination/pecan-street-brewing-johnson-city",
+      label: "Add Pecan Street Brewing",
+      description: "Pair the motorcycle museum with the historic-square brewpub that hosts Johnson City's annual Gears & Beers show.",
     },
   ],
   "lyndon-b-johnson-national-historical-park": [

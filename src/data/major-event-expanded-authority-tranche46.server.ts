@@ -39,6 +39,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
     ],
     relatedLinks: [
+      { href: "/destination/pecan-street-brewing-johnson-city", label: "Pecan Street Brewing", description: "Use the dedicated host-venue guide for current hours, food, house-brewed beer, live music and historic-square context." },
       { href: "/event/johnson-city-jazz-fest", label: "Johnson City Jazz Fest", description: "Continue the same October 24 downtown day with the free evening jazz concert starting at 5 p.m." },
       { href: "/destination/texas-vintage-motorcycle-museum-johnson-city", label: "Texas Vintage Motorcycle Museum", description: "Connect the show with Johnson City's vintage motorcycle collection and local enthusiast community." },
       { href: "/destination/johnson-city", label: "Explore Johnson City", description: "Plan food, museums and downtown stops around the show." },

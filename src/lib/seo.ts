@@ -72,6 +72,10 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
     title: "Garrison Brothers Distillery: Tours, Tastings & Hye Guide",
     description: "Plan Garrison Brothers Distillery in Hye with current tour prices, hours, reserve tastings, Whiskey Shack food, U.S. 290 context and official booking links.",
   },
+  "/destination/pecan-street-brewing-johnson-city": {
+    title: "Pecan Street Brewing Johnson City: Beer, Food & Live Music",
+    description: "Plan Pecan Street Brewing in Johnson City with current hours, house-brewed beer, food, live music, Gears & Beers and historic-square visitor details.",
+  },
   "/destination/real-ale-brewing-company-blanco": {
     title: "Real Ale Brewing Blanco: Taproom, Tours & Hours",
     description: "Plan Real Ale Brewing in Blanco with current taproom hours, 16+ taps, free Friday tours, beer garden, pizza, live music and Real Spirits details.",
