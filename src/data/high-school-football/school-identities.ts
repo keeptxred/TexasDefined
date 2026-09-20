@@ -7,7 +7,73 @@ export type VerifiedFootballSchoolIdentity = {
   verifiedAt: string;
 };
 
+// Enrichment policy: the authoritative universe is all 1,268 current UIL football programs.
+// Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
+// must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  {
+    slug: 'alief-elsik',
+    mascot: 'Rams',
+    sourceUrl: 'https://elsik.aliefisd.net/',
+    sourceLabel: 'Elsik High School',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'alief-hastings',
+    mascot: 'Fighting Bears',
+    sourceUrl: 'https://hastings.aliefisd.net/page/athletics',
+    sourceLabel: 'Hastings High School Athletics',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'alief-taylor',
+    mascot: 'Lions',
+    sourceUrl: 'https://taylor.aliefisd.net/',
+    sourceLabel: 'Alief Taylor High School',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'alvin',
+    mascot: 'Yellowjackets',
+    sourceUrl: 'https://www.alvinisd.net/o/ahs',
+    sourceLabel: 'Alvin High School',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'alvin-shadow-creek',
+    mascot: 'Sharks',
+    sourceUrl: 'https://www.alvinisd.net/o/schs',
+    sourceLabel: 'Shadow Creek High School',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'austin',
+    mascot: 'Maroons',
+    sourceUrl: 'https://www.austinisd.org/pals/about',
+    sourceLabel: 'Austin ISD PALS campus list',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'austin-akins',
+    mascot: 'Eagles',
+    sourceUrl: 'https://www.austinisd.org/pals/about',
+    sourceLabel: 'Austin ISD PALS campus list',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'austin-bowie',
+    mascot: 'Bulldogs',
+    sourceUrl: 'https://www.austinisd.org/athletics/hs',
+    sourceLabel: 'Austin ISD Athletics',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'austin-vandegrift',
+    mascot: 'Vipers',
+    sourceUrl: 'https://vhs.leanderisd.org/',
+    sourceLabel: 'Vandegrift High School',
+    verifiedAt: '2026-09-20',
+  },
   {
     slug: 'weatherford',
     mascot: 'Kangaroos',
