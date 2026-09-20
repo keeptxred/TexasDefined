@@ -168,21 +168,88 @@ export const TEXAS_EVERGREEN_GUIDES: Record<string, TexasEvergreenGuide> = {
     slug: "texas-roadside-oddities",
     eyebrow: "Big, strange and worth the detour",
     title: "Texas Roadside Oddities: A Guide to the State's Weirdest Stops",
-    dek: "Texas roadside culture rewards travelers who leave the interstate for giant boots, buried cars, improbable museums, neon signs, tiny towns and places that make sense only after you stop.",
-    quickAnswer: "The classic Texas roadside-oddity route includes Cadillac Ranch near Amarillo, the giant cowboy boots in San Antonio, the World's Largest Honky-Tonk in Fort Worth, quirky Hill Country stops, tiny West Texas towns and a long list of oversized or unexpected local landmarks. The best strategy is to use oddities as anchors between major destinations, not as isolated one-off drives.",
+    dek: "Texas roadside culture rewards travelers who leave the interstate for giant cowboys, desert art, can-covered houses, oversized novelties, improbable museums and places that make sense only after you stop.",
+    quickAnswer: "A useful Texas roadside-oddity trip is built by region, not by chasing a statewide checklist. Start with Cadillac Ranch and Tex Randall in the Panhandle, the cowboy-hatted Eiffel Tower in Paris, Prada Marfa outside Valentine, Houston's Beer Can House and other verified stops that can be paired with county pages, towns, museums and major attractions nearby. TexasDefined treats unverified or vague roadside claims as research leads rather than publishable destinations.",
     sections: [
-      { heading: "Start with the Panhandle: Cadillac Ranch and Route 66 energy", body: ["Cadillac Ranch is the perfect Texas roadside symbol because it is both public art and a deliberately absurd roadside interruption. The partly buried cars west of Amarillo turn a flat Panhandle horizon into one of the most recognizable photo stops in the state.", "The larger Panhandle route can include Amarillo, Route 66-era architecture, Palo Duro Canyon and small towns along old highway corridors. That mix makes the oddity feel connected to place rather than detached from it."], links: [{ href: "/explore/top-attractions", label: "Top Texas attractions" }] },
-      { heading: "San Antonio goes oversized", body: ["San Antonio's giant cowboy boots are exactly the kind of object that belongs on a Texas roadside list: instantly legible, intentionally oversized and rooted in the visual language of the state. They work best as a quick detour inside a much larger city itinerary.", "That is the rule for urban oddities. Do not build an entire day around one photo. Combine the stop with a neighborhood, museum, historic site, food hall or mission so the novelty becomes part of a useful travel plan."] },
-      { heading: "Fort Worth turns Western identity into spectacle", body: ["The Fort Worth Stockyards already blur the line between working history, tourism and performance. Billy Bob's Texas pushes that scale even farther, turning the honky-tonk into an attraction in its own right.", "For TexasDefined, this kind of stop matters because it explains how the state packages Western heritage for modern visitors. Cattle drives, dance halls, neon signs, rodeo imagery and giant venues all become part of the same visual language."], links: [{ href: "/sports-venues/rodeo-western", label: "Texas rodeo and Western venues" }] },
-      { heading: "Tiny towns can be the attraction", body: ["Texas is full of communities where the draw is not one landmark but the experience of being somewhere small, remote or unexpectedly distinctive. Terlingua, Luckenbach, Marfa, Round Top and dozens of courthouse-square towns each prove that scale is not the same thing as significance.", "A successful small-town page should answer the practical question the novelty list cannot: what else is nearby? Food, lodging, scenic drives, parks, museums and neighboring towns turn a curiosity into a weekend."], links: [{ href: "/explore/trip-planner", label: "Texas trip planner" }] },
-      { heading: "Courthouse squares and old commercial streets", body: ["Not every roadside stop has to be weird in a kitschy way. Texas courthouse squares, old theaters, ghost signs and brick commercial blocks create a quieter kind of discovery. They reward slow travel and make small towns visually distinct even when there is no headline attraction.", "These are ideal connective tissue for a road trip: a coffee stop, short walk, antique store and courthouse photo can break up long drives while exposing travelers to architecture and local history."], links: [{ href: "/article/texas-courthouses-town-square", label: "Texas courthouses and town squares" }] },
-      { heading: "Neon, signs and the disappearing roadside", body: ["Old motel signs, drive-in marquees, painted walls and vintage service-station architecture preserve the visual culture of highway travel. Their appeal is partly nostalgic, but they also document how towns competed for attention before travelers navigated by phone.", "Because these places change quickly, roadside guides should be maintained as living editorial collections. A sign can disappear, a business can close and a once-abandoned property can be restored." ] },
-      { heading: "Roadside art is its own Texas category", body: ["From Cadillac Ranch to murals, sculpture gardens and improvised folk-art environments, Texas roadside art often grows from local personality rather than formal institutions. Some works are famous; others are known mostly to the community around them.", "The best editorial treatment distinguishes between permanent public art, commercial photo opportunities and fragile folk-art sites. That helps travelers understand what they are seeing and how respectfully to visit." ] },
-      { heading: "Use oddities to build better road trips", body: ["A list of weird stops is fun, but a route is more useful. Group attractions by corridor and travel time: Panhandle and Route 66, Hill Country, Dallas-Fort Worth, San Antonio, Gulf Coast, East Texas and far West Texas.", "Then add one practical layer: where to eat, where to stay, what major attraction is nearby and whether the detour is worth 10 minutes or half a day. That is how a novelty page becomes durable travel content."], links: [{ href: "/things-unique-to-texas/roadside-small-towns", label: "Texas roadside attractions and small towns" }] }
+      {
+        heading: "Panhandle giants: Cadillac Ranch and Tex Randall",
+        body: [
+          "The Panhandle is one of the easiest places to turn roadside oddities into a coherent trip. Cadillac Ranch gives Amarillo its internationally recognizable buried-car artwork, while Canyon's 47-foot Tex Randall turns a former Western-store advertisement into a community-preserved landmark.",
+          "The two stops also solve the biggest weakness of novelty lists: what to do next. Cadillac Ranch can feed into Amarillo and Route 66, while Tex Randall belongs with downtown Canyon, the Panhandle-Plains Historical Museum and Palo Duro Canyon. The Randall County page gives the local context that a statewide list cannot."
+        ],
+        links: [
+          { href: "/destination/cadillac-ranch", label: "Cadillac Ranch destination guide" },
+          { href: "/destination/tex-randall-canyon", label: "Tex Randall in Canyon" },
+          { href: "/county/randall", label: "Explore Randall County" }
+        ]
+      },
+      {
+        heading: "Paris puts a cowboy hat on the Eiffel Tower",
+        body: [
+          "Paris, Texas took a familiar replica and made it unmistakably local by topping its Eiffel Tower with a red cowboy hat. That visual joke is strong enough for a quick detour, but the better trip uses the tower as the beginning of a Paris stop rather than the entire itinerary.",
+          "Pair the landmark with the historic downtown plaza and the broader Lamar County story. That keeps the page useful for travelers who searched for the oddity while giving them a reason to stay longer and explore the community around it."
+        ],
+        links: [
+          { href: "/destination/paris-texas-eiffel-tower", label: "Paris, Texas Eiffel Tower" },
+          { href: "/county/lamar", label: "Explore Lamar County" }
+        ]
+      },
+      {
+        heading: "Far West Texas: Prada Marfa is really outside Valentine",
+        body: [
+          "Prada Marfa is one of the state's clearest examples of location being part of the artwork. The sealed boutique-like installation sits on U.S. 90 about a mile west of Valentine, not in Marfa itself, where the luxury storefront and empty Chihuahuan Desert horizon deliberately collide.",
+          "That distinction matters for trip planning and for search accuracy. A West Texas itinerary can connect Valentine, Marfa, Fort Davis and the surrounding mountain-and-desert country, while the Jeff Davis County page helps explain where the installation actually sits."
+        ],
+        links: [
+          { href: "/destination/prada-marfa", label: "Prada Marfa visitor guide" },
+          { href: "/county/jeff-davis", label: "Explore Jeff Davis County" }
+        ]
+      },
+      {
+        heading: "Houston folk art: the Beer Can House",
+        body: [
+          "Houston's Beer Can House turns an ordinary home into an environment of flattened cans, pull tabs, garlands and handmade metal details. Its value is not simply that the building looks strange. It belongs to Houston's larger tradition of self-taught art and unconventional built environments.",
+          "Because it sits in a real neighborhood, the destination guide emphasizes current visit information, parking etiquette and respect for nearby homes. The Harris County page then opens the stop into a much larger Houston itinerary instead of leaving it as an isolated photo opportunity."
+        ],
+        links: [
+          { href: "/destination/beer-can-house-houston", label: "Houston Beer Can House" },
+          { href: "/county/harris", label: "Explore Harris County" }
+        ]
+      },
+      {
+        heading: "Museums can be roadside oddities too",
+        body: [
+          "The source list mixes giant objects and folk art with unusual museums, and that is useful when the attraction already has enough substance for a full visit. Beaumont's Fire Museum of Texas, for example, is more than its giant hydrant photo stop because the museum supplies the history behind the novelty.",
+          "TexasDefined keeps those stronger institutions on their existing destination pages instead of creating duplicate 'weird attraction' URLs. The oddities guide should send readers into the established museum page, not compete with it for the same place name."
+        ],
+        links: [
+          { href: "/destination/fire-museum-of-texas", label: "Fire Museum of Texas in Beaumont" },
+          { href: "/explore/museums", label: "Browse Texas museums" }
+        ]
+      },
+      {
+        heading: "Not every giant object deserves its own page",
+        body: [
+          "A statewide list is excellent for discovery, but vague entries such as an unnamed object on a 'Texas highway' or a feature with no stable managing source should stay in the research queue until it can be verified. Creating a thin page for every oversized object would add hundreds of near-duplicate URLs without helping a traveler.",
+          "The promotion rule is simple: a stand-alone destination needs a stable identity, a real location, useful visit information, enough story for substantive copy, a current source and an exact-location image. Smaller items can still strengthen city, county and road-trip pages without becoming their own indexed destination."
+        ]
+      },
+      {
+        heading: "Use oddities to build better road trips",
+        body: [
+          "The most useful way to browse strange Texas is by corridor and travel time: Panhandle and Route 66, Dallas-Fort Worth and Northeast Texas, Hill Country, San Antonio, Gulf Coast, East Texas and far West Texas. That turns a giant statue or strange house into a reason to discover the next town, museum, park or local business.",
+          "Use the trip planner for routing and the roadside-and-small-town collection for broader inspiration. As more entries from the research pool are verified, TexasDefined can promote them into destination pages without changing the canonical guide or fragmenting the topic across competing articles."
+        ],
+        links: [
+          { href: "/things-unique-to-texas/roadside-small-towns", label: "Texas roadside attractions and small towns" },
+          { href: "/explore/trip-planner", label: "Build a Texas road trip" }
+        ]
+      }
     ],
     related: [
-      { href: "/things-unique-to-texas/roadside-small-towns", label: "40 Texas roadside and small-town icons", description: "The master list behind this guide." },
-      { href: "/explore/trip-planner", label: "Plan a Texas road trip", description: "Combine oddities with major destinations and overnight stops." },
+      { href: "/things-unique-to-texas/roadside-small-towns", label: "Texas roadside and small-town icons", description: "Browse the larger Texas identity collection behind this guide." },
+      { href: "/explore/trip-planner", label: "Plan a Texas road trip", description: "Combine verified oddities with major destinations and overnight stops." },
+      { href: "/explore/museums", label: "Texas museums", description: "Find unusual museums that deserve a fuller visit than a roadside photo stop." },
       { href: "/texas-history", label: "Texas history", description: "Put roadside architecture, town squares and local landmarks into context." }
     ]
   },
