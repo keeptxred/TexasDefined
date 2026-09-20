@@ -406,7 +406,6 @@ export const NON_INDEXABLE_PUBLIC_PATHS = [
   "/fishing/reports/submit",
   "/shop/cart",
   "/shop/checkout-return",
-  "/shop/live-payment-test",
   "/partner-with-us/agreement",
   "/sports-venues/compare.csv",
   "/top-25-texas-attractions.csv",

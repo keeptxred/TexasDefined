@@ -282,7 +282,6 @@ import { Route as SportsVenuesCompareRouteImport } from './routes/sports-venues.
 import { Route as SportsVenuesLandingRouteImport } from './routes/sports-venues.$landing'
 import { Route as SportsVenueJonesAttStadiumRouteImport } from './routes/sports-venue.jones-att-stadium'
 import { Route as SportsVenueSlugRouteImport } from './routes/sports-venue.$slug'
-import { Route as ShopLivePaymentTestRouteImport } from './routes/shop.live-payment-test'
 import { Route as ShopCheckoutReturnRouteImport } from './routes/shop.checkout-return'
 import { Route as ShopCartRouteImport } from './routes/shop.cart'
 import { Route as ShopCollectionRouteImport } from './routes/shop.$collection'
@@ -2266,13 +2265,6 @@ const SportsVenueSlugRoute = SportsVenueSlugRouteImport.update({
   path: '/sports-venue/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ShopLivePaymentTestRoute = ShopLivePaymentTestRouteImport.update({
-  id: '/live-payment-test',
-  path: '/live-payment-test',
-  getParentRoute: () => ShopRoute,
-} as any).lazy(() =>
-  import('./routes/shop.live-payment-test.lazy').then((d) => d.Route),
-)
 const ShopCheckoutReturnRoute = ShopCheckoutReturnRouteImport.update({
   id: '/checkout-return',
   path: '/checkout-return',
@@ -3837,7 +3829,6 @@ export interface FileRoutesByFullPath {
   '/shop/$collection': typeof ShopCollectionRoute
   '/shop/cart': typeof ShopCartRoute
   '/shop/checkout-return': typeof ShopCheckoutReturnRoute
-  '/shop/live-payment-test': typeof ShopLivePaymentTestRoute
   '/sports-venue/$slug': typeof SportsVenueSlugRoute
   '/sports-venue/jones-att-stadium': typeof SportsVenueJonesAttStadiumRoute
   '/sports-venues/$landing': typeof SportsVenuesLandingRoute
@@ -4317,7 +4308,6 @@ export interface FileRoutesByTo {
   '/shop/$collection': typeof ShopCollectionRoute
   '/shop/cart': typeof ShopCartRoute
   '/shop/checkout-return': typeof ShopCheckoutReturnRoute
-  '/shop/live-payment-test': typeof ShopLivePaymentTestRoute
   '/sports-venue/$slug': typeof SportsVenueSlugRoute
   '/sports-venue/jones-att-stadium': typeof SportsVenueJonesAttStadiumRoute
   '/sports-venues/$landing': typeof SportsVenuesLandingRoute
@@ -4801,7 +4791,6 @@ export interface FileRoutesById {
   '/shop/$collection': typeof ShopCollectionRoute
   '/shop/cart': typeof ShopCartRoute
   '/shop/checkout-return': typeof ShopCheckoutReturnRoute
-  '/shop/live-payment-test': typeof ShopLivePaymentTestRoute
   '/sports-venue/$slug': typeof SportsVenueSlugRoute
   '/sports-venue/jones-att-stadium': typeof SportsVenueJonesAttStadiumRoute
   '/sports-venues/$landing': typeof SportsVenuesLandingRoute
@@ -5286,7 +5275,6 @@ export interface FileRouteTypes {
     | '/shop/$collection'
     | '/shop/cart'
     | '/shop/checkout-return'
-    | '/shop/live-payment-test'
     | '/sports-venue/$slug'
     | '/sports-venue/jones-att-stadium'
     | '/sports-venues/$landing'
@@ -5766,7 +5754,6 @@ export interface FileRouteTypes {
     | '/shop/$collection'
     | '/shop/cart'
     | '/shop/checkout-return'
-    | '/shop/live-payment-test'
     | '/sports-venue/$slug'
     | '/sports-venue/jones-att-stadium'
     | '/sports-venues/$landing'
@@ -6249,7 +6236,6 @@ export interface FileRouteTypes {
     | '/shop/$collection'
     | '/shop/cart'
     | '/shop/checkout-return'
-    | '/shop/live-payment-test'
     | '/sports-venue/$slug'
     | '/sports-venue/jones-att-stadium'
     | '/sports-venues/$landing'
@@ -8697,13 +8683,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SportsVenueSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/shop/live-payment-test': {
-      id: '/shop/live-payment-test'
-      path: '/live-payment-test'
-      fullPath: '/shop/live-payment-test'
-      preLoaderRoute: typeof ShopLivePaymentTestRouteImport
-      parentRoute: typeof ShopRoute
-    }
     '/shop/checkout-return': {
       id: '/shop/checkout-return'
       path: '/checkout-return'
@@ -10423,7 +10402,6 @@ interface ShopRouteChildren {
   ShopCollectionRoute: typeof ShopCollectionRoute
   ShopCartRoute: typeof ShopCartRoute
   ShopCheckoutReturnRoute: typeof ShopCheckoutReturnRoute
-  ShopLivePaymentTestRoute: typeof ShopLivePaymentTestRoute
   ShopIndexRoute: typeof ShopIndexRoute
   ShopProductProductIdRoute: typeof ShopProductProductIdRoute
 }
@@ -10432,7 +10410,6 @@ const ShopRouteChildren: ShopRouteChildren = {
   ShopCollectionRoute: ShopCollectionRoute,
   ShopCartRoute: ShopCartRoute,
   ShopCheckoutReturnRoute: ShopCheckoutReturnRoute,
-  ShopLivePaymentTestRoute: ShopLivePaymentTestRoute,
   ShopIndexRoute: ShopIndexRoute,
   ShopProductProductIdRoute: ShopProductProductIdRoute,
 }
