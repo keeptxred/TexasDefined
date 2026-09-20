@@ -357,6 +357,61 @@ const unusualTexasBusinessesServicesStub: Article = {
   relatedDestinations: ["whirlyball-hurst"],
 };
 
+
+const phenixKnivesBellvilleStub: Article = {
+  id: "guide-phenix-knives-bellville",
+  brandId: "texasdefined",
+  slug: "phenix-knives-bellville",
+  title: "Phenix Knives in Bellville: A Working Texas Blacksmith Shop You Can Visit",
+  dek: "A Bellville guide to Phenix Knives, where visitors can see a working bladesmith shop, watch demonstrations, make a simple souvenir horseshoe knife and connect the experience to Austin County's small-town history.",
+  category: "guides",
+  region: "gulf-coast",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Blacksmith_working.jpg?width=1600",
+    alt: "A blacksmith hammering glowing hot iron on an anvil, used as an editorial illustration for Phenix Knives in Bellville",
+    width: 1600,
+    height: 1064,
+    credit: "Jeff Kubina · CC BY-SA 2.0 · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-09-19",
+  readingMinutes: 9,
+  tags: ["Phenix Knives", "Bellville Texas", "Austin County", "Texas blacksmith", "Texas bladesmith", "Texas craftspeople", "unusual Texas businesses"],
+  featured: false,
+  sourceName: "Phenix Knives",
+  sourceUrl: "https://www.phenixknives.com/",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: [],
+};
+
+const horsesOnTheBeachCorpusChristiStub: Article = {
+  id: "guide-horses-on-the-beach-corpus-christi",
+  brandId: "texasdefined",
+  slug: "horses-on-the-beach-corpus-christi",
+  title: "Horses on the Beach in Corpus Christi: What to Know Before You Ride",
+  dek: "A practical guide to Horses on the Beach in Corpus Christi, where guided horseback rides follow the Padre Island shoreline and can be paired with North Padre Island, Nueces County and a broader Coastal Bend trip.",
+  category: "guides",
+  region: "gulf-coast",
+  hero: {
+    src: "https://tile.loc.gov/image-services/iiif/service%3Apnp%3Ahighsm%3A29200%3A29278/full/pct%3A25/0/default.jpg",
+    alt: "Riders from Horses on the Beach traveling along the Padre Island shoreline near Corpus Christi",
+    width: 1024,
+    height: 683,
+    credit: "Carol M. Highsmith · Library of Congress · No known restrictions on publication",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-09-19",
+  readingMinutes: 9,
+  tags: ["Horses on the Beach Corpus Christi", "Corpus Christi horseback riding", "Padre Island horseback riding", "Nueces County", "Texas Gulf Coast", "unusual Texas businesses"],
+  featured: false,
+  sourceName: "Horses on the Beach Corpus Christi",
+  sourceUrl: "https://www.horsesonthebeachcorpus.com/",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: [],
+};
+
 export const newestEvergreenArticles: Article[] = [
   ...seasonalIntentStubs,
   ...lighthouseSearchIntentStubs,
@@ -376,6 +431,8 @@ export const newestEvergreenArticles: Article[] = [
   texasBackupPowerGeneratorGuideStub,
   bluebonnetAnimalPreservationAthensStub,
   unusualTexasBusinessesServicesStub,
+  phenixKnivesBellvilleStub,
+  horsesOnTheBeachCorpusChristiStub,
 ];
 
 const loaders: Record<string, () => Promise<Article>> = {
@@ -392,6 +449,8 @@ const loaders: Record<string, () => Promise<Article>> = {
   "texas-backup-power-generator-guide": async () => (await import("./texas-backup-power-generator-guide")).texasBackupPowerGeneratorGuideArticle,
   "bluebonnet-animal-preservation-athens": async () => (await import("./bluebonnet-animal-preservation-athens")).bluebonnetAnimalPreservationAthensArticle,
   "unusual-texas-businesses-services": async () => (await import("./unusual-texas-businesses-services")).unusualTexasBusinessesServicesArticle,
+  "phenix-knives-bellville": async () => (await import("./phenix-knives-bellville")).phenixKnivesBellvilleArticle,
+  "horses-on-the-beach-corpus-christi": async () => (await import("./horses-on-the-beach-corpus-christi")).horsesOnTheBeachCorpusChristiArticle,
 };
 
 export async function loadNewestEvergreenArticle(brandId: string, slug: string) {
