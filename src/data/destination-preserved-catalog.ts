@@ -94,6 +94,7 @@ import { smallTownWave14Destinations } from "./small-town-destinations-wave14";
 import { smallTownWave15Destinations } from "./small-town-destinations-wave15";
 import { shinerBreweryDestination } from "./shiner-brewery-destination";
 import { shinerTownDestination } from "./shiner-town-destination";
+import { blancoAttractionsAuthorityDestinations } from "./blanco-attractions-authority-destinations";
 import { texasVintageMotorcycleMuseumDestinations } from "./texas-vintage-motorcycle-museum-destination";
 import { viatorDestinationExpansion } from "./viator-destination-expansion";
 import { whirlyballHurstDestinations } from "./whirlyball-hurst-destination";
@@ -203,6 +204,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   topAttractionExpansionDestinations,
   coastalDestinations,
   viatorDestinationExpansion,
+  blancoAttractionsAuthorityDestinations,
   texasVintageMotorcycleMuseumDestinations,
   whirlyballHurstDestinations,
   legacyExploreDestinations,
