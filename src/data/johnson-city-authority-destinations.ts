@@ -39,13 +39,15 @@ export const johnsonCityAuthorityDestinations: Destination[] = [
       "Lyndon B. Johnson National Historical Park — Johnson City district",
       "Science Mill hands-on STEM museum",
       "Texas Vintage Motorcycle Museum",
+      "Reptilandia reptile and amphibian zoo",
+      "The Exotic Resort Zoo safari park",
       "U.S. 290 Hill Country wine and Stonewall corridor",
       "Quick access to Pedernales Falls State Park",
     ],
     body: [
       "Johnson City works especially well as a Hill Country base because several very different visitor experiences sit within a compact town center. The Blanco County Courthouse anchors downtown, while restaurants, tasting rooms, shops, museums and visitor services cluster around Main Street and the surrounding blocks.",
       "The town is also the eastern half of Lyndon B. Johnson National Historical Park. The National Park Service's Johnson City district includes the visitor center, LBJ Boyhood Home and Johnson Settlement, where preserved buildings and landscape interpretation connect Johnson family history with ranching, cattle drives and nineteenth-century Hill Country settlement. The separate LBJ Ranch district lies about 14 miles west near Stonewall.",
-      "Johnson City has grown beyond presidential history. The Science Mill occupies the historic 1880 feed mill and now presents more than 50 hands-on STEM exhibits, while the Texas Vintage Motorcycle Museum displays more than 100 motorcycles in a restored 1930s Ford dealership just off the square. Those two indoor attractions make the town especially useful for families, summer heat and weather-flexible itineraries.",
+      "Johnson City has grown beyond presidential history. The Science Mill occupies the historic 1880 feed mill and now presents more than 50 hands-on STEM exhibits, while the Texas Vintage Motorcycle Museum displays more than 100 motorcycles in a restored 1930s Ford dealership just off the square. North of downtown, Reptilandia adds a specialized reptile-and-amphibian zoo and the Exotic Resort Zoo adds a large safari-style wildlife park. Together those attractions give families both indoor and outdoor reasons to make Johnson City the destination rather than only a pass-through.",
       "The wider geography matters just as much as downtown. U.S. 290 continues west through Hye and Stonewall toward Fredericksburg, tying Johnson City into the Hill Country wine corridor and LBJ Ranch landscape. Pedernales Falls State Park lies a short drive east, so a single day can combine museums or history with river-country hiking when weather and park capacity cooperate.",
       "Johnson City's holiday identity is another major trip pattern. The town promotes a large Christmas Lights Spectacular and other seasonal events, and the courthouse-square setting makes the lights easy to pair with downtown businesses. Holiday weekends can be substantially busier than an ordinary Hill Country day, so lodging, dinner and parking deserve more advance planning during that period.",
       "A first visit should resist the temptation to treat Johnson City as only a pass-through on the way to Fredericksburg. The town has enough museum, history and food depth for a full day, and its position between Austin, San Antonio and the western Hill Country makes it one of the more efficient places to begin a multi-stop regional trip.",
@@ -82,6 +84,20 @@ export const johnsonCityAuthorityDestinations: Destination[] = [
             "A privately assembled collection of more than 100 vintage motorcycles inside a restored 1930s Ford dealership.",
           proximity: "Just off the courthouse square",
           href: "/destination/texas-vintage-motorcycle-museum-johnson-city",
+        },
+        {
+          name: "Reptilandia – Reptile Lagoon",
+          description:
+            "A temperature-controlled reptile and amphibian zoo organized around eight biomes and large naturalistic habitats.",
+          proximity: "North of downtown on U.S. 281",
+          href: "/destination/reptilandia-johnson-city",
+        },
+        {
+          name: "The Exotic Resort Zoo",
+          description:
+            "A safari-style wildlife park with 700+ animals, guided tractor tours, self-drive access and onsite cabins.",
+          proximity: "About 4 miles north of town",
+          href: "/destination/exotic-resort-zoo-johnson-city",
         },
       ],
       foodAndDrink: [
@@ -135,6 +151,20 @@ export const johnsonCityAuthorityDestinations: Destination[] = [
             "Johnson City's strongest family attraction, with indoor and outdoor hands-on STEM exhibits for a wide age range.",
           proximity: "Downtown",
           href: "/destination/science-mill-johnson-city",
+        },
+        {
+          name: "Reptilandia",
+          description:
+            "A climate-controlled reptile zoo that stays useful during summer heat or rain.",
+          proximity: "North of downtown",
+          href: "/destination/reptilandia-johnson-city",
+        },
+        {
+          name: "The Exotic Resort Zoo",
+          description:
+            "A guided or self-drive safari park for a more outdoor animal-focused family day.",
+          proximity: "North of town",
+          href: "/destination/exotic-resort-zoo-johnson-city",
         },
         {
           name: "Johnson Settlement",
