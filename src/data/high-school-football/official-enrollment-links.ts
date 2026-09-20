@@ -375,6 +375,38 @@ export const OFFICIAL_FOOTBALL_ENROLLMENT_LINKS: readonly OfficialFootballEnroll
     verifiedAt: '2026-09-19',
     schoolYear: '2026-27',
   },
+  {
+    districtName: 'Melissa ISD',
+    aliases: ['Melissa Independent School District'],
+    enrollmentUrl: 'https://www.melissaisd.org/enroll',
+    sourceLabel: 'Melissa ISD new student enrollment',
+    verifiedAt: '2026-09-19',
+    schoolYear: '2026-27',
+  },
+  {
+    districtName: 'Carrollton-Farmers Branch ISD',
+    aliases: ['Carrollton-Farmers Branch Independent School District', 'CFBISD'],
+    enrollmentUrl: 'https://www.cfbisd.edu/enrollment-page',
+    sourceLabel: 'Carrollton-Farmers Branch ISD enrollment',
+    verifiedAt: '2026-09-19',
+    schoolYear: '2026-27',
+  },
+  {
+    districtName: 'Dallas ISD',
+    aliases: ['Dallas Independent School District'],
+    enrollmentUrl: 'https://www.dallasisd.org/parents-students/enroll/enrollment-information',
+    sourceLabel: 'Dallas ISD enrollment information',
+    verifiedAt: '2026-09-19',
+    schoolYear: '2026-27',
+  },
+  {
+    districtName: 'Birdville ISD',
+    aliases: ['Birdville Independent School District'],
+    enrollmentUrl: 'https://www.birdvilleschools.net/families/backtoschool',
+    sourceLabel: 'Birdville ISD registration information',
+    verifiedAt: '2026-09-19',
+    schoolYear: '2026-27',
+  },
 ];
 
 function normalizeDistrictName(value: string) {
