@@ -7,6 +7,7 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 import { legacyExploreDestinations } from "./fixtures/legacy-explore";
 import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
 import { johnsonCityAuthorityDestinations } from "./johnson-city-authority-destinations";
+import { johnsonCityWildlifeDestinations } from "./johnson-city-wildlife-destinations";
 import { historicSiteDestinations } from "./historic-sites";
 import { militaryHistoryDestinations } from "./military-history-destinations";
 import { militaryMuseumDestinations } from "./military-museum-destinations";
@@ -203,6 +204,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   legacyExploreDestinations,
   legacyLakeDestinations,
   johnsonCityAuthorityDestinations,
+  johnsonCityWildlifeDestinations,
   historicSiteDestinations,
   militaryHistoryDestinations,
   militaryMuseumDestinations,
