@@ -5,6 +5,50 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "reptilandia-johnson-city": [
+    {
+      href: "/destination/exotic-resort-zoo-johnson-city",
+      label: "Add the Exotic Resort Zoo",
+      description: "Pair Reptilandia's indoor reptile habitats with a large outdoor safari experience just north on the same U.S. 281 corridor.",
+    },
+    {
+      href: "/destination/johnson-city",
+      label: "Explore Johnson City",
+      description: "Connect the reptile zoo with downtown museums, food, LBJ history and the courthouse square.",
+    },
+    {
+      href: "/destination/science-mill-johnson-city",
+      label: "Add Science Mill",
+      description: "Build a weather-proof family day around reptiles, amphibians and hands-on STEM exhibits.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Put Reptilandia in the wider county context of Johnson City, Blanco, the Pedernales and Hill Country attractions.",
+    },
+  ],
+  "exotic-resort-zoo-johnson-city": [
+    {
+      href: "/destination/reptilandia-johnson-city",
+      label: "Add Reptilandia",
+      description: "Pair the outdoor safari with a temperature-controlled reptile and amphibian zoo a short drive south.",
+    },
+    {
+      href: "/destination/johnson-city",
+      label: "Explore Johnson City",
+      description: "Use downtown Johnson City for food, museums, the courthouse square and LBJ history before or after the safari.",
+    },
+    {
+      href: "/destination/science-mill-johnson-city",
+      label: "Add Science Mill",
+      description: "Pair the wildlife park with Johnson City's hands-on STEM museum for a full family day.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Connect the safari park with the county's towns, river corridors, parks and Hill Country road trips.",
+    },
+  ],
   "johnson-city": [
     {
       href: "/destination/science-mill-johnson-city",
@@ -25,6 +69,16 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/county/blanco",
       label: "Explore Blanco County",
       description: "Extend the town visit to Blanco, the Pedernales corridor and the wider county landscape.",
+    },
+    {
+      href: "/destination/reptilandia-johnson-city",
+      label: "Visit Reptilandia",
+      description: "Add Johnson City's temperature-controlled reptile and amphibian zoo to a family itinerary.",
+    },
+    {
+      href: "/destination/exotic-resort-zoo-johnson-city",
+      label: "Plan the Exotic Resort Zoo safari",
+      description: "Use the dedicated guide for guided tractor tours, self-drive reservations, animal encounters and onsite cabins.",
     },
   ],
   "science-mill-johnson-city": [
@@ -47,6 +101,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/county/blanco",
       label: "Explore Blanco County",
       description: "See how Johnson City, Blanco and the Pedernales corridor fit together across the county.",
+    },
+    {
+      href: "/destination/reptilandia-johnson-city",
+      label: "Pair Science Mill with Reptilandia",
+      description: "Build an all-weather family day around hands-on STEM and a specialized reptile-and-amphibian zoo.",
     },
   ],
   "texas-vintage-motorcycle-museum-johnson-city": [
