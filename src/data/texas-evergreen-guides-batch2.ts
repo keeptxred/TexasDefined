@@ -114,8 +114,12 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
         heading: "Spring's Mum Queen: Elizabeth Cleaver",
         body: [
           "One of the best-known professional makers in the Texas homecoming-mum world is Elizabeth Cleaver of Spring, better known as The Mum Queen. Cleaver says she has been creating mums and garters for more than 35 years, turning a family-and-friends craft into a seasonal business whose work has been featured by Houston media and national outlets.",
-          "Her influence reaches beyond the finished mums. Cleaver runs the Homecoming Mum Inspiration community, where she mentors hundreds of other makers, and she has helped popularize elaborate details such as layered specialty ribbon work, personalized bling and the white-and-gold senior mum. Houstonia reported that she has produced hundreds of mums in a season, a useful example of how a once-simple corsage became a serious Texas craft industry.",
+          "Her influence reaches beyond the finished mums. Cleaver runs the Homecoming Mum Inspiration community, where she mentors hundreds of other makers, and she has helped popularize elaborate details such as layered specialty ribbon work, personalized bling and the white-and-gold senior mum. Houston Chronicle reporting has documented the scale of her seasonal work and how a once-simple corsage became a serious Texas craft industry.",
           "Cleaver's Spring studio also shows how multigenerational the tradition has become: some customers who wore her mums as students now return for mums for their own children. That continuity is part of why the Texas mum is more than a novelty—it is a living local tradition passed from one homecoming generation to the next."
+        ],
+        links: [
+          { href: "/county/harris", label: "Explore Harris County" },
+          { href: "/sports/friday-night-lights", label: "Friday Night Lights, Defined" }
         ]
       },
       {
@@ -132,7 +136,8 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       { href: "/sports-venues/high-school-football", label: "Texas high-school football", description: "The Friday-night culture that provides the backdrop for homecoming." },
       { href: "/things-unique-to-texas/culture-music", label: "Texas cultural traditions", description: "Rodeos, music, school rituals and community customs." },
       { href: "/texas-slang-explained", label: "Texas slang explained", description: "Another guide to the everyday customs outsiders notice first." },
-      { href: "/article/unusual-texas-businesses-services", label: "Unusual Texas businesses & services", description: "See how specialized makers and niche businesses—from The Mum Queen to pet preservation—become part of local Texas culture." }
+      { href: "/article/unusual-texas-businesses-services", label: "Unusual Texas businesses & services", description: "See how specialized makers and niche businesses—from The Mum Queen to pet preservation—become part of local Texas culture." },
+      { href: "/county/harris", label: "Harris County", description: "Connect the Spring-area mum tradition to the broader Houston-region county guide, schools, communities and local culture." }
     ]
   },
   "texas-natural-wonders-bucket-list": {
