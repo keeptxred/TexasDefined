@@ -223,6 +223,7 @@ export const TEXAS_EVERGREEN_GUIDES: Record<string, TexasEvergreenGuide> = {
           "TexasDefined keeps those stronger institutions on their existing destination pages instead of creating duplicate 'weird attraction' URLs. The oddities guide should send readers into the established museum page, not compete with it for the same place name."
         ],
         links: [
+          { href: "/destination/museum-of-the-weird-austin", label: "Museum of the Weird in Austin" },
           { href: "/destination/fire-museum-of-texas", label: "Fire Museum of Texas in Beaumont" },
           { href: "/explore/museums", label: "Browse Texas museums" }
         ]
