@@ -49,6 +49,13 @@ type GuideImage = {
 };
 
 const guideImages: Partial<Record<string, GuideImage>> = {
+  "texas-homecoming-mums": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Goldthwaite_High_School_Homecoming_Mum.jpg?width=1200",
+    alt: "Goldthwaite High School homecoming mum with ribbons, charms and school colors",
+    caption: "A 2023 Texas high-school homecoming mum shows how a chrysanthemum-centered tradition became a large, personalized display.",
+    credit: "Sillyputty1967 · CC BY-SA 4.0 · Wikimedia Commons",
+    sourceHref: "https://commons.wikimedia.org/wiki/File:Goldthwaite_High_School_Homecoming_Mum.jpg",
+  },
   "texas-food-trail": {
     src: bbqBrisket,
     alt: "Sliced Texas barbecue brisket showing dark bark and a smoke ring",
@@ -298,7 +305,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         </header>
 
         {image ? <figure className="border-b border-border py-8">
-          <img src={image.src} alt={image.alt} className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" />
+          <img src={image.src} alt={image.alt} className={hasHomecomingMumSupplies ? undefined : "aspect-[16/9] w-full object-cover"} style={hasHomecomingMumSupplies ? { display: "block", margin: "0 auto", maxHeight: "44rem", maxWidth: "100%", objectFit: "contain", width: "auto" } : undefined} loading="eager" fetchPriority="high" />
           <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">
             {image.caption}
             {image.credit ? <>{" "}{image.sourceHref ? <a href={image.sourceHref} target="_blank" rel="noreferrer noopener" className="underline decoration-border underline-offset-2">{image.credit}</a> : image.credit}</> : null}
