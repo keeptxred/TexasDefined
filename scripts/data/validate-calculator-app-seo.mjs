@@ -9,6 +9,8 @@ const readRouteSurface = (file) => {
 
 const helper = fs.readFileSync('src/lib/calculator-seo.ts', 'utf8');
 const component = fs.readFileSync('src/components/calculators/CalculatorPage.tsx', 'utf8');
+const planningCalculators = fs.readFileSync('src/components/calculators/TexasPlanningCalculators.tsx', 'utf8');
+const rentVsBuyEngine = fs.readFileSync('src/lib/rent-vs-buy.ts', 'utf8');
 const queryAlignment = [
   fs.readFileSync('src/data/home-insurance-query-alignment.ts', 'utf8'),
   fs.readFileSync('src/data/salary-query-alignment.ts', 'utf8'),
@@ -146,6 +148,9 @@ const deepCalculatorContracts = [
   ['Rent versus buy', 'src/routes/texas-rent-vs-buy-calculator.tsx', [
     'Texas Rent vs Buy Calculator | Compare the Longer-Term Cost', 'Rent and mortgage are not the only two numbers', 'Texas rent vs buy calculator FAQ',
     'to="/article/renting-vs-buying-in-texas"', 'to="/texas-homeownership-cost-calculator"', 'to="/texas-closing-cost-calculator"',
+    'The calculator now amortizes a fixed-rate mortgage month by month',
+    'https://www.consumerfinance.gov/ask-cfpb/how-does-paying-down-a-mortgage-work-en-1943/',
+    'https://comptroller.texas.gov/taxes/property-tax/exemptions/',
   ]],
   ['Budget planner', 'src/routes/texas-budget-planner.tsx', [
     'Texas Budget Planner | Monthly Household Income & Expenses', 'A useful budget includes the bills that do not arrive every month', 'Texas household budget planner FAQ',
@@ -167,6 +172,33 @@ const deepCalculatorContracts = [
 for (const [label, filename, markers] of deepCalculatorContracts) {
   const route = readRouteSurface(filename);
   for (const marker of markers) if (!route.includes(marker)) failures.push(`${label} calculator indexing-depth contract missing ${marker}.`);
+}
+
+for (const marker of [
+  "estimateRentVsBuy",
+  'Annual rent growth',
+  'Renters insurance',
+  'Mortgage rate',
+  'Property-tax rate',
+  'Annual maintenance',
+  'Buyer closing costs',
+  'Selling costs',
+  'Remaining loan',
+  'Net sale equity',
+]) {
+  if (!planningCalculators.includes(marker)) failures.push(`Rent-versus-buy calculator model UI missing ${marker}.`);
+}
+for (const marker of [
+  'loanTermMonths',
+  'monthlyPrincipalInterest',
+  'remainingLoanBalance',
+  'buyerClosingCosts',
+  'sellerClosingCostRate',
+  'endingSaleEquity',
+  'annualRentGrowthRate',
+  'annualMaintenanceRate',
+]) {
+  if (!rentVsBuyEngine.includes(marker)) failures.push(`Rent-versus-buy calculation engine missing ${marker}.`);
 }
 
 const ownershipRoute = readRouteSurface('src/routes/texas-homeownership-cost-calculator.tsx');
