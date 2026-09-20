@@ -87,6 +87,9 @@ const records: MajorEventAuthorityRecord[] = [
       { href: "/county/travis", label: "Explore Travis County", description: "Connect the festival to county-level places, communities, events and travel resources." },
       { href: "/event/austin-food-wine-festival", label: "Austin Food & Wine Festival", description: "Compare another major annual Austin food-and-drink weekend." },
       { href: "/event/san-antonio-beer-festival", label: "San Antonio Beer Festival", description: "Continue exploring major Texas beer festivals and tasting events." },
+      { href: "/explore/food-bbq", label: "Texas food, drink & brewery travel", description: "Connect the festival to TexasDefined's statewide food-and-drink travel hub." },
+      { href: "/destination/spoetzl-brewery", label: "K. Spoetzl Brewery in Shiner", description: "Plan a visit to one of TexasDefined's source-verified working brewery destinations." },
+      { href: "/destination/real-ale-brewing-company-blanco", label: "Real Ale Brewing Company in Blanco", description: "Explore a Hill Country brewery, taproom and tour destination." },
       { href: "/events", label: "Texas events calendar", description: "Browse more annual festivals and build a Texas event trip by date." },
     ],
     sources: [
@@ -146,7 +149,10 @@ const records: MajorEventAuthorityRecord[] = [
       { title: "Avoid depending on downtown parking", body: "The organizer describes parking as limited and encourages rideshare. Decide on a safe arrival and departure plan in advance, especially because the event centers on beverage sampling." },
     ],
     relatedLinks: [
-      { href: "/browse/counties#county-bexar", label: "Explore Bexar County", description: "Extend the event into a broader San Antonio visit." },
+      { href: "/city/san-antonio", label: "Explore San Antonio", description: "Turn the festival into a larger downtown San Antonio food-and-travel weekend." },
+      { href: "/county/bexar", label: "Explore Bexar County", description: "Extend the event into a broader San Antonio and Bexar County visit." },
+      { href: "/event/texas-craft-brewers-festival", label: "Texas Craft Brewers Festival", description: "Compare Austin's annual statewide celebration of small and independent Texas breweries." },
+      { href: "/explore/food-bbq", label: "Texas food, drink & brewery travel", description: "Connect the event to brewery destinations and other Texas food-and-drink routes." },
       { href: "/events", label: "Texas events calendar", description: "Compare other fall events across Texas." },
     ],
     sources: [
