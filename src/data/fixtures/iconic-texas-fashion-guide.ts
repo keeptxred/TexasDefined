@@ -1,4 +1,3 @@
-import rodeoHero from "@/assets/rodeo-101-hero-photo.jpg";
 import { ICONIC_TEXAS_FASHION_ITEMS, ICONIC_TEXAS_FASHION_SECTIONS } from "../iconic-texas-fashion-items";
 import type { Article, ArticleBlock } from "../types";
 
@@ -32,10 +31,11 @@ export const iconicTexasFashionGuideArticle: Article = {
   dek: "A field guide to 250 pieces of clothing, footwear, jewelry and working gear associated with Texas style—from cowboy boots and pearl snaps to rodeo buckles, oil-field workwear, game-day shirts and formal Western dress.",
   category: "guides",
   hero: {
-    src: rodeoHero,
-    alt: "A cowboy riding a bucking bronc in a Texas rodeo arena",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Cowboy_boots_IMGP9037.jpg?width=1600",
+    alt: "A pair of traditional Western cowboy boots",
     width: 1600,
-    height: 900,
+    height: 2159,
+    credit: "Nikodem Nijaki · CC BY-SA 3.0 · Wikimedia Commons",
   },
   authorId: "a-marisol",
   publishedAt: "2026-09-19",
