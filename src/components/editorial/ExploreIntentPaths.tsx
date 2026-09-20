@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
+import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";
 
 const INTENT_GROUPS = [
   {
@@ -225,7 +226,7 @@ export function ExploreIntentPaths() {
               <ul className="mt-5 space-y-2">
                 {group.links.map((item) => (
                   <li key={item.to}>
-                    <Link to={item.to} className="text-sm font-semibold text-primary hover:underline">
+                    <Link to={item.to} {...unusualBusinessAnalyticsAttributes(item.to, "explore-intent")} className="text-sm font-semibold text-primary hover:underline">
                       {item.label} →
                     </Link>
                   </li>

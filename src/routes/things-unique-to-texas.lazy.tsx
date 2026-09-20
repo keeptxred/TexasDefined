@@ -1,6 +1,7 @@
 import { Link, createLazyFileRoute } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";
 
 export const Route = createLazyFileRoute("/things-unique-to-texas")({
   component: ThingsUniqueToTexasPage,
@@ -118,9 +119,9 @@ function Stat({ value, label }: { value: string; label: string }) {
 }
 
 function PillarLink({ to, eyebrow, title, text }: { to: string; eyebrow: string; title: string; text: string }) {
-  return <Link to={to} className="group bg-background p-7"><span className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">{eyebrow}</span><strong className="mt-3 block font-display text-3xl leading-tight group-hover:text-primary">{title}</strong><span className="mt-4 block text-sm leading-7 text-muted-foreground">{text}</span><span className="mt-6 block text-sm font-semibold">Read the guide →</span></Link>;
+  return <Link to={to} {...unusualBusinessAnalyticsAttributes(to, "things-unique:pillar")} className="group bg-background p-7"><span className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">{eyebrow}</span><strong className="mt-3 block font-display text-3xl leading-tight group-hover:text-primary">{title}</strong><span className="mt-4 block text-sm leading-7 text-muted-foreground">{text}</span><span className="mt-6 block text-sm font-semibold">Read the guide →</span></Link>;
 }
 
 function RelatedLink({ to, title, text }: { to: string; title: string; text: string }) {
-  return <Link to={to} className="group block py-5"><span className="font-semibold group-hover:text-primary">{title} →</span><span className="mt-1 block text-sm leading-6 text-muted-foreground">{text}</span></Link>;
+  return <Link to={to} {...unusualBusinessAnalyticsAttributes(to, "things-unique:related")} className="group block py-5"><span className="font-semibold group-hover:text-primary">{title} →</span><span className="mt-1 block text-sm leading-6 text-muted-foreground">{text}</span></Link>;
 }
