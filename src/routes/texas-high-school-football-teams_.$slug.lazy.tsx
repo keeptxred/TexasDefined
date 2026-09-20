@@ -291,6 +291,7 @@ function Page() {
           <Related href="/article/texas-high-school-football-scores-schedules" title="Current scores & schedules" body="Use the UIL Texas Scoreboard plus school sources for current results, weekly schedules and final game-day verification." />
           <Related href="/article/texas-high-school-football-classifications-1a-6a" title="How 1A through 6A work" body="Understand enrollment classifications, divisions, districts and realignment." />
           <Related href="/article/texas-high-school-football-playoffs-explained" title="How the playoffs work" body="Follow district qualification, bi-district and the state bracket." />
+          <Related href="/texas-high-school-football-championship-history" title="UIL championship history" body="Compare all-time state titles and state-final appearances for current UIL programs using official UIL history sources." />
           {(program?.footballType === '6-Man' || privateAlignment?.footballType === '6-Man') && <Related href="/article/texas-six-man-football-rules-explained" title="Six-man football rules" body="Understand the field, first-down distance, exchange rule, scoring and mercy rule." />}
           <Related href="/sports-venues/high-school-football" title="Texas football stadiums" body="Browse venue guides and game-day planning information." />
           <Related href="/sports/friday-night-lights" title="Friday Night Lights, Defined" body="Explore the wider culture, traditions and season around Texas high school football." />
