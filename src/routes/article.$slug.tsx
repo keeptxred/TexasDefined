@@ -17,6 +17,7 @@ import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import { remoteEvergreenAuthoritySources } from "@/data/remote-evergreen-authority-sources";
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
 import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "@/lib/seo";
+import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";
 
 const TexasWaterSearchResource = lazy(() =>
   import("@/components/content/TexasWaterSearchResource").then((module) => ({ default: module.TexasWaterSearchResource })),
@@ -425,7 +426,7 @@ function ArticlePage() {
       {internalLinks.length > 0 && <aside className="mt-14 border-y border-border py-8" aria-label="Related reading">
         <p className="eyebrow text-primary">Related reading</p>
         <ul className="mt-5 divide-y divide-border">{internalLinks.map((item) => <li key={item.href} className="py-4 first:pt-0 last:pb-0">
-          <a href={item.href} className="group block py-1">
+          <a href={item.href} {...unusualBusinessAnalyticsAttributes(item.href, `article-related:${article.slug}`)} className="group block py-1">
             <span className="font-display text-xl group-hover:text-primary">{item.label}</span>
             {item.description && <span className="mt-1 block text-sm leading-7 text-muted-foreground">{item.description}</span>}
           </a>
