@@ -34,6 +34,36 @@ export const gillespieCountyFredericksburgStonewallHillCountryArticle: Article =
   featured: false,
   internalLinks: [
     {
+      href: "/destination/fredericksburg",
+      label: "Fredericksburg travel guide",
+      description: "Use the county seat as the main Explore hub for wineries, museums, shopping, food, lodging and practical trip planning.",
+    },
+    {
+      href: "/article/fredericksburg-texas-wineries-things-to-do-guide",
+      label: "Fredericksburg wineries & things to do",
+      description: "Open the researched master guide for wine-country corridors, historic sites, outdoors, farms, music, food and family alternatives.",
+    },
+    {
+      href: "/destination/fredericksburg-historic-district",
+      label: "Fredericksburg Historic District",
+      description: "Walk the Main Street core where German-Texan architecture, museums, shopping, dining and urban tasting rooms overlap.",
+    },
+    {
+      href: "/destination/fort-martin-scott",
+      label: "Fort Martin Scott",
+      description: "Connect the county seat to the U.S. Army frontier story that began only two years after Fredericksburg's founding.",
+    },
+    {
+      href: "/destination/luckenbach",
+      label: "Luckenbach",
+      description: "Add the county's famous dance hall, general store and live-music stop to a Fredericksburg-area itinerary.",
+    },
+    {
+      href: "/destination/old-tunnel-state-park",
+      label: "Old Tunnel State Park",
+      description: "Use the southern county corridor for seasonal bat viewing, trail time and a different Hill Country landscape.",
+    },
+    {
       href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
       label: "Lyndon B. Johnson State Park & Historic Site",
       description: "German-Texan farm history, longhorns and the Pedernales River at Stonewall.",
@@ -61,6 +91,11 @@ export const gillespieCountyFredericksburgStonewallHillCountryArticle: Article =
   ],
   relatedCollections: [],
   relatedDestinations: [
+    "fredericksburg",
+    "fredericksburg-historic-district",
+    "fort-martin-scott",
+    "luckenbach",
+    "old-tunnel-state-park",
     "lyndon-b-johnson-state-park-and-historic-site",
     "lyndon-b-johnson-national-historical-park",
     "enchanted-rock-state-natural-area",
@@ -96,6 +131,7 @@ export const gillespieCountyFredericksburgStonewallHillCountryArticle: Article =
     p("Doss offers one of the clearest examples of that continuity. Its school tradition survived long after many rural districts elsewhere in Texas consolidated. The county's historic schoolhouses, cemeteries and churches also preserve German-language inscriptions and family histories outside the better-known museum district in Fredericksburg."),
 
     h("Peaches, ranching and wine all grow from the same rural economy"),
+    p("For trip planning, treat the wine industry as a network rather than one attraction. The Fredericksburg destination hub and the dedicated wineries-and-things-to-do guide separate downtown tasting rooms from Highway 290 properties and Stonewall/Hye-area estates, while linking current official winery sources. That structure lets the county page explain why wine belongs here without turning a county-history article into a commercial directory."),
     p("Agriculture has changed without disappearing. Sheep, goats and cattle became important across the county's rougher uplands, while the Pedernales corridor and other pockets of deeper soil supported crops and orchards. Gillespie County peaches became a regional identity of their own, especially around Stonewall, where roadside stands still signal the summer harvest. In more recent decades vineyards and wineries have added another agricultural layer along U.S. 290 and surrounding roads."),
     p("The wine industry changed the county's visitor geography. Fredericksburg remains the commercial center, but tasting rooms, production facilities, vineyards, lodging and restaurants now stretch east toward Stonewall and beyond. That growth sits alongside older ranches and orchards rather than replacing them completely. The result can look contradictory: a working agricultural county and a high-demand leisure destination sharing the same narrow highways and groundwater systems. Understanding modern Gillespie County means seeing tourism and land use as part of the same story."),
 
