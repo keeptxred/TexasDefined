@@ -29,6 +29,24 @@ const dogDeskStories = [
     title: "Why the Best Dog Shirt Joke Feels Like Your Dog and Nobody Else’s",
     dek: "The strongest dog joke is not the loudest one. It is the one that makes an owner say: that is exactly what mine would do.",
   },
+  {
+    slug: "texas-dog-heat-safety",
+    eyebrow: "Practical dog life",
+    title: "Texas Dog Heat Safety: Walks, Trails and Summer Days",
+    dek: "A Texas-specific plan for hot pavement, hydration, warning signs and knowing when the day's adventure needs to move indoors.",
+  },
+  {
+    slug: "dogs-in-texas-state-parks",
+    eyebrow: "Parks & trails",
+    title: "Dogs in Texas State Parks",
+    dek: "The statewide leash and campsite rules, the parks with extra restrictions, and the heat-smart planning that belongs before the trailhead.",
+  },
+  {
+    slug: "texas-road-trips-with-dogs",
+    eyebrow: "Road trips",
+    title: "Texas Road Trips With Dogs",
+    dek: "Restraints, breaks, water, lodging and heat-safe stops for a state where the next town can be a long way down the road.",
+  },
 ] as const;
 
 export default function DogsHubPage() {

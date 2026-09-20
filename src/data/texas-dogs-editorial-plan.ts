@@ -85,6 +85,21 @@ export const texasDogsEditorialPlan = {
       title: "Why the Best Dog Shirt Joke Feels Like Your Dog and Nobody Else’s",
       status: "published",
     },
+    {
+      slug: "texas-dog-heat-safety",
+      title: "Texas Dog Heat Safety: Walks, Trails and Summer Days",
+      status: "published",
+    },
+    {
+      slug: "dogs-in-texas-state-parks",
+      title: "Dogs in Texas State Parks: Rules, Trails and Heat-Smart Planning",
+      status: "published",
+    },
+    {
+      slug: "texas-road-trips-with-dogs",
+      title: "Texas Road Trips With Dogs: A Safer, Easier Planning Guide",
+      status: "published",
+    },
   ],
 } as const;
 
