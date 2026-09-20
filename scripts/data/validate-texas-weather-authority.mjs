@@ -108,7 +108,7 @@ for (const token of [
   "check_page '/texas-blue-norther-weather-guide'",
   'test "$json_deep_links" -ge 91',
   'test "$csv_deep_links" -ge 91',
-  'Topical/evergreen authority routes checked: 23',
+  'Topical/evergreen authority routes checked: 24',
   'at least 91 deeper-guide relationships',
 ]) {
   if (!smoke.includes(token)) failures.push(`Texas weather production smoke contract missing: ${token}`);

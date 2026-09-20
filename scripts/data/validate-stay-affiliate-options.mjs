@@ -48,6 +48,7 @@ try {
   } else {
     const bookingCases = [
       ['/event/chappell-hill-bluebonnet-festival', 'hotel-first'],
+      ['/event/texas-craft-brewers-festival', 'hotel-first'],
       ['/sports-venue/globe-life-field', 'hotel-first'],
       ['/destination/fredericksburg', 'both'],
       ['/city/austin', 'both'],
@@ -85,10 +86,20 @@ try {
     const destinationActiveProperties = (destinationStayRegistry.properties || []).filter((property) => property.status === 'active');
     const activeProperties = [...baseActiveProperties, ...destinationActiveProperties];
     const evidence = hotelsVerification.properties || [];
-    if (baseActiveProperties.length !== 18) errors.push(`Exact Hotels.com base cohort expects 18 active curated properties; found ${baseActiveProperties.length}.`);
+    if (baseActiveProperties.length !== 19) errors.push(`Exact Hotels.com base cohort expects 19 active curated properties; found ${baseActiveProperties.length}.`);
     if (destinationActiveProperties.length !== 9) errors.push(`Exact Hotels.com destination cohort expects 9 active curated properties; found ${destinationActiveProperties.length}.`);
-    if (activeProperties.length !== 27) errors.push(`Exact Hotels.com coverage expects 27 active governed properties; found ${activeProperties.length}.`);
+    if (activeProperties.length !== 28) errors.push(`Exact Hotels.com coverage expects 28 active governed properties; found ${activeProperties.length}.`);
     if (evidence.length !== activeProperties.length) errors.push(`Hotels.com verification evidence must cover every active governed property; expected ${activeProperties.length}, found ${evidence.length}.`);
+
+    const craftBeerStay = baseActiveProperties.find((property) => property.id === 'holiday-inn-austin-town-lake');
+    if (!craftBeerStay) errors.push('Texas Craft Brewers Festival must retain its curated Holiday Inn Austin-Town Lake stay.');
+    else {
+      const eventContext = (craftBeerStay.contexts || []).find((context) => context.kind === 'event' && context.key === 'texas-craft-brewers-festival');
+      if (craftBeerStay.name !== 'Holiday Inn Austin-Town Lake') errors.push('Craft Brewers Festival hotel canonical name drifted.');
+      if (craftBeerStay.image !== null) errors.push('Craft Brewers Festival hotel must remain text-only until rights-qualified property imagery is governed.');
+      if (!eventContext || eventContext.rank !== 1) errors.push('Craft Brewers Festival hotel must retain event rank 1.');
+      if (eventContext?.source?.url !== 'https://texascraftbrewersfestival.org/info/' || eventContext?.source?.verifiedAt !== '2026-09-20') errors.push('Craft Brewers Festival hotel source evidence drifted.');
+    }
 
     const evidenceById = new Map();
     for (const item of evidence) {
@@ -158,6 +169,7 @@ for (const [needle, label] of [
   ['https://www.hotels.com/ho506095/best-western-plus-sweetwater-inn-suites-sweetwater-united-states-of-america/', 'Best Western Plus Sweetwater property record'],
   ['https://www.hotels.com/ho636049152/la-quinta-inn-suites-by-wyndham-sweetwater-east-sweetwater-united-states-of-america/', 'La Quinta Sweetwater property record'],
   ['https://www.hotels.com/ho532248/microtel-inn-and-suites-by-wyndham-sweetwater-sweetwater-united-states-of-america/', 'Microtel Sweetwater property record'],
+  ['https://www.hotels.com/ho108313/holiday-inn-austin-town-lake-an-ihg-hotel-austin-united-states-of-america/', 'Holiday Inn Austin-Town Lake event property record'],
   ['https://www.hotels.com/', 'Hotels.com destination'],
   ['https://www.vrbo.com/', 'Vrbo traveler destination'],
   ['https://www.vrbo.com/en-us/list/lead', 'Vrbo owner onboarding destination'],
@@ -244,6 +256,7 @@ for (const [needle, label] of [
   ['upgradeExactPropertyCards', 'live property upgrader verification'],
   ['ho115100/hilton-anatole', 'live exact-property destination probe'],
   ['/event/chappell-hill-bluebonnet-festival', 'live event placement probe'],
+  ['/event/texas-craft-brewers-festival', 'live Craft Brewers Festival stay probe'],
   ['/sports-venue/globe-life-field', 'live venue placement probe'],
   ['/sports-venue/xtreme-raceway-park', 'live traffic-prioritized venue placement probe'],
   ['/destination/fredericksburg', 'live destination placement probe'],
@@ -280,4 +293,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hotels.com / Vrbo stay affiliate validation passed: all 24 active governed Stay Nearby properties (15 venue + 9 destination) have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; unknown properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the exact-property registry and the traffic-prioritized Xtreme Raceway Park lodging slot; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');
+console.log('Hotels.com / Vrbo stay affiliate validation passed: all 28 active governed Stay Nearby properties (15 venue + 4 event + 9 destination) have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; unknown properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the exact-property registry and the traffic-prioritized Xtreme Raceway Park lodging slot; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');

@@ -73,6 +73,8 @@ export const shinerBreweryDestination: Destination = {
     sideTrips: [
       { name: "Lavaca County", description: "Extend the brewery trip into Hallettsville, Yoakum, Moulton, painted churches and the county's wider Czech-German settlement landscape.", proximity: "Same county", href: "/county/lavaca" },
       { name: "Gonzales County", description: "Continue west for Texas Revolution history and another strong small-town road-trip stop.", proximity: "West of Shiner", href: "/county/gonzales" },
+      { name: "Texas Craft Brewers Festival", description: "If your brewery-focused Texas trip lines up with the confirmed annual date, use the Austin festival guide for tickets, lodging, transportation and statewide brewery context.", proximity: "Austin", href: "/event/texas-craft-brewers-festival" },
+      { name: "Texas food, drink & brewery travel", description: "Connect Shiner to TexasDefined's statewide food-and-drink routes, brewery destinations and festival planning.", proximity: "Statewide", href: "/explore/food-bbq" },
     ],
   },
   featured: true,

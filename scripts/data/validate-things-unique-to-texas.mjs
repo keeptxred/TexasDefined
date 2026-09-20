@@ -20,6 +20,7 @@ const evergreenBatch3 = fs.readFileSync('src/data/texas-evergreen-guides-batch3.
 const evergreenBatch4 = fs.readFileSync('src/data/texas-evergreen-guides-batch4.ts', 'utf8');
 const evergreenBatch5 = fs.readFileSync('src/data/texas-evergreen-guides-batch5.ts', 'utf8');
 const evergreenBatch6 = fs.readFileSync('src/data/texas-evergreen-guides-batch6.ts', 'utf8');
+const evergreenBatch9 = fs.readFileSync('src/data/texas-evergreen-guides-batch9.ts', 'utf8');
 const failures = [];
 
 const evergreenGuides = [
@@ -37,6 +38,7 @@ const evergreenGuides = [
   ['/texas-breakfast-taco-guide', 'src/routes/texas-breakfast-taco-guide.tsx', 'texas-breakfast-taco-guide'],
   ['/dr-pepper-texas-history', 'src/routes/dr-pepper-texas-history.tsx', 'dr-pepper-texas-history'],
   ['/texas-ranch-water-guide', 'src/routes/texas-ranch-water-guide.tsx', 'texas-ranch-water-guide'],
+  ['/texas-craft-beer-guide', 'src/routes/texas-craft-beer-guide.tsx', 'texas-craft-beer-guide'],
   ['/san-antonio-puffy-taco-history', 'src/routes/san-antonio-puffy-taco-history.tsx', 'san-antonio-puffy-taco-history'],
   ['/barbacoa-big-red-san-antonio', 'src/routes/barbacoa-big-red-san-antonio.tsx', 'barbacoa-big-red-san-antonio'],
 ];
@@ -132,7 +134,7 @@ for (const token of ['"@type": "Article"', '"@type": "WebPage"', '"@type": "Item
 for (const sourceUrl of ['https://www.tshaonline.org/handbook/entries/san-antonio-tx','https://www.tshaonline.org/handbook/entries/gebhardt-mexican-foods-company','https://www.tshaonline.org/handbook/entries/chicken-fried-steak','https://drpeppermuseum.com/history/']) if (!evergreenComponent.includes(sourceUrl)) failures.push(`Evergreen source notes missing authoritative source ${sourceUrl}.`);
 for (const slug of ['texas-ranch-water-guide', 'san-antonio-puffy-taco-history', 'barbacoa-big-red-san-antonio']) if (!evergreenComponent.includes(`"${slug}"`)) failures.push(`Shared Food History parent set missing batch 5 slug ${slug}.`);
 
-const allEvergreenData = `${evergreenData}\n${evergreenBatch2}\n${evergreenBatch3}\n${evergreenBatch4}\n${evergreenBatch5}\n${evergreenBatch6}`;
+const allEvergreenData = `${evergreenData}\n${evergreenBatch2}\n${evergreenBatch3}\n${evergreenBatch4}\n${evergreenBatch5}\n${evergreenBatch6}\n${evergreenBatch9}`;
 const readRouteSurface = (routeFile) => {
   const eagerSource = fs.readFileSync(routeFile, 'utf8');
   const lazyFile = routeFile.replace(/\.tsx$/, '.lazy.tsx');
@@ -153,7 +155,7 @@ for (const path of additionalSmokePaths) if (!productionSmoke.includes(`check_pa
 if (!productionSmoke.includes("workflows: ['Deploy TexasDefined production']")) failures.push('Magazine production smoke must remain chained to successful production deployments.');
 const smokePaths = ['/things-unique-to-texas','/things-unique-to-texas/methodology',...categorySlugs.map((slug) => `/things-unique-to-texas/${slug}`)];
 for (const path of smokePaths) if (!productionSmoke.includes(`'${path}'`)) failures.push(`Magazine production smoke must verify ${path}.`);
-for (const token of ['.count == 250','(.items | length) == 250','wc -l','251','x-robots-tag:','/things-that-define-texas.json','/things-that-define-texas.csv','test "$json_deep_links" -ge 91','test "$csv_deep_links" -ge 91','Topical/evergreen authority routes checked: 23','at least 91 deeper-guide relationships']) if (!productionSmoke.includes(token)) failures.push(`Magazine production smoke must retain current authority/distribution token: ${token}.`);
+for (const token of ['.count == 250','(.items | length) == 250','wc -l','251','x-robots-tag:','/things-that-define-texas.json','/things-that-define-texas.csv','test "$json_deep_links" -ge 91','test "$csv_deep_links" -ge 91','Topical/evergreen authority routes checked: 24','at least 91 deeper-guide relationships']) if (!productionSmoke.includes(token)) failures.push(`Magazine production smoke must retain current authority/distribution token: ${token}.`);
 
 if (failures.length) {
   console.error('Things That Define Texas validation failed:');
@@ -161,4 +163,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${evergreenGuides.length} evergreen deep dives, ${canonicalIds.length} exact destination mappings, ${deepDiveIds.length} protected editorial/deep-dive mappings (${canonicalIds.length + deepDiveIds.length} protected relationships), six evergreen data batches, two shared data distributions, methodology/sourcing/trust contracts, and ${smokePaths.length + evergreenGuides.length + additionalSmokePaths.length} HTML production smoke routes intact.`);
+console.log(`Things That Define Texas validation passed: ${ids.length} entries, ${categorySlugs.length} categories, ${evergreenGuides.length} evergreen deep dives, ${canonicalIds.length} exact destination mappings, ${deepDiveIds.length} protected editorial/deep-dive mappings (${canonicalIds.length + deepDiveIds.length} protected relationships), seven protected evergreen data batches, two shared data distributions, methodology/sourcing/trust contracts, and ${smokePaths.length + evergreenGuides.length + additionalSmokePaths.length} HTML production smoke routes intact.`);

@@ -17,6 +17,7 @@ const foodHistoryGuideSlugs = new Set([
   "german-czech-texas-towns",
   "dr-pepper-texas-history",
   "texas-ranch-water-guide",
+  "texas-craft-beer-guide",
   "san-antonio-puffy-taco-history",
   "barbacoa-big-red-san-antonio",
 ]);
@@ -116,6 +117,14 @@ const guideImages: Partial<Record<string, GuideImage>> = {
 };
 
 const guideSources: Partial<Record<string, { label: string; href: string; note: string }[]>> = {
+  "texas-craft-beer-guide": [
+    { label: "Texas Craft Brewers Guild — Homepage", href: "https://texascraftbrewersguild.org/", note: "States that the Guild’s Texas Brewery Passport can be used to find and visit 200+ operating brewery members throughout Texas." },
+    { label: "Texas Craft Brewers Guild — Brewery Membership", href: "https://texascraftbrewersguild.org/brewery-membership/", note: "Defines the Guild's current operating-brewery eligibility, distinguishes breweries in planning, lists the eight current Guild regions and confirms that the Brewery Passport is an operating-member benefit." },
+    { label: "Texas Craft Brewers Guild — Mission and Leadership", href: "https://texascraftbrewersguild.org/about/", note: "Documents the Guild's 2009 formation and its current 300+ brewery-member scale, including operating breweries and breweries in planning." },
+    { label: "Texas Craft Brewers Guild — Texas Brewery Passport", href: "https://texascraftbrewersguild.org/app/", note: "Documents the Guild's statewide brewery-passport program and its use for current operating-brewery discovery." },
+    { label: "Texas Craft Brewers Guild — Legislative History", href: "https://texascraftbrewersguild.org/legislative-history/", note: "Documents the 1993 brewpub law, 1995 brewery sampling change, 2013 taproom and brewpub-distribution reforms, and 2019 beer-to-go legislation." },
+    { label: "Texas Alcoholic Beverage Commission — License and Permit Types", href: "https://www.tabc.texas.gov/services/tabc-licenses-permits/tabc-license-permit-types/", note: "Provides the current state description of the Brewer's License and the conditions under which a brewer may manufacture, distribute and sell malt beverages." },
+  ],
   "texas-chili-con-carne-history": [
     { label: "Handbook of Texas — San Antonio", href: "https://www.tshaonline.org/handbook/entries/san-antonio-tx", note: "Documents the downtown Chili Queens and San Antonio's open-air chili-stand tradition." },
     { label: "Handbook of Texas — Gebhardt Mexican Foods Company", href: "https://www.tshaonline.org/handbook/entries/gebhardt-mexican-foods-company", note: "Documents William Gebhardt's chili-powder business and its role in commercializing Texas chili products." },
