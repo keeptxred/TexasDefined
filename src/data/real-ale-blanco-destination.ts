@@ -159,6 +159,20 @@ export const realAleBlancoDestinations: Destination[] = [
           proximity: "Hye",
           href: "/destination/garrison-brothers-distillery-hye",
         },
+        {
+          name: "Texas Craft Brewers Festival",
+          description:
+            "If your brewery-focused trip lines up with the confirmed annual date, use the Austin festival guide for tickets, lodging, transportation and statewide brewery context.",
+          proximity: "Austin",
+          href: "/event/texas-craft-brewers-festival",
+        },
+        {
+          name: "Texas food, drink & brewery travel",
+          description:
+            "Connect Real Ale to TexasDefined's statewide food-and-drink routes, brewery destinations and festival planning.",
+          proximity: "Statewide",
+          href: "/explore/food-bbq",
+        },
       ],
     },
     authorityGuide: {
