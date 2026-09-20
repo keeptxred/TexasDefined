@@ -93,6 +93,10 @@ export const majorEventSchemaEnrichmentBatch7: MajorEventSchemaEnrichment[] = [
   {
     slug: "texas-craft-brewers-festival",
     organizer: organization("Texas Craft Brewers Guild", "https://texascraftbrewersguild.org/"),
+    offers: [
+      usdOffer("General admission — Early Bird (2 PM entry)", 55.57, "https://tickets.texascraftbrewersfestival.org/e/texas-craft-brewers-festival-2026/tickets"),
+      usdOffer("Designated Driver", 23.77, "https://tickets.texascraftbrewersfestival.org/e/texas-craft-brewers-festival-2026/tickets"),
+    ],
     sources: [
       { label: "Texas Craft Brewers Festival official site — organized by Texas Craft Brewers Guild", url: "https://texascraftbrewersfestival.org/" },
       { label: "Texas Craft Brewers Festival official visitor information", url: "https://texascraftbrewersfestival.org/info/" },
