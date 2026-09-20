@@ -135,7 +135,12 @@ export default function ShinerBreweryAuthority() {
       <div className="mt-7 grid gap-6 lg:grid-cols-2">
         <div>
           <h4 className="font-display text-2xl">Brewery events</h4>
-          <p className="mt-3 text-sm leading-7 text-muted-foreground">The Spoetzl campus hosts recurring and seasonal programming including Oktoberfest weekends, Market Days, live music, holiday events and the annual Shiner Beer Run. Event dates change, so Texas Defined points to the live official calendar instead of freezing a stale annual schedule into this guide.</p>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">The Spoetzl campus hosts recurring and seasonal programming including Oktoberfest weekends, ShinerFest, Market Days, live music, holiday events and the annual Shiner Beer Run. Event dates change, so the official calendar remains the final authority for the complete schedule.</p>
+          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+            <a href="/event/shiner-oktoberfest-weekends" className="text-primary underline decoration-primary/40 underline-offset-4">Oktoberfest guide →</a>
+            <a href="/event/shinerfest" className="text-primary underline decoration-primary/40 underline-offset-4">ShinerFest guide →</a>
+            <a href="/event/shiner-beer-run" className="text-primary underline decoration-primary/40 underline-offset-4">Beer Run guide →</a>
+          </div>
           <a href="https://shiner.com/events/" target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">See Shiner's live event calendar ↗</a>
         </div>
         <div>
