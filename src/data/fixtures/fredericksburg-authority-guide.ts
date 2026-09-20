@@ -100,7 +100,7 @@ export const fredericksburgAuthorityArticles: Article[] = [
         "Buli Limestone Wines — downtown tasting room comparing Texas and Italian wines.",
         "English Newsom Cellars — downtown tasting room for estate-grown Texas High Plains wines made by the Newsom family.",
         "Sauceda Cellars — downtown tasting room connecting Texas wine with the Bogel family's West Texas ranch history.",
-        "Fiesta Winery on Main Street — downtown tasting-room location."
+        "Fiesta Winery on Main Street — downtown tasting-room location.",
         "Grape Creek on Main — downtown tasting-room location.",
         "Becker Vineyards on Main Street — downtown tasting-room location.",
         "Coordinates Vineyards — downtown tasting room with a separate Hye-area property.",
@@ -113,7 +113,7 @@ export const fredericksburgAuthorityArticles: Article[] = [
         "Mendelbaum Cellars — Highway 290 tasting room featuring Texas wines alongside wines from Israel.",
         "Land of Promise Winery — appointment-oriented ranch-house tasting experience north of Main Street on Ranch Road 965.",
         "Featherstone Ranch Vineyards — family-owned working ranch and vineyard near Stonewall with Texas wines and broad Hill Country views.",
-        "Cross Mountain Vineyards — downtown Fredericksburg tasting room."
+        "Cross Mountain Vineyards — downtown Fredericksburg tasting room.",
         "Fat Ass Ranch & Winery — winery property plus a separate downtown tasting-room presence.",
         "Safari Winery — Highway 290 wine destination.",
         "Slate Theory Winery — Highway 290 winery known for a distinctive underground tasting setting.",
