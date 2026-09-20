@@ -203,6 +203,9 @@ await fetchVerified(katyDistrictPath, 'Katy UIL football district', (body) => {
     'University Interscholastic League',
     scoresSchedulesPath,
     'Follow scores & weekly schedules',
+    'https://www.uiltexas.org/maxpreps/',
+    'UIL Texas Scoreboard gateway',
+    'not currently an official district-standings table',
   ]) requireNeedle(body, needle, 'Katy UIL football district');
   if (/\bnoindex\b/i.test(body)) throw new Error('Katy UIL football district unexpectedly contains noindex');
 });
