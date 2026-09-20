@@ -298,7 +298,7 @@ function validateMegaMenuImages(label, expectedCount) {
 }
 
 validateMegaMenuImages('Explore', 14);
-validateMegaMenuImages('Texas Life', 10);
+validateMegaMenuImages('Texas Life', 11);
 
 if (!header.includes('onFocus={() => setOpenGroup(hasChildren ? item.to : null)} onClick={() => setOpenGroup(null)} aria-haspopup={hasChildren ? "true" : undefined}')) {
   errors.push('Desktop top-level navigation must close any open mega-menu when a destination is clicked.');
