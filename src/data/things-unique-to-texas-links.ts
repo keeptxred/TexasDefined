@@ -99,10 +99,13 @@ const CANONICAL_ICON_LINKS: Readonly<Record<number, string>> = {
   116: "/destination/eisenhower-birthplace",
   117: "/destination/lyndon-b-johnson-national-historical-park",
   123: "/destination/confederate-reunion-grounds",
+  126: "/destination/paris-texas-eiffel-tower",
   128: "/destination/cadillac-ranch",
+  130: "/destination/prada-marfa",
   132: "/destination/dr-pepper-museum",
   135: "/destination/luckenbach",
   140: "/destination/blue-hole-regional-park",
+  151: "/destination/beer-can-house-houston",
   165: "/destination/palo-duro-canyon-state-park",
   249: "/destination/the-alamo",
 };
