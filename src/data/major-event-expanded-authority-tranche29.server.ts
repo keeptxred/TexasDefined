@@ -149,7 +149,10 @@ const records: MajorEventAuthorityRecord[] = [
       { title: "Avoid depending on downtown parking", body: "The organizer describes parking as limited and encourages rideshare. Decide on a safe arrival and departure plan in advance, especially because the event centers on beverage sampling." },
     ],
     relatedLinks: [
-      { href: "/browse/counties#county-bexar", label: "Explore Bexar County", description: "Extend the event into a broader San Antonio visit." },
+      { href: "/city/san-antonio", label: "Explore San Antonio", description: "Turn the festival into a larger downtown San Antonio food-and-travel weekend." },
+      { href: "/county/bexar", label: "Explore Bexar County", description: "Extend the event into a broader San Antonio and Bexar County visit." },
+      { href: "/event/texas-craft-brewers-festival", label: "Texas Craft Brewers Festival", description: "Compare Austin's annual statewide celebration of small and independent Texas breweries." },
+      { href: "/explore/food-bbq", label: "Texas food, drink & brewery travel", description: "Connect the event to brewery destinations and other Texas food-and-drink routes." },
       { href: "/events", label: "Texas events calendar", description: "Compare other fall events across Texas." },
     ],
     sources: [
