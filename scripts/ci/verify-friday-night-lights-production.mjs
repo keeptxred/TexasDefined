@@ -2,6 +2,7 @@ const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 const hubPath = '/sports/friday-night-lights';
 const finderPath = '/texas-high-school-football-teams';
 const districtDirectoryPath = '/texas-high-school-football-districts';
+const championshipHistoryPath = '/texas-high-school-football-championship-history';
 const katyDistrictPath = '/texas-high-school-football-districts/6a-district-22';
 const classificationsPath = '/article/texas-high-school-football-classifications-1a-6a';
 const playoffsPath = '/article/texas-high-school-football-playoffs-explained';
@@ -125,7 +126,7 @@ const hubNeedles = [
   'Friday Night Lights, Defined', 'CollectionPage', 'ItemList', 'BreadcrumbList',
   '/article/texas-high-school-football-newcomers', '/article/texas-high-school-football-friday-night-lights',
   '/texas-homecoming-mums', '/sports-venues/high-school-football', '/find-my-school-district', '/texas-tailgating-guide',
-  '/texas-high-school-football-teams', districtDirectoryPath, classificationsPath, playoffsPath, sixManPath, scoresSchedulesPath, calendarPath,
+  '/texas-high-school-football-teams', districtDirectoryPath, championshipHistoryPath, classificationsPath, playoffsPath, sixManPath, scoresSchedulesPath, calendarPath,
 ];
 
 await fetchVerified(hubPath, 'hub', (body) => {
@@ -145,6 +146,7 @@ await fetchVerified(finderPath, 'football finder', (body) => {
     'What “good football fit” should mean',
     '/find-my-school-district',
     districtDirectoryPath,
+    championshipHistoryPath,
     '/article/texas-high-school-football-classifications-1a-6a',
     playoffsPath,
     sixManPath,
@@ -176,6 +178,21 @@ await fetchVerified(finderPath, 'football finder', (body) => {
     '1A football programs',
   ], 'football finder UIL classification hierarchy');
   if (/\bnoindex\b/i.test(body)) throw new Error('football finder unexpectedly contains noindex');
+});
+
+await fetchVerified(championshipHistoryPath, 'football championship history', (body) => {
+  for (const needle of [
+    'Texas high school football state championship history',
+    'History, not a power ranking',
+    'Current programs with the most UIL state titles',
+    'Every matched program with a UIL state-final appearance',
+    'UIL history is the controlling record',
+    '/texas-high-school-football-teams',
+    '/texas-high-school-football-districts',
+    'https://www.uiltexas.org/football/all-time-appearances',
+    'https://www.uiltexas.org/football/archives',
+  ]) requireNeedle(body, needle, 'football championship history');
+  if (/\bnoindex\b/i.test(body)) throw new Error('football championship history unexpectedly contains noindex');
 });
 
 await fetchVerified(districtDirectoryPath, 'football district directory', (body) => {
@@ -402,6 +419,7 @@ await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
   requireNeedle(body, '<loc>https://texasdefined.com/sports/friday-night-lights</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-districts</loc>', 'sitemap');
+  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-championship-history</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-districts/6a-district-22</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/katy</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/abbott</loc>', 'sitemap');
@@ -416,4 +434,4 @@ await fetchVerified('/robots.txt', 'robots', (body) => {
   if (/Disallow:\s*\/sports(?:\/|\s|$)/i.test(body)) throw new Error('robots.txt blocks /sports');
 });
 
-console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, exact official UIL enrollments plus 2026–28 enrollment bands, 192 canonical UIL district hubs, shared 6A and 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, history, current-season scores/schedules guidance, the 2026 UIL season calendar, sitemap and robots are live.');
+console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, exact official UIL enrollments plus 2026–28 enrollment bands, 192 canonical UIL district hubs, statewide championship-history hub, shared 6A and 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, current-season scores/schedules guidance, the 2026 UIL season calendar, sitemap and robots are live.');

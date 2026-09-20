@@ -98,6 +98,7 @@ function Page() {
           <Related href="/article/texas-high-school-football-scores-schedules" title="Follow scores & weekly schedules" body="Use the UIL Texas Scoreboard and school sources for current results without turning incomplete submissions into an unofficial standings table." />
           <Related href="/article/texas-high-school-football-classifications-1a-6a" title="Understand 1A through 6A" body="See how enrollment, divisions and biennial realignment shape the statewide system." />
           <Related href="/article/texas-high-school-football-playoffs-explained" title="Understand the playoff path" body="See how district qualification becomes bi-district, regional rounds and the state championships." />
+          <Related href="/texas-high-school-football-championship-history" title="Browse championship history" body="Compare all-time UIL state titles and state-final appearances for current programs across classifications." />
           <Related href="/sports/friday-night-lights" title="Friday Night Lights, Defined" body="Explore the wider culture, stadiums and traditions around Texas high school football." />
         </div>
       </section>

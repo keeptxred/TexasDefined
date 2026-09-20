@@ -67,6 +67,7 @@ function Page() {
         <div className="grid gap-5 sm:grid-cols-2">
           <RelatedLink href="/find-my-school-district" title="Find the school district" body="Verify which district and campus serve the exact address before relying on a city name, ZIP code or listing." />
           <RelatedLink href="/texas-high-school-football-districts" title="Browse all 192 UIL football districts" body="Open the current 2026–28 district directory and see every member program with a direct school-profile link." />
+          <RelatedLink href="/texas-high-school-football-championship-history" title="Browse UIL championship history" body="Compare all-time state titles and state-final appearances for current UIL programs using official UIL history sources." />
           <RelatedLink href="/article/texas-high-school-football-scores-schedules" title="Follow current scores & schedules" body="Use the UIL Texas Scoreboard and school sources for current results and weekly schedules without mistaking incomplete submissions for official standings." />
           <RelatedLink href="/article/texas-high-school-football-2026-season-calendar" title="See the full 2026 season calendar" body="Track every UIL playing week, November 7 district certification, five playoff weeks and the December 16–19 state championships." />
           <RelatedLink href="/article/texas-high-school-football-classifications-1a-6a" title="Understand 1A through 6A" body="See how enrollment, divisions, districts, realignment and six-man football fit together." />

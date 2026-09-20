@@ -63,6 +63,12 @@ const startHere = [
     label: "Browse UIL districts",
   },
   {
+    title: "Explore all-time UIL championship history",
+    description: "Compare state-title and state-final history for current UIL programs using the official all-time appearances table plus newer completed finals from the UIL archive.",
+    href: "/texas-high-school-football-championship-history",
+    label: "Browse championship history",
+  },
+  {
     title: "Find the school district first",
     description: "For newcomers and relocating families, the district is the cleanest starting point for understanding which schools, rivalries and local traditions belong to a community.",
     href: "/find-my-school-district",
