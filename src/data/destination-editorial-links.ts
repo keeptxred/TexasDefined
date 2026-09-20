@@ -41,6 +41,16 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       label: "Shiner Beer Run",
       description: "Plan the annual 5K, 10K and half-marathon race weekend at the brewery.",
     },
+    {
+      href: "/texas-high-school-football-teams/shiner",
+      label: "Shiner High football profile",
+      description: "Open the statewide school profile for current UIL placement, district context, enrollment and football-history research.",
+    },
+    {
+      href: "/texas-dance-halls-honky-tonks",
+      label: "Texas polka, dance-hall & music culture",
+      description: "Place the Shiner Hobo Band's polkas and waltzes inside the broader Czech- and German-Texan social-music tradition.",
+    },
   ],
   "spoetzl-brewery": [
     {
