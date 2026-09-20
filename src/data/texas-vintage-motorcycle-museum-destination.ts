@@ -1,3 +1,4 @@
+import { DESTINATION_PHOTO_PLACEHOLDER } from "./destination-hero-placeholder";
 import type { Destination } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-19";
@@ -29,11 +30,10 @@ export const texasVintageMotorcycleMuseumDestinations: Destination[] = [
     county: "Blanco",
     coordinates: { lat: 30.2769221, lng: -98.4117388 },
     hero: {
-      src: "https://static.wixstatic.com/media/c5c732_3c94383941e84c1d924a278f5206e1bc~mv2.jpg/v1/fill/w_976,h_511,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/_MG_9152-2.jpg",
-      alt: "Vintage motorcycles displayed inside the Texas Vintage Motorcycle Museum in Johnson City",
-      width: 976,
-      height: 511,
-      credit: "Texas Vintage Motorcycle Museum · official website",
+      src: DESTINATION_PHOTO_PLACEHOLDER,
+      alt: "Texas Vintage Motorcycle Museum in Johnson City — exact-location hero pending governed image clearance",
+      width: 1600,
+      height: 1067,
     },
     bestSeason:
       "Year-round. The museum is primarily indoors, making it a useful Hill Country stop during summer heat, rain or a mixed indoor-and-outdoor Johnson City itinerary.",
