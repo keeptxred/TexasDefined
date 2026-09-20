@@ -158,7 +158,9 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     slug: canonicalSlug,
     displayName,
     program,
-    identity: getVerifiedFootballSchoolIdentity(legacyIdentity?.slug ?? canonicalSlug) ?? null,
+    identity: getVerifiedFootballSchoolIdentity(canonicalSlug)
+      ?? (legacyIdentity ? getVerifiedFootballSchoolIdentity(legacyIdentity.slug) : undefined)
+      ?? null,
     enrollmentLink: getOfficialFootballEnrollmentLink(program.districtName) ?? null,
     districtPeers: districtPeers(seed),
     districtPath: footballDistrictProfilePath(seed.classification, seed.division, seed.district),
