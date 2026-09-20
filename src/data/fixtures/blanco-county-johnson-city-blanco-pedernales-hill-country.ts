@@ -36,6 +36,8 @@ export const blancoCountyJohnsonCityBlancoPedernalesHillCountryArticle: Article 
   featured: false,
   internalLinks: [
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
+    { href: "/destination/johnson-city", label: "Johnson City visitor guide", description: "Plan downtown museums, LBJ history, the courthouse square and Hill Country side trips from Johnson City." },
+    { href: "/destination/science-mill-johnson-city", label: "Science Mill", description: "Explore Johnson City's hands-on STEM museum inside the historic 1880 feed-mill complex." },
     { href: "/destination/texas-vintage-motorcycle-museum-johnson-city", label: "Texas Vintage Motorcycle Museum", description: "Explore Johnson City's downtown collection of more than 100 vintage motorcycles in a restored 1930s Ford dealership." },
     { href: "/county/gillespie", label: "Explore Gillespie County", description: "Continue west toward Fredericksburg, Stonewall and the Pedernales corridor." },
     { href: "/county/kendall", label: "Explore Kendall County", description: "Head south toward Boerne, Comfort and the Guadalupe River country." },
@@ -44,7 +46,7 @@ export const blancoCountyJohnsonCityBlancoPedernalesHillCountryArticle: Article 
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how distance, settlement and courthouse access shaped the Texas county map." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["texas-vintage-motorcycle-museum-johnson-city"],
+  relatedDestinations: ["johnson-city", "science-mill-johnson-city", "texas-vintage-motorcycle-museum-johnson-city", "lyndon-b-johnson-national-historical-park"],
   body: [
     p("Blanco County sits in the heart of the Texas Hill Country between Austin and San Antonio, where limestone hills, live oak and Ashe juniper frame two important river systems. The northern and central portions drain toward the Pedernales River and the Colorado basin, while the southern third follows the Blanco and Little Blanco rivers toward the Guadalupe. That split helps explain the county's unusual identity: Johnson City looks west along the Pedernales corridor, while the town of Blanco grew around the river that gave the county its name."),
     p("The county is compact by Texas standards, but it contains an outsized collection of Hill Country stories. Ranching and farming shaped the early economy. German immigrants joined settlers from the American South. A long courthouse rivalry shifted the county seat from Blanco to Johnson City. Lyndon B. Johnson's family history made the northern part of the county nationally significant, while Blanco State Park preserved a spring-fed river landscape inside the county's original seat."),
@@ -104,6 +106,7 @@ export const blancoCountyJohnsonCityBlancoPedernalesHillCountryArticle: Article 
     h("Tourism changed the county without erasing its rural character"),
     p("Blanco County's location between two major metropolitan areas has made tourism increasingly important. Johnson City draws visitors for presidential history, holiday lights, galleries and Hill Country travel. Blanco attracts visitors to its square, river, state park, breweries and local businesses. Scenic roads connect both towns with ranch country and smaller communities such as Hye and Round Mountain."),
     p("Johnson City's visitor mix also includes newer specialty museums that broaden the town beyond its presidential identity. The Texas Vintage Motorcycle Museum occupies a restored 1930s Ford dealership just off the square and displays more than 100 vintage motorcycles, with the collection centered on machines from the 1950s through the 1970s. Together with the Science Mill and the Johnson City district of Lyndon B. Johnson National Historical Park, it gives downtown visitors multiple substantial indoor stops within a compact area."),
+    p("The Science Mill reuses the historic 1880 feed mill as a major hands-on STEM destination with more than 50 exhibits, while the nearby Texas Vintage Motorcycle Museum adds transportation and industrial-design history. Those attractions, the courthouse square and the National Park Service sites give Johnson City enough depth for a full day rather than only a stop on the way to Fredericksburg."),
     p("The same accessibility has also brought development pressure. Rural land has been subdivided, housing has expanded and traffic on U.S. 281 and U.S. 290 has increased. Protecting water, dark skies, working ranches and historic town character has become part of the modern county conversation."),
 
     h("The Pedernales and Blanco rivers shape different halves of the county"),

@@ -80,6 +80,7 @@ export const texasVintageMotorcycleMuseumDestinations: Destination[] = [
           description:
             "A hands-on science museum in a historic mill building that gives families a second strong indoor attraction in Johnson City.",
           proximity: "Downtown Johnson City",
+          href: "/destination/science-mill-johnson-city",
         },
         {
           name: "Blanco County Courthouse and town square",
@@ -122,6 +123,7 @@ export const texasVintageMotorcycleMuseumDestinations: Destination[] = [
           description:
             "Interactive STEM exhibits make it the strongest family companion stop to the motorcycle museum in Johnson City.",
           proximity: "Downtown Johnson City",
+          href: "/destination/science-mill-johnson-city",
         },
         {
           name: "LBJ National Historical Park",
@@ -132,6 +134,13 @@ export const texasVintageMotorcycleMuseumDestinations: Destination[] = [
         },
       ],
       sideTrips: [
+        {
+          name: "Johnson City",
+          description:
+            "Use the dedicated town guide to combine the motorcycle museum with Science Mill, LBJ history, the courthouse square and Hill Country planning.",
+          proximity: "In town",
+          href: "/destination/johnson-city",
+        },
         {
           name: "Blanco County",
           description:
