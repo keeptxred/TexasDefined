@@ -23,16 +23,19 @@ function normalizeHydrationMarkup(value) {
 }
 
 function requireNeedle(body, needle, label) {
-  if (!body.includes(needle) && !normalizeHydrationMarkup(body).includes(needle)) {
+  const hydrated = normalizeHydrationMarkup(body);
+  const decoded = decodeHtml(hydrated);
+  if (!body.includes(needle) && !hydrated.includes(needle) && !decoded.includes(decodeHtml(needle))) {
     throw new Error(`${label} missing expected content: ${needle}`);
   }
 }
 
 function requireOrderedNeedles(body, needles, label) {
-  const comparable = normalizeHydrationMarkup(body);
+  const comparable = decodeHtml(normalizeHydrationMarkup(body));
   let previousIndex = -1;
   for (const needle of needles) {
-    const index = comparable.indexOf(needle);
+    const decodedNeedle = decodeHtml(needle);
+    const index = comparable.indexOf(decodedNeedle);
     if (index < 0) throw new Error(`${label} missing ordered content: ${needle}`);
     if (index <= previousIndex) throw new Error(`${label} order regression around: ${needle}`);
     previousIndex = index;
