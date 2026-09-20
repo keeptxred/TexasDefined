@@ -26,6 +26,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       label: "Explore Blanco County",
       description: "Connect Blanco with Johnson City, Hye, the Pedernales corridor and the rest of the county's Hill Country attractions.",
     },
+    {
+      href: "/event/real-ale-oktoberfest",
+      label: "Plan Real Ale Oktoberfest",
+      description: "See the September 26 free-admission schedule, stein options, Czech Melody Masters, games, food and transportation guidance.",
+    },
   ],
   "garrison-brothers-distillery-hye": [
     {
