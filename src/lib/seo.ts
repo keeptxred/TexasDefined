@@ -76,6 +76,18 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
     title: "Real Ale Brewing Blanco: Taproom, Tours & Hours",
     description: "Plan Real Ale Brewing in Blanco with current taproom hours, 16+ taps, free Friday tours, beer garden, pizza, live music and Real Spirits details.",
   },
+  "/destination/buggy-barn-museum-blanco": {
+    title: "Buggy Barn Museum Blanco: Hours, Admission & Old West Guide",
+    description: "Plan Buggy Barn Museum in Blanco with current hours and admission, 250+ historic carriages, film and TV vehicles, Pine Moore Old West Studio and visitor tips.",
+  },
+  "/destination/milam-greene-whiskey-distillery-blanco": {
+    title: "Milam & Greene Blanco: Distillery Tours, Hours & Tastings",
+    description: "Plan Milam & Greene Whiskey in Blanco with current tasting-room hours, distillery tours, flights, cocktails, Texas aging and limited-release visitor details.",
+  },
+  "/destination/twin-sisters-dance-hall-blanco": {
+    title: "Twin Sisters Dance Hall: Dances, Schedule & Blanco Guide",
+    description: "Plan Twin Sisters Dance Hall near Blanco with current public dances, 2026 event schedule, ticket guidance, Hill Country history and visitor tips.",
+  },
   "/texas-vs/california": { title: "Texas vs California: Cost & Living" },
   "/article/texas-wildlife-guide": { title: "Texas Wildlife Guide: Animals & Habitats" },
   "/article/texas-regions-explained": {
