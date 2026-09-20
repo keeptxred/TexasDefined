@@ -28,6 +28,8 @@ export const shinerTownDestination: Destination = {
     "Czech and German Texas heritage",
     "Railroad-era town history",
     "Downtown Shiner and historic civic buildings",
+    "Shiner Hobo Band and polka/waltz tradition",
+    "Shiner High School Comanches and UIL tradition",
     "Lavaca County road-trip base",
   ],
   body: [
@@ -35,6 +37,8 @@ export const shinerTownDestination: Destination = {
     "The K. Spoetzl Brewery is the obvious anchor for many visitors, but Shiner works better as a town trip than as a single-stop brewery detour. The brewery traces its operation to 1909 and today includes guided brewery tours, a distillery, barbecue, Rickhouse restaurant, outdoor gathering spaces and a gift shop. Texas Defined keeps a separate destination guide for the brewery so current tour prices, beer releases and reservation details do not overwhelm the town-level page.",
     "Saints Cyril and Methodius Catholic Church adds a different layer of the same immigrant story. The Romanesque church is listed on the National Register of Historic Places and is part of Texas Defined's Painted Churches coverage. Its architecture, stained glass and decorated interior help explain why Shiner's Czech and German heritage is more than branding: it remains visible in institutions that shaped everyday community life.",
     "The Edwin Wolters Memorial Museum gives the town a local-history stop beyond the brewery and church. The City of Shiner describes collections that range from an old-time country store and antique firearms to handwork, musical instruments, farm implements and other objects tied to local life. Green-Dickson Municipal Park, on the northwest edge of town, adds playgrounds, sports courts, fishing, picnic areas, RV camping and larger gathering facilities.",
+    "Music is another part of Shiner's identity. A 2024 Texas Historical Commission marker traces the Shiner Hobo Band tradition to late-nineteenth-century local vaudeville and musical groups, with a major revival under Emmett and Valerie Busch in 1936. The modern band says Spoetzl Brewery part owners helped reorganize it for the 1986 Texas Sesquicentennial; today the nonprofit band remains sponsored by the brewery and performs polkas, waltzes and festival music around Shiner and across Texas. Its 2026 calendar includes church picnics, polka festivals, the Shiner Half Moon Celebration, brewery appearances, Come and Take It in Gonzales and Wurstfest.",
+    "Shiner High School is another unusually visible part of town identity. UIL awarded Shiner the 2026 Class 2A Lone Star Cup, which measures broad achievement across academics, athletics and music rather than football alone. The football program uses the Comanches name and purple-and-gold colors; Texas Defined keeps its current classification, district, enrollment context and sourced football history in the statewide school-team lookup so alignment changes do not go stale on the town page.",
     "Shiner also makes sense as part of a wider Lavaca County loop. Hallettsville is the county seat, Yoakum links the county to railroad and leather history, Moulton adds another Czech- and German-Texan small-town setting, and rural churches and farm roads connect the towns. Visitors with more time can extend west toward Gonzales or northeast toward Fayette County's painted-church country.",
     "For trip planning, the strongest approach is to choose one or two timed attractions first and build around them. Reserve the brewery tour if that is the priority, verify church access if seeing the interior matters, then use the museum, downtown streets and Green-Dickson Park as flexible additions. That produces a fuller Shiner visit without turning a compact town into an overplanned itinerary."
   ],
@@ -62,7 +66,13 @@ export const shinerTownDestination: Destination = {
       { label: "Handbook of Texas — Shiner", url: "https://www.tshaonline.org/handbook/entries/shiner-tx", scope: "Town founding, railroad development, incorporation and Czech/German community history" },
       { label: "Shiner — Visit the brewery", url: "https://shiner.com/visit/", scope: "Current Spoetzl Brewery visitor campus, tours, food and distillery information" },
       { label: "City of Shiner — Edwin Wolters Memorial Museum", url: "https://www.shinertexas.gov/1213/Edwin-Wolters-Memorial-Museum", scope: "Current local museum collections, address and hours" },
-      { label: "City of Shiner — Green-Dickson Municipal Park", url: "https://www.shinertexas.gov/1221/Green-Dickson-Municipal-Park", scope: "Current park amenities, RV camping, recreation and event facilities" }
+      { label: "City of Shiner — Green-Dickson Municipal Park", url: "https://www.shinertexas.gov/1221/Green-Dickson-Municipal-Park", scope: "Current park amenities, RV camping, recreation and event facilities" },
+      { label: "City of Shiner — Welhausen Park", url: "https://www.shinertexas.gov/1223/Welhausen-Park", scope: "Historic downtown-adjacent park, bandstand, monuments and current community-event context" },
+      { label: "Shiner Hobo Band — About", url: "https://shinerhoboband.com/about/", scope: "Current organization, 1986 reorganization, brewery sponsorship, traditions and membership" },
+      { label: "Shiner Hobo Band — 2026 schedule", url: "https://shinerhoboband.com/events-schedule/", scope: "Current 2026 performances and festival connections" },
+      { label: "Texas Historical Commission — Shiner Hobo Band marker", url: "https://thc.texas.gov/sites/default/files/2025-07/THC_Quarterly_Public_July2025.pdf", scope: "2024 historical-marker text tracing the band tradition to the late 1890s and 1936 revival" },
+      { label: "UIL — 2026 Lone Star Cup", url: "https://wwwprod.uiltexas.org/lone-star-cup", scope: "Official Class 2A 2026 all-program standings" },
+      { label: "Shiner ISD — Football", url: "https://www.shinerisd.net/athletics/football", scope: "Current school football staff and program information" }
     ]
   },
   areaGuide: {
@@ -72,6 +82,7 @@ export const shinerTownDestination: Destination = {
       { name: "Saints Cyril and Methodius Catholic Church", description: "A major Shiner heritage landmark and part of Texas Defined's Painted Churches coverage.", proximity: "In Shiner", href: "/explore/painted-churches/shiner-saints-cyril-methodius" },
       { name: "Edwin Wolters Memorial Museum", description: "Local-history collections covering household, agricultural and community life in Shiner.", proximity: "In Shiner", href: "https://www.shinertexas.gov/1213/Edwin-Wolters-Memorial-Museum" },
       { name: "Green-Dickson Municipal Park", description: "A large municipal park with sports facilities, playgrounds, fishing, picnic areas and RV camping.", proximity: "Northwest Shiner", href: "https://www.shinertexas.gov/1221/Green-Dickson-Municipal-Park" },
+      { name: "Welhausen Park", description: "A downtown-adjacent historic park with a bandstand, monuments, playground and Shiner's annual Christmas-in-the-Park tradition.", proximity: "One block west of downtown", href: "https://www.shinertexas.gov/1223/Welhausen-Park" },
     ],
     foodAndDrink: [
       { name: "Spoetzl Brewery campus", description: "K. Spoetzl BBQ Co., Rickhouse and the brewery's visitor areas make the campus the town's most obvious food-and-drink anchor.", proximity: "East Brewery Street", href: "/destination/spoetzl-brewery" },
@@ -85,6 +96,7 @@ export const shinerTownDestination: Destination = {
     familyStops: [
       { name: "Green-Dickson Municipal Park", description: "Playgrounds, open space, sports courts and picnic facilities make this the easiest flexible family stop.", proximity: "Northwest Shiner", href: "https://www.shinertexas.gov/1221/Green-Dickson-Municipal-Park" },
       { name: "Edwin Wolters Memorial Museum", description: "A small local museum whose varied collections can work well as a short multigenerational history stop.", proximity: "In Shiner", href: "https://www.shinertexas.gov/1213/Edwin-Wolters-Memorial-Museum" },
+      { name: "Shiner High School football profile", description: "Use Texas Defined's school profile for current UIL placement, district context, enrollment and football-history research.", proximity: "Shiner ISD", href: "/texas-high-school-football-teams/shiner" },
     ],
     sideTrips: [
       { name: "Lavaca County", description: "Use the county guide to connect Shiner with Hallettsville, Yoakum, Moulton, waterways and the wider Czech and German settlement landscape.", proximity: "Same county", href: "/county/lavaca" },
