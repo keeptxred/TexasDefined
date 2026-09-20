@@ -75,6 +75,18 @@ const texasHighSchoolFootball2026CalendarStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: [],
 };
 
+const texasHighSchoolFootballStateChampionshipTripStub: Article = {
+  id: "evergreen-texas-high-school-football-state-championship-trip", brandId: "texasdefined", slug: "texas-high-school-football-state-championships-att-stadium-guide",
+  title: "Texas High School Football State Championships 2026: AT&T Stadium Fan Guide",
+  dek: "Plan the 2026 UIL football state championships at AT&T Stadium with the four-day game schedule, current ticket and parking rules, clear-bag policy, entry timing, free Victory+ broadcast and Arlington trip-planning links.",
+  category: "sports",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Arlington_June_2020_3_%28AT%26T_Stadium%29.jpg?width=1600", alt: "AT&T Stadium exterior in Arlington, Texas", width: 1600, height: 1067, credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-09-19", readingMinutes: 11,
+  tags: ["uil football state championships", "texas high school football state championship tickets", "att stadium high school football", "uil football parking", "texas high school football arlington", "victory plus uil football"], featured: false,
+  sourceName: "University Interscholastic League", sourceUrl: "https://www.uiltexas.org/football/state/football-state-championships-spectator-information",
+  body: [], relatedCollections: [], relatedDestinations: [],
+};
+
 const highSchoolFootballNewcomersStub: Article = {
   id: "evergreen-high-school-football-newcomers", brandId: "texasdefined", slug: "texas-high-school-football-newcomers",
   title: "Texas High School Football for Newcomers: Why Friday Night Matters",
@@ -278,6 +290,7 @@ export const standaloneEvergreenStubs: Article[] = [
   texasHighSchoolFootballPlayoffsStub,
   texasHighSchoolFootballScoresSchedulesStub,
   texasHighSchoolFootball2026CalendarStub,
+  texasHighSchoolFootballStateChampionshipTripStub,
   highSchoolFootballNewcomersStub,
   kolacheOrKlobasnekStub,
   orderingTexasBarbecueStub,
@@ -305,6 +318,7 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === texasHighSchoolFootballPlayoffsStub.slug) return import("./texas-high-school-football-playoffs").then((module) => module.texasHighSchoolFootballPlayoffsArticle);
   if (slug === texasHighSchoolFootballScoresSchedulesStub.slug) return import("./texas-high-school-football-scores-schedules").then((module) => module.texasHighSchoolFootballScoresSchedulesArticle);
   if (slug === texasHighSchoolFootball2026CalendarStub.slug) return import("./texas-high-school-football-2026-calendar").then((module) => module.texasHighSchoolFootball2026CalendarArticle);
+  if (slug === texasHighSchoolFootballStateChampionshipTripStub.slug) return import("./texas-high-school-football-state-championship-trip").then((module) => module.texasHighSchoolFootballStateChampionshipTripArticle);
   if (slug === highSchoolFootballNewcomersStub.slug) return import("./high-school-football-newcomers").then((module) => module.highSchoolFootballNewcomersArticle);
   if (slug === kolacheOrKlobasnekStub.slug) return import("./kolache-or-klobasnek").then((module) => module.kolacheOrKlobasnekArticle);
   if (slug === orderingTexasBarbecueStub.slug) return import("./ordering-texas-barbecue").then((module) => module.orderingTexasBarbecueArticle);
