@@ -5,6 +5,45 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "pedernales-falls-state-park": [
+    {
+      href: "/destination/pedernales-river-nature-park-johnson-city",
+      label: "Compare Johnson City's in-town river park",
+      description: "Use the LCRA nature park for convenient swimming, fishing, paddling and picnicking close to downtown.",
+    },
+    {
+      href: "/destination/johnson-city",
+      label: "Explore Johnson City",
+      description: "Connect the state park with Johnson City's museums, food, wildlife attractions and LBJ history.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Place Pedernales Falls in the wider Blanco County network of towns, river access and Hill Country destinations.",
+    },
+  ],
+  "pedernales-river-nature-park-johnson-city": [
+    {
+      href: "/destination/johnson-city",
+      label: "Explore Johnson City",
+      description: "Pair the river park with downtown museums, food, the courthouse square and LBJ history.",
+    },
+    {
+      href: "/destination/pedernales-falls-state-park",
+      label: "Compare Pedernales Falls State Park",
+      description: "See the larger TPWD park east of town for the falls, longer trails, camping and designated river access.",
+    },
+    {
+      href: "/destination/science-mill-johnson-city",
+      label: "Add Science Mill",
+      description: "Build a family day around river time and Johnson City's hands-on STEM museum.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Connect the nature park to Johnson City, Blanco, the Pedernales corridor and the wider Hill Country county guide.",
+    },
+  ],
   "reptilandia-johnson-city": [
     {
       href: "/destination/exotic-resort-zoo-johnson-city",
@@ -79,6 +118,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/destination/exotic-resort-zoo-johnson-city",
       label: "Plan the Exotic Resort Zoo safari",
       description: "Use the dedicated guide for guided tractor tours, self-drive reservations, animal encounters and onsite cabins.",
+    },
+    {
+      href: "/destination/pedernales-river-nature-park-johnson-city",
+      label: "Use the in-town Pedernales River park",
+      description: "Add swimming, fishing, paddling, trails and picnic time only minutes from downtown Johnson City.",
     },
   ],
   "science-mill-johnson-city": [

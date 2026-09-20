@@ -464,6 +464,10 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     title: "Reptilandia Johnson City: Tickets, Hours & Reptile Zoo Guide",
     description: "Plan Reptilandia in Johnson City with ticket guidance, current hours, eight reptile biomes, indoor exhibits, accessibility and family trip details.",
   },
+  "/destination/pedernales-river-nature-park-johnson-city": {
+    title: "Pedernales River Nature Park: Swimming, Fishing & Hours",
+    description: "Plan Pedernales River Nature Park in Johnson City with current LCRA hours and fees, swimming, fishing, paddling, trails, pavilions and park details.",
+  },
   "/event/lone-star-cowboy-poetry-gathering-bastrop": {
     title: "Lone Star Cowboy Poetry Gathering 2027: Bastrop Dates & Guide",
     description: "The Lone Star Cowboy Poetry Gathering returns to Bastrop Sept. 3-4, 2027. Find venue, schedule, ticket and official planning links.",
