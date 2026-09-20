@@ -12,6 +12,11 @@ import {
 } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 
+const CityMajorEvents = lazy(() =>
+  import('@/components/content/CityMajorEvents').then((module) => ({
+    default: module.CityMajorEvents,
+  })),
+);
 const CityPassContextualCallout = lazy(() =>
   import('@/components/monetization/CityPassContextualCallout').then((module) => ({
     default: module.CityPassContextualCallout,
@@ -35,7 +40,7 @@ const referenceKinds = new Set([...localGovernmentKinds, 'agency']);
 export const Route = createLazyFileRoute('/$kind/$slug')({ component: EntityPage });
 
 function EntityPage() {
-  const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations } = Route.useLoaderData();
+  const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations, cityMajorEvents } = Route.useLoaderData();
   const visibleRelated = relatedForDisplay(entity, related);
   const relatedEntities = visibleRelated.map((item) => item.entity);
   const description = entity.kind === 'county' && countySeriesArticle?.dek ? countySeriesArticle.dek : pageDescription(entity);
@@ -122,6 +127,7 @@ function EntityPage() {
         </div>
 
         {entity.kind === 'city' ? <Suspense fallback={null}><CityPassContextualCallout surface="city" slug={entity.slug} /></Suspense> : null}
+        {entity.kind === 'city' && cityMajorEvents.length ? <Suspense fallback={null}><CityMajorEvents cityName={entity.name} events={cityMajorEvents} /></Suspense> : null}
         {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} countySeriesArticle={countySeriesArticle} /> : null}
         {(entity.kind === 'city' || entity.kind === 'county') && foodDestinations.length ? <Suspense fallback={null}><EntityFoodDestinations entity={entity} destinations={foodDestinations} /></Suspense> : null}
         {entity.kind === 'county' ? <CountyCoastalPlaces county={entity} /> : null}
