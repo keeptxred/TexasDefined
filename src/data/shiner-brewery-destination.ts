@@ -45,5 +45,32 @@ export const shinerBreweryDestination: Destination = {
   address: "603 E Brewery St, Shiner, TX 77984",
   directions: "The brewery is in Shiner in western Lavaca County, roughly between the San Antonio and Houston metro areas. Use the official directions link or current navigation before departure rather than relying on a fixed route, especially if your trip also includes Hallettsville, Moulton or other Lavaca County stops.",
   accessibilityNotes: "The brewery is an active industrial site. Contact the brewery before visiting if you need specific mobility, sensory or tour-access accommodations; service-animal rules differ from ordinary pet access inside brewery buildings.",
+  areaGuide: {
+    intro: "The brewery is the anchor attraction, but Shiner is compact enough to turn the tour into a fuller town visit without adding much driving.",
+    nearbyAttractions: [
+      { name: "Shiner", description: "Use the town guide to connect the brewery with Shiner's painted church, local museum, municipal park and railroad-era history.", proximity: "Around the brewery", href: "/destination/shiner" },
+      { name: "Saints Cyril and Methodius Catholic Church", description: "A major Czech- and German-Texan heritage landmark and one of the strongest companion stops in town.", proximity: "In Shiner", href: "/explore/painted-churches/shiner-saints-cyril-methodius" },
+      { name: "Edwin Wolters Memorial Museum", description: "Local-history collections covering Shiner household, agricultural and community life.", proximity: "In Shiner", href: "https://www.shinertexas.gov/1213/Edwin-Wolters-Memorial-Museum" },
+      { name: "Green-Dickson Municipal Park", description: "Municipal park with picnic areas, playgrounds, sports facilities, fishing and RV camping.", proximity: "Northwest Shiner", href: "https://www.shinertexas.gov/1221/Green-Dickson-Municipal-Park" },
+    ],
+    foodAndDrink: [
+      { name: "K. Spoetzl BBQ Co.", description: "On-site Texas-style barbecue that can be paired with a brewery visit without another drive.", proximity: "On the brewery campus", href: "https://shiner.com/visit/" },
+      { name: "Rickhouse", description: "The brewery campus restaurant and bar serving Texas comfort food and craft cocktails Thursday through Saturday.", proximity: "On the brewery campus", href: "https://shiner.com/visit/" },
+    ],
+    lodging: [
+      { name: "Stay in Shiner or wider Lavaca County", description: "Small-town room inventory can be limited on event weekends. Compare Shiner first, then nearby Hallettsville, Gonzales and regional options if needed.", proximity: "Shiner area" },
+    ],
+    neighborhoods: [
+      { name: "Central Shiner", description: "A compact small-town core that adds civic buildings, local businesses and the railroad-era street grid to the brewery visit.", proximity: "Minutes from the brewery", href: "/destination/shiner" },
+    ],
+    familyStops: [
+      { name: "Green-Dickson Municipal Park", description: "A flexible outdoor stop with playgrounds, open space, picnic areas and sports facilities.", proximity: "Northwest Shiner", href: "https://www.shinertexas.gov/1221/Green-Dickson-Municipal-Park" },
+      { name: "Edwin Wolters Memorial Museum", description: "A short local-history stop with varied collections that can work for multigenerational groups.", proximity: "In Shiner", href: "https://www.shinertexas.gov/1213/Edwin-Wolters-Memorial-Museum" },
+    ],
+    sideTrips: [
+      { name: "Lavaca County", description: "Extend the brewery trip into Hallettsville, Yoakum, Moulton, painted churches and the county's wider Czech-German settlement landscape.", proximity: "Same county", href: "/county/lavaca" },
+      { name: "Gonzales County", description: "Continue west for Texas Revolution history and another strong small-town road-trip stop.", proximity: "West of Shiner", href: "/county/gonzales" },
+    ],
+  },
   featured: true,
 };
