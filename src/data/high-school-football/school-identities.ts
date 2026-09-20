@@ -1049,8 +1049,8 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     slug: 'lewisville-marcus',
     mascot: 'Marauders',
     colors: 'Red and Silver',
-    sourceUrl: 'https://mhs.lisd.net/our-school/welcome',
-    sourceLabel: 'Marcus High School',
+    sourceUrl: 'https://mhs9.lisd.net/our-school/general-information/school-song',
+    sourceLabel: 'Marcus High School school song',
     verifiedAt: '2026-09-20',
   },
   {
