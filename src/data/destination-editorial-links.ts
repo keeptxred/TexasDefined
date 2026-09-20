@@ -5,6 +5,23 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "pedernales-falls-state-park": [
+    {
+      href: "/destination/pedernales-river-nature-park-johnson-city",
+      label: "Compare Johnson City's in-town river park",
+      description: "Use the LCRA nature park for convenient swimming, fishing, paddling and picnicking close to downtown.",
+    },
+    {
+      href: "/destination/johnson-city",
+      label: "Explore Johnson City",
+      description: "Connect the state park with Johnson City's museums, food, wildlife attractions and LBJ history.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Place Pedernales Falls in the wider Blanco County network of towns, river access and Hill Country destinations.",
+    },
+  ],
   "pedernales-river-nature-park-johnson-city": [
     {
       href: "/destination/johnson-city",
