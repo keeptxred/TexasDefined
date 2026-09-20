@@ -52,6 +52,7 @@ const scoresSchedulesGuidePath = 'src/data/fixtures/texas-high-school-football-s
 const footballCalendarGuidePath = 'src/data/fixtures/texas-high-school-football-2026-calendar.ts';
 const evergreenRegistryPath = 'src/data/fixtures/lazy-standalone-evergreen.ts';
 const obsoleteSeedListComponentPath = 'src/components/sports/FeaturedFootballResearchList.tsx';
+const productionSmokePath = 'scripts/ci/verify-friday-night-lights-production.mjs';
 const legacyMetadataFiles = [
   'src/data/high-school-football/featured-programs.ts',
   'src/data/high-school-football/school-identities.ts',
@@ -98,6 +99,7 @@ for (const file of [
   scoresSchedulesGuidePath,
   footballCalendarGuidePath,
   evergreenRegistryPath,
+  productionSmokePath,
   ...legacyMetadataFiles,
 ]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing high-school football platform file: ${file}`);
@@ -153,12 +155,24 @@ if (!errors.length) {
   const scoresSchedulesGuide = read(scoresSchedulesGuidePath);
   const footballCalendarGuide = read(footballCalendarGuidePath);
   const evergreenRegistry = read(evergreenRegistryPath);
+  const productionSmoke = read(productionSmokePath);
   const legacyProgramMetadata = read(legacyMetadataFiles[0]);
   const schoolIdentities = read(legacyMetadataFiles[1]);
   const featuredProfileLoader = read(legacyMetadataFiles[2]);
   const featuredProfileRoute = read(legacyMetadataFiles[3]);
   const featuredProfilePage = read(legacyMetadataFiles[4]);
   const sitemap = read(legacyMetadataFiles[5]);
+
+  for (const marker of [
+    "name: 'Lubbock Cooper', classification: '5A', enrollment: '1,663'",
+    "name: 'Huffman Hargrave', classification: '4A', enrollment: '1,168'",
+    "name: 'Franklin', classification: '3A', enrollment: '435'",
+    "name: 'Panhandle', classification: '2A', enrollment: '176.5'",
+    "name: 'Abbott', classification: '1A', enrollment: '91'",
+    'universalProfileCases',
+    'universal football profile',
+    'sitemap universal football profile',
+  ]) requireText(productionSmoke, marker, 'Cross-class universal football production smoke');
 
   for (const marker of [
     'UIL_FOOTBALL_PROGRAM_COUNT !== 1268',
