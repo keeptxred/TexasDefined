@@ -17,6 +17,13 @@ const oneAFinderApiPath = '/api/high-school-football?q=Abbott&limit=10';
 const katyProfilePath = '/texas-high-school-football-teams/katy';
 const abbottProfilePath = '/texas-high-school-football-teams/abbott';
 const kellerProfilePath = '/texas-high-school-football-teams/keller';
+const universalProfileCases = [
+  { name: 'Lubbock Cooper', classification: '5A', enrollment: '1,663', path: '/texas-high-school-football-teams/lubbock-cooper' },
+  { name: 'Huffman Hargrave', classification: '4A', enrollment: '1,168', path: '/texas-high-school-football-teams/huffman-hargrave' },
+  { name: 'Franklin', classification: '3A', enrollment: '435', path: '/texas-high-school-football-teams/franklin' },
+  { name: 'Panhandle', classification: '2A', enrollment: '176.5', path: '/texas-high-school-football-teams/panhandle' },
+  { name: 'Abbott', classification: '1A', enrollment: '91', path: '/texas-high-school-football-teams/abbott' },
+] as const;
 const expectedTitle = 'Texas High School Football: Friday Night Lights, Traditions & Game-Day Guide';
 const expectedDescription = 'Understand Texas high school football through Friday-night traditions, six-man and 11-man culture, stadiums, homecoming mums, playoffs, school communities and practical game-day planning.';
 const expectedCanonical = `${origin}${hubPath}`;
@@ -444,6 +451,23 @@ await fetchVerified(kellerProfilePath, 'Keller football school profile', (body) 
   if (/\bnoindex\b/i.test(body)) throw new Error('Keller football school profile unexpectedly contains noindex');
 });
 
+for (const profile of universalProfileCases) {
+  await fetchVerified(profile.path, `${profile.classification} universal football profile ${profile.name}`, (body) => {
+    for (const needle of [
+      profile.name,
+      profile.classification,
+      'Current district',
+      'How to enroll at',
+      'UIL eligibility standards',
+      'UIL reported enrollment',
+      profile.enrollment,
+      'All current UIL football programs use the same profile system.',
+      '/texas-high-school-football-teams',
+    ]) requireNeedle(body, needle, `${profile.classification} universal football profile ${profile.name}`);
+    if (/\bnoindex\b/i.test(body)) throw new Error(`${profile.name} universal football profile unexpectedly contains noindex`);
+  });
+}
+
 await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
   requireNeedle(body, '<loc>https://texasdefined.com/sports/friday-night-lights</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams</loc>', 'sitemap');
@@ -454,6 +478,9 @@ await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/katy</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/abbott</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/keller</loc>', 'sitemap');
+  for (const profile of universalProfileCases) {
+    requireNeedle(body, `<loc>https://texasdefined.com${profile.path}</loc>`, 'sitemap universal football profile');
+  }
   requireNeedle(body, '<loc>https://texasdefined.com/article/texas-high-school-football-playoffs-explained</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/article/texas-six-man-football-rules-explained</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/article/texas-high-school-football-scores-schedules</loc>', 'sitemap');
