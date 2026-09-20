@@ -50,6 +50,11 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
       description: "Search current UIL programs by school, ISD, city or county and see classification, district and recent state-final history.",
     },
     {
+      href: "/article/texas-high-school-football-2026-season-calendar",
+      label: "2026 Texas high school football season calendar",
+      description: "See the official UIL playing weeks, November 7 district certification, playoff windows and December 16–19 state championship schedule.",
+    },
+    {
       href: "/article/texas-high-school-football-scores-schedules",
       label: "Texas high school football scores and schedules",
       description: "Use the UIL Texas Scoreboard and school sources for current results and weekly schedules without confusing incomplete submissions with certified standings.",
