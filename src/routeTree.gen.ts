@@ -3813,8 +3813,8 @@ export interface FileRoutesByFullPath {
   '/property-tax/counties': typeof PropertyTaxCountiesRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/shop/cart': typeof ShopCartRoute
-  '/shop/live-payment-test': typeof ShopLivePaymentTestRoute
   '/shop/checkout-return': typeof ShopCheckoutReturnRoute
+  '/shop/live-payment-test': typeof ShopLivePaymentTestRoute
   '/sports-venue/$slug': typeof SportsVenueSlugRoute
   '/sports-venue/jones-att-stadium': typeof SportsVenueJonesAttStadiumRoute
   '/sports-venues/$landing': typeof SportsVenuesLandingRoute
@@ -4291,8 +4291,8 @@ export interface FileRoutesByTo {
   '/property-tax/counties': typeof PropertyTaxCountiesRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/shop/cart': typeof ShopCartRoute
-  '/shop/live-payment-test': typeof ShopLivePaymentTestRoute
   '/shop/checkout-return': typeof ShopCheckoutReturnRoute
+  '/shop/live-payment-test': typeof ShopLivePaymentTestRoute
   '/sports-venue/$slug': typeof SportsVenueSlugRoute
   '/sports-venue/jones-att-stadium': typeof SportsVenueJonesAttStadiumRoute
   '/sports-venues/$landing': typeof SportsVenuesLandingRoute
@@ -4773,8 +4773,8 @@ export interface FileRoutesById {
   '/property-tax/counties': typeof PropertyTaxCountiesRoute
   '/shop/$collection': typeof ShopCollectionRoute
   '/shop/cart': typeof ShopCartRoute
-  '/shop/live-payment-test': typeof ShopLivePaymentTestRoute
   '/shop/checkout-return': typeof ShopCheckoutReturnRoute
+  '/shop/live-payment-test': typeof ShopLivePaymentTestRoute
   '/sports-venue/$slug': typeof SportsVenueSlugRoute
   '/sports-venue/jones-att-stadium': typeof SportsVenueJonesAttStadiumRoute
   '/sports-venues/$landing': typeof SportsVenuesLandingRoute
@@ -5256,8 +5256,8 @@ export interface FileRouteTypes {
     | '/property-tax/counties'
     | '/shop/$collection'
     | '/shop/cart'
-    | '/shop/live-payment-test'
     | '/shop/checkout-return'
+    | '/shop/live-payment-test'
     | '/sports-venue/$slug'
     | '/sports-venue/jones-att-stadium'
     | '/sports-venues/$landing'
@@ -5734,8 +5734,8 @@ export interface FileRouteTypes {
     | '/property-tax/counties'
     | '/shop/$collection'
     | '/shop/cart'
-    | '/shop/live-payment-test'
     | '/shop/checkout-return'
+    | '/shop/live-payment-test'
     | '/sports-venue/$slug'
     | '/sports-venue/jones-att-stadium'
     | '/sports-venues/$landing'
@@ -6215,8 +6215,8 @@ export interface FileRouteTypes {
     | '/property-tax/counties'
     | '/shop/$collection'
     | '/shop/cart'
-    | '/shop/live-payment-test'
     | '/shop/checkout-return'
+    | '/shop/live-payment-test'
     | '/sports-venue/$slug'
     | '/sports-venue/jones-att-stadium'
     | '/sports-venues/$landing'
