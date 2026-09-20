@@ -295,12 +295,31 @@ if (!errors.length) {
     "slug: 'arlington-lamar'",
     "slug: 'arlington-martin'",
     "slug: 'granbury'",
+    "slug: 'weatherford'",
+    "slug: 'ft-worth-boswell'",
+    "slug: 'keller'",
+    "slug: 'keller-central'",
+    "slug: 'keller-timber-creek'",
+    "slug: 'northwest'",
+    "slug: 'northwest-eaton'",
+    "slug: 'northwest-nelson'",
+    "slug: 'denton-braswell'",
+    "slug: 'frisco-wakeland'",
+    "slug: 'lewisville-flower-mound'",
+    "slug: 'hebron'",
+    "slug: 'flower-mound-marcus'",
+    "slug: 'little-elm'",
+    "slug: 'mckinney'",
+    "slug: 'mckinney-boyd'",
+    "slug: 'princeton'",
+    "slug: 'prosper-rock-hill'",
+    "slug: 'plano-senior'",
     'sourceUrl',
     'verifiedAt',
   ]) requireText(schoolIdentities, marker, 'Football school identity data');
   const verifiedFootballIdentityCount = (schoolIdentities.match(/slug: '/g) ?? []).length;
-  if (verifiedFootballIdentityCount < 60) {
-    errors.push(`Football school identity data fell below 60 verified profiles; found ${verifiedFootballIdentityCount}.`);
+  if (verifiedFootballIdentityCount < 79) {
+    errors.push(`Football school identity data fell below 79 verified profiles; found ${verifiedFootballIdentityCount}.`);
   }
 
   for (const marker of [
@@ -343,12 +362,15 @@ if (!errors.length) {
     "districtName: 'Garland ISD'",
     "districtName: 'Irving ISD'",
     "districtName: 'Grand Prairie ISD'",
+    "districtName: 'Frisco ISD'",
+    "districtName: 'Little Elm ISD'",
+    "districtName: 'Princeton ISD'",
     'enrollmentUrl',
     'verifiedAt',
   ]) requireText(officialEnrollmentLinks, marker, 'Official football enrollment links');
   const verifiedEnrollmentLinkCount = (officialEnrollmentLinks.match(/districtName: '/g) ?? []).length;
-  if (verifiedEnrollmentLinkCount < 31) {
-    errors.push(`Official football enrollment-link data fell below 31 verified districts; found ${verifiedEnrollmentLinkCount}.`);
+  if (verifiedEnrollmentLinkCount < 34) {
+    errors.push(`Official football enrollment-link data fell below 34 verified districts; found ${verifiedEnrollmentLinkCount}.`);
   }
 
   for (const marker of [
