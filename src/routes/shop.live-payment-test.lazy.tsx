@@ -7,6 +7,7 @@ import { commerceApiBase } from "@/data/shop-products-remote";
 const LIVE_TEST_RUN = "td-20260920-8c2e41";
 
 type TestStatus = {
+  found?: boolean;
   paid: boolean;
   webhookReceived: boolean;
   amountTotal?: number | null;
@@ -26,7 +27,7 @@ function LivePaymentTestPage() {
   const [status, setStatus] = useState<TestStatus | null>(null);
 
   useEffect(() => {
-    if (!validRun || !session_id) return;
+    if (!validRun) return;
     let cancelled = false;
     let attempts = 0;
 
@@ -36,7 +37,7 @@ function LivePaymentTestPage() {
         const url = new URL("/api/public/payments/live-test", commerceApiBase());
         url.searchParams.set("site", "texasdefined");
         url.searchParams.set("run", LIVE_TEST_RUN);
-        url.searchParams.set("session_id", session_id);
+        if (session_id) url.searchParams.set("session_id", session_id);
         const response = await fetch(url, {
           headers: { accept: "application/json" },
           cache: "no-store",
@@ -45,6 +46,7 @@ function LivePaymentTestPage() {
         if (!response.ok || !payload.ok) throw new Error(payload.error || "Unable to verify payment.");
         if (cancelled) return;
         setStatus(payload);
+        if (payload.found === false) return;
         if ((!payload.paid || !payload.webhookReceived) && attempts < 15) {
           window.setTimeout(poll, 1500);
         }
@@ -102,16 +104,18 @@ function LivePaymentTestPage() {
               Return to the shop →
             </Link>
           </div>
-        ) : session_id ? (
+        ) : status?.found !== false ? (
           <div className="max-w-3xl border-t-2 border-foreground pt-8">
             <p className="eyebrow text-primary">Live verification</p>
             <h2 className="mt-3 font-display text-4xl">
-              {complete ? "Live payment verified" : status?.paid ? "Payment received — checking webhook" : "Checking live payment"}
+              {complete ? "Live payment verified" : status?.paid ? "Payment received — checking webhook" : "Checking existing live payment"}
             </h2>
             <p className="mt-5 text-base leading-8 text-muted-foreground">
               {complete
                 ? "Stripe confirms the 50¢ live payment and the production webhook received it. Printify fulfillment was intentionally suppressed."
-                : "This page is checking Stripe and the production webhook. It may take a few seconds after checkout returns."}
+                : status
+                  ? "The existing Texas Defined diagnostic payment was found. This page is checking Stripe and the production webhook."
+                  : "This page is checking for an existing Texas Defined diagnostic payment before offering another charge."}
             </p>
             {status ? (
               <div className="mt-8 grid gap-4 border-y border-border py-6 text-sm sm:grid-cols-2">
@@ -126,9 +130,9 @@ function LivePaymentTestPage() {
         ) : (
           <div className="max-w-3xl border-t-2 border-foreground pt-8">
             <p className="eyebrow text-primary">Ready</p>
-            <h2 className="mt-3 font-display text-4xl">Run the live Texas Defined charge</h2>
+            <h2 className="mt-3 font-display text-4xl">No existing Texas Defined diagnostic payment found</h2>
             <p className="mt-5 text-base leading-8 text-muted-foreground">
-              Clicking below opens Stripe’s live hosted checkout. Enter the card there. The charge is real and is exactly 50¢.
+              Only use the button below if you have not already completed the Texas Defined 50¢ test. It opens Stripe’s live hosted checkout and creates a real 50¢ charge.
             </p>
             <button
               type="button"
