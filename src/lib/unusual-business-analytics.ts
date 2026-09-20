@@ -13,3 +13,13 @@ export function unusualBusinessAnalyticsResource(href: string, placement: string
   if (!target) return undefined;
   return `unusual-business:${target}:${placement}`;
 }
+
+export function unusualBusinessAnalyticsAttributes(href: string, placement: string) {
+  const resourceId = unusualBusinessAnalyticsResource(href, placement);
+  return resourceId
+    ? {
+        "data-entity-id": resourceId,
+        "data-entity-kind": UNUSUAL_BUSINESS_ANALYTICS_KIND,
+      }
+    : {};
+}
