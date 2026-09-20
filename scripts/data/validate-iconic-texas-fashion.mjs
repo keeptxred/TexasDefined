@@ -28,6 +28,7 @@ for (const marker of [
   'href: "/texas-symbols"',
   'href: "/made-in-texas"',
   'href: "/destination/fort-worth-stockyards"',
+  'Boots_on_the_fence..JPG?width=1600',
 ]) if (!guide.includes(marker)) failures.push(`Fashion guide missing required marker: ${marker}`);
 
 for (const marker of [
