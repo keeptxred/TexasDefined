@@ -305,7 +305,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         </header>
 
         {image ? <figure className="border-b border-border py-8">
-          <img src={image.src} alt={image.alt} className={hasHomecomingMumSupplies ? "mx-auto max-h-[44rem] w-auto max-w-full object-contain" : "aspect-[16/9] w-full object-cover"} loading="eager" fetchPriority="high" />
+          <img src={image.src} alt={image.alt} className={hasHomecomingMumSupplies ? undefined : "aspect-[16/9] w-full object-cover"} style={hasHomecomingMumSupplies ? { display: "block", margin: "0 auto", maxHeight: "44rem", maxWidth: "100%", objectFit: "contain", width: "auto" } : undefined} loading="eager" fetchPriority="high" />
           <figcaption className="mt-3 max-w-3xl text-xs leading-5 text-muted-foreground">
             {image.caption}
             {image.credit ? <>{" "}{image.sourceHref ? <a href={image.sourceHref} target="_blank" rel="noreferrer noopener" className="underline decoration-border underline-offset-2">{image.credit}</a> : image.credit}</> : null}
