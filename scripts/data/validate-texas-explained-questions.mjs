@@ -25,7 +25,7 @@ const parentCountMatch = parent.match(/const questionCount = (\d+);/);
 const pageCountMatch = page.match(/const questionCount = (\d+);/);
 const failures = [];
 
-if (questionCount !== 136) failures.push(`Expected exactly 136 questions; found ${questionCount}.`);
+if (questionCount !== 137) failures.push(`Expected exactly 137 questions; found ${questionCount}.`);
 if (answerCount !== questionCount) failures.push(`Every question must have an answer; found ${answerCount} answers for ${questionCount} questions.`);
 if (categoryCount < 8) failures.push(`Expected broad topical coverage across at least 8 categories; found ${categoryCount}.`);
 if (!parentCountMatch || Number(parentCountMatch[1]) !== questionCount) failures.push(`Texas Explained route count must match the ${questionCount}-question library.`);
