@@ -36,6 +36,7 @@ export const austinCountyBellvilleSanFelipeSealyBrazosArticle: Article = {
   featured: false,
   internalLinks: [
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
+    { href: "/article/phenix-knives-bellville", label: "Phenix Knives in Bellville", description: "Visit the working blacksmith shop, see hand-forged craft and plan the hands-on visitor experience." },
     { href: "/county/washington", label: "Explore Washington County", description: "Continue north toward Brenham, Independence and Washington-on-the-Brazos." },
     { href: "/county/fayette", label: "Explore Fayette County", description: "Head west toward La Grange, Czech and German communities and the Colorado River." },
     { href: "/county/fort-bend", label: "Explore Fort Bend County", description: "Follow the lower Brazos toward Richmond, Sugar Land and the Houston metro." },
@@ -63,6 +64,7 @@ export const austinCountyBellvilleSanFelipeSealyBrazosArticle: Article = {
     h("Bellville became the durable county seat"),
     p("Voters chose to move the county seat from San Felipe in 1846. Thomas Bell, one of Austin's Old Three Hundred settlers, offered land near the county's geographic center, and the new town of Bellville was laid out around a public square. Government offices, stores and homes clustered around the courthouse, creating the familiar county-seat pattern seen across nineteenth-century Texas."),
     p("Bellville grew slowly until the Gulf, Colorado and Santa Fe Railway arrived around 1879 and 1880. Rail access suddenly made the town a more effective shipping point for cotton and other agricultural products. Population rose, brick commercial buildings replaced earlier wooden structures, and merchants served a wider rural trade area. The courthouse square remained the civic center even as highways and automobiles later pushed development outward."),
+    p("Bellville's historic core also supports living craft businesses rather than only preserved architecture. Phenix Knives operates a working bladesmith shop on East Main Street and offers blacksmith demonstrations, classes and a short hands-on souvenir-knife experience. TexasDefined covers it separately because it connects a distinctive modern business with the town's small-scale historic commercial setting."),
 
     h("The courthouse tells a twentieth-century preservation story"),
     p("Austin County's current courthouse is a modernist building on the Bellville square rather than the ornate nineteenth-century courthouse many visitors expect in an old Texas county seat. Earlier courthouses occupied the same civic landscape, but a 1960 fire destroyed the late-nineteenth-century structure. The replacement reflects a period when Texas counties embraced modern architecture, air conditioning and new administrative needs rather than trying to reproduce Victorian designs."),

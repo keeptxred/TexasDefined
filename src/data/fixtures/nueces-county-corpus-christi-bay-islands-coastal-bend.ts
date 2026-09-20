@@ -36,6 +36,7 @@ export const nuecesCountyCorpusChristiBayIslandsCoastalBendArticle: Article = {
   featured: false,
   internalLinks: [
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
+    { href: "/article/horses-on-the-beach-corpus-christi", label: "Horses on the Beach in Corpus Christi", description: "Plan a guided horseback ride on the Padre Island shoreline and connect it to the wider Coastal Bend." },
     { href: "/county/san-patricio", label: "Explore San Patricio County", description: "Continue north and west through Sinton, Portland, the Nueces River country and Coastal Bend prairie." },
     { href: "/county/aransas", label: "Explore Aransas County", description: "Follow the coast north toward Rockport, Fulton, Copano Bay and Aransas Bay." },
     { href: "/county/kleberg", label: "Explore Kleberg County", description: "Head south toward Kingsville, ranch country and the lower reaches of Padre Island." },
@@ -95,6 +96,7 @@ export const nuecesCountyCorpusChristiBayIslandsCoastalBendArticle: Article = {
     h("North Padre Island connects the city to the Laguna Madre"),
     p("South of Mustang Island, the developed northern end of Padre Island lies within the Corpus Christi urban area. The island separates the Gulf from the Laguna Madre, a long, shallow hypersaline lagoon that is one of the defining ecological features of the Texas coast. Causeways make island neighborhoods and beaches part of everyday metropolitan life rather than distant resort enclaves."),
     p("Padre Island continues far beyond Nueces County, and most of Padre Island National Seashore extends south of the county. The northern island nevertheless connects Nueces County directly to the same dune, beach and lagoon systems protected farther down the coast. It also illustrates the tension between development and conservation on barrier islands exposed to hurricanes, erosion and sea-level change."),
+    p("North Padre Island also supports visitor experiences built directly around the shoreline. Horses on the Beach operates guided horseback rides from the Park Road 22 corridor, combining Gulf Coast scenery with Texas horse culture. TexasDefined covers the operator separately because the experience gives visitors a concrete way to encounter the island landscape while still requiring current booking, weather and participation checks."),
 
     h("The Coastal Bend is a major bird-migration corridor"),
     p("Nueces County lies along the Central Flyway and supports an extraordinary variety of bird habitat. Bays, tidal flats, wetlands, beaches, grasslands, freshwater ponds and urban parks attract shorebirds, waterfowl, raptors and songbirds during seasonal migrations. The county's location near the Gulf makes it an important resting and feeding area for birds moving between North and Central America."),

@@ -159,6 +159,7 @@ const INTENT_GROUPS = [
     body: "Build a route around unusual landmarks, eccentric stops, regional folklore and places that make the drive itself memorable.",
     links: [
       { to: "/texas-roadside-oddities", label: "Texas roadside oddities" },
+      { to: "/article/unusual-texas-businesses-services", label: "Unusual Texas businesses & services" },
       { to: "/things-unique-to-texas/roadside-small-towns", label: "Unique roadside & small towns" },
       { to: "/things-unique-to-texas", label: "Things unique to Texas" },
       { to: "/explore/road-trips", label: "Road trips" },
