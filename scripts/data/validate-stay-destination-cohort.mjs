@@ -86,7 +86,7 @@ const activePropertyIds = new Set([
 const verifiedHotelsComProperties = (hotelsComVerification.properties || [])
   .filter((property) => activePropertyIds.has(property.propertyId))
   .filter((property) => /^https:\/\/www\.hotels\.com\/ho\d+\//i.test(property.destinationUrl || ''));
-if (verifiedHotelsComProperties.length !== 24) fail(`Stay readiness must reconcile all 24 governed Hotels.com exact-property links; found ${verifiedHotelsComProperties.length}.`);
+if (verifiedHotelsComProperties.length !== 28) fail(`Stay readiness must reconcile all 28 governed standard Hotels.com exact-property links; found ${verifiedHotelsComProperties.length}.`);
 const verifiedDestinationHotels = verifiedHotelsComProperties.filter((property) => ids.has(property.propertyId));
 if (verifiedDestinationHotels.length !== 9) fail(`All 9 controlled destination-cohort properties must have governed Hotels.com exact-property links; found ${verifiedDestinationHotels.length}.`);
 const targetedProperties = (paintedChurchesRegistry.properties || []).filter((property) => property.status === 'active');
@@ -96,7 +96,7 @@ const targetedVerifiedHotels = targetedProperties.filter((property) => (property
   && /^https:\/\/www\.anrdoezrs\.net\/links\/101876465\/type\/dlg\/https:\/\/www\.hotels\.com\/ho\d+\//i.test(target.affiliateUrl || '')));
 if (targetedProperties.length !== 3) fail(`Painted Churches readiness expects 3 active targeted properties; found ${targetedProperties.length}.`);
 if (targetedVerifiedHotels.length !== 3) fail(`All 3 Painted Churches properties must contribute governed direct Hotels.com exact-property links; found ${targetedVerifiedHotels.length}.`);
-if (verifiedHotelsComProperties.length + targetedVerifiedHotels.length !== 27) fail('Stay readiness must reconcile 27 governed exact-property links across the standard and Painted Churches cohorts.');
+if (verifiedHotelsComProperties.length + targetedVerifiedHotels.length !== 31) fail('Stay readiness must reconcile 31 governed exact-property links across the standard and Painted Churches cohorts.');
 
 if (!platformHealth.includes("import { StayMonetizationReadiness } from '@/components/admin/StayMonetizationReadiness'")) fail('Platform Health must import the stay monetization readiness panel.');
 if (!platformHealth.includes('<StayMonetizationReadiness />')) fail('Platform Health must render the stay monetization readiness panel.');
@@ -108,4 +108,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Controlled destination stay cohort validation passed: ${expectedContexts.length} standard deep destination pages plus the targeted Painted Churches cohort, ${registry.properties.length} standard destination properties plus ${targetedProperties.length} targeted properties, exactly 3 choices per governed context, no unverified property deeplinks, no ungoverned property imagery, runtime overlay loading enabled, all 9 standard destination properties and all 3 Painted Churches properties have governed Hotels.com exact-property links, and Platform Health reconciles all 27 governed exact-property links without fabricated performance data.`);
+console.log(`Controlled destination stay cohort validation passed: ${expectedContexts.length} standard deep destination pages plus the targeted Painted Churches cohort, ${registry.properties.length} standard destination properties plus ${targetedProperties.length} targeted properties, exactly 3 choices per governed context, no unverified property deeplinks, no ungoverned property imagery, runtime overlay loading enabled, all 9 standard destination properties and all 3 Painted Churches properties have governed Hotels.com exact-property links, and Platform Health reconciles all 31 governed exact-property links without fabricated performance data.`);
