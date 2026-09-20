@@ -335,6 +335,46 @@ export const OFFICIAL_FOOTBALL_ENROLLMENT_LINKS: readonly OfficialFootballEnroll
     verifiedAt: '2026-09-19',
     schoolYear: '2026-27',
   },
+  {
+    districtName: 'Azle ISD',
+    aliases: ['Azle Independent School District'],
+    enrollmentUrl: 'https://www.azleisd.net/o/aisd/page/back-to-school-information',
+    sourceLabel: 'Azle ISD back-to-school and enrollment information',
+    verifiedAt: '2026-09-19',
+    schoolYear: '2026-27',
+  },
+  {
+    districtName: 'Eagle Mountain-Saginaw ISD',
+    aliases: ['Eagle Mountain-Saginaw Independent School District', 'Eagle Mt-Saginaw ISD'],
+    enrollmentUrl: 'https://www.emsisd.com/enroll/registration/new-student-enrollment',
+    sourceLabel: 'Eagle Mountain-Saginaw ISD new student enrollment',
+    verifiedAt: '2026-09-19',
+    schoolYear: '2026-27',
+  },
+  {
+    districtName: 'Sherman ISD',
+    aliases: ['Sherman Independent School District'],
+    enrollmentUrl: 'https://www.shermanisd.net/about/our-district/student-registration',
+    sourceLabel: 'Sherman ISD student registration',
+    verifiedAt: '2026-09-19',
+    schoolYear: '2026-27',
+  },
+  {
+    districtName: 'Fort Worth ISD',
+    aliases: ['Fort Worth Independent School District'],
+    enrollmentUrl: 'https://enrollment.fwisd.org/parentportal',
+    sourceLabel: 'Fort Worth ISD Parent Portal enrollment',
+    verifiedAt: '2026-09-19',
+    schoolYear: '2026-27',
+  },
+  {
+    districtName: 'White Settlement ISD',
+    aliases: ['White Settlement Independent School District'],
+    enrollmentUrl: 'https://www.wsisd.com/students-families/enrollment',
+    sourceLabel: 'White Settlement ISD enrollment',
+    verifiedAt: '2026-09-19',
+    schoolYear: '2026-27',
+  },
 ];
 
 function normalizeDistrictName(value: string) {

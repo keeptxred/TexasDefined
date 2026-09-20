@@ -310,6 +310,21 @@ if (!errors.length) {
     "slug: 'lubbock'",
     "slug: 'lubbock-monterey'",
     "slug: 'wolfforth-frenship'",
+    "slug: 'azle'",
+    "slug: 'denton'",
+    "slug: 'denton-ryan'",
+    "slug: 'fw-chisholm-trail'",
+    "slug: 'keller-fossil-ridge'",
+    "slug: 'saginaw'",
+    "slug: 'sherman'",
+    "slug: 'ft-worth-arlington-hts'",
+    "slug: 'ft-worth-north-side'",
+    "slug: 'ft-worth-paschal'",
+    "slug: 'ft-worth-polytechnic'",
+    "slug: 'ft-worth-south-hills'",
+    "slug: 'ft-worth-trimble-tech'",
+    "slug: 'ft-worth-wyatt'",
+    "slug: 'white-settlement-brewer'",
     "slug: 'weatherford'",
     "slug: 'ft-worth-boswell'",
     "slug: 'keller'",
@@ -333,8 +348,8 @@ if (!errors.length) {
     'verifiedAt',
   ]) requireText(schoolIdentities, marker, 'Football school identity data');
   const verifiedFootballIdentityCount = (schoolIdentities.match(/slug: '/g) ?? []).length;
-  if (verifiedFootballIdentityCount < 90) {
-    errors.push(`Football school identity data fell below 90 verified profiles; found ${verifiedFootballIdentityCount}.`);
+  if (verifiedFootballIdentityCount < 105) {
+    errors.push(`Football school identity data fell below 105 verified profiles; found ${verifiedFootballIdentityCount}.`);
   }
 
   for (const marker of [
@@ -384,6 +399,11 @@ if (!errors.length) {
     "districtName: 'Lubbock ISD'",
     "districtName: 'Frenship ISD'",
     "districtName: 'Amarillo ISD'",
+    "districtName: 'Azle ISD'",
+    "districtName: 'Eagle Mountain-Saginaw ISD'",
+    "districtName: 'Sherman ISD'",
+    "districtName: 'Fort Worth ISD'",
+    "districtName: 'White Settlement ISD'",
     "districtName: 'Frisco ISD'",
     "districtName: 'Little Elm ISD'",
     "districtName: 'Princeton ISD'",
@@ -391,8 +411,8 @@ if (!errors.length) {
     'verifiedAt',
   ]) requireText(officialEnrollmentLinks, marker, 'Official football enrollment links');
   const verifiedEnrollmentLinkCount = (officialEnrollmentLinks.match(/districtName: '/g) ?? []).length;
-  if (verifiedEnrollmentLinkCount < 41) {
-    errors.push(`Official football enrollment-link data fell below 41 verified districts; found ${verifiedEnrollmentLinkCount}.`);
+  if (verifiedEnrollmentLinkCount < 46) {
+    errors.push(`Official football enrollment-link data fell below 46 verified districts; found ${verifiedEnrollmentLinkCount}.`);
   }
 
   for (const marker of [
