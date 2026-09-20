@@ -35,6 +35,7 @@ export const campCountyPittsburgRailroadsPoultryPineyWoodsTexasArticle: Article 
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/iconic-texas-fashion-western-wear-guide", label: "Texas fashion and Western wear", description: "Connect Pittsburg's Cavender's origin story to the statewide guide to Western retail, boots, hats, workwear and rodeo style." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/titus", label: "Explore Titus County", description: "Continue north toward Mount Pleasant, Big Cypress Creek and Lake Bob Sandlin." },
     { href: "/county/morris", label: "Explore Morris County", description: "Head east toward Daingerfield, Lone Star and the Piney Woods." },
