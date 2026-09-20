@@ -55,7 +55,7 @@ export const MADE_IN_TEXAS_ENTRIES: TexasMadeEntry[] = [
   entry('Circle E Candles', 'Fredericksburg', 'gillespie', 'home-outdoors', 'headquartered', 'Circle E is headquartered and ships from Fredericksburg; its site says its candles are U.S.-manufactured but does not establish Texas production.'),
   entry('Altstadt Brewery', 'Fredericksburg', 'gillespie', 'food-drink', 'made-or-processed', 'German-style brewery in the Fredericksburg area.'),
   entry('Garrison Brothers Distillery', 'Hye', 'blanco', 'food-drink', 'made-or-processed', 'Hill Country bourbon distillery in Hye.', '/destination/garrison-brothers-distillery-hye'),
-  entry('Real Ale Brewing Company', 'Blanco', 'blanco', 'food-drink', 'made-or-processed', 'Long-running Texas craft brewery based in Blanco.'),
+  entry('Real Ale Brewing Company', 'Blanco', 'blanco', 'food-drink', 'made-or-processed', 'Long-running Texas craft brewery and distillery based in Blanco.', '/destination/real-ale-brewing-company-blanco'),
   entry('Texas Hill Country Olive Co.', 'Dripping Springs', 'hays', 'food-drink', 'made-or-processed', 'Dripping Springs producer associated with Texas olive oil and balsamic products.'),
   entry('Salt Lick BBQ', 'Driftwood', 'hays', 'food-drink', 'founded', 'The Driftwood barbecue landmark also sells sauces and rubs tied to its Hays County identity.'),
   entry('Lucchese Bootmaker', 'El Paso', 'el-paso', 'western-wear', 'made-or-processed', 'Historic bootmaker with a longstanding El Paso manufacturing identity.'),
