@@ -124,6 +124,21 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       label: "Use the in-town Pedernales River park",
       description: "Add swimming, fishing, paddling, trails and picnic time only minutes from downtown Johnson City.",
     },
+    {
+      href: "/event/texas-wine-jam",
+      label: "Plan Texas Wine Jam",
+      description: "Use the current event guide for 2026 ticket tiers, festival schedule, Spotlight Sessions and severe-weather fallback.",
+    },
+    {
+      href: "/event/johnson-city-jazz-fest",
+      label: "See Johnson City Jazz Fest",
+      description: "Plan the free October 24 downtown concert with the current 2026 lineup and evening schedule.",
+    },
+    {
+      href: "/event/johnson-city-christmas-lights-spectacular",
+      label: "Plan the Christmas Lights Spectacular",
+      description: "Use the current holiday guide for the nightly light season and the published 2026 special-event calendar.",
+    },
   ],
   "science-mill-johnson-city": [
     {
