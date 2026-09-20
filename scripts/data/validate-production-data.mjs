@@ -13,7 +13,7 @@ const requiredFiles = [
   'src/routes/learn.property-taxes.tsx','src/routes/learn.property-tax-payments.tsx','src/routes/decide.property-taxes.tsx','src/routes/learn.appraisal-districts.tsx','src/routes/do.homestead-exemption.tsx','src/routes/do.property-tax-protest.tsx','src/routes/browse.counties.tsx','src/routes/browse.cities.tsx','src/routes/article.$slug.tsx',
   'src/routes/admin.platform-health.tsx','src/routes/sitemap[.]xml.ts','src/routes/sitemap-explore[.]xml.ts','src/routes/events.tsx','src/routes/destination.$slug.tsx','src/routes/api.knowledge-graph.ts','src/routes/api.ai.entities.ts','src/routes/llms[.]txt.ts','src/routes/$kind.$slug.tsx','src/routes/privacy.tsx',
   'src/data/texas-data-sources.ts','src/data/texas-entity-registry.ts','src/data/knowledge-graph/types.ts','src/data/knowledge-graph/seed.ts','src/data/knowledge-graph/index.ts','src/data/knowledge-graph/explore-adapter.ts','src/data/knowledge-graph/relationships.ts','src/data/knowledge-graph/audit.ts',
-  'src/components/content/AutoEntityLinks.tsx','src/components/editorial/ArticleBody.tsx','src/components/layout/Footer.tsx','src/platform/internal-linking.ts','src/platform/analytics.ts','src/lib/public-routes.ts','scripts/data/import-authoritative-entities.mjs','.github/workflows/import-entities.yml',
+  'src/components/content/AutoEntityLinks.tsx','src/components/editorial/ArticleBody.tsx','src/components/layout/Footer.tsx','src/platform/internal-linking.ts','src/platform/analytics.ts','src/platform/analytics-host.ts','src/lib/public-routes.ts','scripts/data/import-authoritative-entities.mjs','.github/workflows/import-entities.yml',
 ];
 for (const file of requiredFiles) if (!fs.existsSync(path.join(root, file))) errors.push(`Required platform file is missing: ${file}`);
 
@@ -41,6 +41,8 @@ const aiApi = read('src/routes/api.ai.entities.ts');
 const graphApi = read('src/routes/api.knowledge-graph.ts');
 const linker = read('src/components/content/AutoEntityLinks.tsx');
 const internalLinking = read('src/platform/internal-linking.ts');
+const analytics = read('src/platform/analytics.ts');
+const analyticsHost = read('src/platform/analytics-host.ts');
 const importer = read('scripts/data/import-authoritative-entities.mjs');
 const packageJson = read('package.json');
 const rootRoute = read('src/routes/__root.tsx');
@@ -85,6 +87,10 @@ for (const adapter of ['census','usgs','tpwd','nps','thc','txdot']) if (!importe
 if (!importer.includes("process.argv.includes('--write')")) errors.push('Import jobs are not dry-run-first.');
 for (const command of ['entities:import','entities:import:write','entities:import:census','entities:import:parks']) if (!packageJson.includes(`\"${command}\"`)) errors.push(`Package command missing: ${command}.`);
 if (!rootRoute.includes('installTexasDefinedAnalytics')) errors.push('Privacy-safe analytics is not initialized.');
+for (const hostname of ['texasdefined.com','www.texasdefined.com']) if (!analyticsHost.includes(`'${hostname}'`)) errors.push(`Production analytics hostname missing: ${hostname}.`);
+if (!analytics.includes('isTexasDefinedAnalyticsHost(window.location.hostname)')) errors.push('Custom analytics is not guarded to production hostnames.');
+if (!rootRoute.includes('TEXASDEFINED_ANALYTICS_HOSTS') || !rootRoute.includes('w.location.hostname.toLowerCase()')) errors.push('Google Tag Manager is not guarded to production hostnames.');
+if (rootRoute.includes('GoogleTagManagerNoScript')) errors.push('Unconditional GTM noscript iframe can leak preview-host traffic.');
 if (rootRoute.includes('canonicalLink(texasDefinedBrand, "/")')) errors.push('Root route still injects an inherited homepage canonical.');
 if (rootRoute.includes('{ property: "og:url", content: siteUrl }')) errors.push('Root route still injects an inherited homepage Open Graph URL.');
 for (const feature of ['og:image','twitter:image','defaultSocialImage']) if (!rootRoute.includes(feature)) errors.push(`Default social-preview feature missing: ${feature}.`);
