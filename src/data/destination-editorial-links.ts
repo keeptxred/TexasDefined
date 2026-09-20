@@ -5,6 +5,28 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "garrison-brothers-distillery-hye": [
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Connect the Hye distillery with Johnson City, Blanco, the Pedernales and the county's broader Hill Country identity.",
+    },
+    {
+      href: "/destination/johnson-city",
+      label: "Explore Johnson City",
+      description: "Use Johnson City as the eastern base for museums, food and the rest of the Blanco County visitor cluster.",
+    },
+    {
+      href: "/destination/lyndon-b-johnson-national-historical-park",
+      label: "Add LBJ country",
+      description: "Pair the Hye distillery with the LBJ Ranch and Johnson City districts along the same eastern Hill Country corridor.",
+    },
+    {
+      href: "/destination/fredericksburg-texas-wineries-things-to-do-guide",
+      label: "Continue toward Fredericksburg",
+      description: "Extend west on U.S. 290 into the larger winery, museum and Hill Country visitor corridor.",
+    },
+  ],
   "pedernales-falls-state-park": [
     {
       href: "/destination/pedernales-river-nature-park-johnson-city",
@@ -144,6 +166,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       label: "Plan Gears & Beers",
       description: "Use the current guide for the October 24 car-and-motorcycle show, participant schedule and same-day Jazz Fest pairing.",
     },
+    {
+      href: "/destination/garrison-brothers-distillery-hye",
+      label: "Tour Garrison Brothers in Hye",
+      description: "Add the working bourbon distillery, reserve tastings and U.S. 290 spirits corridor west of Johnson City.",
+    },
   ],
   "science-mill-johnson-city": [
     {
@@ -214,6 +241,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/destination/johnson-city",
       label: "Explore Johnson City beyond the park",
       description: "Connect the national historical park with Science Mill, the motorcycle museum, downtown food and the Blanco County courthouse square.",
+    },
+    {
+      href: "/destination/garrison-brothers-distillery-hye",
+      label: "Add a Hye distillery stop",
+      description: "Pair LBJ country with a working Texas bourbon distillery along the Johnson City–Stonewall corridor.",
     },
   ],
   "shiner": [
