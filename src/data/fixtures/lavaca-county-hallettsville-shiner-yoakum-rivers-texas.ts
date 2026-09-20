@@ -45,6 +45,7 @@ export const lavacaCountyHallettsvilleShinerYoakumRiversTexasArticle: Article = 
     { href: "/texas-icons/shiner-bock", label: "Shiner Bock history", description: "Go deeper on the brewery's 1909 roots, Kosmos Spoetzl, Prohibition survival and the beer first brewed in 1913." },
     { href: "/explore/painted-churches/shiner-saints-cyril-methodius", label: "Saints Cyril and Methodius at Shiner", description: "Pair the brewery story with one of Lavaca County's major Czech- and German-Texan heritage landmarks." },
     { href: "/event/shiner-oktoberfest-weekends", label: "Shiner Oktoberfest Weekends", description: "Plan the three verified 2026 brewery Saturdays connecting Shiner travel with German-Texan food, music and games." },
+    { href: "/event/shinerfest", label: "ShinerFest", description: "Plan the 4th annual 2026 country-music event at the Spoetzl Brewery campus." },
     { href: "/event/shiner-beer-run", label: "Shiner Beer Run", description: "Plan the 2026 5K, 10K and half-marathon event at the Spoetzl Brewery campus." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how settlement, travel and courthouse access shaped the Texas county map." },
   ],
