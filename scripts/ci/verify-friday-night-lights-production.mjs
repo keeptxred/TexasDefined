@@ -7,6 +7,7 @@ const classificationsPath = '/article/texas-high-school-football-classifications
 const playoffsPath = '/article/texas-high-school-football-playoffs-explained';
 const sixManPath = '/article/texas-six-man-football-rules-explained';
 const scoresSchedulesPath = '/article/texas-high-school-football-scores-schedules';
+const calendarPath = '/article/texas-high-school-football-2026-season-calendar';
 const finderApiPath = '/api/high-school-football?q=Dallas%20South%20Oak%20Cliff&limit=5';
 const allTimeFinderApiPath = '/api/high-school-football?q=Katy&limit=50';
 const oneAFinderApiPath = '/api/high-school-football?q=Abbott&limit=10';
@@ -124,7 +125,7 @@ const hubNeedles = [
   'Friday Night Lights, Defined', 'CollectionPage', 'ItemList', 'BreadcrumbList',
   '/article/texas-high-school-football-newcomers', '/article/texas-high-school-football-friday-night-lights',
   '/texas-homecoming-mums', '/sports-venues/high-school-football', '/find-my-school-district', '/texas-tailgating-guide',
-  '/texas-high-school-football-teams', districtDirectoryPath, classificationsPath, playoffsPath, sixManPath, scoresSchedulesPath,
+  '/texas-high-school-football-teams', districtDirectoryPath, classificationsPath, playoffsPath, sixManPath, scoresSchedulesPath, calendarPath,
 ];
 
 await fetchVerified(hubPath, 'hub', (body) => {
@@ -148,6 +149,7 @@ await fetchVerified(finderPath, 'football finder', (body) => {
     playoffsPath,
     sixManPath,
     scoresSchedulesPath,
+    calendarPath,
     'Browse all 1,268 Texas high school football programs',
     'All 1,268',
     '6A · 249',
@@ -206,6 +208,8 @@ await fetchVerified(katyDistrictPath, 'Katy UIL football district', (body) => {
     'https://www.uiltexas.org/maxpreps/',
     'UIL Texas Scoreboard gateway',
     'not currently an official district-standings table',
+    calendarPath,
+    '2026 UIL season calendar',
   ]) requireNeedle(body, needle, 'Katy UIL football district');
   if (/\bnoindex\b/i.test(body)) throw new Error('Katy UIL football district unexpectedly contains noindex');
 });
@@ -231,6 +235,7 @@ await fetchVerified(playoffsPath, 'football playoffs', (body) => {
     '/texas-high-school-football-teams',
     '/article/texas-high-school-football-classifications-1a-6a',
     scoresSchedulesPath,
+    calendarPath,
   ]) requireNeedle(body, needle, 'football playoffs');
   if (/\bnoindex\b/i.test(body)) throw new Error('football playoffs unexpectedly contains noindex');
 });
@@ -260,8 +265,33 @@ await fetchVerified(scoresSchedulesPath, 'football scores and schedules', (body)
     '/texas-high-school-football-teams',
     districtDirectoryPath,
     playoffsPath,
+    calendarPath,
   ]) requireNeedle(body, needle, 'football scores and schedules');
   if (/\bnoindex\b/i.test(body)) throw new Error('football scores and schedules unexpectedly contains noindex');
+});
+
+await fetchVerified(calendarPath, '2026 football season calendar', (body) => {
+  for (const needle of [
+    'Texas High School Football 2026 Calendar: Every UIL Week, Playoff Round &amp; State Final',
+    'Week One',
+    'August 27, 28 and 29',
+    'Week Eleven',
+    'November 5, 6 and 7',
+    'November 7 is the UIL district-certification deadline',
+    'November 12, 13 and 14',
+    'November 26, 27 and 28',
+    'December 16 through Saturday, December 19',
+    'AT&amp;T Stadium',
+    '1A Division II at 11:00 a.m.',
+    '6A Division I at 7:00 p.m.',
+    'https://www.uiltexas.org/football',
+    'https://www.uiltexas.org/football/state',
+    scoresSchedulesPath,
+    playoffsPath,
+    finderPath,
+    districtDirectoryPath,
+  ]) requireNeedle(body, needle, '2026 football season calendar');
+  if (/\bnoindex\b/i.test(body)) throw new Error('2026 football season calendar unexpectedly contains noindex');
 });
 
 await fetchVerified(finderApiPath, 'football finder API', (body) => {
@@ -327,6 +357,8 @@ await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {
     'Current scores & schedules',
     'UIL Texas Scoreboard gateway',
     'not an official district-standings table',
+    calendarPath,
+    '2026 UIL season calendar',
   ]) requireNeedle(body, needle, 'Katy football school profile');
   if (/\bnoindex\b/i.test(body)) throw new Error('Katy football school profile unexpectedly contains noindex');
 });
@@ -377,10 +409,11 @@ await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
   requireNeedle(body, '<loc>https://texasdefined.com/article/texas-high-school-football-playoffs-explained</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/article/texas-six-man-football-rules-explained</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/article/texas-high-school-football-scores-schedules</loc>', 'sitemap');
+  requireNeedle(body, '<loc>https://texasdefined.com/article/texas-high-school-football-2026-season-calendar</loc>', 'sitemap');
 });
 
 await fetchVerified('/robots.txt', 'robots', (body) => {
   if (/Disallow:\s*\/sports(?:\/|\s|$)/i.test(body)) throw new Error('robots.txt blocks /sports');
 });
 
-console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, exact official UIL enrollments plus 2026–28 enrollment bands, 192 canonical UIL district hubs, shared 6A and 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, history, current-season scores/schedules guidance, sitemap and robots are live.');
+console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, exact official UIL enrollments plus 2026–28 enrollment bands, 192 canonical UIL district hubs, shared 6A and 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, history, current-season scores/schedules guidance, the 2026 UIL season calendar, sitemap and robots are live.');
