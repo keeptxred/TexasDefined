@@ -386,12 +386,24 @@ if (!errors.length) {
     "slug: 'princeton'",
     "slug: 'prosper-rock-hill'",
     "slug: 'plano-senior'",
+    "slug: 'lewisville-hebron'",
+    "slug: 'lewisville-marcus'",
+    "slug: 'dallas-jesuit'",
+    "slug: 'plano-east'",
+    "slug: 'plano-west'",
+    "slug: 'richardson-berkner'",
+    "slug: 'richardson-lake-highlands'",
+    "slug: 'euless-trinity'",
+    "slug: 'grand-prairie'",
+    "slug: 'hurst-bell'",
+    "slug: 'irving-macarthur'",
+    "slug: 'irving-nimitz'",
     'sourceUrl',
     'verifiedAt',
   ]) requireText(schoolIdentities, marker, 'Football school identity data');
   const verifiedFootballIdentityCount = (schoolIdentities.match(/slug: '/g) ?? []).length;
-  if (verifiedFootballIdentityCount < 135) {
-    errors.push(`Football school identity data fell below 135 verified profiles; found ${verifiedFootballIdentityCount}.`);
+  if (verifiedFootballIdentityCount < 147) {
+    errors.push(`Football school identity data fell below 147 verified profiles; found ${verifiedFootballIdentityCount}.`);
   }
 
   for (const marker of [
