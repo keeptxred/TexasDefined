@@ -19,4 +19,11 @@ describe("Texas Defined one-shot live payment verification", () => {
     expect(page).toContain('status?.paid && status?.webhookReceived');
     expect(page).toContain('Printify fulfillment was intentionally suppressed');
   });
+
+  it("recovers an existing diagnostic payment when the return URL is lost", () => {
+    expect(page).toContain('if (!validRun) return');
+    expect(page).toContain('if (session_id) url.searchParams.set("session_id", session_id)');
+    expect(page).toContain('payload.found === false');
+    expect(page).toContain('No existing Texas Defined diagnostic payment found');
+  });
 });
