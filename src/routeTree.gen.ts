@@ -108,6 +108,7 @@ import { Route as TexasDmvRouteImport } from './routes/texas-dmv'
 import { Route as TexasDisabledVeteranPropertyTaxCalculatorRouteImport } from './routes/texas-disabled-veteran-property-tax-calculator'
 import { Route as TexasDataRouteImport } from './routes/texas-data'
 import { Route as TexasDanceHallsHonkyTonksRouteImport } from './routes/texas-dance-halls-honky-tonks'
+import { Route as TexasCraftBeerGuideRouteImport } from './routes/texas-craft-beer-guide'
 import { Route as TexasCountryOutlawRouteImport } from './routes/texas-country-outlaw'
 import { Route as TexasCostOfLivingCalculatorRouteImport } from './routes/texas-cost-of-living-calculator'
 import { Route as TexasConjuntoTejanoRouteImport } from './routes/texas-conjunto-tejano'
@@ -1185,6 +1186,13 @@ const TexasDanceHallsHonkyTonksRoute =
   } as any).lazy(() =>
     import('./routes/texas-dance-halls-honky-tonks.lazy').then((d) => d.Route),
   )
+const TexasCraftBeerGuideRoute = TexasCraftBeerGuideRouteImport.update({
+  id: '/texas-craft-beer-guide',
+  path: '/texas-craft-beer-guide',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/texas-craft-beer-guide.lazy').then((d) => d.Route),
+)
 const TexasCountryOutlawRoute = TexasCountryOutlawRouteImport.update({
   id: '/texas-country-outlaw',
   path: '/texas-country-outlaw',
@@ -3586,6 +3594,7 @@ export interface FileRoutesByFullPath {
   '/texas-conjunto-tejano': typeof TexasConjuntoTejanoRoute
   '/texas-cost-of-living-calculator': typeof TexasCostOfLivingCalculatorRoute
   '/texas-country-outlaw': typeof TexasCountryOutlawRoute
+  '/texas-craft-beer-guide': typeof TexasCraftBeerGuideRoute
   '/texas-dance-halls-honky-tonks': typeof TexasDanceHallsHonkyTonksRoute
   '/texas-data': typeof TexasDataRouteWithChildren
   '/texas-disabled-veteran-property-tax-calculator': typeof TexasDisabledVeteranPropertyTaxCalculatorRoute
@@ -4065,6 +4074,7 @@ export interface FileRoutesByTo {
   '/texas-conjunto-tejano': typeof TexasConjuntoTejanoRoute
   '/texas-cost-of-living-calculator': typeof TexasCostOfLivingCalculatorRoute
   '/texas-country-outlaw': typeof TexasCountryOutlawRoute
+  '/texas-craft-beer-guide': typeof TexasCraftBeerGuideRoute
   '/texas-dance-halls-honky-tonks': typeof TexasDanceHallsHonkyTonksRoute
   '/texas-data': typeof TexasDataRouteWithChildren
   '/texas-disabled-veteran-property-tax-calculator': typeof TexasDisabledVeteranPropertyTaxCalculatorRoute
@@ -4548,6 +4558,7 @@ export interface FileRoutesById {
   '/texas-conjunto-tejano': typeof TexasConjuntoTejanoRoute
   '/texas-cost-of-living-calculator': typeof TexasCostOfLivingCalculatorRoute
   '/texas-country-outlaw': typeof TexasCountryOutlawRoute
+  '/texas-craft-beer-guide': typeof TexasCraftBeerGuideRoute
   '/texas-dance-halls-honky-tonks': typeof TexasDanceHallsHonkyTonksRoute
   '/texas-data': typeof TexasDataRouteWithChildren
   '/texas-disabled-veteran-property-tax-calculator': typeof TexasDisabledVeteranPropertyTaxCalculatorRoute
@@ -5032,6 +5043,7 @@ export interface FileRouteTypes {
     | '/texas-conjunto-tejano'
     | '/texas-cost-of-living-calculator'
     | '/texas-country-outlaw'
+    | '/texas-craft-beer-guide'
     | '/texas-dance-halls-honky-tonks'
     | '/texas-data'
     | '/texas-disabled-veteran-property-tax-calculator'
@@ -5511,6 +5523,7 @@ export interface FileRouteTypes {
     | '/texas-conjunto-tejano'
     | '/texas-cost-of-living-calculator'
     | '/texas-country-outlaw'
+    | '/texas-craft-beer-guide'
     | '/texas-dance-halls-honky-tonks'
     | '/texas-data'
     | '/texas-disabled-veteran-property-tax-calculator'
@@ -5993,6 +6006,7 @@ export interface FileRouteTypes {
     | '/texas-conjunto-tejano'
     | '/texas-cost-of-living-calculator'
     | '/texas-country-outlaw'
+    | '/texas-craft-beer-guide'
     | '/texas-dance-halls-honky-tonks'
     | '/texas-data'
     | '/texas-disabled-veteran-property-tax-calculator'
@@ -6476,6 +6490,7 @@ export interface RootRouteChildren {
   TexasConjuntoTejanoRoute: typeof TexasConjuntoTejanoRoute
   TexasCostOfLivingCalculatorRoute: typeof TexasCostOfLivingCalculatorRoute
   TexasCountryOutlawRoute: typeof TexasCountryOutlawRoute
+  TexasCraftBeerGuideRoute: typeof TexasCraftBeerGuideRoute
   TexasDanceHallsHonkyTonksRoute: typeof TexasDanceHallsHonkyTonksRoute
   TexasDataRoute: typeof TexasDataRouteWithChildren
   TexasDisabledVeteranPropertyTaxCalculatorRoute: typeof TexasDisabledVeteranPropertyTaxCalculatorRoute
@@ -7463,6 +7478,13 @@ declare module '@tanstack/react-router' {
       path: '/texas-dance-halls-honky-tonks'
       fullPath: '/texas-dance-halls-honky-tonks'
       preLoaderRoute: typeof TexasDanceHallsHonkyTonksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-craft-beer-guide': {
+      id: '/texas-craft-beer-guide'
+      path: '/texas-craft-beer-guide'
+      fullPath: '/texas-craft-beer-guide'
+      preLoaderRoute: typeof TexasCraftBeerGuideRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/texas-country-outlaw': {
@@ -10768,6 +10790,7 @@ const rootRouteChildren: RootRouteChildren = {
   TexasConjuntoTejanoRoute: TexasConjuntoTejanoRoute,
   TexasCostOfLivingCalculatorRoute: TexasCostOfLivingCalculatorRoute,
   TexasCountryOutlawRoute: TexasCountryOutlawRoute,
+  TexasCraftBeerGuideRoute: TexasCraftBeerGuideRoute,
   TexasDanceHallsHonkyTonksRoute: TexasDanceHallsHonkyTonksRoute,
   TexasDataRoute: TexasDataRouteWithChildren,
   TexasDisabledVeteranPropertyTaxCalculatorRoute:
