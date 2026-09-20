@@ -10,6 +10,7 @@ type FootballProgram = {
   footballType: '6-Man' | '11-Man';
   alignmentCycle: '2026-28';
   districtName?: string;
+  isdProfilePath?: string;
   countyName?: string;
   city?: string;
   teaSchoolProfileUrl?: string;
@@ -227,7 +228,9 @@ export function HighSchoolFootballLookup({
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">{alignmentLabel(program)}</p>
               </div>
               <h4 className="mt-2 font-display text-2xl leading-tight">{program.officialSchoolName || program.schoolName}</h4>
-              {program.districtName && <p className="mt-2 text-sm font-medium">{program.districtName}</p>}
+              {program.districtName && (program.isdProfilePath
+                ? <a href={program.isdProfilePath} className="mt-2 inline-block text-sm font-medium text-primary underline underline-offset-4">{program.districtName} football programs →</a>
+                : <p className="mt-2 text-sm font-medium">{program.districtName}</p>)}
               <p className="mt-1 text-sm text-muted-foreground">{placeLabel(program)}</p>
               <label className="mt-4 flex min-h-10 cursor-pointer items-center gap-2 border-y border-border py-2 text-sm font-semibold">
                 <input
