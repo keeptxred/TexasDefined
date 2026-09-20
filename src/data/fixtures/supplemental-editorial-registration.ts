@@ -1,18 +1,12 @@
 import { articleInternalLinks } from "../article-internal-links";
 import { blueHoleJasperCountyStoryArticle } from "./blue-hole-jasper-county-story";
 import { registerSupplementalIntentArticle } from "./lazy-seasonal-intents";
-import { texasDogsEvergreenArticles } from "./texas-dogs-evergreen";
-import { texasDogsEvergreenWave2Articles } from "./texas-dogs-evergreen-wave2";
 
 // Keep small, opportunistic editorial additions discoverable without expanding
 // the already-large lazy evergreen registry. Registration updates both the
 // combined editorial list and direct slug lookup so a listed article cannot
 // silently resolve to a production 404.
 registerSupplementalIntentArticle(blueHoleJasperCountyStoryArticle);
-for (const article of [...texasDogsEvergreenArticles, ...texasDogsEvergreenWave2Articles]) {
-  registerSupplementalIntentArticle(article);
-}
-
 const blueHoleLink = {
   href: `/article/${blueHoleJasperCountyStoryArticle.slug}`,
   label: "Jasper County's Blue Hole quarry lake",
