@@ -64,7 +64,33 @@ export const texasDogsEditorialPlan = {
     "River Dog",
     "Porch Dog",
   ],
+  practicalAuthority: [
+    "Texas heat safety",
+    "Texas state-park pet rules",
+    "Dog-friendly Texas trip planning",
+    "Dog-friendly beaches and coast access",
+    "Lake and river weekends with dogs",
+    "Trails and hiking with dogs",
+    "Camping with dogs",
+    "Adoption and rescue resources",
+    "Dog-friendly events and patios",
+  ],
   evergreenArticles: [
+    {
+      slug: "texas-dog-heat-safety",
+      title: "Texas Dog Heat Safety: Walks, Trails and Park Days Without the Guesswork",
+      status: "published",
+    },
+    {
+      slug: "taking-your-dog-to-texas-state-parks",
+      title: "Taking Your Dog to a Texas State Park: The Rules and the Better Plan",
+      status: "published",
+    },
+    {
+      slug: "best-dog-friendly-texas-trip-ideas",
+      title: "20 Dog-Friendly Texas Trip Ideas Where the Dog Can Actually Be Part of the Weekend",
+      status: "published",
+    },
     {
       slug: "small-dogs-big-texas-attitude",
       title: "Small Dogs, Big Texas Attitude",

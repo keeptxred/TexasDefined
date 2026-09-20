@@ -6,6 +6,24 @@ const routeApi = getRouteApi("/dogs/{-$breed}");
 const description = "Texas Dogs Defined is the playful dog-life department of Texas Defined: breed personalities, Texas dog culture and breed-specific shirt ideas built for dog people.";
 const dogDeskStories = [
   {
+    slug: "texas-dog-heat-safety",
+    eyebrow: "Heat safety",
+    title: "Texas Dog Heat Safety: Walks, Trails and Park Days Without the Guesswork",
+    dek: "A practical Texas plan for hot pavement, trail water, shade, timing and knowing when the dog should stay home.",
+  },
+  {
+    slug: "taking-your-dog-to-texas-state-parks",
+    eyebrow: "State parks",
+    title: "Taking Your Dog to a Texas State Park: The Rules and the Better Plan",
+    dek: "The statewide pet rules are only the starting point. Build the day around leash rules, water, trail conditions and park-specific restrictions.",
+  },
+  {
+    slug: "best-dog-friendly-texas-trip-ideas",
+    eyebrow: "Dog-friendly trips",
+    title: "20 Dog-Friendly Texas Trip Ideas Where the Dog Can Actually Be Part of the Weekend",
+    dek: "Trip ideas built around outdoor time, realistic pet access, frequent breaks and weather-aware planning instead of a pet-friendly hotel filter alone.",
+  },
+  {
     slug: "small-dogs-big-texas-attitude",
     eyebrow: "Small dogs",
     title: "Small Dogs, Big Texas Attitude",
@@ -70,8 +88,8 @@ export default function DogsHubPage() {
       <Container className="py-12 sm:py-16">
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">From the Dog Desk</p>
-          <h2 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">The stories behind the personalities</h2>
-          <p className="mt-4 text-base leading-7 text-muted-foreground">Texas Dogs Defined is an editorial world first. These stories turn the familiar habits, jobs and attitudes of Texas dogs into something worth reading before there is ever something to buy.</p>
+          <h2 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">Texas dog life: useful first, funny when it fits</h2>
+          <p className="mt-4 text-base leading-7 text-muted-foreground">Texas Dogs Defined mixes breed personality with practical Texas dog life. Start with heat, parks and trip planning when you need an answer; stay for the porch-dog jobs, big-dog logistics and breed humor.</p>
         </div>
         <div className="mt-9 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
           {dogDeskStories.map((story) => <Link key={story.slug} to="/article/$slug" params={{ slug: story.slug }} className="group bg-background p-7 sm:p-9">
