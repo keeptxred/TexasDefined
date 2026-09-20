@@ -7,6 +7,8 @@ const explore = read("src/routes/explore.$category.lazy.tsx");
 const intents = read("src/components/editorial/ExploreIntentPaths.tsx");
 const unique = read("src/routes/things-unique-to-texas.lazy.tsx");
 const analytics = read("src/platform/analytics.ts");
+const report = read("scripts/analytics/report-unusual-business-experiment.mjs");
+const workflow = read(".github/workflows/report-unusual-business-experiment.yml");
 
 const errors = [];
 const requireAll = (label, source, needles) => {
@@ -50,6 +52,26 @@ requireAll("shared analytics contract", analytics, [
   "recordInternalLinkExposure(entityId, 'impression')",
   "recordInternalLinkExposure(entityId, 'click')",
   "a[data-entity-id], a[data-commercial-partner]",
+]);
+
+requireAll("aggregate experiment report", report, [
+  'const DATASET = "texas_defined_outcomes"',
+  "blob1 IN ('internal_link_shown', 'internal_link_clicked')",
+  "blob7 = 'unusual-business-experiment'",
+  "startsWith(blob2, 'unusual-business:')",
+  "CLOUDFLARE_ACCOUNT_ID",
+  "CLOUDFLARE_API_TOKEN",
+  "Aggregate internal-link impressions and clicks only",
+]);
+
+requireAll("protected report workflow", workflow, [
+  "workflow_dispatch:",
+  "schedule:",
+  "environment: texasdefined-publication",
+  "CLOUDFLARE_ACCOUNT_ID:",
+  "CLOUDFLARE_API_TOKEN:",
+  "REPORT_WINDOW_DAYS:",
+  "node scripts/analytics/report-unusual-business-experiment.mjs",
 ]);
 
 if (errors.length) {
