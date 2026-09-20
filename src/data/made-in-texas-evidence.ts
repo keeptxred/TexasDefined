@@ -68,8 +68,8 @@ export const MADE_IN_TEXAS_EVIDENCE: MadeInTexasEvidence[] = [
     entryName: 'Garrison Brothers Distillery',
     claim: 'Garrison Brothers says every bottle is milled, cooked, distilled, barreled and aged at its distillery in Hye, Texas.',
     sourceLabel: 'Garrison Brothers Distillery',
-    sourceUrl: 'https://www.garrisonbros.com/',
-    checkedAt: '2026-08-19',
+    sourceUrl: 'https://www.garrisonbros.com/our-distillery/',
+    checkedAt: '2026-09-20',
   },
   {
     entryName: 'Real Ale Brewing Company',

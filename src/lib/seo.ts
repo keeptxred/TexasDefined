@@ -64,6 +64,10 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
   "/sports-venues": { title: "Texas Stadiums & Sports Venues" },
   "/events": { title: "Texas Events & Festivals" },
   "/destination/palo-duro-canyon-state-park": { title: "Palo Duro Canyon State Park Guide" },
+  "/destination/garrison-brothers-distillery-hye": {
+    title: "Garrison Brothers Distillery: Tours, Tastings & Hye Guide",
+    description: "Plan Garrison Brothers Distillery in Hye with current tour prices, hours, reserve tastings, Whiskey Shack food, U.S. 290 context and official booking links.",
+  },
   "/texas-vs/california": { title: "Texas vs California: Cost & Living" },
   "/article/texas-wildlife-guide": { title: "Texas Wildlife Guide: Animals & Habitats" },
   "/article/texas-regions-explained": {
