@@ -16,6 +16,7 @@ const guides = [
   { href: "/german-czech-texas-towns", title: "German & Czech Texas Towns", eyebrow: "Immigration & food", copy: "Kolaches, klobasneks, sausage, beer, churches and dance halls connect Central European settlement to living Texas traditions." },
   { href: "/dr-pepper-texas-history", title: "Dr Pepper in Texas", eyebrow: "Waco brand history", copy: "The documented 1885 Waco soda-fountain origin and the path from a local drink to a nationally recognized Texas-born brand." },
   { href: "/texas-ranch-water-guide", title: "Texas Ranch Water", eyebrow: "Cocktail folklore", copy: "Tequila, lime and sparkling mineral water—with a West Texas folk identity and a much more documentable modern Ranch 616 chapter." },
+  { href: "/texas-craft-beer-guide", title: "Texas Craft Beer", eyebrow: "Breweries & travel", copy: "Plan Texas brewery trips by region with the current Guild network, brewery-law history, source-verified destinations and annual beer festivals." },
   { href: "/san-antonio-puffy-taco-history", title: "San Antonio Puffy Tacos", eyebrow: "West Side food culture", copy: "Fresh corn masa, hot oil, Ray's Drive Inn and the San Antonio community context behind a regional Tex-Mex icon." },
   { href: "/barbacoa-big-red-san-antonio", title: "Barbacoa & Big Red", eyebrow: "Sunday in San Antonio", copy: "An older weekend barbacoa tradition, a Waco-born red soda and the later pairing that became San Antonio cultural shorthand." },
 ] as const;
