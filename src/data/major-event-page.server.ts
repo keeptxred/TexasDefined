@@ -221,7 +221,7 @@ export function loadMajorEventPageServer(slug: string) {
     ? `<div><h3 class="font-display text-xl">Tickets and admission</h3><ul class="mt-2 space-y-2">${displayOffers.map((offer) => `<li><a class="font-semibold text-primary underline" href="${esc(offer.url)}" target="_blank" rel="noreferrer noopener">${esc(offer.name)} — $${offer.price.toFixed(2)} ${offer.priceCurrency} ↗</a></li>`).join("")}</ul></div>`
     : "";
   const performersMarkup = displayPerformers.length
-    ? `<div><h3 class="font-display text-xl">Scheduled performers</h3><p class="mt-2 text-muted-foreground">${displayPerformers.map((item) => item.url ? `<a class="font-semibold text-primary underline" href="${esc(item.url)}" target="_blank" rel="noreferrer noopener">${esc(item.name)} ↗</a>` : esc(item.name)).join(", ")}</p></div>`
+    ? `<div><h3 class="font-display text-xl">Announced performers</h3><p class="mt-2 text-muted-foreground">${displayPerformers.map((item) => item.url ? `<a class="font-semibold text-primary underline" href="${esc(item.url)}" target="_blank" rel="noreferrer noopener">${esc(item.name)} ↗</a>` : esc(item.name)).join(", ")}</p></div>`
     : "";
   const imageMarkup = schemaEnrichment?.image
     ? `<figure><img class="w-full rounded-xl" src="${esc(schemaEnrichment.image.url)}" alt="${esc(schemaEnrichment.image.alt)}" loading="lazy" decoding="async" /><figcaption class="mt-2 text-sm text-muted-foreground"><a class="underline" href="${esc(schemaEnrichment.image.sourceUrl)}" target="_blank" rel="noreferrer noopener">Image source ↗</a></figcaption></figure>`
