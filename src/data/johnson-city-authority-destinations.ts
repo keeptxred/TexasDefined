@@ -1,4 +1,3 @@
-import { DESTINATION_PHOTO_PLACEHOLDER } from "./destination-hero-placeholder";
 import type { Destination } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-19";
@@ -263,10 +262,11 @@ export const johnsonCityAuthorityDestinations: Destination[] = [
     county: "Blanco",
     coordinates: { lat: 30.2765, lng: -98.4129 },
     hero: {
-      src: DESTINATION_PHOTO_PLACEHOLDER,
-      alt: "Science Mill in Johnson City — exact-location hero pending governed image clearance",
-      width: 1600,
-      height: 1067,
+      src: "https://s3.amazonaws.com/texasstandard.org/txstandard/wp-content/uploads/2015/06/m.jpg",
+      alt: "Historic Science Mill silos and outdoor grounds in Johnson City, Texas",
+      width: 640,
+      height: 427,
+      credit: "San Antonio Charter Moms · CC BY 3.0 · via Texas Standard",
     },
     bestSeason:
       "Year-round, with especially high value during summer heat, rain or cold weather because most of the core experience is indoors; outdoor exhibits and the Hill Country setting are most comfortable in spring and fall.",
