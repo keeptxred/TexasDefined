@@ -26,6 +26,7 @@ const cultureArticle: Article = {
   sourceName: "TexasDefined culture desk",
   sourceUrl: "https://texasdefined.com/texas-living",
   internalLinks: [
+    { href: "/article/iconic-texas-fashion-western-wear-guide", label: "Texas fashion and Western wear", description: "Go deeper on boots, hats, pearl snaps, workwear, rodeo clothing and the places and brands behind Texas style." },
     { href: "/article/beginners-guide-ordering-texas-barbecue", label: "How to order Texas barbecue", description: "Learn the counter flow, how meat is sold by weight and how to build a first tray." },
     { href: "/texas-slang-explained", label: "Texas slang explained", description: "Y'all, fixin' to and the context behind familiar Texas expressions." },
     { href: "/texas-homecoming-mums", label: "Texas homecoming mums", description: "How a small flower tradition became a giant wearable symbol of school spirit." },
