@@ -248,6 +248,8 @@ if (!errors.length) {
     'NOT the TexasDefined UIL school directory, ranking, priority list',
     'complete 1,268-program UIL 2026-28 alignment',
     'Numeric source positions must never be',
+    'sourcePositions',
+    'firstSourcePosition',
     'FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS',
     'SEARCH_NAME_OVERRIDES',
     'ASSOCIATION_OVERRIDES',
@@ -257,6 +259,8 @@ if (!errors.length) {
     '"Plano Senior": "Plano"',
     '"Calallen": "Corpus Christi Calallen"',
   ]) requireText(legacyProgramMetadata, marker, 'Legacy football alias/private-school metadata');
+  if (legacyProgramMetadata.includes('sourceRanks')) errors.push('Legacy football seed metadata must use neutral sourcePositions terminology, not sourceRanks.');
+  if (legacyProgramMetadata.includes('primaryRank')) errors.push('Legacy football seed metadata must use firstSourcePosition terminology, not primaryRank.');
 
   for (const marker of [
     'VERIFIED_FOOTBALL_SCHOOL_IDENTITIES',
