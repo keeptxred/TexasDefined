@@ -80,6 +80,16 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       label: "Plan the Exotic Resort Zoo safari",
       description: "Use the dedicated guide for guided tractor tours, self-drive reservations, animal encounters and onsite cabins.",
     },
+    {
+      href: "/event/texas-wine-jam",
+      label: "Plan Texas Wine Jam",
+      description: "Use the verified 2026 guide for October 17 ticket tiers, festival times, wine-buying details and severe-weather backup policy.",
+    },
+    {
+      href: "/event/johnson-city-jazz-fest",
+      label: "Plan Johnson City Jazz Fest",
+      description: "See the free October 24 concert schedule, published performers and Memorial Park weekend-planning details.",
+    },
   ],
   "science-mill-johnson-city": [
     {
