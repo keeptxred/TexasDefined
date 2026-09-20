@@ -116,6 +116,12 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
   "texas-chicken-fried-steak-guide": [
     { label: "Handbook of Texas — Chicken-Fried Steak", href: "https://www.tshaonline.org/handbook/entries/chicken-fried-steak", note: "Explains the disputed origin story and the Southern, German and regional Texas influences associated with the dish." },
   ],
+  "texas-homecoming-mums": [
+    { label: "UTSA Institute of Texan Cultures — Keeping Texas Traditions", href: "https://texancultures.utsa.edu/blog/2026-03/keeping-texas-traditions", note: "Documents the evolution from chrysanthemum corsage to elaborate Texas mum and the women-led craft, family and community networks sustaining the tradition." },
+    { label: "The Mum Queen — About Elizabeth Cleaver", href: "https://www.themumqueen.com/about", note: "Cleaver's own account documents more than 35 years making mums and garters, her Spring-based work and her mentoring of hundreds of other mum makers." },
+    { label: "Houston Chronicle — Meet the Mum Queen", href: "https://www.houstonchronicle.com/explained/article/meet-mum-queen-ruling-texas-homecoming-tradition-21041372.php", note: "Profiles Cleaver's Spring studio, decades in the craft, large seasonal order volume and multigenerational customers." },
+    { label: "Houston Chronicle — How Texas homecoming mums evolved", href: "https://www.houstonchronicle.com/news/houston-texas/houston/article/history-texas-homecoming-mums-19730689.php", note: "Provides broader Texas history, modern mum and garter conventions, and reporting on how the tradition changed from simpler corsages into highly personalized displays." },
+  ],
   "texas-brand-origin-stories": [
     { label: "H-E-B — Company history", href: "https://careers.heb.com/about-us?lang=en-US", note: "H-E-B's history timeline documents Florence Butt's 1905 Kerrville grocery and the company's Texas roots." },
     { label: "Blue Bell Creameries — About Us", href: "https://www.bluebell.com/about-us/", note: "Blue Bell documents the 1907 Brenham Creamery Company origin and the 1930 Blue Bell name change." },
