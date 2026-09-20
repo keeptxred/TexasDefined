@@ -38,6 +38,15 @@ const VERIFIED_FOOTBALL_VENUE_RULES: readonly VenueRule[] = [
     note: 'Allen ISD identifies Eagle Stadium as its football stadium. Use the current Allen ISD event schedule and stadium guidance for the specific game.',
   },
   {
+    venueSlug: 'ford-center-at-the-star',
+    venueName: 'Ford Center at The Star',
+    officialUrl: 'https://www.thestarinfrisco.com/ford-center/',
+    districtNames: ['Frisco ISD', 'Frisco Independent School District'],
+    relationship: 'district-football-venue',
+    relationshipLabel: 'Verified Frisco ISD football venue',
+    note: 'Ford Center at The Star is shared by the Dallas Cowboys, City of Frisco and Frisco ISD, and Frisco ISD football programs use it for district games. Confirm the specific matchup and venue assignment on the current district schedule before travel.',
+  },
+  {
     venueSlug: 'mckinney-isd-stadium',
     venueName: 'McKinney ISD Stadium & Community Event Center',
     officialUrl: 'https://www.mckinneyisd.net/page/mckinney-isd-stadium/',
