@@ -50,6 +50,7 @@ export const fredericksburgAuthorityArticles: Article[] = [
       { href: "/event/fredericksburg-oktoberfest", label: "Fredericksburg Oktoberfest", description: "Use the permanent event guide for verified festival dates, organizer sources and trip-planning context." },
       { href: "/event/fredericksburg-food-wine-festival", label: "Fredericksburg Food & Wine Festival", description: "Connect the wine-and-food weekend to the broader destination instead of treating it as a standalone event." },
       { href: "/events/hill-country-events", label: "Hill Country events calendar", description: "Check other verified events that can materially change lodging demand, traffic and the best weekend to visit." },
+      { href: "/destination/hye", label: "Hye, Texas", description: "Use the Hye town guide for the historic post office, William Chris, Hye Meadow, Garrison Brothers and the eastern U.S. 290 corridor." },
       { href: "/destination/garrison-brothers-distillery-hye", label: "Garrison Brothers Distillery in Hye", description: "Add a working Texas bourbon distillery to the eastern U.S. 290 corridor between Fredericksburg, Stonewall and Johnson City." },
       { href: "/explore/trip-planner?destination=fredericksburg", label: "Build a Fredericksburg trip", description: "Use the TexasDefined trip planner to combine town, wine, outdoors and nearby destinations." },
     ],
@@ -65,6 +66,7 @@ export const fredericksburgAuthorityArticles: Article[] = [
       "lyndon-b-johnson-state-park-and-historic-site",
       "lyndon-b-johnson-national-historical-park",
       "garrison-brothers-distillery-hye",
+      "hye",
     ],
     body: [
       p("Fredericksburg is too broad to plan as one attraction list. The useful way to understand it is as several overlapping trips: a walkable German-Texan historic town, one of the state's densest wine-tourism corridors, a museum destination, a shopping and food weekend, an outdoor base for granite-country hiking and bat viewing, and a launch point for Luckenbach, Stonewall and Lyndon B. Johnson country. The Fredericksburg Convention & Visitor Bureau describes nearly 100 wineries, vineyards and tasting rooms in the wider area, while Main Street alone supports a large concentration of locally owned shops, restaurants, galleries and tasting rooms. A strong itinerary therefore starts by deciding which version of Fredericksburg matters most to you."),
