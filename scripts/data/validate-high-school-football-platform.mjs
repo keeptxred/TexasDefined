@@ -44,6 +44,10 @@ const footballDistrictIndexRoutePath = 'src/routes/texas-high-school-football-di
 const footballDistrictIndexPagePath = 'src/routes/texas-high-school-football-districts.lazy.tsx';
 const footballDistrictRoutePath = 'src/routes/texas-high-school-football-districts_.$slug.tsx';
 const footballDistrictPagePath = 'src/routes/texas-high-school-football-districts_.$slug.lazy.tsx';
+const championshipHistoryServerPath = 'src/data/high-school-football/football-championship-history.server.ts';
+const championshipHistoryFunctionsPath = 'src/data/high-school-football/football-championship-history.functions.ts';
+const championshipHistoryRoutePath = 'src/routes/texas-high-school-football-championship-history.tsx';
+const championshipHistoryPagePath = 'src/routes/texas-high-school-football-championship-history.lazy.tsx';
 const scoresSchedulesGuidePath = 'src/data/fixtures/texas-high-school-football-scores-schedules.ts';
 const evergreenRegistryPath = 'src/data/fixtures/lazy-standalone-evergreen.ts';
 const obsoleteSeedListComponentPath = 'src/components/sports/FeaturedFootballResearchList.tsx';
@@ -86,6 +90,10 @@ for (const file of [
   footballDistrictIndexPagePath,
   footballDistrictRoutePath,
   footballDistrictPagePath,
+  championshipHistoryServerPath,
+  championshipHistoryFunctionsPath,
+  championshipHistoryRoutePath,
+  championshipHistoryPagePath,
   scoresSchedulesGuidePath,
   evergreenRegistryPath,
   ...legacyMetadataFiles,
@@ -136,6 +144,10 @@ if (!errors.length) {
   const footballDistrictIndexPage = read(footballDistrictIndexPagePath);
   const footballDistrictRoute = read(footballDistrictRoutePath);
   const footballDistrictPage = read(footballDistrictPagePath);
+  const championshipHistoryServer = read(championshipHistoryServerPath);
+  const championshipHistoryFunctions = read(championshipHistoryFunctionsPath);
+  const championshipHistoryRoute = read(championshipHistoryRoutePath);
+  const championshipHistoryPage = read(championshipHistoryPagePath);
   const scoresSchedulesGuide = read(scoresSchedulesGuidePath);
   const evergreenRegistry = read(evergreenRegistryPath);
   const legacyProgramMetadata = read(legacyMetadataFiles[0]);
@@ -199,6 +211,43 @@ if (!errors.length) {
     "matchMethod: 'exact-normalized-uil-name'",
     'allTimeFootballHistoryFromLoaded',
   ]) requireText(allTimeHistory, marker, 'UIL all-time football history');
+
+  for (const marker of [
+    'loadUilAllTimeFootballHistory',
+    'loadUilRecentFootballHistory',
+    'UIL_FOOTBALL_PROGRAMS_2026',
+    'recentFootballHistoryFromLoaded',
+    'allTimeFootballHistoryFromLoaded',
+    'footballProgramProfilePath',
+    'right.stateTitles - left.stateTitles',
+    'right.stateFinalAppearances - left.stateFinalAppearances',
+    "alignmentCycle: '2026-28'",
+    "sourceUrl: 'https://www.uiltexas.org/football/all-time-appearances'",
+  ]) requireText(championshipHistoryServer, marker, 'Football championship history server');
+
+  for (const marker of [
+    "createServerFn({ method: 'GET' })",
+    "import('./football-championship-history.server')",
+    'getFootballChampionshipHistoryPage',
+  ]) requireText(championshipHistoryFunctions, marker, 'Football championship history server function');
+
+  for (const marker of [
+    "const canonicalPath = '/texas-high-school-football-championship-history'",
+    'getFootballChampionshipHistoryPage',
+    'Texas High School Football State Championships: All-Time UIL History',
+    'CollectionPage',
+  ]) requireText(championshipHistoryRoute, marker, 'Football championship history route');
+
+  for (const marker of [
+    "createLazyFileRoute('/texas-high-school-football-championship-history')",
+    'Texas high school football state championship history',
+    'History, not a power ranking',
+    'Current programs with the most UIL state titles',
+    'Every matched program with a UIL state-final appearance',
+    'Historical programs that closed, renamed or no longer match a current UIL program',
+    'UIL all-time appearances ↗',
+    'UIL state archives ↗',
+  ]) requireText(championshipHistoryPage, marker, 'Football championship history page');
 
   for (const marker of [
     "createFileRoute('/api/high-school-football')",
@@ -580,6 +629,8 @@ if (!errors.length) {
     'uilFootballEnrollmentBand',
     '/article/texas-high-school-football-scores-schedules',
     'Follow scores & weekly schedules',
+    '/texas-high-school-football-championship-history',
+    'Explore championship history',
     'Current season',
     'Scores & weekly schedules',
     'https://www.uiltexas.org/maxpreps/',
@@ -635,6 +686,8 @@ if (!errors.length) {
     'districtPath',
     '/article/texas-high-school-football-scores-schedules',
     'Current scores & schedules',
+    '/texas-high-school-football-championship-history',
+    'All-time UIL championship history',
     'UIL Texas Scoreboard gateway ↗',
     'the current scoreboard is not an official district-standings table',
     'UIL enrollment band',
@@ -677,6 +730,7 @@ if (!errors.length) {
     '/article/texas-high-school-football-playoffs-explained',
     '/article/texas-six-man-football-rules-explained',
     '/article/texas-high-school-football-scores-schedules',
+    '/texas-high-school-football-championship-history',
     'Route.useSearch()',
     'initialQuery={q}',
     'Official UIL all-time state-title and state-final totals',
@@ -695,6 +749,7 @@ if (!errors.length) {
   requireText(footballHub, '/article/texas-high-school-football-playoffs-explained', 'Friday Night Lights playoff discovery');
   requireText(footballHub, '/article/texas-six-man-football-rules-explained', 'Friday Night Lights six-man discovery');
   requireText(footballHub, '/article/texas-high-school-football-scores-schedules', 'Friday Night Lights scores discovery');
+  requireText(footballHub, '/texas-high-school-football-championship-history', 'Friday Night Lights championship discovery');
   requireText(newcomerGuide, '/texas-high-school-football-teams', 'Newcomer football finder discovery');
   requireText(newcomerGuide, '/article/texas-high-school-football-classifications-1a-6a', 'Newcomer classification discovery');
   requireText(newcomerGuide, '/article/texas-high-school-football-playoffs-explained', 'Newcomer playoff discovery');
@@ -702,6 +757,7 @@ if (!errors.length) {
   requireText(classificationGuide, '/texas-high-school-football-districts', 'Classification guide district discovery');
   requireText(classificationGuide, '/article/texas-high-school-football-playoffs-explained', 'Classification guide playoff discovery');
   requireText(classificationGuide, '/article/texas-six-man-football-rules-explained', 'Classification guide six-man discovery');
+  requireText(classificationGuide, '/texas-high-school-football-championship-history', 'Classification guide championship discovery');
   for (const marker of [
     'How Do the Texas High School Football Playoffs Work?',
     'https://www.uiltexas.org/football/playoff-brackets',
@@ -714,6 +770,7 @@ if (!errors.length) {
   ]) requireText(playoffGuide, marker, 'Football playoff guide');
   requireText(playoffGuide, '/article/texas-six-man-football-rules-explained', 'Football playoff guide six-man discovery');
   requireText(playoffGuide, '/article/texas-high-school-football-scores-schedules', 'Football playoff guide scores discovery');
+  requireText(playoffGuide, '/texas-high-school-football-championship-history', 'Football playoff guide championship discovery');
   for (const marker of [
     'Texas High School Football Scores & Schedules: How to Follow the 2026 Season',
     'https://www.uiltexas.org/athletics/uil-maxpreps',
@@ -756,8 +813,10 @@ if (!errors.length) {
   requireText(footballHubSchema, '/texas-high-school-football-teams', 'Friday Night Lights schema finder discovery');
   requireText(footballHubSchema, '/texas-high-school-football-districts', 'Friday Night Lights schema district discovery');
   requireText(footballHubSchema, '/article/texas-high-school-football-scores-schedules', 'Friday Night Lights schema scores discovery');
+  requireText(footballHubSchema, '/texas-high-school-football-championship-history', 'Friday Night Lights schema championship discovery');
   requireText(publicRoutes, '"/texas-high-school-football-teams"', 'Public route governance');
   requireText(publicRoutes, '"/texas-high-school-football-districts"', 'Football district public route governance');
+  requireText(publicRoutes, '"/texas-high-school-football-championship-history"', 'Football championship public route governance');
   requireText(dataSources, "id:'uil-football-alignments'", 'Texas source registry');
   requireText(dataSources, "domain:'sports'", 'Texas source registry');
   requireText(dataSources, "id:'uil-football-enrollment-cutoffs'", 'Texas source registry');
@@ -776,12 +835,14 @@ if (!errors.length) {
     [uilDirectoryComponentPath, uilDirectoryComponent],
     [footballDistrictIndexPagePath, footballDistrictIndexPage],
     [footballDistrictPagePath, footballDistrictPage],
+    [championshipHistoryPagePath, championshipHistoryPage],
   ]) {
     if (
       source.includes('uil-football-alignments-2026.server')
       || source.includes('football-directory.server')
       || source.includes('uil-football-all-time-history.server')
       || source.includes('football-districts.server')
+      || source.includes('football-championship-history.server')
     ) {
       errors.push(`Client surface must not import the server-only football dataset directly: ${file}`);
     }
