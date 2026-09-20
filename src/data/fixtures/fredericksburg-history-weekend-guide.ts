@@ -27,6 +27,8 @@ export const fredericksburgHistoryWeekendGuideArticle: Article = {
   sourceUrl: "https://www.pacificwarmuseum.org/visit",
   internalLinks: [
     { href: "/destination/fredericksburg", label: "Fredericksburg travel guide", description: "Use the main destination guide for a broader Hill Country trip, including practical planning beyond this history-first itinerary." },
+    { href: "/article/fredericksburg-texas-wineries-things-to-do-guide", label: "Fredericksburg wineries & things to do", description: "Use the broader authority guide for wine-country corridors, outdoor stops, farms, shopping, music and family alternatives." },
+    { href: "/county/gillespie", label: "Gillespie County guide", description: "Connect the town's history to Stonewall, Luckenbach, ranch roads, agriculture and the wider county landscape." },
     { href: "/destination/national-museum-pacific-war", label: "National Museum of the Pacific War", description: "Give the museum the largest time block of the weekend rather than trying to squeeze it between shopping stops." },
     { href: "/destination/fort-martin-scott", label: "Fort Martin Scott", description: "Connect U.S. Army frontier expansion with the young German settlement of Fredericksburg." },
     { href: "/german-czech-texas-towns", label: "German & Czech Texas towns", description: "Place Fredericksburg inside the larger Central Texas immigration and cultural landscape." },
