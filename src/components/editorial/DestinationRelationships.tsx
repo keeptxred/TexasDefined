@@ -10,6 +10,7 @@ import { topTexasAttractionRank } from "@/data/top-texas-attractions";
 import type { Destination, DestinationAreaGuide, DestinationAreaItem } from "@/data/types";
 
 const DestinationAuthorityGuide = lazy(() => import("@/components/editorial/DestinationAuthorityGuide"));
+const FredericksburgWineDirectory = lazy(() => import("@/components/editorial/FredericksburgWineDirectory"));
 
 const CAMPING_DESTINATION_SLUGS = new Set([
   "enchanted-rock-state-natural-area",
@@ -100,6 +101,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
 
   return <>
     {topAttractionRank ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
+    {destination.slug === "fredericksburg" ? <Suspense fallback={null}><FredericksburgWineDirectory /></Suspense> : null}
     <DestinationAreaGuideSection destination={destination} />
 
     {pairedDestinations.length ? <Section tone="surface" className="py-10 sm:py-12 lg:py-14">
