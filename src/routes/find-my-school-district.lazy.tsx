@@ -54,7 +54,10 @@ function Page(){
           <div>
             <Link to="/article/texas-schools-family-life" className="font-display text-2xl hover:text-primary">Texas Schools and Family Life →</Link>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Understand ISDs, accountability, charters, homeschooling, Pre-K, school taxes and family logistics after identifying the correct district.</p>
-            <a href="/texas-high-school-football-teams" className="mt-5 inline-block text-sm font-semibold text-primary underline underline-offset-4">Open the statewide football team finder →</a>
+            <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+              <a href="/texas-high-school-football-isds" className="text-primary underline underline-offset-4">Browse football programs by ISD →</a>
+              <a href="/texas-high-school-football-teams" className="text-primary underline underline-offset-4">Open the statewide football team finder →</a>
+            </div>
           </div>
         </section>
       </article>

@@ -195,6 +195,7 @@ if (citationIndex) {
     'https://texasdefined.com/sports-venues/motorsports',
     'https://texasdefined.com/sports-venues/high-school-football',
     'https://texasdefined.com/texas-high-school-football-teams',
+    'https://texasdefined.com/texas-high-school-football-isds',
   ]) {
     if (!citationUrls.has(url)) errors.push(`Machine-readable citation index is missing sports resource ${url}.`);
   }
