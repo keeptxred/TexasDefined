@@ -60,6 +60,11 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
       description: "Use the UIL Texas Scoreboard and school sources for current results and weekly schedules without confusing incomplete submissions with certified standings.",
     },
     {
+      href: "/texas-high-school-football-championship-history",
+      label: "Texas high school football championship history",
+      description: "See all-time UIL state-title and state-final totals for current programs and connect the postseason structure to the historical record.",
+    },
+    {
       href: "/sports/friday-night-lights",
       label: "Friday Night Lights, Defined",
       description: "Explore the culture, traditions, stadiums and season arc around Texas high school football.",
