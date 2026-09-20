@@ -139,6 +139,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       label: "Plan the Christmas Lights Spectacular",
       description: "Use the current holiday guide for the nightly light season and the published 2026 special-event calendar.",
     },
+    {
+      href: "/event/gears-beers-johnson-city",
+      label: "Plan Gears & Beers",
+      description: "Use the current guide for the October 24 car-and-motorcycle show, participant schedule and same-day Jazz Fest pairing.",
+    },
   ],
   "science-mill-johnson-city": [
     {
@@ -187,6 +192,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/destination/johnson-city",
       label: "Explore Johnson City",
       description: "Use the town guide to connect the museum with Science Mill, the courthouse square, LBJ history and Hill Country side trips.",
+    },
+    {
+      href: "/event/gears-beers-johnson-city",
+      label: "See Gears & Beers",
+      description: "Connect the museum with Johnson City's annual car-and-motorcycle show, which includes six dedicated motorcycle categories.",
     },
   ],
   "lyndon-b-johnson-national-historical-park": [
