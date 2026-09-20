@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "reviewedAt": "2026-09-19",
+  "reviewedAt": "2026-09-20",
   "policy": {
     "maxCards": 3,
     "displayComputedDistance": false,
@@ -612,6 +612,41 @@
           "source": {
             "url": "https://www.wyndhamhotels.com/microtel/sweetwater-texas/microtel-inn-and-suites-by-wyndham-sweetwater/overview",
             "verifiedAt": "2026-09-19"
+          }
+        }
+      ]
+    },
+    {
+      "id": "holiday-inn-austin-town-lake",
+      "name": "Holiday Inn Austin -Town Lake by IHG",
+      "city": "Austin",
+      "area": "Lady Bird Lake / Rainey Street",
+      "neighborhoods": [
+        "lady-bird-lake",
+        "rainey-street",
+        "east-austin"
+      ],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "event",
+          "key": "texas-craft-brewers-festival",
+          "rank": 1,
+          "geographicContext": "Lady Bird Lake / Rainey Street",
+          "proximity": "The festival organizer identifies this as its official 2026 hotel partner and says it is less than a mile from Fiesta Gardens.",
+          "differentiator": "The official 2026 festival hotel block includes a special group rate; the property offers free garage parking, Wi-Fi, an airport shuttle, a rooftop pool and on-site dining.",
+          "source": {
+            "url": "https://texascraftbrewersfestival.org/info/",
+            "verifiedAt": "2026-09-20"
           }
         }
       ]
