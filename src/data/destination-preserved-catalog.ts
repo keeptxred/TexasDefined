@@ -1,5 +1,6 @@
 import { animalSanctuaryDestinations } from "./animal-sanctuary-destinations";
 import { aquariumMarineDestinations } from "./aquarium-marine-destinations";
+import { buggyBarnBlancoDestinations } from "./buggy-barn-blanco-destination";
 import { coastalDestinations } from "./coastal-destinations";
 import { topAttractionDestinations } from "./destination-curation-top-attractions";
 import { topAttractionExpansionDestinations } from "./destination-curation-top-attractions-fallbacks";
