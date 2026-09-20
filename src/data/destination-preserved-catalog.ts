@@ -91,6 +91,7 @@ import { shinerTownDestination } from "./shiner-town-destination";
 import { texasVintageMotorcycleMuseumDestinations } from "./texas-vintage-motorcycle-museum-destination";
 import { viatorDestinationExpansion } from "./viator-destination-expansion";
 import { whirlyballHurstDestinations } from "./whirlyball-hurst-destination";
+import { weirdRoadsideDestinations } from "./weird-roadside-destinations";
 import { wildlifeManagementAreaWave1Destinations } from "./wildlife-management-area-destinations-wave1";
 import { wildlifeManagementAreaWave2Destinations } from "./wildlife-management-area-destinations-wave2";
 import { wildlifeManagementAreaWave3Destinations } from "./wildlife-management-area-destinations-wave3";
@@ -199,6 +200,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   viatorDestinationExpansion,
   texasVintageMotorcycleMuseumDestinations,
   whirlyballHurstDestinations,
+  weirdRoadsideDestinations,
   legacyExploreDestinations,
   legacyLakeDestinations,
   historicSiteDestinations,
