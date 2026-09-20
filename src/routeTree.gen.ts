@@ -89,6 +89,7 @@ import { Route as TexasHistoryRouteImport } from './routes/texas-history'
 import { Route as TexasHipHopRouteImport } from './routes/texas-hip-hop'
 import { Route as TexasHighSchoolFootballTeamsRouteImport } from './routes/texas-high-school-football-teams'
 import { Route as TexasHighSchoolFootballDistrictsRouteImport } from './routes/texas-high-school-football-districts'
+import { Route as TexasHighSchoolFootballChampionshipHistoryRouteImport } from './routes/texas-high-school-football-championship-history'
 import { Route as TexasGospelRnbPopRouteImport } from './routes/texas-gospel-rnb-pop'
 import { Route as TexasFoodTrailRouteImport } from './routes/texas-food-trail'
 import { Route as TexasFoodHistoryRouteImport } from './routes/texas-food-history'
@@ -1051,6 +1052,16 @@ const TexasHighSchoolFootballDistrictsRoute =
     getParentRoute: () => rootRouteImport,
   } as any).lazy(() =>
     import('./routes/texas-high-school-football-districts.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+const TexasHighSchoolFootballChampionshipHistoryRoute =
+  TexasHighSchoolFootballChampionshipHistoryRouteImport.update({
+    id: '/texas-high-school-football-championship-history',
+    path: '/texas-high-school-football-championship-history',
+    getParentRoute: () => rootRouteImport,
+  } as any).lazy(() =>
+    import('./routes/texas-high-school-football-championship-history.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -3570,6 +3581,7 @@ export interface FileRoutesByFullPath {
   '/texas-food-history': typeof TexasFoodHistoryRoute
   '/texas-food-trail': typeof TexasFoodTrailRoute
   '/texas-gospel-rnb-pop': typeof TexasGospelRnbPopRoute
+  '/texas-high-school-football-championship-history': typeof TexasHighSchoolFootballChampionshipHistoryRoute
   '/texas-high-school-football-districts': typeof TexasHighSchoolFootballDistrictsRoute
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
@@ -4046,6 +4058,7 @@ export interface FileRoutesByTo {
   '/texas-food-history': typeof TexasFoodHistoryRoute
   '/texas-food-trail': typeof TexasFoodTrailRoute
   '/texas-gospel-rnb-pop': typeof TexasGospelRnbPopRoute
+  '/texas-high-school-football-championship-history': typeof TexasHighSchoolFootballChampionshipHistoryRoute
   '/texas-high-school-football-districts': typeof TexasHighSchoolFootballDistrictsRoute
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
@@ -4526,6 +4539,7 @@ export interface FileRoutesById {
   '/texas-food-history': typeof TexasFoodHistoryRoute
   '/texas-food-trail': typeof TexasFoodTrailRoute
   '/texas-gospel-rnb-pop': typeof TexasGospelRnbPopRoute
+  '/texas-high-school-football-championship-history': typeof TexasHighSchoolFootballChampionshipHistoryRoute
   '/texas-high-school-football-districts': typeof TexasHighSchoolFootballDistrictsRoute
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
@@ -5007,6 +5021,7 @@ export interface FileRouteTypes {
     | '/texas-food-history'
     | '/texas-food-trail'
     | '/texas-gospel-rnb-pop'
+    | '/texas-high-school-football-championship-history'
     | '/texas-high-school-football-districts'
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
@@ -5483,6 +5498,7 @@ export interface FileRouteTypes {
     | '/texas-food-history'
     | '/texas-food-trail'
     | '/texas-gospel-rnb-pop'
+    | '/texas-high-school-football-championship-history'
     | '/texas-high-school-football-districts'
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
@@ -5962,6 +5978,7 @@ export interface FileRouteTypes {
     | '/texas-food-history'
     | '/texas-food-trail'
     | '/texas-gospel-rnb-pop'
+    | '/texas-high-school-football-championship-history'
     | '/texas-high-school-football-districts'
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
@@ -6442,6 +6459,7 @@ export interface RootRouteChildren {
   TexasFoodHistoryRoute: typeof TexasFoodHistoryRoute
   TexasFoodTrailRoute: typeof TexasFoodTrailRoute
   TexasGospelRnbPopRoute: typeof TexasGospelRnbPopRoute
+  TexasHighSchoolFootballChampionshipHistoryRoute: typeof TexasHighSchoolFootballChampionshipHistoryRoute
   TexasHighSchoolFootballDistrictsRoute: typeof TexasHighSchoolFootballDistrictsRoute
   TexasHighSchoolFootballTeamsRoute: typeof TexasHighSchoolFootballTeamsRoute
   TexasHipHopRoute: typeof TexasHipHopRoute
@@ -7276,6 +7294,13 @@ declare module '@tanstack/react-router' {
       path: '/texas-high-school-football-districts'
       fullPath: '/texas-high-school-football-districts'
       preLoaderRoute: typeof TexasHighSchoolFootballDistrictsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-high-school-football-championship-history': {
+      id: '/texas-high-school-football-championship-history'
+      path: '/texas-high-school-football-championship-history'
+      fullPath: '/texas-high-school-football-championship-history'
+      preLoaderRoute: typeof TexasHighSchoolFootballChampionshipHistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/texas-gospel-rnb-pop': {
@@ -10712,6 +10737,8 @@ const rootRouteChildren: RootRouteChildren = {
   TexasFoodHistoryRoute: TexasFoodHistoryRoute,
   TexasFoodTrailRoute: TexasFoodTrailRoute,
   TexasGospelRnbPopRoute: TexasGospelRnbPopRoute,
+  TexasHighSchoolFootballChampionshipHistoryRoute:
+    TexasHighSchoolFootballChampionshipHistoryRoute,
   TexasHighSchoolFootballDistrictsRoute: TexasHighSchoolFootballDistrictsRoute,
   TexasHighSchoolFootballTeamsRoute: TexasHighSchoolFootballTeamsRoute,
   TexasHipHopRoute: TexasHipHopRoute,
