@@ -4,6 +4,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { commerceApiBase } from "@/data/shop-products-remote";
 import { useShopCart } from "@/lib/shop-cart";
+import { trackTexasDefinedOutcome } from "@/platform/analytics";
 
 export const Route = createLazyFileRoute("/shop/checkout-return")({ component: CheckoutReturnPage });
 
@@ -15,7 +16,18 @@ function CheckoutReturnPage() {
   const [state, setState] = useState<CheckoutState>(session_id ? "checking" : "unconfirmed");
 
   useEffect(() => {
+    trackTexasDefinedOutcome("shop_checkout_returned", {
+      resourceId: "checkout-return",
+      entityKind: "stripe-checkout",
+      detection: session_id ? "session-present" : "session-missing",
+    });
+
     if (!session_id) {
+      trackTexasDefinedOutcome("shop_purchase_unconfirmed", {
+        resourceId: "checkout-return",
+        entityKind: "stripe-checkout",
+        detection: "session-missing",
+      });
       setState("unconfirmed");
       return;
     }
@@ -25,17 +37,35 @@ function CheckoutReturnPage() {
       headers: { accept: "application/json" },
     })
       .then(async (response) => {
-        const payload = await response.json() as { ok?: boolean; paid?: boolean };
+        const payload = await response.json() as { ok?: boolean; paid?: boolean; status?: string; paymentStatus?: string };
         if (!active) return;
         if (response.ok && payload.ok && payload.paid) {
+          trackTexasDefinedOutcome("shop_purchase_confirmed", {
+            resourceId: "checkout-return",
+            entityKind: "stripe-checkout",
+            detection: "paid",
+          });
           cart.clear();
           setState("paid");
           return;
         }
+        trackTexasDefinedOutcome("shop_purchase_unconfirmed", {
+          resourceId: "checkout-return",
+          entityKind: "stripe-checkout",
+          detection: response.ok
+            ? `status-${payload.status || "unknown"}-payment-${payload.paymentStatus || "unknown"}`
+            : `verify-http-${response.status}`,
+        });
         setState("unconfirmed");
       })
       .catch(() => {
-        if (active) setState("unconfirmed");
+        if (!active) return;
+        trackTexasDefinedOutcome("shop_purchase_unconfirmed", {
+          resourceId: "checkout-return",
+          entityKind: "stripe-checkout",
+          detection: "verification-request-error",
+        });
+        setState("unconfirmed");
       });
 
     return () => { active = false; };

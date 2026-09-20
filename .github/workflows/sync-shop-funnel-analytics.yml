@@ -1,0 +1,58 @@
+name: Sync shop funnel analytics
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 * * * *'
+    - cron: '53 * * * *'
+  workflow_run:
+    workflows:
+      - 'Deploy TexasDefined production'
+    types:
+      - completed
+    branches:
+      - main
+  push:
+    branches: [main]
+    paths:
+      - 'src/platform/analytics.ts'
+      - 'src/lib/texas-defined-outcome-analytics.server.ts'
+      - 'src/components/commerce/ProductDetailPage.tsx'
+      - 'src/routes/shop.cart.lazy.tsx'
+      - 'src/routes/shop.checkout-return.lazy.tsx'
+      - 'scripts/monetization/sync-shop-funnel-analytics.mjs'
+      - 'supabase/migrations/20260920052000_create_shop_funnel_daily.sql'
+      - '.github/workflows/sync-shop-funnel-analytics.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: shop-funnel-analytics-sync
+  cancel-in-progress: true
+
+jobs:
+  authorize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    environment: texasdefined-publication
+    steps:
+      - name: Authorize private shop funnel sync
+        run: echo "Protected texasdefined-publication environment gate passed."
+
+  sync:
+    needs: authorize
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Sync private shop funnel aggregates
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ftkznprjljkhymknvhye.supabase.co' }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/monetization/sync-shop-funnel-analytics.mjs

@@ -13,7 +13,7 @@ const requiredFiles = [
   'src/routes/learn.property-taxes.tsx','src/routes/learn.property-tax-payments.tsx','src/routes/decide.property-taxes.tsx','src/routes/learn.appraisal-districts.tsx','src/routes/do.homestead-exemption.tsx','src/routes/do.property-tax-protest.tsx','src/routes/browse.counties.tsx','src/routes/browse.cities.tsx','src/routes/article.$slug.tsx',
   'src/routes/admin.platform-health.tsx','src/routes/sitemap[.]xml.ts','src/routes/sitemap-explore[.]xml.ts','src/routes/events.tsx','src/routes/destination.$slug.tsx','src/routes/api.knowledge-graph.ts','src/routes/api.ai.entities.ts','src/routes/llms[.]txt.ts','src/routes/$kind.$slug.tsx','src/routes/privacy.tsx',
   'src/data/texas-data-sources.ts','src/data/texas-entity-registry.ts','src/data/knowledge-graph/types.ts','src/data/knowledge-graph/seed.ts','src/data/knowledge-graph/index.ts','src/data/knowledge-graph/explore-adapter.ts','src/data/knowledge-graph/relationships.ts','src/data/knowledge-graph/audit.ts',
-  'src/components/content/AutoEntityLinks.tsx','src/components/editorial/ArticleBody.tsx','src/components/layout/Footer.tsx','src/platform/internal-linking.ts','src/platform/analytics.ts','src/platform/analytics-host.ts','src/lib/public-routes.ts','scripts/data/import-authoritative-entities.mjs','.github/workflows/import-entities.yml',
+  'src/components/content/AutoEntityLinks.tsx','src/components/editorial/ArticleBody.tsx','src/components/layout/Footer.tsx','src/components/commerce/ProductDetailPage.tsx','src/routes/shop.cart.lazy.tsx','src/routes/shop.checkout-return.lazy.tsx','src/platform/internal-linking.ts','src/platform/analytics.ts','src/platform/analytics-host.ts','src/lib/texas-defined-outcome-analytics.server.ts','src/lib/public-routes.ts','scripts/monetization/sync-shop-funnel-analytics.mjs','supabase/migrations/20260920052000_create_shop_funnel_daily.sql','.github/workflows/sync-shop-funnel-analytics.yml','scripts/data/import-authoritative-entities.mjs','.github/workflows/import-entities.yml',
 ];
 for (const file of requiredFiles) if (!fs.existsSync(path.join(root, file))) errors.push(`Required platform file is missing: ${file}`);
 
@@ -43,6 +43,13 @@ const linker = read('src/components/content/AutoEntityLinks.tsx');
 const internalLinking = read('src/platform/internal-linking.ts');
 const analytics = read('src/platform/analytics.ts');
 const analyticsHost = read('src/platform/analytics-host.ts');
+const shopProductDetail = read('src/components/commerce/ProductDetailPage.tsx');
+const shopCart = read('src/routes/shop.cart.lazy.tsx');
+const shopCheckoutReturn = read('src/routes/shop.checkout-return.lazy.tsx');
+const outcomeAnalytics = read('src/lib/texas-defined-outcome-analytics.server.ts');
+const shopFunnelSync = read('scripts/monetization/sync-shop-funnel-analytics.mjs');
+const shopFunnelMigration = read('supabase/migrations/20260920052000_create_shop_funnel_daily.sql');
+const shopFunnelWorkflow = read('.github/workflows/sync-shop-funnel-analytics.yml');
 const importer = read('scripts/data/import-authoritative-entities.mjs');
 const packageJson = read('package.json');
 const rootRoute = read('src/routes/__root.tsx');
@@ -91,6 +98,24 @@ for (const hostname of ['texasdefined.com','www.texasdefined.com']) if (!analyti
 if (!analytics.includes('isTexasDefinedAnalyticsHost(window.location.hostname)')) errors.push('Custom analytics is not guarded to production hostnames.');
 if (!rootRoute.includes('TEXASDEFINED_ANALYTICS_HOSTS') || !rootRoute.includes('w.location.hostname.toLowerCase()')) errors.push('Google Tag Manager is not guarded to production hostnames.');
 if (rootRoute.includes('GoogleTagManagerNoScript')) errors.push('Unconditional GTM noscript iframe can leak preview-host traffic.');
+for (const eventName of [
+  'shop_add_to_cart',
+  'shop_checkout_started',
+  'shop_checkout_created',
+  'shop_checkout_failed',
+  'shop_checkout_returned',
+  'shop_purchase_confirmed',
+  'shop_purchase_unconfirmed',
+]) {
+  if (!analytics.includes(`'${eventName}'`)) errors.push(`Client shop funnel analytics event missing: ${eventName}.`);
+  if (!outcomeAnalytics.includes(`"${eventName}"`)) errors.push(`Server shop funnel analytics event missing: ${eventName}.`);
+}
+for (const marker of ['trackTexasDefinedOutcome("shop_add_to_cart"', 'stepId: String(selected.id)', 'score: quantity']) if (!shopProductDetail.includes(marker)) errors.push(`Shop add-to-cart observability missing: ${marker}.`);
+for (const marker of ['trackTexasDefinedOutcome("shop_checkout_started"', 'trackTexasDefinedOutcome("shop_checkout_created"', 'trackTexasDefinedOutcome("shop_checkout_failed"', 'failureDetection = response.ok ? "invalid-response" : `http-${response.status}`']) if (!shopCart.includes(marker)) errors.push(`Shop checkout observability missing: ${marker}.`);
+for (const marker of ['trackTexasDefinedOutcome("shop_checkout_returned"', 'trackTexasDefinedOutcome("shop_purchase_confirmed"', 'trackTexasDefinedOutcome("shop_purchase_unconfirmed"', 'verification-request-error']) if (!shopCheckoutReturn.includes(marker)) errors.push(`Shop checkout-return observability missing: ${marker}.`);
+for (const marker of ['texasdefined_shop_funnel_daily', 'shop_funnel_sync_heartbeat', 'enable row level security', 'revoke all on table public.texasdefined_shop_funnel_daily from public, anon, authenticated']) if (!shopFunnelMigration.includes(marker)) errors.push(`Shop funnel private aggregate migration missing: ${marker}.`);
+for (const marker of ['texas_defined_outcomes', 'shop_checkout_failed', 'shop_purchase_confirmed', 'CLOUDFLARE_API_TOKEN', 'SUPABASE_SERVICE_ROLE_KEY']) if (!shopFunnelSync.includes(marker)) errors.push(`Shop funnel sync protection missing: ${marker}.`);
+for (const marker of ['Sync shop funnel analytics', 'Deploy TexasDefined production', 'sync-shop-funnel-analytics.mjs', 'texasdefined-publication']) if (!shopFunnelWorkflow.includes(marker)) errors.push(`Shop funnel workflow protection missing: ${marker}.`);
 if (rootRoute.includes('canonicalLink(texasDefinedBrand, "/")')) errors.push('Root route still injects an inherited homepage canonical.');
 if (rootRoute.includes('{ property: "og:url", content: siteUrl }')) errors.push('Root route still injects an inherited homepage Open Graph URL.');
 for (const feature of ['og:image','twitter:image','defaultSocialImage']) if (!rootRoute.includes(feature)) errors.push(`Default social-preview feature missing: ${feature}.`);

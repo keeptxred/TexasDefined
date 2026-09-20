@@ -24,6 +24,13 @@ const OUTCOME_EVENTS = new Set([
   "shop_navigation_clicked",
   "shop_product_clicked",
   "shop_outbound_clicked",
+  "shop_add_to_cart",
+  "shop_checkout_started",
+  "shop_checkout_created",
+  "shop_checkout_failed",
+  "shop_checkout_returned",
+  "shop_purchase_confirmed",
+  "shop_purchase_unconfirmed",
   "ai_referral_visit",
 ]);
 
