@@ -1,4 +1,5 @@
 import type { Article } from "../types";
+import { texasDogsEvergreenStubs } from "./texas-dogs-evergreen-stubs";
 import "./newest-evergreen-links";
 import "./military-museum-links";
 import "./seasonal-authority-links";
@@ -413,6 +414,7 @@ const horsesOnTheBeachCorpusChristiStub: Article = {
 };
 
 export const newestEvergreenArticles: Article[] = [
+  ...texasDogsEvergreenStubs,
   ...seasonalIntentStubs,
   ...lighthouseSearchIntentStubs,
   ...lighthouseDeepDiveStubs,
@@ -436,6 +438,10 @@ export const newestEvergreenArticles: Article[] = [
 ];
 
 const loaders: Record<string, () => Promise<Article>> = {
+  "the-unofficial-job-description-of-a-texas-porch-dog": async () => (await import("./texas-dogs-evergreen")).texasPorchDogArticle,
+  "why-the-best-dog-shirt-joke-feels-like-your-dog-and-nobody-elses": async () => (await import("./texas-dogs-evergreen")).dogShirtJokeArticle,
+  "small-dogs-big-texas-attitude": async () => (await import("./texas-dogs-evergreen-wave2")).smallDogsBigTexasAttitudeArticle,
+  "big-dogs-texas-sized-problems": async () => (await import("./texas-dogs-evergreen-wave2")).bigDogsTexasSizedProblemsArticle,
   "history-of-the-texas-flag": async () => (await import("./texas-flag-history")).texasFlagHistoryArticle,
   "texas-flag-etiquette-display-guide": async () => (await import("./texas-flag-etiquette")).texasFlagEtiquetteArticle,
   "texas-military-museums-historic-sites-guide": async () => (await import("./texas-military-museums-historic-sites-guide")).texasMilitaryMuseumsHistoricSitesGuideArticle,
