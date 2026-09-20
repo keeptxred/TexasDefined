@@ -47,6 +47,22 @@ const spirits = [
   ["Shiner Cinnamon 'Shine", "Shiner 'Shine infused with cinnamon and cane sugar."],
 ] as const;
 
+const sustainabilityFacts = [
+  ["30%", "of brewery power comes from solar panels"],
+  ["98%", "of brewery waste is recycled"],
+  ["200+ tons", "of paper are recycled each year"],
+  ["300+ tons", "of glass are recycled each year"],
+  ["200+ tons", "of spent yeast go to local animal-food producers each year"],
+  ["13,000+ tons", "of spent grain go to local farmers for animal feed each year"],
+] as const;
+
+const awardHighlights = [
+  ["Shiner Bock", "Gold — 2025 Australian International Beer Awards; Gold — 2025 U.S. Open Beer Championship; Silver — 2025 World Beer Cup"],
+  ["Shiner Light", "Silver — 2025 Australian International Beer Awards; Silver — 2022 Australian International Beer Awards; Gold — 2021 Australian International Beer Awards"],
+  ["Shiner Oktoberfest", "Silver — 2024 European Beer Star; Gold — 2012 Great American Beer Festival; Silver — 2012 Australian International Beer Awards"],
+  ["Shiner Texas Vodka", "Gold — San Francisco World Spirits Competition; Gold — Bartender Spirits Awards; Silver — International Wine & Spirits Competition"],
+] as const;
+
 function BeerTable({ title, description, beers }: { title: string; description: string; beers: Beer[] }) {
   return <section className="mt-10">
     <h3 className="font-display text-3xl">{title}</h3>
@@ -90,6 +106,62 @@ export default function ShinerBreweryAuthority() {
     <BeerTable title="Limited release" description="A current limited-time release with its own live Shiner product page." beers={limited} />
     <BeerTable title="Seasonal beers" description="Rotating releases that Shiner currently groups as seasonal rather than year-round." beers={seasonal} />
     <BeerTable title="Non-alcoholic brews" description="Current Shiner products listed in the brewery's Non-Alc collection." beers={nonAlcoholic} />
+
+    <section className="mt-12 border-y border-border py-8">
+      <p className="eyebrow text-primary">How Shiner is made</p>
+      <h3 className="mt-2 font-display text-3xl">The operating brewery behind the brand</h3>
+      <div className="mt-6 grid gap-6 lg:grid-cols-3">
+        <div>
+          <h4 className="font-display text-2xl">Artesian well water</h4>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">Shiner's official brewery history traces the operation to an artesian-water source discovered by the German and Czech community in 1909. That water became the foundation of the original brewery and remains part of the brewery's modern identity.</p>
+        </div>
+        <div>
+          <h4 className="font-display text-2xl">Brewing continuity</h4>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">The brewery still produces beer in Shiner rather than treating the town as a heritage label. The current lineup mixes long-running lagers with newer IPAs, fruit beers, seasonal releases and non-alcoholic products while keeping Shiner as the production home.</p>
+        </div>
+        <div>
+          <h4 className="font-display text-2xl">Beer and spirits share the campus</h4>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">Shiner's distillery, added in 2023, uses the same malts and artesian water as the beer operation. The brewery says its spirits also pass through the original copper grant associated with Kosmos Spoetzl, linking the modern distillery to older brewery equipment and tradition.</p>
+        </div>
+      </div>
+    </section>
+
+    <section className="mt-10 grid gap-8 lg:grid-cols-2">
+      <div>
+        <p className="eyebrow text-primary">Sustainability</p>
+        <h3 className="mt-2 font-display text-3xl">What the brewery says it recycles and reuses</h3>
+        <p className="mt-4 text-sm leading-7 text-muted-foreground">These figures are a September 19, 2026 snapshot from Shiner's official sustainability page. They are brewery-reported operating metrics rather than independent environmental ratings.</p>
+        <dl className="mt-5 grid gap-4 sm:grid-cols-2">
+          {sustainabilityFacts.map(([value, label]) => <div key={label} className="border-t border-border pt-4">
+            <dt className="font-display text-2xl">{value}</dt>
+            <dd className="mt-1 text-sm leading-6 text-muted-foreground">{label}</dd>
+          </div>)}
+        </dl>
+        <ul className="mt-6 space-y-3 text-sm leading-7 text-muted-foreground">
+          <li><strong className="text-foreground">Biogas:</strong> the brewery says its water-treatment system produces biogas used to heat brew kettles.</li>
+          <li><strong className="text-foreground">Wastewater:</strong> treated wastewater is reused to irrigate nearby fields.</li>
+          <li><strong className="text-foreground">Daylight:</strong> skylights reduce the need for daytime electric lighting in parts of the facility.</li>
+        </ul>
+        <a href="https://shiner.com/sustainability/" target="_blank" rel="noreferrer noopener" className="mt-5 inline-block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Official sustainability page ↗</a>
+      </div>
+
+      <div>
+        <p className="eyebrow text-primary">Awards</p>
+        <h3 className="mt-2 font-display text-3xl">Recent and notable competition results</h3>
+        <p className="mt-4 text-sm leading-7 text-muted-foreground">Shiner publishes a long awards archive. These highlights favor current products and newer results where the official product pages publish them.</p>
+        <div className="mt-5 divide-y divide-border border-y border-border">
+          {awardHighlights.map(([name, note]) => <div key={name} className="py-4">
+            <h4 className="font-semibold">{name}</h4>
+            <p className="mt-1 text-sm leading-6 text-muted-foreground">{note}</p>
+          </div>)}
+        </div>
+        <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+          <a href="https://shiner.com/awards/" target="_blank" rel="noreferrer noopener" className="text-primary underline decoration-primary/40 underline-offset-4">Official awards archive ↗</a>
+          <a href="https://shiner.com/beer/shiner-bock/" target="_blank" rel="noreferrer noopener" className="text-primary underline decoration-primary/40 underline-offset-4">Current Bock awards ↗</a>
+          <a href="https://shiner.com/spirits/" target="_blank" rel="noreferrer noopener" className="text-primary underline decoration-primary/40 underline-offset-4">Current spirits awards ↗</a>
+        </div>
+      </div>
+    </section>
 
     <section className="mt-12 grid gap-8 border-y border-border py-8 lg:grid-cols-2">
       <div>
@@ -154,6 +226,9 @@ export default function ShinerBreweryAuthority() {
     <nav aria-label="Official Shiner brewery sources" className="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-sm font-semibold">
       <a href="https://shiner.com/beer/" target="_blank" rel="noreferrer noopener" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Official beer catalog ↗</a>
       <a href="https://shiner.com/spirits/" target="_blank" rel="noreferrer noopener" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Official spirits catalog ↗</a>
+      <a href="https://shiner.com/brewery/" target="_blank" rel="noreferrer noopener" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Official brewery history ↗</a>
+      <a href="https://shiner.com/sustainability/" target="_blank" rel="noreferrer noopener" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Sustainability ↗</a>
+      <a href="https://shiner.com/awards/" target="_blank" rel="noreferrer noopener" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Awards archive ↗</a>
       <a href="https://shiner.com/visit/" target="_blank" rel="noreferrer noopener" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Plan a visit ↗</a>
       <a href="https://shiner.com/book-your-tour/" target="_blank" rel="noreferrer noopener" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">Tour booking ↗</a>
     </nav>
