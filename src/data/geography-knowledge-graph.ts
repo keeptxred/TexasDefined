@@ -117,6 +117,7 @@ export const TEXAS_PLACE_GEOGRAPHY: readonly TexasPlaceGeography[] = [
   place("College Station", ["brazos"], "central-texas", ["brazos-valley"]),
   place("Fredericksburg", ["gillespie"], "central-texas", ["texas-hill-country"], { travelRegionIds: ["hill-country"], relocationPresentationLabels: ["San Antonio & Hill Country", "Austin & Central Texas"] }),
   place("Johnson City", ["blanco"], "central-texas", ["texas-hill-country"], { gatewaySubregionIds: ["austin-area"], travelRegionIds: ["hill-country"], relocationPresentationLabels: ["San Antonio & Hill Country", "Austin & Central Texas"] }),
+  place("Hye", ["blanco"], "central-texas", ["texas-hill-country"], { travelRegionIds: ["hill-country"], relocationPresentationLabels: ["San Antonio & Hill Country", "Austin & Central Texas"] }),
   place("Kerrville", ["kerr"], "central-texas", ["texas-hill-country"], { travelRegionIds: ["hill-country"] }),
   place("Marble Falls", ["burnet"], "central-texas", ["texas-hill-country"]),
   place("Llano", ["llano"], "central-texas", ["texas-hill-country"]),
