@@ -36,7 +36,7 @@ function readableDate(value: string) {
 }
 
 export default function FredericksburgWineDirectory() {
-  return <Section className="border-y border-border bg-surface py-10 sm:py-12 lg:py-14" aria-labelledby="fredericksburg-wine-directory">
+  return <Section id="fredericksburg-wine-directory" className="border-y border-border bg-surface py-10 sm:py-12 lg:py-14" aria-label="Fredericksburg winery and tasting-room directory">
     <Container>
       <SectionHeader
         eyebrow="Texas Wine Country"
