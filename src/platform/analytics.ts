@@ -1,4 +1,5 @@
 import { classifyAIReferral } from './ai-referral';
+import { isTexasDefinedAnalyticsHost } from './analytics-host';
 import { recordInternalLinkExposure } from './internal-link-memory';
 
 export type TexasDefinedOutcomeEvent =
@@ -47,6 +48,10 @@ const AI_REFERRAL_SESSION_KEY = 'texasdefined:ai-referral-recorded';
 const MAX_QUEUE = 100;
 const ANALYTICS_ENDPOINT = (import.meta.env.VITE_ANALYTICS_ENDPOINT as string | undefined)?.trim() || '/api/analytics';
 
+function productionAnalyticsEnabled() {
+  return typeof window !== 'undefined' && isTexasDefinedAnalyticsHost(window.location.hostname);
+}
+
 function safeStorage(): Storage | undefined {
   try { return window.localStorage; } catch { return undefined; }
 }
@@ -83,7 +88,7 @@ export function trackTexasDefinedOutcome(
   event: TexasDefinedOutcomeEvent,
   details: Omit<Partial<TexasDefinedAnalyticsPayload>, 'event' | 'occurredAt' | 'path' | 'sessionId'> = {},
 ) {
-  if (typeof window === 'undefined') return;
+  if (!productionAnalyticsEnabled()) return;
   const payload: TexasDefinedAnalyticsPayload = {
     event,
     ...details,
@@ -99,6 +104,7 @@ export function trackTexasDefinedOutcome(
 }
 
 export async function flushTexasDefinedAnalytics() {
+  if (!productionAnalyticsEnabled()) return { sent: 0, remaining: 0 };
   const queue = readQueue();
   if (!queue.length) return { sent: 0, remaining: 0 };
   try {
@@ -117,7 +123,7 @@ export async function flushTexasDefinedAnalytics() {
 }
 
 export function trackAIReferralVisit() {
-  if (typeof window === 'undefined') return;
+  if (!productionAnalyticsEnabled()) return;
   const sessionStorage = safeSessionStorage();
   if (sessionStorage?.getItem(AI_REFERRAL_SESSION_KEY) === '1') return;
 
@@ -134,7 +140,7 @@ export function trackAIReferralVisit() {
 }
 
 export function installTexasDefinedAnalytics() {
-  if (typeof window === 'undefined') return () => undefined;
+  if (!productionAnalyticsEnabled()) return () => undefined;
   const shown = new Set<string>();
   let lastShopViewPath = '';
 
