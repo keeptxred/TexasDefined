@@ -398,12 +398,21 @@ if (!errors.length) {
     "slug: 'hurst-bell'",
     "slug: 'irving-macarthur'",
     "slug: 'irving-nimitz'",
+    "slug: 'alief-elsik'",
+    "slug: 'alief-hastings'",
+    "slug: 'alief-taylor'",
+    "slug: 'alvin'",
+    "slug: 'alvin-shadow-creek'",
+    "slug: 'austin'",
+    "slug: 'austin-akins'",
+    "slug: 'austin-bowie'",
+    "slug: 'austin-vandegrift'",
     'sourceUrl',
     'verifiedAt',
   ]) requireText(schoolIdentities, marker, 'Football school identity data');
   const verifiedFootballIdentityCount = (schoolIdentities.match(/slug: '/g) ?? []).length;
-  if (verifiedFootballIdentityCount < 147) {
-    errors.push(`Football school identity data fell below 147 verified profiles; found ${verifiedFootballIdentityCount}.`);
+  if (verifiedFootballIdentityCount < 156) {
+    errors.push(`Football school identity data fell below 156 verified profiles; found ${verifiedFootballIdentityCount}.`);
   }
 
   for (const marker of [
