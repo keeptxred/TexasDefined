@@ -338,7 +338,7 @@ const curated: Record<string, TopAttractionExpansion> = {
         ["Luci and Ian Family Garden", "At the Center", "Nature play and hands-on exploration make the property substantially more engaging for children."],
         ["Austin Nature & Science Center", "Near Zilker", "Free exhibits and outdoor nature experiences work well with a Barton Springs day."],
         ["Barton Springs and Zilker Park", "North", "Swimming, playgrounds and lawns provide a high-energy complement to garden walking."],
-        ["Science Mill", "Johnson City", "Hands-on science can anchor a longer family Hill Country side trip."]
+        ["Science Mill", "Johnson City", "Hands-on science can anchor a longer family Hill Country side trip.", "/destination/science-mill-johnson-city"]
       ),
       sideTrips: items(
         ["Hamilton Pool Preserve", "About 25 miles west", "A reservation-based canyon and grotto add a dramatic natural-landscape day.", "/destination/hamilton-pool-preserve"],
