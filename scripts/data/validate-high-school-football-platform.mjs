@@ -325,6 +325,20 @@ if (!errors.length) {
     "slug: 'ft-worth-trimble-tech'",
     "slug: 'ft-worth-wyatt'",
     "slug: 'white-settlement-brewer'",
+    "slug: 'frisco-centennial'",
+    "slug: 'frisco-heritage'",
+    "slug: 'frisco-lebanon-trail'",
+    "slug: 'frisco-liberty'",
+    "slug: 'frisco-reedy'",
+    "slug: 'mckinney-north'",
+    "slug: 'melissa'",
+    "slug: 'carrollton-creekview'",
+    "slug: 'carrollton-smith'",
+    "slug: 'carrollton-turner'",
+    "slug: 'dallas-highland-park'",
+    "slug: 'garland-naaman-forest'",
+    "slug: 'n-richland-hills-birdville'",
+    "slug: 'n-richland-hills-richland'",
     "slug: 'weatherford'",
     "slug: 'ft-worth-boswell'",
     "slug: 'keller'",
@@ -348,8 +362,8 @@ if (!errors.length) {
     'verifiedAt',
   ]) requireText(schoolIdentities, marker, 'Football school identity data');
   const verifiedFootballIdentityCount = (schoolIdentities.match(/slug: '/g) ?? []).length;
-  if (verifiedFootballIdentityCount < 105) {
-    errors.push(`Football school identity data fell below 105 verified profiles; found ${verifiedFootballIdentityCount}.`);
+  if (verifiedFootballIdentityCount < 119) {
+    errors.push(`Football school identity data fell below 119 verified profiles; found ${verifiedFootballIdentityCount}.`);
   }
 
   for (const marker of [
@@ -404,6 +418,10 @@ if (!errors.length) {
     "districtName: 'Sherman ISD'",
     "districtName: 'Fort Worth ISD'",
     "districtName: 'White Settlement ISD'",
+    "districtName: 'Melissa ISD'",
+    "districtName: 'Carrollton-Farmers Branch ISD'",
+    "districtName: 'Dallas ISD'",
+    "districtName: 'Birdville ISD'",
     "districtName: 'Frisco ISD'",
     "districtName: 'Little Elm ISD'",
     "districtName: 'Princeton ISD'",
@@ -411,8 +429,8 @@ if (!errors.length) {
     'verifiedAt',
   ]) requireText(officialEnrollmentLinks, marker, 'Official football enrollment links');
   const verifiedEnrollmentLinkCount = (officialEnrollmentLinks.match(/districtName: '/g) ?? []).length;
-  if (verifiedEnrollmentLinkCount < 46) {
-    errors.push(`Official football enrollment-link data fell below 46 verified districts; found ${verifiedEnrollmentLinkCount}.`);
+  if (verifiedEnrollmentLinkCount < 50) {
+    errors.push(`Official football enrollment-link data fell below 50 verified districts; found ${verifiedEnrollmentLinkCount}.`);
   }
 
   for (const marker of [
@@ -579,6 +597,9 @@ if (!errors.length) {
     'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28',
     'uilEnrollment:',
   ]) requireText(programProfileServer, marker, 'Football profile exact enrollment integration');
+  requireText(programProfileServer, 'getVerifiedFootballSchoolIdentity(canonicalSlug)', 'Canonical UIL identity precedence');
+  requireText(programProfileServer, 'legacyIdentity ? getVerifiedFootballSchoolIdentity(legacyIdentity.slug)', 'Legacy identity fallback');
+
 
   for (const marker of [
     'Browse all 1,268 Texas high school football programs',
