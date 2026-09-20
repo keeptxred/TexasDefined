@@ -134,6 +134,24 @@ await fetchProduction('/dogs/labrador-retriever', 'labrador breed', {
   },
 });
 
+await fetchProduction('/article/small-dogs-big-texas-attitude', 'small dogs evergreen', {
+  verify: (body) => {
+    for (const needle of ['Small Dogs, Big Texas Attitude', '/dogs/chihuahua', '/dogs/dachshund', '/dogs/pembroke-welsh-corgi']) {
+      requireNeedle(body, needle, 'small dogs evergreen');
+    }
+    if (/\bnoindex\b/i.test(body)) throw new Error('small dogs evergreen unexpectedly contains noindex');
+  },
+});
+
+await fetchProduction('/article/big-dogs-texas-sized-problems', 'big dogs evergreen', {
+  verify: (body) => {
+    for (const needle of ['Big Dogs, Texas-Sized Problems', '/dogs/great-dane', '/dogs/german-shepherd', '/dogs/boxer']) {
+      requireNeedle(body, needle, 'big dogs evergreen');
+    }
+    if (/\bnoindex\b/i.test(body)) throw new Error('big dogs evergreen unexpectedly contains noindex');
+  },
+});
+
 await fetchProduction('/dogs/definitely-not-a-real-texasdefined-breed', 'invalid breed 404', {
   expectedStatus: 404,
 });
@@ -153,4 +171,4 @@ await fetchProduction('/robots.txt', 'dogs robots', {
   },
 });
 
-console.log('Texas Dogs production smoke passed: hub and representative breed SSR SEO/schema are live, invalid breeds 404, all governed Dogs URLs are in sitemap.xml, and robots.txt does not block /dogs.');
+console.log('Texas Dogs production smoke passed: hub and representative breed SSR SEO/schema are live, Wave 2 evergreen articles are indexable and linked to relevant breeds, invalid breeds 404, all governed Dogs URLs are in sitemap.xml, and robots.txt does not block /dogs.');
