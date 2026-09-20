@@ -9,6 +9,30 @@ export type OfficialFootballEnrollmentLink = {
 
 export const OFFICIAL_FOOTBALL_ENROLLMENT_LINKS: readonly OfficialFootballEnrollmentLink[] = [
   {
+    districtName: 'Frisco ISD',
+    aliases: ['Frisco Independent School District'],
+    enrollmentUrl: 'https://sf1.friscoisd.org/about/enrollment/home',
+    sourceLabel: 'Frisco ISD enrollment',
+    verifiedAt: '2026-09-19',
+    schoolYear: '2026-27',
+  },
+  {
+    districtName: 'Little Elm ISD',
+    aliases: ['Little Elm Independent School District'],
+    enrollmentUrl: 'https://www.littleelmisd.net/for-parents/enrollment-registration/new-student-registration',
+    sourceLabel: 'Little Elm ISD new student enrollment',
+    verifiedAt: '2026-09-19',
+    schoolYear: '2026-27',
+  },
+  {
+    districtName: 'Princeton ISD',
+    aliases: ['Princeton Independent School District'],
+    enrollmentUrl: 'https://www.princetonisd.net/departments/enrollment',
+    sourceLabel: 'Princeton ISD enrollment',
+    verifiedAt: '2026-09-19',
+    schoolYear: '2026-27',
+  },
+  {
     districtName: 'Denton ISD',
     aliases: ['Denton Independent School District'],
     enrollmentUrl: 'https://www.dentonisd.org/families/registration/new-student-enrollment',
