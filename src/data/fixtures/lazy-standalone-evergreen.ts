@@ -20,7 +20,7 @@ const iconicTexasFashionGuideStub: Article = {
   title: "250 Iconic Texas Fashion Items: Boots, Hats, Western Wear and Workwear",
   dek: "A field guide to 250 pieces of clothing, footwear, jewelry and working gear associated with Texas style—from cowboy boots and pearl snaps to rodeo buckles, oil-field workwear, game-day shirts and formal Western dress.",
   category: "guides",
-  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Cowboy_boots_IMGP9037.jpg?width=1600", alt: "A pair of traditional Western cowboy boots", width: 1600, height: 2159, credit: "Nikodem Nijaki · CC BY-SA 3.0 · Wikimedia Commons" },
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Boots_on_the_fence..JPG?width=1600", alt: "Cowboy boots displayed on a fence between Marfa and Presidio, Texas", width: 1600, height: 1200, credit: "NorthcottPhotos · CC BY-SA 3.0 · Wikimedia Commons" },
   authorId: "a-marisol", publishedAt: "2026-09-19", readingMinutes: 18,
   tags: ["texas fashion", "texas western wear", "cowboy boots", "cowboy hats", "pearl snap shirts", "texas workwear", "rodeo fashion", "western jewelry", "texas style"],
   featured: false,
