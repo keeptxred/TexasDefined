@@ -398,12 +398,21 @@ if (!errors.length) {
     "slug: 'hurst-bell'",
     "slug: 'irving-macarthur'",
     "slug: 'irving-nimitz'",
+    "slug: 'garland'",
+    "slug: 'garland-lakeview-cent'",
+    "slug: 'garland-rowlett'",
+    "slug: 'garland-sachse'",
+    "slug: 'north-garland'",
+    "slug: 'south-garland'",
+    "slug: 'wylie'",
+    "slug: 'wylie-east'",
+    "slug: 'forney'",
     'sourceUrl',
     'verifiedAt',
   ]) requireText(schoolIdentities, marker, 'Football school identity data');
   const verifiedFootballIdentityCount = (schoolIdentities.match(/slug: '/g) ?? []).length;
-  if (verifiedFootballIdentityCount < 147) {
-    errors.push(`Football school identity data fell below 147 verified profiles; found ${verifiedFootballIdentityCount}.`);
+  if (verifiedFootballIdentityCount < 156) {
+    errors.push(`Football school identity data fell below 156 verified profiles; found ${verifiedFootballIdentityCount}.`);
   }
 
   for (const marker of [
