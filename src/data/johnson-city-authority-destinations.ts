@@ -43,6 +43,7 @@ export const johnsonCityAuthorityDestinations: Destination[] = [
       "The Exotic Resort Zoo safari park",
       "Pedernales River Nature Park for in-town swimming, fishing and paddling",
       "Signature events: Texas Wine Jam, Johnson City Jazz Fest and Christmas Lights Spectacular",
+      "Gears & Beers car and motorcycle show",
       "U.S. 290 Hill Country wine and Stonewall corridor",
       "Quick access to Pedernales Falls State Park",
     ],
