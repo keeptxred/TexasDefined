@@ -45,6 +45,9 @@ export const blancoCountyJohnsonCityBlancoPedernalesHillCountryArticle: Article 
     { href: "/destination/hye", label: "Explore Hye", description: "Use the town guide for the historic post office, Garrison Brothers, William Chris, Hye Meadow and the U.S. 290 corridor." },
     { href: "/destination/garrison-brothers-distillery-hye", label: "Garrison Brothers Distillery", description: "Tour the working bourbon distillery in Hye, with tastings, food, live music and Made-in-Texas production along the U.S. 290 corridor." },
     { href: "/destination/real-ale-brewing-company-blanco", label: "Real Ale Brewing Company", description: "Visit Blanco's working brewery and distillery for 16+ taps, pilot releases, free Friday tours, food, live music and Real Spirits." },
+    { href: "/destination/buggy-barn-museum-blanco", label: "Buggy Barn Museum", description: "Explore more than 250 historic buggies, carriages and wagons plus Pine Moore Old West Studio in Blanco." },
+    { href: "/destination/milam-greene-whiskey-distillery-blanco", label: "Milam & Greene Whiskey", description: "Visit Blanco's whiskey distillery and tasting room for tours, flights, cocktails and limited releases." },
+    { href: "/destination/twin-sisters-dance-hall-blanco", label: "Twin Sisters Dance Hall", description: "Experience a living nineteenth-century Hill Country dance hall with monthly public dances and special events." },
     { href: "/county/gillespie", label: "Explore Gillespie County", description: "Continue west toward Fredericksburg, Stonewall and the Pedernales corridor." },
     { href: "/county/kendall", label: "Explore Kendall County", description: "Head south toward Boerne, Comfort and the Guadalupe River country." },
     { href: "/county/hays", label: "Explore Hays County", description: "Follow the Hill Country east toward Wimberley, Dripping Springs and San Marcos." },
@@ -52,7 +55,7 @@ export const blancoCountyJohnsonCityBlancoPedernalesHillCountryArticle: Article 
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how distance, settlement and courthouse access shaped the Texas county map." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["johnson-city", "blanco", "hye", "science-mill-johnson-city", "texas-vintage-motorcycle-museum-johnson-city", "reptilandia-johnson-city", "exotic-resort-zoo-johnson-city", "pedernales-river-nature-park-johnson-city", "garrison-brothers-distillery-hye", "real-ale-brewing-company-blanco", "lyndon-b-johnson-national-historical-park"],
+  relatedDestinations: ["johnson-city", "blanco", "hye", "science-mill-johnson-city", "texas-vintage-motorcycle-museum-johnson-city", "reptilandia-johnson-city", "exotic-resort-zoo-johnson-city", "pedernales-river-nature-park-johnson-city", "garrison-brothers-distillery-hye", "real-ale-brewing-company-blanco", "buggy-barn-museum-blanco", "milam-greene-whiskey-distillery-blanco", "twin-sisters-dance-hall-blanco", "lyndon-b-johnson-national-historical-park"],
   body: [
     p("Blanco County sits in the heart of the Texas Hill Country between Austin and San Antonio, where limestone hills, live oak and Ashe juniper frame two important river systems. The northern and central portions drain toward the Pedernales River and the Colorado basin, while the southern third follows the Blanco and Little Blanco rivers toward the Guadalupe. That split helps explain the county's unusual identity: Johnson City looks west along the Pedernales corridor, while the town of Blanco grew around the river that gave the county its name."),
     p("The county is compact by Texas standards, but it contains an outsized collection of Hill Country stories. Ranching and farming shaped the early economy. German immigrants joined settlers from the American South. A long courthouse rivalry shifted the county seat from Blanco to Johnson City. Lyndon B. Johnson's family history made the northern part of the county nationally significant, while Blanco State Park preserved a spring-fed river landscape inside the county's original seat."),
@@ -88,6 +91,8 @@ export const blancoCountyJohnsonCityBlancoPedernalesHillCountryArticle: Article 
 
     h("Blanco kept its identity after losing the county seat"),
     p("The town of Blanco remained an important commercial and cultural center even after county government moved north. Its historic square and old courthouse preserve the period when it was the seat of Blanco County, while the surrounding river valley continued to support ranches, farms, businesses and tourism."),
+    p("Blanco's visitor economy also reaches beyond the river and courthouse square. Buggy Barn Museum preserves a large horse-drawn transportation collection and working Old West production set, Milam & Greene and Real Ale connect the town to modern Texas whiskey and craft-beer production, and Twin Sisters Dance Hall south of town preserves the county's German-Texan public-dance tradition as a working venue rather than a static historic shell."),
+
     p("The old courthouse in Blanco became a landmark in its own right. Its survival gives the county two strong courthouse stories: the original seat with its nineteenth-century civic architecture and Johnson City with the twentieth-century courthouse that represents the final shift in county government."),
 
     h("Blanco State Park protects the river inside town"),
