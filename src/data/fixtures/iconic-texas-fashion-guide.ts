@@ -20,7 +20,7 @@ const sectionNotes = [
 
 const itemSections: ArticleBlock[] = ICONIC_TEXAS_FASHION_SECTIONS.flatMap((section, index) => [
   h(`${section.start + 1}–${section.end}. ${section.title}`),
-  p(sectionNotes[index]),
+  p(sectionNotes[index] ?? ""),
   { type: "list", items: ICONIC_TEXAS_FASHION_ITEMS.slice(section.start, section.end) } as ArticleBlock,
 ]);
 
@@ -53,7 +53,7 @@ export const iconicTexasFashionGuideArticle: Article = {
   ],
   featured: false,
   internalLinks: [
-    { href: "/texas-icons/cowboy-boot", label: "Cowboy boot: Texas icon", description: "Follow the boot from working riding gear to official State Footwear and modern Texas symbol." },
+    { href: "/texas-symbols", label: "Cowboy boot: official Texas footwear", description: "Verify the cowboy boot's official State Footwear designation and explore other legislatively adopted Texas symbols." },
     { href: "/made-in-texas", label: "Made in Texas", description: "Find Texas manufacturers and brands tied to boots, hats, workwear, leather goods and other products." },
     { href: "/things-unique-to-texas/texas-brands", label: "Legendary Texas brands", description: "Connect apparel and footwear to Texas-founded or Texas-rooted companies." },
     { href: "/texas-brand-origin-stories", label: "Texas brand origin stories", description: "See how Dickies and other Texas names moved from local businesses into statewide identity." },
