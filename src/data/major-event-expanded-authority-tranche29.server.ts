@@ -87,6 +87,9 @@ const records: MajorEventAuthorityRecord[] = [
       { href: "/county/travis", label: "Explore Travis County", description: "Connect the festival to county-level places, communities, events and travel resources." },
       { href: "/event/austin-food-wine-festival", label: "Austin Food & Wine Festival", description: "Compare another major annual Austin food-and-drink weekend." },
       { href: "/event/san-antonio-beer-festival", label: "San Antonio Beer Festival", description: "Continue exploring major Texas beer festivals and tasting events." },
+      { href: "/explore/food-bbq", label: "Texas food, drink & brewery travel", description: "Connect the festival to TexasDefined's statewide food-and-drink travel hub." },
+      { href: "/destination/spoetzl-brewery", label: "K. Spoetzl Brewery in Shiner", description: "Plan a visit to one of TexasDefined's source-verified working brewery destinations." },
+      { href: "/destination/real-ale-brewing-company-blanco", label: "Real Ale Brewing Company in Blanco", description: "Explore a Hill Country brewery, taproom and tour destination." },
       { href: "/events", label: "Texas events calendar", description: "Browse more annual festivals and build a Texas event trip by date." },
     ],
     sources: [
