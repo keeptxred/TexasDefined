@@ -1,3 +1,4 @@
+import { footballIsdProfilePath } from './football-isd-slugs';
 import { footballProgramProfilePath } from './program-slugs';
 import {
   UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28,
@@ -33,6 +34,7 @@ export type FootballProgramDirectoryResult = UilFootballProgram & {
   profilePath: string;
   officialSchoolName?: string;
   districtName?: string;
+  isdProfilePath?: string;
   countyName?: string;
   city?: string;
   teaSchoolNumber?: string;
@@ -48,6 +50,7 @@ export type FootballProgramDirectoryResult = UilFootballProgram & {
 };
 
 let directoryCache: { loadedAt: number; rows: TeaSchoolDirectoryRecord[] } | null = null;
+let allProgramDirectoryCache: { loadedAt: number; programs: FootballProgramDirectoryResult[] } | null = null;
 
 function normalizeHeader(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -266,6 +269,7 @@ function withDirectory(program: UilFootballProgram, rows: TeaSchoolDirectoryReco
     profilePath: footballProgramProfilePath(program.schoolName),
     officialSchoolName: record.schoolName,
     districtName: record.districtName,
+    isdProfilePath: footballIsdProfilePath(record.districtName),
     countyName: record.countyName,
     city: record.city,
     teaSchoolNumber: record.schoolNumber,
@@ -284,6 +288,25 @@ function withDirectory(program: UilFootballProgram, rows: TeaSchoolDirectoryReco
 function includesQuery(value: string, query: string) {
   const normalizedValue = cleanName(value);
   return normalizedValue.includes(query) || cleanName(expandSearchName(value)).includes(query);
+}
+
+export async function loadAllFootballProgramsWithDirectory() {
+  if (allProgramDirectoryCache && Date.now() - allProgramDirectoryCache.loadedAt < CACHE_TTL_MS) {
+    return allProgramDirectoryCache.programs;
+  }
+
+  const directory = await loadTeaSchoolDirectory();
+  const programs = UIL_FOOTBALL_PROGRAMS_2026
+    .map((program) => withDirectory(program, directory))
+    .sort((a, b) => {
+      const classDiff = Number(b.classification[0]) - Number(a.classification[0]);
+      if (classDiff) return classDiff;
+      if ((a.division ?? 0) !== (b.division ?? 0)) return (a.division ?? 0) - (b.division ?? 0);
+      return a.schoolName.localeCompare(b.schoolName);
+    });
+
+  allProgramDirectoryCache = { loadedAt: Date.now(), programs };
+  return programs;
 }
 
 export async function searchFootballPrograms(options: {
