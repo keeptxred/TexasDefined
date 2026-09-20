@@ -76,6 +76,14 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
     title: "Real Ale Brewing Blanco: Taproom, Tours & Hours",
     description: "Plan Real Ale Brewing in Blanco with current taproom hours, 16+ taps, free Friday tours, beer garden, pizza, live music and Real Spirits details.",
   },
+  "/destination/buggy-barn-museum-blanco": {
+    title: "Buggy Barn Museum Blanco: Hours, Admission & Visitor Guide",
+    description: "Plan Buggy Barn Museum in Blanco with current hours, suggested admission, 250+ historic vehicles, Pine Moore Old West Studio and nearby Hill Country stops.",
+  },
+  "/event/blanco-lavender-festival": {
+    title: "Blanco Lavender Festival 2027: Dates & Visitor Guide",
+    description: "The 22nd annual Blanco Lavender Festival is announced for June 4-6, 2027. Plan the courthouse market weekend and check back for the 2027 daily schedule.",
+  },
   "/texas-vs/california": { title: "Texas vs California: Cost & Living" },
   "/article/texas-wildlife-guide": { title: "Texas Wildlife Guide: Animals & Habitats" },
   "/article/texas-regions-explained": {
