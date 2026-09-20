@@ -3,7 +3,7 @@ import type { MajorEventAuthorityRecord } from "./major-event-authority.server";
 const records: MajorEventAuthorityRecord[] = [
   {
     slug: "texas-wine-jam",
-    name: "Texas Wine Jam 2026",
+    name: "Texas Wine Jam",
     city: "Johnson City",
     countySlug: "blanco",
     countyName: "Blanco County",
@@ -77,7 +77,7 @@ const records: MajorEventAuthorityRecord[] = [
   },
   {
     slug: "johnson-city-jazz-fest",
-    name: "Johnson City Jazz Fest 2026",
+    name: "Johnson City Jazz Fest",
     city: "Johnson City",
     countySlug: "blanco",
     countyName: "Blanco County",
