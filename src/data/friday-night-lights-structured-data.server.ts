@@ -17,6 +17,7 @@ const collectionItems = [
   ["Texas high school football scores and schedules", "/article/texas-high-school-football-scores-schedules"],
   ["Texas high school football 2026 season calendar", "/article/texas-high-school-football-2026-season-calendar"],
   ["Texas high school football district directory", "/texas-high-school-football-districts"],
+  ["Texas high school football championship history", "/texas-high-school-football-championship-history"],
   ["Find your Texas school district", "/find-my-school-district"],
   ["Texas sports hub", "/sports"],
   ["Texas tailgating guide", "/texas-tailgating-guide"],
