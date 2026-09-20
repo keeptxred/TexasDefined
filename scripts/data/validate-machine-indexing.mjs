@@ -205,6 +205,7 @@ if (citationIndex) {
     'https://texasdefined.com/texas-food-history',
     'https://texasdefined.com/texas-food-trail',
     'https://texasdefined.com/texas-ranch-water-guide',
+    'https://texasdefined.com/texas-craft-beer-guide',
     'https://texasdefined.com/san-antonio-puffy-taco-history',
     'https://texasdefined.com/barbacoa-big-red-san-antonio',
     'https://texasdefined.com/texas-chili-con-carne-history',

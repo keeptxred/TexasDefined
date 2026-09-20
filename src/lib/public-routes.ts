@@ -174,6 +174,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/san-antonio-puffy-taco-history",
   "/dr-pepper-texas-history",
   "/texas-ranch-water-guide",
+  "/texas-craft-beer-guide",
   "/texas-blue-norther-weather-guide",
   "/moving-to-texas",
   "/moving-to-texas/data",

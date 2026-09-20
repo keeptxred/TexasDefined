@@ -12,6 +12,7 @@ const FEATURED_GUIDES: Record<string, { href: string; label: string; description
     { href: "/texas-chili-con-carne-history", label: "Texas Chili Con Carne", description: "Trace San Antonio Chili Queens, commercial chili powder and cookoff culture without turning folklore into fact." },
     { href: "/texas-chicken-fried-steak-guide", label: "Texas Chicken-Fried Steak", description: "Understand the disputed origin, regional styles, cream gravy and texture that define the classic plate." },
     { href: "/texas-ranch-water-guide", label: "Texas Ranch Water", description: "Separate West Texas cocktail folklore from the better-documented Ranch 616 chapter of the modern drink." },
+    { href: "/texas-craft-beer-guide", label: "Texas Craft Beer Guide", description: "Plan brewery travel by region with current Guild discovery, Texas brewery history, verified destinations and annual beer festivals." },
     { href: "/san-antonio-puffy-taco-history", label: "San Antonio Puffy Tacos", description: "Follow the fried-masa shell into San Antonio's West Side food culture and Ray's Drive Inn history." },
     { href: "/barbacoa-big-red-san-antonio", label: "Barbacoa & Big Red", description: "See how an older Sunday barbacoa tradition and a Waco-born soda became San Antonio cultural shorthand." },
     { href: "/destination/spoetzl-brewery", label: "Visit K. Spoetzl Brewery", description: "Plan a Shiner brewery tour and see the current beer lineup, distillery, barbecue and visitor details." },
