@@ -6,6 +6,18 @@ const routeApi = getRouteApi("/dogs/{-$breed}");
 const description = "Texas Dogs Defined is the playful dog-life department of Texas Defined: breed personalities, Texas dog culture and breed-specific shirt ideas built for dog people.";
 const dogDeskStories = [
   {
+    slug: "small-dogs-big-texas-attitude",
+    eyebrow: "Small dogs",
+    title: "Small Dogs, Big Texas Attitude",
+    dek: "The smallest dog in the room is often the one acting like it owns the deed, the porch and several neighboring properties.",
+  },
+  {
+    slug: "big-dogs-texas-sized-problems",
+    eyebrow: "Big dogs",
+    title: "Big Dogs, Texas-Sized Problems",
+    dek: "Couch space, truck space, doorway traffic and the mystery of why a giant dog still thinks it is lap-sized.",
+  },
+  {
     slug: "the-unofficial-job-description-of-a-texas-porch-dog",
     eyebrow: "Texas dog life",
     title: "The Unofficial Job Description of a Texas Porch Dog",
