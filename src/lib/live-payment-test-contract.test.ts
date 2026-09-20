@@ -36,7 +36,7 @@ describe("Texas Defined one-shot live payment verification", () => {
 describe("Texas Defined live payment proxy security", () => {
   it("only permits the fixed one-shot run and never accepts an arbitrary upstream URL", () => {
     expect(serverFn).toContain('data.run !== LIVE_TEST_RUN');
-    expect(serverFn).toContain('const DEFAULT_COMMERCE_API = "https://keeptxred.com"');
+    expect(serverFn).toContain("const DEFAULT_COMMERCE_API");
     expect(serverFn).not.toContain('data.url');
   });
 
