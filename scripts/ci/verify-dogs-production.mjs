@@ -2,6 +2,13 @@ const origin = String(process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const userAgent = 'TexasDefined-Dogs-Production-Smoke/1.1';
 
+const dogDeskArticleSlugs = [
+  'the-unofficial-job-description-of-a-texas-porch-dog',
+  'why-the-best-dog-shirt-joke-feels-like-your-dog-and-nobody-elses',
+  'small-dogs-big-texas-attitude',
+  'big-dogs-texas-sized-problems',
+];
+
 const breeds = [
   'labrador-retriever',
   'golden-retriever',
@@ -179,6 +186,9 @@ await fetchProduction('/sitemap.xml', 'dogs sitemap', {
     requireNeedle(body, '<loc>https://texasdefined.com/dogs</loc>', 'dogs sitemap');
     for (const slug of breeds) {
       requireNeedle(body, `<loc>https://texasdefined.com/dogs/${slug}</loc>`, 'dogs sitemap');
+    }
+    for (const slug of dogDeskArticleSlugs) {
+      requireNeedle(body, `<loc>https://texasdefined.com/article/${slug}</loc>`, 'dogs sitemap');
     }
   },
 });
