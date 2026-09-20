@@ -31,6 +31,7 @@ const cultureGuides = [
   ['/texas-chili-con-carne-history', 'Texas Chili Con Carne', 'San Antonio Chili Queens, commercial chili powder, Terlingua cookoff culture and the difference between food history and folklore.'],
   ['/texas-chicken-fried-steak-guide', 'Texas Chicken-Fried Steak', 'A disputed origin, regional breading styles, cream gravy and the texture that makes the classic Texas plate work.'],
   ['/texas-ranch-water-guide', 'Texas Ranch Water', 'A simple tequila highball whose strong Texas identity is better documented than its exact first origin.'],
+  ['/texas-craft-beer-guide', 'Texas Craft Beer Guide', 'A statewide brewery-travel guide built around current Guild discovery, regional planning, verified brewery destinations and annual beer events.'],
   ['/san-antonio-puffy-taco-history', 'San Antonio Puffy Tacos', 'Fresh masa, hot oil and West Side food culture explain one of San Antonio’s most recognizable regional tacos.'],
   ['/barbacoa-big-red-san-antonio', 'Barbacoa & Big Red', 'An older Sunday barbacoa tradition and a Waco-born soda became one of San Antonio’s strongest food-and-memory pairings.'],
   ['/texas-natural-wonders-bucket-list', 'Texas Natural Wonders', 'Twelve landscapes that show how Texas shifts from desert mountains and canyons to cypress swamp, springs and barrier islands.'],
