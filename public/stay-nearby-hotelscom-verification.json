@@ -1,7 +1,7 @@
 {
   "version": 1,
   "publisherId": "101876465",
-  "verifiedAt": "2026-09-18",
+  "verifiedAt": "2026-09-19",
   "policy": {
     "exactPropertyOnly": true,
     "broadSearchAllowed": false,
@@ -128,6 +128,21 @@
       "propertyId": "hotel-1928-waco",
       "name": "Hotel 1928",
       "destinationUrl": "https://www.hotels.com/ho3586848288/hotel-1928/"
+    },
+    {
+      "propertyId": "best-western-plus-sweetwater",
+      "name": "Best Western Plus Sweetwater Inn & Suites",
+      "destinationUrl": "https://www.hotels.com/ho506095/best-western-plus-sweetwater-inn-suites-sweetwater-united-states-of-america/"
+    },
+    {
+      "propertyId": "la-quinta-sweetwater-east",
+      "name": "La Quinta Inn & Suites by Wyndham Sweetwater East",
+      "destinationUrl": "https://www.hotels.com/ho636049152/la-quinta-inn-suites-by-wyndham-sweetwater-east-sweetwater-united-states-of-america/"
+    },
+    {
+      "propertyId": "microtel-sweetwater",
+      "name": "Microtel Inn & Suites by Wyndham Sweetwater",
+      "destinationUrl": "https://www.hotels.com/ho532248/microtel-inn-and-suites-by-wyndham-sweetwater-sweetwater-united-states-of-america/"
     }
   ]
 }

@@ -9,7 +9,7 @@ const CHAPPELL_HILL_MAP_FRAME = /<div class="aspect-\[4\/3\] overflow-hidden rou
 const PLAN_VISIT_HEADING = /(<h2[^>]*>\s*Planning your visit\s*<\/h2>)/i;
 const LEGACY_PLAN_VISIT_HEADING = /(<h2[^>]*>\s*)Plan the visit(\s*<\/h2>)/gi;
 const FIRST_SECTION_HEADING = /(<h2[^>]*>)/i;
-const KEEP_EXPLORING_SECTION = /(<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Keep exploring<\/h2>)/i;
+const EVENT_DISCOVERY_TAIL = /(<section data-event-discovery-tail="true"[^>]*>)/i;
 const STAY_NEARBY_SLOT = '<div data-stay-nearby-slot class="my-10" aria-label="Places to stay near this event"></div>';
 
 function stabilizeEventHtml(slug: string, html: string) {
@@ -32,7 +32,7 @@ function injectStayNearbySlot(html: string) {
 }
 
 function splitEventHtmlForParking(html: string) {
-  const match = KEEP_EXPLORING_SECTION.exec(html);
+  const match = EVENT_DISCOVERY_TAIL.exec(html);
   if (!match || match.index === undefined) return { beforeParking: html, afterParking: "" };
   return {
     beforeParking: html.slice(0, match.index),

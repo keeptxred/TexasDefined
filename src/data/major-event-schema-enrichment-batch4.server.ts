@@ -20,11 +20,23 @@ export const majorEventSchemaEnrichmentBatch4: MajorEventSchemaEnrichment[] = [
   {
     slug: "sweetwater-rattlesnake-roundup",
     organizer: organization("Sweetwater Jaycees", "http://www.rattlesnakeroundup.net/"),
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/A%20cowboy%20snake-handler%20at%20the%20%22World%27s%20Largest%20Rattlesnake%20Roundup%22%20in%20Sweetwater%2C%20Texas%20LCCN2014631450.tif?width=1600",
+      alt: "Snake handler holding a rattlesnake at the World's Largest Rattlesnake Roundup in Sweetwater, Texas",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:A_cowboy_snake-handler_at_the_%22World%27s_Largest_Rattlesnake_Roundup%22_in_Sweetwater,_Texas_LCCN2014631450.tif",
+      sourceType: "wikimedia",
+      licenseName: "Public domain",
+      licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/",
+      rightsNote: "Carol M. Highsmith photograph from the Library of Congress collection; Wikimedia Commons identifies the Highsmith collection as public-domain material.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     sources: [
       { label: "City of Sweetwater visitor guide — Sweetwater Jaycees Rattlesnake Roundup", url: "https://www.sweetwatertx.gov/159/Visit-Sweetwater" },
       { label: "City of Sweetwater annual events — Sweetwater Jaycees Annual Rattlesnake Roundup", url: "https://www.sweetwatertx.gov/375/Events" },
+      { label: "Wikimedia Commons — Carol M. Highsmith Sweetwater roundup photograph", url: "https://commons.wikimedia.org/wiki/File:A_cowboy_snake-handler_at_the_%22World%27s_Largest_Rattlesnake_Roundup%22_in_Sweetwater,_Texas_LCCN2014631450.tif" },
     ],
-    verifiedAt: "2026-09-01",
+    verifiedAt: "2026-09-19",
   },
   {
     slug: "granbury-founders-day-jubilee",
