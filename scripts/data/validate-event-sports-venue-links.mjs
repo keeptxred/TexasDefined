@@ -104,9 +104,9 @@ assert(countyDestinations.includes('href={`/event/${event.slug}`}'), 'County maj
 assert(!countyDestinations.includes('getCountyMajorEvents(county.slug)'), 'County UI must not suspend on the major-event server function before county discovery sections render.');
 assert(!countyDestinations.includes('major-event-supplemental-registry.server'), 'County UI must not import the server-only supplemental authority registry directly.');
 
-assert(eventPage.includes('event.countySlug ? `/browse/counties#county-${event.countySlug}` : null'), 'Major event guides must derive county backlinks from the canonical county browse anchor.');
+assert(eventPage.includes('event.countySlug ? `/county/${event.countySlug}` : null'), 'Major event guides must derive county backlinks from the canonical /county/{slug} guide.');
 assert(eventPage.includes('!event.relatedLinks.some((item) => item.href === countyHref)'), 'Major event guides must avoid duplicating an already-curated county backlink.');
-assert(!eventPage.includes('`/county/${event.countySlug}`'), 'Major event guides must not link to the nonexistent /county/{slug} route.');
+assert(!eventPage.includes('`/browse/counties#county-${event.countySlug}`'), 'Major event guides must not regress to the legacy county browse anchor.');
 assert(eventPage.includes('description: event.whyItMatters'), 'Major-event Event JSON-LD must include the sourced editorial description.');
 assert(!eventPage.includes(': verified dates, official sources and practical trip planning.'), 'Major-event metadata must not label recurrence-derived planning dates as universally verified.');
 assert(eventPage.includes(': dates, official sources and practical trip planning.'), 'Major-event metadata must retain neutral date/source/trip-planning description copy.');

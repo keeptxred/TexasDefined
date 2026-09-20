@@ -108,7 +108,7 @@ for (const feature of [
   '...(organizer ? { organizer } : {})',
   '...(offers?.length ? { offers } : {})',
   '...(performers?.length ? { performer: performers } : {})',
-  'Current event details',
+  'Event details',
   'Last reviewed',
 ]) {
   if (!eventLeaf.includes(feature)) errors.push(`Dedicated Event leaf SEO feature missing: ${feature}.`);
