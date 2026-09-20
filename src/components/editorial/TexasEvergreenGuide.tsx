@@ -118,6 +118,7 @@ const guideImages: Partial<Record<string, GuideImage>> = {
 
 const guideSources: Partial<Record<string, { label: string; href: string; note: string }[]>> = {
   "texas-craft-beer-guide": [
+    { label: "Texas Craft Brewers Guild — Homepage", href: "https://texascraftbrewersguild.org/", note: "States that the Guild’s Texas Brewery Passport can be used to find and visit 200+ operating brewery members throughout Texas." },
     { label: "Texas Craft Brewers Guild — Brewery Membership", href: "https://texascraftbrewersguild.org/brewery-membership/", note: "Defines the Guild's current operating-brewery eligibility, distinguishes breweries in planning, lists the eight current Guild regions and confirms that the Brewery Passport is an operating-member benefit." },
     { label: "Texas Craft Brewers Guild — Mission and Leadership", href: "https://texascraftbrewersguild.org/about/", note: "Documents the Guild's 2009 formation and its current 300+ brewery-member scale, including operating breweries and breweries in planning." },
     { label: "Texas Craft Brewers Guild — Texas Brewery Passport", href: "https://texascraftbrewersguild.org/app/", note: "Documents the Guild's statewide brewery-passport program and its use for current operating-brewery discovery." },
