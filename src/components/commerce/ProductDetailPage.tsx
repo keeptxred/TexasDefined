@@ -4,6 +4,7 @@ import type { Product, ProductVariant } from "@/data/types";
 import { Container } from "@/components/layout/Container";
 import { ProductCard } from "@/components/commerce/ProductCard";
 import { useShopCart } from "@/lib/shop-cart";
+import { trackTexasDefinedOutcome } from "@/platform/analytics";
 
 function variantLabel(variant: ProductVariant) { return variant.title || `Option ${variant.id}`; }
 
@@ -24,6 +25,12 @@ export function ProductDetailPage({ product, related, variant }: { product: Prod
   function addToCart() {
     if (!selected) return;
     cart.add({ productId: product.id, title: product.name, image, price, currency: product.currency, variantId: selected.id, variantTitle: variantLabel(selected), quantity });
+    trackTexasDefinedOutcome("shop_add_to_cart", {
+      resourceId: product.id,
+      stepId: String(selected.id),
+      entityKind: "product-variant",
+      score: quantity,
+    });
     setAdded(true);
   }
 
