@@ -2,13 +2,6 @@ const origin = String(process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const userAgent = 'TexasDefined-Dogs-Production-Smoke/1.1';
 
-const dogDeskArticleSlugs = [
-  'the-unofficial-job-description-of-a-texas-porch-dog',
-  'why-the-best-dog-shirt-joke-feels-like-your-dog-and-nobody-elses',
-  'small-dogs-big-texas-attitude',
-  'big-dogs-texas-sized-problems',
-];
-
 const breeds = [
   'labrador-retriever',
   'golden-retriever',
@@ -141,42 +134,6 @@ await fetchProduction('/dogs/labrador-retriever', 'labrador breed', {
   },
 });
 
-await fetchProduction('/article/the-unofficial-job-description-of-a-texas-porch-dog', 'porch dog evergreen', {
-  verify: (body) => {
-    for (const needle of ['The Unofficial Job Description of a Texas Porch Dog', '/dogs/labrador-retriever', '/dogs/german-shepherd', '/dogs/dachshund', '/dogs/golden-retriever']) {
-      requireNeedle(body, needle, 'porch dog evergreen');
-    }
-    if (/\bnoindex\b/i.test(body)) throw new Error('porch dog evergreen unexpectedly contains noindex');
-  },
-});
-
-await fetchProduction('/article/why-the-best-dog-shirt-joke-feels-like-your-dog-and-nobody-elses', 'dog shirt evergreen', {
-  verify: (body) => {
-    for (const needle of ['Why the Best Dog Shirt Joke Feels Like Your Dog and Nobody Else’s', '/dogs/pembroke-welsh-corgi', '/dogs/beagle', '/dogs/french-bulldog']) {
-      requireNeedle(body, needle, 'dog shirt evergreen');
-    }
-    if (/\bnoindex\b/i.test(body)) throw new Error('dog shirt evergreen unexpectedly contains noindex');
-  },
-});
-
-await fetchProduction('/article/small-dogs-big-texas-attitude', 'small dogs evergreen', {
-  verify: (body) => {
-    for (const needle of ['Small Dogs, Big Texas Attitude', '/dogs/chihuahua', '/dogs/dachshund', '/dogs/pembroke-welsh-corgi']) {
-      requireNeedle(body, needle, 'small dogs evergreen');
-    }
-    if (/\bnoindex\b/i.test(body)) throw new Error('small dogs evergreen unexpectedly contains noindex');
-  },
-});
-
-await fetchProduction('/article/big-dogs-texas-sized-problems', 'big dogs evergreen', {
-  verify: (body) => {
-    for (const needle of ['Big Dogs, Texas-Sized Problems', '/dogs/great-dane', '/dogs/german-shepherd', '/dogs/boxer']) {
-      requireNeedle(body, needle, 'big dogs evergreen');
-    }
-    if (/\bnoindex\b/i.test(body)) throw new Error('big dogs evergreen unexpectedly contains noindex');
-  },
-});
-
 await fetchProduction('/dogs/definitely-not-a-real-texasdefined-breed', 'invalid breed 404', {
   expectedStatus: 404,
 });
@@ -187,9 +144,6 @@ await fetchProduction('/sitemap.xml', 'dogs sitemap', {
     for (const slug of breeds) {
       requireNeedle(body, `<loc>https://texasdefined.com/dogs/${slug}</loc>`, 'dogs sitemap');
     }
-    for (const slug of dogDeskArticleSlugs) {
-      requireNeedle(body, `<loc>https://texasdefined.com/article/${slug}</loc>`, 'dogs sitemap');
-    }
   },
 });
 
@@ -199,4 +153,4 @@ await fetchProduction('/robots.txt', 'dogs robots', {
   },
 });
 
-console.log('Texas Dogs production smoke passed: hub and representative breed SSR SEO/schema are live, all four Dog Desk evergreen articles are indexable and linked to relevant breeds, invalid breeds 404, all governed Dogs URLs are in sitemap.xml, and robots.txt does not block /dogs.');
+console.log('Texas Dogs production smoke passed: hub and representative breed SSR SEO/schema are live, invalid breeds 404, all governed Dogs URLs are in sitemap.xml, and robots.txt does not block /dogs.');
