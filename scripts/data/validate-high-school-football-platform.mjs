@@ -339,6 +339,22 @@ if (!errors.length) {
     "slug: 'garland-naaman-forest'",
     "slug: 'n-richland-hills-birdville'",
     "slug: 'n-richland-hills-richland'",
+    "slug: 'crandall'",
+    "slug: 'dallas-adams'",
+    "slug: 'dallas-sunset'",
+    "slug: 'dallas-white'",
+    "slug: 'mesquite'",
+    "slug: 'north-mesquite'",
+    "slug: 'tyler'",
+    "slug: 'west-mesquite'",
+    "slug: 'burleson-centennial'",
+    "slug: 'cedar-hill'",
+    "slug: 'cleburne'",
+    "slug: 'de-soto'",
+    "slug: 'lancaster'",
+    "slug: 'mansfield-legacy'",
+    "slug: 'mansfield-summit'",
+    "slug: 'midlothian'",
     "slug: 'weatherford'",
     "slug: 'ft-worth-boswell'",
     "slug: 'keller'",
@@ -362,8 +378,8 @@ if (!errors.length) {
     'verifiedAt',
   ]) requireText(schoolIdentities, marker, 'Football school identity data');
   const verifiedFootballIdentityCount = (schoolIdentities.match(/slug: '/g) ?? []).length;
-  if (verifiedFootballIdentityCount < 119) {
-    errors.push(`Football school identity data fell below 119 verified profiles; found ${verifiedFootballIdentityCount}.`);
+  if (verifiedFootballIdentityCount < 135) {
+    errors.push(`Football school identity data fell below 135 verified profiles; found ${verifiedFootballIdentityCount}.`);
   }
 
   for (const marker of [
@@ -422,6 +438,15 @@ if (!errors.length) {
     "districtName: 'Carrollton-Farmers Branch ISD'",
     "districtName: 'Dallas ISD'",
     "districtName: 'Birdville ISD'",
+    "districtName: 'Crandall ISD'",
+    "districtName: 'Mesquite ISD'",
+    "districtName: 'Tyler ISD'",
+    "districtName: 'Burleson ISD'",
+    "districtName: 'Cedar Hill ISD'",
+    "districtName: 'Cleburne ISD'",
+    "districtName: 'DeSoto ISD'",
+    "districtName: 'Lancaster ISD'",
+    "districtName: 'Midlothian ISD'",
     "districtName: 'Frisco ISD'",
     "districtName: 'Little Elm ISD'",
     "districtName: 'Princeton ISD'",
@@ -429,8 +454,8 @@ if (!errors.length) {
     'verifiedAt',
   ]) requireText(officialEnrollmentLinks, marker, 'Official football enrollment links');
   const verifiedEnrollmentLinkCount = (officialEnrollmentLinks.match(/districtName: '/g) ?? []).length;
-  if (verifiedEnrollmentLinkCount < 50) {
-    errors.push(`Official football enrollment-link data fell below 50 verified districts; found ${verifiedEnrollmentLinkCount}.`);
+  if (verifiedEnrollmentLinkCount < 59) {
+    errors.push(`Official football enrollment-link data fell below 59 verified districts; found ${verifiedEnrollmentLinkCount}.`);
   }
 
   for (const marker of [
