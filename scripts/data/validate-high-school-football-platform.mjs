@@ -584,6 +584,9 @@ if (!errors.length) {
 
   // The original supplied list remains available only as alias/private-school research metadata.
   // It must not control the public UIL directory, profile availability, profile order or search handoff.
+  if (featuredPrograms.includes('primaryRank') || featuredPrograms.includes('sourceRanks')) errors.push('Legacy football seed metadata must use source-position terminology, not ranking terminology.');
+  requireText(featuredPrograms, 'sourcePositions', 'Legacy football seed metadata');
+  requireText(featuredPrograms, 'firstSourcePosition', 'Legacy football seed metadata');
   if (page.includes('FeaturedFootballResearchList')) errors.push('Football finder page must not use the old seed-list directory.');
   if (page.includes('242 canonical school profiles')) errors.push('Football finder page must not present the old seed list as the profile universe.');
   if (featuredProfilePage.includes('Research list position')) errors.push('Football school profiles must not display seed-list positions.');
