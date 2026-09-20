@@ -53,6 +53,16 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       label: "Explore Blanco County",
       description: "Connect Blanco with Johnson City, Hye, the Pedernales corridor and the rest of the county's Hill Country attractions.",
     },
+    {
+      href: "/event/texas-craft-brewers-festival",
+      label: "Plan the Texas Craft Brewers Festival",
+      description: "Connect a Blanco brewery visit with the statewide annual Austin festival guide, current tickets, lodging and transportation planning.",
+    },
+    {
+      href: "/explore/food-bbq#food-bbq-craft-beer",
+      label: "Explore Texas craft beer travel",
+      description: "Browse TexasDefined's brewery destinations and beer-festival discovery lane inside the statewide food-and-drink hub.",
+    },
   ],
   "garrison-brothers-distillery-hye": [
     {
@@ -389,6 +399,16 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/event/shiner-beer-run",
       label: "Plan the Shiner Beer Run",
       description: "See the verified 2026 race date, distance options and brewery-campus planning notes.",
+    },
+    {
+      href: "/event/texas-craft-brewers-festival",
+      label: "Plan the Texas Craft Brewers Festival",
+      description: "Connect Shiner brewery travel with the statewide annual Austin festival guide, current tickets, lodging and transportation planning.",
+    },
+    {
+      href: "/explore/food-bbq#food-bbq-craft-beer",
+      label: "Explore Texas craft beer travel",
+      description: "Browse TexasDefined's brewery destinations and beer-festival discovery lane inside the statewide food-and-drink hub.",
     },
   ],
   "jasper": [
