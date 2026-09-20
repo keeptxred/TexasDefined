@@ -5,6 +5,28 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "real-ale-brewing-company-blanco": [
+    {
+      href: "/destination/blanco",
+      label: "Explore Blanco",
+      description: "Pair the brewery with the courthouse square, Blanco River and the town's broader Hill Country visitor guide.",
+    },
+    {
+      href: "/destination/blanco-state-park",
+      label: "Add Blanco State Park",
+      description: "Combine the brewery with swimming, fishing, paddling and riverside time inside town.",
+    },
+    {
+      href: "/destination/garrison-brothers-distillery-hye",
+      label: "Compare Garrison Brothers in Hye",
+      description: "Build a Blanco County Made-in-Texas route that contrasts Real Ale's beer-and-spirits production with Garrison Brothers bourbon.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Connect Blanco with Johnson City, Hye, the Pedernales corridor and the rest of the county's Hill Country attractions.",
+    },
+  ],
   "garrison-brothers-distillery-hye": [
     {
       href: "/county/blanco",
@@ -25,6 +47,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/destination/fredericksburg-texas-wineries-things-to-do-guide",
       label: "Continue toward Fredericksburg",
       description: "Extend west on U.S. 290 into the larger winery, museum and Hill Country visitor corridor.",
+    },
+    {
+      href: "/destination/real-ale-brewing-company-blanco",
+      label: "Compare Real Ale in Blanco",
+      description: "Add Blanco's working brewery and distillery for a second visitable Made-in-Texas production site in the same county.",
     },
   ],
   "pedernales-falls-state-park": [

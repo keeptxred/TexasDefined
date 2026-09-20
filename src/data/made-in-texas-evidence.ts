@@ -75,8 +75,8 @@ export const MADE_IN_TEXAS_EVIDENCE: MadeInTexasEvidence[] = [
     entryName: 'Real Ale Brewing Company',
     claim: 'Real Ale says its beer and spirits are brewed and distilled in Blanco, Texas.',
     sourceLabel: 'Real Ale Brewing Company',
-    sourceUrl: 'https://realalebrewing.com/',
-    checkedAt: '2026-08-19',
+    sourceUrl: 'https://realalebrewing.com/availability/',
+    checkedAt: '2026-09-20',
   },
   {
     entryName: 'American Hat Company',
