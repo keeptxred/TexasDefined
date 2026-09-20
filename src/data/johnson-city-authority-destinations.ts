@@ -44,11 +44,13 @@ export const johnsonCityAuthorityDestinations: Destination[] = [
       "Pedernales River Nature Park for in-town swimming, fishing and paddling",
       "Signature events: Texas Wine Jam, Johnson City Jazz Fest and Christmas Lights Spectacular",
       "Gears & Beers car and motorcycle show",
+      "Pecan Street Brewing on the historic square",
       "U.S. 290 Hill Country wine and Stonewall corridor",
       "Quick access to Pedernales Falls State Park",
     ],
     body: [
       "Johnson City works especially well as a Hill Country base because several very different visitor experiences sit within a compact town center. The Blanco County Courthouse anchors downtown, while restaurants, tasting rooms, shops, museums and visitor services cluster around Main Street and the surrounding blocks.",
+      "Pecan Street Brewing strengthens that downtown cluster by combining house-brewed beer, a full restaurant, live music and recurring community events inside the former County Hardware & Supply building on the historic square. It is also the host venue for Gears & Beers, making it a useful food-and-drink anchor before museums, evening events or a U.S. 290 side trip.",
       "The town is also the eastern half of Lyndon B. Johnson National Historical Park. The National Park Service's Johnson City district includes the visitor center, LBJ Boyhood Home and Johnson Settlement, where preserved buildings and landscape interpretation connect Johnson family history with ranching, cattle drives and nineteenth-century Hill Country settlement. The separate LBJ Ranch district lies about 14 miles west near Stonewall.",
       "Johnson City has grown beyond presidential history. The Science Mill occupies the historic 1880 feed mill and now presents more than 50 hands-on STEM exhibits, while the Texas Vintage Motorcycle Museum displays more than 100 motorcycles in a restored 1930s Ford dealership just off the square. North of downtown, Reptilandia adds a specialized reptile-and-amphibian zoo and the Exotic Resort Zoo adds a large safari-style wildlife park. Together those attractions give families both indoor and outdoor reasons to make Johnson City the destination rather than only a pass-through.",
       "The wider geography matters just as much as downtown. Pedernales River Nature Park gives the town direct day-use river access for swimming, fishing, paddling and picnicking only about a mile from the courthouse square, while U.S. 290 continues west through Hye and Stonewall toward Fredericksburg. Pedernales Falls State Park lies farther east as a separate TPWD destination with the falls and longer trail network, so visitors can choose between convenient in-town river time and a full state-park outing.",
@@ -116,6 +118,13 @@ export const johnsonCityAuthorityDestinations: Destination[] = [
           description:
             "Restaurants, cafes, tasting rooms and casual food options cluster around Main Street and the courthouse square.",
           proximity: "Town center",
+        },
+        {
+          name: "Pecan Street Brewing",
+          description:
+            "A family-owned brewpub on the historic square with house-brewed beer, Southern-inspired food, live music and recurring events.",
+          proximity: "Historic square",
+          href: "/destination/pecan-street-brewing-johnson-city",
         },
         {
           name: "U.S. 290 corridor",
