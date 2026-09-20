@@ -246,7 +246,7 @@ async function verifyFiestaLeaf() {
   assert(html.includes('Fiesta San Antonio'), 'Fiesta page must render the event name');
   assert(html.includes('Organizer:'), 'Fiesta visible page must expose the verified organizer');
   assert(!html.includes('Tickets and admission'), 'Fiesta visible page must not invent unreleased 2027 offers');
-  assert(!html.includes('Announced performers'), 'Fiesta visible page must not leak a prior-year performer lineup');
+  assert(!html.includes('Scheduled performers'), 'Fiesta visible page must not leak a prior-year performer lineup');
 
   const events = eventNodes(html);
   assert(events.length >= 1, 'Fiesta leaf must expose Event schema');
@@ -314,7 +314,7 @@ async function verifyPaidOfferAndPerformersLeaf() {
   assert(canonicalHref(html) === `${origin}${path}`, `Fort Bend County Fair canonical must be ${origin}${path}`);
   assert(html.includes('Organizer:'), 'Fort Bend visible page must expose the verified organizer');
   assert(html.includes('Tickets and admission'), 'Fort Bend visible page must expose verified admission');
-  assert(html.includes('Announced performers'), 'Fort Bend visible page must expose announced performers');
+  assert(html.includes('Scheduled performers'), 'Fort Bend visible page must expose announced performers');
 
   const event = eventNodes(html)[0];
   assert(event, 'Fort Bend County Fair leaf must expose Event schema');
