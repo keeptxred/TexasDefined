@@ -41,6 +41,7 @@ export const johnsonCityAuthorityDestinations: Destination[] = [
       "Texas Vintage Motorcycle Museum",
       "Reptilandia reptile and amphibian zoo",
       "The Exotic Resort Zoo safari park",
+      "Pedernales River Nature Park for in-town swimming, fishing and paddling",
       "U.S. 290 Hill Country wine and Stonewall corridor",
       "Quick access to Pedernales Falls State Park",
     ],
@@ -48,7 +49,7 @@ export const johnsonCityAuthorityDestinations: Destination[] = [
       "Johnson City works especially well as a Hill Country base because several very different visitor experiences sit within a compact town center. The Blanco County Courthouse anchors downtown, while restaurants, tasting rooms, shops, museums and visitor services cluster around Main Street and the surrounding blocks.",
       "The town is also the eastern half of Lyndon B. Johnson National Historical Park. The National Park Service's Johnson City district includes the visitor center, LBJ Boyhood Home and Johnson Settlement, where preserved buildings and landscape interpretation connect Johnson family history with ranching, cattle drives and nineteenth-century Hill Country settlement. The separate LBJ Ranch district lies about 14 miles west near Stonewall.",
       "Johnson City has grown beyond presidential history. The Science Mill occupies the historic 1880 feed mill and now presents more than 50 hands-on STEM exhibits, while the Texas Vintage Motorcycle Museum displays more than 100 motorcycles in a restored 1930s Ford dealership just off the square. North of downtown, Reptilandia adds a specialized reptile-and-amphibian zoo and the Exotic Resort Zoo adds a large safari-style wildlife park. Together those attractions give families both indoor and outdoor reasons to make Johnson City the destination rather than only a pass-through.",
-      "The wider geography matters just as much as downtown. U.S. 290 continues west through Hye and Stonewall toward Fredericksburg, tying Johnson City into the Hill Country wine corridor and LBJ Ranch landscape. Pedernales Falls State Park lies a short drive east, so a single day can combine museums or history with river-country hiking when weather and park capacity cooperate.",
+      "The wider geography matters just as much as downtown. Pedernales River Nature Park gives the town direct day-use river access for swimming, fishing, paddling and picnicking only about a mile from the courthouse square, while U.S. 290 continues west through Hye and Stonewall toward Fredericksburg. Pedernales Falls State Park lies farther east as a separate TPWD destination with the falls and longer trail network, so visitors can choose between convenient in-town river time and a full state-park outing.",
       "Johnson City's holiday identity is another major trip pattern. The town promotes a large Christmas Lights Spectacular and other seasonal events, and the courthouse-square setting makes the lights easy to pair with downtown businesses. Holiday weekends can be substantially busier than an ordinary Hill Country day, so lodging, dinner and parking deserve more advance planning during that period.",
       "A first visit should resist the temptation to treat Johnson City as only a pass-through on the way to Fredericksburg. The town has enough museum, history and food depth for a full day, and its position between Austin, San Antonio and the western Hill Country makes it one of the more efficient places to begin a multi-stop regional trip.",
     ],
@@ -98,6 +99,13 @@ export const johnsonCityAuthorityDestinations: Destination[] = [
             "A safari-style wildlife park with 700+ animals, guided tractor tours, self-drive access and onsite cabins.",
           proximity: "About 4 miles north of town",
           href: "/destination/exotic-resort-zoo-johnson-city",
+        },
+        {
+          name: "Pedernales River Nature Park",
+          description:
+            "LCRA's day-use river park adds swimming, fishing, paddling, trails and picnic areas only minutes from downtown.",
+          proximity: "About 1 mile south of downtown",
+          href: "/destination/pedernales-river-nature-park-johnson-city",
         },
       ],
       foodAndDrink: [
