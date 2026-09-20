@@ -63,6 +63,18 @@ const texasHighSchoolFootballScoresSchedulesStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: [],
 };
 
+const texasHighSchoolFootball2026CalendarStub: Article = {
+  id: "evergreen-texas-high-school-football-2026-calendar", brandId: "texasdefined", slug: "texas-high-school-football-2026-season-calendar",
+  title: "Texas High School Football 2026 Calendar: Every UIL Week, Playoff Round & State Final",
+  dek: "The official 2026–27 UIL football calendar runs from August practices and Week One through November district certification, five playoff weeks and 12 state championship games at AT&T Stadium.",
+  category: "sports",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Arlington_June_2020_4_%28AT%26T_Stadium%29.jpg?width=1600", alt: "AT&T Stadium in Arlington, Texas, site of the 2026 UIL football state championships", width: 1600, height: 1067, credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-09-19", readingMinutes: 10,
+  tags: ["texas high school football calendar", "uil football dates 2026", "texas football playoffs 2026", "texas high school football state championships", "uil football schedule", "att stadium high school football"], featured: false,
+  sourceName: "University Interscholastic League", sourceUrl: "https://www.uiltexas.org/football",
+  body: [], relatedCollections: [], relatedDestinations: [],
+};
+
 const highSchoolFootballNewcomersStub: Article = {
   id: "evergreen-high-school-football-newcomers", brandId: "texasdefined", slug: "texas-high-school-football-newcomers",
   title: "Texas High School Football for Newcomers: Why Friday Night Matters",
@@ -265,6 +277,7 @@ export const standaloneEvergreenStubs: Article[] = [
   texasSixManFootballExplainedStub,
   texasHighSchoolFootballPlayoffsStub,
   texasHighSchoolFootballScoresSchedulesStub,
+  texasHighSchoolFootball2026CalendarStub,
   highSchoolFootballNewcomersStub,
   kolacheOrKlobasnekStub,
   orderingTexasBarbecueStub,
@@ -291,6 +304,7 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === texasSixManFootballExplainedStub.slug) return import("./texas-six-man-football-explained").then((module) => module.texasSixManFootballExplainedArticle);
   if (slug === texasHighSchoolFootballPlayoffsStub.slug) return import("./texas-high-school-football-playoffs").then((module) => module.texasHighSchoolFootballPlayoffsArticle);
   if (slug === texasHighSchoolFootballScoresSchedulesStub.slug) return import("./texas-high-school-football-scores-schedules").then((module) => module.texasHighSchoolFootballScoresSchedulesArticle);
+  if (slug === texasHighSchoolFootball2026CalendarStub.slug) return import("./texas-high-school-football-2026-calendar").then((module) => module.texasHighSchoolFootball2026CalendarArticle);
   if (slug === highSchoolFootballNewcomersStub.slug) return import("./high-school-football-newcomers").then((module) => module.highSchoolFootballNewcomersArticle);
   if (slug === kolacheOrKlobasnekStub.slug) return import("./kolache-or-klobasnek").then((module) => module.kolacheOrKlobasnekArticle);
   if (slug === orderingTexasBarbecueStub.slug) return import("./ordering-texas-barbecue").then((module) => module.orderingTexasBarbecueArticle);

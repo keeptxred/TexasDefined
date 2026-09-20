@@ -9,7 +9,7 @@ import { articlesQuery } from "@/data/queries";
 import type { Article } from "@/data/types";
 
 const TexasExplainedQuestionLibrary = lazy(() => import("@/components/editorial/TexasExplainedQuestionsPage"));
-const questionCount = 137;
+const questionCount = 140;
 const description = `Ten deeply reported Texas Defined guides, twenty-five focused supporting explainers and ${questionCount} plain-English answers connecting the roads, water, government, food, traditions, landscapes, homes and local systems that make Texas work the way it does.`;
 
 const pillarSlugs = [

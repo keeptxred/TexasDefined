@@ -44,6 +44,11 @@ export const texasHighSchoolFootballScoresSchedulesArticle: Article = {
       description: "See the current 2026–28 district membership for every UIL football classification and division.",
     },
     {
+      href: "/article/texas-high-school-football-2026-season-calendar",
+      label: "2026 Texas high school football season calendar",
+      description: "See every UIL playing week, the November 7 district-certification deadline, five playoff weeks and all 12 state-final time slots.",
+    },
+    {
       href: "/article/texas-high-school-football-playoffs-explained",
       label: "How the Texas high school football playoffs work",
       description: "Understand district qualification, bi-district, Division I and II, neutral sites and the path to the state finals.",

@@ -44,6 +44,13 @@ const startHere = [
     label: "Open the football team finder",
   },
   {
+    title: "See the full 2026 season calendar",
+    description: "Track every UIL playing week, the November 7 district-certification deadline, five playoff weeks and all 12 state championship time slots.",
+    href: "/article/texas-high-school-football-2026-season-calendar",
+    label: "Open the 2026 calendar",
+  },
+
+  {
     title: "Follow current scores and weekly schedules",
     description: "Use the UIL Texas Scoreboard and school sources for current results and schedules, with clear caveats about submission completeness and standings.",
     href: "/article/texas-high-school-football-scores-schedules",

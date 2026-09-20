@@ -83,6 +83,7 @@ function Page() {
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
             <a href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL Texas Scoreboard gateway ↗</a>
             <a href="/article/texas-high-school-football-scores-schedules" className="text-primary underline underline-offset-4">How to verify scores, schedules & standings →</a>
+            <a href="/article/texas-high-school-football-2026-season-calendar" className="text-primary underline underline-offset-4">2026 UIL season calendar →</a>
           </div>
         </div>
       </section>
