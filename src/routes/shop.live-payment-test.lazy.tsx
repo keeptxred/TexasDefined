@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
-import { commerceApiBase } from "@/data/shop-products-remote";
+import { runTexasDefinedLivePaymentTest } from "@/data/live-payment-test.functions";
 
 const LIVE_TEST_RUN = "td-20260920-8c2e41";
 
@@ -34,16 +34,12 @@ function LivePaymentTestPage() {
     const poll = async () => {
       attempts += 1;
       try {
-        const url = new URL("/api/public/payments/live-test", commerceApiBase());
-        url.searchParams.set("site", "texasdefined");
-        url.searchParams.set("run", LIVE_TEST_RUN);
-        if (session_id) url.searchParams.set("session_id", session_id);
-        const response = await fetch(url, {
-          headers: { accept: "application/json" },
-          cache: "no-store",
-        });
-        const payload = await response.json() as TestStatus & { ok?: boolean; error?: string };
-        if (!response.ok || !payload.ok) throw new Error(payload.error || "Unable to verify payment.");
+        const payload = await runTexasDefinedLivePaymentTest({
+          action: "status",
+          run: LIVE_TEST_RUN,
+          ...(session_id ? { sessionId: session_id } : {}),
+        }) as TestStatus & { ok?: boolean; error?: string };
+        if (!payload.ok) throw new Error(payload.error || "Unable to verify payment.");
         if (cancelled) return;
         setStatus(payload);
         if (payload.found === false) return;
@@ -63,13 +59,11 @@ function LivePaymentTestPage() {
     setWorking(true);
     setError("");
     try {
-      const response = await fetch(`${commerceApiBase()}/api/public/payments/live-test`, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ site: "texasdefined", run: LIVE_TEST_RUN }),
+      const payload = await runTexasDefinedLivePaymentTest({
+        action: "start",
+        run: LIVE_TEST_RUN,
       });
-      const payload = await response.json() as { ok?: boolean; url?: string; error?: string };
-      if (!response.ok || !payload.ok || !payload.url) {
+      if (!payload.ok || !payload.url) {
         throw new Error(payload.error || "Unable to start live payment test.");
       }
       window.location.assign(payload.url);
