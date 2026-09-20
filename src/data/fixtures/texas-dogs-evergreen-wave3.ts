@@ -95,7 +95,7 @@ export const dogsInTexasStateParksArticle: Article = {
   sourceUrl: "https://tpwd.texas.gov/state-parks/park-information/frequently-asked-questions",
   internalLinks: [
     { href: "/dogs", label: "Texas Dogs Defined", description: "Start with breed personality, then plan the practical Texas dog life around it." },
-    { href: "/explore/texas-state-parks-guide", label: "Texas state parks guide", description: "Compare parks and choose the place before checking that park's current dog restrictions." },
+    { href: "/explore/state-parks", label: "Texas state parks guide", description: "Compare parks and choose the place before checking that park's current dog restrictions." },
     { href: "/best-places-to-go-camping-in-texas", label: "Best places to go camping in Texas", description: "Build a camping shortlist, then verify pet rules for the exact park and site." },
     { href: "/dogs/australian-shepherd", label: "Australian Shepherd Defined", description: "High-energy trail personality meets the practical realities of leash, heat and terrain." },
     { href: "/dogs/labrador-retriever", label: "Labrador Retriever Defined", description: "A water-loving breed still has to follow state-park swim-area restrictions." },
