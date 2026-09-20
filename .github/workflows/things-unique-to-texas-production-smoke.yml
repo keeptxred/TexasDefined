@@ -121,7 +121,7 @@ jobs:
             echo '- Canonical collection: https://texasdefined.com/things-unique-to-texas'
             echo '- Methodology: https://texasdefined.com/things-unique-to-texas/methodology'
             echo '- Chapter routes checked: 8'
-            echo '- Topical/evergreen authority routes checked: 23'
+            echo '- Topical/evergreen authority routes checked: 24'
             echo '- Machine distributions: 250-row JSON and CSV packages'
             echo '- Machine distributions must retain at least 91 deeper-guide relationships.'
             echo '- HTML routes must be indexable; data downloads must return X-Robots-Tag: noindex, follow.'
