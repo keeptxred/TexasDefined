@@ -9,6 +9,7 @@ const calculator = [
 ].map((filename) => fs.readFileSync(path.join(root, filename), 'utf8')).join('\n');
 const calculatorSeo = fs.readFileSync(path.join(root, 'src/lib/calculator-seo.ts'), 'utf8');
 const paymentGuide = fs.readFileSync(path.join(root, 'src/routes/learn.property-tax-payments.tsx'), 'utf8');
+const over65Calculator = fs.readFileSync(path.join(root, 'src/routes/texas-over-65-property-tax-calculator.tsx'), 'utf8');
 const guides = [
   ['Homestead exemption', 'src/routes/do.homestead-exemption.tsx', '/do/homestead-exemption', 'homestead-step-'],
   ['Property tax protest', 'src/routes/do.property-tax-protest.tsx', '/do/property-tax-protest', 'protest-step-'],
@@ -73,6 +74,25 @@ for (const feature of [
 }
 if (calculator.includes('offers:') || calculator.includes('aggregateRating:')) {
   errors.push('Property-tax calculator must not invent offers or ratings.');
+}
+
+for (const feature of [
+  "title: 'Texas Over-65 Property Tax Calculator | Exemption & School Tax Freeze'",
+  'const SCHOOL_GENERAL_HOMESTEAD_EXEMPTION = 140000;',
+  'const SCHOOL_AGE_65_EXEMPTION = 60000;',
+  'schoolCeiling: 0,',
+  "'@type': 'FAQPage'",
+  'The school tax ceiling is not the exemption',
+  'A school tax freeze does not freeze every line of the bill',
+  'https://comptroller.texas.gov/taxes/property-tax/exemptions/',
+  'https://comptroller.texas.gov/taxes/property-tax/docs/96-1425.pdf',
+  'to="/learn/over-65-property-tax-guide"',
+  'to="/learn/appraisal-districts"',
+]) {
+  if (!over65Calculator.includes(feature)) errors.push(`Over-65 property-tax calculator authority feature missing: ${feature}.`);
+}
+if (over65Calculator.includes('schoolCeiling: 2500')) {
+  errors.push('Over-65 property-tax calculator must not restore an invented property-specific school-tax ceiling default.');
 }
 
 if (errors.length) {
