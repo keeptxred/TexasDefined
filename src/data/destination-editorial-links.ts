@@ -5,6 +5,50 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "johnson-city": [
+    {
+      href: "/destination/science-mill-johnson-city",
+      label: "Plan a Science Mill visit",
+      description: "Use the dedicated Science Mill guide for current hours, exhibit highlights and family-planning details.",
+    },
+    {
+      href: "/destination/texas-vintage-motorcycle-museum-johnson-city",
+      label: "See Johnson City's vintage motorcycle museum",
+      description: "Add a second distinctive downtown museum with more than 100 vintage motorcycles in a restored Ford dealership.",
+    },
+    {
+      href: "/destination/lyndon-b-johnson-national-historical-park",
+      label: "Explore the LBJ National Historical Park",
+      description: "Connect Johnson City to the Boyhood Home, Johnson Settlement and the separate LBJ Ranch district near Stonewall.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Extend the town visit to Blanco, the Pedernales corridor and the wider county landscape.",
+    },
+  ],
+  "science-mill-johnson-city": [
+    {
+      href: "/destination/johnson-city",
+      label: "Explore Johnson City",
+      description: "Build the Science Mill into a fuller downtown day with the courthouse square, food, museums and LBJ history.",
+    },
+    {
+      href: "/destination/texas-vintage-motorcycle-museum-johnson-city",
+      label: "Add the vintage motorcycle museum",
+      description: "Pair hands-on STEM with a very different transportation-history collection just off the Johnson City square.",
+    },
+    {
+      href: "/destination/lyndon-b-johnson-national-historical-park",
+      label: "Add the LBJ National Historical Park",
+      description: "Combine Science Mill with the Boyhood Home and Johnson Settlement for a science-and-history family day.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "See how Johnson City, Blanco and the Pedernales corridor fit together across the county.",
+    },
+  ],
   "texas-vintage-motorcycle-museum-johnson-city": [
     {
       href: "/county/blanco",
@@ -21,6 +65,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       label: "Explore the Texas Hill Country",
       description: "Build the Johnson City stop into a larger Hill Country route with parks, small towns, scenic drives and museums.",
     },
+    {
+      href: "/destination/johnson-city",
+      label: "Explore Johnson City",
+      description: "Use the town guide to connect the museum with Science Mill, the courthouse square, LBJ history and Hill Country side trips.",
+    },
   ],
   "lyndon-b-johnson-national-historical-park": [
     {
@@ -32,6 +81,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/county/blanco",
       label: "Explore Blanco County",
       description: "Place the Johnson City and ranch districts in the broader county landscape of the Pedernales, Blanco, ranching and Hill Country towns.",
+    },
+    {
+      href: "/destination/johnson-city",
+      label: "Explore Johnson City beyond the park",
+      description: "Connect the national historical park with Science Mill, the motorcycle museum, downtown food and the Blanco County courthouse square.",
     },
   ],
   "shiner": [
