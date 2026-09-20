@@ -7,7 +7,8 @@ create table if not exists public.texasdefined_shop_funnel_daily (
     'shop_checkout_failed',
     'shop_checkout_returned',
     'shop_purchase_confirmed',
-    'shop_purchase_unconfirmed'
+    'shop_purchase_unconfirmed',
+    'shop_funnel_sync_heartbeat'
   )),
   page_path text not null check (char_length(page_path) between 1 and 600 and left(page_path, 1) = '/'),
   detection text not null default 'unspecified' check (char_length(detection) between 1 and 120),
