@@ -96,7 +96,9 @@ export const majorEventSchemaEnrichmentBatch7: MajorEventSchemaEnrichment[] = [
     sources: [
       { label: "Texas Craft Brewers Festival official site — organized by Texas Craft Brewers Guild", url: "https://texascraftbrewersfestival.org/" },
       { label: "Texas Craft Brewers Festival official visitor information", url: "https://texascraftbrewersfestival.org/info/" },
+      { label: "Texas Craft Brewers Festival official 2026 ticket page", url: "https://tickets.texascraftbrewersfestival.org/e/texas-craft-brewers-festival-2026/tickets" },
+      { label: "Texas Craft Brewers Guild 2026 festival sponsorship facts and annual-event profile", url: "https://texascraftbrewersguild.org/2026-texas-craft-brewers-festival-sponsorship-opportunities-for-brewers/" },
     ],
-    verifiedAt: "2026-09-02",
+    verifiedAt: "2026-09-20",
   },
 ];
