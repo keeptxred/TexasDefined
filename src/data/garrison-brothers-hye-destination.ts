@@ -72,6 +72,7 @@ export const garrisonBrothersHyeDestinations: Destination[] = [
           description:
             "A recorded historic landmark that gives the tiny Hye community context beyond wineries and distilleries.",
           proximity: "Hye / U.S. 290",
+          href: "/destination/hye",
         },
         {
           name: "Lyndon B. Johnson National Historical Park",
@@ -146,6 +147,13 @@ export const garrisonBrothersHyeDestinations: Destination[] = [
         },
       ],
       sideTrips: [
+        {
+          name: "Hye",
+          description:
+            "Use the town guide to connect the distillery with the historic post office, William Chris, Hye Meadow and the U.S. 290 corridor.",
+          proximity: "Local",
+          href: "/destination/hye",
+        },
         {
           name: "Blanco County",
           description:

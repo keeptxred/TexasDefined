@@ -5,6 +5,33 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "hye": [
+    {
+      href: "/destination/garrison-brothers-distillery-hye",
+      label: "Tour Garrison Brothers",
+      description: "Use the dedicated Hye distillery guide for current tours, tastings, food, release weekends and visitor planning.",
+    },
+    {
+      href: "/destination/lyndon-b-johnson-national-historical-park",
+      label: "Add LBJ country",
+      description: "Connect Hye's post-office history with the LBJ Ranch near Stonewall and the Johnson City district.",
+    },
+    {
+      href: "/destination/johnson-city",
+      label: "Explore Johnson City",
+      description: "Use Johnson City as the eastern base for museums, food, family attractions and Blanco County planning.",
+    },
+    {
+      href: "/destination/fredericksburg-texas-wineries-things-to-do-guide",
+      label: "Continue toward Fredericksburg",
+      description: "Extend west through Stonewall into the larger U.S. 290 wine, history, lodging and shopping corridor.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "See how Hye fits with Johnson City, Blanco, the Pedernales and the county's wider Hill Country geography.",
+    },
+  ],
   "real-ale-brewing-company-blanco": [
     {
       href: "/destination/blanco",
@@ -52,6 +79,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/destination/real-ale-brewing-company-blanco",
       label: "Compare Real Ale in Blanco",
       description: "Add Blanco's working brewery and distillery for a second visitable Made-in-Texas production site in the same county.",
+    },
+    {
+      href: "/destination/hye",
+      label: "Explore Hye",
+      description: "Put the distillery in context with the historic Hye Post Office, wineries and the U.S. 290 Johnson City–Stonewall corridor.",
     },
   ],
   "pedernales-falls-state-park": [
@@ -197,6 +229,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/destination/garrison-brothers-distillery-hye",
       label: "Tour Garrison Brothers in Hye",
       description: "Add the working bourbon distillery, reserve tastings and U.S. 290 spirits corridor west of Johnson City.",
+    },
+    {
+      href: "/destination/hye",
+      label: "Explore Hye",
+      description: "Continue west on U.S. 290 to Hye for the historic post office, Texas wine and Garrison Brothers.",
     },
   ],
   "science-mill-johnson-city": [

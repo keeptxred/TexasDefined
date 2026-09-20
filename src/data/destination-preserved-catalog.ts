@@ -15,6 +15,7 @@ import { austinMuseumDestinations } from "./museum-expansion-austin";
 import { dfwMuseumDestinations } from "./museum-expansion-dfw";
 import { georgeWBushMuseumDestinations } from "./museum-expansion-george-w-bush";
 import { garrisonBrothersHyeDestinations } from "./garrison-brothers-hye-destination";
+import { hyeTexasDestinations } from "./hye-texas-destination";
 import { houstonGalvestonMuseumDestinations } from "./museum-expansion-houston-galveston";
 import { sanAntonioMuseumDestinations } from "./museum-expansion-san-antonio";
 import { sanAntonioContemporaryMuseumDestinations } from "./museum-expansion-san-antonio-contemporary";
@@ -217,6 +218,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   dfwMuseumDestinations,
   georgeWBushMuseumDestinations,
   garrisonBrothersHyeDestinations,
+  hyeTexasDestinations,
   austinMuseumDestinations,
   sanAntonioMuseumDestinations,
   sanAntonioContemporaryMuseumDestinations,
