@@ -37,6 +37,29 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
+      - name: Capture failing Worker runtime diagnostics
+        id: incident_diagnostics
+        continue-on-error: true
+        shell: bash
+        run: |
+          mkdir -p .artifacts
+          npx wrangler deployments status --json > .artifacts/pre-rollback-deployment-status.json 2> .artifacts/pre-rollback-deployment-status.stderr || true
+          npx wrangler versions list --json > .artifacts/pre-rollback-versions.json 2> .artifacts/pre-rollback-versions.stderr || true
+          timeout 20s npx wrangler tail texasdefined-site --format json --status error > .artifacts/pre-rollback-worker-tail.jsonl 2> .artifacts/pre-rollback-worker-tail.stderr &
+          TAIL_PID=$!
+          sleep 4
+          curl -sS --max-time 15 -D .artifacts/pre-rollback-homepage.headers -o .artifacts/pre-rollback-homepage.html "https://texasdefined-site.freddy-coppola.workers.dev/?incident_probe=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" || true
+          wait "${TAIL_PID}" || true
+
+      - name: Upload failing Worker runtime diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pre-rollback-worker-incident-${{ github.run_id }}
+          path: .artifacts/pre-rollback-*
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Restore last known-good Worker version
         shell: bash
         run: |
