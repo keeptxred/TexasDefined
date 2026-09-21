@@ -3,7 +3,7 @@ import { createServer } from 'vite';
 const server = await createServer({ configFile: false, appType: 'custom', logLevel: 'error', server: { middlewareMode: true } });
 try {
   const { loadTicketmasterEventsServer, ticketmasterAuthorityGuidePath } = await server.ssrLoadModule('/src/data/events/ticketmaster-events.server.ts');
-  const { mergeEventTicketing } = await server.ssrLoadModule('/src/data/events/texas-event-records.server.ts');
+  const { mergeEventTicketing } = await server.ssrLoadModule('/src/data/events/ticketing.ts');
   const { hasCompliantMajorEventImageServer } = await server.ssrLoadModule('/src/data/major-event-schema-enrichment.server.ts');
   const { buildTexasEventCarouselItemsServer, buildGlobalEventCalendarServer } = await server.ssrLoadModule('/src/data/events/texas-event-calendar.server.ts');
   const now = new Date();
