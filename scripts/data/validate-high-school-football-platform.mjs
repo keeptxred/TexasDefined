@@ -436,12 +436,22 @@ if (!errors.length) {
     "slug: 'garland-sachse'",
     "slug: 'wylie'",
     "slug: 'wylie-east'",
+    "slug: 'prosper-walnut-grove'",
+    "slug: 'garland-rowlett'",
+    "slug: 'north-garland'",
+    "slug: 'south-garland'",
+    "slug: 'forney'",
+    "slug: 'mesquite-horn'",
+    "slug: 'royse-city'",
+    "slug: 'tyler-legacy'",
+    "slug: 'crowley'",
+    "slug: 'mansfield'",
     'sourceUrl',
     'verifiedAt',
   ]) requireText(schoolIdentities, marker, 'Football school identity data');
   const verifiedFootballIdentityCount = (schoolIdentities.match(/slug: '/g) ?? []).length;
-  if (verifiedFootballIdentityCount < 167) {
-    errors.push(`Football school identity data fell below 167 verified profiles; found ${verifiedFootballIdentityCount}.`);
+  if (verifiedFootballIdentityCount < 177) {
+    errors.push(`Football school identity data fell below 177 verified profiles; found ${verifiedFootballIdentityCount}.`);
   }
 
   for (const marker of [
