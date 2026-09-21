@@ -31,6 +31,8 @@ try {
   assert.equal(ticketmasterAuthorityGuidePath('Nutcracker Market General Admission: Good for ONE Entry', 'Houston'), '/event/houston-ballet-nutcracker-market');
   assert.equal(ticketmasterAuthorityGuidePath('San Antonio Stock Show & Rodeo Haunted Hayrides', 'San Antonio'), '/event/san-antonio-stock-show-rodeo');
   assert.equal(ticketmasterAuthorityGuidePath('Beer Around The World 2026 - Fiesta De Palmas McAllen TX', 'McAllen'), '/event/fiesta-de-palmas');
+  assert.equal(ticketmasterAuthorityGuidePath('Bill Pickett Invitational Rodeo', 'Fort Worth'), '/event/bill-pickett-rodeo-fort-worth');
+  assert.equal(ticketmasterAuthorityGuidePath('Hollydays Market Corpus Christi Fri. 11-6 through Sun. 11-8, 2026', 'Corpus Christi'), '/event/hollydays-market-corpus-christi');
   assert.equal(ticketmasterAuthorityGuidePath('Example concert', 'San Antonio'), undefined);
   for (const slug of [
     'fiesta-de-palmas',
@@ -41,6 +43,8 @@ try {
     'way-out-west-festival-el-paso',
     'state-fair-classic',
     'beaumont-comic-con',
+    'bill-pickett-rodeo-fort-worth',
+    'hollydays-market-corpus-christi',
   ]) assert.equal(hasCompliantMajorEventImageServer(slug), true, `${slug} must remain indexable with rights-cleared hero provenance`);
   assert.equal(hasCompliantMajorEventImageServer('mcallen-holiday-parade'), false, 'Holiday parade must remain fail-closed until an exact-location or governed AI hero is approved');
 
