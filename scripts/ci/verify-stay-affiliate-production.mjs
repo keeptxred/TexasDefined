@@ -119,7 +119,7 @@ const affiliateBootstrap = await fetchLive('/stay-affiliate-options.js');
 for (const marker of [
   'const CJ_PUBLISHER_ID = "101876465"',
   'https://www.hotels.com/',
-  'https://www.travelocity.com/',
+  'https://www.orbitz.com/',
   'https://www.vrbo.com/',
   'const VERIFIED_PROPERTY_DESTINATIONS = new Map([',
   'https://www.hotels.com/ho115100/hilton-anatole-dallas-united-states-of-america/',
@@ -142,13 +142,13 @@ for (const marker of [
   'exactPropertyAffiliate.scrollIntoView',
   'Find places to stay',
   'Find hotels on Hotels.com',
-  'Compare hotels on Travelocity',
+  'Compare hotels on Orbitz',
   'Find vacation rentals on Vrbo',
   'Compare more hotels on Hotels.com',
-  'Compare more hotels on Travelocity',
+  'Compare more hotels on Orbitz',
   'Browse vacation rentals on Vrbo',
   'stay-nearby-choice-after-exact',
-  'Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or Vrbo activity',
+  'Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Orbitz or Vrbo activity',
   'sponsored nofollow noopener noreferrer',
   'event: "affiliate_click"',
   'window.dataLayer.push(detail)',
@@ -248,7 +248,7 @@ for (const page of pages) {
   requireCondition(html.includes('/stay-affiliate-options.js'), `${page.route} is missing the Hotels.com/Vrbo affiliate bootstrap reference.`);
   const expediaPosition = html.indexOf('/expedia-travel.js');
   const affiliatePosition = html.indexOf('/stay-affiliate-options.js');
-  requireCondition(expediaPosition >= 0 && affiliatePosition > expediaPosition, `${page.route} no longer loads the Hotels.com/Travelocity/Vrbo bootstrap after Expedia/Stay Nearby.`);
+  requireCondition(expediaPosition >= 0 && affiliatePosition > expediaPosition, `${page.route} no longer loads the Hotels.com/Orbitz/Vrbo bootstrap after Expedia/Stay Nearby.`);
   if (page.requireSlot) requireCondition(html.includes('data-stay-nearby-slot'), `${page.route} is missing its explicit in-content Stay Nearby slot.`);
   if (page.requireBookingCar) {
     for (const marker of [
@@ -271,4 +271,4 @@ for (const page of pages) {
   requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === page.route.replace(/\/+$/, ''), `${page.route} is not self-canonical and must not be part of the monetized production cohort.`);
 }
 
-console.log('Stay affiliate production verification passed: all 30 governed stay properties (18 venue + 12 destination) expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher, curated surfaces prioritize exact-property referrals before broad Hotels.com/Travelocity/Vrbo choices, while broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted partner_referral_shown, partner_referral_clicked and reserved expedia-search next_step_selected CI probes backed by Cloudflare Analytics Engine; Hotels.com/Travelocity/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');
+console.log('Stay affiliate production verification passed: all 30 governed stay properties (18 venue + 12 destination) expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher, curated surfaces prioritize exact-property referrals before broad Hotels.com/Orbitz/Vrbo choices, while broad Expedia search remains the fallback; the live same-origin /api/analytics collector accepted partner_referral_shown, partner_referral_clicked and reserved expedia-search next_step_selected CI probes backed by Cloudflare Analytics Engine; Hotels.com/Orbitz/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');
