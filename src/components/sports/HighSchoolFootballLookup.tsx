@@ -70,6 +70,7 @@ type Props = {
   compact?: boolean;
   showSearch?: boolean;
   initialQuery?: string;
+  showAllByDefault?: boolean;
 };
 
 export function HighSchoolFootballLookup({
@@ -79,6 +80,7 @@ export function HighSchoolFootballLookup({
   compact = false,
   showSearch = true,
   initialQuery = '',
+  showAllByDefault = false,
 }: Props) {
   const [query, setQuery] = useState(initialQuery);
   const [programs, setPrograms] = useState<FootballProgram[]>([]);
@@ -89,7 +91,7 @@ export function HighSchoolFootballLookup({
   const [loading, setLoading] = useState(Boolean(countyName));
   const [error, setError] = useState('');
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
-  const [showAllMatches, setShowAllMatches] = useState(false);
+  const [showAllMatches, setShowAllMatches] = useState(showAllByDefault);
 
   useEffect(() => {
     if (!countyName) return;
@@ -109,7 +111,7 @@ export function HighSchoolFootballLookup({
         setHistoryAvailable(payload.historyAvailable !== false);
         setAllTimeHistoryAvailable(payload.allTimeHistoryAvailable !== false);
         setSelectedKeys([]);
-        setShowAllMatches(false);
+        setShowAllMatches(showAllByDefault);
       } catch (cause) {
         if (controller.signal.aborted) return;
         setError(cause instanceof Error ? cause.message : 'Football programs could not be loaded.');
@@ -121,7 +123,7 @@ export function HighSchoolFootballLookup({
 
     void loadCounty();
     return () => controller.abort();
-  }, [countyName]);
+  }, [countyName, showAllByDefault]);
 
   const runQuery = useCallback(async (value: string) => {
     const trimmed = value.trim();
@@ -143,7 +145,7 @@ export function HighSchoolFootballLookup({
       setHistoryAvailable(payload.historyAvailable !== false);
       setAllTimeHistoryAvailable(payload.allTimeHistoryAvailable !== false);
       setSelectedKeys([]);
-      setShowAllMatches(false);
+      setShowAllMatches(showAllByDefault);
       if (!(payload.programs?.length)) setError(`No current UIL football program matched “${trimmed}.” Try the official high-school or ISD name.`);
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : 'Football programs could not be loaded.');
@@ -152,7 +154,7 @@ export function HighSchoolFootballLookup({
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [showAllByDefault]);
 
   useEffect(() => {
     const trimmed = initialQuery.trim();

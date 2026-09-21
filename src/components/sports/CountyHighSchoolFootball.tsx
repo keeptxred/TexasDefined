@@ -8,6 +8,7 @@ export function CountyHighSchoolFootball({ county }: { county: TexasEntityRecord
     countyName={countyName}
     compact
     showSearch={false}
+    showAllByDefault
     heading={`High school football in ${countyName}`}
     intro={`See current UIL football programs whose TEA school-directory records are in ${countyName}. Use the statewide finder to compare a specific high school or ISD before choosing where to live.`}
   />;
