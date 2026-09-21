@@ -24,6 +24,12 @@ try {
   assert.equal(ticketmasterAuthorityGuidePath('Way Out West Festival Featuring Cole Swindell', 'El Paso'), '/event/way-out-west-festival-el-paso');
   assert.equal(ticketmasterAuthorityGuidePath('State Fair Classic', 'Dallas'), '/event/state-fair-classic');
   assert.equal(ticketmasterAuthorityGuidePath('Beaumont Comic Con', 'Beaumont'), '/event/beaumont-comic-con');
+  assert.equal(ticketmasterAuthorityGuidePath('Austin City Limits Festival', 'Austin'), '/event/austin-city-limits-music-festival');
+  assert.equal(ticketmasterAuthorityGuidePath('Austin Food + Wine Festival', 'Austin'), '/event/austin-food-wine-festival');
+  assert.equal(ticketmasterAuthorityGuidePath('Red Steagall Cowboy Gathering', 'Fort Worth'), '/event/red-steagall-cowboy-gathering');
+  assert.equal(ticketmasterAuthorityGuidePath('Nutcracker Market General Admission: Good for ONE Entry', 'Houston'), '/event/houston-ballet-nutcracker-market');
+  assert.equal(ticketmasterAuthorityGuidePath('San Antonio Stock Show & Rodeo Haunted Hayrides', 'San Antonio'), '/event/san-antonio-stock-show-rodeo');
+  assert.equal(ticketmasterAuthorityGuidePath('Beer Around The World 2026 - Fiesta De Palmas McAllen TX', 'McAllen'), '/event/fiesta-de-palmas');
   assert.equal(ticketmasterAuthorityGuidePath('Example concert', 'San Antonio'), undefined);
 
   const editorialTicketing = {
