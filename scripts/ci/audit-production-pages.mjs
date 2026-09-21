@@ -124,13 +124,25 @@ async function discoverSitemaps() {
 async function collectUrls() {
   const pending = await discoverSitemaps();
   const seenSitemaps = new Set();
+  const sitemapFailures = [];
   const pageUrls = new Set();
   while (pending.length) {
     const sitemap = pending.shift();
     if (!sitemap || seenSitemaps.has(sitemap)) continue;
     seenSitemaps.add(sitemap);
-    const { response, body } = await fetchText(sitemap);
-    if (!response.ok) throw new Error('Sitemap fetch failed ' + response.status + ' ' + sitemap);
+    let response, body;
+    try {
+      ({ response, body } = await fetchText(sitemap));
+    } catch (error) {
+      sitemapFailures.push({ sitemap, status: 0, error: error?.message || String(error) });
+      console.error('SITEMAP FAIL fetch-error ' + sitemap + ' :: ' + (error?.message || String(error)));
+      continue;
+    }
+    if (!response.ok) {
+      sitemapFailures.push({ sitemap, status: response.status, error: 'HTTP ' + response.status });
+      console.error('SITEMAP FAIL HTTP ' + response.status + ' ' + sitemap);
+      continue;
+    }
     for (const loc of sitemapLocs(body)) {
       const url = new URL(loc, ORIGIN);
       if (url.origin !== new URL(ORIGIN).origin) continue;
@@ -138,7 +150,7 @@ async function collectUrls() {
       else pageUrls.add(url.href.replace(/#.*$/, ''));
     }
   }
-  return { pageUrls: [...pageUrls].sort(), sitemaps: [...seenSitemaps] };
+  return { pageUrls: [...pageUrls].sort(), sitemaps: [...seenSitemaps], sitemapFailures };
 }
 
 async function auditPage(url) {
@@ -219,8 +231,8 @@ function duplicateIssues(results, field, code) {
   }
 }
 
-const { pageUrls, sitemaps } = await collectUrls();
-console.log('Discovered ' + pageUrls.length + ' unique indexable URLs from ' + sitemaps.length + ' sitemap(s).');
+const { pageUrls, sitemaps, sitemapFailures } = await collectUrls();
+console.log('Discovered ' + pageUrls.length + ' unique indexable URLs from ' + sitemaps.length + ' sitemap(s); ' + sitemapFailures.length + ' sitemap failure(s).');
 const results = await mapLimit(pageUrls, CONCURRENCY, auditPage);
 duplicateIssues(results, 'title', 'duplicate-title');
 duplicateIssues(results, 'description', 'duplicate-description');
@@ -233,6 +245,7 @@ await fs.writeFile(OUT_JSON, JSON.stringify({
   auditedAt: new Date().toISOString(),
   origin: ORIGIN,
   sitemaps,
+  sitemapFailures,
   totals: { pages: results.length, failingPages: failures.length, passingPages: results.length - failures.length },
   byCode,
   results,
@@ -254,9 +267,13 @@ const tsv = rows.map((row) => row.map((value) => String(value ?? '').replace(/[\
 await fs.writeFile(OUT_TSV, tsv);
 
 console.log(JSON.stringify({ pages: results.length, failingPages: failures.length, byCode }, null, 2));
+if (sitemapFailures.length) {
+  for (const failure of sitemapFailures) console.error('SITEMAP FAIL ' + failure.sitemap + ' :: ' + failure.error);
+}
 if (failures.length) {
   for (const result of failures.slice(0, 200)) console.error('FAIL ' + result.url + ' :: ' + result.issues.map((issue) => issue.code + (issue.detail ? '=' + issue.detail : '')).join(', '));
   if (failures.length > 200) console.error('... and ' + (failures.length - 200) + ' more failing pages; see artifact.');
   process.exit(1);
 }
+if (sitemapFailures.length) process.exit(1);
 console.log('PASS: every sitemap-listed TexasDefined page satisfied the whole-site production quality audit.');
