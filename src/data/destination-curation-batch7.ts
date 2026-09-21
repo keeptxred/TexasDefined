@@ -49,7 +49,7 @@ const curated: Record<string, Partial<Destination>> = {
     managingAuthority: "Texas Parks and Wildlife Department",
     officialUrl: "https://tpwd.texas.gov/state-parks/lyndon-b-johnson",
     reservationUrl: "https://texasstateparks.reserveamerica.com/",
-    sourceCheckedAt: CHECKED,
+    sourceCheckedAt: "2026-09-21",
     address: "199 Park Road 52, Stonewall, TX 78671",
     directions:
       "The park is on U.S. 290 about 2 miles east of Stonewall and 14 miles west of Johnson City. Enter on Park Road 52; the park is also adjacent to Ranch Road 1 and the LBJ Ranch corridor.",
