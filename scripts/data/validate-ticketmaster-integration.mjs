@@ -2,7 +2,8 @@ import assert from 'node:assert/strict';
 import { createServer } from 'vite';
 const server = await createServer({ configFile: false, appType: 'custom', logLevel: 'error', server: { middlewareMode: true } });
 try {
-  const { loadTicketmasterEventsServer } = await server.ssrLoadModule('/src/data/events/ticketmaster-events.server.ts');
+  const { loadTicketmasterEventsServer, ticketmasterAuthorityGuidePath } = await server.ssrLoadModule('/src/data/events/ticketmaster-events.server.ts');
+  const { mergeEventTicketing } = await server.ssrLoadModule('/src/data/events/texas-event-records.server.ts');
   const { buildTexasEventCarouselItemsServer, buildGlobalEventCalendarServer } = await server.ssrLoadModule('/src/data/events/texas-event-calendar.server.ts');
   const now = new Date();
   const date = now.toISOString().slice(0, 10);
@@ -16,6 +17,29 @@ try {
   assert.equal(cta.label, 'Find Tickets →');
   assert.ok(cta.rel.includes('sponsored'));
   assert.ok(cta.disclosure);
+  assert.equal(ticketmasterAuthorityGuidePath('Fiesta De Palmas - Presented By The City Of Mcallen', 'McAllen'), '/event/fiesta-de-palmas');
+  assert.equal(ticketmasterAuthorityGuidePath('Bands Of America: San Antonio Super Regional Championship Prelims', 'San Antonio'), '/event/bands-of-america-san-antonio-super-regional');
+  assert.equal(ticketmasterAuthorityGuidePath('El Paso Film Festival - Late Night Shorts', 'El Paso'), '/event/el-paso-film-festival');
+  assert.equal(ticketmasterAuthorityGuidePath('Way Out West Festival Featuring Cole Swindell', 'El Paso'), '/event/way-out-west-festival-el-paso');
+  assert.equal(ticketmasterAuthorityGuidePath('State Fair Classic', 'Dallas'), '/event/state-fair-classic');
+  assert.equal(ticketmasterAuthorityGuidePath('Beaumont Comic Con', 'Beaumont'), '/event/beaumont-comic-con');
+  assert.equal(ticketmasterAuthorityGuidePath('Example concert', 'San Antonio'), undefined);
+
+  const editorialTicketing = {
+    links: [{
+      provider: 'official',
+      officialTicketUrl: 'https://example.org/tickets',
+      saleStatus: 'unknown',
+      source: { kind: 'official-event', name: 'Official organizer', url: 'https://example.org/tickets' },
+      lastVerifiedAt: now.toISOString(),
+    }],
+    offers: [],
+  };
+  const mergedTicketing = mergeEventTicketing(editorialTicketing, records[0].ticketing);
+  assert.equal(mergedTicketing.links.length, 2);
+  const mergedCta = buildTexasEventCarouselItemsServer([{ ...records[0], ticketing: mergedTicketing }])[0].ticketCta;
+  assert.equal(mergedCta.isAffiliate, true);
+  assert.equal(mergedCta.provider, 'ticketmaster');
   const largeCatalog = [...Array.from({ length: 300 }, (_, index) => ({ ...records[0], id: `other-${index}`, city: 'Austin' })), ...records];
   const view = buildGlobalEventCalendarServer(largeCatalog, { featured: '', location: 'city:San Antonio', start: '', end: '', category: '', venue: '' });
   assert.equal(view.results.length, 1);
