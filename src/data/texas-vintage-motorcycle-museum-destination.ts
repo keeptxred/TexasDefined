@@ -1,13 +1,13 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./destination-hero-placeholder";
 import type { Destination } from "./types";
 
-const SOURCE_CHECKED_AT = "2026-09-19";
+const SOURCE_CHECKED_AT = "2026-09-21";
 
 /**
  * Canonical TexasDefined destination for the Texas Vintage Motorcycle Museum
- * in downtown Johnson City. Mutable hours and admission stay behind the
- * first-party source because the museum's current pages do not agree on the
- * exact daily schedule.
+ * in downtown Johnson City. Current hours and admission are sourced from the
+ * museum's live homepage and remain explicitly dated because private-attraction
+ * schedules and prices can change.
  */
 export const texasVintageMotorcycleMuseumDestinations: Destination[] = [
   {
@@ -38,7 +38,7 @@ export const texasVintageMotorcycleMuseumDestinations: Destination[] = [
     bestSeason:
       "Year-round. The museum is primarily indoors, making it a useful Hill Country stop during summer heat, rain or a mixed indoor-and-outdoor Johnson City itinerary.",
     entryNote:
-      "The museum generally operates Thursday through Sunday, with special holiday-Monday hours published by the operator. The museum's current official pages do not agree on the exact opening and closing times, so verify the live schedule and current admission on the official site before making a dedicated drive.",
+      "As reviewed September 21, 2026, the museum's live homepage lists Thursday through Sunday hours from 10 a.m. to 5 p.m., Monday through Wednesday closed, and holiday Mondays from 11 a.m. to 6 p.m. Current admission is $6.76 plus tax by credit card or $6.50 plus tax in cash, with children age 5 and under free. Recheck the official site before a dedicated drive because private-attraction hours and prices can change.",
     highlights: [
       "More than 100 vintage motorcycles across a roughly 5,000-square-foot showroom",
       "Strong focus on motorcycles from the 1950s, 1960s and 1970s",
@@ -54,7 +54,7 @@ export const texasVintageMotorcycleMuseumDestinations: Destination[] = [
       "This is also a good museum for visitors who are curious about motorcycles without being riders. The displays emphasize individual machines and their histories, and the collection's mix of engineering, industrial design, racing culture and period memorabilia gives non-riders multiple ways into the subject. Explore Johnson City also lists an onsite leather boutique, so the visit is not limited to a single showroom loop. Motorcycle enthusiasts can easily spend longer comparing marques and mechanical details.",
       "Location is a major advantage. The museum sits at 100 N. Nugent Avenue just off the Johnson City square, within the same compact visitor area as restaurants, shops, the Blanco County Courthouse and other downtown stops. The Johnson City district of Lyndon B. Johnson National Historical Park is also close enough to make presidential history and motorcycle history part of one walkable or short-drive itinerary.",
       "For a broader Hill Country trip, the museum works especially well as an indoor anchor between outdoor or driving-heavy stops. Pedernales Falls State Park, the U.S. 290 wine corridor, Stonewall and Fredericksburg can all fit into a larger route, while Johnson City's Science Mill gives families another substantial indoor attraction in town.",
-      "Because the museum is privately operated, treat current hours, admission and special-event access as live information rather than permanent facts. The operator's own pages currently show conflicting exact hours even though they agree on the Thursday-through-Sunday pattern, so checking the official site before departure is the safest planning choice.",
+      "Because the museum is privately operated, treat hours, admission and special-event access as live information rather than permanent facts. As of the September 21, 2026 source review, the museum's homepage lists Thursday through Sunday from 10 a.m. to 5 p.m., Monday through Wednesday closed, and holiday Mondays from 11 a.m. to 6 p.m.; check the official site again before departure.",
     ],
     managingAuthority: "Texas Vintage Motorcycle Museum",
     officialUrl: "https://www.texasvintagemotorcyclemuseum.com/",
@@ -167,7 +167,7 @@ export const texasVintageMotorcycleMuseumDestinations: Destination[] = [
         weatherExposure: "Mostly indoors",
         planningLevel: "Low",
         familyFit:
-          "Good for families with an interest in machines, design or transportation history; the operator currently lists free admission for children age 5 and under, but verify current pricing before arrival.",
+          "Good for families with an interest in machines, design or transportation history; as reviewed September 21, 2026, children age 5 and under are free and standard paid admission remains under $7 before tax.",
         firstTimeValue:
           "High for motorcycle enthusiasts and strong for Hill Country travelers who want an unusual indoor museum within a walkable small-town itinerary.",
       },
@@ -176,7 +176,7 @@ export const texasVintageMotorcycleMuseumDestinations: Destination[] = [
           label: "Museum-focused stop",
           duration: "1–2 hours",
           steps: [
-            "Verify the current Thursday-through-Sunday operating schedule before departure.",
+            "Verify the current 10 a.m.-5 p.m. Thursday-through-Sunday schedule before departure.",
             "Walk the showroom chronologically and compare how motorcycle design changed across the 1950s, 1960s and 1970s.",
             "Leave time for memorabilia, motorcycle art and the historic dealership details rather than only photographing the bikes.",
           ],
