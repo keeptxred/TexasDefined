@@ -35,7 +35,8 @@ export function ticketmasterEventRejectionReason(event) {
   if (venue?.state?.stateCode !== 'TX') return 'non-texas-venue';
   if (venue?.country?.countryCode !== 'US') return 'non-us-venue';
   if (!venue?.city?.name) return 'missing-city';
-  const ticketUrlReason = ticketmasterUrlRejectionReason(event?.url);\n  if (ticketUrlReason) return `ticket-url-${ticketUrlReason}`;
+  const ticketUrlReason = ticketmasterUrlRejectionReason(event?.url);
+  if (ticketUrlReason) return `ticket-url-${ticketUrlReason}`;
   if (start?.dateTBD || start?.dateTBA) return 'undetermined-date';
   if (!/^\d{4}-\d{2}-\d{2}$/.test(start?.localDate ?? '')) return 'missing-local-date';
   return null;
