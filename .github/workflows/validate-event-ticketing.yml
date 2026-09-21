@@ -7,6 +7,7 @@ on:
       - 'src/data/events/texas-event-record.ts'
       - 'src/data/events/ticketing.ts'
       - 'src/data/events/texas-event-records.server.ts'
+      - 'src/lib/ticketmaster-affiliate.server.ts'
       - 'src/data/events/texas-event-calendar.server.ts'
       - 'src/data/major-event-schema-enrichment*.server.ts'
       - 'src/components/events/EventTicketCta.tsx'
