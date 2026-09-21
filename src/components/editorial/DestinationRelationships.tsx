@@ -99,7 +99,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     .slice(0, 6);
 
   return <>
-    {topAttractionRank ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
+    {destination.authorityGuide ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
     <DestinationAreaGuideSection destination={destination} />
 
     {pairedDestinations.length ? <Section tone="surface" className="py-10 sm:py-12 lg:py-14">
