@@ -39,8 +39,39 @@ test('only verified US Ticketmaster event destinations are wrapped with the appr
     officialTicketmasterUrl('http://ticketmaster.com/example/event/ABC123?foo=bar'),
     'https://ticketmaster.com/example/event/ABC123',
   );
+
+  const affiliateApiUrl = `${base}&u=${encodeURIComponent('https://www.ticketmaster.com/example/event/ABC123?utm_source=api')}`;
+  assert.equal(ticketmasterUrlRejectionReason(affiliateApiUrl), null);
+  assert.equal(
+    officialTicketmasterUrl(affiliateApiUrl),
+    'https://www.ticketmaster.com/example/event/ABC123',
+  );
+  const affiliateRow = normalizeDiscoveryEvent({ ...event, url: affiliateApiUrl }, base);
+  const rebuilt = new URL(affiliateRow.affiliateUrl);
+  assert.equal(rebuilt.pathname, '/c/7758914/264167/4272');
+  assert.equal(rebuilt.searchParams.get('u'), 'https://www.ticketmaster.com/example/event/ABC123');
+  assert.equal(rebuilt.searchParams.get('subId1'), 'texasdefined');
+
   assert.equal(ticketmasterUrlRejectionReason('https://tickets.example.test/event/ABC'), 'host-tickets.example.test');
   assert.equal(ticketmasterUrlRejectionReason('https://www.ticketmaster.com/browse'), 'missing-event-segment');
+  assert.equal(
+    ticketmasterUrlRejectionReason(
+      `https://ticketmaster.evyy.net/c/9999999/264167/4272?u=${encodeURIComponent('https://www.ticketmaster.com/example/event/ABC123')}`,
+    ),
+    'impact-path-shape',
+  );
+  assert.equal(
+    ticketmasterUrlRejectionReason(
+      `https://ticketmaster.evyy.net/c/7758914/264167/4272?u=${encodeURIComponent('https://evil.test/event/ABC123')}`,
+    ),
+    'impact-destination-host-evil.test',
+  );
+  assert.equal(
+    ticketmasterUrlRejectionReason(
+      `http://ticketmaster.evyy.net/c/7758914/264167/4272?u=${encodeURIComponent('https://www.ticketmaster.com/example/event/ABC123')}`,
+    ),
+    'impact-scheme',
+  );
 
   for (const url of [
     'https://ticketmaster.com.evil.test/event/ABC',
