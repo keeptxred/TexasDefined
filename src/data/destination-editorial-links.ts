@@ -5,6 +5,33 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "lyndon-b-johnson-state-park-and-historic-site": [
+    {
+      href: "/destination/lyndon-b-johnson-national-historical-park",
+      label: "Continue into the LBJ Ranch",
+      description: "Pair the state park's farm-life interpretation with the adjacent National Park Service ranch district and presidential-history sites.",
+    },
+    {
+      href: "/destination/hye",
+      label: "Continue east to Hye",
+      description: "Add the historic Hye corridor, wineries and distillery stops along the same U.S. 290 route.",
+    },
+    {
+      href: "/destination/garrison-brothers-distillery-hye",
+      label: "Tour Garrison Brothers",
+      description: "Pair the living-history farm with a working Texas whiskey distillery in nearby Hye.",
+    },
+    {
+      href: "/destination/johnson-city",
+      label: "Explore Johnson City",
+      description: "Continue east for LBJ's boyhood history, Science Mill, the motorcycle museum and downtown visitor services.",
+    },
+    {
+      href: "/destination/fredericksburg",
+      label: "Continue to Fredericksburg",
+      description: "Head west for German-Texan history, museums, restaurants, wineries and the larger Hill Country visitor base.",
+    },
+  ],
   "pecan-street-brewing-johnson-city": [
     {
       href: "/event/gears-beers-johnson-city",
@@ -57,6 +84,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/county/blanco",
       label: "Explore Blanco County",
       description: "See how Hye fits with Johnson City, Blanco, the Pedernales and the county's wider Hill Country geography.",
+    },
+    {
+      href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
+      label: "Add Sauer-Beckmann and LBJ State Park",
+      description: "Connect Hye with the living-history farm, longhorns, bison and Pedernales River landscape near Stonewall.",
     },
   ],
   "real-ale-brewing-company-blanco": [
@@ -111,6 +143,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/destination/hye",
       label: "Explore Hye",
       description: "Put the distillery in context with the historic Hye Post Office, wineries and the U.S. 290 Johnson City–Stonewall corridor.",
+    },
+    {
+      href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
+      label: "Add LBJ State Park and Sauer-Beckmann Farm",
+      description: "Pair the Hye distillery with the free living-history state park and German-Texan farm landscape near Stonewall.",
     },
   ],
   "pedernales-falls-state-park": [
@@ -267,6 +304,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       label: "Eat and drink at Pecan Street Brewing",
       description: "Use the dedicated brewpub guide for current hours, food, house-brewed beer, live music and event planning.",
     },
+    {
+      href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
+      label: "Visit LBJ State Park and Sauer-Beckmann Farm",
+      description: "Continue west to the free living-history farm, longhorns, bison and Pedernales River landscape near Stonewall.",
+    },
   ],
   "science-mill-johnson-city": [
     {
@@ -347,6 +389,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/destination/garrison-brothers-distillery-hye",
       label: "Add a Hye distillery stop",
       description: "Pair LBJ country with a working Texas bourbon distillery along the Johnson City–Stonewall corridor.",
+    },
+    {
+      href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
+      label: "Add Sauer-Beckmann Living History Farm",
+      description: "Use the adjacent state park to understand the German-Texan farm culture and Pedernales landscape surrounding LBJ country.",
     },
   ],
   "shiner": [
