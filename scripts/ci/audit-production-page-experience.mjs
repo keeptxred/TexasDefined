@@ -192,7 +192,12 @@ async function buildTargets() {
   for (const path of arrayValues('CONDITIONAL_INDEXABLE_PUBLIC_PATHS')) registerTarget(map, path, 'conditional', 'CONDITIONAL_INDEXABLE_PUBLIC_PATHS');
   for (const path of arrayValues('NON_INDEXABLE_PUBLIC_PATHS')) registerTarget(map, path, 'public', 'NON_INDEXABLE_PUBLIC_PATHS');
   for (const path of arrayValues('REDIRECT_ONLY_PATHS')) {
-    if (htmlPagePath(path)) map.set(path, { path, mode: 'redirect', source: 'REDIRECT_ONLY_PATHS' });
+    if (!htmlPagePath(path)) continue;
+    const existing = map.get(path);
+    if (existing?.mode === 'indexable') {
+      pageFailure(path, `redirect-only route is also present in indexable/sitemap inventory from ${existing.source}`);
+    }
+    map.set(path, { path, mode: 'redirect', source: 'REDIRECT_ONLY_PATHS' });
   }
   return [...map.values()].sort((a, b) => a.path.localeCompare(b.path));
 }
