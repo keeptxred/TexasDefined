@@ -6,6 +6,7 @@
   const CJ_PUBLISHER_ID = "101876465";
   const CJ_DLG_BASE = `https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/`;
   const HOTELS_DESTINATION = "https://www.hotels.com/";
+  const TRAVELOCITY_DESTINATION = "https://www.travelocity.com/";
   const VRBO_DESTINATION = "https://www.vrbo.com/";
   const VRBO_OWNER_DESTINATION = "https://www.vrbo.com/en-us/list/lead";
   const VERIFIED_PROPERTY_DESTINATIONS = new Map([
@@ -66,7 +67,7 @@
 
   function buildCjDeepLink(destination) {
     const parsed = new URL(destination);
-    if (!["www.hotels.com", "www.vrbo.com"].includes(parsed.hostname)) {
+    if (!["www.hotels.com", "www.travelocity.com", "www.vrbo.com"].includes(parsed.hostname)) {
       throw new Error(`Unsupported stay affiliate destination: ${parsed.hostname}`);
     }
     return `${CJ_DLG_BASE}${encodeURI(parsed.toString())}`;
@@ -79,6 +80,7 @@
   function partnerName(destination) {
     const hostname = new URL(destination).hostname;
     if (hostname === "www.hotels.com") return "hotels.com";
+    if (hostname === "www.travelocity.com") return "travelocity";
     if (hostname === "www.vrbo.com") return "vrbo";
     return hostname;
   }
@@ -165,11 +167,11 @@
     copy.className = "td-stay-affiliate-copy";
     copy.textContent = exactPropertyFirst
       ? (intent === "hotel-first"
-        ? "Start with the recommended stays above. If none fit, compare additional hotel availability nearby."
-        : "Start with the recommended stays above. If none fit, compare more hotels or browse vacation rentals for a different lodging setup.")
+        ? "Start with the recommended stays above. If none fit, compare additional hotel availability nearby on Hotels.com or Travelocity."
+        : "Start with the recommended stays above. If none fit, compare more hotels on Hotels.com or Travelocity, or browse vacation rentals for a different lodging setup.")
       : (intent === "hotel-first"
-        ? "Compare hotel availability close to the event or venue. Broader leisure and destination guides also include vacation-rental options when they fit the trip."
-        : "Compare a conventional hotel stay or a vacation rental when extra space, a kitchen, or a group-friendly setup fits the trip better.");
+        ? "Compare hotel availability close to the event or venue on Hotels.com or Travelocity. Broader leisure and destination guides also include vacation-rental options when they fit the trip."
+        : "Compare hotel options on Hotels.com or Travelocity, or choose a vacation rental when extra space, a kitchen, or a group-friendly setup fits the trip better.");
 
     const actions = document.createElement("div");
     actions.className = "td-stay-affiliate-actions";
@@ -179,6 +181,13 @@
       label: exactPropertyFirst ? "Compare more hotels on Hotels.com" : "Find hotels on Hotels.com",
       variant: "primary",
       ariaLabel: exactPropertyFirst ? "Compare more hotels on Hotels.com in a new tab" : "Find hotels on Hotels.com in a new tab",
+      placement: choicePlacement,
+    }));
+    actions.appendChild(createTrackedLink({
+      destination: TRAVELOCITY_DESTINATION,
+      label: exactPropertyFirst ? "Compare more hotels on Travelocity" : "Compare hotels on Travelocity",
+      variant: "secondary",
+      ariaLabel: exactPropertyFirst ? "Compare more hotels on Travelocity in a new tab" : "Compare hotels on Travelocity in a new tab",
       placement: choicePlacement,
     }));
     if (intent === "both") {
@@ -193,7 +202,7 @@
 
     const disclosure = document.createElement("p");
     disclosure.className = "td-stay-affiliate-disclosure";
-    disclosure.textContent = "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com or Vrbo activity, at no additional cost to you. Availability, rates and booking terms are provided by the booking service.";
+    disclosure.textContent = "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or Vrbo activity, at no additional cost to you. Availability, rates and booking terms are provided by the booking service.";
 
     panel.append(eyebrow, heading, copy, actions, disclosure);
     wrapper.appendChild(panel);
