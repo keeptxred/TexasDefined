@@ -23,6 +23,10 @@ const TexasWaterSearchResource = lazy(() =>
   import("@/components/content/TexasWaterSearchResource").then((module) => ({ default: module.TexasWaterSearchResource })),
 );
 
+const TexasRiversAuthorityHub = lazy(() =>
+  import("@/components/content/TexasRiversAuthorityHub").then((module) => ({ default: module.TexasRiversAuthorityHub })),
+);
+
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const DISCOVER_MIN_IMAGE_WIDTH = 1200;
 const MOVING_TO_TEXAS_PILLAR_SLUG = "moving-to-texas-what-nobody-tells-you";
@@ -209,6 +213,7 @@ export const Route = createFileRoute("/article/$slug")({
       mainEntity: { "@id": `${articleUrl}#article` },
       breadcrumb: { "@id": `${articleUrl}#breadcrumbs` },
       datePublished: article.publishedAt,
+      dateModified: article.updatedAt ?? article.publishedAt,
     };
     const authorSchema = author && authorUrl ? {
       "@type": "Organization",
@@ -231,6 +236,7 @@ export const Route = createFileRoute("/article/$slug")({
       image: [{ "@id": `${articleUrl}#primaryimage` }],
       thumbnailUrl: imageUrl,
       datePublished: article.publishedAt,
+      dateModified: article.updatedAt ?? article.publishedAt,
       articleSection: categoryName,
       genre: department.name,
       keywords: article.tags,
@@ -303,6 +309,7 @@ export const Route = createFileRoute("/article/$slug")({
         imageWidth: article.hero.width,
         imageHeight: article.hero.height,
         publishedTime: article.publishedAt,
+        modifiedTime: article.updatedAt ?? article.publishedAt,
         robots: shouldNoindexTexasGatewayArticle(article) ? "noindex, follow, max-image-preview:large" : undefined,
       }),
       links: [
@@ -407,6 +414,7 @@ function ArticlePage() {
         <p className="mt-3 text-base leading-8 text-foreground/85">{texasExplainedQuickAnswer}</p>
         <a href="#guide-body" className="mt-4 inline-block py-1 text-sm font-semibold text-primary underline-offset-4 hover:underline">Read the full guide ↓</a>
       </section>}
+      {article.slug === "texas-rivers-explained" ? <Suspense fallback={<section className="mt-10 border-y border-border py-10" style={{ minHeight: "28rem" }} aria-label="Loading Texas river atlas" />}><TexasRiversAuthorityHub /></Suspense> : null}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28"><ArticleBody blocks={article.body} entities={graph} /></div>
       {waterTopic ? (
         <Suspense fallback={<section className="mt-8 border-y border-border bg-surface" style={{ minHeight: "10rem" }} aria-label="Loading Texas water reference" />}>
