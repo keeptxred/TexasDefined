@@ -1,6 +1,17 @@
 name: Audit all TexasDefined production pages
 
 on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/audit-all-production-pages.yml'
+      - 'scripts/ci/audit-production-page-experience.mjs'
+      - 'scripts/data/validate-page-experience.mjs'
+      - 'scripts/data/run-site-quality-watch.mjs'
+      - 'src/components/editorial/ArticleBody.tsx'
+      - 'src/routes/event.$slug.lazy.tsx'
+      - 'src/lib/public-routes.ts'
   workflow_run:
     workflows:
       - Deploy TexasDefined production
@@ -23,10 +34,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - name: Check out current main
+      - name: Check out audit code
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || 'main' }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -37,6 +48,7 @@ jobs:
         run: node --check scripts/ci/audit-production-page-experience.mjs
 
       - name: Audit every governed production page
+        continue-on-error: ${{ github.event_name == 'pull_request' }}
         run: node scripts/ci/audit-production-page-experience.mjs
 
       - name: Upload page audit report
