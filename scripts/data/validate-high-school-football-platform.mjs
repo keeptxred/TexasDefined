@@ -295,23 +295,23 @@ if (!errors.length) {
 
   for (const marker of [
     'VERIFIED_FOOTBALL_SCHOOL_IDENTITIES',
-    "slug: 'north-shore'",
-    "slug: 'cypress-ranch'",
-    "slug: 'south-oak-cliff'",
+    "slug: 'galena-park-north-shore'",
+    "slug: 'cyp-ranch'",
+    "slug: 'dallas-south-oak-cliff'",
     "slug: 'allen'",
-    "slug: 'lake-travis'",
+    "slug: 'austin-lake-travis'",
     "slug: 'katy'",
-    "slug: 'smithson-valley'",
+    "slug: 'comal-smithson-valley'",
     "slug: 'rockwall'",
-    "slug: 'pleasant-grove'",
+    "slug: 'texarkana-pleasant-grove'",
     "slug: 'willis'",
     "slug: 'san-antonio-johnson'",
     "slug: 'dripping-springs'",
     "slug: 'klein-collins'",
     "slug: 'rockwall-heath'",
     "slug: 'round-rock'",
-    "slug: 'harker-heights'",
-    "slug: 'richland'",
+    "slug: 'killeen-harker-heights'",
+    "slug: 'n-richland-hills-richland'",
     "slug: 'el-paso-coronado'",
     "slug: 'el-paso-eastlake'",
     "slug: 'el-paso-eastwood'",
@@ -387,7 +387,7 @@ if (!errors.length) {
     "slug: 'mansfield-summit'",
     "slug: 'midlothian'",
     "slug: 'weatherford'",
-    "slug: 'fort-worth-boswell'",
+    "slug: 'ft-worth-boswell'",
     "slug: 'keller'",
     "slug: 'keller-central'",
     "slug: 'keller-timber-creek'",
@@ -397,14 +397,14 @@ if (!errors.length) {
     "slug: 'denton-braswell'",
     "slug: 'frisco-wakeland'",
     "slug: 'lewisville-flower-mound'",
-    "slug: 'hebron'",
-    "slug: 'flower-mound-marcus'",
+    "slug: 'lewisville-hebron'",
+    "slug: 'lewisville-marcus'",
     "slug: 'little-elm'",
     "slug: 'mckinney'",
     "slug: 'mckinney-boyd'",
     "slug: 'princeton'",
     "slug: 'prosper-rock-hill'",
-    "slug: 'plano-senior'",
+    "slug: 'plano'",
     "slug: 'lewisville-hebron'",
     "slug: 'lewisville-marcus'",
     "slug: 'dallas-jesuit'",
@@ -447,13 +447,30 @@ if (!errors.length) {
     "slug: 'tyler-legacy'",
     "slug: 'crowley'",
     "slug: 'mansfield'",
-    "slug: 'fort-worth-boswell'",
+    "slug: 'ft-worth-boswell'",
+    "slug: 'longview'",
+    "slug: 'dallas-skyline'",
+    "slug: 'mansfield-lake-ridge'",
+    "slug: 'north-crowley'",
+    "slug: 'red-oak'",
+    "slug: 'bryan'",
+    "slug: 'temple'",
     'sourceUrl',
     'verifiedAt',
   ]) requireText(schoolIdentities, marker, 'Football school identity data');
   const verifiedFootballIdentityCount = (schoolIdentities.match(/slug: '/g) ?? []).length;
-  if (verifiedFootballIdentityCount < 177) {
-    errors.push(`Football school identity data fell below 177 verified profiles; found ${verifiedFootballIdentityCount}.`);
+  if (verifiedFootballIdentityCount < 178) {
+    errors.push(`Football school identity data fell below 178 verified canonical UIL profiles; found ${verifiedFootballIdentityCount}.`);
+  }
+
+  const obsoleteIdentitySlugs = ["fort-worth-boswell","hebron","flower-mound-marcus","plano-senior","north-shore","cypress-ranch","ce-king","south-oak-cliff","desoto","randle","lake-travis","westlake","smithson-valley","summer-creek","atascocita","pleasant-grove","harker-heights","mt-pleasant","walnut-grove","richland","west-plains"];
+  for (const slug of obsoleteIdentitySlugs) {
+    if (schoolIdentities.includes(`slug: '${slug}'`)) {
+      errors.push(`Football school identity data must use the canonical UIL slug instead of legacy alias: ${slug}.`);
+    }
+  }
+  if (programProfileServer.includes('matchFeaturedFootballProgram')) {
+    errors.push('Current UIL football profiles must resolve identity directly by canonical UIL slug, not through the former seed-list matcher.');
   }
 
   for (const marker of [
