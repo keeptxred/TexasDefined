@@ -151,6 +151,22 @@ export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
     verifiedAt: "2026-09-21",
   },
   {
+    slug: "eagle-fest-the-woodlands",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Woodlands_Pavilion.jpg?width=1600",
+      alt: "Cynthia Woods Mitchell Pavilion in The Woodlands, venue for Eagle Fest",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Woodlands_Pavilion.jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 3.0",
+      licenseUrl: ccBySa3,
+      rightsNote: "Wikimedia Commons file by Thewayne11, licensed CC BY-SA 3.0.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [{ label: "Wikimedia Commons — Cynthia Woods Mitchell Pavilion", url: "https://commons.wikimedia.org/wiki/File:Woodlands_Pavilion.jpg" }],
+    verifiedAt: "2026-09-21",
+  },
+  {
     slug: "beaumont-comic-con",
     image: {
       url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ford%20Arena%20Beaumont%20Texas%20June%202014.jpg?width=1600",
