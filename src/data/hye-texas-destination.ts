@@ -91,7 +91,7 @@ export const hyeTexasDestinations: Destination[] = [
           description:
             "Major Hye estate winery with reservation-based tasting experiences and estate vineyards along U.S. 290.",
           proximity: "U.S. 290 in Hye",
-          href: "https://williamchriswines.com/",
+          href: "/destination/william-chris-vineyards-hye",
         },
         {
           name: "Hye Meadow Winery",

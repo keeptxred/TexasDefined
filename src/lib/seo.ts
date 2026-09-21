@@ -72,6 +72,10 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
     title: "Garrison Brothers Distillery: Tours, Tastings & Hye Guide",
     description: "Plan Garrison Brothers Distillery in Hye with current tour prices, hours, reserve tastings, Whiskey Shack food, U.S. 290 context and official booking links.",
   },
+  "/destination/william-chris-vineyards-hye": {
+    title: "William Chris Vineyards Hye: Tastings, Hours & Guide",
+    description: "Plan William Chris Vineyards in Hye with current tasting prices, hours, Chef's Table details, Texas-grown vineyard context and U.S. 290 trip planning.",
+  },
   "/destination/lyndon-b-johnson-state-park-and-historic-site": {
     title: "LBJ State Park & Sauer-Beckmann Farm: Hours & Guide",
     description: "Plan LBJ State Park near Stonewall with free admission, current Sauer-Beckmann Farm hours, closures, longhorns, bison, trails and LBJ Ranch connections.",
@@ -91,6 +95,10 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
   "/destination/real-ale-brewing-company-blanco": {
     title: "Real Ale Brewing Blanco: Taproom, Tours & Hours",
     description: "Plan Real Ale Brewing in Blanco with current taproom hours, 16+ taps, free Friday tours, beer garden, pizza, live music and Real Spirits details.",
+  },
+  "/destination/old-blanco-county-courthouse": {
+    title: "Old Blanco County Courthouse: Hours, History & Guide",
+    description: "Visit Blanco's 1886 Old Blanco County Courthouse with current museum hours, courthouse history, Market Day details and links to Blanco State Park and Johnson City.",
   },
   "/texas-vs/california": { title: "Texas vs California: Cost & Living" },
   "/article/texas-wildlife-guide": { title: "Texas Wildlife Guide: Animals & Habitats" },
