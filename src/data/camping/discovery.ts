@@ -144,8 +144,8 @@ export const CAMPING_DISCOVERY_PROFILES: CampingDiscoveryProfile[] = [
     region: "big-bend",
     managingAgency: NPS,
     styles: ["tent", "rv", "primitive", "backcountry", "group"],
-    amenities: ["full-hookup", "dump-station", "restrooms", "river-access", "hiking"],
-    reservationPolicy: "Advance campground reservations are required; backcountry overnight use requires a permit.",
+    amenities: ["dump-station", "restrooms", "river-access", "hiking"],
+    reservationPolicy: "Reservations are required for Big Bend's NPS campgrounds; backcountry overnight use requires a permit. The separately operated Rio Grande Village RV Campground is the park's full-hookup option.",
     reservationUrl: RECREATION_GOV,
     verifiedAt: VERIFIED_AT,
     sources: [
