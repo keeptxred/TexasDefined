@@ -159,9 +159,43 @@ jobs:
         if: success()
         run: node scripts/ci/publish-github-status.mjs texasdefined-live pending "Verifying production surfaces"
 
+      - name: Verify direct Worker health
+        id: live_direct_health
+        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        continue-on-error: true
+        env:
+          PRODUCTION_HEALTH_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
+          PRODUCTION_HEALTH_LABEL: direct-worker
+        run: node scripts/ci/verify-production-health.mjs
+
+      - name: Roll back unhealthy Worker deployment
+        id: rollback
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'failure' }}
+        shell: bash
+        run: |
+          npx wrangler rollback --message "Automatic rollback: direct Worker health failed after deploy ${GITHUB_SHA}"
+
+      - name: Verify rollback restored direct Worker health
+        id: rollback_health
+        if: ${{ always() && steps.rollback.outcome == 'success' }}
+        continue-on-error: true
+        env:
+          PRODUCTION_HEALTH_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
+          PRODUCTION_HEALTH_LABEL: rollback-direct-worker
+        run: node scripts/ci/verify-production-health.mjs
+
+      - name: Verify canonical production health
+        id: live_canonical_health
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' }}
+        continue-on-error: true
+        env:
+          PRODUCTION_HEALTH_ORIGIN: https://texasdefined.com
+          PRODUCTION_HEALTH_LABEL: canonical-domain
+        run: node scripts/ci/verify-production-health.mjs
+
       - name: Verify direct Worker discovery
         id: live_direct_worker
-        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
         continue-on-error: true
         env:
           DIRECT_WORKER_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
@@ -182,13 +216,13 @@ jobs:
 
       - name: Verify base production surfaces
         id: live_base
-        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
         continue-on-error: true
         run: node scripts/ci/verify-production-surfaces.mjs
 
       - name: Verify Event structured-data production
         id: live_events
-        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
         continue-on-error: true
         shell: bash
         run: |
@@ -207,7 +241,7 @@ jobs:
 
       - name: Verify local financial production
         id: live_local_financial
-        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
         continue-on-error: true
         shell: bash
         run: |
@@ -226,7 +260,7 @@ jobs:
 
       - name: Verify statewide financial discovery
         id: live_statewide_financial
-        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
         continue-on-error: true
         run: node scripts/ci/verify-statewide-financial-discovery.mjs
 
@@ -241,7 +275,7 @@ jobs:
 
       - name: Verify advertiser production
         id: live_advertiser
-        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
         continue-on-error: true
         env:
           ORIGIN: https://texasdefined.com
@@ -253,6 +287,10 @@ jobs:
         if: ${{ always() && steps.cloudflare.outcome == 'success' }}
         shell: bash
         env:
+          DIRECT_HEALTH_OUTCOME: ${{ steps.live_direct_health.outcome }}
+          CANONICAL_HEALTH_OUTCOME: ${{ steps.live_canonical_health.outcome }}
+          ROLLBACK_OUTCOME: ${{ steps.rollback.outcome }}
+          ROLLBACK_HEALTH_OUTCOME: ${{ steps.rollback_health.outcome }}
           DIRECT_WORKER_OUTCOME: ${{ steps.live_direct_worker.outcome }}
           BASE_OUTCOME: ${{ steps.live_base.outcome }}
           EVENT_OUTCOME: ${{ steps.live_events.outcome }}
@@ -265,6 +303,10 @@ jobs:
             echo
             echo '| Verification | Outcome |'
             echo '|---|---|'
+            echo "| Direct Worker health | ${DIRECT_HEALTH_OUTCOME:-not-run} |"
+            echo "| Canonical domain health | ${CANONICAL_HEALTH_OUTCOME:-not-run} |"
+            echo "| Automatic rollback | ${ROLLBACK_OUTCOME:-not-run} |"
+            echo "| Rollback health | ${ROLLBACK_HEALTH_OUTCOME:-not-run} |"
             echo "| Direct Worker discovery | ${DIRECT_WORKER_OUTCOME:-not-run} |"
             echo "| Base production surfaces | ${BASE_OUTCOME:-not-run} |"
             echo "| Event structured data | ${EVENT_OUTCOME:-not-run} |"
@@ -273,8 +315,8 @@ jobs:
             echo "| Advertiser production surfaces | ${ADVERTISER_OUTCOME:-not-run} |"
           } >> "$GITHUB_STEP_SUMMARY"
 
-          if [[ "$DIRECT_WORKER_OUTCOME" != 'success' || "$BASE_OUTCOME" != 'success' || "$EVENT_OUTCOME" != 'success' || "$LOCAL_FINANCIAL_OUTCOME" != 'success' || "$STATEWIDE_FINANCIAL_OUTCOME" != 'success' || "$ADVERTISER_OUTCOME" != 'success' ]]; then
-            echo "::error title=Live production verification failed::direct-worker=${DIRECT_WORKER_OUTCOME:-not-run}, base=${BASE_OUTCOME:-not-run}, event=${EVENT_OUTCOME:-not-run}, local-financial=${LOCAL_FINANCIAL_OUTCOME:-not-run}, statewide-financial=${STATEWIDE_FINANCIAL_OUTCOME:-not-run}, advertiser=${ADVERTISER_OUTCOME:-not-run}"
+          if [[ "$DIRECT_HEALTH_OUTCOME" != 'success' || "$CANONICAL_HEALTH_OUTCOME" != 'success' || "$DIRECT_WORKER_OUTCOME" != 'success' || "$BASE_OUTCOME" != 'success' || "$EVENT_OUTCOME" != 'success' || "$LOCAL_FINANCIAL_OUTCOME" != 'success' || "$STATEWIDE_FINANCIAL_OUTCOME" != 'success' || "$ADVERTISER_OUTCOME" != 'success' ]]; then
+            echo "::error title=Live production verification failed::direct-health=${DIRECT_HEALTH_OUTCOME:-not-run}, canonical-health=${CANONICAL_HEALTH_OUTCOME:-not-run}, rollback=${ROLLBACK_OUTCOME:-not-run}, rollback-health=${ROLLBACK_HEALTH_OUTCOME:-not-run}, direct-worker=${DIRECT_WORKER_OUTCOME:-not-run}, base=${BASE_OUTCOME:-not-run}, event=${EVENT_OUTCOME:-not-run}, local-financial=${LOCAL_FINANCIAL_OUTCOME:-not-run}, statewide-financial=${STATEWIDE_FINANCIAL_OUTCOME:-not-run}, advertiser=${ADVERTISER_OUTCOME:-not-run}"
             exit 1
           fi
 
