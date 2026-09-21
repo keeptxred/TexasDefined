@@ -45,7 +45,7 @@ export function GenericFishingLakeGuide({
     </header>
 
     <Container className="py-12 sm:py-16">
-      <section className="grid gap-10 border-b border-border pb-12 lg:grid-cols-[1.15fr_0.85fr]">
+      <section className="grid gap-10 border-b border-border pb-12 lg:grid-cols-2">
         <div>
           <p className="eyebrow text-primary">At a glance</p>
           <h2 className="mt-3 font-display text-4xl">Plan around the water first.</h2>
