@@ -153,6 +153,8 @@ export const supplementalMajorEventSlugs = [
   "way-out-west-festival-el-paso",
   "state-fair-classic",
   "beaumont-comic-con",
+  "bill-pickett-rodeo-fort-worth",
+  "hollydays-market-corpus-christi",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
