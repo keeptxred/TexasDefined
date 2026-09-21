@@ -8,6 +8,11 @@ const checks = [
     script: 'scripts/data/validate-generated-page-quality.mjs',
   },
   {
+    id: 'page-experience',
+    label: 'Every-page UX, heading and production-audit coverage',
+    script: 'scripts/data/validate-page-experience.mjs',
+  },
+  {
     id: 'county-property',
     label: 'Verified county property-tax source freshness and crawl policy',
     script: 'scripts/data/validate-county-property-enrichment.mjs',
