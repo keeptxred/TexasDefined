@@ -27,6 +27,8 @@ The first wave promotes these current Ticketmaster discoveries into permanent Te
 | `/event/way-out-west-festival-el-paso` | Sep. 26, El Paso | Established El Paso festival with official producer and destination-organization support. |
 | `/event/state-fair-classic` | Sep. 26, Dallas | Annual HBCU football tradition embedded in the State Fair of Texas. |
 | `/event/beaumont-comic-con` | Oct. 3–4, Beaumont | Recurring two-day Southeast Texas convention with a stable venue and organizer identity. |
+| `/event/bill-pickett-rodeo-fort-worth` | Five Fort Worth dates in 2026 | BPIR is in its 42nd year and explicitly identifies a recurring Fort Worth Texas Connection series at Cowtown Coliseum. |
+| `/event/hollydays-market-corpus-christi` | Nov. 6–8, Corpus Christi | Recurring Corpus Christi holiday market with documented 2024, 2025 and 2026 editions and a stable Hilliard Center venue. |
 
 Ticketmaster child rows for these families point to their parent guide rather than only a date-filtered calendar view.
 
@@ -51,7 +53,6 @@ The following types remain in the live calendar, venue pages or future-review qu
 - **Breakaway Music Festival Houston** — the Houston 2026 event is verified, but a durable Houston recurrence is not yet established by the current 2027 rollout.
 - **Eric Clapton's Crossroads Guitar Festival** — a recognizable event brand, but historically intermittent rather than a dependable annual Texas occurrence.
 - **Stockyards Championship Rodeo** — recurring year-round/series inventory is better represented through Cowtown Coliseum and the live calendar than an "annual" guide.
-- **Bill Pickett Invitational Rodeo** — a touring rodeo series; the Texas stop should remain provider/venue inventory unless a stable local annual occurrence is separately verified.
 - **Water Lantern Festival** — touring-market event; recurrence in McAllen should be established from organizer history before a permanent Texas-specific authority page is created.
 - **Grand Prairie Comedy Festival, King of Cars Custom Car Show & Culture Fest, Card Expo and similar current listings** — current occurrence is real, but the available evidence does not yet justify presenting them as durable annual Texas traditions.
 - **Nutcracker, Christmas Carol and other productions** — production titles can recur, but different companies, venues and touring runs are not one statewide annual event identity.
