@@ -66,7 +66,7 @@ for (const marker of [
 
 requireText(guideContent, 'getSportsVenuePhoto } from "@/data/sports-venue-images-all"', 'shared venue guide photo lookup');
 requireText(guideContent, 'const photo = getSportsVenuePhoto(slug);', 'shared venue guide photo lookup');
-requireText(guidePage, 'A verified venue photograph is not available yet.', 'fail-closed photo fallback');
+requireText(guidePage, 'data-venue-image-fallback="true"', 'fail-closed photo fallback');
 requireText(guidePage, 'image: photo?.imageUrl', 'structured venue image metadata');
 requireText(guidePage, 'src={photo.imageUrl}', 'shared venue hero rendering');
 
