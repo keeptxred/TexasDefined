@@ -715,7 +715,7 @@ if (!errors.length) {
     'uilEnrollment:',
   ]) requireText(programProfileServer, marker, 'Football profile exact enrollment integration');
   requireText(programProfileServer, 'getVerifiedFootballSchoolIdentity(canonicalSlug)', 'Canonical UIL identity precedence');
-  requireText(programProfileServer, 'legacyIdentity ? getVerifiedFootballSchoolIdentity(legacyIdentity.slug)', 'Legacy identity fallback');
+  requireText(programProfileServer, 'identity: getVerifiedFootballSchoolIdentity(canonicalSlug) ?? null', 'Canonical UIL identity ownership');
 
 
   for (const marker of [
