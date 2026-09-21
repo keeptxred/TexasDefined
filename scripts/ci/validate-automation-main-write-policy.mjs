@@ -47,16 +47,16 @@ for (const contract of [
   'actions: write',
   'automation/texas-events-sync-${GITHUB_RUN_ID}',
   'gh pr create',
+  'Prevalidate generated refresh branch',
   'bash scripts/ci/dispatch-validate-branch.sh "$BRANCH"',
-  'git rebase origin/main',
-  'git push --force-with-lease origin "$BRANCH"',
-  'gh pr merge "$PR_URL" --squash --delete-branch',
-  'gh workflow run deploy-production.yml --ref main',
+  'owner-side event-refresh finisher',
+  'git merge-base --is-ancestor origin/main HEAD',
 ]) {
   requireText(eventsPath, events, contract);
 }
 forbidPattern(eventsPath, events, /git\s+push\s+origin\s+HEAD:main/, 'push generated event data directly to main');
 forbidPattern(eventsPath, events, /git\s+push\s+origin\s+main(?:\s|$)/m, 'push generated event data directly to main');
+forbidPattern(eventsPath, events, /gh\s+pr\s+merge/, 'self-merge a GITHUB_TOKEN-created event refresh PR; protected completion belongs to the owner-side finisher');
 
 const imageWorkflows = [
   '.github/workflows/explore-hero-assets.yml',
@@ -105,4 +105,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Automation main-write policy passed: daily event refreshes are idempotent when only verification timestamps change, use exact-branch validation, current-main reconciliation and explicit deployment; generated image changes remain reviewable PRs with explicit item-level rights review and official validation; Texas Defined AI demand intelligence remains privacy-safe and review-only with no direct-main or auto-merge path.');
+console.log('Automation main-write policy passed: daily event refreshes are idempotent when only verification timestamps change, use exact-branch prevalidation, remain PR-only, and hand protected completion to the owner-side finisher without self-merging or direct-main writes; generated image changes remain reviewable PRs with explicit item-level rights review and official validation; Texas Defined AI demand intelligence remains privacy-safe and review-only with no direct-main or auto-merge path.');
