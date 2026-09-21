@@ -59,15 +59,18 @@ export async function fetchTexasEvents({ apiKey, trackingBase, now = new Date(),
       await window(new Date(middle.getTime() + 1000), end);
       return;
     }
+    let received = 0;
     for (let index = 0; index < Math.max(1, first.data.page.totalPages); index++) {
       if (index >= 5) throw new Error('Ticketmaster pagination changed during refresh');
       const result = index === 0 ? first : await page(start, end, index);
       if (result.data.page.totalElements !== first.data.page.totalElements) throw new Error('Ticketmaster catalog changed during pagination; retry refresh');
+      received += result.events.length;
       for (const event of result.events) {
         const row = normalizeDiscoveryEvent(event, trackingBase);
         if (row) rows.set(row.id, row);
       }
     }
+    if (received !== first.data.page.totalElements) throw new Error('Incomplete Ticketmaster pagination; previous catalog preserved');
   }
   const start = Math.floor(now.getTime() / 1000) * 1000;
   const horizon = start + 90 * 86400000;

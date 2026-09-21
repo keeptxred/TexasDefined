@@ -23,11 +23,26 @@ test('refresh paginates, deduplicates, restricts geography and never emits crede
     assert.equal(url.searchParams.get('stateCode'), 'TX');
     assert.equal(url.searchParams.get('countryCode'), 'US');
     assert.equal(url.searchParams.get('source'), 'ticketmaster');
-    return { ok: true, json: async () => ({ page: { totalPages: 2, totalElements: 201 }, _embedded: { events: [event] } }) };
+    return { ok: true, json: async () => ({ page: { totalPages: 2, totalElements: 201 }, _embedded: { events: Array.from({ length: url.searchParams.get('page') === '0' ? 200 : 1 }, () => event) } }) };
   } });
   assert.equal(requests, 26);
   assert.equal(result.events.length, 1);
   assert.ok(!JSON.stringify(result).includes('private-test-key'));
+});
+
+test('busy windows split before deep paging and partial pages fail closed', async () => {
+  let splits = 0;
+  const options = { apiKey: 'test-key', trackingBase: base, now: new Date('2026-09-21T00:00:00Z'), pause: async () => {} };
+  const result = await fetchTexasEvents({ ...options, fetchImpl: async url => {
+    assert.equal(url.searchParams.get('page'), '0');
+    const width = Date.parse(url.searchParams.get('endDateTime')) - Date.parse(url.searchParams.get('startDateTime'));
+    const busy = width > 4 * 86400000;
+    if (busy) splits++;
+    return { ok: true, json: async () => ({ page: { totalPages: busy ? 6 : 1, totalElements: busy ? 1001 : 1 }, _embedded: { events: [event] } }) };
+  } });
+  assert.ok(splits > 0);
+  assert.equal(result.events.length, 1);
+  await assert.rejects(fetchTexasEvents({ ...options, fetchImpl: async () => ({ ok: true, json: async () => ({ page: { totalPages: 1, totalElements: 2 }, _embedded: { events: [event] } }) }) }), /Incomplete/);
 });
 
 test('API failure fails closed without leaking request secrets', async () => {

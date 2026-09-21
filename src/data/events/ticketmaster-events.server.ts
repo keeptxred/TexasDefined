@@ -19,6 +19,7 @@ export function loadTicketmasterEventsServer(catalog: TicketmasterSnapshot = sna
     const venue = resolveSportsVenueEventLink(event.venue);
     const venueSlug = venue?.href.split('/').at(-1);
     const saleStatus: TexasEventTicketSaleStatus = event.status === 'offsale' ? 'off-sale'
+      : event.status === 'soldout' ? 'sold-out'
       : event.publicSaleStart && Date.parse(event.publicSaleStart) > now.getTime() ? 'not-on-sale-yet'
       : event.status === 'onsale' ? 'on-sale' : 'unknown';
     const category = event.segment === 'Sports' ? 'sport' : event.segment === 'Music' ? 'music' : 'culture';
