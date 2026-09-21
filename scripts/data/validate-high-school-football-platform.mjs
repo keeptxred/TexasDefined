@@ -455,12 +455,19 @@ if (!errors.length) {
     "slug: 'red-oak'",
     "slug: 'bryan'",
     "slug: 'temple'",
+    "slug: 'copperas-cove'",
+    "slug: 'killeen-chaparral'",
+    "slug: 'conroe'",
+    "slug: 'conroe-caney-creek'",
+    "slug: 'conroe-grand-oaks'",
+    "slug: 'conroe-oak-ridge'",
+    "slug: 'conroe-the-woodlands'",
     'sourceUrl',
     'verifiedAt',
   ]) requireText(schoolIdentities, marker, 'Football school identity data');
   const verifiedFootballIdentityCount = (schoolIdentities.match(/slug: '/g) ?? []).length;
-  if (verifiedFootballIdentityCount < 178) {
-    errors.push(`Football school identity data fell below 178 verified canonical UIL profiles; found ${verifiedFootballIdentityCount}.`);
+  if (verifiedFootballIdentityCount < 185) {
+    errors.push(`Football school identity data fell below 185 verified canonical UIL profiles; found ${verifiedFootballIdentityCount}.`);
   }
 
   const obsoleteIdentitySlugs = ["fort-worth-boswell","hebron","flower-mound-marcus","plano-senior","north-shore","cypress-ranch","ce-king","south-oak-cliff","desoto","randle","lake-travis","westlake","smithson-valley","summer-creek","atascocita","pleasant-grove","harker-heights","mt-pleasant","walnut-grove","richland","west-plains"];
