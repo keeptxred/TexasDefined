@@ -1,5 +1,6 @@
 import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { spawn } from 'node:child_process';
+import path from 'node:path';
 
 const host = process.env.BUILT_WORKER_SMOKE_HOST || '127.0.0.1';
 const port = Number.parseInt(process.env.BUILT_WORKER_SMOKE_PORT || '8799', 10);
@@ -14,11 +15,13 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 mkdirSync(artifactDir, { recursive: true });
 writeFileSync(logPath, '');
 
+const wranglerExecutable = path.resolve(
+  process.platform === 'win32' ? 'node_modules/.bin/wrangler.cmd' : 'node_modules/.bin/wrangler',
+);
+
 const child = spawn(
-  process.platform === 'win32' ? 'npx.cmd' : 'npx',
+  wranglerExecutable,
   [
-    '--no-install',
-    'wrangler',
     'dev',
     '--config',
     'dist/server/wrangler.json',
@@ -36,6 +39,7 @@ const child = spawn(
       NO_COLOR: '1',
     },
     stdio: ['ignore', 'pipe', 'pipe'],
+    detached: process.platform !== 'win32',
   },
 );
 
@@ -51,14 +55,30 @@ child.stderr.on('data', capture);
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+function signalChild(signal) {
+  if (child.exitCode !== null) return;
+  try {
+    if (process.platform !== 'win32' && child.pid) process.kill(-child.pid, signal);
+    else child.kill(signal);
+  } catch {
+    child.kill(signal);
+  }
+}
+
 async function stopChild() {
   if (child.exitCode !== null) return;
-  child.kill('SIGTERM');
+  signalChild('SIGTERM');
   await Promise.race([
     new Promise((resolve) => child.once('exit', resolve)),
     sleep(3000),
   ]);
-  if (child.exitCode === null) child.kill('SIGKILL');
+  if (child.exitCode === null) {
+    signalChild('SIGKILL');
+    await Promise.race([
+      new Promise((resolve) => child.once('exit', resolve)),
+      sleep(1000),
+    ]);
+  }
 }
 
 let failure = '';
