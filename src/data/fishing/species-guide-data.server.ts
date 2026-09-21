@@ -163,9 +163,9 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
     sources,
     verifiedAt: FISHING_SPECIES_VERIFIED_AT,
     policy: {
-      sourcing: "A standalone species page requires a verified species record plus at least one verified lake-to-species relationship on a complete TexasDefined lake guide.",
+      sourcing: "Every published species page requires a verified species record with source attribution. Lake recommendations appear only where a verified lake-to-species relationship exists.",
       conditions: "Seasonal patterns and technique applications are durable planning context from source-backed lake relationships, not a live bite report or claim about today's conditions.",
-      commerce: "Lake order is alphabetical. Sponsorship, affiliate value, product price and advertiser status do not change species guidance or editorial ordering.",
+      commerce: "Lakes with full fishing guides appear before basic lake profiles, then alphabetically. Sponsorship, affiliate value, product price and advertiser status do not change species guidance or editorial ordering.",
     },
   };
 }
