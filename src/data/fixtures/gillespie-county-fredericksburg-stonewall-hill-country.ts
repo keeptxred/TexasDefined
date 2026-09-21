@@ -74,6 +74,11 @@ export const gillespieCountyFredericksburgStonewallHillCountryArticle: Article =
       description: "The LBJ Ranch district and presidential landscape along the Pedernales.",
     },
     {
+      href: "/destination/lbj-ranch-stonewall",
+      label: "LBJ Ranch",
+      description: "Use the dedicated ranch guide for the free driving permit, gate times, open ranch stops and current Texas White House rehabilitation closure.",
+    },
+    {
       href: "/destination/enchanted-rock-state-natural-area",
       label: "Enchanted Rock State Natural Area",
       description: "Ancient pink-granite domes on the Gillespie-Llano county line.",
@@ -98,6 +103,7 @@ export const gillespieCountyFredericksburgStonewallHillCountryArticle: Article =
     "old-tunnel-state-park",
     "lyndon-b-johnson-state-park-and-historic-site",
     "lyndon-b-johnson-national-historical-park",
+    "lbj-ranch-stonewall",
     "enchanted-rock-state-natural-area",
   ],
   body: [
