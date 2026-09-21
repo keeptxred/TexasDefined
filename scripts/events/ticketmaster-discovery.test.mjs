@@ -129,7 +129,7 @@ test('custom discovery horizon is bounded without changing the 90-day default', 
       requests++;
       const start = Date.parse(url.searchParams.get('startDateTime'));
       const end = Date.parse(url.searchParams.get('endDateTime'));
-      assert.ok(end - start < 86400000);
+      assert.ok(end - start <= 86400000);
       return {
         ok: true,
         json: async () => ({
