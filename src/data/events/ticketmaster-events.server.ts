@@ -19,6 +19,7 @@ const ticketmasterAuthorityMatchers = [
   { city: "El Paso", slug: "way-out-west-festival-el-paso", prefix: "way out west festival" },
   { city: "Dallas", slug: "state-fair-classic", prefix: "state fair classic" },
   { city: "Beaumont", slug: "beaumont-comic-con", prefix: "beaumont comic con" },
+  { city: "The Woodlands", slug: "eagle-fest-the-woodlands", prefix: "eagle fest" },
   { city: "Austin", slug: "austin-city-limits-music-festival", prefix: "austin city limits festival" },
   { city: "Austin", slug: "austin-food-wine-festival", prefix: "austin food + wine festival" },
   { city: "Fort Worth", slug: "red-steagall-cowboy-gathering", prefix: "red steagall cowboy gathering" },
