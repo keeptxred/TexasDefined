@@ -37,7 +37,8 @@
     "high-school-football:validate": "node scripts/data/validate-high-school-football-platform.mjs",
     "football:tea-links:validate": "node scripts/data/validate-football-tea-profile-links.mjs",
     "high-school-football-isds:validate": "node scripts/data/validate-high-school-football-isds.mjs",
-    "layout:validate": "node scripts/data/validate-layout-dead-space.mjs"
+    "layout:validate": "node scripts/data/validate-layout-dead-space.mjs",
+    "production:pages:audit": "node scripts/ci/audit-production-pages.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
