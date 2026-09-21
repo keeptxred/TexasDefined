@@ -122,6 +122,91 @@ jobs:
           STAGE_OUTCOME: ${{ steps.budget.outcome }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-bundle-budget "$STAGE_OUTCOME" "Client bundle budget passed" "Client bundle budget exceeded"
 
+      - name: Publish canary deploy pending
+        if: success()
+        run: node scripts/ci/publish-github-status.mjs texasdefined-canary pending "Deploying and health-checking TexasDefined canary Worker"
+
+      - name: Deploy TexasDefined canary Worker
+        id: canary_deploy
+        shell: bash
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ftkznprjljkhymknvhye.supabase.co' }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [[ -z "${SUPABASE_URL:-}" || -z "${SUPABASE_SERVICE_ROLE_KEY:-}" ]]; then
+            echo '::error title=Missing Supabase Worker credentials::Canary deployment requires the same protected server-side credentials as production.'
+            exit 1
+          fi
+          mkdir -p .artifacts
+          trap 'rm -f .artifacts/texasdefined-canary-secrets.json' EXIT
+          node --input-type=module <<'NODE'
+          import { writeFileSync } from 'node:fs';
+          const payload = {
+            SUPABASE_URL: process.env.SUPABASE_URL,
+            SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
+          };
+          writeFileSync('.artifacts/texasdefined-canary-secrets.json', JSON.stringify(payload), { mode: 0o600 });
+          NODE
+          npx wrangler deploy --name texasdefined-site-canary --secrets-file .artifacts/texasdefined-canary-secrets.json
+
+      - name: Verify canary Worker health
+        id: canary_health
+        if: ${{ always() && steps.canary_deploy.outcome == 'success' }}
+        continue-on-error: true
+        env:
+          PRODUCTION_HEALTH_ORIGIN: https://texasdefined-site-canary.freddy-coppola.workers.dev
+          PRODUCTION_HEALTH_LABEL: canary-worker
+          PRODUCTION_HEALTH_ATTEMPTS: '6'
+          PRODUCTION_HEALTH_DELAY_MS: '3000'
+        run: node scripts/ci/verify-production-health.mjs
+
+      - name: Capture unhealthy canary runtime diagnostics
+        id: canary_diagnostics
+        if: ${{ always() && steps.canary_deploy.outcome == 'success' && steps.canary_health.outcome == 'failure' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          mkdir -p artifacts
+          npx wrangler deployments status --name texasdefined-site-canary --json > artifacts/canary-deployment-status.json 2> artifacts/canary-deployment-status.stderr || true
+          npx wrangler versions list --name texasdefined-site-canary --json > artifacts/canary-versions.json 2> artifacts/canary-versions.stderr || true
+          timeout 25s npx wrangler tail texasdefined-site-canary --format json --status error > artifacts/canary-worker-tail.jsonl 2> artifacts/canary-worker-tail.stderr &
+          TAIL_PID=$!
+          sleep 4
+          curl -sS --max-time 15 -D artifacts/canary-homepage.headers -o artifacts/canary-homepage.html "https://texasdefined-site-canary.freddy-coppola.workers.dev/?incident_probe=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${GITHUB_SHA}" || true
+          wait "${TAIL_PID}" || true
+          echo '::group::Canary Worker error tail'
+          cat artifacts/canary-worker-tail.jsonl 2>/dev/null || true
+          cat artifacts/canary-worker-tail.stderr 2>/dev/null || true
+          echo '::endgroup::'
+
+      - name: Upload unhealthy canary runtime diagnostics
+        if: ${{ always() && steps.canary_health.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: unhealthy-canary-${{ github.run_id }}
+          path: artifacts/canary-*
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Enforce canary health gate
+        id: canary_gate
+        if: ${{ always() && steps.canary_deploy.outcome == 'success' }}
+        shell: bash
+        env:
+          CANARY_HEALTH_OUTCOME: ${{ steps.canary_health.outcome }}
+        run: |
+          if [[ "$CANARY_HEALTH_OUTCOME" != 'success' ]]; then
+            echo "::error title=Canary Worker failed health gate::Production deployment is blocked; canary-health=${CANARY_HEALTH_OUTCOME:-not-run}."
+            exit 1
+          fi
+          echo 'Canary Worker passed health gate; production deployment may proceed.'
+
+      - name: Publish canary result
+        if: always()
+        env:
+          STAGE_OUTCOME: ${{ steps.canary_gate.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-canary "$STAGE_OUTCOME" "Canary Worker passed; production deploy may proceed" "Canary Worker failed; production deploy blocked"
+
       - name: Capture active Worker rollback target
         id: rollback_target
         if: success()
@@ -379,6 +464,7 @@ jobs:
           VALIDATION_OUTCOME: ${{ steps.validation.outcome }}
           BUILD_OUTCOME: ${{ steps.build.outcome }}
           BUDGET_OUTCOME: ${{ steps.budget.outcome }}
+          CANARY_OUTCOME: ${{ steps.canary_gate.outcome }}
           CLOUDFLARE_OUTCOME: ${{ steps.cloudflare.outcome }}
           LIVE_OUTCOME: ${{ steps.live.outcome }}
           INDEXNOW_OUTCOME: ${{ steps.indexnow.outcome }}
@@ -392,6 +478,7 @@ jobs:
             echo "| Pre-deploy validation | CODE / CONTENT / SEO / DATA | ${VALIDATION_OUTCOME:-not-run} |"
             echo "| Production build | BUILD | ${BUILD_OUTCOME:-not-run} |"
             echo "| Client bundle budget | BUNDLE BUDGET | ${BUDGET_OUTCOME:-not-run} |"
+            echo "| Canary Worker gate | CANARY / PREPRODUCTION | ${CANARY_OUTCOME:-not-run} |"
             echo "| Cloudflare Worker deploy | CLOUDFLARE / DEPLOYMENT | ${CLOUDFLARE_OUTCOME:-not-run} |"
             echo "| Live production verification | LIVE PRODUCTION | ${LIVE_OUTCOME:-not-run} |"
             echo "| IndexNow approval gate | INDEXING / EXTERNAL | ${INDEXNOW_OUTCOME:-not-run} |"
@@ -405,8 +492,10 @@ jobs:
             echo '::error title=Pipeline failure class: BUILD::Validation passed; the production build failed or regenerated an uncommitted route tree.'
           elif [[ "$BUDGET_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: BUNDLE BUDGET::Validation and build passed, but the protected client bundle budget was exceeded.'
+          elif [[ "$CANARY_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: CANARY / PREPRODUCTION::The built Worker failed on the isolated canary endpoint; production was not modified.'
           elif [[ "$CLOUDFLARE_OUTCOME" == 'failure' ]]; then
-            echo '::error title=Pipeline failure class: CLOUDFLARE / DEPLOYMENT::Code validation, build and bundle budget passed; Cloudflare deployment failed.'
+            echo '::error title=Pipeline failure class: CLOUDFLARE / DEPLOYMENT::Code validation, build, bundle budget and canary passed; production Cloudflare deployment failed.'
           elif [[ "$LIVE_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: LIVE PRODUCTION::Cloudflare deployment passed; a direct Worker or custom-domain production surface failed verification. The exact verification stage is listed above.'
           elif [[ "$INDEXNOW_OUTCOME" == 'failure' ]]; then
