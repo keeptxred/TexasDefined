@@ -73,7 +73,7 @@ export async function loadFishingPlannerDataServer() {
     species: species.filter((fish) => rows.some((row) => row.targets.some((target) => target.species?.id === fish.id))).sort((a, b) => a.commonName.localeCompare(b.commonName)),
     regions: [...new Set(rows.map((row) => row.lake.region))].sort(),
     policy: {
-      ranking: "Planner results are sorted by selected-species match and fishery fit. Full-guide status can break ties, but sponsorship never changes planner order.",
+      ranking: "Planner results are sorted by selected-species match and fishery fit. Full-guide status can break ties. Sponsorship never changes planner order.",
       conditions: "Only reports classified as current may appear as current-condition context. Stale or expired reports remain separate and never change lake recommendations.",
       local: "Guide, access and service counts include verified public listings only. Zero means no verified listing is currently published, not that the service does not exist.",
       coverage: "The finder searches every published lake with at least one verified lake-to-species relationship. A Full fishing guide badge identifies lakes with the deeper editorial guide.",
