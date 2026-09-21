@@ -202,11 +202,11 @@ function VenuePhoto({ photo, venueName }: { photo?: SportsVenuePhoto; venueName:
   if (!photo) {
     return (
       <div
-        className="flex min-h-[32rem] items-center justify-center bg-muted px-8 text-center text-sm text-muted-foreground"
+        className="flex min-h-40 items-center justify-center border border-dashed border-border bg-muted px-8 py-10 text-center text-sm text-muted-foreground"
         role="img"
         aria-label={`${venueName} image unavailable`}
       >
-        A verified venue photograph is not available yet.
+        A verified venue photograph is not available yet. Venue details and planning information continue below.
       </div>
     );
   }
