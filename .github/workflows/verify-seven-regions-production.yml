@@ -70,7 +70,10 @@ jobs:
           assert_indexable '/article/texas-regions-explained' "$article"
           assert_contains '/article/texas-regions-explained' "$article" 'The 7 Texas Regions, Defined'
           assert_contains '/article/texas-regions-explained' "$article" 'Texas Defined Travel & Outdoors Desk'
-          assert_contains '/article/texas-regions-explained' "$article" 'About 14 minutes'
+          if ! grep -Eqi 'About [0-9]+ minutes' "$article"; then
+            echo "FAIL /article/texas-regions-explained: missing computed reading-time marker" >&2
+            exit 1
+          fi
           assert_contains '/article/texas-regions-explained' "$article" 'https://texasdefined.com/article/texas-regions-explained'
 
           article_links=(
@@ -163,7 +166,7 @@ jobs:
           {
             echo '## Seven Texas regions production verification'
             echo
-            echo '- Evergreen article checked for canonical title, Travel & Outdoors byline, 14-minute reading time, indexability and all seven regional links.'
+            echo '- Evergreen article checked for canonical title, editorial byline, current computed reading time, indexability and all seven regional links.'
             echo '- Seven regional hubs checked for canonical names, reciprocal article link, canonical URL and indexability.'
             echo '- Sitemap ownership checked: article in /sitemap.xml; all seven regional hubs in /sitemap-explore.xml.'
           } >> "$GITHUB_STEP_SUMMARY"

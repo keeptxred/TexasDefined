@@ -24,7 +24,7 @@ const universalProfileCases = [
   { name: 'Franklin', classification: '3A', enrollment: '435', path: '/texas-high-school-football-teams/franklin' },
   { name: 'Panhandle', classification: '2A', enrollment: '176.5', path: '/texas-high-school-football-teams/panhandle' },
   { name: 'Abbott', classification: '1A', enrollment: '91', path: '/texas-high-school-football-teams/abbott' },
-] as const;
+];
 const expectedTitle = 'Texas High School Football: Friday Night Lights, Traditions & Game-Day Guide';
 const expectedDescription = 'Understand Texas high school football through Friday-night traditions, six-man and 11-man culture, stadiums, homecoming mums, playoffs, school communities and practical game-day planning.';
 const expectedCanonical = `${origin}${hubPath}`;
