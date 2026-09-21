@@ -124,6 +124,17 @@ The governed registry currently contains exactly three curated hotel choices for
 
 The ranking is explicit and source-backed. These entries do not fabricate venue coordinates or inferred walking/driving distances. Broad venue fallback remains disabled, so a venue without an explicit curated relationship does not inherit a generic city hotel list.
 
+## Current curated destination contexts
+
+The standard governed destination cohort contains exactly three source-backed stays for each of:
+
+- `/destination/fredericksburg`
+- `/destination/galveston-seawall`
+- `/destination/texas-ranger-hall-of-fame-museum-waco`
+- `/destination/johnson-city`
+
+Johnson City's cohort intentionally spans three different trip styles: a conventional central hotel, a U.S. 290 winery resort, and a Pedernales-area glamping retreat. Each property has a verified exact-property Hotels.com destination for CJ referral generation, while the first-party destination registry keeps its Expedia booking target fail-closed until an account-generated Expedia property deeplink is separately verified.
+
 ## Property affiliate deep links
 
 Expedia's Creator tools support links to individual property pages, but tracked links are account-generated. Do not infer or hand-build an affiliate URL format.
