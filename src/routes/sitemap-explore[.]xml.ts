@@ -116,10 +116,46 @@ async function resolveDestinationCatalog(destinations: Destination[]) {
   );
 }
 
+function emergencyExploreSitemapResponse(error: unknown) {
+  console.error("Explore sitemap generation failed; serving governed static fallback", error);
+  const fallbackPaths = [
+    "/explore",
+    "/explore/beaches-coast",
+    "/explore/trip-planner",
+    "/explore/attractions-comparison",
+    "/explore/museums",
+    "/explore/aquariums",
+    "/explore/rv-parks",
+    "/explore/wildlife",
+    "/explore/water-towers",
+    ...PAINTED_CHURCH_STATIC_PATHS,
+    "/explore/top-attractions",
+    "/explore/top-attractions/methodology",
+    "/explore/top-attractions/road-trips",
+    "/explore/route-66/texas-road-trip",
+    "/explore/landscapes",
+    ...EXPLORE_REGION_SLUGS.map((regionSlug) => `/explore/region/${regionSlug}`),
+  ];
+  const entries = [...new Set(fallbackPaths)]
+    .map((path) => entry(path))
+    .filter((item): item is string => Boolean(item))
+    .join("\n");
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
+  return new Response(xml, {
+    status: 200,
+    headers: {
+      "Content-Type": "application/xml; charset=utf-8",
+      "Cache-Control": "no-store",
+      "X-TexasDefined-Sitemap-Fallback": "1",
+    },
+  });
+}
+
 export const Route = createFileRoute("/sitemap-explore.xml")({
   server: {
     handlers: {
       GET: async () => {
+        try {
         const { categories, regions } = await import("@/data/fixtures/texas");
         const { isRoute66StopIndexReady, isTexasLandscapeIndexReady } = await import("@/data/explore-leaf-quality");
         const { enrichedTexasLandscapeGuides } = await import("@/data/texas-landscape-guide-enrichment");
@@ -273,6 +309,9 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
             "Cache-Control": "no-store",
           },
         });
+        } catch (error) {
+          return emergencyExploreSitemapResponse(error);
+        }
       },
     },
   },
