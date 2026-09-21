@@ -4,6 +4,8 @@ import path from 'node:path';
 const root = process.cwd();
 const destinationRoute = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
 const destinationPlanner = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationVisitPlanner.tsx'), 'utf8');
+const destinationViator = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationViatorBooking.tsx'), 'utf8');
+const destinationCurationBatch20 = fs.readFileSync(path.join(root, 'src/data/destination-curation-batch20.ts'), 'utf8');
 const destinationAudit = fs.readFileSync(path.join(root, 'src/data/destination-audit.ts'), 'utf8');
 const destinationQuality = fs.readFileSync(path.join(root, 'src/data/destination-quality.ts'), 'utf8');
 const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
@@ -12,6 +14,7 @@ const queryImplementation = `${queries}\n${destinationRuntime}`;
 const articleRoute = fs.readFileSync(path.join(root, 'src/routes/article.$slug.tsx'), 'utf8');
 const map = fs.readFileSync(path.join(root, 'src/components/editorial/MapPreview.tsx'), 'utf8');
 const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'utf8');
+// Destination layout regressions belong in this existing integrity gate so spacing fixes cannot silently drift.
 const errors = [];
 
 for (const feature of [
@@ -35,6 +38,37 @@ for (const feature of [
 
 if (destinationRoute.includes('...(!indexable ? [{ name: "robots", content: "noindex, follow" }] : [])')) {
   errors.push('Destination metadata must not emit conflicting default-index and appended-noindex robots directives.');
+}
+
+for (const stale of [
+  'min-h-[64vh]',
+  'belongs on our {categoryName.toLowerCase()} list',
+  'eyebrow="Planning your visit"',
+]) {
+  if (destinationRoute.includes(stale)) errors.push(`Destination layout/copy regression detected: ${stale}.`);
+}
+for (const required of [
+  'function countyDisplayName(value: string)',
+  'function countyRouteSlug(value?: string)',
+  'eyebrow="Quick trip facts"',
+  'minHeight: "clamp(24rem, 52vw, 32rem)"',
+]) {
+  if (!destinationRoute.includes(required)) errors.push(`Destination compact-layout safeguard missing: ${required}.`);
+}
+if (destinationPlanner.includes('data-stay-nearby-slot\n        className=')) {
+  errors.push('Empty Stay Nearby placeholders must not reserve vertical margin before content is injected.');
+}
+if (destinationViator.includes('"Browse current Texas experiences"')) {
+  errors.push('Destination pages must not fall back to irrelevant statewide Viator inventory.');
+}
+for (const required of [
+  'if (!hasDedicatedInventory) return huntingLinks;',
+  'county:"Hidalgo"',
+  '/images/state-parks/world-birding-center-bentsen-rio-grande-valley-state-park.jpg',
+  'sourceCheckedAt:"2026-09-20"',
+]) {
+  const source = required === 'if (!hasDedicatedInventory) return huntingLinks;' ? destinationViator : destinationCurationBatch20;
+  if (!source.includes(required)) errors.push(`Destination regression safeguard missing: ${required}.`);
 }
 
 for (const feature of [
