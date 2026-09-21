@@ -84,13 +84,12 @@ export const Route = createFileRoute("/sitemap.xml")({
         const privateFootballProfileEntries = privateFootballProgramSitemapEntries();
         const { footballDistrictSitemapEntries } = await import("@/data/high-school-football/football-districts.server");
         const footballDistrictEntries = footballDistrictSitemapEntries();
-        let footballIsdEntries: SitemapEntry[] = [];
-        try {
-          const { footballIsdSitemapEntries } = await import("@/data/high-school-football/football-isds.server");
-          footballIsdEntries = await footballIsdSitemapEntries();
-        } catch (error) {
-          console.warn("Football ISD sitemap entries unavailable; continuing without dynamic ISD profiles.", error);
-        }
+        // Do not hydrate the live TEA-backed football ISD directory on the public
+        // sitemap request path. A cold Worker would otherwise fetch and parse the
+        // statewide AskTED CSV and fuzzy-match all 1,268 UIL programs before it
+        // could return XML. The indexable ISD hub remains in INDEXABLE_STATIC_PATHS;
+        // detail ISD routes remain discoverable through that hub until their
+        // precomputed sitemap snapshot is published.
         const coreResults = await Promise.allSettled([
           platform.articles.list(scope),
           platform.collections.list(scope),
@@ -238,7 +237,6 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...footballProfileEntries,
           ...privateFootballProfileEntries,
           ...footballDistrictEntries,
-          ...footballIsdEntries,
         ];
 
         const uniqueEntries = [...new Map(entries.map((entry) => {
