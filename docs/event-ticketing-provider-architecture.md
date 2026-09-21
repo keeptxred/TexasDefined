@@ -79,17 +79,25 @@ Three layers guard the ticketing architecture:
 
 ## Affiliate activation
 
-A future provider adapter should only populate `affiliateUrl` after the applicable affiliate/partner capability has actually been approved and the resulting deep link has been verified. Ticketmaster/Impact approval is not assumed by this architecture.
+Ticketmaster/Impact approval for TexasDefined was confirmed on 2026-09-21. The approved program is now supported by `src/lib/ticketmaster-affiliate.server.ts`, but the adapter remains fail-closed until the exact approved Impact tracking template is configured in the deployment environment.
+
+Set `TICKETMASTER_IMPACT_TRACKING_TEMPLATE` to the approved Ticketmaster Impact deep-link template. The template must be HTTPS and must contain `{url}`; it may also contain `{campaign}`. Example shape only:
+
+`https://<approved-impact-tracking-host>/...?...&u={url}&subId1={campaign}`
+
+Do not copy placeholder partner IDs or campaign IDs from documentation into production. The exact tracking path must come from TexasDefined's approved Ticketmaster/Impact account.
+
+When configured, `src/data/events/texas-event-records.server.ts` automatically recognizes verified `ticketmaster.com` offer URLs, preserves the official Ticketmaster destination as fallback, and adds the approved Impact affiliate URL. Shared calendar, event, and sports-venue surfaces then resolve the existing single `Find Tickets →` CTA through the provider-neutral ticketing layer. Non-Ticketmaster destinations are never wrapped, and malformed or missing Impact configuration falls back to the verified official ticket URL.
 
 Recommended activation sequence:
 
-1. Store credentials or partner configuration in the deployment environment/secrets manager, never source code.
-2. Resolve or generate the provider deep link server-side.
+1. Store partner tracking configuration in the deployment environment, never in content records or presentation components.
+2. Resolve or generate the provider deep link server-side from a verified Ticketmaster destination only.
 3. Preserve the official ticket URL as fallback when available.
 4. Set the provider identifier, source, sale status, last verified timestamp, priority, and expiry values.
 5. Run `node scripts/data/validate-event-ticketing-architecture.mjs`, `node scripts/data/validate-event-ticket-positive-path.mjs`, the normal validation suite, production build, and bundle budget before merge.
-6. Verify the rendered CTA text changes from `Official Tickets →` to `Find Tickets →` only when the affiliate URL is valid.
-7. After deployment, require `node scripts/ci/verify-event-ticketing-production.mjs` to pass against the live site.
+6. Verify the rendered CTA text changes from `Official Tickets →` to `Find Tickets →` only when the affiliate URL is valid, and that the rendered link carries `rel="sponsored nofollow noopener noreferrer"` plus first-party `ticketmaster` attribution metadata.
+7. After deployment, require `node scripts/ci/verify-event-ticketing-production.mjs` to pass against the live site. Add a Ticketmaster-specific live conversion smoke only after at least one reviewed canonical event carries a verified Ticketmaster destination; do not fabricate inventory just to exercise the affiliate path.
 
 ## No checkout
 
