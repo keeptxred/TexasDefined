@@ -1,13 +1,15 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { GenericFishingLakeGuide } from "@/components/fishing/GenericFishingLakeGuide";\nimport { LakeConroeGuide } from "@/components/fishing/LakeConroeGuide";
+import { GenericFishingLakeGuide } from "@/components/fishing/GenericFishingLakeGuide";
+import { LakeConroeGuide } from "@/components/fishing/LakeConroeGuide";
 import { LiveLakeLevelStrip } from "@/components/fishing/LiveLakeLevelStrip";
 import { ShowcaseLakeGuide } from "@/components/fishing/ShowcaseLakeGuide";
 import { Container } from "@/components/layout/Container";
 import { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.functions";
 import { LAKE_CONROE_SLUG, lakeConroeCanonicalPath } from "@/data/fishing/lake-conroe-routing";
-import { isShowcaseLakeSlug, showcaseLakeCanonicalPath } from "@/data/fishing/showcase-lake-routing";\nimport { canonicalFishingPath } from "@/data/fishing/slugs";
+import { isShowcaseLakeSlug, showcaseLakeCanonicalPath } from "@/data/fishing/showcase-lake-routing";
+import { canonicalFishingPath } from "@/data/fishing/slugs";
 import { getShowcaseLakesPageData } from "@/data/fishing/showcase-lakes-page-data.functions";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -26,7 +28,17 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
       ]);
       return { kind: "conroe" as const, lake, reports, guides, pageData, liveLakeLevel: pageData.liveLakeLevel };
     }
-    if (!isShowcaseLakeSlug(params.slug)) throw notFound();
+    if (!isShowcaseLakeSlug(params.slug)) {
+      const [species, relationships, reports, guides, access, businesses] = await Promise.all([
+        context.queryClient.ensureQueryData(fishSpeciesQuery({ lakeId: lake.id, limit: 50 })),
+        context.queryClient.ensureQueryData(lakeSpeciesProfilesQuery({ lakeId: lake.id })),
+        context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 10 })),
+        context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 20 })),
+        context.queryClient.ensureQueryData(fishingAccessPointsQuery({ lakeId: lake.id, limit: 50 })),
+        context.queryClient.ensureQueryData(fishingBusinessesQuery({ lakeId: lake.id, limit: 50 })),
+      ]);
+      return { kind: "generic" as const, lake, species, relationships, reports, guides, access, businesses };
+    }
     const allPageData = await getShowcaseLakesPageData();
     const pageData = allPageData[params.slug];
     if (!pageData) throw notFound();
@@ -48,6 +60,15 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
       const reservoirSchema = { "@type": "Reservoir", "@id": `${url}#reservoir`, url, name: overview.name, description: overview.summary, containedInPlace: { "@type": "State", name: "Texas" }, sameAs: [sources.tpwdLake.url, sources.twdb.url, sources.sjra.url], additionalProperty: [{ "@type": "PropertyValue", name: "Surface area", value: `${overview.surfaceAcres} acres` }, { "@type": "PropertyValue", name: "Impounded", value: overview.impoundedYear }, { "@type": "PropertyValue", name: "River basin", value: overview.riverBasin }, { "@type": "PropertyValue", name: "Counties", value: overview.counties.join(", ") }] };
       const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: siteUrl }, { "@type": "ListItem", position: 2, name: "Fishing", item: `${siteUrl}/fishing` }, { "@type": "ListItem", position: 3, name: "Lake Conroe", item: url }] };
       return { meta: buildMeta(texasDefinedBrand, { title: "Lake Conroe Fishing Guide — Fish, Ramps, Rules & Reports", description: "Plan fishing Lake Conroe with verified lake facts, fish species, seasonal tactics, boat ramps, boating notes, regulations, camping, reports and guide listings.", canonicalPath }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, reservoirSchema, breadcrumbSchema] }) }] };
+    }
+    if (loaderData.kind === "generic") {
+      const { lake } = loaderData;
+      const canonicalPath = canonicalFishingPath("lake", lake.slug);
+      const url = `${siteUrl}${canonicalPath}`;
+      const description = `Plan fishing at ${lake.name} with source-backed lake facts, verified fish relationships, local access and dated fishing-report context.`;
+      const webPageSchema = { "@type": "WebPage", "@id": url, url, name: `${lake.name} Fishing`, description, dateModified: lake.verifiedAt, citation: lake.sources.map((source) => source.url) };
+      const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: siteUrl }, { "@type": "ListItem", position: 2, name: "Fishing", item: `${siteUrl}/fishing` }, { "@type": "ListItem", position: 3, name: "Fishing lakes", item: `${siteUrl}/fishing/lakes` }, { "@type": "ListItem", position: 4, name: lake.name, item: url }] };
+      return { meta: buildMeta(texasDefinedBrand, { title: `${lake.name} Fishing — Fish Species, Lake Facts & Planning`, description, canonicalPath }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, breadcrumbSchema] }) }] };
     }
     const { pageData } = loaderData;
     const canonicalPath = showcaseLakeCanonicalPath(pageData.slug);
