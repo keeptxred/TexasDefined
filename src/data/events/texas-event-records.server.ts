@@ -1,4 +1,5 @@
 import { getGeneratedTexasEvents } from "../events-generated";
+import { loadTicketmasterEventsServer } from "./ticketmaster-events.server";
 import { loadMajorEventGuideDirectoryServer, type MajorEventGuideDirectoryItem } from "../major-event-directory.server";
 import { getMajorEventRecordServer } from "../major-event-page.server";
 import {
@@ -170,6 +171,11 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
     if (record) records.push(record);
   }
 
+  // Preserve editorial records when an identical event already has a reviewed guide.
+  const existing = new Set(records.map(record => `${eventIdentity(record.title, record.city)}:${record.startDate}`));
+  for (const record of loadTicketmasterEventsServer()) {
+    if (!existing.has(`${eventIdentity(record.title, record.city)}:${record.startDate}`)) records.push(record);
+  }
   return [...new Map(records.map((record) => [record.id, record] as const)).values()]
     .sort((left, right) => left.startDate.localeCompare(right.startDate) || left.title.localeCompare(right.title));
 }

@@ -6,6 +6,8 @@ on:
     paths:
       - ".github/workflows/sync-texas-events.yml"
       - "scripts/events/sync-texas-events-safe.mjs"
+      - "scripts/events/sync-ticketmaster-events.mjs"
+      - "scripts/events/ticketmaster-discovery.mjs"
       - "src/data/events-generated.ts"
       - "src/data/events-remote.ts"
   schedule:
@@ -40,11 +42,17 @@ jobs:
       - name: Sync authoritative Texas events
         run: node scripts/events/sync-texas-events-safe.mjs
 
+      - name: Sync Ticketmaster Texas events
+        env:
+          TICKETMASTER_API_KEY: ${{ secrets.TICKETMASTER_API_KEY }}
+          TICKETMASTER_IMPACT_BASE_URL: https://ticketmaster.evyy.net/c/7758914/264167/4272?subId1=texasdefined&partnerpropertyid=8837726&MediaPartnerPropertyId=8837726
+        run: node scripts/events/sync-ticketmaster-events.mjs
+
       - name: Detect catalog changes
         id: changes
         shell: bash
         run: |
-          if git diff --quiet -- src/data/generated/texas-events.ts; then
+          if git diff --quiet -- src/data/generated/texas-events.ts src/data/generated/ticketmaster-events.json; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Texas events catalog is already current."
           else
@@ -62,7 +70,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$branch"
-          git add src/data/generated/texas-events.ts
+          git add src/data/generated/texas-events.ts src/data/generated/ticketmaster-events.json
           git commit -m "data: refresh Texas events catalog"
           git push origin "$branch"
           echo "name=$branch" >> "$GITHUB_OUTPUT"
