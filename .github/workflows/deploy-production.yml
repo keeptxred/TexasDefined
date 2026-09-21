@@ -122,6 +122,11 @@ jobs:
           STAGE_OUTCOME: ${{ steps.budget.outcome }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-bundle-budget "$STAGE_OUTCOME" "Client bundle budget passed" "Client bundle budget exceeded"
 
+      - name: Capture active Worker rollback target
+        id: rollback_target
+        if: success()
+        run: node scripts/ci/capture-active-worker-version.mjs
+
       - name: Publish Cloudflare deploy pending
         if: success()
         run: node scripts/ci/publish-github-status.mjs texasdefined-cloudflare pending "Deploying TexasDefined Worker"
@@ -173,7 +178,7 @@ jobs:
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'failure' }}
         shell: bash
         run: |
-          npx wrangler rollback --message "Automatic rollback: direct Worker health failed after deploy ${GITHUB_SHA}"
+          npx wrangler rollback "${{ steps.rollback_target.outputs.version_id }}" --message "Automatic rollback: direct Worker health failed after deploy ${GITHUB_SHA}"
 
       - name: Verify rollback restored direct Worker health
         id: rollback_health
