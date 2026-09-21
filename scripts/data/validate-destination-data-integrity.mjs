@@ -6,7 +6,6 @@ const destinationRoute = fs.readFileSync(path.join(root, 'src/routes/destination
 const destinationPlanner = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationVisitPlanner.tsx'), 'utf8');
 const destinationViator = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationViatorBooking.tsx'), 'utf8');
 const destinationCurationBatch20 = fs.readFileSync(path.join(root, 'src/data/destination-curation-batch20.ts'), 'utf8');
-const styles = fs.readFileSync(path.join(root, 'src/styles.css'), 'utf8');
 const destinationAudit = fs.readFileSync(path.join(root, 'src/data/destination-audit.ts'), 'utf8');
 const destinationQuality = fs.readFileSync(path.join(root, 'src/data/destination-quality.ts'), 'utf8');
 const queries = fs.readFileSync(path.join(root, 'src/data/queries.ts'), 'utf8');
@@ -51,12 +50,12 @@ for (const required of [
   'function countyDisplayName(value: string)',
   'function countyRouteSlug(value?: string)',
   'eyebrow="Quick trip facts"',
-  'min-h-[24rem]',
+  'minHeight: "clamp(24rem, 52vw, 32rem)"',
 ]) {
   if (!destinationRoute.includes(required)) errors.push(`Destination compact-layout safeguard missing: ${required}.`);
 }
-if (!styles.includes('[data-stay-nearby-slot]:empty { display: none; }')) {
-  errors.push('Empty Stay Nearby placeholders must collapse instead of reserving scroll space.');
+if (destinationPlanner.includes('data-stay-nearby-slot\n        className=')) {
+  errors.push('Empty Stay Nearby placeholders must not reserve vertical margin before content is injected.');
 }
 if (destinationViator.includes('"Browse current Texas experiences"')) {
   errors.push('Destination pages must not fall back to irrelevant statewide Viator inventory.');
