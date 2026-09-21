@@ -87,8 +87,8 @@ try {
     const activeProperties = [...baseActiveProperties, ...destinationActiveProperties];
     const evidence = hotelsVerification.properties || [];
     if (baseActiveProperties.length !== 18) errors.push(`Exact Hotels.com base cohort expects 18 active curated properties; found ${baseActiveProperties.length}.`);
-    if (destinationActiveProperties.length !== 9) errors.push(`Exact Hotels.com destination cohort expects 9 active curated properties; found ${destinationActiveProperties.length}.`);
-    if (activeProperties.length !== 27) errors.push(`Exact Hotels.com coverage expects 27 active governed properties; found ${activeProperties.length}.`);
+    if (destinationActiveProperties.length !== 12) errors.push(`Exact Hotels.com destination cohort expects 12 active curated properties; found ${destinationActiveProperties.length}.`);
+    if (activeProperties.length !== 30) errors.push(`Exact Hotels.com coverage expects 30 active governed properties; found ${activeProperties.length}.`);
     if (evidence.length !== activeProperties.length) errors.push(`Hotels.com verification evidence must cover every active governed property; expected ${activeProperties.length}, found ${evidence.length}.`);
 
     const evidenceById = new Map();
@@ -156,6 +156,9 @@ for (const [needle, label] of [
   ['https://www.hotels.com/ho3489929696/albert-hotel/', 'Albert Hotel destination property record'],
   ['https://www.hotels.com/ho145347/hotel-galvez-spa-galveston-united-states-of-america/', 'Grand Galvez destination property record'],
   ['https://www.hotels.com/ho3586848288/hotel-1928/', 'Hotel 1928 destination property record'],
+  ['https://www.hotels.com/ho494047/best-western-johnson-city-inn-johnson-city-united-states-of-america/', 'Best Western Johnson City destination property record'],
+  ['https://www.hotels.com/ho1266792032/carter-creek-winery-resort-spa-johnson-city-united-states-of-america/', 'Carter Creek Johnson City destination property record'],
+  ['https://www.hotels.com/ho2462492672/walden-retreats-johnson-city-united-states-of-america/', 'Walden Retreats Johnson City destination property record'],
   ['https://www.hotels.com/ho506095/best-western-plus-sweetwater-inn-suites-sweetwater-united-states-of-america/', 'Best Western Plus Sweetwater property record'],
   ['https://www.hotels.com/ho636049152/la-quinta-inn-suites-by-wyndham-sweetwater-east-sweetwater-united-states-of-america/', 'La Quinta Sweetwater property record'],
   ['https://www.hotels.com/ho532248/microtel-inn-and-suites-by-wyndham-sweetwater-sweetwater-united-states-of-america/', 'Microtel Sweetwater property record'],
