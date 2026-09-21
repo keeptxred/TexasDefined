@@ -9,6 +9,7 @@ import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
 import { johnsonCityAuthorityDestinations } from "./johnson-city-authority-destinations";
 import { johnsonCityWildlifeDestinations } from "./johnson-city-wildlife-destinations";
 import { lbjBoyhoodHomeDestinations } from "./lbj-boyhood-home-destination";
+import { lbjRanchStonewallDestinations } from "./lbj-ranch-stonewall-destination";
 import { historicSiteDestinations } from "./historic-sites";
 import { militaryHistoryDestinations } from "./military-history-destinations";
 import { militaryMuseumDestinations } from "./military-museum-destinations";
@@ -212,6 +213,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   johnsonCityAuthorityDestinations,
   johnsonCityWildlifeDestinations,
   lbjBoyhoodHomeDestinations,
+  lbjRanchStonewallDestinations,
   pedernalesRiverNatureParkDestinations,
   pecanStreetBrewingDestinations,
   realAleBlancoDestinations,
