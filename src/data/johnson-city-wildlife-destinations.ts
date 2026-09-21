@@ -1,7 +1,7 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./destination-hero-placeholder";
 import type { Destination } from "./types";
 
-const SOURCE_CHECKED_AT = "2026-09-19";
+const SOURCE_CHECKED_AT = "2026-09-21";
 
 export const johnsonCityWildlifeDestinations: Destination[] = [
   {
@@ -33,10 +33,10 @@ export const johnsonCityWildlifeDestinations: Destination[] = [
     bestSeason:
       "Fall through spring for mild safari weather and active animals; summer visits are most comfortable early in the day, while freezing or rainy weather can interrupt guided tractor tours.",
     entryNote:
-      "The operator currently advertises daily opening at 9 a.m. with regular holiday exceptions. General admission includes either one guided tractor safari or one drive-through safari plus the petting zoo, caged-animal area and picnic area. Drive-through vehicle slots are limited, so reserve online when that format matters to your trip and recheck live hours before departure.",
+      "As reviewed September 21, 2026, the zoo's homepage and admissions page list daily access beginning at 9 a.m., with the homepage showing 9 a.m.-5 p.m. regular hours; a separate contact page still says 9 a.m.-6 p.m. and a last tour no later than 4:30 p.m., so verify late-day access before driving out. Current general admission is $19.95 for adults ages 13-59, $15.95 for children ages 2-12 and $17.95 for seniors 60+, with animal feed sold separately at $8. Admission covers one guided tractor safari or one drive-through safari plus the petting zoo, caged-animal area and picnic area.",
     highlights: [
       "700+ animals representing 45+ species",
-      "Guided tractor safari lasting roughly 45 minutes to an hour",
+      "Guided tractor safari lasting roughly 45 minutes to an hour; self-drive visits can run longer",
       "Timed self-drive safari through the property",
       "Petting zoo included with general admission",
       "Family-owned 137-acre Hill Country property established in 1995",
@@ -45,7 +45,7 @@ export const johnsonCityWildlifeDestinations: Destination[] = [
     body: [
       "The Exotic Resort Zoo is one of Johnson City's strongest family attractions because it turns a Hill Country ranch into a safari-style wildlife experience rather than a conventional walk-through zoo. The operator currently describes more than 700 animals representing over 45 species, spread across a property large enough for the visit to be built around movement through animal habitat.",
       "Visitors choose between two primary tour formats. The guided option uses a tractor-pulled safari vehicle and typically lasts about 45 minutes to an hour, with a guide explaining the animals and how to interact safely. The drive-through option lets visitors use their own vehicle, but the zoo limits the number of vehicles entering by time slot and strongly encourages advance online booking for that format.",
-      "General admission also includes the petting zoo, caged-animal area and picnic space, so the experience is broader than a single safari loop. The operator emphasizes that animals may approach vehicles closely in the drive-through area, which is part of the appeal but also why current feeding and vehicle rules should be treated as part of the visit rather than optional fine print.",
+      "General admission also includes the petting zoo, caged-animal area and picnic space, so the experience is broader than a single safari loop. As reviewed September 21, 2026, posted prices are $19.95 for adults ages 13-59, $15.95 for children ages 2-12 and $17.95 for seniors 60+, with animal feed at $8. The operator emphasizes that animals may approach vehicles closely in the drive-through area, which is part of the appeal but also why current feeding and vehicle rules should be treated as part of the visit rather than optional fine print.",
       "The zoo's story is unusually personal. Dennis and Marilyn Bacque established the property in 1995 after settling on 137 acres near Johnson City. Their original private-retreat plan changed after they brought home a Canadian elk named Dottie, and the animal collection expanded from there into the independently owned safari park operating today.",
       "The resort component makes this destination different from most Texas zoo stops. The property offers safari cabins onsite, allowing families to turn the zoo into an overnight Hill Country stay instead of a short attraction visit. That works especially well for travelers combining Johnson City with Science Mill, Reptilandia, LBJ history, Pedernales Falls or the U.S. 290 corridor.",
       "Weather matters more here than at Johnson City's indoor museums. The zoo says guided tours may pause during freezing or rainy conditions, while the self-drive experience can remain available in some poor-weather situations. Check the operator's live updates before making a dedicated drive, particularly during winter freezes or heavy rain.",
@@ -57,7 +57,7 @@ export const johnsonCityWildlifeDestinations: Destination[] = [
     directions:
       "The zoo is about four miles north of Johnson City off U.S. 281. Follow the operator's current directions to Zoo Trail rather than relying on a generic Johnson City destination pin.",
     accessibilityNotes:
-      "The self-drive safari is experienced from the visitor's own vehicle, while the guided tractor safari uses shared seating. Contact the zoo directly for current mobility arrangements and review its service-animal restrictions before arrival because live-animal facilities may limit access.",
+      "The self-drive safari can be experienced from the visitor's own vehicle, and the operator says its guided-tour trailer can accommodate wheelchairs using a heavy-duty ramp. The zoo currently prohibits dogs onsite, including service animals, because of live-animal safety restrictions; travelers who use a service animal should review the zoo's current policy and contact the operator before arrival.",
     sourceCheckedAt: SOURCE_CHECKED_AT,
     areaGuide: {
       intro:
@@ -253,7 +253,7 @@ export const johnsonCityWildlifeDestinations: Destination[] = [
     bestSeason:
       "Year-round. The exhibit buildings are temperature controlled and enclosed, making Reptilandia one of the strongest bad-weather and summer-heat family attractions around Johnson City.",
     entryNote:
-      "The zoo's current site publishes daily admission and membership options but operating days can change, so verify the live schedule before travel. Children under 3 are currently free; animal feeding is not allowed, and the operator says the exhibits remain open during rain because the visitor areas are enclosed.",
+      "As reviewed September 21, 2026, Reptilandia is open Tuesday through Sunday from 10 a.m. to 5 p.m. and also opens Monday holidays from 10 a.m. to 5 p.m. Current daily admission is $20 for adults ages 13-64 and $15 for children ages 3-11, seniors 65+ and active/retired military; children under 3 are free. Animal feeding is not allowed, and the operator says all exhibits are enclosed so visits can continue in rain.",
     highlights: [
       "Eight distinct reptile and amphibian biomes",
       "Temperature-controlled indoor visitor experience",
@@ -267,7 +267,7 @@ export const johnsonCityWildlifeDestinations: Destination[] = [
       "The Temperate Building contains 21 large themed exhibits representing temperate and subtropical environments. Snakes, turtles, chameleons and other lizards are displayed in habitats designed to show ecological relationships and animal behavior, including mixed-species presentations where appropriate.",
       "The Jungle Building shifts to tropical reptiles and giant lizards in more humid environments. That contrast gives visitors a clearer sense of how reptiles adapt to climate and habitat rather than presenting the collection as a species checklist. The operator also maintains an ethnographic museum examining the relationship between people and reptiles through art and cultural objects.",
       "Founder Quetzal Dwyer brought decades of herpetology and reptile-conservation experience to Johnson City in 2022 after extensive work in Costa Rica and field research across Central America and the Pacific. The current staff includes keepers and curators with zoo, field-research and captive-breeding backgrounds, so the educational layer extends beyond exhibit labels.",
-      "For families, the practical advantage is climate control. Reptilandia says all exhibits are enclosed and remain open in rain, and wheelchair-accessible paths run through the facility. That makes it an especially useful pairing with the more weather-dependent Exotic Resort Zoo or an outdoor stop at Pedernales Falls.",
+      "For families, the practical advantage is climate control. Reptilandia says all exhibits are enclosed and remain open in rain, and wheelchair-accessible paths run through the facility. As reviewed September 21, 2026, standard admission is $20 for adults and $15 for children ages 3-11, seniors and active/retired military, while children under 3 are free. That makes it an especially useful pairing with the more weather-dependent Exotic Resort Zoo or an outdoor stop at Pedernales Falls.",
       "Reptilandia sits on U.S. 281 north of downtown Johnson City, close enough to the Exotic Resort Zoo to make a two-attraction wildlife day realistic. Families can also pair it with Science Mill for a fully indoor science-and-wildlife itinerary or use downtown Johnson City for lunch between attractions.",
     ],
     managingAuthority: "Reptilandia – Reptile Lagoon",
@@ -391,7 +391,7 @@ export const johnsonCityWildlifeDestinations: Destination[] = [
           label: "Focused reptile visit",
           duration: "1.5–2.5 hours",
           steps: [
-            "Check the current operating schedule before departure.",
+            "Verify the current Tuesday-Sunday 10 a.m.-5 p.m. schedule before departure.",
             "Move through the Temperate and Jungle buildings without rushing the larger habitats.",
             "Leave time for the ethnographic museum and conservation interpretation.",
           ],
