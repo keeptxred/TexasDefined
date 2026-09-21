@@ -9,6 +9,7 @@ import {
 import { getSportsVenuePhoto } from "../sports-venue-images-all";
 import { resolveSportsVenueEventLink } from "../sports-venue-event-links";
 import type { TexasEvent } from "../types";
+import { buildTicketmasterAffiliateUrl, isTicketmasterUrl } from "../../lib/ticketmaster-affiliate.server";
 import {
   selectTexasEventRecords,
   type TexasEventImageMetadata,
@@ -41,13 +42,14 @@ function eventIdentity(name: string, city: string) {
   return `${name.trim().toLowerCase()}:${city.trim().toLowerCase()}`;
 }
 
-function buildTicketing(offers: EventSchemaOffer[] | undefined, lastVerifiedAt: string, sourceName?: string): TexasEventTicketingMetadata | undefined {
+function buildTicketing(offers: EventSchemaOffer[] | undefined, lastVerifiedAt: string, campaign: string, sourceName?: string): TexasEventTicketingMetadata | undefined {
   if (!offers?.length) return undefined;
   const uniqueTicketUrls = [...new Set(offers.map((offer) => offer.url))];
   return {
     links: uniqueTicketUrls.map((url, index) => ({
-      provider: "official",
+      provider: isTicketmasterUrl(url) ? "ticketmaster" : "official",
       officialTicketUrl: url,
+      affiliateUrl: buildTicketmasterAffiliateUrl(url, `event-${campaign}`) ?? undefined,
       saleStatus: "unknown",
       source: {
         kind: "official-event",
@@ -122,7 +124,7 @@ function normalizeEvent(event: TexasEvent, guide?: MajorEventGuideDirectoryItem)
     region: guide?.region ?? authority?.region ?? event.region,
     category: guide?.category ?? authority?.category ?? event.category,
     officialEventUrl,
-    ticketing: buildTicketing(enrichment?.offers, enrichment?.verifiedAt ?? lastVerifiedAt, event.sourceName ?? authority?.sources[0]?.label),
+    ticketing: buildTicketing(enrichment?.offers, enrichment?.verifiedAt ?? lastVerifiedAt, authoritySlug, event.sourceName ?? authority?.sources[0]?.label),
     image: buildDisplayImage(enrichment, venueSlug),
     status: "scheduled",
     lastVerifiedAt,
