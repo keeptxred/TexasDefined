@@ -6,36 +6,42 @@ import { Container } from "@/components/layout/Container";
 const standoutCamping = [
   {
     slug: "garner-state-park",
+    to: "/destination/garner-state-park",
     eyebrow: "River weekends",
     label: "Garner State Park",
     body: "A strong Hill Country choice when the Frio River, swimming and a mix of tent and RV sites are the center of the trip.",
   },
   {
     slug: "palo-duro-canyon-state-park",
+    to: "/destination/palo-duro-canyon-state-park",
     eyebrow: "Canyon scenery",
     label: "Palo Duro Canyon State Park",
     body: "Camp inside the canyon with developed RV and tent options, primitive hike-in camping and immediate access to the park trail system.",
   },
   {
     slug: "mustang-island-state-park",
+    to: "/destination/mustang-island-state-park",
     eyebrow: "Beach camping",
     label: "Mustang Island State Park",
     body: "Choose developed electric sites behind the dunes or weather-dependent primitive camping directly along the Gulf.",
   },
   {
     slug: "caddo-lake",
+    to: "/destination/caddo-lake",
     eyebrow: "Paddling & fishing",
     label: "Caddo Lake State Park",
     body: "An East Texas base for cypress-lined water, fishing and developed campsites, including a small verified full-hookup inventory.",
   },
   {
     slug: "big-bend-national-park",
+    to: "/destination/big-bend-national-park",
     eyebrow: "Remote & backcountry",
     label: "Big Bend National Park",
     body: "A destination for desert, mountain and backcountry camping where campground choice, permits and seasonal heat materially change the trip.",
   },
   {
     slug: "brazos-bend-state-park",
+    to: "/destination/brazos-bend-state-park",
     eyebrow: "Near Houston",
     label: "Brazos Bend State Park",
     body: "A practical Houston-area camping escape with developed sites, primitive walk-in camping, wetlands, trails and wildlife.",
@@ -91,7 +97,7 @@ function CampingGuidePage() {
           {standoutCamping.map((item) => {
             const entry = entries.find(({ profile }) => profile.destinationSlug === item.slug);
             const destination = entry?.destination;
-            return <Link key={item.slug} to="/destination/$slug" params={{ slug: item.slug }} className="group overflow-hidden border border-border bg-background transition-colors hover:border-primary/50">
+            return <Link key={item.slug} to={item.to} className="group overflow-hidden border border-border bg-background transition-colors hover:border-primary/50">
               {destination?.hero?.src ? <img src={destination.hero.src} alt={destination.hero.alt} width={destination.hero.width} height={destination.hero.height} loading="lazy" className="aspect-[16/9] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" /> : null}
               <div className="p-6">
                 <p className="eyebrow text-primary">{item.eyebrow}</p>
