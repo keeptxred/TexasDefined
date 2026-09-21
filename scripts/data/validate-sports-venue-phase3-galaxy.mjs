@@ -99,7 +99,7 @@ for (const marker of [
   'sponsorPlacement ?',
   '<TexasEventCarousel',
   'data-stay-nearby-slot',
-  'A verified venue photograph is not available yet.',
+  'data-venue-image-fallback="true"',
   'mainEntityOfPage: canonicalUrl',
   'image: photo?.imageUrl',
   'SourcesSection',
