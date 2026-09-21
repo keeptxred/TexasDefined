@@ -29,10 +29,8 @@ for (const marker of [
 if (audit.includes("src/data/generated/ticketmaster-events.json")) {
   failures.push("annual audit must not read or overwrite the production Ticketmaster snapshot");
 }
-if (/affiliateUrl|officialUrl/.test(JSON.stringify({
-  outputPolicy: audit.includes("candidates,"),
-})) && false) {
-  failures.push("reserved");
+if (audit.includes("affiliateUrl") || audit.includes("officialUrl")) {
+  failures.push("annual audit output must stay sanitized and omit provider destination URLs");
 }
 
 for (const marker of [
