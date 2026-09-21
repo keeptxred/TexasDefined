@@ -263,6 +263,10 @@ if (!productionVerifier.includes("route: '/destination/fredericksburg'") || !pro
   errors.push('Live destination probe must require an explicit in-content Stay Nearby slot.');
 }
 
+if (!productionVerifier.includes("route: '/destination/johnson-city'") || !productionVerifier.includes("marker: 'Johnson City'")) {
+  errors.push('Live monetization smoke must include the governed Johnson City destination cohort.');
+}
+
 if (!productionVerifier.includes("route: '/sports-venue/xtreme-raceway-park'") || !productionVerifier.includes("marker: 'Xtreme Raceway Park'")) {
   errors.push('Live monetization smoke must include Xtreme Raceway Park, the current highest measured sports-venue traffic surface.');
 }
