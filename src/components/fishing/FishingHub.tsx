@@ -104,10 +104,11 @@ export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
           <Resource href="/fishing/reports" title="Fishing reports" copy="Use dated reports when you need current-condition context." />
           <Resource href="/fishing/access" title="Fishing access" copy="Find verified ramps, marinas, shoreline access and launches." />
           <Resource href="/fishing/guides" title="Fishing guides" copy="Browse verified local guide profiles connected to the waters they serve." />
+          <Resource href="/hunting" title="Texas hunting" copy="Explore Texas hunting seasons, species, public-land planning and licensing." />
         </div>
       </section>
 
-      <TexasExplainedContextLinks className="border-t border-border pt-10" />
+      <TexasExplainedContextLinks surface="fishing" />
     </Container>
   </>;
 }
