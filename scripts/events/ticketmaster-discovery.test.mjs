@@ -34,9 +34,13 @@ test('only verified US Ticketmaster event destinations are wrapped with the appr
     'https://www.ticketmaster.com/example/event/G5diZfkn0B-bh',
   );
 
+  assert.equal(
+    officialTicketmasterUrl('http://ticketmaster.com/example/event/ABC123?foo=bar'),
+    'https://ticketmaster.com/example/event/ABC123',
+  );
+
   for (const url of [
     'https://ticketmaster.com.evil.test/event/ABC',
-    'http://www.ticketmaster.com/event/ABC',
     'https://user@www.ticketmaster.com/event/ABC',
     'https://www.ticketmaster.com/browse',
     'javascript:alert(1)',
