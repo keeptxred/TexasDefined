@@ -45,6 +45,32 @@ function rankedLinks(ticketing: TexasEventTicketingMetadata) {
     .map(({ link }) => link);
 }
 
+export function mergeEventTicketing(
+  primary: TexasEventTicketingMetadata | undefined,
+  provider: TexasEventTicketingMetadata | undefined,
+): TexasEventTicketingMetadata | undefined {
+  if (!primary) return provider;
+  if (!provider) return primary;
+
+  const seenLinks = new Set<string>();
+  const links = [...primary.links, ...provider.links].filter((link) => {
+    const key = link.affiliateUrl ?? link.officialTicketUrl ?? `${link.provider}:${link.source.name}:${link.lastVerifiedAt}`;
+    if (seenLinks.has(key)) return false;
+    seenLinks.add(key);
+    return true;
+  });
+
+  const seenOffers = new Set<string>();
+  const offers = [...primary.offers, ...provider.offers].filter((offer) => {
+    const key = `${offer.url}:${offer.name}`;
+    if (seenOffers.has(key)) return false;
+    seenOffers.add(key);
+    return true;
+  });
+
+  return { links, offers };
+}
+
 function isActionable(link: TexasEventTicketLink) {
   return !NON_ACTIONABLE_SALE_STATUSES.has(link.saleStatus);
 }

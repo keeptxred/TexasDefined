@@ -1,5 +1,7 @@
 import { formatDateRange } from "@/domain/utils/format";
 import { resolveSportsVenueEventLink } from "@/data/sports-venue-event-links";
+import { loadTicketmasterEventsServer } from "./events/ticketmaster-events.server";
+import { resolveEventTicketCta } from "./events/ticketing";
 import { getMajorEventAuthorityServer } from "./major-event-authority.server";
 import { getExpandedMajorEventAuthorityServer } from "./major-event-expanded-authority.server";
 import { getExpandedMajorEventAuthorityTranche3Server } from "./major-event-expanded-authority-tranche3.server";
@@ -46,6 +48,7 @@ import { getExpandedMajorEventAuthorityTranche43Server } from "./major-event-exp
 import { getExpandedMajorEventAuthorityTranche44Server } from "./major-event-expanded-authority-tranche44.server";
 import { getExpandedMajorEventAuthorityTranche45Server } from "./major-event-expanded-authority-tranche45.server";
 import { getExpandedMajorEventAuthorityTranche46Server } from "./major-event-expanded-authority-tranche46.server";
+import { getExpandedMajorEventAuthorityTranche47Server } from "./major-event-expanded-authority-tranche47.server";
 import {
   getMajorEventSchemaEnrichmentServer,
   getMajorEventSchemaOccurrenceEnrichmentServer,
@@ -148,7 +151,8 @@ export function getMajorEventRecordServer(slug: string) {
     ?? getExpandedMajorEventAuthorityTranche43Server(slug)
     ?? getExpandedMajorEventAuthorityTranche44Server(slug)
     ?? getExpandedMajorEventAuthorityTranche45Server(slug)
-    ?? getExpandedMajorEventAuthorityTranche46Server(slug);
+    ?? getExpandedMajorEventAuthorityTranche46Server(slug)
+    ?? getExpandedMajorEventAuthorityTranche47Server(slug);
   if (!event) return event;
   if (event.slug === "texas-renaissance-festival") {
     return {
@@ -184,11 +188,41 @@ export function getMajorEventRecordServer(slug: string) {
   return event;
 }
 
+export function buildMajorEventTicketingMarkupServer(slug: string) {
+  const matches = loadTicketmasterEventsServer()
+    .filter((record) => record.guidePath === `/event/${slug}`);
+  const actionable = matches.flatMap((record) => {
+    const cta = resolveEventTicketCta(record.ticketing);
+    return cta ? [{ record, cta }] : [];
+  });
+
+  if (actionable.length === 1) {
+    const { record, cta } = actionable[0];
+    const affiliateAttributes = cta.isAffiliate
+      ? ` data-affiliate-partner="${esc(cta.provider)}" data-affiliate-placement="major-event-guide-ticket" data-commercial-partner="${esc(cta.provider)}" data-commercial-placement="major-event-guide-ticket"`
+      : "";
+    const disclosure = cta.disclosure
+      ? `<p class="mt-3 text-xs text-muted-foreground">${esc(cta.disclosure)}</p>`
+      : "";
+    return `<section data-event-ticketing class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Current ticket availability</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The live event feed currently has one actionable ticket listing for ${esc(record.title)}. Checkout is handled by the ticket provider.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${esc(cta.href)}" target="_blank" rel="${esc(cta.rel)}"${affiliateAttributes}>${esc(cta.label)}</a></p>${disclosure}</section>`;
+  }
+
+  if (actionable.length > 1) {
+    const dates = actionable.map(({ record }) => record.startDate).sort();
+    const start = dates[0];
+    const end = dates.at(-1) ?? start;
+    return `<section data-event-ticketing class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Multiple ticketed sessions</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">This parent event currently has multiple ticketed days or sessions. Compare the live listings before choosing a ticket so you land on the correct date or session.</p><p class="mt-5"><a class="font-semibold text-primary underline" href="/events?start=${esc(start)}&amp;end=${esc(end)}">Compare ticketed sessions →</a></p></section>`;
+  }
+
+  return "";
+}
+
 export function loadMajorEventPageServer(slug: string) {
   const event = getMajorEventRecordServer(slug);
   if (!event) return null;
   const occurrenceWindows = getMajorEventOccurrenceWindowsServer(event);
   const dateLabel = formatMajorEventDateLabelServer(event);
+  const ticketingMarkup = buildMajorEventTicketingMarkupServer(event.slug);
   const eventYear = new Date(occurrenceWindows[0]?.startDate ?? event.startDate).getUTCFullYear();
   const canonicalUrl = `${siteUrl}/event/${event.slug}`;
   const placeLine = [event.city && `${event.city}, Texas`, event.countyName].filter(Boolean).join(" · ");
@@ -232,7 +266,7 @@ export function loadMajorEventPageServer(slug: string) {
   const mergedSources = [...event.sources, ...(schemaEnrichment?.sources ?? [])]
     .filter((source, index, sources) => sources.findIndex((candidate) => candidate.url === source.url) === index);
   const sources = mergedSources.map((source) => `<li><a class="font-semibold text-primary underline" href="${esc(source.url)}" target="_blank" rel="noreferrer noopener">${esc(source.label)} ↗</a></li>`).join("");
-  const html = `<nav class="mb-8 text-sm text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / ${esc(event.name)}</nav><header class="border-b border-border pb-8"><p class="eyebrow text-primary">Major Texas event</p><h1 class="mt-3 font-display text-5xl sm:text-6xl">${esc(event.name)}</h1><p class="mt-5 text-lg text-muted-foreground">${esc(dateLabel)} · ${esc(placeLine)}</p>${event.dateNote ? `<p class="mt-4 text-sm text-muted-foreground">${esc(event.dateNote)}</p>` : ""}<p class="mt-5"><a class="font-semibold text-primary underline" href="${esc(event.officialUrl)}" target="_blank" rel="noreferrer noopener">Visit the official event site ↗</a></p></header><section class="mt-12"><h2 class="font-display text-3xl">About ${esc(event.name)}</h2><p class="mt-4 leading-7 text-muted-foreground">${esc(event.whyItMatters)}</p></section>${enrichmentMarkup}${stayNearbyMarkup}<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Planning your visit</h2>${planning}</section><section data-event-discovery-tail="true" class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">More to do in ${esc(event.city)}</h2><ul class="mt-4 space-y-3">${related}</ul></section><section class="mt-10 border-t border-border pt-8"><h2 class="font-display text-3xl">Official event links</h2><ul class="mt-4 space-y-3">${sources}</ul></section>`;
+  const html = `<nav class="mb-8 text-sm text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / ${esc(event.name)}</nav><header class="border-b border-border pb-8"><p class="eyebrow text-primary">Major Texas event</p><h1 class="mt-3 font-display text-5xl sm:text-6xl">${esc(event.name)}</h1><p class="mt-5 text-lg text-muted-foreground">${esc(dateLabel)} · ${esc(placeLine)}</p>${event.dateNote ? `<p class="mt-4 text-sm text-muted-foreground">${esc(event.dateNote)}</p>` : ""}<p class="mt-5"><a class="font-semibold text-primary underline" href="${esc(event.officialUrl)}" target="_blank" rel="noreferrer noopener">Visit the official event site ↗</a></p></header>${ticketingMarkup}<section class="mt-12"><h2 class="font-display text-3xl">About ${esc(event.name)}</h2><p class="mt-4 leading-7 text-muted-foreground">${esc(event.whyItMatters)}</p></section>${enrichmentMarkup}${stayNearbyMarkup}<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Planning your visit</h2>${planning}</section><section data-event-discovery-tail="true" class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">More to do in ${esc(event.city)}</h2><ul class="mt-4 space-y-3">${related}</ul></section><section class="mt-10 border-t border-border pt-8"><h2 class="font-display text-3xl">Official event links</h2><ul class="mt-4 space-y-3">${sources}</ul></section>`;
   const venueGuide = resolveSportsVenueEventLink(event.venue);
   const defaultLocation = {
     "@type": "Place",
