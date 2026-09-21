@@ -25,6 +25,8 @@ const ticketmasterAuthorityMatchers = [
   { city: "Houston", slug: "houston-ballet-nutcracker-market", prefix: "nutcracker market" },
   { city: "San Antonio", slug: "san-antonio-stock-show-rodeo", prefix: "san antonio stock show & rodeo" },
   { city: "McAllen", slug: "fiesta-de-palmas", prefix: "beer around the world" },
+  { city: "Fort Worth", slug: "bill-pickett-rodeo-fort-worth", prefix: "bill pickett invitational rodeo" },
+  { city: "Corpus Christi", slug: "hollydays-market-corpus-christi", prefix: "hollydays market corpus christi" },
 ] as const;
 
 export function ticketmasterAuthorityGuidePath(name: string, city: string) {
