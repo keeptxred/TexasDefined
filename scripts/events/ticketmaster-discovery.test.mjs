@@ -5,6 +5,7 @@ import {
   normalizeDiscoveryEvent,
   officialTicketmasterUrl,
   ticketmasterEventRejectionReason,
+  ticketmasterUrlRejectionReason,
 } from './ticketmaster-discovery.mjs';
 
 const base = 'https://ticketmaster.evyy.net/c/7758914/264167/4272?subId1=texasdefined&partnerpropertyid=8837726&MediaPartnerPropertyId=8837726';
@@ -38,6 +39,8 @@ test('only verified US Ticketmaster event destinations are wrapped with the appr
     officialTicketmasterUrl('http://ticketmaster.com/example/event/ABC123?foo=bar'),
     'https://ticketmaster.com/example/event/ABC123',
   );
+  assert.equal(ticketmasterUrlRejectionReason('https://tickets.example.test/event/ABC'), 'host-tickets.example.test');
+  assert.equal(ticketmasterUrlRejectionReason('https://www.ticketmaster.com/browse'), 'missing-event-segment');
 
   for (const url of [
     'https://ticketmaster.com.evil.test/event/ABC',
@@ -51,7 +54,7 @@ test('only verified US Ticketmaster event destinations are wrapped with the appr
   assert.equal(normalizeDiscoveryEvent({ ...event, _embedded: { venues: [] } }, base), null);
   assert.equal(
     ticketmasterEventRejectionReason({ ...event, url: 'https://tickets.example.test/event/ABC' }),
-    'invalid-ticketmaster-url',
+    'ticket-url-host-tickets.example.test',
   );
 });
 
@@ -156,7 +159,7 @@ test('empty or rejected API inventories fail closed with safe diagnostics', asyn
         }),
       }),
     }),
-    /invalid-ticketmaster-url=13/,
+    /ticket-url-host-tickets\.example\.test=13/,
   );
 });
 
