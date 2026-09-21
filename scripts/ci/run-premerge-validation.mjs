@@ -125,6 +125,14 @@ runCheck({
 }, buildPassed);
 
 runCheck({
+  classification: 'RUNTIME/SSR',
+  label: 'Smoke-test built Worker SSR locally',
+  command: 'node',
+  args: ['scripts/ci/verify-built-worker-ssr.mjs'],
+  dependsOnBuild: true,
+}, buildPassed);
+
+runCheck({
   classification: 'PERFORMANCE/BUDGET',
   label: 'Validate client performance budget',
   command: 'npm',
