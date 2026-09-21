@@ -75,7 +75,7 @@ function RegionPage() {
     <section className="relative isolate mt-5 overflow-hidden bg-ink text-ink-foreground">
       {primaryImage && <img src={primaryImage.src} alt={primaryImage.alt} width={primaryImage.width} height={primaryImage.height} className="absolute inset-0 size-full object-cover opacity-58" />}
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/68 to-ink/18" />
-      <Container className="relative flex min-h-[62vh] flex-col justify-end pb-16 pt-36">
+      <Container className="relative flex flex-col justify-end pb-12 pt-24" style={{ minHeight: "clamp(24rem, 48vw, 32rem)" }}>
         <p className="eyebrow text-ink-foreground/75">The regional guide</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{region.name}</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/85">{region.blurb}</p>

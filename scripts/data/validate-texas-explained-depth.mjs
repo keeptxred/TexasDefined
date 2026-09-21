@@ -94,7 +94,7 @@ for (const marker of [
   'aria-label="Texas Explained supporting explainer"',
   'grid grid-cols-2 gap-3',
   'sm:grid-cols-[1fr_auto_1fr]',
-  'min-h-[52vh]',
+  'minHeight: "clamp(24rem, 48vw, 34rem)"',
   '!isTexasExplainedPillar && <p',
 ]) {
   if (!articleRoute.includes(marker)) errors.push(`Texas Explained shared article UX contract missing: ${marker}`);

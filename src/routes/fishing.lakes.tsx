@@ -64,7 +64,7 @@ export const Route = createFileRoute("/fishing/lakes")({
 function FishingLakesPage() {
   const { rows, latestReview } = Route.useLoaderData();
   return (
-    <Suspense fallback={<div className="min-h-[32rem]" aria-hidden="true" />}>
+    <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading Texas fishing lakes…</div>}>
       <FishingLakesDirectory rows={rows} latestReview={latestReview} />
     </Suspense>
   );

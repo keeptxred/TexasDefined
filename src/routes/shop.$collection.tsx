@@ -48,7 +48,7 @@ function CollectionPage() {
     <section className="relative isolate overflow-hidden bg-ink text-ink-foreground">
       <img src={collection.image.src} alt={collection.image.alt} width={collection.image.width} height={collection.image.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-62" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/15" />
-      <Container className="relative flex min-h-[58vh] flex-col justify-end pb-16 pt-36">
+      <Container className="relative flex flex-col justify-end pb-12 pt-24" style={{ minHeight: "clamp(24rem, 48vw, 32rem)" }}>
         <p className="eyebrow text-ink-foreground/75">The Texas Defined Shop</p>
         <h1 className="mt-4 max-w-3xl font-display text-5xl leading-[0.98] sm:text-7xl">{collection.name}</h1>
         <p className="mt-6 max-w-xl text-lg leading-8 text-ink-foreground/85">{collection.description}</p>

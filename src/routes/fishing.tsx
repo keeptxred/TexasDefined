@@ -34,7 +34,7 @@ export const Route = createFileRoute("/fishing")({
 function FishingPage() {
   const { lakes, species, lakeSpecies } = Route.useLoaderData();
   return (
-    <Suspense fallback={<div className="min-h-[36rem]" aria-hidden="true" />}>
+    <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading Texas fishing guide…</div>}>
       <FishingHub lakes={lakes} species={species} lakeSpecies={lakeSpecies} />
     </Suspense>
   );

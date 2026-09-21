@@ -27,5 +27,5 @@ export const Route = createFileRoute("/fishing/reports/$slug")({
 });
 
 function FishingReportProfileRoute() {
-  return <Suspense fallback={<div className="min-h-[32rem]" aria-hidden="true" />}><FishingReportProfile pageData={Route.useLoaderData()} /></Suspense>;
+  return <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading fishing report…</div>}><FishingReportProfile pageData={Route.useLoaderData()} /></Suspense>;
 }

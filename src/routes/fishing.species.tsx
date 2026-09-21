@@ -39,7 +39,7 @@ export const Route = createFileRoute("/fishing/species")({
 
 function FishSpeciesDirectoryRoute() {
   return (
-    <Suspense fallback={<div className="min-h-[32rem]" aria-hidden="true" />}>
+    <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading Texas fish species…</div>}>
       <FishSpeciesDirectory pageData={Route.useLoaderData()} />
     </Suspense>
   );
