@@ -27,6 +27,7 @@ The first wave promotes these current Ticketmaster discoveries into permanent Te
 | `/event/way-out-west-festival-el-paso` | Sep. 26, El Paso | Established El Paso festival with official producer and destination-organization support. |
 | `/event/state-fair-classic` | Sep. 26, Dallas | Annual HBCU football tradition embedded in the State Fair of Texas. |
 | `/event/beaumont-comic-con` | Oct. 3–4, Beaumont | Recurring two-day Southeast Texas convention with a stable venue and organizer identity. |
+| `/event/eagle-fest-the-woodlands` | Oct. 3, The Woodlands | Same organizer and venue in 2025 and 2026, with the 2025 recap explicitly inviting fans back the following year. |
 | `/event/bill-pickett-rodeo-fort-worth` | Five Fort Worth dates in 2026 | BPIR is in its 42nd year and explicitly identifies a recurring Fort Worth Texas Connection series at Cowtown Coliseum. |
 | `/event/hollydays-market-corpus-christi` | Nov. 6–8, Corpus Christi | Recurring Corpus Christi holiday market with documented 2024, 2025 and 2026 editions and a stable Hilliard Center venue. |
 
