@@ -5,6 +5,28 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "johnson-settlement-johnson-city": [
+    {
+      href: "/destination/lbj-boyhood-home-johnson-city",
+      label: "Add the LBJ Boyhood Home",
+      description: "Pair the Settlement's 1860s family and cattle-driving story with Lyndon Johnson's restored 1920s childhood home.",
+    },
+    {
+      href: "/destination/lyndon-b-johnson-national-historical-park",
+      label: "Explore the full LBJ National Historical Park",
+      description: "Use the broader guide for Johnson City hours, ranch driving permits, open ranch stops and the Texas White House rehabilitation closure.",
+    },
+    {
+      href: "/destination/johnson-city",
+      label: "Explore Johnson City",
+      description: "Connect the Settlement with downtown museums, food, the courthouse square and the rest of the town's visitor cluster.",
+    },
+    {
+      href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
+      label: "Continue to Sauer-Beckmann Farm",
+      description: "Extend the family-history day west to German-Texan living history, longhorns, bison and the Pedernales landscape near Stonewall.",
+    },
+  ],
   "lbj-boyhood-home-johnson-city": [
     {
       href: "/destination/lyndon-b-johnson-national-historical-park",
@@ -25,6 +47,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/destination/science-mill-johnson-city",
       label: "Add Science Mill",
       description: "Pair presidential history with Johnson City's hands-on STEM museum for a broader family day.",
+    },
+    {
+      href: "/destination/johnson-settlement-johnson-city",
+      label: "Walk the Johnson Settlement",
+      description: "Add Lyndon Johnson's grandparents, cattle-driving headquarters and frontier Hill Country history to the Boyhood Home visit.",
     },
   ],
   "lyndon-b-johnson-state-park-and-historic-site": [
@@ -57,6 +84,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/destination/lbj-boyhood-home-johnson-city",
       label: "Add the LBJ Boyhood Home",
       description: "Connect the Stonewall living-history landscape with Johnson's childhood home and free NPS programs in Johnson City.",
+    },
+    {
+      href: "/destination/johnson-settlement-johnson-city",
+      label: "Add the Johnson Settlement",
+      description: "Pair Sauer-Beckmann's German-Texan farm life with the Johnson family's earlier cattle-driving settlement in Johnson City.",
     },
   ],
   "pecan-street-brewing-johnson-city": [
@@ -341,6 +373,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       label: "Tour the LBJ Boyhood Home",
       description: "Use the dedicated guide for current free NPS program times, summer heat limitations and Johnson City visitor-center logistics.",
     },
+    {
+      href: "/destination/johnson-settlement-johnson-city",
+      label: "Walk the Johnson Settlement",
+      description: "Use the dedicated guide for the one-mile trail, cattle-driving history, longhorns and historic Johnson family structures.",
+    },
   ],
   "science-mill-johnson-city": [
     {
@@ -431,6 +468,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/destination/lbj-boyhood-home-johnson-city",
       label: "Tour the LBJ Boyhood Home",
       description: "Use the focused Johnson City guide for current free program times and the restored 1920s household.",
+    },
+    {
+      href: "/destination/johnson-settlement-johnson-city",
+      label: "Explore the Johnson Settlement",
+      description: "Use the focused guide for trail access, accessibility, cattle-driving history and historic structures in the Johnson City district.",
     },
   ],
   "shiner": [
