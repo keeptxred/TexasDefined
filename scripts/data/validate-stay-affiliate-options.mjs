@@ -171,6 +171,7 @@ for (const [needle, label] of [
   ['Find places to stay', 'broad-search prominent stay CTA fallback'],
   ['View recommended stays', 'exact-property-first prominent stay CTA'],
   ['EXACT_PROPERTY_AFFILIATE_SELECTOR', 'exact-property commercial selector'],
+  ['a[data-commercial-partner="hotels.com"][data-commercial-placement="stay-nearby-card-exact"]', 'single exact-property Hotels.com selector'],
   ['choice.dataset.priority = exactPropertyFirst ? "exact-property-first" : "broad-search-first"', 'exact-property-first booking-choice priority marker'],
   ['const choiceMode = exactPropertyFirst ? "after-exact" : "broad"', 'secondary-choice state marker'],
   ['createBookingChoice(intent, exactPropertyFirst)', 'exact-property-aware secondary-choice builder'],

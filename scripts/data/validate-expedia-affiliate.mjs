@@ -89,7 +89,7 @@ for (const [needle, label] of [
   ['prefers-reduced-motion', 'reduced-motion behavior'],
   ['rel = "sponsored nofollow noopener noreferrer"', 'affiliate link relationship'],
   ['const provider = affiliateTarget.provider || "expedia"', 'affiliate provider fallback'],
-  ['const placement = "stay-nearby-card"', 'affiliate placement identity'],
+  ['const placement = "stay-nearby-card-exact"', 'exact-property affiliate placement identity'],
   ['link.dataset.affiliatePartner = provider', 'affiliate partner metadata'],
   ['link.dataset.affiliatePlacement = placement', 'affiliate placement metadata'],
   ['link.dataset.commercialPartner = provider', 'first-party commercial partner attribution'],
@@ -104,6 +104,10 @@ for (const [needle, label] of [
   ['HOTELS_EXPEDIA_DISCLOSURE', 'mixed Hotels.com and Expedia disclosure'],
   ['curatedDisclosure(selection)', 'provider-aware curated disclosure'],
 ]) requireText(bootstrap, needle, label);
+if (bootstrap.includes('const placement = "stay-nearby-card";')) {
+  errors.push('Verified property affiliate links must not regress to the legacy stay-nearby-card placement; use stay-nearby-card-exact.');
+}
+
 
 for (const family of ['explore', 'destination', 'city', 'county', 'sports-venue', 'sports-venues', 'event', 'best-places-to-go-camping-in-texas', 'texas-college-towns', 'texas-tailgating-guide']) {
   requireText(bootstrap, family, `${family} route family`);

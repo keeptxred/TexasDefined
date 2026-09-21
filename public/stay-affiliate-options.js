@@ -273,7 +273,7 @@
     surface.dataset.prominentPlacement = "contextual";
   }
 
-  const EXACT_PROPERTY_AFFILIATE_SELECTOR = 'a[data-commercial-partner="hotels.com"][data-commercial-placement="stay-nearby-card"], a[data-commercial-partner="hotels.com"][data-commercial-placement="stay-nearby-card-exact"]';
+  const EXACT_PROPERTY_AFFILIATE_SELECTOR = 'a[data-commercial-partner="hotels.com"][data-commercial-placement="stay-nearby-card-exact"]';
 
   function firstExactPropertyAffiliate(surface) {
     return surface?.querySelector(EXACT_PROPERTY_AFFILIATE_SELECTOR) || null;

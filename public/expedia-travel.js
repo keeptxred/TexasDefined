@@ -273,7 +273,7 @@
       const link = document.createElement("a");
       const label = affiliateTarget.ctaLabel || "View stay";
       const provider = affiliateTarget.provider || "expedia";
-      const placement = "stay-nearby-card";
+      const placement = "stay-nearby-card-exact";
       link.className = "inline-flex min-h-11 items-center justify-center bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90";
       link.href = affiliateTarget.affiliateUrl;
       link.target = "_blank";
