@@ -144,6 +144,14 @@ export const supplementalMajorEventSlugs = [
   "viva-la-vida-festival-parade",
   "meca-dia-de-muertos-festival",
   "houston-diwali-festival-of-lights",
+  "fiesta-de-palmas",
+  "mcallen-holiday-parade",
+  "bands-of-america-san-antonio-super-regional",
+  "big-12-football-championship",
+  "el-paso-film-festival",
+  "way-out-west-festival-el-paso",
+  "state-fair-classic",
+  "beaumont-comic-con",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
