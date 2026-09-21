@@ -54,5 +54,5 @@ export const Route = createFileRoute("/shop/product/$productId")({
 function ProductPage() {
   const { product, related } = Route.useLoaderData();
   const { variant } = Route.useSearch();
-  return <Suspense fallback={<div className="min-h-[32rem]" aria-hidden="true" />}><ProductDetailPage product={product} related={related} variant={variant} /></Suspense>;
+  return <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading product details…</div>}><ProductDetailPage product={product} related={related} variant={variant} /></Suspense>;
 }
