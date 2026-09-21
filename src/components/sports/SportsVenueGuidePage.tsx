@@ -202,11 +202,11 @@ function VenuePhoto({ photo, venueName }: { photo?: SportsVenuePhoto; venueName:
   if (!photo) {
     return (
       <div
-        className="flex min-h-[32rem] items-center justify-center bg-muted px-8 text-center text-sm text-muted-foreground"
-        role="img"
-        aria-label={`${venueName} image unavailable`}
+        className="relative min-h-[32rem] overflow-hidden bg-muted"
+        data-venue-image-fallback="true"
+        aria-hidden="true"
       >
-        A verified venue photograph is not available yet.
+        <div className="absolute inset-0 opacity-35 [background-image:radial-gradient(circle_at_70%_25%,hsl(var(--primary)/0.3)_0,transparent_30%),linear-gradient(155deg,transparent_42%,hsl(var(--foreground)/0.12)_43%,hsl(var(--foreground)/0.12)_58%,transparent_59%)]" />
       </div>
     );
   }
