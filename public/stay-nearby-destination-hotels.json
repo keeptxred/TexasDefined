@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "reviewedAt": "2026-09-15",
+  "reviewedAt": "2026-09-21",
   "policy": {
     "maxCards": 3,
     "scope": "controlled-destination-cohort",
@@ -13,180 +13,409 @@
       "name": "Albert Hotel",
       "city": "Fredericksburg",
       "area": "Historic downtown / Main Street",
-      "neighborhoods": ["downtown-fredericksburg", "main-street"],
+      "neighborhoods": [
+        "downtown-fredericksburg",
+        "main-street"
+      ],
       "status": "active",
       "coordinates": null,
       "image": null,
-      "bookingTargets": [{ "provider": "expedia", "affiliateUrl": null, "verified": false }],
-      "contexts": [{
-        "kind": "destination",
-        "key": "fredericksburg",
-        "rank": 1,
-        "geographicContext": "Historic downtown / Main Street",
-        "proximity": "Albert Hotel describes itself as a Hill Country resort in downtown Fredericksburg just off historic Main Street.",
-        "differentiator": "A full-service downtown option with restaurants, bars, a pool and spa for travelers who want to stay inside the historic core.",
-        "source": { "url": "https://alberthotel.com/", "verifiedAt": "2026-09-15" }
-      }]
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "destination",
+          "key": "fredericksburg",
+          "rank": 1,
+          "geographicContext": "Historic downtown / Main Street",
+          "proximity": "Albert Hotel describes itself as a Hill Country resort in downtown Fredericksburg just off historic Main Street.",
+          "differentiator": "A full-service downtown option with restaurants, bars, a pool and spa for travelers who want to stay inside the historic core.",
+          "source": {
+            "url": "https://alberthotel.com/",
+            "verifiedAt": "2026-09-15"
+          }
+        }
+      ]
     },
     {
       "id": "fredericksburg-inn-suites",
       "name": "Fredericksburg Inn & Suites",
       "city": "Fredericksburg",
       "area": "Downtown / Main Street",
-      "neighborhoods": ["downtown-fredericksburg", "main-street"],
+      "neighborhoods": [
+        "downtown-fredericksburg",
+        "main-street"
+      ],
       "status": "active",
       "coordinates": null,
       "image": null,
-      "bookingTargets": [{ "provider": "expedia", "affiliateUrl": null, "verified": false }],
-      "contexts": [{
-        "kind": "destination",
-        "key": "fredericksburg",
-        "rank": 2,
-        "geographicContext": "Downtown / Main Street",
-        "proximity": "The hotel says it sits one block from Main Street in downtown Fredericksburg.",
-        "differentiator": "A practical central base with breakfast, parking and outdoor spaces while keeping the shops and restaurants of Main Street close.",
-        "source": { "url": "https://www.fredericksburg-inn.com/", "verifiedAt": "2026-09-15" }
-      }]
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "destination",
+          "key": "fredericksburg",
+          "rank": 2,
+          "geographicContext": "Downtown / Main Street",
+          "proximity": "The hotel says it sits one block from Main Street in downtown Fredericksburg.",
+          "differentiator": "A practical central base with breakfast, parking and outdoor spaces while keeping the shops and restaurants of Main Street close.",
+          "source": {
+            "url": "https://www.fredericksburg-inn.com/",
+            "verifiedAt": "2026-09-15"
+          }
+        }
+      ]
     },
     {
       "id": "hoffman-haus-fredericksburg",
       "name": "Hoffman Haus",
       "city": "Fredericksburg",
       "area": "Main Street / east downtown",
-      "neighborhoods": ["downtown-fredericksburg", "main-street"],
+      "neighborhoods": [
+        "downtown-fredericksburg",
+        "main-street"
+      ],
       "status": "active",
       "coordinates": null,
       "image": null,
-      "bookingTargets": [{ "provider": "expedia", "affiliateUrl": null, "verified": false }],
-      "contexts": [{
-        "kind": "destination",
-        "key": "fredericksburg",
-        "rank": 3,
-        "geographicContext": "Main Street / east downtown",
-        "proximity": "Hoffman Haus describes its five-acre property as a short walk from Fredericksburg Main Street.",
-        "differentiator": "A smaller bed-and-breakfast-style alternative with rooms, suites and private houses rather than a conventional downtown hotel layout.",
-        "source": { "url": "https://www.hoffmanhaus.com/", "verifiedAt": "2026-09-15" }
-      }]
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "destination",
+          "key": "fredericksburg",
+          "rank": 3,
+          "geographicContext": "Main Street / east downtown",
+          "proximity": "Hoffman Haus describes its five-acre property as a short walk from Fredericksburg Main Street.",
+          "differentiator": "A smaller bed-and-breakfast-style alternative with rooms, suites and private houses rather than a conventional downtown hotel layout.",
+          "source": {
+            "url": "https://www.hoffmanhaus.com/",
+            "verifiedAt": "2026-09-15"
+          }
+        }
+      ]
     },
     {
       "id": "grand-galvez",
       "name": "Grand Galvez",
       "city": "Galveston",
       "area": "Gulf beachfront / Seawall corridor",
-      "neighborhoods": ["seawall", "gulf-front"],
+      "neighborhoods": [
+        "seawall",
+        "gulf-front"
+      ],
       "status": "active",
       "coordinates": null,
       "image": null,
-      "bookingTargets": [{ "provider": "expedia", "affiliateUrl": null, "verified": false }],
-      "contexts": [{
-        "kind": "destination",
-        "key": "galveston-seawall",
-        "rank": 1,
-        "geographicContext": "Gulf beachfront / Seawall corridor",
-        "proximity": "Grand Galvez identifies itself as a historic beachfront Galveston hotel on the Texas Gulf Coast.",
-        "differentiator": "A beachfront historic-hotel choice with a spa and resort-style amenities for a Seawall-focused island stay.",
-        "source": { "url": "https://grandgalvez.com/", "verifiedAt": "2026-09-15" }
-      }]
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "destination",
+          "key": "galveston-seawall",
+          "rank": 1,
+          "geographicContext": "Gulf beachfront / Seawall corridor",
+          "proximity": "Grand Galvez identifies itself as a historic beachfront Galveston hotel on the Texas Gulf Coast.",
+          "differentiator": "A beachfront historic-hotel choice with a spa and resort-style amenities for a Seawall-focused island stay.",
+          "source": {
+            "url": "https://grandgalvez.com/",
+            "verifiedAt": "2026-09-15"
+          }
+        }
+      ]
     },
     {
       "id": "tremont-house-galveston",
       "name": "The Tremont House",
       "city": "Galveston",
       "area": "The Strand / historic downtown",
-      "neighborhoods": ["the-strand", "historic-downtown"],
+      "neighborhoods": [
+        "the-strand",
+        "historic-downtown"
+      ],
       "status": "active",
       "coordinates": null,
       "image": null,
-      "bookingTargets": [{ "provider": "expedia", "affiliateUrl": null, "verified": false }],
-      "contexts": [{
-        "kind": "destination",
-        "key": "galveston-seawall",
-        "rank": 2,
-        "geographicContext": "The Strand / historic downtown",
-        "proximity": "The Tremont House is in historic downtown Galveston and lists the Port, Pleasure Pier and other island attractions among nearby destinations.",
-        "differentiator": "A downtown alternative for travelers pairing the Seawall with The Strand, harbor history and the cruise-port side of the island.",
-        "source": { "url": "https://www.thetremonthouse.com/", "verifiedAt": "2026-09-15" }
-      }]
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "destination",
+          "key": "galveston-seawall",
+          "rank": 2,
+          "geographicContext": "The Strand / historic downtown",
+          "proximity": "The Tremont House is in historic downtown Galveston and lists the Port, Pleasure Pier and other island attractions among nearby destinations.",
+          "differentiator": "A downtown alternative for travelers pairing the Seawall with The Strand, harbor history and the cruise-port side of the island.",
+          "source": {
+            "url": "https://www.thetremonthouse.com/",
+            "verifiedAt": "2026-09-15"
+          }
+        }
+      ]
     },
     {
       "id": "harbor-house-pier-21",
       "name": "Harbor House Hotel & Marina at Pier 21",
       "city": "Galveston",
       "area": "Pier 21 / harborfront",
-      "neighborhoods": ["pier-21", "the-strand", "harbor"],
+      "neighborhoods": [
+        "pier-21",
+        "the-strand",
+        "harbor"
+      ],
       "status": "active",
       "coordinates": null,
       "image": null,
-      "bookingTargets": [{ "provider": "expedia", "affiliateUrl": null, "verified": false }],
-      "contexts": [{
-        "kind": "destination",
-        "key": "galveston-seawall",
-        "rank": 3,
-        "geographicContext": "Pier 21 / harborfront",
-        "proximity": "Harbor House says its Pier 21 waterfront location is steps from the cruise terminal and The Strand Historic District.",
-        "differentiator": "A harborfront option that works best when a Seawall visit is part of a broader Strand, port or cruise-terminal itinerary.",
-        "source": { "url": "https://www.harborhousepier21.com/", "verifiedAt": "2026-09-15" }
-      }]
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "destination",
+          "key": "galveston-seawall",
+          "rank": 3,
+          "geographicContext": "Pier 21 / harborfront",
+          "proximity": "Harbor House says its Pier 21 waterfront location is steps from the cruise terminal and The Strand Historic District.",
+          "differentiator": "A harborfront option that works best when a Seawall visit is part of a broader Strand, port or cruise-terminal itinerary.",
+          "source": {
+            "url": "https://www.harborhousepier21.com/",
+            "verifiedAt": "2026-09-15"
+          }
+        }
+      ]
     },
     {
       "id": "courtyard-waco",
       "name": "Courtyard by Marriott Waco",
       "city": "Waco",
       "area": "Downtown / convention center corridor",
-      "neighborhoods": ["downtown-waco", "brazos-river"],
+      "neighborhoods": [
+        "downtown-waco",
+        "brazos-river"
+      ],
       "status": "active",
       "coordinates": null,
       "image": null,
-      "bookingTargets": [{ "provider": "expedia", "affiliateUrl": null, "verified": false }],
-      "contexts": [{
-        "kind": "destination",
-        "key": "texas-ranger-hall-of-fame-museum-waco",
-        "rank": 1,
-        "geographicContext": "Downtown / convention center corridor",
-        "proximity": "Marriott lists the Texas Ranger Hall of Fame & Museum among the local attractions for Courtyard Waco.",
-        "differentiator": "A downtown hotel base for combining the Ranger museum with the convention-center, Brazos River and central-Waco attractions.",
-        "source": { "url": "https://www.marriott.com/en-us/hotels/wcocy-courtyard-waco/experiences/", "verifiedAt": "2026-09-15" }
-      }]
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "destination",
+          "key": "texas-ranger-hall-of-fame-museum-waco",
+          "rank": 1,
+          "geographicContext": "Downtown / convention center corridor",
+          "proximity": "Marriott lists the Texas Ranger Hall of Fame & Museum among the local attractions for Courtyard Waco.",
+          "differentiator": "A downtown hotel base for combining the Ranger museum with the convention-center, Brazos River and central-Waco attractions.",
+          "source": {
+            "url": "https://www.marriott.com/en-us/hotels/wcocy-courtyard-waco/experiences/",
+            "verifiedAt": "2026-09-15"
+          }
+        }
+      ]
     },
     {
       "id": "hilton-waco",
       "name": "Hilton Waco",
       "city": "Waco",
       "area": "Downtown / Brazos River",
-      "neighborhoods": ["downtown-waco", "brazos-river"],
+      "neighborhoods": [
+        "downtown-waco",
+        "brazos-river"
+      ],
       "status": "active",
       "coordinates": null,
       "image": null,
-      "bookingTargets": [{ "provider": "expedia", "affiliateUrl": null, "verified": false }],
-      "contexts": [{
-        "kind": "destination",
-        "key": "texas-ranger-hall-of-fame-museum-waco",
-        "rank": 2,
-        "geographicContext": "Downtown / Brazos River",
-        "proximity": "Hilton places the hotel in downtown Waco on the Brazos River, with Baylor University and several central-Waco attractions nearby.",
-        "differentiator": "A riverfront downtown option with free parking and an airport shuttle for a broader Waco museum-and-campus itinerary.",
-        "source": { "url": "https://www.hilton.com/en/hotels/actwhhf-hilton-waco/hotel-location/", "verifiedAt": "2026-09-15" }
-      }]
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "destination",
+          "key": "texas-ranger-hall-of-fame-museum-waco",
+          "rank": 2,
+          "geographicContext": "Downtown / Brazos River",
+          "proximity": "Hilton places the hotel in downtown Waco on the Brazos River, with Baylor University and several central-Waco attractions nearby.",
+          "differentiator": "A riverfront downtown option with free parking and an airport shuttle for a broader Waco museum-and-campus itinerary.",
+          "source": {
+            "url": "https://www.hilton.com/en/hotels/actwhhf-hilton-waco/hotel-location/",
+            "verifiedAt": "2026-09-15"
+          }
+        }
+      ]
     },
     {
       "id": "hotel-1928-waco",
       "name": "Hotel 1928",
       "city": "Waco",
       "area": "Downtown / Washington Avenue",
-      "neighborhoods": ["downtown-waco", "washington-avenue"],
+      "neighborhoods": [
+        "downtown-waco",
+        "washington-avenue"
+      ],
       "status": "active",
       "coordinates": null,
       "image": null,
-      "bookingTargets": [{ "provider": "expedia", "affiliateUrl": null, "verified": false }],
-      "contexts": [{
-        "kind": "destination",
-        "key": "texas-ranger-hall-of-fame-museum-waco",
-        "rank": 3,
-        "geographicContext": "Downtown / Washington Avenue",
-        "proximity": "Hotel 1928 is at 701 Washington Avenue in downtown Waco and describes Magnolia and Baylor University as close by.",
-        "differentiator": "A small historic boutique-hotel option for travelers who want a walkable downtown base rather than a larger conventional hotel.",
-        "source": { "url": "https://www.hotel1928.com/", "verifiedAt": "2026-09-15" }
-      }]
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "destination",
+          "key": "texas-ranger-hall-of-fame-museum-waco",
+          "rank": 3,
+          "geographicContext": "Downtown / Washington Avenue",
+          "proximity": "Hotel 1928 is at 701 Washington Avenue in downtown Waco and describes Magnolia and Baylor University as close by.",
+          "differentiator": "A small historic boutique-hotel option for travelers who want a walkable downtown base rather than a larger conventional hotel.",
+          "source": {
+            "url": "https://www.hotel1928.com/",
+            "verifiedAt": "2026-09-15"
+          }
+        }
+      ]
+    },
+    {
+      "id": "best-western-johnson-city-inn",
+      "name": "Best Western Johnson City Inn",
+      "city": "Johnson City",
+      "area": "Central Johnson City / U.S. 281",
+      "neighborhoods": [
+        "central-johnson-city",
+        "us-281"
+      ],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "destination",
+          "key": "johnson-city",
+          "rank": 1,
+          "geographicContext": "Central Johnson City / U.S. 281",
+          "proximity": "Best Western lists the property at 107 S. U.S. Highway 281 in Johnson City, keeping guests in the town's central visitor area.",
+          "differentiator": "A conventional hotel base with complimentary hot breakfast and practical access to downtown Johnson City and Hill Country day trips.",
+          "source": {
+            "url": "https://www.bestwestern.com/en_US/book/hotels-in-johnson-city/best-western-johnson-city-inn/propertyCode.44528.html",
+            "verifiedAt": "2026-09-21"
+          }
+        }
+      ]
+    },
+    {
+      "id": "carter-creek-winery-resort-spa",
+      "name": "Carter Creek Winery Resort & Spa",
+      "city": "Johnson City",
+      "area": "U.S. 290 wine corridor",
+      "neighborhoods": [
+        "us-290",
+        "johnson-city-wine-corridor"
+      ],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "destination",
+          "key": "johnson-city",
+          "rank": 2,
+          "geographicContext": "U.S. 290 wine corridor",
+          "proximity": "Carter Creek lists its resort at 4064 W. U.S. Highway 290 in Johnson City along the Hill Country wine corridor.",
+          "differentiator": "A resort-style option combining villas with an on-site winery, restaurant and spa for travelers building a wine-country stay around Johnson City.",
+          "source": {
+            "url": "https://www.cartercreek.com/",
+            "verifiedAt": "2026-09-21"
+          }
+        }
+      ]
+    },
+    {
+      "id": "walden-retreats-johnson-city",
+      "name": "Walden Retreats",
+      "city": "Johnson City",
+      "area": "Pedernales River countryside",
+      "neighborhoods": [
+        "pedernales-river",
+        "rural-johnson-city"
+      ],
+      "status": "active",
+      "coordinates": null,
+      "image": null,
+      "bookingTargets": [
+        {
+          "provider": "expedia",
+          "affiliateUrl": null,
+          "verified": false
+        }
+      ],
+      "contexts": [
+        {
+          "kind": "destination",
+          "key": "johnson-city",
+          "rank": 3,
+          "geographicContext": "Pedernales River countryside",
+          "proximity": "Walden Retreats places its Johnson City glamping property at 1388 Gipson Road on a 96-acre Hill Country site with Pedernales River access.",
+          "differentiator": "A small luxury-glamping alternative with 15 safari-style tents for travelers who prefer an outdoor Hill Country stay over a conventional hotel.",
+          "source": {
+            "url": "https://waldenretreats.com/",
+            "verifiedAt": "2026-09-21"
+          }
+        }
+      ]
     }
   ]
 }
