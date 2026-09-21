@@ -4,8 +4,8 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { destinationsQuery } from "@/data/queries";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
-const title = "Texas Camping & RV Campground Guide";
-const description = "Find verified public camping and outdoor lodging in Texas by RV, tent, primitive, beach, cabins, glamping, full-hookup, water access and region, with official reservation sources and planning links.";
+const title = "Best Places to Go Camping in Texas | RV, Tent & Primitive Camping";
+const description = "Compare standout Texas camping destinations, then search verified public campgrounds by RV, tent, primitive, beach, cabins, full hookups, water access, region and official reservation source.";
 const canonicalPath = "/best-places-to-go-camping-in-texas";
 const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
 
@@ -32,7 +32,7 @@ export const Route = createFileRoute(canonicalPath)({
     const entries = loaderData?.entries ?? [];
     const modified = entries.map(({ profile }) => profile.verifiedAt).sort().at(-1) ?? "2026-09-02";
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: title, description }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title, description }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
         "@context": "https://schema.org",
@@ -50,13 +50,13 @@ export const Route = createFileRoute(canonicalPath)({
           {
             "@type": "ItemList",
             "@id": `${pageUrl}#camping-directory`,
-            name: "Verified Texas public camping destinations, campgrounds and outdoor lodging",
+            name: "Verified Texas public camping destinations and campgrounds",
             numberOfItems: entries.length,
             itemListElement: entries.map(({ profile, destination }, index) => ({
               "@type": "ListItem",
               position: index + 1,
               item: {
-                "@type": "TouristAttraction",
+                "@type": "Campground",
                 name: profile.name,
                 url: destination && profileAnchor(profile) === profile.destinationSlug
                   ? absoluteUrl(texasDefinedBrand, `/destination/${profile.destinationSlug}`)
@@ -72,7 +72,7 @@ export const Route = createFileRoute(canonicalPath)({
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl(texasDefinedBrand, "/") },
               { "@type": "ListItem", position: 2, name: "Explore Texas", item: absoluteUrl(texasDefinedBrand, "/explore") },
-              { "@type": "ListItem", position: 3, name: "Camping & RV", item: pageUrl },
+              { "@type": "ListItem", position: 3, name: "Best Camping in Texas", item: pageUrl },
             ],
           },
         ],
