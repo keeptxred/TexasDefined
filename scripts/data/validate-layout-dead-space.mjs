@@ -41,6 +41,16 @@ const surfaceChecks = [
     forbidden: ['fallback={<main className="min-h-screen"/>'],
     required: ['Loading relocation tools…', 'role="status"'],
   },
+  {
+    file: 'src/routes/search.lazy.tsx',
+    forbidden: ['min-h-[42vh]'],
+    required: ['No search results', 'Search results'],
+  },
+  {
+    file: 'src/components/sports/SportsVenueGuidePage.tsx',
+    forbidden: ['min-h-[32rem]'],
+    required: ['min-h-40', 'Venue details and planning information continue below.'],
+  },
 ];
 
 for (const check of surfaceChecks) {
@@ -80,4 +90,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Sitewide dead-space safeguards passed: bounded editorial heroes, zero-margin empty stay slots and compact visible lazy-route fallbacks are intact.');
+console.log('Sitewide dead-space safeguards passed: bounded editorial heroes, zero-margin empty stay slots, compact media fallbacks and compact visible lazy-route fallbacks are intact.');
