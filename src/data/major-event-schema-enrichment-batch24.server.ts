@@ -1,11 +1,19 @@
 import type { MajorEventSchemaEnrichment } from "./major-event-schema-enrichment.server";
 
-const ccBySa4 = "https://creativecommons.org/licenses/by-sa/4.0/";
-const ccBySa3 = "https://creativecommons.org/licenses/by-sa/3.0/";
-const ccBy3 = "https://creativecommons.org/licenses/by/3.0/";
-const cc0 = "https://creativecommons.org/publicdomain/zero/1.0/";
-
 export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
+  {
+    slug: "mcallen-holiday-parade",
+    organizer: {
+      type: "Organization",
+      name: "City of McAllen",
+      url: "https://www.mcallen.net/",
+    },
+    sources: [
+      { label: "McAllen Holiday Parade — official site", url: "https://mcallenholidayparade.com/" },
+      { label: "McAllen Holiday Parade — official FAQ and operating guidance", url: "https://mcallenholidayparade.com/faqs/" },
+    ],
+    verifiedAt: "2026-09-21",
+  },
   {
     slug: "fiesta-de-palmas",
     image: {
@@ -14,7 +22,7 @@ export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
       sourceUrl: "https://commons.wikimedia.org/wiki/File:McAllen_Convention_Center.jpg",
       sourceType: "wikimedia",
       licenseName: "CC BY-SA 4.0",
-      licenseUrl: ccBySa4,
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
       rightsNote: "Wikimedia Commons file by Joel Pacheco (Joelenlared), licensed CC BY-SA 4.0.",
       exactLocation: true,
       approvedForCommercialUse: true,
@@ -30,7 +38,7 @@ export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
       sourceUrl: "https://commons.wikimedia.org/wiki/File:McAllen_Convention_Center_-_Night.jpg",
       sourceType: "wikimedia",
       licenseName: "CC BY-SA 4.0",
-      licenseUrl: ccBySa4,
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
       rightsNote: "Wikimedia Commons file by Arbo.lifestyle (Alejandro Barreto), licensed CC BY-SA 4.0.",
       exactLocation: true,
       approvedForCommercialUse: true,
@@ -46,7 +54,7 @@ export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
       sourceUrl: "https://commons.wikimedia.org/wiki/File:Alamodome_from_the_Tower_of_the_Americas_IMG_4600.JPG",
       sourceType: "wikimedia",
       licenseName: "CC BY 3.0",
-      licenseUrl: ccBy3,
+      licenseUrl: "https://creativecommons.org/licenses/by/3.0/",
       rightsNote: "Wikimedia Commons file by Billy Hathorn, licensed CC BY 3.0.",
       exactLocation: true,
       approvedForCommercialUse: true,
@@ -62,7 +70,7 @@ export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
       sourceUrl: "https://commons.wikimedia.org/wiki/File:AT%26T_Stadium,_Arlington,_Texas,_United_States.jpg",
       sourceType: "wikimedia",
       licenseName: "CC BY-SA 4.0",
-      licenseUrl: ccBySa4,
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
       rightsNote: "Wikimedia Commons file by Michael Barera, licensed CC BY-SA 4.0.",
       exactLocation: true,
       approvedForCommercialUse: true,
@@ -78,7 +86,7 @@ export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
       sourceUrl: "https://commons.wikimedia.org/wiki/File:The_Plaza_Theatre.JPG",
       sourceType: "wikimedia",
       licenseName: "CC BY-SA 3.0",
-      licenseUrl: ccBySa3,
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
       rightsNote: "Wikimedia Commons file by Donitza Marie, licensed CC BY-SA 3.0.",
       exactLocation: true,
       approvedForCommercialUse: true,
@@ -94,7 +102,7 @@ export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
       sourceUrl: "https://commons.wikimedia.org/wiki/File:El_Paso_Convention_Center.JPG",
       sourceType: "wikimedia",
       licenseName: "CC BY 3.0",
-      licenseUrl: ccBy3,
+      licenseUrl: "https://creativecommons.org/licenses/by/3.0/",
       rightsNote: "Wikimedia Commons file by Zereshk, licensed CC BY 3.0.",
       exactLocation: true,
       approvedForCommercialUse: true,
@@ -110,7 +118,7 @@ export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
       sourceUrl: "https://commons.wikimedia.org/wiki/File:Fair_Park_August_2016_40_(Cotton_Bowl_Stadium).jpg",
       sourceType: "wikimedia",
       licenseName: "CC BY-SA 4.0",
-      licenseUrl: ccBySa4,
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
       rightsNote: "Wikimedia Commons file by Michael Barera, licensed CC BY-SA 4.0.",
       exactLocation: true,
       approvedForCommercialUse: true,
@@ -126,7 +134,7 @@ export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
       sourceUrl: "https://commons.wikimedia.org/wiki/File:The_Coliseum_-_Forth_Worth_Stockyards_Historic_District.jpg",
       sourceType: "wikimedia",
       licenseName: "CC BY-SA 4.0",
-      licenseUrl: ccBySa4,
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
       rightsNote: "Wikimedia Commons file by chrisc39, licensed CC BY-SA 4.0.",
       exactLocation: true,
       approvedForCommercialUse: true,
@@ -142,7 +150,7 @@ export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
       sourceUrl: "https://commons.wikimedia.org/wiki/File:AmericanBankCenterCorpus.jpg",
       sourceType: "wikimedia",
       licenseName: "CC0 1.0",
-      licenseUrl: cc0,
+      licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
       rightsNote: "Wikimedia Commons file by WhisperToMe, dedicated to the public domain under CC0 1.0. The venue was renamed Hilliard Center in 2025.",
       exactLocation: true,
       approvedForCommercialUse: true,
@@ -158,7 +166,7 @@ export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
       sourceUrl: "https://commons.wikimedia.org/wiki/File:Woodlands_Pavilion.jpg",
       sourceType: "wikimedia",
       licenseName: "CC BY-SA 3.0",
-      licenseUrl: ccBySa3,
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
       rightsNote: "Wikimedia Commons file by Thewayne11, licensed CC BY-SA 3.0.",
       exactLocation: true,
       approvedForCommercialUse: true,
@@ -174,7 +182,7 @@ export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
       sourceUrl: "https://commons.wikimedia.org/wiki/File:Ford_Arena_Beaumont_Texas_June_2014.jpg",
       sourceType: "wikimedia",
       licenseName: "CC BY-SA 3.0",
-      licenseUrl: ccBySa3,
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
       rightsNote: "Wikimedia Commons file by dravecky, licensed CC BY-SA 3.0.",
       exactLocation: true,
       approvedForCommercialUse: true,
