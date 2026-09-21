@@ -34,5 +34,5 @@ export const Route = createFileRoute("/fishing/services")({
 });
 
 function FishingServicesRoute() {
-  return <Suspense fallback={<div className="min-h-[32rem]" aria-hidden="true" />}><FishingServicesDirectory pageData={Route.useLoaderData()} search={Route.useSearch()} /></Suspense>;
+  return <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading fishing services…</div>}><FishingServicesDirectory pageData={Route.useLoaderData()} search={Route.useSearch()} /></Suspense>;
 }
