@@ -173,6 +173,30 @@ jobs:
           PRODUCTION_HEALTH_LABEL: direct-worker
         run: node scripts/ci/verify-production-health.mjs
 
+      - name: Capture unhealthy Worker runtime diagnostics
+        id: live_direct_diagnostics
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'failure' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          mkdir -p artifacts
+          npx wrangler deployments status --json > artifacts/unhealthy-worker-deployment-status.json 2> artifacts/unhealthy-worker-deployment-status.stderr || true
+          npx wrangler versions list --json > artifacts/unhealthy-worker-versions.json 2> artifacts/unhealthy-worker-versions.stderr || true
+          timeout 25s npx wrangler tail texasdefined-site --format json --status error > artifacts/unhealthy-worker-tail.jsonl 2> artifacts/unhealthy-worker-tail.stderr &
+          TAIL_PID=$!
+          sleep 4
+          curl -sS --max-time 15 -D artifacts/unhealthy-worker-homepage.headers -o artifacts/unhealthy-worker-homepage.html "https://texasdefined-site.freddy-coppola.workers.dev/?incident_probe=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${GITHUB_SHA}" || true
+          wait "${TAIL_PID}" || true
+
+      - name: Upload unhealthy Worker runtime diagnostics
+        if: ${{ always() && steps.live_direct_health.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: unhealthy-worker-${{ github.run_id }}
+          path: artifacts/unhealthy-worker-*
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Roll back unhealthy Worker deployment
         id: rollback
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'failure' }}
