@@ -425,12 +425,23 @@ if (!errors.length) {
     "slug: 'austin-akins'",
     "slug: 'austin-bowie'",
     "slug: 'austin-vandegrift'",
+    "slug: 'plano'",
+    "slug: 'richardson'",
+    "slug: 'richardson-pearce'",
+    "slug: 'haltom-city-haltom'",
+    "slug: 'irving'",
+    "slug: 'south-grand-prairie'",
+    "slug: 'garland'",
+    "slug: 'garland-lakeview-cent'",
+    "slug: 'garland-sachse'",
+    "slug: 'wylie'",
+    "slug: 'wylie-east'",
     'sourceUrl',
     'verifiedAt',
   ]) requireText(schoolIdentities, marker, 'Football school identity data');
   const verifiedFootballIdentityCount = (schoolIdentities.match(/slug: '/g) ?? []).length;
-  if (verifiedFootballIdentityCount < 156) {
-    errors.push(`Football school identity data fell below 156 verified profiles; found ${verifiedFootballIdentityCount}.`);
+  if (verifiedFootballIdentityCount < 167) {
+    errors.push(`Football school identity data fell below 167 verified profiles; found ${verifiedFootballIdentityCount}.`);
   }
 
   for (const marker of [
