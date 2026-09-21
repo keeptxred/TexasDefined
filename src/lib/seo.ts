@@ -80,6 +80,10 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
     title: "LBJ Boyhood Home Johnson City: Tours, Times & Visitor Guide",
     description: "Plan the LBJ Boyhood Home in Johnson City with current free NPS tour times, visitor-center meeting point, summer heat limits, history and nearby LBJ sites.",
   },
+  "/destination/lyndon-b-johnson-national-historical-park": {
+    title: "LBJ National Historical Park: Ranch Drive, Hours & Guide",
+    description: "Plan LBJ National Historical Park with Johnson City hours, free ranch driving permit, open ranch stops, Texas White House closure and two-district trip tips.",
+  },
   "/destination/pecan-street-brewing-johnson-city": {
     title: "Pecan Street Brewing Johnson City: Beer, Food & Live Music",
     description: "Plan Pecan Street Brewing in Johnson City with current hours, house-brewed beer, food, live music, Gears & Beers and historic-square visitor details.",
