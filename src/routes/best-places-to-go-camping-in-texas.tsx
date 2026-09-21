@@ -32,7 +32,7 @@ export const Route = createFileRoute(canonicalPath)({
     const entries = loaderData?.entries ?? [];
     const modified = entries.map(({ profile }) => profile.verifiedAt).sort().at(-1) ?? "2026-09-02";
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath, title, description }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: title, description }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
         "@context": "https://schema.org",
