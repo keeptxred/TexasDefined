@@ -181,10 +181,14 @@ function registerTarget(map, path, mode, source) {
 async function buildTargets() {
   const map = new Map();
   for (const sitemap of SITEMAPS) {
-    for (const url of await sitemapInventory(sitemap)) {
-      const parsed = new URL(url);
-      if (parsed.origin !== ORIGIN) throw new Error(`${sitemap} contains off-origin URL ${url}`);
-      registerTarget(map, parsed.pathname, 'indexable', sitemap);
+    try {
+      for (const url of await sitemapInventory(sitemap)) {
+        const parsed = new URL(url);
+        if (parsed.origin !== ORIGIN) throw new Error(`${sitemap} contains off-origin URL ${url}`);
+        registerTarget(map, parsed.pathname, 'indexable', sitemap);
+      }
+    } catch (error) {
+      pageFailure(sitemap, `sitemap inventory unavailable: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
