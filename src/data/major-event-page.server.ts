@@ -52,8 +52,37 @@ import {
 } from "./major-event-schema-enrichment.server";
 
 const siteUrl = "https://texasdefined.com";
-const HOTELS_COM_AFFILIATE_URL = "https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/";
 const esc = (value: string | undefined) => (value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
+const PUBLIC_COPY_EDITORIAL_PATTERNS = [
+  /\bsupplied (?:discovery )?inventory\b/i,
+  /\bseed entry\b/i,
+  /\bdiscovery seed\b/i,
+  /\bstale projection\b/i,
+  /\bsupersed(?:e|es|ed|ing)\b/i,
+  /\bcarrying (?:the )?.*projection\b/i,
+];
+
+function cleanPublicCopy(value: string | undefined) {
+  if (!value) return "";
+  const sentences = value.match(/[^.!?]+(?:[.!?]+|$)/g) ?? [value];
+  return sentences
+    .map((sentence) => sentence.trim())
+    .filter(Boolean)
+    .filter((sentence) => !PUBLIC_COPY_EDITORIAL_PATTERNS.some((pattern) => pattern.test(sentence)))
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function cleanPlanningTitle(value: string) {
+  if (/\b(?:corrected|projection|inventory|seed entry|source disposition)\b/i.test(value)) return "Confirm the current event details";
+  return value;
+}
+
+function canonicalRelatedHref(href: string) {
+  const legacyCounty = href.match(/^\/browse\/counties#county-([a-z0-9-]+)$/i);
+  return legacyCounty ? `/county/${legacyCounty[1]}` : href;
+}
 const CHAPPELL_HILL_WILDFLOWER_SECTION_TITLE = "Use the county wildflower map before chasing roadside photos";
 const CHAPPELL_HILL_WILDFLOWER_MAP_MARKUP = `<div data-map="chappell-hill-wildflower" class="mt-5">
   <div class="aspect-[4/3] overflow-hidden rounded-xl border border-border bg-muted sm:aspect-[16/9]">
