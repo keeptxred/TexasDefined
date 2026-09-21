@@ -93,6 +93,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "Use the dedicated Hye distillery guide for current tours, tastings, food, release weekends and visitor planning.",
     },
     {
+      href: "/destination/william-chris-vineyards-hye",
+      label: "Visit William Chris Vineyards",
+      description: "Use the dedicated Hye winery guide for current tasting options, hours, Texas-grown vineyard context and reservation planning.",
+    },
+    {
       href: "/destination/lyndon-b-johnson-national-historical-park",
       label: "Add LBJ country",
       description: "Connect Hye's post-office history with the LBJ Ranch near Stonewall and the Johnson City district.",
@@ -118,11 +123,70 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "Connect Hye with the living-history farm, longhorns, bison and Pedernales River landscape near Stonewall.",
     },
   ],
+  "william-chris-vineyards-hye": [
+    {
+      href: "/destination/hye",
+      label: "Explore Hye",
+      description: "Connect the estate winery with Hye's historic post office, Garrison Brothers and the wider U.S. 290 corridor.",
+    },
+    {
+      href: "/destination/garrison-brothers-distillery-hye",
+      label: "Add Garrison Brothers",
+      description: "Pair the winery with a working Texas bourbon distillery while keeping the day's driving and tasting plan realistic.",
+    },
+    {
+      href: "/destination/lyndon-b-johnson-national-historical-park",
+      label: "Add LBJ country",
+      description: "Use the LBJ Ranch and Johnson City districts as a history counterpoint to the wine corridor.",
+    },
+    {
+      href: "/destination/johnson-city",
+      label: "Explore Johnson City",
+      description: "Use the county seat for museums, food, family attractions and a practical eastern base.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Connect Hye wine country with Blanco, Johnson City, the Pedernales and the rest of the county.",
+    },
+  ],
+  "old-blanco-county-courthouse": [
+    {
+      href: "/destination/blanco",
+      label: "Explore Blanco",
+      description: "Connect the old courthouse with Blanco's river, downtown, food and wider town planning.",
+    },
+    {
+      href: "/destination/blanco-state-park",
+      label: "Add Blanco State Park",
+      description: "Pair courthouse history with an in-town Blanco River stop when current water conditions are suitable.",
+    },
+    {
+      href: "/destination/real-ale-brewing-company-blanco",
+      label: "Visit Real Ale Brewing",
+      description: "Add a working local brewery and distillery north of the historic square.",
+    },
+    {
+      href: "/destination/johnson-city",
+      label: "Continue to Johnson City",
+      description: "See the current county seat and complete the two-town Blanco County courthouse story.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Use the county guide to connect the old courthouse with Johnson City, Hye, rivers and historic sites.",
+    },
+  ],
   "real-ale-brewing-company-blanco": [
     {
       href: "/destination/blanco",
       label: "Explore Blanco",
       description: "Pair the brewery with the courthouse square, Blanco River and the town's broader Hill Country visitor guide.",
+    },
+    {
+      href: "/destination/old-blanco-county-courthouse",
+      label: "Add the Old Blanco County Courthouse",
+      description: "Connect the brewery with Blanco's 1886 courthouse, museum, historic square and county-seat history.",
     },
     {
       href: "/destination/blanco-state-park",
@@ -141,6 +205,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "garrison-brothers-distillery-hye": [
+    {
+      href: "/destination/william-chris-vineyards-hye",
+      label: "Add William Chris Vineyards",
+      description: "Pair Hye bourbon with a dedicated estate-winery stop while keeping tasting and driving logistics realistic.",
+    },
     {
       href: "/county/blanco",
       label: "Explore Blanco County",

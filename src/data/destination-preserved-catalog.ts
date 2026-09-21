@@ -16,6 +16,7 @@ import { austinMuseumDestinations } from "./museum-expansion-austin";
 import { dfwMuseumDestinations } from "./museum-expansion-dfw";
 import { georgeWBushMuseumDestinations } from "./museum-expansion-george-w-bush";
 import { garrisonBrothersHyeDestinations } from "./garrison-brothers-hye-destination";
+import { williamChrisVineyardsHyeDestinations } from "./william-chris-vineyards-hye-destination";
 import { hyeTexasDestinations } from "./hye-texas-destination";
 import { houstonGalvestonMuseumDestinations } from "./museum-expansion-houston-galveston";
 import { sanAntonioMuseumDestinations } from "./museum-expansion-san-antonio";
@@ -79,6 +80,7 @@ import { nationalWildlifeRefugeDestinations } from "./national-wildlife-refuge-d
 import { pedernalesRiverNatureParkDestinations } from "./pedernales-river-nature-park-destination";
 import { pecanStreetBrewingDestinations } from "./pecan-street-brewing-destination";
 import { realAleBlancoDestinations } from "./real-ale-blanco-destination";
+import { oldBlancoCountyCourthouseDestinations } from "./old-blanco-county-courthouse-destination";
 import { smallTownWave1Destinations } from "./small-town-destinations-wave1";
 import { smallTownWave2Destinations } from "./small-town-destinations-wave2";
 import { smallTownWave3Destinations } from "./small-town-destinations-wave3";
@@ -215,6 +217,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   pedernalesRiverNatureParkDestinations,
   pecanStreetBrewingDestinations,
   realAleBlancoDestinations,
+  oldBlancoCountyCourthouseDestinations,
   historicSiteDestinations,
   militaryHistoryDestinations,
   militaryMuseumDestinations,
@@ -222,6 +225,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   dfwMuseumDestinations,
   georgeWBushMuseumDestinations,
   garrisonBrothersHyeDestinations,
+  williamChrisVineyardsHyeDestinations,
   hyeTexasDestinations,
   austinMuseumDestinations,
   sanAntonioMuseumDestinations,
