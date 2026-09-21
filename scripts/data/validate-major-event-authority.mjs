@@ -68,6 +68,39 @@ const authorityFiles = [
   ...trancheFiles,
 ].map((name) => path.join(dataDir, name));
 
+const forbiddenPublicCopyPatterns = [
+  [/\b(?:supplied|discovery|seed)\s+(?:(?:discovery|seed)\s+)?inventory\b/i, "inventory workflow language"],
+  [/\bseed entry\b/i, "seed-entry workflow language"],
+  [/\bstale projection\b/i, "stale-projection workflow language"],
+  [/\bdiscovery-stage\b/i, "discovery-stage workflow language"],
+];
+const publicCopyFieldPattern = /\b(dateNote|whyItMatters|title|body|description):\s*"([^"\n]*)"/g;
+for (const file of authorityFiles) {
+  const source = read(file);
+  for (const match of source.matchAll(publicCopyFieldPattern)) {
+    for (const [pattern, label] of forbiddenPublicCopyPatterns) {
+      if (pattern.test(match[2])) fail(path.basename(file) + " public " + match[1] + " contains " + label);
+    }
+  }
+}
+
+for (const marker of [
+  "cleanPublicCopy(event.dateNote)",
+  "cleanPlanningTitle(item.title)",
+  "canonicalRelatedHref(item.href)",
+  "quickFactsMarkup",
+  "data-stay-nearby-slot",
+  'Keep planning your ${esc(event.city)} trip',
+]) {
+  if (!loader.includes(marker)) fail("event guide public-copy hardening is missing protected marker: " + marker);
+}
+for (const forbidden of [
+  "HOTELS_COM_AFFILIATE_URL",
+  "will show reviewed nearby hotel options here when available",
+  'More to do in ${esc(event.city)}',
+]) {
+  if (loader.includes(forbidden)) fail("event guide template still contains retired public placeholder/copy: " + forbidden);
+}
 const slugOwners = new Map();
 for (const file of authorityFiles) {
   const source = read(file);
