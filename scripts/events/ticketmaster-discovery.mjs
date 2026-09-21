@@ -1,25 +1,64 @@
 const ENDPOINT = 'https://app.ticketmaster.com/discovery/v2/events.json';
+const DIRECT_TICKETMASTER_HOSTS = new Set(['www.ticketmaster.com', 'ticketmaster.com']);
+const APPROVED_IMPACT_HOST = 'ticketmaster.evyy.net';
+const APPROVED_IMPACT_PATH = /^\/c\/7758914\/\d+\/4272\/?$/;
+
+function sanitizedHost(url) {
+  return url.hostname.toLowerCase().replace(/[^a-z0-9.-]/g, '') || 'unknown';
+}
+
+function directTicketmasterUrlRejectionReason(url) {
+  if (!['http:', 'https:'].includes(url.protocol)) return 'scheme';
+  if (url.username || url.password || url.port) return 'credentials-or-port';
+  if (!DIRECT_TICKETMASTER_HOSTS.has(url.hostname.toLowerCase())) return `host-${sanitizedHost(url)}`;
+  if (!url.pathname.includes('/event/')) return 'missing-event-segment';
+  if (!/\/event\/[A-Za-z0-9_-]+\/?$/.test(url.pathname)) return 'event-path-shape';
+  return null;
+}
+
+function approvedImpactDestination(url) {
+  if (url.protocol !== 'https:') return { reason: 'impact-scheme' };
+  if (url.username || url.password || url.port) return { reason: 'impact-credentials-or-port' };
+  if (!APPROVED_IMPACT_PATH.test(url.pathname)) return { reason: 'impact-path-shape' };
+
+  const destination = url.searchParams.get('u');
+  if (!destination) return { reason: 'impact-missing-destination' };
+
+  let official;
+  try {
+    official = new URL(destination);
+  } catch {
+    return { reason: 'impact-destination-unparseable' };
+  }
+
+  const reason = directTicketmasterUrlRejectionReason(official);
+  if (reason) return { reason: `impact-destination-${reason}` };
+  return { official };
+}
 
 export function ticketmasterUrlRejectionReason(value) {
+  let url;
   try {
-    const url = new URL(value);
-    if (!['http:', 'https:'].includes(url.protocol)) return 'scheme';
-    if (url.username || url.password || url.port) return 'credentials-or-port';
-    if (!['www.ticketmaster.com', 'ticketmaster.com'].includes(url.hostname.toLowerCase())) {
-      const host = url.hostname.toLowerCase().replace(/[^a-z0-9.-]/g, '');
-      return `host-${host || 'unknown'}`;
-    }
-    if (!url.pathname.includes('/event/')) return 'missing-event-segment';
-    if (!/\/event\/[A-Za-z0-9_-]+\/?$/.test(url.pathname)) return 'event-path-shape';
-    return null;
+    url = new URL(value);
   } catch {
     return 'unparseable';
   }
+
+  if (url.hostname.toLowerCase() === APPROVED_IMPACT_HOST) {
+    return approvedImpactDestination(url).reason ?? null;
+  }
+
+  return directTicketmasterUrlRejectionReason(url);
 }
 
 export function officialTicketmasterUrl(value) {
   if (ticketmasterUrlRejectionReason(value)) return null;
-  const url = new URL(value);
+
+  let url = new URL(value);
+  if (url.hostname.toLowerCase() === APPROVED_IMPACT_HOST) {
+    url = approvedImpactDestination(url).official;
+  }
+
   url.protocol = 'https:';
   url.pathname = url.pathname.replace(/\/$/, '');
   url.search = '';
@@ -50,7 +89,7 @@ export function normalizeDiscoveryEvent(event, trackingBase) {
   const affiliate = new URL(trackingBase);
   if (
     affiliate.origin !== 'https://ticketmaster.evyy.net' ||
-    !/^\/c\/\d+\/\d+\/4272$/.test(affiliate.pathname) ||
+    !/^\/c\/7758914\/\d+\/4272$/.test(affiliate.pathname) ||
     affiliate.username ||
     affiliate.password
   ) throw new Error('Invalid approved Impact tracking base');
