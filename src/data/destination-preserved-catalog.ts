@@ -8,6 +8,7 @@ import { legacyExploreDestinations } from "./fixtures/legacy-explore";
 import { legacyLakeDestinations } from "./fixtures/legacy-lakes";
 import { johnsonCityAuthorityDestinations } from "./johnson-city-authority-destinations";
 import { johnsonCityWildlifeDestinations } from "./johnson-city-wildlife-destinations";
+import { johnsonSettlementDestinations } from "./johnson-settlement-destination";
 import { lbjBoyhoodHomeDestinations } from "./lbj-boyhood-home-destination";
 import { historicSiteDestinations } from "./historic-sites";
 import { militaryHistoryDestinations } from "./military-history-destinations";
@@ -211,6 +212,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   legacyLakeDestinations,
   johnsonCityAuthorityDestinations,
   johnsonCityWildlifeDestinations,
+  johnsonSettlementDestinations,
   lbjBoyhoodHomeDestinations,
   pedernalesRiverNatureParkDestinations,
   pecanStreetBrewingDestinations,
