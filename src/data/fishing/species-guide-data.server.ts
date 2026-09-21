@@ -40,7 +40,7 @@ function buildFishingSpeciesProfileHead(entry: NonNullable<SpeciesProfileHeadEnt
     : `${species.commonName} Fishing in Texas — Lakes, Seasons & Techniques`;
   const description = isBlueCatfish
     ? "Blue catfish in Texas: verified lake relationships, seasonal patterns and source-backed fishing techniques without live-bite or sponsor-ranking claims."
-    : `${species.commonName} fishing in Texas: verified complete-lake relationships, seasonal patterns and source-backed technique applications without live-bite or sponsor-ranking claims.`;
+    : `${species.commonName} fishing in Texas: verified lake relationships, seasonal patterns and source-backed technique applications without live-bite or sponsor-ranking claims.`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -109,8 +109,7 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
     fishingPlatform.techniques.list({ ...fishingScope, status: "published", limit: 5000 }),
   ]);
 
-  const completeLakes = allLakes.filter((lake) => isCompleteFishingLakeSlug(lake.slug));
-  const lakeById = new Map(completeLakes.map((lake) => [lake.id, lake]));
+  const lakeById = new Map(allLakes.map((lake) => [lake.id, lake]));
   const lakes = lakeSpecies
     .filter((relation) => lakeById.has(relation.lakeId))
     .filter((relation) => Boolean(relation.verifiedAt) && relation.sources.length > 0)
@@ -118,10 +117,9 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
       lake: lakeById.get(relation.lakeId)!,
       relation,
       href: fishingFoundationAnchor("lake", lakeById.get(relation.lakeId)!.slug),
+      fullGuide: isCompleteFishingLakeSlug(lakeById.get(relation.lakeId)!.slug),
     }))
-    .sort((left, right) => left.lake.name.localeCompare(right.lake.name));
-
-  if (!lakes.length) return null;
+    .sort((left, right) => Number(right.fullGuide) - Number(left.fullGuide) || left.lake.name.localeCompare(right.lake.name));
 
   const publicTechniqueSlugs = new Set<string>(PUBLISHED_FISHING_TECHNIQUE_SLUGS);
   const techniqueById = new Map(techniques.map((technique) => [technique.id, technique]));
