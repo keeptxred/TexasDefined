@@ -153,6 +153,7 @@ export const supplementalMajorEventSlugs = [
   "way-out-west-festival-el-paso",
   "state-fair-classic",
   "beaumont-comic-con",
+  "eagle-fest-the-woodlands",
   "bill-pickett-rodeo-fort-worth",
   "hollydays-market-corpus-christi",
 ] as const;
