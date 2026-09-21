@@ -1,0 +1,39 @@
+name: Verify newsletter production
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-newsletter-production.mjs'
+      - '.github/workflows/verify-newsletter-production.yml'
+  workflow_run:
+    workflows:
+      - 'Deploy TexasDefined production'
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate production smoke syntax
+        run: node --check scripts/ci/verify-newsletter-production.mjs
+
+      - name: Verify Texas Defined Letter production surface
+        if: ${{ github.event_name != 'pull_request' }}
+        run: node scripts/ci/verify-newsletter-production.mjs
