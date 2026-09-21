@@ -42,9 +42,9 @@ async function fetchLive(path) {
 const registryBody = await fetchLive('/stay-nearby-destination-hotels.json');
 const registry = JSON.parse(registryBody);
 requireCondition(registry.version === 1, 'Live destination stay registry version is not 1.');
-requireCondition(Array.isArray(registry.properties) && registry.properties.length === 9, 'Live destination stay registry must contain exactly 9 controlled properties.');
+requireCondition(Array.isArray(registry.properties) && registry.properties.length === 12, 'Live destination stay registry must contain exactly 12 controlled properties.');
 
-const expected = ['fredericksburg', 'galveston-seawall', 'texas-ranger-hall-of-fame-museum-waco'];
+const expected = ['fredericksburg', 'galveston-seawall', 'texas-ranger-hall-of-fame-museum-waco', 'johnson-city'];
 for (const key of expected) {
   const matches = registry.properties.filter((property) =>
     property.status === 'active' && (property.contexts || []).some((context) => context.kind === 'destination' && context.key === key));
@@ -82,4 +82,4 @@ requireCondition(admin.includes('Platform Health'), 'Platform Health did not ren
 requireCondition(admin.includes('Stay monetization readiness'), 'Platform Health did not render the stay monetization readiness panel heading.');
 requireCondition(admin.includes('does not invent traffic, booking, conversion or revenue performance'), 'Platform Health lost the evidence-only stay performance disclaimer.');
 
-console.log('Destination stay production verification passed: 3 governed destination contexts and 9 source-backed properties are live; each destination has exactly 3 curated choices; unverified property deeplinks and ungoverned imagery fail closed; destination pages are self-canonical/indexable with contextual stay slots; and the noindex Platform Health readiness panel is live without fabricated performance data.');
+console.log('Destination stay production verification passed: 4 governed destination contexts and 12 source-backed properties are live; each destination has exactly 3 curated choices; unverified property deeplinks and ungoverned imagery fail closed; destination pages are self-canonical/indexable with contextual stay slots; and the noindex Platform Health readiness panel is live without fabricated performance data.');
