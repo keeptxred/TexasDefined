@@ -3,6 +3,7 @@ import type { MajorEventSchemaEnrichment } from "./major-event-schema-enrichment
 const ccBySa4 = "https://creativecommons.org/licenses/by-sa/4.0/";
 const ccBySa3 = "https://creativecommons.org/licenses/by-sa/3.0/";
 const ccBy3 = "https://creativecommons.org/licenses/by/3.0/";
+const cc0 = "https://creativecommons.org/publicdomain/zero/1.0/";
 
 export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
   {
@@ -115,6 +116,38 @@ export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
       approvedForCommercialUse: true,
     },
     sources: [{ label: "Wikimedia Commons — Cotton Bowl Stadium", url: "https://commons.wikimedia.org/wiki/File:Fair_Park_August_2016_40_(Cotton_Bowl_Stadium).jpg" }],
+    verifiedAt: "2026-09-21",
+  },
+  {
+    slug: "bill-pickett-rodeo-fort-worth",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Coliseum_-_Forth_Worth_Stockyards_Historic_District.jpg?width=1600",
+      alt: "Cowtown Coliseum in the Fort Worth Stockyards, home of the Bill Pickett Invitational Rodeo Texas Connection series",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:The_Coliseum_-_Forth_Worth_Stockyards_Historic_District.jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0",
+      licenseUrl: ccBySa4,
+      rightsNote: "Wikimedia Commons file by chrisc39, licensed CC BY-SA 4.0.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [{ label: "Wikimedia Commons — Cowtown Coliseum", url: "https://commons.wikimedia.org/wiki/File:The_Coliseum_-_Forth_Worth_Stockyards_Historic_District.jpg" }],
+    verifiedAt: "2026-09-21",
+  },
+  {
+    slug: "hollydays-market-corpus-christi",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/AmericanBankCenterCorpus.jpg?width=1600",
+      alt: "Hilliard Center in Corpus Christi, photographed when the same venue complex was named American Bank Center",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:AmericanBankCenterCorpus.jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC0 1.0",
+      licenseUrl: cc0,
+      rightsNote: "Wikimedia Commons file by WhisperToMe, dedicated to the public domain under CC0 1.0. The venue was renamed Hilliard Center in 2025.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [{ label: "Wikimedia Commons — Hilliard Center venue complex under its former American Bank Center name", url: "https://commons.wikimedia.org/wiki/File:AmericanBankCenterCorpus.jpg" }],
     verifiedAt: "2026-09-21",
   },
   {
