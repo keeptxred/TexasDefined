@@ -1,7 +1,7 @@
 {
   "version": 1,
   "publisherId": "101876465",
-  "verifiedAt": "2026-09-19",
+  "verifiedAt": "2026-09-21",
   "policy": {
     "exactPropertyOnly": true,
     "broadSearchAllowed": false,
@@ -143,6 +143,21 @@
       "propertyId": "microtel-sweetwater",
       "name": "Microtel Inn & Suites by Wyndham Sweetwater",
       "destinationUrl": "https://www.hotels.com/ho532248/microtel-inn-and-suites-by-wyndham-sweetwater-sweetwater-united-states-of-america/"
+    },
+    {
+      "propertyId": "best-western-johnson-city-inn",
+      "name": "Best Western Johnson City Inn",
+      "destinationUrl": "https://www.hotels.com/ho494047/best-western-johnson-city-inn-johnson-city-united-states-of-america/"
+    },
+    {
+      "propertyId": "carter-creek-winery-resort-spa",
+      "name": "Carter Creek Winery Resort & Spa",
+      "destinationUrl": "https://www.hotels.com/ho1266792032/carter-creek-winery-resort-spa-johnson-city-united-states-of-america/"
+    },
+    {
+      "propertyId": "walden-retreats-johnson-city",
+      "name": "Walden Retreats",
+      "destinationUrl": "https://www.hotels.com/ho2462492672/walden-retreats-johnson-city-united-states-of-america/"
     }
   ]
 }
