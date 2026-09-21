@@ -60,8 +60,6 @@ function FishingTripPlannerPage() {
     const matchCount = matches.filter((item) => item.target).length;
     const speciesScore = matches.reduce((total, item) => total + item.score, 0);
     const location = scoreLocation(row.lake, locationQuery);
-    const speciesPass = selectedSpecies.length === 0 || (search.match === "all" ? matchCount === selectedSpecies.length : matchCount > 0);
-    const locationPass = !locationQuery || location.score > 0;
     return { ...row, matches, matchCount, speciesScore, location };
   })
     .filter((row) => {
