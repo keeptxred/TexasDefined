@@ -53,6 +53,18 @@ function checkedDate(value?: string) {
   return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 }
 
+function countyDisplayName(value: string) {
+  const trimmed = value.trim();
+  return /\bcount(?:y|ies)\b/i.test(trimmed) ? trimmed : `${trimmed} County`;
+}
+
+function countyRouteSlug(value?: string) {
+  if (!value) return "";
+  const label = countyDisplayName(value);
+  if (/\bcounties\b|[,;&]|\band\b/i.test(label)) return "";
+  return label.replace(/\s+County$/i, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
 function destinationSeoTitle(name: string, categoryName: string) {
   const category = categoryName.toLowerCase();
   if (category.includes("state park") || category.includes("natural area")) return `${name} | Texas State Park Guide`;
@@ -126,11 +138,12 @@ function DestinationPage() {
   const limit = (requested: number) => Math.max(0, Math.min(requested, surfacePolicy.blockBudget, remainingLinks));
   const spend = (requested: number) => { const value = limit(requested); remainingLinks -= value; return value; };
   const verifiedLabel = checkedDate(destination.sourceCheckedAt);
-  const countySlug = destination.county?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const countySlug = countyRouteSlug(destination.county);
+  const countyLabel = destination.county ? countyDisplayName(destination.county) : "";
   const isChokeCanyon = destination.slug === "choke-canyon-state-park";
   const locationAnswer = isChokeCanyon
     ? `${destination.name} has two public units west of Three Rivers: Calliham in McMullen County and South Shore in Live Oak County.`
-    : `${destination.name} is near ${destination.nearestTown}, Texas${destination.county ? `, in ${destination.county} County` : ""}.`;
+    : `${destination.name} is near ${destination.nearestTown}, Texas${countyLabel ? `, in ${countyLabel}` : ""}.`;
   const relationshipGroupsForPage = isChokeCanyon
     ? relationshipGroups
       .map((group) => ({
@@ -165,7 +178,7 @@ function DestinationPage() {
     <section className="relative isolate mt-5 overflow-hidden bg-ink text-ink-foreground">
       <img src={destination.hero.src} alt={destination.hero.alt} width={destination.hero.width} height={destination.hero.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-65" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/65 to-ink/15" />
-      <Container className="relative flex min-h-[64vh] flex-col justify-end pb-14 pt-40 sm:pb-16">
+      <Container className="relative flex flex-col justify-end" style={{ minHeight: "clamp(24rem, 52vw, 32rem)", paddingTop: "6rem", paddingBottom: "3rem" }}>
         <p className="eyebrow text-ink-foreground/80">{region?.name ?? "Texas"} · {categoryName}</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{destination.name}</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/88">{destination.summary}</p>
@@ -174,7 +187,7 @@ function DestinationPage() {
     </section>
 
     <AnswerSummary
-      eyebrow="Planning your visit"
+      eyebrow="Quick trip facts"
       title={`${destination.name} at a glance`}
       items={[
         { question: `Where is ${destination.name}?`, answer: locationAnswer },
@@ -185,11 +198,11 @@ function DestinationPage() {
     />
 
     {isChokeCanyon && <span data-stay-nearby-disabled="true" className="hidden" aria-hidden="true" />}
-    <Container className={isChokeCanyon ? "grid gap-8 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:py-16" : "grid gap-14 py-16 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:py-20"}>
+    <Container className={isChokeCanyon ? "grid gap-8 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:py-16" : "grid gap-10 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:gap-12 lg:py-16"}>
       <div className="min-w-0">
         <section aria-labelledby="why-go" className="border-t border-border pt-8">
           <p className="eyebrow text-primary">The place</p>
-          <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">Why {destination.name} belongs on our {categoryName.toLowerCase()} list</h2>
+          <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">What to expect at {destination.name}</h2>
           <div className="editorial-body mt-7 text-foreground/90">{destination.body.map((paragraph) => <p key={paragraph} className="mt-6 first:mt-0"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}</div>
         </section>
         <section aria-labelledby="before-you-go" className={isChokeCanyon ? "mt-10 border-t border-border pt-6" : "mt-16 border-t border-border pt-8"}>
@@ -198,7 +211,7 @@ function DestinationPage() {
           <dl className="mt-8 grid border-y border-border sm:grid-cols-2">
             <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">Nearest town</dt><dd className="mt-2 text-base">Near <AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} />, Texas</dd></div>
             <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Best season</dt><dd className="mt-2 text-base">{destination.bestSeason}</dd></div>
-            {destination.county && <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">{isChokeCanyon ? "Counties" : "County"}</dt><dd className="mt-2 text-base">{isChokeCanyon ? "McMullen County (Calliham) · Live Oak County (South Shore)" : countySlug ? <Link to="/$kind/$slug" params={{ kind: "county", slug: countySlug }} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{destination.county} County</Link> : `${destination.county} County`}</dd></div>}
+            {destination.county && <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">{isChokeCanyon ? "Counties" : "County"}</dt><dd className="mt-2 text-base">{isChokeCanyon ? "McMullen County (Calliham) · Live Oak County (South Shore)" : countySlug ? <Link to="/$kind/$slug" params={{ kind: "county", slug: countySlug }} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{countyLabel}</Link> : countyLabel}</dd></div>}
             {destination.address && <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Address</dt><dd className="mt-2 text-base">{destination.address}</dd></div>}
             <div className="py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Entry & reservations</dt><dd className="mt-2 text-base leading-7">{destination.entryNote}</dd></div>
             {destination.accessibilityNotes && <div className="border-t border-border py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Accessibility</dt><dd className="mt-2 text-base leading-7">{destination.accessibilityNotes}</dd></div>}
@@ -207,7 +220,7 @@ function DestinationPage() {
           <div className="mt-7 flex flex-wrap gap-6">{validExternalUrl(destination.reservationUrl) && <a href={destination.reservationUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Reservations</a>}{validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official visitor information</a>}{isChokeCanyon && <a href="https://tpwd.texas.gov/state-parks/choke-canyon/alert" target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Current park alerts</a>}</div>
         </section>
         {!isChokeCanyon && <Suspense fallback={null}><DestinationViatorBooking destination={destination} /></Suspense>}
-        {!isChokeCanyon && <div className="mt-14"><DestinationVisitPlanner destination={destination} /></div>}
+        {!isChokeCanyon && <div className="mt-10"><DestinationVisitPlanner destination={destination} /></div>}
         {destination.slug === "spoetzl-brewery" && <Suspense fallback={null}><ShinerBreweryAuthority /></Suspense>}
       </div>
 
