@@ -32,7 +32,7 @@ const requiredFiles = {
     'Where is ${destination.name}?',
     'When is the best time to visit ${destination.name}?',
     'Do I need to plan ahead for ${destination.name}?',
-    'belongs on our {categoryName.toLowerCase()} list',
+    'What to expect at {destination.name}',
   ],
   'src/routes/browse.cities.tsx': [
     'AnswerSummary',
