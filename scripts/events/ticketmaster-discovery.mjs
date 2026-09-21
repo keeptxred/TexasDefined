@@ -1,24 +1,30 @@
 const ENDPOINT = 'https://app.ticketmaster.com/discovery/v2/events.json';
 
-export function officialTicketmasterUrl(value) {
+export function ticketmasterUrlRejectionReason(value) {
   try {
     const url = new URL(value);
-    if (
-      !['http:', 'https:'].includes(url.protocol) ||
-      !['www.ticketmaster.com', 'ticketmaster.com'].includes(url.hostname) ||
-      url.username ||
-      url.password ||
-      url.port ||
-      !/\/event\/[A-Za-z0-9_-]+\/?$/.test(url.pathname)
-    ) return null;
-    url.protocol = 'https:';
-    url.pathname = url.pathname.replace(/\/$/, '');
-    url.search = '';
-    url.hash = '';
-    return url.toString();
-  } catch {
+    if (!['http:', 'https:'].includes(url.protocol)) return 'scheme';
+    if (url.username || url.password || url.port) return 'credentials-or-port';
+    if (!['www.ticketmaster.com', 'ticketmaster.com'].includes(url.hostname.toLowerCase())) {
+      const host = url.hostname.toLowerCase().replace(/[^a-z0-9.-]/g, '');
+      return `host-${host || 'unknown'}`;
+    }
+    if (!url.pathname.includes('/event/')) return 'missing-event-segment';
+    if (!/\/event\/[A-Za-z0-9_-]+\/?$/.test(url.pathname)) return 'event-path-shape';
     return null;
+  } catch {
+    return 'unparseable';
   }
+}
+
+export function officialTicketmasterUrl(value) {
+  if (ticketmasterUrlRejectionReason(value)) return null;
+  const url = new URL(value);
+  url.protocol = 'https:';
+  url.pathname = url.pathname.replace(/\/$/, '');
+  url.search = '';
+  url.hash = '';
+  return url.toString();
 }
 
 export function ticketmasterEventRejectionReason(event) {
@@ -29,7 +35,7 @@ export function ticketmasterEventRejectionReason(event) {
   if (venue?.state?.stateCode !== 'TX') return 'non-texas-venue';
   if (venue?.country?.countryCode !== 'US') return 'non-us-venue';
   if (!venue?.city?.name) return 'missing-city';
-  if (!officialTicketmasterUrl(event?.url)) return 'invalid-ticketmaster-url';
+  const ticketUrlReason = ticketmasterUrlRejectionReason(event?.url);\n  if (ticketUrlReason) return `ticket-url-${ticketUrlReason}`;
   if (start?.dateTBD || start?.dateTBA) return 'undetermined-date';
   if (!/^\d{4}-\d{2}-\d{2}$/.test(start?.localDate ?? '')) return 'missing-local-date';
   return null;
