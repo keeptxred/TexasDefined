@@ -11,6 +11,15 @@ const requireText = (source, needle, label) => {
 };
 
 for (const [needle, label] of [
+  ['id: canary_deploy', 'canary Worker deploy step'],
+  ['npx wrangler deploy --name texasdefined-site-canary', 'isolated canary Worker deployment'],
+  ['id: canary_health', 'canary Worker health step'],
+  ['PRODUCTION_HEALTH_ORIGIN: https://texasdefined-site-canary.freddy-coppola.workers.dev', 'canary health origin'],
+  ['id: canary_diagnostics', 'canary runtime diagnostics step'],
+  ['npx wrangler tail texasdefined-site-canary', 'canary Worker error tail capture'],
+  ['name: Upload unhealthy canary runtime diagnostics', 'canary diagnostics upload'],
+  ['id: canary_gate', 'canary health gate'],
+  ['Production deployment is blocked', 'canary fail-closed production block'],
   ['id: live_direct_health', 'direct Worker health step'],
   ['PRODUCTION_HEALTH_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev', 'direct Worker health origin'],
   ["if: ${{ always() && steps.cloudflare.outcome == 'success' }}", 'direct Worker health deploy dependency'],
@@ -46,6 +55,32 @@ for (const step of [
   const index = workflow.indexOf(`- name: ${step}`);
   const block = index >= 0 ? workflow.slice(index, workflow.indexOf('\n      - name:', index + 1) > index ? workflow.indexOf('\n      - name:', index + 1) : workflow.length) : '';
   if (!block.includes(guardedVerifierCondition)) failures.push(`${step} must wait for both direct Worker and canonical-domain health.`);
+}
+
+const canaryDeployIndex = workflow.indexOf('- name: Deploy TexasDefined canary Worker');
+const canaryHealthIndex = workflow.indexOf('- name: Verify canary Worker health');
+const canaryGateIndex = workflow.indexOf('- name: Enforce canary health gate');
+const productionRollbackTargetIndex = workflow.indexOf('- name: Capture active Worker rollback target');
+const productionDeployIndex = workflow.indexOf('- name: Deploy TexasDefined Worker');
+if (
+  canaryDeployIndex < 0
+  || canaryHealthIndex < canaryDeployIndex
+  || canaryGateIndex < canaryHealthIndex
+  || productionRollbackTargetIndex < canaryGateIndex
+  || productionDeployIndex < productionRollbackTargetIndex
+) {
+  failures.push('Canary deploy, health and gate must complete before any production rollback-target capture or production deploy.');
+}
+const canaryGateStart = workflow.indexOf('- name: Enforce canary health gate');
+const canaryGateEnd = canaryGateStart >= 0 ? workflow.indexOf('\n      - name:', canaryGateStart + 1) : -1;
+const canaryGateBlock = canaryGateStart >= 0
+  ? workflow.slice(canaryGateStart, canaryGateEnd > canaryGateStart ? canaryGateEnd : workflow.length)
+  : '';
+if (!canaryGateBlock.includes('CANARY_HEALTH_OUTCOME')) {
+  failures.push('Canary gate must depend on the canary health outcome.');
+}
+if (!workflow.includes('path: artifacts/canary-*')) {
+  failures.push('Canary failure diagnostics must be uploaded from a visible artifacts directory.');
 }
 
 const diagnosticsIndex = workflow.indexOf('- name: Capture unhealthy Worker runtime diagnostics');
@@ -100,4 +135,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Production deployment safety passed: new Worker health is stabilized before deep verification, persistent direct-Worker failure triggers rollback, rollback health is verified, and canonical-only failures do not rollback a healthy Worker.');
+console.log('Production deployment safety passed: isolated canary health must pass before production is touched; unhealthy production Workers capture diagnostics and roll back explicitly; rollback health is verified; canonical-only failures do not rollback a healthy Worker.');
