@@ -88,7 +88,8 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --title 'Refresh authoritative Texas events catalog' \
-            --body           echo "url=$pr_url" >> "$GITHUB_OUTPUT"
+            --body $'Automated Texas events refresh. This workflow prevalidates the exact generated branch but does not bypass branch protection. GitHub requires approval before pull_request workflows created with GITHUB_TOKEN can run, so the protected Required merge gate is completed by the owner-side event-refresh finisher. If main advances, the finisher reconciles current main before merge.')"
+          echo "url=$pr_url" >> "$GITHUB_OUTPUT"
           echo "Opened $pr_url"
 
       - name: Prevalidate generated refresh branch
@@ -101,9 +102,8 @@ jobs:
         run: |
           set -euo pipefail
 
-          # Validate the exact generated commit immediately. These dispatched runs
-          # are a fast fail-closed precheck; they do not impersonate the protected
-          # pull_request Required merge gate.
+          # These branch-dispatched runs are an immediate fail-closed precheck.
+          # They do not impersonate or replace the protected pull_request gate.
           bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" validate.yml
           bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" merge-gate.yml
 
