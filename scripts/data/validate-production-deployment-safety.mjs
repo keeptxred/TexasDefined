@@ -4,6 +4,8 @@ const workflow = fs.readFileSync('.github/workflows/deploy-production.yml', 'utf
 const health = fs.readFileSync('scripts/ci/verify-production-health.mjs', 'utf8');
 const capture = fs.readFileSync('scripts/ci/capture-active-worker-version.mjs', 'utf8');
 const emergency = fs.readFileSync('.github/workflows/emergency-restore-known-good-worker.yml', 'utf8');
+const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
+const smoke = fs.readFileSync('scripts/ci/verify-built-worker-ssr.mjs', 'utf8');
 const failures = [];
 
 const requireText = (source, needle, label) => {
@@ -11,6 +13,8 @@ const requireText = (source, needle, label) => {
 };
 
 for (const [needle, label] of [
+  ['id: runtime_smoke', 'predeploy built Worker SSR smoke step'],
+  ['node scripts/ci/verify-built-worker-ssr.mjs', 'predeploy built Worker SSR smoke command'],
   ['id: live_direct_health', 'direct Worker health step'],
   ['PRODUCTION_HEALTH_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev', 'direct Worker health origin'],
   ["if: ${{ always() && steps.cloudflare.outcome == 'success' }}", 'direct Worker health deploy dependency'],
@@ -59,11 +63,23 @@ if (rollbackBlock.includes('live_canonical_health')) failures.push('Automatic ro
 if (!rollbackBlock.includes("steps.live_direct_health.outcome == 'failure'")) failures.push('Automatic rollback must be limited to a failed direct Worker health gate.');
 if (rollbackBlock.includes('npx wrangler rollback --message')) failures.push('Automatic rollback must specify the captured predeploy Worker version ID explicitly.');
 
+const smokeIndex = workflow.indexOf('id: runtime_smoke');
 const captureIndex = workflow.indexOf('id: rollback_target');
 const deployIndex = workflow.indexOf('id: cloudflare');
-if (captureIndex < 0 || deployIndex < 0 || captureIndex > deployIndex) {
-  failures.push('The active Worker rollback target must be captured before the Cloudflare deploy step.');
+if (smokeIndex < 0 || captureIndex < 0 || deployIndex < 0 || smokeIndex > captureIndex || captureIndex > deployIndex) {
+  failures.push('The built Worker SSR smoke must pass before rollback-target capture and Cloudflare deployment.');
 }
+
+for (const [needle, label] of [
+  ["node_modules/.bin/wrangler", 'Wrangler local runtime launch'],
+  ["'dist/server/wrangler.json'", 'generated Worker configuration smoke target'],
+  ["response.status === 200", 'local Worker HTTP 200 requirement'],
+  ["body.includes(requiredText)", 'local Worker content marker requirement'],
+  ["process.kill(-child.pid", 'local Worker process-group cleanup'],
+]) requireText(smoke, needle, label);
+
+requireText(premerge, "Smoke-test built Worker SSR locally", 'protected merge-gate Worker SSR smoke');
+requireText(premerge, "scripts/ci/verify-built-worker-ssr.mjs", 'protected merge-gate Worker SSR smoke command');
 
 for (const [needle, label] of [
   ["'wrangler', 'deployments', 'status', '--json'", 'Wrangler active-deployment query'],

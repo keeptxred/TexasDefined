@@ -122,6 +122,21 @@ jobs:
           STAGE_OUTCOME: ${{ steps.budget.outcome }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-bundle-budget "$STAGE_OUTCOME" "Client bundle budget passed" "Client bundle budget exceeded"
 
+      - name: Publish built Worker SSR smoke pending
+        if: success()
+        run: node scripts/ci/publish-github-status.mjs texasdefined-runtime-smoke pending "Smoke-testing built Worker SSR before deploy"
+
+      - name: Smoke-test built Worker SSR locally
+        id: runtime_smoke
+        if: success()
+        run: node scripts/ci/verify-built-worker-ssr.mjs
+
+      - name: Publish built Worker SSR smoke result
+        if: always()
+        env:
+          STAGE_OUTCOME: ${{ steps.runtime_smoke.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-runtime-smoke "$STAGE_OUTCOME" "Built Worker SSR smoke passed" "Built Worker SSR smoke failed before deploy"
+
       - name: Capture active Worker rollback target
         id: rollback_target
         if: success()
@@ -379,6 +394,7 @@ jobs:
           VALIDATION_OUTCOME: ${{ steps.validation.outcome }}
           BUILD_OUTCOME: ${{ steps.build.outcome }}
           BUDGET_OUTCOME: ${{ steps.budget.outcome }}
+          RUNTIME_SMOKE_OUTCOME: ${{ steps.runtime_smoke.outcome }}
           CLOUDFLARE_OUTCOME: ${{ steps.cloudflare.outcome }}
           LIVE_OUTCOME: ${{ steps.live.outcome }}
           INDEXNOW_OUTCOME: ${{ steps.indexnow.outcome }}
@@ -392,6 +408,7 @@ jobs:
             echo "| Pre-deploy validation | CODE / CONTENT / SEO / DATA | ${VALIDATION_OUTCOME:-not-run} |"
             echo "| Production build | BUILD | ${BUILD_OUTCOME:-not-run} |"
             echo "| Client bundle budget | BUNDLE BUDGET | ${BUDGET_OUTCOME:-not-run} |"
+            echo "| Built Worker SSR smoke | RUNTIME / SSR | ${RUNTIME_SMOKE_OUTCOME:-not-run} |"
             echo "| Cloudflare Worker deploy | CLOUDFLARE / DEPLOYMENT | ${CLOUDFLARE_OUTCOME:-not-run} |"
             echo "| Live production verification | LIVE PRODUCTION | ${LIVE_OUTCOME:-not-run} |"
             echo "| IndexNow approval gate | INDEXING / EXTERNAL | ${INDEXNOW_OUTCOME:-not-run} |"
@@ -405,6 +422,8 @@ jobs:
             echo '::error title=Pipeline failure class: BUILD::Validation passed; the production build failed or regenerated an uncommitted route tree.'
           elif [[ "$BUDGET_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: BUNDLE BUDGET::Validation and build passed, but the protected client bundle budget was exceeded.'
+          elif [[ "$RUNTIME_SMOKE_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: RUNTIME / SSR::The production bundle built, but the generated Worker failed local SSR smoke before Cloudflare deployment.'
           elif [[ "$CLOUDFLARE_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: CLOUDFLARE / DEPLOYMENT::Code validation, build and bundle budget passed; Cloudflare deployment failed.'
           elif [[ "$LIVE_OUTCOME" == 'failure' ]]; then
