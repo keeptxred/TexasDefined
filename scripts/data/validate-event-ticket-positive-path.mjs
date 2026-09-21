@@ -14,7 +14,9 @@ const server = await createServer({
 try {
   const recordsModule = await server.ssrLoadModule("/src/data/events/texas-event-records.server.ts");
   const calendarModule = await server.ssrLoadModule("/src/data/events/texas-event-calendar.server.ts");
-  const records = recordsModule.loadUpcomingTexasEventRecordsServer({ limit: 200 });
+  // This fixture verifies normalization and CTA semantics, independently of the
+  // wall clock. GrapeFest remains a valid regression fixture after its event ends.
+  const records = recordsModule.loadTexasEventRecordsServer();
   const target = records.find((event) => event.slug === "grapefest");
   if (!target) throw new Error("canonical GrapeFest event record was not found");
   if (target.ticketing?.links?.length !== 1) throw new Error(`GrapeFest must deduplicate identical official ticket URLs to one link; got ${target.ticketing?.links?.length ?? 0}`);

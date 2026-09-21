@@ -79,6 +79,8 @@ Three layers guard the ticketing architecture:
 
 ## Affiliate activation
 
+The approved Ticketmaster/Impact adapter is now implemented in `ticketmaster-events.server.ts`, with a secret-backed daily Discovery API refresh and generated outbound tracking links. See [Ticketmaster integration](ticketmaster-affiliate-integration.md) for activation, freshness limits, and verification. The general requirements below continue to govern other providers.
+
 A future provider adapter should only populate `affiliateUrl` after the applicable affiliate/partner capability has actually been approved and the resulting deep link has been verified. Ticketmaster/Impact approval is not assumed by this architecture.
 
 Recommended activation sequence:

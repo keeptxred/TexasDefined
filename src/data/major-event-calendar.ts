@@ -7,14 +7,14 @@ export const getMajorEventLandingDirectory = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const [
       { loadMajorEventLandingDirectoryServer },
-      { loadUpcomingTexasEventRecordsServer },
+      { loadUpcomingTexasCalendarRecordsServer },
       { buildGlobalEventCalendarServer, buildTexasEventCarouselItemsServer },
     ] = await Promise.all([
       import("./major-event-directory.server"),
       import("./events/texas-event-records.server"),
       import("./events/texas-event-calendar.server"),
     ]);
-    const records = loadUpcomingTexasEventRecordsServer({ limit: 200 });
+    const records = loadUpcomingTexasCalendarRecordsServer();
     return {
       ...loadMajorEventLandingDirectoryServer(),
       upcomingEventRecords: buildTexasEventCarouselItemsServer(records.slice(0, 12)),
