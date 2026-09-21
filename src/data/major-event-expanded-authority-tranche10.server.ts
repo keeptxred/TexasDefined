@@ -11,11 +11,11 @@ const records: MajorEventAuthorityRecord[] = [
     category: "culture",
     startDate: "2026-11-06",
     endDate: "2026-11-06",
-    dateNote: "The discovery inventory listed George West Storyfest on November 7, 2026. Current event history shows Dobie Dichos is the active literary tradition tied to Storyfest's organizers; the official Dobie Dichos site lists November 6, 2026 in Oakville.",
+    dateNote: "Current event history identifies Dobie Dichos as the active literary tradition tied to Storyfest's organizers; the official Dobie Dichos site lists November 6, 2026 in Oakville.",
     venue: "Historic Oakville Jail",
     officialUrl: "https://www.dobiedichos.com/",
     sourceCheckedAt: "2026-08-27",
-    whyItMatters: "Dobie Dichos is an active Live Oak County literary tradition centered on J. Frank Dobie, Texas folklore and storytelling. It is the appropriate current event to surface instead of the stale George West Storyfest seed entry.",
+    whyItMatters: "Dobie Dichos is an active Live Oak County literary tradition centered on J. Frank Dobie, Texas folklore and storytelling, giving visitors a current way to connect with the area's literary heritage.",
     planningSections: [
       { title: "Go to Oakville, not downtown George West", body: "The event is held on the grounds of the Historic Oakville Jail in Oakville, between Three Rivers and George West. Use the organizer's directions and allow extra time for the rural venue." },
       { title: "Build the evening around the program", body: "The 2026 schedule opens the gates at 5 p.m., with the meal and music beginning at 6 p.m. and the storytelling program from 7 to 9 p.m. Choose your ticket type before arrival because meal-and-program and program-only options differ." },

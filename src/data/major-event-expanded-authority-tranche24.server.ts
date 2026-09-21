@@ -11,7 +11,7 @@ const records: MajorEventAuthorityRecord[] = [
     category: "culture",
     startDate: "2026-10-18",
     endDate: "2026-10-18",
-    dateNote: "The Contemporary Austin confirms The Very ‘Rary 2026 for Sunday, October 18 from 2-5 p.m. at Laguna Gloria. The supplied discovery inventory names a March 2027 ‘Critter Ball,’ but that label is not present in the museum's current event calendar. Texas Defined therefore uses the organizer-confirmed annual family fundraiser without asserting that it is a formal rename or successor to the seed entry.",
+    dateNote: "The Contemporary Austin confirms The Very ‘Rary 2026 for Sunday, October 18 from 2-5 p.m. at Laguna Gloria. The museum's current event calendar does not list a 2027 date, so this guide uses the organizer-confirmed annual family fundraiser and recommends rechecking the calendar for the next occurrence.",
     venue: "The Contemporary Austin — Laguna Gloria",
     officialUrl: "https://thecontemporaryaustin.org/event/the-very-rary-2026/",
     sourceCheckedAt: "2026-08-29",

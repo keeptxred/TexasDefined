@@ -85,7 +85,7 @@ for (const [slug, name] of venues) {
       requireText(photoBlock, marker, `${name} dedicated photo rights metadata`);
     }
   } else {
-    requireText(guidePage, 'A verified venue photograph is not available yet.', `${name} intentional image fallback`);
+    requireText(guidePage, 'data-venue-image-fallback="true"', `${name} intentional image fallback`);
     requireText(guidePage, 'image: photo?.imageUrl', `${name} fail-closed image structured data`);
   }
 
@@ -138,7 +138,7 @@ for (const marker of [
   'Nearby attractions',
   'Sources & review',
   'photo.licenseUrl',
-  'A verified venue photograph is not available yet.',
+  'data-venue-image-fallback="true"',
 ]) requireText(guidePage, marker, 'shared venue guide architecture');
 
 for (const marker of ['`sports-venue:${data.slug}`', 'encodeURIComponent(venueId)', '#calendar']) {

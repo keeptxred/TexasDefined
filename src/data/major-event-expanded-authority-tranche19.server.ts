@@ -11,7 +11,7 @@ const records: MajorEventAuthorityRecord[] = [
     category: "sport",
     startDate: "2026-12-04",
     endDate: "2026-12-06",
-    dateNote: "San Antonio Sports confirms the 2026 San Antonio Marathon weekend for December 4-6, with the SATX 5K on Friday and the marathon and half marathon on Sunday. This replaces the supplied seed inventory's obsolete Rock 'n' Roll San Antonio label: the Rock 'n' Roll Running Series left San Antonio after its 2024 event, and the locally organized San Antonio Marathon is now the current signature race weekend.",
+    dateNote: "San Antonio Sports confirms the 2026 San Antonio Marathon weekend for December 4-6, with the SATX 5K on Friday and the marathon and half marathon on Sunday. The Rock 'n' Roll Running Series left San Antonio after its 2024 event; the locally organized San Antonio Marathon is now the current signature race weekend.",
     venue: "Hemisfair and downtown San Antonio",
     officialUrl: "https://sanantoniomarathon.com/",
     sourceCheckedAt: "2026-08-27",

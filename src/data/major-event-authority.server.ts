@@ -219,7 +219,7 @@ function getVerifiedTournamentAuthorityServer(slug: string): MajorEventAuthority
       {
         href: profile.categoryPath,
         label: profile.categoryLabel,
-        description: "Compare related verified guides and discovery-stage tournament listings.",
+        description: "Compare related Texas tournament and competition guides.",
       },
       {
         href: `/browse/counties#county-${profile.countySlug}`,
