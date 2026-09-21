@@ -71,11 +71,11 @@ if (smokeIndex < 0 || captureIndex < 0 || deployIndex < 0 || smokeIndex > captur
 }
 
 for (const [needle, label] of [
-  ["'wrangler',", 'Wrangler local runtime launch'],
+  ["node_modules/.bin/wrangler", 'Wrangler local runtime launch'],
   ["'dist/server/wrangler.json'", 'generated Worker configuration smoke target'],
   ["response.status === 200", 'local Worker HTTP 200 requirement'],
   ["body.includes(requiredText)", 'local Worker content marker requirement'],
-  ["child.kill('SIGTERM')", 'local Worker cleanup'],
+  ["process.kill(-child.pid", 'local Worker process-group cleanup'],
 ]) requireText(smoke, needle, label);
 
 requireText(premerge, "Smoke-test built Worker SSR locally", 'protected merge-gate Worker SSR smoke');
