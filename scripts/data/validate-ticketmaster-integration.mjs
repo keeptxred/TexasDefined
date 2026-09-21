@@ -25,6 +25,7 @@ try {
   assert.equal(ticketmasterAuthorityGuidePath('Way Out West Festival Featuring Cole Swindell', 'El Paso'), '/event/way-out-west-festival-el-paso');
   assert.equal(ticketmasterAuthorityGuidePath('State Fair Classic', 'Dallas'), '/event/state-fair-classic');
   assert.equal(ticketmasterAuthorityGuidePath('Beaumont Comic Con', 'Beaumont'), '/event/beaumont-comic-con');
+  assert.equal(ticketmasterAuthorityGuidePath('Eagle Fest Featuring ZZ Top', 'The Woodlands'), '/event/eagle-fest-the-woodlands');
   assert.equal(ticketmasterAuthorityGuidePath('Austin City Limits Festival', 'Austin'), '/event/austin-city-limits-music-festival');
   assert.equal(ticketmasterAuthorityGuidePath('Austin Food + Wine Festival', 'Austin'), '/event/austin-food-wine-festival');
   assert.equal(ticketmasterAuthorityGuidePath('Red Steagall Cowboy Gathering', 'Fort Worth'), '/event/red-steagall-cowboy-gathering');
@@ -43,6 +44,7 @@ try {
     'way-out-west-festival-el-paso',
     'state-fair-classic',
     'beaumont-comic-con',
+    'eagle-fest-the-woodlands',
     'bill-pickett-rodeo-fort-worth',
     'hollydays-market-corpus-christi',
   ]) assert.equal(hasCompliantMajorEventImageServer(slug), true, `${slug} must remain indexable with rights-cleared hero provenance`);
