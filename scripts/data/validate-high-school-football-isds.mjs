@@ -124,12 +124,20 @@ if (!errors.length) {
   requireText(teamHub, '/texas-high-school-football-isds', 'Statewide football hub ISD discovery');
   requireText(teamHub, 'Browse football programs by ISD', 'Statewide football hub ISD discovery');
 
-  for (const marker of [
+  requireText(
+    sitemap,
+    'The indexable ISD hub remains in INDEXABLE_STATIC_PATHS',
+    'Football ISD sitemap cold-path safeguard',
+  );
+  for (const forbidden of [
     'footballIsdSitemapEntries',
     'footballIsdEntries',
     'Football ISD sitemap entries unavailable; continuing without dynamic ISD profiles.',
-    '...footballIsdEntries',
-  ]) requireText(sitemap, marker, 'Football ISD sitemap');
+  ]) {
+    if (sitemap.includes(forbidden)) {
+      errors.push(`Primary sitemap must not hydrate the live TEA-backed football ISD directory at request time: ${forbidden}`);
+    }
+  }
 
   for (const [file, source] of [
     [files.indexPage, indexPage],
