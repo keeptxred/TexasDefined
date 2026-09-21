@@ -76,6 +76,10 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
     title: "LBJ State Park & Sauer-Beckmann Farm: Hours & Guide",
     description: "Plan LBJ State Park near Stonewall with free admission, current Sauer-Beckmann Farm hours, closures, longhorns, bison, trails and LBJ Ranch connections.",
   },
+  "/destination/lbj-boyhood-home-johnson-city": {
+    title: "LBJ Boyhood Home Johnson City: Tours, Times & Visitor Guide",
+    description: "Plan the LBJ Boyhood Home in Johnson City with current free NPS tour times, visitor-center meeting point, summer heat limits, history and nearby LBJ sites.",
+  },
   "/destination/pecan-street-brewing-johnson-city": {
     title: "Pecan Street Brewing Johnson City: Beer, Food & Live Music",
     description: "Plan Pecan Street Brewing in Johnson City with current hours, house-brewed beer, food, live music, Gears & Beers and historic-square visitor details.",

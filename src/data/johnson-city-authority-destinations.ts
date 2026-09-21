@@ -37,6 +37,7 @@ export const johnsonCityAuthorityDestinations: Destination[] = [
     highlights: [
       "Blanco County Courthouse and walkable downtown core",
       "Lyndon B. Johnson National Historical Park — Johnson City district",
+      "Free LBJ Boyhood Home programs in the Johnson City NPS district",
       "Science Mill hands-on STEM museum",
       "Texas Vintage Motorcycle Museum",
       "Reptilandia reptile and amphibian zoo",
@@ -75,6 +76,13 @@ export const johnsonCityAuthorityDestinations: Destination[] = [
             "The Johnson City district includes the visitor center, Boyhood Home and Johnson Settlement; the ranch district is about 14 miles west near Stonewall.",
           proximity: "In town and west toward Stonewall",
           href: "/destination/lyndon-b-johnson-national-historical-park",
+        },
+        {
+          name: "LBJ Boyhood Home",
+          description:
+            "Free daily National Park Service programs interpret Lyndon Johnson's restored 1920s childhood home and family life in Johnson City.",
+          proximity: "Walkable from the NPS Visitor Center",
+          href: "/destination/lbj-boyhood-home-johnson-city",
         },
         {
           name: "Science Mill",

@@ -5,6 +5,28 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "lbj-boyhood-home-johnson-city": [
+    {
+      href: "/destination/lyndon-b-johnson-national-historical-park",
+      label: "Explore the full LBJ National Historical Park",
+      description: "Connect the Boyhood Home with the Johnson Settlement and the separate LBJ Ranch district near Stonewall.",
+    },
+    {
+      href: "/destination/johnson-city",
+      label: "Explore Johnson City",
+      description: "Add downtown museums, food, the courthouse square and other Johnson City attractions around the free NPS program.",
+    },
+    {
+      href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
+      label: "Add Sauer-Beckmann and LBJ State Park",
+      description: "Continue west to the free living-history farm, longhorns, bison and Pedernales River landscape near Stonewall.",
+    },
+    {
+      href: "/destination/science-mill-johnson-city",
+      label: "Add Science Mill",
+      description: "Pair presidential history with Johnson City's hands-on STEM museum for a broader family day.",
+    },
+  ],
   "lyndon-b-johnson-state-park-and-historic-site": [
     {
       href: "/destination/lyndon-b-johnson-national-historical-park",
@@ -30,6 +52,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/destination/fredericksburg",
       label: "Continue to Fredericksburg",
       description: "Head west for German-Texan history, museums, restaurants, wineries and the larger Hill Country visitor base.",
+    },
+    {
+      href: "/destination/lbj-boyhood-home-johnson-city",
+      label: "Add the LBJ Boyhood Home",
+      description: "Connect the Stonewall living-history landscape with Johnson's childhood home and free NPS programs in Johnson City.",
     },
   ],
   "pecan-street-brewing-johnson-city": [
@@ -309,6 +336,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       label: "Visit LBJ State Park and Sauer-Beckmann Farm",
       description: "Continue west to the free living-history farm, longhorns, bison and Pedernales River landscape near Stonewall.",
     },
+    {
+      href: "/destination/lbj-boyhood-home-johnson-city",
+      label: "Tour the LBJ Boyhood Home",
+      description: "Use the dedicated guide for current free NPS program times, summer heat limitations and Johnson City visitor-center logistics.",
+    },
   ],
   "science-mill-johnson-city": [
     {
@@ -394,6 +426,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
       label: "Add Sauer-Beckmann Living History Farm",
       description: "Use the adjacent state park to understand the German-Texan farm culture and Pedernales landscape surrounding LBJ country.",
+    },
+    {
+      href: "/destination/lbj-boyhood-home-johnson-city",
+      label: "Tour the LBJ Boyhood Home",
+      description: "Use the focused Johnson City guide for current free program times and the restored 1920s household.",
     },
   ],
   "shiner": [
