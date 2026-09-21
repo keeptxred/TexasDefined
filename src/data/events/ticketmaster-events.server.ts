@@ -12,6 +12,7 @@ interface TicketmasterSnapshot { fetchedAt: string | null; events: TicketmasterR
 const ticketmasterAuthorityMatchers = [
   { city: "McAllen", slug: "fiesta-de-palmas", prefix: "fiesta de palmas" },
   { city: "McAllen", slug: "mcallen-holiday-parade", prefix: "mcallen holiday parade" },
+  { city: "McAllen", slug: "south-pole-illuminated-festival", prefix: "south pole illuminated festival" },
   { city: "San Antonio", slug: "bands-of-america-san-antonio-super-regional", prefix: "bands of america: san antonio super regional championship" },
   { city: "Arlington", slug: "big-12-football-championship", prefix: "big 12 football championship" },
   { city: "El Paso", slug: "el-paso-film-festival", prefix: "el paso film festival" },
