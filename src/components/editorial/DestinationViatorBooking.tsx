@@ -36,11 +36,13 @@ export function DestinationViatorBooking({ destination }: { destination: Destina
   const huntingLinks = destination.id.startsWith("texas-wma-") ? <WmaHuntingLinks /> : null;
   if (!market) return huntingLinks;
 
-  const runtimeMarket = viatorRuntimeMarketForSlug(market.slug);
   const hasDedicatedInventory = hasVerifiedViatorMarketUrl(market.slug);
+  if (!hasDedicatedInventory) return huntingLinks;
+
+  const runtimeMarket = viatorRuntimeMarketForSlug(market.slug);
   const href = buildViatorAffiliateUrl(verifiedViatorMarketUrl(market.slug), `texasdefined-destination-${destination.slug}`);
   const commercialPlacement = `viator-destination-${destination.slug}`;
-  const ctaLabel = hasDedicatedInventory ? `See current experiences near ${destination.name}` : "Browse current Texas experiences";
+  const ctaLabel = `See current experiences near ${destination.name}`;
 
   return <>
     <section className="mt-10 border border-border bg-surface p-6 sm:p-7" aria-labelledby={`viator-${destination.slug}`}>
