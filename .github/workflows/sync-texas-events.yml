@@ -88,11 +88,10 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --title 'Refresh authoritative Texas events catalog' \
-            --body $'Automated Texas events refresh. The branch is not merged until both the authoritative TexasDefined validation workflow and the protected Required merge gate pass against the exact generated commit. If main advances during validation, the branch is rebased and both checks are rerun before merge.')"
-          echo "url=$pr_url" >> "$GITHUB_OUTPUT"
+            --body           echo "url=$pr_url" >> "$GITHUB_OUTPUT"
           echo "Opened $pr_url"
 
-      - name: Validate against current main and merge
+      - name: Prevalidate generated refresh branch
         if: steps.changes.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -102,44 +101,15 @@ jobs:
         run: |
           set -euo pipefail
 
-          for cycle in 1 2 3; do
-            bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" validate.yml
-            # Pull requests opened by GITHUB_TOKEN do not emit another workflow event,
-            # so explicitly dispatch the branch-protection check on the exact head SHA.
-            bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" merge-gate.yml
+          # Validate the exact generated commit immediately. These dispatched runs
+          # are a fast fail-closed precheck; they do not impersonate the protected
+          # pull_request Required merge gate.
+          bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" validate.yml
+          bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" merge-gate.yml
 
-            git fetch origin main
-            if git merge-base --is-ancestor origin/main HEAD; then
-              echo "Validated branch contains current main and passed the Required merge gate."
-              break
-            fi
-
-            if [[ "$cycle" -eq 3 ]]; then
-              echo "::error title=Main kept advancing::Refusing to merge an automation branch that could not be reconciled and revalidated against current main after three cycles."
-              exit 1
-            fi
-
-            echo "Main advanced during validation; rebasing before another validation cycle."
-            git rebase origin/main
-            git push --force-with-lease origin "$BRANCH"
-          done
-
-          # Repository auto-merge is intentionally disabled. Once the exact head has
-          # the required protected check, a normal squash merge is policy-compliant.
-          gh pr merge "$PR_URL" --squash --delete-branch
-          merged_at="$(gh pr view "$PR_URL" --json mergedAt --jq '.mergedAt // ""')"
-          if [[ -z "$merged_at" ]]; then
-            echo "::error title=Event refresh did not merge::The protected merge command returned without a recorded merge."
-            exit 1
+          git fetch origin main
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            echo "::notice title=Main advanced after generation::Leaving $PR_URL open for the owner-side finisher to reconcile and revalidate against current main."
           fi
-          echo "Texas events refresh merged at ${merged_at} after exact-branch validation and Required merge gate success."
 
-      - name: Dispatch production deployment for merged catalog
-        if: steps.changes.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          gh workflow run deploy-production.yml --ref main
-          echo "Production deployment dispatched explicitly because GITHUB_TOKEN-authored merges do not reliably emit downstream workflow runs."
+          echo "Generated event refresh is prevalidated and ready for the protected owner-side finisher: $PR_URL"
