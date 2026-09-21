@@ -10,7 +10,7 @@ const PLAN_VISIT_HEADING = /(<h2[^>]*>\s*Planning your visit\s*<\/h2>)/i;
 const LEGACY_PLAN_VISIT_HEADING = /(<h2[^>]*>\s*)Plan the visit(\s*<\/h2>)/gi;
 const FIRST_SECTION_HEADING = /(<h2[^>]*>)/i;
 const EVENT_DISCOVERY_TAIL = /(<section data-event-discovery-tail="true"[^>]*>)/i;
-const STAY_NEARBY_SLOT = '<div data-stay-nearby-slot class="my-10" aria-label="Places to stay near this event"></div>';
+const STAY_NEARBY_SLOT = '<div data-stay-nearby-slot aria-label="Places to stay near this event"></div>';
 
 function stabilizeEventHtml(slug: string, html: string) {
   if (slug !== "chappell-hill-bluebonnet-festival") return html;
