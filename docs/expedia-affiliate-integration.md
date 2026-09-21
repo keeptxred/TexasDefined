@@ -6,7 +6,7 @@ TexasDefined treats lodging as a trip-planning utility, not a sitewide ad layer.
 
 1. **Stay Nearby** supplies context-first hotel recommendations when TexasDefined has governed relevance data for the current venue, event, destination or city.
 2. **Expedia stays search** is the approved broad-search fallback and remains the host for live availability/search behavior.
-3. **Hotels.com / Vrbo choices** add a route-scoped traveler monetization layer inside the same Stay Nearby surface. Hotels.com is primary on event and sports-venue intent; broader destination/leisure intent can offer both Hotels.com and Vrbo. Vrbo owner referrals are separately gated to owner/real-estate context and are not inferred from ordinary travel intent.
+3. **Hotels.com / Travelocity / Vrbo choices** add a route-scoped traveler monetization layer inside the same Stay Nearby surface. Hotels.com remains primary for verified exact-property referrals, Travelocity adds a hotel-comparison option on governed stay surfaces, and broader destination/leisure intent can also offer Vrbo. Vrbo owner referrals are separately gated to owner/real-estate context and are not inferred from ordinary travel intent.
 
 Editorial relevance and affiliate activation remain separate. A hotel can be included because its location is useful even when TexasDefined does not yet have a verified property-specific affiliate link. In that case, the card falls back to the approved Expedia stays search instead of inventing a property deep link.
 
@@ -19,15 +19,15 @@ Editorial relevance and affiliate activation remain separate. A hotel can be inc
 - PUBREF: `texasdefined-stays`
 - Vendor script: `https://creator.expediagroup.com/products/widgets/assets/eg-widgets.js`
 
-The server-rendered root shell emits deferred first-party bootstraps at `/expedia-travel.js` and `/stay-affiliate-options.js`, with the Hotels.com/Vrbo bootstrap loading after the Expedia bootstrap. The hydrated client build excludes these bootstrap references, so lodging monetization does not consume the protected React `main-*.js` budget.
+The server-rendered root shell emits deferred first-party bootstraps at `/expedia-travel.js` and `/stay-affiliate-options.js`, with the Hotels.com/Travelocity/Vrbo bootstrap loading after the Expedia bootstrap. The hydrated client build excludes these bootstrap references, so lodging monetization does not consume the protected React `main-*.js` budget.
 
 The Expedia vendor script itself is never loaded during the initial page load. It is created only after a visitor activates an Expedia-search fallback or broader stay-search control.
 
-## Hotels.com / Vrbo contract
+## Hotels.com / Travelocity / Vrbo contract
 
-`public/stay-affiliate-options.js` is the route-policy and presentation layer for Hotels.com and Vrbo.
+`public/stay-affiliate-options.js` is the route-policy and presentation layer for Hotels.com, Travelocity and Vrbo.
 
-Traveler links use the TexasDefined CJ publisher ID `101876465` and the CJ Deep Link Generator base. The deep-link builder fails closed: only `www.hotels.com` and `www.vrbo.com` destinations are accepted. Every outbound traveler affiliate link uses `rel="sponsored nofollow noopener noreferrer"` and opens only after an explicit visitor click.
+Traveler links use the TexasDefined CJ publisher ID `101876465` and the CJ Deep Link Generator base. The deep-link builder fails closed: only `www.hotels.com`, `www.travelocity.com` and `www.vrbo.com` destinations are accepted. Every outbound traveler affiliate link uses `rel="sponsored nofollow noopener noreferrer"` and opens only after an explicit visitor click.
 
 Current traveler intent policy:
 
@@ -35,7 +35,7 @@ Current traveler intent policy:
 - **Hotels + vacation rentals:** destinations, Explore travel content, city guides, county guides and the approved statewide camping, college-town, tailgating, unique-lodging, music-venue and roadside-oddity guides.
 - **Owner referral:** `/real-estate` and explicitly qualifying owner/vacation-rental article metadata only. Ordinary travel pages do not inherit owner-referral eligibility.
 
-Visible CTAs include `Find places to stay`, `Find hotels on Hotels.com` and, where the route policy permits it, `Find vacation rentals on Vrbo`.
+Visible CTAs include `Find places to stay`, `Find hotels on Hotels.com`, `Compare hotels on Travelocity` and, where the route policy permits it, `Find vacation rentals on Vrbo`.
 
 Affiliate clicks push an `affiliate_click` object into `window.dataLayer` with partner, CTA label, placement and current page path. The tracking payload does not collect visitor PII. A matching `texasdefined:affiliate-click` browser event is also dispatched for first-party observability.
 
@@ -169,7 +169,7 @@ The centralized travel guard covers:
 - `/event/*` guides
 - approved statewide trip-planning pages already covered by the travel guard
 
-Curated Stay Nearby cards render only when the registry has a relevant context. Other approved travel pages retain the generic Expedia stays search plus the route-appropriate Hotels.com/Vrbo traveler choices.
+Curated Stay Nearby cards render only when the registry has a relevant context. Other approved travel pages retain the generic Expedia stays search plus the route-appropriate Hotels.com/Travelocity/Vrbo traveler choices.
 
 ## Disclosure
 
@@ -177,7 +177,7 @@ Every rendered Expedia / Stay Nearby surface includes the Expedia disclosure:
 
 `Affiliate disclosure: TexasDefined may earn a commission from qualifying Expedia bookings, at no additional cost to you.`
 
-The Hotels.com/Vrbo choice panel separately discloses that TexasDefined may earn a commission from qualifying Hotels.com or Vrbo activity at no additional cost to the visitor. The Vrbo owner-referral panel carries its own owner-referral disclosure.
+The Hotels.com/Travelocity/Vrbo choice panel separately discloses that TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or Vrbo activity at no additional cost to the visitor. The Vrbo owner-referral panel carries its own owner-referral disclosure.
 
 ## Performance behavior
 
@@ -191,10 +191,10 @@ The Hotels.com/Vrbo choice panel separately discloses that TexasDefined may earn
 
 `scripts/data/validate-expedia-affiliate.mjs` protects the core Expedia/Stay Nearby contract, including tracking values, user-intent loading, route guards, relevance data, property-link verification, image governance and carousel behavior.
 
-`scripts/data/validate-stay-affiliate-options.mjs` protects the Hotels.com/Vrbo layer and now executes the route-policy API in a minimal browser sandbox. It verifies:
+`scripts/data/validate-stay-affiliate-options.mjs` protects the Hotels.com/Travelocity/Vrbo layer and now executes the route-policy API in a minimal browser sandbox. It verifies:
 
 - event and sports-venue intent remains hotel-first
-- destination, city, county, Explore and the governed statewide travel families remain Hotels.com + Vrbo traveler intent
+- destination, city, county, Explore and the governed statewide travel families retain hotel comparison plus Vrbo traveler intent
 - owner-referral eligibility remains separate from ordinary travel intent
 - CJ deep links remain bound to publisher `101876465`
 - unsupported deep-link destination hosts fail closed
@@ -206,6 +206,6 @@ The Hotels.com/Vrbo choice panel separately discloses that TexasDefined may earn
 
 `scripts/ci/verify-stay-nearby-production.mjs` applies the live-production checks for the governed curated hotel registry and image/provenance rules.
 
-`scripts/ci/verify-stay-affiliate-production.mjs` verifies the live Hotels.com/Vrbo and Expedia bootstraps, their ordering and tracking markers, deterministic in-content slots on representative event/venue/destination pages, and shared stay-bootstrap presence on representative city and county guides.
+`scripts/ci/verify-stay-affiliate-production.mjs` verifies the live Hotels.com/Travelocity/Vrbo and Expedia bootstraps, their ordering and tracking markers, deterministic in-content slots on representative event/venue/destination pages, and shared stay-bootstrap presence on representative city and county guides.
 
 `.github/workflows/verify-stay-affiliate-production.yml` runs that smoke test automatically after a successful `Deploy TexasDefined production` workflow. This closes the loop from source validation to deployed behavior without requiring a manual affiliate audit after every release.
