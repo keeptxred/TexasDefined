@@ -3,7 +3,7 @@ import { createServer } from 'vite';
 const server = await createServer({ configFile: false, appType: 'custom', logLevel: 'error', server: { middlewareMode: true } });
 try {
   const { loadTicketmasterEventsServer } = await server.ssrLoadModule('/src/data/events/ticketmaster-events.server.ts');
-  const { buildTexasEventCarouselItemsServer } = await server.ssrLoadModule('/src/data/events/texas-event-calendar.server.ts');
+  const { buildTexasEventCarouselItemsServer, buildGlobalEventCalendarServer } = await server.ssrLoadModule('/src/data/events/texas-event-calendar.server.ts');
   const now = new Date();
   const date = now.toISOString().slice(0, 10);
   const event = { id: 'fixture', name: 'Example event', startDate: date, city: 'San Antonio', venue: 'Frost Bank Center', officialUrl: 'https://www.ticketmaster.com/event/ABC123', affiliateUrl: 'https://ticketmaster.evyy.net/c/7758914/264167/4272?u=https%3A%2F%2Fwww.ticketmaster.com%2Fevent%2FABC123', status: 'onsale', segment: 'Sports', genre: '' };
@@ -16,6 +16,13 @@ try {
   assert.equal(cta.label, 'Find Tickets →');
   assert.ok(cta.rel.includes('sponsored'));
   assert.ok(cta.disclosure);
+  const largeCatalog = [...Array.from({ length: 300 }, (_, index) => ({ ...records[0], id: `other-${index}`, city: 'Austin' })), ...records];
+  const view = buildGlobalEventCalendarServer(largeCatalog, { featured: '', location: 'city:San Antonio', start: '', end: '', category: '', venue: '' });
+  assert.equal(view.results.length, 1);
+  assert.equal(view.results[0].id, records[0].id);
+  const all = buildGlobalEventCalendarServer(largeCatalog, { featured: '', location: '', start: '', end: '', category: '', venue: '' });
+  assert.equal(all.results.length, 48);
+  assert.equal(all.totalCount, 301);
   assert.deepEqual(loadTicketmasterEventsServer(catalog, new Date(now.getTime() + 49 * 3600000)), []);
   assert.deepEqual(loadTicketmasterEventsServer({ ...catalog, events: [{ ...event, status: 'cancelled' }] }, now), []);
   assert.deepEqual(loadTicketmasterEventsServer({ ...catalog, events: [{ ...event, city: 'Unknown city' }] }, now), []);

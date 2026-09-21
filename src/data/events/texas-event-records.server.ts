@@ -184,6 +184,15 @@ export function queryTexasEventRecordsServer(query: TexasEventQuery = {}) {
   return selectTexasEventRecords(loadTexasEventRecordsServer(), query);
 }
 
+/** Keep the full inventory on the server so later dates/cities survive filtering.
+ * The calendar projection still returns at most 48 results and 12 carousel items.
+ */
+export function loadUpcomingTexasCalendarRecordsServer() {
+  const today = texasTodayIso();
+  return loadTexasEventRecordsServer().filter(record =>
+    (record.endDate ?? record.startDate) >= today && record.status !== "cancelled");
+}
+
 export function loadUpcomingTexasEventRecordsServer(query: TexasEventQuery = {}) {
   return queryTexasEventRecordsServer({
     ...query,
