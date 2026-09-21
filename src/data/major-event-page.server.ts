@@ -64,7 +64,7 @@ const PUBLIC_COPY_EDITORIAL_PATTERNS = [
 
 function cleanPublicCopy(value: string | undefined) {
   if (!value) return "";
-  const sentences = value.match(/[^.!?]+(?:[.!?]+|$)/g) ?? [value];
+  const sentences = value.split(/(?<=[.!?])\s+(?=[A-Z0-9"'“])/);
   return sentences
     .map((sentence) => sentence.trim())
     .filter(Boolean)
