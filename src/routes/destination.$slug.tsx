@@ -178,7 +178,7 @@ function DestinationPage() {
     <section className="relative isolate mt-5 overflow-hidden bg-ink text-ink-foreground">
       <img src={destination.hero.src} alt={destination.hero.alt} width={destination.hero.width} height={destination.hero.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-65" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/65 to-ink/15" />
-      <Container className="relative flex min-h-[24rem] flex-col justify-end pb-10 pt-24 sm:min-h-[28rem] sm:pb-12 sm:pt-28 lg:min-h-[32rem]">
+      <Container className="relative flex flex-col justify-end" style={{ minHeight: "clamp(24rem, 52vw, 32rem)", paddingTop: "6rem", paddingBottom: "3rem" }}>
         <p className="eyebrow text-ink-foreground/80">{region?.name ?? "Texas"} · {categoryName}</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{destination.name}</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/88">{destination.summary}</p>
