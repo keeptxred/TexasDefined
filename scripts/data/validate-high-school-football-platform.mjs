@@ -268,6 +268,7 @@ if (!errors.length) {
     'School profile, enrollment & mascot →',
     "limit: '500'",
     'showAllMatches',
+    'showAllByDefault',
     'Show all {programs.length.toLocaleString()} matched programs',
     'Results stay ordered by UIL classification, with 6A before 5A through 1A.',
   ]) requireText(finder, marker, 'Football lookup component');
@@ -876,6 +877,7 @@ if (!errors.length) {
 
   requireText(countyModule, 'High school football in', 'County football module');
   requireText(countyModule, 'countyName={countyName}', 'County football module');
+  requireText(countyModule, 'showAllByDefault', 'County football module all-program default');
 
   requireText(route, "createFileRoute(canonicalPath)", 'Football finder route');
   requireText(route, "const canonicalPath = '/texas-high-school-football-teams'", 'Football finder route');
