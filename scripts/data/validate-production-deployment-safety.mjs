@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const workflow = fs.readFileSync('.github/workflows/deploy-production.yml', 'utf8');
 const health = fs.readFileSync('scripts/ci/verify-production-health.mjs', 'utf8');
+const capture = fs.readFileSync('scripts/ci/capture-active-worker-version.mjs', 'utf8');
 const failures = [];
 
 const requireText = (source, needle, label) => {
@@ -14,7 +15,9 @@ for (const [needle, label] of [
   ["if: ${{ always() && steps.cloudflare.outcome == 'success' }}", 'direct Worker health deploy dependency'],
   ['id: rollback', 'automatic rollback step'],
   ["steps.live_direct_health.outcome == 'failure'", 'rollback direct-health failure condition'],
-  ['npx wrangler rollback --message "Automatic rollback: direct Worker health failed after deploy ${GITHUB_SHA}"', 'non-interactive Worker rollback command'],
+  ['id: rollback_target', 'predeploy rollback target step'],
+  ['node scripts/ci/capture-active-worker-version.mjs', 'rollback target capture command'],
+  ['npx wrangler rollback "${{ steps.rollback_target.outputs.version_id }}" --message "Automatic rollback: direct Worker health failed after deploy ${GITHUB_SHA}"', 'explicit non-interactive Worker rollback command'],
   ['id: rollback_health', 'rollback health verification'],
   ["steps.rollback.outcome == 'success'", 'rollback health dependency'],
   ['id: live_canonical_health', 'canonical domain health step'],
@@ -45,6 +48,20 @@ const rollbackEnd = rollbackIndex >= 0 ? workflow.indexOf('\n      - name:', rol
 const rollbackBlock = rollbackIndex >= 0 ? workflow.slice(rollbackIndex, rollbackEnd > rollbackIndex ? rollbackEnd : workflow.length) : '';
 if (rollbackBlock.includes('live_canonical_health')) failures.push('Automatic rollback must not be triggered by canonical-domain-only failures.');
 if (!rollbackBlock.includes("steps.live_direct_health.outcome == 'failure'")) failures.push('Automatic rollback must be limited to a failed direct Worker health gate.');
+if (rollbackBlock.includes('npx wrangler rollback --message')) failures.push('Automatic rollback must specify the captured predeploy Worker version ID explicitly.');
+
+const captureIndex = workflow.indexOf('id: rollback_target');
+const deployIndex = workflow.indexOf('id: cloudflare');
+if (captureIndex < 0 || deployIndex < 0 || captureIndex > deployIndex) {
+  failures.push('The active Worker rollback target must be captured before the Cloudflare deploy step.');
+}
+
+for (const [needle, label] of [
+  ["'wrangler', 'deployments', 'status', '--json'", 'Wrangler active-deployment query'],
+  ["percentage >= 99.999", 'single 100%-traffic version requirement'],
+  ["version_id=", 'GitHub Actions rollback-target output'],
+  ['Refusing to deploy without a deterministic rollback target.', 'fail-closed ambiguous deployment handling'],
+]) requireText(capture, needle, label);
 
 for (const [needle, label] of [
   ["const attempts = Math.max(2", 'bounded retry count'],
