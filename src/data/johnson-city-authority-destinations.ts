@@ -38,6 +38,7 @@ export const johnsonCityAuthorityDestinations: Destination[] = [
       "Blanco County Courthouse and walkable downtown core",
       "Lyndon B. Johnson National Historical Park — Johnson City district",
       "Free LBJ Boyhood Home programs in the Johnson City NPS district",
+      "Johnson Settlement cattle-drive and frontier-history trail",
       "Science Mill hands-on STEM museum",
       "Texas Vintage Motorcycle Museum",
       "Reptilandia reptile and amphibian zoo",
@@ -83,6 +84,13 @@ export const johnsonCityAuthorityDestinations: Destination[] = [
             "Free daily National Park Service programs interpret Lyndon Johnson's restored 1920s childhood home and family life in Johnson City.",
           proximity: "Walkable from the NPS Visitor Center",
           href: "/destination/lbj-boyhood-home-johnson-city",
+        },
+        {
+          name: "Johnson Settlement",
+          description:
+            "A one-mile historic trail through the Johnson family's 1860s cattle-driving headquarters, dogtrot cabin, barns and longhorn landscape.",
+          proximity: "Johnson City NPS district",
+          href: "/destination/johnson-settlement-johnson-city",
         },
         {
           name: "Science Mill",
