@@ -5,6 +5,16 @@ import { fetchTexasEvents, normalizeDiscoveryEvent, officialTicketmasterUrl } fr
 const base = 'https://ticketmaster.evyy.net/c/7758914/264167/4272?subId1=texasdefined&partnerpropertyid=8837726&MediaPartnerPropertyId=8837726';
 const event = { id: 'example', name: 'Example concert', url: 'https://www.ticketmaster.com/example/event/ABC123?tracking=old', dates: { start: { localDate: '2026-10-14' }, status: { code: 'onsale' } }, _embedded: { venues: [{ name: 'Example venue', city: { name: 'Austin' }, state: { stateCode: 'TX' }, country: { countryCode: 'US' } }] } };
 
+test('accepts automatically wrapped API links only for the approved publisher and destination', () => {
+  const wrapped = `${base}&u=${encodeURIComponent(event.url)}&utm_medium=affiliate`;
+  const row = normalizeDiscoveryEvent({ ...event, url: wrapped }, base);
+  assert.equal(row.officialUrl, 'https://www.ticketmaster.com/example/event/ABC123');
+  assert.equal(new URL(row.affiliateUrl).searchParams.get('u'), row.officialUrl);
+  assert.equal(normalizeDiscoveryEvent({ ...event, url: wrapped.replace('/7758914/', '/123/') }, base), null);
+  assert.equal(normalizeDiscoveryEvent({ ...event, url: `${base}&u=https%3A%2F%2Fevil.test%2Fevent%2FABC123` }, base), null);
+  assert.equal(normalizeDiscoveryEvent({ ...event, url: `${wrapped}&u=${encodeURIComponent(event.url)}` }, base), null);
+});
+
 test('only verified US Ticketmaster event destinations are wrapped with the approved publisher', () => {
   const row = normalizeDiscoveryEvent(event, base);
   const link = new URL(row.affiliateUrl);

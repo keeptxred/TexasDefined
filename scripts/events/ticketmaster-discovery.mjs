@@ -11,12 +11,19 @@ export function officialTicketmasterUrl(value) {
 }
 
 export function normalizeDiscoveryEvent(event, trackingBase) {
-  const venue = event._embedded?.venues?.[0];
-  const start = event.dates?.start;
-  const officialUrl = officialTicketmasterUrl(event.url);
-  if (event.test || !event.id || !event.name || venue?.state?.stateCode !== 'TX' || venue?.country?.countryCode !== 'US' || !venue.city?.name || !officialUrl || start?.dateTBD || start?.dateTBA || !/^\d{4}-\d{2}-\d{2}$/.test(start?.localDate ?? '')) return null;
   const affiliate = new URL(trackingBase);
   if (affiliate.origin !== 'https://ticketmaster.evyy.net' || !/^\/c\/\d+\/\d+\/4272$/.test(affiliate.pathname) || affiliate.username || affiliate.password) throw new Error('Invalid approved Impact tracking base');
+  let destination = event.url;
+  // Once the developer profile propagates, Discovery returns an Impact URL.
+  // Unwrap only this publisher/program and still validate the final destination.
+  try {
+    const supplied = new URL(destination);
+    if (supplied.origin === affiliate.origin && supplied.pathname === affiliate.pathname && !supplied.username && !supplied.password && supplied.searchParams.getAll('u').length === 1) destination = supplied.searchParams.get('u');
+  } catch { return null; }
+  const venue = event._embedded?.venues?.[0];
+  const start = event.dates?.start;
+  const officialUrl = officialTicketmasterUrl(destination);
+  if (event.test || !event.id || !event.name || venue?.state?.stateCode !== 'TX' || venue?.country?.countryCode !== 'US' || !venue.city?.name || !officialUrl || start?.dateTBD || start?.dateTBA || !/^\d{4}-\d{2}-\d{2}$/.test(start?.localDate ?? '')) return null;
   affiliate.searchParams.set('u', officialUrl);
   return {
     id: String(event.id), name: String(event.name), startDate: start.localDate,
