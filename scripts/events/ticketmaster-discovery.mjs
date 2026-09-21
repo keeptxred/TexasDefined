@@ -16,6 +16,14 @@ function directTicketmasterUrlRejectionReason(url) {
   return null;
 }
 
+function ticketWebUrlRejectionReason(url) {
+  if (!['http:', 'https:'].includes(url.protocol)) return 'scheme';
+  if (url.username || url.password || url.port) return 'credentials-or-port';
+  if (!APPROVED_TICKETWEB_HOSTS.has(url.hostname.toLowerCase())) return `host-${sanitizedHost(url)}`;
+  if (!/^\/event\/[^/]+\/[A-Za-z0-9_-]+\/?$/.test(url.pathname)) return 'ticketweb-event-path-shape';
+  return null;
+}
+
 function approvedImpactDestination(url) {
   if (url.protocol !== 'https:') return { reason: 'impact-scheme' };
   if (url.username || url.password || url.port) return { reason: 'impact-credentials-or-port' };
@@ -31,7 +39,10 @@ function approvedImpactDestination(url) {
     return { reason: 'impact-destination-unparseable' };
   }
 
-  const reason = directTicketmasterUrlRejectionReason(official);
+  const host = official.hostname.toLowerCase();
+  const reason = DIRECT_TICKETMASTER_HOSTS.has(host)
+    ? directTicketmasterUrlRejectionReason(official)
+    : ticketWebUrlRejectionReason(official);
   if (reason) return { reason: `impact-destination-${reason}` };
   return { official };
 }
