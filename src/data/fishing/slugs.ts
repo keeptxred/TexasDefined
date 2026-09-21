@@ -69,6 +69,7 @@ export function canonicalFishingPath(kind: FishingRouteKind, slug: string) { ret
  */
 export function fishingFoundationAnchor(kind: "lake" | "species", slug: string) {
   const canonicalSlug = assertCanonicalFishingSlug(slug);
+  if (kind === "lake" && isCompleteFishingLakeSlug(canonicalSlug)) return canonicalFishingPath("lake", canonicalSlug);
   if (kind === "lake") return canonicalFishingPath("lake", canonicalSlug);
   if (isCompleteFishingSpeciesSlug(canonicalSlug)) return canonicalFishingPath("species", canonicalSlug);
   return `/fishing/species#species-${canonicalSlug}`;
