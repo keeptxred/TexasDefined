@@ -5,6 +5,28 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "lbj-ranch-stonewall": [
+    {
+      href: "/destination/lyndon-b-johnson-national-historical-park",
+      label: "Explore the full LBJ National Historical Park",
+      description: "Connect the ranch with the Johnson City Visitor Center, Boyhood Home, Johnson Settlement and current two-district park guidance.",
+    },
+    {
+      href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
+      label: "Start at LBJ State Park",
+      description: "Pick up the required free ranch driving permit and add Sauer-Beckmann Living History Farm before entering the ranch.",
+    },
+    {
+      href: "/destination/hye",
+      label: "Continue through Hye",
+      description: "Add the historic post office, wineries and Garrison Brothers along the same U.S. 290 corridor.",
+    },
+    {
+      href: "/destination/fredericksburg",
+      label: "Continue to Fredericksburg",
+      description: "Use Fredericksburg for the region's largest lodging, dining, museum and winery base west of the ranch.",
+    },
+  ],
   "lbj-boyhood-home-johnson-city": [
     {
       href: "/destination/lyndon-b-johnson-national-historical-park",
@@ -57,6 +79,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/destination/lbj-boyhood-home-johnson-city",
       label: "Add the LBJ Boyhood Home",
       description: "Connect the Stonewall living-history landscape with Johnson's childhood home and free NPS programs in Johnson City.",
+    },
+    {
+      href: "/destination/lbj-ranch-stonewall",
+      label: "Drive the LBJ Ranch",
+      description: "After Sauer-Beckmann and permit pickup, use the dedicated ranch guide for the current self-guided route and open presidential sites.",
     },
   ],
   "pecan-street-brewing-johnson-city": [
@@ -117,6 +144,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       label: "Add Sauer-Beckmann and LBJ State Park",
       description: "Connect Hye with the living-history farm, longhorns, bison and Pedernales River landscape near Stonewall.",
     },
+    {
+      href: "/destination/lbj-ranch-stonewall",
+      label: "Add the LBJ Ranch",
+      description: "Continue west from Hye to the self-guided presidential ranch route near Stonewall.",
+    },
   ],
   "real-ale-brewing-company-blanco": [
     {
@@ -175,6 +207,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
       label: "Add LBJ State Park and Sauer-Beckmann Farm",
       description: "Pair the Hye distillery with the free living-history state park and German-Texan farm landscape near Stonewall.",
+    },
+    {
+      href: "/destination/lbj-ranch-stonewall",
+      label: "Add the LBJ Ranch",
+      description: "Pair the Hye distillery with the presidential ranch landscape just west along U.S. 290.",
     },
   ],
   "pedernales-falls-state-park": [
@@ -431,6 +468,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/destination/lbj-boyhood-home-johnson-city",
       label: "Tour the LBJ Boyhood Home",
       description: "Use the focused Johnson City guide for current free program times and the restored 1920s household.",
+    },
+    {
+      href: "/destination/lbj-ranch-stonewall",
+      label: "Drive the LBJ Ranch",
+      description: "Use the ranch-specific guide for the free permit, gate times, open stops and Texas White House rehabilitation closure.",
     },
   ],
   "shiner": [
