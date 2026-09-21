@@ -4,13 +4,14 @@ export function officialTicketmasterUrl(value) {
   try {
     const url = new URL(value);
     if (
-      url.protocol !== 'https:' ||
+      !['http:', 'https:'].includes(url.protocol) ||
       !['www.ticketmaster.com', 'ticketmaster.com'].includes(url.hostname) ||
       url.username ||
       url.password ||
       url.port ||
       !/\/event\/[A-Za-z0-9_-]+\/?$/.test(url.pathname)
     ) return null;
+    url.protocol = 'https:';
     url.pathname = url.pathname.replace(/\/$/, '');
     url.search = '';
     url.hash = '';
