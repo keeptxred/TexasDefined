@@ -61,14 +61,14 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
         run: |
           mkdir -p page-audit-diagnostics
-          timeout 25s npx --yes wrangler@4.120.1 tail texasdefined-site --format json --status error > page-audit-diagnostics/worker-errors.jsonl 2> page-audit-diagnostics/worker-errors.stderr &
+          timeout 15s npx --yes wrangler@4.120.1 tail texasdefined-site --format json > page-audit-diagnostics/worker-tail.jsonl 2> page-audit-diagnostics/worker-tail.stderr &
           TAIL_PID=$!
           sleep 5
           curl -sS --max-time 20 -D page-audit-diagnostics/sitemap-explore.headers -o page-audit-diagnostics/sitemap-explore.body "https://texasdefined.com/sitemap-explore.xml?td_runtime_probe=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" || true
           wait "${TAIL_PID}" || true
-          echo '::group::TexasDefined production Worker errors'
-          cat page-audit-diagnostics/worker-errors.jsonl 2>/dev/null || true
-          cat page-audit-diagnostics/worker-errors.stderr 2>/dev/null || true
+          echo '::group::TexasDefined production Worker tail'
+          cat page-audit-diagnostics/worker-tail.jsonl 2>/dev/null || true
+          cat page-audit-diagnostics/worker-tail.stderr 2>/dev/null || true
           echo '::endgroup::'
 
       - name: Upload page audit report
