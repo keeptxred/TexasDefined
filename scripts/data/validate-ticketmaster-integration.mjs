@@ -4,6 +4,7 @@ const server = await createServer({ configFile: false, appType: 'custom', logLev
 try {
   const { loadTicketmasterEventsServer, ticketmasterAuthorityGuidePath } = await server.ssrLoadModule('/src/data/events/ticketmaster-events.server.ts');
   const { mergeEventTicketing } = await server.ssrLoadModule('/src/data/events/texas-event-records.server.ts');
+  const { hasCompliantMajorEventImageServer } = await server.ssrLoadModule('/src/data/major-event-schema-enrichment.server.ts');
   const { buildTexasEventCarouselItemsServer, buildGlobalEventCalendarServer } = await server.ssrLoadModule('/src/data/events/texas-event-calendar.server.ts');
   const now = new Date();
   const date = now.toISOString().slice(0, 10);
@@ -31,6 +32,17 @@ try {
   assert.equal(ticketmasterAuthorityGuidePath('San Antonio Stock Show & Rodeo Haunted Hayrides', 'San Antonio'), '/event/san-antonio-stock-show-rodeo');
   assert.equal(ticketmasterAuthorityGuidePath('Beer Around The World 2026 - Fiesta De Palmas McAllen TX', 'McAllen'), '/event/fiesta-de-palmas');
   assert.equal(ticketmasterAuthorityGuidePath('Example concert', 'San Antonio'), undefined);
+  for (const slug of [
+    'fiesta-de-palmas',
+    'south-pole-illuminated-festival',
+    'bands-of-america-san-antonio-super-regional',
+    'big-12-football-championship',
+    'el-paso-film-festival',
+    'way-out-west-festival-el-paso',
+    'state-fair-classic',
+    'beaumont-comic-con',
+  ]) assert.equal(hasCompliantMajorEventImageServer(slug), true, `${slug} must remain indexable with rights-cleared hero provenance`);
+  assert.equal(hasCompliantMajorEventImageServer('mcallen-holiday-parade'), false, 'Holiday parade must remain fail-closed until an exact-location or governed AI hero is approved');
 
   const editorialTicketing = {
     links: [{
