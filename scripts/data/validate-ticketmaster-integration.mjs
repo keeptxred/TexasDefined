@@ -18,6 +18,7 @@ try {
   assert.ok(cta.rel.includes('sponsored'));
   assert.ok(cta.disclosure);
   assert.equal(ticketmasterAuthorityGuidePath('Fiesta De Palmas - Presented By The City Of Mcallen', 'McAllen'), '/event/fiesta-de-palmas');
+  assert.equal(ticketmasterAuthorityGuidePath('South Pole Illuminated Festival 2026 - McAllen Convention Center', 'McAllen'), '/event/south-pole-illuminated-festival');
   assert.equal(ticketmasterAuthorityGuidePath('Bands Of America: San Antonio Super Regional Championship Prelims', 'San Antonio'), '/event/bands-of-america-san-antonio-super-regional');
   assert.equal(ticketmasterAuthorityGuidePath('El Paso Film Festival - Late Night Shorts', 'El Paso'), '/event/el-paso-film-festival');
   assert.equal(ticketmasterAuthorityGuidePath('Way Out West Festival Featuring Cole Swindell', 'El Paso'), '/event/way-out-west-festival-el-paso');
