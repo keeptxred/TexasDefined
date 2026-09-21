@@ -14,6 +14,7 @@ const queryImplementation = `${queries}\n${destinationRuntime}`;
 const articleRoute = fs.readFileSync(path.join(root, 'src/routes/article.$slug.tsx'), 'utf8');
 const map = fs.readFileSync(path.join(root, 'src/components/editorial/MapPreview.tsx'), 'utf8');
 const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'utf8');
+// Destination layout regressions belong in this existing integrity gate so spacing fixes cannot silently drift.
 const errors = [];
 
 for (const feature of [
