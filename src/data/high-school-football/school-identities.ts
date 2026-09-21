@@ -12,6 +12,59 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'longview',
+    mascot: 'Lobos',
+    sourceUrl: 'https://w3.lisd.org/sites/default/files/2024-08/LISD%20Student%20Handbook%20ENGLISH.pdf',
+    sourceLabel: 'Longview ISD student handbook',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'dallas-skyline',
+    mascot: 'Raider',
+    colors: 'Red and Columbia Blue',
+    sourceUrl: 'https://skyline.dallasisd.org/our-school/general-information/school-spirit',
+    sourceLabel: 'Skyline High School school spirit',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'mansfield-lake-ridge',
+    mascot: 'Eagles',
+    colors: 'Hunter Green, Black and White',
+    sourceUrl: 'https://lakeridge.mansfieldisd.org/about-us/history-facts',
+    sourceLabel: 'Lake Ridge High School history and facts',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'north-crowley',
+    mascot: 'Panthers',
+    sourceUrl: 'https://www.crowleyisdtx.org/coachharris',
+    sourceLabel: 'Crowley ISD North Crowley football',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'red-oak',
+    mascot: 'Hawk',
+    colors: 'Maroon and White',
+    sourceUrl: 'https://rohs.redoakisd.org/about-us',
+    sourceLabel: 'Red Oak High School',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'bryan',
+    mascot: 'Vikings',
+    colors: 'Blue and Silver',
+    sourceUrl: 'https://bryanhs.bryanisd.org/o/bryanhs/article/916155',
+    sourceLabel: 'Bryan High School history',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'temple',
+    mascot: 'Wildcats',
+    sourceUrl: 'https://ths.tisd.org/',
+    sourceLabel: 'Temple High School',
+    verifiedAt: '2026-09-20',
+  },
+  {
     slug: 'prosper-walnut-grove',
     mascot: 'Wildcats',
     sourceUrl: 'https://www.prosper-isd.net/o/wghs',
@@ -237,7 +290,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-19',
   },
   {
-    slug: 'fort-worth-boswell',
+    slug: 'ft-worth-boswell',
     mascot: 'Pioneers',
     colors: 'Gold and White',
     sourceUrl: 'https://bhs.emsisd.com/about-us/campus-namesake',
@@ -317,21 +370,6 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-19',
   },
   {
-    slug: 'hebron',
-    mascot: 'Hawks',
-    sourceUrl: 'https://hhs.lisd.net/',
-    sourceLabel: 'Hebron High School',
-    verifiedAt: '2026-09-19',
-  },
-  {
-    slug: 'flower-mound-marcus',
-    mascot: 'Marauders',
-    colors: 'Red and Silver',
-    sourceUrl: 'https://mhs9.lisd.net/our-school/general-information/school-song',
-    sourceLabel: 'Marcus High School school song',
-    verifiedAt: '2026-09-19',
-  },
-  {
     slug: 'little-elm',
     mascot: 'Lobos',
     colors: 'Blue and Gold',
@@ -370,15 +408,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-19',
   },
   {
-    slug: 'plano-senior',
-    mascot: 'Wildcats',
-    colors: 'Maroon and White',
-    sourceUrl: 'https://pshs.pisd.edu/about-us',
-    sourceLabel: 'Plano Senior High School',
-    verifiedAt: '2026-09-19',
-  },
-  {
-    slug: 'north-shore',
+    slug: 'galena-park-north-shore',
     mascot: 'Mustangs',
     colors: 'Scarlet and White',
     sourceUrl: 'https://nssh.galenaparkisd.com/school-information',
@@ -386,7 +416,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-19',
   },
   {
-    slug: 'cypress-ranch',
+    slug: 'cyp-ranch',
     mascot: 'Mustangs',
     colors: 'Navy and Gold',
     sourceUrl: 'https://www.cfisd.net/our-district/our-schools-facilities/our-schools/school-mascots-colors',
@@ -394,7 +424,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-19',
   },
   {
-    slug: 'ce-king',
+    slug: 'sheldon-king',
     mascot: 'Panthers',
     colors: 'Panther Blue and White',
     sourceUrl: 'https://www.sheldonisd.com/departments/athletics/logos-branding',
@@ -434,7 +464,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-19',
   },
   {
-    slug: 'south-oak-cliff',
+    slug: 'dallas-south-oak-cliff',
     mascot: 'Golden Bears',
     colors: 'Gold and Black',
     sourceUrl: 'https://soc.dallasisd.org/our-school/general-information',
@@ -470,15 +500,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-19',
   },
   {
-    slug: 'desoto',
-    mascot: 'Eagles',
-    colors: 'Green and Gold',
-    sourceUrl: 'https://desotohs.desotoisd.org/cms/One.aspx?pageId=29011839&portalId=165774',
-    sourceLabel: 'DeSoto High School',
-    verifiedAt: '2026-09-19',
-  },
-  {
-    slug: 'randle',
+    slug: 'richmond-randle',
     mascot: 'Lions',
     colors: 'Silver, Black and White',
     sourceUrl: 'https://randlehs.lcisd.org/about-randle-hs',
@@ -493,7 +515,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-19',
   },
   {
-    slug: 'lake-travis',
+    slug: 'austin-lake-travis',
     mascot: 'Cavaliers',
     colors: 'Cavalier Red, White and Black',
     sourceUrl: 'https://www.ltisdschools.org/departments/communications-community-relations/guidelines-for-use-of-district-logos',
@@ -517,7 +539,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-19',
   },
   {
-    slug: 'westlake',
+    slug: 'austin-westlake',
     mascot: 'Chaparrals',
     colors: 'Red, White and Blue',
     sourceUrl: 'https://whs.eanesisd.net/school',
@@ -548,7 +570,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-19',
   },
   {
-    slug: 'smithson-valley',
+    slug: 'comal-smithson-valley',
     mascot: 'Rangers',
     colors: 'Red, White and Blue',
     sourceUrl: 'https://svhs.comalisd.org/apps/pages/svhs_history',
@@ -556,7 +578,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-19',
   },
   {
-    slug: 'summer-creek',
+    slug: 'humble-summer-creek',
     mascot: 'Bulldogs',
     colors: 'Maroon and Gold',
     sourceUrl: 'https://www.humbleisd.net/o/history/page/summer-creek-high-school',
@@ -564,7 +586,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-19',
   },
   {
-    slug: 'atascocita',
+    slug: 'humble-atascocita',
     mascot: 'Eagles',
     sourceUrl: 'https://www.humbleisd.net/o/ahs/live-feed',
     sourceLabel: 'Atascocita High School',
@@ -579,7 +601,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-19',
   },
   {
-    slug: 'pleasant-grove',
+    slug: 'texarkana-pleasant-grove',
     mascot: 'Hawks',
     colors: 'Black and Gold',
     sourceUrl: 'https://hs.pgisd.net/about-pghs-home',
@@ -649,7 +671,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-19',
   },
   {
-    slug: 'harker-heights',
+    slug: 'killeen-harker-heights',
     mascot: 'Knights',
     sourceUrl: 'https://www.killeenisd.org/o/hhhs/',
     sourceLabel: 'Harker Heights High School',
@@ -664,17 +686,10 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-19',
   },
   {
-    slug: 'mt-pleasant',
+    slug: 'mount-pleasant',
     mascot: 'Tigers',
     sourceUrl: 'https://www.mpisd.net/mphs/',
     sourceLabel: 'Mount Pleasant High School',
-    verifiedAt: '2026-09-19',
-  },
-  {
-    slug: 'walnut-grove',
-    mascot: 'Wildcats',
-    sourceUrl: 'https://www.prosper-isd.net/o/wghs/live-feed/',
-    sourceLabel: 'Walnut Grove High School',
     verifiedAt: '2026-09-19',
   },
   {
@@ -685,15 +700,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-19',
   },
   {
-    slug: 'richland',
-    mascot: 'Royals',
-    colors: 'Red and Navy Blue',
-    sourceUrl: 'https://richlandhigh.birdvilleschools.net/our-school',
-    sourceLabel: 'Richland High School',
-    verifiedAt: '2026-09-19',
-  },
-  {
-    slug: 'west-plains',
+    slug: 'canyon-west-plains',
     mascot: 'Wolves',
     sourceUrl: 'https://www.canyonisd.net/all-schools',
     sourceLabel: 'Canyon ISD school directory',

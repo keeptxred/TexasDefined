@@ -2,7 +2,6 @@ import { getFeaturedFootballProgramProfile } from './featured-program-profile.se
 import {
   FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS,
   getFeaturedFootballProgram,
-  matchFeaturedFootballProgram,
   normalizeFeaturedFootballName,
 } from './featured-programs';
 import { searchFootballPrograms, type FootballProgramDirectoryResult } from './football-directory.server';
@@ -150,7 +149,6 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
       uilSubmittedConference: exactEnrollment.submittedConference,
     } : {}),
   };
-  const legacyIdentity = matchFeaturedFootballProgram(program.schoolName, program.officialSchoolName);
   const canonicalSlug = footballProgramSlug(seed.schoolName);
   const displayName = program.officialSchoolName || seed.schoolName;
 
@@ -158,9 +156,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     slug: canonicalSlug,
     displayName,
     program,
-    identity: getVerifiedFootballSchoolIdentity(canonicalSlug)
-      ?? (legacyIdentity ? getVerifiedFootballSchoolIdentity(legacyIdentity.slug) : undefined)
-      ?? null,
+    identity: getVerifiedFootballSchoolIdentity(canonicalSlug) ?? null,
     enrollmentLink: getOfficialFootballEnrollmentLink(program.districtName) ?? null,
     districtPeers: districtPeers(seed),
     districtPath: footballDistrictProfilePath(seed.classification, seed.division, seed.district),
