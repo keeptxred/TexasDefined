@@ -388,7 +388,7 @@ function ArticlePage() {
       </Container>
     </section>
     <Container className="relative max-w-3xl py-10 sm:py-16">
-      <Byline author={author} meta={`${formatDate(article.publishedAt)} · ${formatReadingTime(article.readingMinutes)}`} />
+      <Byline author={author} meta={`${formatDate(article.publishedAt)}${article.updatedAt && article.updatedAt !== article.publishedAt ? ` · Updated ${formatDate(article.updatedAt)}` : ""} · ${formatReadingTime(article.readingMinutes)}`} />
       {hasSchoolSupplyRail ? <><style>{`.school-supply-rail{display:none}@media (min-width:1536px){.school-supply-rail{display:block}.school-supply-bottom{display:none}}`}</style><aside className="school-supply-rail" style={{ left: "calc(100% + 2rem)", position: "absolute", top: "2.5rem", width: "18rem" }}><div style={{ position: "sticky", top: "2rem" }}><SchoolSupplyPartners placement="rail" /></div></aside></> : null}
       <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
         <a href="/editorial-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Editorial policy</a>
@@ -440,7 +440,7 @@ function ArticlePage() {
           </a>
         </li>)}</ul>
       </aside>}
-      {article.tags.length > 0 && <div className="mt-10 border-t border-border pt-5"><p className="eyebrow text-muted-foreground">Filed under</p><ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">{article.tags.map((tag) => <li key={tag} className="text-sm text-foreground/75">{tag}</li>)}</ul></div>}
+      {article.tags.length > 0 && <div className="mt-10 border-t border-border pt-5"><p className="eyebrow text-muted-foreground">Filed under</p><ul className="mt-3 flex flex-wrap gap-2">{article.tags.map((tag) => <li key={tag}><a href={`/search?q=${encodeURIComponent(tag)}`} className="inline-block rounded-full border border-border px-3 py-2 text-sm text-foreground/75 transition-colors hover:border-primary hover:text-primary">{tag}</a></li>)}</ul></div>}
     </Container>
     {relatedDestinations.length > 0 && <Section><Container><SectionHeader eyebrow="Plan the trip" title="Places connected to this story" description="Destinations explicitly tied to this article in the Texas Defined guide." /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{relatedDestinations.map((destination) => <li key={destination.id}><DestinationCard destination={destination} /></li>)}</ul></Container></Section>}
     <Section tone="surface"><Container><SectionHeader eyebrow="From the magazine" title="More stories to read next" /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>
