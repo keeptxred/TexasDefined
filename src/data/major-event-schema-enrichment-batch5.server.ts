@@ -145,7 +145,7 @@ export const majorEventSchemaEnrichmentBatch5: MajorEventSchemaEnrichment[] = [
     organizer: organization("CK Scrapbook Events, LLC", "https://www.ckscrapbookevents.com/"),
     sources: [
       { label: "CK Scrapbook Events official 2027 calendar — GASC Mesquite", url: "https://www.ckscrapbookevents.com/" },
-      { label: "Great American Scrapbook Convention official event section", url: "https://www.ckscrapbookevents.com/Great-American/GASC-Arlington" },
+      { label: "Great American Scrapbook Convention official location and hotel page", url: "https://www.ckscrapbookevents.com/Events/GASC/Location-Hotel" },
     ],
     verifiedAt: "2026-09-01",
   },
