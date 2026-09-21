@@ -1,13 +1,13 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { LakeConroeGuide } from "@/components/fishing/LakeConroeGuide";
+import { GenericFishingLakeGuide } from "@/components/fishing/GenericFishingLakeGuide";\nimport { LakeConroeGuide } from "@/components/fishing/LakeConroeGuide";
 import { LiveLakeLevelStrip } from "@/components/fishing/LiveLakeLevelStrip";
 import { ShowcaseLakeGuide } from "@/components/fishing/ShowcaseLakeGuide";
 import { Container } from "@/components/layout/Container";
 import { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.functions";
 import { LAKE_CONROE_SLUG, lakeConroeCanonicalPath } from "@/data/fishing/lake-conroe-routing";
-import { isShowcaseLakeSlug, showcaseLakeCanonicalPath } from "@/data/fishing/showcase-lake-routing";
+import { isShowcaseLakeSlug, showcaseLakeCanonicalPath } from "@/data/fishing/showcase-lake-routing";\nimport { canonicalFishingPath } from "@/data/fishing/slugs";
 import { getShowcaseLakesPageData } from "@/data/fishing/showcase-lakes-page-data.functions";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -15,7 +15,7 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/fishing/lakes/$slug")({
   loader: async ({ context, params }) => {
-    const { fishingBusinessesQuery, fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery } = await import("@/data/fishing/queries");
+    const { fishSpeciesQuery, fishingAccessPointsQuery, fishingBusinessesQuery, fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery, lakeSpeciesProfilesQuery } = await import("@/data/fishing/queries");
     const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug));
     if (!lake) throw notFound();
     if (params.slug === LAKE_CONROE_SLUG) {
@@ -65,6 +65,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
 
 function FishingLakeOverviewRoute() {
   const data = Route.useLoaderData();
+  if (data.kind === "generic") return <GenericFishingLakeGuide lake={data.lake} species={data.species} relationships={data.relationships} reports={data.reports} guides={data.guides} access={data.access} businesses={data.businesses} />;
   if (data.kind === "conroe") return <>
     <LiveLakeLevelStrip lakeName={data.pageData.overview.name} sourceUrl={data.pageData.sources.liveLevel.url} snapshot={data.liveLakeLevel} />
     <LakeConroeGuide reports={data.reports} guides={data.guides} pageData={data.pageData} />
