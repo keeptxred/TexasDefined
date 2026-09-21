@@ -19,6 +19,12 @@ const ticketmasterAuthorityMatchers = [
   { city: "El Paso", slug: "way-out-west-festival-el-paso", prefix: "way out west festival" },
   { city: "Dallas", slug: "state-fair-classic", prefix: "state fair classic" },
   { city: "Beaumont", slug: "beaumont-comic-con", prefix: "beaumont comic con" },
+  { city: "Austin", slug: "austin-city-limits-music-festival", prefix: "austin city limits festival" },
+  { city: "Austin", slug: "austin-food-wine-festival", prefix: "austin food + wine festival" },
+  { city: "Fort Worth", slug: "red-steagall-cowboy-gathering", prefix: "red steagall cowboy gathering" },
+  { city: "Houston", slug: "houston-ballet-nutcracker-market", prefix: "nutcracker market" },
+  { city: "San Antonio", slug: "san-antonio-stock-show-rodeo", prefix: "san antonio stock show & rodeo" },
+  { city: "McAllen", slug: "fiesta-de-palmas", prefix: "beer around the world" },
 ] as const;
 
 export function ticketmasterAuthorityGuidePath(name: string, city: string) {
