@@ -87,7 +87,7 @@ Set `TICKETMASTER_IMPACT_TRACKING_TEMPLATE` to the approved Ticketmaster Impact 
 
 Do not copy placeholder partner IDs or campaign IDs from documentation into production. The exact tracking path must come from TexasDefined's approved Ticketmaster/Impact account.
 
-When configured, `src/data/events/texas-event-records.server.ts` automatically recognizes verified `ticketmaster.com` offer URLs, preserves the official Ticketmaster destination as fallback, and adds the approved Impact affiliate URL. Shared calendar, event, and sports-venue surfaces then resolve the existing single `Find Tickets →` CTA through the provider-neutral ticketing layer. Non-Ticketmaster destinations are never wrapped, and malformed or missing Impact configuration falls back to the verified official ticket URL.
+When configured, `src/data/events/texas-event-records.server.ts` automatically recognizes verified `ticketmaster.com` offer URLs, preserves the official Ticketmaster destination as fallback, and adds the approved Impact affiliate URL. The optional `{campaign}` token is populated from the canonical event slug so Impact reporting can distinguish event-level traffic without exposing visitor data. Shared calendar, event, and sports-venue surfaces then resolve the existing single `Find Tickets →` CTA through the provider-neutral ticketing layer. Non-Ticketmaster destinations are never wrapped, and malformed or missing Impact configuration falls back to the verified official ticket URL.
 
 Recommended activation sequence:
 
