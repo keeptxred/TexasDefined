@@ -68,8 +68,9 @@ try {
     if (api.ownerEligible('/city/austin')) errors.push('Vrbo owner referral must not appear merely because a page is a city travel guide.');
 
     const hotelsDeepLink = api.buildCjDeepLink('https://www.hotels.com/');
+    const travelocityDeepLink = api.buildCjDeepLink('https://www.travelocity.com/');
     const vrboDeepLink = api.buildCjDeepLink('https://www.vrbo.com/');
-    for (const [value, partner] of [[hotelsDeepLink, 'Hotels.com'], [vrboDeepLink, 'Vrbo']]) {
+    for (const [value, partner] of [[hotelsDeepLink, 'Hotels.com'], [travelocityDeepLink, 'Travelocity'], [vrboDeepLink, 'Vrbo']]) {
       if (!value.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/')) {
         errors.push(`${partner} CJ deep link must stay bound to TexasDefined publisher 101876465.`);
       }
@@ -128,7 +129,7 @@ try {
     } catch {
       rejectedUnsupportedHost = true;
     }
-    if (!rejectedUnsupportedHost) errors.push('CJ deep-link builder must reject destinations outside Hotels.com and Vrbo.');
+    if (!rejectedUnsupportedHost) errors.push('CJ deep-link builder must reject destinations outside Hotels.com, Travelocity and Vrbo.');
   }
 } catch (error) {
   errors.push(`stay affiliate route-policy runtime check failed: ${error.message}`);
@@ -142,7 +143,7 @@ for (const [needle, label] of [
 const expediaPosition = root.indexOf('<script src="/expedia-travel.js" defer />');
 const affiliatePosition = root.indexOf('<script src="/stay-affiliate-options.js" defer />');
 if (expediaPosition < 0 || affiliatePosition < 0 || affiliatePosition < expediaPosition) {
-  errors.push('Hotels.com/Vrbo bootstrap must load after the existing Expedia/Stay Nearby bootstrap.');
+  errors.push('Hotels.com/Travelocity/Vrbo bootstrap must load after the existing Expedia/Stay Nearby bootstrap.');
 }
 
 for (const [needle, label] of [
@@ -159,13 +160,16 @@ for (const [needle, label] of [
   ['https://www.hotels.com/ho636049152/la-quinta-inn-suites-by-wyndham-sweetwater-east-sweetwater-united-states-of-america/', 'La Quinta Sweetwater property record'],
   ['https://www.hotels.com/ho532248/microtel-inn-and-suites-by-wyndham-sweetwater-sweetwater-united-states-of-america/', 'Microtel Sweetwater property record'],
   ['https://www.hotels.com/', 'Hotels.com destination'],
+  ['https://www.travelocity.com/', 'Travelocity destination'],
   ['https://www.vrbo.com/', 'Vrbo traveler destination'],
   ['https://www.vrbo.com/en-us/list/lead', 'Vrbo owner onboarding destination'],
   ['link.href = buildCjDeepLink(destination)', 'tracked-link enforcement'],
   ['sponsored nofollow noopener noreferrer', 'affiliate relationship attributes'],
   ['Find hotels on Hotels.com', 'Hotels.com CTA'],
+  ['Compare hotels on Travelocity', 'Travelocity hotel CTA'],
   ['Find vacation rentals on Vrbo', 'Vrbo traveler CTA'],
   ['Compare more hotels on Hotels.com', 'secondary Hotels.com CTA after exact recommendations'],
+  ['Compare more hotels on Travelocity', 'secondary Travelocity CTA after exact recommendations'],
   ['Browse vacation rentals on Vrbo', 'secondary Vrbo CTA after exact recommendations'],
   ['stay-nearby-choice-after-exact', 'secondary-choice attribution after exact recommendations'],
   ['Find places to stay', 'broad-search prominent stay CTA fallback'],
@@ -182,7 +186,7 @@ for (const [needle, label] of [
   ['upgradeExactPropertyCards', 'exact property card upgrader'],
   ['placement: "stay-nearby-card-exact"', 'exact-property attribution placement'],
   ['link.dataset.exactProperty = propertyName', 'exact-property identity marker'],
-  ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com or Vrbo activity', 'traveler affiliate disclosure'],
+  ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or Vrbo activity', 'traveler affiliate disclosure'],
   ['Affiliate disclosure: TexasDefined may earn a referral commission when an eligible new Vrbo property listing goes live', 'owner affiliate disclosure'],
   ['HOTEL_FIRST_PATH', 'hotel-first route intent'],
   ['BOTH_PATH', 'combined lodging route intent'],
@@ -275,9 +279,9 @@ if (source.includes('window.location =') || source.includes('window.location.hre
 }
 
 if (errors.length) {
-  console.error('Hotels.com / Vrbo stay affiliate validation failed:');
+  console.error('Hotels.com / Travelocity / Vrbo stay affiliate validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Hotels.com / Vrbo stay affiliate validation passed: all 24 active governed Stay Nearby properties (15 venue + 9 destination) have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; unknown properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the exact-property registry and the traffic-prioritized Xtreme Raceway Park lodging slot; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');
+console.log('Hotels.com / Travelocity / Vrbo stay affiliate validation passed: all 24 active governed Stay Nearby properties (15 venue + 9 destination) have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; unknown properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; Travelocity is available as an approved hotel-comparison option on governed stay surfaces; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the exact-property registry and the traffic-prioritized Xtreme Raceway Park lodging slot; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');
