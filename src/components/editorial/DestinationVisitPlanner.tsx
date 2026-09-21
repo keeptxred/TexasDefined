@@ -37,7 +37,6 @@ export function DestinationVisitPlanner({ destination }: Props) {
     <>
       <div
         data-stay-nearby-slot
-        className="my-6"
         aria-label={`Places to stay near ${destination.name}`}
       />
       {showRentalCarOption ? (
