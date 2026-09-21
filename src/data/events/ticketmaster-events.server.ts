@@ -9,6 +9,27 @@ interface TicketmasterRow {
 }
 interface TicketmasterSnapshot { fetchedAt: string | null; events: TicketmasterRow[] }
 
+const ticketmasterAuthorityMatchers = [
+  { city: "McAllen", slug: "fiesta-de-palmas", prefix: "fiesta de palmas" },
+  { city: "McAllen", slug: "mcallen-holiday-parade", prefix: "mcallen holiday parade" },
+  { city: "San Antonio", slug: "bands-of-america-san-antonio-super-regional", prefix: "bands of america: san antonio super regional championship" },
+  { city: "Arlington", slug: "big-12-football-championship", prefix: "big 12 football championship" },
+  { city: "El Paso", slug: "el-paso-film-festival", prefix: "el paso film festival" },
+  { city: "El Paso", slug: "way-out-west-festival-el-paso", prefix: "way out west festival" },
+  { city: "Dallas", slug: "state-fair-classic", prefix: "state fair classic" },
+  { city: "Beaumont", slug: "beaumont-comic-con", prefix: "beaumont comic con" },
+] as const;
+
+export function ticketmasterAuthorityGuidePath(name: string, city: string) {
+  const normalizedName = name.trim().toLocaleLowerCase("en-US");
+  const normalizedCity = city.trim().toLocaleLowerCase("en-US");
+  const match = ticketmasterAuthorityMatchers.find((candidate) =>
+    candidate.city.toLocaleLowerCase("en-US") === normalizedCity
+    && normalizedName.startsWith(candidate.prefix),
+  );
+  return match ? `/event/${match.slug}` : undefined;
+}
+
 export function loadTicketmasterEventsServer(catalog: TicketmasterSnapshot = snapshot, now = new Date()): TexasEventRecord[] {
   const fetchedAt = catalog.fetchedAt;
   // Hide stale commercial inventory if the daily refresh stops succeeding.
@@ -26,7 +47,7 @@ export function loadTicketmasterEventsServer(catalog: TicketmasterSnapshot = sna
     return [{
       id: `ticketmaster:${event.id}`, slug: `ticketmaster-${event.id}`, title: event.name,
       summary: `${event.name} at ${event.venue || 'a local venue'} in ${event.city}. Check Ticketmaster for current ticket availability and event details.`,
-      guidePath: `/events?start=${event.startDate}&end=${event.startDate}`,
+      guidePath: ticketmasterAuthorityGuidePath(event.name, event.city) ?? `/events?start=${event.startDate}&end=${event.startDate}`,
       startDate: event.startDate, startTime: event.startTime, city: event.city, region, category,
       venueName: event.venue, venueId: venueSlug ? `sports-venue:${venueSlug}` : undefined, venuePath: venue?.href,
       officialEventUrl: event.officialUrl, status: 'scheduled', lastVerifiedAt: fetchedAt, lastUpdatedAt: fetchedAt,
