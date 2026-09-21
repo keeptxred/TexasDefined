@@ -3,7 +3,7 @@ import type { MajorEventAuthorityRecord } from "./major-event-authority.server";
 const records: MajorEventAuthorityRecord[] = [
   {
     slug: "fiesta-de-palmas",
-    name: "Fiesta de Palmas 2026",
+    name: "Fiesta de Palmas",
     city: "McAllen",
     countySlug: "hidalgo",
     countyName: "Hidalgo County",
@@ -35,7 +35,7 @@ const records: MajorEventAuthorityRecord[] = [
   },
   {
     slug: "mcallen-holiday-parade",
-    name: "McAllen Holiday Parade 2026",
+    name: "McAllen Holiday Parade",
     city: "McAllen",
     countySlug: "hidalgo",
     countyName: "Hidalgo County",
@@ -228,7 +228,7 @@ const records: MajorEventAuthorityRecord[] = [
   },
   {
     slug: "south-pole-illuminated-festival",
-    name: "South Pole Illuminated Festival 2026",
+    name: "South Pole Illuminated Festival",
     city: "McAllen",
     countySlug: "hidalgo",
     countyName: "Hidalgo County",
@@ -300,7 +300,7 @@ const records: MajorEventAuthorityRecord[] = [
   },
   {
     slug: "hollydays-market-corpus-christi",
-    name: "Hollydays Market of Corpus Christi 2026",
+    name: "Hollydays Market of Corpus Christi",
     city: "Corpus Christi",
     countySlug: "nueces",
     countyName: "Nueces County",
@@ -329,6 +329,39 @@ const records: MajorEventAuthorityRecord[] = [
       { label: "Downtown Corpus Christi — Hollydays Market 2025", url: "https://downtowncorpuschristi.org/do/hollydays-market-of-corpus-christi" },
       { label: "Tour Texas — Hollydays Market 2024", url: "https://www.tourtexas.com/all-events/80954/Hollydays-Market-of-Corpus-Christi" },
       { label: "City of Corpus Christi — Hilliard Center naming", url: "https://www.corpuschristitx.gov/news/posts/news-post-hilliard-law-officially-acquires-naming-rights-for-corpus-christi-s-event-center/" },
+    ],
+  },
+  {
+    slug: "eagle-fest-the-woodlands",
+    name: "Eagle Fest",
+    city: "The Woodlands",
+    countySlug: "montgomery",
+    countyName: "Montgomery County",
+    region: "prairies-lakes",
+    category: "music",
+    startDate: "2026-10-03",
+    endDate: "2026-10-03",
+    dateNote: "Houston's Eagle lists Eagle Fest for Saturday, October 3, 2026 at Cynthia Woods Mitchell Pavilion, featuring ZZ Top with Cheap Trick. The same organizer staged Eagle Fest at the same venue in 2025 and closed its 2025 recap by inviting fans back the following year.",
+    venue: "The Cynthia Woods Mitchell Pavilion",
+    officialUrl: "https://houstonseagle.com/eagle-fest/",
+    sourceCheckedAt: "2026-09-21",
+    whyItMatters: "Eagle Fest is Houston's Eagle's recurring classic-rock gathering at Cynthia Woods Mitchell Pavilion in The Woodlands, pairing major touring acts with a stable local event brand and one of the Houston area's most important outdoor concert venues.",
+    planningSections: [
+      { title: "Use the current year's lineup, not last year's festival", body: "Eagle Fest returned to the Pavilion in 2026 after a 2025 edition, but the artists change. For 2026 the organizer lists ZZ Top with Cheap Trick; treat prior-year lineups as history rather than a guide to the current ticket." },
+      { title: "Plan around an outdoor amphitheater", body: "Cynthia Woods Mitchell Pavilion mixes reserved seating and lawn inventory depending on the event. Check the current seating map, weather guidance, permitted items and lawn policies before leaving home." },
+      { title: "Build extra time into arrival", body: "The Pavilion sits in The Woodlands Town Center and major concerts can create concentrated parking and pedestrian traffic. Confirm the event's current parking product and venue arrival guidance rather than relying on normal neighborhood travel time." },
+      { title: "Make The Woodlands part of the evening", body: "The venue is close to restaurants, hotels and Town Center attractions. A nearby stay can simplify a late concert night, especially for visitors coming from outside the Houston region." },
+    ],
+    relatedLinks: [
+      { href: "/county/montgomery", label: "Explore Montgomery County", description: "Build a broader Woodlands and Montgomery County visit around Eagle Fest." },
+      { href: "/events/music-festivals", label: "Texas music festivals", description: "Compare other verified music-event weekends around the state." },
+      { href: "/events/houston-area-events", label: "Houston-area events", description: "Find other current events across greater Houston." },
+    ],
+    sources: [
+      { label: "Houston's Eagle — Eagle Fest", url: "https://houstonseagle.com/eagle-fest/" },
+      { label: "Houston's Eagle — Eagle Fest 2026", url: "https://houstonseagle.com/events/eagle-fest-featuring-zz-top-cheap-trick-saturday-oct-3-2026/" },
+      { label: "Houston's Eagle — Eagle Fest 2025 recap", url: "https://houstonseagle.com/playlist/eagle-fest-2025-38-special-photo-gallery/" },
+      { label: "Visit The Woodlands — 2026 Pavilion schedule", url: "https://www.visitthewoodlands.com/articles/post/cwmp-events-2026/" },
     ],
   },
   {
