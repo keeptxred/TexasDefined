@@ -48,7 +48,7 @@ const placeLinks = [
   { label: "South Llano River State Park", href: "/destination/south-llano-river-state-park", river: "Colorado system" },
   { label: "Garner State Park", href: "/state-park/garner-state-park", river: "Frio" },
   { label: "Pedernales Falls State Park", href: "/state-park/pedernales-falls-state-park", river: "Colorado system" },
-  { label: "Caddo Lake State Park", href: "/state-park/caddo-lake-state-park", river: "Cypress system" },
+  { label: "Caddo Lake", href: "/destination/caddo-lake", river: "Cypress system" },
 ] as const;
 
 function TexasRiverOrientationMap() {
