@@ -115,10 +115,14 @@ export async function fetchTexasEvents({
   apiKey,
   trackingBase,
   now = new Date(),
+  horizonDays = 90,
   fetchImpl = fetch,
   pause = (ms) => new Promise(resolve => setTimeout(resolve, ms)),
 }) {
   if (!apiKey) throw new Error('TICKETMASTER_API_KEY is required');
+  if (!Number.isInteger(horizonDays) || horizonDays < 1 || horizonDays > 366) {
+    throw new Error('Ticketmaster horizonDays must be an integer from 1 through 366');
+  }
 
   const rows = new Map();
   const rejectionCounts = new Map();
@@ -218,7 +222,7 @@ export async function fetchTexasEvents({
   }
 
   const start = Math.floor(now.getTime() / 1000) * 1000;
-  const horizon = start + 90 * 86400000;
+  const horizon = start + horizonDays * 86400000;
   for (let time = start; time < horizon; time += 7 * 86400000) {
     await window(
       new Date(time),
