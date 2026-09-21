@@ -146,6 +146,7 @@ export const supplementalMajorEventSlugs = [
   "houston-diwali-festival-of-lights",
   "fiesta-de-palmas",
   "mcallen-holiday-parade",
+  "south-pole-illuminated-festival",
   "bands-of-america-san-antonio-super-regional",
   "big-12-football-championship",
   "el-paso-film-festival",
