@@ -53,7 +53,7 @@ function SearchPage() {
       </Container>
     </section>
 
-    <Container className="min-h-[42vh] py-12 sm:py-16">
+    <Container className="py-12 sm:py-16">
       <section className="border-y border-border bg-surface px-5 py-8 sm:px-8 sm:py-10">
         <p className="eyebrow text-primary">Texas Defined AI</p>
         <h2 className="mt-2 font-display text-4xl sm:text-5xl">Ask Texas anything.</h2>
