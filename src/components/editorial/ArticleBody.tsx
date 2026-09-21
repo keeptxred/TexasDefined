@@ -17,7 +17,17 @@ const metroRelocationGuidePaths = new Set([
   "/article/moving-to-el-paso-guide",
 ]);
 
-export function PullQuote({ text, attribution, entities = [] }: { text: string; attribution?: string; entities?: TexasEntityRecord[] }) {
+
+export function articleHeadingId(text: string) {
+  return text
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+\nexport function PullQuote({ text, attribution, entities = [] }: { text: string; attribution?: string; entities?: TexasEntityRecord[] }) {
   return (
     <figure className="my-14 border-y border-border py-8 sm:my-16 sm:py-10">
       <blockquote className="font-display text-3xl font-semibold leading-[1.12] text-foreground sm:text-[2.4rem]">“<AutoEntityLinks text={text} entities={entities} maxLinks={2} policy={policyForSurface('article')} />”</blockquote>
@@ -62,7 +72,7 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
   return <div className="editorial-body text-foreground/92">
     {blocks.map((block, index) => {
       switch (block.type) {
-        case "heading": return <h2 key={index} className="mb-4 mt-14 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
+        case "heading": return <h2 key={index} id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
         case "quote": return <PullQuote key={index} text={block.text} entities={available()} {...(block.attribution ? { attribution: block.attribution } : {})} />;
         case "list": return <ul key={index} className="my-8 list-disc space-y-3 pl-6 marker:text-primary">{block.items.map((item) => <li key={item}>{render(item, 2)}</li>)}</ul>;
         case "image": return (
