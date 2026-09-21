@@ -1,6 +1,7 @@
 const ENDPOINT = 'https://app.ticketmaster.com/discovery/v2/events.json';
 const DIRECT_TICKETMASTER_HOSTS = new Set(['www.ticketmaster.com', 'ticketmaster.com']);
 const APPROVED_IMPACT_HOST = 'ticketmaster.evyy.net';
+const APPROVED_TICKETWEB_HOSTS = new Set(['www.ticketweb.com', 'ticketweb.com']);
 const APPROVED_IMPACT_PATH = /^\/c\/7758914\/\d+\/4272\/?$/;
 
 function sanitizedHost(url) {
@@ -13,6 +14,14 @@ function directTicketmasterUrlRejectionReason(url) {
   if (!DIRECT_TICKETMASTER_HOSTS.has(url.hostname.toLowerCase())) return `host-${sanitizedHost(url)}`;
   if (!url.pathname.includes('/event/')) return 'missing-event-segment';
   if (!/\/event\/[A-Za-z0-9_-]+\/?$/.test(url.pathname)) return 'event-path-shape';
+  return null;
+}
+
+function ticketWebUrlRejectionReason(url) {
+  if (!['http:', 'https:'].includes(url.protocol)) return 'scheme';
+  if (url.username || url.password || url.port) return 'credentials-or-port';
+  if (!APPROVED_TICKETWEB_HOSTS.has(url.hostname.toLowerCase())) return `host-${sanitizedHost(url)}`;
+  if (!/^\/event\/[^/]+\/[A-Za-z0-9_-]+\/?$/.test(url.pathname)) return 'ticketweb-event-path-shape';
   return null;
 }
 
@@ -31,7 +40,10 @@ function approvedImpactDestination(url) {
     return { reason: 'impact-destination-unparseable' };
   }
 
-  const reason = directTicketmasterUrlRejectionReason(official);
+  const host = official.hostname.toLowerCase();
+  const reason = DIRECT_TICKETMASTER_HOSTS.has(host)
+    ? directTicketmasterUrlRejectionReason(official)
+    : ticketWebUrlRejectionReason(official);
   if (reason) return { reason: `impact-destination-${reason}` };
   return { official };
 }

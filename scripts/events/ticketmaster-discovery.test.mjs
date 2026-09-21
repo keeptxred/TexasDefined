@@ -52,6 +52,26 @@ test('only verified US Ticketmaster event destinations are wrapped with the appr
   assert.equal(rebuilt.searchParams.get('u'), 'https://www.ticketmaster.com/example/event/ABC123');
   assert.equal(rebuilt.searchParams.get('subId1'), 'texasdefined');
 
+  const ticketWebDestination = 'https://www.ticketweb.com/event/la-flor-escondida-hard-rock-cafe-tickets/14859023';
+  const ticketWebApiUrl = `${base}&u=${encodeURIComponent(ticketWebDestination)}&utm_medium=affiliate`;
+  assert.equal(ticketmasterUrlRejectionReason(ticketWebApiUrl), null);
+  assert.equal(officialTicketmasterUrl(ticketWebApiUrl), ticketWebDestination);
+  const ticketWebRow = normalizeDiscoveryEvent({ ...event, url: ticketWebApiUrl }, base);
+  const rebuiltTicketWeb = new URL(ticketWebRow.affiliateUrl);
+  assert.equal(rebuiltTicketWeb.pathname, '/c/7758914/264167/4272');
+  assert.equal(rebuiltTicketWeb.searchParams.get('u'), ticketWebDestination);
+  assert.equal(rebuiltTicketWeb.searchParams.get('subId1'), 'texasdefined');
+  assert.equal(
+    ticketmasterUrlRejectionReason(ticketWebDestination),
+    'host-www.ticketweb.com',
+  );
+  assert.equal(
+    ticketmasterUrlRejectionReason(
+      `https://ticketmaster.evyy.net/c/7758914/264167/4272?u=${encodeURIComponent('https://www.ticketweb.com/browse/14859023')}`,
+    ),
+    'impact-destination-ticketweb-event-path-shape',
+  );
+
   assert.equal(ticketmasterUrlRejectionReason('https://tickets.example.test/event/ABC'), 'host-tickets.example.test');
   assert.equal(ticketmasterUrlRejectionReason('https://www.ticketmaster.com/browse'), 'missing-event-segment');
   assert.equal(
