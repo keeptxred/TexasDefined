@@ -51,7 +51,7 @@ export function StayMonetizationReadiness() {
 
       <div className="mt-8 rounded-md border border-border p-5">
         <strong className="font-display text-2xl">Controlled destination cohort: {readiness.destinationContexts} destinations · {readiness.destinationProperties} properties</strong>
-        <p className="mt-2 text-sm text-muted-foreground">Destination pages use contextual curated cards only where this registry has a reviewed relationship. Other eligible travel pages keep the generic Expedia/Hotels.com/Travelocity/Vrbo fallback rather than inheriting unsourced local recommendations.</p>
+        <p className="mt-2 text-sm text-muted-foreground">Destination pages use contextual curated cards only where this registry has a reviewed relationship. Other eligible travel pages keep the generic Expedia/Hotels.com/Orbitz/Vrbo fallback rather than inheriting unsourced local recommendations.</p>
         <p className="mt-2 text-xs text-muted-foreground">Destination registry reviewed: {data?.destination.reviewedAt || 'not recorded'} · Venue registry reviewed: {data?.venue.reviewedAt || 'not recorded'} · Hotels.com verification reviewed: {data?.hotelsCom.reviewedAt || 'not recorded'}</p>
       </div>
 
