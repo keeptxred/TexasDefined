@@ -161,7 +161,7 @@ jobs:
 
       - name: Verify direct Worker health
         id: live_direct_health
-        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
         continue-on-error: true
         env:
           PRODUCTION_HEALTH_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
