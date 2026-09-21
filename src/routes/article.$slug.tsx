@@ -374,7 +374,7 @@ function ArticlePage() {
     <section className="relative isolate mt-4 overflow-hidden bg-ink text-ink-foreground">
       <img src={article.hero.src} alt={article.hero.alt} width={article.hero.width} height={article.hero.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-60" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/25" />
-      <Container className="relative flex min-h-[52vh] flex-col justify-end pb-10 pt-28 sm:min-h-[62vh] sm:pb-16 sm:pt-36">
+      <Container className="relative flex flex-col justify-end pb-10 pt-24 sm:pb-14 sm:pt-28" style={{ minHeight: "clamp(24rem, 48vw, 34rem)" }}>
         <p className="eyebrow text-ink-foreground/80">{isTexasExplainedCollectionArticle ? "Texas Explained" : categoryName}</p>
         <h1 className="mt-4 max-w-4xl font-display text-4xl leading-[1] sm:text-6xl lg:text-7xl">{article.title}</h1>
         {!isTexasExplainedPillar && <p className="mt-5 max-w-2xl text-base leading-7 text-ink-foreground/86 sm:mt-6 sm:text-lg sm:leading-8">{article.dek}</p>}
