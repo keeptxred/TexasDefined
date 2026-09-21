@@ -62,6 +62,32 @@ function buildTicketing(offers: EventSchemaOffer[] | undefined, lastVerifiedAt: 
   };
 }
 
+export function mergeEventTicketing(
+  primary: TexasEventTicketingMetadata | undefined,
+  provider: TexasEventTicketingMetadata | undefined,
+): TexasEventTicketingMetadata | undefined {
+  if (!primary) return provider;
+  if (!provider) return primary;
+
+  const seenLinks = new Set<string>();
+  const links = [...primary.links, ...provider.links].filter((link) => {
+    const key = link.affiliateUrl ?? link.officialTicketUrl ?? `${link.provider}:${link.source.name}:${link.lastVerifiedAt}`;
+    if (seenLinks.has(key)) return false;
+    seenLinks.add(key);
+    return true;
+  });
+
+  const seenOffers = new Set<string>();
+  const offers = [...primary.offers, ...provider.offers].filter((offer) => {
+    const key = `${offer.url}:${offer.name}`;
+    if (seenOffers.has(key)) return false;
+    seenOffers.add(key);
+    return true;
+  });
+
+  return { links, offers };
+}
+
 function buildEventImage(enrichment: MajorEventSchemaEnrichment | null): TexasEventImageMetadata | undefined {
   if (!enrichment?.image) return undefined;
   return {
@@ -171,10 +197,29 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
     if (record) records.push(record);
   }
 
-  // Preserve editorial records when an identical event already has a reviewed guide.
-  const existing = new Set(records.map(record => `${eventIdentity(record.title, record.city)}:${record.startDate}`));
-  for (const record of loadTicketmasterEventsServer()) {
-    if (!existing.has(`${eventIdentity(record.title, record.city)}:${record.startDate}`)) records.push(record);
+  // Preserve the reviewed editorial record when Ticketmaster has the same event,
+  // but merge its current affiliate ticketing so richer authority coverage does not
+  // suppress monetizable provider inventory.
+  const existing = new Map(records.map((record, index) => [`${eventIdentity(record.title, record.city)}:${record.startDate}`, index] as const));
+  for (const providerRecord of loadTicketmasterEventsServer()) {
+    const key = `${eventIdentity(providerRecord.title, providerRecord.city)}:${providerRecord.startDate}`;
+    const index = existing.get(key);
+    if (index === undefined) {
+      existing.set(key, records.length);
+      records.push(providerRecord);
+      continue;
+    }
+
+    const editorialRecord = records[index];
+    records[index] = {
+      ...editorialRecord,
+      startTime: editorialRecord.startTime ?? providerRecord.startTime,
+      venueId: editorialRecord.venueId ?? providerRecord.venueId,
+      venueName: editorialRecord.venueName ?? providerRecord.venueName,
+      venuePath: editorialRecord.venuePath ?? providerRecord.venuePath,
+      ticketing: mergeEventTicketing(editorialRecord.ticketing, providerRecord.ticketing),
+      lastUpdatedAt: [editorialRecord.lastUpdatedAt, providerRecord.lastUpdatedAt].sort().at(-1) ?? editorialRecord.lastUpdatedAt,
+    };
   }
   return [...new Map(records.map((record) => [record.id, record] as const)).values()]
     .sort((left, right) => left.startDate.localeCompare(right.startDate) || left.title.localeCompare(right.title));
