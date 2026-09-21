@@ -1,0 +1,59 @@
+name: Emergency restore known-good Worker
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/emergency-restore-known-good-worker.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-production
+  cancel-in-progress: false
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+      KNOWN_GOOD_WORKER_VERSION: 82ebf3b0-6d9b-4ea8-9b1d-d597191ba14a
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Restore last known-good Worker version
+        shell: bash
+        run: |
+          npx wrangler rollback "${KNOWN_GOOD_WORKER_VERSION}" --message "Emergency restore: last fully verified TexasDefined production Worker"
+
+      - name: Verify restored direct Worker
+        env:
+          PRODUCTION_HEALTH_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
+          PRODUCTION_HEALTH_LABEL: emergency-restored-direct-worker
+          PRODUCTION_HEALTH_ATTEMPTS: '18'
+          PRODUCTION_HEALTH_DELAY_MS: '5000'
+        run: node scripts/ci/verify-production-health.mjs
+
+      - name: Verify restored canonical domain
+        env:
+          PRODUCTION_HEALTH_ORIGIN: https://texasdefined.com
+          PRODUCTION_HEALTH_LABEL: emergency-restored-canonical-domain
+          PRODUCTION_HEALTH_ATTEMPTS: '18'
+          PRODUCTION_HEALTH_DELAY_MS: '5000'
+        run: node scripts/ci/verify-production-health.mjs
