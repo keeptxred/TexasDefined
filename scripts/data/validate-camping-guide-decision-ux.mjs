@@ -35,6 +35,8 @@ requireText(component, "profile.whyCampHere", "campground choice rendering");
 requireText(component, "Managing agency", "campground agency filter");
 requireText(component, "Sort results", "campground result sorting");
 requireText(component, "Most recently verified", "campground verification sort");
+requireText(component, "Planning detail", "campground comparison detail");
+requireText(component, "profile.planningDetail", "campground planning-detail rendering");
 requireText(page, "data-stay-nearby-slot", "camping Stay Nearby placement");
 requireText(expedia, "best-places-to-go-camping-in-texas", "camping affiliate route coverage");
 requireText(production, "['camping-guide', '/best-places-to-go-camping-in-texas', 'Best Places to Go Camping in Texas']", "camping live-production verification");
@@ -66,4 +68,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Camping guide decision-UX validation passed: quick-match presets, normalized pet filtering, agency filtering, result sorting, campground choice context, managing-agency context, destination-view disclosure, governed imagery, explicit lodging placement, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
+console.log("Camping guide decision-UX validation passed: quick-match presets, normalized pet filtering, agency filtering, result sorting, campground choice context, planning-detail comparison, managing-agency context, destination-view disclosure, governed imagery, explicit lodging placement, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
