@@ -56,7 +56,7 @@ requireFeatures(component, [
   '.sort((left, right)',
   '.slice(0, 6)',
   'TexasExplainedContextLinks surface="destination"',
-  'Places worth adding to the same trip',
+  'More to explore nearby',
   'pairedDestinations.map((item)',
   'DestinationCard',
   'distanceMiles(destination, item)',
