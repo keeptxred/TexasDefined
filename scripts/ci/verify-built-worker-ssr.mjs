@@ -5,12 +5,21 @@ import path from 'node:path';
 const host = process.env.BUILT_WORKER_SMOKE_HOST || '127.0.0.1';
 const port = Number.parseInt(process.env.BUILT_WORKER_SMOKE_PORT || '8799', 10);
 const origin = `http://${host}:${port}`;
-const requiredText = process.env.BUILT_WORKER_SMOKE_REQUIRED_TEXT || 'Texas Defined';
+const rootRequiredText = process.env.BUILT_WORKER_SMOKE_REQUIRED_TEXT || 'Texas Defined';
 const startupTimeoutMs = Math.max(5000, Number.parseInt(process.env.BUILT_WORKER_SMOKE_STARTUP_TIMEOUT_MS || '45000', 10) || 45000);
 const requestTimeoutMs = Math.max(3000, Number.parseInt(process.env.BUILT_WORKER_SMOKE_REQUEST_TIMEOUT_MS || '10000', 10) || 10000);
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 const artifactDir = '.artifacts';
 const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
+
+const smokeTargets = [
+  { path: '/', requiredText: rootRequiredText, label: 'homepage' },
+  {
+    path: '/best-places-to-go-camping-in-texas',
+    requiredText: 'Best Places to Go Camping in Texas',
+    label: 'camping guide',
+  },
+];
 
 mkdirSync(artifactDir, { recursive: true });
 writeFileSync(logPath, '');
@@ -82,7 +91,8 @@ async function stopChild() {
 }
 
 let failure = '';
-let responseStatus = 'not-run';
+let passed = false;
+const lastStatus = new Map(smokeTargets.map((target) => [target.path, 'not-run']));
 
 try {
   const startedAt = Date.now();
@@ -96,47 +106,56 @@ try {
       break;
     }
 
-    try {
-      const url = new URL('/', origin);
-      url.searchParams.set('built_worker_smoke', `${process.env.GITHUB_SHA || 'local'}-${attempt}`);
-      const response = await fetch(url, {
-        redirect: 'follow',
-        cache: 'no-store',
-        headers: {
-          'cache-control': 'no-cache, no-store, max-age=0',
-          pragma: 'no-cache',
-          'user-agent': 'TexasDefined-CI-Built-Worker-Smoke/1.0',
-        },
-        signal: AbortSignal.timeout(requestTimeoutMs),
-      });
-      responseStatus = String(response.status);
-      const body = await response.text();
+    const attemptFailures = [];
 
-      if (response.status === 200 && body.includes(requiredText)) {
-        console.log(`Built Worker SSR smoke passed on attempt ${attempt}: HTTP 200 with required marker.`);
-        if (summaryPath) appendFileSync(summaryPath, `| ✅ pass | Built Worker SSR smoke | HTTP 200 | ${attempt} attempt(s) |\n`);
-        process.exitCode = 0;
-        break;
+    for (const target of smokeTargets) {
+      try {
+        const url = new URL(target.path, origin);
+        url.searchParams.set('built_worker_smoke', `${process.env.GITHUB_SHA || 'local'}-${attempt}`);
+        const response = await fetch(url, {
+          redirect: 'follow',
+          cache: 'no-store',
+          headers: {
+            'cache-control': 'no-cache, no-store, max-age=0',
+            pragma: 'no-cache',
+            'user-agent': 'TexasDefined-CI-Built-Worker-Smoke/1.0',
+          },
+          signal: AbortSignal.timeout(requestTimeoutMs),
+        });
+        lastStatus.set(target.path, String(response.status));
+        const body = await response.text();
+
+        if (response.status !== 200) {
+          attemptFailures.push(`${target.label} (${target.path}) returned HTTP ${response.status}`);
+        } else if (!body.includes(target.requiredText)) {
+          attemptFailures.push(`${target.label} (${target.path}) returned HTTP 200 without required marker: ${target.requiredText}`);
+        }
+      } catch (error) {
+        const detail = error instanceof Error ? error.message : String(error);
+        lastStatus.set(target.path, 'network-error');
+        attemptFailures.push(`${target.label} (${target.path}) failed: ${detail}`);
       }
-
-      failure = response.status !== 200
-        ? `Built Worker returned HTTP ${response.status}.`
-        : `Built Worker returned HTTP 200 without required marker: ${requiredText}`;
-      console.log(`Built Worker SSR smoke attempt ${attempt} not ready: ${failure}`);
-    } catch (error) {
-      failure = error instanceof Error ? error.message : String(error);
-      console.log(`Built Worker SSR smoke attempt ${attempt} not ready: ${failure}`);
     }
 
+    if (!attemptFailures.length) {
+      passed = true;
+      console.log(`Built Worker SSR smoke passed on attempt ${attempt}: ${smokeTargets.length} critical route(s) returned HTTP 200 with required markers.`);
+      if (summaryPath) appendFileSync(summaryPath, `| ✅ pass | Built Worker SSR smoke | ${smokeTargets.length} routes | ${attempt} attempt(s) |\n`);
+      break;
+    }
+
+    failure = attemptFailures.join('; ');
+    console.log(`Built Worker SSR smoke attempt ${attempt} not ready: ${failure}.`);
     await sleep(1000);
   }
 
-  if (process.exitCode !== 0) {
+  if (!passed) {
     if (!failure) failure = `Built Worker did not become healthy within ${startupTimeoutMs}ms.`;
-    if (summaryPath) appendFileSync(summaryPath, `| ❌ FAIL | Built Worker SSR smoke | ${responseStatus} | predeploy local runtime |\n`);
+    const statuses = smokeTargets.map((target) => `${target.path}=${lastStatus.get(target.path)}`).join(', ');
+    if (summaryPath) appendFileSync(summaryPath, `| ❌ FAIL | Built Worker SSR smoke | ${statuses} | predeploy local runtime |\n`);
     console.error(`::error title=Built Worker SSR smoke failed::${failure}`);
     if (captured.trim()) {
-      const tail = captured.trim().split('\n').slice(-80).join('\n');
+      const tail = captured.trim().split('\n').slice(-120).join('\n');
       console.error('Wrangler local-runtime tail:');
       console.error(tail);
     }
