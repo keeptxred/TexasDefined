@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 
 import type { CampingDiscoveryProfile } from "@/data/camping/discovery";
 import type { CampingAmenity, CampingStyle } from "@/data/camping/types";
+import { hideFailedImageContainer } from "@/lib/image-fallback";
 
 export interface CampingDiscoveryEntry {
   profile: CampingDiscoveryProfile;
@@ -231,7 +232,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
         const image = campingCardImages[profile.destinationSlug];
         return <article id={anchor} key={anchor} className="scroll-mt-28 overflow-hidden border border-border bg-background">
           {image ? <figure className="border-b border-border bg-muted/30">
-            <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" className="aspect-[16/8] w-full object-cover" />
+            <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" className="aspect-[16/8] w-full object-cover" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
             <figcaption className="px-4 py-2 text-xs leading-5 text-muted-foreground">Destination view — verify the exact campsite on the official reservation page.</figcaption>
           </figure> : null}
           <div className="p-6">
