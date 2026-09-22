@@ -20,6 +20,7 @@ for (const label of [
   "Full-hookup RV",
   "Beach camping",
   "Primitive camping",
+  "Cabins & glamping",
   "Fishing",
   "Swimming",
   "Water-focused",
