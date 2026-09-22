@@ -287,7 +287,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
         const hasDestinationGuide = destinationGuideSlugs.has(profile.destinationSlug);
         const image = campingCardImages[profile.destinationSlug];
         return <article id={anchor} key={anchor} className="scroll-mt-28 overflow-hidden border border-border bg-background">
-          {image ? <figure className="border-b border-border bg-muted/30">
+          {image && isParentDestination ? <figure className="border-b border-border bg-muted/30">
             <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" className="aspect-[16/8] w-full object-cover" />
             <figcaption className="px-4 py-2 text-xs leading-5 text-muted-foreground">Destination view — verify the exact campsite on the official reservation page.</figcaption>
           </figure> : null}
