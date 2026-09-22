@@ -124,11 +124,15 @@ try {
         });
         lastStatus.set(target.path, String(response.status));
         const body = await response.text();
+        const requiredText = target.requiredText;
 
+        if (response.status === 200 && body.includes(requiredText)) {
+          continue;
+        }
         if (response.status !== 200) {
           attemptFailures.push(`${target.label} (${target.path}) returned HTTP ${response.status}`);
-        } else if (!body.includes(target.requiredText)) {
-          attemptFailures.push(`${target.label} (${target.path}) returned HTTP 200 without required marker: ${target.requiredText}`);
+        } else {
+          attemptFailures.push(`${target.label} (${target.path}) returned HTTP 200 without required marker: ${requiredText}`);
         }
       } catch (error) {
         const detail = error instanceof Error ? error.message : String(error);
