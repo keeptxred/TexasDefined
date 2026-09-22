@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const route = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
 const engine = fs.readFileSync('src/data/destination-relationships.ts', 'utf8');
+const serverBoundary = fs.readFileSync('src/data/destination-relationships.functions.ts', 'utf8');
 const component = fs.readFileSync('src/components/editorial/DestinationRelationships.tsx', 'utf8');
 const errors = [];
 
@@ -12,8 +13,7 @@ const requireFeatures = (source, features, area) => {
 };
 
 requireFeatures(route, [
-  'destinationsQuery({ limit: 5000 })',
-  'buildDestinationRelationshipGroups(destination, catalog)',
+  'getDestinationRelationshipGroups({ data: { slug: params.slug } })',
   'DestinationRelationships',
   '"@type": "ItemList"',
   '"@id": `${url}#related-places`',
@@ -48,6 +48,21 @@ requireFeatures(engine, [
   'item.slug !== destination.slug',
   'new Map(items.map((item) => [item.slug, item]))',
 ], 'Destination relationship engine');
+
+
+requireFeatures(serverBoundary, [
+  'createServerFn({ method: "GET" })',
+  'listResolvedDestinations({ limit: 5000 })',
+  'buildDestinationRelationshipGroups(',
+  'prepareDestinationForDelivery',
+], 'Destination relationship server boundary');
+
+if (route.includes('destinationsQuery({ limit: 5000 })')) {
+  errors.push('Destination relationship route must not hydrate the full 5,000-item catalog into the browser.');
+}
+if (serverBoundary.includes('queryClient')) {
+  errors.push('Destination relationship server boundary must not populate the public query cache.');
+}
 
 requireFeatures(component, [
   'const pairedDestinations = [...new Map(',
