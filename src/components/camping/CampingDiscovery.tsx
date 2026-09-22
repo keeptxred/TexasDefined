@@ -98,6 +98,28 @@ const campingCardImages: Record<string, { src: string; alt: string; width: numbe
   "lake-tawakoni-state-park": { src: "/images/state-parks/lake-tawakoni-state-park.jpg", alt: "Lake Tawakoni State Park in Texas", width: 1600, height: 1100 },
 };
 
+const destinationGuideSlugs = new Set([
+  "enchanted-rock-state-natural-area",
+  "palo-duro-canyon-state-park",
+  "garner-state-park",
+  "mckinney-falls-state-park",
+  "caddo-lake",
+  "mustang-island-state-park",
+  "sea-rim-state-park",
+  "brazos-bend-state-park",
+  "big-bend-national-park",
+  "guadalupe-mountains-national-park",
+  "inks-lake-state-park",
+  "colorado-bend-state-park",
+  "caprock-canyons-state-park",
+  "dinosaur-valley-state-park",
+  "pedernales-falls-state-park",
+  "lake-whitney-state-park",
+  "lake-tawakoni-state-park",
+  "matagorda-bay-nature-park",
+]);
+
+
 function profileAnchor(profile: CampingDiscoveryProfile) {
   return profile.profileSlug || profile.destinationSlug;
 }
@@ -262,6 +284,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
         const countySlug = profile.county.toLowerCase().replace(/[^a-z0-9]+/g, "-");
         const anchor = profileAnchor(profile);
         const isParentDestination = anchor === profile.destinationSlug;
+        const hasDestinationGuide = destinationGuideSlugs.has(profile.destinationSlug);
         const image = campingCardImages[profile.destinationSlug];
         return <article id={anchor} key={anchor} className="scroll-mt-28 overflow-hidden border border-border bg-background">
           {image ? <figure className="border-b border-border bg-muted/30">
@@ -293,7 +316,8 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
             </dl>
 
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
-              <Link to="/destination/$slug" params={{ slug: profile.destinationSlug }} className="text-primary underline-offset-4 hover:underline">{isParentDestination ? "Destination guide" : "Parent destination guide"}</Link>
+              {hasDestinationGuide ? <Link to="/destination/$slug" params={{ slug: profile.destinationSlug }} className="text-primary underline-offset-4 hover:underline">{isParentDestination ? "Destination guide" : "Parent destination guide"}</Link> : null}
+              {hasDestinationGuide ? <Link to="/explore/trip-planner" search={{ destination: profile.destinationSlug }} className="text-primary underline-offset-4 hover:underline">Build trip</Link> : null}
               <Link to="/$kind/$slug" params={{ kind: "county", slug: countySlug }} className="text-primary underline-offset-4 hover:underline">{profile.county} County</Link>
               <a href={profile.reservationUrl} target="_blank" rel="noreferrer" className="text-primary underline-offset-4 hover:underline">Official reservations/details ↗</a>
             </div>
