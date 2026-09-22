@@ -12,6 +12,7 @@ export interface CampingDiscoveryProfile {
   amenities: CampingAmenity[];
   reservationPolicy: string;
   whyCampHere?: string;
+  planningDetail?: string;
   reservationUrl: string;
   siteLengthNote?: string;
   generatorRules?: string;
