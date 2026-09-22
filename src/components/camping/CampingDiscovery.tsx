@@ -62,6 +62,40 @@ const amenityFilters: Array<{ value: CampingAmenity; label: string }> = [
   { value: "pets", label: "Pet friendly" },
 ];
 
+const quickMatches: Array<{
+  label: string;
+  styles?: CampingStyle[];
+  amenities?: CampingAmenity[];
+  waterCamping?: boolean;
+}> = [
+  { label: "Full-hookup RV", styles: ["rv"], amenities: ["full-hookup"] },
+  { label: "Beach camping", styles: ["beach"] },
+  { label: "Primitive camping", styles: ["primitive"] },
+  { label: "Fishing", amenities: ["fishing"] },
+  { label: "Swimming", amenities: ["swimming"] },
+  { label: "Water-focused", waterCamping: true },
+  { label: "Accessible sites", amenities: ["ada-site"] },
+];
+
+const campingCardImages: Record<string, { src: string; alt: string; width: number; height: number }> = {
+  "enchanted-rock-state-natural-area": { src: "/images/state-parks/enchanted-rock-state-natural-area.jpg", alt: "Enchanted Rock State Natural Area in Texas", width: 1600, height: 1063 },
+  "palo-duro-canyon-state-park": { src: "/images/state-parks/palo-duro-canyon-state-park.jpg", alt: "Palo Duro Canyon State Park in Texas", width: 1600, height: 900 },
+  "garner-state-park": { src: "/images/state-parks/garner-state-park.jpg", alt: "Garner State Park in Texas", width: 1600, height: 230 },
+  "mckinney-falls-state-park": { src: "/images/state-parks/mckinney-falls-state-park.jpg", alt: "McKinney Falls State Park in Texas", width: 1600, height: 1066 },
+  "mustang-island-state-park": { src: "/images/state-parks/mustang-island-state-park.jpg", alt: "Mustang Island State Park in Texas", width: 1600, height: 1067 },
+  "sea-rim-state-park": { src: "/images/state-parks/sea-rim-state-park.jpg", alt: "Sea Rim State Park in Texas", width: 1600, height: 800 },
+  "brazos-bend-state-park": { src: "/images/state-parks/brazos-bend-state-park.jpg", alt: "Brazos Bend State Park in Texas", width: 1600, height: 1280 },
+  "big-bend-national-park": { src: "/images/explore/national-parks/big-bend-national-park.jpg", alt: "Big Bend National Park in Texas", width: 1600, height: 2133 },
+  "guadalupe-mountains-national-park": { src: "/images/explore/national-parks/guadalupe-mountains-national-park.jpg", alt: "Guadalupe Mountains National Park in Texas", width: 1600, height: 1053 },
+  "inks-lake-state-park": { src: "/images/state-parks/inks-lake-state-park.jpg", alt: "Inks Lake State Park in Texas", width: 1600, height: 900 },
+  "colorado-bend-state-park": { src: "/images/state-parks/colorado-bend-state-park.jpg", alt: "Colorado Bend State Park in Texas", width: 1600, height: 1071 },
+  "caprock-canyons-state-park": { src: "/images/state-parks/caprock-canyons-state-park.jpg", alt: "Caprock Canyons State Park in Texas", width: 1600, height: 1066 },
+  "dinosaur-valley-state-park": { src: "/images/state-parks/dinosaur-valley-state-park.jpg", alt: "Dinosaur Valley State Park in Texas", width: 1600, height: 1200 },
+  "pedernales-falls-state-park": { src: "/images/state-parks/pedernales-falls-state-park.jpg", alt: "Pedernales Falls State Park in Texas", width: 1600, height: 790 },
+  "lake-whitney-state-park": { src: "/images/state-parks/lake-whitney-state-park.jpg", alt: "Lake Whitney State Park in Texas", width: 1600, height: 900 },
+  "lake-tawakoni-state-park": { src: "/images/state-parks/lake-tawakoni-state-park.jpg", alt: "Lake Tawakoni State Park in Texas", width: 1600, height: 1100 },
+};
+
 function profileAnchor(profile: CampingDiscoveryProfile) {
   return profile.profileSlug || profile.destinationSlug;
 }
@@ -109,9 +143,30 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
     setWaterCamping(false);
   };
 
+  const applyQuickMatch = (match: (typeof quickMatches)[number]) => {
+    setQuery("");
+    setRegion("all");
+    setStyles(match.styles ?? []);
+    setAmenities(match.amenities ?? []);
+    setWaterCamping(Boolean(match.waterCamping));
+  };
+
   return <>
     <div className="mt-8 border border-border bg-background p-5 md:p-6">
-      <div className="grid gap-5 lg:grid-cols-[1.4fr_.8fr]">
+      <div>
+        <p className="text-sm font-semibold">Quick matches</p>
+        <p className="mt-1 text-sm leading-6 text-muted-foreground">Start with a common trip type, then fine-tune the filters below.</p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {quickMatches.map((match) => <button
+            key={match.label}
+            type="button"
+            onClick={() => applyQuickMatch(match)}
+            className="border border-border bg-muted/30 px-3 py-2 text-sm font-semibold transition-colors hover:border-primary/50 hover:bg-muted"
+          >{match.label}</button>)}
+        </div>
+      </div>
+
+      <div className="mt-6 grid gap-5 border-t border-border pt-6 lg:grid-cols-[1.4fr_.8fr]">
         <label className="text-sm">
           <span className="block font-semibold">Where do you want to camp?</span>
           <input
@@ -173,7 +228,12 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
         const countySlug = profile.county.toLowerCase().replace(/[^a-z0-9]+/g, "-");
         const anchor = profileAnchor(profile);
         const isParentDestination = anchor === profile.destinationSlug;
+        const image = campingCardImages[profile.destinationSlug];
         return <article id={anchor} key={anchor} className="scroll-mt-28 overflow-hidden border border-border bg-background">
+          {image ? <figure className="border-b border-border bg-muted/30">
+            <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" className="aspect-[16/8] w-full object-cover" />
+            <figcaption className="px-4 py-2 text-xs leading-5 text-muted-foreground">Destination view — verify the exact campsite on the official reservation page.</figcaption>
+          </figure> : null}
           <div className="p-6">
             <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.12em] text-muted-foreground">
               <span>{regionLabels[profile.region] ?? profile.region}</span><span>·</span><span>{profile.county} County</span><span>·</span><span>Verified {profile.verifiedAt}</span>
