@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { destinationsQuery } from "@/data/queries";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const title = "Best Places to Go Camping in Texas | RV, Tent & Primitive Camping";
@@ -14,19 +13,30 @@ function profileAnchor(profile: { destinationSlug: string; profileSlug?: unknown
 }
 
 export const Route = createFileRoute(canonicalPath)({
-  loader: async ({ context }) => {
-    // Load comparison datasets only for this guide so they stay out of the global route bundle.
-    const [{ CAMPING_DISCOVERY_PROFILES }, { CAMPING_DISCOVERY_PROFILES_WAVE2 }, { CAMPING_DISCOVERY_PROFILES_WAVE3 }, { CAMPING_DISCOVERY_PROFILES_WAVE4 }, { CAMPING_DISCOVERY_PROFILES_WAVE5 }, destinations] = await Promise.all([
+  loader: async () => {
+    // Keep the camping guide self-contained. It needs verified campground
+    // comparison data, not the full statewide destination resolver.
+    const [
+      { CAMPING_DISCOVERY_PROFILES },
+      { CAMPING_DISCOVERY_PROFILES_WAVE2 },
+      { CAMPING_DISCOVERY_PROFILES_WAVE3 },
+      { CAMPING_DISCOVERY_PROFILES_WAVE4 },
+      { CAMPING_DISCOVERY_PROFILES_WAVE5 },
+    ] = await Promise.all([
       import("@/data/camping/discovery"),
       import("@/data/camping/profiles-wave2"),
       import("@/data/camping/profiles-wave3"),
       import("@/data/camping/profiles-wave4"),
       import("@/data/camping/profiles-wave5"),
-      context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
     ]);
-    const profiles = [...CAMPING_DISCOVERY_PROFILES, ...CAMPING_DISCOVERY_PROFILES_WAVE2, ...CAMPING_DISCOVERY_PROFILES_WAVE3, ...CAMPING_DISCOVERY_PROFILES_WAVE4, ...CAMPING_DISCOVERY_PROFILES_WAVE5];
-    const bySlug = new Map(destinations.map((destination) => [destination.slug, destination]));
-    return { entries: profiles.map((profile) => ({ profile, destination: bySlug.get(profile.destinationSlug) })) };
+    const profiles = [
+      ...CAMPING_DISCOVERY_PROFILES,
+      ...CAMPING_DISCOVERY_PROFILES_WAVE2,
+      ...CAMPING_DISCOVERY_PROFILES_WAVE3,
+      ...CAMPING_DISCOVERY_PROFILES_WAVE4,
+      ...CAMPING_DISCOVERY_PROFILES_WAVE5,
+    ];
+    return { entries: profiles.map((profile) => ({ profile })) };
   },
   head: ({ loaderData }) => {
     const entries = loaderData?.entries ?? [];
@@ -52,13 +62,13 @@ export const Route = createFileRoute(canonicalPath)({
             "@id": `${pageUrl}#camping-directory`,
             name: "Verified Texas public camping destinations and campgrounds",
             numberOfItems: entries.length,
-            itemListElement: entries.map(({ profile, destination }, index) => ({
+            itemListElement: entries.map(({ profile }, index) => ({
               "@type": "ListItem",
               position: index + 1,
               item: {
                 "@type": "Campground",
                 name: profile.name,
-                url: destination && profileAnchor(profile) === profile.destinationSlug
+                url: profileAnchor(profile) === profile.destinationSlug
                   ? absoluteUrl(texasDefinedBrand, `/destination/${profile.destinationSlug}`)
                   : `${pageUrl}#${profileAnchor(profile)}`,
                 containedInPlace: { "@type": "State", name: "Texas" },
