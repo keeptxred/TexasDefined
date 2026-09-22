@@ -104,7 +104,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
 
     {pairedDestinations.length ? <Section tone="surface" className="py-10 sm:py-12 lg:py-14">
       <Container>
-        <SectionHeader eyebrow="Nearby" title="Places worth adding to the same trip" description="A short set of nearby options, ordered by distance, instead of a long stack of overlapping recommendation sections." />
+        <SectionHeader eyebrow="Nearby" title="More to explore nearby" description="Nearby parks, towns and attractions that pair naturally with this stop." />
         <ul className="mt-8 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
           {pairedDestinations.map((item) => {
             const miles = distanceMiles(destination, item);
