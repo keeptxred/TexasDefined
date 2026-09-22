@@ -1,5 +1,6 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
+import caddoLake from "@/assets/caddo-lake.jpg";
 import { CampingDiscovery } from "@/components/camping/CampingDiscovery";
 import { Container } from "@/components/layout/Container";
 
@@ -10,6 +11,7 @@ const standoutCamping = [
     eyebrow: "River weekends",
     label: "Garner State Park",
     body: "A strong Hill Country choice when the Frio River, swimming and a mix of tent and RV sites are the center of the trip.",
+    image: { src: "/images/state-parks/garner-state-park.jpg", alt: "Garner State Park in Texas", width: 1600, height: 230, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" },
   },
   {
     slug: "palo-duro-canyon-state-park",
@@ -17,6 +19,7 @@ const standoutCamping = [
     eyebrow: "Canyon scenery",
     label: "Palo Duro Canyon State Park",
     body: "Camp inside the canyon with developed RV and tent options, primitive hike-in camping and immediate access to the park trail system.",
+    image: { src: "/images/state-parks/palo-duro-canyon-state-park.jpg", alt: "Palo Duro Canyon State Park in Texas", width: 1600, height: 900, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" },
   },
   {
     slug: "mustang-island-state-park",
@@ -24,6 +27,7 @@ const standoutCamping = [
     eyebrow: "Beach camping",
     label: "Mustang Island State Park",
     body: "Choose developed electric sites behind the dunes or weather-dependent primitive camping directly along the Gulf.",
+    image: { src: "/images/state-parks/mustang-island-state-park.jpg", alt: "Mustang Island State Park in Texas", width: 1600, height: 1067, credit: "William L. Farr · CC BY 4.0 · Wikimedia Commons" },
   },
   {
     slug: "caddo-lake",
@@ -31,6 +35,7 @@ const standoutCamping = [
     eyebrow: "Paddling & fishing",
     label: "Caddo Lake State Park",
     body: "An East Texas base for cypress-lined water, fishing and developed campsites, including a small verified full-hookup inventory.",
+    image: { src: caddoLake, alt: "Bald cypress trees draped in Spanish moss on Caddo Lake at dawn", width: 1600, height: 1067 },
   },
   {
     slug: "big-bend-national-park",
@@ -38,6 +43,7 @@ const standoutCamping = [
     eyebrow: "Remote & backcountry",
     label: "Big Bend National Park",
     body: "A destination for desert, mountain and backcountry camping where campground choice, permits and seasonal heat materially change the trip.",
+    image: { src: "/images/explore/national-parks/big-bend-national-park.jpg", alt: "Big Bend National Park in Texas", width: 1600, height: 2133, credit: "Betty Alex · U.S. National Park Service · Public domain · Wikimedia Commons" },
   },
   {
     slug: "brazos-bend-state-park",
@@ -45,6 +51,7 @@ const standoutCamping = [
     eyebrow: "Near Houston",
     label: "Brazos Bend State Park",
     body: "A practical Houston-area camping escape with developed sites, primitive walk-in camping, wetlands, trails and wildlife.",
+    image: { src: "/images/state-parks/brazos-bend-state-park.jpg", alt: "Brazos Bend State Park in Texas", width: 1600, height: 1280, credit: "Mike Fisher · CC BY 2.0 · Wikimedia Commons" },
   },
 ] as const;
 
@@ -52,8 +59,7 @@ export const Route = createLazyFileRoute("/best-places-to-go-camping-in-texas")(
 
 function CampingGuidePage() {
   const { entries } = Route.useLoaderData();
-  const heroEntry = entries.find(({ profile }) => profile.destinationSlug === "palo-duro-canyon-state-park");
-  const hero = heroEntry?.destination?.hero;
+  const hero = standoutCamping[1].image;
 
   return <main>
     <section className="border-b border-border bg-muted/30">
@@ -71,16 +77,15 @@ function CampingGuidePage() {
         </div>
         <figure className="overflow-hidden border border-border bg-background">
           <img
-            src={hero?.src ?? "/images/state-parks/palo-duro-canyon-state-park.jpg"}
-            alt={hero?.alt ?? "Palo Duro Canyon State Park in Texas"}
-            width={hero?.width ?? 1600}
-            height={hero?.height ?? 900}
+            src={hero.src}
+            alt={hero.alt}
+            width={hero.width}
+            height={hero.height}
             className="aspect-[4/3] w-full object-cover"
             fetchPriority="high"
           />
           <figcaption className="px-4 py-3 text-xs leading-5 text-muted-foreground">
-            Palo Duro Canyon State Park · Panhandle camping
-            {hero?.credit ? <span> · {hero.credit}</span> : null}
+            Palo Duro Canyon State Park · Panhandle camping · {hero.credit}
           </figcaption>
         </figure>
       </Container>
@@ -94,20 +99,15 @@ function CampingGuidePage() {
           <p className="mt-4 leading-8 text-muted-foreground">Texas camping changes dramatically from Gulf beaches to Hill Country rivers, East Texas forests and West Texas desert. These are useful starting points, not a one-size-fits-all ranking.</p>
         </div>
         <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {standoutCamping.map((item) => {
-            const entry = entries.find(({ profile }) => profile.destinationSlug === item.slug);
-            const destination = entry?.destination;
-            return <Link key={item.slug} to={item.to} className="group overflow-hidden border border-border bg-background transition-colors hover:border-primary/50">
-              {destination?.hero?.src ? <img src={destination.hero.src} alt={destination.hero.alt} width={destination.hero.width} height={destination.hero.height} loading="lazy" className="aspect-[16/9] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" /> : null}
-              <div className="p-6">
-                <p className="eyebrow text-primary">{item.eyebrow}</p>
-                <h3 className="mt-2 font-display text-2xl">{item.label}</h3>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.body}</p>
-                {destination?.bestSeason ? <p className="mt-4 text-xs leading-5 text-muted-foreground"><strong className="text-foreground">Best season:</strong> {destination.bestSeason}</p> : null}
-                <span className="mt-5 inline-block text-sm font-semibold text-primary">Open destination guide →</span>
-              </div>
-            </Link>;
-          })}
+          {standoutCamping.map((item) => <Link key={item.slug} to={item.to} className="group overflow-hidden border border-border bg-background transition-colors hover:border-primary/50">
+            <img src={item.image.src} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" className="aspect-[16/9] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
+            <div className="p-6">
+              <p className="eyebrow text-primary">{item.eyebrow}</p>
+              <h3 className="mt-2 font-display text-2xl">{item.label}</h3>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">{item.body}</p>
+              <span className="mt-5 inline-block text-sm font-semibold text-primary">Open destination guide →</span>
+            </div>
+          </Link>)}
         </div>
       </Container>
     </section>
@@ -117,7 +117,7 @@ function CampingGuidePage() {
         <div className="max-w-4xl">
           <p className="eyebrow text-primary">Campground finder</p>
           <h2 className="mt-2 font-display text-4xl md:text-5xl">Search verified public camping across Texas</h2>
-          <p className="mt-4 leading-8 text-muted-foreground">Search by park, campground, county or nearby town. Combine region, camping style and verified facilities to narrow the list. An amenity that is not shown means TexasDefined has not verified it from an official source yet; it does not automatically mean the amenity is unavailable.</p>
+          <p className="mt-4 leading-8 text-muted-foreground">Search by park, campground, county or managing agency. Combine region, camping style and verified facilities to narrow the list. An amenity that is not shown means TexasDefined has not verified it from an official source yet; it does not automatically mean the amenity is unavailable.</p>
         </div>
         <CampingDiscovery entries={entries} />
       </Container>

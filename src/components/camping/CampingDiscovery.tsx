@@ -3,11 +3,9 @@ import { useMemo, useState } from "react";
 
 import type { CampingDiscoveryProfile } from "@/data/camping/discovery";
 import type { CampingAmenity, CampingStyle } from "@/data/camping/types";
-import type { Destination } from "@/data/types";
 
 export interface CampingDiscoveryEntry {
   profile: CampingDiscoveryProfile;
-  destination?: Destination;
 }
 
 const styleLabels: Record<CampingStyle, string> = {
@@ -65,8 +63,7 @@ const amenityFilters: Array<{ value: CampingAmenity; label: string }> = [
 ];
 
 function profileAnchor(profile: CampingDiscoveryProfile) {
-  const profileSlug = (profile as CampingDiscoveryProfile & { profileSlug?: unknown }).profileSlug;
-  return typeof profileSlug === "string" && profileSlug ? profileSlug : profile.destinationSlug;
+  return profile.profileSlug || profile.destinationSlug;
 }
 
 function toggleValue<T extends string>(current: T[], value: T) {
@@ -82,7 +79,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
 
   const filtered = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
-    return entries.filter(({ profile, destination }) => {
+    return entries.filter(({ profile }) => {
       if (styles.length && !styles.some((style) => profile.styles.includes(style))) return false;
       if (region !== "all" && profile.region !== region) return false;
       if (amenities.length && !amenities.every((amenity) => profile.amenities.includes(amenity))) return false;
@@ -93,9 +90,8 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
           profile.county,
           profile.managingAgency,
           regionLabels[profile.region] ?? profile.region,
-          destination?.name,
-          destination?.nearestTown,
-          destination?.summary,
+          profile.destinationSlug,
+          profile.profileSlug,
         ].filter(Boolean).join(" ").toLowerCase();
         if (!haystack.includes(normalizedQuery)) return false;
       }
@@ -122,7 +118,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
             type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Park, campground, county or nearby town"
+            placeholder="Park, campground, county or agency"
             className="mt-2 w-full border border-border bg-background px-3 py-3"
           />
         </label>
@@ -173,36 +169,31 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
     </div>
 
     {filtered.length ? <div className="mt-7 grid gap-6 lg:grid-cols-2">
-      {filtered.map(({ profile, destination }) => {
+      {filtered.map(({ profile }) => {
         const countySlug = profile.county.toLowerCase().replace(/[^a-z0-9]+/g, "-");
         const anchor = profileAnchor(profile);
         const isParentDestination = anchor === profile.destinationSlug;
         return <article id={anchor} key={anchor} className="scroll-mt-28 overflow-hidden border border-border bg-background">
-          {isParentDestination && destination?.hero?.src ? <img src={destination.hero.src} alt={destination.hero.alt} width={destination.hero.width} height={destination.hero.height} loading="lazy" className="aspect-[16/8] w-full object-cover" /> : null}
           <div className="p-6">
             <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.12em] text-muted-foreground">
               <span>{regionLabels[profile.region] ?? profile.region}</span><span>·</span><span>{profile.county} County</span><span>·</span><span>Verified {profile.verifiedAt}</span>
             </div>
             <h3 className="mt-3 font-display text-3xl leading-tight">{profile.name}</h3>
-            {!isParentDestination && destination ? <p className="mt-2 text-sm font-semibold text-primary">Campground within {destination.name}</p> : null}
-            {isParentDestination && destination?.summary ? <p className="mt-3 leading-7 text-muted-foreground">{destination.summary}</p> : null}
-            {!isParentDestination ? <p className="mt-3 leading-7 text-muted-foreground">{profile.reservationPolicy}</p> : null}
+            {!isParentDestination ? <p className="mt-2 text-sm font-semibold text-primary">Campground profile</p> : null}
+            <p className="mt-3 leading-7 text-muted-foreground">{profile.reservationPolicy}</p>
 
             <div className="mt-5 flex flex-wrap gap-2">
               {profile.styles.map((item) => <span key={item} className="border border-border px-2.5 py-1 text-xs font-semibold">{styleLabels[item]}</span>)}
             </div>
 
             <dl className="mt-6 space-y-4 text-sm">
-              {destination?.nearestTown ? <div><dt className="font-semibold">Nearest town</dt><dd className="mt-1 leading-6 text-muted-foreground">{destination.nearestTown}</dd></div> : null}
-              {destination?.bestSeason ? <div><dt className="font-semibold">Best season</dt><dd className="mt-1 leading-6 text-muted-foreground">{destination.bestSeason}</dd></div> : null}
               <div><dt className="font-semibold">Verified facilities</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.amenities.map((amenity) => amenityLabels[amenity] ?? amenity).join(" · ") || "No amenity fields verified yet"}</dd></div>
-              {isParentDestination ? <div><dt className="font-semibold">Reservations</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.reservationPolicy}</dd></div> : null}
               {profile.siteLengthNote ? <div><dt className="font-semibold">RV/site length</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.siteLengthNote}</dd></div> : null}
               {profile.generatorRules ? <div><dt className="font-semibold">Generator rules</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.generatorRules}</dd></div> : null}
             </dl>
 
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
-              {destination ? <Link to="/destination/$slug" params={{ slug: destination.slug }} className="text-primary underline-offset-4 hover:underline">{isParentDestination ? "Destination guide" : "Parent destination guide"}</Link> : null}
+              <Link to="/destination/$slug" params={{ slug: profile.destinationSlug }} className="text-primary underline-offset-4 hover:underline">{isParentDestination ? "Destination guide" : "Parent destination guide"}</Link>
               <Link to="/$kind/$slug" params={{ kind: "county", slug: countySlug }} className="text-primary underline-offset-4 hover:underline">{profile.county} County</Link>
               <a href={profile.reservationUrl} target="_blank" rel="noreferrer" className="text-primary underline-offset-4 hover:underline">Official reservations/details ↗</a>
             </div>

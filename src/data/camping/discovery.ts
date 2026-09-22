@@ -3,6 +3,7 @@ import type { TexasRegion } from "../types";
 
 export interface CampingDiscoveryProfile {
   destinationSlug: string;
+  profileSlug?: string;
   name: string;
   county: string;
   region: TexasRegion;
