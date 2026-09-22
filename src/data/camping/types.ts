@@ -46,6 +46,8 @@ export interface CampingProfile {
   reservationAuthority: string;
   reservationUrl: string;
   siteLengthNote?: string;
+  siteCountNote?: string;
+  priceNote?: string;
   generatorRules?: string;
   campingNotes: string[];
   searchTerms: string[];
