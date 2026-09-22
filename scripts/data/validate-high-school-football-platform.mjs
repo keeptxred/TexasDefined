@@ -32,6 +32,7 @@ const privateFootballAlignmentsPath = 'src/data/high-school-football/private-foo
 const privateSchoolAdmissionsPath = 'src/data/high-school-football/private-school-admissions.ts';
 const programSlugsPath = 'src/data/high-school-football/program-slugs.ts';
 const programProfileServerPath = 'src/data/high-school-football/football-program-profile.server.ts';
+const footballSitemapPath = 'src/data/high-school-football/football-sitemap.server.ts';
 const footballVenueLinksPath = 'src/data/high-school-football/football-venue-links.server.ts';
 const programProfileFunctionsPath = 'src/data/high-school-football/football-program-profile.functions.ts';
 const uilDirectoryComponentPath = 'src/components/sports/UilFootballProgramDirectory.tsx';
@@ -80,6 +81,7 @@ for (const file of [
   privateSchoolAdmissionsPath,
   programSlugsPath,
   programProfileServerPath,
+  footballSitemapPath,
   footballVenueLinksPath,
   programProfileFunctionsPath,
   uilDirectoryComponentPath,
@@ -136,6 +138,7 @@ if (!errors.length) {
   const privateSchoolAdmissions = read(privateSchoolAdmissionsPath);
   const programSlugs = read(programSlugsPath);
   const programProfileServer = read(programProfileServerPath);
+  const footballSitemap = read(footballSitemapPath);
   const footballVenueLinks = read(footballVenueLinksPath);
   const programProfileFunctions = read(programProfileFunctionsPath);
   const uilDirectoryComponent = read(uilDirectoryComponentPath);
@@ -643,6 +646,25 @@ if (!errors.length) {
     'getVerifiedFootballVenueLinks',
     'venueLinks:',
   ]) requireText(programProfileServer, marker, 'Universal UIL football profile resolver');
+
+  for (const marker of [
+    'UIL_FOOTBALL_PROGRAMS_2026',
+    'FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS',
+    'normalizeFeaturedFootballName',
+    'footballProgramProfilePath',
+    'footballProgramSitemapEntries',
+    'privateFootballProgramSitemapEntries',
+    '1,268 unique school profile paths',
+  ]) requireText(footballSitemap, marker, 'Lightweight football sitemap generator');
+  requireText(sitemap, 'football-sitemap.server', 'Primary sitemap lightweight football import');
+  if (sitemap.includes('football-program-profile.server')) {
+    errors.push('Primary sitemap must not import the full football program profile resolver.');
+  }
+  for (const forbidden of ['football-directory.server', 'football-venue-links.server', 'featured-program-profile.server', 'searchFootballPrograms']) {
+    if (footballSitemap.includes(forbidden)) {
+      errors.push(`Lightweight football sitemap generator must not import live/profile stack marker: ${forbidden}.`);
+    }
+  }
 
   for (const marker of [
     'VERIFIED_FOOTBALL_VENUE_RULES',
