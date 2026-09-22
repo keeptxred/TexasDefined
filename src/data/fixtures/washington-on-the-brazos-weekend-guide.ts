@@ -62,7 +62,7 @@ export const washingtonOnTheBrazosWeekendGuideArticle: Article = {
       "Family pace: alternate outdoor and indoor sections, carry water, and avoid trying to add a distant battlefield after a full museum day.",
       "History-deep pace: read the Republic government trail before arrival, then use the site to test the chronology against the landscape."
     ),
-    h("What not to do"),
+    h("How to avoid a rushed visit"),
     p("Do not plan the visit as a quick monument stop. The value of Washington comes from the combination of political landscape, museum interpretation and living history. Cutting the visit down to a photograph at Independence Hall loses most of what makes the site unusually useful."),
     p("And do not assume every day offers the same access. The current weekly schedule makes Wednesday through Sunday the better choice for the full three-part experience. Check the Texas Historical Commission page before leaving, then give the place enough time to function as a historic landscape rather than a roadside stop."),
   ],
