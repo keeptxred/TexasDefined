@@ -37,9 +37,9 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
     <Section tone="surface">
       <Container>
         <SectionHeader
-          eyebrow="Visitor planning guide"
-          title={`Planning notes for ${destination.name}`}
-          description="Operational facts are tied to official sources and a recorded review date. Supporting agency, institutional, conservation, science and historic-designation sources add context where useful. TexasDefined's planning assessment is editorial judgment—not a paid rating or a claim of an unrecorded personal visit."
+          eyebrow="Plan your visit"
+          title={`Visiting ${destination.name}`}
+          description="Use the official visitor source for current hours, prices, reservations and closures. TexasDefined adds practical trip context, nearby ideas and a recorded review date so you can plan with current information."
         />
 
         <div className="mt-10 grid gap-8 lg:grid-cols-[1.2fr_.8fr]">
