@@ -14,9 +14,10 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
 import { auditDestination } from "@/data/destination-audit";
-import { buildDestinationRelationshipGroups, distanceMiles } from "@/data/destination-relationships";
+import { distanceMiles } from "@/data/destination-relationships";
+import { getDestinationRelationshipGroups } from "@/data/destination-relationships.functions";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
-import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery, regionsQuery } from "@/data/queries";
+import { articlesQuery, categoriesQuery, destinationQuery, regionsQuery } from "@/data/queries";
 import { isTopTexasAttraction } from "@/data/top-texas-attractions";
 import { recoverOrHideImage } from "@/lib/image-fallback";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
@@ -84,14 +85,13 @@ export const Route = createFileRoute("/destination/$slug")({
       const { resolveTopAttractionAuthority } = await import("@/data/top-attraction-authority-resolver");
       destination = resolveTopAttractionAuthority(destination);
     }
-    const [graph, categories, catalog, regions, relatedArticles] = await Promise.all([
+    const [graph, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([
       loadTexasKnowledgeGraph(),
       context.queryClient.ensureQueryData(categoriesQuery()),
-      context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
+      getDestinationRelationshipGroups({ data: { slug: params.slug } }),
       context.queryClient.ensureQueryData(regionsQuery()),
       context.queryClient.ensureQueryData(articlesQuery({ category: destination.category, limit: 3 })),
     ]);
-    const relationshipGroups = buildDestinationRelationshipGroups(destination, catalog);
     return { destination, graph, categories, regions, relatedArticles, relationshipGroups };
   },
   head: ({ loaderData, params }) => {
