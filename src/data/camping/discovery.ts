@@ -13,6 +13,8 @@ export interface CampingDiscoveryProfile {
   reservationPolicy: string;
   reservationUrl: string;
   siteLengthNote?: string;
+  siteCountNote?: string;
+  priceNote?: string;
   generatorRules?: string;
   verifiedAt: string;
   sources: Array<Pick<CampingSource, "label" | "url">>;
