@@ -16,6 +16,14 @@ function featuredProgramMatchesUil(program: FeaturedFootballProgram) {
     .some((name) => UIL_NORMALIZED_PROGRAM_NAMES.has(name));
 }
 
+function footballDistrictProfilePath(classification: string, division: 1 | 2 | null, district: number) {
+  const divisionPart = division === 1 ? 'division-i' : division === 2 ? 'division-ii' : null;
+  const slug = [classification.toLowerCase(), divisionPart, 'district', String(district)]
+    .filter(Boolean)
+    .join('-');
+  return `/texas-high-school-football-districts/${slug}`;
+}
+
 /**
  * Lightweight sitemap-only football URL generation.
  *
@@ -48,4 +56,17 @@ export function privateFootballProgramSitemapEntries() {
       path: `/texas-high-school-football-teams/${program.slug}`,
       lastmod: '2026-09-19',
     }));
+}
+
+export function footballDistrictSitemapEntries() {
+  const entries = [...new Map(UIL_FOOTBALL_PROGRAMS_2026.map((program) => {
+    const path = footballDistrictProfilePath(program.classification, program.division, program.district);
+    return [path, { path, lastmod: '2026-09-19' }] as const;
+  })).values()];
+
+  if (entries.length !== 192) {
+    throw new Error(`UIL football district sitemap expected 192 district profiles; found ${entries.length}.`);
+  }
+
+  return entries;
 }
