@@ -5,6 +5,7 @@ const root = process.cwd();
 const read = (relative) => fs.readFileSync(path.join(root, relative), "utf8");
 const component = read("src/components/camping/CampingDiscovery.tsx");
 const page = read("src/routes/best-places-to-go-camping-in-texas.lazy.tsx");
+const profileWave2 = read("src/data/camping/profiles-wave2.ts");
 const profileWave3 = read("src/data/camping/profiles-wave3.ts");
 const profileWave4 = read("src/data/camping/profiles-wave4.ts");
 const profileWave5 = read("src/data/camping/profiles-wave5.ts");
@@ -56,8 +57,23 @@ if (!rioGrandeBlock.includes('profileSlug: "big-bend-national-park-rio-grande-vi
   failures.push("Big Bend full-hookup campground must keep a distinct campground profile anchor.");
 }
 
-for (const [label, source] of [["wave4", profileWave4], ["wave5", profileWave5]]) {
-  if (source.includes('"pet-friendly"')) failures.push(`camping ${label}: legacy pet-friendly amenity key would bypass the Pet friendly filter`);
+const allowedAmenities = new Set([
+  "electric-hookup", "electric-20", "electric-30", "electric-50", "water-hookup", "sewer-hookup",
+  "full-hookup", "dump-station", "restrooms", "showers", "ada-site", "pets", "shade", "swimming",
+  "lake-access", "river-access", "gulf-access", "fishing", "hiking",
+]);
+for (const [label, source] of [
+  ["discovery", read("src/data/camping/discovery.ts")],
+  ["wave2", profileWave2],
+  ["wave3", profileWave3],
+  ["wave4", profileWave4],
+  ["wave5", profileWave5],
+]) {
+  for (const match of source.matchAll(/amenities:\s*\[([^\]]*)\]/g)) {
+    for (const amenityMatch of match[1].matchAll(/"([^"]+)"/g)) {
+      if (!allowedAmenities.has(amenityMatch[1])) failures.push(`camping ${label}: unknown amenity key ${amenityMatch[1]}`);
+    }
+  }
 }
 if (!profileWave4.includes('"pets"') || !profileWave5.includes('"pets"')) {
   failures.push("camping pet filter: normalized pets amenity must remain present in LCRA/GBRA discovery waves.");
@@ -69,4 +85,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Camping guide decision-UX validation passed: quick-match presets, normalized pet filtering, agency filtering, result sorting, campground choice context, planning-detail comparison, managing-agency context, destination-view disclosure, governed imagery, explicit lodging placement, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
+console.log("Camping guide decision-UX validation passed: quick-match presets, normalized amenity filtering, agency filtering, result sorting, campground choice context, planning-detail comparison, managing-agency context, destination-view disclosure, governed imagery, explicit lodging placement, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
