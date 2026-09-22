@@ -1,6 +1,6 @@
 const origin = String(process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const userAgent = 'TexasDefined-Dogs-Production-Smoke/1.1';
+const userAgent = 'TexasDefined-Dogs-Production-Smoke/1.2';
 
 const breeds = [
   'labrador-retriever',
@@ -24,6 +24,8 @@ const dogArticles = [
   { path: '/article/big-dogs-texas-sized-problems', label: 'big dogs evergreen', needles: ['Big Dogs, Texas-Sized Problems', '/dogs/great-dane', '/dogs/german-shepherd', '/dogs/boxer'] },
   { path: '/article/texas-dog-heat-safety', label: 'dog heat safety', needles: ['Texas Dog Heat Safety', '/article/taking-your-dog-to-texas-state-parks'] },
   { path: '/article/taking-your-dog-to-texas-state-parks', label: 'state park dog guide', needles: ['Taking Your Dog to a Texas State Park', '/article/texas-dog-heat-safety'] },
+  { path: '/article/taking-your-dog-to-the-texas-coast', label: 'Texas coast dog guide', needles: ['Taking Your Dog to the Texas Coast: Beach Rules, Heat, Water and Wildlife', 'more than 60 miles', 'Texas Beach Watch'] },
+  { path: '/article/texas-dog-friendly-patios-law', label: 'Texas dog-friendly patio law guide', needles: ['Texas Dog-Friendly Patios: What State Law Allows and What to Check Before You Go', 'does not require every restaurant', 'directly from the exterior'] },
 ];
 
 function decodeHtml(value) {
@@ -147,7 +149,7 @@ for (const article of dogArticles) {
   await fetchProduction(article.path, article.label, {
     verify: (body) => {
       for (const needle of article.needles) requireNeedle(body, needle, article.label);
-      if (/\\bnoindex\\b/i.test(body)) throw new Error(`${article.label} unexpectedly contains noindex`);
+      if (/\bnoindex\b/i.test(body)) throw new Error(`${article.label} unexpectedly contains noindex`);
     },
   });
 }
@@ -171,4 +173,4 @@ await fetchProduction('/robots.txt', 'dogs robots', {
   },
 });
 
-console.log('Texas Dogs production smoke passed: hub and representative breed SSR SEO/schema are live, all six Dogs evergreen/practical articles resolve as indexable production pages with protected content/link markers, invalid breeds 404, all governed Dogs URLs are in sitemap.xml, and robots.txt does not block /dogs.');
+console.log('Texas Dogs production smoke passed: hub and representative breed SSR SEO/schema are live, all eight Dogs evergreen/practical articles resolve as indexable production pages with protected content/link markers, invalid breeds 404, all governed Dogs URLs are in sitemap.xml, and robots.txt does not block /dogs.');
