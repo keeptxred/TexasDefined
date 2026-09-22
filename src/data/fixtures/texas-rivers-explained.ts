@@ -4,6 +4,7 @@ const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
 const h = (text: string): ArticleBlock => ({ type: "heading", text });
 const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
 const quote = (text: string): ArticleBlock => ({ type: "quote", text });
+const image = (src: string, alt: string, width: number, height: number, caption: string): ArticleBlock => ({ type: "image", image: { src, alt, width, height }, caption });
 
 export const texasRiversExplainedArticle: Article = {
   id: "evergreen-texas-rivers-explained",
@@ -21,7 +22,8 @@ export const texasRiversExplainedArticle: Article = {
   },
   authorId: "a-marisol",
   publishedAt: "2026-08-13",
-  readingMinutes: 12,
+  updatedAt: "2026-09-21",
+  readingMinutes: 14,
   tags: [
     "major rivers in texas",
     "texas river basins",
@@ -49,6 +51,31 @@ export const texasRiversExplainedArticle: Article = {
       description: "See how the state's major and coastal drainage basins divide Texas by watershed rather than county lines.",
     },
     {
+      href: "/article/texas-brazos-river-guide",
+      label: "Brazos River profile",
+      description: "Follow the Brazos basin, tributaries, reservoirs, floodplains and its route from West Texas to the Gulf.",
+    },
+    {
+      href: "/article/texas-colorado-river-guide",
+      label: "Colorado River profile",
+      description: "Trace the Texas Colorado through the Highland Lakes, Austin and the long basin that reaches Matagorda Bay.",
+    },
+    {
+      href: "/article/texas-guadalupe-river-guide",
+      label: "Guadalupe River profile",
+      description: "Go deeper on spring-fed tributaries, Canyon Lake, Hill Country recreation and the route to San Antonio Bay.",
+    },
+    {
+      href: "/article/texas-trinity-river-guide",
+      label: "Trinity River profile",
+      description: "Understand the North Texas forks, Dallas-Fort Worth water system, reservoirs and the river's path to Trinity Bay.",
+    },
+    {
+      href: "/article/texas-rio-grande-river-guide",
+      label: "Rio Grande profile",
+      description: "Explore Texas' international river, desert basin, reservoirs, border geography and route to the Gulf.",
+    },
+    {
       href: "/article/texas-major-springs-clear-water-guide",
       label: "Where Texas comes up from the ground",
       description: "See how springs and aquifers feed some of the state's clearest rivers and swimming holes.",
@@ -70,7 +97,7 @@ export const texasRiversExplainedArticle: Article = {
     },
   ],
   relatedCollections: [],
-  relatedDestinations: ["guadalupe-river-state-park", "devils-river-state-natural-area", "south-llano-river-state-park"],
+  relatedDestinations: ["guadalupe-river-state-park", "devils-river-state-natural-area", "south-llano-river-state-park", "caddo-lake", "blue-hole-wimberley", "gruene-historic-district"],
   body: [
     p("You can understand a surprising amount of Texas by following the water. Towns grew where rivers could be crossed. Farms spread across bottomlands where floods left deep soil. Railroads, highways and county seats followed older settlement patterns. Modern cities now depend on reservoirs built into the same river systems, while summer weekends still revolve around stretches of water Texans have floated, fished and swum for generations."),
     p("The rivers do not all behave alike. A clear Hill Country stream flowing over limestone has little in common visually with a muddy Brazos bend, a cypress-lined East Texas river or the Rio Grande moving through desert canyons. That difference is the point. Texas is large enough that its rivers act like a second map of the state, revealing rainfall, geology, elevation and climate as they change from west to east."),
@@ -89,18 +116,22 @@ export const texasRiversExplainedArticle: Article = {
     p("That is useful because water does the same thing. A fast-growing suburb can affect a creek that crosses several counties. A reservoir hundreds of miles upstream can influence flows downstream. Heavy rain in one part of a basin can produce flooding somewhere that never saw the storm."),
     quote("Texas rivers are not blue lines laid on top of the state. They are systems that help explain the state itself."),
     h("The Rio Grande: border river, desert river and international river"),
+    image("/images/explore/lakes-rivers/amistad-national-recreation-area.jpg", "Blue reservoir water and arid canyon landscape in the Rio Grande basin", 1600, 1067, "The Rio Grande system shifts from mountain and desert reaches to reservoirs, irrigated valleys and the Gulf Coast."),
     p("No Texas river carries more geographic meaning than the Rio Grande. It enters Texas at El Paso after beginning in Colorado and crossing New Mexico, then forms the international boundary between the United States and Mexico all the way to the Gulf. Along the way it passes through some of the driest country in the state, receives the Pecos and Devils rivers on the Texas side and supports communities whose histories are much older than the modern border."),
     p("The Rio Grande basin covers more area in Texas than any other major river basin, yet much of that territory is arid or semiarid. That creates the river's defining tension: enormous geography does not automatically mean abundant water. Irrigation, municipal demand, international agreements, reservoirs and drought all shape how much water actually moves through different reaches."),
     p("For travelers, the river changes personality repeatedly. Near Big Bend it can sit far below canyon walls and desert mesas. At Amistad, the river system becomes part of a vast reservoir landscape. Farther downstream, it is tied to farms, cities and the cultural geography of the Rio Grande Valley."),
     h("The Brazos: a river through the middle of Texas history"),
+    image("/images/explore/lakes-rivers/lake-somerville-birch-creek-unit.jpg", "Open water and wooded shoreline in the Brazos River basin", 1600, 1067, "The Brazos basin crosses an enormous range of Texas landscapes and includes major reservoir systems."),
     p("The Brazos begins as a named river where its Salt and Double Mountain forks meet in West Texas and then works southeast across the state to the Gulf. Its basin reaches from drier plains through the heart of Central Texas and into the humid coastal plain, giving the river a long cross-section of Texas geography."),
     p("Its name is tied to the Spanish phrase Brazos de Dios, or Arms of God, and the river appears again and again in the state's settlement story. Washington-on-the-Brazos sits beside it. Plantations and farms developed in its lower bottomlands. Communities used ferries and crossings long before bridges made the river easier to ignore from a car."),
     p("Today the Brazos is also a working water system. Tributaries such as the Leon, Little, Navasota and Paluxy connect large parts of the state to it, while reservoirs throughout the basin support cities, agriculture, industry, flood management and recreation. The river can look almost pastoral in one county and broad, brown and powerful in another."),
     h("The Colorado: the Texas river, not the Grand Canyon river"),
+    image("/images/explore/lakes-rivers/pedernales-falls-state-park.jpg", "Limestone river channel and flowing water in the Colorado River basin", 1600, 1067, "The Colorado system links West Texas, Hill Country tributaries, the Highland Lakes, Austin and the Gulf Coast."),
     p("Texas has its own Colorado River, entirely separate from the better-known Colorado that carved the Grand Canyon. The Texas Colorado begins in West Texas and crosses the state toward Matagorda Bay. Along the way it gathers tributaries including the Concho, San Saba, Llano and Pedernales."),
     p("This is the river system behind some of Central Texas's most familiar water geography. The Highland Lakes are reservoirs on the Colorado, including Lake Buchanan, Inks Lake, Lake LBJ, Lake Marble Falls, Lake Travis and Lake Austin. Lady Bird Lake is also a reservoir on the river through Austin. What many people experience as a chain of separate lakes is really one managed river system."),
     p("Upstream, the Colorado moves through much drier country. Downstream, the landscape becomes greener and flatter before the river reaches the Gulf. That long transition helps explain why the same river can be associated with West Texas water supply, Hill Country recreation, Austin's urban landscape and coastal agriculture."),
     h("The Guadalupe: the river most Texans learn by getting in it"),
+    image("/images/editorial/texas-guadalupe-river.jpg", "Clear Guadalupe River flowing beneath mature cypress trees", 1600, 1115, "The Guadalupe is one of the clearest examples of how Hill Country limestone, springs, reservoirs and recreation fit into one river system."),
     p("The Guadalupe begins where its North and South forks meet in Kerr County and flows southeast toward San Antonio Bay. In between, it passes through one of the state's most recognizable river landscapes: limestone, bald cypress, clear water, low bluffs and towns whose summer identity is inseparable from the river."),
     p("The basin also includes the Blanco, Comal and San Marcos rivers. Those tributaries show why surface water and groundwater cannot always be treated as separate stories in Central Texas. Springs and aquifers help sustain river flows, and changes underground can show up as changes in swimming holes, spring runs and downstream habitat."),
     p("Canyon Lake is the basin's major reservoir and adds flood control, water supply and recreation to a river already famous for tubing, paddling and fishing. The result is a river that feels natural and heavily managed at the same time, because it is both."),
@@ -111,6 +142,7 @@ export const texasRiversExplainedArticle: Article = {
     p("The San Antonio River begins at spring-fed headwaters in Bexar County, flows through the city and then continues southeast until it joins the Guadalupe near the coast. The famous downtown River Walk is therefore only one highly engineered reach of a much larger natural system."),
     p("Downstream, the river passes the San Antonio Missions and then moves into agricultural and coastal-plain country. The Medina River and Cibolo Creek are among the basin's important tributaries. Following the San Antonio from its headwaters southward is one of the clearest ways to see how a river can be simultaneously an ecological system, a civic landscape, a historic corridor and a source of water."),
     h("The Trinity: North Texas water headed for the coast"),
+    image("/images/editorial/texas-trinity-river.jpg", "Reservoir shoreline and open water in the upper Trinity River basin", 1600, 1067, "The Trinity basin connects the Dallas-Fort Worth region with a heavily managed reservoir network and Trinity Bay."),
     p("The Trinity River basin is the largest major river basin whose watershed lies entirely within Texas. The river forms from forks associated with North Texas, then flows south toward Trinity Bay. The upper basin contains the Dallas-Fort Worth region, making this one of the most urbanized river systems in the state."),
     p("That urban connection is easy to miss because much of the Trinity does not look like the kind of river Texans build vacations around. Yet it is fundamental to water supply and flood management for millions of people. Water from the basin also helps serve the Houston area, which means the Trinity's importance extends well beyond the places immediately beside its banks."),
     h("The Sabine and Neches: East Texas runs wetter"),
