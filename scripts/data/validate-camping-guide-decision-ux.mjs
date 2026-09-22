@@ -39,6 +39,9 @@ requireText(component, "Sort results", "campground result sorting");
 requireText(component, "Most recently verified", "campground verification sort");
 requireText(component, "Planning detail", "campground comparison detail");
 requireText(component, "profile.planningDetail", "campground planning-detail rendering");
+requireText(component, "destinationGuideSlugs", "campground canonical destination-link registry");
+requireText(component, "hasDestinationGuide", "campground destination-link guard");
+requireText(component, "Build trip", "campground seeded trip-planner link");
 requireText(page, "data-stay-nearby-slot", "camping Stay Nearby placement");
 requireText(expedia, "best-places-to-go-camping-in-texas", "camping affiliate route coverage");
 requireText(production, "['camping-guide', '/best-places-to-go-camping-in-texas', 'Best Places to Go Camping in Texas']", "camping live-production verification");
@@ -79,10 +82,33 @@ if (!profileWave4.includes('"pets"') || !profileWave5.includes('"pets"')) {
   failures.push("camping pet filter: normalized pets amenity must remain present in LCRA/GBRA discovery waves.");
 }
 
+const destinationGuideRegistry = component.slice(
+  component.indexOf("const destinationGuideSlugs"),
+  component.indexOf("function profileAnchor"),
+);
+for (const slug of [
+  "cedar-breaks-park-lake-georgetown",
+  "russell-park-lake-georgetown",
+  "ratcliff-lake-recreation-area",
+  "black-rock-park-lake-buchanan",
+  "lake-bastrop-north-shore-park",
+  "lake-bastrop-south-shore-park",
+  "coleto-creek-park",
+  "brackenridge-park-campground",
+  "texana-park-campground",
+  "lakeview-campground-toledo-bend",
+  "toledo-bend-tailrace-camping",
+]) {
+  if (destinationGuideRegistry.includes(`"${slug}"`)) failures.push(`camping destination-link registry must not invent a canonical guide for ${slug}`);
+}
+for (const slug of ["garner-state-park", "big-bend-national-park", "matagorda-bay-nature-park"]) {
+  if (!destinationGuideRegistry.includes(`"${slug}"`)) failures.push(`camping destination-link registry must retain canonical guide ${slug}`);
+}
+
 if (failures.length) {
   console.error("Camping guide decision-UX validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log("Camping guide decision-UX validation passed: quick-match presets, normalized amenity filtering, agency filtering, result sorting, campground choice context, planning-detail comparison, managing-agency context, destination-view disclosure, governed imagery, explicit lodging placement, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
+console.log("Camping guide decision-UX validation passed: quick-match presets, normalized amenity filtering, agency filtering, result sorting, guarded destination links, seeded trip planning, campground choice context, planning-detail comparison, managing-agency context, destination-view disclosure, governed imagery, explicit lodging placement, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
