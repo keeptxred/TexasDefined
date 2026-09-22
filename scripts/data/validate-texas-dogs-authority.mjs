@@ -12,6 +12,7 @@ const files = {
   registration: "src/data/fixtures/supplemental-editorial-registration.ts",
   smoke: "scripts/ci/verify-dogs-production.mjs",
   route: "src/routes/dogs.{-$breed}.tsx",
+  readiness: "src/data/fixtures/texas-gateway-index-readiness.ts",
 };
 
 const text = Object.fromEntries(
@@ -34,6 +35,41 @@ const requiredPracticalWave3Slugs = [
   "camping-in-texas-with-your-dog",
   "adopting-a-dog-in-texas",
 ];
+
+const articleIndexMinBodyWords = Number(
+  text.readiness.match(/ARTICLE_INDEX_MIN_BODY_WORDS\s*=\s*(\d+)/)?.[1],
+);
+if (!Number.isFinite(articleIndexMinBodyWords)) {
+  throw new Error("Texas Dogs validation could not read the shared article indexing body-word floor");
+}
+
+function fixtureBodyWordCount(source, slug) {
+  const slugAt = source.indexOf(`slug: "${slug}"`);
+  if (slugAt < 0) return 0;
+  const bodyAt = source.indexOf("body: [", slugAt);
+  if (bodyAt < 0) return 0;
+  const bodyEnd = source.indexOf("\n  ],\n};", bodyAt);
+  if (bodyEnd < 0) return 0;
+  const bodySource = source.slice(bodyAt, bodyEnd);
+  const strings = [...bodySource.matchAll(/"(?:[^"\\]|\\.)*"/g)]
+    .map((match) => match[0].slice(1, -1));
+  return strings.join(" ").trim().split(/\s+/).filter(Boolean).length;
+}
+
+for (const [sourceKey, slugs] of [
+  ["practical", requiredPracticalSlugs],
+  ["practicalWave2", requiredPracticalWave2Slugs],
+  ["practicalWave3", requiredPracticalWave3Slugs],
+]) {
+  for (const slug of slugs) {
+    const words = fixtureBodyWordCount(text[sourceKey], slug);
+    if (words < articleIndexMinBodyWords) {
+      throw new Error(
+        `Texas Dogs article ${slug} has ${words} body words; the shared index-ready floor is ${articleIndexMinBodyWords}`,
+      );
+    }
+  }
+}
 
 for (const slug of requiredPracticalSlugs) {
   if (!text.practical.includes(`slug: "${slug}"`)) {
