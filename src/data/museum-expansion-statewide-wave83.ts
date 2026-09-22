@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave84Destinations } from "./museum-expansion-statewide-wave84";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-09-19";
@@ -54,4 +55,5 @@ export const statewideMuseumExpansionWave83Destinations: Destination[] = [
     address: "101 S Sherley Rd, Anna, TX 75409",
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
+  ...statewideMuseumExpansionWave84Destinations,
 ];
