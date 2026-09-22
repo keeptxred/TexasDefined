@@ -36,6 +36,7 @@ const checks = [
   ['explore-category-seo', 'SEO/AUTHORITY', 'Validate Explore category SEO', 'node', ['scripts/data/validate-explore-category-seo.mjs']],
   ['explore-region-seo', 'SEO/AUTHORITY', 'Validate Explore region SEO', 'node', ['scripts/data/validate-explore-region-seo.mjs']],
   ['explore-topical-authority', 'CONTENT/AUTHORITY', 'Validate Explore topical authority', 'node', ['scripts/data/validate-explore-topical-authority.mjs']],
+  ['camping-guide-decision-ux', 'CONTENT/AUTHORITY', 'Validate camping guide decision UX', 'node', ['scripts/data/validate-camping-guide-decision-ux.mjs']],
   ['historic-sites', 'CONTENT/AUTHORITY', 'Validate statewide historic sites', 'node', ['scripts/data/validate-historic-sites.mjs']],
   ['historic-site-evergreen', 'CONTENT/AUTHORITY', 'Validate historic-site evergreen guides', 'node', ['scripts/data/validate-historic-site-evergreen.mjs']],
   ['historic-supporting-guides', 'CONTENT/AUTHORITY', 'Validate historic supporting guides', 'node', ['scripts/data/validate-historic-supporting-guides.mjs']],
