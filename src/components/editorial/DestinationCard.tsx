@@ -26,22 +26,57 @@ function cardHighlights(destination: Destination) {
     .slice(0, 3);
 }
 
+const destinationCardImageFallbacks: Record<string, { src: string; alt: string }> = {
+  "caddo-lake-national-wildlife-refuge": {
+    src: caddoLake,
+    alt: "Bald cypress trees draped in Spanish moss across the Caddo Lake ecosystem in East Texas",
+  },
+};
+
 function DestinationImage({ destination, eager, overlay }: { destination: Destination; eager: boolean; overlay: boolean }) {
+  const frameClass = overlay ? "aspect-[4/5] w-full" : "aspect-[3/2] w-full";
   const imageClass = overlay
-    ? "aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
-    : "aspect-[3/2] w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]";
+    ? "h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
+    : "h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]";
   const hero = destination.slug === "caddo-lake"
     ? { src: caddoLake, alt: "Bald cypress trees draped in Spanish moss on Caddo Lake at dawn", width: 1600, height: 1067 }
     : destination.hero;
 
   if (isDestinationPhotoPlaceholder(hero.src)) {
-    return <div role="img" aria-label={`${destination.name} — destination-specific photograph not yet available`} className={cn(imageClass, "relative overflow-hidden bg-[linear-gradient(145deg,hsl(var(--muted)),hsl(var(--secondary))_52%,hsl(var(--primary)/0.18))]")}>
+    return <div role="img" aria-label={`${destination.name} — destination-specific photograph not yet available`} className={cn(frameClass, "relative overflow-hidden bg-[linear-gradient(145deg,hsl(var(--muted)),hsl(var(--secondary))_52%,hsl(var(--primary)/0.18))]")}>
       <div className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_72%_24%,hsl(var(--primary))_0,transparent_28%),linear-gradient(160deg,transparent_42%,hsl(var(--ink)/0.28)_43%,hsl(var(--ink)/0.28)_58%,transparent_59%)]" />
       <span className="eyebrow absolute left-5 top-5 text-foreground/65">Photo coming soon</span>
     </div>;
   }
 
-  return <img src={hero.src} alt={hero.alt || `${destination.name}, Texas`} width={hero.width || 1600} height={hero.height || 1067} sizes={overlay ? "(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 100vw" : "(min-width: 1024px) 30vw, (min-width: 640px) 48vw, 100vw"} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} decoding="async" className={imageClass} />;
+  return <div className={cn(frameClass, "relative overflow-hidden bg-[linear-gradient(145deg,hsl(var(--muted)),hsl(var(--secondary))_52%,hsl(var(--primary)/0.18))]")}>
+    <div aria-hidden className="absolute inset-0">
+      <div className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_72%_24%,hsl(var(--primary))_0,transparent_28%),linear-gradient(160deg,transparent_42%,hsl(var(--ink)/0.28)_43%,hsl(var(--ink)/0.28)_58%,transparent_59%)]" />
+      <span className="eyebrow absolute left-5 top-5 text-foreground/65">Photo unavailable</span>
+    </div>
+    <img
+      src={hero.src}
+      alt={hero.alt || `${destination.name}, Texas`}
+      width={hero.width || 1600}
+      height={hero.height || 1067}
+      sizes={overlay ? "(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 100vw" : "(min-width: 1024px) 30vw, (min-width: 640px) 48vw, 100vw"}
+      loading={eager ? "eager" : "lazy"}
+      fetchPriority={eager ? "high" : "auto"}
+      decoding="async"
+      className={cn("absolute inset-0", imageClass)}
+      onError={(event) => {
+        const image = event.currentTarget;
+        const fallback = destinationCardImageFallbacks[destination.slug];
+        if (fallback && image.dataset.fallback !== "local") {
+          image.dataset.fallback = "local";
+          image.src = fallback.src;
+          image.alt = fallback.alt;
+          return;
+        }
+        image.style.display = "none";
+      }}
+    />
+  </div>;
 }
 
 export function DestinationCard({ destination, regionLabel, tone = "light", eager = false, className }: { destination: Destination; regionLabel?: string; tone?: "light" | "overlay"; eager?: boolean; className?: string }) {

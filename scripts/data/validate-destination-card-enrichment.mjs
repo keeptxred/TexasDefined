@@ -25,6 +25,17 @@ if (!card.includes('.slice(0, 3)')) errors.push('Destination cards must limit hi
 if (!card.includes('Number.isNaN(date.getTime())')) errors.push('Destination cards must guard invalid source-check dates.');
 
 for (const feature of [
+  'destinationCardImageFallbacks',
+  '"caddo-lake-national-wildlife-refuge"',
+  'Photo unavailable',
+  'onError={(event) =>',
+  'image.dataset.fallback',
+  'image.style.display = "none"',
+]) {
+  if (!card.includes(feature)) errors.push(`Destination card image-failure safeguard missing: ${feature}`);
+}
+
+for (const feature of [
   'function validCoordinates(destination: Destination)',
   'function destinationSchema(destination: Destination)',
   'sameAs: destination.officialUrl',
