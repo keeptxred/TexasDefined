@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { useBrand } from "@/brand/context";
 import type { Article, ImageRef } from "@/data/types";
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
+import { recoverOrHideImage } from "@/lib/image-fallback";
 
 interface FeatureHeroProps {
   eyebrow: string;
@@ -55,8 +56,11 @@ export function FeatureHero({ eyebrow, title, dek, image, to, params, meta, vari
               {meta && <p className="text-[0.72rem] font-medium uppercase tracking-[0.08em] text-muted-foreground">{meta}</p>}
             </div>
           </div>
-          <div className="relative isolate min-h-[420px] w-full sm:min-h-[520px] lg:min-h-0">
-            <img src={image.src} alt={image.alt} width={image.width} height={image.height} sizes="(min-width: 1024px) 58vw, 100vw" loading="eager" fetchPriority="high" decoding="async" className="animate-slow-zoom absolute inset-0 size-full object-cover" />
+          <div className="relative isolate min-h-[420px] w-full overflow-hidden bg-muted sm:min-h-[520px] lg:min-h-0">
+            <div aria-hidden className="absolute inset-0">
+              <span className="eyebrow absolute left-5 top-5 text-muted-foreground">Photo unavailable</span>
+            </div>
+            <img src={image.src} alt={image.alt} width={image.width} height={image.height} sizes="(min-width: 1024px) 58vw, 100vw" loading="eager" fetchPriority="high" decoding="async" className="animate-slow-zoom absolute inset-0 size-full object-cover" onError={(event) => recoverOrHideImage(event.currentTarget)} />
             <div className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden w-24 bg-gradient-to-r from-background/65 to-transparent lg:block" />
           </div>
         </div>
@@ -66,7 +70,10 @@ export function FeatureHero({ eyebrow, title, dek, image, to, params, meta, vari
 
   return (
     <section className="relative isolate overflow-hidden bg-ink text-ink-foreground">
-      <img src={image.src} alt={image.alt} width={image.width} height={image.height} sizes="100vw" loading="eager" fetchPriority="high" decoding="async" className="animate-slow-zoom absolute inset-0 size-full object-cover opacity-70" />
+      <div aria-hidden className="absolute inset-0 bg-ink">
+        <span className="eyebrow absolute left-5 top-5 text-ink-foreground/60">Photo unavailable</span>
+      </div>
+      <img src={image.src} alt={image.alt} width={image.width} height={image.height} sizes="100vw" loading="eager" fetchPriority="high" decoding="async" className="animate-slow-zoom absolute inset-0 size-full object-cover opacity-70" onError={(event) => recoverOrHideImage(event.currentTarget)} />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/20" />
       <div className="relative mx-auto flex w-full max-w-6xl flex-col justify-end px-5 pb-14 pt-24 sm:px-8 sm:pb-16" style={{ minHeight: "clamp(28rem, 58vw, 36rem)" }}>
         <p className="eyebrow animate-rise text-ink-foreground/80">{editorialLabel(eyebrow)}</p>
