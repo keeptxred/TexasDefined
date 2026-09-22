@@ -57,6 +57,11 @@ if (index) {
       if (!publicRoutes.includes(`"${path}"`)) failures.push(`${path} citation target must remain governed as an indexable public route.`);
     }
   }
+  const homecomingResource = resources.get('https://texasdefined.com/texas-homecoming-mums');
+  for (const marker of ['UTSA-cultural-source', 'maker-primary-source', 'Houston-local-reporting', 'local-variation-caveat', 'answer-layer', 'canonical-cross-links']) {
+    if (!homecomingResource?.trust?.includes(marker)) failures.push(`Texas Homecoming Mums citation resource must retain ${marker}.`);
+  }
+
   const weatherResource = resources.get('https://texasdefined.com/texas-blue-norther-weather-guide');
   for (const marker of ['TSHA-terminology-source', 'NWS-meteorology-source', 'safety-first', 'folklore-vs-forecast-distinction']) {
     if (!weatherResource?.trust?.includes(marker)) failures.push(`Texas Blue Norther citation resource must retain ${marker}.`);
