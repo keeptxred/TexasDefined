@@ -240,7 +240,11 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
             </div>
             <h3 className="mt-3 font-display text-3xl leading-tight">{profile.name}</h3>
             {!isParentDestination ? <p className="mt-2 text-sm font-semibold text-primary">Campground profile</p> : null}
-            <p className="mt-3 leading-7 text-muted-foreground">{profile.reservationPolicy}</p>
+            {profile.whyCampHere ? <div className="mt-4 border-l-2 border-primary pl-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.11em] text-muted-foreground">Why choose this campground</p>
+              <p className="mt-2 leading-7 text-foreground">{profile.whyCampHere}</p>
+            </div> : null}
+            <p className="mt-4 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Managed by:</strong> {profile.managingAgency}</p>
 
             <div className="mt-5 flex flex-wrap gap-2">
               {profile.styles.map((item) => <span key={item} className="border border-border px-2.5 py-1 text-xs font-semibold">{styleLabels[item]}</span>)}
@@ -248,6 +252,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
 
             <dl className="mt-6 space-y-4 text-sm">
               <div><dt className="font-semibold">Verified facilities</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.amenities.map((amenity) => amenityLabels[amenity] ?? amenity).join(" · ") || "No amenity fields verified yet"}</dd></div>
+              <div><dt className="font-semibold">Reservations</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.reservationPolicy}</dd></div>
               {profile.siteLengthNote ? <div><dt className="font-semibold">RV/site length</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.siteLengthNote}</dd></div> : null}
               {profile.generatorRules ? <div><dt className="font-semibold">Generator rules</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.generatorRules}</dd></div> : null}
             </dl>
