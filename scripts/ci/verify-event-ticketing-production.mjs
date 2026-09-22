@@ -23,7 +23,14 @@ const html = await response.text();
 
 if (!response.ok) throw new Error(`production events request returned HTTP ${response.status}`);
 
-const officialTicketAnchor = html.match(/<a\b([^>]*)>[\s\S]*?Official Tickets[\s\S]*?<\/a>/i);
+const anchorMatches = [...html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)];
+const officialTicketAnchor = anchorMatches.find((match) => {
+  const innerHtml = match[2]
+    .replace(/<!--[\s\S]*?-->/g, " ")
+    .replace(/<[^>]+>/g, " ");
+  const label = decodeHtml(innerHtml).replace(/\s+/g, " ").trim();
+  return label.includes("Official Tickets");
+});
 if (!officialTicketAnchor) {
   throw new Error("production events hub does not render any live source-qualified Official Tickets CTA");
 }
