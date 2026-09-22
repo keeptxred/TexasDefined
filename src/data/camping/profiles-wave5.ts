@@ -134,6 +134,7 @@ export const CAMPING_DISCOVERY_PROFILES_WAVE5: CampgroundDiscoveryProfile[] = CA
   styles: profile.styles,
   amenities: profile.amenities,
   reservationPolicy: profile.reservationPolicy,
+  whyCampHere: profile.campingNotes?.[0],
   reservationUrl: profile.reservationUrl,
   siteLengthNote: profile.siteLengthNote,
   generatorRules: profile.generatorRules,
