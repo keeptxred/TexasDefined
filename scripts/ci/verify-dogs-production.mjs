@@ -17,6 +17,13 @@ const breeds = [
   'yorkshire-terrier',
 ];
 
+const representativeBreeds = [
+  { slug: 'labrador-retriever', label: 'labrador breed', name: 'Labrador Retriever', shortName: 'Lab', needles: ['Lake Day Labrador'] },
+  { slug: 'golden-retriever', label: 'golden retriever breed', name: 'Golden Retriever', shortName: 'Golden', needles: ['Golden Hour Golden'] },
+  { slug: 'dachshund', label: 'dachshund breed', name: 'Dachshund', shortName: 'Dachshund', needles: ['Low Rider Dachshund'] },
+  { slug: 'german-shepherd', label: 'german shepherd breed', name: 'German Shepherd', shortName: 'German Shepherd', needles: ['German Shepherd Security Department'] },
+];
+
 const dogArticles = [
   { path: '/article/the-unofficial-job-description-of-a-texas-porch-dog', label: 'porch dog evergreen', needles: ['The Unofficial Job Description of a Texas Porch Dog'] },
   { path: '/article/why-the-best-dog-shirt-joke-feels-like-your-dog-and-nobody-elses', label: 'dog shirt evergreen', needles: ['Why the Best Dog Shirt Joke Feels Like Your Dog and Nobody Else'] },
@@ -135,19 +142,21 @@ await fetchProduction('/dogs', 'dogs hub', {
   },
 });
 
-await fetchProduction('/dogs/labrador-retriever', 'labrador breed', {
-  verify: (body) => {
-    verifyHead(body, {
-      title: 'Labrador Retriever Defined — Personality & Funny Shirt Ideas | Texas Defined',
-      descriptionIncludes: ['Labrador Retriever Defined', 'Texas-life', 'funny shirt directions', 'Lab people'],
-      canonical: `${origin}/dogs/labrador-retriever`,
-    }, 'labrador breed');
-    for (const needle of ['Labrador Retriever', 'WebPage', 'BreadcrumbList', 'Lake Day Labrador']) {
-      requireNeedle(body, needle, 'labrador breed');
-    }
-    if (/\bnoindex\b/i.test(body)) throw new Error('labrador breed unexpectedly contains noindex');
-  },
-});
+for (const breed of representativeBreeds) {
+  await fetchProduction(`/dogs/${breed.slug}`, breed.label, {
+    verify: (body) => {
+      verifyHead(body, {
+        title: `${breed.name} Defined — Personality & Funny Shirt Ideas | Texas Defined`,
+        descriptionIncludes: [`${breed.name} Defined`, 'Texas-life', 'funny shirt directions', `${breed.shortName} people`],
+        canonical: `${origin}/dogs/${breed.slug}`,
+      }, breed.label);
+      for (const needle of [breed.name, 'WebPage', 'BreadcrumbList', '/dogs', ...breed.needles]) {
+        requireNeedle(body, needle, breed.label);
+      }
+      if (/\bnoindex\b/i.test(body)) throw new Error(`${breed.label} unexpectedly contains noindex`);
+    },
+  });
+}
 
 for (const article of dogArticles) {
   await fetchProduction(article.path, article.label, {
@@ -177,4 +186,4 @@ await fetchProduction('/robots.txt', 'dogs robots', {
   },
 });
 
-console.log('Texas Dogs production smoke passed: hub and representative breed SSR SEO/schema are live, all twelve protected Dogs evergreen/practical articles resolve as indexable production pages with protected content/link markers, invalid breeds 404, all governed Dogs URLs are in sitemap.xml, and robots.txt does not block /dogs.');
+console.log('Texas Dogs production smoke passed: hub and four representative breed SSR SEO/schema checks are live, all twelve protected Dogs evergreen/practical articles resolve as indexable production pages with protected content/link markers, invalid breeds 404, all governed Dogs URLs are in sitemap.xml, and robots.txt does not block /dogs.');
