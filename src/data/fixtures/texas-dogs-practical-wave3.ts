@@ -27,7 +27,7 @@ export const texasDogLakeRiverSafetyArticle: Article = {
     { href: "/dogs", label: "Texas Dogs Defined", description: "Breed personalities and practical Texas dog-life planning." },
     { href: "/article/texas-dog-heat-safety", label: "Texas dog heat safety", description: "Use the heat, shade, water and surface check before the outing begins." },
     { href: "/article/taking-your-dog-to-texas-state-parks", label: "Texas state parks with a dog", description: "Know the statewide park rules and then verify the specific park." },
-    { href: "/explore/texas-lakes-guide", label: "Texas lakes guide", description: "Choose the lake first, then verify the current dog and water-access rules." },
+    { href: "/explore/lakes-rivers", label: "Texas lakes guide", description: "Choose the lake first, then verify the current dog and water-access rules." },
     { href: "/fishing/lakes", label: "Texas lake directory", description: "Explore lake pages and current planning context across Texas." },
   ],
   relatedCollections: [],
