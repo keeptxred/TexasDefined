@@ -1,9 +1,15 @@
 import { footballClassificationRank, footballProgramProfilePath } from './program-slugs';
 import { UIL_FOOTBALL_PROGRAMS_2026, type UilFootballProgram } from './uil-football-alignments-2026.server';
+import {
+  UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28,
+  UIL_FOOTBALL_EXACT_ENROLLMENT_SOURCE,
+} from './uil-football-enrollments-2026.generated';
 
 export type UilFootballDistrictProgram = {
   schoolName: string;
   profilePath: string;
+  uilEnrollment: number;
+  submittedConference: '1A' | '2A' | '3A' | '4A' | '5A' | '6A';
 };
 
 export type UilFootballDistrictSummary = {
@@ -15,6 +21,7 @@ export type UilFootballDistrictSummary = {
   footballType: UilFootballProgram['footballType'];
   alignmentCycle: UilFootballProgram['alignmentCycle'];
   sourceUrl: string;
+  enrollmentSourceUrl: string;
   programCount: number;
 };
 
@@ -52,9 +59,15 @@ const DISTRICT_BY_SLUG = new Map<string, UilFootballDistrictProfile>();
 for (const program of UIL_FOOTBALL_PROGRAMS_2026) {
   const slug = footballDistrictSlug(program.classification, program.division, program.district);
   const existing = DISTRICT_BY_SLUG.get(slug);
-  const entry = {
+  const exactEnrollment = UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.schoolName];
+  if (!exactEnrollment) {
+    throw new Error(`UIL football district enrollment missing for ${program.schoolName}.`);
+  }
+  const entry: UilFootballDistrictProgram = {
     schoolName: program.schoolName,
     profilePath: footballProgramProfilePath(program.schoolName),
+    uilEnrollment: exactEnrollment.enrollment,
+    submittedConference: exactEnrollment.submittedConference,
   };
 
   if (existing) {
@@ -81,6 +94,7 @@ for (const program of UIL_FOOTBALL_PROGRAMS_2026) {
     footballType: program.footballType,
     alignmentCycle: program.alignmentCycle,
     sourceUrl: program.sourceUrl,
+    enrollmentSourceUrl: UIL_FOOTBALL_EXACT_ENROLLMENT_SOURCE.url,
     programCount: 1,
     programs: [entry],
   });
