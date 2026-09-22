@@ -654,11 +654,16 @@ if (!errors.length) {
     'footballProgramProfilePath',
     'footballProgramSitemapEntries',
     'privateFootballProgramSitemapEntries',
+    'footballDistrictSitemapEntries',
+    'UIL football district sitemap expected 192 district profiles',
     '1,268 unique school profile paths',
   ]) requireText(footballSitemap, marker, 'Lightweight football sitemap generator');
   requireText(sitemap, 'football-sitemap.server', 'Primary sitemap lightweight football import');
   if (sitemap.includes('football-program-profile.server')) {
     errors.push('Primary sitemap must not import the full football program profile resolver.');
+  }
+  if (sitemap.includes('football-districts.server')) {
+    errors.push('Primary sitemap must not import the full football district profile resolver.');
   }
   for (const forbidden of ['football-directory.server', 'football-venue-links.server', 'featured-program-profile.server', 'searchFootballPrograms']) {
     if (footballSitemap.includes(forbidden)) {
