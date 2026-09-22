@@ -108,7 +108,7 @@ jobs:
             echo "Top 25 attractions collection rendered with a noindex directive." >&2
             exit 1
           fi
-          for marker in "/destination/the-alamo" "/destination/gruene-historic-district" "How this list is researched" "Source hierarchy" "Download comparison CSV" "Download reference JSON" "Top-25 road trips" "Methodology"; do
+          for marker in "/destination/the-alamo" "/destination/gruene-historic-district" "How this list is researched" "Source hierarchy" "Download comparison CSV" "Download JSON data" "Top-25 road trips" "Methodology"; do
             grep -Fq "$marker" /tmp/top-attractions.html || {
               echo "Top 25 collection is missing required rendered marker: $marker" >&2
               exit 1
