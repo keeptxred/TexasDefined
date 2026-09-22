@@ -1,3 +1,6 @@
+import caddoLake from "@/assets/caddo-lake.jpg";
+import smallTown from "@/assets/small-town.jpg";
+
 import type { ImageRef } from "./types";
 
 /**
@@ -43,11 +46,32 @@ export const destinationHeroOverrides: Record<string, ImageRef> = {
     credit: "Woody Woodrow/USFWS · Public domain",
   },
   "caddo-lake-national-wildlife-refuge": {
-    src: "https://commons.wikimedia.org/wiki/Special:FilePath/Caddo%20Lake%20National%20Wildlife%20Refuge%2C%20TX%20%285169475023%29.jpg",
-    alt: "Wetland and forest habitat at Caddo Lake National Wildlife Refuge in East Texas",
-    width: 3968,
-    height: 2976,
-    credit: "U.S. Fish and Wildlife Service Headquarters · CC BY 2.0 · Wikimedia Commons",
+    src: caddoLake,
+    alt: "Bald cypress trees draped in Spanish moss across the Caddo Lake ecosystem in East Texas",
+    width: 1600,
+    height: 1067,
+    credit: "Texas Defined",
+  },
+  "caddo-lake-state-park": {
+    src: "/images/state-parks/caddo-lake-state-park.jpg",
+    alt: "Bald cypress and Spanish moss at Caddo Lake State Park in East Texas",
+    width: 1600,
+    height: 867,
+    credit: "William L. Farr · CC BY-SA 4.0 · Wikimedia Commons",
+  },
+  "jefferson": {
+    src: smallTown,
+    alt: "Historic Texas courthouse square representing a small-town East Texas stop",
+    width: 1600,
+    height: 1067,
+    credit: "Texas Defined",
+  },
+  "marshall": {
+    src: smallTown,
+    alt: "Historic Texas courthouse square representing Marshall as an East Texas town stop",
+    width: 1600,
+    height: 1067,
+    credit: "Texas Defined",
   },
   "hagerman-national-wildlife-refuge": {
     src: "https://commons.wikimedia.org/wiki/Special:FilePath/Hagerman%20NWR%2C%20Harris%20Trail%2C%20Grayson%20Co.%2C%20Texas%2C%20USA.jpg",
