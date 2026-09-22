@@ -90,7 +90,9 @@ async function buildFootballIsdDirectory(): Promise<BuiltFootballIsdDirectory> {
 
   const isds = [...grouped.entries()].map(([slug, rows]) => {
     const ordered = [...rows].sort(comparePrograms);
-    const districtName = districtNameBySlug.get(slug)!;
+    const sourceDistrictName = districtNameBySlug.get(slug)!;
+    const enrollmentLink = getOfficialFootballEnrollmentLink(sourceDistrictName) ?? null;
+    const districtName = enrollmentLink?.districtName ?? sourceDistrictName;
     const first = ordered[0];
 
     return {
@@ -117,7 +119,7 @@ async function buildFootballIsdDirectory(): Promise<BuiltFootballIsdDirectory> {
         teaSchoolProfileUrl: program.teaSchoolProfileUrl,
         schoolWebsite: program.schoolWebsite,
       })),
-      enrollmentLink: getOfficialFootballEnrollmentLink(districtName) ?? null,
+      enrollmentLink,
     } satisfies FootballIsdProfile;
   }).sort((left, right) => left.districtName.localeCompare(right.districtName));
 
