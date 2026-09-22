@@ -55,6 +55,7 @@ const checks = [
   ['author-eeat', 'SEO/EEAT', 'Validate author EEAT', 'node', ['scripts/data/validate-author-eeat.mjs']],
   ['entity-template-quality', 'CONTENT/QUALITY', 'Validate entity template quality', 'node', ['scripts/data/validate-entity-template-quality.mjs']],
   ['image-seo', 'IMAGE/SEO', 'Validate image SEO', 'node', ['scripts/data/validate-image-seo.mjs']],
+  ['shared-editorial-image-fallbacks', 'IMAGE/RESILIENCE', 'Validate shared editorial image failure handling', 'node', ['scripts/data/validate-shared-editorial-image-fallbacks.mjs']],
   ['editorial-image-duplicates', 'IMAGE/QUALITY', 'Validate editorial hero uniqueness site-wide', 'node', ['scripts/data/validate-editorial-image-duplicates.mjs', '--all']],
   ['search-rendering-performance', 'PERFORMANCE', 'Validate search rendering performance', 'node', ['scripts/data/validate-search-rendering-performance.mjs']],
   ['content-duplication', 'CONTENT/QUALITY', 'Validate content duplication', 'node', ['scripts/data/validate-content-duplication.mjs']],
