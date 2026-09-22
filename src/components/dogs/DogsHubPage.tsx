@@ -36,6 +36,30 @@ const dogDeskStories = [
     dek: "Texas law lets restaurants choose to allow pet dogs in qualifying outdoor dining areas. It does not make every patio dog-friendly.",
   },
   {
+    slug: "texas-dog-lake-river-safety",
+    eyebrow: "Lakes & rivers",
+    title: "Texas Dogs at Lakes and Rivers: Water, Currents, Algae and the Better Day Plan",
+    dek: "Separate pet access from swimming access, then check currents, algae, heat and the exact shoreline before the dog enters the water.",
+  },
+  {
+    slug: "hiking-texas-trails-with-your-dog",
+    eyebrow: "Hiking",
+    title: "Hiking Texas Trails With Your Dog: Heat, Water, Leashes and Trail Restrictions",
+    dek: "Texas trail rules can change by park and by route. Verify dog access, closures, water and heat before choosing the trail.",
+  },
+  {
+    slug: "camping-in-texas-with-your-dog",
+    eyebrow: "Camping",
+    title: "Camping in Texas With Your Dog: Campsites, Park Rules, Heat and Wildlife",
+    dek: "Build the entire campsite day around the dog: leash rules, no-unattended-pet policy, shade, water, wildlife and pet-restricted facilities.",
+  },
+  {
+    slug: "adopting-a-dog-in-texas",
+    eyebrow: "Adoption",
+    title: "Adopting a Dog in Texas: Shelters, Questions, Rabies Records and a Better Match",
+    dek: "Find local shelters, compare the dog's needs with your household and leave with the records and first-week plan that make the match work.",
+  },
+  {
     slug: "small-dogs-big-texas-attitude",
     eyebrow: "Small dogs",
     title: "Small Dogs, Big Texas Attitude",

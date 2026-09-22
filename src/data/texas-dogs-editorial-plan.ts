@@ -102,6 +102,26 @@ export const texasDogsEditorialPlan = {
       status: "published",
     },
     {
+      slug: "texas-dog-lake-river-safety",
+      title: "Texas Dogs at Lakes and Rivers: Water, Currents, Algae and the Better Day Plan",
+      status: "published",
+    },
+    {
+      slug: "hiking-texas-trails-with-your-dog",
+      title: "Hiking Texas Trails With Your Dog: Heat, Water, Leashes and Trail Restrictions",
+      status: "published",
+    },
+    {
+      slug: "camping-in-texas-with-your-dog",
+      title: "Camping in Texas With Your Dog: Campsites, Park Rules, Heat and Wildlife",
+      status: "published",
+    },
+    {
+      slug: "adopting-a-dog-in-texas",
+      title: "Adopting a Dog in Texas: Shelters, Questions, Rabies Records and a Better Match",
+      status: "published",
+    },
+    {
       slug: "small-dogs-big-texas-attitude",
       title: "Small Dogs, Big Texas Attitude",
       status: "published",
