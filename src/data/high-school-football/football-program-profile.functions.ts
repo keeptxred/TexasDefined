@@ -11,8 +11,8 @@ const loadFootballProgramProfile = createServerFn({ method: 'GET' })
 
 const loadFootballProgramDirectory = createServerFn({ method: 'GET' })
   .handler(async () => {
-    const { getAllUilFootballPrograms } = await import('./football-program-profile.server');
-    return getAllUilFootballPrograms();
+    const { getAllUilFootballProgramIndexEntries } = await import('./football-program-index.server');
+    return getAllUilFootballProgramIndexEntries();
   });
 
 export function getFootballProgramProfilePage(slug: string) {
