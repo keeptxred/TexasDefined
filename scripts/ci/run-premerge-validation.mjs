@@ -43,6 +43,8 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 
 const prebuildChecks = [
   ['EVENT/TICKETMASTER', 'Validate Ticketmaster ingestion and tracking', 'node', ['--test', 'scripts/events/ticketmaster-discovery.test.mjs']],
+  ['EVENT/TICKETMASTER', 'Validate full-year Ticketmaster discovery governance', 'node', ['scripts/events/validate-ticketmaster-annual-discovery.mjs']],
+  ['EVENT/TICKETMASTER', 'Syntax-check full-year Ticketmaster audit', 'node', ['--check', 'scripts/events/audit-ticketmaster-annual-discovery.mjs']],
   ['EVENT/TICKETMASTER', 'Validate Ticketmaster calendar integration', 'node', ['scripts/data/validate-ticketmaster-integration.mjs']],
   ['EVENT/TICKETING', 'Validate shared ticket architecture', 'node', ['scripts/data/validate-event-ticketing-architecture.mjs']],
   ['EVENT/TICKETING', 'Validate canonical official ticket fallback', 'node', ['scripts/data/validate-event-ticket-positive-path.mjs']],

@@ -137,6 +137,39 @@ test('refresh paginates, deduplicates, restricts geography and never emits crede
   assert.ok(!JSON.stringify(result).includes('private-test-key'));
 });
 
+test('custom discovery horizon is bounded without changing the 90-day default', async () => {
+  let requests = 0;
+  const result = await fetchTexasEvents({
+    apiKey: 'test-key',
+    trackingBase: base,
+    now: new Date('2026-09-21T00:00:00Z'),
+    horizonDays: 1,
+    pause: async () => {},
+    fetchImpl: async url => {
+      requests++;
+      const start = Date.parse(url.searchParams.get('startDateTime'));
+      const end = Date.parse(url.searchParams.get('endDateTime'));
+      assert.ok(end - start <= 86400000);
+      return {
+        ok: true,
+        json: async () => ({
+          page: { totalPages: 1, totalElements: 1 },
+          _embedded: { events: [event] },
+        }),
+      };
+    },
+  });
+  assert.equal(requests, 1);
+  assert.equal(result.events.length, 1);
+
+  for (const horizonDays of [0, 367, 1.5, Number.NaN]) {
+    await assert.rejects(
+      fetchTexasEvents({ apiKey: 'test-key', trackingBase: base, horizonDays }),
+      /horizonDays/,
+    );
+  }
+});
+
 test('busy windows split before deep paging and partial pages fail closed', async () => {
   let splits = 0;
   const options = {

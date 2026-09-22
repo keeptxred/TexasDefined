@@ -1,0 +1,69 @@
+name: Audit annual Ticketmaster events
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/audit-ticketmaster-annual-events.yml"
+      - "scripts/events/audit-ticketmaster-annual-discovery.mjs"
+      - "scripts/events/ticketmaster-discovery.mjs"
+      - "scripts/events/ticketmaster-discovery.test.mjs"
+  schedule:
+    - cron: "43 13 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ticketmaster-annual-discovery
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      TICKETMASTER_API_KEY: ${{ secrets.TICKETMASTER_API_KEY }}
+      TICKETMASTER_IMPACT_BASE_URL: https://ticketmaster.evyy.net/c/7758914/264167/4272?subId1=texasdefined&partnerpropertyid=8837726&MediaPartnerPropertyId=8837726
+      TICKETMASTER_ANNUAL_AUDIT_DAYS: "365"
+      TICKETMASTER_ANNUAL_AUDIT_OUTPUT: tmp/ticketmaster-annual-discovery.json
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Validate bounded Ticketmaster discovery
+        run: node --test scripts/events/ticketmaster-discovery.test.mjs
+
+      - name: Scan full-year Texas Ticketmaster inventory
+        run: node scripts/events/audit-ticketmaster-annual-discovery.mjs
+
+      - name: Summarize annual discovery
+        shell: bash
+        run: |
+          node - <<'NODE' >> "$GITHUB_STEP_SUMMARY"
+          const fs = require("node:fs");
+          const report = JSON.parse(fs.readFileSync("tmp/ticketmaster-annual-discovery.json", "utf8"));
+          console.log("## Full-year Ticketmaster recurring-event discovery");
+          console.log("");
+          console.log(`- Texas events scanned: **${report.totalTexasEvents}**`);
+          console.log(`- High-signal rows: **${report.highSignalRows}**`);
+          console.log(`- Candidate families: **${report.candidateFamilies}**`);
+          console.log(`- Candidate families needing authority review: **${report.uncoveredCandidateFamilies}**`);
+          console.log("");
+          console.log("Discovery is fail-closed: this audit does not publish pages, alter the 90-day production catalog, or treat Ticketmaster wording as proof of annual recurrence.");
+          NODE
+
+      - name: Upload full-year discovery report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ticketmaster-annual-discovery-${{ github.run_id }}
+          path: tmp/ticketmaster-annual-discovery.json
+          if-no-files-found: error
+          retention-days: 14
