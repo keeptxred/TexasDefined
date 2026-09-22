@@ -94,6 +94,13 @@ const campingCardImages: Record<string, { src: string; alt: string; width: numbe
   "pedernales-falls-state-park": { src: "/images/state-parks/pedernales-falls-state-park.jpg", alt: "Pedernales Falls State Park in Texas", width: 1600, height: 790 },
   "lake-whitney-state-park": { src: "/images/state-parks/lake-whitney-state-park.jpg", alt: "Lake Whitney State Park in Texas", width: 1600, height: 900 },
   "lake-tawakoni-state-park": { src: "/images/state-parks/lake-tawakoni-state-park.jpg", alt: "Lake Tawakoni State Park in Texas", width: 1600, height: 1100 },
+  "balmorhea-state-park": { src: "/images/state-parks/balmorhea-state-park.jpg", alt: "Balmorhea State Park in Texas", width: 1600, height: 900 },
+  "davis-mountains-state-park": { src: "/images/state-parks/davis-mountains-state-park.jpg", alt: "Davis Mountains State Park in Texas", width: 1600, height: 1067 },
+  "monahans-sandhills-state-park": { src: "/images/state-parks/monahans-sandhills-state-park.jpg", alt: "Monahans Sandhills State Park in Texas", width: 1600, height: 900 },
+  "guadalupe-river-state-park": { src: "/images/state-parks/guadalupe-river-state-park.jpg", alt: "Guadalupe River State Park in Texas", width: 1600, height: 1115 },
+  "lost-maples-state-natural-area": { src: "/images/state-parks/lost-maples-state-natural-area.jpg", alt: "Lost Maples State Natural Area in Texas", width: 1600, height: 1200 },
+  "huntsville-state-park": { src: "/images/state-parks/huntsville-state-park.jpg", alt: "Huntsville State Park in Texas", width: 1600, height: 900 },
+  "tyler-state-park": { src: "/images/state-parks/tyler-state-park.jpg", alt: "Tyler State Park in Texas", width: 1600, height: 1067 },
 };
 
 function profileAnchor(profile: CampingDiscoveryProfile) {
@@ -248,6 +255,8 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
 
             <dl className="mt-6 space-y-4 text-sm">
               <div><dt className="font-semibold">Verified facilities</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.amenities.map((amenity) => amenityLabels[amenity] ?? amenity).join(" · ") || "No amenity fields verified yet"}</dd></div>
+              {profile.siteCountNote ? <div><dt className="font-semibold">Campsite inventory</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.siteCountNote}</dd></div> : null}
+              {profile.priceNote ? <div><dt className="font-semibold">Published campsite range</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.priceNote}</dd></div> : null}
               {profile.siteLengthNote ? <div><dt className="font-semibold">RV/site length</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.siteLengthNote}</dd></div> : null}
               {profile.generatorRules ? <div><dt className="font-semibold">Generator rules</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.generatorRules}</dd></div> : null}
             </dl>
