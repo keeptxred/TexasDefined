@@ -110,6 +110,9 @@ export const hikingTexasTrailsWithYourDogArticle: Article = {
       "Check exposed rock, pavement and sandy surfaces before committing paws to a long route.",
       "Build in a turnaround point that leaves water and energy for the return."
     ),
+    h("Make the trailhead your final go-or-no-go check"),
+    p("Before leaving the trailhead, compare the plan with what is actually in front of you. Recheck the posted trail status, the amount of shade on the route, the water you are carrying and how the dog is moving before the hike has added fatigue. If the route is more exposed, hotter or busier than expected, shorten it while the easy choice is still available. The backup route you planned is part of the trip, not a failure of the original plan."),
+    p("Use the same check on the return leg. A dog that was comfortable at the start can be dealing with hotter ground, less shade and less water later in the day. Stop early enough to assess paws, breathing, energy and remaining water before the final stretch. The goal is to preserve margin rather than use every mile or every ounce of water you brought."),
     h("A six-foot leash is a safety system, not just compliance"),
     p("The statewide park rule's six-foot maximum keeps the dog close enough to manage around other hikers, bikes, wildlife and narrow trail edges. Retractable distance is especially unhelpful when the trail bends into a snake, a cyclist or another dog before you can see what is coming."),
     h("Wildlife changes the pace"),
@@ -170,6 +173,9 @@ export const campingInTexasWithYourDogArticle: Article = {
     p("TPWD advises campers to have current rabies vaccination and proof for pets in state parks. Keep the record accessible rather than buried at home. Also keep identification current so a campsite escape does not become a mystery for whoever finds the dog."),
     h("Heat planning continues after the hike"),
     p("Shade at 8 a.m. can be full sun by 3 p.m. A campsite that is comfortable for people under an awning can still have hot gravel, concrete or bare ground where the dog is expected to settle. Bring enough water, build a shaded resting place and schedule the active parts of the day for cooler hours."),
+    h("Plan the dog's whole day before you reserve"),
+    p("A campsite can be pet-friendly while the itinerary around it is not. Before reserving, sketch the day from breakfast through bedtime and mark every stop where the dog would be excluded or could not safely wait. If the plan depends on a building, a designated swimming area or another pet-restricted place, decide who stays with the dog or replace that activity before the trip. This catches the practical problem that a campsite listing by itself cannot show."),
+    p("Do the same exercise for the hottest part of the day. Identify where the dog can rest in shade, where fresh water will come from and what the group will do if the campsite becomes too hot for a comfortable afternoon. A shorter walk, an earlier meal or an early departure is easier to choose when it is already part of the plan instead of an emergency improvisation."),
     h("Food and wildlife need a campsite system"),
     p("TPWD camping guidance tells visitors to keep food away from animals. Apply that discipline to dog food and treats too: store them securely instead of leaving bowls or bags out overnight. A dog's curiosity can also turn a nighttime wildlife encounter into a close one, so keep the leash and sleeping setup under control after dark."),
     list(
