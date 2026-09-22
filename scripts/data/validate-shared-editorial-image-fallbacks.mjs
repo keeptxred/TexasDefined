@@ -11,6 +11,12 @@ const files = new Map([
   ['category heroes', 'src/components/editorial/CategoryPage.tsx'],
   ['destination heroes', 'src/routes/destination.$slug.tsx'],
   ['event carousel', 'src/components/editorial/TexasEventCarousel.tsx'],
+  ['article body images', 'src/components/editorial/ArticleBody.tsx'],
+  ['evergreen guide hero', 'src/components/editorial/TexasEvergreenGuide.tsx'],
+  ['camping discovery cards', 'src/components/camping/CampingDiscovery.tsx'],
+  ['county feature image', 'src/components/content/CountyGuideSections.tsx'],
+  ['sports venue photo', 'src/components/sports/SportsVenueGuidePage.tsx'],
+  ['map preview', 'src/components/editorial/MapPreview.tsx'],
 ]);
 
 const source = new Map();
@@ -32,12 +38,36 @@ for (const marker of [
   'recoverOrHideImage',
   'image.dataset.fallbackSrc',
   'image.style.display = "none"',
+  'hideFailedImageContainer',
+  'image.closest<HTMLElement>(selector)',
+  'container.style.display = "none"',
 ]) requireMarker('image fallback helper', marker);
 
 for (const label of ['article cards', 'feature heroes', 'category heroes', 'destination heroes', 'event carousel']) {
   requireMarker(label, 'recoverOrHideImage');
   requireMarker(label, 'onError=');
 }
+
+for (const label of ['article body images', 'evergreen guide hero', 'camping discovery cards', 'county feature image']) {
+  requireMarker(label, 'hideFailedImageContainer');
+  requireMarker(label, 'onError=');
+}
+
+for (const marker of [
+  'failedUrl',
+  'setFailedUrl',
+  'failedUrl === photo.imageUrl',
+  'onError={() => setFailedUrl(photo.imageUrl)}',
+  'A verified venue photograph is not available yet.',
+]) requireMarker('sports venue photo', marker);
+
+for (const marker of [
+  'failedImage',
+  'setFailedImage',
+  'const showImage = Boolean(image && failedImage !== image)',
+  'onError={() => setFailedImage(image)}',
+  'Find it on the map',
+]) requireMarker('map preview', marker);
 
 for (const label of ['article cards', 'feature heroes', 'category heroes', 'destination heroes']) {
   requireMarker(label, 'Photo unavailable');
