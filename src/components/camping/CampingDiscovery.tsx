@@ -240,8 +240,8 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
             </div>
             <h3 className="mt-3 font-display text-3xl leading-tight">{profile.name}</h3>
             {!isParentDestination ? <p className="mt-2 text-sm font-semibold text-primary">Campground profile</p> : null}
-            {profile.whyCampHere ? <div className="mt-4 border-l-2 border-primary pl-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.11em] text-muted-foreground">Why choose this campground</p>
+            {profile.whyCampHere ? <div className="mt-4 border-t border-border pt-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Why choose this campground</p>
               <p className="mt-2 leading-7 text-foreground">{profile.whyCampHere}</p>
             </div> : null}
             <p className="mt-4 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Managed by:</strong> {profile.managingAgency}</p>
