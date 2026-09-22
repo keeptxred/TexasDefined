@@ -10,6 +10,7 @@ const surfaces = [
   ['sitemap', '/sitemap.xml', '<urlset'],
   ['explore-search', '/explore/search', 'Search the Texas Travel Guide'],
   ['trip-planner', '/explore/trip-planner', 'Texas Trip Planner'],
+  ['camping-guide', '/best-places-to-go-camping-in-texas', 'Best Places to Go Camping in Texas'],
   ['caverns-count', '/explore/caverns', '11 places are currently mapped'],
   ['caverns-sonora', '/explore/caverns', 'Caverns of Sonora'],
   ['caverns-cascade', '/explore/caverns', 'Cascade Caverns'],
