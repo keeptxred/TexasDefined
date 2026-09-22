@@ -743,6 +743,11 @@ if (!errors.length) {
     'getAllFootballDistricts',
     'footballDistrictSitemapEntries',
     'footballProgramProfilePath',
+    'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28',
+    'UIL_FOOTBALL_EXACT_ENROLLMENT_SOURCE',
+    'uilEnrollment',
+    'submittedConference',
+    'enrollmentSourceUrl',
   ]) requireText(footballDistrictServer, marker, 'UIL football district index');
 
   for (const marker of [
@@ -781,6 +786,11 @@ if (!errors.length) {
     'District is a competition group',
     'Open official UIL alignment ↗',
     'Enrollment band',
+    'Reported enrollment range',
+    'UIL reported enrollment:',
+    'Submitted conference:',
+    'Enrollment figures are the UIL 2026–28 realignment snapshot used for classification.',
+    'Open UIL enrollment listing ↗',
     'Official UIL 2026–28 enrollment cutoffs ↗',
     'uilFootballEnrollmentBand',
     '/article/texas-high-school-football-scores-schedules',
