@@ -80,7 +80,7 @@ function FishingTripPlannerPage() {
 
     <Container className="py-12 sm:py-16">
       <form method="get" action={FISHING_TRIP_PLANNER_PATH} className="border-b border-border pb-10" aria-label="Texas fishing lake finder">
-        <div className="grid gap-7 lg:grid-cols-[1fr_1.35fr]">
+        <div className="grid gap-7 lg:grid-cols-2">
           <label className="block">
             <span className="eyebrow text-primary">Where would you like to go fishing?</span>
             <span className="mt-2 block text-sm text-muted-foreground">Enter a lake, city, county or region.</span>
