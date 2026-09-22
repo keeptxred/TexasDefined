@@ -74,7 +74,7 @@ if (!failures.length) {
   }
   if (!slugs.includes('isCompleteFishingSpeciesSlug(canonicalSlug)') || !slugs.includes('/fishing/species#species-')) failures.push("Species canonical/detail-versus-directory anchor policy is broken.");
   if (!fishingRoute.includes('lazy(() => import("@/components/fishing/FishingHub")')) failures.push("Fishing hub lazy boundary is missing.");
-  if (!hubUi.includes('to="/fishing/species"') || !hubUi.includes('fishingFoundationAnchor("species", row.slug)')) failures.push("Fishing hub does not discover the species directory and canonical species targets.");
+  if (!hubUi.includes('to="/fishing/species"') || !hubUi.includes('fishingFoundationAnchor("species", fish.slug)')) failures.push("Fishing hub does not discover the species directory and canonical species targets.");
   if (!search.includes('fishingFoundationAnchor("species", row.slug)')) failures.push("Global fishing search does not use canonical species targets.");
   if (!internalLinks.includes('fishingFoundationAnchor("species", row.slug)')) failures.push("Fishing internal linking does not use canonical species targets.");
 
@@ -90,14 +90,14 @@ if (!failures.length) {
   if (!speciesFunctions.includes("createServerFn") || !speciesFunctions.includes("loadFishingSpeciesProfileServer")) failures.push("General species profile server-function boundary missing.");
   if (!bassFunctions.includes("createServerFn") || !bassFunctions.includes("loadLargemouthBassPageDataServer")) failures.push("Largemouth server-function boundary missing.");
 
-  for (const signal of ["isCompleteFishingSpeciesSlug", "isCompleteFishingLakeSlug", "lakeSpecies", "lakeTechniques", "buildFishingSpeciesProfileHead", "citation:", "Lake order is alphabetical", "not a live bite report"]) {
+  for (const signal of ["isCompleteFishingSpeciesSlug", "isCompleteFishingLakeSlug", "lakeSpecies", "lakeTechniques", "buildFishingSpeciesProfileHead", "citation:", "Lakes with full fishing guides appear before basic lake profiles", "not a live bite report"]) {
     if (!speciesServer.includes(signal)) failures.push(`General species publication/server-head contract missing: ${signal}`);
   }
   if (!speciesRoute.includes('createFileRoute("/fishing/species/$slug")') || !speciesRoute.includes("throw notFound()") || !speciesRoute.includes("loaderData?.head")) failures.push("General species critical route is incomplete.");
   if (!speciesLazy.includes('createLazyFileRoute("/fishing/species/$slug")') || !speciesLazy.includes("FishingSpeciesProfile data={Route.useLoaderData()}")) failures.push("General species UI is not protected by a native lazy route.");
   if (speciesRoute.includes('from "@/components/fishing/FishingSpeciesProfile"') || /\bcomponent\s*:/.test(speciesRoute) || speciesRoute.includes("buildMeta") || speciesRoute.includes('"@type":')) failures.push("General species UI or SEO payload leaked into the critical route.");
-  if (!speciesUi.includes("Complete-lake relationships, not a statewide popularity ranking") || !speciesUi.includes("Durable planning context, not today's bite")) failures.push("General species source/conditions integrity copy is missing.");
-  for (const phrase of ["Techniques listed", "Lake coverage", "Fishing methods", "source-backed dataset", "source-backed complete-lake technique relationship"]) {
+  if (!speciesUi.includes("They are not a statewide popularity ranking") || !speciesUi.includes("Use durable species guidance")) failures.push("General species source/conditions integrity copy is missing.");
+  for (const phrase of ["Techniques listed", "Linked lake profiles", "Techniques supported by the lake data", "verified lake-to-species relationship", "verified lake-technique relationship"]) {
     if (!speciesUi.includes(phrase)) failures.push(`Fishing species profile is missing visitor-facing label: ${phrase}.`);
   }
   for (const stale of ["Verified techniques", "Verified lake coverage", "Verified method relationships", "verified dataset", "verified complete-lake technique relationship"]) {
@@ -111,7 +111,7 @@ if (!failures.length) {
   if (directoryUi.includes("species-catalog") || bassUi.includes("species-catalog") || bassUi.includes("fixtures") || speciesUi.includes("fixtures")) failures.push("Client species UI imports heavyweight catalog/fixture data instead of server page data.");
   if (!directoryUi.includes("pageData.groups") || !bassUi.includes("rankedLakes") || !bassUi.includes("profile.seasonalBehavior")) failures.push("Species UI is not hydrated from reusable server view models.");
   if (directoryUi.includes("Batch 14") || directoryUi.includes("Verified relationships first")) failures.push("Species directory must not expose internal batch/verification language.");
-  if (!directoryUi.includes("Source-backed relationships first; standalone pages second.")) failures.push("Species directory visitor-facing relationship label missing.");
+  if (!directoryUi.includes("Build the lake relationships around every fish guide.")) failures.push("Species directory visitor-facing relationship label missing.");
   if (!bassUi.includes("No largemouth-bass guide has cleared") || !bassUi.includes("do not fabricate or scrape")) failures.push("Verified-guide empty-state integrity copy missing.");
   if (!bassUi.includes("Sponsored placement") || !bassUi.includes("noopener sponsored")) failures.push("Species sponsorship disclosure/link contract missing.");
 
@@ -137,4 +137,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Fishing species platform validation passed: statewide taxonomy, source-gated complete species routing, server-built profiles, native lazy UI boundaries, deep largemouth guidance, sponsorship separation, search/internal links, structured data and sitemap governance are protected.");
+console.log("Fishing species platform validation passed: statewide taxonomy, sourced species routing, server-built profiles, native lazy UI boundaries, lake relationship integrity, deep largemouth guidance, sponsorship separation, search/internal links, structured data and sitemap governance are protected.");
