@@ -7,7 +7,7 @@ import { fishingFoundationAnchor, isCompleteFishingLakeSlug } from "./slugs";
 import { isFishingRecordVerified } from "./validation";
 
 export async function loadFishingPlannerDataServer() {
-  const [allLakes, species, lakeSpecies, reports, guides, accessPoints, tackleShops, businesses] = await Promise.all([
+  const [lakes, species, lakeSpecies, reports, guides, accessPoints, tackleShops, businesses] = await Promise.all([
     fishingPlatform.lakes.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.species.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.lakeSpecies.list(fishingScope),
@@ -18,10 +18,7 @@ export async function loadFishingPlannerDataServer() {
     fishingPlatform.businesses.list({ ...fishingScope, status: "published", limit: 5000 }),
   ]);
 
-  const lakes = allLakes.filter((lake) => isCompleteFishingLakeSlug(lake.slug));
-  const lakeById = new Map(lakes.map((lake) => [lake.id, lake]));
   const speciesById = new Map(species.map((fish) => [fish.id, fish]));
-
   const verifiedAccess = accessPoints.filter(isFishingRecordVerified);
   const verifiedShops = tackleShops.filter(isFishingRecordVerified);
   const verifiedBusinesses = businesses.filter(isFishingRecordVerified);
@@ -29,6 +26,7 @@ export async function loadFishingPlannerDataServer() {
   const rows = lakes.map((lake) => {
     const targets = lakeSpecies
       .filter((relation) => relation.lakeId === lake.id)
+      .filter((relation) => Boolean(relation.verifiedAt) && relation.sources.length > 0)
       .map((relation) => ({ relation, species: speciesById.get(relation.speciesId) }))
       .filter((entry) => Boolean(entry.species))
       .sort((left, right) => qualityRank(left.relation.quality) - qualityRank(right.relation.quality) || prominenceRank(left.relation.prominence) - prominenceRank(right.relation.prominence) || left.species!.commonName.localeCompare(right.species!.commonName));
@@ -58,13 +56,16 @@ export async function loadFishingPlannerDataServer() {
     return {
       lake,
       href: fishingFoundationAnchor("lake", lake.slug),
+      fullGuide: isCompleteFishingLakeSlug(lake.slug),
       targets,
       reports: { current: currentReports, older: staleReports },
       guides: lakeGuides,
       access: lakeAccess,
       services: serviceRows,
     };
-  }).sort((a, b) => a.lake.name.localeCompare(b.lake.name));
+  })
+    .filter((row) => row.targets.length > 0)
+    .sort((a, b) => a.lake.name.localeCompare(b.lake.name));
 
   return {
     verifiedAt: FISHING_PLANNER_VERIFIED_AT,
@@ -72,9 +73,10 @@ export async function loadFishingPlannerDataServer() {
     species: species.filter((fish) => rows.some((row) => row.targets.some((target) => target.species?.id === fish.id))).sort((a, b) => a.commonName.localeCompare(b.commonName)),
     regions: [...new Set(rows.map((row) => row.lake.region))].sort(),
     policy: {
-      ranking: "Planner results are sorted by verified fishery fit, then alphabetically. Sponsorship never changes planner order.",
-      conditions: "Only reports classified as current may appear as current-condition context. Stale or expired reports remain visibly separated and never change lake recommendations.",
+      ranking: "Planner results are sorted by selected-species match and fishery fit. Full-guide status can break ties. Sponsorship never changes planner order.",
+      conditions: "Only reports classified as current may appear as current-condition context. Stale or expired reports remain separate and never change lake recommendations.",
       local: "Guide, access and service counts include verified public listings only. Zero means no verified listing is currently published, not that the service does not exist.",
+      coverage: "The finder searches every published lake with at least one verified lake-to-species relationship. A Full fishing guide badge identifies lakes with the deeper editorial guide.",
     },
   };
 }
