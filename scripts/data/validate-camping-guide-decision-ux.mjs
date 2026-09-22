@@ -26,6 +26,9 @@ for (const label of [
 
 requireText(component, "Destination view — verify the exact campsite on the official reservation page.", "camping image disclosure");
 requireText(component, "campingCardImages", "camping destination imagery");
+requireText(component, "Why choose this campground", "campground decision context");
+requireText(component, "Managed by:", "campground managing-agency context");
+requireText(component, "profile.whyCampHere", "campground choice rendering");
 requireText(page, "data-stay-nearby-slot", "camping Stay Nearby placement");
 requireText(expedia, "best-places-to-go-camping-in-texas", "camping affiliate route coverage");
 requireText(production, "['camping-guide', '/best-places-to-go-camping-in-texas', 'Best Places to Go Camping in Texas']", "camping live-production verification");
@@ -50,4 +53,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Camping guide decision-UX validation passed: quick-match presets, destination-view disclosure, governed imagery, explicit lodging placement, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
+console.log("Camping guide decision-UX validation passed: quick-match presets, campground choice context, managing-agency context, destination-view disclosure, governed imagery, explicit lodging placement, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
