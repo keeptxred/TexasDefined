@@ -1,0 +1,56 @@
+import type { Article } from "../types";
+
+const stub = (article: Article): Article => ({ ...article, body: [] });
+
+export const texasDogsPracticalStubs: Article[] = [
+  stub({
+    id: "evergreen-texas-dog-heat-safety",
+    brandId: "texasdefined",
+    slug: "texas-dog-heat-safety",
+    title: "Texas Dog Heat Safety: Walks, Trails and Park Days Without the Guesswork",
+    dek: "Texas heat changes the plan for every dog walk, trail day and park stop. Use a simple go-or-no-go routine for pavement, water, shade, timing and your dog's limits.",
+    category: "outdoors",
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Dog_cooling_himself_on_wet_ground_in_Indian_summer_heat.jpg?width=1600",
+      alt: "A dog cooling itself on wet ground during hot weather",
+      width: 2048,
+      height: 1536,
+      credit: "abhiriksh · CC BY-SA 3.0 · Wikimedia Commons",
+    },
+    authorId: "a-marisol",
+    publishedAt: "2026-09-19",
+    readingMinutes: 8,
+    tags: ["Texas dogs", "dog heat safety", "hiking with dogs", "Texas state parks", "dog travel", "Texas Dogs Defined"],
+    featured: false,
+    relatedCollections: [],
+    relatedDestinations: [],
+    sourceName: "Texas Parks & Wildlife Department — Heat Safety",
+    sourceUrl: "https://tpwd.texas.gov/state-parks/park-information/safety/heat-safety-info",
+    body: [],
+  }),
+  stub({
+    id: "evergreen-taking-your-dog-to-texas-state-parks",
+    brandId: "texasdefined",
+    slug: "taking-your-dog-to-texas-state-parks",
+    title: "Taking Your Dog to a Texas State Park: The Rules and the Better Plan",
+    dek: "Most Texas state parks welcome pets, but the statewide rules are only the first layer. Check the park, the trail, the weather and the dog's realistic role in the day.",
+    category: "outdoors",
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Hiking_with_Dogs_(52360667545).jpg?width=1600",
+      alt: "A hiker walking with dogs on an outdoor trail",
+      width: 2988,
+      height: 5312,
+      credit: "Tracy Albrecht / BLM · Public domain · Wikimedia Commons",
+    },
+    authorId: "a-marisol",
+    publishedAt: "2026-09-19",
+    readingMinutes: 9,
+    tags: ["Texas dogs", "Texas state parks", "dog-friendly Texas", "hiking with dogs", "camping with dogs", "Texas Dogs Defined"],
+    featured: false,
+    relatedCollections: [],
+    relatedDestinations: [],
+    sourceName: "Texas Parks & Wildlife Department — State Parks FAQ",
+    sourceUrl: "https://tpwd.texas.gov/state-parks/park-information/frequently-asked-questions",
+    body: [],
+  }),
+];
