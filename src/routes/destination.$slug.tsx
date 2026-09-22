@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
+import caddoLake from "@/assets/caddo-lake.jpg";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { AnswerSummary } from "@/components/content/AnswerSummary";
@@ -17,6 +18,7 @@ import { buildDestinationRelationshipGroups, distanceMiles } from "@/data/destin
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import { isTopTexasAttraction } from "@/data/top-texas-attractions";
+import { recoverOrHideImage } from "@/lib/image-fallback";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from "@/platform/internal-link-policies";
 
@@ -172,11 +174,18 @@ function DestinationPage() {
       .slice(0, 3)
     : [];
 
+  const heroFallback = destination.slug === "caddo-lake-national-wildlife-refuge"
+    ? { src: caddoLake, alt: "Bald cypress trees draped in Spanish moss across the Caddo Lake ecosystem in East Texas" }
+    : undefined;
+
   return <>
     <Container className="pt-10 sm:pt-14"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden>·</li><li>{destination.category === "sports" ? <Link to="/sports" className="hover:text-foreground">{categoryName}</Link> : <Link to="/explore/$category" params={{ category: destination.category }} className="hover:text-foreground">{categoryName}</Link>}</li></ol></nav></Container>
 
     <section className="relative isolate mt-5 overflow-hidden bg-ink text-ink-foreground">
-      <img src={destination.hero.src} alt={destination.hero.alt} width={destination.hero.width} height={destination.hero.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-65" />
+      <div aria-hidden className="absolute inset-0 bg-ink">
+        <span className="eyebrow absolute left-5 top-5 text-ink-foreground/60">Photo unavailable</span>
+      </div>
+      <img src={destination.hero.src} alt={destination.hero.alt} width={destination.hero.width} height={destination.hero.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-65" onError={(event) => recoverOrHideImage(event.currentTarget, heroFallback)} />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/65 to-ink/15" />
       <Container className="relative flex flex-col justify-end" style={{ minHeight: "clamp(24rem, 52vw, 32rem)", paddingTop: "6rem", paddingBottom: "3rem" }}>
         <p className="eyebrow text-ink-foreground/80">{region?.name ?? "Texas"} · {categoryName}</p>
