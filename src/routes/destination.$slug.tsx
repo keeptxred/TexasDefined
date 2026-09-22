@@ -201,8 +201,8 @@ function DestinationPage() {
     <Container className={isChokeCanyon ? "grid gap-8 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:py-16" : "grid gap-10 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:gap-12 lg:py-16"}>
       <div className="min-w-0">
         <section aria-labelledby="why-go" className="border-t border-border pt-8">
-          <p className="eyebrow text-primary">The place</p>
-          <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">What to expect at {destination.name}</h2>
+          <p className="eyebrow text-primary">The experience</p>
+          <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">About {destination.name}</h2>
           <div className="editorial-body mt-7 text-foreground/90">{destination.body.map((paragraph) => <p key={paragraph} className="mt-6 first:mt-0"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}</div>
         </section>
         <section aria-labelledby="before-you-go" className={isChokeCanyon ? "mt-10 border-t border-border pt-6" : "mt-16 border-t border-border pt-8"}>
