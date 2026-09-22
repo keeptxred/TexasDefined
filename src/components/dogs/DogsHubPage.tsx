@@ -24,6 +24,18 @@ const dogDeskStories = [
     dek: "Trip ideas built around outdoor time, realistic pet access, frequent breaks and weather-aware planning instead of a pet-friendly hotel filter alone.",
   },
   {
+    slug: "taking-your-dog-to-the-texas-coast",
+    eyebrow: "Texas coast",
+    title: "Taking Your Dog to the Texas Coast: Beach Rules, Heat, Water and Wildlife",
+    dek: "Check the exact beach rule, water quality, heat, wildlife and sand-driving setup before the paws hit the Gulf Coast.",
+  },
+  {
+    slug: "texas-dog-friendly-patios-law",
+    eyebrow: "Patio rules",
+    title: "Texas Dog-Friendly Patios: What State Law Allows",
+    dek: "Texas law lets restaurants choose to allow pet dogs in qualifying outdoor dining areas. It does not make every patio dog-friendly.",
+  },
+  {
     slug: "small-dogs-big-texas-attitude",
     eyebrow: "Small dogs",
     title: "Small Dogs, Big Texas Attitude",

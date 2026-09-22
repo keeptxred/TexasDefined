@@ -13,7 +13,7 @@ export const EXPLORE_CATEGORY_ARTICLE_COUNTS = {
   "state-parks": 1,
   "national-parks": 0,
   "caverns": 0,
-  "beaches-coast": 0,
+  "beaches-coast": 1,
   "historic-sites": 1,
   "road-trips": 3,
   "small-towns": 2,
