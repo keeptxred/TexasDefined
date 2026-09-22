@@ -12,6 +12,7 @@ const route = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'
 const planner = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationVisitPlanner.tsx'), 'utf8');
 const relationships = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationRelationships.tsx'), 'utf8');
 const relationshipEngine = fs.readFileSync(path.join(root, 'src/data/destination-relationships.ts'), 'utf8');
+const relationshipServer = fs.readFileSync(path.join(root, 'src/data/destination-relationships.functions.ts'), 'utf8');
 const graph = fs.readFileSync(path.join(root, 'src/data/knowledge-graph/explore-adapter.ts'), 'utf8');
 const ai = fs.readFileSync(path.join(root, 'src/routes/api.ai.entities.ts'), 'utf8');
 const llms = fs.readFileSync(path.join(root, 'src/routes/llms[.]txt.ts'), 'utf8');
@@ -36,8 +37,7 @@ for (const feature of [
   'destination.hero.credit', 'citation: destination.officialUrl',
   'sameAs: destination.officialUrl', 'dateModified: destination.sourceCheckedAt',
   'provider: { "@type": "Organization"',
-  'destinationsQuery({ limit: 5000 })',
-  'buildDestinationRelationshipGroups(destination, catalog)',
+  'getDestinationRelationshipGroups({ data: { slug: params.slug } })',
   'relationshipGroups',
   'DestinationRelationships',
   'destination.accessibilityNotes', 'destination.directions', 'destination.address',
@@ -75,6 +75,15 @@ for (const feature of [
   'similar', 'regional', 'const used = new Set<string>()',
   'item.slug !== destination.slug',
 ]) if (!relationshipEngine.includes(feature)) errors.push(`Destination relationship engine feature missing: ${feature}`);
+
+for (const feature of [
+  'createServerFn({ method: "GET" })',
+  'listResolvedDestinations({ limit: 5000 })',
+  'buildDestinationRelationshipGroups(',
+  'prepareDestinationForDelivery',
+]) if (!relationshipServer.includes(feature)) errors.push(`Destination relationship server boundary feature missing: ${feature}`);
+if (route.includes('destinationsQuery({ limit: 5000 })')) errors.push('Destination detail route must not hydrate the complete destination catalog into the browser.');
+if (relationshipServer.includes('queryClient')) errors.push('Destination relationship server boundary must not populate the public query cache.');
 
 for (const feature of [
   'managingAuthority?: string', 'officialUrl?: string', 'sourceCheckedAt?: string',
