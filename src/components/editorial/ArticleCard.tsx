@@ -42,7 +42,7 @@ export function ArticleCard({ article, size = "default", eager = false, classNam
     <article className={cn("group flex flex-col", className)}>
       <Link to="/article/$slug" params={{ slug: article.slug }} className="block overflow-hidden bg-muted" tabIndex={-1} aria-hidden>
         <div className={cn("relative w-full overflow-hidden bg-muted", size === "compact" && "aspect-[4/3]", size === "default" && "aspect-[3/2]", size === "feature" && "aspect-[16/10]")}>
-          <div aria-hidden className="absolute inset-0 bg-secondary/30">
+          <div aria-hidden className="absolute inset-0">
             <span className="eyebrow absolute left-5 top-5 text-muted-foreground">Photo unavailable</span>
           </div>
           <img src={article.hero.src} alt={article.hero.alt} width={article.hero.width} height={article.hero.height} sizes={cardSizes(size)} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} decoding="async" className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-[1.025]" onError={(event) => recoverOrHideImage(event.currentTarget)} />
