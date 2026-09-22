@@ -33,7 +33,7 @@ for (const feature of [
 
 for (const feature of [
   'Official visitor information', 'Reservations', 'Visitor details last reviewed', 'Official source',
-  'destination.hero.credit', 'citation: destination.officialUrl',
+  '"credit" in hero && hero.credit', 'citation: destination.officialUrl',
   'sameAs: destination.officialUrl', 'dateModified: destination.sourceCheckedAt',
   'provider: { "@type": "Organization"',
   'destinationsQuery({ limit: 5000 })',
