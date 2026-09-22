@@ -60,7 +60,7 @@ if (planner.includes('const practicalTips = unique([') || planner.includes('What
 
 for (const feature of [
   'const pairedDestinations = [...new Map(', '.flatMap((group) => group.destinations)',
-  '.slice(0, 6)', 'Places worth adding to the same trip',
+  '.slice(0, 6)', 'More to explore nearby',
   'pairedDestinations.map((item)', 'TexasExplainedContextLinks surface="destination"',
   'to="/explore/$category"', 'to="/explore/region/$region"',
   'to="/events"', 'to="/search"',
