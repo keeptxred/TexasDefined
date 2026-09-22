@@ -217,47 +217,98 @@ export async function loadTeaSchoolDirectory() {
   }
 }
 
-function matchScore(program: UilFootballProgram, record: TeaSchoolDirectoryRecord) {
-  const programKey = cleanName(program.schoolName);
-  const schoolKey = cleanName(record.schoolName);
-  const districtKey = cleanName(record.districtName);
-  const cityKey = cleanName(record.city);
+type PreparedTeaDirectoryRecord = {
+  record: TeaSchoolDirectoryRecord;
+  schoolKey: string;
+  districtSchool: string;
+  citySchool: string;
+  schoolTokens: string[];
+};
+
+type TeaDirectoryMatcher = {
+  rows: PreparedTeaDirectoryRecord[];
+  byDistrictSchool: Map<string, PreparedTeaDirectoryRecord[]>;
+  byCitySchool: Map<string, PreparedTeaDirectoryRecord[]>;
+  bySchool: Map<string, PreparedTeaDirectoryRecord[]>;
+};
+
+function addDirectoryIndex(
+  index: Map<string, PreparedTeaDirectoryRecord[]>,
+  key: string,
+  row: PreparedTeaDirectoryRecord,
+) {
+  if (!key) return;
+  const current = index.get(key);
+  if (current) current.push(row);
+  else index.set(key, [row]);
+}
+
+function buildDirectoryMatcher(rows: TeaSchoolDirectoryRecord[]): TeaDirectoryMatcher {
+  const prepared = rows.map((record) => {
+    const schoolKey = cleanName(record.schoolName);
+    const districtKey = cleanName(record.districtName);
+    const cityKey = cleanName(record.city);
+    return {
+      record,
+      schoolKey,
+      districtSchool: cleanName(`${districtKey} ${schoolKey}`),
+      citySchool: cleanName(`${cityKey} ${schoolKey}`),
+      schoolTokens: schoolKey.split(' ').filter(Boolean),
+    } satisfies PreparedTeaDirectoryRecord;
+  });
+
+  const byDistrictSchool = new Map<string, PreparedTeaDirectoryRecord[]>();
+  const byCitySchool = new Map<string, PreparedTeaDirectoryRecord[]>();
+  const bySchool = new Map<string, PreparedTeaDirectoryRecord[]>();
+
+  for (const row of prepared) {
+    addDirectoryIndex(byDistrictSchool, row.districtSchool, row);
+    addDirectoryIndex(byCitySchool, row.citySchool, row);
+    addDirectoryIndex(bySchool, row.schoolKey, row);
+  }
+
+  return { rows: prepared, byDistrictSchool, byCitySchool, bySchool };
+}
+
+function fuzzyMatchScore(
+  programKey: string,
+  programTokens: Set<string>,
+  row: PreparedTeaDirectoryRecord,
+) {
+  const { schoolKey, districtSchool, citySchool, schoolTokens } = row;
   if (!programKey || !schoolKey) return 0;
-
-  const districtSchool = cleanName(`${districtKey} ${schoolKey}`);
-  const citySchool = cleanName(`${cityKey} ${schoolKey}`);
-
-  if (programKey === districtSchool) return 130;
-  if (programKey === citySchool) return 125;
-  if (programKey === schoolKey) return 100;
   if (schoolKey.length >= 6 && (programKey.endsWith(` ${schoolKey}`) || programKey.startsWith(`${schoolKey} `))) return 96;
   if (districtSchool.length >= 7 && (programKey.includes(districtSchool) || districtSchool.includes(programKey))) return 94;
   if (citySchool.length >= 7 && (programKey.includes(citySchool) || citySchool.includes(programKey))) return 92;
-
-  const programTokens = new Set(programKey.split(' ').filter(Boolean));
-  const schoolTokens = schoolKey.split(' ').filter(Boolean);
   if (schoolTokens.length >= 2 && schoolTokens.every((token) => programTokens.has(token))) return 88;
   return 0;
 }
 
-function bestDirectoryMatch(program: UilFootballProgram, rows: TeaSchoolDirectoryRecord[]) {
+function bestDirectoryMatch(program: UilFootballProgram, matcher: TeaDirectoryMatcher) {
+  const programKey = cleanName(program.schoolName);
+  if (!programKey) return null;
+
+  const districtExact = matcher.byDistrictSchool.get(programKey);
+  if (districtExact?.length) return districtExact[0].record;
+
+  const cityExact = matcher.byCitySchool.get(programKey);
+  if (cityExact?.length) return cityExact[0].record;
+
+  const schoolExact = matcher.bySchool.get(programKey);
+  if (schoolExact?.length === 1) return schoolExact[0].record;
+  if ((schoolExact?.length ?? 0) > 1) return null;
+
+  const programTokens = new Set(programKey.split(' ').filter(Boolean));
   let best: { record: TeaSchoolDirectoryRecord; score: number } | null = null;
-  let tied = false;
-  for (const record of rows) {
-    const score = matchScore(program, record);
-    if (score > (best?.score ?? 0)) {
-      best = { record, score };
-      tied = false;
-    } else if (best && score === best.score && score >= 100) {
-      tied = true;
-    }
+  for (const row of matcher.rows) {
+    const score = fuzzyMatchScore(programKey, programTokens, row);
+    if (score > (best?.score ?? 0)) best = { record: row.record, score };
   }
-  if (!best || best.score < 88 || (tied && best.score <= 100)) return null;
-  return best.record;
+  return best && best.score >= 88 ? best.record : null;
 }
 
-function withDirectory(program: UilFootballProgram, rows: TeaSchoolDirectoryRecord[]): FootballProgramDirectoryResult {
-  const record = bestDirectoryMatch(program, rows);
+function withDirectory(program: UilFootballProgram, matcher: TeaDirectoryMatcher): FootballProgramDirectoryResult {
+  const record = bestDirectoryMatch(program, matcher);
   const exactEnrollment = UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.schoolName];
   const exactFields = exactEnrollment ? {
     uilEnrollment: exactEnrollment.enrollment,
@@ -296,8 +347,9 @@ export async function loadAllFootballProgramsWithDirectory() {
   }
 
   const directory = await loadTeaSchoolDirectory();
+  const directoryMatcher = buildDirectoryMatcher(directory);
   const programs = UIL_FOOTBALL_PROGRAMS_2026
-    .map((program) => withDirectory(program, directory))
+    .map((program) => withDirectory(program, directoryMatcher))
     .sort((a, b) => {
       const classDiff = Number(b.classification[0]) - Number(a.classification[0]);
       if (classDiff) return classDiff;
@@ -353,7 +405,8 @@ export async function searchFootballPrograms(options: {
         matchedTotal: 0,
       };
     }
-    candidates = candidates.filter((program) => bestDirectoryMatch(program, relevantDirectory));
+    const relevantMatcher = buildDirectoryMatcher(relevantDirectory);
+    candidates = candidates.filter((program) => bestDirectoryMatch(program, relevantMatcher));
   } else if (query) {
     const direct = candidates.filter((program) => includesQuery(program.schoolName, query));
     if (directoryAvailable) {
@@ -363,8 +416,9 @@ export async function searchFootballPrograms(options: {
         || includesQuery(record.countyName, query)
         || includesQuery(record.city, query),
       );
-      const fromDirectory = queryRows.length
-        ? candidates.filter((program) => bestDirectoryMatch(program, queryRows))
+      const queryMatcher = queryRows.length ? buildDirectoryMatcher(queryRows) : null;
+      const fromDirectory = queryMatcher
+        ? candidates.filter((program) => bestDirectoryMatch(program, queryMatcher))
         : [];
       candidates = [...new Map([...direct, ...fromDirectory].map((program) => [
         `${program.classification}:${program.division ?? 'x'}:${program.district}:${program.schoolName}`,
@@ -375,9 +429,10 @@ export async function searchFootballPrograms(options: {
     }
   }
 
+  const directoryMatcher = buildDirectoryMatcher(directoryAvailable ? directory : []);
   const enriched = candidates
     .map((program) => {
-      const base = withDirectory(program, directoryAvailable ? directory : []);
+      const base = withDirectory(program, directoryMatcher);
       const history = recentHistory
         ? recentFootballHistoryFromLoaded(recentHistory, base.schoolName, base.officialSchoolName)
         : null;
