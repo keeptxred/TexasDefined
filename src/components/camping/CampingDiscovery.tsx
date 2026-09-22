@@ -71,6 +71,7 @@ const quickMatches: Array<{
   { label: "Full-hookup RV", styles: ["rv"], amenities: ["full-hookup"] },
   { label: "Beach camping", styles: ["beach"] },
   { label: "Primitive camping", styles: ["primitive"] },
+  { label: "Cabins & glamping", styles: ["cabin", "glamping", "airstream", "bungalow"] },
   { label: "Fishing", amenities: ["fishing"] },
   { label: "Swimming", amenities: ["swimming"] },
   { label: "Water-focused", waterCamping: true },
