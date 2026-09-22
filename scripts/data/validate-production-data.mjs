@@ -70,7 +70,7 @@ for (const feature of ["createFileRoute('/$kind/$slug')",'rankRelatedEntities','
 for (const feature of ['autoLinkEntityMentions','maxLinks = 8','resolveInternalEntityLinks','match.href']) if (!linker.includes(feature)) errors.push(`Automatic linking feature missing: ${feature}.`);
 for (const feature of ['used.has','canonicalEntityPath']) if (!internalLinking.includes(feature)) errors.push(`Internal-link resolver feature missing: ${feature}.`);
 for (const feature of ['ArticleBody blocks={article.body} entities={graph}','loadTexasKnowledgeGraph','mentions: mentions.map','absoluteUrl(texasDefinedBrand, article.hero.src)','canonicalEntityPath(entity)']) if (!articleRoute.includes(feature)) errors.push(`Article graph integration missing: ${feature}.`);
-for (const feature of ['absoluteUrl(texasDefinedBrand, destination.hero.src)','BreadcrumbList','TouristAttraction']) if (!destinationRoute.includes(feature)) errors.push(`Destination SEO feature missing: ${feature}.`);
+for (const feature of ['destinationHero(destination)','absoluteUrl(texasDefinedBrand, hero.src)','BreadcrumbList','TouristAttraction']) if (!destinationRoute.includes(feature)) errors.push(`Destination SEO feature missing: ${feature}.`);
 for (const feature of ['canonicalPath','ItemList','"@type": "Event"','eventStatus','eventAttendanceMode']) if (!eventsRoute.includes(feature)) errors.push(`Event answer feature missing: ${feature}.`);
 for (const feature of ['"@type": "AboutPage"','BreadcrumbList','about: { "@id"','isPartOf: { "@id"']) if (!aboutRoute.includes(feature)) errors.push(`About page SEO feature missing: ${feature}.`);
 for (const feature of [
