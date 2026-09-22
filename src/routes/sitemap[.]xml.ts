@@ -54,6 +54,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           isArticleDiscoveryReady,
           isArticleIndexReady,
           loadFishingGuideSitemapEntriesServer,
+          loadFishingLakeSitemapEntriesServer,
           loadFishingLocalSitemapEntriesServer,
           loadFishingReportSitemapEntriesServer,
           FISHING_SITEMAP_ENTRIES,
@@ -98,6 +99,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           fetchPublishedTexasDefinedEvergreenArticlesForSitemap(),
           getTexasCountyHousingCosts(),
           loadFishingGuideSitemapEntriesServer(),
+          loadFishingLakeSitemapEntriesServer(),
           loadFishingReportSitemapEntriesServer(),
           loadFishingLocalSitemapEntriesServer(),
         ]);
@@ -114,7 +116,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           });
         }
 
-        const [articlesResult, collectionsResult, authorsResult, graphResult, remoteNewsResult, remoteEvergreenResult, countyHousingResult, fishingGuideSitemapResult, fishingReportSitemapResult, fishingLocalSitemapResult] = coreResults;
+        const [articlesResult, collectionsResult, authorsResult, graphResult, remoteNewsResult, remoteEvergreenResult, countyHousingResult, fishingGuideSitemapResult, fishingLakeSitemapResult, fishingReportSitemapResult, fishingLocalSitemapResult] = coreResults;
         const articles = articlesResult.status === "fulfilled" ? articlesResult.value : [];
         const collections = collectionsResult.status === "fulfilled" ? collectionsResult.value : [];
         const authors = authorsResult.status === "fulfilled" ? authorsResult.value : [];
@@ -162,6 +164,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         }
         const countyHousingCosts = countyHousingResult.status === "fulfilled" ? countyHousingResult.value : null;
         const fishingGuideSitemapEntries = fishingGuideSitemapResult.status === "fulfilled" ? fishingGuideSitemapResult.value : [];
+        const fishingLakeSitemapEntries = fishingLakeSitemapResult.status === "fulfilled" ? fishingLakeSitemapResult.value : [];
         const fishingReportSitemapEntries = fishingReportSitemapResult.status === "fulfilled" ? fishingReportSitemapResult.value : [];
         const fishingLocalSitemapEntries = fishingLocalSitemapResult.status === "fulfilled" ? fishingLocalSitemapResult.value : [];
         const countyGrowth = await loadTexasCountyGrowth();
@@ -219,6 +222,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...temporalEventSitemapEntries,
           ...TEXAS_VS_STATES.filter((state) => isTexasVsStateSitemapReady(texasVsStateSlug(state))).map((state) => ({ path: `/texas-vs/${texasVsStateSlug(state)}`, lastmod: PRIORITY_SEO_LASTMOD })),
           ...FISHING_SITEMAP_ENTRIES,
+          ...fishingLakeSitemapEntries,
           ...fishingGuideSitemapEntries,
           ...fishingReportSitemapEntries,
           ...fishingLocalSitemapEntries,

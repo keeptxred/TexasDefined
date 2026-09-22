@@ -13,17 +13,113 @@ interface FishingHubProps {
 
 export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
   const speciesById = new Map(species.map((row) => [row.id, row]));
-  const completeLakes = lakes.filter((lake) => isCompleteFishingLakeSlug(lake.slug));
+  const featuredSpecies = [...species]
+    .sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)) || a.commonName.localeCompare(b.commonName))
+    .slice(0, 8);
+  const featuredLakes = lakes.slice(0, 6);
+
   return <>
     <Container className="pt-8 sm:pt-10"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li aria-current="page">Fishing</li></ol></nav></Container>
-    <section className="mt-5 border-b border-border bg-ink text-ink-foreground"><Container className="py-16 sm:py-24"><p className="eyebrow text-ink-foreground/70">Texas Defined Fishing</p><h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.96] sm:text-7xl">Fishing Texas, lake by lake.</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/82">A statewide fishing guide built around the water itself: what lives there, how anglers target it, how seasons change the approach, and the verified local infrastructure that makes a trip easier.</p><div className="mt-8 flex flex-wrap gap-5 text-sm"><Link to="/texas-fishing-license" className="border-b border-ink-foreground pb-1 font-semibold text-ink-foreground">Texas fishing license →</Link><Link to="/fishing/plan" className="border-b border-ink-foreground pb-1 font-semibold text-ink-foreground">Plan a fishing trip →</Link><Link to="/hunting" className="border-b border-ink-foreground pb-1 font-semibold text-ink-foreground">Texas hunting guide →</Link><Link to="/fishing/compare" className="border-b border-ink-foreground pb-1 font-semibold text-ink-foreground">Compare fishing lakes →</Link><Link to="/fishing/seasons" className="border-b border-ink-foreground pb-1 font-semibold text-ink-foreground">Fishing seasons →</Link><Link to="/fishing/techniques" className="border-b border-ink-foreground pb-1 font-semibold text-ink-foreground">Fishing techniques →</Link><Link to="/fishing/lakes" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Compare complete fishing lakes →</Link><Link to="/fishing/lakes/lake-conroe" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Lake Conroe →</Link><Link to="/fishing/guides" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Verified fishing guides →</Link><Link to="/fishing/reports" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Fishing reports →</Link><Link to="/fishing/access" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Fishing access →</Link><Link to="/fishing/services" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Local services →</Link><Link to="/fishing/species" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Browse fish species →</Link></div></Container></section>
-    <Container className="py-14 sm:py-20">
-      <section className="grid gap-8 border-b border-border pb-12 lg:grid-cols-[15rem_1fr]" aria-labelledby="planning-tools"><div><p className="eyebrow text-primary">Choose the water</p><h2 id="planning-tools" className="mt-2 font-display text-3xl">Two ways to turn the fishing catalog into a trip.</h2></div><div className="grid gap-6 md:grid-cols-2"><article className="border-t border-border pt-5"><h3 className="font-display text-2xl">Species-first trip planner</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Pick a target species and region. The planner ranks verified fishery fit while keeping current reports, older reports and local coverage visibly separate.</p><Link to="/fishing/plan" className="mt-4 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open trip planner →</Link></article><article className="border-t border-border pt-5"><h3 className="font-display text-2xl">Side-by-side lake comparison</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Select up to three complete lake guides and compare durable lake facts, verified target species and published local coverage without turning coverage into a paid ranking.</p><Link to="/fishing/compare" className="mt-4 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Compare lakes →</Link></article></div></section>
-      <section aria-labelledby="showcase-lakes" className="pt-12"><div className="flex flex-wrap items-end justify-between gap-6"><div className="max-w-3xl"><p className="eyebrow text-primary">Showcase lakes</p><h2 id="showcase-lakes" className="mt-3 font-display text-4xl sm:text-5xl">Ten complete lake guides now span more of Texas.</h2><p className="mt-4 text-base leading-7 text-muted-foreground">The complete collection now reaches from Toledo Bend and the East Texas reservoirs to Possum Kingdom, Canyon Lake, Choke Canyon and Amistad, with every lake clearing the same source-backed fishing-first standard.</p></div><Link to="/fishing/lakes" className="eyebrow inline-block border-b border-primary pb-1 text-primary">Compare all {completeLakes.length} complete lake guides →</Link></div>
-      <div className="mt-9 grid gap-x-8 border-t border-border lg:grid-cols-2">{lakes.map((lake) => { const relationships = lakeSpecies.filter((relation) => relation.lakeId === lake.id); const targets = relationships.map((relation) => ({ relation, species: speciesById.get(relation.speciesId) })).filter((row) => Boolean(row.species)).slice(0, 6); const hasCompleteGuide = isCompleteFishingLakeSlug(lake.slug); return <article id={`lake-${lake.slug}`} key={lake.id} className="scroll-mt-28 border-b border-border py-8"><div className="flex flex-wrap items-start justify-between gap-4"><div><p className="eyebrow text-primary">{lake.region.replaceAll("-", " ")}</p><h3 className="mt-2 font-display text-3xl">{hasCompleteGuide ? <a href={fishingFoundationAnchor("lake", lake.slug)} className="hover:text-primary">{lake.name}</a> : lake.name}</h3></div>{lake.surfaceAcres && <p className="text-sm text-muted-foreground">{lake.surfaceAcres.toLocaleString("en-US")} acres</p>}</div><p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">{lake.summary}</p><dl className="mt-6 grid gap-4 text-sm sm:grid-cols-2">{lake.maxDepthFeet && <div><dt className="eyebrow text-muted-foreground">Maximum depth</dt><dd className="mt-1">{lake.maxDepthFeet} ft</dd></div>}{lake.primaryWaterway && <div><dt className="eyebrow text-muted-foreground">Waterway</dt><dd className="mt-1">{lake.primaryWaterway}</dd></div>}{lake.counties.length > 0 && <div><dt className="eyebrow text-muted-foreground">Counties</dt><dd className="mt-1">{lake.counties.join(", ")}</dd></div>}{lake.controllingAuthorities.length > 0 && <div><dt className="eyebrow text-muted-foreground">Controlling authority</dt><dd className="mt-1">{lake.controllingAuthorities.join(", ")}</dd></div>}</dl>{targets.length > 0 && <div className="mt-6"><p className="eyebrow text-muted-foreground">Fishing targets</p><ul className="mt-3 flex flex-wrap gap-2">{targets.map(({ relation, species: target }) => <li key={relation.id} className="border border-border px-3 py-1.5 text-xs">{target?.commonName} · {relation.quality}</li>)}</ul></div>}{hasCompleteGuide && <a href={fishingFoundationAnchor("lake", lake.slug)} className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary">Complete fishing guide →</a>}</article>; })}</div></section>
-      <section aria-labelledby="species-heading" className="mt-16 border-t border-border pt-10"><p className="eyebrow text-primary">Fish the state by species</p><h2 id="species-heading" className="mt-3 font-display text-4xl">One species can connect dozens of Texas lakes.</h2><p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">Species records are independent from lake records, so statewide bass, crappie, catfish and striped-bass guidance can connect back to every complete lake destination without duplicating lake facts.</p><Link to="/fishing/species" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Browse the statewide fish-species directory →</Link><div className="mt-8 grid border-t border-border sm:grid-cols-2 lg:grid-cols-3">{species.map((row) => <article id={`species-${row.slug}`} key={row.id} className="scroll-mt-28 border-b border-border py-6 sm:px-5 sm:first:pl-0"><p className="eyebrow text-primary">{row.taxonKind === "group" ? "Fishing group" : "Fish species"}</p><h3 className="mt-2 font-display text-2xl"><a href={fishingFoundationAnchor("species", row.slug)} className="hover:text-primary">{row.commonName}</a></h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{row.summary}</p></article>)}</div></section>
-      <section className="mt-16 border-t border-border pt-10"><p className="eyebrow text-primary">Built for local depth</p><h2 className="mt-3 font-display text-4xl">Reports, guides, access and lake-area businesses attach to the water they actually serve.</h2><div className="mt-7 grid gap-6 text-sm leading-7 text-muted-foreground sm:grid-cols-2 lg:grid-cols-4"><div><h3 className="font-display text-xl text-foreground">Local guides</h3><p className="mt-2">Only verified profiles publish, and a guide can connect to every lake and species actually served.</p><Link to="/fishing/guides" className="mt-3 inline-block border-b border-primary pb-1 text-primary">Browse the verified directory →</Link></div><div><h3 className="font-display text-xl text-foreground">Fishing reports</h3><p className="mt-2">Dated reports remain separate from evergreen seasonal patterns so old bite claims do not masquerade as current.</p><Link to="/fishing/reports" className="mt-3 inline-block border-b border-primary pb-1 text-primary">Browse fishing reports →</Link></div><div><h3 className="font-display text-xl text-foreground">Access & services</h3><p className="mt-2">Ramps, marinas, tackle and other services attach to lake geography, with changing fees and availability kept separate from verified evergreen facts.</p><div className="mt-3 flex flex-wrap gap-4"><Link to="/fishing/access" className="border-b border-primary pb-1 text-primary">Fishing access →</Link><Link to="/fishing/services" className="border-b border-primary pb-1 text-primary">Local services →</Link></div></div><div><h3 className="font-display text-xl text-foreground">Local sponsorships</h3><p className="mt-2">Paid placements are explicitly labeled and never alter fish ratings, planner ordering, access facts or editorial lake recommendations.</p><Link to="/partner-with-us" className="mt-3 inline-block border-b border-primary pb-1 text-primary">Partner with TexasDefined →</Link></div></div><p className="mt-8 text-xs leading-6 text-muted-foreground">Expanded lake data checked against official fisheries and managing-agency sources on August 15, 2026. Conditions, regulations and access can change; confirm current official information before travel.</p></section>
+
+    <section className="mt-5 border-b border-border bg-ink text-ink-foreground">
+      <Container className="py-16 sm:py-24">
+        <p className="eyebrow text-ink-foreground/70">Texas Defined Fishing</p>
+        <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.96] sm:text-7xl">Fishing in Texas starts with finding the right water.</h1>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/82">Find lakes by where you want to go and what you want to catch, then move into lake guides, fish-species pages, seasonal patterns, access, regulations and current reports.</p>
+        <div className="mt-8 flex flex-wrap gap-5 text-sm">
+          <Link to="/fishing/plan" className="border-b border-ink-foreground pb-1 font-semibold text-ink-foreground">Open the full lake finder →</Link>
+          <Link to="/texas-fishing-license" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Texas fishing license →</Link>
+          <Link to="/fishing/regulations" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Fishing regulations →</Link>
+        </div>
+      </Container>
+    </section>
+
+    <Container className="py-12 sm:py-16">
+      <section aria-labelledby="lake-finder-heading" className="border-b border-border pb-14">
+        <div className="max-w-3xl">
+          <p className="eyebrow text-primary">Texas fishing lake finder</p>
+          <h2 id="lake-finder-heading" className="mt-3 font-display text-4xl sm:text-5xl">Where would you like to go fishing?</h2>
+          <p className="mt-4 text-base leading-7 text-muted-foreground">Tell us where you want to be and what you want to catch. You can choose more than one fish.</p>
+        </div>
+
+        <form method="get" action="/fishing/plan" className="mt-8 border-y border-border py-8">
+          <label className="block max-w-3xl">
+            <span className="eyebrow text-muted-foreground">Lake, city, county or region</span>
+            <input name="q" maxLength={80} placeholder="Lake Conroe, Houston, Travis County, Hill Country…" className="mt-3 w-full border border-border bg-background px-4 py-3 text-base" />
+          </label>
+
+          <fieldset className="mt-7">
+            <legend className="eyebrow text-muted-foreground">What would you like to fish for? <span className="normal-case tracking-normal text-muted-foreground">(multi-select)</span></legend>
+            <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {species.map((fish) => <label key={fish.id} className="flex cursor-pointer items-center gap-3 border border-border px-3 py-2.5 text-sm hover:border-primary/60"><input type="checkbox" name="species" value={fish.slug} /><span>{fish.commonName}</span></label>)}
+            </div>
+          </fieldset>
+
+          <div className="mt-7 flex flex-wrap items-center gap-5">
+            <button type="submit" className="bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground">Find lakes</button>
+            <label className="flex items-center gap-2 text-sm text-muted-foreground"><input type="checkbox" name="match" value="all" /><span>Require every selected fish</span></label>
+          </div>
+        </form>
+      </section>
+
+      <section aria-labelledby="browse-species" className="py-14">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div className="max-w-3xl"><p className="eyebrow text-primary">Fish of Texas</p><h2 id="browse-species" className="mt-3 font-display text-4xl sm:text-5xl">Start with the fish.</h2><p className="mt-4 text-base leading-7 text-muted-foreground">Every published fish record has its own Texas guide and connects back to lakes supported by verified lake-to-species data.</p></div>
+          <Link to="/fishing/species" className="eyebrow border-b border-primary pb-1 text-primary">Browse every Texas fish guide →</Link>
+        </div>
+        <div className="mt-8 grid border-t border-border sm:grid-cols-2 lg:grid-cols-4">
+          {featuredSpecies.map((fish) => <article key={fish.id} className="border-b border-border py-6 sm:px-5 sm:first:pl-0"><p className="eyebrow text-primary">{fish.taxonKind === "group" ? "Fishing group" : "Fish species"}</p><h3 className="mt-2 font-display text-2xl"><a href={fishingFoundationAnchor("species", fish.slug)} className="hover:text-primary">{fish.commonName}</a></h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{fish.summary}</p><a href={`/fishing/plan?species=${fish.slug}`} className="mt-4 inline-block border-b border-primary pb-1 text-xs font-semibold text-primary">Find lakes for {fish.commonName} →</a></article>)}
+        </div>
+      </section>
+
+      <section aria-labelledby="featured-lakes" className="border-t border-border py-14">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div className="max-w-3xl"><p className="eyebrow text-primary">Explore fishing lakes</p><h2 id="featured-lakes" className="mt-3 font-display text-4xl sm:text-5xl">A few places to start.</h2><p className="mt-4 text-base leading-7 text-muted-foreground">Open a lake for its fish relationships and planning details, or use the finder when you already know the place or species you want.</p></div>
+          <Link to="/fishing/lakes" className="eyebrow border-b border-primary pb-1 text-primary">Browse fishing lakes →</Link>
+        </div>
+        <div className="mt-8 grid gap-x-8 border-t border-border lg:grid-cols-2">
+          {featuredLakes.map((lake) => {
+            const targets = lakeSpecies
+              .filter((relation) => relation.lakeId === lake.id)
+              .map((relation) => ({ relation, fish: speciesById.get(relation.speciesId) }))
+              .filter((row) => Boolean(row.fish))
+              .slice(0, 4);
+            return <article key={lake.id} className="border-b border-border py-7">
+              <div className="flex flex-wrap items-start justify-between gap-4"><div><p className="eyebrow text-primary">{formatRegion(lake.region)}</p><h3 className="mt-2 font-display text-3xl"><a href={fishingFoundationAnchor("lake", lake.slug)} className="hover:text-primary">{lake.name}</a></h3></div><span className="text-xs text-muted-foreground">{isCompleteFishingLakeSlug(lake.slug) ? "Full fishing guide" : "Lake profile"}</span></div>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">{lake.summary}</p>
+              {targets.length ? <div className="mt-5 flex flex-wrap gap-2">{targets.map(({ relation, fish }) => <span key={relation.id} className="border border-border px-3 py-1.5 text-xs">{fish?.commonName} · {titleCase(relation.quality)}</span>)}</div> : null}
+              <a href={fishingFoundationAnchor("lake", lake.slug)} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open lake page →</a>
+            </article>;
+          })}
+        </div>
+      </section>
+
+      <section className="border-t border-border py-14" aria-labelledby="fishing-resources">
+        <p className="eyebrow text-primary">Fishing resources</p>
+        <h2 id="fishing-resources" className="mt-3 font-display text-4xl">Go deeper when you need it.</h2>
+        <div className="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <Resource href="/fishing/compare" title="Compare fishing lakes" copy="Put up to three lake guides side by side." />
+          <Resource href="/fishing/seasons" title="Fishing seasons" copy="Understand durable seasonal patterns without confusing them with today's bite." />
+          <Resource href="/fishing/techniques" title="Fishing techniques" copy="Browse source-backed methods connected to Texas lakes and species." />
+          <Resource href="/fishing/reports" title="Fishing reports" copy="Use dated reports when you need current-condition context." />
+          <Resource href="/fishing/access" title="Fishing access" copy="Find verified ramps, marinas, shoreline access and launches." />
+          <Resource href="/fishing/guides" title="Fishing guides" copy="Browse verified local guide profiles connected to the waters they serve." />
+          <Resource href="/hunting" title="Texas hunting" copy="Explore Texas hunting seasons, species, public-land planning and licensing." />
+        </div>
+      </section>
+
       <TexasExplainedContextLinks surface="fishing" />
     </Container>
   </>;
 }
+
+function Resource({ href, title, copy }: { href: string; title: string; copy: string }) {
+  return <article className="border-t border-border pt-5"><h3 className="font-display text-2xl"><a href={href} className="hover:text-primary">{title}</a></h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{copy}</p><a href={href} className="mt-4 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Explore →</a></article>;
+}
+
+function formatRegion(value: string) {
+  if (value === "prairies-lakes") return "Prairies & Lakes";
+  return titleCase(value);
+}
+
+function titleCase(value: string) { return value.replaceAll("-", " ").replace(/\b\w/g, (character) => character.toUpperCase()); }

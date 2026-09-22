@@ -65,7 +65,7 @@ for (const forbidden of ["the best season is", "guaranteed catch", "today's best
 }
 
 requireText(hubRoute, 'lazy(() => import("@/components/fishing/FishingHub")', "statewide fishing hub lazy boundary missing");
-requireText(hubComponent, 'to="/fishing/seasons"', "statewide fishing hub does not expose seasons engine");
+requireText(hubComponent, '<Resource href="/fishing/seasons" title="Fishing seasons"', "statewide fishing hub does not expose seasons engine");
 requireText(sitemap, "FISHING_SEASONS_PATH", "seasons sitemap entry missing");
 requireText(search, "fishing-directory:texas-fishing-seasons", "seasons global-search document missing");
 requireText(links, "fishing-reference:seasons", "seasons internal-link entity missing");

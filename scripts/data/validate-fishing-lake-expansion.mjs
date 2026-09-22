@@ -153,7 +153,7 @@ for (const token of [
   "numberOfItems: rows.length",
 ]) requireText(files.directoryRoute, token, `ten-lake directory SEO/data contract missing ${token}`);
 for (const token of ["rows.length} complete Texas fishing lake guides are published", "Lake facts are durable. Conditions are not.", "unfinished lake records are not exposed here as thin pages"]) requireText(files.directoryUi, token, `ten-lake directory UI integrity contract missing ${token}`);
-for (const token of ["Ten complete lake guides now span more of Texas.", "Toledo Bend", "Possum Kingdom", "Canyon Lake", "Choke Canyon", "Amistad", "Compare all {completeLakes.length} complete lake guides"]) requireText(files.hub, token, `statewide hub expansion/discovery missing ${token}`);
+for (const token of ["const featuredLakes = lakes.slice(0, 6)", "A few places to start.", "Browse fishing lakes →", 'fishingFoundationAnchor("lake", lake.slug)', 'isCompleteFishingLakeSlug(lake.slug) ? "Full fishing guide" : "Lake profile"']) requireText(files.hub, token, `statewide hub expansion/discovery missing ${token}`);
 for (const token of ["EXPANDED_SHOWCASE_LAKE_SLUGS", "ALL_SHOWCASE_LAKE_SLUGS", "showcaseLakeCanonicalPath(slug, section)"]) requireText(files.sitemap, token, `expanded lake sitemap publication missing ${token}`);
 
 const volatilePatterns = [
