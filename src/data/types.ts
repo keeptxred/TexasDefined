@@ -100,7 +100,7 @@ export type ArticleBlock =
   | { type: "image"; image: ImageRef; caption?: string }
   | { type: "shop"; collectionSlug: Slug };
 export interface ArticleInternalLink { href: string; label: string; description?: string; }
-export interface Article { id: string; brandId: BrandId; slug: Slug; title: string; dek: string; category: CategorySlug; region?: TexasRegion; geography?: TexasGeographyAssignment; hero: ImageRef; authorId: string; publishedAt: string; readingMinutes: number; tags: string[]; featured?: boolean; body: ArticleBlock[]; internalLinks?: ArticleInternalLink[]; relatedCollections: Slug[]; relatedDestinations: Slug[]; sourceName?: string; sourceUrl?: string; }
+export interface Article { id: string; brandId: BrandId; slug: Slug; title: string; dek: string; category: CategorySlug; region?: TexasRegion; geography?: TexasGeographyAssignment; hero: ImageRef; authorId: string; publishedAt: string; updatedAt?: string; readingMinutes: number; tags: string[]; featured?: boolean; body: ArticleBlock[]; internalLinks?: ArticleInternalLink[]; relatedCollections: Slug[]; relatedDestinations: Slug[]; sourceName?: string; sourceUrl?: string; }
 
 export interface DestinationAreaItem {
   name: string;
