@@ -7,6 +7,10 @@ const requiredFiles = [
   "src/data/fishing/planner-data.functions.ts",
   "src/routes/fishing.plan.tsx",
   "src/routes/fishing.compare.tsx",
+  "src/components/fishing/FishingHub.tsx",
+  "src/components/fishing/GenericFishingLakeGuide.tsx",
+  "src/routes/fishing.lakes.$slug.tsx",
+  "src/data/fishing/lake-sitemap.server.ts",
 ];
 for (const path of requiredFiles) {
   if (!fs.existsSync(path)) throw new Error(`Fishing Batch 9 missing required file: ${path}`);
@@ -21,13 +25,19 @@ const links = read("src/data/fishing/internal-links.ts");
 const sitemap = read("src/data/fishing/sitemap.ts");
 const publicRoutes = read("src/lib/public-routes.ts");
 const hub = read("src/routes/fishing.tsx");
+const hubComponent = read("src/components/fishing/FishingHub.tsx");
+const genericLake = read("src/components/fishing/GenericFishingLakeGuide.tsx");
+const lakeRoute = read("src/routes/fishing.lakes.$slug.tsx");
+const lakeSitemap = read("src/data/fishing/lake-sitemap.server.ts");
 const pkg = JSON.parse(read("package.json"));
 
 const requireText = (text, needle, label) => { if (!text.includes(needle)) throw new Error(`Fishing Batch 9 validation failed: ${label}`); };
 
 requireText(routing, '"/fishing/plan"', "trip planner canonical route missing");
 requireText(routing, '"/fishing/compare"', "lake comparison canonical route missing");
-requireText(server, "isCompleteFishingLakeSlug", "planner must be limited to complete lake guides");
+requireText(server, "fullGuide: isCompleteFishingLakeSlug", "planner must distinguish full guides from basic lake profiles");
+requireText(server, "Boolean(relation.verifiedAt) && relation.sources.length > 0", "planner lake/species relationships must be verified and sourced");
+requireText(server, ".filter((row) => row.targets.length > 0)", "planner must omit lakes without verified fish relationships");
 requireText(server, "verifiedListing: true", "planner guide inventory must enforce verified listings");
 requireText(server, "filter(isFishingRecordVerified)", "planner local inventory must enforce source verification");
 requireText(server, 'freshness === "current"', "planner must explicitly gate current reports by freshness");
@@ -35,14 +45,26 @@ requireText(server, "staleReports", "planner must preserve older reports separat
 requireText(server, "Sponsorship never changes planner order", "planner editorial independence policy missing");
 requireText(server, "Zero means no verified listing is currently published", "planner zero-inventory language must avoid false absence claims");
 
-requireText(planner, "Target species", "planner species filter missing");
-requireText(planner, "Region", "planner region filter missing");
-requireText(planner, "Current report context", "planner current-condition layer missing");
-requireText(planner, "does not infer today's bite", "planner stale-condition safeguard missing");
-requireText(planner, "None published", "planner verified-coverage empty state missing");
+requireText(planner, "Where would you like to go fishing?", "planner location search missing");
+requireText(planner, "What would you like to fish for?", "planner multi-species prompt missing");
+requireText(planner, 'type="checkbox" name="species"', "planner multi-select species controls missing");
+requireText(planner, "Require every selected fish", "planner all-species match option missing");
+requireText(planner, "GROUP_MEMBER_SLUGS", "planner group-to-species expansion missing");
+requireText(planner, "Why this matches", "planner match explanation missing");
+requireText(planner, "Full fishing guide", "planner full-guide distinction missing");
+requireText(planner, "Lake profile", "planner basic-profile distinction missing");
+requireText(planner, "Current report", "planner current-condition layer missing");
+requireText(planner, "Fishery fit is not today\'s conditions", "planner stale-condition safeguard missing");
+if (planner.includes("None published")) throw new Error("Fishing Batch 9 validation failed: zero-inventory clutter reintroduced into lake results.");
 requireText(planner, '"@type": "ItemList"', "planner ItemList schema missing");
 requireText(planner, '"@type": "BreadcrumbList"', "planner breadcrumb schema missing");
 requireText(planner, "canonicalPath: FISHING_TRIP_PLANNER_PATH", "planner canonical metadata missing");
+requireText(hubComponent, 'action="/fishing/plan"', "fishing hub must expose the lake finder directly");
+requireText(hubComponent, "multi-select", "fishing hub must explain multi-select species search");
+requireText(hubComponent, "Browse every Texas fish guide", "fishing hub species discovery missing");
+for (const token of ['kind: "generic"', "GenericFishingLakeGuide", 'canonicalFishingPath("lake", lake.slug)', "lakeSpeciesProfilesQuery", "fishingAccessPointsQuery"]) requireText(lakeRoute, token, `generic lake route contract missing ${token}`);
+for (const token of ["Fish recorded for", 'fishingFoundationAnchor("species", fish.slug)', "/county/", "Verify before the trip"]) requireText(genericLake, token, `generic lake profile contract missing ${token}`);
+for (const token of ['status: "published"', "Boolean(relationship.verifiedAt) && relationship.sources.length > 0", "fishing/lakes/"]) requireText(lakeSitemap, token, `generic lake sitemap gate missing ${token}`);
 
 requireText(compare, "Choose up to three", "comparison selection control missing");
 requireText(compare, "Top verified targets", "comparison fishery-strength row missing");
