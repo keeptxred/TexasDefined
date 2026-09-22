@@ -15,6 +15,10 @@ function Page() {
   const label = `${district.classification}${divisionLabel} District ${district.district}`;
   const enrollmentBand = uilFootballEnrollmentBand(district.classification, district.division);
   const conferenceBand = uilFootballConferenceBand(district.classification);
+  const reportedEnrollments = district.programs.map((program) => program.uilEnrollment);
+  const enrollmentLow = Math.min(...reportedEnrollments);
+  const enrollmentHigh = Math.max(...reportedEnrollments);
+  const formatEnrollment = (value: number) => value.toLocaleString('en-US', { maximumFractionDigits: 1 });
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <article className="mx-auto max-w-6xl">
@@ -36,6 +40,7 @@ function Page() {
           <Fact label="Division" value={district.division ? `Division ${district.division === 1 ? 'I' : 'II'}` : '6A postseason split'} />
           <Fact label="UIL district" value={String(district.district)} />
           <Fact label="Enrollment band" value={enrollmentBand?.label || conferenceBand} />
+          <Fact label="Reported enrollment range" value={`${formatEnrollment(enrollmentLow)}–${formatEnrollment(enrollmentHigh)}`} />
           <Fact label="Format" value={district.footballType} />
           <Fact label="Programs" value={String(district.programCount)} />
         </dl>
@@ -51,10 +56,13 @@ function Page() {
             {district.programs.map((program) => <a key={program.profilePath} href={program.profilePath} className="group bg-background p-5 hover:bg-surface">
               <p className="text-xs font-semibold uppercase tracking-[0.1em] text-primary">{label}</p>
               <h3 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{program.schoolName}</h3>
-              <p className="mt-2 text-xs text-muted-foreground">Open school football profile →</p>
+              <p className="mt-2 text-xs text-muted-foreground">UIL reported enrollment: <strong className="text-foreground">{formatEnrollment(program.uilEnrollment)}</strong></p>
+              <p className="mt-1 text-xs text-muted-foreground">Submitted conference: {program.submittedConference}</p>
+              <p className="mt-3 text-xs text-muted-foreground">Open school football profile →</p>
             </a>)}
           </div>
           <p className="mt-5 text-sm leading-7 text-muted-foreground">Member order is alphabetical for research usability; it is not a ranking, projected finish, or statement about team quality.</p>
+          <p className="mt-2 text-sm leading-7 text-muted-foreground">Enrollment figures are the UIL 2026–28 realignment snapshot used for classification. They are not live campus headcounts and should not be treated as a team-strength ranking.</p>
         </div>
       </section>
 
@@ -106,8 +114,11 @@ function Page() {
       <section className="py-10">
         <p className="eyebrow text-primary">Official source</p>
         <h2 className="mt-2 font-display text-3xl">University Interscholastic League</h2>
-        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">TexasDefined derives this district page from the current UIL 2026–28 football alignment. The UIL document remains the controlling source if an assignment changes or is corrected.</p>
-        <a href={district.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Open official UIL alignment ↗</a>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">TexasDefined derives district membership from the current UIL 2026–28 football alignment and each displayed enrollment from UIL’s 2026–28 Realignment Alphabetical Listing. The UIL documents remain the controlling sources if an assignment or enrollment snapshot is corrected.</p>
+        <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+          <a href={district.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Open official UIL alignment ↗</a>
+          <a href={district.enrollmentSourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Open UIL enrollment listing ↗</a>
+        </div>
       </section>
     </article>
   </Container>;
