@@ -86,7 +86,7 @@ if (campgroundCount < 2) errors.push(`Expected at least two exact campground ima
 requireText(categoryRoute, '"rv-parks": {', 'RV collection SEO override');
 requireText(categoryRoute, '"@type": isRvPark ? "Campground" : "TouristAttraction"', 'RV collection Campground schema');
 requireText(destinationRoute, 'robots: indexable ? undefined : "noindex, follow"', 'Destination noindex quality gate');
-requireText(destinationRoute, '...(destination.hero.credit ? { creditText: destination.hero.credit } : {})', 'Destination image credit schema');
+requireText(destinationRoute, '...("credit" in hero && hero.credit ? { creditText: hero.credit } : {})', 'Destination image credit schema');
 requireText(countyRoute, "import('@/data/rv-parks/county-index').then(({ loadCountyRvParksSnapshot }) => loadCountyRvParksSnapshot(entity.slug))", 'County loader bounded RV snapshot');
 requireText(countyRoute, "import('@/data/county-major-events').then(({ getCountyMajorEvents }) => getCountyMajorEvents(entity.slug))", 'County loader major-event server-function fetch');
 requireText(countyRoute, 'const countyEntity = { ...entity, rvParks: countyRvParks, majorEvents: countyMajorEvents };', 'County loader discovery serialization');
