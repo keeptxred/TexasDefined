@@ -446,6 +446,8 @@ const loaders: Record<string, () => Promise<Article>> = {
   "big-dogs-texas-sized-problems": async () => (await import("./texas-dogs-evergreen-wave2")).bigDogsTexasSizedProblemsArticle,
   "texas-dog-heat-safety": async () => (await import("./texas-dogs-practical")).texasDogHeatSafetyArticle,
   "taking-your-dog-to-texas-state-parks": async () => (await import("./texas-dogs-practical")).texasStateParkDogArticle,
+  "taking-your-dog-to-the-texas-coast": async () => (await import("./texas-dogs-practical-wave2")).texasDogsCoastArticle,
+  "texas-dog-friendly-patios-law": async () => (await import("./texas-dogs-practical-wave2")).texasDogFriendlyPatiosArticle,
   "history-of-the-texas-flag": async () => (await import("./texas-flag-history")).texasFlagHistoryArticle,
   "texas-flag-etiquette-display-guide": async () => (await import("./texas-flag-etiquette")).texasFlagEtiquetteArticle,
   "texas-military-museums-historic-sites-guide": async () => (await import("./texas-military-museums-historic-sites-guide")).texasMilitaryMuseumsHistoricSitesGuideArticle,

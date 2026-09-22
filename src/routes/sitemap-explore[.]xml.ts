@@ -17,6 +17,7 @@ const EXPLORE_CATEGORY_SLUGS = new Set([
 const EXPLORE_CATEGORY_ARTICLE_COUNTS = {
   "lakes-rivers": 3,
   "state-parks": 1,
+  "beaches-coast": 1,
   "historic-sites": 1,
   "road-trips": 3,
   "small-towns": 2,
