@@ -9,6 +9,7 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import type { CategorySlug, ImageRef } from "@/data/types";
+import { recoverOrHideImage } from "@/lib/image-fallback";
 
 const LivingAuthorityPaths = lazy(() =>
   import("@/components/editorial/LivingAuthorityPaths").then((module) => ({ default: module.LivingAuthorityPaths })),
@@ -92,7 +93,10 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
     <>
       {image ? (
         <section className="relative isolate overflow-hidden bg-ink text-ink-foreground">
-          <img src={image.src} alt={image.alt} width={image.width} height={image.height} className="absolute inset-0 size-full object-cover opacity-52" />
+          <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_78%_22%,hsl(var(--primary)/0.24),transparent_30%)]">
+            <span className="eyebrow absolute right-6 top-6 text-ink-foreground/40">Photo unavailable</span>
+          </div>
+          <img src={image.src} alt={image.alt} width={image.width} height={image.height} className="absolute inset-0 size-full object-cover opacity-52" onError={(event) => recoverOrHideImage(event.currentTarget)} />
           <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/68 to-ink/28" />
           <Container className="relative flex min-h-[480px] flex-col justify-end py-14 sm:min-h-[540px] sm:py-20">
             <CategoryBreadcrumb belongsToExplore={belongsToExplore} belongsToTexasLife={belongsToTexasLife} current={eyebrow} inverse />
