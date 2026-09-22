@@ -748,6 +748,10 @@ if (!errors.length) {
   for (const marker of [
     'Browse all 1,268 Texas high school football programs',
     "const CLASSIFICATIONS = ['6A', '5A', '4A', '3A', '2A', '1A']",
+    'const INITIAL_PROGRAMS_PER_CLASS = 24',
+    'expandedClasses',
+    'displayedPrograms',
+    'Show all {classPrograms.length.toLocaleString()} {item} programs',
     'Every current UIL football program gets the same directory and profile treatment.',
     'All 1,268',
     '6A → 1A · enrollment classification',
