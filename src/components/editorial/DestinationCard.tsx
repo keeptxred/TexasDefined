@@ -26,10 +26,36 @@ function cardHighlights(destination: Destination) {
     .slice(0, 3);
 }
 
-const destinationCardImageFallbacks: Record<string, { src: string; alt: string }> = {
+const destinationCardImageOverrides: Record<string, { src: string; alt: string; width: number; height: number }> = {
+  "caddo-lake": {
+    src: caddoLake,
+    alt: "Bald cypress trees draped in Spanish moss on Caddo Lake at dawn",
+    width: 1600,
+    height: 1067,
+  },
+  "caddo-lake-state-park": {
+    src: caddoLake,
+    alt: "Bald cypress trees draped in Spanish moss across Caddo Lake in East Texas",
+    width: 1600,
+    height: 1067,
+  },
   "caddo-lake-national-wildlife-refuge": {
     src: caddoLake,
-    alt: "Bald cypress trees draped in Spanish moss across the Caddo Lake ecosystem in East Texas",
+    alt: "Bald cypress trees and wetlands across the Caddo Lake ecosystem in East Texas",
+    width: 1600,
+    height: 1067,
+  },
+  "jefferson": {
+    src: "https://upload.wikimedia.org/wikipedia/commons/a/a1/Jefferson_Historic_District.jpg",
+    alt: "Historic buildings with iron balconies in the Jefferson Historic District in East Texas",
+    width: 4320,
+    height: 3240,
+  },
+  "marshall": {
+    src: "https://tile.loc.gov/image-services/iiif/service%3Apnp%3Ahighsm%3A29000%3A29040/full/pct%3A50/0/default.jpg",
+    alt: "The historic Harrison County Courthouse in Marshall, Texas",
+    width: 1024,
+    height: 1024,
   },
 };
 
@@ -38,9 +64,7 @@ function DestinationImage({ destination, eager, overlay }: { destination: Destin
   const imageClass = overlay
     ? "h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
     : "h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]";
-  const hero = destination.slug === "caddo-lake"
-    ? { src: caddoLake, alt: "Bald cypress trees draped in Spanish moss on Caddo Lake at dawn", width: 1600, height: 1067 }
-    : destination.hero;
+  const hero = destinationCardImageOverrides[destination.slug] ?? destination.hero;
 
   if (isDestinationPhotoPlaceholder(hero.src)) {
     return <div role="img" aria-label={`${destination.name} — destination-specific photograph not yet available`} className={cn(frameClass, "relative overflow-hidden bg-[linear-gradient(145deg,hsl(var(--muted)),hsl(var(--secondary))_52%,hsl(var(--primary)/0.18))]")}>
@@ -66,13 +90,6 @@ function DestinationImage({ destination, eager, overlay }: { destination: Destin
       className={cn("absolute inset-0", imageClass)}
       onError={(event) => {
         const image = event.currentTarget;
-        const fallback = destinationCardImageFallbacks[destination.slug];
-        if (fallback && image.dataset.fallback !== "local") {
-          image.dataset.fallback = "local";
-          image.src = fallback.src;
-          image.alt = fallback.alt;
-          return;
-        }
         image.style.display = "none";
       }}
     />
