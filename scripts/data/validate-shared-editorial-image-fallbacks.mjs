@@ -45,7 +45,9 @@ for (const label of ['article cards', 'feature heroes', 'category heroes', 'dest
 
 requireMarker('article cards', 'relative w-full overflow-hidden');
 requireMarker('article cards', 'absolute inset-0 size-full object-cover');
+requireMarker('destination heroes', 'CADD0_REFUGE_HERO');
 requireMarker('destination heroes', '"caddo-lake-national-wildlife-refuge"');
+requireMarker('destination heroes', 'destinationHero(destination)');
 requireMarker('destination heroes', 'src: caddoLake');
 requireMarker('event carousel', 'image.nextElementSibling');
 requireMarker('event carousel', 'credit.style.display = "none"');

@@ -25,14 +25,18 @@ if (!card.includes('.slice(0, 3)')) errors.push('Destination cards must limit hi
 if (!card.includes('Number.isNaN(date.getTime())')) errors.push('Destination cards must guard invalid source-check dates.');
 
 for (const feature of [
-  'destinationCardImageFallbacks',
+  'destinationCardImageOverrides',
+  '"caddo-lake-state-park"',
   '"caddo-lake-national-wildlife-refuge"',
+  '"jefferson"',
+  'upload.wikimedia.org/wikipedia/commons/a/a1/Jefferson_Historic_District.jpg',
+  '"marshall"',
+  'tile.loc.gov/image-services/iiif',
   'Photo unavailable',
   'onError={(event) =>',
-  'image.dataset.fallback',
   'image.style.display = "none"',
 ]) {
-  if (!card.includes(feature)) errors.push(`Destination card image-failure safeguard missing: ${feature}`);
+  if (!card.includes(feature)) errors.push(`Destination card image-quality safeguard missing: ${feature}`);
 }
 
 for (const feature of [

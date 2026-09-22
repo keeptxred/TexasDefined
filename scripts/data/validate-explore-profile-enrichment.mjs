@@ -33,7 +33,7 @@ for (const feature of [
 
 for (const feature of [
   'Official visitor information', 'Reservations', 'Visitor details last reviewed', 'Official source',
-  'destination.hero.credit', 'citation: destination.officialUrl',
+  '"credit" in hero && hero.credit', 'citation: destination.officialUrl',
   'sameAs: destination.officialUrl', 'dateModified: destination.sourceCheckedAt',
   'provider: { "@type": "Organization"',
   'destinationsQuery({ limit: 5000 })',
@@ -60,7 +60,7 @@ if (planner.includes('const practicalTips = unique([') || planner.includes('What
 
 for (const feature of [
   'const pairedDestinations = [...new Map(', '.flatMap((group) => group.destinations)',
-  '.slice(0, 6)', 'Places worth adding to the same trip',
+  '.slice(0, 6)', 'More to explore nearby',
   'pairedDestinations.map((item)', 'TexasExplainedContextLinks surface="destination"',
   'to="/explore/$category"', 'to="/explore/region/$region"',
   'to="/events"', 'to="/search"',
