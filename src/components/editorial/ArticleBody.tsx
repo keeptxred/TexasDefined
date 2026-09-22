@@ -3,6 +3,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import type { ArticleBlock, Author } from "@/data/types";
 import type { TexasEntityRecord } from "@/data/knowledge-graph";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
+import { hideFailedImageContainer } from "@/lib/image-fallback";
 import { ShopTheStory } from "@/components/commerce/ShopTheStory";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from '@/platform/internal-link-policies';
 import { countyLabelHasExplicitContext } from '@/platform/internal-linking';
@@ -86,6 +87,7 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
                 loading="lazy"
                 decoding="async"
                 className="h-auto w-full object-contain"
+                onError={(event) => hideFailedImageContainer(event.currentTarget)}
               />
             </div>
             {(block.caption || block.image.credit) && (

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 import {
   TexasEventCarousel,
@@ -199,7 +199,8 @@ function VenueBreadcrumb({ venueName }: { venueName: string }) {
 }
 
 function VenuePhoto({ photo, venueName }: { photo?: SportsVenuePhoto; venueName: string }) {
-  if (!photo) {
+  const [failedUrl, setFailedUrl] = useState<string | null>(null);
+  if (!photo || failedUrl === photo.imageUrl) {
     return (
       <div
         className="flex min-h-[32rem] items-center justify-center bg-muted px-8 text-center text-sm text-muted-foreground"
@@ -222,6 +223,7 @@ function VenuePhoto({ photo, venueName }: { photo?: SportsVenuePhoto; venueName:
         fetchPriority="high"
         decoding="async"
         className="block h-auto w-full object-contain"
+        onError={() => setFailedUrl(photo.imageUrl)}
       />
     </figure>
   );

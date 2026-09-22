@@ -19,3 +19,14 @@ export function recoverOrHideImage(image: HTMLImageElement, fallback?: ImageFall
 
   image.style.display = "none";
 }
+
+
+export function hideFailedImageContainer(image: HTMLImageElement, selector = "figure") {
+  const container = image.closest<HTMLElement>(selector);
+  if (container) {
+    container.style.display = "none";
+    return;
+  }
+
+  image.style.display = "none";
+}
