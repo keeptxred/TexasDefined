@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { paintedChurchArchivalImagesBySlug } from "@/data/painted-church-archival-images";
@@ -7,6 +8,7 @@ import { supplementalPaintedChurchGalleryBySlug } from "@/data/painted-church-ga
 import { paintedChurchGalleryBySlug } from "@/data/painted-church-gallery";
 
 export function PaintedChurchThenAndNow({ slug }: { slug: string }) {
+  const [failedCurrentImage, setFailedCurrentImage] = useState<string | null>(null);
   const archival = [...new Map([
     ...paintedChurchArchivalImagesBySlug(slug),
     ...expansionPaintedChurchArchivalImagesBySlug(slug),
@@ -44,7 +46,7 @@ export function PaintedChurchThenAndNow({ slug }: { slug: string }) {
 
         <figure className="bg-background p-6">
           <p className="eyebrow text-muted-foreground">Now · rights-cleared photograph</p>
-          <img src={currentPrimary.src} alt={currentPrimary.alt} width={currentPrimary.width} height={currentPrimary.height} loading="lazy" decoding="async" className="mt-4 aspect-[4/3] w-full object-cover" />
+          {failedCurrentImage === currentPrimary.src ? <div className="mt-4 flex aspect-[4/3] items-center justify-center bg-muted px-6 text-center text-sm text-muted-foreground">Current photograph temporarily unavailable.</div> : <img src={currentPrimary.src} alt={currentPrimary.alt} width={currentPrimary.width} height={currentPrimary.height} loading="lazy" decoding="async" className="mt-4 aspect-[4/3] w-full object-cover" onError={() => setFailedCurrentImage(currentPrimary.src)} />}
           <figcaption className="mt-4 text-sm leading-7 text-muted-foreground">
             {currentPrimary.caption}
             <span className="mt-2 block text-xs leading-6">{currentPrimary.credit} · {currentPrimary.license} · <a href={currentPrimary.sourceUrl} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">source & license</a></span>
