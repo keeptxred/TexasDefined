@@ -68,6 +68,15 @@ function countyRouteSlug(value?: string) {
   return label.replace(/\s+County$/i, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
+function destinationExperienceTitle(name: string, categoryName: string) {
+  const category = categoryName.toLowerCase();
+  if (category.includes("outdoors") || category.includes("wildlife")) return `Exploring ${name}`;
+  if (category.includes("state park") || category.includes("natural area")) return `Visiting ${name}`;
+  if (category.includes("lake") || category.includes("river")) return `On the water at ${name}`;
+  if (category.includes("historic")) return `The story of ${name}`;
+  return `What to know about ${name}`;
+}
+
 function destinationSeoTitle(name: string, categoryName: string) {
   const category = categoryName.toLowerCase();
   if (category.includes("state park") || category.includes("natural area")) return `${name} | Texas State Park Guide`;
@@ -211,7 +220,7 @@ function DestinationPage() {
       <div className="min-w-0">
         <section aria-labelledby="why-go" className="border-t border-border pt-8">
           <p className="eyebrow text-primary">The experience</p>
-          <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">About {destination.name}</h2>
+          <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">{destinationExperienceTitle(destination.name, categoryName)}</h2>
           <div className="editorial-body mt-7 text-foreground/90">{destination.body.map((paragraph) => <p key={paragraph} className="mt-6 first:mt-0"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}</div>
         </section>
         <section aria-labelledby="before-you-go" className={isChokeCanyon ? "mt-10 border-t border-border pt-6" : "mt-16 border-t border-border pt-8"}>
