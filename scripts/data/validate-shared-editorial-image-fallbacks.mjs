@@ -17,6 +17,13 @@ const files = new Map([
   ['county feature image', 'src/components/content/CountyGuideSections.tsx'],
   ['sports venue photo', 'src/components/sports/SportsVenueGuidePage.tsx'],
   ['map preview', 'src/components/editorial/MapPreview.tsx'],
+  ['news index images', 'src/routes/news.index.lazy.tsx'],
+  ['live news hero', 'src/routes/news.$slug.lazy.tsx'],
+  ['article page hero', 'src/routes/article.$slug.tsx'],
+  ['homepage drive image', 'src/routes/index.lazy.tsx'],
+  ['regional hero', 'src/routes/explore.region.$region.tsx'],
+  ['painted church gallery', 'src/components/editorial/PaintedChurchGallery.tsx'],
+  ['painted church comparison', 'src/components/editorial/PaintedChurchThenAndNow.tsx'],
 ]);
 
 const source = new Map();
@@ -68,6 +75,33 @@ for (const marker of [
   'onError={() => setFailedImage(image)}',
   'Find it on the map',
 ]) requireMarker('map preview', marker);
+
+for (const marker of [
+  'failedHero',
+  'setFailedHero',
+  'const heroAvailable = failedHero !== article.hero.src',
+  'onError={() => setFailedHero(article.hero.src)}',
+  'article.hero.credit && heroAvailable',
+]) requireMarker('live news hero', marker);
+
+for (const label of ['news index images', 'article page hero', 'homepage drive image', 'regional hero']) {
+  requireMarker(label, 'recoverOrHideImage');
+  requireMarker(label, 'onError=');
+}
+requireMarker('news index images', 'Photo unavailable');
+requireMarker('homepage drive image', 'Photo unavailable');
+
+for (const marker of [
+  'hideFailedImageContainer',
+  'onError=',
+]) requireMarker('painted church gallery', marker);
+
+for (const marker of [
+  'failedCurrentImage',
+  'setFailedCurrentImage',
+  'Current photograph temporarily unavailable.',
+  'onError={() => setFailedCurrentImage(currentPrimary.src)}',
+]) requireMarker('painted church comparison', marker);
 
 for (const label of ['article cards', 'feature heroes', 'category heroes', 'destination heroes']) {
   requireMarker(label, 'Photo unavailable');
