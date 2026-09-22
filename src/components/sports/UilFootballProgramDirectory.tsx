@@ -17,6 +17,7 @@ type Program = {
 };
 
 const CLASSIFICATIONS = ['6A', '5A', '4A', '3A', '2A', '1A'] as const;
+const INITIAL_PROGRAMS_PER_CLASS = 24;
 
 function normalize(value: string) {
   return value
@@ -30,6 +31,7 @@ function normalize(value: string) {
 export function UilFootballProgramDirectory({ programs }: { programs: Program[] }) {
   const [query, setQuery] = useState('');
   const [classification, setClassification] = useState<'ALL' | Program['classification']>('ALL');
+  const [expandedClasses, setExpandedClasses] = useState<Set<Program['classification']>>(() => new Set());
   const normalizedQuery = normalize(query);
 
   const counts = useMemo(() => {
@@ -96,6 +98,9 @@ export function UilFootballProgramDirectory({ programs }: { programs: Program[] 
             .map((item) => {
               const classPrograms = visible.filter((program) => program.classification === item);
               if (!classPrograms.length) return null;
+              const showAll = classification !== 'ALL' || Boolean(normalizedQuery) || expandedClasses.has(item);
+              const displayedPrograms = showAll ? classPrograms : classPrograms.slice(0, INITIAL_PROGRAMS_PER_CLASS);
+              const hiddenCount = classPrograms.length - displayedPrograms.length;
               return <section key={item} className="border-b border-border py-6">
                 <div className="flex items-end justify-between gap-4">
                   <div>
@@ -106,7 +111,7 @@ export function UilFootballProgramDirectory({ programs }: { programs: Program[] 
                   <span className="text-sm text-muted-foreground">{classPrograms.length.toLocaleString()}</span>
                 </div>
                 <div className="mt-4 grid gap-px bg-border sm:grid-cols-2 xl:grid-cols-3">
-                  {classPrograms.map((program) => <a
+                  {displayedPrograms.map((program) => <a
                     key={program.slug}
                     href={program.profilePath}
                     className="group bg-background p-4 hover:bg-surface"
@@ -121,6 +126,13 @@ export function UilFootballProgramDirectory({ programs }: { programs: Program[] 
                     <p className="mt-1 text-xs font-semibold text-primary">Open school football profile →</p>
                   </a>)}
                 </div>
+                {hiddenCount > 0 && <button
+                  type="button"
+                  onClick={() => setExpandedClasses((current) => new Set([...current, item]))}
+                  className="mt-4 border border-border px-4 py-2 text-sm font-semibold hover:border-foreground"
+                >
+                  Show all {classPrograms.length.toLocaleString()} {item} programs
+                </button>}
               </section>;
             })}
         </div>
