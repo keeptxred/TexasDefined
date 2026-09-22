@@ -61,7 +61,7 @@ export const CAMPING_PROFILES_WAVE3: CampingProfile[] = [
     ],
   },
   {
-    destinationSlug: "big-bend-national-park-rio-grande-village-rv-park",
+    destinationSlug: "big-bend-national-park",
     profileSlug: "big-bend-national-park-rio-grande-village-rv-park",
     name: "Rio Grande Village RV Campground",
     county: "Brewster",
