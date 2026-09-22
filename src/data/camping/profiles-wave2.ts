@@ -161,6 +161,7 @@ export const CAMPING_DISCOVERY_PROFILES_WAVE2: CampingDiscoveryProfile[] = CAMPI
   styles: profile.styles,
   amenities: profile.amenities,
   reservationPolicy: profile.reservationPolicy,
+  whyCampHere: profile.campingNotes?.[0],
   reservationUrl: profile.reservationUrl,
   siteLengthNote: profile.siteLengthNote,
   generatorRules: profile.generatorRules,
