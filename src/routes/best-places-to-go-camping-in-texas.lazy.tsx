@@ -123,6 +123,8 @@ function CampingGuidePage() {
       </Container>
     </section>
 
+    <div data-stay-nearby-slot aria-label="Places to stay before or after a Texas camping trip" />
+
     <section className="py-12 md:py-16">
       <Container className="grid gap-8 lg:grid-cols-[1.15fr_.85fr]">
         <div>
