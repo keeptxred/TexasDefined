@@ -1,9 +1,7 @@
 import { footballIsdProfilePath } from './football-isd-slugs';
 import { footballProgramProfilePath } from './program-slugs';
-import {
-  UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28,
-  type UilFootballExactEnrollment,
-} from './uil-football-enrollments-2026.generated';
+import { getExactUilFootballEnrollment } from './football-enrollment-resolver.server';
+import type { UilFootballExactEnrollment } from './uil-football-enrollments-2026.generated';
 import { UIL_FOOTBALL_PROGRAMS_2026, type UilFootballProgram } from './uil-football-alignments-2026.server';
 import {
   loadUilRecentFootballHistory,
@@ -309,7 +307,7 @@ function bestDirectoryMatch(program: UilFootballProgram, matcher: TeaDirectoryMa
 
 function withDirectory(program: UilFootballProgram, matcher: TeaDirectoryMatcher): FootballProgramDirectoryResult {
   const record = bestDirectoryMatch(program, matcher);
-  const exactEnrollment = UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.schoolName];
+  const exactEnrollment = getExactUilFootballEnrollment(program.schoolName);
   const exactFields = exactEnrollment ? {
     uilEnrollment: exactEnrollment.enrollment,
     uilSubmittedConference: exactEnrollment.submittedConference,
