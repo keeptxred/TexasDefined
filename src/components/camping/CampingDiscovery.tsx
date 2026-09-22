@@ -71,10 +71,12 @@ const quickMatches: Array<{
   { label: "Full-hookup RV", styles: ["rv"], amenities: ["full-hookup"] },
   { label: "Beach camping", styles: ["beach"] },
   { label: "Primitive camping", styles: ["primitive"] },
+  { label: "Cabins & glamping", styles: ["cabin", "glamping", "airstream", "bungalow"] },
   { label: "Fishing", amenities: ["fishing"] },
   { label: "Swimming", amenities: ["swimming"] },
   { label: "Water-focused", waterCamping: true },
   { label: "Accessible sites", amenities: ["ada-site"] },
+  { label: "Pet friendly", amenities: ["pets"] },
 ];
 
 const campingCardImages: Record<string, { src: string; alt: string; width: number; height: number }> = {
@@ -108,14 +110,22 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
   const [query, setQuery] = useState("");
   const [styles, setStyles] = useState<CampingStyle[]>([]);
   const [region, setRegion] = useState("all");
+  const [agency, setAgency] = useState("all");
+  const [sortBy, setSortBy] = useState("recommended");
   const [amenities, setAmenities] = useState<CampingAmenity[]>([]);
   const [waterCamping, setWaterCamping] = useState(false);
 
+  const agencies = useMemo(
+    () => [...new Set(entries.map(({ profile }) => profile.managingAgency))].sort((a, b) => a.localeCompare(b)),
+    [entries],
+  );
+
   const filtered = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
-    return entries.filter(({ profile }) => {
+    const matches = entries.filter(({ profile }) => {
       if (styles.length && !styles.some((style) => profile.styles.includes(style))) return false;
       if (region !== "all" && profile.region !== region) return false;
+      if (agency !== "all" && profile.managingAgency !== agency) return false;
       if (amenities.length && !amenities.every((amenity) => profile.amenities.includes(amenity))) return false;
       if (waterCamping && !profile.amenities.some((amenity) => ["lake-access", "river-access", "gulf-access", "swimming"].includes(amenity))) return false;
       if (normalizedQuery) {
@@ -131,14 +141,20 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
       }
       return true;
     });
-  }, [amenities, entries, query, region, styles, waterCamping]);
+    if (sortBy === "name") return [...matches].sort((a, b) => a.profile.name.localeCompare(b.profile.name));
+    if (sortBy === "region") return [...matches].sort((a, b) => (regionLabels[a.profile.region] ?? a.profile.region).localeCompare(regionLabels[b.profile.region] ?? b.profile.region) || a.profile.name.localeCompare(b.profile.name));
+    if (sortBy === "verified") return [...matches].sort((a, b) => b.profile.verifiedAt.localeCompare(a.profile.verifiedAt) || a.profile.name.localeCompare(b.profile.name));
+    return matches;
+  }, [agency, amenities, entries, query, region, sortBy, styles, waterCamping]);
 
-  const hasFilters = Boolean(query || styles.length || region !== "all" || amenities.length || waterCamping);
+  const hasFilters = Boolean(query || styles.length || region !== "all" || agency !== "all" || amenities.length || waterCamping);
 
   const reset = () => {
     setQuery("");
     setStyles([]);
     setRegion("all");
+    setAgency("all");
+    setSortBy("recommended");
     setAmenities([]);
     setWaterCamping(false);
   };
@@ -146,6 +162,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
   const applyQuickMatch = (match: (typeof quickMatches)[number]) => {
     setQuery("");
     setRegion("all");
+    setAgency("all");
     setStyles(match.styles ?? []);
     setAmenities(match.amenities ?? []);
     setWaterCamping(Boolean(match.waterCamping));
@@ -166,7 +183,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
         </div>
       </div>
 
-      <div className="mt-6 grid gap-5 border-t border-border pt-6 lg:grid-cols-[1.4fr_.8fr]">
+      <div className="mt-6 grid gap-5 border-t border-border pt-6 lg:grid-cols-3">
         <label className="text-sm">
           <span className="block font-semibold">Where do you want to camp?</span>
           <input
@@ -184,7 +201,24 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
             {Object.entries(regionLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
           </select>
         </label>
+        <label className="text-sm">
+          <span className="block font-semibold">Managing agency</span>
+          <select value={agency} onChange={(event) => setAgency(event.target.value)} className="mt-2 w-full border border-border bg-background px-3 py-3">
+            <option value="all">All managing agencies</option>
+            {agencies.map((item) => <option key={item} value={item}>{item}</option>)}
+          </select>
+        </label>
       </div>
+
+      <label className="mt-5 block max-w-xs text-sm">
+        <span className="block font-semibold">Sort results</span>
+        <select value={sortBy} onChange={(event) => setSortBy(event.target.value)} className="mt-2 w-full border border-border bg-background px-3 py-3">
+          <option value="recommended">TexasDefined order</option>
+          <option value="name">Name A–Z</option>
+          <option value="region">Region</option>
+          <option value="verified">Most recently verified</option>
+        </select>
+      </label>
 
       <fieldset className="mt-6">
         <legend className="text-sm font-semibold">Camping style <span className="font-normal text-muted-foreground">· choose one or more</span></legend>
@@ -253,6 +287,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
             <dl className="mt-6 space-y-4 text-sm">
               <div><dt className="font-semibold">Verified facilities</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.amenities.map((amenity) => amenityLabels[amenity] ?? amenity).join(" · ") || "No amenity fields verified yet"}</dd></div>
               <div><dt className="font-semibold">Reservations</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.reservationPolicy}</dd></div>
+              {profile.planningDetail ? <div><dt className="font-semibold">Planning detail</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.planningDetail}</dd></div> : null}
               {profile.siteLengthNote ? <div><dt className="font-semibold">RV/site length</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.siteLengthNote}</dd></div> : null}
               {profile.generatorRules ? <div><dt className="font-semibold">Generator rules</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.generatorRules}</dd></div> : null}
             </dl>
