@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { useBrand } from "@/brand/context";
 import type { Article } from "@/data/types";
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
+import { recoverOrHideImage } from "@/lib/image-fallback";
 import { cn } from "@/lib/utils";
 
 const SECTION_LABELS: Record<string, string> = {
@@ -40,7 +41,13 @@ export function ArticleCard({ article, size = "default", eager = false, classNam
   return (
     <article className={cn("group flex flex-col", className)}>
       <Link to="/article/$slug" params={{ slug: article.slug }} className="block overflow-hidden bg-muted" tabIndex={-1} aria-hidden>
-        <img src={article.hero.src} alt={article.hero.alt} width={article.hero.width} height={article.hero.height} sizes={cardSizes(size)} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} decoding="async" className={cn("w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]", size === "compact" && "aspect-[4/3]", size === "default" && "aspect-[3/2]", size === "feature" && "aspect-[16/10]")} />
+        <div className={cn("relative w-full overflow-hidden bg-[linear-gradient(145deg,hsl(var(--muted)),hsl(var(--secondary))_52%,hsl(var(--primary)/0.16))]", size === "compact" && "aspect-[4/3]", size === "default" && "aspect-[3/2]", size === "feature" && "aspect-[16/10]")}>
+          <div aria-hidden className="absolute inset-0">
+            <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_72%_24%,hsl(var(--primary))_0,transparent_28%)]" />
+            <span className="eyebrow absolute left-5 top-5 text-foreground/55">Photo unavailable</span>
+          </div>
+          <img src={article.hero.src} alt={article.hero.alt} width={article.hero.width} height={article.hero.height} sizes={cardSizes(size)} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} decoding="async" className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-[1.025]" onError={(event) => recoverOrHideImage(event.currentTarget)} />
+        </div>
       </Link>
       <div className={cn("flex flex-1 flex-col", size === "compact" ? "pt-4" : "pt-5")}>
         <p className="eyebrow text-primary">{sectionLabel}</p>
