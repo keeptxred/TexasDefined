@@ -79,10 +79,9 @@ export const Route = createFileRoute("/sitemap.xml")({
         } = await import("@/data/sitemap-dependencies.server");
         const { platform, scope } = await import("@/data");
         const { loadTexasKnowledgeGraph } = await import("@/data/knowledge-graph");
-        const { footballProgramSitemapEntries, privateFootballProgramSitemapEntries } = await import("@/data/high-school-football/football-sitemap.server");
+        const { footballProgramSitemapEntries, privateFootballProgramSitemapEntries, footballDistrictSitemapEntries } = await import("@/data/high-school-football/football-sitemap.server");
         const footballProfileEntries = footballProgramSitemapEntries();
         const privateFootballProfileEntries = privateFootballProgramSitemapEntries();
-        const { footballDistrictSitemapEntries } = await import("@/data/high-school-football/football-districts.server");
         const footballDistrictEntries = footballDistrictSitemapEntries();
         // Do not hydrate the live TEA-backed football ISD directory on the public
         // sitemap request path. A cold Worker would otherwise fetch and parse the
