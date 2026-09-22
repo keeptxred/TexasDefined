@@ -1,6 +1,6 @@
 const origin = String(process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const userAgent = 'TexasDefined-Dogs-Production-Smoke/1.2';
+const userAgent = 'TexasDefined-Dogs-Production-Smoke/1.3';
 
 const breeds = [
   'labrador-retriever',
@@ -26,6 +26,10 @@ const dogArticles = [
   { path: '/article/taking-your-dog-to-texas-state-parks', label: 'state park dog guide', needles: ['Taking Your Dog to a Texas State Park', '/article/texas-dog-heat-safety'] },
   { path: '/article/taking-your-dog-to-the-texas-coast', label: 'Texas coast dog guide', needles: ['Taking Your Dog to the Texas Coast: Beach Rules, Heat, Water and Wildlife', 'more than 60 miles', 'Texas Beach Watch'] },
   { path: '/article/texas-dog-friendly-patios-law', label: 'Texas dog-friendly patio law guide', needles: ['Texas Dog-Friendly Patios: What State Law Allows and What to Check Before You Go', 'does not require every restaurant', 'directly from the exterior'] },
+  { path: '/article/texas-dog-lake-river-safety', label: 'Texas dog lake and river guide', needles: ['Texas Dogs at Lakes and Rivers', 'algae blooms', 'designated swimming areas'] },
+  { path: '/article/hiking-texas-trails-with-your-dog', label: 'Texas dog hiking guide', needles: ['Hiking Texas Trails With Your Dog', 'Enchanted Rock', 'front country trails'] },
+  { path: '/article/camping-in-texas-with-your-dog', label: 'Texas dog camping guide', needles: ['Camping in Texas With Your Dog', 'cannot be left unattended', 'proof of current rabies vaccination'] },
+  { path: '/article/adopting-a-dog-in-texas', label: 'Texas dog adoption guide', needles: ['Adopting a Dog in Texas', '2-1-1 Texas', 'four months of age'] },
 ];
 
 function decodeHtml(value) {
@@ -173,4 +177,4 @@ await fetchProduction('/robots.txt', 'dogs robots', {
   },
 });
 
-console.log('Texas Dogs production smoke passed: hub and representative breed SSR SEO/schema are live, all eight Dogs evergreen/practical articles resolve as indexable production pages with protected content/link markers, invalid breeds 404, all governed Dogs URLs are in sitemap.xml, and robots.txt does not block /dogs.');
+console.log('Texas Dogs production smoke passed: hub and representative breed SSR SEO/schema are live, all twelve protected Dogs evergreen/practical articles resolve as indexable production pages with protected content/link markers, invalid breeds 404, all governed Dogs URLs are in sitemap.xml, and robots.txt does not block /dogs.');
