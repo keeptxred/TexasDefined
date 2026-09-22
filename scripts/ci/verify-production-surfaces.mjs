@@ -52,7 +52,12 @@ const surfaces = [
   ['texas-history-military', '/texas-history', 'Military in Mexican Texas'],
 ];
 
-const canonicalHomepageRequiredNeedles = ['Texas Defined', 'New from Texas Defined'];
+const canonicalHomepageRequiredNeedles = [
+  'Texas Defined',
+  'Featured this month on Texas Defined',
+  'This month’s featured story is',
+  'New from Texas Defined',
+];
 const canonicalHomepageForbiddenNeedles = [
   'The Places We Trust for Texas Fall Color',
   'The Texas Defined Letter isn’t taking new names just yet.',
