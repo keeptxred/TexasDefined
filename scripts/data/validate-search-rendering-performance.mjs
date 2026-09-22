@@ -6,6 +6,7 @@ const home = fs.readFileSync('src/routes/index.tsx', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const article = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
 const destination = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
+const destinationRelationshipsServer = fs.readFileSync('src/data/destination-relationships.functions.ts', 'utf8');
 const destinationCollection = fs.readFileSync('src/components/editorial/DestinationCollectionGrid.tsx', 'utf8');
 
 for (const feature of [
@@ -40,6 +41,28 @@ for (const feature of [
   if (!sitemap.includes(feature)) errors.push(`Crawler-critical sitemap resilience missing: ${feature}`);
 }
 
+
+if (destination.includes('destinationsQuery({ limit: 5000 })')) {
+  errors.push('Destination detail routes must not query-cache the 5,000-item destination catalog; that catalog would be dehydrated into the browser.');
+}
+for (const feature of [
+  'getDestinationRelationshipGroups({ data: { slug: params.slug } })',
+  'import { getDestinationRelationshipGroups } from "@/data/destination-relationships.functions"',
+]) {
+  if (!destination.includes(feature)) errors.push(`Destination relationship server boundary missing: ${feature}`);
+}
+for (const feature of [
+  'createServerFn({ method: "GET" })',
+  'listResolvedDestinations({ limit: 5000 })',
+  'buildDestinationRelationshipGroups(',
+  'prepareDestinationForDelivery',
+]) {
+  if (!destinationRelationshipsServer.includes(feature)) errors.push(`Server-only destination relationship contract missing: ${feature}`);
+}
+if (destinationRelationshipsServer.includes('queryClient')) {
+  errors.push('Server-only destination relationship assembly must not populate the client query cache.');
+}
+
 for (const [name, source] of [['article', article], ['destination', destination]]) {
   if (!source.includes('fetchPriority="high"')) errors.push(`${name} hero must keep high fetch priority.`);
   if (!source.includes('width={')) errors.push(`${name} hero must declare width.`);
@@ -66,4 +89,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Homepage payload bounds, destination query hydration caching, complete destination crawl discovery, sitemap resilience, and primary hero rendering contracts passed validation.');
+console.log('Homepage payload bounds, destination detail hydration bounds, destination query caching, complete destination crawl discovery, sitemap resilience, and primary hero rendering contracts passed validation.');
