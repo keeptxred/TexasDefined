@@ -32,6 +32,7 @@ const privateFootballAlignmentsPath = 'src/data/high-school-football/private-foo
 const privateSchoolAdmissionsPath = 'src/data/high-school-football/private-school-admissions.ts';
 const programSlugsPath = 'src/data/high-school-football/program-slugs.ts';
 const programProfileServerPath = 'src/data/high-school-football/football-program-profile.server.ts';
+const footballProgramIndexPath = 'src/data/high-school-football/football-program-index.server.ts';
 const footballSitemapPath = 'src/data/high-school-football/football-sitemap.server.ts';
 const footballVenueLinksPath = 'src/data/high-school-football/football-venue-links.server.ts';
 const programProfileFunctionsPath = 'src/data/high-school-football/football-program-profile.functions.ts';
@@ -81,6 +82,7 @@ for (const file of [
   privateSchoolAdmissionsPath,
   programSlugsPath,
   programProfileServerPath,
+  footballProgramIndexPath,
   footballSitemapPath,
   footballVenueLinksPath,
   programProfileFunctionsPath,
@@ -138,6 +140,7 @@ if (!errors.length) {
   const privateSchoolAdmissions = read(privateSchoolAdmissionsPath);
   const programSlugs = read(programSlugsPath);
   const programProfileServer = read(programProfileServerPath);
+  const footballProgramIndex = read(footballProgramIndexPath);
   const footballSitemap = read(footballSitemapPath);
   const footballVenueLinks = read(footballVenueLinksPath);
   const programProfileFunctions = read(programProfileFunctionsPath);
@@ -692,9 +695,19 @@ if (!errors.length) {
     'loadFootballProgramProfile',
     'loadFootballProgramDirectory',
     "import('./football-program-profile.server')",
+    "import('./football-program-index.server')",
     'getFootballProgramProfilePage',
     'getFootballProgramDirectoryPage',
   ]) requireText(programProfileFunctions, marker, 'Universal UIL football profile server functions');
+
+  for (const marker of [
+    'getAllUilFootballProgramIndexEntries',
+    'ALL_UIL_FOOTBALL_PROGRAMS.length !== 1268',
+    'UIL_FOOTBALL_EXPECTED_COUNTS',
+    'UIL football index ordering regression',
+    'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28',
+    'footballProgramProfilePath',
+  ]) requireText(footballProgramIndex, marker, 'Lightweight UIL football finder bootstrap');
 
   for (const marker of [
     'UIL_FOOTBALL_EXACT_ENROLLMENT_SOURCE',
@@ -1102,6 +1115,7 @@ if (!errors.length) {
       || source.includes('football-directory.server')
       || source.includes('uil-football-all-time-history.server')
       || source.includes('football-districts.server')
+      || source.includes('football-program-index.server')
     ) {
       errors.push(`Client surface must not import the server-only football dataset directly: ${file}`);
     }
