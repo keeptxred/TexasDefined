@@ -4,6 +4,7 @@ const files = {
   hub: "src/components/dogs/DogsHubPage.tsx",
   plan: "src/data/texas-dogs-editorial-plan.ts",
   practical: "src/data/fixtures/texas-dogs-practical.ts",
+  practicalWave2: "src/data/fixtures/texas-dogs-practical-wave2.ts",
   lazy: "src/data/fixtures/lazy-newest-evergreen.ts",
   stubs: "src/data/fixtures/texas-dogs-evergreen-stubs.ts",
   practicalStubs: "src/data/fixtures/texas-dogs-practical-stubs.ts",
@@ -21,6 +22,11 @@ const requiredPracticalSlugs = [
   "taking-your-dog-to-texas-state-parks",
 ];
 
+const requiredPracticalWave2Slugs = [
+  "taking-your-dog-to-the-texas-coast",
+  "texas-dog-friendly-patios-law",
+];
+
 for (const slug of requiredPracticalSlugs) {
   if (!text.practical.includes(`slug: "${slug}"`)) {
     throw new Error(`Texas Dogs practical authority fixture is missing ${slug}`);
@@ -36,6 +42,46 @@ for (const slug of requiredPracticalSlugs) {
   }
   if (!text.lazy.includes(`"${slug}": async () =>`)) {
     throw new Error(`Texas Dogs lazy article loader is missing ${slug}`);
+  }
+}
+
+for (const slug of requiredPracticalWave2Slugs) {
+  if (!text.practicalWave2.includes(`slug: "${slug}"`)) {
+    throw new Error(`Texas Dogs practical authority wave 2 fixture is missing ${slug}`);
+  }
+  if (!text.hub.includes(`slug: "${slug}"`)) {
+    throw new Error(`Texas Dogs hub does not discover ${slug}`);
+  }
+  if (!text.plan.includes(`slug: "${slug}"`)) {
+    throw new Error(`Texas Dogs editorial plan does not track ${slug}`);
+  }
+  if (!text.practicalStubs.includes(`slug: "${slug}"`)) {
+    throw new Error(`Texas Dogs practical lazy stub is missing ${slug}`);
+  }
+  if (!text.lazy.includes(`"${slug}": async () =>`)) {
+    throw new Error(`Texas Dogs lazy article loader is missing ${slug}`);
+  }
+}
+
+for (const source of [
+  "https://www.nps.gov/pais/planyourvisit/pets.htm",
+  "https://tcss.legis.texas.gov/docs/HS/htm/HS.437.htm#437.025",
+]) {
+  if (!text.practicalWave2.includes(source)) {
+    throw new Error(`Texas Dogs practical authority wave 2 is missing first-party source ${source}`);
+  }
+}
+for (const requirement of [
+  "more than 60 miles",
+  "Texas Beach Watch",
+  "no longer than six feet",
+  "may permit",
+  "directly from the exterior",
+  "seat, table, countertop",
+  "does not require every restaurant",
+]) {
+  if (!text.practicalWave2.toLowerCase().includes(requirement.toLowerCase())) {
+    throw new Error(`Texas Dogs practical authority wave 2 is missing protected guidance: ${requirement}`);
   }
 }
 
@@ -78,6 +124,7 @@ for (const slug of [
   "small-dogs-big-texas-attitude",
   "big-dogs-texas-sized-problems",
   ...requiredPracticalSlugs,
+  ...requiredPracticalWave2Slugs,
 ]) {
   if (!text.lazy.includes(`"${slug}": async () =>`)) {
     throw new Error(`Texas Dogs lazy article loader is missing ${slug}`);
@@ -95,5 +142,8 @@ if (!text.smoke.includes("invalid breed 404") || !text.smoke.includes("dogs site
 if (text.hub.includes('from "@/data/fixtures/texas-dogs-practical"')) {
   throw new Error("Texas Dogs practical article fixture must not be imported into the lazy client hub");
 }
+if (text.hub.includes('from "@/data/fixtures/texas-dogs-practical-wave2"')) {
+  throw new Error("Texas Dogs practical wave 2 fixture must not be imported into the lazy client hub");
+}
 
-console.log("Texas Dogs authority validation passed: practical guides are first-party sourced and hub-discoverable; all Dogs evergreen articles use explicit lightweight stubs plus lazy full-article loaders; side-effect lookup leakage is blocked; server boundaries and production smoke remain protected.");
+console.log("Texas Dogs authority validation passed: heat, parks, coast and patio-law guides are first-party sourced and hub-discoverable; all Dogs evergreen articles use explicit lightweight stubs plus lazy full-article loaders; side-effect lookup leakage is blocked; server boundaries and production smoke remain protected.");

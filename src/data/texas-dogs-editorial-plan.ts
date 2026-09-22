@@ -92,6 +92,16 @@ export const texasDogsEditorialPlan = {
       status: "published",
     },
     {
+      slug: "taking-your-dog-to-the-texas-coast",
+      title: "Taking Your Dog to the Texas Coast: Beach Rules, Heat, Water and Wildlife",
+      status: "published",
+    },
+    {
+      slug: "texas-dog-friendly-patios-law",
+      title: "Texas Dog-Friendly Patios: What State Law Allows and What to Check Before You Go",
+      status: "published",
+    },
+    {
       slug: "small-dogs-big-texas-attitude",
       title: "Small Dogs, Big Texas Attitude",
       status: "published",
