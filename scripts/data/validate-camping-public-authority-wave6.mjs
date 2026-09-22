@@ -29,8 +29,8 @@ for (const [slug, name] of requiredProfiles) {
 const tpwdSourceCount = (wave6.match(/https:\/\/tpwd\.texas\.gov\/state-parks\//g) || []).length;
 if (tpwdSourceCount < requiredProfiles.length) failures.push(`expected at least ${requiredProfiles.length} TPWD source URLs, found ${tpwdSourceCount}`);
 
-const inventoryCount = (wave6.match(/siteCountNote:/g) || []).length;
-const priceCount = (wave6.match(/priceNote:/g) || []).length;
+const inventoryCount = (wave6.match(/siteCountNote:\\s*"/g) || []).length;
+const priceCount = (wave6.match(/priceNote:\\s*"/g) || []).length;
 if (inventoryCount !== requiredProfiles.length) failures.push(`expected ${requiredProfiles.length} siteCountNote values, found ${inventoryCount}`);
 if (priceCount !== requiredProfiles.length) failures.push(`expected ${requiredProfiles.length} priceNote values, found ${priceCount}`);
 
