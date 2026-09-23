@@ -107,7 +107,7 @@ for (const feature of [
   'Three ways to visit', 'Key dates', 'in context', 'Source:', 'Common visitor questions',
   'Sources & updates', 'Sources used for this guide', 'Primary visitor source', 'Supporting source',
   'Update history', 'Texas Defined Editorial Desk', 'a-hollis', '/explore/top-attractions/methodology', '/citation-guide',
-  'destination.authorityGuide', 'export default DestinationAuthorityGuide',
+  'destination.authorityGuide', 'list-none space-y-3', 'export default DestinationAuthorityGuide',
 ]) {
   if (!componentSource.includes(feature)) failures.push(`Authority component missing visible feature: ${feature}.`);
 }
