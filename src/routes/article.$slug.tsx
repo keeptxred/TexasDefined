@@ -11,7 +11,8 @@ import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPart
 import { articleInternalLinks } from "@/data/article-internal-links";
 import { shouldNoindexTexasGatewayArticle } from "@/data/fixtures/texas-gateway-index-readiness";
 import { imageRightsFor } from "@/data/image-rights";
-import { articleQuery, articlesQuery, authorsQuery, categoriesQuery, destinationsQuery } from "@/data/queries";
+import { articleQuery, articlesQuery, authorsQuery, categoriesQuery } from "@/data/queries";
+import { getDestinationsBySlugs } from "@/data/destination-collections.functions";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import { remoteEvergreenAuthoritySources } from "@/data/remote-evergreen-authority-sources";
@@ -128,6 +129,25 @@ function articleDepartment(category: string): ArticleDepartment {
 function articleText(article: { title: string; dek: string; body: Array<{ type: string; text?: string; items?: string[] }> }) {
   return [article.title, article.dek, ...article.body.flatMap((block) => block.type === "list" ? block.items ?? [] : block.text ? [block.text] : [])].join(" ");
 }
+function articleAutoLinkGraph(
+  article: { title: string; dek: string; body: Array<{ type: string; text?: string; items?: string[] }> },
+  graph: Awaited<ReturnType<typeof loadTexasKnowledgeGraph>>,
+) {
+  const text = articleText(article);
+  if (!text.trim()) return [];
+
+  return graph.filter((entity) =>
+    [entity.name, ...entity.aliases].some((rawLabel) => {
+      const label = rawLabel.trim();
+      if (label.length < 4) return false;
+      const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, "\\function articleText(article: { title: string; dek: string; body: Array<{ type: string; text?: string; items?: string[] }> }) {
+  return [article.title, article.dek, ...article.body.flatMap((block) => block.type === "list" ? block.items ?? [] : block.text ? [block.text] : [])].join(" ");
+}
+");
+      return new RegExp(`(^|\\W)${escaped}(?=$|\\W)`, "i").test(text);
+    }),
+  );
+}
 
 function wordCount(value: string) {
   return value.trim().split(/\s+/).filter(Boolean).length;
@@ -153,13 +173,14 @@ export const Route = createFileRoute("/article/$slug")({
   loader: async ({ context, params }) => {
     const article = await context.queryClient.ensureQueryData(articleQuery(params.slug));
     if (!article) throw notFound();
-    const [authors, categories, related, destinations, graph] = await Promise.all([
+    const [authors, categories, related, destinations, completeGraph] = await Promise.all([
       context.queryClient.ensureQueryData(authorsQuery()),
       context.queryClient.ensureQueryData(categoriesQuery()),
       context.queryClient.ensureQueryData(articlesQuery({ category: article.category, limit: 4 })),
-      context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
+      getDestinationsBySlugs({ data: { slugs: article.relatedDestinations.slice(0, 8) } }),
       loadTexasKnowledgeGraph(),
     ]);
+    const graph = articleAutoLinkGraph(article, completeGraph);
     return { article, authors, categories, related, destinations, graph };
   },
   head: ({ loaderData, params }) => {
