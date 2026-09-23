@@ -11,7 +11,7 @@ import { footballDistrictProfilePath } from './football-districts.server';
 import type { VerifiedPrivateFootballAlignment } from './private-football-alignments';
 import type { VerifiedPrivateSchoolAdmissions } from './private-school-admissions';
 import { footballClassificationRank, footballProgramProfilePath, footballProgramSlug } from './program-slugs';
-import { UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28 } from './uil-football-enrollments-2026.generated';
+import { getExactUilFootballEnrollment } from './uil-football-exact-enrollment.server';
 import { getVerifiedFootballSchoolIdentity } from './school-identities';
 import {
   UIL_FOOTBALL_EXPECTED_COUNTS,
@@ -140,7 +140,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   }
 
   const result = await searchFootballPrograms({ query: seed.schoolName, limit: 100 });
-  const exactEnrollment = UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[seed.schoolName];
+  const exactEnrollment = getExactUilFootballEnrollment(seed.schoolName);
   const program: FootballProgramDirectoryResult = exactProgramMatch(seed, result.programs) ?? {
     ...seed,
     profilePath: footballProgramProfilePath(seed.schoolName),
@@ -179,7 +179,7 @@ const ALL_UIL_FOOTBALL_PROGRAMS: readonly FootballProgramDirectoryEntry[] = UIL_
     division: program.division,
     district: program.district,
     footballType: program.footballType,
-    uilEnrollment: UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.schoolName]?.enrollment ?? 0,
+    uilEnrollment: getExactUilFootballEnrollment(program.schoolName)?.enrollment ?? 0,
   }))
   .sort((left, right) => {
     const classDiff = footballClassificationRank(right.classification) - footballClassificationRank(left.classification);
