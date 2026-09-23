@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
 import type { Destination } from '@/data/types';
 
@@ -76,6 +77,9 @@ export function ExploreDestinationComparison({ destinations, kind }: { destinati
   const showCategory = kind === 'attractions';
   const copy = COPY[kind];
   const sorted = [...destinations].sort((a, b) => a.name.localeCompare(b.name));
+  const pageSize = kind === 'attractions' ? 100 : sorted.length;
+  const [visibleCount, setVisibleCount] = useState(pageSize);
+  const visibleDestinations = sorted.slice(0, visibleCount);
 
   return (
     <section className="border-t border-border bg-surface" aria-labelledby={`${kind}-comparison-heading`}>
@@ -98,7 +102,7 @@ export function ExploreDestinationComparison({ destinations, kind }: { destinati
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              {sorted.map((destination) => {
+              {visibleDestinations.map((destination) => {
                 const activitySignals = signals(destination);
                 const shownSignals = isParks ? activitySignals : destination.highlights.slice(0, 8);
                 return (
@@ -116,6 +120,13 @@ export function ExploreDestinationComparison({ destinations, kind }: { destinati
             </tbody>
           </table>
         </div>
+
+        {kind === 'attractions' && visibleCount < sorted.length ? (
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+            <p className="text-sm text-muted-foreground">Showing {visibleDestinations.length.toLocaleString("en-US")} of {sorted.length.toLocaleString("en-US")} maintained destinations.</p>
+            <button type="button" className="border border-border px-4 py-2 text-sm font-semibold hover:border-primary hover:text-primary" onClick={() => setVisibleCount((count) => Math.min(count + 100, sorted.length))}>Show 100 more</button>
+          </div>
+        ) : null}
 
         {isParks ? <section className="mt-10" aria-labelledby="park-activity-index"><h3 id="park-activity-index" className="font-display text-3xl">Parks by recorded activity signal</h3><div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{ACTIVITY_SIGNALS.map(([label]) => { const matching = sorted.filter((destination) => signals(destination).includes(label)); return <div key={label} className="rounded-md border border-border bg-background p-4"><strong className="font-display text-xl">{label}</strong><p className="mt-1 text-sm text-muted-foreground">{matching.length} destination{matching.length === 1 ? '' : 's'} mention this activity.</p><div className="mt-3 space-y-1 text-sm">{matching.slice(0, 6).map((destination) => <a key={destination.slug} href={`/destination/${destination.slug}`} className="block font-semibold text-primary hover:underline">{destination.name}</a>)}</div></div>; })}</div></section> : null}
 
