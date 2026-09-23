@@ -46,6 +46,11 @@ const surfaceChecks = [
     forbidden: ['fallback={null}'],
     required: ['Loading Texas Dogs Defined…', 'role="status"'],
   },
+  {
+    file: 'src/routes/search.lazy.tsx',
+    forbidden: ['min-h-[42vh]'],
+    required: ['No search results', 'Search results'],
+  },
 ];
 
 for (const check of surfaceChecks) {
@@ -55,6 +60,28 @@ for (const check of surfaceChecks) {
   }
   for (const token of check.required) {
     if (!source.includes(token)) failures.push(`${check.file} is missing compact-layout safeguard: ${token}`);
+  }
+}
+
+const fullPageLazyRoutes = [
+  'src/routes/texas-toll-tags.tsx',
+  'src/routes/texas-by-texas-txt.tsx',
+  'src/routes/what-does-chud-mean.tsx',
+  'src/routes/start-a-business-in-texas.tsx',
+  'src/routes/everything-bigger-in-texas.tsx',
+  'src/routes/track-texas-drivers-license.tsx',
+  'src/routes/replace-texas-registration-receipt.tsx',
+  'src/routes/explore.top-attractions.methodology.tsx',
+  'src/routes/explore.top-attractions.road-trips.tsx',
+];
+
+for (const file of fullPageLazyRoutes) {
+  const source = read(file);
+  if (source.includes('<Suspense fallback={null}>')) {
+    failures.push(`${file} still has a silent full-page Suspense fallback.`);
+  }
+  if (!source.includes('role="status"')) {
+    failures.push(`${file} must expose a compact visible loading status.`);
   }
 }
 

@@ -96,7 +96,7 @@ export const wardCountyMonahansSandhillsArticle: Article = {
       "Interstate 20 and State Highway 18 keep Monahans connected to the wider Permian Basin economy today.",
     ),
 
-    h("Why Ward County belongs in the county series"),
+    h("What makes Ward County distinctive"),
     p("Ward County is useful because it compresses several major West Texas stories into a relatively small area. Indigenous travel and shallow groundwater explain the importance of the sandhills. Railroads explain Monahans' beginning. Irrigation explains Barstow's early prominence. Oil explains the county-seat shift and the modern economy. World War II explains Pyote's extraordinary boom. A state park explains why the same county is also a recreation destination."),
     p("The landscape is the thread connecting all of those stories. Water beneath sand made travel possible. River water encouraged farming. Railroad water stops created towns. Oil beneath the ground reordered the county. Wind continues to rebuild the dunes regardless of what people construct nearby."),
     p("That is what makes Ward County worth stopping for instead of simply crossing on Interstate 20. The county is not a blank space between Odessa and Pecos. It is a place where West Texas keeps showing its layers: sand, water, rail, war, oil and small towns adapting every time the ground beneath the economy changes."),

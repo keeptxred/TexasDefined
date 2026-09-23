@@ -75,9 +75,9 @@ export const phenixKnivesBellvilleArticle: Article = {
       "Whether a specific custom blade or retail item is in stock if purchasing is the main reason for the trip.",
       "Any temporary closures connected to outside events or demonstrations.",
     ]),
-    h("Why Phenix belongs in the unusual-business experiment"),
-    p("Phenix Knives passes the same test TexasDefined is using for this new content lane. The business has a clearly distinctive service, a strong local connection, real visitor intent and enough first-party material to explain the experience without padding the page with generic small-business copy."),
-    p("It also strengthens several existing TexasDefined topics at once: Austin County, Bellville, small-town travel, traditional crafts and things that feel unusually Texan. The value is not that Texas has a place selling knives. The value is that a visitor can step into a historic small-town blacksmith setting, watch the craft still being practiced and, depending on the experience selected, participate in a small part of it."),
+    h("Why Phenix Knives is worth a stop"),
+    p("Phenix Knives stands out because the experience is tied to a real working craft, a specific small-town setting and something visitors can watch or take part in rather than simply purchase from a shelf."),
+    p("The value is not simply that Bellville has a place selling knives. Visitors can step into a historic small-town blacksmith setting, watch the craft still being practiced and, depending on the experience selected, participate in a small part of it. That makes the stop a natural fit with Austin County, Bellville and traditional Texas craft itineraries."),
     p("Operating details change. Confirm current hours, activity availability, prices, reservation requirements and any safety or age restrictions directly with Phenix Knives before traveling."),
   ],
 };

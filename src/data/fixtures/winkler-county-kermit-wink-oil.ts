@@ -87,7 +87,7 @@ export const winklerCountyKermitWinkOilArticle: Article = {
       "The 2020 census counted 7,791 residents in Winkler County across about 841 square miles of land.",
     ),
 
-    h("Why Winkler County belongs in the county series"),
+    h("What makes Winkler County distinctive"),
     p("Winkler County explains the Permian Basin in miniature. Before petroleum, people navigated sand, springs and ranch country. Then one successful well in 1926 overturned assumptions about the land and triggered a building boom strong enough to replace the county courthouse only a few years later. Kermit became a durable service center, while Wink kept the memory of both the first major field and a teenage musician who would become famous far beyond Texas."),
     p("It also demonstrates why West Texas counties should not be treated as interchangeable oil territory. Winkler has a specific landscape, its own early settlement failures, a courthouse born from one particular boom, the Hendrick discovery well, Blue Mountain, a cross-border identity and a music story that belongs specifically to Wink."),
     p("Drive through quickly and the county can look like highways, tank batteries and open sky. Stop long enough to read the landscape and the story gets sharper: difficult sand, scarce water, speculative towns, a midnight oil strike, civic confidence in stone and columns, and a small-town stage where Roy Orbison first learned what his voice could do."),
