@@ -94,7 +94,7 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
       {image ? (
         <section className="relative isolate overflow-hidden bg-ink text-ink-foreground">
           <div aria-hidden className="absolute inset-0 bg-ink">
-            <span className="eyebrow absolute left-5 top-5 text-ink-foreground/60">Photo unavailable</span>
+            
           </div>
           <img src={image.src} alt={image.alt} width={image.width} height={image.height} className="absolute inset-0 size-full object-cover opacity-52" onError={(event) => recoverOrHideImage(event.currentTarget)} />
           <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/68 to-ink/28" />
