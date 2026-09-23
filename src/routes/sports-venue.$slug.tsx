@@ -302,8 +302,8 @@ function LegacySportsVenuePage() {
             <Fact label="Capacity" value={enrichment?.capacity} />
             <Fact label="Opened" value={enrichment?.opened} />
             <Fact label="Texas region" value={regionName} />
-            <Fact label="Source" value={entity.sourceConfidence === 'official' ? 'Official venue source checked' : 'Verified reference source'} />
-            {entity.sourceCheckedAt && <Fact label="Reviewed" value={formatCheckedDate(enrichment?.verifiedAt ?? entity.sourceCheckedAt)} />}
+            <Fact label="Source" value={entity.sourceConfidence === 'official' ? 'Official venue source' : 'Reference source'} />
+            {entity.sourceCheckedAt && <Fact label="Last reviewed" value={formatCheckedDate(enrichment?.verifiedAt ?? entity.sourceCheckedAt)} />}
           </dl>
         </header>
 
@@ -341,7 +341,7 @@ function LegacySportsVenuePage() {
                 <ParkingMapPanel map={parkingMap} contextName={entity.name} />
               </div>
               <GuideCard title="When to arrive" body={enrichment.arrival} />
-              <GuideCard title="Main sports and events" body={`The verified venue profile currently highlights ${formatList(enrichment.primaryEvents.slice(0, 3))}. Check the official calendar for the exact event date, start time and ticket requirements.`} />
+              <GuideCard title="Main sports and events" body={`The venue guide highlights ${formatList(enrichment.primaryEvents.slice(0, 3))}. Check the official calendar for the exact event date, start time and ticket requirements.`} />
               {enrichment.capacity ? <GuideCard title="Capacity and configuration" body={`${entity.name}'s verified profile lists ${enrichment.capacity}. Seating or event configurations can change for concerts, tournaments and special events, so use the official event page for the final layout.`} /> : null}
             </div>
           </div>
