@@ -140,10 +140,7 @@ function articleAutoLinkGraph(
     [entity.name, ...entity.aliases].some((rawLabel) => {
       const label = rawLabel.trim();
       if (label.length < 4) return false;
-      const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, "\\function articleText(article: { title: string; dek: string; body: Array<{ type: string; text?: string; items?: string[] }> }) {
-  return [article.title, article.dek, ...article.body.flatMap((block) => block.type === "list" ? block.items ?? [] : block.text ? [block.text] : [])].join(" ");
-}
-");
+      const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
       return new RegExp(`(^|\\W)${escaped}(?=$|\\W)`, "i").test(text);
     }),
   );
