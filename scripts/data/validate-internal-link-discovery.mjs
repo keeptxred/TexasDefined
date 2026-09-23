@@ -106,7 +106,7 @@ for (const marker of [
 ]) if (!entityRoute.includes(marker)) failures.push(`Generic entity layout contract is missing ${marker}.`);
 for (const marker of [
   'const relatedItems = related.slice(0, 6)',
-  'Related TexasDefined references',
+  'Related guides and places',
   'relatedItems.map(({ entity: candidate })',
 ]) if (!entityDepth.includes(marker)) failures.push(`Generic entity related-reference contract is missing ${marker}.`);
 for (const stale of [
