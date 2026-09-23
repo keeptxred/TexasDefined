@@ -43,8 +43,8 @@ try {
   };
   vm.runInNewContext(source, sandbox, { filename: 'public/stay-affiliate-options.js' });
   const api = sandbox.window.TexasDefinedStayAffiliateOptions;
-  if (!api || typeof api.bookingIntent !== 'function' || typeof api.ownerEligible !== 'function' || typeof api.buildCjDeepLink !== 'function' || typeof api.exactPropertyDestination !== 'function') {
-    errors.push('stay affiliate bootstrap must expose bookingIntent, ownerEligible, buildCjDeepLink and exactPropertyDestination for policy verification.');
+  if (!api || typeof api.bookingIntent !== 'function' || typeof api.comparisonHotelDestination !== 'function' || typeof api.ownerEligible !== 'function' || typeof api.buildCjDeepLink !== 'function' || typeof api.exactPropertyDestination !== 'function') {
+    errors.push('stay affiliate bootstrap must expose bookingIntent, comparisonHotelDestination, ownerEligible, buildCjDeepLink and exactPropertyDestination for policy verification.');
   } else {
     const bookingCases = [
       ['/event/chappell-hill-bluebonnet-festival', 'hotel-first'],
@@ -64,13 +64,16 @@ try {
       const actual = api.bookingIntent(pathname);
       if (actual !== expected) errors.push(`booking intent regression for ${pathname}: expected ${expected}, received ${actual}.`);
     }
+    if (api.comparisonHotelDestination('hotel-first') !== 'https://www.orbitz.com/') errors.push('Hotel-first intent must route its comparison hotel option to Orbitz.');
+    if (api.comparisonHotelDestination('both') !== 'https://www.travelocity.com/') errors.push('Broader destination/leisure intent must route its comparison hotel option to Travelocity.');
     if (!api.ownerEligible('/real-estate')) errors.push('Vrbo owner referral must remain eligible on /real-estate.');
     if (api.ownerEligible('/city/austin')) errors.push('Vrbo owner referral must not appear merely because a page is a city travel guide.');
 
     const hotelsDeepLink = api.buildCjDeepLink('https://www.hotels.com/');
     const orbitzDeepLink = api.buildCjDeepLink('https://www.orbitz.com/');
+    const travelocityDeepLink = api.buildCjDeepLink('https://www.travelocity.com/');
     const vrboDeepLink = api.buildCjDeepLink('https://www.vrbo.com/');
-    for (const [value, partner] of [[hotelsDeepLink, 'Hotels.com'], [orbitzDeepLink, 'Orbitz'], [vrboDeepLink, 'Vrbo']]) {
+    for (const [value, partner] of [[hotelsDeepLink, 'Hotels.com'], [orbitzDeepLink, 'Orbitz'], [travelocityDeepLink, 'Travelocity'], [vrboDeepLink, 'Vrbo']]) {
       if (!value.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/')) {
         errors.push(`${partner} CJ deep link must stay bound to TexasDefined publisher 101876465.`);
       }
@@ -129,7 +132,7 @@ try {
     } catch {
       rejectedUnsupportedHost = true;
     }
-    if (!rejectedUnsupportedHost) errors.push('CJ deep-link builder must reject destinations outside Hotels.com, Orbitz and Vrbo.');
+    if (!rejectedUnsupportedHost) errors.push('CJ deep-link builder must reject destinations outside Hotels.com, Orbitz, Travelocity and Vrbo.');
   }
 } catch (error) {
   errors.push(`stay affiliate route-policy runtime check failed: ${error.message}`);
@@ -143,7 +146,7 @@ for (const [needle, label] of [
 const expediaPosition = root.indexOf('<script src="/expedia-travel.js" defer />');
 const affiliatePosition = root.indexOf('<script src="/stay-affiliate-options.js" defer />');
 if (expediaPosition < 0 || affiliatePosition < 0 || affiliatePosition < expediaPosition) {
-  errors.push('Hotels.com/Orbitz/Vrbo bootstrap must load after the existing Expedia/Stay Nearby bootstrap.');
+  errors.push('Hotels.com/Orbitz/Travelocity/Vrbo bootstrap must load after the existing Expedia/Stay Nearby bootstrap.');
 }
 
 for (const [needle, label] of [
@@ -164,15 +167,18 @@ for (const [needle, label] of [
   ['https://www.hotels.com/ho532248/microtel-inn-and-suites-by-wyndham-sweetwater-sweetwater-united-states-of-america/', 'Microtel Sweetwater property record'],
   ['https://www.hotels.com/', 'Hotels.com destination'],
   ['https://www.orbitz.com/', 'Orbitz destination'],
+  ['https://www.travelocity.com/', 'Travelocity destination'],
   ['https://www.vrbo.com/', 'Vrbo traveler destination'],
   ['https://www.vrbo.com/en-us/list/lead', 'Vrbo owner onboarding destination'],
   ['link.href = buildCjDeepLink(destination)', 'tracked-link enforcement'],
   ['sponsored nofollow noopener noreferrer', 'affiliate relationship attributes'],
   ['Find hotels on Hotels.com', 'Hotels.com CTA'],
-  ['Compare hotels on Orbitz', 'Orbitz hotel CTA'],
+  ['Compare hotels on Orbitz', 'Orbitz hotel-first CTA'],
+  ['Compare hotels on Travelocity', 'Travelocity destination/leisure CTA'],
   ['Find vacation rentals on Vrbo', 'Vrbo traveler CTA'],
   ['Compare more hotels on Hotels.com', 'secondary Hotels.com CTA after exact recommendations'],
   ['Compare more hotels on Orbitz', 'secondary Orbitz CTA after exact recommendations'],
+  ['Compare more hotels on Travelocity', 'secondary Travelocity CTA after exact recommendations'],
   ['Browse vacation rentals on Vrbo', 'secondary Vrbo CTA after exact recommendations'],
   ['stay-nearby-choice-after-exact', 'secondary-choice attribution after exact recommendations'],
   ['Find places to stay', 'broad-search prominent stay CTA fallback'],
@@ -189,10 +195,12 @@ for (const [needle, label] of [
   ['upgradeExactPropertyCards', 'exact property card upgrader'],
   ['placement: "stay-nearby-card-exact"', 'exact-property attribution placement'],
   ['link.dataset.exactProperty = propertyName', 'exact-property identity marker'],
-  ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Orbitz or Vrbo activity', 'traveler affiliate disclosure'],
+  ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com or Orbitz activity', 'hotel-first traveler affiliate disclosure'],
+  ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or Vrbo activity', 'destination/leisure traveler affiliate disclosure'],
   ['Affiliate disclosure: TexasDefined may earn a referral commission when an eligible new Vrbo property listing goes live', 'owner affiliate disclosure'],
   ['HOTEL_FIRST_PATH', 'hotel-first route intent'],
   ['BOTH_PATH', 'combined lodging route intent'],
+  ['comparisonHotelDestination', 'route-scoped Orbitz/Travelocity comparison policy'],
   ['OWNER_PATH = /^\\/real-estate\\/?$/', 'owner route guard'],
   ['OWNER_SECTION', 'owner article-section guard'],
   ['EXPEDIA_SURFACE_ID = "expedia-travel-surface"', 'existing Stay Nearby integration'],
@@ -286,9 +294,9 @@ if (source.includes('window.location =') || source.includes('window.location.hre
 }
 
 if (errors.length) {
-  console.error('Hotels.com / Orbitz / Vrbo stay affiliate validation failed:');
+  console.error('Hotels.com / Orbitz / Travelocity / Vrbo stay affiliate validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Hotels.com / Orbitz / Vrbo stay affiliate validation passed: all 30 active governed Stay Nearby properties (18 venue + 12 destination) have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; unknown properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; Orbitz is available as an approved hotel-comparison option on governed stay surfaces; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the exact-property registry and the traffic-prioritized Xtreme Raceway Park lodging slot; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');
+console.log('Hotels.com / Orbitz / Travelocity / Vrbo stay affiliate validation passed: all 30 active governed Stay Nearby properties (18 venue + 12 destination) have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; unknown properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; hotel-first event/venue intent routes the comparison option to Orbitz while broader destination/leisure intent routes it to Travelocity, and Vrbo remains separately gated to broader traveler/owner use cases; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the exact-property registry and the traffic-prioritized Xtreme Raceway Park lodging slot; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');
