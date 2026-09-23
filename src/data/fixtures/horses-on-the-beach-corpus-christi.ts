@@ -81,9 +81,9 @@ export const horsesOnTheBeachCorpusChristiArticle: Article = {
       "Whether the selected ride is one hour, sunset or another current format.",
       "Arrival, parking and check-in instructions for the Park Road 22 location.",
     ]),
-    h("Why it belongs in the unusual-business experiment"),
-    p("Horses on the Beach is more useful to TexasDefined than a generic activity listing because the experience is inseparable from place. A beach ride could exist in many coastal states, but here it connects South Texas horse culture with one of the state's defining barrier-island landscapes and gives the Nueces County guide another concrete way for visitors to experience the coast."),
-    p("It also creates a natural bridge between several existing content areas: Corpus Christi, Nueces County, Texas beaches, North Padre Island, outdoor experiences and unusual Texas businesses. That cross-linking is exactly what this experiment is meant to test—whether a distinctive local operator can become a useful doorway into a much larger regional authority network."),
+    h("Why this beach ride stands out"),
+    p("Horses on the Beach stands out because the experience is inseparable from place. A beach ride could exist in many coastal states, but here it connects South Texas horse culture with one of the state's defining barrier-island landscapes and gives visitors a very different way to experience the Corpus Christi coast."),
+    p("It also fits naturally into a Corpus Christi or North Padre Island itinerary alongside beaches, wildlife and other outdoor stops. For travelers who want an activity rather than another overlook or museum, the ride adds a memorable way to spend time directly on the barrier-island landscape."),
     p("Operating details change. Confirm the current schedule, prices, participation requirements, weather policies and booking instructions directly with Horses on the Beach before traveling."),
   ],
 };
