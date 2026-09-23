@@ -103,8 +103,8 @@ for (const feature of ['duration', 'summary', 'planningNote', 'TopAttractionRoad
 }
 
 for (const feature of [
-  'Visitor information', 'Sources', 'Editorial assessment', 'Why it matters to Texas',
-  'Three ways to visit', 'Key dates', 'in context', 'Source:', 'Traveler questions, answered',
+  'Visitor information', 'Sources', 'The visit', 'Texas context',
+  'Three ways to visit', 'Key dates', 'in context', 'Source:', 'Common visitor questions',
   'Sources & updates', 'Sources used for this guide', 'Primary visitor source', 'Supporting source',
   'Update history', 'Texas Defined Editorial Desk', 'a-hollis', '/explore/top-attractions/methodology', '/citation-guide',
   'destination.authorityGuide', 'export default DestinationAuthorityGuide',
