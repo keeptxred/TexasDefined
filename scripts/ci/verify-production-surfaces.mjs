@@ -12,7 +12,7 @@ const surfaces = [
   ['trip-planner', '/explore/trip-planner', 'Texas Trip Planner'],
   ['fishing-finder', '/fishing/plan', 'Use my location'],
   ['fishing-finder-filters', '/fishing/plan', 'More filters'],
-  ['fishing-finder-map-distance', '/fishing/plan?lat=29.76&lng=-95.37&origin=Houston&sort=closest&view=map', 'Distances are straight-line estimates from Houston.'],
+  ['fishing-finder-map-distance', '/fishing/plan?lat=29.76&lng=-95.37&origin=Houston&sort=closest&view=map', 'Map of matching Texas fishing lakes'],
   ['camping-guide', '/best-places-to-go-camping-in-texas', 'Best Places to Go Camping in Texas'],
   ['caverns-count', '/explore/caverns', '11 places are currently mapped'],
   ['caverns-sonora', '/explore/caverns', 'Caverns of Sonora'],
