@@ -69,7 +69,7 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
               {authority.itineraries.map((plan) => <article key={plan.label} className="border-t-2 border-foreground pt-5">
                 <p className="eyebrow text-primary">{plan.duration}</p>
                 <h3 className="mt-2 font-display text-2xl">{plan.label}</h3>
-                <ol className="mt-4 list-decimal space-y-3 pl-5 text-sm leading-6 text-muted-foreground">{plan.steps.map((step) => <li key={step} className="pl-1 marker:font-semibold marker:text-primary">{step}</li>)}</ol>
+                <ol className="mt-4 list-decimal space-y-3 pl-5 text-sm leading-6 text-muted-foreground">{plan.steps.map((step) => <li key={step}>{step}</li>)}</ol>
               </article>)}
             </div>
           </section>
