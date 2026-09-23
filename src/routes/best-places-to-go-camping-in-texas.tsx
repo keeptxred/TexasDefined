@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { hasCampingDestinationGuide } from "@/data/camping/destination-guides";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const title = "Best Places to Go Camping in Texas | RV, Tent & Primitive Camping";
@@ -68,7 +69,7 @@ export const Route = createFileRoute(canonicalPath)({
               item: {
                 "@type": "Campground",
                 name: profile.name,
-                url: profileAnchor(profile) === profile.destinationSlug
+                url: hasCampingDestinationGuide(profile.destinationSlug) && profileAnchor(profile) === profile.destinationSlug
                   ? absoluteUrl(texasDefinedBrand, `/destination/${profile.destinationSlug}`)
                   : `${pageUrl}#${profileAnchor(profile)}`,
                 containedInPlace: { "@type": "State", name: "Texas" },
