@@ -5,6 +5,7 @@ const queries = fs.readFileSync('src/data/queries.ts', 'utf8');
 const home = fs.readFileSync('src/routes/index.tsx', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const article = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
+const articleRelatedDestinationsServer = fs.readFileSync('src/data/article-related-destinations.functions.ts', 'utf8');
 const destination = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
 const destinationRelationshipsServer = fs.readFileSync('src/data/destination-relationships.functions.ts', 'utf8');
 const destinationCollection = fs.readFileSync('src/components/editorial/DestinationCollectionGrid.tsx', 'utf8');
@@ -41,6 +42,26 @@ for (const feature of [
   if (!sitemap.includes(feature)) errors.push(`Crawler-critical sitemap resilience missing: ${feature}`);
 }
 
+
+if (article.includes('destinationsQuery({ limit: 5000 })')) {
+  errors.push('Article detail routes must not query-cache the 5,000-item destination catalog; only declared related destinations belong in hydration.');
+}
+for (const feature of [
+  'getArticleRelatedDestinations({ data: { slugs: article.relatedDestinations } })',
+  'import { getArticleRelatedDestinations } from "@/data/article-related-destinations.functions"',
+]) {
+  if (!article.includes(feature)) errors.push(`Article related-destination server boundary missing: ${feature}`);
+}
+for (const feature of [
+  'MAX_RELATED_DESTINATIONS = 8',
+  'getResolvedDestination',
+  'prepareDestinationForDelivery',
+]) {
+  if (!articleRelatedDestinationsServer.includes(feature)) errors.push(`Server-only article related-destination contract missing: ${feature}`);
+}
+if (articleRelatedDestinationsServer.includes('queryClient')) {
+  errors.push('Article related-destination server boundary must not populate the client query cache.');
+}
 
 if (destination.includes('destinationsQuery({ limit: 5000 })')) {
   errors.push('Destination detail routes must not query-cache the 5,000-item destination catalog; that catalog would be dehydrated into the browser.');
