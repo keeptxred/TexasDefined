@@ -1,10 +1,9 @@
-import { getFeaturedFootballProgramProfile } from './featured-program-profile.server';
 import {
   FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS,
   getFeaturedFootballProgram,
   normalizeFeaturedFootballName,
 } from './featured-programs';
-import { searchFootballPrograms, type FootballProgramDirectoryResult } from './football-directory.server';
+import type { FootballProgramDirectoryResult } from './football-directory.server';
 import { getOfficialFootballEnrollmentLink } from './official-enrollment-links';
 import { getVerifiedFootballVenueLinks, type VerifiedFootballVenueLink } from './football-venue-links.server';
 import { footballDistrictProfilePath } from './football-districts.server';
@@ -88,15 +87,6 @@ function findUilProgram(slug: string) {
   return PROGRAM_BY_SLUG.get(slug) ?? findLegacyUilProgram(slug);
 }
 
-function exactProgramMatch(program: UilFootballProgram, candidates: FootballProgramDirectoryResult[]) {
-  return candidates.find((candidate) =>
-    candidate.schoolName === program.schoolName
-    && candidate.classification === program.classification
-    && candidate.division === program.division
-    && candidate.district === program.district,
-  );
-}
-
 function districtPeers(program: UilFootballProgram): FootballProgramProfilePeer[] {
   return UIL_FOOTBALL_PROGRAMS_2026
     .filter((candidate) =>
@@ -120,6 +110,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   const seed = findUilProgram(slug);
 
   if (!seed) {
+    const { getFeaturedFootballProgramProfile } = await import('./featured-program-profile.server');
     const legacy = await getFeaturedFootballProgramProfile(slug);
     if (!legacy) return null;
     return {
@@ -139,9 +130,8 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     };
   }
 
-  const result = await searchFootballPrograms({ query: seed.schoolName, limit: 100 });
   const exactEnrollment = UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[seed.schoolName];
-  const program: FootballProgramDirectoryResult = exactProgramMatch(seed, result.programs) ?? {
+  const program: FootballProgramDirectoryResult = {
     ...seed,
     profilePath: footballProgramProfilePath(seed.schoolName),
     ...(exactEnrollment ? {
@@ -150,20 +140,18 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     } : {}),
   };
   const canonicalSlug = footballProgramSlug(seed.schoolName);
-  const displayName = program.officialSchoolName || seed.schoolName;
+  const displayName = seed.schoolName;
 
   return {
     slug: canonicalSlug,
     displayName,
     program,
     identity: getVerifiedFootballSchoolIdentity(canonicalSlug) ?? null,
-    enrollmentLink: getOfficialFootballEnrollmentLink(program.districtName) ?? null,
+    enrollmentLink: null,
     districtPeers: districtPeers(seed),
     districtPath: footballDistrictProfilePath(seed.classification, seed.division, seed.district),
     venueLinks: getVerifiedFootballVenueLinks({
       schoolName: program.schoolName,
-      officialSchoolName: program.officialSchoolName,
-      districtName: program.districtName,
     }),
     privateAlignment: null,
     privateAdmissions: null,
