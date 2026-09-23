@@ -392,7 +392,7 @@ const curated: Record<string, TopAttractionExpansion> = {
     directions:
       "The zoo is inside Hermann Park in Houston's Museum District. Parking is shared with a very busy park and museum area; METRORail serves the district, and arriving near opening can reduce both traffic and parking pressure.",
     accessibilityNotes:
-      "The zoo operates on paved public pathways with accessibility services available through guest support, but individual animal experiences can have separate participation requirements. Visitors with specific mobility, sensory or communication needs should review the zoo's current accessibility information before reserving add-ons.",
+      "Some areas of Houston Zoo have inclines, uneven terrain and boardwalk-style pathways. Manual wheelchairs and motorized scooters are available for rent, sensory bags are available through Guest Services, and additional accommodations are documented in the zoo's current accessibility guide. Review that guide or contact Guest Services before visiting if your group has specific mobility, sensory or communication needs.",
     areaGuide: {
       intro:
         "Houston Zoo is embedded in Hermann Park, so its best nearby choices are genuinely walkable: HMNS, gardens, the Medical Center and Museum District. Keep this part of the trip geographically tight and save Downtown or Space Center Houston for separate blocks.",
