@@ -6,13 +6,15 @@ export type ShowcaseLakeSlug = (typeof SHOWCASE_LAKE_SLUGS)[number];
 
 export const EXPANDED_SHOWCASE_LAKE_SLUGS = ["toledo-bend-reservoir", "possum-kingdom-reservoir", "canyon-lake", "choke-canyon-reservoir", "amistad-reservoir"] as const;
 export type ExpandedShowcaseLakeSlug = (typeof EXPANDED_SHOWCASE_LAKE_SLUGS)[number];
-export type PublishedShowcaseLakeSlug = ShowcaseLakeSlug | ExpandedShowcaseLakeSlug;
+export const WAVE2_SHOWCASE_LAKE_SLUGS = ["o-h-ivie-lake", "lake-travis", "lake-whitney", "lake-tawakoni", "falcon-international-reservoir"] as const;
+export type Wave2ShowcaseLakeSlug = (typeof WAVE2_SHOWCASE_LAKE_SLUGS)[number];
+export type PublishedShowcaseLakeSlug = ShowcaseLakeSlug | ExpandedShowcaseLakeSlug | Wave2ShowcaseLakeSlug;
 
 export const SHOWCASE_LAKE_SECTION_SLUGS = ["fish", "access", "boating", "regulations", "camping", "nearby", "reports", "guides"] as const;
 export type ShowcaseLakeSection = (typeof SHOWCASE_LAKE_SECTION_SLUGS)[number];
 
 export function isShowcaseLakeSlug(value: string): value is PublishedShowcaseLakeSlug {
-  return ([...SHOWCASE_LAKE_SLUGS, ...EXPANDED_SHOWCASE_LAKE_SLUGS] as readonly string[]).includes(value);
+  return ([...SHOWCASE_LAKE_SLUGS, ...EXPANDED_SHOWCASE_LAKE_SLUGS, ...WAVE2_SHOWCASE_LAKE_SLUGS] as readonly string[]).includes(value);
 }
 
 export function isShowcaseLakeSection(value: string): value is ShowcaseLakeSection {
