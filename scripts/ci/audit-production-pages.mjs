@@ -7,7 +7,7 @@ const TIMEOUT_MS = Number(process.env.AUDIT_TIMEOUT_MS || 30000);
 const OUT_JSON = process.env.AUDIT_JSON || '/tmp/texasdefined-page-audit.json';
 const OUT_TSV = process.env.AUDIT_TSV || '/tmp/texasdefined-page-audit.tsv';
 
-const PLACEHOLDER_RE = /Story unavailable|This story is no longer available|page not found|404[^0-9].*not found|County unavailable|This county guide is being expanded|We are adding verified details before expanding this page into a full guide|There is nothing in this section yet|We are still gathering and checking the details for this guide|Photo coming soon|destination-specific photograph not yet available/i;
+const PLACEHOLDER_RE = /Story unavailable|This story is no longer available|page not found|404[^0-9].*not found|County unavailable|This county guide is being expanded|We are adding verified details before expanding this page into a full guide|There is nothing in this section yet|We are still gathering and checking the details for this guide|Photo coming soon|Photo unavailable|destination-specific photograph not yet available/i;
 const BAD_TITLE_RE = /^(Unavailable|Story unavailable|Page not found|404)(?:\s*\||$)/i;
 
 function normalizeSpace(value='') { return value.replace(/\s+/g, ' ').trim(); }
