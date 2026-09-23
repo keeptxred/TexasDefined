@@ -151,6 +151,7 @@ for (const marker of [
   'markImageFailed',
   'failedImages.has(hero.src)',
   'markImageFailed(item.image.src)',
+  'item.image.src === caddoLake',
   'Photo unavailable.',
 ]) requireMarker('camping guide imagery', marker);
 
