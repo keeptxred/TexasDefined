@@ -13,6 +13,7 @@ export interface CampingDiscoveryProfile {
   reservationPolicy: string;
   whyCampHere?: string;
   planningDetail?: string;
+  searchTerms?: string[];
   reservationUrl: string;
   siteLengthNote?: string;
   generatorRules?: string;
@@ -44,6 +45,7 @@ export const CAMPING_DISCOVERY_PROFILES: CampingDiscoveryProfile[] = [
     reservationPolicy: "Reservable walk-in tent sites; designated primitive hike-in camping.",
     whyCampHere: "A tent-first Hill Country option for campers who want walk-in or primitive access close to Enchanted Rock's trail system.",
     reservationUrl: TPWD_RESERVATIONS,
+    searchTerms: ["primitive camping", "tent camping", "Hill Country camping", "camping near Fredericksburg", "hiking camping"],
     verifiedAt: VERIFIED_AT,
     sources: [{ label: "TPWD campsites", url: "https://tpwd.texas.gov/state-parks/enchanted-rock/fees-facilities/campsites" }],
   },
@@ -59,6 +61,7 @@ export const CAMPING_DISCOVERY_PROFILES: CampingDiscoveryProfile[] = [
     whyCampHere: "One of the strongest mixed-format choices in Texas: developed tent and RV camping plus primitive hike-in access inside the canyon.",
     reservationUrl: TPWD_RESERVATIONS,
     siteLengthNote: "Some Mesquite, Sagebrush and Hackberry sites can hold RVs up to 60 feet; verify the individual site.",
+    searchTerms: ["RV camping", "Panhandle camping", "primitive camping", "50 amp camping", "camping near Amarillo", "family camping"],
     verifiedAt: VERIFIED_AT,
     sources: [{ label: "TPWD campsites", url: "https://tpwd.texas.gov/state-parks/palo-duro-canyon/fees-facilities/campsites" }],
   },
@@ -75,6 +78,7 @@ export const CAMPING_DISCOVERY_PROFILES: CampingDiscoveryProfile[] = [
     reservationUrl: TPWD_RESERVATIONS,
     generatorRules: "Generators may not run during specified quiet hours from 10 p.m. to 6 a.m.",
     siteLengthNote: "Site lengths vary; some water-only areas are limited to rigs 20 feet or less.",
+    searchTerms: ["full hookup public campground", "RV camping", "Frio River camping", "family camping", "Hill Country camping", "river camping"],
     verifiedAt: VERIFIED_AT,
     sources: [{ label: "TPWD campsites", url: "https://tpwd.texas.gov/state-parks/garner/fees-facilities/campsites" }],
   },
@@ -89,6 +93,7 @@ export const CAMPING_DISCOVERY_PROFILES: CampingDiscoveryProfile[] = [
     reservationPolicy: "Developed campsites are reservable through TPWD.",
     whyCampHere: "A practical Austin-area option that combines developed camping with swimming, fishing and hiking without requiring a long drive from the city.",
     reservationUrl: TPWD_RESERVATIONS,
+    searchTerms: ["RV camping near Austin", "campgrounds near Austin", "family camping", "swimming camping", "electric campsites"],
     verifiedAt: VERIFIED_AT,
     sources: [{ label: "TPWD campsites", url: "https://tpwd.texas.gov/state-parks/mckinney-falls/fees-facilities/campsites" }],
   },
@@ -103,6 +108,7 @@ export const CAMPING_DISCOVERY_PROFILES: CampingDiscoveryProfile[] = [
     reservationPolicy: "Developed campsites are reservable; verify the exact loop and site before booking.",
     whyCampHere: "A lake-focused East Texas choice with fishing access and a verified mix that includes full-hookup RV inventory.",
     reservationUrl: TPWD_RESERVATIONS,
+    searchTerms: ["lake camping", "East Texas camping", "full hookup public campground", "RV camping", "fishing camping", "Caddo Lake camping"],
     verifiedAt: VERIFIED_AT,
     sources: [{ label: "TPWD campsites", url: "https://tpwd.texas.gov/state-parks/caddo-lake/fees-facilities/campsites" }],
   },
@@ -117,6 +123,7 @@ export const CAMPING_DISCOVERY_PROFILES: CampingDiscoveryProfile[] = [
     reservationPolicy: "Developed electric sites are reservable; primitive beach sites are non-reservable and weather-dependent.",
     whyCampHere: "Choose it when Gulf access is the priority: developed electric camping behind the dunes or weather-dependent primitive beach camping.",
     reservationUrl: TPWD_RESERVATIONS,
+    searchTerms: ["Texas beach camping", "Gulf camping", "primitive beach camping", "RV beach camping", "Port Aransas camping"],
     verifiedAt: VERIFIED_AT,
     sources: [{ label: "TPWD campsites", url: "https://tpwd.texas.gov/state-parks/mustang-island/fees-facilities/campsites" }],
   },
@@ -131,6 +138,7 @@ export const CAMPING_DISCOVERY_PROFILES: CampingDiscoveryProfile[] = [
     reservationPolicy: "Developed sites are reservable; West Beach primitive sites are non-reservable and weather-dependent.",
     whyCampHere: "A more remote Gulf Coast option for campers who want beach access, fishing and a choice between developed and primitive coastal camping.",
     reservationUrl: TPWD_RESERVATIONS,
+    searchTerms: ["Texas beach camping", "primitive beach camping", "Gulf Coast camping", "RV camping", "fishing camping"],
     verifiedAt: VERIFIED_AT,
     sources: [{ label: "TPWD campsites", url: "https://tpwd.texas.gov/state-parks/sea-rim/fees-facilities/campsites" }],
   },
@@ -145,6 +153,7 @@ export const CAMPING_DISCOVERY_PROFILES: CampingDiscoveryProfile[] = [
     reservationPolicy: "Developed campsites are reservable; primitive walk-in sites are also available.",
     whyCampHere: "A strong Houston-area escape with developed and primitive options, trails and fishing in a wildlife-heavy wetland landscape.",
     reservationUrl: TPWD_RESERVATIONS,
+    searchTerms: ["campgrounds near Houston", "RV camping near Houston", "primitive camping", "family camping", "wildlife camping"],
     verifiedAt: VERIFIED_AT,
     sources: [{ label: "TPWD campsites", url: "https://tpwd.texas.gov/state-parks/brazos-bend/fees-facilities/campsites" }],
   },
@@ -159,6 +168,7 @@ export const CAMPING_DISCOVERY_PROFILES: CampingDiscoveryProfile[] = [
     reservationPolicy: "Reservations are required for Big Bend's NPS campgrounds; backcountry overnight use requires a permit. The separately operated Rio Grande Village RV Campground is the park's full-hookup option.",
     whyCampHere: "Best for campers who want a remote national-park trip with multiple developed campgrounds, backcountry options and a separately operated full-hookup RV choice.",
     reservationUrl: RECREATION_GOV,
+    searchTerms: ["Big Bend camping", "national park camping", "RV camping", "backcountry camping", "primitive camping", "dark sky camping"],
     verifiedAt: VERIFIED_AT,
     sources: [
       { label: "NPS camping", url: "https://www.nps.gov/bibe/planyourvisit/camping.htm" },
@@ -177,6 +187,7 @@ export const CAMPING_DISCOVERY_PROFILES: CampingDiscoveryProfile[] = [
     whyCampHere: "A trail-focused West Texas base for Guadalupe Peak and backcountry access, with developed campgrounds but no expectation of resort-style RV amenities.",
     reservationUrl: RECREATION_GOV,
     siteLengthNote: "Pine Springs prohibits RVs/trailers 55 feet or longer; Dog Canyon has four short RV sites.",
+    searchTerms: ["Guadalupe Mountains camping", "national park camping", "RV camping", "tent camping", "hiking camping", "West Texas camping"],
     verifiedAt: VERIFIED_AT,
     sources: [{ label: "NPS camping", url: "https://www.nps.gov/gumo/planyourvisit/camping.htm" }],
   },
