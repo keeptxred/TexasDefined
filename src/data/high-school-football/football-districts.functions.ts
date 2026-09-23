@@ -44,7 +44,14 @@ const loadFootballDistrictDirectory = createServerFn({ method: 'GET' })
       });
     }
 
-    const result = [...districts.values()];
+    const classRank: Record<string, number> = { '1A': 1, '2A': 2, '3A': 3, '4A': 4, '5A': 5, '6A': 6 };
+    const result = [...districts.values()].sort((left, right) => {
+      const classDiff = (classRank[right.classification] ?? 0) - (classRank[left.classification] ?? 0);
+      if (classDiff) return classDiff;
+      const divisionDiff = (left.division ?? 0) - (right.division ?? 0);
+      if (divisionDiff) return divisionDiff;
+      return left.district - right.district;
+    });
     if (result.length !== 192) throw new Error(`UIL football district directory expected 192 districts; found ${result.length}.`);
     return result;
   });
