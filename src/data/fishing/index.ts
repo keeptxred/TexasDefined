@@ -1,5 +1,6 @@
 import { fixtureFishingCatalog } from "./fixtures";
 import { expandedFishingLakes, expandedLakeSpeciesProfiles, expandedLakeTechniqueProfiles } from "./lake-expansion-fixtures";
+import { wave2FishingLakes, wave2LakeSpeciesProfiles, wave2LakeTechniqueProfiles } from "./lake-expansion-wave2-fixtures";
 import { createFixtureFishingRepositories } from "./repositories";
 import { texasFreshwaterFishSpecies } from "./species-catalog";
 import { assertValidFishingCatalog } from "./validation";
@@ -14,10 +15,10 @@ import { assertValidFishingCatalog } from "./validation";
  */
 const fishingCatalog = assertValidFishingCatalog({
   ...fixtureFishingCatalog,
-  lakes: [...fixtureFishingCatalog.lakes, ...expandedFishingLakes],
+  lakes: [...fixtureFishingCatalog.lakes, ...expandedFishingLakes, ...wave2FishingLakes],
   species: texasFreshwaterFishSpecies,
-  lakeSpecies: [...fixtureFishingCatalog.lakeSpecies, ...expandedLakeSpeciesProfiles],
-  lakeTechniques: [...fixtureFishingCatalog.lakeTechniques, ...expandedLakeTechniqueProfiles],
+  lakeSpecies: [...fixtureFishingCatalog.lakeSpecies, ...expandedLakeSpeciesProfiles, ...wave2LakeSpeciesProfiles],
+  lakeTechniques: [...fixtureFishingCatalog.lakeTechniques, ...expandedLakeTechniqueProfiles, ...wave2LakeTechniqueProfiles],
 });
 
 export const fishingPlatform = createFixtureFishingRepositories(fishingCatalog);

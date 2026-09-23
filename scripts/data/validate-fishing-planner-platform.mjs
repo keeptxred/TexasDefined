@@ -9,6 +9,7 @@ const requiredFiles = [
   "src/data/fishing/location.functions.ts",
   "src/data/fishing/fixtures.ts",
   "src/data/fishing/lake-expansion-fixtures.ts",
+  "src/data/fishing/lake-expansion-wave2-fixtures.ts",
   "src/routes/fishing.plan.tsx",
   "src/routes/fishing.compare.tsx",
   "src/components/fishing/FishingHub.tsx",
@@ -29,6 +30,7 @@ const locationFunctions = read("src/data/fishing/location.functions.ts");
 const resultsMap = read("src/components/fishing/FishingResultsMap.tsx");
 const fishingFixtures = read("src/data/fishing/fixtures.ts");
 const expandedLakeFixtures = read("src/data/fishing/lake-expansion-fixtures.ts");
+const wave2LakeFixtures = read("src/data/fishing/lake-expansion-wave2-fixtures.ts");
 const compare = read("src/routes/fishing.compare.tsx");
 const search = read("src/data/fishing/search.ts");
 const links = read("src/data/fishing/internal-links.ts");
@@ -77,10 +79,13 @@ requireText(resultsMap, "Map of matching Texas fishing lakes", "fishing map acce
 requireText(resultsMap, "simplified Texas outline", "fishing map orientation disclosure missing");
 const fixtureCoordinateCount = (fishingFixtures.match(/coordinates:\s*\{\s*lat:/g) ?? []).length;
 const expandedCoordinateCount = (expandedLakeFixtures.match(/coordinates:\s*\{\s*lat:/g) ?? []).length;
+const wave2CoordinateCount = (wave2LakeFixtures.match(/coordinates:\s*\{\s*lat:/g) ?? []).length;
 if (fixtureCoordinateCount < 5) throw new Error("Fishing Batch 9 validation failed: base showcase lakes must publish representative source-backed coordinates.");
 if (expandedCoordinateCount < 5) throw new Error("Fishing Batch 9 validation failed: expanded showcase lakes must publish representative source-backed coordinates.");
+if (wave2CoordinateCount < 5) throw new Error("Fishing Batch 15 validation failed: wave-2 showcase lakes must publish representative source-backed coordinates.");
 for (const token of ["National Weather Service HADS", "USGS-08039300", "TCEQMAIN-14007", "USGS-07331500"]) requireText(fishingFixtures, token, `base fishing coordinate provenance missing ${token}`);
 for (const token of ["USGS-08025350", "USGS-08088500", "USGS-08167700", "USGS-08206910", "TCEQMAIN-13211"]) requireText(expandedLakeFixtures, token, `expanded fishing coordinate provenance missing ${token}`);
+for (const token of ["USGS-08136600", "USGS-302329097542100", "USGS-08092500", "USGS-08017400", "USGS-263318099090800"]) requireText(wave2LakeFixtures, token, `wave-2 fishing coordinate provenance missing ${token}`);
 requireText(planner, "What would you like to fish for?", "planner multi-species prompt missing");
 requireText(planner, 'type="checkbox" name="species"', "planner multi-select species controls missing");
 requireText(planner, "Require every selected fish", "planner all-species match option missing");

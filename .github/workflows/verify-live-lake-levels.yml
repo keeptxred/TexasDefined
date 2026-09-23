@@ -34,7 +34,7 @@ jobs:
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${STATUS_SHA}" \
             --data "$payload" >/dev/null
 
-      - name: Verify current numeric data for all ten lakes
+      - name: Verify current numeric data for all fifteen lakes
         shell: bash
         run: |
           set -euo pipefail
@@ -89,6 +89,8 @@ jobs:
               'lake-conroe', 'lake-fork', 'sam-rayburn-reservoir', 'lake-livingston', 'lake-texoma',
               'toledo-bend-reservoir', 'possum-kingdom-reservoir', 'canyon-lake',
               'choke-canyon-reservoir', 'amistad-reservoir',
+              'o-h-ivie-lake', 'lake-travis', 'lake-whitney', 'lake-tawakoni',
+              'falcon-international-reservoir',
           ]
           with open(sys.argv[2], 'w', encoding='utf-8') as out:
               for source in ('recent', 'csv', 'html'):
@@ -138,7 +140,7 @@ jobs:
             publish_status failure texasdefined-waterdata-diagnostic "Current lake data failed one or more protected checks"
             exit 1
           fi
-          publish_status success texasdefined-waterdata-diagnostic "All ten page-data snapshots and server paths are current"
+          publish_status success texasdefined-waterdata-diagnostic "All fifteen page-data snapshots and server paths are current"
 
       - name: Verify every published lake exposes the live-level UI
         shell: bash
@@ -148,6 +150,8 @@ jobs:
             lake-conroe lake-fork sam-rayburn-reservoir lake-livingston lake-texoma
             toledo-bend-reservoir possum-kingdom-reservoir canyon-lake
             choke-canyon-reservoir amistad-reservoir
+            o-h-ivie-lake lake-travis lake-whitney lake-tawakoni
+            falcon-international-reservoir
           )
 
           publish_status() {
@@ -211,6 +215,60 @@ jobs:
           grep -Fq 'Live lake level:' "$body"
           grep -Fq 'Water Data for Texas' "$body"
 
+      - name: Verify wave-2 fishing production surfaces
+        shell: bash
+        run: |
+          set -euo pipefail
+          workdir="$(mktemp -d)"
+          trap 'rm -rf "$workdir"' EXIT
+
+          check_page() {
+            local path="$1"
+            shift
+            local safe body separator
+            safe="$(printf '%s' "$path" | tr '/?&=:%' '________')"
+            body="$workdir/$safe.html"
+            separator='?'
+            [[ "$path" == *'?'* ]] && separator='&'
+            curl --retry 3 --retry-connrefused --retry-delay 2 --max-time 45 -fsSL \
+              "https://texasdefined.com${path}${separator}verify-wave2=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" -o "$body"
+            test -s "$body"
+            for marker in "$@"; do
+              grep -Fq "$marker" "$body" || {
+                echo "Missing marker '$marker' on $path" >&2
+                exit 1
+              }
+            done
+          }
+
+          check_page '/fishing/lakes' '15 complete Texas fishing lake guides are published'
+          check_page '/fishing/lakes/o-h-ivie-lake' 'O.H. Ivie Lake' 'Live lake level:' 'Water Data for Texas'
+          check_page '/fishing/lakes/lake-travis' 'Lake Travis' 'Live lake level:' 'Water Data for Texas'
+          check_page '/fishing/lakes/lake-whitney' 'Lake Whitney' 'Live lake level:' 'Water Data for Texas'
+          check_page '/fishing/lakes/lake-tawakoni' 'Lake Tawakoni' 'Live lake level:' 'Water Data for Texas'
+          check_page '/fishing/lakes/falcon-international-reservoir' 'Falcon International Reservoir' 'Live lake level:' 'Water Data for Texas'
+          check_page '/fishing/lakes/lake-travis/fish' 'Lake Travis' 'Live lake level:' 'Water Data for Texas'
+          check_page '/fishing/plan?species=largemouth-bass&q=Austin&sort=best&view=list' 'Lake Travis'
+          check_page '/fishing/plan?species=largemouth-bass&species=catfish&q=Austin&sort=best&view=map' 'Lake Travis' 'Map of matching Texas fishing lakes'
+          check_page '/fishing/species/largemouth-bass' 'Lake Travis'
+
+          sitemap="$workdir/sitemap.xml"
+          curl --retry 3 --retry-connrefused --retry-delay 2 --max-time 45 -fsSL \
+            "https://texasdefined.com/sitemap.xml?verify-wave2=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" -o "$sitemap"
+          for path in \
+            '/fishing/lakes/o-h-ivie-lake' \
+            '/fishing/lakes/lake-travis' \
+            '/fishing/lakes/lake-travis/fish' \
+            '/fishing/lakes/lake-whitney' \
+            '/fishing/lakes/lake-tawakoni' \
+            '/fishing/lakes/falcon-international-reservoir'; do
+            grep -Fq "https://texasdefined.com${path}" "$sitemap" || {
+              echo "Missing wave-2 sitemap URL: $path" >&2
+              exit 1
+            }
+          done
+
+          echo 'Wave-2 fishing production routes, finder states, lake-to-species relationship and sitemap discovery passed.'
       - name: Publish live-lake verification success
         if: success()
         shell: bash
@@ -220,7 +278,7 @@ jobs:
             --header 'Accept: application/vnd.github+json' \
             --header 'X-GitHub-Api-Version: 2022-11-28' \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${STATUS_SHA}" \
-            --data '{"state":"success","context":"texasdefined-live-lakes","description":"All ten current snapshots and live UI surfaces passed"}' >/dev/null
+            --data '{"state":"success","context":"texasdefined-live-lakes","description":"All fifteen current snapshots and live UI surfaces passed"}' >/dev/null
 
       - name: Publish live-lake verification failure
         if: failure()
