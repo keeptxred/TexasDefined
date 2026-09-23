@@ -3,15 +3,15 @@ import { trackAffiliateClick } from "@/lib/affiliate-click";
 
 const COPY: Record<CityPassMarket, { heading: string; body: string }> = {
   Dallas: {
-    heading: "Planning several Dallas attractions?",
+    heading: "Visiting several Dallas attractions?",
     body: "Dallas CityPASS® can bundle admission to four attractions from the current Dallas lineup. If several participating stops are already on your itinerary, compare the pass with the individual tickets you would otherwise buy and check reservation rules before purchase.",
   },
   Houston: {
-    heading: "Seeing several Houston attractions?",
+    heading: "Visiting several Houston attractions?",
     body: "Houston CityPASS® can bundle admission to five attractions from the current Houston lineup. If several participating stops are already on your itinerary, compare the pass with buying each admission separately before you book.",
   },
   "San Antonio": {
-    heading: "Building a San Antonio attraction weekend?",
+    heading: "Visiting several San Antonio attractions?",
     body: "San Antonio CityPASS® can bundle admission to four attractions from the current San Antonio lineup. It can be useful when your trip already includes several participating stops, but compare the pass with individual admission prices before you buy.",
   },
 };
@@ -24,7 +24,7 @@ export function CityPassCalloutContent({ market, placement = "inline" }: { marke
 
   return (
     <aside className={`${isRail ? "border border-border bg-surface p-5" : "mt-12 border-y border-border bg-surface/55 py-8 sm:px-7 sm:py-10"}`} aria-label={`${market} CityPASS trip-planning option`}>
-      <p className="eyebrow text-primary">Multi-attraction trip planning</p>
+      <p className="eyebrow text-primary">CityPASS® option</p>
       <h2 className={`${isRail ? "mt-2 text-2xl" : "mt-3 text-3xl"} font-display leading-tight`}>{copy.heading}</h2>
       <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy.body}</p>
       <div className={`${isRail ? "mt-5 grid gap-3" : "mt-6 flex flex-wrap gap-x-6 gap-y-3"} text-sm font-semibold`}>
