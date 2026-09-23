@@ -10,7 +10,7 @@ import { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.func
 import { LAKE_CONROE_SLUG, lakeConroeCanonicalPath } from "@/data/fishing/lake-conroe-routing";
 import { isShowcaseLakeSlug, showcaseLakeCanonicalPath } from "@/data/fishing/showcase-lake-routing";
 import { canonicalFishingPath } from "@/data/fishing/slugs";
-import { getShowcaseLakesPageData } from "@/data/fishing/showcase-lakes-page-data.functions";
+import { getShowcaseLakePageData } from "@/data/fishing/showcase-lakes-page-data.functions";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -39,8 +39,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
       ]);
       return { kind: "generic" as const, lake, species, relationships, reports, guides, access, businesses };
     }
-    const allPageData = await getShowcaseLakesPageData();
-    const pageData = allPageData[params.slug];
+    const pageData = await getShowcaseLakePageData({ data: { slug: params.slug } });
     if (!pageData) throw notFound();
     const [reports, guides, businesses, placements] = await Promise.all([
       context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 })),
