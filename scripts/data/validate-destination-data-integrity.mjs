@@ -44,6 +44,7 @@ for (const stale of [
   'min-h-[64vh]',
   'belongs on our {categoryName.toLowerCase()} list',
   'eyebrow="Planning your visit"',
+  '<p className="eyebrow text-primary">The details</p>',
 ]) {
   if (destinationRoute.includes(stale)) errors.push(`Destination layout/copy regression detected: ${stale}.`);
 }
@@ -51,6 +52,7 @@ for (const required of [
   'function countyDisplayName(value: string)',
   'function countyRouteSlug(value?: string)',
   'eyebrow="Quick trip facts"',
+  '<p className="eyebrow text-primary">Visitor information</p>',
   'minHeight: "clamp(24rem, 52vw, 32rem)"',
 ]) {
   if (!destinationRoute.includes(required)) errors.push(`Destination compact-layout safeguard missing: ${required}.`);
