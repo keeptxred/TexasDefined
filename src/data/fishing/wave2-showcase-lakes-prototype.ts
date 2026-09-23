@@ -1,14 +1,5 @@
 import type { ShowcaseLakePrototype } from "./showcase-lakes-prototype";
-import type { ShowcaseLakeSlug } from "./showcase-lake-routing";
-
-export const WAVE2_SHOWCASE_LAKE_SLUGS = [
-  "o-h-ivie-lake",
-  "lake-travis",
-  "lake-whitney",
-  "lake-tawakoni",
-  "falcon-international-reservoir",
-] as const;
-export type Wave2ShowcaseLakeSlug = (typeof WAVE2_SHOWCASE_LAKE_SLUGS)[number];
+import type { ShowcaseLakeSlug, Wave2ShowcaseLakeSlug } from "./showcase-lake-routing";
 
 const VERIFIED_AT = "2026-09-23";
 const commonBusinessCategories = ["Fishing guides", "Marinas & fuel", "Bait & tackle", "Boat rentals & repair", "Campgrounds & lodging", "Restaurants"];
