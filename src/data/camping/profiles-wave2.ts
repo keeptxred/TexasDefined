@@ -162,6 +162,7 @@ export const CAMPING_DISCOVERY_PROFILES_WAVE2: CampingDiscoveryProfile[] = CAMPI
   amenities: profile.amenities,
   reservationPolicy: profile.reservationPolicy,
   whyCampHere: profile.campingNotes?.[0],
+  planningDetail: profile.campingNotes?.[1],
   reservationUrl: profile.reservationUrl,
   siteLengthNote: profile.siteLengthNote,
   generatorRules: profile.generatorRules,

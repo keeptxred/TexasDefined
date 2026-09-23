@@ -28,9 +28,8 @@ export function DestinationVisitPlanner({ destination }: Props) {
   const showRentalCarOption = drivingIntentPattern.test(drivingIntentText);
 
   const groups = [
-    { title: "Things to do", items: activities },
-    { title: "What you’ll find", items: facilities },
-    { title: "Don’t miss", items: otherHighlights },
+    { title: "Highlights", items: unique([...activities, ...otherHighlights]) },
+    { title: "Visitor facilities", items: facilities },
   ].filter((group) => group.items.length > 0);
 
   return (
