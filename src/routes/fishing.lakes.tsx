@@ -9,7 +9,7 @@ const FishingLakesDirectory = lazy(() => import("@/components/fishing/FishingLak
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const canonicalPath = "/fishing/lakes";
 const canonicalUrl = `${siteUrl}${canonicalPath}`;
-const description = "Compare ten complete TexasDefined fishing-lake guides across Texas by region, size, counties, nearby cities and verified fishery strengths, then open each lake for fish, access, boating, rules, reports and guide planning.";
+const description = "Compare fifteen complete TexasDefined fishing-lake guides across Texas by region, size, counties, nearby cities and verified fishery strengths, then open each lake for fish, access, boating, rules, reports and guide planning.";
 
 export const Route = createFileRoute("/fishing/lakes")({
   loader: async ({ context }) => {
@@ -56,7 +56,7 @@ export const Route = createFileRoute("/fishing/lakes")({
         ] },
       ],
     };
-    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Lakes — Compare 10 Complete Lake Guides", description, canonicalPath }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
+    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Lakes — Compare 15 Complete Lake Guides", description, canonicalPath }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
   },
   component: FishingLakesPage,
 });
