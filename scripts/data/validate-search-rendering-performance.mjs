@@ -136,6 +136,17 @@ if (!attractionsComparison.includes('loader: () => getDestinationCatalog()')) {
   errors.push('Attractions comparison must use the server-only destination catalog loader.');
 }
 for (const feature of [
+  'export type DestinationComparisonRecord = Pick<',
+  'Promise<DestinationComparisonRecord[]>',
+  'highlights: destination.highlights.slice(0, 8)',
+  'Do not ship',
+]) {
+  if (!destinationCollectionsServer.includes(feature)) errors.push(`Attractions comparison compact hydration guard missing: ${feature}`);
+}
+for (const forbidden of ['hero: destination.hero', 'body: destination.body', 'coordinates: destination.coordinates', 'areaGuide: destination.areaGuide', 'authorityGuide: destination.authorityGuide']) {
+  if (destinationCollectionsServer.includes(forbidden)) errors.push(`Attractions comparison must not serialize detail-only field: ${forbidden}`);
+}
+for (const feature of [
   "const pageSize = kind === 'attractions' ? 100 : sorted.length;",
   'const visibleDestinations = sorted.slice(0, visibleCount);',
   'Show 100 more',
