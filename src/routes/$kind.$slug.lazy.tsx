@@ -165,18 +165,18 @@ function pageDescription(entity: TexasEntityRecord) {
 
 function statusHeading(entity: TexasEntityRecord) {
   if (entity.kind === 'county') return `About ${countyDisplayName(entity.name)}`;
-  if (entity.kind === 'appraisal-district') return 'Office details are being verified';
-  if (entity.kind === 'tax-office') return 'Service details are being verified';
-  if (localGovernmentKinds.has(entity.kind)) return 'Public-service details are being verified';
+  if (entity.kind === 'appraisal-district') return 'Verified appraisal-district information';
+  if (entity.kind === 'tax-office') return 'Verified tax-office information';
+  if (localGovernmentKinds.has(entity.kind)) return 'Verified public-service information';
   return 'What we can verify';
 }
 
 function statusMessage(entity: TexasEntityRecord) {
   if (entity.kind === 'county') return `Use this ${countyDisplayName(entity.name)} reference for the verified county facts, communities, official resources and local links currently available on Texas Defined. Additional local history and destination coverage appears only after it has been checked against reliable sources.`;
-  if (entity.kind === 'appraisal-district') return `This guide for ${entity.name} is still being completed. We are checking the district's official contact and property-appraisal resources before adding them.`;
-  if (entity.kind === 'tax-office') return `This guide for ${entity.name} is still being completed. We are checking official taxpayer, registration and local service information before adding it.`;
-  if (localGovernmentKinds.has(entity.kind)) return `This public-service guide is intentionally limited while Texas Defined checks the official local information. Details that have not been confirmed are left out.`;
-  return `Texas Defined is still building this guide from checked sources. We would rather show a clearly incomplete guide than pad the page with generic information.`;
+  if (entity.kind === 'appraisal-district') return `Use this ${entity.name} reference for the official contact and property-appraisal resources Texas Defined has verified. Details that cannot yet be confirmed are omitted.`;
+  if (entity.kind === 'tax-office') return `Use this ${entity.name} reference for taxpayer, registration and local-service information verified against official sources. Unconfirmed details are omitted.`;
+  if (localGovernmentKinds.has(entity.kind)) return `This public-service reference includes information verified against authoritative local sources. Details that have not been confirmed are intentionally left out.`;
+  return `This reference includes the details Texas Defined can currently verify from reliable sources. Unverified details are intentionally omitted rather than replaced with generic information.`;
 }
 
 function countyDisplayName(value: string) {
