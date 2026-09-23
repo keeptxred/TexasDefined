@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 
 import type { CampingDiscoveryProfile } from "@/data/camping/discovery";
+import { hasCampingDestinationGuide } from "@/data/camping/destination-guides";
 import type { CampingAmenity, CampingStyle } from "@/data/camping/types";
 import { hideFailedImageContainer } from "@/lib/image-fallback";
 
@@ -98,28 +99,6 @@ const campingCardImages: Record<string, { src: string; alt: string; width: numbe
   "lake-whitney-state-park": { src: "/images/state-parks/lake-whitney-state-park.jpg", alt: "Lake Whitney State Park in Texas", width: 1600, height: 900 },
   "lake-tawakoni-state-park": { src: "/images/state-parks/lake-tawakoni-state-park.jpg", alt: "Lake Tawakoni State Park in Texas", width: 1600, height: 1100 },
 };
-
-const destinationGuideSlugs = new Set([
-  "enchanted-rock-state-natural-area",
-  "palo-duro-canyon-state-park",
-  "garner-state-park",
-  "mckinney-falls-state-park",
-  "caddo-lake",
-  "mustang-island-state-park",
-  "sea-rim-state-park",
-  "brazos-bend-state-park",
-  "big-bend-national-park",
-  "guadalupe-mountains-national-park",
-  "inks-lake-state-park",
-  "colorado-bend-state-park",
-  "caprock-canyons-state-park",
-  "dinosaur-valley-state-park",
-  "pedernales-falls-state-park",
-  "lake-whitney-state-park",
-  "lake-tawakoni-state-park",
-  "matagorda-bay-nature-park",
-]);
-
 
 function profileAnchor(profile: CampingDiscoveryProfile) {
   return profile.profileSlug || profile.destinationSlug;
@@ -285,7 +264,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
         const countySlug = profile.county.toLowerCase().replace(/[^a-z0-9]+/g, "-");
         const anchor = profileAnchor(profile);
         const isParentDestination = anchor === profile.destinationSlug;
-        const hasDestinationGuide = destinationGuideSlugs.has(profile.destinationSlug);
+        const hasDestinationGuide = hasCampingDestinationGuide(profile.destinationSlug);
         const image = campingCardImages[profile.destinationSlug];
         return <article id={anchor} key={anchor} className="scroll-mt-28 overflow-hidden border border-border bg-background">
           {image && isParentDestination ? <figure className="border-b border-border bg-muted/30">
