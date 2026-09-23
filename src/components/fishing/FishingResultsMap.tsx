@@ -54,7 +54,7 @@ export function FishingResultsMap({ rows }: { rows: FishingMapResult[] }) {
   }
 
   return <div className="mt-7 grid gap-8 lg:grid-cols-3">
-    <div className="overflow-hidden border border-border bg-surface p-2 sm:p-5 lg:col-span-2">
+    <div className="overflow-hidden border border-border bg-surface p-2 sm:p-5" style={{ gridColumn: "span 2 / span 2" }}>
       <svg viewBox={`0 0 ${mapWidth} ${mapHeight}`} role="img" aria-labelledby="fishing-map-title fishing-map-desc" className="h-auto w-full">
         <title id="fishing-map-title">Map of matching Texas fishing lakes</title>
         <desc id="fishing-map-desc">A simplified Texas outline with matching fishing lakes positioned from published latitude and longitude records. Select a lake pin to inspect the result.</desc>
