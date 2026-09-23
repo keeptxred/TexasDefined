@@ -57,17 +57,20 @@ lake-colorado-city-state-park|Lake Colorado City State Park|Colorado City|Mitche
 export const legacyLakeDestinations: Destination[] = records.map((record) => {
   const [slug, name, town, county, regionName, lat, lng, summary, officialUrl, activities] = record.split("|");
   const highlights = activities.split(",").map((item) => item.trim()).filter(Boolean).map((item) => item.replace(/\b\w/g, (c) => c.toUpperCase()));
+  const isTpwdStatePark = officialUrl.startsWith("https://tpwd.texas.gov/state-parks/");
   return {
     id: `legacy-${slug}`,
     brandId: BRAND,
     slug,
     name,
     summary,
-    category: officialUrl.startsWith("https://tpwd.texas.gov/state-parks/") ? "state-parks" : "lakes-rivers",
+    category: isTpwdStatePark ? "state-parks" : "lakes-rivers",
     region: regionMap[regionName] ?? "prairies-lakes",
     nearestTown: town,
     coordinates: { lat: Number(lat), lng: Number(lng) },
-    hero: { ...fallbackHero, alt: `${name} in Texas` },
+    hero: isTpwdStatePark
+      ? { src: "/images/texasdefined-destination-placeholder.svg", alt: `${name} in Texas`, width: 1600, height: 1067 }
+      : { ...fallbackHero, alt: `${name} in Texas` },
     bestSeason: "Check current conditions before visiting",
     entryNote: "Confirm current hours, fees, reservations, and water conditions with the official source.",
     highlights,
