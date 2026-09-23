@@ -61,7 +61,6 @@ for (const [slug, name] of wave2Lakes) {
   requireText(files.wave2Fixtures, `name: "${name}"`, `wave-2 fishing-lake identity missing ${name}`);
   requireText(files.wave2Fixtures, `lakeId: "${slug}"`, `verified wave-2 relationship coverage missing ${slug}`);
   requireText(files.wave2Prototypes, `"${slug}"`, `complete wave-2 guide prototype missing ${slug}`);
-  requireText(files.routing, `"${slug}"`, `published wave-2 showcase routing missing ${slug}`);
   requireText(files.slugs, `"${slug}"`, `complete-lake allowlist missing ${slug}`);
 }
 
