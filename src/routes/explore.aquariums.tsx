@@ -2,17 +2,14 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { aquariumMarineCollectionDestinations } from "@/data/aquarium-marine-collection";
-import { destinationsQuery } from "@/data/queries";
+import { getDestinationCollection } from "@/data/destination-collections.functions";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/aquariums";
 const description = "Browse source-checked Texas aquarium, marine-life, coastal-science and aquatic zoo destination guides with current official visitor sources.";
 
 export const Route = createFileRoute(canonicalPath)({
-  loader: async ({ context }) => aquariumMarineCollectionDestinations(
-    await context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
-  ),
+  loader: async () => getDestinationCollection({ data: { collection: "aquariums" } }),
   head: ({ loaderData }) => {
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     const destinations = loaderData ?? [];
