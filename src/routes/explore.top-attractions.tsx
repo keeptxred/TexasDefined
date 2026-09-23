@@ -4,7 +4,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
-import { destinationsQuery } from "@/data/queries";
+import { getDestinationsBySlugs } from "@/data/destination-collections.functions";
 import { TOP_TEXAS_ATTRACTIONS } from "@/data/top-texas-attractions";
 import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
@@ -87,9 +87,9 @@ function rankDestinations(destinations: Destination[], resolveAuthority: (destin
 }
 
 export const Route = createFileRoute("/explore/top-attractions")({
-  loader: async ({ context }) => {
+  loader: async () => {
     const [destinations, { resolveTopAttractionAuthority }] = await Promise.all([
-      context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
+      getDestinationsBySlugs({ data: { slugs: TOP_TEXAS_ATTRACTIONS.map((entry) => entry.slug) } }),
       import("@/data/top-attraction-authority-resolver"),
     ]);
     return rankDestinations(destinations, resolveTopAttractionAuthority);

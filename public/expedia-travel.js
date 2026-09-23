@@ -20,6 +20,7 @@
   let stayDataPromise;
   let paintedChurchesStayDataPromise;
   let syncVersion = 0;
+  let syncScheduled = false;
   let lastImpressionKey = "";
 
   function hasTravelArticleSection(value) {
@@ -595,7 +596,12 @@
   }
 
   function scheduleSync() {
-    window.requestAnimationFrame(() => void syncSurface());
+    if (syncScheduled) return;
+    syncScheduled = true;
+    window.requestAnimationFrame(() => {
+      syncScheduled = false;
+      void syncSurface();
+    });
   }
 
   async function mountStayNearby(context, target) {

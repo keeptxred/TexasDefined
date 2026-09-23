@@ -53,8 +53,7 @@ for (const feature of [
 if (!categoryRoute.includes('!(lat === 0 && lng === 0)')) errors.push('Explore category schema must suppress 0,0 coordinates.');
 
 for (const feature of [
-  'destinationsQuery({ limit: 5000 })',
-  'catalog.filter((destination) => destination.region === region.id)',
+  'destinationsQuery({ region: region.id, limit: 5000 })',
   'function destinationSchema(destination: Destination)',
   'sameAs: destination.officialUrl',
   'dateModified: destination.sourceCheckedAt',
@@ -64,6 +63,8 @@ for (const feature of [
 ]) {
   if (!regionRoute.includes(feature)) errors.push(`Explore regional enrichment feature missing: ${feature}`);
 }
+
+if (regionRoute.includes('destinationsQuery({ limit: 5000 })')) errors.push('Regional Explore pages must not hydrate the statewide destination catalog before filtering.');
 
 if (regionRoute.includes('fixtureDestinations')) errors.push('Regional Explore pages must not bypass the shared remote fallback query layer.');
 if (regionRoute.includes('fetchExploreDestinations')) errors.push('Regional Explore pages must use destinationsQuery so core remote fallback remains available.');
