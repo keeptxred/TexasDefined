@@ -6,6 +6,7 @@ export type ShowcaseLakeSlug = (typeof SHOWCASE_LAKE_SLUGS)[number];
 
 export const EXPANDED_SHOWCASE_LAKE_SLUGS = ["toledo-bend-reservoir", "possum-kingdom-reservoir", "canyon-lake", "choke-canyon-reservoir", "amistad-reservoir"] as const;
 export type ExpandedShowcaseLakeSlug = (typeof EXPANDED_SHOWCASE_LAKE_SLUGS)[number];
+export const WAVE2_SHOWCASE_LAKE_VERIFIED_AT = "2026-09-23" as const;
 export const WAVE2_SHOWCASE_LAKE_SLUGS = ["o-h-ivie-lake", "lake-travis", "lake-whitney", "lake-tawakoni", "falcon-international-reservoir"] as const;
 export type Wave2ShowcaseLakeSlug = (typeof WAVE2_SHOWCASE_LAKE_SLUGS)[number];
 export type PublishedShowcaseLakeSlug = ShowcaseLakeSlug | ExpandedShowcaseLakeSlug | Wave2ShowcaseLakeSlug;
