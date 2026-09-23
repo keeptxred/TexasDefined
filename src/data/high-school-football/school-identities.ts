@@ -12,6 +12,56 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'copperas-cove',
+    mascot: 'Bulldawgs',
+    sourceUrl: 'https://cchs.ccisd.com/',
+    sourceLabel: 'Copperas Cove High School',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'killeen-chaparral',
+    mascot: 'Bobcats',
+    sourceUrl: 'https://www.killeenisd.org/o/chaparralhs',
+    sourceLabel: 'Chaparral High School',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'conroe',
+    mascot: 'Tiger',
+    sourceUrl: 'https://www.conroeisd.net/page/conroe-feeder-zone',
+    sourceLabel: 'Conroe ISD Conroe feeder zone',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'conroe-caney-creek',
+    mascot: 'Panthers',
+    colors: 'Red and Black',
+    sourceUrl: 'https://cchs.conroeisd.net/page/about',
+    sourceLabel: 'Caney Creek High School',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'conroe-grand-oaks',
+    mascot: 'Grizzly',
+    sourceUrl: 'https://gohs.conroeisd.net/o/gohs/page/athletics',
+    sourceLabel: 'Grand Oaks High School Athletics',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'conroe-oak-ridge',
+    mascot: 'War Eagles',
+    sourceUrl: 'https://orhs.conroeisd.net/o/orhs/news',
+    sourceLabel: 'Oak Ridge High School',
+    verifiedAt: '2026-09-20',
+  },
+  {
+    slug: 'conroe-the-woodlands',
+    mascot: 'Highlanders',
+    sourceUrl: 'https://ashp.conroeisd.net/o/twhs/live-feed?page_no=2',
+    sourceLabel: 'The Woodlands High School',
+    verifiedAt: '2026-09-20',
+  },
+  {
     slug: 'longview',
     mascot: 'Lobos',
     sourceUrl: 'https://w3.lisd.org/sites/default/files/2024-08/LISD%20Student%20Handbook%20ENGLISH.pdf',
