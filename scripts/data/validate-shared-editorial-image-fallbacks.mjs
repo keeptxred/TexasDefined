@@ -26,6 +26,11 @@ const files = new Map([
   ['collection cards', 'src/components/commerce/CollectionStrip.tsx'],
   ['shop the story', 'src/components/commerce/ShopTheStory.tsx'],
   ['product detail', 'src/components/commerce/ProductDetailPage.tsx'],
+  ['painted church gallery', 'src/components/editorial/PaintedChurchGallery.tsx'],
+  ['painted church comparison', 'src/components/editorial/PaintedChurchThenAndNow.tsx'],
+  ['parking map', 'src/components/parking/ParkingMapPanel.tsx'],
+  ['sports quick-answer hero', 'src/components/sports/SportsVenueQuickAnswers.tsx'],
+  ['camping guide imagery', 'src/routes/best-places-to-go-camping-in-texas.lazy.tsx'],
 ]);
 
 const source = new Map();
@@ -113,6 +118,20 @@ for (const label of ['product cards', 'shop the story']) {
 }
 
 requireMarker('collection cards', 'Collection image unavailable');
+
+for (const label of ['painted church gallery', 'parking map', 'sports quick-answer hero']) {
+  requireMarker(label, 'hideFailedImageContainer');
+  requireMarker(label, 'onError=');
+}
+
+for (const label of ['painted church comparison', 'camping guide imagery']) {
+  requireMarker(label, 'recoverOrHideImage');
+  requireMarker(label, 'onError=');
+}
+
+requireMarker('painted church gallery', 'data-runtime-image-figure');
+requireMarker('parking map', 'data-parking-map-figure');
+requireMarker('sports quick-answer hero', 'data-venue-quick-hero');
 
 for (const label of ['article cards', 'feature heroes', 'category heroes', 'destination heroes']) {
   requireMarker(label, 'Photo unavailable');
