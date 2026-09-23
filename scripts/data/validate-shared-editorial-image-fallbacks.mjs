@@ -17,6 +17,15 @@ const files = new Map([
   ['county feature image', 'src/components/content/CountyGuideSections.tsx'],
   ['sports venue photo', 'src/components/sports/SportsVenueGuidePage.tsx'],
   ['map preview', 'src/components/editorial/MapPreview.tsx'],
+  ['news index cards', 'src/routes/news.index.lazy.tsx'],
+  ['live news hero', 'src/routes/news.$slug.lazy.tsx'],
+  ['article hero', 'src/routes/article.$slug.tsx'],
+  ['homepage destination feature', 'src/routes/index.lazy.tsx'],
+  ['regional guide hero', 'src/routes/explore.region.$region.tsx'],
+  ['product cards', 'src/components/commerce/ProductCard.tsx'],
+  ['collection cards', 'src/components/commerce/CollectionStrip.tsx'],
+  ['shop the story', 'src/components/commerce/ShopTheStory.tsx'],
+  ['product detail', 'src/components/commerce/ProductDetailPage.tsx'],
 ]);
 
 const source = new Map();
@@ -68,6 +77,38 @@ for (const marker of [
   'onError={() => setFailedImage(image)}',
   'Find it on the map',
 ]) requireMarker('map preview', marker);
+
+for (const label of ['news index cards', 'article hero', 'homepage destination feature', 'regional guide hero', 'product cards', 'collection cards', 'shop the story']) {
+  requireMarker(label, 'onError=');
+}
+
+for (const label of ['news index cards', 'article hero', 'homepage destination feature', 'regional guide hero', 'product cards', 'collection cards', 'shop the story']) {
+  requireMarker(label, 'recoverOrHideImage');
+}
+
+for (const marker of [
+  'failedHero',
+  'setFailedHero',
+  'failedHero === article.hero.src',
+  'failedHero !== article.hero.src',
+]) requireMarker('live news hero', marker);
+
+for (const marker of [
+  'failedImage',
+  'setFailedImage',
+  'const showImage = failedImage !== image',
+  'Product image unavailable.',
+]) requireMarker('product detail', marker);
+
+for (const label of ['news index cards', 'homepage destination feature']) {
+  requireMarker(label, 'Photo unavailable');
+}
+
+for (const label of ['product cards', 'shop the story']) {
+  requireMarker(label, 'Product image unavailable');
+}
+
+requireMarker('collection cards', 'Collection image unavailable');
 
 for (const label of ['article cards', 'feature heroes', 'category heroes', 'destination heroes']) {
   requireMarker(label, 'Photo unavailable');
