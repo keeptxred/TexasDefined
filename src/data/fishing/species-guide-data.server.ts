@@ -104,13 +104,16 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
 
   const [allLakes, lakeSpecies, lakeTechniques, techniques] = await Promise.all([
     fishingPlatform.lakes.list({ ...fishingScope, status: "published", limit: 5000 }),
-    fishingPlatform.lakeSpecies.list({ ...fishingScope, speciesId: species.id }),
+    fishingPlatform.lakeSpecies.list(fishingScope),
     fishingPlatform.lakeTechniques.list(fishingScope),
     fishingPlatform.techniques.list({ ...fishingScope, status: "published", limit: 5000 }),
   ]);
 
+  const allSpecies = await fishingPlatform.species.list({ ...fishingScope, status: "published", limit: 5000 });
+
   const lakeById = new Map(allLakes.map((lake) => [lake.id, lake]));
-  const lakes = lakeSpecies
+  const speciesRelations = lakeSpecies.filter((relation) => relation.speciesId === species.id);
+  const lakes = speciesRelations
     .filter((relation) => lakeById.has(relation.lakeId))
     .filter((relation) => Boolean(relation.verifiedAt) && relation.sources.length > 0)
     .map((relation) => ({
@@ -144,6 +147,22 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
     .flatMap((row) => row.relation.seasonalPatterns.map((pattern) => ({ ...pattern, lake: row.lake, href: row.href })))
     .sort((left, right) => (seasonOrder.get(left.season) ?? 99) - (seasonOrder.get(right.season) ?? 99) || left.lake.name.localeCompare(right.lake.name));
 
+  const regions = [...new Set(lakes.map((row) => row.lake.region))].sort();
+  const habitats = [...new Set(seasonalPatterns.flatMap((pattern) => pattern.habitats ?? []))].sort();
+  const methods = [...new Set(seasonalPatterns.flatMap((pattern) => pattern.methods ?? []))].sort();
+  const lakeIds = new Set(lakes.map((row) => row.lake.id));
+  const verifiedRelations = lakeSpecies.filter((relation) => Boolean(relation.verifiedAt) && relation.sources.length > 0);
+  const relatedSpecies = allSpecies
+    .filter((candidate) => candidate.id !== species.id)
+    .map((candidate) => {
+      const candidateLakeIds = new Set(verifiedRelations.filter((relation) => relation.speciesId === candidate.id).map((relation) => relation.lakeId));
+      const sharedLakeCount = [...lakeIds].filter((lakeId) => candidateLakeIds.has(lakeId)).length;
+      return { species: candidate, sharedLakeCount, href: fishingFoundationAnchor("species", candidate.slug) };
+    })
+    .filter((row) => row.sharedLakeCount > 0)
+    .sort((a, b) => b.sharedLakeCount - a.sharedLakeCount || a.species.commonName.localeCompare(b.species.commonName))
+    .slice(0, 8);
+
   const sources = uniqueByUrl([
     ...species.sources,
     ...lakes.flatMap((row) => row.relation.sources),
@@ -158,6 +177,10 @@ async function buildSpeciesProfileEntry(slug: CompleteFishingSpeciesSlug) {
     seasonalPatterns,
     techniqueApplications,
     relatedTechniques,
+    regions,
+    habitats,
+    methods,
+    relatedSpecies,
     sources,
     verifiedAt: FISHING_SPECIES_VERIFIED_AT,
     policy: {

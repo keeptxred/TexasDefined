@@ -35,6 +35,26 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
         <Stat label="Source pages" value={data.sources.length} />
       </section>
 
+      <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-2" aria-labelledby="species-range-habitat">
+        <div>
+          <p className="eyebrow text-primary">Texas range & habitat</p>
+          <h2 id="species-range-habitat" className="mt-3 font-display text-4xl">Where the verified Texas records put {species.commonName.toLowerCase()}.</h2>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">This is a fishing-planning view of the published TexasDefined lake relationships, not a biological range map. It shows only regions and habitat signals supported by the verified lake records behind this page.</p>
+          {data.regions.length ? <div className="mt-6"><p className="eyebrow text-muted-foreground">Regions represented</p><div className="mt-3 flex flex-wrap gap-2">{data.regions.map((region) => <span key={region} className="border border-border px-3 py-1.5 text-xs">{formatRegion(region)}</span>)}</div></div> : null}
+        </div>
+        <div>
+          <p className="eyebrow text-muted-foreground">Habitat signals in the lake data</p>
+          {data.habitats.length ? <div className="mt-3 flex flex-wrap gap-2">{data.habitats.map((habitat) => <span key={habitat} className="border border-border px-3 py-1.5 text-xs">{habitat}</span>)}</div> : <p className="mt-3 text-sm leading-7 text-muted-foreground">No habitat labels are published in the verified lake relationships yet. TexasDefined leaves that gap visible instead of generalizing from unrelated waters.</p>}
+        </div>
+      </section>
+
+      <section className="border-b border-border py-12" aria-labelledby="species-seasonal">
+        <p className="eyebrow text-primary">Seasonal behavior in the lake records</p>
+        <h2 id="species-seasonal" className="mt-3 font-display text-4xl">How the verified patterns change through the year</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These are durable seasonal observations attached to specific lakes. They are not a live bite forecast.</p>
+        {data.seasonalPatterns.length ? <div className="mt-8 grid gap-x-8 lg:grid-cols-2">{data.seasonalPatterns.slice(0, 12).map((pattern, index) => <article key={`${pattern.lake.id}-${pattern.season}-${index}`} className="border-t border-border py-6"><div className="flex flex-wrap items-start justify-between gap-4"><h3 className="font-display text-2xl">{titleCase(pattern.season)}</h3><a href={pattern.href} className="text-xs text-primary hover:underline">{pattern.lake.name}</a></div><p className="mt-3 text-sm leading-7 text-muted-foreground">{pattern.summary}</p>{pattern.habitats?.length ? <p className="mt-3 text-xs leading-5 text-muted-foreground"><strong className="text-foreground">Habitat:</strong> {pattern.habitats.join(" · ")}</p> : null}{pattern.methods?.length ? <p className="mt-2 text-xs leading-5 text-muted-foreground"><strong className="text-foreground">Methods:</strong> {pattern.methods.join(" · ")}</p> : null}</article>)}</div> : <p className="mt-7 max-w-3xl text-sm leading-7 text-muted-foreground">No verified seasonal pattern is attached to this species yet.</p>}
+      </section>
+
       <section className="py-12" aria-labelledby="where-to-fish">
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Where to fish</p>
@@ -83,6 +103,27 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
         </div> : <p className="mt-7 max-w-3xl text-sm leading-7 text-muted-foreground">No verified lake-technique relationship currently targets this species record. TexasDefined leaves that gap visible rather than inventing a generic recommendation.</p>}
       </section>
 
+      <section className="border-b border-border py-12" aria-labelledby="species-methods">
+        <p className="eyebrow text-primary">Tackle & approach</p>
+        <h2 id="species-methods" className="mt-3 font-display text-4xl">Methods actually represented in the source-backed lake data</h2>
+        {data.methods.length ? <div className="mt-6 flex flex-wrap gap-2">{data.methods.map((method) => <span key={method} className="border border-border px-3 py-1.5 text-sm">{method}</span>)}</div> : <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">No method labels are published in the verified seasonal relationships yet. Use the technique applications above where available.</p>}
+        <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined does not turn these method labels into universal rod, line or lure prescriptions. Cover, water clarity, depth, weather and the individual lake should drive tackle choices.</p>
+      </section>
+
+      <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-2" aria-labelledby="species-regulations">
+        <div>
+          <p className="eyebrow text-primary">Regulations</p>
+          <h2 id="species-regulations" className="mt-3 font-display text-4xl">Check the current rule before you fish.</h2>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">Bag limits, length limits, legal methods and waterbody-specific exceptions can change. TexasDefined links to the current TPWD fishing rules instead of freezing a numeric limit into an evergreen species guide.</p>
+          <div className="mt-5 flex flex-wrap gap-5 text-sm"><a href="/fishing/regulations" className="border-b border-primary pb-1 font-semibold text-primary">Texas fishing regulations →</a><a href="/texas-fishing-license" className="border-b border-primary pb-1 font-semibold text-primary">Fishing licenses →</a></div>
+        </div>
+        <div>
+          <p className="eyebrow text-muted-foreground">Related fish to compare</p>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">These links are based on shared verified lake relationships, not a claim of biological similarity.</p>
+          {data.relatedSpecies.length ? <div className="mt-5 divide-y divide-border border-y border-border">{data.relatedSpecies.map((row) => <a key={row.species.id} href={row.href} className="flex items-center justify-between gap-4 py-3 text-sm hover:text-primary"><span className="font-semibold">{row.species.commonName}</span><span className="text-xs text-muted-foreground">{row.sharedLakeCount} shared lake{row.sharedLakeCount === 1 ? "" : "s"}</span></a>)}</div> : <p className="mt-5 text-sm text-muted-foreground">No other published species currently shares a verified lake relationship in this dataset.</p>}
+        </div>
+      </section>
+
       <section className="grid gap-8 py-12 lg:grid-cols-[15rem_1fr]">
         <div><p className="eyebrow text-primary">Plan the trip</p><h2 className="mt-2 font-display text-3xl">Use durable species guidance, then verify current conditions.</h2></div>
         <div className="max-w-3xl space-y-4 text-sm leading-7 text-muted-foreground">
@@ -110,3 +151,4 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
 
 function Stat({ label, value }: { label: string; value: number }) { return <div><p className="eyebrow text-muted-foreground">{label}</p><p className="mt-2 font-display text-4xl">{value}</p></div>; }
 function titleCase(value: string) { return value.replaceAll("-", " ").replace(/\b\w/g, (character) => character.toUpperCase()); }
+function formatRegion(value: string) { return value === "prairies-lakes" ? "Prairies & Lakes" : titleCase(value); }
