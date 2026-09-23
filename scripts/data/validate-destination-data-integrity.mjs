@@ -120,9 +120,9 @@ for (const feature of [
   'showRentalCarOption',
   'While you’re there',
   'Things to do and see',
-  '{ title: "Things to do", items: activities }',
-  '{ title: "What you’ll find", items: facilities }',
-  '{ title: "Don’t miss", items: otherHighlights }',
+  '{ title: "Highlights", items: unique([...activities, ...otherHighlights]) }',
+  '{ title: "Visitor facilities", items: facilities }',
+  '{ title: "Highlights", items: unique([...activities, ...otherHighlights]) }',
   'groups.map((group, index)',
   'group.items.map((item)',
 ]) {
