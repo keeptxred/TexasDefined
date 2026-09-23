@@ -11,7 +11,8 @@ import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPart
 import { articleInternalLinks } from "@/data/article-internal-links";
 import { shouldNoindexTexasGatewayArticle } from "@/data/fixtures/texas-gateway-index-readiness";
 import { imageRightsFor } from "@/data/image-rights";
-import { articleQuery, articlesQuery, authorsQuery, categoriesQuery, destinationsQuery } from "@/data/queries";
+import { articleQuery, articlesQuery, authorsQuery, categoriesQuery } from "@/data/queries";
+import { getArticleRelatedDestinations } from "@/data/article-related-destinations.functions";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import { remoteEvergreenAuthoritySources } from "@/data/remote-evergreen-authority-sources";
@@ -157,7 +158,7 @@ export const Route = createFileRoute("/article/$slug")({
       context.queryClient.ensureQueryData(authorsQuery()),
       context.queryClient.ensureQueryData(categoriesQuery()),
       context.queryClient.ensureQueryData(articlesQuery({ category: article.category, limit: 4 })),
-      context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
+      getArticleRelatedDestinations({ data: { slugs: article.relatedDestinations } }),
       loadTexasKnowledgeGraph(),
     ]);
     return { article, authors, categories, related, destinations, graph };
