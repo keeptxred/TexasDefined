@@ -36,42 +36,17 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
   return <>
     <Section tone="surface">
       <Container>
-        <SectionHeader
-          eyebrow="Plan your visit"
-          title={`Visiting ${destination.name}`}
-          description="Use the official visitor source for current hours, prices, reservations and closures. TexasDefined adds practical trip context, nearby ideas and a recorded review date so you can plan with current information."
-        />
-
-        <div className="mt-10 grid gap-8 lg:grid-cols-[1.2fr_.8fr]">
-          <section className="border-y border-border py-7" aria-labelledby={`${destination.slug}-verified-info`}>
-            <div className="flex flex-wrap items-end justify-between gap-4">
-              <div>
-                <p className="eyebrow text-primary">Visitor information</p>
-                <h2 id={`${destination.slug}-verified-info`} className="mt-2 font-display text-3xl">What to know before you go</h2>
-              </div>
-              <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Last reviewed {checkedDate(destination.sourceCheckedAt)}</p>
-            </div>
-            <dl className="mt-6 grid gap-x-8 sm:grid-cols-2">
-              <div className="border-t border-border py-4"><dt className="eyebrow text-muted-foreground">Time to allow</dt><dd className="mt-2 leading-6">{authority.assessment.recommendedVisit}</dd></div>
-              {destination.managingAuthority && <div className="border-t border-border py-4"><dt className="eyebrow text-muted-foreground">Operated by</dt><dd className="mt-2 leading-6">{destination.managingAuthority}{primarySource && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</dd></div>}
-              {destination.address && <div className="border-t border-border py-4"><dt className="eyebrow text-muted-foreground">Address</dt><dd className="mt-2 leading-6">{destination.address}{primarySource && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</dd></div>}
-              <div className="border-t border-border py-4"><dt className="eyebrow text-muted-foreground">Tickets & reservations</dt><dd className="mt-2 leading-6">{destination.entryNote}{primarySource && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</dd></div>
-              <div className="border-t border-border py-4 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Sources checked</dt><dd className="mt-2 leading-6">{authority.sources.length} current {authority.sources.length === 1 ? "source" : "sources"}, led by the official visitor source and supplemented where useful by public or institutional references.</dd></div>
-            </dl>
-          </section>
-
-          <section className="border-y border-border py-7" aria-labelledby={`${destination.slug}-editorial-assessment`}>
-            <p className="eyebrow text-primary">The visit</p>
-            <h2 id={`${destination.slug}-editorial-assessment`} className="mt-2 font-display text-3xl">What the experience is like</h2>
-            <dl className="mt-6 divide-y divide-border text-sm">
-              <div className="flex justify-between gap-5 py-3"><dt className="text-muted-foreground">Walking & exertion</dt><dd className="text-right font-medium">{authority.assessment.physicalEffort}</dd></div>
-              <div className="flex justify-between gap-5 py-3"><dt className="text-muted-foreground">Time outdoors</dt><dd className="text-right font-medium">{authority.assessment.weatherExposure}</dd></div>
-              <div className="flex justify-between gap-5 py-3"><dt className="text-muted-foreground">Plan ahead</dt><dd className="text-right font-medium">{authority.assessment.planningLevel}</dd></div>
-              <div className="py-3"><dt className="text-muted-foreground">Families</dt><dd className="mt-1 leading-6">{authority.assessment.familyFit}</dd></div>
-              <div className="py-3"><dt className="text-muted-foreground">First Texas trip</dt><dd className="mt-1 leading-6">{authority.assessment.firstTimeValue}</dd></div>
-            </dl>
-          </section>
-        </div>
+        <section className="max-w-4xl border-y border-border py-7" aria-labelledby={`${destination.slug}-editorial-assessment`}>
+          <p className="eyebrow text-primary">The visit</p>
+          <h2 id={`${destination.slug}-editorial-assessment`} className="mt-2 font-display text-3xl">What the experience is like</h2>
+          <dl className="mt-6 divide-y divide-border text-sm">
+            <div className="flex justify-between gap-5 py-3"><dt className="text-muted-foreground">Walking & exertion</dt><dd className="text-right font-medium">{authority.assessment.physicalEffort}</dd></div>
+            <div className="flex justify-between gap-5 py-3"><dt className="text-muted-foreground">Time outdoors</dt><dd className="text-right font-medium">{authority.assessment.weatherExposure}</dd></div>
+            <div className="flex justify-between gap-5 py-3"><dt className="text-muted-foreground">Plan ahead</dt><dd className="text-right font-medium">{authority.assessment.planningLevel}</dd></div>
+            <div className="py-3"><dt className="text-muted-foreground">Families</dt><dd className="mt-1 leading-6">{authority.assessment.familyFit}</dd></div>
+            <div className="py-3"><dt className="text-muted-foreground">First Texas trip</dt><dd className="mt-1 leading-6">{authority.assessment.firstTimeValue}</dd></div>
+          </dl>
+        </section>
       </Container>
     </Section>
 
