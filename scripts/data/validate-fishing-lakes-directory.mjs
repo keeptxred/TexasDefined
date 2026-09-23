@@ -29,7 +29,7 @@ for (const marker of [
   '"@type": "FAQPage"',
   '"@type": "BreadcrumbList"',
   'numberOfItems: rows.length',
-  'Texas Fishing Lakes — Compare 10 Complete Lake Guides',
+  'Texas Fishing Lakes — Compare 15 Complete Lake Guides',
   'lazy(() => import("@/components/fishing/FishingLakesDirectory")',
   'FishingLakesDirectory rows={rows} latestReview={latestReview}',
 ]) assert(route.includes(marker), `Fishing lakes route is missing loader/SEO/lazy-boundary marker: ${marker}.`);
@@ -57,12 +57,20 @@ for (const forbidden of [
 const expectedCompleteSlugs = [
   "lake-conroe", "lake-fork", "sam-rayburn-reservoir", "lake-livingston", "lake-texoma",
   "toledo-bend-reservoir", "possum-kingdom-reservoir", "canyon-lake", "choke-canyon-reservoir", "amistad-reservoir",
+  "o-h-ivie-lake", "lake-travis", "lake-whitney", "lake-tawakoni", "falcon-international-reservoir",
 ];
 for (const slug of expectedCompleteSlugs) assert(slugs.includes(`"${slug}"`), `Complete fishing lake allowlist is missing ${slug}.`);
-const completeListMatch = slugs.match(/COMPLETE_FISHING_LAKE_SLUGS\s*=\s*\[([^\]]+)\]/s);
-const completeSlugs = completeListMatch ? [...completeListMatch[1].matchAll(/"([a-z0-9-]+)"/g)].map((match) => match[1]) : [];
-assert(completeSlugs.length === 10, `Fishing lakes directory must expose exactly the ten lake guides that have cleared current validation; found ${completeSlugs.length}.`);
-assert(expectedCompleteSlugs.every((slug) => completeSlugs.includes(slug)), "Fishing lakes complete-guide registry does not match the validated ten-lake collection.");
+const parseSlugArray = (source, name) => {
+  const match = source.match(new RegExp(`${name}\\s*=\\s*\\[([^\\]]+)\\]`, "s"));
+  return match ? [...match[1].matchAll(/"([a-z0-9-]+)"/g)].map((entry) => entry[1]) : [];
+};
+const completeSlugs = [
+  ...parseSlugArray(slugs, "BASE_COMPLETE_FISHING_LAKE_SLUGS"),
+  ...parseSlugArray(slugs, "WAVE2_COMPLETE_FISHING_LAKE_SLUGS"),
+];
+assert(slugs.includes("...BASE_COMPLETE_FISHING_LAKE_SLUGS") && slugs.includes("...WAVE2_COMPLETE_FISHING_LAKE_SLUGS"), "Fishing lakes complete-guide registry must compose the base and authoritative wave-2 slug tuples.");
+assert(new Set(completeSlugs).size === 15, `Fishing lakes directory must expose exactly the fifteen lake guides that have cleared current validation; found ${new Set(completeSlugs).size}.`);
+assert(expectedCompleteSlugs.every((slug) => completeSlugs.includes(slug)), "Fishing lakes complete-guide registry does not match the validated fifteen-lake collection.");
 
 assert(hubRoute.includes('lazy(() => import("@/components/fishing/FishingHub")'), "Fishing hub lazy boundary is missing.");
 for (const marker of ['to="/fishing/lakes"', 'Browse fishing lakes →', 'Explore fishing lakes', 'A few places to start.']) assert(hubComponent.includes(marker), `Fishing hub is missing lakes-directory discovery marker: ${marker}.`);
@@ -75,4 +83,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log("Fishing lakes directory validated: the ten completed lake guides remain query-backed, lazily rendered, sitemap/search-owned and answer-first, while the fishing hub can separately discover verified basic lake profiles.");
+console.log("Fishing lakes directory validated: the fifteen completed lake guides remain query-backed, lazily rendered, sitemap/search-owned and answer-first, while the fishing hub can separately discover verified basic lake profiles.");
