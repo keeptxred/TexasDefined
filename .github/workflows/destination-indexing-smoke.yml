@@ -12,6 +12,7 @@ on:
       - 'src/routes/sitemap-explore*'
       - 'src/components/editorial/DestinationRelationships.tsx'
       - 'src/components/editorial/DestinationAuthorityGuide.tsx'
+      - 'src/components/editorial/DestinationVisitPlanner.tsx'
       - 'src/components/editorial/TopAttractionCollectionLinks.tsx'
       - 'src/components/explore/TopAttractionsMethodologyContent.tsx'
       - 'src/components/explore/TopAttractionRoadTripsContent.tsx'
@@ -81,10 +82,33 @@ jobs:
               echo "Houston Zoo hydration control returned $hydration_bytes HTML bytes; expected no more than 2,000,000. The public hydration payload may have regressed." >&2
               exit 1
             fi
-            grep -Fq "Arrive early" "$target" || {
-              echo "Houston Zoo itinerary control is missing the expected first step." >&2
-              exit 1
-            }
+            for marker in \
+              "Houston Zoo is in Houston, Texas" \
+              "Tickets &amp; reservations" \
+              "Good for first-time visitors" \
+              ">Highlights</h3>" \
+              "Approx. 1 mile away" \
+              ">Arrive early</li>"; do
+              grep -Fq "$marker" "$target" || {
+                echo "Houston Zoo destination-template control is missing current marker: $marker" >&2
+                exit 1
+              }
+            done
+            for stale_marker in \
+              "Nearest town" \
+              "Near Houston, Texas" \
+              "First Texas trip" \
+              "Approx. 1 miles away" \
+              ">Things to do</h3>" \
+              ">Don’t miss</h3>" \
+              ">1 Arrive early</li>" \
+              "Do I need to plan ahead?</dt>" \
+              "When is the best time to go?</dt>"; do
+              if grep -Fq "$stale_marker" "$target"; then
+                echo "Houston Zoo destination-template control still contains stale marker: $stale_marker" >&2
+                exit 1
+              fi
+            done
             for step_number in 1 2 3; do
               if grep -Eq ">$step_number</span><span>$step_number([.]|[[:space:]])" "$target"; then
                 echo "Houston Zoo itinerary control rendered duplicated step numbering for step $step_number." >&2
@@ -145,14 +169,34 @@ jobs:
                 exit 1
               fi
               if [ "$path" = "/destination/houston-zoo" ]; then
-                grep -Fq ">Arrive early</li>" "$dom" || {
-                  echo "Houston Zoo browser DOM is missing the semantic itinerary step." >&2
-                  exit 1
-                }
-                if grep -Fq ">1</span><span>Arrive early</span>" "$dom"; then
-                  echo "Houston Zoo browser DOM still contains the former manually duplicated itinerary number." >&2
-                  exit 1
-                fi
+                for marker in \
+                  "Houston Zoo is in Houston, Texas" \
+                  "Tickets &amp; reservations" \
+                  "Good for first-time visitors" \
+                  ">Highlights</h3>" \
+                  "Approx. 1 mile away" \
+                  ">Arrive early</li>"; do
+                  grep -Fq "$marker" "$dom" || {
+                    echo "Houston Zoo browser DOM is missing current destination-template marker: $marker" >&2
+                    exit 1
+                  }
+                done
+                for stale_marker in \
+                  "Nearest town" \
+                  "Near Houston, Texas" \
+                  "First Texas trip" \
+                  "Approx. 1 miles away" \
+                  ">Things to do</h3>" \
+                  ">Don’t miss</h3>" \
+                  ">1 Arrive early</li>" \
+                  ">1</span><span>Arrive early</span>" \
+                  "Do I need to plan ahead?</dt>" \
+                  "When is the best time to go?</dt>"; do
+                  if grep -Fq "$stale_marker" "$dom"; then
+                    echo "Houston Zoo browser DOM still contains stale destination-template marker: $stale_marker" >&2
+                    exit 1
+                  fi
+                done
               fi
             done
           done
@@ -247,7 +291,7 @@ jobs:
           done
 
           curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$authority_control" -o /tmp/authority-control.html
-          for marker in "The visit" "What the experience is like" "Walking &amp; exertion" "Time outdoors" "Plan ahead" "Families" "First Texas trip" "Texas context" "Three ways to visit" "Key dates" "Common visitor questions" "Sources &amp; updates" "Sources used for this guide" "Primary visitor source" "Supporting source" "Update history"; do
+          for marker in "The visit" "What the experience is like" "Walking &amp; exertion" "Time outdoors" "Plan ahead" "Families" "Good for first-time visitors" "Texas context" "Three ways to visit" "Key dates" "Common visitor questions" "Sources &amp; updates" "Sources used for this guide" "Primary visitor source" "Supporting source" "Update history"; do
             grep -Fq "$marker" /tmp/authority-control.html || {
               echo "Top 25 authority control is missing required rendered marker: $marker" >&2
               exit 1
