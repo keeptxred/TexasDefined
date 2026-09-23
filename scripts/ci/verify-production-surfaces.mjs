@@ -1,6 +1,7 @@
 import { appendFileSync } from 'node:fs';
 
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
+const directWorkerOrigin = process.env.DIRECT_WORKER_ORIGIN ?? 'https://texasdefined-site.freddy-coppola.workers.dev';
 const sha = process.env.GITHUB_SHA ?? 'local';
 const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
@@ -134,12 +135,103 @@ async function verifyRevisionBoundSurface(label, path, needle) {
   }
 }
 
+
+const destinationTemplateControl = {
+  path: '/destination/houston-zoo',
+  required: [
+    'Houston Zoo is in Houston, Texas',
+    'Tickets &amp; reservations',
+    'Highlights',
+    'Good for first-time visitors',
+    'Approx. 1 mile away',
+    '>Arrive early</li>',
+  ],
+  forbidden: [
+    'Nearest town',
+    'Near Houston, Texas',
+    'First Texas trip',
+    'Approx. 1 miles away',
+    '>Things to do</h3>',
+    '>Don’t miss</h3>',
+    '>1 Arrive early</li>',
+    'Do I need to plan ahead?</dt>',
+    'When is the best time to go?</dt>',
+  ],
+};
+
+async function verifyDestinationTemplateControl(baseOrigin, label) {
+  let lastStatus = 'network-error';
+  let lastBody = '';
+  let lastError = '';
+  let lastChallenge = false;
+  let attempts = 0;
+  let missing = [];
+  let stale = [];
+
+  for (let attempt = 1; attempt <= 6; attempt += 1) {
+    attempts = attempt;
+    const url = new URL(destinationTemplateControl.path, baseOrigin);
+    url.searchParams.set('verify_destination_template', `${sha}-${runId}-${attempt}`);
+    console.log(`[${label}] attempt ${attempt}: ${url}`);
+
+    try {
+      const response = await fetch(url, {
+        redirect: 'follow',
+        cache: 'no-store',
+        signal: AbortSignal.timeout(30_000),
+        headers: {
+          'cache-control': 'no-cache, no-store, max-age=0',
+          pragma: 'no-cache',
+          'user-agent': 'TexasDefined-CI-Destination-Template/1.0',
+        },
+      });
+      lastStatus = String(response.status);
+      lastChallenge = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+      lastBody = await response.text();
+      lastError = '';
+      missing = destinationTemplateControl.required.filter((needle) => !lastBody.includes(needle));
+      stale = destinationTemplateControl.forbidden.filter((needle) => lastBody.includes(needle));
+
+      if (!lastChallenge && response.ok && missing.length === 0 && stale.length === 0) {
+        console.log(`[${label}] Houston Zoo destination-template contract is current.`);
+        appendSummary(`| ✅ pass | ${label} | ${lastStatus} | ${attempts} | no |\n`);
+        return;
+      }
+
+      if (lastChallenge) console.log(`[${label}] Cloudflare challenge; waiting for propagation.`);
+      else if (!response.ok) console.log(`[${label}] HTTP ${response.status}; waiting for propagation.`);
+      else console.log(`[${label}] template mismatch; missing=${missing.join(' | ') || '<none>'}; stale=${stale.join(' | ') || '<none>'}.`);
+    } catch (error) {
+      lastError = error instanceof Error ? error.message : String(error);
+      lastStatus = 'network-error';
+      lastChallenge = false;
+      console.log(`[${label}] request failed: ${lastError}`);
+    }
+
+    if (attempt < 6) await sleep(5_000);
+  }
+
+  appendSummary(`| ❌ FAIL | ${label} | ${lastStatus} | ${attempts} | ${lastChallenge ? 'yes' : 'no'} |\n`);
+  const reason = lastError
+    || (lastChallenge ? 'Cloudflare returned cf-mitigated: challenge' : '')
+    || (lastStatus !== '200' ? `HTTP ${lastStatus}` : '')
+    || (missing.length > 0 ? `required text missing: ${missing.join(' | ')}` : '')
+    || (stale.length > 0 ? `stale destination-template text present: ${stale.join(' | ')}` : '')
+    || 'unknown destination-template mismatch';
+  console.error(`::error title=LIVE PRODUCTION failure::${label} failed after ${attempts} attempts — ${reason}`);
+  if (lastBody) console.error(`[${label}] response sample: ${lastBody.slice(0, 2000).replace(/\s+/g, ' ')}`);
+  process.exit(1);
+}
+
 appendSummary('## Production surface verification\n\n');
 appendSummary('| Result | Surface | HTTP | Attempts | Cloudflare challenge |\n|---|---|---:|---:|---|\n');
 
 for (const [label, path, needle] of surfaces) {
   await verifyRevisionBoundSurface(label, path, needle);
 }
+
+await verifyDestinationTemplateControl(directWorkerOrigin, 'destination-template-direct-worker');
+await verifyDestinationTemplateControl(origin, 'destination-template-canonical');
 
 let canonicalHomepagePassed = false;
 let canonicalHomepageStatus = 'network-error';
@@ -205,7 +297,7 @@ if (!canonicalHomepagePassed) {
   process.exit(1);
 }
 
-appendSummary(`\nAll ${surfaces.length} revision-bound production surfaces plus the canonical homepage passed without a Cloudflare challenge.\n`);
-console.log(`TexasDefined production verification passed (${surfaces.length} revision-bound surfaces plus canonical homepage, no cf-mitigated challenges).`);
+appendSummary(`\nAll ${surfaces.length} revision-bound production surfaces, both Houston Zoo destination-template controls, and the canonical homepage passed without a Cloudflare challenge.\n`);
+console.log(`TexasDefined production verification passed (${surfaces.length} revision-bound surfaces, direct/canonical Houston Zoo template parity, plus canonical homepage; no cf-mitigated challenges).`);
 
 await import('./verify-viator-production.mjs');
