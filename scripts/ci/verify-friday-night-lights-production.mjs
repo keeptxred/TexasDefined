@@ -442,7 +442,6 @@ await fetchVerified(abbottProfilePath, 'Abbott football school profile', (body) 
     'Venue details not yet available',
     'Every UIL school profile has the same game-venue field.',
     'Official district enrollment',
-    'Official district enrollment link not yet available',
     'UIL eligibility standards',
   ]) requireNeedle(body, needle, 'Abbott football school profile');
   if (/\bnoindex\b/i.test(body)) throw new Error('Abbott football school profile unexpectedly contains noindex');
