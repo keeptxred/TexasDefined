@@ -2,14 +2,14 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { ExploreDestinationComparison } from '@/components/explore/ExploreDestinationComparison';
 import { Container } from '@/components/layout/Container';
-import { destinationsQuery } from '@/data/queries';
+import { getDestinationCatalog } from '@/data/destination-collections.functions';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/explore/attractions-comparison';
 const description = 'Compare the maintained Texas Defined destination catalog by category, region, nearby town, season guidance, highlights, planning notes and official source.';
 
 export const Route = createFileRoute('/explore/attractions-comparison')({
-  loader: ({ context }) => context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
+  loader: () => getDestinationCatalog(),
   head: ({ loaderData }) => {
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     const destinations = loaderData ?? [];
