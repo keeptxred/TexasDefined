@@ -185,8 +185,7 @@ for (const category of nonExploreCategories) {
 }
 
 for (const feature of [
-  'destinationsQuery({ limit: 5000 })',
-  'catalog.filter((destination) => destination.region === region.id)',
+  'destinationsQuery({ region: region.id, limit: 5000 })',
   'RegionalDestinationGrid',
   '"@type": "CollectionPage"',
   '"@type": "ItemList"',
