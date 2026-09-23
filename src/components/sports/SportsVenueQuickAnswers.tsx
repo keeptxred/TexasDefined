@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { SportsTrafficTracker } from '@/components/sports/SportsTrafficTracker';
 import { isGeneratedSportsVenueImage, sportsVenueImageCaption } from '@/data/sports-venue-image-attribution';
 import { getSportsVenuePhoto } from '@/data/sports-venue-images-all';
@@ -49,6 +49,7 @@ export function SportsVenueQuickAnswers({
   const heroAlt = photo?.alt ?? venueName;
   const heroWidth = photo?.width ?? 1600;
   const heroHeight = photo?.height ?? 900;
+  const [failedHero, setFailedHero] = useState<string | null>(null);
   const freshnessNote = verifiedAt
     ? `Source review: core venue facts were last reviewed ${verifiedAt}. Event-day policies can change, so use the official links farther down the guide for current rules.`
     : `Event-day policies can change, so use the official links farther down the guide for current rules.`;
@@ -79,7 +80,7 @@ export function SportsVenueQuickAnswers({
 
   return <>
     {surfacePath ? <SportsTrafficTracker surfacePath={surfacePath} /> : null}
-    {heroSrc ? <figure className="border-b border-border py-8 sm:py-10">
+    {heroSrc && failedHero !== heroSrc ? <figure className="border-b border-border py-8 sm:py-10">
       {imageJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(imageJsonLd) }} /> : null}
       <div className="overflow-hidden border border-border bg-muted/30">
         <img
@@ -91,6 +92,7 @@ export function SportsVenueQuickAnswers({
           decoding="async"
           fetchPriority="high"
           className="aspect-[16/9] w-full object-cover"
+          onError={() => setFailedHero(heroSrc)}
         />
       </div>
       {photo && isGeneratedHero ? <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
