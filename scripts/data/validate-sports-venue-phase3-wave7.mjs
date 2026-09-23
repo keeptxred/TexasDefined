@@ -104,7 +104,7 @@ for (const [slug, name] of venues) {
       requireText(photoBlock, marker, `${name} dedicated photo rights metadata`);
     }
   } else {
-    requireText(guidePage, 'A verified venue photograph is not available yet.', `${name} intentional image fallback`);
+    requireText(guidePage, 'A venue photograph is not available yet.', `${name} intentional image fallback`);
     requireText(guidePage, 'image: photo?.imageUrl', `${name} fail-closed image structured data`);
   }
 
@@ -195,7 +195,7 @@ for (const marker of [
   'return "StadiumOrArena"',
   'TexasEventCarousel',
   'data-stay-nearby-slot',
-  'A verified venue photograph is not available yet.',
+  'A venue photograph is not available yet.',
 ]) requireText(guidePage, marker, 'shared specialty-aware venue guide architecture');
 if (guidePage.includes('"@type": "StadiumOrArena"')) failures.push('Shared venue JSON-LD must not hardcode every migrated venue as StadiumOrArena.');
 

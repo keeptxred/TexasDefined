@@ -4,7 +4,7 @@ const origin = new URL(process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.co
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 const contractOnly = process.argv.includes('--contract-only');
 const expectedVenueCount = 84;
-const fallbackText = 'A verified venue photograph is not available yet.';
+const fallbackText = 'A venue photograph is not available yet.';
 const registryPaths = [
   'src/data/sports-venue-images-curated-overrides.ts',
   'src/data/sports-venue-images.ts',

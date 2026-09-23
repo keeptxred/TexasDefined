@@ -142,7 +142,7 @@ export function SportsVenueGuidePage({
             eyebrow="Upcoming events"
             title={`What’s happening at ${entity.name}`}
             viewAllHref={eventCalendarHref}
-            emptyMessage={`No source-verified upcoming events are currently listed for ${entity.name}. Use the statewide calendar to explore other Texas events.`}
+            emptyMessage={`No upcoming events with current source details are currently listed for ${entity.name}. Use the statewide calendar to explore other Texas events.`}
           />
 
           {enrichment ? (
@@ -203,11 +203,11 @@ function VenuePhoto({ photo, venueName }: { photo?: SportsVenuePhoto; venueName:
   if (!photo || failedUrl === photo.imageUrl) {
     return (
       <div
-        className="flex min-h-[32rem] items-center justify-center bg-muted px-8 text-center text-sm text-muted-foreground"
+        className="flex items-center justify-center border border-border bg-muted px-8 py-12 text-center text-sm text-muted-foreground"
         role="img"
         aria-label={`${venueName} image unavailable`}
       >
-        A verified venue photograph is not available yet.
+        A venue photograph is not available yet.
       </div>
     );
   }
