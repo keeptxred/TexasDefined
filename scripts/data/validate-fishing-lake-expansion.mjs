@@ -150,10 +150,17 @@ for (const token of [
   "return { ...pageData, liveLakeLevel }",
 ]) requireText(files.conroePageFunctions, token, `Lake Conroe page-data bundle missing ${token}`);
 for (const token of [
+  "PAGE_LIVE_LEVEL_BUDGET_MS = 1_500",
+  "loadPageLiveLakeLevel",
+  "Promise.race",
   "loadLiveLakeLevelResilient",
-  "Object.entries(pageData)",
+  "getShowcaseLakePageData",
+  ".inputValidator((data: { slug: string }) => data)",
+  "loadShowcaseLakesPageDataServer()[data.slug]",
   "lake.sources.liveLevel.url",
   "liveLakeLevel:",
+  "getShowcaseLakesPageData",
+  "Object.entries(pageData)",
   "return Object.fromEntries(entries)",
 ]) requireText(files.showcasePageFunctions, token, `showcase lake page-data bundle missing ${token}`);
 for (const token of [
@@ -180,9 +187,10 @@ for (const token of [
 for (const token of ["EXPANDED_SHOWCASE_LAKE_SLUGS", "WAVE2_SHOWCASE_LAKE_SLUGS", "isShowcaseLakeSlug", "PublishedShowcaseLakeSlug"]) requireText(files.routing, token, `expanded routing contract missing ${token}`);
 for (const route of [files.overviewRoute, files.sectionRoute]) {
   requireText(route, "isShowcaseLakeSlug", "generic dynamic route must enforce published showcase gate");
-  requireText(route, "getShowcaseLakesPageData()", "generic dynamic route must hydrate shared server data");
-  requireText(route, "pageData.liveLakeLevel", "lake route must consume bundled request-time live lake snapshot");
+  requireText(route, "getShowcaseLakePageData({ data: { slug: params.slug } })", "generic dynamic route must hydrate only the requested lake through the shared server boundary");
+  requireText(route, "pageData.liveLakeLevel", "lake route must consume the bounded request-time live lake snapshot");
   requireText(route, "LiveLakeLevelStrip", "lake route must render the live level strip");
+  if (route.includes("getShowcaseLakesPageData()")) throw new Error("Fishing Batch 15 validation failed: a single lake route must not fan out across every showcase lake live-level source.");
   if (route.includes("getLiveLakeLevel({ data:")) throw new Error("Fishing Batch 15 validation failed: lake routes must not make a second standalone live-level server-function request.");
   if (route.includes("@/data/fishing/live-lake-level.server")) throw new Error("Fishing Batch 15 validation failed: lake routes must not import .server live-level code directly into the client route boundary.");
 }
@@ -210,4 +218,4 @@ for (const phrase of ["guaranteed catch", "today's best lake", "sponsored rankin
 
 requireText(pkg.scripts["fishing:validate"], "validate-fishing-lake-expansion.mjs", "Batch 15 validator not wired into fishing:validate");
 
-console.log("Fishing Batch 15 lake-expansion validation passed: fifteen complete lake guides, fifteen Water Data for Texas live-level sources, recent-conditions-first resilient fetching with shared cache and CSV/HTML fallbacks, live snapshots bundled into established page-data server functions, page-open client refresh through the safe server function, graceful live UI fallback, verified species/technique depth, reusable dynamic routes, live-condition separation, fifteen-lake directory discovery and sitemap publication are protected.");
+console.log("Fishing Batch 15 lake-expansion validation passed: fifteen complete lake guides, fifteen Water Data for Texas live-level sources, recent-conditions-first resilient fetching with shared cache and CSV/HTML fallbacks, single-lake SSR snapshots bounded to 1.5 seconds while protected all-lake verification retains the full resilient fetcher, page-open client refresh through the safe server function, graceful live UI fallback, verified species/technique depth, reusable dynamic routes, live-condition separation, fifteen-lake directory discovery and sitemap publication are protected.");
