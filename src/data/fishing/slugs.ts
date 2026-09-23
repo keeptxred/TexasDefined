@@ -20,6 +20,11 @@ export const COMPLETE_FISHING_LAKE_SLUGS = [
   "canyon-lake",
   "choke-canyon-reservoir",
   "amistad-reservoir",
+  "o-h-ivie-lake",
+  "lake-travis",
+  "lake-whitney",
+  "lake-tawakoni",
+  "falcon-international-reservoir",
 ] as const;
 export type CompleteFishingLakeSlug = (typeof COMPLETE_FISHING_LAKE_SLUGS)[number];
 
