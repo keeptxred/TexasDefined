@@ -34,6 +34,13 @@ const smokeTargets = [
     requiredText: 'More filters',
     label: 'fishing finder verified filters',
   },
+  { path: '/fishing/lakes/o-h-ivie-lake', requiredText: 'O.H. Ivie Lake', label: 'O.H. Ivie complete fishing guide' },
+  { path: '/fishing/lakes/lake-travis', requiredText: 'Lake Travis', label: 'Lake Travis complete fishing guide' },
+  { path: '/fishing/lakes/lake-whitney', requiredText: 'Lake Whitney', label: 'Lake Whitney complete fishing guide' },
+  { path: '/fishing/lakes/lake-tawakoni', requiredText: 'Lake Tawakoni', label: 'Lake Tawakoni complete fishing guide' },
+  { path: '/fishing/lakes/falcon-international-reservoir', requiredText: 'Falcon International Reservoir', label: 'Falcon complete fishing guide' },
+  { path: '/fishing/lakes/lake-travis/fish', requiredText: 'Lake Travis', label: 'Lake Travis shared fish section' },
+  { path: '/fishing/plan?species=largemouth-bass&q=Austin&sort=best', requiredText: 'Lake Travis', label: 'wave-2 Austin largemouth finder' },
 ];
 
 mkdirSync(artifactDir, { recursive: true });
