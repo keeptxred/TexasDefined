@@ -24,10 +24,10 @@ async function check() {
       && !/<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(html)
       && html.includes(`${name} Appraisal District &amp; Property Tax`)
       && /"@type"\s*:\s*"Article"/.test(html)
-      && html.includes('Sources, methodology and verification')
+      && html.includes('Sources &amp; methodology')
       && html.includes('August 30, 2026')
       && hosts.every((host) => html.includes(host))
-      && !html.includes('Local office verification pending');
+      && !html.includes('Local office verification pending') && !html.includes('Sources, methodology and verification');
     console.log(`${passes ? 'PASS' : 'WAIT'} ${url} status=${response.status} sources=${hosts.join(',')}`);
     ok = ok && passes;
   }
