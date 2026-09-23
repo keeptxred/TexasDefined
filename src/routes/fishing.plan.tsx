@@ -1,7 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
+import { FishingResultsMap } from "@/components/fishing/FishingResultsMap";
+import { resolveFishingLocation } from "@/data/fishing/location.functions";
 import { getFishingPlannerData } from "@/data/fishing/planner-data.functions";
 import { FISHING_LAKE_COMPARE_PATH, FISHING_TRIP_PLANNER_PATH } from "@/data/fishing/planner-routing";
 import type { FishSpecies, FishingLake } from "@/data/fishing/types";
@@ -9,7 +12,22 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const description = "Find a Texas fishing lake by place and target species. Select multiple fish, compare verified fishery fit, and open the lake guide or profile that matches your trip.";
-type PlannerSearch = { q?: string; species?: string[]; match?: "all" };
+type PlannerSearch = {
+  q?: string;
+  species?: string[];
+  match?: "all";
+  lat?: number;
+  lng?: number;
+  origin?: string;
+  sort?: "best" | "closest";
+  view?: "list" | "map";
+  radius?: "50" | "100" | "200" | "400";
+  shore?: "1";
+  boat?: "1";
+  camp?: "1";
+  guide?: "1";
+  report?: "1";
+};
 
 const GROUP_MEMBER_SLUGS: Readonly<Record<string, readonly string[]>> = {
   catfish: ["catfish", "blue-catfish", "channel-catfish", "flathead-catfish"],
@@ -22,8 +40,28 @@ export const Route = createFileRoute("/fishing/plan")({
     q: cleanText(search.q) ?? cleanText(search.region),
     species: cleanSlugs(search.species),
     match: search.match === "all" ? "all" : undefined,
+    lat: cleanCoordinate(search.lat, -90, 90),
+    lng: cleanCoordinate(search.lng, -180, 180),
+    origin: cleanText(search.origin),
+    sort: search.sort === "closest" ? "closest" : search.sort === "best" ? "best" : undefined,
+    view: search.view === "map" ? "map" : search.view === "list" ? "list" : undefined,
+    radius: ["50", "100", "200", "400"].includes(String(search.radius)) ? String(search.radius) as PlannerSearch["radius"] : undefined,
+    shore: search.shore === "1" ? "1" : undefined,
+    boat: search.boat === "1" ? "1" : undefined,
+    camp: search.camp === "1" ? "1" : undefined,
+    guide: search.guide === "1" ? "1" : undefined,
+    report: search.report === "1" ? "1" : undefined,
   }),
-  loader: () => getFishingPlannerData(),
+  loaderDeps: ({ search }) => ({ q: search.q ?? "", lat: search.lat, lng: search.lng, origin: search.origin }),
+  loader: async ({ deps }) => {
+    const data = await getFishingPlannerData();
+    const resolvedOrigin = typeof deps.lat === "number" && typeof deps.lng === "number"
+      ? { label: deps.origin ?? "My approximate location", lat: deps.lat, lng: deps.lng, source: "browser" as const }
+      : deps.q
+        ? await resolveFishingLocation(deps.q)
+        : null;
+    return { ...data, resolvedOrigin };
+  },
   head: ({ loaderData }) => {
     const rows = loaderData?.rows ?? [];
     const jsonLd = {
