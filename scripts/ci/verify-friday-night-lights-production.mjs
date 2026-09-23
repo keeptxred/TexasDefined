@@ -412,7 +412,7 @@ await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {
     'Official UIL alphabetical enrollment listing',
     'Official UIL 2026–28 enrollment cutoffs',
     'All current UIL football programs use the same profile system.',
-    'Verified football venue relationships',
+    'Football game venues',
     'Legacy Stadium',
     '/sports-venue/legacy-stadium-katy',
     'serves multiple Katy ISD schools',
@@ -440,9 +440,10 @@ await fetchVerified(abbottProfilePath, 'Abbott football school profile', (body) 
     'Official UIL alphabetical enrollment listing',
     'Official UIL 2026–28 enrollment cutoffs',
     'All current UIL football programs use the same profile system.',
-    'Venue verification pending',
+    'Venue details not yet available',
     'Every UIL school profile has the same game-venue field.',
     'Official district enrollment',
+    'Official district enrollment link not yet available',
     'UIL eligibility standards',
   ]) requireNeedle(body, needle, 'Abbott football school profile');
   if (/\bnoindex\b/i.test(body)) throw new Error('Abbott football school profile unexpectedly contains noindex');
@@ -464,7 +465,7 @@ await fetchVerified(kellerProfilePath, 'Keller football school profile', (body) 
 await fetchVerified(friscoProfilePath, 'Frisco football school profile', (body) => {
   for (const needle of [
     'Frisco',
-    'Verified football venue relationships',
+    'Football game venues',
     'Ford Center at The Star',
     '/sports-venue/ford-center-at-the-star',
     'Frisco ISD football programs use it for district games',

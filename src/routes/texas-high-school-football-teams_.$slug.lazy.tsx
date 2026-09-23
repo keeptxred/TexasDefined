@@ -119,7 +119,7 @@ function Page() {
             <a href={privateAlignment.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">{privateAlignment.sourceLabel} ↗</a>
           </div> : <>
             <div className="border-y border-border py-5">
-              <p className="font-display text-2xl">{governingBodyHint ? [governingBodyHint, associationClassification].filter(Boolean).join(' ') : 'Association placement not yet verified'}</p>
+              <p className="font-display text-2xl">{governingBodyHint ? [governingBodyHint, associationClassification].filter(Boolean).join(' ') : 'Association placement not yet available'}</p>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
                 This supplied school did not resolve to the current UIL football alignment. TexasDefined does not force private or non-UIL programs into a UIL classification. Association placement is shown only when it has been separately sourced.
               </p>
@@ -153,7 +153,7 @@ function Page() {
       {program && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Game venue</p>
-          <h2 className="mt-2 font-display text-3xl">{venueLinks.length > 0 ? 'Verified football venue relationships' : 'Football venue research'}</h2>
+          <h2 className="mt-2 font-display text-3xl">{venueLinks.length > 0 ? 'Football game venues' : 'Football venue details'}</h2>
           <p className="mt-4 text-sm leading-7 text-muted-foreground">Texas high schools often share district stadiums. A venue listed here is a sourced school or district football relationship, not a promise that every home game is played there. Confirm the current schedule before travel.</p>
         </div>
         {venueLinks.length > 0 ? <div className="space-y-5">
@@ -171,11 +171,11 @@ function Page() {
               <a href={venue.venuePath} className="text-primary underline underline-offset-4">Open TexasDefined stadium guide →</a>
               <a href={venue.officialUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official venue source ↗</a>
             </div>
-            {venue.verifiedAt && <p className="mt-3 text-xs text-muted-foreground">Venue planning details reviewed {venue.verifiedAt}.</p>}
+            {venue.verifiedAt && <p className="mt-3 text-xs text-muted-foreground">Venue details last reviewed {venue.verifiedAt}.</p>}
           </article>)}
         </div> : <div className="border-y border-border py-5">
-          <p className="font-display text-2xl">Venue verification pending</p>
-          <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Every UIL school profile has the same game-venue field. TexasDefined does not assign a stadium from proximity or a school name alone; this section stays pending until a school, district or official venue source verifies the football relationship.</p>
+          <p className="font-display text-2xl">Venue details not yet available</p>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Every UIL school profile has the same game-venue field. TexasDefined does not assign a stadium from proximity or a school name alone; this section stays blank until a school, district or official venue source confirms the football relationship.</p>
           <a href="/sports-venues/high-school-football" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Browse verified Texas high-school football stadiums →</a>
         </div>}
       </section>}
@@ -207,10 +207,10 @@ function Page() {
             <Snapshot label="Mascot" value={identity.mascot} />
             <Snapshot label="School colors" value={identity.colors || 'Not yet sourced'} />
           </dl>
-          <p className="mt-4 text-xs leading-6 text-muted-foreground">Identity checked {identity.verifiedAt}. Mascot and colors are published only from a school or district source.</p>
+          <p className="mt-4 text-xs leading-6 text-muted-foreground">Identity last reviewed {identity.verifiedAt}. Mascot and colors are published only from a school or district source.</p>
           <a href={identity.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">{identity.sourceLabel} ↗</a>
         </div> : <div className="border-y border-border py-5">
-          <p className="font-display text-2xl">Mascot verification pending</p>
+          <p className="font-display text-2xl">Mascot source not yet available</p>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Every UIL school profile has the same mascot field, but it stays blank until the school or district identity can be tied to a source. We do not fill school identity fields from an unsourced guess.</p>
         </div>}
       </section>
@@ -331,15 +331,15 @@ function PublicEnrollmentSteps({
     {enrollmentLink ? <div className="mb-6 border border-border p-5">
       <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official district enrollment</p>
       <p className="mt-2 text-sm leading-7 text-muted-foreground">
-        TexasDefined verified this district enrollment source on {enrollmentLink.verifiedAt}{enrollmentLink.schoolYear ? ` for the ${enrollmentLink.schoolYear} school year` : ''}. Use the district page for current forms, deadlines and required documents.
+        District enrollment source last reviewed {enrollmentLink.verifiedAt}{enrollmentLink.schoolYear ? ` for the ${enrollmentLink.schoolYear} school year` : ''}. Use the district page for current forms, deadlines and required documents.
       </p>
       <a href={enrollmentLink.enrollmentUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
         Start with {enrollmentLink.sourceLabel} ↗
       </a>
     </div> : <div className="mb-6 border border-border p-5">
-      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official enrollment source verification pending</p>
+      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official district enrollment link not yet available</p>
       <p className="mt-2 text-sm leading-7 text-muted-foreground">
-        Every UIL school profile uses the same enrollment-source field. TexasDefined has not yet attached a district-specific enrollment URL for {district}, so use the TEA school/district links above and verify the current new-student process directly with the district before relying on enrollment requirements or deadlines.
+        Every UIL school profile uses the same enrollment-source field. A district-specific enrollment URL is not yet available here for {district}, so use the TEA school/district links above and confirm the current new-student process directly with the district before relying on enrollment requirements or deadlines.
       </p>
     </div>}
     <StepList steps={steps} />

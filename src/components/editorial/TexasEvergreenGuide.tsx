@@ -343,7 +343,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         {hasHomecomingMumSupplies ? <SchoolSupplyPartners className="homecoming-supply-bottom" context="homecoming" /> : null}
 
         {sources.length ? <section className="border-b border-border py-10" aria-labelledby="source-notes">
-          <p className="eyebrow text-primary">Source notes</p>
+          <p className="eyebrow text-primary">Sources</p>
           <h2 id="source-notes" className="mt-2 font-display text-3xl">Where the historical claims come from</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These sources support the historical framework above. Current visitor operations, menus, ownership and event details can change and should be checked with the relevant official organization.</p>
           <ul className="mt-6 divide-y divide-border border-y border-border">

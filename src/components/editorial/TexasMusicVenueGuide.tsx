@@ -221,7 +221,7 @@ export function TexasMusicVenueGuide({ guide }: { guide: TexasEvergreenGuide }) 
         </section> : null}
 
         <section className="border-b border-border py-10" aria-labelledby="venue-source-notes">
-          <p className="eyebrow text-primary">Source notes</p>
+          <p className="eyebrow text-primary">Sources</p>
           <h2 id="venue-source-notes" className="mt-2 font-display text-3xl">Historical authority and current venue sources</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Historical claims are anchored to institutional records and venue histories. Current schedules, hours, ticket rules, access policies and event details can change; the official venue should control those time-sensitive facts.</p>
           <ul className="mt-6 divide-y divide-border border-y border-border">

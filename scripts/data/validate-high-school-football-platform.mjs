@@ -688,7 +688,7 @@ if (!errors.length) {
     "venueSlug: 'mesquite-memorial-stadium'",
     "relationship: 'district-football-venue'",
     'VERIFIED_FOOTBALL_VENUE_RELATIONSHIP_COUNT',
-  ]) requireText(footballVenueLinks, marker, 'Verified football venue relationships');
+  ]) requireText(footballVenueLinks, marker, 'Football game venues');
 
   for (const marker of [
     "createServerFn({ method: 'GET' })",
@@ -901,7 +901,8 @@ if (!errors.length) {
     "createLazyFileRoute('/texas-high-school-football-teams/$slug')",
     'How to enroll at',
     'Official district enrollment',
-    'Official enrollment source verification pending',
+    'District enrollment source last reviewed',
+    'Official district enrollment link not yet available',
     'Every UIL school profile uses the same enrollment-source field.',
     'Official school admissions',
     'Start with {admissions.sourceLabel} ↗',
@@ -914,14 +915,17 @@ if (!errors.length) {
     'UIL detailed eligibility rules ↗',
     'Current district',
     'Every opponent links to the same school-profile system.',
-    'Verified football venue relationships',
-    'Football venue research',
-    'Venue verification pending',
+    'Football game venues',
+    'Football venue details',
+    'Venue details not yet available',
     'Every UIL school profile has the same game-venue field.',
+    'Venue details last reviewed',
+    'Identity last reviewed',
+    'Mascot source not yet available',
     'Texas high schools often share district stadiums.',
     'Open TexasDefined stadium guide →',
     'Official venue source ↗',
-    'Association placement not yet verified',
+    'Association placement not yet available',
     'Private-school football uses its association’s own alignment system.',
     "privateAlignment.sourceKind === 'official-association'",
     'privateAlignmentLabel',
@@ -939,6 +943,17 @@ if (!errors.length) {
     'program.uilEnrollment',
     'Official UIL alphabetical enrollment listing ↗',
   ]) requireText(featuredProfilePage, marker, 'Football school profile page');
+  for (const stale of [
+    'Venue verification pending',
+    'Mascot verification pending',
+    'Official enrollment source verification pending',
+    'Identity checked',
+    'Verified football venue relationships',
+    'Football venue research',
+    'Association placement not yet verified',
+  ]) {
+    if (featuredProfilePage.includes(stale)) errors.push(`Football profile must not expose retired internal verification wording: ${stale}`);
+  }
   requireText(featuredProfilePage, '/article/texas-high-school-football-2026-season-calendar', 'Football school profile calendar discovery');
   requireText(featuredProfilePage, '2026 UIL season calendar →', 'Football school profile calendar discovery');
 

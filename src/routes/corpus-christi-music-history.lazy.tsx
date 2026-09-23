@@ -149,7 +149,7 @@ function CorpusChristiMusicHistoryPage() {
           </section>
 
           <section className="border-b border-border py-10" aria-labelledby="corpus-sources">
-            <p className="eyebrow text-primary">Source notes</p>
+            <p className="eyebrow text-primary">Sources</p>
             <h2 id="corpus-sources" className="mt-2 font-display text-3xl">Historical authority behind this guide</h2>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">This page focuses on durable history and relies primarily on the Texas State Historical Association's Handbook of Texas and Handbook of Texas Music. It does not hardcode changing museum, venue, ticket or visitor information.</p>
             <ul className="mt-6 divide-y divide-border border-y border-border">
