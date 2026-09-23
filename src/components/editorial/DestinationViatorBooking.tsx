@@ -46,10 +46,10 @@ export function DestinationViatorBooking({ destination }: { destination: Destina
 
   return <>
     <section className="mt-10 border border-border bg-surface p-6 sm:p-7" aria-labelledby={`viator-${destination.slug}`}>
-      <p className="eyebrow text-primary">Tours & bookable experiences</p>
-      <h3 id={`viator-${destination.slug}`} className="mt-2 font-display text-3xl leading-tight">Tours and experiences near {destination.name}</h3>
-      <p className="mt-3 text-sm leading-6 text-muted-foreground">TexasDefined handles the destination planning. Viator can be useful for guided tours, tickets and organized activities near {destination.nearestTown}. Availability changes, so the booking link checks current inventory rather than promising a specific product.</p>
-      {runtimeMarket?.signalLanes?.length ? <p className="mt-3 text-sm leading-6 text-muted-foreground"><strong className="font-semibold text-foreground">Recent {runtimeMarket.name} inventory signals:</strong> {runtimeMarket.signalLanes.join(" · ")}. Reviewed <time dateTime={VIATOR_RUNTIME_SIGNAL_REVIEWED_AT}>September 8, 2026</time>; exact products and availability can change.</p> : null}
+      <p className="eyebrow text-primary">Tours & experiences</p>
+      <h3 id={`viator-${destination.slug}`} className="mt-2 font-display text-3xl leading-tight">Guided experiences near {destination.name}</h3>
+      <p className="mt-3 text-sm leading-6 text-muted-foreground">Looking for a guided tour, ticketed activity or organized experience nearby? Viator lists current options around {destination.nearestTown}. Availability changes, so check the live listing before planning around a specific activity.</p>
+      {runtimeMarket?.signalLanes?.length ? <p className="mt-3 text-sm leading-6 text-muted-foreground"><strong className="font-semibold text-foreground">Recently available around {runtimeMarket.name}:</strong> {runtimeMarket.signalLanes.join(" · ")}. Checked <time dateTime={VIATOR_RUNTIME_SIGNAL_REVIEWED_AT}>September 8, 2026</time>; exact products and availability can change.</p> : null}
       <div className="mt-5 flex flex-wrap items-center gap-4">
         <a
           href={href}
@@ -62,7 +62,7 @@ export function DestinationViatorBooking({ destination }: { destination: Destina
           onClick={() => trackAffiliateClick({ partner: "viator", label: ctaLabel, placement: commercialPlacement, module: "experiences" })}
           className="inline-flex items-center bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
         >{ctaLabel} ↗</a>
-        <a href="/explore#tours-experiences" className="text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Explore Texas experience markets →</a>
+        <a href="/explore#tours-experiences" className="text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Browse tours & experiences across Texas →</a>
       </div>
       <p className="mt-4 text-xs leading-5 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings, at no additional cost to you.</p>
     </section>
