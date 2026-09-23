@@ -10,6 +10,9 @@ const surfaces = [
   ['sitemap', '/sitemap.xml', '<urlset'],
   ['explore-search', '/explore/search', 'Search the Texas Travel Guide'],
   ['trip-planner', '/explore/trip-planner', 'Texas Trip Planner'],
+  ['fishing-finder', '/fishing/plan', 'Use my location'],
+  ['fishing-finder-filters', '/fishing/plan', 'More filters'],
+  ['fishing-finder-map-distance', '/fishing/plan?lat=29.76&lng=-95.37&origin=Houston&sort=closest&view=map', 'Map of matching Texas fishing lakes'],
   ['camping-guide', '/best-places-to-go-camping-in-texas', 'Best Places to Go Camping in Texas'],
   ['caverns-count', '/explore/caverns', '11 places are currently mapped'],
   ['caverns-sonora', '/explore/caverns', 'Caverns of Sonora'],
@@ -81,7 +84,8 @@ async function verifyRevisionBoundSurface(label, path, needle) {
 
   for (let attempt = 1; attempt <= 6; attempt += 1) {
     attempts = attempt;
-    const url = `${origin}${path}?verify=${encodeURIComponent(`${sha}-${runId}-${attempt}`)}`;
+    const separator = path.includes('?') ? '&' : '?';
+    const url = `${origin}${path}${separator}verify=${encodeURIComponent(`${sha}-${runId}-${attempt}`)}`;
     console.log(`[${label}] attempt ${attempt}: ${url}`);
 
     try {
