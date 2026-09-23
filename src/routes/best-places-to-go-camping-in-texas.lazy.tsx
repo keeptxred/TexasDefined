@@ -3,6 +3,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import caddoLake from "@/assets/caddo-lake.jpg";
 import { CampingDiscovery } from "@/components/camping/CampingDiscovery";
 import { Container } from "@/components/layout/Container";
+import { recoverOrHideImage } from "@/lib/image-fallback";
 
 const standoutCamping = [
   {
@@ -83,6 +84,7 @@ function CampingGuidePage() {
             height={hero.height}
             className="aspect-[4/3] w-full object-cover"
             fetchPriority="high"
+            onError={(event) => recoverOrHideImage(event.currentTarget)}
           />
           <figcaption className="px-4 py-3 text-xs leading-5 text-muted-foreground">
             Palo Duro Canyon State Park · Panhandle camping · {hero.credit}
@@ -100,7 +102,7 @@ function CampingGuidePage() {
         </div>
         <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {standoutCamping.map((item) => <Link key={item.slug} to={item.to} className="group overflow-hidden border border-border bg-background transition-colors hover:border-primary/50">
-            <img src={item.image.src} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" className="aspect-[16/9] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
+            <img src={item.image.src} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" className="aspect-[16/9] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" onError={(event) => recoverOrHideImage(event.currentTarget)} />
             <div className="p-6">
               <p className="eyebrow text-primary">{item.eyebrow}</p>
               <h3 className="mt-2 font-display text-2xl">{item.label}</h3>
