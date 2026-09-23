@@ -141,8 +141,8 @@ function CountyPropertyTaxPage() {
         <CitationTrustPanel
           sources={sources}
           methodology={methodology}
-          lastVerified={county.lastVerifiedAt ? formatVerifiedDate(county.lastVerifiedAt) : 'Local office verification pending; the rate data is sourced separately from the statewide Comptroller file.'}
-          title="Sources, methodology and verification"
+          lastVerified={county.lastVerifiedAt ? formatVerifiedDate(county.lastVerifiedAt) : 'Local office review date not yet available; the rate data is sourced separately from the statewide Comptroller file.'}
+          title="Sources & methodology"
         />
       </Container>
     </>
