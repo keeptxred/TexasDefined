@@ -28,7 +28,7 @@ export function ParkingMapPanel({
           className="h-auto w-full"
           onError={() => setFailedImage(map.imageUrl)}
         />
-      </div> : <div className="flex min-h-48 items-center justify-center border border-border bg-muted/30 px-6 text-center text-sm text-muted-foreground" role="img" aria-label={`${contextName} parking map unavailable`}>Parking map image unavailable. Use the official parking sources beside this panel for current lot and access information.</div>}
+      </div> : <div className="flex items-center justify-center py-12 border border-border bg-muted/30 px-6 text-center text-sm text-muted-foreground" role="img" aria-label={`${contextName} parking map unavailable`}>Parking map image unavailable. Use the official parking sources beside this panel for current lot and access information.</div>}
       <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
         {imageAvailable ? `${sourceLabel}. ${map.origin === 'ai-generated' ? 'It is a schematic, not a scale drawing, and does not reproduce third-party map artwork.' : map.licenseName ? `Licensed under ${map.licenseName}.` : ''} Parking assignments, traffic routing and accessible parking can change by event.` : 'The embedded map could not be loaded. Official parking sources and the last verification date remain available.'}
       </figcaption>
