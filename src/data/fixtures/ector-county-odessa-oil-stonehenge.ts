@@ -92,7 +92,7 @@ export const ectorCountyOdessaOilStonehengeArticle: Article = {
       "The Census Bureau estimated Ector County's population at 173,801 in 2025.",
     ),
 
-    h("Why Ector County belongs in the county series"),
+    h("Why Ector County matters"),
     p("Ector County explains how West Texas urbanized around oil without becoming only an oil story. The county begins with railroad-era Odessa, ranching and a courthouse that doubled as a community hall. It then absorbs the shock of petroleum development, grows into a regional city and builds the institutions needed to serve a large workforce. At the same time, the older landscape remains visible in a pioneer house, a buffalo wallow, the caprock and a meteor crater."),
     p("Its modern landmarks add another layer. Stonehenge at UTPB is specific, memorable and slightly audacious. The Globe Theatre is equally unexpected. Together they make the point that Odessa's culture is not an afterthought attached to an industrial economy; it is part of how residents have chosen to define the city."),
     p("Drive through Ector County quickly and the first impression may be traffic, service trucks and endless commercial frontage. Stay longer and the county becomes stranger and more interesting: an 1887 brick house, a failed well that missed the coming boom, a city built to support one of the world's great energy regions, a scar left by a meteorite and a circle of enormous stones standing under the same West Texas sky."),
