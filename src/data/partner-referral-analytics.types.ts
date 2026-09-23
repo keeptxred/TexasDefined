@@ -46,12 +46,23 @@ export type PartnerReferralDailyPoint = {
   impressions: number | null;
 };
 
+export type TravelRoutingComparisonRow = {
+  partner: 'orbitz' | 'travelocity';
+  clicks: number;
+  impressions: number;
+  ctr: number | null;
+};
+
 export type PartnerReferralAnalyticsDashboard = {
   generatedAt: string;
   lastSyncedAt: string | null;
   lastPipelineSyncAt: string | null;
   impressionTrackingStartedAt: string;
   ctrMeasurementStartedAt: string;
+  travelRoutingMeasurementStartedAt: string;
+  travelRoutingMinimumImpressionsPerPartner: number;
+  travelRoutingComparisonReady: boolean;
+  travelRoutingPartners: TravelRoutingComparisonRow[];
   windowDays: number;
   totalClicks30d: number;
   totalClicks7d: number;

@@ -10,6 +10,8 @@ TexasDefined treats lodging as a trip-planning utility, not a sitewide ad layer.
 
 Editorial relevance and affiliate activation remain separate. A hotel can be included because its location is useful even when TexasDefined does not yet have a verified property-specific affiliate link. In that case, the card falls back to the approved Expedia stays search instead of inventing a property deep link.
 
+Commission-aware routing decisions are governed separately in `docs/travel-affiliate-economics.md`. Hotel comparison providers are not rerouted on payout alone while their verified default lodging economics remain at parity.
+
 ## Approved Expedia widget contract
 
 - Program: `us-expedia`

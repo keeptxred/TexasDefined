@@ -50,6 +50,7 @@ function PartnerReferralAnalyticsAdmin() {
     .slice(0, 10), [dashboard]);
   const impressionStartLabel = dashboard ? new Date(`${dashboard.impressionTrackingStartedAt}T00:00:00Z`).toLocaleDateString(undefined, { timeZone: 'UTC' }) : '';
   const ctrStartLabel = dashboard ? new Date(`${dashboard.ctrMeasurementStartedAt}T00:00:00Z`).toLocaleDateString(undefined, { timeZone: 'UTC' }) : '';
+  const travelRoutingStartLabel = dashboard ? new Date(`${dashboard.travelRoutingMeasurementStartedAt}T00:00:00Z`).toLocaleDateString(undefined, { timeZone: 'UTC' }) : '';
 
   return <Container className="py-12 sm:py-16"><main className="mx-auto max-w-7xl">
     <header className="border-b border-border pb-8">
@@ -78,6 +79,19 @@ function PartnerReferralAnalyticsAdmin() {
         <Metric label="Dashboard refreshed" value={new Date(dashboard.generatedAt).toLocaleString()} />
       </section>
       {dashboard.totalClicks30d === 0 ? <p className="mt-5 max-w-3xl border-l-2 border-border pl-4 text-sm leading-6 text-muted-foreground">{dashboard.totalImpressions30d > 0 ? `Affiliate CTAs recorded ${dashboard.totalImpressions30d.toLocaleString()} qualifying impressions in the 30-day window but no qualifying referral clicks. Use the partner and placement tables below to see where offers are being viewed before changing copy or placement.` : 'No qualifying affiliate CTA impressions or referral clicks are currently present in the 30-day aggregate. “Hourly sync” shows the most recent successful Cloudflare-to-Supabase pipeline run even when there are no referral rows.'}</p> : null}
+
+      <section className="mt-12 border-t border-border pt-6">
+        <p className="eyebrow text-primary">Hotel comparison routing</p>
+        <h2 className="mt-2 font-display text-4xl">Clean Orbitz vs Travelocity baseline</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Measurement begins on {travelRoutingStartLabel} UTC, after the intent-based routing policy went live. Current approved hotel commission economics are treated as parity, so provider routing should change only when clean conversion data supports it. The dashboard holds the comparison until each provider has at least {dashboard.travelRoutingMinimumImpressionsPerPartner.toLocaleString()} qualifying CTA impressions.</p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <Metric label="Routing baseline" value={travelRoutingStartLabel} />
+          <Metric label="Minimum impressions / provider" value={dashboard.travelRoutingMinimumImpressionsPerPartner} />
+          <Metric label="Evaluation status" value={dashboard.travelRoutingComparisonReady ? 'READY' : 'HOLD'} />
+        </div>
+        <div className="mt-6 overflow-x-auto"><table className="w-full min-w-[640px] text-sm"><thead><tr className="border-b border-border text-left"><th className="py-3 pr-4">Provider</th><th className="py-3 pr-4 text-right">Clean impressions</th><th className="py-3 pr-4 text-right">Clean clicks</th><th className="py-3 text-right">Clean CTR</th></tr></thead><tbody>{dashboard.travelRoutingPartners.map((row) => <tr key={row.partner} className="border-b border-border/60"><td className="py-3 pr-4 font-semibold">{row.partner}</td><td className="py-3 pr-4 text-right">{row.impressions}</td><td className="py-3 pr-4 text-right">{row.clicks}</td><td className="py-3 text-right font-semibold">{formatCtr(row.ctr)}</td></tr>)}</tbody></table></div>
+        {!dashboard.travelRoutingComparisonReady ? <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">Hold the current routing split. This threshold is an operational minimum for a comparable sample, not a statistical-significance claim.</p> : <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">The minimum exposure threshold has been reached. Review CTR together with downstream CJ bookings and commission value before changing provider routing.</p>}
+      </section>
 
       <section className="mt-12 border-t border-border pt-6">
         <div className="flex flex-wrap items-end justify-between gap-3"><div><p className="eyebrow text-primary">30-day trend</p><h2 className="mt-2 font-display text-4xl">Daily referral performance</h2></div><button disabled={busy} onClick={() => { setBusy(true); setError(''); void refresh().catch((cause) => setError(cause instanceof Error ? cause.message : 'Refresh failed.')).finally(() => setBusy(false)); }} className="min-h-10 border border-border px-4 text-sm font-semibold">Refresh</button></div>

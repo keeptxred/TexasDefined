@@ -121,12 +121,18 @@ for (const [needle, label] of [
   ['impression_count', 'private impression aggregate read'],
   ["const IMPRESSION_TRACKING_STARTED_AT = '2026-09-18'", 'impression rollout start boundary'],
   ["const CTR_MEASUREMENT_STARTED_AT = '2026-09-19'", 'clean CTR measurement boundary'],
+  ["const TRAVEL_ROUTING_MEASUREMENT_STARTED_AT = '2026-09-23'", 'clean Orbitz/Travelocity routing baseline'],
+  ['const TRAVEL_ROUTING_MIN_IMPRESSIONS_PER_PARTNER = 100', 'routing comparison minimum exposure threshold'],
+  ["const TRAVEL_ROUTING_PARTNERS = ['orbitz', 'travelocity'] as const", 'routing comparison partner allowlist'],
   ['totalImpressions30d', '30-day impression reporting'],
   ['totalSearchStarts30d', '30-day Expedia search-start reporting'],
   ['searchStartPlacements', 'Expedia search-start placement breakdown'],
   ['searchStartPages', 'Expedia search-start page breakdown'],
   ["row.partner === EXPEDIA_SEARCH_PARTNER", 'Expedia search rows excluded from referral CTR'],
   ['clickThroughRateSinceImpressionTracking', 'truthful post-rollout CTR reporting'],
+  ['travelRoutingComparisonReady', 'routing comparison readiness gate'],
+  ['travelRoutingPartners', 'clean routing partner breakdown'],
+  ['metricDate >= TRAVEL_ROUTING_MEASUREMENT_STARTED_AT', 'clean travel routing measurement boundary'],
   ['measurementCtr = clickThroughRate', 'dimension-level measured-window CTR calculation'],
   ['metricDate >= CTR_MEASUREMENT_STARTED_AT', 'dimension-level clean CTR measurement boundary'],
   ['dailyImpressionsMap', 'daily impression aggregation'],
@@ -168,6 +174,12 @@ for (const [needle, label] of [
   ['No Expedia search starts recorded yet.', 'Expedia search-start empty state'],
   ['CTR since', 'clean-window CTR metric'],
   ['dashboard.ctrMeasurementStartedAt', 'clean CTR date rendering'],
+  ['dashboard.travelRoutingMeasurementStartedAt', 'clean travel routing date rendering'],
+  ['Clean Orbitz vs Travelocity baseline', 'travel routing comparison section'],
+  ['Minimum impressions / provider', 'routing sample threshold metric'],
+  ["dashboard.travelRoutingComparisonReady ? 'READY' : 'HOLD'", 'routing readiness state'],
+  ['Hold the current routing split.', 'small-sample routing hold guidance'],
+  ['not a statistical-significance claim', 'routing threshold limitation disclosure'],
   ['CTA impression history begins on {impressionStartLabel}', 'impression rollout date rendering'],
   ['rollout-day impressions remain visible but are excluded from CTR', 'rollout-versus-CTR explanation'],
   ['measurementCtr: row.measurementCtr', 'partner and placement measured-window CTR projection'],
@@ -190,6 +202,10 @@ for (const [needle, label] of [
 
 expect(types, 'lastPipelineSyncAt: string | null', 'pipeline heartbeat dashboard type');
 expect(types, 'ctrMeasurementStartedAt: string', 'clean CTR boundary dashboard type');
+expect(types, 'travelRoutingMeasurementStartedAt: string', 'travel routing baseline dashboard type');
+expect(types, 'travelRoutingMinimumImpressionsPerPartner: number', 'travel routing threshold dashboard type');
+expect(types, 'travelRoutingComparisonReady: boolean', 'travel routing readiness dashboard type');
+expect(types, 'TravelRoutingComparisonRow', 'travel routing row dashboard type');
 expect(types, 'totalImpressions30d: number', 'dashboard impression total type');
 expect(types, 'totalSearchStarts30d: number', 'dashboard Expedia search-start total type');
 expect(types, 'PartnerSearchStartBreakdown', 'dashboard Expedia search-start breakdown type');
@@ -213,4 +229,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Partner referral reporting validation passed: referral clicks, CTA impressions and separately classified Expedia search starts are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, pre-rollout daily impression history remains explicitly unmeasured while the September 18 rollout day stays visible, CTR uses only the clean September 19+ measurement window, exposure volume breaks click ties so zero-click surfaces remain visible, the private dashboard promotes clean-window placements and pages with at least three measured impressions and zero clicks into a conversion watchlist, private aggregates are pruned to a 90-day retention window that exceeds the 60-day dashboard query horizon, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has staggered schedule and production-deploy recovery opportunities that skip Cloudflare while the heartbeat is fresh, the sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
+console.log('Partner referral reporting validation passed: referral clicks, CTA impressions and separately classified Expedia search starts are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, pre-rollout daily impression history remains explicitly unmeasured while the September 18 rollout day stays visible, CTR uses only the clean September 19+ measurement window, Orbitz-versus-Travelocity routing uses a separate clean September 23+ window with a 100-impression-per-provider hold gate, exposure volume breaks click ties so zero-click surfaces remain visible, the private dashboard promotes clean-window placements and pages with at least three measured impressions and zero clicks into a conversion watchlist, private aggregates are pruned to a 90-day retention window that exceeds the 60-day dashboard query horizon, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has staggered schedule and production-deploy recovery opportunities that skip Cloudflare while the heartbeat is fresh, the sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
