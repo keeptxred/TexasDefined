@@ -200,7 +200,7 @@ function FishingTripPlannerPage() {
             <label className="block">
               <span className="eyebrow text-primary">Where would you like to go fishing?</span>
               <span className="mt-2 block text-sm text-muted-foreground">Enter a lake, city, ZIP code, county or region.</span>
-              <input name="q" defaultValue={search.q ?? ""} disabled={browserOrigin} maxLength={80} placeholder={browserOrigin ? "Using your approximate location" : "Lake Conroe, Houston, 77494, Travis County…"} className="mt-4 w-full border border-border bg-background px-4 py-3 text-base disabled:bg-surface disabled:text-muted-foreground" />
+              <input name="q" defaultValue={search.q ?? ""} disabled={browserOrigin} maxLength={80} placeholder={browserOrigin ? "Using your approximate location" : "Lake Conroe, Houston, 77494, Travis County…"} className="mt-4 w-full border border-border bg-background px-4 py-3 text-base" />
             </label>
             <div className="mt-4 flex flex-wrap items-center gap-4">
               <button type="button" onClick={useMyLocation} disabled={locating} className="border border-border px-4 py-2 text-sm font-semibold disabled:opacity-60">{locating ? "Finding your location…" : "Use my location"}</button>
@@ -221,7 +221,7 @@ function FishingTripPlannerPage() {
 
         <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           <label className="block"><span className="eyebrow text-muted-foreground">Sort results</span><select name="sort" defaultValue={activeSort} className="mt-2 w-full border border-border bg-background px-3 py-2.5 text-sm"><option value="best">Best match</option><option value="closest" disabled={!origin}>Closest{!origin ? " — add a city, ZIP or location" : ""}</option></select></label>
-          <label className="block"><span className="eyebrow text-muted-foreground">Distance</span><select name="radius" defaultValue={search.radius ?? ""} disabled={!origin} className="mt-2 w-full border border-border bg-background px-3 py-2.5 text-sm disabled:bg-surface disabled:text-muted-foreground"><option value="">Any distance</option><option value="50">Within 50 miles</option><option value="100">Within 100 miles</option><option value="200">Within 200 miles</option><option value="400">Within 400 miles</option></select></label>
+          <label className="block"><span className="eyebrow text-muted-foreground">Distance</span><select name="radius" defaultValue={search.radius ?? ""} disabled={!origin} className="mt-2 w-full border border-border bg-background px-3 py-2.5 text-sm"><option value="">Any distance</option><option value="50">Within 50 miles</option><option value="100">Within 100 miles</option><option value="200">Within 200 miles</option><option value="400">Within 400 miles</option></select></label>
           <label className="mt-6 flex items-center gap-2 text-sm"><input type="checkbox" name="match" value="all" defaultChecked={search.match === "all"} /><span>Require every selected fish</span></label>
         </div>
 
