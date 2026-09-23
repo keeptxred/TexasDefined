@@ -2,7 +2,7 @@ import { lazy, Suspense } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { destinationsQuery } from "@/data/queries";
+import { getDestinationsBySlugs } from "@/data/destination-collections.functions";
 import type { TopAttractionRoadTrip } from "@/data/top-attraction-road-trips";
 import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
@@ -25,11 +25,10 @@ function resolveTrips(destinations: Destination[], roadTrips: readonly TopAttrac
 }
 
 export const Route = createFileRoute("/explore/top-attractions/road-trips")({
-  loader: async ({ context }) => {
-    const [destinations, { TOP_ATTRACTION_ROAD_TRIPS }] = await Promise.all([
-      context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
-      import("@/data/top-attraction-road-trips"),
-    ]);
+  loader: async () => {
+    const { TOP_ATTRACTION_ROAD_TRIPS } = await import("@/data/top-attraction-road-trips");
+    const slugs = [...new Set(TOP_ATTRACTION_ROAD_TRIPS.flatMap((trip) => trip.stops))];
+    const destinations = await getDestinationsBySlugs({ data: { slugs } });
     return resolveTrips(destinations, TOP_ATTRACTION_ROAD_TRIPS);
   },
   head: ({ loaderData }) => {
