@@ -80,7 +80,7 @@ export const andrewsCountyAndrewsOilShafterLakeArticle: Article = {
       "Andrews remains the county's dominant community and a working center of the Permian Basin economy.",
     ),
 
-    h("Why Andrews County belongs in the county series"),
+    h("Why Andrews County matters"),
     p("Andrews County tells a distinctly Texas story about how local geography, politics and natural resources can build a place in layers. The first layer was sparse ranching and farming on a difficult high-plains landscape. The second was a county-seat election decided through a wonderfully improvised battle over free lots. The third was petroleum, which transformed the scale of the economy and turned Andrews into a durable Permian Basin town."),
     p("The county also shows why West Texas should not be treated as one interchangeable oil field. Andrews has its own origin story, its own courthouse politics and its own nearly forgotten rival at Shafter Lake. The oil boom mattered enormously, but it arrived in a county whose civic geography had already been decided."),
     p("Drive through today and the most obvious symbols are modern: pickups, service yards, tank batteries and highways aimed toward the next energy town. Look a little closer and the older county is still there in the courthouse square, the memory of Shafter Lake and the stubborn fact that one broken wagon helped determine where local government would be centered for the next century."),

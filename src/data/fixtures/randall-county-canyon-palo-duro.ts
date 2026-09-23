@@ -97,7 +97,7 @@ export const randallCountyCanyonPaloDuroArticle: Article = {
       "The 2020 census counted 140,753 residents in Randall County; the Census Bureau estimated 152,351 in 2025.",
     ),
 
-    h("Why Randall County belongs in the county series"),
+    h("Why Randall County matters"),
     p("Randall County explains the Texas Panhandle through contrast. The flat High Plains become a canyon. Indigenous homeland becomes military battlefield and then cattle country. A dugout town becomes a county seat and university community. New Deal crews turn ranchland into one of Texas' signature state parks. Amarillo's suburbs push south while ranch and farm roads continue only a few miles away."),
     p("The county is also a reminder that landscapes can hold several histories at once. Palo Duro is geology, archaeological record, Native homeland, battlefield, ranch shelter, public park and theater backdrop. Canyon is a courthouse town, a college town, a museum town and a gateway to that landscape."),
     p("Stand on the rim at Palo Duro and the county's story is visible in one view: the level plains behind you, the broken canyon below, ranch history in the distance and a modern city corridor only a short drive away. Randall County is not simply the place around Palo Duro Canyon. It is the meeting point between the Panhandle's most famous natural feature and the communities that grew around it."),

@@ -7,8 +7,13 @@ import type { Destination } from "@/data/types";
 type DestinationCardDestination = Pick<Destination, "slug" | "name" | "summary" | "nearestTown" | "county" | "hero" | "bestSeason" | "highlights" | "sourceCheckedAt">;
 import { cn } from "@/lib/utils";
 
+function countyLabel(value?: string) {
+  if (!value) return undefined;
+  return /\bcount(?:y|ies)\b/i.test(value) ? value : `${value} County`;
+}
+
 function locationLabel(destination: DestinationCardDestination, regionLabel?: string) {
-  return [destination.nearestTown, destination.county ? `${destination.county} County` : undefined, regionLabel]
+  return [destination.nearestTown, countyLabel(destination.county), regionLabel]
     .filter(Boolean)
     .filter((value, index, values) => values.indexOf(value) === index)
     .join(" · ");
@@ -45,16 +50,15 @@ function DestinationImage({ destination, eager, overlay }: { destination: Destin
     : destination.hero;
 
   if (isDestinationPhotoPlaceholder(hero.src)) {
-    return <div role="img" aria-label={`${destination.name} — destination-specific photograph not yet available`} className={cn(frameClass, "relative overflow-hidden bg-[linear-gradient(145deg,hsl(var(--muted)),hsl(var(--secondary))_52%,hsl(var(--primary)/0.18))]")}>
+    return <div aria-hidden className={cn(frameClass, "relative overflow-hidden bg-[linear-gradient(145deg,hsl(var(--muted)),hsl(var(--secondary))_52%,hsl(var(--primary)/0.18))]")}>
       <div className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_72%_24%,hsl(var(--primary))_0,transparent_28%),linear-gradient(160deg,transparent_42%,hsl(var(--ink)/0.28)_43%,hsl(var(--ink)/0.28)_58%,transparent_59%)]" />
-      <span className="eyebrow absolute left-5 top-5 text-foreground/65">Photo coming soon</span>
     </div>;
   }
 
   return <div className={cn(frameClass, "relative overflow-hidden bg-[linear-gradient(145deg,hsl(var(--muted)),hsl(var(--secondary))_52%,hsl(var(--primary)/0.18))]")}>
     <div aria-hidden className="absolute inset-0">
       <div className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_72%_24%,hsl(var(--primary))_0,transparent_28%),linear-gradient(160deg,transparent_42%,hsl(var(--ink)/0.28)_43%,hsl(var(--ink)/0.28)_58%,transparent_59%)]" />
-      <span className="eyebrow absolute left-5 top-5 text-foreground/65">Photo unavailable</span>
+      
     </div>
     <img
       src={hero.src}

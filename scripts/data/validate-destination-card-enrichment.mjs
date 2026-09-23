@@ -10,7 +10,8 @@ const errors = [];
 for (const feature of [
   'locationLabel(destination, regionLabel)',
   'destination.nearestTown',
-  'destination.county',
+  'countyLabel(destination.county)',
+  '/\\bcount(?:y|ies)\\b/i.test(value)',
   'checkedLabel(destination.sourceCheckedAt)',
   'Best season:',
   'cardHighlights(destination)',
@@ -22,12 +23,12 @@ for (const feature of [
 }
 
 if (!card.includes('.slice(0, 3)')) errors.push('Destination cards must limit highlight chips to three.');
+if (card.includes('Photo coming soon') || card.includes('Photo unavailable') || card.includes('destination-specific photograph not yet available')) errors.push('Destination cards must not expose internal image-placeholder copy to readers.');
 if (!card.includes('Number.isNaN(date.getTime())')) errors.push('Destination cards must guard invalid source-check dates.');
 
 for (const feature of [
   'destinationCardImageFallbacks',
   '"caddo-lake-national-wildlife-refuge"',
-  'Photo unavailable',
   'onError={(event) =>',
   'image.dataset.fallback',
   'image.style.display = "none"',

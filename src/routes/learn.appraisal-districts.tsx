@@ -124,7 +124,7 @@ function AppraisalDistrictPage() {
       <section aria-labelledby="appraisal-county-directory" className="mt-12 border-t-2 border-foreground pt-8">
         <p className="eyebrow text-primary">All 254 counties</p>
         <h2 id="appraisal-county-directory" className="mt-2 font-display text-4xl">Find your county appraisal district</h2>
-        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Choose a county to start with the right local office. Counties with complete property-tax research link directly to the local appraisal and tax guide; the remaining counties link to the main county reference while their local tax resources are still being completed.</p>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Choose a county to start with the right local office. Counties with complete property-tax research link directly to the local appraisal and tax guide; other counties link to the main county reference with the verified local resources currently available.</p>
         <ul className="mt-6 grid gap-x-6 sm:grid-cols-2 lg:grid-cols-4">
           {TEXAS_COUNTIES.map((county) => <li key={county.slug} className="border-b border-border py-3">{verifiedPropertySlugs.has(county.slug) ? <Link to="/property-tax/county/$county" params={{ county: county.slug }} className="font-semibold hover:text-primary"><span className="text-primary">{county.name}</span> <span className="text-xs font-normal text-muted-foreground">appraisal & tax guide</span> →</Link> : <Link to="/county/$slug" params={{ slug: county.slug }} className="font-semibold hover:text-primary">{county.name} <span className="text-xs font-normal text-muted-foreground">county reference</span> →</Link>}</li>)}
         </ul>

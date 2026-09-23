@@ -212,7 +212,7 @@ function DestinationPage() {
 
     <section className="relative isolate mt-5 overflow-hidden bg-ink text-ink-foreground">
       <div aria-hidden className="absolute inset-0 bg-ink">
-        <span className="eyebrow absolute left-5 top-5 text-ink-foreground/60">Photo unavailable</span>
+        
       </div>
       <img src={destination.hero.src} alt={destination.hero.alt} width={destination.hero.width} height={destination.hero.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-65" onError={(event) => recoverOrHideImage(event.currentTarget, heroFallback)} />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/65 to-ink/15" />
