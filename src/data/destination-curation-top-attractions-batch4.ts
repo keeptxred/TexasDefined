@@ -54,7 +54,7 @@ const curated: Record<string, TopAttractionExpansion> = {
       "Palo Duro Canyon is the strongest nearby anchor for a longer trip. Spend a morning or afternoon in the canyon, then use Amarillo for Route 66, food and Cadillac Ranch. The Panhandle-Plains Historical Museum in Canyon adds the regional history that neither the roadside art nor canyon trails explain on their own.",
     ],
     officialUrl: "https://www.visitamarillo.com/listing/cadillac-ranch/625/",
-    sourceCheckedAt: "2026-09-23",
+    sourceCheckedAt: "2026-08-17",
     county: "Potter",
     address: "13651 I-40 Frontage Road, Amarillo, TX 79124",
     directions:
@@ -385,8 +385,8 @@ const curated: Record<string, TopAttractionExpansion> = {
     ],
     managingAuthority: "Houston Zoo",
     officialUrl: "https://www.houstonzoo.org/plan-your-visit/",
-    sourceCheckedAt: "2026-08-17",
-    reservationUrl: "https://tickets.houstonzoo.org/",
+    sourceCheckedAt: "2026-09-23",
+    reservationUrl: "https://ticket.houstonzoo.org/",
     county: "Harris",
     address: "6200 Hermann Park Drive, Houston, TX 77030",
     directions:
