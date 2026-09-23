@@ -1,5 +1,6 @@
 import type { ParkingMapAsset } from '@/data/parking-map-model';
 import { isPublishableParkingMap } from '@/data/parking-map-model';
+import { hideFailedImageContainer } from '@/lib/image-fallback';
 
 export function ParkingMapPanel({
   map,
@@ -15,7 +16,7 @@ export function ParkingMapPanel({
     : `Reusable parking map${map.sourceName ? ` via ${map.sourceName}` : ''}`;
 
   const mapFigure = (
-    <figure>
+    <figure data-parking-map-figure>
       <div className="overflow-hidden border border-border bg-muted/30">
         <img
           src={map.imageUrl}
@@ -23,6 +24,7 @@ export function ParkingMapPanel({
           loading="lazy"
           decoding="async"
           className="h-auto w-full"
+          onError={(event) => hideFailedImageContainer(event.currentTarget, "[data-parking-map-figure]")}
         />
       </div>
       <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
