@@ -87,6 +87,7 @@ const SUPPLEMENTAL_SOURCES: Record<TopTexasAttractionSlug, DestinationAuthorityS
     { label: "Houston Zoo — about and mission", url: "https://www.houstonzoo.org/about/", scope: "Zoo mission, governance, animal-care and institutional context." },
     { label: "Houston Zoo — conservation", url: "https://www.houstonzoo.org/conservation/", scope: "Official wildlife-conservation partnerships and field-program context." },
     { label: "Houston Zoo — accessibility", url: "https://www.houstonzoo.org/plan-your-visit/accessibility/", scope: "Official mobility, sensory and accessibility guidance." },
+    { label: "Houston Zoo — parking and directions", url: "https://www.houstonzoo.org/plan-your-visit/directions-parking/", scope: "Official parking ownership, Hermann Park parking, paid garage alternatives and METRORail directions." },
   ],
   "fredericksburg-historic-district": [
     { label: "Visit Fredericksburg — German heritage", url: "https://www.visitfredericksburgtx.com/things-to-do/museums-history/german-heritage/", scope: "Official destination-organization history of Fredericksburg's 1846 founding and German-Texan heritage." },
