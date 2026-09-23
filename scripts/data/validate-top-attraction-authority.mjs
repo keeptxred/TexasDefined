@@ -103,10 +103,10 @@ for (const feature of ['duration', 'summary', 'planningNote', 'TopAttractionRoad
 }
 
 for (const feature of [
-  'The visit', 'What the experience is like', 'Walking & exertion', 'Time outdoors', 'Plan ahead', 'Families', 'Good for first-time visitors',
+  'On the ground', 'What the day is like', 'Walking & exertion', 'Time outdoors', 'Plan ahead', 'Families', 'Good for first-time visitors',
   'Texas context', 'Three ways to visit', 'Key dates', 'in context', 'Source:', 'Common visitor questions',
-  'Sources & updates', 'Sources used for this guide', 'Primary visitor source', 'Supporting source',
-  'Update history', 'Texas Defined Editorial Desk', 'a-hollis', '/explore/top-attractions/methodology', '/citation-guide',
+  'Where we checked', 'Where we checked the details', 'Official visitor source', 'Additional source',
+  'Last checked', 'Texas Defined Editorial Desk', 'a-hollis', '/explore/top-attractions/methodology', '/citation-guide',
   'destination.authorityGuide', 'list-decimal space-y-3', 'export default DestinationAuthorityGuide',
 ]) {
   if (!componentSource.includes(feature)) failures.push(`Authority component missing visible feature: ${feature}.`);
