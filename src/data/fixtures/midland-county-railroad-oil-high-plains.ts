@@ -82,7 +82,7 @@ export const midlandCountyRailroadOilHighPlainsArticle: Article = {
       "The 2020 census counted 169,983 Midland County residents; the Census Bureau estimated 187,855 in 2025.",
     ),
 
-    h("Why Midland County belongs in the county series"),
+    h("Why Midland County matters"),
     p("Midland County shows how geography can become economic position. A railroad midpoint evolved into a place from which companies coordinate work across an enormous petroleum region. The same open landscape that challenged early settlers later accommodated railroads, highways, airports, pipelines and rapid urban expansion."),
     p("Oil never erased what came before. Ranching, cotton, drought, Indigenous travel, archaeology and railroad settlement remain part of the county's identity. Midland County is best understood as a place built around movement, water scarcity, risk and repeated reinvention—a courthouse county, a ranch county and an energy capital on the same High Plains map."),
   ],

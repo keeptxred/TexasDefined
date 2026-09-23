@@ -64,7 +64,7 @@ function SportsVenuesPage() {
         </dl>
       </header>
 
-      <Suspense fallback={null}><SportsVenueLandingIndex /></Suspense>
+      <Suspense fallback={<div className="py-10 text-sm text-muted-foreground" role="status">Loading Texas sports venues…</div>}><SportsVenueLandingIndex /></Suspense>
 
       {sponsorPlacement ? <div className="py-8"><SponsoredSportsPlacement placement={sponsorPlacement} /></div> : null}
 

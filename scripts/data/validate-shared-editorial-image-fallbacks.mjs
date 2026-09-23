@@ -80,7 +80,7 @@ for (const marker of [
   'setFailedUrl',
   'failedUrl === photo.imageUrl',
   'onError={() => setFailedUrl(photo.imageUrl)}',
-  'A venue photograph is not available yet.',
+  'Venue details and planning information continue below.',
 ]) requireMarker('sports venue photo', marker);
 if ((source.get('sports venue photo') ?? '').includes('min-h-[32rem]')) {
   errors.push('sports venue photo fallback must not reserve a 32rem blank block when imagery is unavailable.');
@@ -116,10 +116,6 @@ for (const marker of [
   'const showImage = failedImage !== image',
   'Product image unavailable.',
 ]) requireMarker('product detail', marker);
-
-for (const label of ['news index cards', 'homepage destination feature']) {
-  requireMarker(label, 'Photo unavailable');
-}
 
 for (const label of ['product cards', 'shop the story']) {
   requireMarker(label, 'Product image unavailable');
@@ -160,7 +156,7 @@ for (const marker of [
   'failedImages.has(hero.src)',
   'markImageFailed(item.image.src)',
   'item.image.src === caddoLake',
-  'Photo unavailable.',
+  'aria-hidden',
 ]) requireMarker('camping guide imagery', marker);
 
 for (const marker of [
@@ -213,8 +209,9 @@ for (const marker of [
   'majorEventEnrichmentImage === "true"',
 ]) requireMarker('major event guide image capture', marker);
 
-for (const label of ['article cards', 'feature heroes', 'category heroes', 'destination heroes']) {
-  requireMarker(label, 'Photo unavailable');
+for (const label of ['article cards', 'feature heroes', 'category heroes', 'destination heroes', 'news index cards', 'homepage destination feature', 'camping guide imagery']) {
+  const content = source.get(label) ?? '';
+  if (content.includes('Photo unavailable')) errors.push(`${label} must not expose generic image-fallback copy to readers.`);
 }
 
 requireMarker('article cards', 'relative w-full overflow-hidden');
