@@ -144,6 +144,16 @@ jobs:
                 echo "Chromium rendering $path exceeded 900,000 KB max RSS." >&2
                 exit 1
               fi
+              if [ "$path" = "/destination/houston-zoo" ]; then
+                grep -Fq ">Arrive early</li>" "$dom" || {
+                  echo "Houston Zoo browser DOM is missing the semantic itinerary step." >&2
+                  exit 1
+                }
+                if grep -Fq ">1</span><span>Arrive early</span>" "$dom"; then
+                  echo "Houston Zoo browser DOM still contains the former manually duplicated itinerary number." >&2
+                  exit 1
+                fi
+              fi
             done
           done
 
