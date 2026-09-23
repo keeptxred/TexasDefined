@@ -4,9 +4,7 @@ import {
   normalizeFeaturedFootballName,
 } from './featured-programs';
 import type { FootballProgramDirectoryResult } from './football-directory.server';
-import { getOfficialFootballEnrollmentLink } from './official-enrollment-links';
 import { getVerifiedFootballVenueLinks, type VerifiedFootballVenueLink } from './football-venue-links.server';
-import { footballDistrictProfilePath } from './football-districts.server';
 import type { VerifiedPrivateFootballAlignment } from './private-football-alignments';
 import type { VerifiedPrivateSchoolAdmissions } from './private-school-admissions';
 import { footballClassificationRank, footballProgramProfilePath, footballProgramSlug } from './program-slugs';
@@ -87,6 +85,14 @@ function findUilProgram(slug: string) {
   return PROGRAM_BY_SLUG.get(slug) ?? findLegacyUilProgram(slug);
 }
 
+function footballDistrictPath(program: UilFootballProgram) {
+  const divisionPart = program.division === 1 ? 'division-i' : program.division === 2 ? 'division-ii' : null;
+  const slug = [program.classification.toLowerCase(), divisionPart, 'district', String(program.district)]
+    .filter(Boolean)
+    .join('-');
+  return `/texas-high-school-football-districts/${slug}`;
+}
+
 function districtPeers(program: UilFootballProgram): FootballProgramProfilePeer[] {
   return UIL_FOOTBALL_PROGRAMS_2026
     .filter((candidate) =>
@@ -149,7 +155,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     identity: getVerifiedFootballSchoolIdentity(canonicalSlug) ?? null,
     enrollmentLink: null,
     districtPeers: districtPeers(seed),
-    districtPath: footballDistrictProfilePath(seed.classification, seed.division, seed.district),
+    districtPath: footballDistrictPath(seed),
     venueLinks: getVerifiedFootballVenueLinks({
       schoolName: program.schoolName,
     }),
