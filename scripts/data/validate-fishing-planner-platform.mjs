@@ -5,9 +5,12 @@ const requiredFiles = [
   "src/data/fishing/planner-routing.ts",
   "src/data/fishing/planner-data.server.ts",
   "src/data/fishing/planner-data.functions.ts",
+  "src/data/fishing/location.server.ts",
+  "src/data/fishing/location.functions.ts",
   "src/routes/fishing.plan.tsx",
   "src/routes/fishing.compare.tsx",
   "src/components/fishing/FishingHub.tsx",
+  "src/components/fishing/FishingResultsMap.tsx",
   "src/components/fishing/GenericFishingLakeGuide.tsx",
   "src/routes/fishing.lakes.$slug.tsx",
   "src/data/fishing/lake-sitemap.server.ts",
@@ -19,6 +22,9 @@ for (const path of requiredFiles) {
 const routing = read("src/data/fishing/planner-routing.ts");
 const server = read("src/data/fishing/planner-data.server.ts");
 const planner = read("src/routes/fishing.plan.tsx");
+const locationServer = read("src/data/fishing/location.server.ts");
+const locationFunctions = read("src/data/fishing/location.functions.ts");
+const resultsMap = read("src/components/fishing/FishingResultsMap.tsx");
 const compare = read("src/routes/fishing.compare.tsx");
 const search = read("src/data/fishing/search.ts");
 const links = read("src/data/fishing/internal-links.ts");
@@ -46,6 +52,25 @@ requireText(server, "Sponsorship never changes planner order", "planner editoria
 requireText(server, "Zero means no verified listing is currently published", "planner zero-inventory language must avoid false absence claims");
 
 requireText(planner, "Where would you like to go fishing?", "planner location search missing");
+requireText(planner, "ZIP code", "planner ZIP search copy missing");
+requireText(planner, "Use my location", "planner browser-location control missing");
+requireText(planner, "roundCoordinate(coords.latitude)", "planner must round browser latitude before URL storage");
+requireText(planner, "roundCoordinate(coords.longitude)", "planner must round browser longitude before URL storage");
+requireText(planner, "haversineMiles", "planner distance calculation missing");
+requireText(planner, 'value="closest"', "planner closest-sort control missing");
+requireText(planner, 'name="radius"', "planner distance-radius control missing");
+requireText(planner, "More filters", "planner advanced filters disclosure missing");
+for (const token of ['name="shore"', 'name="boat"', 'name="camp"', 'name="guide"', 'name="report"']) requireText(planner, token, `planner verified filter missing ${token}`);
+requireText(planner, '<FishingResultsMap rows={mapRows}', "planner map view missing");
+requireText(planner, 'aria-label="Results view"', "planner list/map view switch missing");
+requireText(locationFunctions, "createServerFn", "fishing location resolver must remain behind a server function");
+requireText(locationFunctions, "resolveFishingLocationServer", "fishing location server isolation missing");
+requireText(locationServer, "api.zippopotam.us/us/", "ZIP lookup provider missing");
+requireText(locationServer, "api.zippopotam.us/us/tx/", "Texas city lookup provider missing");
+requireText(locationServer, 'source: "zip"', "ZIP origin classification missing");
+requireText(locationServer, 'source: "city"', "city origin classification missing");
+requireText(resultsMap, "Map of matching Texas fishing lakes", "fishing map accessibility title missing");
+requireText(resultsMap, "simplified Texas outline", "fishing map orientation disclosure missing");
 requireText(planner, "What would you like to fish for?", "planner multi-species prompt missing");
 requireText(planner, 'type="checkbox" name="species"', "planner multi-select species controls missing");
 requireText(planner, "Require every selected fish", "planner all-species match option missing");
@@ -61,6 +86,7 @@ requireText(planner, '"@type": "BreadcrumbList"', "planner breadcrumb schema mis
 requireText(planner, "canonicalPath: FISHING_TRIP_PLANNER_PATH", "planner canonical metadata missing");
 requireText(hubComponent, 'action="/fishing/plan"', "fishing hub must expose the lake finder directly");
 requireText(hubComponent, "multi-select", "fishing hub must explain multi-select species search");
+requireText(hubComponent, "ZIP code", "fishing hub must expose ZIP-aware lake discovery");
 requireText(hubComponent, "Browse every Texas fish guide", "fishing hub species discovery missing");
 for (const token of ['kind: "generic"', "GenericFishingLakeGuide", 'canonicalFishingPath("lake", lake.slug)', "lakeSpeciesProfilesQuery", "fishingAccessPointsQuery"]) requireText(lakeRoute, token, `generic lake route contract missing ${token}`);
 for (const token of ["Fish recorded for", 'fishingFoundationAnchor("species", fish.slug)', "/county/", "Verify before the trip"]) requireText(genericLake, token, `generic lake profile contract missing ${token}`);
