@@ -26,8 +26,6 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
   const sideTrip = destination.areaGuide?.sideTrips[0];
   const questions = [
     { q: `How long should I allow for ${destination.name}?`, a: authority.assessment.recommendedVisit },
-    { q: `Do I need to plan ahead?`, a: destination.entryNote },
-    { q: `When is the best time to go?`, a: destination.bestSeason },
     ...(destination.accessibilityNotes ? [{ q: `What should I know about accessibility?`, a: destination.accessibilityNotes }] : []),
     ...(nearby ? [{ q: `What should I pair with ${destination.name}?`, a: `${nearby.name}${nearby.proximity ? ` (${nearby.proximity})` : ""}: ${nearby.description}` }] : []),
     ...(sideTrip ? [{ q: `What is a worthwhile side trip?`, a: `${sideTrip.name}${sideTrip.proximity ? ` (${sideTrip.proximity})` : ""}: ${sideTrip.description}` }] : []),
@@ -44,7 +42,7 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
             <div className="flex justify-between gap-5 py-3"><dt className="text-muted-foreground">Time outdoors</dt><dd className="text-right font-medium">{authority.assessment.weatherExposure}</dd></div>
             <div className="flex justify-between gap-5 py-3"><dt className="text-muted-foreground">Plan ahead</dt><dd className="text-right font-medium">{authority.assessment.planningLevel}</dd></div>
             <div className="py-3"><dt className="text-muted-foreground">Families</dt><dd className="mt-1 leading-6">{authority.assessment.familyFit}</dd></div>
-            <div className="py-3"><dt className="text-muted-foreground">First Texas trip</dt><dd className="mt-1 leading-6">{authority.assessment.firstTimeValue}</dd></div>
+            <div className="py-3"><dt className="text-muted-foreground">Good for first-time visitors</dt><dd className="mt-1 leading-6">{authority.assessment.firstTimeValue}</dd></div>
           </dl>
         </section>
       </Container>
@@ -98,7 +96,7 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
             <p className="eyebrow text-primary">Before you go</p>
             <h2 id={`${destination.slug}-traveler-questions`} className="mt-2 font-display text-4xl">Common visitor questions</h2>
             <dl className="mt-7 divide-y divide-border border-y border-border">
-              {questions.map((item) => <div key={item.q} className="py-5"><dt className="font-display text-2xl">{item.q}</dt><dd className="mt-2 text-sm leading-7 text-muted-foreground">{item.a}{primarySource && item.q.includes("plan ahead") && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</dd></div>)}
+              {questions.map((item) => <div key={item.q} className="py-5"><dt className="font-display text-2xl">{item.q}</dt><dd className="mt-2 text-sm leading-7 text-muted-foreground">{item.a}{primarySource && item.q.includes("How long") && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</dd></div>)}
             </dl>
           </section>
 
