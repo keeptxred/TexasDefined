@@ -94,6 +94,7 @@ if (planner.includes("None published")) throw new Error("Fishing Batch 9 validat
 requireText(planner, '"@type": "ItemList"', "planner ItemList schema missing");
 requireText(planner, '"@type": "BreadcrumbList"', "planner breadcrumb schema missing");
 requireText(planner, "canonicalPath: FISHING_TRIP_PLANNER_PATH", "planner canonical metadata missing");
+requireText(planner, "return unique.length ? unique : undefined;", "planner must omit an empty species search instead of redirecting the canonical route");
 requireText(hubComponent, 'action="/fishing/plan"', "fishing hub must expose the lake finder directly");
 requireText(hubComponent, "multi-select", "fishing hub must explain multi-select species search");
 requireText(hubComponent, "ZIP code", "fishing hub must expose ZIP-aware lake discovery");

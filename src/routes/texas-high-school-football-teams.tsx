@@ -9,7 +9,7 @@ export const Route = createFileRoute(canonicalPath)({
     programs: await getFootballProgramDirectoryPage(),
   }),
   validateSearch: (search: Record<string, unknown>) => ({
-    q: typeof search.q === 'string' ? search.q.trim().replace(/\s+/g, ' ').slice(0, 100) : '',
+    q: typeof search.q === 'string' ? search.q.trim().replace(/\s+/g, ' ').slice(0, 100) || undefined : undefined,
   }),
   head: () => ({
     meta: [

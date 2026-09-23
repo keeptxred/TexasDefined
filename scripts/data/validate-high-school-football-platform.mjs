@@ -1015,6 +1015,7 @@ if (!errors.length) {
   requireText(route, "const canonicalPath = '/texas-high-school-football-teams'", 'Football finder route');
   requireText(route, 'validateSearch:', 'Football finder route');
   requireText(route, "q: typeof search.q === 'string'", 'Football finder route');
+  requireText(route, "|| undefined : undefined", 'Football finder canonical empty-search normalization');
   for (const marker of [
     "createLazyFileRoute('/texas-high-school-football-teams')",
     'Find a Texas high school football team',
