@@ -45,9 +45,8 @@ function DestinationImage({ destination, eager, overlay }: { destination: Destin
     : destination.hero;
 
   if (isDestinationPhotoPlaceholder(hero.src)) {
-    return <div role="img" aria-label={`${destination.name} — destination-specific photograph not yet available`} className={cn(frameClass, "relative overflow-hidden bg-[linear-gradient(145deg,hsl(var(--muted)),hsl(var(--secondary))_52%,hsl(var(--primary)/0.18))]")}>
+    return <div aria-hidden className={cn(frameClass, "relative overflow-hidden bg-[linear-gradient(145deg,hsl(var(--muted)),hsl(var(--secondary))_52%,hsl(var(--primary)/0.18))]")}>
       <div className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_72%_24%,hsl(var(--primary))_0,transparent_28%),linear-gradient(160deg,transparent_42%,hsl(var(--ink)/0.28)_43%,hsl(var(--ink)/0.28)_58%,transparent_59%)]" />
-      <span className="eyebrow absolute left-5 top-5 text-foreground/65">Photo coming soon</span>
     </div>;
   }
 
