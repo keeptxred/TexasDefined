@@ -829,8 +829,11 @@ if (!errors.length) {
   for (const marker of [
     "createServerFn({ method: 'GET' })",
     "import('./football-districts.server')",
+    "import('./football-program-index.server')",
     'getFootballDistrictPage',
     'getFootballDistrictDirectoryPage',
+    'UIL football district directory expected 192 districts',
+    "const classRank: Record<string, number> = { '1A': 1, '2A': 2, '3A': 3, '4A': 4, '5A': 5, '6A': 6 }",
   ]) requireText(footballDistrictFunctions, marker, 'UIL football district server functions');
 
   for (const marker of [
