@@ -49,6 +49,10 @@ requireText(route, "hasCampingDestinationGuide(profile.destinationSlug)", "campg
 requireText(route, "${pageUrl}#${profileAnchor(profile)}", "campground structured-data anchor fallback");
 requireText(component, "Build trip", "campground seeded trip-planner link");
 requireText(page, "data-stay-nearby-slot", "camping Stay Nearby placement");
+requireText(page, "Match the season to the part of Texas", "camping seasonal planning");
+requireText(page, 'to="/texas-weather"', "camping weather authority cross-link");
+requireText(page, "Why are campground prices not listed here?", "camping price-freshness guidance");
+requireText(page, "Does “full hookup” apply to every site in a campground?", "camping hookup-scope FAQ");
 requireText(expedia, "best-places-to-go-camping-in-texas", "camping affiliate route coverage");
 requireText(production, "['camping-guide', '/best-places-to-go-camping-in-texas', 'Best Places to Go Camping in Texas']", "camping live-production verification");
 
@@ -122,4 +126,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Camping guide decision-UX validation passed: quick-match presets, researched destination and metro search terms, normalized amenity filtering, agency filtering, result sorting, shared canonical destination registry, guarded UI and structured-data destination links, seeded trip planning, campground choice context, planning-detail comparison, managing-agency context, destination-view disclosure, governed imagery, explicit lodging placement, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
+console.log("Camping guide decision-UX validation passed: quick-match presets, researched destination and metro search terms, normalized amenity filtering, agency filtering, result sorting, shared canonical destination registry, guarded UI and structured-data destination links, seeded trip planning, campground choice context, planning-detail comparison, managing-agency context, destination-view disclosure, governed imagery, explicit lodging placement, seasonal planning, price-freshness guidance, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
