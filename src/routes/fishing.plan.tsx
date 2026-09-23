@@ -262,8 +262,8 @@ function FishingTripPlannerPage() {
               row.shoreAccess ? "Shore/pier access" : null,
               row.boatAccess ? "Boat/kayak access" : null,
               row.camping ? "Camping/cabins" : null,
-              row.guides.length ? \`\${row.guides.length} verified guide\${row.guides.length === 1 ? "" : "s"}\` : null,
-              row.access.length ? \`\${row.access.length} verified access site\${row.access.length === 1 ? "" : "s"}\` : null,
+              row.guides.length ? `${row.guides.length} verified guide${row.guides.length === 1 ? "" : "s"}` : null,
+              row.access.length ? `${row.access.length} verified access site${row.access.length === 1 ? "" : "s"}` : null,
             ].filter(Boolean);
             const displayTargets = selectedSpecies.length
               ? row.matches.filter((item) => item.target).map((item) => ({ name: item.fish.commonName, quality: item.target!.relation.quality }))
@@ -292,8 +292,8 @@ function FishingTripPlannerPage() {
               <dl className="mt-6 grid gap-4 text-sm sm:grid-cols-2">
                 {row.lake.counties.length ? <Fact label="County" value={row.lake.counties.join(", ")} /> : null}
                 {row.lake.nearestCities.length ? <Fact label="Near" value={row.lake.nearestCities.join(", ")} /> : null}
-                {row.lake.surfaceAcres ? <Fact label="Surface area" value={\`\${row.lake.surfaceAcres.toLocaleString("en-US")} acres\`} /> : null}
-                {row.lake.maxDepthFeet ? <Fact label="Maximum depth" value={\`\${row.lake.maxDepthFeet} ft\`} /> : null}
+                {row.lake.surfaceAcres ? <Fact label="Surface area" value={`${row.lake.surfaceAcres.toLocaleString("en-US")} acres`} /> : null}
+                {row.lake.maxDepthFeet ? <Fact label="Maximum depth" value={`${row.lake.maxDepthFeet} ft`} /> : null}
               </dl>
 
               {positiveCoverage.length ? <p className="mt-5 text-xs leading-5 text-muted-foreground">{positiveCoverage.join(" · ")}</p> : null}
@@ -343,17 +343,17 @@ function scoreLocation(lake: FishingLake, query: string) {
     lake.region,
     formatRegion(lake.region),
     ...lake.counties,
-    ...lake.counties.map((county) => \`\${county} county\`),
+    ...lake.counties.map((county) => `${county} county`),
     ...lake.nearestCities,
   ].map((value) => value.toLowerCase());
   const haystack = values.join(" ");
   const tokens = normalized.split(" ").filter(Boolean);
   if (!tokens.every((token) => haystack.includes(token))) return { score: 0, label: "" };
   const exact = values.find((value) => value === normalized);
-  if (exact) return { score: 6, label: \`Location match: \${titleCase(exact)}\` };
+  if (exact) return { score: 6, label: `Location match: ${titleCase(exact)}` };
   const starts = values.find((value) => value.startsWith(normalized));
-  if (starts) return { score: 4, label: \`Location match: \${titleCase(starts)}\` };
-  return { score: 2, label: \`Matches “\${query}”\` };
+  if (starts) return { score: 4, label: `Location match: ${titleCase(starts)}` };
+  return { score: 2, label: `Matches “${query}”` };
 }
 
 function haversineMiles(origin: { lat: number; lng: number }, destination: { lat: number; lng: number }) {
@@ -388,7 +388,7 @@ function buildPlannerHref(search: PlannerSearch, overrides: Partial<PlannerSearc
   if (merged.radius) params.set("radius", merged.radius);
   for (const key of ["shore", "boat", "camp", "guide", "report"] as const) if (merged[key]) params.set(key, "1");
   const query = params.toString();
-  return query ? \`\${FISHING_TRIP_PLANNER_PATH}?\${query}\` : FISHING_TRIP_PLANNER_PATH;
+  return query ? `${FISHING_TRIP_PLANNER_PATH}?${query}` : FISHING_TRIP_PLANNER_PATH;
 }
 
 function formatRegion(value: string) {
