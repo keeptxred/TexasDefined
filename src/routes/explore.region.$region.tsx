@@ -36,13 +36,10 @@ function destinationSchema(destination: Destination) {
 
 export const Route = createFileRoute("/explore/region/$region")({
   loader: async ({ context, params }) => {
-    const [regions, catalog] = await Promise.all([
-      context.queryClient.ensureQueryData(regionsQuery()),
-      context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
-    ]);
+    const regions = await context.queryClient.ensureQueryData(regionsQuery());
     const region = regions.find((item) => item.id === params.region);
     if (!region) throw notFound();
-    const destinations = catalog.filter((destination) => destination.region === region.id);
+    const destinations = await context.queryClient.ensureQueryData(destinationsQuery({ region: region.id, limit: 5000 }));
     return { region, regions, destinations };
   },
   head: ({ loaderData, params }) => {
