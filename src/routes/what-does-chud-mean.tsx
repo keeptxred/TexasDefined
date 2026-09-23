@@ -27,7 +27,7 @@ export const Route = createFileRoute("/what-does-chud-mean")({
 
 function Page() {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading Texas terminology guide…</div>}>
       <PrioritySearchPage data={Route.useLoaderData()} />
     </Suspense>
   );
