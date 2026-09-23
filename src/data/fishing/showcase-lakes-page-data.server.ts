@@ -1,6 +1,7 @@
 import { expandedShowcaseLakePrototypes } from "./expanded-showcase-lakes-prototype";
 import { SHOWCASE_LAKE_SECTION_SLUGS } from "./showcase-lake-routing";
 import { showcaseLakePrototypes } from "./showcase-lakes-prototype";
+import { wave2ShowcaseLakePrototypes } from "./wave2-showcase-lakes-prototype";
 
 const sectionLabel = {
   fish: "Fish",
@@ -14,7 +15,7 @@ const sectionLabel = {
 } as const;
 
 export function loadShowcaseLakesPageDataServer() {
-  const prototypes = { ...showcaseLakePrototypes, ...expandedShowcaseLakePrototypes };
+  const prototypes = { ...showcaseLakePrototypes, ...expandedShowcaseLakePrototypes, ...wave2ShowcaseLakePrototypes };
   return Object.fromEntries(Object.entries(prototypes).map(([slug, lake]) => {
     const sections = SHOWCASE_LAKE_SECTION_SLUGS.map((section) => ({
       slug: section,
