@@ -33,6 +33,12 @@ for (const [needle, label] of [
 ]) requireText(component, needle, label);
 requireText(calloutWrapper, 'import("./CityPassCalloutContent")', 'Lazy CityPASS CTA performance split');
 requireText(calloutContent, 'CITYPASS_AFFILIATE_URLS[market]', 'Market-specific CityPASS CTA target');
+for (const heading of [
+  'CityPASS® option',
+  'Visiting several Dallas attractions?',
+  'Visiting several Houston attractions?',
+  'Visiting several San Antonio attractions?',
+]) requireText(calloutContent, heading, 'Visitor-facing CityPASS callout copy');
 
 const affiliateTargets = [
   ['Dallas', 'https://citypass.7eer.net/c/7236213/305537/3331'],
