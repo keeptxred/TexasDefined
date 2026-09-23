@@ -144,7 +144,7 @@ for (const marker of [
   'verifiedPropertySlugs.has(county.slug)',
   'to="/property-tax/county/$county"',
   'to="/county/$slug"',
-  'remaining counties link to the main county reference',
+  'other counties link to the main county reference with the verified local resources currently available',
 ]) if (!appraisalHub.includes(marker)) failures.push(`Appraisal hub authority-flow contract is missing ${marker}.`);
 if (appraisalHub.includes("import { COUNTY_PROPERTY_RECORDS } from '@/data/property/county-property-data'")) failures.push('Appraisal hub must keep county property records behind its loader boundary instead of eagerly importing the catalog.');
 if (appraisalHub.includes("import { TEXAS_COUNTIES } from '@/data/texas-places'")) failures.push('Appraisal hub must keep the Texas county registry behind its loader boundary instead of eagerly importing the catalog.');
