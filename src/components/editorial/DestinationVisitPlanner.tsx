@@ -46,9 +46,9 @@ export function DestinationVisitPlanner({ destination }: Props) {
         />
       ) : null}
       {(groups.length > 0 || editorialLinks.length > 0) && <section aria-labelledby="things-to-do-there" className="border-t border-border pt-8">
-        <p className="eyebrow text-primary">While you’re there</p>
-        <h2 id="things-to-do-there" className="mt-3 font-display text-3xl">Things to do and see</h2>
-        <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">Use these highlights to decide how to spend your time after the basic trip details are settled.</p>
+        <p className="eyebrow text-primary">Make the most of your visit</p>
+        <h2 id="things-to-do-there" className="mt-3 font-display text-3xl">Highlights and visitor essentials</h2>
+        <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">Start with the experiences worth prioritizing, then check the practical facilities that can shape your visit.</p>
         {groups.length > 0 && <div className="mt-8 grid border-y border-border sm:grid-cols-2">
           {groups.map((group, index) => (
             <div key={group.title} className={`py-6 ${index % 2 === 0 ? "sm:border-r sm:pr-8" : "sm:pl-8"} ${index < groups.length - 2 ? "border-b border-border" : ""}`}>

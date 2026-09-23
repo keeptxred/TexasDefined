@@ -48,7 +48,7 @@ for (const feature of [
   'const activityPattern', 'const facilityPattern', 'function unique(values: string[])',
   'const activities = unique(', 'const facilities = unique(', 'const otherHighlights = unique(',
   'destination.highlights', 'data-stay-nearby-slot', 'BookingCarRentalCard',
-  'While you’re there', 'Things to do and see',
+  'Make the most of your visit', 'Highlights and visitor essentials',
   '{ title: "Highlights", items: unique([...activities, ...otherHighlights]) }',
   '{ title: "Visitor facilities", items: facilities }',
   'groups.map((group, index)', 'group.items.map((item)',

@@ -124,11 +124,11 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
           <nav aria-label={`Continue exploring from ${destination.name}`} className="flex flex-wrap gap-x-6 gap-y-3">
             {topAttractionRank && <Link to="/explore/top-attractions" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Top 25 · #{topAttractionRank}</Link>}
             {hasCampingProfile && <Link to="/best-places-to-go-camping-in-texas" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Camping details</Link>}
-            <Link to="/explore/trip-planner" search={{ destination: destination.slug }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Build the weekend</Link>
-            <Link to="/explore/$category" params={{ category: destination.category }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">More like this</Link>
+            <Link to="/explore/trip-planner" search={{ destination: destination.slug }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Plan a trip</Link>
+            <Link to="/explore/$category" params={{ category: destination.category }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Similar places</Link>
             <Link to="/explore/region/$region" params={{ region: destination.region }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Explore the region</Link>
-            <Link to="/events" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Check the calendar</Link>
-            <Link to="/search" search={{ q: destination.nearestTown }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Look nearby</Link>
+            <Link to="/events" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Events nearby</Link>
+            <Link to="/search" search={{ q: destination.nearestTown }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Search the area</Link>
           </nav>
         </div>
       </Container>
