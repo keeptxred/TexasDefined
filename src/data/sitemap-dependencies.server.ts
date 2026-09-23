@@ -16,6 +16,7 @@ export {
   isArticleIndexReady,
 } from "@/data/fixtures/texas-gateway-index-readiness";
 export { loadFishingGuideSitemapEntriesServer } from "@/data/fishing/guide-sitemap.server";
+export { loadFishingLakeSitemapEntriesServer } from "@/data/fishing/lake-sitemap.server";
 export { loadFishingLocalSitemapEntriesServer } from "@/data/fishing/local-sitemap.server";
 export { loadFishingReportSitemapEntriesServer } from "@/data/fishing/report-sitemap.server";
 export { FISHING_SITEMAP_ENTRIES } from "@/data/fishing/sitemap";

@@ -26,13 +26,23 @@ export type CompleteFishingLakeSlug = (typeof COMPLETE_FISHING_LAKE_SLUGS)[numbe
 export const COMPLETE_FISHING_SPECIES_SLUGS = [
   "largemouth-bass",
   "smallmouth-bass",
+  "guadalupe-bass",
+  "spotted-bass",
   "crappie",
+  "black-crappie",
+  "white-crappie",
   "catfish",
   "blue-catfish",
   "channel-catfish",
+  "flathead-catfish",
   "white-bass",
   "striped-bass",
   "hybrid-striped-bass",
+  "alligator-gar",
+  "freshwater-drum",
+  "sunfish",
+  "bluegill",
+  "rainbow-trout",
 ] as const;
 export type CompleteFishingSpeciesSlug = (typeof COMPLETE_FISHING_SPECIES_SLUGS)[number];
 
@@ -52,11 +62,15 @@ export function isCanonicalFishingSlug(value: string) { return CANONICAL_FISHING
 export function assertCanonicalFishingSlug(value: string, label = "fishing slug") { if (!isCanonicalFishingSlug(value)) throw new Error(`${label} must be lowercase kebab-case: ${value}`); return value; }
 export function canonicalFishingPath(kind: FishingRouteKind, slug: string) { return `${routeBase[kind]}/${assertCanonicalFishingSlug(slug)}`; }
 
-/** Complete entities resolve to detail pages; unpublished-depth entities remain directory anchors. */
+/**
+ * Published lake records always resolve to the dynamic lake route. Showcase lakes receive the
+ * full editorial guide there; other published records receive a source-backed lake profile.
+ * Published species in the maintained allowlist resolve to standalone species guides.
+ */
 export function fishingFoundationAnchor(kind: "lake" | "species", slug: string) {
   const canonicalSlug = assertCanonicalFishingSlug(slug);
   if (kind === "lake" && isCompleteFishingLakeSlug(canonicalSlug)) return canonicalFishingPath("lake", canonicalSlug);
-  if (kind === "species" && isCompleteFishingSpeciesSlug(canonicalSlug)) return canonicalFishingPath("species", canonicalSlug);
-  if (kind === "species") return `/fishing/species#species-${canonicalSlug}`;
-  return `/fishing#lake-${canonicalSlug}`;
+  if (kind === "lake") return canonicalFishingPath("lake", canonicalSlug);
+  if (isCompleteFishingSpeciesSlug(canonicalSlug)) return canonicalFishingPath("species", canonicalSlug);
+  return `/fishing/species#species-${canonicalSlug}`;
 }
