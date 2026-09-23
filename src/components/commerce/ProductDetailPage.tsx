@@ -15,10 +15,12 @@ export function ProductDetailPage({ product, related, variant }: { product: Prod
   const [variantId, setVariantId] = useState<number | null>(initialVariantId);
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
+  const [failedImage, setFailedImage] = useState<string | null>(null);
   const cart = useShopCart();
   const selected = available.find((candidate) => candidate.id === variantId) ?? null;
   const purchasable = Boolean(selected);
   const image = selected?.image || selected?.images?.[0] || product.image.src;
+  const showImage = failedImage !== image;
   const price = Number(selected?.price ?? product.priceCents / 100);
   const money = (value: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: product.currency }).format(value);
 
@@ -38,7 +40,7 @@ export function ProductDetailPage({ product, related, variant }: { product: Prod
     <Container className="pt-10 sm:pt-14"><nav className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground" aria-label="Breadcrumb"><Link to="/shop" className="hover:text-primary">Shop</Link> <span aria-hidden>·</span> <span aria-current="page">{product.name}</span></nav></Container>
     <Container className="py-8 sm:py-12 lg:py-16">
       <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-        <div className="overflow-hidden bg-muted"><img src={image} alt={product.image.alt || product.name} className="aspect-[4/5] h-full w-full object-cover" /></div>
+        <div className="relative aspect-[4/5] overflow-hidden bg-muted">{showImage ? <img src={image} alt={product.image.alt || product.name} className="absolute inset-0 size-full object-cover" onError={() => setFailedImage(image)} /> : <div className="flex size-full items-center justify-center px-8 text-center text-sm text-muted-foreground" role="img" aria-label={`${product.name} image unavailable`}>Product image unavailable.</div>}</div>
         <div className="flex flex-col justify-center">
           <p className="eyebrow text-primary">The Texas Defined Shop</p>
           <h1 className="mt-4 font-display text-5xl leading-[0.98] sm:text-6xl">{product.name}</h1>
