@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { extraPaintedChurchGalleryBySlug } from "@/data/painted-church-gallery-extra";
 import { supplementalPaintedChurchGalleryBySlug } from "@/data/painted-church-gallery-supplemental";
 import { paintedChurchGalleryBySlug } from "@/data/painted-church-gallery";
+import { hideFailedImageContainer } from "@/lib/image-fallback";
 
 const licenseUrl = (license: string) => {
   const normalized = license.toLowerCase();
@@ -53,7 +54,7 @@ export function PaintedChurchGallery({ slug }: { slug: string }) {
       <div className="mt-8 grid gap-8 sm:grid-cols-2">
         {images.map((image) => (
           <figure key={image.sourceUrl} className="border-t border-border pt-4">
-            <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover" />
+            <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
             <figcaption className="mt-4 text-sm leading-6 text-muted-foreground">
               <span className="text-foreground">{image.caption}</span><br />
               {image.credit} · {image.license} · <a href={image.sourceUrl} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">source and license</a>
