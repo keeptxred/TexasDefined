@@ -46,6 +46,16 @@ const surfaceChecks = [
     forbidden: ['fallback={null}'],
     required: ['Loading Texas Dogs Defined…', 'role="status"'],
   },
+  {
+    file: 'src/routes/search.lazy.tsx',
+    forbidden: ['min-h-[42vh]'],
+    required: ['No search results', 'Search results'],
+  },
+  {
+    file: 'src/components/sports/SportsVenueGuidePage.tsx',
+    forbidden: ['min-h-[32rem]', 'A venue photograph is not available yet.'],
+    required: ['Venue details and planning information continue below.'],
+  },
 ];
 
 for (const check of surfaceChecks) {
