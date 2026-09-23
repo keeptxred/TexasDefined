@@ -107,7 +107,7 @@ for (const feature of [
   'Texas context', 'Three ways to visit', 'Key dates', 'in context', 'Source:', 'Common visitor questions',
   'Sources & updates', 'Sources used for this guide', 'Primary visitor source', 'Supporting source',
   'Update history', 'Texas Defined Editorial Desk', 'a-hollis', '/explore/top-attractions/methodology', '/citation-guide',
-  'destination.authorityGuide', 'list-none space-y-3', 'export default DestinationAuthorityGuide',
+  'destination.authorityGuide', 'list-decimal space-y-3', 'marker:font-semibold marker:text-primary', 'export default DestinationAuthorityGuide',
 ]) {
   if (!componentSource.includes(feature)) failures.push(`Authority component missing visible feature: ${feature}.`);
 }
@@ -221,6 +221,10 @@ for (const [source, label] of [
   if (source.includes('review log') || source.includes('Review log')) failures.push(`${label} must not restore the retired review-log label.`);
 }
 
+
+if (componentSource.includes('plan.steps.map((step, index)') || componentSource.includes('{index + 1}</span>')) {
+  failures.push('Destination itineraries must rely on one semantic ordered-list marker and must not render a second manual step number.');
+}
 if (failures.length) {
   console.error('Top 25 attraction authority validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
