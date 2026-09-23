@@ -171,8 +171,8 @@ async function verifyDestinationTemplateControl(baseOrigin, label) {
   for (let attempt = 1; attempt <= 6; attempt += 1) {
     attempts = attempt;
     const url = new URL(destinationTemplateControl.path, baseOrigin);
-    url.searchParams.set('verify_destination_template', \`\${sha}-\${runId}-\${attempt}\`);
-    console.log(\`[\${label}] attempt \${attempt}: \${url}\`);
+    url.searchParams.set('verify_destination_template', `${sha}-${runId}-${attempt}`);
+    console.log(`[${label}] attempt ${attempt}: ${url}`);
 
     try {
       const response = await fetch(url, {
@@ -193,33 +193,33 @@ async function verifyDestinationTemplateControl(baseOrigin, label) {
       stale = destinationTemplateControl.forbidden.filter((needle) => lastBody.includes(needle));
 
       if (!lastChallenge && response.ok && missing.length === 0 && stale.length === 0) {
-        console.log(\`[\${label}] Houston Zoo destination-template contract is current.\`);
-        appendSummary(\`| ✅ pass | \${label} | \${lastStatus} | \${attempts} | no |\n\`);
+        console.log(`[${label}] Houston Zoo destination-template contract is current.`);
+        appendSummary(`| ✅ pass | ${label} | ${lastStatus} | ${attempts} | no |\n`);
         return;
       }
 
-      if (lastChallenge) console.log(\`[\${label}] Cloudflare challenge; waiting for propagation.\`);
-      else if (!response.ok) console.log(\`[\${label}] HTTP \${response.status}; waiting for propagation.\`);
-      else console.log(\`[\${label}] template mismatch; missing=\${missing.join(' | ') || '<none>'}; stale=\${stale.join(' | ') || '<none>'}.\`);
+      if (lastChallenge) console.log(`[${label}] Cloudflare challenge; waiting for propagation.`);
+      else if (!response.ok) console.log(`[${label}] HTTP ${response.status}; waiting for propagation.`);
+      else console.log(`[${label}] template mismatch; missing=${missing.join(' | ') || '<none>'}; stale=${stale.join(' | ') || '<none>'}.`);
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
       lastStatus = 'network-error';
       lastChallenge = false;
-      console.log(\`[\${label}] request failed: \${lastError}\`);
+      console.log(`[${label}] request failed: ${lastError}`);
     }
 
     if (attempt < 6) await sleep(5_000);
   }
 
-  appendSummary(\`| ❌ FAIL | \${label} | \${lastStatus} | \${attempts} | \${lastChallenge ? 'yes' : 'no'} |\n\`);
+  appendSummary(`| ❌ FAIL | ${label} | ${lastStatus} | ${attempts} | ${lastChallenge ? 'yes' : 'no'} |\n`);
   const reason = lastError
     || (lastChallenge ? 'Cloudflare returned cf-mitigated: challenge' : '')
-    || (lastStatus !== '200' ? \`HTTP \${lastStatus}\` : '')
-    || (missing.length > 0 ? \`required text missing: \${missing.join(' | ')}\` : '')
-    || (stale.length > 0 ? \`stale destination-template text present: \${stale.join(' | ')}\` : '')
+    || (lastStatus !== '200' ? `HTTP ${lastStatus}` : '')
+    || (missing.length > 0 ? `required text missing: ${missing.join(' | ')}` : '')
+    || (stale.length > 0 ? `stale destination-template text present: ${stale.join(' | ')}` : '')
     || 'unknown destination-template mismatch';
-  console.error(\`::error title=LIVE PRODUCTION failure::\${label} failed after \${attempts} attempts — \${reason}\`);
-  if (lastBody) console.error(\`[\${label}] response sample: \${lastBody.slice(0, 2000).replace(/\s+/g, ' ')}\`);
+  console.error(`::error title=LIVE PRODUCTION failure::${label} failed after ${attempts} attempts — ${reason}`);
+  if (lastBody) console.error(`[${label}] response sample: ${lastBody.slice(0, 2000).replace(/\s+/g, ' ')}`);
   process.exit(1);
 }
 
