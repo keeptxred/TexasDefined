@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { createLazyFileRoute, getRouteApi, Link } from "@tanstack/react-router";
 
 import { PaintedChurchResearchDossier } from "@/components/editorial/PaintedChurchResearchDossier";
 import { Container } from "@/components/layout/Container";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { paintedChurchGalleryBySlug } from "@/data/painted-church-gallery";
+import { hideFailedImageContainer } from "@/lib/image-fallback";
 
 const routeApi = getRouteApi("/explore/painted-churches/$slug");
 
@@ -14,6 +16,7 @@ export const Route = createLazyFileRoute("/explore/painted-churches/$slug")({
 function PaintedChurchDetail() {
   const { church, profile } = routeApi.useLoaderData();
   const gallery = paintedChurchGalleryBySlug(church.slug);
+  const [failedHeroImage, setFailedHeroImage] = useState<string | null>(null);
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(church.address ?? `${church.name}, ${church.city}, Texas`)}`;
   const related = expandedPaintedChurches
     .filter((candidate) => candidate.slug !== church.slug)
@@ -55,19 +58,31 @@ function PaintedChurchDetail() {
             </div>
           </div>
           {church.image ? (
-            <figure>
-              <img src={church.image.src} alt={church.image.alt} width={church.image.width} height={church.image.height} fetchPriority="high" decoding="async" className="aspect-[4/3] w-full object-cover" />
-              <figcaption className="mt-3 text-xs leading-5 text-ink-foreground/60">
-                {church.image.credit} · {church.image.license} · <a href={church.image.sourceUrl} target="_blank" rel="noreferrer" className="border-b border-ink-foreground/40">source</a>
-              </figcaption>
-            </figure>
+            failedHeroImage === church.image.src ? (
+              <div className="flex aspect-[4/3] items-end border border-ink-foreground/20 p-7">
+                <div><p className="eyebrow text-ink-foreground/55">Photograph unavailable</p><p className="mt-3 text-sm leading-6 text-ink-foreground/70">The verified image did not load. <a href={church.image.sourceUrl} target="_blank" rel="noreferrer" className="border-b border-ink-foreground/40">Open the source and license record.</a></p></div>
+              </div>
+            ) : (
+              <figure>
+                <img src={church.image.src} alt={church.image.alt} width={church.image.width} height={church.image.height} fetchPriority="high" decoding="async" className="aspect-[4/3] w-full object-cover" onError={() => setFailedHeroImage(church.image!.src)} />
+                <figcaption className="mt-3 text-xs leading-5 text-ink-foreground/60">
+                  {church.image.credit} · {church.image.license} · <a href={church.image.sourceUrl} target="_blank" rel="noreferrer" className="border-b border-ink-foreground/40">source</a>
+                </figcaption>
+              </figure>
+            )
           ) : gallery[0] ? (
-            <figure>
-              <img src={gallery[0].src} alt={gallery[0].alt} width={gallery[0].width} height={gallery[0].height} fetchPriority="high" decoding="async" className="aspect-[4/3] w-full object-cover" />
-              <figcaption className="mt-3 text-xs leading-5 text-ink-foreground/60">
-                {gallery[0].credit} · {gallery[0].license} · <a href={gallery[0].sourceUrl} target="_blank" rel="noreferrer" className="border-b border-ink-foreground/40">source</a>
-              </figcaption>
-            </figure>
+            failedHeroImage === gallery[0].src ? (
+              <div className="flex aspect-[4/3] items-end border border-ink-foreground/20 p-7">
+                <div><p className="eyebrow text-ink-foreground/55">Photograph unavailable</p><p className="mt-3 text-sm leading-6 text-ink-foreground/70">The rights-cleared image did not load. <a href={gallery[0].sourceUrl} target="_blank" rel="noreferrer" className="border-b border-ink-foreground/40">Open the source and license record.</a></p></div>
+              </div>
+            ) : (
+              <figure>
+                <img src={gallery[0].src} alt={gallery[0].alt} width={gallery[0].width} height={gallery[0].height} fetchPriority="high" decoding="async" className="aspect-[4/3] w-full object-cover" onError={() => setFailedHeroImage(gallery[0].src)} />
+                <figcaption className="mt-3 text-xs leading-5 text-ink-foreground/60">
+                  {gallery[0].credit} · {gallery[0].license} · <a href={gallery[0].sourceUrl} target="_blank" rel="noreferrer" className="border-b border-ink-foreground/40">source</a>
+                </figcaption>
+              </figure>
+            )
           ) : (
             <div className="flex aspect-[4/3] items-end border border-ink-foreground/20 p-7">
               <div><p className="eyebrow text-ink-foreground/55">Texas painted church</p><p className="mt-3 font-display text-4xl">{church.city}</p></div>
@@ -135,7 +150,7 @@ function PaintedChurchDetail() {
               <div className="mt-8 grid gap-8 sm:grid-cols-2">
                 {gallery.map((image) => (
                   <figure key={image.sourceUrl} className="border-t border-border pt-5">
-                    <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover" />
+                    <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
                     <figcaption className="mt-3 text-xs leading-6 text-muted-foreground">
                       {image.caption} <span className="block mt-1">{image.credit} · {image.license} · <a href={image.sourceUrl} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">source & license</a></span>
                     </figcaption>

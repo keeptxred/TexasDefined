@@ -3,6 +3,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
 import { commerceApiBase } from "@/data/shop-products-remote";
+import { recoverOrHideImage } from "@/lib/image-fallback";
 import { useShopCart } from "@/lib/shop-cart";
 import { trackTexasDefinedOutcome } from "@/platform/analytics";
 
@@ -80,7 +81,7 @@ function CartPage() {
           <div>
             <ul className="divide-y divide-border border-y border-border">
               {cart.items.map((item) => <li key={item.key} className="grid grid-cols-[96px_1fr] gap-5 py-6 sm:grid-cols-[120px_1fr_auto]">
-                <img src={item.image} alt="" className="aspect-[4/5] w-full object-cover" />
+                <div className="relative aspect-[4/5] w-full overflow-hidden bg-surface"><span className="flex h-full items-center justify-center px-2 text-center text-xs text-muted-foreground">Product image unavailable</span><img src={item.image} alt="" className="absolute inset-0 size-full object-cover" onError={(event) => recoverOrHideImage(event.currentTarget)} /></div>
                 <div>
                   <h2 className="font-display text-2xl leading-tight" title={item.title}>{displayTitle(item.title)}</h2>
                   {item.variantTitle ? <p className="mt-2 text-sm text-muted-foreground">{item.variantTitle}</p> : null}
