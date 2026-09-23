@@ -15,7 +15,8 @@ for (const feature of [
   'thumbnailUrl: imageUrl',
   'genre: department.name',
   'hasPart: relatedDestinations.map',
-  'destinationsQuery({ limit: 5000 })',
+  'getDestinationsBySlugs({ data: { slugs: article.relatedDestinations.slice(0, 8) } })',
+  'function articleAutoLinkGraph(',
   'article.relatedDestinations',
   'Places connected to this story',
   'More stories to read next',
@@ -30,6 +31,10 @@ for (const feature of [
   'og:image:height',
 ]) {
   if (!seo.includes(feature)) failures.push(`Shared SEO Discover contract missing: ${feature}`);
+}
+
+if (route.includes('destinationsQuery({ limit: 5000 })')) {
+  failures.push('Article route must not hydrate the full destination catalog for related-place rendering.');
 }
 
 if (route.includes('dateModified: article.publishedAt')) {
