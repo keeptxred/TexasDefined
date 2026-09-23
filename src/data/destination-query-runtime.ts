@@ -103,10 +103,10 @@ function finishHistoricSiteEnrichment(destination: Destination) {
 function applyResolvedHero(destination: Destination) {
   return normalizeDestinationCounty(
     enrichCavernAreaGuide(
-      enrichAquariumMarineDestination(
-        finishHistoricSiteEnrichment(
-          improveDestinationQuality(
-            applyAllCuratedDestination(
+      finishHistoricSiteEnrichment(
+        improveDestinationQuality(
+          applyAllCuratedDestination(
+            enrichAquariumMarineDestination(
               applyExploreHeroAsset(
                 applyStateParkHeroAsset(
                   applyDestinationHeroOverride(destination),
@@ -121,14 +121,15 @@ function applyResolvedHero(destination: Destination) {
 }
 
 function reconcileExploreCatalog(destinations: Destination[]) {
-  const curated = improveDestinationCatalog(applyAllCuratedDestinations(reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))));
+  const aquariumEnriched = reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))
+    .map(enrichAquariumMarineDestination);
+  const curated = improveDestinationCatalog(applyAllCuratedDestinations(aquariumEnriched));
   const improved = enrichHistoricSiteCatalog(curated)
     .map(enrichRemainingHistoricSiteAreaGuide)
     .map(enrichHistoricSiteRemoteHero)
     .map(enrichHistoricSiteEvergreenLinks)
     .map(applyHistoricSiteFactCorrections)
     .map(enrichNationalCemeteryDestination)
-    .map(enrichAquariumMarineDestination)
     .map(enrichCavernAreaGuide)
     .map(normalizeDestinationCounty);
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved));

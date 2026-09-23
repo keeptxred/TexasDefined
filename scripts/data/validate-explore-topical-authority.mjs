@@ -21,6 +21,14 @@ const uniqueLodgingHub = readRouteSurface('src/routes/texas-unique-lodging.tsx')
 const historyHub = readRouteSurface('src/routes/texas-history.tsx');
 const topAttractionsHub = readRouteSurface('src/routes/explore.top-attractions.tsx');
 const musicAuthority = read('src/data/texas-music.ts');
+const destinationRuntime = read('src/data/destination-query-runtime.ts');
+const aquariumWave4 = read('src/data/aquarium-marine-destinations-4.ts');
+const topAttractionCuration4 = read('src/data/destination-curation-top-attractions-batch4.ts');
+const houstonZooCurationStart = topAttractionCuration4.indexOf('"houston-zoo": {');
+const houstonZooCurationEnd = topAttractionCuration4.indexOf('\n  "', houstonZooCurationStart + 20);
+const houstonZooCuration = houstonZooCurationStart >= 0
+  ? topAttractionCuration4.slice(houstonZooCurationStart, houstonZooCurationEnd > houstonZooCurationStart ? houstonZooCurationEnd : undefined)
+  : '';
 
 for (const slug of ['lakes-rivers','major-springs','state-parks','national-parks','caverns','beaches-coast','historic-sites','road-trips','small-towns','food-bbq','outdoors','events']) {
   if (!topicPaths.includes(`${JSON.stringify(slug)}:`) && !topicPaths.includes(`${slug}: [`)) failures.push(`Explore topical bridge missing for ${slug}.`);
@@ -263,6 +271,32 @@ for (const marker of [
 }
 for (const target of ['/explore/attractions-comparison', '/browse/cities', '/events', '/explore/trip-planner']) {
   if (!topAttractionsHub.includes(`to: ${JSON.stringify(target)}`)) failures.push(`Top attractions family planning must surface ${target}.`);
+}
+
+for (const marker of [
+  'applyAllCuratedDestination(\n            enrichAquariumMarineDestination(',
+  'const aquariumEnriched = reconcileDestinationHeroes',
+  'applyAllCuratedDestinations(aquariumEnriched)',
+]) {
+  if (!destinationRuntime.includes(marker)) failures.push(`Aquarium enrichment must run before final destination curation: missing ${marker}.`);
+}
+if (destinationRuntime.includes('.map(enrichNationalCemeteryDestination)\n    .map(enrichAquariumMarineDestination)')) {
+  failures.push('Aquarium enrichment must not overwrite final curated destination fields in the catalog pipeline.');
+}
+for (const marker of [
+  'General-admission non-member guests currently need online timed reservations',
+  'Tickets are not sold on-site',
+  'Kipp Aquarium closed in 2020',
+]) {
+  if (!aquariumWave4.includes(marker)) failures.push(`Houston Zoo aquarium source is missing current planning/history marker: ${marker}.`);
+}
+for (const marker of [
+  'sourceCheckedAt: "2026-09-23"',
+  'General-admission non-member guests currently need online timed reservations',
+  'Kipp Aquarium closed in 2020',
+  'reservationUrl: "https://ticket.houstonzoo.org/"',
+]) {
+  if (!houstonZooCuration.includes(marker)) failures.push(`Houston Zoo Top-25 curation is missing protected marker: ${marker}.`);
 }
 
 if (!categoryPage.includes('ExploreTopicPaths')) failures.push('Explore categories must render ExploreTopicPaths.');

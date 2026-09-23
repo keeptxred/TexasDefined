@@ -57,7 +57,7 @@ const curated: Record<string, Partial<Destination>> = {
     summary: "A major conservation-focused zoo inside Hermann Park, pairing more than a century of Houston history with modern habitats, family exhibits and easy access to the Museum District.",
     nearestTown: "Houston",
     bestSeason: "Fall through spring; summer visits are best early in the morning",
-    entryNote: "Timed tickets are commonly used and parking around Hermann Park can fill quickly. Check current admission and transit options before visiting.",
+    entryNote: "General-admission non-member guests currently need online timed reservations, while members and CityPASS ticket holders have separate entry rules. Tickets are not sold on-site, and free Hermann Park parking is limited.",
     highlights: ["Galápagos Islands exhibit", "African Forest", "Texas Wetlands", "Hermann Park and Museum District location"],
     body: [
       "Houston Zoo sits in the middle of one of the city's densest visitor districts, making it easy to combine with Hermann Park, the Museum of Natural Science and other nearby museums.",

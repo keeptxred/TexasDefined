@@ -20,7 +20,7 @@ const surfaces = [
   ['sea-turtle-inc', '/destination/sea-turtle-inc', ['Sea Turtle, Inc.', 'Cameron County', 'Official visitor information']],
   ['ut-marine-science-institute', '/destination/ut-marine-science-institute-patton-center', ['UT Marine Science Institute Patton Center', 'Nueces County']],
   ['science-spectrum-aquarium', '/destination/science-spectrum-museum-aquarium', ['Science Spectrum Museum & Aquarium', 'Lubbock County']],
-  ['houston-zoo-kipp-correction', '/destination/houston-zoo', ['Houston Zoo', 'Kipp Aquarium', 'closed in 2020']],
+  ['houston-zoo-current-planning-and-kipp-correction', '/destination/houston-zoo', ['Houston Zoo', 'online timed reservations', 'Tickets are not sold on-site', 'Kipp Aquarium', 'closed in 2020']],
   ['fort-worth-zoo', '/destination/fort-worth-zoo', ['Fort Worth Zoo', 'Tarrant County']],
   ['san-antonio-zoo', '/destination/san-antonio-zoo', ['San Antonio Zoo', 'Friedrich Aquarium', 'Bexar County']],
   ['nueces-county-aquarium-links', '/county/nueces', ['Aquariums & marine life', 'Texas State Aquarium', 'UT Marine Science Institute Patton Center']],
