@@ -141,9 +141,9 @@ export const texasHighSchoolFootballScoresSchedulesArticle: Article = {
     ),
     h("The 2026 season endpoint"),
     p("UIL lists the 2026 football state championships for December 16–19 at AT&T Stadium in Arlington. Between now and then, regular-season schedules, district play and playoff rounds will keep changing the live picture every week."),
-    p("The durable part of TexasDefined is the research structure around that changing season: every current UIL program, every current UIL football district, classifications, enrollment context, school profiles, championship history and stadium research. The scoreboard and school sources supply the part that has to stay live."),
+    p("The stable reference layer around that changing season includes every current UIL program, every current UIL football district, classifications, enrollment context, school profiles, championship history and stadium research. The UIL scoreboard and school sources supply the details that have to stay live."),
     h("The simplest takeaway"),
     p("Use UIL for the statewide score-and-schedule feed, use the school for last-mile game details, use the district structure to understand what the matchup means, and use the playoff bracket once the postseason begins."),
-    p("Most importantly, do not confuse incomplete live submissions with an official standings table. TexasDefined would rather label a gap honestly than turn partial score data into a false ranking.")
+    p("Most importantly, do not confuse incomplete live submissions with an official standings table. A missing or partial result should be labeled as incomplete rather than turned into a false ranking.")
   ],
 };
