@@ -14,6 +14,7 @@ const topAttractions = fs.readFileSync('src/routes/explore.top-attractions.tsx',
 const topAttractionRoadTrips = fs.readFileSync('src/routes/explore.top-attractions.road-trips.tsx', 'utf8');
 const attractionsComparison = fs.readFileSync('src/routes/explore.attractions-comparison.tsx', 'utf8');
 const attractionsComparisonComponent = fs.readFileSync('src/components/explore/ExploreDestinationComparison.tsx', 'utf8');
+const exploreSearch = fs.readFileSync('src/routes/explore.search.tsx', 'utf8');
 const destinationRelationshipsServer = fs.readFileSync('src/data/destination-relationships.functions.ts', 'utf8');
 const destinationCollection = fs.readFileSync('src/components/editorial/DestinationCollectionGrid.tsx', 'utf8');
 
@@ -143,9 +144,36 @@ for (const feature of [
 ]) {
   if (!destinationCollectionsServer.includes(feature)) errors.push(`Attractions comparison compact hydration guard missing: ${feature}`);
 }
+const comparisonCatalogStart = destinationCollectionsServer.indexOf('export const getDestinationCatalog');
+const comparisonCatalogEnd = destinationCollectionsServer.indexOf('export const getDestinationSearchCatalog');
+const comparisonCatalogBlock = destinationCollectionsServer.slice(comparisonCatalogStart, comparisonCatalogEnd);
 for (const forbidden of ['hero: destination.hero', 'body: destination.body', 'coordinates: destination.coordinates', 'areaGuide: destination.areaGuide', 'authorityGuide: destination.authorityGuide']) {
-  if (destinationCollectionsServer.includes(forbidden)) errors.push(`Attractions comparison must not serialize detail-only field: ${forbidden}`);
+  if (comparisonCatalogBlock.includes(forbidden)) errors.push(`Attractions comparison must not serialize detail-only field: ${forbidden}`);
 }
+for (const feature of [
+  'getDestinationSearchCatalog',
+  'export type DestinationSearchRecord = Pick<',
+  'Promise<DestinationSearchRecord[]>',
+]) {
+  if (!destinationCollectionsServer.includes(feature)) errors.push(`Explore search compact catalog guard missing: ${feature}`);
+}
+for (const feature of [
+  'getDestinationSearchCatalog()',
+  'queryKey: ["explore-search-catalog"]',
+  'type DestinationSearchRecord',
+]) {
+  if (!exploreSearch.includes(feature)) errors.push(`Explore search compact client contract missing: ${feature}`);
+}
+if (exploreSearch.includes('destinationsQuery({ limit: 5000 })')) {
+  errors.push('Explore search must not cache the full rich destination catalog in the browser.');
+}
+const searchCatalogStart = destinationCollectionsServer.indexOf('export const getDestinationSearchCatalog');
+const searchCatalogEnd = destinationCollectionsServer.indexOf('export const getDestinationCollection');
+const searchCatalogBlock = destinationCollectionsServer.slice(searchCatalogStart, searchCatalogEnd);
+for (const forbidden of ['body: destination.body', 'entryNote: destination.entryNote', 'areaGuide: destination.areaGuide', 'authorityGuide: destination.authorityGuide']) {
+  if (searchCatalogBlock.includes(forbidden)) errors.push(`Explore search must not serialize detail-only field: ${forbidden}`);
+}
+
 for (const feature of [
   "const pageSize = kind === 'attractions' ? 100 : sorted.length;",
   'const visibleDestinations = sorted.slice(0, visibleCount);',
