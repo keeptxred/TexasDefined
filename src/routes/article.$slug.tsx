@@ -16,6 +16,7 @@ import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import { remoteEvergreenAuthoritySources } from "@/data/remote-evergreen-authority-sources";
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
+import { recoverOrHideImage } from "@/lib/image-fallback";
 import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "@/lib/seo";
 import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";
 
@@ -379,7 +380,7 @@ function ArticlePage() {
       </nav>
     </Container>
     <section className="relative isolate mt-4 overflow-hidden bg-ink text-ink-foreground">
-      <img src={article.hero.src} alt={article.hero.alt} width={article.hero.width} height={article.hero.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-60" />
+      <img src={article.hero.src} alt={article.hero.alt} width={article.hero.width} height={article.hero.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-60" onError={(event) => recoverOrHideImage(event.currentTarget)} />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/25" />
       <Container className="relative flex flex-col justify-end pb-10 pt-24 sm:pb-14 sm:pt-28" style={{ minHeight: "clamp(24rem, 48vw, 34rem)" }}>
         <p className="eyebrow text-ink-foreground/80">{isTexasExplainedCollectionArticle ? "Texas Explained" : categoryName}</p>
