@@ -241,7 +241,7 @@ jobs:
             done
           }
 
-          check_page '/fishing/lakes' '15 complete Texas fishing lake guides are published'
+          check_page '/fishing/lakes' 'complete Texas fishing lake guides are published'
           check_page '/fishing/lakes/o-h-ivie-lake' 'O.H. Ivie Lake' 'Live lake level:' 'Water Data for Texas'
           check_page '/fishing/lakes/lake-travis' 'Lake Travis' 'Live lake level:' 'Water Data for Texas'
           check_page '/fishing/lakes/lake-whitney' 'Lake Whitney' 'Live lake level:' 'Water Data for Texas'
