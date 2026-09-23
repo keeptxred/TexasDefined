@@ -81,9 +81,73 @@ jobs:
               echo "Houston Zoo hydration control returned $hydration_bytes HTML bytes; expected no more than 2,000,000. The public hydration payload may have regressed." >&2
               exit 1
             fi
+            grep -Fq "Arrive early" "$target" || {
+              echo "Houston Zoo itinerary control is missing the expected first step." >&2
+              exit 1
+            }
+            for step_number in 1 2 3; do
+              if grep -Eq ">$step_number</span><span>$step_number([.]|[[:space:]])" "$target"; then
+                echo "Houston Zoo itinerary control rendered duplicated step numbering for step $step_number." >&2
+                exit 1
+              fi
+            done
           done
 
-          echo "Houston Zoo destination hydration stability passed across three production fetches."
+          echo "Houston Zoo destination hydration stability and itinerary numbering passed across three production fetches."
+
+  browser-stability:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Render destination controls in headless Chromium
+        run: |
+          set -euo pipefail
+          origin="https://texasdefined.com"
+          browser="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser || true)"
+          test -n "$browser" || {
+            echo "No Chromium-family browser is available on the hosted runner." >&2
+            exit 1
+          }
+          "$browser" --version
+
+          for path in \
+            "/destination/houston-zoo" \
+            "/destination/fort-worth-zoo" \
+            "/destination/choke-canyon-state-park"; do
+            slug="$(basename "$path")"
+            for attempt in 1 2 3; do
+              dom="/tmp/${slug}-${attempt}.html"
+              metrics="/tmp/${slug}-${attempt}.time"
+              /usr/bin/time -v "$browser" \
+                --headless=new \
+                --no-sandbox \
+                --disable-gpu \
+                --disable-dev-shm-usage \
+                --virtual-time-budget=8000 \
+                --dump-dom "$origin$path" \
+                > "$dom" 2> "$metrics"
+
+              grep -Fq "<title>" "$dom" || {
+                echo "Headless Chromium did not render a document title for $path (attempt $attempt)." >&2
+                exit 1
+              }
+              dom_bytes="$(wc -c < "$dom" | tr -d ' ')"
+              max_rss_kb="$(awk -F: '/Maximum resident set size/ { gsub(/[^0-9]/, "", $2); print $2 }' "$metrics" | tail -1)"
+              max_rss_kb="${max_rss_kb:-0}"
+              echo "Chromium $path attempt $attempt: ${dom_bytes} DOM bytes; ${max_rss_kb} KB max RSS."
+
+              if [ "$dom_bytes" -gt 2500000 ]; then
+                echo "Chromium-rendered DOM for $path exceeded 2,500,000 bytes." >&2
+                exit 1
+              fi
+              if [ "$max_rss_kb" -gt 900000 ]; then
+                echo "Chromium rendering $path exceeded 900,000 KB max RSS." >&2
+                exit 1
+              fi
+            done
+          done
+
+          echo "Headless Chromium destination stability passed across Houston Zoo and two comparison destinations."
 
   smoke:
     runs-on: ubuntu-latest
@@ -173,7 +237,7 @@ jobs:
           done
 
           curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$authority_control" -o /tmp/authority-control.html
-          for marker in "Visitor information" "Sources" "The visit" "Texas context" "Three ways to visit" "Key dates" "Common visitor questions" "Sources &amp; updates" "Sources used for this guide" "Primary visitor source" "Supporting source" "Update history"; do
+          for marker in "The visit" "What the experience is like" "Walking &amp; exertion" "Time outdoors" "Plan ahead" "Families" "First Texas trip" "Texas context" "Three ways to visit" "Key dates" "Common visitor questions" "Sources &amp; updates" "Sources used for this guide" "Primary visitor source" "Supporting source" "Update history"; do
             grep -Fq "$marker" /tmp/authority-control.html || {
               echo "Top 25 authority control is missing required rendered marker: $marker" >&2
               exit 1
