@@ -19,6 +19,11 @@ const smokeTargets = [
     requiredText: 'Best Places to Go Camping in Texas',
     label: 'camping guide',
   },
+  {
+    path: '/sitemap.xml',
+    requiredText: '<urlset',
+    label: 'primary sitemap',
+  },
 ];
 
 mkdirSync(artifactDir, { recursive: true });
