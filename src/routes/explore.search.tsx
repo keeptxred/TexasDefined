@@ -6,9 +6,7 @@ import { z } from "zod";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Container } from "@/components/layout/Container";
-import { distanceMiles } from "@/data/destination-relationships";
-import { destinationsQuery } from "@/data/queries";
-import type { Destination } from "@/data/types";
+import { getDestinationSearchCatalog, type DestinationSearchRecord } from "@/data/destination-collections.functions";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const text = z.string().optional().catch("");
@@ -25,8 +23,8 @@ export const Route = createFileRoute("/explore/search")({
 
 function normalized(value: string) { return value.toLowerCase().trim().replace(/\s+/g, " "); }
 function formatLabel(value: string) { return value.replace(/-/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase()); }
-function searchText(destination: Destination) { return normalized([destination.name, destination.summary, destination.category.replace(/-/g, " "), destination.region.replace(/-/g, " "), destination.nearestTown, destination.county, destination.managingAuthority, destination.bestSeason, ...destination.highlights].filter(Boolean).join(" ")); }
-function scoreDestination(destination: Destination, query: string) {
+function searchText(destination: DestinationSearchRecord) { return normalized([destination.name, destination.summary, destination.category.replace(/-/g, " "), destination.region.replace(/-/g, " "), destination.nearestTown, destination.county, destination.managingAuthority, destination.bestSeason, ...destination.highlights].filter(Boolean).join(" ")); }
+function scoreDestination(destination: DestinationSearchRecord, query: string) {
   const q = normalized(query);
   if (!q) return destination.featured ? 5 : 1;
   const name = normalized(destination.name);
@@ -47,7 +45,7 @@ function scoreDestination(destination: Destination, query: string) {
   return score;
 }
 
-function resolveOrigin(catalog: Destination[], value: string) {
+function resolveOrigin(catalog: DestinationSearchRecord[], value: string) {
   const target = normalized(value);
   if (!target) return null;
   return catalog.find((destination) => normalized(destination.name) === target
@@ -55,10 +53,30 @@ function resolveOrigin(catalog: Destination[], value: string) {
     || normalized(destination.slug.replace(/-/g, " ")) === target) ?? null;
 }
 
+function distanceMiles(left: DestinationSearchRecord, right: DestinationSearchRecord) {
+  const valid = (destination: DestinationSearchRecord) => Number.isFinite(destination.coordinates.lat)
+    && Number.isFinite(destination.coordinates.lng)
+    && destination.coordinates.lat >= -90
+    && destination.coordinates.lat <= 90
+    && destination.coordinates.lng >= -180
+    && destination.coordinates.lng <= 180
+    && !(destination.coordinates.lat === 0 && destination.coordinates.lng === 0);
+  if (!valid(left) || !valid(right)) return null;
+  const toRadians = (value: number) => (value * Math.PI) / 180;
+  const earthRadiusMiles = 3958.8;
+  const latitudeDelta = toRadians(right.coordinates.lat - left.coordinates.lat);
+  const longitudeDelta = toRadians(right.coordinates.lng - left.coordinates.lng);
+  const leftLatitude = toRadians(left.coordinates.lat);
+  const rightLatitude = toRadians(right.coordinates.lat);
+  const haversine = Math.sin(latitudeDelta / 2) ** 2
+    + Math.cos(leftLatitude) * Math.cos(rightLatitude) * Math.sin(longitudeDelta / 2) ** 2;
+  return earthRadiusMiles * 2 * Math.atan2(Math.sqrt(haversine), Math.sqrt(1 - haversine));
+}
+
 function ExploreSearchPage() {
   const { q, category, region, season, accessible } = Route.useSearch();
   const { origin, radius } = Route.useSearch();
-  const { data: catalog = [], isLoading, error } = useQuery(destinationsQuery({ limit: 5000 }));
+  const { data: catalog = [], isLoading, error } = useQuery({ queryKey: ["explore-search-catalog"], queryFn: () => getDestinationSearchCatalog() });
   const categories = useMemo(() => [...new Set(catalog.map((destination) => destination.category))].sort(), [catalog]);
   const regions = useMemo(() => [...new Set(catalog.map((destination) => destination.region))].sort(), [catalog]);
   const requestedOrigin = Boolean(origin.trim());

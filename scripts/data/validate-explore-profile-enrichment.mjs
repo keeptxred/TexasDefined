@@ -118,7 +118,7 @@ if (!queries.includes('await import("./destination-query-runtime")')) errors.pus
 if (!queries.includes('await import("./search-documents-runtime")')) errors.push('Search document assembly must remain behind the dynamic runtime boundary.');
 
 for (const feature of [
-  'createFileRoute("/explore/search")', 'component: ExploreSearchPage', 'destinationsQuery({ limit: 5000 })', 'scoreDestination', 'searchText',
+  'createFileRoute("/explore/search")', 'component: ExploreSearchPage', 'getDestinationSearchCatalog()', 'queryKey: ["explore-search-catalog"]', 'scoreDestination', 'searchText',
   'destination.county', 'destination.managingAuthority', 'destination.bestSeason', '...destination.highlights',
   'terms.every((term) => haystack.includes(term))', 'right.score - left.score',
   'const text = z.string().optional().catch("")', 'q: text, category: text, region: text, season: text, accessible: text',

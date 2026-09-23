@@ -4,6 +4,43 @@ import type { Destination } from "./types";
 
 type DestinationCollectionKey = "aquariums" | "museums";
 
+export type DestinationComparisonRecord = Pick<
+  Destination,
+  | "slug"
+  | "name"
+  | "summary"
+  | "category"
+  | "region"
+  | "nearestTown"
+  | "bestSeason"
+  | "entryNote"
+  | "highlights"
+  | "managingAuthority"
+  | "officialUrl"
+  | "sourceCheckedAt"
+  | "county"
+>;
+
+export type DestinationSearchRecord = Pick<
+  Destination,
+  | "id"
+  | "slug"
+  | "name"
+  | "summary"
+  | "category"
+  | "region"
+  | "nearestTown"
+  | "coordinates"
+  | "hero"
+  | "bestSeason"
+  | "highlights"
+  | "managingAuthority"
+  | "sourceCheckedAt"
+  | "county"
+  | "accessibilityNotes"
+  | "featured"
+>;
+
 function sanitizeSlug(value: unknown) {
   return String(value ?? "").trim().slice(0, 180);
 }
@@ -30,7 +67,31 @@ export const getDestinationsBySlugs = createServerFn({ method: "GET" })
   });
 
 export const getDestinationCatalog = createServerFn({ method: "GET" })
-  .handler(async (): Promise<Destination[]> => {
+  .handler(async (): Promise<DestinationComparisonRecord[]> => {
+    const { listResolvedDestinations } = await import("./destination-query-runtime");
+
+    // The comparison table only needs compact planning metadata. Do not ship
+    // destination article bodies, images, coordinates, authority guides or
+    // other detail-only fields for thousands of rows.
+    return (await listResolvedDestinations({ limit: 5000 })).map((destination) => ({
+      slug: destination.slug,
+      name: destination.name,
+      summary: destination.summary,
+      category: destination.category,
+      region: destination.region,
+      nearestTown: destination.nearestTown,
+      bestSeason: destination.bestSeason,
+      entryNote: destination.entryNote,
+      highlights: destination.highlights.slice(0, 8),
+      managingAuthority: destination.managingAuthority,
+      officialUrl: destination.officialUrl,
+      sourceCheckedAt: destination.sourceCheckedAt,
+      county: destination.county,
+    }));
+  });
+
+export const getDestinationSearchCatalog = createServerFn({ method: "GET" })
+  .handler(async (): Promise<DestinationSearchRecord[]> => {
     const [
       { listResolvedDestinations },
       { prepareDestinationForDelivery },
@@ -40,7 +101,25 @@ export const getDestinationCatalog = createServerFn({ method: "GET" })
     ]);
 
     return (await listResolvedDestinations({ limit: 5000 }))
-      .map(prepareDestinationForDelivery);
+      .map(prepareDestinationForDelivery)
+      .map((destination) => ({
+        id: destination.id,
+        slug: destination.slug,
+        name: destination.name,
+        summary: destination.summary,
+        category: destination.category,
+        region: destination.region,
+        nearestTown: destination.nearestTown,
+        coordinates: destination.coordinates,
+        hero: destination.hero,
+        bestSeason: destination.bestSeason,
+        highlights: destination.highlights.slice(0, 8),
+        managingAuthority: destination.managingAuthority,
+        sourceCheckedAt: destination.sourceCheckedAt,
+        county: destination.county,
+        accessibilityNotes: destination.accessibilityNotes,
+        featured: destination.featured,
+      }));
   });
 
 export const getDestinationCollection = createServerFn({ method: "GET" })
