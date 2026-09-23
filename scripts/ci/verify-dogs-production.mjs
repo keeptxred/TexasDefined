@@ -1,3 +1,4 @@
+// Verification-only touch: run the current deployed Texas Dogs contract against live production. Do not merge this branch.
 const origin = String(process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const userAgent = 'TexasDefined-Dogs-Production-Smoke/1.3';
