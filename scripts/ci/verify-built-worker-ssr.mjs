@@ -19,6 +19,21 @@ const smokeTargets = [
     requiredText: 'Best Places to Go Camping in Texas',
     label: 'camping guide',
   },
+  {
+    path: '/fishing/plan?species=largemouth-bass&species=crappie&q=Lake%20Conroe&sort=best',
+    requiredText: 'matching lake',
+    label: 'fishing finder multi-species',
+  },
+  {
+    path: '/fishing/plan?lat=29.76&lng=-95.37&origin=Houston&sort=closest&view=map',
+    requiredText: 'Map of matching Texas fishing lakes',
+    label: 'fishing finder closest map',
+  },
+  {
+    path: '/fishing/plan?species=catfish&shore=1&boat=1&guide=1&report=1',
+    requiredText: 'More filters',
+    label: 'fishing finder verified filters',
+  },
 ];
 
 mkdirSync(artifactDir, { recursive: true });
