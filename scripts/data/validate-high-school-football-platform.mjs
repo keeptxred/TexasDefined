@@ -203,6 +203,9 @@ if (!errors.length) {
     "'5A': 246",
     "'6A': 249",
     "alignmentCycle: '2026-28'",
+    'sourceSchoolName: string;',
+    'sourceSchoolName,',
+    'displayUilSchoolName(sourceSchoolName)',
     "footballType:'6-Man'",
     "footballType:'11-Man'",
     'https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf',
@@ -717,6 +720,7 @@ if (!errors.length) {
     'UIL football index ordering regression',
     'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28',
     'footballProgramProfilePath',
+    'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.sourceSchoolName]',
   ]) requireText(footballProgramIndex, marker, 'Lightweight UIL football finder bootstrap');
 
   for (const marker of [
@@ -758,11 +762,14 @@ if (!errors.length) {
     'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28',
     'uilEnrollment',
     'uilSubmittedConference',
+    'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.sourceSchoolName]',
   ]) requireText(directory, marker, 'Football directory exact enrollment integration');
 
   for (const marker of [
     'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28',
     'uilEnrollment:',
+    'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[seed.sourceSchoolName]',
+    'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.sourceSchoolName]',
   ]) requireText(programProfileServer, marker, 'Football profile exact enrollment integration');
   requireText(programProfileServer, 'getVerifiedFootballSchoolIdentity(canonicalSlug)', 'Canonical UIL identity precedence');
   requireText(programProfileServer, 'identity: getVerifiedFootballSchoolIdentity(canonicalSlug) ?? null', 'Canonical UIL identity ownership');
@@ -802,7 +809,22 @@ if (!errors.length) {
     'uilEnrollment',
     'submittedConference',
     'enrollmentSourceUrl',
+    'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.sourceSchoolName]',
   ]) requireText(footballDistrictServer, marker, 'UIL football district index');
+
+  for (const [source, label] of [
+    [footballProgramIndex, 'football finder bootstrap'],
+    [directory, 'football directory'],
+    [footballDistrictServer, 'football district index'],
+    [programProfileServer, 'football profile resolver'],
+  ]) {
+    if (source.includes('UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.schoolName]')) {
+      errors.push(`${label} must join exact UIL enrollment by sourceSchoolName, not the display schoolName.`);
+    }
+  }
+  if (programProfileServer.includes('UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[seed.schoolName]')) {
+    errors.push('Football profile resolver must join seed exact UIL enrollment by sourceSchoolName, not the display schoolName.');
+  }
 
   for (const marker of [
     "createServerFn({ method: 'GET' })",
