@@ -77,13 +77,10 @@ jobs:
               echo "Houston Zoo hydration control exposed $hydration_destination_links unique destination slugs; expected no more than 150. The full destination catalog may have leaked into browser hydration." >&2
               exit 1
             fi
-
-            for forbidden_slug in "/destination/fort-worth-zoo" "/destination/big-bend-national-park" "/destination/galveston-island-state-park"; do
-              if grep -Fq "$forbidden_slug" "$target"; then
-                echo "Houston Zoo hydration control contains unrelated destination payload marker: $forbidden_slug" >&2
-                exit 1
-              fi
-            done
+            if [ "$hydration_bytes" -gt 2000000 ]; then
+              echo "Houston Zoo hydration control returned $hydration_bytes HTML bytes; expected no more than 2,000,000. The public hydration payload may have regressed." >&2
+              exit 1
+            fi
           done
 
           echo "Houston Zoo destination hydration stability passed across three production fetches."
