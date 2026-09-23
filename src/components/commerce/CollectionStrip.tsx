@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import type { Collection } from "@/data/types";
+import { recoverOrHideImage } from "@/lib/image-fallback";
 
 export function CollectionStrip({ collections }: { collections: Collection[] }) {
   return (
@@ -8,7 +9,8 @@ export function CollectionStrip({ collections }: { collections: Collection[] }) 
       {collections.map((collection) => (
         <li key={collection.id} className="group">
           <Link to="/shop/$collection" params={{ collection: collection.slug }} className="block">
-            <div className="overflow-hidden bg-muted">
+            <div className="relative aspect-[4/5] overflow-hidden bg-muted">
+              <span aria-hidden className="eyebrow absolute left-5 top-5 text-muted-foreground">Collection image unavailable</span>
               <img
                 src={collection.image.src}
                 alt={collection.image.alt}
@@ -17,7 +19,8 @@ export function CollectionStrip({ collections }: { collections: Collection[] }) 
                 sizes="(min-width: 768px) 33vw, 100vw"
                 loading="lazy"
                 decoding="async"
-                className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-105"
+                onError={(event) => recoverOrHideImage(event.currentTarget)}
               />
             </div>
             <p className="eyebrow mt-4 text-primary">Our picks</p>

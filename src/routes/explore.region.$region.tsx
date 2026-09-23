@@ -8,6 +8,7 @@ import { TopAttractionCollectionLinks } from "@/components/editorial/TopAttracti
 import { Container } from "@/components/layout/Container";
 import { destinationsQuery, regionsQuery } from "@/data/queries";
 import type { Destination } from "@/data/types";
+import { recoverOrHideImage } from "@/lib/image-fallback";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -73,7 +74,7 @@ function RegionPage() {
     <Container className="pt-10 sm:pt-14"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden>·</li><li aria-current="page" className="text-foreground">{region.name}</li></ol></nav></Container>
 
     <section className="relative isolate mt-5 overflow-hidden bg-ink text-ink-foreground">
-      {primaryImage && <img src={primaryImage.src} alt={primaryImage.alt} width={primaryImage.width} height={primaryImage.height} className="absolute inset-0 size-full object-cover opacity-58" />}
+      {primaryImage && <img src={primaryImage.src} alt={primaryImage.alt} width={primaryImage.width} height={primaryImage.height} className="absolute inset-0 size-full object-cover opacity-58" onError={(event) => recoverOrHideImage(event.currentTarget)} />}
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/68 to-ink/18" />
       <Container className="relative flex flex-col justify-end pb-12 pt-24" style={{ minHeight: "clamp(24rem, 48vw, 32rem)" }}>
         <p className="eyebrow text-ink-foreground/75">The regional guide</p>
