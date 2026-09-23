@@ -37,6 +37,8 @@ const files = new Map([
   ['painted church listing', 'src/routes/explore.painted-churches.tsx'],
   ['shop collection hero', 'src/routes/shop.$collection.tsx'],
   ['shop cart thumbnails', 'src/routes/shop.cart.lazy.tsx'],
+  ['major event enrichment image', 'src/data/major-event-page.server.ts'],
+  ['major event guide image capture', 'src/routes/event.$slug.lazy.tsx'],
 ]);
 
 const source = new Map();
@@ -198,6 +200,18 @@ for (const marker of [
   'Product image unavailable',
   'item.image',
 ]) requireMarker('shop cart thumbnails', marker);
+
+for (const marker of [
+  'data-major-event-enrichment-image="true"',
+  'schemaEnrichment.image.url',
+  'Image source ↗',
+]) requireMarker('major event enrichment image', marker);
+
+for (const marker of [
+  'hideFailedImageContainer',
+  'onErrorCapture=',
+  'majorEventEnrichmentImage === "true"',
+]) requireMarker('major event guide image capture', marker);
 
 for (const label of ['article cards', 'feature heroes', 'category heroes', 'destination heroes']) {
   requireMarker(label, 'Photo unavailable');
