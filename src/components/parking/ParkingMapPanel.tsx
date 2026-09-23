@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { ParkingMapAsset } from '@/data/parking-map-model';
 import { isPublishableParkingMap } from '@/data/parking-map-model';
 
@@ -8,30 +9,28 @@ export function ParkingMapPanel({
   map?: ParkingMapAsset;
   contextName: string;
 }) {
+  const [failedImage, setFailedImage] = useState<string | null>(null);
   if (!isPublishableParkingMap(map)) return null;
 
+  const imageAvailable = failedImage !== map.imageUrl;
   const sourceLabel = map.origin === 'ai-generated'
     ? 'TexasDefined-created parking orientation diagram'
     : `Reusable parking map${map.sourceName ? ` via ${map.sourceName}` : ''}`;
 
   const mapFigure = (
     <figure>
-      <div className="overflow-hidden border border-border bg-muted/30">
+      {imageAvailable ? <div className="overflow-hidden border border-border bg-muted/30">
         <img
           src={map.imageUrl}
           alt={map.alt}
           loading="lazy"
           decoding="async"
           className="h-auto w-full"
+          onError={() => setFailedImage(map.imageUrl)}
         />
-      </div>
+      </div> : <div className="flex items-center justify-center py-12 border border-border bg-muted/30 px-6 text-center text-sm text-muted-foreground" role="img" aria-label={`${contextName} parking map unavailable`}>Parking map image unavailable. Use the official parking sources beside this panel for current lot and access information.</div>}
       <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
-        {sourceLabel}. {map.origin === 'ai-generated'
-          ? 'It is a schematic, not a scale drawing, and does not reproduce third-party map artwork.'
-          : map.licenseName
-            ? `Licensed under ${map.licenseName}.`
-            : ''}{' '}
-        Parking assignments, traffic routing and accessible parking can change by event.
+        {imageAvailable ? `${sourceLabel}. ${map.origin === 'ai-generated' ? 'It is a schematic, not a scale drawing, and does not reproduce third-party map artwork.' : map.licenseName ? `Licensed under ${map.licenseName}.` : ''} Parking assignments, traffic routing and accessible parking can change by event.` : 'The embedded map could not be loaded. Official parking sources and the last verification date remain available.'}
       </figcaption>
     </figure>
   );
