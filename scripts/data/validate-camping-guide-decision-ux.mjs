@@ -4,7 +4,9 @@ import path from "node:path";
 const root = process.cwd();
 const read = (relative) => fs.readFileSync(path.join(root, relative), "utf8");
 const component = read("src/components/camping/CampingDiscovery.tsx");
+const route = read("src/routes/best-places-to-go-camping-in-texas.tsx");
 const page = read("src/routes/best-places-to-go-camping-in-texas.lazy.tsx");
+const destinationGuides = read("src/data/camping/destination-guides.ts");
 const profileWave2 = read("src/data/camping/profiles-wave2.ts");
 const profileWave3 = read("src/data/camping/profiles-wave3.ts");
 const profileWave4 = read("src/data/camping/profiles-wave4.ts");
@@ -39,8 +41,10 @@ requireText(component, "Sort results", "campground result sorting");
 requireText(component, "Most recently verified", "campground verification sort");
 requireText(component, "Planning detail", "campground comparison detail");
 requireText(component, "profile.planningDetail", "campground planning-detail rendering");
-requireText(component, "destinationGuideSlugs", "campground canonical destination-link registry");
+requireText(component, "hasCampingDestinationGuide", "campground canonical destination-link registry");
 requireText(component, "hasDestinationGuide", "campground destination-link guard");
+requireText(route, "hasCampingDestinationGuide(profile.destinationSlug)", "campground structured-data destination guard");
+requireText(route, "${pageUrl}#${profileAnchor(profile)}", "campground structured-data anchor fallback");
 requireText(component, "Build trip", "campground seeded trip-planner link");
 requireText(page, "data-stay-nearby-slot", "camping Stay Nearby placement");
 requireText(expedia, "best-places-to-go-camping-in-texas", "camping affiliate route coverage");
@@ -82,10 +86,7 @@ if (!profileWave4.includes('"pets"') || !profileWave5.includes('"pets"')) {
   failures.push("camping pet filter: normalized pets amenity must remain present in LCRA/GBRA discovery waves.");
 }
 
-const destinationGuideRegistry = component.slice(
-  component.indexOf("const destinationGuideSlugs"),
-  component.indexOf("function profileAnchor"),
-);
+const destinationGuideRegistry = destinationGuides;
 for (const slug of [
   "cedar-breaks-park-lake-georgetown",
   "russell-park-lake-georgetown",
@@ -111,4 +112,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Camping guide decision-UX validation passed: quick-match presets, normalized amenity filtering, agency filtering, result sorting, guarded destination links, seeded trip planning, campground choice context, planning-detail comparison, managing-agency context, destination-view disclosure, governed imagery, explicit lodging placement, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
+console.log("Camping guide decision-UX validation passed: quick-match presets, normalized amenity filtering, agency filtering, result sorting, shared canonical destination registry, guarded UI and structured-data destination links, seeded trip planning, campground choice context, planning-detail comparison, managing-agency context, destination-view disclosure, governed imagery, explicit lodging placement, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
