@@ -11,7 +11,17 @@ export const Route = createLazyFileRoute("/dogs/{-$breed}")({
 function DogsPage() {
   const breed = Route.useParams().breed;
   return (
-    <Suspense fallback={null}>
+    <Suspense
+      fallback={
+        <div
+          role="status"
+          aria-live="polite"
+          className="mx-auto max-w-7xl px-5 py-12 text-sm text-muted-foreground sm:px-8"
+        >
+          Loading Texas Dogs Defined…
+        </div>
+      }
+    >
       {breed ? <DogBreedPage /> : <DogsHubPage />}
     </Suspense>
   );

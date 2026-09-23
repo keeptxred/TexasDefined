@@ -41,6 +41,11 @@ const surfaceChecks = [
     forbidden: ['fallback={<main className="min-h-screen"/>'],
     required: ['Loading relocation tools…', 'role="status"'],
   },
+  {
+    file: 'src/routes/dogs.{-$breed}.lazy.tsx',
+    forbidden: ['fallback={null}'],
+    required: ['Loading Texas Dogs Defined…', 'role="status"'],
+  },
 ];
 
 for (const check of surfaceChecks) {
