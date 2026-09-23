@@ -915,7 +915,7 @@ if (!errors.length) {
     'UIL detailed eligibility rules ↗',
     'Current district',
     'Every opponent links to the same school-profile system.',
-    'Verified football venue relationships',
+    'Football game venues',
     'Football venue details',
     'Venue details not yet available',
     'Every UIL school profile has the same game-venue field.',
