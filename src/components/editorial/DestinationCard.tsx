@@ -3,9 +3,11 @@ import { Link } from "@tanstack/react-router";
 import caddoLake from "@/assets/caddo-lake.jpg";
 import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
 import type { Destination } from "@/data/types";
+
+type DestinationCardDestination = Pick<Destination, "slug" | "name" | "summary" | "nearestTown" | "county" | "hero" | "bestSeason" | "highlights" | "sourceCheckedAt">;
 import { cn } from "@/lib/utils";
 
-function locationLabel(destination: Destination, regionLabel?: string) {
+function locationLabel(destination: DestinationCardDestination, regionLabel?: string) {
   return [destination.nearestTown, destination.county ? `${destination.county} County` : undefined, regionLabel]
     .filter(Boolean)
     .filter((value, index, values) => values.indexOf(value) === index)
@@ -19,7 +21,7 @@ function checkedLabel(value?: string) {
   return `Updated ${date.toLocaleDateString("en-US", { month: "short", year: "numeric" })}`;
 }
 
-function cardHighlights(destination: Destination) {
+function cardHighlights(destination: DestinationCardDestination) {
   return destination.highlights
     .map((item) => item.trim())
     .filter((item) => /[\p{L}\p{N}]/u.test(item))
@@ -33,7 +35,7 @@ const destinationCardImageFallbacks: Record<string, { src: string; alt: string }
   },
 };
 
-function DestinationImage({ destination, eager, overlay }: { destination: Destination; eager: boolean; overlay: boolean }) {
+function DestinationImage({ destination, eager, overlay }: { destination: DestinationCardDestination; eager: boolean; overlay: boolean }) {
   const frameClass = overlay ? "aspect-[4/5] w-full" : "aspect-[3/2] w-full";
   const imageClass = overlay
     ? "h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
@@ -79,7 +81,7 @@ function DestinationImage({ destination, eager, overlay }: { destination: Destin
   </div>;
 }
 
-export function DestinationCard({ destination, regionLabel, tone = "light", eager = false, className }: { destination: Destination; regionLabel?: string; tone?: "light" | "overlay"; eager?: boolean; className?: string }) {
+export function DestinationCard({ destination, regionLabel, tone = "light", eager = false, className }: { destination: DestinationCardDestination; regionLabel?: string; tone?: "light" | "overlay"; eager?: boolean; className?: string }) {
   const location = locationLabel(destination, regionLabel);
   const sourceChecked = checkedLabel(destination.sourceCheckedAt);
   const highlights = cardHighlights(destination);
