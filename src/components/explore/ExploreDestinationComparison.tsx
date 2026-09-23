@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
-import type { Destination } from '@/data/types';
+import type { DestinationComparisonRecord } from '@/data/destination-collections.functions';
 
 export type ExploreComparisonKind = 'state-parks' | 'lakes-rivers' | 'small-towns' | 'road-trips' | 'attractions';
 
@@ -48,21 +48,21 @@ const COPY: Record<ExploreComparisonKind, { title: string; description: string; 
   },
 };
 
-function sourceDate(destinations: Destination[]) {
+function sourceDate(destinations: DestinationComparisonRecord[]) {
   const values = destinations.map((destination) => destination.sourceCheckedAt).filter((value): value is string => Boolean(value)).sort();
   return values.at(-1) ?? 'Per-destination source verification date not available for every record';
 }
 
-function activityText(destination: Destination) {
-  return [destination.summary, destination.entryNote, ...destination.highlights, ...destination.body].join(' ').toLowerCase();
+function activityText(destination: DestinationComparisonRecord & { body?: string[] }) {
+  return [destination.summary, destination.entryNote, ...destination.highlights, ...(destination.body ?? [])].join(' ').toLowerCase();
 }
 
-function signals(destination: Destination) {
+function signals(destination: DestinationComparisonRecord & { body?: string[] }) {
   const text = activityText(destination);
   return ACTIVITY_SIGNALS.filter(([, terms]) => terms.some((term) => text.includes(term))).map(([label]) => label);
 }
 
-function officialSources(destinations: Destination[]) {
+function officialSources(destinations: DestinationComparisonRecord[]) {
   const seen = new Set<string>();
   return destinations.flatMap((destination) => {
     if (!destination.officialUrl || seen.has(destination.officialUrl)) return [];
@@ -71,7 +71,7 @@ function officialSources(destinations: Destination[]) {
   }).slice(0, 12);
 }
 
-export function ExploreDestinationComparison({ destinations, kind }: { destinations: Destination[]; kind: ExploreComparisonKind }) {
+export function ExploreDestinationComparison({ destinations, kind }: { destinations: Array<DestinationComparisonRecord & { body?: string[] }>; kind: ExploreComparisonKind }) {
   if (!destinations.length) return null;
   const isParks = kind === 'state-parks';
   const showCategory = kind === 'attractions';
