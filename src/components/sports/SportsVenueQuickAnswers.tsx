@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { SportsTrafficTracker } from '@/components/sports/SportsTrafficTracker';
 import { isGeneratedSportsVenueImage, sportsVenueImageCaption } from '@/data/sports-venue-image-attribution';
 import { getSportsVenuePhoto } from '@/data/sports-venue-images-all';
+import { hideFailedImageContainer } from '@/lib/image-fallback';
 
 const CityPassContextualCallout = lazy(() =>
   import('@/components/monetization/CityPassContextualCallout').then((module) => ({
@@ -79,7 +80,7 @@ export function SportsVenueQuickAnswers({
 
   return <>
     {surfacePath ? <SportsTrafficTracker surfacePath={surfacePath} /> : null}
-    {heroSrc ? <figure className="border-b border-border py-8 sm:py-10">
+    {heroSrc ? <figure className="border-b border-border py-8 sm:py-10" data-venue-quick-hero>
       {imageJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(imageJsonLd) }} /> : null}
       <div className="overflow-hidden border border-border bg-muted/30">
         <img
@@ -91,6 +92,7 @@ export function SportsVenueQuickAnswers({
           decoding="async"
           fetchPriority="high"
           className="aspect-[16/9] w-full object-cover"
+          onError={(event) => hideFailedImageContainer(event.currentTarget, "[data-venue-quick-hero]")}
         />
       </div>
       {photo && isGeneratedHero ? <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
