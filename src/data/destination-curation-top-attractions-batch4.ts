@@ -54,7 +54,7 @@ const curated: Record<string, TopAttractionExpansion> = {
       "Palo Duro Canyon is the strongest nearby anchor for a longer trip. Spend a morning or afternoon in the canyon, then use Amarillo for Route 66, food and Cadillac Ranch. The Panhandle-Plains Historical Museum in Canyon adds the regional history that neither the roadside art nor canyon trails explain on their own.",
     ],
     officialUrl: "https://www.visitamarillo.com/listing/cadillac-ranch/625/",
-    sourceCheckedAt: "2026-08-17",
+    sourceCheckedAt: "2026-09-23",
     county: "Potter",
     address: "13651 I-40 Frontage Road, Amarillo, TX 79124",
     directions:
@@ -366,7 +366,7 @@ const curated: Record<string, TopAttractionExpansion> = {
     bestSeason:
       "Fall through spring for comfortable outdoor walking; summer visits are best near opening when temperatures are lower and animals may be more active",
     entryNote:
-      "Non-member admission currently uses online date-and-time reservations. Special experiences and seasonal add-ons can require separate tickets. Parking around Hermann Park fills quickly, so reserve admission first and consider METRORail or an early arrival rather than assuming a nearby parking space will be available.",
+      "General-admission non-member guests currently need online timed reservations, while members and CityPASS ticket holders have separate entry rules. Tickets are not sold on-site. Free Hermann Park parking is limited, so reserve admission first and make a parking or METRORail plan before arrival.",
     highlights: [
       "Galápagos Islands habitat and conservation interpretation",
       "African Forest and large-animal habitats",
@@ -377,6 +377,7 @@ const curated: Record<string, TopAttractionExpansion> = {
     body: [
       "Houston Zoo benefits from being both a major zoological institution and part of a larger urban park. Its animal habitats are spread through Hermann Park rather than isolated in a suburban campus, so a zoo day naturally connects with gardens, lawns, the Museum District and METRORail. That setting makes it one of Houston's easiest major attractions to combine without a long drive.",
       "The newer habitat areas emphasize ecosystems and conservation rather than rows of individual enclosures. The Galápagos Islands complex is one of the clearest examples, using marine and island species to connect animal viewing with the environmental pressures facing a distinctive ecosystem. African Forest and Texas Wetlands broaden the visit across both global and regional wildlife.",
+      "Older guides may still mention the Kipp Aquarium. The stand-alone Kipp Aquarium closed in 2020 as the zoo redeveloped the area for Galápagos Islands, so treat that name as historical context rather than a current exhibit.",
       "A full zoo visit requires more time than the compact map can suggest. Families should identify priority species and keeper programs before entering rather than zigzagging repeatedly across the grounds. Warm weather changes the calculation: early arrival improves both visitor comfort and the chance of seeing animals before midday heat slows activity.",
       "Timed admission is part of the current visitor system for non-members, so spontaneous arrival can be a bad strategy on busy days. Seasonal experiences, carousel rides or special animal programs may also be separate purchases. Confirm the day's offerings before checkout rather than assuming every promoted experience is included in general admission.",
       "The surrounding Museum District gives the zoo unusual itinerary flexibility. The Houston Museum of Natural Science sits across Hermann Park, and the Children's Museum, Museum of Fine Arts and other institutions are nearby. Trying to see the zoo and HMNS completely in one day can still be too much, but families can choose a half-day version of each without moving the car.",
