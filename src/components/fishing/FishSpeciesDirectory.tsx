@@ -25,10 +25,10 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
         <Container className="py-16 sm:py-24">
           <p className="eyebrow text-ink-foreground/70">Texas fish species</p>
           <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.96] sm:text-7xl">Fish Texas by species.</h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/82">Start with the fish, then move to Texas lakes where TexasDefined has a verified lake-to-species relationship. Every published fish record opens a standalone Texas guide.</p>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/82">Start with the fish, then see the Texas lakes where our guides have a source-backed connection to that species. Every fish listed here has its own guide.</p>
           <div className="mt-8 flex flex-wrap gap-5 text-sm">
-            <Link to="/fishing/species/largemouth-bass" className="border-b border-ink-foreground pb-1 font-semibold text-ink-foreground">Open largemouth bass guide →</Link>
-            <Link to="/fishing/lakes" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Compare complete fishing lakes →</Link>
+            <Link to="/fishing/species/largemouth-bass" className="border-b border-ink-foreground pb-1 font-semibold text-ink-foreground">Read the largemouth bass guide →</Link>
+            <Link to="/fishing/lakes" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Compare fishing lakes →</Link>
             <Link to="/fishing" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Back to all Texas fishing →</Link>
           </div>
           <dl className="mt-10 grid gap-5 border-t border-ink-foreground/20 pt-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -42,11 +42,11 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
 
       <Container className="py-14 sm:py-20">
         <section className="grid gap-8 border-b border-border pb-12 lg:grid-cols-[15rem_1fr]" aria-labelledby="species-directory-policy">
-          <div><p className="eyebrow text-primary">Directory policy</p><h2 id="species-directory-policy" className="mt-2 font-display text-3xl">Every published fish has a guide</h2></div>
+          <div><p className="eyebrow text-primary">How these guides work</p><h2 id="species-directory-policy" className="mt-2 font-display text-3xl">Every fish listed here has a guide</h2></div>
           <div className="grid gap-x-8 md:grid-cols-2">
-            <Answer question="How many fish records are published here?" answer={`TexasDefined currently has ${pageData.totalSpecies} published freshwater fish species or practical fishing groups in this directory.`} />
-            <Answer question="Do all published fish have their own guide?" answer={`${pageData.completeSpeciesGuides} published records currently have standalone Texas fish guides, with lake links added only where verified relationships exist.`} />
-            <Answer question="How are fish connected to lakes?" answer={`A species guide links to lake pages only where the fishing catalog contains a verified lake-to-species relationship. Full lake guides carry deeper planning detail than basic lake profiles.`} />
+            <Answer question="How many fish records are published here?" answer={`There are ${pageData.totalSpecies} freshwater fish species or practical fishing groups in this guide.`} />
+            <Answer question="Do all published fish have their own guide?" answer={`${pageData.completeSpeciesGuides} fish records have standalone Texas guides. Lake links appear only when a source supports the connection.`} />
+            <Answer question="How are fish connected to lakes?" answer={`A species guide links to lake pages only when the lake-to-species connection is backed by a source. Full lake guides add deeper planning detail.`} />
             <Answer question="Are these links live fishing reports?" answer="No. Lake-to-species relationships describe durable fishery context. Current bite, regulations, stocking, levels and access can change and should be confirmed with current official sources." />
           </div>
         </section>
@@ -74,7 +74,7 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
                       <ul className="mt-3 space-y-2">
                         {row.completeLakes.map((lake) => <li key={lake.slug} className="text-sm"><a href={lake.href} className="font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">{lake.name}</a><span className="ml-2 text-xs text-muted-foreground">{titleCase(lake.quality)} · {titleCase(lake.prominence)}</span></li>)}
                       </ul>
-                    </div> : <p className="mt-5 text-xs leading-5 text-muted-foreground">No completed TexasDefined lake guide currently carries a source-backed relationship for this record. That does not mean the fish is absent from other Texas waters.</p>}
+                    </div> : <p className="mt-5 text-xs leading-5 text-muted-foreground">We don’t yet have a source-backed lake-guide match for this fish. That does not mean the species is absent from other Texas waters.</p>}
 
                     <div className="mt-5 flex flex-wrap gap-4">
                       <a href={fishingFoundationAnchor("species", row.slug)} className="eyebrow border-b border-primary pb-1 text-primary">Species guide →</a>
@@ -88,9 +88,9 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
         </div>
 
         <section className="mt-16 border-t border-border pt-8">
-          <p className="eyebrow text-primary">How this grows</p>
-          <h2 className="mt-3 font-display text-3xl">Build the lake relationships around every fish guide.</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Every published fish record has a sourced species page. Lake recommendations expand separately as verified lake-to-species relationships are added, so a fish page can exist without inventing places to catch it.</p>
+          <p className="eyebrow text-primary">Coverage</p>
+          <h2 className="mt-3 font-display text-3xl">Lake recommendations grow with the evidence.</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Every fish listed here has a sourced species page. Lake recommendations are added only when a lake-to-species connection is verified, so we don’t invent places to catch it.</p>
           <p className="mt-6 text-xs leading-6 text-muted-foreground">Species catalog sources checked {formatDate(pageData.verifiedAt)}. Regulations, stockings and waterbody conditions can change; always confirm current TPWD information before fishing.</p>
         </section>
       </Container>
