@@ -39,13 +39,13 @@ export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Texas fishing lake finder</p>
           <h2 id="lake-finder-heading" className="mt-3 font-display text-4xl sm:text-5xl">Where would you like to go fishing?</h2>
-          <p className="mt-4 text-base leading-7 text-muted-foreground">Tell us where you want to be and what you want to catch. You can choose more than one fish.</p>
+          <p className="mt-4 text-base leading-7 text-muted-foreground">Tell us where you want to be and what you want to catch. Enter a lake, city, ZIP code, county or region, and choose more than one fish when you want to.</p>
         </div>
 
         <form method="get" action="/fishing/plan" className="mt-8 border-y border-border py-8">
           <label className="block max-w-3xl">
-            <span className="eyebrow text-muted-foreground">Lake, city, county or region</span>
-            <input name="q" maxLength={80} placeholder="Lake Conroe, Houston, Travis County, Hill Country…" className="mt-3 w-full border border-border bg-background px-4 py-3 text-base" />
+            <span className="eyebrow text-muted-foreground">Lake, city, ZIP code, county or region</span>
+            <input name="q" maxLength={80} placeholder="Lake Conroe, Houston, 77494, Travis County…" className="mt-3 w-full border border-border bg-background px-4 py-3 text-base" />
           </label>
 
           <fieldset className="mt-7">
