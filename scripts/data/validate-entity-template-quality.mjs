@@ -93,6 +93,30 @@ for (const stale of [
 }
 
 for (const feature of [
+  'Fact label="Information source"',
+  "return 'Guide in progress'",
+  "return 'Official source'",
+  "return 'Reviewed source'",
+  "return 'Office guide in progress'",
+  "return 'Service guide in progress'",
+  "return 'Public-service guide in progress'",
+]) {
+  if (!entityRoute.includes(feature)) errors.push(`Generic entity visitor-language contract missing: ${feature}`);
+}
+for (const stale of [
+  'Fact label="Source check"',
+  "return 'Still being checked'",
+  "return 'Official source checked'",
+  "return 'Source checked'",
+  "return 'Office details are being verified'",
+  "return 'Service details are being verified'",
+  "return 'Public-service details are being verified'",
+  'checked county information below is already available',
+]) {
+  if (entityRoute.includes(stale)) errors.push(`Generic entity internal-review language must not return: ${stale}`);
+}
+
+for (const feature of [
   'const countyEntries = graph.filter((entity) => entity.kind === \'county\')',
   'Promise.all(countyEntries.map(enrichCountyGeographyEntity))',
   'async function enrichCountyGeographyEntity',
