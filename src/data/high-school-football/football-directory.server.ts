@@ -309,7 +309,7 @@ function bestDirectoryMatch(program: UilFootballProgram, matcher: TeaDirectoryMa
 
 function withDirectory(program: UilFootballProgram, matcher: TeaDirectoryMatcher): FootballProgramDirectoryResult {
   const record = bestDirectoryMatch(program, matcher);
-  const exactEnrollment = UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.schoolName];
+  const exactEnrollment = UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.sourceSchoolName];
   const exactFields = exactEnrollment ? {
     uilEnrollment: exactEnrollment.enrollment,
     uilSubmittedConference: exactEnrollment.submittedConference,

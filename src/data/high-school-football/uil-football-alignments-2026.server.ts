@@ -1,4 +1,5 @@
 export type UilFootballProgram = {
+  sourceSchoolName: string;
   schoolName: string;
   classification: '1A' | '2A' | '3A' | '4A' | '5A' | '6A';
   division: 1 | 2 | null;
@@ -250,8 +251,9 @@ export function displayUilSchoolName(name: string) {
 
 export const UIL_FOOTBALL_PROGRAMS_2026: readonly UilFootballProgram[] = ALIGNMENTS.flatMap((block) =>
   block.districts.flatMap((teams, index) =>
-    teams.split(';').map((schoolName) => ({
-      schoolName: displayUilSchoolName(schoolName),
+    teams.split(';').map((sourceSchoolName) => ({
+      sourceSchoolName,
+      schoolName: displayUilSchoolName(sourceSchoolName),
       classification: block.classification,
       division: block.division,
       district: index + 1,

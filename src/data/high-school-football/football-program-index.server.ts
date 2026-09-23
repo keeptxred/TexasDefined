@@ -26,7 +26,7 @@ const ALL_UIL_FOOTBALL_PROGRAMS: readonly FootballProgramIndexEntry[] = UIL_FOOT
     division: program.division,
     district: program.district,
     footballType: program.footballType,
-    uilEnrollment: UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.schoolName]?.enrollment ?? 0,
+    uilEnrollment: UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.sourceSchoolName]?.enrollment ?? 0,
   }))
   .sort((left, right) => {
     const classDiff = footballClassificationRank(right.classification) - footballClassificationRank(left.classification);
