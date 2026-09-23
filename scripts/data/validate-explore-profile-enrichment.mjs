@@ -49,9 +49,9 @@ for (const feature of [
   'const activities = unique(', 'const facilities = unique(', 'const otherHighlights = unique(',
   'destination.highlights', 'data-stay-nearby-slot', 'BookingCarRentalCard',
   'While you’re there', 'Things to do and see',
-  '{ title: "Things to do", items: activities }',
-  '{ title: "What you’ll find", items: facilities }',
-  '{ title: "Don’t miss", items: otherHighlights }',
+  '{ title: "Highlights", items: unique([...activities, ...otherHighlights]) }',
+  '{ title: "Visitor facilities", items: facilities }',
+  '{ title: "Highlights", items: unique([...activities, ...otherHighlights]) }',
   'groups.map((group, index)', 'group.items.map((item)',
 ]) if (!planner.includes(feature)) errors.push(`Destination streamlined planning feature missing: ${feature}`);
 if (planner.includes('const practicalTips = unique([') || planner.includes('What to know before you go') || planner.includes('Keep exploring')) {
