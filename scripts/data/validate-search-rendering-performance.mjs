@@ -45,6 +45,17 @@ for (const feature of [
 if (destination.includes('destinationsQuery({ limit: 5000 })')) {
   errors.push('Destination detail routes must not query-cache the 5,000-item destination catalog; that catalog would be dehydrated into the browser.');
 }
+
+for (const feature of [
+  'function destinationAutoLinkGraph(',
+  'const [completeGraph, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([',
+  'const graph = destinationAutoLinkGraph(destination, completeGraph);',
+]) {
+  if (!destination.includes(feature)) errors.push(`Destination knowledge-graph hydration bound missing: ${feature}`);
+}
+if (destination.includes('const [graph, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([')) {
+  errors.push('Destination detail routes must not return the complete Texas knowledge graph to the browser.');
+}
 for (const feature of [
   'getDestinationRelationshipGroups({ data: { slug: params.slug } })',
   'import { getDestinationRelationshipGroups } from "@/data/destination-relationships.functions"',
