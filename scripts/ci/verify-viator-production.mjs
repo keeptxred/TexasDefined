@@ -117,7 +117,7 @@ await verifySurface({
   label: 'destination-booking-card',
   minAffiliateLinks: 1,
   required: [
-    'Add an experience around Barton Springs Pool',
+    'Tours and experiences near Barton Springs Pool',
     'Recent Austin inventory signals:',
     'On the water',
     'September 8, 2026',
