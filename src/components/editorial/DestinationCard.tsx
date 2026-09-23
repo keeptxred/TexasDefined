@@ -7,8 +7,13 @@ import type { Destination } from "@/data/types";
 type DestinationCardDestination = Pick<Destination, "slug" | "name" | "summary" | "nearestTown" | "county" | "hero" | "bestSeason" | "highlights" | "sourceCheckedAt">;
 import { cn } from "@/lib/utils";
 
+function countyLabel(value?: string) {
+  if (!value) return undefined;
+  return /\bcount(?:y|ies)\b/i.test(value) ? value : `${value} County`;
+}
+
 function locationLabel(destination: DestinationCardDestination, regionLabel?: string) {
-  return [destination.nearestTown, destination.county ? `${destination.county} County` : undefined, regionLabel]
+  return [destination.nearestTown, countyLabel(destination.county), regionLabel]
     .filter(Boolean)
     .filter((value, index, values) => values.indexOf(value) === index)
     .join(" · ");
