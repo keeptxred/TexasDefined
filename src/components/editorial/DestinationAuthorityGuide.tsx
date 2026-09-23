@@ -47,7 +47,7 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
                 <p className="eyebrow text-primary">Visitor information</p>
-                <h2 id={`${destination.slug}-verified-info`} className="mt-2 font-display text-3xl">Planning details</h2>
+                <h2 id={`${destination.slug}-verified-info`} className="mt-2 font-display text-3xl">What to know before you go</h2>
               </div>
               <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Last reviewed {checkedDate(destination.sourceCheckedAt)}</p>
             </div>
@@ -61,8 +61,8 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
           </section>
 
           <section className="border-y border-border py-7" aria-labelledby={`${destination.slug}-editorial-assessment`}>
-            <p className="eyebrow text-primary">Editorial assessment</p>
-            <h2 id={`${destination.slug}-editorial-assessment`} className="mt-2 font-display text-3xl">How to think about the visit</h2>
+            <p className="eyebrow text-primary">The visit</p>
+            <h2 id={`${destination.slug}-editorial-assessment`} className="mt-2 font-display text-3xl">What the experience is like</h2>
             <dl className="mt-6 divide-y divide-border text-sm">
               <div className="flex justify-between gap-5 py-3"><dt className="text-muted-foreground">Physical effort</dt><dd className="text-right font-medium">{authority.assessment.physicalEffort}</dd></div>
               <div className="flex justify-between gap-5 py-3"><dt className="text-muted-foreground">Weather exposure</dt><dd className="text-right font-medium">{authority.assessment.weatherExposure}</dd></div>
@@ -79,8 +79,8 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
       <Container>
         <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
           <section aria-labelledby={`${destination.slug}-texas-significance`}>
-            <p className="eyebrow text-primary">Why it matters to Texas</p>
-            <h2 id={`${destination.slug}-texas-significance`} className="mt-2 font-display text-4xl">More than a photo stop</h2>
+            <p className="eyebrow text-primary">Texas context</p>
+            <h2 id={`${destination.slug}-texas-significance`} className="mt-2 font-display text-4xl">Why {destination.name} matters</h2>
             <p className="mt-6 text-base leading-8 text-foreground/90">{authority.whyItMatters}</p>
             <div className="mt-7 border-t border-border pt-5 text-sm leading-6 text-muted-foreground">
               <strong className="text-foreground">About this guide:</strong> <Link to="/authors/$author" params={{ author: "a-hollis" }} className="border-b border-primary text-primary">Texas Defined Editorial Desk</Link>. Operational details are checked against the linked controlling source; supporting sources deepen history, science, conservation or institutional context. Editorial assessments describe trip-planning value rather than a star rating. <Link to="/explore/top-attractions/methodology" className="border-b border-primary text-primary">See the Top-25 methodology.</Link> <Link to="/citation-guide" className="border-b border-primary text-primary">Citation guidance.</Link>
@@ -121,7 +121,7 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
         <div className="grid gap-12 lg:grid-cols-[1.2fr_.8fr]">
           <section aria-labelledby={`${destination.slug}-traveler-questions`}>
             <p className="eyebrow text-primary">Before you go</p>
-            <h2 id={`${destination.slug}-traveler-questions`} className="mt-2 font-display text-4xl">Traveler questions, answered</h2>
+            <h2 id={`${destination.slug}-traveler-questions`} className="mt-2 font-display text-4xl">Common visitor questions</h2>
             <dl className="mt-7 divide-y divide-border border-y border-border">
               {questions.map((item) => <div key={item.q} className="py-5"><dt className="font-display text-2xl">{item.q}</dt><dd className="mt-2 text-sm leading-7 text-muted-foreground">{item.a}{primarySource && item.q.includes("plan ahead") && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</dd></div>)}
             </dl>
