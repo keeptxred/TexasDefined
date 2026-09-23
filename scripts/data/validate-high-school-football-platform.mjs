@@ -39,6 +39,7 @@ const programProfileFunctionsPath = 'src/data/high-school-football/football-prog
 const uilDirectoryComponentPath = 'src/components/sports/UilFootballProgramDirectory.tsx';
 const enrollmentBandsPath = 'src/data/high-school-football/enrollment-bands.ts';
 const exactEnrollmentsPath = 'src/data/high-school-football/uil-football-enrollments-2026.generated.ts';
+const exactEnrollmentResolverPath = 'src/data/high-school-football/uil-football-exact-enrollment.server.ts';
 const exactEnrollmentGeneratorPath = 'scripts/data/generate-uil-football-enrollments.mjs';
 const footballDistrictServerPath = 'src/data/high-school-football/football-districts.server.ts';
 const footballDistrictFunctionsPath = 'src/data/high-school-football/football-districts.functions.ts';
@@ -89,6 +90,7 @@ for (const file of [
   uilDirectoryComponentPath,
   enrollmentBandsPath,
   exactEnrollmentsPath,
+  exactEnrollmentResolverPath,
   exactEnrollmentGeneratorPath,
   footballDistrictServerPath,
   footballDistrictFunctionsPath,
@@ -147,6 +149,7 @@ if (!errors.length) {
   const uilDirectoryComponent = read(uilDirectoryComponentPath);
   const enrollmentBands = read(enrollmentBandsPath);
   const exactEnrollments = read(exactEnrollmentsPath);
+  const exactEnrollmentResolver = read(exactEnrollmentResolverPath);
   const exactEnrollmentGenerator = read(exactEnrollmentGeneratorPath);
   const footballDistrictServer = read(footballDistrictServerPath);
   const footballDistrictFunctions = read(footballDistrictFunctionsPath);
@@ -715,7 +718,9 @@ if (!errors.length) {
     'ALL_UIL_FOOTBALL_PROGRAMS.length !== 1268',
     'UIL_FOOTBALL_EXPECTED_COUNTS',
     'UIL football index ordering regression',
-    'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28',
+    'getExactUilFootballEnrollment',
+    'missingExactEnrollments',
+    'UIL football index is missing exact enrollment',
     'footballProgramProfilePath',
   ]) requireText(footballProgramIndex, marker, 'Lightweight UIL football finder bootstrap');
 
@@ -738,6 +743,16 @@ if (!errors.length) {
   ]) requireText(exactEnrollmentGenerator, marker, 'Exact UIL football enrollment generator');
 
   for (const marker of [
+    "import { displayUilSchoolName } from './uil-football-alignments-2026.server'",
+    'Object.entries(UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28)',
+    'const displayName = displayUilSchoolName(officialName)',
+    'UIL football exact-enrollment display-name collision',
+    'EXACT_ENROLLMENTS_BY_DISPLAY_NAME.size !== EXPECTED_UIL_FOOTBALL_PROGRAMS',
+    'getExactUilFootballEnrollment',
+    'EXACT_ENROLLMENTS_BY_DISPLAY_NAME.get(displayUilSchoolName(schoolName))',
+  ]) requireText(exactEnrollmentResolver, marker, 'Display-normalized UIL exact-enrollment resolver');
+
+  for (const marker of [
     "classification: '6A', division: null, label: '2,215 and above'",
     "classification: '5A', division: 1, label: '1,870–2,214'",
     "classification: '5A', division: 2, label: '1,305–1,869'",
@@ -755,13 +770,13 @@ if (!errors.length) {
   ]) requireText(enrollmentBands, marker, 'UIL football enrollment bands');
 
   for (const marker of [
-    'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28',
+    'getExactUilFootballEnrollment',
     'uilEnrollment',
     'uilSubmittedConference',
   ]) requireText(directory, marker, 'Football directory exact enrollment integration');
 
   for (const marker of [
-    'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28',
+    'getExactUilFootballEnrollment',
     'uilEnrollment:',
   ]) requireText(programProfileServer, marker, 'Football profile exact enrollment integration');
   requireText(programProfileServer, 'getVerifiedFootballSchoolIdentity(canonicalSlug)', 'Canonical UIL identity precedence');
@@ -797,12 +812,23 @@ if (!errors.length) {
     'getAllFootballDistricts',
     'footballDistrictSitemapEntries',
     'footballProgramProfilePath',
-    'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28',
+    'getExactUilFootballEnrollment',
     'UIL_FOOTBALL_EXACT_ENROLLMENT_SOURCE',
     'uilEnrollment',
     'submittedConference',
     'enrollmentSourceUrl',
   ]) requireText(footballDistrictServer, marker, 'UIL football district index');
+
+  for (const [label, source] of [
+    ['football directory', directory],
+    ['football program index', footballProgramIndex],
+    ['football profile', programProfileServer],
+    ['football district index', footballDistrictServer],
+  ]) {
+    if (source.includes('UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[')) {
+      errors.push(`${label} must resolve exact enrollment through getExactUilFootballEnrollment instead of indexing the raw official-name map with display names.`);
+    }
+  }
 
   for (const marker of [
     "createServerFn({ method: 'GET' })",
