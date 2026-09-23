@@ -10,7 +10,8 @@ const errors = [];
 for (const feature of [
   'locationLabel(destination, regionLabel)',
   'destination.nearestTown',
-  'destination.county',
+  'countyLabel(destination.county)',
+  '/\\bcount(?:y|ies)\\b/i.test(value)',
   'checkedLabel(destination.sourceCheckedAt)',
   'Best season:',
   'cardHighlights(destination)',
