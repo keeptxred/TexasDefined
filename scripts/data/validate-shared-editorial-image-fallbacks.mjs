@@ -26,6 +26,11 @@ const files = new Map([
   ['collection cards', 'src/components/commerce/CollectionStrip.tsx'],
   ['shop the story', 'src/components/commerce/ShopTheStory.tsx'],
   ['product detail', 'src/components/commerce/ProductDetailPage.tsx'],
+  ['painted church gallery', 'src/components/editorial/PaintedChurchGallery.tsx'],
+  ['painted church then and now', 'src/components/editorial/PaintedChurchThenAndNow.tsx'],
+  ['parking map panel', 'src/components/parking/ParkingMapPanel.tsx'],
+  ['sports quick-answer hero', 'src/components/sports/SportsVenueQuickAnswers.tsx'],
+  ['camping guide imagery', 'src/routes/best-places-to-go-camping-in-texas.lazy.tsx'],
 ]);
 
 const source = new Map();
@@ -113,6 +118,42 @@ for (const label of ['product cards', 'shop the story']) {
 }
 
 requireMarker('collection cards', 'Collection image unavailable');
+
+for (const marker of [
+  'hideFailedImageContainer',
+  'onError=',
+]) requireMarker('painted church gallery', marker);
+
+for (const marker of [
+  'failedCurrentImage',
+  'setFailedCurrentImage',
+  'currentImageAvailable',
+  'Current photograph unavailable',
+]) requireMarker('painted church then and now', marker);
+
+for (const marker of [
+  'failedImage',
+  'setFailedImage',
+  'imageAvailable',
+  'Parking map image unavailable',
+  'official parking sources',
+]) requireMarker('parking map panel', marker);
+
+for (const marker of [
+  'failedHero',
+  'setFailedHero',
+  'heroSrc && failedHero !== heroSrc',
+  'onError={() => setFailedHero(heroSrc)}',
+]) requireMarker('sports quick-answer hero', marker);
+
+for (const marker of [
+  'failedImages',
+  'markImageFailed',
+  'failedImages.has(hero.src)',
+  'markImageFailed(item.image.src)',
+  'item.image.src === caddoLake',
+  'Photo unavailable.',
+]) requireMarker('camping guide imagery', marker);
 
 for (const label of ['article cards', 'feature heroes', 'category heroes', 'destination heroes']) {
   requireMarker(label, 'Photo unavailable');
