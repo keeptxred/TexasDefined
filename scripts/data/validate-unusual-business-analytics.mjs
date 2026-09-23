@@ -67,12 +67,20 @@ requireAll("aggregate experiment report", report, [
 requireAll("protected report workflow", workflow, [
   "workflow_dispatch:",
   "schedule:",
+  "authorize:",
   "environment: texasdefined-publication",
+  "report:",
+  "needs: authorize",
   "CLOUDFLARE_ACCOUNT_ID:",
   "CLOUDFLARE_API_TOKEN:",
   "REPORT_WINDOW_DAYS:",
   "node scripts/analytics/report-unusual-business-experiment.mjs",
 ]);
+
+const reportJob = workflow.split("\n  report:")[1] ?? "";
+if (reportJob.includes("environment: texasdefined-publication")) {
+  errors.push("protected report workflow: analytics query job must use repository Cloudflare credentials after the environment authorization gate");
+}
 
 if (errors.length) {
   console.error("Unusual-business analytics validation failed:");
