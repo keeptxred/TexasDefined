@@ -23,7 +23,7 @@ for (const feature of [
 }
 
 if (!card.includes('.slice(0, 3)')) errors.push('Destination cards must limit highlight chips to three.');
-if (card.includes('Photo coming soon') || card.includes('destination-specific photograph not yet available')) errors.push('Destination cards must not expose internal image-placeholder copy to readers.');
+if (card.includes('Photo coming soon') || card.includes('Photo unavailable') || card.includes('destination-specific photograph not yet available')) errors.push('Destination cards must not expose internal image-placeholder copy to readers.');
 if (!card.includes('Number.isNaN(date.getTime())')) errors.push('Destination cards must guard invalid source-check dates.');
 
 for (const feature of [
