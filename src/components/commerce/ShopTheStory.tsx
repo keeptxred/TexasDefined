@@ -4,6 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { useBrand } from "@/brand/context";
 import { collectionQuery, productsQuery } from "@/data/queries";
 import { formatPrice } from "@/domain/utils/format";
+import { recoverOrHideImage } from "@/lib/image-fallback";
 
 /** Inline editorial-to-commerce module rendered inside article bodies. */
 export function ShopTheStory({ collectionSlug }: { collectionSlug: string }) {
@@ -23,7 +24,9 @@ export function ShopTheStory({ collectionSlug }: { collectionSlug: string }) {
       <ul className="mt-6 grid gap-6 sm:grid-cols-3">
         {products.data.map((product) => (
           <li key={product.id}>
-            <img
+            <div className="relative aspect-square overflow-hidden bg-muted">
+              <span aria-hidden className="eyebrow absolute left-5 top-5 text-muted-foreground">Product image unavailable</span>
+              <img
               src={product.image.src}
               alt={product.image.alt}
               width={product.image.width}
@@ -31,8 +34,10 @@ export function ShopTheStory({ collectionSlug }: { collectionSlug: string }) {
               sizes="(min-width: 640px) 30vw, 100vw"
               loading="lazy"
               decoding="async"
-              className="aspect-square w-full object-cover"
+              className="absolute inset-0 size-full object-cover"
+              onError={(event) => recoverOrHideImage(event.currentTarget)}
             />
+            </div>
             <p className="mt-3 font-display text-base leading-snug">{product.name}</p>
             <p className="text-sm text-muted-foreground">
               {formatPrice(product.priceCents, product.currency, brand.identity.locale)}
