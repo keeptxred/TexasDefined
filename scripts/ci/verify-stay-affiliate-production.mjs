@@ -1,3 +1,5 @@
+import vm from 'node:vm';
+
 const origin = process.env.STAY_AFFILIATE_PRODUCTION_ORIGIN || 'https://texasdefined.com';
 const revision = process.env.GITHUB_SHA || 'local';
 const runId = process.env.GITHUB_RUN_ID || Date.now().toString();
@@ -5,6 +7,41 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function requireCondition(condition, message) {
   if (!condition) throw new Error(message);
+}
+
+function verifyLiveRoutingPolicy(source) {
+  const sandbox = {
+    window: {
+      location: { pathname: '/' },
+      dataLayer: [],
+      addEventListener() {},
+      dispatchEvent() {},
+      requestAnimationFrame() {},
+    },
+    document: {
+      readyState: 'loading',
+      addEventListener() {},
+      querySelectorAll() { return []; },
+    },
+    URL,
+    CustomEvent: class CustomEvent {},
+    console,
+  };
+  vm.runInNewContext(source, sandbox, { filename: 'live:/stay-affiliate-options.js' });
+  const api = sandbox.window.TexasDefinedStayAffiliateOptions;
+  requireCondition(api && typeof api.bookingIntent === 'function', 'Live stay affiliate bootstrap does not expose bookingIntent.');
+  requireCondition(typeof api.comparisonHotelDestination === 'function', 'Live stay affiliate bootstrap does not expose comparisonHotelDestination.');
+  requireCondition(typeof api.buildCjDeepLink === 'function', 'Live stay affiliate bootstrap does not expose buildCjDeepLink.');
+
+  requireCondition(api.bookingIntent('/event/chappell-hill-bluebonnet-festival') === 'hotel-first', 'Live event intent no longer resolves to hotel-first.');
+  requireCondition(api.bookingIntent('/destination/fredericksburg') === 'both', 'Live destination intent no longer resolves to broader lodging intent.');
+  requireCondition(api.comparisonHotelDestination('hotel-first') === 'https://www.orbitz.com/', 'Live hotel-first comparison provider must resolve to Orbitz.');
+  requireCondition(api.comparisonHotelDestination('both') === 'https://www.travelocity.com/', 'Live destination/leisure comparison provider must resolve to Travelocity.');
+
+  const orbitz = api.buildCjDeepLink('https://www.orbitz.com/');
+  const travelocity = api.buildCjDeepLink('https://www.travelocity.com/');
+  requireCondition(orbitz.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.orbitz.com/'), 'Live Orbitz comparison target is no longer bound to the TexasDefined CJ publisher.');
+  requireCondition(travelocity.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.travelocity.com/'), 'Live Travelocity comparison target is no longer bound to the TexasDefined CJ publisher.');
 }
 
 function liveUrl(path, attempt) {
@@ -163,6 +200,8 @@ for (const marker of [
   'anchor.parentNode.insertBefore(surface, anchor)',
 ]) requireCondition(affiliateBootstrap.includes(marker), `Live stay affiliate bootstrap is missing marker: ${marker}`);
 
+verifyLiveRoutingPolicy(affiliateBootstrap);
+
 const exactPropertyUrls = affiliateBootstrap.match(/https:\/\/www\.hotels\.com\/ho\d+\/[a-z0-9-]+\//gi) || [];
 requireCondition(exactPropertyUrls.length === 30, `Live stay affiliate bootstrap must contain 30 exact Hotels.com property URLs; found ${exactPropertyUrls.length}.`);
 requireCondition(new Set(exactPropertyUrls).size === 30, 'Live exact Hotels.com property URLs must be unique across the governed stay cohort.');
@@ -275,4 +314,4 @@ for (const page of pages) {
   requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === page.route.replace(/\/+$/, ''), `${page.route} is not self-canonical and must not be part of the monetized production cohort.`);
 }
 
-console.log('Stay affiliate production verification passed: all 30 governed stay properties (18 venue + 12 destination) expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher, curated surfaces prioritize exact-property referrals before route-scoped comparison choices (Orbitz for event/venue hotel-first intent and Travelocity for broader destination/leisure intent), while broad Expedia search remains the fallback and Vrbo remains separately gated; the live same-origin /api/analytics collector accepted partner_referral_shown, partner_referral_clicked and reserved expedia-search next_step_selected CI probes backed by Cloudflare Analytics Engine; Hotels.com/Orbitz/Travelocity/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');
+console.log('Stay affiliate production verification passed: the deployed stay bootstrap was executed in a sandbox and confirms Orbitz for event/venue hotel-first intent, Travelocity for broader destination/leisure intent, and TexasDefined CJ deep-link binding for both providers; all 30 governed stay properties (18 venue + 12 destination) expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher, curated surfaces prioritize exact-property referrals before route-scoped comparison choices, while broad Expedia search remains the fallback and Vrbo remains separately gated; the live same-origin /api/analytics collector accepted partner_referral_shown, partner_referral_clicked and reserved expedia-search next_step_selected CI probes backed by Cloudflare Analytics Engine; Hotels.com/Orbitz/Travelocity/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');
