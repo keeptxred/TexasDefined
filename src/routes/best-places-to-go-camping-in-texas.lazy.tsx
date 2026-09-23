@@ -91,7 +91,7 @@ function CampingGuidePage() {
             className="aspect-[4/3] w-full object-cover"
             fetchPriority="high"
             onError={() => markImageFailed(hero.src)}
-          /> : <div className="flex aspect-[4/3] items-center justify-center bg-muted px-6 text-center text-sm text-muted-foreground" role="img" aria-label="Palo Duro Canyon State Park photo unavailable">Photo unavailable. The camping guide and campground finder remain available below.</div>}
+          /> : <div className="aspect-[4/3] bg-muted" aria-hidden />}
           <figcaption className="px-4 py-3 text-xs leading-5 text-muted-foreground">
             {!failedImages.has(hero.src) ? <>Palo Duro Canyon State Park · Panhandle camping · {hero.credit}</> : <>Palo Duro Canyon State Park · Panhandle camping</>}
           </figcaption>
@@ -108,7 +108,7 @@ function CampingGuidePage() {
         </div>
         <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {standoutCamping.map((item) => <Link key={item.slug} to={item.to} className="group overflow-hidden border border-border bg-background transition-colors hover:border-primary/50">
-            {item.image.src === caddoLake ? <img src={item.image.src} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" className="aspect-[16/9] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" /> : !failedImages.has(item.image.src) ? <img src={item.image.src} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" className="aspect-[16/9] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" onError={() => markImageFailed(item.image.src)} /> : <div className="flex aspect-[16/9] items-center justify-center bg-muted px-6 text-center text-sm text-muted-foreground" role="img" aria-label={`${item.label} photo unavailable`}>Photo unavailable. Open the destination guide for trip-planning details.</div>}
+            {item.image.src === caddoLake ? <img src={item.image.src} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" className="aspect-[16/9] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" /> : !failedImages.has(item.image.src) ? <img src={item.image.src} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" className="aspect-[16/9] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" onError={() => markImageFailed(item.image.src)} /> : <div className="aspect-[16/9] bg-muted" aria-hidden />}
             <div className="p-6">
               <p className="eyebrow text-primary">{item.eyebrow}</p>
               <h3 className="mt-2 font-display text-2xl">{item.label}</h3>
