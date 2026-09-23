@@ -29,6 +29,20 @@ export const getDestinationsBySlugs = createServerFn({ method: "GET" })
       .map(prepareDestinationForDelivery);
   });
 
+export const getDestinationCatalog = createServerFn({ method: "GET" })
+  .handler(async (): Promise<Destination[]> => {
+    const [
+      { listResolvedDestinations },
+      { prepareDestinationForDelivery },
+    ] = await Promise.all([
+      import("./destination-query-runtime"),
+      import("@/lib/editorial-image-delivery"),
+    ]);
+
+    return (await listResolvedDestinations({ limit: 5000 }))
+      .map(prepareDestinationForDelivery);
+  });
+
 export const getDestinationCollection = createServerFn({ method: "GET" })
   .inputValidator((data: { collection: DestinationCollectionKey }) => ({
     collection: data?.collection === "aquariums" ? "aquariums" as const : "museums" as const,
