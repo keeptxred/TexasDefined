@@ -21,6 +21,26 @@ export type DestinationComparisonRecord = Pick<
   | "county"
 >;
 
+export type DestinationSearchRecord = Pick<
+  Destination,
+  | "id"
+  | "slug"
+  | "name"
+  | "summary"
+  | "category"
+  | "region"
+  | "nearestTown"
+  | "coordinates"
+  | "hero"
+  | "bestSeason"
+  | "highlights"
+  | "managingAuthority"
+  | "sourceCheckedAt"
+  | "county"
+  | "accessibilityNotes"
+  | "featured"
+>;
+
 function sanitizeSlug(value: unknown) {
   return String(value ?? "").trim().slice(0, 180);
 }
@@ -68,6 +88,38 @@ export const getDestinationCatalog = createServerFn({ method: "GET" })
       sourceCheckedAt: destination.sourceCheckedAt,
       county: destination.county,
     }));
+  });
+
+export const getDestinationSearchCatalog = createServerFn({ method: "GET" })
+  .handler(async (): Promise<DestinationSearchRecord[]> => {
+    const [
+      { listResolvedDestinations },
+      { prepareDestinationForDelivery },
+    ] = await Promise.all([
+      import("./destination-query-runtime"),
+      import("@/lib/editorial-image-delivery"),
+    ]);
+
+    return (await listResolvedDestinations({ limit: 5000 }))
+      .map(prepareDestinationForDelivery)
+      .map((destination) => ({
+        id: destination.id,
+        slug: destination.slug,
+        name: destination.name,
+        summary: destination.summary,
+        category: destination.category,
+        region: destination.region,
+        nearestTown: destination.nearestTown,
+        coordinates: destination.coordinates,
+        hero: destination.hero,
+        bestSeason: destination.bestSeason,
+        highlights: destination.highlights.slice(0, 8),
+        managingAuthority: destination.managingAuthority,
+        sourceCheckedAt: destination.sourceCheckedAt,
+        county: destination.county,
+        accessibilityNotes: destination.accessibilityNotes,
+        featured: destination.featured,
+      }));
   });
 
 export const getDestinationCollection = createServerFn({ method: "GET" })
