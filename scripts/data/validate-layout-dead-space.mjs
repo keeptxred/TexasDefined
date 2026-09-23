@@ -46,6 +46,11 @@ const surfaceChecks = [
     forbidden: ['fallback={null}'],
     required: ['Loading Texas Dogs Defined…', 'role="status"'],
   },
+  {
+    file: 'src/routes/search.lazy.tsx',
+    forbidden: ['min-h-[42vh]'],
+    required: ['No search results', 'Search results'],
+  },
 ];
 
 for (const check of surfaceChecks) {
