@@ -66,8 +66,8 @@ function DestinationAreaGuideSection({ destination }: { destination: Destination
   return <Section className="py-10 sm:py-12 lg:py-14">
     <Container>
       <SectionHeader
-        eyebrow="What's in the area"
-        title={`Build a fuller trip around ${destination.name}`}
+        eyebrow="Around the area"
+        title={`What to do near ${destination.name}`}
         description={guide.intro}
       />
       <div className="mt-8 grid gap-x-10 lg:grid-cols-2">
