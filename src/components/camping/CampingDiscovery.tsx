@@ -72,10 +72,12 @@ const quickMatches: Array<{
   { label: "Full-hookup RV", styles: ["rv"], amenities: ["full-hookup"] },
   { label: "Beach camping", styles: ["beach"] },
   { label: "Primitive camping", styles: ["primitive"] },
+  { label: "Cabins & glamping", styles: ["cabin", "glamping", "airstream", "bungalow"] },
   { label: "Fishing", amenities: ["fishing"] },
   { label: "Swimming", amenities: ["swimming"] },
   { label: "Water-focused", waterCamping: true },
   { label: "Accessible sites", amenities: ["ada-site"] },
+  { label: "Pet friendly", amenities: ["pets"] },
 ];
 
 const campingCardImages: Record<string, { src: string; alt: string; width: number; height: number }> = {
@@ -97,6 +99,28 @@ const campingCardImages: Record<string, { src: string; alt: string; width: numbe
   "lake-tawakoni-state-park": { src: "/images/state-parks/lake-tawakoni-state-park.jpg", alt: "Lake Tawakoni State Park in Texas", width: 1600, height: 1100 },
 };
 
+const destinationGuideSlugs = new Set([
+  "enchanted-rock-state-natural-area",
+  "palo-duro-canyon-state-park",
+  "garner-state-park",
+  "mckinney-falls-state-park",
+  "caddo-lake",
+  "mustang-island-state-park",
+  "sea-rim-state-park",
+  "brazos-bend-state-park",
+  "big-bend-national-park",
+  "guadalupe-mountains-national-park",
+  "inks-lake-state-park",
+  "colorado-bend-state-park",
+  "caprock-canyons-state-park",
+  "dinosaur-valley-state-park",
+  "pedernales-falls-state-park",
+  "lake-whitney-state-park",
+  "lake-tawakoni-state-park",
+  "matagorda-bay-nature-park",
+]);
+
+
 function profileAnchor(profile: CampingDiscoveryProfile) {
   return profile.profileSlug || profile.destinationSlug;
 }
@@ -109,14 +133,22 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
   const [query, setQuery] = useState("");
   const [styles, setStyles] = useState<CampingStyle[]>([]);
   const [region, setRegion] = useState("all");
+  const [agency, setAgency] = useState("all");
+  const [sortBy, setSortBy] = useState("recommended");
   const [amenities, setAmenities] = useState<CampingAmenity[]>([]);
   const [waterCamping, setWaterCamping] = useState(false);
 
+  const agencies = useMemo(
+    () => [...new Set(entries.map(({ profile }) => profile.managingAgency))].sort((a, b) => a.localeCompare(b)),
+    [entries],
+  );
+
   const filtered = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
-    return entries.filter(({ profile }) => {
+    const matches = entries.filter(({ profile }) => {
       if (styles.length && !styles.some((style) => profile.styles.includes(style))) return false;
       if (region !== "all" && profile.region !== region) return false;
+      if (agency !== "all" && profile.managingAgency !== agency) return false;
       if (amenities.length && !amenities.every((amenity) => profile.amenities.includes(amenity))) return false;
       if (waterCamping && !profile.amenities.some((amenity) => ["lake-access", "river-access", "gulf-access", "swimming"].includes(amenity))) return false;
       if (normalizedQuery) {
@@ -132,14 +164,20 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
       }
       return true;
     });
-  }, [amenities, entries, query, region, styles, waterCamping]);
+    if (sortBy === "name") return [...matches].sort((a, b) => a.profile.name.localeCompare(b.profile.name));
+    if (sortBy === "region") return [...matches].sort((a, b) => (regionLabels[a.profile.region] ?? a.profile.region).localeCompare(regionLabels[b.profile.region] ?? b.profile.region) || a.profile.name.localeCompare(b.profile.name));
+    if (sortBy === "verified") return [...matches].sort((a, b) => b.profile.verifiedAt.localeCompare(a.profile.verifiedAt) || a.profile.name.localeCompare(b.profile.name));
+    return matches;
+  }, [agency, amenities, entries, query, region, sortBy, styles, waterCamping]);
 
-  const hasFilters = Boolean(query || styles.length || region !== "all" || amenities.length || waterCamping);
+  const hasFilters = Boolean(query || styles.length || region !== "all" || agency !== "all" || amenities.length || waterCamping);
 
   const reset = () => {
     setQuery("");
     setStyles([]);
     setRegion("all");
+    setAgency("all");
+    setSortBy("recommended");
     setAmenities([]);
     setWaterCamping(false);
   };
@@ -147,6 +185,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
   const applyQuickMatch = (match: (typeof quickMatches)[number]) => {
     setQuery("");
     setRegion("all");
+    setAgency("all");
     setStyles(match.styles ?? []);
     setAmenities(match.amenities ?? []);
     setWaterCamping(Boolean(match.waterCamping));
@@ -167,7 +206,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
         </div>
       </div>
 
-      <div className="mt-6 grid gap-5 border-t border-border pt-6 lg:grid-cols-[1.4fr_.8fr]">
+      <div className="mt-6 grid gap-5 border-t border-border pt-6 lg:grid-cols-3">
         <label className="text-sm">
           <span className="block font-semibold">Where do you want to camp?</span>
           <input
@@ -185,7 +224,24 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
             {Object.entries(regionLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
           </select>
         </label>
+        <label className="text-sm">
+          <span className="block font-semibold">Managing agency</span>
+          <select value={agency} onChange={(event) => setAgency(event.target.value)} className="mt-2 w-full border border-border bg-background px-3 py-3">
+            <option value="all">All managing agencies</option>
+            {agencies.map((item) => <option key={item} value={item}>{item}</option>)}
+          </select>
+        </label>
       </div>
+
+      <label className="mt-5 block max-w-xs text-sm">
+        <span className="block font-semibold">Sort results</span>
+        <select value={sortBy} onChange={(event) => setSortBy(event.target.value)} className="mt-2 w-full border border-border bg-background px-3 py-3">
+          <option value="recommended">TexasDefined order</option>
+          <option value="name">Name A–Z</option>
+          <option value="region">Region</option>
+          <option value="verified">Most recently verified</option>
+        </select>
+      </label>
 
       <fieldset className="mt-6">
         <legend className="text-sm font-semibold">Camping style <span className="font-normal text-muted-foreground">· choose one or more</span></legend>
@@ -229,9 +285,10 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
         const countySlug = profile.county.toLowerCase().replace(/[^a-z0-9]+/g, "-");
         const anchor = profileAnchor(profile);
         const isParentDestination = anchor === profile.destinationSlug;
+        const hasDestinationGuide = destinationGuideSlugs.has(profile.destinationSlug);
         const image = campingCardImages[profile.destinationSlug];
         return <article id={anchor} key={anchor} className="scroll-mt-28 overflow-hidden border border-border bg-background">
-          {image ? <figure className="border-b border-border bg-muted/30">
+          {image && isParentDestination ? <figure className="border-b border-border bg-muted/30">
             <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" className="aspect-[16/8] w-full object-cover" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
             <figcaption className="px-4 py-2 text-xs leading-5 text-muted-foreground">Destination view — verify the exact campsite on the official reservation page.</figcaption>
           </figure> : null}
@@ -254,12 +311,14 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
             <dl className="mt-6 space-y-4 text-sm">
               <div><dt className="font-semibold">Verified facilities</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.amenities.map((amenity) => amenityLabels[amenity] ?? amenity).join(" · ") || "No amenity fields verified yet"}</dd></div>
               <div><dt className="font-semibold">Reservations</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.reservationPolicy}</dd></div>
+              {profile.planningDetail ? <div><dt className="font-semibold">Planning detail</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.planningDetail}</dd></div> : null}
               {profile.siteLengthNote ? <div><dt className="font-semibold">RV/site length</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.siteLengthNote}</dd></div> : null}
               {profile.generatorRules ? <div><dt className="font-semibold">Generator rules</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.generatorRules}</dd></div> : null}
             </dl>
 
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
-              <Link to="/destination/$slug" params={{ slug: profile.destinationSlug }} className="text-primary underline-offset-4 hover:underline">{isParentDestination ? "Destination guide" : "Parent destination guide"}</Link>
+              {hasDestinationGuide ? <Link to="/destination/$slug" params={{ slug: profile.destinationSlug }} className="text-primary underline-offset-4 hover:underline">{isParentDestination ? "Destination guide" : "Parent destination guide"}</Link> : null}
+              {hasDestinationGuide ? <Link to="/explore/trip-planner" search={{ destination: profile.destinationSlug }} className="text-primary underline-offset-4 hover:underline">Build trip</Link> : null}
               <Link to="/$kind/$slug" params={{ kind: "county", slug: countySlug }} className="text-primary underline-offset-4 hover:underline">{profile.county} County</Link>
               <a href={profile.reservationUrl} target="_blank" rel="noreferrer" className="text-primary underline-offset-4 hover:underline">Official reservations/details ↗</a>
             </div>
