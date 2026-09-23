@@ -59,9 +59,9 @@ const DISTRICT_BY_SLUG = new Map<string, UilFootballDistrictProfile>();
 for (const program of UIL_FOOTBALL_PROGRAMS_2026) {
   const slug = footballDistrictSlug(program.classification, program.division, program.district);
   const existing = DISTRICT_BY_SLUG.get(slug);
-  const exactEnrollment = UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.schoolName];
+  const exactEnrollment = UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.sourceSchoolName];
   if (!exactEnrollment) {
-    throw new Error(`UIL football district enrollment missing for ${program.schoolName}.`);
+    throw new Error(`UIL football district enrollment missing for ${program.schoolName} (UIL source: ${program.sourceSchoolName}).`);
   }
   const entry: UilFootballDistrictProgram = {
     schoolName: program.schoolName,
