@@ -119,7 +119,7 @@ function Page() {
             <a href={privateAlignment.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">{privateAlignment.sourceLabel} ↗</a>
           </div> : <>
             <div className="border-y border-border py-5">
-              <p className="font-display text-2xl">{governingBodyHint ? [governingBodyHint, associationClassification].filter(Boolean).join(' ') : 'Association placement not yet verified'}</p>
+              <p className="font-display text-2xl">{governingBodyHint ? [governingBodyHint, associationClassification].filter(Boolean).join(' ') : 'Association placement not yet available'}</p>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
                 This supplied school did not resolve to the current UIL football alignment. TexasDefined does not force private or non-UIL programs into a UIL classification. Association placement is shown only when it has been separately sourced.
               </p>
@@ -153,7 +153,7 @@ function Page() {
       {program && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Game venue</p>
-          <h2 className="mt-2 font-display text-3xl">{venueLinks.length > 0 ? 'Verified football venue relationships' : 'Football venue research'}</h2>
+          <h2 className="mt-2 font-display text-3xl">{venueLinks.length > 0 ? 'Football game venues' : 'Football venue details'}</h2>
           <p className="mt-4 text-sm leading-7 text-muted-foreground">Texas high schools often share district stadiums. A venue listed here is a sourced school or district football relationship, not a promise that every home game is played there. Confirm the current schedule before travel.</p>
         </div>
         {venueLinks.length > 0 ? <div className="space-y-5">
