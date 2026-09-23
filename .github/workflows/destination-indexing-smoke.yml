@@ -123,7 +123,7 @@ jobs:
           fi
 
           curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$methodology" -o /tmp/top25-methodology.html
-          for marker in "What qualifies for the collection" "Official sources control changing visitor facts" "Controlling visitor source" "Supporting public or institutional authority" "Review sites are not authority evidence" "No invented experience" "Shared comparison scale" "Download JSON"; do
+          for marker in "What qualifies for the collection" "Official sources control changing visitor facts" "Controlling visitor source" "Supporting public or institutional sources" "Review sites are not authority evidence" "No invented experience" "Shared comparison scale" "Download JSON"; do
             grep -Fq "$marker" /tmp/top25-methodology.html || {
               echo "Top 25 methodology is missing required rendered marker: $marker" >&2
               exit 1
