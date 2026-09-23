@@ -10,6 +10,7 @@ const availability = read('src/data/destination-availability.ts');
 const queries = read('src/data/queries.ts');
 const destinationRuntime = read('src/data/destination-query-runtime.ts');
 const preservedCatalog = read('src/data/destination-preserved-catalog.ts');
+const legacyLakes = read('src/data/fixtures/legacy-lakes.ts');
 const curationAll = read('src/data/destination-curation-all.ts');
 const waterCuration = read('src/data/destination-curation-batch45.ts');
 const museumCuration = read('src/data/destination-curation-batch49.ts');
@@ -154,6 +155,20 @@ for (const marker of [
 ]) {
   if (!preservedCatalog.includes(marker)) failures.push(`Shared preserved destination catalog missing source/contract: ${marker}`);
 }
+for (const marker of [
+  'const isTpwdStatePark = officialUrl.startsWith("https://tpwd.texas.gov/state-parks/")',
+  'category: isTpwdStatePark ? "state-parks" : "lakes-rivers"',
+  'src: "/images/texasdefined-destination-placeholder.svg"',
+  'choke-canyon-state-park|Choke Canyon State Park',
+  'caddo-lake-state-park|Caddo Lake State Park',
+  'lake-whitney-state-park|Lake Whitney State Park',
+]) {
+  if (!legacyLakes.includes(marker)) failures.push(`Legacy lake/state-park taxonomy contract missing: ${marker}`);
+}
+if (legacyLakes.includes('category: "lakes-rivers",')) {
+  failures.push('Legacy lake fixture must not hardcode every TPWD state park as lakes-rivers.');
+}
+
 if (!preservedCatalog.includes('instead of relying on the') || !preservedCatalog.includes('import-time mutation')) {
   failures.push('Shared preserved destination catalog must document that Top-25 expansion fallbacks are explicit and import-order independent.');
 }
