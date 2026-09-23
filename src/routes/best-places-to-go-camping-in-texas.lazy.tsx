@@ -156,6 +156,26 @@ function CampingGuidePage() {
       </Container>
     </section>
 
+    <section className="py-12 md:py-16">
+      <Container>
+        <div className="max-w-3xl">
+          <p className="eyebrow text-primary">When to camp</p>
+          <h2 className="mt-2 font-display text-4xl md:text-5xl">Match the season to the part of Texas</h2>
+          <p className="mt-4 leading-8 text-muted-foreground">Texas is too large for one statewide camping season. Use these as planning patterns, then check the destination forecast, park alerts and fire or flood restrictions before leaving home.</p>
+        </div>
+        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Spring</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">A strong statewide trip-planning season, but thunderstorms, flash flooding and changing river conditions can matter quickly. Recheck the exact park and route before travel.</p></div>
+          <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Summer</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Prioritize water access, shade and realistic heat plans. Desert and exposed-trail trips need especially careful timing; Gulf trips also require attention to tropical weather.</p></div>
+          <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Fall</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Often useful for Hill Country, forest and West Texas itineraries as temperatures moderate. Popular weekends can still book early, so compare availability before building the rest of the trip.</p></div>
+          <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Winter</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">South and West Texas can work well for cooler-weather trips, but fronts, freezes and large overnight temperature swings still require a current forecast and campsite-specific preparation.</p></div>
+        </div>
+        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+          <Link to="/texas-weather" className="text-primary underline-offset-4 hover:underline">Texas weather planning →</Link>
+          <Link to="/explore/road-trips" className="text-primary underline-offset-4 hover:underline">Plan the drive →</Link>
+        </div>
+      </Container>
+    </section>
+
     <section className="border-y border-border bg-muted/30 py-12 md:py-16">
       <Container>
         <p className="eyebrow text-primary">How the guide is built</p>
@@ -164,6 +184,21 @@ function CampingGuidePage() {
           <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Official-source amenities</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Hookups, showers, site-length notes, accessibility and generator rules are shown only when an official park or reservation source supports them.</p></div>
           <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Public camping first</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">The finder prioritizes TPWD, National Park Service, U.S. Army Corps of Engineers, U.S. Forest Service and other public land managers.</p></div>
           <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Source dates stay visible</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Every profile carries a verification date and source links so readers can distinguish researched planning data from live availability.</p></div>
+        </div>
+      </Container>
+    </section>
+
+    <section className="border-y border-border bg-muted/30 py-12 md:py-16">
+      <Container>
+        <div className="max-w-3xl">
+          <p className="eyebrow text-primary">Camping questions</p>
+          <h2 className="mt-2 font-display text-4xl md:text-5xl">What to know before choosing a Texas campground</h2>
+        </div>
+        <div className="mt-8 grid gap-5 lg:grid-cols-2">
+          <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Does “full hookup” apply to every site in a campground?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">No. Hookups can vary by loop and individual site. The finder only uses the full-hookup filter when an official source verifies that inventory, and you should still confirm the exact site before paying.</p></div>
+          <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Why are campground prices not listed here?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Rates, fees, minimum stays and availability can change faster than the editorial guide. Use the official reservation link on each profile for the current price and booking terms.</p></div>
+          <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Can I search for camping near a city?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Yes. The campground finder indexes researched destination and metro search terms in addition to park, campground, county and managing-agency names.</p></div>
+          <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Is this the same as the RV park directory?</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">No. This is a curated public-camping decision guide. The RV Parks & Campgrounds directory is the broader inventory for comparing many more RV-oriented places, including private and public options.</p></div>
         </div>
       </Container>
     </section>
