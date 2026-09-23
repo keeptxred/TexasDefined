@@ -97,7 +97,7 @@ jobs:
             for stale_marker in \
               "Nearest town" \
               "Near Houston, Texas" \
-              "Good for first-time visitors" \
+              "First Texas trip" \
               "Approx. 1 miles away" \
               ">Things to do</h3>" \
               ">Don’t miss</h3>" \
