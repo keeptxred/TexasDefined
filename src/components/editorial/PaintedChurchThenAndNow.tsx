@@ -17,11 +17,11 @@ export function PaintedChurchThenAndNow({ slug }: { slug: string }) {
     ...extraPaintedChurchGalleryBySlug(slug),
     ...supplementalPaintedChurchGalleryBySlug(slug),
   ].map((item) => [item.sourceUrl, item])).values()];
+  const [failedCurrentImage, setFailedCurrentImage] = useState<string | null>(null);
   if (!archival.length || !current.length) return null;
 
   const archivalPrimary = archival[0];
   const currentPrimary = current[0];
-  const [failedCurrentImage, setFailedCurrentImage] = useState<string | null>(null);
   const currentImageAvailable = failedCurrentImage !== currentPrimary.src;
 
   return (
