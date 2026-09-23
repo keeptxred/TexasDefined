@@ -8,7 +8,7 @@ import { Container } from "@/components/layout/Container";
 import { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.functions";
 import { LAKE_CONROE_SLUG, isLakeConroeSection, lakeConroeCanonicalPath, type LakeConroeSection } from "@/data/fishing/lake-conroe-routing";
 import { isShowcaseLakeSection, isShowcaseLakeSlug, showcaseLakeCanonicalPath, type ShowcaseLakeSection } from "@/data/fishing/showcase-lake-routing";
-import { getShowcaseLakesPageData } from "@/data/fishing/showcase-lakes-page-data.functions";
+import { getShowcaseLakePageData } from "@/data/fishing/showcase-lakes-page-data.functions";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 type LakeConroeSources = Awaited<ReturnType<typeof getLakeConroePageData>>["sources"];
@@ -29,8 +29,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
       return { kind: "conroe" as const, lake, reports, guides, pageData, section: params.section, liveLakeLevel: pageData.liveLakeLevel };
     }
     if (!isShowcaseLakeSlug(params.slug) || !isShowcaseLakeSection(params.section)) throw notFound();
-    const allPageData = await getShowcaseLakesPageData();
-    const pageData = allPageData[params.slug];
+    const pageData = await getShowcaseLakePageData({ data: { slug: params.slug } });
     if (!pageData) throw notFound();
     const [reports, guides, businesses, placements] = await Promise.all([
       context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 })),
