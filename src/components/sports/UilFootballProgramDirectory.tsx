@@ -55,12 +55,12 @@ export function UilFootballProgramDirectory({ programs }: { programs: Program[] 
         <p className="eyebrow text-primary">All current UIL programs</p>
         <h2 className="mt-2 font-display text-3xl leading-tight">Browse all 1,268 Texas high school football programs</h2>
         <p className="mt-4 text-sm leading-7 text-muted-foreground">
-          Every current UIL football program gets the same directory and profile treatment. The list is ordered by UIL enrollment classification—6A first through 1A—not by a TexasDefined quality score.
+          Every current UIL football program is listed here on the same basis. The list follows UIL enrollment classification—6A first through 1A—not a ranking of football quality.
         </p>
       </div>
 
       <div>
-        <label htmlFor="uil-football-directory-search" className="text-sm font-semibold">Find a school in the statewide directory</label>
+        <label htmlFor="uil-football-directory-search" className="text-sm font-semibold">Find a Texas high school football program</label>
         <input
           id="uil-football-directory-search"
           value={query}
@@ -123,7 +123,7 @@ export function UilFootballProgramDirectory({ programs }: { programs: Program[] 
                     </p>
                     <h4 className="mt-2 font-display text-xl leading-tight group-hover:text-primary">{program.schoolName}</h4>
                     <p className="mt-2 text-xs text-muted-foreground">UIL enrollment {program.uilEnrollment.toLocaleString('en-US')} · {program.footballType}</p>
-                    <p className="mt-1 text-xs font-semibold text-primary">Open school football profile →</p>
+                    <p className="mt-1 text-xs font-semibold text-primary">Read school football profile →</p>
                   </a>)}
                 </div>
                 {hiddenCount > 0 && <button
@@ -140,7 +140,7 @@ export function UilFootballProgramDirectory({ programs }: { programs: Program[] 
         {!visible.length && <p className="border-b border-border py-6 text-sm text-muted-foreground">No current UIL program matched that search and classification filter.</p>}
 
         <p className="mt-5 max-w-4xl text-xs leading-6 text-muted-foreground">
-          UIL classifications are based on enrollment. A 6A school is listed above a 5A school because it is in the larger-enrollment classification, not because TexasDefined has rated its football program as better.
+          UIL classifications are based on enrollment. A 6A school appears above a 5A school because it is in the larger-enrollment classification, not because one football program is rated better.
         </p>
         <a href={UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE.url} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-xs font-semibold text-primary underline underline-offset-4">Official UIL 2026–28 enrollment cutoffs ↗</a>
       </div>
