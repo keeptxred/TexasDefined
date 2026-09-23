@@ -1,5 +1,5 @@
 import { footballClassificationRank, footballProgramProfilePath, footballProgramSlug } from './program-slugs';
-import { UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28 } from './uil-football-enrollments-2026.generated';
+import { getExactUilFootballEnrollment } from './uil-football-exact-enrollment.server';
 import {
   UIL_FOOTBALL_EXPECTED_COUNTS,
   UIL_FOOTBALL_PROGRAMS_2026,
@@ -26,7 +26,7 @@ const ALL_UIL_FOOTBALL_PROGRAMS: readonly FootballProgramIndexEntry[] = UIL_FOOT
     division: program.division,
     district: program.district,
     footballType: program.footballType,
-    uilEnrollment: UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.schoolName]?.enrollment ?? 0,
+    uilEnrollment: getExactUilFootballEnrollment(program.schoolName)?.enrollment ?? 0,
   }))
   .sort((left, right) => {
     const classDiff = footballClassificationRank(right.classification) - footballClassificationRank(left.classification);
@@ -40,6 +40,13 @@ const ALL_UIL_FOOTBALL_PROGRAMS: readonly FootballProgramIndexEntry[] = UIL_FOOT
 function assertFootballProgramIndexInvariant() {
   if (ALL_UIL_FOOTBALL_PROGRAMS.length !== 1268) {
     throw new Error(`UIL football index expected 1,268 programs; found ${ALL_UIL_FOOTBALL_PROGRAMS.length}.`);
+  }
+
+  const missingExactEnrollments = ALL_UIL_FOOTBALL_PROGRAMS.filter((program) => program.uilEnrollment <= 0);
+  if (missingExactEnrollments.length) {
+    throw new Error(
+      `UIL football index is missing exact enrollment for ${missingExactEnrollments.length} programs: ${missingExactEnrollments.slice(0, 10).map((program) => program.schoolName).join(', ')}.`,
+    );
   }
 
   const counts = ALL_UIL_FOOTBALL_PROGRAMS.reduce<Record<string, number>>((acc, program) => {
