@@ -7,6 +7,7 @@ import { ProductCard } from "@/components/commerce/ProductCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { collectionQuery, productsQuery } from "@/data/queries";
+import { recoverOrHideImage } from "@/lib/image-fallback";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const LazyShopCollectionGuideSections = lazy(() => import("@/components/commerce/ShopCollectionGuideSections").then((module) => ({ default: module.ShopCollectionGuideSections })));
@@ -46,7 +47,7 @@ function CollectionPage() {
 
   return <>
     <section className="relative isolate overflow-hidden bg-ink text-ink-foreground">
-      <img src={collection.image.src} alt={collection.image.alt} width={collection.image.width} height={collection.image.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-62" />
+      <img src={collection.image.src} alt={collection.image.alt} width={collection.image.width} height={collection.image.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-62" onError={(event) => recoverOrHideImage(event.currentTarget)} />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/15" />
       <Container className="relative flex flex-col justify-end pb-12 pt-24" style={{ minHeight: "clamp(24rem, 48vw, 32rem)" }}>
         <p className="eyebrow text-ink-foreground/75">The Texas Defined Shop</p>
