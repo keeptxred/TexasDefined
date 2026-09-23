@@ -320,7 +320,8 @@ function cleanText(value: unknown) {
 function cleanSlugs(value: unknown) {
   const raw = Array.isArray(value) ? value : typeof value === "string" ? value.split(",") : [];
   const valid = raw.filter((item): item is string => typeof item === "string" && /^[a-z0-9-]+$/.test(item));
-  return [...new Set(valid)].slice(0, 12);
+  const unique = [...new Set(valid)].slice(0, 12);
+  return unique.length ? unique : undefined;
 }
 
 function cleanCoordinate(value: unknown, min: number, max: number) {
