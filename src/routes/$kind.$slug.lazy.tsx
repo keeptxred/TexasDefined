@@ -107,7 +107,7 @@ function EntityPage() {
         {incomplete ? <section className="grid gap-6 border-b border-border py-8 lg:grid-cols-[14rem_1fr]">
           <div>
             {entity.kind === 'county'
-              ? <span className="inline-flex rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-primary">County Guide In Progress</span>
+              ? <span className="inline-flex rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-primary">County guide</span>
               : <p className="eyebrow text-primary">Guide status</p>}
             <h2 className="mt-3 font-display text-3xl">{statusHeading(entity)}</h2>
           </div>
@@ -166,19 +166,19 @@ function pageDescription(entity: TexasEntityRecord) {
 }
 
 function statusHeading(entity: TexasEntityRecord) {
-  if (entity.kind === 'county') return `We're Building Out ${countyDisplayName(entity.name)}`;
-  if (entity.kind === 'appraisal-district') return 'Office details are being verified';
-  if (entity.kind === 'tax-office') return 'Service details are being verified';
-  if (localGovernmentKinds.has(entity.kind)) return 'Public-service details are being verified';
-  return 'This guide is being expanded';
+  if (entity.kind === 'county') return `About ${countyDisplayName(entity.name)}`;
+  if (entity.kind === 'appraisal-district') return 'Verified office details';
+  if (entity.kind === 'tax-office') return 'Verified service details';
+  if (localGovernmentKinds.has(entity.kind)) return 'Verified public-service details';
+  return 'What we can confirm';
 }
 
 function statusMessage(entity: TexasEntityRecord) {
-  if (entity.kind === 'county') return `TexasDefined is creating a detailed guide for every county in Texas, and ${countyDisplayName(entity.name)} is on our list. We’re currently researching and adding local history, communities, landmarks, things to do, government resources, and other useful county information. In the meantime, the checked county information below is already available. Check back soon as we continue building out all 254 Texas counties.`;
-  if (entity.kind === 'appraisal-district') return `This guide for ${entity.name} is still being completed. We are checking the district's official contact and property-appraisal resources before adding them.`;
-  if (entity.kind === 'tax-office') return `This guide for ${entity.name} is still being completed. We are checking official taxpayer, registration and local service information before adding it.`;
-  if (localGovernmentKinds.has(entity.kind)) return `This public-service guide is intentionally limited while Texas Defined checks the official local information. Details that have not been confirmed are left out.`;
-  return `Texas Defined is still building this guide from checked sources. We would rather show a clearly incomplete guide than pad the page with generic information.`;
+  if (entity.kind === 'county') return `This guide begins with checked county information, official resources and the local details that are useful now. Additional history, places and community context are added only when they can be supported well.`;
+  if (entity.kind === 'appraisal-district') return `This guide shows the district information Texas Defined can support from authoritative sources. Use the official district link for current records, deadlines and office details.`;
+  if (entity.kind === 'tax-office') return `This guide shows the taxpayer, registration and local service information Texas Defined can support from authoritative sources. Use the official office link for current requirements and hours.`;
+  if (localGovernmentKinds.has(entity.kind)) return `This public-service guide includes checked local information and leaves unsupported details out. Use the linked official source for the most current service requirements.`;
+  return `This guide includes the details Texas Defined can support from checked sources. Unsupported filler is intentionally left out.`;
 }
 
 function countyDisplayName(value: string) {
