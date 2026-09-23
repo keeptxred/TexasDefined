@@ -4,7 +4,9 @@ import path from "node:path";
 const root = process.cwd();
 const read = (relative) => fs.readFileSync(path.join(root, relative), "utf8");
 const component = read("src/components/camping/CampingDiscovery.tsx");
+const route = read("src/routes/best-places-to-go-camping-in-texas.tsx");
 const page = read("src/routes/best-places-to-go-camping-in-texas.lazy.tsx");
+const destinationGuides = read("src/data/camping/destination-guides.ts");
 const profileWave2 = read("src/data/camping/profiles-wave2.ts");
 const profileWave3 = read("src/data/camping/profiles-wave3.ts");
 const profileWave4 = read("src/data/camping/profiles-wave4.ts");
@@ -36,11 +38,15 @@ requireText(component, "Managed by:", "campground managing-agency context");
 requireText(component, "profile.whyCampHere", "campground choice rendering");
 requireText(component, "Managing agency", "campground agency filter");
 requireText(component, "Sort results", "campground result sorting");
+requireText(component, "...(profile.searchTerms ?? [])", "campground researched search-term indexing");
+requireText(component, "nearby city", "campground nearby-city search affordance");
 requireText(component, "Most recently verified", "campground verification sort");
 requireText(component, "Planning detail", "campground comparison detail");
 requireText(component, "profile.planningDetail", "campground planning-detail rendering");
-requireText(component, "destinationGuideSlugs", "campground canonical destination-link registry");
+requireText(component, "hasCampingDestinationGuide", "campground canonical destination-link registry");
 requireText(component, "hasDestinationGuide", "campground destination-link guard");
+requireText(route, "hasCampingDestinationGuide(profile.destinationSlug)", "campground structured-data destination guard");
+requireText(route, "${pageUrl}#${profileAnchor(profile)}", "campground structured-data anchor fallback");
 requireText(component, "Build trip", "campground seeded trip-planner link");
 requireText(page, "data-stay-nearby-slot", "camping Stay Nearby placement");
 requireText(expedia, "best-places-to-go-camping-in-texas", "camping affiliate route coverage");
@@ -78,14 +84,19 @@ for (const [label, source] of [
     }
   }
 }
+const discoverySource = read("src/data/camping/discovery.ts");
+if ((discoverySource.match(/searchTerms:/g) || []).length < 10) failures.push("camping search index: all 10 lean statewide profiles must retain researched search terms.");
+for (const [label, source] of [["wave2", profileWave2], ["wave3", profileWave3], ["wave4", profileWave4], ["wave5", profileWave5]]) {
+  if (!source.includes("searchTerms: profile.searchTerms")) failures.push(`camping search index: ${label} discovery projection must retain rich search terms.`);
+}
+requireText(discoverySource, "camping near Fredericksburg", "camping destination-intent search terms");
+requireText(discoverySource, "RV camping near Austin", "camping metro-intent search terms");
+
 if (!profileWave4.includes('"pets"') || !profileWave5.includes('"pets"')) {
   failures.push("camping pet filter: normalized pets amenity must remain present in LCRA/GBRA discovery waves.");
 }
 
-const destinationGuideRegistry = component.slice(
-  component.indexOf("const destinationGuideSlugs"),
-  component.indexOf("function profileAnchor"),
-);
+const destinationGuideRegistry = destinationGuides;
 for (const slug of [
   "cedar-breaks-park-lake-georgetown",
   "russell-park-lake-georgetown",
@@ -111,4 +122,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Camping guide decision-UX validation passed: quick-match presets, normalized amenity filtering, agency filtering, result sorting, guarded destination links, seeded trip planning, campground choice context, planning-detail comparison, managing-agency context, destination-view disclosure, governed imagery, explicit lodging placement, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
+console.log("Camping guide decision-UX validation passed: quick-match presets, researched destination and metro search terms, normalized amenity filtering, agency filtering, result sorting, shared canonical destination registry, guarded UI and structured-data destination links, seeded trip planning, campground choice context, planning-detail comparison, managing-agency context, destination-view disclosure, governed imagery, explicit lodging placement, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
