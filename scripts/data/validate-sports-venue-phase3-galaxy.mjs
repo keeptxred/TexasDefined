@@ -99,7 +99,7 @@ for (const marker of [
   'sponsorPlacement ?',
   '<TexasEventCarousel',
   'data-stay-nearby-slot',
-  'A venue photograph is not available yet.',
+  'Venue details and planning information continue below.',
   'mainEntityOfPage: canonicalUrl',
   'image: photo?.imageUrl',
   'SourcesSection',
