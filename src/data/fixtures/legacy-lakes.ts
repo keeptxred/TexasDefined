@@ -63,7 +63,7 @@ export const legacyLakeDestinations: Destination[] = records.map((record) => {
     slug,
     name,
     summary,
-    category: "lakes-rivers",
+    category: officialUrl.startsWith("https://tpwd.texas.gov/state-parks/") ? "state-parks" : "lakes-rivers",
     region: regionMap[regionName] ?? "prairies-lakes",
     nearestTown: town,
     coordinates: { lat: Number(lat), lng: Number(lng) },
