@@ -50,6 +50,44 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  hydration-stability:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify Houston Zoo destination hydration stability
+        run: |
+          set -euo pipefail
+          origin="https://texasdefined.com"
+          hydration_control="/destination/houston-zoo"
+
+          for hydration_attempt in 1 2 3; do
+            target="/tmp/hydration-control-$hydration_attempt.html"
+            curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$hydration_control" -o "$target"
+
+            grep -Fq "<title>Houston Zoo" "$target" || {
+              echo "Houston Zoo hydration control did not render the expected destination document." >&2
+              exit 1
+            }
+
+            hydration_destination_links="$(grep -ao '/destination/[a-z0-9-]*' "$target" | sort -u | wc -l | tr -d ' ')"
+            hydration_bytes="$(wc -c < "$target" | tr -d ' ')"
+            echo "Houston Zoo hydration attempt $hydration_attempt: $hydration_destination_links unique destination slugs; $hydration_bytes HTML bytes."
+
+            if [ "$hydration_destination_links" -gt 150 ]; then
+              echo "Houston Zoo hydration control exposed $hydration_destination_links unique destination slugs; expected no more than 150. The full destination catalog may have leaked into browser hydration." >&2
+              exit 1
+            fi
+
+            for forbidden_slug in "/destination/fort-worth-zoo" "/destination/big-bend-national-park" "/destination/galveston-island-state-park"; do
+              if grep -Fq "$forbidden_slug" "$target"; then
+                echo "Houston Zoo hydration control contains unrelated destination payload marker: $forbidden_slug" >&2
+                exit 1
+              fi
+            done
+          done
+
+          echo "Houston Zoo destination hydration stability passed across three production fetches."
+
   smoke:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -64,7 +102,6 @@ jobs:
           methodology="/explore/top-attractions/methodology"
           road_trips="/explore/top-attractions/road-trips"
           authority_control="/destination/the-alamo"
-          hydration_control="/destination/houston-zoo"
           checklist="/top-25-texas-attractions-checklist.txt"
           comparison_csv="/top-25-texas-attractions.csv"
           comparison_json="/top-25-texas-attractions.json"
@@ -154,24 +191,6 @@ jobs:
             exit 1
           }
 
-          # Regression control for the September 2026 destination-page browser crashes.
-          # The route may use the full destination catalog server-side to rank related places,
-          # but that catalog must never be dehydrated into the public HTML/query cache.
-          for hydration_attempt in 1 2 3; do
-            curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$hydration_control" -o "/tmp/hydration-control-$hydration_attempt.html"
-            hydration_destination_links="$(grep -ao '/destination/[a-z0-9-]*' "/tmp/hydration-control-$hydration_attempt.html" | sort -u | wc -l | tr -d ' ')"
-            if [ "$hydration_destination_links" -gt 150 ]; then
-              echo "Houston Zoo hydration control exposed $hydration_destination_links unique destination slugs; expected no more than 150. The full destination catalog may have leaked into browser hydration." >&2
-              exit 1
-            fi
-            for forbidden_slug in "/destination/fort-worth-zoo" "/destination/big-bend-national-park" "/destination/galveston-island-state-park"; do
-              if grep -Fq "$forbidden_slug" "/tmp/hydration-control-$hydration_attempt.html"; then
-                echo "Houston Zoo hydration control contains unrelated destination payload marker: $forbidden_slug" >&2
-                exit 1
-              fi
-            done
-          done
-
           curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$comparison_csv" -o /tmp/top25.csv
           for marker in "rank,attraction_name,canonical_url" "authority_source_count" "authority_source_urls" "road_trip_names" "methodology_url" "The Alamo" "Gruene Historic District" "https://www.thealamo.org/remember/mission-valero"; do
             grep -Fq "$marker" /tmp/top25.csv || {
@@ -232,4 +251,4 @@ jobs:
             exit 1
           fi
 
-          echo "Destination indexing smoke passed with the Top 25 collection, methodology, road trips, multi-source authority layer, bounded Houston Zoo hydration, CSV, JSON, checklist, primary control $primary_url and verified Bentsen 301 canonicalization."
+          echo "Destination indexing smoke passed with the Top 25 collection, methodology, road trips, multi-source authority layer, CSV, JSON, checklist, primary control $primary_url and verified Bentsen 301 canonicalization."
