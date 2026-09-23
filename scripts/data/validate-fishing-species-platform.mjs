@@ -97,7 +97,7 @@ if (!failures.length) {
   if (!speciesLazy.includes('createLazyFileRoute("/fishing/species/$slug")') || !speciesLazy.includes("FishingSpeciesProfile data={Route.useLoaderData()}")) failures.push("General species UI is not protected by a native lazy route.");
   if (speciesRoute.includes('from "@/components/fishing/FishingSpeciesProfile"') || /\bcomponent\s*:/.test(speciesRoute) || speciesRoute.includes("buildMeta") || speciesRoute.includes('"@type":')) failures.push("General species UI or SEO payload leaked into the critical route.");
   if (!speciesUi.includes("They are not a statewide popularity ranking") || !speciesUi.includes("Use durable species guidance")) failures.push("General species source/conditions integrity copy is missing.");
-  for (const phrase of ["Techniques listed", "Linked lake profiles", "Techniques supported by the lake data", "verified lake-to-species relationship", "verified lake-technique relationship"]) {
+  for (const phrase of ["Techniques listed", "Linked lake profiles", "Techniques used for this fish", "source supports the connection to this species", "source-backed lake guidance"]) {
     if (!speciesUi.includes(phrase)) failures.push(`Fishing species profile is missing visitor-facing label: ${phrase}.`);
   }
   for (const stale of ["Verified techniques", "Verified lake coverage", "Verified method relationships", "verified dataset", "verified complete-lake technique relationship"]) {
