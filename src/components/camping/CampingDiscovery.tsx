@@ -140,7 +140,8 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
           profile.profileSlug,
           ...(profile.searchTerms ?? []),
         ].filter(Boolean).join(" ").toLowerCase();
-        if (!haystack.includes(normalizedQuery)) return false;
+        const queryTokens = normalizedQuery.split(/\s+/).filter(Boolean);
+        if (!queryTokens.every((token) => haystack.includes(token))) return false;
       }
       return true;
     });
