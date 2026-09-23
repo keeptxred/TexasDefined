@@ -24,6 +24,11 @@ const musicAuthority = read('src/data/texas-music.ts');
 const destinationRuntime = read('src/data/destination-query-runtime.ts');
 const aquariumWave4 = read('src/data/aquarium-marine-destinations-4.ts');
 const topAttractionCuration4 = read('src/data/destination-curation-top-attractions-batch4.ts');
+const houstonZooCurationStart = topAttractionCuration4.indexOf('"houston-zoo": {');
+const houstonZooCurationEnd = topAttractionCuration4.indexOf('\n  "', houstonZooCurationStart + 20);
+const houstonZooCuration = houstonZooCurationStart >= 0
+  ? topAttractionCuration4.slice(houstonZooCurationStart, houstonZooCurationEnd > houstonZooCurationStart ? houstonZooCurationEnd : undefined)
+  : '';
 
 for (const slug of ['lakes-rivers','major-springs','state-parks','national-parks','caverns','beaches-coast','historic-sites','road-trips','small-towns','food-bbq','outdoors','events']) {
   if (!topicPaths.includes(`${JSON.stringify(slug)}:`) && !topicPaths.includes(`${slug}: [`)) failures.push(`Explore topical bridge missing for ${slug}.`);
@@ -289,8 +294,9 @@ for (const marker of [
   'sourceCheckedAt: "2026-09-23"',
   'General-admission non-member guests currently need online timed reservations',
   'Kipp Aquarium closed in 2020',
+  'reservationUrl: "https://ticket.houstonzoo.org/"',
 ]) {
-  if (!topAttractionCuration4.includes(marker)) failures.push(`Houston Zoo Top-25 curation is missing protected marker: ${marker}.`);
+  if (!houstonZooCuration.includes(marker)) failures.push(`Houston Zoo Top-25 curation is missing protected marker: ${marker}.`);
 }
 
 if (!categoryPage.includes('ExploreTopicPaths')) failures.push('Explore categories must render ExploreTopicPaths.');
