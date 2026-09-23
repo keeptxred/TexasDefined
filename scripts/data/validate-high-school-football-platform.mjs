@@ -185,6 +185,16 @@ if (!errors.length) {
   ]) requireText(productionSmoke, marker, 'Cross-class universal football production smoke');
 
   for (const marker of [
+    'if (katy.uilEnrollment !== 3401)',
+    "await fetchVerified(katyProfilePath, 'Katy football school profile'",
+    "'UIL reported enrollment'",
+    "'3,401'",
+  ]) requireText(productionSmoke, marker, 'Katy exact enrollment production contract');
+  if (productionSmoke.includes("'UIL enrollment 3,401'")) {
+    errors.push('Football finder shell smoke must not require Katy enrollment text that is hidden by the collapsed 6A directory; exact enrollment remains covered by API and profile checks.');
+  }
+
+  for (const marker of [
     'UIL_FOOTBALL_PROGRAM_COUNT !== 1268',
     "'1A': 159",
     "'2A': 205",
