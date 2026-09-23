@@ -43,7 +43,7 @@ export function EntityFoodDestinations({
         </div>
         <div>
           <p className="max-w-3xl text-sm leading-7 text-muted-foreground">
-            TexasDefined currently connects {destinations.length} source-checked food destination{destinations.length === 1 ? "" : "s"} to this {entity.kind === "county" ? "county" : "city"}. These profiles focus on durable history, regional significance and official-source verification rather than volatile menus, prices or hours.
+            Explore {destinations.length} food destination{destinations.length === 1 ? "" : "s"} in this {entity.kind === "county" ? "county" : "city"}. Each guide focuses on the place’s history, regional significance and official sources; check the business directly for current menus, prices and hours.
           </p>
           <ul className="mt-6 grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
             {destinations.map((destination) => (

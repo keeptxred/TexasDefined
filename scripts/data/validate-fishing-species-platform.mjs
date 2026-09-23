@@ -97,7 +97,7 @@ if (!failures.length) {
   if (!speciesLazy.includes('createLazyFileRoute("/fishing/species/$slug")') || !speciesLazy.includes("FishingSpeciesProfile data={Route.useLoaderData()}")) failures.push("General species UI is not protected by a native lazy route.");
   if (speciesRoute.includes('from "@/components/fishing/FishingSpeciesProfile"') || /\bcomponent\s*:/.test(speciesRoute) || speciesRoute.includes("buildMeta") || speciesRoute.includes('"@type":')) failures.push("General species UI or SEO payload leaked into the critical route.");
   if (!speciesUi.includes("They are not a statewide popularity ranking") || !speciesUi.includes("Use durable species guidance")) failures.push("General species source/conditions integrity copy is missing.");
-  for (const phrase of ["Techniques listed", "Linked lake profiles", "Techniques supported by the lake data", "verified lake-to-species relationship", "verified lake-technique relationship"]) {
+  for (const phrase of ["Techniques listed", "Linked lake profiles", "Techniques used for this fish", "source supports the connection to this species", "source-backed lake guidance"]) {
     if (!speciesUi.includes(phrase)) failures.push(`Fishing species profile is missing visitor-facing label: ${phrase}.`);
   }
   for (const stale of ["Verified techniques", "Verified lake coverage", "Verified method relationships", "verified dataset", "verified complete-lake technique relationship"]) {
@@ -111,7 +111,7 @@ if (!failures.length) {
   if (directoryUi.includes("species-catalog") || bassUi.includes("species-catalog") || bassUi.includes("fixtures") || speciesUi.includes("fixtures")) failures.push("Client species UI imports heavyweight catalog/fixture data instead of server page data.");
   if (!directoryUi.includes("pageData.groups") || !bassUi.includes("rankedLakes") || !bassUi.includes("profile.seasonalBehavior")) failures.push("Species UI is not hydrated from reusable server view models.");
   if (directoryUi.includes("Batch 14") || directoryUi.includes("Verified relationships first")) failures.push("Species directory must not expose internal batch/verification language.");
-  if (!directoryUi.includes("Build the lake relationships around every fish guide.")) failures.push("Species directory visitor-facing relationship label missing.");
+  if (!directoryUi.includes("Lake recommendations grow with the evidence.")) failures.push("Species directory visitor-facing relationship label missing.");
   if (!bassUi.includes("No largemouth-bass guide has cleared") || !bassUi.includes("do not fabricate or scrape")) failures.push("Verified-guide empty-state integrity copy missing.");
   if (!bassUi.includes("Sponsored placement") || !bassUi.includes("noopener sponsored")) failures.push("Species sponsorship disclosure/link contract missing.");
 

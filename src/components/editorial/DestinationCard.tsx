@@ -18,7 +18,7 @@ function checkedLabel(value?: string) {
   if (!value) return undefined;
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return undefined;
-  return `Updated ${date.toLocaleDateString("en-US", { month: "short", year: "numeric" })}`;
+  return `Checked ${date.toLocaleDateString("en-US", { month: "short", year: "numeric" })}`;
 }
 
 function cardHighlights(destination: DestinationCardDestination) {
@@ -107,7 +107,7 @@ export function DestinationCard({ destination, regionLabel, tone = "light", eage
       {location && <p className="eyebrow text-primary">{location}</p>}
       <h3 className="mt-2 font-display text-[1.8rem] leading-[1.05]"><Link to="/destination/$slug" params={{ slug: destination.slug }} className="transition-colors hover:text-primary">{destination.name}</Link></h3>
       <p className="mt-3 text-[0.95rem] leading-6 text-muted-foreground">{destination.summary}</p>
-      {(destination.bestSeason || sourceChecked) && <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs uppercase tracking-[0.08em] text-muted-foreground">{destination.bestSeason && <span>Best season: {destination.bestSeason}</span>}{sourceChecked && <span>{sourceChecked}</span>}</div>}
+      {(destination.bestSeason || sourceChecked) && <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs uppercase tracking-[0.08em] text-muted-foreground">{destination.bestSeason && <span>Best season: {destination.bestSeason}</span>}{destination.bestSeason && sourceChecked && <span aria-hidden="true">·</span>}{sourceChecked && <span>{sourceChecked}</span>}</div>}
       {highlights.length > 0 && <ul className="mt-4 flex flex-wrap gap-x-3 gap-y-2" aria-label={`${destination.name} highlights`}>{highlights.map((highlight) => <li key={highlight} className="text-xs text-foreground/75 after:ml-3 after:text-border after:content-['•'] last:after:hidden">{highlight}</li>)}</ul>}
       <Link to="/destination/$slug" params={{ slug: destination.slug }} className="eyebrow mt-5 inline-flex items-center gap-2 border-b border-primary pb-1 text-primary">Explore this place <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span></Link>
     </div>

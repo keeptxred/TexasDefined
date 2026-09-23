@@ -59,7 +59,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Where to fish</p>
           <h2 id="where-to-fish" className="mt-3 font-display text-4xl sm:text-5xl">Where to catch {species.commonName} in Texas</h2>
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">These lake links appear only where the TexasDefined fishing catalog has a verified lake-to-species relationship. They are not a statewide popularity ranking and do not imply that unlisted waters lack this fish.</p>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">These lakes appear only when a source supports the connection to this species. They are not a statewide popularity ranking and do not imply that unlisted waters lack this fish.</p>
         </div>
 
         {data.lakes.length ? <div className="mt-8 grid gap-x-8 lg:grid-cols-2">
@@ -76,11 +76,11 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
               <p className="eyebrow text-muted-foreground">Seasonal patterns</p>
               <ul className="mt-3 space-y-3">{row.relation.seasonalPatterns.map((pattern, index) => <li key={`${pattern.season}-${index}`} className="text-sm leading-6"><span className="font-semibold">{titleCase(pattern.season)}:</span> <span className="text-muted-foreground">{pattern.summary}</span></li>)}</ul>
             </div>}
-            <a href={row.href} className="mt-6 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open {row.lake.name} →</a>
+            <a href={row.href} className="mt-6 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Read {row.lake.name} guide →</a>
           </article>)}
         </div> : <div className="mt-8 border-y border-border py-9">
-          <h3 className="font-display text-2xl">No verified lake relationship is published for this fish yet.</h3>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">The species guide remains useful for identification and statewide fishing context, but TexasDefined will not invent lake recommendations. The finder will gain results as verified lake relationships are added.</p>
+          <h3 className="font-display text-2xl">No lake-guide match is available for this fish yet.</h3>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">This species guide still covers identification and statewide fishing context. We won’t invent lake recommendations; more matches will appear as source-backed lake connections are added.</p>
           <a href={finderHref} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Check the lake finder →</a>
         </div>}
       </section>
@@ -88,8 +88,8 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
       <section className="border-y border-border py-12" aria-labelledby="species-techniques">
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">How to fish for them</p>
-          <h2 id="species-techniques" className="mt-3 font-display text-4xl">Techniques supported by the lake data</h2>
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">Methods appear only when a verified lake-technique relationship explicitly includes {species.commonName.toLowerCase()}. This keeps generic tackle advice separate from sourced lake guidance.</p>
+          <h2 id="species-techniques" className="mt-3 font-display text-4xl">Techniques used for this fish</h2>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">Methods appear only when source-backed lake guidance explicitly includes {species.commonName.toLowerCase()}. This keeps generic tackle advice separate from sourced lake guidance.</p>
         </div>
         {data.techniqueApplications.length > 0 ? <div className="mt-8 grid gap-x-8 lg:grid-cols-2">
           {data.techniqueApplications.map((row) => <article key={row.profile.id} className="border-t border-border py-6">
@@ -100,7 +100,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{row.profile.summary}</p>
             <p className="mt-3 text-xs uppercase tracking-[0.12em] text-muted-foreground">{row.profile.seasons.map(titleCase).join(" · ")}</p>
           </article>)}
-        </div> : <p className="mt-7 max-w-3xl text-sm leading-7 text-muted-foreground">No verified lake-technique relationship currently targets this species record. TexasDefined leaves that gap visible rather than inventing a generic recommendation.</p>}
+        </div> : <p className="mt-7 max-w-3xl text-sm leading-7 text-muted-foreground">No source-backed technique match is available for this fish yet. We leave that gap visible rather than inventing a generic recommendation.</p>}
       </section>
 
       <section className="border-b border-border py-12" aria-labelledby="species-methods">
@@ -140,7 +140,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
         <div className="mt-7 grid gap-5 md:grid-cols-2">{data.sources.map((source) => <article key={source.url} className="border-t border-border pt-5">
           <h3 className="font-display text-xl">{source.name}</h3>
           <p className="mt-2 text-xs text-muted-foreground">Checked {source.checkedAt}</p>
-          <a href={source.url} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open official/source page ↗</a>
+          <a href={source.url} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">View source ↗</a>
         </article>)}</div>
       </section>
 

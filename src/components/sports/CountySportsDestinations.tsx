@@ -34,7 +34,7 @@ function renderCountyRvParks(county: TexasEntityRecord, rvParks: readonly County
         <h2 id="county-rv-parks-heading" className="mt-2 font-display text-4xl">RV camping around {county.name}</h2>
       </div>
       <div>
-        <p className="max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined currently connects {rvParks.length} RV park or campground director{rvParks.length === 1 ? 'y entry' : 'y entries'} to this county. Verify hookups, rig limits, rates and reservations with the operator before travel.</p>
+        <p className="max-w-3xl text-sm leading-7 text-muted-foreground">Browse {rvParks.length} RV {rvParks.length === 1 ? 'park or campground' : 'parks and campgrounds'} linked to {county.name}. Verify hookups, rig limits, rates and reservations with the operator before you go.</p>
         <ul className="mt-6 grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
           {displayedRvParks.map((park) => <li key={park.slug} className="border-t border-border py-4">
             <a href={`/destination/${park.slug}`} className="group">
@@ -43,7 +43,7 @@ function renderCountyRvParks(county: TexasEntityRecord, rvParks: readonly County
             </a>
           </li>)}
         </ul>
-        {rvParks.length > displayedRvParks.length ? <p className="mt-4 text-sm text-muted-foreground">More entries are available in the statewide directory.</p> : null}
+        {rvParks.length > displayedRvParks.length ? <p className="mt-4 text-sm text-muted-foreground">More options are available in our statewide RV guide.</p> : null}
         <a href="/explore/rv-parks" className="mt-6 inline-block text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">Browse all Texas RV parks & campgrounds →</a>
       </div>
     </div>
@@ -95,12 +95,12 @@ export function CountySportsDestinations({ county, venues }: { county: CountyWit
         <div>
           <p className="eyebrow text-primary">Aquariums & marine life</p>
           <h2 id="county-aquariums-heading" className="mt-2 font-display text-4xl">Marine-life destinations in {county.name}</h2>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">TexasDefined aquarium guides assigned to this county, with current official visitor sources and trip-planning context.</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">Aquarium and marine-life guides for this county, with official visitor links and practical trip notes.</p>
         </div>
         <div>
           <div className="border-y border-border py-5">
             <h3 className="font-display text-2xl">What aquariums and marine-life attractions are in {county.name}?</h3>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined currently has {aquariumDestinations.length} aquarium or marine-life guide{aquariumDestinations.length === 1 ? '' : 's'} connected to {county.name}. Open a guide for what to expect, planning notes and the attraction’s current first-party visitor source.</p>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Explore {aquariumDestinations.length} aquarium or marine-life guide{aquariumDestinations.length === 1 ? '' : 's'} for {county.name}. Each guide covers what you’ll find, practical planning details and the attraction’s official visitor information.</p>
           </div>
           <div className="mt-7 grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
             {aquariumDestinations.map((destination) => <a key={destination.slug} href={`/destination/${destination.slug}`} className="group border-t border-border py-5">
@@ -121,14 +121,14 @@ export function CountySportsDestinations({ county, venues }: { county: CountyWit
         <div>
           <p className="eyebrow text-primary">Major annual events</p>
           <h2 id="county-major-events-heading" className="mt-2 font-display text-4xl">Events worth planning around in {county.name}</h2>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">Texas Defined links only to event guides backed by organizer or equivalent first-party evidence. Future recurrence-derived dates are labeled on the event guide.</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">These event guides use organizer or other first-party sources. Future dates based on recurring schedules are labeled on each event page.</p>
         </div>
         <div className="grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
           {majorEvents.map((event) => <a key={event.slug} href={`/event/${event.slug}`} className="group border-t border-border py-5">
             <span className="eyebrow text-primary">Texas event guide</span>
             <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{event.name}</strong>
             <span className="mt-3 block text-sm leading-6 text-muted-foreground">{event.detail}</span>
-            <span className="mt-3 block text-sm font-semibold text-primary">Plan the event →</span>
+            <span className="mt-3 block text-sm font-semibold text-primary">Read event guide →</span>
           </a>)}
         </div>
       </div>
@@ -141,7 +141,7 @@ export function CountySportsDestinations({ county, venues }: { county: CountyWit
           <h2 id="county-tournaments-heading" className="mt-2 font-display text-4xl">Tournaments & competitions near {county.name}</h2>
         </div>
         <div>
-          <p className="max-w-3xl text-sm leading-7 text-muted-foreground">Browse TexasDefined’s statewide tournament directory across golf, rodeo, team sports, fishing, BBQ, chess, esports, academic competitions and more. County relationships are published only when a location can be assigned confidently; current dates, venues and entry details require organizer verification.</p>
+          <p className="max-w-3xl text-sm leading-7 text-muted-foreground">Browse tournaments across golf, rodeo, team sports, fishing, barbecue, chess, esports, academic competitions and more. Check the organizer for current dates, venues and entry details.</p>
           <div className="mt-6 border-t border-border pt-6">
             <a href="/events/tournaments" className="text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">Browse Texas tournaments & competitions →</a>
           </div>
@@ -155,13 +155,13 @@ export function CountySportsDestinations({ county, venues }: { county: CountyWit
         <div>
           <p className="eyebrow text-primary">Sports destinations</p>
           <h2 id="county-sports-heading" className="mt-2 font-display text-4xl">Major sports venues in {county.name}</h2>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">Verified TexasDefined sports venues assigned to this county. County-wide does not mean every venue is close to the county seat.</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">Sports venues in {county.name}. County-wide does not mean every venue is close to the county seat, so check the location before building the day around it.</p>
         </div>
 
         <div>
           <div className="border-y border-border py-5">
             <h3 className="font-display text-2xl">What major sports venues are in {county.name}?</h3>
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined currently has {venues.length} verified sports venue guide{venues.length === 1 ? '' : 's'} in {county.name}, including {formatList(examples)}. Open a venue guide for visitor planning and official event-day sources.</p>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Browse {venues.length} sports venue guide{venues.length === 1 ? '' : 's'} in {county.name}, including {formatList(examples)}. Each guide includes event-day planning and official sources.</p>
           </div>
 
           <div className="mt-7 grid gap-x-7 sm:grid-cols-2 xl:grid-cols-3">
@@ -169,7 +169,7 @@ export function CountySportsDestinations({ county, venues }: { county: CountyWit
               <span className="eyebrow text-primary">{venueLabel(venue)}</span>
               <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{venue.name}</strong>
               {venue.description ? <span className="mt-3 block line-clamp-3 text-sm leading-6 text-muted-foreground">{venue.description}</span> : null}
-              <span className="mt-3 block text-sm font-semibold text-primary">Open venue guide →</span>
+              <span className="mt-3 block text-sm font-semibold text-primary">Read venue guide →</span>
             </a>)}
           </div>
 

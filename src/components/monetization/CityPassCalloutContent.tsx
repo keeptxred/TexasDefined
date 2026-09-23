@@ -23,8 +23,8 @@ export function CityPassCalloutContent({ market, placement = "inline" }: { marke
   const ctaLabel = `Check current ${market} CityPASS options`;
 
   return (
-    <aside className={`${isRail ? "border border-border bg-surface p-5" : "mt-12 border-y border-border bg-surface/55 py-8 sm:px-7 sm:py-10"}`} aria-label={`${market} CityPASS trip-planning option`}>
-      <p className="eyebrow text-primary">Multi-attraction trip planning</p>
+    <aside className={`${isRail ? "border border-border bg-surface p-5" : "mt-12 border-y border-border bg-surface/55 py-8 sm:px-7 sm:py-10"}`} aria-label={`${market} CityPASS option`}>
+      <p className="eyebrow text-primary">Bundle attractions</p>
       <h2 className={`${isRail ? "mt-2 text-2xl" : "mt-3 text-3xl"} font-display leading-tight`}>{copy.heading}</h2>
       <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy.body}</p>
       <div className={`${isRail ? "mt-5 grid gap-3" : "mt-6 flex flex-wrap gap-x-6 gap-y-3"} text-sm font-semibold`}>

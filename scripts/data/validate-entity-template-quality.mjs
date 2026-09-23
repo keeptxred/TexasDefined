@@ -79,7 +79,7 @@ for (const forbiddenCopy of ['A closer look at ${entity.name}, where to find it,
 
 for (const feature of [
   'const relatedItems = related.slice(0, 6)',
-  'Related TexasDefined references',
+  'Related guides and places',
   'relatedItems.map(({ entity: candidate })',
 ]) {
   if (!entityDepth.includes(feature)) errors.push(`Generic entity related-reference contract missing: ${feature}`);

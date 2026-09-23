@@ -36,14 +36,14 @@ for (const marker of [
 
 for (const marker of [
   "complete Texas fishing lake guides are published",
-  'What this directory covers',
+  'What these guides cover',
   'not a claim that these are the only or universally “best” fishing lakes in Texas',
   'Compare before you choose the water',
   'Fishing targets',
   'Lake facts are durable. Conditions are not.',
-  'unfinished lake records are not exposed here as thin pages',
+  'unfinished records are not published here as thin pages',
   'same sourcing standard',
-  'source-backed lake-to-species relationships',
+  'source-backed lake-to-species connections',
   'fishingFoundationAnchor("lake", lake.slug)',
 ]) assert(component.includes(marker), `Fishing lakes UI is missing quality/discovery marker: ${marker}.`);
 

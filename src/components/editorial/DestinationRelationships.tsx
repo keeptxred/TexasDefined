@@ -108,7 +108,8 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
         <ul className="mt-8 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
           {pairedDestinations.map((item) => {
             const miles = distanceMiles(destination, item);
-            return <li key={item.id}><DestinationCard destination={item} regionLabel={item.region === destination.region ? regionName : undefined} />{miles !== null && <p className="mt-3 border-t border-border pt-3 text-[0.7rem] uppercase tracking-[0.1em] text-muted-foreground">Approx. {Math.max(1, Math.round(miles)).toLocaleString("en-US")} miles away</p>}</li>;
+            const roundedMiles = miles === null ? null : Math.max(1, Math.round(miles));
+            return <li key={item.id}><DestinationCard destination={item} regionLabel={item.region === destination.region ? regionName : undefined} />{roundedMiles !== null && <p className="mt-3 border-t border-border pt-3 text-[0.7rem] uppercase tracking-[0.1em] text-muted-foreground">Approx. {roundedMiles.toLocaleString("en-US")} {roundedMiles === 1 ? "mile" : "miles"} away</p>}</li>;
           })}
         </ul>
       </Container>
@@ -119,8 +120,8 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     <Section tone="ink" className="py-8 sm:py-10">
       <Container>
         <div className="flex flex-col gap-4 border-t border-ink-foreground/20 pt-5 sm:flex-row sm:items-start sm:justify-between">
-          <p className="eyebrow shrink-0 text-ink-foreground/60">Continue exploring</p>
-          <nav aria-label={`Continue exploring from ${destination.name}`} className="flex flex-wrap gap-x-6 gap-y-3">
+          <p className="eyebrow shrink-0 text-ink-foreground/60">Keep exploring</p>
+          <nav aria-label={`Keep exploring from ${destination.name}`} className="flex flex-wrap gap-x-6 gap-y-3">
             {topAttractionRank && <Link to="/explore/top-attractions" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Top 25 · #{topAttractionRank}</Link>}
             {hasCampingProfile && <Link to="/best-places-to-go-camping-in-texas" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Camping details</Link>}
             <Link to="/explore/trip-planner" search={{ destination: destination.slug }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Build the weekend</Link>

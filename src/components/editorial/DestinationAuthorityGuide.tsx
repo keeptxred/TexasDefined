@@ -12,16 +12,11 @@ function checkedDate(value?: string) {
   return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 }
 
-function sourceHref(index: number) {
-  return `#authority-source-${index + 1}`;
-}
-
 export function DestinationAuthorityGuide({ destination }: { destination: Destination }) {
   const authority = destination.authorityGuide;
   if (!authority) return null;
 
   const timeline = topAttractionTimeline(destination.slug);
-  const primarySource = authority.sources[0];
   const nearby = destination.areaGuide?.nearbyAttractions[0];
   const sideTrip = destination.areaGuide?.sideTrips[0];
   const questions = [
@@ -35,8 +30,8 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
     <Section tone="surface">
       <Container>
         <section className="max-w-4xl border-y border-border py-7" aria-labelledby={`${destination.slug}-editorial-assessment`}>
-          <p className="eyebrow text-primary">The visit</p>
-          <h2 id={`${destination.slug}-editorial-assessment`} className="mt-2 font-display text-3xl">What the experience is like</h2>
+          <p className="eyebrow text-primary">On the ground</p>
+          <h2 id={`${destination.slug}-editorial-assessment`} className="mt-2 font-display text-3xl">What the day is like</h2>
           <dl className="mt-6 divide-y divide-border text-sm">
             <div className="flex justify-between gap-5 py-3"><dt className="text-muted-foreground">Walking & exertion</dt><dd className="text-right font-medium">{authority.assessment.physicalEffort}</dd></div>
             <div className="flex justify-between gap-5 py-3"><dt className="text-muted-foreground">Time outdoors</dt><dd className="text-right font-medium">{authority.assessment.weatherExposure}</dd></div>
@@ -56,7 +51,7 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
             <h2 id={`${destination.slug}-texas-significance`} className="mt-2 font-display text-4xl">Why {destination.name} matters</h2>
             <p className="mt-6 text-base leading-8 text-foreground/90">{authority.whyItMatters}</p>
             <div className="mt-7 border-t border-border pt-5 text-sm leading-6 text-muted-foreground">
-              <strong className="text-foreground">About this guide:</strong> <Link to="/authors/$author" params={{ author: "a-hollis" }} className="border-b border-primary text-primary">Texas Defined Editorial Desk</Link>. Operational details are checked against the linked controlling source; supporting sources deepen history, science, conservation or institutional context. Editorial assessments describe trip-planning value rather than a star rating. <Link to="/explore/top-attractions/methodology" className="border-b border-primary text-primary">See the Top-25 methodology.</Link> <Link to="/citation-guide" className="border-b border-primary text-primary">Citation guidance.</Link>
+              <strong className="text-foreground">How we check this guide:</strong> <Link to="/authors/$author" params={{ author: "a-hollis" }} className="border-b border-primary text-primary">Texas Defined Editorial Desk</Link> checks current visitor details against the official source and uses public or institutional references for history, science, conservation and context. These notes help with trip planning; they are not a star rating or a claim of a personal visit. <Link to="/explore/top-attractions/methodology" className="border-b border-primary text-primary">See how the Top 25 is selected.</Link> <Link to="/citation-guide" className="border-b border-primary text-primary">How we cite sources.</Link>
             </div>
           </section>
 
@@ -96,18 +91,18 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
             <p className="eyebrow text-primary">Before you go</p>
             <h2 id={`${destination.slug}-traveler-questions`} className="mt-2 font-display text-4xl">Common visitor questions</h2>
             <dl className="mt-7 divide-y divide-border border-y border-border">
-              {questions.map((item) => <div key={item.q} className="py-5"><dt className="font-display text-2xl">{item.q}</dt><dd className="mt-2 text-sm leading-7 text-muted-foreground">{item.a}{primarySource && item.q.includes("How long") && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</dd></div>)}
+              {questions.map((item) => <div key={item.q} className="py-5"><dt className="font-display text-2xl">{item.q}</dt><dd className="mt-2 text-sm leading-7 text-muted-foreground">{item.a}</dd></div>)}
             </dl>
           </section>
 
           <aside>
             <section aria-labelledby={`${destination.slug}-sources`}>
-              <p className="eyebrow text-primary">Sources & updates</p>
-              <h2 id={`${destination.slug}-sources`} className="mt-2 font-display text-3xl">Sources used for this guide</h2>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">The first source is the primary visitor source when available. Additional sources add history, accessibility, science, conservation, designation or institutional context; for current visitor rules, follow the operator or responsible public agency.</p>
+              <p className="eyebrow text-primary">Where we checked</p>
+              <h2 id={`${destination.slug}-sources`} className="mt-2 font-display text-3xl">Where we checked the details</h2>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">The official visitor source comes first when available. Other public or institutional sources add history, accessibility, science, conservation or other useful context. For current hours, prices and visitor rules, use the official source.</p>
               <ol className="mt-6 space-y-5">
                 {authority.sources.map((source, index) => <li key={source.url} id={`authority-source-${index + 1}`} className="border-t border-border pt-4 scroll-mt-28">
-                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">[{index + 1}] {index === 0 ? "Primary visitor source" : "Supporting source"}</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">[{index + 1}] {index === 0 ? "Official visitor source" : "Additional source"}</p>
                   <a href={source.url} target="_blank" rel="noreferrer noopener" className="mt-1 block font-semibold underline decoration-primary/30 underline-offset-4 hover:text-primary">{source.label}</a>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">{source.scope}</p>
                 </li>)}
@@ -115,10 +110,10 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
             </section>
 
             <section className="mt-10 border-t-2 border-foreground pt-5" aria-labelledby={`${destination.slug}-review-log`}>
-              <p className="eyebrow text-primary">Update history</p>
-              <h2 id={`${destination.slug}-review-log`} className="mt-2 font-display text-3xl">Latest review</h2>
-              <p className="mt-4 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">{checkedDate(destination.sourceCheckedAt)}:</strong> official visitor guidance, entry/reservation notes, access and accessibility information where published, recommended visit structure, surrounding trip context and supporting institutional sources reviewed for this guide.</p>
-              <p className="mt-3 text-xs leading-5 text-muted-foreground">Hours, prices, weather closures, special events and capacity limits can change after review. The linked controlling visitor source governs current-day operations.</p>
+              <p className="eyebrow text-primary">Last checked</p>
+              <h2 id={`${destination.slug}-review-log`} className="mt-2 font-display text-3xl">What we checked</h2>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">{checkedDate(destination.sourceCheckedAt)}:</strong> We checked official visitor guidance, ticket and reservation notes, access and accessibility information where published, suggested visit length, nearby trip context and supporting public or institutional sources.</p>
+              <p className="mt-3 text-xs leading-5 text-muted-foreground">Hours, prices, weather closures, special events and capacity limits can change. For day-of-trip details, use the official visitor source above.</p>
             </section>
           </aside>
         </div>
