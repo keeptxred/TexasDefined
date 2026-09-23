@@ -52,11 +52,11 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
               <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Last reviewed {checkedDate(destination.sourceCheckedAt)}</p>
             </div>
             <dl className="mt-6 grid gap-x-8 sm:grid-cols-2">
-              <div className="border-t border-border py-4"><dt className="eyebrow text-muted-foreground">Recommended visit</dt><dd className="mt-2 leading-6">{authority.assessment.recommendedVisit}</dd></div>
-              {destination.managingAuthority && <div className="border-t border-border py-4"><dt className="eyebrow text-muted-foreground">Managing authority</dt><dd className="mt-2 leading-6">{destination.managingAuthority}{primarySource && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</dd></div>}
-              {destination.address && <div className="border-t border-border py-4"><dt className="eyebrow text-muted-foreground">Visitor address</dt><dd className="mt-2 leading-6">{destination.address}{primarySource && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</dd></div>}
-              <div className="border-t border-border py-4"><dt className="eyebrow text-muted-foreground">Entry / reservations</dt><dd className="mt-2 leading-6">{destination.entryNote}{primarySource && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</dd></div>
-              <div className="border-t border-border py-4 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Sources</dt><dd className="mt-2 leading-6">{authority.sources.length} distinct authority {authority.sources.length === 1 ? "source" : "sources"} attached to this guide, including the controlling visitor source and supporting institutional context where available.</dd></div>
+              <div className="border-t border-border py-4"><dt className="eyebrow text-muted-foreground">Time to allow</dt><dd className="mt-2 leading-6">{authority.assessment.recommendedVisit}</dd></div>
+              {destination.managingAuthority && <div className="border-t border-border py-4"><dt className="eyebrow text-muted-foreground">Operated by</dt><dd className="mt-2 leading-6">{destination.managingAuthority}{primarySource && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</dd></div>}
+              {destination.address && <div className="border-t border-border py-4"><dt className="eyebrow text-muted-foreground">Address</dt><dd className="mt-2 leading-6">{destination.address}{primarySource && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</dd></div>}
+              <div className="border-t border-border py-4"><dt className="eyebrow text-muted-foreground">Tickets & reservations</dt><dd className="mt-2 leading-6">{destination.entryNote}{primarySource && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</dd></div>
+              <div className="border-t border-border py-4 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Sources checked</dt><dd className="mt-2 leading-6">{authority.sources.length} current {authority.sources.length === 1 ? "source" : "sources"}, led by the official visitor source and supplemented where useful by public or institutional references.</dd></div>
             </dl>
           </section>
 
@@ -64,11 +64,11 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
             <p className="eyebrow text-primary">The visit</p>
             <h2 id={`${destination.slug}-editorial-assessment`} className="mt-2 font-display text-3xl">What the experience is like</h2>
             <dl className="mt-6 divide-y divide-border text-sm">
-              <div className="flex justify-between gap-5 py-3"><dt className="text-muted-foreground">Physical effort</dt><dd className="text-right font-medium">{authority.assessment.physicalEffort}</dd></div>
-              <div className="flex justify-between gap-5 py-3"><dt className="text-muted-foreground">Weather exposure</dt><dd className="text-right font-medium">{authority.assessment.weatherExposure}</dd></div>
-              <div className="flex justify-between gap-5 py-3"><dt className="text-muted-foreground">Advance planning</dt><dd className="text-right font-medium">{authority.assessment.planningLevel}</dd></div>
-              <div className="py-3"><dt className="text-muted-foreground">Family fit</dt><dd className="mt-1 leading-6">{authority.assessment.familyFit}</dd></div>
-              <div className="py-3"><dt className="text-muted-foreground">First-time Texas value</dt><dd className="mt-1 leading-6">{authority.assessment.firstTimeValue}</dd></div>
+              <div className="flex justify-between gap-5 py-3"><dt className="text-muted-foreground">Walking & exertion</dt><dd className="text-right font-medium">{authority.assessment.physicalEffort}</dd></div>
+              <div className="flex justify-between gap-5 py-3"><dt className="text-muted-foreground">Time outdoors</dt><dd className="text-right font-medium">{authority.assessment.weatherExposure}</dd></div>
+              <div className="flex justify-between gap-5 py-3"><dt className="text-muted-foreground">Plan ahead</dt><dd className="text-right font-medium">{authority.assessment.planningLevel}</dd></div>
+              <div className="py-3"><dt className="text-muted-foreground">Families</dt><dd className="mt-1 leading-6">{authority.assessment.familyFit}</dd></div>
+              <div className="py-3"><dt className="text-muted-foreground">First Texas trip</dt><dd className="mt-1 leading-6">{authority.assessment.firstTimeValue}</dd></div>
             </dl>
           </section>
         </div>
