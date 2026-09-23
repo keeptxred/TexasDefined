@@ -31,6 +31,14 @@ const files = new Map([
   ['parking map panel', 'src/components/parking/ParkingMapPanel.tsx'],
   ['sports quick-answer hero', 'src/components/sports/SportsVenueQuickAnswers.tsx'],
   ['camping guide imagery', 'src/routes/best-places-to-go-camping-in-texas.lazy.tsx'],
+  ['explore category tiles', 'src/routes/explore.index.lazy.tsx'],
+  ['painted church planner', 'src/routes/explore.painted-churches-plan.tsx'],
+  ['painted church detail', 'src/routes/explore.painted-churches.$slug.lazy.tsx'],
+  ['painted church listing', 'src/routes/explore.painted-churches.tsx'],
+  ['shop collection hero', 'src/routes/shop.$collection.tsx'],
+  ['shop cart thumbnails', 'src/routes/shop.cart.lazy.tsx'],
+  ['major event enrichment image', 'src/data/major-event-page.server.ts'],
+  ['major event guide image capture', 'src/routes/event.$slug.lazy.tsx'],
 ]);
 
 const source = new Map();
@@ -154,6 +162,56 @@ for (const marker of [
   'item.image.src === caddoLake',
   'Photo unavailable.',
 ]) requireMarker('camping guide imagery', marker);
+
+for (const marker of [
+  'recoverOrHideImage',
+  'bg-gradient-to-br from-primary/25 via-surface to-accent/25',
+  'onError={(event) => recoverOrHideImage(event.currentTarget)}',
+]) requireMarker('explore category tiles', marker);
+
+for (const marker of [
+  'recoverOrHideImage',
+  'church.image ? <img',
+  'onError={(event) => recoverOrHideImage(event.currentTarget)}',
+]) requireMarker('painted church planner', marker);
+
+for (const marker of [
+  'failedHeroImage',
+  'setFailedHeroImage',
+  'Photograph unavailable',
+  'Open the source and license record.',
+  'hideFailedImageContainer',
+]) requireMarker('painted church detail', marker);
+
+for (const marker of [
+  'recoverOrHideImage',
+  'church.image ? <img',
+  'onError={(event) => recoverOrHideImage(event.currentTarget)}',
+]) requireMarker('painted church listing', marker);
+
+for (const marker of [
+  'recoverOrHideImage',
+  'collection.image.src',
+  'onError={(event) => recoverOrHideImage(event.currentTarget)}',
+]) requireMarker('shop collection hero', marker);
+
+for (const marker of [
+  'recoverOrHideImage',
+  'Product image unavailable',
+  'item.image',
+]) requireMarker('shop cart thumbnails', marker);
+
+for (const marker of [
+  'data-major-event-enrichment-image="true"',
+  'schemaEnrichment.image.url',
+  'Image source ↗',
+]) requireMarker('major event enrichment image', marker);
+
+for (const marker of [
+  'hideFailedImageContainer',
+  'onErrorCapture=',
+  'majorEventEnrichmentImage === "true"',
+]) requireMarker('major event guide image capture', marker);
 
 for (const label of ['article cards', 'feature heroes', 'category heroes', 'destination heroes']) {
   requireMarker(label, 'Photo unavailable');

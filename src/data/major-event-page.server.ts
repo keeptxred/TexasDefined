@@ -258,7 +258,7 @@ export function loadMajorEventPageServer(slug: string) {
     ? `<div><h3 class="font-display text-xl">Announced performers</h3><p class="mt-2 text-muted-foreground">${displayPerformers.map((item) => item.url ? `<a class="font-semibold text-primary underline" href="${esc(item.url)}" target="_blank" rel="noreferrer noopener">${esc(item.name)} ↗</a>` : esc(item.name)).join(", ")}</p></div>`
     : "";
   const imageMarkup = schemaEnrichment?.image
-    ? `<figure><img class="w-full rounded-xl" src="${esc(schemaEnrichment.image.url)}" alt="${esc(schemaEnrichment.image.alt)}" loading="lazy" decoding="async" /><figcaption class="mt-2 text-sm text-muted-foreground"><a class="underline" href="${esc(schemaEnrichment.image.sourceUrl)}" target="_blank" rel="noreferrer noopener">Image source ↗</a></figcaption></figure>`
+    ? `<figure><img data-major-event-enrichment-image="true" class="w-full rounded-xl" src="${esc(schemaEnrichment.image.url)}" alt="${esc(schemaEnrichment.image.alt)}" loading="lazy" decoding="async" /><figcaption class="mt-2 text-sm text-muted-foreground"><a class="underline" href="${esc(schemaEnrichment.image.sourceUrl)}" target="_blank" rel="noreferrer noopener">Image source ↗</a></figcaption></figure>`
     : "";
   const enrichmentMarkup = schemaEnrichment
     ? `<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Event details</h2><div class="mt-4 space-y-5">${imageMarkup}${organizerMarkup}${offersMarkup}${performersMarkup}<p class="text-sm text-muted-foreground">Last reviewed ${esc(schemaEnrichment.verifiedAt)}. Ticket prices and lineups can change; confirm the linked official source before purchasing or traveling.</p></div></section>`

@@ -1,5 +1,6 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { ParkingMapPanel } from "@/components/parking/ParkingMapPanel";
+import { hideFailedImageContainer } from "@/lib/image-fallback";
 
 export const Route = createLazyFileRoute("/event/$slug")({
   component: MajorEventGuidePage,
@@ -47,7 +48,10 @@ function MajorEventGuidePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: page.jsonLd }} />
-      <main className="mx-auto max-w-4xl px-5 pb-20 pt-12 sm:px-8">
+      <main className="mx-auto max-w-4xl px-5 pb-20 pt-12 sm:px-8" onErrorCapture={(event) => {
+        const image = event.target;
+        if (image instanceof HTMLImageElement && image.dataset.majorEventEnrichmentImage === "true") hideFailedImageContainer(image);
+      }}>
         <article dangerouslySetInnerHTML={{ __html: beforeParking }} />
         <ParkingMapPanel map={parkingMap} contextName={page.venue ?? page.title} />
         {afterParking ? <article dangerouslySetInnerHTML={{ __html: afterParking }} /> : null}
