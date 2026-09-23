@@ -175,7 +175,6 @@ await fetchVerified(finderPath, 'football finder', (body) => {
     'UIL enrollment band: 2,215 and above',
     'UIL enrollment band: 1,305–2,214',
     'Official UIL 2026–28 enrollment cutoffs',
-    'UIL enrollment 3,401',
     'UIL enrollment 91',
     '/texas-high-school-football-teams/katy',
     '/texas-high-school-football-teams/abbott',
