@@ -347,10 +347,16 @@
     choice.dataset.priority = exactPropertyFirst ? "exact-property-first" : "broad-search-first";
     if (exactPropertyFirst) {
       const scopedStyle = Array.from(surface.children).find((child) => child.tagName === "STYLE");
-      if (scopedStyle) surface.insertBefore(choice, scopedStyle);
-      else surface.appendChild(choice);
+      if (scopedStyle) {
+        if (choice.parentElement === surface && choice.nextElementSibling === scopedStyle) return;
+        surface.insertBefore(choice, scopedStyle);
+      } else {
+        if (choice.parentElement === surface && choice === surface.lastElementChild) return;
+        surface.appendChild(choice);
+      }
       return;
     }
+    if (choice.parentElement === surface && choice === surface.firstElementChild) return;
     surface.prepend(choice);
   }
 
