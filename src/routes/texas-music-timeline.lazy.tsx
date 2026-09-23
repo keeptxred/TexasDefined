@@ -115,7 +115,7 @@ function TexasMusicTimelinePage() {
           </ol>
 
           <section className="border-b border-border py-10" aria-labelledby="timeline-sources">
-            <p className="eyebrow text-primary">Source notes</p>
+            <p className="eyebrow text-primary">Sources</p>
             <h2 id="timeline-sources" className="mt-2 font-display text-3xl">Authority behind the chronology</h2>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
               Each milestone links to the historical or institutional source used for its core claim. Dates describe durable historical events, not changing concert calendars or visitor operations.
