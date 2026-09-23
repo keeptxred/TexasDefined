@@ -20,7 +20,7 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
   const [query, setQuery] = useState("");
   const results = useMemo(() => findTexasPlaces(query), [query]);
   const items = mode === "counties" ? results.counties : results.cities;
-  const title = mode === "counties" ? "The Texas county directory" : "The Texas city directory";
+  const title = mode === "counties" ? "Find a Texas county" : "Find a Texas city";
   const intro = mode === "counties"
     ? "Find a county, then continue to verified local property-tax guides, official offices and public records."
     : "Find a Texas city by county and region, then open its city guide where available or continue to the county guide, moving tools, salary comparisons and cost-of-living tools.";
@@ -39,7 +39,7 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
         </label>
 
         <div className="mt-10 flex flex-wrap items-end justify-between gap-4 border-b border-border pb-5">
-          <div><p className="eyebrow text-primary">Directory</p><h2 className="mt-2 font-display text-3xl">{query ? `Matches for “${query}”` : mode === "counties" ? "All 254 Texas counties" : "Texas cities in the guide"}</h2></div>
+          <div><p className="eyebrow text-primary">Browse</p><h2 className="mt-2 font-display text-3xl">{query ? `Matches for “${query}”` : mode === "counties" ? "All 254 Texas counties" : "Texas cities in the guide"}</h2></div>
           <p className="text-sm text-muted-foreground" role="status">{items.length.toLocaleString("en-US")} {items.length === 1 ? "result" : "results"}</p>
         </div>
 
@@ -52,7 +52,7 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
                     <h3 className="mt-3 font-display text-3xl leading-tight">{county.name}</h3>
                     <p className="mt-3 text-sm leading-7 text-muted-foreground">County context and official links for {county.name}.</p>
                     <div className="mt-5 flex flex-col items-start gap-3 text-sm">
-                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/$kind/$slug" params={{ kind: "county", slug: county.slug }}>Open county guide →</Link>
+                      <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/$kind/$slug" params={{ kind: "county", slug: county.slug }}>Read county guide →</Link>
                       <a className="inline-flex items-center gap-2 text-xs text-muted-foreground underline underline-offset-4" href={county.officialDirectoryUrl} target="_blank" rel="noreferrer noopener">Official county directory <ExternalLink className="h-3.5 w-3.5" aria-hidden /></a>
                     </div>
                   </li>
@@ -61,9 +61,9 @@ export function TexasPlaceDirectory({ mode }: { mode: "counties" | "cities" }) {
                   <li id={cityAnchor(city.slug)} key={city.slug} className={`border-b border-border py-7 sm:px-6 ${index % 3 === 0 ? "lg:pl-0" : ""} ${index % 3 !== 2 ? "lg:border-r" : ""}`}>
                     <p className="eyebrow text-primary">{city.region}</p>
                     <h3 className="mt-3 font-display text-3xl leading-tight">{city.name}, Texas</h3>
-                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{CITY_AUTHORITY_SLUGS.has(city.slug) ? `${city.name} has a Texas Defined city guide with official municipal sources, county and regional context, moving information and nearby places.` : `${city.name} is in ${city.county} County. Until a dedicated city guide is available, use the county guide and statewide moving tools for local context.`}</p>
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{CITY_AUTHORITY_SLUGS.has(city.slug) ? `${city.name} has a city guide with official municipal sources, county and regional context, moving information and nearby places.` : `${city.name} is in ${city.county} County. Use the county guide and statewide moving tools for local context while a dedicated city guide is being developed.`}</p>
                     <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3">
-                      {CITY_AUTHORITY_SLUGS.has(city.slug) ? <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/$kind/$slug" params={{ kind: "city", slug: city.slug }}>Open city guide →</Link> : null}
+                      {CITY_AUTHORITY_SLUGS.has(city.slug) ? <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/$kind/$slug" params={{ kind: "city", slug: city.slug }}>Read city guide →</Link> : null}
                       <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/moving-to-texas">Plan a move →</Link>
                       <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/$kind/$slug" params={{ kind: "county", slug: countySlugForCity(city.county) }}>Explore {city.county} County →</Link>
                       <Link className="eyebrow border-b border-primary pb-1 text-primary" to="/texas-salary-comparison-by-city">Compare salary →</Link>
