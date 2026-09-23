@@ -9,7 +9,7 @@ const routeBase: Record<FishingRouteKind, string> = {
   report: "/fishing/report",
 };
 
-export const COMPLETE_FISHING_LAKE_SLUGS = [
+const BASE_COMPLETE_FISHING_LAKE_SLUGS = [
   "lake-conroe",
   "lake-fork",
   "sam-rayburn-reservoir",
@@ -20,6 +20,19 @@ export const COMPLETE_FISHING_LAKE_SLUGS = [
   "canyon-lake",
   "choke-canyon-reservoir",
   "amistad-reservoir",
+] as const;
+
+export const WAVE2_COMPLETE_FISHING_LAKE_SLUGS = [
+  "o-h-ivie-lake",
+  "lake-travis",
+  "lake-whitney",
+  "lake-tawakoni",
+  "falcon-international-reservoir",
+] as const;
+
+export const COMPLETE_FISHING_LAKE_SLUGS = [
+  ...BASE_COMPLETE_FISHING_LAKE_SLUGS,
+  ...WAVE2_COMPLETE_FISHING_LAKE_SLUGS,
 ] as const;
 export type CompleteFishingLakeSlug = (typeof COMPLETE_FISHING_LAKE_SLUGS)[number];
 
