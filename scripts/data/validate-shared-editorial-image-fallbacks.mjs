@@ -109,10 +109,6 @@ for (const marker of [
   'Product image unavailable.',
 ]) requireMarker('product detail', marker);
 
-for (const label of ['news index cards', 'homepage destination feature']) {
-  requireMarker(label, 'Photo unavailable');
-}
-
 for (const label of ['product cards', 'shop the story']) {
   requireMarker(label, 'Product image unavailable');
 }
@@ -152,11 +148,12 @@ for (const marker of [
   'failedImages.has(hero.src)',
   'markImageFailed(item.image.src)',
   'item.image.src === caddoLake',
-  'Photo unavailable.',
+  'aria-hidden',
 ]) requireMarker('camping guide imagery', marker);
 
-for (const label of ['article cards', 'feature heroes', 'category heroes', 'destination heroes']) {
-  requireMarker(label, 'Photo unavailable');
+for (const label of ['article cards', 'feature heroes', 'category heroes', 'destination heroes', 'news index cards', 'homepage destination feature', 'camping guide imagery']) {
+  const content = source.get(label) ?? '';
+  if (content.includes('Photo unavailable')) errors.push(`${label} must not expose generic image-fallback copy to readers.`);
 }
 
 requireMarker('article cards', 'relative w-full overflow-hidden');
