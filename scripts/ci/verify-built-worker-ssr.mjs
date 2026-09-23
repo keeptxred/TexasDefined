@@ -26,7 +26,7 @@ const smokeTargets = [
   },
   {
     path: '/fishing/plan?lat=29.76&lng=-95.37&origin=Houston&sort=closest&view=map',
-    requiredText: 'Distances are straight-line estimates from Houston.',
+    requiredText: 'Map of matching Texas fishing lakes',
     label: 'fishing finder closest map',
   },
   {
