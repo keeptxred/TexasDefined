@@ -49,7 +49,7 @@ for (const token of [
   'https://www.weather.gov/ama/50ranges',
   'https://www.weather.gov/hgx/stormsignals_vol40',
   'citation: sources.length ? sources.map((source) => source.href) : undefined',
-  'Source notes',
+  'Sources',
 ]) {
   if (!component.includes(token)) failures.push(`Shared evergreen weather source/citation layer must retain: ${token}`);
 }
