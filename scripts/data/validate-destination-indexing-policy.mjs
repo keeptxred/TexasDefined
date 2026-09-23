@@ -156,7 +156,9 @@ for (const marker of [
   if (!preservedCatalog.includes(marker)) failures.push(`Shared preserved destination catalog missing source/contract: ${marker}`);
 }
 for (const marker of [
-  'officialUrl.startsWith("https://tpwd.texas.gov/state-parks/") ? "state-parks" : "lakes-rivers"',
+  'const isTpwdStatePark = officialUrl.startsWith("https://tpwd.texas.gov/state-parks/")',
+  'category: isTpwdStatePark ? "state-parks" : "lakes-rivers"',
+  'src: "/images/texasdefined-destination-placeholder.svg"',
   'choke-canyon-state-park|Choke Canyon State Park',
   'caddo-lake-state-park|Caddo Lake State Park',
   'lake-whitney-state-park|Lake Whitney State Park',
