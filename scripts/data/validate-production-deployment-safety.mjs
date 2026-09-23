@@ -6,6 +6,7 @@ const capture = fs.readFileSync('scripts/ci/capture-active-worker-version.mjs', 
 const emergency = fs.readFileSync('.github/workflows/emergency-restore-known-good-worker.yml', 'utf8');
 const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 const smoke = fs.readFileSync('scripts/ci/verify-built-worker-ssr.mjs', 'utf8');
+const wrangler = fs.readFileSync('wrangler.jsonc', 'utf8');
 const failures = [];
 
 const requireText = (source, needle, label) => {
@@ -37,6 +38,11 @@ for (const [needle, label] of [
   ['ROLLBACK_OUTCOME: ${{ steps.rollback.outcome }}', 'aggregate rollback outcome'],
   ['ROLLBACK_HEALTH_OUTCOME: ${{ steps.rollback_health.outcome }}', 'aggregate rollback-health outcome'],
 ]) requireText(workflow, needle, label);
+
+for (const [needle, label] of [
+  ['"pattern": "texasdefined.com/*"', 'canonical production Worker route pattern'],
+  ['"zone_name": "texasdefined.com"', 'canonical production Worker zone binding'],
+]) requireText(wrangler, needle, label);
 
 const guardedVerifierCondition = "steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success'";
 for (const step of [
@@ -116,4 +122,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Production deployment safety passed: new Worker health is stabilized before deep verification, persistent direct-Worker failure triggers rollback, rollback health is verified, and canonical-only failures do not rollback a healthy Worker.');
+console.log('Production deployment safety passed: the canonical texasdefined.com route is repository-bound to the deployed Worker, new Worker health is stabilized before deep verification, persistent direct-Worker failure triggers rollback, rollback health is verified, and canonical-only failures do not rollback a healthy Worker.');
