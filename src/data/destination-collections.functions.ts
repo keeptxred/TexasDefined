@@ -4,6 +4,23 @@ import type { Destination } from "./types";
 
 type DestinationCollectionKey = "aquariums" | "museums";
 
+export type DestinationComparisonRecord = Pick<
+  Destination,
+  | "slug"
+  | "name"
+  | "summary"
+  | "category"
+  | "region"
+  | "nearestTown"
+  | "bestSeason"
+  | "entryNote"
+  | "highlights"
+  | "managingAuthority"
+  | "officialUrl"
+  | "sourceCheckedAt"
+  | "county"
+>;
+
 function sanitizeSlug(value: unknown) {
   return String(value ?? "").trim().slice(0, 180);
 }
@@ -30,17 +47,27 @@ export const getDestinationsBySlugs = createServerFn({ method: "GET" })
   });
 
 export const getDestinationCatalog = createServerFn({ method: "GET" })
-  .handler(async (): Promise<Destination[]> => {
-    const [
-      { listResolvedDestinations },
-      { prepareDestinationForDelivery },
-    ] = await Promise.all([
-      import("./destination-query-runtime"),
-      import("@/lib/editorial-image-delivery"),
-    ]);
+  .handler(async (): Promise<DestinationComparisonRecord[]> => {
+    const { listResolvedDestinations } = await import("./destination-query-runtime");
 
-    return (await listResolvedDestinations({ limit: 5000 }))
-      .map(prepareDestinationForDelivery);
+    // The comparison table only needs compact planning metadata. Do not ship
+    // destination article bodies, images, coordinates, authority guides or
+    // other detail-only fields for thousands of rows.
+    return (await listResolvedDestinations({ limit: 5000 })).map((destination) => ({
+      slug: destination.slug,
+      name: destination.name,
+      summary: destination.summary,
+      category: destination.category,
+      region: destination.region,
+      nearestTown: destination.nearestTown,
+      bestSeason: destination.bestSeason,
+      entryNote: destination.entryNote,
+      highlights: destination.highlights.slice(0, 8),
+      managingAuthority: destination.managingAuthority,
+      officialUrl: destination.officialUrl,
+      sourceCheckedAt: destination.sourceCheckedAt,
+      county: destination.county,
+    }));
   });
 
 export const getDestinationCollection = createServerFn({ method: "GET" })
