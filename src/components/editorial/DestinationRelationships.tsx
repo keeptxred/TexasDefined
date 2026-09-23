@@ -108,7 +108,8 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
         <ul className="mt-8 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
           {pairedDestinations.map((item) => {
             const miles = distanceMiles(destination, item);
-            return <li key={item.id}><DestinationCard destination={item} regionLabel={item.region === destination.region ? regionName : undefined} />{miles !== null && <p className="mt-3 border-t border-border pt-3 text-[0.7rem] uppercase tracking-[0.1em] text-muted-foreground">Approx. {Math.max(1, Math.round(miles)).toLocaleString("en-US")} miles away</p>}</li>;
+            const roundedMiles = miles === null ? null : Math.max(1, Math.round(miles));
+            return <li key={item.id}><DestinationCard destination={item} regionLabel={item.region === destination.region ? regionName : undefined} />{roundedMiles !== null && <p className="mt-3 border-t border-border pt-3 text-[0.7rem] uppercase tracking-[0.1em] text-muted-foreground">Approx. {roundedMiles.toLocaleString("en-US")} {roundedMiles === 1 ? "mile" : "miles"} away</p>}</li>;
           })}
         </ul>
       </Container>
