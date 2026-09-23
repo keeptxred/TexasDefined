@@ -79,7 +79,7 @@ requireFeatures(component, [
   'const roundedMiles = miles === null ? null : Math.max(1, Math.round(miles));',
   'roundedMiles.toLocaleString("en-US")',
   'roundedMiles === 1 ? "mile" : "miles"',
-  'miles away',
+  'Approx.',
   'to="/explore/trip-planner"',
   'search={{ destination: destination.slug }}',
   'Build the weekend',
