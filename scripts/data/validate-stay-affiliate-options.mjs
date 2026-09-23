@@ -265,6 +265,10 @@ for (const [needle, label] of [
   ['/city/austin', 'live city eligibility probe'],
   ['/county/travis', 'live county eligibility probe'],
   ['data-stay-nearby-slot', 'live explicit slot verification'],
+  ["api.comparisonHotelDestination('hotel-first') === 'https://www.orbitz.com/'", 'live Orbitz hotel-first behavior assertion'],
+  ["api.comparisonHotelDestination('both') === 'https://www.travelocity.com/'", 'live Travelocity destination/leisure behavior assertion'],
+  ["api.buildCjDeepLink('https://www.orbitz.com/')", 'live Orbitz CJ deep-link behavior assertion'],
+  ["api.buildCjDeepLink('https://www.travelocity.com/')", 'live Travelocity CJ deep-link behavior assertion'],
 ]) requireText(productionVerifier, needle, label);
 
 if (!productionVerifier.includes("route: '/destination/fredericksburg'") || !productionVerifier.includes('requireSlot: true')) {
