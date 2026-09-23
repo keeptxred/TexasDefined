@@ -56,6 +56,30 @@ function checkedDate(value?: string) {
   return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 }
 
+
+function destinationAutoLinkGraph(
+  destination: { nearestTown: string; body: string[] },
+  graph: Awaited<ReturnType<typeof loadTexasKnowledgeGraph>>,
+) {
+  const text = [destination.nearestTown, ...destination.body].join("\n");
+  if (!text.trim()) return [];
+
+  return graph.filter((entity) =>
+    [entity.name, ...entity.aliases].some((rawLabel) => {
+      const label = rawLabel.trim();
+      if (label.length < 4) return false;
+      const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, "\\function checkedDate(value?: string) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+");
+      return new RegExp(`\\b${escaped}\\b`, "i").test(text);
+    }),
+  );
+}
+
 function countyDisplayName(value: string) {
   const trimmed = value.trim();
   return /\bcount(?:y|ies)\b/i.test(trimmed) ? trimmed : `${trimmed} County`;
@@ -94,13 +118,14 @@ export const Route = createFileRoute("/destination/$slug")({
       const { resolveTopAttractionAuthority } = await import("@/data/top-attraction-authority-resolver");
       destination = resolveTopAttractionAuthority(destination);
     }
-    const [graph, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([
+    const [completeGraph, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([
       loadTexasKnowledgeGraph(),
       context.queryClient.ensureQueryData(categoriesQuery()),
       getDestinationRelationshipGroups({ data: { slug: params.slug } }),
       context.queryClient.ensureQueryData(regionsQuery()),
       context.queryClient.ensureQueryData(articlesQuery({ category: destination.category, limit: 3 })),
     ]);
+    const graph = destinationAutoLinkGraph(destination, completeGraph);
     return { destination, graph, categories, regions, relatedArticles, relationshipGroups };
   },
   head: ({ loaderData, params }) => {
