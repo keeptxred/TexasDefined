@@ -4,6 +4,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
 import { BookingCarRentalCard } from "@/components/monetization/BookingCarRentalCard";
 import { paintedChurchSources, schulenburgCoreRoute } from "@/data/painted-churches";
+import { recoverOrHideImage } from "@/lib/image-fallback";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const canonicalPath = "/explore/painted-churches-plan";
@@ -83,11 +84,10 @@ function PaintedChurchesTripPlanner() {
                 <div className="grid gap-8 lg:grid-cols-[220px_minmax(0,1fr)_220px]">
                   <div>
                     <p className="eyebrow text-primary">Stop {index + 1}</p>
-                    {church.image ? (
-                      <img src={church.image.src} alt={church.image.alt} width={church.image.width} height={church.image.height} loading="lazy" decoding="async" className="mt-4 aspect-[4/3] w-full object-cover" />
-                    ) : (
-                      <div className="mt-4 flex aspect-[4/3] items-end bg-surface p-5"><span className="font-display text-2xl">{church.city}</span></div>
-                    )}
+                    <div className="relative mt-4 flex aspect-[4/3] items-end overflow-hidden bg-surface p-5">
+                      <span className="font-display text-2xl">{church.city}</span>
+                      {church.image ? <img src={church.image.src} alt={church.image.alt} width={church.image.width} height={church.image.height} loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" onError={(event) => recoverOrHideImage(event.currentTarget)} /> : null}
+                    </div>
                   </div>
                   <div>
                     <p className="eyebrow text-muted-foreground">{church.city} · {church.county} County</p>
