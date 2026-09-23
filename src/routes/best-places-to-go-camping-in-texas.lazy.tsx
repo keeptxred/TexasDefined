@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import caddoLake from "@/assets/caddo-lake.jpg";
@@ -60,6 +61,12 @@ export const Route = createLazyFileRoute("/best-places-to-go-camping-in-texas")(
 function CampingGuidePage() {
   const { entries } = Route.useLoaderData();
   const hero = standoutCamping[1].image;
+  const [failedImages, setFailedImages] = useState<Set<string>>(() => new Set());
+  const markImageFailed = (src: string) => setFailedImages((current) => {
+    const next = new Set(current);
+    next.add(src);
+    return next;
+  });
 
   return <main>
     <section className="border-b border-border bg-muted/30">
@@ -76,16 +83,17 @@ function CampingGuidePage() {
           <p className="mt-5 max-w-2xl text-sm leading-6 text-muted-foreground">Availability, prices, closures, burn restrictions and beach conditions can change quickly. Confirm the final details with the managing agency immediately before booking or travel.</p>
         </div>
         <figure className="overflow-hidden border border-border bg-background">
-          <img
+          {!failedImages.has(hero.src) ? <img
             src={hero.src}
             alt={hero.alt}
             width={hero.width}
             height={hero.height}
             className="aspect-[4/3] w-full object-cover"
             fetchPriority="high"
-          />
+            onError={() => markImageFailed(hero.src)}
+          /> : <div className="flex aspect-[4/3] items-center justify-center bg-muted px-6 text-center text-sm text-muted-foreground" role="img" aria-label="Palo Duro Canyon State Park photo unavailable">Photo unavailable. The camping guide and campground finder remain available below.</div>}
           <figcaption className="px-4 py-3 text-xs leading-5 text-muted-foreground">
-            Palo Duro Canyon State Park · Panhandle camping · {hero.credit}
+            {!failedImages.has(hero.src) ? <>Palo Duro Canyon State Park · Panhandle camping · {hero.credit}</> : <>Palo Duro Canyon State Park · Panhandle camping</>}
           </figcaption>
         </figure>
       </Container>
@@ -100,7 +108,7 @@ function CampingGuidePage() {
         </div>
         <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {standoutCamping.map((item) => <Link key={item.slug} to={item.to} className="group overflow-hidden border border-border bg-background transition-colors hover:border-primary/50">
-            <img src={item.image.src} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" className="aspect-[16/9] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
+            {!failedImages.has(item.image.src) ? <img src={item.image.src} alt={item.image.alt} width={item.image.width} height={item.image.height} loading="lazy" className="aspect-[16/9] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" onError={() => markImageFailed(item.image.src)} /> : <div className="flex aspect-[16/9] items-center justify-center bg-muted px-6 text-center text-sm text-muted-foreground" role="img" aria-label={`${item.label} photo unavailable`}>Photo unavailable. Open the destination guide for trip-planning details.</div>}
             <div className="p-6">
               <p className="eyebrow text-primary">{item.eyebrow}</p>
               <h3 className="mt-2 font-display text-2xl">{item.label}</h3>
