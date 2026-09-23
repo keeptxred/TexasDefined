@@ -36,6 +36,7 @@
     }),
   });
   let aiPropertyDataPromise;
+  let syncScheduled = false;
 
   function normalizedPath() {
     const value = window.location.pathname.replace(/\/+$/, "");
@@ -189,7 +190,10 @@
   }
 
   function scheduleSync() {
+    if (syncScheduled) return;
+    syncScheduled = true;
     window.requestAnimationFrame(() => {
+      syncScheduled = false;
       syncVisual();
       void syncAiPropertyCards();
     });
