@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
-import { museumCollectionDestinations } from "@/data/museum-collection";
-import { destinationsQuery } from "@/data/queries";
+import { getDestinationCollection } from "@/data/destination-collections.functions";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -10,9 +9,7 @@ const canonicalPath = "/explore/museums";
 const description = "Browse source-checked Texas museum destination guides covering art, science, history, presidential, military, children's and specialty museums.";
 
 export const Route = createFileRoute(canonicalPath)({
-  loader: async ({ context }) => museumCollectionDestinations(
-    await context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
-  ),
+  loader: async () => getDestinationCollection({ data: { collection: "museums" } }),
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
