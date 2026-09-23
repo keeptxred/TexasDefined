@@ -16,6 +16,9 @@ const HEARTBEAT_PLACEMENT = 'sync-heartbeat';
 const EXPEDIA_SEARCH_PARTNER = 'expedia-search';
 const IMPRESSION_TRACKING_STARTED_AT = '2026-09-18';
 const CTR_MEASUREMENT_STARTED_AT = '2026-09-19';
+const TRAVEL_ROUTING_MEASUREMENT_STARTED_AT = '2026-09-23';
+const TRAVEL_ROUTING_MIN_IMPRESSIONS_PER_PARTNER = 100;
+const TRAVEL_ROUTING_PARTNERS = ['orbitz', 'travelocity'] as const;
 
 type ReferralRow = {
   metric_date: string;
@@ -125,6 +128,7 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
   const searchPageMap = new Map<string, PartnerSearchStartBreakdown>();
   const dailyClicksMap = new Map<string, number>();
   const dailyImpressionsMap = new Map<string, number>();
+  const travelRoutingMap = new Map<string, { clicks: number; impressions: number }>();
   let totalClicks30d = 0;
   let totalClicks7d = 0;
   let totalImpressions30d = 0;
@@ -180,6 +184,12 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
     }
     addBreakdown(partnerMap, row.partner, row.partner, clicks, impressions, in7d, inMeasurementWindow);
     addBreakdown(placementMap, row.placement, row.placement, clicks, impressions, in7d, inMeasurementWindow);
+    if (metricDate >= TRAVEL_ROUTING_MEASUREMENT_STARTED_AT && TRAVEL_ROUTING_PARTNERS.includes(row.partner as (typeof TRAVEL_ROUTING_PARTNERS)[number])) {
+      const current = travelRoutingMap.get(row.partner) ?? { clicks: 0, impressions: 0 };
+      current.clicks += clicks;
+      current.impressions += impressions;
+      travelRoutingMap.set(row.partner, current);
+    }
 
     const page = pageMap.get(row.page_path) ?? {
       pagePath: row.page_path,
@@ -230,6 +240,17 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
     destinationMap.set(destinationKey, destination);
   }
 
+  const travelRoutingPartners = TRAVEL_ROUTING_PARTNERS.map((partner) => {
+    const totals = travelRoutingMap.get(partner) ?? { clicks: 0, impressions: 0 };
+    return {
+      partner,
+      clicks: totals.clicks,
+      impressions: totals.impressions,
+      ctr: clickThroughRate(totals.clicks, totals.impressions),
+    };
+  });
+  const travelRoutingComparisonReady = travelRoutingPartners.every((row) => row.impressions >= TRAVEL_ROUTING_MIN_IMPRESSIONS_PER_PARTNER);
+
   const daily = Array.from({ length: WINDOW_DAYS }, (_, index) => {
     const date = utcDateOffset(WINDOW_DAYS - 1 - index);
     return {
@@ -245,6 +266,10 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
     lastPipelineSyncAt,
     impressionTrackingStartedAt: IMPRESSION_TRACKING_STARTED_AT,
     ctrMeasurementStartedAt: CTR_MEASUREMENT_STARTED_AT,
+    travelRoutingMeasurementStartedAt: TRAVEL_ROUTING_MEASUREMENT_STARTED_AT,
+    travelRoutingMinimumImpressionsPerPartner: TRAVEL_ROUTING_MIN_IMPRESSIONS_PER_PARTNER,
+    travelRoutingComparisonReady,
+    travelRoutingPartners,
     windowDays: WINDOW_DAYS,
     totalClicks30d,
     totalClicks7d,
