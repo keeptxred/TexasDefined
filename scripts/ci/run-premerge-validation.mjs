@@ -76,6 +76,7 @@ const prebuildChecks = [
   ['SEO/INDEXING', 'Validate Phase 10 housing index-suppression contract', 'node', ['scripts/data/validate-phase10-housing-indexing.mjs']],
   ['CONTENT/AUTHORITY', 'Validate Texas industries authority', 'node', ['scripts/data/validate-texas-industries-authority.mjs']],
   ['CONTENT/AUTHORITY', 'Validate road-trip camera authority', 'node', ['scripts/data/validate-road-trip-camera-authority.mjs']],
+  ['CONTENT/AUTHORITY', 'Syntax-check road-trip camera production smoke', 'node', ['--check', 'scripts/ci/verify-road-trip-camera-production.mjs']],
   ['CONTENT/AUTHORITY', 'Validate Texas beaches and coast authority', 'node', ['scripts/data/validate-coastal-authority.mjs']],
   ['AGGREGATE/SITE-QUALITY', 'Run recurring site quality contract', 'node', ['scripts/data/run-site-quality-watch.mjs']],
   ['AGGREGATE/FULL', 'Run authoritative validation suite', 'node', ['scripts/ci/run-validation-suite.mjs', 'full', '--collect-all']],
