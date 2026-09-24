@@ -416,12 +416,12 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
   ],
   "best-first-texas-road-trip": [
     { href: "/article/texas-road-trip-vehicle-checklist", label: "Run the vehicle checklist before departure", description: "Check tires, fluids, battery, lights, weather, fuel and offline navigation before the first long Texas drive." },
-    { href: "/article/what-to-keep-in-car-for-texas-road-trip", label: "Pack a Texas road-trip emergency kit", description: "Build a practical kit for heat, breakdowns, dead batteries and long waits." },
+    { href: "/article/texas-car-emergency-kit", label: "Pack a Texas road-trip emergency kit", description: "Build a practical kit for heat, breakdowns, dead batteries and long waits." },
     { href: "/article/dash-cam-setup-texas-road-trips", label: "Set up a dash cam for a Texas road trip", description: "Plan mounting, storage, power and heat exposure before the vehicle leaves home." },
   ],
   "texas-road-trip-stops-worth-the-detour": [
     { href: "/article/texas-road-trip-vehicle-checklist", label: "Prepare the vehicle for the detour", description: "Longer back-road mileage deserves a tire, fuel, weather and charging check." },
-    { href: "/article/what-to-keep-in-car-for-texas-road-trip", label: "Keep a roadside kit in the car", description: "Carry the basics that matter if a scenic detour turns into a roadside wait." },
+    { href: "/article/texas-car-emergency-kit", label: "Keep a roadside kit in the car", description: "Carry the basics that matter if a scenic detour turns into a roadside wait." },
   ],
   "things-you-see-on-a-texas-road-trip": [
     { href: "/article/dash-cam-setup-texas-road-trips", label: "Set up a camera for the drive", description: "Use enough storage and a lawful mount if you want to document a long Texas route." },
@@ -429,7 +429,7 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
   ],
   "big-bend-in-winter": [
     { href: "/article/texas-road-trip-vehicle-checklist", label: "Prepare the vehicle for remote West Texas", description: "Check tires, fuel, battery, weather and offline maps before the Big Bend drive." },
-    { href: "/article/what-to-keep-in-car-for-texas-road-trip", label: "Build the Big Bend roadside kit", description: "Carry a more conservative reserve when services and cell coverage are far apart." },
+    { href: "/article/texas-car-emergency-kit", label: "Build the Big Bend roadside kit", description: "Carry a more conservative reserve when services and cell coverage are far apart." },
   ],
   "texas-weather-surprises-newcomers": [
     { href: "/article/texas-heat-vehicle-electronics", label: "What Texas heat does to electronics in the car", description: "Understand why cameras, batteries, mounts and storage need model-specific heat limits." },
