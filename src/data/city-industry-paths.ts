@@ -12,6 +12,7 @@ const CITY_INDUSTRY_PATHS: Record<string, ReadonlyArray<CityIndustryPath>> = {
     { label: 'Aerospace, Aviation & Defense', href: '/texas-industries/aerospace-aviation-defense', context: 'Johnson Space Center and its contractor network connect Houston directly to human spaceflight and aerospace engineering.' },
   ],
   dallas: [
+    { label: 'Gaming & Esports', href: '/gaming/dfw', context: 'Dallas sits inside a North Texas gaming ecosystem that includes development, collegiate esports, live events and a major internet-interconnection market.' },
     { label: 'Financial Services', href: '/texas-industries/financial-services', context: 'Dallas is one of the state’s major centers for banking, investment, insurance and corporate finance.' },
     { label: 'Corporate & Professional Services', href: '/texas-industries/corporate-professional-services', context: 'The wider Dallas-Fort Worth region has a dense headquarters and professional-services base.' },
     { label: 'Technology & Semiconductors', href: '/texas-industries/technology-semiconductors', context: 'North Texas combines telecommunications, enterprise technology, electronics and semiconductor activity.' },
@@ -23,6 +24,7 @@ const CITY_INDUSTRY_PATHS: Record<string, ReadonlyArray<CityIndustryPath>> = {
     { label: 'Trade, Transportation & Logistics', href: '/texas-industries/trade-transportation-logistics', context: 'Fort Worth is part of the Metroplex freight, rail, airport and distribution network.' },
   ],
   austin: [
+    { label: 'Gaming & Game Development', href: '/gaming/austin', context: 'Austin is a major Texas game-development cluster with current studios, digital-media careers and a wider software workforce.' },
     { label: 'Technology & Semiconductors', href: '/texas-industries/technology-semiconductors', context: 'Austin is a major software, semiconductor, startup and research center.' },
     { label: 'Advanced Manufacturing', href: '/texas-industries/advanced-manufacturing', context: 'Central Texas manufacturing includes semiconductors, electronics, electric vehicles and advanced production.' },
     { label: 'Corporate & Professional Services', href: '/texas-industries/corporate-professional-services', context: 'Technology companies, startups and corporate operations support a large professional-services workforce.' },
@@ -38,6 +40,7 @@ const CITY_INDUSTRY_PATHS: Record<string, ReadonlyArray<CityIndustryPath>> = {
     { label: 'Advanced Manufacturing', href: '/texas-industries/advanced-manufacturing', context: 'Border supply chains and regional industrial production connect El Paso to the wider Texas manufacturing system.' },
   ],
   arlington: [
+    { label: 'Esports & Gaming', href: '/gaming/esports-stadium-arlington', context: 'Arlington operates a dedicated esports competition venue and connects directly to the wider Dallas–Fort Worth esports ecosystem.' },
     { label: 'Hospitality, Tourism & Culture', href: '/texas-industries/hospitality-tourism-culture', context: 'Major sports, entertainment and visitor destinations make tourism and hospitality especially visible in Arlington.' },
     { label: 'Trade, Transportation & Logistics', href: '/texas-industries/trade-transportation-logistics', context: 'Arlington sits inside the larger Metroplex freight, airport and distribution network.' },
   ],
@@ -115,6 +118,7 @@ const CITY_INDUSTRY_PATHS: Record<string, ReadonlyArray<CityIndustryPath>> = {
     { label: 'Hospitality, Tourism & Culture', href: '/texas-industries/hospitality-tourism-culture', context: 'River recreation, Schlitterbahn, music, events and Hill Country travel make tourism and hospitality especially important in New Braunfels.' },
   ],
   'round-rock': [
+    { label: 'Gaming & Game Development', href: '/gaming/austin', context: 'Round Rock extends the Central Texas game-development cluster through current game-development employers.' },
     { label: 'Technology & Semiconductors', href: '/texas-industries/technology-semiconductors', context: 'Round Rock is part of the Austin-area technology corridor and a major center for computer and enterprise-technology operations.' },
     { label: 'Corporate & Professional Services', href: '/texas-industries/corporate-professional-services', context: 'Corporate offices and technology-linked professional services are major parts of the Round Rock economy.' },
   ],
