@@ -12,6 +12,11 @@ export const remoteEvergreenAuthoritySources: Readonly<Record<string, readonly E
     { label: "NHTSA — Summer Driving & Road Trip Tips", url: "https://www.nhtsa.gov/summer-driving-tips", scope: "Tires, fluids, lights, battery, roadside kit and trip planning" },
     { label: "DriveTexas — Current Conditions", url: "https://drivetexas.org/", scope: "Official Texas road closures, flooding, construction and current travel conditions" },
   ],
+  "texas-car-emergency-kit": [
+    { label: "Texas DPS — Travel Tips", url: "https://www.dps.texas.gov/section/highway-patrol/travel-tips", scope: "Texas vehicle preparation, route planning and breakdown safety" },
+    { label: "NHTSA — Summer Driving & Road Trip Tips", url: "https://www.nhtsa.gov/summer-driving-tips", scope: "Tires, batteries, emergency supplies and pre-trip vehicle preparation" },
+    { label: "Texas Ready — Disaster Supply Checklist", url: "https://www.txready.org/build-a-kit/disaster-supply-checklist.html", scope: "Texas emergency supplies and items to add when evacuating by car" },
+  ],
   "dash-cam-setup-texas-road-trips": [
     { label: "Texas Legislature — Transportation Code § 547.613", url: "https://statutes.capitol.texas.gov/Docs/TN/htm/TN.547.htm#547.613", scope: "Windshield/window obstruction and clear-view rule" },
     { label: "National Weather Service — Heat Safety in Vehicles", url: "https://www.weather.gov/safety/heat-during", scope: "Vehicle heat and sun-exposed interior conditions" },
