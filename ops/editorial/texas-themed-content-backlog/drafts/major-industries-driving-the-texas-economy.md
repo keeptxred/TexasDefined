@@ -13,6 +13,8 @@ editorial_risk: verify-current
 target_cluster: texas-living
 ---
 
+> **SUPERSEDED AUTHORITY NOTE:** This unpublished planning draft has been replaced by the live `/texas-industries` authority hub and the complementary `/article/texas-jobs-economy-industries` statewide overview. Keep this file only as research history; do not publish it as a competing page.
+
 # 10 Major Industries Driving the Texas Economy
 
 Texas is often described as an oil economy. Energy remains enormously important, but that shorthand misses how broad the state's economic base has become. Manufacturing, logistics, technology, health care, construction, food production, aerospace and other industries interact with the energy sector rather than simply sitting beside it.
