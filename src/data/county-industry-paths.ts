@@ -4,7 +4,7 @@ export type CountyIndustryPath = {
   context: string;
 };
 
-const COUNTY_INDUSTRY_PATHS: Record<string, ReadonlyArray<CountyIndustryPath>> = {
+export const COUNTY_INDUSTRY_PATHS: Record<string, ReadonlyArray<CountyIndustryPath>> = {
   harris: [
     { label: 'Energy & Power', href: '/texas-industries/energy-power', context: 'Harris County sits at the center of the Houston energy system, including corporate operations, refining, petrochemicals, pipelines, engineering and global trade.' },
     { label: 'Healthcare & Life Sciences', href: '/texas-industries/healthcare-life-sciences', context: 'The Texas Medical Center and surrounding health systems make healthcare, research and life sciences a major county-scale industry.' },
