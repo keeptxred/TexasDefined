@@ -28,6 +28,11 @@ export type TexasIndustryConnection = {
   description: string;
 };
 
+export type TexasIndustryWorkforce = {
+  roles: string[];
+  pathways: string[];
+};
+
 export type TexasIndustrySector = {
   slug: string;
   href: string;
@@ -37,6 +42,8 @@ export type TexasIndustrySector = {
   summary: string;
   overview: string[];
   clusters: string[];
+  workforce: TexasIndustryWorkforce;
+  relatedSectorSlugs: string[];
   hubs: TexasIndustryHub[];
   facts: TexasIndustryFact[];
   sources: TexasIndustrySource[];
@@ -59,6 +66,11 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
       "For residents, businesses and communities, the useful way to understand the sector is geographically: West Texas production and renewables, Gulf Coast processing and exports, Houston corporate and engineering functions, and statewide generation and transmission assets all play different roles."
     ],
     clusters: ["Oil and gas extraction", "Pipelines and midstream", "Refining and petrochemicals", "LNG and Gulf export infrastructure", "Electric power generation", "Wind and utility-scale solar", "Battery storage", "Transmission and grid services", "Energy engineering and field services"],
+    workforce: {
+      roles: ["Petroleum, chemical, electrical and mechanical engineers","Power-plant, refinery and process operators","Electricians, lineworkers, welders and pipefitters","Field technicians, instrumentation specialists and maintenance teams","Energy traders, grid analysts, geoscientists and safety professionals"],
+      pathways: ["Engineering and geoscience degree programs","Community-college process technology, instrumentation and electrical programs","Registered apprenticeships and skilled-trade training","Industry safety and technical credentials","Military-to-civilian technical transitions"],
+    },
+    relatedSectorSlugs: ["advanced-manufacturing","trade-transportation-logistics","construction-real-estate"],
     hubs: [
       { name: "Houston & Gulf Coast", description: "Corporate headquarters, engineering, refining, petrochemicals, pipelines, LNG, ports and global energy trade.", places: [{ label: "Harris County", href: "/county/harris" }, { label: "Jefferson County", href: "/county/jefferson" }] },
       { name: "Permian Basin", description: "Midland-Odessa and surrounding West Texas counties anchor oil and gas production, field services and related infrastructure.", places: [{ label: "Midland County", href: "/county/midland" }, { label: "Ector County", href: "/county/ector" }] },
@@ -93,6 +105,11 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
       "TexasDefined treats AI and data centers as part of the technology story while keeping their infrastructure footprint visible: electricity demand, land, transmission, fiber, water needs and workforce requirements can make technology growth a local planning issue as well as a statewide business story."
     ],
     clusters: ["Software and cloud services", "Artificial intelligence", "Semiconductor fabrication", "Analog and embedded processing", "Electronics manufacturing", "Telecommunications", "Data centers", "Cybersecurity", "University research and commercialization"],
+    workforce: {
+      roles: ["Software, cloud, data and AI professionals","Electrical and computer engineers","Semiconductor process and equipment engineers","Fab technicians, facilities technicians and clean-room operations staff","Cybersecurity, network and data-center infrastructure teams"],
+      pathways: ["Computer science, engineering and data programs","Associate degrees and certificates in electronics, semiconductor and mechatronics technology","Cybersecurity and cloud certifications","Internships and university-industry research programs","Technical apprenticeships and employer training"],
+    },
+    relatedSectorSlugs: ["advanced-manufacturing","healthcare-life-sciences","financial-services","corporate-professional-services"],
     hubs: [
       { name: "Austin & Central Texas", description: "Software, major technology employers, semiconductor manufacturing, startups and research universities.", places: [{ label: "Travis County", href: "/county/travis" }, { label: "Williamson County", href: "/county/williamson" }] },
       { name: "Dallas-Fort Worth", description: "Telecommunications, enterprise technology, semiconductor design and manufacturing, financial technology and corporate operations.", places: [{ label: "Dallas County", href: "/county/dallas" }, { label: "Tarrant County", href: "/county/tarrant" }] },
@@ -130,6 +147,11 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
       "A useful manufacturing page should distinguish headquarters from actual production. TexasDefined's Made in Texas directory uses explicit relationship labels so a company with a Texas headquarters is not automatically described as manufacturing every product in the state."
     ],
     clusters: ["Automotive and electric vehicles", "Computers, electronics and semiconductors", "Aerospace vehicles and aircraft", "Defense manufacturing", "Heavy machinery and production technology", "Chemical products", "Fabricated metals", "Industrial equipment and components"],
+    workforce: {
+      roles: ["Industrial, mechanical and electrical engineers","Machinists, CNC operators and tool-and-die specialists","Mechatronics, robotics and industrial-maintenance technicians","Welders, fabricators and production specialists","Quality, supply-chain and plant-operations professionals"],
+      pathways: ["Manufacturing, engineering and industrial-technology degrees","Community-college mechatronics, machining and automation programs","Registered apprenticeships and skilled-trade programs","Industry-recognized welding, machining and quality credentials","Employer-sponsored technician training"],
+    },
+    relatedSectorSlugs: ["technology-semiconductors","aerospace-aviation-defense","energy-power","trade-transportation-logistics"],
     hubs: [
       { name: "Dallas-Fort Worth", description: "Aerospace and defense, electronics, machinery, corporate operations and a broad supplier network.", places: [{ label: "Dallas County", href: "/county/dallas" }, { label: "Tarrant County", href: "/county/tarrant" }] },
       { name: "Austin-Central Texas", description: "Semiconductors, electronics, electric vehicles and advanced production tied to the technology corridor.", places: [{ label: "Travis County", href: "/county/travis" }, { label: "Williamson County", href: "/county/williamson" }] },
@@ -166,6 +188,11 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
       "This sector overlaps almost every other industry on the site: agriculture needs cold chain and rail, manufacturing needs suppliers and freight, energy relies on ports and pipelines, and e-commerce depends on warehouses and last-mile networks."
     ],
     clusters: ["Ports and marine cargo", "Texas-Mexico border trade", "Trucking and highway freight", "Freight rail", "Air cargo", "Warehousing and distribution", "E-commerce fulfillment", "Customs and trade services", "Cold chain and specialized logistics"],
+    workforce: {
+      roles: ["Truck drivers and fleet professionals","Warehouse, distribution and fulfillment teams","Logistics planners and supply-chain analysts","Customs, brokerage and trade-compliance professionals","Rail, port, air-cargo and intermodal operations staff"],
+      pathways: ["Commercial driver training and licensing","Supply-chain, logistics and transportation degree programs","Warehouse and equipment certifications","Customs and trade-compliance training","Apprenticeships and employer-based operations training"],
+    },
+    relatedSectorSlugs: ["energy-power","advanced-manufacturing","agriculture-livestock","hospitality-tourism-culture"],
     hubs: [
       { name: "Laredo & South Texas border", description: "Truck and rail trade with Mexico, customs services, warehousing and cross-border supply chains.", places: [{ label: "Webb County", href: "/county/webb" }] },
       { name: "Houston & Gulf Coast", description: "Port activity, petrochemical and container cargo, rail and highway links, warehousing and global shipping.", places: [{ label: "Harris County", href: "/county/harris" }, { label: "Galveston County", href: "/county/galveston" }] },
@@ -202,6 +229,11 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
       "The sector is both industrial and visitor-facing. TexasDefined already covers space, aviation and military heritage; this page separates that travel/history layer from the present-day economic system."
     ],
     clusters: ["Human spaceflight and mission operations", "Commercial spaceflight", "Aircraft manufacturing", "Rotorcraft", "Defense systems", "Avionics and electronics", "Maintenance, repair and overhaul", "Military aviation", "Aerospace engineering and suppliers"],
+    workforce: {
+      roles: ["Aerospace, mechanical, electrical and systems engineers","Aircraft mechanics and maintenance technicians","Avionics and electronics technicians","Machinists, composite specialists and precision-manufacturing workers","Cybersecurity, software, mission-operations and defense-support professionals"],
+      pathways: ["Aerospace and engineering degree programs","FAA-aligned aviation maintenance and avionics training","Community-college precision manufacturing and electronics programs","Military-to-civilian technical pathways","Internships, apprenticeships and employer-sponsored training"],
+    },
+    relatedSectorSlugs: ["advanced-manufacturing","technology-semiconductors","trade-transportation-logistics","corporate-professional-services"],
     hubs: [
       { name: "Houston", description: "NASA Johnson Space Center, human spaceflight, engineering, contractors and a growing commercial space ecosystem.", places: [{ label: "Harris County", href: "/county/harris" }] },
       { name: "Dallas-Fort Worth", description: "Aircraft and defense manufacturing, engineering, avionics and a dense supplier network.", places: [{ label: "Tarrant County", href: "/county/tarrant" }, { label: "Dallas County", href: "/county/dallas" }] },
@@ -236,6 +268,11 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
       "For people considering a move, healthcare is also a local-services question. TexasDefined's city and county pages can connect statewide industry context to nearby hospitals, universities and regional employment centers."
     ],
     clusters: ["Hospital systems", "Academic medicine", "Biotechnology", "Pharmaceuticals", "Medical devices", "Clinical research and trials", "Health technology", "Laboratory services", "Life-sciences real estate and manufacturing"],
+    workforce: {
+      roles: ["Registered nurses and advanced-practice clinicians","Physicians, dentists and other licensed health professionals","Allied-health and diagnostic technicians","Laboratory, biotechnology and clinical-research professionals","Health-technology, medical-device and data professionals"],
+      pathways: ["Licensed nursing, allied-health and clinical degree programs","Medical, dental, pharmacy and graduate health-profession education","Community-college certificate and associate programs","Research internships and laboratory training","Professional licensure, certification and continuing education"],
+    },
+    relatedSectorSlugs: ["technology-semiconductors","corporate-professional-services","construction-real-estate"],
     hubs: [
       { name: "Houston", description: "Texas Medical Center, academic medicine, cancer care, children's health, research, biotech and commercialization.", places: [{ label: "Harris County", href: "/county/harris" }] },
       { name: "Dallas-Fort Worth", description: "Large hospital systems, medical schools, specialty care, health technology and corporate healthcare operations.", places: [{ label: "Dallas County", href: "/county/dallas" }, { label: "Tarrant County", href: "/county/tarrant" }] },
@@ -270,6 +307,11 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
       "TexasDefined already has 254 county profiles, which makes agriculture especially useful for cross-linking. A statewide sector page can explain the system while county pages show how land use, crops, livestock and local history differ."
     ],
     clusters: ["Cattle and ranching", "Cotton", "Poultry", "Dairy", "Corn, sorghum and wheat", "Hay and forage", "Citrus and specialty crops", "Food and livestock processing", "Agricultural technology and equipment"],
+    workforce: {
+      roles: ["Farmers, ranchers and agricultural managers","Agronomists, crop advisers and soil specialists","Animal-health, veterinary and livestock professionals","Agricultural mechanics, equipment and irrigation technicians","Food-processing, quality and agricultural-technology professionals"],
+      pathways: ["Agriculture, animal science and agribusiness degree programs","Community-college and technical agriculture programs","Extension, producer and industry training","FFA, 4-H and work-based learning pathways","Equipment, food-safety and technical certifications"],
+    },
+    relatedSectorSlugs: ["trade-transportation-logistics","advanced-manufacturing","energy-power","hospitality-tourism-culture"],
     hubs: [
       { name: "Panhandle & High Plains", description: "Cattle feeding, dairy, cotton, grains, food processing and large-scale agricultural operations.", places: [{ label: "Dallam County", href: "/county/dallam" }, { label: "Moore County", href: "/county/moore" }] },
       { name: "South Plains", description: "Cotton, grains, cattle and agricultural services centered around Lubbock and surrounding counties.", places: [{ label: "Lubbock County", href: "/county/lubbock" }, { label: "Hale County", href: "/county/hale" }] },
@@ -305,6 +347,11 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
       "Financial services also connects directly to TexasDefined's consumer tools: mortgages, affordability, closing costs, insurance, salaries, property taxes and homeownership costs are all downstream of the financial system."
     ],
     clusters: ["Commercial banking", "Insurance", "Investment management", "Securities and brokerage", "Consumer finance", "Mortgage and real-estate lending", "Fintech and payments", "Corporate treasury and finance", "Accounting and financial operations"],
+    workforce: {
+      roles: ["Bankers, credit analysts and commercial lenders","Accountants, auditors and corporate-finance professionals","Insurance underwriters, actuaries and claims professionals","Investment, wealth-management and securities professionals","Fintech, payments, risk, compliance and cybersecurity teams"],
+      pathways: ["Finance, accounting, economics and business degree programs","Professional accounting, actuarial and financial credentials","Role-specific securities or insurance licensing where required","Fintech, analytics and cybersecurity programs","Internships and employer training programs"],
+    },
+    relatedSectorSlugs: ["construction-real-estate","corporate-professional-services","technology-semiconductors"],
     hubs: [
       { name: "Dallas-Fort Worth", description: "Banking, investment, insurance, fintech and major corporate financial operations.", places: [{ label: "Dallas County", href: "/county/dallas" }, { label: "Tarrant County", href: "/county/tarrant" }] },
       { name: "Houston", description: "Corporate banking, energy finance, insurance and investment activity tied to a large headquarters base.", places: [{ label: "Harris County", href: "/county/harris" }] },
@@ -339,6 +386,11 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
       "For TexasDefined, this industry is especially important because it links the economic story to practical homeowner questions: property taxes, insurance, mortgages, closing costs, utility costs and the total cost of owning a home."
     ],
     clusters: ["Residential construction", "Commercial construction", "Industrial construction", "Civil and infrastructure", "Engineering and specialty trades", "Homebuilding and land development", "Commercial real estate", "Brokerage and property services", "Building materials"],
+    workforce: {
+      roles: ["Carpenters, electricians, plumbers, HVAC technicians and other skilled trades","Construction managers, superintendents and estimators","Civil, structural and building-systems engineers","Heavy-equipment and infrastructure workers","Real-estate, property-management and development professionals"],
+      pathways: ["Registered trade apprenticeships","Community-college construction, HVAC, electrical and drafting programs","Construction management and engineering degrees","Safety, inspection and equipment certifications","State licensing or professional credentials where a role requires them"],
+    },
+    relatedSectorSlugs: ["financial-services","corporate-professional-services","energy-power","advanced-manufacturing"],
     hubs: [
       { name: "Dallas-Fort Worth", description: "Large-scale residential growth, industrial and logistics development, corporate real estate and major infrastructure.", places: [{ label: "Dallas County", href: "/county/dallas" }, { label: "Tarrant County", href: "/county/tarrant" }] },
       { name: "Houston", description: "Homebuilding, commercial development, industrial construction, energy projects and a large engineering workforce.", places: [{ label: "Harris County", href: "/county/harris" }, { label: "Fort Bend County", href: "/county/fort-bend" }] },
@@ -376,6 +428,11 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
       "Professional services also make Texas industry networks more interconnected: engineers support energy and construction, consultants support technology and finance, and corporate operations rely on the same logistics and digital infrastructure described elsewhere in this industry collection."
     ],
     clusters: ["Corporate headquarters", "Business services", "Engineering and design", "Accounting", "Consulting", "Legal and compliance operations", "Human resources and shared services", "Data and back-office operations", "Corporate support centers"],
+    workforce: {
+      roles: ["Accountants, analysts and finance professionals","Engineers, architects and technical consultants","Attorneys, compliance and risk professionals","Human-resources, recruiting and organizational-development teams","Operations, procurement, project-management and shared-services professionals"],
+      pathways: ["Business, engineering, accounting and professional degree programs","Internships, co-ops and entry-level rotational programs","Professional certifications in accounting, project management and related fields","Graduate and professional education for licensed occupations","Employer-based leadership and technical training"],
+    },
+    relatedSectorSlugs: ["financial-services","technology-semiconductors","construction-real-estate","healthcare-life-sciences"],
     hubs: [
       { name: "Dallas-Fort Worth", description: "Headquarters, financial and professional services, telecommunications and a large corporate workforce.", places: [{ label: "Dallas County", href: "/county/dallas" }, { label: "Tarrant County", href: "/county/tarrant" }] },
       { name: "Houston", description: "Energy, engineering, construction, healthcare and global-business headquarters and professional services.", places: [{ label: "Harris County", href: "/county/harris" }] },
@@ -410,6 +467,11 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
       "TexasDefined's travel platform already contains destinations, events, sports venues, outdoor guides and trip-planning tools. This industry page makes that content useful as an economic system instead of only a list of places to visit."
     ],
     clusters: ["Hotels and lodging", "Restaurants and food tourism", "Attractions and museums", "Outdoor recreation", "Festivals and events", "Sports tourism", "Music and live entertainment", "Film and television", "Convention and business travel"],
+    workforce: {
+      roles: ["Hotel, resort and lodging operations teams","Culinary, restaurant and food-service professionals","Event, convention and venue staff","Attraction, museum, park and visitor-services professionals","Travel, entertainment, film, media and cultural-production workers"],
+      pathways: ["Hospitality, tourism, culinary and event-management programs","Community-college certificates and associate degrees","On-the-job management and operations training","Food-safety and role-specific certifications","Internships, apprenticeships and venue-based work experience"],
+    },
+    relatedSectorSlugs: ["trade-transportation-logistics","agriculture-livestock","corporate-professional-services"],
     hubs: [
       { name: "Dallas-Fort Worth", description: "Sports, conventions, major attractions, arts, hotels, shopping and a large airport-connected visitor market.", places: [{ label: "Dallas County", href: "/county/dallas" }, { label: "Tarrant County", href: "/county/tarrant" }] },
       { name: "Houston & Gulf Coast", description: "Museums, professional sports, conventions, food, cruises, beaches and coastal attractions.", places: [{ label: "Harris County", href: "/county/harris" }, { label: "Galveston County", href: "/county/galveston" }] },
