@@ -44,17 +44,16 @@ function TexasIndustriesPage() {
             </div>
             <div className="grid gap-px border border-border bg-border md:grid-cols-2">
               {TEXAS_INDUSTRIES.map((industry) => (
-                <Link
+                <a
                   key={industry.slug}
-                  to="/texas-industries/$slug"
-                  params={{ slug: industry.slug }}
+                  href={industry.href}
                   className="group bg-background p-6 transition-colors hover:bg-muted/30"
                 >
                   <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">Texas industry</p>
                   <h2 className="mt-2 font-display text-3xl leading-tight">{industry.shortTitle}</h2>
                   <p className="mt-4 text-sm leading-7 text-muted-foreground">{industry.description}</p>
                   <p className="mt-5 text-sm font-semibold text-foreground group-hover:text-primary">Explore the sector →</p>
-                </Link>
+                </a>
               ))}
             </div>
           </div>
