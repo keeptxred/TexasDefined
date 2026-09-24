@@ -31,6 +31,7 @@ function verifyLiveRoutingPolicy(source) {
   const api = sandbox.window.TexasDefinedStayAffiliateOptions;
   requireCondition(api && typeof api.bookingIntent === 'function', 'Live stay affiliate bootstrap does not expose bookingIntent.');
   requireCondition(typeof api.comparisonHotelDestination === 'function', 'Live stay affiliate bootstrap does not expose comparisonHotelDestination.');
+  requireCondition(typeof api.rvshareEligible === 'function', 'Live stay affiliate bootstrap does not expose rvshareEligible.');
   requireCondition(typeof api.buildCjDeepLink === 'function', 'Live stay affiliate bootstrap does not expose buildCjDeepLink.');
   requireCondition(typeof api.featuredGolfStay === 'function', 'Live stay affiliate bootstrap does not expose featuredGolfStay.');
 
@@ -38,11 +39,16 @@ function verifyLiveRoutingPolicy(source) {
   requireCondition(api.bookingIntent('/destination/fredericksburg') === 'both', 'Live destination intent no longer resolves to broader lodging intent.');
   requireCondition(api.comparisonHotelDestination('hotel-first') === 'https://www.orbitz.com/', 'Live hotel-first comparison provider must resolve to Orbitz.');
   requireCondition(api.comparisonHotelDestination('both') === 'https://www.travelocity.com/', 'Live destination/leisure comparison provider must resolve to Travelocity.');
+  requireCondition(api.rvshareEligible('/best-places-to-go-camping-in-texas') === true, 'Live camping guide must remain eligible for RVshare.');
+  requireCondition(api.rvshareEligible('/explore/rv-parks') === true, 'Live RV-parks hub must remain eligible for RVshare.');
+  requireCondition(api.rvshareEligible('/destination/fredericksburg') === false, 'Live generic destination pages must fail closed for RVshare.');
 
   const orbitz = api.buildCjDeepLink('https://www.orbitz.com/');
   const travelocity = api.buildCjDeepLink('https://www.travelocity.com/');
+  const rvshare = api.buildCjDeepLink('https://rvshare.com/');
   requireCondition(orbitz.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.orbitz.com/'), 'Live Orbitz comparison target is no longer bound to the TexasDefined CJ publisher.');
   requireCondition(travelocity.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.travelocity.com/'), 'Live Travelocity comparison target is no longer bound to the TexasDefined CJ publisher.');
+  requireCondition(rvshare.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://rvshare.com/'), 'Live RVshare target is no longer bound to the TexasDefined CJ publisher.');
 
   const featuredGolfCases = [
     ['/sports-venue/pga-frisco-fields-ranch', 'Omni PGA Frisco Resort & Spa', 'https://www.hotels.com/ho2796737888/omni-pga-frisco-resort-frisco-united-states-of-america/'],
@@ -177,6 +183,7 @@ for (const marker of [
   'https://www.orbitz.com/',
   'https://www.travelocity.com/',
   'https://www.vrbo.com/',
+  'https://rvshare.com/',
   'const VERIFIED_PROPERTY_DESTINATIONS = new Map([',
   'const FEATURED_GOLF_STAYS = new Map([',
   'https://www.hotels.com/ho2796737888/omni-pga-frisco-resort-frisco-united-states-of-america/',
@@ -207,6 +214,7 @@ for (const marker of [
   'Compare hotels on Orbitz',
   'Compare hotels on Travelocity',
   'Find vacation rentals on Vrbo',
+  'Rent an RV on RVshare',
   'Compare more hotels on Hotels.com',
   'Compare more hotels on Orbitz',
   'Compare more hotels on Travelocity',
@@ -214,6 +222,7 @@ for (const marker of [
   'stay-nearby-choice-after-exact',
   'Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com or Orbitz activity',
   'Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or Vrbo activity',
+  'Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity, Vrbo or RVshare activity',
   'sponsored nofollow noopener noreferrer',
   'event: "affiliate_click"',
   'window.dataLayer.push(detail)',
@@ -327,10 +336,10 @@ for (const page of pages) {
   const html = await fetchLive(page.route);
   requireCondition(html.includes(page.marker), `${page.route} did not render its expected page marker.`);
   requireCondition(html.includes('/expedia-travel.js'), `${page.route} is missing the Expedia/Stay Nearby bootstrap reference.`);
-  requireCondition(html.includes('/stay-affiliate-options.js'), `${page.route} is missing the Hotels.com/Orbitz/Travelocity/Vrbo affiliate bootstrap reference.`);
+  requireCondition(html.includes('/stay-affiliate-options.js'), `${page.route} is missing the Hotels.com/Orbitz/Travelocity/Vrbo/RVshare affiliate bootstrap reference.`);
   const expediaPosition = html.indexOf('/expedia-travel.js');
   const affiliatePosition = html.indexOf('/stay-affiliate-options.js');
-  requireCondition(expediaPosition >= 0 && affiliatePosition > expediaPosition, `${page.route} no longer loads the Hotels.com/Orbitz/Travelocity/Vrbo bootstrap after Expedia/Stay Nearby.`);
+  requireCondition(expediaPosition >= 0 && affiliatePosition > expediaPosition, `${page.route} no longer loads the Hotels.com/Orbitz/Travelocity/Vrbo/RVshare bootstrap after Expedia/Stay Nearby.`);
   if (page.requireSlot) requireCondition(html.includes('data-stay-nearby-slot'), `${page.route} is missing its explicit in-content Stay Nearby slot.`);
   if (page.requireBookingCar) {
     for (const marker of [
@@ -353,4 +362,4 @@ for (const page of pages) {
   requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === page.route.replace(/\/+$/, ''), `${page.route} is not self-canonical and must not be part of the monetized production cohort.`);
 }
 
-console.log('Stay affiliate production verification passed: the deployed stay bootstrap was executed in a sandbox and confirms Orbitz for event/venue hotel-first intent, Travelocity for broader destination/leisure intent, and TexasDefined CJ deep-link binding for both providers; all 30 governed stay properties (18 venue + 12 destination) expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher, curated surfaces prioritize exact-property referrals before route-scoped comparison choices, while broad Expedia search remains the fallback and Vrbo remains separately gated; the live same-origin /api/analytics collector accepted partner_referral_shown, partner_referral_clicked and reserved expedia-search next_step_selected CI probes backed by Cloudflare Analytics Engine; Hotels.com/Orbitz/Travelocity/Vrbo and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');
+console.log('Stay affiliate production verification passed: the deployed stay bootstrap was executed in a sandbox and confirms Orbitz for event/venue hotel-first intent, Travelocity for broader destination/leisure intent, and TexasDefined CJ deep-link binding for both providers; all 30 governed stay properties (18 venue + 12 destination) expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher, curated surfaces prioritize exact-property referrals before route-scoped comparison choices, while broad Expedia search remains the fallback and Vrbo remains separately gated; the live same-origin /api/analytics collector accepted partner_referral_shown, partner_referral_clicked and reserved expedia-search next_step_selected CI probes backed by Cloudflare Analytics Engine; Hotels.com/Orbitz/Travelocity/Vrbo/RVshare and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');
