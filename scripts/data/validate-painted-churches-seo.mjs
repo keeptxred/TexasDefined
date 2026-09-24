@@ -89,7 +89,7 @@ if ((itineraries.match(/slug: "/g) ?? []).length < 8) failures.push('Itinerary l
 
 requireText(profileIndex, 'latestPaintedChurchProfileBySlug', 'Canonical profile resolver');
 requireText(profileIndex, 'enrichPaintedChurchProfileFromPaintedChurchesInTexas', 'Canonical profile resolver');
-const secondaryCatalogCount = (secondaryResearch.match(/url: \"https:\/\/paintedchurchesintexas\\.com\//g) ?? []).length;
+const secondaryCatalogCount = secondaryResearch.split('url: "https://paintedchurchesintexas.com/').length - 1;
 if (secondaryCatalogCount !== 18) failures.push(`Expected 18 PaintedChurchesInTexas.com reviewed church pages, found ${secondaryCatalogCount}.`);
 for (const slug of ['east-bernard-holy-cross-catholic-church','rowena-st-joseph-catholic-church','cestohowa-nativity-of-the-blessed-virgin-mary','hostyn-queen-of-the-holy-rosary']) requireText(census, `slug: \"${slug}\"`, 'Secondary-source census review');
 requireText(researchIndex, 'latestPaintedChurchResearchBySlug', 'Canonical research resolver');
