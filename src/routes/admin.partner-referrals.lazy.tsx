@@ -83,7 +83,7 @@ function PartnerReferralAnalyticsAdmin() {
       <section className="mt-12 border-t border-border pt-6">
         <p className="eyebrow text-primary">Hotel comparison routing</p>
         <h2 className="mt-2 font-display text-4xl">Clean Orbitz vs Travelocity baseline</h2>
-        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Measurement begins on {travelRoutingStartLabel} UTC, after the intent-based routing policy went live. Current approved hotel commission economics are treated as parity, so provider routing should change only when clean conversion data supports it. The dashboard holds the comparison until each provider has at least {dashboard.travelRoutingMinimumImpressionsPerPartner.toLocaleString()} qualifying CTA impressions.</p>
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Measurement begins on {travelRoutingStartLabel} UTC, after the intent-based routing policy went live. Advertiser materials show different possible hotel commission schedules, but the active CJ relationship term and booking type determine realized payout. Hold the current split until each provider has at least {dashboard.travelRoutingMinimumImpressionsPerPartner.toLocaleString()} qualifying CTA impressions, then compare CTR with downstream bookings and realized commission before changing routing.</p>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           <Metric label="Routing baseline" value={travelRoutingStartLabel} />
           <Metric label="Minimum impressions / provider" value={dashboard.travelRoutingMinimumImpressionsPerPartner} />
