@@ -29,7 +29,8 @@ for (const marker of [
   '"@type": "FAQPage"',
   '"@type": "BreadcrumbList"',
   'numberOfItems: rows.length',
-  'Texas Fishing Lakes — Compare 15 Complete Lake Guides',
+  'const completeLakeCount = rows.length || COMPLETE_FISHING_LAKE_SLUGS.length',
+  'title: `Texas Fishing Lakes — Compare ${completeLakeCount} Complete Lake Guides`',
   'lazy(() => import("@/components/fishing/FishingLakesDirectory")',
   'FishingLakesDirectory rows={rows} latestReview={latestReview}',
 ]) assert(route.includes(marker), `Fishing lakes route is missing loader/SEO/lazy-boundary marker: ${marker}.`);
@@ -83,4 +84,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log("Fishing lakes directory validated: the fifteen completed lake guides remain query-backed, lazily rendered, sitemap/search-owned and answer-first, while the fishing hub can separately discover verified basic lake profiles.");
+console.log("Fishing lakes directory validated: completed lake guides remain query-backed, dynamically counted, lazily rendered, sitemap/search-owned and answer-first, while the fishing hub can separately discover verified basic lake profiles.");
