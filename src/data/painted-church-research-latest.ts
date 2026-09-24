@@ -47,6 +47,35 @@ const latestResearch: PaintedChurchResearchDossier[] = [
       { label: "Our Lady of Grace — official parish", url: "https://olgtx.org/", tier: "official", use: "current Masses, office information and visitor contact" },
     ],
   },
+  {
+    slug: "mason-st-joseph-catholic-church",
+    researchSummary: "St. Joseph Catholic Church in Mason clears Texas Defined's broader-tradition inclusion threshold because the parish's own historical account names Manuel Lopez and documents the 1916 ceiling and sanctuary painting, while the Diocese of Austin and the 2024 restoration team independently document the concealed historic work, its recovery and its evidence-based restoration.",
+    lookFor: [
+      { label: "Celestial ceiling", detail: "The 1916 program used a light-blue field with clouds, stars and angels across the beadboard vault." },
+      { label: "Holy Spirit dove", detail: "The parish history specifically describes a dove hovering above the altar as the painted sky appeared to open behind it." },
+      { label: "Historic versus new work", detail: "The 2024 project restored documented Lopez imagery while also adding complementary new stencil and sanctuary work; those layers should not be presented as one undifferentiated 1916 surface." },
+    ],
+    interpretation: [
+      { heading: "Why Mason belongs in the verified statewide collection", paragraphs: ["Mason has unusually direct church-specific evidence: the parish names the artist, dates the campaign and describes the subjects. Later diocesan and restoration documentation explains what happened to that work when the church expanded and how surviving evidence guided the 2024 recovery. This is substantially stronger than inclusion based only on a travel list or modern photograph."] },
+      { heading: "Restoration history is part of the authority record", paragraphs: ["The 1963 acoustical ceiling concealed historic painting; the 2024 campaign documented surviving imagery, preserved intact fragments and restored the scheme across the enlarged vault. Texas Defined therefore classifies the interior as a restored original scheme and explicitly separates restored historic imagery from new twenty-first-century decorative additions."] },
+    ],
+    communityContext: [
+      { heading: "A Hill Country church built from local stone", paragraphs: ["The 1876 church was constructed from red sandstone quarried near Mason. The contrast between that local stone shell and Lopez's celestial painted ceiling makes St. Joseph a useful Hill Country counterpart to the Central European immigrant churches concentrated farther east."] },
+    ],
+    recordNotes: [
+      "Texas Defined classifies Mason in the broader historic Painted Churches tradition, not the formal 1983 National Register decorative-interior group.",
+      "The canonical painting date is 1916 because the parish's own historical account provides that date; sources that say only 'early 1900s' are treated as less precise summaries.",
+      "The current visible program includes restored historic imagery and new 2024 decorative work; it is not labeled wholly original.",
+      "No reusable rights-cleared Mason church photograph was located in the September 24 image review, so the record intentionally carries no substitute image.",
+    ],
+    sources: [
+      { label: "St. Joseph Catholic Church Mason — official parish history", url: "https://www.stjosephmason.org/about-us", tier: "official", use: "1873 congregation, 1876 church, Manuel Lopez attribution, 1916 painting subjects and 1963 concealment" },
+      { label: "Diocese of Austin — St. Joseph Mason renovation", url: "https://austindiocese.news/st-joseph-mason-celebrates-more-150-years-nurturing-faith", tier: "official", use: "2024 restoration process, preservation evidence, project scope and cost" },
+      { label: "Studio io — St. Joseph Mason", url: "https://www.studioiodesign.com/st-joseph-mason", tier: "scholarly", use: "restoration design, concealed-vault history, restored versus new decorative work and October 2024 dedication" },
+      { label: "Texas Time Travel — St. Joseph's Catholic Church Mason", url: "https://texastimetravel.com/directory/st-josephs-catholic-church/", tier: "historic-register", use: "heritage-travel context and arrange-ahead visitor guidance" },
+      { label: "Mason County Chamber — walking tour", url: "https://masontx.org/walking-tour/", tier: "official", use: "local Manuel Lopez context and 2024 restoration reference" },
+    ],
+  },
 ];
 
 export function latestPaintedChurchResearchBySlug(slug: string) {
