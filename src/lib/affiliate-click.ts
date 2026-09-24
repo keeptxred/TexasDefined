@@ -9,11 +9,11 @@ export type AffiliateClickDetail = {
   module?: string;
 };
 
-export function trackAffiliateClick({ partner, label, placement, module }: AffiliateClickDetail) {
+function pushAffiliateEvent(event: "affiliate_click" | "affiliate_surface_impression", { partner, label, placement, module }: AffiliateClickDetail) {
   if (typeof window === "undefined") return;
   const analyticsWindow = window as AffiliateAnalyticsWindow;
   const detail = {
-    event: "affiliate_click",
+    event,
     affiliate_partner: partner,
     affiliate_label: label,
     affiliate_placement: placement,
@@ -22,5 +22,13 @@ export function trackAffiliateClick({ partner, label, placement, module }: Affil
   };
   analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
   analyticsWindow.dataLayer.push(detail);
-  window.dispatchEvent(new CustomEvent("texasdefined:affiliate-click", { detail }));
+  window.dispatchEvent(new CustomEvent(event === "affiliate_click" ? "texasdefined:affiliate-click" : "texasdefined:affiliate-impression", { detail }));
+}
+
+export function trackAffiliateClick(detail: AffiliateClickDetail) {
+  pushAffiliateEvent("affiliate_click", detail);
+}
+
+export function trackAffiliateImpression(detail: AffiliateClickDetail) {
+  pushAffiliateEvent("affiliate_surface_impression", detail);
 }

@@ -109,7 +109,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-history",
   "/texas-old-west",
   "/texas-sacred-places",
-  "/texas-science-technology-industry",
+  "/texas-science-technology-industry",\n  "/gaming",\n  "/gaming/video-game-industry",\n  "/gaming/why-dallas-matters-online-gaming",\n  "/gaming/online-gaming-latency-guide",\n  "/gaming/video-game-companies",\n  "/gaming/austin-game-development",\n  "/gaming/dallas-fort-worth-gaming",\n  "/gaming/esports",\n  "/gaming/esports-stadium-arlington",\n  "/gaming/college-esports",\n  "/gaming/gaming-careers",\n  "/gaming/history-of-video-games",\n  "/gaming/gaming-events",\n  "/gaming/data-centers-internet-infrastructure",
   "/texas-industries",
   "/texas-industries/energy-power",
   "/texas-industries/technology-semiconductors",
