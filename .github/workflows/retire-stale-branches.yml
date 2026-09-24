@@ -118,7 +118,10 @@ jobs:
               elif gh api "repos/$REPOSITORY/git/ref/$archive_ref" >/dev/null 2>&1; then
                 archived_tip=1
                 echo "Unique tip for $branch already archived as custom ref refs/$archive_ref."
-              elif gh api "repos/$REPOSITORY/git/ref/heads/$archive_branch" >/dev/null 2>&1; then
+              elif archive_branch_sha="$(
+                gh api "repos/$REPOSITORY/git/matching-refs/heads/$archive_branch" \
+                  --jq '.[0].object.sha // empty' 2>/dev/null || true
+              )" && [[ "$archive_branch_sha" == "$sha" ]]; then
                 archived_tip=1
                 echo "Unique tip for $branch already archived as branch $archive_branch."
               elif gh api --method POST "repos/$REPOSITORY/git/refs" -f ref="refs/tags/$tag" -f sha="$sha" >/dev/null 2>&1; then
