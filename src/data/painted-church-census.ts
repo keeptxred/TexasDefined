@@ -11,6 +11,53 @@ export type PaintedChurchCensusEntry = {
 
 export const paintedChurchCandidateCensus: PaintedChurchCensusEntry[] = [
   {
+    slug: "east-bernard-holy-cross-catholic-church",
+    name: "Holy Cross Catholic Church",
+    city: "East Bernard",
+    status: "candidate",
+    reason: "PaintedChurchesInTexas.com surfaced Holy Cross as a candidate, and stronger primary sources confirm a significant 1925 Spanish Colonial Revival interior with Czech and German influences, angelic mosaics from Munich, hand-painted copper Stations of the Cross from Czechoslovakia and roundel stained glass. Texas Defined is holding it outside the verified Painted Churches count until church-specific evidence establishes a fixed wall, ceiling, mural or faux-finish program that meets the collection's painted-interior standard rather than decorative movable art alone.",
+    sourceUrls: [
+      "https://paintedchurchesintexas.com/holy-cross-catholic-church-east-bernard/",
+      "https://www.eastbernardcatholic.org/history",
+      "https://atlas.thc.texas.gov/Details?atlasnumber=5481012292&fn=print",
+    ],
+  },
+  {
+    slug: "cestohowa-nativity-of-the-blessed-virgin-mary",
+    name: "Nativity of the Blessed Virgin Mary Catholic Church",
+    city: "Cestohowa",
+    status: "excluded",
+    reason: "This is an important 1878 Polish Catholic landmark and appears on PaintedChurchesInTexas.com, but the Society of Architectural Historians' church-specific architectural record explicitly states that its vaulted ceilings did not receive painted interior decorations. Texas Defined therefore keeps Cestohowa in the broader Polish-heritage story without inflating the Painted Churches census.",
+    sourceUrls: [
+      "https://paintedchurchesintexas.com/nativity-of-the-blessed-virgin-mary-cestohowa-texas/",
+      "https://sah-archipedia.org/buildings/TX-01-SF34",
+      "https://atlas.thc.texas.gov/Details?atlasnumber=5255012347&fn=print",
+      "https://www.loc.gov/item/tx0095/",
+    ],
+  },
+  {
+    slug: "hostyn-queen-of-the-holy-rosary",
+    name: "Queen of the Holy Rosary Catholic Church",
+    city: "Hostyn",
+    status: "candidate",
+    reason: "Hostyn belongs in the historical research trail, but the church building described by older Painted Churches coverage was destroyed by an explosion and fire on June 9, 2022. The parish began rebuilding in late 2025 and poured the new foundation in January 2026. Texas Defined will not count a destroyed predecessor as a currently visitable Painted Church or assume the replacement's decorative program before the new building is completed and documented.",
+    sourceUrls: [
+      "https://paintedchurchesintexas.com/queen-of-the-holy-rosary-catholic-church-hostyn/",
+      "https://hostynplumcatholic.org/queen-of-the-holy-rosary-hostyn",
+      "https://hostynplumcatholic.org/rebuilding-church",
+    ],
+  },
+  {
+    slug: "rowena-st-joseph-catholic-church",
+    name: "St. Joseph Catholic Church",
+    city: "Rowena",
+    status: "candidate",
+    reason: "PaintedChurchesInTexas.com identifies the 1924 Gothic Revival church as part of its catalog, but its current page primarily documents parish history and does not provide church-specific evidence for a qualifying painted wall, ceiling, mural, stencil or faux-finish program. Texas Defined is retaining Rowena as a research candidate until stronger decorative-interior evidence is located.",
+    sourceUrls: [
+      "https://paintedchurchesintexas.com/st-joseph-catholic-church-rowena/",
+    ],
+  },
+  {
     slug: "ellinger-st-marys-catholic-church",
     name: "St. Mary’s Catholic Church",
     city: "Ellinger",
