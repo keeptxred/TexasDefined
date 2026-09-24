@@ -70,6 +70,14 @@ const affiliateMarkers = [
 ];
 for (const marker of affiliateMarkers) if (!detail.includes(marker) && !data.includes(marker)) failures.push(`GearUP governance marker missing: ${marker}`);
 if ((data.match(/gearup: "evergreen"/g) ?? []).length !== 2) failures.push("GearUP evergreen monetization must remain limited to the two routing/latency guides unless deliberately reviewed.");
+for (const marker of [
+  'page.slug === "esports-stadium-arlington"',
+  'data-affiliate-partner="hotels.com"',
+  'data-commercial-partner="hotels.com"',
+  'gaming-esports-stadium-arlington-stay',
+  'TexasDefined may earn a commission from a qualifying Hotels.com booking',
+  'ho1066640416/live-by-loews-arlington-tx-arlington-united-states-of-america',
+]) if (!detail.includes(marker)) failures.push(`Arlington stay affiliate governance marker missing: ${marker}`);
 
 for (const forbidden of [
   "GearUP is a Texas company",
