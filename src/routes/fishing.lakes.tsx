@@ -2,14 +2,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { fishingFoundationAnchor, isCompleteFishingLakeSlug } from "@/data/fishing/slugs";
+import { COMPLETE_FISHING_LAKE_SLUGS, fishingFoundationAnchor, isCompleteFishingLakeSlug } from "@/data/fishing/slugs";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const FishingLakesDirectory = lazy(() => import("@/components/fishing/FishingLakesDirectory").then((module) => ({ default: module.FishingLakesDirectory })));
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const canonicalPath = "/fishing/lakes";
 const canonicalUrl = `${siteUrl}${canonicalPath}`;
-const description = "Compare fifteen complete TexasDefined fishing-lake guides across Texas by region, size, counties, nearby cities and verified fishery strengths, then open each lake for fish, access, boating, rules, reports and guide planning.";
+const description = "Compare complete TexasDefined fishing-lake guides across Texas by region, size, counties, nearby cities and verified fishery strengths, then open each lake for fish, access, boating, rules, reports and guide planning.";
 
 export const Route = createFileRoute("/fishing/lakes")({
   loader: async ({ context }) => {
@@ -42,7 +42,8 @@ export const Route = createFileRoute("/fishing/lakes")({
   },
   head: ({ loaderData }) => {
     const rows = loaderData?.rows ?? [];
-    const quickAnswers = buildQuickAnswers(rows.length);
+    const completeLakeCount = rows.length || COMPLETE_FISHING_LAKE_SLUGS.length;
+    const quickAnswers = buildQuickAnswers(completeLakeCount);
     const jsonLd = {
       "@context": "https://schema.org",
       "@graph": [
@@ -56,7 +57,7 @@ export const Route = createFileRoute("/fishing/lakes")({
         ] },
       ],
     };
-    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Lakes — Compare 15 Complete Lake Guides", description, canonicalPath }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
+    return { meta: buildMeta(texasDefinedBrand, { title: `Texas Fishing Lakes — Compare ${completeLakeCount} Complete Lake Guides`, description, canonicalPath }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
   },
   component: FishingLakesPage,
 });
