@@ -109,7 +109,7 @@ That gives TexasDefined a richer angle than “10 random things invented in Texa
 - `/texas-history`
 - `/guides`
 - `/explore`
-- `/article/major-industries-driving-the-texas-economy` once approved/live
+- `/texas-industries`
 - `/article/things-you-didn-t-know-about-the-texas-oil-fields` once approved/live
 - city pages for Dallas, Waco, Austin, San Antonio and Houston
 - future Texas technology, semiconductor and food-history pages
