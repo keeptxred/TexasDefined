@@ -16,7 +16,7 @@ export const paintedChurchesGuide = {
   to: "/explore/painted-churches",
   label: "Painted Churches of Texas",
   body: "Explore the verified statewide collection, church-by-church history, artists, techniques, symbols, archival evidence, map and road-trip routes.",
-  note: "A source-backed heritage reference and travel-planning system for 27 verified churches.",
+  note: "A source-backed heritage reference and travel-planning system for 28 verified churches.",
 } as const;
 
 export const Route = createFileRoute("/guides")({
