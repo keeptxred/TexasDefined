@@ -94,6 +94,9 @@ jobs:
             "feat/industry-search-discovery-current-20260924"
             "feat/industry-workforce-pathways-20260924"
             "work/science-space-industry-authority"
+            "cleanup/retire-stale-industry-branches-20260924"
+            "cleanup/industries-final-housekeeping-20260924-v2"
+            "fix/industries-protect-science-discovery-20260924"
             "fix/stale-branch-nested-archive-lookup-20260924"
           )
 
