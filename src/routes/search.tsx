@@ -8,13 +8,13 @@ const searchSchema = z.object({ q: z.string().optional() });
 
 export const SPORTS_SEARCH_STARTING_POINT = { to: "/sports-venues", label: "Sports Venues", copy: "Stadiums, arenas, ballparks, racetracks and sports destinations by market and sport." } as const;
 export const SEARCH_INPUT_PLACEHOLDER = "High Hill, Caddo Lake, Kyle Field, Marfa, property taxes…";
-export const SEARCH_SCOPE_DESCRIPTION = "Search Texas Defined by town, landmark, stadium, subject, guide, event, painted church or something you simply want to know more about.";
+export const SEARCH_SCOPE_DESCRIPTION = "Search Texas Defined by town, landmark, stadium, subject, guide, event, industry, painted church or something you simply want to know more about.";
 export const SEARCH_KIND_LABELS: Record<string, string> = { article: "Story", destination: "Destination", event: "Calendar", guide: "Guide", calculator: "Calculator", product: "Shop", collection: "Collection", city: "City guide", county: "County guide", "sports-venue": "Sports venue", "sports-collection": "Sports collection" };
 export const TEXAS_EXPLAINED_SEARCH_COPY = "Start with ten connected guides to the rivers, reservoirs, roads, towns, plants, wildlife, homes, land and migration patterns that make the state work the way it does.";
 
 export const Route = createFileRoute("/search")({
   validateSearch: searchSchema,
-  head: () => ({ meta: buildMeta(texasDefinedBrand, { title: "Search Texas Defined", description: "Find stories, places, painted churches, sports venues, guides, events and shop picks from across Texas.", canonicalPath: "/search", robots: "noindex, follow" }), links: [canonicalLink(texasDefinedBrand, "/search")] }),
+  head: () => ({ meta: buildMeta(texasDefinedBrand, { title: "Search Texas Defined", description: "Find stories, places, industries, painted churches, sports venues, guides, events and shop picks from across Texas.", canonicalPath: "/search", robots: "noindex, follow" }), links: [canonicalLink(texasDefinedBrand, "/search")] }),
   loader: async ({ context }) => {
     const { searchDocumentsQuery } = await import("@/data/queries");
     await context.queryClient.ensureQueryData(searchDocumentsQuery());

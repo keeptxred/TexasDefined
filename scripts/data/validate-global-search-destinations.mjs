@@ -4,6 +4,7 @@ const queries = fs.readFileSync('src/data/queries.ts', 'utf8');
 const destinationRuntime = fs.readFileSync('src/data/destination-query-runtime.ts', 'utf8');
 const searchRuntime = fs.readFileSync('src/data/search-documents-runtime.ts', 'utf8');
 const cityMetroSearch = fs.readFileSync('src/data/city-metro-search.ts', 'utf8');
+const industrySearch = fs.readFileSync('src/data/texas-industry-search.ts', 'utf8');
 const types = fs.readFileSync('src/data/types.ts', 'utf8');
 const searchImplementation = `${queries}\n${destinationRuntime}\n${searchRuntime}`;
 const searchShell = fs.readFileSync('src/routes/search.tsx', 'utf8');
@@ -59,6 +60,34 @@ if (!queries.includes('await import("./destination-query-runtime")')) {
 }
 if (!queries.includes('await import("./search-documents-runtime")')) {
   errors.push('Global search document assembly must stay behind its dynamic runtime boundary.');
+}
+
+for (const feature of [
+  'await import("./texas-industry-search")',
+  'buildTexasIndustrySearchDocuments()',
+]) {
+  if (!searchImplementation.includes(feature)) errors.push(`Global search must lazily add Texas industry authority documents: ${feature}.`);
+}
+
+for (const feature of [
+  'TEXAS_INDUSTRIES',
+  'id: "collection:texas-industries"',
+  'href: "/texas-industries"',
+  'kind: "collection"',
+  'kind: "guide"',
+  'href: industry.href',
+  '...industry.clusters',
+  '...industry.hubs.map((hub) => hub.name)',
+  'SECTOR_ALIASES',
+]) {
+  if (!industrySearch.includes(feature)) errors.push(`Texas industry search adapter missing: ${feature}.`);
+}
+
+for (const feature of [
+  '{ to: "/texas-industries", label: "Texas Industries"',
+  '["/texas-industries", "Texas Industries"]',
+]) {
+  if (!searchLazy.includes(feature)) errors.push(`Texas industry search discovery link missing: ${feature}.`);
 }
 
 for (const feature of [
