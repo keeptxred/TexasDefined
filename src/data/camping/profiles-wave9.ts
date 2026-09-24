@@ -148,7 +148,7 @@ export const CAMPING_PROFILES_WAVE9: CampingProfile[] = [
       { label: "TPWD Devils River access permits", url: "https://tpwd.texas.gov/state-parks/devils-river/access-permit-overview", fields: ["paddler camps", "permit requirement", "river camping rules"] },
       { label: "TPWD Devils River State Natural Area", url: "https://tpwd.texas.gov/state-parks/devils-river", fields: ["hours", "reservation requirement", "river access", "heat and access planning"] },
     ],
-  },,
+  },
   {
     destinationSlug: "government-canyon-state-natural-area",
     name: "Government Canyon State Natural Area",
@@ -156,7 +156,7 @@ export const CAMPING_PROFILES_WAVE9: CampingProfile[] = [
     region: "south-texas",
     managingAgency: TPWD,
     styles: ["tent", "group"],
-    amenities: ["water-hookup", "restrooms", "showers", "ada-site", "hiking"],
+    amenities: ["restrooms", "showers", "ada-site", "hiking"],
     reservationPolicy: "Walk-in individual and group tent campsites are reservable through TPWD; the natural area can reach capacity and trails can close after wet weather, so confirm access before travel.",
     reservationAuthority: TPWD,
     reservationUrl: TPWD_RESERVATIONS,
