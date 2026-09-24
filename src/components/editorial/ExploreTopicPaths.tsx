@@ -68,7 +68,7 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
   ],
   "historic-sites": [
     { to: "/explore/lighthouses", label: "Texas lighthouses", description: "Follow surviving and relocated Gulf Coast lights through shipping, storms, war, preservation and the counties they served." },
-    { to: "/explore/painted-churches", label: "Painted Churches of Texas", description: "Explore 27 verified churches through history, immigrant heritage, decorative art, preservation and current visitor guidance." },
+    { to: "/explore/painted-churches", label: "Painted Churches of Texas", description: "Explore 28 verified churches through history, immigrant heritage, decorative art, preservation and current visitor guidance." },
     { to: "/texas-history", label: "Texas history", description: "Read the deeper stories behind the places preserved across the state." },
     { to: "/texas-dance-halls-honky-tonks", label: "Dance halls & honky-tonks", description: "Connect historic places to Texas music, community gathering spaces and living western culture." },
   ],
