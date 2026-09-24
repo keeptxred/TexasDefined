@@ -108,11 +108,38 @@ for (const token of ['kind: "generic"', "GenericFishingLakeGuide", 'canonicalFis
 for (const token of ["Fish recorded for", 'fishingFoundationAnchor("species", fish.slug)', "/county/", "Verify before the trip"]) requireText(genericLake, token, `generic lake profile contract missing ${token}`);
 for (const token of ['status: "published"', "Boolean(relationship.verifiedAt) && relationship.sources.length > 0", "fishing/lakes/"]) requireText(lakeSitemap, token, `generic lake sitemap gate missing ${token}`);
 
+for (const phrase of [
+  "source-backed fishery fit",
+  "source-backed lake-to-species relationships",
+  "Shore or pier access",
+  "Boat or kayak access",
+  "Camping or cabins",
+  "Fishing guide listed",
+  "published, source-backed fishing records",
+  "published guide",
+  "published access site",
+]) requireText(planner, phrase, `planner visitor-facing copy missing ${phrase}`);
+for (const stale of [
+  "compare verified fishery fit",
+  "verified lake-to-species relationships",
+  "Verified shore or pier access",
+  "Verified boat or kayak access",
+  "Verified camping or cabins",
+  "Verified fishing guide listed",
+  "Filters use verified fishing records only",
+]) if (planner.includes(stale)) throw new Error(`Fishing Batch 9 validation failed: planner still exposes verification-heavy public copy (${stale}).`);
+
 requireText(compare, "Choose up to three", "comparison selection control missing");
-requireText(compare, "Top verified targets", "comparison fishery-strength row missing");
-requireText(compare, "Verified guides", "comparison guide coverage row missing");
-requireText(compare, "Verified access", "comparison access coverage row missing");
-requireText(compare, "Verified services", "comparison service coverage row missing");
+requireText(compare, "Top source-backed targets", "comparison fishery-strength row missing");
+requireText(compare, "Published guides", "comparison guide coverage row missing");
+requireText(compare, "Published access", "comparison access coverage row missing");
+requireText(compare, "Published services", "comparison service coverage row missing");
+requireText(compare, "Source-backed lake signals", "comparison source-backed heading missing");
+requireText(compare, "No source-backed target relationships", "comparison source-backed empty-target label missing");
+requireText(compare, "A zero means no listing is currently published here", "comparison honest zero-inventory wording missing");
+for (const stale of ["Verified lake signals", "Top verified targets", "Verified guides", "Verified access", "Verified services", "no verified listing is published here"]) {
+  if (compare.includes(stale)) throw new Error(`Fishing Batch 9 validation failed: comparison still exposes verification-heavy public copy (${stale}).`);
+}
 requireText(compare, "Coverage is not a quality score", "comparison anti-ranking safeguard missing");
 requireText(compare, "does not create an editorial ranking", "comparison must explicitly reject selection-as-ranking");
 requireText(compare, "does not accept paid weighting", "comparison sponsorship independence missing");

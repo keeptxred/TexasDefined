@@ -11,7 +11,7 @@ import type { FishSpecies, FishingLake } from "@/data/fishing/types";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
-const description = "Find a Texas fishing lake by place and target species. Select multiple fish, compare verified fishery fit, and open the lake guide or profile that matches your trip.";
+const description = "Find a Texas fishing lake by place and target species. Select multiple fish, compare source-backed fishery fit, and open the lake guide or profile that matches your trip.";
 type PlannerSearch = {
   q?: string;
   species?: string[];
@@ -185,7 +185,7 @@ function FishingTripPlannerPage() {
 
   return <>
     <Container className="pt-8 sm:pt-10"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><a href="/">Front page</a> · <a href="/fishing">Fishing</a> · Lake finder</nav></Container>
-    <header className="mt-5 border-y border-border bg-ink text-ink-foreground"><Container className="py-14 sm:py-20"><p className="eyebrow text-ink-foreground/65">Texas Defined Fishing</p><h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Find the Texas lake that fits the way you want to fish.</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">Search by lake, city, ZIP code, county or Texas region, then select one or several fish species. Results use verified lake-to-species relationships rather than popularity or paid placement.</p><div className="mt-8 flex flex-wrap gap-5 text-sm"><a href={FISHING_LAKE_COMPARE_PATH} className="border-b border-ink-foreground pb-1 font-semibold">Compare lakes side by side →</a><a href="/fishing/species" className="border-b border-ink-foreground/50 pb-1">Browse Texas fish →</a></div></Container></header>
+    <header className="mt-5 border-y border-border bg-ink text-ink-foreground"><Container className="py-14 sm:py-20"><p className="eyebrow text-ink-foreground/65">Texas Defined Fishing</p><h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Find the Texas lake that fits the way you want to fish.</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">Search by lake, city, ZIP code, county or Texas region, then select one or several fish species. Results use source-backed lake-to-species relationships rather than popularity or paid placement.</p><div className="mt-8 flex flex-wrap gap-5 text-sm"><a href={FISHING_LAKE_COMPARE_PATH} className="border-b border-ink-foreground pb-1 font-semibold">Compare lakes side by side →</a><a href="/fishing/species" className="border-b border-ink-foreground/50 pb-1">Browse Texas fish →</a></div></Container></header>
 
     <Container className="py-12 sm:py-16">
       <form method="get" action={FISHING_TRIP_PLANNER_PATH} className="border-b border-border pb-10" aria-label="Texas fishing lake finder">
@@ -228,13 +228,13 @@ function FishingTripPlannerPage() {
         <details className="mt-7 border-y border-border py-5" open={hasAdvancedFilters || undefined}>
           <summary className="cursor-pointer text-sm font-semibold">More filters</summary>
           <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            <Filter name="shore" label="Verified shore or pier access" checked={search.shore === "1"} />
-            <Filter name="boat" label="Verified boat or kayak access" checked={search.boat === "1"} />
-            <Filter name="camp" label="Verified camping or cabins" checked={search.camp === "1"} />
-            <Filter name="guide" label="Verified fishing guide listed" checked={search.guide === "1"} />
+            <Filter name="shore" label="Shore or pier access" checked={search.shore === "1"} />
+            <Filter name="boat" label="Boat or kayak access" checked={search.boat === "1"} />
+            <Filter name="camp" label="Camping or cabins" checked={search.camp === "1"} />
+            <Filter name="guide" label="Fishing guide listed" checked={search.guide === "1"} />
             <Filter name="report" label="Current fishing report available" checked={search.report === "1"} />
           </div>
-          <p className="mt-4 text-xs leading-5 text-muted-foreground">Filters use verified fishing records only. TexasDefined does not infer an amenity when the catalog does not support it.</p>
+          <p className="mt-4 text-xs leading-5 text-muted-foreground">Filters use published, source-backed fishing records. TexasDefined does not infer an amenity when the catalog does not support it.</p>
         </details>
 
         <div className="mt-7 flex flex-wrap items-center gap-5">
@@ -262,8 +262,8 @@ function FishingTripPlannerPage() {
               row.shoreAccess ? "Shore/pier access" : null,
               row.boatAccess ? "Boat/kayak access" : null,
               row.camping ? "Camping/cabins" : null,
-              row.guides.length ? `${row.guides.length} verified guide${row.guides.length === 1 ? "" : "s"}` : null,
-              row.access.length ? `${row.access.length} verified access site${row.access.length === 1 ? "" : "s"}` : null,
+              row.guides.length ? `${row.guides.length} published guide${row.guides.length === 1 ? "" : "s"}` : null,
+              row.access.length ? `${row.access.length} published access site${row.access.length === 1 ? "" : "s"}` : null,
             ].filter(Boolean);
             const displayTargets = selectedSpecies.length
               ? row.matches.filter((item) => item.target).map((item) => ({ name: item.fish.commonName, quality: item.target!.relation.quality }))

@@ -111,7 +111,23 @@ if (!failures.length) {
   if (directoryUi.includes("species-catalog") || bassUi.includes("species-catalog") || bassUi.includes("fixtures") || speciesUi.includes("fixtures")) failures.push("Client species UI imports heavyweight catalog/fixture data instead of server page data.");
   if (!directoryUi.includes("pageData.groups") || !bassUi.includes("rankedLakes") || !bassUi.includes("profile.seasonalBehavior")) failures.push("Species UI is not hydrated from reusable server view models.");
   if (directoryUi.includes("Batch 14") || directoryUi.includes("Verified relationships first")) failures.push("Species directory must not expose internal batch/verification language.");
-  if (!directoryUi.includes("Build the lake relationships around every fish guide.")) failures.push("Species directory visitor-facing relationship label missing.");
+  for (const phrase of [
+    "Start with the fish you want to catch",
+    "How many fish are covered?",
+    "What is in a fish guide?",
+    "How do I find a lake for a fish?",
+    "Does this show today's bite?",
+    "Turn a target fish into a Texas fishing trip.",
+    "Find a fishing lake →",
+    "Browse Texas fishing lakes →",
+  ]) if (!directoryUi.includes(phrase)) failures.push(`Species directory visitor-first copy missing: ${phrase}`);
+  for (const stale of [
+    "Directory policy",
+    "Every published fish has a guide",
+    "How many fish records are published here?",
+    "Do all published fish have their own guide?",
+    "Build the lake relationships around every fish guide.",
+  ]) if (directoryUi.includes(stale)) failures.push(`Species directory still exposes editorial/implementation copy: ${stale}`);
   if (!bassUi.includes("No largemouth-bass guide has cleared") || !bassUi.includes("do not fabricate or scrape")) failures.push("Verified-guide empty-state integrity copy missing.");
   if (!bassUi.includes("Sponsored placement") || !bassUi.includes("noopener sponsored")) failures.push("Species sponsorship disclosure/link contract missing.");
 
