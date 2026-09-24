@@ -87,6 +87,7 @@ jobs:
             "verify/texas-dogs-browser-production-20260922"
             "verify/texas-dogs-four-breed-production-20260922"
             "verify/texas-dogs-wave2-production-20260919"
+            "fix/stale-branch-nested-archive-lookup-20260924"
           )
 
           main_sha="$(gh api "repos/$REPOSITORY/git/ref/heads/main" --jq '.object.sha')"
@@ -94,13 +95,6 @@ jobs:
           retired=0
           missing=0
           preserved=0
-
-          archive_branch_tips="$(
-            gh api --method GET "repos/$REPOSITORY/branches" \
-              -f per_page=100 \
-              --paginate \
-              --jq '.[] | select(.name | startswith("archive/stale-branch/")) | "\(.name)\t\(.commit.sha)"'
-          )"
 
           for branch in "${branches[@]}"; do
             if ! ref_json="$(gh api "repos/$REPOSITORY/git/ref/heads/$branch" 2>/dev/null)"; then
@@ -125,19 +119,30 @@ jobs:
               elif gh api "repos/$REPOSITORY/git/ref/$archive_ref" >/dev/null 2>&1; then
                 archived_tip=1
                 echo "Unique tip for $branch already archived as custom ref refs/$archive_ref."
-              elif archive_branch_sha="$(
-                awk -F '\t' -v name="$archive_branch" '$1 == name { print $2; exit }' <<<"$archive_branch_tips"
-              )" && [[ "$archive_branch_sha" == "$sha" ]]; then
-                archived_tip=1
-                echo "Unique tip for $branch already archived as branch $archive_branch."
-              elif gh api --method POST "repos/$REPOSITORY/git/refs" -f ref="refs/tags/$tag" -f sha="$sha" >/dev/null 2>&1; then
-                archived_tip=1
-                archived=$((archived + 1))
-                echo "Archived unique tip for $branch as tag $tag ($ahead unique commit(s))."
-              elif gh api --method POST "repos/$REPOSITORY/git/refs" -f ref="refs/$archive_ref" -f sha="$sha" >/dev/null 2>&1; then
-                archived_tip=1
-                archived=$((archived + 1))
-                echo "Archived unique tip for $branch as custom ref refs/$archive_ref ($ahead unique commit(s))."
+              else
+                encoded_archive_branch="$(
+                  python3 -c 'import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1], safe=""))' "$archive_branch"
+                )"
+                archive_branch_sha="$(
+                  gh api "repos/$REPOSITORY/branches/$encoded_archive_branch" \
+                    --jq '.commit.sha // empty' 2>/dev/null || true
+                )"
+                if [[ "$archive_branch_sha" == "$sha" ]]; then
+                  archived_tip=1
+                  echo "Unique tip for $branch already archived as branch $archive_branch."
+                fi
+              fi
+
+              if (( archived_tip == 0 )); then
+                if gh api --method POST "repos/$REPOSITORY/git/refs" -f ref="refs/tags/$tag" -f sha="$sha" >/dev/null 2>&1; then
+                  archived_tip=1
+                  archived=$((archived + 1))
+                  echo "Archived unique tip for $branch as tag $tag ($ahead unique commit(s))."
+                elif gh api --method POST "repos/$REPOSITORY/git/refs" -f ref="refs/$archive_ref" -f sha="$sha" >/dev/null 2>&1; then
+                  archived_tip=1
+                  archived=$((archived + 1))
+                  echo "Archived unique tip for $branch as custom ref refs/$archive_ref ($ahead unique commit(s))."
+                fi
               fi
 
               if (( archived_tip == 0 )); then
