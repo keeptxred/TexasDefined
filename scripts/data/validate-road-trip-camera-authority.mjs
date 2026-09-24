@@ -121,7 +121,7 @@ if (!promotions.includes(`"slug": "${emergencySlug}"`) || !promotions.includes('
   fail("emergency-kit editorial promotion is not ledgered");
 }
 for (const marker of [
-  "Portable jump starter and tire inflator",
+  "portable jump starter and tire inflator",
   "/article/texas-road-trip-vehicle-checklist",
   "/article/dash-cam-setup-texas-road-trips",
   "/article/texas-heat-vehicle-electronics",
