@@ -106,7 +106,7 @@ export const Route = createFileRoute("/painted-churches.json")({
           thenAndNow: `${BASE_URL}/explore/painted-churches/then-and-now`,
           media: `${BASE_URL}/explore/painted-churches/media`,
           citationGuide: `${BASE_URL}/explore/painted-churches/cite`,
-          asOf: "2026-08-19",
+          asOf: "2026-09-24",
           numberOfItems: churches.length,
           scopeNote: "This dataset distinguishes formal National Register membership, broader historic Painted Church status and modern documented decorative campaigns. Missing fields and relationships are not inferred.",
           churches,
