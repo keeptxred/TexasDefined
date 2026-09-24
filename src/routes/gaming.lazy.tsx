@@ -83,6 +83,8 @@ function GamingHubPage() {
             <Bridge title="Austin / Central Texas" href="/gaming/austin" body="Follow studios, employers, careers and Round Rock into the Central Texas development cluster." />
             <Bridge title="Dallas–Fort Worth" href="/gaming/dfw" body="Separate North Texas game development, esports, venues and internet infrastructure into their proper roles." />
             <Bridge title="Texas-wide careers" href="/gaming/careers" body="Understand role families and use current official employer resources instead of a stale jobs snapshot." />
+            <Bridge title="Texas gaming history" href="/gaming/history" body="Trace the documented North Texas and Austin milestones that shaped Texas game development." />
+            <Bridge title="Gaming conventions & events" href="/gaming/events-conventions" body="Use current official schedules and TexasDefined's event system without treating old editions as upcoming." />
           </div>
         </Container>
       </section>
