@@ -48,6 +48,18 @@ if (!failures.length) {
   if (!directoryServer.includes("Sponsorship never changes report order") || !directoryUi.includes("Sponsored placement") || !directoryUi.includes('rel="noopener sponsored"') || !profileUi.includes("Sponsored status can never change")) failures.push("Report sponsorship/editorial independence disclosure missing.");
   if (!directoryUi.includes('fishingFoundationAnchor("lake"') || !directoryUi.includes('fishingFoundationAnchor("species"') || !profileUi.includes('fishingFoundationAnchor("lake"') || !profileUi.includes('fishingFoundationAnchor("species"')) failures.push("Report lake/species cross-linking missing.");
   if (!directoryRoute.includes('createFileRoute("/fishing/reports")') || !profileRoute.includes('createFileRoute("/fishing/reports/$slug")') || !directoryRoute.includes("canonicalLink") || !profileRoute.includes("canonicalLink")) failures.push("Report canonical route integrity missing.");
+  for (const phrase of ["Texas Fishing Reports — Dates & Freshness Labels", 'name: "Texas fishing reports"']) {
+    if (!directoryRoute.includes(phrase)) failures.push(`Fishing report directory route is missing visitor-facing metadata: ${phrase}`);
+  }
+  for (const stale of ["Texas Fishing Reports — Verified & Freshness-Labeled", 'name: "Verified Texas fishing reports"']) {
+    if (directoryRoute.includes(stale)) failures.push(`Fishing report directory route still exposes verification-heavy metadata: ${stale}`);
+  }
+  for (const phrase of ["within the current reporting window", "Fishing report not found", "source-backed report routes"]) {
+    if (!profileRoute.includes(phrase)) failures.push(`Fishing report profile route is missing visitor-facing metadata/copy: ${phrase}`);
+  }
+  for (const stale of ["current verified reporting window", "Verified fishing report not found", "species verification"]) {
+    if (profileRoute.includes(stale)) failures.push(`Fishing report profile route still exposes verification-heavy public copy: ${stale}`);
+  }
   if (!directoryLazy.includes('createLazyFileRoute("/fishing/reports")') || directoryRoute.includes("lazy(") || directoryRoute.includes("Suspense")) failures.push("Report directory must use a native TanStack lazy route boundary.");
   for (const schema of ['"@type": "CollectionPage"', '"@type": "ItemList"', '"@type": "BreadcrumbList"']) if (!directoryRoute.includes(schema)) failures.push(`Directory schema missing: ${schema}`);
   for (const schema of ['"@type": "WebPage"', '"@type": "Article"', '"@type": "BreadcrumbList"']) if (!profileRoute.includes(schema)) failures.push(`Profile schema missing: ${schema}`);

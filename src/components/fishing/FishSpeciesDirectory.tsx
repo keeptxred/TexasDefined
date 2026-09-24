@@ -41,13 +41,13 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
       </section>
 
       <Container className="py-14 sm:py-20">
-        <section className="grid gap-8 border-b border-border pb-12 lg:grid-cols-[15rem_1fr]" aria-labelledby="species-directory-policy">
-          <div><p className="eyebrow text-primary">Directory policy</p><h2 id="species-directory-policy" className="mt-2 font-display text-3xl">Every published fish has a guide</h2></div>
+        <section className="grid gap-8 border-b border-border pb-12 lg:grid-cols-[15rem_1fr]" aria-labelledby="species-directory-guide">
+          <div><p className="eyebrow text-primary">Choose your target</p><h2 id="species-directory-guide" className="mt-2 font-display text-3xl">Start with the fish you want to catch</h2></div>
           <div className="grid gap-x-8 md:grid-cols-2">
-            <Answer question="How many fish records are published here?" answer={`TexasDefined currently has ${pageData.totalSpecies} published freshwater fish species or practical fishing groups in this directory.`} />
-            <Answer question="Do all published fish have their own guide?" answer={`${pageData.completeSpeciesGuides} published records currently have standalone Texas fish guides, with lake links added only where verified relationships exist.`} />
-            <Answer question="How are fish connected to lakes?" answer={`A species guide links to lake pages only where the fishing catalog contains a verified lake-to-species relationship. Full lake guides carry deeper planning detail than basic lake profiles.`} />
-            <Answer question="Are these links live fishing reports?" answer="No. Lake-to-species relationships describe durable fishery context. Current bite, regulations, stocking, levels and access can change and should be confirmed with current official sources." />
+            <Answer question="How many fish are covered?" answer={`Explore ${pageData.totalSpecies} Texas freshwater fish species and practical fishing groups, each with its own guide.`} />
+            <Answer question="What is in a fish guide?" answer="Each guide covers identification, Texas habitat and range, seasonal patterns, useful fishing methods, related fish and lakes connected to that species." />
+            <Answer question="How do I find a lake for a fish?" answer="Open a fish guide to see matching Texas lakes, or use the lake finder to select one or several species and compare the results." />
+            <Answer question="Does this show today's bite?" answer="No. These guides help choose a fishery. For a trip happening now, also check current fishing reports, regulations, stocking, lake levels and access conditions." />
           </div>
         </section>
 
@@ -88,10 +88,11 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
         </div>
 
         <section className="mt-16 border-t border-border pt-8">
-          <p className="eyebrow text-primary">How this grows</p>
-          <h2 className="mt-3 font-display text-3xl">Build the lake relationships around every fish guide.</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Every published fish record has a sourced species page. Lake recommendations expand separately as verified lake-to-species relationships are added, so a fish page can exist without inventing places to catch it.</p>
-          <p className="mt-6 text-xs leading-6 text-muted-foreground">Species catalog sources checked {formatDate(pageData.verifiedAt)}. Regulations, stockings and waterbody conditions can change; always confirm current TPWD information before fishing.</p>
+          <p className="eyebrow text-primary">Plan the next step</p>
+          <h2 className="mt-3 font-display text-3xl">Turn a target fish into a Texas fishing trip.</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Use the lake finder to combine several target fish with a city, ZIP code, county or region, then narrow the results by distance, shore access, boat access, camping, guides or current fishing reports.</p>
+          <div className="mt-6 flex flex-wrap gap-5 text-sm"><a href="/fishing/plan" className="border-b border-primary pb-1 font-semibold text-primary">Find a fishing lake →</a><a href="/fishing/lakes" className="border-b border-border pb-1">Browse Texas fishing lakes →</a></div>
+          <p className="mt-6 text-xs leading-6 text-muted-foreground">Species information checked {formatDate(pageData.verifiedAt)}. Regulations, stockings and waterbody conditions can change; always confirm current TPWD information before fishing.</p>
         </section>
       </Container>
     </>

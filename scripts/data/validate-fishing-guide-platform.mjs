@@ -61,6 +61,12 @@ if (!failures.length) {
 
   if (!directoryUi.includes("does not create placeholder guide identities") || !directoryUi.includes("No fishing guide listings are published yet.")) failures.push("Honest zero-guide state or anti-fabrication disclosure missing.");
   if (!profileUi.includes("Only source-backed listing details are shown.") || !profileUi.includes("Sources for this listing") || !profileUi.includes("guide.startingPriceCents !== undefined")) failures.push("Guide profile visitor-facing source-backed optional-fact rendering is not protected.");
+  for (const phrase of ["Texas fishing guide", "Last reviewed {source.checkedAt}"]) {
+    if (!profileUi.includes(phrase)) failures.push(`Guide profile visitor-facing label missing: ${phrase}`);
+  }
+  for (const stale of ["Verified Texas fishing guide", "Checked {source.checkedAt}"]) {
+    if (profileUi.includes(stale)) failures.push(`Guide profile still exposes verification-heavy public copy: ${stale}`);
+  }
   for (const phrase of ["Fishing guide directory", "Public results include only source-backed listings", "Waters served", "Target species", "View guide profile →"]) {
     if (!directoryUi.includes(phrase)) failures.push(`Fishing guide directory is missing visitor-facing label: ${phrase}`);
   }
