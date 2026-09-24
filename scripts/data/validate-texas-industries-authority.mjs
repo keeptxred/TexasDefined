@@ -102,7 +102,7 @@ for (const slug of expectedSlugs) {
 }
 
 if (hubCount !== 44) failures.push(`Expected the protected 44 regional industry hubs; found ${hubCount}.`);
-if (placeLinkCount !== 69) failures.push(`Expected 69 protected industry-to-county links; found ${placeLinkCount}.`);
+if (placeLinkCount !== 71) failures.push(`Expected 71 rendered industry-to-county links; found ${placeLinkCount}.`);
 if (industryToCountyPairs.size !== 69) failures.push(`Expected 69 unique industry-to-county pairs; found ${industryToCountyPairs.size}.`);
 
 const countyMapMatch = countyGuide.match(/const COUNTY_INDUSTRY_PATHWAYS:[\s\S]*?= \{([\s\S]*?)\n\};/);
@@ -181,4 +181,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas industries authority validation passed: 12 indexable industry URLs, 11 sectors, ${hubCount} regional hubs, 69 industry→county links, 36 county→industry mappings, 14 reciprocal county/industry pairs, curated related-sector navigation, workforce pathways, canonical/structured-data governance, article-intent separation and machine discovery are protected.`);
+console.log(`Texas industries authority validation passed: 12 indexable industry URLs, 11 sectors, ${hubCount} regional hubs, 71 rendered industry→county links / 69 unique pairs, 36 county→industry mappings, 14 reciprocal county/industry pairs, curated related-sector navigation, workforce pathways, canonical/structured-data governance, article-intent separation and machine discovery are protected.`);
