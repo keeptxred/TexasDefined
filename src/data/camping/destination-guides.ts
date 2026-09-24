@@ -39,6 +39,9 @@ export const CAMPING_DESTINATION_GUIDE_SLUGS = [
   "lake-corpus-christi-state-park",
   "palo-pinto-mountains-state-park",
   "padre-island-national-seashore",
+  "possum-kingdom-state-park",
+  "stephen-f-austin-state-park",
+  "devils-river-state-natural-area",
 ] as const;
 
 export const CAMPING_DESTINATION_GUIDE_SET = new Set<string>(CAMPING_DESTINATION_GUIDE_SLUGS);
