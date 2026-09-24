@@ -173,6 +173,21 @@ export const paintedChurchPeople: PaintedChurchPerson[] = [
     sourceLabel: "West Texas Catholic — Color Me Catholic: The Umbarger Mural Story",
     sourceUrl: "https://music.amazon.in/podcasts/8a0552b4-9dfa-410a-9dd0-95ffacf49e90/episodes/7e1aa490-f147-4efc-bee0-eceb413a537a/the-west-texas-catholic-the-podcast-color-me-catholic-the-umbarger-mural-story",
   },
+  {
+    slug: "manuel-lopez-mason",
+    name: "Manuel Lopez",
+    roles: ["artist"],
+    answer: "Manuel Lopez was a Mason artist and parishioner who painted the interior of St. Joseph Catholic Church in 1916. The parish history describes a light-blue celestial scheme of clouds, stars, angels and a Holy Spirit dove above the altar; the historic ceiling was restored in 2024.",
+    significance: [
+      "St. Joseph's official parish history directly names Lopez and dates the painting campaign to 1916.",
+      "The Mason County Chamber identifies Lopez as a local artist remembered for the church's Baroque-inspired angels and cherubs.",
+      "The 2024 restoration documented surviving imagery before restoring the historic ceiling and extending its visual language across the 1963 addition.",
+    ],
+    churchSlugs: ["mason-st-joseph-catholic-church"],
+    techniqueSlugs: ["freehand", "decorative-murals"],
+    sourceLabel: "St. Joseph Catholic Church Mason — official parish history",
+    sourceUrl: "https://www.stjosephmason.org/about-us",
+  },
 ];
 
 export const paintedChurchPersonBySlug = new Map(paintedChurchPeople.map((person) => [person.slug, person]));
