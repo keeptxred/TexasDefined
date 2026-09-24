@@ -21,7 +21,7 @@ function TexasIndustriesPage() {
           <div className="mt-10 grid max-w-4xl grid-cols-2 gap-px overflow-hidden border border-border bg-border sm:grid-cols-4">
             <Stat value={String(TEXAS_INDUSTRIES.length)} label="Industry guides" />
             <Stat value="254" label="Counties to connect" />
-            <Stat value="11" label="Regional systems" />
+            <Stat value={String(TEXAS_INDUSTRIES.reduce((total, industry) => total + industry.hubs.length, 0))} label="Regional hubs" />
             <Stat value="1" label="Statewide hub" />
           </div>
         </Container>
