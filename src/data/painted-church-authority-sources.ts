@@ -5,7 +5,7 @@ import type {
   PaintedChurchSource,
 } from "./painted-church-profiles";
 
-export const paintedChurchAuthorityExpansionDate = "2026-09-23";
+export const paintedChurchAuthorityExpansionDate = "2026-09-24";
 
 export type PaintedChurchAuthoritySource = {
   label: string;
@@ -149,10 +149,100 @@ type AuthorityEnrichment = {
   sources?: PaintedChurchSource[];
 };
 
+const PAINTED_CHURCHES_IN_TEXAS = "https://paintedchurchesintexas.com";
+
 const THEME_NOMINATION = paintedChurchAuthoritySources[0]!;
 const NARA_MPS = paintedChurchAuthoritySources[1]!;
 
 const enrichments: Record<string, AuthorityEnrichment> = {
+
+  "serbin-st-pauls-lutheran": {
+    facts: [
+      { label: "Wendish migration", value: "Pastor John Kilian led more than 500 Wendish immigrants from Hamburg toward Texas in 1854; the field-history account records 73 deaths during the Atlantic crossing" },
+      { label: "Present church", value: "Constructed in 1870 under Rev. John Kilian" },
+      { label: "Historic seating", value: "Men traditionally occupied the upper gallery while women and children sat on the ground floor" },
+      { label: "Pulpit", value: "The elevated pulpit rises roughly 20 feet above the floor" },
+      { label: "Decorative campaign", value: "The previously plain interior was transformed in 1906 by members of the congregation rather than a hired professional artist" },
+    ],
+    history: [
+      {
+        heading: "The 1854 Wendish migration shaped the church's unusual interior culture",
+        paragraphs: [
+          "A field-history account of St. Paul's places the congregation in the larger Wendish migration led by Pastor John Kilian in 1854. More than five hundred emigrants left Hamburg for Texas, and the account records seventy-three deaths during the difficult voyage. The church completed at Serbin in 1870 became the religious center of the surviving community.",
+          "The two-level seating arrangement also preserves a social custom that is easy to miss when looking only at the painted surfaces: men historically used the upper gallery while women and children sat below. The towering upper-level pulpit reinforces the Lutheran emphasis on preaching and helps explain why the interior reads so differently from the Catholic churches in the statewide group.",
+        ],
+      },
+    ],
+    paintings: [
+      {
+        heading: "The 1906 decoration was a congregational folk-art project",
+        paragraphs: [
+          "The church reportedly remained comparatively plain for its first thirty-six years. In 1906 the congregation undertook the decorative campaign itself rather than commissioning a professional church painter. The resulting scheme uses a blue-and-gold ceiling, floral ornament and columns painted to imitate marble to give the wood-frame sanctuary a more monumental architectural character.",
+          "That community authorship is an important contrast with churches decorated by documented professionals such as Ferdinand Stockert, Hermann Kern or Fred Donecker. Serbin shows that the Texas painted-church tradition also includes sophisticated collective folk artistry rooted directly in an immigrant congregation.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Painted Churches in Texas — St. Paul Lutheran Church, Serbin", url: PAINTED_CHURCHES_IN_TEXAS + "/st-paul-lutheran-church-serbin/" },
+    ],
+  },
+
+  "dubina-saints-cyril-methodius": {
+    facts: [
+      { label: "Early settlement journey", value: "The field-history account traces the founding families from northeastern Moravia through Galveston, Buffalo Bayou, Houston and Cat Spring to the East Navidad River in 1856" },
+      { label: "Dubina name", value: "The community adopted the name Dubina in 1884 after learning another Texas post office already used Moravia; the name derives from the Czech word for an oak grove" },
+      { label: "First church", value: "A church dedicated to Saints Cyril and Methodius was built in 1877" },
+      { label: "Historic iron cross", value: "The first church's iron cross was forged by local Black blacksmith Tom Lee; it survived the 1909 storm and was reused on the replacement church" },
+      { label: "Replacement campaign", value: "After the July 1909 hurricane, the community raised $5,571.90 for the replacement designed by Leo M. J. Dielmann and completed in 1911–1912" },
+      { label: "Restoration", value: "The whitewashed decorative scheme was reconstructed in the early 1980s using surviving traces and rediscovered stencil patterns" },
+    ],
+    history: [
+      {
+        heading: "Dubina's founding story begins under an oak grove",
+        paragraphs: [
+          "A detailed field-history account traces the first families from northeastern Moravia to Galveston in 1856, then inland by Buffalo Bayou, Houston and ox cart toward Fayette County. The settlers reached an oak grove beside the East Navidad River during severe cold weather. The later community name Dubina, adopted when a post office conflict forced a change from Moravia, refers to that oak-grove setting.",
+          "The account also preserves an important local craftsmanship story. Tom Lee, a Black blacksmith who had been enslaved before emancipation, forged the iron cross for the 1877 church. When the 1909 hurricane destroyed that sanctuary, the cross was recovered and placed on the replacement church, giving the present building a surviving object from its predecessor.",
+        ],
+      },
+    ],
+    preservation: [
+      {
+        heading: "The 1980s restoration recovered patterns but did not pretend every detail survived",
+        paragraphs: [
+          "After the historic decoration had been whitewashed in the mid-twentieth century, the early-1980s restoration used visible remnants and rediscovered stencil patterns to reconstruct the blue ceilings, stars and figurative ornament. Fayette County Judge Ed Janecka, who remembered portions of the earlier scheme from his youth, helped lead the effort with local volunteers including Butch Koenig.",
+          "The field account notes that volunteers sometimes had to make restrained interpretive choices where the evidence was incomplete. That distinction matters: the present interior is a careful community restoration based on surviving evidence, not an untouched original paint layer.",
+        ],
+      },
+    ],
+    visitorNotes: [
+      "The nearby 1885 Piano Bridge over the East Navidad River is a useful companion stop for understanding Dubina's surviving historic landscape.",
+    ],
+    sources: [
+      { label: "Painted Churches in Texas — Saints Cyril & Methodius, Dubina", url: PAINTED_CHURCHES_IN_TEXAS + "/saints-cyril-and-methodius-catholic-church-dubina/" },
+    ],
+  },
+
+  "wesley-brethren-church": {
+    facts: [
+      { label: "Czech inscription", value: "A painted inscription above the entrance presents Christ's 'way, truth and life' saying in Czech" },
+      { label: "Laciak decorative campaign", value: "The field-history account dates Rev. Bohuslav Laciak's interior work to 1889–1891" },
+      { label: "Illusionistic program", value: "Painted columns, arches, faux brickwork and a painted apse turn the small wood church into an illusion of a larger sacred interior" },
+      { label: "Unfinished work", value: "Laciak died in a hunting accident before completing the program; faint outlines of unfinished designs reportedly remain visible" },
+    ],
+    paintings: [
+      {
+        heading: "Laciak's unfinished program still reveals its intended symbolism",
+        paragraphs: [
+          "A field account of the interior describes Laciak's use of painted columns and arches to suggest a much grander basilica-like space. Faux brickwork has been interpreted as an allusion to Jerusalem, while the painted apse visually deepens the wall behind the pulpit.",
+          "The same account calls attention to a golden chalice above the pulpit and the deep-blue geometric ceiling. More unusually, it records that Laciak died in a hunting accident before the scheme was finished and that outlines of planned decoration can still be detected. Those unfinished traces make the church useful for studying not only the finished iconography but also the process of creating a nineteenth-century painted interior.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Painted Churches in Texas — Wesley Brethren Church", url: PAINTED_CHURCHES_IN_TEXAS + "/wesley-brethern-church-wesley-texas/" },
+    ],
+  },
+
   "amarillo-first-baptist-church": {
     overrides: {
       quickAnswer: "Historic First Baptist Church in Amarillo is a 1929–1930 Panhandle church in the National Register's statewide decorative-interior group. The federal thematic nomination identifies J. Carlander as architect and the Schnoor Company as interior craftsman, resolving a major gap in the earlier public profile. Its decoration uses restrained Art Nouveau-like plant motifs, painted linework, marble effects and colored architectural surfaces rather than the dense Central European iconography associated with the Schulenburg cluster.",
