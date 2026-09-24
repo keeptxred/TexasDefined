@@ -148,7 +148,31 @@ export const CAMPING_PROFILES_WAVE9: CampingProfile[] = [
       { label: "TPWD Devils River access permits", url: "https://tpwd.texas.gov/state-parks/devils-river/access-permit-overview", fields: ["paddler camps", "permit requirement", "river camping rules"] },
       { label: "TPWD Devils River State Natural Area", url: "https://tpwd.texas.gov/state-parks/devils-river", fields: ["hours", "reservation requirement", "river access", "heat and access planning"] },
     ],
-  },
+  },,
+  {
+    destinationSlug: "government-canyon-state-natural-area",
+    name: "Government Canyon State Natural Area",
+    county: "Bexar",
+    region: "south-texas",
+    managingAgency: TPWD,
+    styles: ["tent", "group"],
+    amenities: ["water-hookup", "restrooms", "showers", "ada-site", "hiking"],
+    reservationPolicy: "Walk-in individual and group tent campsites are reservable through TPWD; the natural area can reach capacity and trails can close after wet weather, so confirm access before travel.",
+    reservationAuthority: TPWD,
+    reservationUrl: TPWD_RESERVATIONS,
+    campingNotes: [
+      "A tent-only public camping option on San Antonio's northwest edge, pairing short walk-in access with more than 40 miles of protected Hill Country trails.",
+      "TPWD lists 23 walk-in tent campsites and two walk-in group camps; water is nearby, restrooms with showers serve the camping area, and selected campsites have documented accessible features.",
+      "There are no campsite water or electric hookups, and the natural area's conservation rules and weather-related trail closures make it a very different choice from an RV-oriented state park.",
+    ],
+    searchTerms: ["Government Canyon camping", "camping in San Antonio", "camping near San Antonio", "Bexar County camping", "tent camping San Antonio", "Government Canyon trails"],
+    verifiedAt: VERIFIED_AT,
+    sources: [
+      { label: "TPWD Government Canyon campsites", url: "https://tpwd.texas.gov/state-parks/government-canyon/fees-facilities/campsites", fields: ["site counts", "walk-in distance", "water", "restrooms", "showers", "group camping"] },
+      { label: "TPWD Government Canyon State Natural Area", url: "https://tpwd.texas.gov/state-parks/government-canyon", fields: ["San Antonio proximity", "trail mileage", "capacity", "trail closures", "tent camping"] },
+      { label: "TPWD Government Canyon accessibility", url: "https://tpwd.texas.gov/state-parks/government-canyon/fees-facilities/accessibility-information", fields: ["accessible campsite features"] },
+    ],
+  }
 ];
 
 export const CAMPING_DISCOVERY_PROFILES_WAVE9: CampingDiscoveryProfile[] = CAMPING_PROFILES_WAVE9.map((profile) => ({
