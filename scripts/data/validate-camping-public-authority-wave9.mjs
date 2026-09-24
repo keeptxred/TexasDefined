@@ -38,7 +38,7 @@ for (const [file, source] of sources) {
   }
 }
 
-if (records.length !== 63) failures.push("expected 63 verified camping profiles after Wave 9, found " + records.length);
+if (records.length !== 64) failures.push("expected 64 verified camping profiles after Wave 9, found " + records.length);
 
 const anchors = new Set();
 for (const record of records) {
@@ -56,7 +56,7 @@ for (const record of records) {
 for (const region of ["panhandle", "prairies-lakes", "piney-woods", "gulf-coast", "south-texas", "hill-country", "big-bend"]) {
   if (!regions.has(region)) failures.push("missing camping coverage for Texas region: " + region);
 }
-if ((agencies.get("Texas Parks and Wildlife Department") || 0) < 42) failures.push("TPWD camping authority coverage regressed below 42 profiles");
+if ((agencies.get("Texas Parks and Wildlife Department") || 0) < 43) failures.push("TPWD camping authority coverage regressed below 43 profiles");
 if ((agencies.get("National Park Service") || 0) < 8) failures.push("NPS camping authority coverage regressed below 8 profiles");
 if ((agencies.get("U.S. Army Corps of Engineers") || 0) < 2) failures.push("USACE camping authority coverage regressed below 2 profiles");
 if (![...agencies.keys()].some((agency) => agency.includes("U.S. Forest Service"))) failures.push("USFS camping authority coverage is missing");
@@ -71,6 +71,7 @@ for (const slug of [
   "stephen-f-austin-state-park",
   "fort-richardson-state-park",
   "devils-river-state-natural-area",
+  "government-canyon-state-natural-area",
 ]) {
   if (!wave9.includes('destinationSlug: "' + slug + '"')) failures.push("Wave 9 missing profile: " + slug);
 }
@@ -82,6 +83,7 @@ for (const phrase of [
   "camping near Texarkana",
   "Northeast Texas camping",
   "Devils River camping",
+  "camping near San Antonio",
 ]) {
   if (!wave9.includes(phrase)) failures.push("Wave 9 search coverage missing: " + phrase);
 }
@@ -93,6 +95,7 @@ for (const url of [
   "tpwd.texas.gov/state-parks/stephen-f-austin",
   "tpwd.texas.gov/state-parks/fort-richardson",
   "tpwd.texas.gov/state-parks/devils-river",
+  "tpwd.texas.gov/state-parks/government-canyon",
 ]) {
   if (!wave9.includes(url)) failures.push("Wave 9 authoritative source missing: " + url);
 }
@@ -111,7 +114,7 @@ const destinationSlugs = new Set(records.map((record) => record.destinationSlug)
 for (const slug of registry) {
   if (!destinationSlugs.has(slug)) failures.push("destination-guide registry contains no camping profile: " + slug);
 }
-for (const slug of ["possum-kingdom-state-park", "stephen-f-austin-state-park", "devils-river-state-natural-area"]) {
+for (const slug of ["possum-kingdom-state-park", "stephen-f-austin-state-park", "devils-river-state-natural-area", "government-canyon-state-natural-area"]) {
   if (!registry.has(slug)) failures.push("verified canonical destination guide missing from registry: " + slug);
 }
 for (const slug of ["atlanta-state-park", "daingerfield-state-park", "fort-richardson-state-park"]) {
