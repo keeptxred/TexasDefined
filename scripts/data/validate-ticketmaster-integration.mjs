@@ -39,6 +39,7 @@ try {
   assert.equal(ticketmasterAuthorityGuidePath('A Christmas Carol', 'Houston'), '/event/alley-theatre-a-christmas-carol');
   assert.equal(ticketmasterAuthorityGuidePath('A Christmas Carol', 'Dallas'), '/event/dallas-theater-center-a-christmas-carol');
   assert.equal(ticketmasterAuthorityGuidePath('Drunk Shakespeare: A Drunk Christmas Carol (21+ Event)', 'Houston'), undefined);
+  assert.equal(ticketmasterAuthorityGuidePath('One HOT Rodeo', 'Waco'), '/event/heart-o-texas-fair-rodeo');
   assert.equal(ticketmasterAuthorityGuidePath('Example concert', 'San Antonio'), undefined);
   for (const slug of [
     'fiesta-de-palmas',
