@@ -33,6 +33,12 @@ export const CAMPING_DESTINATION_GUIDE_SLUGS = [
   "lake-mineral-wells-state-park",
   "south-llano-river-state-park",
   "seminole-canyon-state-park-and-historic-site",
+  "cedar-hill-state-park",
+  "ray-roberts-lake-state-park",
+  "goose-island-state-park",
+  "lake-corpus-christi-state-park",
+  "palo-pinto-mountains-state-park",
+  "padre-island-national-seashore",
 ] as const;
 
 export const CAMPING_DESTINATION_GUIDE_SET = new Set<string>(CAMPING_DESTINATION_GUIDE_SLUGS);
