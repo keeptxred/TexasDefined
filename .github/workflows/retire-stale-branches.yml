@@ -87,6 +87,7 @@ jobs:
             "verify/texas-dogs-browser-production-20260922"
             "verify/texas-dogs-four-breed-production-20260922"
             "verify/texas-dogs-wave2-production-20260919"
+            "fix/stale-branch-nested-archive-lookup-20260924"
           )
 
           main_sha="$(gh api "repos/$REPOSITORY/git/ref/heads/main" --jq '.object.sha')"
