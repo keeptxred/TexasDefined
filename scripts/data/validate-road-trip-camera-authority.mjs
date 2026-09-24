@@ -124,7 +124,7 @@ for (const marker of [
 
 for (const marker of [
   "/article/texas-road-trip-vehicle-checklist",
-  "/article/what-to-keep-in-car-for-texas-road-trip",
+  "/article/texas-car-emergency-kit",
   "/article/cameras-texas-camping-outdoors",
 ]) if (!camping.includes(marker)) fail(`camping hub authority connection missing: ${marker}`);
 
