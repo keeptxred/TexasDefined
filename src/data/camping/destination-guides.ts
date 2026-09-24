@@ -42,6 +42,7 @@ export const CAMPING_DESTINATION_GUIDE_SLUGS = [
   "possum-kingdom-state-park",
   "stephen-f-austin-state-park",
   "devils-river-state-natural-area",
+  "government-canyon-state-natural-area",
 ] as const;
 
 export const CAMPING_DESTINATION_GUIDE_SET = new Set<string>(CAMPING_DESTINATION_GUIDE_SLUGS);
