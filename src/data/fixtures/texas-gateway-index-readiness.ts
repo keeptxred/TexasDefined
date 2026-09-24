@@ -13,7 +13,6 @@ export const TEXAS_GATEWAY_INDEX_READY_SLUGS = new Set<string>([
   "texas-traditions-you-should-experience",
   "mistakes-first-time-visitors-make-in-texas",
   "texas-bucket-list-by-season",
-  "what-to-keep-in-car-for-texas-road-trip",
 ]);
 
 /**
