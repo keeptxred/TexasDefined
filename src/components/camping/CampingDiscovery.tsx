@@ -131,6 +131,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
   const [sortBy, setSortBy] = useState("recommended");
   const [amenities, setAmenities] = useState<CampingAmenity[]>([]);
   const [waterCamping, setWaterCamping] = useState(false);
+  const [compareIds, setCompareIds] = useState<string[]>([]);
 
   const agencies = useMemo(
     () => [...new Set(entries.map(({ profile }) => profile.managingAgency))].sort((a, b) => a.localeCompare(b)),
@@ -166,7 +167,23 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
     return matches;
   }, [agency, amenities, entries, query, region, sortBy, styles, waterCamping]);
 
+  const comparedProfiles = useMemo(
+    () => compareIds
+      .map((id) => entries.find(({ profile }) => profileAnchor(profile) === id)?.profile)
+      .filter((profile): profile is CampingDiscoveryProfile => Boolean(profile)),
+    [compareIds, entries],
+  );
+
   const hasFilters = Boolean(query || styles.length || region !== "all" || agency !== "all" || amenities.length || waterCamping);
+
+  const toggleComparison = (profile: CampingDiscoveryProfile) => {
+    const id = profileAnchor(profile);
+    setCompareIds((current) => {
+      if (current.includes(id)) return current.filter((item) => item !== id);
+      if (current.length >= 3) return current;
+      return [...current, id];
+    });
+  };
 
   const reset = () => {
     setQuery("");
@@ -276,6 +293,39 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
       </div>
     </div>
 
+    {comparedProfiles.length ? <section id="campground-comparison" className="mt-7 border border-border bg-background p-5 md:p-6" aria-labelledby="campground-comparison-heading">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p className="eyebrow text-primary">Compare campgrounds</p>
+          <h3 id="campground-comparison-heading" className="mt-2 font-display text-3xl">Compare up to 3 verified profiles</h3>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">{comparedProfiles.length === 1 ? "Add at least one more campground to compare the verified details side by side." : "Use the same verified fields from the finder to compare the practical differences before opening the official reservation pages."}</p>
+        </div>
+        <button type="button" onClick={() => setCompareIds([])} className="text-sm font-semibold text-primary underline-offset-4 hover:underline">Clear comparison</button>
+      </div>
+      <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {comparedProfiles.map((profile) => <article key={profileAnchor(profile)} className="border border-border bg-muted/30 p-5">
+          <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.12em] text-muted-foreground">
+            <span>{regionLabels[profile.region] ?? profile.region}</span><span>·</span><span>{profile.county} County</span>
+          </div>
+          <h4 className="mt-3 font-display text-2xl leading-tight">{profile.name}</h4>
+          {profile.whyCampHere ? <p className="mt-3 text-sm leading-6 text-foreground">{profile.whyCampHere}</p> : null}
+          <dl className="mt-5 space-y-4 text-sm">
+            <div><dt className="font-semibold">Camping styles</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.styles.map((style) => styleLabels[style]).join(" · ")}</dd></div>
+            <div><dt className="font-semibold">Verified facilities</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.amenities.map((amenity) => amenityLabels[amenity] ?? amenity).join(" · ") || "No amenity fields verified yet"}</dd></div>
+            <div><dt className="font-semibold">Managed by</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.managingAgency}</dd></div>
+            <div><dt className="font-semibold">Reservations</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.reservationPolicy}</dd></div>
+            {profile.planningDetail ? <div><dt className="font-semibold">Planning detail</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.planningDetail}</dd></div> : null}
+            {profile.siteLengthNote ? <div><dt className="font-semibold">RV/site length</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.siteLengthNote}</dd></div> : null}
+            {profile.generatorRules ? <div><dt className="font-semibold">Generator rules</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.generatorRules}</dd></div> : null}
+          </dl>
+          <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+            <a href={profile.reservationUrl} target="_blank" rel="noreferrer" className="text-primary underline-offset-4 hover:underline">Official details ↗</a>
+            <button type="button" onClick={() => toggleComparison(profile)} className="text-primary underline-offset-4 hover:underline">Remove</button>
+          </div>
+        </article>)}
+      </div>
+    </section> : null}
+
     {filtered.length ? <div className="mt-7 grid gap-6 lg:grid-cols-2">
       {filtered.map(({ profile }) => {
         const countySlug = profile.county.toLowerCase().replace(/[^a-z0-9]+/g, "-");
@@ -283,6 +333,8 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
         const isParentDestination = anchor === profile.destinationSlug;
         const hasDestinationGuide = hasCampingDestinationGuide(profile.destinationSlug);
         const image = campingCardImages[profile.destinationSlug];
+        const selectedForCompare = compareIds.includes(anchor);
+        const compareLimitReached = compareIds.length >= 3 && !selectedForCompare;
         return <article id={anchor} key={anchor} className="scroll-mt-28 overflow-hidden border border-border bg-background">
           {image && isParentDestination ? <figure className="border-b border-border bg-muted/30">
             <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" className="aspect-[16/8] w-full object-cover" onError={(event) => hideFailedImageContainer(event.currentTarget)} />
@@ -313,6 +365,13 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
             </dl>
 
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+              <button
+                type="button"
+                aria-pressed={selectedForCompare}
+                disabled={compareLimitReached}
+                onClick={() => toggleComparison(profile)}
+                className={selectedForCompare ? "border border-primary bg-muted/30 px-3 py-2 text-primary" : "border border-border px-3 py-2 text-primary"}
+              >{selectedForCompare ? "Added to compare" : compareLimitReached ? "Compare limit reached" : "Compare"}</button>
               {hasDestinationGuide ? <Link to="/destination/$slug" params={{ slug: profile.destinationSlug }} className="text-primary underline-offset-4 hover:underline">{isParentDestination ? "Destination guide" : "Parent destination guide"}</Link> : null}
               {hasDestinationGuide ? <Link to="/explore/trip-planner" search={{ destination: profile.destinationSlug }} className="text-primary underline-offset-4 hover:underline">Build trip</Link> : null}
               <Link to="/$kind/$slug" params={{ kind: "county", slug: countySlug }} className="text-primary underline-offset-4 hover:underline">{profile.county} County</Link>
