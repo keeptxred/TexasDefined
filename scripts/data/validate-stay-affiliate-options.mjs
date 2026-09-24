@@ -184,7 +184,7 @@ for (const [needle, label] of [
 const expediaPosition = root.indexOf('<script src="/expedia-travel.js" defer />');
 const affiliatePosition = root.indexOf('<script src="/stay-affiliate-options.js" defer />');
 if (expediaPosition < 0 || affiliatePosition < 0 || affiliatePosition < expediaPosition) {
-  errors.push('Hotels.com/Orbitz/Travelocity/Vrbo bootstrap must load after the existing Expedia/Stay Nearby bootstrap.');
+  errors.push('Hotels.com/Orbitz/Travelocity/Vrbo/RVshare bootstrap must load after the existing Expedia/Stay Nearby bootstrap.');
 }
 
 for (const [needle, label] of [
@@ -362,9 +362,9 @@ if (source.includes('window.location =') || source.includes('window.location.hre
 }
 
 if (errors.length) {
-  console.error('Hotels.com / Orbitz / Travelocity / Vrbo stay affiliate validation failed:');
+  console.error('Hotels.com / Orbitz / Travelocity / Vrbo / RVshare stay affiliate validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Hotels.com / Orbitz / Travelocity / Vrbo stay affiliate validation passed: all 30 active governed Stay Nearby properties (18 venue + 12 destination) have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; three source-backed golf guides add text-only exact-property Hotels.com CTAs without bypassing curated-card image governance; unknown routes and properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; hotel-first event/venue intent routes the comparison option to Orbitz while broader destination/leisure intent routes it to Travelocity, and Vrbo remains separately gated to broader traveler/owner use cases; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the exact-property and featured-golf registries plus the traffic-prioritized Xtreme Raceway Park lodging slot; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');
+console.log('Hotels.com / Orbitz / Travelocity / Vrbo / RVshare stay affiliate validation passed: all 30 active governed Stay Nearby properties (18 venue + 12 destination) have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; three source-backed golf guides add text-only exact-property Hotels.com CTAs without bypassing curated-card image governance; unknown routes and properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; hotel-first event/venue intent routes the comparison option to Orbitz while broader destination/leisure intent routes it to Travelocity, Vrbo remains separately gated to broader traveler/owner use cases, and RVshare is restricted to high-intent camping/RV/state-park/outdoors/road-trip routes; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the exact-property and featured-golf registries plus the traffic-prioritized Xtreme Raceway Park lodging slot; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');
