@@ -3,6 +3,46 @@ export interface EvergreenAuthoritySource { label: string; url: string; scope: s
 // This 19-article cohort is also enforced against live production by
 // .github/workflows/verify-remote-evergreen-production.yml.
 export const remoteEvergreenAuthoritySources: Readonly<Record<string, readonly EvergreenAuthoritySource[]>> = {
+  "dash-cams-in-texas": [
+    { label: "Texas Legislature — Transportation Code § 547.613", url: "https://statutes.capitol.texas.gov/Docs/TN/htm/TN.547.htm#547.613", scope: "Windshield/window obstruction and clear-view rule used for camera placement" },
+    { label: "Texas Legislature — Penal Code § 16.02", url: "https://statutes.capitol.texas.gov/Docs/PE/htm/PE.16.htm#16.02", scope: "Texas interception law and party/consent exception relevant to recorded audio" },
+    { label: "NHTSA — Summer Driving & Road Trip Tips", url: "https://www.nhtsa.gov/summer-driving-tips", scope: "Vehicle preparation, roadside kit, tires, batteries and route planning" },
+  ],
+  "texas-road-trip-vehicle-checklist": [
+    { label: "NHTSA — Summer Driving & Road Trip Tips", url: "https://www.nhtsa.gov/summer-driving-tips", scope: "Tires, fluids, lights, battery, roadside kit and trip planning" },
+    { label: "DriveTexas — Current Conditions", url: "https://drivetexas.org/", scope: "Official Texas road closures, flooding, construction and current travel conditions" },
+  ],
+  "dash-cam-setup-texas-road-trips": [
+    { label: "Texas Legislature — Transportation Code § 547.613", url: "https://statutes.capitol.texas.gov/Docs/TN/htm/TN.547.htm#547.613", scope: "Windshield/window obstruction and clear-view rule" },
+    { label: "National Weather Service — Heat Safety in Vehicles", url: "https://www.weather.gov/safety/heat-during", scope: "Vehicle heat and sun-exposed interior conditions" },
+  ],
+  "trail-cameras-in-texas": [
+    { label: "Texas Parks & Wildlife — Wildlife Management Areas", url: "https://tpwd.texas.gov/huntwild/hunt/wma/", scope: "Unit-specific public access and wildlife-viewing context" },
+    { label: "Texas Parks & Wildlife — Annual Public Hunting", url: "https://tpwd.texas.gov/huntwild/hunt/public/annual_public_hunting/", scope: "Public-land access, permits, nature watching and photography availability by area" },
+    { label: "Texas Parks & Wildlife — Hunting Means and Methods", url: "https://tpwd.texas.gov/regulations/outdoor-annual/hunting/general-regulations/means-and-methods", scope: "Current private/public-property distinctions and baiting limits" },
+  ],
+  "texas-wildlife-camera-guide": [
+    { label: "Texas Parks & Wildlife — Wildlife Management Areas", url: "https://tpwd.texas.gov/huntwild/hunt/wma/", scope: "Wildlife-viewing opportunities and unit-specific access rules" },
+    { label: "Texas Parks & Wildlife — Hunting Means and Methods", url: "https://tpwd.texas.gov/regulations/outdoor-annual/hunting/general-regulations/means-and-methods", scope: "Current public/private-property and baiting distinctions" },
+  ],
+  "texas-heat-vehicle-electronics": [
+    { label: "National Weather Service — Heat Safety in Vehicles", url: "https://www.weather.gov/safety/heat-during", scope: "Documented heat buildup and hot interior surfaces in parked vehicles" },
+    { label: "NHTSA — Summer Driving & Road Trip Tips", url: "https://www.nhtsa.gov/summer-driving-tips", scope: "Battery, belts, hoses, cooling system and summer vehicle preparation" },
+  ],
+  "cameras-texas-camping-outdoors": [
+    { label: "Texas Parks & Wildlife — State Park Rules", url: "https://tpwd.texas.gov/state-parks/parks/things-to-do/park-rules", scope: "State-park conduct, wildlife and property-use rules" },
+    { label: "Texas Parks & Wildlife — Wildlife Management Areas", url: "https://tpwd.texas.gov/huntwild/hunt/wma/", scope: "Public-use access that varies by individual WMA" },
+  ],
+  "rural-texas-property-monitoring": [
+    { label: "Texas Parks & Wildlife — Wildlife Management Areas", url: "https://tpwd.texas.gov/huntwild/hunt/wma/", scope: "Regional wildlife-management context and public-land distinctions" },
+    { label: "Texas Parks & Wildlife — Hunting Means and Methods", url: "https://tpwd.texas.gov/regulations/outdoor-annual/hunting/general-regulations/means-and-methods", scope: "Current hunting and baiting distinctions where monitoring intersects wildlife management" },
+  ],
+  "rideshare-dash-cams-texas": [
+    { label: "Texas Legislature — Penal Code § 16.02", url: "https://statutes.capitol.texas.gov/Docs/PE/htm/PE.16.htm#16.02", scope: "Texas interception law and party/consent exception" },
+    { label: "Texas Legislature — Transportation Code § 547.613", url: "https://statutes.capitol.texas.gov/Docs/TN/htm/TN.547.htm#547.613", scope: "Windshield/window obstruction and clear-view rule" },
+    { label: "Uber — Community Guidelines: dashcams", url: "https://www.uber.com/us/en/safety/uber-community-guidelines/keep-safe/", scope: "Current U.S. platform guidance for dashcams, rider notice and sharing recordings" },
+    { label: "Lyft — Audio & Video Recording", url: "https://www.lyft.com/safety/audiorecording", scope: "Current driver video recording and registered-dashcam rider notification" },
+  ],
   "sam-houston-texas-life-legacy": [{ label: "Handbook of Texas — Sam Houston", url: "https://www.tshaonline.org/handbook/entries/houston-sam", scope: "Biographical chronology, offices, military and political career" }, { label: "Texas State Library and Archives Commission — Sam Houston", url: "https://www.tsl.texas.gov/exhibits/presidents/houston1/gtt.html", scope: "Republic-era leadership and archival context" }],
   "davy-crockett-texas-alamo-legend": [{ label: "The Alamo — David ‘Davy’ Crockett", url: "https://www.thealamo.org/remember/battle-and-revolution/defenders/david-davy-crockett", scope: "Alamo defender record and 1836 context" }, { label: "Handbook of Texas — David Crockett", url: "https://www.tshaonline.org/handbook/entries/crockett-david", scope: "Biography, political career and Texas journey" }],
   "william-barret-travis-alamo-commander": [{ label: "Texas State Library and Archives Commission — Travis Letter", url: "https://www.tsl.texas.gov/travis-letter", scope: "Primary-source February 24, 1836 letter and archival context" }, { label: "The Alamo — William Barret Travis", url: "https://www.thealamo.org/remember/battle-and-revolution/defenders/william-barret-travis", scope: "Defender biography and siege context" }, { label: "Handbook of Texas — William Barret Travis", url: "https://www.tshaonline.org/handbook/entries/travis-william-barret", scope: "Biographical and military chronology" }],
