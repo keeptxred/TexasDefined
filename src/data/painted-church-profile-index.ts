@@ -1,3 +1,4 @@
+import { enrichPaintedChurchProfile } from "./painted-church-authority-sources";
 import { finalPaintedChurchProfileBySlug } from "./painted-church-profiles-final";
 import { paintedChurchExtendedProfileBySlug } from "./painted-church-profiles-extended";
 import { paintedChurchExpansionProfileBySlug } from "./painted-church-profiles-expansion";
@@ -9,11 +10,13 @@ import { paintedChurchAdditionProfileBySlug } from "./painted-church-profiles-ad
 export type { PaintedChurchProfile } from "./painted-church-profiles";
 
 export function canonicalPaintedChurchProfileBySlug(slug: string) {
-  return paintedChurchProfileBySlug(slug)
+  const profile = paintedChurchProfileBySlug(slug)
     ?? paintedChurchExtendedProfileBySlug(slug)
     ?? paintedChurchStatewideProfileBySlug(slug)
     ?? finalPaintedChurchProfileBySlug(slug)
     ?? paintedChurchAdditionProfileBySlug(slug)
     ?? paintedChurchExpansionProfileBySlug(slug)
     ?? latestPaintedChurchProfileBySlug(slug);
+
+  return profile ? enrichPaintedChurchProfile(profile) : undefined;
 }
