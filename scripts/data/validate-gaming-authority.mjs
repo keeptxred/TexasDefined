@@ -90,9 +90,9 @@ for (const forbidden of [
 }
 
 for (const marker of [
-  'href: "/gaming/austin"',
-  'href: "/gaming/dfw"',
-  'href: "/gaming/esports-stadium-arlington"',
+  "href: '/gaming/austin'",
+  "href: '/gaming/dfw'",
+  "href: '/gaming/esports-stadium-arlington'",
 ]) if (!city.includes(marker)) failures.push(`City gaming pathway missing: ${marker}`);
 
 for (const countySlug of ["travis", "williamson", "collin", "tarrant", "dallas", "denton"]) {
