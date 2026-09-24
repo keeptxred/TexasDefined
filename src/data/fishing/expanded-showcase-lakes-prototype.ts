@@ -1,21 +1,11 @@
 import type { ShowcaseLakePrototype } from "./showcase-lakes-prototype";
-import type { ShowcaseLakeSlug } from "./showcase-lake-routing";
-
-export const EXPANDED_SHOWCASE_LAKE_SLUGS = [
-  "toledo-bend-reservoir",
-  "possum-kingdom-reservoir",
-  "canyon-lake",
-  "choke-canyon-reservoir",
-  "amistad-reservoir",
-] as const;
-export type ExpandedShowcaseLakeSlug = (typeof EXPANDED_SHOWCASE_LAKE_SLUGS)[number];
+import type { ExpandedShowcaseLakeSlug } from "./showcase-lake-routing";
 
 const VERIFIED_AT = "2026-08-15";
 const commonBusinessCategories = ["Fishing guides", "Marinas & fuel", "Bait & tackle", "Boat rentals & repair", "Campgrounds & lodging", "Restaurants"];
-const asLegacySlug = (slug: ExpandedShowcaseLakeSlug) => slug as unknown as ShowcaseLakeSlug;
 
 const toledoBend: ShowcaseLakePrototype = {
-  slug: asLegacySlug("toledo-bend-reservoir"), verifiedAt: VERIFIED_AT,
+  slug: "toledo-bend-reservoir", verifiedAt: VERIFIED_AT,
   overview: { name: "Toledo Bend Reservoir", summary: "A 181,600-acre Sabine River reservoir on the Texas-Louisiana line with an excellent year-round largemouth fishery and strong crappie, catfish and sunfish opportunity.", region: "Piney Woods", surfaceAcres: 181600, maxDepthFeet: 110, impoundedYear: 1967, counties: ["Shelby", "Sabine", "Newton"], nearestCommunities: ["Hemphill", "Jasper", "Burkeville"], riverBasin: "Sabine River Basin", waterway: "Sabine River", conservationPool: "172 ft msl", normalFluctuation: "1–5 feet", normalClarity: "Clear middle/lower lake; slightly turbid upper lake", controllingAuthority: "Sabine River Authority", stateBorder: ["Texas", "Louisiana"], mapQuery: "Toledo Bend Reservoir Texas" },
   identityAngle: "Toledo Bend is a scale-and-cover fishery. TPWD describes largemouth bass as the most popular game fish and rates it excellent, while crappie and catfish add strong year-round depth and the reservoir's vegetation, timber and creek channels create distinct upper- and lower-lake patterns.",
   habitat: ["Hydrilla and native aquatic plants create extensive vegetation edges and flats.", "Standing timber, flooded terrestrial vegetation, brush and creek channels add cover across a reservoir of exceptional scale.", "The clearer lower lake emphasizes vegetation edges, humps and channels; the upper lake shifts more toward timber, brush and laydowns.", "High-water periods can flood terrestrial bushes and trees, temporarily expanding shallow cover."],
@@ -41,7 +31,7 @@ const toledoBend: ShowcaseLakePrototype = {
 };
 
 const possumKingdom: ShowcaseLakePrototype = {
-  slug: asLegacySlug("possum-kingdom-reservoir"), verifiedAt: VERIFIED_AT,
+  slug: "possum-kingdom-reservoir", verifiedAt: VERIFIED_AT,
   overview: { name: "Possum Kingdom Reservoir", summary: "A 15,588-acre, 145-foot-deep Brazos River reservoir west of Fort Worth where clear water, rock, docks and seasonal vegetation support excellent white bass plus good black-bass, striped-bass and catfish fishing.", region: "Prairies & Lakes", surfaceAcres: 15588, maxDepthFeet: 145, impoundedYear: 1941, counties: ["Palo Pinto", "Young"], nearestCommunities: ["Graford", "Graham", "Mineral Wells"], riverBasin: "Brazos River Basin", waterway: "Brazos River", conservationPool: "999 ft msl operating pool", normalFluctuation: "Moderately high", normalClarity: "Clear", controllingAuthority: "Brazos River Authority", mapQuery: "Possum Kingdom Lake Texas" },
   identityAngle: "Possum Kingdom is a clear-water, hard-structure reservoir rather than a grass-dominated bass lake. TPWD rates white bass excellent and largemouth, striped bass and catfish good, with rock, bluffs, points, docks, timber and seasonal vegetation providing the main fishing framework.",
   habitat: ["Large rock and cobble shorelines dominate much of the reservoir, with dramatic cliffs and bluffs on the lower end.", "Points and dropoffs occur throughout the lake and are central to its clear-water structure fishing.", "Docks, standing timber and laydowns add fish-holding cover away from bare rock.", "Emergent and submerged vegetation appears seasonally, especially in the mid- and upper reservoir."],
@@ -62,7 +52,7 @@ const possumKingdom: ShowcaseLakePrototype = {
 };
 
 const canyon: ShowcaseLakePrototype = {
-  slug: asLegacySlug("canyon-lake"), verifiedAt: VERIFIED_AT,
+  slug: "canyon-lake", verifiedAt: VERIFIED_AT,
   overview: { name: "Canyon Lake", summary: "An 8,308-acre, 125-foot-deep Guadalupe River reservoir in Comal County with clear water and excellent white- and striped-bass fishing alongside largemouth, catfish and a low-density smallmouth fishery.", region: "Hill Country", surfaceAcres: 8308, maxDepthFeet: 125, impoundedYear: 1964, counties: ["Comal"], nearestCommunities: ["Canyon Lake", "New Braunfels", "Spring Branch"], riverBasin: "Guadalupe River Basin", waterway: "Guadalupe River", conservationPool: "909 ft msl", normalFluctuation: "Moderate", normalClarity: "Clear to slightly stained", controllingAuthority: "U.S. Army Corps of Engineers", mapQuery: "Canyon Lake Texas" },
   identityAngle: "Canyon Lake is a clear Hill Country highland reservoir where open-water white and striped bass are as important as shoreline black bass. TPWD identifies white and striped bass as excellent, largemouth as the most abundant sportfish, and a low-density naturally reproducing smallmouth population in the lower lake.",
   habitat: ["Rocky shorelines, main-lake points, humps and flooded timber replace the aquatic-vegetation patterns common on many East Texas lakes.", "Clear main-lake water makes depth, light line and structure positioning more important.", "Standing timber in the river can hold crappie even though the overall crappie fishery is limited.", "The river portion becomes especially important during spring white-bass spawning migration."],
@@ -83,7 +73,7 @@ const canyon: ShowcaseLakePrototype = {
 };
 
 const chokeCanyon: ShowcaseLakePrototype = {
-  slug: asLegacySlug("choke-canyon-reservoir"), verifiedAt: VERIFIED_AT,
+  slug: "choke-canyon-reservoir", verifiedAt: VERIFIED_AT,
   overview: { name: "Choke Canyon Reservoir", summary: "A 25,670-acre South Texas Frio River reservoir with excellent largemouth bass, blue/flathead catfish, channel catfish and alligator gar, plus varied brush, timber, vegetation, humps and roadbeds.", region: "South Texas", surfaceAcres: 25670, maxDepthFeet: 95.5, impoundedYear: 1982, counties: ["Live Oak", "McMullen"], nearestCommunities: ["Three Rivers", "Tilden"], riverBasin: "Nueces River Basin", waterway: "Frio River", conservationPool: "220.5 ft msl", normalFluctuation: "High and frequent, 10–20 feet", normalClarity: "Clear to slightly stained", controllingAuthority: "City of Corpus Christi", mapQuery: "Choke Canyon Reservoir Texas" },
   identityAngle: "Choke Canyon is a South Texas cover-and-water-level lake. TPWD rates largemouth bass, blue/flathead catfish, channel catfish and alligator gar excellent, while major fluctuations repeatedly change the amount of flooded brush, terrestrial vegetation and shallow habitat available to anglers.",
   habitat: ["Steep rocky banks, flooded timber, shallow brushy flats and creek channels create multiple fishable zones.", "Hydrilla and native aquatic vegetation add cover alongside flooded mesquite and huisache when water is high.", "Lower-lake islands, submerged humps, roadbeds and long points connect shallow cover to deeper water.", "Large water-level swings can materially change shoreline habitat and ramp usability, so live level belongs in trip planning."],
@@ -104,7 +94,7 @@ const chokeCanyon: ShowcaseLakePrototype = {
 };
 
 const amistad: ShowcaseLakePrototype = {
-  slug: asLegacySlug("amistad-reservoir"), verifiedAt: VERIFIED_AT,
+  slug: "amistad-reservoir", verifiedAt: VERIFIED_AT,
   overview: { name: "Amistad Reservoir", summary: "A 64,900-acre, 217-foot-deep Rio Grande border reservoir near Del Rio where clear rocky structure supports excellent largemouth bass plus good catfish, white-bass and striped-bass fishing.", region: "Big Bend", surfaceAcres: 64900, maxDepthFeet: 217, impoundedYear: 1969, counties: ["Val Verde"], nearestCommunities: ["Del Rio"], riverBasin: "Rio Grande Basin", waterway: "Rio Grande", conservationPool: "1117 ft msl", normalFluctuation: "Often 5–10 feet annually; historically much larger", normalClarity: "Clear to slightly stained", controllingAuthority: "International Boundary & Water Commission", stateBorder: ["Texas", "Mexico"], mapQuery: "Amistad Reservoir Del Rio Texas" },
   identityAngle: "Amistad is a deep, rocky border reservoir. TPWD rates largemouth bass excellent and emphasizes rock ledges, steep dropoffs, points and shorelines; the same water also supports good catfish and white/striped-bass fishing, with substantial water-level variability and cross-border licensing considerations.",
   habitat: ["Rock ledges, steep dropoffs, rocky points and shorelines dominate the reservoir's structure.", "Isolated flooded timber adds localized cover away from the rock system.", "Aquatic vegetation coverage changes with water level; hydrilla has historically been important when conditions support it.", "Flooded terrestrial brush can become important after rising water expands shallow habitat."],
