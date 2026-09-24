@@ -13,7 +13,6 @@ const sources = read("src/data/remote-evergreen-authority-sources.ts");
 const readiness = read("src/data/fixtures/texas-gateway-index-readiness.ts");
 const readyStubs = read("src/data/fixtures/texas-gateway-index-ready-stubs.ts");
 const promotions = read("scripts/data/texas-gateway-editorial-promotions.json");
-const emergency = read("src/data/fixtures/texas-gateway-batch4-authority-enrichment.ts");
 const camping = read("src/routes/best-places-to-go-camping-in-texas.lazy.tsx");
 const internalLinks = read("src/data/article-internal-links.ts");
 
@@ -27,9 +26,9 @@ const authoritySlugs = [
   "cameras-texas-camping-outdoors",
   "rural-texas-property-monitoring",
   "rideshare-dash-cams-texas",
+  "texas-car-emergency-kit",
 ];
-const emergencySlug = "what-to-keep-in-car-for-texas-road-trip";
-const allSlugs = [...authoritySlugs, emergencySlug];
+const legacyEmergencySlug = "what-to-keep-in-car-for-texas-road-trip";
 
 for (const slug of authoritySlugs) {
   if (!articles.includes(`slug: "${slug}"`)) fail(`missing full authority article: ${slug}`);
@@ -95,7 +94,7 @@ for (const marker of [
   "Affiliate disclosure: TexasDefined may earn a commission",
 ]) if (!card.includes(marker)) fail(`Rexing commercial governance missing: ${marker}`);
 
-for (const slug of allSlugs) {
+for (const slug of authoritySlugs) {
   if (!card.includes(`"${slug}":`)) fail(`Rexing contextual offer map missing ${slug}`);
 }
 for (const prohibited of [/coupon\s+code/i, /limited\s+time/i, /guarantee(?:s|d)?\s+(?:evidence|safety|security)/i]) {
@@ -107,25 +106,21 @@ for (const marker of [
   "https://statutes.capitol.texas.gov/Docs/PE/htm/PE.16.htm#16.02",
   "https://tpwd.texas.gov/huntwild/hunt/wma/",
   "https://www.nhtsa.gov/summer-driving-tips",
+  "https://www.dps.texas.gov/section/highway-patrol/travel-tips",
+  "https://www.txready.org/build-a-kit/disaster-supply-checklist.html",
   "https://www.weather.gov/safety/heat-during",
   "https://www.uber.com/us/en/safety/uber-community-guidelines/keep-safe/",
   "https://www.lyft.com/safety/audiorecording",
 ]) if (!sources.includes(marker)) fail(`required primary/current source missing: ${marker}`);
 
+if (readiness.includes(`"${legacyEmergencySlug}"`)) fail("legacy road-kit gateway URL must remain staged and out of the index-ready allowlist");
+if (readyStubs.includes(`slug: "${legacyEmergencySlug}"`)) fail("legacy road-kit gateway URL must not have a public discovery stub");
+if (promotions.includes(`"slug": "${legacyEmergencySlug}"`)) fail("legacy road-kit gateway URL must not be promoted in the editorial ledger");
 for (const marker of [
-  `"${emergencySlug}"`,
-  'export const TEXAS_GATEWAY_INDEX_READY_SLUGS',
-]) if (!readiness.includes(marker)) fail(`emergency-kit index promotion missing: ${marker}`);
-if (!readyStubs.includes(`slug: "${emergencySlug}"`)) fail("emergency kit is missing its discovery stub");
-if (!promotions.includes(`"slug": "${emergencySlug}"`) || !promotions.includes('"approvedAt": "2026-09-24"')) {
-  fail("emergency-kit editorial promotion is not ledgered");
-}
-for (const marker of [
-  "portable jump starter and tire inflator",
-  "/article/texas-road-trip-vehicle-checklist",
-  "/article/dash-cam-setup-texas-road-trips",
-  "/article/texas-heat-vehicle-electronics",
-]) if (!emergency.includes(marker)) fail(`emergency-kit authority enrichment missing: ${marker}`);
+  'params.slug === "what-to-keep-in-car-for-texas-road-trip"',
+  'href: "/article/texas-car-emergency-kit"',
+  "statusCode: 301",
+]) if (!articleRoute.includes(marker)) fail(`legacy emergency-kit redirect contract missing: ${marker}`);
 
 for (const marker of [
   "/article/texas-road-trip-vehicle-checklist",
@@ -161,4 +156,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Road-trip camera authority validation passed: ${authoritySlugs.length} new evergreen authority articles plus the promoted emergency-kit guide, exact approved Rexing destinations, primary legal/outdoor sources, shared commercial metadata, camping/road-trip/relocation/rural-county connections, and distinct authority heroes are protected.`);
+console.log(`Road-trip camera authority validation passed: ${authoritySlugs.length} evergreen authority articles, legacy emergency-kit 301 consolidation, exact approved Rexing destinations, primary legal/outdoor sources, shared commercial metadata, camping/road-trip/relocation/rural-county connections, and distinct authority heroes are protected.`);
