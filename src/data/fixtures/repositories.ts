@@ -18,6 +18,7 @@ import { lazyEvergreenArticleStubs, loadLazyEvergreenArticle } from "./lazy-ever
 import { historicSupportingStubs, loadHistoricSupportingArticle } from "./lazy-historic-supporting";
 import { militaryHistoryExpansionStubs, loadMilitaryHistoryExpansionArticle } from "./lazy-military-history-expansion";
 import { standaloneEvergreenStubs, loadStandaloneEvergreenArticle } from "./lazy-standalone-evergreen";
+import { roadTripCameraAuthorityStubs, loadRoadTripCameraAuthorityArticle } from "./lazy-road-trip-camera-authority";
 import { coreEvergreenArticleStubs, loadCoreEvergreenArticle } from "./lazy-core-evergreen";
 import { migratedEditorialArticleStubs, loadMigratedEditorialArticle } from "./lazy-migrated-editorial";
 import { texasCoreArticleStubs, loadTexasCoreArticle } from "./lazy-texas-core-articles";
@@ -41,6 +42,7 @@ const editorialArticles = [
   ...coreEvergreenArticleStubs,
   ...lazyEvergreenArticleStubs,
   ...standaloneEvergreenStubs,
+  ...roadTripCameraAuthorityStubs,
   ...historicSupportingStubs,
   ...militaryHistoryExpansionStubs,
   ...texasCoreArticleStubs,
@@ -198,6 +200,9 @@ export const fixtureArticles: ArticleRepository = {
 
     const standaloneArticle = await loadStandaloneEvergreenArticle(scope.brandId, slug);
     if (standaloneArticle) return normalizeArticle(standaloneArticle);
+
+    const roadTripCameraArticle = await loadRoadTripCameraAuthorityArticle(scope.brandId, slug);
+    if (roadTripCameraArticle) return normalizeArticle(roadTripCameraArticle);
 
     const historicSupportingArticle = await loadHistoricSupportingArticle(scope.brandId, slug);
     if (historicSupportingArticle) return normalizeArticle(historicSupportingArticle);
