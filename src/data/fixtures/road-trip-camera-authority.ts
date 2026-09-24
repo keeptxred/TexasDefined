@@ -3,7 +3,6 @@ import caddoLake from "@/assets/caddo-lake.jpg";
 import enchantedRock from "@/assets/enchanted-rock.jpg";
 import heroHillCountry from "@/assets/hero-hill-country.jpg";
 import paloDuro from "@/assets/palo-duro.jpg";
-import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
 import wildlife from "@/assets/wildlife.jpg";
 
@@ -21,7 +20,7 @@ const dashCamsInTexas: Article = {
   title: "Dash Cams in Texas: What the Law Says and How to Set One Up",
   dek: "Texas does not have a special dash-cam statute, but windshield obstruction, audio-recording rules, heat, mounting and storage all matter. This guide separates the legal rules from the practical choices.",
   category: "guides",
-  hero: image(roadTrip, "A two-lane Texas highway stretching toward the horizon"),
+  hero: image("/images/editorial/moving/dallas-fort-worth.jpg", "Dallas skyline and freeway approaches, a Texas driving environment", 1600, 900),
   authorId: "a-dell",
   publishedAt: "2026-09-24",
   updatedAt: "2026-09-24",
