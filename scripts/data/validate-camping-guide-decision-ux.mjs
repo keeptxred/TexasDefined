@@ -82,8 +82,9 @@ requireText(stayOptions, "best-places-to-go-camping-in-texas", "camping governed
 requireText(stayOptions, "Affiliate disclosure: TexasDefined may earn a commission", "camping stay-affiliate disclosure");
 requireText(stayOptions, "Rent an RV on RVshare", "camping relevant RVshare option");
 requireText(production, "['camping-guide', '/best-places-to-go-camping-in-texas', 'Best Places to Go Camping in Texas']", "camping live-production verification");
-requireText(production, "Showing 63 of 63 verified profiles.", "camping live profile-count verification");
+requireText(production, "Showing 64 of 64 verified profiles.", "camping live profile-count verification");
 requireText(production, "Possum Kingdom State Park", "camping Wave 9 live-production verification");
+requireText(production, "Government Canyon State Natural Area", "camping San Antonio live-production verification");
 
 const imageCount = (component.match(/"[^"]+": \{ src: "\/images\//g) || []).length;
 if (imageCount < 15) failures.push(`camping destination imagery: expected at least 15 governed local image mappings, found ${imageCount}`);
@@ -149,7 +150,7 @@ for (const slug of [
 ]) {
   if (destinationGuideRegistry.includes(`"${slug}"`)) failures.push(`camping destination-link registry must not invent a canonical guide for ${slug}`);
 }
-for (const slug of ["garner-state-park", "big-bend-national-park", "matagorda-bay-nature-park", "cedar-hill-state-park", "ray-roberts-lake-state-park", "goose-island-state-park", "lake-corpus-christi-state-park", "palo-pinto-mountains-state-park", "padre-island-national-seashore", "possum-kingdom-state-park", "stephen-f-austin-state-park", "devils-river-state-natural-area"]) {
+for (const slug of ["garner-state-park", "big-bend-national-park", "matagorda-bay-nature-park", "cedar-hill-state-park", "ray-roberts-lake-state-park", "goose-island-state-park", "lake-corpus-christi-state-park", "palo-pinto-mountains-state-park", "padre-island-national-seashore", "possum-kingdom-state-park", "stephen-f-austin-state-park", "devils-river-state-natural-area", "government-canyon-state-natural-area"]) {
   if (!destinationGuideRegistry.includes(`"${slug}"`)) failures.push(`camping destination-link registry must retain canonical guide ${slug}`);
 }
 
