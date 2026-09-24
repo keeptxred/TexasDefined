@@ -49,7 +49,7 @@ export const paintedChurchTechniques: PaintedChurchTechnique[] = [
     whatToLookFor: ["Narrative religious scenes", "Individualized figures or landscapes", "Shading and brushwork that changes across the composition"],
     sourceLabel: "Austin PBS — Decorative Painting Techniques",
     sourceUrl: PBS_TECHNIQUES,
-    churchSlugs: ["praha-st-marys-assumption", "moravia-ascension-of-our-lord", "wesley-brethren-church", "umbarger-st-marys-catholic-church", "fredericksburg-st-marys-catholic-church", "sweet-home-queen-of-peace", "shiner-saints-cyril-methodius", "serbin-st-paul-lutheran-church", "palestine-sacred-heart-catholic-church", "bandera-st-stanislaus-catholic-church"],
+    churchSlugs: ["praha-st-marys-assumption", "moravia-ascension-of-our-lord", "wesley-brethren-church", "umbarger-st-marys-catholic-church", "fredericksburg-st-marys-catholic-church", "sweet-home-queen-of-peace", "shiner-saints-cyril-methodius", "serbin-st-paul-lutheran-church", "palestine-sacred-heart-catholic-church", "bandera-st-stanislaus-catholic-church", "mason-st-joseph-catholic-church"],
     related: ["decorative-murals", "infill"],
   },
   {
