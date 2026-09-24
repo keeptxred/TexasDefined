@@ -11,11 +11,24 @@ const eventRoute = fs.readFileSync('src/routes/event.$slug.lazy.tsx', 'utf8');
 const destinationPlanner = fs.readFileSync('src/components/editorial/DestinationVisitPlanner.tsx', 'utf8');
 const productionVerifier = fs.readFileSync('scripts/ci/verify-stay-affiliate-production.mjs', 'utf8');
 const productionWorkflow = fs.readFileSync('.github/workflows/verify-stay-affiliate-production.yml', 'utf8');
+const integrationDocs = fs.readFileSync('docs/expedia-affiliate-integration.md', 'utf8');
 const errors = [];
 
 const requireText = (text, needle, label) => {
   if (!text.includes(needle)) errors.push(`${label}: missing ${needle}`);
 };
+
+for (const [needle, label] of [
+  ['## Hotels.com / Orbitz / Travelocity / Vrbo / RVshare contract', 'five-provider stay affiliate contract heading'],
+  ['`rvshare.com` destinations are accepted', 'RVshare CJ host documentation'],
+  ['**RV rental:** the canonical camping guide', 'RVshare route-scope documentation'],
+  ['eligible camping/RV/state-park/outdoors/road-trip surfaces also disclose RVshare', 'RVshare disclosure documentation'],
+  ['active CJ relationship plus observed conversion and realized commission', 'commission-aware routing documentation'],
+]) requireText(integrationDocs, needle, label);
+
+if (integrationDocs.includes('verified default lodging economics remain at parity')) {
+  errors.push('Stay affiliate integration docs must not claim hotel commission parity; active CJ terms and booking type control realized payout.');
+}
 
 try {
   new vm.Script(source, { filename: 'public/stay-affiliate-options.js' });
