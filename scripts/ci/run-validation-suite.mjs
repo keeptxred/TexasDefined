@@ -38,6 +38,7 @@ const checks = [
   ['explore-topical-authority', 'CONTENT/AUTHORITY', 'Validate Explore topical authority', 'node', ['scripts/data/validate-explore-topical-authority.mjs']],
   ['camping-guide-decision-ux', 'CONTENT/AUTHORITY', 'Validate camping guide decision UX', 'node', ['scripts/data/validate-camping-guide-decision-ux.mjs']],
   ['camping-public-authority-wave6', 'CONTENT/AUTHORITY', 'Validate camping public authority Wave 6', 'node', ['scripts/data/validate-camping-public-authority-wave6.mjs']],
+  ['camping-public-authority-wave7', 'CONTENT/AUTHORITY', 'Validate camping public authority Wave 7', 'node', ['scripts/data/validate-camping-public-authority-wave7.mjs']],
   ['historic-sites', 'CONTENT/AUTHORITY', 'Validate statewide historic sites', 'node', ['scripts/data/validate-historic-sites.mjs']],
   ['historic-site-evergreen', 'CONTENT/AUTHORITY', 'Validate historic-site evergreen guides', 'node', ['scripts/data/validate-historic-site-evergreen.mjs']],
   ['historic-supporting-guides', 'CONTENT/AUTHORITY', 'Validate historic supporting guides', 'node', ['scripts/data/validate-historic-supporting-guides.mjs']],
