@@ -65,6 +65,7 @@ const roadTripCarKit: ArticleBlock[] = [
   { type: "heading", text: "Carry tools only if you can use them without creating a traffic hazard" },
   { type: "paragraph", text: "NHTSA's suggested roadside items include jumper cables, a tire-pressure gauge, a jack with a ground mat, work gloves and basic tools. Those can help with a simple problem, but traffic location matters more than finishing a repair. Do not change a tire or work beside the vehicle where passing traffic makes the position unsafe. If you cannot move to a safer location, stay protected as circumstances allow, contact emergency or roadside assistance and follow law-enforcement instructions." },
   { type: "paragraph", text: "Before departure, confirm the spare tire or inflation system is present and usable, know where the wheel-lock key is stored and verify that the jack matches the vehicle. Some modern vehicles have no spare, and electric vehicles have model-specific towing and high-voltage requirements. The owner's manual controls. Never crawl under a vehicle supported only by an emergency jack, and do not attempt repairs involving fuel, high-voltage systems or roadside exposure beyond your training." },
+  { type: "paragraph", text: "A portable jump starter and tire inflator can be useful additions when they match the vehicle and the driver knows their limits. Keep battery-powered gear charged on the manufacturer’s schedule, verify cable and engine-compatibility guidance before use, and do not treat an inflator as a fix for a damaged sidewall or a jump pack as a substitute for diagnosing a failing charging system." },
   { type: "heading", text: "Heat can turn a mechanical delay into a medical emergency" },
   { type: "paragraph", text: "In a Texas summer, a failed air conditioner or breakdown on exposed pavement can become a heat emergency before the mechanical problem is solved. Carry drinking water, know the signs of heat illness and have a plan to move vulnerable passengers to a safer cooled location when that can be done without entering traffic or another hazard. Never leave a child, dependent adult or pet in a parked vehicle while troubleshooting or seeking help." },
   { type: "paragraph", text: "Route planning belongs in the emergency plan. NHTSA advises checking weather, road conditions and traffic before departure. For Texas trips, current state-road information can be checked through DriveTexas, while local alerts matter during flooding, wildfires, severe storms or winter weather. Do not drive around barricades or into floodwater because the destination appears close. Offline maps are useful when cell service disappears, but they do not override a closure or evacuation instruction." },
@@ -116,10 +117,11 @@ export const texasGatewayBatch4AuthorityEnrichment: Record<string, GatewayAuthor
     sourceName: "NHTSA — Summer Driving & Road Trip Tips",
     sourceUrl: "https://www.nhtsa.gov/summer-driving-tips",
     internalLinks: [
-      { href: "/article/things-you-see-on-a-texas-road-trip", label: "What you notice on a Texas road trip" },
       { href: "/article/texas-road-trip-stops-worth-the-detour", label: "Texas road-trip stops worth the detour" },
       { href: "/article/best-first-texas-road-trip", label: "Plan a first Texas road trip" },
-      { href: "/road-trips", label: "Texas road trips" },
+      { href: "/article/texas-road-trip-vehicle-checklist", label: "Run the pre-trip vehicle checklist" },
+      { href: "/article/dash-cam-setup-texas-road-trips", label: "Set up a dash cam for a long Texas drive" },
+      { href: "/article/texas-heat-vehicle-electronics", label: "Protect electronics from Texas heat" },
     ],
   },
 };
