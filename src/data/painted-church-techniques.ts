@@ -133,7 +133,7 @@ export const paintedChurchTechniques: PaintedChurchTechnique[] = [
     whatToLookFor: ["Biblical scenes", "Saints or angels arranged as a narrative", "Large sanctuary paintings rather than repeating ornament"],
     sourceLabel: "Austin PBS — Painted Churches project",
     sourceUrl: "https://austinpbs.org/paintedchurches/",
-    churchSlugs: ["praha-st-marys-assumption", "dubina-saints-cyril-methodius", "moravia-ascension-of-our-lord", "wesley-brethren-church", "umbarger-st-marys-catholic-church", "lindsay-st-peters-catholic-church", "shiner-saints-cyril-methodius", "panna-maria-immaculate-conception", "plantersville-st-marys-catholic-church", "corn-hill-holy-trinity-catholic-church", "palestine-sacred-heart-catholic-church", "bandera-st-stanislaus-catholic-church"],
+    churchSlugs: ["praha-st-marys-assumption", "dubina-saints-cyril-methodius", "moravia-ascension-of-our-lord", "wesley-brethren-church", "umbarger-st-marys-catholic-church", "lindsay-st-peters-catholic-church", "shiner-saints-cyril-methodius", "panna-maria-immaculate-conception", "plantersville-st-marys-catholic-church", "corn-hill-holy-trinity-catholic-church", "palestine-sacred-heart-catholic-church", "bandera-st-stanislaus-catholic-church", "mason-st-joseph-catholic-church"],
     related: ["freehand", "gilding-metallic-accents"],
   },
 ];
