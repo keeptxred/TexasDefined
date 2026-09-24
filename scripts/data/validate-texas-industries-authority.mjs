@@ -78,6 +78,10 @@ for (const slug of expectedSlugs) {
     }
   }
 
+  const evolutionMatch = block.match(/evolution: \{ period: "([^"]+)", title: "([^"]+)", detail: "([^"]+)", sourceLabel: "([^"]+)", sourceUrl: "([^"]+)" \}/);
+  if (!evolutionMatch) failures.push(`${slug} must define one sourced evolution milestone.`);
+  if (evolutionMatch && !evolutionMatch[5].startsWith('https://')) failures.push(`${slug} evolution source must use HTTPS.`);
+
   const relatedMatch = block.match(/relatedSectorSlugs: \[([^\]]+)\]/);
   const related = relatedMatch ? [...relatedMatch[1].matchAll(/"([^"]+)"/g)].map((match) => match[1]) : [];
   if (related.length < 2) failures.push(`${slug} needs at least two meaningful related-sector pathways.`);
@@ -147,6 +151,7 @@ if (!detail.includes('href={place.href}')) failures.push('Industry place pathway
 if (!detail.includes('industry.relatedSectorSlugs.includes(item.slug)')) failures.push('Industry detail pages must use the curated related-sector graph.');
 if (detail.includes('.filter((item) => item.slug !== industry.slug).slice(')) failures.push('Generic related-sector slicing must not return.');
 if (!detail.includes('industry.workforce.roles.map') || !detail.includes('industry.workforce.pathways.map')) failures.push('Industry detail pages must render workforce roles and training pathways.');
+if (!detail.includes('industry.evolution.period') || !detail.includes('industry.evolution.sourceUrl')) failures.push('Industry detail pages must render sourced sector-evolution context.');
 
 for (const [label, source] of [
   ['Texas Data', texasDataRoute],
@@ -181,4 +186,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas industries authority validation passed: 12 indexable industry URLs, 11 sectors, ${hubCount} regional hubs, 71 rendered industry→county links / 69 unique pairs, 36 county→industry mappings, 14 reciprocal county/industry pairs, curated related-sector navigation, workforce pathways, canonical/structured-data governance, article-intent separation and machine discovery are protected.`);
+console.log(`Texas industries authority validation passed: 12 indexable industry URLs, 11 sectors, ${hubCount} regional hubs, 71 rendered industry→county links / 69 unique pairs, 36 county→industry mappings, 14 reciprocal county/industry pairs, curated related-sector navigation, workforce pathways, sourced sector-evolution context, canonical/structured-data governance, article-intent separation and machine discovery are protected.`);
