@@ -162,7 +162,7 @@ export const PUBLIC_SERVICE_PRIORITY_SEARCH_PAGES: Record<string, PrioritySearch
         links: [{ label: "Texas resources", href: "/texas-resources" }],
       },
     ],
-    related: [{ label: "Texas resources", href: "/texas-resources" }, { label: "Texas sales tax explained", href: "/texas-sales-tax-explained" }, { label: "Moving to Texas", href: "/moving-to-texas" }, { label: "Texas guidebook", href: "/guides" }],
+    related: [{ label: "Texas industries", href: "/texas-industries" }, { label: "Made in Texas", href: "/made-in-texas" }, { label: "Texas jobs & economy", href: "/article/texas-jobs-economy-industries" }, { label: "Texas resources", href: "/texas-resources" }, { label: "Texas sales tax explained", href: "/texas-sales-tax-explained" }, { label: "Moving to Texas", href: "/moving-to-texas" }, { label: "Texas guidebook", href: "/guides" }],
     faq: [
       { question: "Does Texas require a general business license?", answer: "No. The Governor's Business Permit Office says Texas does not require a general business license, although specific activities and professions can require licenses, permits or registrations." },
       { question: "Do I need an LLC to start a business in Texas?", answer: "No single entity type is required for every Texas business. The appropriate structure depends on ownership, liability, tax and governance considerations." },
