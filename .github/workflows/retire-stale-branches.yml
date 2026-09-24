@@ -93,6 +93,7 @@ jobs:
           archived=0
           retired=0
           missing=0
+          preserved=0
 
           for branch in "${branches[@]}"; do
             if ! ref_json="$(gh api "repos/$REPOSITORY/git/ref/heads/$branch" 2>/dev/null)"; then
@@ -107,12 +108,29 @@ jobs:
             if (( ahead > 0 )); then
               short="${sha:0:12}"
               tag="archive/stale-branch/$short"
-              if ! gh api "repos/$REPOSITORY/git/ref/tags/$tag" >/dev/null 2>&1; then
-                gh api --method POST "repos/$REPOSITORY/git/refs" -f ref="refs/tags/$tag" -f sha="$sha" >/dev/null
+              archive_ref="archive/stale-branch/$short"
+              archived_tip=0
+
+              if gh api "repos/$REPOSITORY/git/ref/tags/$tag" >/dev/null 2>&1; then
+                archived_tip=1
+                echo "Unique tip for $branch already archived as tag $tag."
+              elif gh api "repos/$REPOSITORY/git/ref/$archive_ref" >/dev/null 2>&1; then
+                archived_tip=1
+                echo "Unique tip for $branch already archived as custom ref refs/$archive_ref."
+              elif gh api --method POST "repos/$REPOSITORY/git/refs" -f ref="refs/tags/$tag" -f sha="$sha" >/dev/null 2>&1; then
+                archived_tip=1
                 archived=$((archived + 1))
-                echo "Archived unique tip for $branch as $tag ($ahead unique commit(s))."
-              else
-                echo "Unique tip for $branch already archived as $tag."
+                echo "Archived unique tip for $branch as tag $tag ($ahead unique commit(s))."
+              elif gh api --method POST "repos/$REPOSITORY/git/refs" -f ref="refs/$archive_ref" -f sha="$sha" >/dev/null 2>&1; then
+                archived_tip=1
+                archived=$((archived + 1))
+                echo "Archived unique tip for $branch as custom ref refs/$archive_ref ($ahead unique commit(s))."
+              fi
+
+              if (( archived_tip == 0 )); then
+                preserved=$((preserved + 1))
+                echo "Unable to archive unique tip for $branch; preserving branch and continuing."
+                continue
               fi
             else
               echo "No unique commits versus current main: $branch"
@@ -123,7 +141,7 @@ jobs:
             echo "Retired stale branch: $branch"
           done
 
-          echo "Retirement complete: retired=$retired archived_unique_tips=$archived already_absent=$missing"
+          echo "Retirement complete: retired=$retired archived_unique_tips=$archived preserved_unarchived=$preserved already_absent=$missing"
 
   delete-merged-head:
     if: >-
