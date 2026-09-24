@@ -17,6 +17,14 @@ export const CAMPING_DESTINATION_GUIDE_SLUGS = [
   "lake-whitney-state-park",
   "lake-tawakoni-state-park",
   "matagorda-bay-nature-park",
+  "balmorhea-state-park",
+  "davis-mountains-state-park",
+  "monahans-sandhills-state-park",
+  "guadalupe-river-state-park",
+  "lost-maples-state-natural-area",
+  "huntsville-state-park",
+  "tyler-state-park",
+  "choke-canyon-state-park",
 ] as const;
 
 export const CAMPING_DESTINATION_GUIDE_SET = new Set<string>(CAMPING_DESTINATION_GUIDE_SLUGS);
