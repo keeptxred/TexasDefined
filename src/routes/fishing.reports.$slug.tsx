@@ -13,7 +13,7 @@ export const Route = createFileRoute("/fishing/reports/$slug")({
     if (!loaderData) return { meta: [{ name: "robots", content: "noindex, nofollow" }] };
     const { report, canonicalPath, lake, updates, freshness, contributorGuide } = loaderData;
     const origin = `https://${texasDefinedBrand.identity.domain}`;
-    const description = `${report.summary} Published ${report.publishedAt.slice(0, 10)}; ${freshness === "expired" ? "historical and no longer current" : freshness === "stale" ? "stale dated snapshot" : "within the current verified reporting window"}.`;
+    const description = `${report.summary} Published ${report.publishedAt.slice(0, 10)}; ${freshness === "expired" ? "historical and no longer current" : freshness === "stale" ? "stale dated snapshot" : "within the current reporting window"}.`;
     const meta = buildMeta(texasDefinedBrand, { title: `${report.title} — Texas Fishing Report`, description, canonicalPath });
     if (freshness === "expired") meta.push({ name: "robots", content: "noindex, follow" });
     return { meta, links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify([
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/fishing/reports/$slug")({
     ]) } ] };
   },
   component: FishingReportProfileRoute,
-  notFoundComponent: () => <div className="mx-auto max-w-3xl px-6 py-20"><h1 className="font-display text-4xl">Fishing report not found</h1><p className="mt-4 text-muted-foreground">This report may be unavailable, unpublished or still under review.</p><a href="/fishing/reports" className="mt-6 inline-block border-b border-primary pb-1 font-semibold text-primary">Browse fishing reports →</a></div>,
+  notFoundComponent: () => <div className="mx-auto max-w-3xl px-6 py-20"><h1 className="font-display text-4xl">Fishing report not found</h1><p className="mt-4 text-muted-foreground">TexasDefined publishes only source-backed report routes with reviewed dates, lake relationships and species relationships.</p><a href="/fishing/reports" className="mt-6 inline-block border-b border-primary pb-1 font-semibold text-primary">Browse fishing reports →</a></div>,
 });
 
 function FishingReportProfileRoute() {
