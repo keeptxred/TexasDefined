@@ -228,7 +228,7 @@ function CampingGuidePage() {
           <Link to="/explore/road-trips" className="border border-border bg-background p-4 hover:border-primary/50">Road trips →</Link>
           <Link to="/explore/outdoors" className="border border-border bg-background p-4 hover:border-primary/50">Outdoors & wildlife →</Link>
           <Link to="/article/texas-road-trip-vehicle-checklist" className="border border-border bg-background p-4 hover:border-primary/50">Vehicle checklist →</Link>
-          <Link to="/article/what-to-keep-in-car-for-texas-road-trip" className="border border-border bg-background p-4 hover:border-primary/50">Roadside emergency kit →</Link>
+          <Link to="/article/texas-car-emergency-kit" className="border border-border bg-background p-4 hover:border-primary/50">Roadside emergency kit →</Link>
           <Link to="/article/cameras-texas-camping-outdoors" className="border border-border bg-background p-4 hover:border-primary/50">Camping camera guide →</Link>
           <Link to="/explore/trip-planner" search={{}} className="border border-border bg-background p-4 hover:border-primary/50">Trip Planner →</Link>
         </div>
