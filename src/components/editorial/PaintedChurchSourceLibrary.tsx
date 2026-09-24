@@ -1,12 +1,12 @@
 import { Link } from "@tanstack/react-router";
 
 import { paintedChurchAuthorityExpansionDate, paintedChurchAuthoritySources } from "@/data/painted-church-authority-sources";
-import { paintedChurchImageSources } from "@/data/painted-church-image-sources";
+import { paintedChurchImageSources } from "@/data/painted-church-image-sources";\nimport { paintedChurchSecondaryResearchDate, paintedChurchSecondaryResearchLeads, paintedChurchSecondaryResearchSources } from "@/data/painted-church-secondary-research";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 
 const sourceLibrary = [
   { label: "Discover Victoria Texas", url: "https://www.discovervictoriatexas.com/business/painted-churches-of-texas", role: "Regional visitor context", note: "Useful for Victoria-area framing and travel context. Church-specific historical claims remain secondary to THC, NPS, parish and archival records." },
-  { label: "Painted Churches in Texas", url: "https://paintedchurchesintexas.com/", role: "Dedicated church catalog", note: "Useful for church-by-church visitor leads. Historical dates, artist attributions and current access are independently verified before publication." },
+  { label: "Painted Churches in Texas", url: "https://paintedchurchesintexas.com/", role: "Dedicated church catalog", note: "A full 18-page secondary-source audit was completed September 24, 2026. New factual leads are rewritten in Texas Defined’s own language and checked against stronger church, THC, NPS or archival records when available; the catalog never overrides primary evidence." },
   { label: "Roaming the USA", url: "https://www.roamingtheusa.com/painted-churches-of-texas/", role: "Travel and visual interpretation", note: "Useful for visual descriptions and route context. Time-sensitive information is rechecked locally." },
   { label: "Traveller’s Elixir", url: "https://www.travellerselixir.com/texas-painted-churches-road-trip/", role: "Expansion and road-trip lead", note: "Helped surface Plantersville and Corn Hill as candidates before Texas Defined independently verified them." },
   { label: "Portal to Texas History", url: "https://texashistory.unt.edu/search/?q=painted+churches+texas", role: "Primary-source photographs and scans", note: "Especially valuable for historic interior photographs and locally held archival collections. Item-level reproduction rights are checked before image publication." },
@@ -62,6 +62,20 @@ export function PaintedChurchSourceLibrary() {
             <h4 className="mt-2 font-display text-2xl leading-tight"><a href={source.url} target="_blank" rel="noreferrer" className="hover:text-primary">{source.label}</a></h4>
             <p className="mt-3 text-xs font-medium uppercase tracking-[0.1em] text-foreground/70">{source.authority}</p>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{source.contribution}</p>
+          </article>)}
+        </div>
+      </div>
+
+      <div className="mt-10 border-t border-border pt-8">
+        <p className="eyebrow text-primary">Secondary-source audit · {paintedChurchSecondaryResearchDate}</p>
+        <h3 className="mt-3 font-display text-3xl">Every PaintedChurchesInTexas.com church page was reviewed, but secondary classification never controls the census.</h3>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">Texas Defined reviewed all {paintedChurchSecondaryResearchSources.length} church pages in that catalog. Distinct factual material was synthesized into existing profiles in original wording; duplicate material was not padded into the pages. Hard dates, architects, designations and current status were checked against stronger records whenever available. Four church names outside the verified collection received an independent classification pass instead of being copied into the count.</p>
+        <div className="mt-7 grid gap-px border border-border bg-border md:grid-cols-2">
+          {paintedChurchSecondaryResearchLeads.map((lead) => <article key={lead.slug} className="bg-background p-6">
+            <p className="eyebrow text-muted-foreground">{lead.status === "candidate" ? "Candidate — more evidence required" : "Related site — not counted"}</p>
+            <h4 className="mt-2 font-display text-2xl leading-tight">{lead.name}</h4>
+            <p className="eyebrow mt-2 text-muted-foreground">{lead.place}</p>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{lead.note}</p>
           </article>)}
         </div>
       </div>
