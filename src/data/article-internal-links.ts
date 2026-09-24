@@ -178,6 +178,11 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
       label: "Understand the state's reservoir system",
       description: "Put wells, surface water and floodplain questions into the larger system Texas built to store and move water.",
     },
+    {
+      href: "/article/rural-texas-property-monitoring",
+      label: "Plan cameras for acreage, gates and outbuildings",
+      description: "Connect rural-property due diligence with practical monitoring choices for remote Texas land.",
+    },
   ],
   "texas-wildlife-guide": [
     texasExplainedLink,
@@ -408,5 +413,37 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
       label: "What changes when you buy acreage",
       description: "Compare subdivision-focused due diligence with the access, water, septic, mineral and land-use questions that matter on rural Texas property.",
     },
+  ],
+  "best-first-texas-road-trip": [
+    { href: "/article/texas-road-trip-vehicle-checklist", label: "Run the vehicle checklist before departure", description: "Check tires, fluids, battery, lights, weather, fuel and offline navigation before the first long Texas drive." },
+    { href: "/article/what-to-keep-in-car-for-texas-road-trip", label: "Pack a Texas road-trip emergency kit", description: "Build a practical kit for heat, breakdowns, dead batteries and long waits." },
+    { href: "/article/dash-cam-setup-texas-road-trips", label: "Set up a dash cam for a Texas road trip", description: "Plan mounting, storage, power and heat exposure before the vehicle leaves home." },
+  ],
+  "texas-road-trip-stops-worth-the-detour": [
+    { href: "/article/texas-road-trip-vehicle-checklist", label: "Prepare the vehicle for the detour", description: "Longer back-road mileage deserves a tire, fuel, weather and charging check." },
+    { href: "/article/what-to-keep-in-car-for-texas-road-trip", label: "Keep a roadside kit in the car", description: "Carry the basics that matter if a scenic detour turns into a roadside wait." },
+  ],
+  "things-you-see-on-a-texas-road-trip": [
+    { href: "/article/dash-cam-setup-texas-road-trips", label: "Set up a camera for the drive", description: "Use enough storage and a lawful mount if you want to document a long Texas route." },
+    { href: "/article/texas-road-trip-vehicle-checklist", label: "Run the pre-trip vehicle check", description: "Make the road itself easier to enjoy by handling tires, battery, weather and fuel first." },
+  ],
+  "big-bend-in-winter": [
+    { href: "/article/texas-road-trip-vehicle-checklist", label: "Prepare the vehicle for remote West Texas", description: "Check tires, fuel, battery, weather and offline maps before the Big Bend drive." },
+    { href: "/article/what-to-keep-in-car-for-texas-road-trip", label: "Build the Big Bend roadside kit", description: "Carry a more conservative reserve when services and cell coverage are far apart." },
+  ],
+  "texas-weather-surprises-newcomers": [
+    { href: "/article/texas-heat-vehicle-electronics", label: "What Texas heat does to electronics in the car", description: "Understand why cameras, batteries, mounts and storage need model-specific heat limits." },
+  ],
+  "moving-to-houston-address-checklist": [
+    { href: "/article/rideshare-dash-cams-texas", label: "Texas rideshare dash-cam rules and platform guidance", description: "Review cabin recording, rider notice and audio before driving passengers in Houston." },
+    { href: "/article/texas-road-trip-vehicle-checklist", label: "Prepare for long Texas driving days", description: "Use the statewide vehicle checklist for commutes, moves and cross-state trips." },
+  ],
+  "moving-to-dallas-fort-worth-guide": [
+    { href: "/article/rideshare-dash-cams-texas", label: "Texas rideshare dash-cam rules and platform guidance", description: "Review cabin recording, rider notice and audio before driving passengers around DFW." },
+    { href: "/article/texas-road-trip-vehicle-checklist", label: "Prepare for long Texas driving days", description: "Use the statewide vehicle checklist for metro driving and cross-state trips." },
+  ],
+  "moving-to-austin-guide": [
+    { href: "/article/rideshare-dash-cams-texas", label: "Texas rideshare dash-cam rules and platform guidance", description: "Review cabin recording, rider notice and audio before driving passengers in Central Texas." },
+    { href: "/article/texas-road-trip-vehicle-checklist", label: "Prepare for long Texas driving days", description: "Use the statewide vehicle checklist for Austin-area travel and longer drives." },
   ],
 };
