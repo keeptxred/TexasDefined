@@ -85,6 +85,7 @@ function MadeInTexasPage() {
                 </dl>
                 <p className="mt-5 text-xs leading-5 text-muted-foreground">Entries with a verified citation have been checked against a first-party producer or authoritative public source. The broader directory remains deliberately labeled by relationship so a Texas origin or headquarters is never presented as proof that every product is made here.</p>
                 <div className="mt-6 space-y-3 text-sm font-semibold">
+                  <a href="/texas-industries" className="block underline decoration-primary/40 underline-offset-4 hover:text-primary">Explore Texas industries →</a>
                   <a href="/texas-facts" className="block underline decoration-primary/40 underline-offset-4 hover:text-primary">100 essential Texas facts →</a>
                   <a href="/things-unique-to-texas" className="block underline decoration-primary/40 underline-offset-4 hover:text-primary">250 things that define Texas →</a>
                   <a href="/texas-history" className="block underline decoration-primary/40 underline-offset-4 hover:text-primary">Texas history →</a>
