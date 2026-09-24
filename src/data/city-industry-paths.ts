@@ -19,6 +19,7 @@ const CITY_INDUSTRY_PATHS: Record<string, ReadonlyArray<CityIndustryPath>> = {
     { label: 'Trade, Transportation & Logistics', href: '/texas-industries/trade-transportation-logistics', context: 'Air cargo, highways, rail and distribution make the Metroplex a national logistics hub.' },
   ],
   'fort-worth': [
+    { label: 'Gaming & Esports', href: '/gaming/dfw', context: 'Fort Worth connects to the wider DFW gaming market through game development, collegiate esports, events and regional technology infrastructure.' },
     { label: 'Aerospace, Aviation & Defense', href: '/texas-industries/aerospace-aviation-defense', context: 'Fort Worth is a major aircraft, defense, engineering and aerospace-supplier center.' },
     { label: 'Advanced Manufacturing', href: '/texas-industries/advanced-manufacturing', context: 'North Texas manufacturing includes aerospace systems, electronics, machinery and specialized suppliers.' },
     { label: 'Trade, Transportation & Logistics', href: '/texas-industries/trade-transportation-logistics', context: 'Fort Worth is part of the Metroplex freight, rail, airport and distribution network.' },
@@ -43,6 +44,9 @@ const CITY_INDUSTRY_PATHS: Record<string, ReadonlyArray<CityIndustryPath>> = {
     { label: 'Esports & Gaming', href: '/gaming/esports-stadium-arlington', context: 'Arlington operates a dedicated esports competition venue and connects directly to the wider Dallas–Fort Worth esports ecosystem.' },
     { label: 'Hospitality, Tourism & Culture', href: '/texas-industries/hospitality-tourism-culture', context: 'Major sports, entertainment and visitor destinations make tourism and hospitality especially visible in Arlington.' },
     { label: 'Trade, Transportation & Logistics', href: '/texas-industries/trade-transportation-logistics', context: 'Arlington sits inside the larger Metroplex freight, airport and distribution network.' },
+  ],
+  frisco: [
+    { label: 'Gaming & Esports', href: '/gaming/dfw', context: 'Frisco is part of the North Texas gaming and esports cluster, including current game-development and competitive-gaming activity documented in the DFW guide.' },
   ],
   'corpus-christi': [
     { label: 'Energy & Power', href: '/texas-industries/energy-power', context: 'Refining, petrochemicals and export infrastructure connect Corpus Christi to the Gulf Coast energy system.' },
