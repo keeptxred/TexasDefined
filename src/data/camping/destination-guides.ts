@@ -32,6 +32,7 @@ export const CAMPING_DESTINATION_GUIDE_SLUGS = [
   "eisenhower-state-park",
   "lake-mineral-wells-state-park",
   "south-llano-river-state-park",
+  "seminole-canyon-state-park-and-historic-site",
 ] as const;
 
 export const CAMPING_DESTINATION_GUIDE_SET = new Set<string>(CAMPING_DESTINATION_GUIDE_SLUGS);
