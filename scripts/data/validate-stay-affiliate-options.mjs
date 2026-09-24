@@ -322,6 +322,8 @@ for (const [needle, label] of [
   ['/sports-venue/pga-frisco-fields-ranch', 'live PGA Frisco featured-stay route probe'],
   ['upgradeExactPropertyCards', 'live property upgrader verification'],
   ['ho115100/hilton-anatole', 'live exact-property destination probe'],
+  ['/best-places-to-go-camping-in-texas', 'live camping-guide RVshare surface probe'],
+  ['/explore/rv-parks', 'live RV-parks RVshare surface probe'],
   ['/event/chappell-hill-bluebonnet-festival', 'live event placement probe'],
   ['/sports-venue/globe-life-field', 'live venue placement probe'],
   ['/sports-venue/xtreme-raceway-park', 'live traffic-prioritized venue placement probe'],
@@ -334,6 +336,14 @@ for (const [needle, label] of [
   ["api.buildCjDeepLink('https://www.orbitz.com/')", 'live Orbitz CJ deep-link behavior assertion'],
   ["api.buildCjDeepLink('https://www.travelocity.com/')", 'live Travelocity CJ deep-link behavior assertion'],
 ]) requireText(productionVerifier, needle, label);
+
+if (!productionVerifier.includes("route: '/best-places-to-go-camping-in-texas'") || !productionVerifier.includes("marker: 'Best Places to Go Camping in Texas'")) {
+  errors.push('Live monetization smoke must include the canonical camping guide so RVshare route eligibility is exercised against an actual production page.');
+}
+
+if (!productionVerifier.includes("route: '/explore/rv-parks'") || !productionVerifier.includes("marker: 'Texas RV Parks'")) {
+  errors.push('Live monetization smoke must include the RV-parks hub so RVshare route eligibility is exercised against an actual production page.');
+}
 
 if (!productionVerifier.includes("route: '/destination/fredericksburg'") || !productionVerifier.includes('requireSlot: true')) {
   errors.push('Live destination probe must require an explicit in-content Stay Nearby slot.');
@@ -367,4 +377,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hotels.com / Orbitz / Travelocity / Vrbo / RVshare stay affiliate validation passed: all 30 active governed Stay Nearby properties (18 venue + 12 destination) have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; three source-backed golf guides add text-only exact-property Hotels.com CTAs without bypassing curated-card image governance; unknown routes and properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; hotel-first event/venue intent routes the comparison option to Orbitz while broader destination/leisure intent routes it to Travelocity, Vrbo remains separately gated to broader traveler/owner use cases, and RVshare is restricted to high-intent camping/RV/state-park/outdoors/road-trip routes; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the exact-property and featured-golf registries plus the traffic-prioritized Xtreme Raceway Park lodging slot; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');
+console.log('Hotels.com / Orbitz / Travelocity / Vrbo / RVshare stay affiliate validation passed: all 30 active governed Stay Nearby properties (18 venue + 12 destination) have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; three source-backed golf guides add text-only exact-property Hotels.com CTAs without bypassing curated-card image governance; unknown routes and properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; hotel-first event/venue intent routes the comparison option to Orbitz while broader destination/leisure intent routes it to Travelocity, Vrbo remains separately gated to broader traveler/owner use cases, and RVshare is restricted to high-intent camping/RV/state-park/outdoors/road-trip routes; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the RVshare-eligible camping/RV hubs, exact-property and featured-golf registries, plus the traffic-prioritized Xtreme Raceway Park lodging slot; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');
