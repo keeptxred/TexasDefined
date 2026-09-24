@@ -29,7 +29,8 @@ for (const marker of [
   '"@type": "FAQPage"',
   '"@type": "BreadcrumbList"',
   'numberOfItems: rows.length',
-  'Texas Fishing Lakes — Compare 15 Complete Lake Guides',
+  'const completeLakeCount = rows.length || COMPLETE_FISHING_LAKE_SLUGS.length',
+  'title: `Texas Fishing Lakes — Compare ${completeLakeCount} Complete Lake Guides`',
   'lazy(() => import("@/components/fishing/FishingLakesDirectory")',
   'FishingLakesDirectory rows={rows} latestReview={latestReview}',
 ]) assert(route.includes(marker), `Fishing lakes route is missing loader/SEO/lazy-boundary marker: ${marker}.`);
@@ -77,10 +78,18 @@ for (const marker of ['to="/fishing/lakes"', 'Browse fishing lakes →', 'Explor
 for (const marker of ['FISHING_LAKES_DIRECTORY_PATH = "/fishing/lakes"', '{ path: FISHING_LAKES_DIRECTORY_PATH, lastmod: FISHING_LAKES_DIRECTORY_VERIFIED_AT }']) assert(sitemap.includes(marker), `Fishing sitemap is missing lakes-directory ownership marker: ${marker}.`);
 assert(publicRoutes.includes('"/fishing/lakes"'), 'Public static route registry must sitemap-own /fishing/lakes.');
 for (const marker of ['id: "fishing-directory:texas-fishing"', 'href: "/fishing"', 'id: "fishing-directory:texas-fishing-lakes"', 'title: "Texas Fishing Lakes"', 'href: "/fishing/lakes"', '"compare fishing lakes"']) assert(search.includes(marker), `Fishing site-search index is missing statewide/lakes directory marker: ${marker}.`);
+for (const marker of [
+  "const completeLakes = lakes.filter((lake) => isCompleteFishingLakeSlug(lake.slug))",
+  "const completeLakeCount = completeLakes.length",
+  "const completeLakeNames = completeLakes.map((lake) => lake.name)",
+  "Compare ${completeLakeCount} complete TexasDefined fishing-lake guides",
+  "...completeLakeNames",
+]) assert(search.includes(marker), `Fishing site-search complete-lake metadata is not dynamically derived: ${marker}.`);
+assert(!search.includes("Compare the five complete TexasDefined fishing-lake guides"), "Fishing site-search must not reintroduce the stale five-lake summary.");
 
 if (errors.length) {
   console.error("Fishing lakes directory validation failed:");
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log("Fishing lakes directory validated: the fifteen completed lake guides remain query-backed, lazily rendered, sitemap/search-owned and answer-first, while the fishing hub can separately discover verified basic lake profiles.");
+console.log("Fishing lakes directory validated: completed lake guides remain query-backed, dynamically counted, lazily rendered, sitemap/search-owned and answer-first, while the fishing hub can separately discover verified basic lake profiles.");
