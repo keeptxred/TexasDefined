@@ -15,17 +15,17 @@ export const Route = createFileRoute("/fishing/access/$slug")({
     if (!loaderData) return { meta: [{ name: "robots", content: "noindex, nofollow" }] };
     const { point, canonicalPath, lakes } = loaderData;
     const origin = `https://${texasDefinedBrand.identity.domain}`;
-    const description = point.description ?? `Verified ${point.kind.replaceAll("-", " ")} fishing access for ${lakes.map((lake) => lake?.name).filter(Boolean).join(", ")}, with sourced access details and current-condition caveats.`;
+    const description = point.description ?? `${point.kind.replaceAll("-", " ")} fishing access for ${lakes.map((lake) => lake?.name).filter(Boolean).join(", ")}, with source-backed access details and current-condition caveats.`;
     return {
-      meta: buildMeta(texasDefinedBrand, { title: `${point.name} — Verified Texas Fishing Access`, description, canonicalPath }),
+      meta: buildMeta(texasDefinedBrand, { title: `${point.name} — Texas Fishing Access`, description, canonicalPath }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{ type: "application/ld+json", children: JSON.stringify([
-        { "@context": "https://schema.org", "@type": "WebPage", name: `${point.name} — Verified Texas Fishing Access`, description, url: `${origin}${canonicalPath}`, dateModified: point.verifiedAt },
+        { "@context": "https://schema.org", "@type": "WebPage", name: `${point.name} — Texas Fishing Access`, description, url: `${origin}${canonicalPath}`, dateModified: point.verifiedAt },
         { "@context": "https://schema.org", "@type": "Place", name: point.name, ...(point.address ? { address: point.address } : {}), ...(point.coordinates ? { geo: { "@type": "GeoCoordinates", latitude: point.coordinates.lat, longitude: point.coordinates.lng } } : {}) },
         { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: origin }, { "@type": "ListItem", position: 2, name: "Fishing", item: `${origin}/fishing` }, { "@type": "ListItem", position: 3, name: "Fishing access", item: `${origin}/fishing/access` }, { "@type": "ListItem", position: 4, name: point.name, item: `${origin}${canonicalPath}` }] },
       ]) }],
     };
   },
   component: () => <FishingAccessProfile pageData={Route.useLoaderData()} />,
-  notFoundComponent: () => <div className="mx-auto max-w-3xl px-6 py-20"><h1 className="font-display text-4xl">Verified fishing access not found</h1><p className="mt-4 text-muted-foreground">TexasDefined publishes access profiles only after the source and lake relationship pass verification.</p><a href="/fishing/access" className="mt-6 inline-block border-b border-primary text-primary">Browse fishing access →</a></div>,
+  notFoundComponent: () => <div className="mx-auto max-w-3xl px-6 py-20"><h1 className="font-display text-4xl">Fishing access not found</h1><p className="mt-4 text-muted-foreground">TexasDefined publishes only source-backed access profiles with confirmed lake relationships.</p><a href="/fishing/access" className="mt-6 inline-block border-b border-primary text-primary">Browse fishing access →</a></div>,
 });
