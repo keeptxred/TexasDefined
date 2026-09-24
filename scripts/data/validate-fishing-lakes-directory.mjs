@@ -78,6 +78,14 @@ for (const marker of ['to="/fishing/lakes"', 'Browse fishing lakes →', 'Explor
 for (const marker of ['FISHING_LAKES_DIRECTORY_PATH = "/fishing/lakes"', '{ path: FISHING_LAKES_DIRECTORY_PATH, lastmod: FISHING_LAKES_DIRECTORY_VERIFIED_AT }']) assert(sitemap.includes(marker), `Fishing sitemap is missing lakes-directory ownership marker: ${marker}.`);
 assert(publicRoutes.includes('"/fishing/lakes"'), 'Public static route registry must sitemap-own /fishing/lakes.');
 for (const marker of ['id: "fishing-directory:texas-fishing"', 'href: "/fishing"', 'id: "fishing-directory:texas-fishing-lakes"', 'title: "Texas Fishing Lakes"', 'href: "/fishing/lakes"', '"compare fishing lakes"']) assert(search.includes(marker), `Fishing site-search index is missing statewide/lakes directory marker: ${marker}.`);
+for (const marker of [
+  "const completeLakes = lakes.filter((lake) => isCompleteFishingLakeSlug(lake.slug))",
+  "const completeLakeCount = completeLakes.length",
+  "const completeLakeNames = completeLakes.map((lake) => lake.name)",
+  "Compare ${completeLakeCount} complete TexasDefined fishing-lake guides",
+  "...completeLakeNames",
+]) assert(search.includes(marker), `Fishing site-search complete-lake metadata is not dynamically derived: ${marker}.`);
+assert(!search.includes("Compare the five complete TexasDefined fishing-lake guides"), "Fishing site-search must not reintroduce the stale five-lake summary.");
 
 if (errors.length) {
   console.error("Fishing lakes directory validation failed:");
