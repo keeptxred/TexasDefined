@@ -8,13 +8,13 @@ import {
   type TexasBusinessCategory,
 } from '@/data/made-in-texas';
 
-const categoryOrder: Array<{ slug: TexasBusinessCategory; label: string; description: string }> = [
+const categoryOrder: Array<{ slug: TexasBusinessCategory; label: string; description: string; industryHref?: string; industryLabel?: string }> = [
   { slug: 'food-drink', label: 'Food & drink', description: 'Ice cream, barbecue, sauces, spirits, beer, bakeries and Texas food brands.' },
   { slug: 'western-wear', label: 'Western wear', description: 'Boots, hats, leather goods and apparel tied to Texas craft traditions.' },
   { slug: 'home-outdoors', label: 'Home & outdoors', description: 'Coolers, smokers, hunting gear, fishing gear, candles and outdoor products.' },
-  { slug: 'technology-manufacturing', label: 'Technology & manufacturing', description: 'Semiconductors, engineering, medical technology and industrial production.' },
-  { slug: 'aerospace-transportation', label: 'Aerospace & transportation', description: 'Aircraft, rockets, trucks, vehicles, airlines and trailer manufacturing.' },
-  { slug: 'energy-industrial', label: 'Energy & industrial', description: 'Oilfield equipment, pipelines, industrial technology and Texas energy companies.' },
+  { slug: 'technology-manufacturing', label: 'Technology & manufacturing', description: 'Semiconductors, engineering, medical technology and industrial production.', industryHref: '/texas-industries/technology-semiconductors', industryLabel: 'Technology & semiconductors' },
+  { slug: 'aerospace-transportation', label: 'Aerospace & transportation', description: 'Aircraft, rockets, trucks, vehicles, airlines and trailer manufacturing.', industryHref: '/texas-industries/aerospace-aviation-defense', industryLabel: 'Aerospace, aviation & defense' },
+  { slug: 'energy-industrial', label: 'Energy & industrial', description: 'Oilfield equipment, pipelines, industrial technology and Texas energy companies.', industryHref: '/texas-industries/energy-power', industryLabel: 'Energy & power' },
   { slug: 'retail-lifestyle', label: 'Retail & lifestyle', description: 'Homegrown Texas retailers, jewelry brands, travel centers and service companies.' },
 ];
 
@@ -52,6 +52,7 @@ function MadeInTexasPage() {
                   <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">{category.label}</p>
                   <h2 className="mt-2 font-display text-4xl">{category.label}</h2>
                   <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">{category.description}</p>
+                  {category.industryHref ? <a href={category.industryHref} className="mt-3 inline-block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary">Explore the {category.industryLabel} industry guide →</a> : null}
                   <div className="mt-7 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2">
                     {entries.map((entry) => {
                       const evidence = evidenceForMadeInTexasEntry(entry.name);
