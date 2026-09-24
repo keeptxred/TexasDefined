@@ -81,6 +81,18 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Texas Old West and ranch-country heritage: https://texasdefined.com/texas-old-west
 - Sacred places and spiritual heritage in Texas: https://texasdefined.com/texas-sacred-places
 - Texas science, space, technology and industry guide: https://texasdefined.com/texas-science-technology-industry
+- Texas industries authority hub: https://texasdefined.com/texas-industries
+- Texas energy and power industry: https://texasdefined.com/texas-industries/energy-power
+- Texas technology and semiconductors: https://texasdefined.com/texas-industries/technology-semiconductors
+- Texas advanced manufacturing: https://texasdefined.com/texas-industries/advanced-manufacturing
+- Texas trade, transportation and logistics: https://texasdefined.com/texas-industries/trade-transportation-logistics
+- Texas aerospace, aviation and defense: https://texasdefined.com/texas-industries/aerospace-aviation-defense
+- Texas healthcare and life sciences: https://texasdefined.com/texas-industries/healthcare-life-sciences
+- Texas agriculture and livestock: https://texasdefined.com/texas-industries/agriculture-livestock
+- Texas financial services: https://texasdefined.com/texas-industries/financial-services
+- Texas construction and real estate: https://texasdefined.com/texas-industries/construction-real-estate
+- Texas corporate and professional services: https://texasdefined.com/texas-industries/corporate-professional-services
+- Texas hospitality, tourism and culture: https://texasdefined.com/texas-industries/hospitality-tourism-culture
 - Texas college towns guide: https://texasdefined.com/texas-college-towns
 - Texas tailgating guide: https://texasdefined.com/texas-tailgating-guide
 - Unique lodging in Texas: https://texasdefined.com/texas-unique-lodging
