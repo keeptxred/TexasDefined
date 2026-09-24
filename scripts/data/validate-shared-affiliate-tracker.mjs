@@ -5,8 +5,13 @@ const sourceRoot = 'src';
 const sharedTrackerPath = path.normalize('src/lib/affiliate-click.ts');
 const outcomeClientPath = path.normalize('src/platform/analytics.ts');
 const publicRoot = 'public';
-const sourceExtensions = new Set(['.js', '.jsx', '.ts', '.tsx']);
+const sourceExtensions = new Set(['.js', '.jsx', '.json', '.ts', '.tsx']);
 const failures = [];
+const deactivatedAffiliateMarkers = [
+  ['golf direct now', 'Golf Direct Now advertiser name'],
+  ['golfdirectnow', 'Golf Direct Now domain/slug'],
+  ['6323402', 'Golf Direct Now CJ advertiser ID'],
+];
 
 function walk(dir) {
   const files = [];
@@ -16,6 +21,15 @@ function walk(dir) {
     else if (sourceExtensions.has(path.extname(entry.name))) files.push(path.normalize(fullPath));
   }
   return files;
+}
+
+function validateDeactivatedAffiliateReferences(file, source) {
+  const normalized = source.toLowerCase();
+  for (const [marker, label] of deactivatedAffiliateMarkers) {
+    if (normalized.includes(marker)) {
+      failures.push(`${file} contains deactivated affiliate reference ${label}; Golf Direct Now must not be published while CJ advertiser 6323402 is inactive.`);
+    }
+  }
 }
 
 function validateAffiliateAnchorMetadata(file, source) {
@@ -116,6 +130,7 @@ for (const file of walk(sourceRoot)) {
     failures.push(`${file} dispatches texasdefined:affiliate-click locally; use src/lib/affiliate-click.ts instead.`);
   }
 
+  validateDeactivatedAffiliateReferences(file, source);
   validateAffiliateAnchorMetadata(file, source);
   validateDomAffiliateMetadata(file, source);
   validateKnownAffiliateNetworkMetadata(file, source);
@@ -123,8 +138,9 @@ for (const file of walk(sourceRoot)) {
 
 if (fs.existsSync(publicRoot)) {
   for (const file of walk(publicRoot)) {
-    if (path.extname(file) !== '.js') continue;
     const source = fs.readFileSync(file, 'utf8');
+    validateDeactivatedAffiliateReferences(file, source);
+    if (path.extname(file) !== '.js') continue;
     for (const outcome of ['partner_referral_shown', 'partner_referral_clicked']) {
       if (source.includes(outcome)) {
         failures.push(`${file} writes ${outcome} directly; public affiliate bootstraps must rely on the centralized delegated commercial-link listener to avoid double counting.`);
@@ -142,4 +158,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Shared affiliate tracker governance passed: affiliate marketing emitters are centralized, first-party partner referral impression and click counting remain single-path through src/platform/analytics.ts, public bootstraps cannot write either outcome directly, every affiliate-tagged source/public link retains commercial partner and placement metadata, and rendered source/public links using known CJ/CityPASS/Viator affiliate-network identifiers cannot silently bypass private reporting.');
+console.log('Shared affiliate tracker governance passed: affiliate marketing emitters are centralized, first-party partner referral impression and click counting remain single-path through src/platform/analytics.ts, public bootstraps cannot write either outcome directly, every affiliate-tagged source/public link retains commercial partner and placement metadata, rendered source/public links using known CJ/CityPASS/Viator affiliate-network identifiers cannot silently bypass private reporting, and the deactivated Golf Direct Now CJ advertiser cannot re-enter source/public assets while advertiser 6323402 remains inactive.');
