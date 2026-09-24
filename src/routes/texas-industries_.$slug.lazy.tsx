@@ -38,6 +38,16 @@ function TexasIndustryPage() {
               </div>
 
               <section className="mt-12">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">How the sector evolved</p>
+                <h2 className="mt-3 font-display text-3xl">{industry.evolution.title}</h2>
+                <div className="mt-6 border border-border bg-background p-6">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">{industry.evolution.period}</p>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{industry.evolution.detail}</p>
+                  <a href={industry.evolution.sourceUrl} target="_blank" rel="noreferrer" className="mt-4 inline-block text-xs font-semibold text-primary">{industry.evolution.sourceLabel} ↗</a>
+                </div>
+              </section>
+
+              <section className="mt-12">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Industry structure</p>
                 <h2 className="mt-3 font-display text-3xl">Major clusters and activities</h2>
                 <div className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2">
