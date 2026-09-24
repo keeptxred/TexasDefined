@@ -5,7 +5,7 @@ import type {
   PaintedChurchSource,
 } from "./painted-church-profiles";
 
-export const paintedChurchAuthorityExpansionDate = "2026-09-23";
+export const paintedChurchAuthorityExpansionDate = "2026-09-24";
 
 export type PaintedChurchAuthoritySource = {
   label: string;
@@ -385,6 +385,330 @@ const enrichments: Record<string, AuthorityEnrichment> = {
   },
 };
 
+
+const PAINTED_CHURCHES_IN_TEXAS = "https://paintedchurchesintexas.com";
+
+const fieldResearchEnrichments: Record<string, AuthorityEnrichment> = {
+  "serbin-st-paul-lutheran-church": {
+    facts: [
+      { label: "Wendish migration", value: "Pastor John Kilian led more than 500 Wendish immigrants from Hamburg toward Texas in 1854; the field-history account records 73 deaths during the Atlantic crossing" },
+      { label: "Present church", value: "Constructed in 1870 under Rev. John Kilian" },
+      { label: "Historic seating", value: "Men traditionally occupied the upper gallery while women and children sat on the ground floor" },
+      { label: "Pulpit", value: "The elevated pulpit rises roughly 20 feet above the floor" },
+      { label: "Decorative campaign", value: "The previously plain interior was transformed in 1906 by members of the congregation rather than a hired professional artist" },
+    ],
+    history: [
+      {
+        heading: "The 1854 Wendish migration shaped the church's unusual interior culture",
+        paragraphs: [
+          "A field-history account of St. Paul's places the congregation in the larger Wendish migration led by Pastor John Kilian in 1854. More than five hundred emigrants left Hamburg for Texas, and the account records seventy-three deaths during the difficult voyage. The church completed at Serbin in 1870 became the religious center of the surviving community.",
+          "The two-level seating arrangement also preserves a social custom that is easy to miss when looking only at the painted surfaces: men historically used the upper gallery while women and children sat below. The towering upper-level pulpit reinforces the Lutheran emphasis on preaching and helps explain why the interior reads so differently from the Catholic churches in the statewide collection.",
+        ],
+      },
+    ],
+    paintings: [
+      {
+        heading: "The 1906 decoration was a congregational folk-art project",
+        paragraphs: [
+          "The church reportedly remained comparatively plain for its first thirty-six years. In 1906 the congregation undertook the decorative campaign itself rather than commissioning a professional church painter. The resulting scheme uses blue and gold, floral ornament and columns painted to imitate marble to give the wood-frame sanctuary a more monumental architectural character.",
+          "That community authorship is an important contrast with churches decorated by documented professionals such as Ferdinand Stockert, Hermann Kern or Fred Donecker. Serbin shows that the Texas painted-church tradition also includes sophisticated collective folk artistry rooted directly in an immigrant congregation.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Painted Churches in Texas — St. Paul Lutheran Church, Serbin", url: PAINTED_CHURCHES_IN_TEXAS + "/st-paul-lutheran-church-serbin/" },
+    ],
+  },
+
+  "dubina-saints-cyril-methodius": {
+    facts: [
+      { label: "Community name", value: "The settlement adopted the name Dubina in 1884 after learning another Texas post office already used Moravia; the name refers to an oak grove" },
+      { label: "First church", value: "A church dedicated to Saints Cyril and Methodius was built in 1877" },
+      { label: "Historic iron cross", value: "A field-history source identifies local Black blacksmith Tom Lee, formerly enslaved, as the maker of the first church's iron cross; the cross survived the 1909 storm and was reused" },
+      { label: "Replacement campaign", value: "After the July 1909 hurricane, the community raised $5,571.90 for the replacement designed by Leo M. J. Dielmann and completed in 1911–1912" },
+      { label: "Restoration method", value: "The early-1980s reconstruction used surviving traces and rediscovered stencil patterns; volunteers made restrained interpretive choices where evidence was incomplete" },
+    ],
+    history: [
+      {
+        heading: "A surviving cross connects the present church to the 1877 sanctuary",
+        paragraphs: [
+          "A detailed field-history account traces Dubina's first church to 1877 and identifies local blacksmith Tom Lee as the craftsman who forged its iron cross. After the 1909 hurricane destroyed the building, the cross was recovered and placed on the replacement church, giving the present sanctuary a physical link to its predecessor.",
+          "The same source records the community's post-storm fundraising total of $5,571.90 and places the Dielmann replacement campaign in 1911–1912. These details sharpen the story of a congregation that repeatedly converted local labor and limited resources into durable sacred architecture.",
+        ],
+      },
+    ],
+    preservation: [
+      {
+        heading: "The 1980s restoration recovered patterns without pretending every detail survived",
+        paragraphs: [
+          "After the historic decoration had been whitewashed, the early-1980s restoration used visible remnants and rediscovered stencil patterns to reconstruct the blue ceilings, stars and figurative ornament. Fayette County Judge Ed Janecka, who remembered portions of the earlier scheme from his youth, helped lead the effort with local volunteers including Butch Koenig.",
+          "The field account notes that volunteers sometimes had to make restrained interpretive choices where the evidence was incomplete. The present interior should therefore be read as a careful community reconstruction based on surviving evidence, not as an untouched original paint layer.",
+        ],
+      },
+    ],
+    visitorNotes: [
+      "The nearby 1885 Piano Bridge over the East Navidad River is a useful companion stop for understanding Dubina's surviving historic landscape.",
+    ],
+    sources: [
+      { label: "Painted Churches in Texas — Saints Cyril & Methodius, Dubina", url: PAINTED_CHURCHES_IN_TEXAS + "/saints-cyril-and-methodius-catholic-church-dubina/" },
+    ],
+  },
+
+  "wesley-brethren-church": {
+    facts: [
+      { label: "Czech entrance inscription", value: "A painted inscription above the entrance presents Christ's 'way, truth and life' saying in Czech" },
+      { label: "Laciak decorative campaign", value: "The field-history account dates Rev. Bohuslav Laciak's interior work to 1889–1891" },
+      { label: "Illusionistic program", value: "Painted columns, arches, faux brickwork and a painted apse turn the small wood church into an illusion of a larger sacred interior" },
+      { label: "Unfinished work", value: "Laciak died in a hunting accident before completing the program; faint outlines of unfinished designs reportedly remain visible" },
+    ],
+    paintings: [
+      {
+        heading: "Laciak's unfinished program still reveals its intended symbolism",
+        paragraphs: [
+          "A field account of the interior describes Laciak's use of painted columns and arches to suggest a much grander basilica-like space. Faux brickwork has been interpreted as an allusion to Jerusalem, while the painted apse visually deepens the wall behind the pulpit.",
+          "The same account calls attention to a golden chalice above the pulpit and the deep-blue geometric ceiling. More unusually, it records that Laciak died in a hunting accident before the scheme was finished and that outlines of planned decoration can still be detected. Those unfinished traces make the church useful for studying not only finished iconography but also the process of creating a nineteenth-century painted interior.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Painted Churches in Texas — Wesley Brethren Church", url: PAINTED_CHURCHES_IN_TEXAS + "/wesley-brethern-church-wesley-texas/" },
+    ],
+  },
+
+  "plantersville-st-marys-catholic-church": {
+    facts: [
+      { label: "Earliest recorded Catholic visit", value: "Summer 1860; later services were held in James Kelly Markey's home until a church was built in 1873" },
+      { label: "1894 parish site", value: "Cordelia Baker donated ten acres during Rev. Joseph Klein's pastorate; a German Catholic church was dedicated there in 1894" },
+      { label: "1907 parish division", value: "Polish families established St. Joseph's at Stoneham while the German congregation remained at St. Mary's" },
+      { label: "Historic pews", value: "Most pews date to the 1917 church; the last two on each side are associated with the earlier 1894 building" },
+      { label: "World War II alteration", value: "German-language inscriptions were painted over during World War II and were later restored" },
+    ],
+    history: [
+      {
+        heading: "The 1917 church inherited a much older Catholic story",
+        paragraphs: [
+          "Texas Historical Commission records place the first recorded Catholic priest in Plantersville in 1860, followed by services in the home of James Kelly Markey and a first church in 1873. Immigration enlarged the congregation, and in 1894 Cordelia Baker donated ten acres for the German Catholic parish that became Nativity of the Blessed Virgin Mary.",
+          "The congregation divided along cultural lines in 1907, when Polish families organized St. Joseph's in Stoneham. The German congregation's church was then destroyed by lightning in 1917 and replaced the same year by the surviving Gothic Revival building.",
+        ],
+      },
+    ],
+    preservation: [
+      {
+        heading: "Restoration recovered both paint and immigrant-language history",
+        paragraphs: [
+          "Field research records that some German inscriptions were deliberately covered during World War II, when parishioners feared the consequences of being identified with German culture. Later restoration recovered those inscriptions along with historic stencil and color evidence.",
+          "The interior also preserves layers from more than one building: most pews belong to the 1917 church, while a small group of pews is associated with the 1894 predecessor. That makes the sanctuary a material record of both the fire and the rebuilding campaign.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Painted Churches in Texas — Nativity of the Blessed Virgin Mary, Plantersville", url: PAINTED_CHURCHES_IN_TEXAS + "/church-of-the-nativity-of-the-blessed-virgin-mary-plantersville/" },
+      { label: "Texas Historical Commission — St. Mary's Catholic Church marker", url: "https://atlas.thc.texas.gov/Details/5185012792" },
+    ],
+  },
+
+  "wallis-guardian-angel": {
+    facts: [
+      { label: "Parish school", value: "Opened in 1914 with 64 students; by 1933 the school had six teachers and 170 students while the parish had grown to about 300 families" },
+      { label: "Interior plan", value: "Basilican nave and side aisles are divided by fluted wood columns and arched trusses, with beaded-board walls and ceilings above a lancet-pattern wainscot" },
+      { label: "Prayer Garden", value: "The parish grounds include a Last Supper prayer installation, a grotto and outdoor devotional sculpture" },
+    ],
+    history: [
+      {
+        heading: "The church anchored a parish school as well as worship",
+        paragraphs: [
+          "The congregation's institutional growth continued immediately after the 1913 church was completed. A parish school opened in 1914 with sixty-four students; by 1933 it had six teachers and 170 students, while the parish itself had grown to roughly three hundred families.",
+          "That educational history helps place the painted sanctuary within a larger immigrant Catholic complex rather than treating it as an isolated work of decorative art.",
+        ],
+      },
+    ],
+    paintings: [
+      {
+        heading: "The painted program follows the building's basilican structure",
+        paragraphs: [
+          "Field documentation describes a basilican interior in which fluted wooden columns divide the nave from side aisles and support arched trusses. Painted stars, angels, banners, the Alpha and Omega, and Eucharistic imagery are organized around those architectural bays rather than applied as an unrelated mural layer.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Painted Churches in Texas — Guardian Angel Catholic Church, Wallis", url: PAINTED_CHURCHES_IN_TEXAS + "/guardian-angel-catholic-church-wallis-texas/" },
+    ],
+  },
+
+  "panna-maria-immaculate-conception": {
+    facts: [
+      { label: "1966 Polish millennium gift", value: "President Lyndon B. Johnson presented a mosaic of Our Lady of Częstochowa to the historic Panna Maria church during the millennium observance of Polish Christianity" },
+      { label: "Historic devotional object", value: "A painting of St. Stanislaus brought from Poland in 1858 is preserved at the church" },
+      { label: "Polish heritage context", value: "The nearby Polish Heritage Center interprets the settlement's migration, faith, education and later connections with Poland" },
+    ],
+    history: [
+      {
+        heading: "Twentieth-century gifts connected Panna Maria back to Poland",
+        paragraphs: [
+          "The church's later history includes national and international Polish Catholic connections. During the 1966 millennium of Christianity in Poland, President Lyndon B. Johnson presented a mosaic of Our Lady of Częstochowa to the historic Panna Maria church. The Polish Heritage Center independently documents that presentation and the broader Polish-American observance surrounding it.",
+          "The site also preserves devotional objects carried or donated across generations, including a St. Stanislaus painting brought from Poland in 1858. Together with the nearby Polish Heritage Center, these objects extend the church story beyond architecture into the community's continuing relationship with Polish identity.",
+        ],
+      },
+    ],
+    visitorNotes: [
+      "The Polish Heritage Center at Panna Maria is a strong companion stop for migration, cultural and religious context that cannot be read from the church interior alone.",
+    ],
+    sources: [
+      { label: "Painted Churches in Texas — Immaculate Conception, Panna Maria", url: PAINTED_CHURCHES_IN_TEXAS + "/immaculate-conception-of-the-blessed-virgin-mary-catholic-church-panna-maria-texas/" },
+      { label: "Polish Heritage Center — 1966 Millennium of Christianity in Poland", url: "https://polishheritagecentertx.org/1966-millennium-christianity-poland-polish-renaissance-texas" },
+    ],
+  },
+
+  "ammannsville-st-john-the-baptist": {
+    facts: [
+      { label: "1917 fire survival", value: "Field research records six statues and a crucifix as surviving the fire and being incorporated into the present church" },
+      { label: "Historic pew detail", value: "Original pews retain hooks once used by men to hang hats" },
+      { label: "Cemetery context", value: "The adjacent parish cemetery contains ornate markers, including stones with Czech inscriptions" },
+    ],
+    history: [
+      {
+        heading: "Objects rescued from the 1917 fire still connect the third church to the second",
+        paragraphs: [
+          "A field-history account records that six statues and a crucifix were saved from the 1917 fire and incorporated into the replacement church. Those objects make the present sanctuary more than a complete reset after disaster: pieces of the lost second church remained in devotional use.",
+          "The same account notes surviving hat hooks on the original pews and Czech inscriptions in the adjacent cemetery, small material details that connect the painted interior to the social customs and immigrant identity of the congregation.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Painted Churches in Texas — St. John the Baptist, Ammannsville", url: PAINTED_CHURCHES_IN_TEXAS + "/st-john-the-baptist-church-ammannsville/" },
+    ],
+  },
+
+  "fredericksburg-st-marys-catholic-church": {
+    facts: [
+      { label: "Consecration", value: "November 24, 1908, after a 1906–1908 construction campaign" },
+      { label: "Historic organ", value: "George Kilgen & Son of St. Louis supplied the original organ; its case was painted to harmonize with the interior" },
+      { label: "1936 iconography", value: "Apostolic figures on the nave arches omit Judas, include Matthias, and place Paul opposite Peter" },
+      { label: "Apse theme", value: "Christ the King and Eucharistic imagery dominate the sanctuary, including a Melchizedek scene" },
+    ],
+    paintings: [
+      {
+        heading: "The 1936 program is organized around apostles and Eucharistic kingship",
+        paragraphs: [
+          "Field research adds useful iconographic detail to the 1936 decorative campaign. Figures of the apostles progress along the nave arches, with Matthias taking the place of Judas and Paul positioned opposite Peter. The arrangement turns the architecture itself into a procession of apostolic witnesses.",
+          "In the sanctuary, Christ the King anchors a broader Eucharistic theme. A large Melchizedek scene connects bread and wine in the Hebrew scriptures with the Catholic interpretation of the Eucharist, giving the painted program a theological structure rather than functioning as ornament alone.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Painted Churches in Texas — St. Mary's Catholic Church, Fredericksburg", url: PAINTED_CHURCHES_IN_TEXAS + "/st-mary-catholic-church-frederickburg/" },
+    ],
+  },
+
+  "high-hill-nativity-of-mary": {
+    facts: [
+      { label: "Reused stained glass", value: "Eighteen windows from the second church were installed in the 1906 building; additional sanctuary and tower windows expanded the program" },
+      { label: "Interior furnishings", value: "Pulpit, communion rail and baptismal enclosure were completed in 1910; three altars followed in 1911" },
+      { label: "Historic site cross", value: "A marble cross erected in 1891 for the earlier church survives north of the present sanctuary" },
+    ],
+    history: [
+      {
+        heading: "The third church deliberately carried pieces of the second forward",
+        paragraphs: [
+          "The 1906 sanctuary reused more than general building material. Field research records eighteen stained-glass windows from the second church being installed in the new building, while three earlier bells were also returned to service. Furnishings then arrived in stages: the pulpit, communion rail and baptismal enclosure in 1910 and three parish-funded altars in 1911.",
+          "Outside, an 1891 marble cross associated with the earlier church survives north of the present building. Together these features make High Hill a layered parish site rather than a single 1906–1912 construction episode.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Painted Churches in Texas — St. Mary's at High Hill", url: PAINTED_CHURCHES_IN_TEXAS + "/saint-mary-catholic-church-nativity-of-the-blessed-virgin-mary-at-high-hill/" },
+    ],
+  },
+
+  "praha-st-marys-assumption": {
+    facts: [
+      { label: "1865 stone chapel", value: "The first chapel measured about 17 by 15 feet, with roughly 18-inch-thick stone walls" },
+      { label: "Priest's hut", value: "A separate small stone structure near the chapel gave visiting priests a place to stay and vest because the chapel was too small for a sacristy" },
+      { label: "Early congregation", value: "A field-history account names eight families in the parish during the earliest chapel period" },
+    ],
+    history: [
+      {
+        heading: "The first Praha chapel was tiny even by frontier standards",
+        paragraphs: [
+          "A detailed community history adds scale to Praha's earliest Catholic worship. The 1865 stone chapel measured only about seventeen by fifteen feet, with walls roughly eighteen inches thick. A separate stone hut nearby accommodated visiting priests and vesting because the chapel itself had no room for a sacristy.",
+          "Those dimensions make the leap to the monumental 1895 church especially clear. The painted sanctuary visitors see today grew from a congregation that initially worshiped in a room-sized stone chapel built by a handful of families.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Painted Churches in Texas — St. Mary's Church of the Assumption, Praha", url: PAINTED_CHURCHES_IN_TEXAS + "/st-mary-church-of-the-assumption-praha/" },
+    ],
+  },
+
+  "lindsay-st-peters-catholic-church": {
+    facts: [
+      { label: "1917 tornado survival", value: "The tornado left the apse, all three altars, the facade and steeple standing while destroying most of the 1903 church" },
+      { label: "Rebuilding material", value: "Parishioners salvaged material from the damaged church and from the fire-damaged Gainesville courthouse during the 1918 rebuilding" },
+      { label: "2009–2011 restoration", value: "Water intrusion required major plaster, roof, foundation, window, floor, pew and altar work; the two-year project cost about $4.9 million" },
+    ],
+    preservation: [
+      {
+        heading: "A twenty-first-century restoration rebuilt damaged plaster without discarding the historic pattern",
+        paragraphs: [
+          "By 2009 long-hidden roof leaks had damaged interior plaster and even the mortar binding the brick structure. The conservation response went far beyond repainting: damaged plaster was removed, historic patterns were documented and recreated on new plaster, and the roof, foundation, windows, floors, pews and altars were repaired.",
+          "The field-history account places the two-year project at about $4.9 million. That scale illustrates why preserving a painted church often means stabilizing the entire building envelope before decorative surfaces can be saved.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Painted Churches in Texas — St. Peter Catholic Church, Lindsay", url: PAINTED_CHURCHES_IN_TEXAS + "/saint-peter-catholic-church-lindsay/" },
+    ],
+  },
+
+  "shiner-saints-cyril-methodius": {
+    facts: [
+      { label: "First Shiner church", value: "Construction began January 2, 1891; the first building was completed in May 1891" },
+      { label: "1892 storm", value: "A twister moved the first church about 11 feet off its foundation and destroyed its tower; the building was repaired" },
+      { label: "Present church campaign", value: "The cornerstone was laid in 1920 and the present church was blessed July 7, 1921" },
+      { label: "Construction team", value: "Father Wolf and architect E. Wahrenberger supervised work carried out by San Antonio contractors Vincent Falbo and M. Deodati" },
+    ],
+    history: [
+      {
+        heading: "The present landmark followed an earlier church that survived being shifted by a twister",
+        paragraphs: [
+          "Shiner's first Catholic church was completed in 1891, only to be struck by a twister in February 1892. A field-history account records that the building was moved roughly eleven feet from its foundation and lost its tower, but parishioners straightened and repaired it rather than abandoning the site.",
+          "Growth eventually required the much larger present church. The cornerstone was laid in 1920, and the new sanctuary was blessed on July 7, 1921 after work supervised by Father Wolf and architect E. Wahrenberger with San Antonio contractors Vincent Falbo and M. Deodati.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Painted Churches in Texas — Saints Cyril & Methodius, Shiner", url: PAINTED_CHURCHES_IN_TEXAS + "/saints-cyril-methodius-catholic-church-shiner-texas/" },
+    ],
+  },
+
+  "palestine-sacred-heart-catholic-church": {
+    overrides: {
+      builtYear: 1893,
+      architect: "Nicholas J. Clayton",
+    },
+    facts: [
+      { label: "Construction material", value: "About 675,000 bricks were molded and fired on site using clay brought from the Trinity River" },
+      { label: "Architect", value: "Nicholas J. Clayton" },
+      { label: "Stained glass", value: "Historic windows were imported from Italy and France" },
+      { label: "Pipe organ", value: "A Pilcher pipe organ installed in 1926 remains part of the church" },
+      { label: "Mural history", value: "The Transfiguration of Christ image dates to the 1920s and was retouched in 1946" },
+    ],
+    history: [
+      {
+        heading: "The painted sanctuary sits inside one of East Texas's major Victorian Gothic churches",
+        paragraphs: [
+          "Sacred Heart was completed and dedicated in 1893 after fire destroyed its wooden predecessor. Parish history identifies Nicholas J. Clayton as architect and records an extraordinary local building campaign: roughly 675,000 bricks were molded and fired on site from clay brought from the Trinity River.",
+          "The church's decorative character extends beyond the sanctuary mural to imported stained glass and a 1926 Pilcher pipe organ. Those elements help explain why the painted image belongs within a broader architectural ensemble rather than being treated as an isolated artwork.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Painted Churches in Texas — Sacred Heart Catholic Church, Palestine", url: PAINTED_CHURCHES_IN_TEXAS + "/sacred-heart-catholic-church-palestine-2/" },
+      { label: "Sacred Heart Catholic Church — official history", url: "https://shpalestine.org/history" },
+    ],
+  },
+};
+
 function appendUnique<T>(base: T[] | undefined, extra: T[] | undefined, key: (value: T) => string): T[] | undefined {
   if (!base?.length && !extra?.length) return base;
   const out = [...(base ?? [])];
@@ -399,10 +723,8 @@ function appendUnique<T>(base: T[] | undefined, extra: T[] | undefined, key: (va
   return out;
 }
 
-export function enrichPaintedChurchProfile(profile: PaintedChurchProfile): PaintedChurchProfile {
-  const patch = enrichments[profile.slug];
+function applyEnrichment(profile: PaintedChurchProfile, patch: AuthorityEnrichment | undefined): PaintedChurchProfile {
   if (!patch) return profile;
-
   return {
     ...profile,
     ...(patch.overrides ?? {}),
@@ -413,4 +735,9 @@ export function enrichPaintedChurchProfile(profile: PaintedChurchProfile): Paint
     visitorNotes: appendUnique(profile.visitorNotes, patch.visitorNotes, (item) => item),
     sources: appendUnique(profile.sources, patch.sources, (item) => item.url) ?? [],
   };
+}
+
+export function enrichPaintedChurchProfile(profile: PaintedChurchProfile): PaintedChurchProfile {
+  return [enrichments[profile.slug], fieldResearchEnrichments[profile.slug]]
+    .reduce<PaintedChurchProfile>((current, patch) => applyEnrichment(current, patch), profile);
 }
