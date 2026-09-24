@@ -24,6 +24,7 @@ export type TexasIndustryConnection = {
 
 export type TexasIndustrySector = {
   slug: string;
+  href: string;
   shortTitle: string;
   title: string;
   description: string;
@@ -41,6 +42,7 @@ export const TEXAS_INDUSTRIES_VERIFIED_AT = "September 23, 2026";
 export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
   {
     slug: "energy-power",
+    href: "/texas-industries/energy-power",
     shortTitle: "Energy & Power",
     title: "Texas Energy & Power Industry",
     description: "A practical guide to Texas oil and gas, electric power, wind, solar, transmission, pipelines, LNG and the regions that anchor the state's energy economy.",
@@ -74,6 +76,7 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
   },
   {
     slug: "technology-semiconductors",
+    href: "/texas-industries/technology-semiconductors",
     shortTitle: "Technology & Semiconductors",
     title: "Texas Technology, AI & Semiconductor Industry",
     description: "Explore Texas technology, AI, software, data centers, electronics and semiconductor manufacturing from Austin and Dallas-Fort Worth to Sherman and Taylor.",
@@ -107,6 +110,7 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
   },
   {
     slug: "advanced-manufacturing",
+    href: "/texas-industries/advanced-manufacturing",
     shortTitle: "Advanced Manufacturing",
     title: "Texas Advanced Manufacturing Industry",
     description: "Understand Texas advanced manufacturing across automotive, electronics, machinery, aerospace, chemicals, vehicles and high-tech production.",
@@ -140,6 +144,7 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
   },
   {
     slug: "trade-transportation-logistics",
+    href: "/texas-industries/trade-transportation-logistics",
     shortTitle: "Trade, Transportation & Logistics",
     title: "Texas Trade, Transportation & Logistics Industry",
     description: "Explore how Texas ports, the Mexico border, highways, railroads, airports, warehouses and distribution hubs connect the state to U.S. and global trade.",
@@ -173,6 +178,7 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
   },
   {
     slug: "aerospace-aviation-defense",
+    href: "/texas-industries/aerospace-aviation-defense",
     shortTitle: "Aerospace, Aviation & Defense",
     title: "Texas Aerospace, Aviation & Defense Industry",
     description: "Explore Texas aerospace, aviation, spaceflight and defense from NASA Johnson Space Center and SpaceX to Fort Worth aircraft manufacturing and military aviation.",
@@ -206,6 +212,7 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
   },
   {
     slug: "healthcare-life-sciences",
+    href: "/texas-industries/healthcare-life-sciences",
     shortTitle: "Healthcare & Life Sciences",
     title: "Texas Healthcare & Life Sciences Industry",
     description: "Explore the Texas healthcare, biotechnology, pharmaceutical, medical-device and research economy, including Houston's Texas Medical Center and regional medical hubs.",
@@ -239,6 +246,7 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
   },
   {
     slug: "agriculture-livestock",
+    href: "/texas-industries/agriculture-livestock",
     shortTitle: "Agriculture & Livestock",
     title: "Texas Agriculture & Livestock Industry",
     description: "Explore Texas cattle, cotton, poultry, dairy, grains, ranching, farming, food processing and the regions that make agriculture a statewide economic system.",
@@ -273,6 +281,7 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
   },
   {
     slug: "financial-services",
+    href: "/texas-industries/financial-services",
     shortTitle: "Financial Services",
     title: "Texas Financial Services Industry",
     description: "Explore Texas banking, insurance, investment, fintech and corporate finance, with Dallas-Fort Worth, Houston, Austin and San Antonio as major centers.",
@@ -306,6 +315,7 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
   },
   {
     slug: "construction-real-estate",
+    href: "/texas-industries/construction-real-estate",
     shortTitle: "Construction & Real Estate",
     title: "Texas Construction & Real Estate Industry",
     description: "Explore Texas residential and commercial construction, infrastructure, development, real estate and the growth corridors reshaping major metros and smaller communities.",
@@ -339,6 +349,7 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
   },
   {
     slug: "corporate-professional-services",
+    href: "/texas-industries/corporate-professional-services",
     shortTitle: "Corporate & Professional Services",
     title: "Texas Corporate & Professional Services Industry",
     description: "Explore Texas headquarters, business services, consulting, engineering, accounting, legal operations and corporate support centers across major metros.",
@@ -372,6 +383,7 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
   },
   {
     slug: "hospitality-tourism-culture",
+    href: "/texas-industries/hospitality-tourism-culture",
     shortTitle: "Hospitality, Tourism & Culture",
     title: "Texas Hospitality, Tourism & Culture Industry",
     description: "Explore the Texas visitor economy across hotels, attractions, restaurants, events, film, music and cultural destinations from major metros to parks and small towns.",
