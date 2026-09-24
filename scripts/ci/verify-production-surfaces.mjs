@@ -14,6 +14,8 @@ const surfaces = [
   ['fishing-finder-filters', '/fishing/plan', 'More filters'],
   ['fishing-finder-map-distance', '/fishing/plan?lat=29.76&lng=-95.37&origin=Houston&sort=closest&view=map', 'Map of matching Texas fishing lakes'],
   ['camping-guide', '/best-places-to-go-camping-in-texas', 'Best Places to Go Camping in Texas'],
+  ['camping-guide-direct-filters', '/best-places-to-go-camping-in-texas', 'Electric service'],
+  ['camping-guide-wave8', '/best-places-to-go-camping-in-texas', 'Cedar Hill State Park'],
   ['caverns-count', '/explore/caverns', '11 places are currently mapped'],
   ['caverns-sonora', '/explore/caverns', 'Caverns of Sonora'],
   ['caverns-cascade', '/explore/caverns', 'Cascade Caverns'],
