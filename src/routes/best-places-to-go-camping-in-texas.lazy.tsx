@@ -99,7 +99,18 @@ function CampingGuidePage() {
       </Container>
     </section>
 
-    <section className="py-12 md:py-16">
+    <nav aria-label="Camping guide sections" className="border-b border-border bg-background">
+      <Container className="flex gap-2 overflow-x-auto py-4 text-sm font-semibold">
+        <a href="#camping-trip-types" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Trip types</a>
+        <a href="#campground-finder" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Campground finder</a>
+        <a href="#camping-seasons" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">When to camp</a>
+        <a href="#camping-methodology" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">How it is verified</a>
+        <a href="#camping-questions" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Questions</a>
+        <a href="#camping-next-steps" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Keep planning</a>
+      </Container>
+    </nav>
+
+    <section id="camping-trip-types" className="scroll-mt-24 py-12 md:py-16">
       <Container>
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Start here</p>
@@ -156,7 +167,7 @@ function CampingGuidePage() {
       </Container>
     </section>
 
-    <section className="py-12 md:py-16">
+    <section id="camping-seasons" className="scroll-mt-24 py-12 md:py-16">
       <Container>
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">When to camp</p>
@@ -176,7 +187,7 @@ function CampingGuidePage() {
       </Container>
     </section>
 
-    <section className="border-y border-border bg-muted/30 py-12 md:py-16">
+    <section id="camping-methodology" className="scroll-mt-24 border-y border-border bg-muted/30 py-12 md:py-16">
       <Container>
         <p className="eyebrow text-primary">How the guide is built</p>
         <h2 className="mt-2 font-display text-4xl">Useful first, verified underneath</h2>
@@ -188,7 +199,7 @@ function CampingGuidePage() {
       </Container>
     </section>
 
-    <section className="border-y border-border bg-muted/30 py-12 md:py-16">
+    <section id="camping-questions" className="scroll-mt-24 border-y border-border bg-muted/30 py-12 md:py-16">
       <Container>
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Camping questions</p>
@@ -203,7 +214,7 @@ function CampingGuidePage() {
       </Container>
     </section>
 
-    <section className="py-12 md:py-16">
+    <section id="camping-next-steps" className="scroll-mt-24 py-12 md:py-16">
       <Container className="grid gap-10 lg:grid-cols-[1.1fr_.9fr]">
         <div>
           <p className="eyebrow text-primary">Keep planning</p>
