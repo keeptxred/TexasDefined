@@ -17,6 +17,7 @@ const movingRoute = read('src/routes/moving-to-texas.lazy.tsx');
 const resourcesRoute = read('src/routes/texas-resources.lazy.tsx');
 const businessData = read('src/data/priority-search-pages-public-services.ts');
 const madeInTexasRoute = read('src/routes/made-in-texas.lazy.tsx');
+const scienceIndustryRoute = read('src/routes/texas-science-technology-industry.lazy.tsx');
 const economyArticle = read('src/data/fixtures/texas-life-split-source.ts');
 const seoOverrides = read('src/lib/seo.ts');
 const productionSurfaces = read('scripts/ci/verify-production-surfaces.mjs');
@@ -162,6 +163,7 @@ for (const [label, source] of [
   ['Texas Resources', resourcesRoute],
   ['Start a Business', businessData],
   ['Made in Texas', madeInTexasRoute],
+  ['Texas Science, Space & Industry', scienceIndustryRoute],
 ]) {
   if (!source.includes('/texas-industries')) failures.push(`${label} must surface the Texas industries authority hub.`);
 }
