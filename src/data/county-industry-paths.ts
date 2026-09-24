@@ -96,7 +96,7 @@ export const COUNTY_INDUSTRY_PATHS: Record<string, ReadonlyArray<CountyIndustryP
   hale: [
     { label: 'Agriculture & Livestock', href: '/texas-industries/agriculture-livestock', context: 'Irrigated farming, cotton, grains, livestock and food production are longstanding parts of the Hale County economy.' },
   ],
-  deaf-smith: [
+  'deaf-smith': [
     { label: 'Agriculture & Livestock', href: '/texas-industries/agriculture-livestock', context: 'Cattle feeding, dairy, grains and irrigated agriculture make Deaf Smith County part of the High Plains agricultural system.' },
   ],
   potter: [
