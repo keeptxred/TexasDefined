@@ -208,7 +208,8 @@ for (const route of [files.overviewRoute, files.sectionRoute]) {
 requireText(files.sectionRoute, "isShowcaseLakeSection", "lake section route must keep section allowlist");
 
 for (const token of [
-  "Texas Fishing Lakes — Compare 15 Complete Lake Guides",
+  "const completeLakeCount = rows.length || COMPLETE_FISHING_LAKE_SLUGS.length",
+  "title: `Texas Fishing Lakes — Compare ${completeLakeCount} Complete Lake Guides`",
   "isCompleteFishingLakeSlug(lake.slug)",
   "numberOfItems: rows.length",
 ]) requireText(files.directoryRoute, token, `fifteen-lake directory SEO/data contract missing ${token}`);
