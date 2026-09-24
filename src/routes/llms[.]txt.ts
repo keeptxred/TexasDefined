@@ -82,6 +82,16 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Sacred places and spiritual heritage in Texas: https://texasdefined.com/texas-sacred-places
 - Texas science, space, technology and industry guide: https://texasdefined.com/texas-science-technology-industry
 - Texas industries authority hub: https://texasdefined.com/texas-industries
+- Gaming & Esports in Texas: https://texasdefined.com/gaming
+- Texas video game industry: https://texasdefined.com/gaming/video-game-industry
+- Video game companies in Texas: https://texasdefined.com/gaming/companies
+- Dallas–Fort Worth gaming industry: https://texasdefined.com/gaming/dfw
+- Austin game development: https://texasdefined.com/gaming/austin
+- Texas esports: https://texasdefined.com/gaming/esports
+- College esports in Texas: https://texasdefined.com/gaming/college-esports
+- Texas online gaming latency guide: https://texasdefined.com/gaming/latency
+- Why Dallas matters to online gaming: https://texasdefined.com/gaming/why-dallas-matters-online-gaming
+- Texas gaming infrastructure: https://texasdefined.com/gaming/data-centers-internet-infrastructure
 - Texas energy and power industry: https://texasdefined.com/texas-industries/energy-power
 - Texas technology and semiconductors: https://texasdefined.com/texas-industries/technology-semiconductors
 - Texas advanced manufacturing: https://texasdefined.com/texas-industries/advanced-manufacturing

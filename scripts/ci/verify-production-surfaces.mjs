@@ -211,4 +211,5 @@ appendSummary(`\nAll ${surfaces.length} revision-bound production surfaces plus 
 console.log(`TexasDefined production verification passed (${surfaces.length} revision-bound surfaces plus canonical homepage, no cf-mitigated challenges).`);
 
 await import('./verify-texas-industries-production.mjs');
+await import('./verify-gaming-production.mjs');
 await import('./verify-viator-production.mjs');
