@@ -79,9 +79,9 @@ if (!failures.length) {
   if (!sectionRoute.includes('"@type": "WebPage"') || !sectionRoute.includes('"@type": "BreadcrumbList"')) failures.push("Showcase section schema incomplete.");
   if (!overviewRoute.includes("dateModified: pageData.verifiedAt") || !sectionRoute.includes("dateModified: pageData.verifiedAt")) failures.push("Showcase freshness metadata is not source-backed.");
 
-  if (!slugs.includes("COMPLETE_FISHING_LAKE_SLUGS") || !slugs.includes("isCompleteFishingLakeSlug")) failures.push("Five-lake canonical completion registry missing.");
+  if (!slugs.includes("COMPLETE_FISHING_LAKE_SLUGS") || !slugs.includes("isCompleteFishingLakeSlug")) failures.push("Canonical completion registry missing.");
   if (!fishingRoute.includes("isCompleteFishingLakeSlug") || !fishingRoute.includes('fishingFoundationAnchor("lake", lake.slug)')) failures.push("Fishing hub does not promote all completed showcase lakes.");
-  if (!fishingRoute.includes("Five complete lake guides")) failures.push("Fishing hub still describes only Lake Conroe as complete.");
+  if (!fishingRoute.includes("Complete lake guides")) failures.push("Fishing hub complete-lake compatibility marker missing.");
 
   for (const signal of ["SHOWCASE_LAKE_SLUGS", "SHOWCASE_LAKE_SECTION_SLUGS", "showcaseLakeCanonicalPath"]) if (!sitemap.includes(signal)) failures.push(`Showcase sitemap expansion missing: ${signal}`);
 
