@@ -87,6 +87,13 @@ jobs:
             "verify/texas-dogs-browser-production-20260922"
             "verify/texas-dogs-four-breed-production-20260922"
             "verify/texas-dogs-wave2-production-20260919"
+            "feat/county-industry-authority-20260924"
+            "feat/industry-authority-complete-20260924-v2"
+            "feat/industry-relocation-discovery-20260924"
+            "feat/industry-search-discovery-20260924"
+            "feat/industry-search-discovery-current-20260924"
+            "feat/industry-workforce-pathways-20260924"
+            "work/science-space-industry-authority"
           )
 
           main_sha="$(gh api "repos/$REPOSITORY/git/ref/heads/main" --jq '.object.sha')"
