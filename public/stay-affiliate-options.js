@@ -42,6 +42,29 @@
     ["La Quinta Inn & Suites by Wyndham Sweetwater East", "https://www.hotels.com/ho636049152/la-quinta-inn-suites-by-wyndham-sweetwater-east-sweetwater-united-states-of-america/"],
     ["Microtel Inn & Suites by Wyndham Sweetwater", "https://www.hotels.com/ho532248/microtel-inn-and-suites-by-wyndham-sweetwater-sweetwater-united-states-of-america/"],
   ]);
+  const FEATURED_GOLF_STAYS = new Map([
+    ["/sports-venue/pga-frisco-fields-ranch", Object.freeze({
+      name: "Omni PGA Frisco Resort & Spa",
+      destination: "https://www.hotels.com/ho2796737888/omni-pga-frisco-resort-frisco-united-states-of-america/",
+      sourceUrl: "https://www.omnihotels.com/hotels/pga-frisco",
+      verifiedAt: "2026-09-23",
+      context: "Omni PGA Frisco Resort & Spa is part of the PGA Frisco destination, with Fields Ranch golf and PGA District amenities on site.",
+    })],
+    ["/sports-venue/tpc-san-antonio", Object.freeze({
+      name: "JW Marriott San Antonio Hill Country Resort & Spa",
+      destination: "https://www.hotels.com/ho325236/jw-marriott-san-antonio-hill-country-resort-spa-san-antonio-united-states-of-america/",
+      sourceUrl: "https://www.marriott.com/en-us/hotels/satjw-jw-marriott-san-antonio-hill-country-resort-and-spa/overview/",
+      verifiedAt: "2026-09-23",
+      context: "Marriott identifies TPC San Antonio as an on-site resort golf experience and says eligible resort guests can access its two championship courses.",
+    })],
+    ["/sports-venue/memorial-park-golf-course", Object.freeze({
+      name: "Holiday Inn Express & Suites Houston - Memorial Park Area",
+      destination: "https://www.hotels.com/ho211068/holiday-inn-express-suites-houston-memorial-park-area-an-ihg-hotel-houston-united-states-of-america/",
+      sourceUrl: "https://www.ihg.com/holidayinnexpress/hotels/us/en/houston/houqr/hoteldetail",
+      verifiedAt: "2026-09-23",
+      context: "IHG lists Memorial Park golf and tennis about two miles from this hotel, making it a practical lodging option for a Memorial Park Golf Course visit.",
+    })],
+  ]);
   const HOTEL_FIRST_PATH = /^\/(?:event\/|events(?:\/|$)|sports-venue\/|sports-venues(?:\/|$))/;
   const BOTH_PATH = /^\/(?:destination\/|explore(?:\/|$)|city\/|county\/|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const OWNER_PATH = /^\/real-estate\/?$/;
@@ -79,6 +102,11 @@
 
   function exactPropertyDestination(name) {
     return VERIFIED_PROPERTY_DESTINATIONS.get(String(name || "").trim()) || null;
+  }
+
+  function featuredGolfStay(pathname = window.location.pathname) {
+    const normalized = String(pathname || "/").replace(/\/+$/, "") || "/";
+    return FEATURED_GOLF_STAYS.get(normalized) || null;
   }
 
   function partnerName(destination) {
@@ -136,7 +164,8 @@
       .td-stay-affiliate-button--primary,.td-stay-affiliate-jump{border-color:hsl(var(--primary));background:hsl(var(--primary));color:hsl(var(--primary-foreground))}
       .td-stay-affiliate-button--secondary{background:hsl(var(--background));color:hsl(var(--foreground))}
       .td-stay-affiliate-jump{flex:0 0 auto;cursor:pointer}
-      .td-stay-affiliate-disclosure{margin:.85rem 0 0;font-size:.75rem;line-height:1.45;color:hsl(var(--muted-foreground))}
+      .td-stay-affiliate-disclosure,.td-stay-affiliate-source{margin:.85rem 0 0;font-size:.75rem;line-height:1.45;color:hsl(var(--muted-foreground))}
+      .td-stay-affiliate-source a{color:hsl(var(--foreground));text-underline-offset:2px}
       .td-vrbo-owner-referral{padding-top:1.75rem;padding-bottom:2.5rem}
       @media (max-width:767px){.td-stay-nearby .td-stay-heading-row{align-items:stretch;flex-direction:column}.td-stay-affiliate-jump{width:100%}}
       @media (max-width:640px){.td-stay-affiliate-actions{display:grid;grid-template-columns:1fr}.td-stay-affiliate-button{width:100%}}
@@ -156,6 +185,7 @@
   }
 
   function createBookingChoice(intent, exactPropertyFirst = false) {
+    const featuredStay = exactPropertyFirst ? null : featuredGolfStay();
     const wrapper = document.createElement("aside");
     wrapper.id = CHOICE_ID;
     wrapper.className = "td-stay-affiliate-options";
@@ -170,25 +200,36 @@
 
     const heading = document.createElement("h2");
     heading.className = "td-stay-affiliate-title";
-    heading.textContent = exactPropertyFirst ? "More places to stay nearby" : (intent === "hotel-first" ? "Find places to stay near this event or venue" : "Find places to stay nearby");
+    heading.textContent = featuredStay ? "A venue-linked stay to consider" : (exactPropertyFirst ? "More places to stay nearby" : (intent === "hotel-first" ? "Find places to stay near this event or venue" : "Find places to stay nearby"));
 
     const copy = document.createElement("p");
     copy.className = "td-stay-affiliate-copy";
-    copy.textContent = exactPropertyFirst
-      ? (intent === "hotel-first"
-        ? "Start with the recommended stays above. If none fit, compare additional hotel availability nearby on Hotels.com or Orbitz."
-        : "Start with the recommended stays above. If none fit, compare more hotels on Hotels.com or Travelocity, or browse vacation rentals for a different lodging setup.")
-      : (intent === "hotel-first"
-        ? "Compare hotel availability close to the event or venue on Hotels.com or Orbitz. Broader leisure and destination guides also include vacation-rental options when they fit the trip."
-        : "Compare hotel options on Hotels.com or Travelocity, or choose a vacation rental when extra space, a kitchen, or a group-friendly setup fits the trip better.");
+    copy.textContent = featuredStay
+      ? `${featuredStay.context} Compare that exact property or use the broader hotel choices below.`
+      : (exactPropertyFirst
+        ? (intent === "hotel-first"
+          ? "Start with the recommended stays above. If none fit, compare additional hotel availability nearby on Hotels.com or Orbitz."
+          : "Start with the recommended stays above. If none fit, compare more hotels on Hotels.com or Travelocity, or browse vacation rentals for a different lodging setup.")
+        : (intent === "hotel-first"
+          ? "Compare hotel availability close to the event or venue on Hotels.com or Orbitz. Broader leisure and destination guides also include vacation-rental options when they fit the trip."
+          : "Compare hotel options on Hotels.com or Travelocity, or choose a vacation rental when extra space, a kitchen, or a group-friendly setup fits the trip better."));
 
     const actions = document.createElement("div");
     actions.className = "td-stay-affiliate-actions";
     const choicePlacement = exactPropertyFirst ? "stay-nearby-choice-after-exact" : "stay-nearby-choice";
+    if (featuredStay) {
+      actions.appendChild(createTrackedLink({
+        destination: featuredStay.destination,
+        label: `View ${featuredStay.name} on Hotels.com`,
+        variant: "primary",
+        ariaLabel: `View ${featuredStay.name} on Hotels.com in a new tab`,
+        placement: "stay-nearby-featured-golf",
+      }));
+    }
     actions.appendChild(createTrackedLink({
       destination: HOTELS_DESTINATION,
       label: exactPropertyFirst ? "Compare more hotels on Hotels.com" : "Find hotels on Hotels.com",
-      variant: "primary",
+      variant: featuredStay ? "secondary" : "primary",
       ariaLabel: exactPropertyFirst ? "Compare more hotels on Hotels.com in a new tab" : "Find hotels on Hotels.com in a new tab",
       placement: choicePlacement,
     }));
@@ -221,6 +262,18 @@
       : "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com or Orbitz activity, at no additional cost to you. Availability, rates and booking terms are provided by the booking service.";
 
     panel.append(eyebrow, heading, copy, actions, disclosure);
+    if (featuredStay) {
+      const sourceNote = document.createElement("p");
+      sourceNote.className = "td-stay-affiliate-source";
+      sourceNote.append("Venue relationship verified against ");
+      const sourceLink = document.createElement("a");
+      sourceLink.href = featuredStay.sourceUrl;
+      sourceLink.target = "_blank";
+      sourceLink.rel = "noopener noreferrer";
+      sourceLink.textContent = "the hotel’s official site ↗";
+      sourceNote.append(sourceLink, ` · reviewed ${featuredStay.verifiedAt}`);
+      panel.appendChild(sourceNote);
+    }
     wrapper.appendChild(panel);
     return wrapper;
   }
@@ -444,6 +497,7 @@
     bookingIntent,
     comparisonHotelDestination,
     exactPropertyDestination,
+    featuredGolfStay,
     ownerEligible,
     promoteStaySurface,
     sync: scheduleSync,
