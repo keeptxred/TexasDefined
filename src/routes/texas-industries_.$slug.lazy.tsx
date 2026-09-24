@@ -9,7 +9,7 @@ export const Route = createLazyFileRoute("/texas-industries/$slug")({
 
 function TexasIndustryPage() {
   const industry = Route.useLoaderData();
-  const related = TEXAS_INDUSTRIES.filter((item) => item.slug !== industry.slug).slice(0, 5);
+  const related = TEXAS_INDUSTRIES.filter((item) => industry.relatedSectorSlugs.includes(item.slug));
 
   return (
     <main>
@@ -38,10 +38,52 @@ function TexasIndustryPage() {
               </div>
 
               <section className="mt-12">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">How the sector evolved</p>
+                <h2 className="mt-3 font-display text-3xl">{industry.evolution.title}</h2>
+                <div className="mt-6 border border-border bg-background p-6">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">{industry.evolution.period}</p>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{industry.evolution.detail}</p>
+                  <a href={industry.evolution.sourceUrl} target="_blank" rel="noreferrer" className="mt-4 inline-block text-xs font-semibold text-primary">{industry.evolution.sourceLabel} ↗</a>
+                </div>
+              </section>
+
+              <section className="mt-12">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Industry structure</p>
                 <h2 className="mt-3 font-display text-3xl">Major clusters and activities</h2>
                 <div className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2">
                   {industry.clusters.map((cluster) => <div key={cluster} className="bg-background p-5 text-sm font-semibold">{cluster}</div>)}
+                </div>
+              </section>
+
+              <section className="mt-12">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Jobs & workforce</p>
+                <h2 className="mt-3 font-display text-3xl">Representative roles and common training pathways</h2>
+                <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These are examples of occupations and entry routes found across this sector, not a ranking of jobs or a guarantee that every role is available in every Texas region. Licensing and credential requirements vary by occupation.</p>
+                <div className="mt-6 grid gap-px border border-border bg-border lg:grid-cols-2">
+                  <div className="bg-background p-6">
+                    <h3 className="font-display text-2xl">Representative roles</h3>
+                    <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">
+                      {industry.workforce.roles.map((role) => <li key={role}>{role}</li>)}
+                    </ul>
+                  </div>
+                  <div className="bg-background p-6">
+                    <h3 className="font-display text-2xl">Common education & training routes</h3>
+                    <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">
+                      {industry.workforce.pathways.map((pathway) => <li key={pathway}>{pathway}</li>)}
+                    </ul>
+                  </div>
+                </div>
+                <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                  <a href="https://lmi.twc.texas.gov/" target="_blank" rel="noreferrer" className="border p-5">
+                    <span className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">Official labor-market data</span>
+                    <strong className="mt-2 block font-display text-xl">Texas Workforce Commission LMI</strong>
+                    <span className="mt-2 block text-sm leading-6 text-muted-foreground">Research employment, occupations, wages, projections and regional labor-market conditions using Texas Workforce Commission tools.</span>
+                  </a>
+                  <a href="https://www.highered.texas.gov/workforce-education-overview/programs-of-study/" target="_blank" rel="noreferrer" className="border border-border p-5">
+                    <span className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">Education pathways</span>
+                    <strong className="mt-2 block font-display text-xl">Texas Programs of Study</strong>
+                    <span className="mt-2 block text-sm leading-6 text-muted-foreground">Explore Texas career and technical education pathways, including certificates, applied associate degrees and industry-recognized credentials.</span>
+                  </a>
                 </div>
               </section>
 

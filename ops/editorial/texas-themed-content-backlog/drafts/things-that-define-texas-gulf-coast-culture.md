@@ -118,7 +118,7 @@ That structure makes internal links and trip planning much stronger than a singl
 - `/article/texas-cultural-regions-explained`
 - `/article/texas-rivers-explained`
 - `/article/texas-lakes-reservoirs-explained`
-- `/article/major-industries-driving-the-texas-economy` once approved/live
+- `/texas-industries`
 - future hurricane-prep, fishing, coastal-town, wildlife and Gulf-history pages
 - county/city pages from Galveston through the Lower Rio Grande Valley
 
