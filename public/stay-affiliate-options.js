@@ -221,7 +221,7 @@
         : (intent === "hotel-first"
           ? "Compare hotel availability close to the event or venue on Hotels.com or Orbitz. Broader leisure and destination guides also include vacation-rental options when they fit the trip."
           : "Compare hotel options on Hotels.com or Travelocity, or choose a vacation rental when extra space, a kitchen, or a group-friendly setup fits the trip better."));
-    if (showRvshare) copy.textContent += " For camping and road-trip planning, you can also compare RV rentals on RVshare when traveling with your lodging fits the trip.";
+    if (showRvshare) copy.textContent += " For camping and road-trip planning, you can also compare RV rentals on RVshare when taking your lodging with you fits the trip.";
 
     const actions = document.createElement("div");
     actions.className = "td-stay-affiliate-actions";
