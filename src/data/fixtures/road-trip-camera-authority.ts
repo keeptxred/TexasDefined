@@ -4,6 +4,7 @@ import enchantedRock from "@/assets/enchanted-rock.jpg";
 import heroHillCountry from "@/assets/hero-hill-country.jpg";
 import paloDuro from "@/assets/palo-duro.jpg";
 import smallTown from "@/assets/small-town.jpg";
+import roadTrip from "@/assets/road-trip.jpg";
 import wildlife from "@/assets/wildlife.jpg";
 
 import type { Article, ArticleBlock, ImageRef } from "../types";
@@ -443,6 +444,60 @@ const rideshareDashCams: Article = {
   sourceUrl: "https://statutes.capitol.texas.gov/Docs/PE/htm/PE.16.htm#16.02",
 };
 
+
+const texasCarEmergencyKit: Article = {
+  id: "authority-texas-car-emergency-kit",
+  brandId: "texasdefined",
+  slug: "texas-car-emergency-kit",
+  title: "The Texas Road-Trip Emergency Kit: What to Keep in the Car",
+  dek: "A practical Texas roadside kit for heat, flat tires, dead batteries, storms and long waits—plus the limits of what you should safely attempt beside the road.",
+  category: "road-trips",
+  hero: image(roadTrip, "A long Texas highway with open country ahead"),
+  authorId: "a-dell",
+  publishedAt: "2026-09-24",
+  updatedAt: "2026-09-24",
+  readingMinutes: 10,
+  tags: ["Texas car emergency kit", "Texas road trip emergency kit", "roadside emergency kit", "Texas driving", "vehicle preparedness"],
+  body: [
+    p("A Texas car emergency kit is not a substitute for maintenance, roadside assistance or good judgment. It is the collection of simple things that make a bad roadside hour more manageable when a tire loses pressure, a battery will not crank, a storm closes the route or a remote stretch has weaker cell service than expected. Texas Department of Public Safety guidance emphasizes the same basic idea: prepare the vehicle, carry water and useful emergency supplies, and plan for the possibility that help may take time to arrive."),
+    h("Start with visibility, communication and a safe place to wait"),
+    p("If the vehicle becomes disabled, the first priority is not repairing it. It is avoiding a second collision. Move completely out of traffic when that can be done safely, turn on hazard lights and follow the vehicle owner’s manual and roadside-assistance instructions. Reflective triangles or other approved visibility gear can help make a stopped vehicle easier to see, but they should never require a person to stand in an active lane or walk along a dangerous shoulder."),
+    p("Keep a charged phone, a working vehicle charger and a separate power bank available. Save roadside-assistance information before the trip and write down the number if the plan depends on an app. Download the route or an offline map for remote travel. A dead phone turns several separate problems—navigation, weather, communication and access to reservation information—into one larger problem."),
+    h("Water belongs in every Texas road-trip kit"),
+    p("Texas heat can turn a routine delay into a serious problem, especially for children, older adults, pets and people with health conditions. Carry drinking water for the people in the vehicle, not just fluid intended for the radiator or washer reservoir. The right amount depends on the route, weather and passengers, but remote West Texas and Panhandle drives deserve a larger reserve than an urban trip with services every few exits."),
+    p("Water should be paired with simple non-perishable food, needed medications and weather-appropriate clothing. A summer kit may include sun protection and a lightweight shade option; a winter kit may need blankets, gloves and warm layers. Texas weather changes fast enough that the emergency kit should be reviewed seasonally rather than packed once and forgotten for years."),
+    h("A jump starter is useful only if it is compatible and charged"),
+    p("A portable jump starter can be valuable when a conventional 12-volt battery is discharged, but it is not a universal solution. Use a unit compatible with the vehicle and follow the jump starter and vehicle manufacturers’ procedures. Keep it charged on the recommended schedule, inspect the case and cables, and retire damaged battery products. Hybrid and electric vehicles can have separate low-voltage and high-voltage systems, so the owner’s manual controls what the driver should and should not attempt."),
+    p("Jumper cables remain useful when a suitable donor vehicle and safe connection procedure are available. Either way, repeated battery trouble deserves diagnosis. A jump pack should not become a way to postpone a failing battery, charging-system problem or electrical fault."),
+    h("Know what you have for a flat tire"),
+    p("Before packing extra tire gear, identify what the vehicle already provides. Some cars have a spare and jack; others use a sealant-and-inflator kit; some have run-flat tires. Check the spare’s pressure and condition, locate the wheel-lock key, and make sure the jack and lug tool are actually in the vehicle. NHTSA recommends using the tire pressure listed by the vehicle manufacturer on the door placard or in the owner’s manual rather than the maximum pressure molded into the tire sidewall."),
+    p("A portable inflator can restore pressure after a slow leak or support a manufacturer-approved repair system, but it cannot make a cut sidewall or structurally damaged tire safe. Tire sealants and plug kits also have limits and may not be appropriate for every tire or monitoring system. If the location makes roadside work unsafe, call for assistance instead of trying to prove the kit can solve the problem."),
+    h("Pack the small items that prevent avoidable misery"),
+    list("Flashlight or headlamp with fresh batteries.", "Basic first-aid supplies and personal medications.", "Reflective visibility gear appropriate for roadside use.", "Work gloves and rain protection.", "Phone charging cable and a charged power bank.", "Paper or offline route information for weak-service areas.", "Water and non-perishable food for the people in the vehicle.", "A blanket or warm layer when cold weather is possible.", "Vehicle-specific tire tools or mobility kit.", "Roadside-assistance and emergency-contact information."),
+    h("Fuel and charging are part of the emergency plan"),
+    p("On long rural routes, a healthy safety margin is more useful than carrying questionable improvised fuel containers. Identify fuel or charging options before the sparsely served segment begins, and have a second option when practical. Electric-vehicle drivers should verify connector type and current charger status; towing instructions can also differ by vehicle. Gasoline drivers should account for detours, strong headwinds, towing and station closures rather than planning to arrive on fumes."),
+    h("Weather and road conditions can change the kit you need"),
+    p("Check the National Weather Service forecast and DriveTexas before departure. Flash flooding, wildfire, ice, blowing dust, severe thunderstorms and construction can change the safest route. Never drive around a barricade or into floodwater because the navigation app still shows a road. A printed or offline alternative route is helpful, but it does not override official closures."),
+    h("First aid means first aid"),
+    p("A basic first-aid kit is useful for minor cuts, scrapes and routine needs while waiting for professional help. It should not encourage treatment beyond a person’s training. Include personal medications and any supplies needed by children, older passengers or pets. If a crash or medical problem is serious, call emergency services rather than turning the roadside kit into a substitute for medical care."),
+    h("Keep the kit maintained like the vehicle"),
+    p("Review the kit at least seasonally and before major trips. Recharge power banks and jump starters, replace expired food and medications, check flashlight batteries, inspect tire tools, and confirm the roadside-assistance plan still works. Heat-sensitive electronics and battery packs should be stored according to their manufacturer’s temperature guidance rather than left indefinitely in the hottest part of the cabin."),
+    h("Before you leave home"),
+    p("The strongest emergency kit begins with a vehicle that is ready to travel. Check tires, fluids, lights, wipers, battery condition and any warning lights before a long trip. Then verify the kit, current weather, road conditions and fuel plan. The goal is not to carry enough gear to repair anything. It is to reduce the number of small failures that become emergencies and to make a safe wait for help easier when prevention is not enough."),
+  ],
+  internalLinks: [
+    { href: "/article/texas-road-trip-vehicle-checklist", label: "Run the Texas road-trip vehicle checklist", description: "Catch preventable tire, battery, fluid, lighting and route problems before departure." },
+    { href: "/article/texas-heat-vehicle-electronics", label: "Protect electronics and batteries from Texas heat", description: "Know why power banks, jump starters, cameras and mounts need model-specific heat limits." },
+    { href: "/article/dash-cam-setup-texas-road-trips", label: "Set up a dash cam before the drive", description: "Plan mounting, storage and power before the vehicle leaves home." },
+    { href: "/article/texas-road-closures-drivetexas-guide", label: "Check DriveTexas road conditions", description: "Use the state road-condition system before weather or construction changes the route." },
+    { href: "/explore/road-trips", label: "Browse Texas road trips", description: "Build the route after the vehicle and emergency plan are ready." },
+  ],
+  relatedCollections: [],
+  relatedDestinations: ["big-bend-national-park", "palo-duro-canyon-state-park"],
+  sourceName: "Texas Department of Public Safety — Travel Tips",
+  sourceUrl: "https://www.dps.texas.gov/section/highway-patrol/travel-tips",
+};
+
 export const roadTripCameraAuthorityArticles: Article[] = [
   dashCamsInTexas,
   roadTripVehicleChecklist,
@@ -453,4 +508,5 @@ export const roadTripCameraAuthorityArticles: Article[] = [
   campingOutdoorCameras,
   ruralPropertyMonitoring,
   rideshareDashCams,
+  texasCarEmergencyKit,
 ];
