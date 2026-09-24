@@ -29,12 +29,6 @@
       "status": "index-ready",
       "approvedAt": "2026-08-29",
       "basis": "explicit-owner-production-approval-after-mechanical-readiness"
-    },
-    {
-      "slug": "what-to-keep-in-car-for-texas-road-trip",
-      "status": "index-ready",
-      "approvedAt": "2026-09-24",
-      "basis": "explicit-owner-authority-cluster-promotion-after-source-depth-and-canonical-review"
     }
   ]
 }
