@@ -1,6 +1,7 @@
 import { Link, createLazyFileRoute } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { COUNTY_INDUSTRY_PATHS } from "@/data/county-industry-paths";
 import { TEXAS_INDUSTRIES, TEXAS_INDUSTRIES_VERIFIED_AT } from "@/data/texas-industries";
 
 export const Route = createLazyFileRoute("/texas-industries/$slug")({
@@ -10,6 +11,13 @@ export const Route = createLazyFileRoute("/texas-industries/$slug")({
 function TexasIndustryPage() {
   const industry = Route.useLoaderData();
   const related = TEXAS_INDUSTRIES.filter((item) => item.slug !== industry.slug).slice(0, 5);
+  const countyPaths = Object.entries(COUNTY_INDUSTRY_PATHS)
+    .filter(([, paths]) => paths.some((path) => path.href === industry.href))
+    .map(([slug, paths]) => ({
+      slug,
+      context: paths.find((path) => path.href === industry.href)?.context ?? "",
+    }))
+    .slice(0, 12);
 
   return (
     <main>
@@ -58,6 +66,16 @@ function TexasIndustryPage() {
                 </div>
               </section>
 
+              {countyPaths.length ? <section className="mt-12">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">County pathways</p>
+                <h2 className="mt-3 font-display text-3xl">Texas counties connected to this sector</h2>
+                <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These county links are deliberately selective. They identify places where TexasDefined has a clear, durable connection to this statewide sector; they do not claim the sector is the county’s only or largest employer.</p>
+                <div className="mt-6 grid gap-px border border-border bg-border md:grid-cols-2">
+                  {countyPaths.map((county) => <a key={county.slug} href={`/county/${county.slug}`} className="bg-background p-5 hover:bg-muted/30"><h3 className="font-display text-2xl">{countyName(county.slug)} County</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{county.context}</p><p className="mt-4 text-sm font-semibold text-primary">Open county guide →</p></a>)}
+                </div>
+                <div className="mt-5 text-sm font-semibold"><a href="/browse/counties" className="text-primary">Browse all 254 Texas counties →</a></div>
+              </section> : null}
+
               <section className="mt-12">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Dated indicators</p>
                 <h2 className="mt-3 font-display text-3xl">A few numbers that put the sector in context</h2>
@@ -101,4 +119,9 @@ function TexasIndustryPage() {
       </section>
     </main>
   );
+}
+
+
+function countyName(slug: string) {
+  return slug.replaceAll("-", " ").replace(/\b\w/g, (character) => character.toUpperCase());
 }
