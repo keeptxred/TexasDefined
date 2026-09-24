@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/sync-texas-events.yml"
+      - ".github/workflows/finish-texas-events-refresh.yml"
       - "scripts/events/sync-texas-events-safe.mjs"
       - "scripts/events/sync-ticketmaster-events.mjs"
       - "scripts/events/ticketmaster-discovery.mjs"
