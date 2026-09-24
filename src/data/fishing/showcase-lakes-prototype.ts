@@ -1,4 +1,4 @@
-import type { ShowcaseLakeSlug } from "./showcase-lake-routing";
+import type { PublishedShowcaseLakeSlug } from "./showcase-lake-routing";
 
 export interface ShowcaseLakeSource { label: string; url: string }
 export interface ShowcaseLakeFish {
@@ -19,7 +19,7 @@ export interface ShowcaseLakeAccess {
   availability: string;
 }
 export interface ShowcaseLakePrototype {
-  slug: ShowcaseLakeSlug;
+  slug: PublishedShowcaseLakeSlug;
   verifiedAt: string;
   overview: {
     name: string;
