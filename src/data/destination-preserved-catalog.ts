@@ -17,6 +17,7 @@ import { dfwMuseumDestinations } from "./museum-expansion-dfw";
 import { georgeWBushMuseumDestinations } from "./museum-expansion-george-w-bush";
 import { garrisonBrothersHyeDestinations } from "./garrison-brothers-hye-destination";
 import { williamChrisVineyardsHyeDestinations } from "./william-chris-vineyards-hye-destination";
+import { wildseedFarmsFredericksburgDestinations } from "./wildseed-farms-fredericksburg-destination";
 import { fredericksburgWineryAuthorityDestinations } from "./fredericksburg-winery-authority-destinations";
 import { hyeTexasDestinations } from "./hye-texas-destination";
 import { houstonGalvestonMuseumDestinations } from "./museum-expansion-houston-galveston";
@@ -227,6 +228,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   georgeWBushMuseumDestinations,
   garrisonBrothersHyeDestinations,
   williamChrisVineyardsHyeDestinations,
+  wildseedFarmsFredericksburgDestinations,
   fredericksburgWineryAuthorityDestinations,
   hyeTexasDestinations,
   austinMuseumDestinations,
