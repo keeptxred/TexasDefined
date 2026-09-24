@@ -43,7 +43,7 @@ export type TexasIndustrySector = {
   connections: TexasIndustryConnection[];
 };
 
-export const TEXAS_INDUSTRIES_VERIFIED_AT = "September 23, 2026";
+export const TEXAS_INDUSTRIES_VERIFIED_AT = "September 24, 2026";
 
 export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
   {
@@ -101,12 +101,15 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
     ],
     facts: [
       { value: "$40B potential", label: "TI Sherman fab plan", context: "Texas Instruments says its Sherman site could include four connected 300mm fabs; the first fab is now in production.", sourceLabel: "Texas Instruments", sourceUrl: "https://www.ti.com/about-ti/manufacturing/sherman.html" },
-      { value: "IT + AI", label: "State target cluster", context: "Texas identifies Information Technology and Artificial Intelligence as a statewide target cluster and connects it to innovation across other industries.", sourceLabel: "Texas Economic Development & Tourism Office", sourceUrl: "https://gov.texas.gov/business/page/target-industries" }
+      { value: "IT + AI", label: "State target cluster", context: "Texas identifies Information Technology and Artificial Intelligence as a statewide target cluster and connects it to innovation across other industries.", sourceLabel: "Texas Economic Development & Tourism Office", sourceUrl: "https://gov.texas.gov/business/page/target-industries" },
+      { value: "15 years", label: "Top semiconductor exporter", context: "As of July 2026, Texas economic-development materials say Texas has led U.S. states in semiconductor exports for 15 consecutive years.", sourceLabel: "Texas Economic Development & Tourism Office", sourceUrl: "https://gov.texas.gov/top-texas-touts-economy" },
+      { value: "13 years", label: "Top tech exporter", context: "The same July 2026 state summary says Texas has led U.S. states in technology exports for 13 consecutive years.", sourceLabel: "Texas Economic Development & Tourism Office", sourceUrl: "https://gov.texas.gov/top-texas-touts-economy" }
     ],
     sources: [
       { label: "Texas Economic Development & Tourism Office — Target Industry Sectors", url: "https://gov.texas.gov/business/page/target-industries" },
       { label: "Texas Instruments — Sherman 300mm wafer fabs", url: "https://www.ti.com/about-ti/manufacturing/sherman.html" },
-      { label: "Samsung Semiconductor — U.S. manufacturing", url: "https://semiconductor.samsung.com/us/sas/" }
+      { label: "Samsung Semiconductor — U.S. manufacturing", url: "https://semiconductor.samsung.com/us/sas/" },
+      { label: "Texas Economic Development & Tourism Office — Top Texas Touts: Economy (July 2026)", url: "https://gov.texas.gov/top-texas-touts-economy" }
     ],
     connections: [
       { label: "Made in Texas", href: "/made-in-texas", description: "Browse technology and manufacturing companies tied to Texas places." },
@@ -135,12 +138,14 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
     ],
     facts: [
       { value: "11%", label: "Share of U.S. manufactured goods", context: "The Governor's economic-development office states that Texas produces about 11% of all U.S. manufactured goods.", sourceLabel: "Office of the Texas Governor", sourceUrl: "https://gov.texas.gov/top-texas-touts-industry" },
-      { value: "4 clusters", label: "Advanced-manufacturing targets", context: "Texas groups aerospace/defense, automotive, computers/electronics/semiconductors, and production technology/heavy machinery under Advanced Manufacturing.", sourceLabel: "Texas Economic Development & Tourism Office", sourceUrl: "https://gov.texas.gov/business/page/advanced-manufacturing" }
+      { value: "4 clusters", label: "Advanced-manufacturing targets", context: "Texas groups aerospace/defense, automotive, computers/electronics/semiconductors, and production technology/heavy machinery under Advanced Manufacturing.", sourceLabel: "Texas Economic Development & Tourism Office", sourceUrl: "https://gov.texas.gov/business/page/advanced-manufacturing" },
+      { value: "971,467", label: "Manufacturing jobs in 2025", context: "The Texas Comptroller's 2025 annual financial report lists 618,342 durable-manufacturing jobs and 353,125 nondurable-manufacturing jobs; together they total 971,467.", sourceLabel: "Texas Comptroller of Public Accounts", sourceUrl: "https://comptroller.texas.gov/transparency/reports/comprehensive-annual-financial/2025/96-471.pdf" }
     ],
     sources: [
       { label: "Texas Economic Development & Tourism Office — Advanced Manufacturing", url: "https://gov.texas.gov/business/page/advanced-manufacturing" },
       { label: "Office of the Texas Governor — Industry overview", url: "https://gov.texas.gov/top-texas-touts-industry" },
-      { label: "Made in Texas directory", url: "https://texasdefined.com/made-in-texas" }
+      { label: "Made in Texas directory", url: "https://texasdefined.com/made-in-texas" },
+      { label: "Texas Comptroller — 2025 Annual Comprehensive Financial Report", url: "https://comptroller.texas.gov/transparency/reports/comprehensive-annual-financial/2025/96-471.pdf" }
     ],
     connections: [
       { label: "Made in Texas", href: "/made-in-texas", description: "See manufacturers, products and company relationships by city and county." },
@@ -169,12 +174,14 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
     ],
     facts: [
       { value: "Multimodal", label: "Texas-Mexico border planning", context: "TxDOT's binational border transportation plan covers the movement of people and goods across the border and beyond by multiple modes.", sourceLabel: "Texas Department of Transportation", sourceUrl: "https://www.txdot.gov/projects/planning/international-trade-border-planning/btmp.html" },
-      { value: "24 years", label: "Top U.S. exporting state", context: "Texas economic-development materials state that Texas has ranked as the nation's top exporting state for 24 consecutive years.", sourceLabel: "Texas Economic Development & Tourism Office", sourceUrl: "https://gov.texas.gov/business/page/advanced-manufacturing" }
+      { value: "24 years", label: "Top U.S. exporting state", context: "Texas economic-development materials state that Texas has ranked as the nation's top exporting state for 24 consecutive years.", sourceLabel: "Texas Economic Development & Tourism Office", sourceUrl: "https://gov.texas.gov/business/page/advanced-manufacturing" },
+      { value: "20%", label: "Share of U.S. exports", context: "A July 2026 state economic summary says Texas accounts for about 20% of all U.S. exports.", sourceLabel: "Texas Economic Development & Tourism Office", sourceUrl: "https://gov.texas.gov/top-texas-touts-economy" }
     ],
     sources: [
       { label: "TxDOT — Texas-Mexico Border Transportation Master Plan", url: "https://www.txdot.gov/projects/planning/international-trade-border-planning/btmp.html" },
       { label: "Texas Economic Development & Tourism Office — Transportation and Logistics", url: "https://gov.texas.gov/business/page/target-industries" },
-      { label: "Port Houston", url: "https://porthouston.com/" }
+      { label: "Port Houston", url: "https://porthouston.com/" },
+      { label: "Texas Economic Development & Tourism Office — Top Texas Touts: Economy (July 2026)", url: "https://gov.texas.gov/top-texas-touts-economy" }
     ],
     connections: [
       { label: "Browse counties", href: "/browse/counties", description: "Follow border, port and inland freight corridors through county profiles." },
@@ -340,12 +347,15 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
     ],
     facts: [
       { value: "$110.2B", label: "Texas construction GDP in 2022", context: "The Texas Comptroller reported $110.2 billion in construction GDP for 2022 in its statewide regional report.", sourceLabel: "Texas Comptroller of Public Accounts", sourceUrl: "https://comptroller.texas.gov/economy/economic-data/regions/2024/statewide.php" },
-      { value: "4.6%", label: "Share of Texas GDP in 2022", context: "The same Comptroller report put construction at 4.6% of state GDP in 2022.", sourceLabel: "Texas Comptroller of Public Accounts", sourceUrl: "https://comptroller.texas.gov/economy/economic-data/regions/2024/statewide.php" }
+      { value: "4.6%", label: "Share of Texas GDP in 2022", context: "The same Comptroller report put construction at 4.6% of state GDP in 2022.", sourceLabel: "Texas Comptroller of Public Accounts", sourceUrl: "https://comptroller.texas.gov/economy/economic-data/regions/2024/statewide.php" },
+      { value: "877,700", label: "Construction jobs, August 2025", context: "The Texas Comptroller reports construction employment reached 877,700 in August 2025, up 18,500 jobs from the prior fiscal year.", sourceLabel: "Texas Comptroller of Public Accounts", sourceUrl: "https://comptroller.texas.gov/transparency/reports/cash-report/2025/96-368.pdf" },
+      { value: "151,784", label: "Single-family permits", context: "For the year ending July 2025, Texas issued 151,784 single-family building permits, according to the Comptroller's 2025 cash report.", sourceLabel: "Texas Comptroller of Public Accounts", sourceUrl: "https://comptroller.texas.gov/transparency/reports/cash-report/2025/96-368.pdf" }
     ],
     sources: [
       { label: "Texas Comptroller — Statewide Report", url: "https://comptroller.texas.gov/economy/economic-data/regions/2024/statewide.php" },
       { label: "Texas Comptroller — Construction Overview", url: "https://comptroller.texas.gov/economy/economic-data/women/construction-overview.php" },
-      { label: "Texas Department of Licensing and Regulation", url: "https://www.tdlr.texas.gov/" }
+      { label: "Texas Department of Licensing and Regulation", url: "https://www.tdlr.texas.gov/" },
+      { label: "Texas Comptroller — 2025 State of Texas Annual Cash Report", url: "https://comptroller.texas.gov/transparency/reports/cash-report/2025/96-368.pdf" }
     ],
     connections: [
       { label: "Texas real estate", href: "/real-estate", description: "Move from industry context into buying, owning and researching property." },
@@ -408,12 +418,15 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
     ],
     facts: [
       { value: "$97.5B", label: "2024 visitor spending", context: "Texas economic-development materials report $97.5 billion in visitor spending in 2024.", sourceLabel: "Texas Economic Development & Tourism Office", sourceUrl: "https://gov.texas.gov/business/page/creative-industry" },
-      { value: "62M", label: "Non-Texan travelers in 2024", context: "The state's hospitality and tourism page reports a record 62 million non-Texan travelers in 2024.", sourceLabel: "Texas Economic Development & Tourism Office", sourceUrl: "https://gov.texas.gov/business/page/creative-industry" }
+      { value: "62M", label: "Non-Texan travelers in 2024", context: "The state's hospitality and tourism page reports a record 62 million non-Texan travelers in 2024.", sourceLabel: "Texas Economic Development & Tourism Office", sourceUrl: "https://gov.texas.gov/business/page/creative-industry" },
+      { value: "$9.2B", label: "International visitor spending in 2025", context: "Travel Texas reports about $9.2 billion in spending by overnight international visitors to Texas in 2025.", sourceLabel: "Travel Texas", sourceUrl: "https://gov.texas.gov/uploads/files/travel-texas/Travel_Texas_Tourism_Research_Reports_2025.pdf" },
+      { value: "9.0M", label: "International overnight visitors", context: "The 2025 international visitor report estimates 9.0 million overnight visitors from Mexico, Canada and overseas markets.", sourceLabel: "Travel Texas", sourceUrl: "https://gov.texas.gov/uploads/files/travel-texas/Travel_Texas_Tourism_Research_Reports_2025.pdf" }
     ],
     sources: [
       { label: "Texas Economic Development & Tourism Office — Hospitality, Tourism & Culture", url: "https://gov.texas.gov/business/page/creative-industry" },
       { label: "Travel Texas", url: "https://www.traveltexas.com/" },
-      { label: "Texas Parks & Wildlife Department", url: "https://tpwd.texas.gov/" }
+      { label: "Texas Parks & Wildlife Department", url: "https://tpwd.texas.gov/" },
+      { label: "Travel Texas — 2025 International Visitor Report", url: "https://gov.texas.gov/uploads/files/travel-texas/Travel_Texas_Tourism_Research_Reports_2025.pdf" }
     ],
     connections: [
       { label: "Explore Texas", href: "/explore", description: "Browse destinations, parks, towns, road trips and statewide travel collections." },
