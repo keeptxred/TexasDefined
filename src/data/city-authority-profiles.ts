@@ -278,7 +278,8 @@ const TEXAS_LIFE_CITY_CONTEXT: CityAuthoritySystem = {
   summary: 'Use the statewide guides to compare the city with other Texas metros and regions, then put jobs, schools, family logistics and everyday living conditions around the local systems above.',
   links: [
     { label: 'Texas cities & regions', href: '/article/texas-major-cities-regional-differences' },
-    { label: 'Texas jobs & industries', href: '/article/texas-jobs-economy-industries' },
+    { label: 'Texas industry authority hub', href: '/texas-industries' },
+    { label: 'Texas jobs & industries overview', href: '/article/texas-jobs-economy-industries' },
     { label: 'Texas schools & family life', href: '/article/texas-schools-family-life' },
     { label: 'Texas health & daily safety', href: '/article/texas-health-safety-daily-living' },
   ],

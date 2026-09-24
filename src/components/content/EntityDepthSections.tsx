@@ -1,4 +1,5 @@
 import { getCityAuthorityProfile } from '@/data/city-authority-profiles';
+import { getCityIndustryPaths } from '@/data/city-industry-paths';
 import { canonicalEntityPath, type RankedRelatedEntity } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 
@@ -10,6 +11,7 @@ const sportsKinds = new Set(['sports-venue', 'stadium', 'arena', 'ballpark', 'ra
 const fishingKinds = new Set(['fishing-species', 'fish-species', 'fishing-lake', 'fishing']);
 const CITY_RESOURCE_LINKS = [
   { href: '/moving-to-texas', label: 'Moving to Texas', copy: 'Relocation context, statewide systems and the decisions that apply before you narrow down to one city.' },
+  { href: '/texas-industries', label: 'Texas industries', copy: 'Move from the city to the statewide industry system, then follow individual sectors, regional hubs and official source notes.' },
   { href: '/moving-to-texas-checklist', label: 'Moving checklist', copy: 'A practical checklist for licenses, vehicles, utilities, schools, records and other move-related tasks.' },
   { href: '/property-tax-guides', label: 'Property-tax guides', copy: 'Understand Texas appraisal, exemptions, protests, taxing units and the difference between valuation and collection.' },
   { href: '/property-tax-calculators', label: 'Property-tax calculators', copy: 'Use the TexasDefined calculator hub when comparing the property-tax side of a move or home purchase.' },
@@ -30,6 +32,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
   const questions = quickAnswers(entity, countyName, regionName);
   const relatedItems = related.slice(0, 6);
   const cityProfile = entity.kind === 'city' ? getCityAuthorityProfile(entity.slug) : undefined;
+  const cityIndustryPaths = entity.kind === 'city' ? getCityIndustryPaths(entity.slug) : [];
 
   return <>
     <section className="border-b border-border py-12" aria-labelledby="entity-context-heading">
@@ -69,6 +72,26 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
                   : <a key={link.href} className="text-sm font-semibold text-primary underline underline-offset-4" href={link.href} target="_blank" rel="noreferrer noopener">{link.label} ↗</a>)}
               </div>
             </article>)}
+          </div>
+        </div>
+      </div>
+    </section> : null}
+
+    {cityIndustryPaths.length ? <section className="border-b border-border py-12" aria-labelledby="city-industries-heading">
+      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Jobs & industry</p>
+          <h2 id="city-industries-heading" className="mt-2 font-display text-4xl">Industry pathways for {entity.name}</h2>
+        </div>
+        <div>
+          <p className="max-w-3xl text-base leading-7 text-muted-foreground">These links connect {entity.name} to statewide sector guides where the regional relationship is clear. They are research paths, not employer rankings: use the sector page for the larger Texas system and local sources to verify a specific company, facility or opening.</p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {cityIndustryPaths.map((industry) => <a key={industry.href} href={industry.href} className="border border-border p-5 hover:border-primary/60"><strong className="font-display text-xl leading-tight">{industry.label}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{industry.context}</span><span className="mt-3 block text-sm font-semibold text-primary">Explore sector →</span></a>)}
+          </div>
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+            <a href="/texas-industries" className="text-primary underline decoration-primary/40 underline-offset-4">View all Texas industries →</a>
+            <a href="/article/texas-jobs-economy-industries" className="text-primary underline decoration-primary/40 underline-offset-4">Texas jobs & economy overview →</a>
+            <a href="/made-in-texas" className="text-primary underline decoration-primary/40 underline-offset-4">Made in Texas directory →</a>
           </div>
         </div>
       </div>

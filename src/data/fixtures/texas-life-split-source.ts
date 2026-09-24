@@ -118,6 +118,10 @@ const economyArticle: Article = {
     { href: "/texas-cost-of-living-calculator", label: "Texas cost-of-living calculator", description: "Test what a salary means after housing, utilities, transportation and other expenses." },
     { href: "/article/texas-major-cities-regional-differences", label: "Texas cities and regional differences", description: "Match industries and jobs to the metro or region that fits your life." },
     { href: "/made-in-texas", label: "Made in Texas", description: "See products and manufacturers tied to communities across the state." },
+    { href: "/texas-industries", label: "Texas industries", description: "Open the sourced statewide hub for sector-by-sector guides, regional clusters and official references." },
+    { href: "/texas-industries/energy-power", label: "Texas energy & power", description: "Go deeper on oil and gas, electric power, renewables, transmission, pipelines and Gulf Coast energy infrastructure." },
+    { href: "/texas-industries/technology-semiconductors", label: "Texas technology & semiconductors", description: "Explore software, AI, semiconductor manufacturing, electronics, telecom and data-center infrastructure." },
+    { href: "/texas-industries/trade-transportation-logistics", label: "Texas trade & logistics", description: "Connect ports, the Mexico border, freight rail, trucking, air cargo, warehousing and distribution." },
     { href: "https://gov.texas.gov/business/page/reports-and-publications", label: "Texas economic reports", description: "Current state economic-development reports, industry maps and business data." },
     { href: "https://www.twc.texas.gov/", label: "Texas Workforce Commission", description: "Official Texas labor-market, unemployment, workforce and employment resources." },
   ],
@@ -125,6 +129,7 @@ const economyArticle: Article = {
   relatedDestinations: [],
   body: [
     p("Texas is often summarized as an oil state, which is both true and incomplete. Oil and gas remain enormously important, but the modern economy also runs through semiconductor fabs, hospitals, software companies, banks, military bases, ports, farms, warehouses, construction sites, aerospace facilities and corporate headquarters. For someone deciding whether to move, the useful question is not whether the Texas economy is large. It is where your industry is concentrated and whether the local pay offsets the local cost of housing, insurance, transportation and child care."),
+    p("TexasDefined now maintains a separate Texas Industries authority hub for readers who need the sector-by-sector version of this overview. It breaks the economy into sourced industry guides, shows the major regional hubs inside Texas, and links those sectors back to city, county, relocation and Made in Texas research without treating a statewide industry claim as proof about a specific employer."),
     p("In 2026 the Governor's economic-development office reported 57 Fortune 500 headquarters in Texas, the most of any state on that year's list. State materials also place the Texas economy among the world's largest when compared with national economies. Those are scale indicators, not a promise that every field or every metro is booming at the same time."),
 
     h("Houston is an energy center—but energy now means more than oil"),

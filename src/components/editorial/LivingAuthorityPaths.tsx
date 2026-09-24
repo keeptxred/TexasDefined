@@ -13,6 +13,7 @@ const pathways = [
   { to: "/browse/cities", label: "Compare Texas cities", description: "Start with place, county and region before comparing household costs." },
   { to: "/article/texas-major-cities-regional-differences", label: "Understand Texas cities & regions", description: "Compare the major metros and regional differences in climate, culture, jobs, driving and daily life." },
   { to: "/article/texas-jobs-economy-industries", label: "Understand Texas jobs & industries", description: "See where energy, technology, health care, finance, manufacturing, trade and other major job clusters concentrate." },
+  { to: "/texas-industries", label: "Explore Texas industries by sector", description: "Open the statewide industry authority hub for sourced sector guides, regional hubs and connections into cities, counties and companies." },
   { to: "/texas-cost-of-living-calculator", label: "Compare cost of living", description: "Model how everyday household costs may change from one place to another." },
   { to: "/texas-salary-comparison-by-city", label: "Compare salaries by city", description: "Translate a salary into a rough cost-adjusted equivalent across Texas cities." },
   { to: "/texas-moving-cost-calculator", label: "Estimate moving costs", description: "Plan transportation, packing, setup expenses and a practical cushion." },
