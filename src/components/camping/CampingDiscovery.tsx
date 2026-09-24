@@ -81,6 +81,14 @@ const quickMatches: Array<{
   { label: "Pet friendly", amenities: ["pets"] },
 ];
 
+const metroShortcuts = [
+  { label: "Houston area", query: "Houston" },
+  { label: "Austin area", query: "Austin" },
+  { label: "San Antonio area", query: "San Antonio" },
+  { label: "Dallas area", query: "Dallas" },
+  { label: "Fort Worth area", query: "Fort Worth" },
+] as const;
+
 const campingCardImages: Record<string, { src: string; alt: string; width: number; height: number }> = {
   "enchanted-rock-state-natural-area": { src: "/images/state-parks/enchanted-rock-state-natural-area.jpg", alt: "Enchanted Rock State Natural Area in Texas", width: 1600, height: 1063 },
   "palo-duro-canyon-state-park": { src: "/images/state-parks/palo-duro-canyon-state-park.jpg", alt: "Palo Duro Canyon State Park in Texas", width: 1600, height: 900 },
@@ -216,6 +224,22 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
             onClick={() => applyQuickMatch(match)}
             className="border border-border bg-muted/30 px-3 py-2 text-sm font-semibold transition-colors hover:border-primary/50 hover:bg-muted"
           >{match.label}</button>)}
+        </div>
+      </div>
+
+      <div className="mt-6 border-t border-border pt-6">
+        <p className="text-sm font-semibold">Camp near a major metro</p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {metroShortcuts.map((item) => <button
+            key={item.label}
+            type="button"
+            onClick={() => {
+              setQuery(item.query);
+              setRegion("all");
+              setAgency("all");
+            }}
+            className="border border-border bg-background px-3 py-2 text-sm font-semibold text-primary"
+          >{item.label}</button>)}
         </div>
       </div>
 
