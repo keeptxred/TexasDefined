@@ -21,13 +21,14 @@ const startingPoints = [
   { to: "/events", label: "Texas Events", copy: "Rodeos, festivals, fairs, live music and things happening around the state." },
   { to: "/guides", label: "The Guidebook", copy: "Travel guides and practical help for living, moving and owning a home here." },
   { to: "/decide/financial-tools", label: "Money & Property", copy: "Calculators and plain-English guides for housing costs and household decisions." },
+  { to: "/texas-industries", label: "Texas Industries", copy: "Energy, technology, manufacturing, logistics, healthcare, agriculture, finance and other major Texas sectors." },
   { to: "/browse/cities", label: "Find a City", copy: "Browse Texas cities by name, county and region." },
   { to: "/browse/counties", label: "Find Your County", copy: "Start with one of all 254 counties and continue to useful local information." },
 ] as const;
 
 const recoveryLinks = [
   ["/explore", "Explore Texas"], ["/hunting", "Texas Hunting"], ["/events", "Texas Events"], ["/browse/cities", "Cities"],
-  ["/browse/counties", "Counties"], ["/explore/trip-planner", "Trip Planner"], ["/texas-explained", "Texas Explained"],
+  ["/browse/counties", "Counties"], ["/texas-industries", "Texas Industries"], ["/explore/trip-planner", "Trip Planner"], ["/texas-explained", "Texas Explained"],
 ] as const;
 
 export const Route = createLazyFileRoute("/search")({ component: SearchPage });
