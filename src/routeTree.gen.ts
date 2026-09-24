@@ -165,6 +165,7 @@ import { Route as GuidesRouteImport } from './routes/guides'
 import { Route as GrueneHallHistoryRouteImport } from './routes/gruene-hall-history'
 import { Route as GoogleMerchantFeedDotxmlRouteImport } from './routes/google-merchant-feed[.]xml'
 import { Route as GermanCzechTexasTownsRouteImport } from './routes/german-czech-texas-towns'
+import { Route as GamingRouteImport } from './routes/gaming'
 import { Route as FishingRouteImport } from './routes/fishing'
 import { Route as FindMyVoterRegistrationRouteImport } from './routes/find-my-voter-registration'
 import { Route as FindMyUtilitiesRouteImport } from './routes/find-my-utilities'
@@ -320,6 +321,7 @@ import { Route as HistoricSiteFortLeatonStateHistoricSiteRouteImport } from './r
 import { Route as HistoricSiteFanthorpInnStateHistoricSiteRouteImport } from './routes/historic-site.fanthorp-inn-state-historic-site'
 import { Route as HistoricSiteSlugRouteImport } from './routes/historic-site.$slug'
 import { Route as GuidesCitypassTexasRouteImport } from './routes/guides.citypass-texas'
+import { Route as GamingSlugRouteImport } from './routes/gaming_.$slug'
 import { Route as FoodSlugRouteImport } from './routes/food.$slug'
 import { Route as FishingTechniquesRouteImport } from './routes/fishing.techniques'
 import { Route as FishingSpeciesRouteImport } from './routes/fishing.species'
@@ -1531,6 +1533,11 @@ const GermanCzechTexasTownsRoute = GermanCzechTexasTownsRouteImport.update({
 } as any).lazy(() =>
   import('./routes/german-czech-texas-towns.lazy').then((d) => d.Route),
 )
+const GamingRoute = GamingRouteImport.update({
+  id: '/gaming',
+  path: '/gaming',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/gaming.lazy').then((d) => d.Route))
 const FishingRoute = FishingRouteImport.update({
   id: '/fishing',
   path: '/fishing',
@@ -2497,6 +2504,11 @@ const GuidesCitypassTexasRoute = GuidesCitypassTexasRouteImport.update({
 } as any).lazy(() =>
   import('./routes/guides.citypass-texas.lazy').then((d) => d.Route),
 )
+const GamingSlugRoute = GamingSlugRouteImport.update({
+  id: '/gaming_/$slug',
+  path: '/gaming/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/gaming_.$slug.lazy').then((d) => d.Route))
 const FoodSlugRoute = FoodSlugRouteImport.update({
   id: '/food/$slug',
   path: '/food/$slug',
@@ -3546,6 +3558,7 @@ export interface FileRoutesByFullPath {
   '/find-my-utilities': typeof FindMyUtilitiesRoute
   '/find-my-voter-registration': typeof FindMyVoterRegistrationRoute
   '/fishing': typeof FishingRouteWithChildren
+  '/gaming': typeof GamingRoute
   '/german-czech-texas-towns': typeof GermanCzechTexasTownsRoute
   '/google-merchant-feed.xml': typeof GoogleMerchantFeedDotxmlRoute
   '/gruene-hall-history': typeof GrueneHallHistoryRoute
@@ -3810,6 +3823,7 @@ export interface FileRoutesByFullPath {
   '/fishing/species': typeof FishingSpeciesRouteWithChildren
   '/fishing/techniques': typeof FishingTechniquesRouteWithChildren
   '/food/$slug': typeof FoodSlugRoute
+  '/gaming/$slug': typeof GamingSlugRoute
   '/guides/citypass-texas': typeof GuidesCitypassTexasRoute
   '/historic-site/$slug': typeof HistoricSiteSlugRoute
   '/historic-site/fanthorp-inn-state-historic-site': typeof HistoricSiteFanthorpInnStateHistoricSiteRoute
@@ -4029,6 +4043,7 @@ export interface FileRoutesByTo {
   '/find-my-utilities': typeof FindMyUtilitiesRoute
   '/find-my-voter-registration': typeof FindMyVoterRegistrationRoute
   '/fishing': typeof FishingRouteWithChildren
+  '/gaming': typeof GamingRoute
   '/german-czech-texas-towns': typeof GermanCzechTexasTownsRoute
   '/google-merchant-feed.xml': typeof GoogleMerchantFeedDotxmlRoute
   '/gruene-hall-history': typeof GrueneHallHistoryRoute
@@ -4291,6 +4306,7 @@ export interface FileRoutesByTo {
   '/fishing/species': typeof FishingSpeciesRouteWithChildren
   '/fishing/techniques': typeof FishingTechniquesRouteWithChildren
   '/food/$slug': typeof FoodSlugRoute
+  '/gaming/$slug': typeof GamingSlugRoute
   '/guides/citypass-texas': typeof GuidesCitypassTexasRoute
   '/historic-site/$slug': typeof HistoricSiteSlugRoute
   '/historic-site/fanthorp-inn-state-historic-site': typeof HistoricSiteFanthorpInnStateHistoricSiteRoute
@@ -4512,6 +4528,7 @@ export interface FileRoutesById {
   '/find-my-utilities': typeof FindMyUtilitiesRoute
   '/find-my-voter-registration': typeof FindMyVoterRegistrationRoute
   '/fishing': typeof FishingRouteWithChildren
+  '/gaming': typeof GamingRoute
   '/german-czech-texas-towns': typeof GermanCzechTexasTownsRoute
   '/google-merchant-feed.xml': typeof GoogleMerchantFeedDotxmlRoute
   '/gruene-hall-history': typeof GrueneHallHistoryRoute
@@ -4776,6 +4793,7 @@ export interface FileRoutesById {
   '/fishing/species': typeof FishingSpeciesRouteWithChildren
   '/fishing/techniques': typeof FishingTechniquesRouteWithChildren
   '/food/$slug': typeof FoodSlugRoute
+  '/gaming_/$slug': typeof GamingSlugRoute
   '/guides/citypass-texas': typeof GuidesCitypassTexasRoute
   '/historic-site/$slug': typeof HistoricSiteSlugRoute
   '/historic-site/fanthorp-inn-state-historic-site': typeof HistoricSiteFanthorpInnStateHistoricSiteRoute
@@ -4998,6 +5016,7 @@ export interface FileRouteTypes {
     | '/find-my-utilities'
     | '/find-my-voter-registration'
     | '/fishing'
+    | '/gaming'
     | '/german-czech-texas-towns'
     | '/google-merchant-feed.xml'
     | '/gruene-hall-history'
@@ -5262,6 +5281,7 @@ export interface FileRouteTypes {
     | '/fishing/species'
     | '/fishing/techniques'
     | '/food/$slug'
+    | '/gaming/$slug'
     | '/guides/citypass-texas'
     | '/historic-site/$slug'
     | '/historic-site/fanthorp-inn-state-historic-site'
@@ -5481,6 +5501,7 @@ export interface FileRouteTypes {
     | '/find-my-utilities'
     | '/find-my-voter-registration'
     | '/fishing'
+    | '/gaming'
     | '/german-czech-texas-towns'
     | '/google-merchant-feed.xml'
     | '/gruene-hall-history'
@@ -5743,6 +5764,7 @@ export interface FileRouteTypes {
     | '/fishing/species'
     | '/fishing/techniques'
     | '/food/$slug'
+    | '/gaming/$slug'
     | '/guides/citypass-texas'
     | '/historic-site/$slug'
     | '/historic-site/fanthorp-inn-state-historic-site'
@@ -5963,6 +5985,7 @@ export interface FileRouteTypes {
     | '/find-my-utilities'
     | '/find-my-voter-registration'
     | '/fishing'
+    | '/gaming'
     | '/german-czech-texas-towns'
     | '/google-merchant-feed.xml'
     | '/gruene-hall-history'
@@ -6227,6 +6250,7 @@ export interface FileRouteTypes {
     | '/fishing/species'
     | '/fishing/techniques'
     | '/food/$slug'
+    | '/gaming_/$slug'
     | '/guides/citypass-texas'
     | '/historic-site/$slug'
     | '/historic-site/fanthorp-inn-state-historic-site'
@@ -6448,6 +6472,7 @@ export interface RootRouteChildren {
   FindMyUtilitiesRoute: typeof FindMyUtilitiesRoute
   FindMyVoterRegistrationRoute: typeof FindMyVoterRegistrationRoute
   FishingRoute: typeof FishingRouteWithChildren
+  GamingRoute: typeof GamingRoute
   GermanCzechTexasTownsRoute: typeof GermanCzechTexasTownsRoute
   GoogleMerchantFeedDotxmlRoute: typeof GoogleMerchantFeedDotxmlRoute
   GrueneHallHistoryRoute: typeof GrueneHallHistoryRoute
@@ -6685,6 +6710,7 @@ export interface RootRouteChildren {
   ExploreWildlifeRoute: typeof ExploreWildlifeRoute
   ExploreWildlifeManagementAreasRoute: typeof ExploreWildlifeManagementAreasRoute
   FoodSlugRoute: typeof FoodSlugRoute
+  GamingSlugRoute: typeof GamingSlugRoute
   HistoricSiteSlugRoute: typeof HistoricSiteSlugRoute
   HistoricSiteFanthorpInnStateHistoricSiteRoute: typeof HistoricSiteFanthorpInnStateHistoricSiteRoute
   HistoricSiteFortLeatonStateHistoricSiteRoute: typeof HistoricSiteFortLeatonStateHistoricSiteRoute
@@ -7894,6 +7920,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GermanCzechTexasTownsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gaming': {
+      id: '/gaming'
+      path: '/gaming'
+      fullPath: '/gaming'
+      preLoaderRoute: typeof GamingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/fishing': {
       id: '/fishing'
       path: '/fishing'
@@ -8978,6 +9011,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/guides/citypass-texas'
       preLoaderRoute: typeof GuidesCitypassTexasRouteImport
       parentRoute: typeof GuidesRoute
+    }
+    '/gaming_/$slug': {
+      id: '/gaming_/$slug'
+      path: '/gaming/$slug'
+      fullPath: '/gaming/$slug'
+      preLoaderRoute: typeof GamingSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/food/$slug': {
       id: '/food/$slug'
@@ -10755,6 +10795,7 @@ const rootRouteChildren: RootRouteChildren = {
   FindMyUtilitiesRoute: FindMyUtilitiesRoute,
   FindMyVoterRegistrationRoute: FindMyVoterRegistrationRoute,
   FishingRoute: FishingRouteWithChildren,
+  GamingRoute: GamingRoute,
   GermanCzechTexasTownsRoute: GermanCzechTexasTownsRoute,
   GoogleMerchantFeedDotxmlRoute: GoogleMerchantFeedDotxmlRoute,
   GrueneHallHistoryRoute: GrueneHallHistoryRoute,
@@ -11021,6 +11062,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreWildlifeRoute: ExploreWildlifeRoute,
   ExploreWildlifeManagementAreasRoute: ExploreWildlifeManagementAreasRoute,
   FoodSlugRoute: FoodSlugRoute,
+  GamingSlugRoute: GamingSlugRoute,
   HistoricSiteSlugRoute: HistoricSiteSlugRoute,
   HistoricSiteFanthorpInnStateHistoricSiteRoute:
     HistoricSiteFanthorpInnStateHistoricSiteRoute,
