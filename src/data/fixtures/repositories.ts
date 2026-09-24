@@ -13,6 +13,7 @@ import { editorialDeskById, editorialDesks } from "../editorial-desks";
 import { supplementalExploreCategories } from "../explore-categories";
 import { guideHref } from "../guide-links";
 import type { Article, ArticleBlock, SearchDocument } from "../types";
+import { cosplayFandomArticleStubs, loadCosplayFandomArticle } from "./lazy-cosplay-fandom";
 import { exploreFeatureArticleStubs, loadExploreFeatureArticle } from "./lazy-explore-feature-articles";
 import { lazyEvergreenArticleStubs, loadLazyEvergreenArticle } from "./lazy-evergreen";
 import { historicSupportingStubs, loadHistoricSupportingArticle } from "./lazy-historic-supporting";
@@ -37,6 +38,7 @@ import {
  */
 
 const editorialArticles = [
+  ...cosplayFandomArticleStubs,
   ...exploreFeatureArticleStubs,
   ...coreEvergreenArticleStubs,
   ...lazyEvergreenArticleStubs,
@@ -211,6 +213,9 @@ export const fixtureArticles: ArticleRepository = {
 
     const migratedArticle = await loadMigratedEditorialArticle(scope.brandId, slug);
     if (migratedArticle) return normalizeArticle(migratedArticle);
+
+    const cosplayFandomArticle = await loadCosplayFandomArticle(scope.brandId, slug);
+    if (cosplayFandomArticle) return normalizeArticle(cosplayFandomArticle);
 
     const exploreFeatureArticle = await loadExploreFeatureArticle(scope.brandId, slug);
     if (exploreFeatureArticle) return normalizeArticle(exploreFeatureArticle);
