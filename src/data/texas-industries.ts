@@ -1,6 +1,12 @@
+export type TexasIndustryHubPlace = {
+  label: string;
+  href: string;
+};
+
 export type TexasIndustryHub = {
   name: string;
   description: string;
+  places: TexasIndustryHubPlace[];
 };
 
 export type TexasIndustryFact = {
@@ -54,10 +60,10 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
     ],
     clusters: ["Oil and gas extraction", "Pipelines and midstream", "Refining and petrochemicals", "LNG and Gulf export infrastructure", "Electric power generation", "Wind and utility-scale solar", "Battery storage", "Transmission and grid services", "Energy engineering and field services"],
     hubs: [
-      { name: "Houston & Gulf Coast", description: "Corporate headquarters, engineering, refining, petrochemicals, pipelines, LNG, ports and global energy trade." },
-      { name: "Permian Basin", description: "Midland-Odessa and surrounding West Texas counties anchor oil and gas production, field services and related infrastructure." },
-      { name: "West Texas & Panhandle", description: "Large wind and solar resources, transmission infrastructure and energy-intensive industrial development." },
-      { name: "Corpus Christi & Coastal Bend", description: "Refining, petrochemicals, crude and LNG export infrastructure connect inland production with global markets." }
+      { name: "Houston & Gulf Coast", description: "Corporate headquarters, engineering, refining, petrochemicals, pipelines, LNG, ports and global energy trade.", places: [{ label: "Harris County", href: "/county/harris" }, { label: "Jefferson County", href: "/county/jefferson" }] },
+      { name: "Permian Basin", description: "Midland-Odessa and surrounding West Texas counties anchor oil and gas production, field services and related infrastructure.", places: [{ label: "Midland County", href: "/county/midland" }, { label: "Ector County", href: "/county/ector" }] },
+      { name: "West Texas & Panhandle", description: "Large wind and solar resources, transmission infrastructure and energy-intensive industrial development.", places: [{ label: "Potter County", href: "/county/potter" }, { label: "Randall County", href: "/county/randall" }] },
+      { name: "Corpus Christi & Coastal Bend", description: "Refining, petrochemicals, crude and LNG export infrastructure connect inland production with global markets.", places: [{ label: "Nueces County", href: "/county/nueces" }, { label: "San Patricio County", href: "/county/san-patricio" }] }
     ],
     facts: [
       { value: "No. 1", label: "U.S. net electricity generation", context: "EIA's 2024 state electricity profile ranks Texas first in net generation and net summer capacity.", sourceLabel: "U.S. Energy Information Administration", sourceUrl: "https://www.eia.gov/electricity/state/texas/" },
@@ -88,10 +94,10 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
     ],
     clusters: ["Software and cloud services", "Artificial intelligence", "Semiconductor fabrication", "Analog and embedded processing", "Electronics manufacturing", "Telecommunications", "Data centers", "Cybersecurity", "University research and commercialization"],
     hubs: [
-      { name: "Austin & Central Texas", description: "Software, major technology employers, semiconductor manufacturing, startups and research universities." },
-      { name: "Dallas-Fort Worth", description: "Telecommunications, enterprise technology, semiconductor design and manufacturing, financial technology and corporate operations." },
-      { name: "Sherman", description: "A major North Texas semiconductor-manufacturing center anchored by Texas Instruments' expanding 300mm fab campus." },
-      { name: "Taylor", description: "Central Texas semiconductor manufacturing tied to Samsung's advanced fab investment and the wider Austin technology corridor." }
+      { name: "Austin & Central Texas", description: "Software, major technology employers, semiconductor manufacturing, startups and research universities.", places: [{ label: "Travis County", href: "/county/travis" }, { label: "Williamson County", href: "/county/williamson" }] },
+      { name: "Dallas-Fort Worth", description: "Telecommunications, enterprise technology, semiconductor design and manufacturing, financial technology and corporate operations.", places: [{ label: "Dallas County", href: "/county/dallas" }, { label: "Tarrant County", href: "/county/tarrant" }] },
+      { name: "Sherman", description: "A major North Texas semiconductor-manufacturing center anchored by Texas Instruments' expanding 300mm fab campus.", places: [{ label: "Grayson County", href: "/county/grayson" }] },
+      { name: "Taylor", description: "Central Texas semiconductor manufacturing tied to Samsung's advanced fab investment and the wider Austin technology corridor.", places: [{ label: "Williamson County", href: "/county/williamson" }] }
     ],
     facts: [
       { value: "$40B potential", label: "TI Sherman fab plan", context: "Texas Instruments says its Sherman site could include four connected 300mm fabs; the first fab is now in production.", sourceLabel: "Texas Instruments", sourceUrl: "https://www.ti.com/about-ti/manufacturing/sherman.html" },
@@ -122,10 +128,10 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
     ],
     clusters: ["Automotive and electric vehicles", "Computers, electronics and semiconductors", "Aerospace vehicles and aircraft", "Defense manufacturing", "Heavy machinery and production technology", "Chemical products", "Fabricated metals", "Industrial equipment and components"],
     hubs: [
-      { name: "Dallas-Fort Worth", description: "Aerospace and defense, electronics, machinery, corporate operations and a broad supplier network." },
-      { name: "Austin-Central Texas", description: "Semiconductors, electronics, electric vehicles and advanced production tied to the technology corridor." },
-      { name: "San Antonio", description: "Automotive production, suppliers, aviation maintenance and a large logistics and military ecosystem." },
-      { name: "Houston-Gulf Coast", description: "Chemicals, energy equipment, fabricated products, machinery, ship-channel industry and exports." }
+      { name: "Dallas-Fort Worth", description: "Aerospace and defense, electronics, machinery, corporate operations and a broad supplier network.", places: [{ label: "Dallas County", href: "/county/dallas" }, { label: "Tarrant County", href: "/county/tarrant" }] },
+      { name: "Austin-Central Texas", description: "Semiconductors, electronics, electric vehicles and advanced production tied to the technology corridor.", places: [{ label: "Travis County", href: "/county/travis" }, { label: "Williamson County", href: "/county/williamson" }] },
+      { name: "San Antonio", description: "Automotive production, suppliers, aviation maintenance and a large logistics and military ecosystem.", places: [{ label: "Bexar County", href: "/county/bexar" }] },
+      { name: "Houston-Gulf Coast", description: "Chemicals, energy equipment, fabricated products, machinery, ship-channel industry and exports.", places: [{ label: "Harris County", href: "/county/harris" }, { label: "Brazoria County", href: "/county/brazoria" }] }
     ],
     facts: [
       { value: "11%", label: "Share of U.S. manufactured goods", context: "The Governor's economic-development office states that Texas produces about 11% of all U.S. manufactured goods.", sourceLabel: "Office of the Texas Governor", sourceUrl: "https://gov.texas.gov/top-texas-touts-industry" },
@@ -156,10 +162,10 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
     ],
     clusters: ["Ports and marine cargo", "Texas-Mexico border trade", "Trucking and highway freight", "Freight rail", "Air cargo", "Warehousing and distribution", "E-commerce fulfillment", "Customs and trade services", "Cold chain and specialized logistics"],
     hubs: [
-      { name: "Laredo & South Texas border", description: "Truck and rail trade with Mexico, customs services, warehousing and cross-border supply chains." },
-      { name: "Houston & Gulf Coast", description: "Port activity, petrochemical and container cargo, rail and highway links, warehousing and global shipping." },
-      { name: "Dallas-Fort Worth", description: "National-scale distribution, air cargo, intermodal rail, highways, warehouses and e-commerce fulfillment." },
-      { name: "San Antonio & I-35 corridor", description: "Manufacturing logistics and a strategic north-south connection between Mexico, Central Texas and DFW." }
+      { name: "Laredo & South Texas border", description: "Truck and rail trade with Mexico, customs services, warehousing and cross-border supply chains.", places: [{ label: "Webb County", href: "/county/webb" }] },
+      { name: "Houston & Gulf Coast", description: "Port activity, petrochemical and container cargo, rail and highway links, warehousing and global shipping.", places: [{ label: "Harris County", href: "/county/harris" }, { label: "Galveston County", href: "/county/galveston" }] },
+      { name: "Dallas-Fort Worth", description: "National-scale distribution, air cargo, intermodal rail, highways, warehouses and e-commerce fulfillment.", places: [{ label: "Dallas County", href: "/county/dallas" }, { label: "Tarrant County", href: "/county/tarrant" }] },
+      { name: "San Antonio & I-35 corridor", description: "Manufacturing logistics and a strategic north-south connection between Mexico, Central Texas and DFW.", places: [{ label: "Bexar County", href: "/county/bexar" }, { label: "Webb County", href: "/county/webb" }] }
     ],
     facts: [
       { value: "Multimodal", label: "Texas-Mexico border planning", context: "TxDOT's binational border transportation plan covers the movement of people and goods across the border and beyond by multiple modes.", sourceLabel: "Texas Department of Transportation", sourceUrl: "https://www.txdot.gov/projects/planning/international-trade-border-planning/btmp.html" },
@@ -190,10 +196,10 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
     ],
     clusters: ["Human spaceflight and mission operations", "Commercial spaceflight", "Aircraft manufacturing", "Rotorcraft", "Defense systems", "Avionics and electronics", "Maintenance, repair and overhaul", "Military aviation", "Aerospace engineering and suppliers"],
     hubs: [
-      { name: "Houston", description: "NASA Johnson Space Center, human spaceflight, engineering, contractors and a growing commercial space ecosystem." },
-      { name: "Dallas-Fort Worth", description: "Aircraft and defense manufacturing, engineering, avionics and a dense supplier network." },
-      { name: "San Antonio", description: "Military aviation, maintenance, cyber and defense activity built around major installations and private contractors." },
-      { name: "South Texas & Gulf Coast", description: "Commercial launch and space infrastructure adds a newer layer to the state's long aerospace history." }
+      { name: "Houston", description: "NASA Johnson Space Center, human spaceflight, engineering, contractors and a growing commercial space ecosystem.", places: [{ label: "Harris County", href: "/county/harris" }] },
+      { name: "Dallas-Fort Worth", description: "Aircraft and defense manufacturing, engineering, avionics and a dense supplier network.", places: [{ label: "Tarrant County", href: "/county/tarrant" }, { label: "Dallas County", href: "/county/dallas" }] },
+      { name: "San Antonio", description: "Military aviation, maintenance, cyber and defense activity built around major installations and private contractors.", places: [{ label: "Bexar County", href: "/county/bexar" }] },
+      { name: "South Texas & Gulf Coast", description: "Commercial launch and space infrastructure adds a newer layer to the state's long aerospace history.", places: [{ label: "Cameron County", href: "/county/cameron" }] }
     ],
     facts: [
       { value: "12,000+", label: "People at Johnson Space Center", context: "NASA lists more than 12,000 people associated with Johnson Space Center in Houston.", sourceLabel: "NASA Johnson Space Center", sourceUrl: "https://www.nasa.gov/johnson/" },
@@ -224,10 +230,10 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
     ],
     clusters: ["Hospital systems", "Academic medicine", "Biotechnology", "Pharmaceuticals", "Medical devices", "Clinical research and trials", "Health technology", "Laboratory services", "Life-sciences real estate and manufacturing"],
     hubs: [
-      { name: "Houston", description: "Texas Medical Center, academic medicine, cancer care, children's health, research, biotech and commercialization." },
-      { name: "Dallas-Fort Worth", description: "Large hospital systems, medical schools, specialty care, health technology and corporate healthcare operations." },
-      { name: "San Antonio", description: "Academic medicine, military medicine, biomedical research and a growing bioscience ecosystem." },
-      { name: "Austin-Central Texas", description: "Health technology, university research, Dell Medical School and fast-growing regional healthcare demand." }
+      { name: "Houston", description: "Texas Medical Center, academic medicine, cancer care, children's health, research, biotech and commercialization.", places: [{ label: "Harris County", href: "/county/harris" }] },
+      { name: "Dallas-Fort Worth", description: "Large hospital systems, medical schools, specialty care, health technology and corporate healthcare operations.", places: [{ label: "Dallas County", href: "/county/dallas" }, { label: "Tarrant County", href: "/county/tarrant" }] },
+      { name: "San Antonio", description: "Academic medicine, military medicine, biomedical research and a growing bioscience ecosystem.", places: [{ label: "Bexar County", href: "/county/bexar" }] },
+      { name: "Austin-Central Texas", description: "Health technology, university research, Dell Medical School and fast-growing regional healthcare demand.", places: [{ label: "Travis County", href: "/county/travis" }] }
     ],
     facts: [
       { value: "120,000+", label: "Texas Medical Center employees", context: "TMC reports more than 120,000 total employees across the world's largest medical complex.", sourceLabel: "Texas Medical Center", sourceUrl: "https://www.tmc.edu/about-tmc/" },
@@ -258,10 +264,10 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
     ],
     clusters: ["Cattle and ranching", "Cotton", "Poultry", "Dairy", "Corn, sorghum and wheat", "Hay and forage", "Citrus and specialty crops", "Food and livestock processing", "Agricultural technology and equipment"],
     hubs: [
-      { name: "Panhandle & High Plains", description: "Cattle feeding, dairy, cotton, grains, food processing and large-scale agricultural operations." },
-      { name: "South Plains", description: "Cotton, grains, cattle and agricultural services centered around Lubbock and surrounding counties." },
-      { name: "Rio Grande Valley & South Texas", description: "Citrus, vegetables, livestock and cross-border food and agricultural trade." },
-      { name: "Central, West & East Texas", description: "Ranching, poultry, hay, specialty agriculture and diverse county-level farming systems." }
+      { name: "Panhandle & High Plains", description: "Cattle feeding, dairy, cotton, grains, food processing and large-scale agricultural operations.", places: [{ label: "Dallam County", href: "/county/dallam" }, { label: "Moore County", href: "/county/moore" }] },
+      { name: "South Plains", description: "Cotton, grains, cattle and agricultural services centered around Lubbock and surrounding counties.", places: [{ label: "Lubbock County", href: "/county/lubbock" }, { label: "Hale County", href: "/county/hale" }] },
+      { name: "Rio Grande Valley & South Texas", description: "Citrus, vegetables, livestock and cross-border food and agricultural trade.", places: [{ label: "Hidalgo County", href: "/county/hidalgo" }, { label: "Cameron County", href: "/county/cameron" }] },
+      { name: "Central, West & East Texas", description: "Ranching, poultry, hay, specialty agriculture and diverse county-level farming systems.", places: [{ label: "Tom Green County", href: "/county/tom-green" }, { label: "Smith County", href: "/county/smith" }] }
     ],
     facts: [
       { value: "229,000", label: "Farm operations", context: "USDA NASS lists 229,000 Texas farm operations in its 2025 state agriculture overview.", sourceLabel: "USDA National Agricultural Statistics Service", sourceUrl: "https://www.nass.usda.gov/Quick_Stats/Ag_Overview/stateOverview.php?state=Texas&year=2025" },
@@ -293,10 +299,10 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
     ],
     clusters: ["Commercial banking", "Insurance", "Investment management", "Securities and brokerage", "Consumer finance", "Mortgage and real-estate lending", "Fintech and payments", "Corporate treasury and finance", "Accounting and financial operations"],
     hubs: [
-      { name: "Dallas-Fort Worth", description: "Banking, investment, insurance, fintech and major corporate financial operations." },
-      { name: "Houston", description: "Corporate banking, energy finance, insurance and investment activity tied to a large headquarters base." },
-      { name: "Austin", description: "Fintech, venture capital, technology-linked finance and a growing professional-services workforce." },
-      { name: "San Antonio", description: "Banking, insurance and financial operations with strong military and consumer-finance connections." }
+      { name: "Dallas-Fort Worth", description: "Banking, investment, insurance, fintech and major corporate financial operations.", places: [{ label: "Dallas County", href: "/county/dallas" }, { label: "Tarrant County", href: "/county/tarrant" }] },
+      { name: "Houston", description: "Corporate banking, energy finance, insurance and investment activity tied to a large headquarters base.", places: [{ label: "Harris County", href: "/county/harris" }] },
+      { name: "Austin", description: "Fintech, venture capital, technology-linked finance and a growing professional-services workforce.", places: [{ label: "Travis County", href: "/county/travis" }] },
+      { name: "San Antonio", description: "Banking, insurance and financial operations with strong military and consumer-finance connections.", places: [{ label: "Bexar County", href: "/county/bexar" }] }
     ],
     facts: [
       { value: "No. 1", label: "Financial-services employment", context: "The Texas economic-development office describes Texas as first in total U.S. financial-services employment.", sourceLabel: "Texas Economic Development & Tourism Office", sourceUrl: "https://gov.texas.gov/business/page/corporate-services" },
@@ -327,10 +333,10 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
     ],
     clusters: ["Residential construction", "Commercial construction", "Industrial construction", "Civil and infrastructure", "Engineering and specialty trades", "Homebuilding and land development", "Commercial real estate", "Brokerage and property services", "Building materials"],
     hubs: [
-      { name: "Dallas-Fort Worth", description: "Large-scale residential growth, industrial and logistics development, corporate real estate and major infrastructure." },
-      { name: "Houston", description: "Homebuilding, commercial development, industrial construction, energy projects and a large engineering workforce." },
-      { name: "Austin-Central Texas", description: "Fast-growth housing, technology and semiconductor facilities, offices, data centers and infrastructure." },
-      { name: "San Antonio", description: "Residential growth, military-related development, manufacturing facilities and regional commercial construction." }
+      { name: "Dallas-Fort Worth", description: "Large-scale residential growth, industrial and logistics development, corporate real estate and major infrastructure.", places: [{ label: "Dallas County", href: "/county/dallas" }, { label: "Tarrant County", href: "/county/tarrant" }] },
+      { name: "Houston", description: "Homebuilding, commercial development, industrial construction, energy projects and a large engineering workforce.", places: [{ label: "Harris County", href: "/county/harris" }, { label: "Fort Bend County", href: "/county/fort-bend" }] },
+      { name: "Austin-Central Texas", description: "Fast-growth housing, technology and semiconductor facilities, offices, data centers and infrastructure.", places: [{ label: "Travis County", href: "/county/travis" }, { label: "Williamson County", href: "/county/williamson" }] },
+      { name: "San Antonio", description: "Residential growth, military-related development, manufacturing facilities and regional commercial construction.", places: [{ label: "Bexar County", href: "/county/bexar" }] }
     ],
     facts: [
       { value: "$110.2B", label: "Texas construction GDP in 2022", context: "The Texas Comptroller reported $110.2 billion in construction GDP for 2022 in its statewide regional report.", sourceLabel: "Texas Comptroller of Public Accounts", sourceUrl: "https://comptroller.texas.gov/economy/economic-data/regions/2024/statewide.php" },
@@ -361,10 +367,10 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
     ],
     clusters: ["Corporate headquarters", "Business services", "Engineering and design", "Accounting", "Consulting", "Legal and compliance operations", "Human resources and shared services", "Data and back-office operations", "Corporate support centers"],
     hubs: [
-      { name: "Dallas-Fort Worth", description: "Headquarters, financial and professional services, telecommunications and a large corporate workforce." },
-      { name: "Houston", description: "Energy, engineering, construction, healthcare and global-business headquarters and professional services." },
-      { name: "Austin", description: "Technology companies, startups, professional services and state-government-adjacent corporate operations." },
-      { name: "San Antonio", description: "Financial, insurance, cybersecurity, military-connected and regional corporate operations." }
+      { name: "Dallas-Fort Worth", description: "Headquarters, financial and professional services, telecommunications and a large corporate workforce.", places: [{ label: "Dallas County", href: "/county/dallas" }, { label: "Tarrant County", href: "/county/tarrant" }] },
+      { name: "Houston", description: "Energy, engineering, construction, healthcare and global-business headquarters and professional services.", places: [{ label: "Harris County", href: "/county/harris" }] },
+      { name: "Austin", description: "Technology companies, startups, professional services and state-government-adjacent corporate operations.", places: [{ label: "Travis County", href: "/county/travis" }] },
+      { name: "San Antonio", description: "Financial, insurance, cybersecurity, military-connected and regional corporate operations.", places: [{ label: "Bexar County", href: "/county/bexar" }] }
     ],
     facts: [
       { value: "57", label: "Fortune 500 headquarters", context: "Texas economic-development materials list 57 Fortune 500 headquarters in the state.", sourceLabel: "Texas Economic Development & Tourism Office", sourceUrl: "https://gov.texas.gov/business/page/corporate-services" },
@@ -395,10 +401,10 @@ export const TEXAS_INDUSTRIES: TexasIndustrySector[] = [
     ],
     clusters: ["Hotels and lodging", "Restaurants and food tourism", "Attractions and museums", "Outdoor recreation", "Festivals and events", "Sports tourism", "Music and live entertainment", "Film and television", "Convention and business travel"],
     hubs: [
-      { name: "Dallas-Fort Worth", description: "Sports, conventions, major attractions, arts, hotels, shopping and a large airport-connected visitor market." },
-      { name: "Houston & Gulf Coast", description: "Museums, professional sports, conventions, food, cruises, beaches and coastal attractions." },
-      { name: "Austin & Hill Country", description: "Music, festivals, food, outdoor recreation, wineries, small towns and weekend travel." },
-      { name: "San Antonio & South Texas", description: "The River Walk, missions, conventions, theme parks, cultural tourism and gateway travel into South Texas." }
+      { name: "Dallas-Fort Worth", description: "Sports, conventions, major attractions, arts, hotels, shopping and a large airport-connected visitor market.", places: [{ label: "Dallas County", href: "/county/dallas" }, { label: "Tarrant County", href: "/county/tarrant" }] },
+      { name: "Houston & Gulf Coast", description: "Museums, professional sports, conventions, food, cruises, beaches and coastal attractions.", places: [{ label: "Harris County", href: "/county/harris" }, { label: "Galveston County", href: "/county/galveston" }] },
+      { name: "Austin & Hill Country", description: "Music, festivals, food, outdoor recreation, wineries, small towns and weekend travel.", places: [{ label: "Travis County", href: "/county/travis" }, { label: "Gillespie County", href: "/county/gillespie" }] },
+      { name: "San Antonio & South Texas", description: "The River Walk, missions, conventions, theme parks, cultural tourism and gateway travel into South Texas.", places: [{ label: "Bexar County", href: "/county/bexar" }, { label: "Nueces County", href: "/county/nueces" }] }
     ],
     facts: [
       { value: "$97.5B", label: "2024 visitor spending", context: "Texas economic-development materials report $97.5 billion in visitor spending in 2024.", sourceLabel: "Texas Economic Development & Tourism Office", sourceUrl: "https://gov.texas.gov/business/page/creative-industry" },
