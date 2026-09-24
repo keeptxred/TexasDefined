@@ -4,6 +4,7 @@ import enchantedRock from "@/assets/enchanted-rock.jpg";
 import heroHillCountry from "@/assets/hero-hill-country.jpg";
 import paloDuro from "@/assets/palo-duro.jpg";
 import smallTown from "@/assets/small-town.jpg";
+import roadTrip from "@/assets/road-trip.jpg";
 import wildlife from "@/assets/wildlife.jpg";
 
 import type { Article, ImageRef } from "../types";
@@ -110,7 +111,18 @@ export const roadTripCameraAuthorityStubs: Article[] = [
     authorId: "a-dell", publishedAt: "2026-09-24", updatedAt: "2026-09-24", readingMinutes: 10,
     tags: ["rideshare dash cam Texas", "Uber dash cam Texas", "Lyft dash cam Texas", "cabin camera Texas", "audio recording Texas"],
     relatedCollections: [], relatedDestinations: [],
-  }),
+  }),,
+  stub({
+    id: "authority-texas-car-emergency-kit",
+    slug: "texas-car-emergency-kit",
+    title: "The Texas Road-Trip Emergency Kit: What to Keep in the Car",
+    dek: "A practical Texas roadside kit for heat, flat tires, dead batteries, storms and long waits—plus the limits of what you should safely attempt beside the road.",
+    category: "road-trips",
+    hero: image(roadTrip, "A long Texas highway with open country ahead"),
+    authorId: "a-dell", publishedAt: "2026-09-24", updatedAt: "2026-09-24", readingMinutes: 10,
+    tags: ["Texas car emergency kit", "Texas road trip emergency kit", "roadside emergency kit", "Texas driving", "vehicle preparedness"],
+    relatedCollections: [], relatedDestinations: ["big-bend-national-park", "palo-duro-canyon-state-park"],
+  })
 ];
 
 const slugs = new Set(roadTripCameraAuthorityStubs.map((article) => article.slug));
