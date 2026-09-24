@@ -13,6 +13,7 @@ const profileWave4 = read("src/data/camping/profiles-wave4.ts");
 const profileWave5 = read("src/data/camping/profiles-wave5.ts");
 const profileWave6 = read("src/data/camping/profiles-wave6.ts");
 const profileWave7 = read("src/data/camping/profiles-wave7.ts");
+const profileWave8 = read("src/data/camping/profiles-wave8.ts");
 const expedia = read("public/expedia-travel.js");
 const production = read("scripts/ci/verify-production-surfaces.mjs");
 
@@ -53,6 +54,11 @@ requireText(component, "...(profile.searchTerms ?? [])", "campground researched 
 requireText(component, "nearby city", "campground nearby-city search affordance");
 requireText(component, "Most recently verified", "campground verification sort");
 requireText(component, "Planning detail", "campground comparison detail");
+for (const label of ["Electric service", "Restrooms", "Hiking"]) requireText(component, label, "campground direct amenity filter");
+requireText(component, "profileMatchesAmenity", "campground electrical-service normalization");
+for (const label of ["Hookups & electrical", "Restrooms & showers", "Water & activities", "Accessibility", "Pet policy", "Source verification"]) {
+  requireText(component, label, "campground comparison decision field");
+}
 requireText(component, "profile.planningDetail", "campground planning-detail rendering");
 requireText(component, "hasCampingDestinationGuide", "campground canonical destination-link registry");
 requireText(component, "hasDestinationGuide", "campground destination-link guard");
@@ -98,6 +104,7 @@ for (const [label, source] of [
   ["wave5", profileWave5],
   ["wave6", profileWave6],
   ["wave7", profileWave7],
+  ["wave8", profileWave8],
 ]) {
   for (const match of source.matchAll(/amenities:\s*\[([^\]]*)\]/g)) {
     for (const amenityMatch of match[1].matchAll(/"([^"]+)"/g)) {
@@ -107,7 +114,7 @@ for (const [label, source] of [
 }
 const discoverySource = read("src/data/camping/discovery.ts");
 if ((discoverySource.match(/searchTerms:/g) || []).length < 10) failures.push("camping search index: all 10 lean statewide profiles must retain researched search terms.");
-for (const [label, source] of [["wave2", profileWave2], ["wave3", profileWave3], ["wave4", profileWave4], ["wave5", profileWave5], ["wave6", profileWave6], ["wave7", profileWave7]]) {
+for (const [label, source] of [["wave2", profileWave2], ["wave3", profileWave3], ["wave4", profileWave4], ["wave5", profileWave5], ["wave6", profileWave6], ["wave7", profileWave7], ["wave8", profileWave8]]) {
   if (!source.includes("searchTerms: profile.searchTerms")) failures.push(`camping search index: ${label} discovery projection must retain rich search terms.`);
 }
 requireText(discoverySource, "camping near Fredericksburg", "camping destination-intent search terms");
@@ -133,7 +140,7 @@ for (const slug of [
 ]) {
   if (destinationGuideRegistry.includes(`"${slug}"`)) failures.push(`camping destination-link registry must not invent a canonical guide for ${slug}`);
 }
-for (const slug of ["garner-state-park", "big-bend-national-park", "matagorda-bay-nature-park"]) {
+for (const slug of ["garner-state-park", "big-bend-national-park", "matagorda-bay-nature-park", "cedar-hill-state-park", "ray-roberts-lake-state-park", "goose-island-state-park", "lake-corpus-christi-state-park", "palo-pinto-mountains-state-park", "padre-island-national-seashore"]) {
   if (!destinationGuideRegistry.includes(`"${slug}"`)) failures.push(`camping destination-link registry must retain canonical guide ${slug}`);
 }
 
@@ -143,4 +150,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Camping guide decision-UX validation passed: quick-match presets, one-click metro shortcuts, researched destination and metro search terms, normalized amenity filtering, agency filtering, result sorting, three-profile side-by-side comparison, shared canonical destination registry, guarded UI and structured-data destination links, seeded trip planning, campground choice context, planning-detail comparison, managing-agency context, destination-view disclosure, governed imagery, explicit lodging placement, seasonal planning, price-freshness guidance, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
+console.log("Camping guide decision-UX validation passed: quick-match presets, one-click metro shortcuts, researched destination and metro search terms, normalized electrical/facility filtering, agency filtering, result sorting, decision-oriented three-profile comparison with verification dates, shared canonical destination registry, guarded UI and structured-data destination links, seeded trip planning, campground choice context, planning-detail comparison, managing-agency context, destination-view disclosure, governed imagery, explicit lodging placement, seasonal planning, price-freshness guidance, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
