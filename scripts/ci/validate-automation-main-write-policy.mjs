@@ -58,6 +58,29 @@ forbidPattern(eventsPath, events, /git\s+push\s+origin\s+HEAD:main/, 'push gener
 forbidPattern(eventsPath, events, /git\s+push\s+origin\s+main(?:\s|$)/m, 'push generated event data directly to main');
 forbidPattern(eventsPath, events, /gh\s+pr\s+merge/, 'self-merge a GITHUB_TOKEN-created event refresh PR; protected completion belongs to the owner-side finisher');
 
+const eventFinisherPath = '.github/workflows/finish-texas-events-refresh.yml';
+const eventFinisher = read(eventFinisherPath);
+for (const contract of [
+  'workflow_run:',
+  '- Sync Texas Events',
+  "github.event.workflow_run.conclusion == 'success'",
+  'automation/texas-events-sync-${sync_run_id}',
+  'Refresh authoritative Texas events catalog',
+  'github-actions[bot]',
+  'src/data/generated/texas-events.ts|src/data/generated/ticketmaster-events.json',
+  'git merge --no-edit origin/main',
+  'git push origin "HEAD:$BRANCH"',
+  'bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" validate.yml',
+  'bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" merge-gate.yml',
+  '--match-head-commit "$validated_sha"',
+  'git merge-base --is-ancestor "$validated_sha" origin/main',
+]) {
+  requireText(eventFinisherPath, eventFinisher, contract);
+}
+forbidPattern(eventFinisherPath, eventFinisher, /git\s+push\s+origin\s+HEAD:main/, 'push reconciled event data directly to main');
+forbidPattern(eventFinisherPath, eventFinisher, /git\s+push\s+origin\s+main(?:\s|$)/m, 'push reconciled event data directly to main');
+forbidPattern(eventFinisherPath, eventFinisher, /git\s+push\s+.*--force/, 'force-push the generated event refresh branch');
+
 const imageWorkflows = [
   '.github/workflows/explore-hero-assets.yml',
   '.github/workflows/state-park-hero-assets.yml',
@@ -105,4 +128,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Automation main-write policy passed: daily event refreshes are idempotent when only verification timestamps change, use exact-branch prevalidation, remain PR-only, and hand protected completion to the owner-side finisher without self-merging or direct-main writes; generated image changes remain reviewable PRs with explicit item-level rights review and official validation; Texas Defined AI demand intelligence remains privacy-safe and review-only with no direct-main or auto-merge path.');
+console.log('Automation main-write policy passed: daily event refreshes are idempotent when only verification timestamps change, use exact-branch prevalidation, remain PR-only, and hand protected completion to a workflow_run finisher that accepts only governed event-catalog diffs, reconciles current main without force-push, reruns canonical validation plus the protected Merge Gate, and merges only the exact validated PR head; generated image changes remain reviewable PRs with explicit item-level rights review and official validation; Texas Defined AI demand intelligence remains privacy-safe and review-only with no direct-main or auto-merge path.');
