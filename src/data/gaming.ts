@@ -75,6 +75,7 @@ const decixDallas = { label: "DE-CIX — Dallas Internet Exchange", url: "https:
 const decixHouston = { label: "DE-CIX — Houston Internet Exchange", url: "https://www.de-cix.net/en/locations/houston", kind: "infrastructure" as const };
 const equinixDallas = { label: "Equinix — Dallas data centers and interconnection", url: "https://www.equinix.com/data-centers/americas-colocation/united-states-colocation/dallas-data-centers", kind: "infrastructure" as const };
 const esaTexas = { label: "Entertainment Software Association — 2026 Economic Impact Report", url: "https://www.theesa.com/resources/2026-economic-impact-report/", kind: "industry" as const };
+const esaTexasMap = { label: "Entertainment Software Association — Texas impact map", url: "https://www.theesa.com/video-game-impact-map/state/texas/", kind: "industry" as const };
 
 export const TEXAS_GAME_COMPANIES = [
   { name: "Electronic Arts / BioWare Austin", city: "Austin", focus: "AAA development, live services, technology and support functions", official: "https://careers.ea.com/careers/teams/ea-studios", careers: "https://careers.ea.com/", source: "EA currently identifies Austin as a studio location." },
@@ -114,7 +115,7 @@ export const GAMING_PAGES: GamingPage[] = [
       { title: "Incentives and workforce", paragraphs: ["Texas's Moving Image Industry Incentive Program includes qualifying video-game projects under its current rules. The Texas Film Commission also publishes a digital-media job hotline and career guidance. Eligibility, funding and project requirements can change, so developers should use the official program pages rather than summaries when making a production decision."] },
       { title: "Economic footprint", paragraphs: ["The Entertainment Software Association's 2026 Economic Impact Report, using 2025 industry data, estimates 8,124 direct video-game-industry jobs in Texas, 20,255 total intrastate employment impacts and 22,108 total interstate employment impacts. The report estimates $3.177 billion in direct Texas output, $5.865 billion in total intrastate output and $6.339 billion in total interstate output. These are industry-association/TEConomy estimates rather than a Texas government employment series, so TexasDefined presents them with their source and does not convert them into unsupported company-level job claims.", "ESA's Texas impact map separately provides a broad location and higher-education inventory. Those counts can include hardware, retail, support and other ecosystem organizations beyond game-development studios alone, which is why the TexasDefined company directory uses a narrower studio/employer standard."] },
     ],
-    sources: [texasFilm, filmImpact, gameIncentive, jobsHotline, esaTexas],
+    sources: [texasFilm, filmImpact, gameIncentive, jobsHotline, esaTexas, esaTexasMap],
     related: [
       { href: "/gaming/companies", label: "Video game companies in Texas", description: "Current company directory with official links." },
       { href: "/gaming/austin", label: "Austin game development", description: "Central Texas studio and workforce cluster." },
