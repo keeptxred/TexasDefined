@@ -32,7 +32,7 @@ export const paintedChurchPreservationTopics: PaintedChurchPreservationTopic[] =
     name: "Repainting vs. Restoration",
     answer: "Repainting introduces new or substantially renewed decorative work; restoration aims to recover, stabilize or interpret an earlier scheme. Texas Painted Churches include both, so Texas Defined labels them separately instead of treating all colorful interiors as equally original.",
     principles: ["A repaint can be historically important without being original.", "Restoration may include retouching, stabilization or reconstruction.", "Modern devotional campaigns should be dated and credited independently from historic paint."],
-    churchSlugs: ["plantersville-st-marys-catholic-church", "bandera-st-stanislaus-catholic-church", "fredericksburg-st-marys-catholic-church", "shiner-saints-cyril-methodius"],
+    churchSlugs: ["plantersville-st-marys-catholic-church", "bandera-st-stanislaus-catholic-church", "fredericksburg-st-marys-catholic-church", "shiner-saints-cyril-methodius", "mason-st-joseph-catholic-church"],
     sourceLabel: "Texas Defined Painted Churches methodology",
     sourceUrl: "https://texasdefined.com/explore/painted-churches/methodology",
   },
