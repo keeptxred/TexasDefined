@@ -114,7 +114,7 @@ function CampingGuidePage() {
       <Container>
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Start here</p>
-          <h2 className="mt-2 font-display text-4xl md:text-5xl">Choose the kind of Texas camping trip you want</h2>
+          <h2 className="mt-2 font-display text-4xl md:text-5xl">Visit a State Park</h2>
           <p className="mt-4 leading-8 text-muted-foreground">Texas camping changes dramatically from Gulf beaches to Hill Country rivers, East Texas forests and West Texas desert. These are useful starting points, not a one-size-fits-all ranking.</p>
         </div>
         <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
@@ -135,7 +135,7 @@ function CampingGuidePage() {
       <Container>
         <div className="max-w-4xl">
           <p className="eyebrow text-primary">Campground finder</p>
-          <h2 className="mt-2 font-display text-4xl md:text-5xl">Search verified public camping across Texas</h2>
+          <h2 className="mt-2 font-display text-4xl md:text-5xl">Choose the camping trip you want</h2>
           <p className="mt-4 leading-8 text-muted-foreground">Search by park, campground, county, managing agency or nearby city. Combine region, camping style and verified facilities to narrow the list. An amenity that is not shown means TexasDefined has not verified it from an official source yet; it does not automatically mean the amenity is unavailable.</p>
         </div>
         <CampingDiscovery entries={entries} />
