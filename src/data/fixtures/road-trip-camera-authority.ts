@@ -52,7 +52,7 @@ const dashCamsInTexas: Article = {
   internalLinks: [
     { href: "/article/dash-cam-setup-texas-road-trips", label: "Set up a dash cam for a Texas road trip", description: "Plan channels, storage, power and heat management for long drives." },
     { href: "/article/texas-road-trip-vehicle-checklist", label: "Run the Texas road-trip vehicle checklist", description: "Check tires, lights, fluids, weather, fuel and documents before departure." },
-    { href: "/article/what-to-keep-in-car-for-texas-road-trip", label: "Build a Texas road-trip emergency kit", description: "Pack the practical supplies that matter when the vehicle stops moving." },
+    { href: "/article/texas-car-emergency-kit", label: "Build a Texas road-trip emergency kit", description: "Pack the practical supplies that matter when the vehicle stops moving." },
     { href: "/article/rideshare-dash-cams-texas", label: "Read the Texas rideshare dash-cam guide", description: "Cabin recording adds passenger notice, audio and platform-policy questions." },
   ],
   relatedCollections: [],
@@ -97,7 +97,7 @@ const roadTripVehicleChecklist: Article = {
     p("Walk around the vehicle one final time. Look under it for an unexplained leak, confirm the doors and cargo are secure, check that the windshield view is clear, and make sure anything mounted inside the vehicle is not interfering with the driver. If a warning light, damaged tire, charging problem or cooling issue is already present, the road trip is not the place to see whether it gets worse."),
   ],
   internalLinks: [
-    { href: "/article/what-to-keep-in-car-for-texas-road-trip", label: "Build the Texas road-trip emergency kit" },
+    { href: "/article/texas-car-emergency-kit", label: "Build the Texas road-trip emergency kit" },
     { href: "/article/dash-cam-setup-texas-road-trips", label: "Set up road-trip camera storage and power" },
     { href: "/article/texas-road-closures-drivetexas-guide", label: "Use DriveTexas for current road closures" },
     { href: "/explore/road-trips", label: "Browse Texas road trips" },
@@ -147,7 +147,7 @@ const dashCamRoadTrips: Article = {
   internalLinks: [
     { href: "/article/dash-cams-in-texas", label: "Read what Texas law says about dash cams" },
     { href: "/article/texas-road-trip-vehicle-checklist", label: "Run the road-trip vehicle checklist" },
-    { href: "/article/what-to-keep-in-car-for-texas-road-trip", label: "Pack the road-trip emergency kit" },
+    { href: "/article/texas-car-emergency-kit", label: "Pack the road-trip emergency kit" },
     { href: "/article/texas-heat-vehicle-electronics", label: "Protect vehicle electronics from Texas heat" },
     { href: "/explore/road-trips", label: "Find a Texas road-trip route" },
   ],
@@ -290,7 +290,7 @@ const heatVehicleElectronics: Article = {
     { href: "/article/dash-cams-in-texas", label: "Choose and mount a dash cam for Texas conditions" },
     { href: "/article/dash-cam-setup-texas-road-trips", label: "Set up a dash cam for long Texas drives" },
     { href: "/article/texas-road-trip-vehicle-checklist", label: "Prepare the vehicle before a Texas road trip" },
-    { href: "/article/what-to-keep-in-car-for-texas-road-trip", label: "Refresh the emergency gear in the car" },
+    { href: "/article/texas-car-emergency-kit", label: "Refresh the emergency gear in the car" },
     { href: "/article/texas-weather-surprises-newcomers", label: "Understand Texas weather surprises" },
   ],
   relatedCollections: [],
