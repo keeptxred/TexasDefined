@@ -37,6 +37,7 @@ const checks = [
   ['explore-region-seo', 'SEO/AUTHORITY', 'Validate Explore region SEO', 'node', ['scripts/data/validate-explore-region-seo.mjs']],
   ['explore-topical-authority', 'CONTENT/AUTHORITY', 'Validate Explore topical authority', 'node', ['scripts/data/validate-explore-topical-authority.mjs']],
   ['camping-guide-decision-ux', 'CONTENT/AUTHORITY', 'Validate camping guide decision UX', 'node', ['scripts/data/validate-camping-guide-decision-ux.mjs']],
+  ['camping-completion-audit', 'CONTENT/AUTHORITY', 'Validate camping completion audit', 'node', ['scripts/data/validate-camping-completion-audit.mjs']],
   ['camping-public-authority-wave6', 'CONTENT/AUTHORITY', 'Validate camping public authority Wave 6', 'node', ['scripts/data/validate-camping-public-authority-wave6.mjs']],
   ['camping-public-authority-wave7', 'CONTENT/AUTHORITY', 'Validate camping public authority Wave 7', 'node', ['scripts/data/validate-camping-public-authority-wave7.mjs']],
   ['camping-public-authority-wave8', 'CONTENT/AUTHORITY', 'Validate camping public authority Wave 8', 'node', ['scripts/data/validate-camping-public-authority-wave8.mjs']],
