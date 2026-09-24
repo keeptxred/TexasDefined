@@ -10,7 +10,7 @@ TexasDefined treats lodging as a trip-planning utility, not a sitewide ad layer.
 
 Editorial relevance and affiliate activation remain separate. A hotel can be included because its location is useful even when TexasDefined does not yet have a verified property-specific affiliate link. In that case, the card falls back to the approved Expedia stays search instead of inventing a property deep link.
 
-Commission-aware routing decisions are governed separately in `docs/travel-affiliate-economics.md`. Hotel comparison providers are not rerouted on payout alone while their verified default lodging economics remain at parity.
+Commission-aware routing decisions are governed separately in `docs/travel-affiliate-economics.md`. Advertiser materials can publish different commission schedules by booking type or term, so routing must use the active CJ relationship plus observed conversion and realized commission rather than assuming provider payout parity.
 
 ## Approved Expedia widget contract
 
@@ -25,16 +25,17 @@ The server-rendered root shell emits deferred first-party bootstraps at `/expedi
 
 The Expedia vendor script itself is never loaded during the initial page load. It is created only after a visitor activates an Expedia-search fallback or broader stay-search control.
 
-## Hotels.com / Orbitz / Travelocity / Vrbo contract
+## Hotels.com / Orbitz / Travelocity / Vrbo / RVshare contract
 
-`public/stay-affiliate-options.js` is the route-policy and presentation layer for Hotels.com, Orbitz, Travelocity and Vrbo.
+`public/stay-affiliate-options.js` is the route-policy and presentation layer for Hotels.com, Orbitz, Travelocity, Vrbo and RVshare.
 
-Traveler links use the TexasDefined CJ publisher ID `101876465` and the CJ Deep Link Generator base. The deep-link builder fails closed: only `www.hotels.com`, `www.orbitz.com`, `www.travelocity.com` and `www.vrbo.com` destinations are accepted. Every outbound traveler affiliate link uses `rel="sponsored nofollow noopener noreferrer"` and opens only after an explicit visitor click.
+Traveler links use the TexasDefined CJ publisher ID `101876465` and the CJ Deep Link Generator base. The deep-link builder fails closed: only `www.hotels.com`, `www.orbitz.com`, `www.travelocity.com`, `www.vrbo.com` and `rvshare.com` destinations are accepted. Every outbound traveler affiliate link uses `rel="sponsored nofollow noopener noreferrer"` and opens only after an explicit visitor click.
 
 Current traveler intent policy:
 
 - **Hotel-first:** individual event and sports-venue intent.
 - **Hotels + vacation rentals:** destinations, Explore travel content, city guides, county guides and the approved statewide camping, college-town, tailgating, unique-lodging, music-venue and roadside-oddity guides.
+- **RV rental:** the canonical camping guide plus `/explore/rv-parks`, `/explore/state-parks`, `/explore/road-trips` and `/explore/outdoors` only. Generic city, county, event and destination pages do not inherit RVshare eligibility.
 - **Owner referral:** `/real-estate` and explicitly qualifying owner/vacation-rental article metadata only. Ordinary travel pages do not inherit owner-referral eligibility.
 
 Visible CTAs include `Find places to stay` and `Find hotels on Hotels.com`. Hotel-first event/venue pages use `Compare hotels on Orbitz`; broader destination/leisure pages use `Compare hotels on Travelocity`; and, where the route policy permits it, those broader pages can also show `Find vacation rentals on Vrbo`. High-intent camping, RV-park, state-park, outdoors and road-trip routes can additionally show `Rent an RV on RVshare`; generic city, county, event and destination pages fail closed for RVshare.
@@ -190,7 +191,7 @@ Every rendered Expedia / Stay Nearby surface includes the Expedia disclosure:
 
 `Affiliate disclosure: TexasDefined may earn a commission from qualifying Expedia bookings, at no additional cost to you.`
 
-The traveler choice panel uses route-specific disclosure copy: hotel-first event/venue intent discloses Hotels.com and Orbitz, while broader destination/leisure intent discloses Hotels.com, Travelocity and Vrbo. The Vrbo owner-referral panel carries its own owner-referral disclosure.
+The traveler choice panel uses route-specific disclosure copy: hotel-first event/venue intent discloses Hotels.com and Orbitz, broader destination/leisure intent discloses Hotels.com, Travelocity and Vrbo, and eligible camping/RV/state-park/outdoors/road-trip surfaces also disclose RVshare. The Vrbo owner-referral panel carries its own owner-referral disclosure.
 
 ## Performance behavior
 
