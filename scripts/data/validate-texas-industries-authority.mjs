@@ -19,6 +19,8 @@ const businessData = read('src/data/priority-search-pages-public-services.ts');
 const madeInTexasRoute = read('src/routes/made-in-texas.lazy.tsx');
 const economyArticle = read('src/data/fixtures/texas-life-split-source.ts');
 const seoOverrides = read('src/lib/seo.ts');
+const productionSurfaces = read('scripts/ci/verify-production-surfaces.mjs');
+const industryProduction = read('scripts/ci/verify-texas-industries-production.mjs');
 
 const expectedSlugs = [
   'energy-power',
@@ -180,6 +182,30 @@ for (const schemaType of ['CollectionPage', 'ItemList', 'BreadcrumbList']) {
 }
 if (!detailMeta.includes('"@type": "BreadcrumbList"')) failures.push('Industry detail pages must retain BreadcrumbList structured data.');
 if (!data.includes('export const TEXAS_INDUSTRIES_VERIFIED_AT = "September 24, 2026";')) failures.push('Industry source-review date must remain explicit and current for this authority release.');
+
+if (!productionSurfaces.includes("await import('./verify-texas-industries-production.mjs');")) failures.push('Deployment production verification must invoke the Texas industries production smoke.');
+for (const slug of expectedSlugs) if (!industryProduction.includes(`['${slug}'`)) failures.push(`Industry production smoke missing sector slug: ${slug}.`);
+for (const [countySlug, sectorSlug] of [
+  ['harris', 'energy-power'],
+  ['webb', 'trade-transportation-logistics'],
+  ['grayson', 'technology-semiconductors'],
+  ['midland', 'energy-power'],
+  ['bexar', 'aerospace-aviation-defense'],
+  ['dallam', 'agriculture-livestock'],
+]) {
+  if (!industryProduction.includes(`['${countySlug}', '${sectorSlug}']`)) failures.push(`Industry production smoke missing representative reciprocal pair: ${countySlug} ↔ ${sectorSlug}.`);
+}
+for (const marker of [
+  '/texas-industries/not-a-real-sector',
+  '/sitemap.xml',
+  '/llms.txt',
+  'CollectionPage',
+  'BreadcrumbList',
+  'hasCanonical',
+  'hasNoindex',
+]) {
+  if (!industryProduction.includes(marker)) failures.push(`Industry production smoke missing protected marker: ${marker}.`);
+}
 
 const scopedIndustrySources = [data, detail, detailMeta, hub, hubMeta].join('\n');
 if (/\\b(?:TODO|FIXME)\\b/i.test(scopedIndustrySources)) failures.push('Texas industries source contains an unfinished TODO/FIXME marker.');
