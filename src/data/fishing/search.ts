@@ -47,6 +47,9 @@ export async function buildFishingSearchDocuments(): Promise<SearchDocument[]> {
     if (name) names.push(name);
     speciesForLake.set(relation.lakeId, names);
   }
+  const completeLakes = lakes.filter((lake) => isCompleteFishingLakeSlug(lake.slug));
+  const completeLakeCount = completeLakes.length;
+  const completeLakeNames = completeLakes.map((lake) => lake.name);
   const publicTechniqueSlugs = new Set<string>(PUBLISHED_FISHING_TECHNIQUE_SLUGS);
   const publicTechniques = techniques.filter((technique) => publicTechniqueSlugs.has(technique.slug) && technique.sources.length > 0 && Boolean(technique.verifiedAt));
   const techniqueKeywords = new Map<string, string[]>();
@@ -60,7 +63,7 @@ export async function buildFishingSearchDocuments(): Promise<SearchDocument[]> {
 
   const documents: SearchDocument[] = [
     { id: "fishing-directory:texas-fishing", brandId: "texasdefined", kind: "guide", title: "Texas Fishing Guide", summary: "Statewide TexasDefined fishing hub connecting complete lake guides, fish species, seasonal patterns, access, reports and verified local fishing infrastructure.", keywords: ["Texas fishing", "Texas fishing guide", "Texas lakes", "Texas fish species", "fishing reports", "fishing guides"], href: "/fishing" },
-    { id: "fishing-directory:texas-fishing-lakes", brandId: "texasdefined", kind: "guide", title: "Texas Fishing Lakes", summary: "Compare the five complete TexasDefined fishing-lake guides by region, size, location and verified fishery strengths before opening the full lake guide.", keywords: ["Texas fishing lakes", "Texas lake fishing", "Lake Conroe", "Lake Fork", "Sam Rayburn Reservoir", "Lake Livingston", "Lake Texoma", "compare fishing lakes"], href: "/fishing/lakes" },
+    { id: "fishing-directory:texas-fishing-lakes", brandId: "texasdefined", kind: "guide", title: "Texas Fishing Lakes", summary: `Compare ${completeLakeCount} complete TexasDefined fishing-lake guides by region, size, location and verified fishery strengths before opening the full lake guide.`, keywords: ["Texas fishing lakes", "Texas lake fishing", ...completeLakeNames, "compare fishing lakes"], href: "/fishing/lakes" },
     { id: "fishing-directory:texas-fishing-trip-planner", brandId: "texasdefined", kind: "guide", title: "Texas Fishing Trip Planner", summary: "Choose a target species and Texas region, then narrow complete lake guides using verified fishery relationships and freshness-controlled report context.", keywords: ["Texas fishing trip planner", "plan fishing trip", "best lake for species", "Texas fishing by region", "fishing vacation planner"], href: FISHING_TRIP_PLANNER_PATH },
     { id: "fishing-directory:texas-fishing-lake-compare", brandId: "texasdefined", kind: "guide", title: "Compare Texas Fishing Lakes", summary: "Compare up to three complete Texas fishing lake guides by durable lake facts, fishery strengths, current reports and verified local coverage without paid ranking.", keywords: ["compare Texas fishing lakes", "lake comparison", "Texas lake fishing comparison", "fishing lake chooser"], href: FISHING_LAKE_COMPARE_PATH },
     { id: "fishing-directory:texas-fishing-seasons", brandId: "texasdefined", kind: "guide", title: "Texas Fishing Seasons", summary: "Explore source-backed spring, summer, fall, winter and year-round fishing patterns across complete TexasDefined lake guides, with matching species and techniques kept separate from live conditions.", keywords: ["Texas fishing seasons", "spring fishing Texas", "summer fishing Texas", "fall fishing Texas", "winter fishing Texas", "when to fish Texas", "seasonal fishing patterns"], href: FISHING_SEASONS_PATH },
