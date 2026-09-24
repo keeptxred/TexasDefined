@@ -50,6 +50,10 @@ requireText(route, "${pageUrl}#${profileAnchor(profile)}", "campground structure
 requireText(component, "Build trip", "campground seeded trip-planner link");
 requireText(page, "data-stay-nearby-slot", "camping Stay Nearby placement");
 requireText(page, "Match the season to the part of Texas", "camping seasonal planning");
+requireText(page, 'aria-label="Camping guide sections"', "camping long-page jump navigation");
+for (const anchor of ["#camping-trip-types", "#campground-finder", "#camping-seasons", "#camping-methodology", "#camping-questions", "#camping-next-steps"]) {
+  requireText(page, anchor, "camping jump-navigation target");
+}
 requireText(page, 'to="/texas-weather"', "camping weather authority cross-link");
 requireText(page, "Why are campground prices not listed here?", "camping price-freshness guidance");
 requireText(page, "Does “full hookup” apply to every site in a campground?", "camping hookup-scope FAQ");
