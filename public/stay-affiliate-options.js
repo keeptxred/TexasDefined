@@ -9,6 +9,7 @@
   const ORBITZ_DESTINATION = "https://www.orbitz.com/";
   const TRAVELOCITY_DESTINATION = "https://www.travelocity.com/";
   const VRBO_DESTINATION = "https://www.vrbo.com/";
+  const RVSHARE_DESTINATION = "https://rvshare.com/";
   const VRBO_OWNER_DESTINATION = "https://www.vrbo.com/en-us/list/lead";
   const VERIFIED_PROPERTY_DESTINATIONS = new Map([
     ["Courtyard Fort Worth University Drive", "https://www.hotels.com/ho122433/courtyard-by-marriott-fort-worth-university-drive-fort-worth-united-states-of-america/"],
@@ -67,6 +68,7 @@
   ]);
   const HOTEL_FIRST_PATH = /^\/(?:event\/|events(?:\/|$)|sports-venue\/|sports-venues(?:\/|$))/;
   const BOTH_PATH = /^\/(?:destination\/|explore(?:\/|$)|city\/|county\/|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
+  const RVSHARE_PATH = /^\/(?:best-places-to-go-camping-in-texas(?:\/|$)|explore\/(?:rv-parks|state-parks|road-trips|outdoors)(?:\/|$))/;
   const OWNER_PATH = /^\/real-estate\/?$/;
   const TRAVEL_SECTION = /\b(?:travel|lodging|road trips?|weekend getaways?|events?)\b/i;
   const OWNER_SECTION = /\b(?:real estate|vacation rentals?|short[- ]term rentals?|property investment)\b/i;
@@ -94,7 +96,7 @@
 
   function buildCjDeepLink(destination) {
     const parsed = new URL(destination);
-    if (!["www.hotels.com", "www.orbitz.com", "www.travelocity.com", "www.vrbo.com"].includes(parsed.hostname)) {
+    if (!["www.hotels.com", "www.orbitz.com", "www.travelocity.com", "www.vrbo.com", "rvshare.com"].includes(parsed.hostname)) {
       throw new Error(`Unsupported stay affiliate destination: ${parsed.hostname}`);
     }
     return `${CJ_DLG_BASE}${encodeURI(parsed.toString())}`;
@@ -115,6 +117,7 @@
     if (hostname === "www.orbitz.com") return "orbitz";
     if (hostname === "www.travelocity.com") return "travelocity";
     if (hostname === "www.vrbo.com") return "vrbo";
+    if (hostname === "rvshare.com") return "rvshare";
     return hostname;
   }
 
@@ -184,12 +187,17 @@
     return intent === "both" ? TRAVELOCITY_DESTINATION : ORBITZ_DESTINATION;
   }
 
+  function rvshareEligible(pathname = window.location.pathname) {
+    return RVSHARE_PATH.test(pathname);
+  }
+
   function createBookingChoice(intent, exactPropertyFirst = false) {
     const featuredStay = exactPropertyFirst ? null : featuredGolfStay();
+    const showRvshare = rvshareEligible();
     const wrapper = document.createElement("aside");
     wrapper.id = CHOICE_ID;
     wrapper.className = "td-stay-affiliate-options";
-    wrapper.setAttribute("aria-label", "Hotel and vacation rental booking options");
+    wrapper.setAttribute("aria-label", showRvshare ? "Hotel, vacation rental and RV rental booking options" : "Hotel and vacation rental booking options");
 
     const panel = document.createElement("div");
     panel.className = "td-stay-affiliate-panel";
@@ -213,6 +221,7 @@
         : (intent === "hotel-first"
           ? "Compare hotel availability close to the event or venue on Hotels.com or Orbitz. Broader leisure and destination guides also include vacation-rental options when they fit the trip."
           : "Compare hotel options on Hotels.com or Travelocity, or choose a vacation rental when extra space, a kitchen, or a group-friendly setup fits the trip better."));
+    if (showRvshare) copy.textContent += " For camping and road-trip planning, you can also compare RV rentals on RVshare when taking your lodging with you fits the trip.";
 
     const actions = document.createElement("div");
     actions.className = "td-stay-affiliate-actions";
@@ -255,10 +264,22 @@
       }));
     }
 
+    if (showRvshare) {
+      actions.appendChild(createTrackedLink({
+        destination: RVSHARE_DESTINATION,
+        label: "Rent an RV on RVshare",
+        variant: "secondary",
+        ariaLabel: "Compare RV rentals on RVshare in a new tab",
+        placement: `${choicePlacement}-rvshare`,
+      }));
+    }
+
     const disclosure = document.createElement("p");
     disclosure.className = "td-stay-affiliate-disclosure";
     disclosure.textContent = intent === "both"
-      ? "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or Vrbo activity, at no additional cost to you. Availability, rates and booking terms are provided by the booking service."
+      ? (showRvshare
+        ? "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity, Vrbo or RVshare activity, at no additional cost to you. Availability, rates and booking terms are provided by the booking service."
+        : "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or Vrbo activity, at no additional cost to you. Availability, rates and booking terms are provided by the booking service.")
       : "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com or Orbitz activity, at no additional cost to you. Availability, rates and booking terms are provided by the booking service.";
 
     panel.append(eyebrow, heading, copy, actions, disclosure);
@@ -499,6 +520,7 @@
     exactPropertyDestination,
     featuredGolfStay,
     ownerEligible,
+    rvshareEligible,
     promoteStaySurface,
     sync: scheduleSync,
   };
