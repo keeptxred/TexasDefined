@@ -14,6 +14,7 @@ const profileWave5 = read("src/data/camping/profiles-wave5.ts");
 const profileWave6 = read("src/data/camping/profiles-wave6.ts");
 const profileWave7 = read("src/data/camping/profiles-wave7.ts");
 const profileWave8 = read("src/data/camping/profiles-wave8.ts");
+const profileWave9 = read("src/data/camping/profiles-wave9.ts");
 const expedia = read("public/expedia-travel.js");
 const production = read("scripts/ci/verify-production-surfaces.mjs");
 
@@ -105,6 +106,7 @@ for (const [label, source] of [
   ["wave6", profileWave6],
   ["wave7", profileWave7],
   ["wave8", profileWave8],
+  ["wave9", profileWave9],
 ]) {
   for (const match of source.matchAll(/amenities:\s*\[([^\]]*)\]/g)) {
     for (const amenityMatch of match[1].matchAll(/"([^"]+)"/g)) {
@@ -114,7 +116,7 @@ for (const [label, source] of [
 }
 const discoverySource = read("src/data/camping/discovery.ts");
 if ((discoverySource.match(/searchTerms:/g) || []).length < 10) failures.push("camping search index: all 10 lean statewide profiles must retain researched search terms.");
-for (const [label, source] of [["wave2", profileWave2], ["wave3", profileWave3], ["wave4", profileWave4], ["wave5", profileWave5], ["wave6", profileWave6], ["wave7", profileWave7], ["wave8", profileWave8]]) {
+for (const [label, source] of [["wave2", profileWave2], ["wave3", profileWave3], ["wave4", profileWave4], ["wave5", profileWave5], ["wave6", profileWave6], ["wave7", profileWave7], ["wave8", profileWave8], ["wave9", profileWave9]]) {
   if (!source.includes("searchTerms: profile.searchTerms")) failures.push(`camping search index: ${label} discovery projection must retain rich search terms.`);
 }
 requireText(discoverySource, "camping near Fredericksburg", "camping destination-intent search terms");
@@ -140,7 +142,7 @@ for (const slug of [
 ]) {
   if (destinationGuideRegistry.includes(`"${slug}"`)) failures.push(`camping destination-link registry must not invent a canonical guide for ${slug}`);
 }
-for (const slug of ["garner-state-park", "big-bend-national-park", "matagorda-bay-nature-park", "cedar-hill-state-park", "ray-roberts-lake-state-park", "goose-island-state-park", "lake-corpus-christi-state-park", "palo-pinto-mountains-state-park", "padre-island-national-seashore"]) {
+for (const slug of ["garner-state-park", "big-bend-national-park", "matagorda-bay-nature-park", "cedar-hill-state-park", "ray-roberts-lake-state-park", "goose-island-state-park", "lake-corpus-christi-state-park", "palo-pinto-mountains-state-park", "padre-island-national-seashore", "possum-kingdom-state-park", "stephen-f-austin-state-park", "devils-river-state-natural-area"]) {
   if (!destinationGuideRegistry.includes(`"${slug}"`)) failures.push(`camping destination-link registry must retain canonical guide ${slug}`);
 }
 
