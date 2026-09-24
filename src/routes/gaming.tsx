@@ -11,7 +11,7 @@ const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
 
 export const Route = createFileRoute(canonicalPath)({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { title, description, canonicalPath }),
+    meta: buildMeta(texasDefinedBrand, { title: title, description, canonicalPath }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({
       "@context": "https://schema.org",
