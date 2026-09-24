@@ -540,6 +540,9 @@ const fieldResearchEnrichments: Record<string, AuthorityEnrichment> = {
       { label: "1966 Polish millennium gift", value: "President Lyndon B. Johnson presented a mosaic of Our Lady of Częstochowa to the historic Panna Maria church during the millennium observance of Polish Christianity" },
       { label: "Historic devotional object", value: "A painting of St. Stanislaus brought from Poland in 1858 is preserved at the church" },
       { label: "Polish heritage context", value: "The nearby Polish Heritage Center interprets the settlement's migration, faith, education and later connections with Poland" },
+      { label: "St. Ann devotional gift", value: "A field-history source records a St. Ann statue presented in 2001 by Archbishop Alfons Nossol of Opole, Poland" },
+      { label: "1987 papal visit artifacts", value: "A field-history source identifies three carved chairs preserved at the church as chairs used by Pope John Paul II during his 1987 meeting with Texas Polish Catholics in San Antonio" },
+      { label: "Parish education", value: "St. Joseph's School was built in 1868; the historic school building now serves as a museum, and local elementary education continued until 1989" },
     ],
     history: [
       {
@@ -564,6 +567,7 @@ const fieldResearchEnrichments: Record<string, AuthorityEnrichment> = {
       { label: "1917 fire survival", value: "Field research records six statues and a crucifix as surviving the fire and being incorporated into the present church" },
       { label: "Historic pew detail", value: "Original pews retain hooks once used by men to hang hats" },
       { label: "Cemetery context", value: "The adjacent parish cemetery contains ornate markers, including stones with Czech inscriptions" },
+      { label: "1917 fire intensity", value: "Contemporary recollections in the field-history account say the fire was hot enough to melt the church bells" },
     ],
     history: [
       {
@@ -585,6 +589,8 @@ const fieldResearchEnrichments: Record<string, AuthorityEnrichment> = {
       { label: "Historic organ", value: "George Kilgen & Son of St. Louis supplied the original organ; its case was painted to harmonize with the interior" },
       { label: "1936 iconography", value: "Apostolic figures on the nave arches omit Judas, include Matthias, and place Paul opposite Peter" },
       { label: "Apse theme", value: "Christ the King and Eucharistic imagery dominate the sanctuary, including a Melchizedek scene" },
+      { label: "Memorial stained glass", value: "Two First Communion windows were modeled on children who died young: James Blum and Erma Wagner, daughter of builder Jacob Wagner" },
+      { label: "Historic construction cost", value: "A field-history account places the 1906–1908 church and furnishings at approximately $40,000" },
     ],
     paintings: [
       {
@@ -605,6 +611,7 @@ const fieldResearchEnrichments: Record<string, AuthorityEnrichment> = {
       { label: "Reused stained glass", value: "Eighteen windows from the second church were installed in the 1906 building; additional sanctuary and tower windows expanded the program" },
       { label: "Interior furnishings", value: "Pulpit, communion rail and baptismal enclosure were completed in 1910; three altars followed in 1911" },
       { label: "Historic site cross", value: "A marble cross erected in 1891 for the earlier church survives north of the present sanctuary" },
+      { label: "1909 hurricane damage", value: "A hurricane bent the cross atop the 1906 church's spire; it was repaired and remains part of the skyline" },
     ],
     history: [
       {
@@ -645,6 +652,7 @@ const fieldResearchEnrichments: Record<string, AuthorityEnrichment> = {
       { label: "1917 tornado survival", value: "The tornado left the apse, all three altars, the facade and steeple standing while destroying most of the 1903 church" },
       { label: "Rebuilding material", value: "Parishioners salvaged material from the damaged church and from the fire-damaged Gainesville courthouse during the 1918 rebuilding" },
       { label: "2009–2011 restoration", value: "Water intrusion required major plaster, roof, foundation, window, floor, pew and altar work; the two-year project cost about $4.9 million" },
+      { label: "Early lay worship", value: "When no priest was available, parishioners still gathered on Sundays for the Rosary and a lay service using a Goffine devotional book; a copy is preserved in the parish office" },
     ],
     preservation: [
       {
