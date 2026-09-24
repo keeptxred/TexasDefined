@@ -19,6 +19,9 @@ for (const [needle, label] of [
   ['data-commercial-placement=', 'commercial placement data attribute'],
   ['sponsored nofollow noopener noreferrer', 'affiliate relationship attributes'],
   ['Affiliate disclosure: TexasDefined may earn a commission', 'affiliate disclosure'],
+  ['const paidTermsEndAt = Date.parse("2026-10-01T17:00:00Z")', 'October 1 paid-term cutoff'],
+  ['const paidTermsActive = Date.now() < paidTermsEndAt', 'runtime paid-term gate'],
+  ['Retailer affiliate offers are temporarily unavailable while TexasDefined reviews updated program terms.', 'post-cutoff neutral fallback'],
 ]) requireText(source, needle, label);
 
 for (const [needle, label] of [
@@ -38,10 +41,14 @@ if (/window\.location\s*=|window\.location\.href\s*=/.test(source)) {
   errors.push('School-supply affiliate component must not force redirects.');
 }
 
+if (source.includes('SAVE10NOW') || source.includes('Current offer: free shipping')) {
+  errors.push('School-supply affiliate component must not promote coupon copy that can fall into the retailers\' 0% coupon terms.');
+}
+
 if (errors.length) {
   console.error('School-supply affiliate validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('School-supply affiliate validation passed: both approved retailers retain sponsored links, commercial metadata and disclosure while reusing the shared first-party affiliate tracker for partner, label, placement, module and page-path attribution without forced redirects or duplicate client analytics code.');
+console.log('School-supply affiliate validation passed: approved retailer links retain sponsored/commercial metadata and shared click attribution only while the documented paid-term window remains active; coupon copy tied to 0% terms is blocked, and the component fails closed to a neutral non-affiliate state after the October 1 cutoff unless program terms are updated.');
