@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import path from 'node:path';
 
 const failures = [];
 const read = (path) => fs.readFileSync(path, 'utf8');
@@ -180,10 +181,39 @@ for (const schemaType of ['CollectionPage', 'ItemList', 'BreadcrumbList']) {
 if (!detailMeta.includes('"@type": "BreadcrumbList"')) failures.push('Industry detail pages must retain BreadcrumbList structured data.');
 if (!data.includes('export const TEXAS_INDUSTRIES_VERIFIED_AT = "September 24, 2026";')) failures.push('Industry source-review date must remain explicit and current for this authority release.');
 
+const scopedIndustrySources = [data, detail, detailMeta, hub, hubMeta].join('\n');
+if (/\\b(?:TODO|FIXME)\\b/i.test(scopedIndustrySources)) failures.push('Texas industries source contains an unfinished TODO/FIXME marker.');
+
+const scanIndustryLinks = (root) => {
+  for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
+    if (entry.name === 'node_modules' || entry.name === 'dist' || entry.name === '.git') continue;
+    const fullPath = path.join(root, entry.name);
+    if (entry.isDirectory()) {
+      scanIndustryLinks(fullPath);
+      continue;
+    }
+    if (!/\\.(?:ts|tsx|js|mjs|md|csv)$/.test(entry.name)) continue;
+    const source = read(fullPath);
+    for (const match of source.matchAll(/\\/texas-industries\\/([a-z0-9-]+)/g)) {
+      if (!expectedSlugs.includes(match[1])) failures.push(`Unknown Texas-industries link slug "${match[1]}" in ${fullPath}.`);
+    }
+  }
+};
+for (const root of ['src', 'scripts', 'ops', 'docs']) if (fs.existsSync(root)) scanIndustryLinks(root);
+
+const staleDraftSlug = 'major-industries-driving-the-texas-economy';
+const supersededDraftPath = `ops/editorial/texas-themed-content-backlog/drafts/${staleDraftSlug}.md`;
+if (!read(supersededDraftPath).includes('SUPERSEDED AUTHORITY NOTE')) failures.push('The old industries backlog draft must remain explicitly marked superseded.');
+for (const entry of fs.readdirSync('ops/editorial/texas-themed-content-backlog/drafts')) {
+  if (!entry.endsWith('.md') || entry === `${staleDraftSlug}.md`) continue;
+  const draft = read(path.join('ops/editorial/texas-themed-content-backlog/drafts', entry));
+  if (draft.includes(`/article/${staleDraftSlug}`)) failures.push(`Stale duplicate-industries draft link remains in ${entry}.`);
+}
+
 if (failures.length) {
   console.error('Texas industries authority validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log(`Texas industries authority validation passed: 12 indexable industry URLs, 11 sectors, ${hubCount} regional hubs, 71 rendered industry→county links / 69 unique pairs, 36 county→industry mappings, 14 reciprocal county/industry pairs, curated related-sector navigation, workforce pathways, sourced sector-evolution context, canonical/structured-data governance, article-intent separation and machine discovery are protected.`);
+console.log(`Texas industries authority validation passed: 12 indexable industry URLs, 11 sectors, ${hubCount} regional hubs, 71 rendered industry→county links / 69 unique pairs, 36 county→industry mappings, 14 reciprocal county/industry pairs, curated related-sector navigation, workforce pathways, sourced sector-evolution context, canonical/structured-data governance, article-intent separation, repository link hygiene and machine discovery are protected.`);
