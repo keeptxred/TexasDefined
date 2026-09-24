@@ -8,7 +8,7 @@ const slugs = [
   "dash-cam-setup-texas-road-trips",
   "trail-cameras-in-texas",
   "texas-wildlife-camera-guide",
-  "what-to-keep-in-car-for-texas-road-trip",
+  "texas-car-emergency-kit",
   "texas-heat-vehicle-electronics",
   "cameras-texas-camping-outdoors",
   "rural-texas-property-monitoring",
@@ -64,10 +64,22 @@ for (const slug of slugs) {
   console.log(`PASS ${slug}: HTTP 200, indexable, canonical and article/breadcrumb schema verified`);
 }
 
+const legacy = await fetchWithRetry("/article/what-to-keep-in-car-for-texas-road-trip", "legacy-emergency-kit");
+requireCondition(legacy?.response?.status === 200, `legacy emergency kit: expected redirected HTTP 200, received ${legacy?.response?.status ?? "no response"}`);
+requireCondition(
+  legacy.response.url.startsWith(`${origin}/article/texas-car-emergency-kit`),
+  `legacy emergency kit: expected final URL ${origin}/article/texas-car-emergency-kit, received ${legacy.response.url}`,
+);
+console.log("PASS legacy emergency kit: 301 chain resolves to the canonical Texas car emergency-kit guide.");
+
 const sitemap = await fetchWithRetry("/sitemap.xml", "sitemap");
 requireCondition(sitemap?.response?.status === 200, `sitemap: expected HTTP 200, received ${sitemap?.response?.status ?? "no response"}`);
 for (const slug of slugs) {
   requireCondition(sitemap.body.includes(`${origin}/article/${slug}`), `sitemap missing /article/${slug}`);
 }
-console.log("PASS sitemap: all 10 authority routes are discoverable.");
+requireCondition(
+  !sitemap.body.includes(`${origin}/article/what-to-keep-in-car-for-texas-road-trip`),
+  "sitemap must not expose the legacy staged road-kit URL",
+);
+console.log("PASS sitemap: all 10 authority routes are discoverable and the legacy road-kit URL is excluded.");
 console.log("TexasDefined road-trip/camera production smoke passed.");
