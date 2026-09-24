@@ -43,8 +43,8 @@ try {
   };
   vm.runInNewContext(source, sandbox, { filename: 'public/stay-affiliate-options.js' });
   const api = sandbox.window.TexasDefinedStayAffiliateOptions;
-  if (!api || typeof api.bookingIntent !== 'function' || typeof api.comparisonHotelDestination !== 'function' || typeof api.ownerEligible !== 'function' || typeof api.buildCjDeepLink !== 'function' || typeof api.exactPropertyDestination !== 'function') {
-    errors.push('stay affiliate bootstrap must expose bookingIntent, comparisonHotelDestination, ownerEligible, buildCjDeepLink and exactPropertyDestination for policy verification.');
+  if (!api || typeof api.bookingIntent !== 'function' || typeof api.comparisonHotelDestination !== 'function' || typeof api.ownerEligible !== 'function' || typeof api.buildCjDeepLink !== 'function' || typeof api.exactPropertyDestination !== 'function' || typeof api.featuredGolfStay !== 'function') {
+    errors.push('stay affiliate bootstrap must expose bookingIntent, comparisonHotelDestination, ownerEligible, buildCjDeepLink, exactPropertyDestination and featuredGolfStay for policy verification.');
   } else {
     const bookingCases = [
       ['/event/chappell-hill-bluebonnet-festival', 'hotel-first'],
@@ -126,6 +126,37 @@ try {
     }
     if (api.exactPropertyDestination('Not A Curated Hotel') !== null) errors.push('Unknown hotel names must fail closed instead of receiving a guessed property URL.');
 
+    const featuredGolfCases = [
+      ['/sports-venue/pga-frisco-fields-ranch', 'Omni PGA Frisco Resort & Spa', 'https://www.hotels.com/ho2796737888/omni-pga-frisco-resort-frisco-united-states-of-america/', 'www.omnihotels.com'],
+      ['/sports-venue/tpc-san-antonio', 'JW Marriott San Antonio Hill Country Resort & Spa', 'https://www.hotels.com/ho325236/jw-marriott-san-antonio-hill-country-resort-spa-san-antonio-united-states-of-america/', 'www.marriott.com'],
+      ['/sports-venue/memorial-park-golf-course', 'Holiday Inn Express & Suites Houston - Memorial Park Area', 'https://www.hotels.com/ho211068/holiday-inn-express-suites-houston-memorial-park-area-an-ihg-hotel-houston-united-states-of-america/', 'www.ihg.com'],
+    ];
+    const seenFeaturedGolfDestinations = new Set();
+    for (const [pathname, expectedName, expectedDestination, expectedSourceHost] of featuredGolfCases) {
+      const stay = api.featuredGolfStay(pathname);
+      if (!stay) {
+        errors.push(`${pathname} is missing its source-backed featured golf stay.`);
+        continue;
+      }
+      if (stay.name !== expectedName) errors.push(`${pathname} featured golf stay name drifted.`);
+      if (stay.destination !== expectedDestination) errors.push(`${pathname} featured golf Hotels.com destination drifted.`);
+      if (stay.verifiedAt !== '2026-09-23') errors.push(`${pathname} featured golf source-review date drifted.`);
+      if (!stay.context || stay.context.length < 40) errors.push(`${pathname} featured golf stay lacks useful visitor context.`);
+      try {
+        const sourceUrl = new URL(stay.sourceUrl);
+        if (sourceUrl.protocol !== 'https:' || sourceUrl.hostname !== expectedSourceHost) errors.push(`${pathname} featured golf source must remain on ${expectedSourceHost}.`);
+      } catch {
+        errors.push(`${pathname} featured golf source URL is invalid.`);
+      }
+      if (!/^https:\/\/www\.hotels\.com\/ho\d+\/[a-z0-9-]+\/$/i.test(stay.destination)) errors.push(`${pathname} featured golf destination must be a stable exact-property Hotels.com URL.`);
+      if (seenFeaturedGolfDestinations.has(stay.destination)) errors.push(`${pathname} reuses another featured golf Hotels.com destination.`);
+      seenFeaturedGolfDestinations.add(stay.destination);
+      const affiliateUrl = api.buildCjDeepLink(stay.destination);
+      if (!affiliateUrl.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho')) errors.push(`${pathname} featured golf stay does not generate a TexasDefined CJ deep link.`);
+    }
+    if (api.featuredGolfStay('/sports-venue/colonial-country-club') !== null) errors.push('Colonial must keep its governed three-card cohort instead of receiving the text-only featured-golf fallback.');
+    if (api.featuredGolfStay('/sports-venue/globe-life-field') !== null) errors.push('Non-golf venues must fail closed for the featured-golf stay mapping.');
+
     let rejectedUnsupportedHost = false;
     try {
       api.buildCjDeepLink('https://example.com/');
@@ -153,6 +184,18 @@ for (const [needle, label] of [
   ['const CJ_PUBLISHER_ID = "101876465"', 'TexasDefined CJ publisher ID'],
   ['https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/', 'CJ Deep Link Generator base'],
   ['const VERIFIED_PROPERTY_DESTINATIONS = new Map([', 'exact Hotels.com property registry'],
+  ['const FEATURED_GOLF_STAYS = new Map([', 'source-backed featured golf stay registry'],
+  ['https://www.hotels.com/ho2796737888/omni-pga-frisco-resort-frisco-united-states-of-america/', 'Omni PGA Frisco exact Hotels.com target'],
+  ['https://www.hotels.com/ho325236/jw-marriott-san-antonio-hill-country-resort-spa-san-antonio-united-states-of-america/', 'JW Marriott TPC San Antonio exact Hotels.com target'],
+  ['https://www.hotels.com/ho211068/holiday-inn-express-suites-houston-memorial-park-area-an-ihg-hotel-houston-united-states-of-america/', 'Memorial Park hotel exact Hotels.com target'],
+  ['https://www.omnihotels.com/hotels/pga-frisco', 'Omni PGA Frisco official source'],
+  ['https://www.marriott.com/en-us/hotels/satjw-jw-marriott-san-antonio-hill-country-resort-and-spa/overview/', 'JW Marriott TPC San Antonio official source'],
+  ['https://www.ihg.com/holidayinnexpress/hotels/us/en/houston/houqr/hoteldetail', 'Memorial Park hotel official source'],
+  ['function featuredGolfStay(', 'featured golf stay resolver'],
+  ['placement: "stay-nearby-featured-golf"', 'featured golf affiliate attribution'],
+  ['A venue-linked stay to consider', 'featured golf stay heading'],
+  ['Venue relationship verified against', 'featured golf source disclosure'],
+  ['variant: featuredStay ? "secondary" : "primary"', 'featured-golf exact-property priority'],
   ['https://www.hotels.com/ho115100/hilton-anatole-dallas-united-states-of-america/', 'mature Hilton Anatole property record'],
   ['https://www.hotels.com/ho2949850752/loews-arlington-arlington-united-states-of-america/', 'Loews Arlington property record'],
   ['https://www.hotels.com/ho1830497920/tru-by-hilton-northlake-fort-worth-tx-roanoke-united-states-of-america/', 'Tru Northlake property record'],
@@ -259,6 +302,12 @@ for (const [needle, label] of [
   ['Find places to stay', 'live prominent CTA verification'],
   ['event: "affiliate_click"', 'live affiliate analytics verification'],
   ['VERIFIED_PROPERTY_DESTINATIONS', 'live exact-property registry verification'],
+  ['FEATURED_GOLF_STAYS', 'live featured golf stay registry verification'],
+  ['featuredGolfStay', 'live featured golf stay resolver verification'],
+  ['ho2796737888/omni-pga-frisco-resort', 'live Omni PGA Frisco exact-property probe'],
+  ['ho325236/jw-marriott-san-antonio-hill-country-resort-spa', 'live TPC San Antonio exact-property probe'],
+  ['ho211068/holiday-inn-express-suites-houston-memorial-park-area', 'live Memorial Park exact-property probe'],
+  ['/sports-venue/pga-frisco-fields-ranch', 'live PGA Frisco featured-stay route probe'],
   ['upgradeExactPropertyCards', 'live property upgrader verification'],
   ['ho115100/hilton-anatole', 'live exact-property destination probe'],
   ['/event/chappell-hill-bluebonnet-festival', 'live event placement probe'],
@@ -306,4 +355,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hotels.com / Orbitz / Travelocity / Vrbo stay affiliate validation passed: all 30 active governed Stay Nearby properties (18 venue + 12 destination) have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; unknown properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; hotel-first event/venue intent routes the comparison option to Orbitz while broader destination/leisure intent routes it to Travelocity, and Vrbo remains separately gated to broader traveler/owner use cases; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the exact-property registry and the traffic-prioritized Xtreme Raceway Park lodging slot; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');
+console.log('Hotels.com / Orbitz / Travelocity / Vrbo stay affiliate validation passed: all 30 active governed Stay Nearby properties (18 venue + 12 destination) have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; three source-backed golf guides add text-only exact-property Hotels.com CTAs without bypassing curated-card image governance; unknown routes and properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; hotel-first event/venue intent routes the comparison option to Orbitz while broader destination/leisure intent routes it to Travelocity, and Vrbo remains separately gated to broader traveler/owner use cases; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the exact-property and featured-golf registries plus the traffic-prioritized Xtreme Raceway Park lodging slot; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');
