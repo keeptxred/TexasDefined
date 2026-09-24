@@ -57,11 +57,20 @@ const regionLabels: Record<string, string> = {
 
 const amenityFilters: Array<{ value: CampingAmenity; label: string }> = [
   { value: "full-hookup", label: "Full hookup" },
+  { value: "electric-hookup", label: "Electric service" },
+  { value: "restrooms", label: "Restrooms" },
   { value: "showers", label: "Showers" },
   { value: "fishing", label: "Fishing" },
+  { value: "hiking", label: "Hiking" },
   { value: "swimming", label: "Swimming" },
   { value: "ada-site", label: "Accessible site" },
   { value: "pets", label: "Pet friendly" },
+];
+
+const comparisonAmenityGroups: Array<{ label: string; amenities: CampingAmenity[] }> = [
+  { label: "Hookups & electrical", amenities: ["full-hookup", "electric-hookup", "electric-20", "electric-30", "electric-50", "water-hookup", "sewer-hookup", "dump-station"] },
+  { label: "Restrooms & showers", amenities: ["restrooms", "showers"] },
+  { label: "Water & activities", amenities: ["lake-access", "river-access", "gulf-access", "swimming", "fishing", "hiking"] },
 ];
 
 const quickMatches: Array<{
@@ -121,6 +130,10 @@ const campingCardImages: Record<string, { src: string; alt: string; width: numbe
   "lake-mineral-wells-state-park": { src: "/images/state-parks/lake-mineral-wells-state-park.jpg", alt: "Lake Mineral Wells State Park in Texas", width: 1600, height: 900 },
   "south-llano-river-state-park": { src: "/images/state-parks/south-llano-river-state-park.jpg", alt: "South Llano River State Park in Texas", width: 1600, height: 1067 },
   "seminole-canyon-state-park-and-historic-site": { src: "/images/explore/historic-sites/seminole-canyon-state-park.jpg", alt: "Seminole Canyon State Park & Historic Site in Texas", width: 1600, height: 1067 },
+  "cedar-hill-state-park": { src: "/images/state-parks/cedar-hill-state-park.jpg", alt: "Cedar Hill State Park in Texas", width: 1600, height: 1067 },
+  "goose-island-state-park": { src: "/images/state-parks/goose-island-state-park.jpg", alt: "Goose Island State Park in Texas", width: 1600, height: 1200 },
+  "lake-corpus-christi-state-park": { src: "/images/state-parks/lake-corpus-christi-state-park.jpg", alt: "Lake Corpus Christi State Park in Texas", width: 1600, height: 1067 },
+  "padre-island-national-seashore": { src: "/images/explore/national-parks/padre-island-national-seashore.jpg", alt: "Padre Island National Seashore in Texas", width: 1600, height: 800 },
 };
 
 function profileAnchor(profile: CampingDiscoveryProfile) {
@@ -129,6 +142,18 @@ function profileAnchor(profile: CampingDiscoveryProfile) {
 
 function toggleValue<T extends string>(current: T[], value: T) {
   return current.includes(value) ? current.filter((item) => item !== value) : [...current, value];
+}
+
+function profileMatchesAmenity(profile: CampingDiscoveryProfile, amenity: CampingAmenity) {
+  if (amenity === "electric-hookup") {
+    return profile.amenities.some((item) => ["electric-hookup", "electric-20", "electric-30", "electric-50", "full-hookup"].includes(item));
+  }
+  return profile.amenities.includes(amenity);
+}
+
+function verifiedAmenityText(profile: CampingDiscoveryProfile, amenities: CampingAmenity[]) {
+  const values = amenities.filter((amenity) => profile.amenities.includes(amenity));
+  return values.length ? values.map((amenity) => amenityLabels[amenity] ?? amenity).join(" · ") : "Not verified in this guide";
 }
 
 export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[] }) {
@@ -152,7 +177,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
       if (styles.length && !styles.some((style) => profile.styles.includes(style))) return false;
       if (region !== "all" && profile.region !== region) return false;
       if (agency !== "all" && profile.managingAgency !== agency) return false;
-      if (amenities.length && !amenities.every((amenity) => profile.amenities.includes(amenity))) return false;
+      if (amenities.length && !amenities.every((amenity) => profileMatchesAmenity(profile, amenity))) return false;
       if (waterCamping && !profile.amenities.some((amenity) => ["lake-access", "river-access", "gulf-access", "swimming"].includes(amenity))) return false;
       if (normalizedQuery) {
         const haystack = [
@@ -335,12 +360,15 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
           {profile.whyCampHere ? <p className="mt-3 text-sm leading-6 text-foreground">{profile.whyCampHere}</p> : null}
           <dl className="mt-5 space-y-4 text-sm">
             <div><dt className="font-semibold">Camping styles</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.styles.map((style) => styleLabels[style]).join(" · ")}</dd></div>
-            <div><dt className="font-semibold">Verified facilities</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.amenities.map((amenity) => amenityLabels[amenity] ?? amenity).join(" · ") || "No amenity fields verified yet"}</dd></div>
+            {comparisonAmenityGroups.map((group) => <div key={group.label}><dt className="font-semibold">{group.label}</dt><dd className="mt-1 leading-6 text-muted-foreground">{verifiedAmenityText(profile, group.amenities)}</dd></div>)}
+            <div><dt className="font-semibold">Accessibility</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.amenities.includes("ada-site") ? "Accessible campsite feature verified" : "Not verified in this guide"}</dd></div>
+            <div><dt className="font-semibold">Pet policy</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.amenities.includes("pets") ? "Pet-friendly camping verified" : "Not verified in this guide"}</dd></div>
             <div><dt className="font-semibold">Managed by</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.managingAgency}</dd></div>
             <div><dt className="font-semibold">Reservations</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.reservationPolicy}</dd></div>
             {profile.planningDetail ? <div><dt className="font-semibold">Planning detail</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.planningDetail}</dd></div> : null}
             {profile.siteLengthNote ? <div><dt className="font-semibold">RV/site length</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.siteLengthNote}</dd></div> : null}
             {profile.generatorRules ? <div><dt className="font-semibold">Generator rules</dt><dd className="mt-1 leading-6 text-muted-foreground">{profile.generatorRules}</dd></div> : null}
+            <div><dt className="font-semibold">Source verification</dt><dd className="mt-1 leading-6 text-muted-foreground">Verified {profile.verifiedAt}</dd></div>
           </dl>
           <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
             <a href={profile.reservationUrl} target="_blank" rel="noreferrer" className="text-primary underline-offset-4 hover:underline">Official details ↗</a>
