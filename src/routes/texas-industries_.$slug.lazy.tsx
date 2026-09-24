@@ -49,7 +49,15 @@ function TexasIndustryPage() {
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Geography</p>
                 <h2 className="mt-3 font-display text-3xl">Where the industry clusters in Texas</h2>
                 <div className="mt-6 grid gap-px border border-border bg-border md:grid-cols-2">
-                  {industry.hubs.map((hub) => <article key={hub.name} className="bg-background p-6"><h3 className="font-display text-2xl">{hub.name}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{hub.description}</p></article>)}
+                  {industry.hubs.map((hub) => (
+                    <article key={hub.name} className="bg-background p-6">
+                      <h3 className="font-display text-2xl">{hub.name}</h3>
+                      <p className="mt-3 text-sm leading-7 text-muted-foreground">{hub.description}</p>
+                      <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2">
+                        {hub.places.map((place) => <a key={place.href} href={place.href} className="text-xs font-semibold text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary">{place.label} →</a>)}
+                      </div>
+                    </article>
+                  ))}
                 </div>
                 <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
                   <a href="/browse/cities" className="text-primary">Browse Texas cities →</a>
