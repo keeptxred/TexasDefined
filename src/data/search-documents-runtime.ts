@@ -132,6 +132,17 @@ export async function buildSearchDocuments(): Promise<SearchDocument[]> {
   }
 
   try {
+    const { buildTexasIndustrySearchDocuments } = await import("./texas-industry-search");
+    for (const document of buildTexasIndustrySearchDocuments()) {
+      if (knownHrefs.has(document.href)) continue;
+      base.push(document);
+      knownHrefs.add(document.href);
+    }
+  } catch {
+    reportOptionalSearchFailure("Texas industry");
+  }
+
+  try {
     const { buildCityMetroSearchDocuments } = await import("./city-metro-search");
     for (const document of buildCityMetroSearchDocuments()) {
       if (knownHrefs.has(document.href)) continue;
