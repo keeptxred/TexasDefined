@@ -32,6 +32,7 @@ const ticketmasterAuthorityMatchers = [
   { city: "San Antonio", slug: "ford-holiday-river-parade", prefix: "ford holiday river parade" },
   { city: "Houston", slug: "alley-theatre-a-christmas-carol", prefix: "a christmas carol" },
   { city: "Dallas", slug: "dallas-theater-center-a-christmas-carol", prefix: "a christmas carol" },
+  { city: "Waco", slug: "heart-o-texas-fair-rodeo", prefix: "one hot rodeo" },
 ] as const;
 
 export function ticketmasterAuthorityGuidePath(name: string, city: string) {
