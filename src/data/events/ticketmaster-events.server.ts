@@ -28,6 +28,11 @@ const ticketmasterAuthorityMatchers = [
   { city: "McAllen", slug: "fiesta-de-palmas", prefix: "beer around the world" },
   { city: "Fort Worth", slug: "bill-pickett-rodeo-fort-worth", prefix: "bill pickett invitational rodeo" },
   { city: "Corpus Christi", slug: "hollydays-market-corpus-christi", prefix: "hollydays market corpus christi" },
+  { city: "San Antonio", slug: "day-of-the-dead-river-parade-san-antonio", prefix: "day of the dead river parade" },
+  { city: "San Antonio", slug: "ford-holiday-river-parade", prefix: "ford holiday river parade" },
+  { city: "Houston", slug: "alley-theatre-a-christmas-carol", prefix: "a christmas carol" },
+  { city: "Dallas", slug: "dallas-theater-center-a-christmas-carol", prefix: "a christmas carol" },
+  { city: "Waco", slug: "heart-o-texas-fair-rodeo", prefix: "one hot rodeo" },
 ] as const;
 
 export function ticketmasterAuthorityGuidePath(name: string, city: string) {

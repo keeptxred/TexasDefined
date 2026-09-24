@@ -34,6 +34,12 @@ try {
   assert.equal(ticketmasterAuthorityGuidePath('Beer Around The World 2026 - Fiesta De Palmas McAllen TX', 'McAllen'), '/event/fiesta-de-palmas');
   assert.equal(ticketmasterAuthorityGuidePath('Bill Pickett Invitational Rodeo', 'Fort Worth'), '/event/bill-pickett-rodeo-fort-worth');
   assert.equal(ticketmasterAuthorityGuidePath('Hollydays Market Corpus Christi Fri. 11-6 through Sun. 11-8, 2026', 'Corpus Christi'), '/event/hollydays-market-corpus-christi');
+  assert.equal(ticketmasterAuthorityGuidePath('Day of the Dead River Parade at Hard Rock Cafe', 'San Antonio'), '/event/day-of-the-dead-river-parade-san-antonio');
+  assert.equal(ticketmasterAuthorityGuidePath('Ford Holiday River Parade & Lighting Ceremony', 'San Antonio'), '/event/ford-holiday-river-parade');
+  assert.equal(ticketmasterAuthorityGuidePath('A Christmas Carol', 'Houston'), '/event/alley-theatre-a-christmas-carol');
+  assert.equal(ticketmasterAuthorityGuidePath('A Christmas Carol', 'Dallas'), '/event/dallas-theater-center-a-christmas-carol');
+  assert.equal(ticketmasterAuthorityGuidePath('Drunk Shakespeare: A Drunk Christmas Carol (21+ Event)', 'Houston'), undefined);
+  assert.equal(ticketmasterAuthorityGuidePath('One HOT Rodeo', 'Waco'), '/event/heart-o-texas-fair-rodeo');
   assert.equal(ticketmasterAuthorityGuidePath('Example concert', 'San Antonio'), undefined);
   for (const slug of [
     'fiesta-de-palmas',
@@ -47,6 +53,9 @@ try {
     'eagle-fest-the-woodlands',
     'bill-pickett-rodeo-fort-worth',
     'hollydays-market-corpus-christi',
+    'day-of-the-dead-river-parade-san-antonio',
+    'alley-theatre-a-christmas-carol',
+    'dallas-theater-center-a-christmas-carol',
   ]) assert.equal(hasCompliantMajorEventImageServer(slug), true, `${slug} must remain indexable with rights-cleared hero provenance`);
   assert.equal(hasCompliantMajorEventImageServer('mcallen-holiday-parade'), false, 'Holiday parade must remain fail-closed until an exact-location or governed AI hero is approved');
 
