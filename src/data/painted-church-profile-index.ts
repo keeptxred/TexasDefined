@@ -1,4 +1,4 @@
-import { enrichPaintedChurchProfile } from "./painted-church-authority-sources";
+import { enrichPaintedChurchProfile } from "./painted-church-authority-sources";\nimport { enrichPaintedChurchProfileFromSecondaryResearch } from "./painted-church-secondary-research";
 import { finalPaintedChurchProfileBySlug } from "./painted-church-profiles-final";
 import { paintedChurchExtendedProfileBySlug } from "./painted-church-profiles-extended";
 import { paintedChurchExpansionProfileBySlug } from "./painted-church-profiles-expansion";
@@ -18,5 +18,5 @@ export function canonicalPaintedChurchProfileBySlug(slug: string) {
     ?? paintedChurchExpansionProfileBySlug(slug)
     ?? latestPaintedChurchProfileBySlug(slug);
 
-  return profile ? enrichPaintedChurchProfile(profile) : undefined;
+  if (!profile) return undefined;\n\n  return enrichPaintedChurchProfileFromSecondaryResearch(enrichPaintedChurchProfile(profile));
 }
