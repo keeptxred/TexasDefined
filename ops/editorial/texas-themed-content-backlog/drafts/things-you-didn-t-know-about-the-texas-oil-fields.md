@@ -94,7 +94,7 @@ That lets TexasDefined connect energy history with county pages, museums, region
 - `/texas-history`
 - `/guides`
 - `/explore`
-- `/article/major-industries-driving-the-texas-economy` once approved/live
+- `/texas-industries`
 - `/article/things-to-know-about-the-texas-power-grid` once approved/live
 - `/article/texas-history-myths-worth-reexamining` once approved/live
 - county/place pages for Jefferson, Navarro, East Texas and Permian Basin counties
