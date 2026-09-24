@@ -25,6 +25,14 @@ export const CAMPING_DESTINATION_GUIDE_SLUGS = [
   "huntsville-state-park",
   "tyler-state-park",
   "choke-canyon-state-park",
+  "galveston-island-state-park",
+  "lake-livingston-state-park",
+  "martin-dies-jr-state-park",
+  "bastrop-state-park",
+  "eisenhower-state-park",
+  "lake-mineral-wells-state-park",
+  "south-llano-river-state-park",
+  "seminole-canyon-state-park-and-historic-site",
 ] as const;
 
 export const CAMPING_DESTINATION_GUIDE_SET = new Set<string>(CAMPING_DESTINATION_GUIDE_SLUGS);
