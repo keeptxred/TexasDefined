@@ -43,8 +43,8 @@ try {
   };
   vm.runInNewContext(source, sandbox, { filename: 'public/stay-affiliate-options.js' });
   const api = sandbox.window.TexasDefinedStayAffiliateOptions;
-  if (!api || typeof api.bookingIntent !== 'function' || typeof api.comparisonHotelDestination !== 'function' || typeof api.ownerEligible !== 'function' || typeof api.buildCjDeepLink !== 'function' || typeof api.exactPropertyDestination !== 'function' || typeof api.featuredGolfStay !== 'function') {
-    errors.push('stay affiliate bootstrap must expose bookingIntent, comparisonHotelDestination, ownerEligible, buildCjDeepLink, exactPropertyDestination and featuredGolfStay for policy verification.');
+  if (!api || typeof api.bookingIntent !== 'function' || typeof api.comparisonHotelDestination !== 'function' || typeof api.ownerEligible !== 'function' || typeof api.rvshareEligible !== 'function' || typeof api.buildCjDeepLink !== 'function' || typeof api.exactPropertyDestination !== 'function' || typeof api.featuredGolfStay !== 'function') {
+    errors.push('stay affiliate bootstrap must expose bookingIntent, comparisonHotelDestination, ownerEligible, rvshareEligible, buildCjDeepLink, exactPropertyDestination and featuredGolfStay for policy verification.');
   } else {
     const bookingCases = [
       ['/event/chappell-hill-bluebonnet-festival', 'hotel-first'],
@@ -68,12 +68,19 @@ try {
     if (api.comparisonHotelDestination('both') !== 'https://www.travelocity.com/') errors.push('Broader destination/leisure intent must route its comparison hotel option to Travelocity.');
     if (!api.ownerEligible('/real-estate')) errors.push('Vrbo owner referral must remain eligible on /real-estate.');
     if (api.ownerEligible('/city/austin')) errors.push('Vrbo owner referral must not appear merely because a page is a city travel guide.');
+    for (const pathname of ['/best-places-to-go-camping-in-texas', '/explore/rv-parks', '/explore/state-parks', '/explore/road-trips', '/explore/outdoors']) {
+      if (!api.rvshareEligible(pathname)) errors.push(`RVshare must be eligible on high-intent outdoor route ${pathname}.`);
+    }
+    for (const pathname of ['/event/chappell-hill-bluebonnet-festival', '/destination/fredericksburg', '/city/austin', '/county/travis']) {
+      if (api.rvshareEligible(pathname)) errors.push(`RVshare must fail closed on non-RV-specific route ${pathname}.`);
+    }
 
     const hotelsDeepLink = api.buildCjDeepLink('https://www.hotels.com/');
     const orbitzDeepLink = api.buildCjDeepLink('https://www.orbitz.com/');
     const travelocityDeepLink = api.buildCjDeepLink('https://www.travelocity.com/');
     const vrboDeepLink = api.buildCjDeepLink('https://www.vrbo.com/');
-    for (const [value, partner] of [[hotelsDeepLink, 'Hotels.com'], [orbitzDeepLink, 'Orbitz'], [travelocityDeepLink, 'Travelocity'], [vrboDeepLink, 'Vrbo']]) {
+    const rvshareDeepLink = api.buildCjDeepLink('https://rvshare.com/');
+    for (const [value, partner] of [[hotelsDeepLink, 'Hotels.com'], [orbitzDeepLink, 'Orbitz'], [travelocityDeepLink, 'Travelocity'], [vrboDeepLink, 'Vrbo'], [rvshareDeepLink, 'RVshare']]) {
       if (!value.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/')) {
         errors.push(`${partner} CJ deep link must stay bound to TexasDefined publisher 101876465.`);
       }
@@ -163,7 +170,7 @@ try {
     } catch {
       rejectedUnsupportedHost = true;
     }
-    if (!rejectedUnsupportedHost) errors.push('CJ deep-link builder must reject destinations outside Hotels.com, Orbitz, Travelocity and Vrbo.');
+    if (!rejectedUnsupportedHost) errors.push('CJ deep-link builder must reject destinations outside Hotels.com, Orbitz, Travelocity, Vrbo and RVshare.');
   }
 } catch (error) {
   errors.push(`stay affiliate route-policy runtime check failed: ${error.message}`);
@@ -212,6 +219,7 @@ for (const [needle, label] of [
   ['https://www.orbitz.com/', 'Orbitz destination'],
   ['https://www.travelocity.com/', 'Travelocity destination'],
   ['https://www.vrbo.com/', 'Vrbo traveler destination'],
+  ['https://rvshare.com/', 'RVshare traveler destination'],
   ['https://www.vrbo.com/en-us/list/lead', 'Vrbo owner onboarding destination'],
   ['link.href = buildCjDeepLink(destination)', 'tracked-link enforcement'],
   ['sponsored nofollow noopener noreferrer', 'affiliate relationship attributes'],
@@ -219,6 +227,7 @@ for (const [needle, label] of [
   ['Compare hotels on Orbitz', 'Orbitz hotel-first CTA'],
   ['Compare hotels on Travelocity', 'Travelocity destination/leisure CTA'],
   ['Find vacation rentals on Vrbo', 'Vrbo traveler CTA'],
+  ['Rent an RV on RVshare', 'RVshare high-intent outdoor CTA'],
   ['Compare more hotels on Hotels.com', 'secondary Hotels.com CTA after exact recommendations'],
   ['Compare more hotels on Orbitz', 'secondary Orbitz CTA after exact recommendations'],
   ['Compare more hotels on Travelocity', 'secondary Travelocity CTA after exact recommendations'],
@@ -240,9 +249,12 @@ for (const [needle, label] of [
   ['link.dataset.exactProperty = propertyName', 'exact-property identity marker'],
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com or Orbitz activity', 'hotel-first traveler affiliate disclosure'],
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or Vrbo activity', 'destination/leisure traveler affiliate disclosure'],
+  ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity, Vrbo or RVshare activity', 'RVshare-enabled outdoor traveler affiliate disclosure'],
   ['Affiliate disclosure: TexasDefined may earn a referral commission when an eligible new Vrbo property listing goes live', 'owner affiliate disclosure'],
   ['HOTEL_FIRST_PATH', 'hotel-first route intent'],
   ['BOTH_PATH', 'combined lodging route intent'],
+  ['RVSHARE_PATH', 'high-intent RVshare route guard'],
+  ['function rvshareEligible(', 'RVshare route resolver'],
   ['comparisonHotelDestination', 'route-scoped Orbitz/Travelocity comparison policy'],
   ['OWNER_PATH = /^\\/real-estate\\/?$/', 'owner route guard'],
   ['OWNER_SECTION', 'owner article-section guard'],
