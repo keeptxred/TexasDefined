@@ -17,7 +17,7 @@ const requiredProfiles = [
   ["eisenhower-state-park", "Eisenhower State Park"],
   ["lake-mineral-wells-state-park", "Lake Mineral Wells State Park & Trailway"],
   ["south-llano-river-state-park", "South Llano River State Park"],
-  ["seminole-canyon-state-park", "Seminole Canyon State Park & Historic Site"],
+  ["seminole-canyon-state-park-and-historic-site", "Seminole Canyon State Park & Historic Site"],
 ];
 
 for (const [slug, name] of requiredProfiles) {
@@ -45,13 +45,12 @@ if (!route.includes('import("@/data/camping/profiles-wave7")')) failures.push("c
 for (const slug of requiredProfiles.slice(0, 7).map(([slug]) => slug)) {
   if (!component.includes(`"${slug}": { src: "/images/state-parks/`)) failures.push(`missing governed destination image mapping: ${slug}`);
 }
-if (component.includes('"seminole-canyon-state-park": { src:')) failures.push("Seminole Canyon must remain text-only until an exact governed image is approved.");
-
-for (const slug of requiredProfiles.slice(0, 7).map(([slug]) => slug)) {
-  if (!destinationGuides.includes(`"${slug}"`)) failures.push(`missing Wave 7 canonical destination guide: ${slug}`);
+if (!component.includes('"seminole-canyon-state-park-and-historic-site": { src: "/images/explore/historic-sites/seminole-canyon-state-park.jpg"')) {
+  failures.push("missing governed Seminole Canyon historic-site image mapping");
 }
-if (destinationGuides.includes('"seminole-canyon-state-park"')) {
-  failures.push("Seminole Canyon must not use the short slug as a canonical destination guide until its historic-site alias is reconciled.");
+
+for (const [slug] of requiredProfiles) {
+  if (!destinationGuides.includes(`"${slug}"`)) failures.push(`missing Wave 7 canonical destination guide: ${slug}`);
 }
 
 const allowedAmenities = new Set([
