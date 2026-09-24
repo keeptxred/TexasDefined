@@ -1,7 +1,7 @@
 export type GamingSource = {
   label: string;
   url: string;
-  kind: "government" | "company" | "university" | "infrastructure" | "venue";
+  kind: "government" | "company" | "university" | "infrastructure" | "venue" | "industry";
 };
 
 export type GamingPage = {
@@ -74,6 +74,7 @@ const tamu = { label: "Texas A&M — A&M Esports", url: "https://getinvolved.tam
 const decixDallas = { label: "DE-CIX — Dallas Internet Exchange", url: "https://www.de-cix.net/en/locations/dallas", kind: "infrastructure" as const };
 const decixHouston = { label: "DE-CIX — Houston Internet Exchange", url: "https://www.de-cix.net/en/locations/houston", kind: "infrastructure" as const };
 const equinixDallas = { label: "Equinix — Dallas data centers and interconnection", url: "https://www.equinix.com/data-centers/americas-colocation/united-states-colocation/dallas-data-centers", kind: "infrastructure" as const };
+const esaTexas = { label: "Entertainment Software Association — Texas industry impact map", url: "https://www.theesa.com/video-game-impact-map/state/texas/", kind: "industry" as const };
 
 export const TEXAS_GAME_COMPANIES = [
   { name: "Electronic Arts / BioWare Austin", city: "Austin", focus: "AAA development, live services, technology and support functions", official: "https://careers.ea.com/careers/teams/ea-studios", careers: "https://careers.ea.com/", source: "EA currently identifies Austin as a studio location." },
@@ -107,8 +108,9 @@ export const GAMING_PAGES: GamingPage[] = [
       { title: "How the industry fits Texas", paragraphs: ["The Texas Film Commission treats video games as part of the state's digital-media production sector alongside animation, visual effects and XR. Its current resources include a gameography, company directory, job hotline, education links and incentive guidance.", "That state framework is useful because studio rosters change. Acquisitions, remote work, project cycles and office consolidations can make older lists stale, so TexasDefined uses current first-party sources for employer status instead of assuming that a historical Texas studio remains active."] },
       { title: "Regional clusters", paragraphs: ["Austin remains the clearest development cluster, with large studios, independent teams and related technology talent. North Texas combines development activity with esports, convention infrastructure and a deep networking/data-center market. Other Texas cities have smaller but meaningful digital-media activity where current evidence supports it."], bullets: ["Austin / Central Texas — studios, software talent and digital-media workforce", "Dallas–Fort Worth — studios, esports, venues and interconnection infrastructure", "Houston and San Antonio — smaller game/digital-media footprints plus broader technology ecosystems"] },
       { title: "Incentives and workforce", paragraphs: ["Texas's Moving Image Industry Incentive Program includes qualifying video-game projects under its current rules. The Texas Film Commission also publishes a digital-media job hotline and career guidance. Eligibility, funding and project requirements can change, so developers should use the official program pages rather than summaries when making a production decision."] },
+      { title: "Economic footprint", paragraphs: ["The Entertainment Software Association's current Texas impact map estimates $6.5 billion in economic impact, 9,437 direct jobs supported by the video-game industry and 22,445 direct plus indirect jobs supported. Those are industry-association estimates rather than a Texas government employment series, so TexasDefined presents them with their source and does not convert them into unsupported company-level job claims.", "The same ESA map lists hundreds of Texas software, hardware, retail and support locations and dozens of higher-education programs. Counts can reflect a broader ecosystem than game-development studios alone, which is why the company directory uses a narrower studio/employer standard."] },
     ],
-    sources: [texasFilm, filmImpact, gameIncentive, jobsHotline],
+    sources: [texasFilm, filmImpact, gameIncentive, jobsHotline, esaTexas],
     related: [
       { href: "/gaming/companies", label: "Video game companies in Texas", description: "Current company directory with official links." },
       { href: "/gaming/austin", label: "Austin game development", description: "Central Texas studio and workforce cluster." },
