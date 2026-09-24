@@ -151,7 +151,7 @@ export const CAMPING_PROFILES_WAVE7: CampingProfile[] = [
     sources: [{ label: "TPWD South Llano River campsites", url: "https://tpwd.texas.gov/state-parks/south-llano-river/fees-facilities/campsites", fields: ["site counts", "30 amp service", "water", "showers", "primitive hike distance", "ground-fire rule"] }],
   },
   {
-    destinationSlug: "seminole-canyon-state-park",
+    destinationSlug: "seminole-canyon-state-park-and-historic-site",
     name: "Seminole Canyon State Park & Historic Site",
     county: "Val Verde",
     region: "big-bend",
