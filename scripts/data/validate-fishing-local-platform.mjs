@@ -60,10 +60,10 @@ if (!failures.length) {
   for (const stale of ["Verification first", "Verified boat ramps", "No verified access listings match yet."]) {
     if (accessUi.includes(stale)) failures.push(`Fishing access directory still exposes verification-heavy public copy: ${stale}.`);
   }
-  for (const phrase of ["Source-backed listings", "No local-service listings match yet.", "source-backed facts"]) {
+  for (const phrase of ["Source-backed listings", "No local-service listings match yet.", "Add or update a lake-area business."]) {
     if (!servicesUi.includes(phrase)) failures.push(`Fishing services directory is missing visitor-facing label: ${phrase}.`);
   }
-  for (const stale of ["Verification first", "Verified tackle shops", "No verified local-service listings match yet."]) {
+  for (const stale of ["Verification first", "Verified tackle shops", "No verified local-service listings match yet.", "Build the lake-area service directory with source-backed facts."]) {
     if (servicesUi.includes(stale)) failures.push(`Fishing services directory still exposes verification-heavy public copy: ${stale}.`);
   }
   if (!accessProfileUi.includes("not live operational status") || !accessProfileUi.includes("Water level, ramp usability, fees, gates, hours and temporary closures can change")) failures.push("Changing access-condition disclosure missing.");
