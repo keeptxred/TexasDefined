@@ -25,6 +25,7 @@ const profileIndex = read('src/data/painted-church-profile-index.ts');
 const researchIndex = read('src/data/painted-church-research-index.ts');
 const latestProfiles = read('src/data/painted-church-profiles-latest.ts');
 const latestResearch = read('src/data/painted-church-research-latest.ts');
+const secondaryResearch = read('src/data/painted-church-secondary-source-enrichment.ts');
 const dossier = read('src/components/editorial/PaintedChurchResearchDossier.tsx');
 const gallery = read('src/components/editorial/PaintedChurchGallery.tsx');
 const thenNow = read('src/components/editorial/PaintedChurchThenAndNow.tsx');
@@ -48,6 +49,7 @@ const requiredFiles = [
   'src/routes/explore.painted-churches.print-guide.tsx','src/routes/explore.painted-churches.media.tsx',
   'src/routes/explore.painted-churches.cite.tsx','src/routes/explore.painted-churches.then-and-now.tsx',
   'src/data/painted-church-profiles-latest.ts','src/data/painted-church-research-latest.ts',
+  'src/data/painted-church-secondary-source-enrichment.ts',
 ];
 for (const path of requiredFiles) if (!exists(path)) failures.push(`Missing authority file ${path}`);
 
@@ -86,6 +88,10 @@ if ((glossary.match(/slug: "/g) ?? []).length < 11) failures.push('Glossary drop
 if ((itineraries.match(/slug: "/g) ?? []).length < 8) failures.push('Itinerary layer dropped below 8 routes.');
 
 requireText(profileIndex, 'latestPaintedChurchProfileBySlug', 'Canonical profile resolver');
+requireText(profileIndex, 'enrichPaintedChurchProfileFromPaintedChurchesInTexas', 'Canonical profile resolver');
+const secondaryCatalogCount = secondaryResearch.split('url: "https://paintedchurchesintexas.com/').length - 1;
+if (secondaryCatalogCount !== 18) failures.push(`Expected 18 PaintedChurchesInTexas.com reviewed church pages, found ${secondaryCatalogCount}.`);
+for (const slug of ['east-bernard-holy-cross-catholic-church','rowena-st-joseph-catholic-church','cestohowa-nativity-of-the-blessed-virgin-mary','hostyn-queen-of-the-holy-rosary']) requireText(census, `slug: \"${slug}\"`, 'Secondary-source census review');
 requireText(researchIndex, 'latestPaintedChurchResearchBySlug', 'Canonical research resolver');
 for (const slug of ['castroville-st-louis-catholic-church','lacoste-our-lady-of-grace']) {
   requireText(latestProfiles, `slug: "${slug}"`, 'Latest profile layer');

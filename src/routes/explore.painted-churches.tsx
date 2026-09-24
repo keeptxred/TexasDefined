@@ -20,7 +20,7 @@ export const Route = createFileRoute(canonicalPath)({
       canonicalPath,
       title: `Painted Churches of Texas | Map, Routes & ${expandedPaintedChurches.length}-Church Guide`,
       description,
-      modifiedTime: "2026-09-23T22:28:00-05:00",
+      modifiedTime: "2026-09-24T15:45:00-05:00",
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({
@@ -32,7 +32,7 @@ export const Route = createFileRoute(canonicalPath)({
           url: collectionUrl,
           name: "Painted Churches of Texas",
           description,
-          dateModified: "2026-09-23",
+          dateModified: "2026-09-24",
           isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
           publisher: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` },
           mainEntity: { "@id": `${collectionUrl}#churches` },
@@ -99,7 +99,7 @@ function PaintedChurchesPage() {
   return <main>
     <section className="border-b border-border bg-ink text-ink-foreground"><Container className="grid gap-10 py-16 sm:py-24 lg:grid-cols-[minmax(0,1.2fr)_minmax(320px,.8fr)] lg:items-end">
       <div><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-ink-foreground/60"><ol className="flex flex-wrap items-center gap-2"><li><Link to="/" className="hover:text-white">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore" className="hover:text-white">Explore</Link></li><li aria-hidden>·</li><li aria-current="page" className="text-white">Painted Churches</li></ol></nav><p className="eyebrow mt-10 text-ink-foreground/70">Texas heritage · verified statewide guide</p><h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Painted Churches of Texas</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">Texas’s Painted Churches are historic sanctuaries whose plain or restrained exteriors open into murals, stenciling, faux marble, painted vaults, religious imagery and immigrant craftsmanship. Start with the Schulenburg circuit, then explore the broader statewide tradition church by church.</p></div>
-      <div className="border-t border-ink-foreground/25 pt-6 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0"><p className="eyebrow text-ink-foreground/60">Verified collection</p><p className="mt-3 font-display text-6xl">{expandedPaintedChurches.length}</p><p className="mt-3 text-sm leading-6 text-ink-foreground/70">Source-checked church profiles with designation context, visitor guidance and rights-reviewed photography.</p><p className="mt-4 text-xs leading-5 text-ink-foreground/55">Core church census reviewed August 18, 2026 · authority sources expanded September 23, 2026.</p></div>
+      <div className="border-t border-ink-foreground/25 pt-6 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0"><p className="eyebrow text-ink-foreground/60">Verified collection</p><p className="mt-3 font-display text-6xl">{expandedPaintedChurches.length}</p><p className="mt-3 text-sm leading-6 text-ink-foreground/70">Source-checked church profiles with designation context, visitor guidance and rights-reviewed photography.</p><p className="mt-4 text-xs leading-5 text-ink-foreground/55">Core church census reviewed August 18, 2026 · primary-source expansion September 23 · 18-page secondary catalog audit September 24, 2026.</p></div>
     </Container></section>
 
     <Container className="py-14 sm:py-18">

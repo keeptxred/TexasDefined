@@ -2,11 +2,12 @@ import { Link } from "@tanstack/react-router";
 
 import { paintedChurchAuthorityExpansionDate, paintedChurchAuthoritySources } from "@/data/painted-church-authority-sources";
 import { paintedChurchImageSources } from "@/data/painted-church-image-sources";
+import { paintedChurchesInTexasReviewDate, paintedChurchesInTexasSources } from "@/data/painted-church-secondary-source-enrichment";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 
 const sourceLibrary = [
   { label: "Discover Victoria Texas", url: "https://www.discovervictoriatexas.com/business/painted-churches-of-texas", role: "Regional visitor context", note: "Useful for Victoria-area framing and travel context. Church-specific historical claims remain secondary to THC, NPS, parish and archival records." },
-  { label: "Painted Churches in Texas", url: "https://paintedchurchesintexas.com/", role: "Dedicated church catalog", note: "Useful for church-by-church visitor leads. Historical dates, artist attributions and current access are independently verified before publication." },
+  { label: "Painted Churches in Texas", url: "https://paintedchurchesintexas.com/", role: "Dedicated church catalog · full review completed", note: "All 18 church pages were reviewed on September 24, 2026. Useful non-duplicative facts were rewritten into Texas Defined profiles; four additional church leads were independently checked rather than automatically promoted." },
   { label: "Roaming the USA", url: "https://www.roamingtheusa.com/painted-churches-of-texas/", role: "Travel and visual interpretation", note: "Useful for visual descriptions and route context. Time-sensitive information is rechecked locally." },
   { label: "Traveller’s Elixir", url: "https://www.travellerselixir.com/texas-painted-churches-road-trip/", role: "Expansion and road-trip lead", note: "Helped surface Plantersville and Corn Hill as candidates before Texas Defined independently verified them." },
   { label: "Portal to Texas History", url: "https://texashistory.unt.edu/search/?q=painted+churches+texas", role: "Primary-source photographs and scans", note: "Especially valuable for historic interior photographs and locally held archival collections. Item-level reproduction rights are checked before image publication." },
@@ -41,6 +42,8 @@ const researchQueue = [
   { slug: "ellinger-st-marys-catholic-church", name: "St. Mary’s Church", place: "Ellinger / Hostyn Hill, Texas", status: "Historic church history is verified, but painted-interior evidence has not yet met the church-specific standard for public inclusion." },
   { slug: "rockne-sacred-heart-catholic-church", name: "Sacred Heart Catholic Church", place: "Rockne, Texas", status: "German-Catholic history and a reusable exterior are documented; Painted Church classification still needs stronger interior evidence." },
   { slug: "san-antonio-san-fernando-cathedral", name: "San Fernando Cathedral", place: "San Antonio, Texas", status: "A 1982 Buie Harwood decorative-painting research group verifies a serious lead, but surviving-program scope, authorship and fit with this collection still need stronger evidence before inclusion." },
+  { slug: "east-bernard-holy-cross-catholic-church", name: "Holy Cross Catholic Church", place: "East Bernard, Texas", status: "THC and parish sources verify imported painted copper Stations, mosaics and a Czech/German decorative program, but the surviving historic painted-surface chronology still needs a tighter integrity record before promotion." },
+  { slug: "rowena-st-joseph-catholic-church", name: "St. Joseph Catholic Church", place: "Rowena, Texas", status: "The competing catalog surfaced Rowena, but Texas Defined has not yet found primary, parish, archival or preservation evidence strong enough to establish a qualifying painted-interior program." },
 ] as const;
 
 export function PaintedChurchSourceLibrary() {
@@ -62,6 +65,19 @@ export function PaintedChurchSourceLibrary() {
             <h4 className="mt-2 font-display text-2xl leading-tight"><a href={source.url} target="_blank" rel="noreferrer" className="hover:text-primary">{source.label}</a></h4>
             <p className="mt-3 text-xs font-medium uppercase tracking-[0.1em] text-foreground/70">{source.authority}</p>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{source.contribution}</p>
+          </article>)}
+        </div>
+      </div>
+
+      <div className="mt-10 border-t border-border pt-8">
+        <p className="eyebrow text-primary">18-page secondary-source audit · {paintedChurchesInTexasReviewDate}</p>
+        <h3 className="mt-3 font-display text-3xl">PaintedChurchesInTexas.com was reviewed church by church, not copied wholesale.</h3>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">Texas Defined reviewed every church page in the competing catalog as a secondary research lead. New factual details were rewritten in original wording and merged only where they add useful context. Primary and institutional records still outrank the catalog. The review also surfaced four churches outside the verified 27; East Bernard and Rowena remain candidates, while Cestohowa and Hostyn are explicitly excluded from the current count because stronger evidence does not support treating them as surviving qualifying painted interiors.</p>
+        <div className="mt-7 grid gap-px border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
+          {paintedChurchesInTexasSources.map((source, index) => <article key={source.url} className="bg-background p-6">
+            <p className="eyebrow text-muted-foreground">Reviewed page {index + 1} of {paintedChurchesInTexasSources.length} · {source.use.replace(/-/g, " ")}</p>
+            <h4 className="mt-2 font-display text-2xl leading-tight"><a href={source.url} target="_blank" rel="noreferrer" className="hover:text-primary">{source.label}</a></h4>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{source.note}</p>
           </article>)}
         </div>
       </div>
