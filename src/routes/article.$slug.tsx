@@ -1,4 +1,4 @@
-import { createFileRoute, notFound, Link } from "@tanstack/react-router";
+import { createFileRoute, notFound, redirect, Link } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
@@ -8,6 +8,7 @@ import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPartners";
+import { RexingAffiliateCard, rexingOfferForArticle } from "@/components/monetization/RexingAffiliateCard";
 import { articleInternalLinks } from "@/data/article-internal-links";
 import { shouldNoindexTexasGatewayArticle } from "@/data/fixtures/texas-gateway-index-readiness";
 import { imageRightsFor } from "@/data/image-rights";
@@ -168,6 +169,9 @@ function hasSourcesAndFurtherReading(body: FaqBlock[]) {
 
 export const Route = createFileRoute("/article/$slug")({
   loader: async ({ context, params }) => {
+    if (params.slug === "what-to-keep-in-car-for-texas-road-trip") {
+      throw redirect({ href: "/article/texas-car-emergency-kit", statusCode: 301 });
+    }
     const article = await context.queryClient.ensureQueryData(articleQuery(params.slug));
     if (!article) throw notFound();
     const [authors, categories, related, destinations, completeGraph] = await Promise.all([
@@ -381,6 +385,7 @@ function ArticlePage() {
     : article.slug === "texas-rivers-explained"
       ? "rivers"
       : null;
+  const rexingOffer = rexingOfferForArticle(article.slug);
 
   return <article>
     <Container className="pt-8 sm:pt-12">
@@ -435,6 +440,7 @@ function ArticlePage() {
       </section>}
       {article.slug === "texas-rivers-explained" ? <Suspense fallback={<section className="mt-10 border-y border-border py-10" style={{ minHeight: "28rem" }} aria-label="Loading Texas river atlas" />}><TexasRiversAuthorityHub /></Suspense> : null}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28"><ArticleBody blocks={article.body} entities={graph} /></div>
+      {rexingOffer ? <RexingAffiliateCard offer={rexingOffer} placement={`article:${article.slug}:primary`} /> : null}
       {waterTopic ? (
         <Suspense fallback={<section className="mt-8 border-y border-border bg-surface" style={{ minHeight: "10rem" }} aria-label="Loading Texas water reference" />}>
           <TexasWaterSearchResource active={waterTopic} />

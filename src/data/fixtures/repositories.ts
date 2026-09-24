@@ -18,6 +18,7 @@ import { lazyEvergreenArticleStubs, loadLazyEvergreenArticle } from "./lazy-ever
 import { historicSupportingStubs, loadHistoricSupportingArticle } from "./lazy-historic-supporting";
 import { militaryHistoryExpansionStubs, loadMilitaryHistoryExpansionArticle } from "./lazy-military-history-expansion";
 import { standaloneEvergreenStubs, loadStandaloneEvergreenArticle } from "./lazy-standalone-evergreen";
+import { roadTripCameraAuthorityStubs, loadRoadTripCameraAuthorityArticle } from "./lazy-road-trip-camera-authority";
 import { coreEvergreenArticleStubs, loadCoreEvergreenArticle } from "./lazy-core-evergreen";
 import { migratedEditorialArticleStubs, loadMigratedEditorialArticle } from "./lazy-migrated-editorial";
 import { texasCoreArticleStubs, loadTexasCoreArticle } from "./lazy-texas-core-articles";
@@ -41,6 +42,7 @@ const editorialArticles = [
   ...coreEvergreenArticleStubs,
   ...lazyEvergreenArticleStubs,
   ...standaloneEvergreenStubs,
+  ...roadTripCameraAuthorityStubs,
   ...historicSupportingStubs,
   ...militaryHistoryExpansionStubs,
   ...texasCoreArticleStubs,
@@ -134,6 +136,21 @@ const COUNTY_INTERNAL_LINK_ADDITIONS: Partial<Record<string, NonNullable<Article
       description: "Continue north toward Monahans Sandhills and the Permian Basin's oil-road country.",
     },
   ],
+  "brewster-county-big-bend-texas": [
+    { href: "/article/texas-road-trip-vehicle-checklist", label: "Prepare the vehicle for Big Bend distances", description: "Plan tires, fuel, weather, offline maps and roadside readiness before remote West Texas driving." },
+    { href: "/article/rural-texas-property-monitoring", label: "Rural Texas property monitoring", description: "Connect ranch and acreage context with practical gate, outbuilding and wildlife-camera planning." },
+  ],
+  "presidio-county-marfa-borderlands-texas": [
+    { href: "/article/rural-texas-property-monitoring", label: "Monitoring remote Texas acreage", description: "Think through gates, power, cellular signal, weather and wildlife on rural property." },
+  ],
+  "edwards-county-rocksprings-devils-sinkhole-nueces-plateau-texas": [
+    { href: "/article/texas-wildlife-camera-guide", label: "Observe Texas wildlife with cameras", description: "Use cameras for education and land stewardship without disturbing wildlife." },
+    { href: "/article/trail-cameras-in-texas", label: "Trail cameras on Texas land", description: "Review private-property placement and the public-land rules that should be checked first." },
+  ],
+  "kenedy-county-sarita-ranches-padre-island-wild-horse-desert-texas": [
+    { href: "/article/texas-wildlife-camera-guide", label: "Texas wildlife camera guide", description: "Connect the county's ranch-and-wildlife landscape with responsible observation practices." },
+    { href: "/article/rural-texas-property-monitoring", label: "Rural property monitoring", description: "Plan cameras around acreage, gates, remote structures and unreliable connectivity." },
+  ],
 };
 
 const byBrand = <T extends { brandId: string }>(rows: T[], brandId: string) =>
@@ -198,6 +215,9 @@ export const fixtureArticles: ArticleRepository = {
 
     const standaloneArticle = await loadStandaloneEvergreenArticle(scope.brandId, slug);
     if (standaloneArticle) return normalizeArticle(standaloneArticle);
+
+    const roadTripCameraArticle = await loadRoadTripCameraAuthorityArticle(scope.brandId, slug);
+    if (roadTripCameraArticle) return normalizeArticle(roadTripCameraArticle);
 
     const historicSupportingArticle = await loadHistoricSupportingArticle(scope.brandId, slug);
     if (historicSupportingArticle) return normalizeArticle(historicSupportingArticle);
