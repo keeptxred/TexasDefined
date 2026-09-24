@@ -109,6 +109,7 @@ jobs:
               short="${sha:0:12}"
               tag="archive/stale-branch/$short"
               archive_ref="archive/stale-branch/$short"
+              archive_branch="archive/stale-branch/$short"
               archived_tip=0
 
               if gh api "repos/$REPOSITORY/git/ref/tags/$tag" >/dev/null 2>&1; then
@@ -117,6 +118,9 @@ jobs:
               elif gh api "repos/$REPOSITORY/git/ref/$archive_ref" >/dev/null 2>&1; then
                 archived_tip=1
                 echo "Unique tip for $branch already archived as custom ref refs/$archive_ref."
+              elif gh api "repos/$REPOSITORY/git/ref/heads/$archive_branch" >/dev/null 2>&1; then
+                archived_tip=1
+                echo "Unique tip for $branch already archived as branch $archive_branch."
               elif gh api --method POST "repos/$REPOSITORY/git/refs" -f ref="refs/tags/$tag" -f sha="$sha" >/dev/null 2>&1; then
                 archived_tip=1
                 archived=$((archived + 1))
@@ -128,8 +132,23 @@ jobs:
               fi
 
               if (( archived_tip == 0 )); then
+                owner="${REPOSITORY%%/*}"
+                closed_pr_number="$(
+                  gh api --method GET "repos/$REPOSITORY/pulls" \
+                    -f state=closed \
+                    -f head="$owner:$branch" \
+                    -f per_page=1 \
+                    --jq '.[0].number // empty' 2>/dev/null || true
+                )"
+                if [[ -n "$closed_pr_number" ]]; then
+                  archived_tip=1
+                  echo "Unique tip for $branch remains recoverable through closed PR #$closed_pr_number."
+                fi
+              fi
+
+              if (( archived_tip == 0 )); then
                 preserved=$((preserved + 1))
-                echo "Unable to archive unique tip for $branch; preserving branch and continuing."
+                echo "Unable to verify an archive or closed PR for $branch; preserving branch and continuing."
                 continue
               fi
             else
