@@ -133,14 +133,15 @@ jobs:
               fi
 
               if (( archived_tip == 0 )); then
-              elif gh api --method POST "repos/$REPOSITORY/git/refs" -f ref="refs/tags/$tag" -f sha="$sha" >/dev/null 2>&1; then
-                archived_tip=1
-                archived=$((archived + 1))
-                echo "Archived unique tip for $branch as tag $tag ($ahead unique commit(s))."
-              elif gh api --method POST "repos/$REPOSITORY/git/refs" -f ref="refs/$archive_ref" -f sha="$sha" >/dev/null 2>&1; then
-                archived_tip=1
-                archived=$((archived + 1))
-                echo "Archived unique tip for $branch as custom ref refs/$archive_ref ($ahead unique commit(s))."
+                if gh api --method POST "repos/$REPOSITORY/git/refs" -f ref="refs/tags/$tag" -f sha="$sha" >/dev/null 2>&1; then
+                  archived_tip=1
+                  archived=$((archived + 1))
+                  echo "Archived unique tip for $branch as tag $tag ($ahead unique commit(s))."
+                elif gh api --method POST "repos/$REPOSITORY/git/refs" -f ref="refs/$archive_ref" -f sha="$sha" >/dev/null 2>&1; then
+                  archived_tip=1
+                  archived=$((archived + 1))
+                  echo "Archived unique tip for $branch as custom ref refs/$archive_ref ($ahead unique commit(s))."
+                fi
               fi
 
               if (( archived_tip == 0 )); then
