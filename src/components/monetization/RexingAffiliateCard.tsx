@@ -44,7 +44,7 @@ const ARTICLE_OFFERS: Partial<Record<string, RexingOfferKey>> = {
   "cameras-texas-camping-outdoors": "trail-h6",
   "rural-texas-property-monitoring": "trail-h6",
   "texas-road-trip-vehicle-checklist": "jump-starters",
-  "what-to-keep-in-car-for-texas-road-trip": "jump-starters",
+  "texas-car-emergency-kit": "jump-starters",
 };
 
 export function rexingOfferForArticle(slug: string): RexingOffer | null {
