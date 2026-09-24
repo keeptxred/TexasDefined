@@ -112,6 +112,7 @@ const campingCardImages: Record<string, { src: string; alt: string; width: numbe
   "eisenhower-state-park": { src: "/images/state-parks/eisenhower-state-park.jpg", alt: "Eisenhower State Park in Texas", width: 1600, height: 422 },
   "lake-mineral-wells-state-park": { src: "/images/state-parks/lake-mineral-wells-state-park.jpg", alt: "Lake Mineral Wells State Park in Texas", width: 1600, height: 900 },
   "south-llano-river-state-park": { src: "/images/state-parks/south-llano-river-state-park.jpg", alt: "South Llano River State Park in Texas", width: 1600, height: 1067 },
+  "seminole-canyon-state-park-and-historic-site": { src: "/images/explore/historic-sites/seminole-canyon-state-park.jpg", alt: "Seminole Canyon State Park & Historic Site in Texas", width: 1600, height: 1067 },
 };
 
 function profileAnchor(profile: CampingDiscoveryProfile) {
