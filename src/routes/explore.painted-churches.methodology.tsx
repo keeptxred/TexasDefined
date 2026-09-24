@@ -8,7 +8,7 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/painted-churches/methodology";
 const description = "How Texas Defined verifies Painted Churches of Texas: inclusion rules, source hierarchy, image licensing, corrections, update dates and treatment of conflicting historical records.";
-const checkedAt = "2026-08-18";
+const checkedAt = "2026-09-24";
 
 export const Route = createFileRoute(canonicalPath)({
   head: () => {
@@ -96,7 +96,7 @@ function PaintedChurchMethodology() {
         <section className="border-t-2 border-foreground pt-8">
           <p className="eyebrow text-primary">Quick answer</p>
           <h2 className="mt-3 font-display text-4xl">Primary records lead; secondary sources interpret.</h2>
-          <p className="mt-5 max-w-4xl text-base leading-8 text-foreground/90">Texas Defined does not treat every “Painted Church” list as equivalent. Formal National Register membership, local touring traditions and later painted interiors are labeled separately. A church enters the verified statewide count only after church-specific evidence establishes the identity of the building and the basis for calling its interior painted or decoratively significant.</p>
+          <p className="mt-5 max-w-4xl text-base leading-8 text-foreground/90">Texas Defined does not treat every “Painted Church” list as equivalent. Formal National Register membership, local touring traditions and later painted interiors are labeled separately. A church enters the verified statewide count only after church-specific evidence establishes the identity of the building and the basis for calling its interior painted or decoratively significant. Dedicated church catalogs and competing travel resources are useful discovery sources: we mine them for factual leads, rewrite the research independently, preserve attribution, and then cross-check consequential claims against stronger primary or institutional records whenever those records are available.</p>
         </section>
 
         <section className="mt-14 border-t border-border pt-8">
