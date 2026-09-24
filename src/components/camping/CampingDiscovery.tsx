@@ -105,6 +105,13 @@ const campingCardImages: Record<string, { src: string; alt: string; width: numbe
   "lost-maples-state-natural-area": { src: "/images/state-parks/lost-maples-state-natural-area.jpg", alt: "Lost Maples State Natural Area in Texas", width: 1600, height: 1200 },
   "huntsville-state-park": { src: "/images/state-parks/huntsville-state-park.jpg", alt: "Huntsville State Park in Texas", width: 1600, height: 900 },
   "tyler-state-park": { src: "/images/state-parks/tyler-state-park.jpg", alt: "Tyler State Park in Texas", width: 1600, height: 1067 },
+  "galveston-island-state-park": { src: "/images/state-parks/galveston-island-state-park.jpg", alt: "Galveston Island State Park in Texas", width: 1600, height: 1057 },
+  "lake-livingston-state-park": { src: "/images/state-parks/lake-livingston-state-park.jpg", alt: "Lake Livingston State Park in Texas", width: 1600, height: 900 },
+  "martin-dies-jr-state-park": { src: "/images/state-parks/martin-dies-jr-state-park.jpg", alt: "Martin Dies, Jr. State Park in Texas", width: 1600, height: 1121 },
+  "bastrop-state-park": { src: "/images/state-parks/bastrop-state-park.jpg", alt: "Bastrop State Park in Texas", width: 1600, height: 1060 },
+  "eisenhower-state-park": { src: "/images/state-parks/eisenhower-state-park.jpg", alt: "Eisenhower State Park in Texas", width: 1600, height: 422 },
+  "lake-mineral-wells-state-park": { src: "/images/state-parks/lake-mineral-wells-state-park.jpg", alt: "Lake Mineral Wells State Park in Texas", width: 1600, height: 900 },
+  "south-llano-river-state-park": { src: "/images/state-parks/south-llano-river-state-park.jpg", alt: "South Llano River State Park in Texas", width: 1600, height: 1067 },
 };
 
 function profileAnchor(profile: CampingDiscoveryProfile) {
