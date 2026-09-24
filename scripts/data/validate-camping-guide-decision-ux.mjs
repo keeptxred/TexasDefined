@@ -40,6 +40,15 @@ requireText(component, "Managed by:", "campground managing-agency context");
 requireText(component, "profile.whyCampHere", "campground choice rendering");
 requireText(component, "Managing agency", "campground agency filter");
 requireText(component, "Sort results", "campground result sorting");
+requireText(component, "Compare campgrounds", "campground comparison panel");
+requireText(component, "Compare up to 3 verified profiles", "campground comparison limit");
+requireText(component, "aria-pressed={selectedForCompare}", "campground comparison selection state");
+requireText(component, "compareLimitReached", "campground comparison limit enforcement");
+requireText(component, "Clear comparison", "campground comparison reset");
+requireText(component, "Camp near a major metro", "campground metro shortcuts");
+for (const metro of ["Houston area", "Austin area", "San Antonio area", "Dallas area", "Fort Worth area"]) {
+  requireText(component, metro, "campground metro shortcut");
+}
 requireText(component, "...(profile.searchTerms ?? [])", "campground researched search-term indexing");
 requireText(component, "nearby city", "campground nearby-city search affordance");
 requireText(component, "Most recently verified", "campground verification sort");
@@ -134,4 +143,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Camping guide decision-UX validation passed: quick-match presets, researched destination and metro search terms, normalized amenity filtering, agency filtering, result sorting, shared canonical destination registry, guarded UI and structured-data destination links, seeded trip planning, campground choice context, planning-detail comparison, managing-agency context, destination-view disclosure, governed imagery, explicit lodging placement, seasonal planning, price-freshness guidance, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
+console.log("Camping guide decision-UX validation passed: quick-match presets, one-click metro shortcuts, researched destination and metro search terms, normalized amenity filtering, agency filtering, result sorting, three-profile side-by-side comparison, shared canonical destination registry, guarded UI and structured-data destination links, seeded trip planning, campground choice context, planning-detail comparison, managing-agency context, destination-view disclosure, governed imagery, explicit lodging placement, seasonal planning, price-freshness guidance, affiliate route coverage, live production verification and Big Bend campground hierarchy are protected.");
