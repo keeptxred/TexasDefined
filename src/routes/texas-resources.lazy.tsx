@@ -38,9 +38,12 @@ const groups: ReadonlyArray<ResourceGroup> = [
     ],
   },
   {
-    title: 'Money and homeownership',
+    title: 'Money, work and business',
     links: [
       ['Money & Property', '/decide/financial-tools'],
+      ['Texas industries', '/texas-industries'],
+      ['Texas jobs and economy', '/article/texas-jobs-economy-industries'],
+      ['Made in Texas companies and products', '/made-in-texas'],
       ['How to start a business in Texas', '/start-a-business-in-texas'],
       ['How Texas sales tax works', '/texas-sales-tax-explained'],
       ['Understand property taxes', '/learn/property-taxes'],
