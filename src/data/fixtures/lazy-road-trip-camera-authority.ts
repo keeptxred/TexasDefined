@@ -111,7 +111,7 @@ export const roadTripCameraAuthorityStubs: Article[] = [
     authorId: "a-dell", publishedAt: "2026-09-24", updatedAt: "2026-09-24", readingMinutes: 10,
     tags: ["rideshare dash cam Texas", "Uber dash cam Texas", "Lyft dash cam Texas", "cabin camera Texas", "audio recording Texas"],
     relatedCollections: [], relatedDestinations: [],
-  }),,
+  }),
   stub({
     id: "authority-texas-car-emergency-kit",
     slug: "texas-car-emergency-kit",
