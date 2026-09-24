@@ -130,6 +130,8 @@ const utilityCosts = base({
     h("Build a moving budget from three numbers"),
     p("For each utility, keep a low, expected and high monthly scenario. Use the expected case for the household budget, the high case to test whether summer or unusual usage would strain cash flow, and the low case only as a best-case comparison. Add one-time connection fees or deposits separately rather than hiding them inside the recurring monthly number."),
     h("Use the estimate as a question list"),
+    h("Verify the first bill before locking the budget"),
+    p("Before treating the estimate as final, confirm the actual provider, current tariff or plan terms, required deposits and any service-specific fees for the address. Keep the estimate and the first complete bill side by side after the move. If usage or fixed charges differ materially from the planning assumptions, update the household budget immediately instead of waiting for a high-demand summer month to expose the gap."),
     p("The goal is not to predict every future bill to the dollar. A good estimate tells you which assumptions matter enough to verify before signing a lease or buying a home. Ask who provides each service, request historical usage when available, check the current plan or tariff, and make sure the total still fits after taxes, insurance, maintenance and transportation are included."),
   ],
 }, "migration-finance-depth-utilities", utilityHero);

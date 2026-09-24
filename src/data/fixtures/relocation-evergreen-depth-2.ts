@@ -63,6 +63,8 @@ const houston = base({
       "Property-tax estimate at the expected purchase value.",
       "Major planned drainage, road, school or development projects nearby."
     ),
+    h("Verify the service map before treating an address as Houston"),
+    p("A Houston mailing address does not by itself identify every government, school or utility system that serves the property. Before signing, run the exact street address through official county appraisal, school-district, utility and flood-information tools, then record those results beside the monthly budget. That address-level check keeps a familiar ZIP code, subdivision name or marketing label from standing in for the taxing units, school assignment, drainage responsibilities, utility providers and recurring costs that actually shape daily life."),
     p("Houston relocation becomes much easier when every candidate home is treated as a bundle of jurisdictions, infrastructure and daily routes. The neighborhood name is useful for orientation; the exact address is what determines the household's real obligations."),
   ],
 }, "migration-relocation-depth-2-houston");
@@ -112,6 +114,8 @@ const sanAntonio = base({
       "Insurance, drainage and major home-specific operating costs.",
       "Known road, school and development projects around the property."
     ),
+    h("Check what changes at the city edge"),
+    p("A San Antonio-area address can sit inside the city, in another municipality or in an unincorporated part of Bexar or a neighboring county. That boundary can change the mix of utility providers, taxing units, road responsibilities, trash service and other local services. Before comparing two homes, verify the exact jurisdiction and providers for each address and put those differences into the same worksheet as the mortgage or rent. A lower advertised housing cost can lose its advantage when transportation, utilities or recurring local charges are materially different."),
     p("San Antonio is easiest to compare when the decision is built around systems rather than neighborhood reputation. The right address is the one where daily travel, schools, utilities, taxes and services fit the household's real routine."),
   ],
 }, "migration-relocation-depth-2-san-antonio");
@@ -158,6 +162,8 @@ const elPaso = base({
       "Travel time around or through the mountain at the household's actual hours.",
       "Fort Bliss gate, airport or port-of-entry access when those are regular destinations."
     ),
+    h("Build one address sheet before touring seriously"),
+    p("For each finalist, write down the exact jurisdiction, assigned school system, regular work or Fort Bliss destination, expected route around or through the Franklin Mountains, water provider, cooling equipment, emissions-registration requirement and likely transportation pattern. Then price the recurring items beside the housing payment. This makes two similarly priced homes comparable on the systems that will actually be used. It also gives the household a short list of facts to verify with official agencies, the landlord, seller, insurer or utility before money becomes nonrefundable."),
     p("El Paso rewards address-level planning because geography and infrastructure are unusually visible in everyday life. The strongest relocation decision connects the house to the mountain, water system, military or work destination, schools and transportation network before the lease or purchase contract makes those tradeoffs permanent."),
   ],
 }, "migration-relocation-depth-2-el-paso");

@@ -133,6 +133,8 @@ const refinance = base({
       "Are points being paid for a rate benefit you will keep long enough to use?",
       "Would using cash to reduce principal on the existing loan achieve the goal with less transaction cost?"
     ),
+    h("Compare the old and new loans on one page"),
+    p("Keep the current loan balance, interest rate, remaining term and monthly principal-and-interest payment beside the proposed loan amount, rate, term, points, lender credits and cash due at closing. Then calculate both the break-even month and the remaining balance at the household's expected move or payoff date. That side-by-side view makes it harder for a lower monthly payment to hide a longer repayment period, financed closing costs or a larger balance. Re-run the comparison if the final Loan Estimate changes materially before closing."),
     p("The strongest refinance has a measurable objective, a break-even point inside the expected holding period and a loan term that does not hide the real cost of the lower payment."),
   ],
 }, "migration-finance-depth-2-refinance", refinanceHero);
@@ -178,6 +180,8 @@ const homeownersInsurance = base({
     ),
     h("Budget the premium and the deductible"),
     p("Insurance affordability has two parts: the recurring premium and the cash needed after a claim. A policy that saves several hundred dollars per year but increases the storm deductible by thousands may be a poor fit for a household without sufficient reserves. Include both numbers in the homeownership budget."),
+    h("Re-shop when the property facts change"),
+    p("Treat the first quote as a snapshot, not a permanent cost. Roof age, renovations, prior claims information, deductible choices and insurer underwriting can change the price or available coverage. Before closing, make sure the insurer is quoting the same property details shown in the inspection and contract. After major roof, electrical, plumbing or mitigation work, ask whether the updated condition should be documented. At renewal, compare the declarations page with the prior year so changes in limits, deductibles and endorsements are visible rather than buried in the premium total."),
     p("The most useful insurance comparison is therefore not 'Which quote is cheapest?' It is 'Which policy gives this property the coverage we need at a premium and deductible we can actually carry?'"),
   ],
 }, "migration-finance-depth-2-insurance", insuranceHero);
