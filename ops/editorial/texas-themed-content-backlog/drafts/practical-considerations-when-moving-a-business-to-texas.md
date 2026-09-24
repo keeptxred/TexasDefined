@@ -141,7 +141,7 @@ That turns a relocation into an operating system rather than a one-time filing p
 - `/texas-living`
 - `/real-estate`
 - `/guides`
-- `/article/major-industries-driving-the-texas-economy` once approved/live
+- `/texas-industries`
 - `/article/things-to-know-about-the-texas-power-grid` once approved/live
 - `/article/facts-about-the-massive-texas-interstate-system` once approved/live
 - `/article/things-to-understand-about-the-texas-real-estate-market` once approved/live
