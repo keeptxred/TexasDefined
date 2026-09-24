@@ -145,8 +145,12 @@ for (const token of [
   "loadLiveLakeLevel",
 ]) requireText(files.liveLevelFunctions, token, `live lake-level server bridge missing ${token}`);
 for (const token of [
+  "PAGE_LIVE_LEVEL_BUDGET_MS = 1_500",
+  "loadPageLiveLakeLevel",
+  "Promise.race",
   "loadLiveLakeLevelResilient",
   "pageData.sources.liveLevel.url",
+  "const liveLakeLevel = await loadPageLiveLakeLevel(pageData.sources.liveLevel.url)",
   "return { ...pageData, liveLakeLevel }",
 ]) requireText(files.conroePageFunctions, token, `Lake Conroe page-data bundle missing ${token}`);
 for (const token of [
