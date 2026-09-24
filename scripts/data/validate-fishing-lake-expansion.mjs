@@ -189,6 +189,13 @@ for (const token of [
   "SHOWCASE_LAKE_SECTION_SLUGS",
 ]) requireText(files.server, token, `expanded server page-data integration missing ${token}`);
 for (const token of ["EXPANDED_SHOWCASE_LAKE_SLUGS", "WAVE2_SHOWCASE_LAKE_SLUGS", "isShowcaseLakeSlug", "PublishedShowcaseLakeSlug"]) requireText(files.routing, token, `expanded routing contract missing ${token}`);
+requireText(files.showcasePrototypes, "slug: PublishedShowcaseLakeSlug;", "showcase prototype slug type must accept the published showcase-lake union");
+requireText(files.expansionPrototypes, 'import type { ExpandedShowcaseLakeSlug } from "./showcase-lake-routing";', "expanded prototypes must consume the authoritative routing slug type");
+requireText(files.wave2Prototypes, 'import type { Wave2ShowcaseLakeSlug } from "./showcase-lake-routing";', "wave-2 prototypes must consume the authoritative routing slug type");
+if (files.expansionPrototypes.includes("export const EXPANDED_SHOWCASE_LAKE_SLUGS")) throw new Error("Fishing Batch 15 validation failed: expanded prototypes must not maintain a duplicate showcase-lake slug registry.");
+for (const [label, source] of [["expanded", files.expansionPrototypes], ["wave-2", files.wave2Prototypes]]) {
+  if (source.includes("asLegacySlug") || source.includes("as unknown as ShowcaseLakeSlug")) throw new Error(`Fishing Batch 15 validation failed: ${label} prototypes must not bypass the published showcase-lake slug type with a legacy cast.`);
+}
 for (const route of [files.overviewRoute, files.sectionRoute]) {
   requireText(route, "isShowcaseLakeSlug", "generic dynamic route must enforce published showcase gate");
   requireText(route, "getShowcaseLakePageData({ data: { slug: params.slug } })", "generic dynamic route must hydrate only the requested lake through the shared server boundary");
