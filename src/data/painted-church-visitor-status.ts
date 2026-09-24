@@ -108,6 +108,14 @@ export const paintedChurchVisitorStatuses: PaintedChurchVisitorStatus[] = [
     controllingSourceLabel: "Our Lady of Grace Catholic Church — La Coste",
     checkedAt: CHECKED,
   },
+  {
+    slug: "mason-st-joseph-catholic-church",
+    status: "arrange-ahead",
+    summary: "St. Joseph is an active Mason parish. Texas Time Travel advises visitors to call ahead to arrange a time to view the church outside its worship schedule; parish liturgies and events take priority.",
+    controllingSourceUrl: "https://texastimetravel.com/directory/st-josephs-catholic-church/",
+    controllingSourceLabel: "Texas Time Travel — St. Joseph's Catholic Church Mason",
+    checkedAt: "2026-09-24",
+  },
 ];
 
 export const paintedChurchVisitorStatusBySlug = new Map(paintedChurchVisitorStatuses.map((item) => [item.slug, item]));

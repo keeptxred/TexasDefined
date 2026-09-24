@@ -43,6 +43,7 @@ const expansionSlugs = [
   'palestine-sacred-heart-catholic-church', 'bandera-st-stanislaus-catholic-church',
   'corpus-christi-sacred-heart-catholic-church', 'san-antonio-st-joseph-catholic-church',
   'anderson-st-stanislaus-kostka', 'castroville-st-louis-catholic-church', 'lacoste-our-lady-of-grace',
+  'mason-st-joseph-catholic-church',
 ];
 for (const slug of expansionSlugs) requireText(sourceLibrary, `slug: "${slug}"`, 'Verified expansion accounting');
 requireText(sourceLibrary, 'The collection now includes {expandedPaintedChurches.length} verified church profiles.', 'Canonical expansion count');
@@ -51,7 +52,7 @@ requireText(sourceLibrary, 'to="/explore/painted-churches/$slug"', 'Verified-add
 for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka']) {
   requireText(expansionProfiles, `slug: "${slug}"`, 'Expansion detail-profile coverage');
 }
-for (const slug of ['castroville-st-louis-catholic-church','lacoste-our-lady-of-grace']) {
+for (const slug of ['castroville-st-louis-catholic-church','lacoste-our-lady-of-grace','mason-st-joseph-catholic-church']) {
   requireText(latestProfiles, `slug: "${slug}"`, 'Latest detail-profile coverage');
 }
 requireText(profileIndex, 'paintedChurchExpansionProfileBySlug(slug)', 'Canonical expansion profile resolver');
@@ -100,7 +101,7 @@ requireText(thenNow, 'const neither =', 'Then & Now coverage accounting');
 requireText(thenNow, 'Coverage accounting:', 'Then & Now coverage accounting');
 requireText(thenNow, 'Open visual-research queue', 'Then & Now backlog transparency');
 requireText(thenNow, 'paired.length + archivalOnly.length + currentOnly.length + neither.length', 'Then & Now reconciliation');
-requireText(mapRoute, '["Gillespie", "Bandera", "Karnes", "Bexar", "Medina"]', 'Medina County Painted Churches map region');
+requireText(mapRoute, '["Gillespie", "Bandera", "Karnes", "Bexar", "Medina", "Mason"]', 'Medina County Painted Churches map region');
 requireText(mapRoute, 'return "Hill Country & South-Central Texas"', 'Medina County Painted Churches map region');
 
 requireText(tripPlanner, 'PaintedChurchRoutePromo', 'Trip-planner reciprocal link');
@@ -110,7 +111,7 @@ requireText(tripPlanner, 'church-specific visitor information and official sourc
 forbidText(tripPlanner, 'visitor-source checks', 'Trip-planner retired QA language');
 requireText(countyGuides, 'countyChurches = expandedPaintedChurches.filter', 'County reciprocal link');
 requireText(guidebook, 'label: "Painted Churches of Texas"', 'Guidebook discovery');
-requireText(guidebook, 'A source-backed heritage reference and travel-planning system for 27 verified churches.', 'Guidebook authority copy');
+requireText(guidebook, 'A source-backed heritage reference and travel-planning system for 28 verified churches.', 'Guidebook authority copy');
 requireText(topicPaths, 'label: "Painted Churches of Texas"', 'Historic-sites reciprocal link');
 requireText(topicPaths, 'to: "/explore/painted-churches/routes"', 'Road-trip reciprocal link');
 requireText(topicPaths, 'label: "Painted Churches"', 'Small-town reciprocal link');

@@ -35,6 +35,7 @@ const verifiedAdditions = [
   { slug: "anderson-st-stanislaus-kostka", name: "St. Stanislaus Kostka Catholic Church", place: "Anderson, Texas", result: "Verified and added from the parish's own record of restored original ceiling painting, historic altars and glass, and a separately dated 2014 altar mural." },
   { slug: "castroville-st-louis-catholic-church", name: "St. Louis Catholic Church", place: "Castroville, Texas", result: "Verified and added from the active parish’s painted-interior documentation, Buie Harwood decorative-painting research and Texas Historical Commission Recorded Texas Historic Landmark records." },
   { slug: "lacoste-our-lady-of-grace", name: "Our Lady of Grace Catholic Church", place: "La Coste, Texas", result: "Verified and added from the active parish, Texas Historical Commission records and a dedicated 21-slide Buie Harwood decorative-painting research group for the 1911 church." },
+  { slug: "mason-st-joseph-catholic-church", name: "St. Joseph Catholic Church", place: "Mason, Texas", result: "Verified and added from the parish’s own 1916 Manuel Lopez painting record, Diocese of Austin restoration reporting and the 2024 evidence-based recovery of the concealed celestial ceiling." },
 ] as const;
 
 const researchQueue = [

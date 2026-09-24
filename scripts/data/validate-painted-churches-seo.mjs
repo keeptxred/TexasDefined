@@ -60,6 +60,7 @@ for (const token of ['classification:', 'interiorIntegrity:', 'culturalHeritage:
 const promoted = [
   'corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church',
   'anderson-st-stanislaus-kostka','castroville-st-louis-catholic-church','lacoste-our-lady-of-grace',
+  'mason-st-joseph-catholic-church',
 ];
 for (const slug of promoted) {
   requireText(expanded, slug, 'Canonical collection');
@@ -71,7 +72,7 @@ requireText(census, 'status: "candidate"', 'Census');
 requireText(census, 'status: "excluded"', 'Census');
 
 const mapCount = (mapPoints.match(/slug: "/g) ?? []).length;
-if (mapCount !== 27) failures.push(`Expected 27 map points, found ${mapCount}.`);
+if (mapCount !== 28) failures.push(`Expected 28 map points, found ${mapCount}.`);
 const formalCount = (register.match(/nris: "/g) ?? []).length;
 if (formalCount !== 14) failures.push(`Expected 14 formal National Register evidence records, found ${formalCount}.`);
 
@@ -87,7 +88,7 @@ if ((itineraries.match(/slug: "/g) ?? []).length < 8) failures.push('Itinerary l
 
 requireText(profileIndex, 'latestPaintedChurchProfileBySlug', 'Canonical profile resolver');
 requireText(researchIndex, 'latestPaintedChurchResearchBySlug', 'Canonical research resolver');
-for (const slug of ['castroville-st-louis-catholic-church','lacoste-our-lady-of-grace']) {
+for (const slug of ['castroville-st-louis-catholic-church','lacoste-our-lady-of-grace','mason-st-joseph-catholic-church']) {
   requireText(latestProfiles, `slug: "${slug}"`, 'Latest profile layer');
   requireText(latestResearch, `slug: "${slug}"`, 'Latest research layer');
 }
@@ -102,7 +103,7 @@ requireText(thenNowRoute, 'Rights-clearing queue', 'Then & Now authority page');
 requireText(comparison, 'builtYear', 'Comparison intelligence');
 requireText(comparison, 'paintedChurchSymbols', 'Comparison intelligence');
 requireText(jsonData, 'schemaVersion: 4', 'JSON dataset');
-requireText(jsonData, 'asOf: "2026-08-19"', 'JSON dataset freshness');
+requireText(jsonData, 'asOf: "2026-09-24"', 'JSON dataset freshness');
 for (const token of ['map:', 'comparison:', 'routes:', 'thenAndNow:', 'media:', 'citationGuide:']) requireText(jsonData, token, 'JSON authority metadata');
 requireText(csvData, 'documented_symbols', 'CSV dataset');
 
@@ -131,12 +132,12 @@ for (const path of authorityPaths) {
 for (const path of ['/explore/painted-churches', '/explore/painted-churches/guides']) {
   requireText(sitemap, JSON.stringify(path), 'Explore sitemap canonical collection');
 }
-requireText(llms, 'currently contains 27 verified church profiles', 'llms.txt');
-requireText(manifest, '27-verified-churches', 'Citation manifest');
+requireText(llms, 'currently contains 28 verified church profiles', 'llms.txt');
+requireText(manifest, '28-verified-churches', 'Citation manifest');
 
 if (failures.length) {
   console.error('Painted Churches authority validation failed:');
   failures.forEach((failure) => console.error(`- ${failure}`));
   process.exit(1);
 }
-console.log('Painted Churches authority protected: 27 verified churches, 14 formal records, entity authority pages, archival comparisons, county reciprocal links, visitor freshness, JSON v4/CSV datasets, search, self-canonical sitemap coverage and citation surfaces.');
+console.log('Painted Churches authority protected: 28 verified churches, 14 formal records, entity authority pages, archival comparisons, county reciprocal links, visitor freshness, JSON v4/CSV datasets, search, self-canonical sitemap coverage and citation surfaces.');

@@ -173,6 +173,21 @@ export const additionalVerifiedPaintedChurches: PaintedChurch[] = [
     secondarySourceUrl: "https://txarchives.org/utaaa/finding_aids/00136.xml",
     sourceCheckedAt: CHECKED,
   },
+  {
+    slug: "mason-st-joseph-catholic-church",
+    name: "St. Joseph Catholic Church",
+    shortName: "St. Joseph at Mason",
+    city: "Mason",
+    county: "Mason",
+    address: "216 N Ave B, Mason, TX 76856",
+    denomination: "Roman Catholic",
+    summary: "An 1876 red-sandstone Hill Country church whose 1916 sky-blue ceiling of clouds, stars, angels and a Holy Spirit dove was painted by local artist Manuel Lopez, concealed during the 1963 expansion and restored in 2024.",
+    significance: "The parish's own 1983 history documents Manuel Lopez's 1916 painted interior. Diocese of Austin reporting and the 2024 restoration team independently document the concealed historic ceiling, its recovery and the extension of the restored scheme across the enlarged church. Texas Defined classifies Mason in the broader historic Painted Churches tradition rather than the formal 1983 National Register decorative-interior group.",
+    visitNote: "St. Joseph is an active Catholic parish. The parish publishes current Mass, confession and office information; Texas Time Travel advises calling ahead for sightseeing access outside scheduled worship.",
+    sourceUrl: "https://www.stjosephmason.org/about-us",
+    secondarySourceUrl: "https://austindiocese.news/st-joseph-mason-celebrates-more-150-years-nurturing-faith",
+    sourceCheckedAt: "2026-09-24",
+  },
 ];
 
 const imageOverrides: Partial<Record<string, NonNullable<PaintedChurch["image"]>>> = {
@@ -234,6 +249,7 @@ const metadata: Record<string, Pick<CanonicalPaintedChurch, "interiorIntegrity" 
   "anderson-st-stanislaus-kostka": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["Polish Catholic"], techniques: ["freehand", "decorative-murals"] },
   "castroville-st-louis-catholic-church": { interiorIntegrity: "uncertain", culturalHeritage: ["Alsatian Catholic", "French-German frontier Catholic"], techniques: ["decorative-murals"] },
   "lacoste-our-lady-of-grace": { interiorIntegrity: "uncertain", culturalHeritage: ["Medina County Catholic"], techniques: [] },
+  "mason-st-joseph-catholic-church": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["Mason County Catholic", "Texas Hill Country Catholic"], techniques: ["freehand", "decorative-murals"] },
 };
 
 const combined = [
