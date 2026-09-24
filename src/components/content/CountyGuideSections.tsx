@@ -18,6 +18,12 @@ type CountyIndustryPathway = {
 };
 
 const COUNTY_INDUSTRY_PATHWAYS: Record<string, CountyIndustryPathway[]> = {
+  travis: [{ href: "/gaming/austin", label: "Austin game development", description: "Connect Travis County to Austin's verified game-development employers, digital-media workforce and statewide gaming industry." }],
+  williamson: [{ href: "/gaming/austin", label: "Central Texas gaming", description: "Connect Williamson County and Round Rock to the Austin-area game-development cluster and verified employers." }],
+  collin: [{ href: "/gaming/dfw", label: "DFW gaming industry", description: "Connect Collin County and Frisco to North Texas game development, esports and the wider DFW gaming ecosystem." }],
+  tarrant: [{ href: "/gaming/dfw", label: "DFW gaming industry", description: "Connect Tarrant County to game development, collegiate esports and Arlington's dedicated esports venue." }, { href: "/gaming/esports-stadium-arlington", label: "Esports Stadium Arlington", description: "Plan around Arlington's city-owned esports competition facility and official venue information." }],
+  dallas: [{ href: "/gaming/why-dallas-matters-online-gaming", label: "Why Dallas matters to online gaming", description: "Connect Dallas County to the region's documented peering, interconnection and data-center market without assuming a specific game-server presence." }],
+  denton: [{ href: "/gaming/college-esports", label: "College esports in Texas", description: "Connect Denton County to UNT's officially documented varsity esports program." }],
   andrews: [{ href: "/texas-industries/energy-power", label: "Texas energy & power", description: "Connect Andrews County's Permian Basin oilfield economy to the statewide energy system." }],
   crane: [{ href: "/texas-industries/energy-power", label: "Texas energy & power", description: "Put Crane County's oilfield history and current Permian infrastructure in statewide context." }],
   ector: [{ href: "/texas-industries/energy-power", label: "Texas energy & power", description: "Follow Odessa and Ector County into the wider Permian Basin energy economy." }],
