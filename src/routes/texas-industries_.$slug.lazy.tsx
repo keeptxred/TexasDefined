@@ -9,7 +9,7 @@ export const Route = createLazyFileRoute("/texas-industries/$slug")({
 
 function TexasIndustryPage() {
   const industry = Route.useLoaderData();
-  const related = TEXAS_INDUSTRIES.filter((item) => item.slug !== industry.slug).slice(0, 5);
+  const related = TEXAS_INDUSTRIES.filter((item) => industry.relatedSectorSlugs.includes(item.slug));
 
   return (
     <main>
@@ -53,23 +53,23 @@ function TexasIndustryPage() {
                   <div className="bg-background p-6">
                     <h3 className="font-display text-2xl">Representative roles</h3>
                     <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">
-                      {industry.workforce.roles.map((role) => <li key={role} className="border-t border-border pt-3 first:border-t-0 first:pt-0">{role}</li>)}
+                      {industry.workforce.roles.map((role) => <li key={role}>{role}</li>)}
                     </ul>
                   </div>
                   <div className="bg-background p-6">
                     <h3 className="font-display text-2xl">Common education & training routes</h3>
                     <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">
-                      {industry.workforce.pathways.map((pathway) => <li key={pathway} className="border-t border-border pt-3 first:border-t-0 first:pt-0">{pathway}</li>)}
+                      {industry.workforce.pathways.map((pathway) => <li key={pathway}>{pathway}</li>)}
                     </ul>
                   </div>
                 </div>
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                  <a href="https://lmi.twc.texas.gov/" target="_blank" rel="noreferrer" className="border p-5 hover:border-primary/60">
+                  <a href="https://lmi.twc.texas.gov/" target="_blank" rel="noreferrer" className="border p-5">
                     <span className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">Official labor-market data</span>
                     <strong className="mt-2 block font-display text-xl">Texas Workforce Commission LMI</strong>
                     <span className="mt-2 block text-sm leading-6 text-muted-foreground">Research employment, occupations, wages, projections and regional labor-market conditions using Texas Workforce Commission tools.</span>
                   </a>
-                  <a href="https://www.highered.texas.gov/workforce-education-overview/programs-of-study/" target="_blank" rel="noreferrer" className="border border-border p-5 hover:border-primary/60">
+                  <a href="https://www.highered.texas.gov/workforce-education-overview/programs-of-study/" target="_blank" rel="noreferrer" className="border border-border p-5">
                     <span className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">Education pathways</span>
                     <strong className="mt-2 block font-display text-xl">Texas Programs of Study</strong>
                     <span className="mt-2 block text-sm leading-6 text-muted-foreground">Explore Texas career and technical education pathways, including certificates, applied associate degrees and industry-recognized credentials.</span>
