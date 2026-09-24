@@ -6,7 +6,7 @@ TexasDefined treats lodging as a trip-planning utility, not a sitewide ad layer.
 
 1. **Stay Nearby** supplies context-first hotel recommendations when TexasDefined has governed relevance data for the current venue, event, destination or city.
 2. **Expedia stays search** is the approved broad-search fallback and remains the host for live availability/search behavior.
-3. **Hotels.com / Orbitz / Travelocity / Vrbo choices** add a route-scoped traveler monetization layer inside the same Stay Nearby surface. Hotels.com remains primary for verified exact-property referrals. Orbitz is the comparison-hotel option on hotel-first event and sports-venue intent, while Travelocity is the comparison-hotel option on broader destination/leisure intent. Those broader routes can also offer Vrbo when a vacation-rental setup fits the trip. Vrbo owner referrals are separately gated to owner/real-estate context and are not inferred from ordinary travel intent.
+3. **Hotels.com / Orbitz / Travelocity / Vrbo / RVshare choices** add a route-scoped traveler monetization layer inside the same Stay Nearby surface. Hotels.com remains primary for verified exact-property referrals. Orbitz is the comparison-hotel option on hotel-first event and sports-venue intent, while Travelocity is the comparison-hotel option on broader destination/leisure intent. Those broader routes can also offer Vrbo when a vacation-rental setup fits the trip. Vrbo owner referrals are separately gated to owner/real-estate context and are not inferred from ordinary travel intent.
 
 Editorial relevance and affiliate activation remain separate. A hotel can be included because its location is useful even when TexasDefined does not yet have a verified property-specific affiliate link. In that case, the card falls back to the approved Expedia stays search instead of inventing a property deep link.
 
@@ -21,7 +21,7 @@ Commission-aware routing decisions are governed separately in `docs/travel-affil
 - PUBREF: `texasdefined-stays`
 - Vendor script: `https://creator.expediagroup.com/products/widgets/assets/eg-widgets.js`
 
-The server-rendered root shell emits deferred first-party bootstraps at `/expedia-travel.js` and `/stay-affiliate-options.js`, with the Hotels.com/Orbitz/Travelocity/Vrbo bootstrap loading after the Expedia bootstrap. The hydrated client build excludes these bootstrap references, so lodging monetization does not consume the protected React `main-*.js` budget.
+The server-rendered root shell emits deferred first-party bootstraps at `/expedia-travel.js` and `/stay-affiliate-options.js`, with the Hotels.com/Orbitz/Travelocity/Vrbo/RVshare bootstrap loading after the Expedia bootstrap. The hydrated client build excludes these bootstrap references, so lodging monetization does not consume the protected React `main-*.js` budget.
 
 The Expedia vendor script itself is never loaded during the initial page load. It is created only after a visitor activates an Expedia-search fallback or broader stay-search control.
 
@@ -37,7 +37,7 @@ Current traveler intent policy:
 - **Hotels + vacation rentals:** destinations, Explore travel content, city guides, county guides and the approved statewide camping, college-town, tailgating, unique-lodging, music-venue and roadside-oddity guides.
 - **Owner referral:** `/real-estate` and explicitly qualifying owner/vacation-rental article metadata only. Ordinary travel pages do not inherit owner-referral eligibility.
 
-Visible CTAs include `Find places to stay` and `Find hotels on Hotels.com`. Hotel-first event/venue pages use `Compare hotels on Orbitz`; broader destination/leisure pages use `Compare hotels on Travelocity`; and, where the route policy permits it, those broader pages can also show `Find vacation rentals on Vrbo`.
+Visible CTAs include `Find places to stay` and `Find hotels on Hotels.com`. Hotel-first event/venue pages use `Compare hotels on Orbitz`; broader destination/leisure pages use `Compare hotels on Travelocity`; and, where the route policy permits it, those broader pages can also show `Find vacation rentals on Vrbo`. High-intent camping, RV-park, state-park, outdoors and road-trip routes can additionally show `Rent an RV on RVshare`; generic city, county, event and destination pages fail closed for RVshare.
 
 Affiliate clicks push an `affiliate_click` object into `window.dataLayer` with partner, CTA label, placement and current page path. The tracking payload does not collect visitor PII. A matching `texasdefined:affiliate-click` browser event is also dispatched for first-party observability.
 
@@ -182,7 +182,7 @@ The centralized travel guard covers:
 - `/event/*` guides
 - approved statewide trip-planning pages already covered by the travel guard
 
-Curated Stay Nearby cards render only when the registry has a relevant context. Other approved travel pages retain the generic Expedia stays search plus route-appropriate Hotels.com/Orbitz/Travelocity/Vrbo traveler choices.
+Curated Stay Nearby cards render only when the registry has a relevant context. Other approved travel pages retain the generic Expedia stays search plus route-appropriate Hotels.com/Orbitz/Travelocity/Vrbo/RVshare traveler choices.
 
 ## Disclosure
 
@@ -204,7 +204,7 @@ The traveler choice panel uses route-specific disclosure copy: hotel-first event
 
 `scripts/data/validate-expedia-affiliate.mjs` protects the core Expedia/Stay Nearby contract, including tracking values, user-intent loading, route guards, relevance data, property-link verification, image governance and carousel behavior.
 
-`scripts/data/validate-stay-affiliate-options.mjs` protects the Hotels.com/Orbitz/Travelocity/Vrbo layer and executes the route-policy API in a minimal browser sandbox. It verifies:
+`scripts/data/validate-stay-affiliate-options.mjs` protects the Hotels.com/Orbitz/Travelocity/Vrbo/RVshare layer and executes the route-policy API in a minimal browser sandbox. It verifies:
 
 - event and sports-venue intent remains hotel-first
 - hotel-first event and sports-venue routes resolve the comparison hotel to Orbitz, while destination, city, county, Explore and governed statewide travel families resolve it to Travelocity and retain Vrbo traveler intent
@@ -219,6 +219,6 @@ The traveler choice panel uses route-specific disclosure copy: hotel-first event
 
 `scripts/ci/verify-stay-nearby-production.mjs` applies the live-production checks for the governed curated hotel registry and image/provenance rules.
 
-`scripts/ci/verify-stay-affiliate-production.mjs` verifies the live Hotels.com/Orbitz/Travelocity/Vrbo and Expedia bootstraps, their ordering and tracking markers, deterministic in-content slots on representative event/venue/destination pages, and shared stay-bootstrap presence on representative city and county guides.
+`scripts/ci/verify-stay-affiliate-production.mjs` verifies the live Hotels.com/Orbitz/Travelocity/Vrbo/RVshare and Expedia bootstraps, their ordering and tracking markers, deterministic in-content slots on representative event/venue/destination pages, and shared stay-bootstrap presence on representative city and county guides.
 
 `.github/workflows/verify-stay-affiliate-production.yml` runs that smoke test automatically after a successful `Deploy TexasDefined production` workflow. This closes the loop from source validation to deployed behavior without requiring a manual affiliate audit after every release.
