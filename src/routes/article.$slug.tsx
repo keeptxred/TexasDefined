@@ -7,6 +7,7 @@ import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
+import { AbracadabraCosplayCard } from "@/components/monetization/AbracadabraCosplayCard";
 import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPartners";
 import { articleInternalLinks } from "@/data/article-internal-links";
 import { shouldNoindexTexasGatewayArticle } from "@/data/fixtures/texas-gateway-index-readiness";
@@ -342,6 +343,14 @@ export const Route = createFileRoute("/article/$slug")({
   component: ArticlePage,
 });
 
+const abracadabraDestinationByArticle = {
+  "texas-cosplay-guide": "costumes",
+  "cosplay-in-texas-heat": "fx-makeup",
+  "texas-cosplay-prop-guide": "props",
+  "halloween-in-texas": "masks",
+  "texas-halloween-costume-guide": "costumes",
+} as const;
+
 function ArticlePage() {
   const { article, graph, categories, destinations, authors, related } = Route.useLoaderData();
   const primarySource = articlePrimarySource(article);
@@ -435,6 +444,10 @@ function ArticlePage() {
       </section>}
       {article.slug === "texas-rivers-explained" ? <Suspense fallback={<section className="mt-10 border-y border-border py-10" style={{ minHeight: "28rem" }} aria-label="Loading Texas river atlas" />}><TexasRiversAuthorityHub /></Suspense> : null}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28"><ArticleBody blocks={article.body} entities={graph} /></div>
+      {article.slug in abracadabraDestinationByArticle ? <AbracadabraCosplayCard
+        destination={abracadabraDestinationByArticle[article.slug as keyof typeof abracadabraDestinationByArticle]}
+        placement={`cosplay-fandom-${article.slug}`}
+      /> : null}
       {waterTopic ? (
         <Suspense fallback={<section className="mt-8 border-y border-border bg-surface" style={{ minHeight: "10rem" }} aria-label="Loading Texas water reference" />}>
           <TexasWaterSearchResource active={waterTopic} />
