@@ -90,7 +90,7 @@ function TexasIndustryPage() {
                 <h2 className="mt-2 font-display text-2xl">Continue through the economy</h2>
                 <div className="mt-5 divide-y divide-border border-y border-border">
                   {related.map((item) => (
-                    <Link key={item.slug} to="/texas-industries/$slug" params={{ slug: item.slug }} className="block py-4 text-sm font-semibold hover:text-primary">{item.shortTitle} →</Link>
+                    <a key={item.slug} href={item.href} className="block py-4 text-sm font-semibold hover:text-primary">{item.shortTitle} →</a>
                   ))}
                 </div>
                 <Link to="/texas-industries" className="mt-5 inline-block text-sm font-semibold text-primary">View all industries →</Link>
