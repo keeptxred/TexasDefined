@@ -16,6 +16,7 @@ const profileWave7 = read("src/data/camping/profiles-wave7.ts");
 const profileWave8 = read("src/data/camping/profiles-wave8.ts");
 const profileWave9 = read("src/data/camping/profiles-wave9.ts");
 const expedia = read("public/expedia-travel.js");
+const stayOptions = read("public/stay-affiliate-options.js");
 const production = read("scripts/ci/verify-production-surfaces.mjs");
 
 const failures = [];
@@ -76,7 +77,13 @@ requireText(page, 'to="/texas-weather"', "camping weather authority cross-link")
 requireText(page, "Why are campground prices not listed here?", "camping price-freshness guidance");
 requireText(page, "Does “full hookup” apply to every site in a campground?", "camping hookup-scope FAQ");
 requireText(expedia, "best-places-to-go-camping-in-texas", "camping affiliate route coverage");
+requireText(page, '<div data-stay-nearby-slot aria-label="Places to stay before or after a Texas camping trip" />', "camping zero-height Stay Nearby slot");
+requireText(stayOptions, "best-places-to-go-camping-in-texas", "camping governed stay-affiliate eligibility");
+requireText(stayOptions, "Affiliate disclosure: TexasDefined may earn a commission", "camping stay-affiliate disclosure");
+requireText(stayOptions, "Rent an RV on RVshare", "camping relevant RVshare option");
 requireText(production, "['camping-guide', '/best-places-to-go-camping-in-texas', 'Best Places to Go Camping in Texas']", "camping live-production verification");
+requireText(production, "Showing 63 of 63 verified profiles.", "camping live profile-count verification");
+requireText(production, "Possum Kingdom State Park", "camping Wave 9 live-production verification");
 
 const imageCount = (component.match(/"[^"]+": \{ src: "\/images\//g) || []).length;
 if (imageCount < 15) failures.push(`camping destination imagery: expected at least 15 governed local image mappings, found ${imageCount}`);
