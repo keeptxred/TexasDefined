@@ -44,6 +44,7 @@ function GamingTopicPage() {
 
               {page.slug === "companies" ? <CompanyDirectory /> : null}
               {page.slug === "college-esports" ? <CollegeDirectory /> : null}
+              {page.slug === "esports-stadium-arlington" ? <ArlingtonStayCallout /> : null}
               {page.gearup === "evergreen" ? <GearUpCallout placement={`gaming-${page.slug}`} /> : null}
 
               <section className="mt-14 border-t border-border pt-10">
@@ -121,6 +122,36 @@ function CollegeDirectory() {
         ))}
       </div>
     </section>
+  );
+}
+
+function ArlingtonStayCallout() {
+  const destination = "https://www.hotels.com/ho1066640416/live-by-loews-arlington-tx-arlington-united-states-of-america/";
+  const href = `https://www.anrdoezrs.net/links/101876465/type/dlg/${destination}`;
+  const placement = "gaming-esports-stadium-arlington-stay";
+  return (
+    <aside className="mt-12 border border-border bg-surface p-6" data-affiliate-module="gaming-event-stay">
+      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Stay nearby</p>
+      <h2 className="mt-2 font-display text-2xl">An Entertainment District hotel option</h2>
+      <p className="mt-3 text-sm leading-7 text-muted-foreground">
+        Live! by Loews – Arlington, TX is one of TexasDefined's already reviewed Arlington Entertainment District lodging records.
+        Check the event date first, then compare the current rate and booking terms directly with the booking provider.
+      </p>
+      <a
+        href={href}
+        target="_blank"
+        rel="sponsored nofollow noopener noreferrer"
+        data-affiliate-partner="hotels.com"
+        data-affiliate-placement={placement}
+        data-commercial-partner="hotels.com"
+        data-commercial-placement={placement}
+        onClick={() => trackAffiliateClick({ partner: "hotels.com", label: "Live! by Loews – Arlington, TX", placement, module: "gaming-event-stay" })}
+        className="mt-5 inline-flex min-h-11 items-center border border-primary px-4 py-2.5 text-sm font-semibold text-primary"
+      >
+        View Live! by Loews on Hotels.com ↗
+      </a>
+      <p className="mt-4 text-xs leading-5 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from a qualifying Hotels.com booking, at no additional cost to you.</p>
+    </aside>
   );
 }
 
