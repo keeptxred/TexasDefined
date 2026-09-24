@@ -1,7 +1,7 @@
 export type GamingSource = {
   label: string;
   url: string;
-  kind: "government" | "company" | "university" | "infrastructure" | "venue" | "industry";
+  kind: "government" | "company" | "university" | "infrastructure" | "venue" | "industry" | "organization";
 };
 
 export type GamingPage = {
@@ -76,6 +76,8 @@ const decixHouston = { label: "DE-CIX — Houston Internet Exchange", url: "http
 const equinixDallas = { label: "Equinix — Dallas data centers and interconnection", url: "https://www.equinix.com/data-centers/americas-colocation/united-states-colocation/dallas-data-centers", kind: "infrastructure" as const };
 const esaTexas = { label: "Entertainment Software Association — 2026 Economic Impact Report", url: "https://www.theesa.com/resources/2026-economic-impact-report/", kind: "industry" as const };
 const esaTexasMap = { label: "Entertainment Software Association — Texas impact map", url: "https://www.theesa.com/video-game-impact-map/state/texas/", kind: "industry" as const };
+const texasEsportsCollective = { label: "Texas Esports Collective — 2026–27 scholastic and collegiate competition", url: "https://texasesports.org/news/everything-we-announced-for-the-2026-27-season", kind: "organization" as const };
+const utAustinGames = { label: "UT Austin — Game Development and Design Program", url: "https://sites.utexas.edu/gaming/", kind: "university" as const };
 
 export const TEXAS_GAME_COMPANIES = [
   { name: "Electronic Arts / BioWare Austin", city: "Austin", focus: "AAA development, live services, technology and support functions", official: "https://careers.ea.com/careers/teams/ea-studios", careers: "https://careers.ea.com/", source: "EA currently identifies Austin as a studio location." },
@@ -92,6 +94,8 @@ export const TEXAS_GAME_COMPANIES = [
   { name: "Aspyr Media", city: "Austin", focus: "Game development, publishing and platform adaptation", official: "https://www.aspyr.com/", careers: "https://www.aspyr.com/careers", source: "The Texas Film Commission lists Aspyr in Austin; Aspyr currently maintains an active careers portal." },
   { name: "SciPlay", city: "Austin", focus: "Social and mobile game development", official: "https://www.sciplay.com/", careers: "https://www.sciplay.com/careers", source: "The Texas Film Commission lists SciPlay in Austin and the company maintains a current careers portal." },
   { name: "Virtuix", city: "Austin", focus: "Virtual-reality gaming hardware, software and immersive entertainment", official: "https://virtuix.com/", careers: "https://virtuix.com/pages/career-opportunities", source: "The Texas Film Commission lists Virtuix in Austin and Virtuix's careers page identifies Austin as its current location." },
+  { name: "Enduring Games", city: "Austin", focus: "Game development, co-development and platform work", official: "https://enduring.games/", careers: "https://enduring.games/contact/", source: "Enduring Games identifies itself as Austin-based, and the current Texas Film Commission game-development list includes the studio." },
+  { name: "Aristocrat", city: "Austin", focus: "Gaming technology, product, engineering and interactive entertainment", official: "https://www.aristocrat.com/", careers: "https://careers.aristocrat.com/en/jobs/?region=Texas", source: "Aristocrat's current careers site lists Austin roles, while the Texas Film Commission lists Aristocrat Technologies in Austin and remote Texas." },
 ] as const;
 
 export const COLLEGE_ESPORTS = [
@@ -226,9 +230,10 @@ export const GAMING_PAGES: GamingPage[] = [
     sections: [
       { title: "Collegiate esports", paragraphs: ["UT Dallas operates a varsity program plus gaming clubs and a dedicated gaming/esports center. UNT identifies esports as a varsity program. UT Arlington publishes varsity esports tryout information. Texas A&M lists A&M Esports as a student organization, so TexasDefined does not relabel it as varsity."] },
       { title: "Venues and events", paragraphs: ["The City of Arlington operates the Arlington Expo Center, which includes an esports competition facility and hosts esports functions. Individual tournament dates belong in the existing TexasDefined event system when a current official occurrence can be verified, rather than being hard-coded into an evergreen page."] },
+      { title: "High-school and statewide competition", paragraphs: ["Texas Esports Collective is running a 2026–27 scholastic conference with regional online play and in-person postseason competition, plus a collegiate circuit. That establishes a current statewide competition structure, but it is not a census of every Texas high-school esports program, so TexasDefined does not use its membership as a statewide participation count."] },
       { title: "How status is handled", paragraphs: ["Professional team brands, ownership structures, tournament circuits and game titles can change faster than a statewide guide. TexasDefined treats official organization, venue, publisher and university pages as the controlling sources for current status."] },
     ],
-    sources: [arlingtonVenue, utd, uta, unt, tamu],
+    sources: [arlingtonVenue, utd, uta, unt, tamu, texasEsportsCollective],
     related: [
       { href: "/gaming/college-esports", label: "College esports in Texas", description: "Program-by-program distinctions and official links." },
       { href: "/gaming/esports-stadium-arlington", label: "Esports Stadium Arlington", description: "Planning and venue context." },
@@ -282,8 +287,9 @@ export const GAMING_PAGES: GamingPage[] = [
     sections: [
       { title: "Role families", paragraphs: ["Game design turns systems and player goals into playable rules and content. Software engineering builds gameplay, tools, online systems and platform integrations. Art disciplines include concept, environment, character, animation, UI and technical art.", "QA and test roles investigate defects and regressions; production coordinates schedules and dependencies; live operations supports games after launch; networking and backend roles keep online services functioning; analytics, support and marketing connect product decisions to players and business operations."], bullets: ["Game design", "Software engineering", "Graphics and animation", "Technical art", "QA and test", "Networking / backend", "Live operations", "Production", "Publishing", "Esports and broadcast production", "Data and analytics", "Player support", "Marketing and community"] },
       { title: "How to search in Texas", paragraphs: ["Start with the Texas Film Commission's digital-media job hotline for a statewide snapshot, then use official employer career pages. For education, compare program curriculum and portfolio opportunities rather than relying on a school label alone.", "Game hiring is cyclical. A studio with no suitable opening today can still be a meaningful employer in the region, while a job board listing can disappear quickly."] },
+      { title: "Education pipeline", paragraphs: ["Texas universities and colleges support several different pathways into games: computer science, art and animation, design, production, esports operations and interdisciplinary game-development programs. UT Austin's Game Development and Design Program, for example, currently accepts portfolio-based applications for its capstone work, while esports programs elsewhere can expose students to broadcast and event production."] },
     ],
-    sources: [jobsHotline, { label: "Texas Film Commission — Getting Started in Digital Media", url: "https://gov.texas.gov/film/page/getting_started_in_digital_media", kind: "government" }],
+    sources: [jobsHotline, { label: "Texas Film Commission — Getting Started in Digital Media", url: "https://gov.texas.gov/film/page/getting_started_in_digital_media", kind: "government" }, utAustinGames],
     related: [
       { href: "/gaming/companies", label: "Texas game companies", description: "Official employer and career links." },
       { href: "/gaming/college-esports", label: "College esports", description: "Competition and production opportunities." },
