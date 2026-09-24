@@ -129,6 +129,29 @@ for (const [slug, name] of venues) {
   }
 }
 
+
+const colonialStayContexts = registry.properties
+  .flatMap((property) => (property.contexts || [])
+    .filter((context) => context.kind === 'venue' && context.key === 'colonial-country-club')
+    .map((context) => ({ propertyId: property.id, context })))
+  .sort((left, right) => left.context.rank - right.context.rank);
+const expectedColonialStayPropertyIds = [
+  'courtyard-fort-worth-university-drive',
+  'hilton-garden-inn-fort-worth-medical-center',
+  'homewood-suites-fort-worth-medical-center',
+];
+if (colonialStayContexts.length !== 3) {
+  failures.push(`Colonial Country Club must retain exactly 3 curated Stay Nearby choices; found ${colonialStayContexts.length}.`);
+} else {
+  const actualPropertyIds = colonialStayContexts.map(({ propertyId }) => propertyId);
+  if (JSON.stringify(actualPropertyIds) !== JSON.stringify(expectedColonialStayPropertyIds)) {
+    failures.push(`Colonial Country Club curated Stay Nearby property set drifted: ${actualPropertyIds.join(', ')}.`);
+  }
+  const ranks = colonialStayContexts.map(({ context }) => context.rank).join(',');
+  if (ranks !== '1,2,3') failures.push(`Colonial Country Club curated Stay Nearby ranks must remain 1,2,3; found ${ranks}.`);
+}
+
+
 const guideEntries = [...wave7Guides.matchAll(/^\s{2}'([^']+)': \{/gm)].map((match) => match[1]);
 if (guideEntries.length !== 21) failures.push(`Wave 7 must contain exactly 21 specialty guide records; found ${guideEntries.length}.`);
 if (new Set(guideEntries).size !== guideEntries.length) failures.push('Wave 7 guide slugs must be unique.');

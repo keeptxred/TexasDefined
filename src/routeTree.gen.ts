@@ -76,6 +76,7 @@ import { Route as TexasMortgagePayoffCalculatorRouteImport } from './routes/texa
 import { Route as TexasMortgageCalculatorRouteImport } from './routes/texas-mortgage-calculator'
 import { Route as TexasLivingRouteImport } from './routes/texas-living'
 import { Route as TexasJazzRouteImport } from './routes/texas-jazz'
+import { Route as TexasIndustriesRouteImport } from './routes/texas-industries'
 import { Route as TexasIconsRouteImport } from './routes/texas-icons'
 import { Route as TexasHorsebackRidingGuideRouteImport } from './routes/texas-horseback-riding-guide'
 import { Route as TexasHomesteadSavingsCalculatorRouteImport } from './routes/texas-homestead-savings-calculator'
@@ -206,6 +207,7 @@ import { Route as TexasVsStateRouteImport } from './routes/texas-vs.$state'
 import { Route as TexasSymbolsSlugRouteImport } from './routes/texas-symbols.$slug'
 import { Route as TexasSalaryNeededCalculatorLocationRouteImport } from './routes/texas-salary-needed-calculator_.$location'
 import { Route as TexasMortgageCalculatorLocationRouteImport } from './routes/texas-mortgage-calculator_.$location'
+import { Route as TexasIndustriesSlugRouteImport } from './routes/texas-industries_.$slug'
 import { Route as TexasIconsSlugRouteImport } from './routes/texas-icons_.$slug'
 import { Route as TexasHomeownershipCostCalculatorLocationRouteImport } from './routes/texas-homeownership-cost-calculator_.$location'
 import { Route as TexasHomeInsuranceCalculatorLocationRouteImport } from './routes/texas-home-insurance-calculator_.$location'
@@ -953,6 +955,13 @@ const TexasJazzRoute = TexasJazzRouteImport.update({
   path: '/texas-jazz',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/texas-jazz.lazy').then((d) => d.Route))
+const TexasIndustriesRoute = TexasIndustriesRouteImport.update({
+  id: '/texas-industries',
+  path: '/texas-industries',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/texas-industries.lazy').then((d) => d.Route),
+)
 const TexasIconsRoute = TexasIconsRouteImport.update({
   id: '/texas-icons',
   path: '/texas-icons',
@@ -1789,6 +1798,13 @@ const TexasMortgageCalculatorLocationRoute =
       (d) => d.Route,
     ),
   )
+const TexasIndustriesSlugRoute = TexasIndustriesSlugRouteImport.update({
+  id: '/texas-industries_/$slug',
+  path: '/texas-industries/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/texas-industries_.$slug.lazy').then((d) => d.Route),
+)
 const TexasIconsSlugRoute = TexasIconsSlugRouteImport.update({
   id: '/texas-icons_/$slug',
   path: '/texas-icons/$slug',
@@ -3618,6 +3634,7 @@ export interface FileRoutesByFullPath {
   '/texas-homestead-savings-calculator': typeof TexasHomesteadSavingsCalculatorRoute
   '/texas-horseback-riding-guide': typeof TexasHorsebackRidingGuideRoute
   '/texas-icons': typeof TexasIconsRoute
+  '/texas-industries': typeof TexasIndustriesRoute
   '/texas-jazz': typeof TexasJazzRoute
   '/texas-living': typeof TexasLivingRoute
   '/texas-mortgage-calculator': typeof TexasMortgageCalculatorRoute
@@ -3905,6 +3922,7 @@ export interface FileRoutesByFullPath {
   '/texas-home-insurance-calculator/$location': typeof TexasHomeInsuranceCalculatorLocationRoute
   '/texas-homeownership-cost-calculator/$location': typeof TexasHomeownershipCostCalculatorLocationRoute
   '/texas-icons/$slug': typeof TexasIconsSlugRoute
+  '/texas-industries/$slug': typeof TexasIndustriesSlugRoute
   '/texas-mortgage-calculator/$location': typeof TexasMortgageCalculatorLocationRoute
   '/texas-salary-needed-calculator/$location': typeof TexasSalaryNeededCalculatorLocationRoute
   '/texas-symbols/$slug': typeof TexasSymbolsSlugRoute
@@ -4097,6 +4115,7 @@ export interface FileRoutesByTo {
   '/texas-homestead-savings-calculator': typeof TexasHomesteadSavingsCalculatorRoute
   '/texas-horseback-riding-guide': typeof TexasHorsebackRidingGuideRoute
   '/texas-icons': typeof TexasIconsRoute
+  '/texas-industries': typeof TexasIndustriesRoute
   '/texas-jazz': typeof TexasJazzRoute
   '/texas-living': typeof TexasLivingRoute
   '/texas-mortgage-calculator': typeof TexasMortgageCalculatorRoute
@@ -4384,6 +4403,7 @@ export interface FileRoutesByTo {
   '/texas-home-insurance-calculator/$location': typeof TexasHomeInsuranceCalculatorLocationRoute
   '/texas-homeownership-cost-calculator/$location': typeof TexasHomeownershipCostCalculatorLocationRoute
   '/texas-icons/$slug': typeof TexasIconsSlugRoute
+  '/texas-industries/$slug': typeof TexasIndustriesSlugRoute
   '/texas-mortgage-calculator/$location': typeof TexasMortgageCalculatorLocationRoute
   '/texas-salary-needed-calculator/$location': typeof TexasSalaryNeededCalculatorLocationRoute
   '/texas-symbols/$slug': typeof TexasSymbolsSlugRoute
@@ -4580,6 +4600,7 @@ export interface FileRoutesById {
   '/texas-homestead-savings-calculator': typeof TexasHomesteadSavingsCalculatorRoute
   '/texas-horseback-riding-guide': typeof TexasHorsebackRidingGuideRoute
   '/texas-icons': typeof TexasIconsRoute
+  '/texas-industries': typeof TexasIndustriesRoute
   '/texas-jazz': typeof TexasJazzRoute
   '/texas-living': typeof TexasLivingRoute
   '/texas-mortgage-calculator': typeof TexasMortgageCalculatorRoute
@@ -4867,6 +4888,7 @@ export interface FileRoutesById {
   '/texas-home-insurance-calculator_/$location': typeof TexasHomeInsuranceCalculatorLocationRoute
   '/texas-homeownership-cost-calculator_/$location': typeof TexasHomeownershipCostCalculatorLocationRoute
   '/texas-icons_/$slug': typeof TexasIconsSlugRoute
+  '/texas-industries_/$slug': typeof TexasIndustriesSlugRoute
   '/texas-mortgage-calculator_/$location': typeof TexasMortgageCalculatorLocationRoute
   '/texas-salary-needed-calculator_/$location': typeof TexasSalaryNeededCalculatorLocationRoute
   '/texas-symbols/$slug': typeof TexasSymbolsSlugRoute
@@ -5064,6 +5086,7 @@ export interface FileRouteTypes {
     | '/texas-homestead-savings-calculator'
     | '/texas-horseback-riding-guide'
     | '/texas-icons'
+    | '/texas-industries'
     | '/texas-jazz'
     | '/texas-living'
     | '/texas-mortgage-calculator'
@@ -5351,6 +5374,7 @@ export interface FileRouteTypes {
     | '/texas-home-insurance-calculator/$location'
     | '/texas-homeownership-cost-calculator/$location'
     | '/texas-icons/$slug'
+    | '/texas-industries/$slug'
     | '/texas-mortgage-calculator/$location'
     | '/texas-salary-needed-calculator/$location'
     | '/texas-symbols/$slug'
@@ -5543,6 +5567,7 @@ export interface FileRouteTypes {
     | '/texas-homestead-savings-calculator'
     | '/texas-horseback-riding-guide'
     | '/texas-icons'
+    | '/texas-industries'
     | '/texas-jazz'
     | '/texas-living'
     | '/texas-mortgage-calculator'
@@ -5830,6 +5855,7 @@ export interface FileRouteTypes {
     | '/texas-home-insurance-calculator/$location'
     | '/texas-homeownership-cost-calculator/$location'
     | '/texas-icons/$slug'
+    | '/texas-industries/$slug'
     | '/texas-mortgage-calculator/$location'
     | '/texas-salary-needed-calculator/$location'
     | '/texas-symbols/$slug'
@@ -6025,6 +6051,7 @@ export interface FileRouteTypes {
     | '/texas-homestead-savings-calculator'
     | '/texas-horseback-riding-guide'
     | '/texas-icons'
+    | '/texas-industries'
     | '/texas-jazz'
     | '/texas-living'
     | '/texas-mortgage-calculator'
@@ -6312,6 +6339,7 @@ export interface FileRouteTypes {
     | '/texas-home-insurance-calculator_/$location'
     | '/texas-homeownership-cost-calculator_/$location'
     | '/texas-icons_/$slug'
+    | '/texas-industries_/$slug'
     | '/texas-mortgage-calculator_/$location'
     | '/texas-salary-needed-calculator_/$location'
     | '/texas-symbols/$slug'
@@ -6508,6 +6536,7 @@ export interface RootRouteChildren {
   TexasHomesteadSavingsCalculatorRoute: typeof TexasHomesteadSavingsCalculatorRoute
   TexasHorsebackRidingGuideRoute: typeof TexasHorsebackRidingGuideRoute
   TexasIconsRoute: typeof TexasIconsRoute
+  TexasIndustriesRoute: typeof TexasIndustriesRoute
   TexasJazzRoute: typeof TexasJazzRoute
   TexasLivingRoute: typeof TexasLivingRoute
   TexasMortgageCalculatorRoute: typeof TexasMortgageCalculatorRoute
@@ -6746,6 +6775,7 @@ export interface RootRouteChildren {
   TexasHomeInsuranceCalculatorLocationRoute: typeof TexasHomeInsuranceCalculatorLocationRoute
   TexasHomeownershipCostCalculatorLocationRoute: typeof TexasHomeownershipCostCalculatorLocationRoute
   TexasIconsSlugRoute: typeof TexasIconsSlugRoute
+  TexasIndustriesSlugRoute: typeof TexasIndustriesSlugRoute
   TexasMortgageCalculatorLocationRoute: typeof TexasMortgageCalculatorLocationRoute
   TexasSalaryNeededCalculatorLocationRoute: typeof TexasSalaryNeededCalculatorLocationRoute
   TexasVsStateRoute: typeof TexasVsStateRoute
@@ -7239,6 +7269,13 @@ declare module '@tanstack/react-router' {
       path: '/texas-jazz'
       fullPath: '/texas-jazz'
       preLoaderRoute: typeof TexasJazzRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-industries': {
+      id: '/texas-industries'
+      path: '/texas-industries'
+      fullPath: '/texas-industries'
+      preLoaderRoute: typeof TexasIndustriesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/texas-icons': {
@@ -8149,6 +8186,13 @@ declare module '@tanstack/react-router' {
       path: '/texas-mortgage-calculator/$location'
       fullPath: '/texas-mortgage-calculator/$location'
       preLoaderRoute: typeof TexasMortgageCalculatorLocationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-industries_/$slug': {
+      id: '/texas-industries_/$slug'
+      path: '/texas-industries/$slug'
+      fullPath: '/texas-industries/$slug'
+      preLoaderRoute: typeof TexasIndustriesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/texas-icons_/$slug': {
@@ -10803,6 +10847,7 @@ const rootRouteChildren: RootRouteChildren = {
   TexasHomesteadSavingsCalculatorRoute: TexasHomesteadSavingsCalculatorRoute,
   TexasHorsebackRidingGuideRoute: TexasHorsebackRidingGuideRoute,
   TexasIconsRoute: TexasIconsRoute,
+  TexasIndustriesRoute: TexasIndustriesRoute,
   TexasJazzRoute: TexasJazzRoute,
   TexasLivingRoute: TexasLivingRoute,
   TexasMortgageCalculatorRoute: TexasMortgageCalculatorRoute,
@@ -11106,6 +11151,7 @@ const rootRouteChildren: RootRouteChildren = {
   TexasHomeownershipCostCalculatorLocationRoute:
     TexasHomeownershipCostCalculatorLocationRoute,
   TexasIconsSlugRoute: TexasIconsSlugRoute,
+  TexasIndustriesSlugRoute: TexasIndustriesSlugRoute,
   TexasMortgageCalculatorLocationRoute: TexasMortgageCalculatorLocationRoute,
   TexasSalaryNeededCalculatorLocationRoute:
     TexasSalaryNeededCalculatorLocationRoute,
