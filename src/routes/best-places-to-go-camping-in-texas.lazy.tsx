@@ -136,7 +136,7 @@ function CampingGuidePage() {
         <div className="max-w-4xl">
           <p className="eyebrow text-primary">Campground finder</p>
           <h2 className="mt-2 font-display text-4xl md:text-5xl">Search verified public camping across Texas</h2>
-          <p className="mt-4 leading-8 text-muted-foreground">Search by park, campground, county or managing agency. Combine region, camping style and verified facilities to narrow the list. An amenity that is not shown means TexasDefined has not verified it from an official source yet; it does not automatically mean the amenity is unavailable.</p>
+          <p className="mt-4 leading-8 text-muted-foreground">Search by park, campground, county, managing agency or nearby city. Combine region, camping style and verified facilities to narrow the list. An amenity that is not shown means TexasDefined has not verified it from an official source yet; it does not automatically mean the amenity is unavailable.</p>
         </div>
         <CampingDiscovery entries={entries} />
       </Container>
