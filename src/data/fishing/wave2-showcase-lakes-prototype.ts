@@ -1,13 +1,12 @@
 import type { ShowcaseLakePrototype } from "./showcase-lakes-prototype";
-import type { ShowcaseLakeSlug, Wave2ShowcaseLakeSlug } from "./showcase-lake-routing";
+import type { Wave2ShowcaseLakeSlug } from "./showcase-lake-routing";
 
 const VERIFIED_AT = "2026-09-23";
 const commonBusinessCategories = ["Fishing guides", "Marinas & fuel", "Bait & tackle", "Boat rentals & repair", "Campgrounds & lodging", "Restaurants"];
-const asLegacySlug = (slug: Wave2ShowcaseLakeSlug) => slug as unknown as ShowcaseLakeSlug;
 const regs = "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/freshwater-fishing";
 
 const ohIvie: ShowcaseLakePrototype = {
-  slug: asLegacySlug("o-h-ivie-lake"), verifiedAt: VERIFIED_AT,
+  slug: "o-h-ivie-lake", verifiedAt: VERIFIED_AT,
   overview: { name: "O.H. Ivie Lake", summary: "A 19,149-acre Colorado-Concho River reservoir east of San Angelo where vegetation, standing timber, flooded brush and deep structure support good largemouth bass, catfish, crappie and white-bass fishing.", region: "Panhandle Plains", surfaceAcres: 19149, maxDepthFeet: 119, impoundedYear: 1990, counties: ["Concho", "Coleman", "Runnels"], nearestCommunities: ["San Angelo", "Ballinger", "Coleman"], riverBasin: "Colorado River Basin", waterway: "Colorado and Concho Rivers", conservationPool: "1551.5 ft msl", normalFluctuation: "6–10 feet annually", normalClarity: "Clear main lake and Concho arm; turbid Colorado arm", controllingAuthority: "Colorado River Municipal Water District", mapQuery: "O H Ivie Lake Texas" },
   identityAngle: "O.H. Ivie is a cover-and-structure reservoir with unusually varied water clarity between its river arms. TPWD rates largemouth bass, catfish, crappie and white bass good, while a smaller smallmouth population adds another black-bass option.",
   habitat: ["Sago pondweed, American pondweed, marine naiad and hydrilla create important vegetated cover.", "Standing timber, flooded mesquite, oak and juniper add extensive woody habitat.", "Saltcedar can become a productive shallow target when water covers it.", "Deep humps and dropoffs provide offshore structure for larger bass away from shoreline cover."],
@@ -32,7 +31,7 @@ const ohIvie: ShowcaseLakePrototype = {
 };
 
 const travis: ShowcaseLakePrototype = {
-  slug: asLegacySlug("lake-travis"), verifiedAt: VERIFIED_AT,
+  slug: "lake-travis", verifiedAt: VERIFIED_AT,
   overview: { name: "Lake Travis", summary: "An 18,622-acre, 190-foot-deep Highland Lakes reservoir northwest of Austin where steep rocky structure, docks and large water-level swings shape good largemouth, Guadalupe-bass, white-bass and catfish fishing.", region: "Hill Country", surfaceAcres: 18622, maxDepthFeet: 190, impoundedYear: 1942, counties: ["Travis", "Burnet"], nearestCommunities: ["Austin", "Lakeway", "Lago Vista"], riverBasin: "Colorado River Basin", waterway: "Colorado River", conservationPool: "681 ft msl", normalFluctuation: "High, 10–20 feet", normalClarity: "Clear to slightly off-color in upper sections", controllingAuthority: "Lower Colorado River Authority", mapQuery: "Lake Travis Texas" },
   identityAngle: "Lake Travis is a deep, rocky Hill Country reservoir rather than a vegetation lake. TPWD rates largemouth and Guadalupe bass, white bass, catfish and sunfish good, while the lake's high fluctuation makes current access and depth planning unusually important.",
   habitat: ["Rocky banks, steep cliffs, points, ledges and dropoffs form the primary natural structure.", "Docks and marina structure add man-made cover in developed corridors.", "The lake has no significant aquatic vegetation under normal conditions.", "High-water periods can temporarily flood shoreline vegetation and create short-lived shallow cover."],
@@ -57,7 +56,7 @@ const travis: ShowcaseLakePrototype = {
 };
 
 const whitney: ShowcaseLakePrototype = {
-  slug: asLegacySlug("lake-whitney"), verifiedAt: VERIFIED_AT,
+  slug: "lake-whitney", verifiedAt: VERIFIED_AT,
   overview: { name: "Lake Whitney", summary: "A 23,500-acre Brazos-Nolan River reservoir northwest of Waco with strong striped and white bass, good largemouth and catfish fishing, rocky structure and excellent public access.", region: "Prairies & Lakes", surfaceAcres: 23500, maxDepthFeet: 108, impoundedYear: 1951, counties: ["Bosque", "Hill"], nearestCommunities: ["Whitney", "Clifton", "Waco"], riverBasin: "Brazos River Basin", waterway: "Brazos and Nolan Rivers", conservationPool: "533 ft msl", normalFluctuation: "4–8 feet annually", normalClarity: "Stained", controllingAuthority: "U.S. Army Corps of Engineers", mapQuery: "Lake Whitney Texas" },
   identityAngle: "Lake Whitney is a striped- and white-bass destination with unusually broad public access. TPWD also rates largemouth bass, channel/blue catfish and sunfish good, while hard structure and river channels add a different fishing framework from grass-heavy East Texas reservoirs.",
   habitat: ["Rocky shorelines, bluffs and boulders dominate much of the hard structure.", "Flats, standing timber, docks, bridge pilings and artificial reefs add targetable cover.", "Willow, pondweed, buttonbush, bulrush, coontail and water willow provide seasonal vegetation.", "The Brazos and Nolan river arms become especially important during spring white-bass and striped-bass movement."],
@@ -82,7 +81,7 @@ const whitney: ShowcaseLakePrototype = {
 };
 
 const tawakoni: ShowcaseLakePrototype = {
-  slug: asLegacySlug("lake-tawakoni"), verifiedAt: VERIFIED_AT,
+  slug: "lake-tawakoni", verifiedAt: VERIFIED_AT,
   overview: { name: "Lake Tawakoni", summary: "A 37,879-acre Sabine River system reservoir southeast of Greenville where excellent catfish, white bass and stocked striped/hybrid striped bass define the fishery.", region: "Prairies & Lakes", surfaceAcres: 37879, maxDepthFeet: 70, impoundedYear: 1960, counties: ["Van Zandt", "Rains", "Hunt"], nearestCommunities: ["Greenville", "Wills Point", "Quinlan"], riverBasin: "Sabine River Basin", waterway: "South Fork Sabine River, Cowleech Fork and Caddo Creek", conservationPool: "437.5 ft msl", normalFluctuation: "Considerable, 3–9 feet", normalClarity: "Moderately stained", controllingAuthority: "Sabine River Authority of Texas", mapQuery: "Lake Tawakoni Texas" },
   identityAngle: "Tawakoni is an open-water and catfish lake first. TPWD rates catfish, white bass and striped/hybrid striped bass excellent, while the limited amount of cover makes every vegetation patch, pier, boathouse, bridge piling and flooded timber more important.",
   habitat: ["Water willow, smartweed and flooded terrestrial vegetation can become abundant when the lake is near conservation pool.", "American lotus is significant in some areas, while coontail and hydrilla are generally sparse.", "Sparse flooded timber, bridge structure, piers and boathouses matter because broad habitat is limited.", "Water-level changes can expose vegetation and sharply reduce the amount of usable shallow cover."],
@@ -107,7 +106,7 @@ const tawakoni: ShowcaseLakePrototype = {
 };
 
 const falcon: ShowcaseLakePrototype = {
-  slug: asLegacySlug("falcon-international-reservoir"), verifiedAt: VERIFIED_AT,
+  slug: "falcon-international-reservoir", verifiedAt: VERIFIED_AT,
   overview: { name: "Falcon International Reservoir", summary: "An 83,654-acre Rio Grande border reservoir in Zapata and Starr counties where extreme water-level swings shape excellent largemouth bass and catfish fisheries.", region: "South Texas", surfaceAcres: 83654, maxDepthFeet: 110, impoundedYear: 1954, counties: ["Zapata", "Starr"], nearestCommunities: ["Zapata", "Roma", "Laredo"], riverBasin: "Rio Grande Basin", waterway: "Rio Grande", conservationPool: "301.2 ft msl", normalFluctuation: "Severe, 40–50 feet or more", normalClarity: "Turbid upper lake to stained lower lake", controllingAuthority: "International Boundary & Water Commission", stateBorder: ["Texas", "Mexico"], mapQuery: "Falcon International Reservoir Texas" },
   identityAngle: "Falcon is a bass-and-catfish border reservoir shaped by extreme water-level change. TPWD identifies largemouth bass and catfish as Falcon's strongest fisheries and documents drought-related weakness in crappie and white bass; check the current TPWD lake profile because those condition-sensitive fisheries can change with water conditions.",
   habitat: ["Most shorelines slope gradually and can expose broad flats during low-water periods.", "Rock piles and standing timber become especially important when water is low.", "Rising water can flood terrestrial brush and create major new shallow cover.", "TPWD notes that hydrilla has historically added shoreline cover; vegetation coverage can change sharply with reservoir level."],
