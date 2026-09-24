@@ -1,4 +1,4 @@
-import { createFileRoute, notFound, Link } from "@tanstack/react-router";
+import { createFileRoute, notFound, redirect, Link } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
@@ -169,6 +169,9 @@ function hasSourcesAndFurtherReading(body: FaqBlock[]) {
 
 export const Route = createFileRoute("/article/$slug")({
   loader: async ({ context, params }) => {
+    if (params.slug === "what-to-keep-in-car-for-texas-road-trip") {
+      throw redirect({ href: "/article/texas-car-emergency-kit", statusCode: 301 });
+    }
     const article = await context.queryClient.ensureQueryData(articleQuery(params.slug));
     if (!article) throw notFound();
     const [authors, categories, related, destinations, completeGraph] = await Promise.all([
