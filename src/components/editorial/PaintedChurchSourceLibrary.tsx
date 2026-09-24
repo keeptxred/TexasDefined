@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 
 import { paintedChurchAuthorityExpansionDate, paintedChurchAuthoritySources } from "@/data/painted-church-authority-sources";
-import { paintedChurchImageSources } from "@/data/painted-church-image-sources";\nimport { paintedChurchSecondaryResearchDate, paintedChurchSecondaryResearchLeads, paintedChurchSecondaryResearchSources } from "@/data/painted-church-secondary-research";
+import { paintedChurchImageSources } from "@/data/painted-church-image-sources";
+import { paintedChurchSecondaryResearchDate, paintedChurchSecondaryResearchLeads, paintedChurchSecondaryResearchSources } from "@/data/painted-church-secondary-research";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 
 const sourceLibrary = [
