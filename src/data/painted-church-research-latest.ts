@@ -72,7 +72,7 @@ const latestResearch: PaintedChurchResearchDossier[] = [
       { label: "St. Joseph Catholic Church Mason — official parish history", url: "https://www.stjosephmason.org/about-us", tier: "official", use: "1873 congregation, 1876 church, Manuel Lopez attribution, 1916 painting subjects and 1963 concealment" },
       { label: "Diocese of Austin — St. Joseph Mason renovation", url: "https://austindiocese.news/st-joseph-mason-celebrates-more-150-years-nurturing-faith", tier: "official", use: "2024 restoration process, preservation evidence, project scope and cost" },
       { label: "Studio io — St. Joseph Mason", url: "https://www.studioiodesign.com/st-joseph-mason", tier: "scholarly", use: "restoration design, concealed-vault history, restored versus new decorative work and October 2024 dedication" },
-      { label: "Texas Time Travel — St. Joseph's Catholic Church Mason", url: "https://texastimetravel.com/directory/st-josephs-catholic-church/", tier: "historic-register", use: "heritage-travel context and arrange-ahead visitor guidance" },
+      { label: "Texas Time Travel — St. Joseph's Catholic Church Mason", url: "https://texastimetravel.com/directory/st-josephs-catholic-church/", tier: "official", use: "Texas Historical Commission heritage-travel context and arrange-ahead visitor guidance" },
       { label: "Mason County Chamber — walking tour", url: "https://masontx.org/walking-tour/", tier: "official", use: "local Manuel Lopez context and 2024 restoration reference" },
     ],
   },
