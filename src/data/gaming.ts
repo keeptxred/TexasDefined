@@ -310,10 +310,10 @@ export const GAMING_PAGES: GamingPage[] = [
     eyebrow: "Events",
     summary: "Gaming events change dates, venues and ticketing faster than evergreen industry content. TexasDefined therefore keeps the authority page evergreen while routing dated occurrences into the existing event calendar and event-detail system.",
     sections: [
-      { title: "What belongs in the calendar", paragraphs: ["A recurring convention or tournament deserves an evergreen event page only when its recurrence and official identity are well established. Individual editions should carry current dates, official sources, venue information and appropriate ticket links when an approved partner actually sells that event.", "Historical tournaments can still be useful in venue or esports history, but they should not be presented as upcoming."] },
+      { title: "What belongs in the calendar", paragraphs: ["A recurring convention or tournament deserves an evergreen event page only when its recurrence and official identity are well established. Individual editions should carry current dates, official sources, venue information and appropriate ticket links when an approved partner actually sells that event.", "DreamHack Dallas is a good example of why recurrence must be rechecked: DreamHack said its U.S. festival moved to Atlanta for 2026 while Dallas convention-center work continues. The 2025 Dallas festival remains historically significant, but TexasDefined should not present a 2026 Dallas edition as upcoming. Historical tournaments can still be useful in venue or esports history when their status is labeled clearly."] },
       { title: "Plan a trip to an esports event", paragraphs: ["Confirm the official schedule first, then choose lodging and transportation around the actual venue. Large Arlington events may overlap with baseball, football or other entertainment-district traffic, while university events have different parking and campus-access considerations."] },
     ],
-    sources: [arlingtonVenue, utd],
+    sources: [arlingtonVenue, utd, { label: "DreamHack — 2026 U.S. festival location update", url: "https://dreamhack.com/blog/2025/11/02/a-message-to-the-community/", kind: "company" }],
     related: [
       { href: "/events", label: "Texas events calendar", description: "Current verified event occurrences." },
       { href: "/events/sports-events", label: "Texas sports events", description: "Sports and competition collection." },
