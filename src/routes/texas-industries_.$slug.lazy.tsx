@@ -64,7 +64,7 @@ function TexasIndustryPage() {
                   </div>
                 </div>
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                  <a href="https://lmi.twc.texas.gov/" target="_blank" rel="noreferrer" className="border border-border p-5 hover:border-primary/60">
+                  <a href="https://lmi.twc.texas.gov/" target="_blank" rel="noreferrer" className="border p-5 hover:border-primary/60">
                     <span className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">Official labor-market data</span>
                     <strong className="mt-2 block font-display text-xl">Texas Workforce Commission LMI</strong>
                     <span className="mt-2 block text-sm leading-6 text-muted-foreground">Research employment, occupations, wages, projections and regional labor-market conditions using Texas Workforce Commission tools.</span>
