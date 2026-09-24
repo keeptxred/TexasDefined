@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "reviewedAt": "2026-09-19",
+  "reviewedAt": "2026-09-23",
   "policy": {
     "maxCards": 3,
     "displayComputedDistance": false,
@@ -40,6 +40,18 @@
             "url": "https://www.marriott.com/en-us/hotels/dfwch-courtyard-fort-worth-university-drive/overview/",
             "verifiedAt": "2026-09-10"
           }
+        },
+        {
+          "kind": "venue",
+          "key": "colonial-country-club",
+          "rank": 1,
+          "geographicContext": "University Drive / TCU corridor",
+          "proximity": "Marriott places the hotel on University Drive in the TCU area, a practical south-central Fort Worth base for a Colonial Country Club visit.",
+          "differentiator": "Useful for travelers who want University Drive dining and TCU-area access alongside a Colonial golf weekend.",
+          "source": {
+            "url": "https://www.marriott.com/en-us/hotels/dfwch-courtyard-fort-worth-university-drive/overview/",
+            "verifiedAt": "2026-09-23"
+          }
         }
       ]
     },
@@ -74,6 +86,18 @@
             "url": "https://www.hilton.com/en/hotels/ftwmdgi-hilton-garden-inn-fort-worth-medical-center/",
             "verifiedAt": "2026-09-10"
           }
+        },
+        {
+          "kind": "venue",
+          "key": "colonial-country-club",
+          "rank": 2,
+          "geographicContext": "Medical District / TCU corridor",
+          "proximity": "Hilton positions this hotel in Fort Worth's Medical District close to TCU, keeping visitors in the same south-central Fort Worth travel zone as a Colonial trip.",
+          "differentiator": "A full-service option with on-site dining and an indoor pool for tournament-week or leisure stays.",
+          "source": {
+            "url": "https://www.hilton.com/en/hotels/ftwmdgi-hilton-garden-inn-fort-worth-medical-center/",
+            "verifiedAt": "2026-09-23"
+          }
         }
       ]
     },
@@ -107,6 +131,18 @@
           "source": {
             "url": "https://www.hilton.com/en/hotels/ftwmchw-homewood-suites-fort-worth-medical-center-tx/",
             "verifiedAt": "2026-09-10"
+          }
+        },
+        {
+          "kind": "venue",
+          "key": "colonial-country-club",
+          "rank": 3,
+          "geographicContext": "Medical District / TCU corridor",
+          "proximity": "Hilton places this all-suite property in the Medical District near TCU, providing another south-central Fort Worth base for visitors planning time at Colonial Country Club.",
+          "differentiator": "All-suite rooms with in-room kitchens are useful for longer golf-event stays or multi-night Fort Worth trips.",
+          "source": {
+            "url": "https://www.hilton.com/en/hotels/ftwmchw-homewood-suites-fort-worth-medical-center-tx/",
+            "verifiedAt": "2026-09-23"
           }
         }
       ]
