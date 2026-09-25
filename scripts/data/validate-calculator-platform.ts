@@ -5,7 +5,7 @@ import { calculateClosingCosts } from '../../src/lib/financial/closing-costs.ts'
 import { calculateHomeownershipCost } from '../../src/lib/financial/homeownership.ts';
 import { calculateMortgage, calculateMonthlyPrincipalInterest, calculateRefinance } from '../../src/lib/financial/mortgage.ts';
 import { calculateCategoryBudgetComparison, calculateFederalPaycheck2026, calculateGrossSalaryNeeded2026, calculateHomeInsurance, calculateUtilities } from '../../src/lib/financial/planning.ts';
-import { calculateHomesteadSavings, calculatePropertyTax, calculateSpecialDistrictImpact } from '../../src/lib/financial/property-tax.ts';
+import { calculateAgriculturalValuationImpact, calculateExemptionTaxImpact, calculateHomesteadSavings, calculateOver65PropertyTax, calculatePropertyTax, calculatePropertyTaxComparison, calculatePropertyTaxEscrow, calculateProtestSavings, calculateSpecialDistrictImpact, calculateSplitPropertyTax } from '../../src/lib/financial/property-tax.ts';
 import { estimateRentVsBuy } from '../../src/lib/rent-vs-buy.ts';
 
 const close = (actual: number, expected: number, tolerance = 0.01, label = 'value') => {
@@ -87,6 +87,14 @@ const mudImpact = calculateSpecialDistrictImpact({ taxableValue: 400000, ratePer
 assert.deepEqual(mudImpact, { annual: 3000, monthly: 250, fiveYearSimple: 15000, horizonSimple: 30000, years: 10 });
 const homestead = calculateHomesteadSavings({ homeValue: 400000, schoolRatePercent: 1, otherRatePercent: 1.2, schoolExemption: 140000, otherExemption: 0 });
 close(homestead.annualSavings, 1400, 0.001, 'homestead annual savings');
+const splitTax = calculateSplitPropertyTax({ homeValue: 400000, schoolExemption: 140000, otherExemption: 0, schoolRatePercent: 1, otherRatePercent: 1.2 });
+assert.deepEqual(splitTax, { schoolTaxable: 260000, otherTaxable: 400000, schoolTax: 2600, otherTax: 4800, total: 7400, monthly: 7400 / 12, combinedRate: 2.2 });
+close(calculateExemptionTaxImpact({ homeValue: 400000, ratePercent: 2.2, exemption: 12000 }).savings, 264, 0.001, 'verified exemption savings');
+assert.deepEqual(calculateAgriculturalValuationImpact({ marketValue: 500000, productivityValue: 70000, ratePercent: 2.2 }), { marketTax: 11000, productivityTax: 1540, annualTaxDifference: 9460, valueDifference: 430000 });
+assert.deepEqual(calculateOver65PropertyTax({ homeValue: 400000, schoolRatePercent: 1, otherRatePercent: 1.2, schoolExemption: 140000, otherExemption: 0, schoolTaxCeiling: 2000 }), { schoolBeforeCeiling: 2600, schoolAfterCeiling: 2000, otherTax: 4800, total: 6800, monthly: 6800 / 12, savingsVsNoExemptions: 2000 });
+assert.deepEqual(calculatePropertyTaxComparison({ homeValue: 400000, rateAPercent: 2.1, rateBPercent: 2.6, exemptionA: 0, exemptionB: 0 }), { annualA: 8400, annualB: 10400, annualDifference: 2000, monthlyDifference: 2000 / 12 });
+assert.deepEqual(calculatePropertyTaxEscrow({ annualTax: 7200, annualInsurance: 3600, annualHoa: 1200, currentMonthlyEscrow: 900 }), { yearly: 12000, monthly: 1000, difference: 100 });
+assert.deepEqual(calculateProtestSavings({ proposedValue: 450000, targetValue: 410000, ratePercent: 2.2, confidencePercent: 50 }), { reduction: 40000, annualSavings: 880, monthlySavings: 880 / 12, percentReduction: 40000 / 450000 * 100, expectedSavings: 440, targetValue: 410000 });
 
 const categoryBudget = calculateCategoryBudgetComparison({ housing: 2000, utilities: 300 }, { housing: 2300, utilities: 350 });
 assert.deepEqual(categoryBudget, { currentMonthly: 2300, targetMonthly: 2650, monthlyDifference: 350, annualDifference: 4200 });
@@ -122,6 +130,8 @@ for (const file of componentFiles) {
   const source = fs.readFileSync(file, 'utf8');
   assert.ok(source.includes('CalculatorActions'), `${file} must expose save/restore/share/print/reset actions`);
 }
+const propertyTaxEngineRoutes = ['src/routes/texas-property-tax-estimator.tsx','src/routes/texas-agricultural-valuation-calculator.tsx','src/routes/texas-disabled-veteran-property-tax-calculator.tsx','src/routes/texas-over-65-property-tax-calculator.tsx','src/routes/texas-property-tax-county-comparison-calculator.tsx','src/routes/texas-property-tax-escrow-calculator.tsx','src/routes/texas-property-tax-protest-savings-calculator.tsx'];
+for (const file of propertyTaxEngineRoutes) assert.ok(fs.readFileSync(file, 'utf8').includes("@/lib/financial/property-tax"), `${file} must consume the shared property-tax engine`);
 const planningSource = fs.readFileSync('src/components/calculators/TexasPlanningCalculators.tsx', 'utf8');
 const financeSource = fs.readFileSync('src/components/calculators/TexasHomeFinanceCalculators.impl.tsx', 'utf8');
 assert.ok(!planningSource.includes('Math.pow(1 + monthlyRate'), 'planning calculator components must not implement mortgage amortization math');
