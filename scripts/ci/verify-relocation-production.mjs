@@ -100,7 +100,7 @@ const { body: relocationHubBody } = await fetchLive('/moving-to-texas', 'relocat
 for (const needle of [
   'Corporate Relocation to Texas',
   'Build an address-level research packet',
-  'Save this address to My Texas Move',
+  'The submitted address is used for the Census lookup and is not saved unless you explicitly add a matched address to My Texas Move.',
 ]) {
   if (!relocationHubBody.includes(needle)) {
     throw new Error(`/moving-to-texas: missing deployed relocation marker: ${needle}`);
