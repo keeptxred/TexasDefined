@@ -8,7 +8,7 @@ import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { Container } from "@/components/layout/Container";
 import { CITY_AUTHORITY_INDEX, cityAuthorityPath } from "@/data/city-authority-index";
 
-const RelocationAuthorityLab = lazy(() => import("@/components/relocation/RelocationAuthorityLab").then((module) => ({ default: module.RelocationAuthorityLab })));
+const RelocationAuthorityLab = lazy(() => import("@/components/relocation/RelocationAuthorityLab").then((module) => ({ default: module.RelocationAuthorityLab })));\nconst RelocationCommandCenter = lazy(() => import("@/components/relocation/RelocationCommandCenter").then((module) => ({ default: module.RelocationCommandCenter })));
 const description = "A clear-eyed guide to choosing a Texas city or county, understanding the cost and property context, finding a home and settling into everyday life in a very large state.";
 const imageAlt = "A two-lane Texas farm road running to the horizon";
 const arrivalTasks = [
