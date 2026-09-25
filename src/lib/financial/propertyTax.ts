@@ -193,3 +193,21 @@ export function estimatePropertyTaxProtest(input: {
     ]),
   };
 }
+
+
+export function estimateSpecialDistrictImpact(input: { taxableValue: number; taxRate: number; years: number }) {
+  const annual = propertyTaxFromValue(input.taxableValue, input.taxRate);
+  const years = Math.max(1, Math.min(100, Math.round(nonNegative(input.years))));
+  return {
+    annual,
+    monthly: annual / 12,
+    fiveYearSimpleTotal: annual * 5,
+    horizonSimpleTotal: annual * years,
+    years,
+    issues: uniqueIssues([
+      ...validateNonNegative('taxableValue', 'Taxable value', input.taxableValue),
+      ...validatePercent('taxRate', 'District tax rate', input.taxRate, 20),
+      ...validateNonNegative('years', 'Planning horizon', input.years),
+    ]),
+  };
+}

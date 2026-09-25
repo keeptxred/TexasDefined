@@ -109,6 +109,9 @@ for (const file of [
   'src/routes/texas-agricultural-valuation-calculator.tsx',
   'src/routes/texas-homestead-savings-calculator.tsx',
   'src/routes/texas-property-tax-protest-savings-calculator.tsx',
+  'src/routes/texas-property-tax-bill-breakdown.tsx',
+  'src/routes/texas-mud-tax-impact-calculator.tsx',
+  'src/routes/texas-school-district-property-tax-comparison.tsx',
 ]) {
   if (!read(file).includes("@/lib/financial/propertyTax")) failures.push(file + ' must use the shared property-tax engine.');
 }

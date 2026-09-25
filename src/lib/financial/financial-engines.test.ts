@@ -6,7 +6,7 @@ import { estimateAffordability } from './affordability.ts';
 import { estimateClosingCosts } from './closingCosts.ts';
 import { estimateHomeownership } from './homeownership.ts';
 import { estimatePayroll2026, federalIncomeTax2026, grossSalaryForTakeHome2026 } from './payroll.ts';
-import { estimateHomesteadSavings, estimatePropertyTaxProtest, estimateSplitPropertyTax } from './propertyTax.ts';
+import { estimateHomesteadSavings, estimatePropertyTaxProtest, estimateSpecialDistrictImpact, estimateSplitPropertyTax } from './propertyTax.ts';
 
 const near = (actual: number, expected: number, tolerance = 0.02) => {
   assert.ok(Math.abs(actual - expected) <= tolerance, "expected " + actual + " to be within " + tolerance + " of " + expected);
@@ -117,4 +117,13 @@ test('homestead and protest calculators reuse canonical property-tax math', () =
   const protest = estimatePropertyTaxProtest({ proposedValue: 450000, targetValue: 410000, taxRate: 2.2, confidencePercent: 50 });
   near(protest.annualSavings, 880, 0.001);
   near(protest.expectedSavings, 440, 0.001);
+});
+
+
+test('special-district impact uses canonical property-tax math across horizons', () => {
+  const result = estimateSpecialDistrictImpact({ taxableValue: 400000, taxRate: 0.75, years: 10 });
+  near(result.annual, 3000, 0.001);
+  near(result.monthly, 250, 0.001);
+  near(result.fiveYearSimpleTotal, 15000, 0.001);
+  near(result.horizonSimpleTotal, 30000, 0.001);
 });
