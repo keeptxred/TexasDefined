@@ -13,6 +13,8 @@ const seoSource = fs.readFileSync('src/lib/seo.ts', 'utf8');
 const fredericksburgChurchRoute = fs.readFileSync('src/routes/explore.painted-churches.$slug.tsx', 'utf8');
 const fishingSpeciesServer = fs.readFileSync('src/data/fishing/species-guide-data.server.ts', 'utf8');
 const stateFairRoute = fs.readFileSync('src/routes/texas-state-fair.tsx', 'utf8');
+const stateFairLazyRoute = fs.readFileSync('src/routes/texas-state-fair.lazy.tsx', 'utf8');
+const stateFairEnhancements = fs.readFileSync('src/components/editorial/StateFairGuideEnhancements.tsx', 'utf8');
 const prioritySearchLoader = fs.readFileSync('src/data/priority-search-page.ts', 'utf8');
 const texasFactsRoute = fs.readFileSync('src/routes/texas-facts.tsx', 'utf8');
 const texasFactsData = fs.readFileSync('src/data/texas-essential-facts.ts', 'utf8');
@@ -118,6 +120,20 @@ if (!seoSource.includes('technicalOverride?.description ?? page.description')) f
 if (!prioritySearchLoader.includes('createServerFn({ method: "POST" })')) failures.push('Priority search loader RPC must use POST so intermediary caches cannot serve stale page bodies.');
 if (prioritySearchLoader.includes('createServerFn({ method: "GET" })')) failures.push('Priority search loader RPC must not use cacheable GET semantics.');
 if (stateFairRoute.includes('PRIORITY_SEARCH_PAGES')) failures.push('/texas-state-fair: dedicated route must not depend on shared priority-page data at runtime.');
+if (!stateFairLazyRoute.includes('showSectionNumbers={false}')) failures.push('/texas-state-fair: section numbering must stay disabled for the event guide.');
+for (const token of [
+  'data-state-fair-featured-gallery',
+  'data-state-fair-historical-gallery',
+  'data-state-fair-official-ticket-cta',
+  'data-state-fair-stay-slot',
+  'https://bigtex.com/about-us/media-room/photo-gallery/',
+  'https://bigtex.com/buy-tickets-new/',
+  'to="/event/state-fair-classic"',
+  'to="/event/red-river-rivalry"',
+  'CC BY-SA 4.0',
+]) {
+  if (!stateFairEnhancements.includes(token)) failures.push(`/texas-state-fair: missing media/commerce marker ${token}.`);
+}
 
 for (const [canonicalPath, expectedTitle] of targets) {
   const escapedPath = canonicalPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
