@@ -204,7 +204,7 @@ export function RelocationCommandCenter() {
             <p className="eyebrow text-primary">Plan My Texas Move</p>
             <h2 id="relocation-command-center" className="mt-3 font-display text-4xl leading-tight">One profile for the whole relocation</h2>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">Save the facts that shape the move once, then reuse them while comparing places, budgets, schools, addresses and arrival tasks. The profile stays in this browser unless you reset it.</p>
-            <a href="#my-texas-move" className="mt-5 inline-block text-sm font-semibold text-primary underline underline-offset-4">Open My Texas Move →</a>
+            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold"><a href="#my-texas-move" className="text-primary underline underline-offset-4">Open My Texas Move →</a><a href="#corporate-relocation" className="underline underline-offset-4">Corporate relocation →</a></div>
           </div>
           <div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
