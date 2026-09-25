@@ -62,6 +62,7 @@ try {
     const bookingCases = [
       ['/event/chappell-hill-bluebonnet-festival', 'hotel-first'],
       ['/sports-venue/globe-life-field', 'hotel-first'],
+      ['/texas-state-fair', 'hotel-first'],
       ['/destination/fredericksburg', 'both'],
       ['/city/austin', 'both'],
       ['/county/travis', 'both'],
