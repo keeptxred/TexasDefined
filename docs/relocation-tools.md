@@ -10,6 +10,7 @@ The public hub now combines:
 - **Texas Match Explorer** — transparent place filtering over the governed Texas relocation place registry. It is a research shortlist, not a subjective best-city score.
 - **My Texas Move** — a browser-local shortlist, researched-address queue and notes workspace. No account or server-side storage is required for the first version.
 - **Move timeline** — before-you-commit, 30–60-day, first-30-day and first-90-day research/task sequencing.
+- **Persistent moving checklist** — the governed 16-task `/moving-to-texas-checklist` stores checkmarks in the same browser-local My Texas Move workspace and reports completion back on the relocation hub.
 - **Corporate Relocation to Texas** — parallel employee/family and employer/HR/site-selection paths, backed by Texas Economic Development, Texas Workforce Commission and IRS source links.
 - **Exact-address research** — Census geography as a starting point, followed by official source-of-record verification for school districts, utilities, property-tax responsibility, flood context and related local questions.
 - **Relocation Data Desk** — migration, labor-market, insurance, school, tax, utility and traffic sources with source vintages kept explicit.
@@ -68,5 +69,7 @@ Corporate relocation must also be discoverable from the Texas Industries hub, in
 - Exact jurisdiction or eligibility questions must resolve through the responsible official agency.
 - Exact street addresses saved from the research desk must stay in browser-local storage. Never serialize a saved address into a URL/query parameter, analytics label or server-side relocation profile.
 - The address research desk may write to My Texas Move only after the visitor explicitly chooses **Save this address to My Texas Move**; a lookup by itself remains ephemeral.
+- Moving-checklist completion must use stable task IDs rather than array positions. The governed checklist currently contains exactly 16 tasks; editorial reordering must not change existing IDs or silently reassign saved completion state.
+- Checklist progress is browser-local and is part of the same My Texas Move record as saved places, addresses and notes.
 - Keep the command center lazy-loaded from the main relocation hub so the broader route stays within the protected client bundle budget.
 - Preserve the relocation source registry, production smoke tests, canonical/indexation checks and route-ownership validator.
