@@ -1,5 +1,5 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
-import { loadPrioritySearchPage } from "@/data/priority-search-page";
+import { createFileRoute } from "@tanstack/react-router";
+import { PRIORITY_SEARCH_PAGES } from "@/data/priority-search-pages";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 import { jsonLd } from "@/lib/seo";
 
@@ -20,11 +20,10 @@ const faq = [
 ];
 
 export const Route = createFileRoute("/texas-state-fair")({
-  loader: async () => {
-    const sourceData = await loadPrioritySearchPage("texas-state-fair");
-    if (!sourceData) throw notFound();
-    return { ...sourceData, faq };
-  },
+  loader: () => ({
+    ...PRIORITY_SEARCH_PAGES["texas-state-fair"],
+    faq,
+  }),
   head: ({ loaderData }) => {
     if (!loaderData) return {};
     const base = buildPrioritySearchHead({
