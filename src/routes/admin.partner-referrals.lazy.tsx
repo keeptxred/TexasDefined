@@ -2,6 +2,7 @@ import { createLazyFileRoute } from '@tanstack/react-router';
 import { type FormEvent, useMemo, useState } from 'react';
 
 import { Container } from '@/components/layout/Container';
+import { AFFILIATE_ECONOMICS, AFFILIATE_ECONOMICS_REVIEWED_AT } from '@/data/affiliate-economics';
 import { getPartnerReferralAnalyticsDashboard } from '@/data/partner-referral-analytics.functions';
 import type { PartnerReferralAnalyticsDashboard } from '@/data/partner-referral-analytics.types';
 
@@ -91,6 +92,24 @@ function PartnerReferralAnalyticsAdmin() {
         </div>
         <div className="mt-6 overflow-x-auto"><table className="w-full min-w-[640px] text-sm"><thead><tr className="border-b border-border text-left"><th className="py-3 pr-4">Provider</th><th className="py-3 pr-4 text-right">Clean impressions</th><th className="py-3 pr-4 text-right">Clean clicks</th><th className="py-3 text-right">Clean CTR</th></tr></thead><tbody>{dashboard.travelRoutingPartners.map((row) => <tr key={row.partner} className="border-b border-border/60"><td className="py-3 pr-4 font-semibold">{row.partner}</td><td className="py-3 pr-4 text-right">{row.impressions}</td><td className="py-3 pr-4 text-right">{row.clicks}</td><td className="py-3 text-right font-semibold">{formatCtr(row.ctr)}</td></tr>)}</tbody></table></div>
         {!dashboard.travelRoutingComparisonReady ? <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">Hold the current routing split. This threshold is an operational minimum for a comparable sample, not a statistical-significance claim.</p> : <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">The minimum exposure threshold has been reached. Review CTR together with downstream CJ bookings and commission value before changing provider routing.</p>}
+      </section>
+
+      <section className="mt-12 border-t border-border pt-6">
+        <p className="eyebrow text-primary">Affiliate economics</p>
+        <h2 className="mt-2 font-display text-4xl">Verified payout &amp; routing registry</h2>
+        <p className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">Reviewed {AFFILIATE_ECONOMICS_REVIEWED_AT}. This is an operational snapshot from approved-program notices and current affiliate terms, not a promise that every click earns the headline rate. Booking type, coupon use, reversals, completion rules and the active network contract still control realized commission. Programs marked awaiting link or inactive must not be published until their account-generated tracking contract is verified.</p>
+        <div className="mt-6 overflow-x-auto">
+          <table className="w-full min-w-[1040px] text-sm">
+            <thead><tr className="border-b border-border text-left"><th className="py-3 pr-4">Partner</th><th className="py-3 pr-4">Verified payout</th><th className="py-3 pr-4">Attribution</th><th className="py-3 pr-4">Routing role</th><th className="py-3">Status</th></tr></thead>
+            <tbody>{AFFILIATE_ECONOMICS.map((row) => <tr key={row.id} className="border-b border-border/60 align-top">
+              <td className="py-3 pr-4"><strong>{row.partner}</strong><span className="mt-1 block max-w-xs text-xs leading-5 text-muted-foreground">{row.note}</span></td>
+              <td className="py-3 pr-4 font-semibold">{row.payout}</td>
+              <td className="py-3 pr-4">{row.attribution}</td>
+              <td className="py-3 pr-4">{row.routingRole}</td>
+              <td className="py-3 text-xs font-semibold uppercase tracking-[0.08em]">{row.status.replaceAll('-', ' ')}</td>
+            </tr>)}</tbody>
+          </table>
+        </div>
       </section>
 
       <section className="mt-12 border-t border-border pt-6">
