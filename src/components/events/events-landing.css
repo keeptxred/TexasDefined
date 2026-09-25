@@ -94,6 +94,8 @@
 .ev-result-title a:hover { color: var(--primary); }
 .ev-result-meta { margin-top: .5rem; color: var(--muted-foreground); font-size: .875rem; }
 .ev-result-copy { margin-top: .75rem; max-width: 48rem; color: var(--muted-foreground); font-size: .875rem; line-height: 1.5rem; }
+.ev-deal { display: inline-flex; margin-bottom: .5rem; border: 1px solid var(--primary); padding: .25rem .5rem; color: var(--primary); }
+.ev-result-offer { margin-top: .75rem; max-width: 48rem; border-left: 2px solid var(--primary); padding-left: .75rem; font-size: .875rem; line-height: 1.5rem; }
 .ev-result-links { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 1.25rem; font-size: .875rem; font-weight: 600; }
 .ev-result-note { margin-top: 1rem; color: var(--muted-foreground); font-size: .75rem; }
 .ev-empty { border-bottom: 1px solid var(--border); padding: 2.5rem 0; color: var(--muted-foreground); font-size: .875rem; }
