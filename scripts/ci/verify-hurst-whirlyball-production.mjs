@@ -42,6 +42,34 @@ async function fetchLive(path) {
   throw lastError || new Error(`${path} failed production verification.`);
 }
 
+async function verifyLiveImage(path, label) {
+  let lastError;
+  for (let attempt = 1; attempt <= 4; attempt += 1) {
+    const url = new URL(path, origin);
+    url.searchParams.set('td_hurst_whirlyball_image_verify', `${revision}-${runId}-${attempt}`);
+    try {
+      const response = await fetch(url, {
+        redirect: 'follow',
+        cache: 'no-store',
+        signal: AbortSignal.timeout(30_000),
+        headers: {
+          'cache-control': 'no-cache',
+          pragma: 'no-cache',
+          'user-agent': 'TexasDefined-CI-Hurst-WhirlyBall/1.0',
+        },
+      });
+      const contentType = response.headers.get('content-type') || '';
+      const body = await response.arrayBuffer();
+      if (response.ok && contentType.toLowerCase().startsWith('image/') && body.byteLength > 10_000) return;
+      lastError = new Error(`${label} returned HTTP ${response.status}, content-type ${contentType || 'missing'}, ${body.byteLength} bytes.`);
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+    }
+    if (attempt < 4) await sleep(3_000);
+  }
+  throw lastError || new Error(`${label} failed production image verification.`);
+}
+
 function requireIndexableHtml(body, canonical, label) {
   requireCondition(body.includes(canonical), `${label} is missing its self-canonical URL.`);
   requireCondition(!/<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(body), `${label} unexpectedly renders noindex.`);
@@ -67,7 +95,13 @@ requireCondition(city.includes('/destination/whirlyball-hurst'), 'Hurst city aut
 requireIndexableHtml(whirlyball, 'https://texasdefined.com/destination/whirlyball-hurst', 'WhirlyBall Hurst destination page');
 requireCondition(whirlyball.includes('/city/hurst'), 'WhirlyBall Hurst is missing the reciprocal Hurst city-authority link.');
 requireCondition(whirlyball.includes('Whirlyball.jpg'), 'WhirlyBall Hurst is missing the verified Wikimedia hero image.');
-requireCondition(!whirlyball.includes('Photo unavailable'), 'WhirlyBall Hurst still renders the visible hero fallback instead of the verified image.');
+const whirlyballHeroSource = 'https://upload.wikimedia.org/wikipedia/commons/5/52/Whirlyball.jpg';
+const whirlyballHeroProxyPath = `/media/remote?url=${encodeURIComponent(whirlyballHeroSource)}`;
+requireCondition(
+  whirlyball.includes(whirlyballHeroProxyPath),
+  'WhirlyBall Hurst is not rendering the governed same-origin remote-image delivery path.',
+);
+await verifyLiveImage(whirlyballHeroProxyPath, 'WhirlyBall Hurst proxied hero');
 requireCondition(
   !whirlyball.includes('Special:Redirect/file/Whirlyball.jpg') && !whirlyball.includes('Special%3ARedirect%2Ffile%2FWhirlyball.jpg'),
   'WhirlyBall Hurst regressed to the unstable Wikimedia Special:Redirect hero source.',
