@@ -163,7 +163,7 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
       <div className="mt-6">
         <OfficialTaxRateAssist countySlug={state.county} title="Fill the mortgage property-tax rate from official local rates" onApply={(rates) => setState((current) => ({ ...current, propertyTaxRate: rates.combinedRate, rateYear: rates.year }))}/>
       </div>
-      <p className="mt-6 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Planning estimate.</strong> The basic result includes principal, interest, property tax and homeowners insurance. Advanced mode adds PMI, HOA, special-district charges, utilities, maintenance and extra principal. Verify the exact parcel, lender terms, insurance quote, exemptions and taxing-unit membership before relying on the result.</p>
+      <p className="mt-6 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Planning estimate.</strong> The basic result includes principal, interest, property tax and homeowners insurance. Advanced mode adds PMI, HOA, special-district charges, utilities, maintenance, pool, landscaping, other recurring ownership costs and extra principal. Verify the exact parcel, lender terms, insurance quote, exemptions and taxing-unit membership before relying on the result.</p>
     </section>
 
     <CalculatorActions onSave={persistence.save} onRestore={persistence.restore} onShare={persistence.share} onPrint={persistence.print} status={persistence.status} onReset={() => setState({ ...DEFAULTS, county: defaultCountySlug })}/>
