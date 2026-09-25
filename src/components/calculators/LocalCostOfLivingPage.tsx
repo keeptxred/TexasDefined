@@ -3,6 +3,7 @@ import { useMemo, useState, type Dispatch, type SetStateAction } from 'react';
 
 import type { LocalCostOfLivingProfile } from '@/data/local-cost-of-living';
 import { BreakdownChart, CalculatorActions, readCalculatorStateFromUrl, useCalculatorPersistence } from '@/components/property/PropertyCalculatorFramework';
+import { calculateCategoryBudgetComparison } from '@/lib/financial/planning';
 
 const money = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number.isFinite(value) ? value : 0);
 const numeric = (value: string) => Math.max(0, Number(value) || 0);
@@ -51,12 +52,7 @@ export function LocalCostOfLivingPage({ profile }: { profile: LocalCostOfLivingP
   });
   const [currentBudget, setCurrentBudget] = useState<Budget>(() => ({ housing: urlState.currentHousing, transportation: urlState.currentTransportation, utilities: urlState.currentUtilities, insurance: urlState.currentInsurance, food: urlState.currentFood, other: urlState.currentOther }));
   const [targetBudget, setTargetBudget] = useState<Budget>(() => ({ housing: urlState.targetHousing, transportation: urlState.targetTransportation, utilities: urlState.targetUtilities, insurance: urlState.targetInsurance, food: urlState.targetFood, other: urlState.targetOther }));
-  const totals = useMemo(() => {
-    const sum = (budget: Budget) => labels.reduce((total, [key]) => total + budget[key], 0);
-    const current = sum(currentBudget);
-    const target = sum(targetBudget);
-    return { current, target, difference: target - current };
-  }, [currentBudget, targetBudget]);
+  const totals = useMemo(() => calculateCategoryBudgetComparison(currentBudget, targetBudget), [currentBudget, targetBudget]);
   const update = (setter: Dispatch<SetStateAction<Budget>>, key: BudgetKey, value: number) => setter((budget) => ({ ...budget, [key]: value }));
   const calculatorState = {
     currentHousing: currentBudget.housing, currentTransportation: currentBudget.transportation, currentUtilities: currentBudget.utilities, currentInsurance: currentBudget.insurance, currentFood: currentBudget.food, currentOther: currentBudget.other,
@@ -89,9 +85,9 @@ export function LocalCostOfLivingPage({ profile }: { profile: LocalCostOfLivingP
         <BudgetColumn title={`Possible ${profile.name} monthly budget`} budget={targetBudget} onChange={(key, value) => update(setTargetBudget, key, value)} />
       </div>
       <dl className="mt-7 grid border-y border-border sm:grid-cols-3" aria-live="polite" aria-atomic="true">
-        <div className="py-5 sm:px-5"><dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Current total</dt><dd className="mt-2 font-display text-3xl font-bold text-primary">{money(totals.current)}/mo</dd></div>
-        <div className="border-t border-border py-5 sm:border-l sm:border-t-0 sm:px-5"><dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{profile.name} total</dt><dd className="mt-2 font-display text-3xl font-bold text-primary">{money(totals.target)}/mo</dd></div>
-        <div className="border-t border-border py-5 sm:border-l sm:border-t-0 sm:px-5"><dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Annual difference</dt><dd className="mt-2 font-display text-3xl font-bold text-primary">{money(totals.difference * 12)}</dd></div>
+        <div className="py-5 sm:px-5"><dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Current total</dt><dd className="mt-2 font-display text-3xl font-bold text-primary">{money(totals.currentMonthly)}/mo</dd></div>
+        <div className="border-t border-border py-5 sm:border-l sm:border-t-0 sm:px-5"><dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{profile.name} total</dt><dd className="mt-2 font-display text-3xl font-bold text-primary">{money(totals.targetMonthly)}/mo</dd></div>
+        <div className="border-t border-border py-5 sm:border-l sm:border-t-0 sm:px-5"><dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Annual difference</dt><dd className="mt-2 font-display text-3xl font-bold text-primary">{money(totals.annualDifference)}</dd></div>
       </dl>
       <CalculatorActions onSave={persistence.save} onRestore={persistence.restore} onShare={persistence.share} onPrint={persistence.print} status={persistence.status} onReset={() => { setCurrentBudget({ ...initialBudget }); setTargetBudget({ ...initialBudget }); }}/>
       <div className="mt-7 max-w-3xl"><h3 className="font-display text-2xl">Possible {profile.name} monthly mix</h3><div className="mt-4"><BreakdownChart items={targetBreakdown}/></div></div>
