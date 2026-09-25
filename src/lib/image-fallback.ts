@@ -9,6 +9,11 @@ export type ImageFallback = {
  * for its own deliberate visual fallback so failed remote media never produces
  * a broken-image icon or an empty reserved block.
  */
+export function hideImageFallbackLabel(image: HTMLImageElement) {
+  const fallbackLabel = image.parentElement?.querySelector<HTMLElement>("[data-image-fallback-label]");
+  if (fallbackLabel) fallbackLabel.style.display = "none";
+}
+
 export function recoverOrHideImage(image: HTMLImageElement, fallback?: ImageFallback) {
   if (fallback && image.dataset.fallbackSrc !== fallback.src) {
     image.dataset.fallbackSrc = fallback.src;
