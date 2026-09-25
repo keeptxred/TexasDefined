@@ -5,7 +5,7 @@ import type {
   PaintedChurchSource,
 } from "./painted-church-profiles";
 
-export const paintedChurchAuthorityExpansionDate = "2026-09-24";
+export const paintedChurchAuthorityExpansionDate = "2026-09-25";
 
 export type PaintedChurchAuthoritySource = {
   label: string;
@@ -136,6 +136,126 @@ export const paintedChurchAuthoritySources: PaintedChurchAuthoritySource[] = [
     scope: "Wallis current access",
     contribution: "Adds parish-controlled visitor information: the church and grotto are currently open for private prayer daily from 8 a.m. to 4 p.m., subject to parish use.",
     churchSlugs: ["wallis-guardian-angel"],
+  },
+  {
+    label: "City of Lindsay — St. Peter visitor information",
+    url: "https://lindsay.texas.gov/visitor-info/things-to-do/",
+    authority: "City of Lindsay",
+    scope: "Lindsay restoration and visitor context",
+    contribution: "Adds a municipal cross-check that St. Peter has undergone two major restorations and records the city's public-access summary. Current parish rules still control Mass, Adoration, group tours and photography.",
+    churchSlugs: ["lindsay-st-peters-catholic-church"],
+  },
+  {
+    label: "Archdiocese of San Antonio — Our Lady of Grace pilgrimage history",
+    url: "https://archsa.org/jubilee2025/pilgrimage-sites/",
+    authority: "Archdiocese of San Antonio",
+    scope: "La Coste chronology, decoration and preservation",
+    contribution: "Documents the 1924 sanctuary, sacristy and bell-tower additions, a 1947 interior-decoration campaign, later altar murals and the preservation practice of repainting earlier ceiling-wall icons onto removable boards.",
+    churchSlugs: ["lacoste-our-lady-of-grace"],
+  },
+  {
+    label: "Texas Architect — Painted Churches, May/June 2014",
+    url: "https://magazine.texasarchitects.org/issue/may-june-2014/",
+    authority: "Texas Society of Architects",
+    scope: "Architectural typology and Dubina case study",
+    contribution: "Adds professional architectural description of Dubina as a Carpenter Gothic, basilican three-aisle church with tall pointed-arch windows, a steep gabled roof and a two-stage tower, while situating marbling, stenciling, graining and trompe-l'oeil within the statewide tradition.",
+    churchSlugs: ["dubina-saints-cyril-methodius"],
+  },
+  {
+    label: "First Baptist Amarillo — official church history",
+    url: "https://www.firstamarillo.org/our-history",
+    authority: "First Baptist Church of Amarillo",
+    scope: "Amarillo congregation and 1930 building chronology",
+    contribution: "Adds the congregation's own chronology: sixteen charter members organized in September 1889, the present building program was approved in 1926 at a planned cost of $500,000, and the building was dedicated August 3, 1930.",
+    churchSlugs: ["amarillo-first-baptist-church"],
+  },
+  {
+    label: "Texas Highways — Bohemian Rhapsody: Fayette County Czech culture",
+    url: "https://texashighways.com/culture/bohemian-rhapsody-fayette-county-czech-culture/",
+    authority: "Texas Highways",
+    scope: "Living Czech cultural context around the Fayette County churches",
+    contribution: "Adds the living cultural layer around the churches: parish picnics function as reunions and community fairs where worship, Czech food, polka music and dancing continue alongside the preserved buildings.",
+    churchSlugs: ["high-hill-nativity-of-mary", "praha-st-marys-assumption", "dubina-saints-cyril-methodius", "ammannsville-st-john-the-baptist"],
+  },
+  {
+    label: "Handbook of Texas — High Hill",
+    url: "https://www.tshaonline.org/handbook/entries/high-hill-tx",
+    authority: "Texas State Historical Association",
+    scope: "High Hill settlement and community history",
+    contribution: "Adds the settlement's roots in Blum Hill and Oldenburg and documents a Turnverein, private schools, dramatic players, and a Männer choir and orchestra, placing St. Mary's inside a much broader German and Austrian-Moravian cultural landscape.",
+    churchSlugs: ["high-hill-nativity-of-mary"],
+  },
+  {
+    label: "Handbook of Texas — Serbin",
+    url: "https://www.tshaonline.org/handbook/entries/serbin-tx",
+    authority: "Texas State Historical Association",
+    scope: "Serbin settlement geography and institutional history",
+    contribution: "Adds the 1855 purchase of about 4,000 acres for the Wendish colony, the congregation's 95-acre church-and-school tract and the change from Low Pin Oak Settlement to Serbin when the post office opened in 1860.",
+    churchSlugs: ["serbin-st-paul-lutheran-church"],
+  },
+  {
+    label: "Handbook of Texas — Panna Maria",
+    url: "https://www.tshaonline.org/handbook/entries/panna-maria-tx",
+    authority: "Texas State Historical Association",
+    scope: "Panna Maria community and twentieth-century Polish heritage",
+    contribution: "Adds the 1966 Polish millennium gathering and President Lyndon B. Johnson's gift of Jan E. Krantz's 12,000-piece Virgin of Częstochowa mosaic, which the Handbook records as permanently displayed in the church.",
+    churchSlugs: ["panna-maria-immaculate-conception"],
+  },
+  {
+    label: "Handbook of Texas — Wends",
+    url: "https://www.tshaonline.org/handbook/entries/wends",
+    authority: "Texas State Historical Association",
+    scope: "Wendish migration and St. Paul's institutional context",
+    contribution: "Adds the migration's severe human cost—seventy-three deaths aboard the Ben Nevis after a cholera outbreak—and identifies St. Paul's as the first Missouri Synod Lutheran church founded in Texas.",
+    churchSlugs: ["serbin-st-paul-lutheran-church"],
+  },
+  {
+    label: "Handbook of Texas — John Kilian",
+    url: "https://www.tshaonline.org/handbook/entries/kilian-john",
+    authority: "Texas State Historical Association",
+    scope: "Rev. John Kilian biography",
+    contribution: "Adds Kilian's bilingual Wendish-German background, literary and hymn work, status as the first Missouri Synod pastor in Texas, thirty-year Serbin pastorate and twelve years teaching the parish school.",
+    churchSlugs: ["serbin-st-paul-lutheran-church"],
+  },
+  {
+    label: "Handbook of Texas — Leopold Moczygemba",
+    url: "https://www.tshaonline.org/handbook/entries/moczygemba-leopold",
+    authority: "Texas State Historical Association",
+    scope: "Polish migration leadership and Panna Maria memorial landscape",
+    contribution: "Adds Moczygemba's wider migration role and the 1974 reinterment of his remains beneath the Panna Maria oak associated with the first immigrants' Christmas 1854 Mass.",
+    churchSlugs: ["panna-maria-immaculate-conception", "bandera-st-stanislaus-catholic-church"],
+  },
+  {
+    label: "City of Bandera — community history",
+    url: "https://www.banderatx.gov/community",
+    authority: "City of Bandera",
+    scope: "Bandera Polish settlement",
+    contribution: "Adds the municipal record that sixteen Polish families arrived in Bandera in 1855 to work at the cypress mill, sharpening the founding-community context for St. Stanislaus.",
+    churchSlugs: ["bandera-st-stanislaus-catholic-church"],
+  },
+  {
+    label: "St. Paul Lutheran School — Serbin history",
+    url: "https://www.stpaulserbinschool.org/our-school-a-brief-history",
+    authority: "St. Paul Lutheran School, Serbin",
+    scope: "Church-school complex and surviving building fabric",
+    contribution: "Adds physical details of the 1871 church—thirty-inch red-sandstone walls rising twenty-four feet—and records that the tower's metal ball contains a history of Serbin.",
+    churchSlugs: ["serbin-st-paul-lutheran-church"],
+  },
+  {
+    label: "Wendish Research Exchange — Spirit of the Wends",
+    url: "https://wendishresearch.org/2017/09/29/spirit-of-the-wends/",
+    authority: "Wendish Research Exchange",
+    scope: "Serbin material culture and interior details",
+    contribution: "Adds interior material-culture details: original gilded kerosene chandeliers adapted to electricity, wooden columns feather-painted to resemble marble and an engraved Serbin history placed in the tower ball.",
+    churchSlugs: ["serbin-st-paul-lutheran-church"],
+  },
+  {
+    label: "SAH Archipedia — San Fernando Cathedral",
+    url: "https://sah-archipedia.org/buildings/TX-01-SA46",
+    authority: "Society of Architectural Historians / University of Virginia Press",
+    scope: "San Fernando architectural chronology and restoration",
+    contribution: "Adds a 2003 interior-restoration date and an important scope limit for the candidate record: the eighteenth-century core is described as restored to mission-like simplicity with plain whitewashed walls, so decorative-paint evidence must be localized to later fabric before promotion.",
+    churchSlugs: [],
   },
 ];
 
@@ -717,6 +837,192 @@ const fieldResearchEnrichments: Record<string, AuthorityEnrichment> = {
   },
 };
 
+const roundTwoEnrichments: Record<string, AuthorityEnrichment> = {
+  "lindsay-st-peters-catholic-church": {
+    facts: [
+      { label: "Municipal restoration record", value: "City of Lindsay visitor information says St. Peter has undergone two major restorations; its latest-completion date differs slightly from parish rededication chronology, so both records remain visible rather than being silently collapsed" },
+    ],
+    visitorNotes: [
+      "The City of Lindsay describes general daylight visitor access. For Mass, Adoration, group tours and photography, use the active parish's current rules as the controlling source.",
+    ],
+    sources: [
+      { label: "City of Lindsay — St. Peter visitor information", url: "https://lindsay.texas.gov/visitor-info/things-to-do/" },
+    ],
+  },
+
+  "lacoste-our-lady-of-grace": {
+    facts: [
+      { label: "1924 additions", value: "Sanctuary, sacristy and bell tower added in 1924" },
+      { label: "Documented decoration campaign", value: "Archdiocesan history records interior decoration in 1947" },
+      { label: "Later altar artwork", value: "The Archdiocese records newer murals on the side walls of the altar" },
+      { label: "Preservation method", value: "Icons originally painted on ceiling walls were later repainted on removable boards to simplify future restoration" },
+    ],
+    paintings: [
+      {
+        heading: "The Archdiocese pins down a 1947 decorative campaign",
+        paragraphs: [
+          "The Archdiocese of San Antonio supplies a date the earlier Texas Defined record did not have: it places an interior-decoration campaign in 1947, after the sanctuary, sacristy and bell tower had been added in 1924. That chronology helps separate the 1911 building from later decorative layers instead of treating the whole visible interior as one construction-era program.",
+          "The same account records later murals at the sides of the altar and says icons originally painted on ceiling walls were repainted onto boards. Those removable supports are a practical preservation choice because future conservation can address the painted panels without requiring the same intervention into the wall or ceiling surface.",
+        ],
+      },
+    ],
+    preservation: [
+      {
+        heading: "Some historic iconography was transferred to removable supports",
+        paragraphs: [
+          "Archdiocesan history says icons once painted directly on ceiling walls were repainted on boards for easier future restoration. Texas Defined records that as a later preservation strategy, not as evidence that every visible painted element is original to 1947.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Archdiocese of San Antonio — Our Lady of Grace pilgrimage history", url: "https://archsa.org/jubilee2025/pilgrimage-sites/" },
+    ],
+  },
+
+  "dubina-saints-cyril-methodius": {
+    facts: [
+      { label: "Architectural plan", value: "Texas Architect describes the church as a Carpenter Gothic basilican three-aisle plan with tall, narrow pointed-arch windows, a steep gabled roof and a two-stage tower" },
+    ],
+    history: [
+      {
+        heading: "The painted room is also a carefully legible Carpenter Gothic building",
+        paragraphs: [
+          "Texas Architect's Gerald Moorhead describes Dubina as a basilican three-aisle Carpenter Gothic church, with tall narrow pointed-arch windows, a steep gabled roof and a two-stage tower. That architectural reading helps separate the building's structural vocabulary from the painted illusion layered across its interior.",
+          "Texas Highways also documents how the Fayette County churches remain active cultural centers through parish picnics that combine worship, food, polka music and community reunion. The painted interior belongs to a living Czech-Texan landscape, not only to a heritage-driving route.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Texas Architect — Painted Churches, May/June 2014", url: "https://magazine.texasarchitects.org/issue/may-june-2014/" },
+      { label: "Texas Highways — Bohemian Rhapsody", url: "https://texashighways.com/culture/bohemian-rhapsody-fayette-county-czech-culture/" },
+    ],
+  },
+
+  "amarillo-first-baptist-church": {
+    facts: [
+      { label: "Congregation organized", value: "September 1889 with sixteen charter members" },
+      { label: "Present building approved", value: "The congregation voted on August 29, 1926 to begin the building program at Thirteenth and Tyler" },
+      { label: "Planned project cost", value: "$500,000, according to First Baptist's official history" },
+      { label: "Dedication", value: "August 3, 1930" },
+    ],
+    history: [
+      {
+        heading: "The congregation's own record fills in the road to the 1930 sanctuary",
+        paragraphs: [
+          "First Baptist's official history traces the congregation from sixteen charter members in September 1889 to the much larger building program approved in 1926. The planned cost was $500,000, an ambitious undertaking for the period, and the congregation dedicated the new building on August 3, 1930.",
+          "That chronology adds institutional context to the National Register's architectural and decorative record: the painted interior belonged to a major urban church expansion completed just as the Depression and Dust Bowl placed severe pressure on the congregation.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "First Baptist Amarillo — official church history", url: "https://www.firstamarillo.org/our-history" },
+    ],
+  },
+
+  "high-hill-nativity-of-mary": {
+    facts: [
+      { label: "Settlement roots", value: "High Hill developed from the late-1840s German settlements of Blum Hill and Oldenburg" },
+      { label: "Early cultural institutions", value: "The community supported a Turnverein, two private schools, dramatic players and a Männer choir and orchestra" },
+    ],
+    history: [
+      {
+        heading: "High Hill's church grew inside a dense German cultural network",
+        paragraphs: [
+          "The Handbook of Texas traces High Hill to two late-1840s German settlements, Blum Hill and Oldenburg, and notes early German and Austrian-Moravian families. The community supported a Turnverein, private schools, dramatic players and a Männer choir and orchestra.",
+          "That wider institutional life matters to the Painted Church story because St. Mary's was not an isolated burst of decorative ambition. It emerged from a community already investing in music, education, performance, religion and organized social life.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Handbook of Texas — High Hill", url: "https://www.tshaonline.org/handbook/entries/high-hill-tx" },
+      { label: "Texas Highways — Bohemian Rhapsody", url: "https://texashighways.com/culture/bohemian-rhapsody-fayette-county-czech-culture/" },
+    ],
+  },
+
+  "serbin-st-paul-lutheran-church": {
+    facts: [
+      { label: "Colony land purchase", value: "Wendish leaders purchased about 4,000 acres in 1855; the congregation set aside 95 acres for church and school" },
+      { label: "Ben Nevis losses", value: "The Handbook of Texas records seventy-three deaths aboard the ship after a cholera outbreak during the 1854 migration" },
+      { label: "Stone wall dimensions", value: "St. Paul Lutheran School's history describes the 1871 church's red-sandstone walls as thirty inches thick and twenty-four feet high" },
+      { label: "Historic lighting", value: "A Wendish history account identifies the gilded chandeliers as original kerosene fixtures later adapted to electricity" },
+      { label: "Faux-marble woodwork", value: "The wooden interior columns are described as feather-painted by early settlers to imitate marble" },
+      { label: "John Kilian as teacher", value: "The Handbook of Texas records that Kilian taught the Serbin parochial school for twelve years in addition to his ministry" },
+    ],
+    history: [
+      {
+        heading: "The migration was larger—and more costly—than the surviving church alone can show",
+        paragraphs: [
+          "The Handbook of Texas records nearly six hundred Wendish Lutherans leaving Europe in 1854 and seventy-three deaths aboard the Ben Nevis after cholera broke out. After reaching Texas, colony leaders acquired roughly 4,000 acres and the congregation set aside ninety-five acres for a church and school.",
+          "Pastor John Kilian's role was unusually broad. In addition to serving the Serbin congregation for about thirty years in Wendish and German, the Handbook records twelve years teaching the parochial school. St. Paul's therefore grew from a combined religious, educational and immigrant-language institution.",
+        ],
+      },
+    ],
+    paintings: [
+      {
+        heading: "Feather-painted columns and converted kerosene chandeliers preserve material culture",
+        paragraphs: [
+          "The Wendish Research Exchange describes the church's gilded chandeliers as original kerosene lamps later adapted to electricity and the wooden columns as feather-painted to imitate marble. Those details broaden the decorative story beyond ceiling stencils: surface illusion, lighting and hand-finished woodwork all shape the historic room.",
+          "St. Paul Lutheran School's history adds the mass of the building itself, describing thirty-inch red-sandstone walls rising twenty-four feet. The painted interior sits inside a church engineered with unusually substantial masonry for a rural immigrant settlement.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Handbook of Texas — Serbin", url: "https://www.tshaonline.org/handbook/entries/serbin-tx" },
+      { label: "Handbook of Texas — Wends", url: "https://www.tshaonline.org/handbook/entries/wends" },
+      { label: "Handbook of Texas — John Kilian", url: "https://www.tshaonline.org/handbook/entries/kilian-john" },
+      { label: "St. Paul Lutheran School — Serbin history", url: "https://www.stpaulserbinschool.org/our-school-a-brief-history" },
+      { label: "Wendish Research Exchange — Spirit of the Wends", url: "https://wendishresearch.org/2017/09/29/spirit-of-the-wends/" },
+    ],
+  },
+
+  "panna-maria-immaculate-conception": {
+    facts: [
+      { label: "1966 Polish millennium artwork", value: "President Lyndon B. Johnson gave Jan E. Krantz's 12,000-piece mosaic of the Virgin of Częstochowa; the Handbook of Texas records it as permanently displayed in the church" },
+      { label: "Leopold Moczygemba reinterment", value: "His remains were reinterred at Panna Maria on October 13, 1974 beneath the oak associated with the immigrants' Christmas 1854 Mass" },
+    ],
+    history: [
+      {
+        heading: "Panna Maria's national Polish story continued long after the nineteenth-century migration",
+        paragraphs: [
+          "In 1966 roughly 10,000 people gathered at Panna Maria for the millennium of Polish Christianity and nationhood. The Handbook of Texas records President Lyndon B. Johnson's gift for the occasion: Polish artist Jan E. Krantz's 12,000-piece mosaic of the Virgin of Częstochowa, placed on permanent display in the church.",
+          "The site's migration memory became even more physically anchored in 1974, when Father Leopold Moczygemba's remains were returned from Michigan and reinterred beneath the Panna Maria oak associated with the first immigrants' Christmas 1854 Mass.",
+        ],
+      },
+    ],
+    paintings: [
+      {
+        heading: "A 1966 mosaic adds a modern Polish devotional layer",
+        paragraphs: [
+          "The 12,000-piece Virgin of Częstochowa mosaic is not part of the church's nineteenth-century painted program, and Texas Defined does not label it that way. It is nevertheless an important work inside the church because it connects the historic immigrant parish to twentieth-century Polish-American commemoration and presidential recognition.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Handbook of Texas — Panna Maria", url: "https://www.tshaonline.org/handbook/entries/panna-maria-tx" },
+      { label: "Handbook of Texas — Leopold Moczygemba", url: "https://www.tshaonline.org/handbook/entries/moczygemba-leopold" },
+    ],
+  },
+
+  "bandera-st-stanislaus-catholic-church": {
+    facts: [
+      { label: "1855 founding migration", value: "City of Bandera history records sixteen Polish families arriving in 1855 to work at the cypress mill" },
+    ],
+    history: [
+      {
+        heading: "Bandera's Polish parish began with a small labor migration",
+        paragraphs: [
+          "The City of Bandera records sixteen Polish families arriving in 1855 to work at the local cypress mill. That municipal account gives useful scale to the migration behind St. Stanislaus and helps connect the parish's Silesian Polish identity to the economic reason the first families settled in Bandera.",
+          "Father Leopold Moczygemba's wider biography ties Bandera to the same Upper Silesian migration network that founded Panna Maria, while preserving the fact that the two communities developed separately.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "City of Bandera — community history", url: "https://www.banderatx.gov/community" },
+      { label: "Handbook of Texas — Leopold Moczygemba", url: "https://www.tshaonline.org/handbook/entries/moczygemba-leopold" },
+    ],
+  },
+};
+
 function appendUnique<T>(base: T[] | undefined, extra: T[] | undefined, key: (value: T) => string): T[] | undefined {
   if (!base?.length && !extra?.length) return base;
   const out = [...(base ?? [])];
@@ -746,6 +1052,6 @@ function applyEnrichment(profile: PaintedChurchProfile, patch: AuthorityEnrichme
 }
 
 export function enrichPaintedChurchProfile(profile: PaintedChurchProfile): PaintedChurchProfile {
-  return [enrichments[profile.slug], fieldResearchEnrichments[profile.slug]]
+  return [enrichments[profile.slug], fieldResearchEnrichments[profile.slug], roundTwoEnrichments[profile.slug]]
     .reduce<PaintedChurchProfile>((current, patch) => applyEnrichment(current, patch), profile);
 }
