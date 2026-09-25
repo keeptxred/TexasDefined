@@ -5,6 +5,7 @@ import { amortizeLoan, estimateMortgage, monthlyMortgagePayment } from './mortga
 import { estimateAffordability } from './affordability.ts';
 import { estimateClosingCosts } from './closingCosts.ts';
 import { estimateHomeownership } from './homeownership.ts';
+import { estimatePayroll2026, federalIncomeTax2026 } from './payroll.ts';
 
 const near = (actual: number, expected: number, tolerance = 0.02) => {
   assert.ok(Math.abs(actual - expected) <= tolerance, "expected " + actual + " to be within " + tolerance + " of " + expected);
@@ -65,4 +66,18 @@ test('homeownership engine totals every recurring category once', () => {
   near(result.monthlyHousing, 3175, 0.001);
   near(result.monthlyOwnership, 3950, 0.001);
   near(result.annualOwnership, 47400, 0.001);
+});
+
+
+test('2026 single-filer bracket boundaries match the published IRS table', () => {
+  near(federalIncomeTax2026(12400, 'single'), 1240, 0.001);
+  near(federalIncomeTax2026(50400, 'single'), 5800, 0.001);
+});
+
+test('2026 payroll model applies the Social Security wage base and Texas zero income tax', () => {
+  const result = estimatePayroll2026({ annualSalary: 200000, filingStatus: 'single' });
+  near(result.socialSecurityTax, 11439, 0.001);
+  near(result.medicareTax, 2900, 0.001);
+  near(result.additionalMedicareTax, 0, 0.001);
+  near(result.texasStateIncomeTax, 0, 0.001);
 });
