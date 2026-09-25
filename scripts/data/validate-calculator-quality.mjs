@@ -12,6 +12,7 @@ const engineFiles = [
   'src/lib/financial/utilities.ts',
   'src/lib/financial/homeownership.ts',
   'src/lib/financial/household.ts',
+  'src/lib/financial/payroll.ts',
   'src/lib/financial/financial-engines.test.ts',
 ];
 
@@ -59,6 +60,7 @@ for (const marker of [
   "from '@/lib/financial/mortgage'",
   "from '@/lib/financial/utilities'",
   "from '@/lib/financial/household'",
+  "from '@/lib/financial/payroll'",
   "estimateRentVsBuy",
 ]) {
   if (!planning.includes(marker)) failures.push('TexasPlanningCalculators must consume shared engine: ' + marker);
