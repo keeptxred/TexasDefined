@@ -407,8 +407,9 @@ export function useCalculatorScenarios<T extends CalculatorState>({ storageKey, 
   }, [storageKey]);
 
   const addCurrent = useCallback(() => {
-    const nextIndex = Math.min(max, scenarios.length + 1);
-    const next = [...scenarios.slice(-(max - 1)), { id: `${Date.now()}-${nextIndex}`, label: `Scenario ${String.fromCharCode(64 + nextIndex)}`, state: { ...state } }];
+    if (scenarios.length >= max) return;
+    const nextIndex = scenarios.length + 1;
+    const next = [...scenarios, { id: `${Date.now()}-${nextIndex}`, label: `Scenario ${String.fromCharCode(64 + nextIndex)}`, state: { ...state } }];
     persist(next);
   }, [max, persist, scenarios, state]);
 
