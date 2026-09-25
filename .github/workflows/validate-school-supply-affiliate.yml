@@ -6,6 +6,7 @@ on:
       - 'src/lib/affiliate-click.ts'
       - 'src/components/monetization/SchoolSupplyPartners.tsx'
       - 'scripts/data/validate-school-supply-affiliate.mjs'
+      - 'docs/affiliate-portfolio-economics.md'
       - '.github/workflows/validate-school-supply-affiliate.yml'
   push:
     branches: [main]
