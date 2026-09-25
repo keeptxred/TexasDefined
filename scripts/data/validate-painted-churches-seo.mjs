@@ -132,6 +132,14 @@ for (const path of ['/explore/painted-churches', '/explore/painted-churches/guid
   requireText(sitemap, JSON.stringify(path), 'Explore sitemap canonical collection');
 }
 requireText(llms, 'currently contains 28 verified church profiles', 'llms.txt');
+for (const required of [
+  'https://texasdefined.com/explore/painted-churches/map',
+  'https://texasdefined.com/explore/painted-churches-plan',
+  'https://texasdefined.com/explore/painted-churches/guides/schulenburg-texas',
+  'Use the statewide map for location and "where are they?" questions.',
+  'Use the one-day Schulenburg route planner for tour, route, itinerary and self-guided-trip questions.',
+  'Use the Schulenburg visitor guide for questions specifically about visiting the Painted Churches from Schulenburg.',
+]) requireText(llms, required, 'llms.txt intent routing');
 requireText(manifest, '28-verified-churches', 'Citation manifest');
 
 if (failures.length) {
