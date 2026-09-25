@@ -47,7 +47,7 @@ async function query(accountId, apiToken, days) {
     SUM(_sample_interval) AS eventCount
   FROM ${DATASET}
   WHERE timestamp > NOW() - INTERVAL '${days}' DAY
-    AND blob1 IN ('internal_link_shown', 'internal_link_clicked')
+    AND blob1 IN ('resource_opened', 'internal_link_shown', 'internal_link_clicked')
     AND blob7 = 'unusual-business-experiment'
     AND startsWith(blob2, 'unusual-business:')
   GROUP BY eventName, resourceId, destination, entityKind, sourcePath
@@ -83,14 +83,18 @@ function aggregate(rows) {
     const parsed = parseResource(row.resourceId);
     if (!parsed) continue;
     const eventCount = count(row.eventCount);
+    const isView = row.eventName === "resource_opened" && parsed.placement === "page-view";
     const isClick = row.eventName === "internal_link_clicked";
     const isShown = row.eventName === "internal_link_shown";
-    if (!isClick && !isShown) continue;
+    if (!isView && !isClick && !isShown) continue;
 
-    const target = targets.get(parsed.target) ?? { target: parsed.target, impressions: 0, clicks: 0 };
+    const target = targets.get(parsed.target) ?? { target: parsed.target, views: 0, impressions: 0, clicks: 0 };
+    if (isView) target.views += eventCount;
     if (isClick) target.clicks += eventCount;
     if (isShown) target.impressions += eventCount;
     targets.set(parsed.target, target);
+
+    if (isView) continue;
 
     const sourcePath = String(row.sourcePath || "");
     const destination = String(row.destination || "");
@@ -117,8 +121,8 @@ function aggregate(rows) {
     .sort((a, b) => b.clicks - a.clicks || b.impressions - a.impressions || a.target.localeCompare(b.target));
 
   const totals = targetRows.reduce(
-    (sum, row) => ({ impressions: sum.impressions + row.impressions, clicks: sum.clicks + row.clicks }),
-    { impressions: 0, clicks: 0 },
+    (sum, row) => ({ views: sum.views + row.views, impressions: sum.impressions + row.impressions, clicks: sum.clicks + row.clicks }),
+    { views: 0, impressions: 0, clicks: 0 },
   );
 
   return {
@@ -132,17 +136,17 @@ function markdown(report, days) {
   const lines = [
     `## Unusual Texas business experiment — last ${days} days`,
     "",
-    `**Impressions:** ${report.totals.impressions} · **Clicks:** ${report.totals.clicks} · **CTR:** ${report.totals.ctrPercent}%`,
+    `**Page views:** ${report.totals.views} · **Link impressions:** ${report.totals.impressions} · **Clicks:** ${report.totals.clicks} · **CTR:** ${report.totals.ctrPercent}%`,
     "",
     "### By target",
     "",
-    "| Target | Impressions | Clicks | CTR |",
-    "|---|---:|---:|---:|",
+    "| Target | Page views | Link impressions | Clicks | CTR |",
+    "|---|---:|---:|---:|---:|",
   ];
   for (const row of report.targets) {
-    lines.push(`| ${row.target} | ${row.impressions} | ${row.clicks} | ${row.ctrPercent}% |`);
+    lines.push(`| ${row.target} | ${row.views} | ${row.impressions} | ${row.clicks} | ${row.ctrPercent}% |`);
   }
-  if (!report.targets.length) lines.push("| No tracked events yet | 0 | 0 | 0% |");
+  if (!report.targets.length) lines.push("| No tracked events yet | 0 | 0 | 0 | 0% |");
 
   lines.push("", "### By placement", "", "| Target | Placement | Source | Destination | Impressions | Clicks | CTR |", "|---|---|---|---|---:|---:|---:|");
   for (const row of report.placements.slice(0, 100)) {
@@ -158,7 +162,7 @@ const report = aggregate(rows);
 const output = {
   generatedAt: new Date().toISOString(),
   windowDays: days,
-  privacy: "Aggregate internal-link impressions and clicks only; no session identifiers, visitor identifiers or query text.",
+  privacy: "Aggregate experiment page views plus internal-link impressions and clicks only; no session identifiers, visitor identifiers or query text.",
   ...report,
 };
 
