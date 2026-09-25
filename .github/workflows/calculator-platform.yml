@@ -47,3 +47,13 @@ jobs:
         run: node scripts/data/validate-local-salary-needed-seo.mjs
       - name: Build production application
         run: npm run build
+      - name: Validate client performance budget
+        run: npm run performance:validate > calculator-performance-budget.log 2>&1 || (cat calculator-performance-budget.log && exit 1)
+      - name: Upload calculator performance report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: calculator-performance-budget
+          path: calculator-performance-budget.log
+          if-no-files-found: warn
+          retention-days: 7
