@@ -50,6 +50,17 @@ if (failures.length === 0) {
     if (actual !== expected) failures.push(`Expected ${expected} queries in ${group}, found ${actual}.`);
   }
 
+  const primaryIntentOwnership = [
+    ["Painted churches of Texas map", "/explore/painted-churches/map"],
+    ["Self guided painted churches tour", "/explore/painted-churches-plan"],
+    ["Schulenburg Texas painted churches", "/explore/painted-churches/guides/schulenburg-texas"],
+  ];
+  for (const [query, canonicalPath] of primaryIntentOwnership) {
+    const row = queries.find((item) => item.query === query);
+    if (!row) failures.push(`Primary Painted Churches intent missing coverage row: ${query}`);
+    else if (row.canonicalPath !== canonicalPath) failures.push(`Primary Painted Churches intent drifted: ${query} -> ${row.canonicalPath}; expected ${canonicalPath}`);
+  }
+
   const dedicatedCoverage = queries.filter((item) => item.coverage === "search-guide");
   if (dedicatedCoverage.length !== 32) failures.push(`Expected 32 search-guide coverage rows, found ${dedicatedCoverage.length}.`);
   for (const item of dedicatedCoverage) {
