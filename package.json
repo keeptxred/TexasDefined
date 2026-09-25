@@ -38,7 +38,8 @@
     "football:tea-links:validate": "node scripts/data/validate-football-tea-profile-links.mjs",
     "high-school-football-isds:validate": "node scripts/data/validate-high-school-football-isds.mjs",
     "dogs:validate": "node scripts/data/validate-texas-dogs-authority.mjs",
-    "gaming:validate": "node scripts/data/validate-gaming-authority.mjs"
+    "gaming:validate": "node scripts/data/validate-gaming-authority.mjs",
+    "affiliate:economics:validate": "node scripts/data/validate-affiliate-economics.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
