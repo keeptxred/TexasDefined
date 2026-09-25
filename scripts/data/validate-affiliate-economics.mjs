@@ -6,11 +6,13 @@ const economicsPath = path.join(root, 'src/data/affiliate-economics.ts');
 const dashboardPath = path.join(root, 'src/routes/admin.partner-referrals.lazy.tsx');
 const schoolSupplyPath = path.join(root, 'src/components/monetization/SchoolSupplyPartners.tsx');
 const gamingPath = path.join(root, 'src/data/gaming.ts');
+const ticketmasterValidationPath = path.join(root, 'scripts/data/validate-ticketmaster-integration.mjs');
 
 const economics = fs.readFileSync(economicsPath, 'utf8');
 const dashboard = fs.readFileSync(dashboardPath, 'utf8');
 const schoolSupply = fs.readFileSync(schoolSupplyPath, 'utf8');
 const gaming = fs.readFileSync(gamingPath, 'utf8');
+const ticketmasterValidation = fs.readFileSync(ticketmasterValidationPath, 'utf8');
 const failures = [];
 
 function requireText(haystack, needle, label) {
@@ -31,6 +33,8 @@ for (const [needle, label] of [
   ['payout: "From 6%"', 'Booking.com car-rental payout guard'],
   ['partner: "RVshare"', 'RVshare registry record'],
   ['5% on completed RV stays; $7 for each new RV listed', 'RVshare payout guard'],
+  ['partner: "Ticketmaster"', 'Ticketmaster registry record'],
+  ['Current Impact payout rate not verified', 'Ticketmaster payout uncertainty guard'],
   ['partner: "Discount School Supply"', 'Discount School Supply sunset record'],
   ['status: "sunset"', 'sunset status'],
 ]) requireText(economics, needle, label);
@@ -51,6 +55,10 @@ for (const [needle, label] of [
   ['id: "17255582"', 'GearUP evergreen CJ link ID'],
   ['url: "https://www.anrdoezrs.net/click-101876465-17255582"', 'GearUP clean CJ tracking link'],
 ]) requireText(gaming, needle, label);
+
+for (const [needle, label] of [
+  ['https://ticketmaster.evyy.net/c/7758914/264167/4272?u=', 'Ticketmaster Impact tracking wrapper'],
+]) requireText(ticketmasterValidation, needle, label);
 
 function walk(directory) {
   const files = [];
