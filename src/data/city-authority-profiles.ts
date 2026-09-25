@@ -193,6 +193,37 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
     ],
   },
+  hurst: {
+    population2020: 40_413,
+    censusUrl: 'https://www.census.gov/quickfacts/fact/table/hurstcitytexas/PST045225',
+    systems: [
+      {
+        title: 'Water & city services',
+        summary: 'The City of Hurst Public Works system operates municipal water distribution and wastewater collection, while Utility Billing handles city water accounts. Electric service should still be verified for the exact address rather than inferred from the Hurst mailing label.',
+        links: [{ label: 'Hurst water & sewer', href: 'https://www.hursttx.gov/residents/city-services/water-and-sewer' }],
+      },
+      {
+        title: 'Regional rail & airport access',
+        summary: 'Bell Station on the Trinity Railway Express is in Hurst and provides regional rail connections across the Dallas-Fort Worth corridor. DFW International is the principal commercial airport for the Mid-Cities area; check live rail and airport information before travel.',
+        links: [{ label: 'Trinity Metro stations', href: 'https://ridetrinitymetro.org/stations/' }, { label: 'DFW International', href: 'https://www.dfwairport.com/' }],
+      },
+      {
+        title: 'Schools',
+        summary: 'Hurst-Euless-Bedford ISD serves much of Hurst, while Birdville ISD also serves part of the city. School-district and attendance boundaries do not simply follow municipal lines, so verify the district for the exact address.',
+        links: [{ label: 'HEB ISD', href: 'https://www.hebisd.edu/' }, { label: 'Birdville ISD', href: 'https://www.birdvilleschools.net/' }, { label: 'TexasDefined district lookup', href: '/find-my-school-district' }],
+      },
+      {
+        title: 'Parks & recreation',
+        summary: 'Hurst Parks & Recreation manages the city park system, recreation programs, aquatics and athletic facilities. Chisholm Park is the city’s largest park and includes trails, playgrounds, a fishing pond, athletic fields and other family recreation.',
+        links: [{ label: 'Hurst Parks & Recreation', href: 'https://www.hursttx.gov/about-us/departments/parks-recreation' }, { label: 'Chisholm Park', href: 'https://www.hursttx.gov/Home/Components/FacilityDirectory/FacilityDirectory/32/2514' }],
+      },
+      {
+        title: 'Local trip planning',
+        summary: 'Use Hurst as a Mid-Cities base for indoor family recreation and broader Tarrant County travel. TexasDefined connects the city directly to WhirlyBall Hurst, the county guide and nearby DFW attractions instead of treating every Metroplex stop as either Dallas or Fort Worth.',
+        links: [{ label: 'WhirlyBall Hurst guide', href: '/destination/whirlyball-hurst' }, { label: 'Tarrant County guide', href: '/county/tarrant' }, { label: 'Texas Sports', href: '/sports' }],
+      },
+    ],
+  },
   'corpus-christi': {
     population2020: 317_863,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/corpuschristicitytexas/PST045225',

@@ -27,10 +27,10 @@ export const whirlyballHurstDestinations: Destination[] = [
     county: "Tarrant",
     coordinates: { lat: 32.8516, lng: -97.1685 },
     hero: {
-      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Whirlyball.jpg?width=1600",
+      src: "https://upload.wikimedia.org/wikipedia/commons/5/52/Whirlyball.jpg",
       alt: "Representative WhirlyBall game in Texas with players riding bumper-style cars and using scoops to pass the ball",
-      width: 1600,
-      height: 1200,
+      width: 2560,
+      height: 1920,
       credit: "BobTheMad · CC BY-SA 3.0 · Wikimedia Commons · representative WhirlyBall game photographed in Plano in 2011",
     },
     bestSeason: "Year-round. Because the main activities are indoors, WhirlyBall Hurst is especially useful for hot North Texas afternoons, rainy days, evening group outings and weather-proof birthday or team events.",
@@ -60,13 +60,13 @@ export const whirlyballHurstDestinations: Destination[] = [
         { name: "AT&T Stadium", description: "Add a stadium tour or game-day stop when the outing is built around North Texas sports.", proximity: "Arlington", href: "/sports-venue/att-stadium" },
       ],
       foodAndDrink: [
-        { name: "Hurst and HEB Mid-Cities dining", description: "The Harwood Road and surrounding Mid-Cities corridors provide casual dining before or after a court session.", proximity: "Hurst", href: "/county/tarrant" },
+        { name: "Hurst and HEB Mid-Cities dining", description: "The Harwood Road and surrounding Mid-Cities corridors provide casual dining before or after a court session.", proximity: "Hurst", href: "/city/hurst" },
       ],
       lodging: [
         { name: "Hurst-Euless-Bedford hotels", description: "The Mid-Cities location is convenient for lodging between Fort Worth attractions and DFW Airport.", proximity: "Hurst / Euless / Bedford", href: "/county/tarrant" },
       ],
       neighborhoods: [
-        { name: "Hurst and the HEB Mid-Cities", description: "Use the Tarrant County guide for local context around Hurst, Euless, Bedford and the northeast county corridor.", proximity: "Tarrant County", href: "/county/tarrant" },
+        { name: "Hurst and the HEB Mid-Cities", description: "Use the Hurst city guide for verified local systems, schools, parks, rail access and Mid-Cities context, then continue into Tarrant County for the broader county picture.", proximity: "Hurst / Mid-Cities", href: "/city/hurst" },
       ],
       familyStops: [
         { name: "SEA LIFE Grapevine Aquarium", description: "An indoor family stop with an underwater tunnel, rescued sea turtles and marine exhibits.", proximity: "Grapevine", href: "/destination/sea-life-grapevine-aquarium" },

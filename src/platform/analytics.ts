@@ -1,6 +1,7 @@
 import { classifyAIReferral } from './ai-referral';
 import { isTexasDefinedAnalyticsHost } from './analytics-host';
 import { recordInternalLinkExposure } from './internal-link-memory';
+import { UNUSUAL_BUSINESS_ANALYTICS_KIND, unusualBusinessPageResource } from '../lib/unusual-business-analytics';
 
 export type TexasDefinedOutcomeEvent =
   | 'resource_found'
@@ -150,6 +151,7 @@ export function installTexasDefinedAnalytics() {
   if (!productionAnalyticsEnabled()) return () => undefined;
   const shown = new Set<string>();
   let lastShopViewPath = '';
+  let lastUnusualBusinessViewPath = '';
 
   const recordShopPageView = () => {
     const pathname = window.location.pathname;
@@ -171,6 +173,22 @@ export function installTexasDefinedAnalytics() {
     trackTexasDefinedOutcome('shop_page_view', {
       resourceId: productMatch ? decodeURIComponent(productMatch[1]) : pathname,
       entityKind,
+      destination: pathname,
+    });
+  };
+
+  const recordUnusualBusinessPageView = () => {
+    const pathname = window.location.pathname;
+    const resourceId = unusualBusinessPageResource(pathname);
+    if (!resourceId) {
+      lastUnusualBusinessViewPath = '';
+      return;
+    }
+    if (pathname === lastUnusualBusinessViewPath) return;
+    lastUnusualBusinessViewPath = pathname;
+    trackTexasDefinedOutcome('resource_opened', {
+      resourceId,
+      entityKind: UNUSUAL_BUSINESS_ANALYTICS_KIND,
       destination: pathname,
     });
   };
@@ -300,6 +318,7 @@ export function installTexasDefinedAnalytics() {
 
   const observe = () => {
     recordShopPageView();
+    recordUnusualBusinessPageView();
     document.querySelectorAll<HTMLAnchorElement>('a[data-entity-id], a[data-commercial-partner]').forEach((anchor) => observer?.observe(anchor));
   };
   const mutation = observer ? new MutationObserver(observe) : undefined;

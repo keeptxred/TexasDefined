@@ -100,6 +100,14 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
     title: "Old Blanco County Courthouse: Hours, History & Guide",
     description: "Visit Blanco's 1886 Old Blanco County Courthouse with current museum hours, courthouse history, Market Day details and links to Blanco State Park and Johnson City.",
   },
+  "/destination/buggy-barn-museum-blanco": {
+    title: "Buggy Barn Museum Blanco: Hours, Admission & Film History",
+    description: "Plan Buggy Barn Museum in Blanco with current hours, suggested admission, 250+ historic vehicles, Pine Moore Old West Studio and Texas film connections.",
+  },
+  "/destination/twin-sisters-dance-hall-blanco": {
+    title: "Twin Sisters Dance Hall Blanco: Dances, History & Guide",
+    description: "Plan Twin Sisters Dance Hall south of Blanco with current first-Saturday dance guidance, historic Texas dance-hall context, event rules and nearby Blanco stops.",
+  },
   "/texas-vs/california": { title: "Texas vs California: Cost & Living" },
   "/article/texas-wildlife-guide": { title: "Texas Wildlife Guide: Animals & Habitats" },
   "/article/texas-regions-explained": {

@@ -13,6 +13,11 @@ const counties = readRouteSurface('src/routes/browse.counties.tsx');
 const countyLazy = read('src/routes/browse.counties.lazy.tsx');
 const cityDirectory = read('src/components/directories/TexasPlaceDirectory.tsx');
 const cityAuthorityIndex = read('src/data/city-authority-index.ts');
+const cityMetroAuthority = read('src/data/city-metro-authority.ts');
+const cityAuthorityProfiles = read('src/data/city-authority-profiles.ts');
+const whirlyballHurst = read('src/data/whirlyball-hurst-destination.ts');
+const hurstWhirlyballProductionVerifier = read('scripts/ci/verify-hurst-whirlyball-production.mjs');
+const hurstWhirlyballProductionWorkflow = read('.github/workflows/hurst-whirlyball-production-smoke.yml');
 const countyDirectory = read('src/components/directories/TexasCountyPropertyDirectory.tsx');
 const propertyHub = read('src/routes/property.tsx');
 const calculatorFramework = read('src/components/property/PropertyCalculatorFramework.tsx');
@@ -44,6 +49,24 @@ const checks = [
   [cityDirectory, 'from "@/data/city-authority-index"', 'City directory must reuse the shared verified-city authority index'],
   [cityAuthorityIndex, 'export const CITY_AUTHORITY_INDEX', 'Shared city authority index must remain explicit and reviewable'],
   [cityAuthorityIndex, 'export const CITY_AUTHORITY_SLUGS', 'Shared city authority slug set must derive from the authority index'],
+  [cityAuthorityIndex, "{ name: 'Hurst', slug: 'hurst' }", 'Hurst must remain promoted in the verified city authority index'],
+  [cityMetroAuthority, "hurst: {", 'Hurst must retain its city authority override'],
+  [cityMetroAuthority, "'https://www.hursttx.gov/'", 'Hurst city authority must retain its official municipal source'],
+  [cityAuthorityProfiles, "population2020: 40_413", 'Hurst city profile must retain its stable 2020 Census population reference'],
+  [cityAuthorityProfiles, "href: '/destination/whirlyball-hurst'", 'Hurst city authority profile must retain the direct WhirlyBall cross-link'],
+  [whirlyballHurst, 'href: "/city/hurst"', 'WhirlyBall Hurst must retain a reciprocal link to the verified Hurst city authority page'],
+  [whirlyballHurst, 'href: "/county/tarrant"', 'WhirlyBall Hurst must retain broader Tarrant County context alongside the city link'],
+  [whirlyballHurst, 'https://upload.wikimedia.org/wikipedia/commons/5/52/Whirlyball.jpg', 'WhirlyBall Hurst must use the stable direct Wikimedia file URL for its hero image'],
+  [hurstWhirlyballProductionWorkflow, 'workflow_run:', 'Hurst/WhirlyBall production smoke must run after production deployments'],
+  [hurstWhirlyballProductionWorkflow, 'workflows: ["Deploy TexasDefined production"]', 'Hurst/WhirlyBall production smoke must follow the canonical production deployment'],
+  [hurstWhirlyballProductionWorkflow, "github.event.workflow_run.conclusion == 'success'", 'Hurst/WhirlyBall production smoke must run only after successful production deployment'],
+  [hurstWhirlyballProductionWorkflow, 'node scripts/ci/verify-hurst-whirlyball-production.mjs', 'Hurst/WhirlyBall production workflow must execute the governed verifier'],
+  [hurstWhirlyballProductionVerifier, "fetchLive('/browse/cities')", 'Hurst/WhirlyBall production verifier must check the live city directory'],
+  [hurstWhirlyballProductionVerifier, "fetchLive('/city/hurst')", 'Hurst/WhirlyBall production verifier must check the live Hurst city authority page'],
+  [hurstWhirlyballProductionVerifier, "fetchLive('/destination/whirlyball-hurst')", 'Hurst/WhirlyBall production verifier must check the live WhirlyBall destination page'],
+  [hurstWhirlyballProductionVerifier, 'Hurst has a Texas Defined city guide with official municipal sources', 'Hurst/WhirlyBall production verifier must reject stale directory-only Hurst copy'],
+  [hurstWhirlyballProductionVerifier, "cache: 'no-store'", 'Hurst/WhirlyBall production verifier must bypass stale cache state'],
+  [hurstWhirlyballProductionVerifier, 'Whirlyball.jpg', 'Hurst/WhirlyBall production verifier must protect the live hero source'],
   [cities, '"@type": "BreadcrumbList"', 'City directory must declare breadcrumbs'],
   [counties, '"@type": "BreadcrumbList"', 'County directory must declare breadcrumbs'],
   [propertyHub, 'Texas Defined connects all 254 counties to local property-tax research.', 'Property hub must retain the statewide county completeness statement'],

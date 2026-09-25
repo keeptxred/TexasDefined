@@ -11,26 +11,17 @@ export type PaintedChurchCensusEntry = {
 
 export const paintedChurchCandidateCensus: PaintedChurchCensusEntry[] = [
   {
-    slug: "mason-st-joseph-catholic-church",
-    name: "St. Joseph Catholic Church",
-    city: "Mason",
-    status: "candidate",
-    reason: "A strong promotion candidate discovered during the September 24 statewide follow-up. The parish's own history documents Manuel Lopez painting the interior in 1916 with a light-blue sky, dove, clouds, stars and angels; the 1963 expansion covered the painted ceiling with acoustical tile. A 2024 restoration project documents the historic painted vault's rediscovery and restoration. Texas Defined is retaining Mason as a candidate only until the canonical profile, image-rights review and collection-wide count update are completed together.",
-    sourceUrls: [
-      "https://www.stjosephmason.org/about-us",
-      "https://www.studioiodesign.com/st-joseph-mason",
-    ],
-  },
-  {
     slug: "east-bernard-holy-cross-catholic-church",
     name: "Holy Cross Catholic Church",
     city: "East Bernard",
     status: "candidate",
-    reason: "PaintedChurchesInTexas.com surfaced Holy Cross as a candidate, and stronger primary sources confirm a significant 1925 Spanish Colonial Revival interior with Czech and German influences, angelic mosaics from Munich, hand-painted copper Stations of the Cross from Czechoslovakia and roundel stained glass. Texas Defined is holding it outside the verified Painted Churches count until church-specific evidence establishes a fixed wall, ceiling, mural or faux-finish program that meets the collection's painted-interior standard rather than decorative movable art alone.",
+    reason: "PaintedChurchesInTexas.com surfaced Holy Cross as a candidate. Parish and Texas Historical Commission sources confirm the 1925 Spanish Colonial Revival church, Czech and German decorative influences, Munich angel mosaics, hand-painted copper Stations from Czechoslovakia and Brno roundel stained glass. A documented modern sanctuary project also added fixed painting and stencilling in the apse and other parts of the church. Texas Defined is retaining candidate status because the newly documented fixed painted program is modern; the remaining research question is whether enough historic fixed wall, ceiling, mural or faux-finish work survives to classify Holy Cross within the broader historic Painted Churches tradition rather than as a historic church with a later decorative campaign.",
     sourceUrls: [
       "https://paintedchurchesintexas.com/holy-cross-catholic-church-east-bernard/",
       "https://www.eastbernardcatholic.org/history",
       "https://atlas.thc.texas.gov/Details?atlasnumber=5481012292&fn=print",
+      "https://www.liturgicalartsjournal.com/2020/07/before-and-after-holy-cross-catholic.html",
+      "https://www.esskcmo.com/gallery",
     ],
   },
   {
@@ -51,11 +42,12 @@ export const paintedChurchCandidateCensus: PaintedChurchCensusEntry[] = [
     name: "Queen of the Holy Rosary Catholic Church",
     city: "Hostyn",
     status: "candidate",
-    reason: "Hostyn belongs in the historical research trail, but the church building described by older Painted Churches coverage was destroyed by an explosion and fire on June 9, 2022. The parish began rebuilding in late 2025 and poured the new foundation in January 2026. Texas Defined will not count a destroyed predecessor as a currently visitable Painted Church or assume the replacement's decorative program before the new building is completed and documented.",
+    reason: "Hostyn belongs in the historical research trail, but the church building described by older Painted Churches coverage was totally destroyed by an explosion and fire on June 9, 2022. The parish erected a rebuilding perimeter fence on October 9, 2025 and began pouring the replacement church's foundation on January 20, 2026. The parish is already documenting planned stained-glass artwork for the new sanctuary, but that does not establish a completed painted-interior program. Texas Defined will not count the destroyed predecessor as a currently visitable Painted Church or assume the replacement's decorative classification before the new building is completed and documented.",
     sourceUrls: [
       "https://paintedchurchesintexas.com/queen-of-the-holy-rosary-catholic-church-hostyn/",
       "https://hostynplumcatholic.org/queen-of-the-holy-rosary-hostyn",
       "https://hostynplumcatholic.org/rebuilding-church",
+      "https://hostynplumcatholic.org/stained-glass-for-the-church",
     ],
   },
   {
@@ -63,9 +55,10 @@ export const paintedChurchCandidateCensus: PaintedChurchCensusEntry[] = [
     name: "St. Joseph Catholic Church",
     city: "Rowena",
     status: "candidate",
-    reason: "PaintedChurchesInTexas.com identifies the 1924 Gothic Revival church as part of its catalog, but its current page primarily documents parish history and does not provide church-specific evidence for a qualifying painted wall, ceiling, mural, stencil or faux-finish program. Texas Defined is retaining Rowena as a research candidate until stronger decorative-interior evidence is located.",
+    reason: "PaintedChurchesInTexas.com identifies the 1924 Gothic Revival church as part of its catalog. A 2013 San Angelo Standard-Times report independently documents artist Crystal Goodman painting a fixed 15-by-20-foot Resurrection mural in the half-dome above St. Joseph's main altar, including an approximately eight-foot figure of the risen Christ. That establishes a qualifying fixed mural program, but it is a modern addition rather than evidence of a historic painted interior. Texas Defined is therefore retaining Rowena as a candidate while researching whether historic fixed decorative painting survives or whether Rowena should instead be documented separately as a modern painted-church tradition.",
     sourceUrls: [
       "https://paintedchurchesintexas.com/st-joseph-catholic-church-rowena/",
+      "https://archive.gosanangelo.com/lifestyle/rowena-church-coming-to-life-ep-438538467-355474231.html",
     ],
   },
   {

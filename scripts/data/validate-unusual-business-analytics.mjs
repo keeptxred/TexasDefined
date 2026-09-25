@@ -21,8 +21,10 @@ requireAll("unusual business analytics targets", helper, [
   '"/article/bluebonnet-animal-preservation-athens": "bluebonnet-animal-preservation-athens"',
   '"/article/phenix-knives-bellville": "phenix-knives-bellville"',
   '"/article/horses-on-the-beach-corpus-christi": "horses-on-the-beach-corpus-christi"',
+  '"/article/mum-queen-spring-texas-homecoming-mums": "mum-queen-spring-texas-homecoming-mums"',
   '"/destination/whirlyball-hurst": "whirlyball-hurst"',
   "unusualBusinessAnalyticsAttributes",
+  "unusualBusinessPageResource",
   '"data-entity-id"',
   '"data-entity-kind"',
 ]);
@@ -47,21 +49,25 @@ requireAll("Things Unique instrumentation", unique, [
 ]);
 
 requireAll("shared analytics contract", analytics, [
+  "'resource_opened'",
   "'internal_link_shown'",
   "'internal_link_clicked'",
   "recordInternalLinkExposure(entityId, 'impression')",
   "recordInternalLinkExposure(entityId, 'click')",
   "a[data-entity-id], a[data-commercial-partner]",
+  "recordUnusualBusinessPageView",
+  "unusualBusinessPageResource(pathname)",
+  "entityKind: UNUSUAL_BUSINESS_ANALYTICS_KIND",
 ]);
 
 requireAll("aggregate experiment report", report, [
   'const DATASET = "texas_defined_outcomes"',
-  "blob1 IN ('internal_link_shown', 'internal_link_clicked')",
+  "blob1 IN ('resource_opened', 'internal_link_shown', 'internal_link_clicked')",
   "blob7 = 'unusual-business-experiment'",
   "startsWith(blob2, 'unusual-business:')",
   "CLOUDFLARE_ACCOUNT_ID",
   "CLOUDFLARE_API_TOKEN",
-  "Aggregate internal-link impressions and clicks only",
+  "Aggregate experiment page views plus internal-link impressions and clicks only",
 ]);
 
 requireAll("protected report workflow", workflow, [

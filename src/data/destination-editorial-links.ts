@@ -157,6 +157,16 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "Connect the old courthouse with Blanco's river, downtown, food and wider town planning.",
     },
     {
+      href: "/destination/buggy-barn-museum-blanco",
+      label: "Add Buggy Barn Museum",
+      description: "Continue Blanco history with a major horse-drawn transportation collection and Pine Moore Old West film set.",
+    },
+    {
+      href: "/destination/twin-sisters-dance-hall-blanco",
+      label: "Plan Twin Sisters Dance Hall",
+      description: "Turn a daytime Blanco history visit into an evening music itinerary when a public dance is scheduled.",
+    },
+    {
       href: "/destination/blanco-state-park",
       label: "Add Blanco State Park",
       description: "Pair courthouse history with an in-town Blanco River stop when current water conditions are suitable.",
@@ -175,6 +185,60 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       href: "/county/blanco",
       label: "Explore Blanco County",
       description: "Use the county guide to connect the old courthouse with Johnson City, Hye, rivers and historic sites.",
+    },
+  ],
+  "buggy-barn-museum-blanco": [
+    {
+      href: "/destination/blanco",
+      label: "Explore Blanco",
+      description: "Connect the museum with downtown Blanco, the river, food and lodging.",
+    },
+    {
+      href: "/destination/old-blanco-county-courthouse",
+      label: "Add the Old Blanco County Courthouse",
+      description: "Pair transportation and film history with Blanco's nineteenth-century civic center.",
+    },
+    {
+      href: "/destination/twin-sisters-dance-hall-blanco",
+      label: "Add Twin Sisters Dance Hall",
+      description: "Use a scheduled public dance as the evening companion to a daytime museum visit.",
+    },
+    {
+      href: "/destination/blanco-state-park",
+      label: "Add Blanco State Park",
+      description: "Balance the indoor collection with river and outdoor time when conditions allow.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Connect Buggy Barn with Johnson City, Hye, LBJ history and the wider county.",
+    },
+  ],
+  "twin-sisters-dance-hall-blanco": [
+    {
+      href: "/destination/blanco",
+      label: "Explore Blanco",
+      description: "Use Blanco for the daytime courthouse, river, food and lodging portion of a dance-hall trip.",
+    },
+    {
+      href: "/destination/buggy-barn-museum-blanco",
+      label: "Add Buggy Barn Museum",
+      description: "Build a full-day heritage itinerary before the evening dance.",
+    },
+    {
+      href: "/destination/old-blanco-county-courthouse",
+      label: "Add the Old Blanco County Courthouse",
+      description: "Connect the dance hall's community history with Blanco's original county-seat story.",
+    },
+    {
+      href: "/destination/real-ale-brewing-company-blanco",
+      label: "Visit Real Ale Brewing",
+      description: "Add a working Blanco brewery and distillery when it fits the day's driving and alcohol plan.",
+    },
+    {
+      href: "/county/blanco",
+      label: "Explore Blanco County",
+      description: "Connect Twin Sisters with Johnson City, Hye, the Pedernales and the rest of the county.",
     },
   ],
   "real-ale-brewing-company-blanco": [

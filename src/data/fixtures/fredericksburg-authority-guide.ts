@@ -52,6 +52,8 @@ export const fredericksburgAuthorityArticles: Article[] = [
       { href: "/events/hill-country-events", label: "Hill Country events calendar", description: "Check other verified events that can materially change lodging demand, traffic and the best weekend to visit." },
       { href: "/destination/hye", label: "Hye, Texas", description: "Use the Hye town guide for the historic post office, William Chris, Hye Meadow, Garrison Brothers and the eastern U.S. 290 corridor." },
       { href: "/destination/garrison-brothers-distillery-hye", label: "Garrison Brothers Distillery in Hye", description: "Add a working Texas bourbon distillery to the eastern U.S. 290 corridor between Fredericksburg, Stonewall and Johnson City." },
+      { href: "/destination/texas-hills-vineyard", label: "Texas Hills Vineyard", description: "Open the source-backed Johnson City vineyard profile for current planning, history, lodging and nearby stops." },
+      { href: "/destination/mendelbaum-cellars", label: "Mendelbaum Cellars", description: "Open the source-backed Highway 290 profile for its Texas-and-Israel wine concept, cabins and corridor planning." },
       { href: "/explore/trip-planner?destination=fredericksburg", label: "Build a Fredericksburg trip", description: "Use the TexasDefined trip planner to combine town, wine, outdoors and nearby destinations." },
     ],
     relatedCollections: [],
@@ -66,6 +68,8 @@ export const fredericksburgAuthorityArticles: Article[] = [
       "lyndon-b-johnson-state-park-and-historic-site",
       "lyndon-b-johnson-national-historical-park",
       "garrison-brothers-distillery-hye",
+      "texas-hills-vineyard",
+      "mendelbaum-cellars",
       "hye",
     ],
     body: [

@@ -1,0 +1,43 @@
+name: Hurst WhirlyBall production smoke
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/hurst-whirlyball-production-smoke.yml'
+      - 'scripts/ci/verify-hurst-whirlyball-production.mjs'
+      - 'scripts/data/validate-place-directory-seo.mjs'
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-hurst-whirlyball-production-smoke
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    if: >-
+      github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify Hurst and WhirlyBall production cluster
+        env:
+          HURST_WHIRLYBALL_PRODUCTION_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-hurst-whirlyball-production.mjs

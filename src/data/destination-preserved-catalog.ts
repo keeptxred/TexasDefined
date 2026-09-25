@@ -17,6 +17,7 @@ import { dfwMuseumDestinations } from "./museum-expansion-dfw";
 import { georgeWBushMuseumDestinations } from "./museum-expansion-george-w-bush";
 import { garrisonBrothersHyeDestinations } from "./garrison-brothers-hye-destination";
 import { williamChrisVineyardsHyeDestinations } from "./william-chris-vineyards-hye-destination";
+import { fredericksburgWineryAuthorityDestinations } from "./fredericksburg-winery-authority-destinations";
 import { hyeTexasDestinations } from "./hye-texas-destination";
 import { houstonGalvestonMuseumDestinations } from "./museum-expansion-houston-galveston";
 import { sanAntonioMuseumDestinations } from "./museum-expansion-san-antonio";
@@ -81,6 +82,8 @@ import { pedernalesRiverNatureParkDestinations } from "./pedernales-river-nature
 import { pecanStreetBrewingDestinations } from "./pecan-street-brewing-destination";
 import { realAleBlancoDestinations } from "./real-ale-blanco-destination";
 import { oldBlancoCountyCourthouseDestinations } from "./old-blanco-county-courthouse-destination";
+import { twinSistersDanceHallDestinations } from "./twin-sisters-dance-hall-destination";
+import { buggyBarnMuseumBlancoDestinations } from "./buggy-barn-museum-blanco-destination";
 import { smallTownWave1Destinations } from "./small-town-destinations-wave1";
 import { smallTownWave2Destinations } from "./small-town-destinations-wave2";
 import { smallTownWave3Destinations } from "./small-town-destinations-wave3";
@@ -218,6 +221,8 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   pecanStreetBrewingDestinations,
   realAleBlancoDestinations,
   oldBlancoCountyCourthouseDestinations,
+  twinSistersDanceHallDestinations,
+  buggyBarnMuseumBlancoDestinations,
   historicSiteDestinations,
   militaryHistoryDestinations,
   militaryMuseumDestinations,
@@ -226,6 +231,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   georgeWBushMuseumDestinations,
   garrisonBrothersHyeDestinations,
   williamChrisVineyardsHyeDestinations,
+  fredericksburgWineryAuthorityDestinations,
   hyeTexasDestinations,
   austinMuseumDestinations,
   sanAntonioMuseumDestinations,
