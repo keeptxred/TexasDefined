@@ -1,0 +1,84 @@
+name: Restore verified TexasDefined Worker
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: read
+
+concurrency:
+  group: texasdefined-production
+  cancel-in-progress: false
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: texasdefined-publication
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Resolve latest fully verified Worker
+        id: verified_target
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/ci/verified-worker-ledger.mjs resolve
+
+      - name: Capture current Worker runtime diagnostics
+        id: restore_diagnostics
+        continue-on-error: true
+        shell: bash
+        run: |
+          mkdir -p artifacts
+          npx wrangler deployments status --json > artifacts/verified-restore-deployment-status.json 2> artifacts/verified-restore-deployment-status.stderr || true
+          npx wrangler versions list --json > artifacts/verified-restore-versions.json 2> artifacts/verified-restore-versions.stderr || true
+          timeout 25s npx wrangler tail texasdefined-site --format json --status error > artifacts/verified-restore-worker-tail.jsonl 2> artifacts/verified-restore-worker-tail.stderr &
+          TAIL_PID=$!
+          sleep 4
+          curl -sS --max-time 15 -D artifacts/verified-restore-direct.headers -o artifacts/verified-restore-direct.html "https://texasdefined-site.freddy-coppola.workers.dev/?restore_probe=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" || true
+          curl -sS --max-time 15 -D artifacts/verified-restore-canonical.headers -o artifacts/verified-restore-canonical.html "https://texasdefined.com/?restore_probe=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" || true
+          wait "${TAIL_PID}" || true
+
+      - name: Upload current Worker runtime diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verified-worker-restore-${{ github.run_id }}
+          path: artifacts/verified-restore-*
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Restore latest fully verified Worker version
+        shell: bash
+        run: |
+          npx wrangler rollback "${{ steps.verified_target.outputs.version_id }}" --message "Manual recovery: restore latest fully verified TexasDefined Worker"
+
+      - name: Verify restored direct Worker
+        env:
+          PRODUCTION_HEALTH_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
+          PRODUCTION_HEALTH_LABEL: verified-restored-direct-worker
+        run: node scripts/ci/verify-production-health.mjs
+
+      - name: Verify restored canonical domain
+        env:
+          PRODUCTION_HEALTH_ORIGIN: https://texasdefined.com
+          PRODUCTION_HEALTH_LABEL: verified-restored-canonical-domain
+        run: node scripts/ci/verify-production-health.mjs
+
+      - name: Verify restored production surfaces
+        run: node scripts/ci/verify-production-surfaces.mjs
