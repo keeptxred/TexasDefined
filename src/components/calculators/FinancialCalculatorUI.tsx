@@ -97,6 +97,30 @@ export function PercentageInput(props: Omit<Parameters<typeof FinancialInput>[0]
   return <FinancialInput {...props} suffix="%" />;
 }
 
+export function FinancialSelect({
+  label,
+  value,
+  onChange,
+  options,
+  helper,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  options: Array<{ value: string; label: string }>;
+  helper?: string;
+}) {
+  return (
+    <label className="block min-w-0 border-t border-border pt-4">
+      <span className="text-sm font-semibold">{label}</span>
+      <select className="mt-2 min-h-11 w-full border-0 border-b border-border bg-background px-0 py-3 text-base outline-none focus:border-primary focus-visible:ring-2 focus-visible:ring-primary" value={value} onChange={(event) => onChange(event.target.value)}>
+        {options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+      </select>
+      {helper ? <span className="mt-2 block text-xs leading-5 text-muted-foreground">{helper}</span> : null}
+    </label>
+  );
+}
+
 export function AdvancedInputs({ children, label = 'Advanced assumptions' }: { children: ReactNode; label?: string }) {
   return (
     <details className="border-t border-border pt-5">
