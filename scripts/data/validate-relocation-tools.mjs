@@ -56,6 +56,7 @@ if(!fs.existsSync(cityDepth)){
 }else{
   const city=fs.readFileSync(cityDepth,'utf8');
   for(const token of [
+    "entity.kind === 'city' && cityProfile",
     'Relocation snapshot',
     'Add {entity.name} to My Texas Move →',
     '/moving-to-texas?saveCity=',
