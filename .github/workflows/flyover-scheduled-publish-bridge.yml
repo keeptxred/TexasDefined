@@ -5,20 +5,35 @@ on:
     types: [opened]
 
 permissions:
-  actions: write
   contents: read
   issues: write
 
+concurrency:
+  group: flyover-texasdefined-publication
+  cancel-in-progress: false
+
 jobs:
-  dispatch:
+  publish:
     if: >-
       github.event.issue.user.login == 'keeptxred' &&
       github.event.issue.author_association == 'OWNER' &&
       startsWith(github.event.issue.title, '[Flyover Publish TD] ')
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 30
+    environment: texasdefined-publication
+    env:
+      KEEP_TX_RED_SUPABASE_URL: https://ftkznprjljkhymknvhye.supabase.co
+      KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      # This is a per-request activation, not a repository-wide activation.
+      # The workflow only reaches this job for an OWNER-created, validated
+      # Flyover request. The normal TexasDefined auto-publisher stays disabled
+      # unless its repository variable is separately activated.
+      TEXASDEFINED_AUTO_PUBLISH_ENABLED: "true"
+      TEXASDEFINED_PUBLISH_CONFIRMATION: PUBLISH_TEXASDEFINED
     steps:
-      - name: Validate trigger envelope
+      - name: Validate owner-authorized trigger envelope
         shell: bash
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
@@ -27,78 +42,62 @@ jobs:
           first_line="$(printf '%s\n' "$ISSUE_BODY" | sed -n '1p')"
           run_line="$(printf '%s\n' "$ISSUE_BODY" | sed -n '2p')"
           site_line="$(printf '%s\n' "$ISSUE_BODY" | sed -n '3p')"
+          line_count="$(printf '%s\n' "$ISSUE_BODY" | awk 'END {print NR}')"
 
+          [[ "$line_count" -eq 3 ]]
           [[ "$first_line" == "flyover_publish_request_v1" ]]
           [[ "$run_line" =~ ^run_id=[A-Za-z0-9._:-]{8,160}$ ]]
           [[ "$site_line" == "site=texasdefined" ]]
 
           echo "RUN_ID=${run_line#run_id=}" >> "$GITHUB_ENV"
 
-      - name: Capture previous TexasDefined publication dispatch
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Validate TexasDefined publication guardrails
+        run: node scripts/data/validate-texasdefined-auto-publication.mjs
+
+      - name: Publish one quality-gated TexasDefined queue item
         shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          before="$(gh run list \
-            --repo "$GITHUB_REPOSITORY" \
-            --workflow texasdefined-auto-publication.yml \
-            --event workflow_dispatch \
-            --branch main \
-            --limit 1 \
-            --json databaseId \
-            --jq '.[0].databaseId // 0')"
-          echo "BEFORE_RUN_ID=$before" >> "$GITHUB_ENV"
+          node scripts/news/texasdefined-auto-publisher.mjs --publish --limit=1 | tee /tmp/flyover-td-publish.jsonl
 
-      - name: Dispatch protected TexasDefined publisher
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          gh workflow run texasdefined-auto-publication.yml \
-            --repo "$GITHUB_REPOSITORY" \
-            --ref main \
-            -f mode=publish \
-            -f confirmation=PUBLISH_TEXASDEFINED
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const rows = fs.readFileSync('/tmp/flyover-td-publish.jsonl', 'utf8')
+            .split(/\r?\n/)
+            .filter(Boolean)
+            .map((line) => JSON.parse(line));
+          const queue = rows.find((row) => row.mode === 'publish');
+          const published = rows.find((row) => row.published === true);
+          if (!queue) throw new Error('Publisher did not emit a queue summary.');
+          const summary = {
+            eligible: Number(queue.eligible || 0),
+            feedIds: Array.isArray(queue.ids) ? queue.ids : [],
+            published: Boolean(published),
+            feedId: published?.feedId ?? null,
+            slug: published?.slug ?? null,
+            liveUrl: published?.liveUrl ?? null,
+          };
+          fs.writeFileSync('/tmp/flyover-td-summary.json', JSON.stringify(summary));
+          console.log(JSON.stringify(summary));
+          NODE
 
-      - name: Resolve dispatched TexasDefined run
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          for attempt in $(seq 1 30); do
-            row="$(gh run list \
-              --repo "$GITHUB_REPOSITORY" \
-              --workflow texasdefined-auto-publication.yml \
-              --event workflow_dispatch \
-              --branch main \
-              --limit 1 \
-              --json databaseId,status,url \
-              --jq '.[0] // {}')"
-            run_id="$(jq -r '.databaseId // 0' <<<"$row")"
-            if [[ "$run_id" != "0" && "$run_id" != "$BEFORE_RUN_ID" ]]; then
-              echo "DISPATCHED_RUN_ID=$run_id" >> "$GITHUB_ENV"
-              echo "DISPATCHED_RUN_URL=$(jq -r '.url // ""' <<<"$row")" >> "$GITHUB_ENV"
-              exit 0
-            fi
-            sleep 2
-          done
-
-          echo "No new TexasDefined workflow_dispatch run appeared." >&2
-          exit 1
-
-      - name: Record bridge result and close request
+      - name: Record result and close successful bridge request
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
           set -euo pipefail
+          summary="$(cat /tmp/flyover-td-summary.json)"
           gh issue comment "$ISSUE_NUMBER" \
             --repo "$GITHUB_REPOSITORY" \
-            --body "Flyover bridge accepted \`$RUN_ID\` and dispatched the protected TexasDefined publisher. Actions run: $DISPATCHED_RUN_URL"
+            --body "Flyover bridge completed \`$RUN_ID\` through the protected TexasDefined publication environment. Publisher result: \`$summary\`. Actions run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
           gh issue close "$ISSUE_NUMBER" \
             --repo "$GITHUB_REPOSITORY" \
             --reason completed
