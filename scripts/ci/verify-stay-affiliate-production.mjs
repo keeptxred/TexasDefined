@@ -35,12 +35,14 @@ function verifyLiveRoutingPolicy(source) {
   requireCondition(typeof api.buildCjDeepLink === 'function', 'Live stay affiliate bootstrap does not expose buildCjDeepLink.');
   requireCondition(typeof api.featuredGolfStay === 'function', 'Live stay affiliate bootstrap does not expose featuredGolfStay.');
 
+  requireCondition(api.bookingIntent('/texas-state-fair') === 'hotel-first', 'Live State Fair intent no longer resolves to hotel-first.');
   requireCondition(api.bookingIntent('/event/chappell-hill-bluebonnet-festival') === 'hotel-first', 'Live event intent no longer resolves to hotel-first.');
   requireCondition(api.bookingIntent('/destination/fredericksburg') === 'both', 'Live destination intent no longer resolves to broader lodging intent.');
   requireCondition(api.comparisonHotelDestination('hotel-first') === 'https://www.orbitz.com/', 'Live hotel-first comparison provider must resolve to Orbitz.');
   requireCondition(api.comparisonHotelDestination('both') === 'https://www.travelocity.com/', 'Live destination/leisure comparison provider must resolve to Travelocity.');
   requireCondition(api.rvshareEligible('/best-places-to-go-camping-in-texas') === true, 'Live camping guide must remain eligible for RVshare.');
   requireCondition(api.rvshareEligible('/explore/rv-parks') === true, 'Live RV-parks hub must remain eligible for RVshare.');
+  requireCondition(api.rvshareEligible('/texas-state-fair') === false, 'Live State Fair guide must fail closed for RVshare.');
   requireCondition(api.rvshareEligible('/destination/fredericksburg') === false, 'Live generic destination pages must fail closed for RVshare.');
 
   const orbitz = api.buildCjDeepLink('https://www.orbitz.com/');
@@ -276,6 +278,11 @@ for (const marker of [
 ]) requireCondition(expediaBootstrap.includes(marker), `Live Expedia/Stay Nearby bootstrap is missing marker: ${marker}`);
 
 const pages = [
+  {
+    route: '/texas-state-fair',
+    marker: 'Where to stay and what else to do in Dallas',
+    requireSlot: true,
+  },
   {
     route: '/best-places-to-go-camping-in-texas',
     marker: 'Best Places to Go Camping in Texas',
