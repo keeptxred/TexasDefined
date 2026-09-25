@@ -10,7 +10,7 @@ const llms = read('src/routes/llms[.]txt.ts');
 const manifest = JSON.parse(read('public/citation-magnets.json'));
 
 const pointCount = (points.match(/slug: "/g) ?? []).length;
-if (pointCount !== 27) failures.push(`Interactive Painted Churches map must retain 27 sourced points; found ${pointCount}.`);
+if (pointCount !== 28) failures.push(`Interactive Painted Churches map must retain 28 sourced points; found ${pointCount}.`);
 for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka','castroville-st-louis-catholic-church','lacoste-our-lady-of-grace','serbin-st-paul-lutheran-church','praha-st-marys-assumption']) {
   if (!points.includes(`slug: "${slug}"`)) failures.push(`Map coordinate registry missing ${slug}.`);
 }
@@ -26,7 +26,7 @@ for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-s
 for (const path of ['/explore/painted-churches/media','/explore/painted-churches/cite','/explore/painted-churches/then-and-now']) {
   if (!publicRoutes.includes(JSON.stringify(path))) failures.push(`Public route registry missing ${path}.`);
 }
-if (!llms.includes('currently contains 27 verified church profiles')) failures.push('llms.txt must state the current 27-church verified collection.');
+if (!llms.includes('currently contains 28 verified church profiles')) failures.push('llms.txt must state the current 28-church verified collection.');
 if (!llms.includes('/explore/painted-churches/knowledge-graph') || !llms.includes('/explore/painted-churches/cite') || !llms.includes('/explore/painted-churches/then-and-now')) failures.push('llms.txt must expose Painted Churches authority graph, archival comparison and citation guidance.');
 const manifestUrls = new Set(manifest.resources.map((resource) => resource.url));
 for (const path of ['/explore/painted-churches/census','/explore/painted-churches/techniques','/explore/painted-churches/symbols','/explore/painted-churches/people','/explore/painted-churches/heritage','/explore/painted-churches/preservation','/explore/painted-churches/knowledge-graph','/explore/painted-churches/then-and-now','/explore/painted-churches/media','/explore/painted-churches/cite']) {
@@ -35,8 +35,8 @@ for (const path of ['/explore/painted-churches/census','/explore/painted-churche
 }
 
 if (failures.length) {
-  console.error('Painted Churches interactive map / 27-church authority validation failed:');
+  console.error('Painted Churches interactive map / 28-church authority validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('Painted Churches map protected: 27 sourced pins, precision provenance, interactive filters, GeoCoordinates, archival comparison, public routes, llms guidance and citation manifest.');
+console.log('Painted Churches map protected: 28 sourced pins, precision provenance, interactive filters, GeoCoordinates, archival comparison, public routes, llms guidance and citation manifest.');

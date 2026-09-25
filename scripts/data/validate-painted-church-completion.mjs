@@ -111,7 +111,7 @@ requireText(tripPlanner, 'church-specific visitor information and official sourc
 forbidText(tripPlanner, 'visitor-source checks', 'Trip-planner retired QA language');
 requireText(countyGuides, 'countyChurches = expandedPaintedChurches.filter', 'County reciprocal link');
 requireText(guidebook, 'label: "Painted Churches of Texas"', 'Guidebook discovery');
-requireText(guidebook, 'A source-backed heritage reference and travel-planning system for 27 verified churches.', 'Guidebook authority copy');
+requireText(guidebook, 'A source-backed heritage reference and travel-planning system for 28 verified churches.', 'Guidebook authority copy');
 requireText(topicPaths, 'label: "Painted Churches of Texas"', 'Historic-sites reciprocal link');
 requireText(topicPaths, 'to: "/explore/painted-churches/routes"', 'Road-trip reciprocal link');
 requireText(topicPaths, 'label: "Painted Churches"', 'Small-town reciprocal link');
