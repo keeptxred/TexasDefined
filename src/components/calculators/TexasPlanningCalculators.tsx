@@ -257,7 +257,7 @@ export function CostOfLivingCalculator() {
 }
 
 export function SalaryCalculator() {
-  const defaults = { salary: 90000, filingStatus: 'single', retirement: 6, pretaxBenefits: 0, afterTax: 0 };
+  const defaults = { salary: 90000, filingStatus: 'single', payFrequency: 'biweekly', retirement: 6, pretaxBenefits: 0, afterTax: 0 };
   const [state, setState] = useState(() => readCalculatorUrlState(defaults));
   const setNumber = (key: 'salary' | 'retirement' | 'pretaxBenefits' | 'afterTax', value: number) => setState((current) => ({ ...current, [key]: value }));
   const result = useMemo(() => estimatePayroll2026({
@@ -267,6 +267,14 @@ export function SalaryCalculator() {
     annualPretaxBenefits: state.pretaxBenefits,
     annualAfterTaxDeductions: state.afterTax,
   }), [state]);
+  const payFrequency = {
+    weekly: { label: 'Weekly', periods: 52 },
+    biweekly: { label: 'Biweekly', periods: 26 },
+    semimonthly: { label: 'Semimonthly', periods: 24 },
+    monthly: { label: 'Monthly', periods: 12 },
+  }[state.payFrequency] ?? { label: 'Biweekly', periods: 26 };
+  const estimatedTakeHomePerPaycheck = result.annualTakeHome / payFrequency.periods;
+  const grossPerPaycheck = result.grossIncome / payFrequency.periods;
   const breakdown = [
     { label: 'Federal income tax', value: result.federalIncomeTax / 12 },
     { label: 'Social Security', value: result.socialSecurityTax / 12 },
@@ -281,21 +289,29 @@ export function SalaryCalculator() {
     issues={result.issues}
     results={[
       { label: 'Monthly take-home', value: money(result.monthlyTakeHome), emphasis: true },
+      { label: payFrequency.label + ' take-home', value: money(estimatedTakeHomePerPaycheck), note: 'Annual modeled take-home divided across ' + payFrequency.periods + ' pay periods.' },
+      { label: payFrequency.label + ' gross pay', value: money(grossPerPaycheck) },
       { label: 'Annual take-home', value: money(result.annualTakeHome) },
       { label: 'Federal income tax', value: money(result.federalIncomeTax) },
       { label: 'Social Security', value: money(result.socialSecurityTax) },
       { label: 'Medicare', value: money(result.medicareTax + result.additionalMedicareTax) },
       { label: 'Texas individual state income tax', value: '$0' },
     ]}
-    summary={{ 'Monthly take-home': money(result.monthlyTakeHome), 'Annual take-home': money(result.annualTakeHome), 'Federal income tax': money(result.federalIncomeTax), 'Texas income tax': '$0' }}
+    summary={{ 'Monthly take-home': money(result.monthlyTakeHome), [payFrequency.label + ' take-home']: money(estimatedTakeHomePerPaycheck), 'Annual take-home': money(result.annualTakeHome), 'Federal income tax': money(result.federalIncomeTax), 'Texas income tax': '$0' }}
     breakdown={breakdown}
-    methodology={{ formula: 'For tax year 2026, the engine subtracts the applicable standard deduction and modeled pre-tax deductions, applies the published marginal federal tax brackets, then applies employee Social Security and Medicare rules before user-entered after-tax deductions.', assumptions: ['Federal income tax is an annual planning estimate before credits and special deductions, not a W-4 withholding calculation or tax return.', 'Retirement deferrals reduce federal taxable income but remain subject to FICA in this model.', 'Entered pre-tax benefits are modeled as cafeteria-plan deductions that reduce federal taxable income and FICA wages.', 'Additional Medicare withholding is modeled above the employer withholding threshold of $200,000.'], sources: ['IRS Revenue Procedure 2025-32 / 2026 inflation adjustments: tax brackets and standard deductions.', 'IRS Publication 15 (2026): 6.2% employee Social Security, $184,500 wage base, 1.45% Medicare and 0.9% Additional Medicare withholding over $200,000.', 'Texas individual state income tax: $0.'] }}>
+    methodology={{ formula: 'For tax year 2026, the engine subtracts the applicable standard deduction and modeled pre-tax deductions, applies the published marginal federal tax brackets, then applies employee Social Security and Medicare rules before user-entered after-tax deductions. Pay-period results divide the annual modeled amounts by the selected number of pay periods.', assumptions: ['Federal income tax is an annual planning estimate before credits and special deductions, not a W-4 withholding calculation or tax return.', 'Retirement deferrals reduce federal taxable income but remain subject to FICA in this model.', 'Entered pre-tax benefits are modeled as cafeteria-plan deductions that reduce federal taxable income and FICA wages.', 'Additional Medicare withholding is modeled above the employer withholding threshold of $200,000.', 'Pay-period output is an even annualized estimate; actual checks can differ because of payroll rounding, bonuses, overtime, benefit timing or withholding elections.'], sources: ['IRS Revenue Procedure 2025-32 / 2026 inflation adjustments: tax brackets and standard deductions.', 'IRS Publication 15 (2026): 6.2% employee Social Security, $184,500 wage base, 1.45% Medicare and 0.9% Additional Medicare withholding over $200,000.', 'Texas individual state income tax: $0.'] }}>
     <CurrencyInput label="Annual gross salary" value={state.salary} onChange={(v) => setNumber('salary', v)} step={1000}/>
     <FinancialSelect label="Filing status" value={state.filingStatus} onChange={(value) => setState((current) => ({ ...current, filingStatus: value }))} options={[
       { value: 'single', label: 'Single' },
       { value: 'married_jointly', label: 'Married filing jointly' },
       { value: 'head_of_household', label: 'Head of household' },
       { value: 'married_separately', label: 'Married filing separately' },
+    ]}/>
+    <FinancialSelect label="Pay frequency" value={state.payFrequency} onChange={(value) => setState((current) => ({ ...current, payFrequency: value }))} options={[
+      { value: 'weekly', label: 'Weekly — 52 checks' },
+      { value: 'biweekly', label: 'Biweekly — 26 checks' },
+      { value: 'semimonthly', label: 'Semimonthly — 24 checks' },
+      { value: 'monthly', label: 'Monthly — 12 checks' },
     ]}/>
     <PercentageInput label="Pre-tax retirement contribution" value={state.retirement} onChange={(v) => setNumber('retirement', v)} step={0.1} max={100}/>
     <div className="sm:col-span-2 lg:col-span-3"><AdvancedInputs>

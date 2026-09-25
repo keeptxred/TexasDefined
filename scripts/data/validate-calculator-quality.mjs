@@ -67,6 +67,7 @@ for (const marker of [
   "from '@/lib/financial/household'",
   'estimateCostOfLivingBudget',
   "from '@/lib/financial/payroll'",
+  'Pay frequency',
   "estimateRentVsBuy",
 ]) {
   if (!planning.includes(marker)) failures.push('TexasPlanningCalculators must consume shared engine: ' + marker);
