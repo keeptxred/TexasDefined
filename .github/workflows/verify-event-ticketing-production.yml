@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Verify live provider-neutral ticket CTA
+      - name: Verify live official and Ticketmaster affiliate ticket CTAs
         env:
           PRODUCTION_ORIGIN: https://texasdefined.com
         run: node scripts/ci/verify-event-ticketing-production.mjs
