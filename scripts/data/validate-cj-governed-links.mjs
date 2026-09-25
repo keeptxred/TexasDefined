@@ -28,9 +28,9 @@ for (const marker of forbiddenCampaignMarkers) {
   if (catalog.toLowerCase().includes(marker.toLowerCase())) errors.push(`Permanent CJ catalog contains campaign marker: ${marker}.`);
 }
 
-const activationCount = (catalog.match(/activation: "tracking-required"/g) || []).length;
-if (activationCount < requiredRexing.length + requiredAbracadabra.length) {
-  errors.push('Every governed Rexing/Abracadabra record must fail closed as tracking-required until exact CJ tracking output is supplied.');
+const governedRecordCount = (catalog.match(/governed\("(?:rexing|abracadabra-nyc)"/g) || []).length;
+if (governedRecordCount !== requiredRexing.length + requiredAbracadabra.length || !catalog.includes('activation: "tracking-required"')) {
+  errors.push('Every governed Rexing/Abracadabra record must fail closed through the shared tracking-required constructor until exact CJ tracking output is supplied.');
 }
 if (catalog.includes('email.cj.com/')) errors.push('Governed CJ catalog must never contain shopper-facing CJ email wrappers.');
 if (/trackingUrl\s*:|affiliateUrl\s*:|href\s*:/.test(catalog)) {
