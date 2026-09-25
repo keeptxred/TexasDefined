@@ -26,14 +26,10 @@ jobs:
       KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      # This is a per-request activation, not a repository-wide activation.
-      # The workflow only reaches this job for an OWNER-created, validated
-      # Flyover request. The normal TexasDefined auto-publisher stays disabled
-      # unless its repository variable is separately activated.
       TEXASDEFINED_AUTO_PUBLISH_ENABLED: "true"
       TEXASDEFINED_PUBLISH_CONFIRMATION: PUBLISH_TEXASDEFINED
     steps:
-      - name: Validate owner-authorized trigger envelope
+      - name: Validate owner-authorized exact-feed trigger envelope
         shell: bash
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
@@ -42,14 +38,17 @@ jobs:
           first_line="$(printf '%s\n' "$ISSUE_BODY" | sed -n '1p')"
           run_line="$(printf '%s\n' "$ISSUE_BODY" | sed -n '2p')"
           site_line="$(printf '%s\n' "$ISSUE_BODY" | sed -n '3p')"
+          feed_line="$(printf '%s\n' "$ISSUE_BODY" | sed -n '4p')"
           line_count="$(printf '%s\n' "$ISSUE_BODY" | awk 'END {print NR}')"
 
-          [[ "$line_count" -eq 3 ]]
-          [[ "$first_line" == "flyover_publish_request_v1" ]]
+          [[ "$line_count" -eq 4 ]]
+          [[ "$first_line" == "flyover_publish_request_v2" ]]
           [[ "$run_line" =~ ^run_id=[A-Za-z0-9._:-]{8,160}$ ]]
           [[ "$site_line" == "site=texasdefined" ]]
+          [[ "$feed_line" =~ ^feed_id=[1-9][0-9]*$ ]]
 
           echo "RUN_ID=${run_line#run_id=}" >> "$GITHUB_ENV"
+          echo "FEED_ID=${feed_line#feed_id=}" >> "$GITHUB_ENV"
 
       - uses: actions/checkout@v4
 
@@ -60,14 +59,15 @@ jobs:
       - name: Validate TexasDefined publication guardrails
         run: node scripts/data/validate-texasdefined-auto-publication.mjs
 
-      - name: Publish one quality-gated TexasDefined queue item
+      - name: Publish exact quality-gated TexasDefined feed item
         shell: bash
         run: |
           set -euo pipefail
-          node scripts/news/texasdefined-auto-publisher.mjs --publish --limit=1 | tee /tmp/flyover-td-publish.jsonl
+          node scripts/news/texasdefined-auto-publisher.mjs --publish --limit=1 --feed-id="$FEED_ID" | tee /tmp/flyover-td-publish.jsonl
 
-          node - <<'NODE'
+          node - "$FEED_ID" <<'NODE'
           const fs = require('node:fs');
+          const expectedFeedId = Number(process.argv[2]);
           const rows = fs.readFileSync('/tmp/flyover-td-publish.jsonl', 'utf8')
             .split(/\r?\n/)
             .filter(Boolean)
@@ -75,19 +75,21 @@ jobs:
           const queue = rows.find((row) => row.mode === 'publish');
           const published = rows.find((row) => row.published === true);
           if (!queue) throw new Error('Publisher did not emit a queue summary.');
+          if (Number(queue.requestedFeedId) !== expectedFeedId) throw new Error('Publisher did not preserve the requested exact feed id.');
+          if (!published || Number(published.feedId) !== expectedFeedId) throw new Error(`Requested TexasDefined feed ${expectedFeedId} was not published.`);
           const summary = {
             eligible: Number(queue.eligible || 0),
-            feedIds: Array.isArray(queue.ids) ? queue.ids : [],
-            published: Boolean(published),
-            feedId: published?.feedId ?? null,
-            slug: published?.slug ?? null,
-            liveUrl: published?.liveUrl ?? null,
+            requestedFeedId: expectedFeedId,
+            published: true,
+            feedId: Number(published.feedId),
+            slug: published.slug ?? null,
+            liveUrl: published.liveUrl ?? null,
           };
           fs.writeFileSync('/tmp/flyover-td-summary.json', JSON.stringify(summary));
           console.log(JSON.stringify(summary));
           NODE
 
-      - name: Record result and close successful bridge request
+      - name: Record exact-feed result and close successful request
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -97,7 +99,18 @@ jobs:
           summary="$(cat /tmp/flyover-td-summary.json)"
           gh issue comment "$ISSUE_NUMBER" \
             --repo "$GITHUB_REPOSITORY" \
-            --body "Flyover bridge completed \`$RUN_ID\` through the protected TexasDefined publication environment. Publisher result: \`$summary\`. Actions run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            --body "Flyover exact-feed bridge completed \`$RUN_ID\` for TexasDefined feed \`$FEED_ID\`. Publisher result: \`$summary\`. Actions run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
           gh issue close "$ISSUE_NUMBER" \
             --repo "$GITHUB_REPOSITORY" \
             --reason completed
+
+      - name: Record failed exact-feed request
+        if: failure()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" \
+            --repo "$GITHUB_REPOSITORY" \
+            --body "Flyover exact-feed bridge \`$RUN_ID\` for TexasDefined feed \`$FEED_ID\` did not complete. The issue remains open for reconciliation; inspect Actions run $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID."
