@@ -13,10 +13,13 @@ export function calculateUtilities(input: { electricity: number; waterSewer: num
   return { breakdown, monthly, annual: monthly * 12 };
 }
 
-export function calculateHomeInsurance(input: { replacementCost: number; baseRatePercent: number; windFloodAdditions: number; deductibleDiscountCredit: number }) {
-  const basePremium = nonNegative(input.replacementCost) * clamp(input.baseRatePercent, 0, 100) / 100;
+export function calculateHomeInsurance(input: { replacementCost: number; adjustmentPercent?: number; windFloodAdditions: number; deductibleDiscountCredit: number; baselineAnnualPremium?: number; baselineCoverage?: number }) {
+  const baselineAnnualPremium = nonNegative(input.baselineAnnualPremium ?? 3489);
+  const baselineCoverage = Math.max(1, nonNegative(input.baselineCoverage ?? 432800));
+  const normalizedBaseline = nonNegative(input.replacementCost) / baselineCoverage * baselineAnnualPremium;
+  const basePremium = normalizedBaseline * (1 + clamp(input.adjustmentPercent ?? 0, -100, 500) / 100);
   const annual = Math.max(0, basePremium + nonNegative(input.windFloodAdditions) - nonNegative(input.deductibleDiscountCredit));
-  return { basePremium, annual, monthly: annual / 12 };
+  return { sourceYear: 2025, baselineAnnualPremium, baselineCoverage, normalizedBaseline, basePremium, annual, monthly: annual / 12 };
 }
 
 export function calculateCostOfLiving(input: { currentMonthlySpending: number; currentAreaIndex: number; targetAreaIndex: number }) {
