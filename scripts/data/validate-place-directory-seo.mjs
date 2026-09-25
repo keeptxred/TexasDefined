@@ -67,6 +67,7 @@ const checks = [
   [hurstWhirlyballProductionVerifier, 'Hurst has a Texas Defined city guide with official municipal sources', 'Hurst/WhirlyBall production verifier must reject stale directory-only Hurst copy'],
   [hurstWhirlyballProductionVerifier, "cache: 'no-store'", 'Hurst/WhirlyBall production verifier must bypass stale cache state'],
   [hurstWhirlyballProductionVerifier, 'Whirlyball.jpg', 'Hurst/WhirlyBall production verifier must protect the live hero source'],
+  [hurstWhirlyballProductionVerifier, "Photo unavailable", 'Hurst/WhirlyBall production verifier must reject a visible broken-hero fallback'],
   [cities, '"@type": "BreadcrumbList"', 'City directory must declare breadcrumbs'],
   [counties, '"@type": "BreadcrumbList"', 'County directory must declare breadcrumbs'],
   [propertyHub, 'Texas Defined connects all 254 counties to local property-tax research.', 'Property hub must retain the statewide county completeness statement'],
