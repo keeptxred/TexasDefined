@@ -3,7 +3,6 @@ import fs from 'node:fs';
 const workflow = fs.readFileSync('.github/workflows/deploy-production.yml', 'utf8');
 const health = fs.readFileSync('scripts/ci/verify-production-health.mjs', 'utf8');
 const capture = fs.readFileSync('scripts/ci/capture-active-worker-version.mjs', 'utf8');
-const emergency = fs.readFileSync('.github/workflows/emergency-restore-known-good-worker.yml', 'utf8');
 const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 const smoke = fs.readFileSync('scripts/ci/verify-built-worker-ssr.mjs', 'utf8');
 const failures = [];
@@ -88,14 +87,9 @@ for (const [needle, label] of [
   ['Refusing to deploy without a deterministic rollback target.', 'fail-closed ambiguous deployment handling'],
 ]) requireText(capture, needle, label);
 
-for (const [needle, label] of [
-  ['mkdir -p artifacts', 'visible emergency diagnostics directory'],
-  ['path: artifacts/pre-rollback-*', 'emergency diagnostics upload path'],
-  ['if-no-files-found: error', 'emergency diagnostics fail-closed upload'],
-]) requireText(emergency, needle, label);
-
-if (emergency.includes('.artifacts/pre-rollback-')) {
-  failures.push('Emergency diagnostics must not use a hidden .artifacts upload path.');
+const retiredEmergencyWorkflow = '.github/workflows/emergency-restore-known-good-worker.yml';
+if (fs.existsSync(retiredEmergencyWorkflow)) {
+  failures.push('The one-time emergency known-good Worker restore workflow must remain retired; production rollback now uses the captured active predeploy Worker version.');
 }
 
 for (const [needle, label] of [
