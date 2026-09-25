@@ -16,6 +16,11 @@ import texasSpecialDistricts from "@/assets/generated/texas-special-districts.jp
 
 import type { BrandConfig } from "./types";
 
+const navRemoteImage = (url: string) => `/media/remote?url=${encodeURIComponent(url)}`;
+const paintedChurchNavImage = navRemoteImage("https://upload.wikimedia.org/wikipedia/commons/7/7b/Sts_Cyril_%26_Methodius_Catholic_Church_in_Dubina%2C_Texas.jpg");
+const texasDogsNavImage = navRemoteImage("https://upload.wikimedia.org/wikipedia/commons/4/4c/Chihuahua1_bvdb.jpg");
+const texasIndustriesNavImage = navRemoteImage("https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Oil_pumpjack_in_the_Permian_Basin.jpg/1280px-Oil_pumpjack_in_the_Permian_Basin.jpg");
+
 export const texasDefinedBrand: BrandConfig = {
   identity: {
     id: "texasdefined",
@@ -84,7 +89,7 @@ export const texasDefinedBrand: BrandConfig = {
         { label: "Caverns & Caves", to: "/explore/caverns", description: "Show caves and limestone rooms below ground", image: { src: "/images/explore/caverns/longhorn-cavern-state-park.jpg", alt: "Underground limestone formations inside Longhorn Cavern State Park" } },
         { label: "Beaches & Coast", to: "/explore/beaches-coast", description: "Barrier islands, bays and Gulf Coast towns", image: { src: "/images/explore/beaches-coast/galveston-island-state-park.jpg", alt: "Galveston Island State Park on the Texas Gulf Coast" } },
         { label: "Historic Sites", to: "/explore/historic-sites", description: "Missions, museums, monuments and battlefields", image: { src: "/images/explore/historic-sites/the-alamo.jpg", alt: "The Alamo in San Antonio" } },
-        { label: "Painted Churches", to: "/explore/painted-churches", description: "Historic sanctuaries, painted interiors and heritage-driving routes", image: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Sts%20Cyril%20%26%20Methodius%20Catholic%20Church%20in%20Dubina%2C%20Texas.jpg?width=800", alt: "Saints Cyril and Methodius Catholic Church in Dubina, Texas" } },
+        { label: "Painted Churches", to: "/explore/painted-churches", description: "Historic sanctuaries, painted interiors and heritage-driving routes", image: { src: paintedChurchNavImage, alt: "Saints Cyril and Methodius Catholic Church in Dubina, Texas" } },
         { label: "Road Trips", to: "/explore/road-trips", description: "Scenic drives and stops worth pulling over for", image: { src: bluebonnets, alt: "Texas bluebonnets along a scenic spring drive" } },
         { label: "Small Towns", to: "/explore/small-towns", description: "Courthouse squares, dance halls and local favorites", image: { src: courthouseSquare, alt: "A classic Texas courthouse square in a small town" } },
         { label: "Food & Barbecue", to: "/explore/food-bbq", description: "Barbecue joints, regional dishes and places worth the wait", image: { src: bbqBrisket, alt: "Sliced smoked brisket on butcher paper" } },
@@ -100,11 +105,11 @@ export const texasDefinedBrand: BrandConfig = {
       children: [
         { label: "Things That Define Texas", to: "/things-unique-to-texas", description: "250 foods, places, traditions and symbols that define Texas", image: { src: bbqBrisket, alt: "Texas barbecue representing one of the foods and traditions that define the state" } },
         { label: "Texas Icons", to: "/texas-icons", image: { src: bluebonnets, alt: "Texas bluebonnets, one of the state’s best-known natural icons" } },
-        { label: "Texas Dogs Defined", to: "/dogs", description: "Breed personalities, dog life and the fun side of living with dogs in Texas", image: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Chihuahua1_bvdb.jpg?width=800", alt: "A Chihuahua representing Texas Dogs Defined" } },
+        { label: "Texas Dogs Defined", to: "/dogs", description: "Breed personalities, dog life and the fun side of living with dogs in Texas", image: { src: texasDogsNavImage, alt: "A Chihuahua representing Texas Dogs Defined" } },
         { label: "Homes & Land", to: "/real-estate", description: "Buying and owning Texas homes and land", image: { src: heroHillCountry, alt: "Texas Hill Country land and homes landscape" } },
         { label: "Property", to: "/property", description: "Taxes, exemptions, county guides and homeowner tools", image: { src: courthouseSquare, alt: "Texas courthouse square representing county property and tax resources" } },
         { label: "Moving Here", to: "/moving-to-texas", description: "What to know before the boxes arrive", image: { src: roadTrip, alt: "A Texas highway stretching toward the horizon" } },
-        { label: "Texas Industries", to: "/texas-industries", description: "Energy, technology, manufacturing, finance, agriculture and the sectors that power the state", image: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Oil_pumpjack_in_the_Permian_Basin.jpg?width=800", alt: "Oil pumpjack in the Permian Basin representing the Texas energy and industry economy" } },
+        { label: "Texas Industries", to: "/texas-industries", description: "Energy, technology, manufacturing, finance, agriculture and the sectors that power the state", image: { src: texasIndustriesNavImage, alt: "Oil pumpjack in the Permian Basin representing the Texas energy and industry economy" } },
         { label: "Texas vs Every State", to: "/texas-vs-every-state", description: "Compare Texas with all 49 other states using one consistent framework", image: { src: bigBend, alt: "Big Bend landscape representing Texas in the fifty-state comparison" } },
         { label: "Texas Resources", to: "/texas-resources", description: "Driver licenses, DMV, state agencies and practical services", image: { src: texasSpecialDistricts, alt: "Texas civic and public-service infrastructure" } },
         { label: "Home & Garden", to: "/home-garden", description: "Texas homes, yards, seasons and practical projects", image: { src: texasHomeMaintenance, alt: "Texas home exterior for seasonal home and garden projects" } },
