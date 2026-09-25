@@ -140,6 +140,26 @@ function TexasVsStatePage() {
       </Container>
     </section>
 
+    <section id="moving-from-state-to-texas" className="border-t border-border bg-muted/30 py-12">
+      <Container>
+        <div className="grid gap-8 lg:grid-cols-[18rem_1fr]">
+          <div>
+            <p className="eyebrow text-primary">Moving from {name} to Texas</p>
+            <h2 className="mt-2 font-display text-3xl md:text-4xl">Turn this comparison into a move plan</h2>
+          </div>
+          <div>
+            <p className="max-w-3xl leading-8 text-muted-foreground">Keep {name} as the origin in My Texas Move, then choose the Texas city or metro, model the one-time move, compare the recurring household budget and carry the same plan into schools, utilities, property taxes and exact-address research.</p>
+            <a href={`/moving-to-texas?originState=${encodeURIComponent(name)}#relocation-command-center`} className="mt-5 inline-block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Build My Texas Move plan →</a>
+            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+              <Link to="/compare-texas-cities" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Compare Texas cities</Link>
+              <Link to="/texas-moving-cost-calculator" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Estimate moving costs</Link>
+              <Link to="/moving-to-texas/tools" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Open relocation tools</Link>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+
     <section className="border-t border-border bg-surface py-12">
       <Container><div className="max-w-4xl"><p className="eyebrow text-primary">Decision questions</p><h2 className="mt-2 font-display text-3xl md:text-4xl">Texas vs {name} FAQ</h2><div className="mt-6 divide-y divide-border border-y border-border">{faq.map((item) => <details key={item.q} className="group py-5"><summary className="cursor-pointer list-none pr-8 font-display text-xl marker:hidden">{item.q}<span className="float-right text-primary group-open:rotate-45">+</span></summary><p className="mt-3 max-w-3xl leading-7 text-muted-foreground">{item.a}</p></details>)}</div></div></Container>
     </section>
