@@ -161,7 +161,7 @@ export const paintedChurchSearchGuides: PaintedChurchSearchGuide[] = [
       { heading: "Use Schulenburg as a base, not a label for every church", paragraphs: ["Postal addresses and tourism shorthand often attach “Schulenburg” to churches in surrounding communities. Texas Defined keeps each church’s actual community identity visible while still grouping them into a practical Schulenburg touring cluster.", "Before leaving town, check current access. These are active churches, and parish events can override normal visitor expectations."] },
     ],
     relatedChurchSlugs: ["dubina-saints-cyril-methodius", "ammannsville-st-john-the-baptist", "high-hill-nativity-of-mary", "praha-st-marys-assumption", "moravia-ascension-of-our-lord", "st-john-texas-st-john-the-baptist"],
-    relatedPaths: [{ label: "One-day route planner", path: "/explore/painted-churches-plan" }, { label: "Complete six-church circuit", path: "/explore/painted-churches/routes/all-six-schulenburg" }, { label: "Painted Churches map", path: "/explore/painted-churches/map" }],
+    relatedPaths: [{ label: "Complete statewide Painted Churches guide", path: "/explore/painted-churches" }, { label: "One-day Schulenburg route planner", path: "/explore/painted-churches-plan" }, { label: "Complete six-church circuit", path: "/explore/painted-churches/routes/all-six-schulenburg" }, { label: "Painted Churches of Texas map", path: "/explore/painted-churches/map" }],
     sources: [{ label: "Greater Schulenburg Chamber Painted Churches", url: CHAMBER }],
     faqs: [
       { question: "How many churches are in the Schulenburg circuit?", answer: "Texas Defined treats six communities as the local cluster, with a classic four-church first-day route for visitors who want a less rushed trip." },

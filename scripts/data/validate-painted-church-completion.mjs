@@ -71,6 +71,7 @@ requireText(detailLazyRoute, 'profile.paintings.map', 'Promoted profile primary 
 requireText(detailLazyRoute, 'profile?.visitorNotes?.length', 'Promoted profile visitor notes');
 requireText(detailLazyRoute, 'profile?.sources?.length', 'Promoted profile source list');
 requireText(detailLazyRoute, '<PaintedChurchResearchDossier', 'Painted Church research dossier delivery');
+requireText(detailLazyRoute, '>Complete statewide Painted Churches guide</Link>', 'Painted Church profile-to-hub reciprocity');
 requireText(detailLazyRoute, '>Official information</p>', 'Painted Church visitor source language');
 requireText(detailLazyRoute, 'Historic and visitor details last reviewed', 'Painted Church review-date language');
 forbidText(detailLazyRoute, '>Source check</p>', 'Painted Church retired QA label');
