@@ -14,7 +14,10 @@ on:
       - 'src/components/editorial/TexasEventCarousel.tsx'
       - 'scripts/data/validate-event-ticketing-architecture.mjs'
       - 'scripts/data/validate-event-ticket-positive-path.mjs'
+      - 'scripts/ci/verify-event-ticketing-production.mjs'
       - 'docs/event-ticketing-provider-architecture.md'
+      - 'docs/ticketmaster-affiliate-integration.md'
+      - '.github/workflows/verify-event-ticketing-production.yml'
       - '.github/workflows/validate-event-ticketing.yml'
   workflow_dispatch:
 
