@@ -41,3 +41,18 @@ export function calculateMovingBudget(input: { distanceMiles: number; bedrooms: 
   const contingency = subtotal * clamp(input.contingencyPercent, 0, 100) / 100;
   return { baselineTransport, transportation, subtotal, contingency, total: subtotal + contingency, usesWrittenEstimate: input.writtenEstimate > 0 };
 }
+
+
+export function calculateBudget(input: { income: number; housing: number; transportation: number; food: number; utilities: number; debt: number; savings: number; other?: number }) {
+  const plannedSpending = nonNegative(input.housing) + nonNegative(input.transportation) + nonNegative(input.food) + nonNegative(input.utilities) + nonNegative(input.debt) + nonNegative(input.savings) + nonNegative(input.other ?? 0);
+  const income = nonNegative(input.income);
+  return { plannedSpending, remaining: income - plannedSpending, savingsPercent: income > 0 ? nonNegative(input.savings) / income * 100 : 0 };
+}
+
+export function calculateSalaryComparison(input: { salary: number; currentIndex: number; targetIndex: number }) {
+  const currentIndex = Math.max(0.01, nonNegative(input.currentIndex));
+  const targetIndex = Math.max(0.01, nonNegative(input.targetIndex));
+  const salary = nonNegative(input.salary);
+  const equivalentSalary = salary * targetIndex / currentIndex;
+  return { equivalentSalary, difference: equivalentSalary - salary, purchasingPowerChangePercent: currentIndex / targetIndex * 100 - 100 };
+}
