@@ -342,12 +342,12 @@ export function BreakdownTable({ items, totalLabel = 'Total', total }: { items: 
   const computedTotal = total ?? items.reduce((sum, item) => sum + item.value, 0);
   return (
     <div className="overflow-x-auto border-y border-border">
-      <table className="w-full min-w-[28rem] text-sm">
+      <table className="w-full text-sm">
         <caption className="sr-only">Calculation breakdown</caption>
         <tbody className="divide-y divide-border">
           {items.map((item) => <tr key={item.label}><th scope="row" className="py-3 pr-4 text-left font-medium">{item.label}{item.note ? <span className="mt-1 block text-xs font-normal text-muted-foreground">{item.note}</span> : null}</th><td className="py-3 text-right font-semibold">{formatMoney(item.value)}</td></tr>)}
         </tbody>
-        <tfoot className="border-t-2 border-foreground/20"><tr><th scope="row" className="py-4 pr-4 text-left font-semibold">{totalLabel}</th><td className="py-4 text-right font-display text-xl font-bold text-primary">{formatMoney(computedTotal)}</td></tr></tfoot>
+        <tfoot className="border-t border-border"><tr><th scope="row" className="py-4 pr-4 text-left font-semibold">{totalLabel}</th><td className="py-4 text-right font-display text-xl font-bold text-primary">{formatMoney(computedTotal)}</td></tr></tfoot>
       </table>
     </div>
   );
@@ -359,11 +359,11 @@ export function BreakdownChart({ items }: { items: BreakdownItem[] }) {
   if (total <= 0) return null;
   return (
     <div className="space-y-3" aria-label="Visual calculation breakdown">
-      <div className="flex h-4 w-full overflow-hidden rounded-full bg-muted" aria-hidden="true">
-        {positive.map((item, index) => <span key={item.label} className={index % 2 ? 'bg-primary/55' : 'bg-primary'} style={{ width: `${item.value / total * 100}%` }} />)}
+      <div className="flex h-4 w-full overflow-hidden bg-muted" aria-hidden="true">
+        {positive.map((item) => <span key={item.label} className="bg-primary" style={{ width: `${item.value / total * 100}%` }} />)}
       </div>
       <div className="grid gap-x-6 gap-y-2 sm:grid-cols-2">
-        {positive.map((item) => <div key={item.label} className="flex items-center justify-between gap-3 text-sm"><span className="min-w-0 text-muted-foreground">{item.label}</span><strong className="shrink-0">{formatMoney(item.value)} <span className="font-normal text-muted-foreground">({(item.value / total * 100).toFixed(1)}%)</span></strong></div>)}
+        {positive.map((item) => <div key={item.label} className="flex items-center justify-between gap-3 text-sm"><span className="text-muted-foreground">{item.label}</span><strong >{formatMoney(item.value)} <span className="font-normal text-muted-foreground">({(item.value / total * 100).toFixed(1)}%)</span></strong></div>)}
       </div>
     </div>
   );
@@ -371,7 +371,7 @@ export function BreakdownChart({ items }: { items: BreakdownItem[] }) {
 
 export function CalculatorModeToggle({ advanced, onChange }: { advanced: boolean; onChange: (advanced: boolean) => void }) {
   return (
-    <button type="button" className="mt-5 min-h-11 border-b border-primary text-sm font-semibold text-primary print:hidden" aria-expanded={advanced} onClick={() => onChange(!advanced)}>
+    <button type="button" className="mt-5 border-b border-primary py-3 text-sm font-semibold text-primary print:hidden" aria-expanded={advanced} onClick={() => onChange(!advanced)}>
       {advanced ? 'Hide advanced inputs' : 'Show advanced inputs'}
     </button>
   );
