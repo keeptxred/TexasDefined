@@ -25,6 +25,7 @@ on:
 
 permissions:
   contents: read
+  deployments: write
   statuses: write
 
 concurrency:
@@ -136,6 +137,73 @@ jobs:
         env:
           STAGE_OUTCOME: ${{ steps.runtime_smoke.outcome }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-runtime-smoke "$STAGE_OUTCOME" "Built Worker SSR smoke passed" "Built Worker SSR smoke failed before deploy"
+
+      - name: Publish current production health pending
+        if: success()
+        run: node scripts/ci/publish-github-status.mjs texasdefined-predeploy-health pending "Verifying current production before replacement"
+
+      - name: Verify current direct Worker before deploy
+        id: predeploy_direct_health
+        if: success()
+        continue-on-error: true
+        env:
+          PRODUCTION_HEALTH_ORIGIN: https://texasdefined-site.freddy-coppola.workers.dev
+          PRODUCTION_HEALTH_LABEL: predeploy-current-direct-worker
+        run: node scripts/ci/verify-production-health.mjs
+
+      - name: Verify current canonical domain before deploy
+        id: predeploy_canonical_health
+        if: ${{ always() && steps.runtime_smoke.outcome == 'success' }}
+        continue-on-error: true
+        env:
+          PRODUCTION_HEALTH_ORIGIN: https://texasdefined.com
+          PRODUCTION_HEALTH_LABEL: predeploy-current-canonical-domain
+        run: node scripts/ci/verify-production-health.mjs
+
+      - name: Capture unhealthy current-production diagnostics
+        id: predeploy_diagnostics
+        if: ${{ always() && steps.runtime_smoke.outcome == 'success' && (steps.predeploy_direct_health.outcome == 'failure' || steps.predeploy_canonical_health.outcome == 'failure') }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          mkdir -p artifacts
+          npx wrangler deployments status --json > artifacts/predeploy-current-deployment-status.json 2> artifacts/predeploy-current-deployment-status.stderr || true
+          npx wrangler versions list --json > artifacts/predeploy-current-versions.json 2> artifacts/predeploy-current-versions.stderr || true
+          timeout 25s npx wrangler tail texasdefined-site --format json --status error > artifacts/predeploy-current-worker-tail.jsonl 2> artifacts/predeploy-current-worker-tail.stderr &
+          TAIL_PID=$!
+          sleep 4
+          curl -sS --max-time 15 -D artifacts/predeploy-current-direct.headers -o artifacts/predeploy-current-direct.html "https://texasdefined-site.freddy-coppola.workers.dev/?predeploy_probe=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${GITHUB_SHA}" || true
+          curl -sS --max-time 15 -D artifacts/predeploy-current-canonical.headers -o artifacts/predeploy-current-canonical.html "https://texasdefined.com/?predeploy_probe=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${GITHUB_SHA}" || true
+          wait "${TAIL_PID}" || true
+
+      - name: Upload unhealthy current-production diagnostics
+        if: ${{ always() && (steps.predeploy_direct_health.outcome == 'failure' || steps.predeploy_canonical_health.outcome == 'failure') }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: predeploy-current-production-${{ github.run_id }}
+          path: artifacts/predeploy-current-*
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Enforce current-production health gate
+        id: predeploy_health
+        if: ${{ always() && steps.runtime_smoke.outcome == 'success' }}
+        shell: bash
+        env:
+          DIRECT_OUTCOME: ${{ steps.predeploy_direct_health.outcome }}
+          CANONICAL_OUTCOME: ${{ steps.predeploy_canonical_health.outcome }}
+        run: |
+          if [[ "${DIRECT_OUTCOME}" != 'success' || "${CANONICAL_OUTCOME}" != 'success' ]]; then
+            echo "::error title=Current production is unhealthy; deploy blocked::direct=${DIRECT_OUTCOME:-not-run}, canonical=${CANONICAL_OUTCOME:-not-run}. No Worker replacement was attempted."
+            exit 1
+          fi
+          echo 'Current direct Worker and canonical domain are healthy; replacement may proceed.'
+
+      - name: Publish current production health result
+        if: always()
+        env:
+          STAGE_OUTCOME: ${{ steps.predeploy_health.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-predeploy-health "$STAGE_OUTCOME" "Current production is healthy; deploy may proceed" "Current production health failed; deploy blocked"
 
       - name: Capture active Worker rollback target
         id: rollback_target
@@ -386,6 +454,19 @@ jobs:
           STAGE_OUTCOME: ${{ steps.indexnow.outcome }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-indexnow "$STAGE_OUTCOME" "IndexNow gate completed" "IndexNow gate or submission failed"
 
+      - name: Capture fully verified Worker version
+        id: verified_worker_version
+        if: success()
+        run: node scripts/ci/capture-active-worker-version.mjs
+
+      - name: Record verified Worker recovery target
+        id: verified_worker_ledger
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          VERIFIED_WORKER_VERSION: ${{ steps.verified_worker_version.outputs.version_id }}
+        run: node scripts/ci/verified-worker-ledger.mjs record "${VERIFIED_WORKER_VERSION}"
+
       - name: Summarize production pipeline
         if: always()
         shell: bash
@@ -395,9 +476,11 @@ jobs:
           BUILD_OUTCOME: ${{ steps.build.outcome }}
           BUDGET_OUTCOME: ${{ steps.budget.outcome }}
           RUNTIME_SMOKE_OUTCOME: ${{ steps.runtime_smoke.outcome }}
+          PREDEPLOY_HEALTH_OUTCOME: ${{ steps.predeploy_health.outcome }}
           CLOUDFLARE_OUTCOME: ${{ steps.cloudflare.outcome }}
           LIVE_OUTCOME: ${{ steps.live.outcome }}
           INDEXNOW_OUTCOME: ${{ steps.indexnow.outcome }}
+          RECOVERY_LEDGER_OUTCOME: ${{ steps.verified_worker_ledger.outcome }}
         run: |
           {
             echo '## TexasDefined production pipeline'
@@ -409,9 +492,11 @@ jobs:
             echo "| Production build | BUILD | ${BUILD_OUTCOME:-not-run} |"
             echo "| Client bundle budget | BUNDLE BUDGET | ${BUDGET_OUTCOME:-not-run} |"
             echo "| Built Worker SSR smoke | RUNTIME / SSR | ${RUNTIME_SMOKE_OUTCOME:-not-run} |"
+            echo "| Current production health | PREDEPLOY / RECOVERY | ${PREDEPLOY_HEALTH_OUTCOME:-not-run} |"
             echo "| Cloudflare Worker deploy | CLOUDFLARE / DEPLOYMENT | ${CLOUDFLARE_OUTCOME:-not-run} |"
             echo "| Live production verification | LIVE PRODUCTION | ${LIVE_OUTCOME:-not-run} |"
             echo "| IndexNow approval gate | INDEXING / EXTERNAL | ${INDEXNOW_OUTCOME:-not-run} |"
+            echo "| Verified Worker recovery ledger | RECOVERY / STATE | ${RECOVERY_LEDGER_OUTCOME:-not-run} |"
           } >> "$GITHUB_STEP_SUMMARY"
 
           if [[ "$INSTALL_OUTCOME" == 'failure' ]]; then
@@ -424,12 +509,16 @@ jobs:
             echo '::error title=Pipeline failure class: BUNDLE BUDGET::Validation and build passed, but the protected client bundle budget was exceeded.'
           elif [[ "$RUNTIME_SMOKE_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: RUNTIME / SSR::The production bundle built, but the generated Worker failed local SSR smoke before Cloudflare deployment.'
+          elif [[ "$PREDEPLOY_HEALTH_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: PREDEPLOY / RECOVERY::Current production was unhealthy, so the workflow failed closed before replacing the Worker.'
           elif [[ "$CLOUDFLARE_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: CLOUDFLARE / DEPLOYMENT::Code validation, build and bundle budget passed; Cloudflare deployment failed.'
           elif [[ "$LIVE_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: LIVE PRODUCTION::Cloudflare deployment passed; a direct Worker or custom-domain production surface failed verification. The exact verification stage is listed above.'
           elif [[ "$INDEXNOW_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: INDEXING / EXTERNAL::Production verification passed; the guarded IndexNow stage failed.'
+          elif [[ "$RECOVERY_LEDGER_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: RECOVERY / STATE::Production passed live verification, but the immutable verified-Worker recovery ledger could not be advanced.'
           fi
 
       - name: Publish final production status
