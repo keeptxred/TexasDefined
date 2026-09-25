@@ -5,6 +5,7 @@ import { calculateClosingCosts } from '../../src/lib/financial/closing-costs.ts'
 import { calculateHomeownershipCost } from '../../src/lib/financial/homeownership.ts';
 import { calculateMortgage, calculateMonthlyPrincipalInterest, calculateRefinance } from '../../src/lib/financial/mortgage.ts';
 import { calculateCategoryBudgetComparison, calculateFederalPaycheck2026, calculateGrossSalaryNeeded2026, calculateHomeInsurance, calculateUtilities } from '../../src/lib/financial/planning.ts';
+import { calculateHomesteadSavings, calculateSpecialDistrictImpact } from '../../src/lib/financial/property-tax.ts';
 import { estimateRentVsBuy } from '../../src/lib/rent-vs-buy.ts';
 
 const close = (actual: number, expected: number, tolerance = 0.01, label = 'value') => {
