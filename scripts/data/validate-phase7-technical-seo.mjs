@@ -102,7 +102,7 @@ const exactQuerySourceTargets = [
     tokens: [
       '"State Fair of Texas 2026: Hours, Tickets & Guide"',
       '"State Fair of Texas 2026 is open Sept. 25–Oct. 18 at Fair Park in Dallas. Current hours, tickets, DART, parking, coupons, food, rides and planning."',
-      '...PRIORITY_SEARCH_PAGES["texas-state-fair"]',
+      '...stateFairData',
       'startDate: "2026-09-25"',
       'endDate: "2026-10-18"',
     ],
@@ -117,6 +117,7 @@ if (!seoSource.includes('technicalOverride?.title ?? page.title')) failures.push
 if (!seoSource.includes('technicalOverride?.description ?? page.description')) failures.push('Phase 7 description override is not wired into buildMeta.');
 if (!prioritySearchLoader.includes('createServerFn({ method: "POST" })')) failures.push('Priority search loader RPC must use POST so intermediary caches cannot serve stale page bodies.');
 if (prioritySearchLoader.includes('createServerFn({ method: "GET" })')) failures.push('Priority search loader RPC must not use cacheable GET semantics.');
+if (stateFairRoute.includes('PRIORITY_SEARCH_PAGES')) failures.push('/texas-state-fair: dedicated route must not depend on shared priority-page data at runtime.');
 
 for (const [canonicalPath, expectedTitle] of targets) {
   const escapedPath = canonicalPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
