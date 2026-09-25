@@ -126,7 +126,7 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
       <p className="mt-6 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Planning estimate.</strong> The basic result includes principal, interest, property tax and homeowners insurance. Advanced mode adds PMI, HOA, special-district charges, utilities, maintenance and extra principal. Verify the exact parcel, lender terms, insurance quote, exemptions and taxing-unit membership before relying on the result.</p>
     </section>
 
-    <CalculatorActions {...persistence} onReset={() => setState({ ...DEFAULTS, county: defaultCountySlug })}/>
+    <CalculatorActions onSave={persistence.save} onRestore={persistence.restore} onShare={persistence.share} onPrint={persistence.print} status={persistence.status} onReset={() => setState({ ...DEFAULTS, county: defaultCountySlug })}/>
 
     <section className="mt-8" aria-live="polite" aria-atomic="true">
       <ResultGrid>
