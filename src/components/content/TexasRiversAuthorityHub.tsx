@@ -23,14 +23,6 @@ const sectionLinks = [
   { label: "San Jacinto & Lavaca", href: "#the-san-jacinto-and-lavaca-prove-a-river-does-not-have-to-be-long-to-matter" },
 ] as const;
 
-const placeLinks = [
-  { label: "Guadalupe River State Park", href: "/destination/guadalupe-river-state-park", river: "Guadalupe" },
-  { label: "Devils River State Natural Area", href: "/destination/devils-river-state-natural-area", river: "Rio Grande system" },
-  { label: "South Llano River State Park", href: "/destination/south-llano-river-state-park", river: "Colorado system" },
-  { label: "Garner State Park", href: "/destination/garner-state-park", river: "Frio" },
-  { label: "Pedernales Falls State Park", href: "/destination/pedernales-falls-state-park", river: "Colorado system" },
-  { label: "Caddo Lake", href: "/destination/caddo-lake", river: "Cypress system" },
-] as const;
 
 function TexasRiverOrientationMap() {
   return (
@@ -146,15 +138,6 @@ export function TexasRiversAfterArticle() {
         <Link to="/article/texas-lakes-reservoirs-explained" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Need dams and lakes?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Texas Lakes & Reservoirs Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Use the reservoir guide for stored water, dams, flood control and why so many familiar Texas lakes are managed river systems.</p></Link>
         <Link to="/article/texas-aquifers-springs-explained" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Need groundwater?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Texas Aquifers & Springs Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Use the aquifer guide to understand spring flow, groundwater connections and why some Central Texas rivers stay clear between storms.</p></Link>
         <Link to="/explore/lakes-rivers" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Want somewhere to go?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Explore Texas Lakes & Rivers →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Move from the statewide explanation to river parks, swimming water, reservoirs and destination guides.</p></Link>
-      </section>
-
-      <section aria-labelledby="river-places-heading">
-        <p className="eyebrow text-primary">Plan a river trip</p>
-        <h2 id="river-places-heading" className="mt-2 font-display text-2xl sm:text-3xl">Places to experience Texas rivers</h2>
-        <p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">These parks and destinations let you see the statewide river story on the ground, from clear Hill Country water to desert tributaries and East Texas wetlands.</p>
-        <ul className="mt-5 grid border-t border-border sm:grid-cols-2 lg:grid-cols-3">
-          {placeLinks.map((place) => <li key={place.href} className="border-b border-border py-4 sm:px-4"><Link to={place.href} className="group block"><span className="font-semibold group-hover:text-primary">{place.label}</span><span className="mt-1 block text-xs uppercase text-muted-foreground">{place.river}</span></Link></li>)}
-        </ul>
       </section>
     </div>
   );
