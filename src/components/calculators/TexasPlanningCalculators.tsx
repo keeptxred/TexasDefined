@@ -66,25 +66,44 @@ export function MortgageCalculator() {
   </>;
 }
 
-type AffordabilityState = { income: number; debt: number; down: number; rate: number; taxInsurance: number; ratio: number };
-const AFFORDABILITY_DEFAULTS: AffordabilityState = { income: 120000, debt: 800, down: 60000, rate: 6.5, taxInsurance: 900, ratio: 28 };
+type AffordabilityState = { income: number; debt: number; down: number; rate: number; taxInsurance: number; housingRatio: number; totalDebtRatio: number };
+const AFFORDABILITY_DEFAULTS: AffordabilityState = { income: 120000, debt: 800, down: 60000, rate: 6.5, taxInsurance: 900, housingRatio: 28, totalDebtRatio: 36 };
 
 export function AffordabilityCalculator() {
   const [state, setState] = useState(() => readCalculatorStateFromUrl(AFFORDABILITY_DEFAULTS));
   const set = <K extends keyof AffordabilityState>(key: K, value: AffordabilityState[K]) => setState((current) => ({ ...current, [key]: value }));
-  const result = useMemo(() => calculateAffordability({ annualIncome: state.income, monthlyDebt: state.debt, downPayment: state.down, annualRatePercent: state.rate, monthlyTaxesInsuranceHoa: state.taxInsurance, maxHousingRatioPercent: state.ratio }), [state]);
+  const result = useMemo(() => calculateAffordability({
+    annualIncome: state.income,
+    monthlyDebt: state.debt,
+    downPayment: state.down,
+    annualRatePercent: state.rate,
+    monthlyTaxesInsuranceHoa: state.taxInsurance,
+    maxHousingRatioPercent: state.housingRatio,
+    maxTotalDebtRatioPercent: state.totalDebtRatio,
+  }), [state]);
   const errors = issueMap(result.issues);
+  const constraint = result.bindingConstraint === 'housing-ratio' ? 'housing-only ratio' : 'total-debt ratio';
   return <>
-    <Workspace storageKey="texasdefined:affordability:v2" state={state} onRestore={setState} defaults={AFFORDABILITY_DEFAULTS} note="This is a planning ratio, not a lender decision. Lenders use their own debt-to-income rules, credit standards, reserves and loan-program limits.">
+    <Workspace storageKey="texasdefined:affordability:v3" state={state} onRestore={setState} defaults={AFFORDABILITY_DEFAULTS} note="This is a planning model, not a lender decision. It limits the housing budget by both a housing-only ratio and a total-debt ratio, then uses the tighter result. Different lenders and loan programs use different underwriting rules.">
       <CurrencyInput label="Annual household income" value={state.income} onChange={(v) => set('income', v)} step={1000} error={errors.annualIncome}/>
       <CurrencyInput label="Monthly non-housing debt" value={state.debt} onChange={(v) => set('debt', v)} step={50} error={errors.monthlyDebt}/>
-      <CurrencyInput label="Available down payment" value={state.down} onChange={(v) => set('down', v)} step={1000}/>
+      <CurrencyInput label="Available down payment" value={state.down} onChange={(v) => set('down', v)} step={1000} error={errors.downPayment}/>
       <PercentageInput label="Interest rate" value={state.rate} onChange={(v) => set('rate', v)} step={0.01} max={100}/>
-      <CurrencyInput label="Monthly taxes, insurance & HOA" value={state.taxInsurance} onChange={(v) => set('taxInsurance', v)} step={50}/>
-      <PercentageInput label="Planning housing ratio" value={state.ratio} onChange={(v) => set('ratio', v)} step={1} max={100} help="Editable planning assumption; it is not a lender approval threshold."/>
+      <CurrencyInput label="Monthly taxes, insurance & HOA" value={state.taxInsurance} onChange={(v) => set('taxInsurance', v)} step={50} error={errors.monthlyTaxesInsuranceHoa}/>
+      <PercentageInput label="Housing-only planning ratio" value={state.housingRatio} onChange={(v) => set('housingRatio', v)} step={1} min={1} max={100} help="Share of gross monthly income available for total housing cost in this scenario."/>
+      <PercentageInput label="Total-debt planning ratio" value={state.totalDebtRatio} onChange={(v) => set('totalDebtRatio', v)} step={1} min={1} max={100} help="Share of gross monthly income available for housing plus the non-housing debt entered above."/>
     </Workspace>
-    <Results values={[['Gross monthly income', money(result.grossMonthlyIncome)], ['Target housing budget', money(result.housingBudget) + '/mo'], ['P&I budget', money(result.principalInterestBudget) + '/mo'], ['Possible home price', money(result.possibleHomePrice)]]}/>
-    <MethodologyPanel><p>The calculator works backward from the entered planning housing ratio, subtracts entered monthly debt and recurring taxes/insurance/HOA, then uses the same shared fixed-rate mortgage engine as the mortgage calculator.</p><p>Change the planning ratio to pressure-test the result rather than treating the default as a lending rule.</p></MethodologyPanel>
+    <Results values={[
+      ['Gross monthly income', money(result.grossMonthlyIncome)],
+      ['Target housing budget', money(result.housingBudget) + '/mo', `Limited by the ${constraint} in this scenario.`],
+      ['P&I budget', money(result.principalInterestBudget) + '/mo'],
+      ['Possible home price', money(result.possibleHomePrice)],
+    ]}/>
+    <MethodologyPanel>
+      <p>The calculator computes two editable planning limits: housing cost as a share of gross income and total monthly debt as a share of gross income. It subtracts entered non-housing debt from the total-debt limit, uses whichever housing budget is lower, then subtracts entered taxes, insurance and HOA before solving for principal and interest.</p>
+      <p>The loan amount is solved with the same shared fixed-rate mortgage engine used by the mortgage and rent-versus-buy tools. The default 28% housing and 36% total-debt assumptions are planning reference points, not approval thresholds; different lenders and loan programs use different standards.</p>
+      <p>For a personal affordability decision, also account for savings goals, repairs, maintenance, utilities, flood or wind coverage and other household priorities that underwriting ratios may not capture.</p>
+    </MethodologyPanel>
   </>;
 }
 
