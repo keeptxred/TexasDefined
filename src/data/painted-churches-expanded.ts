@@ -36,6 +36,21 @@ export type CanonicalPaintedChurch = PaintedChurch & {
 
 export const additionalVerifiedPaintedChurches: PaintedChurch[] = [
   {
+    slug: "mason-st-joseph-catholic-church",
+    name: "St. Joseph Catholic Church",
+    shortName: "St. Joseph at Mason",
+    city: "Mason",
+    county: "Mason",
+    address: "216 N Ave B, Mason, TX 76856",
+    denomination: "Roman Catholic",
+    summary: "An 1876 red-sandstone church whose 1916 sky, clouds, stars, angels and dove by Manuel Lopez were hidden by a 1963 ceiling and later rediscovered and restored.",
+    significance: "A documented historic Painted Church supported by the parish's own 1983 historical research and the 2024 restoration record. Texas Defined classifies Mason in the broader historic tradition because its original 1916 painted vault survives through a documented restoration and modern extension.",
+    visitNote: "St. Joseph is an active Catholic parish near Mason's historic town square. Verify current Masses, events and sightseeing access before making a special trip.",
+    sourceUrl: "https://www.stjosephmason.org/about-us",
+    secondarySourceUrl: "https://www.studioiodesign.com/st-joseph-mason",
+    sourceCheckedAt: "2026-09-24",
+  },
+  {
     slug: "plantersville-st-marys-catholic-church",
     name: "St. Mary’s Catholic Church",
     shortName: "St. Mary’s at Plantersville",
@@ -234,6 +249,7 @@ const metadata: Record<string, Pick<CanonicalPaintedChurch, "interiorIntegrity" 
   "anderson-st-stanislaus-kostka": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["Polish Catholic"], techniques: ["freehand", "decorative-murals"] },
   "castroville-st-louis-catholic-church": { interiorIntegrity: "uncertain", culturalHeritage: ["Alsatian Catholic", "French-German frontier Catholic"], techniques: ["decorative-murals"] },
   "lacoste-our-lady-of-grace": { interiorIntegrity: "uncertain", culturalHeritage: ["Medina County Catholic"], techniques: [] },
+  "mason-st-joseph-catholic-church": { interiorIntegrity: "restored-original-scheme", culturalHeritage: ["Central Texas Catholic"], techniques: ["freehand", "decorative-murals", "trompe-loeil-architectural-illusion"] },
 };
 
 const combined = [
