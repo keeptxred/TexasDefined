@@ -8,7 +8,7 @@ The public hub now combines:
 
 - **Plan My Texas Move** — a browser-local household profile for origin, destination, timing, housing budget, household size, schools, vehicles, work corridor, industry and corporate-relocation context.
 - **Texas Match Explorer** — transparent place filtering over the governed Texas relocation place registry. It is a research shortlist, not a subjective best-city score.
-- **My Texas Move** — a browser-local shortlist and notes workspace. No account or server-side storage is required for the first version.
+- **My Texas Move** — a browser-local shortlist, researched-address queue and notes workspace. No account or server-side storage is required for the first version.
 - **Move timeline** — before-you-commit, 30–60-day, first-30-day and first-90-day research/task sequencing.
 - **Corporate Relocation to Texas** — parallel employee/family and employer/HR/site-selection paths, backed by Texas Economic Development, Texas Workforce Commission and IRS source links.
 - **Exact-address research** — Census geography as a starting point, followed by official source-of-record verification for school districts, utilities, property-tax responsibility, flood context and related local questions.
@@ -59,10 +59,14 @@ For employees and families, the workflow should connect relocation-package terms
 
 For employers, HR and site-selection teams, the workflow should connect Texas labor markets, industry concentrations, commuting geography, housing, schools, infrastructure and employee transition planning. Primary-source links must remain visible for business-registration, labor-market and federal tax-treatment questions.
 
+Corporate relocation must also be discoverable from the Texas Industries hub, individual industry workforce pages and the Start a Business in Texas guide. Industry deep links may prefill a short industry label and employer-relocation intent, but the canonical destination remains `/moving-to-texas#corporate-relocation`.
+
 ## Guardrails
 
 - Do not create subjective best-city rankings from editorial bands.
 - Current price, insurance, tax and commute decisions must use current/address-specific inputs where available.
 - Exact jurisdiction or eligibility questions must resolve through the responsible official agency.
+- Exact street addresses saved from the research desk must stay in browser-local storage. Never serialize a saved address into a URL/query parameter, analytics label or server-side relocation profile.
+- The address research desk may write to My Texas Move only after the visitor explicitly chooses **Save this address to My Texas Move**; a lookup by itself remains ephemeral.
 - Keep the command center lazy-loaded from the main relocation hub so the broader route stays within the protected client bundle budget.
 - Preserve the relocation source registry, production smoke tests, canonical/indexation checks and route-ownership validator.
