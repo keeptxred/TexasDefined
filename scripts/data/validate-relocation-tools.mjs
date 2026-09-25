@@ -14,6 +14,7 @@ const commandCenter='src/components/relocation/RelocationCommandCenter.tsx';
 const cityDepth='src/components/content/EntityDepthSections.tsx';
 const relocationData='src/data/relocation-authority.ts';
 const stateComparison='src/routes/texas-vs.$state.tsx';
+const authorityLab='src/components/relocation/RelocationAuthorityLab.tsx';
 if(fs.existsSync(duplicateToolkit))errors.push(`${duplicateToolkit} must not exist because it creates a duplicate indexable /moving-to-texas/tools canonical.`);
 if(fs.existsSync(toolkit)){
   const route=fs.readFileSync(toolkit,'utf8');
@@ -52,6 +53,12 @@ if(!fs.existsSync(commandCenter)){
     'params.get("originState")',
     'origin: next.origin || originState',
     'Compare your current state with Texas',
+    'savedAddresses',
+    'params.get("saveAddress")',
+    'params.get("industry")',
+    'params.get("companyMove")',
+    'Saved address research',
+    'Current industry context:',
   ]){
     if(!center.includes(token))errors.push(`Relocation command center missing protected marker: ${token}`);
   }
@@ -103,8 +110,22 @@ if(!fs.existsSync(stateComparison)){
   }
 }
 
+if(!fs.existsSync(authorityLab)){
+  errors.push(`Missing ${authorityLab}`);
+}else{
+  const lab=fs.readFileSync(authorityLab,'utf8');
+  for(const token of [
+    'Save this address to My Texas Move →',
+    '/moving-to-texas?saveAddress=',
+    'encodeURIComponent(addressResult.matchedAddress)',
+    'is not saved unless you explicitly add a matched address to My Texas Move',
+  ]){
+    if(!lab.includes(token))errors.push(`Address-to-workspace relocation loop missing protected marker: ${token}`);
+  }
+}
+
 const finder=fs.readFileSync('src/components/relocation/RelocationServiceFinder.tsx','utf8');
 for(const token of ['tea.texas.gov','puc.texas.gov','sos.texas.gov','comptroller.texas.gov','211texas.org'])if(!finder.includes(token))errors.push(`Relocation finder missing official source: ${token}`);
 
 if(errors.length){console.error(errors.join('\n'));process.exit(1)}
-console.log(`Relocation tool contract passed: ${routes.length} routes, one canonical toolkit route with parent Outlet ownership, persistent move workspace, corporate-relocation path, verified city-to-workspace continuity, 49-state origin continuity, plus existing county, DMV and school tools.`);
+console.log(`Relocation tool contract passed: ${routes.length} routes, one canonical toolkit route with parent Outlet ownership, persistent move workspace, corporate-relocation path, verified city-to-workspace continuity, 49-state origin continuity, saved address research and corporate industry handoff, plus existing county, DMV and school tools.`);
