@@ -5,7 +5,7 @@ import { calculateClosingCosts } from '../../src/lib/financial/closing-costs.ts'
 import { calculateHomeownershipCost } from '../../src/lib/financial/homeownership.ts';
 import { calculateMortgage, calculateMonthlyPrincipalInterest, calculateRefinance } from '../../src/lib/financial/mortgage.ts';
 import { calculateCategoryBudgetComparison, calculateFederalPaycheck2026, calculateGrossSalaryNeeded2026, calculateHomeInsurance, calculateUtilities } from '../../src/lib/financial/planning.ts';
-import { calculateHomesteadSavings, calculateSpecialDistrictImpact } from '../../src/lib/financial/property-tax.ts';
+import { calculateHomesteadSavings, calculatePropertyTax, calculateSpecialDistrictImpact } from '../../src/lib/financial/property-tax.ts';
 import { estimateRentVsBuy } from '../../src/lib/rent-vs-buy.ts';
 
 const close = (actual: number, expected: number, tolerance = 0.01, label = 'value') => {
@@ -74,6 +74,8 @@ close(paycheck.socialSecurity, 5580, 0.001, '2026 Social Security');
 close(paycheck.medicare, 1305, 0.001, '2026 Medicare');
 close(paycheck.annualTakeHome, 67933, 0.001, '2026 annual take-home');
 
+close(calculatePropertyTax(400000, 2.1), 8400, 0.001, 'shared property-tax engine');
+
 const mudImpact = calculateSpecialDistrictImpact({ taxableValue: 400000, ratePercent: .75, years: 10 });
 assert.deepEqual(mudImpact, { annual: 3000, monthly: 250, fiveYearSimple: 15000, horizonSimple: 30000, years: 10 });
 const homestead = calculateHomesteadSavings({ homeValue: 400000, schoolRatePercent: 1, otherRatePercent: 1.2, schoolExemption: 140000, otherExemption: 0 });
@@ -107,6 +109,7 @@ const componentFiles = [
   'src/components/calculators/LocalCostOfLivingPage.tsx',
   'src/routes/texas-mud-tax-impact-calculator.tsx',
   'src/routes/texas-homestead-savings-calculator.tsx',
+  'src/routes/decide.property-taxes.lazy.tsx',
 ];
 for (const file of componentFiles) {
   const source = fs.readFileSync(file, 'utf8');
