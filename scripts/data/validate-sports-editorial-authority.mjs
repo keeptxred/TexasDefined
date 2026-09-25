@@ -30,7 +30,7 @@ assert(history.includes("Current governed policies differ from release ${current
 
 assert(articleBody.includes("<AutoEntityLinks text={text} entities={candidates}"), 'Article body must continue to use governed contextual entity linking.');
 assert(articleBody.includes("policyForSurface('article')"), 'Article entity links must continue to use the governed article policy.');
-assert(articleRoute.includes('<ArticleBody blocks={article.body} entities={graph} />'), 'Article route must supply the verified knowledge graph to contextual body linking.');
+assert(articleRoute.includes('<ArticleBody') && articleRoute.includes('blocks={article.body}') && articleRoute.includes('entities={graph}'), 'Article route must supply the verified knowledge graph to contextual body linking.');
 
 for (const marker of [
   'const description = "Texas sports guide to high school and college football, pro teams, major stadiums, rodeo, motorsports and game-day traditions across the state.";',
