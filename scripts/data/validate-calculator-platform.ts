@@ -30,8 +30,8 @@ close(mortgage.monthlyPrincipalInterest, 2022.6176751774892, 0.000001, 'mortgage
 close(mortgage.monthlyPropertyTax, 666.6666666667, 0.000001, 'property tax');
 close(mortgage.monthlyHousingPayment, 3039.2843418442, 0.000001, 'housing payment');
 assert.equal(mortgage.amortization.length, 360, '30-year mortgage should have 360 scheduled rows without extra principal');
-const allInMortgage = calculateMortgage({ homePrice: 400000, downPayment: 80000, annualRatePercent: 6.5, termYears: 30, propertyTaxRatePercent: 2, annualInsurance: 3000, monthlyHoa: 100, monthlyUtilities: 350, monthlyMaintenance: 400, monthlyPool: 150, monthlyLandscaping: 100, monthlyOther: 75 });
-close(allInMortgage.monthlyOwnershipCost - allInMortgage.monthlyHousingPayment, 1075, 0.001, 'all-in recurring ownership extras');
+const allInMortgage = calculateMortgage({ homePrice: 400000, downPayment: 80000, annualRatePercent: 6.5, termYears: 30, propertyTaxRatePercent: 2, annualInsurance: 3000, monthlyHoa: 100, monthlyUtilities: 350, monthlyMaintenance: 400, monthlyPool: 150, monthlyLandscaping: 100, monthlyOther: 75, extraMonthlyPrincipal: 200 });
+close(allInMortgage.monthlyOwnershipCost - allInMortgage.monthlyHousingPayment, 1275, 0.001, 'all-in recurring ownership extras');
 close(mortgage.amortization.at(-1)?.endingBalance ?? -1, 0, 0.01, 'ending mortgage balance');
 
 const invalid = calculateMortgage({ homePrice: 300000, downPayment: 350000, annualRatePercent: 6, termYears: 30 });
