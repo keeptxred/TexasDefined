@@ -155,6 +155,11 @@ if (!detail.includes('href={place.href}')) failures.push('Industry place pathway
 if (!detail.includes('industry.relatedSectorSlugs.includes(item.slug)')) failures.push('Industry detail pages must use the curated related-sector graph.');
 if (detail.includes('.filter((item) => item.slug !== industry.slug).slice(')) failures.push('Generic related-sector slicing must not return.');
 if (!detail.includes('industry.workforce.roles.map') || !detail.includes('industry.workforce.pathways.map')) failures.push('Industry detail pages must render workforce roles and training pathways.');
+if (!detail.includes('Plan a corporate Texas relocation →')) failures.push('Industry detail pages must connect workforce research to corporate relocation planning.');
+if (!detail.includes('/moving-to-texas?industry=') || !detail.includes('&companyMove=employer#corporate-relocation')) failures.push('Industry detail corporate relocation link must preserve sector context and employer intent.');
+if (!hub.includes('Corporate relocation & workforce planning →')) failures.push('Industry hub must expose corporate relocation planning.');
+if (!hub.includes('Industry → corporate relocation')) failures.push('Industry hub cross-link graph must include corporate relocation.');
+if (!hub.includes('/moving-to-texas?companyMove=employer#corporate-relocation')) failures.push('Industry hub corporate relocation link must target the governed relocation section.');
 if (!detail.includes('industry.evolution.period') || !detail.includes('industry.evolution.sourceUrl')) failures.push('Industry detail pages must render sourced sector-evolution context.');
 
 for (const [label, source] of [
