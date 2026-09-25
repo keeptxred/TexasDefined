@@ -33,7 +33,7 @@ const topicLinks: WaterGuide[] = [
 export function TexasWaterSearchResource({ active }: { active: WaterTopic }) {
   return (
     <section className="mt-8 border-y border-border py-7" aria-labelledby="texas-water-topic-heading">
-      <p className="eyebrow text-primary">Texas water, organized by the question</p>
+      <p className="eyebrow text-primary">Texas water by topic</p>
       <h2 id="texas-water-topic-heading" className="mt-3 font-display text-2xl sm:text-3xl">
         Pick the water guide you actually need
       </h2>
