@@ -182,17 +182,17 @@ export function RelocationCommandCenter() {
           </div>
           <div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <Field label="Moving from"><input value={profile.origin} onChange={(e) => setProfile((p) => ({ ...p, origin: e.target.value }))} placeholder="State or city" className="input" /></Field>
-              <Field label="Texas destination"><input value={profile.destination} onChange={(e) => setProfile((p) => ({ ...p, destination: e.target.value }))} placeholder="City, metro or undecided" className="input" /></Field>
-              <Field label="Move date"><input type="date" value={profile.moveDate} onChange={(e) => setProfile((p) => ({ ...p, moveDate: e.target.value }))} className="input" /></Field>
-              <Field label="Housing"><select value={profile.housing} onChange={(e) => setProfile((p) => ({ ...p, housing: e.target.value as Profile["housing"] }))} className="input"><option value="unsure">Still deciding</option><option value="rent">Rent</option><option value="buy">Buy</option></select></Field>
-              <Field label="Monthly housing target"><input type="number" min="0" step="100" value={profile.housingBudget} onChange={(e) => setProfile((p) => ({ ...p, housingBudget: Math.max(0, Number(e.target.value) || 0) }))} className="input" /></Field>
-              <Field label="Household size"><input type="number" min="1" max="20" value={profile.householdSize} onChange={(e) => setProfile((p) => ({ ...p, householdSize: Math.max(1, Number(e.target.value) || 1) }))} className="input" /></Field>
-              <Field label="Children in school?"><select value={profile.schools ? "yes" : "no"} onChange={(e) => setProfile((p) => ({ ...p, schools: e.target.value === "yes" }))} className="input"><option value="no">No</option><option value="yes">Yes</option></select></Field>
-              <Field label="Vehicles"><input type="number" min="0" max="10" value={profile.vehicles} onChange={(e) => setProfile((p) => ({ ...p, vehicles: Math.max(0, Number(e.target.value) || 0) }))} className="input" /></Field>
-              <Field label="Work location / corridor"><input value={profile.workLocation} onChange={(e) => setProfile((p) => ({ ...p, workLocation: e.target.value }))} placeholder="Downtown, Energy Corridor, remote…" className="input" /></Field>
-              <Field label="Industry"><input value={profile.industry} onChange={(e) => setProfile((p) => ({ ...p, industry: e.target.value }))} placeholder="Energy, healthcare, tech…" className="input" /></Field>
-              <Field label="Corporate relocation?"><select value={profile.companyMove} onChange={(e) => setProfile((p) => ({ ...p, companyMove: e.target.value as Profile["companyMove"] }))} className="input"><option value="none">No / not sure</option><option value="employee">I am relocating for work</option><option value="employer">I am planning for employees</option></select></Field>
+              <Field label="Moving from"><input value={profile.origin} onChange={(e) => setProfile((p) => ({ ...p, origin: e.target.value }))} placeholder="State or city" className="min-h-11 w-full border border-border bg-background px-3 text-sm" /></Field>
+              <Field label="Texas destination"><input value={profile.destination} onChange={(e) => setProfile((p) => ({ ...p, destination: e.target.value }))} placeholder="City, metro or undecided" className="min-h-11 w-full border border-border bg-background px-3 text-sm" /></Field>
+              <Field label="Move date"><input type="date" value={profile.moveDate} onChange={(e) => setProfile((p) => ({ ...p, moveDate: e.target.value }))} className="min-h-11 w-full border border-border bg-background px-3 text-sm" /></Field>
+              <Field label="Housing"><select value={profile.housing} onChange={(e) => setProfile((p) => ({ ...p, housing: e.target.value as Profile["housing"] }))} className="min-h-11 w-full border border-border bg-background px-3 text-sm"><option value="unsure">Still deciding</option><option value="rent">Rent</option><option value="buy">Buy</option></select></Field>
+              <Field label="Monthly housing target"><input type="number" min="0" step="100" value={profile.housingBudget} onChange={(e) => setProfile((p) => ({ ...p, housingBudget: Math.max(0, Number(e.target.value) || 0) }))} className="min-h-11 w-full border border-border bg-background px-3 text-sm" /></Field>
+              <Field label="Household size"><input type="number" min="1" max="20" value={profile.householdSize} onChange={(e) => setProfile((p) => ({ ...p, householdSize: Math.max(1, Number(e.target.value) || 1) }))} className="min-h-11 w-full border border-border bg-background px-3 text-sm" /></Field>
+              <Field label="Children in school?"><select value={profile.schools ? "yes" : "no"} onChange={(e) => setProfile((p) => ({ ...p, schools: e.target.value === "yes" }))} className="min-h-11 w-full border border-border bg-background px-3 text-sm"><option value="no">No</option><option value="yes">Yes</option></select></Field>
+              <Field label="Vehicles"><input type="number" min="0" max="10" value={profile.vehicles} onChange={(e) => setProfile((p) => ({ ...p, vehicles: Math.max(0, Number(e.target.value) || 0) }))} className="min-h-11 w-full border border-border bg-background px-3 text-sm" /></Field>
+              <Field label="Work location / corridor"><input value={profile.workLocation} onChange={(e) => setProfile((p) => ({ ...p, workLocation: e.target.value }))} placeholder="Downtown, Energy Corridor, remote…" className="min-h-11 w-full border border-border bg-background px-3 text-sm" /></Field>
+              <Field label="Industry"><input value={profile.industry} onChange={(e) => setProfile((p) => ({ ...p, industry: e.target.value }))} placeholder="Energy, healthcare, tech…" className="min-h-11 w-full border border-border bg-background px-3 text-sm" /></Field>
+              <Field label="Corporate relocation?"><select value={profile.companyMove} onChange={(e) => setProfile((p) => ({ ...p, companyMove: e.target.value as Profile["companyMove"] }))} className="min-h-11 w-full border border-border bg-background px-3 text-sm"><option value="none">No / not sure</option><option value="employee">I am relocating for work</option><option value="employer">I am planning for employees</option></select></Field>
             </div>
             <div className="mt-7 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
               <Summary label="Housing target" value={money(profile.housingBudget) + "/mo"} />
@@ -310,7 +310,7 @@ export function RelocationCommandCenter() {
 }
 
 function Field({ label, children }: { label: string; children: ReactNode }) {
-  return <label className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{label}<span className="mt-2 block normal-case tracking-normal text-foreground [&_.input]:min-h-11 [&_.input]:w-full [&_.input]:border [&_.input]:border-border [&_.input]:bg-background [&_.input]:px-3 [&_.input]:text-sm">{children}</span></label>;
+  return <label className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{label}<span className="mt-2 block normal-case tracking-normal text-foreground">{children}</span></label>;
 }
 
 function Select({ label, value, onChange, options }: { label: string; value: string; onChange: (value: string) => void; options: string[] }) {
