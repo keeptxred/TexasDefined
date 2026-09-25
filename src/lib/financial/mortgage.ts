@@ -13,6 +13,9 @@ export interface MortgageInputs {
   monthlySpecialDistricts?: number;
   monthlyUtilities?: number;
   monthlyMaintenance?: number;
+  monthlyPool?: number;
+  monthlyLandscaping?: number;
+  monthlyOther?: number;
   extraMonthlyPrincipal?: number;
 }
 
@@ -35,6 +38,9 @@ export interface MortgageEstimate {
   monthlySpecialDistricts: number;
   monthlyUtilities: number;
   monthlyMaintenance: number;
+  monthlyPool: number;
+  monthlyLandscaping: number;
+  monthlyOther: number;
   monthlyHousingPayment: number;
   monthlyOwnershipCost: number;
   annualOwnershipCost: number;
@@ -123,8 +129,11 @@ export function calculateMortgage(input: MortgageInputs): MortgageEstimate {
   const monthlySpecialDistricts = nonNegative(input.monthlySpecialDistricts ?? 0);
   const monthlyUtilities = nonNegative(input.monthlyUtilities ?? 0);
   const monthlyMaintenance = nonNegative(input.monthlyMaintenance ?? 0);
+  const monthlyPool = nonNegative(input.monthlyPool ?? 0);
+  const monthlyLandscaping = nonNegative(input.monthlyLandscaping ?? 0);
+  const monthlyOther = nonNegative(input.monthlyOther ?? 0);
   const monthlyHousingPayment = monthlyPrincipalInterest + monthlyPropertyTax + monthlyInsurance + monthlyPmi + monthlyHoa + monthlySpecialDistricts;
-  const monthlyOwnershipCost = monthlyHousingPayment + monthlyUtilities + monthlyMaintenance;
+  const monthlyOwnershipCost = monthlyHousingPayment + monthlyUtilities + monthlyMaintenance + monthlyPool + monthlyLandscaping + monthlyOther;
   const amortization = buildAmortizationSchedule({
     principal: loanAmount,
     annualRatePercent: rate,
@@ -143,6 +152,9 @@ export function calculateMortgage(input: MortgageInputs): MortgageEstimate {
     monthlySpecialDistricts,
     monthlyUtilities,
     monthlyMaintenance,
+    monthlyPool,
+    monthlyLandscaping,
+    monthlyOther,
     monthlyHousingPayment,
     monthlyOwnershipCost,
     annualOwnershipCost: monthlyOwnershipCost * 12,
