@@ -46,6 +46,7 @@ const prebuildChecks = [
   ['EVENT/TICKETMASTER', 'Validate Ticketmaster calendar integration', 'node', ['scripts/data/validate-ticketmaster-integration.mjs']],
   ['EVENT/TICKETING', 'Validate shared ticket architecture', 'node', ['scripts/data/validate-event-ticketing-architecture.mjs']],
   ['EVENT/TICKETING', 'Validate canonical official ticket fallback', 'node', ['scripts/data/validate-event-ticket-positive-path.mjs']],
+  ['EVENT/TICKETING', 'Syntax-check production ticketing verifier', 'node', ['--check', 'scripts/ci/verify-event-ticketing-production.mjs']],
   ['CI/GOVERNANCE', 'Validate retired integration traces', 'node', ['scripts/ci/validate-retired-integration-traces.mjs']],
   ['CI/GOVERNANCE', 'Validate direct-main writer inventory', 'node', ['scripts/ci/validate-direct-main-writer-inventory.mjs']],
   ['CI/GOVERNANCE', 'Validate consolidated county certifiers', 'node', ['scripts/ci/validate-county-certifier-consolidation.mjs']],
