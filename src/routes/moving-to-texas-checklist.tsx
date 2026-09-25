@@ -1,45 +1,47 @@
+import { useEffect, useMemo, useState } from 'react';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 import { RelocationToolkitAnd100 } from '@/components/relocation/RelocationToolkitAnd100';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
+import { RELOCATION_CHECKLIST_TOTAL, readRelocationChecklistProgress, setRelocationChecklistItemComplete } from '@/lib/relocation-workspace';
 
 const description = 'The practical things worth handling before the boxes arrive, during your first weeks and after the new address starts to feel like home.';
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}/moving-to-texas-checklist`;
 const verifiedLabel = 'Verified Aug. 26, 2026';
 
-type ChecklistItem = { text: string; sourceName?: string; sourceUrl?: string };
-const item = (text: string, sourceName?: string, sourceUrl?: string): ChecklistItem => ({ text, ...(sourceName && sourceUrl ? { sourceName, sourceUrl } : {}) });
+type ChecklistItem = { id: string; text: string; sourceName?: string; sourceUrl?: string };
+const item = (id: string, text: string, sourceName?: string, sourceUrl?: string): ChecklistItem => ({ id, text, ...(sourceName && sourceUrl ? { sourceName, sourceUrl } : {}) });
 
 const groups = [
   { title: 'Before the moving truck', items: [
-    item('Confirm your lease or closing date and keep digital copies of every signed document.'),
-    item('Identify electricity, water, wastewater, trash and gas service for the exact address before comparing utility costs.', 'Public Utility Commission of Texas', 'https://www.puc.texas.gov/'),
-    item('Request insurance quotes that account for wind, flood, hail and foundation concerns where they matter.', 'Texas Department of Insurance', 'https://www.tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html'),
-    item('Keep school, medical, employment, vehicle, pet and identity records together in one easy-to-reach folder.'),
+    item('before-documents', 'Confirm your lease or closing date and keep digital copies of every signed document.'),
+    item('before-utilities', 'Identify electricity, water, wastewater, trash and gas service for the exact address before comparing utility costs.', 'Public Utility Commission of Texas', 'https://www.puc.texas.gov/'),
+    item('before-insurance', 'Request insurance quotes that account for wind, flood, hail and foundation concerns where they matter.', 'Texas Department of Insurance', 'https://www.tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html'),
+    item('before-records', 'Keep school, medical, employment, vehicle, pet and identity records together in one easy-to-reach folder.'),
   ] },
   { title: 'Your first two weeks', items: [
-    item('Photograph the home and complete the move-in inspection before unpacking takes over.'),
-    item('Update your address with banks, employers, insurers, subscriptions and the Postal Service.', 'USPS official change-of-address service', 'https://moversguide.usps.com/'),
-    item('Sign up for local emergency alerts and find nearby urgent care, city services and evacuation routes.'),
-    item('Confirm the correct school district, enrollment documents and transportation details from the exact address.', 'Texas Education Agency school finder', 'https://tea.texas.gov/families-and-students/finding-school-your-child/finding-school'),
+    item('arrival-inspection', 'Photograph the home and complete the move-in inspection before unpacking takes over.'),
+    item('arrival-address-change', 'Update your address with banks, employers, insurers, subscriptions and the Postal Service.', 'USPS official change-of-address service', 'https://moversguide.usps.com/'),
+    item('arrival-emergency-services', 'Sign up for local emergency alerts and find nearby urgent care, city services and evacuation routes.'),
+    item('arrival-schools', 'Confirm the correct school district, enrollment documents and transportation details from the exact address.', 'Texas Education Agency school finder', 'https://tea.texas.gov/families-and-students/finding-school-your-child/finding-school'),
   ] },
   { title: 'Cars, licenses and getting around', items: [
-    item('Check the current TxDMV requirements for registration, title, inspection or emissions requirements and insurance.', 'Texas Department of Motor Vehicles', 'https://www.txdmv.gov/motorists/register-your-vehicle'),
-    item('Schedule any driver-license appointment you need through the Texas Department of Public Safety.', 'Texas Department of Public Safety', 'https://www.dps.texas.gov/section/driver-license'),
-    item('Save receipts and confirmation numbers for registration, title and licensing visits.'),
-    item('Update toll-road accounts and double-check every license-plate number.'),
+    item('vehicle-registration', 'Check the current TxDMV requirements for registration, title, inspection or emissions requirements and insurance.', 'Texas Department of Motor Vehicles', 'https://www.txdmv.gov/motorists/register-your-vehicle'),
+    item('driver-license', 'Schedule any driver-license appointment you need through the Texas Department of Public Safety.', 'Texas Department of Public Safety', 'https://www.dps.texas.gov/section/driver-license'),
+    item('vehicle-receipts', 'Save receipts and confirmation numbers for registration, title and licensing visits.'),
+    item('toll-accounts', 'Update toll-road accounts and double-check every license-plate number.'),
   ] },
   { title: 'The home, taxes and paperwork', items: [
-    item('Check voter-registration eligibility and deadlines through the official state election source.', 'VoteTexas.gov', 'https://www.votetexas.gov/register-to-vote/'),
-    item('For an owner-occupied home, review the residence homestead exemption and file when eligible.', 'Texas Comptroller residence homestead FAQ', 'https://comptroller.texas.gov/taxes/property-tax/exemptions/residence-faq.php'),
-    item('Keep the deed, closing disclosure, survey, appraisal, insurance paperwork and exemption confirmation together.'),
-    item('Identify the appraisal district and tax offices for the county, then read the first appraisal notice and property-tax bill carefully; the previous owner’s taxable value may not carry over.', 'Texas Comptroller county property-tax directory', 'https://comptroller.texas.gov/taxes/property-tax/county-directory/'),
+    item('voter-registration', 'Check voter-registration eligibility and deadlines through the official state election source.', 'VoteTexas.gov', 'https://www.votetexas.gov/register-to-vote/'),
+    item('homestead-exemption', 'For an owner-occupied home, review the residence homestead exemption and file when eligible.', 'Texas Comptroller residence homestead FAQ', 'https://comptroller.texas.gov/taxes/property-tax/exemptions/residence-faq.php'),
+    item('home-records', 'Keep the deed, closing disclosure, survey, appraisal, insurance paperwork and exemption confirmation together.'),
+    item('property-tax-offices', 'Identify the appraisal district and tax offices for the county, then read the first appraisal notice and property-tax bill carefully; the previous owner’s taxable value may not carry over.', 'Texas Comptroller county property-tax directory', 'https://comptroller.texas.gov/taxes/property-tax/county-directory/'),
   ] },
 ] as const;
 
-const howToSections = groups.map((group, groupIndex) => ({ '@type': 'HowToSection', position: groupIndex + 1, name: group.title, itemListElement: group.items.map((item, itemIndex) => ({ '@type': 'HowToStep', position: itemIndex + 1, name: item.text, text: item.text, url: `${pageUrl}#step-${groupIndex + 1}-${itemIndex + 1}` })) }));
+const howToSections = groups.map((group, groupIndex) => ({ '@type': 'HowToSection', position: groupIndex + 1, name: group.title, itemListElement: group.items.map((item, itemIndex) => ({ '@type': 'HowToStep', position: itemIndex + 1, name: item.text, text: item.text, url: `${pageUrl}#${item.id}` })) }));
 
 export const Route = createFileRoute('/moving-to-texas-checklist')({
   head: () => ({
@@ -55,6 +57,20 @@ export const Route = createFileRoute('/moving-to-texas-checklist')({
 });
 
 function Page() {
+  const [completed, setCompleted] = useState<string[]>([]);
+
+  useEffect(() => {
+    setCompleted(readRelocationChecklistProgress());
+  }, []);
+
+  const completedSet = useMemo(() => new Set(completed), [completed]);
+  const completedCount = groups.flatMap((group) => group.items).filter((entry) => completedSet.has(entry.id)).length;
+
+  const toggleChecklistItem = (itemId: string) => {
+    const next = setRelocationChecklistItemComplete(itemId, !completedSet.has(itemId));
+    setCompleted(next);
+  };
+
   return <>
     <section className="border-b border-border bg-surface">
       <Container className="py-16 sm:py-24">
@@ -69,6 +85,12 @@ function Page() {
     <Container className="py-14 sm:py-20">
       <article className="mx-auto max-w-5xl">
         <p className="max-w-2xl text-base leading-8 text-muted-foreground">Work through the list in order, or jump to the part that matches where you are in the move. Where a statewide agency owns the rule or lookup, the checklist links directly to that official source.</p>
+        <aside className="mt-8 border border-border bg-surface p-6" aria-labelledby="checklist-progress-heading">
+          <p className="eyebrow text-primary">My Texas Move progress</p>
+          <h2 id="checklist-progress-heading" className="mt-2 font-display text-3xl">{completedCount} of {RELOCATION_CHECKLIST_TOTAL} tasks complete</h2>
+          <p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">Check off tasks as you finish them. Progress stays in this browser with My Texas Move; no account or server-side move profile is required.</p>
+          <Link to="/moving-to-texas" hash="my-texas-move" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Open My Texas Move →</Link>
+        </aside>
         <aside className="mt-8 border-y border-border py-6" aria-labelledby="checklist-budget-heading">
           <p className="eyebrow text-primary">Before move day</p>
           <h2 id="checklist-budget-heading" className="mt-2 font-display text-3xl">Price the whole move, not just the truck</h2>
@@ -82,15 +104,20 @@ function Page() {
               <div>
                 <h2 className="font-display text-3xl leading-tight sm:text-4xl">{group.title}</h2>
                 <ol className="mt-6 divide-y divide-border">
-                  {group.items.map((item, itemIndex) => (
-                    <li id={`step-${groupIndex + 1}-${itemIndex + 1}`} key={item.text} className="grid gap-3 py-5 sm:grid-cols-[2rem_1fr]">
-                      <span aria-hidden className="font-display text-xl text-primary">{itemIndex + 1}</span>
-                      <div>
-                        <p className="text-sm leading-7 text-foreground/90">{item.text}</p>
-                        {'sourceUrl' in item && item.sourceUrl && <a href={item.sourceUrl} target="_blank" rel="noreferrer" className="mt-2 inline-block text-xs font-semibold text-primary underline underline-offset-4">Official source · {item.sourceName} · {verifiedLabel} ↗</a>}
-                      </div>
-                    </li>
-                  ))}
+                  {group.items.map((item, itemIndex) => {
+                    const isComplete = completedSet.has(item.id);
+                    return (
+                      <li id={item.id} key={item.id} className="py-5">
+                        <label className="flex cursor-pointer items-start gap-3">
+                          <input type="checkbox" checked={isComplete} onChange={() => toggleChecklistItem(item.id)} className="mt-1 h-4 w-4 shrink-0" />
+                          <span className={`text-sm leading-7 ${isComplete ? 'text-muted-foreground line-through' : 'text-foreground/90'}`}>
+                            <span className="mr-2 font-display text-lg text-primary">{itemIndex + 1}.</span>{item.text}
+                          </span>
+                        </label>
+                        {'sourceUrl' in item && item.sourceUrl && <a href={item.sourceUrl} target="_blank" rel="noreferrer" className="ml-7 mt-2 inline-block text-xs font-semibold text-primary underline underline-offset-4">Official source · {item.sourceName} · {verifiedLabel} ↗</a>}
+                      </li>
+                    );
+                  })}
                 </ol>
               </div>
             </section>
