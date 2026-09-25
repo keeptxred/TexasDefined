@@ -120,3 +120,4 @@ if (failures.length) {
 }
 
 console.log('Sitewide dead-space safeguards passed: bounded editorial heroes, all empty Stay Nearby mounts are zero-space, and compact visible lazy-route fallbacks are intact.');
+
