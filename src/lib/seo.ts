@@ -139,8 +139,8 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
 // existing metadata; canonical SSR output carries the GSC-aligned title/description.
 const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = import.meta.env.SSR ? {
   "/article/texas-rivers-explained": {
-    title: "Major Rivers of Texas: Basins, Regions & Waterways Explained",
-    description: "Explore Texas rivers with a basin map, 15-basin comparison table, river profiles, reservoirs and regional context from the Rio Grande to East Texas.",
+    title: "Major Rivers in Texas: Boundary Rivers, Regions & Basins",
+    description: "Find Texas's major and boundary rivers by region, see all 15 major river basins on a map, and follow the Rio Grande, Brazos, Colorado, Trinity and Sabine.",
   },
   "/article/texas-river-basins-guide": {
     title: "Texas River Basins: 15 Major & 8 Coastal Basins",
@@ -676,6 +676,18 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
   "/article/texas-trinity-river-guide": {
     title: "Trinity River Texas: Dallas-Fort Worth, Basin & Gulf Guide",
     description: "Follow the Trinity River through North Texas toward Trinity Bay, with its forks, Dallas-Fort Worth watershed, reservoirs and basin geography explained.",
+  },
+  "/texas-homecoming-mums": {
+    title: "Texas Homecoming Mums Explained: Meaning, History & Tradition",
+    description: "What are Texas homecoming mums? See what the ribbons and charms mean, how the tradition started, why mums became huge, and how garters fit into homecoming.",
+  },
+  "/sports-venue/jones-att-stadium": {
+    title: "Jones AT&T Stadium (Now Galaxy Stadium): Texas Tech Guide",
+    description: "Looking for Jones AT&T Stadium? Texas Tech's Lubbock football venue is now Galaxy Stadium. Get parking, map, arrival, events and official planning links.",
+  },
+  "/explore/painted-churches": {
+    title: "Painted Churches of Texas: Map, Schulenburg Route & Guide",
+    description: "Find the Painted Churches of Texas with an interactive map, the Schulenburg driving route, current visitor guidance and verified church profiles statewide.",
   },
 } : {};
 
