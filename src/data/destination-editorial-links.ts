@@ -152,6 +152,11 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
   ],
   "old-blanco-county-courthouse": [
     {
+      href: "/event/blanco-market-day",
+      label: "Plan Blanco Market Day",
+      description: "Use the current recurring-event guide for the remaining 2026 third-Saturday courthouse markets and Christmas Market.",
+    },
+    {
       href: "/destination/blanco",
       label: "Explore Blanco",
       description: "Connect the old courthouse with Blanco's river, downtown, food and wider town planning.",

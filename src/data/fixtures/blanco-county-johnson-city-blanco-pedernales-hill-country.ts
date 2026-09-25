@@ -52,6 +52,7 @@ export const blancoCountyJohnsonCityBlancoPedernalesHillCountryArticle: Article 
     { href: "/destination/buggy-barn-museum-blanco", label: "Buggy Barn Museum", description: "Explore Blanco's 250+ historic buggy, carriage and wagon collection plus the Pine Moore Old West production complex." },
     { href: "/destination/twin-sisters-dance-hall-blanco", label: "Twin Sisters Dance Hall", description: "Plan a scheduled first-Saturday dance or special event at the historic volunteer-run hall south of Blanco." },
     { href: "/event/blanco-lavender-festival", label: "Blanco Lavender Festival", description: "Plan the confirmed June 4–6, 2027 festival across the courthouse square, Bindseil Park and Hill Country Lavender farm." },
+    { href: "/event/blanco-market-day", label: "Blanco Market Day", description: "Plan the remaining 2026 third-Saturday courthouse markets on October 17, November 21 and December 19." },
     { href: "/county/gillespie", label: "Explore Gillespie County", description: "Continue west toward Fredericksburg, Stonewall and the Pedernales corridor." },
     { href: "/county/kendall", label: "Explore Kendall County", description: "Head south toward Boerne, Comfort and the Guadalupe River country." },
     { href: "/county/hays", label: "Explore Hays County", description: "Follow the Hill Country east toward Wimberley, Dripping Springs and San Marcos." },
