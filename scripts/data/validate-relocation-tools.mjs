@@ -15,6 +15,7 @@ const cityDepth='src/components/content/EntityDepthSections.tsx';
 const relocationData='src/data/relocation-authority.ts';
 const stateComparison='src/routes/texas-vs.$state.tsx';
 const authorityLab='src/components/relocation/RelocationAuthorityLab.tsx';
+const workspaceModule='src/lib/relocation-workspace.ts';
 if(fs.existsSync(duplicateToolkit))errors.push(`${duplicateToolkit} must not exist because it creates a duplicate indexable /moving-to-texas/tools canonical.`);
 if(fs.existsSync(toolkit)){
   const route=fs.readFileSync(toolkit,'utf8');
@@ -41,7 +42,8 @@ if(!fs.existsSync(commandCenter)){
     'My Texas Move',
     'Texas Match Explorer',
     'Corporate Relocation to Texas',
-    'texasdefined:my-texas-move:v1',
+    'RELOCATION_WORKSPACE_STORAGE_KEY',
+    'RELOCATION_WORKSPACE_UPDATE_EVENT',
     'https://gov.texas.gov/business',
     'https://www.twc.texas.gov/services/find-lmi',
     'https://www.irs.gov/publications/p15b',
@@ -54,11 +56,12 @@ if(!fs.existsSync(commandCenter)){
     'origin: next.origin || originState',
     'Compare your current state with Texas',
     'savedAddresses',
-    'params.get("saveAddress")',
     'params.get("industry")',
     'params.get("companyMove")',
     'Saved address research',
     'Current industry context:',
+    'handleWorkspaceUpdate',
+    'Corporate relocation →',
   ]){
     if(!center.includes(token))errors.push(`Relocation command center missing protected marker: ${token}`);
   }
@@ -115,13 +118,33 @@ if(!fs.existsSync(authorityLab)){
 }else{
   const lab=fs.readFileSync(authorityLab,'utf8');
   for(const token of [
+    'saveRelocationAddressToWorkspace',
     'Save this address to My Texas Move →',
-    '/moving-to-texas?saveAddress=',
-    'encodeURIComponent(addressResult.matchedAddress)',
+    'Saved to My Texas Move',
+    'scrollIntoView',
     'is not saved unless you explicitly add a matched address to My Texas Move',
   ]){
     if(!lab.includes(token))errors.push(`Address-to-workspace relocation loop missing protected marker: ${token}`);
   }
+  if(lab.includes('?saveAddress=') || lab.includes('encodeURIComponent(addressResult.matchedAddress)')){
+    errors.push('Exact addresses must not be placed in relocation URLs or query strings.');
+  }
+}
+
+if(!fs.existsSync(workspaceModule)){
+  errors.push(`Missing ${workspaceModule}`);
+}else{
+  const workspace=fs.readFileSync(workspaceModule,'utf8');
+  for(const token of [
+    'texasdefined:my-texas-move:v1',
+    'texasdefined:my-texas-move:update',
+    'saveRelocationAddressToWorkspace',
+    'window.localStorage.setItem',
+    'new CustomEvent',
+  ]){
+    if(!workspace.includes(token))errors.push(`Relocation workspace privacy/persistence marker missing: ${token}`);
+  }
+  if(workspace.includes('?saveAddress=')) errors.push('Relocation workspace helper must not serialize exact addresses into URLs.');
 }
 
 const finder=fs.readFileSync('src/components/relocation/RelocationServiceFinder.tsx','utf8');
