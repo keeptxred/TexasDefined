@@ -86,11 +86,11 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
   const errors = issueMap(result.issues);
 
   const persistence = useCalculatorPersistence({
-    storageKey: 'texasdefined:mortgage:v2',
+    storageKey: 'texasdefined:mortgage:v3',
     state,
     onRestore: setState,
   });
-  const scenarioStore = useCalculatorScenarios({ storageKey: 'texasdefined:mortgage-scenarios:v1', state, max: 3 });
+  const scenarioStore = useCalculatorScenarios({ storageKey: 'texasdefined:mortgage-scenarios:v2', state, max: 3 });
 
   const housingBreakdown = [
     { label: 'Principal & interest', value: result.monthlyPrincipalInterest },
