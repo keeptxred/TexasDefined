@@ -75,10 +75,11 @@ function requireIndexableHtml(body, canonical, label) {
   requireCondition(!/<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(body), `${label} unexpectedly renders noindex.`);
 }
 
-const [directory, city, whirlyball] = await Promise.all([
+const [directory, city, whirlyball, tarrant] = await Promise.all([
   fetchLive('/browse/cities'),
   fetchLive('/city/hurst'),
   fetchLive('/destination/whirlyball-hurst'),
+  fetchLive('/county/tarrant'),
 ]);
 
 requireCondition(
@@ -91,6 +92,11 @@ requireIndexableHtml(city, 'https://texasdefined.com/city/hurst', 'Hurst city au
 requireCondition(city.includes('Hurst systems at a glance'), 'Hurst city authority systems section is missing.');
 requireCondition(city.includes('WhirlyBall Hurst'), 'Hurst city authority page is missing its WhirlyBall cross-link.');
 requireCondition(city.includes('/destination/whirlyball-hurst'), 'Hurst city authority page is missing the canonical WhirlyBall URL.');
+
+requireIndexableHtml(tarrant, 'https://texasdefined.com/county/tarrant', 'Tarrant County page');
+requireCondition(tarrant.includes('WhirlyBall Hurst'), 'Tarrant County is missing the WhirlyBall Hurst cross-link.');
+requireCondition(tarrant.includes('/destination/whirlyball-hurst'), 'Tarrant County is missing the canonical WhirlyBall destination URL.');
+requireCondition(tarrant.includes('Arlington and Hurst'), 'Tarrant County structured community coverage is missing Hurst.');
 
 requireIndexableHtml(whirlyball, 'https://texasdefined.com/destination/whirlyball-hurst', 'WhirlyBall Hurst destination page');
 requireCondition(whirlyball.includes('/city/hurst'), 'WhirlyBall Hurst is missing the reciprocal Hurst city-authority link.');
