@@ -131,6 +131,7 @@ for (const token of [
   'to="/event/state-fair-classic"',
   'to="/event/red-river-rivalry"',
   'CC BY-SA 4.0',
+  'View the full 31-photo historical State Fair gallery',
 ]) {
   if (!stateFairEnhancements.includes(token)) failures.push(`/texas-state-fair: missing media/commerce marker ${token}.`);
 }
