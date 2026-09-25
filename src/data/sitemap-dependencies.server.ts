@@ -9,7 +9,6 @@ export {
   isEvergreenEventCollectionPath,
   loadEvergreenEventSitemapEntriesServer,
 } from "@/data/event-evergreen-sitemap.server";
-export { hasCurrentOrFutureConfirmedEventOccurrence } from "@/data/event-occurrence-lifecycle";
 export { loadTemporalEventSitemapEntriesServer } from "@/data/event-temporal-sitemap.server";
 export {
   isArticleDiscoveryReady,
