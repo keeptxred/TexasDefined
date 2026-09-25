@@ -212,4 +212,5 @@ console.log(`TexasDefined production verification passed (${surfaces.length} rev
 
 await import('./verify-texas-industries-production.mjs');
 await import('./verify-gaming-production.mjs');
+await import('./verify-hurst-whirlyball-production.mjs');
 await import('./verify-viator-production.mjs');
