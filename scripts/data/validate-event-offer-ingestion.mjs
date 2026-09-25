@@ -24,7 +24,6 @@ const offersRoute = read('src/routes/offers.lazy.tsx');
 for (const marker of [
   'CJ_PERSONAL_ACCESS_TOKEN',
   'CJ_WEBSITE_ID',
-  'CJ_PUBLISHER_ID',
   'TICKETMASTER_API_KEY',
   'TICKETMASTER_IMPACT_BASE_URL',
   'IMPACT_ACCOUNT_SID',
@@ -35,6 +34,9 @@ for (const marker of [
   'commission_status',
   'discount_preserves_commission',
   'is_editorial_only',
+  "network: 'impact'",
+  "network: 'cj'",
+  "fetch_strategy: 'api'",
 ]) requireText(runtime, marker, 'event offer runtime');
 
 requireText(serverEntry, 'texasDefinedEventOffersResponse(request, env as Record<string, unknown>)', 'server entry API hook');
@@ -51,6 +53,10 @@ forbidText(wrangler, 'TICKETMASTER_API_KEY', 'wrangler config');
 for (const marker of [
   'create table if not exists public.texasdefined_offer_sources',
   'create table if not exists public.texasdefined_event_offers',
+  "fetch_strategy in ('manual', 'api', 'feed', 'webhook')",
+  "network in ('impact', 'cj', 'expedia', 'direct', 'internal')",
+  "kind in ('event', 'offer', 'hotel', 'attraction', 'package')",
+  "commission_status in ('preserved', 'reduced', 'zero', 'unknown')",
   'alter table public.texasdefined_offer_sources enable row level security',
   'alter table public.texasdefined_event_offers enable row level security',
   'service_role manages texasdefined event offers',
