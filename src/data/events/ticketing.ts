@@ -2,6 +2,9 @@ import type {
   TexasEventTicketLink,
   TexasEventTicketProvider,
   TexasEventTicketingMetadata,
+  type TexasAffiliateNetwork,
+  type TexasEventCommissionStatus,
+  type TexasEventPromotion,
 } from "./texas-event-record";
 
 const NON_ACTIONABLE_SALE_STATUSES = new Set<TexasEventTicketLink["saleStatus"]>([
@@ -20,6 +23,10 @@ export interface ResolvedEventTicketCta {
   disclosure?: string;
   sourceName: string;
   lastVerifiedAt: string;
+  network?: TexasAffiliateNetwork;
+  commissionStatus: TexasEventCommissionStatus;
+  promotion?: TexasEventPromotion;
+  isVerifiedDeal: boolean;
 }
 
 function safeHttpsUrl(value: string | undefined) {
@@ -75,6 +82,25 @@ function isActionable(link: TexasEventTicketLink) {
   return !NON_ACTIONABLE_SALE_STATUSES.has(link.saleStatus);
 }
 
+function affiliateCommissionSafe(link: TexasEventTicketLink) {
+  if (link.commissionStatus === "ineligible") return false;
+  if (!link.promotion) return true;
+  return link.commissionStatus === "eligible" && link.promotion.discountPreservesCommission === true;
+}
+
+export function isVerifiedTexasDefinedDeal(link: TexasEventTicketLink, now = new Date()) {
+  return isActionable(link)
+    && !isExpired(link.affiliateExpiresAt, now)
+    && Boolean(safeHttpsUrl(link.affiliateUrl))
+    && link.commissionStatus === "eligible"
+    && Boolean(link.promotion)
+    && link.promotion?.discountPreservesCommission === true;
+}
+
+export function hasVerifiedTexasDefinedDeal(ticketing: TexasEventTicketingMetadata | undefined, now = new Date()) {
+  return Boolean(ticketing?.links.some((link) => isVerifiedTexasDefinedDeal(link, now)));
+}
+
 /**
  * Resolve one commercial ticket action only. A current affiliate deep link wins;
  * otherwise the highest-priority current official ticket URL is used. Unsafe,
@@ -87,7 +113,7 @@ export function resolveEventTicketCta(ticketing: TexasEventTicketingMetadata | u
 
   for (const link of links) {
     const href = safeHttpsUrl(link.affiliateUrl);
-    if (!href || isExpired(link.affiliateExpiresAt, now)) continue;
+    if (!href || isExpired(link.affiliateExpiresAt, now) || !affiliateCommissionSafe(link)) continue;
     return {
       href,
       label: "Find Tickets →",
@@ -97,6 +123,10 @@ export function resolveEventTicketCta(ticketing: TexasEventTicketingMetadata | u
       disclosure: "Affiliate link · ticket checkout is handled by the ticket provider.",
       sourceName: link.source.name,
       lastVerifiedAt: link.lastVerifiedAt,
+      network: link.network,
+      commissionStatus: link.commissionStatus ?? "unknown",
+      promotion: link.promotion,
+      isVerifiedDeal: isVerifiedTexasDefinedDeal(link, now),
     };
   }
 
@@ -111,6 +141,10 @@ export function resolveEventTicketCta(ticketing: TexasEventTicketingMetadata | u
       rel: "noopener noreferrer",
       sourceName: link.source.name,
       lastVerifiedAt: link.lastVerifiedAt,
+      network: link.network,
+      commissionStatus: link.commissionStatus ?? "unknown",
+      promotion: undefined,
+      isVerifiedDeal: false,
     };
   }
 
