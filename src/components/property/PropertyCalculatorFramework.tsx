@@ -27,6 +27,8 @@ function NumericField({
   max,
   prefix,
   suffix,
+  help,
+  error,
 }: {
   label: string;
   value: number;
@@ -36,6 +38,8 @@ function NumericField({
   max?: number;
   prefix?: string;
   suffix?: string;
+  help?: string;
+  error?: string;
 }) {
   return (
     <label className="block border-t border-border pt-4 text-sm font-semibold">
@@ -49,10 +53,12 @@ function NumericField({
           max={max}
           step={step}
           value={value}
+          aria-invalid={Boolean(error)}
           onChange={(event) => onChange(Number(event.target.value) || 0)}
         />
         {suffix ? <span className="pl-2 text-muted-foreground" aria-hidden="true">{suffix}</span> : null}
       </span>
+      {error ? <span className="mt-2 block text-xs font-normal text-destructive" role="alert">{error}</span> : help ? <span className="mt-2 block text-xs font-normal leading-5 text-muted-foreground">{help}</span> : null}
     </label>
   );
 }
@@ -305,12 +311,14 @@ export function CalculatorActions({
   onShare,
   onPrint,
   status,
+  onReset,
 }: {
   onSave: () => void;
   onRestore: () => void;
   onShare: () => void;
   onPrint: () => void;
   status?: string;
+  onReset?: () => void;
 }) {
   const buttonClass = 'border-b border-primary pb-1 text-sm font-semibold text-primary';
   return (
@@ -320,9 +328,61 @@ export function CalculatorActions({
         <button type="button" className={buttonClass} onClick={onRestore}>Restore saved</button>
         <button type="button" className={buttonClass} onClick={onShare}>Copy share link</button>
         <button type="button" className={buttonClass} onClick={onPrint}>Print results</button>
+        {onReset ? <button type="button" className={buttonClass} onClick={onReset}>Reset</button> : null}
       </div>
       {status ? <p className="mt-3 text-xs text-muted-foreground" role="status">{status}</p> : null}
     </div>
+  );
+}
+
+
+export type BreakdownItem = { label: string; value: number; note?: string };
+
+export function BreakdownTable({ items, totalLabel = 'Total', total }: { items: BreakdownItem[]; totalLabel?: string; total?: number }) {
+  const computedTotal = total ?? items.reduce((sum, item) => sum + item.value, 0);
+  return (
+    <div className="overflow-x-auto border-y border-border">
+      <table className="w-full min-w-[28rem] text-sm">
+        <caption className="sr-only">Calculation breakdown</caption>
+        <tbody className="divide-y divide-border">
+          {items.map((item) => <tr key={item.label}><th scope="row" className="py-3 pr-4 text-left font-medium">{item.label}{item.note ? <span className="mt-1 block text-xs font-normal text-muted-foreground">{item.note}</span> : null}</th><td className="py-3 text-right font-semibold">{formatMoney(item.value)}</td></tr>)}
+        </tbody>
+        <tfoot className="border-t-2 border-foreground/20"><tr><th scope="row" className="py-4 pr-4 text-left font-semibold">{totalLabel}</th><td className="py-4 text-right font-display text-xl font-bold text-primary">{formatMoney(computedTotal)}</td></tr></tfoot>
+      </table>
+    </div>
+  );
+}
+
+export function BreakdownChart({ items }: { items: BreakdownItem[] }) {
+  const positive = items.filter((item) => item.value > 0);
+  const total = positive.reduce((sum, item) => sum + item.value, 0);
+  if (total <= 0) return null;
+  return (
+    <div className="space-y-3" aria-label="Visual calculation breakdown">
+      <div className="flex h-4 w-full overflow-hidden rounded-full bg-muted" aria-hidden="true">
+        {positive.map((item, index) => <span key={item.label} className={index % 2 ? 'bg-primary/55' : 'bg-primary'} style={{ width: `${item.value / total * 100}%` }} />)}
+      </div>
+      <div className="grid gap-x-6 gap-y-2 sm:grid-cols-2">
+        {positive.map((item) => <div key={item.label} className="flex items-center justify-between gap-3 text-sm"><span className="min-w-0 text-muted-foreground">{item.label}</span><strong className="shrink-0">{formatMoney(item.value)} <span className="font-normal text-muted-foreground">({(item.value / total * 100).toFixed(1)}%)</span></strong></div>)}
+      </div>
+    </div>
+  );
+}
+
+export function CalculatorModeToggle({ advanced, onChange }: { advanced: boolean; onChange: (advanced: boolean) => void }) {
+  return (
+    <button type="button" className="mt-5 min-h-11 border-b border-primary text-sm font-semibold text-primary print:hidden" aria-expanded={advanced} onClick={() => onChange(!advanced)}>
+      {advanced ? 'Hide advanced inputs' : 'Show advanced inputs'}
+    </button>
+  );
+}
+
+export function MethodologyPanel({ title = 'How TexasDefined calculates this', children }: { title?: string; children: ReactNode }) {
+  return (
+    <details className="mt-8 border-y border-border py-5">
+      <summary className="cursor-pointer font-display text-xl font-semibold">{title}</summary>
+      <div className="mt-4 max-w-3xl space-y-3 text-sm leading-6 text-muted-foreground">{children}</div>
+    </details>
   );
 }
 
