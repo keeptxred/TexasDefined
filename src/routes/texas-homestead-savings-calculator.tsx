@@ -20,6 +20,7 @@ import {
 } from '@/components/property/PropertyCalculatorFramework';
 import { Container } from '@/components/layout/Container';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
+import { calculateHomesteadSavings } from '@/lib/financial/property-tax';
 
 const canonicalPath = '/texas-homestead-savings-calculator';
 const description = 'Use the Texas homestead exemption calculator to estimate annual property-tax savings and monthly tax impact with separate school-district and other local exemptions and rates.';
@@ -63,7 +64,6 @@ export const Route = createFileRoute('/texas-homestead-savings-calculator')({
   component: HomesteadSavingsCalculator,
 });
 
-const tax = (value: number, rate: number) => Math.max(0, value) * Math.max(0, rate) / 100;
 
 function HomesteadSavingsCalculator() {
   const initial = useUrlStateDefaults(DEFAULTS);
@@ -73,18 +73,13 @@ function HomesteadSavingsCalculator() {
   const updateNumber = useCallback((key: 'homeValue' | 'schoolRate' | 'otherRate' | 'schoolExemption' | 'otherExemption', value: number) => setState((current) => ({ ...current, [key]: value })), []);
   const updateCounty = useCallback((county: string) => { setState((current) => ({ ...current, county })); setOfficialYear(null); }, []);
 
-  const results = useMemo(() => {
-    const value = Math.max(0, state.homeValue);
-    const schoolRate = Math.max(0, state.schoolRate);
-    const otherRate = Math.max(0, state.otherRate);
-    const schoolExemption = Math.min(value, Math.max(0, state.schoolExemption));
-    const otherExemption = Math.min(value, Math.max(0, state.otherExemption));
-    const beforeSchool = tax(value, schoolRate), beforeOther = tax(value, otherRate);
-    const afterSchool = tax(value - schoolExemption, schoolRate), afterOther = tax(value - otherExemption, otherRate);
-    const before = beforeSchool + beforeOther, after = afterSchool + afterOther;
-    const annualSavings = Math.max(0, before - after);
-    return { combinedRate: schoolRate + otherRate, taxableSchoolValue: Math.max(0, value - schoolExemption), taxableOtherValue: Math.max(0, value - otherExemption), before, after, annualSavings, monthlySavings: annualSavings / 12, monthlyTaxAfter: after / 12 };
-  }, [state]);
+  const results = useMemo(() => calculateHomesteadSavings({
+    homeValue: state.homeValue,
+    schoolRatePercent: state.schoolRate,
+    otherRatePercent: state.otherRate,
+    schoolExemption: state.schoolExemption,
+    otherExemption: state.otherExemption,
+  }), [state]);
 
   const persistence = useCalculatorPersistence<HomesteadState>({ storageKey: 'texasdefined:homestead-savings-calculator', state, onRestore: setState });
 
