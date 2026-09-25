@@ -96,42 +96,58 @@ for (const [path, needle] of routes) {
   console.log(`PASS ${path}: ${response.status}, expected content, canonical, indexable meta`);
 }
 
-const { body: relocationHubBody } = await fetchLive('/moving-to-texas', 'relocation operating system');
-for (const needle of [
+const relocationHubNeedles = [
   'Corporate Relocation to Texas',
   'Build an address-level research packet',
   'The submitted address is used for the Census lookup and is not saved unless you explicitly add a matched address to My Texas Move.',
-]) {
-  if (!relocationHubBody.includes(needle)) {
-    throw new Error(`/moving-to-texas: missing deployed relocation marker: ${needle}`);
-  }
-}
+];
+await fetchLive(
+  '/moving-to-texas',
+  'relocation operating system',
+  (_candidateResponse, body) => {
+    const missing = relocationHubNeedles.find((needle) => !body.includes(needle));
+    return missing ? `missing deployed relocation marker: ${missing}` : null;
+  },
+);
 
-const { body: industriesBody } = await fetchLive('/texas-industries', 'Texas industries relocation bridge');
-if (!industriesBody.includes('Corporate relocation & workforce planning')) {
-  throw new Error('/texas-industries: corporate relocation discovery is not live');
-}
+await fetchLive(
+  '/texas-industries',
+  'Texas industries relocation bridge',
+  (_candidateResponse, body) => body.includes('Corporate relocation & workforce planning')
+    ? null
+    : 'corporate relocation discovery is not live',
+);
 
-const { body: startBusinessBody } = await fetchLive('/start-a-business-in-texas', 'Texas business relocation bridge');
-if (!startBusinessBody.includes('If the business move includes employees or a new Texas site')) {
-  throw new Error('/start-a-business-in-texas: corporate relocation handoff is not live');
-}
+await fetchLive(
+  '/start-a-business-in-texas',
+  'Texas business relocation bridge',
+  (_candidateResponse, body) => body.includes('If the business move includes employees or a new Texas site')
+    ? null
+    : 'corporate relocation handoff is not live',
+);
 
-const { body: checklistBody } = await fetchLive(
+await fetchLive(
   '/moving-to-texas-checklist',
   'persistent moving checklist',
-  (candidateResponse, body) => validatePage('/moving-to-texas-checklist', 'My Texas Move progress', candidateResponse, body),
+  (candidateResponse, body) => {
+    const pageError = validatePage('/moving-to-texas-checklist', 'My Texas Move progress', candidateResponse, body);
+    if (pageError) return pageError;
+    if (!body.includes('tasks complete')) return 'persistent checklist completion marker is not live';
+    if (!body.includes('Progress stays in this browser with My Texas Move')) return 'persistent checklist storage marker is not live';
+    return null;
+  },
 );
-if (!checklistBody.includes('tasks complete') || !checklistBody.includes('Progress stays in this browser with My Texas Move')) {
-  throw new Error('/moving-to-texas-checklist: persistent checklist progress UI is not live');
-}
 
-const { body: toolkitBody } = await fetchLive('/moving-to-texas/tools', 'relocation toolkit');
-for (const path of toolkitLinks) {
-  if (!toolkitBody.includes(`href="${path}"`) && !toolkitBody.includes(`href="${origin}${path}"`)) {
-    throw new Error(`/moving-to-texas/tools: missing internal link to ${path}`);
-  }
-}
+await fetchLive(
+  '/moving-to-texas/tools',
+  'relocation toolkit',
+  (_candidateResponse, body) => {
+    const missingPath = toolkitLinks.find(
+      (path) => !body.includes(`href="${path}"`) && !body.includes(`href="${origin}${path}"`),
+    );
+    return missingPath ? `missing internal link to ${missingPath}` : null;
+  },
+);
 
 const { body: robots } = await fetchLive('/robots.txt', 'robots.txt');
 for (const [path] of routes) {
