@@ -29,7 +29,7 @@ const priorityPageOneCtrRecovery = [
   { path: '/article/texas-settlement-patterns-explained', title: 'Texas Settlement Patterns: How Geography Shaped Towns', description: 'See how rivers and reliable water drew early Texas settlement' },
   { path: '/event/addison-oktoberfest', title: 'Addison Oktoberfest 2026: Dates, Hours, Tickets & Parking', description: 'Addison Oktoberfest runs Sept. 17-20, 2026' },
   { path: '/sports-venue/mesquite-memorial-stadium', title: 'Mesquite Memorial Stadium: Parking, Tickets & Events', description: 'verified parking, directions, ticket and event links' },
-  { path: '/explore/painted-churches', title: 'Painted Churches of Texas: Map, Schulenburg Route & Guide', description: 'interactive map, the Schulenburg driving route' },
+  { path: '/explore/painted-churches', title: 'Painted Churches of Texas: Complete Statewide Guide', description: 'verified church profiles, history, architecture, photos and visitor information' },
 ];
 
 for (const experiment of priorityPageOneCtrRecovery) {
