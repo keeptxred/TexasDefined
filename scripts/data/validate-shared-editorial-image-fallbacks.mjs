@@ -60,6 +60,9 @@ for (const marker of [
   'recoverOrHideImage',
   'image.dataset.fallbackSrc',
   'image.style.display = "none"',
+  'hideImageFallbackLabel',
+  'data-image-fallback-label',
+  'fallbackLabel.style.display = "none"',
   'hideFailedImageContainer',
   'image.closest<HTMLElement>(selector)',
   'container.style.display = "none"',
@@ -221,6 +224,8 @@ requireMarker('article cards', 'relative w-full overflow-hidden');
 requireMarker('article cards', 'absolute inset-0 size-full object-cover');
 requireMarker('destination heroes', '"caddo-lake-national-wildlife-refuge"');
 requireMarker('destination heroes', 'src: caddoLake');
+requireMarker('destination heroes', 'data-image-fallback-label');
+requireMarker('destination heroes', 'onLoad={(event) => hideImageFallbackLabel(event.currentTarget)}');
 requireMarker('event carousel', 'image.nextElementSibling');
 requireMarker('event carousel', 'credit.style.display = "none"');
 
