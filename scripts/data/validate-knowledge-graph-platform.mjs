@@ -36,7 +36,7 @@ for (const feature of ['explore_entity_types(key,name)', 'MAX_GRAPH_ENTITIES', '
 }
 for (const feature of ["process.argv.includes('--write')",'normalizeRecord','reviewDueAt','staged-only','prepare-entity-promotion.mjs']) if (!importer.includes(feature)) errors.push(`Import staging feature missing: ${feature}.`);
 for (const feature of ["process.argv.includes('--promote')",'generatedPath','GENERATED_KNOWLEDGE_GRAPH_ENTITIES','safeToPromote','ENTITY_PROMOTION_APPROVAL','rollbackSnapshot']) if (!promoter.includes(feature)) errors.push(`Governed promotion feature missing: ${feature}.`);
-for (const feature of ['ArticleBody blocks={article.body} entities={graph}','mentions: mentions.map','loadTexasKnowledgeGraph']) if (!article.includes(feature)) errors.push(`Article graph integration missing: ${feature}.`);
+for (const feature of ['<ArticleBody','blocks={article.body}','entities={graph}','mentions: mentions.map','loadTexasKnowledgeGraph']) if (!article.includes(feature)) errors.push(`Article graph integration missing: ${feature}.`);
 for (const feature of ['AutoEntityLinks','linked = new Set']) if (!articleBody.includes(feature)) errors.push(`Article auto-linking feature missing: ${feature}.`);
 for (const feature of ['loadTexasKnowledgeGraph','canonicalEntityPath']) if (!sitemap.includes(feature)) errors.push(`Entity sitemap feature missing: ${feature}.`);
 for (const feature of ['auditTexasKnowledgeGraph','missingOfficialUrls','duplicateAliases','Graph review queue']) if (!health.includes(feature)) errors.push(`Graph health feature missing: ${feature}.`);
