@@ -18,6 +18,7 @@ const cityAuthorityProfiles = read('src/data/city-authority-profiles.ts');
 const whirlyballHurst = read('src/data/whirlyball-hurst-destination.ts');
 const hurstWhirlyballProductionVerifier = read('scripts/ci/verify-hurst-whirlyball-production.mjs');
 const hurstWhirlyballProductionWorkflow = read('.github/workflows/hurst-whirlyball-production-smoke.yml');
+const productionSurfaces = read('scripts/ci/verify-production-surfaces.mjs');
 const countyDirectory = read('src/components/directories/TexasCountyPropertyDirectory.tsx');
 const propertyHub = read('src/routes/property.tsx');
 const calculatorFramework = read('src/components/property/PropertyCalculatorFramework.tsx');
@@ -61,6 +62,7 @@ const checks = [
   [hurstWhirlyballProductionWorkflow, 'workflows: ["Deploy TexasDefined production"]', 'Hurst/WhirlyBall production smoke must follow the canonical production deployment'],
   [hurstWhirlyballProductionWorkflow, "github.event.workflow_run.conclusion == 'success'", 'Hurst/WhirlyBall production smoke must run only after successful production deployment'],
   [hurstWhirlyballProductionWorkflow, 'node scripts/ci/verify-hurst-whirlyball-production.mjs', 'Hurst/WhirlyBall production workflow must execute the governed verifier'],
+  [productionSurfaces, "await import('./verify-hurst-whirlyball-production.mjs');", 'Canonical live-production verifier must execute the Hurst/WhirlyBall smoke'],
   [hurstWhirlyballProductionVerifier, "fetchLive('/browse/cities')", 'Hurst/WhirlyBall production verifier must check the live city directory'],
   [hurstWhirlyballProductionVerifier, "fetchLive('/city/hurst')", 'Hurst/WhirlyBall production verifier must check the live Hurst city authority page'],
   [hurstWhirlyballProductionVerifier, "fetchLive('/destination/whirlyball-hurst')", 'Hurst/WhirlyBall production verifier must check the live WhirlyBall destination page'],
