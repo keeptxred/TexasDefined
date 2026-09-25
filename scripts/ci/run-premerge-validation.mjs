@@ -74,6 +74,7 @@ const prebuildChecks = [
   ['IMAGE/NETWORK', 'Validate remote image upstream request policy', 'node', ['--experimental-strip-types', '--test', 'src/lib/remote-image-fetch-policy.test.ts']],
   ['PROPERTY/DATA', 'Validate priority county property overlays', 'node', ['scripts/data/validate-priority-county-property-overlays.mjs']],
   ['SEO/INDEXING', 'Validate Phase 10 housing index-suppression contract', 'node', ['scripts/data/validate-phase10-housing-indexing.mjs']],
+  ['RELOCATION/GOVERNANCE', 'Validate Texas relocation operating system', 'node', ['scripts/data/validate-relocation-tools.mjs']],
   ['CONTENT/AUTHORITY', 'Validate Texas industries authority', 'node', ['scripts/data/validate-texas-industries-authority.mjs']],
   ['CONTENT/AUTHORITY', 'Validate Texas beaches and coast authority', 'node', ['scripts/data/validate-coastal-authority.mjs']],
   ['AGGREGATE/SITE-QUALITY', 'Run recurring site quality contract', 'node', ['scripts/data/run-site-quality-watch.mjs']],
