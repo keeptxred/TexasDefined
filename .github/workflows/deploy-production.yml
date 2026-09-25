@@ -243,6 +243,15 @@ jobs:
           STAGE_OUTCOME: ${{ steps.cloudflare.outcome }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-cloudflare "$STAGE_OUTCOME" "Cloudflare Worker deployment passed" "Cloudflare Worker deployment failed"
 
+      - name: Purge updated State Fair HTML from Cloudflare cache
+        id: cache_purge
+        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        env:
+          CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN || secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}
+          CLOUDFLARE_ZONE_NAME: texasdefined.com
+          CLOUDFLARE_PURGE_URLS: https://texasdefined.com/texas-state-fair
+        run: node scripts/ci/purge-cloudflare-cache.mjs
+
       - name: Publish live verification pending
         if: success()
         run: node scripts/ci/publish-github-status.mjs texasdefined-live pending "Verifying production surfaces"
