@@ -55,9 +55,14 @@ const rentBuy = estimateRentVsBuy({
 });
 close(rentBuy.monthlyPrincipalInterest, mortgage.monthlyPrincipalInterest, 0.000001, 'cross-calculator mortgage consistency');
 
-const affordability = calculateAffordability({ annualIncome: 120000, monthlyDebt: 800, downPayment: 60000, annualRatePercent: 6.5, monthlyTaxesInsuranceHoa: 900, maxHousingRatioPercent: 28 });
+const affordability = calculateAffordability({ annualIncome: 120000, monthlyDebt: 800, downPayment: 60000, annualRatePercent: 6.5, monthlyTaxesInsuranceHoa: 900, maxHousingRatioPercent: 28, maxTotalDebtRatioPercent: 36 });
 close(affordability.grossMonthlyIncome, 10000, 0.001, 'gross monthly income');
-close(affordability.housingBudget, 2000, 0.001, 'housing budget');
+close(affordability.housingBudget, 2800, 0.001, 'housing budget');
+close(affordability.principalInterestBudget, 1900, 0.001, 'affordability P&I budget');
+assert.equal(affordability.bindingConstraint, 'housing-ratio');
+const debtConstrained = calculateAffordability({ annualIncome: 120000, monthlyDebt: 1800, downPayment: 60000, annualRatePercent: 6.5, monthlyTaxesInsuranceHoa: 900, maxHousingRatioPercent: 28, maxTotalDebtRatioPercent: 36 });
+close(debtConstrained.housingBudget, 1800, 0.001, 'total-debt constrained housing budget');
+assert.equal(debtConstrained.bindingConstraint, 'total-debt-ratio');
 
 const closing = calculateClosingCosts({ salePrice: 400000, buyerCostPercent: 3, sellerCostPercent: 7, sellerCredits: 2000 });
 assert.deepEqual({ buyer: closing.buyerCostsAfterCredits, seller: closing.sellerCostsIncludingCredits, proceeds: closing.sellerProceedsBeforeLoanPayoff }, { buyer: 10000, seller: 30000, proceeds: 370000 });
