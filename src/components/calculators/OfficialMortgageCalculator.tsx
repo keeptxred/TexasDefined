@@ -32,6 +32,9 @@ type MortgageState = {
   specialDistricts: number;
   utilities: number;
   maintenance: number;
+  pool: number;
+  landscaping: number;
+  other: number;
   extraPrincipal: number;
   county: string;
   rateYear: number;
@@ -49,6 +52,9 @@ const DEFAULTS: MortgageState = {
   specialDistricts: 0,
   utilities: 0,
   maintenance: 0,
+  pool: 0,
+  landscaping: 0,
+  other: 0,
   extraPrincipal: 0,
   county: '',
   rateYear: 2025,
@@ -72,6 +78,9 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
     monthlySpecialDistricts: state.specialDistricts,
     monthlyUtilities: state.utilities,
     monthlyMaintenance: state.maintenance,
+    monthlyPool: state.pool,
+    monthlyLandscaping: state.landscaping,
+    monthlyOther: state.other,
     extraMonthlyPrincipal: state.extraPrincipal,
   }), [state]);
   const errors = issueMap(result.issues);
@@ -95,6 +104,9 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
   const ownershipExtras = [
     { label: 'Utilities', value: result.monthlyUtilities },
     { label: 'Maintenance cushion', value: result.monthlyMaintenance },
+    { label: 'Pool', value: result.monthlyPool },
+    { label: 'Landscaping', value: result.monthlyLandscaping },
+    { label: 'Other recurring ownership costs', value: result.monthlyOther },
   ];
 
   const higherRate = calculateMortgage({ homePrice: state.price, downPayment: state.down, annualRatePercent: state.rate + 0.5, termYears: state.years, propertyTaxRatePercent: state.propertyTaxRate, annualInsurance: state.insurance, monthlyPmi: state.pmi, monthlyHoa: state.hoa, monthlySpecialDistricts: state.specialDistricts }).monthlyHousingPayment;
@@ -107,6 +119,9 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
     specialDistricts: String(result.monthlySpecialDistricts),
     maintenance: String(result.monthlyMaintenance),
     utilities: String(result.monthlyUtilities),
+    pool: String(result.monthlyPool),
+    landscaping: String(result.monthlyLandscaping),
+    other: String(result.monthlyOther),
   }).toString();
   const rentBuySearch = new URLSearchParams({
     price: String(state.price),
@@ -139,6 +154,9 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
         <CurrencyInput label="Monthly special districts / assessments" value={state.specialDistricts} onChange={(value) => update('specialDistricts', value)} step={25}/>
         <CurrencyInput label="Monthly utilities" value={state.utilities} onChange={(value) => update('utilities', value)} step={25}/>
         <CurrencyInput label="Monthly maintenance cushion" value={state.maintenance} onChange={(value) => update('maintenance', value)} step={25}/>
+        <CurrencyInput label="Monthly pool costs" value={state.pool} onChange={(value) => update('pool', value)} step={25}/>
+        <CurrencyInput label="Monthly landscaping" value={state.landscaping} onChange={(value) => update('landscaping', value)} step={25}/>
+        <CurrencyInput label="Other recurring ownership costs" value={state.other} onChange={(value) => update('other', value)} step={25}/>
         <CurrencyInput label="Extra principal each month" value={state.extraPrincipal} onChange={(value) => update('extraPrincipal', value)} step={25}/>
       </div> : null}
 
@@ -168,7 +186,7 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
       <div><h3 className="font-display text-2xl">What changes the result?</h3><div className="mt-5 space-y-4 text-sm">
         <div className="border-t border-border pt-4"><span className="text-muted-foreground">Interest rate +0.50 percentage points</span><strong className="mt-1 block text-xl">{formatMoney(higherRate)}/mo <span className="text-sm font-normal text-muted-foreground">({higherRate >= result.monthlyHousingPayment ? '+' : ''}{formatMoney(higherRate - result.monthlyHousingPayment)})</span></strong></div>
         <div className="border-t border-border pt-4"><span className="text-muted-foreground">Home price $25,000 lower, same down payment when possible</span><strong className="mt-1 block text-xl">{formatMoney(lowerPrice)}/mo <span className="text-sm font-normal text-muted-foreground">({formatMoney(lowerPrice - result.monthlyHousingPayment)})</span></strong></div>
-        {ownershipExtras.some((item) => item.value > 0) ? <div className="border-t border-border pt-4"><BreakdownTable items={ownershipExtras} total={result.monthlyUtilities + result.monthlyMaintenance} totalLabel="Ownership costs beyond housing payment"/></div> : null}
+        {ownershipExtras.some((item) => item.value > 0) ? <div className="border-t border-border pt-4"><BreakdownTable items={ownershipExtras} total={result.monthlyUtilities + result.monthlyMaintenance + result.monthlyPool + result.monthlyLandscaping + result.monthlyOther} totalLabel="Ownership costs beyond housing payment"/></div> : null}
         </div>
       </div>
     </section>
@@ -178,7 +196,7 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
         <div><p className="eyebrow text-primary">Compare properties or financing</p><h3 className="mt-2 font-display text-2xl">Scenario comparison</h3><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">Save up to three current input sets, then reload any scenario to keep editing it. Comparisons use the same shared mortgage engine.</p></div>
         <div className="flex flex-wrap gap-3 print:hidden"><button type="button" className="border-b border-primary py-3 text-sm font-semibold text-primary" disabled={scenarioStore.atLimit} onClick={scenarioStore.addCurrent}>Add current scenario</button>{scenarioStore.scenarios.length ? <button type="button" className="border-b border-primary py-3 text-sm font-semibold text-primary" onClick={scenarioStore.clear}>Clear comparisons</button> : null}</div>
       </div>
-      {scenarioStore.scenarios.length ? <div className="mt-6 overflow-x-auto"><table className="w-full text-sm"><thead><tr className="border-b border-border"><th className="py-3 text-left">Scenario</th><th className="py-3 text-right">Home price</th><th className="py-3 text-right">Rate</th><th className="py-3 text-right">Housing payment</th><th className="py-3 text-right">Ownership scenario</th><th className="py-3 text-right print:hidden">Action</th></tr></thead><tbody className="divide-y divide-border">{scenarioStore.scenarios.map((scenario) => { const estimate = calculateMortgage({ homePrice: scenario.state.price, downPayment: scenario.state.down, annualRatePercent: scenario.state.rate, termYears: scenario.state.years, propertyTaxRatePercent: scenario.state.propertyTaxRate, annualInsurance: scenario.state.insurance, monthlyPmi: scenario.state.pmi, monthlyHoa: scenario.state.hoa, monthlySpecialDistricts: scenario.state.specialDistricts, monthlyUtilities: scenario.state.utilities, monthlyMaintenance: scenario.state.maintenance, extraMonthlyPrincipal: scenario.state.extraPrincipal }); return <tr key={scenario.id}><th scope="row" className="py-3 text-left">{scenario.label}</th><td className="py-3 text-right">{formatMoney(scenario.state.price)}</td><td className="py-3 text-right">{scenario.state.rate.toFixed(2)}%</td><td className="py-3 text-right font-semibold">{formatMoney(estimate.monthlyHousingPayment)}</td><td className="py-3 text-right font-semibold">{formatMoney(estimate.monthlyOwnershipCost)}</td><td className="py-3 text-right print:hidden"><button type="button" className="font-semibold text-primary underline underline-offset-4" onClick={() => setState(scenario.state)}>Load</button><button type="button" className="ml-4 text-muted-foreground underline underline-offset-4" onClick={() => scenarioStore.remove(scenario.id)}>Remove</button></td></tr>; })}</tbody></table></div> : <p className="mt-5 text-sm text-muted-foreground">No comparison scenarios saved yet.</p>}
+      {scenarioStore.scenarios.length ? <div className="mt-6 overflow-x-auto"><table className="w-full text-sm"><thead><tr className="border-b border-border"><th className="py-3 text-left">Scenario</th><th className="py-3 text-right">Home price</th><th className="py-3 text-right">Rate</th><th className="py-3 text-right">Housing payment</th><th className="py-3 text-right">Ownership scenario</th><th className="py-3 text-right print:hidden">Action</th></tr></thead><tbody className="divide-y divide-border">{scenarioStore.scenarios.map((scenario) => { const estimate = calculateMortgage({ homePrice: scenario.state.price, downPayment: scenario.state.down, annualRatePercent: scenario.state.rate, termYears: scenario.state.years, propertyTaxRatePercent: scenario.state.propertyTaxRate, annualInsurance: scenario.state.insurance, monthlyPmi: scenario.state.pmi, monthlyHoa: scenario.state.hoa, monthlySpecialDistricts: scenario.state.specialDistricts, monthlyUtilities: scenario.state.utilities, monthlyMaintenance: scenario.state.maintenance, monthlyPool: scenario.state.pool, monthlyLandscaping: scenario.state.landscaping, monthlyOther: scenario.state.other, extraMonthlyPrincipal: scenario.state.extraPrincipal }); return <tr key={scenario.id}><th scope="row" className="py-3 text-left">{scenario.label}</th><td className="py-3 text-right">{formatMoney(scenario.state.price)}</td><td className="py-3 text-right">{scenario.state.rate.toFixed(2)}%</td><td className="py-3 text-right font-semibold">{formatMoney(estimate.monthlyHousingPayment)}</td><td className="py-3 text-right font-semibold">{formatMoney(estimate.monthlyOwnershipCost)}</td><td className="py-3 text-right print:hidden"><button type="button" className="font-semibold text-primary underline underline-offset-4" onClick={() => setState(scenario.state)}>Load</button><button type="button" className="ml-4 text-muted-foreground underline underline-offset-4" onClick={() => scenarioStore.remove(scenario.id)}>Remove</button></td></tr>; })}</tbody></table></div> : <p className="mt-5 text-sm text-muted-foreground">No comparison scenarios saved yet.</p>}
     </section>
 
     <details className="mt-10 border-y border-border py-5">
@@ -192,7 +210,7 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
       <p className="eyebrow text-primary">Continue this exact scenario</p>
       <h3 className="mt-2 font-display text-2xl">Carry the numbers into the next decision</h3>
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
-        <a className="border border-border p-5 hover:border-primary" href={`/texas-homeownership-cost-calculator?${ownershipSearch}`}><strong className="font-display text-xl">Full homeownership budget</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Carry P&I, taxes, insurance, PMI, HOA, special districts, maintenance and utilities into the ownership-cost tool.</span></a>
+        <a className="border border-border p-5 hover:border-primary" href={`/texas-homeownership-cost-calculator?${ownershipSearch}`}><strong className="font-display text-xl">Full homeownership budget</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Carry P&I, taxes, insurance, PMI, HOA, special districts, maintenance, utilities, pool, landscaping and other recurring costs into the ownership-cost tool.</span></a>
         <a className="border border-border p-5 hover:border-primary" href={`/texas-rent-vs-buy-calculator?${rentBuySearch}`}><strong className="font-display text-xl">Rent versus buy</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Carry the purchase, financing, tax, insurance and HOA assumptions into the longer-term comparison.</span></a>
       </div>
     </section>
@@ -200,7 +218,7 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
     <MethodologyPanel>
       <p>Principal and interest use the standard fixed-rate amortization equation. The same shared mortgage engine also powers TexasDefined rent-versus-buy calculations so identical loan inputs produce identical loan payments.</p>
       <p>Property tax is calculated from the entered home price and rate unless an official local-rate scenario is applied. Official rates still require parcel-level verification because exemptions, taxable values and special-district membership can differ.</p>
-      <p>All displayed values are planning estimates. User-entered insurance, PMI, HOA, utilities, maintenance and assessment amounts are not presented as market averages.</p>
+      <p>All displayed values are planning estimates. User-entered insurance, PMI, HOA, utilities, maintenance, pool, landscaping, other recurring costs and assessment amounts are not presented as market averages.</p>
     </MethodologyPanel>
   </>;
 }
