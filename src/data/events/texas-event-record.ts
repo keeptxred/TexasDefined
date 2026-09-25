@@ -5,6 +5,14 @@ export type TexasEventImageRightsStatus = "verified-reusable" | "official-source
 export type TexasEventTicketProvider = "official" | "ticketmaster" | "seatgeek" | "vivid-seats" | "other";
 export type TexasEventTicketSaleStatus = "on-sale" | "presale" | "registration" | "not-on-sale-yet" | "sold-out" | "off-sale" | "cancelled" | "unknown";
 export type TexasEventTicketSourceKind = "official-event" | "official-venue" | "provider" | "manual-verified";
+export type TexasAffiliateNetwork = "impact" | "cj" | "direct" | "other";
+export type TexasEventCommissionStatus = "eligible" | "ineligible" | "unknown";
+
+export interface TexasEventPromotion {
+  label: string;
+  promoCode?: string;
+  discountPreservesCommission: true | false | "unknown";
+}
 
 export interface TexasEventTicketOffer {
   name: string;
@@ -33,6 +41,9 @@ export interface TexasEventTicketLink {
   priority?: number;
   officialExpiresAt?: string;
   affiliateExpiresAt?: string;
+  network?: TexasAffiliateNetwork;
+  commissionStatus?: TexasEventCommissionStatus;
+  promotion?: TexasEventPromotion;
 }
 
 export interface TexasEventTicketingMetadata {
