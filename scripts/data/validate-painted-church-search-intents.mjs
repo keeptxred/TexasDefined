@@ -67,6 +67,18 @@ if (failures.length === 0) {
     if (count !== 32) failures.push(`Expected 32 ${token} fields, found ${count}.`);
   }
 
+  const schulenburgGuideBlock = guideBlock.slice(
+    guideBlock.indexOf('slug: "schulenburg-texas"'),
+    guideBlock.indexOf('slug: "flatonia-texas"'),
+  );
+  for (const token of [
+    'label: "Complete statewide Painted Churches guide", path: "/explore/painted-churches"',
+    'label: "One-day Schulenburg route planner", path: "/explore/painted-churches-plan"',
+    'label: "Painted Churches of Texas map", path: "/explore/painted-churches/map"',
+  ]) {
+    if (!schulenburgGuideBlock.includes(token)) failures.push(`Schulenburg guide reciprocity missing ${token}.`);
+  }
+
   for (const token of ["50 Popular Questions", "paintedChurchSearchCoverage", "ItemList", "Open the answer"]) {
     if (!hub.includes(token)) failures.push(`Search guide hub missing ${token}.`);
   }
