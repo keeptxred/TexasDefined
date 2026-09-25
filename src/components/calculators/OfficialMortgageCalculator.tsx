@@ -169,6 +169,7 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
         <div className="border-t border-border pt-4"><span className="text-muted-foreground">Interest rate +0.50 percentage points</span><strong className="mt-1 block text-xl">{formatMoney(higherRate)}/mo <span className="text-sm font-normal text-muted-foreground">({higherRate >= result.monthlyHousingPayment ? '+' : ''}{formatMoney(higherRate - result.monthlyHousingPayment)})</span></strong></div>
         <div className="border-t border-border pt-4"><span className="text-muted-foreground">Home price $25,000 lower, same down payment when possible</span><strong className="mt-1 block text-xl">{formatMoney(lowerPrice)}/mo <span className="text-sm font-normal text-muted-foreground">({formatMoney(lowerPrice - result.monthlyHousingPayment)})</span></strong></div>
         {ownershipExtras.some((item) => item.value > 0) ? <div className="border-t border-border pt-4"><BreakdownTable items={ownershipExtras} total={result.monthlyUtilities + result.monthlyMaintenance} totalLabel="Ownership costs beyond housing payment"/></div> : null}
+        </div>
       </div>
     </section>
 
