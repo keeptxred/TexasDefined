@@ -207,7 +207,7 @@ function PaintedChurchDetail() {
             <p className="eyebrow text-primary">Build the day</p>
             <h2 className="mt-3 font-display text-3xl">Keep this stop in context</h2>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">Use the collection page for the Schulenburg route, statewide church list and current access guidance.</p>
-            <Link to="/explore/painted-churches" className="mt-5 inline-block border-b border-primary pb-1 text-sm text-primary">Painted Churches route guide</Link>
+            <Link to="/explore/painted-churches" className="mt-5 inline-block border-b border-primary pb-1 text-sm text-primary">Complete statewide Painted Churches guide</Link>
             <br />
             <Link to="/explore/trip-planner" className="mt-4 inline-block border-b border-primary pb-1 text-sm text-primary">Texas Trip Planner</Link>
           </section>
