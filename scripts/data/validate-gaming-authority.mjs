@@ -103,6 +103,24 @@ if (!searchRuntime.includes('await import("./gaming-search")') || !searchRuntime
 for (const marker of ['id: "collection:gaming"', 'href: "/gaming"', 'GAMING_PAGES']) if (!searchAdapter.includes(marker)) failures.push(`Gaming search adapter missing ${marker}`);
 
 if (!data.includes('GAMING_REVIEWED_AT = "2026-09-24"')) failures.push("Gaming source review date is missing.");
+const collegeMarkers = [
+  "The University of Texas at Dallas",
+  "The University of Texas at Arlington",
+  "University of North Texas",
+  "Texas A&M University",
+  "Baylor University",
+  "Texas Wesleyan University",
+  "Lubbock Christian University",
+  "The University of Texas at Tyler",
+  "Texas Tech University",
+  "Texas State University",
+];
+for (const school of collegeMarkers) if (!data.includes(`school: "${school}"`)) failures.push(`Verified college esports program missing: ${school}`);
+if ((data.match(/school: "/g) ?? []).length < 10) failures.push("College esports directory must retain at least 10 institution-verified entries.");
+for (const marker of ["QuakeCon — official event information", "annual BYOC LAN party", "August 6–9"]) {
+  if (!data.includes(marker)) failures.push(`Durable QuakeCon coverage missing: ${marker}`);
+}
+if (hub.includes("Initial verified college programs")) failures.push("Gaming hub must not describe the expanded college directory as initial.");
 if (!data.includes("Texas Film Commission") || !data.includes("DE-CIX") || !data.includes("City of Arlington")) failures.push("Core primary-source families are missing.");
 if (/\b(?:TODO|FIXME)\b/i.test([data, hub, hubMeta, detail, detailMeta].join("\n"))) failures.push("Gaming authority source contains TODO/FIXME.");
 
