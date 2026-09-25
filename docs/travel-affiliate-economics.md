@@ -1,6 +1,8 @@
 # TexasDefined travel affiliate economics
 
-Reviewed 2026-09-24 from affiliate-program onboarding, setup and terms messages delivered to the TexasDefined account. Re-verify the active advertiser relationship in CJ before changing routing based on payout because commissions can vary by program, product, market, campaign, coupon use or contract.
+Portfolio-wide non-travel and cross-category decisions are maintained in `docs/affiliate-portfolio-economics.md`.
+
+Reviewed 2026-09-25 from affiliate-program onboarding, setup and terms messages delivered to the TexasDefined account. Re-verify the active advertiser relationship in CJ before changing routing based on payout because commissions can vary by program, product, market, campaign, coupon use or contract.
 
 ## Current verified program economics
 
@@ -11,7 +13,7 @@ Reviewed 2026-09-24 from affiliate-program onboarding, setup and terms messages 
 | Travelocity NORAM | 4% | 2% | 1.5% | 4% | 2% | Air and cruise excluded from the default commission summary in the current onboarding material. |
 | CheapTickets | 4% | 2% | 1.5% | 4% | 2% | Air, coupon and cruise are excluded. Verified from the September 10 welcome terms; no current routing advantage over the existing Expedia-family traveler choices. |
 | Vrbo NORAM | — | Up to 2% | — | — | — | Vacation-rental-specific program. |
-| Motel 6 / OYO USA | Rate not stated in welcome email | — | — | — | — | Program approval is verified, but the exact active CJ commission schedule was not included in the September 21 welcome message. Do not route traffic on an assumed rate. |
+| Motel 6 / OYO USA | Official public program starts at 5% per qualified completed stay | — | — | — | — | Official program states a 30-day referral period and up to seven consecutive nights per stay. Account-specific CJ tracking is still required before activation. |
 | RVshare | 5% on completed stays | — | — | — | — | $7 for each new RV listed; 30-day cookie; deep linking and a product data feed are available. |
 | Booking.com | From 4% | Included within stays where eligible | From 6% | From 4% | — | Flights from €2 and airport taxis from 4% in the current welcome terms. |
 | Expedia Travel Creator Program | Variable | Variable | Variable | Variable | Variable | Commission varies by booking site, travel product/trip and country. The current account email states a 7-day attribution window for qualified bookings. |
@@ -25,7 +27,7 @@ Do not change hotel-comparison routing on a headline payout number alone. Orbitz
 - Keep Travelocity as the comparison provider for broader destination and leisure intent until the active CJ terms and downstream conversion data justify a change.
 - Keep Vrbo limited to contexts where a vacation rental or owner referral is genuinely relevant; suppress it on the RVshare-specific camping/RV cohort because the approved RVshare stay commission is materially higher.
 - Do not add CheapTickets as another generic comparison CTA while its verified default economics duplicate existing 4% Expedia-family lodging and activity rates.
-- Do not activate Motel 6/OYO USA placements until the active CJ commission schedule and a usable account-generated destination link are verified.
+- Motel 6/Studio 6's official program currently starts at 5% with a 30-day referral period, but do not activate placements until a usable TexasDefined CJ tracking link is verified. Prefer it only for exact-brand properties rather than as a generic lodging substitute.
 - Show RVshare only on high-intent camping, RV-park, state-park, outdoors and road-trip surfaces. On those routes, make RVshare the primary rental CTA and suppress the lower-paying Vrbo traveler CTA. Do not add RVshare to generic city, county, event or destination pages merely because they are travel content.
 - Prefer Booking.com for rental-car CTAs where the current approved terms remain materially higher than Expedia-family car rates.
 - Keep Expedia search as the broad lodging fallback where TexasDefined lacks a verified exact-property destination.
@@ -42,4 +44,4 @@ RVshare entered the governed traveler surface on 2026-09-24. Evaluate it separat
 
 TexasDefined already uses Booking.com for governed rental-car placements, including road-trip and generated-itinerary contexts. No lower-paying Expedia-family rental-car CTA was found during the 2026-09-23 audit, so no replacement was required.
 
-Hotels.com, Orbitz, Travelocity and Vrbo were already live in the governed Stay Nearby bootstrap before this review. RVshare was not present and was added on 2026-09-24 with route gating, CJ deep-link binding, sponsored/nofollow attributes, first-party partner attribution and production-policy validation. CheapTickets is approved but intentionally not surfaced because its verified default rates do not improve the current comparison layer. Motel 6/OYO USA is approved but remains inactive until its exact active CJ payout and link contract are verified.
+Hotels.com, Orbitz, Travelocity and Vrbo were already live in the governed Stay Nearby bootstrap before this review. RVshare was not present and was added on 2026-09-24 with route gating, CJ deep-link binding, sponsored/nofollow attributes, first-party partner attribution and production-policy validation. CheapTickets is approved but intentionally not surfaced because its verified default rates do not improve the current comparison layer. Motel 6/OYO USA is approved and its public program currently starts at 5% with a 30-day referral period, but it remains inactive until the TexasDefined account has a verified trackable destination link.
