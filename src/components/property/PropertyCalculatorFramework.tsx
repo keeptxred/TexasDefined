@@ -353,6 +353,8 @@ export function BreakdownTable({ items, totalLabel = 'Total', total }: { items: 
   );
 }
 
+const breakdownClasses = ['bg-primary', 'bg-primary/80', 'bg-primary/60', 'bg-primary/40', 'bg-primary/25', 'bg-foreground/70', 'bg-muted-foreground/60'] as const;
+
 export function BreakdownChart({ items }: { items: BreakdownItem[] }) {
   const positive = items.filter((item) => item.value > 0);
   const total = positive.reduce((sum, item) => sum + item.value, 0);
@@ -360,10 +362,10 @@ export function BreakdownChart({ items }: { items: BreakdownItem[] }) {
   return (
     <div className="space-y-3" aria-label="Visual calculation breakdown">
       <div className="flex h-4 w-full overflow-hidden bg-muted" aria-hidden="true">
-        {positive.map((item) => <span key={item.label} className="bg-primary" style={{ width: `${item.value / total * 100}%` }} />)}
+        {positive.map((item, index) => <span key={item.label} className={breakdownClasses[index % breakdownClasses.length]} style={{ width: `${item.value / total * 100}%` }} />)}
       </div>
       <div className="grid gap-x-6 gap-y-2 sm:grid-cols-2">
-        {positive.map((item) => <div key={item.label} className="flex items-center justify-between gap-3 text-sm"><span className="text-muted-foreground">{item.label}</span><strong >{formatMoney(item.value)} <span className="font-normal text-muted-foreground">({(item.value / total * 100).toFixed(1)}%)</span></strong></div>)}
+        {positive.map((item, index) => <div key={item.label} className="flex min-w-0 items-center justify-between gap-3 text-sm"><span className="flex min-w-0 items-center gap-2 text-muted-foreground"><span className={`h-2.5 w-2.5 shrink-0 ${breakdownClasses[index % breakdownClasses.length]}`} aria-hidden="true"/><span className="min-w-0">{item.label}</span></span><strong className="shrink-0">{formatMoney(item.value)} <span className="font-normal text-muted-foreground">({(item.value / total * 100).toFixed(1)}%)</span></strong></div>)}
       </div>
     </div>
   );
