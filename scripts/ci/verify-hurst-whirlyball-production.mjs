@@ -67,6 +67,7 @@ requireCondition(city.includes('/destination/whirlyball-hurst'), 'Hurst city aut
 requireIndexableHtml(whirlyball, 'https://texasdefined.com/destination/whirlyball-hurst', 'WhirlyBall Hurst destination page');
 requireCondition(whirlyball.includes('/city/hurst'), 'WhirlyBall Hurst is missing the reciprocal Hurst city-authority link.');
 requireCondition(whirlyball.includes('Whirlyball.jpg'), 'WhirlyBall Hurst is missing the verified Wikimedia hero image.');
+requireCondition(!whirlyball.includes('Photo unavailable'), 'WhirlyBall Hurst still renders the visible hero fallback instead of the verified image.');
 requireCondition(
   !whirlyball.includes('Special:Redirect/file/Whirlyball.jpg') && !whirlyball.includes('Special%3ARedirect%2Ffile%2FWhirlyball.jpg'),
   'WhirlyBall Hurst regressed to the unstable Wikimedia Special:Redirect hero source.',
