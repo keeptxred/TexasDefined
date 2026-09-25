@@ -19,7 +19,7 @@ import { getDestinationRelationshipGroups } from "@/data/destination-relationshi
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { articlesQuery, categoriesQuery, destinationQuery, regionsQuery } from "@/data/queries";
 import { isTopTexasAttraction } from "@/data/top-texas-attractions";
-import { recoverOrHideImage } from "@/lib/image-fallback";
+import { hideImageFallbackLabel, recoverOrHideImage } from "@/lib/image-fallback";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from "@/platform/internal-link-policies";
 
@@ -212,9 +212,9 @@ function DestinationPage() {
 
     <section className="relative isolate mt-5 overflow-hidden bg-ink text-ink-foreground">
       <div aria-hidden className="absolute inset-0 bg-ink">
-        <span className="eyebrow absolute left-5 top-5 text-ink-foreground/60">Photo unavailable</span>
+        <span data-image-fallback-label className="eyebrow absolute left-5 top-5 text-ink-foreground/60">Photo unavailable</span>
       </div>
-      <img src={destination.hero.src} alt={destination.hero.alt} width={destination.hero.width} height={destination.hero.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-65" onError={(event) => recoverOrHideImage(event.currentTarget, heroFallback)} />
+      <img src={destination.hero.src} alt={destination.hero.alt} width={destination.hero.width} height={destination.hero.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-65" onLoad={(event) => hideImageFallbackLabel(event.currentTarget)} onError={(event) => recoverOrHideImage(event.currentTarget, heroFallback)} />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/65 to-ink/15" />
       <Container className="relative flex flex-col justify-end" style={{ minHeight: "clamp(24rem, 52vw, 32rem)", paddingTop: "6rem", paddingBottom: "3rem" }}>
         <p className="eyebrow text-ink-foreground/80">{region?.name ?? "Texas"} · {categoryName}</p>
