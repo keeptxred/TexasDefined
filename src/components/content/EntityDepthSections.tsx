@@ -44,7 +44,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
   const relatedItems = related.slice(0, 6);
   const cityProfile = entity.kind === 'city' ? getCityAuthorityProfile(entity.slug) : undefined;
   const cityIndustryPaths = entity.kind === 'city' ? getCityIndustryPaths(entity.slug) : [];
-  const cityRelocationHref = entity.kind === 'city'
+  const cityRelocationHref = entity.kind === 'city' && cityProfile
     ? `/moving-to-texas?saveCity=${encodeURIComponent(entity.name)}#my-texas-move`
     : null;
 
