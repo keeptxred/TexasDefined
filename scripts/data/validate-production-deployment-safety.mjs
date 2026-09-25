@@ -59,6 +59,9 @@ if (/^\s*if:\s*.*secrets\./m.test(workflow)) {
 }
 
 requireText(productionSurfaces, "['state-fair-current-date', '/texas-state-fair', 'September 25, 2026']", 'markup-agnostic State Fair live date check');
+requireText(productionSurfaces, "['state-fair-planning-strip', '/texas-state-fair', 'Tickets, football and a place to stay']", 'State Fair production planning-strip check');
+requireText(productionSurfaces, "['state-fair-featured-gallery', '/texas-state-fair', 'State Fair photo carousel']", 'State Fair production featured-gallery check');
+requireText(productionSurfaces, "['state-fair-full-gallery', '/texas-state-fair', 'View the full 31-photo historical State Fair gallery']", 'State Fair production full-gallery check');
 if (productionSurfaces.includes("['state-fair-current-date', '/texas-state-fair', 'Updated September 25, 2026']")) {
   failures.push('State Fair live verification must not depend on the exact Updated-label markup.');
 }
