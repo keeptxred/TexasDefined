@@ -92,7 +92,8 @@ if (!analytics.includes('anchor.dataset.commercialPartner')) failures.push('Anal
 if (!analytics.includes("trackTexasDefinedOutcome('partner_referral_clicked'")) failures.push('Analytics must record commercial partner referral clicks.');
 
 for (const requirement of [
-  '<RelocationAuthorityLab />',
+  '<RelocationCommandCenter />',
+  '<RelocationAuthorityLab showPlaceExplorer={false} />',
   '/moving-to-texas/data',
   '/texas-data/texas-population-and-migration-2025',
   '/texas-data/where-new-texans-came-from-2024',
