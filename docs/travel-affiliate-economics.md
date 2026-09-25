@@ -1,5 +1,7 @@
 # TexasDefined travel affiliate economics
 
+Portfolio-wide non-travel and cross-category decisions are maintained in `docs/affiliate-portfolio-economics.md`.
+
 Reviewed 2026-09-25 from affiliate-program onboarding, setup and terms messages delivered to the TexasDefined account. Re-verify the active advertiser relationship in CJ before changing routing based on payout because commissions can vary by program, product, market, campaign, coupon use or contract.
 
 ## Current verified program economics
