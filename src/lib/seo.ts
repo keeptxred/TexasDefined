@@ -686,8 +686,8 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "Looking for Jones AT&T Stadium? Texas Tech's Lubbock football venue is now Galaxy Stadium. Get parking, map, arrival, events and official planning links.",
   },
   "/explore/painted-churches": {
-    title: "Painted Churches of Texas: Map, Schulenburg Route & Guide",
-    description: "Find the Painted Churches of Texas with an interactive map, the Schulenburg driving route, current visitor guidance and verified church profiles statewide.",
+    title: "Painted Churches of Texas: Complete Statewide Guide",
+    description: "Explore the Painted Churches of Texas with verified church profiles, history, architecture, photos and visitor information, from the Schulenburg cluster to churches statewide.",
   },
 } : {};
 

@@ -14,12 +14,12 @@ export const Route = createFileRoute(canonicalPath)({
   head: () => {
     const url = absoluteUrl(texasDefinedBrand, canonicalPath);
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: "How Many Painted Churches Are in Texas?", description }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: "How Many Painted Churches Are in Texas? Why Counts Differ", description }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
         "@context": "https://schema.org",
         "@graph": [
-          { "@type": "WebPage", "@id": `${url}#page`, url, name: "How Many Painted Churches Are in Texas?", description, isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` }, about: { "@id": `${absoluteUrl(texasDefinedBrand, "/explore/painted-churches")}#collection` }, publisher: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` } },
+          { "@type": "WebPage", "@id": `${url}#page`, url, name: "How Many Painted Churches Are in Texas? Why Counts Differ", description, isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` }, about: { "@id": `${absoluteUrl(texasDefinedBrand, "/explore/painted-churches")}#collection` }, publisher: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` } },
           { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl(texasDefinedBrand, "/") },
             { "@type": "ListItem", position: 2, name: "Painted Churches", item: absoluteUrl(texasDefinedBrand, "/explore/painted-churches") },
@@ -52,7 +52,7 @@ function PaintedChurchCountExplainer() {
 
       <section className="mt-14 border-t border-border pt-8"><p className="eyebrow text-primary">Why lists disagree</p><h2 className="mt-3 font-display text-4xl">Travel labels and historic designations answer different questions.</h2><div className="mt-6 max-w-4xl space-y-5 text-base leading-8 text-muted-foreground"><p>A tourism list is usually designed to help visitors plan a route. A National Register thematic group is designed to document historic significance. A documentary or scholarly project may include churches that share techniques, immigrant traditions or decorative programs even when they were not nominated under the same formal historic-property framework.</p><p>Texas Defined therefore keeps the labels visible instead of forcing all churches into one category. The statewide total can grow when a candidate is independently verified, but the historical designation attached to a church does not change merely because the site adds it to the broader guide.</p></div></section>
 
-      <section className="mt-14 border-y border-border py-9"><p className="eyebrow text-primary">Verify the definitions</p><div className="mt-4 flex flex-wrap gap-x-7 gap-y-3 text-sm"><Link to="/explore/painted-churches" className="border-b border-primary text-primary">Browse all verified churches</Link><Link to="/explore/painted-churches/methodology" className="border-b border-primary text-primary">Read the inclusion methodology</Link><Link to="/explore/painted-churches/compare" className="border-b border-primary text-primary">Compare churches side by side</Link></div></section>
+      <section className="mt-14 border-y border-border py-9"><p className="eyebrow text-primary">Verify the definitions</p><div className="mt-4 flex flex-wrap gap-x-7 gap-y-3 text-sm"><Link to="/explore/painted-churches" className="border-b border-primary text-primary">Complete statewide Painted Churches of Texas guide</Link><Link to="/explore/painted-churches/methodology" className="border-b border-primary text-primary">Read the inclusion methodology</Link><Link to="/explore/painted-churches/compare" className="border-b border-primary text-primary">Compare churches side by side</Link></div></section>
     </Container>
   </main>;
 }
