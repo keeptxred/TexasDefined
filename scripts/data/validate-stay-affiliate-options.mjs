@@ -60,6 +60,7 @@ try {
     errors.push('stay affiliate bootstrap must expose bookingIntent, comparisonHotelDestination, ownerEligible, rvshareEligible, buildCjDeepLink, exactPropertyDestination and featuredGolfStay for policy verification.');
   } else {
     const bookingCases = [
+      ['/texas-state-fair', 'hotel-first'],
       ['/event/chappell-hill-bluebonnet-festival', 'hotel-first'],
       ['/sports-venue/globe-life-field', 'hotel-first'],
       ['/destination/fredericksburg', 'both'],
@@ -84,7 +85,7 @@ try {
     for (const pathname of ['/best-places-to-go-camping-in-texas', '/explore/rv-parks', '/explore/state-parks', '/explore/road-trips', '/explore/outdoors']) {
       if (!api.rvshareEligible(pathname)) errors.push(`RVshare must be eligible on high-intent outdoor route ${pathname}.`);
     }
-    for (const pathname of ['/event/chappell-hill-bluebonnet-festival', '/destination/fredericksburg', '/city/austin', '/county/travis']) {
+    for (const pathname of ['/texas-state-fair', '/event/chappell-hill-bluebonnet-festival', '/destination/fredericksburg', '/city/austin', '/county/travis']) {
       if (api.rvshareEligible(pathname)) errors.push(`RVshare must fail closed on non-RV-specific route ${pathname}.`);
     }
 
