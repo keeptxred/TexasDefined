@@ -15,6 +15,7 @@ on:
 
 permissions:
   contents: read
+  statuses: write
 
 concurrency:
   group: texasdefined-hurst-whirlyball-production-smoke
@@ -37,7 +38,23 @@ jobs:
         with:
           node-version: 22
 
+      - name: Publish Hurst / WhirlyBall smoke pending
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-hurst-whirlyball pending "Verifying cache-busted Hurst and WhirlyBall production HTML"
+
       - name: Verify Hurst and WhirlyBall production cluster
+        id: hurst_whirlyball_smoke
         env:
           HURST_WHIRLYBALL_PRODUCTION_ORIGIN: https://texasdefined.com
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
         run: node scripts/ci/verify-hurst-whirlyball-production.mjs
+
+      - name: Publish Hurst / WhirlyBall smoke result
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+          STAGE_OUTCOME: ${{ steps.hurst_whirlyball_smoke.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-hurst-whirlyball "$STAGE_OUTCOME" "Cache-busted Hurst and WhirlyBall production HTML passed" "Hurst and WhirlyBall production HTML verification failed"
