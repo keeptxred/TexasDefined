@@ -1,7 +1,7 @@
 import snapshot from '../generated/ticketmaster-events.json';
 import { geographyForPlace } from '../geography-knowledge-graph';
 import { resolveSportsVenueEventLink } from '../sports-venue-event-links';
-import type { TexasEventRecord, TexasEventTicketSaleStatus } from './texas-event-record';
+import type { TexasEventCommissionStatus, TexasEventRecord, TexasEventTicketSaleStatus } from './texas-event-record';
 
 interface TicketmasterRow {
   id: string; name: string; startDate: string; startTime?: string; city: string; venue: string;
@@ -29,6 +29,16 @@ const ticketmasterAuthorityMatchers = [
   { city: "Fort Worth", slug: "bill-pickett-rodeo-fort-worth", prefix: "bill pickett invitational rodeo" },
   { city: "Corpus Christi", slug: "hollydays-market-corpus-christi", prefix: "hollydays market corpus christi" },
 ] as const;
+
+export function ticketmasterCommissionStatus(publicSaleStart: string | undefined, now = new Date()): TexasEventCommissionStatus {
+  if (!publicSaleStart) return "unknown";
+  const startsAt = Date.parse(publicSaleStart);
+  if (!Number.isFinite(startsAt)) return "unknown";
+
+  // Ticketmaster's current affiliate FAQ excludes primary-ticket commission
+  // during presales and the first 24 hours after the public onsale.
+  return now.getTime() >= startsAt + 24 * 3600000 ? "eligible" : "ineligible";
+}
 
 export function ticketmasterAuthorityGuidePath(name: string, city: string) {
   const normalizedName = name.trim().toLocaleLowerCase("en-US");
@@ -66,6 +76,8 @@ export function loadTicketmasterEventsServer(catalog: TicketmasterSnapshot = sna
         affiliateUrl: event.affiliateUrl, saleStatus, lastVerifiedAt: fetchedAt,
         source: { kind: 'provider', name: 'Ticketmaster', url: event.officialUrl },
         affiliateExpiresAt: new Date(Date.parse(fetchedAt) + 48 * 3600000).toISOString(),
+        network: 'impact',
+        commissionStatus: ticketmasterCommissionStatus(event.publicSaleStart, now),
       }] },
     }];
   });
