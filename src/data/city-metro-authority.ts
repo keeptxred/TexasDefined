@@ -2,6 +2,7 @@ import type { TexasEntityRecord } from './knowledge-graph/types';
 
 const checkedAt = '2026-09-01';
 const wave2CheckedAt = '2026-09-02';
+const wave3CheckedAt = '2026-09-19';
 
 type AuthorityOverride = Partial<Pick<TexasEntityRecord,
   'aliases' | 'description' | 'countySlug' | 'region' | 'coordinates' | 'officialUrl' | 'sourceId' | 'sourceConfidence' | 'sourceCheckedAt' | 'status' | 'relationships' | 'tags'
@@ -66,6 +67,13 @@ const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
     'Arlington is TexasDefined’s Tarrant County city authority node between Dallas and Fort Worth, connecting relocation, property and tax resources, utilities, transportation, schools, health systems, neighborhoods, parks, major sports and entertainment destinations, events and nearby DFW communities. The page gives Arlington its own local-reference identity while connecting readers to Tarrant County and broader North Texas resources instead of treating the Metroplex as one jurisdiction.',
     'https://www.arlingtontx.gov/', 'north-texas', 'metro-area:dallas-fort-worth', ['major-city', 'sports', 'entertainment', 'metroplex', 'tourism'],
   ),
+  hurst: {
+    ...city(
+      'Hurst is TexasDefined’s Mid-Cities authority node in Tarrant County, connecting municipal services, property and tax context, regional rail, schools, parks, recreation and nearby Dallas-Fort Worth attractions. The guide gives Hurst its own verified local reference instead of folding it into Fort Worth or Arlington, while linking readers to Tarrant County, the broader DFW Metroplex and practical destination coverage such as WhirlyBall Hurst.',
+      'https://www.hursttx.gov/', 'north-texas', 'metro-area:dallas-fort-worth', ['mid-cities', 'metroplex', 'family-recreation', 'regional-rail', 'suburban'],
+    ),
+    sourceCheckedAt: wave3CheckedAt,
+  },
   'corpus-christi': city(
     'Corpus Christi is TexasDefined’s Coastal Bend city authority hub for Corpus Christi and Nueces County, connecting relocation, property and tax resources, utilities, transportation, schools, health systems, neighborhoods, beaches, parks, museums, food, events, port activity and nearby Gulf Coast destinations. The page links practical city information with coastal travel and outdoor discovery while keeping municipal, county and state responsibilities distinct.',
     'https://www.corpuschristitx.gov/', 'gulf-coast', 'metro-area:corpus-christi-metro', ['major-city', 'coast', 'beaches', 'port', 'energy', 'tourism', 'fishing'],
