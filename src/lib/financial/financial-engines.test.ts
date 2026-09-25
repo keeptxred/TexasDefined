@@ -5,7 +5,7 @@ import { amortizeLoan, estimateMortgage, monthlyMortgagePayment } from './mortga
 import { estimateAffordability } from './affordability.ts';
 import { estimateClosingCosts } from './closingCosts.ts';
 import { estimateHomeownership } from './homeownership.ts';
-import { estimatePayroll2026, federalIncomeTax2026 } from './payroll.ts';
+import { estimatePayroll2026, federalIncomeTax2026, grossSalaryForTakeHome2026 } from './payroll.ts';
 
 const near = (actual: number, expected: number, tolerance = 0.02) => {
   assert.ok(Math.abs(actual - expected) <= tolerance, "expected " + actual + " to be within " + tolerance + " of " + expected);
@@ -80,4 +80,23 @@ test('2026 payroll model applies the Social Security wage base and Texas zero in
   near(result.medicareTax, 2900, 0.001);
   near(result.additionalMedicareTax, 0, 0.001);
   near(result.texasStateIncomeTax, 0, 0.001);
+});
+
+
+test('salary-needed reverse solver converges on the shared payroll engine', () => {
+  const target = 72000;
+  const gross = grossSalaryForTakeHome2026(target, {
+    filingStatus: 'single',
+    retirementPercent: 6,
+    annualPretaxBenefits: 0,
+    annualAfterTaxDeductions: 0,
+  });
+  const result = estimatePayroll2026({
+    annualSalary: gross,
+    filingStatus: 'single',
+    retirementPercent: 6,
+    annualPretaxBenefits: 0,
+    annualAfterTaxDeductions: 0,
+  });
+  near(result.annualTakeHome, target, 0.02);
 });
