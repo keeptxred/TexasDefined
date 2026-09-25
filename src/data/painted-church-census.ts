@@ -15,11 +15,13 @@ export const paintedChurchCandidateCensus: PaintedChurchCensusEntry[] = [
     name: "Holy Cross Catholic Church",
     city: "East Bernard",
     status: "candidate",
-    reason: "PaintedChurchesInTexas.com surfaced Holy Cross as a candidate, and stronger primary sources confirm a significant 1925 Spanish Colonial Revival interior with Czech and German influences, angelic mosaics from Munich, hand-painted copper Stations of the Cross from Czechoslovakia and roundel stained glass. Texas Defined is holding it outside the verified Painted Churches count until church-specific evidence establishes a fixed wall, ceiling, mural or faux-finish program that meets the collection's painted-interior standard rather than decorative movable art alone.",
+    reason: "PaintedChurchesInTexas.com surfaced Holy Cross as a candidate. Parish and Texas Historical Commission sources confirm the 1925 Spanish Colonial Revival church, Czech and German decorative influences, Munich angel mosaics, hand-painted copper Stations from Czechoslovakia and Brno roundel stained glass. A documented modern sanctuary project also added fixed painting and stencilling in the apse and other parts of the church. Texas Defined is retaining candidate status because the newly documented fixed painted program is modern; the remaining research question is whether enough historic fixed wall, ceiling, mural or faux-finish work survives to classify Holy Cross within the broader historic Painted Churches tradition rather than as a historic church with a later decorative campaign.",
     sourceUrls: [
       "https://paintedchurchesintexas.com/holy-cross-catholic-church-east-bernard/",
       "https://www.eastbernardcatholic.org/history",
       "https://atlas.thc.texas.gov/Details?atlasnumber=5481012292&fn=print",
+      "https://www.liturgicalartsjournal.com/2020/07/before-and-after-holy-cross-catholic.html",
+      "https://www.esskcmo.com/gallery",
     ],
   },
   {
