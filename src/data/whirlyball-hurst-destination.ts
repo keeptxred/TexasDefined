@@ -60,13 +60,13 @@ export const whirlyballHurstDestinations: Destination[] = [
         { name: "AT&T Stadium", description: "Add a stadium tour or game-day stop when the outing is built around North Texas sports.", proximity: "Arlington", href: "/sports-venue/att-stadium" },
       ],
       foodAndDrink: [
-        { name: "Hurst and HEB Mid-Cities dining", description: "The Harwood Road and surrounding Mid-Cities corridors provide casual dining before or after a court session.", proximity: "Hurst", href: "/county/tarrant" },
+        { name: "Hurst and HEB Mid-Cities dining", description: "The Harwood Road and surrounding Mid-Cities corridors provide casual dining before or after a court session.", proximity: "Hurst", href: "/city/hurst" },
       ],
       lodging: [
         { name: "Hurst-Euless-Bedford hotels", description: "The Mid-Cities location is convenient for lodging between Fort Worth attractions and DFW Airport.", proximity: "Hurst / Euless / Bedford", href: "/county/tarrant" },
       ],
       neighborhoods: [
-        { name: "Hurst and the HEB Mid-Cities", description: "Use the Tarrant County guide for local context around Hurst, Euless, Bedford and the northeast county corridor.", proximity: "Tarrant County", href: "/county/tarrant" },
+        { name: "Hurst and the HEB Mid-Cities", description: "Use the Hurst city guide for verified local systems, schools, parks, rail access and Mid-Cities context, then continue into Tarrant County for the broader county picture.", proximity: "Hurst / Mid-Cities", href: "/city/hurst" },
       ],
       familyStops: [
         { name: "SEA LIFE Grapevine Aquarium", description: "An indoor family stop with an underwater tunnel, rescued sea turtles and marine exhibits.", proximity: "Grapevine", href: "/destination/sea-life-grapevine-aquarium" },
