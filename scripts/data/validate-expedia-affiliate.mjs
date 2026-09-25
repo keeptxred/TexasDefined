@@ -77,6 +77,7 @@ for (const [needle, label] of [
   ['1110lMy6E', 'approved camref'],
   ['texasdefined-stays', 'approved pubref'],
   ['TRAVEL_PATH.test(window.location.pathname)', 'central travel-route guard'],
+  ['texas-state-fair(?:\\/|$)', 'State Fair travel route'],
   ['sports-venues\\/(?!compare(?:\\.csv)?(?:\\/|$))', 'sports comparison exclusion'],
   ['texas-college-towns(?:\\/|$)', 'college-town trip route'],
   ['texas-tailgating-guide(?:\\/|$)', 'tailgating trip route'],
@@ -105,7 +106,7 @@ for (const [needle, label] of [
   ['curatedDisclosure(selection)', 'provider-aware curated disclosure'],
 ]) requireText(bootstrap, needle, label);
 
-for (const family of ['explore', 'destination', 'city', 'county', 'sports-venue', 'sports-venues', 'event', 'best-places-to-go-camping-in-texas', 'texas-college-towns', 'texas-tailgating-guide']) {
+for (const family of ['texas-state-fair', 'explore', 'destination', 'city', 'county', 'sports-venue', 'sports-venues', 'event', 'best-places-to-go-camping-in-texas', 'texas-college-towns', 'texas-tailgating-guide']) {
   requireText(bootstrap, family, `${family} route family`);
 }
 
