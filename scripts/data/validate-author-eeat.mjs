@@ -5,6 +5,7 @@ const authorRoute = fs.readFileSync('src/routes/authors.$author.tsx', 'utf8');
 const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
 const articleBody = fs.readFileSync('src/components/editorial/ArticleBody.tsx', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
+const authorSlugs = fs.readFileSync('src/data/editorial-author-slugs.ts', 'utf8');
 const aboutEager = fs.readFileSync('src/routes/about.tsx', 'utf8');
 const aboutLazy = fs.existsSync('src/routes/about.lazy.tsx') ? fs.readFileSync('src/routes/about.lazy.tsx', 'utf8') : '';
 const about = `${aboutEager}\n${aboutLazy}`;
@@ -100,7 +101,7 @@ for (const requiredDeskName of [
 
 for (const feature of [
   'to="/authors/$author"',
-  'params={{ author: author.id }}',
+  'params={{ author: publicAuthorSlug(author.id) }}',
 ]) {
   if (!articleBody.includes(feature)) failures.push(`Byline profile link missing: ${feature}`);
 }
@@ -116,6 +117,14 @@ for (const feature of [
 }
 if (articleRoute.includes('"property-taxes"')) {
   failures.push('Article presentation logic references the non-canonical property-taxes article category.');
+}
+
+for (const feature of [
+  '"a-dell": "travel-outdoors-desk"',
+  'export function publicAuthorSlug(authorId: string)',
+  'export function authorIdFromPublicSlug(publicSlug: string)',
+]) {
+  if (!authorSlugs.includes(feature)) failures.push(`Readable editorial author slug contract missing: ${feature}`);
 }
 
 if (!sitemap.includes('platform.taxonomy.authors(scope)')) failures.push('Primary sitemap must load editorial bylines.');
