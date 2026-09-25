@@ -7,6 +7,7 @@ const restore = fs.readFileSync('.github/workflows/restore-verified-worker.yml',
 const ledger = fs.readFileSync('scripts/ci/verified-worker-ledger.mjs', 'utf8');
 const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 const smoke = fs.readFileSync('scripts/ci/verify-built-worker-ssr.mjs', 'utf8');
+const productionSurfaces = fs.readFileSync('scripts/ci/verify-production-surfaces.mjs', 'utf8');
 const failures = [];
 
 const requireText = (source, needle, label) => {
@@ -49,7 +50,18 @@ for (const [needle, label] of [
   ['id: verified_worker_version', 'post-verification Worker version capture'],
   ['id: verified_worker_ledger', 'verified Worker recovery ledger step'],
   ['node scripts/ci/verified-worker-ledger.mjs record', 'verified Worker recovery ledger command'],
+  ["CLOUDFLARE_CACHE_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN != '' }}", 'cache-purge token presence env flag'],
+  ["env.CLOUDFLARE_CACHE_TOKEN_PRESENT == 'true'", 'cache-purge step env-flag condition'],
 ]) requireText(workflow, needle, label);
+
+if (/^\s*if:\s*.*secrets\./m.test(workflow)) {
+  failures.push('GitHub Actions if expressions must not reference secrets directly; expose secret presence through job env and test env.* instead.');
+}
+
+requireText(productionSurfaces, "['state-fair-current-date', '/texas-state-fair', 'September 25, 2026']", 'markup-agnostic State Fair live date check');
+if (productionSurfaces.includes("['state-fair-current-date', '/texas-state-fair', 'Updated September 25, 2026']")) {
+  failures.push('State Fair live verification must not depend on the exact Updated-label markup.');
+}
 
 const guardedVerifierCondition = "steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success'";
 for (const step of [
@@ -181,4 +193,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Production deployment safety passed: current production must be healthy before replacement, rollback targets are captured only after that gate, failed releases capture visible diagnostics and rollback, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');
+console.log('Production deployment safety passed: current production must be healthy before replacement, rollback targets are captured only after that gate, failed releases capture visible diagnostics and rollback, cache-purge conditions remain GitHub-expression-safe, live State Fair verification remains markup-agnostic, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');
