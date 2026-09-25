@@ -129,3 +129,10 @@ export function calculateGrossSalaryNeeded2026(input: { annualTakeHomeTarget: nu
   const grossSalary = high;
   return { grossSalary, ...calculateFederalPaycheck2026({ annualGrossSalary: grossSalary, filingStatus: input.filingStatus, preTaxRetirementBenefitsPercent: input.preTaxRetirementBenefitsPercent, otherAnnualDeductions: input.otherAnnualDeductions }) };
 }
+
+
+export function calculateCategoryBudgetComparison(current: Record<string, number>, target: Record<string, number>) {
+  const currentMonthly = Object.values(current).reduce((sum, value) => sum + nonNegative(value), 0);
+  const targetMonthly = Object.values(target).reduce((sum, value) => sum + nonNegative(value), 0);
+  return { currentMonthly, targetMonthly, monthlyDifference: targetMonthly - currentMonthly, annualDifference: (targetMonthly - currentMonthly) * 12 };
+}
