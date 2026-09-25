@@ -4,7 +4,7 @@ import { calculateAffordability } from '../../src/lib/financial/affordability.ts
 import { calculateClosingCosts } from '../../src/lib/financial/closing-costs.ts';
 import { calculateHomeownershipCost } from '../../src/lib/financial/homeownership.ts';
 import { calculateMortgage, calculateMonthlyPrincipalInterest, calculateRefinance } from '../../src/lib/financial/mortgage.ts';
-import { calculateFederalPaycheck2026, calculateGrossSalaryNeeded2026, calculateHomeInsurance, calculateUtilities } from '../../src/lib/financial/planning.ts';
+import { calculateCategoryBudgetComparison, calculateFederalPaycheck2026, calculateGrossSalaryNeeded2026, calculateHomeInsurance, calculateUtilities } from '../../src/lib/financial/planning.ts';
 import { estimateRentVsBuy } from '../../src/lib/rent-vs-buy.ts';
 
 const close = (actual: number, expected: number, tolerance = 0.01, label = 'value') => {
@@ -72,6 +72,9 @@ close(paycheck.federalIncomeTax, 9782, 0.001, '2026 federal income tax');
 close(paycheck.socialSecurity, 5580, 0.001, '2026 Social Security');
 close(paycheck.medicare, 1305, 0.001, '2026 Medicare');
 close(paycheck.annualTakeHome, 67933, 0.001, '2026 annual take-home');
+
+const categoryBudget = calculateCategoryBudgetComparison({ housing: 2000, utilities: 300 }, { housing: 2300, utilities: 350 });
+assert.deepEqual(categoryBudget, { currentMonthly: 2300, targetMonthly: 2650, monthlyDifference: 350, annualDifference: 4200 });
 
 const salaryNeeded = calculateGrossSalaryNeeded2026({ annualTakeHomeTarget: 67933, filingStatus: 'single', preTaxRetirementBenefitsPercent: 6 });
 close(salaryNeeded.grossSalary, 90000, 0.01, 'inverse 2026 salary-needed consistency');
