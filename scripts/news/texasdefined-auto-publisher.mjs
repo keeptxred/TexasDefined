@@ -10,6 +10,11 @@ const IMAGE_MODEL = '@cf/black-forest-labs/flux-1-schnell';
 const publishRequested = process.argv.includes('--publish');
 const limitArg = process.argv.find((arg) => arg.startsWith('--limit='));
 const limit = Math.max(1, Math.min(Number(limitArg?.split('=')[1] || 1), 3));
+const feedIdArg = process.argv.find((arg) => arg.startsWith('--feed-id='));
+const exactFeedId = feedIdArg ? Number(feedIdArg.split('=')[1]) : null;
+if (feedIdArg && (!Number.isSafeInteger(exactFeedId) || exactFeedId <= 0)) {
+  throw new Error(`Invalid --feed-id value: ${feedIdArg.split('=')[1] || ''}`);
+}
 
 function requireEnv(name, value) {
   if (!value) throw new Error(`${name} is required.`);
@@ -80,6 +85,7 @@ async function readyQueue() {
     order: 'pub_date.asc',
     limit: String(limit),
   });
+  if (exactFeedId) params.set('id', `eq.${exactFeedId}`);
   return supabase(`/rest/v1/texasdefined_ready_queue?${params}`).then((response) => response.json());
 }
 
@@ -181,7 +187,15 @@ if (publishRequested) {
 }
 
 const queue = await readyQueue();
-console.log(JSON.stringify({ mode: publishRequested ? 'publish' : 'dry-run', eligible: queue.length, ids: queue.map((item) => item.id) }));
+if (exactFeedId && queue.length === 0) {
+  throw new Error(`Exact feed id ${exactFeedId} is not currently eligible in texasdefined_ready_queue.`);
+}
+console.log(JSON.stringify({
+  mode: publishRequested ? 'publish' : 'dry-run',
+  requestedFeedId: exactFeedId,
+  eligible: queue.length,
+  ids: queue.map((item) => item.id),
+}));
 if (publishRequested && queue.length > 0) {
   const destinationRows = await destinations();
   if (destinationRows.length < 2) throw new Error('Fewer than two verified TexasDefined destinations are available; publication stopped.');
