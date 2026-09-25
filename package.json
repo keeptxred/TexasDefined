@@ -32,13 +32,14 @@
     "entities:import:write": "node scripts/data/import-authoritative-entities.mjs --write",
     "entities:import:census": "node scripts/data/import-authoritative-entities.mjs --source=census",
     "entities:import:parks": "node scripts/data/import-authoritative-entities.mjs --source=tpwd",
-    "validate": "npm run county-property:validate && npm run seo:validate && npm run data:validate && npm run build && npm run performance:validate",
+    "validate": "npm run calculators:validate && npm run county-property:validate && npm run seo:validate && npm run data:validate && npm run build && npm run performance:validate",
     "explore:verify:database": "bash scripts/explore/migrate-postgres.sh",
     "high-school-football:validate": "node scripts/data/validate-high-school-football-platform.mjs",
     "football:tea-links:validate": "node scripts/data/validate-football-tea-profile-links.mjs",
     "high-school-football-isds:validate": "node scripts/data/validate-high-school-football-isds.mjs",
     "dogs:validate": "node scripts/data/validate-texas-dogs-authority.mjs",
-    "gaming:validate": "node scripts/data/validate-gaming-authority.mjs"
+    "gaming:validate": "node scripts/data/validate-gaming-authority.mjs",
+    "calculators:validate": "node --experimental-strip-types scripts/data/validate-calculator-platform.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
