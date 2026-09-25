@@ -1,5 +1,6 @@
 import { useCallback, useState, type ReactNode } from 'react';
 
+import { mergeTexasPlanningScenario, type TexasPlanningScenario } from '@/lib/financial/planningScenario';
 import type { ValidationIssue } from '@/lib/financial/validation';
 
 export type CalculatorPrimitive = string | number | boolean;
@@ -246,11 +247,13 @@ function useCalculatorWorkspace<T extends CalculatorState>({
   state,
   defaults,
   onRestore,
+  sharedScenario,
 }: {
   storageKey: string;
   state: T;
   defaults: T;
   onRestore: (state: T) => void;
+  sharedScenario?: TexasPlanningScenario;
 }) {
   const [status, setStatus] = useState('');
   const [scenarios, setScenarios] = useState<Scenario[]>([]);
@@ -305,7 +308,12 @@ function useCalculatorWorkspace<T extends CalculatorState>({
     setStatus('Scenario added for comparison.');
   }, []);
 
-  return { save, restore, share, reset, print, addScenario, scenarios, status };
+  const savePlanningScenario = useCallback(() => {
+    if (!sharedScenario) return;
+    setStatus(mergeTexasPlanningScenario(sharedScenario) ? 'Saved to your Texas planning profile.' : 'Could not save the Texas planning profile.');
+  }, [sharedScenario]);
+
+  return { save, restore, share, reset, print, addScenario, savePlanningScenario, scenarios, status };
 }
 
 function CalculatorActions({
@@ -315,6 +323,7 @@ function CalculatorActions({
   onReset,
   onPrint,
   onAddScenario,
+  onSavePlanningScenario,
   status,
 }: {
   onSave: () => void;
@@ -323,6 +332,7 @@ function CalculatorActions({
   onReset: () => void;
   onPrint: () => void;
   onAddScenario: () => void;
+  onSavePlanningScenario?: () => void;
   status: string;
 }) {
   const buttonClass = 'min-h-11 border-b border-primary px-1 text-sm font-semibold text-primary';
@@ -330,6 +340,7 @@ function CalculatorActions({
     <div className="mt-8 border-y border-border py-4 print:hidden">
       <div className="flex flex-wrap gap-x-5 gap-y-2">
         <button type="button" className={buttonClass} onClick={onAddScenario}>Add comparison</button>
+        {onSavePlanningScenario ? <button type="button" className={buttonClass} onClick={onSavePlanningScenario}>Save to Texas plan</button> : null}
         <button type="button" className={buttonClass} onClick={onSave}>Save inputs</button>
         <button type="button" className={buttonClass} onClick={onRestore}>Restore saved</button>
         <button type="button" className={buttonClass} onClick={onShare}>Copy share link</button>
@@ -392,6 +403,7 @@ export function FinancialCalculatorScaffold<T extends CalculatorState>({
   breakdown,
   sensitivity,
   methodology,
+  sharedScenario,
   children,
 }: {
   storageKey: string;
@@ -405,9 +417,10 @@ export function FinancialCalculatorScaffold<T extends CalculatorState>({
   breakdown?: BreakdownValue[];
   sensitivity?: Array<{ label: string; value: number; delta: number }>;
   methodology: { formula: string; assumptions: string[]; sources?: string[] };
+  sharedScenario?: TexasPlanningScenario;
   children: ReactNode;
 }) {
-  const workspace = useCalculatorWorkspace({ storageKey, state, defaults, onRestore });
+  const workspace = useCalculatorWorkspace({ storageKey, state, defaults, onRestore, sharedScenario });
   return (
     <>
       <section className="mt-10 border-y border-border py-7">
@@ -418,7 +431,7 @@ export function FinancialCalculatorScaffold<T extends CalculatorState>({
       <CalculatorResults values={results} />
       {breakdown?.length ? <><BreakdownChart items={breakdown} /><BreakdownTable items={breakdown} /></> : null}
       {sensitivity?.length ? <SensitivityTable items={sensitivity} /> : null}
-      <CalculatorActions onSave={workspace.save} onRestore={workspace.restore} onShare={workspace.share} onReset={workspace.reset} onPrint={workspace.print} onAddScenario={() => workspace.addScenario(summary)} status={workspace.status} />
+      <CalculatorActions onSave={workspace.save} onRestore={workspace.restore} onShare={workspace.share} onReset={workspace.reset} onPrint={workspace.print} onAddScenario={() => workspace.addScenario(summary)} onSavePlanningScenario={sharedScenario ? workspace.savePlanningScenario : undefined} status={workspace.status} />
       <ScenarioComparison scenarios={workspace.scenarios} />
       <MethodologyPanel {...methodology} />
     </>
