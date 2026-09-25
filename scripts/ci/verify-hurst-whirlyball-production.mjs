@@ -79,7 +79,7 @@ function requireIndexableHtml(body, canonical, label) {
   requireCondition(!/<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(body), `${label} unexpectedly renders noindex.`);
 }
 
-const [directory, city, whirlyball, tarrant, sitemap] = await Promise.all([
+const [directory, city, whirlyball, tarrant, primarySitemap, exploreSitemap] = await Promise.all([
   fetchLive('/browse/cities', [
     'Hurst has a Texas Defined city guide with official municipal sources',
     '/city/hurst',
@@ -103,6 +103,8 @@ const [directory, city, whirlyball, tarrant, sitemap] = await Promise.all([
   ]),
   fetchLive('/sitemap.xml', [
     'https://texasdefined.com/city/hurst',
+  ]),
+  fetchLive('/sitemap-explore.xml', [
     'https://texasdefined.com/destination/whirlyball-hurst',
   ]),
 ]);
@@ -124,12 +126,12 @@ requireCondition(tarrant.includes('/destination/whirlyball-hurst'), 'Tarrant Cou
 requireCondition(tarrant.includes('Arlington and Hurst'), 'Tarrant County structured community coverage is missing Hurst.');
 
 requireCondition(
-  sitemap.includes('https://texasdefined.com/city/hurst'),
+  primarySitemap.includes('https://texasdefined.com/city/hurst'),
   'Primary sitemap is missing the canonical Hurst city authority URL.',
 );
 requireCondition(
-  sitemap.includes('https://texasdefined.com/destination/whirlyball-hurst'),
-  'Primary sitemap is missing the canonical WhirlyBall Hurst destination URL.',
+  exploreSitemap.includes('https://texasdefined.com/destination/whirlyball-hurst'),
+  'Explore sitemap is missing the canonical WhirlyBall Hurst destination URL.',
 );
 
 requireIndexableHtml(whirlyball, 'https://texasdefined.com/destination/whirlyball-hurst', 'WhirlyBall Hurst destination page');
