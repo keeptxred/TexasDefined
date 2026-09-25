@@ -47,7 +47,13 @@ for (const [needle, label] of [
   ['id: predeploy_health', 'predeploy fail-closed health gate'],
   ['Current production is unhealthy; deploy blocked', 'predeploy fail-closed error'],
   ['deployments: write', 'verified Worker ledger permission'],
-  ['id: verified_worker_version', 'post-verification Worker version capture'],
+  ['id: deployed_worker_version', 'immediate post-deploy Worker version capture'],
+  ['id: verified_worker_version', 'post-verification active Worker version capture'],
+  ['id: verified_worker_identity', 'verified Worker identity stability gate'],
+  ['DEPLOYED_WORKER_VERSION: ${{ steps.deployed_worker_version.outputs.version_id }}', 'deployed Worker identity input'],
+  ['VERIFIED_ACTIVE_WORKER_VERSION: ${{ steps.verified_worker_version.outputs.version_id }}', 'post-verification Worker identity input'],
+  ['Verified Worker changed during production verification', 'verified Worker identity fail-closed error'],
+  ['VERIFIED_WORKER_VERSION: ${{ steps.deployed_worker_version.outputs.version_id }}', 'ledger records this run deployed Worker'],
   ['id: verified_worker_ledger', 'verified Worker recovery ledger step'],
   ['node scripts/ci/verified-worker-ledger.mjs record', 'verified Worker recovery ledger command'],
   ["CLOUDFLARE_CACHE_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN != '' }}", 'cache-purge token presence env flag'],
@@ -113,20 +119,26 @@ if (
   failures.push('The built Worker smoke and current direct/canonical health gate must pass before rollback-target capture and Cloudflare deployment.');
 }
 
-const liveGateIndex = workflow.indexOf('id: live\n');
+const deployedVersionIndex = workflow.indexOf('id: deployed_worker_version');
+const liveGateIndex = workflow.indexOf('id: live\\n');
 const indexNowIndex = workflow.indexOf('id: indexnow');
 const verifiedVersionIndex = workflow.indexOf('id: verified_worker_version');
+const verifiedIdentityIndex = workflow.indexOf('id: verified_worker_identity');
 const verifiedLedgerIndex = workflow.indexOf('id: verified_worker_ledger');
 if (
+  deployedVersionIndex < 0 ||
   liveGateIndex < 0 ||
   indexNowIndex < 0 ||
   verifiedVersionIndex < 0 ||
+  verifiedIdentityIndex < 0 ||
   verifiedLedgerIndex < 0 ||
+  deployedVersionIndex > liveGateIndex ||
   liveGateIndex > indexNowIndex ||
   indexNowIndex > verifiedVersionIndex ||
-  verifiedVersionIndex > verifiedLedgerIndex
+  verifiedVersionIndex > verifiedIdentityIndex ||
+  verifiedIdentityIndex > verifiedLedgerIndex
 ) {
-  failures.push('The verified Worker ledger must advance only after aggregate live verification and the guarded IndexNow stage succeed.');
+  failures.push('The deployed Worker version must be captured before live verification, then match the active version after the complete contract before the verified Worker ledger advances.');
 }
 
 for (const [needle, label] of [
