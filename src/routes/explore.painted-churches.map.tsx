@@ -8,7 +8,7 @@ import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { absoluteUrl, buildEditorialCollectionHead, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/painted-churches/map";
-const description = "Interactive Texas Painted Churches map with sourced coordinates for every verified church, filters for historic classification and the Schulenburg cluster, direct church guides and navigation links.";
+const description = "Use the Painted Churches of Texas map to find every verified church statewide, with sourced coordinates, regional filters, church guides and navigation links.";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 type MapFilter = "all" | "formal" | "broader" | "modern" | "schulenburg";
@@ -61,7 +61,7 @@ export const Route = createFileRoute(canonicalPath)({
   head: () => {
     const base = buildEditorialCollectionHead(texasDefinedBrand, {
       canonicalPath,
-      title: "Interactive Texas Painted Churches Map",
+      title: "Painted Churches of Texas Map: Statewide Church Locations",
       description,
       collectionName: "Texas Painted Churches interactive map",
       breadcrumbParentName: "Painted Churches",
@@ -121,7 +121,7 @@ function PaintedChurchMapDirectory() {
     <section className="border-b border-border bg-surface"><Container className="py-16 sm:py-24">
       <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap gap-2"><li><Link to="/">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore/painted-churches">Painted Churches</Link></li><li aria-hidden>·</li><li aria-current="page">Interactive map</li></ol></nav>
       <p className="eyebrow mt-8 text-primary">Statewide geography</p>
-      <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">A real statewide map of the Texas Painted Churches.</h1>
+      <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">Painted Churches of Texas map and statewide locations.</h1>
       <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">Every pin is generated from a sourced latitude/longitude record rather than a hand-placed illustration. Filter the collection by historic classification or the Schulenburg touring cluster, select a pin for its source and precision, then open the full church guide or navigation.</p>
     </Container></section>
 
@@ -170,7 +170,7 @@ function PaintedChurchMapDirectory() {
         return <article key={church.slug} className="bg-background p-6"><p className="eyebrow text-muted-foreground">{church.city} · {church.county} County</p><h3 className="mt-2 font-display text-2xl leading-tight"><Link to="/explore/painted-churches/$slug" params={{ slug: church.slug }} className="hover:text-primary">{church.shortName}</Link></h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{church.address ?? `${church.city}, Texas`}</p>{point ? <p className="mt-2 text-xs leading-5 text-muted-foreground">{precisionLabel[point.precision]}</p> : null}<div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm"><button type="button" onClick={() => { setSelectedSlug(church.slug); document.getElementById("painted-map-title")?.scrollIntoView({ behavior: "smooth", block: "center" }); }} className="border-b border-primary text-primary">Show on map</button><a href={mapUrl} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">Open navigation</a><Link to="/explore/painted-churches/$slug" params={{ slug: church.slug }} className="border-b border-primary text-primary">Full guide</Link></div></article>;
       })}</div></section>)}
 
-      <section className="mt-14 border-y border-border py-9"><p className="eyebrow text-primary">Coordinate methodology</p><p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">Texas Defined records the source and precision of each pin separately from the church's historical source. Exact-property coordinates come from mapped archival, THC, Wikidata/OpenStreetMap or marker records tied to the property. Near-property points come from geotagged church photographs or tightly matched mapped features. Community-level points are used only when the rural record does not support stronger precision.</p><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm"><Link to="/explore/painted-churches/methodology" className="border-b border-primary text-primary">Verification methodology</Link><Link to="/explore/painted-churches/routes" className="border-b border-primary text-primary">Build a driving route</Link></div></section>
+      <section className="mt-14 border-y border-border py-9"><p className="eyebrow text-primary">Coordinate methodology</p><p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">Texas Defined records the source and precision of each pin separately from the church's historical source. Exact-property coordinates come from mapped archival, THC, Wikidata/OpenStreetMap or marker records tied to the property. Near-property points come from geotagged church photographs or tightly matched mapped features. Community-level points are used only when the rural record does not support stronger precision.</p><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm"><Link to="/explore/painted-churches" className="border-b border-primary text-primary">Complete statewide Painted Churches guide</Link><Link to="/explore/painted-churches-plan" className="border-b border-primary text-primary">One-day Schulenburg route planner</Link><Link to="/explore/painted-churches/methodology" className="border-b border-primary text-primary">Verification methodology</Link><Link to="/explore/painted-churches/routes" className="border-b border-primary text-primary">More Painted Churches routes</Link></div></section>
     </Container>
   </main>;
 }

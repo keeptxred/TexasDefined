@@ -15,9 +15,9 @@ export const Route = createFileRoute("/explore/painted-churches-plan")({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title: "Painted Churches Trip Planner | Schulenburg Route",
+      title: "Painted Churches of Texas Tour: Schulenburg Route & Trip Planner",
       description:
-        "Plan a one-day Painted Churches of Texas drive from Schulenburg through Dubina, Ammannsville, High Hill and Praha with verified church profiles, addresses and visitor guidance.",
+        "Plan a one-day Painted Churches of Texas self-guided driving route from Schulenburg through Dubina, Ammannsville, High Hill and Praha, with visitor guidance and map links.",
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
   }),
@@ -41,13 +41,13 @@ function PaintedChurchesTripPlanner() {
             </ol>
           </nav>
           <p className="eyebrow mt-8 text-primary">Texas Trip Planner · Heritage route</p>
-          <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Painted Churches in one practical day.</h1>
+          <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">Painted Churches of Texas: one-day Schulenburg route.</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">
             Use Schulenburg as the base, then visit Dubina, Ammannsville, High Hill and Praha. The sequence below uses the verified Texas Defined church records and keeps the route compact enough to leave time for the interiors instead of turning the day into a windshield tour.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href={directionsUrl} target="_blank" rel="noreferrer" className="eyebrow border border-foreground bg-foreground px-5 py-3 text-background">Open route in Maps</a>
-            <Link to="/explore/painted-churches" className="eyebrow border border-border px-5 py-3 hover:border-foreground">All Painted Churches</Link>
+            <Link to="/explore/painted-churches" className="eyebrow border border-border px-5 py-3 hover:border-foreground">Complete statewide guide</Link>
           </div>
         </Container>
       </section>
@@ -123,7 +123,7 @@ function PaintedChurchesTripPlanner() {
             <div>
               <h2 className="font-display text-3xl">Want more churches?</h2>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">The statewide Painted Churches guide includes every verified church profile currently in the Texas Defined collection.</p>
-              <Link to="/explore/painted-churches" className="eyebrow mt-4 inline-block border-b border-primary pb-1 text-primary">Browse all church profiles</Link>
+              <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3"><Link to="/explore/painted-churches" className="eyebrow inline-block border-b border-primary pb-1 text-primary">Complete statewide Painted Churches guide</Link><Link to="/explore/painted-churches/guides/schulenburg-texas" className="eyebrow inline-block border-b border-primary pb-1 text-primary">Schulenburg Painted Churches visitor guide</Link></div>
             </div>
           </div>
         </section>
