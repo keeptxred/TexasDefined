@@ -15,6 +15,33 @@ for (const required of [
   if (!seo.includes(required)) failures.push(`GSC CTR override architecture missing: ${required}`);
 }
 
+// Current page-one CTR recovery set from the Sep. 25, 2026 GSC review.
+// These URLs already rank on page one or very near it, so preserve their
+// search-intent-focused SSR snippets rather than treating them as indexing work.
+const priorityPageOneCtrRecovery = [
+  { path: '/article/texas-rivers-explained', title: 'Major Rivers in Texas: Boundary Rivers, Regions & Basins', description: "Find Texas's major and boundary rivers by region" },
+  { path: '/texas-homecoming-mums', title: 'Texas Homecoming Mums Explained: Meaning, History & Tradition', description: 'What are Texas homecoming mums?' },
+  { path: '/event/heart-o-texas-fair-rodeo', title: "Heart O' Texas Fair & Rodeo 2026: Dates & Schedule", description: "The 2026 Heart O' Texas Fair & Rodeo runs Oct. 8-18 in Waco" },
+  { path: '/article/texas-river-basins-guide', title: 'Texas River Basins: 15 Major & 8 Coastal Basins', description: "Texas's 15 major and eight coastal basins" },
+  { path: '/article/texas-lakes-reservoirs-explained', title: 'Texas Lakes & Reservoirs: Why Most Are Man-Made', description: 'most familiar inland Texas lakes are reservoirs' },
+  { path: '/article/texas-trinity-river-guide', title: 'Trinity River Texas: Dallas-Fort Worth, Basin & Gulf Guide', description: 'Follow the Trinity River through North Texas toward Trinity Bay' },
+  { path: '/sports-venue/jones-att-stadium', title: 'Jones AT&T Stadium (Now Galaxy Stadium): Texas Tech Guide', description: 'Looking for Jones AT&T Stadium?' },
+  { path: '/article/texas-settlement-patterns-explained', title: 'Texas Settlement Patterns: How Geography Shaped Towns', description: 'See how rivers and reliable water drew early Texas settlement' },
+  { path: '/event/addison-oktoberfest', title: 'Addison Oktoberfest 2026: Dates, Hours, Tickets & Parking', description: 'Addison Oktoberfest runs Sept. 17-20, 2026' },
+  { path: '/sports-venue/mesquite-memorial-stadium', title: 'Mesquite Memorial Stadium: Parking, Tickets & Events', description: 'verified parking, directions, ticket and event links' },
+  { path: '/explore/painted-churches', title: 'Painted Churches of Texas: Map, Schulenburg Route & Guide', description: 'interactive map, the Schulenburg driving route' },
+];
+
+for (const experiment of priorityPageOneCtrRecovery) {
+  for (const required of [experiment.path, experiment.title, experiment.description]) {
+    if (!seo.includes(required)) failures.push('Priority page-one CTR contract missing for ' + experiment.path + ': ' + required);
+  }
+}
+
+if (priorityPageOneCtrRecovery.length !== 11) {
+  failures.push('Expected exactly 11 priority page-one CTR recovery pages, found ' + priorityPageOneCtrRecovery.length + '.');
+}
+
 // Snapshot of the 20 strongest page-one / near-page-one CTR opportunities from
 // Search Console for Aug. 27-Sep. 9, 2026. Keep these explicit so later SEO
 // refactors cannot silently discard the server-rendered snippet experiments.
