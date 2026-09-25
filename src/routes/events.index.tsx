@@ -16,11 +16,13 @@ function cleanDate(value: unknown) {
 
 type EventRouteSearch = Partial<{
   featured: string;
+  q: string;
   location: string;
   start: string;
   end: string;
   category: string;
   venue: string;
+  offer: string;
 }>;
 
 type NormalizedEventSearch = Required<EventRouteSearch>;
@@ -28,11 +30,13 @@ type NormalizedEventSearch = Required<EventRouteSearch>;
 export const validateEventSearch = (search: Record<string, unknown>): EventRouteSearch => {
   const cleaned = {
     featured: cleanSearchValue(search.featured, 80),
+    q: cleanSearchValue(search.q, 120),
     location: cleanSearchValue(search.location),
     start: cleanDate(search.start),
     end: cleanDate(search.end),
     category: cleanSearchValue(search.category, 32),
     venue: cleanSearchValue(search.venue),
+    offer: cleanSearchValue(search.offer, 24),
   };
   return Object.fromEntries(Object.entries(cleaned).filter(([, value]) => Boolean(value))) as EventRouteSearch;
 };
@@ -40,11 +44,13 @@ export const validateEventSearch = (search: Record<string, unknown>): EventRoute
 export function normalizeEventSearch(search: EventRouteSearch): NormalizedEventSearch {
   return {
     featured: search.featured ?? "",
+    q: search.q ?? "",
     location: search.location ?? "",
     start: search.start ?? "",
     end: search.end ?? "",
     category: search.category ?? "",
     venue: search.venue ?? "",
+    offer: search.offer ?? "",
   };
 }
 
