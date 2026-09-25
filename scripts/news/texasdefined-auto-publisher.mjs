@@ -9,7 +9,10 @@ const TEXT_MODEL = '@cf/meta/llama-3.1-8b-instruct-fast';
 const IMAGE_MODEL = '@cf/black-forest-labs/flux-1-schnell';
 const publishRequested = process.argv.includes('--publish');
 const limitArg = process.argv.find((arg) => arg.startsWith('--limit='));
+const feedIdArg = process.argv.find((arg) => arg.startsWith('--feed-id='));
 const limit = Math.max(1, Math.min(Number(limitArg?.split('=')[1] || 1), 3));
+const exactFeedId = feedIdArg ? Number(feedIdArg.split('=')[1]) : null;
+if (exactFeedId !== null && (!Number.isSafeInteger(exactFeedId) || exactFeedId <= 0)) throw new Error('--feed-id must be a positive integer.');
 
 function requireEnv(name, value) {
   if (!value) throw new Error(`${name} is required.`);
@@ -78,8 +81,9 @@ async function readyQueue() {
   const params = new URLSearchParams({
     select: 'id,title,source,link,description,pub_date,extracted_body,target_section,classification_confidence,texas_relevance_score,source_reputation_score',
     order: 'pub_date.asc',
-    limit: String(limit),
+    limit: String(exactFeedId ? 1 : limit),
   });
+  if (exactFeedId) params.set('id', `eq.${exactFeedId}`);
   return supabase(`/rest/v1/texasdefined_ready_queue?${params}`).then((response) => response.json());
 }
 
@@ -181,7 +185,8 @@ if (publishRequested) {
 }
 
 const queue = await readyQueue();
-console.log(JSON.stringify({ mode: publishRequested ? 'publish' : 'dry-run', eligible: queue.length, ids: queue.map((item) => item.id) }));
+console.log(JSON.stringify({ mode: publishRequested ? 'publish' : 'dry-run', eligible: queue.length, ids: queue.map((item) => item.id), requestedFeedId: exactFeedId }));
+if (publishRequested && exactFeedId && queue.length === 0) throw new Error(`Requested feed ${exactFeedId} is not currently eligible in texasdefined_ready_queue.`);
 if (publishRequested && queue.length > 0) {
   const destinationRows = await destinations();
   if (destinationRows.length < 2) throw new Error('Fewer than two verified TexasDefined destinations are available; publication stopped.');
