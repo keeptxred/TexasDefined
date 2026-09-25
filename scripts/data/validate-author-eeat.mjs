@@ -119,7 +119,7 @@ if (articleRoute.includes('"property-taxes"')) {
 }
 
 if (!sitemap.includes('platform.taxonomy.authors(scope)')) failures.push('Primary sitemap must load editorial bylines.');
-if (!sitemap.includes('...authors.map((author) => ({ path: `/authors/${author.id}` }))')) failures.push('Primary sitemap must publish editorial desk profiles.');
+if (!sitemap.includes('...authors.map((author) => ({ path: `/authors/${publicAuthorSlug(author.id)}` }))')) failures.push('Primary sitemap must publish readable editorial desk profile URLs.');
 
 for (const signal of [
   'Visible bylines',
