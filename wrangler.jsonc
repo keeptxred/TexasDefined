@@ -6,6 +6,12 @@
   "compatibility_date": "2026-08-14",
   "compatibility_flags": ["nodejs_compat"],
   "workers_dev": true,
+  "routes": [
+    {
+      "pattern": "texasdefined.com/*",
+      "zone_name": "texasdefined.com"
+    }
+  ],
   "ai": {
     "binding": "AI"
   },

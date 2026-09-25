@@ -6,6 +6,9 @@ const capture = fs.readFileSync('scripts/ci/capture-active-worker-version.mjs', 
 const emergency = fs.readFileSync('.github/workflows/emergency-restore-known-good-worker.yml', 'utf8');
 const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 const smoke = fs.readFileSync('scripts/ci/verify-built-worker-ssr.mjs', 'utf8');
+const wrangler = fs.readFileSync('wrangler.jsonc', 'utf8');
+const productionSurfaces = fs.readFileSync('scripts/ci/verify-production-surfaces.mjs', 'utf8');
+const destinationSmoke = fs.readFileSync('.github/workflows/destination-indexing-smoke.yml', 'utf8');
 const failures = [];
 
 const requireText = (source, needle, label) => {
@@ -37,6 +40,36 @@ for (const [needle, label] of [
   ['ROLLBACK_OUTCOME: ${{ steps.rollback.outcome }}', 'aggregate rollback outcome'],
   ['ROLLBACK_HEALTH_OUTCOME: ${{ steps.rollback_health.outcome }}', 'aggregate rollback-health outcome'],
 ]) requireText(workflow, needle, label);
+
+for (const [needle, label] of [
+  ['"pattern": "texasdefined.com/*"', 'canonical production Worker route pattern'],
+  ['"zone_name": "texasdefined.com"', 'canonical production Worker zone binding'],
+]) requireText(wrangler, needle, label);
+
+for (const [needle, label] of [
+  ["directWorkerOrigin", 'direct Worker destination-template parity origin'],
+  ["destinationTemplateControl", 'destination-template production control'],
+  ["Houston Zoo is in Houston, Texas", 'current Houston Zoo location wording'],
+  ["Tickets &amp; reservations", 'current destination reservation label'],
+  ["Good for first-time visitors", 'current first-visit label'],
+  ["Approx. 1 mile away", 'singular nearby distance contract'],
+  ["Nearest town", 'stale location wording rejection'],
+  ["First Texas trip", 'stale first-visit wording rejection'],
+  ["Approx. 1 miles away", 'stale one-mile grammar rejection'],
+  ["destination-template-direct-worker", 'direct Worker destination-template verification'],
+  ["destination-template-canonical", 'canonical-domain destination-template verification'],
+]) requireText(productionSurfaces, needle, label);
+
+for (const [needle, label] of [
+  ["src/components/editorial/DestinationVisitPlanner.tsx", 'destination planner smoke trigger'],
+  ["Tickets &amp; reservations", 'Houston Zoo current reservation smoke marker'],
+  ["Good for first-time visitors", 'Houston Zoo current first-visit smoke marker'],
+  ["Approx. 1 mile away", 'Houston Zoo singular-distance smoke marker'],
+  ["Nearest town", 'Houston Zoo stale-location smoke rejection'],
+  ["Approx. 1 miles away", 'Houston Zoo stale-distance smoke rejection'],
+  ["Do I need to plan ahead?</dt>", 'Houston Zoo duplicate planning FAQ rejection'],
+  ["When is the best time to go?</dt>", 'Houston Zoo duplicate timing FAQ rejection'],
+]) requireText(destinationSmoke, needle, label);
 
 const guardedVerifierCondition = "steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success'";
 for (const step of [
@@ -116,4 +149,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Production deployment safety passed: new Worker health is stabilized before deep verification, persistent direct-Worker failure triggers rollback, rollback health is verified, and canonical-only failures do not rollback a healthy Worker.');
+console.log('Production deployment safety passed: the canonical texasdefined.com route is repository-bound to the deployed Worker, new Worker health is stabilized before deep verification, persistent direct-Worker failure triggers rollback, rollback health is verified, and canonical-only failures do not rollback a healthy Worker.');
