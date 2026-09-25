@@ -27,7 +27,7 @@ export function calculateAffordability(input: AffordabilityInputs) {
   const housingBudgetByHousingRatio = grossMonthlyIncome * housingRatio;
   const housingBudgetByTotalDebtRatio = Math.max(0, grossMonthlyIncome * totalDebtRatio - monthlyDebt);
   const housingBudget = Math.min(housingBudgetByHousingRatio, housingBudgetByTotalDebtRatio);
-  const bindingConstraint = housingBudgetByHousingRatio <= housingBudgetByTotalDebtRatio ? 'housing-ratio' : 'total-debt-ratio';
+  const bindingConstraint = housingBudgetByHousingRatio <= housingBudgetByTotalDebtRatio + 1e-9 ? 'housing-ratio' : 'total-debt-ratio';
   const principalInterestBudget = Math.max(0, housingBudget - nonNegative(input.monthlyTaxesInsuranceHoa));
   const termYears = clamp(input.termYears ?? 30, 1, 50);
   const paymentPerDollar = calculateMonthlyPrincipalInterest(1, input.annualRatePercent, termYears);
