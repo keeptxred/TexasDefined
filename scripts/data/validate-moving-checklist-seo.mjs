@@ -14,8 +14,9 @@ for (const feature of [
   'step: howToSections',
   'groups.map((group, groupIndex)',
   'group.items.map((item, itemIndex)',
-  'url: `${pageUrl}#step-${groupIndex + 1}-${itemIndex + 1}`',
-  'id={`step-${groupIndex + 1}-${itemIndex + 1}`}',
+  'url: `${pageUrl}#${item.id}`',
+  'id={item.id}',
+  'type ChecklistItem = { id: string; text: string;',
   "isPartOf: { '@id': `${siteUrl}/#website` }",
   'aria-label="Breadcrumb"',
   'aria-current="page"',
@@ -33,4 +34,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Moving checklist HowTo sections, anchored steps, and breadcrumbs validation passed.');
+console.log('Moving checklist HowTo sections, stable semantic step anchors, persistent task identity, and breadcrumbs validation passed.');
