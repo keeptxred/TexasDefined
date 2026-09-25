@@ -142,7 +142,7 @@ for (const file of componentFiles) {
   const source = fs.readFileSync(file, 'utf8');
   assert.ok(source.includes('CalculatorActions'), `${file} must expose save/restore/share/print/reset actions`);
 }
-const propertyTaxEngineRoutes = ['src/routes/texas-property-tax-estimator.tsx','src/routes/texas-agricultural-valuation-calculator.tsx','src/routes/texas-disabled-veteran-property-tax-calculator.tsx','src/routes/texas-over-65-property-tax-calculator.tsx','src/routes/texas-property-tax-county-comparison-calculator.tsx','src/routes/texas-property-tax-escrow-calculator.tsx','src/routes/texas-property-tax-protest-savings-calculator.tsx'];
+const propertyTaxEngineRoutes = ['src/routes/texas-property-tax-estimator.tsx','src/routes/texas-agricultural-valuation-calculator.tsx','src/routes/texas-disabled-veteran-property-tax-calculator.tsx','src/routes/texas-over-65-property-tax-calculator.tsx','src/routes/texas-property-tax-county-comparison-calculator.tsx','src/routes/texas-property-tax-escrow-calculator.tsx','src/routes/texas-property-tax-protest-savings-calculator.tsx','src/components/property/LocalPropertyTaxCalculatorPage.tsx'];
 for (const file of propertyTaxEngineRoutes) assert.ok(fs.readFileSync(file, 'utf8').includes("@/lib/financial/property-tax"), `${file} must consume the shared property-tax engine`);
 const planningSource = fs.readFileSync('src/components/calculators/TexasPlanningCalculators.tsx', 'utf8');
 const financeSource = fs.readFileSync('src/components/calculators/TexasHomeFinanceCalculators.impl.tsx', 'utf8');

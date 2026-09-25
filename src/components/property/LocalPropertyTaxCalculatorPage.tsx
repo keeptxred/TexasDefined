@@ -18,6 +18,7 @@ import {
   type CalculatorState,
 } from '@/components/property/PropertyCalculatorFramework';
 import type { LocalPropertyTaxProfile } from '@/data/local-property-tax-calculators';
+import { calculateSplitPropertyTax } from '@/lib/financial/property-tax';
 
 type State = CalculatorState & {
   homeValue: number;
@@ -67,23 +68,13 @@ export function LocalPropertyTaxCalculatorPage({
     }));
   };
 
-  const result = useMemo(() => {
-    const value = Math.max(0, state.homeValue);
-    const schoolTaxable = Math.max(0, value - Math.max(0, state.schoolExemption));
-    const otherTaxable = Math.max(0, value - Math.max(0, state.otherExemption));
-    const schoolTax = schoolTaxable * Math.max(0, state.schoolRate) / 100;
-    const otherTax = otherTaxable * Math.max(0, state.otherRate) / 100;
-    const total = schoolTax + otherTax;
-    return {
-      schoolTaxable,
-      otherTaxable,
-      schoolTax,
-      otherTax,
-      total,
-      monthly: total / 12,
-      combinedRate: state.schoolRate + state.otherRate,
-    };
-  }, [state]);
+  const result = useMemo(() => calculateSplitPropertyTax({
+    homeValue: state.homeValue,
+    schoolExemption: state.schoolExemption,
+    otherExemption: state.otherExemption,
+    schoolRatePercent: state.schoolRate,
+    otherRatePercent: state.otherRate,
+  }), [state]);
 
   const persistence = useCalculatorPersistence<State>({
     storageKey: `texasdefined:local-property-tax:${profile.slug}`,
