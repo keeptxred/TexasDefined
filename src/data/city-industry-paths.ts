@@ -20,6 +20,7 @@ const CITY_INDUSTRY_PATHS: Record<string, ReadonlyArray<CityIndustryPath>> = {
   ],
   'fort-worth': [
     { label: 'Gaming & Esports', href: '/gaming/dfw', context: 'Fort Worth connects to the wider DFW gaming market through game development, collegiate esports, events and regional technology infrastructure.' },
+    { label: 'College Esports', href: '/gaming/college-esports', context: 'Texas Wesleyan fields varsity esports teams in Fort Worth and offers an esports-focused academic pathway, connecting the city directly to the statewide collegiate guide.' },
     { label: 'Aerospace, Aviation & Defense', href: '/texas-industries/aerospace-aviation-defense', context: 'Fort Worth is a major aircraft, defense, engineering and aerospace-supplier center.' },
     { label: 'Advanced Manufacturing', href: '/texas-industries/advanced-manufacturing', context: 'North Texas manufacturing includes aerospace systems, electronics, machinery and specialized suppliers.' },
     { label: 'Trade, Transportation & Logistics', href: '/texas-industries/trade-transportation-logistics', context: 'Fort Worth is part of the Metroplex freight, rail, airport and distribution network.' },
@@ -59,6 +60,7 @@ const CITY_INDUSTRY_PATHS: Record<string, ReadonlyArray<CityIndustryPath>> = {
     { label: 'Corporate & Professional Services', href: '/texas-industries/corporate-professional-services', context: 'Corporate offices and professional services are major parts of the broader North Texas economy.' },
   ],
   lubbock: [
+    { label: 'College Esports', href: '/gaming/college-esports', context: 'Texas Tech and Lubbock Christian University both maintain active esports programs, giving Lubbock multiple verified connections to collegiate gaming.' },
     { label: 'Agriculture & Livestock', href: '/texas-industries/agriculture-livestock', context: 'Lubbock and the South Plains sit at the center of a major cotton, grain, cattle and agricultural-services region.' },
     { label: 'Healthcare & Life Sciences', href: '/texas-industries/healthcare-life-sciences', context: 'Regional medical systems and university-linked healthcare make Lubbock an important West Texas medical center.' },
   ],
@@ -105,6 +107,7 @@ const CITY_INDUSTRY_PATHS: Record<string, ReadonlyArray<CityIndustryPath>> = {
     { label: 'Aerospace, Aviation & Defense', href: '/texas-industries/aerospace-aviation-defense', context: 'Commercial space activity in Cameron County connects the Brownsville area to Texas’s growing spaceflight economy.' },
   ],
   waco: [
+    { label: 'College Esports', href: '/gaming/college-esports', context: 'Baylor operates a varsity esports program in Waco, linking the city to Texas collegiate competition, facilities and event activity.' },
     { label: 'Hospitality, Tourism & Culture', href: '/texas-industries/hospitality-tourism-culture', context: 'Major attractions, sports, museums and visitor traffic make tourism an important part of Waco’s economy.' },
   ],
   bryan: [
@@ -112,6 +115,7 @@ const CITY_INDUSTRY_PATHS: Record<string, ReadonlyArray<CityIndustryPath>> = {
     { label: 'Healthcare & Life Sciences', href: '/texas-industries/healthcare-life-sciences', context: 'Regional healthcare systems and university-linked research connect Bryan to the statewide health and life-sciences sector.' },
   ],
   'college-station': [
+    { label: 'College Esports', href: '/gaming/college-esports', context: 'Texas A&M’s competitive esports organization gives College Station a verified connection to the statewide collegiate gaming ecosystem.' },
     { label: 'Agriculture & Livestock', href: '/texas-industries/agriculture-livestock', context: 'Texas A&M research, extension and agricultural programs connect College Station deeply to the statewide agriculture system.' },
     { label: 'Healthcare & Life Sciences', href: '/texas-industries/healthcare-life-sciences', context: 'Academic health programs, research and regional medical services connect College Station to healthcare and life sciences.' },
   ],
@@ -130,6 +134,7 @@ const CITY_INDUSTRY_PATHS: Record<string, ReadonlyArray<CityIndustryPath>> = {
     { label: 'Aerospace, Aviation & Defense', href: '/texas-industries/aerospace-aviation-defense', context: 'Fort Cavazos and its military-support economy connect Killeen directly to the broader Texas defense sector.' },
   ],
   tyler: [
+    { label: 'College Esports', href: '/gaming/college-esports', context: 'UT Tyler competes with varsity-level esports teams and operates a campus esports lab, connecting East Texas to the statewide collegiate guide.' },
     { label: 'Healthcare & Life Sciences', href: '/texas-industries/healthcare-life-sciences', context: 'Large regional medical systems make Tyler an important healthcare center for East Texas.' },
   ],
   'san-angelo': [
