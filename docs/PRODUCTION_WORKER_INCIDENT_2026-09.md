@@ -16,6 +16,8 @@ Emergency restore workflow run `35601499563`, attempt 2, restored that version. 
 
 The original emergency diagnostics were written below a hidden `.artifacts` directory, while `actions/upload-artifact@v4` excluded hidden files by default. Permanent incident diagnostics use visible `artifacts/` paths and fail if an expected incident artifact is missing.
 
+A later failed production run, `35659300523`, proves the visible diagnostics path works: it uploaded artifact `unhealthy-worker-35659300523` for Worker version `0ab3c1b4-f336-45e8-981d-bf44db874c33`. The captured homepage response was HTTP 500 with Cloudflare headers and its serialized SSR state contained `Error("CHECKED is not defined")`. The simultaneous `wrangler tail --status error` file was empty for that request, so the response body was the preserved exception evidence in this incident rather than a tail stack trace.
+
 ## Custom-domain finding
 
 `wrangler.jsonc` enables `workers_dev` but does not define the production custom domains. Cloudflare account configuration maps both `texasdefined.com` and `www.texasdefined.com` to the `texasdefined-site` Worker; `.github/workflows/cloudflare-production-smoke.yml` verifies those mappings through the Cloudflare Workers domains API and also verifies the `www` to apex redirect.
