@@ -5,6 +5,7 @@ import {
   CurrencyInput,
   FinancialCalculatorScaffold,
   FinancialInput,
+  FinancialSelect,
   PercentageInput,
   formatCalculatorMoney,
   readCalculatorUrlState,
@@ -13,7 +14,8 @@ import { estimateAffordability } from '@/lib/financial/affordability';
 import { estimateHomeInsurance } from '@/lib/financial/insurance';
 import { estimateMortgage, mortgageSensitivity } from '@/lib/financial/mortgage';
 import { estimateUtilities } from '@/lib/financial/utilities';
-import { estimateCostOfLiving, estimateMovingCost, estimateSalaryScenario } from '@/lib/financial/household';
+import { estimateCostOfLiving, estimateMovingCost } from '@/lib/financial/household';
+import { estimatePayroll2026, type FilingStatus } from '@/lib/financial/payroll';
 import { estimateRentVsBuy } from '@/lib/rent-vs-buy';
 
 const money = formatCalculatorMoney;
@@ -172,25 +174,51 @@ export function CostOfLivingCalculator() {
 }
 
 export function SalaryCalculator() {
-  const defaults = { salary: 90000, federal: 16, benefits: 6, other: 0 };
+  const defaults = { salary: 90000, filingStatus: 'single', retirement: 6, pretaxBenefits: 0, afterTax: 0 };
   const [state, setState] = useState(() => readCalculatorUrlState(defaults));
-  const set = (key: keyof typeof state, value: number) => setState((current) => ({ ...current, [key]: value }));
-  const result = useMemo(() => estimateSalaryScenario({ annualSalary: state.salary, effectiveFederalRate: state.federal, benefitsRetirementRate: state.benefits, otherDeductionRate: state.other }), [state]);
+  const setNumber = (key: 'salary' | 'retirement' | 'pretaxBenefits' | 'afterTax', value: number) => setState((current) => ({ ...current, [key]: value }));
+  const result = useMemo(() => estimatePayroll2026({
+    annualSalary: state.salary,
+    filingStatus: state.filingStatus as FilingStatus,
+    retirementPercent: state.retirement,
+    annualPretaxBenefits: state.pretaxBenefits,
+    annualAfterTaxDeductions: state.afterTax,
+  }), [state]);
+  const breakdown = [
+    { label: 'Federal income tax', value: result.federalIncomeTax / 12 },
+    { label: 'Social Security', value: result.socialSecurityTax / 12 },
+    { label: 'Medicare', value: result.medicareTax / 12 },
+    { label: 'Additional Medicare', value: result.additionalMedicareTax / 12 },
+    { label: 'Retirement', value: result.retirementContribution / 12 },
+    { label: 'Pre-tax benefits', value: result.pretaxBenefits / 12 },
+    { label: 'After-tax deductions', value: result.afterTaxDeductions / 12 },
+  ];
   return <FinancialCalculatorScaffold storageKey="texasdefined:salary-calculator" state={state} defaults={defaults} onRestore={setState}
-    note="Texas has no individual state income tax, but federal tax, Social Security, Medicare, benefits and other deductions depend on your circumstances. The federal field remains an editable effective-rate scenario rather than pretending to be a tax return."
+    note="Texas has no individual state income tax. This 2026 planning model applies published federal brackets and the standard deduction, Social Security up to the 2026 wage base, Medicare and Additional Medicare withholding; credits, dependents, special deductions and individual tax situations can still change actual take-home pay."
     issues={result.issues}
     results={[
       { label: 'Monthly take-home', value: money(result.monthlyTakeHome), emphasis: true },
       { label: 'Annual take-home', value: money(result.annualTakeHome) },
-      { label: 'Estimated deductions', value: money(result.deductions) },
-      { label: 'Payroll-tax assumption', value: result.payrollTaxRate.toFixed(2) + '%' },
+      { label: 'Federal income tax', value: money(result.federalIncomeTax) },
+      { label: 'Social Security', value: money(result.socialSecurityTax) },
+      { label: 'Medicare', value: money(result.medicareTax + result.additionalMedicareTax) },
+      { label: 'Texas individual state income tax', value: '$0' },
     ]}
-    summary={{ 'Monthly take-home': money(result.monthlyTakeHome), 'Annual take-home': money(result.annualTakeHome) }}
-    methodology={{ formula: 'The current salary estimator subtracts an editable effective federal rate, a 7.65% employee payroll-tax planning rate, benefits/retirement and other user-entered deductions from gross salary.', assumptions: ['This is an effective-rate planning model, not federal withholding or tax-return software.', 'Texas individual state income tax is modeled as $0.', 'Social Security wage limits, Additional Medicare Tax, filing status and credits can change actual payroll outcomes.'] }}>
-    <CurrencyInput label="Annual gross salary" value={state.salary} onChange={(v) => set('salary', v)} step={1000}/>
-    <PercentageInput label="Estimated federal rate" value={state.federal} onChange={(v) => set('federal', v)} step={0.1} max={60}/>
-    <PercentageInput label="Benefits & retirement" value={state.benefits} onChange={(v) => set('benefits', v)} step={0.1} max={60}/>
-    <PercentageInput label="Other deductions" value={state.other} onChange={(v) => set('other', v)} step={0.1} max={60}/>
+    summary={{ 'Monthly take-home': money(result.monthlyTakeHome), 'Annual take-home': money(result.annualTakeHome), 'Federal income tax': money(result.federalIncomeTax), 'Texas income tax': '$0' }}
+    breakdown={breakdown}
+    methodology={{ formula: 'For tax year 2026, the engine subtracts the applicable standard deduction and modeled pre-tax deductions, applies the published marginal federal tax brackets, then applies employee Social Security and Medicare rules before user-entered after-tax deductions.', assumptions: ['Federal income tax is an annual planning estimate before credits and special deductions, not a W-4 withholding calculation or tax return.', 'Retirement deferrals reduce federal taxable income but remain subject to FICA in this model.', 'Entered pre-tax benefits are modeled as cafeteria-plan deductions that reduce federal taxable income and FICA wages.', 'Additional Medicare withholding is modeled above the employer withholding threshold of $200,000.'], sources: ['IRS Revenue Procedure 2025-32 / 2026 inflation adjustments: tax brackets and standard deductions.', 'IRS Publication 15 (2026): 6.2% employee Social Security, $184,500 wage base, 1.45% Medicare and 0.9% Additional Medicare withholding over $200,000.', 'Texas individual state income tax: $0.'] }}>
+    <CurrencyInput label="Annual gross salary" value={state.salary} onChange={(v) => setNumber('salary', v)} step={1000}/>
+    <FinancialSelect label="Filing status" value={state.filingStatus} onChange={(value) => setState((current) => ({ ...current, filingStatus: value }))} options={[
+      { value: 'single', label: 'Single' },
+      { value: 'married_jointly', label: 'Married filing jointly' },
+      { value: 'head_of_household', label: 'Head of household' },
+      { value: 'married_separately', label: 'Married filing separately' },
+    ]}/>
+    <PercentageInput label="Pre-tax retirement contribution" value={state.retirement} onChange={(v) => setNumber('retirement', v)} step={0.1} max={100}/>
+    <div className="sm:col-span-2 lg:col-span-3"><AdvancedInputs>
+      <CurrencyInput label="Annual pre-tax benefits" value={state.pretaxBenefits} onChange={(v) => setNumber('pretaxBenefits', v)} step={100}/>
+      <CurrencyInput label="Annual after-tax deductions" value={state.afterTax} onChange={(v) => setNumber('afterTax', v)} step={100}/>
+    </AdvancedInputs></div>
   </FinancialCalculatorScaffold>;
 }
 
