@@ -1,4 +1,3 @@
-import { hasCurrentOrFutureConfirmedEventOccurrence } from "./event-occurrence-lifecycle";
 import { getMajorEventRecordServer } from "./major-event-page.server";
 
 export const supplementalMajorEventSlugs = [
@@ -166,9 +165,11 @@ export function loadSupplementalMajorEventRecordsServer() {
   });
 }
 
-export function loadSupplementalMajorEventSitemapEntriesServer(now = new Date()) {
+// These are reviewed permanent authority guides. Their current occurrence can expire
+// between annual editions without making the guide itself non-evergreen. Keep sitemap
+// discovery year-round; occurrence freshness still governs scheduled Event schema.
+export function loadSupplementalMajorEventSitemapEntriesServer() {
   return loadSupplementalMajorEventRecordsServer()
-    .filter((event) => hasCurrentOrFutureConfirmedEventOccurrence(event, now))
     .map((event) => ({
       path: `/event/${event.slug}`,
       lastmod: event.sourceCheckedAt?.slice(0, 10),
