@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import type { PrioritySearchPageData } from "@/components/editorial/PrioritySearchPage";
 
-const loadPrioritySearchPageServerFn = createServerFn({ method: "GET" })
+const loadPrioritySearchPageServerFn = createServerFn({ method: "POST" })
   .inputValidator((data: { slug: string }) => data)
   .handler(async ({ data }) => {
     const { loadPrioritySearchPageServer } = await import("./priority-search-page.server");
