@@ -278,12 +278,20 @@ export function useCalculatorPersistence<T extends CalculatorState>({
         setStatus('No saved calculator inputs found.');
         return;
       }
-      onRestore(JSON.parse(raw) as T);
+      const parsed = JSON.parse(raw) as Record<string, unknown>;
+      const restored = { ...state } as CalculatorState;
+      Object.entries(state).forEach(([key, currentValue]) => {
+        const savedValue = parsed[key];
+        if (typeof currentValue === 'number' && typeof savedValue === 'number' && Number.isFinite(savedValue)) restored[key] = savedValue;
+        else if (typeof currentValue === 'boolean' && typeof savedValue === 'boolean') restored[key] = savedValue;
+        else if (typeof currentValue === 'string' && typeof savedValue === 'string') restored[key] = savedValue;
+      });
+      onRestore(restored as T);
       setStatus('Saved inputs restored.');
     } catch {
       setStatus('Saved inputs could not be restored.');
     }
-  }, [onRestore, storageKey]);
+  }, [onRestore, state, storageKey]);
 
   const share = useCallback(async () => {
     if (typeof window === 'undefined') return;
