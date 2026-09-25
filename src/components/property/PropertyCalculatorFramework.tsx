@@ -386,6 +386,38 @@ export function MethodologyPanel({ title = 'How TexasDefined calculates this', c
   );
 }
 
+
+export type SavedCalculatorScenario<T extends CalculatorState> = { id: string; label: string; state: T };
+
+export function useCalculatorScenarios<T extends CalculatorState>({ storageKey, state, max = 3 }: { storageKey: string; state: T; max?: number }) {
+  const [scenarios, setScenarios] = useState<SavedCalculatorScenario<T>[]>([]);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(storageKey);
+      if (raw) setScenarios((JSON.parse(raw) as SavedCalculatorScenario<T>[]).slice(0, max));
+    } catch {
+      setScenarios([]);
+    }
+  }, [max, storageKey]);
+
+  const persist = useCallback((next: SavedCalculatorScenario<T>[]) => {
+    setScenarios(next);
+    try { localStorage.setItem(storageKey, JSON.stringify(next)); } catch { /* comparison still works for this session */ }
+  }, [storageKey]);
+
+  const addCurrent = useCallback(() => {
+    const nextIndex = Math.min(max, scenarios.length + 1);
+    const next = [...scenarios.slice(-(max - 1)), { id: `${Date.now()}-${nextIndex}`, label: `Scenario ${String.fromCharCode(64 + nextIndex)}`, state: { ...state } }];
+    persist(next);
+  }, [max, persist, scenarios, state]);
+
+  const remove = useCallback((id: string) => persist(scenarios.filter((scenario) => scenario.id !== id)), [persist, scenarios]);
+  const clear = useCallback(() => persist([]), [persist]);
+
+  return { scenarios, addCurrent, remove, clear, atLimit: scenarios.length >= max };
+}
+
 export function CalculatorCountyLink({ countySlug }: { countySlug: string }) {
   if (!countySlug) return null;
   return <Link to="/property-tax/county/$county" params={{ county: countySlug }} className="text-sm font-semibold underline decoration-primary/50 underline-offset-4">Open this county’s property-tax guide →</Link>;
