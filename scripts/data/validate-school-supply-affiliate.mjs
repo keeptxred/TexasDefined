@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const source = fs.readFileSync('src/components/monetization/SchoolSupplyPartners.tsx', 'utf8');
 const tracker = fs.readFileSync('src/lib/affiliate-click.ts', 'utf8');
+const economics = fs.readFileSync('docs/affiliate-portfolio-economics.md', 'utf8');
 const errors = [];
 
 function requireText(haystack, needle, label) {
@@ -30,16 +31,29 @@ for (const [needle, label] of [
   ['texasdefined:affiliate-click', 'first-party affiliate browser event'],
 ]) requireText(tracker, needle, label);
 
-if (source.includes('discount-school-supply') || source.includes('Discount School Supply')) {
-  errors.push('School-supply affiliate component must not route traffic to Discount School Supply while its current account terms include a 0% program term.');
-}
+for (const [needle, label] of [
+  ['Discount School Supply | Active CJ: 4% online purchase; 1-day referral period', 'current Discount School Supply economics'],
+  ['Really Good Stuff | Active CJ: 4% website purchase; 5-day referral period', 'current Really Good Stuff economics'],
+  ['Do not restore legacy `email.cj.com` wrappers', 'Discount School Supply clean-link gate'],
+]) requireText(economics, needle, label);
 
 if (source.includes('email.cj.com/')) {
   errors.push('School-supply affiliate component must never use CJ email-wrapper URLs as shopper-facing affiliate destinations.');
 }
 
+if (source.includes('discount-school-supply') || source.includes('Discount School Supply')) {
+  const urls = [...source.matchAll(/https?:\/\/[^"'\s)]+/g)].map((match) => match[0]);
+  const dssUrls = urls.filter((url) => /discountschoolsupply|discount-school-supply/i.test(url));
+  if (!dssUrls.length) {
+    errors.push('Discount School Supply may be rendered only after a clean shopper-facing CJ tracking URL is present.');
+  }
+  if (dssUrls.some((url) => /^https?:\/\/(?:www\.)?discountschoolsupply\.com/i.test(url))) {
+    errors.push('Discount School Supply must not use a bare merchant URL; use a verified CJ tracking URL.');
+  }
+}
+
 if (source.includes('SAVE10NOW') || source.includes('Current offer: free shipping')) {
-  errors.push('School-supply affiliate component must not promote coupon copy that can fall into retailers\' 0% coupon terms.');
+  errors.push('School-supply affiliate component must not promote unverified coupon copy.');
 }
 
 if (source.includes('type AffiliateAnalyticsWindow') || source.includes('trackSchoolSupplyClick')) {
@@ -56,4 +70,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('School-supply affiliate validation passed: Really Good Stuff remains the only paid school-supply route, Discount School Supply 0% traffic is blocked, shopper-facing CJ email wrappers are prohibited, coupon copy tied to 0% terms remains blocked, and sponsored/commercial metadata plus shared click attribution are preserved.');
+console.log('School-supply affiliate validation passed: current CJ economics keep Really Good Stuff live at 4%/5 days and recognize Discount School Supply as eligible at 4%/1 day, while DSS remains fail-closed until a clean shopper-facing CJ tracking URL replaces the prohibited historical email wrappers; sponsored/commercial metadata and shared click attribution remain enforced.');
