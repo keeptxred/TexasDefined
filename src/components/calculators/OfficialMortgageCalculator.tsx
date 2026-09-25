@@ -98,6 +98,26 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
   ];
 
   const higherRate = calculateMortgage({ homePrice: state.price, downPayment: state.down, annualRatePercent: state.rate + 0.5, termYears: state.years, propertyTaxRatePercent: state.propertyTaxRate, annualInsurance: state.insurance, monthlyPmi: state.pmi, monthlyHoa: state.hoa, monthlySpecialDistricts: state.specialDistricts }).monthlyHousingPayment;
+  const ownershipSearch = new URLSearchParams({
+    mortgage: String(result.monthlyPrincipalInterest),
+    taxes: String(result.monthlyPropertyTax),
+    insurance: String(result.monthlyInsurance),
+    pmi: String(result.monthlyPmi),
+    hoa: String(result.monthlyHoa),
+    special: String(result.monthlySpecialDistricts),
+    maintenance: String(result.monthlyMaintenance),
+    utilities: String(result.monthlyUtilities),
+  }).toString();
+  const rentBuySearch = new URLSearchParams({
+    price: String(state.price),
+    down: String(state.down),
+    mortgageRate: String(state.rate),
+    loanYears: String(state.years),
+    propertyTaxRate: String(state.propertyTaxRate),
+    homeInsurance: String(state.insurance),
+    hoa: String(state.hoa),
+  }).toString();
+
   const lowerPrice = calculateMortgage({ homePrice: Math.max(0, state.price - 25000), downPayment: Math.min(state.down, Math.max(0, state.price - 25000)), annualRatePercent: state.rate, termYears: state.years, propertyTaxRatePercent: state.propertyTaxRate, annualInsurance: state.insurance, monthlyPmi: state.pmi, monthlyHoa: state.hoa, monthlySpecialDistricts: state.specialDistricts }).monthlyHousingPayment;
 
   return <>
@@ -166,6 +186,15 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
         <table className="w-full min-w-[42rem] text-sm"><thead><tr className="border-b border-border text-left"><th className="py-2 pr-4">Month</th><th className="py-2 pr-4">Interest</th><th className="py-2 pr-4">Principal</th><th className="py-2 pr-4">Extra principal</th><th className="py-2 text-right">Balance</th></tr></thead><tbody className="divide-y divide-border">{result.amortization.map((row) => <tr key={row.month}><td className="py-2 pr-4">{row.month}</td><td className="py-2 pr-4">{formatMoney(row.interest)}</td><td className="py-2 pr-4">{formatMoney(row.principal)}</td><td className="py-2 pr-4">{formatMoney(row.extraPrincipal)}</td><td className="py-2 text-right">{formatMoney(row.endingBalance)}</td></tr>)}</tbody></table>
       </div>
     </details>
+
+    <section className="mt-10 border-t border-border pt-8">
+      <p className="eyebrow text-primary">Continue this exact scenario</p>
+      <h3 className="mt-2 font-display text-2xl">Carry the numbers into the next decision</h3>
+      <div className="mt-5 grid gap-4 sm:grid-cols-2">
+        <a className="border border-border p-5 hover:border-primary" href={`/texas-homeownership-cost-calculator?${ownershipSearch}`}><strong className="font-display text-xl">Full homeownership budget</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Carry P&I, taxes, insurance, PMI, HOA, special districts, maintenance and utilities into the ownership-cost tool.</span></a>
+        <a className="border border-border p-5 hover:border-primary" href={`/texas-rent-vs-buy-calculator?${rentBuySearch}`}><strong className="font-display text-xl">Rent versus buy</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Carry the purchase, financing, tax, insurance and HOA assumptions into the longer-term comparison.</span></a>
+      </div>
+    </section>
 
     <MethodologyPanel>
       <p>Principal and interest use the standard fixed-rate amortization equation. The same shared mortgage engine also powers TexasDefined rent-versus-buy calculations so identical loan inputs produce identical loan payments.</p>
