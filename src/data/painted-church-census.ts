@@ -11,17 +11,6 @@ export type PaintedChurchCensusEntry = {
 
 export const paintedChurchCandidateCensus: PaintedChurchCensusEntry[] = [
   {
-    slug: "mason-st-joseph-catholic-church",
-    name: "St. Joseph Catholic Church",
-    city: "Mason",
-    status: "candidate",
-    reason: "A strong promotion candidate discovered during the September 24 statewide follow-up. The parish's own history documents Manuel Lopez painting the interior in 1916 with a light-blue sky, dove, clouds, stars and angels; the 1963 expansion covered the painted ceiling with acoustical tile. A 2024 restoration project documents the historic painted vault's rediscovery and restoration. Texas Defined is retaining Mason as a candidate only until the canonical profile, image-rights review and collection-wide count update are completed together.",
-    sourceUrls: [
-      "https://www.stjosephmason.org/about-us",
-      "https://www.studioiodesign.com/st-joseph-mason",
-    ],
-  },
-  {
     slug: "east-bernard-holy-cross-catholic-church",
     name: "Holy Cross Catholic Church",
     city: "East Bernard",
