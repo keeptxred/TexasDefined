@@ -59,6 +59,10 @@ const surfaces = [
   ['fort-sam-houston-national-cemetery', '/destination/fort-sam-houston-national-cemetery', 'Fort Sam Houston National Cemetery'],
   ['houston-national-cemetery', '/destination/houston-national-cemetery', 'Houston National Cemetery'],
   ['dallas-fort-worth-national-cemetery', '/destination/dallas-fort-worth-national-cemetery', 'Dallas-Fort Worth National Cemetery'],
+  ['state-fair-current-date', '/texas-state-fair', 'Updated September 25, 2026'],
+  ['state-fair-hours-section', '/texas-state-fair', '2026 dates, hours and Fair Park location'],
+  ['state-fair-coupons-section', '/texas-state-fair', 'How Food & Midway Coupons work'],
+  ['state-fair-ticket-section', '/texas-state-fair', '2026 ticket prices and admission'],
   ['texas-history-military', '/texas-history', 'Military in Mexican Texas'],
 ];
 
