@@ -1,48 +1,114 @@
 import { Link } from '@tanstack/react-router';
 import { useMemo, useState } from 'react';
 
+import {
+  CurrencyInput,
+  FinancialCalculatorScaffold,
+  FinancialSelect,
+  PercentageInput,
+  formatCalculatorMoney,
+  readCalculatorUrlState,
+} from '@/components/calculators/FinancialCalculatorUI';
 import type { LocalSalaryNeededProfile } from '@/data/local-salary-needed';
+import { estimatePayroll2026, grossSalaryForTakeHome2026, type FilingStatus } from '@/lib/financial/payroll';
 
-const money = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number.isFinite(value) ? value : 0);
-const numeric = (value: string) => Math.max(0, Number(value) || 0);
-const rate = (value: string) => Math.min(95, numeric(value));
+const DEFAULTS = {
+  monthlyBudget: 0,
+  monthlySavings: 0,
+  filingStatus: 'single',
+  retirementPercent: 6,
+  annualPretaxBenefits: 0,
+  annualAfterTaxDeductions: 0,
+};
 
 export function LocalSalaryNeededPage({ profile, faqs }: { profile: LocalSalaryNeededProfile; faqs: readonly { question: string; answer: string }[] }) {
-  const [monthlyBudget, setMonthlyBudget] = useState(0);
-  const [monthlySavings, setMonthlySavings] = useState(0);
-  const [federalRate, setFederalRate] = useState(12);
-  const [payrollRate, setPayrollRate] = useState(7.65);
-  const [otherRate, setOtherRate] = useState(0);
-  const result = useMemo(() => {
-    const annualTakeHome = (monthlyBudget + monthlySavings) * 12;
-    const combinedRate = Math.min(0.95, (federalRate + payrollRate + otherRate) / 100);
-    const gross = annualTakeHome / Math.max(0.05, 1 - combinedRate);
-    return { annualTakeHome, gross, deductions: gross - annualTakeHome, monthlyGross: gross / 12, combinedRate };
-  }, [monthlyBudget, monthlySavings, federalRate, payrollRate, otherRate]);
+  const [state, setState] = useState(() => readCalculatorUrlState(DEFAULTS));
+  const setNumber = (key: 'monthlyBudget' | 'monthlySavings' | 'retirementPercent' | 'annualPretaxBenefits' | 'annualAfterTaxDeductions', value: number) =>
+    setState((current) => ({ ...current, [key]: value }));
+
+  const targetAnnualTakeHome = (state.monthlyBudget + state.monthlySavings) * 12;
+  const gross = useMemo(() => grossSalaryForTakeHome2026(targetAnnualTakeHome, {
+    filingStatus: state.filingStatus as FilingStatus,
+    retirementPercent: state.retirementPercent,
+    annualPretaxBenefits: state.annualPretaxBenefits,
+    annualAfterTaxDeductions: state.annualAfterTaxDeductions,
+  }), [state, targetAnnualTakeHome]);
+
+  const result = useMemo(() => estimatePayroll2026({
+    annualSalary: gross,
+    filingStatus: state.filingStatus as FilingStatus,
+    retirementPercent: state.retirementPercent,
+    annualPretaxBenefits: state.annualPretaxBenefits,
+    annualAfterTaxDeductions: state.annualAfterTaxDeductions,
+  }), [gross, state]);
+
+  const breakdown = [
+    { label: 'Federal income tax', value: result.federalIncomeTax / 12 },
+    { label: 'Social Security', value: result.socialSecurityTax / 12 },
+    { label: 'Medicare', value: result.medicareTax / 12 },
+    { label: 'Additional Medicare', value: result.additionalMedicareTax / 12 },
+    { label: 'Retirement contribution', value: result.retirementContribution / 12 },
+    { label: 'Pre-tax benefits', value: result.pretaxBenefits / 12 },
+    { label: 'After-tax deductions', value: result.afterTaxDeductions / 12 },
+  ];
 
   return <main className="container py-10 lg:py-14">
     <nav className="text-sm text-muted-foreground" aria-label="Breadcrumb"><Link to="/" className="hover:text-primary">Home</Link><span aria-hidden="true"> / </span><Link to="/texas-salary-comparison-by-city" className="hover:text-primary">Texas salary comparison by city</Link><span aria-hidden="true"> / </span><span>{profile.name}</span></nav>
     <header className="mt-8 max-w-4xl"><p className="eyebrow text-primary">{profile.name} income planning</p><h1 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">{profile.salaryTitle}</h1><p className="mt-5 text-lg leading-8 text-muted-foreground">{profile.salaryIntro}</p></header>
 
-    <section className="mt-10 border-y border-border py-8" aria-labelledby="salary-needed-heading">
-      <p className="eyebrow text-primary">Work backward from your budget</p><h2 id="salary-needed-heading" className="mt-3 font-display text-3xl">Estimate the gross household income your plan may require</h2>
-      <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">Enter your own monthly household costs and savings target. The percentage fields are editable planning assumptions, not a tax calculation and not a claim about what the average {profile.name} household earns or needs.</p>
-      <div className="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-5">
-        {[
-          ['Monthly household budget', monthlyBudget, setMonthlyBudget, '$', '/mo'],
-          ['Monthly savings / reserve', monthlySavings, setMonthlySavings, '$', '/mo'],
-          ['Federal withholding assumption', federalRate, setFederalRate, '', '%'],
-          ['Payroll-tax assumption', payrollRate, setPayrollRate, '', '%'],
-          ['Other deductions assumption', otherRate, setOtherRate, '', '%'],
-        ].map(([label, value, setter, prefix, suffix]) => <label key={String(label)} className="border border-border p-4"><span className="text-sm font-semibold">{label as string}</span><div className="mt-2 flex items-center border-b border-border"><span>{prefix as string}</span><input className="w-full bg-transparent px-2 py-2 text-lg outline-none focus-visible:ring-2 focus-visible:ring-primary" type="number" min="0" step={String(label).includes('assumption') ? '0.1' : '50'} value={value as number} onChange={(event) => (setter as (value: number) => void)(String(label).includes('assumption') ? rate(event.target.value) : numeric(event.target.value))} /><span>{suffix as string}</span></div></label>)}
-      </div>
-      <dl className="mt-7 grid border-y border-border sm:grid-cols-2 lg:grid-cols-4" aria-live="polite" aria-atomic="true">
-        <div className="py-5 lg:px-5"><dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Target annual take-home</dt><dd className="mt-2 font-display text-3xl font-bold text-primary">{money(result.annualTakeHome)}</dd></div>
-        <div className="border-t border-border py-5 sm:border-l sm:border-t-0 sm:px-5"><dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Planning gross income</dt><dd className="mt-2 font-display text-3xl font-bold text-primary">{money(result.gross)}</dd></div>
-        <div className="border-t border-border py-5 lg:border-l lg:border-t-0 lg:px-5"><dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Monthly gross</dt><dd className="mt-2 font-display text-3xl font-bold text-primary">{money(result.monthlyGross)}</dd></div>
-        <div className="border-t border-border py-5 sm:border-l sm:px-5 lg:border-t-0"><dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Modeled deductions</dt><dd className="mt-2 font-display text-3xl font-bold text-primary">{money(result.deductions)}</dd></div>
-      </dl>
-      <p className="mt-5 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Planning only.</strong> The model divides your annual take-home target by one minus the combined editable deduction percentage ({(result.combinedRate * 100).toFixed(2)}%). Actual federal tax, Social Security, Medicare, benefits, filing status, credits, self-employment and wage limits can change take-home pay. Texas has no individual state income tax, but that does not make this a payroll or tax-return estimate.</p>
+    <section className="mt-10" aria-labelledby="salary-needed-heading">
+      <p className="eyebrow text-primary">Work backward from your budget</p>
+      <h2 id="salary-needed-heading" className="mt-3 font-display text-3xl">Estimate the gross household income your plan may require</h2>
+      <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">Enter your own monthly household costs and savings target. TexasDefined reverse-solves the same 2026 federal payroll model used by the statewide salary calculator instead of asking you to guess a federal withholding percentage. This is not a claim about what the average {profile.name} household earns or needs.</p>
+
+      <FinancialCalculatorScaffold
+        storageKey={'texasdefined:salary-needed:' + profile.slug}
+        state={state}
+        defaults={DEFAULTS}
+        onRestore={setState}
+        note="Planning only. This model estimates a gross-income target from your own desired take-home budget using 2026 federal brackets, the standard deduction, Social Security, Medicare and Texas's $0 individual state income tax. Credits, special deductions, self-employment tax, multiple jobs and household-specific tax rules can change actual take-home pay."
+        issues={result.issues}
+        results={[
+          { label: 'Planning gross income', value: formatCalculatorMoney(gross), emphasis: true },
+          { label: 'Monthly gross', value: formatCalculatorMoney(gross / 12) },
+          { label: 'Target annual take-home', value: formatCalculatorMoney(targetAnnualTakeHome) },
+          { label: 'Modeled federal income tax', value: formatCalculatorMoney(result.federalIncomeTax) },
+          { label: 'Modeled Social Security + Medicare', value: formatCalculatorMoney(result.socialSecurityTax + result.medicareTax + result.additionalMedicareTax) },
+          { label: 'Texas individual state income tax', value: '$0' },
+        ]}
+        summary={{
+          'Planning gross income': formatCalculatorMoney(gross),
+          'Target take-home': formatCalculatorMoney(targetAnnualTakeHome),
+          'Monthly household budget': formatCalculatorMoney(state.monthlyBudget),
+        }}
+        breakdown={breakdown}
+        sharedScenario={{ annualHouseholdIncome: gross }}
+        methodology={{
+          formula: 'TexasDefined uses binary search to find the lowest annual gross salary whose 2026 modeled take-home meets your entered annual household budget plus savings target. Each candidate salary is run through the same federal payroll engine as the statewide salary calculator.',
+          assumptions: [
+            'Federal tax uses 2026 marginal brackets and the applicable 2026 standard deduction before credits and special deductions.',
+            'Employee Social Security is modeled at 6.2% up to the 2026 wage base; Medicare is 1.45%, with Additional Medicare withholding modeled above $200,000.',
+            'Retirement deferrals reduce modeled federal taxable income but remain subject to FICA; entered pre-tax benefits are modeled as cafeteria-plan deductions.',
+            'Texas individual state income tax is $0.',
+          ],
+          sources: [
+            'IRS 2026 inflation adjustments and Revenue Procedure 2025-32 for federal brackets and standard deductions.',
+            'IRS Publication 15 (2026) for Social Security, Medicare and Additional Medicare withholding rules.',
+          ],
+        }}
+      >
+        <CurrencyInput label="Monthly household budget" value={state.monthlyBudget} onChange={(value) => setNumber('monthlyBudget', value)} step={50} />
+        <CurrencyInput label="Monthly savings / reserve" value={state.monthlySavings} onChange={(value) => setNumber('monthlySavings', value)} step={50} />
+        <FinancialSelect label="Filing status" value={state.filingStatus} onChange={(value) => setState((current) => ({ ...current, filingStatus: value }))} options={[
+          { value: 'single', label: 'Single' },
+          { value: 'married_jointly', label: 'Married filing jointly' },
+          { value: 'head_of_household', label: 'Head of household' },
+          { value: 'married_separately', label: 'Married filing separately' },
+        ]} />
+        <PercentageInput label="Pre-tax retirement contribution" value={state.retirementPercent} onChange={(value) => setNumber('retirementPercent', value)} step={0.1} max={100} />
+        <CurrencyInput label="Annual pre-tax benefits" value={state.annualPretaxBenefits} onChange={(value) => setNumber('annualPretaxBenefits', value)} step={100} />
+        <CurrencyInput label="Annual after-tax deductions" value={state.annualAfterTaxDeductions} onChange={(value) => setNumber('annualAfterTaxDeductions', value)} step={100} />
+      </FinancialCalculatorScaffold>
     </section>
 
     <section className="mt-12 border-t border-border pt-10"><p className="eyebrow text-primary">Make the salary target local</p><h2 className="mt-3 font-display text-3xl">Build the {profile.name} budget before trusting the income target</h2><p className="mt-5 max-w-3xl text-base leading-7 text-muted-foreground">{profile.localContext}</p><div className="mt-6 grid gap-4 md:grid-cols-3">{profile.planningPoints.map((point, index) => <div key={point} className="border border-border p-5"><span className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">Verify {index + 1}</span><p className="mt-3 text-sm leading-6 text-muted-foreground">{point}</p></div>)}</div></section>
