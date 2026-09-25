@@ -1,3 +1,5 @@
+import { calculateMonthlyPrincipalInterest } from './financial/mortgage.ts';
+
 export interface RentVsBuyInputs {
   monthlyRent: number;
   annualRentGrowthRate: number;
@@ -45,12 +47,7 @@ export function estimateRentVsBuy(input: RentVsBuyInputs): RentVsBuyEstimate {
   const loanTermMonths = Math.max(1, Math.round(nonNegative(input.loanTermYears) * 12));
   const comparisonMonths = Math.max(1, Math.round(nonNegative(input.comparisonYears) * 12));
   const mortgageMonthlyRate = nonNegative(input.mortgageRate) / 1200;
-  const monthlyPrincipalInterest = loanAmount === 0
-    ? 0
-    : mortgageMonthlyRate > 0
-      ? loanAmount * mortgageMonthlyRate * Math.pow(1 + mortgageMonthlyRate, loanTermMonths)
-        / (Math.pow(1 + mortgageMonthlyRate, loanTermMonths) - 1)
-      : loanAmount / loanTermMonths;
+  const monthlyPrincipalInterest = calculateMonthlyPrincipalInterest(loanAmount, input.mortgageRate, input.loanTermYears);
 
   const rentGrowth = monthlyGrowthRate(input.annualRentGrowthRate);
   const appreciation = monthlyGrowthRate(input.annualAppreciationRate);

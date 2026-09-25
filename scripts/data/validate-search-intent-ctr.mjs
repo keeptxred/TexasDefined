@@ -66,7 +66,7 @@ if (!insuranceCalculator) failures.push('HomeInsuranceCalculator implementation 
 for (const prohibited of ['label="Name"', 'label="Email"', 'label="Phone"', 'label="Street address"', 'label="Date of birth"']) {
   if (insuranceCalculator.includes(prohibited)) failures.push(`Home insurance no-personal-information promise is no longer true: found ${prohibited}.`);
 }
-for (const required of ['Replacement cost', 'Estimated base rate', 'Wind/flood additions', 'Deductible/discount credit']) {
+for (const required of ['Replacement cost', 'Adjustment to statewide baseline', 'Separate wind/flood additions', 'Deductible/discount credit']) {
   if (!insuranceCalculator.includes(required)) failures.push(`Home insurance planning input missing: ${required}`);
 }
 

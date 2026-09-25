@@ -1,0 +1,138 @@
+import { clamp, nonNegative } from './validation.ts';
+
+export function calculateUtilities(input: { electricity: number; waterSewer: number; naturalGas: number; internet: number; trash: number; other?: number }) {
+  const breakdown = {
+    electricity: nonNegative(input.electricity),
+    waterSewer: nonNegative(input.waterSewer),
+    naturalGas: nonNegative(input.naturalGas),
+    internet: nonNegative(input.internet),
+    trash: nonNegative(input.trash),
+    other: nonNegative(input.other ?? 0),
+  };
+  const monthly = Object.values(breakdown).reduce((sum, value) => sum + value, 0);
+  return { breakdown, monthly, annual: monthly * 12 };
+}
+
+export function calculateHomeInsurance(input: { replacementCost: number; adjustmentPercent?: number; windFloodAdditions: number; deductibleDiscountCredit: number; baselineAnnualPremium?: number; baselineCoverage?: number }) {
+  const baselineAnnualPremium = nonNegative(input.baselineAnnualPremium ?? 3489);
+  const baselineCoverage = Math.max(1, nonNegative(input.baselineCoverage ?? 432800));
+  const normalizedBaseline = nonNegative(input.replacementCost) / baselineCoverage * baselineAnnualPremium;
+  const basePremium = normalizedBaseline * (1 + clamp(input.adjustmentPercent ?? 0, -100, 500) / 100);
+  const annual = Math.max(0, basePremium + nonNegative(input.windFloodAdditions) - nonNegative(input.deductibleDiscountCredit));
+  return { sourceYear: 2025, baselineAnnualPremium, baselineCoverage, normalizedBaseline, basePremium, annual, monthly: annual / 12 };
+}
+
+export function calculateCostOfLiving(input: { currentMonthlySpending: number; currentAreaIndex: number; targetAreaIndex: number }) {
+  const currentIndex = Math.max(0.01, nonNegative(input.currentAreaIndex));
+  const equivalentMonthly = nonNegative(input.currentMonthlySpending) * nonNegative(input.targetAreaIndex) / currentIndex;
+  return { equivalentMonthly, monthlyDifference: equivalentMonthly - nonNegative(input.currentMonthlySpending), annualDifference: (equivalentMonthly - nonNegative(input.currentMonthlySpending)) * 12 };
+}
+
+export function calculateSalaryPlanning(input: { annualGrossSalary: number; estimatedFederalPercent: number; benefitsRetirementPercent: number; otherDeductionsPercent: number; payrollTaxPercent?: number }) {
+  const salary = nonNegative(input.annualGrossSalary);
+  const payrollTaxPercent = clamp(input.payrollTaxPercent ?? 7.65, 0, 100);
+  const totalRate = clamp(input.estimatedFederalPercent, 0, 100) + payrollTaxPercent + clamp(input.benefitsRetirementPercent, 0, 100) + clamp(input.otherDeductionsPercent, 0, 100);
+  const deductions = Math.min(salary, salary * totalRate / 100);
+  const annualTakeHome = Math.max(0, salary - deductions);
+  return { deductions, annualTakeHome, monthlyTakeHome: annualTakeHome / 12, payrollTaxPercent, totalDeductionPercent: salary ? deductions / salary * 100 : 0 };
+}
+
+export function calculateMovingBudget(input: { distanceMiles: number; bedrooms: number; writtenEstimate: number; packing: number; travelLodging: number; storage: number; depositsSetup: number; contingencyPercent: number }) {
+  const baselineTransport = 900 + nonNegative(input.distanceMiles) * 2.25 + nonNegative(input.bedrooms) * 650;
+  const transportation = input.writtenEstimate > 0 ? nonNegative(input.writtenEstimate) : baselineTransport;
+  const subtotal = transportation + nonNegative(input.packing) + nonNegative(input.travelLodging) + nonNegative(input.storage) + nonNegative(input.depositsSetup);
+  const contingency = subtotal * clamp(input.contingencyPercent, 0, 100) / 100;
+  return { baselineTransport, transportation, subtotal, contingency, total: subtotal + contingency, usesWrittenEstimate: input.writtenEstimate > 0 };
+}
+
+
+export function calculateBudget(input: { income: number; housing: number; transportation: number; food: number; utilities: number; debt: number; savings: number; other?: number }) {
+  const plannedSpending = nonNegative(input.housing) + nonNegative(input.transportation) + nonNegative(input.food) + nonNegative(input.utilities) + nonNegative(input.debt) + nonNegative(input.savings) + nonNegative(input.other ?? 0);
+  const income = nonNegative(input.income);
+  return { plannedSpending, remaining: income - plannedSpending, savingsPercent: income > 0 ? nonNegative(input.savings) / income * 100 : 0 };
+}
+
+export function calculateSalaryComparison(input: { salary: number; currentIndex: number; targetIndex: number }) {
+  const currentIndex = Math.max(0.01, nonNegative(input.currentIndex));
+  const targetIndex = Math.max(0.01, nonNegative(input.targetIndex));
+  const salary = nonNegative(input.salary);
+  const equivalentSalary = salary * targetIndex / currentIndex;
+  return { equivalentSalary, difference: equivalentSalary - salary, purchasingPowerChangePercent: currentIndex / targetIndex * 100 - 100 };
+}
+
+
+export type FilingStatus2026 = 'single' | 'marriedJoint' | 'headOfHousehold' | 'marriedSeparate';
+
+const FEDERAL_2026 = {
+  single: { deduction: 16100, additionalMedicareThreshold: 200000, brackets: [[12400, .10], [50400, .12], [105700, .22], [201775, .24], [256225, .32], [640600, .35], [Infinity, .37]] },
+  marriedJoint: { deduction: 32200, additionalMedicareThreshold: 250000, brackets: [[24800, .10], [100800, .12], [211400, .22], [403550, .24], [512450, .32], [768700, .35], [Infinity, .37]] },
+  headOfHousehold: { deduction: 24150, additionalMedicareThreshold: 200000, brackets: [[17700, .10], [67450, .12], [105700, .22], [201750, .24], [256200, .32], [640600, .35], [Infinity, .37]] },
+  marriedSeparate: { deduction: 16100, additionalMedicareThreshold: 125000, brackets: [[12400, .10], [50400, .12], [105700, .22], [201775, .24], [256225, .32], [384350, .35], [Infinity, .37]] },
+} as const;
+
+function progressiveTax(taxableIncome: number, brackets: readonly (readonly [number, number])[]) {
+  let remaining = Math.max(0, taxableIncome);
+  let lower = 0;
+  let tax = 0;
+  for (const [upper, rate] of brackets) {
+    const amount = Math.min(remaining, upper - lower);
+    if (amount > 0) tax += amount * rate;
+    remaining -= amount;
+    if (remaining <= 0) break;
+    lower = upper;
+  }
+  return tax;
+}
+
+export function calculateFederalPaycheck2026(input: { annualGrossSalary: number; filingStatus: FilingStatus2026; preTaxRetirementBenefitsPercent: number; otherAnnualDeductions?: number }) {
+  const gross = nonNegative(input.annualGrossSalary);
+  const status = FEDERAL_2026[input.filingStatus] ?? FEDERAL_2026.single;
+  const preTax = gross * clamp(input.preTaxRetirementBenefitsPercent, 0, 100) / 100;
+  const taxableIncome = Math.max(0, gross - preTax - status.deduction);
+  const federalIncomeTax = progressiveTax(taxableIncome, status.brackets);
+  const socialSecurity = Math.min(gross, 184500) * .062;
+  const medicare = gross * .0145;
+  const additionalMedicare = Math.max(0, gross - status.additionalMedicareThreshold) * .009;
+  const other = nonNegative(input.otherAnnualDeductions ?? 0);
+  const totalDeductions = Math.min(gross, preTax + federalIncomeTax + socialSecurity + medicare + additionalMedicare + other);
+  const annualTakeHome = Math.max(0, gross - totalDeductions);
+  return {
+    taxYear: 2026,
+    standardDeduction: status.deduction,
+    taxableIncome,
+    preTaxRetirementBenefits: preTax,
+    federalIncomeTax,
+    socialSecurity,
+    medicare,
+    additionalMedicare,
+    otherDeductions: other,
+    totalDeductions,
+    annualTakeHome,
+    monthlyTakeHome: annualTakeHome / 12,
+    semimonthlyTakeHome: annualTakeHome / 24,
+    biweeklyTakeHome: annualTakeHome / 26,
+  };
+}
+
+
+export function calculateGrossSalaryNeeded2026(input: { annualTakeHomeTarget: number; filingStatus: FilingStatus2026; preTaxRetirementBenefitsPercent: number; otherAnnualDeductions?: number }) {
+  const target = nonNegative(input.annualTakeHomeTarget);
+  if (target === 0) return { grossSalary: 0, ...calculateFederalPaycheck2026({ annualGrossSalary: 0, filingStatus: input.filingStatus, preTaxRetirementBenefitsPercent: input.preTaxRetirementBenefitsPercent, otherAnnualDeductions: input.otherAnnualDeductions }) };
+  let low = 0;
+  let high = Math.max(10000, target * 1.5);
+  while (calculateFederalPaycheck2026({ annualGrossSalary: high, filingStatus: input.filingStatus, preTaxRetirementBenefitsPercent: input.preTaxRetirementBenefitsPercent, otherAnnualDeductions: input.otherAnnualDeductions }).annualTakeHome < target && high < 10000000) high *= 2;
+  for (let i = 0; i < 80; i += 1) {
+    const mid = (low + high) / 2;
+    const takeHome = calculateFederalPaycheck2026({ annualGrossSalary: mid, filingStatus: input.filingStatus, preTaxRetirementBenefitsPercent: input.preTaxRetirementBenefitsPercent, otherAnnualDeductions: input.otherAnnualDeductions }).annualTakeHome;
+    if (takeHome < target) low = mid; else high = mid;
+  }
+  const grossSalary = high;
+  return { grossSalary, ...calculateFederalPaycheck2026({ annualGrossSalary: grossSalary, filingStatus: input.filingStatus, preTaxRetirementBenefitsPercent: input.preTaxRetirementBenefitsPercent, otherAnnualDeductions: input.otherAnnualDeductions }) };
+}
+
+
+export function calculateCategoryBudgetComparison(current: Record<string, number>, target: Record<string, number>) {
+  const currentMonthly = Object.values(current).reduce((sum, value) => sum + nonNegative(value), 0);
+  const targetMonthly = Object.values(target).reduce((sum, value) => sum + nonNegative(value), 0);
+  return { currentMonthly, targetMonthly, monthlyDifference: targetMonthly - currentMonthly, annualDifference: (targetMonthly - currentMonthly) * 12 };
+}
