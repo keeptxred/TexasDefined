@@ -6,6 +6,7 @@ export const CITY_AUTHORITY_INDEX = [
   { name: 'San Antonio', slug: 'san-antonio' },
   { name: 'El Paso', slug: 'el-paso' },
   { name: 'Arlington', slug: 'arlington' },
+  { name: 'Hurst', slug: 'hurst' },
   { name: 'Corpus Christi', slug: 'corpus-christi' },
   { name: 'Plano', slug: 'plano' },
   { name: 'Lubbock', slug: 'lubbock' },
