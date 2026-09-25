@@ -11,6 +11,8 @@ const toolkit='src/routes/moving-to-texas.tools.tsx';
 const duplicateToolkit='src/routes/moving-to-texas_.tools.tsx';
 const parentRoute='src/routes/moving-to-texas.lazy.tsx';
 const commandCenter='src/components/relocation/RelocationCommandCenter.tsx';
+const cityDepth='src/components/content/EntityDepthSections.tsx';
+const relocationData='src/data/relocation-authority.ts';
 if(fs.existsSync(duplicateToolkit))errors.push(`${duplicateToolkit} must not exist because it creates a duplicate indexable /moving-to-texas/tools canonical.`);
 if(fs.existsSync(toolkit)){
   const route=fs.readFileSync(toolkit,'utf8');
@@ -41,8 +43,40 @@ if(!fs.existsSync(commandCenter)){
     'https://gov.texas.gov/business',
     'https://www.twc.texas.gov/services/find-lmi',
     'https://www.irs.gov/publications/p15b',
+    'URLSearchParams(window.location.search)',
+    '.get("saveCity")',
+    'destination: next.destination || place.name',
   ]){
     if(!center.includes(token))errors.push(`Relocation command center missing protected marker: ${token}`);
+  }
+}
+
+if(!fs.existsSync(cityDepth)){
+  errors.push(`Missing ${cityDepth}`);
+}else{
+  const city=fs.readFileSync(cityDepth,'utf8');
+  for(const token of [
+    "entity.kind === 'city' && cityProfile",
+    'Relocation snapshot',
+    'Add {entity.name} to My Texas Move →',
+    '/moving-to-texas?saveCity=',
+    '/compare-texas-cities',
+    '/find-my-school-district',
+    '/find-my-utilities',
+    '/find-my-property-tax',
+    '/texas-home-insurance-calculator',
+    '/moving-to-texas#address-research-desk',
+  ]){
+    if(!city.includes(token))errors.push(`Verified city relocation surface missing protected marker: ${token}`);
+  }
+}
+
+if(!fs.existsSync(relocationData)){
+  errors.push(`Missing ${relocationData}`);
+}else{
+  const data=fs.readFileSync(relocationData,'utf8');
+  for(const city of ['Houston','Dallas','Fort Worth','Austin','San Antonio','El Paso','Arlington','Hurst','Corpus Christi','Plano','Lubbock']){
+    if(!data.includes(`name: "${city}"`))errors.push(`Verified city authority page missing from relocation registry: ${city}`);
   }
 }
 
@@ -50,4 +84,4 @@ const finder=fs.readFileSync('src/components/relocation/RelocationServiceFinder.
 for(const token of ['tea.texas.gov','puc.texas.gov','sos.texas.gov','comptroller.texas.gov','211texas.org'])if(!finder.includes(token))errors.push(`Relocation finder missing official source: ${token}`);
 
 if(errors.length){console.error(errors.join('\n'));process.exit(1)}
-console.log(`Relocation tool contract passed: ${routes.length} routes, one canonical toolkit route with parent Outlet ownership, persistent move workspace, corporate-relocation path, plus existing county, DMV and school tools.`);
+console.log(`Relocation tool contract passed: ${routes.length} routes, one canonical toolkit route with parent Outlet ownership, persistent move workspace, corporate-relocation path, verified city-to-workspace continuity, plus existing county, DMV and school tools.`);

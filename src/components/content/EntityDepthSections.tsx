@@ -9,6 +9,17 @@ const outdoorKinds = new Set(['state-park', 'national-park', 'natural-area', 'at
 const historyKinds = new Set(['historic-site', 'mission', 'battlefield', 'museum']);
 const sportsKinds = new Set(['sports-venue', 'stadium', 'arena', 'ballpark', 'racetrack']);
 const fishingKinds = new Set(['fishing-species', 'fish-species', 'fishing-lake', 'fishing']);
+const CITY_RELOCATION_LINKS = [
+  { href: '/compare-texas-cities', label: 'Compare Texas cities', copy: 'Put this city beside other Texas places using the same relocation research framework instead of comparing reputation alone.' },
+  { href: '/texas-cost-of-living-calculator', label: 'Cost-of-living planner', copy: 'Replace broad averages with your household spending, housing assumptions, transportation and recurring local costs.' },
+  { href: '/texas-salary-comparison-by-city', label: 'Salary planning', copy: 'Work backward from the household budget and compare income needs across the Texas places still on your shortlist.' },
+  { href: '/find-my-school-district', label: 'School-district lookup', copy: 'Verify the district and campus from an exact address; a city or mailing label does not establish school assignment.' },
+  { href: '/find-my-utilities', label: 'Utility lookup', copy: 'Verify electric, water and sewer service for the address instead of assuming every property in the city uses the same provider.' },
+  { href: '/find-my-property-tax', label: 'Property-tax research', copy: 'Identify the appraisal district, tax office and local taxing-unit stack for the property you are considering.' },
+  { href: '/texas-home-insurance-calculator', label: 'Home-insurance planning', copy: 'Estimate the insurance side of the housing budget, then replace planning assumptions with property-specific quotes.' },
+  { href: '/moving-to-texas#address-research-desk', label: 'Exact-address research', copy: 'Resolve geography first, then verify schools, utilities, tax responsibility, flood context and other address-dependent questions.' },
+] as const;
+
 const CITY_RESOURCE_LINKS = [
   { href: '/moving-to-texas', label: 'Moving to Texas', copy: 'Relocation context, statewide systems and the decisions that apply before you narrow down to one city.' },
   { href: '/texas-industries', label: 'Texas industries', copy: 'Move from the city to the statewide industry system, then follow individual sectors, regional hubs and official source notes.' },
@@ -33,6 +44,9 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
   const relatedItems = related.slice(0, 6);
   const cityProfile = entity.kind === 'city' ? getCityAuthorityProfile(entity.slug) : undefined;
   const cityIndustryPaths = entity.kind === 'city' ? getCityIndustryPaths(entity.slug) : [];
+  const cityRelocationHref = entity.kind === 'city' && cityProfile
+    ? `/moving-to-texas?saveCity=${encodeURIComponent(entity.name)}#my-texas-move`
+    : null;
 
   return <>
     <section className="border-b border-border py-12" aria-labelledby="entity-context-heading">
@@ -111,6 +125,26 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
         </div>
       </div>
     </section>
+
+    {cityRelocationHref ? <section className="border-b border-border py-12" aria-labelledby="city-relocation-heading">
+      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Relocation snapshot</p>
+          <h2 id="city-relocation-heading" className="mt-2 font-display text-4xl">Plan a move to {entity.name}</h2>
+        </div>
+        <div>
+          <p className="max-w-3xl text-base leading-7 text-muted-foreground">
+            Start with {entity.name} as a candidate, then move from city-level context to the exact address before making a housing decision.
+            {countyName ? ` Verify ${countyName} and every property-specific jurisdiction for the address.` : ''}
+            {regionName ? ` Use the wider ${regionName} Texas context when comparing work corridors, airports and nearby communities.` : ''}
+          </p>
+          <a href={cityRelocationHref} className="mt-5 inline-block text-sm font-semibold text-primary underline underline-offset-4">Add {entity.name} to My Texas Move →</a>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {CITY_RELOCATION_LINKS.map((resource) => <a key={resource.href} href={resource.href} className="border border-border p-5 hover:border-primary/60"><strong className="font-display text-xl leading-tight">{resource.label}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{resource.copy}</span><span className="mt-3 block text-sm font-semibold text-primary">Open tool →</span></a>)}
+          </div>
+        </div>
+      </div>
+    </section> : null}
 
     {entity.kind === 'city' ? <section className="border-b border-border py-12" aria-labelledby="city-resource-heading">
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">

@@ -31,6 +31,16 @@ Use the relocation system in this order:
 
 Do not infer a school district, utility territory, appraisal district, voter jurisdiction, flood status or other address-dependent fact solely from a mailing city or ZIP code.
 
+## City-to-workspace continuity
+
+Verified city authority pages are part of the relocation product rather than separate informational endpoints.
+
+- Each verified city page exposes a **Relocation snapshot** with consistent handoffs to city comparison, cost of living, salary planning, school district, utility, property-tax, home-insurance and exact-address research.
+- **Add [city] to My Texas Move** links to the canonical `/moving-to-texas` hub with a `saveCity` query parameter. The command center resolves that value only against the governed `RELOCATION_PLACES` registry, adds the recognized city to the browser-local shortlist and preserves an already-entered destination.
+- Verified city authority entries must also exist in the relocation place registry so a city page can never advertise a broken workspace handoff.
+- The city remains only a planning layer. School assignment, utility territory, appraisal/tax responsibility, flood context and other address-dependent facts still require exact-address and official-source verification.
+- This continuity must not create a second relocation canonical or a thin `/moving-to-{city}` route when an existing city or metro authority page already owns the intent.
+
 ## Corporate relocation
 
 Corporate relocation is part of the same household/location system, not a disconnected B2B content silo.
