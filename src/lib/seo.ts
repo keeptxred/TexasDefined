@@ -566,8 +566,8 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "Find Texas caverns and caves open to the public, compare tour experiences and plan a first visit with location, access and official-site guidance.",
   },
   "/explore/painted-churches-plan": {
-    title: "Painted Churches of Texas Map: Schulenburg Route & Trip Planner",
-    description: "Plan a Schulenburg-area Painted Churches road trip with a mapped route, church stops, weekend-hour guidance and practical trip-planning links.",
+    title: "Painted Churches of Texas Tour: Schulenburg Route & Trip Planner",
+    description: "Plan a one-day Painted Churches of Texas self-guided route from Schulenburg through Dubina, Ammannsville, High Hill and Praha, with visitor guidance and map links.",
   },
   "/texas-disabled-veteran-property-tax-calculator": {
     title: "Texas Disabled Veteran Property Tax Calculator & Exemption Guide",
