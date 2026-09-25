@@ -49,7 +49,6 @@ export const Route = createFileRoute("/sitemap.xml")({
           isLegacyCountySeriesArticle,
           isEvergreenEventCollectionPath,
           loadEvergreenEventSitemapEntriesServer,
-          hasCurrentOrFutureConfirmedEventOccurrence,
           loadTemporalEventSitemapEntriesServer,
           isArticleDiscoveryReady,
           isArticleIndexReady,
@@ -170,8 +169,10 @@ export const Route = createFileRoute("/sitemap.xml")({
         const { COUNTY_PROPERTY_RECORDS } = await import("@/data/property/county-property-data");
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
         const entityPages = graph.filter(isIndexableEntityPage).filter(isTexasDefinedOwnedEntity);
+        // Major-event authority routes are permanent guides, even between annual editions.
+        // Date freshness controls scheduled Event schema and live calendar surfaces, not
+        // sitemap discovery. The existing image-compliance gate still protects indexability.
         const majorEventSitemapEntries = majorEventIndexRecords
-          .filter((event) => hasCurrentOrFutureConfirmedEventOccurrence(event))
           .filter((event) => hasCompliantMajorEventImageServer(event.slug))
           .map((event) => ({ path: `/event/${event.slug}`, lastmod: toDate(event.sourceCheckedAt) }));
         const supplementalMajorEventSitemapEntries = loadSupplementalMajorEventSitemapEntriesServer().filter((entry) => {
