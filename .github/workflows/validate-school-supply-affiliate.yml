@@ -1,18 +1,26 @@
-name: Validate school supply affiliate
+name: Validate affiliate governance
 
 on:
   pull_request:
     paths:
       - 'src/lib/affiliate-click.ts'
       - 'src/components/monetization/SchoolSupplyPartners.tsx'
+      - 'src/data/cj-governed-links.server.ts'
+      - 'docs/affiliate-portfolio-economics.md'
+      - 'docs/travel-affiliate-economics.md'
       - 'scripts/data/validate-school-supply-affiliate.mjs'
+      - 'scripts/data/validate-cj-governed-links.mjs'
       - '.github/workflows/validate-school-supply-affiliate.yml'
   push:
     branches: [main]
     paths:
       - 'src/lib/affiliate-click.ts'
       - 'src/components/monetization/SchoolSupplyPartners.tsx'
+      - 'src/data/cj-governed-links.server.ts'
+      - 'docs/affiliate-portfolio-economics.md'
+      - 'docs/travel-affiliate-economics.md'
       - 'scripts/data/validate-school-supply-affiliate.mjs'
+      - 'scripts/data/validate-cj-governed-links.mjs'
       - '.github/workflows/validate-school-supply-affiliate.yml'
 
 permissions:
@@ -29,3 +37,5 @@ jobs:
           node-version: 22
       - name: Validate school-supply affiliate attribution
         run: node scripts/data/validate-school-supply-affiliate.mjs
+      - name: Validate governed CJ catalogs and current terms
+        run: node scripts/data/validate-cj-governed-links.mjs
