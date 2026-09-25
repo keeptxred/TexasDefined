@@ -69,8 +69,8 @@ function GamingHubPage() {
             </article>
             <article className="bg-background p-6">
               <p className="font-display text-4xl">{COLLEGE_ESPORTS.length}</p>
-              <h3 className="mt-2 font-display text-2xl">Initial verified college programs</h3>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">Varsity teams, clubs and student organizations are labeled according to each institution's own terminology.</p>
+              <h3 className="mt-2 font-display text-2xl">Verified college programs</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">Varsity teams, varsity-level programs, clubs and student organizations are labeled according to each institution's own terminology.</p>
               <a href="/gaming/college-esports" className="mt-5 inline-block text-sm font-semibold text-primary">Compare programs →</a>
             </article>
           </div>
