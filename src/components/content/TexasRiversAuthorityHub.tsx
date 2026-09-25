@@ -85,7 +85,8 @@ function RiverProfilesList({ compact = false }: { compact?: boolean }) {
 export function TexasRiversAuthorityHub() {
   return (
     <section className="relative mb-10 border-y border-border py-8 sm:py-10" aria-labelledby="texas-rivers-authority-heading">
-      <aside className="hidden 2xl:block" style={{ left: "calc(100% + 2rem)", position: "absolute", top: "0", width: "18rem" }} aria-labelledby="river-profile-rail-heading">
+      <style>{`.river-profile-rail{display:none}@media (min-width:1536px){.river-profile-rail{display:block}}`}</style>
+      <aside className="river-profile-rail" style={{ left: "calc(100% + 2rem)", position: "absolute", top: "0", width: "18rem" }} aria-labelledby="river-profile-rail-heading">
         <div className="sticky top-8 rounded-sm border border-border bg-background p-5">
           <p className="eyebrow text-primary">Explore individual rivers</p>
           <h2 id="river-profile-rail-heading" className="mt-2 font-display text-xl">Dedicated river profiles</h2>
