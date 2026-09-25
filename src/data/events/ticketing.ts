@@ -2,9 +2,9 @@ import type {
   TexasEventTicketLink,
   TexasEventTicketProvider,
   TexasEventTicketingMetadata,
-  type TexasAffiliateNetwork,
-  type TexasEventCommissionStatus,
-  type TexasEventPromotion,
+  TexasAffiliateNetwork,
+  TexasEventCommissionStatus,
+  TexasEventPromotion,
 } from "./texas-event-record";
 
 const NON_ACTIONABLE_SALE_STATUSES = new Set<TexasEventTicketLink["saleStatus"]>([
