@@ -69,6 +69,8 @@ const prebuildChecks = [
   ['ANALYTICS/GOVERNANCE', 'Validate private partner referral reporting', 'node', ['scripts/data/validate-partner-referral-reporting.mjs']],
   ['ANALYTICS/GOVERNANCE', 'Validate unusual business experiment attribution', 'node', ['scripts/data/validate-unusual-business-analytics.mjs']],
   ['CODE/REGRESSION', 'Validate date formatting SSR regression', 'node', ['--experimental-strip-types', '--test', 'src/domain/utils/format.test.ts']],
+  ['CALCULATOR/MATH', 'Validate financial calculator engines', 'node', ['--experimental-strip-types', '--test', 'src/lib/financial/financial-engines.test.ts']],
+  ['CALCULATOR/QUALITY', 'Validate calculator platform quality', 'node', ['scripts/data/validate-calculator-quality.mjs']],
   ['DATA/GEOGRAPHY', 'Validate canonical Texas geography taxonomy', 'node', ['--experimental-strip-types', '--test', 'src/data/__tests__/canonical-geography.test.ts']],
   ['DATA/GEOGRAPHY', 'Validate populated Texas geography knowledge graph', 'node', ['--experimental-strip-types', '--test', 'src/data/__tests__/geography-knowledge-graph.test.ts']],
   ['IMAGE/NETWORK', 'Validate remote image upstream request policy', 'node', ['--experimental-strip-types', '--test', 'src/lib/remote-image-fetch-policy.test.ts']],
