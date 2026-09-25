@@ -42,14 +42,17 @@ jobs:
           first_line="$(printf '%s\n' "$ISSUE_BODY" | sed -n '1p')"
           run_line="$(printf '%s\n' "$ISSUE_BODY" | sed -n '2p')"
           site_line="$(printf '%s\n' "$ISSUE_BODY" | sed -n '3p')"
+          feed_line="$(printf '%s\n' "$ISSUE_BODY" | sed -n '4p')"
           line_count="$(printf '%s\n' "$ISSUE_BODY" | awk 'END {print NR}')"
 
-          [[ "$line_count" -eq 3 ]]
-          [[ "$first_line" == "flyover_publish_request_v1" ]]
+          [[ "$line_count" -eq 4 ]]
+          [[ "$first_line" == "flyover_publish_request_v2" ]]
           [[ "$run_line" =~ ^run_id=[A-Za-z0-9._:-]{8,160}$ ]]
           [[ "$site_line" == "site=texasdefined" ]]
+          [[ "$feed_line" =~ ^feed_id=[1-9][0-9]*$ ]]
 
           echo "RUN_ID=${run_line#run_id=}" >> "$GITHUB_ENV"
+          echo "FEED_ID=${feed_line#feed_id=}" >> "$GITHUB_ENV"
 
       - uses: actions/checkout@v4
 
@@ -64,7 +67,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          node scripts/news/texasdefined-auto-publisher.mjs --publish --limit=1 | tee /tmp/flyover-td-publish.jsonl
+          node scripts/news/texasdefined-auto-publisher.mjs --publish --limit=1 --feed-id="$FEED_ID" | tee /tmp/flyover-td-publish.jsonl
 
           node - <<'NODE'
           const fs = require('node:fs');
@@ -75,6 +78,10 @@ jobs:
           const queue = rows.find((row) => row.mode === 'publish');
           const published = rows.find((row) => row.published === true);
           if (!queue) throw new Error('Publisher did not emit a queue summary.');
+          const expectedFeedId = Number(process.env.FEED_ID);
+          if (!published || Number(published.feedId) !== expectedFeedId) {
+            throw new Error(`Exact Flyover feed ${expectedFeedId} was not the published item.`);
+          }
           const summary = {
             eligible: Number(queue.eligible || 0),
             feedIds: Array.isArray(queue.ids) ? queue.ids : [],
@@ -97,7 +104,7 @@ jobs:
           summary="$(cat /tmp/flyover-td-summary.json)"
           gh issue comment "$ISSUE_NUMBER" \
             --repo "$GITHUB_REPOSITORY" \
-            --body "Flyover bridge completed \`$RUN_ID\` through the protected TexasDefined publication environment. Publisher result: \`$summary\`. Actions run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            --body "Flyover bridge completed \`$RUN_ID\` for exact feed \`$FEED_ID\` through the protected TexasDefined publication environment. Publisher result: \`$summary\`. Actions run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
           gh issue close "$ISSUE_NUMBER" \
             --repo "$GITHUB_REPOSITORY" \
             --reason completed
