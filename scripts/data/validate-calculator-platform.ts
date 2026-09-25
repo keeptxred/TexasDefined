@@ -4,7 +4,7 @@ import { calculateAffordability } from '../../src/lib/financial/affordability.ts
 import { calculateClosingCosts } from '../../src/lib/financial/closing-costs.ts';
 import { calculateHomeownershipCost } from '../../src/lib/financial/homeownership.ts';
 import { calculateMortgage, calculateMonthlyPrincipalInterest, calculateRefinance } from '../../src/lib/financial/mortgage.ts';
-import { calculateFederalPaycheck2026, calculateUtilities } from '../../src/lib/financial/planning.ts';
+import { calculateFederalPaycheck2026, calculateHomeInsurance, calculateUtilities } from '../../src/lib/financial/planning.ts';
 import { estimateRentVsBuy } from '../../src/lib/rent-vs-buy.ts';
 
 const close = (actual: number, expected: number, tolerance = 0.01, label = 'value') => {
@@ -72,6 +72,10 @@ close(paycheck.federalIncomeTax, 9782, 0.001, '2026 federal income tax');
 close(paycheck.socialSecurity, 5580, 0.001, '2026 Social Security');
 close(paycheck.medicare, 1305, 0.001, '2026 Medicare');
 close(paycheck.annualTakeHome, 67933, 0.001, '2026 annual take-home');
+
+const insurance = calculateHomeInsurance({ replacementCost: 432800, windFloodAdditions: 0, deductibleDiscountCredit: 0 });
+assert.equal(insurance.sourceYear, 2025);
+close(insurance.normalizedBaseline, 3489, 0.001, 'TDI-normalized insurance baseline');
 
 const utilities = calculateUtilities({ electricity: 190, waterSewer: 85, naturalGas: 45, internet: 75, trash: 35 });
 assert.equal(utilities.monthly, 430);
