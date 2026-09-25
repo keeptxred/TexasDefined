@@ -43,7 +43,7 @@ function HomeInsuranceCalculatorPage() {
         <p className="eyebrow text-primary">No quote form required</p>
         <h2 id="insurance-private-estimate-heading" className="mt-3 font-display text-3xl">Homeowners insurance calculator without personal information</h2>
         <div className="mt-4 max-w-3xl space-y-3 text-base leading-7 text-muted-foreground">
-          <p>The calculator itself does not ask for your name, email address, phone number, street address, date of birth, or other contact details. You can model a home-insurance estimate using only replacement cost, an estimated insurance rate, optional wind or flood additions, and a deductible or discount credit.</p>
+          <p>The calculator itself does not ask for your name, email address, phone number, street address, date of birth, or other contact details. It starts from replacement cost and a source-labeled statewide normalization using the Texas Department of Insurance 2025 average premium and coverage figures, then lets you enter separate wind or flood additions and a deductible or discount credit.</p>
           <p>This is a self-service planning estimate rather than an insurer quote. Use it to test a household budget before deciding whether to request personalized pricing from an insurance company or agent.</p>
         </div>
       </section>
@@ -60,7 +60,7 @@ function HomeInsuranceCalculatorPage() {
         <h2 id="insurance-estimate-heading" className="mt-3 font-display text-3xl">Estimate the cost of homeowners insurance before requesting a quote</h2>
         <div className="mt-5 max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">
           <p>This calculator is meant to answer planning searches such as <strong className="text-foreground">homeowners insurance estimate</strong>, <strong className="text-foreground">home insurance calculator</strong>, <strong className="text-foreground">house insurance estimator</strong>, and <strong className="text-foreground">homeowners insurance cost calculator</strong> without asking for personal information.</p>
-          <p>Use the rebuilding or replacement-cost estimate for the home, then test different annual rate assumptions. If wind or flood coverage may be separate for the property, include those costs so the result better reflects the household budget you are evaluating.</p>
+          <p>Use the rebuilding or replacement-cost estimate for the home, then treat the TDI-normalized result as a planning baseline rather than a quote. If you have an insurer quote or know that wind or flood coverage is separate, replace or adjust the scenario so the household budget reflects the property you are actually evaluating.</p>
           <p>The result is a planning estimate only. Actual premiums depend on the insurer, property, coverage limits, deductibles, underwriting information, and location-specific risks.</p>
         </div>
       </section>

@@ -1,4 +1,4 @@
-import { appendFileSync } from 'node:fs';
+import { appendFileSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
@@ -42,6 +42,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['CALCULATOR/PLATFORM', 'Validate calculator math and shared architecture', 'node', ['--experimental-strip-types', 'scripts/data/validate-calculator-platform.ts']],
   ['EVENT/TICKETMASTER', 'Validate Ticketmaster ingestion and tracking', 'node', ['--test', 'scripts/events/ticketmaster-discovery.test.mjs']],
   ['EVENT/TICKETMASTER', 'Validate Ticketmaster calendar integration', 'node', ['scripts/data/validate-ticketmaster-integration.mjs']],
   ['EVENT/TICKETING', 'Validate shared ticket architecture', 'node', ['scripts/data/validate-event-ticketing-architecture.mjs']],
@@ -147,6 +148,14 @@ for (const result of results) {
   const icon = result.status === 'PASS' ? '✅ pass' : result.status === 'FAIL' ? '❌ FAIL' : '⏭️ skipped';
   appendSummary(`| ${icon} | ${result.classification} | ${result.label} | ${result.durationSeconds}s |\n`);
 }
+
+writeFileSync('premerge-validation-report.json', JSON.stringify({
+  generatedAt: new Date().toISOString(),
+  passed: failures.length === 0,
+  summary: { total: results.length, passed: results.filter((result) => result.status === 'PASS').length, failed: failures.length, skipped: results.filter((result) => result.status === 'SKIP').length },
+  failures,
+  results,
+}, null, 2));
 
 if (failures.length > 0) {
   appendSummary(`\n### Pre-merge failures (${failures.length})\n`);
