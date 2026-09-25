@@ -13,6 +13,7 @@ const engineFiles = [
   'src/lib/financial/homeownership.ts',
   'src/lib/financial/household.ts',
   'src/lib/financial/payroll.ts',
+  'src/lib/financial/planningScenario.ts',
   'src/lib/financial/financial-engines.test.ts',
 ];
 
@@ -26,6 +27,7 @@ for (const marker of [
   'Copy share link',
   'Save inputs',
   'Restore saved',
+  'Save to Texas plan',
   'Print results',
   'Add comparison',
   'Scenario comparison',
@@ -44,6 +46,8 @@ const migrated = [
   'src/components/calculators/MovingCostCalculator.tsx',
   'src/components/calculators/OfficialMortgageCalculator.tsx',
   'src/components/calculators/OfficialHomeownershipCostCalculator.tsx',
+  'src/components/calculators/LocalCostOfLivingPage.tsx',
+  'src/components/calculators/LocalSalaryNeededPage.tsx',
 ];
 
 for (const file of migrated) {
@@ -77,6 +81,22 @@ for (const marker of [
 
 const rentVsBuy = read('src/lib/rent-vs-buy.ts');
 if (!rentVsBuy.includes("monthlyMortgagePayment")) failures.push('Rent-vs-buy must use the canonical mortgage payment engine.');
+
+for (const file of [
+  'src/components/calculators/OfficialMortgageCalculator.tsx',
+  'src/components/calculators/OfficialHomeownershipCostCalculator.tsx',
+  'src/components/calculators/TexasPlanningCalculators.tsx',
+]) {
+  if (!read(file).includes('readTexasPlanningScenario')) failures.push(file + ' must participate in the shared Texas planning scenario.');
+}
+
+const localSalary = read('src/components/calculators/LocalSalaryNeededPage.tsx');
+for (const marker of ['grossSalaryForTakeHome2026', 'estimatePayroll2026', 'FinancialCalculatorScaffold']) {
+  if (!localSalary.includes(marker)) failures.push('Local salary-needed calculator missing shared payroll/platform marker: ' + marker);
+}
+
+const localCost = read('src/components/calculators/LocalCostOfLivingPage.tsx');
+if (!localCost.includes('FinancialCalculatorScaffold')) failures.push('Local cost-of-living calculator must use the universal calculator scaffold.');
 
 const officialMortgage = read('src/components/calculators/OfficialMortgageCalculator.tsx');
 for (const marker of ['mortgageSensitivity', 'Advanced assumptions', 'OfficialTaxRateAssist', 'annualPmi', 'monthlySpecialDistrict', 'monthlyUtilities', 'monthlyMaintenance']) {
