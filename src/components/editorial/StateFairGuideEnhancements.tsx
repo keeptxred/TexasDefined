@@ -72,11 +72,12 @@ const additionalPhotos: FairPhoto[] = [
 
 function PhotoCard({ photo, eager = false }: { photo: FairPhoto; eager?: boolean }) {
   return (
-    <figure className="overflow-hidden rounded-xl border border-border bg-background">
+    <figure className="overflow-hidden border border-border bg-background">
       <img
         src={commonsImage(photo.file)}
         alt={photo.alt}
-        className="aspect-[4/3] w-full object-cover"
+        className="w-full object-cover"
+        style={{ aspectRatio: "4 / 3" }}
         loading={eager ? "eager" : "lazy"}
         decoding="async"
       />
@@ -112,7 +113,7 @@ export function StateFairPlanningStrip() {
   return (
     <section className="border-b border-border py-10" data-state-fair-planning-strip>
       <Container>
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(18rem,0.6fr)]">
+        <div className="grid gap-8 lg:grid-cols-2">
           <div>
             <p className="eyebrow text-primary">Plan the visit</p>
             <h2 className="mt-2 font-display text-3xl md:text-4xl">Tickets, football and a place to stay</h2>
@@ -168,11 +169,11 @@ export function StateFairPlanningStrip() {
             </a>
           </div>
           <div
-            className="mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4"
+            className="mt-6 flex gap-4 overflow-x-auto pb-4"
             aria-label="State Fair of Texas featured photos"
           >
             {featuredPhotos.map((photo, index) => (
-              <div key={photo.file} className="min-w-[82%] snap-start sm:min-w-[58%] lg:min-w-[calc(25%-0.75rem)]">
+              <div key={photo.file} style={{ flex: "0 0 min(82vw, 18rem)" }}>
                 <PhotoCard photo={photo} eager={index === 0} />
               </div>
             ))}
@@ -200,7 +201,7 @@ export function StateFairHistoricalGallery() {
             historical images, Big Tex, award-winning food, new foods, livestock, Creative Arts and State Fair Cares.
           </p>
 
-          <details className="mt-6 rounded-xl border border-border bg-muted/20 p-5">
+          <details className="mt-6 border border-border bg-muted/30 p-5">
             <summary className="cursor-pointer font-semibold">View the full 31-photo historical State Fair gallery</summary>
             <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {additionalPhotos.map((photo) => <PhotoCard key={photo.file} photo={photo} />)}
