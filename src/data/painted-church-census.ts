@@ -40,11 +40,12 @@ export const paintedChurchCandidateCensus: PaintedChurchCensusEntry[] = [
     name: "Queen of the Holy Rosary Catholic Church",
     city: "Hostyn",
     status: "candidate",
-    reason: "Hostyn belongs in the historical research trail, but the church building described by older Painted Churches coverage was destroyed by an explosion and fire on June 9, 2022. The parish began rebuilding in late 2025 and poured the new foundation in January 2026. Texas Defined will not count a destroyed predecessor as a currently visitable Painted Church or assume the replacement's decorative program before the new building is completed and documented.",
+    reason: "Hostyn belongs in the historical research trail, but the church building described by older Painted Churches coverage was totally destroyed by an explosion and fire on June 9, 2022. The parish erected a rebuilding perimeter fence on October 9, 2025 and began pouring the replacement church's foundation on January 20, 2026. The parish is already documenting planned stained-glass artwork for the new sanctuary, but that does not establish a completed painted-interior program. Texas Defined will not count the destroyed predecessor as a currently visitable Painted Church or assume the replacement's decorative classification before the new building is completed and documented.",
     sourceUrls: [
       "https://paintedchurchesintexas.com/queen-of-the-holy-rosary-catholic-church-hostyn/",
       "https://hostynplumcatholic.org/queen-of-the-holy-rosary-hostyn",
       "https://hostynplumcatholic.org/rebuilding-church",
+      "https://hostynplumcatholic.org/stained-glass-for-the-church",
     ],
   },
   {
@@ -52,9 +53,10 @@ export const paintedChurchCandidateCensus: PaintedChurchCensusEntry[] = [
     name: "St. Joseph Catholic Church",
     city: "Rowena",
     status: "candidate",
-    reason: "PaintedChurchesInTexas.com identifies the 1924 Gothic Revival church as part of its catalog, but its current page primarily documents parish history and does not provide church-specific evidence for a qualifying painted wall, ceiling, mural, stencil or faux-finish program. Texas Defined is retaining Rowena as a research candidate until stronger decorative-interior evidence is located.",
+    reason: "PaintedChurchesInTexas.com identifies the 1924 Gothic Revival church as part of its catalog. A 2013 San Angelo Standard-Times report independently documents artist Crystal Goodman painting a fixed 15-by-20-foot Resurrection mural in the half-dome above St. Joseph's main altar, including an approximately eight-foot figure of the risen Christ. That establishes a qualifying fixed mural program, but it is a modern addition rather than evidence of a historic painted interior. Texas Defined is therefore retaining Rowena as a candidate while researching whether historic fixed decorative painting survives or whether Rowena should instead be documented separately as a modern painted-church tradition.",
     sourceUrls: [
       "https://paintedchurchesintexas.com/st-joseph-catholic-church-rowena/",
+      "https://archive.gosanangelo.com/lifestyle/rowena-church-coming-to-life-ep-438538467-355474231.html",
     ],
   },
   {
