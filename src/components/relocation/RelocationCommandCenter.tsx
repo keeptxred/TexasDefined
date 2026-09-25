@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Container } from "@/components/layout/Container";
 import { RELOCATION_PLACES, type RelocationPlace } from "@/data/relocation-authority";
 import { TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-states-index";
+import { RELOCATION_WORKSPACE_STORAGE_KEY, RELOCATION_WORKSPACE_UPDATE_EVENT } from "@/lib/relocation-workspace";
 
 type Profile = {
   origin: string;
@@ -25,7 +26,6 @@ type Profile = {
   notes: string;
 };
 
-const STORAGE_KEY = "texasdefined:my-texas-move:v1";
 const DEFAULT_PROFILE: Profile = {
   origin: "",
   destination: "",
@@ -132,7 +132,7 @@ export function RelocationCommandCenter() {
   useEffect(() => {
     let next: Profile = { ...DEFAULT_PROFILE, savedPlaces: [], savedAddresses: [] };
     try {
-      const saved = window.localStorage.getItem(STORAGE_KEY);
+      const saved = window.localStorage.getItem(RELOCATION_WORKSPACE_STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved) as Partial<Profile>;
         next = {
@@ -170,15 +170,6 @@ export function RelocationCommandCenter() {
         };
       }
 
-      const requestedAddress = params.get("saveAddress")?.trim().slice(0, 240);
-      if (requestedAddress) {
-        next = {
-          ...next,
-          savedAddresses: next.savedAddresses.includes(requestedAddress)
-            ? next.savedAddresses
-            : next.savedAddresses.concat(requestedAddress),
-        };
-      }
     } catch {
       // The planner still works when local storage or URL parsing is unavailable.
     }
@@ -189,11 +180,28 @@ export function RelocationCommandCenter() {
   useEffect(() => {
     if (!hydrated) return;
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
+      window.localStorage.setItem(RELOCATION_WORKSPACE_STORAGE_KEY, JSON.stringify(profile));
     } catch {
       // Persistence is optional.
     }
   }, [hydrated, profile]);
+
+  useEffect(() => {
+    const handleWorkspaceUpdate = (event: Event) => {
+      const detail = (event as CustomEvent<{ savedAddress?: string }>).detail;
+      const address = detail?.savedAddress?.trim();
+      if (!address) return;
+      setProfile((current) => ({
+        ...current,
+        savedAddresses: current.savedAddresses.includes(address)
+          ? current.savedAddresses
+          : current.savedAddresses.concat(address),
+      }));
+    };
+
+    window.addEventListener(RELOCATION_WORKSPACE_UPDATE_EVENT, handleWorkspaceUpdate);
+    return () => window.removeEventListener(RELOCATION_WORKSPACE_UPDATE_EVENT, handleWorkspaceUpdate);
+  }, []);
 
   const matches = useMemo(() => RELOCATION_PLACES
     .map((place) => ({ place, ...placeScore(place, profile) }))
@@ -219,7 +227,7 @@ export function RelocationCommandCenter() {
 
   const reset = () => {
     setProfile(DEFAULT_PROFILE);
-    try { window.localStorage.removeItem(STORAGE_KEY); } catch { /* optional */ }
+    try { window.localStorage.removeItem(RELOCATION_WORKSPACE_STORAGE_KEY); } catch { /* optional */ }
   };
 
   return <>
@@ -230,7 +238,10 @@ export function RelocationCommandCenter() {
             <p className="eyebrow text-primary">Plan My Texas Move</p>
             <h2 id="relocation-command-center" className="mt-3 font-display text-4xl leading-tight">One profile for the whole relocation</h2>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">Save the facts that shape the move once, then reuse them while comparing places, budgets, schools, addresses and arrival tasks. The profile stays in this browser unless you reset it.</p>
-            <a href="#my-texas-move" className="mt-5 inline-block text-sm font-semibold text-primary underline underline-offset-4">Open My Texas Move →</a>
+            <div className="mt-5 flex flex-wrap gap-4 text-sm font-semibold">
+              <a href="#my-texas-move" className="text-primary underline underline-offset-4">Open My Texas Move →</a>
+              <a href="#corporate-relocation" className="underline underline-offset-4">Corporate relocation →</a>
+            </div>
           </div>
           <div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
