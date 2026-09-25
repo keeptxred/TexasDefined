@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 
 import { Container } from "@/components/layout/Container";
 import { resolveRelocationAddress, type RelocationAddressResult } from "@/data/relocation-address";
+import { saveRelocationAddressToWorkspace } from "@/lib/relocation-workspace";
 import {
   RELOCATION_METROS,
   RELOCATION_PLACES,
@@ -26,6 +27,7 @@ export function RelocationAuthorityLab({ showPlaceExplorer = true }: { showPlace
   const [researchAddress, setResearchAddress] = useState("");
   const [addressResult, setAddressResult] = useState<RelocationAddressResult | null>(null);
   const [addressStatus, setAddressStatus] = useState<"idle" | "loading" | "not-found" | "error">("idle");
+  const [savedAddress, setSavedAddress] = useState("");
 
   const matches = useMemo<Match[]>(() => {
     return RELOCATION_PLACES.map((place) => {
@@ -49,6 +51,7 @@ export function RelocationAuthorityLab({ showPlaceExplorer = true }: { showPlace
     if (!address) return;
     setResearchAddress(address);
     setAddressResult(null);
+    setSavedAddress("");
     setAddressStatus("loading");
     try {
       const resolved = await resolveRelocationAddress(address);
@@ -135,7 +138,7 @@ export function RelocationAuthorityLab({ showPlaceExplorer = true }: { showPlace
                 <input id="relocation-address" value={addressDraft} onChange={(event) => setAddressDraft(event.target.value)} placeholder="Street address, city, Texas ZIP" className="min-h-11 flex-1 border border-border bg-background px-4 text-sm outline-none focus:border-primary" />
                 <button type="submit" disabled={addressStatus === "loading"} className="min-h-11 bg-primary px-5 text-sm font-semibold text-primary-foreground disabled:opacity-60">{addressStatus === "loading" ? "Resolving address…" : "Build research packet"}</button>
               </form>
-              <p className="mt-2 text-xs leading-5 text-muted-foreground">The submitted address is used for the Census lookup and is not saved by this tool.</p>
+              <p className="mt-2 text-xs leading-5 text-muted-foreground">The submitted address is used for the Census lookup and is not saved unless you explicitly add a matched address to My Texas Move.</p>
               {researchAddress && <div className="mt-4 border-l-2 border-primary pl-4 text-sm leading-7" aria-live="polite">
                 {addressResult ? <>
                   <p><span className="font-semibold">Matched address:</span> {addressResult.matchedAddress}</p>
@@ -143,6 +146,17 @@ export function RelocationAuthorityLab({ showPlaceExplorer = true }: { showPlace
                   <p><span className="font-semibold">Census place:</span> {addressResult.place ?? "Not found for this address"}</p>
                   <p><span className="font-semibold">Unified school district:</span> {addressResult.schoolDistrict ?? "Not returned — verify with TEA"}</p>
                   <p><span className="font-semibold">Coordinates:</span> {addressResult.latitude.toFixed(5)}, {addressResult.longitude.toFixed(5)}</p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (!saveRelocationAddressToWorkspace(addressResult.matchedAddress)) return;
+                      setSavedAddress(addressResult.matchedAddress);
+                      document.getElementById("my-texas-move")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }}
+                    className="mt-3 inline-block font-semibold text-primary underline underline-offset-4"
+                  >
+                    {savedAddress === addressResult.matchedAddress ? "Saved to My Texas Move" : "Save this address to My Texas Move →"}
+                  </button>
                 </> : addressStatus === "not-found" ? <p>No Texas address match was returned for <span className="font-semibold">{researchAddress}</span>. Check the street, city and ZIP, then try again.</p> : addressStatus === "error" ? <p>The federal geocoder could not be reached. You can still use the official research links below with <span className="font-semibold">{researchAddress}</span>.</p> : <p>Resolving <span className="font-semibold">{researchAddress}</span>…</p>}
               </div>}
               <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 xl:grid-cols-3">

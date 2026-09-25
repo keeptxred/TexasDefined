@@ -40,6 +40,7 @@ function TexasIndustriesPage() {
                 <a href="/made-in-texas" className="block text-primary">Browse Made in Texas companies →</a>
                 <a href="/browse/counties" className="block text-primary">Browse all 254 counties →</a>
                 <a href="/compare-texas-cities" className="block text-primary">Compare Texas cities →</a>
+                <a href="/moving-to-texas?companyMove=employer#corporate-relocation" className="block text-primary">Corporate relocation & workforce planning →</a>
               </div>
             </div>
             <div className="grid gap-px border border-border bg-border md:grid-cols-2">
@@ -64,10 +65,11 @@ function TexasIndustriesPage() {
         <Container>
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">The cross-links matter</p>
           <h2 className="mt-3 max-w-4xl font-display text-4xl">Industry is part of the TexasDefined place graph</h2>
-          <div className="mt-8 grid gap-px border border-border bg-border lg:grid-cols-3">
+          <div className="mt-8 grid gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
             <Bridge title="Industry → county" body="Use county profiles to see how statewide sectors become local employers, land uses, ports, farms, plants, hospitals and growth corridors." href="/browse/counties" label="Browse counties" />
             <Bridge title="Industry → company" body="Use Made in Texas to distinguish actual Texas production from companies that were founded here, headquartered here or maintain major Texas operations." href="/made-in-texas" label="Open Made in Texas" />
             <Bridge title="Industry → moving decision" body="Use city comparisons, salary tools, housing costs, property taxes and school-district resources when an industry job becomes a relocation question." href="/moving-to-texas" label="Moving to Texas" />
+            <Bridge title="Industry → corporate relocation" body="When a company is moving employees or choosing a Texas market, connect sector geography to labor markets, commute corridors, housing, schools and household transition planning." href="/moving-to-texas?companyMove=employer#corporate-relocation" label="Corporate relocation" />
           </div>
         </Container>
       </section>

@@ -161,8 +161,13 @@ export const PUBLIC_SERVICE_PRIORITY_SEARCH_PAGES: Record<string, PrioritySearch
         paragraphs: ["City and county rules can affect zoning, certificates of occupancy, food service, signage, health permits and other operating requirements. State formation does not substitute for local approval where a local rule applies."],
         links: [{ label: "Texas resources", href: "/texas-resources" }],
       },
+      {
+        heading: "If the business move includes employees or a new Texas site",
+        paragraphs: ["A legal filing answers only one part of a company move. Site selection, labor-market depth, commute corridors, housing, schools, employee transition and household costs can determine whether a relocation works in practice. Use the corporate relocation workflow for the workforce side of the move, then verify registration, tax, permit and local operating requirements with the responsible agencies."],
+        links: [{ label: "Corporate relocation to Texas", href: "/moving-to-texas?companyMove=employer#corporate-relocation" }, { label: "Texas industries", href: "/texas-industries" }],
+      },
     ],
-    related: [{ label: "Texas industries", href: "/texas-industries" }, { label: "Made in Texas", href: "/made-in-texas" }, { label: "Texas jobs & economy", href: "/article/texas-jobs-economy-industries" }, { label: "Texas resources", href: "/texas-resources" }, { label: "Texas sales tax explained", href: "/texas-sales-tax-explained" }, { label: "Moving to Texas", href: "/moving-to-texas" }, { label: "Texas guidebook", href: "/guides" }],
+    related: [{ label: "Corporate relocation", href: "/moving-to-texas?companyMove=employer#corporate-relocation" }, { label: "Texas industries", href: "/texas-industries" }, { label: "Made in Texas", href: "/made-in-texas" }, { label: "Texas jobs & economy", href: "/article/texas-jobs-economy-industries" }, { label: "Texas resources", href: "/texas-resources" }, { label: "Texas sales tax explained", href: "/texas-sales-tax-explained" }, { label: "Moving to Texas", href: "/moving-to-texas" }, { label: "Texas guidebook", href: "/guides" }],
     faq: [
       { question: "Does Texas require a general business license?", answer: "No. The Governor's Business Permit Office says Texas does not require a general business license, although specific activities and professions can require licenses, permits or registrations." },
       { question: "Do I need an LLC to start a business in Texas?", answer: "No single entity type is required for every Texas business. The appropriate structure depends on ownership, liability, tax and governance considerations." },

@@ -96,6 +96,27 @@ for (const [path, needle] of routes) {
   console.log(`PASS ${path}: ${response.status}, expected content, canonical, indexable meta`);
 }
 
+const { body: relocationHubBody } = await fetchLive('/moving-to-texas', 'relocation operating system');
+for (const needle of [
+  'Corporate Relocation to Texas',
+  'Build an address-level research packet',
+  'Save this address to My Texas Move',
+]) {
+  if (!relocationHubBody.includes(needle)) {
+    throw new Error(`/moving-to-texas: missing deployed relocation marker: ${needle}`);
+  }
+}
+
+const { body: industriesBody } = await fetchLive('/texas-industries', 'Texas industries relocation bridge');
+if (!industriesBody.includes('Corporate relocation & workforce planning')) {
+  throw new Error('/texas-industries: corporate relocation discovery is not live');
+}
+
+const { body: startBusinessBody } = await fetchLive('/start-a-business-in-texas', 'Texas business relocation bridge');
+if (!startBusinessBody.includes('If the business move includes employees or a new Texas site')) {
+  throw new Error('/start-a-business-in-texas: corporate relocation handoff is not live');
+}
+
 const { body: toolkitBody } = await fetchLive('/moving-to-texas/tools', 'relocation toolkit');
 for (const path of toolkitLinks) {
   if (!toolkitBody.includes(`href="${path}"`) && !toolkitBody.includes(`href="${origin}${path}"`)) {

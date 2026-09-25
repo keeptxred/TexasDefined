@@ -155,6 +155,11 @@ if (!detail.includes('href={place.href}')) failures.push('Industry place pathway
 if (!detail.includes('industry.relatedSectorSlugs.includes(item.slug)')) failures.push('Industry detail pages must use the curated related-sector graph.');
 if (detail.includes('.filter((item) => item.slug !== industry.slug).slice(')) failures.push('Generic related-sector slicing must not return.');
 if (!detail.includes('industry.workforce.roles.map') || !detail.includes('industry.workforce.pathways.map')) failures.push('Industry detail pages must render workforce roles and training pathways.');
+if (!detail.includes('Plan a corporate Texas relocation →')) failures.push('Industry detail pages must connect workforce research to corporate relocation planning.');
+if (!detail.includes('/moving-to-texas?industry=') || !detail.includes('&companyMove=employer#corporate-relocation')) failures.push('Industry detail corporate relocation link must preserve sector context and employer intent.');
+if (!hub.includes('Corporate relocation & workforce planning →')) failures.push('Industry hub must expose corporate relocation planning.');
+if (!hub.includes('Industry → corporate relocation')) failures.push('Industry hub cross-link graph must include corporate relocation.');
+if (!hub.includes('/moving-to-texas?companyMove=employer#corporate-relocation')) failures.push('Industry hub corporate relocation link must target the governed relocation section.');
 if (!detail.includes('industry.evolution.period') || !detail.includes('industry.evolution.sourceUrl')) failures.push('Industry detail pages must render sourced sector-evolution context.');
 
 for (const [label, source] of [
@@ -168,6 +173,8 @@ for (const [label, source] of [
   if (!source.includes('/texas-industries')) failures.push(`${label} must surface the Texas industries authority hub.`);
 }
 
+if (!businessData.includes('If the business move includes employees or a new Texas site')) failures.push('Start a Business in Texas must distinguish filing/setup from workforce and site-selection relocation.');
+if (!businessData.includes('/moving-to-texas?companyMove=employer#corporate-relocation')) failures.push('Start a Business in Texas must link to the governed corporate relocation workflow.');
 if (!economyArticle.includes('{ href: "/texas-industries", label: "Texas industries"')) failures.push('Jobs/economy overview must link to the structured industries hub.');
 if (!hub.includes('href="/article/texas-jobs-economy-industries"')) failures.push('Industries hub must link back to the jobs/economy overview.');
 if (!seoOverrides.includes('"/article/texas-jobs-economy-industries":')) failures.push('Jobs/economy overview must retain its separate SEO override.');

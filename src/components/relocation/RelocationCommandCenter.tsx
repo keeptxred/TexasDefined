@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Container } from "@/components/layout/Container";
 import { RELOCATION_PLACES, type RelocationPlace } from "@/data/relocation-authority";
 import { TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-states-index";
+import { RELOCATION_WORKSPACE_STORAGE_KEY, RELOCATION_WORKSPACE_UPDATE_EVENT } from "@/lib/relocation-workspace";
 
 type Profile = {
   origin: string;
@@ -21,10 +22,10 @@ type Profile = {
   commute: string;
   climate: string;
   savedPlaces: string[];
+  savedAddresses: string[];
   notes: string;
 };
 
-const STORAGE_KEY = "texasdefined:my-texas-move:v1";
 const DEFAULT_PROFILE: Profile = {
   origin: "",
   destination: "",
@@ -42,6 +43,7 @@ const DEFAULT_PROFILE: Profile = {
   commute: "any",
   climate: "any",
   savedPlaces: [],
+  savedAddresses: [],
   notes: "",
 };
 
@@ -128,15 +130,16 @@ export function RelocationCommandCenter() {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    let next: Profile = { ...DEFAULT_PROFILE, savedPlaces: [] };
+    let next: Profile = { ...DEFAULT_PROFILE, savedPlaces: [], savedAddresses: [] };
     try {
-      const saved = window.localStorage.getItem(STORAGE_KEY);
+      const saved = window.localStorage.getItem(RELOCATION_WORKSPACE_STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved) as Partial<Profile>;
         next = {
           ...next,
           ...parsed,
           savedPlaces: Array.isArray(parsed.savedPlaces) ? parsed.savedPlaces : next.savedPlaces,
+          savedAddresses: Array.isArray(parsed.savedAddresses) ? parsed.savedAddresses : next.savedAddresses,
         };
       }
 
@@ -146,6 +149,14 @@ export function RelocationCommandCenter() {
         ? TEXAS_VS_STATES.find((state) => state.toLowerCase() === requestedOrigin.toLowerCase())
         : undefined;
       if (originState) next = { ...next, origin: next.origin || originState };
+
+      const requestedIndustry = params.get("industry")?.trim().slice(0, 80);
+      if (requestedIndustry) next = { ...next, industry: next.industry || requestedIndustry };
+
+      const requestedCompanyMove = params.get("companyMove");
+      if ((requestedCompanyMove === "employee" || requestedCompanyMove === "employer") && next.companyMove === "none") {
+        next = { ...next, companyMove: requestedCompanyMove };
+      }
 
       const requestedCity = params.get("saveCity")?.trim();
       const place = requestedCity
@@ -158,6 +169,7 @@ export function RelocationCommandCenter() {
           savedPlaces: next.savedPlaces.includes(place.name) ? next.savedPlaces : next.savedPlaces.concat(place.name),
         };
       }
+
     } catch {
       // The planner still works when local storage or URL parsing is unavailable.
     }
@@ -168,11 +180,28 @@ export function RelocationCommandCenter() {
   useEffect(() => {
     if (!hydrated) return;
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
+      window.localStorage.setItem(RELOCATION_WORKSPACE_STORAGE_KEY, JSON.stringify(profile));
     } catch {
       // Persistence is optional.
     }
   }, [hydrated, profile]);
+
+  useEffect(() => {
+    const handleWorkspaceUpdate = (event: Event) => {
+      const detail = (event as CustomEvent<{ savedAddress?: string }>).detail;
+      const address = detail?.savedAddress?.trim();
+      if (!address) return;
+      setProfile((current) => ({
+        ...current,
+        savedAddresses: current.savedAddresses.includes(address)
+          ? current.savedAddresses
+          : current.savedAddresses.concat(address),
+      }));
+    };
+
+    window.addEventListener(RELOCATION_WORKSPACE_UPDATE_EVENT, handleWorkspaceUpdate);
+    return () => window.removeEventListener(RELOCATION_WORKSPACE_UPDATE_EVENT, handleWorkspaceUpdate);
+  }, []);
 
   const matches = useMemo(() => RELOCATION_PLACES
     .map((place) => ({ place, ...placeScore(place, profile) }))
@@ -191,9 +220,14 @@ export function RelocationCommandCenter() {
       : current.savedPlaces.concat(name),
   }));
 
+  const removeAddress = (address: string) => setProfile((current) => ({
+    ...current,
+    savedAddresses: current.savedAddresses.filter((candidate) => candidate !== address),
+  }));
+
   const reset = () => {
     setProfile(DEFAULT_PROFILE);
-    try { window.localStorage.removeItem(STORAGE_KEY); } catch { /* optional */ }
+    try { window.localStorage.removeItem(RELOCATION_WORKSPACE_STORAGE_KEY); } catch { /* optional */ }
   };
 
   return <>
@@ -204,7 +238,10 @@ export function RelocationCommandCenter() {
             <p className="eyebrow text-primary">Plan My Texas Move</p>
             <h2 id="relocation-command-center" className="mt-3 font-display text-4xl leading-tight">One profile for the whole relocation</h2>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">Save the facts that shape the move once, then reuse them while comparing places, budgets, schools, addresses and arrival tasks. The profile stays in this browser unless you reset it.</p>
-            <a href="#my-texas-move" className="mt-5 inline-block text-sm font-semibold text-primary underline underline-offset-4">Open My Texas Move →</a>
+            <div className="mt-5 flex flex-wrap gap-4 text-sm font-semibold">
+              <a href="#my-texas-move" className="text-primary underline underline-offset-4">Open My Texas Move →</a>
+              <a href="#corporate-relocation" className="underline underline-offset-4">Corporate relocation →</a>
+            </div>
           </div>
           <div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -235,7 +272,7 @@ export function RelocationCommandCenter() {
               <Summary label="Housing target" value={money(profile.housingBudget) + "/mo"} />
               <Summary label="Household" value={String(profile.householdSize) + " people" + (profile.schools ? " · schools matter" : "")} />
               <Summary label="Transportation" value={String(profile.vehicles) + " vehicle" + (profile.vehicles === 1 ? "" : "s")} />
-              <Summary label="Saved shortlist" value={String(profile.savedPlaces.length) + " place" + (profile.savedPlaces.length === 1 ? "" : "s")} />
+              <Summary label="Saved research" value={String(profile.savedPlaces.length) + " place" + (profile.savedPlaces.length === 1 ? "" : "s") + " · " + String(profile.savedAddresses.length) + " address" + (profile.savedAddresses.length === 1 ? "" : "es")} />
             </div>
           </div>
         </div>
@@ -282,14 +319,19 @@ export function RelocationCommandCenter() {
           <div>
             <p className="eyebrow text-primary">My Texas Move</p>
             <h2 id="my-texas-move-heading" className="mt-3 font-display text-4xl leading-tight">Keep the move in one working notebook</h2>
-            <p className="mt-4 text-sm leading-7 text-muted-foreground">Origin, destination, household assumptions, saved places and notes stay together in this browser so you do not restart the research every visit.</p>
+            <p className="mt-4 text-sm leading-7 text-muted-foreground">Origin, destination, household assumptions, saved places, researched addresses and notes stay together in this browser so you do not restart the research every visit.</p>
             <button type="button" onClick={reset} className="mt-5 text-sm font-semibold text-primary underline underline-offset-4">Reset My Texas Move</button>
           </div>
           <div className="grid gap-6 lg:grid-cols-2">
             <div className="border border-border bg-background p-6">
               <h3 className="font-display text-2xl">Saved shortlist</h3>
               {profile.savedPlaces.length ? <ul className="mt-4 space-y-3 text-sm">{profile.savedPlaces.map((name) => <li key={name} className="flex items-center justify-between gap-4 border-b border-border pb-3"><strong>{name}</strong><button type="button" onClick={() => togglePlace(name)} className="text-xs font-semibold text-primary underline underline-offset-4">Remove</button></li>)}</ul> : <p className="mt-4 text-sm leading-7 text-muted-foreground">Save places from the Match Explorer. The shortlist is a research queue, not an automated recommendation.</p>}
-              <div className="mt-5 flex flex-wrap gap-4 text-sm font-semibold"><a href="/compare-texas-cities" className="text-primary underline underline-offset-4">Compare cities →</a><a href="/browse/cities" className="underline underline-offset-4">Browse city guides →</a><a href="/browse/counties" className="underline underline-offset-4">Browse counties →</a></div>
+              {profile.savedAddresses.length ? <div className="mt-6 border-t border-border pt-5">
+                <h4 className="font-display text-xl">Saved address research</h4>
+                <p className="mt-2 text-xs leading-5 text-muted-foreground">These addresses are stored only in this browser as part of My Texas Move.</p>
+                <ul className="mt-4 space-y-3 text-sm">{profile.savedAddresses.map((address) => <li key={address} className="flex items-start justify-between gap-4 border-b border-border pb-3"><span>{address}</span><button type="button" onClick={() => removeAddress(address)} className="shrink-0 text-xs font-semibold text-primary underline underline-offset-4">Remove</button></li>)}</ul>
+              </div> : null}
+              <div className="mt-5 flex flex-wrap gap-4 text-sm font-semibold"><a href="/compare-texas-cities" className="text-primary underline underline-offset-4">Compare cities →</a><a href="/browse/cities" className="underline underline-offset-4">Browse city guides →</a><a href="/browse/counties" className="underline underline-offset-4">Browse counties →</a><a href="#address-research-desk" className="underline underline-offset-4">Research an address →</a></div>
             </div>
             <div className="border border-border bg-background p-6">
               <h3 className="font-display text-2xl">Move notes</h3>
@@ -332,6 +374,7 @@ export function RelocationCommandCenter() {
         <p className="eyebrow text-primary">Corporate Relocation to Texas</p>
         <h2 id="corporate-relocation-heading" className="mt-2 max-w-4xl font-display text-4xl sm:text-5xl">One path for transferees, HR teams and companies moving operations</h2>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">Corporate relocation is both a company decision and a household decision. TexasDefined connects workforce and market research to the city, county, school, housing, commute, tax, utility and address tools employees need after the announcement.</p>
+        {profile.industry ? <p className="mt-3 max-w-4xl text-sm font-semibold text-foreground">Current industry context: {profile.industry}. Use the Texas Industries hub and local labor-market sources to test where that sector actually clusters before choosing a destination.</p> : null}
         <div className="grid gap-6 py-8 lg:grid-cols-2">
           <CorporatePanel eyebrow="For employees & families" title="Evaluate the offer and destination together" steps={EMPLOYEE_STEPS} />
           <CorporatePanel eyebrow="For employers, HR & site-selection teams" title="Build the workforce move around real Texas geography" steps={EMPLOYER_STEPS} />
