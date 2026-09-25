@@ -12,6 +12,7 @@ import {
   readCalculatorUrlState,
 } from '@/components/calculators/FinancialCalculatorUI';
 import { estimateMortgage, mortgageSensitivity } from '@/lib/financial/mortgage';
+import { readTexasPlanningScenario } from '@/lib/financial/planningScenario';
 
 const DEFAULTS = {
   homePrice: 400000,
@@ -31,7 +32,25 @@ const DEFAULTS = {
 };
 
 export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { defaultCountySlug?: string }) {
-  const [state, setState] = useState(() => readCalculatorUrlState({ ...DEFAULTS, county: defaultCountySlug || DEFAULTS.county }));
+  const [defaults] = useState(() => {
+    const plan = readTexasPlanningScenario();
+    return {
+      ...DEFAULTS,
+      homePrice: plan.homePrice ?? DEFAULTS.homePrice,
+      downPayment: plan.downPayment ?? DEFAULTS.downPayment,
+      interestRate: plan.annualInterestRate ?? DEFAULTS.interestRate,
+      years: plan.loanTermYears ?? DEFAULTS.years,
+      propertyTaxRate: plan.annualPropertyTaxRate ?? DEFAULTS.propertyTaxRate,
+      annualInsurance: plan.annualHomeInsurance ?? DEFAULTS.annualInsurance,
+      annualPmi: plan.annualPmi ?? DEFAULTS.annualPmi,
+      monthlyHoa: plan.monthlyHoa ?? DEFAULTS.monthlyHoa,
+      monthlySpecialDistrict: plan.monthlySpecialDistrict ?? DEFAULTS.monthlySpecialDistrict,
+      monthlyUtilities: plan.monthlyUtilities ?? DEFAULTS.monthlyUtilities,
+      monthlyMaintenance: plan.monthlyMaintenance ?? DEFAULTS.monthlyMaintenance,
+      county: defaultCountySlug || DEFAULTS.county,
+    };
+  });
+  const [state, setState] = useState(() => readCalculatorUrlState(defaults));
   const set = <K extends keyof typeof state>(key: K, value: (typeof state)[K]) => setState((current) => ({ ...current, [key]: value }));
 
   const input = useMemo(() => ({
@@ -66,7 +85,7 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
     <FinancialCalculatorScaffold
       storageKey="texasdefined:mortgage-calculator"
       state={state}
-      defaults={{ ...DEFAULTS, county: defaultCountySlug || DEFAULTS.county }}
+      defaults={defaults}
       onRestore={setState}
       note="Your real payment may also include lender-specific mortgage insurance, escrow adjustments, assessments and closing costs. Use the exact parcel and lender documents before making a financial commitment."
       issues={result.issues}
@@ -86,6 +105,20 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
       }}
       breakdown={breakdown}
       sensitivity={sensitivity}
+      sharedScenario={{
+        homePrice: state.homePrice,
+        downPayment: state.downPayment,
+        annualInterestRate: state.interestRate,
+        loanTermYears: state.years,
+        annualPropertyTaxRate: state.propertyTaxRate,
+        annualHomeInsurance: state.annualInsurance,
+        annualPmi: state.annualPmi,
+        monthlyHoa: state.monthlyHoa,
+        monthlySpecialDistrict: state.monthlySpecialDistrict,
+        monthlyUtilities: state.monthlyUtilities,
+        monthlyMaintenance: state.monthlyMaintenance,
+        monthlyPrincipalInterest: result.monthlyPrincipalInterest,
+      }}
       methodology={{
         formula: 'Principal and interest use the standard fixed-rate amortization formula. Property taxes, insurance, mortgage insurance, HOA and selected district costs are added as recurring housing costs; utilities and maintenance are shown as ownership costs.',
         assumptions: [
