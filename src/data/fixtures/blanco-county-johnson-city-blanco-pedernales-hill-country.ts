@@ -51,6 +51,7 @@ export const blancoCountyJohnsonCityBlancoPedernalesHillCountryArticle: Article 
     { href: "/destination/old-blanco-county-courthouse", label: "Old Blanco County Courthouse", description: "Start in Blanco's 1886 former county courthouse for current museum hours, preservation history and the county-seat story." },
     { href: "/destination/buggy-barn-museum-blanco", label: "Buggy Barn Museum", description: "Explore Blanco's 250+ historic buggy, carriage and wagon collection plus the Pine Moore Old West production complex." },
     { href: "/destination/twin-sisters-dance-hall-blanco", label: "Twin Sisters Dance Hall", description: "Plan a scheduled first-Saturday dance or special event at the historic volunteer-run hall south of Blanco." },
+    { href: "/event/blanco-lavender-festival", label: "Blanco Lavender Festival", description: "Plan the confirmed June 4–6, 2027 festival across the courthouse square, Bindseil Park and Hill Country Lavender farm." },
     { href: "/county/gillespie", label: "Explore Gillespie County", description: "Continue west toward Fredericksburg, Stonewall and the Pedernales corridor." },
     { href: "/county/kendall", label: "Explore Kendall County", description: "Head south toward Boerne, Comfort and the Guadalupe River country." },
     { href: "/county/hays", label: "Explore Hays County", description: "Follow the Hill Country east toward Wimberley, Dripping Springs and San Marcos." },
