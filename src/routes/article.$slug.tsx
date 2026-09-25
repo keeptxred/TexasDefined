@@ -423,7 +423,7 @@ function ArticlePage() {
     </section>
     <Container className="relative max-w-3xl py-10 sm:py-16">
       {isTexasRiversArticle ? (
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 border-b border-border pb-5 text-sm text-muted-foreground">
+        <div className="flex flex-wrap items-center gap-2 border-b border-border pb-5 text-sm text-muted-foreground">
           {author && <span className="text-foreground">By <Link to="/authors/$author" params={{ author: author.id }} className="font-semibold underline decoration-border underline-offset-4 transition-colors hover:text-primary">{author.name}</Link></span>}
           {author && <span aria-hidden="true">·</span>}
           <span>{article.updatedAt ? `Updated ${formatDate(article.updatedAt)}` : formatDate(article.publishedAt)}</span>
