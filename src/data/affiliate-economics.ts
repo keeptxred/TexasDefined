@@ -140,6 +140,16 @@ export const AFFILIATE_ECONOMICS: readonly AffiliateEconomicsRecord[] = [
     note: "Retained as broad-search infrastructure when no verified exact-property target is available.",
   },
   {
+    id: "ticketmaster",
+    partner: "Ticketmaster",
+    payout: "Current Impact payout rate not verified in available program materials",
+    attribution: "Per active Impact terms",
+    routingRole: "Event ticketing when a verified Impact-tracked event URL is present",
+    status: "live",
+    reviewedAt: AFFILIATE_ECONOMICS_REVIEWED_AT,
+    note: "Ticketmaster API event URLs are not assumed to be affiliate-tracked; the event pipeline uses the verified Impact tracking wrapper before treating a ticket CTA as an affiliate referral.",
+  },
+  {
     id: "citypass",
     partner: "CityPASS",
     payout: "Current account rate not verified in available approval notice",
