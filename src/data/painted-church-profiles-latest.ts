@@ -2,6 +2,78 @@ import type { PaintedChurchProfile } from "./painted-church-profiles";
 
 const latestProfiles: PaintedChurchProfile[] = [
   {
+    slug: "mason-st-joseph-catholic-church",
+    quickAnswer: "St. Joseph Catholic Church in Mason is a restored historic Painted Church whose 1916 interior was painted by Manuel Lopez with a light-blue sky, clouds, stars, angels and a dove above the altar. The 1876 red-sandstone church was enlarged in 1963, when acoustical tile covered the historic painted vault. The ceiling was rediscovered in 1989 and fully restored as part of a major renovation dedicated October 6, 2024.",
+    foundedYear: 1873,
+    builtYear: 1876,
+    paintedYear: 1916,
+    architecture: "Historic red-sandstone Catholic church; original rectangular nave later enlarged to a modified-cross plan",
+    artists: ["Manuel Lopez"],
+    heritage: "Central Texas Catholic parish history in Mason County",
+    facts: [
+      { label: "Congregation organized", value: "February 1873" },
+      { label: "Present church", value: "Completed September 1876 from locally quarried red sandstone" },
+      { label: "Original dimensions", value: "Approximately 22 by 50 feet, with 18-inch-thick stone walls" },
+      { label: "Historic painting", value: "Manuel Lopez painted the interior in 1916" },
+      { label: "Original imagery", value: "Light-blue sky, opening heavens and a dove behind the altar, with clouds, stars and angels across the ceiling" },
+      { label: "1963 expansion", value: "The west wall was removed and the church roughly doubled in floor area; acoustical ceiling tiles covered Lopez's painted angels" },
+      { label: "Painted vault rediscovered", value: "Accidentally rediscovered in 1989 after being concealed by the 1963 acoustical ceiling" },
+      { label: "Major restoration", value: "Restored painted vault and redesigned sanctuary dedicated October 6, 2024" },
+    ],
+    history: [
+      {
+        heading: "A locally built stone church dating to 1876",
+        paragraphs: [
+          "Mason's Catholic congregation formally organized in 1873 after years of Masses in private homes. The surviving church was completed in September 1876 from red sandstone quarried roughly a mile and a quarter from the site. Local stonemasons carried out the masonry while parishioners assisted with carpentry.",
+          "The original building was a simple rectangular church about twenty-two by fifty feet. Later improvements added flooring, electricity, stained glass and other parish necessities, but the red-sandstone walls remained the physical core of the building.",
+        ],
+      },
+      {
+        heading: "The 1963 enlargement concealed the earlier painted ceiling",
+        paragraphs: [
+          "A major 1963 project removed the west wall and added a crossing, small transepts, an enlarged sanctuary and supporting spaces. Stone from the dismantled wall was reused as exterior veneer so the addition would visually connect with the nineteenth-century building.",
+          "The expansion also introduced acoustical ceiling tiles. Those tiles concealed the painted angels and sky of the older vault, turning an important part of the church's decorative history into a hidden layer for more than two decades.",
+        ],
+      },
+    ],
+    paintings: [
+      {
+        heading: "Manuel Lopez turned the ceiling into an opening sky",
+        paragraphs: [
+          "In 1916 Manuel Lopez painted the church interior light blue. Parish history describes the wall behind the altar as an opening sky with a dove hovering above the altar, while clouds, stars and angels spread across the ceiling.",
+          "The program uses architectural space itself as devotional imagery: rather than treating the ceiling as a flat decorative surface, Lopez transformed it into a symbolic heaven above the congregation. That illusionistic treatment gives Mason a clear place in the broader Texas Painted Churches tradition.",
+        ],
+      },
+      {
+        heading: "The 2024 project restored the historic vault while extending its visual language",
+        paragraphs: [
+          "The historic painted vault, accidentally rediscovered in 1989, became a central concern of the recent renovation. Studio io documents the original beadboard ceiling as an early-twentieth-century Spanish Baroque-inspired scheme and records its full restoration by Murals by Jericho.",
+          "Because the 1960s expansion had enlarged the church beyond the footprint Lopez originally painted, the restoration matched the historic visual language across the extended vault and repositioned the Trinity image above the current altar. New hand-painted sanctuary details were designed to complement the church's nineteenth-century character rather than being presented as untouched 1916 work.",
+        ],
+      },
+    ],
+    preservation: [
+      {
+        heading: "Restoration distinguishes recovered historic work from new complementary decoration",
+        paragraphs: [
+          "The modern project did more than uncover old paint. It restored the surviving historic vault, removed acoustically absorptive interventions, upgraded lighting and waterproofing, and redesigned furnishings so the expanded building again reads as a coherent sacred interior.",
+          "Texas Defined classifies Mason as a restored historic painted scheme with a documented modern extension. That distinction matters because today's unified ceiling includes both recovered historic design and carefully matched contemporary work.",
+        ],
+      },
+    ],
+    visitorNotes: [
+      "St. Joseph is an active Catholic parish at 216 N Ave B in Mason. Worship and parish activity take priority over sightseeing.",
+      "The parish currently publishes Sunday Mass at 11 a.m. in English and 2 p.m. in Spanish, plus Thursday and Friday services; verify the current schedule before traveling.",
+      "The church is within walking distance of Mason's historic town square.",
+    ],
+    sources: [
+      { label: "St. Joseph Catholic Church — official parish history", url: "https://www.stjosephmason.org/about-us" },
+      { label: "St. Joseph Catholic Church — official visitor and Mass information", url: "https://www.stjosephmason.org/" },
+      { label: "Studio io — St. Joseph Catholic Church restoration", url: "https://www.studioiodesign.com/st-joseph-mason" },
+      { label: "St. Joseph Catholic Church — 2024 remodel archive", url: "https://stjosephmason.org/photoalbums/2024-october-church-remodel" },
+    ],
+  },
+  {
     slug: "castroville-st-louis-catholic-church",
     quickAnswer: "St. Louis Catholic Church in Castroville belongs in the broader Texas Painted Churches tradition because the parish itself publishes interior imagery identified as the painted inside church, the Texas Historical Commission documents the 1870 limestone church and Recorded Texas Historic Landmark status, and the Buie Harwood archive includes St. Louis in its decorative-painting field research.",
     foundedYear: 1844,
