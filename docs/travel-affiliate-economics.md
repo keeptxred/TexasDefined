@@ -23,10 +23,10 @@ Do not change hotel-comparison routing on a headline payout number alone. Orbitz
 - Keep verified exact-property Hotels.com links primary because they provide property-specific relevance.
 - Keep Orbitz as the comparison provider for hotel-first event and sports-venue intent while the clean routing cohort accumulates measurable traffic.
 - Keep Travelocity as the comparison provider for broader destination and leisure intent until the active CJ terms and downstream conversion data justify a change.
-- Keep Vrbo limited to contexts where a vacation rental or owner referral is genuinely relevant.
+- Keep Vrbo limited to contexts where a vacation rental or owner referral is genuinely relevant; suppress it on the RVshare-specific camping/RV cohort because the approved RVshare stay commission is materially higher.
 - Do not add CheapTickets as another generic comparison CTA while its verified default economics duplicate existing 4% Expedia-family lodging and activity rates.
 - Do not activate Motel 6/OYO USA placements until the active CJ commission schedule and a usable account-generated destination link are verified.
-- Show RVshare only on high-intent camping, RV-park, state-park, outdoors and road-trip surfaces. Do not add it to generic city, county, event or destination pages merely because they are travel content.
+- Show RVshare only on high-intent camping, RV-park, state-park, outdoors and road-trip surfaces. On those routes, make RVshare the primary rental CTA and suppress the lower-paying Vrbo traveler CTA. Do not add RVshare to generic city, county, event or destination pages merely because they are travel content.
 - Prefer Booking.com for rental-car CTAs where the current approved terms remain materially higher than Expedia-family car rates.
 - Keep Expedia search as the broad lodging fallback where TexasDefined lacks a verified exact-property destination.
 
