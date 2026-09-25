@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 
 import { Container } from "@/components/layout/Container";
 import { RELOCATION_PLACES, type RelocationPlace } from "@/data/relocation-authority";
+import { TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-states-index";
 
 type Profile = {
   origin: string;
@@ -139,7 +140,14 @@ export function RelocationCommandCenter() {
         };
       }
 
-      const requestedCity = new URLSearchParams(window.location.search).get("saveCity")?.trim();
+      const params = new URLSearchParams(window.location.search);
+      const requestedOrigin = params.get("originState")?.trim();
+      const originState = requestedOrigin
+        ? TEXAS_VS_STATES.find((state) => state.toLowerCase() === requestedOrigin.toLowerCase())
+        : undefined;
+      if (originState) next = { ...next, origin: next.origin || originState };
+
+      const requestedCity = params.get("saveCity")?.trim();
       const place = requestedCity
         ? RELOCATION_PLACES.find((candidate) => candidate.name.toLowerCase() === requestedCity.toLowerCase())
         : undefined;
@@ -170,6 +178,11 @@ export function RelocationCommandCenter() {
     .map((place) => ({ place, ...placeScore(place, profile) }))
     .sort((a, b) => b.matched - a.matched || a.place.name.localeCompare(b.place.name))
     .slice(0, 8), [profile]);
+
+  const originState = useMemo(() => {
+    const normalized = profile.origin.trim().toLowerCase();
+    return TEXAS_VS_STATES.find((state) => state.toLowerCase() === normalized) ?? null;
+  }, [profile.origin]);
 
   const togglePlace = (name: string) => setProfile((current) => ({
     ...current,
@@ -207,6 +220,17 @@ export function RelocationCommandCenter() {
               <Field label="Industry"><input value={profile.industry} onChange={(e) => setProfile((p) => ({ ...p, industry: e.target.value }))} placeholder="Energy, healthcare, tech…" className="min-h-11 w-full border border-border bg-background px-3 text-sm" /></Field>
               <Field label="Corporate relocation?"><select value={profile.companyMove} onChange={(e) => setProfile((p) => ({ ...p, companyMove: e.target.value as Profile["companyMove"] }))} className="min-h-11 w-full border border-border bg-background px-3 text-sm"><option value="none">No / not sure</option><option value="employee">I am relocating for work</option><option value="employer">I am planning for employees</option></select></Field>
             </div>
+            {originState ? <div className="mt-6 border border-border bg-background p-5">
+              <p className="eyebrow text-primary">Moving from {originState}</p>
+              <div className="mt-2 flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <h3 className="font-display text-2xl">Compare your current state with Texas</h3>
+                  <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">Use the existing official-source state comparison for taxes, housing, jobs, risk, transportation and place-level differences, then keep the same household assumptions in this move plan.</p>
+                </div>
+                <a href={`/texas-vs/${texasVsStateSlug(originState)}`} className="text-sm font-semibold text-primary underline underline-offset-4">Texas vs {originState} →</a>
+              </div>
+            </div> : null}
+
             <div className="mt-7 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
               <Summary label="Housing target" value={money(profile.housingBudget) + "/mo"} />
               <Summary label="Household" value={String(profile.householdSize) + " people" + (profile.schools ? " · schools matter" : "")} />
