@@ -1,8 +1,10 @@
 /**
- * Calculator contracts only — no math is implemented in Phase 1.
+ * Calculator discovery contracts.
  *
- * Each entry declares a typed input/output shape so the shared package can
- * later host the implementation and both brands consume the same contract.
+ * Canonical TexasDefined financial math lives in src/lib/financial/*. React
+ * surfaces must consume those pure engines rather than duplicating formulas.
+ * This registry remains metadata-first so non-financial tools can declare
+ * discoverable input/output contracts without creating a second math layer.
  */
 
 export interface CalculatorField {
@@ -19,7 +21,7 @@ export interface CalculatorContract<TInput = unknown, TOutput = unknown> {
   description: string;
   inputs: CalculatorField[];
   outputs: CalculatorField[];
-  /** Implemented in a later phase, in the shared package. */
+  /** Optional adapter only; canonical financial formulas belong in src/lib/financial. */
   compute?: (input: TInput) => TOutput;
 }
 

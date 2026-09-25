@@ -35,7 +35,7 @@ function TexasSalaryCalculatorPage() {
         <h2 id="salary-estimate-heading" className="mt-3 font-display text-3xl">Estimate after-tax income and take-home pay in Texas</h2>
         <div className="mt-5 max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">
           <p>Texas does not have an individual state income tax, but that does not make gross salary the same as take-home pay. Federal income tax, Social Security, Medicare, health benefits, retirement contributions and other deductions can all reduce the amount that reaches a paycheck.</p>
-          <p>Use the calculator to compare salary or deduction scenarios, then verify actual withholding with payroll records and current federal tax information. A useful estimate should help you understand the size of the gap between gross pay and spendable pay, not pretend to reproduce an employer payroll system.</p>
+          <p>Use the calculator to compare salary, filing-status, retirement, benefit and pay-frequency scenarios, then verify actual withholding with payroll records and current federal tax information. The model estimates annual federal tax and payroll taxes; it does not pretend to reproduce every employer payroll rule or W-4 outcome.</p>
           <p>If you are comparing jobs, run the calculator more than once. A lower-salary offer with lower health-insurance costs or a stronger employer retirement contribution can produce a different household result than salary alone suggests.</p>
         </div>
       </section>
@@ -44,7 +44,7 @@ function TexasSalaryCalculatorPage() {
         <h2 id="salary-inputs-heading" className="mt-3 font-display text-3xl">What belongs between gross salary and take-home pay</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[
-            ['Federal income tax', 'Use a reasonable withholding assumption for planning, then compare it with current IRS guidance or your actual paystub withholding.'],
+            ['Federal income tax', 'The calculator applies the published 2026 federal brackets and standard deduction for the filing status you select. Compare the annual planning result with current IRS guidance and your actual paystub withholding.'],
             ['Social Security and Medicare', 'Payroll taxes still apply in Texas even though the state does not levy an individual income tax on wages.'],
             ['Health and insurance benefits', 'Employee premiums for medical, dental, vision, life or disability coverage can materially change net pay.'],
             ['Retirement contributions', '401(k), 403(b), pension and similar payroll elections can reduce the amount deposited while increasing long-term savings.'],

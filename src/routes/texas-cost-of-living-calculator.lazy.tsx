@@ -65,7 +65,7 @@ function TexasCostOfLivingCalculatorPage() {
       </div>
     </section>
     <section className="mt-12 border-t border-border pt-10" aria-labelledby="cost-living-links-heading">
-      <p className="eyebrow text-primary">Turn the index into a real budget</p>
+      <p className="eyebrow text-primary">Turn the comparison into a real budget</p>
       <h2 id="cost-living-links-heading" className="mt-3 font-display text-3xl">Verify the categories that matter most to the move</h2>
       <div className="mt-6 grid gap-4 md:grid-cols-3">
         <Link to="/texas-moving-cost-calculator" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">One-time moving costs</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Estimate transportation, packing, travel, storage, deposits and setup before comparing the monthly budget.</span></Link>
