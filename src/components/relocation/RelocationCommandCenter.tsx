@@ -127,21 +127,34 @@ export function RelocationCommandCenter() {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    let next: Profile = { ...DEFAULT_PROFILE, savedPlaces: [] };
     try {
       const saved = window.localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved) as Partial<Profile>;
-        setProfile((current) => ({
-          ...current,
+        next = {
+          ...next,
           ...parsed,
-          savedPlaces: Array.isArray(parsed.savedPlaces) ? parsed.savedPlaces : current.savedPlaces,
-        }));
+          savedPlaces: Array.isArray(parsed.savedPlaces) ? parsed.savedPlaces : next.savedPlaces,
+        };
+      }
+
+      const requestedCity = new URLSearchParams(window.location.search).get("saveCity")?.trim();
+      const place = requestedCity
+        ? RELOCATION_PLACES.find((candidate) => candidate.name.toLowerCase() === requestedCity.toLowerCase())
+        : undefined;
+      if (place) {
+        next = {
+          ...next,
+          destination: next.destination || place.name,
+          savedPlaces: next.savedPlaces.includes(place.name) ? next.savedPlaces : next.savedPlaces.concat(place.name),
+        };
       }
     } catch {
-      // The planner still works when local storage is unavailable.
-    } finally {
-      setHydrated(true);
+      // The planner still works when local storage or URL parsing is unavailable.
     }
+    setProfile(next);
+    setHydrated(true);
   }, []);
 
   useEffect(() => {
