@@ -28,3 +28,14 @@ export function calculateClosingCosts(input: { salePrice: number; buyerCostPerce
     issues,
   };
 }
+
+
+export function calculateDownPaymentAssistance(input: { homePrice: number; requiredDownPercent: number; assistancePercent: number; closingCostPercent: number; availableCash: number }) {
+  const price = nonNegative(input.homePrice);
+  const requiredDownPayment = price * clamp(input.requiredDownPercent, 0, 100) / 100;
+  const potentialAssistance = price * clamp(input.assistancePercent, 0, 100) / 100;
+  const closingCosts = price * clamp(input.closingCostPercent, 0, 100) / 100;
+  const totalCashNeeded = requiredDownPayment + closingCosts;
+  const remainingCashGap = Math.max(0, totalCashNeeded - potentialAssistance - nonNegative(input.availableCash));
+  return { requiredDownPayment, potentialAssistance, closingCosts, totalCashNeeded, remainingCashGap };
+}
