@@ -3,7 +3,8 @@ import fs from 'node:fs';
 const workflow = fs.readFileSync('.github/workflows/deploy-production.yml', 'utf8');
 const health = fs.readFileSync('scripts/ci/verify-production-health.mjs', 'utf8');
 const capture = fs.readFileSync('scripts/ci/capture-active-worker-version.mjs', 'utf8');
-const emergency = fs.readFileSync('.github/workflows/emergency-restore-known-good-worker.yml', 'utf8');
+const restore = fs.readFileSync('.github/workflows/restore-verified-worker.yml', 'utf8');
+const ledger = fs.readFileSync('scripts/ci/verified-worker-ledger.mjs', 'utf8');
 const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 const smoke = fs.readFileSync('scripts/ci/verify-built-worker-ssr.mjs', 'utf8');
 const failures = [];
@@ -36,6 +37,18 @@ for (const [needle, label] of [
   ['CANONICAL_HEALTH_OUTCOME: ${{ steps.live_canonical_health.outcome }}', 'aggregate canonical-health outcome'],
   ['ROLLBACK_OUTCOME: ${{ steps.rollback.outcome }}', 'aggregate rollback outcome'],
   ['ROLLBACK_HEALTH_OUTCOME: ${{ steps.rollback_health.outcome }}', 'aggregate rollback-health outcome'],
+  ['id: predeploy_direct_health', 'predeploy direct Worker health step'],
+  ['PRODUCTION_HEALTH_LABEL: predeploy-current-direct-worker', 'predeploy direct Worker health label'],
+  ['id: predeploy_canonical_health', 'predeploy canonical-domain health step'],
+  ['PRODUCTION_HEALTH_LABEL: predeploy-current-canonical-domain', 'predeploy canonical-domain health label'],
+  ['id: predeploy_diagnostics', 'predeploy unhealthy-current diagnostics step'],
+  ['path: artifacts/predeploy-current-*', 'visible predeploy incident diagnostics upload'],
+  ['id: predeploy_health', 'predeploy fail-closed health gate'],
+  ['Current production is unhealthy; deploy blocked', 'predeploy fail-closed error'],
+  ['deployments: write', 'verified Worker ledger permission'],
+  ['id: verified_worker_version', 'post-verification Worker version capture'],
+  ['id: verified_worker_ledger', 'verified Worker recovery ledger step'],
+  ['node scripts/ci/verified-worker-ledger.mjs record', 'verified Worker recovery ledger command'],
 ]) requireText(workflow, needle, label);
 
 const guardedVerifierCondition = "steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success'";
@@ -64,10 +77,41 @@ if (!rollbackBlock.includes("steps.live_direct_health.outcome == 'failure'")) fa
 if (rollbackBlock.includes('npx wrangler rollback --message')) failures.push('Automatic rollback must specify the captured predeploy Worker version ID explicitly.');
 
 const smokeIndex = workflow.indexOf('id: runtime_smoke');
+const predeployDirectIndex = workflow.indexOf('id: predeploy_direct_health');
+const predeployCanonicalIndex = workflow.indexOf('id: predeploy_canonical_health');
+const predeployGateIndex = workflow.indexOf('id: predeploy_health');
 const captureIndex = workflow.indexOf('id: rollback_target');
 const deployIndex = workflow.indexOf('id: cloudflare');
-if (smokeIndex < 0 || captureIndex < 0 || deployIndex < 0 || smokeIndex > captureIndex || captureIndex > deployIndex) {
-  failures.push('The built Worker SSR smoke must pass before rollback-target capture and Cloudflare deployment.');
+if (
+  smokeIndex < 0 ||
+  predeployDirectIndex < 0 ||
+  predeployCanonicalIndex < 0 ||
+  predeployGateIndex < 0 ||
+  captureIndex < 0 ||
+  deployIndex < 0 ||
+  smokeIndex > predeployDirectIndex ||
+  predeployDirectIndex > predeployCanonicalIndex ||
+  predeployCanonicalIndex > predeployGateIndex ||
+  predeployGateIndex > captureIndex ||
+  captureIndex > deployIndex
+) {
+  failures.push('The built Worker smoke and current direct/canonical health gate must pass before rollback-target capture and Cloudflare deployment.');
+}
+
+const liveGateIndex = workflow.indexOf('id: live\n');
+const indexNowIndex = workflow.indexOf('id: indexnow');
+const verifiedVersionIndex = workflow.indexOf('id: verified_worker_version');
+const verifiedLedgerIndex = workflow.indexOf('id: verified_worker_ledger');
+if (
+  liveGateIndex < 0 ||
+  indexNowIndex < 0 ||
+  verifiedVersionIndex < 0 ||
+  verifiedLedgerIndex < 0 ||
+  liveGateIndex > indexNowIndex ||
+  indexNowIndex > verifiedVersionIndex ||
+  verifiedVersionIndex > verifiedLedgerIndex
+) {
+  failures.push('The verified Worker ledger must advance only after aggregate live verification and the guarded IndexNow stage succeed.');
 }
 
 for (const [needle, label] of [
@@ -88,15 +132,36 @@ for (const [needle, label] of [
   ['Refusing to deploy without a deterministic rollback target.', 'fail-closed ambiguous deployment handling'],
 ]) requireText(capture, needle, label);
 
-for (const [needle, label] of [
-  ['mkdir -p artifacts', 'visible emergency diagnostics directory'],
-  ['path: artifacts/pre-rollback-*', 'emergency diagnostics upload path'],
-  ['if-no-files-found: error', 'emergency diagnostics fail-closed upload'],
-]) requireText(emergency, needle, label);
-
-if (emergency.includes('.artifacts/pre-rollback-')) {
-  failures.push('Emergency diagnostics must not use a hidden .artifacts upload path.');
+const retiredEmergencyWorkflow = '.github/workflows/emergency-restore-known-good-worker.yml';
+if (fs.existsSync(retiredEmergencyWorkflow)) {
+  failures.push('The one-time hard-coded emergency Worker restore workflow must remain retired.');
 }
+
+for (const [needle, label] of [
+  ['workflow_dispatch:', 'manual verified Worker restore trigger'],
+  ['deployments: read', 'verified Worker restore deployment-ledger permission'],
+  ['node scripts/ci/verified-worker-ledger.mjs resolve', 'verified Worker restore ledger resolution'],
+  ['path: artifacts/verified-restore-*', 'visible restore diagnostics upload path'],
+  ['if-no-files-found: error', 'restore diagnostics fail-closed upload'],
+  ['steps.verified_target.outputs.version_id', 'restore uses resolved verified Worker version'],
+  ['Verify restored direct Worker', 'restored direct Worker health gate'],
+  ['Verify restored canonical domain', 'restored canonical-domain health gate'],
+  ['Verify restored production surfaces', 'restored base production surfaces gate'],
+]) requireText(restore, needle, label);
+
+if (/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i.test(restore)) {
+  failures.push('Permanent verified Worker restore workflow must not hard-code a Cloudflare version UUID.');
+}
+
+for (const [needle, label] of [
+  ["const environment = 'texasdefined-verified-worker';", 'verified Worker ledger environment'],
+  ["task: 'verified-worker-ledger'", 'verified Worker ledger task'],
+  ['required_contexts: []', 'verified Worker ledger explicit context handling'],
+  ['worker_version: version', 'verified Worker ledger version payload'],
+  ["state: 'success'", 'verified Worker ledger success status'],
+  ["latest?.state !== 'success'", 'verified Worker resolver success-only rule'],
+  ['No successful verified Worker recovery target exists', 'verified Worker resolver fail-closed behavior'],
+]) requireText(ledger, needle, label);
 
 for (const [needle, label] of [
   ["const attempts = Math.max(2", 'bounded retry count'],
@@ -116,4 +181,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Production deployment safety passed: new Worker health is stabilized before deep verification, persistent direct-Worker failure triggers rollback, rollback health is verified, and canonical-only failures do not rollback a healthy Worker.');
+console.log('Production deployment safety passed: current production must be healthy before replacement, rollback targets are captured only after that gate, failed releases capture visible diagnostics and rollback, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');
