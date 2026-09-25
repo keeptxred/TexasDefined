@@ -118,6 +118,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
           "Cleaver's Spring studio also shows how multigenerational the tradition has become: some customers who wore her mums as students now return for mums for their own children. That continuity is part of why the Texas mum is more than a novelty—it is a living local tradition passed from one homecoming generation to the next."
         ],
         links: [
+          { href: "/article/mum-queen-spring-texas-homecoming-mums", label: "Order from The Mum Queen in Spring" },
           { href: "/county/harris", label: "Explore Harris County" },
           { href: "/sports/friday-night-lights", label: "Friday Night Lights, Defined" }
         ]
@@ -132,6 +133,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
       }
     ],
     related: [
+      { href: "/article/mum-queen-spring-texas-homecoming-mums", label: "The Mum Queen in Spring", description: "Use the practical maker guide for ordering timelines, consultations, custom mums and garters." },
       { href: "/sports/friday-night-lights", label: "Friday Night Lights, Defined", description: "Connect homecoming mums to the broader Texas high-school football traditions, game-night culture and season arc." },
       { href: "/sports-venues/high-school-football", label: "Texas high-school football", description: "The Friday-night culture that provides the backdrop for homecoming." },
       { href: "/things-unique-to-texas/culture-music", label: "Texas cultural traditions", description: "Rodeos, music, school rituals and community customs." },
