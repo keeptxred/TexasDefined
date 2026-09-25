@@ -173,6 +173,8 @@ for (const [label, source] of [
   if (!source.includes('/texas-industries')) failures.push(`${label} must surface the Texas industries authority hub.`);
 }
 
+if (!businessData.includes('If the business move includes employees or a new Texas site')) failures.push('Start a Business in Texas must distinguish filing/setup from workforce and site-selection relocation.');
+if (!businessData.includes('/moving-to-texas?companyMove=employer#corporate-relocation')) failures.push('Start a Business in Texas must link to the governed corporate relocation workflow.');
 if (!economyArticle.includes('{ href: "/texas-industries", label: "Texas industries"')) failures.push('Jobs/economy overview must link to the structured industries hub.');
 if (!hub.includes('href="/article/texas-jobs-economy-industries"')) failures.push('Industries hub must link back to the jobs/economy overview.');
 if (!seoOverrides.includes('"/article/texas-jobs-economy-industries":')) failures.push('Jobs/economy overview must retain its separate SEO override.');
