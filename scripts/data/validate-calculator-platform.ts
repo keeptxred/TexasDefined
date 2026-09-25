@@ -30,6 +30,8 @@ close(mortgage.monthlyPrincipalInterest, 2022.6176751774892, 0.000001, 'mortgage
 close(mortgage.monthlyPropertyTax, 666.6666666667, 0.000001, 'property tax');
 close(mortgage.monthlyHousingPayment, 3039.2843418442, 0.000001, 'housing payment');
 assert.equal(mortgage.amortization.length, 360, '30-year mortgage should have 360 scheduled rows without extra principal');
+const allInMortgage = calculateMortgage({ homePrice: 400000, downPayment: 80000, annualRatePercent: 6.5, termYears: 30, propertyTaxRatePercent: 2, annualInsurance: 3000, monthlyHoa: 100, monthlyUtilities: 350, monthlyMaintenance: 400, monthlyPool: 150, monthlyLandscaping: 100, monthlyOther: 75 });
+close(allInMortgage.monthlyOwnershipCost - allInMortgage.monthlyHousingPayment, 1075, 0.001, 'all-in recurring ownership extras');
 close(mortgage.amortization.at(-1)?.endingBalance ?? -1, 0, 0.01, 'ending mortgage balance');
 
 const invalid = calculateMortgage({ homePrice: 300000, downPayment: 350000, annualRatePercent: 6, termYears: 30 });
@@ -125,6 +127,8 @@ const financeSource = fs.readFileSync('src/components/calculators/TexasHomeFinan
 assert.ok(!planningSource.includes('Math.pow(1 + monthlyRate'), 'planning calculator components must not implement mortgage amortization math');
 assert.ok(!financeSource.includes('Math.pow(1+m'), 'finance calculator components must not implement duplicate mortgage math');
 assert.ok(fs.readFileSync('src/components/property/PropertyCalculatorFramework.tsx', 'utf8').includes('BreakdownTable'), 'shared framework must include detailed breakdown tables');
-assert.ok(fs.readFileSync('src/components/property/PropertyCalculatorFramework.tsx', 'utf8').includes('BreakdownChart'), 'shared framework must include visual breakdowns');
+const frameworkSource = fs.readFileSync('src/components/property/PropertyCalculatorFramework.tsx', 'utf8');
+assert.ok(frameworkSource.includes('BreakdownChart'), 'shared framework must include visual breakdowns');
+assert.ok(frameworkSource.includes('breakdownClasses'), 'visual breakdowns must distinguish categories instead of rendering one undifferentiated bar');
 
 console.log('Calculator platform validation passed: golden math, edge cases, cross-calculator consistency, universal actions, and shared breakdown components.');
