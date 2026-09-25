@@ -172,9 +172,10 @@ export function calculateMortgagePayoff(input: { balance: number; annualRatePerc
   return { months, interest, paymentTooLow: remaining > 0.005 };
 }
 
-export function calculateRefinance(input: { balance: number; currentRatePercent: number; newRatePercent: number; newTermYears: number; closingCosts: number }) {
+export function calculateRefinance(input: { balance: number; currentRatePercent: number; newRatePercent: number; currentTermYears?: number; newTermYears: number; closingCosts: number }) {
   const balance = nonNegative(input.balance);
-  const currentPayment = calculateMonthlyPrincipalInterest(balance, input.currentRatePercent, input.newTermYears);
+  const currentTermYears = input.currentTermYears ?? input.newTermYears;
+  const currentPayment = calculateMonthlyPrincipalInterest(balance, input.currentRatePercent, currentTermYears);
   const newPayment = calculateMonthlyPrincipalInterest(balance, input.newRatePercent, input.newTermYears);
   const monthlySavings = currentPayment - newPayment;
   const breakEvenMonths = monthlySavings > 0 ? nonNegative(input.closingCosts) / monthlySavings : Infinity;
