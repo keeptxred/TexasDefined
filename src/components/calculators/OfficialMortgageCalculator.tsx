@@ -104,7 +104,7 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
     insurance: String(result.monthlyInsurance),
     pmi: String(result.monthlyPmi),
     hoa: String(result.monthlyHoa),
-    special: String(result.monthlySpecialDistricts),
+    specialDistricts: String(result.monthlySpecialDistricts),
     maintenance: String(result.monthlyMaintenance),
     utilities: String(result.monthlyUtilities),
   }).toString();
