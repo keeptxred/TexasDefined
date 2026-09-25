@@ -13,9 +13,10 @@ function liveUrl(path, attempt) {
   return url;
 }
 
-async function fetchLive(path) {
+async function fetchLive(path, requiredMarkers = []) {
   let lastError;
-  for (let attempt = 1; attempt <= 12; attempt += 1) {
+  const maxAttempts = 18;
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
     const url = liveUrl(path, attempt);
     try {
       const response = await fetch(url, {
@@ -30,14 +31,17 @@ async function fetchLive(path) {
       });
       const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
       const body = await response.text();
-      if (!challenged && response.ok) return body;
+      const missingMarkers = requiredMarkers.filter((marker) => !body.includes(marker));
+      if (!challenged && response.ok && missingMarkers.length === 0) return body;
       lastError = new Error(challenged
         ? `${url.pathname} returned a Cloudflare challenge.`
-        : `${url.pathname} returned HTTP ${response.status}.`);
+        : !response.ok
+          ? `${url.pathname} returned HTTP ${response.status}.`
+          : `${url.pathname} is still serving the previous revision; missing: ${missingMarkers.join(' | ')}.`);
     } catch (error) {
       lastError = error instanceof Error ? error : new Error(String(error));
     }
-    if (attempt < 12) await sleep(5_000);
+    if (attempt < maxAttempts) await sleep(5_000);
   }
   throw lastError || new Error(`${path} failed production verification.`);
 }
@@ -76,11 +80,31 @@ function requireIndexableHtml(body, canonical, label) {
 }
 
 const [directory, city, whirlyball, tarrant, sitemap] = await Promise.all([
-  fetchLive('/browse/cities'),
-  fetchLive('/city/hurst'),
-  fetchLive('/destination/whirlyball-hurst'),
-  fetchLive('/county/tarrant'),
-  fetchLive('/sitemap.xml'),
+  fetchLive('/browse/cities', [
+    'Hurst has a Texas Defined city guide with official municipal sources',
+    '/city/hurst',
+  ]),
+  fetchLive('/city/hurst', [
+    'https://texasdefined.com/city/hurst',
+    'Hurst systems at a glance',
+    'WhirlyBall Hurst',
+    '/destination/whirlyball-hurst',
+  ]),
+  fetchLive('/destination/whirlyball-hurst', [
+    'https://texasdefined.com/destination/whirlyball-hurst',
+    '/city/hurst',
+    'Whirlyball.jpg',
+  ]),
+  fetchLive('/county/tarrant', [
+    'https://texasdefined.com/county/tarrant',
+    'WhirlyBall Hurst',
+    '/destination/whirlyball-hurst',
+    'Arlington and Hurst',
+  ]),
+  fetchLive('/sitemap.xml', [
+    'https://texasdefined.com/city/hurst',
+    'https://texasdefined.com/destination/whirlyball-hurst',
+  ]),
 ]);
 
 requireCondition(
