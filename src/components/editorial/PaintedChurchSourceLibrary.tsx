@@ -1,6 +1,11 @@
 import { Link } from "@tanstack/react-router";
 
-import { paintedChurchAuthorityExpansionDate, paintedChurchAuthoritySources } from "@/data/painted-church-authority-sources";
+import {
+  paintedChurchAuthorityExpansionDate,
+  paintedChurchAuthoritySources,
+  paintedChurchResearchExpansionDate,
+  paintedChurchResearchExpansionSources,
+} from "@/data/painted-church-authority-sources";
 import { paintedChurchImageSources } from "@/data/painted-church-image-sources";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 
@@ -59,6 +64,20 @@ export function PaintedChurchSourceLibrary() {
         <div className="mt-7 grid gap-px border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
           {paintedChurchAuthoritySources.map((source, index) => <article key={source.url} className="bg-background p-6">
             <p className="eyebrow text-muted-foreground">Source {index + 1} of {paintedChurchAuthoritySources.length} · {source.scope}</p>
+            <h4 className="mt-2 font-display text-2xl leading-tight"><a href={source.url} target="_blank" rel="noreferrer" className="hover:text-primary">{source.label}</a></h4>
+            <p className="mt-3 text-xs font-medium uppercase tracking-[0.1em] text-foreground/70">{source.authority}</p>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{source.contribution}</p>
+          </article>)}
+        </div>
+      </div>
+
+      <div className="mt-10 border-t border-border pt-8">
+        <p className="eyebrow text-primary">15 more research sources · {paintedChurchResearchExpansionDate}</p>
+        <h3 className="mt-3 font-display text-3xl">A second source pass adds community history, artist evidence and decorative-technique detail.</h3>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">These are 15 exact source pages that were not already in the Texas Defined research trail. New facts are added only where they improve a church profile or resolve a research question. When a later source conflicts with stronger parish, National Register or other primary documentation, the discrepancy is retained rather than silently overwriting the existing record.</p>
+        <div className="mt-7 grid gap-px border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
+          {paintedChurchResearchExpansionSources.map((source, index) => <article key={source.url} className="bg-background p-6">
+            <p className="eyebrow text-muted-foreground">New source {index + 1} of {paintedChurchResearchExpansionSources.length} · {source.scope}</p>
             <h4 className="mt-2 font-display text-2xl leading-tight"><a href={source.url} target="_blank" rel="noreferrer" className="hover:text-primary">{source.label}</a></h4>
             <p className="mt-3 text-xs font-medium uppercase tracking-[0.1em] text-foreground/70">{source.authority}</p>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{source.contribution}</p>

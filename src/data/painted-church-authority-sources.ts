@@ -139,6 +139,132 @@ export const paintedChurchAuthoritySources: PaintedChurchAuthoritySource[] = [
   },
 ];
 
+
+export const paintedChurchResearchExpansionDate = "2026-09-25";
+
+export const paintedChurchResearchExpansionSources: PaintedChurchAuthoritySource[] = [
+  {
+    label: "Diocese of Victoria — Painted Churches",
+    url: "https://www.victoriadiocese.org/painted-churches-1",
+    authority: "Diocese of Victoria",
+    scope: "Regional immigrant and decorative context",
+    contribution: "Adds diocesan interpretation of the churches as mature immigrant-community institutions: often second- or third-generation buildings whose painted interiors, German and Czech inscriptions, schools and worship spaces preserved culture while signaling community stability.",
+    churchSlugs: ["dubina-saints-cyril-methodius", "high-hill-nativity-of-mary", "praha-st-marys-assumption", "moravia-ascension-of-our-lord", "st-marys-immaculate-conception-lavaca"],
+  },
+  {
+    label: "First Baptist Church Amarillo — Our History",
+    url: "https://www.firstamarillo.org/our-history",
+    authority: "First Baptist Church Amarillo",
+    scope: "Amarillo congregational chronology",
+    contribution: "Adds the congregation's 1889 organization with sixteen charter members, the 1926 decision to begin the present building program, its 13th-and-Tyler site, and the August 3, 1930 dedication of the historic church.",
+    churchSlugs: ["amarillo-first-baptist-church"],
+  },
+  {
+    label: "Immaculate Conception of the Blessed Virgin Mary — Our Story",
+    url: "https://icsmhallettsville.org/our-story",
+    authority: "Immaculate Conception of the Blessed Virgin Mary Parish",
+    scope: "Hallettsville / Lavaca County church history",
+    contribution: "Adds the October 28, 1896 dedication of the present church and, critically, documents the 1941 angel decoration as paintings made on cheesecloth netting and applied to the ceiling above the altar rather than assumed to be an original 1896 finish.",
+    churchSlugs: ["st-marys-immaculate-conception-lavaca"],
+  },
+  {
+    label: "Handbook of Texas — Godfrey Flury",
+    url: "https://www.tshaonline.org/handbook/entries/flury-godfrey",
+    authority: "Texas State Historical Association",
+    scope: "Praha artist biography and attribution",
+    contribution: "Adds Flury's Swiss background, his 1895 commission at Praha, more precise descriptions of the trompe-l'oeil and symbolic program, and the 1972 authentication of his authorship through surviving sketches and notes.",
+    churchSlugs: ["praha-st-marys-assumption"],
+  },
+  {
+    label: "Handbook of Texas — Serbin",
+    url: "https://www.tshaonline.org/handbook/entries/serbin-tx",
+    authority: "Texas State Historical Association",
+    scope: "Serbin settlement history",
+    contribution: "Adds the 1855 land purchase for the Wendish settlement, the ninety-five acres reserved for church and school, the Low Pin Oak settlement name, the 1860 Serbin name, and the congregation's place in Texas Missouri Synod history.",
+    churchSlugs: ["serbin-st-paul-lutheran-church"],
+  },
+  {
+    label: "Handbook of Texas — Dubina",
+    url: "https://www.tshaonline.org/handbook/entries/dubina-tx",
+    authority: "Texas State Historical Association",
+    scope: "Dubina community history",
+    contribution: "Adds the settlement's earlier Navidad and Bohemian Navidad names, Augustine Haidusek's Dubina naming, and the scale of the parish by 1900, when the church served more than 600 families.",
+    churchSlugs: ["dubina-saints-cyril-methodius"],
+  },
+  {
+    label: "Handbook of Texas — Praha",
+    url: "https://www.tshaonline.org/handbook/entries/praha-tx",
+    authority: "Texas State Historical Association",
+    scope: "Praha community and parish origins",
+    contribution: "Adds the settlement's Mulberry and Hottentot names, early Masses in Mathias Novak's home and the 1858 adoption of the name Praha, strengthening the community history without overriding the church chronology already established from primary records.",
+    churchSlugs: ["praha-st-marys-assumption"],
+  },
+  {
+    label: "Handbook of Texas — Panna Maria",
+    url: "https://www.tshaonline.org/handbook/entries/panna-maria-tx",
+    authority: "Texas State Historical Association",
+    scope: "Panna Maria Polish-American history",
+    contribution: "Adds the artist and scale of the 1966 Lyndon B. Johnson gift: Jan E. Krantz's approximately 12,000-piece mosaic of Our Lady of Częstochowa, presented during a Polish-Christianity millennium observance that drew thousands.",
+    churchSlugs: ["panna-maria-immaculate-conception"],
+  },
+  {
+    label: "Handbook of Texas — High Hill",
+    url: "https://www.tshaonline.org/handbook/entries/high-hill-tx",
+    authority: "Texas State Historical Association",
+    scope: "High Hill immigrant-community history",
+    contribution: "Adds the community's origins in Blum Hill and Oldenburg, German and Austrian-Moravian settlement, and cultural institutions including a Turnverein, dramatic society, men's choir and orchestra.",
+    churchSlugs: ["high-hill-nativity-of-mary"],
+  },
+  {
+    label: "Handbook of Texas — LaCoste",
+    url: "https://www.tshaonline.org/handbook/entries/lacoste-tx",
+    authority: "Texas State Historical Association",
+    scope: "LaCoste community and church architecture",
+    contribution: "Adds an independent architectural description of Our Lady of Grace emphasizing Corinthian columns, Gothic arches, large stained-glass windows and noted acoustics. Its 1912 dating is retained as a source discrepancy rather than replacing stronger parish chronology.",
+    churchSlugs: ["lacoste-our-lady-of-grace"],
+  },
+  {
+    label: "Handbook of Texas — Wends",
+    url: "https://www.tshaonline.org/handbook/entries/wends",
+    authority: "Texas State Historical Association",
+    scope: "Wendish migration and cultural history",
+    contribution: "Adds statewide context for the Wendish migration, Serbin's church-school institutions and the later spread and assimilation of Wendish families across south-central Texas.",
+    churchSlugs: ["serbin-st-paul-lutheran-church"],
+  },
+  {
+    label: "Handbook of Texas — Ammannsville",
+    url: "https://www.tshaonline.org/handbook/entries/ammannsville-tx",
+    authority: "Texas State Historical Association",
+    scope: "Ammannsville settlement history",
+    contribution: "Adds German and Czech settlement context and identifies Andrew Ammann, an architect and farmer who arrived in 1870, without forcing the Handbook's compressed storm-and-fire chronology over more detailed building records.",
+    churchSlugs: ["ammannsville-st-john-the-baptist"],
+  },
+  {
+    label: "Handbook of Texas — Wallis",
+    url: "https://www.tshaonline.org/handbook/entries/wallis-tx",
+    authority: "Texas State Historical Association",
+    scope: "Wallis community history",
+    contribution: "Documents Czech immigration to Wallis by about 1890, adding a more precise settlement date to the community-history layer behind Guardian Angel's later church complex.",
+    churchSlugs: ["wallis-guardian-angel"],
+  },
+  {
+    label: "Handbook of Texas — Lindsay",
+    url: "https://www.tshaonline.org/handbook/entries/lindsay-tx",
+    authority: "Texas State Historical Association",
+    scope: "Lindsay German-Catholic colony history",
+    contribution: "Adds the Flusche brothers' German-Catholic colony, the exact March 25, 1892 first Mass, nearly eight acres reserved for church, school and cemetery, and the October 12, 1919 dedication date for the replacement church.",
+    churchSlugs: ["lindsay-st-peters-catholic-church"],
+  },
+  {
+    label: "Wendish Research Exchange — The Wends in Texas",
+    url: "https://wendishresearch.org/2015/10/10/the-wends-in-texas/",
+    authority: "Wendish Research Exchange",
+    scope: "Serbin migration chronology",
+    contribution: "Adds a useful chronology check distinguishing the December 1854 Galveston arrival from the 1855 Serbin-area settlement and notes that the congregation was not called St. Paul until 1870; Texas Defined treats the essay as interpretive research and preserves primary-source precedence.",
+    churchSlugs: ["serbin-st-paul-lutheran-church"],
+  },
+];
+
 type AuthorityEnrichment = {
   overrides?: Partial<Pick<PaintedChurchProfile, "quickAnswer" | "builtYear" | "paintedYear" | "architecture" | "architect" | "builder" | "artists" | "heritage">>;
   facts?: PaintedChurchFact[];
@@ -717,6 +843,232 @@ const fieldResearchEnrichments: Record<string, AuthorityEnrichment> = {
   },
 };
 
+
+const researchEnrichments: Record<string, AuthorityEnrichment> = {
+  "amarillo-first-baptist-church": {
+    facts: [
+      { label: "Congregation organized", value: "September 1889 with sixteen charter members, according to the congregation's official history" },
+      { label: "Present-building campaign", value: "The congregation voted on August 29, 1926 to begin the major building program at 13th and Tyler" },
+      { label: "Historic church dedication", value: "August 3, 1930" },
+    ],
+    history: [
+      {
+        heading: "The decorated sanctuary grew from a forty-year congregational building story",
+        paragraphs: [
+          "First Baptist Amarillo's own history traces the congregation to sixteen charter members in September 1889. Its first church building was completed in 1890, and by August 1926 the congregation had approved a much more ambitious building program at 13th and Tyler.",
+          "The present historic church was dedicated on August 3, 1930. That parish-controlled chronology complements the National Register record and helps anchor the Schnoor Company's documented decorative work within the building campaign that produced the sanctuary.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "First Baptist Church Amarillo — official history", url: "https://www.firstamarillo.org/our-history" },
+    ],
+  },
+
+  "st-marys-immaculate-conception-lavaca": {
+    facts: [
+      { label: "Present church dedication", value: "October 28, 1896, according to the parish's official history" },
+      { label: "1941 angel technique", value: "Angels were painted on cheesecloth netting and applied to the ceiling above the altar" },
+    ],
+    preservation: [
+      {
+        heading: "The 1941 angels are a documented applied decorative layer",
+        paragraphs: [
+          "The parish history supplies an unusually specific technical detail for the later interior campaign: in 1941, angels were painted on cheesecloth netting and then applied to the ceiling over the altar. That means the visible work should not be described as though every painted element were executed directly on the 1896 building fabric.",
+          "Texas Defined keeps that later intervention separate from the church's original construction history, which makes the profile more useful for readers comparing original paint, later decoration and restoration.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Immaculate Conception of the Blessed Virgin Mary — official parish history", url: "https://icsmhallettsville.org/our-story" },
+      { label: "Diocese of Victoria — Painted Churches", url: "https://www.victoriadiocese.org/painted-churches-1" },
+    ],
+  },
+
+  "praha-st-marys-assumption": {
+    facts: [
+      { label: "Flury commission", value: "Godfrey Flury was commissioned in 1895 to decorate St. Mary's at Praha" },
+      { label: "Flury attribution evidence", value: "His authorship was authenticated in 1972 through preliminary sketches and notes corresponding to the surviving interior" },
+      { label: "Praha community name", value: "The settlement was known as Mulberry and Hottentot before being renamed Praha in 1858" },
+      { label: "Early worship setting", value: "Before the present landmark, Mass was celebrated in the home of settler Mathias Novak" },
+    ],
+    paintings: [
+      {
+        heading: "Flury's authorship is backed by surviving preparatory material",
+        paragraphs: [
+          "The Handbook of Texas identifies Swiss-born decorative painter Godfrey Flury as the artist commissioned in 1895 for Praha. It describes the sky-blue tongue-and-groove ceiling, illusionistic ribs and Gothic capitals, floral and gold-scroll panels, and symbolic imagery that make the interior one of the state's strongest examples of integrated decorative painting.",
+          "The attribution is not simply tradition repeated from later tourism writing: the Handbook records that preliminary sketches and notes matching the church interior were used to authenticate Flury's authorship in 1972.",
+        ],
+      },
+    ],
+    history: [
+      {
+        heading: "Praha's Catholic life predates the present landmark by decades",
+        paragraphs: [
+          "The Handbook of Texas traces early Masses to the home of Mathias Novak and records that the community, previously called Mulberry and Hottentot, adopted the name Praha in 1858 in honor of Prague.",
+          "That earlier parish history matters because the famous painted church was not the beginning of Czech Catholic life here; it was the mature architectural expression of a community that had already built worship, school and settlement institutions.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Handbook of Texas — Godfrey Flury", url: "https://www.tshaonline.org/handbook/entries/flury-godfrey" },
+      { label: "Handbook of Texas — Praha", url: "https://www.tshaonline.org/handbook/entries/praha-tx" },
+      { label: "Diocese of Victoria — Painted Churches", url: "https://www.victoriadiocese.org/painted-churches-1" },
+    ],
+  },
+
+  "panna-maria-immaculate-conception": {
+    facts: [
+      { label: "1966 mosaic artist and scale", value: "Jan E. Krantz created the approximately 12,000-piece Our Lady of Częstochowa mosaic presented by President Lyndon B. Johnson" },
+      { label: "1966 millennium observance", value: "The Handbook of Texas reports that the Polish-Christianity millennium gathering at Panna Maria drew about 10,000 people" },
+    ],
+    sources: [
+      { label: "Handbook of Texas — Panna Maria", url: "https://www.tshaonline.org/handbook/entries/panna-maria-tx" },
+    ],
+  },
+
+  "serbin-st-paul-lutheran-church": {
+    facts: [
+      { label: "Settlement land", value: "Carl Lehmann and John Dube purchased roughly 4,000 acres in 1855 for the Wendish settlement; ninety-five acres were reserved for church and school" },
+      { label: "Community name", value: "The settlement was first known as Low Pin Oak and adopted the name Serbin in 1860" },
+      { label: "Missouri Synod significance", value: "The Serbin congregation became the first Missouri Synod congregation in Texas" },
+      { label: "Migration chronology", value: "Wendish Research Exchange distinguishes the December 1854 Galveston arrival from the 1855 establishment of the Serbin-area settlement" },
+    ],
+    history: [
+      {
+        heading: "Serbin's church, school and settlement were planned together",
+        paragraphs: [
+          "Texas State Historical Association research places the Wendish settlement on land acquired in 1855 by Carl Lehmann and John Dube for the immigrant group led by John Kilian, with ninety-five acres set aside for church and school. The place first known as Low Pin Oak took the name Serbin in 1860.",
+          "A separate Wendish Research Exchange chronology is useful for avoiding a common date compression: it distinguishes the group's December 1854 arrival at Galveston from the 1855 establishment of the Serbin-area settlement and notes that the congregation did not use the St. Paul name until 1870. Texas Defined treats that essay as an interpretive cross-check rather than as a replacement for primary records.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Handbook of Texas — Serbin", url: "https://www.tshaonline.org/handbook/entries/serbin-tx" },
+      { label: "Handbook of Texas — Wends", url: "https://www.tshaonline.org/handbook/entries/wends" },
+      { label: "Wendish Research Exchange — The Wends in Texas", url: "https://wendishresearch.org/2015/10/10/the-wends-in-texas/" },
+    ],
+  },
+
+  "dubina-saints-cyril-methodius": {
+    facts: [
+      { label: "Earlier settlement names", value: "Navidad and Bohemian Navidad before the community became Dubina" },
+      { label: "Meaning of Dubina", value: "Augustine Haidusek chose the Czech name Dubina, commonly translated as oak grove" },
+      { label: "Parish scale by 1900", value: "The Dubina church served more than 600 families by 1900, according to the Handbook of Texas" },
+    ],
+    history: [
+      {
+        heading: "The church story is inseparable from Dubina's Czech settlement history",
+        paragraphs: [
+          "The Handbook of Texas records that the community was known first as Navidad and Bohemian Navidad before Augustine Haidusek gave it the Czech name Dubina. The place became an important arrival point for Czech settlers entering Texas.",
+          "By 1900 the Dubina church served more than 600 families. That scale is new context for understanding why the parish could support the institutional and decorative ambitions documented elsewhere in the profile.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Handbook of Texas — Dubina", url: "https://www.tshaonline.org/handbook/entries/dubina-tx" },
+      { label: "Diocese of Victoria — Painted Churches", url: "https://www.victoriadiocese.org/painted-churches-1" },
+    ],
+  },
+
+  "high-hill-nativity-of-mary": {
+    facts: [
+      { label: "Community origins", value: "High Hill grew from the neighboring settlements of Blum Hill and Oldenburg" },
+      { label: "Immigrant background", value: "German and Austrian-Moravian settlers shaped the community" },
+      { label: "Cultural institutions", value: "Local organizations included a Turnverein, dramatic society, men's choir and orchestra" },
+    ],
+    history: [
+      {
+        heading: "High Hill's painted church emerged from a dense immigrant cultural network",
+        paragraphs: [
+          "The Handbook of Texas traces High Hill to the neighboring settlements of Blum Hill and Oldenburg, shaped by German and Austrian-Moravian immigrants. The community supported not only church life but also a Turnverein, dramatic performers, a men's choir and an orchestra.",
+          "That cultural setting helps explain why the church should be read as more than a decorative landmark: it belonged to a community that invested in organized music, performance, education and social institutions as it established itself in Texas.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Handbook of Texas — High Hill", url: "https://www.tshaonline.org/handbook/entries/high-hill-tx" },
+      { label: "Diocese of Victoria — Painted Churches", url: "https://www.victoriadiocese.org/painted-churches-1" },
+    ],
+  },
+
+  "lacoste-our-lady-of-grace": {
+    facts: [
+      { label: "Handbook architectural description", value: "Corinthian columns, Gothic arches, large stained-glass windows and noted acoustics" },
+      { label: "Date-source discrepancy", value: "The Handbook dates the church to 1912; Texas Defined retains parish-controlled construction chronology elsewhere instead of silently replacing it" },
+    ],
+    preservation: [
+      {
+        heading: "The 1911/1912 date difference is retained as a source discrepancy",
+        paragraphs: [
+          "The Handbook of Texas describes Our Lady of Grace as a 1912 church and highlights its Corinthian columns, Gothic arches, large stained-glass windows and acoustics. Parish-controlled material used elsewhere in this collection places the project in 1911.",
+          "Rather than choose one date without additional primary documentation, Texas Defined uses the Handbook for its architectural description and keeps the date difference visible for future reconciliation.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Handbook of Texas — LaCoste", url: "https://www.tshaonline.org/handbook/entries/lacoste-tx" },
+    ],
+  },
+
+  "ammannsville-st-john-the-baptist": {
+    facts: [
+      { label: "Settlement background", value: "Ammannsville was settled in the 1870s by German and Czech immigrant farmers" },
+      { label: "Community namesake", value: "Andrew Ammann, identified as an architect and farmer, arrived in the area in 1870" },
+    ],
+    history: [
+      {
+        heading: "Ammannsville was a mixed German-Czech farming settlement",
+        paragraphs: [
+          "The Handbook of Texas places Ammannsville's development in the 1870s among German and Czech immigrant farmers and identifies Andrew Ammann, who arrived in 1870, as an architect and farmer associated with the community's name.",
+          "Its compressed storm-and-fire chronology is not used to overwrite the more detailed building record already attached to the church. The source is most valuable here for settlement context.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Handbook of Texas — Ammannsville", url: "https://www.tshaonline.org/handbook/entries/ammannsville-tx" },
+    ],
+  },
+
+  "wallis-guardian-angel": {
+    facts: [
+      { label: "Czech settlement context", value: "Czech immigrants were settling in Wallis by about 1890" },
+    ],
+    history: [
+      {
+        heading: "Guardian Angel belongs to Wallis's railroad-era Czech immigration story",
+        paragraphs: [
+          "The Handbook of Texas places Czech immigration into Wallis by about 1890, during the town's railroad-era growth. That community history supplies a clearer background for the later 1913 Guardian Angel church and its Central European Catholic identity.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Handbook of Texas — Wallis", url: "https://www.tshaonline.org/handbook/entries/wallis-tx" },
+    ],
+  },
+
+  "lindsay-st-peters-catholic-church": {
+    facts: [
+      { label: "Colony foundation", value: "Lindsay developed as a German-Catholic colony promoted by Anton and August Flusche" },
+      { label: "First Mass", value: "March 25, 1892 in the William Flusche home" },
+      { label: "Church, school and cemetery land", value: "Nearly eight acres were donated to the Diocese of Dallas for the parish complex" },
+      { label: "Replacement dedication", value: "The church built after the 1917 tornado was dedicated on October 12, 1919" },
+    ],
+    history: [
+      {
+        heading: "St. Peter's grew with a deliberately organized German-Catholic colony",
+        paragraphs: [
+          "The Handbook of Texas describes Lindsay as a German-Catholic colony promoted by Anton and August Flusche. The first Mass was celebrated in a private home on March 25, 1892, and nearly eight acres were subsequently set aside for a church, school and cemetery.",
+          "The source also clarifies the sequence around the National Register dates: a brick church was built in 1903, destroyed by a tornado on May 31, 1917, and followed by a replacement dedicated on October 12, 1919.",
+        ],
+      },
+    ],
+    sources: [
+      { label: "Handbook of Texas — Lindsay", url: "https://www.tshaonline.org/handbook/entries/lindsay-tx" },
+    ],
+  },
+};
+
 function appendUnique<T>(base: T[] | undefined, extra: T[] | undefined, key: (value: T) => string): T[] | undefined {
   if (!base?.length && !extra?.length) return base;
   const out = [...(base ?? [])];
@@ -746,6 +1098,6 @@ function applyEnrichment(profile: PaintedChurchProfile, patch: AuthorityEnrichme
 }
 
 export function enrichPaintedChurchProfile(profile: PaintedChurchProfile): PaintedChurchProfile {
-  return [enrichments[profile.slug], fieldResearchEnrichments[profile.slug]]
+  return [enrichments[profile.slug], fieldResearchEnrichments[profile.slug], researchEnrichments[profile.slug]]
     .reduce<PaintedChurchProfile>((current, patch) => applyEnrichment(current, patch), profile);
 }
