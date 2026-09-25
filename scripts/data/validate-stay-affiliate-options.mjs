@@ -22,7 +22,7 @@ for (const [needle, label] of [
   ['## Hotels.com / Orbitz / Travelocity / Vrbo / RVshare contract', 'five-provider stay affiliate contract heading'],
   ['`rvshare.com` destinations are accepted', 'RVshare CJ host documentation'],
   ['**RV rental:** the canonical camping guide', 'RVshare route-scope documentation'],
-  ['eligible camping/RV/state-park/outdoors/road-trip surfaces also disclose RVshare', 'RVshare disclosure documentation'],
+  ['eligible camping/RV/state-park/outdoors/road-trip surfaces disclose Hotels.com, Travelocity and RVshare instead of Vrbo', 'RVshare disclosure documentation'],
   ['active CJ relationship plus observed conversion and realized commission', 'commission-aware routing documentation'],
 ]) requireText(integrationDocs, needle, label);
 
@@ -215,7 +215,7 @@ for (const [needle, label] of [
   ['placement: "stay-nearby-featured-golf"', 'featured golf affiliate attribution'],
   ['A venue-linked stay to consider', 'featured golf stay heading'],
   ['Venue relationship verified against', 'featured golf source disclosure'],
-  ['variant: featuredStay ? "secondary" : "primary"', 'featured-golf exact-property priority'],
+  ['variant: featuredStay || showRvshare ? "secondary" : "primary"', 'featured-golf and RVshare priority policy'],
   ['https://www.hotels.com/ho115100/hilton-anatole-dallas-united-states-of-america/', 'mature Hilton Anatole property record'],
   ['https://www.hotels.com/ho2949850752/loews-arlington-arlington-united-states-of-america/', 'Loews Arlington property record'],
   ['https://www.hotels.com/ho1830497920/tru-by-hilton-northlake-fort-worth-tx-roanoke-united-states-of-america/', 'Tru Northlake property record'],
