@@ -3,11 +3,13 @@ import { resolveEventTicketCta } from "./ticketing";
 
 export interface GlobalEventCalendarSearch {
   featured: string;
+  q: string;
   location: string;
   start: string;
   end: string;
   category: string;
   venue: string;
+  offer: string;
 }
 
 const categoryLabels: Record<TexasEventRecord["category"], string> = {
@@ -27,6 +29,29 @@ function matchesLocation(event: TexasEventRecord, value: string) {
   if (kind === "region") return event.region === target;
   if (kind === "county") return event.countySlug === target;
   return event.city.toLowerCase() === target.toLowerCase();
+}
+
+function matchesText(event: TexasEventRecord, value: string) {
+  const query = value.trim().toLocaleLowerCase("en-US");
+  if (!query) return true;
+  const haystack = [
+    event.title,
+    event.summary,
+    event.city,
+    event.countyName,
+    event.venueName,
+    categoryLabels[event.category],
+  ].filter(Boolean).join(" ").toLocaleLowerCase("en-US");
+  return query.split(/\s+/).every((term) => haystack.includes(term));
+}
+
+function matchesOffer(event: TexasEventRecord, value: string) {
+  if (!value) return true;
+  const cta = resolveEventTicketCta(event.ticketing);
+  if (value === "tickets") return Boolean(cta);
+  if (value === "affiliate") return Boolean(cta?.isAffiliate && cta.commissionStatus !== "ineligible");
+  if (value === "deals") return Boolean(cta?.isVerifiedDeal);
+  return true;
 }
 
 function overlapsRange(event: TexasEventRecord, start: string, end: string) {
@@ -74,9 +99,11 @@ function calendarHref(search: GlobalEventCalendarSearch, dates: { start: string;
   const params = new URLSearchParams();
   const values = {
     featured: search.featured,
+    q: search.q,
     location: search.location,
     category: search.category,
     venue: search.venue,
+    offer: search.offer,
     ...dates,
   };
   for (const [key, value] of Object.entries(values)) if (value) params.set(key, value);
@@ -142,8 +169,10 @@ export function buildGlobalEventCalendarServer(
   const today = texasTodayIso();
   const contextMatches = records.filter((event) =>
     (!search.category || event.category === search.category)
+    && matchesText(event, search.q)
     && matchesLocation(event, search.location)
-    && (!search.venue || event.venueId === search.venue));
+    && (!search.venue || event.venueId === search.venue)
+    && matchesOffer(event, search.offer));
   const filtered = contextMatches.filter((event) => overlapsRange(event, search.start, search.end));
   const displayed = filtered.slice(0, 48);
   const monthKey = validDate(search.start) ? search.start.slice(0, 7) : today.slice(0, 7);
