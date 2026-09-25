@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Container } from "@/components/layout/Container";
 import { RELOCATION_PLACES, type RelocationPlace } from "@/data/relocation-authority";
 import { TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-states-index";
-import { RELOCATION_WORKSPACE_STORAGE_KEY, RELOCATION_WORKSPACE_UPDATE_EVENT } from "@/lib/relocation-workspace";
+import { RELOCATION_CHECKLIST_TOTAL, RELOCATION_WORKSPACE_STORAGE_KEY, RELOCATION_WORKSPACE_UPDATE_EVENT } from "@/lib/relocation-workspace";
 
 type Profile = {
   origin: string;
@@ -23,6 +23,7 @@ type Profile = {
   climate: string;
   savedPlaces: string[];
   savedAddresses: string[];
+  completedChecklistItems: string[];
   notes: string;
 };
 
@@ -44,6 +45,7 @@ const DEFAULT_PROFILE: Profile = {
   climate: "any",
   savedPlaces: [],
   savedAddresses: [],
+  completedChecklistItems: [],
   notes: "",
 };
 
@@ -130,7 +132,7 @@ export function RelocationCommandCenter() {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    let next: Profile = { ...DEFAULT_PROFILE, savedPlaces: [], savedAddresses: [] };
+    let next: Profile = { ...DEFAULT_PROFILE, savedPlaces: [], savedAddresses: [], completedChecklistItems: [] };
     try {
       const saved = window.localStorage.getItem(RELOCATION_WORKSPACE_STORAGE_KEY);
       if (saved) {
@@ -140,6 +142,7 @@ export function RelocationCommandCenter() {
           ...parsed,
           savedPlaces: Array.isArray(parsed.savedPlaces) ? parsed.savedPlaces : next.savedPlaces,
           savedAddresses: Array.isArray(parsed.savedAddresses) ? parsed.savedAddresses : next.savedAddresses,
+          completedChecklistItems: Array.isArray(parsed.completedChecklistItems) ? parsed.completedChecklistItems : next.completedChecklistItems,
         };
       }
 
@@ -188,14 +191,20 @@ export function RelocationCommandCenter() {
 
   useEffect(() => {
     const handleWorkspaceUpdate = (event: Event) => {
-      const detail = (event as CustomEvent<{ savedAddress?: string }>).detail;
+      const detail = (event as CustomEvent<{ savedAddress?: string; completedChecklistItems?: string[] }>).detail;
       const address = detail?.savedAddress?.trim();
-      if (!address) return;
+      const completedChecklistItems = Array.isArray(detail?.completedChecklistItems)
+        ? detail.completedChecklistItems.filter((value): value is string => typeof value === "string")
+        : null;
+      if (!address && !completedChecklistItems) return;
       setProfile((current) => ({
         ...current,
-        savedAddresses: current.savedAddresses.includes(address)
-          ? current.savedAddresses
-          : current.savedAddresses.concat(address),
+        ...(address ? {
+          savedAddresses: current.savedAddresses.includes(address)
+            ? current.savedAddresses
+            : current.savedAddresses.concat(address),
+        } : {}),
+        ...(completedChecklistItems ? { completedChecklistItems } : {}),
       }));
     };
 
@@ -272,7 +281,7 @@ export function RelocationCommandCenter() {
               <Summary label="Housing target" value={money(profile.housingBudget) + "/mo"} />
               <Summary label="Household" value={String(profile.householdSize) + " people" + (profile.schools ? " · schools matter" : "")} />
               <Summary label="Transportation" value={String(profile.vehicles) + " vehicle" + (profile.vehicles === 1 ? "" : "s")} />
-              <Summary label="Saved research" value={String(profile.savedPlaces.length) + " place" + (profile.savedPlaces.length === 1 ? "" : "s") + " · " + String(profile.savedAddresses.length) + " address" + (profile.savedAddresses.length === 1 ? "" : "es")} />
+              <Summary label="Move progress" value={String(profile.completedChecklistItems.length) + "/" + String(RELOCATION_CHECKLIST_TOTAL) + " checklist · " + String(profile.savedPlaces.length) + " places · " + String(profile.savedAddresses.length) + " addresses"} />
             </div>
           </div>
         </div>
@@ -331,6 +340,11 @@ export function RelocationCommandCenter() {
                 <p className="mt-2 text-xs leading-5 text-muted-foreground">These addresses are stored only in this browser as part of My Texas Move.</p>
                 <ul className="mt-4 space-y-3 text-sm">{profile.savedAddresses.map((address) => <li key={address} className="flex items-start justify-between gap-4 border-b border-border pb-3"><span>{address}</span><button type="button" onClick={() => removeAddress(address)} className="shrink-0 text-xs font-semibold text-primary underline underline-offset-4">Remove</button></li>)}</ul>
               </div> : null}
+              <div className="mt-6 border-t border-border pt-5">
+                <h4 className="font-display text-xl">Moving checklist</h4>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{profile.completedChecklistItems.length} of {RELOCATION_CHECKLIST_TOTAL} tasks complete. Your checkmarks use the same browser-local My Texas Move storage.</p>
+                <a href="/moving-to-texas-checklist" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Continue the checklist →</a>
+              </div>
               <div className="mt-5 flex flex-wrap gap-4 text-sm font-semibold"><a href="/compare-texas-cities" className="text-primary underline underline-offset-4">Compare cities →</a><a href="/browse/cities" className="underline underline-offset-4">Browse city guides →</a><a href="/browse/counties" className="underline underline-offset-4">Browse counties →</a><a href="#address-research-desk" className="underline underline-offset-4">Research an address →</a></div>
             </div>
             <div className="border border-border bg-background p-6">

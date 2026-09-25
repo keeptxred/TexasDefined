@@ -117,6 +117,15 @@ if (!startBusinessBody.includes('If the business move includes employees or a ne
   throw new Error('/start-a-business-in-texas: corporate relocation handoff is not live');
 }
 
+const { body: checklistBody } = await fetchLive(
+  '/moving-to-texas-checklist',
+  'persistent moving checklist',
+  (candidateResponse, body) => validatePage('/moving-to-texas-checklist', 'My Texas Move progress', candidateResponse, body),
+);
+if (!checklistBody.includes('tasks complete') || !checklistBody.includes('Progress stays in this browser with My Texas Move')) {
+  throw new Error('/moving-to-texas-checklist: persistent checklist progress UI is not live');
+}
+
 const { body: toolkitBody } = await fetchLive('/moving-to-texas/tools', 'relocation toolkit');
 for (const path of toolkitLinks) {
   if (!toolkitBody.includes(`href="${path}"`) && !toolkitBody.includes(`href="${origin}${path}"`)) {
