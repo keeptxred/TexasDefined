@@ -361,7 +361,7 @@ export function BreakdownTable({ items, totalLabel = 'Total', total }: { items: 
   );
 }
 
-const breakdownClasses = ['bg-primary', 'bg-primary/80', 'bg-primary/60', 'bg-primary/40', 'bg-primary/25', 'bg-foreground/70', 'bg-muted-foreground/60'] as const;
+const breakdownClasses = ['bg-primary', 'bg-primary/80', 'bg-secondary', 'bg-accent', 'bg-foreground', 'bg-muted', 'bg-primary/80'] as const;
 
 export function BreakdownChart({ items }: { items: BreakdownItem[] }) {
   const positive = items.filter((item) => item.value > 0);
