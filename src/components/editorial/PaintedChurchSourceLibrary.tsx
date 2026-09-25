@@ -40,7 +40,7 @@ const verifiedAdditions = [
 const researchQueue = [
   { slug: "ellinger-st-marys-catholic-church", name: "St. Mary’s Church", place: "Ellinger / Hostyn Hill, Texas", status: "Historic church history is verified, but painted-interior evidence has not yet met the church-specific standard for public inclusion." },
   { slug: "rockne-sacred-heart-catholic-church", name: "Sacred Heart Catholic Church", place: "Rockne, Texas", status: "German-Catholic history and a reusable exterior are documented; Painted Church classification still needs stronger interior evidence." },
-  { slug: "san-antonio-san-fernando-cathedral", name: "San Fernando Cathedral", place: "San Antonio, Texas", status: "A 1982 Buie Harwood decorative-painting research group verifies a serious lead, but surviving-program scope, authorship and fit with this collection still need stronger evidence before inclusion." },
+  { slug: "san-antonio-san-fernando-cathedral", name: "San Fernando Cathedral", place: "San Antonio, Texas", status: "A 1982 Buie Harwood decorative-painting research group verifies a serious lead. New SAH Archipedia evidence records a 2003 interior restoration and describes the eighteenth-century core as restored to plain, mission-like whitewashed walls, so the decorative evidence must be localized to later fabric before inclusion." },
 ] as const;
 
 export function PaintedChurchSourceLibrary() {
@@ -53,9 +53,9 @@ export function PaintedChurchSourceLibrary() {
       <div className="mt-10 border-l-2 border-primary bg-surface p-6 sm:p-8"><p className="eyebrow text-primary">Authority system</p><h3 className="mt-3 font-display text-3xl">Research the churches by entity, not just by destination.</h3><p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The Painted Churches section now has canonical authority pages for techniques, symbols, people, cultural communities, preservation concepts, archival comparisons and architecture terms, all joined by an evidence-backed knowledge graph.</p><div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm">{authorityLinks.map(([label, href]) => <Link key={href} to={href as any} className="border-b border-primary text-primary">{label}</Link>)}</div></div>
 
       <div className="mt-10 border-t border-border pt-8">
-        <p className="eyebrow text-primary">15-source authority expansion · {paintedChurchAuthorityExpansionDate}</p>
-        <h3 className="mt-3 font-display text-3xl">Federal records and parish-controlled sources added to the evidence trail.</h3>
-        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">This research pass adds 15 source pages that were not previously part of the canonical profile source trail. National Park Service, National Archives and Texas Historical Commission records lead for designation and historic facts; official parish pages lead for current access. Relevant factual material is synthesized into the individual church profiles rather than copied from source prose.</p>
+        <p className="eyebrow text-primary">{paintedChurchAuthoritySources.length}-source authority trail · updated {paintedChurchAuthorityExpansionDate}</p>
+        <h3 className="mt-3 font-display text-3xl">A second 15-source research pass adds community, architectural and preservation evidence.</h3>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The latest pass adds 15 exact source pages beyond the original 15-source expansion. New evidence comes from municipalities, diocesan records, the Texas State Historical Association, the Texas Society of Architects, church and school histories, Texas Highways, Wendish research and SAH Archipedia. Only facts that add to or materially qualify the existing record are synthesized into church profiles; duplicate claims are not repeated, and time-sensitive visitor guidance remains subordinate to the active parish.</p>
         <div className="mt-7 grid gap-px border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
           {paintedChurchAuthoritySources.map((source, index) => <article key={source.url} className="bg-background p-6">
             <p className="eyebrow text-muted-foreground">Source {index + 1} of {paintedChurchAuthoritySources.length} · {source.scope}</p>
