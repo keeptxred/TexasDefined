@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import { TexasRiverBasinReference } from "./TexasRiverBasinReference";
 
 const twdbMapUrl = "https://www.twdb.texas.gov/mapping/doc/maps/Major_River_Basins_8x11.pdf";
 
@@ -75,14 +74,39 @@ function TexasRiverOrientationMap() {
   );
 }
 
+function RiverProfilesList({ compact = false }: { compact?: boolean }) {
+  return (
+    <ul className={compact ? "mt-4 divide-y divide-border border-y border-border" : "grid sm:grid-cols-2"}>
+      {riverProfiles.map((river, index) => (
+        <li key={river.href} className={compact ? "py-3" : `border-b border-border py-5 sm:px-5 ${index % 2 === 1 ? "sm:border-l" : ""}`}>
+          <Link to={river.href} className="group block">
+            <span className={compact ? "font-semibold group-hover:text-primary" : "font-display text-2xl group-hover:text-primary"}>{river.name}</span>
+            <span className="mt-1 block text-xs font-semibold uppercase text-muted-foreground">{river.region}</span>
+            {!compact && <span className="mt-2 block text-sm leading-6 text-muted-foreground">{river.note}</span>}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export function TexasRiversAuthorityHub() {
   return (
-    <section className="mb-12 border-y border-border py-10" aria-labelledby="texas-rivers-authority-heading">
+    <section className="relative mb-10 border-y border-border py-8 sm:py-10" aria-labelledby="texas-rivers-authority-heading">
+      <aside className="hidden 2xl:block" style={{ left: "calc(100% + 2rem)", position: "absolute", top: "0", width: "18rem" }} aria-labelledby="river-profile-rail-heading">
+        <div className="sticky top-8 rounded-sm border border-border bg-background p-5">
+          <p className="eyebrow text-primary">Explore individual rivers</p>
+          <h2 id="river-profile-rail-heading" className="mt-2 font-display text-xl">Dedicated river profiles</h2>
+          <RiverProfilesList compact />
+          <Link to="/texas-explained" className="mt-4 inline-block text-sm font-semibold text-primary underline decoration-border underline-offset-4">Texas Explained collection →</Link>
+        </div>
+      </aside>
+
       <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
         <div>
-          <p className="eyebrow text-primary">Texas river atlas</p>
-          <h2 id="texas-rivers-authority-heading" className="mt-3 font-display text-3xl leading-tight sm:text-4xl">See the whole river system before reading it river by river</h2>
-          <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">Texas Water Development Board data divides the state into 15 major river basins plus eight coastal basins. This page is the statewide starting point: use the map and table for orientation, then jump to a river section or open one of the dedicated river profiles.</p>
+          <p className="eyebrow text-primary">Texas rivers at a glance</p>
+          <h2 id="texas-rivers-authority-heading" className="mt-3 font-display text-3xl leading-tight sm:text-4xl">Start with the statewide river map</h2>
+          <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">Texas Water Development Board data divides the state into 15 major river basins plus eight coastal basins. Use this overview to orient yourself, then jump directly to the river you want to understand.</p>
         </div>
         <dl className="grid grid-cols-3 gap-3 lg:grid-cols-1">
           <div className="border-t border-border pt-3"><dt className="text-xs uppercase text-muted-foreground">Major basins</dt><dd className="mt-1 font-display text-3xl">15</dd></div>
@@ -99,39 +123,39 @@ export function TexasRiversAuthorityHub() {
           {sectionLinks.map((item) => <a key={item.href} href={item.href} className="rounded-sm border border-border px-3 py-2 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">{item.label}</a>)}
         </div>
       </nav>
+    </section>
+  );
+}
 
-      <section className="mt-10" aria-labelledby="river-profiles-heading">
+export function TexasRiversAfterArticle() {
+  return (
+    <div className="mt-14 space-y-12">
+      <section aria-labelledby="river-profiles-heading">
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-4">
-          <div><p className="eyebrow text-primary">Go deeper</p><h3 id="river-profiles-heading" className="mt-2 font-display text-2xl sm:text-3xl">Dedicated Texas Defined river profiles</h3></div>
+          <div>
+            <p className="eyebrow text-primary">Explore individual rivers</p>
+            <h2 id="river-profiles-heading" className="mt-2 font-display text-2xl sm:text-3xl">Dedicated Texas Defined river profiles</h2>
+          </div>
           <Link to="/texas-explained" className="text-sm font-semibold text-primary underline decoration-border underline-offset-4">Texas Explained collection →</Link>
         </div>
-        <ul className="grid sm:grid-cols-2">
-          {riverProfiles.map((river, index) => <li key={river.href} className={`border-b border-border py-5 sm:px-5 ${index % 2 === 1 ? "sm:border-l" : ""}`}>
-            <Link to={river.href} className="group block">
-              <span className="font-display text-2xl group-hover:text-primary">{river.name}</span>
-              <span className="mt-1 block text-xs font-semibold uppercase text-muted-foreground">{river.region}</span>
-              <span className="mt-2 block text-sm leading-6 text-muted-foreground">{river.note}</span>
-            </Link>
-          </li>)}
-        </ul>
+        <RiverProfilesList />
       </section>
 
-      <TexasRiverBasinReference />
-
-      <section className="mt-10 grid gap-5 md:grid-cols-2" aria-label="Choose the Texas water guide you need">
+      <section className="grid gap-5 md:grid-cols-2" aria-label="Choose the Texas water guide you need">
         <Link to="/article/texas-river-basins-guide" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Need watershed boundaries?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Texas River Basins Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Use the basin guide when the question is drainage, watershed boundaries, coastal basins or how upstream land connects to downstream water.</p></Link>
         <Link to="/article/texas-lakes-reservoirs-explained" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Need dams and lakes?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Texas Lakes & Reservoirs Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Use the reservoir guide for stored water, dams, flood control and why so many familiar Texas lakes are managed river systems.</p></Link>
         <Link to="/article/texas-aquifers-springs-explained" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Need groundwater?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Texas Aquifers & Springs Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Use the aquifer guide to understand spring flow, groundwater connections and why some Central Texas rivers stay clear between storms.</p></Link>
         <Link to="/explore/lakes-rivers" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Want somewhere to go?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Explore Texas Lakes & Rivers →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Move from the statewide explanation to river parks, swimming water, reservoirs and destination guides.</p></Link>
       </section>
 
-      <section className="mt-10" aria-labelledby="river-places-heading">
-        <p className="eyebrow text-primary">Follow the water into Texas</p>
-        <h3 id="river-places-heading" className="mt-2 font-display text-2xl sm:text-3xl">River places connected to the statewide story</h3>
+      <section aria-labelledby="river-places-heading">
+        <p className="eyebrow text-primary">Plan a river trip</p>
+        <h2 id="river-places-heading" className="mt-2 font-display text-2xl sm:text-3xl">Places to experience Texas rivers</h2>
+        <p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">These parks and destinations let you see the statewide river story on the ground, from clear Hill Country water to desert tributaries and East Texas wetlands.</p>
         <ul className="mt-5 grid border-t border-border sm:grid-cols-2 lg:grid-cols-3">
           {placeLinks.map((place) => <li key={place.href} className="border-b border-border py-4 sm:px-4"><Link to={place.href} className="group block"><span className="font-semibold group-hover:text-primary">{place.label}</span><span className="mt-1 block text-xs uppercase text-muted-foreground">{place.river}</span></Link></li>)}
         </ul>
       </section>
-    </section>
+    </div>
   );
 }
