@@ -414,6 +414,34 @@ const horsesOnTheBeachCorpusChristiStub: Article = {
   relatedDestinations: [],
 };
 
+
+const mumQueenSpringStub: Article = {
+  id: "guide-mum-queen-spring",
+  brandId: "texasdefined",
+  slug: "mum-queen-spring-texas-homecoming-mums",
+  title: "The Mum Queen in Spring: Ordering a Texas Homecoming Mum or Garter",
+  dek: "A practical guide to Elizabeth Cleaver's Spring-based Mum Queen business: custom Texas homecoming mums and garters, when to order, consultation options, service area and how the maker fits into the larger Texas homecoming tradition.",
+  category: "guides",
+  region: "gulf-coast",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Goldthwaite_High_School_Homecoming_Mum.jpg?width=1200",
+    alt: "A large Texas high-school homecoming mum with ribbons, charms and school colors, used to illustrate the custom mum tradition",
+    width: 1200,
+    height: 2509,
+    credit: "Sillyputty1967 · CC BY-SA 4.0 · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-09-24",
+  readingMinutes: 9,
+  tags: ["The Mum Queen", "Elizabeth Cleaver", "Spring Texas", "Harris County", "Texas homecoming mums", "homecoming garters", "custom homecoming mums", "unusual Texas businesses"],
+  featured: false,
+  sourceName: "The Mum Queen",
+  sourceUrl: "https://www.themumqueen.com/",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: [],
+};
+
 export const newestEvergreenArticles: Article[] = [
   ...texasDogsEvergreenStubs,
   ...texasDogsPracticalStubs,
@@ -437,6 +465,7 @@ export const newestEvergreenArticles: Article[] = [
   unusualTexasBusinessesServicesStub,
   phenixKnivesBellvilleStub,
   horsesOnTheBeachCorpusChristiStub,
+  mumQueenSpringStub,
 ];
 
 const loaders: Record<string, () => Promise<Article>> = {
@@ -467,6 +496,7 @@ const loaders: Record<string, () => Promise<Article>> = {
   "unusual-texas-businesses-services": async () => (await import("./unusual-texas-businesses-services")).unusualTexasBusinessesServicesArticle,
   "phenix-knives-bellville": async () => (await import("./phenix-knives-bellville")).phenixKnivesBellvilleArticle,
   "horses-on-the-beach-corpus-christi": async () => (await import("./horses-on-the-beach-corpus-christi")).horsesOnTheBeachCorpusChristiArticle,
+  "mum-queen-spring-texas-homecoming-mums": async () => (await import("./mum-queen-spring-texas-homecoming-mums")).mumQueenSpringArticle,
 };
 
 export async function loadNewestEvergreenArticle(brandId: string, slug: string) {
