@@ -76,7 +76,7 @@ function MovingToTexasPage() {
     .slice(0, 20);
   return <>
     <CategoryPage category="moving-to-texas" eyebrow="The relocation guide" title="What to know before you move to Texas" intro={description} image={{ src: roadTrip, alt: imageAlt, width: 1600, height: 1067 }} />
-    <Suspense fallback={null}><RelocationAuthorityLab /></Suspense>
+    <Suspense fallback={null}><RelocationAuthorityLab showPlaceExplorer={false} /></Suspense>
     <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
       <section className="mb-12 border-y border-border py-8" aria-labelledby="moving-texas-paperwork">
         <div className="grid gap-8 lg:grid-cols-[16rem_1fr]">
