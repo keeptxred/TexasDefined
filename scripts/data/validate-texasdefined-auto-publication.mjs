@@ -11,6 +11,7 @@ const workflow = read('.github/workflows/texasdefined-auto-publication.yml');
 const productionSmokeWorkflow = read('.github/workflows/texasdefined-publication-production-smoke.yml');
 const productionSmoke = read('scripts/ci/verify-texasdefined-publication-production.mjs');
 const publisher = read('scripts/news/texasdefined-auto-publisher.mjs');
+const flyoverBridge = read('.github/workflows/flyover-scheduled-publish-bridge.yml');
 const migration = read('supabase/migrations/20260813143000_harden_texasdefined_auto_publication.sql');
 const env = read('.env');
 const sitemap = read('src/routes/sitemap[.]xml.ts');
@@ -34,8 +35,11 @@ for (const token of ['/news', '/news/2026-08-10-canyon-lake-full-capacity-recove
 for (const token of ['ready_for_rewrite IS TRUE', 'classification_confidence', 'texas_relevance_score', 'source_reputation_score', 'security_invoker', 'publish_texasdefined_queue_item_v2', 'FROM anon, authenticated', "TO service_role"]) {
   if (!migration.includes(token)) errors.push(`Migration is missing ${token}`);
 }
-for (const token of ['--publish', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_PUBLISH_CONFIRMATION', 'readyQueue()', 'validateDraft', 'generateAndStoreImage', 'publish_texasdefined_queue_item_v2']) {
+for (const token of ['--publish', '--feed-id=', 'exactFeedId', "params.set('id', `eq.${exactFeedId}`)", 'TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_PUBLISH_CONFIRMATION', 'readyQueue()', 'validateDraft', 'generateAndStoreImage', 'publish_texasdefined_queue_item_v2']) {
   if (!publisher.includes(token)) errors.push(`Publisher is missing ${token}`);
+}
+for (const token of ['flyover_publish_request_v2', 'site=texasdefined', 'feed_id=', 'FEED_ID=', '--feed-id="$FEED_ID"', 'Exact Flyover feed']) {
+  if (!flyoverBridge.includes(token)) errors.push(`Flyover exact-feed bridge is missing ${token}`);
 }
 if (env.includes('qhwwmdszjgkscqxgmenf')) errors.push('Retired TexasDefined Supabase project remains in .env.');
 if (!env.includes('ftkznprjljkhymknvhye')) errors.push('Active shared Supabase project is absent from .env.');
