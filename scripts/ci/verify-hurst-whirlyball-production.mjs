@@ -84,6 +84,13 @@ function requireIndexableHtml(body, canonical, label) {
   requireCondition(!/<meta[^>]+name=["']robots["'][^>]+content=["'][^"']*noindex/i.test(body), `${label} unexpectedly renders noindex.`);
 }
 
+function requireNearbyLink(html, label, href, message) {
+  const labelIndex = html.indexOf(label);
+  requireCondition(labelIndex >= 0, `${message} Label missing: ${label}.`);
+  const window = html.slice(Math.max(0, labelIndex - 1200), Math.min(html.length, labelIndex + 1200));
+  requireCondition(window.includes(href), message);
+}
+
 const [directory, city, whirlyball, tarrant, primarySitemap, exploreSitemap] = await Promise.all([
   fetchLive('/browse/cities'),
   fetchLive('/city/hurst'),
@@ -121,6 +128,22 @@ requireCondition(
 
 requireIndexableHtml(whirlyball, 'https://texasdefined.com/destination/whirlyball-hurst', 'WhirlyBall Hurst destination page');
 requireCondition(whirlyball.includes('/city/hurst'), 'WhirlyBall Hurst is missing the reciprocal Hurst city-authority link.');
+requireCondition(
+  renderedText(whirlyball).includes('Use the Hurst city guide for verified local systems, schools, parks, rail access and Mid-Cities context, then continue into Tarrant County for the broader county picture.'),
+  'WhirlyBall Hurst is still serving the stale Tarrant-only neighborhood copy instead of the current Hurst city-authority context.',
+);
+requireNearbyLink(
+  whirlyball,
+  'Hurst and HEB Mid-Cities dining',
+  '/city/hurst',
+  'WhirlyBall Hurst dining context is not linked to the verified Hurst city authority page.',
+);
+requireNearbyLink(
+  whirlyball,
+  'Hurst and the HEB Mid-Cities',
+  '/city/hurst',
+  'WhirlyBall Hurst neighborhood context is not linked to the verified Hurst city authority page.',
+);
 requireCondition(whirlyball.includes('Whirlyball.jpg'), 'WhirlyBall Hurst is missing the verified Wikimedia hero image.');
 const whirlyballHeroSource = 'https://upload.wikimedia.org/wikipedia/commons/5/52/Whirlyball.jpg';
 const whirlyballHeroProxyPath = `/media/remote?url=${encodeURIComponent(whirlyballHeroSource)}`;
