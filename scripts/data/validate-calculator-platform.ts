@@ -4,7 +4,7 @@ import { calculateAffordability } from '../../src/lib/financial/affordability.ts
 import { calculateClosingCosts } from '../../src/lib/financial/closing-costs.ts';
 import { calculateHomeownershipCost } from '../../src/lib/financial/homeownership.ts';
 import { calculateMortgage, calculateMonthlyPrincipalInterest, calculateRefinance } from '../../src/lib/financial/mortgage.ts';
-import { calculateUtilities } from '../../src/lib/financial/planning.ts';
+import { calculateFederalPaycheck2026, calculateUtilities } from '../../src/lib/financial/planning.ts';
 import { estimateRentVsBuy } from '../../src/lib/rent-vs-buy.ts';
 
 const close = (actual: number, expected: number, tolerance = 0.01, label = 'value') => {
@@ -64,6 +64,14 @@ assert.deepEqual({ buyer: closing.buyerCostsAfterCredits, seller: closing.seller
 const ownership = calculateHomeownershipCost({ mortgage: 2400, propertyTaxes: 700, insurance: 250, hoa: 100, maintenance: 400, utilities: 350, pool: 150 });
 assert.equal(ownership.monthly, 4350);
 assert.equal(ownership.annual, 52200);
+
+const paycheck = calculateFederalPaycheck2026({ annualGrossSalary: 90000, filingStatus: 'single', preTaxRetirementBenefitsPercent: 6 });
+assert.equal(paycheck.taxYear, 2026);
+close(paycheck.taxableIncome, 68500, 0.001, '2026 federal taxable income');
+close(paycheck.federalIncomeTax, 9782, 0.001, '2026 federal income tax');
+close(paycheck.socialSecurity, 5580, 0.001, '2026 Social Security');
+close(paycheck.medicare, 1305, 0.001, '2026 Medicare');
+close(paycheck.annualTakeHome, 67933, 0.001, '2026 annual take-home');
 
 const utilities = calculateUtilities({ electricity: 190, waterSewer: 85, naturalGas: 45, internet: 75, trash: 35 });
 assert.equal(utilities.monthly, 430);
