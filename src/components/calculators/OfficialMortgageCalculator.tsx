@@ -102,6 +102,7 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
   ];
 
   const ownershipExtras = [
+    { label: 'Extra principal', value: result.monthlyExtraPrincipal },
     { label: 'Utilities', value: result.monthlyUtilities },
     { label: 'Maintenance cushion', value: result.monthlyMaintenance },
     { label: 'Pool', value: result.monthlyPool },
@@ -111,7 +112,8 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
 
   const higherRate = calculateMortgage({ homePrice: state.price, downPayment: state.down, annualRatePercent: state.rate + 0.5, termYears: state.years, propertyTaxRatePercent: state.propertyTaxRate, annualInsurance: state.insurance, monthlyPmi: state.pmi, monthlyHoa: state.hoa, monthlySpecialDistricts: state.specialDistricts }).monthlyHousingPayment;
   const ownershipSearch = new URLSearchParams({
-    mortgage: String(result.monthlyPrincipalInterest),
+    homeValue: String(state.price),
+    mortgage: String(result.monthlyPrincipalInterest + result.monthlyExtraPrincipal),
     taxes: String(result.monthlyPropertyTax),
     insurance: String(result.monthlyInsurance),
     pmi: String(result.monthlyPmi),
@@ -186,7 +188,7 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
       <div><h3 className="font-display text-2xl">What changes the result?</h3><div className="mt-5 space-y-4 text-sm">
         <div className="border-t border-border pt-4"><span className="text-muted-foreground">Interest rate +0.50 percentage points</span><strong className="mt-1 block text-xl">{formatMoney(higherRate)}/mo <span className="text-sm font-normal text-muted-foreground">({higherRate >= result.monthlyHousingPayment ? '+' : ''}{formatMoney(higherRate - result.monthlyHousingPayment)})</span></strong></div>
         <div className="border-t border-border pt-4"><span className="text-muted-foreground">Home price $25,000 lower, same down payment when possible</span><strong className="mt-1 block text-xl">{formatMoney(lowerPrice)}/mo <span className="text-sm font-normal text-muted-foreground">({formatMoney(lowerPrice - result.monthlyHousingPayment)})</span></strong></div>
-        {ownershipExtras.some((item) => item.value > 0) ? <div className="border-t border-border pt-4"><BreakdownTable items={ownershipExtras} total={result.monthlyUtilities + result.monthlyMaintenance + result.monthlyPool + result.monthlyLandscaping + result.monthlyOther} totalLabel="Ownership costs beyond housing payment"/></div> : null}
+        {ownershipExtras.some((item) => item.value > 0) ? <div className="border-t border-border pt-4"><BreakdownTable items={ownershipExtras} total={result.monthlyExtraPrincipal + result.monthlyUtilities + result.monthlyMaintenance + result.monthlyPool + result.monthlyLandscaping + result.monthlyOther} totalLabel="Ownership costs beyond housing payment"/></div> : null}
         </div>
       </div>
     </section>
@@ -210,7 +212,7 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
       <p className="eyebrow text-primary">Continue this exact scenario</p>
       <h3 className="mt-2 font-display text-2xl">Carry the numbers into the next decision</h3>
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
-        <a className="border border-border p-5 hover:border-primary" href={`/texas-homeownership-cost-calculator?${ownershipSearch}`}><strong className="font-display text-xl">Full homeownership budget</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Carry P&I, taxes, insurance, PMI, HOA, special districts, maintenance, utilities, pool, landscaping and other recurring costs into the ownership-cost tool.</span></a>
+        <a className="border border-border p-5 hover:border-primary" href={`/texas-homeownership-cost-calculator?${ownershipSearch}`}><strong className="font-display text-xl">Full homeownership budget</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Carry the mortgage cash outflow, home value, taxes, insurance, PMI, HOA, special districts, maintenance, utilities, pool, landscaping and other recurring costs into the ownership-cost tool.</span></a>
         <a className="border border-border p-5 hover:border-primary" href={`/texas-rent-vs-buy-calculator?${rentBuySearch}`}><strong className="font-display text-xl">Rent versus buy</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Carry the purchase, financing, tax, insurance and HOA assumptions into the longer-term comparison.</span></a>
       </div>
     </section>
