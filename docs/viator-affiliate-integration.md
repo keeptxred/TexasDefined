@@ -6,6 +6,14 @@ Viator is a booking layer for TexasDefined travel discovery. TexasDefined remain
 
 Operational facts such as public-site hours, rules, closures, reservation requirements and managing authority must continue to come from first-party or authoritative sources. A Viator product page must not replace those sources.
 
+## Current direct-program economics
+
+Viator is a direct partner program for TexasDefined, not a CJ relationship. The TexasDefined welcome email confirms that links/widgets and the affiliate API earn commission, and the API-access email confirms the key is available under **Tools → Affiliate API** in the Viator Partner Program dashboard.
+
+Viator's current official affiliate resources state an **8% commission on completed bookings made within a 30-day cookie window**. Commission is not paid on cancelled bookings. Public payout guidance currently states weekly PayPal payouts with no minimum threshold or monthly bank payouts with a $50 minimum threshold.
+
+Treat the dashboard/contract as controlling if TexasDefined later receives an account-specific incentive or different commercial term.
+
 ## Affiliate configuration
 
 Affiliate tracking is centralized in `src/lib/viator-affiliate.ts`.
