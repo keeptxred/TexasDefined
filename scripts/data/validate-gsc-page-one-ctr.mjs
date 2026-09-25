@@ -279,7 +279,7 @@ if (seventhWave.length !== 20) {
 const eighthWave = [
   { path: "/event/kerrville-folk-festival", title: "Kerrville Folk Festival 2027: Schedule, Tickets & Visitor Guide", description: "Plan the 2027 Kerrville Folk Festival at Quiet Valley Ranch" },
   { path: "/article/texas-caverns-caves-first-timers-guide", title: "Caverns in Texas: Public Caves, Tours & First-Timer Guide", description: "Find Texas caverns and caves open to the public" },
-  { path: "/explore/painted-churches-plan", title: "Painted Churches of Texas Map: Schulenburg Route & Trip Planner", description: "Plan a Schulenburg-area Painted Churches road trip" },
+  { path: "/explore/painted-churches-plan", title: "Painted Churches of Texas Tour: Schulenburg Route & Trip Planner", description: "Plan a one-day Painted Churches of Texas self-guided route" },
   { path: "/texas-disabled-veteran-property-tax-calculator", title: "Texas Disabled Veteran Property Tax Calculator & Exemption Guide", description: "Estimate the tax effect of a verified Texas disabled-veteran property-tax exemption amount" },
   { path: "/article/texas-highway-designations-explained", title: "Texas Road Names Explained: FM, RM, SH, Loops & Spurs", description: "Learn what FM, RM, SH, loops, spurs and other Texas highway designations mean" },
   { path: "/article/possum-kingdom-water-system-guide", title: "Possum Kingdom Lake: Water Level, Brazos River Authority & Guide", description: "Understand Possum Kingdom Lake water management" },
