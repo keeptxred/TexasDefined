@@ -113,3 +113,19 @@ export function calculateFederalPaycheck2026(input: { annualGrossSalary: number;
     biweeklyTakeHome: annualTakeHome / 26,
   };
 }
+
+
+export function calculateGrossSalaryNeeded2026(input: { annualTakeHomeTarget: number; filingStatus: FilingStatus2026; preTaxRetirementBenefitsPercent: number; otherAnnualDeductions?: number }) {
+  const target = nonNegative(input.annualTakeHomeTarget);
+  if (target === 0) return { grossSalary: 0, ...calculateFederalPaycheck2026({ annualGrossSalary: 0, filingStatus: input.filingStatus, preTaxRetirementBenefitsPercent: input.preTaxRetirementBenefitsPercent, otherAnnualDeductions: input.otherAnnualDeductions }) };
+  let low = 0;
+  let high = Math.max(10000, target * 1.5);
+  while (calculateFederalPaycheck2026({ annualGrossSalary: high, filingStatus: input.filingStatus, preTaxRetirementBenefitsPercent: input.preTaxRetirementBenefitsPercent, otherAnnualDeductions: input.otherAnnualDeductions }).annualTakeHome < target && high < 10000000) high *= 2;
+  for (let i = 0; i < 80; i += 1) {
+    const mid = (low + high) / 2;
+    const takeHome = calculateFederalPaycheck2026({ annualGrossSalary: mid, filingStatus: input.filingStatus, preTaxRetirementBenefitsPercent: input.preTaxRetirementBenefitsPercent, otherAnnualDeductions: input.otherAnnualDeductions }).annualTakeHome;
+    if (takeHome < target) low = mid; else high = mid;
+  }
+  const grossSalary = high;
+  return { grossSalary, ...calculateFederalPaycheck2026({ annualGrossSalary: grossSalary, filingStatus: input.filingStatus, preTaxRetirementBenefitsPercent: input.preTaxRetirementBenefitsPercent, otherAnnualDeductions: input.otherAnnualDeductions }) };
+}
