@@ -245,10 +245,10 @@ jobs:
 
       - name: Purge updated State Fair HTML from Cloudflare cache
         id: cache_purge
-        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && secrets.CLOUDFLARE_CACHE_API_TOKEN != '' }}
         continue-on-error: true
         env:
-          CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN || secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}
+          CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN }}
           CLOUDFLARE_ZONE_NAME: texasdefined.com
           CLOUDFLARE_PURGE_URLS: https://texasdefined.com/texas-state-fair
         run: node scripts/ci/purge-cloudflare-cache.mjs
