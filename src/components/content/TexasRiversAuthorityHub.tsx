@@ -122,7 +122,7 @@ export function TexasRiversAuthorityHub() {
 
 export function TexasRiversAfterArticle() {
   return (
-    <div className="mt-14 space-y-12">
+    <div className="mt-14">
       <section aria-labelledby="river-profiles-heading">
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-4">
           <div>
@@ -134,7 +134,7 @@ export function TexasRiversAfterArticle() {
         <RiverProfilesList />
       </section>
 
-      <section className="grid gap-5 md:grid-cols-2" aria-label="Choose the Texas water guide you need">
+      <section className="grid gap-5 md:grid-cols-2" style={{ marginTop: "3rem" }} aria-label="Choose the Texas water guide you need">
         <Link to="/article/texas-river-basins-guide" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Need watershed boundaries?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Texas River Basins Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Use the basin guide when the question is drainage, watershed boundaries, coastal basins or how upstream land connects to downstream water.</p></Link>
         <Link to="/article/texas-lakes-reservoirs-explained" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Need dams and lakes?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Texas Lakes & Reservoirs Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Use the reservoir guide for stored water, dams, flood control and why so many familiar Texas lakes are managed river systems.</p></Link>
         <Link to="/article/texas-aquifers-springs-explained" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Need groundwater?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Texas Aquifers & Springs Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Use the aquifer guide to understand spring flow, groundwater connections and why some Central Texas rivers stay clear between storms.</p></Link>
