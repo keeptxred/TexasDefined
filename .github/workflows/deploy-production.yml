@@ -246,6 +246,7 @@ jobs:
       - name: Purge updated State Fair HTML from Cloudflare cache
         id: cache_purge
         if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        continue-on-error: true
         env:
           CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN || secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}
           CLOUDFLARE_ZONE_NAME: texasdefined.com
@@ -253,7 +254,7 @@ jobs:
         run: node scripts/ci/purge-cloudflare-cache.mjs
 
       - name: Publish live verification pending
-        if: success()
+        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-live pending "Verifying production surfaces"
 
       - name: Verify direct Worker health
