@@ -29,7 +29,7 @@ Never activate an ordinary advertiser URL merely because the program is approved
 | Viator | Approved tours/experiences partner | City and destination experience surfaces | KEEP for tours/activities; not interchangeable with lodging or multi-attraction passes. |
 | CityPASS | Approved; exact current account commission not stated in approval email | Dallas/Houston/San Antonio multi-attraction planning | KEEP specialized placement; do not rank against Viator without verified current payout and conversion data. |
 | Ticketmaster | Approved/configured affiliate/distribution workflow; event-specific commissionability can vary | Event ticketing | KEEP governed event-ticket logic; do not assume all onsales are commissionable. |
-| Abracadabra NYC | Approved; welcome email does not state a commission rate | Not live | HOLD until current payout and a proper tracked link are verified; natural fit is cosplay/Halloween/pop-culture content. |
+| Abracadabra NYC | Active CJ terms: 5% default commission on Website Purchase actions; 45-day referral period; unlimited occurrences; standard locking. Non-commissionable SKUs, gift cards and tips pay 0%. | Not live | READY PENDING TRACKED LINK. Strong fit for cosplay/Halloween/pop-culture content. Preserve CJ restrictions: protected SEM terms include abracadabranyc, AbracadabraNYC.com, AbracadabraNYC, Abracadabra.com, NYC Abracadabra and NYCAbracadabra; third-party ad-retargeting pixels on the advertiser site are prohibited. |
 
 ## First-party measurement snapshot
 
@@ -71,4 +71,6 @@ Best initial content fit:
 High priority for exact-brand properties because the official public affiliate program starts at 5% and uses a 30-day referral period. Do not replace a Hotels.com exact-property link unless the recommended property itself is Motel 6/Studio 6 and the account-specific CJ destination link has been verified.
 
 ### Abracadabra NYC
-Potential fit for Comicpalooza, Beaumont Comic Con, cosplay, Halloween, wigs, props, FX makeup, and related event-planning content. Hold until the active commission schedule and proper shopper tracking links are verified.
+Active CJ terms verified 2026-09-25: 5% default commission on Website Purchase actions, 45-day referral period, unlimited occurrences and standard locking. Non-commissionable SKUs, gift cards and tips pay 0%. Protected SEM terms include `abracadabranyc`, `AbracadabraNYC.com`, `AbracadabraNYC`, `Abracadabra.com`, `NYC Abracadabra` and `NYCAbracadabra`; third-party ad-retargeting pixels on the advertiser site are prohibited.
+
+Best content fit remains Comicpalooza, Beaumont Comic Con, cosplay, Halloween, wigs, props, FX makeup and related event-planning content. Activation is now blocked only on obtaining a proper TexasDefined shopper tracking/deep link and confirming any product-level exclusions from the current non-commissionable SKU list.
