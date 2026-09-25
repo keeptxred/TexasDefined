@@ -16,7 +16,7 @@ type Match = { place: RelocationPlace; matched: string[]; considered: number };
 
 const regionOptions = ["North Texas", "Gulf Coast", "Central Texas", "San Antonio corridor", "West Texas", "Panhandle", "South Texas", "East Texas"] as const;
 
-export function RelocationAuthorityLab() {
+export function RelocationAuthorityLab({ showPlaceExplorer = true }: { showPlaceExplorer?: boolean }) {
   const [region, setRegion] = useState<Preference>("any");
   const [setting, setSetting] = useState<Preference>("any");
   const [planningBand, setPlanningBand] = useState<Preference>("any");
@@ -61,6 +61,7 @@ export function RelocationAuthorityLab() {
 
   return (
     <>
+      {showPlaceExplorer && <>
       <section className="border-y border-border bg-surface py-12 sm:py-16" aria-labelledby="relocation-decision-lab">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[18rem_1fr]">
@@ -94,6 +95,7 @@ export function RelocationAuthorityLab() {
           </div>
         </Container>
       </section>
+      </>}
 
       <section className="py-12 sm:py-16" aria-labelledby="metro-research-grid">
         <Container>
