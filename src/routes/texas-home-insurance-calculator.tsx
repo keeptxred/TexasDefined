@@ -8,11 +8,11 @@ export const Route = createFileRoute('/texas-home-insurance-calculator')({
       canonicalPath: '/texas-home-insurance-calculator',
       title: 'Texas Homeowners Insurance Calculator | No Personal Info',
       description:
-        'Estimate Texas homeowners insurance from replacement cost, rate assumptions, wind or flood coverage, and deductibles—without entering your name, email, phone number, or street address.',
+        'Estimate a Texas homeowners insurance planning scenario from replacement cost and a TDI-grounded statewide baseline, then adjust wind, flood and discount assumptions without entering personal information.',
       featureList: [
         'Estimate homeowners insurance without personal information',
         'Start with the home replacement cost',
-        'Adjust the estimated base insurance rate',
+        'Use a Texas Department of Insurance statewide baseline',
         'Add possible wind or flood coverage',
       ],
     }),
