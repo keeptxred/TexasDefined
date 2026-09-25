@@ -10,6 +10,7 @@ import {
   readCalculatorUrlState,
 } from '@/components/calculators/FinancialCalculatorUI';
 import { estimateHomeownership } from '@/lib/financial/homeownership';
+import { readTexasPlanningScenario } from '@/lib/financial/planningScenario';
 
 const DEFAULTS = {
   homeValue: 400000,
@@ -27,7 +28,24 @@ const DEFAULTS = {
 };
 
 export function OfficialHomeownershipCostCalculator() {
-  const [state, setState] = useState(() => readCalculatorUrlState(DEFAULTS));
+  const [defaults] = useState(() => {
+    const plan = readTexasPlanningScenario();
+    const homeValue = plan.homePrice ?? DEFAULTS.homeValue;
+    const taxes = plan.annualPropertyTaxRate !== undefined ? homeValue * plan.annualPropertyTaxRate / 100 / 12 : DEFAULTS.taxes;
+    return {
+      ...DEFAULTS,
+      homeValue,
+      mortgage: plan.monthlyPrincipalInterest ?? DEFAULTS.mortgage,
+      taxes,
+      insurance: plan.annualHomeInsurance !== undefined ? plan.annualHomeInsurance / 12 : DEFAULTS.insurance,
+      mortgageInsurance: plan.annualPmi !== undefined ? plan.annualPmi / 12 : DEFAULTS.mortgageInsurance,
+      hoa: plan.monthlyHoa ?? DEFAULTS.hoa,
+      specialDistrict: plan.monthlySpecialDistrict ?? DEFAULTS.specialDistrict,
+      maintenance: plan.monthlyMaintenance ?? DEFAULTS.maintenance,
+      utilities: plan.monthlyUtilities ?? DEFAULTS.utilities,
+    };
+  });
+  const [state, setState] = useState(() => readCalculatorUrlState(defaults));
   const set = <K extends keyof typeof state>(key: K, value: (typeof state)[K]) => setState((current) => ({ ...current, [key]: value }));
   const result = useMemo(() => estimateHomeownership({
     mortgagePrincipalInterest: state.mortgage,
@@ -45,7 +63,7 @@ export function OfficialHomeownershipCostCalculator() {
     <FinancialCalculatorScaffold
       storageKey="texasdefined:homeownership-cost-calculator"
       state={state}
-      defaults={DEFAULTS}
+      defaults={defaults}
       onRestore={setState}
       note="The mortgage payment is only one part of owning the house. Add special assessments, flood or wind coverage, repairs, pool or landscape service and other recurring costs when they apply."
       issues={result.issues}
@@ -61,6 +79,16 @@ export function OfficialHomeownershipCostCalculator() {
         'Property tax': formatCalculatorMoney(state.taxes) + '/mo',
       }}
       breakdown={result.breakdown}
+      sharedScenario={{
+        homePrice: state.homeValue,
+        monthlyPrincipalInterest: state.mortgage,
+        annualHomeInsurance: state.insurance * 12,
+        annualPmi: state.mortgageInsurance * 12,
+        monthlyHoa: state.hoa,
+        monthlySpecialDistrict: state.specialDistrict,
+        monthlyMaintenance: state.maintenance,
+        monthlyUtilities: state.utilities,
+      }}
       methodology={{
         formula: 'TexasDefined totals the recurring monthly costs you enter and separates core housing payment costs from maintenance, utilities and optional pool or landscape costs.',
         assumptions: [
