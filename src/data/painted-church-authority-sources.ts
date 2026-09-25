@@ -188,7 +188,7 @@ export const paintedChurchResearchExpansionSources: PaintedChurchAuthoritySource
     url: "https://www.tshaonline.org/handbook/entries/dubina-tx",
     authority: "Texas State Historical Association",
     scope: "Dubina community history",
-    contribution: "Adds the settlement's earlier Navidad and Bohemian Navidad names, Augustine Haidusek's Dubina naming, the 1876 first Catholic church, the 1909 hurricane loss and the 1912 replacement chronology.",
+    contribution: "Adds the settlement's earlier Navidad and Bohemian Navidad names, Augustine Haidusek's Dubina naming, and the scale of the parish by 1900, when the church served more than 600 families.",
     churchSlugs: ["dubina-saints-cyril-methodius"],
   },
   {
@@ -196,7 +196,7 @@ export const paintedChurchResearchExpansionSources: PaintedChurchAuthoritySource
     url: "https://www.tshaonline.org/handbook/entries/praha-tx",
     authority: "Texas State Historical Association",
     scope: "Praha community and parish origins",
-    contribution: "Adds the settlement's Mulberry and Hottentot names, early Masses in Mathias Novak's home, the 1858 Praha naming and the first frame church built in 1865.",
+    contribution: "Adds the settlement's Mulberry and Hottentot names, early Masses in Mathias Novak's home and the 1858 adoption of the name Praha, strengthening the community history without overriding the church chronology already established from primary records.",
     churchSlugs: ["praha-st-marys-assumption"],
   },
   {
@@ -244,7 +244,7 @@ export const paintedChurchResearchExpansionSources: PaintedChurchAuthoritySource
     url: "https://www.tshaonline.org/handbook/entries/wallis-tx",
     authority: "Texas State Historical Association",
     scope: "Wallis community history",
-    contribution: "Adds the railroad-town context and documents Czech immigration to Wallis by about 1890, strengthening the community-history layer behind Guardian Angel's later church complex.",
+    contribution: "Documents Czech immigration to Wallis by about 1890, adding a more precise settlement date to the community-history layer behind Guardian Angel's later church complex.",
     churchSlugs: ["wallis-guardian-angel"],
   },
   {
@@ -252,7 +252,7 @@ export const paintedChurchResearchExpansionSources: PaintedChurchAuthoritySource
     url: "https://www.tshaonline.org/handbook/entries/lindsay-tx",
     authority: "Texas State Historical Association",
     scope: "Lindsay German-Catholic colony history",
-    contribution: "Adds the Flusche brothers' German-Catholic colony, the first 1892 Mass, land reserved for church, school and cemetery, the 1903 brick church, its 1917 tornado destruction and the October 12, 1919 dedication of the replacement.",
+    contribution: "Adds the Flusche brothers' German-Catholic colony, the exact March 25, 1892 first Mass, nearly eight acres reserved for church, school and cemetery, and the October 12, 1919 dedication date for the replacement church.",
     churchSlugs: ["lindsay-st-peters-catholic-church"],
   },
   {
@@ -869,7 +869,6 @@ const researchEnrichments: Record<string, AuthorityEnrichment> = {
     facts: [
       { label: "Present church dedication", value: "October 28, 1896, according to the parish's official history" },
       { label: "1941 angel technique", value: "Angels were painted on cheesecloth netting and applied to the ceiling above the altar" },
-      { label: "1946 landscape addition", value: "A parish grotto was built in 1946" },
     ],
     preservation: [
       {
@@ -891,7 +890,7 @@ const researchEnrichments: Record<string, AuthorityEnrichment> = {
       { label: "Flury commission", value: "Godfrey Flury was commissioned in 1895 to decorate St. Mary's at Praha" },
       { label: "Flury attribution evidence", value: "His authorship was authenticated in 1972 through preliminary sketches and notes corresponding to the surviving interior" },
       { label: "Praha community name", value: "The settlement was known as Mulberry and Hottentot before being renamed Praha in 1858" },
-      { label: "Earlier parish church", value: "The first small frame church was built in 1865; the Handbook records its first Mass at midnight on Christmas Day" },
+      { label: "Early worship setting", value: "Before the present landmark, Mass was celebrated in the home of settler Mathias Novak" },
     ],
     paintings: [
       {
@@ -906,7 +905,7 @@ const researchEnrichments: Record<string, AuthorityEnrichment> = {
       {
         heading: "Praha's Catholic life predates the present landmark by decades",
         paragraphs: [
-          "The Handbook of Texas traces early Masses to the home of Mathias Novak and records that the community, previously called Mulberry and Hottentot, adopted the name Praha in 1858 in honor of Prague. A small frame church followed in 1865.",
+          "The Handbook of Texas traces early Masses to the home of Mathias Novak and records that the community, previously called Mulberry and Hottentot, adopted the name Praha in 1858 in honor of Prague.",
           "That earlier parish history matters because the famous painted church was not the beginning of Czech Catholic life here; it was the mature architectural expression of a community that had already built worship, school and settlement institutions.",
         ],
       },
@@ -955,15 +954,14 @@ const researchEnrichments: Record<string, AuthorityEnrichment> = {
     facts: [
       { label: "Earlier settlement names", value: "Navidad and Bohemian Navidad before the community became Dubina" },
       { label: "Meaning of Dubina", value: "Augustine Haidusek chose the Czech name Dubina, commonly translated as oak grove" },
-      { label: "First Catholic church", value: "1876" },
-      { label: "1909–1912 rebuilding", value: "A 1909 hurricane destroyed the earlier church; its replacement followed in 1912" },
+      { label: "Parish scale by 1900", value: "The Dubina church served more than 600 families by 1900, according to the Handbook of Texas" },
     ],
     history: [
       {
         heading: "The church story is inseparable from Dubina's Czech settlement history",
         paragraphs: [
-          "The Handbook of Texas records that the community was known first as Navidad and Bohemian Navidad before Augustine Haidusek gave it the Czech name Dubina. A Catholic church was established in 1876 as the immigrant farming settlement developed.",
-          "The source also records the 1909 hurricane loss and 1912 replacement, adding community-level context to the more detailed church-building and decorative chronology preserved in the profile.",
+          "The Handbook of Texas records that the community was known first as Navidad and Bohemian Navidad before Augustine Haidusek gave it the Czech name Dubina. The place became an important arrival point for Czech settlers entering Texas.",
+          "By 1900 the Dubina church served more than 600 families. That scale is new context for understanding why the parish could support the institutional and decorative ambitions documented elsewhere in the profile.",
         ],
       },
     ],
@@ -1035,7 +1033,6 @@ const researchEnrichments: Record<string, AuthorityEnrichment> = {
   "wallis-guardian-angel": {
     facts: [
       { label: "Czech settlement context", value: "Czech immigrants were settling in Wallis by about 1890" },
-      { label: "Town development", value: "Wallis developed as a railroad community before Guardian Angel's 1913 church was built" },
     ],
     history: [
       {
