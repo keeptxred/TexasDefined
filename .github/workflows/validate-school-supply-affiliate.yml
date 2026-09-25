@@ -5,6 +5,8 @@ on:
     paths:
       - 'src/lib/affiliate-click.ts'
       - 'src/components/monetization/SchoolSupplyPartners.tsx'
+      - 'src/routes/article.$slug.tsx'
+      - 'src/components/editorial/TexasEvergreenGuide.tsx'
       - 'scripts/data/validate-school-supply-affiliate.mjs'
       - '.github/workflows/validate-school-supply-affiliate.yml'
   push:
@@ -12,6 +14,8 @@ on:
     paths:
       - 'src/lib/affiliate-click.ts'
       - 'src/components/monetization/SchoolSupplyPartners.tsx'
+      - 'src/routes/article.$slug.tsx'
+      - 'src/components/editorial/TexasEvergreenGuide.tsx'
       - 'scripts/data/validate-school-supply-affiliate.mjs'
       - '.github/workflows/validate-school-supply-affiliate.yml'
 

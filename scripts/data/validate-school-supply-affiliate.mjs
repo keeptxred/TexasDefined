@@ -2,6 +2,9 @@ import fs from 'node:fs';
 
 const source = fs.readFileSync('src/components/monetization/SchoolSupplyPartners.tsx', 'utf8');
 const tracker = fs.readFileSync('src/lib/affiliate-click.ts', 'utf8');
+const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
+const evergreenGuide = fs.readFileSync('src/components/editorial/TexasEvergreenGuide.tsx', 'utf8');
+const workflow = fs.readFileSync('.github/workflows/validate-school-supply-affiliate.yml', 'utf8');
 const errors = [];
 
 function requireText(haystack, needle, label) {
@@ -49,10 +52,28 @@ if (source.includes('SAVE10NOW') || source.includes('Current offer: free shippin
   errors.push('School-supply affiliate component must not promote coupon copy that can fall into the retailers\' 0% coupon terms.');
 }
 
+
+for (const [needle, label] of [
+  ['const schoolSupplyArticleSlugs = new Set(["texas-school-districts-explained", "texas-schools-family-life"])', 'two governed school article slugs'],
+  ['const hasSchoolSupplyRail = schoolSupplyArticleSlugs.has(article.slug)', 'school article placement gate'],
+  ['<SchoolSupplyPartners placement="rail" />', 'school article rail placement'],
+]) requireText(articleRoute, needle, label);
+
+for (const [needle, label] of [
+  ['const hasHomecomingMumSupplies = guide.slug === "texas-homecoming-mums"', 'homecoming guide placement gate'],
+  ['<SchoolSupplyPartners placement="rail" context="homecoming" />', 'homecoming desktop rail placement'],
+  ['<SchoolSupplyPartners className="homecoming-supply-bottom" context="homecoming" />', 'homecoming responsive fallback placement'],
+]) requireText(evergreenGuide, needle, label);
+
+for (const [needle, label] of [
+  ["'src/routes/article.$slug.tsx'", 'school article placement workflow trigger'],
+  ["'src/components/editorial/TexasEvergreenGuide.tsx'", 'homecoming placement workflow trigger'],
+]) requireText(workflow, needle, label);
+
 if (errors.length) {
   console.error('School-supply affiliate validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('School-supply affiliate validation passed: Really Good Stuff remains available under its active 4% default term, Discount School Supply alone fails closed after its documented October 1 paid-term cutoff, approved links retain sponsored/commercial metadata and shared click attribution, and coupon copy tied to 0% terms remains blocked.');
+console.log('School-supply affiliate validation passed: Really Good Stuff remains available under its active 4% default term, Discount School Supply alone fails closed after its documented October 1 paid-term cutoff, approved links retain sponsored/commercial metadata and shared click attribution, governed placements remain mounted on the two school articles and the homecoming-mums guide, workflow path filters watch those placement files, and coupon copy tied to 0% terms remains blocked.');
