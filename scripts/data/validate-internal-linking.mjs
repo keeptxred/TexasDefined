@@ -66,7 +66,7 @@ requireSymbols(coverageApi, ["createFileRoute('/api/internal-link-coverage')",'n
 requireSymbols(qualityApi, ["createFileRoute('/api/internal-link-quality')",'no-store'], 'quality API');
 requireSymbols(policyApi, ["createFileRoute('/api/internal-link-policies')",'INTERNAL_LINK_POLICY_HISTORY','no-store'], 'policy API');
 requireSymbols(rollbackApi, ["createFileRoute('/api/internal-link-policy-rollback')",'preview-only','previewInternalLinkPolicyRollback','no-store','noindex, nofollow'], 'rollback preview API');
-requireText(article, 'ArticleBody blocks={article.body} entities={graph}', 'article internal-link activation');
+requireSymbols(article, ['<ArticleBody','blocks={article.body}','entities={graph}'], 'article internal-link activation');
 requireSymbols(destination, ['AutoEntityLinks','loadTexasKnowledgeGraph'], 'destination linking');
 requireSymbols(entity, ['AutoEntityLinks','relatedEntities','excludedEntityIds: [entity.id]'], 'entity linking');
 requireSymbols(health, ['InternalLinkPolicyHistory','Governed internal-link policies','Rollback operations','/admin/internal-link-rollback','Preview rollback'], 'Platform Health rollback governance');

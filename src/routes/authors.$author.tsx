@@ -5,6 +5,7 @@ import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, authorsQuery } from "@/data/queries";
+import { authorIdFromPublicSlug, publicAuthorSlug } from "@/data/editorial-author-slugs";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -15,13 +16,13 @@ export const Route = createFileRoute("/authors/$author")({
       context.queryClient.ensureQueryData(authorsQuery()),
       context.queryClient.ensureQueryData(articlesQuery({ limit: 500 })),
     ]);
-    const author = authors.find((item) => item.id === params.author);
+    const author = authors.find((item) => item.id === authorIdFromPublicSlug(params.author));
     if (!author) throw notFound();
     return { author, articles: articles.filter((article) => article.authorId === author.id) };
   },
-  head: ({ loaderData, params }) => {
+  head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Editorial desk unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
-    const canonicalPath = `/authors/${params.author}`;
+    const canonicalPath = `/authors/${publicAuthorSlug(loaderData.author.id)}`;
     const url = absoluteUrl(texasDefinedBrand, canonicalPath);
     const description = `${loaderData.author.bio} Read stories published under the ${loaderData.author.name} byline.`;
     return {

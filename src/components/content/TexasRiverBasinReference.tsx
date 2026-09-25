@@ -27,9 +27,9 @@ const coastalBasins = [
   "Nueces-Rio Grande",
 ] as const;
 
-export function TexasRiverBasinReference() {
+export function TexasRiverBasinReference({ className = "mt-8" }: { className?: string }) {
   return (
-    <div className="mt-8" aria-labelledby="major-basin-reference-heading">
+    <div className={className} aria-labelledby="major-basin-reference-heading">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="eyebrow text-primary">Official basin reference</p>

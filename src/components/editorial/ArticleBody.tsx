@@ -1,7 +1,8 @@
-import { lazy, Suspense } from "react";
+import { Fragment, lazy, Suspense, type ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import type { ArticleBlock, Author } from "@/data/types";
 import type { TexasEntityRecord } from "@/data/knowledge-graph";
+import { publicAuthorSlug } from "@/data/editorial-author-slugs";
 import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { hideFailedImageContainer } from "@/lib/image-fallback";
 import { ShopTheStory } from "@/components/commerce/ShopTheStory";
@@ -37,17 +38,17 @@ export function PullQuote({ text, attribution, entities = [] }: { text: string; 
   );
 }
 
-export function Byline({ author, meta }: { author: Author | null; meta: string }) {
+export function Byline({ author, meta, showRole = true }: { author: Author | null; meta: string; showRole?: boolean }) {
   return (
     <div className="flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-border pb-5 text-sm text-muted-foreground">
-      {author && <span className="text-foreground">By <Link to="/authors/$author" params={{ author: author.id }} className="font-semibold underline decoration-border underline-offset-4 transition-colors hover:text-primary">{author.name}</Link>{author.role ? <span className="text-muted-foreground"> · {author.role}</span> : null}</span>}
+      {author && <span className="text-foreground">By <Link to="/authors/$author" params={{ author: publicAuthorSlug(author.id) }} className="font-semibold underline decoration-border underline-offset-4 transition-colors hover:text-primary">{author.name}</Link>{showRole && author.role ? <span className="text-muted-foreground"> · {author.role}</span> : null}</span>}
       {author && <span aria-hidden="true">•</span>}
       <span>{meta}</span>
     </div>
   );
 }
 
-export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[]; entities?: TexasEntityRecord[] }) {
+export function ArticleBody({ blocks, entities = [], insertBeforeHeading }: { blocks: ArticleBlock[]; entities?: TexasEntityRecord[]; insertBeforeHeading?: { heading: string; content: ReactNode } }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const showMetroRelocationAuthority = metroRelocationGuidePaths.has(pathname);
   const linked = new Set<string>();
@@ -72,7 +73,13 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
   };
   return <div className="editorial-body text-foreground/92">
     {blocks.map((block, index) => {
-      switch (block.type) {
+      const beforeHeading = block.type === "heading" && block.text === insertBeforeHeading?.heading
+        ? insertBeforeHeading.content
+        : null;
+      return <Fragment key={index}>
+        {beforeHeading}
+        {(() => {
+          switch (block.type) {
         case "heading": return <h2 key={index} id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
         case "quote": return <PullQuote key={index} text={block.text} entities={available()} {...(block.attribution ? { attribution: block.attribution } : {})} />;
         case "list": return <ul key={index} className="my-8 list-disc space-y-3 pl-6 marker:text-primary">{block.items.map((item) => <li key={item}>{render(item, 2)}</li>)}</ul>;
@@ -100,7 +107,9 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
         case "shop": return <ShopTheStory key={index} collectionSlug={block.collectionSlug} />;
         case "paragraph":
         default: return <p key={index} className="mt-6 first:mt-0">{render(block.text, 4)}</p>;
-      }
+          }
+        })()}
+      </Fragment>;
     })}
     {showMetroRelocationAuthority ? <Suspense fallback={null}><MetroRelocationAuthority articlePath={pathname} /></Suspense> : null}
   </div>;

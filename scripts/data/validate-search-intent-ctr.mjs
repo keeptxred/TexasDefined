@@ -32,6 +32,7 @@ const queriesSource = fs.readFileSync('src/data/queries.ts', 'utf8');
 const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
 const texasWaterResource = fs.readFileSync('src/components/content/TexasWaterSearchResource.tsx', 'utf8');
 const texasRiverBasinReference = fs.readFileSync('src/components/content/TexasRiverBasinReference.tsx', 'utf8');
+const texasRiversAuthorityHub = fs.readFileSync('src/components/content/TexasRiversAuthorityHub.tsx', 'utf8');
 const failures = [];
 
 for (const required of [
@@ -235,6 +236,33 @@ for (const required of [
 }
 if (articleRoute.includes('import { TexasWaterSearchResource } from "@/components/content/TexasWaterSearchResource";')) {
   failures.push('Texas water resource must remain route-level lazy code so generic article pages do not absorb the water bundle.');
+}
+
+for (const required of [
+  'Texas Rivers at a Glance',
+  'The statewide river system, in brief',
+  'Next: Texas Lakes &amp; Reservoirs →',
+  '<TexasRiversAuthorityHub mode="intro" />',
+  '<TexasRiversAuthorityHub mode="profiles-rail" />',
+  '<TexasRiversAuthorityHub mode="profiles" />',
+  '<TexasRiversAuthorityHub mode="basins" />',
+  'heading: "The Rio Grande: border river, desert river and international river"',
+  'Explore Texas Along the Rivers',
+]) {
+  if (!articleRoute.includes(required)) failures.push(`Texas rivers article hierarchy contract missing: ${required}`);
+}
+for (const required of [
+  'Start with the statewide river map',
+  'Explore Individual Rivers',
+  'type TexasRiversAuthorityHubMode = "intro" | "basins" | "profiles" | "profiles-rail";',
+]) {
+  if (!texasRiversAuthorityHub.includes(required)) failures.push(`Texas rivers authority layout contract missing: ${required}`);
+}
+for (const obsolete of [
+  'See the whole river system before reading it river by river',
+  'River places connected to the statewide story',
+]) {
+  if (texasRiversAuthorityHub.includes(obsolete)) failures.push(`Texas rivers pre-article clutter returned: ${obsolete}`);
 }
 
 for (const required of [
