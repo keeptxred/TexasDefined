@@ -120,7 +120,7 @@ if (
 }
 
 const deployedVersionIndex = workflow.indexOf('id: deployed_worker_version');
-const liveGateIndex = workflow.indexOf('id: live\\n');
+const liveGateIndex = workflow.indexOf('id: live\n');
 const indexNowIndex = workflow.indexOf('id: indexnow');
 const verifiedVersionIndex = workflow.indexOf('id: verified_worker_version');
 const verifiedIdentityIndex = workflow.indexOf('id: verified_worker_identity');
