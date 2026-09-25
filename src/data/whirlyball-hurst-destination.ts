@@ -27,10 +27,10 @@ export const whirlyballHurstDestinations: Destination[] = [
     county: "Tarrant",
     coordinates: { lat: 32.8516, lng: -97.1685 },
     hero: {
-      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Whirlyball.jpg?width=1600",
+      src: "https://upload.wikimedia.org/wikipedia/commons/5/52/Whirlyball.jpg",
       alt: "Representative WhirlyBall game in Texas with players riding bumper-style cars and using scoops to pass the ball",
-      width: 1600,
-      height: 1200,
+      width: 2560,
+      height: 1920,
       credit: "BobTheMad · CC BY-SA 3.0 · Wikimedia Commons · representative WhirlyBall game photographed in Plano in 2011",
     },
     bestSeason: "Year-round. Because the main activities are indoors, WhirlyBall Hurst is especially useful for hot North Texas afternoons, rainy days, evening group outings and weather-proof birthday or team events.",
