@@ -31,6 +31,16 @@ Use the relocation system in this order:
 
 Do not infer a school district, utility territory, appraisal district, voter jurisdiction, flood status or other address-dependent fact solely from a mailing city or ZIP code.
 
+## Origin-state continuity
+
+TexasDefined already owns a governed `/texas-vs/{state}` comparison system for all 49 other states. That system is the canonical origin-state layer for relocation; do not create a duplicate family of thin `/moving-from-{state}-to-texas` pages.
+
+- Every state-comparison page includes a **Moving from [State] to Texas** bridge into My Texas Move.
+- The bridge uses `originState` only as a planner-prefill parameter on the canonical `/moving-to-texas` hub. It does not create another indexable relocation URL.
+- The command center recognizes only exact state names from the governed `TEXAS_VS_STATES` registry and preserves an origin the visitor already saved.
+- When the planner origin exactly matches one of those states, it surfaces the matching official-source Texas-vs-state comparison instead of inventing a second comparison experience.
+- State comparisons remain the place for state-level tax, housing, jobs, risk, transportation and metro context; My Texas Move carries that research into Texas city, county, budget, school and exact-address decisions.
+
 ## City-to-workspace continuity
 
 Verified city authority pages are part of the relocation product rather than separate informational endpoints.
