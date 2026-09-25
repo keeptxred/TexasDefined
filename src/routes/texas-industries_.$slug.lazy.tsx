@@ -85,6 +85,11 @@ function TexasIndustryPage() {
                     <span className="mt-2 block text-sm leading-6 text-muted-foreground">Explore Texas career and technical education pathways, including certificates, applied associate degrees and industry-recognized credentials.</span>
                   </a>
                 </div>
+                <div className="mt-6 border-l-2 border-primary pl-5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">Corporate relocation</p>
+                  <p className="mt-2 max-w-3xl text-sm leading-7 text-muted-foreground">If this sector is driving a company move or employee transfer, carry {industry.shortTitle.toLowerCase()} into the corporate relocation workspace, then compare the Texas labor market with housing, commute, school and household transition needs.</p>
+                  <a href={`/moving-to-texas?industry=${encodeURIComponent(industry.shortTitle)}&companyMove=employer#corporate-relocation`} className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Plan a corporate Texas relocation →</a>
+                </div>
               </section>
 
               <section className="mt-12">
