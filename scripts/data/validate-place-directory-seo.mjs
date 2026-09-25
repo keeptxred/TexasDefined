@@ -73,8 +73,9 @@ const checks = [
   [hurstWhirlyballProductionVerifier, "tarrant.includes('/destination/whirlyball-hurst')", 'Hurst/WhirlyBall production verifier must protect the canonical county-to-attraction URL'],
   [hurstWhirlyballProductionVerifier, "tarrant.includes('Arlington and Hurst')", 'Hurst/WhirlyBall production verifier must protect Hurst in Tarrant County structured communities'],
   [hurstWhirlyballProductionVerifier, "fetchLive('/sitemap.xml')", 'Hurst/WhirlyBall production verifier must inspect the live primary sitemap'],
-  [hurstWhirlyballProductionVerifier, "sitemap.includes('https://texasdefined.com/city/hurst')", 'Hurst/WhirlyBall production verifier must protect Hurst city sitemap inclusion'],
-  [hurstWhirlyballProductionVerifier, "sitemap.includes('https://texasdefined.com/destination/whirlyball-hurst')", 'Hurst/WhirlyBall production verifier must protect WhirlyBall sitemap inclusion'],
+  [hurstWhirlyballProductionVerifier, "fetchLive('/sitemap-explore.xml')", 'Hurst/WhirlyBall production verifier must inspect the live Explore sitemap for destination ownership'],
+  [hurstWhirlyballProductionVerifier, "primarySitemap.includes('https://texasdefined.com/city/hurst')", 'Hurst/WhirlyBall production verifier must protect Hurst city primary-sitemap inclusion'],
+  [hurstWhirlyballProductionVerifier, "exploreSitemap.includes('https://texasdefined.com/destination/whirlyball-hurst')", 'Hurst/WhirlyBall production verifier must protect WhirlyBall Explore-sitemap inclusion'],
   [hurstWhirlyballProductionVerifier, 'Hurst has a Texas Defined city guide with official municipal sources', 'Hurst/WhirlyBall production verifier must reject stale directory-only Hurst copy'],
   [hurstWhirlyballProductionVerifier, "cache: 'no-store'", 'Hurst/WhirlyBall production verifier must bypass stale cache state'],
   [hurstWhirlyballProductionVerifier, 'Whirlyball.jpg', 'Hurst/WhirlyBall production verifier must protect the live hero source'],
@@ -122,6 +123,10 @@ for (const [label, source] of [['city directory route', cityEager], ['city-count
   if (source.includes("import { TEXAS_CITIES") || source.includes('import { TEXAS_COUNTIES')) {
     failures.push(`${label} must not statically import the Texas places registry.`);
   }
+}
+
+if (hurstWhirlyballProductionVerifier.includes("sitemap.includes('https://texasdefined.com/destination/whirlyball-hurst')")) {
+  failures.push('WhirlyBall is Explore-owned and its production smoke must not require the destination URL in the primary sitemap.');
 }
 
 if (failures.length) {
