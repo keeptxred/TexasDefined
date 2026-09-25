@@ -93,11 +93,17 @@ for (const marker of [
   "href: '/gaming/austin'",
   "href: '/gaming/dfw'",
   "href: '/gaming/esports-stadium-arlington'",
+  "href: '/gaming/college-esports'",
 ]) if (!city.includes(marker)) failures.push(`City gaming pathway missing: ${marker}`);
 
-for (const countySlug of ["travis", "williamson", "collin", "tarrant", "dallas", "denton"]) {
+for (const citySlug of ["fort-worth", "lubbock", "waco", "college-station", "tyler"]) {
+  if (!new RegExp(`['"]?${citySlug}['"]?: \\[[^\\n]*href: '/gaming/college-esports'`).test(city)) failures.push(`College-esports city pathway missing: ${citySlug}`);
+}
+
+for (const countySlug of ["travis", "williamson", "collin", "tarrant", "dallas", "denton", "mclennan", "lubbock", "smith", "hays", "brazos"]) {
   if (!new RegExp(`\\b${countySlug}: \\[[^\\n]*href: "/gaming/`).test(county)) failures.push(`County gaming pathway missing: ${countySlug}`);
 }
+if (!data.includes('{ href: "/texas-college-towns", label: "Texas college towns"')) failures.push("College esports must cross-link to the Texas college-towns guide.");
 
 if (!searchRuntime.includes('await import("./gaming-search")') || !searchRuntime.includes("buildGamingSearchDocuments()")) failures.push("Gaming pages must remain in global search.");
 for (const marker of ['id: "collection:gaming"', 'href: "/gaming"', 'GAMING_PAGES']) if (!searchAdapter.includes(marker)) failures.push(`Gaming search adapter missing ${marker}`);
