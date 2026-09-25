@@ -41,46 +41,33 @@ const featuredPhotos: FairPhoto[] = [
 ];
 
 const additionalPhotos: FairPhoto[] = [
-  {
-    file: "State Fair of Texas September 2019 10 (Midway).jpg",
-    alt: "State Fair of Texas Midway during the day",
-    caption: "Midway",
-  },
-  {
-    file: "State Fair of Texas September 2019 08 (Fair Park Band Shell).jpg",
-    alt: "Fair Park Band Shell during the State Fair of Texas",
-    caption: "Fair Park Band Shell",
-  },
-  {
-    file: "State Fair of Texas September 2019 22 (State Fair Wine Garden).jpg",
-    alt: "State Fair Wine Garden at Fair Park",
-    caption: "State Fair Wine Garden",
-  },
-  {
-    file: "State Fair of Texas September 2019 17 (Lone Star Boulevard).jpg",
-    alt: "Lone Star Boulevard at the State Fair of Texas",
-    caption: "Lone Star Boulevard",
-  },
-  {
-    file: "State Fair of Texas September 2019 28 (Midway).jpg",
-    alt: "State Fair of Texas Midway illuminated at night",
-    caption: "Midway at night",
-  },
-  {
-    file: "State Fair of Texas September 2019 04 (Lone Star Boulevard).jpg",
-    alt: "Visitors on Lone Star Boulevard at the State Fair of Texas",
-    caption: "Fairgrounds",
-  },
-  {
-    file: "State Fair of Texas September 2019 13 (Big Tex).jpg",
-    alt: "Big Tex viewed from the State Fair of Texas fairgrounds",
-    caption: "Big Tex",
-  },
-  {
-    file: "State Fair of Texas September 2019 16 (Big Tex).jpg",
-    alt: "Big Tex and fairgoers at the State Fair of Texas",
-    caption: "Big Tex and fairgoers",
-  },
+  { file: "State Fair of Texas September 2019 01 (Centennial Hall).jpg", alt: "Centennial Hall at the State Fair of Texas", caption: "Centennial Hall" },
+  { file: "State Fair of Texas September 2019 02 (Centennial Hall).jpg", alt: "Centennial Hall at Fair Park during the State Fair of Texas", caption: "Centennial Hall" },
+  { file: "State Fair of Texas September 2019 03 (Esplanade Fountain).jpg", alt: "Esplanade Fountain at the State Fair of Texas", caption: "Esplanade Fountain" },
+  { file: "State Fair of Texas September 2019 04 (Lone Star Boulevard).jpg", alt: "Lone Star Boulevard at the State Fair of Texas", caption: "Lone Star Boulevard" },
+  { file: "State Fair of Texas September 2019 05 (vendors).jpg", alt: "Vendors at the State Fair of Texas", caption: "Fair vendors" },
+  { file: "State Fair of Texas September 2019 06 (U.S. Marine Corps Jazz Orchestra).jpg", alt: "U.S. Marine Corps Jazz Orchestra performing at the State Fair of Texas", caption: "U.S. Marine Corps Jazz Orchestra" },
+  { file: "State Fair of Texas September 2019 07 (Midway).jpg", alt: "Midway rides at the State Fair of Texas", caption: "Midway" },
+  { file: "State Fair of Texas September 2019 08 (Fair Park Band Shell).jpg", alt: "Fair Park Band Shell during the State Fair of Texas", caption: "Fair Park Band Shell" },
+  { file: "State Fair of Texas September 2019 09 (Dos Equis Pavilion).jpg", alt: "Dos Equis Pavilion during the State Fair of Texas", caption: "Dos Equis Pavilion" },
+  { file: "State Fair of Texas September 2019 10 (Midway).jpg", alt: "State Fair of Texas Midway during the day", caption: "Midway" },
+  { file: "State Fair of Texas September 2019 12 (Big Tex).jpg", alt: "Big Tex at the State Fair of Texas", caption: "Big Tex" },
+  { file: "State Fair of Texas September 2019 13 (Big Tex).jpg", alt: "Big Tex viewed from the State Fair of Texas fairgrounds", caption: "Big Tex" },
+  { file: "State Fair of Texas September 2019 14 (Big Tex).jpg", alt: "Big Tex at Fair Park during the State Fair of Texas", caption: "Big Tex" },
+  { file: "State Fair of Texas September 2019 16 (Big Tex).jpg", alt: "Big Tex and fairgoers at the State Fair of Texas", caption: "Big Tex and fairgoers" },
+  { file: "State Fair of Texas September 2019 17 (Lone Star Boulevard).jpg", alt: "Lone Star Boulevard at the State Fair of Texas", caption: "Lone Star Boulevard" },
+  { file: "State Fair of Texas September 2019 18 (Crazy Mouse).jpg", alt: "Crazy Mouse ride at the State Fair of Texas", caption: "Crazy Mouse" },
+  { file: "State Fair of Texas September 2019 20 (Redwood Loghouse).jpg", alt: "Redwood Loghouse at the State Fair of Texas", caption: "Redwood Loghouse" },
+  { file: "State Fair of Texas September 2019 21 (vendors).jpg", alt: "State Fair of Texas vendors", caption: "Fair vendors" },
+  { file: "State Fair of Texas September 2019 22 (State Fair Wine Garden).jpg", alt: "State Fair Wine Garden at Fair Park", caption: "State Fair Wine Garden" },
+  { file: "State Fair of Texas September 2019 23 (vendors).jpg", alt: "Vendor booths at the State Fair of Texas", caption: "Fair vendors" },
+  { file: "State Fair of Texas September 2019 24 (Esplanade).jpg", alt: "Esplanade at Fair Park during the State Fair of Texas", caption: "Esplanade" },
+  { file: "State Fair of Texas September 2019 26 (Hall of State).jpg", alt: "Hall of State at Fair Park during the State Fair of Texas", caption: "Hall of State" },
+  { file: "State Fair of Texas September 2019 27 (Esplanade).jpg", alt: "Fair Park Esplanade during the State Fair of Texas", caption: "Esplanade" },
+  { file: "State Fair of Texas September 2019 28 (Midway).jpg", alt: "State Fair of Texas Midway illuminated at night", caption: "Midway at night" },
+  { file: "State Fair of Texas September 2019 29 (Hall of State).jpg", alt: "Hall of State illuminated at night during the State Fair of Texas", caption: "Hall of State at night" },
+  { file: "State Fair of Texas September 2019 30 (Hall of State).jpg", alt: "Night view of the Hall of State at the State Fair of Texas", caption: "Hall of State at night" },
+  { file: "State Fair of Texas September 2019 31 (Centennial Hall).jpg", alt: "Centennial Hall illuminated at night during the State Fair of Texas", caption: "Centennial Hall at night" },
 ];
 
 function PhotoCard({ photo, eager = false }: { photo: FairPhoto; eager?: boolean }) {
@@ -208,13 +195,13 @@ export function StateFairHistoricalGallery() {
           <p className="eyebrow text-primary">Historical gallery</p>
           <h2 className="mt-2 font-display text-3xl md:text-4xl">More scenes from previous State Fairs</h2>
           <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">
-            Expand the gallery for more Big Tex, Midway and Fair Park scenes from prior years. For current official
+            This complete 31-photo September 2019 archival set covers Big Tex, the Midway, food, vendors, entertainment and Fair Park landmarks. For current official
             publication photography, the State Fair media room maintains galleries covering recent highlights,
             historical images, Big Tex, award-winning food, new foods, livestock, Creative Arts and State Fair Cares.
           </p>
 
           <details className="mt-6 rounded-xl border border-border bg-muted/20 p-5">
-            <summary className="cursor-pointer font-semibold">View 8 more historical State Fair photos</summary>
+            <summary className="cursor-pointer font-semibold">View the full 31-photo historical State Fair gallery</summary>
             <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {additionalPhotos.map((photo) => <PhotoCard key={photo.file} photo={photo} />)}
             </div>
