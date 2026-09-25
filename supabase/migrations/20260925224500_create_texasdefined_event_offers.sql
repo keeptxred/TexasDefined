@@ -3,10 +3,10 @@ create extension if not exists pgcrypto;
 create table if not exists public.texasdefined_offer_sources (
   id uuid primary key default gen_random_uuid(),
   source_key text not null unique,
-  network text not null,
+  network text not null check (network in ('impact', 'cj', 'expedia', 'direct', 'internal')),
   advertiser text not null,
   source_label text not null,
-  fetch_strategy text not null,
+  fetch_strategy text not null check (fetch_strategy in ('manual', 'api', 'feed', 'webhook')),
   terms_url text,
   last_synced_at timestamptz,
   is_active boolean not null default true,
@@ -21,9 +21,9 @@ create table if not exists public.texasdefined_event_offers (
   external_id text not null,
   title text not null,
   description text,
-  kind text not null default 'offer' check (kind in ('event', 'offer', 'lodging', 'attraction', 'promo')),
-  category text,
-  network text not null,
+  kind text not null default 'offer' check (kind in ('event', 'offer', 'hotel', 'attraction', 'package')),
+  category text not null default 'attractions' check (category in ('concerts', 'sports', 'festivals', 'family', 'theater', 'attractions', 'tours', 'hotels', 'outdoors', 'shopping')),
+  network text not null check (network in ('impact', 'cj', 'expedia', 'direct', 'internal')),
   advertiser text,
   city text,
   region text,
@@ -40,7 +40,7 @@ create table if not exists public.texasdefined_event_offers (
   affiliate_url text,
   source_url text,
   image_url text,
-  commission_status text not null default 'unknown' check (commission_status in ('preserved', 'reduced', 'zero', 'unknown', 'editorial')),
+  commission_status text not null default 'unknown' check (commission_status in ('preserved', 'reduced', 'zero', 'unknown')),
   discount_preserves_commission boolean,
   is_discount boolean not null default false,
   is_editorial_only boolean not null default false,
@@ -52,9 +52,7 @@ create table if not exists public.texasdefined_event_offers (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   constraint texasdefined_event_offers_source_external_unique unique (source_key, external_id),
-  constraint texasdefined_event_offers_editorial_commission_guard check (
-    (is_editorial_only = false) or (affiliate_url is null) or (commission_status in ('preserved', 'unknown'))
-  )
+  constraint texasdefined_event_offers_commission_guard check (not ((commission_status = 'zero') and (discount_preserves_commission = true)))
 );
 
 alter table public.texasdefined_offer_sources add column if not exists source_key text;
@@ -74,7 +72,7 @@ alter table public.texasdefined_event_offers add column if not exists external_i
 alter table public.texasdefined_event_offers add column if not exists title text;
 alter table public.texasdefined_event_offers add column if not exists description text;
 alter table public.texasdefined_event_offers add column if not exists kind text not null default 'offer';
-alter table public.texasdefined_event_offers add column if not exists category text;
+alter table public.texasdefined_event_offers add column if not exists category text not null default 'attractions';
 alter table public.texasdefined_event_offers add column if not exists network text;
 alter table public.texasdefined_event_offers add column if not exists advertiser text;
 alter table public.texasdefined_event_offers add column if not exists city text;
@@ -104,6 +102,32 @@ alter table public.texasdefined_event_offers add column if not exists raw_payloa
 alter table public.texasdefined_event_offers add column if not exists created_at timestamptz not null default now();
 alter table public.texasdefined_event_offers add column if not exists updated_at timestamptz not null default now();
 
+insert into public.texasdefined_offer_sources (source_key, network, advertiser, source_label, fetch_strategy, is_active)
+values ('legacy-import', 'internal', 'TexasDefined', 'Legacy imported event offer rows', 'manual', true)
+on conflict (source_key) do nothing;
+
+update public.texasdefined_event_offers offers
+set source_key = sources.source_key
+from public.texasdefined_offer_sources sources
+where offers.source_key is null
+  and offers.source_id = sources.id;
+
+update public.texasdefined_event_offers
+set source_key = 'legacy-import'
+where source_key is null;
+
+update public.texasdefined_event_offers
+set external_id = id::text
+where external_id is null;
+
+update public.texasdefined_event_offers
+set category = 'attractions'
+where category is null;
+
+update public.texasdefined_event_offers
+set network = lower(network)
+where network is not null and network <> lower(network);
+
 alter table public.texasdefined_offer_sources alter column source_key set not null;
 alter table public.texasdefined_offer_sources alter column network set not null;
 alter table public.texasdefined_offer_sources alter column advertiser set not null;
@@ -112,6 +136,7 @@ alter table public.texasdefined_offer_sources alter column fetch_strategy set no
 alter table public.texasdefined_event_offers alter column source_key set not null;
 alter table public.texasdefined_event_offers alter column external_id set not null;
 alter table public.texasdefined_event_offers alter column title set not null;
+alter table public.texasdefined_event_offers alter column category set not null;
 alter table public.texasdefined_event_offers alter column network set not null;
 
 create unique index if not exists texasdefined_offer_sources_source_key_idx on public.texasdefined_offer_sources (source_key);
@@ -154,9 +179,9 @@ end $$;
 
 insert into public.texasdefined_offer_sources (source_key, network, advertiser, source_label, fetch_strategy, is_active)
 values
-  ('ticketmaster-impact', 'Impact', 'Ticketmaster', 'Ticketmaster Texas events via Impact tracking', 'ticketmaster-discovery-api', true),
-  ('cj-link-search', 'CJ', 'CJ approved advertisers', 'CJ approved offer and content links', 'cj-link-search-api', true),
-  ('impact-promotions', 'Impact', 'Impact programs', 'Impact promotions and promo codes', 'impact-promotions-api', true)
+  ('ticketmaster-impact', 'impact', 'Ticketmaster', 'Ticketmaster Texas events via Impact tracking', 'api', true),
+  ('cj-link-search', 'cj', 'CJ approved advertisers', 'CJ approved offer and content links', 'api', true),
+  ('impact-promotions', 'impact', 'Impact programs', 'Impact promotions and promo codes', 'api', true)
 on conflict (source_key) do update set
   network = excluded.network,
   advertiser = excluded.advertiser,
