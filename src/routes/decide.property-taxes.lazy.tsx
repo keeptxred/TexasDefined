@@ -1,20 +1,50 @@
 import { useMemo, useState } from 'react';
 import { createLazyFileRoute, Link } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
+import { OfficialTaxRateAssist } from '@/components/property/OfficialTaxRateAssist';
+import {
+  BreakdownTable,
+  CalculatorActions,
+  CalculatorResult,
+  CountySelector,
+  CurrencyInput,
+  MethodologyPanel,
+  PercentageInput,
+  ResultGrid,
+  useCalculatorPersistence,
+  useUrlStateDefaults,
+} from '@/components/property/PropertyCalculatorFramework';
+import { calculatePropertyTax } from '@/lib/financial/property-tax';
 import { description, propertyTaxFaqs } from './decide.property-taxes';
 
 export const Route = createLazyFileRoute('/decide/property-taxes')({
   component: Page,
 });
 
+type PropertyTaxState = {
+  taxableValue: number;
+  rate: number;
+  county: string;
+  rateYear: number;
+};
+
+const DEFAULTS: PropertyTaxState = {
+  taxableValue: 400000,
+  rate: 2.1,
+  county: '',
+  rateYear: 2025,
+};
+
 function Page() {
-  const [taxableValue, setTaxableValue] = useState(400000);
-  const [rate, setRate] = useState(2.1);
-  const result = useMemo(() => {
-    const annual = Math.max(0, taxableValue) * Math.max(0, rate) / 100;
-    return { annual, monthly: annual / 12 };
-  }, [taxableValue, rate]);
-  const money = (amount: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(amount);
+  const urlDefaults = useUrlStateDefaults(DEFAULTS);
+  const [state, setState] = useState<PropertyTaxState>(urlDefaults);
+  const annual = useMemo(() => calculatePropertyTax(state.taxableValue, state.rate), [state.rate, state.taxableValue]);
+  const monthly = annual / 12;
+  const persistence = useCalculatorPersistence({
+    storageKey: 'texasdefined:property-tax-quick:v2',
+    state,
+    onRestore: setState,
+  });
 
   return <>
     <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
@@ -34,19 +64,39 @@ function Page() {
 
         <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
           <div><p className="eyebrow text-primary">Your assumptions</p><h2 className="mt-2 font-display text-3xl">Start with taxable value</h2></div>
-          <div className="grid gap-5 sm:grid-cols-2">
-            <Field label="Taxable value for this rate" value={taxableValue} step="1000" onChange={setTaxableValue} />
-            <Field label="Combined local rate (%)" value={rate} step="0.01" onChange={setRate} />
+          <div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              <CurrencyInput label="Taxable value for this rate" value={state.taxableValue} step={1000} onChange={(value) => setState((current) => ({ ...current, taxableValue: value }))} />
+              <PercentageInput label="Combined local rate" value={state.rate} step={0.001} min={0} max={20} onChange={(value) => setState((current) => ({ ...current, rate: value }))} help="Enter a combined rate only when it represents the taxing units that actually apply to this property." />
+              <CountySelector value={state.county} onChange={(value) => setState((current) => ({ ...current, county: value }))} />
+            </div>
+            <div className="mt-6">
+              <OfficialTaxRateAssist
+                countySlug={state.county}
+                title="Fill this estimate from official local tax rates"
+                onApply={(rates) => setState((current) => ({ ...current, rate: rates.combinedRate, rateYear: rates.year }))}
+              />
+            </div>
           </div>
         </section>
 
-        <section className="py-10">
+        <CalculatorActions
+          onSave={persistence.save}
+          onRestore={persistence.restore}
+          onShare={persistence.share}
+          onPrint={persistence.print}
+          status={persistence.status}
+          onReset={() => setState(DEFAULTS)}
+        />
+
+        <section className="py-10" aria-live="polite" aria-atomic="true">
           <div className="border-b border-border pb-4"><p className="eyebrow text-primary">Estimate</p><h2 className="mt-2 font-display text-4xl">What that could mean</h2></div>
-          <div className="grid sm:grid-cols-2">
-            {[
-              ['Estimated annual tax', money(result.annual)],
-              ['Estimated monthly cost', money(result.monthly)],
-            ].map(([label, amount], index) => <div key={label} className={`border-b border-border py-6 sm:px-5 ${index ? 'sm:border-l sm:border-border' : ''}`}><p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{label}</p><strong className="mt-2 block font-display text-3xl text-primary">{amount}</strong></div>)}
+          <ResultGrid>
+            <CalculatorResult label="Estimated annual tax" value={new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(annual)} note={`${state.rateYear} selected-rate scenario when official rates are applied`} />
+            <CalculatorResult label="Estimated monthly cost" value={new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(monthly)} />
+          </ResultGrid>
+          <div className="mt-8 max-w-2xl">
+            <BreakdownTable items={[{ label: 'Taxable value × selected combined rate', value: annual }]} total={annual} totalLabel="Estimated annual property tax" />
           </div>
         </section>
 
@@ -54,6 +104,12 @@ function Page() {
           <strong className="font-display text-2xl">Need exemptions modeled?</strong>
           <div className="text-sm leading-6 text-muted-foreground"><p>Texas taxing units can use different taxable values and exemptions. Use the production calculator toolkit when exemptions, ceilings or special appraisal matter.</p><Link to="/property-tax-calculators" className="mt-3 inline-block font-semibold text-primary underline underline-offset-4">Open the property-tax calculators →</Link></div>
         </aside>
+
+        <MethodologyPanel>
+          <p>TexasDefined multiplies the entered taxable value by the selected rate using the same shared property-tax engine used by the related Texas property-tax tools.</p>
+          <p>When you apply official local rates, the rate year is preserved with the scenario. An official adopted rate does not prove that a taxing unit applies to a particular parcel, and exemptions can create different taxable values for different taxing units.</p>
+          <p>For the closest estimate, calculate each applicable taxing unit separately with its own taxable value and adopted rate, then add the line items together.</p>
+        </MethodologyPanel>
 
         <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
           <div><p className="eyebrow text-primary">Property-tax relief</p><h2 className="mt-2 font-display text-3xl">How Texas property tax relief works</h2></div>
@@ -81,8 +137,4 @@ function Page() {
       </article>
     </Container>
   </>;
-}
-
-function Field({ label, value, step, onChange }: { label: string; value: number; step: string; onChange: (value: number) => void }) {
-  return <label className="block border-t border-border pt-4"><span className="text-sm font-semibold">{label}</span><input className="mt-2 w-full border-0 border-b border-border bg-transparent px-0 py-3 text-lg outline-none focus:border-primary" type="number" min="0" step={step} value={value} onChange={e => onChange(Number(e.target.value) || 0)} /></label>;
 }

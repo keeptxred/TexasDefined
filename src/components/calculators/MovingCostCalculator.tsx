@@ -1,114 +1,30 @@
 import { useMemo, useState } from 'react';
+import { CalculatorActions, CalculatorResult, CurrencyInput, NumberInput, PercentageInput, formatMoney, readCalculatorStateFromUrl, useCalculatorPersistence } from '@/components/property/PropertyCalculatorFramework';
+import { calculateMovingBudget } from '@/lib/financial/planning';
 
-const money = (value: number) =>
-  new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    maximumFractionDigits: 0,
-  }).format(Number.isFinite(value) ? value : 0);
-
-const number = (value: unknown) => Math.max(0, Number(value) || 0);
-
-function Field({
-  label,
-  value,
-  onChange,
-  step = 1,
-  suffix,
-  help,
-}: {
-  label: string;
-  value: number;
-  onChange: (value: number) => void;
-  step?: number;
-  suffix?: string;
-  help?: string;
-}) {
-  return (
-    <label className="block border-t border-border pt-4">
-      <span className="text-sm font-semibold">{label}</span>
-      {help ? <span className="mt-1 block text-xs leading-5 text-muted-foreground">{help}</span> : null}
-      <div className="flex items-center border-b border-border focus-within:border-primary">
-        <input
-          className="w-full bg-transparent px-0 py-3 text-lg outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-          type="number"
-          min="0"
-          step={step}
-          value={value}
-          onChange={(event) => onChange(number(event.target.value))}
-        />
-        {suffix ? <span className="pl-3 text-sm text-muted-foreground">{suffix}</span> : null}
-      </div>
-    </label>
-  );
-}
+type MovingState = { distance: number; bedrooms: number; writtenEstimate: number; packing: number; travel: number; storage: number; deposits: number; contingency: number };
+const DEFAULTS: MovingState = { distance: 500, bedrooms: 3, writtenEstimate: 0, packing: 1200, travel: 800, storage: 0, deposits: 1500, contingency: 15 };
 
 export function MovingCostCalculator() {
-  const [distance, setDistance] = useState(500);
-  const [bedrooms, setBedrooms] = useState(3);
-  const [writtenEstimate, setWrittenEstimate] = useState(0);
-  const [packing, setPacking] = useState(1200);
-  const [travel, setTravel] = useState(800);
-  const [storage, setStorage] = useState(0);
-  const [deposits, setDeposits] = useState(1500);
-  const [contingency, setContingency] = useState(15);
+  const [state, setState] = useState(() => readCalculatorStateFromUrl(DEFAULTS));
+  const set = <K extends keyof MovingState>(key: K, value: MovingState[K]) => setState((current) => ({ ...current, [key]: value }));
+  const result = useMemo(() => calculateMovingBudget({ distanceMiles: state.distance, bedrooms: state.bedrooms, writtenEstimate: state.writtenEstimate, packing: state.packing, travelLodging: state.travel, storage: state.storage, depositsSetup: state.deposits, contingencyPercent: state.contingency }), [state]);
+  const persistence = useCalculatorPersistence({ storageKey: 'texasdefined:moving:v3', state, onRestore: setState });
 
-  const result = useMemo(() => {
-    const baselineTransport = 900 + distance * 2.25 + bedrooms * 650;
-    const transportation = writtenEstimate > 0 ? writtenEstimate : baselineTransport;
-    const subtotal = transportation + packing + travel + storage + deposits;
-    const contingencyAmount = subtotal * (contingency / 100);
-    return {
-      baselineTransport,
-      transportation,
-      subtotal,
-      contingencyAmount,
-      total: subtotal + contingencyAmount,
-      usesWrittenEstimate: writtenEstimate > 0,
-    };
-  }, [bedrooms, contingency, deposits, distance, packing, storage, travel, writtenEstimate]);
-
-  return (
-    <>
-      <section className="mt-10 grid gap-5 border-y border-border py-7 sm:grid-cols-2 lg:grid-cols-3" aria-labelledby="moving-budget-inputs">
-        <h2 id="moving-budget-inputs" className="sr-only">Moving budget inputs</h2>
-        <Field label="Move distance" value={distance} onChange={setDistance} suffix="miles" help="Used only for the rough transportation baseline." />
-        <Field label="Bedrooms" value={bedrooms} onChange={setBedrooms} help="Used only for the rough transportation baseline." />
-        <Field label="Written mover or truck estimate" value={writtenEstimate} onChange={setWrittenEstimate} step={100} help="Enter 0 to use the built-in planning baseline." />
-        <Field label="Packing & supplies" value={packing} onChange={setPacking} step={100} />
-        <Field label="Travel & temporary lodging" value={travel} onChange={setTravel} step={100} />
-        <Field label="Storage" value={storage} onChange={setStorage} step={100} />
-        <Field label="Deposits & setup" value={deposits} onChange={setDeposits} step={100} />
-        <Field label="Contingency" value={contingency} onChange={setContingency} step={1} suffix="%" />
-      </section>
-
-      <div className="mt-6 border-b border-border pb-6 text-sm leading-6 text-muted-foreground">
-        <p><strong className="text-foreground">Use a written estimate when you have one.</strong> If that field is 0, the calculator uses a rough planning baseline of $900 + $2.25 per mile + $650 per bedroom. That baseline is a budgeting heuristic, not a Texas market average, mover quote or guaranteed price.</p>
-        <p className="mt-3">For professional moves, confirm charges, extra services, access conditions, liability or insurance options and payment terms in writing before booking.</p>
-      </div>
-
-      <section className="mt-8" aria-live="polite" aria-atomic="true" aria-labelledby="moving-budget-results">
-        <h2 id="moving-budget-results" className="sr-only">Updated moving budget estimate</h2>
-        <dl className="grid sm:grid-cols-2 lg:grid-cols-3">
-          <div className="border-b border-border py-5 sm:px-5">
-            <dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Transportation</dt>
-            <dd className="mt-2 font-display text-3xl font-bold text-primary">{money(result.transportation)}</dd>
-            <dd className="mt-1 text-xs leading-5 text-muted-foreground">{result.usesWrittenEstimate ? 'Using your written estimate.' : `Planning baseline: ${money(result.baselineTransport)}.`}</dd>
-          </div>
-          <div className="border-b border-border py-5 sm:border-l sm:border-border sm:px-5">
-            <dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Move subtotal</dt>
-            <dd className="mt-2 font-display text-3xl font-bold text-primary">{money(result.subtotal)}</dd>
-          </div>
-          <div className="border-b border-border py-5 sm:border-l sm:border-border sm:px-5">
-            <dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Contingency</dt>
-            <dd className="mt-2 font-display text-3xl font-bold text-primary">{money(result.contingencyAmount)}</dd>
-          </div>
-          <div className="border-b border-border py-5 sm:px-5 lg:col-span-3">
-            <dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Target moving budget</dt>
-            <dd className="mt-2 font-display text-4xl font-bold text-primary">{money(result.total)}</dd>
-          </div>
-        </dl>
-      </section>
-    </>
-  );
+  return <>
+    <section className="mt-10 grid gap-5 border-y border-border py-7 sm:grid-cols-2 lg:grid-cols-3" aria-labelledby="moving-budget-inputs">
+      <h2 id="moving-budget-inputs" className="sr-only">Moving budget inputs</h2>
+      <NumberInput label="Move distance" value={state.distance} onChange={(v) => set('distance', v)} suffix="miles" help="Used only for the rough transportation baseline."/>
+      <NumberInput label="Bedrooms" value={state.bedrooms} onChange={(v) => set('bedrooms', v)} min={0} max={20} help="Used only for the rough transportation baseline."/>
+      <CurrencyInput label="Written mover or truck estimate" value={state.writtenEstimate} onChange={(v) => set('writtenEstimate', v)} step={100} help="Enter 0 to use the built-in planning baseline."/>
+      <CurrencyInput label="Packing & supplies" value={state.packing} onChange={(v) => set('packing', v)} step={100}/>
+      <CurrencyInput label="Travel & temporary lodging" value={state.travel} onChange={(v) => set('travel', v)} step={100}/>
+      <CurrencyInput label="Storage" value={state.storage} onChange={(v) => set('storage', v)} step={100}/>
+      <CurrencyInput label="Deposits & setup" value={state.deposits} onChange={(v) => set('deposits', v)} step={100}/>
+      <PercentageInput label="Contingency" value={state.contingency} onChange={(v) => set('contingency', v)} step={1} max={100}/>
+    </section>
+    <div className="mt-6 border-b border-border pb-6 text-sm leading-6 text-muted-foreground"><p><strong className="text-foreground">Use a written estimate when you have one.</strong> If that field is 0, the shared engine uses the disclosed planning baseline of $900 + $2.25 per mile + $650 per bedroom. It is a budgeting heuristic, not a Texas market average, mover quote or guaranteed price.</p></div>
+    <CalculatorActions onSave={persistence.save} onRestore={persistence.restore} onShare={persistence.share} onPrint={persistence.print} status={persistence.status} onReset={() => setState(DEFAULTS)}/>
+    <section className="mt-8 grid gap-x-6 sm:grid-cols-2 lg:grid-cols-4" aria-live="polite" aria-atomic="true" aria-labelledby="moving-budget-results"><h2 id="moving-budget-results" className="sr-only">Updated moving budget estimate</h2><CalculatorResult label="Transportation" value={formatMoney(result.transportation)} note={result.usesWrittenEstimate ? 'Using your written estimate.' : `Planning baseline: ${formatMoney(result.baselineTransport)}.`}/><CalculatorResult label="Move subtotal" value={formatMoney(result.subtotal)}/><CalculatorResult label="Contingency" value={formatMoney(result.contingency)}/><CalculatorResult label="Target moving budget" value={formatMoney(result.total)}/></section>
+  </>;
 }

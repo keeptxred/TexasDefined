@@ -1,0 +1,59 @@
+name: Calculator platform
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/lib/financial/**'
+      - 'src/lib/rent-vs-buy.ts'
+      - 'src/components/calculators/**'
+      - 'src/components/property/PropertyCalculatorFramework.tsx'
+      - 'src/routes/texas-*calculator*.tsx'
+      - 'scripts/data/validate-calculator-platform.ts'
+      - 'scripts/data/validate-local-salary-needed-seo.mjs'
+      - 'scripts/ci/run-premerge-validation.mjs'
+      - 'package.json'
+      - '.github/workflows/calculator-platform.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: calculator-platform-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  targeted:
+    name: Calculator math and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Validate calculator platform
+        run: npm run calculators:validate
+      - name: Validate financial SEO contracts
+        run: node scripts/data/validate-financial-tools-seo.mjs
+      - name: Validate local salary-needed contract
+        run: node scripts/data/validate-local-salary-needed-seo.mjs
+      - name: Build production application
+        run: npm run build
+      - name: Validate client performance budget
+        run: npm run performance:validate > calculator-performance-budget.log 2>&1 || (cat calculator-performance-budget.log && exit 1)
+      - name: Upload calculator performance report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: calculator-performance-budget
+          path: calculator-performance-budget.log
+          if-no-files-found: warn
+          retention-days: 7

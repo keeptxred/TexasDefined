@@ -1,97 +1,201 @@
 import { useMemo, useState, type ReactNode } from 'react';
+import {
+  BreakdownChart,
+  BreakdownTable,
+  CalculatorActions,
+  CalculatorResult,
+  CurrencyInput,
+  MethodologyPanel,
+  NumberInput,
+  PercentageInput,
+  ResultGrid,
+  formatMoney,
+  useCalculatorPersistence,
+  readCalculatorStateFromUrl,
+  type CalculatorState,
+} from '@/components/property/PropertyCalculatorFramework';
+import { calculateAffordability } from '@/lib/financial/affordability';
+import { calculateMortgage } from '@/lib/financial/mortgage';
+import { calculateCostOfLiving, calculateFederalPaycheck2026, calculateHomeInsurance, calculateMovingBudget, calculateUtilities } from '@/lib/financial/planning';
+import { issueMap } from '@/lib/financial/validation';
 import { estimateRentVsBuy } from '@/lib/rent-vs-buy';
 
-const money = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number.isFinite(value) ? value : 0);
-const number = (value: unknown) => Math.max(0, Number(value) || 0);
+const money = formatMoney;
 
-function Field({ label, value, onChange, step = 1, suffix }: { label: string; value: number; onChange: (value: number) => void; step?: number; suffix?: string }) {
-  return <label className="block border-t border-border pt-4"><span className="text-sm font-semibold">{label}</span><div className="flex items-center border-b border-border focus-within:border-primary"><input className="w-full bg-transparent px-0 py-3 text-lg outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background" type="number" min="0" step={step} value={value} onChange={(event) => onChange(number(event.target.value))} />{suffix ? <span className="pl-3 text-sm text-muted-foreground">{suffix}</span> : null}</div></label>;
+function Workspace<T extends CalculatorState>({ storageKey, state, onRestore, defaults, children, note }: { storageKey: string; state: T; onRestore: (state: T) => void; defaults: T; children: ReactNode; note: string }) {
+  const persistence = useCalculatorPersistence({ storageKey, state, onRestore });
+  return <>
+    <section className="mt-10 grid gap-5 border-y border-border py-7 sm:grid-cols-2 lg:grid-cols-3">{children}</section>
+    <p className="mt-6 border-b border-border pb-6 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Planning estimate.</strong> {note}</p>
+    <CalculatorActions onSave={persistence.save} onRestore={persistence.restore} onShare={persistence.share} onPrint={persistence.print} status={persistence.status} onReset={() => onRestore(defaults)}/>
+  </>;
 }
-function Results({ values }: { values: Array<[string, string]> }) { return <section className="mt-8" aria-live="polite" aria-atomic="true"><h2 className="sr-only">Updated estimate</h2><dl className="grid sm:grid-cols-2 lg:grid-cols-3">{values.map(([label, value], index) => <div key={label} className={`border-b border-border py-5 sm:px-5 ${index ? 'sm:border-l sm:border-border' : ''}`}><dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{label}</dt><dd className="mt-2 font-display text-3xl font-bold text-primary">{value}</dd></div>)}</dl></section>; }
-function Shell({ children, note }: { children: ReactNode; note: string }) { return <><section className="mt-10 grid gap-5 border-y border-border py-7 sm:grid-cols-2 lg:grid-cols-3">{children}</section><p className="mt-6 border-b border-border pb-6 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">A good starting point.</strong> {note}</p></>; }
+
+function Results({ values }: { values: Array<[string, string, string?]> }) {
+  return <section className="mt-8" aria-live="polite" aria-atomic="true"><h2 className="sr-only">Updated estimate</h2><div className="grid gap-x-6 sm:grid-cols-2 lg:grid-cols-3">{values.map(([label, value, note]) => <CalculatorResult key={label} label={label} value={value} note={note}/>)}</div></section>;
+}
+
+type MortgageState = { price: number; down: number; rate: number; years: number; tax: number; insurance: number; pmi: number; hoa: number };
+const MORTGAGE_DEFAULTS: MortgageState = { price: 400000, down: 80000, rate: 6.5, years: 30, tax: 2.1, insurance: 2400, pmi: 0, hoa: 0 };
 
 export function MortgageCalculator() {
-  const [price, setPrice] = useState(400000), [down, setDown] = useState(80000), [rate, setRate] = useState(6.5), [years, setYears] = useState(30), [tax, setTax] = useState(2.1), [insurance, setInsurance] = useState(2400);
-  const result = useMemo(() => { const principal = Math.max(0, price - down); const months = Math.max(1, years * 12); const monthlyRate = rate / 1200; const principalInterest = monthlyRate ? principal * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1) : principal / months; const taxes = price * tax / 100 / 12; return { principal, principalInterest, taxes, total: principalInterest + taxes + insurance / 12 }; }, [price, down, rate, years, tax, insurance]);
-  return <><Shell note="Your real payment may also include mortgage insurance, HOA dues, special-district charges, escrow adjustments and closing costs."><Field label="Home price" value={price} onChange={setPrice} step={1000}/><Field label="Down payment" value={down} onChange={setDown} step={1000}/><Field label="Interest rate" value={rate} onChange={setRate} step={0.01} suffix="%"/><Field label="Loan term" value={years} onChange={setYears} suffix="years"/><Field label="Property-tax rate" value={tax} onChange={setTax} step={0.01} suffix="%"/><Field label="Annual insurance" value={insurance} onChange={setInsurance} step={100}/></Shell><Results values={[["Loan amount", money(result.principal)],["Principal & interest", money(result.principalInterest) + '/mo'],["Property taxes", money(result.taxes) + '/mo'],["Estimated total", money(result.total) + '/mo']]}/></>;
+  const [state, setState] = useState(() => readCalculatorStateFromUrl(MORTGAGE_DEFAULTS));
+  const set = <K extends keyof MortgageState>(key: K, value: MortgageState[K]) => setState((current) => ({ ...current, [key]: value }));
+  const result = useMemo(() => calculateMortgage({ homePrice: state.price, downPayment: state.down, annualRatePercent: state.rate, termYears: state.years, propertyTaxRatePercent: state.tax, annualInsurance: state.insurance, monthlyPmi: state.pmi, monthlyHoa: state.hoa }), [state]);
+  const errors = issueMap(result.issues);
+  const breakdown = [
+    { label: 'Principal & interest', value: result.monthlyPrincipalInterest },
+    { label: 'Property taxes', value: result.monthlyPropertyTax },
+    { label: 'Homeowners insurance', value: result.monthlyInsurance },
+    { label: 'PMI / mortgage insurance', value: result.monthlyPmi },
+    { label: 'HOA', value: result.monthlyHoa },
+  ];
+  return <>
+    <Workspace storageKey="texasdefined:mortgage-basic:v2" state={state} onRestore={setState} defaults={MORTGAGE_DEFAULTS} note="Your real payment may also include special-district charges, escrow adjustments, utilities, maintenance and closing costs.">
+      <CurrencyInput label="Home price" value={state.price} onChange={(v) => set('price', v)} step={1000} error={errors.homePrice}/>
+      <CurrencyInput label="Down payment" value={state.down} onChange={(v) => set('down', v)} step={1000} max={state.price} error={errors.downPayment}/>
+      <PercentageInput label="Interest rate" value={state.rate} onChange={(v) => set('rate', v)} step={0.01} max={100} error={errors.annualRatePercent}/>
+      <NumberInput label="Loan term" value={state.years} onChange={(v) => set('years', v)} min={1} max={50} suffix="years" error={errors.termYears}/>
+      <PercentageInput label="Property-tax rate" value={state.tax} onChange={(v) => set('tax', v)} step={0.01} max={20} error={errors.propertyTaxRatePercent}/>
+      <CurrencyInput label="Annual insurance" value={state.insurance} onChange={(v) => set('insurance', v)} step={100}/>
+      <CurrencyInput label="Monthly PMI / mortgage insurance" value={state.pmi} onChange={(v) => set('pmi', v)} step={25}/>
+      <CurrencyInput label="Monthly HOA" value={state.hoa} onChange={(v) => set('hoa', v)} step={25}/>
+    </Workspace>
+    <Results values={[['Loan amount', money(result.loanAmount)], ['Principal & interest', money(result.monthlyPrincipalInterest) + '/mo'], ['Estimated housing payment', money(result.monthlyHousingPayment) + '/mo'], ['Lifetime interest', money(result.totalInterest)]]}/>
+    <div className="mt-10 grid gap-8 lg:grid-cols-2"><BreakdownChart items={breakdown}/><BreakdownTable items={breakdown} total={result.monthlyHousingPayment} totalLabel="Monthly housing payment"/></div>
+  </>;
 }
+
+type AffordabilityState = { income: number; debt: number; down: number; rate: number; taxInsurance: number; housingRatio: number; totalDebtRatio: number };
+const AFFORDABILITY_DEFAULTS: AffordabilityState = { income: 120000, debt: 800, down: 60000, rate: 6.5, taxInsurance: 900, housingRatio: 28, totalDebtRatio: 36 };
 
 export function AffordabilityCalculator() {
-  const [income, setIncome] = useState(120000), [debt, setDebt] = useState(800), [down, setDown] = useState(60000), [rate, setRate] = useState(6.5), [taxInsurance, setTaxInsurance] = useState(900);
-  const result = useMemo(() => { const gross = income / 12; const housingBudget = Math.max(0, gross * .28 - debt); const piBudget = Math.max(0, housingBudget - taxInsurance); const r = rate / 1200; const n = 360; const loan = r ? piBudget * (Math.pow(1 + r, n) - 1) / (r * Math.pow(1 + r, n)) : piBudget * n; return { gross, housingBudget, price: loan + down }; }, [income, debt, down, rate, taxInsurance]);
-  return <><Shell note="Lenders use their own debt-to-income rules, credit standards, reserve requirements and loan-program limits."><Field label="Annual household income" value={income} onChange={setIncome} step={1000}/><Field label="Monthly non-housing debt" value={debt} onChange={setDebt} step={50}/><Field label="Available down payment" value={down} onChange={setDown} step={1000}/><Field label="Interest rate" value={rate} onChange={setRate} step={0.01} suffix="%"/><Field label="Monthly taxes & insurance" value={taxInsurance} onChange={setTaxInsurance} step={50}/></Shell><Results values={[["Gross monthly income", money(result.gross)],["Target housing budget", money(result.housingBudget) + '/mo'],["Possible home price", money(result.price)]]}/></>;
+  const [state, setState] = useState(() => readCalculatorStateFromUrl(AFFORDABILITY_DEFAULTS));
+  const set = <K extends keyof AffordabilityState>(key: K, value: AffordabilityState[K]) => setState((current) => ({ ...current, [key]: value }));
+  const result = useMemo(() => calculateAffordability({
+    annualIncome: state.income,
+    monthlyDebt: state.debt,
+    downPayment: state.down,
+    annualRatePercent: state.rate,
+    monthlyTaxesInsuranceHoa: state.taxInsurance,
+    maxHousingRatioPercent: state.housingRatio,
+    maxTotalDebtRatioPercent: state.totalDebtRatio,
+  }), [state]);
+  const errors = issueMap(result.issues);
+  const constraint = result.bindingConstraint === 'housing-ratio' ? 'housing-only ratio' : 'total-debt ratio';
+  return <>
+    <Workspace storageKey="texasdefined:affordability:v3" state={state} onRestore={setState} defaults={AFFORDABILITY_DEFAULTS} note="This is a planning model, not a lender decision. It limits the housing budget by both a housing-only ratio and a total-debt ratio, then uses the tighter result. Different lenders and loan programs use different underwriting rules.">
+      <CurrencyInput label="Annual household income" value={state.income} onChange={(v) => set('income', v)} step={1000} error={errors.annualIncome}/>
+      <CurrencyInput label="Monthly non-housing debt" value={state.debt} onChange={(v) => set('debt', v)} step={50} error={errors.monthlyDebt}/>
+      <CurrencyInput label="Available down payment" value={state.down} onChange={(v) => set('down', v)} step={1000} error={errors.downPayment}/>
+      <PercentageInput label="Interest rate" value={state.rate} onChange={(v) => set('rate', v)} step={0.01} max={100}/>
+      <CurrencyInput label="Monthly taxes, insurance & HOA" value={state.taxInsurance} onChange={(v) => set('taxInsurance', v)} step={50} error={errors.monthlyTaxesInsuranceHoa}/>
+      <PercentageInput label="Housing-only planning ratio" value={state.housingRatio} onChange={(v) => set('housingRatio', v)} step={1} min={1} max={100} help="Share of gross monthly income available for total housing cost in this scenario."/>
+      <PercentageInput label="Total-debt planning ratio" value={state.totalDebtRatio} onChange={(v) => set('totalDebtRatio', v)} step={1} min={1} max={100} help="Share of gross monthly income available for housing plus the non-housing debt entered above."/>
+    </Workspace>
+    <Results values={[
+      ['Gross monthly income', money(result.grossMonthlyIncome)],
+      ['Target housing budget', money(result.housingBudget) + '/mo', `Limited by the ${constraint} in this scenario.`],
+      ['P&I budget', money(result.principalInterestBudget) + '/mo'],
+      ['Possible home price', money(result.possibleHomePrice)],
+    ]}/>
+    <MethodologyPanel>
+      <p>The calculator computes two editable planning limits: housing cost as a share of gross income and total monthly debt as a share of gross income. It subtracts entered non-housing debt from the total-debt limit, uses whichever housing budget is lower, then subtracts entered taxes, insurance and HOA before solving for principal and interest.</p>
+      <p>The loan amount is solved with the same shared fixed-rate mortgage engine used by the mortgage and rent-versus-buy tools. The default 28% housing and 36% total-debt assumptions are planning reference points, not approval thresholds; different lenders and loan programs use different standards.</p>
+      <p>For a personal affordability decision, also account for savings goals, repairs, maintenance, utilities, flood or wind coverage and other household priorities that underwriting ratios may not capture.</p>
+    </MethodologyPanel>
+  </>;
 }
+
+type RentBuyState = { rent: number; rentGrowth: number; rentersInsurance: number; price: number; down: number; mortgageRate: number; loanYears: number; propertyTaxRate: number; homeInsurance: number; maintenanceRate: number; hoa: number; buyerClosingRate: number; sellerClosingRate: number; years: number; appreciation: number };
+const RENT_BUY_DEFAULTS: RentBuyState = { rent: 2200, rentGrowth: 3, rentersInsurance: 25, price: 400000, down: 80000, mortgageRate: 6.5, loanYears: 30, propertyTaxRate: 2.1, homeInsurance: 2400, maintenanceRate: 1, hoa: 0, buyerClosingRate: 3, sellerClosingRate: 6, years: 7, appreciation: 3 };
 
 export function RentVsBuyCalculator() {
-  const [rent, setRent] = useState(2200);
-  const [rentGrowth, setRentGrowth] = useState(3);
-  const [rentersInsurance, setRentersInsurance] = useState(25);
-  const [price, setPrice] = useState(400000);
-  const [down, setDown] = useState(80000);
-  const [mortgageRate, setMortgageRate] = useState(6.5);
-  const [loanYears, setLoanYears] = useState(30);
-  const [propertyTaxRate, setPropertyTaxRate] = useState(2.1);
-  const [homeInsurance, setHomeInsurance] = useState(2400);
-  const [maintenanceRate, setMaintenanceRate] = useState(1);
-  const [hoa, setHoa] = useState(0);
-  const [buyerClosingRate, setBuyerClosingRate] = useState(3);
-  const [sellerClosingRate, setSellerClosingRate] = useState(6);
-  const [years, setYears] = useState(7);
-  const [appreciation, setAppreciation] = useState(3);
-
-  const result = useMemo(() => estimateRentVsBuy({
-    monthlyRent: rent,
-    annualRentGrowthRate: rentGrowth,
-    monthlyRentersInsurance: rentersInsurance,
-    homePrice: price,
-    downPayment: down,
-    mortgageRate,
-    loanTermYears: loanYears,
-    propertyTaxRate,
-    annualHomeInsurance: homeInsurance,
-    annualMaintenanceRate: maintenanceRate,
-    monthlyHoa: hoa,
-    buyerClosingCostRate: buyerClosingRate,
-    sellerClosingCostRate: sellerClosingRate,
-    comparisonYears: years,
-    annualAppreciationRate: appreciation,
-  }), [rent, rentGrowth, rentersInsurance, price, down, mortgageRate, loanYears, propertyTaxRate, homeInsurance, maintenanceRate, hoa, buyerClosingRate, sellerClosingRate, years, appreciation]);
-
-  const differenceLabel = result.difference > 0
-    ? `${money(Math.abs(result.difference))} lower for buying`
-    : result.difference < 0
-      ? `${money(Math.abs(result.difference))} lower for renting`
-      : 'About even';
-
-  return <><Shell note="This scenario amortizes the mortgage month by month and includes rent growth, renters insurance, property taxes, homeowners insurance, maintenance, HOA dues, buyer closing costs and selling costs. It does not model tax deductions, mortgage insurance, special-district charges or returns on invested cash."><Field label="Monthly rent" value={rent} onChange={setRent} step={50}/><Field label="Annual rent growth" value={rentGrowth} onChange={setRentGrowth} step={0.1} suffix="%"/><Field label="Renters insurance" value={rentersInsurance} onChange={setRentersInsurance} step={5} suffix="/mo"/><Field label="Home price" value={price} onChange={setPrice} step={1000}/><Field label="Down payment" value={down} onChange={setDown} step={1000}/><Field label="Mortgage rate" value={mortgageRate} onChange={setMortgageRate} step={0.01} suffix="%"/><Field label="Loan term" value={loanYears} onChange={setLoanYears} suffix="years"/><Field label="Property-tax rate" value={propertyTaxRate} onChange={setPropertyTaxRate} step={0.01} suffix="%"/><Field label="Annual home insurance" value={homeInsurance} onChange={setHomeInsurance} step={100}/><Field label="Annual maintenance" value={maintenanceRate} onChange={setMaintenanceRate} step={0.1} suffix="%"/><Field label="Monthly HOA" value={hoa} onChange={setHoa} step={25}/><Field label="Buyer closing costs" value={buyerClosingRate} onChange={setBuyerClosingRate} step={0.1} suffix="%"/><Field label="Selling costs" value={sellerClosingRate} onChange={setSellerClosingRate} step={0.1} suffix="%"/><Field label="Comparison period" value={years} onChange={setYears} suffix="years"/><Field label="Annual appreciation" value={appreciation} onChange={setAppreciation} step={0.1} suffix="%"/></Shell><Results values={[["Starting mortgage P&I", money(result.monthlyPrincipalInterest) + '/mo'],["Rent paid", money(result.renterCost)],["Owner cash outflow", money(result.ownerCashOutflow)],["Remaining loan", money(result.remainingLoanBalance)],["Net sale equity", money(result.endingSaleEquity)],["Owner net cost", money(result.ownerNetCost)],["Estimated difference", differenceLabel]]}/></>;
+  const [state, setState] = useState(() => readCalculatorStateFromUrl(RENT_BUY_DEFAULTS));
+  const set = <K extends keyof RentBuyState>(key: K, value: RentBuyState[K]) => setState((current) => ({ ...current, [key]: value }));
+  const result = useMemo(() => estimateRentVsBuy({ monthlyRent: state.rent, annualRentGrowthRate: state.rentGrowth, monthlyRentersInsurance: state.rentersInsurance, homePrice: state.price, downPayment: state.down, mortgageRate: state.mortgageRate, loanTermYears: state.loanYears, propertyTaxRate: state.propertyTaxRate, annualHomeInsurance: state.homeInsurance, annualMaintenanceRate: state.maintenanceRate, monthlyHoa: state.hoa, buyerClosingCostRate: state.buyerClosingRate, sellerClosingCostRate: state.sellerClosingRate, comparisonYears: state.years, annualAppreciationRate: state.appreciation }), [state]);
+  const differenceLabel = result.difference > 0 ? `${money(Math.abs(result.difference))} lower for buying` : result.difference < 0 ? `${money(Math.abs(result.difference))} lower for renting` : 'About even';
+  const comparison = [{ label: 'Renting cost', value: result.renterCost }, { label: 'Buying net cost', value: result.ownerNetCost }];
+  return <>
+    <Workspace storageKey="texasdefined:rent-vs-buy:v2" state={state} onRestore={setState} defaults={RENT_BUY_DEFAULTS} note="This scenario amortizes the mortgage month by month and includes rent growth, renters insurance, property taxes, homeowners insurance, maintenance, HOA dues, buyer closing costs and selling costs.">
+      <CurrencyInput label="Monthly rent" value={state.rent} onChange={(v) => set('rent', v)} step={50}/>
+      <PercentageInput label="Annual rent growth" value={state.rentGrowth} onChange={(v) => set('rentGrowth', v)} step={0.1} max={100}/>
+      <CurrencyInput label="Renters insurance" value={state.rentersInsurance} onChange={(v) => set('rentersInsurance', v)} step={5}/>
+      <CurrencyInput label="Home price" value={state.price} onChange={(v) => set('price', v)} step={1000}/>
+      <CurrencyInput label="Down payment" value={state.down} onChange={(v) => set('down', v)} step={1000} max={state.price}/>
+      <PercentageInput label="Mortgage rate" value={state.mortgageRate} onChange={(v) => set('mortgageRate', v)} step={0.01} max={100}/>
+      <NumberInput label="Loan term" value={state.loanYears} onChange={(v) => set('loanYears', v)} min={1} max={50} suffix="years"/>
+      <PercentageInput label="Property-tax rate" value={state.propertyTaxRate} onChange={(v) => set('propertyTaxRate', v)} step={0.01} max={20}/>
+      <CurrencyInput label="Annual home insurance" value={state.homeInsurance} onChange={(v) => set('homeInsurance', v)} step={100}/>
+      <PercentageInput label="Annual maintenance" value={state.maintenanceRate} onChange={(v) => set('maintenanceRate', v)} step={0.1} max={100}/>
+      <CurrencyInput label="Monthly HOA" value={state.hoa} onChange={(v) => set('hoa', v)} step={25}/>
+      <PercentageInput label="Buyer closing costs" value={state.buyerClosingRate} onChange={(v) => set('buyerClosingRate', v)} step={0.1} max={100}/>
+      <PercentageInput label="Selling costs" value={state.sellerClosingRate} onChange={(v) => set('sellerClosingRate', v)} step={0.1} max={100}/>
+      <NumberInput label="Comparison period" value={state.years} onChange={(v) => set('years', v)} min={1} max={50} suffix="years"/>
+      <PercentageInput label="Annual appreciation" value={state.appreciation} onChange={(v) => set('appreciation', v)} step={0.1} max={100}/>
+    </Workspace>
+    <Results values={[['Starting mortgage P&I', money(result.monthlyPrincipalInterest) + '/mo'], ['Rent paid', money(result.renterCost)], ['Owner cash outflow', money(result.ownerCashOutflow)], ['Remaining loan', money(result.remainingLoanBalance)], ['Net sale equity', money(result.endingSaleEquity)], ['Owner net cost', money(result.ownerNetCost)], ['Estimated difference', differenceLabel]]}/>
+    <div className="mt-10"><BreakdownChart items={comparison}/></div>
+    <MethodologyPanel><p>The mortgage payment comes from the same shared mortgage engine used by TexasDefined mortgage calculators. The model then amortizes the loan month by month while applying the entered rent growth, appreciation, taxes, insurance, maintenance, HOA and transaction-cost assumptions.</p><p>It does not model tax deductions, investment returns on unused cash or every transaction-specific fee.</p></MethodologyPanel>
+  </>;
 }
 
+type CostState = { current: number; currentIndex: number; texasIndex: number };
+const COST_DEFAULTS: CostState = { current: 6000, currentIndex: 100, texasIndex: 94 };
 export function CostOfLivingCalculator() {
-  const [current, setCurrent] = useState(6000), [currentIndex, setCurrentIndex] = useState(100), [texasIndex, setTexasIndex] = useState(94);
-  const equivalent = useMemo(() => current * texasIndex / Math.max(1, currentIndex), [current, currentIndex, texasIndex]);
-  return <><Shell note="Cost indexes vary by provider, metro area, household size and spending habits. Replace the defaults with the best local numbers you can find."><Field label="Current monthly spending" value={current} onChange={setCurrent} step={100}/><Field label="Current-area index" value={currentIndex} onChange={setCurrentIndex} step={0.1}/><Field label="Texas-area index" value={texasIndex} onChange={setTexasIndex} step={0.1}/></Shell><Results values={[["Texas equivalent", money(equivalent) + '/mo'],["Monthly difference", money(equivalent - current)],["Annual difference", money((equivalent - current) * 12)]]}/></>;
+  const [state, setState] = useState(() => readCalculatorStateFromUrl(COST_DEFAULTS)); const set = <K extends keyof CostState>(k: K, v: CostState[K]) => setState((s) => ({ ...s, [k]: v }));
+  const result = useMemo(() => calculateCostOfLiving({ currentMonthlySpending: state.current, currentAreaIndex: state.currentIndex, targetAreaIndex: state.texasIndex }), [state]);
+  return <><Workspace storageKey="texasdefined:cost-of-living:v2" state={state} onRestore={setState} defaults={COST_DEFAULTS} note="Cost indexes vary by provider, metro area, household size and spending habits. Replace defaults with the best comparable data available for your household."><CurrencyInput label="Current monthly spending" value={state.current} onChange={(v) => set('current', v)} step={100}/><NumberInput label="Current-area index" value={state.currentIndex} onChange={(v) => set('currentIndex', v)} step={0.1}/><NumberInput label="Texas-area index" value={state.texasIndex} onChange={(v) => set('texasIndex', v)} step={0.1}/></Workspace><Results values={[['Texas equivalent', money(result.equivalentMonthly) + '/mo'], ['Monthly difference', money(result.monthlyDifference)], ['Annual difference', money(result.annualDifference)]]}/></>;
 }
 
+type SalaryState = { salary: number; filingStatus: 'single' | 'marriedJoint' | 'headOfHousehold' | 'marriedSeparate'; pretax: number; otherAnnual: number };
+const SALARY_DEFAULTS: SalaryState = { salary: 90000, filingStatus: 'single', pretax: 6, otherAnnual: 0 };
 export function SalaryCalculator() {
-  const [salary, setSalary] = useState(90000), [federal, setFederal] = useState(16), [benefits, setBenefits] = useState(6), [other, setOther] = useState(0);
-  const result = useMemo(() => { const payroll = 7.65; const deductions = salary * (federal + payroll + benefits + other) / 100; const net = Math.max(0, salary - deductions); return { deductions, net, monthly: net / 12 }; }, [salary, federal, benefits, other]);
-  return <><Shell note="Texas has no individual state income tax, but federal taxes, payroll taxes and benefit deductions still depend on your circumstances."><Field label="Annual gross salary" value={salary} onChange={setSalary} step={1000}/><Field label="Estimated federal rate" value={federal} onChange={setFederal} step={0.1} suffix="%"/><Field label="Benefits & retirement" value={benefits} onChange={setBenefits} step={0.1} suffix="%"/><Field label="Other deductions" value={other} onChange={setOther} step={0.1} suffix="%"/></Shell><Results values={[["Estimated deductions", money(result.deductions)],["Annual take-home", money(result.net)],["Monthly take-home", money(result.monthly)]]}/></>;
+  const [state, setState] = useState(() => readCalculatorStateFromUrl(SALARY_DEFAULTS)); const set = <K extends keyof SalaryState>(k: K, v: SalaryState[K]) => setState((s) => ({ ...s, [k]: v }));
+  const result = useMemo(() => calculateFederalPaycheck2026({ annualGrossSalary: state.salary, filingStatus: state.filingStatus, preTaxRetirementBenefitsPercent: state.pretax, otherAnnualDeductions: state.otherAnnual }), [state]);
+  const breakdown = [
+    { label: 'Federal income tax', value: result.federalIncomeTax },
+    { label: 'Social Security', value: result.socialSecurity },
+    { label: 'Medicare', value: result.medicare },
+    { label: 'Additional Medicare', value: result.additionalMedicare },
+    { label: 'Pre-tax retirement / benefits', value: result.preTaxRetirementBenefits },
+    { label: 'Other entered deductions', value: result.otherDeductions },
+  ];
+  return <>
+    <Workspace storageKey="texasdefined:salary:v3" state={state} onRestore={setState} defaults={SALARY_DEFAULTS} note="This 2026 planning engine uses IRS tax-year brackets and standard deductions plus current employee Social Security and Medicare rates. It does not reproduce Form W-4 withholding, credits, itemized deductions, bonuses, self-employment tax or every payroll rule.">
+      <CurrencyInput label="Annual gross salary" value={state.salary} onChange={(v) => set('salary', v)} step={1000}/>
+      <label className="block border-t border-border pt-4 text-sm font-semibold"><span>Federal filing status</span><select className="mt-2 w-full border-0 border-b border-border bg-background px-0 py-3 text-base outline-none focus:border-primary" value={state.filingStatus} onChange={(event) => set('filingStatus', event.target.value as SalaryState['filingStatus'])}><option value="single">Single</option><option value="marriedJoint">Married filing jointly</option><option value="headOfHousehold">Head of household</option><option value="marriedSeparate">Married filing separately</option></select></label>
+      <PercentageInput label="Pre-tax retirement / benefits" value={state.pretax} onChange={(v) => set('pretax', v)} step={0.1} max={100} help="Planning input for amounts assumed to reduce federal taxable income. Actual payroll tax treatment can differ by benefit."/>
+      <CurrencyInput label="Other annual payroll deductions" value={state.otherAnnual} onChange={(v) => set('otherAnnual', v)} step={100}/>
+    </Workspace>
+    <Results values={[['Federal taxable income', money(result.taxableIncome)], ['Federal income tax', money(result.federalIncomeTax)], ['Social Security + Medicare', money(result.socialSecurity + result.medicare + result.additionalMedicare)], ['Annual take-home', money(result.annualTakeHome)], ['Monthly take-home', money(result.monthlyTakeHome)], ['Biweekly take-home', money(result.biweeklyTakeHome)]]}/>
+    <div className="mt-10 grid gap-8 lg:grid-cols-2"><BreakdownChart items={breakdown}/><BreakdownTable items={breakdown} total={result.totalDeductions} totalLabel="Estimated annual deductions"/></div>
+    <MethodologyPanel><p><strong className="text-foreground">Tax year 2026.</strong> Federal income tax uses the IRS 2026 rate schedule and standard deduction for the selected filing status. Social Security uses the 6.2% employee rate up to the 2026 $184,500 wage base; Medicare uses 1.45% with the 0.9% Additional Medicare Tax above the filing-status threshold.</p><p>Texas has no individual state income tax. Credits, itemized deductions, Form W-4 adjustments, multiple-job rules, bonus withholding, self-employment income and benefit-specific payroll-tax treatment can change actual take-home pay.</p><p><a className="font-semibold text-primary underline underline-offset-4" href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill" target="_blank" rel="noreferrer">IRS 2026 inflation adjustments ↗</a> · <a className="font-semibold text-primary underline underline-offset-4" href="https://www.ssa.gov/oact/COLA/cbb.html" target="_blank" rel="noreferrer">SSA 2026 wage base ↗</a> · <a className="font-semibold text-primary underline underline-offset-4" href="https://www.irs.gov/taxtopics/tc560" target="_blank" rel="noreferrer">IRS Additional Medicare Tax ↗</a></p></MethodologyPanel>
+  </>;
 }
 
+type MovingState = { distance: number; bedrooms: number; writtenEstimate: number; packing: number; travel: number; storage: number; deposits: number; contingency: number };
+const MOVING_DEFAULTS: MovingState = { distance: 500, bedrooms: 3, writtenEstimate: 0, packing: 1200, travel: 800, storage: 0, deposits: 1500, contingency: 15 };
 export function MovingCostCalculator() {
-  const [distance, setDistance] = useState(500), [homeSize, setHomeSize] = useState(3), [packing, setPacking] = useState(1200), [travel, setTravel] = useState(800), [deposits, setDeposits] = useState(1500);
-  const result = useMemo(() => { const transport = 900 + distance * 2.25 + homeSize * 650; const total = transport + packing + travel + deposits; return { transport, total, reserve: total * 1.15 }; }, [distance, homeSize, packing, travel, deposits]);
-  return <><Shell note="Get written quotes and ask about coverage, stairs, long carries, storage, timing and anything the mover will not transport."><Field label="Move distance" value={distance} onChange={setDistance} suffix="miles"/><Field label="Bedrooms" value={homeSize} onChange={setHomeSize}/><Field label="Packing & supplies" value={packing} onChange={setPacking} step={100}/><Field label="Travel costs" value={travel} onChange={setTravel} step={100}/><Field label="Deposits & setup" value={deposits} onChange={setDeposits} step={100}/></Shell><Results values={[["Estimated transport", money(result.transport)],["Estimated total", money(result.total)],["With a 15% cushion", money(result.reserve)]]}/></>;
+  const [state, setState] = useState(() => readCalculatorStateFromUrl(MOVING_DEFAULTS)); const set = <K extends keyof MovingState>(k: K, v: MovingState[K]) => setState((s) => ({ ...s, [k]: v }));
+  const result = useMemo(() => calculateMovingBudget({ distanceMiles: state.distance, bedrooms: state.bedrooms, writtenEstimate: state.writtenEstimate, packing: state.packing, travelLodging: state.travel, storage: state.storage, depositsSetup: state.deposits, contingencyPercent: state.contingency }), [state]);
+  return <><Workspace storageKey="texasdefined:moving:v2" state={state} onRestore={setState} defaults={MOVING_DEFAULTS} note="Use a written mover or truck estimate when available. The built-in transportation baseline is a budgeting heuristic, not a Texas market average or quote."><NumberInput label="Move distance" value={state.distance} onChange={(v) => set('distance', v)} suffix="miles"/><NumberInput label="Bedrooms" value={state.bedrooms} onChange={(v) => set('bedrooms', v)} min={0} max={20}/><CurrencyInput label="Written mover or truck estimate" value={state.writtenEstimate} onChange={(v) => set('writtenEstimate', v)} step={100}/><CurrencyInput label="Packing & supplies" value={state.packing} onChange={(v) => set('packing', v)} step={100}/><CurrencyInput label="Travel & temporary lodging" value={state.travel} onChange={(v) => set('travel', v)} step={100}/><CurrencyInput label="Storage" value={state.storage} onChange={(v) => set('storage', v)} step={100}/><CurrencyInput label="Deposits & setup" value={state.deposits} onChange={(v) => set('deposits', v)} step={100}/><PercentageInput label="Contingency" value={state.contingency} onChange={(v) => set('contingency', v)} step={1} max={100}/></Workspace><Results values={[['Transportation', money(result.transportation), result.usesWrittenEstimate ? 'Using your written estimate.' : 'Using the planning baseline.'], ['Move subtotal', money(result.subtotal)], ['Contingency', money(result.contingency)], ['Target moving budget', money(result.total)]]}/></>;
 }
 
+type UtilityState = { electric: number; water: number; gas: number; internet: number; trash: number; other: number };
+const UTILITY_DEFAULTS: UtilityState = { electric: 190, water: 85, gas: 45, internet: 75, trash: 35, other: 0 };
 export function UtilityCalculator() {
-  const [electric, setElectric] = useState(190), [water, setWater] = useState(85), [gas, setGas] = useState(45), [internet, setInternet] = useState(75), [trash, setTrash] = useState(35);
-  const total = electric + water + gas + internet + trash;
-  return <><Shell note="Real bills vary with weather, providers, household size, home efficiency, local fees and the electricity plan you choose."><Field label="Electricity" value={electric} onChange={setElectric}/><Field label="Water & sewer" value={water} onChange={setWater}/><Field label="Natural gas" value={gas} onChange={setGas}/><Field label="Internet" value={internet} onChange={setInternet}/><Field label="Trash & recycling" value={trash} onChange={setTrash}/></Shell><Results values={[["Monthly utilities", money(total)],["Annual utilities", money(total * 12)]]}/></>;
+  const [state, setState] = useState(() => readCalculatorStateFromUrl(UTILITY_DEFAULTS)); const set = <K extends keyof UtilityState>(k: K, v: UtilityState[K]) => setState((s) => ({ ...s, [k]: v }));
+  const result = useMemo(() => calculateUtilities({ electricity: state.electric, waterSewer: state.water, naturalGas: state.gas, internet: state.internet, trash: state.trash, other: state.other }), [state]);
+  const breakdown = [{ label: 'Electricity', value: result.breakdown.electricity }, { label: 'Water & sewer', value: result.breakdown.waterSewer }, { label: 'Natural gas', value: result.breakdown.naturalGas }, { label: 'Internet', value: result.breakdown.internet }, { label: 'Trash & recycling', value: result.breakdown.trash }, { label: 'Other', value: result.breakdown.other }];
+  return <><Workspace storageKey="texasdefined:utilities:v2" state={state} onRestore={setState} defaults={UTILITY_DEFAULTS} note="Real bills vary with weather, providers, household size, home efficiency, local fees and the electricity plan you choose."><CurrencyInput label="Electricity" value={state.electric} onChange={(v) => set('electric', v)}/><CurrencyInput label="Water & sewer" value={state.water} onChange={(v) => set('water', v)}/><CurrencyInput label="Natural gas" value={state.gas} onChange={(v) => set('gas', v)}/><CurrencyInput label="Internet" value={state.internet} onChange={(v) => set('internet', v)}/><CurrencyInput label="Trash & recycling" value={state.trash} onChange={(v) => set('trash', v)}/><CurrencyInput label="Other utilities" value={state.other} onChange={(v) => set('other', v)}/></Workspace><Results values={[['Monthly utilities', money(result.monthly)], ['Annual utilities', money(result.annual)]]}/><div className="mt-10 grid gap-8 lg:grid-cols-2"><BreakdownChart items={breakdown}/><BreakdownTable items={breakdown} total={result.monthly} totalLabel="Monthly utilities"/></div></>;
 }
 
+type InsuranceState = { replacement: number; adjustment: number; windFlood: number; deductibleCredit: number };
+const INSURANCE_DEFAULTS: InsuranceState = { replacement: 350000, adjustment: 0, windFlood: 0, deductibleCredit: 0 };
 export function HomeInsuranceCalculator() {
-  const [replacement, setReplacement] = useState(350000), [baseRate, setBaseRate] = useState(.75), [windFlood, setWindFlood] = useState(1200), [deductibleCredit, setDeductibleCredit] = useState(0);
-  const result = useMemo(() => { const base = replacement * baseRate / 100; const annual = Math.max(0, base + windFlood - deductibleCredit); return { base, annual, monthly: annual / 12 }; }, [replacement, baseRate, windFlood, deductibleCredit]);
-  return <><Shell note="Homeowners, windstorm and flood coverage may be separate. Insurers also look at location, roof age, claims history, construction and other rating factors."><Field label="Replacement cost" value={replacement} onChange={setReplacement} step={1000}/><Field label="Estimated base rate" value={baseRate} onChange={setBaseRate} step={0.01} suffix="%"/><Field label="Wind/flood additions" value={windFlood} onChange={setWindFlood} step={100}/><Field label="Deductible/discount credit" value={deductibleCredit} onChange={setDeductibleCredit} step={100}/></Shell><Results values={[["Base premium", money(result.base)],["Annual estimate", money(result.annual)],["Monthly equivalent", money(result.monthly)]]}/></>;
+  const [state, setState] = useState(() => readCalculatorStateFromUrl(INSURANCE_DEFAULTS)); const set = <K extends keyof InsuranceState>(k: K, v: InsuranceState[K]) => setState((s) => ({ ...s, [k]: v }));
+  const result = useMemo(() => calculateHomeInsurance({ replacementCost: state.replacement, adjustmentPercent: state.adjustment, windFloodAdditions: state.windFlood, deductibleDiscountCredit: state.deductibleCredit }), [state]);
+  return <><Workspace storageKey="texasdefined:home-insurance:v3" state={state} onRestore={setState} defaults={INSURANCE_DEFAULTS} note="The starting baseline is normalized from Texas Department of Insurance 2025 statewide homeowners premium and coverage data. It is not a quote or a county/property-specific average. Replace or adjust the scenario with insurer quotes when available."><CurrencyInput label="Replacement cost" value={state.replacement} onChange={(v) => set('replacement', v)} step={1000}/><PercentageInput label="Adjustment to statewide baseline" value={state.adjustment} onChange={(v) => set('adjustment', v)} step={1} min={-100} max={500} help="Use 0% for the source-backed statewide normalization; adjust only for scenario testing, not as a claim about your property."/><CurrencyInput label="Separate wind/flood additions" value={state.windFlood} onChange={(v) => set('windFlood', v)} step={100}/><CurrencyInput label="Deductible/discount credit" value={state.deductibleCredit} onChange={(v) => set('deductibleCredit', v)} step={100}/></Workspace><Results values={[['TDI-normalized baseline', money(result.normalizedBaseline), `${result.sourceYear} statewide planning baseline`], ['Annual scenario', money(result.annual)], ['Monthly equivalent', money(result.monthly)]]}/><MethodologyPanel><p>The 2025 Texas Department of Insurance market overview reports a $3,489 statewide average annual homeowners premium and $432,800 average coverage amount. TexasDefined scales that statewide relationship to the entered replacement-cost scenario, then applies only adjustments you enter.</p><p>This normalization is not an actuarial quote. TDI notes that insurers use property age, roof, location, coverage, deductibles and other risk factors, and coastal wind or flood coverage may be separate.</p><p><a className="font-semibold text-primary underline underline-offset-4" href="https://www.tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html" target="_blank" rel="noreferrer">Texas Department of Insurance market overview ↗</a></p></MethodologyPanel></>;
 }
+
