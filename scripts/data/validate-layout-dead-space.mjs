@@ -79,7 +79,8 @@ for (const absolute of walkSourceFiles(sourceRoot)) {
   // a sitewide invariant instead of relying on route-by-route policing.
   const staySlotTags = source.match(/<[^>]*data-stay-nearby-slot[^>]*>/gs) ?? [];
   for (const tag of staySlotTags) {
-    if (/className\s*=|\bclass\s*=|\bstyle\s*=/.test(tag)) {
+    const isEmptyMount = /<[^>]*data-stay-nearby-slot[^>]*>\s*<\/[^>]+>$/s.test(tag);
+    if (isEmptyMount && /className\s*=|\bclass\s*=|\bstyle\s*=/.test(tag)) {
       failures.push(`${file} styles an empty Stay Nearby slot; optional mounts must be zero-space until populated.`);
     }
   }
