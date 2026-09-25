@@ -313,13 +313,47 @@ function useCalculatorWorkspace<T extends CalculatorState>({
     setStatus(mergeTexasPlanningScenario(sharedScenario) ? 'Saved to your Texas planning profile.' : 'Could not save the Texas planning profile.');
   }, [sharedScenario]);
 
-  return { save, restore, share, reset, print, addScenario, savePlanningScenario, scenarios, status };
+  const copySummary = useCallback(async (summary: Record<string, string>) => {
+    if (typeof window === 'undefined') return;
+    const url = new URL(window.location.href);
+    url.search = encodeCalculatorState(state).toString();
+    const lines = [
+      'TexasDefined calculation',
+      '',
+      ...Object.entries(summary).map(([label, value]) => label + ': ' + value),
+      '',
+      'Recreate this scenario: ' + url.toString(),
+    ];
+    const text = lines.join('\n');
+    try {
+      await navigator.clipboard.writeText(text);
+      setStatus('Calculation summary copied.');
+    } catch {
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'absolute';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        const copied = document.execCommand('copy');
+        document.body.removeChild(textarea);
+        setStatus(copied ? 'Calculation summary copied.' : 'Could not copy the calculation summary.');
+      } catch {
+        setStatus('Could not copy the calculation summary.');
+      }
+    }
+  }, [state]);
+
+  return { save, restore, share, reset, print, addScenario, savePlanningScenario, copySummary, scenarios, status };
 }
 
 function CalculatorActions({
   onSave,
   onRestore,
   onShare,
+  onCopySummary,
   onReset,
   onPrint,
   onAddScenario,
@@ -329,6 +363,7 @@ function CalculatorActions({
   onSave: () => void;
   onRestore: () => void;
   onShare: () => void;
+  onCopySummary: () => void;
   onReset: () => void;
   onPrint: () => void;
   onAddScenario: () => void;
@@ -343,7 +378,7 @@ function CalculatorActions({
         {onSavePlanningScenario ? <button type="button" className={buttonClass} onClick={onSavePlanningScenario}>Save to Texas plan</button> : null}
         <button type="button" className={buttonClass} onClick={onSave}>Save inputs</button>
         <button type="button" className={buttonClass} onClick={onRestore}>Restore saved</button>
-        <button type="button" className={buttonClass} onClick={onShare}>Copy share link</button>
+        <button type="button" className={buttonClass} onClick={onShare}>Copy share link</button>\n        <button type="button" className={buttonClass} onClick={onCopySummary}>Copy calculation</button>
         <button type="button" className={buttonClass} onClick={onPrint}>Print results</button>
         <button type="button" className={buttonClass} onClick={onReset}>Reset</button>
       </div>
@@ -431,7 +466,7 @@ export function FinancialCalculatorScaffold<T extends CalculatorState>({
       <CalculatorResults values={results} />
       {breakdown?.length ? <><BreakdownChart items={breakdown} /><BreakdownTable items={breakdown} /></> : null}
       {sensitivity?.length ? <SensitivityTable items={sensitivity} /> : null}
-      <CalculatorActions onSave={workspace.save} onRestore={workspace.restore} onShare={workspace.share} onReset={workspace.reset} onPrint={workspace.print} onAddScenario={() => workspace.addScenario(summary)} onSavePlanningScenario={sharedScenario ? workspace.savePlanningScenario : undefined} status={workspace.status} />
+      <CalculatorActions onSave={workspace.save} onRestore={workspace.restore} onShare={workspace.share} onCopySummary={() => workspace.copySummary(summary)} onReset={workspace.reset} onPrint={workspace.print} onAddScenario={() => workspace.addScenario(summary)} onSavePlanningScenario={sharedScenario ? workspace.savePlanningScenario : undefined} status={workspace.status} />
       <ScenarioComparison scenarios={workspace.scenarios} />
       <MethodologyPanel {...methodology} />
     </>

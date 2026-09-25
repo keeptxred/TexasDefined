@@ -26,6 +26,7 @@ const ui = read('src/components/calculators/FinancialCalculatorUI.tsx');
 for (const marker of [
   'readCalculatorUrlState',
   'Copy share link',
+  'Copy calculation',
   'Save inputs',
   'Restore saved',
   'Save to Texas plan',
