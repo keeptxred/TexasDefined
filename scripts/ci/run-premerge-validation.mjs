@@ -66,6 +66,7 @@ const prebuildChecks = [
   ['IMAGE/PROVENANCE', 'Validate RV image provenance', 'node', ['scripts/data/validate-rv-image-provenance.mjs']],
   ['IMAGE/READINESS', 'Validate destination final image readiness', 'node', ['scripts/data/validate-destination-image-final-readiness.mjs']],
   ['ANALYTICS/GOVERNANCE', 'Validate shared React affiliate click telemetry', 'node', ['scripts/data/validate-shared-affiliate-tracker.mjs']],
+  ['ANALYTICS/GOVERNANCE', 'Validate affiliate economics routing registry', 'node', ['scripts/data/validate-affiliate-economics.mjs']],
   ['ANALYTICS/GOVERNANCE', 'Validate private partner referral reporting', 'node', ['scripts/data/validate-partner-referral-reporting.mjs']],
   ['ANALYTICS/GOVERNANCE', 'Validate unusual business experiment attribution', 'node', ['scripts/data/validate-unusual-business-analytics.mjs']],
   ['CODE/REGRESSION', 'Validate date formatting SSR regression', 'node', ['--experimental-strip-types', '--test', 'src/domain/utils/format.test.ts']],
