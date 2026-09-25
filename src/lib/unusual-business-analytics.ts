@@ -23,3 +23,7 @@ export function unusualBusinessAnalyticsAttributes(href: string, placement: stri
       }
     : {};
 }
+
+export function unusualBusinessPageResource(pathname: string) {
+  return unusualBusinessAnalyticsResource(pathname, "page-view");
+}
