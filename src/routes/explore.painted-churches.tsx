@@ -32,7 +32,7 @@ export const Route = createFileRoute(canonicalPath)({
           url: collectionUrl,
           name: "Painted Churches of Texas",
           description,
-          dateModified: "2026-09-24",
+          dateModified: "2026-09-25",
           isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` },
           publisher: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` },
           mainEntity: { "@id": `${collectionUrl}#churches` },
