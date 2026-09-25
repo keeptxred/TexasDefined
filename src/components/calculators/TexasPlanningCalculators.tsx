@@ -16,6 +16,7 @@ import { estimateMortgage, mortgageSensitivity } from '@/lib/financial/mortgage'
 import { estimateUtilities } from '@/lib/financial/utilities';
 import { estimateCostOfLiving, estimateMovingCost } from '@/lib/financial/household';
 import { estimatePayroll2026, type FilingStatus } from '@/lib/financial/payroll';
+import { readTexasPlanningScenario } from '@/lib/financial/planningScenario';
 import { estimateRentVsBuy } from '@/lib/rent-vs-buy';
 
 const money = formatCalculatorMoney;
@@ -68,7 +69,21 @@ export function MortgageCalculator() {
 }
 
 export function AffordabilityCalculator() {
-  const defaults = { income: 120000, debt: 800, down: 60000, rate: 6.5, taxInsurance: 900, ratio: 28, years: 30 };
+  const [defaults] = useState(() => {
+    const plan = readTexasPlanningScenario();
+    const homePrice = plan.homePrice ?? 400000;
+    const monthlyTaxes = plan.annualPropertyTaxRate !== undefined ? homePrice * plan.annualPropertyTaxRate / 100 / 12 : 650;
+    const monthlyInsurance = plan.annualHomeInsurance !== undefined ? plan.annualHomeInsurance / 12 : 250;
+    return {
+      income: plan.annualHouseholdIncome ?? 120000,
+      debt: plan.monthlyNonHousingDebt ?? 800,
+      down: plan.downPayment ?? 60000,
+      rate: plan.annualInterestRate ?? 6.5,
+      taxInsurance: monthlyTaxes + monthlyInsurance + (plan.monthlyHoa ?? 0) + (plan.monthlySpecialDistrict ?? 0),
+      ratio: 28,
+      years: plan.loanTermYears ?? 30,
+    };
+  });
   const [state, setState] = useState(() => readCalculatorUrlState(defaults));
   const set = (key: keyof typeof state, value: number) => setState((current) => ({ ...current, [key]: value }));
   const result = useMemo(() => estimateAffordability({ annualHouseholdIncome: state.income, monthlyNonHousingDebt: state.debt, downPayment: state.down, annualInterestRate: state.rate, monthlyTaxesInsuranceHoa: state.taxInsurance, targetHousingRatioPercent: state.ratio, loanTermYears: state.years }), [state]);
@@ -83,6 +98,7 @@ export function AffordabilityCalculator() {
       { label: 'Possible loan amount', value: money(result.possibleLoanAmount) },
     ]}
     summary={{ 'Possible home price': money(result.possibleHomePrice), 'Housing budget': money(result.targetHousingBudget) + '/mo', 'Rate': state.rate.toFixed(2) + '%' }}
+    sharedScenario={{ annualHouseholdIncome: state.income, monthlyNonHousingDebt: state.debt, downPayment: state.down, annualInterestRate: state.rate, loanTermYears: state.years }}
     methodology={{ formula: 'The calculator applies the selected housing-budget ratio to gross monthly income, subtracts recurring non-housing debt and housing costs, then converts the remaining principal-and-interest budget into a fixed-rate loan amount.', assumptions: ['Default target housing ratio is 28% but is editable.', 'Taxes, insurance and HOA are entered as one recurring monthly planning amount.', 'A lender may use different DTI, reserve, credit and program rules.'] }}>
     <CurrencyInput label="Annual household income" value={state.income} onChange={(v) => set('income', v)} step={1000}/>
     <CurrencyInput label="Monthly non-housing debt" value={state.debt} onChange={(v) => set('debt', v)} step={50}/>
@@ -97,7 +113,26 @@ export function AffordabilityCalculator() {
 }
 
 export function RentVsBuyCalculator() {
-  const defaults = { rent: 2200, rentGrowth: 3, rentersInsurance: 25, price: 400000, down: 80000, mortgageRate: 6.5, loanYears: 30, propertyTaxRate: 2.1, homeInsurance: 2400, maintenanceRate: 1, hoa: 0, buyerClosingRate: 3, sellerClosingRate: 6, years: 7, appreciation: 3 };
+  const [defaults] = useState(() => {
+    const plan = readTexasPlanningScenario();
+    return {
+      rent: 2200,
+      rentGrowth: 3,
+      rentersInsurance: 25,
+      price: plan.homePrice ?? 400000,
+      down: plan.downPayment ?? 80000,
+      mortgageRate: plan.annualInterestRate ?? 6.5,
+      loanYears: plan.loanTermYears ?? 30,
+      propertyTaxRate: plan.annualPropertyTaxRate ?? 2.1,
+      homeInsurance: plan.annualHomeInsurance ?? 2400,
+      maintenanceRate: 1,
+      hoa: plan.monthlyHoa ?? 0,
+      buyerClosingRate: 3,
+      sellerClosingRate: 6,
+      years: 7,
+      appreciation: 3,
+    };
+  });
   const [state, setState] = useState(() => readCalculatorUrlState(defaults));
   const set = (key: keyof typeof state, value: number) => setState((current) => ({ ...current, [key]: value }));
   const result = useMemo(() => estimateRentVsBuy({
@@ -131,6 +166,7 @@ export function RentVsBuyCalculator() {
       { label: 'Owner net cost', value: money(result.ownerNetCost) },
     ]}
     summary={{ 'Estimated difference': differenceLabel, 'Rent cost': money(result.renterCost), 'Owner net cost': money(result.ownerNetCost) }}
+    sharedScenario={{ homePrice: state.price, downPayment: state.down, annualInterestRate: state.mortgageRate, loanTermYears: state.loanYears, annualPropertyTaxRate: state.propertyTaxRate, annualHomeInsurance: state.homeInsurance, monthlyHoa: state.hoa }}
     methodology={{ formula: 'Rent grows monthly from the annual rent-growth assumption. The ownership path uses the same shared fixed-rate mortgage payment engine as the mortgage calculator, amortizes principal monthly, adds property tax, insurance, maintenance and HOA, then subtracts estimated net sale equity.', assumptions: ['Home appreciation and rent growth compound monthly from the entered annual rates.', 'Buyer and seller closing costs are percentage planning assumptions.', 'Returns on invested cash, income-tax effects and mortgage insurance are not modeled.'] }}>
     <CurrencyInput label="Monthly rent" value={state.rent} onChange={(v) => set('rent', v)} step={50}/>
     <CurrencyInput label="Home price" value={state.price} onChange={(v) => set('price', v)} step={1000}/>
