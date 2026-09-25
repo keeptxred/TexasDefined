@@ -408,8 +408,9 @@ export function useCalculatorScenarios<T extends CalculatorState>({ storageKey, 
 
   const addCurrent = useCallback(() => {
     if (scenarios.length >= max) return;
-    const nextIndex = scenarios.length + 1;
-    const next = [...scenarios, { id: `${Date.now()}-${nextIndex}`, label: `Scenario ${String.fromCharCode(64 + nextIndex)}`, state: { ...state } }];
+    const used = new Set(scenarios.map((scenario) => scenario.label));
+    const label = ['Scenario A', 'Scenario B', 'Scenario C'].find((candidate) => !used.has(candidate)) ?? `Scenario ${scenarios.length + 1}`;
+    const next = [...scenarios, { id: `${Date.now()}-${scenarios.length + 1}`, label, state: { ...state } }];
     persist(next);
   }, [max, persist, scenarios, state]);
 
