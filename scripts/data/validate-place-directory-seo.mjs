@@ -54,6 +54,7 @@ const checks = [
   [cityAuthorityProfiles, "href: '/destination/whirlyball-hurst'", 'Hurst city authority profile must retain the direct WhirlyBall cross-link'],
   [whirlyballHurst, 'href: "/city/hurst"', 'WhirlyBall Hurst must retain a reciprocal link to the verified Hurst city authority page'],
   [whirlyballHurst, 'href: "/county/tarrant"', 'WhirlyBall Hurst must retain broader Tarrant County context alongside the city link'],
+  [whirlyballHurst, 'https://upload.wikimedia.org/wikipedia/commons/5/52/Whirlyball.jpg', 'WhirlyBall Hurst must use the stable direct Wikimedia file URL for its hero image'],
   [cities, '"@type": "BreadcrumbList"', 'City directory must declare breadcrumbs'],
   [counties, '"@type": "BreadcrumbList"', 'County directory must declare breadcrumbs'],
   [propertyHub, 'Texas Defined connects all 254 counties to local property-tax research.', 'Property hub must retain the statewide county completeness statement'],
