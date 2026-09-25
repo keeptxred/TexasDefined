@@ -176,8 +176,8 @@ for (const [needle, label] of [
   ['dashboard.ctrMeasurementStartedAt', 'clean CTR date rendering'],
   ['dashboard.travelRoutingMeasurementStartedAt', 'clean travel routing date rendering'],
   ['Clean Orbitz vs Travelocity baseline', 'travel routing comparison section'],
-  ['active CJ relationship term and booking type determine realized payout', 'commission-schedule uncertainty disclosure'],
-  ['compare CTR with downstream bookings and realized commission before changing routing', 'commission-aware routing guidance'],
+  ['Current active CJ terms put Orbitz and Travelocity at parity for conventional lodging: 4% with a 7-day referral period', 'current hotel commission parity disclosure'],
+  ['compare CTR with downstream completed bookings, reversals and realized commission before changing routing', 'commission-aware routing guidance'],
   ['Minimum impressions / provider', 'routing sample threshold metric'],
   ["dashboard.travelRoutingComparisonReady ? 'READY' : 'HOLD'", 'routing readiness state'],
   ['Hold the current routing split.', 'small-sample routing hold guidance'],
@@ -201,8 +201,6 @@ for (const [needle, label] of [
   ['Pages to review', 'zero-click page watchlist'],
   ['No zero-click rows meet the watchlist threshold yet.', 'zero-click watchlist empty state'],
 ]) expect(lazyRoute, needle, label);
-
-if (lazyRoute.includes('Current approved hotel commission economics are treated as parity')) errors.push('Partner referral dashboard must not assume Orbitz and Travelocity commission parity when advertiser schedules differ and the active CJ term controls payout.');
 
 expect(types, 'lastPipelineSyncAt: string | null', 'pipeline heartbeat dashboard type');
 expect(types, 'ctrMeasurementStartedAt: string', 'clean CTR boundary dashboard type');
