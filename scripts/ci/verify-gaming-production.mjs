@@ -122,6 +122,24 @@ for (const check of commercialChecks) {
   }
 }
 
+const authorityDepthChecks = [
+  {
+    path: "/gaming/college-esports",
+    markers: ["Baylor University", "Texas Wesleyan University", "Lubbock Christian University", "The University of Texas at Tyler", "Texas Tech University", "Texas State University"],
+  },
+  {
+    path: "/gaming/events-conventions",
+    markers: ["QuakeCon has a durable Texas identity", "annual BYOC LAN party", "August 6–9"],
+  },
+];
+
+for (const check of authorityDepthChecks) {
+  const body = liveBodies.get(check.path) ?? "";
+  for (const marker of check.markers) {
+    requireCondition(body.includes(marker), `${check.path}: authority-depth marker missing: ${marker}`);
+  }
+}
+
 for (const [path] of pages) {
   if (commercialChecks.some((check) => check.path === path)) continue;
   const body = liveBodies.get(path) ?? "";
