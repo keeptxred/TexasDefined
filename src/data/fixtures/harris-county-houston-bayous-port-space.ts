@@ -50,9 +50,14 @@ export const harrisCountyHoustonBayousPortSpaceArticle: Article = {
       description: "Move southwest into the Brazos River country and one of Greater Houston's major suburban counties.",
     },
     {
+      href: "/article/mum-queen-spring-texas-homecoming-mums",
+      label: "The Mum Queen in Spring",
+      description: "Plan a custom homecoming mum or garter and see how a Spring-based specialist maker fits the county's school-spirit culture.",
+    },
+    {
       href: "/texas-homecoming-mums",
-      label: "Texas homecoming mums",
-      description: "Meet Spring's Mum Queen and see how Houston-area school culture helped turn the homecoming corsage into a major Texas craft tradition.",
+      label: "Texas homecoming mums explained",
+      description: "Read the statewide history behind the school tradition and the maker economy around it.",
     },
     {
       href: "/article/why-texas-has-254-counties",

@@ -21,6 +21,7 @@ requireAll("unusual business analytics targets", helper, [
   '"/article/bluebonnet-animal-preservation-athens": "bluebonnet-animal-preservation-athens"',
   '"/article/phenix-knives-bellville": "phenix-knives-bellville"',
   '"/article/horses-on-the-beach-corpus-christi": "horses-on-the-beach-corpus-christi"',
+  '"/article/mum-queen-spring-texas-homecoming-mums": "mum-queen-spring-texas-homecoming-mums"',
   '"/destination/whirlyball-hurst": "whirlyball-hurst"',
   "unusualBusinessAnalyticsAttributes",
   "unusualBusinessPageResource",
