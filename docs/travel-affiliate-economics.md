@@ -2,34 +2,35 @@
 
 Portfolio-wide non-travel and cross-category decisions are maintained in `docs/affiliate-portfolio-economics.md`.
 
-Reviewed 2026-09-25 from affiliate-program onboarding, setup and terms messages delivered to the TexasDefined account. Re-verify the active advertiser relationship in CJ before changing routing based on payout because commissions can vary by program, product, market, campaign, coupon use or contract.
+Reviewed 2026-09-25 from the current active CJ advertiser terms supplied from the TexasDefined publisher account. Re-verify the active advertiser relationship before changing routing because commissions can vary by program, product, market, campaign, coupon use or contract.
 
 ## Current verified program economics
 
-| Program | Lodging / stays | Vacation rentals | Car rentals | Activities / attractions | Packages | Other notes |
+| Program | Lodging / stays | Vacation rentals | Car rentals | Activities / attractions | Packages | Attribution / other notes |
 | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| Hotels.com NORAM | 4% | 2% | 1.5% | — | — | Qualified bookings only. |
-| Orbitz | 3% retail hotel / 7% merchant hotel / 2% merchant hotel with promo code | Not separately stated in the direct advertiser welcome | $3 | 5% | 3% / 2% with promo code | Direct advertiser welcome also lists $3 air and $40 cruise. Later Expedia-family onboarding material uses different generic product rates, so the active CJ term is controlling. |
-| Travelocity NORAM | 4% | 2% | 1.5% | 4% | 2% | Air and cruise excluded from the default commission summary in the current onboarding material. |
-| CheapTickets | 4% | 2% | 1.5% | 4% | 2% | Air, coupon and cruise are excluded. Verified from the September 10 welcome terms; no current routing advantage over the existing Expedia-family traveler choices. |
-| Vrbo NORAM | — | Up to 2% | — | — | — | Vacation-rental-specific program. |
-| Motel 6 / OYO USA | Official public program starts at 5% per qualified completed stay | — | — | — | — | Official program states a 30-day referral period and up to seven consecutive nights per stay. Account-specific CJ tracking is still required before activation. |
-| RVshare | 5% on completed stays | — | — | — | — | $7 for each new RV listed; 30-day cookie; deep linking and a product data feed are available. |
-| Booking.com | From 4% | Included within stays where eligible | From 6% | From 4% | — | Flights from €2 and airport taxis from 4% in the current welcome terms. |
-| Expedia Travel Creator Program | Variable | Variable | Variable | Variable | Variable | Commission varies by booking site, travel product/trip and country. The current account email states a 7-day attribution window for qualified bookings. |
+| Hotels.com NORAM | 4% | 2% | 1.5% | — | — | 7-day referral period. |
+| Orbitz | 4% | 2% | 1.5% | 4% | 2% | 7-day referral period; air/cruise 0%. |
+| Travelocity NORAM | 4% | 2% | 1.5% | 4% | 2% | 7-day referral period; air/cruise 0%. |
+| CheapTickets | 4% | 2% | 1.5% | 4% | 2% | 7-day referral period; air/cruise 0%. |
+| Vrbo NORAM | — | 2% | — | — | — | 7-day traveler referral period. Owner-action material lists $20 for a qualifying new live listing with a 60-day referral period. |
+| Motel 6 / Studio 6 | 3% web/app hotel booking | — | — | — | — | 45-day referral period; unlimited occurrences; open-ended locking. |
+| RVshare | 4% reservation | — | — | — | — | 30-day reservation referral period. Owner-listing table shows $5 / 45 days, but the same terms also call “list your RV” transactions non-commissionable; do not route owner acquisition until clarified. |
+| Booking.com APAC | 4% | Included within eligible stay inventory | 6% Cars Pay Now / 3.8% Cars Pay Local | 4% attractions | — | Airport taxis 4%; flights $2. Reservation must occur in the same browser session; current terms say no cookie tracking. Booking.com Australia is intentionally out of scope. |
+| Expedia Travel Creator Program | Variable | Variable | Variable | Variable | Variable | Current account email states a 7-day attribution window for qualified bookings. |
 
 ## Routing policy
 
-Do not change hotel-comparison routing on a headline payout number alone. Orbitz's direct advertiser welcome shows a materially higher merchant-hotel rate than Hotels.com or Travelocity, but merchant versus retail classification and the active CJ relationship term determine the actual commission.
+Do not change travel routing on headline payout alone. Exact inventory, visitor intent, attribution behavior, conversion and realized commission all matter.
 
 - Keep verified exact-property Hotels.com links primary because they provide property-specific relevance.
 - Keep Orbitz as the comparison provider for hotel-first event and sports-venue intent while the clean routing cohort accumulates measurable traffic.
-- Keep Travelocity as the comparison provider for broader destination and leisure intent until the active CJ terms and downstream conversion data justify a change.
-- Keep Vrbo limited to contexts where a vacation rental or owner referral is genuinely relevant; suppress it on the RVshare-specific camping/RV cohort because the approved RVshare stay commission is materially higher.
-- Do not add CheapTickets as another generic comparison CTA while its verified default economics duplicate existing 4% Expedia-family lodging and activity rates.
-- Motel 6/Studio 6's official program currently starts at 5% with a 30-day referral period, but do not activate placements until a usable TexasDefined CJ tracking link is verified. Prefer it only for exact-brand properties rather than as a generic lodging substitute.
-- Show RVshare only on high-intent camping, RV-park, state-park, outdoors and road-trip surfaces. On those routes, make RVshare the primary rental CTA and suppress the lower-paying Vrbo traveler CTA. Do not add RVshare to generic city, county, event or destination pages merely because they are travel content.
-- Prefer Booking.com for rental-car CTAs where the current approved terms remain materially higher than Expedia-family car rates.
+- Keep Travelocity as the comparison provider for broader destination and leisure intent while the clean routing cohort accumulates measurable traffic.
+- Treat Orbitz versus Travelocity as a conversion/CTR experiment, not a commission-rate experiment: their current verified default travel schedules are materially the same.
+- Keep Vrbo limited to contexts where a vacation rental or owner referral is genuinely relevant; suppress it on the RVshare-specific camping/RV cohort because RVshare pays 4% on reservations versus Vrbo’s 2% traveler rate.
+- Do not add CheapTickets as another generic comparison CTA while its verified default economics duplicate Orbitz/Travelocity.
+- Keep Motel 6 / Studio 6 exact-brand only. Its current 3% lodging rate is below Hotels.com’s 4%, so do not replace a commissionable Hotels.com exact-property link solely for payout.
+- Show RVshare only on high-intent camping, RV-park, state-park, outdoors and road-trip surfaces. On those routes, make RVshare the primary rental CTA. Do not add an RV owner-listing CTA until CJ resolves the current terms contradiction.
+- Keep Booking.com as the governed rental-car choice while its 6% Cars Pay Now / 3.8% Cars Pay Local economics and conversion performance justify it, but account for its same-browser-session/no-cookie attribution behavior.
 - Keep Expedia search as the broad lodging fallback where TexasDefined lacks a verified exact-property destination.
 
 ## Measurement policy
@@ -38,10 +39,10 @@ The intent-based Orbitz / Travelocity routing went live on 2026-09-23. The priva
 
 Do not collapse the Orbitz / Travelocity split until each provider has at least 100 qualifying CTA impressions in the clean window and the active CJ advertiser terms have been rechecked. This is an operational minimum for a comparable sample, not a statistical-significance threshold. Review first-party CTR together with downstream advertiser bookings, completed stays, reversals and realized commission before rerouting traffic.
 
-RVshare entered the governed traveler surface on 2026-09-24. Evaluate it separately from hotel and vacation-rental partners because its 5% commission applies to completed RV stays, not hotel bookings.
+RVshare entered the governed traveler surface on 2026-09-24. Evaluate it separately from hotel and vacation-rental partners because its 4% commission applies to RV reservations, not hotel bookings.
 
 ## Current implementation check
 
-TexasDefined already uses Booking.com for governed rental-car placements, including road-trip and generated-itinerary contexts. No lower-paying Expedia-family rental-car CTA was found during the 2026-09-23 audit, so no replacement was required.
+TexasDefined already uses Booking.com for governed rental-car placements, including road-trip and generated-itinerary contexts. No lower-paying Expedia-family rental-car CTA was found during the prior audit, so no replacement was required.
 
-Hotels.com, Orbitz, Travelocity and Vrbo were already live in the governed Stay Nearby bootstrap before this review. RVshare was not present and was added on 2026-09-24 with route gating, CJ deep-link binding, sponsored/nofollow attributes, first-party partner attribution and production-policy validation. CheapTickets is approved but intentionally not surfaced because its verified default rates do not improve the current comparison layer. Motel 6/OYO USA is approved and its public program currently starts at 5% with a 30-day referral period, but it remains inactive until the TexasDefined account has a verified trackable destination link.
+Hotels.com, Orbitz, Travelocity and Vrbo remain live in the governed Stay Nearby bootstrap. RVshare remains route-gated to high-intent RV/camping/outdoors surfaces. CheapTickets remains intentionally unsurfaced because its current default rates do not improve the comparison layer. Motel 6 / Studio 6 remains inactive until TexasDefined has a clean account-specific shopper tracking link.
