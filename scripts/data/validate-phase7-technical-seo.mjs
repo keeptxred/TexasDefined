@@ -13,6 +13,7 @@ const seoSource = fs.readFileSync('src/lib/seo.ts', 'utf8');
 const fredericksburgChurchRoute = fs.readFileSync('src/routes/explore.painted-churches.$slug.tsx', 'utf8');
 const fishingSpeciesServer = fs.readFileSync('src/data/fishing/species-guide-data.server.ts', 'utf8');
 const stateFairRoute = fs.readFileSync('src/routes/texas-state-fair.tsx', 'utf8');
+const prioritySearchLoader = fs.readFileSync('src/data/priority-search-page.ts', 'utf8');
 const texasFactsRoute = fs.readFileSync('src/routes/texas-facts.tsx', 'utf8');
 const texasFactsData = fs.readFileSync('src/data/texas-essential-facts.ts', 'utf8');
 const brandSuffix = ' | Texas Defined';
@@ -113,6 +114,8 @@ if (!seoSource.includes('brand.identity.id === "texasdefined" && page.canonicalP
 }
 if (!seoSource.includes('technicalOverride?.title ?? page.title')) failures.push('Phase 7 title override is not wired into buildMeta.');
 if (!seoSource.includes('technicalOverride?.description ?? page.description')) failures.push('Phase 7 description override is not wired into buildMeta.');
+if (!prioritySearchLoader.includes('createServerFn({ method: "POST" })')) failures.push('Priority search loader RPC must use POST so intermediary caches cannot serve stale page bodies.');
+if (prioritySearchLoader.includes('createServerFn({ method: "GET" })')) failures.push('Priority search loader RPC must not use cacheable GET semantics.');
 
 for (const [canonicalPath, expectedTitle] of targets) {
   const escapedPath = canonicalPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
