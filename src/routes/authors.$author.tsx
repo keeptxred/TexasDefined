@@ -20,7 +20,7 @@ export const Route = createFileRoute("/authors/$author")({
     if (!author) throw notFound();
     return { author, articles: articles.filter((article) => article.authorId === author.id) };
   },
-  head: ({ loaderData, params }) => {
+  head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Editorial desk unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
     const canonicalPath = `/authors/${publicAuthorSlug(loaderData.author.id)}`;
     const url = absoluteUrl(texasDefinedBrand, canonicalPath);
