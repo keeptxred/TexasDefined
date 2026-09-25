@@ -6,6 +6,7 @@ import { estimateAffordability } from './affordability.ts';
 import { estimateClosingCosts } from './closingCosts.ts';
 import { estimateHomeownership } from './homeownership.ts';
 import { estimatePayroll2026, federalIncomeTax2026, grossSalaryForTakeHome2026 } from './payroll.ts';
+import { estimateCostOfLivingBudget } from './household.ts';
 import { estimateHomesteadSavings, estimatePropertyTaxProtest, estimateSpecialDistrictImpact, estimateSplitPropertyTax } from './propertyTax.ts';
 
 const near = (actual: number, expected: number, tolerance = 0.02) => {
@@ -126,4 +127,15 @@ test('special-district impact uses canonical property-tax math across horizons',
   near(result.monthly, 250, 0.001);
   near(result.fiveYearSimpleTotal, 15000, 0.001);
   near(result.horizonSimpleTotal, 30000, 0.001);
+});
+
+
+test('cost-of-living budget engine compares categories without a hidden index', () => {
+  const current = { housing: 2000, transportation: 700, utilities: 300, insurance: 400, foodHousehold: 800, healthcare: 300, childcareEducation: 0, otherRecurring: 500 };
+  const target = { housing: 1800, transportation: 900, utilities: 350, insurance: 450, foodHousehold: 850, healthcare: 300, childcareEducation: 0, otherRecurring: 500 };
+  const result = estimateCostOfLivingBudget({ current, target });
+  near(result.currentTotal, 5000, 0.001);
+  near(result.targetTotal, 5150, 0.001);
+  near(result.monthlyDifference, 150, 0.001);
+  near(result.annualDifference, 1800, 0.001);
 });

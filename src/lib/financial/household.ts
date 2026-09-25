@@ -104,3 +104,55 @@ export function estimateMovingCost(input: { distanceMiles: number; bedrooms: num
   const contingencyAmount = subtotal * nonNegative(input.contingencyPercent ?? 15) / 100;
   return { baselineTransport, transportation, subtotal, contingencyAmount, total: subtotal + contingencyAmount, issues: [] as ValidationIssue[] };
 }
+
+
+export type HouseholdBudgetCategories = {
+  housing: number;
+  transportation: number;
+  utilities: number;
+  insurance: number;
+  foodHousehold: number;
+  healthcare: number;
+  childcareEducation: number;
+  otherRecurring: number;
+};
+
+const BUDGET_LABELS: Array<[keyof HouseholdBudgetCategories, string]> = [
+  ['housing', 'Housing'],
+  ['transportation', 'Transportation'],
+  ['utilities', 'Utilities'],
+  ['insurance', 'Insurance'],
+  ['foodHousehold', 'Food & household'],
+  ['healthcare', 'Healthcare'],
+  ['childcareEducation', 'Childcare & education'],
+  ['otherRecurring', 'Other recurring costs'],
+];
+
+export function estimateCostOfLivingBudget(input: { current: HouseholdBudgetCategories; target: HouseholdBudgetCategories }) {
+  const issues: ValidationIssue[] = [];
+  const normalize = (budget: HouseholdBudgetCategories, prefix: string) => {
+    const normalized = {} as HouseholdBudgetCategories;
+    for (const [key, label] of BUDGET_LABELS) {
+      const value = budget[key];
+      issues.push(...validateNonNegative(prefix + String(key), prefix + ' ' + label, value));
+      normalized[key] = nonNegative(value);
+    }
+    return normalized;
+  };
+  const current = normalize(input.current, 'Current');
+  const target = normalize(input.target, 'Target');
+  const currentTotal = BUDGET_LABELS.reduce((sum, [key]) => sum + current[key], 0);
+  const targetTotal = BUDGET_LABELS.reduce((sum, [key]) => sum + target[key], 0);
+  const monthlyDifference = targetTotal - currentTotal;
+  return {
+    current,
+    target,
+    currentTotal,
+    targetTotal,
+    monthlyDifference,
+    annualDifference: monthlyDifference * 12,
+    percentDifference: currentTotal > 0 ? monthlyDifference / currentTotal * 100 : 0,
+    categoryDeltas: BUDGET_LABELS.map(([key, label]) => ({ label, current: current[key], target: target[key], delta: target[key] - current[key] })),
+    issues: uniqueIssues(issues),
+  };
+}

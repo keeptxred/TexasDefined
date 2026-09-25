@@ -65,6 +65,7 @@ for (const marker of [
   "from '@/lib/financial/mortgage'",
   "from '@/lib/financial/utilities'",
   "from '@/lib/financial/household'",
+  'estimateCostOfLivingBudget',
   "from '@/lib/financial/payroll'",
   "estimateRentVsBuy",
 ]) {
@@ -98,6 +99,7 @@ for (const marker of ['grossSalaryForTakeHome2026', 'estimatePayroll2026', 'Fina
 
 const localCost = read('src/components/calculators/LocalCostOfLivingPage.tsx');
 if (!localCost.includes('FinancialCalculatorScaffold')) failures.push('Local cost-of-living calculator must use the universal calculator scaffold.');
+if (!localCost.includes('estimateCostOfLivingBudget')) failures.push('Local cost-of-living calculator must use the shared category budget engine.');
 
 for (const file of [
   'src/routes/texas-property-tax-estimator.tsx',

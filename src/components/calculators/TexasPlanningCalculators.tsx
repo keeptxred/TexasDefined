@@ -14,7 +14,7 @@ import { estimateAffordability } from '@/lib/financial/affordability';
 import { estimateHomeInsurance } from '@/lib/financial/insurance';
 import { estimateMortgage, mortgageSensitivity } from '@/lib/financial/mortgage';
 import { estimateUtilities } from '@/lib/financial/utilities';
-import { estimateCostOfLiving, estimateMovingCost } from '@/lib/financial/household';
+import { estimateCostOfLivingBudget, estimateMovingCost } from '@/lib/financial/household';
 import { estimatePayroll2026, type FilingStatus } from '@/lib/financial/payroll';
 import { readTexasPlanningScenario } from '@/lib/financial/planningScenario';
 import { estimateRentVsBuy } from '@/lib/rent-vs-buy';
@@ -189,23 +189,70 @@ export function RentVsBuyCalculator() {
 }
 
 export function CostOfLivingCalculator() {
-  const defaults = { current: 6000, currentIndex: 100, texasIndex: 94 };
+  const defaults = {
+    currentHousing: 2200, currentTransportation: 800, currentUtilities: 350, currentInsurance: 450, currentFood: 900, currentHealthcare: 400, currentChildcare: 0, currentOther: 1000,
+    targetHousing: 2200, targetTransportation: 800, targetUtilities: 350, targetInsurance: 450, targetFood: 900, targetHealthcare: 400, targetChildcare: 0, targetOther: 1000,
+  };
   const [state, setState] = useState(() => readCalculatorUrlState(defaults));
   const set = (key: keyof typeof state, value: number) => setState((current) => ({ ...current, [key]: value }));
-  const result = useMemo(() => estimateCostOfLiving({ currentMonthlySpending: state.current, currentIndex: state.currentIndex, targetIndex: state.texasIndex }), [state]);
+  const result = useMemo(() => estimateCostOfLivingBudget({
+    current: {
+      housing: state.currentHousing, transportation: state.currentTransportation, utilities: state.currentUtilities, insurance: state.currentInsurance,
+      foodHousehold: state.currentFood, healthcare: state.currentHealthcare, childcareEducation: state.currentChildcare, otherRecurring: state.currentOther,
+    },
+    target: {
+      housing: state.targetHousing, transportation: state.targetTransportation, utilities: state.targetUtilities, insurance: state.targetInsurance,
+      foodHousehold: state.targetFood, healthcare: state.targetHealthcare, childcareEducation: state.targetChildcare, otherRecurring: state.targetOther,
+    },
+  }), [state]);
+  const targetBreakdown = [
+    { label: 'Housing', value: state.targetHousing },
+    { label: 'Transportation', value: state.targetTransportation },
+    { label: 'Utilities', value: state.targetUtilities },
+    { label: 'Insurance', value: state.targetInsurance },
+    { label: 'Food & household', value: state.targetFood },
+    { label: 'Healthcare', value: state.targetHealthcare },
+    { label: 'Childcare & education', value: state.targetChildcare },
+    { label: 'Other recurring costs', value: state.targetOther },
+  ];
   return <FinancialCalculatorScaffold storageKey="texasdefined:cost-of-living-calculator" state={state} defaults={defaults} onRestore={setState}
-    note="Cost indexes vary by provider, metro area, household size and spending habits. Replace the defaults with the best local numbers you can find and use local budget pages for category-by-category comparisons."
+    note="This compares your own household budgets rather than applying one statewide cost index. Replace every neutral example amount with the best housing, commute, utility, insurance and household estimates you have for the move."
     issues={result.issues}
     results={[
-      { label: 'Texas equivalent', value: money(result.equivalentMonthlySpending) + '/mo', emphasis: true },
+      { label: 'Possible Texas monthly budget', value: money(result.targetTotal) + '/mo', emphasis: true },
+      { label: 'Current monthly budget', value: money(result.currentTotal) + '/mo' },
       { label: 'Monthly difference', value: money(result.monthlyDifference) },
       { label: 'Annual difference', value: money(result.annualDifference) },
+      { label: 'Budget change', value: (result.percentDifference >= 0 ? '+' : '') + result.percentDifference.toFixed(1) + '%' },
     ]}
-    summary={{ 'Target equivalent': money(result.equivalentMonthlySpending) + '/mo', 'Annual difference': money(result.annualDifference) }}
-    methodology={{ formula: 'Equivalent spending scales the current monthly budget by the ratio between the target and current cost indexes.', assumptions: ['Indexes are broad comparison inputs, not address-level prices.', 'Use the local cost-of-living pages when you have category-specific housing, transportation, utility, insurance, food and household numbers.'] }}>
-    <CurrencyInput label="Current monthly spending" value={state.current} onChange={(v) => set('current', v)} step={100}/>
-    <FinancialInput label="Current-area index" value={state.currentIndex} onChange={(v) => set('currentIndex', v)} step={0.1} min={1}/>
-    <FinancialInput label="Texas-area index" value={state.texasIndex} onChange={(v) => set('texasIndex', v)} step={0.1} min={1}/>
+    summary={{ 'Possible Texas budget': money(result.targetTotal) + '/mo', 'Current budget': money(result.currentTotal) + '/mo', 'Annual difference': money(result.annualDifference) }}
+    breakdown={targetBreakdown}
+    sharedScenario={{ monthlyUtilities: state.targetUtilities }}
+    methodology={{ formula: 'TexasDefined totals the current and possible Texas household categories separately, then compares the two budgets monthly, annually and by category. No statewide average or cost index is inserted into the calculation.', assumptions: ['The defaults are neutral examples, not Texas averages.', 'Housing should reflect the rent or full ownership path you actually expect.', 'Transportation should include commute-driven fuel, toll, parking and vehicle costs where relevant.', 'Use local city planners and the linked mortgage, tax, insurance and utility tools to replace broad assumptions with address-specific inputs.'] }}>
+    <div className="sm:col-span-2 lg:col-span-3 grid gap-5 lg:grid-cols-2">
+      <section className="border border-border p-5"><h3 className="font-display text-2xl">Current monthly budget</h3><div className="mt-4 space-y-3">
+        <CurrencyInput label="Housing" value={state.currentHousing} onChange={(v) => set('currentHousing', v)} step={25}/>
+        <CurrencyInput label="Transportation" value={state.currentTransportation} onChange={(v) => set('currentTransportation', v)} step={25}/>
+        <CurrencyInput label="Utilities" value={state.currentUtilities} onChange={(v) => set('currentUtilities', v)} step={25}/>
+        <CurrencyInput label="Insurance" value={state.currentInsurance} onChange={(v) => set('currentInsurance', v)} step={25}/>
+        <CurrencyInput label="Food & household" value={state.currentFood} onChange={(v) => set('currentFood', v)} step={25}/>
+      </div></section>
+      <section className="border border-border p-5"><h3 className="font-display text-2xl">Possible Texas monthly budget</h3><div className="mt-4 space-y-3">
+        <CurrencyInput label="Housing" value={state.targetHousing} onChange={(v) => set('targetHousing', v)} step={25}/>
+        <CurrencyInput label="Transportation" value={state.targetTransportation} onChange={(v) => set('targetTransportation', v)} step={25}/>
+        <CurrencyInput label="Utilities" value={state.targetUtilities} onChange={(v) => set('targetUtilities', v)} step={25}/>
+        <CurrencyInput label="Insurance" value={state.targetInsurance} onChange={(v) => set('targetInsurance', v)} step={25}/>
+        <CurrencyInput label="Food & household" value={state.targetFood} onChange={(v) => set('targetFood', v)} step={25}/>
+      </div></section>
+    </div>
+    <div className="sm:col-span-2 lg:col-span-3"><AdvancedInputs label="Healthcare, childcare and other recurring costs">
+      <CurrencyInput label="Current healthcare" value={state.currentHealthcare} onChange={(v) => set('currentHealthcare', v)} step={25}/>
+      <CurrencyInput label="Texas healthcare" value={state.targetHealthcare} onChange={(v) => set('targetHealthcare', v)} step={25}/>
+      <CurrencyInput label="Current childcare & education" value={state.currentChildcare} onChange={(v) => set('currentChildcare', v)} step={25}/>
+      <CurrencyInput label="Texas childcare & education" value={state.targetChildcare} onChange={(v) => set('targetChildcare', v)} step={25}/>
+      <CurrencyInput label="Current other recurring costs" value={state.currentOther} onChange={(v) => set('currentOther', v)} step={25}/>
+      <CurrencyInput label="Texas other recurring costs" value={state.targetOther} onChange={(v) => set('targetOther', v)} step={25}/>
+    </AdvancedInputs></div>
   </FinancialCalculatorScaffold>;
 }
 

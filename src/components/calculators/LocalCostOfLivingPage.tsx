@@ -8,6 +8,7 @@ import {
   readCalculatorUrlState,
 } from '@/components/calculators/FinancialCalculatorUI';
 import type { LocalCostOfLivingProfile } from '@/data/local-cost-of-living';
+import { estimateCostOfLivingBudget } from '@/lib/financial/household';
 
 type BudgetKey = 'Housing' | 'Transportation' | 'Utilities' | 'Insurance' | 'Food' | 'Other';
 type Scope = 'current' | 'target';
@@ -69,12 +70,29 @@ function BudgetColumn({
 export function LocalCostOfLivingPage({ profile }: { profile: LocalCostOfLivingProfile }) {
   const [state, setState] = useState(() => readCalculatorUrlState(DEFAULTS));
   const update = (scope: Scope, key: BudgetKey, value: number) => setState((current) => ({ ...current, [keyFor(scope, key)]: value }));
-  const totals = useMemo(() => {
-    const sum = (scope: Scope) => budgetKeys.reduce((total, key) => total + state[keyFor(scope, key)], 0);
-    const current = sum('current');
-    const target = sum('target');
-    return { current, target, difference: target - current };
-  }, [state]);
+  const comparison = useMemo(() => estimateCostOfLivingBudget({
+    current: {
+      housing: state.currentHousing,
+      transportation: state.currentTransportation,
+      utilities: state.currentUtilities,
+      insurance: state.currentInsurance,
+      foodHousehold: state.currentFood,
+      healthcare: 0,
+      childcareEducation: 0,
+      otherRecurring: state.currentOther,
+    },
+    target: {
+      housing: state.targetHousing,
+      transportation: state.targetTransportation,
+      utilities: state.targetUtilities,
+      insurance: state.targetInsurance,
+      foodHousehold: state.targetFood,
+      healthcare: 0,
+      childcareEducation: 0,
+      otherRecurring: state.targetOther,
+    },
+  }), [state]);
+  const totals = { current: comparison.currentTotal, target: comparison.targetTotal, difference: comparison.monthlyDifference };
 
   const targetBreakdown = budgetKeys.map((key) => ({
     label: key === 'Food' ? 'Food & household' : key === 'Other' ? 'Other recurring costs' : key,
@@ -100,7 +118,7 @@ export function LocalCostOfLivingPage({ profile }: { profile: LocalCostOfLivingP
         defaults={DEFAULTS}
         onRestore={setState}
         note={'Planning only. This comparison is not a forecast or a claim about average ' + profile.name + ' household spending. Verify costs for the exact housing, commute, providers, coverage and household you are considering.'}
-        issues={[]}
+        issues={comparison.issues}
         results={[
           { label: profile.name + ' monthly total', value: formatCalculatorMoney(totals.target) + '/mo', emphasis: true },
           { label: 'Current total', value: formatCalculatorMoney(totals.current) + '/mo' },
