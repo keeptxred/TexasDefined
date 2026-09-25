@@ -14,6 +14,7 @@ const engineFiles = [
   'src/lib/financial/household.ts',
   'src/lib/financial/payroll.ts',
   'src/lib/financial/planningScenario.ts',
+  'src/lib/financial/propertyTax.ts',
   'src/lib/financial/financial-engines.test.ts',
 ];
 
@@ -97,6 +98,20 @@ for (const marker of ['grossSalaryForTakeHome2026', 'estimatePayroll2026', 'Fina
 
 const localCost = read('src/components/calculators/LocalCostOfLivingPage.tsx');
 if (!localCost.includes('FinancialCalculatorScaffold')) failures.push('Local cost-of-living calculator must use the universal calculator scaffold.');
+
+for (const file of [
+  'src/routes/texas-property-tax-estimator.tsx',
+  'src/components/property/LocalPropertyTaxCalculatorPage.tsx',
+  'src/routes/texas-property-tax-escrow-calculator.tsx',
+  'src/routes/texas-over-65-property-tax-calculator.tsx',
+  'src/routes/texas-disabled-veteran-property-tax-calculator.tsx',
+  'src/routes/texas-property-tax-county-comparison-calculator.tsx',
+  'src/routes/texas-agricultural-valuation-calculator.tsx',
+  'src/routes/texas-homestead-savings-calculator.tsx',
+  'src/routes/texas-property-tax-protest-savings-calculator.tsx',
+]) {
+  if (!read(file).includes("@/lib/financial/propertyTax")) failures.push(file + ' must use the shared property-tax engine.');
+}
 
 const officialMortgage = read('src/components/calculators/OfficialMortgageCalculator.tsx');
 for (const marker of ['mortgageSensitivity', 'Advanced assumptions', 'OfficialTaxRateAssist', 'annualPmi', 'monthlySpecialDistrict', 'monthlyUtilities', 'monthlyMaintenance']) {

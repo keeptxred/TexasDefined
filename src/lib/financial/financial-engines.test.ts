@@ -6,6 +6,7 @@ import { estimateAffordability } from './affordability.ts';
 import { estimateClosingCosts } from './closingCosts.ts';
 import { estimateHomeownership } from './homeownership.ts';
 import { estimatePayroll2026, federalIncomeTax2026, grossSalaryForTakeHome2026 } from './payroll.ts';
+import { estimateHomesteadSavings, estimatePropertyTaxProtest, estimateSplitPropertyTax } from './propertyTax.ts';
 
 const near = (actual: number, expected: number, tolerance = 0.02) => {
   assert.ok(Math.abs(actual - expected) <= tolerance, "expected " + actual + " to be within " + tolerance + " of " + expected);
@@ -99,4 +100,21 @@ test('salary-needed reverse solver converges on the shared payroll engine', () =
     annualAfterTaxDeductions: 0,
   });
   near(result.annualTakeHome, target, 0.02);
+});
+
+
+test('split property-tax engine keeps school and other taxable values separate', () => {
+  const result = estimateSplitPropertyTax({ homeValue: 400000, schoolExemption: 140000, otherExemption: 20000, schoolRate: 1, otherRate: 1.2 });
+  near(result.schoolTax, 2600, 0.001);
+  near(result.otherTax, 4560, 0.001);
+  near(result.total, 7160, 0.001);
+});
+
+test('homestead and protest calculators reuse canonical property-tax math', () => {
+  const homestead = estimateHomesteadSavings({ homeValue: 400000, schoolExemption: 140000, otherExemption: 0, schoolRate: 1, otherRate: 1.2 });
+  near(homestead.before, 8800, 0.001);
+  near(homestead.annualSavings, 1400, 0.001);
+  const protest = estimatePropertyTaxProtest({ proposedValue: 450000, targetValue: 410000, taxRate: 2.2, confidencePercent: 50 });
+  near(protest.annualSavings, 880, 0.001);
+  near(protest.expectedSavings, 440, 0.001);
 });

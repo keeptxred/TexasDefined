@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
 import { Container } from '@/components/layout/Container';
@@ -18,6 +18,7 @@ import {
   type CalculatorState,
 } from '@/components/property/PropertyCalculatorFramework';
 import type { LocalPropertyTaxProfile } from '@/data/local-property-tax-calculators';
+import { estimateSplitPropertyTax } from '@/lib/financial/propertyTax';
 
 type State = CalculatorState & {
   homeValue: number;
@@ -67,23 +68,13 @@ export function LocalPropertyTaxCalculatorPage({
     }));
   };
 
-  const result = useMemo(() => {
-    const value = Math.max(0, state.homeValue);
-    const schoolTaxable = Math.max(0, value - Math.max(0, state.schoolExemption));
-    const otherTaxable = Math.max(0, value - Math.max(0, state.otherExemption));
-    const schoolTax = schoolTaxable * Math.max(0, state.schoolRate) / 100;
-    const otherTax = otherTaxable * Math.max(0, state.otherRate) / 100;
-    const total = schoolTax + otherTax;
-    return {
-      schoolTaxable,
-      otherTaxable,
-      schoolTax,
-      otherTax,
-      total,
-      monthly: total / 12,
-      combinedRate: state.schoolRate + state.otherRate,
-    };
-  }, [state]);
+  const result = estimateSplitPropertyTax({
+    homeValue: state.homeValue,
+    schoolExemption: state.schoolExemption,
+    otherExemption: state.otherExemption,
+    schoolRate: state.schoolRate,
+    otherRate: state.otherRate,
+  });
 
   const persistence = useCalculatorPersistence<State>({
     storageKey: `texasdefined:local-property-tax:${profile.slug}`,
