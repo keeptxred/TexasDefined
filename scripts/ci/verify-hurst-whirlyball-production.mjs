@@ -7,6 +7,15 @@ function requireCondition(condition, message) {
   if (!condition) throw new Error(message);
 }
 
+function renderedText(html) {
+  return html
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function liveUrl(path, attempt) {
   const url = new URL(path, origin);
   url.searchParams.set('td_hurst_whirlyball_verify', `${revision}-${runId}-${attempt}`);
@@ -90,7 +99,8 @@ requireCondition(
 requireCondition(directory.includes('/city/hurst'), 'Texas city directory is missing the canonical Hurst city-guide link.');
 
 requireIndexableHtml(city, 'https://texasdefined.com/city/hurst', 'Hurst city authority page');
-requireCondition(city.includes('Hurst systems at a glance'), 'Hurst city authority systems section is missing.');
+requireCondition(city.includes('id="city-systems-heading"'), 'Hurst city authority systems section anchor is missing.');
+requireCondition(renderedText(city).includes('Hurst systems at a glance'), 'Hurst city authority systems heading is missing.');
 requireCondition(city.includes('WhirlyBall Hurst'), 'Hurst city authority page is missing its WhirlyBall cross-link.');
 requireCondition(city.includes('/destination/whirlyball-hurst'), 'Hurst city authority page is missing the canonical WhirlyBall URL.');
 

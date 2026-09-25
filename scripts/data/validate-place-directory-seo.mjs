@@ -65,6 +65,8 @@ const checks = [
   [productionSurfaces, "await import('./verify-hurst-whirlyball-production.mjs');", 'Canonical live-production verifier must execute the Hurst/WhirlyBall smoke'],
   [hurstWhirlyballProductionVerifier, "fetchLive('/browse/cities')", 'Hurst/WhirlyBall production verifier must check the live city directory'],
   [hurstWhirlyballProductionVerifier, "fetchLive('/city/hurst')", 'Hurst/WhirlyBall production verifier must check the live Hurst city authority page'],
+  [hurstWhirlyballProductionVerifier, 'function renderedText(html)', 'Hurst/WhirlyBall production verifier must normalize React SSR comment boundaries before visible-text assertions'],
+  [hurstWhirlyballProductionVerifier, 'id="city-systems-heading"', 'Hurst/WhirlyBall production verifier must protect the stable Hurst systems-section anchor'],
   [hurstWhirlyballProductionVerifier, "fetchLive('/destination/whirlyball-hurst')", 'Hurst/WhirlyBall production verifier must check the live WhirlyBall destination page'],
   [hurstWhirlyballProductionVerifier, "fetchLive('/county/tarrant')", 'Hurst/WhirlyBall production verifier must check the live Tarrant County page'],
   [hurstWhirlyballProductionVerifier, "tarrant.includes('WhirlyBall Hurst')", 'Hurst/WhirlyBall production verifier must protect the county-to-attraction link'],
