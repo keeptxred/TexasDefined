@@ -38,7 +38,7 @@ Current traveler intent policy:
 - **RV rental:** the canonical camping guide plus `/explore/rv-parks`, `/explore/state-parks`, `/explore/road-trips` and `/explore/outdoors` only. Generic city, county, event and destination pages do not inherit RVshare eligibility.
 - **Owner referral:** `/real-estate` and explicitly qualifying owner/vacation-rental article metadata only. Ordinary travel pages do not inherit owner-referral eligibility.
 
-Visible CTAs include `Find places to stay` and `Find hotels on Hotels.com`. Hotel-first event/venue pages use `Compare hotels on Orbitz`; broader destination/leisure pages use `Compare hotels on Travelocity`; and, where the route policy permits it, those broader pages can also show `Find vacation rentals on Vrbo`. High-intent camping, RV-park, state-park, outdoors and road-trip routes can additionally show `Rent an RV on RVshare`; generic city, county, event and destination pages fail closed for RVshare.
+Visible CTAs include `Find places to stay` and `Find hotels on Hotels.com`. Hotel-first event/venue pages use `Compare hotels on Orbitz`; broader destination/leisure pages use `Compare hotels on Travelocity`; and, where the route policy permits it, those broader pages can also show `Find vacation rentals on Vrbo`. High-intent camping, RV-park, state-park, outdoors and road-trip routes replace the Vrbo traveler CTA with `Rent an RV on RVshare` and promote RVshare as the primary rental option; generic city, county, event and destination pages fail closed for RVshare.
 
 Affiliate clicks push an `affiliate_click` object into `window.dataLayer` with partner, CTA label, placement and current page path. The tracking payload does not collect visitor PII. A matching `texasdefined:affiliate-click` browser event is also dispatched for first-party observability.
 
@@ -191,7 +191,7 @@ Every rendered Expedia / Stay Nearby surface includes the Expedia disclosure:
 
 `Affiliate disclosure: TexasDefined may earn a commission from qualifying Expedia bookings, at no additional cost to you.`
 
-The traveler choice panel uses route-specific disclosure copy: hotel-first event/venue intent discloses Hotels.com and Orbitz, broader destination/leisure intent discloses Hotels.com, Travelocity and Vrbo, and eligible camping/RV/state-park/outdoors/road-trip surfaces also disclose RVshare. The Vrbo owner-referral panel carries its own owner-referral disclosure.
+The traveler choice panel uses route-specific disclosure copy: hotel-first event/venue intent discloses Hotels.com and Orbitz, broader destination/leisure intent discloses Hotels.com, Travelocity and Vrbo, while eligible camping/RV/state-park/outdoors/road-trip surfaces disclose Hotels.com, Travelocity and RVshare instead of Vrbo. The Vrbo owner-referral panel carries its own owner-referral disclosure.
 
 ## Performance behavior
 

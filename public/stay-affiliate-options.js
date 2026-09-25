@@ -197,7 +197,7 @@
     const wrapper = document.createElement("aside");
     wrapper.id = CHOICE_ID;
     wrapper.className = "td-stay-affiliate-options";
-    wrapper.setAttribute("aria-label", showRvshare ? "Hotel, vacation rental and RV rental booking options" : "Hotel and vacation rental booking options");
+    wrapper.setAttribute("aria-label", showRvshare ? "Hotel and RV rental booking options" : "Hotel and vacation rental booking options");
 
     const panel = document.createElement("div");
     panel.className = "td-stay-affiliate-panel";
@@ -221,7 +221,7 @@
         : (intent === "hotel-first"
           ? "Compare hotel availability close to the event or venue on Hotels.com or Orbitz. Broader leisure and destination guides also include vacation-rental options when they fit the trip."
           : "Compare hotel options on Hotels.com or Travelocity, or choose a vacation rental when extra space, a kitchen, or a group-friendly setup fits the trip better."));
-    if (showRvshare) copy.textContent += " For camping and road-trip planning, you can also compare RV rentals on RVshare when taking your lodging with you fits the trip.";
+    if (showRvshare) copy.textContent += " For camping and road-trip planning, RVshare is the primary rental option when taking your lodging with you fits the trip.";
 
     const actions = document.createElement("div");
     actions.className = "td-stay-affiliate-actions";
@@ -238,7 +238,7 @@
     actions.appendChild(createTrackedLink({
       destination: HOTELS_DESTINATION,
       label: exactPropertyFirst ? "Compare more hotels on Hotels.com" : "Find hotels on Hotels.com",
-      variant: featuredStay ? "secondary" : "primary",
+      variant: featuredStay || showRvshare ? "secondary" : "primary",
       ariaLabel: exactPropertyFirst ? "Compare more hotels on Hotels.com in a new tab" : "Find hotels on Hotels.com in a new tab",
       placement: choicePlacement,
     }));
@@ -254,7 +254,7 @@
         : (exactPropertyFirst ? "Compare more hotels on Orbitz in a new tab" : "Compare hotels on Orbitz in a new tab"),
       placement: choicePlacement,
     }));
-    if (intent === "both") {
+    if (intent === "both" && !showRvshare) {
       actions.appendChild(createTrackedLink({
         destination: VRBO_DESTINATION,
         label: exactPropertyFirst ? "Browse vacation rentals on Vrbo" : "Find vacation rentals on Vrbo",
@@ -268,7 +268,7 @@
       actions.appendChild(createTrackedLink({
         destination: RVSHARE_DESTINATION,
         label: "Rent an RV on RVshare",
-        variant: "secondary",
+        variant: "primary",
         ariaLabel: "Compare RV rentals on RVshare in a new tab",
         placement: `${choicePlacement}-rvshare`,
       }));
@@ -278,7 +278,7 @@
     disclosure.className = "td-stay-affiliate-disclosure";
     disclosure.textContent = intent === "both"
       ? (showRvshare
-        ? "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity, Vrbo or RVshare activity, at no additional cost to you. Availability, rates and booking terms are provided by the booking service."
+        ? "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or RVshare activity, at no additional cost to you. Availability, rates and booking terms are provided by the booking service."
         : "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or Vrbo activity, at no additional cost to you. Availability, rates and booking terms are provided by the booking service.")
       : "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com or Orbitz activity, at no additional cost to you. Availability, rates and booking terms are provided by the booking service.";
 

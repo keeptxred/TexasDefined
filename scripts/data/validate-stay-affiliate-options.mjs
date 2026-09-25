@@ -22,7 +22,7 @@ for (const [needle, label] of [
   ['## Hotels.com / Orbitz / Travelocity / Vrbo / RVshare contract', 'five-provider stay affiliate contract heading'],
   ['`rvshare.com` destinations are accepted', 'RVshare CJ host documentation'],
   ['**RV rental:** the canonical camping guide', 'RVshare route-scope documentation'],
-  ['eligible camping/RV/state-park/outdoors/road-trip surfaces also disclose RVshare', 'RVshare disclosure documentation'],
+  ['eligible camping/RV/state-park/outdoors/road-trip surfaces disclose Hotels.com, Travelocity and RVshare instead of Vrbo', 'RVshare disclosure documentation'],
   ['active CJ relationship plus observed conversion and realized commission', 'commission-aware routing documentation'],
 ]) requireText(integrationDocs, needle, label);
 
@@ -215,7 +215,7 @@ for (const [needle, label] of [
   ['placement: "stay-nearby-featured-golf"', 'featured golf affiliate attribution'],
   ['A venue-linked stay to consider', 'featured golf stay heading'],
   ['Venue relationship verified against', 'featured golf source disclosure'],
-  ['variant: featuredStay ? "secondary" : "primary"', 'featured-golf exact-property priority'],
+  ['variant: featuredStay || showRvshare ? "secondary" : "primary"', 'featured-golf and RVshare priority policy'],
   ['https://www.hotels.com/ho115100/hilton-anatole-dallas-united-states-of-america/', 'mature Hilton Anatole property record'],
   ['https://www.hotels.com/ho2949850752/loews-arlington-arlington-united-states-of-america/', 'Loews Arlington property record'],
   ['https://www.hotels.com/ho1830497920/tru-by-hilton-northlake-fort-worth-tx-roanoke-united-states-of-america/', 'Tru Northlake property record'],
@@ -262,7 +262,11 @@ for (const [needle, label] of [
   ['link.dataset.exactProperty = propertyName', 'exact-property identity marker'],
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com or Orbitz activity', 'hotel-first traveler affiliate disclosure'],
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or Vrbo activity', 'destination/leisure traveler affiliate disclosure'],
-  ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity, Vrbo or RVshare activity', 'RVshare-enabled outdoor traveler affiliate disclosure'],
+  ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or RVshare activity', 'RVshare-enabled outdoor traveler affiliate disclosure'],
+  ['if (intent === "both" && !showRvshare)', 'Vrbo suppression on RVshare-intent routes'],
+  ['variant: featuredStay || showRvshare ? "secondary" : "primary"', 'hotel CTA demotion on RVshare-intent routes'],
+  ['destination: RVSHARE_DESTINATION', 'RVshare governed destination'],
+  ['variant: "primary"', 'RVshare primary CTA treatment'],
   ['Affiliate disclosure: TexasDefined may earn a referral commission when an eligible new Vrbo property listing goes live', 'owner affiliate disclosure'],
   ['HOTEL_FIRST_PATH', 'hotel-first route intent'],
   ['BOTH_PATH', 'combined lodging route intent'],
@@ -390,4 +394,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Hotels.com / Orbitz / Travelocity / Vrbo / RVshare stay affiliate validation passed: all 30 active governed Stay Nearby properties (18 venue + 12 destination) have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; three source-backed golf guides add text-only exact-property Hotels.com CTAs without bypassing curated-card image governance; unknown routes and properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; hotel-first event/venue intent routes the comparison option to Orbitz while broader destination/leisure intent routes it to Travelocity, Vrbo remains separately gated to broader traveler/owner use cases, and RVshare is restricted to high-intent camping/RV/state-park/outdoors/road-trip routes; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the RVshare-eligible camping/RV hubs, exact-property and featured-golf registries, plus the traffic-prioritized Xtreme Raceway Park lodging slot; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');
+console.log('Hotels.com / Orbitz / Travelocity / Vrbo / RVshare stay affiliate validation passed: all 30 active governed Stay Nearby properties (18 venue + 12 destination) have unique verified exact-property Hotels.com destinations backed by an auditable verification registry and generating TexasDefined CJ deep links; three source-backed golf guides add text-only exact-property Hotels.com CTAs without bypassing curated-card image governance; unknown routes and properties fail closed; curated cards upgrade from broad Expedia search to exact-property Hotels.com CTAs; hotel-first event/venue intent routes the comparison option to Orbitz while broader destination/leisure intent routes it to Travelocity, Vrbo remains separately gated to broader traveler/owner use cases, and RVshare is restricted to high-intent camping/RV/state-park/outdoors/road-trip routes where it replaces the lower-paying Vrbo traveler option and receives primary CTA treatment; CJ tracking remains restricted to approved partner hosts; stay CTAs remain contextually promoted; event and destination guides expose deterministic in-content slots; owner referrals remain separately gated; outbound clicks are attributed through GTM and TexasDefined first-party partner-referral analytics; post-deploy verification covers the RVshare-eligible camping/RV hubs, exact-property and featured-golf registries, plus the traffic-prioritized Xtreme Raceway Park lodging slot; disclosures and sponsored-link attributes are present; and Expedia remains the fallback lodging host.');
