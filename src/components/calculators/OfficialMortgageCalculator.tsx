@@ -14,6 +14,7 @@ import {
   ResultGrid,
   formatMoney,
   useCalculatorPersistence,
+  useCalculatorScenarios,
   useUrlStateDefaults,
 } from '@/components/property/PropertyCalculatorFramework';
 import { calculateMortgage } from '@/lib/financial/mortgage';
@@ -80,6 +81,7 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
     state,
     onRestore: setState,
   });
+  const scenarioStore = useCalculatorScenarios({ storageKey: 'texasdefined:mortgage-scenarios:v1', state, max: 3 });
 
   const housingBreakdown = [
     { label: 'Principal & interest', value: result.monthlyPrincipalInterest },
@@ -148,6 +150,14 @@ export function OfficialMortgageCalculator({ defaultCountySlug = '' }: { default
         <div className="border-t border-border pt-4"><span className="text-muted-foreground">Home price $25,000 lower, same down payment when possible</span><strong className="mt-1 block text-xl">{formatMoney(lowerPrice)}/mo <span className="text-sm font-normal text-muted-foreground">({formatMoney(lowerPrice - result.monthlyHousingPayment)})</span></strong></div>
         {ownershipExtras.some((item) => item.value > 0) ? <div className="border-t border-border pt-4"><BreakdownTable items={ownershipExtras} total={result.monthlyUtilities + result.monthlyMaintenance} totalLabel="Ownership costs beyond housing payment"/></div> : null}
       </div>
+    </section>
+
+    <section className="mt-10 border-t border-border pt-8">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div><p className="eyebrow text-primary">Compare properties or financing</p><h3 className="mt-2 font-display text-2xl">Scenario comparison</h3><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">Save up to three current input sets, then reload any scenario to keep editing it. Comparisons use the same shared mortgage engine.</p></div>
+        <div className="flex flex-wrap gap-3 print:hidden"><button type="button" className="min-h-11 border-b border-primary text-sm font-semibold text-primary disabled:opacity-50" disabled={scenarioStore.atLimit} onClick={scenarioStore.addCurrent}>Add current scenario</button>{scenarioStore.scenarios.length ? <button type="button" className="min-h-11 border-b border-primary text-sm font-semibold text-primary" onClick={scenarioStore.clear}>Clear comparisons</button> : null}</div>
+      </div>
+      {scenarioStore.scenarios.length ? <div className="mt-6 overflow-x-auto"><table className="w-full min-w-[44rem] text-sm"><thead><tr className="border-b border-border"><th className="py-3 text-left">Scenario</th><th className="py-3 text-right">Home price</th><th className="py-3 text-right">Rate</th><th className="py-3 text-right">Housing payment</th><th className="py-3 text-right">Ownership scenario</th><th className="py-3 text-right print:hidden">Action</th></tr></thead><tbody className="divide-y divide-border">{scenarioStore.scenarios.map((scenario) => { const estimate = calculateMortgage({ homePrice: scenario.state.price, downPayment: scenario.state.down, annualRatePercent: scenario.state.rate, termYears: scenario.state.years, propertyTaxRatePercent: scenario.state.propertyTaxRate, annualInsurance: scenario.state.insurance, monthlyPmi: scenario.state.pmi, monthlyHoa: scenario.state.hoa, monthlySpecialDistricts: scenario.state.specialDistricts, monthlyUtilities: scenario.state.utilities, monthlyMaintenance: scenario.state.maintenance, extraMonthlyPrincipal: scenario.state.extraPrincipal }); return <tr key={scenario.id}><th scope="row" className="py-3 text-left">{scenario.label}</th><td className="py-3 text-right">{formatMoney(scenario.state.price)}</td><td className="py-3 text-right">{scenario.state.rate.toFixed(2)}%</td><td className="py-3 text-right font-semibold">{formatMoney(estimate.monthlyHousingPayment)}</td><td className="py-3 text-right font-semibold">{formatMoney(estimate.monthlyOwnershipCost)}</td><td className="py-3 text-right print:hidden"><button type="button" className="font-semibold text-primary underline underline-offset-4" onClick={() => setState(scenario.state)}>Load</button><button type="button" className="ml-4 text-muted-foreground underline underline-offset-4" onClick={() => scenarioStore.remove(scenario.id)}>Remove</button></td></tr>; })}</tbody></table></div> : <p className="mt-5 text-sm text-muted-foreground">No comparison scenarios saved yet.</p>}
     </section>
 
     <details className="mt-10 border-y border-border py-5">
