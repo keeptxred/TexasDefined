@@ -73,6 +73,11 @@ close(paycheck.socialSecurity, 5580, 0.001, '2026 Social Security');
 close(paycheck.medicare, 1305, 0.001, '2026 Medicare');
 close(paycheck.annualTakeHome, 67933, 0.001, '2026 annual take-home');
 
+const mudImpact = calculateSpecialDistrictImpact({ taxableValue: 400000, ratePercent: .75, years: 10 });
+assert.deepEqual(mudImpact, { annual: 3000, monthly: 250, fiveYearSimple: 15000, horizonSimple: 30000, years: 10 });
+const homestead = calculateHomesteadSavings({ homeValue: 400000, schoolRatePercent: 1, otherRatePercent: 1.2, schoolExemption: 140000, otherExemption: 0 });
+close(homestead.annualSavings, 1400, 0.001, 'homestead annual savings');
+
 const categoryBudget = calculateCategoryBudgetComparison({ housing: 2000, utilities: 300 }, { housing: 2300, utilities: 350 });
 assert.deepEqual(categoryBudget, { currentMonthly: 2300, targetMonthly: 2650, monthlyDifference: 350, annualDifference: 4200 });
 
@@ -99,6 +104,8 @@ const componentFiles = [
   'src/components/calculators/MovingCostCalculator.tsx',
   'src/components/calculators/LocalSalaryNeededPage.tsx',
   'src/components/calculators/LocalCostOfLivingPage.tsx',
+  'src/routes/texas-mud-tax-impact-calculator.tsx',
+  'src/routes/texas-homestead-savings-calculator.tsx',
 ];
 for (const file of componentFiles) {
   const source = fs.readFileSync(file, 'utf8');
