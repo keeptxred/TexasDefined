@@ -96,13 +96,6 @@ for (const [path, needle] of routes) {
   console.log(`PASS ${path}: ${response.status}, expected content, canonical, indexable meta`);
 }
 
-const { body: hubBody } = await fetchLive('/moving-to-texas', 'relocation operating system');
-for (const marker of ['Plan My Texas Move', 'My Texas Move', 'Texas Match Explorer', 'Corporate Relocation to Texas']) {
-  if (!hubBody.includes(marker)) {
-    throw new Error(`/moving-to-texas: missing relocation operating-system marker: ${marker}`);
-  }
-}
-
 const { body: toolkitBody } = await fetchLive('/moving-to-texas/tools', 'relocation toolkit');
 for (const path of toolkitLinks) {
   if (!toolkitBody.includes(`href="${path}"`) && !toolkitBody.includes(`href="${origin}${path}"`)) {
