@@ -1,18 +1,222 @@
-import { useMemo, useState, type ReactNode } from 'react';
+import { useMemo, useState } from 'react';
 
-const money = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(Number.isFinite(value) ? value : 0);
-const n = (value: unknown) => Math.max(0, Number(value) || 0);
-function Field({ label, value, onChange, step = 1, suffix }: { label: string; value: number; onChange: (value: number) => void; step?: number; suffix?: string }) { return <label className="block border-t border-border pt-4"><span className="text-sm font-semibold">{label}</span><div className="flex items-center border-b border-border focus-within:border-primary"><input className="w-full bg-transparent px-0 py-3 text-lg outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background" type="number" min="0" step={step} value={value} onChange={(e) => onChange(n(e.target.value))}/>{suffix ? <span className="pl-3 text-sm text-muted-foreground">{suffix}</span> : null}</div></label>; }
-function Shell({ children, note }: { children: ReactNode; note: string }) { return <><section className="mt-10 grid gap-5 border-y border-border py-7 sm:grid-cols-2 lg:grid-cols-3">{children}</section><p className="mt-6 border-b border-border pb-6 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">A good starting point.</strong> {note}</p></>; }
-function Results({ values }: { values: Array<[string, string]> }) { return <section className="mt-8" aria-live="polite" aria-atomic="true"><h2 className="sr-only">Updated estimate</h2><dl className="grid sm:grid-cols-2 lg:grid-cols-3">{values.map(([label,value], index) => <div key={label} className={`border-b border-border py-5 sm:px-5 ${index ? 'sm:border-l sm:border-border' : ''}`}><dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{label}</dt><dd className="mt-2 font-display text-3xl font-bold text-primary">{value}</dd></div>)}</dl></section>; }
+import {
+  AdvancedInputs,
+  CurrencyInput,
+  FinancialCalculatorScaffold,
+  FinancialInput,
+  PercentageInput,
+  formatCalculatorMoney,
+  readCalculatorUrlState,
+} from '@/components/calculators/FinancialCalculatorUI';
+import { estimateClosingCosts } from '@/lib/financial/closingCosts';
+import { estimateHomeownership } from '@/lib/financial/homeownership';
+import {
+  estimateBudget,
+  estimateDownPayment,
+  estimateDownPaymentAssistance,
+  estimateHomeEquity,
+  estimateHomeEquityGrowth,
+  estimateMortgagePayoff,
+  estimateRefinance,
+  estimateSalaryComparison,
+} from '@/lib/financial/household';
 
-export function DownPaymentCalculator(){ const [price,setPrice]=useState(400000),[percent,setPercent]=useState(20),[closing,setClosing]=useState(3),[reserve,setReserve]=useState(10000); const r=useMemo(()=>{const down=price*percent/100,costs=price*closing/100;return{down,costs,total:down+costs+reserve,loan:Math.max(0,price-down)}},[price,percent,closing,reserve]); return <><Shell note="Your final cash needed may also include lender credits, prepaid taxes and insurance, earnest money and program rules."><Field label="Home price" value={price} onChange={setPrice} step={1000}/><Field label="Down payment" value={percent} onChange={setPercent} step={0.5} suffix="%"/><Field label="Closing costs" value={closing} onChange={setClosing} step={0.1} suffix="%"/><Field label="Emergency cushion" value={reserve} onChange={setReserve} step={500}/></Shell><Results values={[["Down payment",money(r.down)],["Closing costs",money(r.costs)],["Estimated cash needed",money(r.total)],["Estimated loan",money(r.loan)]]}/></> }
-export function ClosingCostCalculator(){ const [price,setPrice]=useState(400000),[buyer,setBuyer]=useState(3),[seller,setSeller]=useState(7),[credits,setCredits]=useState(0); const r=useMemo(()=>({buyer:Math.max(0,price*buyer/100-credits),seller:Math.max(0,price*seller/100+credits),net:Math.max(0,price-price*seller/100-credits)}),[price,buyer,seller,credits]); return <><Shell note="Title, lender, survey, appraisal, prepaid bills, negotiated credits and agent charges vary by sale and contract."><Field label="Sale price" value={price} onChange={setPrice} step={1000}/><Field label="Buyer cost estimate" value={buyer} onChange={setBuyer} step={0.1} suffix="%"/><Field label="Seller cost estimate" value={seller} onChange={setSeller} step={0.1} suffix="%"/><Field label="Seller credits for the buyer" value={credits} onChange={setCredits} step={500}/></Shell><Results values={[["Buyer costs after credits",money(r.buyer)],["Seller costs including credits",money(r.seller)],["Seller amount before loan payoff",money(r.net)]]}/></> }
-export function HomeEquityCalculator(){ const [value,setValue]=useState(500000),[balance,setBalance]=useState(280000),[maxLtv,setMaxLtv]=useState(80); const r=useMemo(()=>({equity:Math.max(0,value-balance),ltv:value?balance/value*100:0,available:Math.max(0,value*maxLtv/100-balance)}),[value,balance,maxLtv]); return <><Shell note="What you can actually borrow depends on lender approval, Texas homestead rules, other loans tied to the home, closing costs and product limits."><Field label="Estimated home value" value={value} onChange={setValue} step={1000}/><Field label="Total owed on the home" value={balance} onChange={setBalance} step={1000}/><Field label="Maximum share of home value that can be owed" value={maxLtv} onChange={setMaxLtv} step={1} suffix="%"/></Shell><Results values={[["Current equity",money(r.equity)],["Share of home value still owed",r.ltv.toFixed(1)+'%'],["Possible equity available to borrow",money(r.available)]]}/></> }
-export function HomeEquityGrowthCalculator(){ const [value,setValue]=useState(400000),[balance,setBalance]=useState(320000),[appreciation,setAppreciation]=useState(3),[annualPaydown,setAnnualPaydown]=useState(6000),[years,setYears]=useState(10); const r=useMemo(()=>{const future=value*Math.pow(1+appreciation/100,years),loan=Math.max(0,balance-annualPaydown*years);return{future,loan,equity:future-loan,growth:future-loan-(value-balance)}},[value,balance,appreciation,annualPaydown,years]); return <><Shell note="Home values and loan balances can change. This quick estimate does not follow your exact payment schedule or include selling costs."><Field label="Current home value" value={value} onChange={setValue} step={1000}/><Field label="Current loan balance" value={balance} onChange={setBalance} step={1000}/><Field label="Expected yearly home-value growth" value={appreciation} onChange={setAppreciation} step={0.1} suffix="%"/><Field label="Loan balance paid down each year" value={annualPaydown} onChange={setAnnualPaydown} step={500}/><Field label="Years ahead" value={years} onChange={setYears} suffix="years"/></Shell><Results values={[["Future home value",money(r.future)],["Estimated loan balance",money(r.loan)],["Estimated equity",money(r.equity)],["Equity gained",money(r.growth)]]}/></> }
-export function MortgagePayoffCalculator(){ const [balance,setBalance]=useState(300000),[rate,setRate]=useState(6.5),[payment,setPayment]=useState(2000),[extra,setExtra]=useState(300); const r=useMemo(()=>{const monthly=rate/1200,total=payment+extra;if(total<=balance*monthly)return{months:Infinity,interest:Infinity};let b=balance,months=0,interest=0;while(b>0&&months<1200){const i=b*monthly;interest+=i;b=Math.max(0,b+i-total);months++}return{months,interest}},[balance,rate,payment,extra]); return <><Shell note="Taxes and insurance are not included. Check for early-payoff restrictions and make sure extra money is applied directly to the loan balance."><Field label="Loan balance" value={balance} onChange={setBalance} step={1000}/><Field label="Interest rate" value={rate} onChange={setRate} step={0.01} suffix="%"/><Field label="Regular loan payment" value={payment} onChange={setPayment} step={50}/><Field label="Extra amount paid each month" value={extra} onChange={setExtra} step={50}/></Shell><Results values={[["Estimated payoff",Number.isFinite(r.months)?`${Math.floor(r.months/12)} yr ${r.months%12} mo`:'Payment too low'],["Estimated interest still to pay",Number.isFinite(r.interest)?money(r.interest):'Payment too low']]}/></> }
-export function RefinanceCalculator(){ const [balance,setBalance]=useState(300000),[oldRate,setOldRate]=useState(7),[newRate,setNewRate]=useState(6),[years,setYears]=useState(30),[costs,setCosts]=useState(7000); const p=(rate:number)=>{const m=rate/1200,k=Math.pow(1+m,years*12);return m?balance*m*k/(k-1):balance/(years*12)}; const r=useMemo(()=>{const oldP=p(oldRate),newP=p(newRate),save=oldP-newP;return{oldP,newP,save,breakEven:save>0?costs/save:Infinity}},[balance,oldRate,newRate,years,costs]); return <><Shell note="Compare the true yearly cost of the loan, a restarted loan term, cash needed at closing, taxes and insurance, mortgage insurance and total interest—not just the monthly payment."><Field label="Loan balance" value={balance} onChange={setBalance} step={1000}/><Field label="Current rate" value={oldRate} onChange={setOldRate} step={0.01} suffix="%"/><Field label="New rate" value={newRate} onChange={setNewRate} step={0.01} suffix="%"/><Field label="New loan length" value={years} onChange={setYears} suffix="years"/><Field label="Refinance costs" value={costs} onChange={setCosts} step={500}/></Shell><Results values={[["Current payment",money(r.oldP)+'/mo'],["New payment",money(r.newP)+'/mo'],["Monthly savings",money(r.save)],["Months until savings cover the refinance cost",Number.isFinite(r.breakEven)?`${Math.ceil(r.breakEven)} months`:'No savings']]}/></> }
-export function HomeownershipCostCalculator(){ const [mortgage,setMortgage]=useState(2400),[taxes,setTaxes]=useState(700),[insurance,setInsurance]=useState(250),[hoa,setHoa]=useState(100),[maintenance,setMaintenance]=useState(400),[utilities,setUtilities]=useState(350); const total=mortgage+taxes+insurance+hoa+maintenance+utilities; return <><Shell note="Add special assessments, local district charges, flood or wind coverage, repairs and larger home projects when they apply."><Field label="Mortgage" value={mortgage} onChange={setMortgage}/><Field label="Property taxes" value={taxes} onChange={setTaxes}/><Field label="Insurance" value={insurance} onChange={setInsurance}/><Field label="HOA and other fees" value={hoa} onChange={setHoa}/><Field label="Maintenance cushion" value={maintenance} onChange={setMaintenance}/><Field label="Utilities" value={utilities} onChange={setUtilities}/></Shell><Results values={[["Monthly ownership cost",money(total)],["Annual ownership cost",money(total*12)]]}/></> }
-export function BudgetCalculator(){ const [income,setIncome]=useState(7000),[housing,setHousing]=useState(2400),[transport,setTransport]=useState(900),[food,setFood]=useState(900),[utilities,setUtilities]=useState(450),[debt,setDebt]=useState(600),[savings,setSavings]=useState(700); const spent=housing+transport+food+utilities+debt+savings,remaining=income-spent; return <><Shell note="Use your real take-home income and remember irregular bills, healthcare, childcare, insurance, taxes and annual expenses."><Field label="Monthly take-home income" value={income} onChange={setIncome}/><Field label="Housing" value={housing} onChange={setHousing}/><Field label="Transportation" value={transport} onChange={setTransport}/><Field label="Food" value={food} onChange={setFood}/><Field label="Utilities" value={utilities} onChange={setUtilities}/><Field label="Debt payments" value={debt} onChange={setDebt}/><Field label="Savings goal" value={savings} onChange={setSavings}/></Shell><Results values={[["Planned spending",money(spent)],["Left over",money(remaining)],["Share of income going to savings",income?(savings/income*100).toFixed(1)+'%':'0%']]}/></> }
-export function DownPaymentAssistanceCalculator(){ const [price,setPrice]=useState(300000),[required,setRequired]=useState(3.5),[assistance,setAssistance]=useState(4),[closing,setClosing]=useState(3),[cash,setCash]=useState(15000); const r=useMemo(()=>{const down=price*required/100,aid=price*assistance/100,costs=price*closing/100,total=down+costs,remaining=Math.max(0,total-aid-cash);return{down,aid,costs,total,remaining}},[price,required,assistance,closing,cash]); return <><Shell note="Programs can have income, credit, property, occupancy, lender, repayment and location requirements. This estimate cannot determine eligibility."><Field label="Home price" value={price} onChange={setPrice} step={1000}/><Field label="Required down payment" value={required} onChange={setRequired} step={0.1} suffix="%"/><Field label="Possible assistance" value={assistance} onChange={setAssistance} step={0.1} suffix="%"/><Field label="Closing costs" value={closing} onChange={setClosing} step={0.1} suffix="%"/><Field label="Cash you have available" value={cash} onChange={setCash} step={500}/></Shell><Results values={[["Required down payment",money(r.down)],["Potential assistance",money(r.aid)],["Estimated closing costs",money(r.costs)],["Total cash needed",money(r.total)],["Remaining cash gap",money(r.remaining)]]}/></> }
-export function SalaryComparisonCalculator(){ const [salary,setSalary]=useState(90000),[currentIndex,setCurrentIndex]=useState(100),[targetIndex,setTargetIndex]=useState(92); const equivalent=salary*targetIndex/Math.max(1,currentIndex); return <><Shell note="Cost indexes are broad estimates and cannot capture taxes, benefits, housing choices, commutes, family size or personal spending."><Field label="Current salary" value={salary} onChange={setSalary} step={1000}/><Field label="Current city cost index" value={currentIndex} onChange={setCurrentIndex} step={0.1}/><Field label="Target city cost index" value={targetIndex} onChange={setTargetIndex} step={0.1}/></Shell><Results values={[["Comparable target salary",money(equivalent)],["Salary difference",money(equivalent-salary)],["Change in what your salary can buy",currentIndex?((currentIndex/Math.max(1,targetIndex)-1)*100).toFixed(1)+'%':'0%']]}/></> }
+const money = formatCalculatorMoney;
+
+export function DownPaymentCalculator() {
+  const defaults = { price: 400000, percent: 20, closing: 3, reserve: 10000 };
+  const [state, setState] = useState(() => readCalculatorUrlState(defaults));
+  const set = (key: keyof typeof state, value: number) => setState((current) => ({ ...current, [key]: value }));
+  const r = useMemo(() => estimateDownPayment({ homePrice: state.price, downPaymentPercent: state.percent, closingCostPercent: state.closing, reserve: state.reserve }), [state]);
+  return <FinancialCalculatorScaffold storageKey="texasdefined:down-payment-calculator" state={state} defaults={defaults} onRestore={setState}
+    note="Your final cash needed may also include lender credits, prepaid taxes and insurance, earnest money and program rules."
+    issues={r.issues}
+    results={[{ label: 'Estimated cash needed', value: money(r.cashNeeded), emphasis: true }, { label: 'Down payment', value: money(r.downPayment) }, { label: 'Closing costs', value: money(r.closingCosts) }, { label: 'Estimated loan', value: money(r.loanAmount) }]}
+    summary={{ 'Cash needed': money(r.cashNeeded), 'Down payment': money(r.downPayment), 'Loan amount': money(r.loanAmount) }}
+    breakdown={[{ label: 'Down payment', value: r.downPayment }, { label: 'Closing costs', value: r.closingCosts }, { label: 'Emergency cushion', value: state.reserve }]}
+    methodology={{ formula: 'Cash needed equals down payment plus estimated closing costs plus the reserve you choose to keep available.', assumptions: ['Down payment and closing costs are percentages of home price.', 'Prepaids, credits and program-specific requirements may change final cash to close.'] }}>
+    <CurrencyInput label="Home price" value={state.price} onChange={(v) => set('price', v)} step={1000}/>
+    <PercentageInput label="Down payment" value={state.percent} onChange={(v) => set('percent', v)} step={0.5} max={100}/>
+    <PercentageInput label="Closing costs" value={state.closing} onChange={(v) => set('closing', v)} step={0.1} max={20}/>
+    <CurrencyInput label="Emergency cushion" value={state.reserve} onChange={(v) => set('reserve', v)} step={500}/>
+  </FinancialCalculatorScaffold>;
+}
+
+export function ClosingCostCalculator() {
+  const defaults = { price: 400000, buyer: 3, seller: 7, credits: 0, prepaids: 0 };
+  const [state, setState] = useState(() => readCalculatorUrlState(defaults));
+  const set = (key: keyof typeof state, value: number) => setState((current) => ({ ...current, [key]: value }));
+  const r = useMemo(() => estimateClosingCosts({ salePrice: state.price, buyerCostPercent: state.buyer, sellerCostPercent: state.seller, sellerCredits: state.credits, buyerPrepaids: state.prepaids }), [state]);
+  return <FinancialCalculatorScaffold storageKey="texasdefined:closing-cost-calculator" state={state} defaults={defaults} onRestore={setState}
+    note="Title, lender, survey, appraisal, prepaid bills, negotiated credits and agent charges vary by sale and contract."
+    issues={r.issues}
+    results={[{ label: 'Buyer costs after credits', value: money(r.buyerCostsAfterCredits), emphasis: true }, { label: 'Buyer costs before credits', value: money(r.buyerCostsBeforeCredits) }, { label: 'Seller costs including credits', value: money(r.sellerCosts) }, { label: 'Seller amount before loan payoff', value: money(r.sellerNetBeforeLoanPayoff) }]}
+    summary={{ 'Buyer after credits': money(r.buyerCostsAfterCredits), 'Seller costs': money(r.sellerCosts), 'Sale price': money(state.price) }}
+    methodology={{ formula: 'Buyer and seller planning costs are calculated separately from the sale price. Seller credits reduce eligible buyer costs and increase seller outflow.', assumptions: ['Percentage inputs are planning assumptions, not a settlement statement.', 'Prepaids are modeled separately from percentage closing-cost estimates.'] }}>
+    <CurrencyInput label="Sale price" value={state.price} onChange={(v) => set('price', v)} step={1000}/>
+    <PercentageInput label="Buyer cost estimate" value={state.buyer} onChange={(v) => set('buyer', v)} step={0.1} max={20}/>
+    <PercentageInput label="Seller cost estimate" value={state.seller} onChange={(v) => set('seller', v)} step={0.1} max={20}/>
+    <CurrencyInput label="Seller credits for the buyer" value={state.credits} onChange={(v) => set('credits', v)} step={500}/>
+    <CurrencyInput label="Buyer prepaids / escrow setup" value={state.prepaids} onChange={(v) => set('prepaids', v)} step={500}/>
+  </FinancialCalculatorScaffold>;
+}
+
+export function HomeEquityCalculator() {
+  const defaults = { value: 500000, balance: 280000, maxLtv: 80 };
+  const [state, setState] = useState(() => readCalculatorUrlState(defaults));
+  const set = (key: keyof typeof state, value: number) => setState((current) => ({ ...current, [key]: value }));
+  const r = useMemo(() => estimateHomeEquity({ homeValue: state.value, loanBalance: state.balance, maxLtvPercent: state.maxLtv }), [state]);
+  return <FinancialCalculatorScaffold storageKey="texasdefined:home-equity-calculator" state={state} defaults={defaults} onRestore={setState}
+    note="What you can actually borrow depends on lender approval, Texas homestead rules, other loans tied to the home, closing costs and product limits."
+    issues={r.issues}
+    results={[{ label: 'Current equity', value: money(r.equity), emphasis: true }, { label: 'Share of home value still owed', value: r.ltvPercent.toFixed(1) + '%' }, { label: 'Possible equity available to borrow', value: money(r.availableEquity) }]}
+    summary={{ 'Current equity': money(r.equity), 'LTV': r.ltvPercent.toFixed(1) + '%', 'Possible available equity': money(r.availableEquity) }}
+    methodology={{ formula: 'Current equity is home value minus debt. Possible available equity is the selected maximum loan-to-value amount minus current debt.', assumptions: ['This does not determine legal or lender eligibility.', 'Home value and loan balance should be updated with the best current information available.'] }}>
+    <CurrencyInput label="Estimated home value" value={state.value} onChange={(v) => set('value', v)} step={1000}/>
+    <CurrencyInput label="Total owed on the home" value={state.balance} onChange={(v) => set('balance', v)} step={1000}/>
+    <PercentageInput label="Maximum share of home value that can be owed" value={state.maxLtv} onChange={(v) => set('maxLtv', v)} step={1} max={100}/>
+  </FinancialCalculatorScaffold>;
+}
+
+export function HomeEquityGrowthCalculator() {
+  const defaults = { value: 400000, balance: 320000, appreciation: 3, annualPaydown: 6000, years: 10 };
+  const [state, setState] = useState(() => readCalculatorUrlState(defaults));
+  const set = (key: keyof typeof state, value: number) => setState((current) => ({ ...current, [key]: value }));
+  const r = useMemo(() => estimateHomeEquityGrowth({ homeValue: state.value, loanBalance: state.balance, annualAppreciationPercent: state.appreciation, annualPaydown: state.annualPaydown, years: state.years }), [state]);
+  return <FinancialCalculatorScaffold storageKey="texasdefined:home-equity-growth-calculator" state={state} defaults={defaults} onRestore={setState}
+    note="Home values and loan balances can change. This quick estimate uses an annual paydown input rather than your exact amortization schedule and does not include selling costs."
+    issues={r.issues}
+    results={[{ label: 'Estimated equity', value: money(r.futureEquity), emphasis: true }, { label: 'Future home value', value: money(r.futureHomeValue) }, { label: 'Estimated loan balance', value: money(r.futureLoanBalance) }, { label: 'Equity gained', value: money(r.equityGained) }]}
+    summary={{ 'Future equity': money(r.futureEquity), 'Equity gained': money(r.equityGained), 'Years': String(state.years) }}
+    methodology={{ formula: 'Home value compounds at the entered annual appreciation rate while the loan balance falls by the entered annual paydown amount.', assumptions: ['This is a simplified planning model, not an exact mortgage amortization schedule.', 'Future appreciation is uncertain.'] }}>
+    <CurrencyInput label="Current home value" value={state.value} onChange={(v) => set('value', v)} step={1000}/>
+    <CurrencyInput label="Current loan balance" value={state.balance} onChange={(v) => set('balance', v)} step={1000}/>
+    <PercentageInput label="Expected yearly home-value growth" value={state.appreciation} onChange={(v) => set('appreciation', v)} step={0.1}/>
+    <CurrencyInput label="Loan balance paid down each year" value={state.annualPaydown} onChange={(v) => set('annualPaydown', v)} step={500}/>
+    <FinancialInput label="Years ahead" value={state.years} onChange={(v) => set('years', v)} suffix="years" min={0} max={50}/>
+  </FinancialCalculatorScaffold>;
+}
+
+export function MortgagePayoffCalculator() {
+  const defaults = { balance: 300000, rate: 6.5, payment: 2000, extra: 300 };
+  const [state, setState] = useState(() => readCalculatorUrlState(defaults));
+  const set = (key: keyof typeof state, value: number) => setState((current) => ({ ...current, [key]: value }));
+  const r = useMemo(() => estimateMortgagePayoff({ loanBalance: state.balance, annualInterestRate: state.rate, regularPayment: state.payment, extraPayment: state.extra }), [state]);
+  const payoff = Number.isFinite(r.payoffMonths) ? Math.floor(r.payoffMonths / 12) + ' yr ' + (r.payoffMonths % 12) + ' mo' : 'Payment too low';
+  return <FinancialCalculatorScaffold storageKey="texasdefined:mortgage-payoff-calculator" state={state} defaults={defaults} onRestore={setState}
+    note="Taxes and insurance are not included. Check for early-payoff restrictions and make sure extra money is applied directly to principal."
+    issues={r.issues}
+    results={[{ label: 'Estimated payoff', value: payoff, emphasis: true }, { label: 'Estimated interest still to pay', value: Number.isFinite(r.interestPaid) ? money(r.interestPaid) : 'Payment too low' }, { label: 'Total monthly principal/interest payment', value: money(state.payment + state.extra) }]}
+    summary={{ 'Estimated payoff': payoff, 'Interest remaining': Number.isFinite(r.interestPaid) ? money(r.interestPaid) : 'Payment too low' }}
+    methodology={{ formula: 'Each month the model adds interest to the remaining balance and subtracts the regular plus extra payment until the loan reaches zero.', assumptions: ['The interest rate remains fixed.', 'Taxes, insurance and servicing changes are outside this payoff model.'] }}>
+    <CurrencyInput label="Loan balance" value={state.balance} onChange={(v) => set('balance', v)} step={1000}/>
+    <PercentageInput label="Interest rate" value={state.rate} onChange={(v) => set('rate', v)} step={0.01} max={30}/>
+    <CurrencyInput label="Regular loan payment" value={state.payment} onChange={(v) => set('payment', v)} step={50}/>
+    <CurrencyInput label="Extra amount paid each month" value={state.extra} onChange={(v) => set('extra', v)} step={50}/>
+  </FinancialCalculatorScaffold>;
+}
+
+export function RefinanceCalculator() {
+  const defaults = { balance: 300000, oldRate: 7, newRate: 6, years: 30, costs: 7000 };
+  const [state, setState] = useState(() => readCalculatorUrlState(defaults));
+  const set = (key: keyof typeof state, value: number) => setState((current) => ({ ...current, [key]: value }));
+  const r = useMemo(() => estimateRefinance({ loanBalance: state.balance, currentRate: state.oldRate, newRate: state.newRate, newTermYears: state.years, refinanceCosts: state.costs }), [state]);
+  const breakEven = Number.isFinite(r.breakEvenMonths) ? Math.ceil(r.breakEvenMonths) + ' months' : 'No monthly savings';
+  return <FinancialCalculatorScaffold storageKey="texasdefined:refinance-calculator" state={state} defaults={defaults} onRestore={setState}
+    note="Compare total loan cost, a restarted term, cash needed at closing, taxes, insurance and mortgage insurance—not just the monthly payment."
+    issues={r.issues}
+    results={[{ label: 'Monthly savings', value: money(r.monthlySavings), emphasis: true }, { label: 'Current payment', value: money(r.currentPayment) + '/mo' }, { label: 'New payment', value: money(r.newPayment) + '/mo' }, { label: 'Months until savings cover refinance cost', value: breakEven }]}
+    summary={{ 'Monthly savings': money(r.monthlySavings), 'Break-even': breakEven, 'New payment': money(r.newPayment) + '/mo' }}
+    methodology={{ formula: 'Both current and proposed payments use the same canonical fixed-rate mortgage engine. Break-even divides refinance costs by positive monthly payment savings.', assumptions: ['The comparison uses the same entered remaining balance and selected new term for payment comparison.', 'Taxes, insurance, mortgage insurance and changes in loan term economics must be reviewed separately.'] }}>
+    <CurrencyInput label="Loan balance" value={state.balance} onChange={(v) => set('balance', v)} step={1000}/>
+    <PercentageInput label="Current rate" value={state.oldRate} onChange={(v) => set('oldRate', v)} step={0.01} max={30}/>
+    <PercentageInput label="New rate" value={state.newRate} onChange={(v) => set('newRate', v)} step={0.01} max={30}/>
+    <FinancialInput label="New loan length" value={state.years} onChange={(v) => set('years', v)} suffix="years" min={1} max={50}/>
+    <CurrencyInput label="Refinance costs" value={state.costs} onChange={(v) => set('costs', v)} step={500}/>
+  </FinancialCalculatorScaffold>;
+}
+
+export function HomeownershipCostCalculator() {
+  const defaults = { mortgage: 2400, taxes: 700, insurance: 250, mortgageInsurance: 0, hoa: 100, specialDistrict: 0, maintenance: 400, utilities: 350, poolLandscape: 0 };
+  const [state, setState] = useState(() => readCalculatorUrlState(defaults));
+  const set = (key: keyof typeof state, value: number) => setState((current) => ({ ...current, [key]: value }));
+  const r = useMemo(() => estimateHomeownership({ mortgagePrincipalInterest: state.mortgage, propertyTaxes: state.taxes, homeownersInsurance: state.insurance, mortgageInsurance: state.mortgageInsurance, hoaFees: state.hoa, specialDistrictCosts: state.specialDistrict, maintenance: state.maintenance, utilities: state.utilities, poolLandscape: state.poolLandscape }), [state]);
+  return <FinancialCalculatorScaffold storageKey="texasdefined:homeownership-basic" state={state} defaults={defaults} onRestore={setState}
+    note="Add special assessments, local district charges, flood or wind coverage, repairs and larger home projects when they apply."
+    issues={r.issues}
+    results={[{ label: 'Monthly ownership cost', value: money(r.monthlyOwnership), emphasis: true }, { label: 'Annual ownership cost', value: money(r.annualOwnership) }, { label: 'Housing payment before maintenance/utilities', value: money(r.monthlyHousing) }]}
+    summary={{ 'Monthly ownership': money(r.monthlyOwnership), 'Annual ownership': money(r.annualOwnership) }}
+    breakdown={r.breakdown}
+    methodology={{ formula: 'The shared homeownership engine totals recurring financing, tax, insurance, association, district, maintenance, utility and optional pool/landscape inputs.', assumptions: ['All inputs are monthly planning amounts.', 'One-time repairs and capital projects are not automatically included.'] }}>
+    <CurrencyInput label="Mortgage" value={state.mortgage} onChange={(v) => set('mortgage', v)}/>
+    <CurrencyInput label="Property taxes" value={state.taxes} onChange={(v) => set('taxes', v)}/>
+    <CurrencyInput label="Insurance" value={state.insurance} onChange={(v) => set('insurance', v)}/>
+    <CurrencyInput label="HOA and other fees" value={state.hoa} onChange={(v) => set('hoa', v)}/>
+    <CurrencyInput label="Maintenance cushion" value={state.maintenance} onChange={(v) => set('maintenance', v)}/>
+    <CurrencyInput label="Utilities" value={state.utilities} onChange={(v) => set('utilities', v)}/>
+    <div className="sm:col-span-2 lg:col-span-3"><AdvancedInputs>
+      <CurrencyInput label="Mortgage insurance / PMI" value={state.mortgageInsurance} onChange={(v) => set('mortgageInsurance', v)}/>
+      <CurrencyInput label="MUD/PID/special-district costs" value={state.specialDistrict} onChange={(v) => set('specialDistrict', v)}/>
+      <CurrencyInput label="Pool / landscaping" value={state.poolLandscape} onChange={(v) => set('poolLandscape', v)}/>
+    </AdvancedInputs></div>
+  </FinancialCalculatorScaffold>;
+}
+
+export function BudgetCalculator() {
+  const defaults = { income: 7000, housing: 2400, transport: 900, food: 900, utilities: 450, debt: 600, savings: 700 };
+  const [state, setState] = useState(() => readCalculatorUrlState(defaults));
+  const set = (key: keyof typeof state, value: number) => setState((current) => ({ ...current, [key]: value }));
+  const r = useMemo(() => estimateBudget({ monthlyIncome: state.income, housing: state.housing, transportation: state.transport, food: state.food, utilities: state.utilities, debt: state.debt, savings: state.savings }), [state]);
+  return <FinancialCalculatorScaffold storageKey="texasdefined:budget-planner" state={state} defaults={defaults} onRestore={setState}
+    note="Use your real take-home income and remember irregular bills, healthcare, childcare, insurance, taxes and annual expenses."
+    issues={r.issues}
+    results={[{ label: 'Left over', value: money(r.remaining), emphasis: true }, { label: 'Planned spending', value: money(r.plannedSpending) }, { label: 'Share of income going to savings', value: r.savingsRatePercent.toFixed(1) + '%' }]}
+    summary={{ 'Left over': money(r.remaining), 'Planned spending': money(r.plannedSpending), 'Savings rate': r.savingsRatePercent.toFixed(1) + '%' }}
+    breakdown={[{ label: 'Housing', value: state.housing }, { label: 'Transportation', value: state.transport }, { label: 'Food', value: state.food }, { label: 'Utilities', value: state.utilities }, { label: 'Debt payments', value: state.debt }, { label: 'Savings', value: state.savings }]}
+    methodology={{ formula: 'The budget adds planned monthly spending categories and subtracts them from monthly take-home income.', assumptions: ['Savings is treated as a planned use of cash.', 'Irregular annual costs should be converted to a monthly allowance and added to the appropriate category.'] }}>
+    <CurrencyInput label="Monthly take-home income" value={state.income} onChange={(v) => set('income', v)}/>
+    <CurrencyInput label="Housing" value={state.housing} onChange={(v) => set('housing', v)}/>
+    <CurrencyInput label="Transportation" value={state.transport} onChange={(v) => set('transport', v)}/>
+    <CurrencyInput label="Food" value={state.food} onChange={(v) => set('food', v)}/>
+    <CurrencyInput label="Utilities" value={state.utilities} onChange={(v) => set('utilities', v)}/>
+    <CurrencyInput label="Debt payments" value={state.debt} onChange={(v) => set('debt', v)}/>
+    <CurrencyInput label="Savings goal" value={state.savings} onChange={(v) => set('savings', v)}/>
+  </FinancialCalculatorScaffold>;
+}
+
+export function DownPaymentAssistanceCalculator() {
+  const defaults = { price: 300000, required: 3.5, assistance: 4, closing: 3, cash: 15000 };
+  const [state, setState] = useState(() => readCalculatorUrlState(defaults));
+  const set = (key: keyof typeof state, value: number) => setState((current) => ({ ...current, [key]: value }));
+  const r = useMemo(() => estimateDownPaymentAssistance({ homePrice: state.price, requiredDownPercent: state.required, assistancePercent: state.assistance, closingCostPercent: state.closing, cashAvailable: state.cash }), [state]);
+  return <FinancialCalculatorScaffold storageKey="texasdefined:down-payment-assistance-calculator" state={state} defaults={defaults} onRestore={setState}
+    note="Programs can have income, credit, property, occupancy, lender, repayment and location requirements. This estimate cannot determine eligibility."
+    issues={r.issues}
+    results={[{ label: 'Remaining cash gap', value: money(r.remainingCashGap), emphasis: true }, { label: 'Required down payment', value: money(r.requiredDown) }, { label: 'Potential assistance', value: money(r.assistance) }, { label: 'Estimated closing costs', value: money(r.closingCosts) }, { label: 'Total cash needed', value: money(r.totalCashNeed) }]}
+    summary={{ 'Remaining cash gap': money(r.remainingCashGap), 'Potential assistance': money(r.assistance), 'Total cash needed': money(r.totalCashNeed) }}
+    methodology={{ formula: 'The model compares required down payment plus estimated closing costs against entered assistance and cash available.', assumptions: ['Assistance is modeled as a percentage of home price for planning only.', 'Program eligibility, repayability and lender rules are not determined here.'] }}>
+    <CurrencyInput label="Home price" value={state.price} onChange={(v) => set('price', v)} step={1000}/>
+    <PercentageInput label="Required down payment" value={state.required} onChange={(v) => set('required', v)} step={0.1} max={100}/>
+    <PercentageInput label="Possible assistance" value={state.assistance} onChange={(v) => set('assistance', v)} step={0.1} max={100}/>
+    <PercentageInput label="Closing costs" value={state.closing} onChange={(v) => set('closing', v)} step={0.1} max={20}/>
+    <CurrencyInput label="Cash you have available" value={state.cash} onChange={(v) => set('cash', v)} step={500}/>
+  </FinancialCalculatorScaffold>;
+}
+
+export function SalaryComparisonCalculator() {
+  const defaults = { salary: 90000, currentIndex: 100, targetIndex: 92 };
+  const [state, setState] = useState(() => readCalculatorUrlState(defaults));
+  const set = (key: keyof typeof state, value: number) => setState((current) => ({ ...current, [key]: value }));
+  const r = useMemo(() => estimateSalaryComparison({ salary: state.salary, currentIndex: state.currentIndex, targetIndex: state.targetIndex }), [state]);
+  return <FinancialCalculatorScaffold storageKey="texasdefined:salary-comparison-calculator" state={state} defaults={defaults} onRestore={setState}
+    note="Cost indexes are broad estimates and cannot capture taxes, benefits, housing choices, commutes, family size or personal spending."
+    issues={r.issues}
+    results={[{ label: 'Comparable target salary', value: money(r.comparableSalary), emphasis: true }, { label: 'Salary difference', value: money(r.salaryDifference) }, { label: 'Change in what your salary can buy', value: r.purchasingPowerChangePercent.toFixed(1) + '%' }]}
+    summary={{ 'Comparable salary': money(r.comparableSalary), 'Salary difference': money(r.salaryDifference) }}
+    methodology={{ formula: 'The salary comparison scales current salary by the ratio between target and current cost indexes.', assumptions: ['Cost indexes are broad comparison inputs.', 'Taxes, benefits and household-specific spending are not inferred.'] }}>
+    <CurrencyInput label="Current salary" value={state.salary} onChange={(v) => set('salary', v)} step={1000}/>
+    <FinancialInput label="Current city cost index" value={state.currentIndex} onChange={(v) => set('currentIndex', v)} step={0.1} min={1}/>
+    <FinancialInput label="Target city cost index" value={state.targetIndex} onChange={(v) => set('targetIndex', v)} step={0.1} min={1}/>
+  </FinancialCalculatorScaffold>;
+}
