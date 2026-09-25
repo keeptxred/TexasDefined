@@ -46,7 +46,7 @@ for (let attempt = 1; attempt <= 6; attempt += 1) {
       lastReason = `HTTP ${response.status}`;
     } else {
       const required = [
-        'Galaxy Stadium | Lubbock, TX',
+        'Jones AT&T Stadium (Now Galaxy Stadium): Texas Tech Guide',
         expectedImage,
         expectedAlt,
         'property="og:image"',
