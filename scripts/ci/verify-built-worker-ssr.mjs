@@ -41,6 +41,7 @@ const smokeTargets = [
   { path: '/fishing/lakes/falcon-international-reservoir', requiredText: 'Falcon International Reservoir', label: 'Falcon complete fishing guide' },
   { path: '/fishing/lakes/lake-travis/fish', requiredText: 'Lake Travis', label: 'Lake Travis shared fish section' },
   { path: '/fishing/plan?species=largemouth-bass&q=Austin&sort=best', requiredText: 'Lake Travis', label: 'wave-2 Austin largemouth finder' },
+  { path: '/texas-state-fair', requiredText: 'Updated September 25, 2026', label: 'State Fair current body' },
 ];
 
 mkdirSync(artifactDir, { recursive: true });
