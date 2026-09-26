@@ -20,6 +20,7 @@ import { williamChrisVineyardsHyeDestinations } from "./william-chris-vineyards-
 import { fredericksburgWineryAuthorityDestinations } from "./fredericksburg-winery-authority-destinations";
 import { hyeTexasDestinations } from "./hye-texas-destination";
 import { houstonGalvestonMuseumDestinations } from "./museum-expansion-houston-galveston";
+import { hoggLegacyDestinations } from "./hogg-legacy-destinations";
 import { sanAntonioMuseumDestinations } from "./museum-expansion-san-antonio";
 import { sanAntonioContemporaryMuseumDestinations } from "./museum-expansion-san-antonio-contemporary";
 import { statewideMuseumExpansionDestinations } from "./museum-expansion-statewide";
@@ -227,6 +228,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   militaryHistoryDestinations,
   militaryMuseumDestinations,
   houstonGalvestonMuseumDestinations,
+  hoggLegacyDestinations,
   dfwMuseumDestinations,
   georgeWBushMuseumDestinations,
   garrisonBrothersHyeDestinations,
