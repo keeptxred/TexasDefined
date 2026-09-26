@@ -12,7 +12,7 @@ const overrideRecords = [...source.matchAll(/^  '([^']+)': \{([\s\S]*?)^  \},/gm
   slug: match[1],
   block: match[2],
 }));
-const fieldValue = (block, field) => block.match(new RegExp(\`\${field}:\\\\s*['"]([^'"]+)['"]\`))?.[1] ?? '';
+const fieldValue = (block, field) => block.match(new RegExp(field + ':\\s*[\'\"]([^\'\"]+)[\'\"]'))?.[1] ?? '';
 
 function cleanHtml(value) {
   return String(value || '')
@@ -31,7 +31,7 @@ function commonsTitleFromSourcePage(url) {
     if (parsed.hostname !== 'commons.wikimedia.org') return null;
     const pathname = decodeURIComponent(parsed.pathname);
     const prefix = '/wiki/File:';
-    return pathname.startsWith(prefix) ? \`File:\${pathname.slice(prefix.length)}\` : null;
+    return pathname.startsWith(prefix) ? 'File:' + pathname.slice(prefix.length) : null;
   } catch {
     return null;
   }
@@ -41,13 +41,12 @@ function licenseFamily(value) {
   const license = cleanHtml(value).toLowerCase().replace(/_/g, ' ');
   if (license.includes('cc0') || license.includes('cc zero')) return 'cc0';
   const bySa = license.match(/cc(?: |-)by(?: |-)?sa(?: |-|_)*(\d+(?:\.\d+)?)/i);
-  if (bySa) return \`cc-by-sa-\${bySa[1]}\`;
+  if (bySa) return 'cc-by-sa-' + bySa[1];
   const by = license.match(/cc(?: |-)by(?: |-|_)*(\d+(?:\.\d+)?)/i);
-  if (by) return \`cc-by-\${by[1]}\`;
+  if (by) return 'cc-by-' + by[1];
   if (license.includes('public domain')) return 'public-domain';
   return license;
 }
-
 async function fetchCommonsMetadata(title) {
   const api = new URL('https://commons.wikimedia.org/w/api.php');
   api.searchParams.set('action', 'query');
