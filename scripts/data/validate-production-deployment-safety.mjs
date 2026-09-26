@@ -98,6 +98,8 @@ requireText(productionSurfaces, "['ima-hogg-authority', '/article/ima-hogg-texas
 requireText(productionSurfaces, "['hogg-family-authority', '/article/hogg-family-texas-legacy', 'The Hogg Family in Texas: Politics, Oil, Philanthropy and Preservation']", 'Hogg family live authority check');
 requireText(productionSurfaces, "['texas-history-hogg-family-discovery', '/texas-history', 'The Hogg family in Texas']", 'Hogg family Texas History discovery check');
 requireText(productionSurfaces, `['texas-history-ima-hogg-discovery', '/texas-history', "Ima Hogg's Texas legacy"]`, 'Ima Hogg Texas History discovery check');
+requireText(productionSurfaces, 'function decodeHtmlText(value)', 'production surface HTML entity decoder');
+requireText(productionSurfaces, 'lastBody.includes(needle) || decodedBody.includes(needle)', 'production surface rendered-text matching');
 for (const marker of [
   "['painted-churches-round2-lacoste', '/explore/painted-churches/lacoste-our-lady-of-grace', 'Documented decoration campaign']",
   "['painted-churches-round2-panna-maria', '/explore/painted-churches/panna-maria-immaculate-conception', '12,000-piece mosaic of the Virgin of Częstochowa']",
