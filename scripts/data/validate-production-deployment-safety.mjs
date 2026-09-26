@@ -133,6 +133,9 @@ requireText(productionSurfaces, "['quitman-hogg-heritage', '/destination/governo
 requireText(productionSurfaces, "['texas-history-sallie-hogg-discovery', '/texas-history', 'Family · first lady · public service']", 'Sallie Hogg Texas History discovery check');
 requireText(productionSurfaces, "['james-hogg-sallie-link', '/texas-icons/james-hogg', '/article/sallie-hogg-texas-legacy']", 'James Hogg reciprocal Sallie link check');
 requireText(productionSurfaces, "['james-hogg-quitman-link', '/texas-icons/james-hogg', '/destination/governor-jim-hogg-city-park-quitman']", 'James Hogg reciprocal Quitman link check');
+requireText(productionSurfaces, `['hogg-rusk-birthplace', '/destination/jim-hogg-park-rusk', "Ima Hogg, Thomas E. 'Tom' Hogg and Michael 'Mike' Hogg presented the family property"]`, 'Rusk Hogg birthplace live destination check');
+requireText(productionSurfaces, "['hogg-family-mike-tom', '/article/hogg-family-texas-legacy', 'Mike and Tom carried parts of the family legacy in quieter ways']", 'Mike and Tom Hogg family authority check');
+requireText(productionSurfaces, "['james-hogg-rusk-link', '/texas-icons/james-hogg', '/destination/jim-hogg-park-rusk']", 'James Hogg reciprocal Rusk birthplace link check');
 for (const marker of [
   "['painted-churches-round2-lacoste', '/explore/painted-churches/lacoste-our-lady-of-grace', 'Documented decoration campaign']",
   "['painted-churches-round2-panna-maria', '/explore/painted-churches/panna-maria-immaculate-conception', '12,000-piece mosaic of the Virgin of Częstochowa']",
