@@ -20,6 +20,7 @@ const hurstWhirlyballProductionVerifier = read('scripts/ci/verify-hurst-whirlyba
 const hurstWhirlyballProductionWorkflow = read('.github/workflows/hurst-whirlyball-production-smoke.yml');
 const productionSurfaces = read('scripts/ci/verify-production-surfaces.mjs');
 const countyDirectory = read('src/components/directories/TexasCountyPropertyDirectory.tsx');
+const countyProfile = read('src/data/county-profile.ts');
 const propertyHub = read('src/routes/property.tsx');
 const calculatorFramework = read('src/components/property/PropertyCalculatorFramework.tsx');
 const countySelectorField = read('src/components/property/CountySelectorField.tsx');
@@ -66,6 +67,11 @@ const checks = [
   [hurstWhirlyballProductionWorkflow, 'texasdefined-hurst-whirlyball', 'Hurst/WhirlyBall production smoke must publish its governed status context'],
   [hurstWhirlyballProductionWorkflow, 'github.event.workflow_run.head_sha || github.sha', 'Hurst/WhirlyBall production smoke must bind status publication to the deployed or pushed commit'],
   [productionSurfaces, "await import('./verify-hurst-whirlyball-production.mjs');", 'Canonical live-production verifier must execute the Hurst/WhirlyBall smoke'],
+  [countyProfile, "CENSUS_TIGERWEB_COUNTY_SNAPSHOT_URL", 'County profile must retain the official Census snapshot fallback source'],
+  [countyProfile, "tarrant: { latitude: 32.7721191, longitude: -97.2912241 }", 'Tarrant County must retain its official Census internal-point fallback'],
+  [countyProfile, "censusFacts.latitude ?? fallbackGeography?.latitude", 'County latitude must prefer live Census data and fall back only when missing'],
+  [countyProfile, "censusFacts.longitude ?? fallbackGeography?.longitude", 'County longitude must prefer live Census data and fall back only when missing'],
+  [countyProfile, "usedGeographyFallback ? [CENSUS_TIGERWEB_COUNTY_SNAPSHOT_URL] : []", 'County fallback provenance must be exposed only when the snapshot fallback is used'],
   [hurstWhirlyballProductionVerifier, "fetchLive('/browse/cities')", 'Hurst/WhirlyBall production verifier must check the live city directory'],
   [hurstWhirlyballProductionVerifier, "fetchLive('/city/hurst')", 'Hurst/WhirlyBall production verifier must check the live Hurst city authority page'],
   [hurstWhirlyballProductionVerifier, 'function renderedText(html)', 'Hurst/WhirlyBall production verifier must normalize React SSR comment boundaries before visible-text assertions'],

@@ -1,6 +1,7 @@
 const TSL_COUNTY_SEATS_URL = 'https://www.tsl.texas.gov/ref/abouttx/countyseats.html';
 const CENSUS_TIGERWEB_COUNTIES_URL = 'https://tigerweb.geo.census.gov/arcgis/rest/services/Census2020/State_County/MapServer/1/query';
 const CENSUS_TIGERWEB_SOURCE_URL = 'https://tigerweb.geo.census.gov/arcgis/rest/services/Census2020/State_County/MapServer/1';
+const CENSUS_TIGERWEB_COUNTY_SNAPSHOT_URL = 'https://tigerweb.geo.census.gov/tigerwebmain/Files/acs26/tigerweb_acs26_county_tx.html';
 
 export type CountySeatPlace = {
   name: string;
@@ -31,6 +32,12 @@ type CountyCensusFacts = {
   waterAreaSquareMiles?: number;
   latitude?: number;
   longitude?: number;
+};
+
+const COUNTY_GEOGRAPHY_FALLBACKS: Readonly<Record<string, Pick<CountyCensusFacts, 'latitude' | 'longitude'>>> = {
+  // U.S. Census Bureau TIGERweb ACS 2026 Texas county internal point.
+  // This fallback protects county indexability when the live TIGERweb query is temporarily unavailable.
+  tarrant: { latitude: 32.7721191, longitude: -97.2912241 },
 };
 
 type TigerwebCountyFeature = {
@@ -82,6 +89,10 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
   const countySeatPlace = countySeatName ? toCountySeatPlace(countySeatName) : undefined;
   const countySeat = countySeatPlace?.displayName;
   const censusFacts = censusFactsResult.status === 'fulfilled' && countyCode ? censusFactsResult.value.get(countyCode) ?? {} : {};
+  const fallbackGeography = COUNTY_GEOGRAPHY_FALLBACKS[slug];
+  const latitude = censusFacts.latitude ?? fallbackGeography?.latitude;
+  const longitude = censusFacts.longitude ?? fallbackGeography?.longitude;
+  const usedGeographyFallback = fallbackGeography != null && (censusFacts.latitude == null || censusFacts.longitude == null);
   const majorCommunities = Array.from(new Set([countySeatName, ...knownCommunities].filter((value): value is string => Boolean(value))));
   const populationDensityPerSquareMile = density(censusFacts.population2020, censusFacts.landAreaSquareMiles);
   const waterSharePercent = waterShare(censusFacts.landAreaSquareMiles, censusFacts.waterAreaSquareMiles);
@@ -94,10 +105,14 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
     waterAreaSquareMiles: censusFacts.waterAreaSquareMiles,
     populationDensityPerSquareMile,
     waterSharePercent,
-    latitude: censusFacts.latitude,
-    longitude: censusFacts.longitude,
+    latitude,
+    longitude,
     majorCommunities,
-    sourceUrls: [TSL_COUNTY_SEATS_URL, CENSUS_TIGERWEB_SOURCE_URL],
+    sourceUrls: [
+      TSL_COUNTY_SEATS_URL,
+      CENSUS_TIGERWEB_SOURCE_URL,
+      ...(usedGeographyFallback ? [CENSUS_TIGERWEB_COUNTY_SNAPSHOT_URL] : []),
+    ],
   };
 }
 
