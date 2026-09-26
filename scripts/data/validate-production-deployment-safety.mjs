@@ -57,7 +57,7 @@ for (const [needle, label] of [
 
 for (const [needle, label] of [
   ["CLOUDFLARE_WORKERS_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}", 'Cloudflare smoke dedicated Workers credential fallback'],
-  ['Verify Cloudflare Workers, public DNS and AI access', 'Cloudflare smoke least-privilege capability label'],
+  ['Verify Cloudflare Workers, public DNS and runtime AI', 'Cloudflare smoke least-privilege capability label'],
   ['workers_auth="Authorization: Bearer $CLOUDFLARE_WORKERS_API_TOKEN"', 'Cloudflare smoke Workers authorization header'],
   ['curl --fail-with-body --silent --show-error -H "$workers_auth" \\\n            "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts"', 'Cloudflare smoke Workers Scripts credential routing'],
   ["for hostname in ('texasdefined.com', 'www.texasdefined.com'):", 'Cloudflare smoke public DNS hostname coverage'],
@@ -65,11 +65,16 @@ for (const [needle, label] of [
   ["grep -qi '^cf-ray:'", 'Cloudflare smoke edge-routing header verification'],
   ["echo 'Public DNS resolution and Cloudflare edge routing verified.'", 'Cloudflare smoke public DNS success marker'],
   ['curl --fail-with-body --silent --show-error -H "$workers_auth" --get \\\n            "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/domains"', 'Cloudflare smoke Workers Domains credential routing'],
+  ["ai_origin='https://texasdefined-site.freddy-coppola.workers.dev'", 'Cloudflare smoke deployed Worker AI origin'],
+  ['"$ai_origin/api/texas-defined-ai"', 'Cloudflare smoke first-party AI endpoint'],
+  ['-H "Origin: $ai_origin"', 'Cloudflare smoke same-origin AI request'],
+  ['What is the Texas state flower?', 'Cloudflare smoke bounded runtime AI question'],
+  ["print('TexasDefined deployed Worker AI binding verified with a live answer.')", 'Cloudflare smoke runtime AI success marker'],
 ]) requireText(cloudflareSmoke, needle, label);
 
-for (const retired of ['CLOUDFLARE_ZONE_API_TOKEN', '$api/zones', '/dns_records']) {
+for (const retired of ['CLOUDFLARE_ZONE_API_TOKEN', '$api/zones', '/dns_records', '/ai/run/']) {
   if (cloudflareSmoke.includes(retired)) {
-    failures.push(`Cloudflare production smoke must verify public DNS without requiring privileged zone/DNS API scope: found ${retired}`);
+    failures.push(`Cloudflare production smoke must verify live runtime capabilities without requiring privileged zone/DNS or direct Workers AI REST token scope: found ${retired}`);
   }
 }
 
@@ -217,4 +222,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Production deployment safety passed: current production must be healthy before replacement, rollback targets are captured only after that gate, failed releases capture visible diagnostics and rollback, Cloudflare production smoke routes Workers API probes through the deploy-capable credential and verifies live public DNS/Cloudflare edge routing without requiring unnecessary zone/DNS API scope, cache-purge conditions remain GitHub-expression-safe, live State Fair verification remains markup-agnostic, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');
+console.log('Production deployment safety passed: current production must be healthy before replacement, rollback targets are captured only after that gate, failed releases capture visible diagnostics and rollback, Cloudflare production smoke routes Workers API probes through the deploy-capable credential, verifies live public DNS/Cloudflare edge routing without unnecessary zone/DNS API scope, and verifies Workers AI through the deployed first-party runtime binding rather than a separate REST token, cache-purge conditions remain GitHub-expression-safe, live State Fair verification remains markup-agnostic, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');
