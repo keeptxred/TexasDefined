@@ -7,6 +7,7 @@ const forbidText = (content, token, label) => { if (content.includes(token)) fai
 
 const census = read('src/data/painted-church-census.ts');
 const sourceLibrary = read('src/components/editorial/PaintedChurchSourceLibrary.tsx');
+const authoritySources = read('src/data/painted-church-authority-sources.ts');
 const people = read('src/data/painted-church-people.ts');
 const media = read('src/routes/explore.painted-churches.media.tsx');
 const extraGallery = read('src/data/painted-church-gallery-extra.ts');
@@ -46,6 +47,15 @@ const expansionSlugs = [
 ];
 for (const slug of expansionSlugs) requireText(sourceLibrary, `slug: "${slug}"`, 'Verified expansion accounting');
 requireText(sourceLibrary, 'The collection now includes {expandedPaintedChurches.length} verified church profiles.', 'Canonical expansion count');
+const authoritySourceArrayStart = authoritySources.indexOf('export const paintedChurchAuthoritySources');
+const authoritySourceArrayEnd = authoritySources.indexOf('type AuthorityEnrichment');
+const authoritySourceBlock = authoritySourceArrayStart >= 0 && authoritySourceArrayEnd > authoritySourceArrayStart
+  ? authoritySources.slice(authoritySourceArrayStart, authoritySourceArrayEnd)
+  : '';
+const authoritySourceCount = (authoritySourceBlock.match(/\\n    label: "/g) || []).length;
+if (authoritySourceCount !== 30) failures.push(`Painted Churches authority trail must retain exactly 30 source pages; found ${authoritySourceCount}.`);
+requireText(sourceLibrary, 'A second 15-source research pass adds community, architectural and preservation evidence.', 'Second authority-source expansion copy');
+
 requireText(sourceLibrary, 'to="/explore/painted-churches/$slug"', 'Verified-addition internal links');
 
 for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka']) {
