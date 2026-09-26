@@ -99,6 +99,11 @@ const surfaces = [
   ['texas-history-sallie-hogg-discovery', '/texas-history', 'Family · first lady · public service'],
   ['james-hogg-sallie-link', '/texas-icons/james-hogg', '/article/sallie-hogg-texas-legacy'],
   ['james-hogg-quitman-link', '/texas-icons/james-hogg', '/destination/governor-jim-hogg-city-park-quitman'],
+  ['ima-hogg-sallie-link', '/article/ima-hogg-texas-legacy', '/article/sallie-hogg-texas-legacy'],
+  ['ima-hogg-quitman-link', '/article/ima-hogg-texas-legacy', '/destination/governor-jim-hogg-city-park-quitman'],
+  ['will-hogg-sallie-link', '/article/will-hogg-texas-legacy', '/article/sallie-hogg-texas-legacy'],
+  ['will-hogg-quitman-link', '/article/will-hogg-texas-legacy', '/destination/governor-jim-hogg-city-park-quitman'],
+  ['hogg-foundation-sallie-link', '/article/hogg-foundation-mental-health-texas-history', '/article/sallie-hogg-texas-legacy'],
 ];
 
 const canonicalHomepageRequiredNeedles = [
