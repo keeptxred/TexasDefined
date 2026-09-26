@@ -30,6 +30,7 @@ export const imaHoggTexasLegacyArticle: Article = {
     { href: "/article/hogg-family-texas-legacy", label: "The Hogg family in Texas", description: "See how James and Sallie Hogg and their children Will, Ima, Mike and Tom connected politics, oil-era wealth, philanthropy and preservation." },
     { href: "/texas-icons/james-hogg", label: "James Stephen Hogg", description: "Read the Texas Icons profile of Ima Hogg's father, the first native-born Texan to serve as governor." },
     { href: "/article/will-hogg-texas-legacy", label: "Will Hogg's Texas legacy", description: "See how Ima's older brother connected Houston business, River Oaks, university advocacy and the estate behind the Hogg Foundation." },
+    { href: "/article/hogg-foundation-mental-health-texas-history", label: "The Hogg Foundation for Mental Health", description: "See how Will's estate and Ima and Mike Hogg's decisions became a statewide institution at The University of Texas." },
     { href: "/destination/bayou-bend-collection-gardens", label: "Bayou Bend Collection and Gardens", description: "Visit Ima Hogg's River Oaks home, gardens and American decorative-arts collection." },
     { href: "/destination/winedale-historical-center", label: "Winedale", description: "Continue to the Fayette County preservation complex Ima assembled and gave to The University of Texas." },
     { href: "/destination/varner-hogg-plantation", label: "Varner-Hogg Plantation", description: "Visit the Brazoria County property the Hogg heirs later preserved and Ima donated to the state." },
