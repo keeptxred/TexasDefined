@@ -164,7 +164,7 @@ assert(
   !overrideSource.includes("'xtreme-raceway-park': {"),
   'Xtreme Raceway Park must not use a curated documentary override unless the media has explicit commercial-reuse rights.',
 );
-const xtremeBaseMatch = baseSource.match(/'xtreme-raceway-park': \\{[\\s\\S]*?\\n  \\},/);
+const xtremeBaseMatch = baseSource.match(/'xtreme-raceway-park': \{[\s\S]*?\n  \},/);
 const xtremeBaseSource = xtremeBaseMatch?.[0] ?? '';
 assert(xtremeBaseSource, 'Xtreme Raceway Park must retain its site-owner supplied fallback in the base registry.');
 for (const marker of [
@@ -175,20 +175,6 @@ for (const marker of [
 ]) {
   assert(xtremeBaseSource.includes(marker), `Xtreme Raceway Park safe fallback is missing required marker: ${marker}`);
 }
-
-for (const marker of [
-  "imageUrl: 'https://membertrack.nhradata.com/Images/Tracks/PRIMARY__153.jpg'",
-  "sourcePage: 'https://www.nhradiv4.com/membertrackinfo?trackID=885'",
-  "sourceName: 'NHRA South Central Division'",
-  "author: 'NHRA Member Track Network'",
-  "alt: 'Xtreme Raceway Park drag strip in Ferris, Texas'",
-]) {
-  assert(xtremeSource.includes(marker), `Xtreme Raceway Park documentary hero is missing required source marker: ${marker}`);
-}
-assert(
-  !/AI-generated|illustration|OpenAI|Copilot/i.test(xtremeSource),
-  'Xtreme Raceway Park hero must be documentary venue media, not generated or illustrative imagery.',
-);
 
 for (const marker of [
   "'src/data/sports-venue-images-curated-overrides.ts'",
