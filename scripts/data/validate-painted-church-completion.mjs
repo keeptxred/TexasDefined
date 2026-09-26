@@ -52,7 +52,7 @@ const authoritySourceArrayEnd = authoritySources.indexOf('type AuthorityEnrichme
 const authoritySourceBlock = authoritySourceArrayStart >= 0 && authoritySourceArrayEnd > authoritySourceArrayStart
   ? authoritySources.slice(authoritySourceArrayStart, authoritySourceArrayEnd)
   : '';
-const authoritySourceCount = (authoritySourceBlock.match(/\\n    label: "/g) || []).length;
+const authoritySourceCount = (authoritySourceBlock.match(/^    label: /gm) || []).length;
 if (authoritySourceCount !== 30) failures.push(`Painted Churches authority trail must retain exactly 30 source pages; found ${authoritySourceCount}.`);
 requireText(sourceLibrary, 'A second 15-source research pass adds community, architectural and preservation evidence.', 'Second authority-source expansion copy');
 
