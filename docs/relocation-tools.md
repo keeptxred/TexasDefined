@@ -56,9 +56,11 @@ Verified city authority pages are part of the relocation product rather than sep
 
 Corporate relocation is part of the same household/location system, not a disconnected B2B content silo.
 
-For employees and families, the workflow should connect relocation-package terms to local salary, housing, property tax, insurance, utilities, transportation, schools and exact-address research.
+For employees and families, the workflow should connect relocation-package terms to local salary, housing, property tax, insurance, utilities, transportation, schools and exact-address research. When the user selects employee-transfer mode, the hub renders a live **corporate move brief** from the saved My Texas Move profile so destination, industry, work location, move date, household context, shortlist and researched addresses stay visible together.
 
-For employers, HR and site-selection teams, the workflow should connect Texas labor markets, industry concentrations, commuting geography, housing, schools, infrastructure and employee transition planning. Primary-source links must remain visible for business-registration, labor-market and federal tax-treatment questions.
+For employers, HR and site-selection teams, the workflow should connect Texas labor markets, industry concentrations, commuting geography, housing, schools, infrastructure and employee transition planning. Employer mode may also store an optional employee-move headcount alongside the same destination, industry, work-location, shortlist and address-research context. Primary-source links must remain visible for business-registration, labor-market and federal tax-treatment questions.
+
+The move brief is an organizing layer, not an eligibility, incentive or legal determination. It must route users back to Texas Industries, the Relocation Data Desk, city comparison, the governed move checklist and—when relevant—the Start a Business in Texas guide or household moving-cost tools.
 
 Corporate relocation must also be discoverable from the Texas Industries hub, individual industry workforce pages and the Start a Business in Texas guide. Industry deep links may prefill a short industry label and employer-relocation intent, but the canonical destination remains `/moving-to-texas#corporate-relocation`.
 
