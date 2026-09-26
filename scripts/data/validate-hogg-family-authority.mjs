@@ -55,7 +55,7 @@ if (!foundation.includes("https://hogg.utexas.edu/about/history") || !foundation
 if (!foundation.includes("administrative unit of The University of Texas at Austin") || !foundation.includes("community-level change")) failures.push("Hogg Foundation authority page must retain present-day institutional context.");
 if (!james.includes('relatedLinks: [') || !james.includes('/article/hogg-family-texas-legacy') || !james.includes('/article/sallie-hogg-texas-legacy') || !james.includes('/article/hogg-foundation-mental-health-texas-history') || !james.includes('/destination/governor-jim-hogg-city-park-quitman')) failures.push("James Hogg profile must retain reciprocal family-authority links.");
 if (!iconTypes.includes("relatedLinks?: readonly") || !iconRoute.includes("Continue the story") || !iconRoute.includes("profile.relatedLinks")) failures.push("Texas Icons related-reading renderer must remain available for reciprocal authority links.");
-for (const slug of ["bayou-bend-collection-gardens", "winedale-historical-center", "governor-jim-hogg-city-park-quitman"]) {
+for (const slug of ["bayou-bend-collection-gardens", "winedale-historical-center", "governor-jim-hogg-city-park-quitman", "jim-hogg-park-rusk"]) {
   if (!destinations.includes(`slug: "${slug}"`)) failures.push(`Missing Hogg legacy destination: ${slug}`);
   if (!destinationCatalog.includes("hoggLegacyDestinations")) failures.push("Hogg legacy destinations must remain registered in the preserved destination catalog.");
 }
@@ -66,10 +66,16 @@ for (const marker of [
   'officialUrl: "https://briscoecenter.org/visit/winedale/"',
   'officialUrl: "https://www.quitmantx.org/parks"',
   "Texas State Library and Archives Commission / State Publishing Company (1905) · Public domain · Wikimedia Commons",
+  'officialUrl: "https://redc.rusktx.org/recreation-and-entertainment/"',
+  "The Book of Texas (1916) / Houston Public Library · Public domain · Wikimedia Commons",
 ]) if (!destinations.includes(marker)) failures.push(`Hogg legacy destination governance marker missing: ${marker}`);
 
 if (!sallie.includes("https://www.tshaonline.org/handbook/entries/hogg-sarah-ann-stinson-sallie") || !sallie.includes("Governor Jim Hogg City Park") || !sallie.includes("public-service values")) failures.push("Sallie Hogg authority page must retain TSHA sourcing, Quitman place context and family public-service legacy.");
 if (!family.includes('/article/sallie-hogg-texas-legacy') || !family.includes('/destination/governor-jim-hogg-city-park-quitman')) failures.push("Hogg family authority page must retain Sallie and Quitman reciprocal links.");
+if (!family.includes('/destination/jim-hogg-park-rusk') || !family.includes("Mike and Tom carried parts of the family legacy in quieter ways") || !family.includes("Ima, Tom and Mike presented their father's Rusk birthplace property")) failures.push("Hogg family authority page must retain the Rusk birthplace and sourced Mike/Tom contribution section.");
+if (!ima.includes('/destination/jim-hogg-park-rusk')) failures.push("Ima Hogg authority page must retain the Rusk birthplace-preservation link.");
+if (!james.includes('/destination/jim-hogg-park-rusk') || !james.includes('href: "/destination/jim-hogg-park-rusk"')) failures.push("James Hogg profile must retain Rusk birthplace destination links.");
+if (!destinations.includes("Ima Hogg, Thomas E. 'Tom' Hogg and Michael 'Mike' Hogg presented the family property") || !destinations.includes("coordinates: { lat: 31.8047, lng: -95.1259 }")) failures.push("Jim Hogg Park destination must retain the sibling-donation history and verified Rusk coordinates.");
 if (!ima.includes('/article/sallie-hogg-texas-legacy') || !ima.includes('/destination/governor-jim-hogg-city-park-quitman')) failures.push("Ima Hogg authority page must retain reciprocal Sallie and Quitman links.");
 if (!will.includes('/article/sallie-hogg-texas-legacy') || !will.includes('/destination/governor-jim-hogg-city-park-quitman')) failures.push("Will Hogg authority page must retain reciprocal Sallie and Quitman links.");
 if (!foundation.includes('/article/sallie-hogg-texas-legacy')) failures.push("Hogg Foundation authority page must retain the reciprocal Sallie Hogg link.");
