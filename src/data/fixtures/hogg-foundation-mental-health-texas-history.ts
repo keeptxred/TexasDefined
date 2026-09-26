@@ -1,0 +1,71 @@
+import type { Article, ArticleBlock } from "../types";
+
+const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
+const h = (text: string): ArticleBlock => ({ type: "heading", text });
+const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
+
+export const hoggFoundationMentalHealthHistoryArticle: Article = {
+  id: "evergreen-hogg-foundation-mental-health-history",
+  brandId: "texasdefined",
+  slug: "hogg-foundation-mental-health-texas-history",
+  title: "The Hogg Foundation for Mental Health: How a Texas Family Endowment Became a Statewide Institution",
+  dek: "Will Hogg's estate, Ima and Mike Hogg's decisions and The University of Texas turned one family's fortune into a statewide mental-health institution that has operated since 1940.",
+  category: "texas-history",
+  region: "hill-country",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Hogg_Building_--_Also_Called_Hogg_Palace.jpg?width=1600",
+    alt: "Hogg Building in downtown Houston, built by Will C. Hogg in 1921",
+    width: 3063,
+    height: 2419,
+    credit: "i_am_jim · CC BY-SA 3.0 · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-09-26",
+  readingMinutes: 10,
+  tags: ["Hogg Foundation for Mental Health", "Ima Hogg", "Will Hogg", "Mike Hogg", "University of Texas", "Texas mental health history", "Texas philanthropy"],
+  featured: false,
+  sourceName: "Hogg Foundation for Mental Health — Hogg History",
+  sourceUrl: "https://hogg.utexas.edu/about/history",
+  internalLinks: [
+    { href: "/article/hogg-family-texas-legacy", label: "The Hogg family in Texas", description: "See how James and Sallie Hogg and their children connected politics, oil-era wealth, philanthropy, preservation and public institutions." },
+    { href: "/article/will-hogg-texas-legacy", label: "Will Hogg's Texas legacy", description: "Follow the businessman and civic planner whose estate supplied the foundation's principal original endowment." },
+    { href: "/article/ima-hogg-texas-legacy", label: "Ima Hogg's Texas legacy", description: "Trace the sibling who shaped the foundation's early vision and remained one of its most important advocates." },
+    { href: "/texas-icons/james-hogg", label: "James Stephen Hogg", description: "Read the Texas Icons profile of the former governor whose public-service ethic influenced the next generation of the family." },
+    { href: "/destination/bayou-bend-collection-gardens", label: "Bayou Bend Collection and Gardens", description: "Visit the Houston home that places the Hogg family's philanthropy and cultural patronage in a physical setting." },
+  ],
+  relatedCollections: [],
+  relatedDestinations: ["bayou-bend-collection-gardens", "varner-hogg-plantation"],
+  body: [
+    p("The Hogg Foundation for Mental Health is one of the clearest examples of the Hogg family's private wealth being converted into a long-lived Texas public institution. Its founding story joins the reform interests of former governor James Stephen Hogg, the estate of his oldest son Will, the decisions of siblings Ima and Mike and the institutional capacity of The University of Texas at Austin."),
+    p("The foundation is not a hospital or a treatment provider in the ordinary sense. It was created as a philanthropic and educational institution focused on mental health, public understanding, workforce development, research, community support and systems change. That distinction helps explain why its history belongs inside the broader story of Texas philanthropy and public institutions."),
+    h("The family story began before the foundation"),
+    p("The Hogg Foundation's own history traces part of its intellectual origin to James Hogg's concern for Texans living in state institutions. His daughter Ima often accompanied him on visits to schools and hospitals, and family accounts describe a household expectation that the Hogg children had obligations to the communities around them."),
+    p("After James Hogg left public office, the family became deeply involved in Houston and the Texas oil economy. Will, Ima, Mike and Tom inherited both the Hogg name and a growing family fortune, but the foundation that later carried that name depended especially on Will's estate."),
+    h("Will Hogg's estate created the financial base"),
+    p("Will Hogg died in 1930. According to the Hogg Foundation and the Handbook of Texas, his will directed most of an estate worth about $2.5 million toward a foundation or benefaction for the common good of Texas. That language gave his surviving siblings substantial responsibility for deciding how the money would be used."),
+    p("Ima and Mike Hogg eventually chose to place the endowment with The University of Texas. The foundation's history says the Will Hogg endowment was transferred to the university's Board of Regents in 1939 with the understanding that it would support a mental-health program for the people of Texas."),
+    h("The foundation began operating in 1940"),
+    p("The Hogg Foundation was established at The University of Texas at Austin in 1940. Robert Lee Sutherland became its first director, and Ima Hogg remained closely involved in shaping its purpose. The Board of Regents later formally adopted the name Hogg Foundation for Mental Hygiene in 1943; the organization eventually became the Hogg Foundation for Mental Health."),
+    p("From the beginning, the work extended beyond treatment of severe illness. The foundation promoted the idea that mental health existed along a continuum and that schools, families, workplaces and communities could support well-being before a crisis required institutional care."),
+    h("Early work carried mental-health education across Texas"),
+    p("In its early decades, the foundation sent specialists and university scholars around the state to speak with communities about mental health. Foundation histories describe these lecturers as 'circuit riders' because they traveled from town to town bringing a relatively new vocabulary of mental health to Texans who often had little access to professional information."),
+    p("The foundation also supported seminars, studies, training and public education connected to Texas state hospitals. During the 1940s through 1960s, it participated in the broader movement to improve conditions, professional training and public understanding around the state's mental-health institutions."),
+    h("Ima Hogg pushed a preventive and community-centered vision"),
+    p("Ima Hogg's role continued well beyond the original transfer of Will's estate. She worked with foundation leadership for decades and repeatedly emphasized prevention, community life and the idea that mental health should be understood as part of ordinary well-being rather than only as a response to illness."),
+    p("That emphasis helped distinguish the foundation from a simple memorial charity. It became an institution that used grants, education, research, convening and partnerships to influence how Texans thought about mental health and how communities organized support."),
+    h("The foundation remains part of The University of Texas"),
+    p("Today the Hogg Foundation is an administrative unit of The University of Texas at Austin. Its endowment is rooted in gifts from the Hogg family and is managed within the university system. The foundation describes its current vision as a Texas where people thrive in resilient communities that support mental health and well-being."),
+    p("Its modern work continues to focus on community-level change, learning, innovation, partnerships and grants. Those priorities have evolved over time, but they remain recognizably connected to the original goal of creating a statewide mental-health program for Texans."),
+    h("Its archives are part of the history too"),
+    p("The Hogg Foundation maintains historical records and makes its archive available to researchers by appointment. Additional archival material is held at the Dolph Briscoe Center for American History at The University of Texas at Austin. Those collections preserve correspondence, publications, photographs and institutional records that document both the Hogg family and the development of mental-health policy and public education in Texas."),
+    h("How the Hogg Foundation fits the larger family legacy"),
+    list(
+      "James Hogg supplied the public-service tradition that later family members repeatedly cited.",
+      "Will Hogg's estate supplied the principal financial endowment.",
+      "Ima Hogg helped define the mental-health mission and remained deeply involved for decades.",
+      "Mike Hogg joined Ima in handling Will's bequest and establishing the endowment at The University of Texas.",
+      "The University of Texas supplied the institutional home that allowed the foundation to outlive the family members who created it."
+    ),
+    p("That structure is why the Hogg Foundation belongs alongside Bayou Bend, Varner-Hogg and Winedale in any serious account of the family. It is not simply a building or a memorial name. It is a continuing institution created from the same family wealth, civic philosophy and public-purpose decisions that shaped the Hoggs' broader Texas legacy."),
+  ],
+};
