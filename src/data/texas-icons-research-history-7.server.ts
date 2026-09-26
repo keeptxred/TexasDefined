@@ -139,6 +139,7 @@ export const TEXAS_ICON_RESEARCH_HISTORY_BATCH_7: readonly TexasIconResearchProf
       { name: "Houston", context: "City where Hogg practiced and invested after office and where he died in 1906." },
     ],
     relatedLinks: [
+      { href: "/article/hogg-family-heritage-trail-texas", label: "Hogg Family Heritage Trail", description: "Follow James Hogg's family story through Rusk, Quitman, Austin, Houston, Winedale and Varner-Hogg Plantation." },
       { href: "/article/hogg-family-texas-legacy", label: "The Hogg family in Texas", description: "Continue from James Hogg's public career into the oil, philanthropy and preservation work of Sallie, Will, Ima, Mike and Tom." },
       { href: "/article/sallie-hogg-texas-legacy", label: "Sallie Hogg's Texas legacy", description: "Read the story of James Hogg's wife, first lady, adviser and the family influence behind the next generation's public-service ethic." },
       { href: "/destination/governor-jim-hogg-city-park-quitman", label: "Governor Jim Hogg City Park in Quitman", description: "Visit the Stinson House where James and Sallie married and their preserved Honeymoon Cottage." },

@@ -27,6 +27,7 @@ export const sallieHoggTexasLegacyArticle: Article = {
   sourceName: "Handbook of Texas — Sarah Ann Stinson Hogg",
   sourceUrl: "https://www.tshaonline.org/handbook/entries/hogg-sarah-ann-stinson-sallie",
   internalLinks: [
+    { href: "/article/hogg-family-heritage-trail-texas", label: "Hogg Family Heritage Trail", description: "Place Sallie's Quitman and Austin chapters inside the family's larger statewide place-based story." },
     { href: "/article/hogg-family-texas-legacy", label: "The Hogg family in Texas", description: "See how Sallie, James and their children became a multigenerational Texas story of politics, oil, philanthropy and preservation." },
     { href: "/texas-icons/james-hogg", label: "James Stephen Hogg", description: "Read the Texas Icons profile of Sallie's husband and the first native-born Texan to serve as governor." },
     { href: "/article/ima-hogg-texas-legacy", label: "Ima Hogg's Texas legacy", description: "Follow the daughter whose music, philanthropy and preservation work carried forward values Sallie encouraged at home." },
@@ -34,7 +35,7 @@ export const sallieHoggTexasLegacyArticle: Article = {
     { href: "/destination/governor-jim-hogg-city-park-quitman", label: "Governor Jim Hogg City Park in Quitman", description: "Visit the Stinson House where Sallie and James married and the Honeymoon Cottage associated with their early married life." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["governor-jim-hogg-city-park-quitman"],
+  relatedDestinations: ["governor-jim-hogg-city-park-quitman", "oakwood-cemetery-austin"],
   body: [
     p("Sarah Ann 'Sallie' Stinson Hogg is easy to lose behind two larger public names: her husband, Governor James Stephen Hogg, and her daughter, philanthropist Ima Hogg. The surviving record shows a more substantial role. Sallie helped hold together a household repeatedly moved by James Hogg's legal and political career, participated in the social world of the Governor's Mansion, advised her husband, encouraged music and education for their children and helped establish the public-service values that later became central to the Hogg family's identity."),
     p("The Handbook of Texas gives Sallie her own biographical entry, and the Hogg Foundation's family history specifically credits her with teaching the children that they had obligations to the communities that supported them. That makes her important not simply as a governor's spouse, but as an early source of the values later expressed through Will Hogg's philanthropy, Ima Hogg's cultural work and the Hogg Foundation for Mental Health."),
