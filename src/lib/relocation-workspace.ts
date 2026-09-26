@@ -55,6 +55,16 @@ function readWorkspaceRecord() {
   }
 }
 
+export function readRelocationSavedAddresses() {
+  const existing = readWorkspaceRecord();
+  if (!Array.isArray(existing.savedAddresses)) return [];
+  return existing.savedAddresses
+    .filter((value): value is string => typeof value === "string")
+    .map((value) => value.trim().slice(0, 240))
+    .filter(Boolean)
+    .slice(0, 20);
+}
+
 export function readRelocationChecklistProgress() {
   const existing = readWorkspaceRecord();
   return Array.isArray(existing.completedChecklistItems)
