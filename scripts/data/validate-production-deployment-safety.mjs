@@ -136,6 +136,10 @@ requireText(productionSurfaces, "['james-hogg-quitman-link', '/texas-icons/james
 requireText(productionSurfaces, `['hogg-rusk-birthplace', '/destination/jim-hogg-park-rusk', "Ima Hogg, Thomas E. 'Tom' Hogg and Michael 'Mike' Hogg presented the family property"]`, 'Rusk Hogg birthplace live destination check');
 requireText(productionSurfaces, "['hogg-family-mike-tom', '/article/hogg-family-texas-legacy', 'Mike and Tom carried parts of the family legacy in quieter ways']", 'Mike and Tom Hogg family authority check');
 requireText(productionSurfaces, "['james-hogg-rusk-link', '/texas-icons/james-hogg', '/destination/jim-hogg-park-rusk']", 'James Hogg reciprocal Rusk birthplace link check');
+requireText(productionSurfaces, "['river-oaks-hogg-planning-authority', '/article/river-oaks-hogg-brothers-houston-planning-history', 'River Oaks, the Hogg Brothers and the Making of Planned Houston']", 'River Oaks Hogg planning authority live check');
+requireText(productionSurfaces, "['texas-history-river-oaks-discovery', '/texas-history', 'Planning · architecture · exclusion']", 'River Oaks Texas History discovery check');
+requireText(productionSurfaces, "['hogg-building-houston', '/destination/hogg-building-houston', 'National Register of Historic Places and Recorded Texas Historic Landmark']", 'Hogg Building Houston live destination check');
+requireText(productionSurfaces, "['will-hogg-river-oaks-link', '/article/will-hogg-texas-legacy', '/article/river-oaks-hogg-brothers-houston-planning-history']", 'Will Hogg reciprocal River Oaks link check');
 for (const marker of [
   "['painted-churches-round2-lacoste', '/explore/painted-churches/lacoste-our-lady-of-grace', 'Documented decoration campaign']",
   "['painted-churches-round2-panna-maria', '/explore/painted-churches/panna-maria-immaculate-conception', '12,000-piece mosaic of the Virgin of Częstochowa']",
@@ -143,7 +147,7 @@ for (const marker of [
   "['painted-churches-round2-amarillo', '/explore/painted-churches/amarillo-first-baptist-church', 'September 1889 with sixteen charter members']",
   "['painted-churches-round2-high-hill', '/explore/painted-churches/high-hill-nativity-of-mary', 'High Hill developed from the late-1840s German settlements of Blum Hill and Oldenburg']",
   "['painted-churches-round2-dubina', '/explore/painted-churches/dubina-saints-cyril-methodius', 'Carpenter Gothic basilican three-aisle plan']",
-  "['painted-churches-round2-lindsay', '/explore/painted-churches/lindsay-st-peters-catholic-church', 'City of Lindsay visitor information says St. Peter has undergone two major restorations']",
+  "['painted-churches-round2-lindsay', '/explore/painted-churches/lindsay-st-peters-catholic-church', 'City of Lindsay visitor information says St. Peter has undergone two restorations']",
   "['painted-churches-round2-bandera', '/explore/painted-churches/bandera-st-stanislaus-catholic-church', 'sixteen Polish families arriving in 1855 to work at the cypress mill']",
 ]) requireText(productionSurfaces, marker, 'Painted Churches round-two church-profile live check');
 requireText(productionSurfaces, "['state-fair-current-date', '/texas-state-fair', 'September 25, 2026']", 'markup-agnostic State Fair live date check');
