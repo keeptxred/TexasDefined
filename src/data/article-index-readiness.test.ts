@@ -1,9 +1,12 @@
 import { describe, expect, it } from "vitest";
 
 import type { Article } from "./types";
+import { texasExplainedRiverProfileArticles } from "./fixtures/texas-explained-river-profiles";
+import { texasExplainedRoadSystemArticles } from "./fixtures/texas-explained-road-systems";
 import {
   ARTICLE_DISCOVERY_MIN_READING_MINUTES,
   ARTICLE_INDEX_MIN_BODY_WORDS,
+  articleBodyWordCount,
   isArticleDiscoveryReady,
   isArticleIndexReady,
   shouldNoindexTexasGatewayArticle,
@@ -84,5 +87,20 @@ describe("strict article index readiness", () => {
     const staged = { ...readyArticle, id: "gateway-example" };
     expect(isArticleIndexReady(staged)).toBe(false);
     expect(isArticleDiscoveryReady(staged)).toBe(false);
+  });
+
+  it("keeps Texas Explained river and road support profiles eligible for indexing", () => {
+    const supportArticles = [
+      ...texasExplainedRiverProfileArticles,
+      ...texasExplainedRoadSystemArticles,
+    ];
+
+    expect(supportArticles).toHaveLength(10);
+    for (const article of supportArticles) {
+      expect(articleBodyWordCount(article), article.slug).toBeGreaterThanOrEqual(ARTICLE_INDEX_MIN_BODY_WORDS);
+      expect(isArticleIndexReady(article), article.slug).toBe(true);
+      expect(isArticleDiscoveryReady(article), article.slug).toBe(true);
+      expect(shouldNoindexTexasGatewayArticle(article), article.slug).toBe(false);
+    }
   });
 });
